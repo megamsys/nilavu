@@ -68,7 +68,7 @@ class SessionsController < ApplicationController
       logger.debug "user attributes hash: #{user}"
       session[:user_id] = user.id
       #TO-DO: Change the redirection to the new page as required.
-      redirect_to collaborate_display_url, :notice => "Signed in!"
+      redirect_to root_url, :notice => "Signed in!"
     else
       flash.now.alert = "Invalid email or password"
       render "new"
