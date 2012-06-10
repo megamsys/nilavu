@@ -1,11 +1,4 @@
 <% provide(:title, 'Documentation') %>
-  <ul class="breadcrumb">
-    <li>
-    <a href="/">Home</a> <span class="divider">/</span>
-    </li>
-      
-    <li class="active">Documentation</li>
-    </ul>
 <br />
 <br /><strong><h1 >Documentation</h1></strong>
 

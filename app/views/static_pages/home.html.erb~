@@ -1,6 +1,9 @@
     <ul class="breadcrumb">
-       
-    <li class="active">Home</li>
+    <li>
+    <a href="/">Home</a> <span class="divider">/</span>
+    </li>
+      
+    <li class="active">Data</li>
     </ul>
 <div class="hero-unit">
 

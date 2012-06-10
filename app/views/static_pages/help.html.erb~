@@ -1,11 +1,4 @@
 <% provide(:title, 'Help') %>
-  <ul class="breadcrumb">
-    <li>
-    <a href="/">Home</a> <span class="divider">/</span>
-    </li>
-      
-    <li class="active">Help</li>
-    </ul>
 <h1>Help</h1>
 <p>
   Get help on the Ruby on Rails Tutorial at the
