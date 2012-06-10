@@ -1,5 +1,12 @@
+  <ul class="breadcrumb">
+    <li>
+    <a href="/">Home</a> <span class="divider">/</span>
+    </li>
+      
+    <li class="active">Providers</li>
+    </ul>
 <h1>Integrate Your Providers</h1>
-<br><br><br><br><br>
+<br><br><br>
     <ul class="nav nav-pills">
     <li class="nav-header">
    <h1> Providers</h1>
