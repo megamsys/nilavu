@@ -4,6 +4,7 @@ class CreateIdentities < ActiveRecord::Migration
       t.references :users
       t.string :provider
       t.string :uid
+      t.string :user_id
       t.timestamps
     end   
   end

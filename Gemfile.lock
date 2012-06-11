@@ -151,6 +151,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt-ruby
   coffee-rails (~> 3.2.1)
+  execjs
   jquery-rails
   omniauth-facebook
   omniauth-openid
