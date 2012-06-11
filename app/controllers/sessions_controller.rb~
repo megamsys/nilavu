@@ -64,15 +64,15 @@ class SessionsController < ApplicationController
   def authenticate_user
     logger.debug "Authenticating for email #{params[:session][:email]} and password #{params[:session][:password]}"
     user = User.authenticate(params[:session][:email],params[:session][:password])
-
-    if user.nil?
+    if user
+      logger.debug "user attributes hash: #{user}"
+      session[:user_id] = user.id
+      #TO-DO: Change the redirection to the new page as required.
+      redirect_to root_url, :notice => "Signed in!"
+    else
       flash.now.alert = "Invalid email or password"
       render "new"
-    else
-      logger.debug "user attributes : #{user.inspect}"
-      session[:user_id] = user[:id]
-      #TO-DO: Change the redirection to the new page as required.
-      redirect_to collaborate_display_url, :notice => "Signed in!"
     end
   end
+
 end

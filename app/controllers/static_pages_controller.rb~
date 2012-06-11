@@ -5,7 +5,7 @@ class StaticPagesController < ApplicationController
   end
   
   def home
-
+    add_breadcrumb "home", :root_path
   end
 
   def help
