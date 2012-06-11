@@ -1,10 +1,3 @@
-  <ul class="breadcrumb">
-    <li>
-    <a href="/">Home</a> <span class="divider">/</span>
-    </li>
-      
-    <li class="active">Sign Up</li>
-    </ul>
 <%= provide(:title, 'Sign up') %> <h1>Sign up</h1>
 <div class="row">
 	<div class="span6 offset3">

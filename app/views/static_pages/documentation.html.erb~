@@ -1,0 +1,31 @@
+<% provide(:title, 'Documentation') %>
+<br />
+<br /><strong><h1 >Documentation</h1></strong>
+
+<br><br />
+	<div class="span1" align="justify">
+		<h2></h2><p></p>
+	</div>
+</div>
+
+	<div class="span4" align="justify" >
+		<h2>Ruby On Rails</h2><br />
+		<p>
+		RoR, often shortened to Rails, 
+		is an open source full-stack web application framework
+		 for the Ruby programming language. 
+		RoR is not to be confused with Ruby,
+		 which is a general-purpose programming language, on which RoR runs. 
+		
+	</div>
+	<div class="span1" align="justify">
+		<h2></h2><p></p>
+	</div>
+		<div class="span4" align="justify" >
+		<h2>Omniauth</h2><br />
+		<p>
+Omniauth is a Ruby authentication framework aimed to abstract away the 
+difficulties of working with various types of authentication providers. 
+It is meant to be hooked up to just about any system, 
+from social networks to enterprise systems to simple username and password authentication.
+	</div>

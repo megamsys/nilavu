@@ -1,10 +1,3 @@
-  <ul class="breadcrumb">
-    <li>
-    <a href="/">Home</a> <span class="divider">/</span>
-    </li>
-      
-    <li class="active">About Us</li>
-    </ul>
 <% provide(:title, 'About Us') %>
 <br><br>
 <h1>About Us</h1>

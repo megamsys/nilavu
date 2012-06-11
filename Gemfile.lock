@@ -44,6 +44,7 @@ GEM
       multi_json (~> 1.0)
     faraday (0.8.0)
       multipart-post (~> 1.1)
+    gretel (1.1.6)
     hashie (1.2.0)
     hike (1.2.1)
     httpauth (0.1)
@@ -152,7 +153,8 @@ DEPENDENCIES
   bcrypt-ruby
   coffee-rails (~> 3.2.1)
   execjs
-  jquery-rails
+  gretel
+ jquery-rails
   omniauth-facebook
   omniauth-openid
   omniauth-twitter
