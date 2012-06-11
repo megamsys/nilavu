@@ -19,8 +19,9 @@ class User < ActiveRecord::Base
   
   def self.authenticate(email, password)
     logger.debug "email is #{email} password #{password}"
+    
     user = find_by_email(email)
-    logger.debug "The object is #{user}"
+    logger.debug user.inspect
     if user && user.password_hash == BCrypt::Engine.hash_secret(password, user.password_salt)
     user
     else
