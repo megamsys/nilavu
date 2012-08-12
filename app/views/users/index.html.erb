@@ -1,0 +1,14 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<%= will_paginate %>
+
+<ul class="users">
+  <%= render @users %>
+</ul>
+
+<%= will_paginate %>
+
+<% end %>
+<%= render :template => customizations_show_path %>

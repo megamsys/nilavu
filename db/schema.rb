@@ -11,24 +11,51 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120319154255) do
+ActiveRecord::Schema.define(:version => 20120811145726) do
 
   create_table "identities", :force => true do |t|
     t.integer  "users_id"
     t.string   "provider"
     t.string   "uid"
-    t.string   "user_id"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  create_table "users", :force => true do |t|
+  add_index "identities", ["users_id"], :name => "index_identities_on_users_id"
+
+  create_table "organizations", :force => true do |t|
     t.string   "name"
-    t.string   "email"
-    t.string   "password_hash"
-    t.string   "password_salt"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.boolean  "active"
+    t.string   "type"
+    t.string   "realm_name"
+    t.string   "url"
+    t.string   "billing_street_name"
+    t.string   "billing_address1"
+    t.string   "billing_address2"
+    t.string   "billing_city"
+    t.string   "billing_state"
+    t.string   "billing_country"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
   end
+
+  create_table "users", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "phone"
+    t.boolean  "admin",           :default => false
+    t.string   "password_digest"
+    t.string   "remember_token"
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+  end
+
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
 end

@@ -1,0 +1,47 @@
+<% provide(:title, 'Customization') %>
+<div class="row-fluid">
+	<div class="span3">
+		<div class="sidebar-nav">
+			<ul class="well nav nav-list">
+				<li class="nav-header">
+					Settings
+				</li>
+				<li>
+					<%= link_to "#" do %>
+					<i class="icon-search"></i>Cloud Identity
+					<% end %>
+				</li>
+				<li>
+					<%= link_to "Cloud Applications",   "#" %>
+				</li>
+
+				<li class="nav-header">
+					Invite
+				</li>
+				<li>
+					<%= link_to "My Customers",   "#" %>
+				</li>
+				<li>
+					<%= link_to "My Suppliers",   "#" %>
+				</li>
+				<li class="nav-header">
+					Account
+				</li>
+				<li>
+					<%= link_to "Billing",   "#" %>
+				</li>
+			</ul>
+		</div><!--/.well -->
+	</div><!--/span3-->
+	<div class="span9">
+		<div class="row-fluid">
+			<div class="span7">
+				<div id="content">
+					<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
+				</div>
+
+			</div><!--/span4-->
+
+		</div><!--/row-->
+	</div><!--/span9-->
+</div><!--/row-->

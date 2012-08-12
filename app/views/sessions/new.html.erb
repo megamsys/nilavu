@@ -1,11 +1,4 @@
-  <ul class="breadcrumb">
-    <li>
-    <a href="/">Home</a> <span class="divider">/</span>
-    </li>
-      
-    <li class="active">Sign In</li>
-    </ul>
-<% provide(:title, "Sign in") %> <h1>Sign in</h1>
+ <% provide(:title, "Sign in") %> <h1>Sign in</h1>
 <div class="row">
 	<div class="span6 offset3">
 		<%= form_for(:session, :url => sessions_path) do |f| %>

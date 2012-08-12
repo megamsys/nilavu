@@ -1,22 +1,26 @@
 Cloudauth::Application.routes.draw do
 
-  get "collaborate/display"
+  get "customizations/show"
 
-  root to: 'static_pages#home'
-
-  match '/help',    to: 'static_pages#help'
-  match '/about',   to: 'static_pages#about'
-  match '/contact', to: 'static_pages#contact'
-  match '/products', to: 'static_pages#products'
-  match '/jobs', to: 'static_pages#jobs'
-  match '/dev_center', to: 'static_pages#dev_center'
-  match '/documentation', to: 'static_pages#documentation'
-
+  root :to => 'high_voltage/pages#show', :id => 'home'
+  
+  match 'pages/get_started' => 'high_voltage/pages#show', :id => 'get_started'
+  match 'pages/doc' => 'high_voltage/pages#show', :id => 'doc'
+  match 'pages/about' => 'high_voltage/pages#show', :id => 'about'
+  match 'pages/contribute' => 'high_voltage/pages#show', :id => 'contribute'
+    
   resources :users
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :sessions
   resources :identities
+  resources :organizations, only: [:create, :destroy]
+  
 
   match '/signup',  to: 'users#new'
+
+  match '/update',  to: 'users#update'
+
+  match '/edit',  to: 'users#edit'
+
   match '/signin',  to: 'sessions#new'
   get "signout" => "sessions#destroy", :as => "signout"
   match '/signout', to: 'sessions#destroy', via: :delete

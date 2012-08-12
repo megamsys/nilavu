@@ -1,0 +1,6 @@
+<% content_for :content_settings do %>
+<%= provide(:title, 'Edit user') %>
+<h1>Update your profile.</h1>
+	<%= render :partial => "users/user_fields_form" %>
+<% end %>
+<%= render :template => customizations_show_path %>
