@@ -16,3 +16,6 @@
 
 # Ignore all files which ends with ~
 /*.*~
+
+# Ignore all files which ends with ~
+/.metadata
