@@ -1,0 +1,39 @@
+<%= form_for @user, :html => { :multipart => true } do |f| %>
+<div class="span10">
+	<%= render 'shared/error_messages', object: f.object %>
+</div>
+<div class="span4">
+	<h2> Personal Info </h2>
+	<%= f.label :first_name %>
+	<%= f.text_field :first_name, :class => 'text_field' %>
+	<%= f.label :last_name %>
+	<%= f.text_field :last_name, :class => 'text_field' %>
+
+	<%= f.label :phone %>
+	<%= f.text_field :phone, :class => 'text_field' %>
+	<%= f.label :email %>
+	<%= f.text_field :email, :class => 'text_field' %>
+	<%= f.label :password %>
+	<%= f.password_field :password %>
+	<%= f.label :password_confirmation, "Confirmation" %>
+	<%= f.text_field :password_confirmation %>
+	<%= fields_for :organization, @organization do |org_f| %>
+	<hr>
+	</hr>
+	<% if !current_user.nil? && current_user.admin? && !current_user?(user) %>
+	<h2> Account Info </h2>
+	<%= org_f.label :name, "Organization Name" %>
+	<%= org_f.text_field :name %>
+	<%= org_f.label :realm_name, "Account Name" %>
+	<%= org_f.text_field :realm_name %>
+	<%= org_f.label :url, "Organization URL" %>
+	<%= org_f.text_field :url %>
+	<%= org_f.label :name, "Your organization logo" %>
+	<%= org_f.file_field :logo %>	
+	<%= link_to "delete", user, method: :delete,
+	data: { confirm: "You sure?" } %>
+	<% end %>
+	<% end %>
+	<%= f.submit nil, :class => 'btn btn-large btn-primary' %>
+</div>
+<% end %>

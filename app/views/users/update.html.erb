@@ -1,0 +1,10 @@
+ <% content_for :content_settings do %>
+  <%= provide(:title, 'Sign up') %> <h1>Updation</h1>
+  <div class="alert alert-success">
+    <%= current_user.email %> Updated successfully
+    </div>  
+<% end %>
+<%= render :template => customizations_show_path' %>
+
+
+

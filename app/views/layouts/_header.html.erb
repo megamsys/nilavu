@@ -1,32 +1,42 @@
 <div class="navbar navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container">
+			<a href="http://blog.megam.co" > <%= image_tag "logo-megam160x43.png", :alt => "Megam" %></a>
 			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"> </span> <span class="icon-bar"> </span> <span class="icon-bar"> </span> </a>
-			<a class="brand" href="/">Megam</a>
 			<div class="nav-collapse pull-right">
 				<ul class="nav">
 					<li>
-						<%= link_to "Products", products_path %>
+						<a href="/">home</a>
 					</li>
 					<li>
-						<%= link_to "Help", help_path %>
+						<%= link_to "get started", page_path("get_started") %>
 					</li>
 					<li>
-						<% if current_user %> <span class="label label-success">Logged in as <%= current_user.email %> </span>
-						<% else %>
-						<%= link_to "Sign In", signin_path %>
-						<% end %>
+						<%= link_to "documentation", page_path("doc") %>
+					</li>
+					<% if signed_in? %>
+					<li>
+						<%= link_to current_user.first_name, current_user %>
 					</li>
 					<li>
-						<% if current_user %>
-						<%= link_to "Sign out", signout_path %>
-						<% end %>
+						<%= link_to "Profile", edit_user_path(current_user) %>
 					</li>
+					<li>
+						<%= link_to "Sign out", signout_path, method: "delete" %>
+					</li>
+					<% else %>
+					<li>
+						<%= link_to "Dashboard", current_user %>
+					</li>
+					<li>
+						<%= link_to "Sign in", signin_path %>
+					</li>
+					<% end %>
 				</ul>
 			</div>
 		</div>
+		<hr>
+		</hr>
 	</div>
-	
-        	    
-        
+</div>
 

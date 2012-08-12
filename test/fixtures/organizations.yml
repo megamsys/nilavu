@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  active: false
+  type: 
+  realm_name: MyString
+  url: MyString
+  billing_street_name: MyString
+  billing_address1: MyString
+  billing_address2: MyString
+  billing_city: MyString
+  billing_state: MyString
+  billing_country: MyString
+
+two:
+  name: MyString
+  active: false
+  type: 
+  realm_name: MyString
+  url: MyString
+  billing_street_name: MyString
+  billing_address1: MyString
+  billing_address2: MyString
+  billing_city: MyString
+  billing_state: MyString
+  billing_country: MyString

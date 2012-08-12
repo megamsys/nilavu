@@ -1,50 +1,39 @@
-<div class="navbar navbar-fixed-bottom">
-	<div class="container">
-		<div class="row">
-			<div class="span3">
-				<ul class="unstyled">
-					<li>
-						<%= link_to "Product",   products_path %>
-					</li>
-					<li>
-						<%= link_to "Dev Center",   dev_center_path %>
-					</li>
-					<li>
-						<%= link_to "Documentation",   documentation_path %>
-					</li>
-				</ul>
-			</div>
-			<div class="span3">
-				<ul class="unstyled">
-					<li>
-						<%= link_to "Company",   about_path %>
-					</li>
-					<li>
-						<%= link_to "Jobs",   jobs_path %>
-					</li>
-					<li>
-						<%= link_to "Contact Us",   contact_path %>
-					</li>
-				</ul>
-			</div>
-			<div class=span3>
-				<ul class="unstyled">
-					<li>
-						<%= link_to "Technical Support",   "http://support.megam.com" %>
-					</li>
-					<li>
-						<%= link_to "Read Our Blog",   "http://blog.megam.com" %>
-					</li>
-					<li>
-						<%= link_to "Follow Us",   "http://www.twitter.com/megam" %>
-					</li>
-				</ul>
-			</div>
+<footer class="footer">
+	<div class="row">
+		<div class="span3">
+			<ul class="unstyled">
+				<li>
+					<%= link_to "Getting started",   page_path("get_started") %>
+				</li>
+				<li>
+					<%= link_to "Documentation",   page_path("doc") %>
+				</li>
+			</ul>
 		</div>
+		<div class="span3">
+			<ul class="unstyled">
+				<li>
+					<%= link_to "About",  page_path("about") %>
+				</li>
+				<li>
+					<%= link_to "Contact us",   page_path("contact_us") %>
+				</li>
+			</ul>
+		</div>
+		<div class=span3>
+			<ul class="unstyled">
+				<li>
+					<%= link_to "Contribute",   page_path("contribute") %>
+				</li>
+				<li>
+					<%= link_to "Read Our Blog",   "http://blog.megam.co" %>
+				</li>
+			</ul>
+		</div>
+		<div class=span6>
+			<a href="https://twitter.com/indykish" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @indykish</a>
+		</div>
+
 	</div>
-	<div id="footer">
-		© 2012 megam. All rights reserved. <span class="seperator">|</span>
-		<a href="/terms-of-use/">Terms of Use</a><span class="seperator">|</span>
-		<a href="/privacy-policy/">Privacy Policy</a>
-	</div>
-</div>
+	<small> © 2012 megam. All rights reserved. <span class="seperator">|</span> <a href="/terms-of-use/">Terms of Use</a><span class="seperator">|</span> <a href="/privacy-policy/">Privacy Policy</a> </small>
+</footer>

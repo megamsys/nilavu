@@ -1,40 +1,13 @@
-  <ul class="breadcrumb">
-    <li>
-    <a href="/">Home</a> <span class="divider">/</span>
-    </li>
-      
-    <li class="active">Sign Up</li>
-    </ul>
-<%= provide(:title, 'Sign up') %> <h1>Sign up</h1>
+<% provide(:title, 'Sign up') %> <h1>Sign up</h1>
 <div class="row">
-	<div class="span6 offset3">
-		<%= form_for(@user) do |f| %>
-		<% if @user.errors.any? %>
-		<div class="alert alert-error">
-			<h2>Form is invalid</h2>
-			<ul>
-				<% for message in @user.errors.full_messages %>
-				<li>
-					<%= message %>
-				</li>
-				<% end %>
-			</ul>
+	<div class="span10">
+		<div class="alert alert-info">
+			<span class="label label-info">Heads Up!</span>
+			<button class="close" data-dismiss="alert">
+				×
+			</button>
+			<strong>Warning!</strong> Please read before trying to signup. Administrators to create an account here. If you are an user contact your administrator from here.
 		</div>
-		<% end %>
-		<%= f.label :name %>
-		<%= f.text_field :name %>
-
-		<%= f.label :email %>
-		<%= f.text_field :email %>
-
-		<%= f.label :password %>
-		<%= f.password_field :password %>
-
-		<%= f.label :password_confirmation, "Confirmation" %>
-		<%= f.password_field :password_confirmation %>
-		<br>
-		</br>
-		<%= f.submit "Create my account", :class => "btn btn-large btn-primary" %>
-		<% end %>
-	</div>
+	</div><!-- /.span 10-->
+	<%= render :partial => "users/user_fields_form" %>
 </div>

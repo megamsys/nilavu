@@ -1,16 +1,16 @@
 @import "twitter/bootstrap/bootstrap";
-
+@import "twitter/bootstrap/responsive";
 
 body {
   padding-top: @gridColumnWidth;
 }
 
-
-@import "twitter/bootstrap/responsive";
-
 // Set the correct sprite paths
-@iconSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings.png');
-@iconWhiteSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings-white.png');
+@iconSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings.png',image);
+@iconWhiteSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings-white.png',image);
+
+//@iconSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings.png');
+//@iconWhiteSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings-white.png');
 
 // Your custom LESS stylesheets goes here
 //
@@ -22,5 +22,9 @@ body {
 //
 // Example:
 // @linkColor: #ff0000;
-@import "megam.css.less"
+@import "megam.css.less";
+
+
+
+
 
