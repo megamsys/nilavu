@@ -15,7 +15,10 @@
 /tmp
 
 # Ignore all files which ends with ~
-/*.*~
+*~
 
-# Ignore all files which ends with ~
-/.metadata
+# Ignore all files which ends with lock
+*.lock
+
+# Ignore all files under metadata
+.metadata

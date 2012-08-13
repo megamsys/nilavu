@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(:version => 20120811145726) do
     t.string   "name"
     t.boolean  "active"
     t.string   "type"
-    t.string   "realm_name"
+    t.string   "account_name"
     t.string   "url"
     t.string   "billing_street_name"
     t.string   "billing_address1"
@@ -43,7 +43,10 @@ ActiveRecord::Schema.define(:version => 20120811145726) do
     t.datetime "logo_updated_at"
   end
 
+  add_index "organizations", ["account_name"], :name => "index_organizations_on_account_name"
+
   create_table "users", :force => true do |t|
+    t.integer  "org_id"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
@@ -56,6 +59,7 @@ ActiveRecord::Schema.define(:version => 20120811145726) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["org_id"], :name => "index_users_on_org_id"
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
 
 end

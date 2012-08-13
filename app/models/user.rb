@@ -1,9 +1,9 @@
 class User < ActiveRecord::Base
   # users.password_hash in the database is a :string
-  attr_accessible :first_name, :last_name, :phone, :email, :password, :password_confirmation, :org_id 
+  attr_accessible :first_name, :last_name, :phone, :email, :password, :password_confirmation, :org_id
   has_secure_password
   has_many :identities
-  belongs_to :organizations
+  belongs_to :organization, :foreign_key  => 'org_id'
 
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
