@@ -8,40 +8,40 @@
 				</li>
 				<li>
 					<%= link_to "#" do %>
-					<i class="icon-search"></i>Cloud Identity
+					<i class="icon-wrench"></i> Cloud Identity
 					<% end %>
 				</li>
 				<li>
-					<%= link_to "Cloud Applications",   "#" %>
+					<%= link_to "#" do %>
+					<i class="icon-briefcase"></i> Cloud Applications
+					<% end %>					
 				</li>
 
 				<li class="nav-header">
 					Invite
 				</li>
 				<li>
-					<%= link_to "My Customers",   "#" %>
+					<%= link_to "#" do %>
+					<i class="icon-user"></i> My Customers
+					<% end %>
 				</li>
 				<li>
-					<%= link_to "My Suppliers",   "#" %>
+					<%= link_to "#" do %>
+					<i class="icon-magnet"></i> My Suppliers
+					<% end %>
 				</li>
 				<li class="nav-header">
-					Account
+					 Account
 				</li>
 				<li>
-					<%= link_to "Billing",   "#" %>
+					<%= link_to "#" do %>
+					<i class="icon-gift"></i> Billing
+					<% end %>
 				</li>
 			</ul>
-		</div><!--/.well -->
-	</div><!--/span3-->
-	<div class="span9">
-		<div class="row-fluid">
-			<div class="span7">
-				<div id="content">
-					<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
-				</div>
-
-			</div><!--/span4-->
-
-		</div><!--/row-->
+		</div>
+	</div>
+	<div class="span6 offset1">
+			<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
 	</div><!--/span9-->
 </div><!--/row-->

@@ -15,6 +15,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @user.build_organization
   end
 
   def create
@@ -22,7 +23,7 @@ class UsersController < ApplicationController
 
     if @user.save
       sign_in @user
-      redirect_to collaborate_display_url, notice: "Signed in!"
+      redirect_to customizations_show_url, notice: "Signed in!"
     else
       render 'new'
     end

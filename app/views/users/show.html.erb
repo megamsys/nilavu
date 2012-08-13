@@ -1,28 +1,23 @@
 <% content_for :content_settings do %>
 <% provide(:title, @user.first_name) %>
-<div class="row">
-	<div class="span9">
-		<ul class="thumbnails">
-			<li class="span9">
-				<img src="http://placehold.it/260x180" alt="">
-				<!-- <%= image_tag @organization.logo.url(:small) %> -->
-				<h5><%= @user.first_name %></h5>
-			</li>
-			<hr>
-			</hr>
-	</div>
-	<div class="span8">
-		<% if @user.organization.any? %>
-		<ol class="organization">
-			<%= render @organization %>
-		</ol>
-		<%= will_paginate @organization %>
-		<% end %>
-	</div>
-	<div class="span9">
-		Cloud Applications
-	</div>
+<%= image_tag "blue.png", :alt => "Megam" %>
+<% if !@user.organizations.nil? %>
+<ol class="organization">
+	<%= render @organization %>
+</ol>
+<%= will_paginate @organization %>
+<% else %>
+<div class="alert alert-warning">
+	<span class="label label-important">!</span>
+	<strong>Warning!</strong> Your account isn't complete. Kindly complete your profile before we could proceed further.
 </div>
+<button type="submit" class="btn btn-large btn-warning">
+	Edit
+</button>
+<% end %>
+<hr>
+</hr>
+Cloud Applications
 <% end %>
 <%= render :template => customizations_show_path %>
 

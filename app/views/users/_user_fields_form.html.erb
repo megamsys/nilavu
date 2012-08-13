@@ -3,7 +3,7 @@
 	<%= render 'shared/error_messages', object: f.object %>
 </div>
 <div class="span4">
-	<h2> Personal Info </h2>
+	<h2>Personal Info </h2>
 	<%= f.label :first_name %>
 	<%= f.text_field :first_name, :class => 'text_field' %>
 	<%= f.label :last_name %>
@@ -16,21 +16,22 @@
 	<%= f.label :password %>
 	<%= f.password_field :password %>
 	<%= f.label :password_confirmation, "Confirmation" %>
-	<%= f.text_field :password_confirmation %>
-	<%= fields_for :organization, @organization do |org_f| %>
+	<%= f.password_field :password_confirmation %>
 	<hr>
 	</hr>
-	<% if !current_user.nil? && current_user.admin? && !current_user?(user) %>
-	<h2> Account Info </h2>
+	<% if !current_user.nil? && current_user.admin? %>
+	<p></p>
+	<%= f.fields_for :organization, @organization do |org_f| %>
+	<h2>Account Info </h2>
 	<%= org_f.label :name, "Organization Name" %>
 	<%= org_f.text_field :name %>
-	<%= org_f.label :realm_name, "Account Name" %>
-	<%= org_f.text_field :realm_name %>
-	<%= org_f.label :url, "Organization URL" %>
+	<%= org_f.label :account_name %>
+	<%= org_f.text_field :account_name %>
+	<%= org_f.label :url %>
 	<%= org_f.text_field :url %>
 	<%= org_f.label :name, "Your organization logo" %>
-	<%= org_f.file_field :logo %>	
-	<%= link_to "delete", user, method: :delete,
+	<%= org_f.file_field :logo %>
+	<%= link_to "delete", @user, method: :delete,
 	data: { confirm: "You sure?" } %>
 	<% end %>
 	<% end %>
