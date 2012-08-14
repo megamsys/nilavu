@@ -1,7 +1,7 @@
 <% content_for :content_settings do %>
 <% provide(:title, @user.first_name) %>
 <%= image_tag "blue.png", :alt => "Megam" %>
-<% if !@user.organizations.nil? %>
+<% if !@user.organization.nil? %>
 <ol class="organization">
 	<%= render @organization %>
 </ol>
