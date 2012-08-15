@@ -21,7 +21,7 @@
 	</hr>
 	<% if !current_user.nil? && current_user.admin? %>
 	<p></p>
-	<%= f.fields_for :organization, @organization do |org_f| %>
+	<%= f.fields_for :organization_attributes, @organization do |org_f| %>
 	<h2>Account Info </h2>
 	<%= org_f.label :name, "Organization Name" %>
 	<%= org_f.text_field :name %>

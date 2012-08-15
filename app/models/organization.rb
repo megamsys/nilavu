@@ -1,10 +1,10 @@
 class Organization < ActiveRecord::Base
-  attr_accessible :active, :billing_address1, :billing_address2, :billing_city, :billing_country, :billing_state, :billing_street_name, :name, :realm_name, :type, :url
+  attr_accessible :active, :billing_address1, :billing_address2, :billing_city, :billing_country, :billing_state, :billing_street_name, :name, :account_name, :type, :url, :logo
   has_attached_file :logo
   has_many :users
 
-  validates_attachment_presence :photo
-  validates_attachment_size :photo, :less_than => 5.megabytes
-  validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png', 'image/gif']
+  validates_attachment_presence :logo
+  validates_attachment_size :logo, :less_than => 5.megabytes
+  validates_attachment_content_type :logo, :content_type => ['image/jpeg', 'image/png', 'image/gif']
   
 end
