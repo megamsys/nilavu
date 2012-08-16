@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   has_secure_password
   has_many :identities
   belongs_to :organization, :foreign_key  => 'org_id'
+  accepts_nested_attributes_for :organization, :update_only => true
 
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
@@ -14,7 +15,6 @@ class User < ActiveRecord::Base
                     uniqueness: { case_sensitive: false }
   validates :password, length: { minimum: 6 }
   validates :password_confirmation, presence: true
-  accepts_nested_attributes_for :organization
 
   def self.create_from_auth_hash!(auth_hash)
     create(:first_name => auth_hash["info"]["name"], :last_name => auth_hash["info"]["last_name"],

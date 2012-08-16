@@ -42,6 +42,10 @@ group :test do
   gem 'cucumber-rails', :require => false
 end
 
+group :test, :development do
+  gem "rspec-rails", "~> 2.0"
+end
+
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
 

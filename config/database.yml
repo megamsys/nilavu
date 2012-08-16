@@ -8,7 +8,7 @@ development:
   encoding: unicode
   database: cocdb
   pool: 5
-  username: ram
+  username: alrin
   password: team4megam
 
 # Warning: The database defined as "test" will be erased and
@@ -19,7 +19,7 @@ test:
   encoding: unicode
   database: cocdb
   pool: 5
-  username: ram
+  username: alrin
   password: team4megam
 
 
@@ -28,6 +28,6 @@ production:
   encoding: unicode
   database: cocdb
   pool: 5
-  username: ram
+  username: alrin
   password: team4megam
 
