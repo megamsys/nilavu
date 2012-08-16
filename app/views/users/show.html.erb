@@ -2,10 +2,12 @@
 <% provide(:title, @user.first_name) %>
 <% if @user.organization %>
 <%= image_tag @user.organization.logo, :alt => @user.organization.name %>
+<br></br>
 <ol class="organization">
-	<%= render @organization %>
+	<%= render @user.organization %>
+	
 </ol>
-<%= will_paginate @organization %>
+
 <% else %>
 <%= image_tag "blue.png", :alt => "Megam" %>
 <div class="alert alert-warning">

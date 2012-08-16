@@ -6,5 +6,5 @@ class Organization < ActiveRecord::Base
   validates_attachment_presence :logo
   validates_attachment_size :logo, :less_than => 5.megabytes
   validates_attachment_content_type :logo, :content_type => ['image/jpeg', 'image/png', 'image/gif']
-  
+
 end
