@@ -6,6 +6,7 @@ class OrganizationsController < ApplicationController
   def show
     @organization = Organization.find(params[:id])
     @users = @organization.users.paginate(page: params[:page])
+
   end
 
   def create
@@ -28,6 +29,7 @@ class OrganizationsController < ApplicationController
   end
 
   def update
+
   end
 
   def delete

@@ -21,7 +21,7 @@
 	</hr>
 	<% if !current_user.nil? && current_user.admin? %>
 	<p></p>
-	<%= f.fields_for :organization_attributes, @organization do |org_f| %>
+	<%= f.fields_for :organization_attributes, @user.organization do |org_f| %>
 	<h2>Account Info </h2>
 	<%= org_f.label :name, "Organization Name" %>
 	<%= org_f.text_field :name %>
@@ -31,9 +31,13 @@
 	<%= org_f.text_field :url %>
 	<%= org_f.label :name, "Your organization logo" %>
 	<%= org_f.file_field :logo %>
+	<br></br>
 	<%= link_to "delete", @user, method: :delete,
 	data: { confirm: "You sure?" } %>
+	<br></br>
+
 	<% end %>
+	
 	<% end %>
 	<%= f.submit nil, :class => 'btn btn-large btn-primary' %>
 </div>
