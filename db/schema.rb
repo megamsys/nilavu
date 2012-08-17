@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120811145726) do
+ActiveRecord::Schema.define(:version => 20120817045502) do
+
+  create_table "cloud_identities", :force => true do |t|
+    t.string   "url"
+    t.integer  "org_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "cloud_identities", ["org_id"], :name => "index_cloud_identities_on_org_id"
 
   create_table "identities", :force => true do |t|
     t.integer  "users_id"
