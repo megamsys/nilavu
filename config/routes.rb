@@ -1,20 +1,24 @@
 Cloudauth::Application.routes.draw do
 
   get "customizations/show"
-
+  
+ 
   root :to => 'high_voltage/pages#show', :id => 'home'
 
   match 'pages/get_started' => 'high_voltage/pages#show', :id => 'get_started'
   match 'pages/doc' => 'high_voltage/pages#show', :id => 'doc'
   match 'pages/about' => 'high_voltage/pages#show', :id => 'about'
   match 'pages/contribute' => 'high_voltage/pages#show', :id => 'contribute'
-
+  resources :cloud_identities
   resources :users
   resources :sessions
   resources :identities
   resources :organizations, only: [:create, :destroy]
 
   match '/signup',  to: 'users#new'
+
+  match '/create_identity', to: 'cloud_identities#show'
+  match '/create_new_identity', to: 'cloud_identities#create'
 
   match '/update',  to: 'users#update'
 

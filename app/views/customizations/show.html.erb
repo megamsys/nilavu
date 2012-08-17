@@ -1,20 +1,23 @@
-<% provide(:title, 'Customization') %>
+<% provide(:title, ' Customization') %>
 <div class="row-fluid">
 	<div class="span3">
 		<div class="sidebar-nav">
 			<ul class="well nav nav-list">
+				
+				<% if current_user.admin %>
+				Admin
 				<li class="nav-header">
 					Settings
 				</li>
 				<li>
-					<%= link_to "#" do %>
+					<%= link_to create_identity_path do %>
 					<i class="icon-wrench"></i> Cloud Identity
 					<% end %>
 				</li>
 				<li>
 					<%= link_to "#" do %>
 					<i class="icon-briefcase"></i> Cloud Applications
-					<% end %>					
+					<% end %>
 				</li>
 
 				<li class="nav-header">
@@ -31,17 +34,33 @@
 					<% end %>
 				</li>
 				<li class="nav-header">
-					 Account
+					Account
 				</li>
 				<li>
 					<%= link_to "#" do %>
 					<i class="icon-gift"></i> Billing
 					<% end %>
 				</li>
+				<% else %>
+				User
+				<li>
+					<%= link_to "#" do %>
+					<i class="icon-user"></i> My Customers
+					<% end %>
+				</li>
+				<li>
+					<%= link_to "#" do %>
+					<i class="icon-magnet"></i> My Suppliers
+					<% end %>
+				</li>
+				<% end %>
 			</ul>
 		</div>
 	</div>
 	<div class="span6 offset1">
-			<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
-	</div><!--/span9-->
+		<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
+		<!--	<%= content_for?(:content_settings1) ? yield(:content_settings1) : yield %>	-->
+	</div><!--/span6-->
+
 </div><!--/row-->
+

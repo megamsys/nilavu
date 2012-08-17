@@ -1,0 +1,34 @@
+<% content_for :content_settings do %>
+<% provide(:title, current_user.first_name) %>
+
+<% if current_user.organization %>
+<%= image_tag current_user.organization.logo, :alt => current_user.organization.name %>
+<br></br>
+<li>
+	<span class="content">Name  : <h6><%= current_user.organization.name %></span>
+	<span class="content">account name  : <%= current_user.organization.account_name %></span>
+	<span class="content">url  : <%= current_user.organization.url %></span>
+	<span class="content">Org_ID  : <%= current_user.organization.id %></span>
+</li>
+<br></br>
+
+<h3>To create an identity with <tab></tab> <%= current_user.organization.account_name %> </h3>
+
+<%= link_to create_new_identity_path do %>Create New Identity<% end %>
+					 
+<% else %>
+<%= image_tag "blue.png", :alt => "Megam" %>
+<div class="alert alert-warning">
+	<span class="label label-important">!</span>
+	<strong>Warning!</strong> Your account isn't complete. Kindly complete your profile before we could proceed further.
+</div>
+<button type="submit" class="btn btn-large btn-warning">
+	Edit
+</button>
+<% end %>
+<hr>
+</hr>
+Cloud Applications
+<% end %>
+<%= render :template => customizations_show_path %>
+

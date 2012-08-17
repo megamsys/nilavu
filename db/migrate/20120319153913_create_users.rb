@@ -19,6 +19,7 @@ class CreateUsers < ActiveRecord::Migration
   def self.down
     remove_index :users, :email
     remove_index :users, :remember_token
+    remove_index :users, :org_id
     drop_table :users
   end
 end
