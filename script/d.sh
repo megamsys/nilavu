@@ -138,6 +138,8 @@ exitScript 0
 #also will perform the required cleanup.
 #--------------------------------------------------------------------------
 dbclean(){
+#remove cloud_identities
+rake db:migrate:down VERSION=20120817045502
 #remove logo
 rake db:migrate:down VERSION=20120811145726
 #drop organizations
@@ -155,6 +157,9 @@ rake db:migrate:up VERSION=20120319154255
 rake db:migrate:up VERSION=20120811145124
 #alter organization - logo
 rake db:migrate:up VERSION=20120811145726
+#create cloud_identities
+rake db:migrate:up VERSION=20120817045502
+
 exitScript 0
 }
 #
