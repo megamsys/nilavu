@@ -6,6 +6,9 @@
 IDP_SCRIPT_PATH=
 IDP_CD_PATH=
 IDP_INSTALL_PATH=
+IDP_GIT_COMMIT_MASTER=
+IDP_GIT_MASTER=master
+IDP_GIT_ORIGIN=origin
 #--------------------------------------------------------------------------
 #initialize the environment variables.
 #IDP_INSTALL_PATH => the rails application installation directory. 
@@ -21,7 +24,7 @@ initialize(){
             IDP_CD_PATH=$PWD
         else
             IDP_CD_PATH=../
-   fi
+	fi
 
 cd $IDP_CD_PATH
 
@@ -45,6 +48,7 @@ then
 	help
         exitScript 0
 fi
+IDP_GIT_COMMIT_MASTER=$2
 
 for item in "$@"
 do
@@ -55,17 +59,27 @@ do
 	('/?')
             help
             ;;
+            --[mM][yY])
+	    echo "Howdy $IDP_GIT_MASTER. Enjoy committing local to <master> - Github..."
+            mystuff
+            ;;
+            --[uU][pP][dD])
+	    echo "Howdy $IDP_GIT_MASTER.enjoy merging <origin> to local..."
+            uptodate
+            ;;
+            --[fF][iI][nN][iI][sS][hH])
+            finish
+            ;;
          --[cC][lL][eE][aA][nN])
-echo "Cleaning up tmp and assets..."
+	    echo "Cleaning up tmp and assets..."
             clean
             ;;
  	--[pP][rR][eE][cC][oO][mM])
-echo "Cleaning up tmp and assets, precompiling..."
-echo "perform precom"
+	    echo "Cleaning up tmp and assets, precompiling..."
             precom
             ;;
  	--[dD][bB][cC][lL][eA][aA][nN])
-echo "Cleaning up db..."
+	    echo "Cleaning up db..."
             dbclean
             ;;         
         --[vV][eE][rR][sS][iI][oO][nN])
@@ -89,14 +103,128 @@ done
 #--------------------------------------------------------------------------
 help(){
     echo "Usage : d.sh [Options]"
-    echo "	--help    : prints the help message."
-    echo "	--verify  : does a git status."
-    echo "	--clean   : cleans up the temp files."
-    echo "	--precom  : cleans up the temp files and precompiles asset."
-    echo "	--dbclean : cleans up the db."
+    echo "--help     : prints the help message."
+    echo "--verify   : does a git status."
+    echo "--my       : does a add, commit and push of my master."
+    echo "--upd      : does a fetch from origing and merge to my master."
+    echo "--finish   : does a push of anothers users master to origin"
+    echo "             (committer only)"
+    echo "--clean    : cleans up the temp files."
+    echo "--precom   : cleans up the temp files and precompiles asset."
+    echo "--dbclean  : cleans up the db."
+    
 exitScript 0
 }
+#--------------------------------------------------------------------------
+# verify the installation
+# this pretty much dumps the environment variables., java path and arguments
+#-------------------------------------------------------------------------
+verify(){
+	echo "========================================================="
+	printf "%-20s=>\t%s\n" git remote
+	echo "========================================================="
+	git remote -v
+	echo "========================================================="
+	printf "%-20s=>\t%s\n" git status 
+	echo "========================================================="
+	git status
+	echo "========================================================="
+	exitScript 1
+}
+#--------------------------------------------------------------------------
+# git add all the files,commits to the local repos.
+# performs a push to the users master in github.
+#-------------------------------------------------------------------------
+mystuff(){
 
+	echo -n "Do you want to add/commit files [y/n]? "
+	read -n 1 addcommit
+	echo
+
+	if [[ $addcommit =~ ^[Yy]$ ]]
+	then
+		echo "========================================================="
+		git add .
+		git commit .
+	fi
+	echo "========================================================="
+	echo -n "Do you want to push to your master [y/n]? "
+	read -n 1 pmstr
+	echo
+	if [[ $pmstr =~ ^[Yy]$ ]]
+	then
+		echo "========================================================="
+		git push master
+		echo "========================================================="
+	fi
+	verify
+	exitScript 1
+}
+#--------------------------------------------------------------------------
+# git add all the files,commits to the local repos.
+# performs a push to the users master in github.
+#-------------------------------------------------------------------------
+uptodate(){
+	echo -n "Do you want to add/commit files [y/n]? "
+	read -n 1 addcommit
+	echo
+
+	if [[ $addcommit =~ ^[Yy]$ ]]
+	then
+		echo "========================================================="
+		git add .
+		git commit .
+	fi
+	echo "========================================================="
+	echo -n "Do you want to rebase from origin [y/n]? "
+	read -n 1 pmstr
+	echo
+	if [[ $pmstr =~ ^[Yy]$ ]]
+	then
+		echo "========================================================="
+		git fetch origin
+		git merge origin master
+		echo "========================================================="
+	fi
+	exitScript 1
+}
+#--------------------------------------------------------------------------
+# git add all the files,commits to the local repos.
+# performs a push to the users master in github.
+#-------------------------------------------------------------------------
+finish(){
+	if [ -z $IDP_GIT_COMMIT_MASTER ]
+	then
+		echo "Missing parameter <master repository name>."
+		help
+        	exitScript 1
+	else
+                echo "Howdy committer.Enjoy merging <$IDP_GIT_COMMIT_MASTER> to origin..."
+		echo "========================================================="
+		echo -n "Do you want to add/commit files [y/n]? "
+		read -n 1 addcommit
+		echo
+
+		if [[ $addcommit =~ ^[Yy]$ ]]
+		then
+			echo "========================================================="
+			git add .
+			git commit .
+		fi
+		echo "========================================================="
+		echo -n "Do you want to push to your master [y/n]? "
+		read -n 1 pmstr
+		echo
+		if [[ $pmstr =~ ^[Yy]$ ]]
+		then
+			echo "========================================================="
+			git push -u origin $IDP_COMMIT_MASTER/master
+			echo "========================================================="
+		fi
+	verify
+	exitScript 0
+	fi
+}
 #
 #
 #
@@ -171,22 +299,6 @@ exitScript 0
 version(){
 echo "Nothing to show as version now."
 exitScript 0
-}
-#--------------------------------------------------------------------------
-# verify the installation
-# this pretty much dumps the environment variables., java path and arguments
-#-------------------------------------------------------------------------
-verify(){
-echo "========================================================="
-printf "%-20s=>\t%s\n" git remote
-echo "========================================================="
-git remote -v
-echo "========================================================="
-printf "%-20s=>\t%s\n" git status 
-echo "========================================================="
-git status
-echo "========================================================="
-exitScript 1
 }
 #
 #
