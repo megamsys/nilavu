@@ -10,7 +10,7 @@
 					Settings
 				</li>
 				<li>
-					<%= link_to create_identity_path do %>
+					<%= link_to cloud_identity_path(current_user) do %>
 					<i class="icon-wrench"></i> Cloud Identity
 					<% end %>
 				</li>
@@ -58,6 +58,8 @@
 		</div>
 	</div>
 	<div class="span6 offset1">
+
+		
 		<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
 		<!--	<%= content_for?(:content_settings1) ? yield(:content_settings1) : yield %>	-->
 	</div><!--/span6-->
