@@ -252,9 +252,9 @@ finish(){
 		if [[ $pmstr =~ ^[Yy]$ ]]
 		then
 			echo "========================================================="
-			git fetch $IDP_COMMIT_MASTER
-			git merge $IDP_COMMIT_MASTER/master
-			git push -u origin $IDP_COMMIT_MASTER/master
+			git fetch $IDP_GIT_COMMIT_MASTER
+			git merge $IDP_GIT_COMMIT_MASTER/master
+			git push -u origin $IDP_GIT_COMMIT_MASTER/master
 			echo "========================================================="
 		fi
 	verify
