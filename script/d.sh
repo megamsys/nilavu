@@ -246,7 +246,7 @@ finish(){
 			git commit .
 		fi
 		echo "========================================================="
-		echo -n "Do you want to push to your master [y/n]? "
+		echo -n "Do you want to commit $IDP_COMMIT_MASTER to your origin [y/n]? "
 		read -n 1 pmstr
 		echo
 		if [[ $pmstr =~ ^[Yy]$ ]]
