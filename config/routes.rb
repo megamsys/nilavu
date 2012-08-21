@@ -14,11 +14,10 @@ Cloudauth::Application.routes.draw do
   resources :sessions
   resources :identities
   resources :organizations, only: [:create, :destroy]
+  #For cloud_identities create without this it goes to new
+  match '/cloud_identities_create', to: 'cloud_identities#create' 
 
   match '/signup',  to: 'users#new'
-
-  match '/create_identity', to: 'cloud_identities#show'
-  match '/create_new_identity', to: 'cloud_identities#create'
 
   match '/update',  to: 'users#update'
 

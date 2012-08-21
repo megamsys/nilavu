@@ -1,0 +1,14 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'All Organizations') %>
+<h1>All Organizations</h1>
+
+
+
+<ul class="organizations">
+  <%= render @organizations %>
+</ul>
+
+
+
+<% end %>
+<%= render :template => customizations_show_path %>

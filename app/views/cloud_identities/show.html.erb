@@ -1,21 +1,41 @@
 <% content_for :content_settings do %>
-<% provide(:title, current_user.first_name) %>
+<% provide(:title, @user.first_name) %>
 
-<% if current_user.organization %>
-<%= image_tag current_user.organization.logo, :alt => current_user.organization.name %>
+<% if @user.organization %>
+<%= image_tag @user.organization.logo, :alt => @user.organization.name %>
 <br></br>
 <li>
-	<span class="content">Name  : <h6><%= current_user.organization.name %></span>
-	<span class="content">account name  : <%= current_user.organization.account_name %></span>
-	<span class="content">url  : <%= current_user.organization.url %></span>
-	<span class="content">Org_ID  : <%= current_user.organization.id %></span>
+	<span class="content">Name  : <%= @user.organization.name %></span>
+	<span class="content">account name  : <%= @user.organization.account_name %></span>
+	<span class="content">url  : <%= @user.organization.url %></span>
+	<span class="content">Org_ID  : <%= @user.organization.id %></span>
+	
 </li>
 <br></br>
 
-<h3>To create an identity with <tab></tab> <%= current_user.organization.account_name %> </h3>
+<% if @user.organization.cloud_identity %>
 
-<%= link_to create_new_identity_path do %>Create New Identity<% end %>
-					 
+	<%= form_for @user.organization.cloud_identity, :html => { :multipart => true } do |f| %>
+
+	<%= f.label :url %>
+	<%= f.text_field :url %>
+<%= f.submit nil, :class => 'btn btn-large btn-primary' %>
+
+<% end %>
+	
+	<span class="content">Cloud_Identity_ID  : <%= @user.organization.cloud_identity.id %></span>
+
+	<%= link_to "www.google.com" do %>  <%= @user.organization.cloud_identity.url %> <% end %>
+	
+	<%= link_to "Delete Identity", @user.organization.cloud_identity, method: :delete,
+	data: { confirm: "You sure?" } %>
+<% else %>
+
+<h3>To create an identity with <tab></tab> <%= @user.organization.account_name %> </h3>
+
+<%= link_to cloud_identities_create_path do %>Create New Identity<% end %>
+
+<% end %>
 <% else %>
 <%= image_tag "blue.png", :alt => "Megam" %>
 <div class="alert alert-warning">
@@ -30,5 +50,6 @@
 </hr>
 Cloud Applications
 <% end %>
+
 <%= render :template => customizations_show_path %>
 
