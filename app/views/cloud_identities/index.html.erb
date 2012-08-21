@@ -1,5 +1,14 @@
 <% content_for :content_settings do %>
-<% provide(:title, 'Cloud Identities') %>
-<h1>Cloud Identities</h1>
+<% provide(:title, 'All Cloud_Identities') %>
+<h1>All Cloud_Identities</h1>
+
+
+
+<ul class="CloudIdentities">
+  <%= render @cloud_identity %>
+</ul>
+
+
+
 <% end %>
 <%= render :template => customizations_show_path %>
