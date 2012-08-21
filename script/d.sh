@@ -217,7 +217,7 @@ uptodate(){
 	then
 		echo "========================================================="
 		git fetch origin
-		git merge origin master
+		git merge origin
 		echo "========================================================="
 	fi
 	exitScript 1
