@@ -233,7 +233,7 @@ finish(){
 		help
         	exitScript 1
 	else
-                echo "Howdy committer.Enjoy merging <$IDP_GIT_COMMIT_MASTER> to origin..."
+        echo "Howdy committer.Enjoy merging <$IDP_GIT_COMMIT_MASTER> to origin..."
 		echo "========================================================="
 		echo -n "Do you want to add/commit files [y/n]? "
 		read -n 1 addcommit
@@ -246,13 +246,15 @@ finish(){
 			git commit .
 		fi
 		echo "========================================================="
-		echo -n "Do you want to push to your master [y/n]? "
+		echo -n "Do you want to commit $IDP_GIT_COMMIT_MASTER to your origin [y/n]? "
 		read -n 1 pmstr
 		echo
 		if [[ $pmstr =~ ^[Yy]$ ]]
 		then
 			echo "========================================================="
-			git push -u origin $IDP_COMMIT_MASTER/master
+			git fetch $IDP_GIT_COMMIT_MASTER
+			git merge $IDP_GIT_COMMIT_MASTER/master
+			git push -u origin $IDP_GIT_COMMIT_MASTER/master
 			echo "========================================================="
 		fi
 	verify
