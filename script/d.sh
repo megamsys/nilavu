@@ -63,6 +63,10 @@ do
 	    echo "Howdy $IDP_GIT_MASTER. Enjoy committing local to <master> - Github..."
             mystuff
             ;;
+            --[oO][mM][yY])
+	    echo "Howdy $IDP_GIT_ORIGIN. Enjoy committing local to <origin> - Github..."
+            origin_stuff
+            ;;
             --[uU][pP][dD])
 	    echo "Howdy $IDP_GIT_MASTER.enjoy merging <origin> to local..."
             uptodate
@@ -106,6 +110,7 @@ help(){
     echo "--help     : prints the help message."
     echo "--verify   : does a git status."
     echo "--my       : does a add, commit and push of my master."
+    echo "--omy      : does a add, commit and push to origin."
     echo "--upd      : does a fetch from origing and merge to my master."
     echo "--finish   : does a push of anothers users master to origin"
     echo "             (committer only)"
@@ -154,7 +159,36 @@ mystuff(){
 	if [[ $pmstr =~ ^[Yy]$ ]]
 	then
 		echo "========================================================="
-		git push master
+		git push master	
+		echo "========================================================="
+	fi
+	verify
+	exitScript 1
+}
+#--------------------------------------------------------------------------
+# git add all the files,commits to the local repos.
+# performs a push to the committers origin in github.
+#-------------------------------------------------------------------------
+origin_stuff(){
+
+	echo -n "Do you want to add/commit files [y/n]? "
+	read -n 1 addcommit
+	echo
+
+	if [[ $addcommit =~ ^[Yy]$ ]]
+	then
+		echo "========================================================="
+		git add .
+		git commit .
+	fi
+	echo "========================================================="
+	echo -n "Do you want to push to your origin [y/n]? "
+	read -n 1 pmstr
+	echo
+	if [[ $pmstr =~ ^[Yy]$ ]]
+	then
+		echo "========================================================="
+		git push origin	
 		echo "========================================================="
 	fi
 	verify
