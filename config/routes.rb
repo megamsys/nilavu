@@ -1,5 +1,7 @@
 Cloudauth::Application.routes.draw do
 
+  get "cloud_apps/show"
+
   get "customizations/show"
   
  
@@ -9,13 +11,14 @@ Cloudauth::Application.routes.draw do
   match 'pages/doc' => 'high_voltage/pages#show', :id => 'doc'
   match 'pages/about' => 'high_voltage/pages#show', :id => 'about'
   match 'pages/contribute' => 'high_voltage/pages#show', :id => 'contribute'
-  resources :cloud_identities
+  
   resources :users
   resources :sessions
   resources :identities
   resources :organizations, only: [:create, :destroy]
-  #For cloud_identities create without this it goes to new
-  match '/cloud_identities_create', to: 'cloud_identities#create' 
+  resources :cloud_identities
+  resources :cloud_apps
+  
 
   match '/signup',  to: 'users#new'
 

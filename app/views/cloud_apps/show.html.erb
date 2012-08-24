@@ -1,0 +1,15 @@
+<% content_for :content_settings do %>
+<% provide(:title, @user.organization) %>
+<br></br>
+<%= image_tag "logo-amazon.png", :size => "128x128", :alt => "Amazon" %>
+<%= image_tag "Google_apps.png", :size => "128x128", :alt => "Google_app" %>
+<%= image_tag "heroku.png", :size => "128x128", :alt => "Heroku" %>
+<%= image_tag "logo-salesforce.png", :size => "128x128", :alt => "Salesforce" %>
+<br></br>
+
+<h3> To get Cloud_Apps </h3>
+
+<%= link_to "Click here", new_cloud_app_path %> 
+
+<% end %>
+<%= render :template => customizations_show_path %>

@@ -1,0 +1,14 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'New Cloud_Identity') %>
+<h1>New Cloud_Identity</h1>
+
+<%= form_for current_user.organization.cloud_identity, :html => { :multipart => true } do |f| %>
+
+<%= f.label :url %>
+<%= f.text_field :url, placeholder: "URL"  %>
+<%= f.submit nil, :class => 'btn btn-large btn-primary' %>
+
+<% end %>
+
+<% end %>
+<%= render :template => customizations_show_path %>

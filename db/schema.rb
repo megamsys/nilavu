@@ -11,7 +11,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120817045502) do
+ActiveRecord::Schema.define(:version => 20120824094944) do
+
+  create_table "apps_items", :force => true do |t|
+    t.integer  "cloud_app_id"
+    t.string   "name"
+    t.string   "url"
+    t.string   "my_url"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "apps_items", ["cloud_app_id"], :name => "index_apps_items_on_cloud_app_id"
+
+  create_table "cloud_apps", :force => true do |t|
+    t.integer  "org_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "cloud_apps", ["org_id"], :name => "index_cloud_apps_on_org_id"
 
   create_table "cloud_identities", :force => true do |t|
     t.string   "url"

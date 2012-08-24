@@ -1,0 +1,24 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'New Cloud App') %>
+<br></br>
+<%= image_tag "logo-amazon.png", :size => "128x128", :alt => "Amazon" %>
+<%= image_tag "Google_apps.png", :size => "128x128", :alt => "Google_app" %>
+<%= image_tag "heroku.png", :size => "128x128", :alt => "Heroku" %>
+<%= image_tag "logo-salesforce.png", :size => "128x128", :alt => "Salesforce" %>
+<br></br>
+
+<%= form_for current_user.organization.cloud_app, :html => { :multipart => true } do |f| %>
+<%= f.check_box(:name, {}, "Zoho", "0") %>
+	<%= f.label(:name, "Zoho") %>
+<%= f.check_box(:name, {}, "Google_app", "0") %>
+	<%= f.label(:name, "Google_app") %>
+<%= f.check_box(:name, {}, "Salesforce", "0") %>
+	<%= f.label(:name, "Salesforce") %>
+<%= f.check_box(:name, {}, "Liferay", "0") %>
+	<%= f.label(:name, "Liferay") %>
+<%= f.submit nil, :class => 'btn btn-large btn-primary' %>
+
+<% end %>
+<% end %>
+
+<%= render :template => customizations_show_path %>

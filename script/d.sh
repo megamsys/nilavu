@@ -302,6 +302,10 @@ exitScript 0
 #also will perform the required cleanup.
 #--------------------------------------------------------------------------
 dbclean(){
+#remove apps_items
+rake db:migrate:down VERSION=20120824094944
+#remove cloud_apps
+rake db:migrate:down VERSION=20120824063657
 #remove cloud_identities
 rake db:migrate:down VERSION=20120817045502
 #remove logo
@@ -314,7 +318,7 @@ rake db:migrate:down VERSION=20120319154255
 rake db:migrate:down VERSION=20120319153913
 
 #create users
-rake db:migrate:up  VERSION=20120319153913
+rake db:migrate:up VERSION=20120319153913
 #create identities
 rake db:migrate:up VERSION=20120319154255
 #create organization
@@ -323,6 +327,10 @@ rake db:migrate:up VERSION=20120811145124
 rake db:migrate:up VERSION=20120811145726
 #create cloud_identities
 rake db:migrate:up VERSION=20120817045502
+#create cloud_apps
+rake db:migrate:up VERSION=20120824063657
+#create apps_items
+rake db:migrate:up VERSION=20120824094944
 
 exitScript 0
 }
