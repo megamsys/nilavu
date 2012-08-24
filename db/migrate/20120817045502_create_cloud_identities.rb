@@ -8,7 +8,7 @@ class CreateCloudIdentities < ActiveRecord::Migration
     end
 	add_index :cloud_identities, :org_id
   end
-def self.down
+  def self.down
     remove_index :cloud_identities, :org_id
     drop_table :cloud_identities
   end
