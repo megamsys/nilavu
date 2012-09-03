@@ -1,7 +1,5 @@
 Cloudauth::Application.routes.draw do
 
-  get "cloud_apps/show"
-
   get "customizations/show"
   
  
@@ -18,7 +16,9 @@ Cloudauth::Application.routes.draw do
   resources :organizations, only: [:create, :destroy]
   resources :cloud_identities
   resources :cloud_apps
+  resources :apps_items
   
+  match '/apps_items/destroy', to: 'apps_items#destroy'  
 
   match '/signup',  to: 'users#new'
 
