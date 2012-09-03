@@ -1,5 +1,5 @@
 <% content_for :content_settings do %>
-<% provide(:title, @user.organization.cloud_identity) %>
+<% provide(:title, 'Cloud Identity') %>
 
 <% if @user.organization %>
 <%= image_tag @user.organization.logo, :alt => @user.organization.name %>
