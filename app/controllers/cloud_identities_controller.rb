@@ -8,9 +8,7 @@ def new
 end
 
 def create
-	
-	
-       @cloud_identity = current_user.organization.build_cloud_identity(params[:cloud_identity]) || CloudIdentity.new(params[:cloud_identity])
+	     @cloud_identity = current_user.organization.build_cloud_identity(params[:cloud_identity]) || CloudIdentity.new(params[:cloud_identity])
 		
 	if @cloud_identity.save
 		redirect_to customizations_show_url
