@@ -5,6 +5,9 @@ end
 
 def new
 	current_user.organization.build_cloud_identity
+	@embeddedclient = EmbeddedClient.new
+	mc = @embeddedclient.client
+	logger.debug "rpc-client #{mc}"
 end
 
 def create
