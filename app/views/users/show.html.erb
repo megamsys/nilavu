@@ -2,7 +2,7 @@
 <% provide(:title, @user.first_name) %>
 
 <% if @user.organization %>
-<%= image_tag @user.organization.logo, :alt => @user.organization.name %>
+<%= image_tag @user.organization.logo %>
 <br></br>
 <ol class="organization">
 	<%= render @user.organization %>
