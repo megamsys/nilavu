@@ -2,7 +2,6 @@ Cloudauth::Application.routes.draw do
 
   get "customizations/show"
   
- 
   root :to => 'high_voltage/pages#show', :id => 'home'
 
   match 'pages/get_started' => 'high_voltage/pages#show', :id => 'get_started'

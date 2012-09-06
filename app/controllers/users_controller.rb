@@ -48,11 +48,14 @@ class UsersController < ApplicationController
     @organization=@user.organization || Organization.new
 
     if @user.update_attributes(params[:user])
-      flash[:success] = "Profile updated"
+	logger.debug "user-update"
 	
+	
+      #flash[:alert] = "Profile Updated"
       sign_in @user
 
-      redirect_to @user
+      redirect_to @user, :notice => "You have successfully Updated"
+   
     else
       render 'edit'
     end
