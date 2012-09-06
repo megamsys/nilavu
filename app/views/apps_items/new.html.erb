@@ -1,6 +1,6 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'New Apps_Item') %>
-
+<meta http-equiv="refresh" content="10;url=new">
 <h2> My Cloud Applications </h2>
 <table class="table table-condensed">
 <% @products.each do |product| %>
@@ -21,7 +21,7 @@
       <% if ai.product_id === product.id %>
 	
 	<%= button_to 'Remove', apps_items_destroy_path(:id => ai.id), :method => :destroy, :remote => true %>
-       <%= product.description = 1 %>
+       <% product.description = 1 %>
       
         
       <% end %>

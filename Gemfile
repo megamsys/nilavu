@@ -15,9 +15,11 @@ gem 'bootstrap-will_paginate','0.0.7'
 gem 'rest-client','1.6.7'
 gem 'grape','0.2.1'
 gem 'paperclip','3.1.4'
+gem 'aws-sdk', '~> 1.3.4'
 gem 'high_voltage','1.1.1'
-gem "therubyracer", '0.10.2'
-
+gem 'therubyracer', '0.10.2'
+gem 'mcollective-client', '~> 2.0.0'
+gem 'stomp', '~> 1.2.5'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
