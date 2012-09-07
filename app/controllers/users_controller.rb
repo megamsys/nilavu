@@ -28,7 +28,8 @@ class UsersController < ApplicationController
 
     if @user.save
       sign_in @user
-      redirect_to customizations_show_url, notice: "Signed in!"
+      flash[:alert] = "Welcome #{current_user.first_name}"
+      redirect_to customizations_show_url
     else
       render 'new'
     end
@@ -51,10 +52,10 @@ class UsersController < ApplicationController
 	logger.debug "user-update"
 	
 	
-      #flash[:alert] = "Profile Updated"
+      flash[:alert] = "Hi #{current_user.first_name},Your profile Updated Successfully"
       sign_in @user
 
-      redirect_to @user, :notice => "You have successfully Updated"
+      redirect_to @user
    
     else
       render 'edit'

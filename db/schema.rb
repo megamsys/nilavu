@@ -87,11 +87,11 @@ ActiveRecord::Schema.define(:version => 20120829143151) do
     t.string   "last_name"
     t.string   "email"
     t.string   "phone"
-    t.boolean  "admin",           :default => false
+    t.boolean  "admin",           :default => true
     t.string   "password_digest"
     t.string   "remember_token"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

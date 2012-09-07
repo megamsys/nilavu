@@ -16,8 +16,9 @@ def create
        @cloud_identity = current_user.organization.build_cloud_identity(params[:cloud_identity]) || CloudIdentity.new(params[:cloud_identity])
 		
 	if @cloud_identity.save
+		flash[:success] = "Cloud Identity Created with #{current_user.organization.account_name}"
 		redirect_to customizations_show_url
-		flash[:success] = "Cloud_identity Created"
+		
 	end
 end
 
@@ -29,7 +30,8 @@ end
 def update
 	@cloud_identity=CloudIdentity.find(params[:id])
 	if @cloud_identity.update_attributes(params[:cloud_identity])
-     		 flash[:success] = "Cloud_identity updated"
+     		 flash[:success] = "Cloud_identity #{current_user.organization.account_name} updated"
+                 redirect_to customizations_show_url
 	end
 end
 
@@ -37,7 +39,7 @@ end
 def destroy
 	
     CloudIdentity.find(params[:id]).destroy
-    flash[:success] = "Cloud_identity destroyed."
+    flash[:success] = "Cloud_identity #{current_user.organization.account_name} destroyed."
     redirect_to customizations_show_url
   end
 end
