@@ -8,7 +8,7 @@ development:
   encoding: unicode
   database: cocdb
   pool: 5
-  username: alrin
+  username: ram
   password: team4megam
 
   bucket: megam
@@ -23,7 +23,7 @@ test:
   encoding: unicode
   database: cocdb
   pool: 5
-  username: alrin
+  username: ram
   password: team4megam
   
   bucket: megam
@@ -36,7 +36,7 @@ production:
   encoding: unicode
   database: cocdb
   pool: 5
-  username: alrin
+  username: ram
   password: team4megam
 
   bucket: megam

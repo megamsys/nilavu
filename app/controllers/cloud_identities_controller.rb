@@ -11,9 +11,7 @@ def new
 end
 
 def create
-	
-	
-       @cloud_identity = current_user.organization.build_cloud_identity(params[:cloud_identity]) || CloudIdentity.new(params[:cloud_identity])
+	     @cloud_identity = current_user.organization.build_cloud_identity(params[:cloud_identity]) || CloudIdentity.new(params[:cloud_identity])
 		
 	if @cloud_identity.save
 		flash[:success] = "Cloud Identity Created with #{current_user.organization.account_name}"

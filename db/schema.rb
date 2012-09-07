@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120829143151) do
+ActiveRecord::Schema.define(:version => 20120824094944) do
 
   create_table "apps_items", :force => true do |t|
     t.integer  "cloud_app_id"
@@ -73,13 +73,6 @@ ActiveRecord::Schema.define(:version => 20120829143151) do
   end
 
   add_index "organizations", ["account_name"], :name => "index_organizations_on_account_name"
-
-  create_table "products", :force => true do |t|
-    t.string "name"
-    t.string "description"
-    t.string "url"
-    t.string "image_url"
-  end
 
   create_table "users", :force => true do |t|
     t.integer  "org_id"
