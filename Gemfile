@@ -19,7 +19,6 @@ gem 'aws-sdk', '~> 1.3.4'
 gem 'high_voltage','1.2.0'
 gem "therubyracer", '0.10.2'
 gem "mcollective-client", "2.0.0"
-gem 'mcollective-client', '~> 2.0.0'
 gem 'stomp', '~> 1.2.5'
 gem 'jquery-rails','2.1.1'
 
@@ -41,7 +40,7 @@ end
 
 group :test do
   gem 'capybara','1.1.2'
-  gem 'factory_girl_rails','4.0.0'
+  gem 'factory_girl_rails'
   gem 'cucumber-rails', :require => false
 end
 
