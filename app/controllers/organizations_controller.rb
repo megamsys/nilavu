@@ -6,15 +6,12 @@ class OrganizationsController < ApplicationController
    end
 
   def new
+     current_user.build_organization
   end
 
-  def show
-    @organization = Organization.find(params[:id])
-    @users = @organization.users.paginate(page: params[:page])
-
-  end
-
+ 
   def create
+         	
     #   @user = current_organization.users.build(params[:user])
     #   if @user.save
     #     flash[:success] = "User created!"
@@ -29,6 +26,13 @@ class OrganizationsController < ApplicationController
     # end
 
   end
+
+  def show
+    @organization = Organization.find(params[:id])
+    @users = @organization.users.paginate(page: params[:page])
+
+  end
+
 
   def edit
   end
