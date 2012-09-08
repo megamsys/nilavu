@@ -18,7 +18,6 @@ gem 'paperclip','3.1.4'
 gem 'aws-sdk', '~> 1.3.4'
 gem 'high_voltage','1.2.0'
 gem "therubyracer", '0.10.2'
-gem "mcollective-client", "2.0.0"
 gem 'stomp', '~> 1.2.5'
 gem 'jquery-rails','2.1.1'
 

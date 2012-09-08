@@ -1,6 +1,8 @@
 <% content_for :content_settings do %>
 <% provide(:title, @user.first_name) %>
 
+
+
 <% if @user.organization %>
 <%= image_tag @user.organization.logo %>
 <br></br>
@@ -10,14 +12,15 @@
 </ol>
 
 <% else %>
-<%= image_tag "blue.png", :alt => "Megam" %>
+
 <div class="alert alert-warning">
 	<span class="label label-important">!</span>
 	<strong>Warning!</strong> Your account isn't complete. Kindly complete your profile before we could proceed further.
 </div>
-<button type="submit" class="btn btn-large btn-warning">
-	Edit
-</button>
+<%= image_tag "blue.png", :alt => "Megam" %>
+<h6> Click the following link to enter your organization's details</h6>
+
+<%= link_to "Organization Details", edit_user_path(current_user) %>
 <% end %>
 <hr>
 </hr>
