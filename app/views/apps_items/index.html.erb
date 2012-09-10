@@ -1,0 +1,26 @@
+
+
+<%= current_user.organization.cloud_app.apps_items %>
+<table>
+
+
+<% @products.each do |product| %>
+<% current_user.organization.cloud_app.apps_items.each do |ai| %>
+
+
+<% if ai.product_id === product.id %>
+
+<tr><td> <h3>My App :  <%= product.name %></h3> <%= ai.product_id %></td><td>
+<h3>My URL : <%= ai.my_url %></h3><%= product.id %></td></tr>
+
+
+
+
+<% end %>
+
+<% end %>
+
+<% end %>
+
+
+</table>

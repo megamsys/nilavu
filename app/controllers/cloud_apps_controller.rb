@@ -12,7 +12,11 @@ end
 
   def show
 	 @user = User.find(params[:id])
-        if !@user.organization.cloud_app
+	if !@user.organization
+          flash[:error] = "Pleae Create Organization Details first"
+		redirect_to edit_user_path(current_user)
+  	else   
+         if !@user.organization.cloud_app
 	 @cloud_app = current_user.organization.build_cloud_app(params[:cloud_app]) || CloudApp.new(params[:cloud_app])
 	   @cloud_app.name = current_user.organization.name	
 	 if @cloud_app.save
@@ -23,7 +27,7 @@ end
 	else
 		redirect_to new_apps_item_path
 	end
-
+        end
 	
   end
   
