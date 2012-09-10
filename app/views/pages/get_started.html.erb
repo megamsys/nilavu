@@ -1,5 +1,144 @@
-<% provide(:title, 'Get Started') %><br><br>
-<h1>Get Started</h1><br><br>
+<% provide(:title, 'Get Started') %>
+<h2>How To Get Started With Megam</h2>
+<hr/>
+<h3>Try Megam</h3>
+<div class="span-9 append-1">
+	<h4>Option 1: Free, Hosted Test Environment</h4>
+	<p class="environments">
+		To see how a live Megam cloud on cloud operates, you can play in the free sandbox by siging up an account 
+		<%= link_to signup_path %>. TryStack is a cloud built and managed by the OpenStack community to make evaluating OpenStack painless, particularly if you're developing a cloud app or want to see what the Dashboard looks like from an admin or end user perspective.
+	</p>	
+</div>
+<div class="span-9 last">
+	<h4>Option 2: Private Hosted Environment</h4>
+	<p class="environments">
+		For  developers that want to actually get involved in writing the next  version of OpenStack, there is a great tool called <a href="http://devstack.org/">DevStack</a> where a  complete cloud can be installed and run from your laptop (or even inside  of a VM on a cloud). Note: this option is more suited to python developers who want to eventually contribute code.
+	</p>
+	<p>
+		<a class="roundedButton" href="http://devstack.org/"><strong>Running DevStack</strong>: Quick Start</a>
+	</p>
+</div>
+<div class="span-19 last">
+	<div class="public-clouds">
+		<p>
+			<strong>Public Clouds:</strong> There are also OpenStack-powered public clouds in production across the world, including <a href="http://www.rackspace.com/">Rackspace</a>, <a href="http://www.enovance.com/">eNovance</a>, <a href="http://www.internap.com/">Internap</a> and <a href="https://www.hpcloud.com/">HP</a>, where you can see OpenStack in action.
+		</p>
+	</div>
+</div>
+<hr/>
+<h1 id="learn">Learn About OpenStack</h1>
+<div class="span-6">
+	<h4>OpenStack Documentation</h4>
+	<p>
+		Detailed OpenStack documentation, developer and administrator guides
+	</p>
+	<p>
+		<a class="roundedButton" href="http://docs.openstack.org/">OpenStack Documentation</a>
+	</p>
+</div>
+<div class="span-7">
+	<h4>OpenStack Forums</h4>
+	<p>
+		Ask questions, learn best practices and find support in OpenStack's user-moderated forums
+	</p>
+	<p>
+		<a class="roundedButton" href="http://forums.openstack.org/">OpenStack Forums</a>
+	</p>
+</div>
+<div class="span-6 last">
+	<h4>OpenStack User Stories</h4>
+	<p>
+		Read about other users who have been down the same path
+	</p>
+	<p>
+		<a class="roundedButton" href="/user-stories/">OpenStack User Stories</a>
+	</p>
+</div>
+<hr/>
+<h1 id="deploy">Deploy OpenStack</h1>
 <p>
-  Getting started.</a>.
+	When choosing an open source cloud operating system, a vibrant commercial ecosystem is key to the long term viability of your platform choice.  With OpenStack, there are over 180 participating companies and we encourage you to dig in and find the right path for you.
 </p>
+<h4>Distributions</h4>
+<div class="span-15">
+	<p>
+		To start, there are many ways to install and deploy OpenStack through software distributions, each of which add their own value to the cloud operating system. Software distributions powered by OpenStack include <a href="http://www.cloudscaling.com/solution/opencloud-os/">Cloudscaling</a>, <a href="http://wiki.openstack.org/Packaging/Debian">Debian</a>, <a href="http://fedoraproject.org/wiki/OpenStack">Fedora</a>, <a href="http://www.pistoncloud.com/openstack-cloud-software/">Piston Cloud Computing</a>, <a href="http://swiftstack.com/">SwiftStack</a>, <a href="http://wiki.openstack.org/Packaging/SUSE">SUSE</a>, <a href="https://help.ubuntu.com/community/UbuntuCloudInfrastructure">Ubuntu</a> and <a href="http://www.stackops.com/">Stackops</a>. To verify an OpenStack distribution, look for the logo on the right.
+	</p>
+</div>
+<div class="span-3 prepend-1 last"><img src="/themes/openstack/images/start/openstack-distribution.png" width="112" height="63"/>
+</div>
+<div class="span-12 last howto-guides">
+	<h4>Some Popular How-To Guides</h4>
+	<h4 class="documents">Ubuntu</h4>
+	<ul class="documents">
+		<li>
+			<a href="http://docs.openstack.org/trunk/openstack-compute/install/apt/content/">OpenStack Install and Deploy Manual - Ubuntu</a>
+		</li>
+		<li>
+			<a href="http://stackgeek.com/guides/gettingstarted.html">Installing OpenStack on Ubuntu 12.04 LTS in 10 Minutes</a>
+		</li>
+		<li>
+			<a href="http://www.hastexo.com/resources/docs/installing-openstack-essex-20121-ubuntu-1204-precise-pangolin">Installing OpenStack Essex (2012.1) on Ubuntu 12.04 (Precise Pangolin)</a>
+		</li>
+		<li>
+			<a href="http://www.rackspace.com/knowledge_center/getting-started/rackspace-private-cloud">Rackspace Private Cloud Getting Started Guide</a>
+		</li>
+		<li class="video">
+			<a href="http://www.youtube.com/watch?v=S18xVjKndQE">Video: OpenStack Essex Installation Walkthrough from Scratch Part1</a>
+		</li>
+	</ul><h4 class="documents">Red Hat Enterprise Linux / Fedora</h4>
+	<ul class="documents">
+		<li>
+			<a href="http://fedoraproject.org/wiki/Getting_started_with_OpenStack_EPEL">Getting Started with OpenStack EPEL</a>
+		</li>
+		<li>
+			<a href="http://docs.openstack.org/trunk/openstack-compute/install/yum/content/">Installing on Fedora or Red Hat Enterprise Linux 6</a>
+		</li>
+		<li>
+			<a href="http://docs.redhat.com/docs/en-US/Red_Hat_OpenStack_Preview/index.html">Red Hat OpenStack Preview - Getting Started Guide</a>
+		</li>
+	</ul>
+</div>
+<hr/>
+<h4>Companies Who Can Help</h4>
+<p>
+	There  are many service companies that bring OpenStack expertise to the table such as B1 Systems, Cloudscaling, CloudTP, Grid Dynamics, Mirantis and Rackspace Cloud Builders. If you are looking for someone to guide you through these choices, help you execute your cloud strategy and provide support, this is a great place to start.  Several of these companies such as Mirantis and Rackspace Cloud Builders also provide OpenStack training courses for cloud administrators.
+</p>
+<hr/>
+<h4>OpenStack Tools</h4>
+<div class="span-16">
+	<p>
+		Once you have your OpenStack cloud up and running, you'll want to explore the many tools available to help you manage it.  These are tools that talk to the OpenStack API and can be found by looking for the "Built for OpenStack" logo.  Popular tools for managing OpenStack clouds include Enstratus, New Relic, Scalr and Zenoss.
+	</p>
+</div>
+<div class="span-3 last"><img src="/themes/openstack/images/start/built-for-openstack.png" width="112" height="63"/>
+</div>
+<hr/>
+<h1>Next Steps</h1>
+<div class="span-6">
+	<h4>Do you have more questions?</h4>
+	<p>
+		OpenStack strives to be an extremely helpful community.
+	</p>
+	<p>
+		<a class="roundedButton" href="http://docs.openstack.org/">Email Us</a>
+	</p>
+</div>
+<div class="span-7">
+	<h4>Suggest an update to this guide</h4>
+	<p>
+		Know a company or resouce that should be listed here?
+	</p>
+	<p>
+		<a class="roundedButton" href="http://forums.openstack.org/">Let Us Know</a>
+	</p>
+</div>
+<div class="span-6 last">
+	<h4>Get involved with OpenStack</h4>
+	<p>
+		The wiki has a useful guide to contributing.
+	</p>
+	<p>
+		<a class="roundedButton" href="http://wiki.openstack.org/HowToContribute">How To Contribute</a>
+	</p>
+</div>

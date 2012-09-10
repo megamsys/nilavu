@@ -3,21 +3,20 @@
 	<div class="span3">
 		<div class="sidebar-nav">
 			<ul class="well nav nav-list">
-				
+
 				<% if current_user.admin %>
 				Admin
-									
+
 				<li class="nav-header">
 					Settings
 				</li>
-				
+
 				<li>
 					<%= link_to cloud_identity_path(current_user) do %>
 					<i class="icon-wrench"></i> Cloud Identity
 					<% end %>
 				</li>
-				
-				
+
 				<li>
 					<%= link_to cloud_app_path(current_user) do %>
 					<i class="icon-briefcase"></i> Cloud Applications
@@ -61,13 +60,10 @@
 			</ul>
 		</div>
 	</div>
-	<div class="span6 offset1">
-
-		
-		<h5>
-		<%- flash.each do |name, msg| -%>
-				<%= content_tag :div, msg, :id => "flash_#{name}" %>
-				<%- end -%> </h5>
+	<div class="span6">
+		<h5> <%- flash.each do |name, msg| -%>
+		<%= content_tag :div, msg, :id => "flash_#{name}" %>
+		<%- end -%> </h5>
 		<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
 		<!--	<%= content_for?(:content_settings1) ? yield(:content_settings1) : yield %>	-->
 	</div><!--/span6-->
