@@ -5,12 +5,10 @@
 <div class="span4">
 	<h2>Personal Info </h2>
 <table>
-
 	<tr><td><%= f.label :first_name %></td>
 	<td><%= f.text_field :first_name, :class => 'text_field', placeholder: "First Name" %></td></tr>
 	<tr><td><%= f.label :last_name %></td>
 	<td><%= f.text_field :last_name, :class => 'text_field', placeholder: "Last Name" %></td></tr>
-
 	<tr><td><%= f.label :phone %></td>
 	<td><%= f.text_field :phone, :class => 'text_field', placeholder: "Phone Number" %></td></tr>
 	<tr><td><%= f.label :email %></td>
@@ -18,23 +16,20 @@
 	<tr><td><%= f.label :password %></td>
 	<td><%= f.password_field :password, placeholder: "Password" %></td></tr>
 	<tr><td><%= f.label :password_confirmation, "Confirmation" %></td>
-	<td><%= f.password_field :password_confirmation, placeholder: "Confirm Password" %></td></tr>
-	<hr>
-	</hr>
+	<td><%= f.password_field :password_confirmation, placeholder: "Confirm Password" %></td></tr>	
 </table>
 	<% if !current_user.nil? && current_user.admin? %>
-	<p></p>
 	<%= f.fields_for :organization_attributes, @user.organization do |org_f| %>
-	<h2>Account Info </h2>
+	<h2>Account Info</h2>
 <table>
 	<tr><td><%= org_f.label :name, "Organization Name" %></td>
 	<td><%= org_f.text_field :name, placeholder: "Company Name" %></td></tr>
 	<tr><td><%= org_f.label :url %></td>
 	<td><%= org_f.text_field :url, placeholder: "URL" %></td></tr>
 	<tr><td><%= org_f.label :name, "Organization logo" %></td>
-	<td><%= org_f.file_field :logo, placeholder: "Logo" %></td></tr>
-	<br></br>
+	<td><%= org_f.file_field :logo, placeholder: "Logo" %></td></tr>	
 </table>
+    
 	<%= link_to "delete", @user, method: :delete,
 	data: { confirm: "You sure?" } %>
 	<br></br>

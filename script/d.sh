@@ -302,6 +302,8 @@ exitScript 0
 #also will perform the required cleanup.
 #--------------------------------------------------------------------------
 dbclean(){
+#remove products
+rake db:migrate:down VERSION=20120829143151
 #remove apps_items
 rake db:migrate:down VERSION=20120824094944
 #remove cloud_apps
@@ -331,6 +333,9 @@ rake db:migrate:up VERSION=20120817045502
 rake db:migrate:up VERSION=20120824063657
 #create apps_items
 rake db:migrate:up VERSION=20120824094944
+#create products
+rake db:migrate:up VERSION=20120829143151
+rake db:seed
 
 exitScript 0
 }

@@ -1,18 +1,9 @@
 <% content_for :content_settings do %>
 <% provide(:title, @user.first_name) %>
 
-
-
 <% if @user.organization %>
-<%= image_tag @user.organization.logo %>
-<br></br>
-<ol class="organization">
-	<%= render @user.organization %>
-	
-</ol>
-
+<%= render @user.organization %>
 <% else %>
-
 <div class="alert alert-warning">
 	<span class="label label-important">!</span>
 	<strong>Warning!</strong> Your account isn't complete. Kindly complete your profile before we could proceed further.

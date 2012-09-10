@@ -16,13 +16,19 @@
 					</li>
 					<% if signed_in? %>
 					<li>
-						<%= link_to current_user.first_name, current_user %>
+					<li>
+						<%= link_to current_user do %>
+						<i class="icon-home"></i> My dash
+						<% end %>
 					</li>
 					<li>
-						<%= link_to "Profile", edit_user_path(current_user) %>
-					</li>
-					<li>
-						<%= link_to "Sign out", signout_path, method: "delete" %>
+						<div class="btn-group">
+							<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><i class="icon-user"></i><%= current_user.first_name %> <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<%= link_to "Profile", edit_user_path(current_user) %>
+								<%= link_to "Sign out", signout_path, method: "delete" %>
+							</ul>
+						</div>
 					</li>
 					<% else %>
 					<li>
