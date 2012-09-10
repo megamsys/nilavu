@@ -61,9 +61,9 @@
 		</div>
 	</div>
 	<div class="span6">
-		<h5> <%- flash.each do |name, msg| -%>
+		<h3> <%- flash.each do |name, msg| -%>
 		<%= content_tag :div, msg, :id => "flash_#{name}" %>
-		<%- end -%> </h5>
+		<%- end -%> </h3>
 		<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
 		<!--	<%= content_for?(:content_settings1) ? yield(:content_settings1) : yield %>	-->
 	</div><!--/span6-->
