@@ -20,6 +20,7 @@ gem 'high_voltage','1.2.0'
 gem "therubyracer", '0.10.2'
 gem 'stomp', '~> 1.2.5'
 gem 'jquery-rails','2.1.1'
+gem 'aws-s3'
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', :require => 'bcrypt'
