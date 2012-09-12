@@ -4,7 +4,7 @@ class Organization < ActiveRecord::Base
     
     :storage => :s3,
     :s3_permissions => :public_read,
-    :s3_credentials => "#{RAILS_ROOT}/config/database.yml",
+    :s3_credentials => "config/database.yml",
     :s3_host_name => "s3-ap-southeast-1.amazonaws.com",
     :path => "/:id/:filename"
    
