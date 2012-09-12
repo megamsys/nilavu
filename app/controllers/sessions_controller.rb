@@ -31,6 +31,7 @@ class SessionsController < ApplicationController
       @identity = Identity.create_from_omniauth(auth)
     else
       @user = User.find_by_id(@identity.user_id)
+     logger.debug "Hai #{@identity.inspect} oi"
       if(@user.present?)
         logger.debug "Found user with id #{@identity.user_id}"
       @identity.user = @user

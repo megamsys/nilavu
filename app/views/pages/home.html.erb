@@ -5,9 +5,11 @@
 		Cloud IT at your doorstep...Let us drive and conquer your IT. Step right in..!
 		Try and gets your hands wet to enhance your IT for free.
 	</p>
+     <% if !current_user %>
 	<p>
 		<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary"%>
 	</p>
+     <% end %>
 </div>
 <div class="row">
 	<div class="span3">
