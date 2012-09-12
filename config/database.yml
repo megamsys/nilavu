@@ -11,10 +11,6 @@ development:
   username: megam
   password: team4megam
 
-  bucket: megam
-  access_key_id: AKIAJQYJB7IUCXKWIF4A
-  secret_access_key: 5CThMfu6BL9iSniO2EnwbPh1sZs9MLBzq+efobSo 
-
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
@@ -25,11 +21,6 @@ test:
   pool: 5
   username: meagam
   password: team4megam
-  
-  bucket: megam
-  access_key_id: AKIAJQYJB7IUCXKWIF4A
-  secret_access_key: 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
-
 
 production:
   adapter: postgresql
@@ -39,7 +30,5 @@ production:
   username: megam
   password: team4megam
 
-  bucket: megam
-  access_key_id: AKIAJQYJB7IUCXKWIF4A
-  secret_access_key: 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
+  
 
