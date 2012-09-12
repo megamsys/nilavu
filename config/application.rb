@@ -17,7 +17,7 @@ module Cloudauth
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
     # Autoload lib/ folder including all subdirectories
-    # config.autoload_paths += Dir["#{config.root}/lib", "#{config.root}/lib/**/", "#{Rails.root}/lib", "#{Rails.root}/lib/**/"]
+    config.autoload_paths += Dir["#{config.root}/lib", "#{config.root}/lib/**/", "#{Rails.root}/lib", "#{Rails.root}/lib/**/"]
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
