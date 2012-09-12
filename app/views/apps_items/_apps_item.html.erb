@@ -1,0 +1,21 @@
+
+<% @products = Product.all %>
+
+<table>
+<% @products.each do |product| %>
+
+
+<% if apps_item.product_id === product.id %>
+
+<tr><td> My App : </td> <td> <%= product.name %> </td></tr>
+<tr><td>My URL : </td> <td> <%= link_to product.name %></td></tr>
+
+<br></br>
+
+<% end %>
+
+<% end %>
+</table>
+
+
+

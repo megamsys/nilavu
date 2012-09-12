@@ -3,6 +3,13 @@
 
 <% if @user.organization %>
 <%= render @user.organization %>
+<hr></hr>
+<h3>Cloud Applications</h3>
+
+<% if @user.organization.cloud_app %>
+<%= render @user.organization.cloud_app.apps_items %>
+<% end %>
+
 <% else %>
 <div class="alert alert-warning">
 	<span class="label label-important">!</span>
@@ -13,9 +20,8 @@
 
 <%= link_to "Organization Details", edit_user_path(current_user) %>
 <% end %>
-<hr>
-</hr>
-Cloud Applications
+
+
 <% end %>
 <%= render :template => customizations_show_path %>
 

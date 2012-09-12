@@ -1,18 +1,15 @@
 <%= image_tag @user.organization.logo %>
 <div class="organizations">
-	<div class="span4">
-		<label for="name">Name:</label>
-		<span class="content"><%= organization.name %></span>
+	<table>	
+	<tr>
+               <td> <label for="name">Name:</label>  </td>
+	       <td> <span class="content"><%= organization.name %></span> </td>
+	</tr>
 
-	</div>
-	<div class="span4">
-		<label for="email">Account name:</label>
-		<span class="content"><%= organization.account_name %></span>
+	<tr>   <td> <label for="email">Account name:</label> </td>
+	       <td> <span class="content"><%= organization.account_name %></span> </td>
 
-	</div>
+	</tr>	
+	</table>
 
-	<div class="span4">
-		<label for="message">Status:</label>
-		<span class="content"><%= organization.active %></span>
-	</div>
 </div>

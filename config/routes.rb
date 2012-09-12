@@ -18,7 +18,8 @@ Cloudauth::Application.routes.draw do
   resources :apps_items
   
   match '/apps_items/destroy', to: 'apps_items#destroy'  
-
+  
+  
   match '/signup',  to: 'users#new'
 
   match '/update',  to: 'users#update'
