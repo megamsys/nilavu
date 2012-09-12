@@ -1,21 +1,28 @@
 
 <% @products = Product.all %>
 
-<table>
-<% @products.each do |product| %>
 
+<table class="table table-condensed">
+<% @products.each do |product| %>
 
 <% if apps_item.product_id === product.id %>
 
-<tr><td> My App : </td> <td> <%= product.name %> </td></tr>
-<tr><td>My URL : </td> <td> <%= link_to product.name %></td></tr>
-
-<br></br>
-
+<tr class="success">
+ <td>
+  <%= image_tag product.image_url, :size => "128x100" %>
+ </td> <dd></dd>
+ <td>
+  <h3><%= product.name %></h3>
+ </td> <dd></dd>
+ <td>
+  <h5><%= product.description %></h5>
+ </td> <dd></dd>
+ 
+</tr>
 <% end %>
 
-<% end %>
+
+<% end %> <!-- each product -->
 </table>
-
 
 
