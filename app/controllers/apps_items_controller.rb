@@ -12,7 +12,7 @@ end
 	product = Product.find(params[:product_id])
 	@apps_item = @user.organization.cloud_app.apps_items.build(:product => product) || AppsItem.new(params[:apps_item])
 	 @apps_item.save
-flash[:sucess] = "Created Apps_items"
+
     respond_to do |format|
       format.html { redirect_to @apps_item }
       format.js

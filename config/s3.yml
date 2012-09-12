@@ -1,9 +1,20 @@
+#This file is needed for 
 staging:
   bucket: megam
   access_key_id: AKIAJQYJB7IUCXKWIF4A
   secret_access_key: 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 
 
 production:
+  bucket: megam
+  access_key_id: AKIAJQYJB7IUCXKWIF4A
+  secret_access_key: 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
+
+development:
+  bucket: megam
+  access_key_id: AKIAJQYJB7IUCXKWIF4A
+  secret_access_key: 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
+
+test:
   bucket: megam
   access_key_id: AKIAJQYJB7IUCXKWIF4A
   secret_access_key: 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
