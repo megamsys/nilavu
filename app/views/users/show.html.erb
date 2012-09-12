@@ -4,8 +4,7 @@
 <% if @user.organization %>
 <%= render @user.organization %>
 <hr></hr>
-<h3>Cloud Applications</h3>
-
+<h2> My Cloud Applications </h2>
 <% if @user.organization.cloud_app %>
 <%= render @user.organization.cloud_app.apps_items %>
 <% end %>
