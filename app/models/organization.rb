@@ -6,7 +6,7 @@ class Organization < ActiveRecord::Base
     :s3_permissions => :public_read,
     :s3_credentials => "config/s3.yml",
     :s3_host_name => "s3-ap-southeast-1.amazonaws.com",
-    :path => "/:id/:filename"
+    :path => "dino/:id/:filename"
    
     
   validate :acc_name
