@@ -8,7 +8,7 @@ class Identity < ActiveRecord::Base
   def self.create_from_omniauth(auth, user = nil)
     user ||= User.create_from_auth_hash!(auth)
     user.save(:validate => false)
-    self.create(:user => user, :uid => auth['uid'], :provider => auth['provider'])
+    self.create(:users_id => user, :uid => auth['uid'], :provider => auth['provider'])
   end
 
 end
