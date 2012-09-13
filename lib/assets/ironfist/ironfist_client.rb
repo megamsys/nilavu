@@ -1,5 +1,5 @@
 require 'stomp'
-require './ironfist_common'
+require 'ironfist_common'
 
 class IronfistClient
   include Ironfist
