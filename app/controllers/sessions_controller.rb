@@ -30,13 +30,13 @@ class SessionsController < ApplicationController
     if @identity.nil?
       @identity = Identity.create_from_omniauth(auth)
     else
-      @user = User.find_by_id(@identity.user_id)
-     logger.debug "Hai #{@identity.inspect} oi"
+      @user = User.find_by_id(@identity.users_id)
+     logger.debug "Hai #{@user.inspect} oi"
       if(@user.present?)
-        logger.debug "Found user with id #{@identity.user_id}"
+        logger.debug "Found user with id #{@identity.users_id}"
       @identity.user = @user
       else
-        raise RecordNotFound, "Invalid user. Oops this might be a system error ! Inform the administrator."
+        raise "Invalid user. Oops this might be a system error ! Inform the administrator."
       end
     end
 
@@ -57,18 +57,19 @@ class SessionsController < ApplicationController
         redirect_to root_url, notice: "Successfully linked that account!"
       end
     else
-      if @identity.user.present?
+      #if @identity.user.present?
         # The identity we found had a user associated with it so let's
         # just log them in here
-        self.current_user = @identity.user
-        session[:user_id] = @identity.user_id
-        logger.debug "current_users email #{current_user.email} with #{current_user.id} identity user id #{@identity.user_id}"
+	
+        #current_user = @identity.user
+        #session[:user_id] = @identity.users_id
+        #logger.debug "current_users email #{current_user.email} with #{current_user.id} identity user id #{@identity.users_id}"
         #TO-DO: Change the redirection to the new page as required.
-        redirect_to customizations_show_url, notice: "Signed in!"
-      else
+        #redirect_to customizations_show_url, notice: "Signed in!"
+     # else
       # No user associated with the identity so we need to create a new one
         redirect_to new_user_url, notice: "Please finish registering"
-      end
+      #end
     end
   end
 

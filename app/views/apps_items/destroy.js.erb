@@ -1,6 +1,11 @@
-alert("WOOHOO");
+$('#RemoveButton').ajaxStart(function() {btn_remove();});	
 
 
 
+function btn_remove() {
+			
+		document.getElementById('RemoveButton').value=document.getElementById('AddButton').value;
+		
+	}
 
-
+	

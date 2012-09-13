@@ -1,3 +1,11 @@
-alert("WOOHOO");
+$('#AddButton').ajaxStart(function() {fireSpinner();}).ajaxStop(function() {fireSpinner();});	
 
-$("#AddButton").before('<h2 Hai />');
+
+
+function fireSpinner() {
+		
+		document.getElementById('AddButton').value=document.getElementById('RemoveButton').value;
+		
+	}
+
+	
