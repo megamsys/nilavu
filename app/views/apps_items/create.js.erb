@@ -1,11 +1,11 @@
-$('#AddButton').ajaxStart(function() {fireSpinner();}).ajaxStop(function() {fireSpinner();});	
+$('#AddButton').ajaxStart(function() {btnCreate();}).ajaxStop(function() {btnCreate();});	
 
 
 
-function fireSpinner() {
-		
+function btnCreate() {
+		$("#loading").show();
 		document.getElementById('AddButton').value=document.getElementById('RemoveButton').value;
 		
-	}
+	              }
 
 	
