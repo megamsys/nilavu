@@ -11,6 +11,9 @@
 	</div><!-- /.span 10-->
 	<div class="span10">
 		<div class="span5">
+		<h3> <%- flash.each do |name, msg| -%>
+		<%= content_tag :div, msg, :id => "flash_#{name}" %>
+		<%- end -%> </h3>
 		<%= render :partial => "users/user_fields_form" %>
 		</div>
 		<div class="span4">

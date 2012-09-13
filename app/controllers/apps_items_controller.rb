@@ -14,7 +14,7 @@ end
 	 @apps_item.save
 
     respond_to do |format|
-      format.html { redirect_to @apps_item }
+      format.html { redirect_to new_apps_item_path }
       format.js
     end	
      
@@ -29,7 +29,7 @@ end
     
    # redirect_to apps_item_path(current_user)
     respond_to do |format|
-      format.html { redirect_to @apps_item }
+      format.html { redirect_to new_apps_item_path }
       format.js
     end
   end

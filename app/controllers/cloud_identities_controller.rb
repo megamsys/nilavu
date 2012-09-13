@@ -4,14 +4,14 @@ class CloudIdentitiesController < ApplicationController
   end
 
   def new
-=begin
-@ironclient = Ironclient.new
+
+#@ironclient = Ironclient.new
 ir = IronfistClient.new
 tempparms = {:agent => "CloudIdentityAgent", :command => "listRealms", :message => "URL=http://nomansland.com REALM_NAME=temporealm"}
 ir.pub_and_wait(Ironfist::Init.instance.connection, tempparms,0) do |resp|
 puts "result #{resp}"
 end
-=end
+
     current_user.organization.build_cloud_identity
   end
 
@@ -20,8 +20,13 @@ end
 
     if @cloud_identity.save
       flash[:success] = "Cloud Identity Created with #{current_user.organization.account_name}"
-      redirect_to customizations_show_url
+      #redirect_to customizations_show_url
+   
+ respond_to do |format|
+      format.html { redirect_to customizations_show_url }
+      format.js
     end
+   end
   end
 
   def show
