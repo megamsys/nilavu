@@ -3,8 +3,10 @@ $('#AddButton').ajaxStart(function() {btnCreate();}).ajaxStop(function() {btnCre
 
 
 function btnCreate() {
-		$("#loading").show();
+      		
+		
 		document.getElementById('AddButton').value=document.getElementById('RemoveButton').value;
+		document.reload();
 		
 	              }
 

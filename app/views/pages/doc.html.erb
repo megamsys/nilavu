@@ -1,6 +1,89 @@
   
-<% provide(:title, 'Doc') %><br><br>
-<h1>Doc</h1><br><br>
+<% provide(:title, 'Document') %><br><br>
+<h1>Document</h1><br><br>
 <p>
-  Documenatation for our opensource projects.
+  <h2>Documenatation for our opensource projects</h2>
 </p>
+
+<h3>Try Megam</h3>
+<div class="span-10 last">
+	<h4>Sign Up</h4>
+	<p style="margin-left:10px">
+		To see how a live Megam cloud on cloud operates, you can play in the free sandbox by siging up an account 
+		<%= link_to "Sign Up", signup_path %>.
+		
+	</p>
+	<br></br>
+	<%= image_tag "megam-signup.png", :size => "800x800" %>
+	<br></br>
+<hr></hr>
+	<h4>Sign In</h4>
+        <p style="margin-left:10px">
+		If you are already a registered user, You can sign in here <%= link_to "Sign In", signin_path %>.
+		<br></br><h5>Note :</h5> You can also sign in through your social network identities like <%= link_to "Facebook", 		"http://www.facebook.com" %> , <%= link_to "Twitter", "http://www.twitter.com" %> , etc.
+	</p>
+	<br></br>
+	<%= image_tag "megam-signin.png", :size => "800x800" %>
+	<br></br>
+	<h4>Sign In through facebook</h4>
+	<%= image_tag "megam-fb-signin.png", :size => "800x800" %>
+	<br></br>
+<hr></hr>
+        <h4>Organization</h4>
+	<p style="margin-left:10px">
+		Before proceed on anything, first you have to register user's organization deatails by updating user.
+		<br></br><%= image_tag "megam-profile.png", :size => "800x800" %><br></br>
+		You can also update users profile and organization details by editing user's profile.
+		User's company logo will be stored in amazon-s3.
+	</p>
+<hr></hr>	
+<h5>Before proceed, please ensure that you've registered your organization details</h5>
+<hr></hr>
+	<h4>My dash</h4>
+	<p style="margin-left:10px">
+		My dash on the header is to show your Oraganization details and your cloud-applications.
+		<br></br><%= image_tag "megam-my_dash.png", :size => "800x800" %><br></br>
+	</p>
+<hr></hr>
+	<h4>Cloud Identity</h4>
+	<p style="margin-left:10px">
+		You can create your own cloud identity by just a click using ironfist.
+		<br></br><%= image_tag "megam-create_identity.png", :size => "800x800" %><br></br>
+	</p>
+<hr></hr>
+	<h4>Cloud Applications</h4>
+	<p style="margin-left:10px">
+		List of cloud applications will be sown to the user. The user can add as many he wants. Identity will be provided to the users, for each selected cloud applications. Cloud application's links will be shown in my-dash. After he added the cloud applications, if he wants to remove, he can do so. 
+	<br></br><%= image_tag "megam-mycloud_apps.png", :size => "800x800" %><br></br>
+</div>
+
+
+<br></br>
+<h1>Next Steps</h1>
+<div class="span-10">
+	<h4>Do you have more questions?</h4>
+	<p>
+		OpenStack strives to be an extremely helpful community.
+	</p>
+	<p>
+		<a class="roundedButton" href="http://docs.openstack.org/">Email Us</a>
+	</p>
+</div>
+<div class="span-10">
+	<h4>Suggest an update to this guide</h4>
+	<p>
+		Know a company or resouce that should be listed here?
+	</p>
+	<p>
+		<a class="roundedButton" href="http://forums.openstack.org/">Let Us Know</a>
+	</p>
+</div>
+<div class="span-10 last">
+	<h4>Get involved with OpenStack</h4>
+	<p>
+		The wiki has a useful guide to contributing.
+	</p>
+	<p>
+		<a class="roundedButton" href="http://wiki.openstack.org/HowToContribute">How To Contribute</a>
+	</p>
+</div>

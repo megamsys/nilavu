@@ -1,13 +1,11 @@
-$('#RemoveButton').ajaxStart(function() {btnRemove();});	
+$('#RemoveButton').ajaxStart(function() {btnRemove();}).ajaxStop(function() {btnRemove();});	
 
 
 
 function btnRemove() {
-
-		$("#loading").show();
-	
-		document.getElementById('RemoveButton').value=document.getElementById('AddButton').value;
 		
+		document.getElementById('RemoveButton').value=document.getElementById('AddButton').value;
+		document.reload();
 	              
 
 		     }
