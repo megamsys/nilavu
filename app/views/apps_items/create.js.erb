@@ -1,11 +1,7 @@
-$('#AddButton').ajaxStart(function() {btnCreate();}).ajaxStop(function() {btnCreate();});	
-
-
+$('#AddButton').ajaxStart(function() {btnCreate();}).ajaxStop(function() {btnCreate();});
 
 function btnCreate() {
-		$("#loading").show();
-		document.getElementById('AddButton').value=document.getElementById('RemoveButton').value;
-		
-	              }
+$("#loading").show();
+document.getElementById('AddButton').value=document.getElementById('RemoveButton').value;
+}
 
-	
