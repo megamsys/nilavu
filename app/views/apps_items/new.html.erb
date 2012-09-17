@@ -1,7 +1,7 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'New Apps_Item') %>
 
-<meta http-equiv="refresh" content="8;url=new">
+
 <h2> My Cloud Applications </h2>
 <table class="table table-condensed">
 <% @products.each do |product| %>
@@ -20,8 +20,7 @@
   <% current_user.organization.cloud_app.apps_items.each do |ai| %>
      
       <% if ai.product_id === product.id %>
-	
-	<%= button_to 'Remove', apps_items_destroy_path(:id => ai.id), :method => :destroy, :remote => true, :id => "RemoveButton" %>
+	<%= button_to 'Remove', apps_items_destroy_path(:id => ai.id), :method => :destroy, :remote => true, :id => "RemoveButton", :class => 'btn suceess'  %>
 	
 	
        <% product.description = 1 %>
@@ -30,7 +29,7 @@
       <% end %>
      <% end %>
 <% if product.description != 1 %>
-<%= button_to 'Add', apps_items_path(:product_id => product), :remote => true, :id => "AddButton" %>
+<%= button_to 'Add', apps_items_path(:product_id => product), :remote => true, :id => "AddButton", :class => 'btn success' %>
 <% end %>
 
  </td>
