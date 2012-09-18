@@ -3,10 +3,11 @@ $('#RemoveButton').ajaxStart(function() {btnRemove();}).ajaxStop(function() {btn
 
 
 function btnRemove() {
-		$('.btnLoad').show();
+		
 		document.getElementById('RemoveButton').value=document.getElementById('AddButton').value;
+		
 		document.reload();
-	              
+	            
 
 		     }
 

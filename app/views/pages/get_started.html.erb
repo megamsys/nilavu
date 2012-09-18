@@ -1,96 +1,129 @@
 <% provide(:title, 'Get Started') %>
-<h2>How To Get Started With Megam</h2>
-<hr></hr>
-<h3>Try Megam</h3>
-<div class="span-10 last">
-	<h4>Sign Up</h4>
+
+<hr/><h1>How To Get Started With Megam</h1>
+
+<hr/><h3>Try Megam</h3>
+<div class="row">
+<div class="span5">
+	<h4>Option 1: Free, Hosted Test Environment</h4>
+	<p class="environments">
+		To see how a live Megam cloud on cloud operates, you can play in the free sandbox by siging up an account 
+		<%= link_to "Sign Up", signup_path %>. TryStack is a cloud built and managed by the OpenStack community to make evaluating OpenStack painless, particularly if you're developing a cloud app or want to see what the Dashboard looks like from an admin or end user perspective.</p>
+		
+</div>
+<div class="span5">
+	<h4>Option 2: Private Hosted Environment</h4>
+	<p class="environments">
+		For  developers that want to actually get involved in writing the next  version of OpenStack, there is a great tool called <a href="http://devstack.org/">DevStack</a> where a  complete cloud can be installed and run from your laptop (or even inside  of a VM on a cloud). Note: this option is more suited to python developers who want to eventually contribute code.</p>
+	
+	
+	<p><%= button_to 'Running DevStack', 'http://indykish.wordpress.com/', :class => 'btn btn-info' %><br/></p>
+	
+</div>
+</div>
+
+<hr/><h1>Learn About Megam</h1><hr/>
+
+<div class="row">
+ <div class="span5">
+	<h4>Megam Documentation</h4>
+	
+		<p>Detailed Megam documentation, developer and administrator guides
+		<%= button_to 'Megam Documentation', page_path("doc"), :class => 'btn btn-info' %><br/></p>
+	
+ </div>
+ <div class="span5">
+	<h4>OpenStack Forums</h4>
+	<p>
+		Ask questions, learn best practices and find support in OpenStack's user-moderated forums
+		<%= button_to 'OpenStack Forums', 'http://forums.openstack.org/', :class => 'btn btn-info' %><br/>
+	</p>
+ </div>
+</div>
+
+<hr/><h1>Steps to follow in Megam</h1><hr/>
+	<h3>Sign Up</h3>
 	<p style="margin-left:10px">
 		To see how a live Megam cloud on cloud operates, you can play in the free sandbox by siging up an account 
 		<%= link_to "Sign Up", signup_path %>.
 		
-	</p>
+	
 	<br></br>
 	<%= image_tag "megam-signup.png", :size => "800x800" %>
-	<br></br>
-<hr></hr>
-	<h4>Sign In</h4>
-        <p style="margin-left:10px">
-		If you are already a registered user, You can sign in here <%= link_to "Sign In", signin_path %>.
-		<br></br><h5>Note :</h5> You can also sign in through your social network identities like <%= link_to "Facebook", 		"http://www.facebook.com" %> , <%= link_to "Twitter", "http://www.twitter.com" %> , etc.
-	</p>
+	<br></br></p>
+
+	<hr/><h3>Sign In</h3>
+	<hr/><div class="alert alert-success">
+       	  <p>If you are already a registered user, You can sign in here <%= link_to "Sign In", signin_path %>.</p>
+	</div>
+	<hr/><div class="alert alert-success">
+		<p><h5>Note :</h5> You can also sign in through your social network identities like <%= link_to "Facebook", "http://www.facebook.com" %> , <%= link_to "Twitter", "http://www.twitter.com" %> , etc.</p>
+	</div>
 	<br></br>
 	<%= image_tag "megam-signin.png", :size => "800x800" %>
 	<br></br>
-	<h4>Sign In through facebook</h4>
+	<hr/><h3>Sign In through facebook</h3>
 	<%= image_tag "megam-fb-signin.png", :size => "800x800" %>
-	<br></br>
-<hr></hr>
-        <h4>Organization</h4>
+	<br></br></p>
+
+        <hr/><h3>Organization</h3>
 	<p style="margin-left:10px">
 		Before proceed on anything, first you have to register user's organization deatails by updating user.
-		<br></br><%= image_tag "megam-profile.png", :size => "800x800" %><br></br>
-		You can also update users profile and organization details by editing user's profile.
-		User's company logo will be stored in amazon-s3.
-	</p>
-<hr></hr>	
-<h5>Before proceed, please ensure that you've registered your organization details</h5>
-<hr></hr>
-	<h4>My dash</h4>
+		<br></br><%= image_tag "megam-profile.png", :size => "800x800" %><br></br></p>
+	<hr/><div class="alert alert-success">	
+		<p><h5>You can also update users profile and organization details by editing user's profile.
+		User's company logo will be stored in amazon-s3.</h5></p>
+	</div>
+	<hr/><div class="alert alert-success">
+		<p><h5>Before proceed, please ensure that you've registered your organization details</h5></p>
+	</div>	
+
+	<hr/><h3>My dash</h3>
 	<p style="margin-left:10px">
 		My dash on the header is to show your Oraganization details and your cloud-applications.
-		<br></br><%= image_tag "megam-my_dash.png", :size => "800x800" %><br></br>
-	</p>
-<hr></hr>
-	<h4>Cloud Identity</h4>
+		<br></br><%= image_tag "megam-my_dash.png", :size => "800x800" %><br></br></p>
+	
+
+	<hr/><h3>Cloud Identity</h3>
 	<p style="margin-left:10px">
 		You can create your own cloud identity by just a click using ironfist.
-		<br></br><%= image_tag "megam-create_identity.png", :size => "800x800" %><br></br>
-	</p>
-<hr></hr>
-	<h4>Cloud Applications</h4>
+		<br></br><%= image_tag "megam-create_identity.png", :size => "800x800" %><br></br></p>
+	
+
+	<hr/><h3>Cloud Applications</h3>
 	<p style="margin-left:10px">
 		List of cloud applications will be sown to the user. The user can add as many he wants. Identity will be provided to the users, for each selected cloud applications. Cloud application's links will be shown in my-dash. After he added the cloud applications, if he wants to remove, he can do so. 
-	<br></br><%= image_tag "megam-mycloud_apps.png", :size => "800x800" %><br></br>
-</div>
+	<br></br><%= image_tag "megam-mycloud_apps.png", :size => "800x800" %><br></br></p>
 
+<hr/><h1>Next Steps</h1><hr/>
+<div class="row">
+<div class="span3">
 
-<br></br>
-
-<hr></hr>
-
-<h1>Next Steps</h1>
-<hr></hr>
-<div class="span-10">
 	<h4>Do you have more questions?</h4>
-	<p>
-		Megam strives to be an extremely helpful community.
 	
-		<a class="roundedButton" href="http://docs.openstack.org/">Email Us</a><br></br>
-	</p>
+		<p>Megam strives to be an extremely helpful community.
+		<%= button_to 'Email Us', 'mailto:admin@megam.co.in', :class => 'btn btn-info' %></p>
+	
 </div>
-<br></br>
 
-<div class="span-10">
+<div class="span3">
 	<h4>Suggest an update to this guide</h4>
-	<p>
-		Know a company or resouce that should be listed here?
 	
-		<a class="roundedButton" href="http://forums.openstack.org/">Let Us Know</a><br></br>
-	</p>
+		<p>Know a company or resouce that should be listed here?
+		<%= button_to 'Let Us Know', 'http://forums.openstack.org/', :class => 'btn btn-info' %></p>
+		 
+	
 </div>
-<br></br>
 
-<div class="span-10">
+<div class="span3">
+
 	<h4>Get involved with Megam</h4>
-	<p>
-		The wiki has a useful guide to contributing.
+	<p>The wiki has a useful guide to contributing.<%= button_to 'How to contribute', 'http://indykish.wordpress.com/', :class => 'btn btn-info' %></p>
 	
-		<a class="roundedButton" href="http://wiki.openstack.org/HowToContribute">How To Contribute</a><br></br>
-	</p>
-
-
 </div>
-<br></br>
+</div>
 
 
-<hr></hr>
+
+
+
