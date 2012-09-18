@@ -1,50 +1,30 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'New Apps_Item') %>
 
-
 <h2> My Cloud Applications </h2>
 <table class="table table-condensed">
-<% @products.each do |product| %>
-<tr class="success">
- <td>
-  <%= image_tag product.image_url, :size => "128x100" %>
- </td> <dd></dd>
- <td>
-  <h3><%= product.name %></h3>
- </td> <dd></dd>
- <td>
-  <h5><%= product.description %></h5>
- </td> <dd></dd>
- <td>
-  
-  <% current_user.organization.cloud_app.apps_items.each do |ai| %>
-     
-      <% if ai.product_id === product.id %>
-	<%= button_to 'Remove', apps_items_destroy_path(:id => ai.id), :method => :destroy, :remote => true, :id => "RemoveButton" %>
-	
-	
-       <% product.description = 1 %>
-      
-        
-      <% end %>
-     <% end %>
-<% if product.description != 1 %>
-<%= button_to 'Add', apps_items_path(:product_id => product), :remote => true, :id => "AddButton" %>
-<% end %>
+	<% @products.each do |product| %>
+	<tr class="success">
+		<td> <%= image_tag product.image_url, :size => "128x100" %> </td><dd></dd>
+		<td><h3><%= product.name %></h3></td><dd></dd>
+		<td><h5><%= product.description %></h5></td><dd></dd>
+		<td> <% current_user.organization.cloud_app.apps_items.each do |ai| %>
 
- </td>
+		<% if ai.product_id === product.id %>
+		<%= button_to 'Remove', apps_items_destroy_path(:id => ai.id), :method => :destroy, :remote => true, :id => "RemoveButton" %>
 
-</tr>
+		<% product.description = 1 %>
 
+		<% end %>
+		<% end %>
+		<% if product.description != 1 %>
+		<%= button_to 'Add', apps_items_path(:product_id => product), :remote => true, :id => "AddButton" %>
+		<% end %> </td>
 
+	</tr>
 
-<% end %> <!-- each product -->
+	<% end %> <!-- each product -->
 </table>
-
-
 
 <% end %>
 <%= render :template => customizations_show_path %>
-
-
-
