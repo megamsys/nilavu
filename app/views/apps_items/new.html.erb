@@ -20,7 +20,7 @@
   <% current_user.organization.cloud_app.apps_items.each do |ai| %>
      
       <% if ai.product_id === product.id %>
-	<%= button_to 'Remove', apps_items_destroy_path(:id => ai.id), :method => :destroy, :remote => true, :id => "RemoveButton", :class => 'btnLoad'  %>
+	<%= button_to 'Remove', apps_items_destroy_path(:id => ai.id), :method => :destroy, :remote => true, :id => "RemoveButton" %>
 	
 	
        <% product.description = 1 %>
@@ -29,7 +29,7 @@
       <% end %>
      <% end %>
 <% if product.description != 1 %>
-<%= button_to 'Add', apps_items_path(:product_id => product), :remote => true, :id => "AddButton", :class => 'btnLoad' %>
+<%= button_to 'Add', apps_items_path(:product_id => product), :remote => true, :id => "AddButton" %>
 <% end %>
 
  </td>
