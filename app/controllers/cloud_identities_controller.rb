@@ -32,7 +32,7 @@ end
   def show
     @user = User.find(params[:id])
     if !@user.organization
-      flash[:error] = "Pleae Create Organization Details first"
+      flash[:error] = "Please Create Organization Details first"
       redirect_to edit_user_path(current_user)
     end
   end
