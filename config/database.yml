@@ -23,7 +23,7 @@ test:
   encoding: unicode
   database: cocdb
   pool: 5
-  username: meagam
+  username: megam
   password: team4megam
   
   bucket: megam
