@@ -4,7 +4,7 @@ gem 'rails', '3.2.8'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
-
+gem 'jquery-ui-rails'
 gem 'pg', '0.14.1'
 gem 'omniauth-twitter','0.0.13'
 gem 'omniauth-facebook','1.4.1'
