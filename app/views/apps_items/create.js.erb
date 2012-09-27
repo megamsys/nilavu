@@ -1,9 +1,6 @@
-$('#AddButton').ajaxStart(function() {btnCreate();}).ajaxStop(function() {btnCreate();});
-
-function btnCreate() {
-
-document.getElementById('AddButton').value=document.getElementById('RemoveButton').value;
-document.reload();
-
-}
-
+$('btn').click(function() {
+	alert("btn clicked")
+  $(this).hide();
+  $("#btnLoad").show();
+  return false;
+});
