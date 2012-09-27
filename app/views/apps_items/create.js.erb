@@ -1,9 +1,6 @@
-$('#AddButton').ajaxStart(function() {btnCreate();}).ajaxStop(function() {btnCreate();});
+    $('#AddButton').hide();
+    $(this).html('<ul><%= escape_javascript render :partial => "apps_items/remove_button", :locals => {:apps_item_el => @apps_item, :product => @product} %></ul>');
+	
 
-	function btnCreate() {
-
-		document.getElementById('AddButton').value=document.getElementById('RemoveButton').value;
-		document.reload();
-
-				}
+   $(this).show();
 
