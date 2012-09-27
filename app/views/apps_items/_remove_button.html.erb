@@ -1,0 +1,4 @@
+<%= button_to 'Remove', apps_items_destroy_path(:id => apps_item_el.id), :method => :destroy, :remote => true, :form => {:"data-spinner" => "#user_form_spinner"}, :id => "RemoveButtton", :class => "btn success" %> <%= spinner_tag 'user_form_spinner' %>
+
+
+

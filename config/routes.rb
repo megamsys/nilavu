@@ -16,7 +16,8 @@ Cloudauth::Application.routes.draw do
   resources :cloud_identities
   resources :cloud_apps
   resources :apps_items
-  
+  resources :connectors
+
   match '/apps_items/destroy', to: 'apps_items#destroy'  
   
   

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120829143151) do
+ActiveRecord::Schema.define(:version => 20120927095902) do
 
   create_table "apps_items", :force => true do |t|
     t.integer  "cloud_app_id"
@@ -41,6 +41,16 @@ ActiveRecord::Schema.define(:version => 20120829143151) do
   end
 
   add_index "cloud_identities", ["org_id"], :name => "index_cloud_identities_on_org_id"
+
+  create_table "connectors", :force => true do |t|
+    t.string   "salesforce_consumer_key"
+    t.string   "salesforce_consumer_secret"
+    t.integer  "cloud_app_id"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  add_index "connectors", ["cloud_app_id"], :name => "index_connectors_on_cloud_app_id"
 
   create_table "identities", :force => true do |t|
     t.integer  "users_id"

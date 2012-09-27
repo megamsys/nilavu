@@ -22,3 +22,8 @@ module ApplicationHelper
   end
 end
 
+
+def spinner_tag id
+  #Assuming spinner image is called "spinner.gif"
+  image_tag("spinner.gif", :size => "80x500", :id => id, :alt => "Loading....", :style => "display:none")
+end
