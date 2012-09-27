@@ -3,37 +3,49 @@
 
 <h2> My Connectors </h2>
 
-<div class="navbar-inner">
+<div id="toolbar" class="navbar-inner">
 
-<% @products.each do |product| %>
-<% @apps_item.each do |apps_item_el| %>
+	<% @products.each do |product| %>
+	<% @apps_item.each do |apps_item_el| %>
 
-		<% if apps_item_el.product_id === product.id %>
-			
-			<%= image_tag product.image_url, :alt => "Megam", :size => "50x50" %>
-		<% end %>
-<% end %>
-<% end %>
-</div><br/>
+	<% if apps_item_el.product_id === product.id %>
 
-<style type="text/css">
-			#new-dropcontainer {
-				width: 500px;
-				height: 500px;
-				padding: 10px;
-				border: 1px solid #aaaaaa;
-			}
-		</style>
+	<%= image_tag product.image_url, :id => product.name, :alt => "Megam", :size => "50x50" %>
+	<% end %>
+	<% end %>
+	<% end %>
+</div>
+<br/>
 
+<div id="new-dropcontainer" class="span2">
+	<ul>
 
+	</ul>
+</div>
+<div id="right" class="span1 rit">
 
+</div>
 
-<div id="new-dropcontainer" class="span4">
-			<ul>
+<div id="example" class="sforce">
 
-			</ul>
-		</div>
+	<h3>This is a Modal Heading</h3>
 
+	<p>
+
+	</p>
+	<select name="category[id]" id="category_id">
+		<option value="ZOHO">ZOHO</option>
+		<option selected="selected" value="Salesforce" >Salesforce</option>
+	</select>
+
+	<p>
+		You can add some text here.
+	</p>
+
+	<a href="#" class="btn btn-success">ok</a>
+	<a href="#" class="btn" data-dismiss="modal">Close</a>
+
+</div>
 
 <% end %>
 <%= render :template => customizations_show_path %>
