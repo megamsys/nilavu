@@ -8,17 +8,16 @@
 		<td> <%= image_tag product.image_url, :size => "128x100" %> </td><dd></dd>
 		<td><h3><%= product.name %></h3></td><dd></dd>
 		<td><h5><%= product.description %></h5></td><dd></dd>
-		<td> <% current_user.organization.cloud_app.apps_items.each do |ai| %>
+		<td>
+	 <% @apps_item.each do |apps_item_el| %>
 
-		<% if ai.product_id === product.id %>
-		<%= button_to 'Remove', apps_items_destroy_path(:id => ai.id), :method => :destroy, :remote => true, :id => "RemoveButton" %>
-
-		<% product.description = 1 %>
-
+		<% if apps_item_el.product_id === product.id %>
+			<%= render :partial => "apps_items/remove_button", :locals => {:apps_item_el => apps_item_el, :product => product} %>
+			
 		<% end %>
 		<% end %>
 		<% if product.description != 1 %>
-		<%= button_to 'Add', apps_items_path(:product_id => product), :remote => true, :id => "AddButton" %>
+			<%= render :partial => "apps_items/add_button", :locals => {:product => product} %>
 		<% end %> </td>
 
 	</tr>

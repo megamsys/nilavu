@@ -1,0 +1,39 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'New Connectors') %>
+
+<h2> My Connectors </h2>
+
+<div class="navbar-inner">
+
+<% @products.each do |product| %>
+<% @apps_item.each do |apps_item_el| %>
+
+		<% if apps_item_el.product_id === product.id %>
+			
+			<%= image_tag product.image_url, :alt => "Megam", :size => "50x50" %>
+		<% end %>
+<% end %>
+<% end %>
+</div><br/>
+
+<style type="text/css">
+			#new-dropcontainer {
+				width: 500px;
+				height: 500px;
+				padding: 10px;
+				border: 1px solid #aaaaaa;
+			}
+		</style>
+
+
+
+
+<div id="new-dropcontainer" class="span4">
+			<ul>
+
+			</ul>
+		</div>
+
+
+<% end %>
+<%= render :template => customizations_show_path %>
