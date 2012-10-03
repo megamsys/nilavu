@@ -47,12 +47,20 @@ $(document).ready(function() {
 		console.log('complete');
 	}).live("ajax:error", function(xhr, status, error) {
 		console.log('error ' + error + "status="+ status);
+
+		var errorStr = "An error occurred when the attemping an ajax request. [status :"
+				+ xhr.status
+				+ ",   Status Text :"
+				+ xhr.status
+				+ ",   Exception :" + error + "]";
+		console.log('Error ' + errorStr);
 	});
 });
 
 function removeForm(current_row) {
 	console.log('removeForm ' + current_row);
 	$(current_row).remove();
+		console.log('removed ' + current_row);
 }
 
 function insertContent(loc,content) {
