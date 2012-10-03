@@ -8,6 +8,7 @@ Cloudauth::Application.routes.draw do
   match 'pages/doc' => 'high_voltage/pages#show', :id => 'doc'
   match 'pages/about' => 'high_voltage/pages#show', :id => 'about'
   match 'pages/contribute' => 'high_voltage/pages#show', :id => 'contribute'
+ 
   
   resources :users
   resources :sessions
@@ -19,6 +20,7 @@ Cloudauth::Application.routes.draw do
   resources :connectors
 
 
+ 
   
   match '/signup',  to: 'users#new'
 
@@ -31,5 +33,7 @@ Cloudauth::Application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: :delete
 
   match '/auth/:provider/callback', :to => 'sessions#create'
+  
+  
 
 end
