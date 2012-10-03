@@ -1,4 +1,5 @@
-    $('#AddButton').hide();
-    $(this).html('<ul><%= escape_javascript render :partial => "apps_items/remove_button", :locals => {:apps_item_el => @apps_item, :product => @product} %></ul>');
-  $(this).show();
+removeForm("#{#product_#{@product.id}}");
+$("#product_#{@product.id}").fadeOut();
 
+content = escape_javascript(render :partial => "apps_items/add_button", :locals => {:product => @product})
+insertContent(".btn","#{content}");

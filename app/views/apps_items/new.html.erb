@@ -1,29 +1,22 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'New Apps_Item') %>
-
 <h2> My Cloud Applications </h2>
 <table class="table table-condensed">
 	<% @products.each do |product| %>
-	<tr class="success">
+	<tr class="success" , id="<%= dom_id(product) %>">
 		<td> <%= image_tag product.image_url, :size => "128x100" %> </td><dd></dd>
 		<td><h3><%= product.name %></h3></td><dd></dd>
 		<td><h5><%= product.description %></h5></td><dd></dd>
-		<td>
-	 <% @apps_item.each do |apps_item_el| %>
-
+		<td> <% @apps_item.each do |apps_item_el| %>
 		<% if apps_item_el.product_id === product.id %>
-			<%= render :partial => "apps_items/remove_button", :locals => {:apps_item_el => apps_item_el, :product => product} %>
-			
+		<%= render :partial => "apps_items/remove_button", :locals => {:apps_item_el => apps_item_el, :product => product} %>
 		<% end %>
 		<% end %>
 		<% if product.description != 1 %>
-			<%= render :partial => "apps_items/add_button", :locals => {:product => product} %>
-		<% end %> </td>
-
+		<%= render :partial => "apps_items/add_button", :locals => {:product => product} %>		<% end %> </td>
 	</tr>
 
 	<% end %> <!-- each product -->
 </table>
-
 <% end %>
 <%= render :template => customizations_show_path %>
