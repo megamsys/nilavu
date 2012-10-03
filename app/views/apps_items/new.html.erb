@@ -3,7 +3,7 @@
 <h2> My Cloud Applications </h2>
 <table class="table table-condensed">
 	<% @products.each do |product| %>
-	<tr class="success" , id="<%= dom_id(product) %>">
+	<tr class="success" >
 		<td> <%= image_tag product.image_url, :size => "128x100" %> </td><dd></dd>
 		<td><h3><%= product.name %></h3></td><dd></dd>
 		<td><h5><%= product.description %></h5></td><dd></dd>
