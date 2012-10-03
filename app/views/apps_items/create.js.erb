@@ -1,12 +1,3 @@
-
-   
-	
-
-   
-
-removeForm("#{#product_#{@product.id}}");
-$("#product_#{@product.id}").fadeOut();
-
-
-content = escape_javascript(render :partial => "apps_items/add_button", :locals => {:product => @product})
-insertContent(".btn","#{content}");
+var product_id = "#product_#{@product.id}";
+removeForm(product_id);
+$(product_id).fadeIn();
