@@ -28,17 +28,17 @@
 
 <div id="example" class="sforce">
 
-	<%= form_for @connector do |f| %>
+	<%= form_for current_user.organization.cloud_app.connectors do |f| %>
 	<h3>This is a Modal Heading</h3>
 	<select name="category[id]" id="category_id">
 		<option value="ZOHO">ZOHO</option>
 		<option selected="selected" value="Salesforce" >Salesforce</option>
 	</select>
       <table>
-	<tr><td><%= f.label :consumer_key %></td>
-	<td><%= f.text_field :salesforce_consumer_key, :class => 'text_field', placeholder: "ConsumerKey" %></td></tr>
-	<tr><td><%= f.label :secret_key %></td>
-	<td><%= f.text_field :salesforce_consumer_secret, :class => 'text_field', placeholder: "SecretKey" %></td></tr>
+	<tr><td><%= f.label :salesforce_consumer_key %></td>
+	<td><%= f.text_field :salesforce_consumer_key, placeholder: "ConsumerKey" %></td></tr>
+	<tr><td><%= f.label :salesforce_consumer_secret %></td>
+	<td><%= f.text_field :salesforce_consumer_secret, placeholder: "SecretKey" %></td></tr>
 	</table>
 	<p>
 		You can add some text here.
