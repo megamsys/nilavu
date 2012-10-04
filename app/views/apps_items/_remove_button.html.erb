@@ -1,6 +1,5 @@
-<%= link_to "Remove", apps_items_destroy_path(:id => apps_item_el.id,:product_id => apps_item_el.product_id), class: "btn btn-primary",  :remote => true,:method => :delete, data: { spinner: '#user_form_spinner'} %>
+<%= link_to "Remove", apps_items_destroy_path(:id => apps_item_el.id,:product_id => apps_item_el.product_id), class: "btn btn-primary",  :remote => true,:method => :delete, data: { spinner: '#'+ dom_id(product) + '_user_form_spinner'} %>
 
 <% product.description=1 %>	
 
-<%= spinner_tag 'user_form_spinner' %>
-</div>
+<%= spinner_tag dom_id(product) + '_user_form_spinner' %>
