@@ -8,19 +8,20 @@ class AppsItemsController < ApplicationController
   end
 
   def create
-    @user = current_user
-	
-    product = Product.find(params[:product_id])
-    sleep 5 
-    logger.debug "create -> product #{product.id}"
-    @apps_item = @user.organization.cloud_app.apps_items.build(:product => product) || AppsItem.new(params[:apps_item])
+    @user = current_user	
+    @product = Product.find(params[:product_id])
+    logger.debug "creating an item for product -> #{@product.id}"
+    sleep 1 
+    @apps_item = @user.organization.cloud_app.apps_items.build(:product => @product) || AppsItem.new(params[:apps_item])
     @apps_item.save
-    respond_with( @apps_item, product, :layout => !request.xhr? )
+    respond_with( @apps_item,@product, :layout => !request.xhr? )
   end
 
   def destroy
-    logger.debug "testing - inside destroy"
-	  sleep 5
+    logger.debug "destroying an item for apps item -> #{params}"
+	  sleep 1
     current_user.organization.cloud_app.apps_items.find(params[:id]).destroy
+     @product = Product.find(params[:product_id])
+    respond_with(@product, :layout => !request.xhr? )
   end
 end
