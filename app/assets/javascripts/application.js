@@ -42,11 +42,12 @@ $(document)
 							.live('ajax:beforeSend', function(e) {
 								console.log('before');
 								$($(this).data('spinner')).show();
-								e.stopPropagation(); // Don't show spinner of
+								//e.stopPropagation(); // Don't show spinner of
 														// parent elements.
 							})
 							.live('ajax:complete', function() {
 								$($(this).data('spinner')).hide();
+								console.log('complete No argument');
 							})
 							.live("ajax:success", function(xhr, data, status) {
 								$($(this).data('spinner')).hide();
