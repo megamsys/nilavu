@@ -42,8 +42,11 @@ $(document)
 							.live('ajax:beforeSend', function(e) {
 								console.log('before');
 								$($(this).data('spinner')).show();
-								//e.stopPropagation(); // Don't show spinner of
-														// parent elements.
+
+
+								e.stopPropagation(); // Don't show spinner of
+								// parent elements.
+
 							})
 							.live('ajax:complete', function() {
 								$($(this).data('spinner')).hide();
@@ -93,7 +96,7 @@ function insertAt(location, content_to_insert) {
 jQuery(document)
 		.ready(
 				function() {
-					$("#example").hide();
+					$("#connector_form").hide();
 
 					jQuery("#my-collapse-nav > li > a[data-target]").parent(
 							'li').hover(
@@ -190,12 +193,9 @@ jQuery(document)
 					});
 
 					$("#salesforce").click(function() {
-						alert("Click event");
-						// var drop = $('#example');
-						// alert(drop);
-						// $('.hello').appendTo('.goodbye');
-						$('.sforce').appendTo('.rit');
-						$("#example").show();
-
+						console.log("click event");
+						$('#connector_form').appendTo('#right_pane');
+						$('#connector_form').show();
+						console.log("append complete.");
 					});
 				});
