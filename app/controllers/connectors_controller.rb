@@ -1,16 +1,18 @@
 class ConnectorsController < ApplicationController
 
  def new
+   
+   current_user.organization.cloud_app.connectors.build(params[:connectors])
 	@products = Product.all
 	@apps_item = current_user.organization.cloud_app.apps_items
-	respond_to do |format|
-      format.html 
-      format.js 
-    end	
+	@connector = current_user.organization.cloud_app.connectors
 	
- end
+end
 
  def create
+  
+   @connector = current_user.organization.cloud_app.connectors.build(params[:connectors]) || Connector.new(params[:connector])
+   @connector.save
  end
 
 end

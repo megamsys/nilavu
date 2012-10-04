@@ -10,6 +10,7 @@ match '/apps_items/destroy', to: 'apps_items#destroy'
   match 'pages/doc' => 'high_voltage/pages#show', :id => 'doc'
   match 'pages/about' => 'high_voltage/pages#show', :id => 'about'
   match 'pages/contribute' => 'high_voltage/pages#show', :id => 'contribute'
+ 
   
   resources :users
   resources :sessions
@@ -21,6 +22,7 @@ match '/apps_items/destroy', to: 'apps_items#destroy'
   resources :connectors
 
 
+ 
   
   match '/signup',  to: 'users#new'
 
@@ -33,5 +35,7 @@ match '/apps_items/destroy', to: 'apps_items#destroy'
   match '/signout', to: 'sessions#destroy', via: :delete
 
   match '/auth/:provider/callback', :to => 'sessions#create'
+  
+  
 
 end
