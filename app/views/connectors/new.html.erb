@@ -17,35 +17,38 @@
 </div>
 <br/>
 
-<div id="new-dropcontainer" class="span2">
-	<ul>
+	<div id="new-dropcontainer" class="span4">
+		<ul>
 
-	</ul>
-</div>
-<div id="right" class="span1 rit">
+		</ul>
+	</div>
+	<div id="right" class="span1 rit">
 
-</div>
+	</div>
 
 <div id="example" class="sforce">
 
+	<%= form_for @connector do |f| %>
 	<h3>This is a Modal Heading</h3>
-
-	<p>
-
-	</p>
 	<select name="category[id]" id="category_id">
 		<option value="ZOHO">ZOHO</option>
 		<option selected="selected" value="Salesforce" >Salesforce</option>
 	</select>
-
+      <table>
+	<tr><td><%= f.label :consumer_key %></td>
+	<td><%= f.text_field :salesforce_consumer_key, :class => 'text_field', placeholder: "ConsumerKey" %></td></tr>
+	<tr><td><%= f.label :secret_key %></td>
+	<td><%= f.text_field :salesforce_consumer_secret, :class => 'text_field', placeholder: "SecretKey" %></td></tr>
+	</table>
 	<p>
 		You can add some text here.
 	</p>
 
-	<a href="#" class="btn btn-success">ok</a>
+	<%= f.submit nil, :class => 'btn btn-large btn-primary' %>
 	<a href="#" class="btn" data-dismiss="modal">Close</a>
-
+	<% end %>
 </div>
+
 
 <% end %>
 <%= render :template => customizations_show_path %>
