@@ -1,12 +1,9 @@
+var selected_entity = '#product_<%= @apps_item.product_id %>';
 
-   
+$(selected_entity).toggle();
+
+$(selected_entity).fadeIn("slow");
+
+var to_insert_content = '<%= escape_javascript(render :partial => "apps_items/remove_button", :locals => {:apps_item_el => @apps_item, :product => @product}) %>';
 	
-
-   
-
-removeForm("#{#product_#{@product.id}}");
-$("#product_#{@product.id}").fadeOut();
-
-
-content = escape_javascript(render :partial => "apps_items/add_button", :locals => {:product => @product})
-insertContent(".btn","#{content}");
+insertAt(selected_entity,to_insert_content);
