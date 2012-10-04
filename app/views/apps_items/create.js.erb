@@ -1,3 +1,3 @@
-var product_id = "#product_#{@product.id}";
+var product_id = '<%= dom_id(product) %>';
 removeForm(product_id);
 $(product_id).fadeIn();
