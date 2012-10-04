@@ -33,7 +33,9 @@ Cloudauth::Application.configure do
   config.assets.compress = false
 
   # Expands the lines which load the assets
-  config.assets.debug = true
+  config.assets.debug = false
   # Log level to debug
   config.log_level = :debug
+  # to ignore the javascript files loaded in public assets, this results in running post twice in JQuery
+  config.serve_static_assets = false
 end

@@ -1,8 +1,11 @@
+var selected_entity = '#product_<%= @product.id %>';
 
+$(selected_entity).toggle();
 
-       $(this).toggleClass('loading');
-    
+$(selected_entity).fadeIn("slow");
 
-$(this).show();
+var to_insert_content = '<%= escape_javascript(render :partial => "apps_items/add_button", :locals => {:product => @product}) %>';
+	
+insertAt(selected_entity,to_insert_content);
 
   

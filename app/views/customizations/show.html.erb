@@ -3,24 +3,27 @@
 	<div class="span3">
 		<div class="sidebar-nav">
 			<ul class="well nav nav-list" id="my-collapse-nav">
-
-				<li class="nav-header">Settings</li>  
-            <li class="divider"></li>
-            <li><a href="#" data-target="#demo"><i class="icon-wrench"></i>Settings</a>
-                              <ul id="demo" class="collapse" style="height: 0px;">
-
-				<li>
-					<%= link_to cloud_identity_path(current_user.id) do %>
-					<i class="icon-wrench"></i> Cloud Identity
-					<% end %>
+				<li class="nav-header">
+					Settings
 				</li>
-
+				<li class="divider"></li>
 				<li>
-					<%= link_to cloud_app_path(current_user.id) do %>
-					<i class="icon-briefcase"></i> Cloud Applications
-					<% end %>
+					<a href="#" data-target="#demo"><i class="icon-wrench"></i>Settings</a>
+					<ul id="demo" class="collapse" style="height: 0px;">
+
+						<li>
+							<%= link_to cloud_identity_path(current_user.id) do %>
+							<i class="icon-wrench"></i> Cloud Identity
+							<% end %>
+						</li>
+
+						<li>
+							<%= link_to cloud_app_path(current_user.id) do %>
+							<i class="icon-briefcase"></i> Cloud Applications
+							<% end %>
+						</li>
+					</ul>
 				</li>
-		</ul></li>
 
 				<li class="nav-header">
 					Invite
@@ -48,7 +51,7 @@
 					<i class="icon-gift"></i> Billing
 					<% end %>
 				</li>
-				
+
 			</ul>
 		</div>
 	</div>
@@ -57,8 +60,6 @@
 		<%= content_tag :div, msg, :id => "flash_#{name}" %>
 		<%- end -%> </h3>
 		<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
-		<!--	<%= content_for?(:content_settings1) ? yield(:content_settings1) : yield %>	-->
-	</div><!--/span6-->
-
+	</div><!--/span7-->
 </div><!--/row-->
 

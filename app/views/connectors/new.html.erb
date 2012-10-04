@@ -1,54 +1,53 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'New Connectors') %>
-
 <h2> My Connectors </h2>
-
 <div id="toolbar" class="navbar-inner">
-
 	<% @products.each do |product| %>
 	<% @apps_item.each do |apps_item_el| %>
-
 	<% if apps_item_el.product_id === product.id %>
-
 	<%= image_tag product.image_url, :id => product.name, :alt => "Megam", :size => "50x50" %>
 	<% end %>
 	<% end %>
 	<% end %>
 </div>
-<br/>
+<div class="alert alert-success">
+	<strong>Get started!</strong>
+	Drag and drop your cloud application into the connector box below.
+</div>
+<div class="row">
 
-	<div id="new-dropcontainer" class="span4">
-		<ul>
-
-		</ul>
+	<div id="new-dropcontainer" class="span3">
+		<ul></ul>
 	</div>
-	<div id="right" class="span1 rit">
 
-	</div>
-
-<div id="example" class="sforce">
-
+	<div id="right_pane" class="span3"></div>
+</div>
+<div id="connector_form">
 	<%= form_for current_user.organization.cloud_app.connectors do |f| %>
-	<h3>This is a Modal Heading</h3>
-	<select name="category[id]" id="category_id">
-		<option value="ZOHO">ZOHO</option>
-		<option selected="selected" value="Salesforce" >Salesforce</option>
-	</select>
-      <table>
-	<tr><td><%= f.label :salesforce_consumer_key %></td>
-	<td><%= f.text_field :salesforce_consumer_key, placeholder: "ConsumerKey" %></td></tr>
-	<tr><td><%= f.label :salesforce_consumer_secret %></td>
-	<td><%= f.text_field :salesforce_consumer_secret, placeholder: "SecretKey" %></td></tr>
-	</table>
-	<p>
-		You can add some text here.
-	</p>
+	<div class="alert alert-info">
+		<strong>Hey there!</strong>
+		Enter the secret key and password. Click here for detailed instructions.
+	</div></td>
+	<table class="table table-condensed table-striped">
+		<tr>
+			<td>
+			<select name="category[id]" id="category_id">
+				<option value="ZOHO">ZOHO</option>
+				<option selected="selected" value="Salesforce" >Salesforce</option>
+			</select></td>
+		</tr>
+		<tr>
+			<td><%= f.label :consumer_key %></td>
+			<td><%= f.text_field :salesforce_consumer_key, :class => 'text_field', placeholder: "ConsumerKey" %></td>
+		</tr>
+		<tr>
+			<td><%= f.label :secret_key %></td>
+			<td><%= f.text_field :salesforce_consumer_secret, :class => 'text_field', placeholder: "SecretKey" %></td>
+		</tr>
 
-	<%= f.submit nil, :class => 'btn btn-large btn-primary' %>
-	<a href="#" class="btn" data-dismiss="modal">Close</a>
+	</table>
+	<%= f.submit nil, :class => 'btn btn-mini' %>
 	<% end %>
 </div>
-
-
 <% end %>
 <%= render :template => customizations_show_path %>
