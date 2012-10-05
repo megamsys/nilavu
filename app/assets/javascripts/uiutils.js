@@ -93,14 +93,26 @@ jQuery(document)
 								});
 					})(jQuery);
 
-					jQuery('#toolbar').spkToolbar({
+					jQuery('#connector_icon').spkToolbar({
 						droppableDiv : '#new-dropcontainer'
 					});
 
+					jQuery('#connector_action_icon').spkToolbar({
+						droppableDiv : '#new-dropcontainer'
+					});
+
+					jQuery('#connector_output_icon').spkToolbar({
+						droppableDiv : '#new-dropcontainer'
+					});
 					$("#salesforce").click(function() {
 						console.log("click event");
 						$('#connector_form').appendTo('#right_pane');
 						$('#connector_form').show();
 						console.log("append complete.");
 					});
+var myform=new formtowizard({
+ formid: 'connector_form',
+ persistsection: true,
+ revealfx: ['slide', 500] //<--no comma after last setting
+})
 				});

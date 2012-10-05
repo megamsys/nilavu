@@ -1,6 +1,7 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'New Connectors') %>
-<h2> My Connectors </h2>
+
+<h2> New Connector projects </h2>
 <div id="toolbar" class="navbar-inner">
 	<% @products.each do |product| %>
 	<% @apps_item.each do |apps_item_el| %>
@@ -9,52 +10,67 @@
 	<% end %>
 	<% end %>
 	<% end %>
-	<%= image_tag "mammoth_fun.png", :size => "50x50" %>
-	<%= image_tag "mammoth.png", :size => "50x50" %>
 </div>
-<div class="alert alert-success">
-	<strong>Get started!</strong>
-	Drag and drop your cloud application into the connector box below.
-</div>
+<br/>
+
 <div class="row">
 
-	<div id="new-dropcontainer" class="span3">
-		<ul></ul>
-	</div>
+	<div id="right_pane" class="span10"></div>
 
-	<div id="right_pane" class="span3"></div>
 </div>
-<div id="connector_form">
-	<%= form_for current_user.organization.cloud_app.connector, :html => { :multipart => true } do |f| %>
-	<div class="alert alert-info">
-		<strong>Hey there!</strong>
-		Enter the secret key and password. Click here for detailed instructions.
-	</div></td>
-	<table class="table table-condensed table-striped">
-		<tr>
-			<td>
-			<select name="category[id]" id="category_id">
-				<option value="ZOHO">ZOHO</option>
-				<option selected="selected" value="Salesforce" >Salesforce</option>
-			</select></td>
-		</tr>
-		<tr>
-			<td><%= f.label :salesforce_consumer_key %></td>
-			<td><%= f.text_field :salesforce_consumer_key, :class => 'text_field', placeholder: "ConsumerKey" %></td>
-		</tr>
-		<tr>
-			<td><%= f.label :salesforce_consumer_secret %></td>
-			<td><%= f.text_field :salesforce_consumer_secret, :class => 'text_field', placeholder: "SecretKey" %></td>
-		</tr>
 
-	</table>
-	<%= f.submit nil, :class => 'btn btn-mini' %>
-	<% end %>
+<div id="connector_form">
+
+	<fieldset class="sectionwrap">
+
+		<%= form_for @connector, :html => { :multipart => true } do |f| %>
+		<div class="alert alert-info">
+			<strong>Hey there!</strong>
+			Enter the secret key and password. Click here for detailed instructions.
+		</div></td>
+		<table class="table table-condensed table-striped">
+			<tr>
+				<td>
+				<select name="category[id]" id="category_id">
+					<option value="ZOHO">ZOHO</option>
+					<option selected="selected" value="Salesforce" >Salesforce</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td><%= f.label :salesforce_consumer_key %></td>
+				<td><%= f.text_field :salesforce_consumer_key, :class => 'text_field', placeholder: "ConsumerKey" %></td>
+			</tr>
+			<tr>
+				<td><%= f.label :salesforce_consumer_secret %></td>
+				<td><%= f.text_field :salesforce_consumer_secret, :class => 'text_field', placeholder: "SecretKey" %></td>
+			</tr>
+
+		</table>
+		<%= f.text_field :description, :value => "My first Connector Project", :type => 'hidden' %>
+		<%= f.submit nil, :value => "Next", :class => 'btn btn-mini' %>
+		<% end %>
+	</fieldset>
+
+<fieldset class="sectionwrap">
+<legend>Shipping Address</legend>
+Country:<br /> <input id="country" type="text" size="35" /><br />
+State/Province:<br /> <input id="state" type="text" size="35" /><br />
+Address #1:<br /> <input id="addr1" type="text" size="35" /><br />
+Address #2:<br /> <input id="addr2" type="text" size="35" /><br />
+</fieldset>
+
+<fieldset class="sectionwrap">
+<legend>Comments</legend>
+Any additional instructions:<br /> <textarea id="feedback" style="width:350px;height:150px"></textarea><br />
+<input type="submit" />
+</fieldset>
+
 </div>
 <hr/>
 
 <div id="new1-dropcontainer" class="span6">
 	<ul></ul>
+</div>
 </div>
 <% end %>
 <%= render :template => customizations_show_path %>
