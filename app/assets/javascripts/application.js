@@ -19,3 +19,7 @@
 //= require footer
 //= require ajaxspinner
 //= require uiutils
+//= require formwizard
+
+
+

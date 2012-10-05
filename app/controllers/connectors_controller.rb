@@ -1,31 +1,28 @@
 class ConnectorsController < ApplicationController
 
  def index
-     @connectors = Connector.paginate(page: params[:page])
+     if !current_user.organization
+      flash[:error] = "Please Create Organization Details first"
+      redirect_to edit_user_path(current_user)
+     elsif !current_user.organization.cloud_app
+      flash[:error] = "Please Add any cloud Applications"
+      redirect_to cloud_app_path(current_user.id)
+     end
+	@connector = current_user.organization.cloud_app.connectors
  end
 
  def new  
-
-    if !current_user.organization
-      flash[:error] = "Please Create Organization Details first"
-      redirect_to edit_user_path(current_user)
-    #elsif !current_user.organization.cloud_app
-    #flash[:error] = "Please Add any cloud Applications"
-    #redirect_to new_apps_item_path
-    else
-    #elsif !current_user.organization.cloud_app.connectors
-
-	@connector = Connector.new
-     	current_user.organization.cloud_app.connectors.build(params[:connector])
-	@products = Product.all
+	#@user = User.find(params[:user_id])
+	@connector = current_user.organization.cloud_app.connectors.build
+   	#current_user.organization.cloud_app.connectors.build(params[:connector])
+     	@products = Product.all
 	@apps_item = current_user.organization.cloud_app.apps_items
 
-    end
-  end
+ end
 
   def create
-    @user = current_user
-    @connector = @user.organization.cloud_app.connectors.build(params[:connector]) || Connector.new(params[:connector])
+    #@user = User.find(params[:user_id])
+    @connector = current_user.organization.cloud_app.connectors.create(params[:connector]) || Connector.new(params[:connector])
     #@connector = current_user.organization.cloud_app.connectors.build(params[:connectors]) || Connector.new(params[:connectors])
 
     if @connector.save

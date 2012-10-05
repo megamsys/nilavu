@@ -1,9 +1,10 @@
 class CreateConnectors < ActiveRecord::Migration
   def self.up
     create_table :connectors do |t|
+      t.integer :cloud_app_id
       t.string :salesforce_consumer_key
       t.string :salesforce_consumer_secret
-      t.integer :cloud_app_id
+      t.string :description
 
       t.timestamps
     end

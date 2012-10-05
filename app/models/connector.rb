@@ -1,5 +1,5 @@
 class Connector < ActiveRecord::Base
-  attr_accessible :salesforce_consumer_key, :salesforce_consumer_secret, :cloud_app_id, :connector_action_attributes, :connector_output_attributes
+  attr_accessible :salesforce_consumer_key, :salesforce_consumer_secret, :cloud_app_id, :description, :connector_action_attributes, :connector_output_attributes
 
   belongs_to :cloud_app, :foreign_key  => 'cloud_app_id'
   has_many :connector_actions, :foreign_key  => 'connector_id'

@@ -73,9 +73,10 @@ ActiveRecord::Schema.define(:version => 20120927132840) do
   add_index "connector_outputs", ["connector_id"], :name => "index_connector_outputs_on_connector_id"
 
   create_table "connectors", :force => true do |t|
+    t.integer  "cloud_app_id"
     t.string   "salesforce_consumer_key"
     t.string   "salesforce_consumer_secret"
-    t.integer  "cloud_app_id"
+    t.string   "description"
     t.datetime "created_at",                 :null => false
     t.datetime "updated_at",                 :null => false
   end
@@ -127,11 +128,13 @@ ActiveRecord::Schema.define(:version => 20120927132840) do
     t.string   "last_name"
     t.string   "email"
     t.string   "phone"
-    t.boolean  "admin",           :default => true
+    t.boolean  "admin",             :default => true
     t.string   "password_digest"
     t.string   "remember_token"
-    t.datetime "created_at",                        :null => false
-    t.datetime "updated_at",                        :null => false
+    t.boolean  "verified_email",    :default => false
+    t.string   "verification_hash"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
