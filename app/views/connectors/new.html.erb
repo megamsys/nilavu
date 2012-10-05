@@ -24,7 +24,7 @@
 	<div id="right_pane" class="span3"></div>
 </div>
 <div id="connector_form">
-	<%= form_for current_user.organization.cloud_app.connectors, :html => { :multipart => true } do |f| %>
+	<%= form_for current_user.organization.cloud_app.connector, :html => { :multipart => true } do |f| %>
 	<div class="alert alert-info">
 		<strong>Hey there!</strong>
 		Enter the secret key and password. Click here for detailed instructions.

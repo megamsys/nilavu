@@ -1,0 +1,14 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'All Connectors') %>
+<h1>All Connectors</h1>
+
+<%= will_paginate %>
+
+<ul class="connectors">
+  <%= render @connectors %>
+</ul>
+
+<%= will_paginate %>
+
+<% end %>
+<%= render :template => customizations_show_path %>

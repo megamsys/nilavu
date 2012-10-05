@@ -1,8 +1,10 @@
 class ConnectorsController < ApplicationController
 
- def new
-       
-        
+ def index
+     @connectors = Connector.paginate(page: params[:page])
+ end
+
+ def new  
     if !current_user.organization
       flash[:error] = "Please Create Organization Details first"
       redirect_to edit_user_path(current_user)
@@ -11,7 +13,8 @@ class ConnectorsController < ApplicationController
 	#redirect_to new_apps_item_path 
     else
     #elsif !current_user.organization.cloud_app.connectors
-     	current_user.organization.cloud_app.connectors.build(params[:connectors])
+	@connector = Connector.new
+     	current_user.organization.cloud_app.connectors.build(params[:connector])
 	@products = Product.all
 	@apps_item = current_user.organization.cloud_app.apps_items
     end
