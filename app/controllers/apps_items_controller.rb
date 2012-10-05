@@ -1,5 +1,9 @@
 class AppsItemsController < ApplicationController
   respond_to :html, :js
+  
+  def index
+    
+  end
  
   def new
     current_user.organization.cloud_app.apps_items.build(params[:apps_items])

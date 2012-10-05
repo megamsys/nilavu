@@ -21,6 +21,7 @@
 	<div id="new-dropcontainer" class="span3">
 		<ul></ul>
 	</div>
+
 	<div id="right_pane" class="span3"></div>
 </div>
 <div id="connector_form">
@@ -45,6 +46,7 @@
 			<td><%= f.label :salesforce_consumer_secret %></td>
 			<td><%= f.text_field :salesforce_consumer_secret, :class => 'text_field', placeholder: "SecretKey" %></td>
 		</tr>
+
 	</table>
 	<%= f.submit nil, :class => 'btn btn-mini' %>
 	<% end %>
@@ -52,7 +54,7 @@
 <hr/>
 
 <div id="new1-dropcontainer" class="span6">
-		<ul></ul>
-	</div>
+	<ul></ul>
+</div>
 <% end %>
 <%= render :template => customizations_show_path %>
