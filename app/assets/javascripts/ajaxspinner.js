@@ -1,9 +1,9 @@
-$(document)
+jQuery(document)
 		.ready(
 				function() {
 					// "ajax:beforeSend" and "ajax:complete" event hooks are
 					// provided by Rails's jquery-ujs driver.
-					$("*[data-spinner]")
+					jQuery("*[data-spinner]")
 							.live('ajax:beforeSend', function(e) {
 								$(this).toggle();
 								$($(this).data('spinner')).show();
