@@ -9,24 +9,28 @@
 <% else %>
 
 <% @connector.each do |con| %>
-
+<div class="span9">
+<div class="alert alert-success">
 <div class="row">
-	<div class="alert alert-success">
-		<div class="span3">
+	
+		<div class="offset1 span2">
 			<%= con.id %>
 		</div>
-		<div class="span4">
+		<div class="span5">
 			<%= con.description %>
 		</div>
-		<div class="span3">
+		<div class="span1">
 			<%= link_to "Delete", "#", :class => 'btn btn-small btn-primary' %>
 		</div>
 
 	</div>
-	<% end %>
 </div>
-<% end %>
-<%= link_to "Create Connector Project", new_connector_path, :class => 'btn btn-large btn-primary' %>
+</div>
+	<% end %>
 
+<% end %>
+<div class="offset2 span5">
+<%= link_to "Create Connector Project", new_connector_path, :class => 'btn btn-large btn-primary' %>
+</div>
 <% end %>
 <%= render :template => customizations_show_path %>

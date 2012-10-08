@@ -1,6 +1,8 @@
 jQuery(document)
 		.ready(
+
 				function() {
+
 					$("#connector_form").hide();
 
 					jQuery("#my-collapse-nav > li > a[data-target]").parent(
@@ -109,10 +111,15 @@ jQuery(document)
 						$('#connector_form').appendTo('#right_pane');
 						$('#connector_form').show();
 						console.log("append complete.");
-					});
-var myform=new formtowizard({
+	var myform=new formtowizard({
  formid: 'connector_form',
  persistsection: true,
  revealfx: ['slide', 500] //<--no comma after last setting
-})
+});
+console.log("append complete.");
+					});
+
 				});
+
+
+

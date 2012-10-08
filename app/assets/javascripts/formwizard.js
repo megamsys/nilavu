@@ -6,7 +6,7 @@
 
 //Oct 21st, 2010: Script updated to v1.1, which adds basic form validation functionality, triggered each time the user goes from one page to the next, or tries to submit the form.
 
-jQuery.noConflict()
+//jQuery.noConflict()
 
 
 function formtowizard(options){
