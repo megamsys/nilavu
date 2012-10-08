@@ -22,7 +22,7 @@
 <div id="connector_form">
 
 	<fieldset class="sectionwrap">
-
+		<legend>Sales Force Identity</legend>
 		<%= form_for @connector, :html => { :multipart => true } do |f| %>
 		<div class="alert alert-info">
 			<strong>Hey there!</strong>
@@ -47,7 +47,7 @@
 
 		</table>
 		<%= f.text_field :description, :value => "My first Connector Project", :type => 'hidden' %>
-		<%= f.submit nil, :value => "Next", :class => 'btn btn-mini' %>
+		<%= f.submit nil, :class => 'btn btn-mini' %>
 		<% end %>
 	</fieldset>
 
