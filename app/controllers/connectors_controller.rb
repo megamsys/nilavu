@@ -14,6 +14,7 @@ class ConnectorsController < ApplicationController
  def new  
 	#@user = User.find(params[:user_id])
 	@connector = current_user.organization.cloud_app.connectors.build
+	@connector_action = current_user.organization.cloud_app.connectors.build_connector_actions
    	#current_user.organization.cloud_app.connectors.build(params[:connector])
      	@products = Product.all
 	@apps_item = current_user.organization.cloud_app.apps_items
