@@ -1,4 +1,13 @@
-class ConnectorOutput < ActiveRecord::Base
-  attr_accessible :log, :message, :output_display, :status, :connector_id
-  belongs_to :connector, :foreign_key  => 'connector_id'
+class ConnectorOutput
+  include Dynamoid::Document
+
+  table :name => :ConnectorOutput, :key => :Id, :read_capacity => 10, :write_capacity => 10
+
+
+  field :Project_Id
+  field :Type
+  field :Location
+
+	belongs_to :ConnectorProject
 end
+

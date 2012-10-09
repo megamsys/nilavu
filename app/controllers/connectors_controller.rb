@@ -8,13 +8,13 @@ class ConnectorsController < ApplicationController
       flash[:error] = "Please Add any cloud Applications"
       redirect_to cloud_app_path(current_user.id)
      end
-	@connector = current_user.organization.cloud_app.connectors
+	@connectorproject = ConnectorProject.new
  end
 
  def new  
 	#@user = User.find(params[:user_id])
-	@connector = current_user.organization.cloud_app.connectors.build
-	@connector_action = current_user.organization.cloud_app.connectors.build_connector_actions
+	@connectorproject = ConnectorProject.new
+	#@connector_action = current_user.organization.cloud_app.connectors.build_connector_actions
    	#current_user.organization.cloud_app.connectors.build(params[:connector])
      	@products = Product.all
 	@apps_item = current_user.organization.cloud_app.apps_items

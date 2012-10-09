@@ -2,22 +2,21 @@
 <% provide(:title, 'Connector Project') %>
 <h1>Connector Project</h1>
 <hr/>
-<% if @connectorproject.present? %>
-
-<h5>Currently, You don't have any Connector Projects. You can create a new connector by clicking the below button</h5>
-
+<% if !@connector_project %>
+<div class="alert alert-info">
+			<strong>Hey there!</strong>
+			You don't have Connector Project. To create click the below link.
+</div>
 <% else %>
-
-<% @connectorproject.each do |con| %>
 <div class="span9">
 <div class="alert alert-success">
 <div class="row">
 	
-		<div class="offset1 span2">
-			<%= con.id %>
+		<div class="offset1 span5">
+			<%= @connector_project.Id %>
 		</div>
-		<div class="span5">
-			<%= con.description %>
+		<div class="span2">
+			<%= @connector_project.Description %>
 		</div>
 		<div class="span1">
 			<%= link_to "Delete", "#", :class => 'btn btn-small btn-primary' %>
@@ -26,11 +25,12 @@
 	</div>
 </div>
 </div>
-	<% end %>
+<% end %>	
 
-<% end %>
 <div class="offset2 span5">
-<%= link_to "Create Connector Project", new_connector_path, :class => 'btn btn-large btn-primary' %>
+<%= link_to "Create Connector Project", new_connector_project_path, :class => 'btn btn-large btn-primary' %>
 </div>
+
+
 <% end %>
 <%= render :template => customizations_show_path %>
