@@ -1,7 +1,8 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'New Connector_projects') %>
 
-<h2> New Connector projects </h2>
+<h2> Load Connector projects </h2>
+
 <div id="toolbar" class="navbar-inner">
 	<% @products.each do |product| %>
 	<% @apps_item.each do |apps_item_el| %>
@@ -23,6 +24,7 @@
 <div id="new1-dropcontainer" class="span6">
 	<ul></ul>
 </div>
+
 
 <% end %>
 <%= render :template => customizations_show_path %>

@@ -1,7 +1,7 @@
 class ConnectorProject
   include Dynamoid::Document
 
-  table :name => :ConnectorProject, :key => :Id, :read_capacity => 10, :write_capacity => 10
+  #table :name => :ConnectorProject, :key => :Id, :read_capacity => 10, :write_capacity => 10
 
 
   field :Name
@@ -13,9 +13,12 @@ class ConnectorProject
   field :Consumer_Secret
 
  # index :created_at, :range => true
+ # attr_accessible :connector_action_attributes, :connector_output_attributes
+  #accepts_nested_attributes_for :connector_action, :update_only => true
+  #accepts_nested_attributes_for :connector_output, :update_only => true
 
-  has_many :ConnectorActions
-  has_many :ConnectorOutputs
+  has_many :connector_actions
+  has_many :connector_outputs
   
 end
 

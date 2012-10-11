@@ -4,33 +4,56 @@
 <hr/>
 <% if !@connector_project %>
 <div class="alert alert-info">
-			<strong>Hey there!</strong>
-			You don't have Connector Project. To create click the below link.
+	<strong>Hey there!</strong>
+	You don't have Connector Project. To create click the below link.
 </div>
 <% else %>
-<div class="span9">
-<div class="alert alert-success">
-<div class="row">
-	
-		<div class="offset1 span5">
-			<%= @connector_project.Id %>
+<div class="span10">
+	<div class="alert alert-info">
+		<div class="row">
+			<div class="offset1 span3">
+				<h5>Connector_project_Id</h5>
+			</div>
+			<div class="offset2 span3">
+				<h5>Connector_project_Description</h5>
+			</div>
 		</div>
-		<div class="span2">
-			<%= @connector_project.Description %>
-		</div>
-		<div class="span1">
-			<%= link_to "Delete", "#", :class => 'btn btn-small btn-primary' %>
-		</div>
-
 	</div>
 </div>
-</div>
-<% end %>	
+<hr/>
 
-<div class="offset2 span5">
-<%= link_to "Create Connector Project", new_connector_project_path, :class => 'btn btn-large btn-primary' %>
-</div>
+<div class="span10">
+<table class="table table-condensed">
+	<% @connector_project.each do |connector_project_el| %>
+<tr class="success">
 
+
+<td>
+	<%= link_to "Load", connector_project_path(connector_project_el.id), :class => 'btn btn-small btn-primary' %>
+</td>
+
+<td>
+	<%= connector_project_el.id %>
+</td>
+
+<td>			
+	<%= connector_project_el.Description %>
+</td>		
+
+<td>
+	
+        <%= link_to "Delete", connector_project_el, method: :delete, :class => 'btn btn-small btn-primary',
+	data: { confirm: "You sure?" } %>
+</td>
+</tr>
+	<% end %>
+</table>
+</div>
+<% end %>
+
+<div class="offset3 span5">
+	<%= link_to "Create Connector Project", new_connector_project_path, :class => 'btn btn-large btn-primary' %>
+</div>
 
 <% end %>
 <%= render :template => customizations_show_path %>
