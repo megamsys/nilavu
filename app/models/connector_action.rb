@@ -1,7 +1,7 @@
 class ConnectorAction
   include Dynamoid::Document
 
-  table :name => :ConnectorAction, :key => :Id, :read_capacity => 10, :write_capacity => 10
+  #table :name => :ConnectorAction, :key => :Id, :read_capacity => 10, :write_capacity => 10
 
 
   field :Project_Id
@@ -9,9 +9,11 @@ class ConnectorAction
   field :Email
   field :UserNAme
   field :Locale
-    
-  index :Name, :range => true
 
-	belongs_to :ConnectorProject
+  range :biz_function, :string
+    
+  #index :Name, :range => true
+
+	belongs_to :connector_project
 end
 
