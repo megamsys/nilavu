@@ -1,8 +1,10 @@
-
 <div id="connector_form">
-<fieldset class="sectionwrap">
-	<legend>Sales Force Connector</legend>
 	<%= form_for @connector_project, :html => { :multipart => true } do |f| %>
+	<fieldset class="sectionwrap">
+		<legend>
+			Sales Force Connector
+		</legend>
+
 		<div class="alert alert-info">
 			<strong>Hey there!</strong>
 			Enter the secret key and password. Click here for detailed instructions.
@@ -23,28 +25,43 @@
 				<td><%= f.label :Consumer_Secret %></td>
 				<td><%= f.text_field :Consumer_Secret, :class => 'text_field', placeholder: "SecretKey" %></td>
 			</tr>
-
 		</table>
-		<%= f.text_field :Description, :value => "My first Connector Project", :type => 'hidden' %>
-		<%= f.submit nil, :class => 'btn btn-mini btn-primary' %>
+
+	</fieldset>
+	<fieldset class="sectionwrap">
+		<legend>
+			Sales Force Connector Action
+		</legend>
+		<%= f.fields_for :connector_actions_attributes, @connector_project.connector_actions do |ca| %>
+		<%= @connector_project.connector_actions.inspect %>
+		<%= ca.label :Name %>
+		<%= ca.text_field :Name, :class => 'text_field', placeholder: "Name" %>
+
+		<td><%= ca.label :Email %></td>
+		<td><%= ca.text_field :Email, :class => 'text_field', placeholder: "Email" %></td>
+
+		<td><%= ca.label :User_Name %></td>
+		<td><%= ca.text_field :UserName, :class => 'text_field', placeholder: "User Name" %></td>
+
+		<td><%= ca.label :Locale %></td>
+		<td><%= ca.text_field :Locale, :class => 'text_field', placeholder: "Locale" %></td>
+		<% end %>
+
+	</fieldset>
+
+	<fieldset class="sectionwrap">
+		<legend>
+			Connector Output
+		</legend>
+		<%= f.fields_for :connector_outputs_attributes, @connector_project.connector_outputs do |co| %>
+		<td><%= co.label :Location %></td>
+		<td><%= co.text_field :Location, :class => 'text_field', placeholder: "Locale" %></td>
+		<% end %>
+	</fieldset>
+	<%= f.text_field :Description, :value => "My first Connector Project", :type => 'hidden' %>
+	<%= f.submit nil, :class => 'btn btn-small btn-primary' %>
+	
 	<% end %>
-</fieldset>
-
-<fieldset class="sectionwrap">
-<legend>Connector Action</legend>
-
-	
-</fieldset>
-
-<fieldset class="sectionwrap">
-<legend>Connector Output</legend>
-	
-</fieldset>
-
 
 </div>
-
-
-
-
 
