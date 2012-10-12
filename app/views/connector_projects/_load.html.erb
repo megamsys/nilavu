@@ -1,0 +1,50 @@
+
+<div id="connector_form">
+<fieldset class="sectionwrap">
+	<legend>Sales Force Connector</legend>
+	<%= form_for @connector_project, :html => { :multipart => true } do |f| %>
+		<div class="alert alert-info">
+			<strong>Hey there!</strong>
+			Enter the secret key and password. Click here for detailed instructions.
+		</div>
+		<table class="table table-condensed table-striped">
+			<tr>
+				<td>
+				<select name="category[id]" id="category_id">
+					<option value="ZOHO">ZOHO</option>
+					<option selected="selected" value="Salesforce" >Salesforce</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td><%= f.label :Consumer_Key %></td>
+				<td><%= f.text_field :Consumer_Key, :class => 'text_field', placeholder: "ConsumerKey" %></td>
+			</tr>
+			<tr>
+				<td><%= f.label :Consumer_Secret %></td>
+				<td><%= f.text_field :Consumer_Secret, :class => 'text_field', placeholder: "SecretKey" %></td>
+			</tr>
+
+		</table>
+		<%= f.text_field :Description, :value => "My first Connector Project", :type => 'hidden' %>
+		<%= f.submit nil, :class => 'btn btn-mini btn-primary' %>
+	<% end %>
+</fieldset>
+
+<fieldset class="sectionwrap">
+<legend>Connector Action</legend>
+
+	
+</fieldset>
+
+<fieldset class="sectionwrap">
+<legend>Connector Output</legend>
+	
+</fieldset>
+
+
+</div>
+
+
+
+
+

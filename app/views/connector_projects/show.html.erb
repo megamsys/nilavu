@@ -1,0 +1,30 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'New Connector_projects') %>
+
+<h2> Load Connector projects </h2>
+
+<div id="toolbar" class="navbar-inner">
+	<% @products.each do |product| %>
+	<% @apps_item.each do |apps_item_el| %>
+	<% if apps_item_el.product_id === product.id %>
+	<%= image_tag product.image_url, :id => product.name, :alt => "Megam", :size => "50x50" %>
+	<% end %>
+	<% end %>
+	<% end %>
+</div>
+<br/>
+
+<div class="row">
+
+	<div id="right_pane" class="span10"></div>
+
+</div>
+<%= render "load" %>
+
+<div id="new1-dropcontainer" class="span6">
+	<ul></ul>
+</div>
+
+
+<% end %>
+<%= render :template => customizations_show_path %>

@@ -2,13 +2,13 @@
 <% provide(:title, 'Connector Project') %>
 <h1>Connector Project</h1>
 <hr/>
-<% if !current_user.organization.cloud_app.connectors.present? %>
+<% if @connectorproject.present? %>
 
 <h5>Currently, You don't have any Connector Projects. You can create a new connector by clicking the below button</h5>
 
 <% else %>
 
-<% @connector.each do |con| %>
+<% @connectorproject.each do |con| %>
 <div class="span9">
 <div class="alert alert-success">
 <div class="row">
