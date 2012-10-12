@@ -1,8 +1,13 @@
 Cloudauth::Application.routes.draw do
 
+  get "connector_actions/new"
+
+  get "connector_actions/create"
+
   get "customizations/show"
 
 match '/apps_items/destroy', to: 'apps_items#destroy'
+match '/connector_project/create', to: 'connector_projects#create'
   
   root :to => 'high_voltage/pages#show', :id => 'home'
 
@@ -21,6 +26,7 @@ match '/apps_items/destroy', to: 'apps_items#destroy'
   resources :apps_items
   resources :connectors
   resources :connector_projects
+  resources :connector_actions
 
 
  
