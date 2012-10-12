@@ -15,20 +15,22 @@ class ConnectorProjectsController < ApplicationController
 
  def new 
     @connector_project = ConnectorProject.build
+    #@connector_action.build_connector_actions
     
-    #@connector_project.save
+    #@connector_action.save
     logger.debug "Connector Project = #{@connector_project}"
     #@connector_action = @connector_project.connector_actions.create(:biz_function => "users#create")
     #@connector_output = @connector_project.connector_outputs.create
     
     @products = Product.all
     @apps_item = current_user.organization.cloud_app.apps_items 
-    #logger.debug "Connector Action = #{@connector_action}"
+    logger.debug "Connector Action = #{@connector_project.to_yaml}"
+logger.debug "Connector Action = #{@connector_project.inspect}"
  end
 
  def create
     logger.debug "Connector Project = #{@connector_project}"
-    logger.debug "Connector Project = #{:connector_project}"
+    logger.debug "Connector Proj = #{params}"
     @connector_project = ConnectorProject.new(params[:connector_project])
     
     if @connector_project.save
@@ -38,13 +40,15 @@ class ConnectorProjectsController < ApplicationController
       @apps_item = current_user.organization.cloud_app.apps_items
 	@connector_project = ConnectorProject.all
       redirect_to connector_projects_path
-      #render 'index'
+      #@connector_action = ConnectorAction.build
+      #render 'new'
       
     end
  end
 
  def show
  	@connector_project = ConnectorProject.find(params[:id])
+	@connector_action = ConnectorAction.find(params[:id])
 	@products = Product.all
         @apps_item = current_user.organization.cloud_app.apps_items
 	#render 'new'

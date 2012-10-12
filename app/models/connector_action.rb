@@ -7,10 +7,10 @@ class ConnectorAction
   field :Project_Id
   field :Name
   field :Email
-  field :UserNAme
+  field :UserName
   field :Locale
 
-  range :biz_function, :string
+  #range :biz_function, :string
     
   #index :Name, :range => true
 
