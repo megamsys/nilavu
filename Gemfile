@@ -21,6 +21,8 @@ gem "therubyracer", '0.10.2'
 gem 'stomp', '~> 1.2.5'
 gem 'jquery-rails','2.1.3'
 gem 'aws-s3'
+gem "dynamoid", '~> 0.5.0'
+
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', :require => 'bcrypt'

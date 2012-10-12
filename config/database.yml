@@ -12,6 +12,8 @@ development:
   password: team4megam
 
   bucket: megam
+  use_ssl: false
+  dynamo_db_endpoint: localhost
   access_key_id: AKIAJQYJB7IUCXKWIF4A
   secret_access_key: 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 
 

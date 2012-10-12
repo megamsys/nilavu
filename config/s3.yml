@@ -1,4 +1,4 @@
-#This file is needed for 
+#This file is needed for AWS s3 
 staging:
   bucket: megam
   access_key_id: AKIAJQYJB7IUCXKWIF4A
@@ -10,6 +10,7 @@ production:
   secret_access_key: 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
 
 development:
+
   bucket: megam
   access_key_id: AKIAJQYJB7IUCXKWIF4A
   secret_access_key: 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

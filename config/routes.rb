@@ -20,6 +20,7 @@ match '/apps_items/destroy', to: 'apps_items#destroy'
   resources :cloud_apps
   resources :apps_items
   resources :connectors
+  resources :connector_projects
 
 
  
