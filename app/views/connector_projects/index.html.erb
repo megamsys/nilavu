@@ -1,6 +1,6 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'Connector Project') %>
-<h1>Connector Project</h1>
+<h1>Project</h1>
 <hr/>
 <% if !@connector_project %>
 <div class="alert alert-info">
@@ -9,50 +9,39 @@
 </div>
 <% else %>
 <div class="span10">
-	<div class="alert alert-info">
-		<div class="row">
-			<div class="offset1 span3">
-				<h5>Connector_project_Id</h5>
-			</div>
-			<div class="offset2 span3">
-				<h5>Connector_project_Description</h5>
-			</div>
-		</div>
-	</div>
-</div>
-<hr/>
+	<table class="table table-condensed">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>When ?</th>
+				<th>Description</th>
+			</tr>
+		</thead>
+		</tbody>
+		<% @connector_project.each do |connector_project_el| %>
+		<tr>
 
-<div class="span10">
-<table class="table table-condensed">
-	<% @connector_project.each do |connector_project_el| %>
-<tr class="success">
+			<td> <%= link_to "Load", connector_project_path(connector_project_el.id), :class => 'btn btn-small btn-primary' %> </td>
 
+			<td> <%= connector_project_el.id %> </td>
+			<td> <%= connector_project_el.created_at %> </td>
 
-<td>
-	<%= link_to "Load", connector_project_path(connector_project_el.id), :class => 'btn btn-small btn-primary' %>
-</td>
+			<td> <%= connector_project_el.Description %> </td>
 
-<td>
-	<%= connector_project_el.id %>
-</td>
+			<td> <%= link_to "Delete", connector_project_destroy_path(:id => connector_project_el.id), class: "btn btn-primary",  :remote => true,:method => :delete, data: { spinner: '#'+ dom_id(connector_project_el) + '_user_form_spinner'} %> 
+		    <%= spinner_tag dom_id(connector_project_el) + '_user_form_spinner' %>
+			
+			</td>
+		</tr>
+		<% end %>
+		</tbody>
 
-<td>			
-	<%= connector_project_el.Description %>
-</td>		
-
-<td>
-	
-        <%= link_to "Delete", connector_project_el, method: :delete, :class => 'btn btn-small btn-primary',
-	data: { confirm: "You sure?" } %>
-</td>
-</tr>
-	<% end %>
-</table>
+	</table>
 </div>
 <% end %>
 
 <div class="offset3 span5">
-	<%= link_to "Create Connector Project", new_connector_project_path, :class => 'btn btn-large btn-primary' %>
+	<%= link_to "Create Connector Project", new_connector_project_path, :class => 'btn btn-primary' %>
 </div>
 
 <% end %>

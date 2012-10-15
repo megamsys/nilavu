@@ -1,7 +1,7 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'New Connector_projects') %>
 
-<h2> New Connector projects </h2>
+<h2> New project</h2>
 <div id="toolbar" class="navbar-inner">
 	<% @products.each do |product| %>
 	<% @apps_item.each do |apps_item_el| %>
@@ -13,15 +13,24 @@
 </div>
 <br/>
 
-<div class="row">
-
-	<div id="right_pane" class="span10"></div>
-
-</div>
 <%= render "load" %>
+<hr></hr>
 
-<div id="new1-dropcontainer" class="span6">
-	<ul></ul>
+<div class="accordion" id="accordion2">
+	<div class="accordion-group">
+		<div class="accordion-heading">
+			<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne"> Click to see the execution output (Default) </a>
+		</div>
+		<div id="collapseOne" class="accordion-body collapse in">
+			<div class="accordion-inner">
+
+				<div id="connector_output_default" class="span4">
+					Nothing to display yet. Waiting for submission.
+				</div>
+
+			</div>
+		</div>
+	</div>
 </div>
 
 <% end %>

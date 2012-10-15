@@ -10,13 +10,7 @@
 			Enter the secret key and password. Click here for detailed instructions.
 		</div>
 		<table class="table table-condensed table-striped">
-			<tr>
-				<td>
-				<select name="category[id]" id="category_id">
-					<option value="ZOHO">ZOHO</option>
-					<option selected="selected" value="Salesforce" >Salesforce</option>
-				</select></td>
-			</tr>
+
 			<tr>
 				<td><%= f.label :Consumer_Key %></td>
 				<td><%= f.text_field :Consumer_Key, :class => 'text_field', placeholder: "ConsumerKey" %></td>
@@ -32,8 +26,7 @@
 		<legend>
 			Sales Force Connector Action
 		</legend>
-		<%= f.fields_for :connector_actions_attributes, @connector_project.connector_actions do |ca| %>
-		<%= @connector_project.connector_actions.inspect %>
+		<%= fields_for :connector_actions, @connector_actions do |ca| %>
 		<%= ca.label :Name %>
 		<%= ca.text_field :Name, :class => 'text_field', placeholder: "Name" %>
 
@@ -53,14 +46,14 @@
 		<legend>
 			Connector Output
 		</legend>
-		<%= f.fields_for :connector_outputs_attributes, @connector_project.connector_outputs do |co| %>
+		<%= fields_for :connector_outputs, @connector_outputs do |co| %>
 		<td><%= co.label :Location %></td>
 		<td><%= co.text_field :Location, :class => 'text_field', placeholder: "Locale" %></td>
 		<% end %>
 	</fieldset>
 	<%= f.text_field :Description, :value => "My first Connector Project", :type => 'hidden' %>
-	<%= f.submit nil, :class => 'btn btn-small btn-primary' %>
-	
+	<%= f.submit nil, :class => 'btn btn-primary' %>
+
 	<% end %>
 
 </div>
