@@ -7,6 +7,7 @@ Cloudauth::Application.routes.draw do
   get "customizations/show"
 
 match '/apps_items/destroy', to: 'apps_items#destroy'
+match '/connector_project/destroy', to: 'connector_projects#destroy'
 match '/connector_project/create', to: 'connector_projects#create'
   
   root :to => 'high_voltage/pages#show', :id => 'home'
