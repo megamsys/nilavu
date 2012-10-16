@@ -1,11 +1,15 @@
 <div id="connector_form">
+
 	<%= form_for @connector_project, :html => { :multipart => true } do |f| %>
+
+
+
 	<fieldset class="sectionwrap">
 		<legend>
 			Sales Force Connector
 		</legend>
 
-		<div class="alert alert-info">
+		<div class Load Connector projects ="alert alert-info">
 			<strong>Hey there!</strong>
 			Enter the secret key and password. Click here for detailed instructions.
 		</div>
@@ -26,30 +30,31 @@
 		<legend>
 			Sales Force Connector Action
 		</legend>
-		<%= fields_for :connector_actions, @connector_actions do |ca| %>
-		<%= ca.label :Name %>
-		<%= ca.text_field :Name, :class => 'text_field', placeholder: "Name" %>
+		
+		<%= @connector_actions.each do |ca| %>
+    	
+		<table class="table table-condensed table-striped">
+		<tr><td><%= ca.Name %></td>
+		</tr>
 
-		<td><%= ca.label :Email %></td>
-		<td><%= ca.text_field :Email, :class => 'text_field', placeholder: "Email" %></td>
-
-		<td><%= ca.label :User_Name %></td>
-		<td><%= ca.text_field :UserName, :class => 'text_field', placeholder: "User Name" %></td>
-
-		<td><%= ca.label :Locale %></td>
-		<td><%= ca.text_field :Locale, :class => 'text_field', placeholder: "Locale" %></td>
+		</table>
 		<% end %>
 
+<%= f.fields_for :connector_actions_attributes, @connector_actions.each do |ca| %>
+    	
+		<table class="table table-condensed table-striped">
+		<tr><td><%= ca.label :Name %></td>
+		<td><%= ca.text_field :Name, :class => 'text_field', placeholder: "Name" %></td>
+		</tr>
+		</table>
+<% end %>
 	</fieldset>
 
 	<fieldset class="sectionwrap">
 		<legend>
 			Connector Output
 		</legend>
-		<%= fields_for :connector_outputs, @connector_outputs do |co| %>
-		<td><%= co.label :Location %></td>
-		<td><%= co.text_field :Location, :class => 'text_field', placeholder: "Locale" %></td>
-		<% end %>
+		<%= "#{@connector_project.connector_outputs.to_yaml}" %>
 	</fieldset>
 	<%= f.text_field :Description, :value => "My first Connector Project", :type => 'hidden' %>
 	<%= f.submit nil, :class => 'btn btn-primary' %>

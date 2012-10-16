@@ -21,4 +21,3 @@ class ConnectorProject
   has_many :connector_outputs
   #accepts_nested_attributes_for :connector_action, :update_only => true
 end
-
