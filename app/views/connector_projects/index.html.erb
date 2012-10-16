@@ -2,16 +2,17 @@
 <% provide(:title, 'Connector Project') %>
 <h1>Project</h1>
 <hr/>
-<% if !@connector_project %>
+<% if @connector_project.nil? %>
 <div class="alert alert-info">
 	<strong>Hey there!</strong>
 	You don't have Connector Project. To create click the below link.
 </div>
 <% else %>
-<div class="span10">
+
 	<table class="table table-condensed">
 		<thead>
 			<tr>
+				<th> </th>
 				<th>Id</th>
 				<th>When ?</th>
 				<th>Description</th>
@@ -37,7 +38,7 @@
 		</tbody>
 
 	</table>
-</div>
+
 <% end %>
 
 <div class="offset3 span5">

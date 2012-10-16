@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 		redirect_to edit_user_path(current_user)
          end
     
-
+logger.debug "show org #{@user.to_yaml}"
 
   end
 

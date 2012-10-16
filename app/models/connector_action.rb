@@ -4,7 +4,6 @@ class ConnectorAction
   #table :name => :ConnectorAction, :key => :Id, :read_capacity => 10, :write_capacity => 10
 
 
-  field :Project_Id
   field :Name
   field :Email
   field :UserName

@@ -14,4 +14,22 @@ open("config/products_seed.data") do |products|
   end
 end
 
+@co = ConnectorOutput.all
+@co.each do |co| 
+  co.delete()
+end
+@ca = ConnectorAction.all
+@ca.each do |ca| 
+  ca.delete()
+end
+@cp = ConnectorProject.all
+@cp.each do |cp| 
+  cp.delete()
+end
+
+cp=ConnectorProject.new
+ca=ConnectorAction.new
+co=ConnectorOutput.new
+
+
 #Fixtures.create_fixtures("#{Rails.root}/test/fixtures", "product")
