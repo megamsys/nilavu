@@ -23,6 +23,7 @@
 	<% if !current_user.nil? && current_user.admin? %>
 	<%= f.fields_for :organization_attributes, @user.organization do |org_f| %>
 	<h2>Account Info</h2>
+
 <table>
 	<tr><td><%= org_f.label :name, "Organization Name" %></td>
 	<td><%= org_f.text_field :name, placeholder: "Company Name" %></td></tr>
