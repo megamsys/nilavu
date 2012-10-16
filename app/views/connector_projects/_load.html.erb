@@ -2,8 +2,6 @@
 
 	<%= form_for @connector_project, :html => { :multipart => true } do |f| %>
 
-
-
 	<fieldset class="sectionwrap">
 		<legend>
 			Sales Force Connector
@@ -28,33 +26,26 @@
 	</fieldset>
 	<fieldset class="sectionwrap">
 		<legend>
-			Sales Force Connector Action
+			Connector Action
 		</legend>
-		
-		<%= @connector_actions.each do |ca| %>
-    	
+		<%= fields_for :connector_action, @connector_action do |ca| %>
 		<table class="table table-condensed table-striped">
-		<tr><td><%= ca.Name %></td>
-		</tr>
-
+			<tr>
+				<td><%= ca.label :Name %></td>
+				<td><%= ca.text_field :Name, :class => 'text_field', placeholder: "Name" %></td>
+			</tr>
+			<tr>
+				<td><%= ca.label :Email %></td>
+				<td><%= ca.text_field :Email, :class => 'text_field', placeholder: "Name" %></td>
+			</tr>
 		</table>
 		<% end %>
-
-<%= f.fields_for :connector_actions_attributes, @connector_actions.each do |ca| %>
-    	
-		<table class="table table-condensed table-striped">
-		<tr><td><%= ca.label :Name %></td>
-		<td><%= ca.text_field :Name, :class => 'text_field', placeholder: "Name" %></td>
-		</tr>
-		</table>
-<% end %>
 	</fieldset>
 
 	<fieldset class="sectionwrap">
 		<legend>
 			Connector Output
 		</legend>
-		<%= "#{@connector_project.connector_outputs.to_yaml}" %>
 	</fieldset>
 	<%= f.text_field :Description, :value => "My first Connector Project", :type => 'hidden' %>
 	<%= f.submit nil, :class => 'btn btn-primary' %>
