@@ -10,28 +10,23 @@ class ConnectorProjectsController < ApplicationController
       flash[:error] = "Please Add any cloud Applications"
       redirect_to cloud_app_path(current_user.id)
     end
-    #if !ConnectorProject.nil?
     @connector_project = ConnectorProject.all
-  #end
-  end
+   end
 
   def new
     @connector_project = ConnectorProject.build
-    #@connector_project = ConnectorProject.create
-    #@connector_action.build_connector_actions
-    #@connector_action = @connector_project.connector_actions.create(:biz_function => "users#create")
-    #@connector_output = @connector_project.connector_outputs.create
     @products = Product.all
     @apps_item = current_user.organization.cloud_app.apps_items
   end
 
   def create
+	logger.debug"Param = #{params}"
     @connector_project = ConnectorProject.create(params[:connector_project])
     @connector_project.connector_actions.create(params[:connector_actions])
-    @connector_project.connector_outputs.create(params[:connector_output])
+    @connector_project.connector_outputs.create(params[:connector_outputs])
 
     if @connector_project.save
-      flash[:success] = "Connector project Created with the description #{@connector_project.Description}"
+      flash[:success] = "Connector project Created with the description #{@connector_project.description}"
       redirect_to connector_projects_path
     end
   end
@@ -40,18 +35,21 @@ class ConnectorProjectsController < ApplicationController
     @connector_project = ConnectorProject.find(params[:id])
     @connector_action = @connector_project.connector_actions.first
     @connector_output = @connector_project.connector_outputs.first
-
     @products = Product.all
     @apps_item = current_user.organization.cloud_app.apps_items
   end
 
   def update
     @connector_project = ConnectorProject.find(params[:id])
-    @connector_action = @connector_project.update_attributes(params[:connector_actions])
-    @connector_output  = @connector_project.update_attributes(params[:connector_output])
+    @connector_project.connector_actions.each do |ca|
+    	ca.update_attributes(params[:connector_actions])
+    end
+    @connector_project.connector_outputs.each do |co|
+    	co.update_attributes(params[:connector_outputs])
+    end
 
     if @connector_project.update_attributes(params[:connector_project])
-      flash[:success] = "Connector_Project #{@connector_project.Description} updated"
+      flash[:success] = "Connector_Project #{@connector_project.description} updated"
       redirect_to connector_projects_path
     end
   end

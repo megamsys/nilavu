@@ -5,7 +5,11 @@
 	<% @products.each do |product| %>
 	<tr class="success" >
 		<td> <%= image_tag product.image_url, :size => "128x100" %> </td><dd></dd>
-		<td><h3><%= product.name %></h3></td><dd></dd>
+		<% if product.name === "Box.com" or product.name === "DropBox.com" %>
+			<td><h3><%= product.name %></h3><h6>*Free</h6></td><dd></dd>
+		<% else %>
+			<td><h3><%= product.name %></h3></td><dd></dd>
+		<% end %>
 		<td><%= product.description %></td><dd></dd>
 		<td> <% @apps_item.each do |apps_item_el| %>
 		<% if apps_item_el.product_id === product.id %>

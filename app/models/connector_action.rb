@@ -3,11 +3,15 @@ class ConnectorAction
 
   #table :name => :ConnectorAction, :key => :Id, :read_capacity => 10, :write_capacity => 10
 
-
-  field :Name
-  field :Email
-  field :UserName
-  field :Locale
+  field :biz_function
+  field :alias
+  field :email
+  field :charset_encoding
+  field :language
+  field :last_name
+  field :locale
+  field :profile
+  field :time_zone
 
   #range :biz_function, :string
     

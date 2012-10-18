@@ -1,5 +1,5 @@
 class Organization < ActiveRecord::Base
-            attr_accessible :active, :billing_address1, :billing_address2, :billing_city, :billing_country, :billing_state, :billing_street_name, :name, :account_name, :type, :url, :logo, :cloud_identity_attributes, :cloud_app_attributes
+            attr_accessible :active, :billing_address1, :billing_address2, :billing_city, :billing_country, :billing_state, :billing_street_name, :name, :account_name, :type, :url, :logo, :api_token, :cloud_identity_attributes, :cloud_app_attributes
   has_attached_file :logo,
     
     :storage => :s3,
