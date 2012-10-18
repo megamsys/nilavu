@@ -5,6 +5,10 @@ Cloudauth::Application.routes.draw do
   get "connector_actions/create"
 
   get "customizations/show"
+ 
+  get "organizations/show_api_token"
+  get "organizations/create_api_access_key"
+  
 
 match '/apps_items/destroy', to: 'apps_items#destroy'
 match '/connector_project/destroy', to: 'connector_projects#destroy'

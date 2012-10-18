@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(:version => 20120927132840) do
     t.string   "billing_city"
     t.string   "billing_state"
     t.string   "billing_country"
+    t.string   "api_token"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.string   "logo_file_name"

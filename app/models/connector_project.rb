@@ -4,13 +4,16 @@ class ConnectorProject
   #table :name => :ConnectorProject, :key => :Id, :read_capacity => 10, :write_capacity => 10
 
 
-  field :Name
-  field :Description
-  field :Status
-  field :Category
-  field :Provider
-  field :Consumer_Key
-  field :Consumer_Secret
+  field :description
+  field :consumer_key
+  field :consumer_secret
+  field :access_username
+  field :access_password
+  field :provider
+  field :category
+  field :description
+  field :user_email
+  field :org_name
 
  # index :created_at, :range => true
  # attr_accessible :connector_action_attributes, :connector_output_attributes

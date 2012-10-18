@@ -12,6 +12,7 @@ class CreateOrganizations < ActiveRecord::Migration
       t.string :billing_city
       t.string :billing_state
       t.string :billing_country
+      t.string :api_token
 
       t.timestamps
     end
