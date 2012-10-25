@@ -7,11 +7,11 @@
 		<legend>
 			Sales Force Connector
 		</legend>
-		<div class="span8">
 		<div class="alert alert-info">
 			<strong>Hey there!</strong>
 			Enter the secret key and password. Click here for detailed instructions.
-		</div></div>
+		</div>
+
 		<table class="table table-condensed table-striped table-bordered">
 
 			<tr>
@@ -34,6 +34,13 @@
 		<legend>
 			Connector Action
 		</legend>
+	
+		<div class="alert alert-info">
+		 <strong>Default Values</strong>
+		  <table>
+		   <tr><td><h5>Email Encoding : </h5></td>  <td>UTF-8</td> </tr>
+		  </table>
+		</div>
 		<%= fields_for :connector_actions, @connector_action do |ca| %>
 		<table class="table table-condensed table-striped table-bordered">
 			<tr>
@@ -82,15 +89,24 @@
 				<td><%= co.label :Type %></td>
 				<td><%= co.select(:type, [['Default', 'default'],['Box', 'box'], ['Dropbox', 'dropbox']]) %></td>
 			</tr>
-			
+			<tr>
+				<td><%= co.label :Location %></td>
+				<td><%= co.select(:location, [['Default', 'default'],['Box', 'box'], ['Dropbox', 'dropbox']]) %></td>
+			</tr>
 		</table>
 		<% end %>
 	</fieldset>
 	<%= f.text_field :description, :value => "My first Connector Project", :type => 'hidden' %>
+	<%= f.text_field :provider, :value => "Salesforce", :type => 'hidden' %>
+	<%= f.text_field :category, :value => "CRM", :type => 'hidden' %>
 	<%= f.text_field :user_email, :value => current_user.email, :type => 'hidden' %>
 	<%= f.text_field :org_name, :value => current_user.organization.name, :type => 'hidden' %>
-	<%= f.submit nil, :class => 'btn btn-primary' %>
 
+	
+
+
+	<%= f.submit nil, :class => 'btn btn-primary' %>
+	
 	<% end %>
 
 </div>

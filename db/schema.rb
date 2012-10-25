@@ -121,6 +121,7 @@ ActiveRecord::Schema.define(:version => 20120927132840) do
     t.string "description"
     t.string "url"
     t.string "image_url"
+    t.string "category"
   end
 
   create_table "users", :force => true do |t|

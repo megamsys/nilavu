@@ -22,6 +22,7 @@ gem 'stomp', '~> 1.2.5'
 gem 'jquery-rails','2.1.3'
 gem 'aws-s3'
 gem "dynamoid", '~> 0.5.0'
+gem "json", '~> 1.7.5'
 
 
 # To use ActiveModel has_secure_password

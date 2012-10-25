@@ -2,6 +2,18 @@
 <% provide(:title, 'New Apps_Item') %>
 <h2> My Cloud Applications </h2>
 <table class="table table-condensed">
+        <thead>
+		<tr>
+			<th>Logo</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Category</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<hr/>
+	<br/>
+	<tbody>
 	<% @products.each do |product| %>
 	<tr class="success" >
 		<td> <%= image_tag product.image_url, :size => "128x100" %> </td><dd></dd>
@@ -11,6 +23,7 @@
 			<td><h3><%= product.name %></h3></td><dd></dd>
 		<% end %>
 		<td><%= product.description %></td><dd></dd>
+                <td><%= product.category %></td><dd/>
 		<td> <% @apps_item.each do |apps_item_el| %>
 		<% if apps_item_el.product_id === product.id %>
 		<div id=<%= dom_id(product) %>>
@@ -23,6 +36,7 @@
 		</div> <% end %> </td>
 	</tr>
 	<% end %> <!-- each product -->
+	</tbody>
 </table>
 <% end %>
 <%= render :template => customizations_show_path %>
