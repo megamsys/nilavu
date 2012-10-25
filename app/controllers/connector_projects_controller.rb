@@ -74,6 +74,14 @@ class ConnectorProjectsController < ApplicationController
     @products = Product.all
     @apps_item = current_user.organization.cloud_app.apps_items
   end
+
+  def export
+    a = "Hello"
+    doc = "project.json"
+    File.open(doc, "w"){ |f| f << a}
+    send_file(doc, :type => 'text; charset=utf-8')
+  
+  end
  
   def update
     @connector_project = ConnectorProject.find(params[:id])
