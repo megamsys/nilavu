@@ -18,7 +18,7 @@ class ConnectorProject
  # attr_accessible :connector_action_attributes, :connector_output_attributes
   
   #accepts_nested_attributes_for :connector_output, :update_only => true
-
+  has_many :connector_executions
   has_many :connector_actions
   has_many :connector_outputs
   #accepts_nested_attributes_for :connector_action, :update_only => true

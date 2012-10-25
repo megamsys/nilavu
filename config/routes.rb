@@ -13,7 +13,9 @@ Cloudauth::Application.routes.draw do
 match '/apps_items/destroy', to: 'apps_items#destroy'
 match '/connector_project/destroy', to: 'connector_projects#destroy'
 match '/connector_project/create', to: 'connector_projects#create'
-match '/connector_project/connector_json', to: 'connector_projects#connector_json'  
+match '/connector_project/connector_json', to: 'connector_projects#connector_json'
+match '/connector_execution/execute', to: 'connector_executions#execute' 
+ 
 
   root :to => 'high_voltage/pages#show', :id => 'home'
 
@@ -33,6 +35,8 @@ match '/connector_project/connector_json', to: 'connector_projects#connector_jso
   resources :connectors
   resources :connector_projects
   resources :connector_actions
+  resources :connector_outputs
+  resources :connector_executions
 
 
  

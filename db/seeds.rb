@@ -28,9 +28,15 @@ end
   cp.delete()
 end
 
+@ce = ConnectorExecution.all
+@ce.each do |ce| 
+  ce.delete()
+end
+
+
 cp = ConnectorProject.create_table
 ca = ConnectorAction.create_table
 co = ConnectorOutput.create_table
-
+ce = ConnectorExecution.create_table
 
 #Fixtures.create_fixtures("#{Rails.root}/test/fixtures", "product")
