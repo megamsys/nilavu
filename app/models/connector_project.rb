@@ -11,7 +11,6 @@ class ConnectorProject
   field :access_password
   field :provider
   field :category
-  field :description
   field :user_email
   field :org_name
 

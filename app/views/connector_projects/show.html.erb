@@ -12,19 +12,25 @@
 	<% end %>
 	<% end %>
 </div>
-<br/>
+<div class="navbar-inner">
+	<%= link_to "Create", "#", :class => 'btn btn-small btn-primary' %>
+	<%= link_to "Import", "#", :class => 'btn btn-small btn-primary' %>
+	<%= link_to "Export", "#", :class => 'btn btn-small btn-primary' %>
+	<%= link_to "Execute", connector_project_connector_json_path, :class => 'btn btn-small btn-primary' %>
+</div>
 <div class="organizations">
 	<table>
 		<tr>
-			<td><label for="name">User's Email:</label></td>
+			<td><label for="name"><h5>User's Email : </h5></label></td>
 			<td><span class="content"><%= @connector_project.user_email %></span></td>
 		</tr>
 
 		<tr>
-			<td><label for="email">Company Name:</label></td>
+			<td><label for="email"><h5>Company Name : </h5></label></td>
 			<td><span class="content"><%= @connector_project.org_name %></span></td>
 
 		</tr>
+		<tr><td><h5>Email Encoding : </h5></td>  <td>UTF-8</td> </tr>
 		
 	</table>
 

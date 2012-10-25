@@ -31,6 +31,35 @@ class ConnectorProjectsController < ApplicationController
     end
   end
 
+  def connector_json
+    
+   @cp = ConnectorProject.all
+   @cp.each do |cp|
+   a = {:consumer_key => cp.consumer_key, :consumer_secret => cp.consumer_secret, :access_username => cp.access_username, :access_password => cp.access_password, :provider => cp.provider, :category => cp.category, :description => cp.description, :user_email => cp.user_email, :org_name => cp.org_name}
+   hash1 = a.to_json 
+   #a=@connector_project.to_json(:except => [ :id, :created_at, :updated_at, :connector_outputs_ids, :connector_actions_ids ])
+   logger.debug "JSON CP #{hash1}"
+   end
+
+   @cp.each do |ca|
+    @ca = ca.connector_actions.first
+    b = {:biz_function => @ca.biz_function, :alias => @ca.alias, :email => @ca.email, :charset_encoding => @ca.charset_encoding, :language => @ca.language, :last_name => @ca.last_name, :locale => @ca.locale, :profile => @ca.profile, :time_zone => @ca.time_zone }
+    hash2 = b.to_json
+    #b=@connector_action.to_json
+    logger.debug "JSON CA #{hash2}"
+   end
+
+   @cp.each do |co|
+    @co = co.connector_outputs.first
+    c = {:type => @co.type, :location => @co.location }
+    hash3 = c.to_json
+    #c=@connector_output.to_json(:only => [ :type, :location ])
+     #c=@connector_output.to_json(
+    logger.debug "JSON CO #{hash3}"
+   end
+   
+  end
+
   def show
     @connector_project = ConnectorProject.find(params[:id])
     @connector_action = @connector_project.connector_actions.first

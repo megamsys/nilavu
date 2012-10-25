@@ -5,7 +5,7 @@ class CreateProducts < ActiveRecord::Migration
       t.string :description
       t.string :url
       t.string :image_url
-
+      t.string :category
      
     end
   end
