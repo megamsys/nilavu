@@ -97,8 +97,14 @@
 		<% end %>
 	</fieldset>
 	<%= f.text_field :description, :value => "My first Connector Project", :type => 'hidden' %>
-	<%= f.text_field :provider, :value => "Salesforce", :type => 'hidden' %>
-	<%= f.text_field :category, :value => "CRM", :type => 'hidden' %>
+	<!--<%= f.text_field :provider, :value => "Salesforce", :type => 'hidden'  %> 
+	<%= f.text_field :category, :value => "CRM", :type => 'hidden' %>-->
+        <% @products.each do |product| %>
+        <% if product.name === "Salesforce" %>
+        <%= f.text_field :provider, :value => product.name, :type => 'hidden'  %>
+	<%= f.text_field :category, :value => product.category, :type => 'hidden' %>
+	<% end %>
+        <% end %>
 	<%= f.text_field :user_email, :value => current_user.email, :type => 'hidden' %>
 	<%= f.text_field :org_name, :value => current_user.organization.name, :type => 'hidden' %>
 
