@@ -1,7 +1,7 @@
 <% @connector_project = ConnectorProject.all %>
-<table class="table table-condensed table-striped">
+<table class="table table-condensed">
 	<thead>
-		<tr>
+		<tr class="alert">
 			<th>Id</th>
 			<th>When ?</th>
 			<th>Description</th>
@@ -9,7 +9,7 @@
 	</thead>
 	<tbody>
 	<% @connector_project.each do |connector_project_el| %>
-	<tr id=<%= dom_id(connector_project_el) %>>
+	<tr class="success">
 
 		<td> <%= connector_project_el.id %> </td>
 		<td> <%= connector_project_el.created_at %> </td>

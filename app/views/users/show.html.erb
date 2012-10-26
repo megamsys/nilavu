@@ -6,7 +6,14 @@
 <hr></hr>
 <h2> My Cloud Applications </h2>
 <% if @user.organization.cloud_app %>
+<div class="alert alert-success">
+<div class="row">
+<div class="offset1 span3"> <h3>Logo</h3> </div>
+<div class="span3"> <h3>Name</h3> </div>
+<div class="span3"> <h3>Description</h3> </div>
+</div></div>
 <%= render @user.organization.cloud_app.apps_items %>
+
 <% end %>
 <hr/>
 <h2> My Connector Projects </h2>

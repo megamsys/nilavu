@@ -31,40 +31,37 @@ class ConnectorProjectsController < ApplicationController
     end
   end
 
-  def connector_json
+  def upload
+	#@connector_project = ConnectorProject.find(params[:format])
+        #@connector_execution = @connector_project.connector_executions.first
+	#a = JSON.parse @connector_execution.result
+	#logger.debug "HASH A #{a}"
+    @connector_project = ConnectorProject.build
+    #@connector_execution = ConnectorExecution.new
     
-   #@cp = ConnectorProject.all
-   logger.debug "param-id #{params} "
-   cp = ConnectorProject.find(params[:format])
-   #@cp.each do |cp|
-   a = {:consumer_key => cp.consumer_key, :consumer_secret => cp.consumer_secret, :access_username => cp.access_username, :access_password => cp.access_password, :provider => cp.provider, :category => cp.category, :description => cp.description, :user_email => cp.user_email, :org_name => cp.org_name}
-   #hash_cp = a.to_json 
-   #a=@connector_project.to_json(:except => [ :id, :created_at, :updated_at, :connector_outputs_ids, :connector_actions_ids ])
-   #logger.debug "JSON CP #{hash_cp}"
-   #end
+  end
 
-   #@cp.each do |ca|
-    @ca = cp.connector_actions.first
-    b = {:biz_function => @ca.biz_function, :alias => @ca.alias, :email => @ca.email, :charset_encoding => @ca.charset_encoding, :language => @ca.language, :last_name => @ca.last_name, :locale => @ca.locale, :profile => @ca.profile, :time_zone => @ca.time_zone }
-    #hash_ca = b.to_json
-    #b=@connector_action.to_json
-    #logger.debug "JSON CA #{hash_ca}"
-   #end
-
-   #@cp.each do |co|
-    @co = cp.connector_outputs.first
-    c = {:type => @co.type, :location => @co.location }
-    #hash_co = c.to_json
-    #c=@connector_output.to_json(:only => [ :type, :location ])
-     #c=@connector_output.to_json(
-    #logger.debug "JSON CO #{hash_co}"
-   #end
-
-  #d = {:access => hash_cp, :biz_function => hash_ca, :output => hash_co }
-  d = {:access => a, :biz_function => b, :output => c }
-  hash_all = d.to_json
-  logger.debug "Full JSON #{hash_all}"
-   
+  def import
+	uploaded_file = params[:file]
+	logger.debug "params #{params}"
+	logger.debug "UploadedFile #{uploaded_file}"
+	file_content = uploaded_file.read
+	
+        logger.debug "File #{file_content}"
+	imported_hash = JSON.parse file_content
+	logger.debug "Hash A #{imported_hash}"
+	imported_hash.each do |k, v|
+		logger.debug"K = #{k}"
+		logger.debug"V = #{v}"
+	end
+	logger.debug "Hash A's provider #{imported_hash.fetch('provider').fetch('access')}"
+	@connector_project = ConnectorProject.create(imported_hash.fetch('provider').fetch('access'))
+	#logger.debug "Params CP #{params}"
+    @connector_project.connector_actions.create(imported_hash.fetch('provider').fetch('business_activity'))
+	#logger.debug "Params CA #{params}"
+    @connector_project.connector_outputs.create(imported_hash.fetch('execution').fetch('output'))
+	#logger.debug "Params CO #{params}"
+	redirect_to connector_projects_path
   end
 
   def show
