@@ -38,6 +38,10 @@ class ConnectorExecutionsController < ApplicationController
   
   end
 
+ def import
+
+ end
+
  def show
    #@connector_project = ConnectorProject.all
    #@connector_project = ConnectorProject.find(params[:id])

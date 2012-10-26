@@ -1,0 +1,20 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'New Connector_projects') %>
+
+<h2> Import Connector projects </h2>
+<!-- <%= form_for @connector_project, :html => { :multipart => true } do |f| %>
+<%= fields_for :connector_executions, @connector_execution do |ce| %>
+
+<%= ce.file_field :result, placeholder: "Logo" %>
+<% end %>
+<%= f.submit nil, :class => 'btn btn-primary' %>
+<% end %> -->
+
+<%= form_tag 'import', :multipart => true do %>
+   <label for="file">Upload text File</label> <%= file_field_tag "file" %>
+   
+   <%= submit_tag %>
+<% end %>
+		
+<% end %>
+<%= render :template => customizations_show_path %>

@@ -13,7 +13,8 @@ Cloudauth::Application.routes.draw do
 match '/apps_items/destroy', to: 'apps_items#destroy'
 match '/connector_project/destroy', to: 'connector_projects#destroy'
 match '/connector_project/create', to: 'connector_projects#create'
-match '/connector_project/connector_json', to: 'connector_projects#connector_json'
+match '/connector_project/upload', to: 'connector_projects#upload'
+match '/connector_project/import', to: 'connector_projects#import'
 match '/connector_execution/export', to: 'connector_executions#export'
 match '/connector_execution/execute', to: 'connector_executions#execute' 
  
