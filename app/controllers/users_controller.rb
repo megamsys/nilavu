@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   def show
     
     @user = User.find(params[:id])
+   @connector_project = ConnectorProject.all
     if !@user.organization
           flash[:error] = "Please Create Organization Details first"
 		redirect_to edit_user_path(current_user)

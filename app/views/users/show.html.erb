@@ -8,6 +8,13 @@
 <% if @user.organization.cloud_app %>
 <%= render @user.organization.cloud_app.apps_items %>
 <% end %>
+<hr/>
+<h2> My Connector Projects </h2>
+<hr/>
+
+<% if @connector_project %>
+ <%= render "connector_projects/projects" %>
+<% end %>
 
 <% else %>
 <div class="alert alert-warning">
