@@ -15,7 +15,7 @@
 <div class="navbar-inner">
 	<%= link_to "Create", "#", :class => 'btn btn-small btn-primary' %>
 	<%= link_to "Import", "#", :class => 'btn btn-small btn-primary' %>
-	<%= link_to "Export", connector_project_export_path, :class => 'btn btn-small btn-primary' %>
+	<%= link_to "Export", connector_execution_export_path(@connector_project.id), :class => 'btn btn-small btn-primary' %>
 	<%= link_to "Execute", connector_execution_execute_path(@connector_project.id), :class => 'btn btn-small btn-primary' %>
 	<%= link_to "List", connector_execution_path(@connector_project.id), :class => 'btn btn-small btn-primary' %>
 </div>
@@ -31,7 +31,7 @@
 			<td><span class="content"><%= @connector_project.org_name %></span></td>
 
 		</tr>
-		<tr><td><h5>Email Encoding : </h5></td>  <td>UTF-8</td> </tr>
+		
 		
 	</table>
 

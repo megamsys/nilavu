@@ -45,7 +45,7 @@
 		<table class="table table-condensed table-striped table-bordered">
 			<tr>
 				<td><%= ca.label :User %></td>
-				<td><%= ca.select(:biz_function, [['Create', 'user#create'], ['Delete', 'user#delete'], ['Update','user#update']]) %></td>
+				<td><%= ca.select(:biz_function, [['Create', 'user#create'], ['List', 'list'], ['Delete', 'user#delete'], ['Update','user#update']]) %></td>
 
 				<td><%= ca.label :Profile %></td>
 				<td><%= ca.select(:profile, [['Force.com', 'Force.com'], ['Sales.com', 'Sales.com']]) %></td>
@@ -61,7 +61,7 @@
 			</tr>
   			<tr>
 				<td><%= ca.label :Language %></td>
-				<td><%= ca.select(:language, [['US', 'US'], ['IN', 'IN']]) %></td>
+				<td><%= ca.select(:language, [['English', 'English'], ['French', 'French'], ['Tamil', 'Tamil'], ['US', 'US']]) %></td>
 			
 				<td><%= ca.label :Locale %></td>
 				<td><%= ca.select(:locale, [['US', 'US'], ['IN', 'IN']]) %></td>
@@ -97,15 +97,9 @@
 		<% end %>
 	</fieldset>
 	<%= f.text_field :description, :value => "My first Connector Project", :type => 'hidden' %>
-	<!--<%= f.text_field :provider, :value => "Salesforce", :type => 'hidden'  %> 
-	<%= f.text_field :category, :value => "CRM", :type => 'hidden' %>-->
-        <% @products.each do |product| %>
-        <% if product.name === "Salesforce" %>
-        <%= f.text_field :provider, :value => product.name, :type => 'hidden'  %>
-	<%= f.text_field :category, :value => product.category, :type => 'hidden' %>
-	<% end %>
-        <% end %>
-	<%= f.text_field :user_email, :value => current_user.email, :type => 'hidden' %>
+	<%= f.text_field :provider, :value => "Salesforce", :type => 'hidden'  %> 
+	<%= f.text_field :category, :value => "CRM", :type => 'hidden' %>
+       	<%= f.text_field :user_email, :value => current_user.email, :type => 'hidden' %>
 	<%= f.text_field :org_name, :value => current_user.organization.name, :type => 'hidden' %>
 
 	
