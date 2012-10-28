@@ -13,15 +13,14 @@ gem 'execjs','1.4.0'
 gem 'will_paginate','3.0.3'
 gem 'bootstrap-will_paginate','0.0.8'
 gem 'rest-client','1.6.7'
-gem 'grape','0.2.1'
-gem 'paperclip','3.1.4'
-gem 'aws-sdk', '~> 1.3.4'
+gem 'grape','0.2.2'
+gem 'paperclip','3.3.0'
+gem 'aws-sdk', '~> 1.6.9'
 gem 'high_voltage','1.2.0'
 gem "therubyracer", '0.10.2'
-gem 'stomp', '~> 1.2.5'
+gem 'stomp', '~> 1.2.6'
 gem 'jquery-rails','2.1.3'
-gem 'aws-s3'
-gem "dynamoid", '~> 0.5.0'
+gem "dynamoid", :git => 'git://github.com/indykish/Dynamoid.git'
 gem "json", '~> 1.7.5'
 
 
@@ -37,7 +36,7 @@ group :assets do
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer'
 
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier', '>= 1.3.0'
   gem 'twitter-bootstrap-rails'
 end
 

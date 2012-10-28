@@ -1,17 +1,15 @@
 class OrganizationsController < ApplicationController
   before_filter :signed_in_user
-
   def index
 
-   end
-
-  def new
-     current_user.build_organization
   end
 
- 
+  def new
+    current_user.build_organization
+  end
+
   def create
-         	
+
     #   @user = current_organization.users.build(params[:user])
     #   if @user.save
     #     flash[:success] = "User created!"
@@ -34,7 +32,7 @@ class OrganizationsController < ApplicationController
   end
 
   def show_api_token
-	
+
     if !current_user.organization
       flash[:error] = "Please Create Organization Details first"
       redirect_to edit_user_path(current_user)
@@ -43,11 +41,10 @@ class OrganizationsController < ApplicationController
   end
 
   def create_api_access_key
-       	a = p SecureRandom.urlsafe_base64(nil, true)
-	current_user.organization.update_attribute(:api_token, a)
-	redirect_to organizations_show_api_token_url
+    a = p SecureRandom.urlsafe_base64(nil, true)
+    current_user.organization.update_attribute(:api_token, a)
+    redirect_to organizations_show_api_token_url
   end
-
 
   def edit
   end

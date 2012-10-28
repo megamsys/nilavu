@@ -1,6 +1,6 @@
 <%= form_for @user, :html => { :multipart => true } do |f| %>
 <div class="span10">
-	<%= render 'shared/error_messages', object: f.object %>
+	<%= render 'shared/error_messages', object: @user %>
 </div>
 <div class="span4">
 	<h2>Personal Info </h2>

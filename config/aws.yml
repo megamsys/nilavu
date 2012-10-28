@@ -1,24 +1,26 @@
-#This file is needed for AWS s3 
+#This file is needed for AWS s3
 staging:
   bucket: megam
   access_key_id: AKIAJQYJB7IUCXKWIF4A
-  secret_access_key: 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 
+  secret_access_key: 5CThMfu6BL9iSniO2EnwbPh1sZs9MLBzq+efobSo
+  dynamo_db_endpoint: dynamodb.ap-southeast-1.amazonaws.com # Set the regional endpoint
 
 production:
   bucket: megam
   access_key_id: AKIAJQYJB7IUCXKWIF4A
   secret_access_key: 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
+  dynamo_db_endpoint: dynamodb.ap-southeast-1.amazonaws.com # Set the regional endpoint
+
 
 development:
 
   bucket: megam
   access_key_id: AKIAJQYJB7IUCXKWIF4A
   secret_access_key: 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
+  dynamo_db_endpoint: dynamodb.ap-southeast-1.amazonaws.com # Set the regional endpoint
 
 test:
   bucket: megam
   access_key_id: AKIAJQYJB7IUCXKWIF4A
   secret_access_key: 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
-
-
 
