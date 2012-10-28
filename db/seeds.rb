@@ -13,7 +13,7 @@ open("config/products_seed.data") do |products|
     Product.create!(:name => name, :description => description, :url => url, :image_url => image_url, :category => category)
   end
 end
-
+puts "Delete ConnectorOutput"
 @co = ConnectorOutput.all
 @co.each do |co| 
   co.delete()
