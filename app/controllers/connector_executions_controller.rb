@@ -39,7 +39,7 @@ class ConnectorExecutionsController < ApplicationController
   end
 
  def import
-
+	
  end
 
  def show
