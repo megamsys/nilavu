@@ -6,19 +6,18 @@ class UsersController < ApplicationController
   before_filter :admin_user,     only: :destroy
   def index
     @users = User.paginate(page: params[:page])
-    
   end
 
   def show
-    
+
     @user = User.find(params[:id])
-   @connector_project = ConnectorProject.all
+    @connector_project = ConnectorProject.all
     if !@user.organization
-          flash[:error] = "Please Create Organization Details first"
-		redirect_to edit_user_path(current_user)
-         end
-    
-logger.debug "show org #{@user.to_yaml}"
+      flash[:error] = "Hey stranger. we need details about your work. Please update your work details to proceed further."
+      redirect_to edit_user_path(current_user)
+    end
+
+    logger.debug "show org #{@user.to_yaml}"
 
   end
 
@@ -33,7 +32,7 @@ logger.debug "show org #{@user.to_yaml}"
 
     if @user.save
       sign_in @user
-      flash[:alert] = "Welcome #{current_user.first_name}"
+      flash[:alert] = "Welcome back #{current_user.first_name}"
       redirect_to customizations_show_url
     else
       render 'new'
@@ -54,14 +53,13 @@ logger.debug "show org #{@user.to_yaml}"
     @organization=@user.organization || Organization.new
 
     if @user.update_attributes(params[:user])
-	logger.debug "user-update"
-	
-	
-      flash[:alert] = "Hi #{current_user.first_name},Your profile Updated Successfully"
+      logger.debug "user-update"
+
+      flash[:alert] = "Hi #{current_user.first_name},Your profile was updated Successfully"
       sign_in @user
 
       redirect_to @user
-   
+
     else
       render 'edit'
     end
