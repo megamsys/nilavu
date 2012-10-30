@@ -7,36 +7,52 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 Product.delete_all
 
+puts "Load Products"
 open("config/products_seed.data") do |products|
   products.read.each_line do |product|
     name, description, url, image_url, category = product.chomp.split("|")
     Product.create!(:name => name, :description => description, :url => url, :image_url => image_url, :category => category)
   end
 end
-puts "Delete ConnectorOutput"
-@co = ConnectorOutput.all
-@co.each do |co| 
-  co.delete()
-end
 
-@ca = ConnectorAction.all
-@ca.each do |ca| 
-  ca.delete()
-end
-@cp = ConnectorProject.all
-@cp.each do |cp| 
-  cp.delete()
-end
+puts ""
+puts "DynamoDB Deletion"
 
 @ce = ConnectorExecution.all
 @ce.each do |ce| 
   ce.delete()
 end
+puts "ConnectorExecution Deleted"
+
+@co = ConnectorOutput.all
+@co.each do |co| 
+  co.delete()
+end
+puts "ConnectorOutput Deleted"
+
+@ca = ConnectorAction.all
+@ca.each do |ca| 
+  ca.delete()
+end
+puts "ConnectorAction Deleted"
+
+@cp = ConnectorProject.all
+@cp.each do |cp| 
+  cp.delete()
+end
+puts "ConnectorProject Deleted"
+
+puts ""
+puts "DynamoDB Creation"
 
 
 cp = ConnectorProject.create_table
+puts "ConnectorProject Created"
 ca = ConnectorAction.create_table
+puts "ConnectorAction Created"
 co = ConnectorOutput.create_table
+puts "ConnectorOutput Created"
 ce = ConnectorExecution.create_table
+puts "ConnectorExecution Created"
 
 #Fixtures.create_fixtures("#{Rails.root}/test/fixtures", "product")

@@ -61,6 +61,7 @@ class ConnectorProjectsController < ApplicationController
 	#logger.debug "Params CA #{params}"
     @connector_project.connector_outputs.create(imported_hash.fetch('execution').fetch('output'))
 	#logger.debug "Params CO #{params}"
+     @connector_project.connector_executions.create(:access_email => current_user.email, :access_org_id => current_user.organization.id, :access_account_name => current_user.organization.account_name, :api_token => current_user.organization.api_token)
 	redirect_to connector_projects_path
   end
 

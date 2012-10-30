@@ -302,12 +302,7 @@ exitScript 0
 #also will perform the required cleanup.
 #--------------------------------------------------------------------------
 dbclean(){
-#remove connector_outputs
-rake db:migrate:down VERSION=20120927132840
-#remove connector_actions
-rake db:migrate:down VERSION=20120927120404
-#remove connectors
-rake db:migrate:down VERSION=20120927095902
+
 #remove products
 rake db:migrate:down VERSION=20120829143151
 #remove apps_items
@@ -341,12 +336,6 @@ rake db:migrate:up VERSION=20120824063657
 rake db:migrate:up VERSION=20120824094944
 #create products
 rake db:migrate:up VERSION=20120829143151
-#create connectors
-rake db:migrate:up VERSION=20120927095902
-#create connector_actions
-rake db:migrate:up VERSION=20120927120404
-#create connector_outputs
-rake db:migrate:up VERSION=20120927132840
 
 rake db:seed
 

@@ -23,5 +23,4 @@
 # Ignore all files under metadata
 .metadata
 
-# Ignore database.yml
-/config/database.yml
+
