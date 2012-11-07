@@ -9,6 +9,8 @@ Cloudauth::Application.routes.draw do
   get "organizations/show_api_token"
   get "organizations/create_api_access_key"
   
+match '/email_verify', to: 'users#email_verify'
+match '/verified_email', to: 'users#verified_email'
 
 match '/apps_items/destroy', to: 'apps_items#destroy'
 match '/connector_project/destroy', to: 'connector_projects#destroy'

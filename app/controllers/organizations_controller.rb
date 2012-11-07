@@ -41,8 +41,8 @@ class OrganizationsController < ApplicationController
   end
 
   def create_api_access_key
-    a = p SecureRandom.urlsafe_base64(nil, true)
-    current_user.organization.update_attribute(:api_token, a)
+    random_token = p SecureRandom.urlsafe_base64(nil, true)
+    current_user.organization.update_attribute(:api_token, random_token)
     redirect_to organizations_show_api_token_url
   end
 
