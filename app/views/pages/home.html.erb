@@ -1,27 +1,57 @@
-<!-- Main hero unit for a primary marketing message or call to action -->
-<div class="leaderboard">
-	<h1>Megam - opensource</h1>
-	<p>
-		Cloud IT at your doorstep...Let us drive and conquer your IT. Step right in..!
-		Try and gets your hands wet to enhance your IT for free.
-	</p>
-     <% if !current_user %>
-	<p>
-		<%= link_to "Sign up now!", signup_path, class: "btn btn-large btn-primary"%>
-	</p>
-     <% end %>
+<div id="hero">
+	<div class="container">
+		<!-- starts carousel -->
+		<div class="row animated fadeInDown">
+			<div class="span12">
+				<div id="myCarousel" class="carousel slide">
+					<!-- carousel items -->
+					<div class="carousel-inner">
+						<!-- slide -->
+						<div class="active item slide1">
+							<div class="row">
+								<div class="span6">
+									<img src="/assets/slide1.png" alt="slide1" />
+								</div>
+								<div class="span4">
+									<h1> Responsive and Clean Wrapbootstrap Theme </h1>
+									<p>
+										There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look.
+									</p>
+									<a href="https://wrapbootstrap.com/theme/measure-responsive-business-theme-WB0D95984" class="btn btn-success btn-large"> Get Measure Now! </a>
+								</div>
+							</div>
+						</div>
+						<!-- slide -->
+						<div class="item slide2">
+							<div class="row">
+								<div class="span4 animated fadeInUpBig">
+									<h1>Fully responsive blog template</h1>
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisi ut aliquip ex ea commodo consequat.
+									</p>
+									<a href="blog.html" class="btn btn-success btn-large"> Watch it now! </a>
+								</div>
+								<div class="span6 animated fadeInDownBig">
+									<img src="/assets/slide2.png" alt="slide2" />
+								</div>
+							</div>
+						</div>
+						<!-- slide -->
+						<div class="item slide3 animated fadeInUpBig">
+							<img src="/assets/slide3.png" alt="slide3" />
+						</div>
+					</div>
+					<!-- Carousel nav -->
+					<a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+					<a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<div class="row">
-	<div class="span3">
-		<h2>Mammoth</h2>
-		<%= image_tag "mammoth_full.png", :size => "200x200" %>
-	</div>
-	<div class="span3">
-		<h2>Ironfist</h2>
-		<%= image_tag "iron.png", :size => "150x200" %>
-	</div>
-	<div class="span3">
-		<h2>Identityprov</h2>
-		<%= image_tag "megam_doc.png", :size => "200x200" %>
+<div id="intro">
+	<div class="container">
+		<h1>Measure is a beautiful Wrapbootstrap theme for
+		businesses and creative professionals.</h1>
 	</div>
 </div>

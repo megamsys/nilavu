@@ -16,12 +16,14 @@
 //= require twitter/bootstrap
 //= require_tree .
 //= require spin
-//= require footer
+
 //= require ajaxspinner
 
 //= require formwizard
 
 //= require uiutils
+//= require theme
+
 
 
 
