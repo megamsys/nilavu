@@ -1,6 +1,22 @@
 <% content_for :content_settings do %>
 <%= provide(:title, 'Edit user') %>
-<h1>Update your profile.</h1>
+<div id="box_sign">
+	<div class="container">
+		<div class="span12 box_wrapper">
+			<div class="span12 box">
+				<div>
+					<div class="head">
+						<h4>Update your account</h4>
+					</div>
+					<div class="form">
 	<%= render :partial => "users/user_fields_form" %>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+</div>
+
 <% end %>
 <%= render :template => customizations_show_path %>

@@ -1,27 +1,27 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.9'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'jquery-ui-rails'
 gem 'pg', '0.14.1'
-gem 'omniauth-twitter','0.0.13'
+gem 'omniauth-twitter','0.0.14'
 gem 'omniauth-facebook','1.4.1'
 gem 'omniauth-openid','1.0.1'
 gem 'execjs','1.4.0'
 gem 'will_paginate','3.0.3'
-gem 'bootstrap-will_paginate','0.0.8'
+gem 'bootstrap-will_paginate','0.0.9'
 gem 'rest-client','1.6.7'
-gem 'grape','0.2.2'
-gem 'paperclip','3.3.0'
-gem 'aws-sdk', '~> 1.6.9'
-gem 'high_voltage','1.2.0'
-gem "therubyracer", '0.10.2'
-gem 'stomp', '~> 1.2.6'
-gem 'jquery-rails','2.1.3'
-gem "dynamoid", :git => 'git://github.com/indykish/Dynamoid.git'
-gem "json", '~> 1.7.5'
+gem 'grape','0.2.3'
+gem 'paperclip','3.4.0'
+gem "aws-sdk", "~> 1.8.0"
+gem 'high_voltage','1.2.1'
+gem "therubyracer", '0.11.0'
+gem 'stomp', '~> 1.2.8'
+gem 'jquery-rails','2.1.4'
+gem "dynamoid", '0.6.0'
+gem "json", '~> 1.7.6'
 
 
 # To use ActiveModel has_secure_password
@@ -32,6 +32,7 @@ gem 'bcrypt-ruby', :require => 'bcrypt'
 group :assets do
   gem 'sass-rails','3.2.5'
   gem 'coffee-rails','3.2.2'
+  gem "less-rails", "~> 2.2.6"
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer'
@@ -47,7 +48,7 @@ group :test do
 end
 
 group :test, :development do
-  gem "rspec-rails", "~> 2.0"
+  gem "rspec-rails", "~> 2.12.0"
 end
 
 # To use Jbuilder templates for JSON

@@ -1,22 +1,40 @@
-<% provide(:title, 'Sign up') %> <h1>Sign up</h1>
+<% provide(:title, 'Sign up') %>
 <div class="row">
 	<div class="span10">
-		<div class="alert alert-info">
-			<span class="label label-info">Heads Up!</span>
-			<button class="close" data-dismiss="alert">
-				×
-			</button>
-			<strong>Warning!</strong> Please read before trying to signup. Administrators to create an account here. If you are an user contact your administrator from here.
-		</div>
-	</div><!-- /.span 10-->
+	</div>
 	<div class="span10">
 		<div class="span5">
-		<h3> <%- flash.each do |name, msg| -%>
-		<%= content_tag :div, msg, :id => "flash_#{name}" %>
-		<%- end -%> </h3>
-		<%= render :partial => "users/user_fields_form" %>
+			<h3> <%- flash.each do |name, msg| -%>
+			<%= content_tag :div, msg, :id => "flash_#{name}" %>
+			<%- end -%> </h3>
+
+<div id="box_sign">
+	<div class="container">
+		<div class="span12 box_wrapper">
+			<div class="span12 box">
+				<div>
+					<div class="head">
+						<h4>Create your account</h4>
+					</div>
+					<div class="form">
+
+			<%= render :partial => "users/user_fields_form" %>
+
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="span4">
+		<div class="span4 offset1">
+		<p class="already">
+			Already have an account? <%= link_to "Sign in", signin_path %>
+		</p>
 		</div>
 	</div>
 </div>
+
+		</div>
+	</div>
+
+	<div class="span4"></div>
+</div>
+

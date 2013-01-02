@@ -1,30 +1,51 @@
-<% provide(:title, "Sign in") %> <h1>Sign in</h1>
-<div class="row">
-
+<% provide(:title, "Sign in") %> 
 <h5> <%- flash.each do |name, msg| -%>
 		<%= content_tag :div, msg, :id => "flash_#{name}" %>
-		<%- end -%> </h5>
+<%- end -%> </h5>
+  <div id="box_login">
+        <div class="container">
+            <div class="span12 box_wrapper">
+                <div class="offset2 span12 box">
+                    <div>
+                        <div class="head">
+                            <h4>Log in to your account</h4>
+                        </div>
+                        <div class="social">
+                            <a href="/auth/facebook" class="face_login">
+                                <span class="face_icon">
+				    <%= image_tag "i_face.png", :alt => "fb" %>
+                                </span>
+                                <span class="text">Sign in with Facebook</span>
+                            </a>
+                            <div class="division">
+                                <hr class="left">
+                                <span>or</span>
+                                <hr class="right">
+                            </div>
+                        </div>
+                        <div class="form">
+                            <%= form_for(:session, :url => sessions_path) do |f| %>
 
-	<div class="span6 offset3">
-		<%= form_for(:session, :url => sessions_path) do |f| %>
+				<%= f.text_field :email, placeholder: "Email" %>
+				<%= f.password_field :password, placeholder: "Password" %>
+                                <div class="remember">
+                                    <div class="left">
+                                        <input id="remember_me" type="checkbox">
+                                        <label for="remember_me">Remember me</label>
+                                    </div>
+					<div class="right">
+                                        <a href="reset.html">Forgot password?</a>
+                                    </div>
+                                    
+                                </div>
+                                <%= f.submit "Sign in", :class => "btn" %>
+			    <% end %>
+                        </div>
+                    </div>
+                </div>
+                <p class="already">Don't have an account? <%= link_to "Sign up", signup_path %></p>
+            </div>
+        </div>
+    </div>
 
-		<%= f.label :email %>
-		<%= f.text_field :email, placeholder: "e-mail" %>
 
-		<%= f.label :password %>
-		<%= f.password_field :password, placeholder: "Password" %>
-		<br>
-		</br>
-
-		<%= f.submit "Sign in", :class => "btn btn-large btn-primary" %>
-		<% end %>
-		<p>
-			New user? <%= link_to "Sign up now!", signup_path %>
-		</p>
-		<p>
-			<strong>Sign in through one of these services:</strong>
-		</p>
-
-		<a href="/auth/facebook" class="auth_provider"> <%= image_tag "facebook_64.png", :size => "64x64", :alt => "Facebook" %>Facebook</a>
-	</div>
-</div>
