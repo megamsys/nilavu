@@ -1,34 +1,33 @@
+<%= form_for @user, :html => { :multipart => true } do |f| %>
 
-						<%= form_for @user, :html => { :multipart => true } do |f| %>
+<%= f.text_field :first_name, :class => 'text_field', placeholder: "First name" %>
 
-						<%= f.text_field :first_name, :class => 'text_field', placeholder: "First name" %>
+<%= f.text_field :last_name, :class => 'text_field', placeholder: "Last name" %>
 
-						<%= f.text_field :last_name, :class => 'text_field', placeholder: "Last name" %>
+<%= f.text_field :phone, :class => 'text_field', placeholder: "Phone number" %>
 
-						<%= f.text_field :phone, :class => 'text_field', placeholder: "Phone number" %>
+<%= f.text_field :email, :class => 'text_field', placeholder: "Email" %>
 
-						<%= f.text_field :email, :class => 'text_field', placeholder: "Email" %>
+<%= f.password_field :password, placeholder: "Password" %>
 
-						<%= f.password_field :password, placeholder: "Password" %>
+<%= f.password_field :password_confirmation, placeholder: "Confirm password" %>
 
-						<%= f.password_field :password_confirmation, placeholder: "Confirm password" %>
+<% if !current_user.nil? && current_user.admin? %>
 
-						<% if !current_user.nil? && current_user.admin? %>
+<%= f.fields_for :organization_attributes, @user.organization do |org_f| %>
 
-						<%= f.fields_for :organization_attributes, @user.organization do |org_f| %>
+<%= org_f.text_field :name, placeholder: "Organization name" %>
 
-						<%= org_f.text_field :name, placeholder: "Organization name" %>
+<%= org_f.text_field :url, placeholder: "Organization URL" %>
 
-						<%= org_f.text_field :url, placeholder: "Organization URL" %>
+<%= org_f.label :upload_organization_logo %>
+<%= org_f.file_field :logo, placeholder: "Logo" %>
 
-						<%= org_f.label :upload_organization_logo %>
-						<%= org_f.file_field :logo, placeholder: "Logo" %>
+<% end %>
 
-						<% end %>
+<% end %>
 
-						<% end %>
+<%= f.submit nil, :class => 'btn' %>
 
-						<%= f.submit nil, :class => 'btn' %>
-
-						<% end %>
+<% end %>
 

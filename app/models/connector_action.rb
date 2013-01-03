@@ -10,6 +10,8 @@ class ConnectorAction
   field :locale
   field :profile
   field :time_zone
+  field :user_name
+  field :first_name
 
   belongs_to :connector_project
 
