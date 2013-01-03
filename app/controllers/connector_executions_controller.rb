@@ -6,8 +6,7 @@ class ConnectorExecutionsController < ApplicationController
 	
 	@ca = cp.connector_actions.first
     b = {:access => {:consumer_key => cp.consumer_key, :consumer_secret => cp.consumer_secret, :access_username => cp.access_username, :access_password => cp.access_password, :provider => cp.provider, :category => cp.category, :description => cp.description, :user_email => cp.user_email, :org_name => cp.org_name},
-:business_activity => {:biz_function => @ca.biz_function, :alias => @ca.alias, :email => @ca.email, 
-:charset_encoding => @ca.charset_encoding, :language => @ca.language, :last_name => @ca.last_name, :locale => @ca.locale, :profile => @ca.profile, :time_zone => @ca.time_zone } } 
+:business_activity => {:biz_function => @ca.biz_function, :user_name => @ca.user_name, :first_name => @ca.first_name, :alias => @ca.alias, :email => @ca.email, :charset_encoding => @ca.charset_encoding, :language => @ca.language, :last_name => @ca.last_name, :locale => @ca.locale, :profile => @ca.profile, :time_zone => @ca.time_zone } } 
 	
 	@co = cp.connector_outputs.first
     c = {:output => {:type => @co.type, :location => @co.location } }
