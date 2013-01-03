@@ -1,15 +1,24 @@
-== Welcome to idportal
+== Welcome to megam.co
 
-idportal provides a skeleton for a portal to be built using Ruby on Rails. This allows an user to set the base framework for a project to project. 
+* Code name - Nilavu : Which means "moon" in dialect Tamil.
+
+This project provides a skeleton for a portal to be built using Ruby on Rails. This allows an user to set the base framework for a project to project. 
 The basic requirements of home page, signin, signout are handled. The template approach using twitter-bootstrap/Less is available.
+
+Nilavu uses a bootstrap theme named Measure bought from http://wrapbootstrap.com. 
+The theme can be bought from here  http://bit.ly/UDywP8
 
 == Getting Started
 
-1. Clone the Git code and At the command prompt, create a new Rails application:
+* The Getting Started Guide for Megam: Refer this guide to get know about the project. http://megam.co/getting_started.html
+
+If you are interested in using this as a sample to build your Rails app, Go ahead.
+
+1. Clone the Git code and At the command prompt:
        <tt>rails new myapp</tt> (where <tt>myapp</tt> is the application name)
 
-2. Change directory to <tt>myapp</tt> and start the web server:
-       <tt>cd myapp; rails server</tt> (run with --help for options)
+2. Change directory to <tt>nilavu</tt> and start the web server:
+       <tt>cd nilavu; rails server</tt> (run with --help for options)
 
 3. Go to http://localhost:3000/ and you'll see:
        "Welcome aboard: You're riding Ruby on Rails!"
