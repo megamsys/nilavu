@@ -4,9 +4,6 @@ require File.expand_path('../application', __FILE__)
 # Initialize the rails application
 Cloudauth::Application.initialize!
 
-#config.action_mailer.delivery_method = :smtp ActionMailer::Base.server_settings = {   :address => "smtp.example.com",   :port => 25,   :user_name => "admin@megam.co.in",   :password => "password",   :authentication => :plain }
-
-
 #config.action_mailer.delivery_method = :smtp
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.perform_deliveries = true
