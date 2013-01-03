@@ -9,16 +9,15 @@
 		<%= render 'layouts/shim' %>
 	</head>
 	<body>
-		<div class="container">
+		
 			<%= render 'layouts/header' %>
-			<div id="container">
-
+			<a href="#" class="scrolltop">
+        <span>up</span>
+    </a>
+			<div class="container">
 				<%= yield %>
-				<hr>
-				</hr>
-				<%= render 'layouts/footer' %>
-				<%= debug(params) if Rails.env.development? %>
 			</div>
+			<%= render 'layouts/footer' %>
 			<!-- JQuery will invoke via the spinner and display a loading modal lock. -->
 			<div id="loading" />
 	</body>
