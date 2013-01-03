@@ -1,37 +1,58 @@
-<footer class="footer">
-	<div class="row">
-		<div class="span3">
-			<ul class="unstyled">
-				<li>
-					<%= link_to "Getting started",   page_path("get_started") %>
-				</li>
-				<li>
-					<%= link_to "Documentation",   page_path("doc") %>
-				</li>
-			</ul>
+<div id="footer">
+	<div class="container">
+		<div class="row">
+			<div class="span4">
+				<ul class="unstyled">
+					<li>
+						<%= link_to "Getting started",   page_path("get_started") %>
+					</li>
+
+					<li>
+						<%= link_to "Documentation",   page_path("doc") %>
+					</li>
+
+				</ul>
+			</div>
+			<div class=span4>
+				<ul class="unstyled">
+
+					<li>
+						<%= link_to "About",  page_path("about") %>
+					</li>
+					<li>
+						<%= link_to "Contact us",   page_path("contact_us") %>
+					</li>
+
+				</ul>
+			</div>
+			<div class=span4>
+				<ul class="unstyled">
+					<li>
+						<%= link_to "Contribute",   page_path("contribute") %>
+					</li>
+
+					<li>
+						<%= link_to "Read Our Blog",   "http://blog.megam.co", { :target => '_blank'} %>
+					</li>
+				</ul>
+			</div>
 		</div>
-		<div class="span3">
-			<ul class="unstyled">
-				<li>
-					<%= link_to "About",  page_path("about") %>
-				</li>
-				<li>
-					<%= link_to "Contact us",   page_path("contact_us") %>
-				</li>
-			</ul>
-		</div>
-		<div class=span3>
-			<ul class="unstyled">
-				<li>
-					<%= link_to "Contribute",   page_path("contribute") %>
-				</li>
-				<li>
-					<%= link_to "Read Our Blog",   "http://blog.megam.co", { :target => '_blank'} %>
-				</li>
-			</ul>
+
+		<hr>
+		<div class="row copyright">
+			<div class="span5">
+				<h3>Social</h3>
+				<a href="#" class="social fb"> <i class="i_facebook"></i> </a>
+				<a href="#" class="social tw"> <i class="i_twitter"></i> </a>
+				<a href="#" class="social yt"> <i class="i_youtube"></i> </a>
+			</div>
+			<br/>
+			<div class="span5 offset2">
+				<small> © 2012 megam. All rights reserved. <span class="seperator">|</span> <a href="/terms-of-use/">Terms of Use</a><span class="seperator">|</span> <a href="/privacy-policy/">Privacy Policy</a> </small>
+			</div>
 			
-			<a href="https://twitter.com/indykish" class="twitter-follow-button" data-show-count="false" data-size="large">Follow @indykish</a>
+
 		</div>
 	</div>
-	<small> © 2012 megam. All rights reserved. <span class="seperator">|</span> <a href="/terms-of-use/">Terms of Use</a><span class="seperator">|</span> <a href="/privacy-policy/">Privacy Policy</a> </small>
-</footer>
+</div>
+

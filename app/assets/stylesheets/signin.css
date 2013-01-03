@@ -1,0 +1,328 @@
+#box_login{
+}
+#box_login .box_wrapper{
+	margin-left: 0;
+}
+#box_login .box_wrapper p.already{
+	text-align: center;
+	font-style: 15px;
+	color: #454B52;
+}
+#box_login .box_wrapper p.already a{
+	color: #454B52;
+	margin-left: 3px;
+	text-decoration: underline;
+}
+#box_login .box{
+    background-color: white;
+	border: 1px solid #CCC;
+	border-radius: 4px 4px 4px 4px;
+	float: none;
+	margin: 50px auto 0;
+	padding-bottom: 26px;
+	width: 38%;
+	margin-bottom: 25px;
+	box-shadow: 0px 0px 10px 0px #DDD;
+}
+#box_login .box .head{
+	background-color: #F4F4F4;
+    border-bottom: 1px solid #D6D6D6;
+    border-radius: 4px 4px 1px 0;
+    display: inline-block;
+    margin-bottom: 37px;
+    padding: 25px 0 25px;
+    text-align: center;
+    width: 100%;
+}
+#box_login .box .head h4{
+	font-weight: normal;
+	color: #373D44;
+	font-size: 21px;
+	margin: 0px;
+}
+#box_login .box .social{
+	margin: 0 auto;
+	width: 83%;
+}
+#box_login .box .social a.face_login{
+	background: #6887c4;
+	background: -moz-linear-gradient(top, #6887c4 0%, #4566a9 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6887c4), color-stop(100%,#4566a9));
+	background: -webkit-linear-gradient(top, #6887c4 0%,#4566a9 100%);
+	background: -o-linear-gradient(top, #6887c4 0%,#4566a9 100%);
+	background: -ms-linear-gradient(top, #6887c4 0%,#4566a9 100%); 
+	background: linear-gradient(to bottom, #6887c4 0%,#4566a9 100%); 
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6887c4', endColorstr='#4566a9',GradientType=0 );
+	border: 1px solid #3B4868;
+    border-radius: 3px 3px 3px 3px;
+    display: inline-block;
+    height: 37px;
+    overflow: hidden;
+    width: 99%;
+
+    text-decoration: none !important;
+}
+#box_login .box .social a.face_login:hover {
+	background: #6887c4;
+	background: -moz-linear-gradient(top, #6887c4 0%, #5773AC 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6887c4), color-stop(100%,#5773AC));
+	background: -webkit-linear-gradient(top, #6887c4 0%,#5773AC 100%);
+	background: -o-linear-gradient(top, #6887c4 0%,#5773AC 100%);
+	background: -ms-linear-gradient(top, #6887c4 0%,#5773AC 100%); 
+	background: linear-gradient(to bottom, #6887c4 0%,#5773AC 100%); 
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6887c4', endColorstr='#5773AC',GradientType=0 );
+}
+#box_login .box .social a.face_login span.face_icon{
+	background-color: #39599F;
+    border-radius: 3px 0 0 3px;
+    float: left;
+    height: 37px;
+    text-align: center;
+    width: 51px;
+}
+#box_login .box .social a.face_login span.face_icon img{
+	margin-top: 5px;
+}
+#box_login .box .social a.face_login span.text{
+	color: #FFFFFF;
+    float: left;
+    font-size: 17px;
+    font-weight: bold;
+    margin: 8px 0 0 30px;
+    text-shadow: 1px 1px 0 #39599F;
+}
+#box_login .box .division{
+	display: inline-block;
+    margin: 17px 0 23px;
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+#box_login .box .division hr{
+	border-color: #E2E2E4;
+    border-width: 1px;
+    margin: 0;
+    position: absolute;
+    width: 40%;
+}
+#box_login .box .division hr.left{
+	top: 13px;
+}
+#box_login .box .division hr.right{
+	bottom: 6px;
+    right: 0;
+}
+#box_login .box .division span{
+	color: #666666;
+	font-size: 18px;
+}
+#box_login form{
+	margin: 0px;
+}
+#box_login .box .form{
+	margin: 0 auto;
+	text-align: center;
+	width: 83%;
+}
+#box_login .box .form input[type="text"]{
+	border-color: #DBDBDB #EAEAEA #EAEAEA #DBDBDB;
+    border-left: 1px solid #DBDBDB;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 16px;
+    height: 30px;
+    margin-bottom: 16px;
+    width: 95%;
+}
+#box_login .box .form input[type="password"]{
+	border-color: #DBDBDB #EAEAEA #EAEAEA #DBDBDB;
+    border-left: 1px solid #DBDBDB;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 16px;
+    height: 30px;
+    margin-bottom: 16px;
+    width: 95%;
+}
+#box_login .box .form input[type="submit"]{
+	border-color: #CCCCCC;
+    border-radius: 7px 7px 7px 7px;
+    color: #394350;
+    font-size: 16px;
+    font-weight: 900;
+    margin-top: 34px;
+}
+#box_login .box .form .remember{
+	margin-top: 10px;
+	overflow: hidden;
+    width: 100%;
+}
+#box_login .box .form .remember .left{
+	float: left;
+    width: 45%;
+}
+#box_login .box .form .remember .left input[type="checkbox"]{
+	float: left;
+}
+#box_login .box .form .remember .left label{
+	color: #6B727C;
+    float: left;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 16px;
+    margin: 3px 0 0 7px;
+    cursor: pointer;
+}
+#box_login .box .form .remember .right{
+	float: right;
+}
+#box_login .box .form .remember .right a{
+	color: #7EA05E;
+	float: right;
+    line-height: 16px;
+    margin: 3px 0 0;
+	font-style: 14px;
+	font-weight: bold;
+	
+}
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) { 
+	#box_login .box{
+	  width: 54%;
+	}
+	#box_login .box .social{
+	}
+	#box_login .box .social a.face_login{
+	}
+	#box_login .box .social a.face_login span.face_icon{
+	}
+	#box_login .box .social a.face_login span.face_icon img{
+	}
+	#box_login .box .social a.face_login span.text{
+	}
+	#box_login .box .division{
+	}
+	#box_login .box .division hr{
+	}
+	#box_login .box .division hr.left{
+	}
+	#box_login .box .division hr.right{
+	}
+	#box_login .box .form .remember .left{
+	float: left;
+    width: 45%;
+	}
+	#box_login .box .form .remember .left p{
+	}
+	#box_login .box .form .remember .right{
+	}
+	#box_login .box .form .remember .right a{
+	}
+}
+@media (max-width: 979px) {
+	#box_login .box{
+	  width: 55%;
+	}
+	#box_login .box .social a.face_login{
+		height: auto;
+	    padding: 10px 0;
+	    text-align: center;
+	}
+	#box_login .box .social a.face_login span.face_icon{
+		display: none;
+	}
+	#box_login .box .social a.face_login span.face_icon img{
+		margin: 0;
+	}
+	#box_login .box .social a.face_login span.text{
+		 float: none;
+	    font-size: 13px;
+	    margin:0px;
+	    text-align: center;
+	}
+	#box_login .box .form .remember .left{
+		min-width: 45px;
+    	width: 100%;
+	}
+	#box_login .box .form .remember .left p{
+	}
+	#box_login .box .form .remember .right{
+		float: left;
+    	margin-top: 16px;
+	}
+}
+
+@media (min-width: 980px) {
+	#box_login .box{	  
+		width: 41%;
+	}
+}
+@media (max-width: 480px) {
+	#box_login .box{
+		width: 100%;  
+	}
+	#box_login .box .social{
+		margin: 0 auto;
+		width: 83%;
+	}
+	#box_login .box .social a.face_login{
+		background: #6887c4;
+		background: -moz-linear-gradient(top, #6887c4 0%, #4566a9 100%);
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6887c4), color-stop(100%,#4566a9));
+		background: -webkit-linear-gradient(top, #6887c4 0%,#4566a9 100%);
+		background: -o-linear-gradient(top, #6887c4 0%,#4566a9 100%);
+		background: -ms-linear-gradient(top, #6887c4 0%,#4566a9 100%); 
+		background: linear-gradient(to bottom, #6887c4 0%,#4566a9 100%); 
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6887c4', endColorstr='#4566a9',GradientType=0 );
+		border: 1px solid #3B4868;
+	    border-radius: 3px 3px 3px 3px;
+	    display: inline-block;
+	    height: 37px;
+	    overflow: hidden;
+	    width: 99%;
+	    padding: 0;
+	    text-decoration: none !important;
+	}
+	#box_login .box .social a.face_login span.face_icon{
+		background-color: #39599F;
+	    border-radius: 3px 0 0 3px;
+	    float: left;
+	    display: inline-block;
+	    height: 37px;
+	    text-align: center;
+	    width: 51px;
+	}
+	#box_login .box .social a.face_login span.face_icon img{
+		margin-top: 5px;
+	}
+	#box_login .box .social a.face_login span.text{
+		color: #FFFFFF;
+	    float: left;
+	    font-size: 14px;
+	    margin: 8px 0 0 13px;
+	    text-shadow: 1px 1px 0 #39599F;
+	}
+	#box_login .box .form .remember .left{
+		width: 100%;
+	}
+	#box_login .box .form .remember .right{
+		float: left;
+    	margin-top: 20px;
+	}
+
+}
+/* Large desktop */
+@media (min-width: 1200px) {
+	#box_login .box{
+		width: 32.5%;
+	}
+}
+
+
+
+
+
+
+
+
+

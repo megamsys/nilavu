@@ -1,0 +1,116 @@
+#box_sign{
+}
+#box_sign .box_wrapper{
+	margin-left: 0;
+}
+#box_sign .box_wrapper p.already{
+	text-align: center;
+	font-style: 15px;
+	color: #454B52;
+}
+#box_sign .box_wrapper p.already a{
+	color: #454B52;
+	margin-left: 3px;
+	text-decoration: underline;
+}
+#box_sign .box{
+    background-color: white;
+	border: 1px solid #CCC;
+	border-radius: 4px 4px 4px 4px;
+	float: none;
+	padding-bottom: 26px;
+	margin-left: 10% auto 0;
+	margin-top: 1%;
+	width: 32.5%;
+	margin-bottom: 25px;
+	box-shadow: 0px 0px 10px 0px #DDD;
+}
+#box_sign .box .head{
+	background-color: #F4F4F4;
+    border-bottom: 1px solid #D6D6D6;
+    border-radius: 4px 4px 1px 0;
+    display: inline-block;
+    margin-bottom: 37px;
+    padding: 25px 0 25px;
+    text-align: center;
+    width: 100%;
+}
+#box_sign .box .head h4{
+	font-weight: normal;
+	color: #373D44;
+	font-size: 21px;
+	margin: 0px;
+}
+#box_sign form{
+	margin: 0px;
+}
+#box_sign .box .form{
+	margin: 0 auto;
+	text-align: center;
+	width: 83%;
+}
+#box_sign .box .form input[type="text"]{
+	border-color: #DBDBDB #EAEAEA #EAEAEA #DBDBDB;
+    border-left: 1px solid #DBDBDB;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 16px;
+    height: 30px;
+    margin-bottom: 16px;
+    width: 95%;
+}
+#box_sign .box .form input[type="password"]{
+	border-color: #DBDBDB #EAEAEA #EAEAEA #DBDBDB;
+    border-left: 1px solid #DBDBDB;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 16px;
+    height: 30px;
+    margin-bottom: 16px;
+    width: 95%;
+}
+#box_sign .box .form input[type="submit"]{
+	border-color: #CCCCCC;
+    border-radius: 7px 7px 7px 7px;
+    color: #394350;
+    font-size: 16px;
+    font-weight: 900;
+    margin-top: 34px;
+}
+
+/* Portrait tablet to landscape and desktop */
+@media (min-width: 768px) and (max-width: 979px) { 
+	#box_sign .box{
+	  width: 54%;
+	}
+}
+@media (max-width: 979px) {
+	#box_sign .box{
+	  width: 48%;
+	}
+}
+@media (min-width: 980px) {
+	#box_sign .box{	  
+		width: 37%;
+	}
+}
+@media (max-width: 480px) {
+	#box_sign .box{
+		width: 100%;  
+	}
+}
+/* Large desktop */
+@media (min-width: 1200px) {
+	#box_sign .box{
+		width: 32.5%;
+	}
+}
+
+
+
+
+
+
+
+
+
