@@ -1,45 +1,38 @@
 #!/bin/bash
-# This command will automatically bring down the required migration versions and bring it up.
-# also will perform the required cleanup.
+# This script is a helper to perform git commit, cleaning up the rails asset directory, clean db
+#before a git commit is performed.
 #
 #
-IDP_SCRIPT_PATH=
-IDP_CD_PATH=
-IDP_INSTALL_PATH=
-IDP_GIT_COMMIT_MASTER=
-IDP_GIT_MASTER=master
-IDP_GIT_ORIGIN=origin
+NIL_INSTALL_PATH=
+NIL_GIT_COMMIT_MASTER=
+NIL_GIT_MASTER=master
+NIL_GIT_ORIGIN=origin
 #--------------------------------------------------------------------------
 #initialize the environment variables.
-#IDP_INSTALL_PATH => the rails application installation directory. 
+#NIL_INSTALL_PATH => the rails application installation directory.
 #--------------------------------------------------------------------------
 initialize(){
 
-
-    if [ -f "$PWD/app" ] ; #this for the symbolic linked build390USS.ksh
+    if [ -f "$PWD/app" ] ;
         then
         echo "WARNING !                                                 "
         echo "        Recommended  mode  to  start  the script is by running"
         echo "        d.sh  from  the  script  directory.!!!!"
-            IDP_CD_PATH=$PWD
+            NIL_INSTALL_PATH=$PWD
         else
-            IDP_CD_PATH=../
+            NIL_INSTALL_PATH=../
 	fi
 
-cd $IDP_CD_PATH
-
-IDP_INSTALL_PATH=$PWD
-
-IDP_SCRIPT_PATH=$IDP_INSTALL_PATH/script
+cd $NIL_INSTALL_PATH
 }
 #
 #
 #
 #--------------------------------------------------------------------------
-#parse the input parameters. 
+#parse the input parameters.
 # Pattern in case statement is explained below.
 # a*)  The letter a followed by zero or more of any
-# *a)  The letter a preceded by zero or more of any 
+# *a)  The letter a preceded by zero or more of any
 #--------------------------------------------------------------------------
 parseParameters()   {
 #integer index=0
@@ -48,7 +41,7 @@ then
 	help
         exitScript 0
 fi
-IDP_GIT_COMMIT_MASTER=$2
+NIL_GIT_COMMIT_MASTER=$2
 
 for item in "$@"
 do
@@ -56,19 +49,22 @@ do
         --[hH][eE][lL][pP])
             help
             ;;
+	--[lL][uU][dD])
+	licenseupd
+	;;
 	('/?')
             help
             ;;
             --[mM][yY])
-	    echo "Howdy $IDP_GIT_MASTER. Enjoy committing local to <master> - Github..."
+	    echo "Howdy $NIL_GIT_MASTER. Enjoy committing local to <master> - Github..."
             mystuff
             ;;
             --[oO][mM][yY])
-	    echo "Howdy $IDP_GIT_ORIGIN. Enjoy committing local to <origin> - Github..."
+	    echo "Howdy $NIL_GIT_ORIGIN. Enjoy committing local to <origin> - Github..."
             origin_stuff
             ;;
             --[uU][pP][dD])
-	    echo "Howdy $IDP_GIT_MASTER.enjoy merging <origin> to local..."
+	    echo "Howdy $NIL_GIT_MASTER.enjoy merging <origin> to local..."
             uptodate
             ;;
             --[fF][iI][nN][iI][sS][hH])
@@ -85,16 +81,16 @@ do
  	--[dD][bB][cC][lL][eA][aA][nN])
 	    echo "Cleaning up db..."
             dbclean
-            ;;         
+            ;;
         --[vV][eE][rR][sS][iI][oO][nN])
 	   version
             ;;
         '--verify')
 	   verify
-            ;;         
+            ;;
         *)
 	    echo "Unknown option : $item - refer help."
-            help	
+            help
             ;;
 esac
 index=$(($index+1))
@@ -109,6 +105,7 @@ help(){
     echo "Usage : d.sh [Options]"
     echo "--help     : prints the help message."
     echo "--verify   : does a git status."
+    echo "--lud      : does a insert of License file into your code."
     echo "--my       : does a add, commit and push of my master."
     echo "--omy      : does a add, commit and push to origin."
     echo "--upd      : does a fetch from origing and merge to my master."
@@ -117,7 +114,7 @@ help(){
     echo "--clean    : cleans up the temp files."
     echo "--precom   : cleans up the temp files and precompiles asset."
     echo "--dbclean  : cleans up the db."
-    
+
 exitScript 0
 }
 #--------------------------------------------------------------------------
@@ -130,11 +127,47 @@ verify(){
 	echo "========================================================="
 	git remote -v
 	echo "========================================================="
-	printf "%-20s=>\t%s\n" git status 
+	printf "%-20s=>\t%s\n" git status
 	echo "========================================================="
 	git status
 	echo "========================================================="
 	exitScript 1
+}
+#
+#
+#--------------------------------------------------------------------------
+#Updates the license text in all the source code.
+#--------------------------------------------------------------------------
+licenseupd(){
+if [ ! -f $LICENSE_FILE_NAME ]
+then
+    echo $LICENSE_FILE_NAME does not exists.
+    exitScript 0
+fi
+echo "========================================================="
+printf "%-20s=>\t%s\n" Updating [$LICENSE_FILE_NAME]
+echo "========================================================="
+echo -n "Do you want to insert [$LICENSE_FILE_NAME] text into your code [y/n]? "
+read -n 1 licenseupd
+echo
+if [[ $licenseupd =~ ^[Yy]$ ]]
+then
+echo "========================================================="
+
+cd $JAVA_SRC_DIR
+
+if [ -d $JAVA_OUT_DIR ]
+then
+rm -r $JAVA_OUT_DIR
+fi
+
+mkdir $JAVA_OUT_DIR
+
+for i in `find -type d | sed 's/\.//' | grep -v "^$"`; do mkdir $JAVA_OUT_DIR$i; done
+for i in `find -name "*.java"`; do cat $NIL_INSTALL_PATH/$LICENSE_FILE_NAME $i > $JAVA_OUT_DIR/$i ; done
+fi
+
+exitScript 0
 }
 #--------------------------------------------------------------------------
 # git add all the files,commits to the local repos.
@@ -159,7 +192,7 @@ mystuff(){
 	if [[ $pmstr =~ ^[Yy]$ ]]
 	then
 		echo "========================================================="
-		git push master	
+		git push master
 		echo "========================================================="
 	fi
 	verify
@@ -188,7 +221,7 @@ origin_stuff(){
 	if [[ $pmstr =~ ^[Yy]$ ]]
 	then
 		echo "========================================================="
-		git push origin	
+		git push origin
 		echo "========================================================="
 	fi
 	verify
@@ -227,13 +260,13 @@ uptodate(){
 # performs a push to the users master in github.
 #-------------------------------------------------------------------------
 finish(){
-	if [ -z $IDP_GIT_COMMIT_MASTER ]
+	if [ -z $NIL_GIT_COMMIT_MASTER ]
 	then
 		echo "Missing parameter <master repository name>."
 		help
         	exitScript 1
 	else
-        echo "Howdy committer.Enjoy merging <$IDP_GIT_COMMIT_MASTER> to origin..."
+        echo "Howdy committer.Enjoy merging <$NIL_GIT_COMMIT_MASTER> to origin..."
 		echo "========================================================="
 		echo -n "Do you want to add/commit files [y/n]? "
 		read -n 1 addcommit
@@ -246,15 +279,15 @@ finish(){
 			git commit .
 		fi
 		echo "========================================================="
-		echo -n "Do you want to commit $IDP_GIT_COMMIT_MASTER to your origin [y/n]? "
+		echo -n "Do you want to commit $NIL_GIT_COMMIT_MASTER to your origin [y/n]? "
 		read -n 1 pmstr
 		echo
 		if [[ $pmstr =~ ^[Yy]$ ]]
 		then
 			echo "========================================================="
-			git fetch $IDP_GIT_COMMIT_MASTER
-			git merge $IDP_GIT_COMMIT_MASTER/master
-			git push -u origin $IDP_GIT_COMMIT_MASTER/master
+			git fetch $NIL_GIT_COMMIT_MASTER
+			git merge $NIL_GIT_COMMIT_MASTER/master
+			git push -u origin $NIL_GIT_COMMIT_MASTER/master
 			echo "========================================================="
 		fi
 	verify
@@ -269,9 +302,10 @@ finish(){
 #This command will automatically cleanup the assests and the tmp directory.
 #--------------------------------------------------------------------------
 clean(){
-# 
-# 
+#
+#
 clear
+find . -type f -name "*.*~" -exec rm -f {} \;
 rake assets:clean
 rake tmp:clear
 rm -r public/system
@@ -286,9 +320,10 @@ exitScript 0
 #and run a precompile of the assets.
 #--------------------------------------------------------------------------
 precom(){
-# 
-# 
+#
+#
 clear
+find . -type f -name "*.*~" -exec rm -f {} \;
 rake assets:clean
 rake tmp:clear
 rake assets:precompile
