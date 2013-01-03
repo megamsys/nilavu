@@ -19,6 +19,8 @@
 	<td><%= f.password_field :password, placeholder: "Password" %></td></tr>
 	<tr><td><%= f.label :password_confirmation, "Confirmation" %></td>
 	<td><%= f.password_field :password_confirmation, placeholder: "Confirm Password" %></td></tr>	
+	<% random_token = p SecureRandom.urlsafe_base64(nil, true) %>
+	<%= f.text_field :verification_hash, :value => random_token, :type => 'hidden' %>
 </table>
 	<% if !current_user.nil? && current_user.admin? %>
 	<%= f.fields_for :organization_attributes, @user.organization do |org_f| %>

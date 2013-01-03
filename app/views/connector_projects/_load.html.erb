@@ -22,9 +22,9 @@
 			</tr>
 			<tr>
 				<td><%= f.label :User_Name %></td>
-				<td><%= f.text_field :access_username, :class => 'text_field', placeholder: "User_Name" %></td>
+				<td><%= f.text_field :access_username, :class => 'text_field', placeholder: "Sakesforce User_Name" %></td>
 				<td><%= f.label :Password %></td>
-				<td><%= f.text_field :access_password, :class => 'text_field', placeholder: "Password" %></td>
+				<td><%= f.text_field :access_password, :class => 'text_field', placeholder: "Password and Encription Key" %></td>
 			</tr>
 			
 		</table>
@@ -45,26 +45,36 @@
 		<table class="table table-condensed table-striped table-bordered">
 			<tr>
 				<td><%= ca.label :User %></td>
-				<td><%= ca.select(:biz_function, [['Create', 'user#create'], ['List', 'user#list'], ['Delete', 'user#delete'], ['Update','user#update']]) %></td>
+				<td><%= ca.select(:biz_function, [['Create', 'user#create'], ['List', 'user#list']['Update','user#update']]) %></td>
 
 				<td><%= ca.label :Profile %></td>
 				<td><%= ca.select(:profile, [['Force.com', 'force.com'], ['Sales.com', 'sales.com']]) %></td>
 			</tr>
     			
 			<tr>
-				<td><%= ca.label :Alias %></td>
-				<td><%= ca.text_field :alias, :class => 'text_field', placeholder: "Alias" %></td>
+				<td><%= ca.label :First_Name %></td>
+				<td><%= ca.text_field :first_name, :class => 'text_field', placeholder: "First Name" %></td>
 				
 				<td><%= ca.label :Last_Name %></td>
 				<td><%= ca.text_field :last_name, :class => 'text_field', placeholder: "Last Name" %></td>
 			
 			</tr>
+			
+			<tr>
+				<td><%= ca.label :UserName %></td>
+				<td><%= ca.text_field :user_name, :class => 'text_field', placeholder: "example@anymail.com" %></td>
+				
+				<td><%= ca.label :Alias %></td>
+				<td><%= ca.text_field :alias, :class => 'text_field', placeholder: "Alias" %></td>
+			
+			</tr>
+
   			<tr>
 				<td><%= ca.label :Language %></td>
-				<td><%= ca.select(:language, [['English', 'english'], ['Us', 'us']]) %></td>
+				<td><%= ca.select(:language, [['English', 'en_ENG'], ['Us', 'en_US']]) %></td>
 			
 				<td><%= ca.label :Locale %></td>
-				<td><%= ca.select(:locale, [['Us', 'us'], ['India', 'india'], ['France', 'france']]) %></td>	
+				<td><%= ca.select(:locale, [['Us', 'US'], ['India', 'IN'], ['France', 'FRA']]) %></td>	
 			</tr>
 			
 			<tr>
