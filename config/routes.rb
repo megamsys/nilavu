@@ -47,6 +47,9 @@ match '/connector_execution/execute', to: 'connector_executions#execute'
   
   match '/signup',  to: 'users#new'
 
+  match '/forgot',  to: 'users#forgot'
+  match '/calendar', to: 'users#calendar'
+
   match '/update',  to: 'users#update'
 
   match '/edit',  to: 'users#edit'

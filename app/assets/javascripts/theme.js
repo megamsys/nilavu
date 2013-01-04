@@ -1,43 +1,43 @@
-$(function () {
-    $(window).scroll(function(){
+jQuery(function () {
+    jQuery(window).scroll(function(){
         // add navbar opacity on scroll
-        if ($(this).scrollTop() > 100) {
-            $(".navbar.navbar-fixed-top").addClass("scroll");
+        if (jQuery(this).scrollTop() > 100) {
+            jQuery(".navbar.navbar-fixed-top").addClass("scroll");
         } else {
-            $(".navbar.navbar-fixed-top").removeClass("scroll");
+            jQuery(".navbar.navbar-fixed-top").removeClass("scroll");
         }
 
         // global scroll to top button
-        if ($(this).scrollTop() > 300) {
-            $('.scrolltop').fadeIn();
+        if (jQuery(this).scrollTop() > 300) {
+            jQuery('.scrolltop').fadeIn();
         } else {
-            $('.scrolltop').fadeOut();
+            jQuery('.scrolltop').fadeOut();
         }        
     });
 
     // scroll back to top btn
-    $('.scrolltop').click(function(){
-        $("html, body").animate({ scrollTop: 0 }, 700);
+    jQuery('.scrolltop').click(function(){
+        jQuery("html, body").animate({ scrollTop: 0 }, 700);
         return false;
     });
     
     // scroll navigation functionality
-    $('.scroller').click(function(){
-    	var section = $($(this).data("section"));
+    jQuery('.scroller').click(function(){
+    	var section = jQuery(jQuery(this).data("section"));
     	var top = section.offset().top;
-        $("html, body").animate({ scrollTop: top }, 700);
+        jQuery("html, body").animate({ scrollTop: top }, 700);
         return false;
     });
 
     // FAQs
-    var $faqs = $("#faq .faq");
-    $faqs.click(function () {
-        var $answer = $(this).find(".answer");
-        $answer.slideToggle('fast');
+    var jQueryfaqs = jQuery("#faq .faq");
+    jQueryfaqs.click(function () {
+        var jQueryanswer = jQuery(this).find(".answer");
+        jQueryanswer.slideToggle('fast');
     });
 
-    if (!$.support.leadingWhitespace) {
+    if (!jQuery.support.leadingWhitespace) {
         //IE7 and 8 stuff
-        $("body").addClass("old-ie");
+        jQuery("body").addClass("old-ie");
     }
 });
