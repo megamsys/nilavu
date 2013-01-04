@@ -10,22 +10,20 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
+//= require excanvas
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require twitter/bootstrap
-//= require_tree .
 //= require spin
-
 //= require ajaxspinner
-
 //= require formwizard
-
-//= require uiutils
 //= require theme
-
-
-
-
-
-
+//= require jquery.flot.min
+//= require jquery.flot.resize.min
+//= require jquery.peity
+//= require fullcalendar
+//= require gcal
+//= require unicorn
+//= require unicorn.dashboard
+//= require_tree .

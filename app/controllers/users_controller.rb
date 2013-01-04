@@ -26,6 +26,13 @@ class UsersController < ApplicationController
 
   end
 
+ def forgot
+	
+ end
+
+ def calendar
+  end
+
 
  def email_verify
 	@user= User.find_by_verification_hash(params[:format])

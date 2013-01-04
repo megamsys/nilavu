@@ -37,6 +37,8 @@ jQuery(document)
 									});
 				});
 
+
+
 function removeAt(selector_to_remove) {
 	console.log('remove selector :' + selector_to_remove);
 	$(selector_to_remove).remove();
