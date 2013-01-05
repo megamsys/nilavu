@@ -2,10 +2,15 @@
  * Unicorn Admin Template
  * Diablo9983 -> diablo9983@gmail.com
 **/
+
+
 jQuery(document).ready(function(){
-	
-	
-	
+
+$('#dash').each(function() {
+$('body').css('background', '#444444');
+});
+
+
 	// === Prepare peity charts === //
 	unicornpeity();
 	
