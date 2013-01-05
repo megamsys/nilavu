@@ -4,23 +4,23 @@
 **/
 $(document).ready(function(){
 	
-	unicorn.init();
+	unicorn_init();
 	
 	$('#add-event-submit').click(function(){
-		unicorn.add_event();
+		unicorn_add_event();
 	});
 	
 	$('#event-name').keypress(function(e){
 		if(e.which == 13) {	
-			unicorn.add_event();
+			unicorn_add_event();
 		}
 	});	
 });
 
-unicorn = {	
+
 	
 	// === Initialize the fullCalendar and external draggable events === //
-	init: function() {	
+	function unicorn_init() {	
 		// Prepare the dates
 		var date = new Date();
 		var d = date.getDate();
@@ -58,24 +58,24 @@ unicorn = {
 				
 			}
 		});
-		this.external_events();		
-	},
+		this.unicorn_external_events();		
+	}
 	
 	// === Adds an event if name is provided === //
-	add_event: function(){
+	function unicorn_add_event() {
 		if($('#event-name').val() != '') {
 			var event_name = $('#event-name').val();
 			$('#external-events .panel-content').append('<div class="external-event ui-draggable label label-inverse">'+event_name+'</div>');
-			this.external_events();
+			this.unicorn_external_events();
 			$('#modal-add-event').modal('hide');
 			$('#event-name').val('');
 		} else {
-			this.show_error();
+			this.unicorn_show_error();
 		}
-	},
+	}
 	
 	// === Initialize the draggable external events === //
-	external_events: function(){
+	function unicorn_external_events(){
 		/* initialize the external events
 		-----------------------------------------------------------------*/
 		$('#external-events div.external-event').each(function() {		
@@ -95,10 +95,10 @@ unicorn = {
 				revertDuration: 0  //  original position after the drag
 			});		
 		});		
-	},
+	}
 	
 	// === Show error if no event name is provided === //
-	show_error: function(){
+	function unicorn_show_error(){
 		$('#modal-error').remove();
 		$('<div style="border-radius: 5px; top: 70px; font-size:14px; left: 50%; margin-left: -70px; position: absolute;width: 140px; background-color: #f00; text-align: center; padding: 5px; color: #ffffff;" id="modal-error">Enter event name!</div>').appendTo('#modal-add-event .modal-body');
 		$('#modal-error').delay('1500').fadeOut(700,function() {
@@ -107,4 +107,4 @@ unicorn = {
 	}
 	
 	
-};
+

@@ -14,13 +14,13 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
+//= require jquery.flot
+//= require jquery.flot.resize
 //= require twitter/bootstrap
 //= require spin
 //= require ajaxspinner
 //= require formwizard
 //= require theme
-//= require jquery.flot.min
-//= require jquery.flot.resize.min
 //= require jquery.peity
 //= require fullcalendar
 //= require gcal
