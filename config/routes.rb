@@ -5,6 +5,8 @@ Cloudauth::Application.routes.draw do
   get "connector_actions/create"
 
   get "customizations/show"
+
+  get "users/show"
  
   get "organizations/show_api_token"
   get "organizations/create_api_access_key"
@@ -53,6 +55,8 @@ match '/connector_execution/execute', to: 'connector_executions#execute'
   match '/update',  to: 'users#update'
 
   match '/edit',  to: 'users#edit'
+  
+  match '/unicorn_index', to: 'users#unicorn_index'
 
   match '/signin',  to: 'sessions#new'
   get "signout" => "sessions#destroy", :as => "signout"

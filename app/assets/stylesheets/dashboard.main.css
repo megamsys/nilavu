@@ -42,7 +42,7 @@ a:hover {
 #search {
 	position: absolute;
 	z-index: 25;
-	top: 100px;
+	top: 80px;
 	left: 230px;
 }
 #search input[type=text] {
