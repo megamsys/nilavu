@@ -33,6 +33,9 @@ class UsersController < ApplicationController
  def calendar
   end
 
+ def unicorn_index
+ end
+
 
  def email_verify
 	@user= User.find_by_verification_hash(params[:format])
