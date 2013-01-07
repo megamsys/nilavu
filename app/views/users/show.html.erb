@@ -4,57 +4,50 @@
 	<div id="sidebar">
 		<a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
 		<ul>
-			<li>
-				<%= image_tag "salesforce.png", :alt => "Megam" %>
-			</li>
+			
 			<li class="active">
 				<%= link_to unicorn_index_path do %>
 						<i class="icon-home"></i> Dashboard
 						<% end %>
 			</li>
 
+			<li class="submenu">
+				<a href="#"><i class="icon icon-th-list"></i> <span>Cloud identity</span> <span class="label">3</span></a>
+				<ul>
+					<li>
+						<%= link_to cloud_identity_path(current_user.id) do %>
+						 <i class="icon-ok"></i>Launch
+							<% end %>
+					</li>
+					<li>
+						<%= link_to cloud_identity_path(current_user.id) do %>
+						 <i class="icon-ok"></i>Customize
+							<% end %>
+					</li>
+					<li>
+						<%= link_to cloud_identity_path(current_user.id) do %>
+						 <i class="icon-ok"></i>Federation
+							<% end %>
+					</li>
+				</ul>
+			</li>
+
 			<li>
 
-				<%= link_to cloud_identity_path(current_user.id) do %>
-						 Cloud Identity	<i class="icon-chevron-right"></i>
-							<% end %>
+				
 			</li>
 			<li>
 				<%= link_to cloud_app_path(current_user.id) do %>
-							Cloud Applications	<i class="icon-chevron-right"></i>
+							<i class="icon-globe"></i>Cloud Applications
 							<% end %>
 			</li>
 			<li>
 					<%= link_to connector_projects_path do %>
-					Projects	<i class="icon-chevron-right"></i>
+					<i class="icon-cloud"></i>Live Cloud
 					<% end %>
 			</li>
-			<li class="submenu">
-				<a href="#"><i class="icon icon-th-list"></i> <span>Form elements</span> <span class="label">3</span></a>
-				<ul>
-					<li>
-						<a href="form-common.html">Common elements</a>
-					</li>
-					<li>
-						<a href="form-validation.html">Validation</a>
-					</li>
-					<li>
-						<a href="form-wizard.html">Wizard</a>
-					</li>
-				</ul>
-			</li>
-			<li>
-				<a href="buttons.html"><i class="icon icon-tint"></i> <span>Buttons &amp; icons</span></a>
-			</li>
-			<li>
-				<a href="interface.html"><i class="icon icon-pencil"></i> <span>Interface elements</span></a>
-			</li>
-			<li>
-				<a href="tables.html"><i class="icon icon-th"></i> <span>Tables</span></a>
-			</li>
-			<li>
-				<a href="grid.html"><i class="icon icon-th-list"></i> <span>Grid Layout</span></a>
-			</li>
+			
+			
 			<li class="submenu">
 				<a href="#"><i class="icon icon-file"></i> <span>Sample pages</span> <span class="label">4</span></a>
 				<ul>
@@ -75,9 +68,6 @@
 			</li>
 			<li>
 				<a href="charts.html"><i class="icon icon-signal"></i> <span>Charts &amp; graphs</span></a>
-			</li>
-			<li>
-				<a href="widgets.html"><i class="icon icon-inbox"></i> <span>Widgets</span></a>
 			</li>
 		</ul>
 

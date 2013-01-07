@@ -56,7 +56,10 @@ body {
     filter: none;
     padding: 7px 0 8px 0;
     /*background: none repeat scroll 0 0 #242b35;*/
-    background: url("nav_bg.jpg") 0 0 repeat;
+   /* background: url("nav_bg.jpg") 0 0 repeat;
+background: url("menu-active.png") no-repeat scroll right center transparent !important; */
+	background-color: #2A2A2A; 
+		
 }
 .navbar .brand {
     font-size: 26px;
@@ -312,7 +315,10 @@ body {
 
 /* footer section */
 #footer {
-	background: url("footer_bg.jpg") 0 0 repeat;
+	/* background: url("footer_bg.jpg") 0 0 repeat;
+	background-color: #363636;  
+	background: url("menu-active.png") no-repeat scroll right center transparent !important; */
+		background-color: #2A2A2A; 
 	min-height: 100px;
 	margin-top: 100px;
 	color: #fff;
