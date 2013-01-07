@@ -6,14 +6,19 @@
 
 jQuery(document).ready(function(){
 
+var set_measure_bodyCSS = {
+'border-bottom': '0 none', '-webkit-box-shadow': '0 1px 2px rgba(0, 0, 0, 0.5)', '-moz-box-shadow': '0 1px 2px rgba(0, 0, 0, 0.5)', 'webkit-font-smoothing' : '0 1px 2px rgba(0, 0, 0, 0.5)', 'filter' : 'none', 'background' : 'url("../assets/nav_bg.jpg") 0 0 repeat'
+};
+
 $('#dash').each(function() {
-$('body').css('background', '#444444');
+$('body').css(set_measure_bodyCSS);
 });
+
 
 
 	// === Prepare peity charts === //
 	unicornpeity();
-	
+
 	// === Prepare the chart data ===/
 	var sin = [], cos = [];
     for (var i = 0; i < 14; i += 0.5) {
@@ -31,38 +36,38 @@ $('body').css('background', '#444444');
                grid: { hoverable: true, clickable: true },
                yaxis: { min: -1.6, max: 1.6 }
 		   });
-    
+
 	// === Point hover in chart === //
     var previousPoint = null;
     jQuery(".chart").bind("plothover", function (event, pos, item) {
-		
+
         if (item) {
             if (previousPoint != item.dataIndex) {
                 previousPoint = item.dataIndex;
-                
+
                 jQuery('#tooltip').fadeOut(200,function(){
 					jQuery(this).remove();
 				});
                 var x = item.datapoint[0].toFixed(2),
 					y = item.datapoint[1].toFixed(2);
-                    
+
                 unicorn_flot_tooltip(item.pageX, item.pageY,item.series.label + " of " + x + " = " + y);
             }
-            
+
         } else {
 			jQuery('#tooltip').fadeOut(200,function(){
 					jQuery(this).remove();
 				});
-            previousPoint = null;           
-        }   
-    });	
-    
-    // === Calendar === //    
+            previousPoint = null;
+        }
+    });
+
+    // === Calendar === //
     var date = new Date();
 	var d = date.getDate();
 	var m = date.getMonth();
 	var y = date.getFullYear();
-	
+
 	jQuery('.calendar').fullCalendar({
 		header: {
 			left: 'prev,next',
@@ -141,7 +146,7 @@ function unicornpeity() {
 			jQuery(".peity_line_bad span").peity("line", {
 				colour: "#FFC4C7",
 				strokeColour: "#BA1E20"
-			});	
+			});
 			jQuery(".peity_line_neutral span").peity("line", {
 				colour: "#CCCCCC",
 				strokeColour: "#757575"
@@ -151,18 +156,17 @@ function unicornpeity() {
 			});
 			jQuery(".peity_bar_bad span").peity("bar", {
 				colour: "#BA1E20"
-			});	
+			});
 			jQuery(".peity_bar_neutral span").peity("bar", {
 				colour: "#757575"
 			});
 		}
 function unicorn_flot_tooltip(x, y, contents) {
 		// === Tooltip for flot charts === //
-		
-			
+
+
 			jQuery('<div id="tooltip">' + contents + '</div>').css( {
 				top: y + 5,
 				left: x + 5
 			}).appendTo("body").fadeIn(200);
 		}
-
