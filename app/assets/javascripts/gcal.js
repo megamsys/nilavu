@@ -8,7 +8,7 @@
  * Date: Tue Sep 4 23:38:33 2012 -0700
  *
  */
- 
+
 (function($) {
 
 
@@ -47,7 +47,7 @@ function transformOptions(sourceOptions, start, end) {
 		'singleevents': true,
 		'max-results': 9999
 	});
-	
+
 	var ctz = sourceOptions.currentTimezone;
 	if (ctz) {
 		data.ctz = ctz = ctz.replace(' ', '_');
@@ -99,7 +99,7 @@ function transformOptions(sourceOptions, start, end) {
 			return events;
 		}
 	});
-	
+
 }
 
 

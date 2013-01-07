@@ -24,6 +24,9 @@ gem "dynamoid", '0.6.0'
 gem "json", '~> 1.7.6'
 gem 'fake_dynamo', '~> 0.1.1'
 gem "flot-rails", "~> 0.0.2"
+gem 'jquery-datatables-rails'
+gem 'jquery_datepicker'
+gem "uniformjs-rails", "~> 1.5.0.2"
 
 
 # To use ActiveModel has_secure_password
