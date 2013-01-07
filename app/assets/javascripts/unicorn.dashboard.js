@@ -6,12 +6,8 @@
 
 jQuery(document).ready(function(){
 
-var set_measure_bodyCSS = {
-'border-bottom': '0 none', '-webkit-box-shadow': '0 1px 2px rgba(0, 0, 0, 0.5)', '-moz-box-shadow': '0 1px 2px rgba(0, 0, 0, 0.5)', 'webkit-font-smoothing' : '0 1px 2px rgba(0, 0, 0, 0.5)', 'filter' : 'none', 'background' : 'url("../assets/nav_bg.jpg") 0 0 repeat'
-};
-
 $('#dash').each(function() {
-$('body').css(set_measure_bodyCSS);
+ $('body').css('background', '#444444');
 });
 
 

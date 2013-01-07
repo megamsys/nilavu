@@ -117,6 +117,7 @@ a:hover {
 
 #sidebar > ul > li.active > a {
 	background: url("menu-active.png") no-repeat scroll right center transparent !important;
+	
 }
 
 #sidebar > ul > li > a > .label {
@@ -155,7 +156,7 @@ a:hover {
     background: none repeat scroll 0 0 #eeeeee;
     margin-left: 220px;
     margin-right: 0;
-    padding-top: 30px;
+    padding-top: 60px;
     padding-bottom: 25px;
     position: relative;
     min-height: 500px;
@@ -173,10 +174,9 @@ a:hover {
 	background-image: linear-gradient(top, #FFFFFF 0%, #EEEEEE 100%);
     border-top-left-radius: 8px;
     height: 80px;
-    margin-top: 10px;
     position: absolute;
     width: 100%;
-    margin-top: -38px;
+    margin-top: -60px;
     z-index: 20;
 }
 
@@ -217,7 +217,7 @@ a:hover {
 	border-top: 1px solid #d6d6d6;
 	border-bottom: 1px solid #d6d6d6;
 	padding-left: 10px;
-	padding-top: 40px;
+	padding-top: 20px;
 }
 #breadcrumb a {
 	padding: 8px 20px 8px 10px;
@@ -247,41 +247,7 @@ a:hover {
 	opacity: .8;
 }
 
-/* Style Switcher */
-#style-switcher {
-	position: absolute;
-	width: 220px;
-	height: 30px;
-	background-color: #000000;
-	z-index: 40;
-	right: 0;
-	top: 123px;
-	border-radius: 5px 0 0 5px;
-	margin-right: -190px;
-}
-#style-switcher i {
-	display: inline-block;
-	margin: -5px 10px 0 10px;
-}
-#style-switcher i:hover {
-	cursor: pointer;
-}
-#style-switcher span {
-	font-weight: bold;
-	color: #ffffff;
-	display: inline-block;
-	margin: -15px 20px 0 0;
-	vertical-align:middle;
-}
-#style-switcher a {
-	display: inline-block;
-	width: 20px;
-	height: 20px;
-	margin-top: 4px;
-	border-style: solid;
-	border-width: 1px;
-	border-color: transparent;	
-}
+
 
 /* Stat boxes and quick actions */
 .stat-boxes, .quick-actions, .quick-actions-horizontal, .stats-plain {
