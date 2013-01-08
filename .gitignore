@@ -23,4 +23,6 @@
 # Ignore all files under metadata
 .metadata
 
+# Ignore all the config files
+/config/*
 

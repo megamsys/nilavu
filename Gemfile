@@ -27,6 +27,7 @@ gem "flot-rails", "~> 0.0.2"
 gem 'jquery-datatables-rails'
 gem 'jquery_datepicker'
 gem "uniformjs-rails", "~> 1.5.0.2"
+gem "breadcrumbs_on_rails"
 
 
 # To use ActiveModel has_secure_password
