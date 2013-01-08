@@ -3,7 +3,6 @@ class CreateOrganizations < ActiveRecord::Migration
     create_table :organizations do |t|
       t.string :name
       t.boolean :active
-      t.string :type
       t.string :account_name
       t.string :url
       t.string :billing_street_name

@@ -338,12 +338,12 @@ exitScript 0
 #--------------------------------------------------------------------------
 dbclean(){
 
+#remove cloud_runs
+rake db:migrate:down VERSION=20130108105504
 #remove products
 rake db:migrate:down VERSION=20120829143151
 #remove apps_items
 rake db:migrate:down VERSION=20120824094944
-#remove cloud_apps
-rake db:migrate:down VERSION=20120824063657
 #remove cloud_identities
 rake db:migrate:down VERSION=20120817045502
 #remove logo
@@ -365,12 +365,12 @@ rake db:migrate:up VERSION=20120811145124
 rake db:migrate:up VERSION=20120811145726
 #create cloud_identities
 rake db:migrate:up VERSION=20120817045502
-#create cloud_apps
-rake db:migrate:up VERSION=20120824063657
 #create apps_items
 rake db:migrate:up VERSION=20120824094944
 #create products
 rake db:migrate:up VERSION=20120829143151
+#create cloud_runs
+rake db:migrate:up VERSION=20130108105504
 
 rake db:seed
 

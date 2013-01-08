@@ -1,5 +1,8 @@
 #require 'ironfist_client'
 class CloudIdentitiesController < ApplicationController
+
+add_breadcrumb "Home", :root_path
+add_breadcrumb "Dashboard", :dashboard_path
   def index
   end
 
@@ -20,16 +23,17 @@ class CloudIdentitiesController < ApplicationController
 
     if @cloud_identity.save
       flash[:success] = "Cloud Identity Created with #{current_user.organization.account_name}"
-      #redirect_to customizations_show_url
+      #redirect_to users_show_url
 
       respond_to do |format|
-        format.html { redirect_to customizations_show_url }
+        format.html { redirect_to users_show_url }
         format.js
       end
     end
   end
 
   def show
+		    add_breadcrumb "Cloud Identity", cloud_identity_path(current_user.id)
     @user = User.find(params[:id])
     if !@user.organization
       flash[:error] = "Please Create Organization Details first"
@@ -41,7 +45,7 @@ class CloudIdentitiesController < ApplicationController
     @cloud_identity=CloudIdentity.find(params[:id])
     if @cloud_identity.update_attributes(params[:cloud_identity])
       flash[:success] = "Cloud_identity #{current_user.organization.account_name} updated"
-      redirect_to customizations_show_url
+      redirect_to users_show_url
     end
   end
 
@@ -49,6 +53,6 @@ class CloudIdentitiesController < ApplicationController
 
     CloudIdentity.find(params[:id]).destroy
     flash[:success] = "Cloud_identity #{current_user.organization.account_name} destroyed."
-    redirect_to customizations_show_url
+    redirect_to users_show_url
   end
 end

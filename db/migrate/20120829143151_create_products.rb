@@ -6,6 +6,7 @@ class CreateProducts < ActiveRecord::Migration
       t.string :url
       t.string :image_url
       t.string :category
+	t.string :identity
      
     end
   end

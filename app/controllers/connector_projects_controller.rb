@@ -6,9 +6,9 @@ class ConnectorProjectsController < ApplicationController
     if !current_user.organization
       flash[:error] = "Please Create Organization Details first"
       redirect_to edit_user_path(current_user)
-    elsif !current_user.organization.cloud_app
+    elsif !current_user.organization.apps_items
       flash[:error] = "Please Add any cloud Applications"
-      redirect_to cloud_app_path(current_user.id)
+      redirect_to new_apps_item_path
     end
     @connector_project = ConnectorProject.all
    end
@@ -16,7 +16,7 @@ class ConnectorProjectsController < ApplicationController
   def new
     @connector_project = ConnectorProject.build
     @products = Product.all
-    @apps_item = current_user.organization.cloud_app.apps_items
+    @apps_item = current_user.organization.apps_items
   end
 
   def create
@@ -70,7 +70,7 @@ class ConnectorProjectsController < ApplicationController
     @connector_action = @connector_project.connector_actions.first
     @connector_output = @connector_project.connector_outputs.first
     @products = Product.all
-    @apps_item = current_user.organization.cloud_app.apps_items
+    @apps_item = current_user.organization.apps_items
   end
 
   def export

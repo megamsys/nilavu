@@ -1,5 +1,5 @@
 <% content_for :content_settings do %>
-
+<% provide(:title, 'Dashboard') %>
 <div id="content-header">
 			<h1>Dashboard</h1>
 			<div class="btn-group">
@@ -9,9 +9,8 @@
 				<a class="btn btn-large tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a>
 			</div>
 </div>
-		<div id="breadcrumb">
-			<%= render_breadcrumbs %>
-		</div>
+	<%= render_breadcrumbs %>
+
 <div class="container-fluid">
   
 			<div class="row-fluid">

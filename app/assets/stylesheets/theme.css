@@ -323,6 +323,8 @@ background: url("menu-active.png") no-repeat scroll right center transparent !im
 	/* margin-top: 50px; */
 	color: #fff;
 	padding-top: 20px;
+
+  	bottom:0;
 }
 
 #footer .unstyled > li > a {

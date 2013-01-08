@@ -211,15 +211,16 @@ a:hover {
 	margin-top: 20px;
 }
 /* Breadcrumb */
-#breadcrumb {
+.breadcrumb {
 	background-color: #e5e5e5;
 	box-shadow: 0 0 1px #ffffff;
 	border-top: 1px solid #d6d6d6;
 	border-bottom: 1px solid #d6d6d6;
 	padding-left: 10px;
 	padding-top: 20px;
+	height: 25px;
 }
-#breadcrumb a {
+.breadcrumb a {
 	padding: 8px 20px 8px 10px;
 	display: inline-block;
 	background-image: url('breadcrumb.png');
@@ -228,21 +229,21 @@ a:hover {
 	font-size: 11px;
 	color: #666666;
 }
-#breadcrumb a:hover {
+.breadcrumb a:hover {
 	color: #333333;
 }
-#breadcrumb a:last-child {
+.breadcrumb a:last-child {
 	background-image:none;
 }
-#breadcrumb a.current {
+.breadcrumb a.current {
 	font-weight: bold;
 	color: #444444;
 }
-#breadcrumb a i {
+.breadcrumb a i {
 	margin-right: 5px;
 	opacity: .6;
 }
-#breadcrumb a:hover i {
+.breadcrumb a:hover i {
 	margin-right: 5px;
 	opacity: .8;
 }
@@ -253,7 +254,7 @@ a:hover {
 .stat-boxes, .quick-actions, .quick-actions-horizontal, .stats-plain {
     display: inline-block;
     list-style: none outside none;
-    margin: 20px 0 10px;
+    margin: -10px 0 10px;
     text-align: center;
 }
 .stats-plain {
