@@ -21,10 +21,6 @@
 						<i class="icon-home"></i> My dash
 						<% end %>
 					</li>
-
-
-
-
 					<li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="icon-user"></i><%= current_user.first_name %>
@@ -35,7 +31,6 @@
 			    <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
                         </ul>
                     </li>
-
 					<% else %>
 					<li>
 						<%= link_to "Dashboard", current_user %>
@@ -49,7 +44,6 @@
 					<% end %>
 				</ul>
 			</div>
-		</div>		
+		</div>
 	</div>
 </div>
-

@@ -9,14 +9,11 @@
 		<%= render 'layouts/shim' %>
 	</head>
 	<body>
-		
 			<%= render 'layouts/header' %>
 			<a href="#" class="scrolltop">
         <span>up</span>
     </a>
-			<div class="container">
 				<%= yield %>
-			</div>
 			<%= render 'layouts/footer' %>
 			<!-- JQuery will invoke via the spinner and display a loading modal lock. -->
 			<div id="loading" />
