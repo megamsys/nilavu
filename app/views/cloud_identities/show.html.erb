@@ -1,5 +1,19 @@
+
 <% content_for :content_settings do %>
 <% provide(:title, 'Cloud Identity') %>
+
+<div id="content-header">
+			<h1>Cloud Identity</h1>
+			<div class="btn-group">
+				<a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
+				<a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
+				<a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
+				<a class="btn btn-large tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a>
+			</div>
+</div>
+	<%= render_breadcrumbs %>
+
+<div class="container-fluid">
 
 <% if @user.organization %>
 <div class="span9 alert alert-success">
@@ -30,5 +44,6 @@ data: { confirm: "You sure?" } %>
 <% end %> <!-- user organization cloud_identity -->
 
 <% end %> <!-- if user organization -->
+</div>
 <% end %>
 <%= render :template => users_show_path %>

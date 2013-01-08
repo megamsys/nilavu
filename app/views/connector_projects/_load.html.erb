@@ -45,7 +45,7 @@
 		<table class="table table-condensed table-striped table-bordered">
 			<tr>
 				<td><%= ca.label :User %></td>
-				<td><%= ca.select(:biz_function, [['Create', 'user#create'], ['List', 'user#list']['Update','user#update']]) %></td>
+				<td><%= ca.select(:biz_function, [['Create', 'user#create'], ['List', 'user#list'],['Update','user#update']]) %></td>
 
 				<td><%= ca.label :Profile %></td>
 				<td><%= ca.select(:profile, [['Force.com', 'force.com'], ['Sales.com', 'sales.com']]) %></td>

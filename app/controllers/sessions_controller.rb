@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       if user && user.authenticate(params[:session][:password])
         sign_in user
 	       flash[:success] = "Welcome #{current_user.first_name}"
-         redirect_back_or customizations_show_url
+         redirect_back_or users_dashboard_url
       else
         flash.now[:error] = 'Invalid email/password combination'
         render 'new'
@@ -65,7 +65,7 @@ class SessionsController < ApplicationController
         #session[:user_id] = @identity.users_id
         #logger.debug "current_users email #{current_user.email} with #{current_user.id} identity user id #{@identity.users_id}"
         #TO-DO: Change the redirection to the new page as required.
-        #redirect_to customizations_show_url, notice: "Signed in!"
+        #redirect_to users_show_url, notice: "Signed in!"
      # else
       # No user associated with the identity so we need to create a new one
         redirect_to new_user_url, notice: "Please finish registering"

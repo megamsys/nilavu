@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-	add_breadcrumb "home", :root_path
+	add_breadcrumb "Home", :root_path
 
 
   before_filter :signed_in_user,
@@ -14,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   def show
-	    add_breadcrumb "dashboard", _path
+	    add_breadcrumb "Dashboard", dashboard_path
    @user = User.find(params[:id])
     #@connector_project = ConnectorProject.all
     if !@user.organization
@@ -39,8 +39,8 @@ class UsersController < ApplicationController
  def calendar
   end
 
- def unicorn_index
-		    add_breadcrumb "user", unicorn_index_path
+ def dashboard
+		    add_breadcrumb "dashboard", dashboard_path
  end
 
 
@@ -75,7 +75,7 @@ class UsersController < ApplicationController
     if @user.save
       sign_in @user
       flash[:alert] = "Welcome #{current_user.first_name}"
-      redirect_to customizations_show_url
+      redirect_to users_dashboard_url
     else
       render 'new'
     end
