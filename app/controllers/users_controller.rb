@@ -1,4 +1,8 @@
 class UsersController < ApplicationController
+
+	add_breadcrumb "home", :root_path
+
+
   before_filter :signed_in_user,
     #            only: [:index, :edit, :update, :destroy, :following, :followers]
                only: [:index, :edit, :update, :destroy]
@@ -6,9 +10,11 @@ class UsersController < ApplicationController
   before_filter :admin_user,     only: :destroy
   def index
     @users = User.paginate(page: params[:page])
+
   end
 
   def show
+	    add_breadcrumb "dashboard", _path
    @user = User.find(params[:id])
     #@connector_project = ConnectorProject.all
     if !@user.organization
@@ -34,6 +40,7 @@ class UsersController < ApplicationController
   end
 
  def unicorn_index
+		    add_breadcrumb "user", unicorn_index_path
  end
 
 

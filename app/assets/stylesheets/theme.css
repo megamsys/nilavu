@@ -319,10 +319,10 @@ background: url("menu-active.png") no-repeat scroll right center transparent !im
 	background-color: #363636;  
 	background: url("menu-active.png") no-repeat scroll right center transparent !important; */
 		background-color: #2A2A2A; 
-	min-height: 100px;
-	margin-top: 100px;
+	min-height: 80px;
+	/* margin-top: 50px; */
 	color: #fff;
-	padding-top: 35px;
+	padding-top: 20px;
 }
 
 #footer .unstyled > li > a {

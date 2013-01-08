@@ -1,6 +1,4 @@
 <div id="dash">
-
-
 	<div id="sidebar">
 		<a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
 		<ul>
@@ -74,22 +72,10 @@
 	</div>
 
 	<div id="content">
-		<div id="content-header">
-			<h1>Dashboard</h1>
-			<div class="btn-group">
-				<a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
-				<a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
-				<a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
-				<a class="btn btn-large tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a>
-			</div>
-		</div>
-		<div id="breadcrumb">
-			<a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> Home</a>
-			<a href="#" class="current">Dashboard</a>
-		</div>
-		<div class="container-fluid">
+		
+
 			<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
-		</div>
+
 
 	</div>
 
