@@ -11,36 +11,40 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120829143151) do
+ActiveRecord::Schema.define(:version => 20130108105504) do
 
   create_table "apps_items", :force => true do |t|
-    t.integer  "cloud_app_id"
+    t.integer  "org_id"
     t.integer  "product_id"
     t.string   "my_url"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  add_index "apps_items", ["cloud_app_id"], :name => "index_apps_items_on_cloud_app_id"
-  add_index "apps_items", ["product_id"], :name => "index_apps_items_on_product_id"
-
-  create_table "cloud_apps", :force => true do |t|
-    t.integer  "org_id"
-    t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "cloud_apps", ["org_id"], :name => "index_cloud_apps_on_org_id"
+  add_index "apps_items", ["org_id"], :name => "index_apps_items_on_org_id"
+  add_index "apps_items", ["product_id"], :name => "index_apps_items_on_product_id"
 
   create_table "cloud_identities", :force => true do |t|
     t.string   "url"
     t.integer  "org_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "status"
+    t.string   "launch_time"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   add_index "cloud_identities", ["org_id"], :name => "index_cloud_identities_on_org_id"
+
+  create_table "cloud_runs", :force => true do |t|
+    t.string   "name"
+    t.integer  "users_id"
+    t.string   "description"
+    t.string   "log"
+    t.string   "status"
+    t.string   "launch_time"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
 
   create_table "identities", :force => true do |t|
     t.integer  "users_id"
@@ -55,7 +59,6 @@ ActiveRecord::Schema.define(:version => 20120829143151) do
   create_table "organizations", :force => true do |t|
     t.string   "name"
     t.boolean  "active"
-    t.string   "type"
     t.string   "account_name"
     t.string   "url"
     t.string   "billing_street_name"
@@ -81,6 +84,7 @@ ActiveRecord::Schema.define(:version => 20120829143151) do
     t.string "url"
     t.string "image_url"
     t.string "category"
+    t.string "identity"
   end
 
   create_table "users", :force => true do |t|
@@ -94,6 +98,7 @@ ActiveRecord::Schema.define(:version => 20120829143151) do
     t.string   "remember_token"
     t.boolean  "verified_email",    :default => false
     t.string   "verification_hash"
+    t.string   "type"
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
   end

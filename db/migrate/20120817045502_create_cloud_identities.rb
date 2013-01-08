@@ -3,6 +3,8 @@ class CreateCloudIdentities < ActiveRecord::Migration
     create_table :cloud_identities do |t|
       t.string :url
       t.integer :org_id
+	t.string :status
+	t.string :launch_time
 
       t.timestamps
     end

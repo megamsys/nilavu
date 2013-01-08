@@ -4,7 +4,7 @@
 		<ul>
 			
 			<li class="active">
-				<%= link_to unicorn_index_path do %>
+				<%= link_to dashboard_path do %>
 						<i class="icon-home"></i> Dashboard
 						<% end %>
 			</li>
@@ -35,7 +35,7 @@
 				
 			</li>
 			<li>
-				<%= link_to cloud_app_path(current_user.id) do %>
+				<%= link_to new_apps_item_path do %>
 							<i class="icon-globe"></i>Cloud Applications
 							<% end %>
 			</li>
