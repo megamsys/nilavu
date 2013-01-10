@@ -98,7 +98,7 @@ ActiveRecord::Schema.define(:version => 20130108105504) do
     t.string   "remember_token"
     t.boolean  "verified_email",    :default => false
     t.string   "verification_hash"
-    t.string   "type"
+    t.string   "user_type"
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
   end

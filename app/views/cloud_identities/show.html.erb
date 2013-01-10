@@ -1,49 +1,110 @@
-
 <% content_for :content_settings do %>
 <% provide(:title, 'Cloud Identity') %>
 
 <div id="content-header">
-			<h1>Cloud Identity</h1>
-			<div class="btn-group">
-				<a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
-				<a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
-				<a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
-				<a class="btn btn-large tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a>
-			</div>
+	<h1>Cloud Identity</h1>
+	<div class="btn-group">
+		<a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
+		<a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
+		<a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
+		<a class="btn btn-large tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a>
+	</div>
 </div>
-	<%= render_breadcrumbs %>
+<%= render_breadcrumbs %>
 
 <div class="container-fluid">
 
-<% if @user.organization %>
-<div class="span9 alert alert-success">
-	Well done !. You are almost there. Next step is to create a cloud identity for realm
-	<span class="label label-info"><%= @user.organization.account_name %></span>
-</div>
+	<% if @user.organization %>
+	<div class="span9 alert alert-success">
+		Well done !. You are almost there. Next step is to create a cloud identity for realm
+		<span class="label label-info"><%= @user.organization.account_name %></span>
+	</div>
+	<br/>
+	<% end %>
+	<% if @user.organization.cloud_identity %>
 
-<%= render @user.organization %>
+	<%= link_to "Launch Identity", @user.organization.cloud_identity.url, :class => "btn", data: { confirm: "You sure?" } %>
 
-<% if @user.organization.cloud_identity %>
+	<% else %>
 
-<%= form_for @user.organization.cloud_identity, :html => { :multipart => true } do |f| %>
-<%= f.label :url %>
-<%= f.text_field :url, placeholder: "URL"  %>
-<%= f.submit nil, :class => 'btn btn-large btn-primary' %>
-<% end %> <!-- Form End -->
+	<%= link_to "Create Identity", new_cloud_identity_path, :class => "btn", :id => "jq_createidty" %>
 
-<h4>Cloud Identity</h4>
-<%= link_to @user.organization.cloud_identity.url %>
-<%= link_to "Delete Identity", @user.organization.cloud_identity, method: :delete,
-data: { confirm: "You sure?" } %>
-<% else %> <!-- user organization cloud_identity -->
-<p></p>
-<div class="span6">
-	<%= link_to "Create Identity", new_cloud_identity_path, :class => "btn btn-large btn-primary", :id => "jq_createidty" %>
-</div>
+	<h3>Federation</h3>
 
-<% end %> <!-- user organization cloud_identity -->
+	<div class="widget-box">
+		<div class="widget-title">
+			<ul class="nav nav-tabs">
+				<li class="active">
+					<a data-toggle="tab" href="#tab1">SAML2</a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#tab2">Oauth</a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#tab3">Custom key</a>
+				</li>
+			</ul>
+		</div>
+		<div class="widget-content tab-content">
+			<div id="tab1" class="tab-pane active">
+<%= form_tag "/federate" do %>
+				<% @products.each do |product| %>
+				<% @apps_item.each do |apps_item_el| %>
+				<% if apps_item_el.product_id === product.id && (product.identity === 'saml2' || product.identity === 'saml2,oauth') %>
 
-<% end %> <!-- if user organization -->
+			<div class="container_check">
+				<%= image_tag product.image_url, :alt => product.name %>
+				<!-- Slide THREE -->
+				<div class="slideThree">
+					<input type="checkbox" value="None" id="<%= product.name %>_saml2" name="check" />
+					<label for="<%= product.name %>_saml2"></label>
+				</div> </div>
+				<% end %>
+				<% end %>
+				<% end %>
+				<br/>
+				<%= link_to "Federate", federate_path, :type => "submit", :class => "btn btn-success btn-large" %>
+<%= submit_tag("Federate", :clas => "btn btn-large btn-success") %>
+<% end %>
+			</div>
+			<div id="tab2" class="tab-pane">
+				<% @products.each do |product| %>
+				<% @apps_item.each do |apps_item_el| %>
+				<% if apps_item_el.product_id === product.id && (product.identity === 'oauth' || product.identity === 'saml2,oauth' ||product.identity === 'oauth,custom_key') %>
+				<div class="container_check">
+				<%= image_tag product.image_url, :alt => product.name, :size => "100x100" %>
+				<!-- Slide THREE -->
+				<div class="slideThree">
+					<input type="checkbox" value="None" id="<%= product.name %>_oauth" name="check" />
+					<label for="<%= product.name %>_oauth"></label>
+				</div></div>
+				<% end %>
+				<% end %>
+				<% end %>
+				<br/>
+				<%= link_to "Federate", federate_path, :class => "btn btn-success btn-large", :remote => true, :id => "jq_createidty" %>
+			</div>
+			<div id="tab3" class="tab-pane">
+				<% @products.each do |product| %>
+				<% @apps_item.each do |apps_item_el| %>
+				<% if apps_item_el.product_id === product.id && (product.identity === 'custom_key' ||product.identity === 'oauth,custom_key') %>
+			<div class="container_check">
+				<%= image_tag product.image_url, :alt => product.name, :size => "100x100" %>
+				<!-- Slide THREE -->
+				<div class="slideThree">
+					<input type="checkbox" value="None" id="<%= product.name %>_key" name="check" />
+					<label for="<%= product.name %>_key"></label>
+				</div></div>
+				<% end %>
+				<% end %>
+				<% end %>
+				<br/>
+				<%= link_to "Federate", federate_path, :class => "btn btn-success btn-large", :remote => true, :id => "jq_createidty" %>
+			</div>
+		</div>
+	</div>
+
+	<% end %> <!-- if user organization -->
 </div>
 <% end %>
 <%= render :template => users_show_path %>
