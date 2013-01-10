@@ -12,6 +12,13 @@
 
 <%= f.password_field :password_confirmation, placeholder: "Confirm password" %>
 
+<% random_token = p SecureRandom.urlsafe_base64(nil, true) %>
+<%= f.text_field :verification_hash, :value => random_token, :type => 'hidden' %>
+
+<%= f.text_field :user_type, :value => "free_user", :type => 'hidden' %>
+
+
+
 <% if !current_user.nil? && current_user.admin? %>
 
 <%= f.fields_for :organization_attributes, @user.organization do |org_f| %>

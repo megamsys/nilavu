@@ -4,7 +4,7 @@ require 'ironfist_common'
 class IronfistClient
   include Ironfist
   def initialize
-    @ironinit = Ironfist::Init.instance
+    #@ironinit = Ironfist::Init.instance
   end
 
   def client
@@ -33,7 +33,13 @@ class IronfistClient
   def create_out (msg)
     @ironout = Ironfist::Output.new(msg)
   end
+  
+  def fake
+	puts "federate - before sleep"
+	sleep 100
+	puts "federate - after sleep"
 
+  end
 
   def pub_and_wait(conn,ironfistparms, waitfor=0)
     stat = {:starttime => Time.now.to_f, :blocktime => 0, :totaltime => 0}

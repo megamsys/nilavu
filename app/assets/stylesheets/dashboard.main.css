@@ -16,8 +16,6 @@ a:hover {
 }
 
 
-
-
 /* Top user navigation */
 #user-nav {
     position: absolute;
@@ -634,6 +632,11 @@ a:hover {
 .widget-content {
 	padding: 12px 15px;
     border-bottom: 1px solid #cdcdcd;
+
+}
+
+.widget-content tab-content {
+height: 200px;
 }
 .widget-box.widget-plain .widget-content {
 	padding: 12px 0 0;
