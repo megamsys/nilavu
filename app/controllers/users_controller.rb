@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
 
 	add_breadcrumb "Home", :root_path
+	add_breadcrumb "Dashboard", :dashboard_path
 
 
   before_filter :signed_in_user,
@@ -41,6 +42,12 @@ class UsersController < ApplicationController
 
  def dashboard
 		    add_breadcrumb "dashboard", dashboard_path
+ end
+
+ def cloud_run
+	    add_breadcrumb "Cloud Run", cloud_run_path
+	    @cloud_runs = current_user.cloud_runs
+
  end
 
 

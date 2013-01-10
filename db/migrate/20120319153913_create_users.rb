@@ -11,7 +11,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :remember_token
       t.boolean :verified_email, default: false
       t.string :verification_hash
-	t.string :type
+	t.string :user_type
       t.timestamps
     end
     add_index :users, :email, unique: true

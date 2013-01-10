@@ -1,11 +1,16 @@
 class AppsItemsController < ApplicationController
   respond_to :html, :js
+
+add_breadcrumb "Home", :root_path
+add_breadcrumb "Dashboard", :dashboard_path
   
   def index
     
   end
  
   def new
+
+			    add_breadcrumb "Cloud Applications", new_apps_item_path
     current_user.organization.apps_items.build(params[:apps_items])
     @products = Product.all
     @apps_item = current_user.organization.apps_items

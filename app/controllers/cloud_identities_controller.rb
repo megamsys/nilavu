@@ -18,6 +18,26 @@ add_breadcrumb "Dashboard", :dashboard_path
     current_user.organization.build_cloud_identity
   end
 
+def federate
+
+ cu = current_user
+	user = {:who => cu.first_name, :api_token => cu.organization.api_token, :type => cu.user_type, :account_name => cu.organization.account_name }
+	
+	instance = {:client => "knife", :cloud => "ec2", :action => "create", :image => "ami-123", :group => "megam", :run_list => "role[openam]" }
+
+	sum = {:user => user, :instance => instance }
+  hash_all = sum.to_json
+  logger.debug "Full JSON #{hash_all}"
+	#cu.cloud_run.new
+	@cloud_run = cu.cloud_runs.build(:name => "Run Name", :status => "running", :description => hash_all)
+	@cloud_run.save
+
+	#@ironclient = Ironclient.new
+    ir = IronfistClient.new
+    tempparms = {:agent => "CloudIdentityAgent", :command => "listRealms", :message => "URL=http://nomansland.com REALM_NAME=temporealm"}
+    ir.fake
+  end
+
   def create
     @cloud_identity = current_user.organization.build_cloud_identity(params[:cloud_identity]) || CloudIdentity.new(params[:cloud_identity])
 
@@ -35,11 +55,17 @@ add_breadcrumb "Dashboard", :dashboard_path
   def show
 		    add_breadcrumb "Cloud Identity", cloud_identity_path(current_user.id)
     @user = User.find(params[:id])
+    @products = Product.all
+    @apps_item = current_user.organization.apps_items
+
     if !@user.organization
       flash[:error] = "Please Create Organization Details first"
       redirect_to edit_user_path(current_user)
     end
   end
+
+  
+
 
   def update
     @cloud_identity=CloudIdentity.find(params[:id])

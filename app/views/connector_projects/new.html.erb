@@ -6,7 +6,7 @@
 	<% @products.each do |product| %>
 	<% @apps_item.each do |apps_item_el| %>
 	<% if apps_item_el.product_id === product.id %>
-	<%= image_tag product.image_url, :id => product.name, :alt => "Megam", :size => "50x50" %>
+	<%= image_tag product.image_url, :id => product.name, :alt => product.name, :size => "50x50" %>
 	<% end %>
 	<% end %>
 	<% end %>

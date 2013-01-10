@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   # users.password_hash in the database is a :string
-  attr_accessible :first_name, :last_name, :admin, :phone, :type, :email, :password, :password_confirmation, :verified_email, :verification_hash, :org_id, :organization_attributes
+  attr_accessible :first_name, :last_name, :admin, :phone, :user_type, :email, :password, :password_confirmation, :verified_email, :verification_hash, :org_id, :organization_attributes
   has_secure_password
   has_many :identities
   has_many :cloud_runs, :foreign_key  => 'users_id'
