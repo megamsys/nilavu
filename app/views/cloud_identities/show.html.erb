@@ -19,18 +19,19 @@
 		Well done !. You are almost there. Next step is to create a cloud identity for realm
 		<span class="label label-info"><%= @user.organization.account_name %></span>
 	</div>
+
 	<% end %>
 	<% if @user.organization.cloud_identity %>
 
 	<%= link_to "Launch Identity", @user.organization.cloud_identity.url, :class => "btn", data: { confirm: "You sure?" } %>
 
 	<% else %>
+
 <div id="insert_identity">
 			<%= render :partial => "cloud_identities/identity_btn" %>
 </div> 
 
 
-	
 
 	<h3>Federation</h3>
 
@@ -50,7 +51,6 @@
 		</div>
 		<div class="widget-content tab-content">
 			<div id="tab1" class="tab-pane active">
-
 				<% @products.each do |product| %>
 				<% @apps_item.each do |apps_item_el| %>
 				<% if apps_item_el.product_id === product.id && (product.identity === 'saml2' || product.identity === 'saml2,oauth') %>
@@ -66,6 +66,7 @@
 				<% end %>
 				<% end %>
 				<br/>
+
 
 <div id="federate_saml2">
 			<%= render :partial => "cloud_identities/federate_btn", :locals => {:identity => "saml2" } %>
@@ -88,6 +89,7 @@
 				<% end %>
 				<% end %>
 				<br/>
+
 				<div id="federate_oauth">
 			<%= render :partial => "cloud_identities/federate_btn" %>
 </div>
@@ -107,6 +109,7 @@
 				<% end %>
 				<% end %>
 				<br/>
+
 				<div id="federate_custom_key">
 			<%= render :partial => "cloud_identities/federate_btn" %>
 </div>

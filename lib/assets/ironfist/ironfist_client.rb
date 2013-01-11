@@ -36,7 +36,9 @@ class IronfistClient
   
   def fake
 	puts "federate - before sleep"
+
 	sleep 10
+
 	puts "federate - after sleep"
 
   end

@@ -1,5 +1,6 @@
 #require 'ironfist_client'
 class CloudIdentitiesController < ApplicationController
+
   respond_to :html, :js
 
 add_breadcrumb "Home", :root_path
@@ -12,12 +13,14 @@ add_breadcrumb "Dashboard", :dashboard_path
     #@ironclient = Ironclient.new
     ir = IronfistClient.new
     tempparms = {:agent => "CloudIdentityAgent", :command => "listRealms", :message => "URL=http://nomansland.com REALM_NAME=temporealm"}
+
     #ir.pub_and_wait(Ironfist::Init.instance.connection, tempparms,0) do |resp|
      # puts "result #{resp}"
     #end
 	ir.fake
     @cloud_identity = current_user.organization.build_cloud_identity
 	respond_with(@cloud_identity, :layout => !request.xhr? )
+
   end
 
 def federate
@@ -31,15 +34,19 @@ def federate
   hash_all = sum.to_json
   logger.debug "Full JSON #{hash_all}"
 	#cu.cloud_run.new
+
 	#@cloud_run = cu.cloud_runs.build(:name => "Run Name", :status => "running", :description => hash_all)
 	#@cloud_run.save
+
 
 	#@ironclient = Ironclient.new
     ir = IronfistClient.new
     tempparms = {:agent => "CloudIdentityAgent", :command => "listRealms", :message => "URL=http://nomansland.com REALM_NAME=temporealm"}
+
    ir.fake
     @cloud_identity = current_user.organization.build_cloud_identity
 	respond_with(@cloud_identity, :layout => !request.xhr? )
+
   end
 
   def create
