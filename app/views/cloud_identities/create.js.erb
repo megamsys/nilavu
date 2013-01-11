@@ -1,8 +1,0 @@
-$(function() {
-    $('.submit').live('click', function() {
-        var width = $(this).width(); // take the width of the submit button
-        $(this).hide();
-        $("jq_createidty").after("<div class='loading-div' style='width:"+ width /* sets the width of the loading-div based on the submit button */ + "px'><img src='http://uk.zawya.com/images/LoadingData.gif' /></div>");
-        return false; // DON'T USE IT !!!
-    });
-});

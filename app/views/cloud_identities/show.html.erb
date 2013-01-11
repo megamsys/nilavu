@@ -15,19 +15,22 @@
 <div class="container-fluid">
 
 	<% if @user.organization %>
-	<div class="span9 alert alert-success">
+	<div class="alert alert-success">
 		Well done !. You are almost there. Next step is to create a cloud identity for realm
 		<span class="label label-info"><%= @user.organization.account_name %></span>
 	</div>
-	<br/>
 	<% end %>
 	<% if @user.organization.cloud_identity %>
 
 	<%= link_to "Launch Identity", @user.organization.cloud_identity.url, :class => "btn", data: { confirm: "You sure?" } %>
 
 	<% else %>
+<div id="insert_identity">
+			<%= render :partial => "cloud_identities/identity_btn" %>
+</div> 
 
-	<%= link_to "Create Identity", new_cloud_identity_path, :class => "btn", :id => "jq_createidty" %>
+
+	
 
 	<h3>Federation</h3>
 
@@ -47,7 +50,7 @@
 		</div>
 		<div class="widget-content tab-content">
 			<div id="tab1" class="tab-pane active">
-<%= form_tag "/federate" do %>
+
 				<% @products.each do |product| %>
 				<% @apps_item.each do |apps_item_el| %>
 				<% if apps_item_el.product_id === product.id && (product.identity === 'saml2' || product.identity === 'saml2,oauth') %>
@@ -63,9 +66,12 @@
 				<% end %>
 				<% end %>
 				<br/>
-				<%= link_to "Federate", federate_path, :type => "submit", :class => "btn btn-success btn-large" %>
-<%= submit_tag("Federate", :clas => "btn btn-large btn-success") %>
-<% end %>
+
+<div id="federate_saml2">
+			<%= render :partial => "cloud_identities/federate_btn", :locals => {:identity => "saml2" } %>
+</div>
+
+
 			</div>
 			<div id="tab2" class="tab-pane">
 				<% @products.each do |product| %>
@@ -82,7 +88,9 @@
 				<% end %>
 				<% end %>
 				<br/>
-				<%= link_to "Federate", federate_path, :class => "btn btn-success btn-large", :remote => true, :id => "jq_createidty" %>
+				<div id="federate_oauth">
+			<%= render :partial => "cloud_identities/federate_btn" %>
+</div>
 			</div>
 			<div id="tab3" class="tab-pane">
 				<% @products.each do |product| %>
@@ -99,7 +107,9 @@
 				<% end %>
 				<% end %>
 				<br/>
-				<%= link_to "Federate", federate_path, :class => "btn btn-success btn-large", :remote => true, :id => "jq_createidty" %>
+				<div id="federate_custom_key">
+			<%= render :partial => "cloud_identities/federate_btn" %>
+</div>
 			</div>
 		</div>
 	</div>

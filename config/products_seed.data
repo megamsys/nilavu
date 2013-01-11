@@ -1,0 +1,8 @@
+salesforce|A salesforce.com application provisioned on the fly. Go ahead what are you waiting for, if you need a CRM, this it.|http://www.salesforce.com|salesforce.png|CRM|saml2,oauth
+Google App|A Team collaboration client saas software from Google. Effective for emails, calender, google docs..|http://www.google.com|googleapp.png|Collaboration|saml2,oauth
+Xero|Xero.com for Accounting|http://xero.com|xero.png|Accounting|oauth,custom_key
+SugarCRM|A commerically open source CRM software with rich features. Go ahead what are you waiting for, if you need a CRM, this it.|http://sugarcrm.com|sugarcrm.png|CRM|saml2
+Zoho|Team collaboration, project management, order management...the list goes on. Go ahead get your self "The SaaS almighty" for your need.|http://www.zoho.com|zoho.png|CRM|oauth,custom_key
+Box|Box - Cloud storage.|http://www.box.com|box.png|Storage|oauth,custom_key
+DropBox|DropBox - Cloud storage.|http://www.dropbox.com|dropbox.png|Storage|oauth
+Liferay|An open source portal almighty software suitable for organization requiring a portal, and social collaboration.Go ahead what are you waiting for, if you need a portal, this is it.|http://www.liferay.com|liferay.png|Portal|saml2
