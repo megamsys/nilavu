@@ -4,11 +4,12 @@
 		    <span class="label label-warning">*optional</span>
 		    Click on the default account name </strong>
 
-		<span class="badge badge-important"><%= @user.organization.account_name%></span>
+		<span class="badge badge-important"><%= @cloud_identity.account_name %></span>
 		to change it 
 	</p>
-	<%= link_to @user.organization.account_name, '1',
+	<%= link_to @cloud_identity.account_name, cloud_identity_path(@cloud_identity.id),
 	:id => "identity_new_account_name", :class => "btn btn-large btn-primary disabled btn-block",:remote => true,
 	:data => { :type => 'text', :name => 'status'},
 	':data-original-title' => 'Update account name'  %>
+
 </div>

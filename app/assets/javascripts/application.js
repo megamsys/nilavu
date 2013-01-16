@@ -16,7 +16,6 @@
 //= require jquery.ui.all
 //= require twitter/bootstrap
 //= require bootstrap-editable
-//= require bootstrap-editable-inline
 //= require bootstrap-editable-rails
 //= require spin
 //= require ajaxspinner

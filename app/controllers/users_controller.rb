@@ -108,12 +108,10 @@ current_user = @user
     if @user.update_attributes(params[:user])
       logger.debug "user-update"
 
-      flash[:alert] = "Hi #{current_user.first_name},Your profile was updated Successfully and your API token is 
-#{random_token}"
       sign_in @user
 	
 	logger.debug "update org #{@user.to_yaml}"
-      redirect_to @user
+      redirect_to users_dashboard_url
 	
     else
       render 'edit'
