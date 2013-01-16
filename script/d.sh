@@ -308,7 +308,13 @@ clear
 find . -type f -name "*.*~" -exec rm -f {} \;
 rake assets:clean
 rake tmp:clear
+
+#only delete public system directory if it exists
+if [ -d public/system ]
+then
 rm -r public/system
+fi
+
 exitScript 0
 }
 #
