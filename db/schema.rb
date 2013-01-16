@@ -14,26 +14,30 @@
 ActiveRecord::Schema.define(:version => 20130108105504) do
 
   create_table "apps_items", :force => true do |t|
-    t.integer  "org_id"
+    t.integer  "users_id"
+    t.integer  "cloud_identity_id"
     t.integer  "product_id"
     t.string   "my_url"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
-  add_index "apps_items", ["org_id"], :name => "index_apps_items_on_org_id"
+  add_index "apps_items", ["cloud_identity_id"], :name => "index_apps_items_on_cloud_identity_id"
   add_index "apps_items", ["product_id"], :name => "index_apps_items_on_product_id"
+  add_index "apps_items", ["users_id"], :name => "index_apps_items_on_users_id"
 
   create_table "cloud_identities", :force => true do |t|
     t.string   "url"
-    t.integer  "org_id"
+    t.string   "account_name"
+    t.string   "cloud_app_url"
+    t.integer  "users_id"
     t.string   "status"
     t.string   "launch_time"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
-  add_index "cloud_identities", ["org_id"], :name => "index_cloud_identities_on_org_id"
+  add_index "cloud_identities", ["users_id"], :name => "index_cloud_identities_on_users_id"
 
   create_table "cloud_runs", :force => true do |t|
     t.string   "name"
@@ -59,7 +63,6 @@ ActiveRecord::Schema.define(:version => 20130108105504) do
   create_table "organizations", :force => true do |t|
     t.string   "name"
     t.boolean  "active"
-    t.string   "account_name"
     t.string   "url"
     t.string   "billing_street_name"
     t.string   "billing_address1"
@@ -67,7 +70,6 @@ ActiveRecord::Schema.define(:version => 20130108105504) do
     t.string   "billing_city"
     t.string   "billing_state"
     t.string   "billing_country"
-    t.string   "api_token"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
     t.string   "logo_file_name"
@@ -75,8 +77,6 @@ ActiveRecord::Schema.define(:version => 20130108105504) do
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
   end
-
-  add_index "organizations", ["account_name"], :name => "index_organizations_on_account_name"
 
   create_table "products", :force => true do |t|
     t.string "name"
@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(:version => 20130108105504) do
     t.boolean  "verified_email",    :default => false
     t.string   "verification_hash"
     t.string   "user_type"
+    t.string   "api_token"
     t.datetime "created_at",                           :null => false
     t.datetime "updated_at",                           :null => false
   end

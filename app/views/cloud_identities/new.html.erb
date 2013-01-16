@@ -2,7 +2,7 @@
 <% provide(:title, 'New Cloud_Identity') %>
 <h1>New Cloud Identity</h1>
 
-<%= form_for current_user.organization.cloud_identity, :html => { :multipart => true } do |f| %>
+<%= form_for current_user.cloud_identities, :html => { :multipart => true } do |f| %>
 
 <%= f.label :url %>
 <%= f.text_field :url, placeholder: "URL"  %>

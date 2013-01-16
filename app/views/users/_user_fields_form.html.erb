@@ -6,14 +6,20 @@
 
 <%= f.text_field :phone, :class => 'text_field', placeholder: "Phone number" %>
 
-<%= f.text_field :email, :class => 'text_field', placeholder: "Email" %>
-
+<% if current_user.nil? %> 
+	<%= f.text_field :email, :class => 'text_field', placeholder: "Email" %>
+	<% random_hash = p SecureRandom.urlsafe_base64(nil, true) %>
+	<%= f.text_field :verification_hash, :value => random_hash, :type => 'hidden' %>
+	<% random_api = p SecureRandom.urlsafe_base64(nil, true) %>
+	<%= f.text_field :api_token, :value => random_api, :type => 'hidden' %>
+<% end %>
 <%= f.password_field :password, placeholder: "Password" %>
 
 <%= f.password_field :password_confirmation, placeholder: "Confirm password" %>
 
-<% random_token = p SecureRandom.urlsafe_base64(nil, true) %>
-<%= f.text_field :verification_hash, :value => random_token, :type => 'hidden' %>
+
+
+
 
 <%= f.text_field :user_type, :value => "free_user", :type => 'hidden' %>
 

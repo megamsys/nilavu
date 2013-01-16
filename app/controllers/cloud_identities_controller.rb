@@ -17,8 +17,14 @@ class CloudIdentitiesController < ApplicationController
     # puts "result #{resp}"
     #end
     ir.fake
-    @cloud_identity = current_user.organization.build_cloud_identity
+    @cloud_identity = current_user.build_cloud_identities
+
+	#random_token = p SecureRandom.urlsafe_base64(nil, true)
+    #current_user.cloud_identities.update_attribute(:api_token, random_token)
+
+
     respond_with(@cloud_identity, :layout => !request.xhr? )
+
 
   end
 
@@ -27,7 +33,7 @@ class CloudIdentitiesController < ApplicationController
 
 
     cu = current_user
-    user = {:who => cu.first_name, :api_token => cu.organization.api_token, :type => cu.user_type, :account_name => cu.organization.account_name }
+    user = {:who => cu.first_name, :api_token => cu.api_token, :type => cu.user_type, :account_name => cu.cloud_identities.account_name }
 
     instance = {:client => "knife", :cloud => "ec2", :action => "create", :image => "ami-123", :group => "megam", :run_list => "role[openam]" }
 
@@ -44,13 +50,13 @@ class CloudIdentitiesController < ApplicationController
     tempparms = {:agent => "CloudIdentityAgent", :command => "listRealms", :message => "URL=http://nomansland.com REALM_NAME=temporealm"}
 
     ir.fake
-    @cloud_identity = current_user.organization.build_cloud_identity
+    @cloud_identity = current_user.build_cloud_identities
     @identity_type = params[:identity_type]
     respond_with(@cloud_identity, @identity_type ,:layout => !request.xhr? )
   end
 
   def create
-    @cloud_identity = current_user.organization.build_cloud_identity(params[:cloud_identity]) || CloudIdentity.new(params[:cloud_identity])
+    @cloud_identity = current_user.build_cloud_identities(params[:cloud_identity]) || CloudIdentity.new(params[:cloud_identity])
 
     if @cloud_identity.save
       flash[:success] = "Cloud Identity Created with #{current_user.organization.account_name}"
@@ -67,7 +73,7 @@ class CloudIdentitiesController < ApplicationController
     add_breadcrumb "Cloud Identity", cloud_identity_path(current_user.id)
     @user = User.find(params[:id])
     @products = Product.all
-    @apps_item = current_user.organization.apps_items
+    @apps_item = current_user.apps_items
 
     if !@user.organization
       flash[:error] = "Please Create Organization Details first"

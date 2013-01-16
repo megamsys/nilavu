@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
 
 	add_breadcrumb "Home", :root_path
-	add_breadcrumb "Dashboard", :dashboard_path
+	#add_breadcrumb "Dashboard", :dashboard_path
 
 
   before_filter :signed_in_user,
@@ -22,8 +22,10 @@ class UsersController < ApplicationController
       flash[:error] = "Hey stranger. we need details about your work. Please update your work details to proceed further."
       redirect_to edit_user_path(current_user)
     end
-
+current_user = @user
     logger.debug "show org #{@user.to_yaml}"
+	logger.debug "CU #{current_user}"
+	logger.debug "@CU #{@user}"
 
   end
 
@@ -105,14 +107,12 @@ class UsersController < ApplicationController
 
     if @user.update_attributes(params[:user])
       logger.debug "user-update"
-      random_token = p SecureRandom.urlsafe_base64(nil, true)
-      @user.organization.update_attribute(:api_token, random_token)
 
       flash[:alert] = "Hi #{current_user.first_name},Your profile was updated Successfully and your API token is 
 #{random_token}"
       sign_in @user
 	
-	logger.debug "show org #{@user.to_yaml}"
+	logger.debug "update org #{@user.to_yaml}"
       redirect_to @user
 	
     else

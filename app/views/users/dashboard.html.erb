@@ -95,7 +95,7 @@
 							</div>
 							<div class="collapse accordion-body" id="collapseGTwo">
 								<div class="widget-content">
-									<% if !current_user..organization.cloud_identity  %>
+									<% if !current_user.cloud_identities  %>
 									<%= link_to "Take me there", cloud_identity_path(current_user.id) , class: "btn btn-warning btn-mini"  %>Profile
 									<% else %>
 									Awesome ! <span class="label label-success"> you have one.</span>
@@ -113,7 +113,7 @@
 							<div class="collapse accordion-body" id="collapseGThree">
 								<div class="widget-content">
 									<div class="container-fluid">
-										<% if !current_user..organization.cloud_identity  %>
+										<% if !current_user.cloud_identities %>
 										<%= link_to "Take me there", new_apps_item_path , class: "btn btn-warning btn-mini"  %>Profile
 										<% else %>
 										Super cool ! <span class="label label-success"> you have added cloud apps.</span>

@@ -10,9 +10,9 @@ class AppsItemsController < ApplicationController
   def new
 
     add_breadcrumb "Cloud Applications", new_apps_item_path
-    current_user.organization.apps_items.build(params[:apps_items])
+    current_user.apps_items.build(params[:apps_items])
     @products = Product.all
-    @apps_item = current_user.organization.apps_items
+    @apps_item = current_user.apps_items
   end
 
   def create
@@ -20,7 +20,7 @@ class AppsItemsController < ApplicationController
     @product = Product.find(params[:product_id])
     logger.debug "creating an item for product -> #{@product.id}"
     sleep 1
-    @apps_item = @user.organization.apps_items.build(:product => @product) || AppsItem.new(params[:apps_item])
+    @apps_item = @user.apps_items.build(:product => @product) || AppsItem.new(params[:apps_item])
     @apps_item.save
     respond_with( @apps_item,@product, :layout => !request.xhr? )
   end
@@ -28,7 +28,7 @@ class AppsItemsController < ApplicationController
   def destroy
     logger.debug "destroying an item for apps item -> #{params}"
     sleep 1
-    current_user.organization.apps_items.find(params[:id]).destroy
+    current_user.apps_items.find(params[:id]).destroy
     @product = Product.find(params[:product_id])
     respond_with(@product, :layout => !request.xhr? )
   end
