@@ -6,14 +6,16 @@ body {
   padding-top: @gridColumnWidth;
 }
 
-
 // Set the correct sprite paths
-@iconSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings");
-@iconWhiteSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings-white");
+//@iconSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings.png");
+//@iconWhiteSpritePath: asset-path("twitter/bootstrap/glyphicons-halflings-white.png");
+
+// Glyphicons
+//@import "twitter/bootstrap/sprites.less";
 
 // Set the Font Awesome (Font Awesome is default. You can disable by commenting below lines)
-// Note: If you use asset_path() here, your compiled bootstrap_and_overrides.css will not
-//       have the proper paths. So for now we use the absolute path.
+// Note: If you use asset_path() here, your compiled boostrap_and_overrides.css will not
+// have the proper paths. So for now we use the absolute path.
 @fontAwesomeEotPath: asset-path("fontawesome-webfont.eot");
 @fontAwesomeEotPath_iefix: asset-path("fontawesome-webfont.eot#iefix");
 @fontAwesomeWoffPath: asset-path("fontawesome-webfont.woff");
@@ -21,10 +23,7 @@ body {
 @fontAwesomeSvgPath: asset-path("fontawesome-webfont.svg");
 
 // Font Awesome
-//@import "fontawesome";
-
-// Glyphicons
-//@import "twitter/bootstrap/sprites.less";
+@import "fontawesome";
 
 // Your custom LESS stylesheets goes here
 //

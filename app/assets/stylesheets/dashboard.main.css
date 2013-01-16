@@ -21,7 +21,7 @@ a:hover {
     position: absolute;
    
     right: 30px;
-    top: 80px;
+    top: 5px;
     z-index: 20;
     margin: 0;
 }
@@ -51,9 +51,9 @@ a:hover {
 }
 #user-nav > ul > li > a > i, #sidebar li a i {
 	vertical-align: top;
-	
+	background-image: url('../img/glyphicons-halflings-white.png');
 	opacity: .5;
-	margin-top: 80px;
+	margin-top: 2px;
 }
 #user-nav > ul > li > a:hover > i, #user-nav > ul > li.open > a > i {
 	opacity: 1;
@@ -1308,7 +1308,7 @@ form {
 	}
 	#sidebar > a > i {
 		margin-right: 10px;
-		background-image: url('glyphicons-halflings-white.png');
+		background-image: url('../img/glyphicons-halflings-white.png');
 	}
 	#sidebar > ul {
 		display: none;

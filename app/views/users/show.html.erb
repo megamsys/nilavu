@@ -1,6 +1,5 @@
 <div id="dash">
 	<div id="sidebar">
-		<a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
 		<ul>
 			<% if current_user.organization %>
 			<li>
@@ -10,7 +9,7 @@
 
 			<li class="active">
 				<%= link_to dashboard_path do %>
-				<i class="icon-home"></i> Dashboard
+				<i class="icon icon-home"></i><span> Dashboard</span>
 				<% end %>
 			</li>
 
@@ -63,9 +62,7 @@
 	</div>
 
 	<div id="content">
-
 		<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
-
 	</div>
 
 </div>
