@@ -36,11 +36,8 @@ class IronfistClient
   
   def fake
 	puts "federate - before sleep"
-
-	sleep 10
-
+	sleep 1
 	puts "federate - after sleep"
-
   end
 
   def pub_and_wait(conn,ironfistparms, waitfor=0)

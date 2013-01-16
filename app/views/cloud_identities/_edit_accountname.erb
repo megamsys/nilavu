@@ -1,0 +1,14 @@
+<div id="editable_account_name">
+	<p class="help-block">
+		<strong>1. 
+		    <span class="label label-warning">*optional</span>
+		    Click on the default account name </strong>
+
+		<span class="badge badge-important"><%= @user.organization.account_name%></span>
+		to change it 
+	</p>
+	<%= link_to @user.organization.account_name, '1',
+	:id => "identity_new_account_name", :class => "btn btn-large btn-primary disabled btn-block",:remote => true,
+	:data => { :type => 'text', :name => 'status'},
+	':data-original-title' => 'Update account name'  %>
+</div>

@@ -13,43 +13,73 @@
 <%= render_breadcrumbs %>
 
 <div class="container-fluid">
+    <div class="row-fluid">
+        <div>
+            <p class="help-block">
+                <%= image_tag "helpbota.png", :alt => "help bot"%>
+                <span class="label label-info">free </span><strong> Hosted cloud identity for dev/test purpose.
+                </strong>For production upgrade to our <span class="badge badge-important">paid</span> version.
+            </p>
+        </div>
+    </div>
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Configure Cloud Applications</h5>
+					<div class="buttons">
+						<a title="Icon Title" class="btn btn-mini" href="#"><i class="icon-shopping-cart"></i> Upgrade</a>
+						<a title="Icon Title" class="btn btn-mini" href="#"><i class="icon-shopping-cart"></i> Refresh</a>
+					</div>
+				</div>
+				<div class="widget-content">
+					<div class="invoice-content">
+						<div>
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th> App </th>
+										<th> Description </th>
+										<th> Category </th>
+										<th> Action </th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th class="total-label" colspan="2"> Help </th>
+										<th class="total-amount"> <%= link_to "Click here", "http://docs.megam.co", :target => "_blank"%> </th>
+									</tr>
+								</tfoot>
+								<tbody>
+									<% @products.each do |product| %>
+									<tr>
+										<td> <%= image_tag product.image_url, :size => "128x100" %> </td><dd></dd>
+										<td><%= product.description %></td><dd></dd>
+										<td><%= product.category %></td>
+										<dd/>
+										<td> <% @apps_item.each do |apps_item_el| %>
+										<% if apps_item_el.product_id === product.id %>
+										<div id=<%= dom_id(product) %>>
+											<%= render :partial => "apps_items/remove_button", :locals => {:apps_item_el => apps_item_el, :product => product} %>
+										</div> <% end %>
+										<% end %>
+										<% if product.description != 1 %>
+										<div id=<%= dom_id(product) %>>
+											<%= render :partial => "apps_items/add_button", :locals => {:product => product} %>
+										</div> <% end %> </td>
+									</tr>
+									<% end %> <!-- each product -->
+								</tbody>
+							</table>
+						</div>
 
-<table class="table table-condensed">
-        <thead>
-		<tr class="alert">
-			<th>Logo</th>
-			<th>Name</th>
-			<th>Description</th>
-			<th>Category</th>
-			<th>Action</th>
-		</tr>
-	</thead>
-	<br/>
-	<tbody>
-	<% @products.each do |product| %>
-	<tr class="success" >
-		<td> <%= image_tag product.image_url, :size => "128x100" %> </td><dd></dd>
-		<% if product.name === "Box.com" or product.name === "DropBox.com" %>
-			<td><h3><%= product.name %></h3><h6>*Free</h6></td><dd></dd>
-		<% else %>
-			<td><h3><%= product.name %></h3></td><dd></dd>
-		<% end %>
-		<td><%= product.description %></td><dd></dd>
-                <td><%= product.category %></td><dd/>
-		<td> <% @apps_item.each do |apps_item_el| %>
-		<% if apps_item_el.product_id === product.id %>
-		<div id=<%= dom_id(product) %>>
-			<%= render :partial => "apps_items/remove_button", :locals => {:apps_item_el => apps_item_el, :product => product} %>
-		</div> <% end %>
-		<% end %>
-		<% if product.description != 1 %>
-		<div id=<%= dom_id(product) %>>
-			<%= render :partial => "apps_items/add_button", :locals => {:product => product} %>
-		</div> <% end %> </td>
-	</tr>
-	<% end %> <!-- each product -->
-	</tbody>
-</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
 </div>
 <% end %>
 <%= render :template => users_show_path %>

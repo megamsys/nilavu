@@ -8,32 +8,29 @@
 			</li>
 			<% end %>
 
-			
 			<li class="active">
 				<%= link_to dashboard_path do %>
-						<i class="icon-home"></i> Dashboard
-						<% end %>
+				<i class="icon-home"></i> Dashboard
+				<% end %>
 			</li>
 
 			<li>
-						<%= link_to cloud_identity_path(current_user.id) do %>
-						 <i class="icon-ok"></i>Cloud Identity
-							<% end %>
-					</li>
+				<%= link_to cloud_identity_path(current_user.id) do %>
+				<i class="icon-ok"></i>Cloud Identity
+				<% end %>
+			</li>
 
-			
 			<li>
 				<%= link_to new_apps_item_path do %>
-							<i class="icon-globe"></i>Cloud Applications
-							<% end %>
+				<i class="icon-globe"></i>Cloud Applications
+				<% end %>
 			</li>
 			<li>
-					<%= link_to connector_projects_path do %>
-					<i class="icon-cloud"></i>Live Cloud
-					<% end %>
+				<%= link_to connector_projects_path do %>
+				<i class="icon-cloud"></i>Live Cloud
+				<% end %>
 			</li>
-			
-			
+
 			<li class="submenu">
 				<a href="#"><i class="icon icon-file"></i> <span>Sample pages</span> <span class="label">4</span></a>
 				<ul>
@@ -58,18 +55,16 @@
 
 			<li>
 				<%= link_to cloud_run_path do %>
-						 <i class="icon-ok"></i>Cloud Run
-							<% end %>
+				<i class="icon-ok"></i>Cloud Run
+				<% end %>
 			</li>
 		</ul>
 
 	</div>
 
 	<div id="content">
-		
 
-			<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
-
+		<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
 
 	</div>
 

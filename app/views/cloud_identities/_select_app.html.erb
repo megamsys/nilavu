@@ -1,0 +1,34 @@
+<div id="blog_wrapper">
+	<% @products.each do |product| %>
+	<% @apps_item.each do |apps_item_el| %>
+	<% if apps_item_el.product_id === product.id && (product.identity.match(identity_type)) %>
+	<div class="span6">
+		<div class="post">
+			<div class="row-fluid">
+				<div class="span3">
+					<%= image_tag product.image_url, :alt => product.name,:class => "main_pic", :alt => "salesforce"%>
+				</div>
+				<div class="span3 info">
+					<a href="blog-post.html"> <h3>Measure theme blog post</h3> </a>
+					<p>
+						<!-- Slide THREE -->
+
+						There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
+					</p>
+					<div class="post_info">
+						<div class="slideThree">
+							<input type="checkbox" value="None" id="<%= product.name %>_oauth" name="check" />
+							<label for="<%= product.name %>_oauth"></label>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<% end %>
+	<% end %>
+	<% end %>
+</div>
+<div id="federate_oauth">
+	<%= render :partial => "cloud_identities/federate_btn" , :locals => {:identity_type => identity_type} %>
+</div>

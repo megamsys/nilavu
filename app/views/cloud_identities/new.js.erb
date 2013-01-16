@@ -1,9 +1,9 @@
-
-var selected_entity = '#insert_identity';
-
+var selected_entity = '#setup_identity';
 
 $(selected_entity).fadeIn("slow");
 
-var to_insert_content = '<%= escape_javascript(render :partial => "cloud_identities/launch_identity" ) %>';
-	
+var to_insert_content = '<%= escape_javascript(render :partial => "cloud_identities/postnew" ) %>';
+
 insertAt(selected_entity,to_insert_content);
+
+removeAt('#identity_new_account_name')

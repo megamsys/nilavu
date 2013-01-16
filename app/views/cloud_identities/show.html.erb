@@ -13,111 +13,137 @@
 <%= render_breadcrumbs %>
 
 <div class="container-fluid">
-
-	<% if @user.organization %>
-	<div class="alert alert-success">
-		Well done !. You are almost there. Next step is to create a cloud identity for realm
-		<span class="label label-info"><%= @user.organization.account_name %></span>
-	</div>
-
-	<% end %>
-	<% if @user.organization.cloud_identity %>
-
-	<%= link_to "Launch Identity", @user.organization.cloud_identity.url, :class => "btn", data: { confirm: "You sure?" } %>
-
-	<% else %>
-
-<div id="insert_identity">
-			<%= render :partial => "cloud_identities/identity_btn" %>
-</div> 
-
-
-
-	<h3>Federation</h3>
-
-	<div class="widget-box">
-		<div class="widget-title">
-			<ul class="nav nav-tabs">
-				<li class="active">
-					<a data-toggle="tab" href="#tab1">SAML2</a>
-				</li>
-				<li>
-					<a data-toggle="tab" href="#tab2">Oauth</a>
-				</li>
-				<li>
-					<a data-toggle="tab" href="#tab3">Custom key</a>
-				</li>
-			</ul>
+	<div class="row-fluid">
+		<div>
+			<% if @user.organization %>
+			<p class="help-block">
+				<%= image_tag "helpbota.png", :alt => "help bot"%>
+				<span class="label label-info">free </span><strong> Hosted cloud identity for dev/test purpose. </strong>For production upgrade to our <span class="badge badge-important">paid</span> version.
+			</p>
+			<% end %>
 		</div>
-		<div class="widget-content tab-content">
-			<div id="tab1" class="tab-pane active">
-				<% @products.each do |product| %>
-				<% @apps_item.each do |apps_item_el| %>
-				<% if apps_item_el.product_id === product.id && (product.identity === 'saml2' || product.identity === 'saml2,oauth') %>
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Setup Cloud Identity</h5>
+				</div>
+				<div class="widget-content">
+					<%= render :partial => "cloud_identities/setup_identity" %>
+				</div>
 
-			<div class="container_check">
-				<%= image_tag product.image_url, :alt => product.name %>
-				<!-- Slide THREE -->
-				<div class="slideThree">
-					<input type="checkbox" value="None" id="<%= product.name %>_saml2" name="check" />
-					<label for="<%= product.name %>_saml2"></label>
-				</div> </div>
-				<% end %>
-				<% end %>
-				<% end %>
-				<br/>
-
-
-<div id="federate_saml2">
-			<%= render :partial => "cloud_identities/federate_btn", :locals => {:identity => "saml2" } %>
-</div>
-
-
-			</div>
-			<div id="tab2" class="tab-pane">
-				<% @products.each do |product| %>
-				<% @apps_item.each do |apps_item_el| %>
-				<% if apps_item_el.product_id === product.id && (product.identity === 'oauth' || product.identity === 'saml2,oauth' ||product.identity === 'oauth,custom_key') %>
-				<div class="container_check">
-				<%= image_tag product.image_url, :alt => product.name, :size => "100x100" %>
-				<!-- Slide THREE -->
-				<div class="slideThree">
-					<input type="checkbox" value="None" id="<%= product.name %>_oauth" name="check" />
-					<label for="<%= product.name %>_oauth"></label>
-				</div></div>
-				<% end %>
-				<% end %>
-				<% end %>
-				<br/>
-
-				<div id="federate_oauth">
-			<%= render :partial => "cloud_identities/federate_btn" %>
-</div>
-			</div>
-			<div id="tab3" class="tab-pane">
-				<% @products.each do |product| %>
-				<% @apps_item.each do |apps_item_el| %>
-				<% if apps_item_el.product_id === product.id && (product.identity === 'custom_key' ||product.identity === 'oauth,custom_key') %>
-			<div class="container_check">
-				<%= image_tag product.image_url, :alt => product.name, :size => "100x100" %>
-				<!-- Slide THREE -->
-				<div class="slideThree">
-					<input type="checkbox" value="None" id="<%= product.name %>_key" name="check" />
-					<label for="<%= product.name %>_key"></label>
-				</div></div>
-				<% end %>
-				<% end %>
-				<% end %>
-				<br/>
-
-				<div id="federate_custom_key">
-			<%= render :partial => "cloud_identities/federate_btn" %>
-</div>
 			</div>
 		</div>
 	</div>
 
-	<% end %> <!-- if user organization -->
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Hosted Cloud Identity</h5>
+					<div class="buttons">
+						<a title="Icon Title" class="btn btn-mini" href="#"><i class="icon-shopping-cart"></i> Upgrade</a>
+						<a title="Icon Title" class="btn btn-mini" href="#"><i class="icon-shopping-cart"></i> Refresh</a>
+					</div>
+				</div>
+				<div class="widget-content">
+					<div class="invoice-content">
+						<div>
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th> Id </th>
+										<th> URL </th>
+										<th> Action </th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th class="total-label" colspan="2"> Help </th>
+										<th class="total-amount"> <%= link_to "Click here", "http://docs.megam.co", :target => "_blank"%> </th>
+									</tr>
+								</tfoot>
+								<tbody>
+									<tr>
+										<td> #1</td>
+										<td> <%= link_to "fordy.ec2publicdns-abcd.com", "http://fordy.ec2publicdns-abcd.com", :target => "_blank"%> </td>
+										<td>
+										<div id=<%= dom_id(@user.organization) %>>
+											<%= render :partial => "cloud_identities/remove_btn", :locals => {:cloud_identity => @user.organization} %>
+										</div </td>
+									</tr>
+									<tr>
+										<td> #2 </td>
+										<td> <%= link_to "fordy.ec2publicdns-abcd.com", "http://fordy.ec2publicdns-abcd.com", :target => "_blank"%> </td>
+										<td>
+										<div id=<%= dom_id(@user.organization) %>>
+											<%= render :partial => "cloud_identities/remove_btn", :locals => {:cloud_identity => @user.organization} %>
+										</div </td>
+									</tr>
+									<tr>
+										<td> #3 </td>
+										<td> <%= link_to "fordy.ec2publicdns-abcd.com", "http://fordy.ec2publicdns-abcd.com", :target => "_blank"%> </td>
+										<td>
+										<div id=<%= dom_id(@user.organization) %>>
+											<%= render :partial => "cloud_identities/remove_btn", :locals => {:cloud_identity => @user.organization} %>
+										</div </td>
+									</tr>
+									<tr>
+										<td> #4 </td>
+										<td> <%= link_to "fordy.ec2publicdns-abcd.com", "http://fordy.ec2publicdns-abcd.com", :target => "_blank"%> </td>
+										<td>
+										<div id=<%= dom_id(@user.organization) %>>
+											<%= render :partial => "cloud_identities/remove_btn", :locals => {:cloud_identity => @user.organization} %>
+										</div </td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+		<div class="span12">
+			<h1><small>Federation</small></h1>
+			<div class="widget-box">
+				<div class="widget-title">
+					<div class="buttons">
+						<a title="Icon Title" class="btn btn-mini" href="#"><i class="icon-shopping-cart"></i> Select All</a>
+						<a title="Icon Title" class="btn btn-mini" href="#"><i class="icon-shopping-cart"></i> Deselect All</a>
+					</div>
+					<ul class="nav nav-tabs">
+						<li class="active">
+							<a data-toggle="tab" href="#tab1">SAML2</a>
+						</li>
+						<li>
+							<a data-toggle="tab" href="#tab2">OAuth</a>
+						</li>
+						<li>
+							<a data-toggle="tab" href="#tab3">Custom</a>
+						</li>
+					</ul>
+				</div>
+				<div class="widget-content tab-content">
+					<div id="tab1" class="tab-pane active">
+						<%= render :partial => "cloud_identities/select_app" , :locals => {:identity_type => 'saml2'} %>
+					</div>
+					<div id="tab2" class="tab-pane">
+						<%= render :partial => "cloud_identities/select_app" , :locals => {:identity_type => 'oauth'} %>
+					</div>
+					<div id="tab3" class="tab-pane">
+						<%= render :partial => "cloud_identities/select_app" , :locals => {:identity_type => 'custom'} %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
-<% end %>
+<% end %> <!-- content_for -->
 <%= render :template => users_show_path %>

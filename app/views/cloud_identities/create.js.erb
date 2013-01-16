@@ -1,8 +1,10 @@
-$(function() {
-    $('.submit').live('click', function() {
-        var width = $(this).width(); // take the width of the submit button
-        $(this).hide();
-        $("jq_createidty").after("<div class='loading-div' style='width:"+ width /* sets the width of the loading-div based on the submit button */ + "px'><img src='http://uk.zawya.com/images/LoadingData.gif' /></div>");
-        return false; // DON'T USE IT !!!
-    });
-});
+var selected_entity = '#create_identity';
+
+$(selected_entity).toggle();
+
+$(selected_entity).fadeIn("slow");
+
+var to_insert_content = '<%= escape_javascript(render :partial => "cloud_identities/postcreate" ) %>';
+    
+insertAt(selected_entity,to_insert_content);
+
