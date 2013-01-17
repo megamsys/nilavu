@@ -90,7 +90,7 @@ class CloudIdentitiesController < ApplicationController
   end
 
   def update
-      sleep 10
+    sleep 10
     @cloud_identity=CloudIdentity.find(params[:id])
     if @cloud_identity.update_attributes(params[:cloud_identity])
       respond_with(@cloud_identity, :layout => !request.xhr? )

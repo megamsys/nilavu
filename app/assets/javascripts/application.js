@@ -15,8 +15,6 @@
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require twitter/bootstrap
-//= require bootstrap-editable
-//= require bootstrap-editable-rails
 //= require spin
 //= require ajaxspinner
 //= require theme
@@ -29,4 +27,5 @@
 //= require jquery.gritter
 //= require unicorn
 //= require unicorn.dashboard
+//= require bootstrap-editable
 //= require_tree .

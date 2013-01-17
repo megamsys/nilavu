@@ -2,13 +2,7 @@
 	<p class="help-block">
 		<strong>1. <span class="label label-warning">*optional</span> Click on the default account name </strong>
 
-		<span class="badge badge-important"><%= @cloud_identity.account_name %></span>
+		<%= link_to "howdy1","#", :id => "identity_new_account_name", :class => "s_account_name" %>
 		to change it
 	</p>
-	<%= @cloud_identity.to_yaml%>
-	<%= link_to @cloud_identity.account_name, "",
-	:id => "identity_new_account_name", :class => "btn btn-large btn-primary disabled btn-block",
-	:data => { :type => 'text', :name => 'status',:url =>  @cloud_identity.id, spinner: '#spin_identity_new_account_name'},
-	':data-original-title' => 'Update account name'  %>
-	<%= spinner_tag "spin_identity_new_account_name" %>	
 </div>
