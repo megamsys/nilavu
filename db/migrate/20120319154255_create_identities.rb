@@ -5,7 +5,7 @@ class CreateIdentities < ActiveRecord::Migration
       t.string :provider
       t.string :uid
       t.timestamps
-    end   
+    end
         add_index :identities, :users_id
   end
 
@@ -14,4 +14,3 @@ class CreateIdentities < ActiveRecord::Migration
     drop_table :identities
   end
 end
-

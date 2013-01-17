@@ -4,7 +4,6 @@ class CloudIdentitiesController < ApplicationController
 
   add_breadcrumb "Home", :root_path
   add_breadcrumb "Dashboard", :dashboard_path
-  
   def index
   end
 
@@ -16,21 +15,18 @@ class CloudIdentitiesController < ApplicationController
     #ir.pub_and_wait(Ironfist::Init.instance.connection, tempparms,0) do |resp|
     # puts "result #{resp}"
     #end
+
     ir.fake
     @cloud_identity = current_user.build_cloud_identities
 
-	#random_token = p SecureRandom.urlsafe_base64(nil, true)
+    #random_token = p SecureRandom.urlsafe_base64(nil, true)
     #current_user.cloud_identities.update_attribute(:api_token, random_token)
 
-
     respond_with(@cloud_identity, :layout => !request.xhr? )
-
-
   end
 
   def federate
     logger.debug "federate identity -> #{params[:identity_type]}"
-
 
     cu = current_user
     user = {:who => cu.first_name, :api_token => cu.api_token, :type => cu.user_type, :account_name => cu.cloud_identities.account_name }
@@ -80,7 +76,7 @@ class CloudIdentitiesController < ApplicationController
       redirect_to edit_user_path(current_user)
     end
 
-	#For Account_Name
+    #For Account_Name
     @name = current_user.organization.name.gsub(/[^0-9A-Za-z]/, '')
     @name = @name.gsub(" ", "")
     if @name.length > 10
@@ -89,16 +85,15 @@ class CloudIdentitiesController < ApplicationController
     acc_name = @name
     end
 
-@user.cloud_identities.create(:account_name => acc_name)
-@cloud_identity = @user.cloud_identities.last
+    @user.cloud_identities.create(:account_name => acc_name)
+    @cloud_identity = @user.cloud_identities.last
   end
 
   def update
-	logger.debug "#{params}"
+      sleep 10
     @cloud_identity=CloudIdentity.find(params[:id])
-    logger.debug #{params[:cloud_identity]}
     if @cloud_identity.update_attributes(params[:cloud_identity])
-      redirect_to users_show_url
+      respond_with(@cloud_identity, :layout => !request.xhr? )
     end
   end
 

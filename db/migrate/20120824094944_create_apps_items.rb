@@ -10,13 +10,13 @@ class CreateAppsItems < ActiveRecord::Migration
     end
     add_index :apps_items, :users_id
     add_index :apps_items, :product_id
-	add_index :apps_items, :cloud_identity_id
+    add_index :apps_items, :cloud_identity_id
   end
 
   def self.down
     remove_index :apps_items, :users_id
     remove_index :apps_items, :product_id
-	remove_index :apps_items, :cloud_identity_id
+    remove_index :apps_items, :cloud_identity_id
     drop_table :apps_items
   end
 end

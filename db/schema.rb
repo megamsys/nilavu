@@ -26,6 +26,15 @@ ActiveRecord::Schema.define(:version => 20130108105504) do
   add_index "apps_items", ["product_id"], :name => "index_apps_items_on_product_id"
   add_index "apps_items", ["users_id"], :name => "index_apps_items_on_users_id"
 
+  create_table "cloud_apps", :force => true do |t|
+    t.integer  "org_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "cloud_apps", ["org_id"], :name => "index_cloud_apps_on_org_id"
+
   create_table "cloud_identities", :force => true do |t|
     t.string   "url"
     t.string   "account_name"
@@ -49,6 +58,47 @@ ActiveRecord::Schema.define(:version => 20130108105504) do
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
+
+  create_table "connector_actions", :force => true do |t|
+    t.integer  "connector_id"
+    t.string   "user_name"
+    t.string   "profile_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "alias"
+    t.string   "time_zone",         :default => "America/Los_Angeles"
+    t.string   "locale",            :default => "en_US"
+    t.string   "char_set_encoding", :default => "UTF-8"
+    t.string   "language",          :default => "en_US"
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
+  end
+
+  add_index "connector_actions", ["connector_id"], :name => "index_connector_actions_on_connector_id"
+
+  create_table "connector_outputs", :force => true do |t|
+    t.string   "connector_id"
+    t.string   "status"
+    t.string   "message"
+    t.string   "output_display"
+    t.string   "log"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "connector_outputs", ["connector_id"], :name => "index_connector_outputs_on_connector_id"
+
+  create_table "connectors", :force => true do |t|
+    t.integer  "cloud_app_id"
+    t.string   "salesforce_consumer_key"
+    t.string   "salesforce_consumer_secret"
+    t.string   "description"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+  end
+
+  add_index "connectors", ["cloud_app_id"], :name => "index_connectors_on_cloud_app_id"
 
   create_table "identities", :force => true do |t|
     t.integer  "users_id"
