@@ -6,23 +6,23 @@ jQuery(document)
 		.ready(
 				function() {
 
-					$('#dash').each(function() {
-						$('body').css('background', '#444444');
+					jQuery('#dash').each(function() {
+						jQuery('body').css('background', '#444444');
 					});
 
+					// init editables
+					jQuery('.s_account_name').editable({});
 
-
-
-//init editables
-$('.acc_name_editable').editable({
-url: '#' //this url will not be used for creating new user, it is only for update
-});
-
-//make identity_new_account_name required
-$('#identity_new_account_name').editable('option', 'validate', function(v) {
-if(!v) return 'Required field!';
-});
-
+					jQuery('#identity_new_account_name').editable('option',
+							'validate', function(v) {
+								if (!v)
+									return 'Required field!';
+							});
+					
+					jQuery('#identity_new_account_name').editable('option',	'send', 'never');
+					
+					jQuery('#identity_new_account_name').editable('option',	'savenochange', 'never');
+					
 
 					// === Prepare peity charts === //
 					unicornpeity();

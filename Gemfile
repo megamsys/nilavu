@@ -19,7 +19,6 @@ gem 'omniauth-facebook','1.4.1'
 gem 'omniauth-openid','1.0.1'
 gem 'will_paginate','3.0.3'
 gem 'bootstrap-will_paginate','0.0.9'
-gem "bootstrap-editable-rails", "~> 0.0.3"
 gem 'rest-client','1.6.7'
 gem 'grape','0.2.3'
 gem 'paperclip','3.4.0'
