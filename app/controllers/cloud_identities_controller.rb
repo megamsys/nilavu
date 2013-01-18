@@ -75,18 +75,6 @@ class CloudIdentitiesController < ApplicationController
       flash[:error] = "Please Create Organization Details first"
       redirect_to edit_user_path(current_user)
     end
-
-    #For Account_Name
-    @name = current_user.organization.name.gsub(/[^0-9A-Za-z]/, '')
-    @name = @name.gsub(" ", "")
-    if @name.length > 10
-    acc_name = @name.slice(0,10)
-    else
-    acc_name = @name
-    end
-
-    @user.cloud_identities.create(:account_name => acc_name)
-    @cloud_identity = @user.cloud_identities.last
   end
 
   def update
