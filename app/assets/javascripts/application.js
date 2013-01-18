@@ -17,6 +17,7 @@
 //= require twitter/bootstrap
 //= require spin
 //= require ajaxspinner
+//= require jquery.gritter
 //= require theme
 //= require jquery.flot
 //= require jquery.flot.resize
@@ -24,8 +25,8 @@
 //= require fullcalendar
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
-//= require jquery.gritter
 //= require unicorn
 //= require unicorn.dashboard
+//= require unicorn.interface
 //= require bootstrap-editable
 //= require_tree .

@@ -17,8 +17,8 @@
 					</p>
 					<div class="post_info">
 						<div class="slideThree">
-							<input type="checkbox" value="None" id="<%= product.name %>_oauth" name="check" />
-							<label for="<%= product.name %>_oauth"></label>
+							<input type="checkbox" value="None" id="<%= product.name %>_<%= identity_type %>" name="check" />
+							<label for="<%= product.name %>_<%= identity_type %>"></label>
 						</div>
 					</div>
 				</div>
@@ -29,6 +29,6 @@
 	<% end %>
 	<% end %>
 </div>
-<div id="federate_oauth">
+<div id="federate_<%= identity_type %>">
 	<%= render :partial => "cloud_identities/federate_btn" , :locals => {:identity_type => identity_type} %>
 </div>

@@ -60,6 +60,7 @@ current_user = @user
 	logger.debug "@user befor mailer = #{@user}"
 	UserMailer.welcome_email(@user).deliver
 	logger.debug "@user = #{@user}"
+	redirect_to users_dashboard_url
  end
 
   def verified_email
@@ -96,6 +97,11 @@ current_user = @user
 
     @user.organization
 
+  end
+
+  def upgrade
+
+	add_breadcrumb "Upgrade", upgrade_path
   end
 
  

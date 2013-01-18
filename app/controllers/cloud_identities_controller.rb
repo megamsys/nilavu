@@ -17,7 +17,7 @@ class CloudIdentitiesController < ApplicationController
     #end
 
     ir.fake
-    @cloud_identity = current_user.build_cloud_identities
+    @cloud_identity = current_user.cloud_identities.create
 
     #random_token = p SecureRandom.urlsafe_base64(nil, true)
     #current_user.cloud_identities.update_attribute(:api_token, random_token)
@@ -29,7 +29,7 @@ class CloudIdentitiesController < ApplicationController
     logger.debug "federate identity -> #{params[:identity_type]}"
 
     cu = current_user
-    user = {:who => cu.first_name, :api_token => cu.api_token, :type => cu.user_type, :account_name => cu.cloud_identities.account_name }
+    user = {:who => cu.first_name, :api_token => cu.api_token, :type => cu.user_type }
 
     instance = {:client => "knife", :cloud => "ec2", :action => "create", :image => "ami-123", :group => "megam", :run_list => "role[openam]" }
 
@@ -46,7 +46,7 @@ class CloudIdentitiesController < ApplicationController
     tempparms = {:agent => "CloudIdentityAgent", :command => "listRealms", :message => "URL=http://nomansland.com REALM_NAME=temporealm"}
 
     ir.fake
-    @cloud_identity = current_user.build_cloud_identities
+    #@cloud_identity = current_user.build_cloud_identities
     @identity_type = params[:identity_type]
     respond_with(@cloud_identity, @identity_type ,:layout => !request.xhr? )
   end
@@ -70,6 +70,7 @@ class CloudIdentitiesController < ApplicationController
     @user = User.find(params[:id])
     @products = Product.all
     @apps_item = current_user.apps_items
+	@cloud_identity = current_user.cloud_identities.all
 
     if !@user.organization
       flash[:error] = "Please Create Organization Details first"

@@ -17,6 +17,7 @@ Cloudauth::Application.routes.draw do
   match '/cloud_run', to: 'users#cloud_run'
 
   match '/federate', to: 'cloud_identities#federate'
+  match '/upgrade', to: 'users#upgrade'
 
   match '/apps_items/destroy', to: 'apps_items#destroy'
   match '/connector_project/destroy', to: 'connector_projects#destroy'

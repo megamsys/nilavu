@@ -23,7 +23,7 @@ jQuery(document)
 					
 					jQuery('#identity_new_account_name').editable('option',	'savenochange', 'never');
 					
-
+					
 					// === Prepare peity charts === //
 					unicornpeity();
 

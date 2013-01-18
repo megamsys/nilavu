@@ -1,4 +1,22 @@
 <% provide(:title, "Sign in") %> 
+
+<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Setup Cloud Identity</h5>
+				</div>
+				
+
+<div class="widget-content notify-ui">
+	<ul id="gritter-notify">
+		<li class="normal">Standard notification</li>
+	</ul>
+
+					
+				</div>
+
+			</div>
+
 <h5> <%- flash.each do |name, msg| -%>
 		<%= content_tag :div, msg, :id => "flash_#{name}" %>
 <%- end -%> </h5>

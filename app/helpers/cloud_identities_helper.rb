@@ -5,8 +5,10 @@ module CloudIdentitiesHelper
     @name = @name.gsub(" ", "")
     if @name.length > 10
     	@account_name = @name.slice(0,10)
+	@account_name = @account_name.downcase
     else
     	@account_name = @name
+	@account_name = @account_name.downcase
     end
  end
 

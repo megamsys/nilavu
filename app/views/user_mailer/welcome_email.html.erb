@@ -1,23 +1,100 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-  </head>
-  <body>
-  
-    <p>
-	<h1>Hi <%= @mailer_user.first_name %> , Welcome to megam.co</h1>
-      You have successfully signed up to megam.co,
-      
-    </p>
-    <p>
-      To login to the site, just follow this link: </p>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<title>Confirmation of your email</title>
+		<style type="text/css">
+			<!--
+			body {
+			margin-left: 0px;
+			margin-top: 0px;
+			margin-right: 0px;
+			margin-bottom: 0px;
+			}
+			-->
+		</style>
+	</head>
 
-
-<%= link_to "#{@url}", @url %>
-	
-	
-    </p>
-    <p>Thanks for joining and have a great day!</p>
-  </body>
+	<body style="background-color:#f3f3f3; font-family:Arial, Helvetica, sans-serif; font-size: 12px;">
+		<table width="820" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#f3f3f3">
+			<tr>
+				<td>
+				<table width="750" border="0" align="center" cellpadding="0" cellspacing="0">
+					<tr>
+						<td align="left">
+						<table border="0" align="left" cellpadding="0" cellspacing="0">
+							<tr>
+								<td height="130" valign="bottom"><a href="http://www.megam.co"><img src="http://localhost:3000/assets/logo-megam160x43.png" border="0" /></a></td>
+							</tr>
+						</table></td>
+						<td align="right" valign="bottom">
+						<table border="0" align="right" cellpadding="0" cellspacing="0">
+							<tr>
+								<td height="70" align="right"><span style="font-family: Arial, Helvetica, sans-serif; font-size: 22px">Email confirmation</span></td>
+							</tr>
+						</table><span style="font-family:Arial, Helvetica, sans-serif; font-size:12px">
+							<br />
+						</span></td>
+					</tr>
+				</table>
+				<table width="774" align="center" cellpadding="0" cellspacing="0" style="border:#CCC thin solid;">
+					<tr>
+						<td>
+						<table width="774" border="0" cellpadding="0" cellspacing="0">
+							<tr bgcolor="#FFFFFF">
+								<td height="20" align="center" bgcolor="#FFFFFF">
+								<br />
+								<br />
+								<br />
+								<table width="95%" border="0" cellspacing="0" cellpadding="0">
+									<tr>
+										<td style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">Dear <%= @mailer_user.first_name %>,</td>
+									</tr>
+								</table>
+								<br />
+								<table width="95%" border="0" cellspacing="0" cellpadding="0">
+									<tr align="left">
+										<td height="60" style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">
+										<div style="width:566px; text-align:left; word-wrap:break-word;">
+											<strong>Thankyou for registering your <email_id> with us. </strong>
+											<br />
+											Click here <%= link_to "#{@url}", @url %> to confirm your email address.
+										</div></td>
+									</tr>
+								</table>
+								<br />
+								<br />
+								<br />
+								</td>
+							</tr>
+						</table></td>
+					</tr>
+					<tr></tr>
+				</table>
+				<br />
+				<table cellspacing="0" cellpadding="0" border="0" align="center" width="750">
+					<tbody>
+						<tr>
+							<td align="left" width="678">
+							<table cellspacing="0" border="0" width="90">
+								<tbody>
+									<tr>
+										<td align="left" width="45"><a title="Megam " href="http://www.facebook.com/megam" target="_blank"><img height="38" border="0" width="38" style="display: block;" alt="Facebook" src="http://localhost:3000/assets/i_face.png" /></a></td>
+										<td align="left"><a title="Book Now" href="http://twitter.com/megam" target="_blank"><img height="38" border="0" width="38" style="display: block;" alt="Twitter" src="twitlogo.gif" /></a></td>
+									</tr>
+								</tbody>
+							</table>
+							<table cellspacing="0" cellpadding="0" border="0" width="76%">
+								<tbody>
+									<tr>
+										<td height="30" align="left" valign="top" style="font-family: Arial,Helvetica,sans-serif; color: rgb(102, 102, 102); font-size: 11px;">&copy; 2012 Megam Systems. All rights reserved.</td>
+									</tr>
+								</tbody>
+							</table></td>
+						</tr>
+					</tbody>
+				</table></td>
+			</tr>
+		</table>
+		<p></p>
+	</body>
 </html>
