@@ -1,36 +1,35 @@
 <% provide(:title, 'Sign up') %>
 <div class="row">
-	<div class="span10">
-	</div>
+	<div class="span10"></div>
 	<div class="span10">
 		<div class="span5">
 			<h3> <%- flash.each do |name, msg| -%>
 			<%= content_tag :div, msg, :id => "flash_#{name}" %>
 			<%- end -%> </h3>
 
-<div id="box_sign">
-	<div class="container">
-		<div class="span12 box_wrapper">
-			<div class="span12 box">
-				<div>
-					<div class="head">
-						<h4>Create your account</h4>
+			<div id="box_sign">
+				<div class="container">
+					<div class="span12 box_wrapper">
+						<div class="span12 box">
+							<div>
+								<div class="head">
+									<h4>Create your account</h4>
+								</div>
+								<div class="form">
+
+									<%= render :partial => "users/user_fields_form" %>
+
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="form">
-
-			<%= render :partial => "users/user_fields_form" %>
-
+					<div class="span4 offset1">
+						<p class="already">
+							Already have an account? <%= link_to "Sign in", signin_path %>
+						</p>
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="span4 offset1">
-		<p class="already">
-			Already have an account? <%= link_to "Sign in", signin_path %>
-		</p>
-		</div>
-	</div>
-</div>
 
 		</div>
 	</div>

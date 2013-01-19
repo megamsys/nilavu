@@ -11,6 +11,7 @@ gem 'jquery-datatables-rails'
 gem 'jquery_datepicker'
 gem "uniformjs-rails", "~> 1.5.0.2"
 gem "flot-rails", "~> 0.0.2"
+gem "gritter", :git => 'git://github.com/indykish/gritter.git'
 # Database posgresql 
 gem 'pg', '0.14.1'
 # OAuth authentication to twitter, facebook, openid using omniauth

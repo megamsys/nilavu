@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   def new
+
   end
 
   def create
@@ -8,11 +9,12 @@ class SessionsController < ApplicationController
       user = User.find_by_email(params[:session][:email])
       if user && user.authenticate(params[:session][:password])
         sign_in user
-	       flash[:success] = "Welcome #{current_user.first_name}"
-         redirect_back_or users_dashboard_url
+        flash[:success] = "Welcome #{current_user.first_name}"
+        redirect_back_or users_dashboard_url
       else
         flash.now[:error] = 'Invalid email/password combination'
         render 'new'
+
       end
     else
       create_social_identity(auth)
@@ -31,7 +33,7 @@ class SessionsController < ApplicationController
       @identity = Identity.create_from_omniauth(auth)
     else
       @user = User.find_by_id(@identity.users_id)
-     logger.debug "Hai #{@user.inspect} oi"
+      logger.debug "Hai #{@user.inspect} oi"
       if(@user.present?)
         logger.debug "Found user with id #{@identity.users_id}"
       @identity.user = @user
@@ -57,19 +59,19 @@ class SessionsController < ApplicationController
         redirect_to root_url, notice: "Successfully linked that account!"
       end
     else
-      #if @identity.user.present?
-        # The identity we found had a user associated with it so let's
-        # just log them in here
-	
-        #current_user = @identity.user
-        #session[:user_id] = @identity.users_id
-        #logger.debug "current_users email #{current_user.email} with #{current_user.id} identity user id #{@identity.users_id}"
-        #TO-DO: Change the redirection to the new page as required.
-        #redirect_to users_show_url, notice: "Signed in!"
-     # else
-      # No user associated with the identity so we need to create a new one
-        redirect_to new_user_url, notice: "Please finish registering"
-      #end
+    #if @identity.user.present?
+    # The identity we found had a user associated with it so let's
+    # just log them in here
+
+    #current_user = @identity.user
+    #session[:user_id] = @identity.users_id
+    #logger.debug "current_users email #{current_user.email} with #{current_user.id} identity user id #{@identity.users_id}"
+    #TO-DO: Change the redirection to the new page as required.
+    #redirect_to users_show_url, notice: "Signed in!"
+    # else
+    # No user associated with the identity so we need to create a new one
+      redirect_to new_user_url, notice: "Please finish registering"
+    #end
     end
   end
 

@@ -1,69 +1,49 @@
-<% provide(:title, "Sign in") %> 
-
-<div class="widget-box">
-				<div class="widget-title">
-					<span class="icon"> <i class="icon-th-list"></i> </span>
-					<h5>Setup Cloud Identity</h5>
-				</div>
-				
-
-<div class="widget-content notify-ui">
-	<ul id="gritter-notify">
-		<li class="normal">Standard notification</li>
-	</ul>
-
-					
-				</div>
-
-			</div>
+<% provide(:title, "Sign in") %>
 
 <h5> <%- flash.each do |name, msg| -%>
-		<%= content_tag :div, msg, :id => "flash_#{name}" %>
+<%= content_tag :div, msg, :id => "flash_#{name}" %>
 <%- end -%> </h5>
-  <div id="box_login">
-        <div class="container">
-            <div class="span12 box_wrapper">
-                <div class="offset2 span12 box">
-                    <div>
-                        <div class="head">
-                            <h4>Log in to your account</h4>
-                        </div>
-                        <div class="social">
-                            <a href="/auth/facebook" class="face_login">
-                                <span class="face_icon">
-				    <%= image_tag "i_face.png", :alt => "fb" %>
-                                </span>
-                                <span class="text">Sign in with Facebook</span>
-                            </a>
-                            <div class="division">
-                                <hr class="left">
-                                <span>or</span>
-                                <hr class="right">
-                            </div>
-                        </div>
-                        <div class="form">
-                            <%= form_for(:session, :url => sessions_path) do |f| %>
 
-				<%= f.text_field :email, placeholder: "Email" %>
-				<%= f.password_field :password, placeholder: "Password" %>
-                                <div class="remember">
-                                    <div class="left">
-                                        <input id="remember_me" type="checkbox">
-                                        <label for="remember_me">Remember me</label>
-                                    </div>
-					<div class="right">
-                                        <%= link_to "Forgotpassword?", forgot_path %>
-                                    </div>
-                                    
-                                </div>
-                                <%= f.submit "Sign in", :class => "btn" %>
-			    <% end %>
-                        </div>
-                    </div>
-                </div>
-                <p class="already">Don't have an account? <%= link_to "Sign up", signup_path %></p>
-            </div>
-        </div>
-    </div>
+<div id="box_login">
+	<div class="container">
+		<div class="span12 box_wrapper">
+			<div class="offset2 span12 box">
+				<div>
+					<div class="head">
+						<h4>Log in to your account</h4>
+					</div>
+					<div class="social">
+						<a href="/auth/facebook" class="face_login"> <span class="face_icon"> <%= image_tag "i_face.png", :alt => "fb" %> </span> <span class="text">Sign in with Facebook</span> </a>
+						<div class="division">
+							<hr class="left">
+							<span>or</span>
+							<hr class="right">
+						</div>
+					</div>
+					<div class="form">
+						<%= form_for(:session, :url => sessions_path) do |f| %>
 
+						<%= f.text_field :email, placeholder: "Email" %>
+						<%= f.password_field :password, placeholder: "Password" %>
+						<div class="remember">
+							<div class="left">
+								<input id="remember_me" type="checkbox">
+								<label for="remember_me">Remember me</label>
+							</div>
+							<div class="right">
+								<%= link_to "Forgotpassword?", forgot_path %>
+							</div>
+
+						</div>
+						<%= f.submit "Sign in", :class => "btn" %>
+						<% end %>
+					</div>
+				</div>
+			</div>
+			<p class="already">
+				Don't have an account? <%= link_to "Sign up", signup_path %>
+			</p>
+		</div>
+	</div>
+</div>
 

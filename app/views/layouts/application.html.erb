@@ -9,13 +9,12 @@
 		<%= render 'layouts/shim' %>
 	</head>
 	<body>
-			<%= render 'layouts/header' %>
-			<a href="#" class="scrolltop">
-        <span>up</span>
-    </a>
-				<%= yield %>
-			<%= render 'layouts/footer' %>
-			<!-- JQuery will invoke via the spinner and display a loading modal lock. -->
-			<div id="loading" />
+		<%= render 'layouts/header' %>
+		<a href="#" class="scrolltop"> <span>up</span> </a>
+		<%= yield %>
+		<%= render 'layouts/footer' %>
+		<!-- JQuery will invoke via the spinner and display a loading modal lock. -->
+		<div id="loading" />
+		<%= gflash %>
 	</body>
 </html>
