@@ -64,5 +64,14 @@
 	<div id="content">
 		<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
 	</div>
-
 </div>
+
+<script type="text/javascript">
+    $('.active li').removeClass('active');
+    $('li').click(function() {
+        $(this).addClass('active');
+        console.log("testing script dash");
+    });
+
+</script>
+

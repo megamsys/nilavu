@@ -16,7 +16,8 @@
 //= require jquery.ui.all
 //= require twitter/bootstrap
 //= require spin
-//= require ajaxspinner
+//= require jquery.spin
+//= require jquery.spin.config
 //= require gritter
 //= require theme
 //= require jquery.flot
