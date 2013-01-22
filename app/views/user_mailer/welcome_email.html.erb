@@ -14,87 +14,92 @@
 		</style>
 	</head>
 
-	<body style="background-color:#f3f3f3; font-family:Arial, Helvetica, sans-serif; font-size: 12px;">
-		<table width="820" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#f3f3f3">
+	<body>
+		<table border="0" cellpadding="0" cellspacing="0" height="100%" width="100%" id="backgroundTable" style="background-color : #FAFAFA;">
 			<tr>
-				<td>
-				<table width="750" border="0" align="center" cellpadding="0" cellspacing="0">
+				<td align="center" valign="top">
+				<table border="0" cellpadding="10" cellspacing="0" width="600" id="templatePreheader" style="background-color : #FAFAFA;">
 					<tr>
-						<td align="left">
-						<table border="0" align="left" cellpadding="0" cellspacing="0">
+						<td valign="top" class="preheaderContent">
+						<table id="templateHeader" border="0" cellpadding="10" cellspacing="0" width="100%">
 							<tr>
-								<td height="130" valign="bottom"><a href="http://www.megam.co"><img src="http://localhost:3000/assets/logo-megam160x43.png" border="0" /></a></td>
+								<td valign="top" height="40" style="padding:0;">
+								<div>
+									<a href="http://www.megam.co"><img src="http://localhost:3000/assets/logo-megam160x43.png" border="0" style="max-width:600px;" id="headerImage campaign-icon" /></a>
+								</div></td>
+								<td valign="bottom" width="190" height="40" style="padding:0;"><div style="color:#505050;font-size:10px;line-height:100%;text-align:left;"></div></td>
 							</tr>
 						</table></td>
-						<td align="right" valign="bottom">
-						<table border="0" align="right" cellpadding="0" cellspacing="0">
-							<tr>
-								<td height="70" align="right"><span style="font-family: Arial, Helvetica, sans-serif; font-size: 22px">Email confirmation</span></td>
-							</tr>
-						</table><span style="font-family:Arial, Helvetica, sans-serif; font-size:12px">
-							<br />
-						</span></td>
 					</tr>
 				</table>
-				<table width="774" align="center" cellpadding="0" cellspacing="0" style="border:#CCC thin solid;">
+				<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateContainer" style="border : 1px solid #DDDDDD; background-color : #FFFFFF;">
 					<tr>
-						<td>
-						<table width="774" border="0" cellpadding="0" cellspacing="0">
-							<tr bgcolor="#FFFFFF">
-								<td height="20" align="center" bgcolor="#FFFFFF">
-								<br />
-								<br />
-								<br />
-								<table width="95%" border="0" cellspacing="0" cellpadding="0">
+						<td align="center" valign="top">
+						<table border="0" cellpadding="0" cellspacing="0" width="600" id="templateBody">
+							<tr>
+								<td valign="top" class="bodyContent" style="background-color : #FFFFFF;">
+								<table border="0" cellpadding="20" cellspacing="0" width="100%">
 									<tr>
-										<td style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">Dear <%= @mailer_user.first_name %>,</td>
-									</tr>
-								</table>
-								<br />
-								<table width="95%" border="0" cellspacing="0" cellpadding="0">
-									<tr align="left">
-										<td height="60" style="font-family: Arial, Helvetica, sans-serif; font-size:14px;">
+										<td valign="top"><h3>Confirmation of your email</h3>
+										<br />
+										Dear <%= @mailer_user.first_name %><span style="color: #999;"></span>
+										<br />
 										<div style="width:566px; text-align:left; word-wrap:break-word;">
-											<strong>Thankyou for registering your <email_id> with us. </strong>
+											<strong>Thank you for registering your email_id with us. </strong>
+											<br />
 											<br />
 											Click here <%= link_to "#{@url}", @url %> to confirm your email address.
-										</div></td>
+										</div>
+										<br />
+										<br />
+										If you have any questions at all, don't hesitate to contact our support team.
+										<br />
+										Email: <a href="mailto:support@megam.co">support@megam.co</a>
+										<br />
+										Web: <a href="http://support.megam.co">support.megam.co</a>
+										<br />
+										</td>
 									</tr>
-								</table>
-								<br />
-								<br />
-								<br />
-								</td>
+								</table></td>
 							</tr>
 						</table></td>
 					</tr>
-					<tr></tr>
+					<tr>
+						<td align="center" valign="top">
+						<table border="0" cellpadding="10" cellspacing="0" width="600" id="templateFooter" style="background-color : #FFFFFF; border-top       : 0;">
+							<tr>
+								<td valign="top" class="footerContent">
+								<table border="0" cellpadding="10" cellspacing="0" width="100%">
+									<tr>
+										<td colspan="2" valign="middle" id="social" style="background-color : #f0f0f0; border: 0;">
+										<div style="text-align: center;">
+											<a href="http://www.facebook.com/megam" target="_blank"><img height="40" border="0" width="40" style="margin-right: 10px" alt="Facebook" src="http://localhost:3000/assets/flogo.png" /></a>
+											<a href="http://twitter.com/megam" target="_blank"><img height="40" border="0" width="38" style="margin-right: 10px" alt="Twitter" src="http://localhost:3000/assets/twit.png" /></a>
+											<a href="http://blog.megam.io" style="color: black; margin-right: 10px">Our Blog</a>
+										</div></td>
+									</tr>
+								</table></td>
+							</tr>
+						</table></td>
+					</tr>
 				</table>
 				<br />
-				<table cellspacing="0" cellpadding="0" border="0" align="center" width="750">
-					<tbody>
-						<tr>
-							<td align="left" width="678">
-							<table cellspacing="0" border="0" width="90">
-								<tbody>
-									<tr>
-										<td align="left" width="45"><a title="Megam " href="http://www.facebook.com/megam" target="_blank"><img height="38" border="0" width="38" style="display: block;" alt="Facebook" src="http://localhost:3000/assets/i_face.png" /></a></td>
-										<td align="left"><a title="Book Now" href="http://twitter.com/megam" target="_blank"><img height="38" border="0" width="38" style="display: block;" alt="Twitter" src="twitlogo.gif" /></a></td>
-									</tr>
-								</tbody>
-							</table>
-							<table cellspacing="0" cellpadding="0" border="0" width="76%">
-								<tbody>
-									<tr>
-										<td height="30" align="left" valign="top" style="font-family: Arial,Helvetica,sans-serif; color: rgb(102, 102, 102); font-size: 11px;">&copy; 2012 Megam Systems. All rights reserved.</td>
-									</tr>
-								</tbody>
-							</table></td>
-						</tr>
-					</tbody>
-				</table></td>
+				</td>
+			</tr>
+			<tr class="subfooterContent">
+				<td valign="top">
+				<div style="color: #707070;font-size: 11px;line-height:125%;text-align: center;">
+					Copyright &copy; 2012 Megam Sytstems, All rights reserved.
+					<br />
+					Megam Systems
+					<br />
+					Plot No. 53, Ist Floor, Radha Nagar
+					<br />
+					Chennai, 600100
+					<br />
+				</div></td>
 			</tr>
 		</table>
-		<p></p>
 	</body>
+
 </html>

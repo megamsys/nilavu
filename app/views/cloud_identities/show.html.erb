@@ -19,7 +19,6 @@
 			<p class="help-block">
 				<%= image_tag "helpbota.png", :alt => "help bot"%>
 				<span class="label label-info">free </span><strong> Hosted cloud identity for dev/test purpose. </strong>For production upgrade to our <span class="badge badge-important">paid</span> version.
-			
 
 			</p>
 			<% end %>
@@ -48,10 +47,10 @@
 					<h5>Hosted Cloud Identity</h5>
 					<div class="buttons">
 
-<%= link_to upgrade_path, :class => "btn btn-mini", :title => "Icon Title" do %> <i class="icon-shopping-cart"></i> Upgrade<% end %>
+						<%= link_to upgrade_path, :class => "btn btn-mini", :title => "Icon Title" do %> <i class="icon-shopping-cart"></i> Upgrade<% end %>
 
-<%= link_to cloud_identity_path(current_user.id), :class => "btn btn-mini", :title => "Icon Title", :remote => true, data: { spinner: '#refresh'} do %> <i class="icon-refresh"></i> Refresh <% end %>
-<%= spinner_tag 'refresh' %>
+						<%= link_to cloud_identity_path(current_user.id), :class => "btn btn-mini", :title => "Icon Title", :remote => true, data: { spinner: '#refresh'} do %> <i class="icon-refresh"></i> Refresh <% end %>
+						<%= spinner_tag 'refresh' %>
 
 					</div>
 				</div>
@@ -75,16 +74,17 @@
 								</tfoot>
 								<tbody>
 
-							<% @cloud_identity.each do |cloud_identity| %>
-							 <tr>
-								<td><%= cloud_identity.id %></td>
-								<td><%= cloud_identity.account_name %></td>
-								<td><%= cloud_identity.url %></td>
-								<td><div id="<%= dom_id(@user.organization) %>">
+									<% @cloud_identity.each do |cloud_identity| %>
+									<tr>
+										<td><%= cloud_identity.id %></td>
+										<td><%= cloud_identity.account_name %></td>
+										<td><%= cloud_identity.url %></td>
+										<td>
+										<div id="<%= dom_id(@user.organization) %>">
 											<%= render :partial => "cloud_identities/remove_btn", :locals => {:cloud_identity => @user.organization} %>
-								</div> </td>
-							 </tr>
-							<% end %>
+										</div></td>
+									</tr>
+									<% end %>
 
 								</tbody>
 							</table>

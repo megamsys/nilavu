@@ -7,7 +7,8 @@ jQuery(document)
 							.live('ajax:beforeSend', function(e) {
 								$(this).toggle();
 								$($(this).data('spinner')).show();
-								e.stopPropagation(); // Don't show spinner of parent elements.
+								e.stopPropagation(); // Don't show spinner of
+								// parent elements.
 							})
 							.live("ajax:success", function(xhr, data, status) {
 								$($(this).data('spinner')).hide();
@@ -35,9 +36,49 @@ jQuery(document)
 										$($(this).data('spinner')).hide();
 
 									});
+
+					// "ajax:beforeSend" and "ajax:complete" event hooks are
+					// provided by Rails's jquery-ujs driver.
+					jQuery("*[data-spinlock]")
+							.live('ajax:beforeSend', function(e) {
+								$(this).spin("large", "Black");
+								$('#loading').fadeIn();
+								console.log('lock spin started');
+								e.stopPropagation(); // Don't show spinner of
+								// parent elements.
+							})
+							.live("ajax:success", function(xhr, data, status) {
+								$(this).spin(false); // Kills the spinner.
+								$('#loading').fadeOut();
+								console.log('lock spin success');
+								return false;
+							})
+							.live("ajax:complete", function(xhr, status) {
+								$(this).spin(false); // Kills the spinner.
+								$('#loading').fadeOut();
+								console.log('lock spin complete');
+								return false;
+							})
+							.live(
+									"ajax:error",
+									function(xhr, status, error) {
+										console.log('error ' + error
+												+ "status=" + status);
+										var errorStr = "An error occurred when the attemping an ajax request. [status :"
+												+ xhr.status
+												+ ",   Status Text :"
+												+ xhr.status
+												+ ",   Exception :"
+												+ error
+												+ "]";
+										console.log('Error ' + errorStr);
+										$('#loading').fadeOut();
+										$(this).spin(false);
+
+									});
+
+
 				});
-
-
 
 function removeAt(selector_to_remove) {
 	console.log('remove selector :' + selector_to_remove);

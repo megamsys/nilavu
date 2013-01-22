@@ -5,13 +5,12 @@ class UsersController < ApplicationController
   #add_breadcrumb "Dashboard", :dashboard_path
 
   before_filter :signed_in_user,
-    #            only: [:index, :edit, :update, :destroy, :following, :followers]
                only: [:index, :edit, :update, :destroy]
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
+  
   def index
     @users = User.paginate(page: params[:page])
-
   end
 
   def show
@@ -23,9 +22,6 @@ class UsersController < ApplicationController
       redirect_to edit_user_path(current_user)
     end
     current_user = @user
-    logger.debug "show org #{@user.to_yaml}"
-    logger.debug "CU #{current_user}"
-    logger.debug "@CU #{@user}"
   end
 
   def new
@@ -63,12 +59,11 @@ class UsersController < ApplicationController
 
   def verified_email
     @user= User.find_by_verification_hash(params[:format])
-    
+
     logger.debug "@user #{@user.to_yaml}"
-   
+
     if @user.verification_hash === params[:format]
       @user.update_attribute(:verified_email, 'true')
-     
       redirect_to signin_path(@user), :gflash => { :success => { :value => "Welcome back #{@user.first_name}. Your email #{@user.email} is verified. Thank you.", :sticky => false, :nodom_wrap => true } }
     else
       logger.debug "Wrong user"
@@ -90,20 +85,15 @@ class UsersController < ApplicationController
   end
 
   def edit
-
     @user= User.find(params[:id])
-
     @user.organization
-
   end
 
   def upgrade
-
     add_breadcrumb "Upgrade", upgrade_path
   end
 
   def update
-
     @user=User.find(params[:id])
     @organization=@user.organization || Organization.new
 
