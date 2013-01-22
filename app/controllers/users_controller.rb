@@ -98,7 +98,7 @@ class UsersController < ApplicationController
   end
 
   def upgrade
-
+	add_breadcrumb "Dashboard", dashboard_path
     add_breadcrumb "Upgrade", upgrade_path
   end
 
