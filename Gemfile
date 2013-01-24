@@ -31,6 +31,7 @@ gem "dynamoid", '0.6.1'
 gem "json", '~> 1.7.6'
 gem 'fake_dynamo', '~> 0.1.1'
 gem "breadcrumbs_on_rails"
+gem "randexp", "~> 0.1.7"
 
 
 # To use ActiveModel has_secure_password

@@ -7,7 +7,7 @@ class CloudIdentitiesController < ApplicationController
   def index
   end
 
-  def new
+  def new_identity
     #@ironclient = Ironclient.new
     ir = IronfistClient.new
     tempparms = {:agent => "CloudIdentityAgent", :command => "listRealms", :message => "URL=http://nomansland.com REALM_NAME=temporealm"}
@@ -17,7 +17,7 @@ class CloudIdentitiesController < ApplicationController
     #end
 
     ir.fake
-    @cloud_identity = current_user.cloud_identities.create
+    @cloud_identity = current_user.cloud_identities.create(:account_name => params[:account_name], :url => "www.google.co.in")
 
     #random_token = p SecureRandom.urlsafe_base64(nil, true)
     #current_user.cloud_identities.update_attribute(:api_token, random_token)
@@ -26,8 +26,6 @@ class CloudIdentitiesController < ApplicationController
   end
 
   def federate
-    logger.debug "federate identity -> #{params[:identity_type]}"
-
     cu = current_user
     user = {:who => cu.first_name, :api_token => cu.api_token, :type => cu.user_type }
 
@@ -46,9 +44,21 @@ class CloudIdentitiesController < ApplicationController
     tempparms = {:agent => "CloudIdentityAgent", :command => "listRealms", :message => "URL=http://nomansland.com REALM_NAME=temporealm"}
 
     ir.fake
-    #@cloud_identity = current_user.build_cloud_identities
+    #@cloud_identity = current_user.cloud_identities(current_user.id)
     @identity_type = params[:identity_type]
-    respond_with(@cloud_identity, @identity_type ,:layout => !request.xhr? )
+    #respond_with(@identity_type ,:layout => !request.xhr? )
+
+params.each do |key,value|
+	logger.debug "#{key} : #{value}"
+	if key.start_with?('product_')
+		p_id = key.sub('product_', '')
+		@identity_app = current_user.apps_items.find(p_id)
+		@identity_app.update_attribute(:app_name, value)
+		@identity_app.save
+	end
+end
+
+      	redirect_to cloud_identity_path(current_user.id)
   end
 
   def create
@@ -67,7 +77,7 @@ class CloudIdentitiesController < ApplicationController
 
   def show
     add_breadcrumb "Cloud Identity", cloud_identity_path(current_user.id)
-    @user = User.find(params[:id])
+    @user = User.find(current_user.id)
     @products = Product.all
     @apps_item = current_user.apps_items
 	@cloud_identity = current_user.cloud_identities.all
@@ -87,8 +97,8 @@ class CloudIdentitiesController < ApplicationController
   end
 
   def destroy
-    CloudIdentity.find(params[:id]).destroy
-    flash[:success] = "Cloud_identity #{current_user.organization.account_name} destroyed."
+    current_user.cloud_identities.find(params[:id]).destroy
+    flash[:success] = "Cloud_identity #{current_user.cloud_identities.account_name} destroyed."
     redirect_to users_show_url
   end
 end

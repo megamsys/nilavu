@@ -1,2 +1,2 @@
-<%= link_to "Federate", federate_path(:params => params, :identity_type => identity_type), :class => "btn btn-success", :remote => true, data: { spinner: '#fed'}  %>
+<%= link_to "Federate", federate_path, :class => "btn btn-success", :remote => true, :type => "submit", :method => "post", data: { spinner: '#fed'}  %>
 <%= spinner_tag 'fed' %> 

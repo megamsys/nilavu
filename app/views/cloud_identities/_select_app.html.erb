@@ -1,4 +1,5 @@
 <div id="blog_wrapper">
+<%= form_tag(federate_path, :method => "post") do %>
 	<% @products.each do |product| %>
 	<% @apps_item.each do |apps_item_el| %>
 	<% if apps_item_el.product_id === product.id && (product.identity.match(identity_type)) %>
@@ -16,10 +17,17 @@
 						There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
 					</p>
 					<div class="post_info">
+
 						<div class="slideThree">
-							<input type="checkbox" value="None" id="<%= product.name %>_<%= identity_type %>" name="check" />
+
+  <input type="checkbox" value="<%= product.name %>_<%= identity_type %>" id="<%= product.name %>_<%= identity_type %>" name="product_<%= product.id %>" />
 							<label for="<%= product.name %>_<%= identity_type %>"></label>
+
+						<input type="hidden" name="identity_type" value="<%= identity_type %>">
+						
 						</div>
+ 
+
 					</div>
 				</div>
 			</div>
@@ -28,7 +36,11 @@
 	<% end %>
 	<% end %>
 	<% end %>
+
+ <%= submit_tag("Federate", :class => "btn btn-success") %>
+
+	
+
+<% end %>
 </div>
-<div id="federate_<%= identity_type %>">
-	<%= render :partial => "cloud_identities/federate_btn" , :locals => {:identity_type => identity_type} %>
-</div>
+

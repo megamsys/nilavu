@@ -2,7 +2,7 @@ var selected_entity = '#setup_identity';
 
 $(selected_entity).fadeIn("slow");
 
-var to_insert_content = '<%= escape_javascript(render :partial => "cloud_identities/postnew" ) %>';
+var to_insert_content = '<%= escape_javascript(render :partial => "cloud_identities/setup_identity" ) %>';
 
 insertAt(selected_entity,to_insert_content);
 

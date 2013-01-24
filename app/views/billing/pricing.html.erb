@@ -1,0 +1,122 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'Pricing') %>
+
+<div id="content-header">
+	<h1>Billing</h1>
+	<div class="btn-group">
+		<a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
+		<a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
+		<a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
+		<a class="btn btn-large tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a>
+	</div>
+</div>
+<%= render_breadcrumbs %>
+
+<div id="pricing" class="pricing_page">
+	<div class="container">
+		<!-- header -->
+		<h2 class="section_header">
+		<hr class="left visible-desktop">
+		<span> Pricing <small> See all plan details here</small> </span>
+		<hr class="right visible-desktop">
+		</h2>
+
+		<!-- pricing charts 1 -->
+		<div class="row">
+			<div class="span4">
+				<div class="price_wrapper lite regular">
+					<div class="header">
+						<span>Lite</span>
+						<div class="price">
+							<span>$ 35</span>
+							Per Month
+						</div>
+					</div>
+					<div class="section">
+						<h3>Passages of Lorem randomised
+						words which look slightly.</h3>
+						<ul class="perks">
+							<li>
+								<i class="i_shuffle"></i>
+								Cross-browser
+							</li>
+							<li>
+								<i class="i_loading"></i>
+								Fast-loading
+							</li>
+						</ul>
+						<%= link_to "Order now", account_path, :class => "btn" %>
+					</div>
+				</div>
+			</div>
+			<div class="span4">
+				<div class="price_wrapper pro">
+					<div class="header">
+						<span>Pro</span>
+						<div class="price">
+							<span>$ 99</span>
+							Per Month
+						</div>
+					</div>
+					<div class="section">
+						<h3>Passages of Lorem randomised
+						words which look slightly.</h3>
+						<ul class="perks">
+							<li>
+								<i class="i_shuffle"></i>
+								Cross-browser
+							</li>
+							<li>
+								<i class="i_loading"></i>
+								Fast-loading
+							</li>
+							<li>
+								<i class="i_bookmark"></i>
+								Bookmarkable URLs
+							</li>
+							<li>
+								<i class="i_bars"></i>
+								W3C Standards
+							</li>
+						</ul>
+						<%= link_to "Order now", account_path, :class => "btn" %>
+					</div>
+				</div>
+			</div>
+			<div class="span4">
+				<div class="price_wrapper standard regular">
+					<div class="header">
+						<span>Standard</span>
+						<div class="price">
+							<span>$ 65</span>
+							Per Month
+						</div>
+					</div>
+					<div class="section">
+						<h3>Passages of Lorem randomised
+						words which look slightly.</h3>
+						<ul class="perks">
+							<li>
+								<i class="i_shuffle"></i>
+								Cross-browser
+							</li>
+							<li>
+								<i class="i_loading"></i>
+								Fast-loading
+							</li>
+							<li>
+								<i class="i_bookmark"></i>
+								Bookmarkable URLs
+							</li>
+						</ul>
+						<%= link_to "Order now", account_path, :class => "btn" %>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+
+<% end %> <!-- content_for -->
+<%= render :template => users_show_path %>

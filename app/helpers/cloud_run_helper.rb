@@ -1,0 +1,2 @@
+module CloudRunHelper
+end

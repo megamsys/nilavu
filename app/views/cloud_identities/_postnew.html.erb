@@ -1,9 +1,0 @@
-<div class="alert alert-success">
-	Your request is being launched. Your cloud identity will be ready in a few minutes. Please click here <%= link_to "Status", cloud_run_path %> to know about your status
-</div>
-<p class="help-inline">
-	Create more ?
-</p>
-<%= link_to "Yes", new_cloud_identity_path, :class => "btn btn-success btn-block", :id => "new_identity", :remote => true, data: { spinner: '#spn_new_identity'} %>
-<%= spinner_tag 'spn_new_identity' %>
-

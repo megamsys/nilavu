@@ -1,15 +1,18 @@
 module CloudIdentitiesHelper
 
  def account_name
-    @name = current_user.organization.name.gsub(/[^0-9A-Za-z]/, '')
-    @name = @name.gsub(" ", "")
-    if @name.length > 10
-    	@account_name = @name.slice(0,10)
-	@account_name = @account_name.downcase
-    else
-    	@account_name = @name
-	@account_name = @account_name.downcase
-    end
+   #@account_name = (0...8).map{65.+(rand(26)).chr}.join
+
+ #o =  [('a'..'z'),('A'..'Z')].map{|i| i.to_a}.flatten
+#@account_name = (0...50).map{ o[rand(o.length)] }.join
+
+  #@account_name = RandomWord.adjs.next  
+ #@account_name = RandomWord.nouns.next
+
+#@account_name = RandomWordGenerator.composed(2, 15)
+
+@account_name = /\w+/.gen
+
  end
 
 end

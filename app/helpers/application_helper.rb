@@ -26,3 +26,8 @@ def spinner_tag id
   #Assuming spinner image is called "spinner.gif"
   image_tag("ajax_64.png", :id => id, :alt => "Loading....", :style => "display:none")
 end
+
+def mini_spinner_tag id
+  #Assuming spinner image is called "spinner.gif"
+  image_tag("ajax_40.png", :id => id, :alt => "Loading....", :style => "display:none")
+end

@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(:version => 20130108105504) do
     t.integer  "users_id"
     t.integer  "cloud_identity_id"
     t.integer  "product_id"
+    t.string   "app_name"
     t.string   "my_url"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
@@ -79,12 +80,14 @@ ActiveRecord::Schema.define(:version => 20130108105504) do
   end
 
   create_table "products", :force => true do |t|
-    t.string "name"
-    t.string "description"
-    t.string "url"
-    t.string "image_url"
-    t.string "category"
-    t.string "identity"
+    t.string  "name"
+    t.string  "description"
+    t.string  "url"
+    t.string  "image_url"
+    t.string  "category"
+    t.string  "identity"
+    t.boolean "app_bootstrap",    :default => true
+    t.boolean "app_provisioning"
   end
 
   create_table "users", :force => true do |t|

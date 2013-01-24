@@ -7,54 +7,56 @@
 			</li>
 			<% end %>
 
-			<li class="active">
+			<li class=<%= "active" if controller_name== "users"%>>
 				<%= link_to dashboard_path do %>
-				<i class="icon icon-home"></i><span> Dashboard</span>
+				<i class="icon-dashboard"></i><span> Dashboard</span>
 				<% end %>
 			</li>
 
-			<li>
+			<li class=<%= "active" if controller_name== "cloud_identities"%>> 
 				<%= link_to cloud_identity_path(current_user.id) do %>
-				<i class="icon-ok"></i>Cloud Identity
+				<i class="icon-unlock"></i>Cloud Identity
 				<% end %>
 			</li>
 
-			<li>
+			<li class=<%= "active" if controller_name== "apps_items"%>>
 				<%= link_to new_apps_item_path do %>
-				<i class="icon-globe"></i>Cloud Applications
+				<i class="icon-briefcase"></i>Cloud Applications
 				<% end %>
 			</li>
-			<li>
+			<li class=<%= "active" if controller_name== "connector_projects"%>>
 				<%= link_to connector_projects_path do %>
 				<i class="icon-cloud"></i>Live Cloud
 				<% end %>
 			</li>
 
-			<li class="submenu">
-				<a href="#"><i class="icon icon-file"></i> <span>Sample pages</span> <span class="label">4</span></a>
+			<li class="submenu <%= "active" if controller_name== "billing"%> ">
+				<a href="#"><i class="icon icon-file"></i> <span>Billing</span> <span class="label">3</span></a>
 				<ul>
-					<li>
-						<a href="invoice.html">Invoice</a>
+					<li class=<%= "active" if controller_name== "billing"%>>
+					<%= link_to pricing_path do %>
+						<i class="icon-money"></i>Pricing
+					<% end %>
 					</li>
-					<li>
-						<a href="chat.html">Support chat</a>
-					</li>
-					<li>
 
-						<%= link_to "Calendar", calendar_path %>
+					<li class=<%= "active" if controller_name== "billing"%>>
+					<%= link_to account_path do %>
+						<i class="icon-credit-card"></i>Account
+					<% end %>
 					</li>
-					<li>
-						<a href="gallery.html">Gallery</a>
+
+					<li class=<%= "active" if controller_name== "billing"%>>
+					<%= link_to history_path do %>
+						<i class="icon-book"></i>History
+					<% end %>
 					</li>
+
 				</ul>
 			</li>
-			<li>
-				<a href="charts.html"><i class="icon icon-signal"></i> <span>Charts &amp; graphs</span></a>
-			</li>
 
-			<li>
-				<%= link_to cloud_run_path do %>
-				<i class="icon-ok"></i>Cloud Run
+			<li class=<%= "active" if controller_name== "cloud_run"%>>
+				<%= link_to running_cloud_path do %>
+				<i class="icon-spinner icon-spin"></i>Cloud Run
 				<% end %>
 			</li>
 		</ul>

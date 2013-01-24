@@ -1,6 +1,25 @@
 <div id="setup_identity">
 
-	<%= render :partial => "cloud_identities/edit_accountname" %>
-	</br>
-	<%= render :partial => "cloud_identities/create_btn" %>
+<%= form_tag(newidentity_path, :method => "post") do %>
+	<% @acc_name = account_name %>
+	<p class="help-block">
+		<strong><span class="label label-warning">*optional</span> Click on the default account name </strong>
+
+		<span class="badge badge-important"><%= @acc_name %></span>
+		to change it
+	</p>
+	<%= link_to @acc_name, "#",
+	:id => "identity_new_account_name", :class => "btn btn-large btn-primary disabled btn-block acc_name_editable",
+	:data => { :type => 'text', :name => 'status' },
+	':data-original-title' => 'account name'  %>
+
+<br/>
+		<input type="hidden" name="account_name" value="<%= @acc_name %>">
+	<p class="help-block">
+		<strong>Cool. Start your creation. </strong>
+	</p>
+
+ <%= submit_tag("Create", :class => "btn btn-large btn-success btn-block", :remote => true, data: { spinner: '#spin_create_identity'}) %>
+<%= spinner_tag 'spin_create_identity' %>
+<% end %>
 </div>

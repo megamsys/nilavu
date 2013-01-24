@@ -1,0 +1,87 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'Upgrade') %>
+
+<div id="content-header">
+	<h1>Upgrade</h1>
+	<div class="btn-group">
+		<a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
+		<a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
+		<a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
+		<a class="btn btn-large tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a>
+	</div>
+</div>
+<%= render_breadcrumbs %>
+
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div>
+			<p class="help-block">
+				<%= image_tag "helpbota.png", :alt => "help bot"%>
+				<strong>What do you get in our <span class="badge badge-important">paid</span> version ?.</strong>Learn more about it, insert help link using helper
+			</p>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Account</h5>
+					<div class="buttons">
+						<%= link_to upgrade_path, :class => "btn btn-mini", :title => "Icon Title" do %> <i class="icon-shopping-cart"></i> Add<% end %>
+						<%= spinner_tag 'refresh' %>
+
+					</div>
+				</div>
+				<div class="widget-content">
+					<div class="invoice-content">
+						<div class="row-fluid">
+
+							<div class="span12">
+								<div class="span2">
+									<a href="#" onclick="javascript:window.open('https://www.paypal.com/uk/cgi-bin/webscr?cmd=xpt/Marketing/popup/OLCWhatIsPayPal-outside','olcwhatispaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=400, height=350');"><img  src="https://www.paypal.com/en_GB/i/bnr/bnr_wePrefer_150x40.gif" border="0" alt="Additional Options"> </a>
+
+								</div>
+								<div class="span7 info">
+									<strong>Pay in a few clicks with PayPal</strong>
+									PayPal is the safer, faster way to pay online.
+								</div>
+								<div class="span3">
+									<%= render :partial => "billing/addpayment_btn" %>
+								</div>
+							</div>
+						</div>
+						<div>
+							<div class="row-fluid">
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th> Account Name </th>
+											<th> URL </th>
+										</tr>
+									</thead>
+									<tfoot>
+										<tr>
+											<th class="total-label" colspan="1"> Help </th>
+											<th class="total-amount"> <%= link_to "Click here", "http://docs.megam.co", :target => "_blank"%> </th>
+										</tr>
+									</tfoot>
+									<tbody>
+										<tr>
+											<td>Paypal - Henry</td>
+											<td>Henry######</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<% end %> <!-- content_for -->
+<%= render :template => users_show_path %>

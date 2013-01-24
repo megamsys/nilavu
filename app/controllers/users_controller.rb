@@ -34,18 +34,10 @@ class UsersController < ApplicationController
 
   end
 
-  def calendar
-  end
-
   def dashboard
     add_breadcrumb "dashboard", dashboard_path
   end
 
-  def cloud_run
-    add_breadcrumb "Cloud Run", cloud_run_path
-    @cloud_runs = current_user.cloud_runs
-
-  end
 
   def email_verify
     @user= User.find_by_verification_hash(params[:format])
@@ -94,18 +86,14 @@ class UsersController < ApplicationController
     add_breadcrumb "Upgrade", upgrade_path
   end
 
+
   def update
     @user=User.find(params[:id])
     @organization=@user.organization || Organization.new
 
     if @user.update_attributes(params[:user])
-      logger.debug "user-update"
-
       sign_in @user
-
-      logger.debug "update org #{@user.to_yaml}"
       redirect_to users_dashboard_url
-
     else
       render 'edit'
     end

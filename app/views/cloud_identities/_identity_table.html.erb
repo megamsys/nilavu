@@ -1,0 +1,31 @@
+<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th> # </th>
+										<th> Acc_Name </th>
+										<th> Identity URL </th>
+										<th> Action </th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th class="total-label" colspan="3"> Help </th>
+										<th class="total-amount"> <%= link_to "Click here", "http://docs.megam.co", :target => "_blank"%> </th>
+									</tr>
+								</tfoot>
+								<tbody>
+								<% i=0 %>
+									<% cloud_identities.each do |cloud_identity| %>
+									<tr>
+										<td><%= i += 1 %></td>
+										<td><%= cloud_identity.account_name %></td>
+										<td><%= cloud_identity.url %></td>
+										<td>
+										<div id="<%= dom_id(@user.organization) %>">
+											<%= render :partial => "cloud_identities/remove_btn", :locals => {:cloud_identity => cloud_identity} %>
+										</div></td>
+									</tr>
+									<% end %>
+
+								</tbody>
+							</table>
