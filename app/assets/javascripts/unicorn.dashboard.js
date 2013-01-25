@@ -11,7 +11,6 @@ jQuery(document)
 					});
 
 					// init editables
-					jQuery('.s_account_name').editable({});
 
 					jQuery('#identity_new_account_name').editable('option',
 							'validate', function(v) {
@@ -29,7 +28,6 @@ jQuery(document)
   url: 'cloud_identity_path(current_user.id)',
   title: 'Enter example'
    });
-});
 
 
 					// === Prepare peity charts === //

@@ -26,7 +26,7 @@
 //= require fullcalendar
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
+//= require bootstrap-editable
 //= require unicorn
 //= require unicorn.dashboard
-//= require bootstrap-editable
 //= require_tree .

@@ -40,9 +40,9 @@
 			</div>
 		</div>
 	</div>
-
-<%= $_POST %>
-
+<p> Inputted account_name
+<%= $_POST %> $_post <%= $_post %>
+ </p>
 	<div class="row-fluid">
 		<div class="span12">
 			<div class="widget-box">
@@ -78,6 +78,10 @@
 
 <% identities_array = current_user.cloud_identities.all.map { |ci| [ci.account_name, ci.id] } %>
 <%= select_tag(@ci, options_for_select(identities_array)) %>
+
+
+			
+
 
 			<div class="widget-box">
 				<div class="widget-title">
