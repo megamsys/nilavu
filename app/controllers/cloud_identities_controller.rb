@@ -9,6 +9,8 @@ class CloudIdentitiesController < ApplicationController
 
   def new_identity
     #@ironclient = Ironclient.new
+    sleep 2
+    logger.debug ">>> Parms #{params}"
     ir = IronfistClient.new
     tempparms = {:agent => "CloudIdentityAgent", :command => "listRealms", :message => "URL=http://nomansland.com REALM_NAME=temporealm"}
 
@@ -48,17 +50,17 @@ class CloudIdentitiesController < ApplicationController
     @identity_type = params[:identity_type]
     #respond_with(@identity_type ,:layout => !request.xhr? )
 
-params.each do |key,value|
-	logger.debug "#{key} : #{value}"
-	if key.start_with?('product_')
-		p_id = key.sub('product_', '')
-		@identity_app = current_user.apps_items.find(p_id)
-		@identity_app.update_attribute(:app_name, value)
-		@identity_app.save
-	end
-end
+    params.each do |key,value|
+      logger.debug "#{key} : #{value}"
+      if key.start_with?('product_')
+        p_id = key.sub('product_', '')
+        @identity_app = current_user.apps_items.find(p_id)
+        @identity_app.update_attribute(:app_name, value)
+      @identity_app.save
+      end
+    end
 
-      	redirect_to cloud_identity_path(current_user.id)
+    redirect_to cloud_identity_path(current_user.id)
   end
 
   def create
@@ -80,7 +82,7 @@ end
     @user = User.find(current_user.id)
     @products = Product.all
     @apps_item = current_user.apps_items
-	@cloud_identity = current_user.cloud_identities.all
+    @cloud_identity = current_user.cloud_identities.all
 
     if !@user.organization
       flash[:error] = "Please Create Organization Details first"
