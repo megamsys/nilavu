@@ -23,7 +23,7 @@
 							<input type="checkbox" value="<%= product.name %>_<%= identity_type %>" id="<%= product.name %>_<%= identity_type %>" name="product_<%= product.id %>" />
 							<label for="<%= product.name %>_<%= identity_type %>"></label>
 
-							<input type="hidden" name="identity_type" value="<%= identity_type %>">
+							
 
 						</div>
 
@@ -35,6 +35,14 @@
 	<% end %>
 	<% end %>
 	<% end %>
+
+<input type="hidden" name="identity_type" value="<%= identity_type %>">
+<p>
+				<strong>Select an Account name, under which you want to federate the following cloud applications </strong>
+			</p>
+
+			<% identities_array = current_user.cloud_identities.all.map { |ci| [ci.account_name, ci.id] } %>
+			<%= select_tag(:ci, options_for_select(identities_array)) %>
 
 	<%= submit_tag("Federate", :class => "btn btn-success") %>
 

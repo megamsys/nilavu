@@ -54,13 +54,18 @@ class CloudIdentitiesController < ApplicationController
       logger.debug "#{key} : #{value}"
       if key.start_with?('product_')
         p_id = key.sub('product_', '')
+	      logger.debug "PID #{p_id}"
         @identity_app = current_user.apps_items.find(p_id)
+	logger.debug "@Identity_app #{@identity_app.to_yaml}"
+	@ci_app = current_user.cloud_identities.find(params[:ci])
+	logger.debug "@ci_app #{@ci_app.to_yaml}"
+	@ci_app.apps_items.create(:app_name => value)
         @identity_app.update_attribute(:app_name, value)
       @identity_app.save
       end
     end
 
-    redirect_to cloud_identity_path(current_user.id)
+    redirect_to @ci_app
   end
 
   def create
