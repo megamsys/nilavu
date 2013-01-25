@@ -1,26 +1,29 @@
 jQuery(document)
 		.ready(
 				function() {
+										
 					// "ajax:beforeSend" and "ajax:complete" event hooks are
 					// provided by Rails's jquery-ujs driver.
 					jQuery("*[data-spinner]")
-							.live('ajax:beforeSend', function(e) {
+							.on('ajax:beforeSend', function(e) {
 								$(this).toggle();
 								$($(this).data('spinner')).show();
+								console.log('started - before stop props');
 								e.stopPropagation(); // Don't show spinner of
+								console.log('started - after stop props');
 								// parent elements.
 							})
-							.live("ajax:success", function(xhr, data, status) {
+							.on("ajax:success", function(xhr, data, status) {
 								$($(this).data('spinner')).hide();
 								console.log('success');
 								return false;
 							})
-							.live("ajax:complete", function(xhr, status) {
+							.on("ajax:complete", function(xhr, status) {
 								$($(this).data('spinner')).hide();
 								console.log('complete');
 								return false;
 							})
-							.live(
+							.on(
 									"ajax:error",
 									function(xhr, status, error) {
 										console.log('error ' + error
@@ -40,26 +43,26 @@ jQuery(document)
 					// "ajax:beforeSend" and "ajax:complete" event hooks are
 					// provided by Rails's jquery-ujs driver.
 					jQuery("*[data-spinlock]")
-							.live('ajax:beforeSend', function(e) {
+							.on('ajax:beforeSend', function(e) {
 								$(this).spin("large", "Black");
 								$('#loading').fadeIn();
 								console.log('lock spin started');
 								e.stopPropagation(); // Don't show spinner of
 								// parent elements.
 							})
-							.live("ajax:success", function(xhr, data, status) {
+							.on("ajax:success", function(xhr, data, status) {
 								$(this).spin(false); // Kills the spinner.
 								$('#loading').fadeOut();
 								console.log('lock spin success');
 								return false;
 							})
-							.live("ajax:complete", function(xhr, status) {
+							.on("ajax:complete", function(xhr, status) {
 								$(this).spin(false); // Kills the spinner.
 								$('#loading').fadeOut();
 								console.log('lock spin complete');
 								return false;
 							})
-							.live(
+							.on(
 									"ajax:error",
 									function(xhr, status, error) {
 										console.log('error ' + error

@@ -1,4 +1,4 @@
-/*! X-editable - v1.4.0 
+/*! X-editable - v1.4.1 
 * In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery
 * http://github.com/vitalets/x-editable
 * Copyright (c) 2013 Vitaliy Potapov; Licensed MIT */
@@ -16,7 +16,7 @@ Editableform is linked with one of input types, e.g. 'text', 'select' etc.
 
     var EditableForm = function (div, options) {
         this.options = $.extend({}, $.fn.editableform.defaults, options);
-        this.$div = $(div); //div, containing form. Not form tag! Not editable-element.
+        this.$div = $(div); //div, containing form. Not form tag. Not editable-element.
         if(!this.options.scope) {
             this.options.scope = this;
         }
@@ -30,6 +30,7 @@ Editableform is linked with one of input types, e.g. 'text', 'select' etc.
             this.input = this.options.input;
             
             //set initial value
+            //todo: may be add check: typeof str === 'string' ? 
             this.value = this.input.str2value(this.options.value); 
         },
         initTemplate: function() {
@@ -232,6 +233,7 @@ Editableform is linked with one of input types, e.g. 'text', 'select' etc.
                 }     
                 
                 //if success callback returns object like {newValue: <something>} --> use that value instead of submitted
+                //it is usefull if you want to chnage value in url-function
                 if(res && typeof res === 'object' && res.hasOwnProperty('newValue')) {
                     newValue = res.newValue;
                 }                            
@@ -387,18 +389,25 @@ Editableform is linked with one of input types, e.g. 'text', 'select' etc.
         type: 'text',
         /**
         Url for submit, e.g. <code>'/post'</code>  
-        If function - it will be called instead of ajax. Function can return deferred object to run fail/done callbacks.
+        If function - it will be called instead of ajax. Function should return deferred object to run fail/done callbacks.
 
         @property url 
         @type string|function
         @default null
         @example
         url: function(params) {
+            var d = new $.Deferred;
             if(params.value === 'abc') {
-                var d = new $.Deferred;
                 return d.reject('error message'); //returning error via deferred object
             } else {
-                someModel.set(params.name, params.value); //save data in some js model
+                //async saving data in js model
+                someModel.asyncSaveMethod({
+                   ..., 
+                   success: function(){
+                      d.resolve();
+                   }
+                }); 
+                return d.promise();
             }
         } 
         **/        
@@ -689,21 +698,34 @@ Editableform is linked with one of input types, e.g. 'text', 'select' etc.
        /*
         returns array items from sourceData having value property equal or inArray of 'value'
        */
-       itemsByValue: function(value, sourceData) {
+       itemsByValue: function(value, sourceData, valueProp) {
            if(!sourceData || value === null) {
                return [];
            }
            
-           //convert to array
-           if(!$.isArray(value)) {
-               value = [value];
-           }
+           valueProp = valueProp || 'value';
                       
-           /*jslint eqeq: true*/           
-           var result = $.grep(sourceData, function(o){
-               return $.grep(value, function(v){ return v == o.value; }).length;
+           var isValArray = $.isArray(value),
+           result = [], 
+           that = this;
+
+           $.each(sourceData, function(i, o) {
+               if(o.children) {
+                   result = result.concat(that.itemsByValue(value, o.children));
+               } else {
+                   /*jslint eqeq: true*/
+                   if(isValArray) {
+                       if($.grep(value, function(v){  return v == (o && typeof o === 'object' ? o[valueProp] : o); }).length) {
+                           result.push(o); 
+                       }
+                   } else {
+                       if(value == (o && typeof o === 'object' ? o[valueProp] : o)) {
+                           result.push(o); 
+                       }
+                   }
+                   /*jslint eqeq: false*/
+               }
            });
-           /*jslint eqeq: false*/
            
            return result;
        },
@@ -785,8 +807,8 @@ Applied as jQuery method.
         innerCss: null, //tbd in child class
         init: function(element, options) {
             this.$element = $(element);
-            //todo: what is in priority: data or js?
-            this.options = $.extend({}, $.fn.editableContainer.defaults, $.fn.editableutils.getConfigData(this.$element), options);         
+            //since 1.4.1 container do not use data-* directly as they already merged into options.
+            this.options = $.extend({}, $.fn.editableContainer.defaults, options);         
             this.splitOptions();
             
             //set scope of form callbacks to element
@@ -878,6 +900,7 @@ Applied as jQuery method.
                 cancel: $.proxy(function(){ this.hide('cancel'); }, this), //click on calcel button
                 show: $.proxy(this.setPosition, this), //re-position container every time form is shown (occurs each time after loading state)
                 rendering: $.proxy(this.setPosition, this), //this allows to place container correctly when loading shown
+                resize: $.proxy(this.setPosition, this), //this allows to re-position container when form size is changed 
                 rendered: $.proxy(function(){
                     /**        
                     Fired when container is shown and form is rendered (for select will wait for loading dropdown options)
@@ -1004,7 +1027,6 @@ Applied as jQuery method.
         },
 
         save: function(e, params) {
-            this.hide('save');
             /**        
             Fired when new value was submitted. You can use <code>$(this).data('editableContainer')</code> inside handler to access to editableContainer instance
             
@@ -1025,6 +1047,9 @@ Applied as jQuery method.
             });
             **/             
             this.$element.triggerHandler('save', params);
+            
+            //hide must be after trigger, as saving value may require methods od plugin, applied to input
+            this.hide('save');
         },
 
         /**
@@ -1255,12 +1280,14 @@ Applied as jQuery method.
         innerHide: function () {
             this.$tip.hide(this.options.anim, $.proxy(function() {
                 this.$element.show();
-                this.tip().empty().remove();
+                this.innerDestroy();
             }, this)); 
         },
         
         innerDestroy: function() {
-            this.tip().remove();
+            if(this.tip()) {
+                this.tip().empty().remove();
+            }
         } 
     });
 
@@ -1275,8 +1302,13 @@ Makes editable any HTML element on the page. Applied as jQuery method.
 
     var Editable = function (element, options) {
         this.$element = $(element);
-        this.options = $.extend({}, $.fn.editable.defaults, $.fn.editableutils.getConfigData(this.$element), options);  
-        this.init();
+        //data-* has more priority over js options: because dynamically created elements may change data-* 
+        this.options = $.extend({}, $.fn.editable.defaults, options, $.fn.editableutils.getConfigData(this.$element));  
+        if(this.options.selector) {
+            this.initLive();
+        } else {
+            this.init();
+        }
     };
 
     Editable.prototype = {
@@ -1319,8 +1351,10 @@ Makes editable any HTML element on the page. Applied as jQuery method.
             if(this.options.toggle !== 'manual') {
                 this.$element.addClass('editable-click');
                 this.$element.on(this.options.toggle + '.editable', $.proxy(function(e){
+                    //prevent following link
                     e.preventDefault();
-                    //stop propagation not required anymore because in document click handler it checks event target
+                    
+                    //stop propagation not required because in document click handler it checks event target
                     //e.stopPropagation();
                     
                     if(this.options.toggle === 'mouseenter') {
@@ -1363,6 +1397,24 @@ Makes editable any HTML element on the page. Applied as jQuery method.
         },
 
         /*
+         Initializes parent element for live editables 
+        */
+        initLive: function() {
+           //store selector 
+           var selector = this.options.selector;
+           //modify options for child elements
+           this.options.selector = false; 
+           this.options.autotext = 'never';
+           //listen toggle events
+           this.$element.on(this.options.toggle + '.editable', selector, $.proxy(function(e){
+               var $target = $(e.target);
+               if(!$target.data('editable')) {
+                   $target.editable(this.options).trigger(e);
+               }
+           }, this)); 
+        },
+        
+        /*
         Renders value into element's text.
         Can call custom display method from options.
         Can return deferred object.
@@ -1375,8 +1427,8 @@ Makes editable any HTML element on the page. Applied as jQuery method.
                 return;
             }
             
-            //if it is input with source, we pass callback in third param to be called when source is loaded
-            if(this.input.options.hasOwnProperty('source')) {
+            //if input has `value2htmlFinal` method, we pass callback in third param to be called when source is loaded
+            if(this.input.value2htmlFinal) {
                 return this.input.value2html(this.value, this.$element[0], this.options.display, response); 
             //if display method defined --> use it    
             } else if(typeof this.options.display === 'function') {
@@ -1394,7 +1446,7 @@ Makes editable any HTML element on the page. Applied as jQuery method.
         enable: function() {
             this.options.disabled = false;
             this.$element.removeClass('editable-disabled');
-            this.handleEmpty();
+            this.handleEmpty(this.isEmpty);
             if(this.options.toggle !== 'manual') {
                 if(this.$element.attr('tabindex') === '-1') {    
                     this.$element.removeAttr('tabindex');                                
@@ -1410,7 +1462,7 @@ Makes editable any HTML element on the page. Applied as jQuery method.
             this.options.disabled = true; 
             this.hide();           
             this.$element.addClass('editable-disabled');
-            this.handleEmpty();
+            this.handleEmpty(this.isEmpty);
             //do not stop focus on this element
             this.$element.attr('tabindex', -1);                
         },
@@ -1471,27 +1523,33 @@ Makes editable any HTML element on the page. Applied as jQuery method.
         },              
         
         /*
-        * set emptytext if element is empty (reverse: remove emptytext if needed)
+        * set emptytext if element is empty
         */
-        handleEmpty: function () {
+        handleEmpty: function (isEmpty) {
             //do not handle empty if we do not display anything
             if(this.options.display === false) {
                 return;
             }
             
-            var emptyClass = 'editable-empty';
+            this.isEmpty = isEmpty !== undefined ? isEmpty : $.trim(this.$element.text()) === '';           
+            
             //emptytext shown only for enabled
             if(!this.options.disabled) {
-                if ($.trim(this.$element.text()) === '') {
-                    this.$element.addClass(emptyClass).text(this.options.emptytext);
-                } else {
-                    this.$element.removeClass(emptyClass);
+                if (this.isEmpty) {
+                    this.$element.text(this.options.emptytext);
+                    if(this.options.emptyclass) {
+                        this.$element.addClass(this.options.emptyclass);
+                    }
+                } else if(this.options.emptyclass) {
+                    this.$element.removeClass(this.options.emptyclass);
                 }
             } else {
                 //below required if element disable property was changed
-                if(this.$element.hasClass(emptyClass)) {
+                if(this.isEmpty) {
                     this.$element.empty();
-                    this.$element.removeClass(emptyClass);
+                    if(this.options.emptyclass) {
+                        this.$element.removeClass(this.options.emptyclass);
+                    }
                 }
             }
         },        
@@ -1513,6 +1571,7 @@ Makes editable any HTML element on the page. Applied as jQuery method.
                     input: this.input //pass input to form (as it is already created)
                 });
                 this.$element.editableContainer(containerOptions);
+                //listen `save` event 
                 this.$element.on("save.internal", $.proxy(this.save, this));
                 this.container = this.$element.data('editableContainer'); 
             } else if(this.container.tip().is(':visible')) {
@@ -1550,13 +1609,29 @@ Makes editable any HTML element on the page. Applied as jQuery method.
         * called when form was submitted
         */          
         save: function(e, params) {
-            //if url is not user's function and value was not sent to server and value changed --> mark element with unsaved css. 
-            if(typeof this.options.url !== 'function' && this.options.display !== false && params.response === undefined && this.input.value2str(this.value) !== this.input.value2str(params.newValue)) { 
-                this.$element.addClass('editable-unsaved');
-            } else {
-                this.$element.removeClass('editable-unsaved');
+            //mark element with unsaved class if needed
+            if(this.options.unsavedclass) {
+                /*
+                 Add unsaved css to element if:
+                  - url is not user's function 
+                  - value was not sent to server
+                  - params.response === undefined, that means data was not sent
+                  - value changed 
+                */
+                var sent = false;
+                sent = sent || typeof this.options.url === 'function';
+                sent = sent || this.options.display === false; 
+                sent = sent || params.response !== undefined; 
+                sent = sent || (this.options.savenochange && this.input.value2str(this.value) !== this.input.value2str(params.newValue)); 
+                
+                if(sent) {
+                    this.$element.removeClass(this.options.unsavedclass); 
+                } else {
+                    this.$element.addClass(this.options.unsavedclass);                    
+                }
             }
             
+            //set new value
             this.setValue(params.newValue, false, params.response);
             
             /**        
@@ -1648,7 +1723,7 @@ Makes editable any HTML element on the page. Applied as jQuery method.
         url: '/post',
         pk: 1
     });
-    **/    
+    **/
     $.fn.editable = function (option) {
         //special API methods returning non-jquery object
         var result = {}, args = arguments, datakey = 'editable';
@@ -1665,7 +1740,7 @@ Makes editable any HTML element on the page. Applied as jQuery method.
               username: "username is required",
               fullname: "fullname should be minimum 3 letters length"
             }
-            **/             
+            **/
             case 'validate':
                 this.each(function () {
                     var $this = $(this), data = $this.data(datakey), error;
@@ -1686,7 +1761,7 @@ Makes editable any HTML element on the page. Applied as jQuery method.
             username: "superuser",
             fullname: "John"
             }
-            **/               
+            **/
             case 'getValue':
                 this.each(function () {
                     var $this = $(this), data = $this.data(datakey);
@@ -1705,11 +1780,11 @@ Makes editable any HTML element on the page. Applied as jQuery method.
             @param {object} options 
             @param {object} options.url url to submit data 
             @param {object} options.data additional data to submit
-            @param {object} options.ajaxOptions additional ajax options            
+            @param {object} options.ajaxOptions additional ajax options
             @param {function} options.error(obj) error handler 
             @param {function} options.success(obj,config) success handler
             @returns {Object} jQuery object
-            **/            
+            **/
             case 'submit':  //collects value, validate and submit to server for creating new record
                 var config = arguments[1] || {},
                 $elems = this,
@@ -1860,7 +1935,51 @@ Makes editable any HTML element on the page. Applied as jQuery method.
            }
         }
         **/          
-        display: null
+        display: null,
+        /**
+        Css class applied when editable text is empty.
+
+        @property emptyclass 
+        @type string
+        @since 1.4.1        
+        @default editable-empty
+        **/        
+        emptyclass: 'editable-empty',
+        /**
+        Css class applied when value was stored but not sent to server (`pk` is empty or `send = 'never'`).  
+        You may set it to `null` if you work with editables locally and submit them together.  
+
+        @property unsavedclass 
+        @type string
+        @since 1.4.1        
+        @default editable-unsaved
+        **/        
+        unsavedclass: 'editable-unsaved',
+        /**
+        If a css selector is provided, editable will be delegated to the specified targets.  
+        Usefull for dynamically generated DOM elements.  
+        **Please note**, that delegated targets can't use `emptytext` and `autotext` options, 
+        as they are initialized after first click.    
+
+        @property selector 
+        @type string
+        @since 1.4.1        
+        @default null
+        @example
+        <div id="user">
+          <a href="#" data-name="username" data-type="text" title="Username">awesome</a>
+          <a href="#" data-name="group" data-type="select" data-source="/groups" data-value="1" title="Group">Operator</a>
+        </div>     
+        
+        <script>
+        $('#user').editable({
+            selector: 'a',
+            url: '/post',
+            pk: 1
+        });
+        </script>
+        **/         
+        selector: null        
     };
     
 }(window.jQuery));
@@ -2053,15 +2172,7 @@ To create your own input you can inherit from this class.
         @type string
         @default input-medium
         **/         
-        inputclass: 'input-medium',
-        /**
-        Name attribute of input
-
-        @property name 
-        @type string
-        @default null
-        **/         
-        name: null
+        inputclass: 'input-medium'
     };
     
     $.extend($.fn.editabletypes, {abstractinput: AbstractInput});
@@ -2214,7 +2325,7 @@ List - abstract class for inputs that have source option loaded from js array or
                     }, this)
                 });
             } else { //options as json/array/function
-                if (typeof this.options.source === 'function') {
+                if ($.isFunction(this.options.source)) {
                    this.sourceData = this.makeArray(this.options.source());
                 } else {
                    this.sourceData = this.makeArray(this.options.source);
@@ -2270,35 +2381,45 @@ List - abstract class for inputs that have source option loaded from js array or
         * convert data to array suitable for sourceData, e.g. [{value: 1, text: 'abc'}, {...}]
         */
         makeArray: function(data) {
-            var count, obj, result = [], iterateEl;
+            var count, obj, result = [], item, iterateItem;
             if(!data || typeof data === 'string') {
                 return null; 
             }
 
             if($.isArray(data)) { //array
-                iterateEl = function (k, v) {
+                /* 
+                   function to iterate inside item of array if item is object.
+                   Caclulates count of keys in item and store in obj. 
+                */
+                iterateItem = function (k, v) {
                     obj = {value: k, text: v};
                     if(count++ >= 2) {
-                        return false;// exit each if object has more than one value
+                        return false;// exit from `each` if item has more than one key.
                     }
                 };
             
                 for(var i = 0; i < data.length; i++) {
-                    if(typeof data[i] === 'object') {
-                        count = 0;
-                        $.each(data[i], iterateEl);
-                        if(count === 1) {
+                    item = data[i]; 
+                    if(typeof item === 'object') {
+                        count = 0; //count of keys inside item
+                        $.each(item, iterateItem);
+                        //case: [{val1: 'text1'}, {val2: 'text2} ...]
+                        if(count === 1) { 
                             result.push(obj); 
-                        } else if(count > 1 && data[i].hasOwnProperty('value') && data[i].hasOwnProperty('text')) {
-                            result.push(data[i]);
-                        } else {
-                            //data contains incorrect objects
+                            //case: [{value: 1, text: 'text1'}, {value: 2, text: 'text2'}, ...]
+                        } else if(count > 1) {
+                            //removed check of existance: item.hasOwnProperty('value') && item.hasOwnProperty('text')
+                            if(item.children) {
+                                item.children = this.makeArray(item.children);   
+                            }
+                            result.push(item);
                         }
                     } else {
-                        result.push({value: data[i], text: data[i]}); 
+                        //case: ['text1', 'text2' ...]
+                        result.push({value: item, text: item}); 
                     }
                 }
-            } else {  //object
+            } else {  //case: {val1: 'text1', val2: 'text2, ...}
                 $.each(data, function (k, v) {
                     result.push({value: k, text: v});
                 });  
@@ -2321,12 +2442,16 @@ List - abstract class for inputs that have source option loaded from js array or
     List.defaults = $.extend({}, $.fn.editabletypes.abstractinput.defaults, {
         /**
         Source data for list.  
-        If **array** - it should be in format: `[{value: 1, text: "text1"}, {...}]`  
+        If **array** - it should be in format: `[{value: 1, text: "text1"}, {value: 2, text: "text2"}, ...]`  
         For compability, object format is also supported: `{"1": "text1", "2": "text2" ...}` but it does not guarantee elements order.
         
         If **string** - considered ajax url to load items. In that case results will be cached for fields with the same source and name. See also `sourceCache` option.
           
         If **function**, it should return data in format above (since 1.4.0).
+        
+        Since 1.4.1 key `children` supported to render OPTGROUP (for **select** input only).  
+        `[{text: "group1", children: [{value: 1, text: "text1"}, {value: 2, text: "text2"}]}, ...]` 
+
 		
         @property source 
         @type string | array | object | function
@@ -2350,8 +2475,8 @@ List - abstract class for inputs that have source option loaded from js array or
         **/          
         sourceError: 'Error when loading list',
         /**
-        if <code>true</code> and source is **string url** - results will be cached for fields with the same source and name.  
-        Usefull for editable grids.
+        if <code>true</code> and source is **string url** - results will be cached for fields with the same source.    
+        Usefull for editable column in grid to prevent extra requests.
         
         @property sourceCache 
         @type boolean
@@ -2415,10 +2540,7 @@ $(function(){
                           .keyup($.proxy(this.toggleClear, this))
                           .parent().css('position', 'relative');
                           
-               this.$clear.click($.proxy(function(){
-                   this.$clear.hide();
-                   this.$input.val('').focus();
-               }, this));                       
+               this.$clear.click($.proxy(this.clear, this));                       
            }            
         },
         
@@ -2443,12 +2565,17 @@ $(function(){
                 return;
             }
             
-            if(this.$input.val()) {
+            if(this.$input.val().length) {
                 this.$clear.show();
             } else {
                 this.$clear.hide();
             } 
-        }  
+        },
+        
+        clear: function() {
+           this.$clear.hide();
+           this.$input.val('').focus();
+        }          
     });
 
     Text.defaults = $.extend({}, $.fn.editabletypes.abstractinput.defaults, {
@@ -2622,14 +2749,21 @@ $(function(){
     $.extend(Select.prototype, {
         renderList: function() {
             this.$input.empty();
-            
-            if(!$.isArray(this.sourceData)) {
-                return;
-            }
 
-            for(var i=0; i<this.sourceData.length; i++) {
-                this.$input.append($('<option>', {value: this.sourceData[i].value}).text(this.sourceData[i].text)); 
-            }
+            var fillItems = function($el, data) {
+                if($.isArray(data)) {
+                    for(var i=0; i<data.length; i++) {
+                        if(data[i].children) {
+                           $el.append(fillItems($('<optgroup>', {label: data[i].text}), data[i].children)); 
+                        } else {
+                           $el.append($('<option>', {value: data[i].value}).text(data[i].text)); 
+                        }
+                    }
+                }
+                return $el;
+            };        
+
+            fillItems(this.$input, this.sourceData);
             
             this.setClass();
             
@@ -2714,8 +2848,7 @@ $(function(){
             for(var i=0; i<this.sourceData.length; i++) {
                 $label = $('<label>').append($('<input>', {
                                            type: 'checkbox',
-                                           value: this.sourceData[i].value, 
-                                           name: this.options.name
+                                           value: this.sourceData[i].value 
                                      }))
                                      .append($('<span>').text(' '+this.sourceData[i].text));
                 
@@ -2744,7 +2877,7 @@ $(function(){
        
        //set checked on required checkboxes
        value2input: function(value) {
-            this.$input.removeAttr('checked');
+            this.$input.prop('checked', false);
             if($.isArray(value) && value.length) {
                this.$input.each(function(i, el) {
                    var $el = $(el);
@@ -2753,7 +2886,7 @@ $(function(){
                        /*jslint eqeq: true*/
                        if($el.val() == val) {
                        /*jslint eqeq: false*/                           
-                           $el.attr('checked', 'checked');
+                           $el.prop('checked', true);
                        }
                    });
                }); 
@@ -2990,6 +3123,199 @@ Range (inherit from number)
         inputclass: 'input-medium'
     });
     $.fn.editabletypes.range = Range;
+}(window.jQuery));
+/**
+Select2 input. Based on amazing work of Igor Vaynberg https://github.com/ivaynberg/select2.  
+Please see [original docs](http://ivaynberg.github.com/select2) for detailed description and options.  
+You should manually include select2 distributive:  
+
+    <link href="select2/select2.css" rel="stylesheet" type="text/css"></link>  
+    <script src="select2/select2.js"></script>  
+    
+@class select2
+@extends abstractinput
+@since 1.4.1
+@final
+@example
+<a href="#" id="country" data-type="select2" data-pk="1" data-value="ru" data-url="/post" data-original-title="Select country"></a>
+<script>
+$(function(){
+    $('#country').editable({
+        source: [
+              {id: 'gb', text: 'Great Britain'},
+              {id: 'us', text: 'United States'},
+              {id: 'ru', text: 'Russia'}
+           ],
+        select2: {
+           multiple: true
+        }
+    });
+});
+</script>
+**/
+(function ($) {
+
+    var Constructor = function (options) {
+        this.init('select2', options, Constructor.defaults);
+       
+        options.select2 = options.select2 || {};
+        
+        var that = this, 
+            mixin = {
+               placeholder:  options.placeholder
+            };
+       
+       //detect whether it is multi-valued
+       this.isMultiple = options.select2.tags || options.select2.multiple;
+       
+       //if not `tags` mode, we need define init set data from source
+       if(!options.select2.tags) {
+            if(options.source) {
+                mixin.data = options.source;
+            } 
+
+            //this function can be defaulted in seletc2. See https://github.com/ivaynberg/select2/issues/710
+            mixin.initSelection = function (element, callback) {
+                var val = that.str2value(element.val()),
+                    data = $.fn.editableutils.itemsByValue(val, mixin.data, 'id');
+                
+                //for single-valued mode should not use array. Take first element instead.
+                if($.isArray(data) && data.length && !that.isMultiple) {
+                   data = data[0]; 
+                }
+                                    
+                callback(data);
+            }; 
+        }
+           
+        //overriding objects in config (as by default jQuery extend() is not recursive)
+        this.options.select2 = $.extend({}, Constructor.defaults.select2, mixin, options.select2);
+    };
+
+    $.fn.editableutils.inherit(Constructor, $.fn.editabletypes.abstractinput);
+
+    $.extend(Constructor.prototype, {
+        render: function() {
+            this.setClass();
+            //apply select2
+            this.$input.select2(this.options.select2);
+
+            //trigger resize of editableform to re-position container in multi-valued mode           
+            if(this.isMultiple) {
+               this.$input.on('change', function() {
+                   $(this).closest('form').parent().triggerHandler('resize');
+               }); 
+            }            
+            
+        },
+       
+       value2html: function(value, element) {
+           var text = '', data;
+           if(this.$input) { //when submitting form 
+               data = this.$input.select2('data');
+           } else { //on init (autotext)
+               //here select2 instance not created yet and data may be even not loaded.
+               //we can check data/tags property of select config and if exist lookup text
+               if(this.options.select2.tags) {
+                   data = value;
+               } else if(this.options.select2.data) {
+                   data = $.fn.editableutils.itemsByValue(value, this.options.select2.data, 'id');   
+               }
+           }
+           
+           if($.isArray(data)) {
+               //collect selected data and show with separator
+               text = [];
+               $.each(data, function(k, v){
+                   text.push(v && typeof v === 'object' ? v.text : v); 
+               });                   
+           } else if(data) {
+               text = data.text;  
+           }
+
+           text = $.isArray(text) ? text.join(this.options.viewseparator) : text;
+
+           $(element).text(text);
+       },       
+        
+       html2value: function(html) {
+           return this.options.select2.tags ? this.str2value(html, this.options.viewseparator) : null;
+       }, 
+       
+       value2input: function(value) {
+           this.$input.val(value).trigger('change');
+       },
+       
+       input2value: function() { 
+           return this.$input.select2('val');
+       },
+
+       str2value: function(str, separator) {
+            if(typeof str !== 'string' || !this.isMultiple) {
+                return str;
+            }
+            
+            separator = separator || this.options.select2.separator || $.fn.select2.defaults.separator;
+            
+            var val, i, l;
+                
+            if (str === null || str.length < 1) {
+                return null;
+            }
+            val = str.split(separator);
+            for (i = 0, l = val.length; i < l; i = i + 1) {
+                val[i] = $.trim(val[i]);
+            }
+            
+            return val;
+       }        
+        
+    });      
+
+    Constructor.defaults = $.extend({}, $.fn.editabletypes.abstractinput.defaults, {
+        /**
+        @property tpl 
+        @default <input type="hidden">
+        **/         
+        tpl:'<input type="hidden">',
+        /**
+        Configuration of select2. [Full list of options](http://ivaynberg.github.com/select2).
+        
+        @property select2 
+        @type object
+        @default null
+        **/
+        select2: null,
+        /**
+        Placeholder attribute of select
+
+        @property placeholder 
+        @type string
+        @default null
+        **/             
+        placeholder: null,
+        /**
+        Source data for select. It will be assigned to select2 `data` property and kept here just for convenience.
+        Please note, that format is different from simple `select` input: use 'id' instead of 'value'.
+        E.g. `[{id: 1, text: "text1"}, {id: 2, text: "text2"}, ...]`.  
+        
+        @property source 
+        @type array
+        @default null        
+        **/
+        source: null,
+        /**
+        Separator used to display tags. 
+        
+        @property viewseparator 
+        @type string
+        @default ', '        
+        **/
+        viewseparator: ', '        
+    });
+
+    $.fn.editabletypes.select2 = Constructor;      
+    
 }(window.jQuery));
 /**
 * Combodate - 1.0.1
@@ -4934,3 +5260,225 @@ Automatically shown in inline mode.
 	$.fn.datepicker.DPGlobal = DPGlobal;
 
 }( window.jQuery );
+
+/**
+Typeahead input (bootstrap only). Based on Twitter Bootstrap [typeahead](http://twitter.github.com/bootstrap/javascript.html#typeahead).  
+Depending on `source` format typeahead operates in two modes:
+
+* **strings**:  
+  When `source` defined as array of strings, e.g. `['text1', 'text2', 'text3' ...]`.  
+  User can submit one of these strings or any text entered in input (even if it is not matching source).
+  
+* **objects**:  
+  When `source` defined as array of objects, e.g. `[{value: 1, text: "text1"}, {value: 2, text: "text2"}, ...]`.  
+  User can submit only values that are in source (otherwise `null` is submitted). This is more like *dropdown* behavior.
+
+@class typeahead
+@extends list
+@since 1.4.1
+@final
+@example
+<a href="#" id="country" data-type="typeahead" data-pk="1" data-url="/post" data-original-title="Input country"></a>
+<script>
+$(function(){
+    $('#country').editable({
+        value: 'ru',    
+        source: [
+              {value: 'gb', text: 'Great Britain'},
+              {value: 'us', text: 'United States'},
+              {value: 'ru', text: 'Russia'}
+           ]
+        }
+    });
+});
+</script>
+**/
+(function ($) {
+
+    var Constructor = function (options) {
+        this.init('typeahead', options, Constructor.defaults);
+        
+        //overriding objects in config (as by default jQuery extend() is not recursive)
+        this.options.typeahead = $.extend({}, Constructor.defaults.typeahead, {
+            //set default methods for typeahead to work with objects
+            matcher: this.matcher,  
+            sorter: this.sorter,  
+            highlighter: this.highlighter,  
+            updater: this.updater  
+        }, options.typeahead);
+    };
+
+    $.fn.editableutils.inherit(Constructor, $.fn.editabletypes.list);
+
+    $.extend(Constructor.prototype, {
+        renderList: function() {
+            this.$input = this.$tpl.is('input') ? this.$tpl : this.$tpl.find('input[type="text"]');
+            
+            //set source of typeahead
+            this.options.typeahead.source = this.sourceData;
+            
+            //apply typeahead
+            this.$input.typeahead(this.options.typeahead);
+            
+            //attach own render method
+            this.$input.data('typeahead').render = $.proxy(this.typeaheadRender, this.$input.data('typeahead'));
+
+            this.renderClear();
+            this.setClass();
+            this.setAttr('placeholder');
+        },
+       
+        value2htmlFinal: function(value, element) {
+            if(this.getIsObjects()) {
+                var items = $.fn.editableutils.itemsByValue(value, this.sourceData);
+                $(element).text(items.length ? items[0].text : '');
+            } else {
+                $(element).text(value);
+            }
+        },
+        
+        html2value: function (html) {
+            return html ? html : null;
+        },
+        
+        value2input: function(value) {
+            if(this.getIsObjects()) {
+                var items = $.fn.editableutils.itemsByValue(value, this.sourceData);
+                this.$input.data('value', value).val(items.length ? items[0].text : '');                
+            } else {
+                this.$input.val(value);
+            }
+        },
+        
+        input2value: function() {
+            if(this.getIsObjects()) {
+                var value = this.$input.data('value'),
+                    items = $.fn.editableutils.itemsByValue(value, this.sourceData);
+                    
+                if(items.length && items[0].text.toLowerCase() === this.$input.val().toLowerCase()) {
+                   return value;
+                } else {
+                   return null; //entered string not found in source
+                }                 
+            } else {
+                return this.$input.val();
+            }
+        },
+        
+        /*
+         if in sourceData values <> texts, typeahead in "objects" mode: 
+         user must pick some value from list, otherwise `null` returned.
+         if all values == texts put typeahead in "strings" mode:
+         anything what entered is submited.
+        */        
+        getIsObjects: function() {
+            if(this.isObjects === undefined) {
+                this.isObjects = false;
+                for(var i=0; i<this.sourceData.length; i++) {
+                    if(this.sourceData[i].value !== this.sourceData[i].text) {
+                        this.isObjects = true;
+                        break;
+                    } 
+                }
+            } 
+            return this.isObjects;
+        },  
+               
+        /*
+          Methods borrowed from text input
+        */
+        activate: $.fn.editabletypes.text.prototype.activate,
+        renderClear: $.fn.editabletypes.text.prototype.renderClear,
+        postrender: $.fn.editabletypes.text.prototype.postrender,
+        toggleClear: $.fn.editabletypes.text.prototype.toggleClear,
+        clear: function() {
+            $.fn.editabletypes.text.prototype.clear.call(this);
+            this.$input.data('value', ''); 
+        },
+        
+        
+        /*
+          Typeahead option methods used as defaults
+        */
+        /*jshint eqeqeq:false, curly: false, laxcomma: true*/
+        matcher: function (item) {
+            return $.fn.typeahead.Constructor.prototype.matcher.call(this, item.text);
+        },
+        sorter: function (items) {
+            var beginswith = []
+            , caseSensitive = []
+            , caseInsensitive = []
+            , item
+            , text;
+
+            while (item = items.shift()) {
+                text = item.text;
+                if (!text.toLowerCase().indexOf(this.query.toLowerCase())) beginswith.push(item);
+                else if (~text.indexOf(this.query)) caseSensitive.push(item);
+                else caseInsensitive.push(item);
+            }
+
+            return beginswith.concat(caseSensitive, caseInsensitive);
+        },
+        highlighter: function (item) {
+            return $.fn.typeahead.Constructor.prototype.highlighter.call(this, item.text);
+        },
+        updater: function (item) {
+            item = this.$menu.find('.active').data('item');
+            this.$element.data('value', item.value);
+            return item.text;
+        },  
+   
+        
+        /*
+          Overwrite typeahead's render method to store objects.
+          There are a lot of disscussion in bootstrap repo on this point and still no result.
+          See https://github.com/twitter/bootstrap/issues/5967 
+          
+          This function just store item in via jQuery data() method instead of attr('data-value')
+        */        
+        typeaheadRender: function (items) {
+            var that = this;
+
+            items = $(items).map(function (i, item) {
+//                i = $(that.options.item).attr('data-value', item)
+                i = $(that.options.item).data('item', item);
+                i.find('a').html(that.highlighter(item));
+                return i[0];
+            });
+
+            items.first().addClass('active');
+            this.$menu.html(items);
+            return this;
+        }
+        /*jshint eqeqeq: true, curly: true, laxcomma: false*/  
+        
+    });      
+
+    Constructor.defaults = $.extend({}, $.fn.editabletypes.list.defaults, {
+        /**
+        @property tpl 
+        @default <input type="text">
+        **/         
+        tpl:'<input type="text">',
+        /**
+        Configuration of typeahead. [Full list of options](http://twitter.github.com/bootstrap/javascript.html#typeahead).
+        
+        @property typeahead 
+        @type object
+        @default null
+        **/
+        typeahead: null,
+        /**
+        Whether to show `clear` button 
+        
+        @property clear 
+        @type boolean
+        @default true        
+        **/
+        clear: true
+    });
+
+    $.fn.editabletypes.typeahead = Constructor;      
+    
+}(window.jQuery));

@@ -12,8 +12,6 @@
 </div>
 <%= render_breadcrumbs %>
 
-
-
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div>
@@ -41,7 +39,7 @@
 		</div>
 	</div>
 
-<%= $_POST %>
+	<%= $_POST %>
 
 	<div class="row-fluid">
 		<div class="span12">
@@ -72,12 +70,12 @@
 		<div class="span12">
 
 			<h1><small>Federation</small></h1>
-<p>
-<strong>Select an Account name, under which you want to federate the following cloud applications </strong>
-</p>
+			<p>
+				<strong>Select an Account name, under which you want to federate the following cloud applications </strong>
+			</p>
 
-<% identities_array = current_user.cloud_identities.all.map { |ci| [ci.account_name, ci.id] } %>
-<%= select_tag(@ci, options_for_select(identities_array)) %>
+			<% identities_array = current_user.cloud_identities.all.map { |ci| [ci.account_name, ci.id] } %>
+			<%= select_tag(@ci, options_for_select(identities_array)) %>
 
 			<div class="widget-box">
 				<div class="widget-title">

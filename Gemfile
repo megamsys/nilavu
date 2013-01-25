@@ -4,7 +4,7 @@ gem 'rails', '3.2.11'
 # Rails 4.0 :
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 #JQuery rails, other jquery scripts
-gem 'jquery-rails','2.1.4'
+gem 'jquery-rails','2.2.0'
 gem 'jquery-ui-rails'
 gem 'execjs','1.4.0'
 gem 'jquery-datatables-rails'

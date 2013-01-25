@@ -1,4 +1,4 @@
-/*! X-editable - v1.4.0 
+/*! X-editable - v1.4.1 
 * In-place editing with Twitter Bootstrap, jQuery UI or pure jQuery
 * http://github.com/vitalets/x-editable
 * Copyright (c) 2013 Vitaliy Potapov; Licensed MIT */
@@ -44,7 +44,7 @@
 }
 
 .editableform-loading {
-    background: url('loading.gif') center center no-repeat;  
+    background: url('../img/loading.gif') center center no-repeat;  
     height: 25px;
     width: auto; 
     min-width: 25px; 
@@ -104,7 +104,7 @@
 
 /* IOS-style clear button for text inputs */
 .editable-clear-x {
-   background: url('clear.png') center center no-repeat;
+   background: url('../img/clear.png') center center no-repeat;
    display: block;
    width: 13px;    
    height: 13px;
@@ -116,21 +116,6 @@
 .editable-clear-x:hover {
    opacity: 1;
 }
-
-/*
-.editable-clear-x1 {
-   background: url('clear.png') center center no-repeat;
-   display: inline-block;
-   zoom: 1; 
-   *display: inline;    
-   width: 13px;    
-   height: 13px;
-   vertical-align: middle;
-   position: relative;    
-   margin-left: -20px;
-}
-*/
-
 .editable-container {
     max-width: none !important; /* without this rule poshytip/tooltip does not stretch */
 }  

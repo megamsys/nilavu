@@ -1,5 +1,5 @@
 <div id="blog_wrapper">
-<%= form_tag(federate_path, :method => "post") do %>
+	<%= form_tag(federate_path, :method => "post") do %>
 	<% @products.each do |product| %>
 	<% @apps_item.each do |apps_item_el| %>
 	<% if apps_item_el.product_id === product.id && (product.identity.match(identity_type)) %>
@@ -20,13 +20,12 @@
 
 						<div class="slideThree">
 
-  <input type="checkbox" value="<%= product.name %>_<%= identity_type %>" id="<%= product.name %>_<%= identity_type %>" name="product_<%= product.id %>" />
+							<input type="checkbox" value="<%= product.name %>_<%= identity_type %>" id="<%= product.name %>_<%= identity_type %>" name="product_<%= product.id %>" />
 							<label for="<%= product.name %>_<%= identity_type %>"></label>
 
-						<input type="hidden" name="identity_type" value="<%= identity_type %>">
-						
+							<input type="hidden" name="identity_type" value="<%= identity_type %>">
+
 						</div>
- 
 
 					</div>
 				</div>
@@ -37,10 +36,8 @@
 	<% end %>
 	<% end %>
 
- <%= submit_tag("Federate", :class => "btn btn-success") %>
+	<%= submit_tag("Federate", :class => "btn btn-success") %>
 
-	
-
-<% end %>
+	<% end %>
 </div>
 
