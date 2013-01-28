@@ -9,8 +9,10 @@ class CloudIdentitiesController < ApplicationController
 
   def new_identity
     #@ironclient = Ironclient.new
-    sleep 2
+    sleep 1
     logger.debug ">>> Parms #{params}"
+    logger.debug ">>> Parms data #{params[:data]}"
+
     ir = IronfistClient.new
     tempparms = {:agent => "CloudIdentityAgent", :command => "listRealms", :message => "URL=http://nomansland.com REALM_NAME=temporealm"}
 

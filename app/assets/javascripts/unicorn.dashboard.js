@@ -10,24 +10,8 @@ jQuery(document)
 						jQuery('body').css('background', '#444444');
 					});
 
-					// init editables
-					jQuery('.s_account_name').editable({});
-
-					jQuery('#identity_new_account_name').editable('option',
-							'validate', function(v) {
-								if (!v)
-									return 'Required field!';
-							});
-
-					jQuery('#identity_new_account_name').editable('option',
-							'send', 'never');
-
-					jQuery.fn.editable.defaults.mode = 'inline';
-
 					jQuery('#identity_new_account_name').editable({
-						type : 'text',
-						url : 'cloud_identity_path(current_user.id)',
-						title : 'Enter example'
+						send : 'never'
 					});
 
 					// === Prepare peity charts === //

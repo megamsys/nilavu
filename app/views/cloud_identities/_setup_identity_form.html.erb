@@ -1,0 +1,20 @@
+<%= form_tag(newidentity_path,:method => "post", data: { spinner: '#spin_create_identity', :remote => true}, :id => 'form_setup_identity') do %>
+<% @acc_name = account_name %>
+<p class="help-block">
+	<strong><span class="label label-warning">*optional</span> Click on the default account name </strong>
+
+	<span class="badge badge-important"><%= @acc_name %></span>
+	to change it
+</p>
+
+<%= link_to  @acc_name, "#", :id => "identity_new_account_name",
+:class => "btn btn-large btn-primary disabled btn-block",
+:data => { :type => 'text', :name => 'account_name'} %>
+
+<br/>
+<input type="hidden" name="account_name" value="<%= @acc_name %>">
+<p class="help-block">
+	<strong>Cool. Start your creation. </strong>
+</p>
+<%= submit_tag("Create", :class => "btn btn-large btn-success btn-block", :remote => true) %>
+<% end %>
