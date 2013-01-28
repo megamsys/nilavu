@@ -1,8 +1,28 @@
-var selected_entity = '#setup_identity';
+var selected_entity = '#form_setup_identity';
+
+/**
+* The form gets toggled (hidden) when the spinner rotates.Unhide it back. 
+***/
+
+$(selected_entity).toggle();
 
 $(selected_entity).fadeIn("slow");
 
-var to_insert_content = '<%= escape_javascript(render :partial => "cloud_identities/setup_identity", :locals => {:cloud_identity_launch => "successful" } ) %>';
+var identity_new_account_entity = '#identity_new_account_name';
 
-insertAt(selected_entity,to_insert_content);
+/**
+* http://vitalets.github.com/x-editable/docs.html#editable (click methods)
+* Wow ! The below code returns the values contained in the editableform.
+* Basically the randomword.  * **/
+
+var random_word_value = $(identity_new_account_entity).editable('option', 'value').text();
+
+var new_account_name = "<%= account_name %>";
+
+console.log("Dummy you are new =>" + new_account_name);
+
+/**
+* Just feed in the name got from the account_name helper to setValue of x-editable.
+* **/
+$(identity_new_account_entity).editable('option', 'value', new_account_name);
 
