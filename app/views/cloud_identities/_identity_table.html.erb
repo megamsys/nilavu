@@ -18,7 +18,7 @@
 		<% cloud_identities.each do |cloud_identity| %>
 		<tr>
 			<td><%= i += 1 %></td>
-			<td><%= cloud_identity.account_name %></td>
+			<td><%= link_to cloud_identity.account_name, go_identity_path(cloud_identity.account_name), :class => "btn btn-mini btn-success" %></td>
 			<td><%= cloud_identity.url %></td>
 			<td>
 			<div id="<%= dom_id(@user.organization) %>">

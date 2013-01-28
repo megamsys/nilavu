@@ -18,6 +18,7 @@ end
 puts ""
 puts "DynamoDB Deletion"
 
+
 @ce = ConnectorExecution.all
 @ce.each do |ce| 
   ce.delete()
@@ -41,6 +42,8 @@ puts "ConnectorAction Deleted"
   cp.delete()
 end
 puts "ConnectorProject Deleted"
+
+
 
 puts ""
 puts "DynamoDB Creation"

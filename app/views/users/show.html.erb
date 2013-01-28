@@ -13,17 +13,18 @@
 				<% end %>
 			</li>
 
+			<li class=<%= "active" if controller_name== "apps_items"%>>
+				<%= link_to new_apps_item_path do %>
+				<i class="icon-briefcase"></i>Cloud Applications
+				<% end %>
+			</li>
+
 			<li class=<%= "active" if controller_name== "cloud_identities"%>> 
 				<%= link_to cloud_identity_path(current_user.id) do %>
 				<i class="icon-unlock"></i>Cloud Identity
 				<% end %>
 			</li>
 
-			<li class=<%= "active" if controller_name== "apps_items"%>>
-				<%= link_to new_apps_item_path do %>
-				<i class="icon-briefcase"></i>Cloud Applications
-				<% end %>
-			</li>
 			<li class=<%= "active" if controller_name== "connector_projects"%>>
 				<%= link_to connector_projects_path do %>
 				<i class="icon-cloud"></i>Live Cloud

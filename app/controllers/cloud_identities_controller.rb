@@ -27,6 +27,16 @@ class CloudIdentitiesController < ApplicationController
     respond_with(@cloud_identity, :layout => !request.xhr? )
   end
 
+  def go_identity
+
+	    add_breadcrumb "Cloud Identity", cloud_identity_path(current_user.id)
+	    add_breadcrumb params[:format], go_identity_path
+	@cloud_identity = current_user.cloud_identities.find_by_account_name(params[:format])
+	@products = Product.all
+    @apps_item = current_user.apps_items
+
+  end
+
   def federate
     cu = current_user
     user = {:who => cu.first_name, :api_token => cu.api_token, :type => cu.user_type }
@@ -55,13 +65,32 @@ class CloudIdentitiesController < ApplicationController
       if key.start_with?('product_')
         p_id = key.sub('product_', '')
 	      logger.debug "PID #{p_id}"
-        @identity_app = current_user.apps_items.find(p_id)
-	logger.debug "@Identity_app #{@identity_app.to_yaml}"
 	@ci_app = current_user.cloud_identities.find(params[:ci])
 	logger.debug "@ci_app #{@ci_app.to_yaml}"
-	@ci_app.apps_items.create(:app_name => value)
-        @identity_app.update_attribute(:app_name, value)
-      @identity_app.save
+=begin
+	if @ci_app.apps_items.any?
+		if @ci_app.apps_items.find_by_cloud_identity_id(params[:ci])
+		@ci_app_items = @ci_app.apps_items.find(params[:ci])
+		logger.debug "@ci_app_items #{@ci_app_items.to_yaml}"
+		
+		#@ci_app_items.update_attribute(:app_name, value)
+		@ci_app_items.update_attributes(:app_name => value, :cloud_identity_id => params[:ci] )
+		logger.debug "@ci_app_items after update #{@ci_app_items.to_yaml}"
+		@ci_app_items.save
+		end
+	else
+=end
+		@ci_app_items = @ci_app.apps_items.create(:app_name => value, :cloud_identity_id => params[:ci], :users_id => current_user.id, :product_id => p_id)
+		@ci_app_items.save
+		logger.debug "@ci_app_items after update #{@ci_app_items.to_yaml}"
+	#end
+	
+	#logger.debug "@Identity_app #{@identity_app.to_yaml}"
+	#@ci_app = current_user.cloud_identities.find(params[:ci])
+	#logger.debug "@ci_app #{@ci_app.to_yaml}"
+	#@ci_app.apps_items.create(:app_name => value)
+        #@identity_app.update_attribute(:app_name, value)
+      #@identity_app.save
       end
     end
 

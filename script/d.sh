@@ -57,10 +57,12 @@ do
             ;;
             --[mM][yY])
 	    echo "Howdy $NIL_GIT_MASTER. Enjoy committing local to <master> - Github..."
+	    clean
             mystuff
             ;;
             --[oO][mM][yY])
 	    echo "Howdy $NIL_GIT_ORIGIN. Enjoy committing local to <origin> - Github..."
+            clean
             origin_stuff
             ;;
             --[uU][pP][dD])

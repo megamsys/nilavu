@@ -14,6 +14,7 @@ Cloudauth::Application.routes.draw do
   match '/federate', to: 'cloud_identities#federate'
   match '/cloud_identities/destroy', to: 'cloud_identities#destroy'
   match '/newidentity', to: 'cloud_identities#new_identity'
+  match '/go_identity', to: 'cloud_identities#go_identity'
 
 # 	=======Cloud Run
   match '/running_cloud', to: 'cloud_run#running_cloud'
