@@ -10,6 +10,8 @@ jQuery(document)
 						jQuery('body').css('background', '#444444');
 					});
 
+					// init editables
+
 					jQuery('#identity_new_account_name').editable({
 						send : 'never'
 					});
