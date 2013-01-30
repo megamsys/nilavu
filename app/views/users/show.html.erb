@@ -65,16 +65,11 @@
 	</div>
 
 	<div id="content">
+<h3> <%- flash.each do |name, msg| -%>
+		<%= content_tag :div, msg, :id => "flash_#{name}" %>
+		<%- end -%> </h3>
 		<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
 	</div>
 </div>
 
-<script type="text/javascript">
-    $('.active li').removeClass('active');
-    $('li').click(function() {
-        $(this).addClass('active');
-        console.log("testing script dash");
-    });
-
-</script>
 

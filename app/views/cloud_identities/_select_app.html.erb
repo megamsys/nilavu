@@ -1,7 +1,8 @@
 <div id="blog_wrapper">
 	<%= form_tag(federate_path, :method => "post") do %>
-	<% @products.each do |product| %>
-	<% @apps_item.each do |apps_item_el| %>
+	<% current_user.apps_items.select("DISTINCT ON (PRODUCT_ID) *").each do |apps_item_el| %>
+
+		<% product=Product.find(apps_item_el.product_id) %>
 	<% if apps_item_el.product_id === product.id && (product.identity.match(identity_type)) %>
 	<div class="span6">
 		<div class="post">
@@ -16,36 +17,40 @@
 
 						There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
 					</p>
+				<% if apps_item_el.cloud_identity_id != cloud_identity.id %>
 					<div class="post_info">
-
+						
 						<div class="slideThree">
-
 							<input type="checkbox" value="<%= product.name %>_<%= identity_type %>" id="<%= product.name %>_<%= identity_type %>" name="product_<%= product.id %>" />
 							<label for="<%= product.name %>_<%= identity_type %>"></label>
-
-							
-
+						
 						</div>
 
 					</div>
+				<% elsif apps_item_el.federated_identity_type != identity_type %>
+					<div class="post_info">
+						
+						<div class="slideThree">
+							<input type="checkbox" value="<%= product.name %>_<%= identity_type %>" id="<%= product.name %>_<%= identity_type %>" name="product_<%= product.id %>" />
+							<label for="<%= product.name %>_<%= identity_type %>"></label>
+						
+						</div>
+
+					</div>
+				<% else %>
+					<h3> Federated in <%= identity_type %></h3>
+				<% end %> 
 				</div>
 			</div>
 		</div>
 	</div>
 	<% end %>
 	<% end %>
-	<% end %>
 
 <input type="hidden" name="identity_type" value="<%= identity_type %>">
-<p>
-				<strong>Select an Account name, under which you want to federate the following cloud applications </strong>
-			</p>
-
-			<% identities_array = current_user.cloud_identities.all.map { |ci| [ci.account_name, ci.id] } %>
-			<%= select_tag(:ci, options_for_select(identities_array)) %>
+<input type="hidden" name="ci" value="<%= cloud_identity.id %>">
 
 	<%= submit_tag("Federate", :class => "btn btn-success") %>
 
 	<% end %>
 </div>
-

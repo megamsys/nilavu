@@ -19,8 +19,9 @@ ActiveRecord::Schema.define(:version => 20130108105504) do
     t.integer  "product_id"
     t.string   "app_name"
     t.string   "my_url"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.string   "federated_identity_type"
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   add_index "apps_items", ["cloud_identity_id"], :name => "index_apps_items_on_cloud_identity_id"

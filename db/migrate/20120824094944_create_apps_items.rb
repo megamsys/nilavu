@@ -6,6 +6,7 @@ class CreateAppsItems < ActiveRecord::Migration
       t.integer :product_id
 	t.string :app_name
       t.string :my_url
+	t.string :federated_identity_type
 
       t.timestamps
     end

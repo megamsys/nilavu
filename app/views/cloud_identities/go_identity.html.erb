@@ -16,8 +16,41 @@
 
 <div class="row-fluid">
 		<div class="span12">
+			<h1><small>Federated aplications</small></h1>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th> # </th>
+			<th> Logo </th>
+			<th> Application_Name </th>
+			<th> App URL </th>
+			<th>Action </th>
+			
+		</tr>
+	</thead>
 
-			<h1><small>Federation</small></h1>
+	<tbody>
+		<% i=0 %>
+			<% @cloud_identity.apps_items.each do |cloud_app| %>
+		<tr>
+			<td><%= i += 1 %></td>
+			<td><%= image_tag Product.find(cloud_app.product_id).image_url, :alt => Product.find(cloud_app.product_id).name,:class => "main_pic" %></td>
+			<td><%= link_to "url", "#", :class => "btn btn-mini btn-success" %></td>
+			<td><%= cloud_app.app_name %></td>
+			<td><%= render :partial => "customizations/modal_remove", :locals => {:link => "#"} %></td>
+		</tr>
+		<% end %>
+
+	</tbody>
+</table>
+
+		</div>
+</div>
+
+<div class="row-fluid">
+		<div class="span12">
+
+			<h1><small>Available applications to be federated</small></h1>
 			
 			<div class="widget-box">
 				<div class="widget-title">
@@ -39,13 +72,13 @@
 				</div>
 				<div class="widget-content tab-content">
 					<div id="tab1" class="tab-pane active">
-						<%= render :partial => "cloud_identities/select_app" , :locals => {:identity_type => 'saml2'} %>
+						<%= render :partial => "cloud_identities/select_app" , :locals => {:identity_type => 'saml2', :cloud_identity => @cloud_identity, :products => @products} %>
 					</div>
 					<div id="tab2" class="tab-pane">
-						<%= render :partial => "cloud_identities/select_app" , :locals => {:identity_type => 'oauth'} %>
+						<%= render :partial => "cloud_identities/select_app" , :locals => {:identity_type => 'oauth', :cloud_identity => @cloud_identity, :products => @products} %>
 					</div>
 					<div id="tab3" class="tab-pane">
-						<%= render :partial => "cloud_identities/select_app" , :locals => {:identity_type => 'custom'} %>
+						<%= render :partial => "cloud_identities/select_app" , :locals => {:identity_type => 'custom_key', :cloud_identity => @cloud_identity, :products => @products} %>
 					</div>
 				</div>
 			</div>

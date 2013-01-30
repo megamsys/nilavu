@@ -22,7 +22,7 @@
 			<td><%= cloud_identity.url %></td>
 			<td>
 			<div id="<%= dom_id(@user.organization) %>">
-				<%= render :partial => "cloud_identities/remove_btn", :locals => {:cloud_identity => cloud_identity} %>
+				<%= render :partial => "customizations/modal_remove", :locals => {:link => cloud_identities_destroy_path(:id => cloud_identity.id)} %>
 			</div></td>
 		</tr>
 		<% end %>
