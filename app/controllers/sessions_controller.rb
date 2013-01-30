@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
       if user && user.authenticate(params[:session][:password])
         sign_in user
         flash[:success] = "Welcome #{current_user.first_name}"
-        redirect_back_or users_dashboard_url
+        redirect_back_or users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{user.first_name}. Your email is #{user.email} Thank you.", :sticky => false, :nodom_wrap => true } }
       else
         flash.now[:error] = 'Invalid email/password combination'
         render 'new'

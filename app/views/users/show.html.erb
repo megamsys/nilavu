@@ -13,17 +13,18 @@
 				<% end %>
 			</li>
 
-			<li class=<%= "active" if controller_name== "cloud_identities"%>> 
-				<%= link_to cloud_identity_path(current_user.id) do %>
-				<i class="icon-unlock"></i>Cloud Identity
-				<% end %>
-			</li>
-
 			<li class=<%= "active" if controller_name== "apps_items"%>>
 				<%= link_to new_apps_item_path do %>
 				<i class="icon-briefcase"></i>Cloud Applications
 				<% end %>
 			</li>
+
+			<li class=<%= "active" if controller_name== "cloud_identities"%>>
+				<%= link_to cloud_identity_path(current_user.id) do %>
+				<i class="icon-unlock"></i>Cloud Identity
+				<% end %>
+			</li>
+
 			<li class=<%= "active" if controller_name== "connector_projects"%>>
 				<%= link_to connector_projects_path do %>
 				<i class="icon-cloud"></i>Live Cloud
@@ -34,21 +35,21 @@
 				<a href="#"><i class="icon icon-file"></i> <span>Billing</span> <span class="label">3</span></a>
 				<ul>
 					<li class=<%= "active" if controller_name== "billing"%>>
-					<%= link_to pricing_path do %>
+						<%= link_to pricing_path do %>
 						<i class="icon-money"></i>Pricing
-					<% end %>
+						<% end %>
 					</li>
 
 					<li class=<%= "active" if controller_name== "billing"%>>
-					<%= link_to account_path do %>
+						<%= link_to account_path do %>
 						<i class="icon-credit-card"></i>Account
-					<% end %>
+						<% end %>
 					</li>
 
 					<li class=<%= "active" if controller_name== "billing"%>>
-					<%= link_to history_path do %>
+						<%= link_to history_path do %>
 						<i class="icon-book"></i>History
-					<% end %>
+						<% end %>
 					</li>
 
 				</ul>
@@ -64,6 +65,11 @@
 	</div>
 
 	<div id="content">
+		<h3> <%- flash.each do |name, msg| -%>
+		<%= content_tag :div, msg, :id => "flash_#{name}" %>
+		<%- end -%> </h3>
 		<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
 	</div>
+
 </div>
+

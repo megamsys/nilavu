@@ -73,6 +73,7 @@ do
          --[cC][lL][eE][aA][nN])
 	    echo "Cleaning up tmp and assets..."
             clean
+		exitScript 0
             ;;
  	--[pP][rR][eE][cC][oO][mM])
 	    echo "Cleaning up tmp and assets, precompiling..."
@@ -175,6 +176,7 @@ exitScript 0
 #-------------------------------------------------------------------------
 mystuff(){
 
+	clean
 	echo -n "Do you want to add/commit files [y/n]? "
 	read -n 1 addcommit
 	echo
@@ -185,6 +187,7 @@ mystuff(){
 		git add .
 		git commit .
 	fi
+
 	echo "========================================================="
 	echo -n "Do you want to push to your master [y/n]? "
 	read -n 1 pmstr
@@ -203,7 +206,8 @@ mystuff(){
 # performs a push to the committers origin in github.
 #-------------------------------------------------------------------------
 origin_stuff(){
-
+	
+	clean
 	echo -n "Do you want to add/commit files [y/n]? "
 	read -n 1 addcommit
 	echo
@@ -315,7 +319,7 @@ then
 rm -r public/system
 fi
 
-exitScript 0
+
 }
 #
 #

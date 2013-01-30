@@ -69,8 +69,9 @@ class UsersController < ApplicationController
 
     if @user.save
       sign_in @user
-      flash[:alert] = "Welcome #{current_user.first_name}"
-      redirect_to users_dashboard_url
+      #flash[:alert] = "Welcome #{current_user.first_name}"
+	      redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Your email is #{@user.email} Thank you.", :sticky => false, :nodom_wrap => true } }
+      #redirect_to users_dashboard_url
     else
       render 'new'
     end
@@ -93,7 +94,7 @@ class UsersController < ApplicationController
 
     if @user.update_attributes(params[:user])
       sign_in @user
-      redirect_to users_dashboard_url
+      redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Your email is #{@user.email} Thank you.", :sticky => false, :nodom_wrap => true } }
     else
       render 'edit'
     end

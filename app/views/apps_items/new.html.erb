@@ -58,7 +58,7 @@
 										<td><%= product.description %></td><dd></dd>
 										<td><%= product.category %></td>
 										<dd/>
-										<td> <% @apps_item.each do |apps_item_el| %>
+										<td> <% @apps_item.select("DISTINCT(PRODUCT_ID)").each do |apps_item_el| %>
 										<% if apps_item_el.product_id === product.id %>
 										<div id=<%= dom_id(product) %>>
 											<%= render :partial => "apps_items/remove_button", :locals => {:apps_item_el => apps_item_el, :product => product} %>

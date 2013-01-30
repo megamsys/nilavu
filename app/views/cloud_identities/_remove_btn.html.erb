@@ -1,2 +1,0 @@
-<%= link_to "Remove", cloud_identities_destroy_path(:id => cloud_identity.id), class: "btn btn-primary",  :remote => true,:method => :delete, data: { spinner: '#'+ dom_id(cloud_identity) + '_existing_identity'} %>
-<%= mini_spinner_tag dom_id(cloud_identity) + '_existing_identity' %>
