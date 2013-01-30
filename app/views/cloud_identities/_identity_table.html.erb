@@ -1,4 +1,4 @@
-<table class="table table-bordered">
+<table cellpadding="0" cellspacing="0" class="table table-bordered">
 	<thead>
 		<tr>
 			<th> # </th>
@@ -7,12 +7,6 @@
 			<th> Action </th>
 		</tr>
 	</thead>
-	<tfoot>
-		<tr>
-			<th class="total-label" colspan="3"> Help </th>
-			<th class="total-amount"> <%= link_to "Click here", "http://docs.megam.co", :target => "_blank"%> </th>
-		</tr>
-	</tfoot>
 	<tbody>
 		<% i=0 %>
 		<% cloud_identities.each do |cloud_identity| %>
@@ -26,6 +20,11 @@
 			</div></td>
 		</tr>
 		<% end %>
-
 	</tbody>
+	<tfoot>
+		<tr>
+			<th class="total-label" colspan="3"> Help </th>
+			<th class="total-amount"> <%= link_to "Click here", "http://docs.megam.co", :target => "_blank"%> </th>
+		</tr>
+	</tfoot>
 </table>

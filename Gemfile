@@ -1,27 +1,28 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.11'
-# Rails 4.0 :
+
+# Bleeding edge : Rails 4.0 :
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
+
 #JQuery rails, other jquery scripts
 gem 'jquery-rails','2.2.0'
 gem 'jquery-ui-rails'
 gem 'execjs','1.4.0'
 gem 'jquery-datatables-rails'
-gem 'jquery_datepicker'
-gem "uniformjs-rails", "~> 1.5.0.2"
 gem "flot-rails", "~> 0.0.2"
-gem "gritter", :git => 'git://github.com/indykish/gritter.git'
+gem "gritter", "~> 1.0.3"
+gem "select2-rails", "~> 3.2.1"
 # Database posgresql 
 gem 'pg', '0.14.1'
 # OAuth authentication to twitter, facebook, openid using omniauth
 gem 'omniauth-twitter','0.0.14'
 gem 'omniauth-facebook','1.4.1'
 gem 'omniauth-openid','1.0.1'
-gem 'will_paginate','3.0.3'
+gem 'will_paginate','3.0.4'
 gem 'bootstrap-will_paginate','0.0.9'
 gem 'rest-client','1.6.7'
-gem 'grape','0.2.3'
+gem 'grape','0.2.6'
 gem 'paperclip','3.4.0'
 gem "aws-sdk", "~> 1.8.0"
 gem 'high_voltage','1.2.1'
@@ -42,7 +43,7 @@ gem 'bcrypt-ruby', :require => 'bcrypt'
 # in production environments by default.
 group :assets do
   gem 'twitter-bootstrap-rails'
-  gem 'sass-rails','3.2.5'
+  gem 'sass-rails','3.2.6'
   gem 'coffee-rails','3.2.2'
   gem "less-rails", "~> 2.2.6"
 

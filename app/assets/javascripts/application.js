@@ -14,11 +14,14 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
+//= require bowser
 //= require twitter/bootstrap
 //= require spin
 //= require jquery.spin
 //= require jquery.spin.config
 //= require gritter
+//= require select2
+//= require jquery.uniform
 //= require theme
 //= require jquery.flot
 //= require jquery.flot.resize

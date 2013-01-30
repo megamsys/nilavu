@@ -56,12 +56,12 @@ class CloudIdentitiesController < ApplicationController
       logger.debug "#{key} : #{value}"
       if key.start_with?('product_')
         p_id = key.sub('product_', '')
-	      logger.debug "PID #{p_id}"
+        logger.debug "PID #{p_id}"
         @identity_app = current_user.apps_items.find(p_id)
-	logger.debug "@Identity_app #{@identity_app.to_yaml}"
-	@ci_app = current_user.cloud_identities.find(params[:ci])
-	logger.debug "@ci_app #{@ci_app.to_yaml}"
-	@ci_app.apps_items.create(:app_name => value)
+        logger.debug "@Identity_app #{@identity_app.to_yaml}"
+        @ci_app = current_user.cloud_identities.find(params[:ci])
+        logger.debug "@ci_app #{@ci_app.to_yaml}"
+        @ci_app.apps_items.create(:app_name => value)
         @identity_app.update_attribute(:app_name, value)
       @identity_app.save
       end
@@ -106,8 +106,11 @@ class CloudIdentitiesController < ApplicationController
   end
 
   def destroy
+    sleep 1
     current_user.cloud_identities.find(params[:id]).destroy
-    flash[:success] = "Cloud_identity #{current_user.cloud_identities.account_name} destroyed."
-    redirect_to users_show_url
+    respond_to do |format|
+      format.html { redirect_to users_show_url }
+      format.js
+    end
   end
 end

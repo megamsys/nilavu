@@ -14,5 +14,7 @@
  *= require dataTables/jquery.dataTables.bootstrap
  *= require bootstrap-editable
  *= require gritter 
+ *= require select2
+ *= require uniform.default 
  *= require_tree .
 */

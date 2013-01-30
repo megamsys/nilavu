@@ -16,6 +16,7 @@ jQuery(document)
 						send : 'never'
 					});
 
+					
 					// === Prepare peity charts === //
 					unicornpeity();
 
@@ -181,6 +182,7 @@ function unicornpeity() {
 		colour : "#757575"
 	});
 }
+
 function unicorn_flot_tooltip(x, y, contents) {
 	// === Tooltip for flot charts === //
 
@@ -188,4 +190,9 @@ function unicorn_flot_tooltip(x, y, contents) {
 		top : y + 5,
 		left : x + 5
 	}).appendTo("body").fadeIn(200);
+}
+
+/* Get the rows which are currently selected */
+function fnGetSelected(oTableLocal) {
+	return oTableLocal.jQuery('tr.row_selected');
 }
