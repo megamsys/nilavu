@@ -16,7 +16,7 @@
 			<td><%= cloud_identity.url %></td>
 			<td>
 			<div id="<%= dom_id(@user.organization) %>">
-				<%= render :partial => "customizations/modal_remove", :locals => {:link => cloud_identities_destroy_path(:id => cloud_identity.id)} %>
+				<%= render :partial => "customizations/modal_remove", :locals => {:link => cloud_identities_destroy_path(:id => cloud_identity.id), :method => :destroy, :modal_title => "Cloud Identity", :modal_message => "Are you sure you want remove the identity - #{cloud_identity.account_name} ?"} %>
 			</div></td>
 		</tr>
 		<% end %>

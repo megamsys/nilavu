@@ -1,8 +1,6 @@
 <% provide(:title, "Sign in") %>
 
-<h5> <%- flash.each do |name, msg| -%>
-<%= content_tag :div, msg, :id => "flash_#{name}" %>
-<%- end -%> </h5>
+<%= render :partial => "customizations/flash_messages" %>
 
 <div id="box_login">
 	<div class="container">
@@ -21,19 +19,27 @@
 						</div>
 					</div>
 					<div class="form">
-						<%= form_for(:session, :url => sessions_path) do |f| %>
+						<%= form_for(:session, :url => sessions_path, :html => {:id =>'password_validate', :novalidate => 'novalidate'}) do |f| %>
+						<div class="control-group">
+							<div class="controls">
+								<%= f.text_field :email, :class => 'text_field required',placeholder: "Email" %>
 
-						<%= f.text_field :email, placeholder: "Email" %>
-						<%= f.password_field :password, placeholder: "Password" %>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<div class="controls">
+								<%= f.password_field :password, :id => 'password', :class => 'text_field required',placeholder: "Password" %>
+							</div>
+						</div>
 						<div class="remember">
 							<div class="left">
-								<input id="remember_me" type="checkbox">
+								<input id="remember_me" name="remember_me", type="checkbox">
 								<label for="remember_me">Remember me</label>
 							</div>
 							<div class="right">
 								<%= link_to "Forgotpassword?", forgot_path %>
 							</div>
-
 						</div>
 						<%= f.submit "Sign in", :class => "btn" %>
 						<% end %>

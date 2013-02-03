@@ -12,7 +12,6 @@ gem 'execjs','1.4.0'
 gem 'jquery-datatables-rails'
 gem "flot-rails", "~> 0.0.2"
 gem "gritter", "~> 1.0.3"
-gem "select2-rails", "~> 3.2.1"
 # Database posgresql 
 gem 'pg', '0.14.1'
 # OAuth authentication to twitter, facebook, openid using omniauth
@@ -24,7 +23,7 @@ gem 'bootstrap-will_paginate','0.0.9'
 gem 'rest-client','1.6.7'
 gem 'grape','0.2.6'
 gem 'paperclip','3.4.0'
-gem "aws-sdk", "~> 1.8.0"
+gem "aws-sdk", "~> 1.8.1.1"
 gem 'high_voltage','1.2.1'
 gem "therubyracer", :require => 'v8',:platforms => :ruby
 gem 'stomp', '~> 1.2.8'

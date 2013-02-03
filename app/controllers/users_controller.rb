@@ -8,7 +8,6 @@ class UsersController < ApplicationController
                only: [:index, :edit, :update, :destroy]
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: :destroy
-  
   def index
     @users = User.paginate(page: params[:page])
   end
@@ -16,9 +15,8 @@ class UsersController < ApplicationController
   def show
     add_breadcrumb "Dashboard", dashboard_path
     @user = User.find(params[:id])
-    #@connector_project = ConnectorProject.all
     if !@user.organization
-      flash[:error] = "Hey stranger. we need details about your work. Please update your work details to proceed further."
+      flash[:error] = "Hey ! Please update your profile to proceed further."
       redirect_to edit_user_path(current_user)
     end
     current_user = @user
@@ -27,7 +25,6 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     @user.build_organization
-
   end
 
   def forgot
@@ -38,14 +35,11 @@ class UsersController < ApplicationController
     add_breadcrumb "dashboard", dashboard_path
   end
 
-
   def email_verify
+    logger.debug "users_controller:email_verify => entry"
     @user= User.find_by_verification_hash(params[:format])
-    logger.debug "params befor mailer = #{params}"
-
-    logger.debug "@user befor mailer = #{@user}"
     UserMailer.welcome_email(@user).deliver
-    logger.debug "@user = #{@user}"
+    logger.debug "users_controller:email_verify => exit"
     redirect_to users_dashboard_url
   end
 
@@ -56,23 +50,32 @@ class UsersController < ApplicationController
 
     if @user.verification_hash === params[:format]
       @user.update_attribute(:verified_email, 'true')
-      redirect_to signin_path(@user), :gflash => { :success => { :value => "Welcome back #{@user.first_name}. Your email #{@user.email} is verified. Thank you.", :sticky => false, :nodom_wrap => true } }
+      redirect_to signin_path(@user), :gflash => { :success => { :value => "Welcome back #{@user.first_name}. Your email #{@user.email} was verified. Thank you.", :sticky => false, :nodom_wrap => true } }
     else
       logger.debug "Wrong user"
-      flash[:alert] = "Sorry wrong verification"
+      flash[:alert] = "Ooops ! your verification failed. Sorry. resend the verification email again."
       redirect_to sign_up_path
     end
   end
 
+  #This method is used to create a new user. The form parameters as entered during the
+  #signup, is used to create a new user.
+  #After a successful save : redirect to users dashboard.
+  #        failure with email already exists, then display a message with a link to forgot_password.
+  #        any other errors , display a general message, with an option to contact support.
   def create
     @user = User.new(params[:user])
 
     if @user.save
       sign_in @user
-      #flash[:alert] = "Welcome #{current_user.first_name}"
-	      redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Your email is #{@user.email} Thank you.", :sticky => false, :nodom_wrap => true } }
-      #redirect_to users_dashboard_url
+      redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Created account #{@user.email} successfully.", :sticky => false, :nodom_wrap => true } }
     else
+      @user= User.find_by_email(params[:user][:email])
+      if(@user)
+        flash[:error] = "Email #{@user.email} already exists.<div class='right'>  #{ActionController::Base.helpers.link_to 'Forgot Password ?.', forgot_path}</div>".html_safe
+      else
+        flash[:alert] = "An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}".html_safe
+      end
       render 'new'
     end
   end
@@ -83,10 +86,9 @@ class UsersController < ApplicationController
   end
 
   def upgrade
-	add_breadcrumb "Dashboard", dashboard_path
+    add_breadcrumb "Dashboard", dashboard_path
     add_breadcrumb "Upgrade", upgrade_path
   end
-
 
   def update
     @user=User.find(params[:id])
@@ -94,7 +96,7 @@ class UsersController < ApplicationController
 
     if @user.update_attributes(params[:user])
       sign_in @user
-      redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Your email is #{@user.email} Thank you.", :sticky => false, :nodom_wrap => true } }
+      redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } }
     else
       render 'edit'
     end
@@ -102,7 +104,7 @@ class UsersController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = "User destroyed."
+    flash[:success] = "Sorry to see you go. Removed successfully."
     redirect_to users_path
   end
 

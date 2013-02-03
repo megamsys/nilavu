@@ -65,9 +65,8 @@
 	</div>
 
 	<div id="content">
-		<h3> <%- flash.each do |name, msg| -%>
-		<%= content_tag :div, msg, :id => "flash_#{name}" %>
-		<%- end -%> </h3>
+		<%= render :partial => "customizations/flash_messages" %>
+
 		<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
 	</div>
 

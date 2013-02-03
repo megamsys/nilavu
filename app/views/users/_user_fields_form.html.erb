@@ -1,43 +1,69 @@
-<%= form_for @user, :html => { :multipart => true } do |f| %>
+<%= form_for @user, :html => { :multipart => true, :id =>'password_validate', :novalidate => 'novalidate' } do |f| %>
+<div class="control-group">
+	<div class="controls">
+		<%= f.text_field :first_name, :class => 'text_field required', placeholder: "First name" %>
+	</div>
+</div>
+<div class="control-group">
+	<div class="controls">
+		<%= f.text_field :last_name, :class => 'text_field required', placeholder: "Last name" %>
+	</div>
+</div>
 
-<%= f.text_field :first_name, :class => 'text_field', placeholder: "First name" %>
+<div class="control-group">
+	<div class="controls">
+		<%= f.text_field :phone, :class => 'text_field required', placeholder: "Phone number" %>
+	</div>
+</div>
 
-<%= f.text_field :last_name, :class => 'text_field', placeholder: "Last name" %>
+<% if current_user.nil? %>
+<div class="control-group">
+	<div class="controls">
+		<%= f.text_field :email, :class => 'text_field required', placeholder: "Email" %>
+	</div>
+</div>
 
-<%= f.text_field :phone, :class => 'text_field', placeholder: "Phone number" %>
-
-<% if current_user.nil? %> 
-	<%= f.text_field :email, :class => 'text_field', placeholder: "Email" %>
-	<% random_hash = p SecureRandom.urlsafe_base64(nil, true) %>
-	<%= f.text_field :verification_hash, :value => random_hash, :type => 'hidden' %>
-	<% random_api = p SecureRandom.urlsafe_base64(nil, true) %>
-	<%= f.text_field :api_token, :value => random_api, :type => 'hidden' %>
+<% random_hash = p SecureRandom.urlsafe_base64(nil, true) %>
+<%= f.text_field :verification_hash, :value => random_hash, :type => 'hidden' %>
+<% random_api = p SecureRandom.urlsafe_base64(nil, true) %>
+<%= f.text_field :api_token, :value => random_api, :type => 'hidden' %>
 <% end %>
-<%= f.password_field :password, placeholder: "Password" %>
 
-<%= f.password_field :password_confirmation, placeholder: "Confirm password" %>
+<div class="control-group">
+	<div class="controls">
+		<%= f.password_field :password,:class=> 'required', placeholder: "Password" %>
+	</div>
+</div>
 
-
-
-
+<div class="control-group">
+	<div class="controls">
+		<%= f.password_field :password_confirmation,  :class=> 'required',placeholder: "Confirm password" %>
+	</div>
+</div>
 
 <%= f.text_field :user_type, :value => "free_user", :type => 'hidden' %>
-
-
 
 <% if !current_user.nil? && current_user.admin? %>
 
 <%= f.fields_for :organization_attributes, @user.organization do |org_f| %>
-
-<%= org_f.text_field :name, placeholder: "Organization name" %>
-
-<%= org_f.text_field :url, placeholder: "Organization URL" %>
-
-<%= org_f.label :upload_organization_logo %>
-<%= org_f.file_field :logo, placeholder: "Logo" %>
+<div class="control-group">
+	<div class="controls">
+		<%= org_f.text_field :name,:class=> 'span4 required', placeholder: "Organization name" %>
+	</div>
+</div>
+<div class="control-group">
+	<div class="controls">
+		<%= org_f.text_field :url, :class=> 'span4 required', placeholder: "Organization URL" %>
+	</div>
+</div>
+<div class="control-group">
+    <%= org_f.label :upload_organization_logo, :class => 'control-label' %>
+	<div class="controls">
+	    <%= org_f.file_field :logo, placeholder: "Logo" %>
+	</div>
+</div>
 
 <% end %>
-
 <% end %>
 
 <%= f.submit nil, :class => 'btn' %>

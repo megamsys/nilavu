@@ -14,44 +14,43 @@
 
 <div class="container-fluid">
 
-<div class="row-fluid">
+	<div class="row-fluid">
 		<div class="span12">
 			<h1><small>Federated aplications</small></h1>
-<table class="table table-bordered">
-	<thead>
-		<tr>
-			<th> # </th>
-			<th> Logo </th>
-			<th> Application_Name </th>
-			<th> App URL </th>
-			<th>Action </th>
-			
-		</tr>
-	</thead>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th> # </th>
+						<th> Logo </th>
+						<th> Application_Name </th>
+						<th> App URL </th>
+						<th> Action </th>
 
-	<tbody>
-		<% i=0 %>
-			<% @cloud_identity.apps_items.each do |cloud_app| %>
-		<tr>
-			<td><%= i += 1 %></td>
-			<td><%= image_tag Product.find(cloud_app.product_id).image_url, :alt => Product.find(cloud_app.product_id).name,:class => "main_pic" %></td>
-			<td><%= link_to "url", "#", :class => "btn btn-mini btn-success" %></td>
-			<td><%= cloud_app.app_name %></td>
-			<td><%= render :partial => "customizations/modal_remove", :locals => {:link => "#"} %></td>
-		</tr>
-		<% end %>
+					</tr>
+				</thead>
 
-	</tbody>
-</table>
+				<tbody>
+					<% i=0 %>
+					<% @cloud_identity.apps_items.each do |cloud_app| %>
+					<tr>
+						<td><%= i += 1 %></td>
+						<td><%= image_tag Product.find(cloud_app.product_id).image_url, :alt => Product.find(cloud_app.product_id).name,:class => "main_pic" %></td>
+						<td><%= link_to "url", cloud_app.my_url, :class => "btn btn-mini btn-success" %></td>
+						<td><%= cloud_app.app_name %></td>
+						<td><%= render :partial => "customizations/modal_remove", :locals => {:link => apps_item_path(:id => cloud_app.id, :app_name => cloud_app.app_name, :federated_identity_type => cloud_app.federated_identity_type), :method => :put, :modal_title => "Cloud Identity", :modal_message => "Are you sure you want remove federation for #{cloud_app.app_name} ?"} %></td>
+					</tr>
+					<% end %>
+
+				</tbody>
+			</table>
 
 		</div>
-</div>
+	</div>
 
-<div class="row-fluid">
+	<div class="row-fluid">
 		<div class="span12">
-
 			<h1><small>Available applications to be federated</small></h1>
-			
+
 			<div class="widget-box">
 				<div class="widget-title">
 					<div class="buttons">
@@ -71,14 +70,17 @@
 					</ul>
 				</div>
 				<div class="widget-content tab-content">
+				    <% nodup_app_items = current_user.apps_items.select("DISTINCT ON (PRODUCT_ID, FEDERATED_IDENTITY_TYPE) *") %>
+
 					<div id="tab1" class="tab-pane active">
-						<%= render :partial => "cloud_identities/select_app" , :locals => {:identity_type => 'saml2', :cloud_identity => @cloud_identity, :products => @products} %>
+						<%= render :partial => "cloud_identities/select_app" , :locals => {:nodup_app_items => nodup_app_items, :identity_type => 'saml2', :cloud_identity => @cloud_identity, :products => @products} %>
 					</div>
 					<div id="tab2" class="tab-pane">
-						<%= render :partial => "cloud_identities/select_app" , :locals => {:identity_type => 'oauth', :cloud_identity => @cloud_identity, :products => @products} %>
+						<%= render :partial => "cloud_identities/select_app" , :locals => {:nodup_app_items => nodup_app_items, :identity_type => 'oauth', :cloud_identity => @cloud_identity, :products => @products} %>
+
 					</div>
 					<div id="tab3" class="tab-pane">
-						<%= render :partial => "cloud_identities/select_app" , :locals => {:identity_type => 'custom_key', :cloud_identity => @cloud_identity, :products => @products} %>
+						<%= render :partial => "cloud_identities/select_app" , :locals => {:nodup_app_items => nodup_app_items, :identity_type => 'custom_key', :cloud_identity => @cloud_identity, :products => @products} %>
 					</div>
 				</div>
 			</div>

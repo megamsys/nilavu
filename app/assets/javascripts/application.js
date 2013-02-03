@@ -20,8 +20,10 @@
 //= require jquery.spin
 //= require jquery.spin.config
 //= require gritter
-//= require select2
 //= require jquery.uniform
+//= require select2
+//= require jquery.validate
+//= require unicorn.form_validation
 //= require theme
 //= require jquery.flot
 //= require jquery.flot.resize

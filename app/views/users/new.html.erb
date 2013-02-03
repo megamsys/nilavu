@@ -1,16 +1,15 @@
 <% provide(:title, 'Sign up') %>
-<div class="row">
-	<div class="span10"></div>
-	<div class="span10">
-		<div class="span5">
-			<h3> <%- flash.each do |name, msg| -%>
-			<%= content_tag :div, msg, :id => "flash_#{name}" %>
-			<%- end -%> </h3>
+<div class="row-fluid">
+	<%= render :partial => "customizations/flash_messages" %>
+</div>
+<div class="container-fluid">
 
+	<div class="row">
+		<div class="span5">
 			<div id="box_sign">
 				<div class="container">
-					<div class="span12 box_wrapper">
-						<div class="span12 box">
+					<div class="box_wrapper">
+						<div class="box">
 							<div>
 								<div class="head">
 									<h4>Create your account</h4>
@@ -30,10 +29,61 @@
 					</div>
 				</div>
 			</div>
+		</div>
+		<div class="span7 widget-content">
+			<div id="blog_wrapper">
+				<div class="post">
+					<div class="row-fluid">
+						<div class="span2">
+							<%= image_tag "helpbota.png", :alt => "helpbot",:class => "main_pic", :alt => "helpbot"%>
+						</div>
+						<div class="span6 info">
+							<div class="post_info">
+								<a href="blog-post.html"> <h3>Launch your identity !</h3> </a>
+								<strong>and Integrate your Cloud Apps <span class="badge badge-info">free</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="span7">
+			<div id="myCarousel" class="carousel slide widget-content ">
+				<div class="carousel-inner">
+					<div class="item active">
+						<%= image_tag "sales_pitch1.png", :alt => "Cloud computing"%>
+
+						<div class="carousel-caption">
+							<h4>Cloud Identity</h4>
+							<p>
+								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+							</p>
+						</div>
+					</div>
+					<div class="item">
+						<%= image_tag "sales_pitch2.png", :alt => "Cloud identity"%>
+						<div class="carousel-caption">
+							<h4>Launch Cloud Identity</h4>
+							<p>
+								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+							</p>
+						</div>
+					</div>
+					<div class="item">
+						<%= image_tag "sales_pitch3.png", :alt => "Cloud integration"%>
+						<div class="carousel-caption">
+							<h4>Live Cloud - Integrations</h4>
+							<p>
+								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+							</p>
+						</div>
+					</div>
+				</div>
+				<a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+				<a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+			</div>
 
 		</div>
 	</div>
-
-	<div class="span4"></div>
 </div>
-

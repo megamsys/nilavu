@@ -1,7 +1,6 @@
 <% provide(:title, "Forgot password") %> 
-<h5> <%- flash.each do |name, msg| -%>
-		<%= content_tag :div, msg, :id => "flash_#{name}" %>
-<%- end -%> </h5>
+<%= render :partial => "customizations/flash_messages" %>
+
   <div id="box_login">
         <div class="container">
             <div class="span12 box_wrapper">

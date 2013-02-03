@@ -1,56 +1,58 @@
-<div id="blog_wrapper">
-	<%= form_tag(federate_path, :method => "post") do %>
-	<% current_user.apps_items.select("DISTINCT ON (PRODUCT_ID) *").each do |apps_item_el| %>
+<%= form_tag(federate_path, :method => "post") do %>
+<% nodup_app_items.each do |nodup_apps_item| %>
 
-	<% product=Product.find(apps_item_el.product_id) %>
-	<% if apps_item_el.product_id === product.id && (product.identity.match(identity_type)) %>
-	<div class="span6">
+<% product=Product.find(nodup_apps_item.product_id) %>
+
+<% unless type_now ||= nodup_apps_item.federated_identity_type %>
+<% type_now = product.identity %>
+<%end%>
+
+<% if nodup_apps_item.product_id === product.id && (type_now.match(identity_type)) %>
+
+<div class="span5">
+
+	<div id="blog_wrapper">
 		<div class="post">
 			<div class="row-fluid">
-				<div class="span3">
+
+				<div class="span2">
 					<%= image_tag product.image_url, :alt => product.name,:class => "main_pic", :alt => "salesforce"%>
 				</div>
 				<div class="span3 info">
 					<a href="blog-post.html"> <h3>Measure theme blog post</h3> </a>
 					<p>
 						<!-- Slide THREE -->
-
 						There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
 					</p>
-					<% if apps_item_el.cloud_identity_id != cloud_identity.id %>
 					<div class="post_info">
-
+						<% if !nodup_apps_item.federated_identity_type %>
 						<div class="slideThree">
 							<input type="checkbox" value="<%= product.name %>_<%= identity_type %>" id="<%= product.name %>_<%= identity_type %>" name="product_<%= product.id %>" />
 							<label for="<%= product.name %>_<%= identity_type %>"></label>
-
 						</div>
+						<% else %>
+						<span class="label label-info"><%= nodup_apps_item.federated_identity_type %></span><strong> fed url => </strong><span class="badge badge-important">http://grocery.megam.co:9098<%= nodup_apps_item.my_url %></span>
+						<% end %>
 
 					</div>
-					<% elsif apps_item_el.federated_identity_type != identity_type %>
-					<div class="post_info">
 
-						<div class="slideThree">
-							<input type="checkbox" value="<%= product.name %>_<%= identity_type %>" id="<%= product.name %>_<%= identity_type %>" name="product_<%= product.id %>" />
-							<label for="<%= product.name %>_<%= identity_type %>"></label>
-
-						</div>
-
-					</div>
-					<% else %>
-					<h3> Federated in <%= identity_type %></h3>
-					<% end %>
 				</div>
 			</div>
 		</div>
 	</div>
-	<% end %>
-	<% end %>
-
-	<input type="hidden" name="identity_type" value="<%= identity_type %>">
-	<input type="hidden" name="ci" value="<%= cloud_identity.id %>">
-
-	<%= submit_tag("Federate", :class => "btn btn-success") %>
-
-	<% end %>
 </div>
+<% end %>
+<% end %>
+
+<input type="hidden" name="identity_type" value="<%= identity_type %>">
+<input type="hidden" name="ci" value="<%= cloud_identity.id %>">
+
+<div class="row-fluid">
+	<div class="span4"></div>
+	<div class="span5">
+		</br>
+		<%= submit_tag("Federate", :class => "btn btn-success") %>
+	</div>
+</div>
+<% end %>
+
