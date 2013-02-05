@@ -18,6 +18,6 @@ ActionMailer::Base.smtp_settings = {
   :password       => "team4megam",
   :authentication => :plain
 }
-ActionMailer::Base.default_url_options[:host] = "localhost:3000"
-
+#ActionMailer::Base.default_url_options[:host] = "localhost:3000"
+ActionMailer::Base.default_url_options[:host] = "http://thawing-woodland-9218.herokuapp.com/"
 #script/generate mailer UserMailer
