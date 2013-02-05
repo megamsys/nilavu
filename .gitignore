@@ -18,7 +18,7 @@
 *~
 
 # Ignore all files which ends with lock
-*.lock
+
 
 # Ignore all files under metadata
 .metadata
