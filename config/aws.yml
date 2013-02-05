@@ -1,0 +1,34 @@
+#This file is needed for AWS s3
+staging:
+  bucket: megam
+  use_ssl: false
+  access_key_id: AKIAJHENLMZT7TBPVMZQ
+  secret_access_key: 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
+  #dynamo_db_endpoint: dynamodb.ap-southeast-1.amazonaws.com # Set the regional endpoint
+
+production:
+  bucket: megam
+  use_ssl: false
+  access_key_id: AKIAJHENLMZT7TBPVMZQ
+  secret_access_key: 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
+  dynamo_db_endpoint: localhost
+  dynamo_db_port: 4567
+  #dynamo_db_endpoint: dynamodb.ap-southeast-1.amazonaws.com # Set the regional endpoint
+
+
+development:
+
+  bucket: megam
+  use_ssl: false
+  access_key_id: AKIAJHENLMZT7TBPVMZQ
+  secret_access_key: 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
+  dynamo_db_endpoint: localhost
+  dynamo_db_port: 4567
+  #dynamo_db_endpoint: dynamodb.ap-southeast-1.amazonaws.com # Set the regional endpoint
+
+test:
+  bucket: megam
+  use_ssl: false
+  access_key_id: AKIAJHENLMZT7TBPVMZQ
+  secret_access_key: 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
+
