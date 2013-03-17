@@ -1,18 +1,17 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.11'
-
+gem 'rails', '3.2.12'
 # Bleeding edge : Rails 4.0 :
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
+#gem "rails", "~> 4.0.0.beta1"
 
 #JQuery rails, other jquery scripts
-gem 'jquery-rails','2.2.0'
+gem 'jquery-rails','2.2.1'
 gem 'jquery-ui-rails'
 gem 'execjs','1.4.0'
 gem 'jquery-datatables-rails'
 gem "flot-rails", "~> 0.0.2"
 gem "gritter", "~> 1.0.3"
-# Database posgresql 
+# Database posgresql
 gem 'pg', '0.14.1'
 # OAuth authentication to twitter, facebook, openid using omniauth
 gem 'omniauth-twitter','0.0.14'
@@ -21,18 +20,17 @@ gem 'omniauth-openid','1.0.1'
 gem 'will_paginate','3.0.4'
 gem 'bootstrap-will_paginate','0.0.9'
 gem 'rest-client','1.6.7'
-gem 'grape','0.2.6'
-gem 'paperclip','3.4.0'
-gem "aws-sdk", "~> 1.8.1.1"
-gem 'high_voltage','1.2.1'
+gem 'grape','0.3.1'
+gem 'paperclip','3.4.1'
+gem "aws-sdk", "~> 1.8.3.1"
+gem 'high_voltage','1.2.2'
 gem "therubyracer", :require => 'v8',:platforms => :ruby
 gem 'stomp', '~> 1.2.8'
 gem "dynamoid", '0.6.1'
-gem "json", '~> 1.7.6'
+gem "json", '~> 1.7.7'
 gem 'fake_dynamo', '~> 0.1.1'
 gem "breadcrumbs_on_rails"
 gem "randexp", "~> 0.1.7"
-
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', :require => 'bcrypt'
@@ -42,6 +40,10 @@ gem 'bcrypt-ruby', :require => 'bcrypt'
 # in production environments by default.
 group :assets do
   gem 'twitter-bootstrap-rails'
+  # supporting rails 4.0
+  #gem "sass-rails", "~> 4.0.0.beta1"
+  #gem "coffee-rails", "~> 4.0.0.beta1"
+
   gem 'sass-rails','3.2.6'
   gem 'coffee-rails','3.2.2'
   gem "less-rails", "~> 2.2.6"
@@ -59,7 +61,7 @@ group :test do
 end
 
 group :test, :development do
-  gem "rspec-rails", "~> 2.12.2"
+  gem "rspec-rails", "~> 2.13.0"
 end
 
 # To use Jbuilder templates for JSON
