@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
-# Bleeding edge : Rails 4.0 :
+gem 'rails', '3.2.13'
+# Bleeding edge : Rails 4.0 : This has problems due to Dynamoid not support Observers.
+# Somebody is free to sent a pull request.
 #gem "rails", "~> 4.0.0.beta1"
 
 #JQuery rails, other jquery scripts
@@ -19,18 +20,16 @@ gem 'omniauth-facebook','1.4.1'
 gem 'omniauth-openid','1.0.1'
 gem 'will_paginate','3.0.4'
 gem 'bootstrap-will_paginate','0.0.9'
-gem 'rest-client','1.6.7'
-gem 'grape','0.3.1'
 gem 'paperclip','3.4.1'
-gem "aws-sdk", "~> 1.8.3.1"
+gem "aws-sdk", "~> 1.8.5"
 gem 'high_voltage','1.2.2'
 gem "therubyracer", :require => 'v8',:platforms => :ruby
-gem 'stomp', '~> 1.2.8'
 gem "dynamoid", '0.6.1'
-gem "json", '~> 1.7.7'
 gem 'fake_dynamo', '~> 0.1.1'
 gem "breadcrumbs_on_rails"
 gem "randexp", "~> 0.1.7"
+#For background processing of cloud jobs
+gem 'resque'
 
 # To use ActiveModel has_secure_password
 gem 'bcrypt-ruby', :require => 'bcrypt'
@@ -46,7 +45,7 @@ group :assets do
 
   gem 'sass-rails','3.2.6'
   gem 'coffee-rails','3.2.2'
-  gem "less-rails", "~> 2.2.6"
+  gem "less-rails", "~> 2.3.2"
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer'
@@ -58,10 +57,14 @@ group :test do
   gem 'capybara','2.0.2'
   gem 'factory_girl_rails'
   gem 'cucumber-rails', :require => false
+  gem "rspec-rails", "~> 2.13.0"
 end
 
-group :test, :development do
+group :development do
   gem "rspec-rails", "~> 2.13.0"
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'meta_request'
 end
 
 # To use Jbuilder templates for JSON
