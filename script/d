@@ -124,7 +124,7 @@ help(){
 exitScript 0
 }
 #--------------------------------------------------------------------------
-# verify the installation
+# status the installation
 # this pretty much dumps the environment variables., java path and arguments
 #-------------------------------------------------------------------------
 status(){
@@ -203,7 +203,7 @@ mystuff(){
 		git push master
 		echo "========================================================="
 	fi
-	verify
+	status
 	exitScript 1
 }
 #--------------------------------------------------------------------------
@@ -233,7 +233,7 @@ origin_stuff(){
 		git push origin
 		echo "========================================================="
 	fi
-	verify
+	status
 	exitScript 1
 }
 #--------------------------------------------------------------------------
@@ -299,7 +299,7 @@ finish(){
 			git push -u origin $NIL_GIT_COMMIT_MASTER/master
 			echo "========================================================="
 		fi
-	verify
+	status
 	exitScript 0
 	fi
 }
