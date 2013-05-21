@@ -254,7 +254,7 @@ body {
 	position: absolute;
 }
 .features_page .feature2 .icon i {
-	background: url('../img/features_icons.png') no-repeat;
+	background: url('icons.png') no-repeat;
 	display: block;
 	position: relative;
 }

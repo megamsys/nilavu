@@ -9,60 +9,60 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130108105504) do
+ActiveRecord::Schema.define(version: 20130108105504) do
 
-  create_table "apps_items", :force => true do |t|
+  create_table "apps_items", force: true do |t|
     t.integer  "users_id"
     t.integer  "cloud_identity_id"
     t.integer  "product_id"
     t.string   "app_name"
     t.string   "my_url"
     t.string   "federated_identity_type"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "apps_items", ["cloud_identity_id"], :name => "index_apps_items_on_cloud_identity_id"
-  add_index "apps_items", ["product_id"], :name => "index_apps_items_on_product_id"
-  add_index "apps_items", ["users_id"], :name => "index_apps_items_on_users_id"
+  add_index "apps_items", ["cloud_identity_id"], name: "index_apps_items_on_cloud_identity_id", using: :btree
+  add_index "apps_items", ["product_id"], name: "index_apps_items_on_product_id", using: :btree
+  add_index "apps_items", ["users_id"], name: "index_apps_items_on_users_id", using: :btree
 
-  create_table "cloud_identities", :force => true do |t|
+  create_table "cloud_identities", force: true do |t|
     t.string   "url"
     t.string   "account_name"
     t.string   "cloud_app_url"
     t.integer  "users_id"
     t.string   "status"
     t.string   "launch_time"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "cloud_identities", ["users_id"], :name => "index_cloud_identities_on_users_id"
+  add_index "cloud_identities", ["users_id"], name: "index_cloud_identities_on_users_id", using: :btree
 
-  create_table "cloud_runs", :force => true do |t|
+  create_table "cloud_runs", force: true do |t|
     t.string   "name"
     t.integer  "users_id"
     t.string   "description"
     t.string   "log"
     t.string   "status"
     t.string   "launch_time"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  create_table "identities", :force => true do |t|
+  create_table "identities", force: true do |t|
     t.integer  "users_id"
     t.string   "provider"
     t.string   "uid"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "identities", ["users_id"], :name => "index_identities_on_users_id"
+  add_index "identities", ["users_id"], name: "index_identities_on_users_id", using: :btree
 
-  create_table "organizations", :force => true do |t|
+  create_table "organizations", force: true do |t|
     t.string   "name"
     t.boolean  "active"
     t.string   "url"
@@ -72,44 +72,44 @@ ActiveRecord::Schema.define(:version => 20130108105504) do
     t.string   "billing_city"
     t.string   "billing_state"
     t.string   "billing_country"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
   end
 
-  create_table "products", :force => true do |t|
+  create_table "products", force: true do |t|
     t.string  "name"
     t.string  "description"
     t.string  "url"
     t.string  "image_url"
     t.string  "category"
     t.string  "identity"
-    t.boolean "app_bootstrap",    :default => true
+    t.boolean "app_bootstrap",    default: true
     t.boolean "app_provisioning"
   end
 
-  create_table "users", :force => true do |t|
+  create_table "users", force: true do |t|
     t.integer  "org_id"
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
     t.string   "phone"
-    t.boolean  "admin",             :default => true
+    t.boolean  "admin",             default: true
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "verified_email",    :default => false
+    t.boolean  "verified_email",    default: false
     t.string   "verification_hash"
     t.string   "user_type"
     t.string   "api_token"
-    t.datetime "created_at",                           :null => false
-    t.datetime "updated_at",                           :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["org_id"], :name => "index_users_on_org_id"
-  add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["org_id"], name: "index_users_on_org_id", using: :btree
+  add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
 
 end
