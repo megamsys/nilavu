@@ -7,6 +7,22 @@ Cloudauth::Application.routes.draw do
   get "connector_actions/create"
   get "users/show"
   get "users/dashboard"
+  
+  # ======Users Controller
+  match '/signup', to: 'users#new', via: [:get, :post]
+  match '/forgot', to: 'users#forgot', via: [:get]
+  match '/update', to: 'users#update', via: [:post]
+  match '/edit', to: 'users#edit',via: [:get]
+  match '/dashboard', to: 'users#dashboard',via: [:get]
+  match '/upgrade', to: 'users#upgrade', via: [:post]
+  match '/email_verify', to: 'users#email_verify',via: [:post]
+  match '/verified_email', to: 'users#verified_email', via: [:get]
+
+  match '/signin', to: 'sessions#new', via: [:get]
+  get "signout" => "sessions#destroy", :as => "signout", via: [:post]
+  match '/signout', to: 'sessions#destroy', via: :delete
+
+  match '/auth/:provider/callback', :to => 'sessions#create', via: [:post]
 
 
 
@@ -55,20 +71,6 @@ Cloudauth::Application.routes.draw do
   resources :connector_executions
   resources :cloud_run
 
-#	======Users Controller
-  match '/signup', to: 'users#new', via: [:get, :post]
-  match '/forgot', to: 'users#forgot', via: [:get]
-  match '/update', to: 'users#update', via: [:post]
-  match '/edit', to: 'users#edit',via: [:get, :post]
-  match '/dashboard', to: 'users#dashboard',via: [:get]
-  match '/upgrade', to: 'users#upgrade', via: [:post]
-  match '/email_verify', to: 'users#email_verify',via: [:post]
-  match '/verified_email', to: 'users#verified_email', via: [:get]
 
-  match '/signin', to: 'sessions#new', via: [:get]
-  get "signout" => "sessions#destroy", :as => "signout", via: [:post]
-  match '/signout', to: 'sessions#destroy', via: :delete
-
-  match '/auth/:provider/callback', :to => 'sessions#create', via: [:post]
 
 end
