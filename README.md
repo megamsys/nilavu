@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/indykish/nilavu.png?branch=master)](https://travis-ci.org/indykish/nilavu)
 
-Nilavu is a [Rails4](http://edgeguides.rubyonrails.org/) based [Megam's](http://www.megam.co)'s SaaS portal. We named it in dialect Tamil, which means "moon".
+Nilavu is a [Rails4](http://edgeguides.rubyonrails.org/) based [Megam's](http://www.megam.co) SaaS portal. We named it in dialect Tamil, which means "moon".
 
 Nilavu supports the following basic features:
 
@@ -14,7 +14,8 @@ Nilavu supports the following basic features:
   [Measure](http://bit.ly/UDywP8) bought from [wrapbootstrap.com](http://wrapbootstrap.com) for the main pages. 
   [Unicorn](http://bit.ly/RpG9bh) bought from [wrapbootstrap.com](http://wrapbootstrap.com) for the dashboard.
 
-We only have a `single user license`, Anybody who `forks this code shall buy a license` to use it for their own need.
+This cod uses a `single user license` of the above themes. Anybody who `forks this code shall buy a 
+license` to use it for their own need.
 
 * UI for Cloud management approach using [megam_api](https://github.com/indykish/megam_api.git) which interfaces to 
   [megam_play](https://github.com/indykish/megam_play.git)
@@ -25,15 +26,14 @@ We only have a `single user license`, Anybody who `forks this code shall buy a l
 
 ### Requirements
 
-> 
-[Postgres 9.1 +](http://postgresql.org)
-[Ruby 2.0]http://ruby-lang.org)
-[Rails 4](http://edgeguides.rubyonrails.org/4_0_release_notes.html)
+> [Postgres 9.1 +](http://postgresql.org)
+> [Ruby 2.0]http://ruby-lang.org)
+> [Rails 4](http://edgeguides.rubyonrails.org/4_0_release_notes.html)
 
 
 ### Tested on Ubuntu 12.10, 13.04, AWS - EC2
 
-## Getting Started
+### Getting Started
 
 * Register here [http://www.megam.co](http://www.megam.co) - We'll launch soon.
 
