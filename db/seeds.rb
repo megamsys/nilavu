@@ -16,6 +16,7 @@ open("config/products_seed.data") do |products|
 end
 puts "== Products: loaded"
 
+=begin
 puts "NOTICE: fake_dynamo[rvmsudo fake_dynamo --port 4567] should be running."
 puts "==  DynamoDB: deleting:"
 
@@ -78,6 +79,6 @@ puts "-- ConnectorOutput    : created"
 ce = ConnectorExecution.create_table
 puts "-- ConnectorExecution : created"
 puts "==  DynamoDB: created"
-
+=end
 
 #Fixtures.create_fixtures("#{Rails.root}/test/fixtures", "product")

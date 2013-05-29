@@ -7,40 +7,57 @@ Cloudauth::Application.routes.draw do
   get "connector_actions/create"
   get "users/show"
   get "users/dashboard"
+  
+  # ======Users Controller
+  match '/signup', to: 'users#new', via: [:get, :post]
+  match '/forgot', to: 'users#forgot', via: [:get]
+  match '/update', to: 'users#update', via: [:post]
+  match '/edit', to: 'users#edit',via: [:get]
+  match '/dashboard', to: 'users#dashboard',via: [:get]
+  match '/upgrade', to: 'users#upgrade', via: [:post]
+  match '/email_verify', to: 'users#email_verify',via: [:post]
+  match '/verified_email', to: 'users#verified_email', via: [:get]
+
+  match '/signin', to: 'sessions#new', via: [:get]
+  get "signout" => "sessions#destroy", :as => "signout", via: [:post]
+  match '/signout', to: 'sessions#destroy', via: :delete
+
+  match '/auth/:provider/callback', :to => 'sessions#create', via: [:post]
 
 
 
 # 	=======Cloud_identity controller
-  match '/federate', to: 'cloud_identities#federate'
-  match '/cloud_identities/destroy', to: 'cloud_identities#destroy'
-  match '/newidentity', to: 'cloud_identities#new_identity'
-  match '/go_identity', to: 'cloud_identities#go_identity'
+
+  get '/federate', to: 'cloud_identities#federate'
+  match '/cloud_identities/destroy', to: 'cloud_identities#destroy', via: :delete
+  match '/newidentity', to: 'cloud_identities#new_identity', via: [:post]
+  get  '/go_identity' => 'cloud_identities#go_identity'
 
 # 	=======Cloud Run
-  match '/running_cloud', to: 'cloud_run#running_cloud'
+  get '/running_cloud' => 'cloud_run#running_cloud'
 
 # 	=======Billing conreoller
-  match '/pricing', to: 'billing#pricing'
-  match '/account', to: 'billing#account'
-  match '/history', to: 'billing#history'
+  get  '/pricing' => 'billing#pricing'
+  get  '/account' => 'billing#account'
+  get  '/history' => 'billing#history'
 
 # 	=======apps_items_controller
-  match '/apps_items/destroy', to: 'apps_items#destroy'
+  match '/apps_items/destroy', to: 'apps_items#destroy', via: :delete
 
 # 	=======Connector_project_controller
-  match '/connector_project/destroy', to: 'connector_projects#destroy'
-  match '/connector_project/create', to: 'connector_projects#create'
-  match '/connector_project/upload', to: 'connector_projects#upload'
-  match '/connector_project/import', to: 'connector_projects#import'
-  match '/connector_execution/export', to: 'connector_executions#export'
-  match '/connector_execution/execute', to: 'connector_executions#execute'
+#  match '/connector_project/destroy', to: 'connector_projects#destroy'
+#  match '/connector_project/create', to: 'connector_projects#create'
+#  match '/connector_project/upload', to: 'connector_projects#upload'
+#  match '/connector_project/import', to: 'connector_projects#import'
+#  match '/connector_execution/export', to: 'connector_executions#export'
+#  match '/connector_execution/execute', to: 'connector_executions#execute'
 
 
 # 	=======Sample pages
-  match 'pages/get_started' => 'high_voltage/pages#show', :id => 'get_started'
-  match 'pages/features' => 'high_voltage/pages#show', :id => 'features'
-  match 'pages/about' => 'high_voltage/pages#show', :id => 'about'
-  match 'pages/contribute' => 'high_voltage/pages#show', :id => 'contribute'
+  get 'pages/get_started' => 'high_voltage/pages#show', :id => 'get_started'
+  get 'pages/features' => 'high_voltage/pages#show', :id => 'features'
+  get 'pages/about' => 'high_voltage/pages#show', :id => 'about'
+  get 'pages/contribute' => 'high_voltage/pages#show', :id => 'contribute'
 
   resources :users
   resources :sessions
@@ -54,20 +71,6 @@ Cloudauth::Application.routes.draw do
   resources :connector_executions
   resources :cloud_run
 
-#	======Users Controller
-  match '/signup', to: 'users#new'
-  match '/forgot', to: 'users#forgot'
-  match '/update', to: 'users#update'
-  match '/edit', to: 'users#edit'
-  match '/dashboard', to: 'users#dashboard'
-  match '/upgrade', to: 'users#upgrade'
-  match '/email_verify', to: 'users#email_verify'
-  match '/verified_email', to: 'users#verified_email'
 
-  match '/signin', to: 'sessions#new'
-  get "signout" => "sessions#destroy", :as => "signout"
-  match '/signout', to: 'sessions#destroy', via: :delete
-
-  match '/auth/:provider/callback', :to => 'sessions#create'
 
 end
