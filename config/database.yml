@@ -8,8 +8,11 @@ development:
   encoding: unicode
   database: cocdb
   pool: 5
-  username: megam
-  password: team4megam
+  #username: megam
+  username: postgres
+  password: 3ec4036a9c2e75778a63011ca1d47079
+  host: ec2-54-251-206-6.ap-southeast-1.compute.amazonaws.com
+  port: 5432
 
   bucket: megam
   use_ssl: false

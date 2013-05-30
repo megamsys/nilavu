@@ -4,16 +4,16 @@ staging:
   use_ssl: false
   access_key_id: AKIAJHENLMZT7TBPVMZQ
   secret_access_key: 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
-  dynamo_db_endpoint: dynamodb.ap-southeast-1.amazonaws.com # Set the regional endpoint
+  #dynamo_db_endpoint: dynamodb.ap-southeast-1.amazonaws.com # Set the regional endpoint
 
 production:
   bucket: megam
   use_ssl: false
   access_key_id: AKIAJHENLMZT7TBPVMZQ
   secret_access_key: 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
-  #dynamo_db_endpoint: localhost
+  dynamo_db_endpoint: localhost
   dynamo_db_port: 4567
-  dynamo_db_endpoint: dynamodb.ap-southeast-1.amazonaws.com # Set the regional endpoint
+  #dynamo_db_endpoint: dynamodb.ap-southeast-1.amazonaws.com # Set the regional endpoint
 
 
 development:
@@ -22,9 +22,9 @@ development:
   use_ssl: false
   access_key_id: AKIAJHENLMZT7TBPVMZQ
   secret_access_key: 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
-  #dynamo_db_endpoint: localhost
+  dynamo_db_endpoint: localhost
   dynamo_db_port: 4567
-  dynamo_db_endpoint: dynamodb.ap-southeast-1.amazonaws.com # Set the regional endpoint
+  #dynamo_db_endpoint: dynamodb.ap-southeast-1.amazonaws.com # Set the regional endpoint
 
 test:
   bucket: megam
