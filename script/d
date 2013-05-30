@@ -46,48 +46,52 @@ NIL_GIT_COMMIT_MASTER=$2
 for item in "$@"
 do
     case $item in
-        --[hH][eE][lL][pP])
+        [hH][eE][lL][pP])
             help
             ;;
-	--[lL][uU][dD])
+	[lL][uU][dD])
 	licenseupd
 	;;
 	('/?')
             help
             ;;
-            --[mM][yY])
+           [mM][yY])
 	    echo "Howdy $NIL_GIT_MASTER. Enjoy committing local to <master> - Github..."
             mystuff
             ;;
-            --[oO][mM][yY])
+            [oO][mM][yY])
 	    echo "Howdy $NIL_GIT_ORIGIN. Enjoy committing local to <origin> - Github..."
             origin_stuff
             ;;
-            --[uU][pP][dD])
+            [uU][pP][dD])
 	    echo "Howdy $NIL_GIT_MASTER.enjoy merging <origin> to local..."
             uptodate
             ;;
-            --[fF][iI][nN][iI][sS][hH])
+            [fF][iI][nN][iI][sS][hH])
             finish
             ;;
-         --[cC][lL][eE][aA][nN])
+         [cC][lL][eE][aA][nN])
 	    echo "Cleaning up tmp and assets..."
             clean
 		exitScript 0
             ;;
- 	--[pP][rR][eE][cC][oO][mM])
+ 	[pP][rR][eE][cC][oO][mM])
 	    echo "Cleaning up tmp and assets, precompiling..."
             precom
             ;;
- 	--[dD][bB][cC][lL][eA][aA][nN])
+ 	[dD][bB][cC][lL][eA][aA][nN])
 	    echo "Cleaning up db..."
             dbclean
             ;;
-        --[vV][eE][rR][sS][iI][oO][nN])
+	'dbinit')
+	    echo "Initializing db..."
+            dbinit
+            ;;
+        [vV][eE][rR][sS][iI][oO][nN])
 	   version
             ;;
-        '--verify')
-	   verify
+        'status')
+	   status
             ;;
         *)
 	    echo "Unknown option : $item - refer help."
@@ -104,25 +108,26 @@ done
 #--------------------------------------------------------------------------
 help(){
     echo "Usage : d.sh [Options]"
-    echo "--help     : prints the help message."
-    echo "--verify   : does a git status."
-    echo "--lud      : does a insert of License file into your code."
-    echo "--my       : does a add, commit and push of my master."
-    echo "--omy      : does a add, commit and push to origin."
-    echo "--upd      : does a fetch from origing and merge to my master."
-    echo "--finish   : does a push of anothers users master to origin"
-    echo "             (committer only)"
-    echo "--clean    : cleans up the temp files."
-    echo "--precom   : cleans up the temp files and precompiles asset."
-    echo "--dbclean  : cleans up the db."
+    echo "help     : prints the help message."
+    echo "status   : does a git status."
+    echo "lud      : does a insert of License file into your code."
+    echo "my       : does a add, commit and push of my master."
+    echo "omy      : does a add, commit and push to origin."
+    echo "upd      : does a fetch from origing and merge to my master."
+    echo "finish   : does a push of anothers users master to origin"
+    echo "           (committer only)"
+    echo "clean    : cleans up the temp files."
+    echo "precom   : cleans up the temp files and precompiles asset."
+    echo "dbinit   : initializes your database."
+    echo "dbclean  : cleans up the db. (*valid on an existing setup system)" 
 
 exitScript 0
 }
 #--------------------------------------------------------------------------
-# verify the installation
+# status the installation
 # this pretty much dumps the environment variables., java path and arguments
 #-------------------------------------------------------------------------
-verify(){
+status(){
 	echo "========================================================="
 	printf "%-20s=>\t%s\n" git remote
 	echo "========================================================="
@@ -198,7 +203,7 @@ mystuff(){
 		git push master
 		echo "========================================================="
 	fi
-	verify
+	status
 	exitScript 1
 }
 #--------------------------------------------------------------------------
@@ -228,7 +233,7 @@ origin_stuff(){
 		git push origin
 		echo "========================================================="
 	fi
-	verify
+	status
 	exitScript 1
 }
 #--------------------------------------------------------------------------
@@ -294,7 +299,7 @@ finish(){
 			git push -u origin $NIL_GIT_COMMIT_MASTER/master
 			echo "========================================================="
 		fi
-	verify
+	status
 	exitScript 0
 	fi
 }
@@ -319,7 +324,6 @@ then
 rm -r public/system
 fi
 
-
 }
 #
 #
@@ -338,6 +342,58 @@ rake assets:clean
 rake tmp:clear
 rake assets:precompile
 exitScript 0
+}
+#
+#
+#
+#--------------------------------------------------------------------------
+#This command will automatically bring up the required migration versions and bring it up.
+#Run it the first time.
+#--------------------------------------------------------------------------
+dbinit(){
+		echo    "========================================================="
+		echo -n "!!! Do you want to init(drop & recreate) your db [y/n]? "
+		read -n 1 initdb
+		echo
+	
+		if [[ $initdb =~ ^[Yy]$ ]]
+		then
+		echo "========================================================="
+		# As a super user, to list all of the open connections to the cocdb database
+		psql -U postgres -c "select * from pg_stat_activity where datname='cocdb'"
+		# As a superuser, to drop all of the open connections to the cocdb database
+		psql -U postgres -c "select pg_terminate_backend(procpid) from pg_stat_activity where datname='cocdb'"
+		# Drop cocdb
+		psql -U postgres -c "drop database cocdb"
+		# Create cocdb
+		psql -U postgres -c "create database cocdb"
+		#Grant all privileges on cocdb to user megam, postgres
+		psql -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE cocdb to postgres"
+		psql -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE cocdb to megam"
+
+		#create users
+		rake db:migrate:up VERSION=20120319153913
+		#create identities
+		rake db:migrate:up VERSION=20120319154255
+		#create organization
+		rake db:migrate:up VERSION=20120811145124
+		#alter organization - logo
+		rake db:migrate:up VERSION=20120811145726
+		#create cloud_identities
+		rake db:migrate:up VERSION=20120817045502
+		#create apps_items
+		rake db:migrate:up VERSION=20120824094944
+		#create products
+		rake db:migrate:up VERSION=20120829143151
+		#create cloud_runs
+		rake db:migrate:up VERSION=20130108105504
+
+		rake db:seed
+
+		fi
+
+
+	exitScript 0
 }
 #
 #
