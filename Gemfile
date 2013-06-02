@@ -28,9 +28,9 @@ gem 'omniauth-openid','1.0.1'
 
 gem 'will_paginate','3.0.4'
 gem 'bootstrap-will_paginate','0.0.9'
-gem 'paperclip','3.4.1'
-gem "aws-sdk", "~> 1.9.5"
-gem 'high_voltage','1.2.2'
+gem 'paperclip','3.4.2'
+gem "aws-sdk", "~> 1.11.0"
+gem 'high_voltage',:git => 'https://github.com/thoughtbot/high_voltage.git'
 gem "therubyracer", :require => 'v8',:platforms => :ruby
 
 gem "breadcrumbs_on_rails"
@@ -77,14 +77,6 @@ group :development do
   gem 'meta_request'
 end
 
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# Use unicorn as the web server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'

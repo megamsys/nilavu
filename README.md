@@ -14,7 +14,7 @@ Nilavu supports the following basic features:
   [Measure](http://bit.ly/UDywP8) bought from [wrapbootstrap.com](http://wrapbootstrap.com) for the main pages. 
   [Unicorn](http://bit.ly/RpG9bh) bought from [wrapbootstrap.com](http://wrapbootstrap.com) for the dashboard.
 
-This cod uses a `single user license` of the above themes. Anybody who `forks this code shall buy a 
+This code uses a `single user license` of the above themes. Anybody who `forks this code shall buy a 
 license` to use it for their own need.
 
 * UI for Cloud management approach using [megam_api](https://github.com/indykish/megam_api.git) which interfaces to 

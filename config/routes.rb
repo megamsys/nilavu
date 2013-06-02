@@ -1,7 +1,6 @@
 Cloudauth::Application.routes.draw do
 
   root :to => 'high_voltage/pages#show', :id => 'home'
-
   get "customizations/refresh"
   get "connector_actions/new"
   get "connector_actions/create"
@@ -28,7 +27,7 @@ Cloudauth::Application.routes.draw do
 
 # 	=======Cloud_identity controller
 
-  get '/federate', to: 'cloud_identities#federate'
+  match '/federate', to: 'cloud_identities#federate', via: [:post]
   match '/cloud_identities/destroy', to: 'cloud_identities#destroy', via: :delete
   match '/newidentity', to: 'cloud_identities#new_identity', via: [:post]
   get  '/go_identity' => 'cloud_identities#go_identity'

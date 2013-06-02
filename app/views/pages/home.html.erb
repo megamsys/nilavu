@@ -10,14 +10,14 @@
 						<div class="active item slide1">
 							<div class="row">
 								<div class="span6">
-									<img src="/assets/slide1.png" alt="slide1" />
+									<%= image_tag "slide1.png", :alt => "slide 1"%>
 								</div>
 								<div class="span4">
-									<h1> Responsive and Clean Wrapbootstrap Theme </h1>
+									<h1> Code to Cloud </h1>
 									<p>
-										There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look.
+										Minutes to establish a Cloud Identity. Your code in Ruby, Java, NodeJs, Play, Akka and several others in cloud.
 									</p>
-									<a href="https://wrapbootstrap.com/theme/measure-responsive-business-theme-WB0D95984" class="btn btn-success btn-large"> Get Measure Now! </a>
+									<%= link_to "Get Started Now!",   page_path("get_started"), :class=>"btn btn-success btn-large" %>
 								</div>
 							</div>
 						</div>
@@ -25,20 +25,26 @@
 						<div class="item slide2">
 							<div class="row">
 								<div class="span4 animated fadeInUpBig">
-									<h1>Fully responsive blog template</h1>
+									<h1>Live Cloud Ready</h1>
 									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nisi ut aliquip ex ea commodo consequat.
+										Want to federate your Cloud Identity with your Cloud Applications ? {Salesforce, GoogleApp, SugarCRM, Liferay}
 									</p>
-									<a href="blog.html" class="btn btn-success btn-large"> Watch it now! </a>
+									<%= link_to "Get Started Now!",   page_path("get_started"), :class=>"btn btn-success btn-large" %>
+									<p>
+										<iframe src="http://player.vimeo.com/video/38514156" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+
+										<a href="http://vimeo.com/38514156">Megam Platform - What is it ?</a> on <a href="http://vimeo.com">Vimeo</a>.
+									</p>
+
 								</div>
 								<div class="span6 animated fadeInDownBig">
-									<img src="/assets/slide2.png" alt="slide2" />
+									<%= image_tag "slide2.png", :alt => "slide "%>
 								</div>
 							</div>
 						</div>
 						<!-- slide -->
 						<div class="item slide3 animated fadeInUpBig">
-							<img src="/assets/slide3.png" alt="slide3" />
+							<%= image_tag "slide3.png", :alt => "slider 3"%>
 						</div>
 					</div>
 					<!-- Carousel nav -->

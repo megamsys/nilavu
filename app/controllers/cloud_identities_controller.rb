@@ -1,4 +1,3 @@
-#require 'ironfist_client'
 class CloudIdentitiesController < ApplicationController
   respond_to :html, :js
 
@@ -8,19 +7,13 @@ class CloudIdentitiesController < ApplicationController
   end
 
   def new_identity
-    #@ironclient = Ironclient.new
     sleep 1
     logger.debug ">>> Parms #{params}"
     logger.debug ">>> Parms data #{params[:data]}"
 
-    ir = IronfistClient.new
     tempparms = {:agent => "CloudIdentityAgent", :command => "listRealms", :message => "URL=http://nomansland.com REALM_NAME=temporealm"}
 
-    #ir.pub_and_wait(Ironfist::Init.instance.connection, tempparms,0) do |resp|
-    # puts "result #{resp}"
-    #end
 
-    ir.fake
     @cloud_identity = current_user.cloud_identities.create(:account_name => params[:account_name], :url => "www.google.co.in")
     if @cloud_identity.save
       flash[:alert] = "Cloud_Identity created with account_name #{@cloud_identity.account_name}"
@@ -46,10 +39,8 @@ class CloudIdentitiesController < ApplicationController
     hash_all = sum.to_json
     logger.debug "Full JSON #{hash_all}"
 
-    ir = IronfistClient.new
     tempparms = {:agent => "CloudIdentityAgent", :command => "listRealms", :message => "URL=http://nomansland.com REALM_NAME=temporealm"}
 
-    ir.fake
     @identity_type = params[:identity_type]
 
     params.each do |key,value|
