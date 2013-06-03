@@ -22,7 +22,7 @@ Cloudauth::Application.routes.draw do
   get "signout" => "sessions#destroy", :as => "signout", via: [:post]
   match '/signout', to: 'sessions#destroy', via: :delete
 
-  match '/auth/:provider/callback', :to => 'sessions#create', via: [:get]
+  match '/auth/:provider/callback', :to => 'sessions#create', via: [:post]
 
 
 

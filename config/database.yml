@@ -8,17 +8,14 @@ development:
   encoding: unicode
   database: cocdb
   pool: 5
-  #username: megam
-  username: postgres
-  password: 3ec4036a9c2e75778a63011ca1d47079
-  host: ec2-54-251-206-6.ap-southeast-1.compute.amazonaws.com
-  port: 5432
+  username: megam
+  password: team4megam
 
   bucket: megam
   use_ssl: false
   dynamo_db_endpoint: localhost
-  access_key_id: AKIAJHENLMZT7TBPVMZQ
-  secret_access_key: 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
+  access_key_id: AKIAJQYJB7IUCXKWIF4A
+  secret_access_key: 5CThMfu6BL9iSniO2EnwbPh1sZs9MLBzq+efobSo 
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -32,8 +29,8 @@ test:
   password: team4megam
   
   bucket: megam
-  access_key_id: AKIAJHENLMZT7TBPVMZQ
-  secret_access_key: 1RU6UaD/QaQFSeV2wwqXjDJGZ+rddJ7N8vyZD3dN
+  access_key_id: AKIAJQYJB7IUCXKWIF4A
+  secret_access_key: 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
 
 
 production:
@@ -45,8 +42,8 @@ production:
   password: team4megam
 
   bucket: megam
-  access_key_id: AKIAJHENLMZT7TBPVMZQ
-  secret_access_key: 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
+  access_key_id: AKIAJQYJB7IUCXKWIF4A
+  secret_access_key: 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
 
  
 
