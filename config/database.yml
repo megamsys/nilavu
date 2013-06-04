@@ -42,6 +42,8 @@ production:
   pool: 5
   username: megam
   password: team4megam
+  host: postgres2.megam.co.in
+  port: 5432
 
   bucket: megam
   access_key_id: AKIAJQYJB7IUCXKWIF4A
