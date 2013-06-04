@@ -10,6 +10,8 @@ development:
   pool: 5
   username: megam
   password: team4megam
+  host: postgres2.megam.co.in
+  port: 5432
 
   bucket: megam
   use_ssl: false
