@@ -10,8 +10,9 @@ development:
   pool: 5
   username: megam
   password: team4megam
-  host: postgres2.megam.co.in
-  port: 5432
+  url: postgresql://megam:team4megam@localhost:5432/cocdb
+  #host: postgres2.megam.co.in
+  #port: 5432
 
   bucket: megam
   use_ssl: false
