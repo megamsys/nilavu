@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-# gem 'rails', '3.2.13'
-
 # Bleeding edge : Rails 4.0 
 gem "rails", "~> 4.0.0.rc1"
 # add these gems to help with the transition to Rails 4.0
@@ -11,7 +9,9 @@ gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
 
 #JQuery rails, other jquery scripts
+gem 'turbolinks'
 gem 'jquery-rails'
+gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
 gem 'execjs','1.4.0'
 gem 'jquery-datatables-rails'
@@ -55,12 +55,9 @@ group :assets do
   # supporting rails 4.0
   gem 'sass-rails',   '~> 4.0.0.rc1'
   gem 'coffee-rails', '~> 4.0.0'
-
-  #  gem 'sass-rails','3.2.6'
-  #  gem 'coffee-rails','3.2.2'
   gem "less-rails", "~> 2.3.3"
 
-   gem 'uglifier', '>= 2.1.0'
+   gem 'uglifier', '>= 2.1.1'
 end
 
 group :test do
