@@ -17,20 +17,5 @@
 # Ignore all files which ends with ~
 *~
 
-# Ignore all files which ends with lock
-*.lock
-
-# Ignore all files under metadata
-.metadata
-
-# Ignore all the config files except routes.rb and products_seed.rb
-/config/environments
-/config/initializers
-/config/locales
-/config/*.yml
-/config/application.rb
-/config/environment.rb
-/config/boot.rb
-/config/ironfist.cfg
 
 
