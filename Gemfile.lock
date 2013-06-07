@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/thoughtbot/high_voltage.git
+  revision: 5babcbd8258c2b4c1edcd5712a38c0023885ca5e
+  specs:
+    high_voltage (1.2.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -31,7 +37,7 @@ GEM
       tzinfo (~> 0.3.37)
     arel (4.0.0)
     atomic (1.1.9)
-    aws-sdk (1.9.5)
+    aws-sdk (1.11.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
@@ -92,7 +98,6 @@ GEM
       multi_json (~> 1.3)
     gritter (1.0.3)
     hashie (2.0.5)
-    high_voltage (1.2.2)
     hike (1.2.2)
     httpauth (0.2.0)
     i18n (0.6.4)
@@ -101,6 +106,9 @@ GEM
     jquery-rails (3.0.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
+    jquery-turbolinks (1.0.0)
+      railties (>= 3.1.0)
+      turbolinks
     jquery-ui-rails (4.0.3)
       jquery-rails
       railties (>= 3.1.0)
@@ -150,7 +158,7 @@ GEM
     omniauth-twitter (0.0.16)
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
-    paperclip (3.4.1)
+    paperclip (3.4.2)
       activemodel (>= 3.0.0)
       activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
@@ -238,6 +246,8 @@ GEM
     treetop (1.4.14)
       polyglot
       polyglot (>= 0.3.1)
+    turbolinks (1.2.0)
+      coffee-rails
     twitter-bootstrap-rails (2.2.6)
       actionpack (>= 3.1)
       execjs
@@ -259,7 +269,7 @@ PLATFORMS
 DEPENDENCIES
   actionpack-action_caching
   actionpack-page_caching
-  aws-sdk (~> 1.9.5)
+  aws-sdk (~> 1.11.0)
   bcrypt-ruby
   better_errors
   binding_of_caller
@@ -272,16 +282,17 @@ DEPENDENCIES
   factory_girl_rails
   flot-rails (~> 0.0.3)
   gritter (~> 1.0.3)
-  high_voltage (= 1.2.2)
+  high_voltage!
   jquery-datatables-rails
   jquery-rails
+  jquery-turbolinks
   jquery-ui-rails
   less-rails (~> 2.3.3)
   meta_request
   omniauth-facebook (= 1.4.1)
   omniauth-openid (= 1.0.1)
   omniauth-twitter (= 0.0.16)
-  paperclip (= 3.4.1)
+  paperclip (= 3.4.2)
   pg (= 0.15.1)
   protected_attributes
   rails (~> 4.0.0.rc1)
@@ -291,6 +302,7 @@ DEPENDENCIES
   rspec-rails (~> 2.13.1)
   sass-rails (~> 4.0.0.rc1)
   therubyracer
+  turbolinks
   twitter-bootstrap-rails
-  uglifier (>= 2.1.0)
+  uglifier (>= 2.1.1)
   will_paginate (= 3.0.4)
