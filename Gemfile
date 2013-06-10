@@ -29,7 +29,7 @@ gem 'omniauth-openid','1.0.1'
 gem 'will_paginate','3.0.4'
 gem 'bootstrap-will_paginate','0.0.9'
 gem 'paperclip','3.4.2'
-gem "aws-sdk", "~> 1.11.0"
+gem "aws-sdk"
 gem 'high_voltage',:git => 'https://github.com/thoughtbot/high_voltage.git'
 gem "therubyracer", :require => 'v8',:platforms => :ruby
 
