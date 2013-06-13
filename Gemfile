@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bleeding edge : Rails 4.0 
-gem "rails", "~> 4.0.0.rc1"
+gem "rails", "~> 4.0.0.rc2"
 # add these gems to help with the transition to Rails 4.0
 gem 'protected_attributes'
 gem 'rails-observers'
@@ -53,7 +53,7 @@ group :assets do
   gem 'twitter-bootstrap-rails'
 
   # supporting rails 4.0
-  gem 'sass-rails',   '~> 4.0.0.rc1'
+  gem 'sass-rails',   '~> 4.0.0.rc2'
   gem 'coffee-rails', '~> 4.0.0'
   gem "less-rails", "~> 2.3.3"
 
