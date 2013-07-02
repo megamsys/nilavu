@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Bleeding edge : Rails 4.0 
-gem "rails", "~> 4.0.0.rc1"
+gem "rails", "~> 4.0.0.rc2"
 # add these gems to help with the transition to Rails 4.0
 gem 'protected_attributes'
 gem 'rails-observers'
@@ -29,7 +29,7 @@ gem 'omniauth-openid','1.0.1'
 gem 'will_paginate','3.0.4'
 gem 'bootstrap-will_paginate','0.0.9'
 gem 'paperclip','3.4.2'
-gem "aws-sdk", "~> 1.11.0"
+gem "aws-sdk"
 gem 'high_voltage',:git => 'https://github.com/thoughtbot/high_voltage.git'
 gem "therubyracer", :require => 'v8',:platforms => :ruby
 
@@ -53,7 +53,7 @@ group :assets do
   gem 'twitter-bootstrap-rails'
 
   # supporting rails 4.0
-  gem 'sass-rails',   '~> 4.0.0.rc1'
+  gem 'sass-rails',   '~> 4.0.0.rc2'
   gem 'coffee-rails', '~> 4.0.0'
   gem "less-rails", "~> 2.3.3"
 
