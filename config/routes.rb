@@ -24,7 +24,9 @@ Cloudauth::Application.routes.draw do
 
   match '/auth/:provider/callback', :to => 'sessions#create', via: [:post]
 
-
+#   =======Cloud_books controller
+   get '/cloud_book_create' => 'cloud_books#create'
+   get '/predefs', to: 'cloud_books#predefs', via: [:post]
 
 # 	=======Cloud_identity controller
 
@@ -70,7 +72,7 @@ Cloudauth::Application.routes.draw do
   resources :connector_outputs
   resources :connector_executions
   resources :cloud_run
-
+  resources :cloud_books
 
 
 end
