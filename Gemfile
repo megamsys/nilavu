@@ -32,15 +32,14 @@ gem 'paperclip','3.4.2'
 gem "aws-sdk"
 gem 'high_voltage',"1.2.3"
 gem "therubyracer", :require => 'v8',:platforms => :ruby
-
 gem "breadcrumbs_on_rails"
 gem "randexp", "~> 0.1.7"
-
 #For background processing of cloud jobs
 gem 'resque'
 
-# To use ActiveModel has_secure_password
-gem 'bcrypt-ruby', :require => 'bcrypt'
+# To use ActiveModel has_secure_password there is a hard dependency to 3.0.0 version.
+# bummer.http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html
+gem 'bcrypt-ruby', '3.0.0',:require => 'bcrypt'
 
 # We may not use dynamodb. This isn't compatible with Rails4.0.
 # Removing it for now.
@@ -51,12 +50,10 @@ gem 'bcrypt-ruby', :require => 'bcrypt'
 # in production environments by default.
 group :assets do
   gem 'twitter-bootstrap-rails'
-
   # supporting rails 4.0
   gem 'sass-rails',   '~> 4.0.0'
   gem 'coffee-rails', '~> 4.0.0'
   gem "less-rails", "~> 2.3.3"
-
    gem 'uglifier', '>= 2.1.1'
 end
 
