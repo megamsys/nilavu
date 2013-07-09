@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
-# Bleeding edge : Rails 4.0 
-gem "rails", "~> 4.0.0.rc2"
+# Rails 4.0 
+gem "rails", "~> 4.0.0"
 # add these gems to help with the transition to Rails 4.0
 gem 'protected_attributes'
 gem 'rails-observers'
@@ -22,15 +22,15 @@ gem "gritter", "~> 1.0.3"
 gem 'pg', '0.15.1'
 
 # OAuth authentication to twitter, facebook, openid using omniauth
-gem 'omniauth-twitter','0.0.16'
-gem 'omniauth-facebook','1.4.1'
-gem 'omniauth-openid','1.0.1'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-openid'
 
 gem 'will_paginate','3.0.4'
 gem 'bootstrap-will_paginate','0.0.9'
 gem 'paperclip','3.4.2'
 gem "aws-sdk"
-gem 'high_voltage',:git => 'https://github.com/thoughtbot/high_voltage.git'
+gem 'high_voltage',"1.2.3"
 gem "therubyracer", :require => 'v8',:platforms => :ruby
 
 gem "breadcrumbs_on_rails"
@@ -53,7 +53,7 @@ group :assets do
   gem 'twitter-bootstrap-rails'
 
   # supporting rails 4.0
-  gem 'sass-rails',   '~> 4.0.0.rc2'
+  gem 'sass-rails',   '~> 4.0.0'
   gem 'coffee-rails', '~> 4.0.0'
   gem "less-rails", "~> 2.3.3"
 
@@ -64,11 +64,11 @@ group :test do
   gem 'capybara','2.1.0'
   gem 'factory_girl_rails'
   gem 'cucumber-rails', :require => false
-  gem "rspec-rails", "~> 2.13.1"
+  gem "rspec-rails", "~> 2.13.2"
 end
 
 group :development do
-  gem "rspec-rails", "~> 2.13.1"
+  gem "rspec-rails", "~> 2.13.2"
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
