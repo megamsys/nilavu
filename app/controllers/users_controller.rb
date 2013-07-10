@@ -93,7 +93,7 @@ class UsersController < ApplicationController
   def update
     @user=User.find(params[:id])
     @organization=@user.organization || Organization.new
-
+    logger.debug "params------ #{params[:user]}"
     if @user.update_attributes(params[:user])
       sign_in @user
       redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } }

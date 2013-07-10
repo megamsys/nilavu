@@ -1,0 +1,28 @@
+
+<%= form_for @user,  :html => { :multipart => true} do |f| %>
+
+<%= f.text_field :user_type, :value => "free_user", :type => 'hidden' %>
+
+<%= f.fields_for :organization_attributes, @user.organization do |org_f| %>
+<div class="control-group">
+	<div class="controls">
+		<%= org_f.text_field :name,:class=> 'span4 required', placeholder: "Organization name" %>
+	</div>
+</div>
+<div class="control-group">
+	<div class="controls">
+		<%= org_f.text_field :url, :class=> 'span4 required', placeholder: "Organization URL" %>
+	</div>
+</div>
+<div class="control-group">
+    <%= org_f.label :upload_organization_logo, :class => 'control-label' %>
+	<div class="controls">
+	    <%= org_f.file_field :logo, placeholder: "Logo" %>
+	</div>
+</div>
+
+
+<% end %>
+<%= render :partial => "users/add_button", :locals => {:user => @user} %>
+
+<% end %>

@@ -1,0 +1,10 @@
+var selected_entity = '#user_<%= @user %>';
+
+$(selected_entity).toggle();
+
+$(selected_entity).fadeIn("slow");
+
+var to_insert_content = '<%= escape_javascript(render :partial => "users/add_button", :locals => {:user => @user}) %>';
+	
+insertAt(selected_entity,to_insert_content);
+
