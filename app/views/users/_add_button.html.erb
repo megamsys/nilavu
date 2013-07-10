@@ -1,3 +1,2 @@
-<%= @user.inspect %>
-<%= link_to "update", update_path(:id => @user), :class => "btn btn-success", :remote => true, :type => "submit", :method => "post", data: { spinner: '#spin_user'}  %>
-<%= spinner_tag 'spin_user' %> 
+<%= link_to "update", @user, :class => "btn btn-large btn-success btn-block", :remote => true, :type => "submit", :method => "patch", data: { spinner: '#spin_user_profile'}  %>
+<%= spinner_tag 'spin_user_profile' %> 

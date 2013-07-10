@@ -1,5 +1,5 @@
-<%= @user.inspect%>
-<%= form_for @user, :html => { :multipart => true, :id =>'password_validate', :novalidate => 'novalidate' } do |f| %>
+<%= form_for @user, :method => 'patch', data: { spinner: '#spin_user_profile',:remote => true} } do |f| %>
+<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
 
 <div class="control-group">
 	<div class="controls">
@@ -58,16 +58,16 @@
 		<%= org_f.text_field :url, :class=> 'span4 required', placeholder: "Organization URL" %>
 	</div>
 </div>
+<!-- 
 <div class="control-group">
-    <%= org_f.label :upload_organization_logo, :class => 'control-label' %>
+	<%= org_f.label :upload_organization_logo, :class => 'control-label' %>
 	<div class="controls">
-	    <%= org_f.file_field :logo, placeholder: "Logo" %>
+		<%= org_f.file_field :logo, placeholder: "Logo" %>
 	</div>
 </div>
-
+-->
 <% end %>
 <% end %>
-
-<%= render :partial => "users/add_button", :locals => {:user => @user}%>
+<%= f.submit nil, :class => 'btn btn-large btn-success btn-block',:remote => true %>
 
 <% end %>
