@@ -2,20 +2,72 @@
 <%= provide(:title, 'Edit user') %>
 
 <div class="container-fluid">
-	<div class="row-fluid">
-		<div id="box_sign">
-			<div class="span6 box">
-				<div>
-					<div class="head">
-						<h4>Update your account</h4>
+	<div class="row">
+		<div class="span12">
+			<div class="span5">
+				<div id="box_sign">
+					<div class="container">
+						<div class="box_wrapper">
+							<div class="box">
+								<div>
+									<div class="head">
+										<h4>Update your username or mobile No.</h4>
+									</div>
+									<div class="form">		
+										<%= form_for @user, :html => {:id =>'password_validate', :novalidate => 'novalidate' }, :method => 'patch', data: { spinner: '#spin_user_profile',:remote => true} do |f| %>
+										 <%= render :partial => "users/user_fields_form", :locals => {:user => @user, :f => f} %>	
+										 <% end %>	
+										 <%= spinner_tag 'spin_user_profile' %>																		 									
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="form">
-						<%= render :partial => "users/user_fields_form" %>
+				</div>
+			</div>
+			<div class="span5">
+				<div id="box_sign">
+					<div class="container">
+						<div class="box_wrapper">
+							<div class="box">
+								<div>
+									<div class="head">
+										<h4>Update your organization</h4>
+									</div>
+									<div class="form">		
+										<%= spinner_tag 'spin_user_organization' %>								
+										<%= render :partial => "users/organization_fields_form", :locals => {:user => @user} %>
+									</div>
+								</div>
+
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+		<div class="span12">
+			<div class="offset3 span5">
+				<div id="box_sign">
+					<div class="container">
+						<div id="box_wrapper">
+							<div class="box">
+								<div>
+									<div class="head">
+										<h4>Update your password</h4>
+									</div>
+									<div class="form">		
+										<%= spinner_tag 'spin_user_password' %>								
+										<%= render :partial => "users/password_fields_form", :locals => {:user => @user} %>										 
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
 </div>
 <% end %>
 <%= render :template => users_show_path %>

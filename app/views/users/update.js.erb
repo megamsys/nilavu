@@ -4,7 +4,7 @@ $(selected_entity).toggle();
 
 $(selected_entity).fadeIn("slow");
 
-var to_insert_content = '<%= escape_javascript(render :partial => "users/add_button", :locals => {:user => @user}) %>';
+var to_insert_content = '<%= escape_javascript(render :partial => "users/user_fields_form", :locals => {:user => @user}) %>';
 	
 insertAt(selected_entity,to_insert_content);
 

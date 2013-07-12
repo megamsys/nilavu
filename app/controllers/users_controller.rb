@@ -64,10 +64,10 @@ class UsersController < ApplicationController
   #        failure with email already exists, then display a message with a link to forgot_password.
   #        any other errors , display a general message, with an option to contact support.
   def create
-    @user = User.new(params[:user])
-
+    @user = User.new(params[:user])    
     if @user.save
       sign_in @user
+      logger.debug "params--sign in---- #{params}"
       redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Created account #{@user.email} successfully.", :sticky => false, :nodom_wrap => true } }
     else
       @user= User.find_by_email(params[:user][:email])
@@ -92,12 +92,13 @@ class UsersController < ApplicationController
 
   def update
     @user=User.find(params[:id])
-    @organization=@user.organization || Organization.new
-    logger.debug "params------ #{params[:user]}"
+    @organization=@user.organization || Organization.new    
     if @user.update_attributes(params[:user])
+      logger.debug "params------ #{params[:user]}"
       sign_in @user
       redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } }
     else
+      logger.debug "params---edit--- #{params[:user]}"
       render 'edit'
     end
   end

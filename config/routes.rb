@@ -10,7 +10,6 @@ Cloudauth::Application.routes.draw do
   # ======Users Controller
   match '/signup', to: 'users#new', via: [:get, :post]
   match '/forgot', to: 'users#forgot', via: [:get]
-  match '/update', to: 'users#update', via: [:post]
   match '/edit', to: 'users#edit',via: [:get]
   match '/dashboard', to: 'users#dashboard',via: [:get]
   match '/upgrade', to: 'users#upgrade', via: [:post]

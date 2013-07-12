@@ -1,4 +1,4 @@
-<%= form_for @user, :html => { :multipart => true, :id =>'password_validate', :novalidate => 'novalidate' } do |f| %>
+<%= form_for @user, :remote => true  do |f| %>
 <div class="control-group">
 	<div class="controls">
 		<%= f.text_field :first_name, :class => 'text_field required', placeholder: "First name" %>
@@ -28,9 +28,7 @@
 <%= f.text_field :api_token, :value => random_api, :type => 'hidden' %>
 <% end %>
 
-<% if current_user.nil?  %>
 
-<%= f.fields_for :organization_attributes, @user.password do |org_f| %>
 
 <div class="control-group">
 	<div class="controls">
@@ -43,9 +41,9 @@
 		<%= f.password_field :password_confirmation,  :class=> 'required', placeholder: "Confirm password" %>
 	</div>
 </div>
-<% end %>
-<% end %>
-<%= render :partial => "users/add_button", :locals => {:user => f}%>
+
+<%= f.submit :id => 'submit', :class => 'btn btn-large btn-success btn-block', :method => 'patch', data: { spinner: '#spin_user', :remote => true} %>
+<%= spinner_tag 'spin_user' %>
 <% end %>
 
 

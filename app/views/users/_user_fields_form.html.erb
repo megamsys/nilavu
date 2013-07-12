@@ -1,14 +1,14 @@
-<%= @user.inspect%>
-<%= form_for @user, :html => { :multipart => true, :id =>'password_validate', :novalidate => 'novalidate' } do |f| %>
+
+<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
 
 <div class="control-group">
 	<div class="controls">
-		<%= f.text_field :first_name, :class => 'text_field required', placeholder: "First name" %>
+		<%= f.text_field :first_name, :id => 'first_name', :class => 'text_field required', placeholder: "First name" %>
 	</div>
 </div>
 <div class="control-group">
 	<div class="controls">
-		<%= f.text_field :last_name, :class => 'text_field required', placeholder: "Last name" %>
+		<%= f.text_field :last_name, :id => 'last_name', :class => 'text_field required', placeholder: "Last name" %>
 	</div>
 </div>
 
@@ -31,6 +31,7 @@
 <%= f.text_field :api_token, :value => random_api, :type => 'hidden' %>
 <% end %>
 
+<% if current_user.nil? %>
 <div class="control-group">
 	<div class="controls">
 		<%= f.password_field :password,:class=> 'required', placeholder: "Password" %>
@@ -39,35 +40,11 @@
 
 <div class="control-group">
 	<div class="controls">
-		<%= f.password_field :password_confirmation,  :class=> 'required',placeholder: "Confirm password" %>
+		<%= f.password_field :password_confirmation,  :class=> 'required', placeholder: "Confirm password" %>
 	</div>
 </div>
-
-<%= f.text_field :user_type, :value => "free_user", :type => 'hidden' %>
-
-<% if !current_user.nil? && current_user.admin? %>
-
-<%= f.fields_for :organization_attributes, @user.organization do |org_f| %>
-<div class="control-group">
-	<div class="controls">
-		<%= org_f.text_field :name,:class=> 'span4 required', placeholder: "Organization name" %>
-	</div>
-</div>
-<div class="control-group">
-	<div class="controls">
-		<%= org_f.text_field :url, :class=> 'span4 required', placeholder: "Organization URL" %>
-	</div>
-</div>
-<div class="control-group">
-    <%= org_f.label :upload_organization_logo, :class => 'control-label' %>
-	<div class="controls">
-	    <%= org_f.file_field :logo, placeholder: "Logo" %>
-	</div>
-</div>
-
-<% end %>
 <% end %>
 
-<%= render :partial => "users/add_button", :locals => {:user => @user}%>
+<%= f.submit nil, :class => 'btn btn-large btn-success btn-block', :remote => true %>
 
-<% end %>
+
