@@ -18,14 +18,8 @@ class User < ActiveRecord::Base
 
 
   before_save { |user| user.email = email.downcase }
-  before_save :create_remember_token
-
-  validates :first_name,  presence: true, length: { maximum: 50 }
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: false }
-  validates :password, length: { minimum: 6 }
-  validates :password_confirmation, presence: true
+  before_save :create_remember_token 
+ 
 
   def self.create_from_auth_hash!(auth_hash)
     create(:first_name => auth_hash["info"]["name"], :last_name => auth_hash["info"]["last_name"],
