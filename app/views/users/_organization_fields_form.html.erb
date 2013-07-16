@@ -1,5 +1,5 @@
 
-<%= form_for @user, :html => {:id =>'password_validate', :novalidate => 'novalidate' },  :method => 'patch', data: { spinner: '#spin_user_organization', :remote => true}  do |f| %>
+<%= form_for @user, :html => {:id =>'password_validate', :novalidate => 'novalidate', :multipart => true },  :method => 'patch', data: { spinner: '#spin_user_organization', :remote => true}  do |f| %>
 
 <%= f.text_field :user_type, :value => "free_user", :type => 'hidden' %>
 
@@ -23,6 +23,6 @@
 
 
 <% end %>
-<%= f.submit nil, :class => 'btn btn-large btn-success btn-block',:remote => true %>
+<%= f.submit nil, :class => "btn", :remote => true %>
 
 <% end %>

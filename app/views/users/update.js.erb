@@ -1,10 +1,16 @@
-var selected_entity = '#user_<%= @user %>';
+
+var selected_entity = '#user_fields_form_email';
 
 $(selected_entity).toggle();
 
 $(selected_entity).fadeIn("slow");
 
-var to_insert_content = '<%= escape_javascript(render :partial => "users/user_fields_form", :locals => {:user => @user}) %>';
+$("#flash_message").html("updated successfully").fadeIn("slow");
+
+var user_form = 'users/user_fields_form_<%= @user_fields_form_type %>';
+console.log("---->%s", user_form);
+
+var to_insert_content = '<%= escape_javascript(render :partial =>'users/user_fields_form_email', :locals => {:@user => current_user, :method => 'patch', :user_fields_form_type => params[:user_fields_form_type] }) %>';
 	
-insertAt(selected_entity,to_insert_content);
+insertAt(to_insert_content, selected_entity);
 

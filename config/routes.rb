@@ -15,7 +15,8 @@ Cloudauth::Application.routes.draw do
   match '/upgrade', to: 'users#upgrade', via: [:post]
   match '/email_verify', to: 'users#email_verify',via: [:post]
   match '/verified_email', to: 'users#verified_email', via: [:get]
-
+  match '/update', to: 'users#update', via: [:get, :post, :patch]
+  
   match '/signin', to: 'sessions#new', via: [:get]
   get "signout" => "sessions#destroy", :as => "signout", via: [:post]
   match '/signout', to: 'sessions#destroy', via: :delete

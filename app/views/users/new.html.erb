@@ -14,10 +14,9 @@
 								<div class="head">
 									<h4>Create your account</h4>
 								</div>
-								<div class="form">
-                                    <%= form_for @user, :html => {:id =>'password_validate', :novalidate => 'novalidate' }, :method => 'post', data: { spinner: '#spin_user_profile',:remote => true} do |f| %>
-									<%= render :partial => "users/user_fields_form" , :locals => {:user => @user, :f => f}%>									
-                                    <% end %>	
+								<div class="form">                                    
+									<%= render :partial => "users/user_fields_form_email" , :locals => {:user => @user, :user_fields_form_type => 'email', :method => 'post'}%>									
+                                   
                                     <%= spinner_tag 'spin_user_profile' %>
 								</div>
 							</div>

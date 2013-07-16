@@ -1,4 +1,5 @@
 <%= form_for @user, :remote => true  do |f| %>
+<input type="hidden" name="user_fields_form_type" value="<%= user_fields_form_type.to_s %>">
 <div class="control-group">
 	<div class="controls">
 		<%= f.text_field :first_name, :class => 'text_field required', placeholder: "First name" %>
