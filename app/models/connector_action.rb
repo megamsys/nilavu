@@ -1,4 +1,5 @@
 class ConnectorAction
+=begin
   include Dynamoid::Document
 
   field :biz_function
@@ -14,6 +15,6 @@ class ConnectorAction
   field :first_name
 
   belongs_to :connector_project
-
+=end
 end
 

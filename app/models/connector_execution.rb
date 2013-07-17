@@ -1,4 +1,5 @@
 class ConnectorExecution
+=begin  
   include Dynamoid::Document
   
   
@@ -11,4 +12,5 @@ class ConnectorExecution
 
 
   belongs_to :connector_project
+=end
 end

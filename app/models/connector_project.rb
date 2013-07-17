@@ -1,4 +1,5 @@
 class ConnectorProject
+=begin  
   include Dynamoid::Document
 
   field :description
@@ -14,5 +15,5 @@ class ConnectorProject
   has_many :connector_executions
   has_many :connector_actions
   has_many :connector_outputs
- 
+=end 
 end
