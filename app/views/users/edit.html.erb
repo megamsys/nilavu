@@ -2,6 +2,7 @@
 <%= provide(:title, 'Edit user') %>
 
 <div class="container-fluid">
+	<a title="" href="#"><strong id="flash_message"></strong></a>
 	<div class="row">
 		<div class="span12">
 			<div class="span5">
@@ -10,14 +11,12 @@
 						<div class="box_wrapper">
 							<div class="box">
 								<div>
+
 									<div class="head">
 										<h4>Update your username or mobile No.</h4>
 									</div>
 									<div class="form">
-										<%= form_for @user, :html => {:id =>'password_validate', :novalidate => 'novalidate' }, :method => 'patch', data: { spinner: '#spin_user_profile',:remote => true} do |f| %>
-										<%= render :partial => "users/user_fields_form", :locals => {:user => @user, :f => f} %>
-										<% end %>
-										<%= spinner_tag 'spin_user_profile' %>
+										<%= render :partial => "users/user_fields_form_email", :locals => {:user => @user, :user_fields_form_type => 'email', :method => 'patch'} %>
 									</div>
 								</div>
 							</div>
@@ -58,8 +57,8 @@
 										<h4>Update your password</h4>
 									</div>
 									<div class="form">
+										<%= render :partial => "users/user_fields_form_password", :locals => {:user => @user, :user_fields_form_type => "password", :method => 'patch'} %>
 										<%= spinner_tag 'spin_user_password' %>
-										<%= render :partial => "users/password_fields_form", :locals => {:user => @user} %>
 									</div>
 								</div>
 							</div>

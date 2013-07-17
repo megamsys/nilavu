@@ -64,10 +64,10 @@ class UsersController < ApplicationController
   #        failure with email already exists, then display a message with a link to forgot_password.
   #        any other errors , display a general message, with an option to contact support.
   def create
-    @user = User.new(params[:user])    
+    @user = User.new(params[:user])
+    logger.debug "params-type----- #{params[:user]}"
     if @user.save
       sign_in @user
-      logger.debug "params--sign in---- #{params}"
       redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Created account #{@user.email} successfully.", :sticky => false, :nodom_wrap => true } }
     else
       @user= User.find_by_email(params[:user][:email])
@@ -91,12 +91,27 @@ class UsersController < ApplicationController
   end
 
   def update
+   sleep 5
     @user=User.find(params[:id])
-    @organization=@user.organization || Organization.new    
-    if @user.update_attributes(params[:user])
-      logger.debug "params------ #{params[:user]}"
+    #temp_user=':id => params[:id], :first_name => params[:first_name], :last_name => params[:last_name], :email => params[:email], :phone => params[:phone]'
+    logger.debug "params-type----- #{params[:id]}"
+    logger.debug "params-type----- #{params[:first_name]}"
+    @organization=@user.organization || Organization.new
+    @user_fields_form_type = params[:user_fields_form_type]
+    
+    if @user.update_attributes(params[:user],first_name: params[:first_name], last_name: params[:last_name], email: params[:email], phone: params[:phone], password: params[:password], password_confirmation: params[:password_confirmation])
+      
       sign_in @user
-      redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } }
+
+      respond_to do |format|
+        flash_message = "Updated successfully"
+        format.html { redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } } }
+        format.js   {
+          respond_with(:user => @user, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
+        }
+      end
+    #respond_with(@user, :layout => !request.xhr? )
+    #redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } }
     else
       logger.debug "params---edit--- #{params[:user]}"
       render 'edit'
