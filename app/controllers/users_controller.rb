@@ -93,13 +93,12 @@ class UsersController < ApplicationController
   def update
    sleep 5
     @user=User.find(params[:id])
-    #temp_user=':id => params[:id], :first_name => params[:first_name], :last_name => params[:last_name], :email => params[:email], :phone => params[:phone]'
     logger.debug "params-type----- #{params[:id]}"
     logger.debug "params-type----- #{params[:first_name]}"
     @organization=@user.organization || Organization.new
     @user_fields_form_type = params[:user_fields_form_type]
     
-    if @user.update_attributes(params[:user],first_name: params[:first_name], last_name: params[:last_name], email: params[:email], phone: params[:phone], password: params[:password], password_confirmation: params[:password_confirmation])
+    if @user.update_attributes(params[:user])
       
       sign_in @user
 
