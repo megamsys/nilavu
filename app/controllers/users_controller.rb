@@ -91,6 +91,7 @@ class UsersController < ApplicationController
   end
 
   def update
+   sleep 5
     @user=User.find(params[:id])
     #temp_user=':id => params[:id], :first_name => params[:first_name], :last_name => params[:last_name], :email => params[:email], :phone => params[:phone]'
     logger.debug "params-type----- #{params[:id]}"
