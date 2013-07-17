@@ -1,8 +1,6 @@
-
-<%= form_for @user, :html => {:id =>'password_validate', :novalidate => 'novalidate', :class => 'user_fields_form_email'},:remote => true, data: { spinlock: '#spin_user_profile'}, :method => method do |f| %>
+<%= form_for @user, :html => {:id =>'password_validate', :novalidate => 'novalidate', :class => 'user_fields_form_email'}, :method => method do |f| %>
 
 <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
-<input type="hidden" name="user_fields_form_type" value="<%= user_fields_form_type.to_s %>">
 
 <div class="control-group">
 	<div class="controls">
@@ -34,6 +32,21 @@
 <%= f.text_field :api_token, :value => random_api, :type => 'hidden' %>
 <% end %>
 
-<%= f.submit "Update", :class => "btn" %>
+<% if current_user.nil? %>
+<div class="control-group">
+	<div class="controls">
+		<%= f.password_field :password, :class=> 'required', placeholder: "Password" %>
+	</div>
+</div>
+
+<div class="control-group">
+	<div class="controls">
+		<%= f.password_field :password_confirmation,  :class=> 'required', placeholder: "Confirm password" %>
+	</div>
+</div>
+<% end %>
+
+<%= f.submit nil, :class => "btn" %>
+
 
 <% end %>
