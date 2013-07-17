@@ -2,42 +2,38 @@
 <%= provide(:title, 'Edit user') %>
 
 <div class="container-fluid">
-	<a title="" href="#"><strong id="flash_message"></strong></a>
 	<div class="row">
 		<div class="span12">
-			<div class="span5">
-				<div id="box_sign">					
+			<div class="span5">	
+				<div class="alert_flash_email"></div>									
+				<div id="box_sign">
 					<div class="container">
 						<div class="box_wrapper">
 							<div class="box">
 								<div>
-
 									<div class="head">
-										<h4>Update your username or mobile No.</h4>
+										<h4>My Account</h4>
 									</div>
 									<div class="form">
-
 										<%= render :partial => "users/user_fields_form_email", :locals => {:user => @user, :user_fields_form_type => 'email', :method => 'patch'} %>
-
-										
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+
 				</div>
 			</div>
 			<div class="span5">
-				<div id="box_sign">					
+				<div id="box_sign">
 					<div class="container">
 						<div class="box_wrapper">
 							<div class="box">
 								<div>
 									<div class="head">
-										<h4>Update your organization</h4>
+										<h4>Organization</h4>
 									</div>
 									<div class="form">
-										<%= spinner_tag 'spin_user_organization' %>
 										<%= render :partial => "users/organization_fields_form", :locals => {:user => @user} %>
 									</div>
 								</div>
@@ -49,19 +45,36 @@
 			</div>
 		</div>
 		<div class="span12">
-			<div class="offset3 span5">
-				<div id="box_sign">					
+			<div class="span5">	
+				<div class="alert_flash_password"></div>			
+				<div id="box_sign">
 					<div class="container">
 						<div id="box_wrapper">
 							<div class="box">
 								<div>
 									<div class="head">
-										<h4>Update your password</h4>
+										<h4>Password</h4>
 									</div>
 									<div class="form">
-										
 										<%= render :partial => "users/user_fields_form_password", :locals => {:user => @user, :user_fields_form_type => "password", :method => 'patch'} %>
-									    <%= spinner_tag 'spin_user_password' %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="span5">								
+				<div id="box_sign">
+					<div class="container">
+						<div id="box_wrapper">
+							<div class="box">
+								<div>
+									<div class="head">
+										<h4>Api Key</h4>
+									</div>
+									<div class="form">
+										<%= render :partial => "users/user_fields_form_api_key", :locals => {:user => @user, :user_fields_form_type => "api_key", :method => 'patch'} %>
 									</div>
 								</div>
 							</div>

@@ -15,9 +15,8 @@
 									<h4>Create your account</h4>
 								</div>
 								<div class="form">                                    
-									<%= render :partial => "users/user_fields_form_email" , :locals => {:user => @user, :user_fields_form_type => 'email', :method => 'post'}%>									
-                                   
-                                    <%= spinner_tag 'spin_user_profile' %>
+									<%= render :partial => "users/create_user" , :locals => {:user => @user, :method => 'post'}%>									
+                                                                      
 								</div>
 							</div>
 						</div>
