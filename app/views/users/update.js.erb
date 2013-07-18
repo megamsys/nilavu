@@ -1,0 +1,16 @@
+var selected_entity = '.user_fields_form_<%= @user_fields_form_type %>';
+
+$(selected_entity).toggle();
+
+$(selected_entity).fadeIn("slow");
+
+<% if @user_fields_form_type == 'api_key'%>
+$('#api_key_field').val('<%= @api_token %>');
+<% end %>
+
+$('.alert_flash_<%= @user_fields_form_type %>').replaceWith('<div class="alert alert-success fade in"><a href="#" data-dismiss="alert" class="close">×</a><h4 align="center">Updated successfully</h4></div>').fadeIn("slow");
+
+var to_insert_content = "<%= escape_javascript(render :partial => 'users/user_fields_form_'+params[:user_fields_form_type], :locals => {:@user => current_user, :method => 'patch', :user_fields_form_type => params[:user_fields_form_type] }) %>";
+	
+insertAt(to_insert_content, selected_entity);
+

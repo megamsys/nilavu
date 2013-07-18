@@ -65,7 +65,7 @@ class UsersController < ApplicationController
   #        any other errors , display a general message, with an option to contact support.
   def create
     @user = User.new(params[:user])
-
+    @user_fields_form_type = params[:user_fields_form_type]
     if @user.save
       sign_in @user
       redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Created account #{@user.email} successfully.", :sticky => false, :nodom_wrap => true } }
@@ -91,14 +91,36 @@ class UsersController < ApplicationController
   end
 
   def update
+    sleep 2
     @user=User.find(params[:id])
-    @organization=@user.organization || Organization.new
 
-    if @user.update_attributes(params[:user])
-      sign_in @user
-      redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } }
+    @organization=@user.organization || Organization.new
+    @user_fields_form_type = params[:user_fields_form_type]
+    if @user_fields_form_type == 'api_key'
+      @api_token = SecureRandom.urlsafe_base64(nil, true)     
+      if @user.update_attributes(api_token: @api_token)
+        sign_in @user
+        respond_to do |format|
+          format.html { redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } } }
+          format.js   {
+            respond_with(:user => @user, :api_token => @api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
+          }
+        end
+      else
+        render 'edit'
+      end
     else
-      render 'edit'
+      if @user.update_attributes(params[:user])
+        sign_in @user
+        respond_to do |format|
+          format.html { redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } } }
+          format.js   {
+            respond_with(:user => @user, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
+          }
+        end
+      else
+        render 'edit'
+      end
     end
   end
 
@@ -125,6 +147,10 @@ end
 =end
 
   private
+
+  def generate_api_token
+    self.api_token = SecureRandom.urlsafe_base64(nil, true)
+  end
 
   def correct_user
     @user = User.find(params[:id])

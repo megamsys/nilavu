@@ -1,21 +1,22 @@
 jQuery(document)
 		.ready(
 				function() {
+					
 
 					// "ajax:beforeSend" and "ajax:complete" event hooks are
 					// provided by Rails's jquery-ujs driver.
 					// ajax:complete => after the request has been completed, no
 					// matter what outcome
 					jQuery("*[data-spinner]")
-							.on('ajax:beforeSend', function(e) {
-								/*
+							.on('ajax:beforeSend', function(event) {								
+								  /*
 								 * Whoever has data-spinner will get toggled. On
 								 * success/error. This is retoggled back.
 								 */
 								$(this).toggle();
 								$($(this).data('spinner')).show();
 								console.log('started - before stop props');
-								e.stopPropagation(); // Don't show spinner of
+								event.stopPropagation(); // Don't show spinner of
 								console.log('started - after stop props');
 								// parent elements.
 							})

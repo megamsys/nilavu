@@ -2,28 +2,83 @@
 <%= provide(:title, 'Edit user') %>
 
 <div class="container-fluid">
-	<div class="row-fluid">		
-		<div id="box_sign">
-			<div class="span6 box">				
-				<div>
-					<div class="head">
-						<h4>Update your account</h4>
+	<div class="row">
+		<div class="span12">
+			<div class="span5">	
+				<div class="alert_flash_email"></div>									
+				<div id="box_sign">
+					<div class="container">
+						<div class="box_wrapper">
+							<div class="box">
+								<div>
+									<div class="head">
+										<h4>My Account</h4>
+									</div>
+									<div class="form">
+										<%= render :partial => "users/user_fields_form_email", :locals => {:user => @user, :user_fields_form_type => 'email', :method => 'patch'} %>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="form">
-						<%= render :partial => "users/user_fields_form" %>
+
+				</div>
+			</div>
+			<div class="span5">
+				<div id="box_sign">
+					<div class="container">
+						<div class="box_wrapper">
+							<div class="box">
+								<div>
+									<div class="head">
+										<h4>Organization</h4>
+									</div>
+									<div class="form">
+										<%= render :partial => "users/organization_fields_form", :locals => {:user => @user} %>
+									</div>
+								</div>
+
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			
-		
-			<div class="span6 box">	
-							
-				<div>
-					<div class="head">
-						<h4>Update your account</h4>
+		</div>
+		<div class="span12">
+			<div class="span5">	
+				<div class="alert_flash_password"></div>			
+				<div id="box_sign">
+					<div class="container">
+						<div id="box_wrapper">
+							<div class="box">
+								<div>
+									<div class="head">
+										<h4>Password</h4>
+									</div>
+									<div class="form">
+										<%= render :partial => "users/user_fields_form_password", :locals => {:user => @user, :user_fields_form_type => "password", :method => 'patch'} %>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="form">
-						<%= render :partial => "users/user_fields_form" %>
+				</div>
+			</div>
+			<div class="span5">								
+				<div id="box_sign">
+					<div class="container">
+						<div id="box_wrapper">
+							<div class="box">
+								<div>
+									<div class="head">
+										<h4>Api Key</h4>
+									</div>
+									<div class="form">
+										<%= render :partial => "users/user_fields_form_api_key", :locals => {:user => @user, :user_fields_form_type => "api_key", :method => 'patch'} %>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

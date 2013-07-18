@@ -14,14 +14,13 @@
 								<div class="head">
 									<h4>Create your account</h4>
 								</div>
-								<div class="form">
-
-									<%= render :partial => "users/user_fields_form" %>
-
+								<div class="form">                                    
+									<%= render :partial => "users/create_user" , :locals => {:user => @user, :method => 'post'}%>									
+                                                                      
 								</div>
 							</div>
 						</div>
-					</div>
+					</div>					
 					<div class="span4 offset1">
 						<p class="already">
 							Already have an account? <%= link_to "Sign in", signin_path %>
