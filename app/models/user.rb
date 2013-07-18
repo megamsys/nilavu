@@ -9,17 +9,14 @@ class User < ActiveRecord::Base
   belongs_to :organization, :foreign_key  => 'org_id'
   accepts_nested_attributes_for :organization, :update_only => true
 
-
   has_many :cloud_identities, :foreign_key  => 'users_id'
   accepts_nested_attributes_for :cloud_identities, :update_only => true
 
   has_many :apps_items, :foreign_key  => 'users_id'
   accepts_nested_attributes_for :apps_items, :update_only => true
 
-
   before_save { |user| user.email = email.downcase }
-  before_save :create_remember_token 
- 
+  before_save :create_remember_token
 
   def self.create_from_auth_hash!(auth_hash)
     create(:first_name => auth_hash["info"]["name"], :last_name => auth_hash["info"]["last_name"],
@@ -30,6 +27,6 @@ class User < ActiveRecord::Base
 
   def create_remember_token
     self.remember_token = SecureRandom.urlsafe_base64
-  end 
+  end
 
 end

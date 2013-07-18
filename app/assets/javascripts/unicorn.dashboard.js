@@ -4,8 +4,8 @@
 
 jQuery(document)
 		.ready(
-				function() {
-
+				function() {					
+					
 					jQuery('#dash').each(function() {
 						jQuery('body').css('background', '#444444');
 					});
