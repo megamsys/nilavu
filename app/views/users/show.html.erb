@@ -3,8 +3,10 @@
 		<ul>
 			<% if current_user.organization %>
 			<li>
-				<%= image_tag current_user.organization.logo, :alt => "Logo" %>
+				<%= image_tag current_user.organization.logo, :alt => "Logo", :size => "170x50" %>
 			</li>
+			<% else %>
+				<%= image_tag "default_you.png", :alt => "Logo", :size => "170x50" %>
 			<% end %>
 
 			<li class=<%= "active" if controller_name== "users"%>>
