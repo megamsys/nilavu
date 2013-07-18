@@ -1,12 +1,11 @@
 <%= form_for @user, :html => {:id =>'password_validate', :novalidate => 'novalidate', :class => 'user_fields_form_api_key' }, :remote => true, data: { spinlock: '#spin_user_api'}, :method => method do |f| %>
 
 <input type="hidden" name="user_fields_form_type" value="<%= user_fields_form_type.to_s %>">
-
 <div class="control-group">
 	<div class="controls">
-		<%= f.text_field :api_token, :id => 'api_key_field', :class=> 'required', placeholder: "Api_Key" %>
+		<%= f.text_field :api_token, :id => 'api_key_field', :disabled => 'disabled', :class=> 'required', placeholder: "Api_Key" %>
 	</div>
 </div>
 
-<%= f.submit "Re-Generate", :class => "btn" %>
+<%= f.submit "Regenerate", :class => "btn" %>
 <% end %>

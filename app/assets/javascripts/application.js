@@ -36,5 +36,4 @@
 //= require bootstrap-editable
 //= require unicorn
 //= require unicorn.dashboard
-//= require users_validations
 //= require_tree .
