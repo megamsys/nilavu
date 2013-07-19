@@ -24,6 +24,7 @@ Cloudauth::Application.routes.draw do
 
   match '/auth/:provider/callback', :to => 'sessions#create', via: [:post]
 
+
 #   =======Cloud_books controller
    get '/cloud_book_create' => 'cloud_books#create'
    get '/predefs', to: 'cloud_books#predefs', via: [:post]
@@ -37,6 +38,7 @@ Cloudauth::Application.routes.draw do
 
 # 	=======Cloud Run
   get '/running_cloud' => 'cloud_run#running_cloud'
+  match '/worker', to: 'cloud_run#worker', via: [:get, :post]
 
 # 	=======Billing conreoller
   get  '/pricing' => 'billing#pricing'
