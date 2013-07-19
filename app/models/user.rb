@@ -3,6 +3,7 @@ class User < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :admin, :phone, :user_type, :email, :api_token, :password, :password_confirmation, :verified_email, :verification_hash, :org_id, :organization_attributes, :cloud_identity_attributes, :apps_item_attributes
   has_secure_password
   has_many :identities
+  has_many :cloud_books
   has_many :cloud_runs, :foreign_key  => 'users_id'
   accepts_nested_attributes_for :cloud_runs, :update_only => true
 

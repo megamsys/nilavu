@@ -15,6 +15,6 @@
  *= require bootstrap-editable
  *= require gritter 
  *= require select2
- *= require uniform.default 
+ *= require uniform 
  *= require_tree .
 */

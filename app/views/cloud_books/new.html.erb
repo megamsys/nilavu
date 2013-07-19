@@ -11,9 +11,11 @@
 </div>
 <%= render_breadcrumbs %>
 
-<div class="container-fluid">
-	
-</div>
 
+<div class="container-fluid">
+
+	<%= render :partial => "cloud_books/user_book_form" %>
+</div>
+                     
 <% end %>
 <%= render :template => users_show_path %>

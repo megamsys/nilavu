@@ -1,0 +1,201 @@
+<%= form_for @book, :html => {:id =>'user_cloud_book' },:remote => true, data: { spinlock: '#spin_user_book'}, :method => 'post' do |f| %>
+
+<table class="table table-bordered">
+	<div class="widget-content">
+		<p class="help-block">
+			<strong><span class="label label-warning">*selection</span> Select any one platform </strong>
+		</p>
+		<tbody>
+			<tr class="success" >
+				<td> <%= link_to "#", :class => "btn btn-large btn-success btn-block", :title => "Icon Title" do %>  Rails<% end %> </td>
+				<td> <%= link_to "#", :class => "btn btn-large btn-success btn-block", :title => "Icon Title" do %>  Java<% end %> </td>
+				<td> <%= link_to "#", :class => "btn btn-large btn-success btn-block", :title => "Icon Title" do %>  Play<% end %> </td>
+			</tr>
+			<tr class="success">
+				<td> <%= link_to "#", :class => "btn btn-large btn-success btn-block", :title => "Icon Title" do %>  Akka<% end %> </td>
+				<td> <%= link_to "#", :class => "btn btn-large btn-success btn-block", :title => "Icon Title" do %>  Nodejs<% end %> </td>
+			</tr>
+		</tbody>
+	</div>
+</table>
+<% @book_name = book_name %>
+<div class="widget-box">
+	<div class="widget-title">
+		<span class="icon"> <i class="icon-th-list"></i> </span>
+		<h5>Cloud Book Name</h5>
+	</div>
+	<div class="widget-content">
+		<p class="help-block">
+			<strong><span class="label label-warning">*optional</span> Click on the default book name to change it</strong>			
+		</p>
+		<div class="span12">
+			<div class="span7">				
+				<%= link_to  @book_name, "#", :id => "identity_new_account_name",
+				:class => "btn btn-large btn-primary disabled btn-block", :disabled => "disabled",
+				:data => { :type => 'text', :name => 'book_name'} %>
+			</div>
+			<div class = "span4">
+				<%= link_to  ".megam.co", "#", :class => "btn btn-large btn-primary disabled btn-block" %>
+			</div>
+		</div>
+		<br/>
+		<br/>
+		<br/>
+		<input type="hidden" name="book_name" value="<%= @book_name %>">
+	</div>
+
+</div>
+<div class="widget-box">
+	<div class="widget-title">
+		<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Cloud Book Settings</h5>
+		<div class="buttons">
+			<%= render :partial => "customizations/refresh" %>
+		</div>
+	</div>
+	<div class="widget-content tab-content">
+		<ul class="nav nav-tabs">
+			<li class="active">
+				<a data-toggle="tab" href="#tab1">Cloud Dependendies</a>
+			</li>
+			<li>
+				<a data-toggle="tab" href="#tab2">Cross Cloud</a>
+			</li>
+		</ul>
+		<div id="tab1" class="tab-pane active">
+			<table class="table table-striped table-bordered">
+				<tbody>
+					<tr>
+						<td class="taskDesc"><i class="icon-info-sign"></i> SCM</td>
+						<td class="taskStatus"><span class="full_text"> <%= f.text_field :deps_scm, :class => 'text_field required', placeholder: "git@github.com:username/project.git" %> </span></td>
+						<td class="taskOptions"></td>
+					</tr>
+					<tr>
+						<td class="taskDesc"><i class="icon-info-sign"></i> WAR         <span class="badge badge-important">*For java only</span></td>  
+						<td class="taskStatus"><span class="full_text"> <%= f.text_field :deps_war, :class => 'text_field required', placeholder: "https://s3-ap-southeast-1.amazonaws.com/bucket_name/folder_name/file_name.war" %> </span></td>
+						<td class="taskOptions"></td>
+					</tr>
+					<tr>
+						<td class="taskDesc"><i class="icon-info-sign"></i> DB</td>
+						<td class="taskStatus"><span class="full_text"> <%= text_field :db, :class => 'text_field required', placeholder: "db" %> </span></td>
+						<td class="taskOptions">
+						<div class="post_info">
+							<div class="slideThree">
+								<input type="checkbox" value="db_status" id="db" name="db_status" />
+								<label for="db"></label>
+							</div>
+						</div></td>
+					</tr>
+					<tr>
+						<td class="taskDesc"><i class="icon-info-sign"></i>Queue</td>
+						<td class="taskStatus"><span class="full_text"> <%= text_field :queue, :class => 'text_field required', placeholder: "queue_name" %> </span></td>
+						<td class="taskOptions">
+						<div class="post_info">
+							<div class="slideThree">
+								<input type="checkbox" value="queue_name" id="queue" name="queue" />
+								<label for="queue"></label>
+							</div>
+						</div></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="tab2" class="tab-pane">
+			<div class="span5">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"> <i class="icon-th"></i> </span>
+						<h5>Default predef's</h5>
+					</div>
+					<div style="height: 250px;  overflow-y: scroll;">
+						<div class="widget-content">
+							<div class="control-group">
+								<div class="controls">
+									<%= link_to  "ec2_rails", "#",:class => "btn btn-large btn-primary disabled btn-block", :disabled => "disabled"	 %>
+									<%= link_to  "ec2_java", "#",:class => "btn btn-large btn-primary disabled btn-block", :disabled => "disabled"	 %>
+									<%= link_to  "rackspace_play", "#",:class => "btn btn-large btn-primary disabled btn-block", :disabled => "disabled"	 %>
+									<%= link_to  "rackspace_akka", "#",:class => "btn btn-large btn-primary disabled btn-block", :disabled => "disabled"	 %>
+									<%= link_to  "rackspace_nodejs", "#",:class => "btn btn-large btn-primary disabled btn-block", :disabled => "disabled"	 %>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class = "span1">
+				<br/>
+				<br/>
+				<br/>
+				<button class="btn btn-primary">
+					<i class="icon-hand-right"></i> Select
+				</button>
+			</div>
+			<div class="span5">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"> <i class="icon-th"></i> </span>
+						<h5>User selected predef's</h5>
+					</div>
+					<div style="height: 250px;  overflow-y: scroll;">
+						<div class="widget-content">
+							<div class="control-group">
+								<div class="controls ">
+									<table class="table table-striped table-bordered">
+										<tbody>
+											<tr>
+												<td class="taskDesc">Groups</td>
+												<td class="taskStatus"><span class="full_text"> <%= text_field :group, :class => 'required', placeholder: "groups" %> </span></td>
+											</tr>
+											<tr>
+												<td class="taskDesc">Image</td>
+												<td class="taskStatus"><span class="full_text"> <%= text_field :image, :class => 'required', placeholder: "image" %> </span></td>
+											</tr>
+											<tr>
+												<td class="taskDesc">Flavor</td>
+												<td class="taskStatus"><span class="full_text"> <%= text_field :flavor, :class => 'required', placeholder: "flavor" %> </span></td>
+											</tr>
+											<tr>
+												<td class="taskDesc">SSH-Key</td>
+												<td class="taskStatus"><span class="full_text"> <%= text_field :ssh_key, :class => 'required', placeholder: "ssh-key" %> </span></td>
+											</tr>
+											<tr>
+												<td class="taskDesc">Identity-File</td>
+												<td class="taskStatus"><span class="full_text"> <%= text_field :identity_file, :class => 'required', placeholder: "identity-file" %> </span></td>
+											</tr>
+											<tr>
+												<td class="taskDesc">SSH-User</td>
+												<td class="taskStatus"><span class="full_text"> <%= text_field :ssh_user, :class => 'required', placeholder: "ssh-user" %> </span></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class = "span1">
+				<br/>
+				<br/>
+				<br/>
+				<button class="btn btn-primary">
+					Add
+				</button>
+				<br/>
+				<br/>
+				<br/>
+				<button class="btn btn-primary">
+					Save
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="span12">
+	<div class="span4 offset4">
+		<%= f.submit "Submit", :class => "btn btn-large btn-success btn-block", :id => "click" %>
+	</div>
+</div>
+
+<% end %>
