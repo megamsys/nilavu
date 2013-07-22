@@ -4,8 +4,8 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="span12">
-			<div class="span5">	
-				<div class="alert_flash_email"></div>									
+			<div class="span5">
+				<div class="alert_flash_email"></div>
 				<div id="box_sign">
 					<div class="container">
 						<div class="box_wrapper">
@@ -31,7 +31,14 @@
 							<div class="box">
 								<div>
 									<div class="head">
-										<h4>Organization</h4>
+										<h4>Organization</h4>																
+										<div class ="span6">		
+										<% if current_user.admin %>
+										<span class="label label-info">administrator</span>
+										<% else %>
+										<span class="label label-info">user</span>
+										<% end %>
+										</div>
 									</div>
 									<div class="form">
 										<%= render :partial => "users/organization_fields_form", :locals => {:user => @user} %>
@@ -45,8 +52,8 @@
 			</div>
 		</div>
 		<div class="span12">
-			<div class="span5">	
-				<div class="alert_flash_password"></div>			
+			<div class="span5">
+				<div class="alert_flash_password"></div>
 				<div id="box_sign">
 					<div class="container">
 						<div id="box_wrapper">
@@ -64,14 +71,17 @@
 					</div>
 				</div>
 			</div>
-			<div class="span5">								
+			<div class="span5">
 				<div id="box_sign">
 					<div class="container">
 						<div id="box_wrapper">
 							<div class="box">
 								<div>
 									<div class="head">
-										<h4>Api Key</h4>
+										<h4>API Key</h4>								
+										<div class ="span6">
+										<span class="label label-info"><%= @user.user_type %></span>
+										</div>
 									</div>
 									<div class="form">
 										<%= render :partial => "users/user_fields_form_api_key", :locals => {:user => @user, :user_fields_form_type => "api_key", :method => 'patch'} %>

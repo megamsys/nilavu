@@ -1,5 +1,7 @@
 Cloudauth::Application.routes.draw do
 
+  get "cloud_books/new"
+  get "cloud_books/create"
   root :to => 'high_voltage/pages#show', :id => 'home'
 
   get "customizations/refresh"
@@ -26,8 +28,8 @@ Cloudauth::Application.routes.draw do
 
 
 #   =======Cloud_books controller
-   get '/cloud_book_create' => 'cloud_books#create'
-   get '/predefs', to: 'cloud_books#predefs', via: [:post]
+   get '/cloud_book_create' => 'cloud_books#new', via: [:get, :post]
+   
 
 # 	=======Cloud_identity controller
 

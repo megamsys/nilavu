@@ -6,7 +6,8 @@
 				<%= image_tag current_user.organization.logo, :alt => "Logo", :size => "170x100" %>
 			</li>
 			<% else %>
-   			<li>
+			<li>
+
 				<%= image_tag "default_you.png", :alt => "Logo", :size => "60x100" %>
 			</li>
 			<% end %>
@@ -17,17 +18,23 @@
 				<% end %>
 			</li>
 
-            <li class=<%= "active" if controller_name== "cloud_books"%>>
+			<li class=<%= "active" if controller_name== "cloud_books"%>>
 				<%= link_to cloud_book_create_path do %>
 				<i class="icon-briefcase"></i>Cloud Books
 				<% end %>
 			</li>
 
-			<li class=<%= "active" if controller_name== "apps_items"%>>
+			<li class=<%= "active" if controller_name== "cloud_run"%>>
+				<%= link_to running_cloud_path do %>
+				<i class="icon-spinner icon-spin"></i>Cloud Books Run
+				<% end %>
+			</li>
+
+			<!--<li class=<%= "active" if controller_name== "apps_items"%>>
 				<%= link_to new_apps_item_path do %>
 				<i class="icon-briefcase"></i>Cloud Applications
 				<% end %>
-			</li>
+			</li>-->
 
 			<li class=<%= "active" if controller_name== "cloud_identities"%>>
 				<%= link_to cloud_identity_path(current_user.id) do %>
@@ -63,12 +70,6 @@
 					</li>
 
 				</ul>
-			</li>
-
-			<li class=<%= "active" if controller_name== "cloud_run"%>>
-				<%= link_to running_cloud_path do %>
-				<i class="icon-spinner icon-spin"></i>Cloud Run
-				<% end %>
 			</li>
 		</ul>
 
