@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
 
   def self.create_from_auth_hash!(auth_hash)
     create(:first_name => auth_hash["info"]["name"], :last_name => auth_hash["info"]["last_name"],
-    :email => auth_hash["info"]["email"], :phone => auth_hash["info"]["phone"], :admin => true)
+    :email => auth_hash["info"]["email"], :phone => auth_hash["info"]["phone"], :admin => true )
   end
 
   private

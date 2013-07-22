@@ -67,6 +67,10 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
     @user_fields_form_type = params[:user_fields_form_type]
     if @user.save
+      #if Identity.find_by_email(params[:user][:email])
+      	#@identity= Identity.find_by_email(params[:user][:email])
+      	#@identity.update_attribute(users_id: @user.id)
+      #end
       sign_in @user
       redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Created account #{@user.email} successfully.", :sticky => false, :nodom_wrap => true } }
     else
