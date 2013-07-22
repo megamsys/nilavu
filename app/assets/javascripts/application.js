@@ -25,6 +25,7 @@
 //= require jquery.uniform
 //= require select2
 //= require jquery.validate
+//= require cloud_books
 //= require unicorn.form_validation
 //= require theme
 //= require jquery.flot
