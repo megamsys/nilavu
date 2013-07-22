@@ -78,7 +78,6 @@ GEM
     debug_inspector (0.0.2)
     diff-lcs (1.2.4)
     erubis (2.7.0)
-    excon (0.22.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.2.0)
@@ -121,9 +120,6 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    megam_api (0.1.0)
-      excon (~> 0.22.1)
-      ruby-hmac
     meta_request (0.2.7)
       callsite
       rack-contrib
@@ -208,18 +204,17 @@ GEM
       redis-namespace (~> 1.2)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
-    rspec-core (2.13.1)
-    rspec-expectations (2.13.0)
+    rspec-core (2.14.3)
+    rspec-expectations (2.14.0)
       diff-lcs (>= 1.1.3, < 2.0)
-    rspec-mocks (2.13.1)
-    rspec-rails (2.13.2)
+    rspec-mocks (2.14.1)
+    rspec-rails (2.14.0)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       railties (>= 3.0)
-      rspec-core (~> 2.13.0)
-      rspec-expectations (~> 2.13.0)
-      rspec-mocks (~> 2.13.0)
-    ruby-hmac (0.4.0)
+      rspec-core (~> 2.14.0)
+      rspec-expectations (~> 2.14.0)
+      rspec-mocks (~> 2.14.0)
     ruby-openid (2.2.3)
     sass (3.2.9)
     sass-rails (4.0.0)
@@ -284,7 +279,7 @@ DEPENDENCIES
   cucumber-rails
   execjs (= 1.4.0)
   factory_girl_rails
-  flot-rails (~> 0.0.3)
+  flot-rails (~> 0.0.4)
   gritter (~> 1.0.3)
   high_voltage (= 1.2.3)
   jquery-datatables-rails
@@ -292,7 +287,6 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   less-rails (~> 2.3.3)
-  megam_api
   meta_request
   omniauth-facebook
   omniauth-openid
@@ -304,10 +298,10 @@ DEPENDENCIES
   rails-observers
   randexp (~> 0.1.7)
   resque
-  rspec-rails (~> 2.13.2)
+  rspec-rails (~> 2.14.0)
   sass-rails (~> 4.0.0)
   therubyracer
   turbolinks
   twitter-bootstrap-rails
-  uglifier (>= 2.1.1)
+  uglifier (>= 2.1.2)
   will_paginate (= 3.0.4)
