@@ -1,6 +1,6 @@
 <%= form_for @user, :html => {:id =>'password_validate', :novalidate => 'novalidate', :class => 'user_fields_form_email'}, :method => method do |f| %>
 
-<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
+<!--<input type="hidden" name="authenticity_token" value="<%= @form_authenticity_token.to_s %>"/>-->
 
 <div class="control-group">
 	<div class="controls">
@@ -22,12 +22,12 @@
 <% if current_user.nil? %>
 <div class="control-group">
 	<div class="controls">
-	<% if params[:user_social_identity] %>
+		<% if params[:user_social_identity] %>
 		<%= f.text_field :email, :class => 'text_field required', placeholder: "Email", :readonly => true %>
 		<input type="hidden" name="social_uid" value="<%= @social_uid %>">
-	<% else %>
+		<% else %>
 		<%= f.text_field :email, :class => 'text_field required', placeholder: "Email" %>
-	<% end %>
+		<% end %>
 	</div>
 </div>
 
@@ -52,6 +52,5 @@
 <% end %>
 
 <%= f.submit nil, :class => "btn" %>
-
 
 <% end %>
