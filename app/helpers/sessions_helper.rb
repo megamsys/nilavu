@@ -35,6 +35,8 @@
   end
 
   def redirect_back_or(default, growl_message)
+puts "SESSION ==> "
+puts session[:return_to]
     redirect_to((session[:return_to] || default), growl_message)
     session.delete(:return_to)
   end

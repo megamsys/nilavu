@@ -6,8 +6,8 @@ class UsersController < ApplicationController
 
   before_filter :signed_in_user,
                only: [:index, :edit, :update, :destroy]
-  before_filter :correct_user,   only: [:edit, :update]
-  before_filter :admin_user,     only: :destroy
+  before_filter :correct_user, only: [:edit, :update]
+  before_filter :admin_user, only: :destroy
   def index
     @users = User.paginate(page: params[:page])
   end
@@ -23,7 +23,12 @@ class UsersController < ApplicationController
   end
 
   def new
-    @user = User.new
+if params[:user_social_identity]
+    @user = User.new(:email => params[:user_social_identity][:email], :first_name => params[:user_social_identity][:first_name], :last_name => params[:user_social_identity][:last_name], :phone => params[:user_social_identity][:phone])
+    @social_uid = params[:user_social_identity][:uid]
+else
+	@user = User.new
+end
     @user.build_organization
   end
 
@@ -61,23 +66,24 @@ class UsersController < ApplicationController
   #This method is used to create a new user. The form parameters as entered during the
   #signup, is used to create a new user.
   #After a successful save : redirect to users dashboard.
-  #        failure with email already exists, then display a message with a link to forgot_password.
-  #        any other errors , display a general message, with an option to contact support.
+  # failure with email already exists, then display a message with a link to forgot_password.
+  # any other errors , display a general message, with an option to contact support.
   def create
+	puts params
     @user = User.new(params[:user])
     @organization=@user.organization || Organization.new
     @user_fields_form_type = params[:user_fields_form_type]
     if @user.save
-      #if Identity.find_by_email(params[:user][:email])
-      	#@identity= Identity.find_by_email(params[:user][:email])
-      	#@identity.update_attribute(users_id: @user.id)
-      #end
+	if params[:social_uid]
+		@identity = Identity.find_by_uid(params[:social_uid])
+		@identity.update_attribute(:users_id, @user.id)
+        end
       sign_in @user
-      redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Created account #{@user.email} successfully.", :sticky => false, :nodom_wrap => true } }
+      redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Created account #{@user.email} successfully.", :sticky => false, :nodom_wrap => true } }
     else
       @user= User.find_by_email(params[:user][:email])
       if(@user)
-        flash[:error] = "Email #{@user.email} already exists.<div class='right'>  #{ActionController::Base.helpers.link_to 'Forgot Password ?.', forgot_path}</div>".html_safe
+        flash[:error] = "Email #{@user.email} already exists.<div class='right'> #{ActionController::Base.helpers.link_to 'Forgot Password ?.', forgot_path}</div>".html_safe
       else
         flash[:alert] = "An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}".html_safe
       end
@@ -98,16 +104,16 @@ class UsersController < ApplicationController
   def update
     sleep 2
     @user=User.find(params[:id])
-
+logger.debug "@USER @ UPDATE ==> #{@user.inspect}"
     @organization=@user.organization || Organization.new
     @user_fields_form_type = params[:user_fields_form_type]
     if @user_fields_form_type == 'api_key'
-      @api_token = SecureRandom.urlsafe_base64(nil, true)     
+      @api_token = SecureRandom.urlsafe_base64(nil, true)
       if @user.update_attributes(api_token: @api_token)
         sign_in @user
         respond_to do |format|
-          format.html { redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } } }
-          format.js   {
+          format.html { redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } } }
+          format.js {
             respond_with(:user => @user, :api_token => @api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
           }
         end
@@ -118,8 +124,8 @@ class UsersController < ApplicationController
       if @user.update_attributes(params[:user])
         sign_in @user
         respond_to do |format|
-          format.html { redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome  #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } } }
-          format.js   {
+          format.html { redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } } }
+          format.js {
             respond_with(:user => @user, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
           }
         end
