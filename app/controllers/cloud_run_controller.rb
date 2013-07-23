@@ -8,8 +8,8 @@ class CloudRunController < ApplicationController
      #Resque.enqueue(`rake resque:work QUEUE='*'`)
     #Resque.enqueue(CloudRest)
   end
+  
   def worker
 	    Resque.enqueue(CloudRest)
-
   end
 end
