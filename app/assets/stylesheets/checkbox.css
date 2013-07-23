@@ -1,6 +1,6 @@
 
 input[type=checkbox] {
-	visibility: hidden;
+	visibility: visible;
 }
 
 .container_check { position: relative; width: 100px; height: 100px; float: left; margin-left: 10px; }

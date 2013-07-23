@@ -65,7 +65,6 @@ class UsersController < ApplicationController
   #        any other errors , display a general message, with an option to contact support.
   def create
     @user = User.new(params[:user])
-    @organization=@user.organization || Organization.new
     @user_fields_form_type = params[:user_fields_form_type]
     if @user.save
       sign_in @user

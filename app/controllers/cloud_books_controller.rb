@@ -4,16 +4,20 @@ class CloudBooksController < ApplicationController
   add_breadcrumb "Home", :root_path
   
   def new
-    @book = CloudBook.new
-   
+    @book =  current_user.cloud_books
+   #@book = CloudBook.new
     add_breadcrumb "first step", cloud_book_create_path    
     
-  end
-
-  def cloud_book_second_step
-    @book = CloudBook.new
-      add_breadcrumb "second step", cloud_book_create_path  
-  end
+  end  
     
+    def create    
+      @book = current_user.cloud_books.create(params[:cloud_book])   
+         
+    if @book.save
+      redirect_to users_dashboard_url, :gflash => { :success => { :value => "Hai  #{current_user.first_name}. Created cloud book #{@book.platformapp} successfully.", :sticky => false, :nodom_wrap => true } }
+    else           
+      render 'new'
+    end
+  end
   
 end

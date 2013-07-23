@@ -25,8 +25,10 @@
 //= require jquery.uniform
 //= require select2
 //= require jquery.validate
+//= require jquery.wizard
 //= require cloud_books
 //= require unicorn.form_validation
+//= require unicorn.wizard
 //= require theme
 //= require jquery.flot
 //= require jquery.flot.resize
@@ -37,4 +39,6 @@
 //= require bootstrap-editable
 //= require unicorn
 //= require unicorn.dashboard
+//= require unicorn.form_common
+//= require jquery.icheck
 //= require_tree .
