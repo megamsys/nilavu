@@ -11,8 +11,7 @@ class CloudBooksController < ApplicationController
   end  
     
     def create    
-      @book = current_user.cloud_books.create(params[:cloud_book])   
-         
+      @book = current_user.cloud_books.create(params[:cloud_book])            
     if @book.save
       redirect_to users_dashboard_url, :gflash => { :success => { :value => "Hai  #{current_user.first_name}. Created cloud book #{@book.platformapp} successfully.", :sticky => false, :nodom_wrap => true } }
     else           
