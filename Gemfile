@@ -19,6 +19,7 @@ gem 'execjs','1.4.0'
 gem 'jquery-datatables-rails'
 gem "flot-rails", "~> 0.0.4"
 gem "gritter", "~> 1.0.3"
+gem "icheck-rails", "~> 0.9.0.2"
 
 # Database posgresql
 gem 'pg', '0.15.1'

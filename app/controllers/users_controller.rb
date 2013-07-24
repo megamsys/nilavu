@@ -71,7 +71,6 @@ end
   def create
 	puts params
     @user = User.new(params[:user])
-    @organization=@user.organization || Organization.new
     @user_fields_form_type = params[:user_fields_form_type]
     if @user.save
 	if params[:social_uid]

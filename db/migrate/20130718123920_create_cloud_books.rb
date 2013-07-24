@@ -10,9 +10,11 @@ class CreateCloudBooks < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :cloud_books, :users_id
   end
 
   def self.down
+    remove_index :cloud_books, :users_id
     drop_table :cloud_books
   end
 end

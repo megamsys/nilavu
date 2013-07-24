@@ -97,6 +97,9 @@ GEM
     hike (1.2.3)
     httpauth (0.2.0)
     i18n (0.6.4)
+    icheck-rails (0.9.0.2)
+      jquery-rails
+      rails (>= 3.1.0)
     jquery-datatables-rails (1.11.2)
       jquery-rails
     jquery-rails (3.0.4)
@@ -282,6 +285,7 @@ DEPENDENCIES
   flot-rails (~> 0.0.4)
   gritter (~> 1.0.3)
   high_voltage (= 1.2.3)
+  icheck-rails (~> 0.9.0.2)
   jquery-datatables-rails
   jquery-rails
   jquery-turbolinks
