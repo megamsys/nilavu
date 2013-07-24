@@ -4,8 +4,9 @@ class CloudBooksController < ApplicationController
   add_breadcrumb "Home", :root_path
   
   def new
-    @book =  current_user.cloud_books
+    @book =  current_user.cloud_books.build
    #@book = CloudBook.new
+    logger.debug "@BOOK ++> #{@book.inspect}"
     add_breadcrumb "first step", cloud_book_create_path    
     
   end  
