@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 20130718123920) do
     t.datetime "updated_at"
   end
 
+  add_index "cloud_books", ["users_id"], name: "index_cloud_books_on_users_id", using: :btree
+
   create_table "cloud_identities", force: true do |t|
     t.string   "url"
     t.string   "account_name"
