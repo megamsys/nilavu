@@ -1,18 +1,14 @@
 class APINodes
 
-  attr_accessor :worker_queue
-  
-  def initialize
-    @worker_queue = "nodes"
-  end
+   @queue = "nodes" 
   
   #returns Megam::Nodes
-  def get
+  def self.get
     sleep 10
   end
 
-  def post
-    sleep 10
+  def self.post(hash={})
+    "#{hash['predefname']} created"    
   end
 
 end

@@ -9,7 +9,7 @@ Cloudauth::Application.routes.draw do
   get "connector_actions/create"
   get "users/show"
   get "users/dashboard"
-  get "cloud_books/bookselect"
+  get "cloud_books/success_form"
   
   # ======Users Controller
   match '/signup', to: 'users#new', via: [:get, :post]
@@ -29,10 +29,9 @@ Cloudauth::Application.routes.draw do
 
 
 #   =======Cloud_books controller
-   get '/cloud_book_create' => 'cloud_books#new', via: [:get, :post]  
-   match '/cloud_book_second_step', to: 'cloud_books#cloud_book_second_step', via: [:get, :post]
+   get '/cloud_book_create' => 'cloud_books#new', via: [:get, :post]   
    match '/new', to: 'cloud_books#new', via: [:get, :post]
-
+   match '/success_form', to: 'cloud_books#success_form', via: [:get, :post]
 
 # 	=======Cloud_identity controller
 

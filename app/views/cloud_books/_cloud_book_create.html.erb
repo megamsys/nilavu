@@ -1,4 +1,4 @@
-<%= form_for @book, :html => {:id =>'form-wizard', :class=>"form-horizontal" }, :remote => true, data: { spinlock: '#spin_user_book'}, :method => 'post' do |f| %>
+<%= form_for @book, :html => {:id =>'form-wizard', :class=>"form-horizontal" }, :remote => true,  data: { spinlock: '#spin_user_book'}, :method => 'post' do |f| %>
 <div id="form-wizard-1" class="step">
 	<table class="table table-bordered">
 		<div class="widget-content">
@@ -7,17 +7,16 @@
 			</p>
 			<tbody>
 				<tr>
-					<td> <%= f.radio_button :platform_app, 'icheck', :class => 'check-radio', :checked => true %>
-					<%= label :platform, 'Rails' %> <td> 
-						<%= f.radio_button :platform_app, 'icheck', :class => 'check-radio' %>
+					<td> <%= f.radio_button :predef_name, 'rails', :class => 'check-radio', :checked => true %>
+					<%= label :platform, 'Rails' %> <td> <%= f.radio_button :predef_name, 'java', :class => 'check-radio' %>
 					<%= label :platform, 'Java' %></td>
-					<td> <%= f.radio_button :platform_app, 'icheck', :class => 'check-radio' %>
+					<td> <%= f.radio_button :predef_name, 'play', :class => 'check-radio' %>
 					<%= label :platform, 'Play' %></td>
 				</tr>
 				<tr>
-					<td> <%= f.radio_button :platform_app, 'icheck', :class => 'check-radio' %>
+					<td> <%= f.radio_button :predef_name, 'akka', :class => 'check-radio' %>
 					<%= label :platform, 'Akka' %></td>
-					<td> <%= f.radio_button :platform_app, 'icheck', :class => 'check-radio' %>
+					<td> <%= f.radio_button :predef_name, 'nodejs', :class => 'check-radio' %>
 					<%= label :platform, 'Nodejs' %></td>
 				</tr>
 			</tbody>
@@ -40,14 +39,14 @@
 					:data => { :type => 'text', :name => 'book_name'} %>
 				</div>
 				<div class = "span4">
-					<%= link_to  ".megam.co", "#", :class => "btn btn-large btn-primary disabled btn-block" %>
+					<%= link_to  ".megam.co", "#", :class => "btn btn-large btn-primary disabled btn-block", :id => 'domain'%>
 				</div>
 			</div>
 			<br/>
 			<br/>
 			<br/>
-			<%= f.text_field :domain_name, :value => @book_name, :type => 'hidden' %>
-			<input type="hidden" name="book_name" value="<%= @book_name %>">
+			<%= f.text_field :domain_name, :type => 'hidden', :id => 'domainname' %>
+			<%= f.text_field :predef_cloud_name, :id => 'predefcloudname', :type => 'hidden' %>
 		</div>
 
 	</div>
@@ -72,7 +71,7 @@
 					</div>
 					<div class="collapse in accordion-body" id="collapseGOne">
 						<div class="widget-content">
-							SCM : <span class="full_text"> <%= f.text_field :deps_scm, :class => 'text_field required', placeholder: "git@github.com:username/project.git" %> </span>
+							SCM : <span class="full_text"> <%= f.text_field :deps_scm, :class => 'text_field', placeholder: "git@github.com:username/project.git" %> </span>
 						</div>
 					</div>
 				</div>
@@ -84,7 +83,7 @@
 					</div>
 					<div class="collapse accordion-body" id="collapseGTwo">
 						<div class="widget-content">
-							WAR : <span class="full_text"> <%= f.text_field :deps_war, :class => 'text_field required', placeholder: "https://s3-ap-southeast-1.amazonaws.com/bucket_name/folder_name/file_name.war" %> </span>
+							WAR : <span class="full_text"> <%= f.text_field :deps_war, :class => 'text_field', placeholder: "https://s3-ap-southeast-1.amazonaws.com/bucket_name/folder_name/file_name.war" %> </span>
 						</div>
 					</div>
 				</div>
@@ -100,117 +99,102 @@
 			</div>
 		</div>
 		<div class="widget-content">
-			<div class="widget-box collapsible">
-				<div class="widget-title">
-					<a href="#collapseOne" data-toggle="collapse"> <span class="icon"><i class="icon-arrow-right"></i></span> <h5>Cross Clouds</h5> </a>
-				</div>
-				<div class="collapse in" id="collapseOne">
-					<div class="widget-content">
-						<div class="span5">
-							<div class="widget-box">
-								<div class="widget-title">
-									<span class="icon"> <i class="icon-th"></i> </span>
-									<h5>Default predef's</h5>
-								</div>
-								<div style="height: 250px;  overflow-y: scroll;">
-									<div class="widget-content">
-										<div class="control-group">
-											<div class="controls">
-												<%= link_to  "ec2_rails", "#",:class => "btn btn-large btn-primary disabled btn-block", :disabled => "disabled"	 %>
-												<%= link_to  "ec2_java", "#",:class => "btn btn-large btn-primary disabled btn-block", :disabled => "disabled"	 %>
-												<%= link_to  "rackspace_play", "#",:class => "btn btn-large btn-primary disabled btn-block", :disabled => "disabled"	 %>
-												<%= link_to  "rackspace_akka", "#",:class => "btn btn-large btn-primary disabled btn-block", :disabled => "disabled"	 %>
-												<%= link_to  "rackspace_nodejs", "#",:class => "btn btn-large btn-primary disabled btn-block", :disabled => "disabled"	 %>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+			<div class="span5">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"> <i class="icon-th"></i> </span>
+						<h5>Default predef's</h5>
+					</div>
+					<div style="height: 250px;  overflow-y: scroll;">
+						<div class="widget-content">
+							<%= link_to  "ec2_rails", "#",:class => "btn btn-large btn-primary disabled btn-block", :disabled => "disabled"	 %>
+							<%= link_to  "ec2_java", "#",:class => "btn btn-large btn-primary disabled btn-block", :disabled => "disabled"	 %>
+							<%= link_to  "rackspace_play", "#",:class => "btn btn-large btn-primary disabled btn-block", :disabled => "disabled"	 %>
+							<%= link_to  "rackspace_akka", "#",:class => "btn btn-large btn-primary disabled btn-block", :disabled => "disabled"	 %>
+							<%= link_to  "rackspace_nodejs", "#",:class => "btn btn-large btn-primary disabled btn-block", :disabled => "disabled"	 %>
 						</div>
-						<div class="span5">
-							<div class="widget-box">
-								<div class="widget-title">
-									<span class="icon"> <i class="icon-th"></i> </span>
-									<h5>User selected predef's</h5>
-								</div>
-								<div style="height: 250px;  overflow-y: scroll;">
-									<div class="widget-content">
-										<div class="control-group">
-											<div class="controls ">
-												<table class="table table-striped table-bordered">
-													<tbody>
-														<tr>
-															<td class="taskDesc">Groups</td>
-															<td class="taskStatus"><span class="full_text"> <%= text_field :group, :class => 'required', placeholder: "groups" %> </span></td>
-														</tr>
-														<tr>
-															<td class="taskDesc">Image</td>
-															<td class="taskStatus"><span class="full_text"> <%= text_field :image, :class => 'required', placeholder: "image" %> </span></td>
-														</tr>
-														<tr>
-															<td class="taskDesc">Flavor</td>
-															<td class="taskStatus"><span class="full_text"> <%= text_field :flavor, :class => 'required', placeholder: "flavor" %> </span></td>
-														</tr>
-														<tr>
-															<td class="taskDesc">SSH-Key</td>
-															<td class="taskStatus"><span class="full_text"> <%= text_field :ssh_key, :class => 'required', placeholder: "ssh-key" %> </span></td>
-														</tr>
-														<tr>
-															<td class="taskDesc">Identity-File</td>
-															<td class="taskStatus"><span class="full_text"> <%= text_field :identity_file, :class => 'required', placeholder: "identity-file" %> </span></td>
-														</tr>
-														<tr>
-															<td class="taskDesc">SSH-User</td>
-															<td class="taskStatus"><span class="full_text"> <%= text_field :ssh_user, :class => 'required', placeholder: "ssh-user" %> </span></td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class = "span1">
-							<br/>
-							<br/>
-							<br/>
-							<button class="btn btn-primary">
-								Add
-							</button>
-							<br/>
-							<br/>
-							<br/>
-							<button class="btn btn-primary">
-								Save
-							</button>
-						</div>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
-						<br/>
 					</div>
 				</div>
 			</div>
+			<div class="span5">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"> <i class="icon-th"></i> </span>
+						<h5>User selected predef's</h5>
+					</div>
+					<div style="height: 250px;  overflow-y: scroll;">
+						<div class="widget-content">
+							<table class="table table-striped table-bordered">
+								<tbody>
+									<tr>
+										<td class="taskDesc">Groups</td>
+										<td class="taskStatus"><span class="full_text"> <%= text_field :group, :class => 'required', placeholder: "groups" %> </span></td>
+									</tr>
+									<tr>
+										<td class="taskDesc">Image</td>
+										<td class="taskStatus"><span class="full_text"> <%= text_field :image, :class => 'required', placeholder: "image" %> </span></td>
+									</tr>
+									<tr>
+										<td class="taskDesc">Flavor</td>
+										<td class="taskStatus"><span class="full_text"> <%= text_field :flavor, :class => 'required', placeholder: "flavor" %> </span></td>
+									</tr>
+									<tr>
+										<td class="taskDesc">SSH-Key</td>
+										<td class="taskStatus"><span class="full_text"> <%= text_field :ssh_key, :class => 'required', placeholder: "ssh-key" %> </span></td>
+									</tr>
+									<tr>
+										<td class="taskDesc">Identity-File</td>
+										<td class="taskStatus"><span class="full_text"> <%= text_field :identity_file, :class => 'required', placeholder: "identity-file" %> </span></td>
+									</tr>
+									<tr>
+										<td class="taskDesc">SSH-User</td>
+										<td class="taskStatus"><span class="full_text"> <%= text_field :ssh_user, :class => 'required', placeholder: "ssh-user" %> </span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class = "span1">
+				<br/>
+				<br/>
+				<br/>
+				<button class="btn btn-primary">
+					Add
+				</button>
+				<br/>
+				<br/>
+				<br/>
+				<button class="btn btn-primary">
+					Save
+				</button>
+			</div>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
+			<br/>
 		</div>
 	</div>
 </div>
-<div class="form-actions">
-	<input id="back" class="btn btn-primary" type="reset" value="Back" />
-	<%= submit_tag("next", :class => "btn btn-primary", :id => "next") %>	
-	<div id="status"></div>
+<div class="form-actions">	
+	<div class="offset3">
+		<input id="back" class="btn btn-primary" type="reset" value="Back" />
+		<%= submit_tag("next", :class => "btn btn-primary", :id => "next") %>
+		<div id="status"></div>
+	</div>
 </div>
 <div id="submitted"></div>
 <% end %>

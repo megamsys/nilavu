@@ -1,10 +1,5 @@
 $(document).ready(function() {
-	$('#book_rails').click(function() {
-		var status = $(this).attr('id');
-		$('.btn ').attr('disabled', true);
-		$(this).attr('disabled', false);
-		$(this).text('Rails');
-	});
+	
 	$('.check-radio').each(function() {
 		var self = $(this), label = self.next(), label_text = label.text();
 		label.remove();
@@ -14,4 +9,14 @@ $(document).ready(function() {
 			insert : '<div class="icheck_line-icon"></div>' + label_text
 		});
 	});	
+	$('#next').click(function(){
+		$('#domainname').val($('#identity_new_account_name').text() + $('#domain').text());
+	
+	$(".check-radio").each(function(){ 
+        if( $(this).is(":checked") ){ 
+        	$('#predefcloudname').val('ec2_' + $(this).val());
+            var val = $(this).val(); 
+        }
+    });
+	});
 });
