@@ -1,11 +1,5 @@
 <%= form_for @user, :html => {:id =>'password_validate', :novalidate => 'novalidate', :class => 'user_fields_form_email'}, :method => method do |f| %>
 
-<!--
-<%= @form_authenticity_token.to_s %>
-
-<input type="hidden" name="authenticity_token" value="<%= @form_authenticity_token.to_s %>"/>
--->
-<%= @form_authenticity_token.to_s %>
 <div class="control-group">
 	<div class="controls">
 		<%= f.text_field :first_name, :id => 'first_name', :class => 'text_field required', placeholder: "First name" %>

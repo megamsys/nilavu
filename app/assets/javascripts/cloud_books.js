@@ -5,9 +5,8 @@ $(document).ready(function() {
 		$(this).attr('disabled', false);
 		$(this).text('Rails');
 	});
-	$('input').each(function() {
+	$('.check-radio').each(function() {
 		var self = $(this), label = self.next(), label_text = label.text();
-
 		label.remove();
 		self.iCheck({
 			checkboxClass : 'icheckbox_line-green',

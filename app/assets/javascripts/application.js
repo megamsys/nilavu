@@ -39,6 +39,5 @@
 //= require bootstrap-editable
 //= require unicorn
 //= require unicorn.dashboard
-//= require unicorn.form_common
 //= require jquery.icheck
 //= require_tree .

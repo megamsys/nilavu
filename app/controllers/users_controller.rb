@@ -23,12 +23,12 @@ class UsersController < ApplicationController
   end
 
   def new
-if params[:user_social_identity]
-    @user = User.new(:email => params[:user_social_identity][:email], :first_name => params[:user_social_identity][:first_name], :last_name => params[:user_social_identity][:last_name], :phone => params[:user_social_identity][:phone])
-    @social_uid = params[:user_social_identity][:uid]
-else
-	@user = User.new
-end
+    if params[:user_social_identity]
+      @user = User.new(:email => params[:user_social_identity][:email], :first_name => params[:user_social_identity][:first_name], :last_name => params[:user_social_identity][:last_name], :phone => params[:user_social_identity][:phone])
+      @social_uid = params[:user_social_identity][:uid]
+    else
+      @user = User.new
+    end
     @user.build_organization
   end
 
@@ -69,15 +69,15 @@ end
   # failure with email already exists, then display a message with a link to forgot_password.
   # any other errors , display a general message, with an option to contact support.
   def create
-	puts params
+    puts params
     @user = User.new(params[:user])
     @user_fields_form_type = params[:user_fields_form_type]
     if @user.save
-	if params[:social_uid]
-		@identity = Identity.find_by_uid(params[:social_uid])
-		@identity.update_attribute(:users_id, @user.id)
-        end
-      sign_in @user
+      if params[:social_uid]
+        @identity = Identity.find_by_uid(params[:social_uid])
+        @identity.update_attribute(:users_id, @user.id)
+      end
+      sign_in @user      
       redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Created account #{@user.email} successfully.", :sticky => false, :nodom_wrap => true } }
     else
       @user= User.find_by_email(params[:user][:email])
@@ -103,7 +103,7 @@ end
   def update
     sleep 2
     @user=User.find(params[:id])
-logger.debug "@USER @ UPDATE ==> #{@user.inspect}"
+    logger.debug "@USER @ UPDATE ==> #{@user.inspect}"
     @organization=@user.organization || Organization.new
     @user_fields_form_type = params[:user_fields_form_type]
     if @user_fields_form_type == 'api_key'

@@ -7,16 +7,17 @@
 			</p>
 			<tbody>
 				<tr>
-					<td> <%= f.radio_button :platform_app, 'icheck', :checked => true %>
-					<%= label :platform, 'Rails' %> <td> <%= f.radio_button :platform_app, 'icheck' %>
+					<td> <%= f.radio_button :platform_app, 'icheck', :class => 'check-radio', :checked => true %>
+					<%= label :platform, 'Rails' %> <td> 
+						<%= f.radio_button :platform_app, 'icheck', :class => 'check-radio' %>
 					<%= label :platform, 'Java' %></td>
-					<td> <%= f.radio_button :platform_app, 'icheck'%>
+					<td> <%= f.radio_button :platform_app, 'icheck', :class => 'check-radio' %>
 					<%= label :platform, 'Play' %></td>
 				</tr>
 				<tr>
-					<td> <%= f.radio_button :platform_app, 'icheck' %>
+					<td> <%= f.radio_button :platform_app, 'icheck', :class => 'check-radio' %>
 					<%= label :platform, 'Akka' %></td>
-					<td> <%= f.radio_button :platform_app, 'icheck' %>
+					<td> <%= f.radio_button :platform_app, 'icheck', :class => 'check-radio' %>
 					<%= label :platform, 'Nodejs' %></td>
 				</tr>
 			</tbody>
@@ -208,8 +209,7 @@
 </div>
 <div class="form-actions">
 	<input id="back" class="btn btn-primary" type="reset" value="Back" />
-	<%= submit_tag("next", :class => "btn btn-primary", :id => "next") %>
-	<input id="next" class="btn btn-primary" type="submit" value="Next" />
+	<%= submit_tag("next", :class => "btn btn-primary", :id => "next") %>	
 	<div id="status"></div>
 </div>
 <div id="submitted"></div>
