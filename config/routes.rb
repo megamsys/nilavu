@@ -3,6 +3,7 @@ Cloudauth::Application.routes.draw do
   get "cloud_books/new"
   get "cloud_books/create"
   root :to => 'high_voltage/pages#show', :id => 'home'
+
   get "customizations/refresh"
   get "connector_actions/new"
   get "connector_actions/create"
@@ -24,7 +25,8 @@ Cloudauth::Application.routes.draw do
   get "signout" => "sessions#destroy", :as => "signout", via: [:post]
   match '/signout', to: 'sessions#destroy', via: :delete
 
-  match '/auth/:provider/callback', :to => 'sessions#create', via: [:post]
+  match '/auth/:provider/callback', :to => 'sessions#create', via: [:get, :post]
+
 
 #   =======Cloud_books controller
    get '/cloud_book_create' => 'cloud_books#new', via: [:get, :post]  
@@ -34,13 +36,14 @@ Cloudauth::Application.routes.draw do
 
 # 	=======Cloud_identity controller
 
-  match '/federate', to: 'cloud_identities#federate', via: [:post]
+  get '/federate', to: 'cloud_identities#federate'
   match '/cloud_identities/destroy', to: 'cloud_identities#destroy', via: :delete
   match '/newidentity', to: 'cloud_identities#new_identity', via: [:post]
   get  '/go_identity' => 'cloud_identities#go_identity'
 
 # 	=======Cloud Run
   get '/running_cloud' => 'cloud_run#running_cloud'
+  match '/worker', to: 'cloud_run#worker', via: [:get, :post]
 
 # 	=======Billing conreoller
   get  '/pricing' => 'billing#pricing'
