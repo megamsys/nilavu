@@ -79,7 +79,7 @@
 										<% if !current_user.organization %>
 										<%= link_to "Update", edit_user_path(current_user), class: "btn btn-warning btn-mini"  %> your profile
 										<% else %>
-										<%= current_user.first_name.capitalize %>, Great ! your profile is <span class="label label-success">up-to date.</span> Thank you.
+										<%= current_user.first_name.capitalize %>, Great ! your profile is <span class="label label-info">up-to date.</span> Thank you.
 										<% end %>
 									</div>
 								</div>

@@ -1,9 +1,7 @@
-console.log("---->",'<%= @domainname %>');
-
-var bookname = '<%= @domainname %>';
-
 var selected_entity = '#postfinish_popup';
 
 $(selected_entity).modal('show');
 
 $("#mail").show();
+
+$("#history_path").append('<%= link_to  "Ok", create_cloud_history_path(:book_id => @book_id, :book_name => @domainname), :class => "btn btn-primary" %>');
