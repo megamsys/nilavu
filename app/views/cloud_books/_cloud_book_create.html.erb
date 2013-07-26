@@ -3,58 +3,67 @@
 	<div class="widget-box">
 		<div class="widget-title">
 			<span class="icon"> <i class="icon-th-list"></i> </span>
-			<h5>Platform's'</h5>
+			<h5>Cloud Platform - App</h5>
 		</div>
-		<div class="widget-content">
-			<table class="table table-bordered">
-				<p class="help-block">
-					<strong><span class="label label-info">*selection</span> Select any one platform </strong>
-				</p>
-				<tbody>
-					<tr>
-						<td> <%= f.radio_button :predef_name, 'rails', :class => 'check-radio', :checked => true %>
-						<%= label :platform, 'Rails' %> <td> <%= f.radio_button :predef_name, 'java', :class => 'check-radio' %>
-						<%= label :platform, 'Java' %></td>
-						<td> <%= f.radio_button :predef_name, 'play', :class => 'check-radio' %>
-						<%= label :platform, 'Play' %></td>
-					</tr>
-					<tr>
-						<td> <%= f.radio_button :predef_name, 'akka', :class => 'check-radio' %>
-						<%= label :platform, 'Akka' %></td>
-						<td> <%= f.radio_button :predef_name, 'nodejs', :class => 'check-radio' %>
-						<%= label :platform, 'Nodejs' %></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-	<% @book_name = book_name %>
-	<div class="widget-box">
-		<div class="widget-title">
-			<span class="icon"> <i class="icon-th-list"></i> </span>
-			<h5>Cloud Book Name</h5>
-		</div>
-		<div class="widget-content">
-			<p class="help-block">
-				<strong><span class="label label-info">*optional</span> Click on the default book name to change it</strong>
-			</p>
+		<div class="row-fluid">
 			<div class="span12">
-				<div class="span7">
-					<%= link_to  @book_name, "#", :id => "identity_new_account_name",
-					:class => "btn btn-large btn-primary disabled btn-block", :disabled => "disabled",
-					:data => { :type => 'text', :name => 'book_name'} %>
-				</div>
-				<div class = "span4">
-					<%= link_to  ".megam.co", "#", :class => "btn btn-large btn-primary disabled btn-block", :id => 'domain'%>
+				<div class="widget-content">
+					<table class="table table-bordered">
+						<p class="help-block">
+							<strong><span class="label label-info">*selection</span> Select any one platform </strong>
+						</p>
+						<tbody>
+							<tr>
+								<td> <%= f.radio_button :predef_name, 'rails', :class => 'check-radio', :checked => true %>
+								<%= label :platform, 'Rails' %> <td> <%= f.radio_button :predef_name, 'java', :class => 'check-radio' %>
+								<%= label :platform, 'Java' %></td>
+								<td> <%= f.radio_button :predef_name, 'play', :class => 'check-radio' %>
+								<%= label :platform, 'Play' %></td>
+							</tr>
+							<tr>
+								<td> <%= f.radio_button :predef_name, 'akka', :class => 'check-radio' %>
+								<%= label :platform, 'Akka' %></td>
+								<td> <%= f.radio_button :predef_name, 'nodejs', :class => 'check-radio' %>
+								<%= label :platform, 'Nodejs' %></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
-			<br/>
-			<br/>
-			<br/>
-			<%= f.text_field :domain_name, :type => 'hidden', :id => 'domainname' %>
-			<%= f.text_field :predef_cloud_name, :id => 'predefcloudname', :type => 'hidden' %>
 		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
+			<% @book_name = book_name %>
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Cloud Book Name</h5>
+				</div>
+				<div class="widget-content">
+					<p class="help-block">
+						<strong><span class="label label-info">*optional</span> Click on the default book name to change it</strong>
+					</p>
+					</br>
+					<div class="span12">
+						<div class="span7">
+							<%= link_to  @book_name, "#", :id => "identity_new_account_name",
+							:class => "btn btn-large btn-primary disabled btn-block", :disabled => "disabled",
+							:data => { :type => 'text', :name => 'book_name'} %>
+						</div>
+						<div class = "span4">
+							<%= link_to  ".megam.co", "#", :class => "btn btn-large btn-primary disabled btn-block", :id => 'domain'%>
+						</div>
+					</div>
+					<br/>
+					<br/>
+					<br/>
+					<%= f.text_field :domain_name, :type => 'hidden', :id => 'domainname' %>
+					<%= f.text_field :predef_cloud_name, :id => 'predefcloudname', :type => 'hidden' %>
+				</div>
 
+			</div>
+		</div>
 	</div>
 
 </div>
@@ -199,22 +208,21 @@
 	</div>
 </div>
 <div id="postfinish_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		
-		<div class="modal-header">			
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-				×
-			</button>
-			<h3 id="myModalLabel">Cloud Book</h3>
-			</div>				
-		<div class="modal-body">
-						
-			<p>
-				Your cloud book create request was send megam API server, after few minutes your platform will be run....! 
-			</p>		
-		</div>	
-		<div class="modal-footer" id="history_path">											
-		</div>
+
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			×
+		</button>
+		<h3 id="myModalLabel">Cloud Book</h3>
 	</div>
+	<div class="modal-body">
+
+		<p>
+			Your cloud book create request was send megam API server, after few minutes your platform will be run....!
+		</p>
+	</div>
+	<div class="modal-footer" id="history_path"></div>
+</div>
 <div id="submitted"></div>
 <% end %>
 

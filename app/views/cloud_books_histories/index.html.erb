@@ -12,62 +12,59 @@
 <%= render_breadcrumbs %>
 
 <div class="container-fluid">
-	<div class="widget-box">		
+	<div class="widget-box">
 		<div class="widget-title">
 			<span class="icon"> <i class="icon-th-list"></i> </span>
-			<h5>Cloud Books Running Histories</h5>
-		</div>		
+			<h5>Cloud Books Run History</h5>
+		</div>
 		<div class="widget-content" style="height: 200px;  overflow-y: scroll;">
-			
-				<table class="table table-striped table-bordered">
-					<thead>
-						<tr>
-							<th>id</th>
-							<th>book_id</th>
-							<th>book_name</th>
-							<th>request_id</th>
-							<th>status</th>
-						</tr>
-					</thead>
-					<br/>
-					<tbody>
-						<% @books.each do |cloud_book| %>
-						<% cloud_book.cloud_books_histories.each do |history| %>
-						<tr>
-							<td> <%= history.id %> </td>
-							<td> <%= history.book_id %> </td>
-							<td> <%= history.book_name %> </td>
-							<td> <%= history.request_id %> </td>
-							<td> <%= history.status %> </td>
-						</tr>
-						<% end %>
-						<% end %>
-					</tbody>
-				</table>			
+
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>book_name</th>
+						<th>request_id</th>
+						<th>status</th>
+					</tr>
+				</thead>
+				<br/>
+				<tbody>
+					<% @books.each do |cloud_book| %>
+					<% cloud_book.cloud_books_histories.each do |history| %>
+					<tr>
+						<td> <%= history.book_name %> </td>
+						<td> <%= history.request_id %> </td>
+						<td> <%= history.status %> </td>
+					</tr>
+					<% end %>
+					<% end %>
+				</tbody>
+			</table>
 		</div>
 	</div>
 	<div class="widget-box">
 		<div class="widget-title">
 			<span class="icon"> <i class="icon-th-list"></i> </span>
-			<h5>Book description's'</h5>
+			<h5>Watch Realtime Log</h5>
 		</div>
-		<div class="widget-content" style="height: 200px;  overflow-y: scroll;">			
-				<table class="table table-striped table-bordered">
-					<thead>
-						<tr class="alert">
-							<th>Level</th>
-							<th>Description</th>
-						</tr>
-					</thead>
-					<br/>
-					<tbody>
-						<tr class="success" ></tr>
-					</tbody>
-				</table>			
+		<div class="widget-content" style="height: 200px;  overflow-y: scroll;">
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr class="alert">
+						<th>Level</th>
+						<th>Timestamp</th>
+						<th>Dump</th>
+					</tr>
+				</thead>
+				<br/>
+				<tbody>
+					<tr class="success" ></tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
-<!--<%= link_to "Worker", worker_path, :class => "btn btn-success", :remote => true, :method => "post", data: { spinner: '#fed'}  %>
-<%= spinner_tag 'fed' %>-->
+	<!--<%= link_to "Worker", worker_path, :class => "btn btn-success", :remote => true, :method => "post", data: { spinner: '#fed'}  %>
+	<%= spinner_tag 'fed' %>-->
 
-<% end %>
-<%= render :template => users_show_path %>
+	<% end %>
+	<%= render :template => users_show_path %>
