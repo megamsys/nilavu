@@ -4,10 +4,7 @@ class User < ActiveRecord::Base
   has_secure_password
   
   has_many :identities, :foreign_key => 'users_id'
-  accepts_nested_attributes_for :identities, :update_only => true
-  
-  has_many :cloud_runs, :foreign_key => 'users_id'
-  accepts_nested_attributes_for :cloud_runs, :update_only => true
+  accepts_nested_attributes_for :identities, :update_only => true 
 
   belongs_to :organization, :foreign_key => 'org_id'
   accepts_nested_attributes_for :organization, :update_only => true
@@ -20,6 +17,9 @@ class User < ActiveRecord::Base
 
   has_many :cloud_books, :foreign_key  => 'users_id'
   accepts_nested_attributes_for :cloud_books, :update_only => true
+
+ has_many :cloud_runs, :foreign_key  => 'users_id'
+  accepts_nested_attributes_for :cloud_runs, :update_only => true
 
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token

@@ -40,9 +40,9 @@ Cloudauth::Application.routes.draw do
   match '/newidentity', to: 'cloud_identities#new_identity', via: [:post]
   get  '/go_identity' => 'cloud_identities#go_identity'
 
-# 	=======Cloud Run
-  get '/running_cloud' => 'cloud_run#running_cloud'
-  match '/worker', to: 'cloud_run#worker', via: [:get, :post]
+# 	=======Cloud Books History
+  get '/running_cloud' => 'cloud_books_histories#running_cloud'
+  match '/worker', to: 'cloud_books_histories#worker', via: [:get, :post]
 
 # 	=======Billing conreoller
   get  '/pricing' => 'billing#pricing'
@@ -77,7 +77,7 @@ Cloudauth::Application.routes.draw do
   resources :connector_actions
   resources :connector_outputs
   resources :connector_executions
-  resources :cloud_run
+  resources :cloud_books_history
   resources :cloud_books
 
 resource :posts do

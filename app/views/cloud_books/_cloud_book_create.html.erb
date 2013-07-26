@@ -189,13 +189,29 @@
 		</div>
 	</div>
 </div>
-<div class="form-actions">	
+<div class="form-actions">
 	<div class="offset3">
 		<input id="back" class="btn btn-primary" type="reset" value="Back" />
-		<%= submit_tag("next", :class => "btn btn-primary", :id => "next") %>
+		<%= submit_tag("next", :class => "btn btn-primary", :id => "next") %>		
 		<div id="status"></div>
 	</div>
 </div>
+<div id="postfinish_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				×
+			</button>
+			<h3 id="myModalLabel">Cloud Book</h3>
+		</div>
+		<div class="modal-body">
+			<p>
+				Your cloud book create request was send megam API server, after few minutes your platform will be run....! 
+			</p>
+		</div>
+		<div class="modal-footer">					
+			<%= link_to  "Ok", running_cloud_path(:book_name => @book_name), :class => "btn btn-primary" %>					
+		</div>
+	</div>
 <div id="submitted"></div>
 <% end %>
 

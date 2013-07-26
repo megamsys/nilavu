@@ -10,13 +10,16 @@ $(document).ready(function() {
 		});
 	});	
 	$('#next').click(function(){
-		$('#domainname').val($('#identity_new_account_name').text() + $('#domain').text());
-	
+		$('#domainname').val($('#identity_new_account_name').text() + $('#domain').text());	
 	$(".check-radio").each(function(){ 
         if( $(this).is(":checked") ){ 
         	$('#predefcloudname').val('ec2_' + $(this).val());
             var val = $(this).val(); 
         }
     });
-	});
+	});	
+
+	$('#book_to_run').click(function(){
+		
+	})
 });
