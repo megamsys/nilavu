@@ -9,7 +9,6 @@ class CloudBooksController < ApplicationController
   end
 
   def create
-    sleep 2
     @book = current_user.cloud_books.create(params[:cloud_book])
     @domainname = @book.domain_name
     puts "value------> #{@domainname}"
