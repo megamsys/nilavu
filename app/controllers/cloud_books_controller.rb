@@ -13,12 +13,11 @@ class CloudBooksController < ApplicationController
     sleep 2
     @book = current_user.cloud_books.create(params[:cloud_book])
     @domainname = @book.domain_name
+    @book_id = @book.id
     puts "value------> #{@domainname}"
     if @book.save         
       nodes = Hash["predefname" => "java", "predefcloudname" => "ec2_java"]
-      success = Resque.enqueue(APINodes, nodes)
-     #redirect_to cloud_books_success_form_url(:predef_name => @book.predef_name, :predef_cloud_name => @book.predef_cloud_name ), :gflash => { :success => { :value => "Welcome #{current_user.first_name}. Your cloud book(predef) was created successfully.", :sticky => false, :nodom_wrap => true } }
-     
+      success = Resque.enqueue(APINodes, nodes)     
     else
       render 'new'
     end

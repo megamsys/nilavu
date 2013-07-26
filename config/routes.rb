@@ -1,7 +1,6 @@
 Cloudauth::Application.routes.draw do
 
-  get "cloud_books/new"
-  get "cloud_books/create"
+    
   root :to => 'high_voltage/pages#show', :id => 'home'
 
   get "customizations/refresh"
@@ -40,11 +39,10 @@ Cloudauth::Application.routes.draw do
   match '/newidentity', to: 'cloud_identities#new_identity', via: [:post]
   get  '/go_identity' => 'cloud_identities#go_identity'
 
-# 	=======Cloud Books History
-  get '/running_cloud' => 'cloud_books_histories#running_cloud'
-  match '/worker', to: 'cloud_books_histories#worker', via: [:get, :post]
+# 	=======Cloud Books History 
+  match '/worker', to: 'cloud_books_histories#worker', via: [:get, :post] 
 
-# 	=======Billing conreoller
+# 	=======Billing controller
   get  '/pricing' => 'billing#pricing'
   get  '/account' => 'billing#account'
   get  '/history' => 'billing#history'
@@ -77,8 +75,10 @@ Cloudauth::Application.routes.draw do
   resources :connector_actions
   resources :connector_outputs
   resources :connector_executions
-  resources :cloud_books_history
+  resources :cloud_books_histories
   resources :cloud_books
+
+match '/create_cloud_history', to: 'cloud_books_histories#create_cloud_history', via: [:get, :post] 
 
 resource :posts do
    collection do
