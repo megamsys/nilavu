@@ -2,21 +2,29 @@ require 'spec_helper'
 
 describe "User pages" do
 
-  subject { page }
+ describe "signup" do
 
-  describe "Signup page" do
     before { visit signup_path }
 
-    it { should have_selector('h1',    text: 'Sign up') }
-    it { should have_selector('title', text: full_title('Sign up')) }
-  end
-  
+    let(:submit) { "Create User" }
 
-  describe "Signin page" do
-    before { visit signin_path }
+    describe "with invalid information" do
+      it "should not create a user" do
+        expect { click_button submit }.not_to change(User, :count)
+      end
+    end
 
-    it { should have_selector('h1',    text: 'Sign in') }
-    it { should have_selector('title', text: full_title('Sign in')) }
+    describe "with valid information" do
+      before do
+        fill_in "first_name",         with: "Example User"
+        fill_in "email",        with: "user@example.com"
+        fill_in "password",     with: "foobar"
+        fill_in "password_confirmation", with: "foobar"
+      end
+
+      it "should create a user" do
+        expect { click_button submit }.to change(User, :count).by(1)
+      end
+    end
   end
-   
 end
