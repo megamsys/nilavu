@@ -1,11 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  email: MyString
-  password_hash: MyString
-  password_salt: MyString
+alrin:
+  first_name: Thomas
+  last_name: Alrin
+  email: alrin@megam.co.in
+  phone: 9789345999
+  id: 1
 
-two:
-  email: MyString
-  password_hash: MyString
-  password_salt: MyString

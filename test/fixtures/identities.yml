@@ -1,11 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  provider: MyString
-  uid: MyString
-  name: MyString
+  provider: facebook
+  uid: 12345678
 
-two:
-  provider: MyString
-  uid: MyString
-  name: MyString

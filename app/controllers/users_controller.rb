@@ -69,8 +69,9 @@ class UsersController < ApplicationController
   # failure with email already exists, then display a message with a link to forgot_password.
   # any other errors , display a general message, with an option to contact support.
   def create
-    puts params
+    puts "PARAMS ++>> #{params}"
     @user = User.new(params[:user])
+    puts @user.inspect
     @user_fields_form_type = params[:user_fields_form_type]
     if @user.save
       if params[:social_uid]
@@ -84,8 +85,10 @@ class UsersController < ApplicationController
       if(@user)
         flash[:error] = "Email #{@user.email} already exists.<div class='right'> #{ActionController::Base.helpers.link_to 'Forgot Password ?.', forgot_path}</div>".html_safe
       else
-        flash[:alert] = "An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}".html_safe
+        #flash[:alert] = "An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}".html_safe
       end
+puts "TEST"
+    puts @user.inspect
       render 'new'
     end
   end
