@@ -104,7 +104,7 @@ class UsersController < ApplicationController
     sleep 2
     @user=User.find(params[:id])
     logger.debug "@USER @ UPDATE ==> #{@user.inspect}"
-    @organization=@user.organization || Organization.new
+    @organization=@user.organization || Organization.new    
     @user_fields_form_type = params[:user_fields_form_type]
     if @user_fields_form_type == 'api_key'
       @api_token = SecureRandom.urlsafe_base64(nil, true)

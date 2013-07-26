@@ -35,7 +35,7 @@ Cloudauth::Application.routes.draw do
 
 # 	=======Cloud_identity controller
 
-  get '/federate', to: 'cloud_identities#federate'
+  match '/federate', to: 'cloud_identities#federate', via: [:get, :post]
   match '/cloud_identities/destroy', to: 'cloud_identities#destroy', via: :delete
   match '/newidentity', to: 'cloud_identities#new_identity', via: [:post]
   get  '/go_identity' => 'cloud_identities#go_identity'

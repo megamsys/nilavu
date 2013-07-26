@@ -12,6 +12,8 @@ class CloudBooksController < ApplicationController
   def create
     sleep 2
     @book = current_user.cloud_books.create(params[:cloud_book])
+    @domainname = @book.domain_name
+    puts "value------> #{@domainname}"
     if @book.save         
       nodes = Hash["predefname" => "java", "predefcloudname" => "ec2_java"]
       success = Resque.enqueue(APINodes, nodes)
@@ -20,6 +22,7 @@ class CloudBooksController < ApplicationController
     else
       render 'new'
     end
+    
   end
 
   def success_form

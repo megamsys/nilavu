@@ -42,7 +42,6 @@ ActiveRecord::Schema.define(version: 20130726050612) do
   add_index "cloud_books", ["users_id"], name: "index_cloud_books_on_users_id", using: :btree
 
   create_table "cloud_books_histories", force: true do |t|
-    t.integer  "users_id"
     t.integer  "book_id"
     t.string   "book_name"
     t.string   "request_id"
@@ -52,7 +51,6 @@ ActiveRecord::Schema.define(version: 20130726050612) do
   end
 
   add_index "cloud_books_histories", ["book_id"], name: "index_cloud_books_histories_on_book_id", using: :btree
-  add_index "cloud_books_histories", ["users_id"], name: "index_cloud_books_histories_on_users_id", using: :btree
 
   create_table "cloud_identities", force: true do |t|
     t.string   "url"
