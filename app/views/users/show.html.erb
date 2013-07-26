@@ -3,12 +3,12 @@
 		<ul>
 			<% if current_user.organization %>
 			<li>
-				<%= image_tag current_user.organization.logo, :alt => "Logo", :size => "170x100" %>
+				<%= image_tag current_user.organization.logo, :alt => "Logo",  :class => "img-circle"%>
 			</li>
 			<% else %>
 			<li>
 
-				<%= image_tag "default_you.png", :alt => "Logo", :size => "60x100" %>
+				<%= image_tag "default_you.png", :alt => "Logo", :class => "img_circle"  %>
 			</li>
 			<% end %>
 
