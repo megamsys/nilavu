@@ -1,15 +1,15 @@
 require 'spec_helper'
 
 # Specs in this file have access to a helper object that includes
-# the CloudRunHelper. For example:
+# the CloudBooksHistoriesHelper. For example:
 #
-# describe CloudRunHelper do
+# describe CloudBooksHistoriesHelper do
 #   describe "string concat" do
 #     it "concats two strings with spaces" do
-#       helper.concat_strings("this","that").should == "this that"
+#       expect(helper.concat_strings("this","that")).to eq("this that")
 #     end
 #   end
 # end
-describe CloudRunHelper do
+describe CloudBooksHistoriesHelper do
   pending "add some examples to (or delete) #{__FILE__}"
 end

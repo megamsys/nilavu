@@ -3,12 +3,12 @@
 		<ul>
 			<% if current_user.organization %>
 			<li>
-				<%= image_tag current_user.organization.logo, :alt => "Logo", :size => "170x100" %>
+				<%= image_tag current_user.organization.logo, :alt => "Logo",  :class => "img-circle"%>
 			</li>
 			<% else %>
 			<li>
 
-				<%= image_tag "default_you.png", :alt => "Logo", :size => "60x100" %>
+				<%= image_tag "default_you.png", :alt => "Logo", :class => "img_circle"  %>
 			</li>
 			<% end %>
 
@@ -24,17 +24,17 @@
 				<% end %>
 			</li>
 
-			<li class=<%= "active" if controller_name== "cloud_run"%>>
-				<%= link_to running_cloud_path do %>
-				<i class="icon-spinner icon-spin"></i>Cloud Books Run
+			<li class=<%= "active" if controller_name== "cloud_books_history"%>>
+				<%= link_to cloud_books_histories_path do %>
+				<i class="icon-spinner icon-spin"></i>Cloud Books History
 				<% end %>
 			</li>
 
-			<!--<li class=<%= "active" if controller_name== "apps_items"%>>
+			<li class=<%= "active" if controller_name== "apps_items"%>>
 				<%= link_to new_apps_item_path do %>
 				<i class="icon-briefcase"></i>Cloud Applications
 				<% end %>
-			</li>-->
+			</li>
 
 			<li class=<%= "active" if controller_name== "cloud_identities"%>>
 				<%= link_to cloud_identity_path(current_user.id) do %>

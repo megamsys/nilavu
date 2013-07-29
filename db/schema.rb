@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130718123920) do
+ActiveRecord::Schema.define(version: 20130726050612) do
 
   create_table "apps_items", force: true do |t|
     t.integer  "users_id"
@@ -41,6 +41,17 @@ ActiveRecord::Schema.define(version: 20130718123920) do
 
   add_index "cloud_books", ["users_id"], name: "index_cloud_books_on_users_id", using: :btree
 
+  create_table "cloud_books_histories", force: true do |t|
+    t.integer  "book_id"
+    t.string   "book_name"
+    t.string   "request_id"
+    t.string   "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cloud_books_histories", ["book_id"], name: "index_cloud_books_histories_on_book_id", using: :btree
+
   create_table "cloud_identities", force: true do |t|
     t.string   "url"
     t.string   "account_name"
@@ -53,17 +64,6 @@ ActiveRecord::Schema.define(version: 20130718123920) do
   end
 
   add_index "cloud_identities", ["users_id"], name: "index_cloud_identities_on_users_id", using: :btree
-
-  create_table "cloud_runs", force: true do |t|
-    t.string   "name"
-    t.integer  "users_id"
-    t.string   "description"
-    t.string   "log"
-    t.string   "status"
-    t.string   "launch_time"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "identities", force: true do |t|
     t.integer  "users_id"

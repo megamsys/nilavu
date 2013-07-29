@@ -8,13 +8,13 @@
 <%= @form_authenticity_token.to_s %>
 <div class="control-group">
 	<div class="controls">
-		<%= f.text_field :last_name, :id => 'last_name', :class => 'text_field', placeholder: "Last name(optional)" %>
+		<%= f.text_field :last_name, :id => 'last_name', :class => 'text_field', placeholder: "Last name(*optional)" %>
 	</div>
 </div>
 
 <div class="control-group">
 	<div class="controls">
-		<%= f.text_field :phone, :class => 'text_field', placeholder: "Phone number(optional)" %>
+		<%= f.text_field :phone, :class => 'text_field', placeholder: "Phone number(*optional)" %>
 	</div>
 </div>
 
