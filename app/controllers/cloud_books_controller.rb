@@ -14,7 +14,7 @@ class CloudBooksController < ApplicationController
     @domainname = @book.domain_name
     @book_id = @book.id
     if @book.save
-      node_job = {:predef_name => @book.predef_name, :predef_cloud_name => @book.predef_cloud_name}
+      node_job = {:node_name => @book.domain_name}
       #success = Resque.enqueue(APINodes, node_job)
     else
       render 'new'

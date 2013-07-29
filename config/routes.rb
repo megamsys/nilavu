@@ -79,6 +79,7 @@ Cloudauth::Application.routes.draw do
   resources :cloud_books
 
 match '/create_cloud_history', to: 'cloud_books_histories#create_cloud_history', via: [:get, :post] 
+match '/node_log', to: 'cloud_books_histories#logs', via: [:get, :post]
 
 resource :posts do
    collection do

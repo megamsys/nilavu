@@ -13,7 +13,7 @@ class CloudBooksHistoriesController < ApplicationController
   end
 
   def worker
-    Resque.enqueue(CloudRest)
+    Resque.enqueue(APIAccounts)
   end
 
   def index

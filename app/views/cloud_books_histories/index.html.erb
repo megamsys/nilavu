@@ -32,7 +32,7 @@
 					<% @books.each do |cloud_book| %>
 					<% cloud_book.cloud_books_histories.each do |history| %>
 					<tr>
-						<td> <%= history.book_name %> </td>
+						<td><%= render :partial => "cloud_books_histories/log_button", :locals => {:node_name => history.book_name} %></td>
 						<td> <%= history.request_id %> </td>
 						<td> <%= history.status %> </td>
 					</tr>
@@ -54,6 +54,9 @@
 						<th>Level</th>
 						<th>Timestamp</th>
 						<th>Dump</th>
+					</tr>
+					<tr id="log_contents">
+					
 					</tr>
 				</thead>
 				<br/>
