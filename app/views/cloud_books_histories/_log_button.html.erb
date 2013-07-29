@@ -1,0 +1,2 @@
+<%= link_to @node_name, node_log_path, :method => :post, :remote => true, data: { spinner: 'log_spinner'}  %>
+<%= spinner_tag 'log_spinner' %> 

@@ -1,18 +1,22 @@
 class APIAccounts
 
-  attr_accessor :worker_queue
+  @queue = "accounts"  
   
-  def initialize
-    @worker_queue = "accounts"
-  end
+  SANDBOX_HOST_OPTIONS = {
+  :host => 'localhost',
+  :port => 9000
+}
   
   #returns Megam::Accounts
-  def get
+  def self.get
   sleep 10    
   end
   
-  def post
-  sleep 10    
+  def self.post(user_details={})
+     a_post = SANDBOX_HOST_OPTIONS.merge(user_details)
+     mg=Megam::API.new(a_post)
   end
+  
+  response = post.post_auth()
 
 end

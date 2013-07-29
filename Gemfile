@@ -74,6 +74,7 @@ group :development do
   gem 'meta_request'
 end
 
-
+#gem "megam_api", "~> 0.1.0"
+gem 'socket.io-rails'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'

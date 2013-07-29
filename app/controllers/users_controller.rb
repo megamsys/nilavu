@@ -76,6 +76,8 @@ class UsersController < ApplicationController
         @identity = Identity.find_by_uid(params[:social_uid])
         @identity.update_attribute(:users_id, @user.id)
       end
+      #accounts_hash = {:email => @user.email, :api_key => 'secret'}
+      #Resque.enqueue(APIAccounts, accounts_hash)
       sign_in @user      
         flash[:success] = "Welcome #{current_user.first_name}"
       redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Created account #{@user.email} successfully.", :sticky => false, :nodom_wrap => true } }

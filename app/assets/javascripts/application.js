@@ -40,4 +40,5 @@
 //= require unicorn
 //= require unicorn.dashboard
 //= require jquery.icheck
+//= require socket.io
 //= require_tree .
