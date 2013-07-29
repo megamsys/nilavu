@@ -1,5 +1,4 @@
-  module SessionsHelper
-
+module SessionsHelper
   def sign_in(user)
     cookies.permanent[:remember_token] = user.remember_token
     self.current_user = user
@@ -31,11 +30,10 @@
   def sign_out
     current_user = nil
     cookies.delete(:remember_token)
- 
+
   end
 
   def redirect_back_or(default, growl_message)
-puts session[:return_to]
     redirect_to((session[:return_to] || default), growl_message)
     session.delete(:return_to)
   end

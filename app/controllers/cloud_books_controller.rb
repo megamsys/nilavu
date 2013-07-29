@@ -5,7 +5,7 @@ class CloudBooksController < ApplicationController
   
   def new
     @book =  current_user.cloud_books.build
-    add_breadcrumb "cloud_book_create", cloud_book_create_path
+    add_breadcrumb "cloud_book_create", new_cloud_book_path
 
   end
 

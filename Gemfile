@@ -31,9 +31,9 @@ gem 'omniauth-openid'
 
 gem 'will_paginate','3.0.4'
 gem 'bootstrap-will_paginate','0.0.9'
-gem 'paperclip','3.4.2'
+gem 'paperclip','3.5.0'
 gem "aws-sdk"
-gem 'high_voltage',"1.2.3"
+gem 'high_voltage',"1.2.4"
 gem "therubyracer", :require => 'v8',:platforms => :ruby
 gem "breadcrumbs_on_rails"
 gem "randexp", "~> 0.1.7"
