@@ -8,7 +8,8 @@ gem 'rails-observers'
 gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
 
-#gem 'megam_api'
+gem 'megam_api'
+gem 'mixlib-config'
 
 #JQuery rails, other jquery scripts
 gem 'turbolinks'

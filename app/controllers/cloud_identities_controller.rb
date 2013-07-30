@@ -103,6 +103,6 @@ class CloudIdentitiesController < ApplicationController
   def destroy
     sleep 1
     current_user.cloud_identities.find(params[:id]).destroy
-    redirect_to users_dashboard_url(current_user.id)
+    redirect_to dashboard_path(current_user.id)
   end
 end

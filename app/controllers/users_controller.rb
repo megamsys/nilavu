@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     @user= User.find_by_verification_hash(params[:format])
     UserMailer.welcome_email(@user).deliver
     logger.debug "users_controller:email_verify => exit"
-    redirect_to users_dashboard_url
+    redirect_to dashboard_path
   end
 
   def verified_email
@@ -78,9 +78,9 @@ class UsersController < ApplicationController
       end
       #accounts_hash = {:email => @user.email, :api_key => 'secret'}
       #Resque.enqueue(APIAccounts, accounts_hash)
-      sign_in @user      
-        flash[:success] = "Welcome #{current_user.first_name}"
-      redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Created account #{@user.email} successfully.", :sticky => false, :nodom_wrap => true } }
+      sign_in @user
+      flash[:success] = "Welcome #{current_user.first_name}"
+      redirect_to dashboard_path, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Created account #{@user.email} successfully.", :sticky => false, :nodom_wrap => true } }
     else
       @user= User.find_by_email(params[:user][:email])
       if(@user)
@@ -106,7 +106,7 @@ class UsersController < ApplicationController
     sleep 2
     @user=User.find(params[:id])
     logger.debug "@USER @ UPDATE ==> #{@user.inspect}"
-    @organization=@user.organization || Organization.new    
+    @organization=@user.organization || Organization.new
     @user_fields_form_type = params[:user_fields_form_type]
     if @user_fields_form_type == 'api_key'
       @api_token = SecureRandom.urlsafe_base64(nil, true)

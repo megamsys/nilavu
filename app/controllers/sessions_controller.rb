@@ -27,25 +27,25 @@ class SessionsController < ApplicationController
 
   def create_social_identity(auth)
     @identity = Identity.find_from_omniauth(auth)
-#Check for identity 
+    #Check for identity
     if @identity.nil?
-#No Megam Identity with current social identity
+      #No Megam Identity with current social identity
       user_identity = User.find_by_email(social_identity["info"]["email"])
-    if user_identity
-#If social user Already exist in megam
-	user_identity.identities.create_from_omniauth(auth)
+      if user_identity
+        #If social user Already exist in megam
+        user_identity.identities.create_from_omniauth(auth)
         redirect_to_dash(user_identity)
       else
-#If social user don't exist in megam
-	Identity.create_from_omniauth(auth)
+      #If social user don't exist in megam
+        Identity.create_from_omniauth(auth)
         redirect_to_signup_with_fb
       end
     elsif User.find_by_id(@identity.users_id)
-#if user and identity already connected
+      #if user and identity already connected
       logger.debug "Found user with id #{@identity.users_id}"
       redirect_to_dash(@identity.user)
     else
-#Exception of all the above conditions
+    #Exception of all the above conditions
       redirect_to_signup_with_fb
     end
   end

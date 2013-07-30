@@ -1,21 +1,21 @@
- var socket = io.connect('http://localhost:7000/');
-       var i=0;
-             $(document).ready(function() {
-            console.log("start");
-            var content = $('#log_contents');
+var socket = io.connect('http://localhost:7000/');
+var i=0;
+$(document).ready(function() {
+console.log("start");
+var content = $('#log_contents');
 
-            socket.on('connect', function() {
-                  i=i+1;
-                 alert("connected-- "+i);
+socket.on('connect', function() {
+i=i+1;
+alert("connected-- "+i);
 
-            });
-            socket.on('message', function(data){
-                  $('#log_contents').append($('<th></th>').text(data));
-            }) ;
+});
+socket.on('message', function(data){
+$('#log_contents').append($('<th></th>').text(data));
+}) ;
 
-            socket.on('disconnect', function() {
-                console.log('disconnected');
-                
-            });
-           });
+socket.on('disconnect', function() {
+console.log('disconnected');
+
+});
+});
 
