@@ -3,7 +3,6 @@ module SessionsHelper
     cookies.permanent[:remember_token] = user.remember_token
     #set the API token here.
     self.current_user = user
-    before_api_exec
   end
 
   def signed_in?
@@ -22,9 +21,9 @@ module SessionsHelper
     user == current_user
   end
 
-  def before_api_exec
-    Megam::Config[:email] = current_user.email
-    Megam::Config[:api_key] = current_user.api_token
+  def defaults_for_api
+    {:email => current_user.email,
+      :api_key => current_user.api_token }
   end
 
   def signed_in_user
