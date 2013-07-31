@@ -27,6 +27,8 @@
 //= require jquery.validate
 //= require jquery.wizard
 //= require cloud_books
+//= require connector_projects
+//= require jquery_slider
 //= require unicorn.form_validation
 //= require unicorn.wizard
 //= require theme

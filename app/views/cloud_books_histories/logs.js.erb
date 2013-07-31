@@ -8,7 +8,9 @@ var socket = io.connect('http://localhost:7000/');
 var i=0;
 $(document).ready(function() {
 console.log("start");
+
 $('#log_contents').append($('<tr></tr>').text("log"));
+
 var content = $('#log_contents');
 
 socket.on('connect', function() {

@@ -94,7 +94,7 @@ GEM
       multi_json (~> 1.3)
     gritter (1.0.3)
     hashie (2.0.5)
-    high_voltage (1.2.3)
+    high_voltage (1.2.4)
     highline (1.6.19)
     hike (1.2.3)
     httpauth (0.2.0)
@@ -128,6 +128,8 @@ GEM
     megam_api (0.1.0)
       excon
       highline
+      mixlib-config
+      mixlib-log
       yajl-ruby
     meta_request (0.2.7)
       callsite
@@ -136,6 +138,8 @@ GEM
     mime-types (1.23)
     mini_portile (0.5.1)
     minitest (4.7.5)
+    mixlib-config (1.1.2)
+    mixlib-log (1.6.0)
     mono_logger (1.1.0)
     multi_json (1.7.7)
     multi_test (0.0.2)
@@ -166,9 +170,8 @@ GEM
     omniauth-twitter (1.0.0)
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
-    paperclip (3.4.2)
+    paperclip (3.5.0)
       activemodel (>= 3.0.0)
-      activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.0)
       mime-types
@@ -293,19 +296,20 @@ DEPENDENCIES
   factory_girl_rails
   flot-rails (~> 0.0.4)
   gritter (~> 1.0.3)
-  high_voltage (= 1.2.3)
+  high_voltage (= 1.2.4)
   icheck-rails (~> 0.9.0.2)
   jquery-datatables-rails
   jquery-rails
   jquery-turbolinks
   jquery-ui-rails
   less-rails (~> 2.3.3)
-  megam_api (~> 0.1.0)
+  megam_api
   meta_request
+  mixlib-config
   omniauth-facebook
   omniauth-openid
   omniauth-twitter
-  paperclip (= 3.4.2)
+  paperclip (= 3.5.0)
   pg (= 0.15.1)
   protected_attributes
   rails (~> 4.0.0)

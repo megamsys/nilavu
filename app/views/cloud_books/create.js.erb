@@ -4,4 +4,4 @@ $(selected_entity).modal('show');
 
 $("#mail").show();
 
-$("#history_path").append('<%= link_to  "Ok", create_cloud_history_path(:book_id => @book_id, :book_name => @domainname), :class => "btn btn-primary" %>');
+$("#history_path").append('<%= link_to  "Ok", cloud_books_histories_path(:book_id => @book_id, :book_name => @domainname), :class => "btn btn-primary" %>');

@@ -1,8 +1,9 @@
 class ConnectorProjectsController < ApplicationController
   respond_to :html, :js
-  
+  add_breadcrumb "Home", :root_path
   
   def index
+    add_breadcrumb "projects", :root_path
     if !current_user.organization
       flash[:error] = "Please Create Organization Details first"
       redirect_to edit_user_path(current_user)

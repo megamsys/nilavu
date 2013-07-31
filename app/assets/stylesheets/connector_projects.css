@@ -1,0 +1,118 @@
+#folders {
+	
+	 border-bottom: 1px solid;
+	 border-color:#BDBDBD;
+    display:inline;
+}
+
+.div2 {width:800px;margin:0 auto;}
+
+ .div2 a {color:#07C;}
+.div2 {
+	margin-top:70px;	
+	}
+.div2 li {padding-top:6px;padding-bottom:6px;}
+.floatLeft {float:left;}
+
+﻿#mcts1 
+{
+    width:700px;
+    height:30px;
+    margin: 0 auto;
+    padding:36px 20px;
+    border:1px solid #dedcb4;
+    background:#f2f1ea url(loading.gif) no-repeat 50% 50%;
+    box-shadow: 0px 1px 11px #CCCCCC;
+    
+    /* Do not alter the below settings */
+    white-space:nowrap;
+    position:relative;
+    font-size:0px;
+}
+
+  
+/*-------- div.item is each thumbnail's wrapper created by the javascript ------*/
+#mcts1 div.item 
+{
+    padding:2px;
+    margin-right:6px; /* this specifies the distance between each thumbnail */
+    background-color:White;
+    border:1px solid #ddd;
+    text-align:center;
+    position:relative;
+}
+
+
+#mcts1 img 
+{
+    border:none;
+}
+
+
+/*---------built-in navigation buttons-------*/
+#mcts1 .navPrev, #mcts1 .navNext, #mcts1 .navPlay, #mcts1 .navPause 
+{
+    width:16px; height:22px; position:absolute;  
+    background:url(navbuttons.png); 
+    display:inline-block; z-index:5; cursor:pointer;
+}
+#mcts1 .navPrev {background-position:0 -22px;top:60px;left:-40px;}
+#mcts1 .navPrev:hover {background-position:0 -44px;}
+#mcts1 .navPrevDisabled, #mcts1 .navPrevDisabled:hover {background-position:0 0;cursor:default;}
+
+#mcts1 .navNext {background-position:-16px -22px;top:60px;right:-40px;} 
+#mcts1 .navNext:hover {background-position:-16px -44px;} 
+#mcts1 .navNextDisabled, #mcts1 .navNextDisabled:hover {background-position:-16px 0; cursor:default;} 
+
+#mcts1 .navPause, #mcts1 .navPlay {left:360px;top:130px;}
+#mcts1 .navPause {background-position:0 -66px;} 
+#mcts1 .navPause:hover {background-position:0 -88px;} 
+#mcts1 .navPlay {background-position:-16px -66px;} 
+#mcts1 .navPlay:hover {background-position:-16px -88px;} 
+
+.navPrev, .navPlay, .navPause, .navNext 
+{
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   -o-user-select: none;
+   user-select: none;
+}
+       
+/*---------built-in navigation bullets--------*/
+/* Note: the navBullets won't be available when "scrollByEachThumb" was set to false in the Javascript.*/
+#mcts1 .navBullets
+{
+    display:none;
+}
+
+/*--------- class1 that is for the slide with HTML content------------*/
+.class1 
+{
+    width:130px;
+    height: 80px;
+    background:#444;
+    text-align:center;
+    color:White;
+    font:normal 11px/14px Arial;
+    white-space:normal;
+}
+.class1 p
+{
+    margin-top:0;
+    margin-bottom:6px;
+    padding-top:6px;
+    font:bold 13px Verdana;
+    color:#F90;
+}
+
+
+/* --------- Others ------- */
+#mcts1
+{
+	transform: translate3d(0,0,0);
+    -ms-transform:translate3d(0,0,0);
+    -moz-transform:translate3d(0,0,0);
+    -o-transform:translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,0);
+}
