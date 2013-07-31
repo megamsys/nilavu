@@ -1,7 +1,7 @@
-  module SessionsHelper
-
+module SessionsHelper
   def sign_in(user)
     cookies.permanent[:remember_token] = user.remember_token
+    #set the API token here.
     self.current_user = user
   end
 
@@ -21,6 +21,11 @@
     user == current_user
   end
 
+  def defaults_for_api
+    {:email => current_user.email,
+      :api_key => current_user.api_token }
+  end
+
   def signed_in_user
     unless signed_in?
       store_location
@@ -31,11 +36,10 @@
   def sign_out
     current_user = nil
     cookies.delete(:remember_token)
- 
+
   end
 
   def redirect_back_or(default, growl_message)
-puts session[:return_to]
     redirect_to((session[:return_to] || default), growl_message)
     session.delete(:return_to)
   end

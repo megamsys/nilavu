@@ -8,7 +8,8 @@ gem 'rails-observers'
 gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
 
-#gem 'megam_api'
+gem 'megam_api'
+gem 'mixlib-config'
 
 #JQuery rails, other jquery scripts
 gem 'turbolinks'
@@ -31,9 +32,9 @@ gem 'omniauth-openid'
 
 gem 'will_paginate','3.0.4'
 gem 'bootstrap-will_paginate','0.0.9'
-gem 'paperclip','3.4.2'
+gem 'paperclip','3.5.0'
 gem "aws-sdk"
-gem 'high_voltage',"1.2.3"
+gem 'high_voltage',"1.2.4"
 gem "therubyracer", :require => 'v8',:platforms => :ruby
 gem "breadcrumbs_on_rails"
 gem "randexp", "~> 0.1.7"
@@ -74,6 +75,7 @@ group :development do
   gem 'meta_request'
 end
 
-
+#gem "megam_api", "~> 0.1.0"
+gem 'socket.io-rails'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'

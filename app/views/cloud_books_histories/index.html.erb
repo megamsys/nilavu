@@ -32,7 +32,7 @@
 					<% @books.each do |cloud_book| %>
 					<% cloud_book.cloud_books_histories.each do |history| %>
 					<tr>
-						<td> <%= history.book_name %> </td>
+						<td><%= render :partial => "cloud_books_histories/log_button", :locals => {:node_name => history.book_name} %></td>
 						<td> <%= history.request_id %> </td>
 						<td> <%= history.status %> </td>
 					</tr>
@@ -55,6 +55,9 @@
 						<th>Timestamp</th>
 						<th>Dump</th>
 					</tr>
+					<tr id="log_contents">
+					
+					</tr>
 				</thead>
 				<br/>
 				<tbody>
@@ -63,8 +66,6 @@
 			</table>
 		</div>
 	</div>
-	<!--<%= link_to "Worker", worker_path, :class => "btn btn-success", :remote => true, :method => "post", data: { spinner: '#fed'}  %>
-	<%= spinner_tag 'fed' %>-->
-
+	
 	<% end %>
 	<%= render :template => users_show_path %>
