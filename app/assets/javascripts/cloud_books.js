@@ -18,8 +18,5 @@ $(document).ready(function() {
         }
     });
 	});	
-
-	$('#book_to_run').click(function(){
-		
-	})
+	
 });

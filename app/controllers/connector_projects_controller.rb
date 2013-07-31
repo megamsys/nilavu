@@ -6,11 +6,11 @@ class ConnectorProjectsController < ApplicationController
     if !current_user.organization
       flash[:error] = "Please Create Organization Details first"
       redirect_to edit_user_path(current_user)
-    elsif !current_user.organization.apps_items
-      flash[:error] = "Please Add any cloud Applications"
-      redirect_to new_apps_item_path
+    #elsif !current_user.organization.apps_items
+     # flash[:error] = "Please Add any cloud Applications"
+     # redirect_to new_apps_item_path
     end
-    @connector_project = ConnectorProject.all
+   # @connector_project = ConnectorProject.all
    end
 
   def new

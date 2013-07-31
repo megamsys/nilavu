@@ -41,7 +41,7 @@ Cloudauth::Application.routes.draw do
 
 # 	=======Cloud Books History 
   match '/worker', to: 'cloud_books_histories#worker', via: [:get, :post] 
-
+  
 # 	=======Billing controller
   get  '/pricing' => 'billing#pricing'
   get  '/account' => 'billing#account'
