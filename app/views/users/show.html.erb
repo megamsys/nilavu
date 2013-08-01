@@ -69,6 +69,12 @@
 						<% end %>
 					</li>
 
+
+					<li>
+<%= link_to "Worker", worker_path, :remote => true, :method => "post", data: { spinner: '#fed'}  %>
+<%= spinner_tag 'fed' %> 
+					</li>
+
 				</ul>
 			</li>
 		</ul>

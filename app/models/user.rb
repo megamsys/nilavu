@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
- 
+
 
   def self.create_from_auth_hash!(auth_hash)
     create(:first_name => auth_hash["info"]["name"], :last_name => auth_hash["info"]["last_name"],

@@ -1,13 +1,15 @@
+require 'resque'
+
 class UsersController < ApplicationController
   respond_to :html, :js
 
   add_breadcrumb "Home", :root_path
   #add_breadcrumb "Dashboard", :dashboard_path
 
-  before_filter :signed_in_user,
-               only: [:index, :edit, :update, :destroy]
+  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
   before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: :destroy
+  
   def index
     @users = User.paginate(page: params[:page])
   end
@@ -33,11 +35,26 @@ class UsersController < ApplicationController
   end
 
   def forgot
+  end
 
+  def worker
+    @user = current_user
+    options = { :id => @user.id, :email => @user.email, :api_key => @user.api_token, :authority => "admin" }
+    puts "options====> #{options.inspect}"
+    #Resque.enqueue(WorkerClass, options)
+    success = Resque.enqueue(CreateAccounts, options)
   end
 
   def dashboard
-    add_breadcrumb "dashboard", dashboard_path  
+    add_breadcrumb "dashboard", dashboard_path
+=begin
+@user = current_user
+options = { :id => @user.id, :email => @user.email, :api_key => @user.api_token, :authority => "admin" }
+puts "options====> #{options.inspect}"
+#Resque.enqueue(WorkerClass, options)
+success = Resque.enqueue(CreateAccounts, options)
+=end
+    add_breadcrumb "dashboard", dashboard_path
   end
 
   def email_verify
@@ -76,8 +93,6 @@ class UsersController < ApplicationController
         @identity = Identity.find_by_uid(params[:social_uid])
         @identity.update_attribute(:users_id, @user.id)
       end
-      #accounts_hash = {:email => @user.email, :api_key => 'secret'}
-      #Resque.enqueue(APIAccounts, accounts_hash)
       sign_in @user
       flash[:success] = "Welcome #{current_user.first_name}"
       redirect_to dashboard_path, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Created account #{@user.email} successfully.", :sticky => false, :nodom_wrap => true } }

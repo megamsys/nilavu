@@ -78,6 +78,7 @@ GEM
     debug_inspector (0.0.2)
     diff-lcs (1.2.4)
     erubis (2.7.0)
+    excon (0.25.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
     factory_girl (4.2.0)

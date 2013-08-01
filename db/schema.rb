@@ -65,6 +65,17 @@ ActiveRecord::Schema.define(version: 20130726050612) do
 
   add_index "cloud_identities", ["users_id"], name: "index_cloud_identities_on_users_id", using: :btree
 
+  create_table "cloud_runs", force: true do |t|
+    t.string   "name"
+    t.integer  "users_id"
+    t.string   "description"
+    t.string   "log"
+    t.string   "status"
+    t.string   "launch_time"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "identities", force: true do |t|
     t.integer  "users_id"
     t.string   "provider"
