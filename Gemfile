@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-# Rails 4.0 
+# Rails 4.0
 gem "rails", "~> 4.0.0"
 # add these gems to help with the transition to Rails 4.0
 gem 'protected_attributes'
@@ -8,8 +8,8 @@ gem 'rails-observers'
 gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
 
-gem 'megam_api'
-gem 'mixlib-config'
+#gem "megam_api", "~> 0.1.0"
+gem 'socket.io-rails'
 
 #JQuery rails, other jquery scripts
 gem 'turbolinks'
@@ -53,12 +53,13 @@ gem 'bcrypt-ruby', '3.0.0',:require => 'bcrypt'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
+
   gem 'twitter-bootstrap-rails'
   # supporting rails 4.0
   gem 'sass-rails',   '~> 4.0.0'
   gem 'coffee-rails', '~> 4.0.0'
   gem "less-rails", "~> 2.3.3"
-   gem 'uglifier', '>= 2.1.2'
+  gem 'uglifier', '>= 2.1.2'
 end
 
 group :test do
@@ -75,7 +76,5 @@ group :development do
   gem 'meta_request'
 end
 
-#gem "megam_api", "~> 0.1.0"
-gem 'socket.io-rails'
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'

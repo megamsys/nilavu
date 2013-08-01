@@ -113,7 +113,7 @@ class UsersController < ApplicationController
       if @user.update_attributes(api_token: @api_token)
         sign_in @user
         respond_to do |format|
-          format.html { redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } } }
+          format.html { redirect_to dashboard_path, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } } }
           format.js {
             respond_with(:user => @user, :api_token => @api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
           }
@@ -125,7 +125,7 @@ class UsersController < ApplicationController
       if @user.update_attributes(params[:user])
         sign_in @user
         respond_to do |format|
-          format.html { redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } } }
+          format.html { redirect_to dashboard_path, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } } }
           format.js {
             respond_with(:user => @user, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
           }
