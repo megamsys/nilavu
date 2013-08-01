@@ -29,6 +29,7 @@
 //= require cloud_books
 //= require connector_projects
 //= require jquery_slider
+//= require jquery_tooltip
 //= require unicorn.form_validation
 //= require unicorn.wizard
 //= require theme

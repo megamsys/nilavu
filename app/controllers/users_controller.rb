@@ -37,7 +37,7 @@ class UsersController < ApplicationController
   end
 
   def dashboard
-    add_breadcrumb "dashboard", dashboard_path
+    add_breadcrumb "dashboard", dashboard_path  
   end
 
   def email_verify

@@ -15,21 +15,21 @@
 		<div class="span12" id="folders">
 			<div class="div2">
 				<div id="mcts1">
-					<a href="#"><%= image_tag "salesforce.png", :alt => "image01" %></a>
+					<a href="#" style="width: 100px;  height: 100px;" onmouseover="tooltip.pop(this, 'salesforce.com')"><%= image_tag "salesforce.png", :alt => "image01"%></a>
 
-					<a href="#"><%= image_tag "zoho.png", :alt => "image02" %></a>
+					<a href="#" style="width: 100px;  height: 100px;" onmouseover="tooltip.pop(this, '#tip2')"><%= image_tag "zoho.png", :alt => "image02" %></a>
 
-					<a href="#"><%= image_tag "xero.png", :alt => "image01" %></a>
+					<a href="#" style="width: 100px;  height: 100px;" onmouseover="tooltip.pop(this, 'xero.com')"><%= image_tag "xero.png", :alt => "image03" %></a>
 
-					<a href="#"><%= image_tag "salesforce.png", :alt => "image01" %></a>
+					<a href="#" style="width: 100px;  height: 100px;" onmouseover="tooltip.pop(this, 'salesforce.com')"><%= image_tag "salesforce.png", :alt => "image04" %></a>
 
-					<a href="#"><%= image_tag "zoho.png", :alt => "image02" %></a>
+					<a href="#" style="width: 100px;  height: 100px;" onmouseover="tooltip.pop(this, '#tip2')"><%= image_tag "zoho.png", :alt => "image05" %></a>
 
-					<a href="#"><%= image_tag "xero.png", :alt => "image01" %></a>
+					<a href="#" style="width: 100px;  height: 100px;" onmouseover="tooltip.pop(this, 'xero.com')"><%= image_tag "xero.png", :alt => "image06" %></a>
 
-					<a href="#"><%= image_tag "zoho.png", :alt => "image02" %></a>
+					<a href="#" style="width: 100px;  height: 100px;" onmouseover="tooltip.pop(this, '#tip2')"><%= image_tag "zoho.png", :alt => "image07" %></a>
 
-					<a href="#"><%= image_tag "xero.png", :alt => "image01" %></a>
+					<a href="#" style="width: 100px;  height: 100px;" onmouseover="tooltip.pop(this, 'xero.com')"><%= image_tag "xero.png", :alt => "image08" %></a>
 
 				</div>
 			</div>
@@ -39,36 +39,37 @@
 	<div class="row-fluid">
 		<div class="span3">
 			<br/>
-			<div  style="height: 340px;  overflow-y: scroll;">
-				<div class="invoice-content">
+			<div style="height: 340px;  overflow-y: scroll;">				
+				<div class="invoice-content offset2">
 					<h5>/activities</h5>
 				</div>
-				<div class="invoice-content">
+				<div class="invoice-content offset2">
 					<h5>/assets</h5>
 				</div>
-				<div class="invoice-content">
+				<div class="invoice-content offset2">
 					<h5>/devices</h5>
 				</div>
-				<div class="invoice-content">
+				<div class="invoice-content offset2">
 					<h5>/events</h5>
 				</div>
-				<div class="invoice-content">
+				<div class="invoice-content offset2">
 					<h5>/folders</h5>
 				</div>
-				<div class="invoice-content">
+				<div class="invoice-content offset2">
 					<h5>/groups</h5>
 				</div>
-				<div class="invoice-content">
+				<div class="invoice-content offset2">
 					<h5>/roles</h5>
 				</div>
-				<div class="invoice-content">
-					<h5>/users</h5>
+				<div class="invoice-content offset2">
+					<h5>/users</h5>			
 				</div>
 			</div>
 		</div>
 		<div class="span7">
 			<br/>
 			<div  style="height: 340px;  overflow-y: scroll;">
+				<div class="span6">
 				<h3>Data Explorer</h3>
 				<br/>
 				Path
@@ -90,8 +91,22 @@
 					</div>
 				</div>
 			</div>
+			<div class="span6">
+				<h3>JSON</h3>
+				<br/>
+				<%= text_area :path, :id => 'large_text', placeholder: "Path" %>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
+ <div style="display:none;">
+        <div id="tip2">
+            <div class="tips">
+            	<%= image_tag "zoho.png", :alt => "image05", :style => "float:right;margin-left:6px;margin-bottom:6px;width:154px;height:80px;" %>
+                 ZOHO.com 
+            </div>
+        </div>
+        </div>
 <% end %>
 <%= render :template => users_show_path %>
