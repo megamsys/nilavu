@@ -4,6 +4,8 @@ class SessionsController < ApplicationController
   end
 
   def create
+puts "TEST WITH JEEVA --> "
+puts "PARAMS -->  #{params}"
     auth = social_identity
     if social_identity.nil?
       user = User.find_by_email(params[:session][:email])

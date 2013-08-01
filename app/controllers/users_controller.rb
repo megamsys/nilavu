@@ -1,3 +1,4 @@
+require 'resque'
 class UsersController < ApplicationController
   respond_to :html, :js
 
@@ -35,8 +36,22 @@ class UsersController < ApplicationController
   def forgot
 
   end
+def worker
+	@user = current_user
+	options = { :id => @user.id, :email => @user.email, :api_key => @user.api_token, :authority => "admin" }
+	puts "options====> #{options.inspect}"
+	#Resque.enqueue(WorkerClass, options)
+	success = Resque.enqueue(CreateAccounts, options)
+end
 
   def dashboard
+=begin
+	@user = current_user
+	options = { :id => @user.id, :email => @user.email, :api_key => @user.api_token, :authority => "admin" }
+	puts "options====> #{options.inspect}"
+	#Resque.enqueue(WorkerClass, options)
+	success = Resque.enqueue(CreateAccounts, options)
+=end
     add_breadcrumb "dashboard", dashboard_path
   end
 
@@ -76,8 +91,6 @@ class UsersController < ApplicationController
         @identity = Identity.find_by_uid(params[:social_uid])
         @identity.update_attribute(:users_id, @user.id)
       end
-      #accounts_hash = {:email => @user.email, :api_key => 'secret'}
-      #Resque.enqueue(APIAccounts, accounts_hash)
       sign_in @user
       flash[:success] = "Welcome #{current_user.first_name}"
       redirect_to dashboard_path, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Created account #{@user.email} successfully.", :sticky => false, :nodom_wrap => true } }
@@ -113,7 +126,7 @@ class UsersController < ApplicationController
       if @user.update_attributes(api_token: @api_token)
         sign_in @user
         respond_to do |format|
-          format.html { redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } } }
+          format.html { redirect_to dashboard_url, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } } }
           format.js {
             respond_with(:user => @user, :api_token => @api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
           }
@@ -125,7 +138,7 @@ class UsersController < ApplicationController
       if @user.update_attributes(params[:user])
         sign_in @user
         respond_to do |format|
-          format.html { redirect_to users_dashboard_url, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } } }
+          format.html { redirect_to dashboard_url, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } } }
           format.js {
             respond_with(:user => @user, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
           }

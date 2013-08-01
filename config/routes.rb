@@ -27,6 +27,9 @@ Cloudauth::Application.routes.draw do
   # to-do: this is showing the index of billed_history (make it a separate controller)
   get  '/history' => 'billing#history'
 
+  match '/worker', to: 'users#worker', via: [:get, :post]
+
+
 # ======Users Controller
   match '/signup', to: 'users#new', via: [:get, :post]
   match '/forgot', to: 'users#forgot', via: [:get]
