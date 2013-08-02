@@ -23,7 +23,7 @@ gem "gritter", "~> 1.0.3"
 gem "icheck-rails", "~> 0.9.0.2"
 
 # Database posgresql
-gem 'pg', '0.15.1'
+gem 'pg'
 
 # OAuth authentication to twitter, facebook, openid using omniauth
 gem 'omniauth-twitter'
@@ -32,7 +32,7 @@ gem 'omniauth-openid'
 
 gem 'will_paginate','3.0.4'
 gem 'bootstrap-will_paginate','0.0.9'
-gem 'paperclip','3.5.0'
+gem 'paperclip','3.5.1'
 gem "aws-sdk"
 gem 'high_voltage',"1.2.4"
 gem "therubyracer", :require => 'v8',:platforms => :ruby
