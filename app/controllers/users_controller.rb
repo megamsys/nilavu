@@ -46,6 +46,7 @@ class UsersController < ApplicationController
 
   def dashboard
     add_breadcrumb "dashboard", dashboard_path
+	puts "current_user ===> #{current_user}"
 =begin
 @user = current_user
 options = { :id => @user.id, :email => @user.email, :api_key => @user.api_token, :authority => "admin" }
@@ -53,7 +54,6 @@ puts "options====> #{options.inspect}"
 #Resque.enqueue(WorkerClass, options)
 success = Resque.enqueue(CreateAccounts, options)
 =end
-    add_breadcrumb "dashboard", dashboard_path
   end
 
   def email_verify
@@ -102,6 +102,7 @@ success = Resque.enqueue(CreateAccounts, options)
       if !(res_body.some_msg[:msg_type] == "error")
         #update current user as onboard user(megam_api user)
         @user.update_attribute(:onboarded_api, true)
+	sign_in @user
         redirect_to dashboard_path, :gflash => { :success => { :value => "#{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
         redirect_to dashboard_path, :gflash => { :success => { :value => "Sorry. You are not yet onboard. Update profile. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
@@ -135,28 +136,39 @@ success = Resque.enqueue(CreateAccounts, options)
     @user_fields_form_type = params[:user_fields_form_type]
     if @user_fields_form_type == 'api_key'
       @api_token = SecureRandom.urlsafe_base64(nil, true)
-      if @user.update_attributes(api_token: @api_token)
-        puts "TEST---------------> "
-        sign_in @user
-        respond_to do |format|
 
-        #format.html { redirect_to dashboard_url, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } } }
+      options = { :id => @user.id, :email => @user.email, :api_key => @api_token, :authority => "admin" }
+      @res_body = CreateAccounts.perform(options)
+	puts "RES BODY----> #{@res_body.inspect}"
+	puts "MSG==>  #{@res_body.some_msg[:msg]}"
+	@ms = "#{@res_body.some_msg[:msg]}"
+      if !(@res_body.some_msg[:msg_type] == "error")
+        #update current user as onboard user(megam_api user)
+        #@user.update_attribute(:onboarded_api, true)
+	@user.update_attributes(api_token: @api_token, onboarded_api: true)
+	sign_in @user
+	puts "TEST IF !ERROR"
+	@res_msg = "SUCCESS---->>"
+	puts "TEST IF !ERROR    -->  #{@res_body.some_msg[:msg]}"
+        respond_to do |format|
           format.js {
-            respond_with(:user => @user, :api_token => @api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
+            respond_with(@res_msg, :user => @user, :api_token => @api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
           }
         end
       else
-        render 'edit'
+	puts "TEST else !ERROR"
+	@res_msg = "#{@res_body.some_msg[:msg]}"
+        respond_to do |format|
+                  format.js {
+            respond_with(@res_msg, :user => @user, :api_token => @api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
+          }
+        end
+
+        #redirect_to dashboard_path, :gflash => { :error => { :value => "Sorry. You are not yet onboard. Update profile. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       end
     else
       if @user.update_attributes(params[:user])
         sign_in @user
-        respond_to do |format|
-          format.html { redirect_to dashboard_path, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } } }
-          format.js {
-            respond_with(:user => @user, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
-          }
-        end
       else
         render 'edit'
       end

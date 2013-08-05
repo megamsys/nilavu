@@ -6,7 +6,11 @@ $(selected_entity).fadeIn("slow");
 
 <% if @user_fields_form_type == 'api_key'%>
 $('#api_key_field').val('<%= @api_token %>');
-
+console.log('TEST -----------------------------------------------------------------first'+'<%= @res_msg %>');
+var msg = '<%=@res_msg%>';
+alert("Hello! I am an alert box! "+msg);
+var msg1 = '<%=@user_fields_form_type%>';
+console.log('TEST ----------------------------------------------------------------- 2nd'+msg);
 <% end %>
 
 $('.alert_flash_<%= @user_fields_form_type %>').replaceWith('<div class="alert alert-success fade in"><a href="#" data-dismiss="alert" class="close">×</a><h4 align="center">Updated successfully</h4></div>').fadeIn("slow");
