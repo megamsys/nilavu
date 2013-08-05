@@ -1,6 +1,7 @@
-<% provide(:title, 'About') %>
+<% provide(:title, 'About') %> <!-- features -->
 <div id="about" class="about_page">
 	<div class="container">
+		<!-- header -->
 		<h2 class="section_header">
 		<hr class="left visible-desktop">
 		<span>About Us</span>
@@ -9,19 +10,108 @@
 
 		<div class="row">
 			<div class="span12">
-				<h3 class="intro"> Megam Systems was founded in mid July 2012 - a bootstrapped entity working on "Live Cloud integration of
-				Cloud Application using a Cloud Identity.
+				<h3 class="intro"> Megam Systems - will provide a "Live cloud experience using a Cloud Identity". </h3>
+			</div>
+		</div>
 
-				We are a brilliant exhuberant small team located in chennai, and enjoy programming in Java, Ruby on Rails,
-				PostgreSQL, Oh, Yeah on Cloud.</br>
+		<!-- description -->
+		<div class="row">
+			<div class="span6">
+				<p>
+					While creating a live cloud experience, we found a need to build a private PaaS.
+					<br>
+					This is an enterprise wide problem as enterprises "Refactor and Rehost code".
+					<br>
+					This is where theopensource cloud platform 'Megam'  was born.
+					<br>
+					A team was grouped in July lastyear in chennai, and we started working.
+					Quickly the stack was chosen - Chef 11, Playframework for the API REST, Ruby (CLI/RoR)
+				</p>
+			</div>
+			<div class="span6">
+				<p>
+					First step was to abstracted the provisioners (Chef in this case)
+					<br>
+					Added a layer using an API using Play/Scala to service the clients for a platform request.
+					<br>
+					Metering and log streaming was added using Ganglia and Logstash.
+					<br>
+					Read more about our vision in slide share.
+				</p>
+			</div>
+		</div>
 
-				Wanna Contribute - Read our Contribution page.</br>
+		<!-- header -->
+		<h2 class="section_header team">
+		<hr class="left visible-desktop">
+		<span>Our Team</span>
+		<hr class="right visible-desktop">
+		</h2>
 
-				Our deck in slideshare will be a good starting point to know about our thought leaderhsip.</br>
-
-				Looking for jobs, We'd love to hear ? Send us through our Mobile App. </br>
-				(or) <%= link_to "twitter : @megamsystems","http://twitter.com/megamsystems" %> </br>
-				Are you a summer intern ? Great. Join us for "Our Dew Drop Code".</br> </h3>
+		<div class="row">
+			<div class="span3 teammate">
+				<%= image_tag "kishore.png", :alt => "Kishorekumar Neelamegam", :class => "img-circle img-polaroid" %>
+				<h5>Kishorekumar Neelamegam</h5>
+				<p>
+					Founder & Managing Director
+				</p>
+				<hr>
+				<p class="description">
+					An electrical engineer with 15+ years of experience in complex environment as an Architect/Specialist.
+					Passionately writes code in ...
+				</p>
+				<div class="social">
+					<a href="#"> <i class="social tw"></i> </a>
+					<a href="#"> <i class="social fb"></i> </a>
+					<a href="#"> <i class="social gp"></i> </a>
+					<a href="#"> <i class="social pin"></i> </a>
+				</div>
+			</div>
+			<div class="span3 teammate">
+				<%= image_tag "thomas.png", :alt => "Thomas alrin", :class => "img-circle img-polaroid" %>
+				<h5>Thomas Alrin</h5>
+				<p>
+					DevOps Engineer
+				</p>
+				<hr>
+				<p class="description">
+					Graduate from Alagappa , Responsible for the devops for Megam platform.
+					Passionate code in Ruby.
+				</p>
+				<div class="social">
+					<a href="#"> <i class="social tw"></i> </a>
+					<a href="#"> <i class="social fb"></i> </a>
+					<a href="#"> <i class="social gp"></i> </a>
+				</div>
+			</div>
+			<div class="span3 teammate">
+				<%= image_tag "thilak.png", :alt => "Raj Thilak", :class => "img-circle img-polaroid" %>
+				<h5>Raj Thilak</h5>
+				<p>
+					Platform Engineer
+				</p>
+				<hr>
+				<p class="description">
+					Graduate from Alagappa , Responsible for the interfaces to the provisioner for Megam platform.
+					Passionate code in Scala/Akka/Play and others.
+				</p>
+				<div class="social">
+					<a href="#"> <i class="social tw"></i> </a>
+					<a href="#"> <i class="social fb"></i> </a>
+					<a href="#"> <i class="social gp"></i> </a>
+				</div>
+			</div>
+			<div class="span3 teammate">
+				<img src="img/about.png" class="" />
+				<h5>Other Contributors</h5>
+				<p>
+					Opensource
+				</p>
+				<hr>
+				<p class="description">
+					We are thankful to Pandiyaraja Ramamoorthy, Subash Sethurajan, Jeeva Mathaiyan for their contributions.
+					needs.
+				</p>
 			</div>
 		</div>
 	</div>

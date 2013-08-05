@@ -1,130 +1,74 @@
 <% provide(:title, 'Get Started') %>
 <div class="container-fluid">
-<hr/><h1>Getting Started</h1>
-<hr/>
-<h3>Try Megam</h3>
-<div class="row">
-	<div class="span6">
-		<h4>Option 1: Free, Hosted Test Environment</h4>
-		<p class="environments">
-			To see how a live Megam cloud on cloud operates, you can play in the free sandbox by siging up an account
-			<%= link_to "Sign Up", signup_path %>. IdentityProv is a multitenat identity cloud built and managed by Megam community.
-		</p>
+	<hr/>
+	<h1>Getting Started</h1>
+	<hr/>
+	<h3>Try Megam</h3>
+	<div class="row">
+		<div class="span6">
+			<h4>Option 1: Free, Hosted Environment</h4>
+			<p class="environments">
+				To see how a polygot cloud app operates, you can play in the free sandbox by signing up an account
+				<%= link_to "Sign Up", signup_path %>. IdentityProv is a multitenat identity cloud built and managed by Megam community.
+			</p>
+		</div>
+		<div class="span6">
+			<h4>Option 2: Private Hosted Environment</h4>
+			<p class="environments">
+				For  Organization that want to actually get involved in using it for their cloud applications, there is a great set of projects as shown below with installation instructions for you to run from your private hosted environment.
+			</p>
+			<p>
+				<%= button_to 'Running Megam', page_path("doc"), :class => 'btn' %>
+				<br/>
+			</p>
+
+		</div>
 	</div>
-	<div class="span6">
-		<h4>Option 2: Private Hosted Environment</h4>
-		<p class="environments">
-			For  Organization that want to actually get involved in using it for their cloud applications, there is a great set of projects as shown below with installation instructions for you to run from your private hosted environment.
-		</p>
 
-		<p>
-			<%= button_to 'Running Megam', page_path("doc"), :class => 'btn' %>
-			<br/>
-		</p>
+	<hr/>
+	<h1>Learn About Megam</h1>
+	<hr/>
 
+	<div class="row">
+		<div class="span5">
+			<h4>Megam Documentation</h4>
+
+			<p>
+				Detailed Megam documentation, developer and administrator guides
+				<%= button_to 'Megam Documentation', page_path("doc"), :class => 'btn' %>
+				<br/>
+			</p>
+
+		</div>
 	</div>
-</div>
 
-<hr/>
-<h1>Learn About Megam</h1>
-<hr/>
-
-<div class="row">
-	<div class="span5">
-		<h4>Megam Documentation</h4>
-
-		<p>
-			Detailed Megam documentation, developer and administrator guides
-			<%= button_to 'Megam Documentation', page_path("doc"), :class => 'btn' %>
-			<br/>
-		</p>
-
-	</div>
-</div>
-
-<hr/>
-<h1>Steps to follow in Megam</h1>
-<hr/>
-<h3>Sign Up</h3>
-<p style="margin-left:10px">
-	To see how a live Megam cloud on cloud operates, you can play in the free sandbox by siging up an account
-	<%= link_to "Sign Up", signup_path %>.
-</p>
-
-<hr/>
-<h3>Sign In</h3>
-<hr/>
-<div class="alert alert-success">
-	<p>
-		If you are already a registered user, You can sign in here <%= link_to "Sign In", signin_path %>.
+	<hr/>
+	<h1>What are you waiting for ?</h1>
+	<hr/>
+	<h3>Sign Up</h3>
+	<p style="margin-left:10px">
+		To see how a live Megam cloud on cloud operates, you can play in the free sandbox by siging up an account
+		<%= link_to "Sign Up", signup_path %>.
 	</p>
-</div>
 
-<hr/>
-<h3>Organization</h3>
-<p style="margin-left:10px">
-	Before proceed on anything, first you have to register user's organization details by updating user.
-	<hr/>
-	<div class="alert alert-success">
-		<p>
-			<h5>You can also update users profile and organization details by editing user's profile.
-			User's company logo will be stored in amazon-s3.</h5>
-		</p>
+	<div class="row">
+		<div class="span6">
+			<h4>Do you have more questions?</h4>
+			<p>
+				Megam strives to be an extremely helpful community.
+				<%= button_to 'Email Us', 'mailto:admin@megam.co.in', :class => 'btn' %>
+			</p>
+		</div>
+
+		<div class="span6">
+			<h4>Get involved with Megam</h4>
+			<p>
+				We are just born, read our blog, doc to know what we do.
+				<br>
+				</br>
+				<%= link_to 'How to contribute', 'http://blog.megam.co/', :class => 'btn', :target => "_blank" %>
+			</p>
+
+		</div>
 	</div>
-	<hr/>
-	<div class="alert alert-success">
-		<p>
-			<h5>Before proceed, please ensure that you've registered your organization details</h5>
-		</p>
-	</div>
-
-	<hr/>
-	<h3>My dash</h3>
-<p style="margin-left:10px">
-	My dash on the header is to show your Oraganization details and your cloud-applications.
-</p>
-
-<hr/>
-<h3>Cloud Identity</h3>
-<p style="margin-left:10px">
-	You can create your own cloud identity by just a click using Ironfist.
-	<br>
-	</br>
-</p>
-
-<hr/>
-<h3>Cloud Applications</h3>
-<p style="margin-left:10px">
-	List of cloud applications will be sown to the user. The user can add as many he wants. Identity will be provided to the users, for each selected cloud applications. Cloud application's links will be shown in my-dash. After he added the cloud applications, if he wants to remove, he can do so.
-	<br>
-	</br>
-
-</p>
-
-<hr/>
-<h1>Next Steps</h1>
-<hr/>
-<div class="row">
-	<div class="span6">
-
-		<h4>Do you have more questions?</h4>
-
-		<p>
-			Megam strives to be an extremely helpful community.
-			<%= button_to 'Email Us', 'mailto:admin@megam.co.in', :class => 'btn' %>
-		</p>
-
-	</div>
-
-	<div class="span6">
-
-		<h4>Get involved with Megam</h4>
-		<p>
-			We are just born, read our blog, doc to know what we do.
- <br></br>
-<%= link_to 'How to contribute', 'http://blog.megam.co/', :class => 'btn', :target => "_blank" %>
-		</p>
-
-	</div>
-</div>
 </div>

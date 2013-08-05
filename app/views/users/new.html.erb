@@ -14,12 +14,12 @@
 								<div class="head">
 									<h4>Create your account</h4>
 								</div>
-								<div class="form">                                    
+								<div class="form">
 									<%= render :partial => "users/create_user" , :locals => {:user => @user, :method => 'post'}%>
 								</div>
 							</div>
 						</div>
-					</div>					
+					</div>
 					<div class="span4 offset1">
 						<p class="already">
 							Already have an account? <%= link_to "Sign in", signin_path %>
@@ -35,45 +35,43 @@
 						<div class="span2">
 							<%= image_tag "helpbota.png", :alt => "helpbot",:class => "main_pic", :alt => "helpbot"%>
 						</div>
-						<div class="span6 info">
-							<div class="post_info">
-								<a href="blog-post.html"> <h3>Launch your identity !</h3> </a>
-								<strong>and Integrate your Cloud Apps <span class="badge badge-info">free</span>
-							</div>
+						<div class="span5 info">
+							<a href="#somedoclink"> <h3>Beta - Launch your Apps !</h3> <span class="badge badge-info">free</span></a>
+							<strong>Cross cloud and monitor them. 
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="span7">
-			<div id="myCarousel" class="carousel slide widget-content ">
+		<div class="span7 widget-content">
+			<div id="myCarousel" class="carousel slide">
 				<div class="carousel-inner">
 					<div class="item active">
 						<%= image_tag "sales_pitch1.png", :alt => "Cloud computing"%>
 
 						<div class="carousel-caption">
-							<h4>Cloud Identity</h4>
+							<h4>Cloud Apps</h4>
 							<p>
-								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+								Tech stack : Java, Scala, Playframework(Scala), RoR, Node.js, others soon.
 							</p>
 						</div>
 					</div>
 					<div class="item">
 						<%= image_tag "sales_pitch2.png", :alt => "Cloud identity"%>
 						<div class="carousel-caption">
-							<h4>Launch Cloud Identity</h4>
+							<h4>Metered & Monitored</h4>
 							<p>
-								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+								Monitor your cloud books (instances) for free.
 							</p>
 						</div>
 					</div>
 					<div class="item">
 						<%= image_tag "sales_pitch3.png", :alt => "Cloud integration"%>
 						<div class="carousel-caption">
-							<h4>Live Cloud - Integrations</h4>
+							<h4>API, CLI & Preview of cloud connectors</h4>
 							<p>
-								Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.
+								Powerful REST API, CLI $ >, and Preview - cloud connectors to salesforce CRM, Google App, ZoHoCRM, Twilio and more.
 							</p>
 						</div>
 					</div>
