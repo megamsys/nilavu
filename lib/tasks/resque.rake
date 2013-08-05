@@ -1,3 +1,4 @@
-require 'resque/tasks'
-task "resque:setup" => :environment
+#GEM Resque load
+#require 'resque/tasks'
+#task "resque:setup" => :environment
 
