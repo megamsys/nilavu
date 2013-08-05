@@ -39,7 +39,10 @@ gem "therubyracer", :require => 'v8',:platforms => :ruby
 gem "breadcrumbs_on_rails"
 gem "randexp", "~> 0.1.7"
 #For background processing of cloud jobs
-gem 'resque'
+#gem 'resque'
+#gem 'sidekiq'
+#gem 'sinatra', require: false
+#gem 'slim'
 
 # To use ActiveModel has_secure_password there is a hard dependency to 3.0.0 version.
 # bummer.http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html

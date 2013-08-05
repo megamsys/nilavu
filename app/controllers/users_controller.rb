@@ -1,5 +1,3 @@
-require 'resque'
-
 class UsersController < ApplicationController
   respond_to :html, :js
 
@@ -9,7 +7,6 @@ class UsersController < ApplicationController
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
   before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: :destroy
-  
   def index
     @users = User.paginate(page: params[:page])
   end
@@ -40,9 +37,11 @@ class UsersController < ApplicationController
   def worker
     @user = current_user
     options = { :id => @user.id, :email => @user.email, :api_key => @user.api_token, :authority => "admin" }
-    puts "options====> #{options.inspect}"
-    #Resque.enqueue(WorkerClass, options)
-    success = Resque.enqueue(CreateAccounts, options)
+    res_body = CreateAccounts.perform(options)
+    puts "----------------------- SUCCESS--------------------------"
+  #Resque.enqueue(WorkerClass, options)
+  #success = Resque.enqueue(CreateAccounts, options)
+  #HardWorker.perform_async('bob', 5)
   end
 
   def dashboard
@@ -88,14 +87,25 @@ success = Resque.enqueue(CreateAccounts, options)
   def create
     @user = User.new(params[:user])
     @user_fields_form_type = params[:user_fields_form_type]
+
     if @user.save
       if params[:social_uid]
         @identity = Identity.find_by_uid(params[:social_uid])
         @identity.update_attribute(:users_id, @user.id)
       end
+
+      options = { :id => @user.id, :email => @user.email, :api_key => @user.api_token, :authority => "admin" }
+      res_body = CreateAccounts.perform(options)
+      puts "-----------------SUCCESS RES---------------"
       sign_in @user
       flash[:success] = "Welcome #{current_user.first_name}"
-      redirect_to dashboard_path, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Created account #{@user.email} successfully.", :sticky => false, :nodom_wrap => true } }
+      if !(res_body.some_msg[:msg_type] == "error")
+        #update current user as onboard user(megam_api user)
+        @user.update_attribute(:onboarded_api, true)
+        redirect_to dashboard_path, :gflash => { :success => { :value => "#{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      else
+        redirect_to dashboard_path, :gflash => { :success => { :value => "Sorry. You are not yet onboard. Update profile. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      end
     else
       @user= User.find_by_email(params[:user][:email])
       if(@user)
@@ -126,9 +136,11 @@ success = Resque.enqueue(CreateAccounts, options)
     if @user_fields_form_type == 'api_key'
       @api_token = SecureRandom.urlsafe_base64(nil, true)
       if @user.update_attributes(api_token: @api_token)
+        puts "TEST---------------> "
         sign_in @user
         respond_to do |format|
-          format.html { redirect_to dashboard_path, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } } }
+
+        #format.html { redirect_to dashboard_url, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } } }
           format.js {
             respond_with(:user => @user, :api_token => @api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
           }

@@ -13,11 +13,13 @@ class CreateUsers < ActiveRecord::Migration
       t.string :verification_hash
       t.string :user_type
       t.string :api_token
+      t.boolean :onboarded_api, default: false
       t.timestamps
     end
     add_index :users, :email, unique: true
     add_index :users, :remember_token
     add_index :users, :org_id
+    add_index :users, :onboarded_api
   end
 
   def self.down

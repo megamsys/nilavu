@@ -117,11 +117,13 @@ ActiveRecord::Schema.define(version: 20130726050612) do
     t.string   "verification_hash"
     t.string   "user_type"
     t.string   "api_token"
+    t.boolean  "onboarded_api",     default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["onboarded_api"], name: "index_users_on_onboarded_api", using: :btree
   add_index "users", ["org_id"], name: "index_users_on_org_id", using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
 

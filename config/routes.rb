@@ -1,3 +1,4 @@
+#require 'sidekiq/web'
 Cloudauth::Application.routes.draw do
 
   root :to => 'high_voltage/pages#show', :id => 'home'
@@ -28,7 +29,8 @@ Cloudauth::Application.routes.draw do
   get '/history' => 'billing#history'
 
   match '/worker', to: 'users#worker', via: [:get, :post]
-
+# ...
+#mount Sidekiq::Web, at: '/worker'
 
 # ======Users Controller
   match '/signup', to: 'users#new', via: [:get, :post]
@@ -60,12 +62,13 @@ Cloudauth::Application.routes.draw do
   # =======apps_items_controller
   match '/apps_items/destroy', to: 'apps_items#destroy', via: :delete
 
-# =======Connector_project_controller
-# match '/connector_project/destroy', to: 'connector_projects#destroy'
-# match '/connector_project/create', to: 'connector_projects#create'
-# match '/connector_project/upload', to: 'connector_projects#upload'
-# match '/connector_project/import', to: 'connector_projects#import'
-# match '/connector_execution/export', to: 'connector_executions#export'
-# match '/connector_execution/execute', to: 'connector_executions#execute'
+
+#   =======Connector_project_controller
+#  match '/connector_project/destroy', to: 'connector_projects#destroy'
+#  match '/connector_project/create', to: 'connector_projects#create'
+#  match '/connector_project/upload', to: 'connector_projects#upload'
+#  match '/connector_project/import', to: 'connector_projects#import'
+#  match '/connector_execution/export', to: 'connector_executions#export'
+#  match '/connector_execution/execute', to: 'connector_executions#execute'
 
 end
