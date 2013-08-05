@@ -3,15 +3,21 @@
 <div id="content-header">
 	<h1>Dashboard</h1>
 	<div class="btn-group">
-		<a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
-		<a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
-		<a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
-		<a class="btn btn-large tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a>
+		<%= link_to cloud_books_path, :class =>"btn btn-large tip-bottom", :title=> "Manage Cloud Books"  do %>
+		<i class="icon-briefcase"></i>
+		<% end %>
+		<%= link_to cloud_books_path, :class =>"btn btn-large tip-bottom", :title=> "Manage Cross Cloud"  do %>
+		<i class="icon-random"></i>
+		<% end %>
+		<%= link_to cloud_books_path, :class =>"btn btn-large tip-bottom", :title=> "Manage Cross Cloud"  do %>
+		<i class="icon-user"></i>
+		<% end %>
+		<%= link_to cloud_books_path, :class =>"btn btn-large tip-bottom", :title=> "Manage Comments"  do %>
+		<i class="icon-comment"></i><span class="label label-important">5</span>
+		<% end %>
 	</div>
 </div>
 <%= render_breadcrumbs %>
-
-
 
 <div class="container-fluid">
 
@@ -23,17 +29,17 @@
 						<span>2,4,9,7,12,10,12</span>+20%
 					</div>
 					<div class="right">
-						<strong>36094</strong>
-						Visits
+						<strong>35</strong>
+						Books Running
 					</div>
 				</li>
 				<li>
 					<div class="left peity_bar_neutral">
-						<span>20,15,18,14,10,9,9,9</span>0%
+						<span>20,15,18,14,10,9,9,9</span>99.3%
 					</div>
 					<div class="right">
-						<strong>1433</strong>
-						Users
+						<strong>12.09</strong>
+						Books Uptime(days.hrs)
 					</div>
 				</li>
 				<li>
@@ -42,7 +48,7 @@
 					</div>
 					<div class="right">
 						<strong>8650</strong>
-						Orders
+						Requests Served(rpm)
 					</div>
 				</li>
 				<li>
@@ -51,7 +57,7 @@
 					</div>
 					<div class="right">
 						<strong>8650</strong>
-						Orders
+						Queue Traffic
 					</div>
 				</li>
 			</ul>
@@ -70,10 +76,29 @@
 						<div class="accordion-group widget-box">
 							<div class="accordion-heading">
 								<div class="widget-title">
-									<a data-parent="#collapse-group" href="#collapseGOne" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 1 : Update your profile</h5> </a>
+									<a data-parent="#collapse-group" href="#collapseGOne" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 1: Verify your email address - <%= current_user.email %></h5> </a>
 								</div>
 							</div>
-							<div class="collapse in accordion-body" id="collapseGOne">
+							<div class="collapse accordion-body" id="collapseGOne">
+								<div class="widget-content">
+									<div class="container-fluid">
+										<% if !current_user.verified_email %>
+										<%= current_user.email %>
+										<%= link_to('Verify', email_verify_path(current_user.verification_hash), :class => "btn btn-warning btn-mini email-verify", :rel => "popover", :"data-content" => "Check Your mail", :remote => true) %>
+										<% else %>
+										Hi <%= current_user.first_name %>, Great ! <span class="label label-success">verified <%= current_user.email %>. </span>Thank you.
+										<% end %>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-group widget-box">
+							<div class="accordion-heading">
+								<div class="widget-title">
+									<a data-parent="#collapse-group" href="#collapseGTwo" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 2: Update your profile</h5> </a>
+								</div>
+							</div>
+							<div class="collapse in accordion-body" id="collapseGTwo">
 								<div class="widget-content">
 									<div class="container-fluid">
 										<% if !current_user.organization %>
@@ -88,10 +113,10 @@
 						<div class="accordion-group widget-box">
 							<div class="accordion-heading">
 								<div class="widget-title">
-									<a data-parent="#collapse-group" href="#collapseGTwo" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 2 : Create hosted cloud identity</h5> </a>
+									<a data-parent="#collapse-group" href="#collapseGThree" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 3: Launch a Cloud Book </h5> <span class="label label-info">Java/Play/RoR/Node.js</span></a>
 								</div>
 							</div>
-							<div class="collapse accordion-body" id="collapseGTwo">
+							<div class="collapse accordion-body" id="collapseGThree">
 								<div class="widget-content">
 									<% if !current_user.cloud_identities  %>
 									<%= link_to "Take me there", cloud_identity_path(current_user.id) , class: "btn btn-warning btn-mini"  %>Profile
@@ -105,10 +130,10 @@
 						<div class="accordion-group widget-box">
 							<div class="accordion-heading">
 								<div class="widget-title">
-									<a data-parent="#collapse-group" href="#collapseGThree" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 3: Add the cloud applications.</h5> </a>
+									<a data-parent="#collapse-group" href="#collapseGFour" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 4: Customize Cross Cloud defaults</h5> <span class="label label-warning">*optional</span></a>
 								</div>
 							</div>
-							<div class="collapse accordion-body" id="collapseGThree">
+							<div class="collapse accordion-body" id="collapseGFour">
 								<div class="widget-content">
 									<div class="container-fluid">
 										<% if !current_user.cloud_identities %>
@@ -124,19 +149,13 @@
 						<div class="accordion-group widget-box">
 							<div class="accordion-heading">
 								<div class="widget-title">
-									<a data-parent="#collapse-group" href="#collapseGFour" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 4: Verify your email address - <%= current_user.email %></h5> </a>
+									<a data-parent="#collapse-group" href="#collapseGFive" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 5: Github Account ? </h5></a>
 								</div>
 							</div>
-							<div class="collapse accordion-body" id="collapseGFour">
+							<div class="collapse accordion-body" id="collapseGFive">
 								<div class="widget-content">
-									<div class="container-fluid">
-										<% if !current_user.verified_email %>
-										<%= current_user.email %>
-										<%= link_to('Verify', email_verify_path(current_user.verification_hash), :class => "btn btn-warning btn-mini email-verify", :rel => "popover", :"data-content" => "Check Your mail", :remote => true) %>
-										<% else %>
-										Hi <%= current_user.first_name %>, Great ! <span class="label label-success">verified <%= current_user.email %>. </span>Thank you.
-										<% end %>
-									</div>
+									Others scms, coming soon.
+									Awesome ! <span class="label label-success"> you have one.</span>
 								</div>
 							</div>
 						</div>
@@ -148,33 +167,53 @@
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"><i class="icon-time"></i></span>
-					<h5>You have got question ?, Click below for answers.</h5>
+					<h5>You have got questions ? We have got answers.</h5>
 					<span class="label label-info">5</span>
 				</div>
 				<div class="widget-content nopadding">
 					<table class="table table-striped table-bordered">
 						<thead>
 							<tr>
-								<th>Description</th>
+								<th>?</th>
 								<th>Answer</th>
-								<th>Opts</th>
+								<th>Did it help?</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
 								<td class="taskDesc"><i class="icon-info-sign"></i> How can I update my profile ?</td>
-								<td class="taskStatus"><span class="in-progress">in progress</span></td>
-								<td class="taskOptions"><a href="#" class="tip-top" data-original-title="Update"><i class="icon-ok"></i></a><a href="" class="tip-top" data-original-title="Delete"><i class="icon-remove"></i></a></td>
+								<td class="taskStatus"><span class="in-progress"> <a href="">here</a></span></td>
+								<td class="taskOptions"><a href="#like" class="tip-top" data-original-title="Yup"><i class="icon-thumbs-up"></i></a>&nbsp;<a href="somedoclink" class="tip-top" data-original-title="Nah"><i class="icon-thumbs-down"></i></a></td>
 							</tr>
 							<tr>
-								<td class="taskDesc"><i class="icon-plus-sign"></i> How can I setup cloud identity ?</td>
-								<td class="taskStatus"><span class="pending">pending</span></td>
-								<td class="taskOptions"><a href="#" class="tip-top" data-original-title="Update"><i class="icon-ok"></i></a><a href="" class="tip-top" data-original-title="Delete"><i class="icon-remove"></i></a></td>
+								<td class="taskDesc"><i class="icon-plus-sign"></i> How can I setup a cloud book ?</td>
+								<td class="taskStatus"><span class="pending"> <a href="">here</a></span></td>
+								<td class="taskOptions"><a href="#like" class="tip-top" data-original-title="Yup"><i class="icon-thumbs-up"></i></a>&nbsp;<a href="somedoclink" class="tip-top" data-original-title="Nah"><i class="icon-thumbs-down"></i></a></td>
 							</tr>
 							<tr>
-								<td class="taskDesc"><i class="icon-ok-sign"></i> Why do I need to add cloud applications ?</td>
-								<td class="taskStatus"><span class="done">done</span></td>
-								<td class="taskOptions"><a href="#" class="tip-top" data-original-title="Update"><i class="icon-ok"></i></a><a href="" class="tip-top" data-original-title="Delete"><i class="icon-remove"></i></a></td>
+								<td class="taskDesc"><i class="icon-plus-sign"></i> Launch a Java App ?</td>
+								<td class="taskStatus"><span class="pending"> <a href="">here</a></span></td>
+								<td class="taskOptions"><a href="#like" class="tip-top" data-original-title="Yup"><i class="icon-thumbs-up"></i></a>&nbsp;<a href="somedoclink" class="tip-top" data-original-title="Nah"><i class="icon-thumbs-down"></i></a></td>
+							</tr>
+							<tr>
+								<td class="taskDesc"><i class="icon-plus-sign"></i> Launch a Playframework App ?</td>
+								<td class="taskStatus"><span class="pending"> <a href="">here</a></span></td>
+								<td class="taskOptions"><a href="#like" class="tip-top" data-original-title="Yup"><i class="icon-thumbs-up"></i></a>&nbsp;<a href="somedoclink" class="tip-top" data-original-title="Nah"><i class="icon-thumbs-down"></i></a></td>
+							</tr>
+							<tr>
+								<td class="taskDesc"><i class="icon-ok-sign"></i> Why do I need to use Github ?</td>
+								<td class="taskStatus"><span class="done"> <a href="">here</a></span></td>
+								<td class="taskOptions"><a href="#like" class="tip-top" data-original-title="Yup"><i class="icon-thumbs-up"></i></a>&nbsp;<a href="somedoclink" class="tip-top" data-original-title="Nah"><i class="icon-thumbs-down"></i></a></td>
+							</tr>
+							<tr>
+								<td class="taskDesc"><i class="icon-plus-sign"></i> Meter and monitor - Cloud books ?</td>
+								<td class="taskStatus"><span class="pending"> <a href="">here</a></span></td>
+								<td class="taskOptions"><a href="#like" class="tip-top" data-original-title="Yup"><i class="icon-thumbs-up"></i></a>&nbsp;<a href="somedoclink" class="tip-top" data-original-title="Nah"><i class="icon-thumbs-down"></i></a></td>
+							</tr>
+							<tr>
+								<td class="taskDesc"><i class="icon-ok-sign"></i> Request for a feature</td>
+								<td class="taskStatus"><span class="done"> <a href="">Great. sure</a></span></td>
+								<td class="taskOptions"><a href="#like" class="tip-top" data-original-title="Likes old requests (Vote now)"><i class="icon-thumbs-up"></i></a></td>
 							</tr>
 
 						</tbody>
@@ -237,20 +276,20 @@
 					<div class="span4">
 						<ul class="site-stats">
 							<li>
-								<i class="icon-user"></i><strong>1433</strong><small>Total Users</small>
+								<i class="icon-user"></i><strong>1433</strong><small>Total Books</small>
 							</li>
 							<li>
-								<i class="icon-arrow-right"></i><strong>16</strong><small>New Users (last week)</small>
+								<i class="icon-arrow-right"></i><strong>16</strong><small>New Books (last week)</small>
 							</li>
 							<li class="divider"></li>
 							<li>
-								<i class="icon-shopping-cart"></i><strong>259</strong><small>Total Shop Items</small>
+								<i class="icon-shopping-cart"></i><strong>11259</strong><small>Total Requests</small>
 							</li>
 							<li>
-								<i class="icon-tag"></i><strong>8650</strong><small>Total Orders</small>
+								<i class="icon-tag"></i><strong>8650</strong><small>Total Uptime(days)</small>
 							</li>
 							<li>
-								<i class="icon-repeat"></i><strong>29</strong><small>Pending Orders</small>
+								<i class="icon-repeat"></i><strong>29</strong><small>Total Queue Messages</small>
 							</li>
 						</ul>
 					</div>
