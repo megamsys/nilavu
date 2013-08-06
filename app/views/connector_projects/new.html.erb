@@ -1,37 +1,17 @@
 <% content_for :content_settings do %>
-<% provide(:title, 'New Connector_projects') %>
-
-<h2> New project</h2>
-<div id="toolbar" class="navbar-inner">
-	<% @products.each do |product| %>
-	<% @apps_item.each do |apps_item_el| %>
-	<% if apps_item_el.product_id === product.id %>
-	<%= image_tag product.image_url, :id => product.name, :alt => product.name, :size => "50x50" %>
-	<% end %>
-	<% end %>
-	<% end %>
-</div>
-
-
-<%= render "load" %>
-<hr></hr>
-
-<div class="accordion" id="accordion2">
-	<div class="accordion-group">
-		<div class="accordion-heading">
-			<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne"> Click to see the execution output (Default) </a>
-		</div>
-		<div id="collapseOne" class="accordion-body collapse in">
-			<div class="accordion-inner">
-
-				<div id="connector_output_default" class="span4">
-					Nothing to display yet. Waiting for submission.
-				</div>
-
-			</div>
-		</div>
+<% provide(:title, 'Dashboard') %>
+<div id="content-header">
+	<h1>Projects</h1>
+	<div class="btn-group">
+		<a class="btn btn-large tip-bottom" title="Manage Files"><i class="icon-file"></i></a>
+		<a class="btn btn-large tip-bottom" title="Manage Users"><i class="icon-user"></i></a>
+		<a class="btn btn-large tip-bottom" title="Manage Comments"><i class="icon-comment"></i><span class="label label-important">5</span></a>
+		<a class="btn btn-large tip-bottom" title="Manage Orders"><i class="icon-shopping-cart"></i></a>
 	</div>
 </div>
-
+<%= render_breadcrumbs %>
+<div class="container-fluid">
+	<%= render :partial => "connector_projects/cloud_connector", :locals => { :products => @products } %>	
+</div>
 <% end %>
 <%= render :template => users_show_path %>
