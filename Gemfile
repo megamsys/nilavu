@@ -39,6 +39,7 @@ gem "therubyracer", :require => 'v8',:platforms => :ruby
 gem "breadcrumbs_on_rails"
 gem "randexp", "~> 0.1.7"
 gem "megam_api"
+gem "flexslider", "~> 2.0.2"
 #For background processing of cloud jobs
 #gem 'resque'
 #gem 'sidekiq'

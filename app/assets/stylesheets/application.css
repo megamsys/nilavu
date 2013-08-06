@@ -18,5 +18,6 @@
  *= require uniform 
  *= require dashboard.main
  *= require icheck/line/_all 
+ *= require flexslider
  *= require_tree .
 */

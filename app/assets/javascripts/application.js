@@ -28,8 +28,6 @@
 //= require jquery.wizard
 //= require cloud_books
 //= require connector_projects
-//= require jquery_slider
-//= require jquery_tooltip
 //= require unicorn.form_validation
 //= require unicorn.wizard
 //= require theme
@@ -43,5 +41,6 @@
 //= require unicorn
 //= require unicorn.dashboard
 //= require jquery.icheck
+//= require flexslider 
 //= require socket.io
 //= require_tree .

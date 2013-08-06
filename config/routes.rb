@@ -48,10 +48,7 @@ Cloudauth::Application.routes.draw do
   
   # ======Dashboard
   get "users/show"
-  match '/dashboard', to: 'users#dashboard',via: [:get]
-
-  # =======Cloud_books controller
-  match '/success_form', to: 'cloud_books#success_form', via: [:get, :post]
+  match '/dashboard', to: 'users#dashboard',via: [:get] 
   
   # ========Cloud Books Histories controller
   match '/node_log', to: 'cloud_books_histories#logs', via: [:get, :post]
@@ -62,7 +59,9 @@ Cloudauth::Application.routes.draw do
   # =======apps_items_controller
   match '/apps_items/destroy', to: 'apps_items#destroy', via: :delete
 
-
+  # =======connector_project_ controller
+  match '/deccanplato', to: 'connector_projects#deccanplato', via: [:get, :post]
+  match '/import', to: 'connector_projects#import', via: [:get, :post]
 #   =======Connector_project_controller
 #  match '/connector_project/destroy', to: 'connector_projects#destroy'
 #  match '/connector_project/create', to: 'connector_projects#create'

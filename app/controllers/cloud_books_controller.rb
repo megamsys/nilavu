@@ -23,10 +23,7 @@ class CloudBooksController < ApplicationController
     end
 
   end
-
-  def success_form
-    add_breadcrumb "cloud_book_success", success_form_path
-  end
+ 
 
   private
 

@@ -102,6 +102,8 @@ ActiveRecord::Schema.define(version: 20130726050612) do
     t.string  "identity"
     t.boolean "app_bootstrap",    default: true
     t.boolean "app_provisioning"
+    t.string  "rest_api"
+    t.string  "deccanplato_url"
   end
 
   create_table "users", force: true do |t|

@@ -1,0 +1,15 @@
+
+<% @products = Product.all %>
+
+<% @products.each do |product| %>
+
+<% if api_name == product.name %>
+
+<% product.rest_api.split(',').map{ |s| s }.each do |restapi| %>
+ <h5>/<%= restapi %></h5>
+
+<% end %>
+<% end %>
+
+<% end %> <!-- each product -->
+

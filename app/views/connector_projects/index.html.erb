@@ -13,100 +13,78 @@
 <div class="container-fluid">
 	<div class="row-fluid">
 		<div class="span12" id="folders">
-			<div class="div2">
-				<div id="mcts1">
-					<a href="#" style="width: 100px;  height: 100px;" onmouseover="tooltip.pop(this, 'salesforce.com')"><%= image_tag "salesforce.png", :alt => "image01"%></a>
-
-					<a href="#" style="width: 100px;  height: 100px;" onmouseover="tooltip.pop(this, '#tip2')"><%= image_tag "zoho.png", :alt => "image02" %></a>
-
-					<a href="#" style="width: 100px;  height: 100px;" onmouseover="tooltip.pop(this, 'xero.com')"><%= image_tag "xero.png", :alt => "image03" %></a>
-
-					<a href="#" style="width: 100px;  height: 100px;" onmouseover="tooltip.pop(this, 'salesforce.com')"><%= image_tag "salesforce.png", :alt => "image04" %></a>
-
-					<a href="#" style="width: 100px;  height: 100px;" onmouseover="tooltip.pop(this, '#tip2')"><%= image_tag "zoho.png", :alt => "image05" %></a>
-
-					<a href="#" style="width: 100px;  height: 100px;" onmouseover="tooltip.pop(this, 'xero.com')"><%= image_tag "xero.png", :alt => "image06" %></a>
-
-					<a href="#" style="width: 100px;  height: 100px;" onmouseover="tooltip.pop(this, '#tip2')"><%= image_tag "zoho.png", :alt => "image07" %></a>
-
-					<a href="#" style="width: 100px;  height: 100px;" onmouseover="tooltip.pop(this, 'xero.com')"><%= image_tag "xero.png", :alt => "image08" %></a>
-
-				</div>
+			<div class="flexslider">
+				<% @products = Product.all %>
+				<ul class="slides">
+					<% @products.each do |product| %>
+					<li>
+						<%= link_to "#" do %>
+						<%= image_tag product.image_url, :id=>"slider-image"%>
+						<% end %>						
+					</li>
+					<% end %>
+				</ul>
 			</div>
 		</div>
 	</div>
 
 	<div class="row-fluid">
-		<div class="span3">
-			<br/>
-			<div style="height: 340px;  overflow-y: scroll;">				
-				<div class="invoice-content offset2">
-					<h5>/activities</h5>
-				</div>
-				<div class="invoice-content offset2">
-					<h5>/assets</h5>
-				</div>
-				<div class="invoice-content offset2">
-					<h5>/devices</h5>
-				</div>
-				<div class="invoice-content offset2">
-					<h5>/events</h5>
-				</div>
-				<div class="invoice-content offset2">
-					<h5>/folders</h5>
-				</div>
-				<div class="invoice-content offset2">
-					<h5>/groups</h5>
-				</div>
-				<div class="invoice-content offset2">
-					<h5>/roles</h5>
-				</div>
-				<div class="invoice-content offset2">
-					<h5>/users</h5>			
-				</div>
+		<div class="widget-box">
+			<div class="widget-title">
+				<span class="icon"> <i class="icon-th-list"></i> </span>
+				<h5>Live Cloud</h5>
 			</div>
-		</div>
-		<div class="span7">
-			<br/>
-			<div  style="height: 340px;  overflow-y: scroll;">
-				<div class="span6">
-				<h3>Data Explorer</h3>
-				<br/>
-				Path
-				<br/>
-				<%= text_field :path, :id => 'large_text', placeholder: "Path" %>
+			<div class="widget-content">
+				<table class="table table-striped table-bordered">
+					<br/>
+					<tbody>
+						<tr>
+							<td>
+							<div style="height: 340px;  overflow-y: scroll;">
+								<div class="invoice-content offset2">
+									<%= render :partial => "connector_projects/rest_api" %>
+								</div>
+							</div></td>
+							<td>
+							<div  style="height: 340px;  overflow-y: scroll; padding-left: 70px;">
+								<h3>Data Explorer</h3>
+								<br/>
+								URL
+								<br/>
+								<%= text_field :path, :id => 'large_text', placeholder: "Path" %>
 
-				<div class="control-group">
-					<div class="controls">
-						URL
-						<br/>
-						<%= text_field :path, :id => 'large_text', placeholder: "Path" %>
-					</div>
-				</div>
-				<div class="control-group">
-					<div class="controls">
-						Query string
-						<br/>
-						<%= text_field :path, :id => 'app_path', placeholder: "Path" %>
-					</div>
-				</div>
-			</div>
-			<div class="span6">
-				<h3>JSON</h3>
-				<br/>
-				<%= text_area :path, :id => 'large_text', placeholder: "Path" %>
-				</div>
+								<div class="control-group">
+									<div class="controls">
+										Path
+										<br/>
+										<%= text_field :path, :id => 'large_text', placeholder: "Path" %>
+									</div>
+								</div>
+								<div class="control-group">
+									<div class="controls">
+										Query string
+										<br/>
+										<%= text_field :path, :id => 'app_path', placeholder: "Path" %>
+									</div>
+									<div class="offset3">
+									
+										<%= submit_tag("Run Query", :class => "btn btn-primary") %>
+									</div>
+								</div>
+							</div></td>
+							<td>
+							<div style="padding-left: 70px;">
+								<h3>JSON</h3>
+								<br/>
+								<%= text_area :path, :id => 'large_text', placeholder: "Path" %>
+							</div></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
+
 	</div>
 </div>
- <div style="display:none;">
-        <div id="tip2">
-            <div class="tips">
-            	<%= image_tag "zoho.png", :alt => "image05", :style => "float:right;margin-left:6px;margin-bottom:6px;width:154px;height:80px;" %>
-                 ZOHO.com 
-            </div>
-        </div>
-        </div>
 <% end %>
 <%= render :template => users_show_path %>
