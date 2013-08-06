@@ -2,3 +2,119 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "icheck/line/_all";
+
+
+[class^="logo_"], [class*="logo_"] {
+  background-image: url('platformapp_sprites.png');
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 60px;
+  width: 120px;
+}
+
+.logo_play{
+  background-position: 0 0;
+  width: 120px;
+  height: 40px;
+}
+
+.logo_java{
+  background-position: -150px 0;
+  width: 90px;
+  height: 64px;
+}
+
+.logo_rails{
+  background-position: -250px 0;
+  width: 80px;
+  height: 61px;
+}
+
+.logo_akka{
+  background-position: -350px 0;
+  width: 76px;
+  height: 60px;
+}
+
+.logo_nodejs{
+  background-position: -448px -2px ;
+  width: 120px;
+  height: 33px;
+}
+
+
+.selected {
+    background-color: #ccc;
+}
+
+
+
+
+#scalebooks {
+  border: 1px solid #CCC;
+  background: rgba(214, 219, 222, .25);
+    border-radius: 3px 3px 3px 3px;
+    box-shadow: 0 1px 0 #FFF;
+    padding: 0;
+}
+
+.overflow {
+  overflow: auto;
+  height: 125px;
+  display: block;
+}
+
+#scalabooks td, #calculator th {
+  text-align: center;
+  vertical-align: middle;
+}
+
+#scalebooks th {
+  border-top: none;
+}
+
+#scalabooks td a {
+  background: none;
+    border: 1px solid transparent;
+    border-radius: 23px 23px 23px 23px;
+    color: linkColor;
+    font-weight: 100;
+    opacity: 0.5;
+    text-align: center;
+  padding: 5px 8px;
+  width: 20px;
+  color: #333;
+}
+
+#scalebooks td a:hover {
+  opacity: 1;
+  border: 1px solid #CCC;
+  text-decoration: none;
+}
+
+.overlay {
+  display: none;
+  border-radius: 3px;
+  margin-left: -5px;
+  margin-top: -5px;
+  padding: 26px 56px;
+    position: absolute;
+    text-align: center;
+  color: #222;
+  font-size: 18px;
+  border: 1px solid transparent;
+}
+
+
+
+.books_total {
+  font-size: 30px;
+  line-height: 1;
+  font-weight: 300;
+}
+
+.selected_platformapp {
+    font-size: 30px;
+  border-left: 5px solid #CCC;
+}
