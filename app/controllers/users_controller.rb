@@ -169,6 +169,8 @@ success = Resque.enqueue(CreateAccounts, options)
     else
       if @user.update_attributes(params[:user])
         sign_in @user
+        redirect_to dashboard_path, :gflash => { :error => { :value => "Sorry. You are not yet onboard. Update profile. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+
       else
         render 'edit'
       end
