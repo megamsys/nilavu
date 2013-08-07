@@ -54,68 +54,104 @@
 		</div>
 	</div>
 </div>
-<!-- portfolio -->
-<div id="portfolio" class="portfolio_page">
+
+<div id="intro">
+	<div class="container">
+		<h1>Megam - a Polygot PaaS {to build "Live cloud"}.
+		Built on solid plaform Scala(Akka), Chef 11.</h1>
+	</div>
+</div>
+
+<!-- features -->
+<div id="features">
 	<div class="container">
 		<!-- header -->
+		<h2 class="section_header">
+		<hr class="left visible-desktop">
+		<span>Features</span>
 		<hr class="right visible-desktop">
+		</h2>
 
-		<!-- list -->
-		<div class="row">
-			<div class="span12">
-				<ul class="thumbnails">
-					<li class="span4">
-						<div class="thumbnail">
-							<%= image_tag "portfolio01.png", :class => "pic", :alt => "polygot platform"%>
-							<h4 align="center">Polygot PaaS</h4>
+		<!-- feature list -->
+		<div class="row-fluid">
+			<div class="span4 feature">
+				<%= image_tag "portfolio01.png", :class => "thumb", :alt => "polygot platform"%>
 
-						</div>
-						<p align="center">
-							Java, Scala, Node, Ruby, RoR, Play, PostgreSQL, Riak and more to come
-						</p>
-					</li>
-					<li class="span4">
-						<div class="thumbnail">
-							<%= image_tag "portfolio01.png", :class => "pic", :alt => "polygot platform"%>
-							<h4 align="center">Monitoring & $ > </h4>
-						</div>
-						<p align="center">
-							Select name, and stack, then launch. Monitor your apps, and control your apps using REST API,
-							CLI (Pug).
-						</p>
-					</li>
-					<li class="span4">
-						<div class="thumbnail">
-							<%= image_tag "portfolio01.png", :class => "pic", :alt => "polygot platform"%>
-							<h4 align="center">Cross Cloud</h4>
-						</div>
-						<p align="center">
-							AWS, Rackspace, Openstack, Private cloud and more to come
-						</p>
-					</li>
-				</ul>
+				<h3><i class="i_cloud"></i> Polygot PaaS </h3>
+				<p class="description">
+					Java, Scala, Node, Ruby, RoR, Erlang, Play, PostgreSQL, RabbitMQ, Riak and more to come.
+				</p>
+				<a href="#" class="btn btn-default">more</a>
 			</div>
-		</div>
-
-		<!-- list -->
-		<div class="row cols2">
-			<div class="span12">
-				<ul class="thumbnails">
-					<li class="span6">
-						<div class="thumbnail">
-							<%= image_tag "portfolio01.png", :class => "pic", :alt => "polygot platform"%>
-						</div>
-					</li>
-					<li class="span6">
-						<h3>Work on code</h3>
-						<p>
-							Build and launch your stack in seconds. No worries on the platform.
-							Watch the sample platform runs here.
-						</p>
-					</li>
-
-				</ul>
+			<div class="span4 feature">
+				<%= image_tag "portfolio01.png", :class => "thumb", :alt => "polygot platform"%>
+				<h3><i class="i_chart"></i>Monitoring & CLI </h3>
+				<p class="description">
+					Select name and then launch. Monitor your apps, and control your apps using REST API,
+					CLI.
+				</p>
+				<a href="#" class="btn btn-default">more</a>
+			</div>
+			<div class="span4 feature">
+				<%= image_tag "portfolio01.png", :class => "thumb", :alt => "polygot platform"%>
+				<h3><i class="i_movil"></i> Cross Cloud </h3>
+				<p class="description">
+					AWS, Rackspace, Openstack, Private cloud and more to come
+					.
+				</p>
+				<a href="#" class="btn btn-default">more</a>
 			</div>
 		</div>
 	</div>
 </div>
+
+<!-- starts pricing -->
+<div id="pricing">
+	<div class="container">
+		<div class="controls">
+                <hr></hr>
+            </div>
+		
+		<!-- pricing charts -->
+		<div class="row-fluid">
+			<div class="span6">
+				<%= image_tag "portfolio02.png", :alt => "polygot platform"%>
+			</div>
+			<div class="span6">
+				<div class="price_wrapper pro">
+					<div class="header">
+						<span>Work on Code</span>
+						<div class="price">
+							<span>Free</span>
+							for now (Beta)
+						</div>
+					</div>
+					<div class="section">
+						<h3>Build and launch your stack in seconds.</h3>
+						<ul class="perks">
+							<li>
+								<i class="i_shuffle"></i>
+								Open source Polygot
+							</li>
+							<li>
+								<i class="i_loading"></i>
+								Build your own PaaS (private)
+							</li>
+							<li>
+								<i class="i_bookmark"></i>
+								Extendable via Chef recipes
+							</li>
+							<li>
+								<i class="i_bars"></i>
+								RESTful API & CLI
+							</li>
+						</ul>
+						<a href="#" class="btn">Signup now</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+</br>
