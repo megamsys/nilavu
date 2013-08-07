@@ -1,7 +1,6 @@
 class CloudIdentitiesController < ApplicationController
   respond_to :html, :js
 
-  add_breadcrumb "Home", :root_path
   add_breadcrumb "Dashboard", :dashboard_path
   def index
   end

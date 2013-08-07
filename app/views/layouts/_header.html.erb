@@ -6,10 +6,14 @@
 			<div class="nav-collapse pull-right">
 				<ul class="nav">
 					<li>
-						<a href="/">Home</a>
+						<%= link_to "/" do %>
+						<i class="icon icon-home"></i> Home
+						<% end %>
 					</li>
 					<li>
-						<%= link_to "Get started", page_path("get_started") %>
+						<%= link_to page_path("get_started") do %>
+						<i class="icon icon-gears"></i> Get started
+						<% end %>
 					</li>
 					<li>
 						<%= link_to "Features", page_path("features") %>
@@ -18,7 +22,7 @@
 					<li>
 					<li>
 						<%= link_to dashboard_path do %>
-						<i class="icon icon-home"></i> My dash
+						<i class="icon icon-dashboard"></i> My dash
 						<% end %>
 					</li>
 					<li class="dropdown">

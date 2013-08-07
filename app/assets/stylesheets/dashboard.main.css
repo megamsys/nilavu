@@ -208,41 +208,38 @@ a:hover {
 .container-fluid .row-fluid:first-child {
 	margin-top: 20px;
 }
+
 /* Breadcrumb */
-.breadcrumb {
+#breadcrumb  > ul {
+	height: 25px;
+	margin-top: 20px;
 	background-color: #e5e5e5;
 	box-shadow: 0 0 1px #ffffff;
 	border-top: 1px solid #d6d6d6;
 	border-bottom: 1px solid #d6d6d6;
-	padding-left: 10px;
-	padding-top: 20px;
-	height: 25px;
+	padding-left: 20px;
 }
-.breadcrumb a {
-	padding: 8px 20px 8px 10px;
+#breadcrumb > ul > li > a {
 	display: inline-block;
-	background-image: url('breadcrumb.png');
+	background-image: url('../img/breadcrumb.png');
 	background-position: center right;
 	background-repeat: no-repeat;
 	font-size: 11px;
 	color: #666666;
 }
-.breadcrumb a:hover {
-	color: #333333;
-}
-.breadcrumb a:last-child {
+#breadcrumb > ul > li > a:last-child {
 	background-image:none;
 }
-.breadcrumb a.current {
+#breadcrumb > ul > li.active {
 	font-weight: bold;
 	color: #444444;
 }
-.breadcrumb a i {
+#breadcrumb > ul > li > a i {
 	margin-right: 5px;
 	opacity: .6;
 }
-.breadcrumb a:hover i {
-	margin-right: 5px;
+#breadcrumb > ul > li > a:hover {
+	color: #333333;
 	opacity: .8;
 }
 

@@ -1,11 +1,11 @@
 class CloudBooksController < ApplicationController
 
   respond_to :html, :js
-  add_breadcrumb "Home", :root_path
+  add_breadcrumb "Dashboard", :dashboard_path
   
   def new
     @book =  current_user.cloud_books.build
-    add_breadcrumb "cloud_book_create", new_cloud_book_path
+    add_breadcrumb "Cloud_book_create", new_cloud_book_path
 
   end
 

@@ -1,8 +1,7 @@
 class UsersController < ApplicationController
   respond_to :html, :js
 
-  add_breadcrumb "Home", :root_path
-  #add_breadcrumb "Dashboard", :dashboard_path
+  add_breadcrumb "Dashboard", :dashboard_path
 
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
   before_filter :correct_user, only: [:edit, :update]
@@ -12,7 +11,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    add_breadcrumb "Dashboard", dashboard_path
     @user = User.find(params[:id])
     if !@user.organization
       flash[:error] = "Hey ! Please update your profile to proceed further."
@@ -45,15 +43,6 @@ class UsersController < ApplicationController
   end
 
   def dashboard
-    add_breadcrumb "dashboard", dashboard_path
-	puts "current_user ===> #{current_user}"
-=begin
-@user = current_user
-options = { :id => @user.id, :email => @user.email, :api_key => @user.api_token, :authority => "admin" }
-puts "options====> #{options.inspect}"
-#Resque.enqueue(WorkerClass, options)
-success = Resque.enqueue(CreateAccounts, options)
-=end
   end
 
   def email_verify
@@ -169,7 +158,7 @@ success = Resque.enqueue(CreateAccounts, options)
     else
       if @user.update_attributes(params[:user])
         sign_in @user
-        redirect_to dashboard_path, :gflash => { :error => { :value => "Sorry. You are not yet onboard. Update profile. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        redirect_to dashboard_path, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } }
 
       else
         render 'edit'
