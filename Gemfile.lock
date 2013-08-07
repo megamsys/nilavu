@@ -132,7 +132,7 @@ GEM
       mixlib-config
       mixlib-log
       yajl-ruby
-    meta_request (0.2.7)
+    meta_request (0.2.8)
       callsite
       rack-contrib
       railties
