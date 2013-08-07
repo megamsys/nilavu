@@ -1,12 +1,12 @@
-#Show a predef by name
-class FindPredefsByName
+#List all the predefs
 
- #this returns a Megam::PredefCloud object
-  def self.perform(show_predef)
+class ListPredefClouds
+  puts " -------> LIST PREDEF CLOUDS "
+  def self.perform(list_predefclouds)
    begin
-    Megam::Config[:email] = show_predef[:email]
-    Megam::Config[:api_key] = show_predef[:api_key]
-    @excon_res = Megam::Predef.show(show_predef[:predef_name])
+    Megam::Config[:email] = list_predefclouds[:email]
+    Megam::Config[:api_key] = list_predefclouds[:api_key]
+    Megam::PredefCloud.list
     rescue ArgumentError => ae
 	hash = {"msg" => ae.message, "msg_type" => "error"}
 	re = Megam::Error.from_hash(hash)
