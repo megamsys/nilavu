@@ -1,9 +1,9 @@
 class CloudBooksHistoriesController < ApplicationController
   respond_to :html, :js
-  add_breadcrumb "Home", :root_path
-  add_breadcrumb "Cloud Book History", :root_path
+  add_breadcrumb "Dashboard", :dashboard_path
   
   def index
+  add_breadcrumb "Cloud Book History", :root_path
     @books = current_user.cloud_books
   #@books = @cloud_books.cloud_books_histories
   end
