@@ -33,16 +33,26 @@ class UsersController < ApplicationController
   end
 
   def worker
-    @user = current_user
-    options = { :id => @user.id, :email => @user.email, :api_key => @user.api_token, :authority => "admin" }
-    res_body = CreateAccounts.perform(options)
-    puts "----------------------- SUCCESS--------------------------"
+      options = { :email => current_user.email, :api_key => current_user.api_token }
+      #options = { :email => current_user.email, :api_key => current_user.api_token, :predef_name => "tom" }
+	puts "Options ==> #{options}"
+      #res_body = ListPredefs.perform(options)
+	res_body = ListPredefClouds.perform(options)
+      puts "-----------------Find Predefs---------------"
+	puts res_body.to_yaml
+
   #Resque.enqueue(WorkerClass, options)
   #success = Resque.enqueue(CreateAccounts, options)
   #HardWorker.perform_async('bob', 5)
   end
 
   def dashboard
+=begin
+      options = { :email => current_user.email, :api_key => current_user.api_token }
+      res_body = ListPredefClouds.perform(options)
+      puts "-----------------SUCCESS RES---------------"
+	puts res_body
+=end
   end
 
   def email_verify
