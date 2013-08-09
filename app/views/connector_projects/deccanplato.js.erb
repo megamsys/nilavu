@@ -1,53 +1,26 @@
-alert('response data = ');
+
 $('#deccanplato_btn').toggle();
 $('#deccanplato_btn').fadeIn("slow");
-var yourObject = {
-          test:'test 1',
-          testData: [ 
-                {testName: 'do',testId:''}
-          ],
-          testRcd:'value'   
-};
 
-var inputJson = {
-	system: [{
-		access: [{
-			project_id: '3c78f781-fc28-4c69-8fad-0ca66f2c5dbc',
-			api_token: 'oVj29MbD2LcXzsRzNFx9vw==',
-			access_email: 'rajthilak@megam.com',
-			access_org_id: 1,
-			access_account_name: 'MegamSyste'
-		}]
-	}],
-	provider: [{
-		access: [{
-			consumer_key: '3MVG9Y6d_Btp4xp4gO.riQJ_rIP8PjQqtO5Hcqdt4NJ99SPjKCd_cBuI_Y4P_WzlNrOvhOLpjEUjpzfskPZ3a',
-			consumer_secret: '860088549162819056',
-			access_username: 'nkishore@megam.co.in',
-			access_password: 'walle#1bug74wt3djhr28kLBSKbspj1EOoT',
-			provider: 'salesforcecrm',
-			category: 'CRM',
-			description: 'My first Connector Project',
-			user_email: 'rajthilak@megam.com',
-			org_name: 'Megam Systems'
-		}],
-		business_activity: [{
-			biz_function: 'account#create',
-                        name:'Rajthilak'
-		}]
-	}],
-	execution: [{
-		output: [{
-			type: 'default',
-			location: 'default'
-		}]
-	}]
-};
-var jsonfile={json:JSON.stringify(inputJson)};
-$.ajax({
-    type: 'POST',
-    url: "http://localhost:8080/deccanplato-1.0.0-BUILD-SNAPSHOT/provider/crm/", 
-    data: jsonfile,
-    dataType: "json"
+var inputJson = '{"system": {"access": {"project_id": "3c78f781-fc28-4c69-8fad-0ca66f2c5dbc","api_token": "oVj29MbD2LcXzsRzNFx9vw==","access_email": "rajthilak@megam.com","access_org_id": 1,"access_account_name": "MegamSyste"}},"provider": {"access": {"consumer_key":"3MVG9Y6d_Btp4xp4gO.riQJ_rIP8PjQqtO5Hcqdt4NJ99SPjKCd_cBuI_Y4P_WzlNrOvhOLpjEUjpzfskPZ3a","consumer_secret": "860088549162819056","access_username":"nkishore@megam.co.in","access_password": "walle#1bug74wt3djhr28kLBSKbspj1EOoT","provider": "salesforcecrm","category": "CRM","description": "My first Connector Project","user_email": "rajthilak@megam.com","org_name": "Megam Systems"},"business_activity": {"biz_function":"account#create","name":"Rajthilak"}},"execution": {"output": {"type": "default","location": "default"}}}';
+
+var instid = '<%= @json %>';
+
+$.ajax({	
+    type: 'POST',    
+    processData : false,      
+    url: 'http://localhost:8080/deccanplato/provider/crm', 
+    data : instid,     
+    dataType: 'text',
+    success:function(data) {
+            var jsonRepsonse = JSON.parse(data);
+            alert('Success post to URL entered \n\n The data returned the following: ' + jsonRepsonse.responseText + ", " + jsonRepsonse.responseCode);
+        }, 
+        error:function (xhr, ajaxOptions, thrownError){ 
+            alert('Error xhr : ' + xhr.status + xhr.statusText); 
+            alert('Error thrown error: ' + thrownError); 
+        }
 });
+
+
 

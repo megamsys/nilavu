@@ -20,17 +20,27 @@ class ConnectorProjectsController < ApplicationController
   
   def import
   @products = Product.all
-  logger.debug"Param = #{params[:name]}"
-  @api_name = params[:name]
+  logger.debug"Param = #{params}"
+  @api_name = params[:api_name]
     respond_to do |format|
           format.js {
-            respond_with(:api_name => @api_name, :layout => !request.xhr? )
+            respond_with(@api_name, :layout => !request.xhr? )
           }
         end
   end  
+ 
+  def deccanplato    
+     logger.debug"Param-------- = #{params[:json]}"
+     @json = params[:json]
+     respond_to do |format|
+          format.js {
+            respond_with(:json => @json, :layout => !request.xhr? )
+          }
+        end
+  end
 
   def create
-    logger.debug"Param = #{params}"
+    logger.debug"Param-------- = #{params}"
     @connector_project = ConnectorProject.create(params[:connector_project])
     @connector_project.connector_actions.create(params[:connector_actions])
     @connector_project.connector_outputs.create(params[:connector_outputs])

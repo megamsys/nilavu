@@ -1,15 +1,13 @@
 
 var selected_entity = '#cloud_rest_api';
 
-var api = $('#selected_api_name').val();
 var api1 = '<%= @api_name %>';
-alert('response data ='+api1);
 
 $(selected_entity).toggle();
 
 $(selected_entity).fadeIn("slow");
 
-var to_insert_content = "<%= escape_javascript(render :partial => 'connector_projects/rest_api', :locals => {:api_name => 'salesforce' }) %>";
+var to_insert_content = "<%= escape_javascript(render :partial => 'connector_projects/rest_api', :locals => {:api_name => @api_name }) %>";
 	
 insertAt(selected_entity, to_insert_content);
 
