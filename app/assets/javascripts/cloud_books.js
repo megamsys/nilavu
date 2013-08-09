@@ -92,6 +92,45 @@ $(document).ready(function(){
 		scale_counter.scale_aggregate();
 		return false;
 	});
-	
-	
 });
+
+$(function(){
+	// bind a callback to the step_shown event
+	$("#form-wizard").bind("step_shown", function(event, data){
+		var a = $("#platformapps input:radio:checked").attr("value");
+
+    $("#wiz_data").text(a);
+    //$("#wiz_data").html("<h1> THOMAS </h1>");
+    //$("#wiz_data").html("<%= a %>");
+	});
+});
+
+
+$(function(){		
+				$("#form-wizard").formwizard({ 
+				 	formPluginEnabled: true,
+				 	validationEnabled: true,
+				 	focusFirstInput : true,
+				 	formOptions :{
+
+						beforeSubmit: function(data){$("#data").html("data sent to the server: " + $.param(data));},
+						dataType: 'json',
+						resetForm: true
+				 	}
+				 }
+				);
+			
+			var remoteAjax = {}; // empty options object
+
+			$("#form-wizard .step").each(function(){ // for each step in the wizard, add an option to the remoteAjax object...
+				remoteAjax[$(this).attr("id")] = {
+
+					beforeSubmit: function(data){$("#data").html("data sent to the server: " + $.param(data))},
+
+					};
+			});
+
+			$("#form-wizard").formwizard("option", "remoteAjax", remoteAjax); // set the remoteAjax option for the wizard
+  		});
+
+

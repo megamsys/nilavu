@@ -39,7 +39,7 @@ class UsersController < ApplicationController
       #res_body = ListPredefs.perform(options)
 	res_body = ListPredefClouds.perform(options)
       puts "-----------------Find Predefs---------------"
-	puts res_body.to_yaml
+	puts res_body.lookup("aws-ec2-predef-small")
 
   #Resque.enqueue(WorkerClass, options)
   #success = Resque.enqueue(CreateAccounts, options)
