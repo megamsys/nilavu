@@ -1,4 +1,4 @@
-<%= form_for @book, :html => {:id =>'form-wizard', :class=>"form-horizontal" }, :remote => true,  data: { spinlock: '#spin_user_book'}, :method => 'post' do |f| %>
+<%= form_for @book, :html => {:id =>'form-wizard', :class=>"form-horizontal", :multipart => true }, :remote => true,  data: { spinlock: '#spin_user_book'}, :method => 'post' do |f| %>
 <div id="form-wizard-1" class="step">
 	<div class="widget-box">
 		<div class="widget-title">
@@ -39,9 +39,13 @@
 						<strong><span class="label label-info">*selection</span> Select any one platform </strong>
 					</p>
 					</br>
+
 					<div class="row-fluid">
 						<div id="platformapps">
 							<div class="span3">
+<!--
+<label class="control-label">Username</label>
+<input id="username" type="text" name="username" /> -->
 								<%= f.radio_button :predef_name, 'java' %>
 								<%= label :platform, 'Java' do %>
 								<i class="logo_java"></i>
@@ -148,13 +152,35 @@
 					<%= f.text_field :domain_name, :type => 'hidden', :id => 'domainname' %>
 					<%= f.text_field :predef_cloud_name, :id => 'predefcloudname', :type => 'hidden' %>
 				</div>
-
 			</div>
 		</div>
 	</div>
-
 </div>
+
 <div id="form-wizard-2" class="step">
+	<div class="widget-box">
+		<div class="widget-title">
+			<span class="icon"> <i class="icon-th-list"></i> </span>
+			<h5>Predefs</h5>
+		</div>
+		<div class="widget-content">
+
+<p id="wiz_data">
+TEST
+</p>
+									<div class="control-group">
+										<label class="control-label">Predef Clouds</label>
+										<div class="controls">
+											<select>
+			<% @res_body.each do |a| %>
+				<option><%= a.name %></option>
+			<% end %>
+											</select>
+										</div>
+									</div>
+		</div>
+	</div>
+
 	<div class="widget-box">
 		<div class="widget-title">
 			<span class="icon"> <i class="icon-th-list"></i> </span>

@@ -18,6 +18,8 @@ $(document).ready(function(){
 		},
 		validationOptions : {
 			rules: {
+				cloud_book_predef_name_java: { checked: true },
+				cloud_book_predef_name_rails: { presence: true },
 				username: "required",
 				password: "required",
 				password2: {
@@ -27,6 +29,8 @@ $(document).ready(function(){
 				eula: "required"
 			},
 			messages: {
+				cloud_book_predef_name_java: "Please select any platform apps",
+				cloud_book_predef_name_rails: "Please select any platform apps",
 				username: "Please enter your name or username",
 				password: "You must enter the password",
 				password2: { equalTo: "Password don't match" },

@@ -1,6 +1,7 @@
 #require 'sidekiq/web'
 Cloudauth::Application.routes.draw do
 
+  get "contents/header"
   root :to => 'high_voltage/pages#show', :id => 'home'
 
   resources :users

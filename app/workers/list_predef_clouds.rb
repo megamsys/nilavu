@@ -6,7 +6,7 @@ class ListPredefClouds
    begin
     Megam::Config[:email] = list_predefclouds[:email]
     Megam::Config[:api_key] = list_predefclouds[:api_key]
-    Megam::PredefCloud.list
+    @excon_res = Megam::PredefCloud.list
     rescue ArgumentError => ae
 	hash = {"msg" => ae.message, "msg_type" => "error"}
 	re = Megam::Error.from_hash(hash)
@@ -23,7 +23,12 @@ class ListPredefClouds
 	@res = {"data" => {:body => re}}
 	return @res["data"][:body]
    end
-	@excon_res
+	puts "EXCON RES class-------------->>>>>>>>>>>>  "
+	puts @excon_res.class
+	puts "EXCON RES -------------->>>>>>>>>>>>  "
+	puts @excon_res.inspect
+	puts @excon_res.to_yaml
+	@excon_res.data[:body]
   end
 
 end
