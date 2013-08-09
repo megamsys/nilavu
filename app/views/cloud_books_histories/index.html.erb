@@ -23,7 +23,7 @@
 				</thead>
 				<br/>
 				<tbody>
-					<% @books.each do |cloud_book| %>
+					<% current_user.cloud_books.each do |cloud_book| %>
 					<% cloud_book.cloud_books_histories.each do |history| %>					
 					<tr>
 					<!--<td><%= render :partial => "cloud_books_histories/log_button", :locals => {:book_name => history.book_name} %></td>-->

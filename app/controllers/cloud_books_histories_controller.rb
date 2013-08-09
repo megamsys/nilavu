@@ -4,7 +4,7 @@ class CloudBooksHistoriesController < ApplicationController
   
   def index
   add_breadcrumb "Cloud Book History", :root_path
-    @books = current_user.cloud_books.all
+    #@books = current_user.cloud_books.all
   #@books = @cloud_books.cloud_books_histories
   end
   
