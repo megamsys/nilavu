@@ -1,57 +1,90 @@
 <div id="footer">
-	<div class="container">
-		<div class="row-fluid">
-			<div class="span4">
-				<ul class="unstyled">
-					<li>
-						<%= link_to "Getting started",   page_path("get_started") %>
-					</li>
-
-					<li>
-						<%= link_to "Documentation",   page_path("doc") %>
-					</li>
-
-				</ul>
+	<footer>
+		<div class="container">
+			<div class="row-fluid">
+				<div class="span3">
+					<h5>Products</h5>
+					<ul class="unstyled">
+						<li>
+							<!-- Essentially how the platform itself works -->
+							<%= link_to "Tour ?",   "http://docs.megam.co", { :target => '_blank'} %>
+						</li>
+						<li>
+							<%= link_to "Private PaaS",   "http://docs.megam.co", { :target => '_blank'} %>
+						</li>
+						<li>
+							<%= link_to "Preview - Live cloud",   "http://docs.megam.co/livecloud", { :target => '_blank'} %>
+						</li>
+					</ul>
+				</div>
+				<div class="span2">
+					<h5>About Us</h5>
+					<ul class="unstyled">
+						<li>
+							<%= link_to "Blog",   "http://blog.megam.co", { :target => '_blank'} %>
+						</li>
+						<li>
+							<%= link_to "Team",  page_path("about") %>
+						</li>
+						<li>
+							<%= link_to "Contact us",   page_path("contact_us") %>
+						</li>
+						<li>
+							<!-- Make it modal, with an option to provide a resume using dropbox, box,
+							googleapp, with links to github, linkedin
+							with a choice for apply for a job or internship-->
+							<%= link_to "Jobs",   page_path("jobs") %>
+						</li>
+						
+					</ul>
+				</div>
+				<div class="span2">
+					<h5>Support</h5>
+					<ul class="unstyled">
+						<li>
+							<%= link_to "Documentation",   "http://docs.megam.co", { :target => '_blank'} %>
+						</li>
+						<li>
+							<%= link_to "Support",   "http://support.megam.co", { :target => '_blank'} %>
+						</li>
+						<li>
+							<%= link_to "Forums",   "https://groups.google.com/forum/?fromgroups=#!forum/megamlive", { :target => '_blank'} %>
+						</li>
+						<li>
+							<%= link_to "Contribute",   "http://docs.megam.co/contribute", { :target => '_blank'} %>
+						</li>
+					</ul>
+				</div>
+				<div class="span4 right-align">
+					<%= image_tag "logo-megam160x43.png", :alt => "Megam", :class => "megam_image" %>
+					</br>
+					</br>
+					<p>
+						<i class="icon-map-marker"></i> <strong><span itemprop="name">megam</span>, </strong>
+						<span itemprop="address" itemscope itemtype="http://data-vocabulary.org/Address"> <span itemprop="street-address">plot no:53 second cross, Radha nagar</span>, <span itemprop="locality"> Perumbakkam</span>, <span itemprop="region">Chennai</span> </span>
+					</p>
+				</div>
 			</div>
-			<div class="offset1 span4"">
-				<ul class="unstyled">
-
-					<li>
-						<%= link_to "About",  page_path("about") %>
-					</li>
-					<li>
-						<%= link_to "Contact us",   page_path("contact_us") %>
-					</li>
-
-				</ul>
-			</div>
-			<div class="offset1 span2">
-				<ul class="unstyled">
-					<li>
-						<%= link_to "Contribute",   page_path("contribute") %>
-					</li>
-
-					<li>
-						<%= link_to "Read Our Blog",   "http://blog.megam.co", { :target => '_blank'} %>
-					</li>
-				</ul>
+			<hr></hr>
+			<div class="row-fluid copyright">
+				<div class="span7">
+					<h3>Social</h3>
+					<a href="http://www.facebook.com/megamsys" class="social fb" target="_blank"> <i class="i_facebook"></i> </a>
+					<a href="http://www.twitter.com/indykish" class="social tw" target="_blank"> <i class="i_twitter"></i> </a>
+					<a href="http://www.youtube.com/indykish" class="social yt" target="_blank">
+					<i class="i_youtube"></i></a>
+					</div>
+					<div class="span4">
+					</br>
+					<small> &copy; 2013 megam. All rights reserved.
+					<span class="seperator">|</span>
+					<%= link_to "Terms of Use",  page_path("termsofuse")  %>
+					<a href="/terms-of-use/">Terms of Use</a>
+					<span class="seperator">|</span>
+					<%= link_to "Privacy Policy",  page_path("privacypolicy")  %>
+					</small>
+				</div>
 			</div>
 		</div>
-
-		<hr>
-		<div class="row copyright">
-			<div class="span5">
-				<h3>Social</h3>
-				<a href="http://www.facebook.com/megamsystems" class="social fb" target="_blank"> <i class="i_facebook"></i> </a>
-				<a href="http://www.twitter.com/megamsystems" class="social tw" target="_blank"> <i class="i_twitter"></i> </a>
-				<a href=""http://www.youtube.com/megamsystems" class="social yt" target="_blank"> <i class="i_youtube"></i> </a>
-			</div>
-			<br/>
-			<div class="span5 offset2">
-				<small> © 2012 megam. All rights reserved. <span class="seperator">|</span> <a href="/terms-of-use/">Terms of Use</a><span class="seperator">|</span> <a href="/privacy-policy/">Privacy Policy</a> </small>
-			</div>
-
-
-		</div>
-	</div>
+	</footer>
 </div>

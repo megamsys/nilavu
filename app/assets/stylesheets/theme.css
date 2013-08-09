@@ -6,6 +6,7 @@ body {
 	padding-top: 69px;
 	background: #DDDCE2 url("content_bg.jpg") repeat left top;
 	-webkit-font-smoothing: antialiased;
+	font-size: 14px;	
 	font-family: 'Lato', sans-serif !important;
 	color: #333;
 }
@@ -40,6 +41,183 @@ body {
 	font-size: 16px;
 	margin: 8px 0 0 10px;
 }
+
+
+/* START - Ramzan gift :) Jazz the buttons/others(found elsewhere) (Aug 9, 2013)
+/* Bootstrap overrides */
+a.info {
+	color:inherit;
+}
+
+a.info:hover {
+	text-decoration: none;
+}
+
+.btn-primary{
+	border-top: 1px solid #3174ce;
+	border-bottom: 1px solid #123358;
+	 background-color: #0067b1;
+	 *background-color: #0f4d84;
+	 background-image: -ms-linear-gradient(top, #0067b1, #0f4d84);
+	 background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0067b1), to(#0f4d84));
+	 background-image: -webkit-linear-gradient(top, #0067b1, #0f4d84);
+	 background-image: -o-linear-gradient(top, #0067b1, #0f4d84);
+	 background-image: -moz-linear-gradient(top, #0067b1, #0f4d84);
+	 background-image: linear-gradient(top, #0067b1, #0f4d84);
+	 background-repeat: repeat-x;
+	 border-color: #0067b1 #0067b1 #0f4d84;
+	 border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	 filter: progid:dximagetransform.microsoft.gradient(startColorstr='#0067b1', endColorstr='#0f4d84', GradientType=0);
+	 filter: progid:dximagetransform.microsoft.gradient(enabled=false);
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary.disabled,
+.btn-primary[disabled] {
+	background-color: #0f4d84;
+	*background-color: #0067b1;
+}
+
+.btn-success {
+	border-top: 1px solid #85bd12;
+	border-bottom: 1px solid #398608;
+	background-color: #85bd12;
+	background-color: #398608;
+		background-image: -moz-linear-gradient(top, #85bd12 0%, #398608 100%); 
+		background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#85bd12), color-stop(100%,#398608));
+		background-image: -webkit-linear-gradient(top, #85bd12 0%,#398608 100%); 
+		background-image: -o-linear-gradient(top, #85bd12 0%,#398608 100%); 
+		background-image: -ms-linear-gradient(top, #85bd12 0%,#398608 100%); 
+		background-image: linear-gradient(top, #85bd12 0%,#398608 100%);
+		background-repeat: repeat-x;
+	color: white;
+	text-shadow: 0px -1px 0 #2b6407;
+	filter: dropshadow(color=#000, offx=0, offy=-1);
+}
+
+.btn-success:hover,
+.btn-success:active,
+.btn-success.active,
+.btn-success.disabled,
+.btn-success[disabled] {
+  background-color: #398608;
+  *background-color: #85bd12;
+}
+
+blockquote {
+    border-left: 5px solid #FFF;
+}
+
+blockquote small {
+	margin-top: 10px;
+}
+
+.thumbnail {
+	border-radius: 0;
+	background: #FFF;
+	margin: 0 0 10px;
+	box-shadow: 0 1px 3px #CCC, 0 12px 10px -9px #CCC;
+	border-bottom: 1px solid #CCC;
+}
+
+.hero-unit {
+    background: #EEEEEE;
+    background: -moz-radial-gradient(center, ellipse cover, #ffffff 15%, #eeeeee 73%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(15%,#ffffff), color-stop(73%,#eeeeee));
+    background: -webkit-radial-gradient(center, ellipse cover, #ffffff 15%,#eeeeee 73%);
+    background: -o-radial-gradient(center, ellipse cover, #ffffff 15%,#eeeeee 73%);
+    background: -ms-radial-gradient(center, ellipse cover, #ffffff 15%,#eeeeee 73%);
+    background: radial-gradient(center, ellipse cover, #ffffff 15%,#eeeeee 73%);
+	background: none;
+/*	border: 1px solid #CCC;
+	border-bottom: 1px solid #FFF;
+	box-shadow: 0 1px 7px #DDD inset;*/
+	margin: 0;
+	padding: 30px 60px 45px ;
+}
+
+h1.headline {
+	font-size: 48px;
+}
+
+.hero-unit p {
+	font-size: 13px;
+	font-weight: normal;
+}
+
+.modal {
+	margin: -210px 0 0 -280px;
+}
+
+.page-header {
+	margin-bottom: 0;
+}
+
+.well {
+    background: #E2E5E7;
+    background: rgba(57, 74, 87, 0.08);
+    -ms-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset,0 1px 0 white;
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.05) inset,0 1px 0 #fff;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset,0 1px 0 white;
+    border: 1px solid #DDD;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  left: 15px;
+  width: 30px;
+  height: 30px;
+  margin-top: -20px;
+  font-size: 35px;
+  font-weight: bold;
+  line-height: 23px;
+  color: #ffffff;
+  text-align: center;
+  background: #222222;
+  border: 3px solid #ffffff;
+  -webkit-border-radius: 23px;
+  -moz-border-radius: 23px;
+  border-radius: 23px;
+  filter: alpha(opacity=50);
+  opacity: 1;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  border-color: #81A74C;
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #92C65F;
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #92C65F;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #92C65F; 
+}
+
+
+/* END - Ramzan gift :) Jazz the buttons/others(found elsewhere) (Aug 9, 2013)
+
 
 /* Navbar
  -------------------------------------------------- */
@@ -81,7 +259,11 @@ body {
 .navbar .nav > li > a:hover {
 	color: #ccc;
 }
-.navbar .nav > li.active > a, .navbar .nav > li.active:hover > a, .navbar .nav > .active > a, .navbar .nav > .active > a:hover, .navbar .nav > .active > a:focus {
+.navbar .nav > li.active > a, 
+.navbar .nav > li.active:hover > a,
+ .navbar .nav > .active > a, 
+ .navbar .nav > .active > a:hover, 
+ .navbar .nav > .active > a:focus {
 	padding-bottom: 4px;
 	-webkit-box-shadow: none;
 	box-shadow: none;
@@ -108,7 +290,9 @@ body {
 .btn-dropnav .icon-bar + .icon-bar {
 	margin-top: 3px;
 }
-.navbar .nav li.dropdown.open > .dropdown-toggle, .navbar .nav li.dropdown.active > .dropdown-toggle, .navbar .nav li.dropdown.open.active > .dropdown-toggle {
+.navbar .nav li.dropdown.open > .dropdown-toggle, 
+.navbar .nav li.dropdown.active > .dropdown-toggle, 
+.navbar .nav li.dropdown.open.active > .dropdown-toggle {
 	background: none;
 	color: #fff;
 }
@@ -124,6 +308,31 @@ body {
 	background-repeat: repeat-x;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#475B77', endColorstr='#475B77', GradientType=0);
 }
+
+/* START - Ramzan gift :) New stuff(measure theme.css) (Aug 9, 2013)
+
+.navbar .btn-navbar .icon-bar {
+  display: block;
+  width: 18px;
+  height: 2px;
+  background-color: #5FAF08;
+  -webkit-border-radius: 1px;
+  -moz-border-radius: 1px;
+  border-radius: 1px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+@media (max-width: 979px) {
+	.nav-collapse .nav > li > a:hover,
+	.nav-collapse .dropdown-menu a:hover {
+    	background: none !important;
+	}
+	.nav-collapse .nav > li > a, .nav-collapse .dropdown-menu a {
+		color: #ccc;
+	}
+}
+/* END - Ramzan gift :) New stuff(measure theme.css) (Aug 9, 2013)
 
 /* Index
  -------------------------------------------------- */
