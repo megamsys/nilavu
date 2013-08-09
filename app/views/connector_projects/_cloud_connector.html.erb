@@ -1,3 +1,4 @@
+
 <% @products = Product.all %>
 <div class="row-fluid">
 	<div class="span12" id="folders">
@@ -14,7 +15,7 @@
 		</div>
 	</div>
 </div>
-
+<%= form_tag "/deccanplato", :id => 'form_json', :remote => true do %>
 <div class="row-fluid">
 	<div class="widget-box">
 		<div class="widget-title">
@@ -55,19 +56,18 @@
 								<div class="controls">
 									Query string
 									<br/>
-									<%= text_field :path, :id => 'app_path', placeholder: "Path" %>
+									<%= text_field :json_text, :id => 'json_text', placeholder: "json" %>
 								</div>
-								<div class="offset3">
-									<%= link_to  "Run Query", deccanplato_path, :class => "btn btn-primary", :id => "deccanplato_btn", :remote => true, :type => "submit", :method => "post", data: { spinner: '#deccan'}  %>
-									<%= spinner_tag 'deccan' %>
+								<div class="offset3">									
+                                    <%= submit_tag "Run Query", :class => "btn btn-primary" %>									
 								</div>
 							</div>
 						</div></td>
 						<td>
-						<div style="padding-left: 70px;">
+						<div style="padding-left: 70px; ">
 							<h3>JSON</h3>
 							<br/>
-							<%= text_area :path, :id => 'large_text', placeholder: "Path" %>
+							<%= text_area_tag "json", :id => 'json_input' %>							
 						</div></td>
 					</tr>
 				</tbody>
@@ -76,3 +76,4 @@
 	</div>
 
 </div>
+<% end %>

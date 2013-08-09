@@ -4,7 +4,7 @@ $(document).ready(function() {
 		animationLoop : true,
 		itemWidth : 210,
 		itemMargin : 5,
-		minItems : 4,
+		minItems : 5,
 		maxItems : 5
 	});
 });
