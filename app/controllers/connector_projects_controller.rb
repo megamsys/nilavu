@@ -32,9 +32,12 @@ class ConnectorProjectsController < ApplicationController
   def deccanplato    
      logger.debug"Param-------- = #{params[:json]}"
      @json = params[:json]
+     options = { :json => @json}
+      res_body = Crm.perform(options)
+      puts "output json-------->"+res_body
      respond_to do |format|
           format.js {
-            respond_with(:json => @json, :layout => !request.xhr? )
+            respond_with(:json => @json, :output_json => res_body, :layout => !request.xhr? )
           }
         end
   end

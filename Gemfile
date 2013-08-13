@@ -40,6 +40,7 @@ gem "breadcrumbs_on_rails"
 gem "randexp", "~> 0.1.7"
 gem "megam_api"
 gem "flexslider", "~> 2.0.2"
+gem "megam_deccanplato", "~> 0.1.0"
 #For background processing of cloud jobs
 #gem 'resque'
 #gem 'sidekiq'
