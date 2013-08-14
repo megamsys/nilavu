@@ -104,7 +104,7 @@ class UsersController < ApplicationController
 	sign_in @user
         redirect_to dashboard_path, :gflash => { :success => { :value => "#{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
-        redirect_to dashboard_path, :gflash => { :success => { :value => "Sorry. You are not yet onboard. Update profile. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        redirect_to dashboard_path, :gflash => { :warn => { :value => "Sorry. You are not yet onboard. Update profile.An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       end
     else
       @user= User.find_by_email(params[:user][:email])
