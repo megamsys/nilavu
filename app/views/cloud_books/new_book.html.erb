@@ -1,3 +1,11 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'cloud_books') %>
+<%= render :partial => "contents/header" , :locals => {:head => "Cloud Books"}%>
+<div id="breadcrumb">
+<%= render_breadcrumbs %>
+</div>
+<div class="container-fluid">
+
 <%= form_for @book, :html => {:multipart => true }, :remote => true,  data: { spinlock: '#spin_user_book'}, :method => 'post' do |f| %>
 	<div class="row-fluid">
 		<div class="span12">
@@ -43,12 +51,14 @@
 										<label class="control-label">Predef Clouds</label>
 										<div class="controls">
 											<select>
-			<!--<% @res_body.each do |a| %>
+			<% @predef_cloud.each do |a| %>
 				<option><%= a.name %></option>
-			<% end %> -->
+			<% end %> 
 											</select>
 										</div>
 									</div>
+			<!-- <%= @predef.lookup(@predef_name).build_monkey %> -->
+			<%= @predef.lookup(@predef_name) %>
 		</div>
 	</div>
 
@@ -203,3 +213,7 @@
 <div id="submitted"></div>
 <% end %>
 
+</div>
+                     
+<% end %>
+<%= render :template => users_show_path %>

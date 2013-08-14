@@ -29,7 +29,12 @@ Cloudauth::Application.routes.draw do
   # to-do: this is showing the index of billed_history (make it a separate controller)
   get '/history' => 'billing#history'
 
+#users
   match '/worker', to: 'users#worker', via: [:get, :post]
+
+#Cloud Books
+  match '/new_book', to: 'cloud_books#new_book', via: [:get, :post]
+
 # ...
 #mount Sidekiq::Web, at: '/worker'
 

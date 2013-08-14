@@ -23,7 +23,12 @@ class FindPredefsByName
 	@res = {"data" => {:body => re}}
 	return @res["data"][:body]
    end
-	@excon_res
+	puts "TEST PREDEF ====>  "
+puts @excon_res.to_yaml
+puts @excon_res.inspect
+puts @excon_res.class
+
+	@excon_res.data[:body]
   end
 
 end

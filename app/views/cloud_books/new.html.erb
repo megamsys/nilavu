@@ -1,12 +1,103 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'cloud_books') %>
-<%= render :partial => "contents/header" , :locals => {:head => "Cloud Books"}%>
+<%= render :partial => "contents/header" , :locals => {:head => "Cloud Book Platform Selection"}%>
 <div id="breadcrumb">
 <%= render_breadcrumbs %>
 </div>
 <div class="container-fluid">
 	<div class="widget-content nopadding">		
-		<%= render :partial => "cloud_books/cloud_book_create", :locals => { :book => @book, :res_body => @res_body} %>
+
+
+<%= form_tag(new_book_path, :method => "post") do %>
+
+<div id="form-wizard-1" class="step">
+	<div class="widget-box">
+		<div class="widget-title">
+			<span class="icon"> <i class="icon-th-list"></i> </span>
+			<h5>Cloud Platform - App</h5>
+		</div>
+		<div class="row-fluid">
+			<div class="span12">
+				<div class="widget-content">
+					<p class="help-block">
+						<strong><span class="label label-info">*selection</span> Select any one platform </strong>
+					</p>
+					</br>
+
+					<div class="row-fluid">
+						<div id="platformapps">
+							<div class="span3">
+								<%= radio_button_tag :predef_name, 'java' %>
+								<%= label :platform, 'Java' do %>
+								<i class="logo_java"></i>
+								<% end %>
+								<%= radio_button_tag :predef_name, 'rails' %>
+								<%= label :platform, 'Rails' do %>
+								<i class="logo_rails"></i>
+								<% end %>
+								<%= radio_button_tag :predef_name, 'play' %>
+								<%= label :platform, 'Play' do %>
+								<i class="logo_[play"></i>
+								<% end %>
+							</div>
+							<div class="span3">
+								<%= radio_button_tag :predef_name, 'nodejs' %>
+								<%= label :platform, 'Nodejs' do %>
+								<i class="logo_nodejs"></i>
+								<% end %>
+								<%= radio_button_tag :predef_name, 'akka' %>
+								<%= label :platform, 'Akka' do %>
+								<i class="logo_akka"></i>
+								<% end %>
+							</div>
+						</div>
+						<div class="span6">
+							<div id="scalebooks" class="">
+								<div class="alert">
+									<i class="icon-info-sign"></i> Scale books
+								</div>
+								<div class="overflow">
+									<table class="table table-condensed">
+										<thead>
+											<tr>
+												<th>My Books</th>
+												<th><a href="#" rel="tooltip" title="max 2 (*beta)" class='info'>Instances <i class="icon-info-sign"></i></a></th>
+												<th><i class="icon-trash"></i></th>
+											</tr>
+										</thead>
+										<tbody></tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<ul class="no-list link-block">
+							<li class="span4">
+								<a href="support.html"> <h5><i class="icon-bar-chart"></i> Your platform isn't here?</h5> We are here to help
+								<div class="arrow-right">
+									<i class="icon-chevron-right"></i>
+								</div> </a>
+							</li>
+						</ul>
+						</br>	
+						</br>					
+						<span class="badge badge-success books_total">0</span> 
+						<span class="label label-inverse selected_platformapp">__</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span12">
+
+		</div>
+	</div>
+</div>
+
+<%= submit_tag "Next", :class => "btn btn-large btn-success btn-block" %>
+
+<% end %>
+
 </div>
                      
 <% end %>
