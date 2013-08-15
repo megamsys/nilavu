@@ -30,6 +30,7 @@ ActiveRecord::Schema.define(version: 20130726050612) do
 
   create_table "cloud_books", force: true do |t|
     t.integer  "users_id"
+    t.string   "name"
     t.string   "predef_name"
     t.string   "predef_cloud_name"
     t.string   "deps_scm"

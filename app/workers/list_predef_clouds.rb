@@ -23,11 +23,6 @@ class ListPredefClouds
 	@res = {"data" => {:body => re}}
 	return @res["data"][:body]
    end
-	puts "EXCON RES class-------------->>>>>>>>>>>>  "
-	puts @excon_res.class
-	puts "EXCON RES -------------->>>>>>>>>>>>  "
-	puts @excon_res.inspect
-	puts @excon_res.to_yaml
 	@excon_res.data[:body]
   end
 

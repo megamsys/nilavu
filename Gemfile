@@ -8,7 +8,6 @@ gem 'rails-observers'
 gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
 
-#gem "megam_api", "~> 0.1.0"
 gem 'socket.io-rails'
 
 #JQuery rails, other jquery scripts

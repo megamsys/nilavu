@@ -2,6 +2,7 @@ class CreateCloudBooks < ActiveRecord::Migration
   def self.up
     create_table :cloud_books do |t|
       t.integer :users_id      
+      t.string :name
       t.string :predef_name
       t.string :predef_cloud_name
       t.string :deps_scm

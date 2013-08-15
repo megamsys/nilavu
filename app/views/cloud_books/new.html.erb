@@ -94,7 +94,8 @@
 	</div>
 </div>
 
-<%= submit_tag "Next", :class => "btn btn-large btn-success btn-block" %>
+<%= submit_tag "Next", :class => "btn btn-large btn-success btn-block", :remote => true, :disable_with => "Please wait...", :data => { :spinner => '#spin-btn'} %>
+<%= spinner_tag 'spin-btn' %>
 
 <% end %>
 
