@@ -1,4 +1,3 @@
-
 <%= form_for @user, :html => {:id =>'password_validate', :novalidate => 'novalidate', :multipart => true, :class => 'user_fields_form_organization' },  :method => 'patch', data: { spinner: '#spin_user_organization', :remote => true}  do |f| %>
 
 <%= f.text_field :user_type, :value => "free_user", :type => 'hidden' %>
@@ -15,13 +14,12 @@
 	</div>
 </div>
 <div class="control-group">
-    <%= org_f.label "upload_your_new_logo(wipes out existing)", :class => 'control-label' %>
-    <div class="controls">
-        <%= org_f.file_field :logo, :id => 'org_logo', placeholder: "Logo" %>
-    </div>
+	<%= org_f.label "Upload Your New Logo(Nuke existing)", :class => 'control-label' %>
+	<div class="controls">
+		<%= org_f.file_field :logo, :id => 'org_logo', placeholder: "Logo" %>
+	</div>
 
 </div>
-
 
 <% end %>
 <%= f.submit "Update", :class => "btn", :remote => true %>

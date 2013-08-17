@@ -40,7 +40,6 @@
 //= require bootstrap-editable
 //= require unicorn
 //= require unicorn.dashboard
-//= require jquery.icheck
 //= require flexslider 
 //= require socket.io
 //= require_tree .

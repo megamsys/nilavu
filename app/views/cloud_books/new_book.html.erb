@@ -7,6 +7,45 @@
 <div class="container-fluid">
 
 	<%= form_for @book, :html => {:multipart => true }, :remote => true, :method => 'post' do |f| %>
+
+	<div class="widget-box">
+		<div class="widget-title">
+			<span class="icon"> <i class="icon-th-list"></i> </span>
+			<h5>Platform Selection</h5>
+		</div>
+		<div class="widget-content">
+			<div class="control-group">
+				<div class="controls">
+					<div class="row-fluid">
+						<div class="span12">
+							<p class="help-block">
+								<strong><span class="label label-info">Platform launch</span> How does it happen ? For more information</strong>
+								<%= link_to "Platform launch",   "http://docs.megam.co", { :target => '_blank'} %>
+							</p>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span3">
+							<i class="logo_chef"></i>
+						</div>
+						<div class="span2">
+							<h3>Will Launch<h3><span class="badge badge-info"> <h4>Role : <%= @predef.provider_role %><h4></span>
+						</div>
+						<div class="span2">
+							<h3 align="center"><i class="i_cloud"></i>=></h3>
+						</div>
+						<div class="span2">
+							<%= image_tag "build_monkey.png", :alt => "build bots" %>
+						</div>
+						<div class="span3">
+							<h3>Build monkey<h3><span class="badge badge-success"><h4> <%= @predef.build_monkey %></h4></span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="row-fluid">
 		<div class="span12">
 			<% @book_name = book_name %>
@@ -44,49 +83,29 @@
 	<div class="widget-box">
 		<div class="widget-title">
 			<span class="icon"> <i class="icon-th-list"></i> </span>
-			<h5>Predef</h5>
+			<h5>Cross Cloud Selection</h5>
 		</div>
 		<div class="widget-content">
 			<div class="control-group">
-				<div class="controls">
-					<p>
-						Selected predef name : <%= @predef.name %>
-						<br/>
-						Provider : <%= @predef.provider %>
-						<br/>
-						Provider Role : <%= @predef.provider_role %>
-						<br/>
-						Build monkey : <%= @predef.build_monkey %>
-					</p>
-				</div>
+				<p class="help-block">
+					<strong><span class="label label-info">Default</span> One cross cloud default available. Upgrade to avail more.</strong>
+					<%= link_to "Platform launch",   "http://docs.megam.co", { :target => '_blank'} %>
+				</p>
+				<%= f.select :predef_cloud_name, options_for_select(@predef_cloud.map{ |c| [c.name] }) %>
 			</div>
 		</div>
 	</div>
 
-	<div class="widget-box">
-		<div class="widget-title">
-			<span class="icon"> <i class="icon-th-list"></i> </span>
-			<h5>Predef clouds</h5>
-		</div>
-		<div class="widget-content">
-			<div class="control-group">
-	<%= f.select :predef_cloud_name, options_for_select(@predef_cloud.map{ |c| [c.name] }) %>
-			</div>
-		</div>
-	</div>
+	<% @predef_hash = {} %>
+	<% @predef_cloud.each do |k| %>
+	<% @predef_hash = @predef_hash.merge(@predef) %>
+	<% end %>
 
+	<% @predef_hash.each do |key,value| %>
+	<%= hidden_field_tag "predef[#{key}]",value %>
+	<% end %>
 
-<% @predef_hash = {} %>
-<% @predef_cloud.each do |k| %>
-		<% @predef_hash = @predef_hash.merge(@predef) %>
-<% end %>
-
-<% @predef_hash.each do |key,value| %>
-<%= hidden_field_tag "predef[#{key}]",value %> 
-<% end %>
-
-
-		<%= f.text_field :predef_name, :type => 'hidden', :value => @predef_name %>
+	<%= f.text_field :predef_name, :type => 'hidden', :value => @predef_name %>
 
 	<div class="widget-box">
 		<div class="widget-title">
@@ -110,7 +129,7 @@
 						</div>
 					</div>
 				</div>
-		<% if @predef_name == "java" %>
+				<% if @predef_name == "java" %>
 				<div class="accordion-group widget-box">
 					<div class="accordion-heading">
 						<div class="widget-title">
@@ -123,30 +142,36 @@
 						</div>
 					</div>
 				</div>
-		<% end %>
+				<% end %>
 			</div>
 		</div>
 	</div>
-	<%= f.submit nil, :class => "btn btn-large btn-success btn-block" %>
-	<% end %>
+	<div class="row-fluid">
+		<div class="span4"></div>
+		<div class="span4">
+			<%= f.submit nil, :class => "btn btn-large btn-success btn-block" %>
+			<% end %>
+		</div>
+		<div class="span4"></div>
 
-<div id="postfinish_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-			×
-		</button>
-		<h3 id="myModalLabel">Cloud Book</h3>
 	</div>
-	<div class="modal-body">
 
-		<p>
-			Your cloud book create request was send megam API server, after few minutes your platform will be run....!
-		</p>
+	<div id="postfinish_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				×
+			</button>
+			<h3 id="myModalLabel">Cloud Book</h3>
+		</div>
+		<div class="modal-body">
+
+			<p>
+				Your cloud book create request was send megam API server, after few minutes your platform will be run....!
+			</p>
+		</div>
+		<div class="modal-footer" id="history_path"></div>
 	</div>
-	<div class="modal-footer" id="history_path"></div>
-</div>
-
 
 </div>
 <% end %>

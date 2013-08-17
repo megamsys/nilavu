@@ -31,14 +31,14 @@
 							<div class="box">
 								<div>
 									<div class="head">
-										<h4>Organization</h4>																
-										<div class ="span6">		
+										<h4>Organization</h4>
+										<i class="icon-chevron-left"></i>
 										<% if current_user.admin %>
-										<span class="label label-info">administrator</span>
+										<span class="label label-info"> administrator </span>
 										<% else %>
-										<span class="label label-info">user</span>
+										<span class="label label-info"> user </span>
 										<% end %>
-										</div>
+										<i class="icon-chevron-right"></i>
 									</div>
 									<div class="form">
 										<%= render :partial => "users/organization_fields_form", :locals => {:user => @user} %>
@@ -60,6 +60,9 @@
 							<div class="box">
 								<div>
 									<div class="head">
+										<div class="icon">
+											<i class="lab"></i>
+										</div>
 										<h4>Password</h4>
 									</div>
 									<div class="form">
@@ -78,9 +81,9 @@
 							<div class="box">
 								<div>
 									<div class="head">
-										<h4>API Key</h4>								
+										<h4>API Key</h4>
 										<div class ="span6">
-										<span class="label label-info"><%= @user.user_type %></span>
+											<span class="label label-info"><%= @user.user_type %></span>
 										</div>
 									</div>
 									<div class="form">

@@ -1,47 +1,95 @@
 // Place all the styles related to the cloud_books controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-@import "icheck/line/_all";
-
 
 [class^="logo_"], [class*="logo_"] {
   background-image: url('platformapp_sprites.png');
   background-position: 0 0;
   background-repeat: no-repeat;
   display: inline-block;
-  height: 60px;
-  width: 120px;
+  height: 101px;
+  width: 147px;
 }
 
-.logo_play{
+.logo_rabbitmq{
   background-position: 0 0;
-  width: 120px;
-  height: 40px;
+  width: 170px;
+  height: 101px;
 }
 
-.logo_java{
-  background-position: -150px 0;
-  width: 90px;
-  height: 64px;
-}
-
-.logo_rails{
-  background-position: -250px 0;
-  width: 80px;
-  height: 61px;
-}
-
-.logo_akka{
-  background-position: -350px 0;
-  width: 76px;
-  height: 60px;
+.logo_redis{
+  background-position: -173px 0;
+  width: 147px;
+  height: 101px;
 }
 
 .logo_nodejs{
-  background-position: -448px -2px ;
-  width: 120px;
-  height: 33px;
+  background-position: -323px 0;
+  width: 192px;
+  height: 101px;
 }
+
+.logo_chef{
+  background-position: 0 -104px ;
+  width: 147px;
+  height: 101px;
+}
+
+.logo_riak{
+  background-position: -150px -104px ;
+  width: 147px;
+  height: 101px;
+}
+
+.logo_ganglia{
+  background-position: -300px -104px ;
+  width: 147px;
+  height: 101px;
+}
+
+.logo_logstash{
+  background-position: 0 -210px ;
+  width: 147px;
+  height: 101px;
+}
+
+.logo_postgres{
+  background-position: -150px -210px ;
+  width: 147px;
+  height: 101px;
+}
+
+.logo_akka{
+  background-position: -302px -209px ;
+  width: 147px;
+  height: 101px;
+}
+
+.logo_java{
+  background-position: 0 -315px ;
+  width: 147px;
+  height: 101px;
+}
+
+.logo_rails{
+  background-position: -150px -315px ;
+  width: 147px;
+  height: 101px;
+}
+
+.logo_scala{
+  background-position: -1px -420px ;
+  width: 147px;
+  height: 101px;
+}
+
+.logo_play{
+  background-position: -300px -313px ;
+  width: 147px;
+  height: 101px;
+}
+
+
 
 
 .selected {

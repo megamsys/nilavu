@@ -33,13 +33,13 @@ class UsersController < ApplicationController
   end
 
   def worker
-      options = { :email => current_user.email, :api_key => current_user.api_token }
-      #options = { :email => current_user.email, :api_key => current_user.api_token, :predef_name => "tom" }
-	puts "Options ==> #{options}"
-      #res_body = ListPredefs.perform(options)
-	res_body = ListPredefClouds.perform(options)
-      puts "-----------------Find Predefs---------------"
-	puts res_body.lookup("aws-ec2-predef-small")
+    options = { :email => current_user.email, :api_key => current_user.api_token }
+    #options = { :email => current_user.email, :api_key => current_user.api_token, :predef_name => "tom" }
+    puts "Options ==> #{options}"
+    #res_body = ListPredefs.perform(options)
+    res_body = ListPredefClouds.perform(options)
+    puts "-----------------Find Predefs---------------"
+    puts res_body.lookup("aws-ec2-predef-small")
 
   #Resque.enqueue(WorkerClass, options)
   #success = Resque.enqueue(CreateAccounts, options)
@@ -48,10 +48,10 @@ class UsersController < ApplicationController
 
   def dashboard
 =begin
-      options = { :email => current_user.email, :api_key => current_user.api_token }
-      res_body = ListPredefClouds.perform(options)
-      puts "-----------------SUCCESS RES---------------"
-	puts res_body
+options = { :email => current_user.email, :api_key => current_user.api_token }
+res_body = ListPredefClouds.perform(options)
+puts "-----------------SUCCESS RES---------------"
+puts res_body
 =end
   end
 
@@ -101,7 +101,7 @@ class UsersController < ApplicationController
       if !(res_body.some_msg[:msg_type] == "error")
         #update current user as onboard user(megam_api user)
         @user.update_attribute(:onboarded_api, true)
-	sign_in @user
+        sign_in @user
         redirect_to dashboard_path, :gflash => { :success => { :value => "#{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
         redirect_to dashboard_path, :gflash => { :warn => { :value => "Sorry. You are not yet onboard. Update profile.An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
@@ -138,32 +138,32 @@ class UsersController < ApplicationController
 
       options = { :id => @user.id, :email => @user.email, :api_key => @api_token, :authority => "admin" }
       @res_body = CreateAccounts.perform(options)
-	puts "RES BODY----> #{@res_body.inspect}"
-	puts "MSG==>  #{@res_body.some_msg[:msg]}"
-	@ms = "#{@res_body.some_msg[:msg]}"
+      puts "RES BODY----> #{@res_body.inspect}"
+      puts "MSG==>  #{@res_body.some_msg[:msg]}"
+      @ms = "#{@res_body.some_msg[:msg]}"
       if !(@res_body.some_msg[:msg_type] == "error")
         #update current user as onboard user(megam_api user)
         #@user.update_attribute(:onboarded_api, true)
-	@user.update_attributes(api_token: @api_token, onboarded_api: true)
-	sign_in @user
-	puts "TEST IF !ERROR"
-	@res_msg = "SUCCESS---->>"
-	puts "TEST IF !ERROR    -->  #{@res_body.some_msg[:msg]}"
+        @user.update_attributes(api_token: @api_token, onboarded_api: true)
+        sign_in @user
+        puts "TEST IF !ERROR"
+        @res_msg = "SUCCESS---->>"
+        puts "TEST IF !ERROR    -->  #{@res_body.some_msg[:msg]}"
         respond_to do |format|
           format.js {
             respond_with(@res_msg, :user => @user, :api_token => @api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
           }
         end
       else
-	puts "TEST else !ERROR"
-	@res_msg = "#{@res_body.some_msg[:msg]}"
+        puts "TEST else !ERROR"
+        @res_msg = "#{@res_body.some_msg[:msg]}"
         respond_to do |format|
-                  format.js {
+          format.js {
             respond_with(@res_msg, :user => @user, :api_token => @api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
           }
         end
 
-        #redirect_to dashboard_path, :gflash => { :error => { :value => "Sorry. You are not yet onboard. Update profile. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      #redirect_to dashboard_path, :gflash => { :error => { :value => "Sorry. You are not yet onboard. Update profile. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       end
     else
       if @user.update_attributes(params[:user])

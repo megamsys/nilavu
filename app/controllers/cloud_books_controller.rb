@@ -56,7 +56,7 @@ class CloudBooksController < ApplicationController
 
   private
 
-  def mk_command    
+  def mk_command(data)
     {
       "systemprovider" => {
         "provider" => {
@@ -92,7 +92,7 @@ class CloudBooksController < ApplicationController
     @predef_cloud_collection = ListPredefClouds.perform(predef_cloud_options)
     @predef_cloud = @predef_cloud_collection.lookup("#{params[:cloud_book][:predef_cloud_name]}")
 
-    command = mk_command
+    command = mk_command(data)
 
     unless data[:predef][:name] == "java"
       node_hash = {

@@ -19,7 +19,6 @@ gem 'execjs','1.4.0'
 gem 'jquery-datatables-rails'
 gem "flot-rails", "~> 0.0.4"
 gem "gritter", "~> 1.0.3"
-gem "icheck-rails", "~> 0.9.0.2"
 
 # Database posgresql
 gem 'pg'
@@ -40,6 +39,7 @@ gem "randexp", "~> 0.1.7"
 gem "megam_api"
 gem "flexslider", "~> 2.0.2"
 gem "megam_deccanplato", "~> 0.1.0"
+
 #For background processing of cloud jobs
 #gem 'resque'
 #gem 'sidekiq'

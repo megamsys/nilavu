@@ -147,9 +147,7 @@ h1.headline {
 	font-weight: normal;
 }
 
-.modal {
-	margin: -210px 0 0 -280px;
-}
+
 
 .page-header {
 	margin-bottom: 0;
@@ -462,7 +460,7 @@ input[type="color"]:focus,
 	position: absolute;
 }
 .features_page .feature2 .icon i {
-	background: url('icons.png') no-repeat;
+	background: url('features_icons.png') no-repeat;
 	display: block;
 	position: relative;
 }
