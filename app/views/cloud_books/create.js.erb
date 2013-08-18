@@ -1,5 +1,4 @@
-var selected_entity = '#postfinish_popup';
+var selected_entity = '#cloudbook_postfinish_popup';
 $("#history_path").append('<%= link_to  "Ok", cloud_books_histories_path(:book_id => @book_id, :book_name => @domainname), :class => "btn btn-primary" %>');
 $(selected_entity).modal('show');
-alert("TEST====> " + selected_entity);
 
