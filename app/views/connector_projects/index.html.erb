@@ -19,7 +19,7 @@
 					<% @products.each do |product| %>
 					<li>
 						<%= link_to "#" do %>
-						<%= image_tag product.image_url, :id=>"slider-image"%>
+							<i class="logoc_<%= product.image_url %>", id ="slider-image"></i>		
 						<% end %>						
 					</li>
 					<% end %>

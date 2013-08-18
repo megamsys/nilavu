@@ -1,0 +1,14 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'Manage Cloud Books') %>
+<h1>Books</h1>
+
+<%= will_paginate %>
+
+<ul class="books">
+  <%= render @cloud_books %>
+</ul>
+
+<%= will_paginate %>
+
+<% end %>
+<%= render :template => users_show_path %>

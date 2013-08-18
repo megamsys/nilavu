@@ -2,6 +2,11 @@ class CloudBooksController < ApplicationController
 
   respond_to :html, :js
   add_breadcrumb "Dashboard", :dashboard_path
+  
+  def index
+    @cloud_books = CloudBook.paginate(page: params[:page])
+  end
+  
   def new
     if current_user.onboarded_api
       @book =  current_user.cloud_books.build

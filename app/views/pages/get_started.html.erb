@@ -1,74 +1,114 @@
 <% provide(:title, 'Get Started') %>
 <div class="container-fluid">
-	<hr/>
-	<h1>Getting Started</h1>
-	<hr/>
-	<h3>Try Megam</h3>
-	<div class="row">
-		<div class="span6">
-			<h4>Option 1: Free, Hosted Environment</h4>
-			<p class="environments">
-				To see how a polygot cloud app operates, you can play in the free sandbox by signing up an account
-				<%= link_to "Sign Up", signup_path %>. IdentityProv is a multitenat identity cloud built and managed by Megam community.
-			</p>
+	<div class="container">
+
+		<!-- header -->
+		<h2 class="section_header left"><span> Getting Started </span>
+		<hr class="right visible-desktop">
+		</h2>
+		<div class="row">
+			<div class="span6">
+				<i class="i_cloud"></i><h4> Free, Hosted Environment</h4>
+				<p class="environments">
+					To see how a polygot cloud app operates, you can play in the free sandbox by signing up an account
+					<h5> Megam a polygot PaaS is a cloud platform built using Chef 11 and Scala/Akka. </h5>
+					<div class="span4 animated fadeInUpBig", align="center">
+						<%= link_to "Sign Up Now!", signup_path, :class => "btn btn-success btn-large" %>
+					</div>
+				</p>
+			</div>
+			<div class="span6">
+				<i class="i_cloud"></i>
+				<h4> Private Hosted Environment</h4>
+				<p class="environments">
+					For  Organization that want to get involved in using it for their cloud applications,
+					there is a great set of projects as shown below with installation instructions for you to run from your private hosted environment.
+				</p>
+				<div class="alert-block">
+					<ul class="unstyled">
+						<li>
+							Platform Server -
+							<%= link_to "Stateless RESTful Playframework/Scala based server is the heart of Megam Platform",   "https://github.com/indykish/megam_play.git", { :target => '_blank'} %>
+						</li>
+						</br>
+						<li>
+							Cloud Akka Bridge -
+							<%= link_to "Scala based Agent bridge ",   "https://github.com/indykish/megam_akka.git", { :target => '_blank'} %>
+						</li>
+						</br>
+						<li>
+							RESTful Cloud Connectors <span class="label label-info">*preview</span>
+							<%= link_to "Cloud connectors to Salesforce, GoogleApp..",   "https://github.com/indykish/deccanplato.git", { :target => '_blank'} %>
+						</li>
+						</br>
+					</ul>
+				</div>
+				<p>
+					<%= button_to 'Running Megam', page_path("doc"), :class => 'btn' %>
+					<br/>
+				</p>
+			</div>
 		</div>
-		<div class="span6">
-			<h4>Option 2: Private Hosted Environment</h4>
-			<p class="environments">
-				For  Organization that want to actually get involved in using it for their cloud applications, there is a great set of projects as shown below with installation instructions for you to run from your private hosted environment.
-			</p>
-			<p>
-				<%= button_to 'Running Megam', page_path("doc"), :class => 'btn' %>
-				<br/>
-			</p>
+		<h2 class="section_header left"><span>Learn About Megam</span>
+		<hr class="right visible-desktop">
+		</h2>
+		<div class="row">
+			<div class="span4">
+				<h4><i class="i_chart"></i> Detailed documentation </h4>
+				<div class="well">
+					<ul class="unstyled">
+						<li>
+							<%= link_to "1. Installation -  Hey let me do it at my backyard",   "http://docs.megam.co", { :target => '_blank'} %>
+						</li>
+						</br>
+						<li>
+							<%= link_to "2. Developer    - Launch Java, ..in a second ?",   "http://docs.megam.co", { :target => '_blank'} %>
+						</li>
+						</br>
 
-		</div>
-	</div>
-
-	<hr/>
-	<h1>Learn About Megam</h1>
-	<hr/>
-
-	<div class="row">
-		<div class="span5">
-			<h4>Megam Documentation</h4>
-
-			<p>
-				Detailed Megam documentation, developer and administrator guides
-				<%= button_to 'Megam Documentation', page_path("doc"), :class => 'btn' %>
-				<br/>
-			</p>
-
-		</div>
-	</div>
-
-	<hr/>
-	<h1>What are you waiting for ?</h1>
-	<hr/>
-	<h3>Sign Up</h3>
-	<p style="margin-left:10px">
-		To see how a live Megam cloud on cloud operates, you can play in the free sandbox by siging up an account
-		<%= link_to "Sign Up", signup_path %>.
-	</p>
-
-	<div class="row">
-		<div class="span6">
-			<h4>Do you have more questions?</h4>
-			<p>
-				Megam strives to be an extremely helpful community.
-				<%= button_to 'Email Us', 'mailto:admin@megam.co.in', :class => 'btn' %>
-			</p>
-		</div>
-
-		<div class="span6">
-			<h4>Get involved with Megam</h4>
-			<p>
-				We are just born, read our blog, doc to know what we do.
-				<br>
+						<li>
+							<%= link_to "3. DevOps       - Cloud management is easy. is it ?",   "http://docs.megam.co", { :target => '_blank'} %>
+						</li>
+						</br>
+						<li>
+							<%= link_to "4. Connectors   - How do I connect to Cloud App ?",   "http://docs.megam.co/contribute", { :target => '_blank'} %>
+						</li>
+						</br>
+					</ul>
+				</div>
+				<hr/>
+				<h3 align="center"> I have an account. </h3>
+				<h4 align="center"> <%= link_to "Sign In Now!", signin_path, :class => "btn btn-info btn-large" %> </h4>
+			</div>
+			<div class="span4">
+				<%= image_tag "cloudshield.png", :alt => "cloud shield"%>
+			</div>
+			<div class="span4 feature2">
+				<h4><i class="i_movil"></i> Do you have more questions?</h4>
+				<p>
+					Megam strives to be an extremely helpful community.
+					<div class="well">
+						<p>
+							Google Groups: <%= link_to 'megamlive', 'https://groups.google.com/forum/?fromgroups=#!forum/megamlive', :class => 'btn', :target => "_blank" %>
+						</p>
+						</br>
+						<p>
+							Email Us: <%= link_to 'admin@megam.co.in','mailto:admin@megam.co.in' , :target => "_blank" %>
+						</p>
+					</div>
+				</p>
 				</br>
-				<%= link_to 'How to contribute', 'http://blog.megam.co/', :class => 'btn', :target => "_blank" %>
-			</p>
-
+				</br>
+				<i class="i_chart"></i>
+				<h4>Get involved with Megam</h4>
+				<p>
+					Read our engineering blog, contribution doc.
+					<br>
+					</br>
+					<%= link_to 'How to contribute', 'http://docs.megam.co/contribute', :class => 'btn btn-success btn-large', :target => "_blank" %>
+				</p>
+			</div>
 		</div>
+		</br>
 	</div>
 </div>

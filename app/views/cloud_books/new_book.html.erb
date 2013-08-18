@@ -1,6 +1,6 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'cloud_books') %>
-<%= render :partial => "contents/header" , :locals => {:head => "Cloud Books"}%>
+<%= render :partial => "contents/header" , :locals => {:head => "Cloud Platform - Step 2 of 2"}%>
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
@@ -11,7 +11,7 @@
 	<div class="widget-box">
 		<div class="widget-title">
 			<span class="icon"> <i class="icon-th-list"></i> </span>
-			<h5>Platform Selection</h5>
+			<h5>Platform Selected</h5>
 		</div>
 		<div class="widget-content">
 			<div class="control-group">
@@ -91,7 +91,9 @@
 					<strong><span class="label label-info">Default</span> One cross cloud default available. Upgrade to avail more.</strong>
 					<%= link_to "Platform launch",   "http://docs.megam.co", { :target => '_blank'} %>
 				</p>
-				<%= f.select :predef_cloud_name, options_for_select(@predef_cloud.map{ |c| [c.name] }) %>
+				<p>
+					<%= f.select :predef_cloud_name, options_for_select(@predef_cloud.map{ |c| [c.name] }) %>
+				</p>
 			</div>
 		</div>
 	</div>

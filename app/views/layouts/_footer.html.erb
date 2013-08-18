@@ -17,7 +17,7 @@
 						</li>
 					</ul>
 				</div>
-				<div class="span2">
+				<div class="span3">
 					<h5>About Us</h5>
 					<ul class="unstyled">
 						<li>
@@ -35,10 +35,10 @@
 							with a choice for apply for a job or internship-->
 							<%= link_to "Jobs",   page_path("jobs") %>
 						</li>
-						
+
 					</ul>
 				</div>
-				<div class="span2">
+				<div class="span3">
 					<h5>Support</h5>
 					<ul class="unstyled">
 						<li>
@@ -55,34 +55,36 @@
 						</li>
 					</ul>
 				</div>
-				<div class="span4 right-align">
-					<%= image_tag "logo-megam160x43.png", :alt => "Megam", :class => "megam_image" %>
-					</br>
-					</br>
-					<p>
-						<i class="icon-map-marker"></i> <strong><span itemprop="name">megam</span>, </strong>
-						<span itemprop="address" itemscope itemtype="http://data-vocabulary.org/Address"> <span itemprop="street-address">plot no:53 second cross, Radha nagar</span>, <span itemprop="locality"> Perumbakkam</span>, <span itemprop="region">Chennai</span> </span>
-					</p>
+				<div class="span3">
+					<ul class="unstyled">
+						<li>
+							<%= image_tag "logo-megam160x43.png", :alt => "Megam", :class => "megam_image" %>
+						</li>
+						<li>
+							<i class="icon-map-marker"></i><strong><span itemprop="name"> megam</span>, </strong>
+						</li>
+						<li>
+							<span itemprop="address" itemscope itemtype="http://data-vocabulary.org/Address"> <span itemprop="street-address">plot no:53 second cross, Radha nagar</span>,
+						</li>
+						<li>
+							<span itemprop="locality"> Perumbakkam</span>, <span itemprop="region">Chennai</span>
+							</span>
+						</li>
+					</ul>
 				</div>
 			</div>
-			<hr></hr>
+			<hr>
+			</hr>
 			<div class="row-fluid copyright">
 				<div class="span7">
 					<h3>Social</h3>
 					<a href="http://www.facebook.com/megamsys" class="social fb" target="_blank"> <i class="i_facebook"></i> </a>
 					<a href="http://www.twitter.com/indykish" class="social tw" target="_blank"> <i class="i_twitter"></i> </a>
-					<a href="http://www.youtube.com/indykish" class="social yt" target="_blank">
-					<i class="i_youtube"></i></a>
-					</div>
-					<div class="span4">
+					<a href="http://www.youtube.com/indykish" class="social yt" target="_blank"> <i class="i_youtube"></i></a>
+				</div>
+				<div class="span4">
 					</br>
-					<small> &copy; 2013 megam. All rights reserved.
-					<span class="seperator">|</span>
-					<%= link_to "Terms of Use",  page_path("termsofuse")  %>
-					<a href="/terms-of-use/">Terms of Use</a>
-					<span class="seperator">|</span>
-					<%= link_to "Privacy Policy",  page_path("privacypolicy")  %>
-					</small>
+					<small> &copy; 2013 megam. All rights reserved. <span class="seperator">|</span> <%= link_to "Terms of Use",  page_path("termsofuse")  %> <a href="/terms-of-use/">Terms of Use</a> <span class="seperator">|</span> <%= link_to "Privacy Policy",  page_path("privacypolicy")  %> </small>
 				</div>
 			</div>
 		</div>

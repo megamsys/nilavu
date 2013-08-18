@@ -7,8 +7,8 @@
 				<% @products.each do |product| %>				
 				<li>			     	
 					<%= link_to import_path(:api_name => product.name), :remote => true, :type => "submit", :method => "post", data: { spinlock: '#dec'}  do %>
-					<%= image_tag product.image_url, :id=>"slider-image"%>
-					<% end %>
+						<i class="logoc_<%= product.image_url %>", id ="slider-image"></i>
+				<% end %>
 				</li>
 				<% end %>
 			</ul>

@@ -3,7 +3,7 @@
 
 <%= render :partial => "contents/header" , :locals => {:head => "Cloud Applications"}%>
 <div id="breadcrumb">
-<%= render_breadcrumbs %>
+	<%= render_breadcrumbs %>
 </div>
 <div class="container-fluid">
 	<div class="row-fluid">
@@ -46,7 +46,7 @@
 								<tbody>
 									<% @products.each do |product| %>
 									<tr>
-										<td> <%= image_tag product.image_url, :size => "128x100" %> </td><dd></dd>
+										<td><i class="logoc_<%= product.image_url %>", id =<%= product.name%> ></i></td><dd></dd>
 										<td><%= product.description %></td><dd></dd>
 										<td><%= product.category %></td>
 										<dd/>
