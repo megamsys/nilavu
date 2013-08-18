@@ -1,14 +1,16 @@
-
 <% @products = Product.all %>
 <div class="row-fluid">
 	<div class="span12" id="folders">
+		<p class="help-block">
+			<span class="label label-info">select</span><strong> Select a cloud application</strong>
+		</p>
 		<div class="flexslider">
 			<ul class="slides">
-				<% @products.each do |product| %>				
-				<li>			     	
+				<% @products.each do |product| %>
+				<li>
 					<%= link_to import_path(:api_name => product.name), :remote => true, :type => "submit", :method => "post", data: { spinlock: '#dec'}  do %>
-						<i class="logoc_<%= product.image_url %>", id ="slider-image"></i>
-				<% end %>
+					<i class="logoc_<%= product.image_url %>", id ="slider-image"></i>
+					<% end %>
 				</li>
 				<% end %>
 			</ul>
@@ -23,31 +25,30 @@
 			<h5>Live Cloud</h5>
 		</div>
 		<div class="widget-content">
+			<strong><span class="label label-info">*selection</span> Select any one URL </strong>
 			<table class="table table-striped table-bordered">
 				<br/>
 				<tbody>
 					<tr>
 						<td>
-						<div style="height: 340px;  overflow-y: scroll;">							
-							<div class="invoice-content offset1"  id="cloud_rest_api">
-							<div class="alert alert-info alert-block">
-								<h5>Select any </h5>
-								<h5> one</h5>
-								<h5> of the App....!</h5>
+						<div style="height: 340px;  overflow-y: scroll;">
+							<h4>Cloud Application URL's'</h4>
+							<div  id="cloud_rest_api">
+								<div class="alert alert-info">
+									<h5>App not yet selected.</h5>
+								</div>
 							</div>
-							</div>							
 						</div></td>
 						<td>
-						<div  style="height: 340px;  overflow-y: scroll; padding-left: 70px;">
-							<h3>Data Explorer</h3>
-							<br/>
-							URL
+						<div  style="height: 340px;  overflow-y: scroll;">
+							<h4>Data Explorer</h4>
+							Connector Bed
 							<br/>
 							<%= text_field :path, :id => 'large_text', placeholder: "Path" %>
 
 							<div class="control-group">
 								<div class="controls">
-									Path
+									Cloud Application URL
 									<br/>
 									<%= text_field :path, :id => 'large_text', placeholder: "Path" %>
 								</div>
@@ -58,16 +59,15 @@
 									<br/>
 									<%= text_field :json_text, :id => 'json_text', placeholder: "json" %>
 								</div>
-								<div class="offset3">									
-                                    <%= submit_tag "Run Query", :class => "btn btn-primary" %>									
+								<div class="offset3">
+									<%= submit_tag "Run Query", :class => "btn btn-primary" %>
 								</div>
 							</div>
 						</div></td>
 						<td>
-						<div style="padding-left: 70px; ">
-							<h3>JSON</h3>
-							<br/>
-							<%= text_area_tag "json", :id => 'json_input' %>							
+						<div>
+							<h4>JSON</h4>
+							<%= text_area_tag "json", :id => 'json_input' %>
 						</div></td>
 					</tr>
 				</tbody>
