@@ -1,5 +1,5 @@
 class CloudBooksHistoriesController < ApplicationController
-  respond_to :html, :js
+  respond_to :js, :html
   add_breadcrumb "Dashboard", :dashboard_path
   
   def index
@@ -20,11 +20,12 @@ class CloudBooksHistoriesController < ApplicationController
   
 
   def logs
-    logger.debug "node_name_log ==> #{params[:log_node_name]}"
+    @books = current_user.cloud_books.all
+    logger.debug "node_name_log ==> #{params[:node_name]}"
+    @node_name = params[:node_name]
     respond_to do |format|
       format.js {
-        respond_with(:node_name => params[:node_name], :layout => !request.xhr? )
-
+        respond_with(@node_name, :layout => !request.xhr? )
       }
     end
 
