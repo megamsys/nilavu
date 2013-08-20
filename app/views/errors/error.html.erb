@@ -1,31 +1,44 @@
 <% provide(:title, 'Error occurred') %>
 
 <div class="container">
-	</br>
-	</br>
-	</br>
-	</br>
-	<div class="row-fluid">
-		<div class="span12">
-			<h2 align="center"><%= @status %></h2>
-		</div>
 
-	</div>
-	<div class="row-fluid">
-		<div class="span4">
+	<div class='row'>
+		<div class='span10 offset1'>
+			<h2>Sorry, the page you&#39;re looking for couldn&#39;t be found</h2>
+
+			<p>
+				<a href='javascript:history.back();'>Go Back</a> to the previous page, return to the <a href='/'>home page or
+				<%= link_to "Contact us",   page_path("contact_us") %>
+				about this problem.
+				<hr />
+				If you were looking for some information regarding our services, we&#39;ve listed a few resources below where you can find additional information and help.
+			</p>
+
+			<h4> <%= link_to "Visit Support", "http://support.megam.co/?user=current_user.email",:target => "_blank" %> </h4>
+
+			<p>
+				Get help from our skilled staff of Ruby and Rails. Scala experts.
+			</p>
+
+			<h4><%= link_to "Get Started", page_path("get_started") %></h4>
 			<%= image_tag "specman.png", :alt => "error"%>
-		</div>
-		<div class="span7">
-			<div class="well">
-				<h2>Cloud server flunked.</h2>
-				<h3>Megam support was notified at hashtag #supportmegam and
-				support.megam.co</h3>
-			</div>
+
+			<p>
+				The Megam Opensource Cloud Platform.
+			</p>
+
+			<h4><%= link_to "Blog",   "http://blog.megam.co", { :target => '_blank'} %></h4>
+
+			<p>
+				News from Megam and the voices of our people.
+			</p>
+
+			<h4> <%= link_to "About",  page_path("about") %> </h4>
+
+			<p>
+				Get to know the people behind Megam.
+			</p>
+
 		</div>
 	</div>
-	</br>
-	</br>
-	</br>
-	</br>
 </div>
-
