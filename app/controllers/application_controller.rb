@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+
   protect_from_forgery
   include SessionsHelper
 
@@ -15,15 +16,27 @@ class ApplicationController < ActionController::Base
   # renders 505 in an exception template.
   # A generic template exists in error which shows the error in a
   # usage way.
+=begin
   def render_500(exception)
     render_exception(500, exception.message, exception)
   end
-
+=end
   # renders 404 in an exception template.
   # A generic template exists in error which shows the error in a
   # usage way.
   def render_404(exception = nil)
     render_exception(404, 'Page not found', exception)
+  end
+
+=begin
+  def render_500(exception = nil)
+    render_exception(500, 'Internal server error', exception)
+  end
+=end
+
+  def render_500(exception)
+    @exception = exception
+    render :template => "shared/500.html", :status => 500
   end
 
   # renders an exception in  template.
