@@ -21,6 +21,9 @@ class CloudBooksController < ApplicationController
     add_breadcrumb "Cloud_book_platform_selection", new_cloud_book_path
     add_breadcrumb "Cloud_book_platform_selection", new_book_path
     @predef_name = params[:predef_name]
+	if @predef_name.nil?
+		redirect_to new_cloud_book_path, :gflash => { :error => { :value => "Please Select any one platform and then proceed ", :sticky => false, :nodom_wrap => true } }
+	else
     @book =  current_user.cloud_books.build
     predef_cloud_options = { :email => current_user.email, :api_key => current_user.api_token }
     predef_options = { :email => current_user.email, :api_key => current_user.api_token, :predef_name => @predef_name}
@@ -29,6 +32,7 @@ class CloudBooksController < ApplicationController
     pred = FindPredefsByName.perform(predef_options)
     @predef = pred.lookup(@predef_name)
     @domain_name = ".megam.co"
+	end
   #else
   #redirect_to user_path(:id => current_user.id, :user_fields_form_type => "api_key")
   #   redirect_to dashboard_path, :gflash => { :error => { :value => "Sorry. You are not yet onboarded. Please do update your profile to proceed", :sticky => false, :nodom_wrap => true } }

@@ -94,11 +94,11 @@ puts res_body
         @identity = Identity.find_by_uid(params[:social_uid])
         @identity.update_attribute(:users_id, @user.id)
       end
-
-      options = { :id => @user.id, :email => @user.email, :api_key => @user.api_token, :authority => "admin" }
+      sign_in @user
+      options = { :id => current_user.id, :email => current_user.email, :api_key => current_user.api_token, :authority => "admin" }
       res_body = CreateAccounts.perform(options)
       puts "-----------------SUCCESS RES---------------"
-      sign_in @user
+
       flash[:success] = "Welcome #{current_user.first_name}"
       if !(res_body.some_msg[:msg_type] == "error")
         #update current user as onboard user(megam_api user)
@@ -137,31 +137,32 @@ puts res_body
     @user_fields_form_type = params[:user_fields_form_type]
     if @user_fields_form_type == 'api_key'
       @api_token = SecureRandom.urlsafe_base64(nil, true)
+	@user.update_attribute(:api_token, @api_token)
+        sign_in @user
 
-      options = { :id => @user.id, :email => @user.email, :api_key => @api_token, :authority => "admin" }
+      options = { :id => current_user.id, :email => current_user.email, :api_key => current_user.api_token, :authority => "admin" }
       @res_body = CreateAccounts.perform(options)
-      puts "RES BODY----> #{@res_body.inspect}"
-      puts "MSG==>  #{@res_body.some_msg[:msg]}"
-      @ms = "#{@res_body.some_msg[:msg]}"
       if !(@res_body.some_msg[:msg_type] == "error")
         #update current user as onboard user(megam_api user)
-        #@user.update_attribute(:onboarded_api, true)
-        @user.update_attributes(api_token: @api_token, onboarded_api: true)
+        @user.update_attribute(:onboarded_api, true)
+        #@user.update_attributes(api_token: @api_token, onboarded_api: true)
         sign_in @user
         puts "TEST IF !ERROR"
         @res_msg = "SUCCESS---->>"
         puts "TEST IF !ERROR    -->  #{@res_body.some_msg[:msg]}"
         respond_to do |format|
           format.js {
-            respond_with(@res_msg, :user => @user, :api_token => @api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
+            respond_with(@res_msg, :user => current_user, :api_token => current_user.api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
           }
         end
       else
         puts "TEST else !ERROR"
+	#@user.update_attribute(:api_token, @api_token)
+        #sign_in @user
         @res_msg = "#{@res_body.some_msg[:msg]}"
         respond_to do |format|
           format.js {
-            respond_with(@res_msg, :user => @user, :api_token => @api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
+            respond_with(@res_msg, :user => current_user, :api_token => current_user.api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
           }
         end
 
