@@ -43,15 +43,17 @@ class CloudBooksController < ApplicationController
     @book_id = @book.id
 
     if @book.save
-      options = { :email => current_user.email, :api_key => current_user.api_token, :node => mk_node(params) }
+      options = { :email => current_user.email, :api_key => current_user.api_token, :node => mk_node(params, "server", "create") }
       @node = CreateNodes.perform(options)
+	puts "@NODE =================================== >>>> "
+	puts @node.inspect
       if @node.request["req_id"]
-        par = {:book_name => @book.name, :request_id => @node.request["req_id"], :status => @node.request["status"]}
+        param = {:book_name => @book.name, :request_id => @node.request["req_id"], :status => @node.request["status"]}
       else
-        par = {:book_name => @book.name, :request_id => "req_id", :status => "status"}
+        param = {:book_name => @book.name, :request_id => "req_id", :status => "status"}
       end
 
-      @history = @book.cloud_books_histories.create(par)
+      @history = @book.cloud_books_histories.create(param)
     @history.save
 
     else
@@ -61,43 +63,11 @@ class CloudBooksController < ApplicationController
 
   private
 
-  def mk_command(data)
-    {
-      "systemprovider" => {
-        "provider" => {
-          "prov" => data[:predef][:provider]
-        }
-      },
-      "compute" => {
-        "ec2" => {
-          "image" => @predef_cloud.spec[:image],
-          "flavor" => @predef_cloud.spec[:flavor]
-        },
-        "access" => {
-          "ssh-key" => @predef_cloud.access[:ssh_key],
-          "identity-file" => @predef_cloud.access[:identity_file],
-          "ssh-user" => @predef_cloud.access[:ssh_user]
-        }
-      },
-      "chefservice" => {
-        "chef" => {
-          "command" => "knife",
-          "plugin" => "ec2 server create",
-          "run-list" => "role[#{data[:predef][:provider_role]}]",
-          "name" => data[:cloud_book][:name]
-        }
-      }
-    }
-  end
-
   #build the required hash for the node and send it.
   #you can use Megam::Node itself to pass stuff.
-  def mk_node(data)
-    predef_cloud_options = { :email => current_user.email, :api_key => current_user.api_token }
-    @predef_cloud_collection = ListPredefClouds.perform(predef_cloud_options)
-    @predef_cloud = @predef_cloud_collection.lookup("#{params[:cloud_book][:predef_cloud_name]}")
+  def mk_node(data, group, action)
 
-    command = mk_command(data)
+    command = ListCloudTools.make_command(data, group, action, current_user)
 
     unless data[:predef][:name] == "java"
       node_hash = {
