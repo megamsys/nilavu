@@ -62,14 +62,34 @@ class CloudBooksController < ApplicationController
   private
 
   def mk_command(data)
-    {
+	options = { :email => current_user.email, :api_key => current_user.api_token }
+    @cloud_tools = ListCloudTools.perform(options)
+@tool = @cloud_tools.lookup(data[:predef][:provider])
+@template = @tool.cloudtemplates.lookup(@predef_cloud.spec[:type_name])
+puts "CLOUD TOOL TEMPLATE=========================>>  "
+puts @template.inspect
+@cig = @template.lookup_by_group_name("server")
+puts "CLoud TOol cloud_instructions_array cloudinstructions=================== >>>>>>> "
+puts @cig.class
+puts @cig.inspect
+@cig1 = @template.lookup_by_instruction("server", "create")
+puts "CLoud TOol cloud_instructions_array cloudinstructions SECOND 2=================== >>>>>>> "
+puts @cig1.class
+puts @cig1.inspect
+puts "CLOUD INS ACTION CREATE ============================> "
+#@cia = @cig["server"].cloud_instructions_array
+	#puts @cia.class#.lookup("create")
+	#puts @cia.inspect
+	#@action = @cia.lookup("create")
+
+    hash = {
       "systemprovider" => {
         "provider" => {
           "prov" => data[:predef][:provider]
         }
       },
       "compute" => {
-        "ec2" => {
+        @predef_cloud.spec[:type_name] => {
           "image" => @predef_cloud.spec[:image],
           "flavor" => @predef_cloud.spec[:flavor]
         },
@@ -81,13 +101,17 @@ class CloudBooksController < ApplicationController
       },
       "chefservice" => {
         "chef" => {
-          "command" => "knife",
-          "plugin" => "ec2 server create",
+          "command" => @tool.cli,
+          "plugin" => "#{@template.cctype} server create",
           "run-list" => "role[#{data[:predef][:provider_role]}]",
           "name" => data[:cloud_book][:name]
         }
       }
     }
+
+puts "=====================================> HASH <===================================================="
+puts hash
+	hash
   end
 
   #build the required hash for the node and send it.
