@@ -1,6 +1,6 @@
 .flexslider #slider-image {
-	width: 128px;  
-	height: 128px;
+	width: 100px;  
+	height: 100px;
 }
 
 [class^="logoc_"], [class*="logoc_"] {
@@ -8,54 +8,55 @@
   background-position: 0 0;
   background-repeat: no-repeat;
   display: inline-block;
-  height: 101px;
-  width: 147px;
+  height: 100px;
+  width: 100px;
 }
 
-.logoc_salesforce{
+
+.logoc_twilio{
 	background-position: 0 0;
-	width: 128px;
-	height: 128px;
-}
-
-.logoc_zohocrm{
-	background-position: -135px 0;
-	width: 128px;
-	height: 128px;
-}
-
-.logoc_sugarcrm{
-	background-position: -135px -135px ;
-	width: 128px;
-	height: 128px;
-}
-
-.logoc_dropbox{
-	background-position: 0 -135px ;
-	width: 128px;
-	height: 128px;
+	width: 100px;
+	height: 100px;
 }
 
 .logoc_box{
-	background-position: -270px 0;
-	width: 128px;
-	height: 128px;
+	background-position: -105px 0;
+	width: 100px;
+	height: 100px;
 }
 
-.logoc_twilio{
-	background-position: -271px -135px ;
-	width: 128px;
-	height: 128px;
-}
-
-.logoc_xero{
-	background-position: 0 -270px ;
-	width: 128px;
-	height: 128px;
+.logoc_dropbox{
+	background-position: -215px 0;
+	width: 100px;
+	height: 100px;
 }
 
 .logoc_googleapp{
-	background-position: -135px -270px ;
-	width: 127px;
-	height: 123px;
+	background-position: -327px 0;
+	width: 100px;
+	height: 97px;
+}
+
+.logoc_salesforce{
+	background-position: 0 -110px ;
+	width: 100px;
+	height: 100px;
+}
+
+.logoc_sugarcrm{
+	background-position: -109px -110px ;
+	width: 100px;
+	height: 100px;
+}
+
+.logoc_xero{
+	background-position: -216px -109px ;
+	width: 100px;
+	height: 100px;
+}
+
+.logoc_zohocrm{
+	background-position: -331px -106px ;
+	width: 100px;
+	height: 100px;
 }
