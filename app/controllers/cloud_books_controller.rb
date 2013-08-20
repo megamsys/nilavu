@@ -43,15 +43,17 @@ class CloudBooksController < ApplicationController
     @book_id = @book.id
 
     if @book.save
-      options = { :email => current_user.email, :api_key => current_user.api_token, :node => mk_node(params) }
+      options = { :email => current_user.email, :api_key => current_user.api_token, :node => mk_node(params, "server", "create") }
       @node = CreateNodes.perform(options)
+	puts "@NODE =================================== >>>> "
+	puts @node.inspect
       if @node.request["req_id"]
-        par = {:book_name => @book.name, :request_id => @node.request["req_id"], :status => @node.request["status"]}
+        param = {:book_name => @book.name, :request_id => @node.request["req_id"], :status => @node.request["status"]}
       else
-        par = {:book_name => @book.name, :request_id => "req_id", :status => "status"}
+        param = {:book_name => @book.name, :request_id => "req_id", :status => "status"}
       end
 
-      @history = @book.cloud_books_histories.create(par)
+      @history = @book.cloud_books_histories.create(param)
     @history.save
 
     else
@@ -61,67 +63,11 @@ class CloudBooksController < ApplicationController
 
   private
 
-  def mk_command(data)
-	options = { :email => current_user.email, :api_key => current_user.api_token }
-    @cloud_tools = ListCloudTools.perform(options)
-@tool = @cloud_tools.lookup(data[:predef][:provider])
-@template = @tool.cloudtemplates.lookup(@predef_cloud.spec[:type_name])
-puts "CLOUD TOOL TEMPLATE=========================>>  "
-puts @template.inspect
-@cig = @template.lookup_by_group_name("server")
-puts "CLoud TOol cloud_instructions_array cloudinstructions=================== >>>>>>> "
-puts @cig.class
-puts @cig.inspect
-@cig1 = @template.lookup_by_instruction("server", "create")
-puts "CLoud TOol cloud_instructions_array cloudinstructions SECOND 2=================== >>>>>>> "
-puts @cig1.class
-puts @cig1.inspect
-puts "CLOUD INS ACTION CREATE ============================> "
-#@cia = @cig["server"].cloud_instructions_array
-	#puts @cia.class#.lookup("create")
-	#puts @cia.inspect
-	#@action = @cia.lookup("create")
-
-    hash = {
-      "systemprovider" => {
-        "provider" => {
-          "prov" => data[:predef][:provider]
-        }
-      },
-      "compute" => {
-        @predef_cloud.spec[:type_name] => {
-          "image" => @predef_cloud.spec[:image],
-          "flavor" => @predef_cloud.spec[:flavor]
-        },
-        "access" => {
-          "ssh-key" => @predef_cloud.access[:ssh_key],
-          "identity-file" => @predef_cloud.access[:identity_file],
-          "ssh-user" => @predef_cloud.access[:ssh_user]
-        }
-      },
-      "chefservice" => {
-        "chef" => {
-          "command" => @tool.cli,
-          "plugin" => "#{@template.cctype} server create",
-          "run-list" => "role[#{data[:predef][:provider_role]}]",
-          "name" => data[:cloud_book][:name]
-        }
-      }
-    }
-
-puts "=====================================> HASH <===================================================="
-puts hash
-	hash
-  end
-
   #build the required hash for the node and send it.
   #you can use Megam::Node itself to pass stuff.
-  def mk_node(data)
-    predef_cloud_options = { :email => current_user.email, :api_key => current_user.api_token }
-    @predef_cloud_collection = ListPredefClouds.perform(predef_cloud_options)
-    @predef_cloud = @predef_cloud_collection.lookup("#{params[:cloud_book][:predef_cloud_name]}")
+  def mk_node(data, group, action)
 
-    command = mk_command(data)
+    command = ListCloudTools.make_command(data, group, action, current_user)
 
     unless data[:predef][:name] == "java"
       node_hash = {

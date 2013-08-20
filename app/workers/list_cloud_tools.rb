@@ -25,4 +25,52 @@ class ListCloudTools
     @excon_res.data[:body]
   end
 
+
+  def self.make_command(data, group, action, user)
+
+	options = { :email => user.email, :api_key => user.api_token }
+    @predef_cloud_collection = ListPredefClouds.perform(options)
+    @predef_cloud = @predef_cloud_collection.lookup("#{data[:cloud_book][:predef_cloud_name]}")
+
+    @cloud_tools = perform(options)
+@tool = @cloud_tools.lookup(data[:predef][:provider])
+@template = @tool.cloudtemplates.lookup(@predef_cloud.spec[:type_name])
+@cloud_instruction = @template.lookup_by_instruction(group, action)
+
+@ci_action = @cloud_instruction.action
+@ci_command = @cloud_instruction.command
+@ci_name = @cloud_instruction.name
+
+    hash = {
+      "systemprovider" => {
+        "provider" => {
+          "prov" => data[:predef][:provider]
+        }
+      },
+      "compute" => {
+        @predef_cloud.spec[:type_name] => {
+          "image" => @predef_cloud.spec[:image],
+          "flavor" => @predef_cloud.spec[:flavor]
+        },
+        "access" => {
+          "ssh-key" => @predef_cloud.access[:ssh_key],
+          "identity-file" => @predef_cloud.access[:identity_file],
+          "ssh-user" => @predef_cloud.access[:ssh_user]
+        }
+      },
+      "chefservice" => {
+        "chef" => {
+          "command" => @tool.cli,
+          "plugin" => "#{@template.cctype} #{@ci_command}",
+          "run-list" => "role[#{data[:predef][:provider_role]}]",
+          "name" => "#{@ci_name} #{data[:cloud_book][:name]}"
+        }
+      }
+    }
+
+puts "=====================================> HASH <===================================================="
+puts hash
+	hash
+  end
+
 end

@@ -33,6 +33,7 @@ class UsersController < ApplicationController
   end
 
   def worker
+=begin
     options = { :email => current_user.email, :api_key => current_user.api_token }
     #options = { :email => current_user.email, :api_key => current_user.api_token, :predef_name => "tom" }
     puts "Options ==> #{options}"
@@ -44,6 +45,7 @@ class UsersController < ApplicationController
   #Resque.enqueue(WorkerClass, options)
   #success = Resque.enqueue(CreateAccounts, options)
   #HardWorker.perform_async('bob', 5)
+=end
   end
 
   def dashboard
