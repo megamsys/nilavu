@@ -27,7 +27,7 @@
 					<% cloud_book.cloud_books_histories.each do |history| %>					
 					<tr>
 					<!--<td><%= render :partial => "cloud_books_histories/log_button", :locals => {:book_name => history.book_name} %></td>-->
-					<td><%= link_to history.book_name, history.book_name, :id => 'domain_link' %></td>
+					<td><%= link_to history.book_name, node_log_path(:node_name => history.book_name), :remote => true, :id => 'domain_link' %></td>
 						<td> <%= history.request_id %> </td>
 						<td> <%= history.status %> </td>
 					</tr>

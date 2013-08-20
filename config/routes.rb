@@ -58,7 +58,8 @@ Cloudauth::Application.routes.draw do
   
   # ========Cloud Books Histories controller
   match '/node_log', to: 'cloud_books_histories#logs', via: [:get, :post]
-
+ 
+  
   # =======Cloud_identity controller
   match '/federate', to: 'cloud_identities#federate', via: [:get, :post]
 
