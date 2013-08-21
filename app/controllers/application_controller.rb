@@ -35,7 +35,9 @@ class ApplicationController < ActionController::Base
       Rails.logger.fatal exception.backtrace.join("\n")
     end
     respond_to do |format|
+	puts "========================> APP CONTROLLLER <======================================== "
       format.html { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
+      format.js { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
       format.all { render nothing: true, status: 500}
     end
   end

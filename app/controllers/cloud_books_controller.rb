@@ -21,18 +21,17 @@ class CloudBooksController < ApplicationController
     add_breadcrumb "Cloud_book_platform_selection", new_cloud_book_path
     add_breadcrumb "Cloud_book_platform_selection", new_book_path
     @predef_name = params[:predef_name]
-	if @predef_name.nil?
-		redirect_to new_cloud_book_path, :gflash => { :error => { :value => "Please Select any one platform and then proceed ", :sticky => false, :nodom_wrap => true } }
-	else
+
     @book =  current_user.cloud_books.build
     predef_cloud_options = { :email => current_user.email, :api_key => current_user.api_token }
     predef_options = { :email => current_user.email, :api_key => current_user.api_token, :predef_name => @predef_name}
     @predef_cloud = ListPredefClouds.perform(predef_cloud_options)
+	puts "============================> @PREDEF LCOUD <==================================="
+	puts @predef_cloud.inspect
     #if @predef_cloud.some_msg[:msg_type] != "error"
     pred = FindPredefsByName.perform(predef_options)
     @predef = pred.lookup(@predef_name)
     @domain_name = ".megam.co"
-	end
   #else
   #redirect_to user_path(:id => current_user.id, :user_fields_form_type => "api_key")
   #   redirect_to dashboard_path, :gflash => { :error => { :value => "Sorry. You are not yet onboarded. Please do update your profile to proceed", :sticky => false, :nodom_wrap => true } }
@@ -72,7 +71,8 @@ class CloudBooksController < ApplicationController
   def mk_node(data, group, action)
 
     command = ListCloudTools.make_command(data, group, action, current_user)
-
+puts "===========================> COMMAND <====================================="
+puts command
     unless data[:predef][:name] == "java"
       node_hash = {
         "node_name" => "#{data[:cloud_book][:name]}#{data[:cloud_book][:domain_name]}",

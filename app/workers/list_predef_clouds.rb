@@ -3,10 +3,14 @@
 class ListPredefClouds
   puts " -------> LIST PREDEF CLOUDS "
   def self.perform(list_predefclouds)
+  puts " -------> LIST PREDEF CLOUDS PERFORM "
+puts list_predefclouds
    begin
     Megam::Config[:email] = list_predefclouds[:email]
     Megam::Config[:api_key] = list_predefclouds[:api_key]
     @excon_res = Megam::PredefCloud.list
+	puts "=========================> @excon_res in list PREDEF CLOUD <====================="
+	puts @excon_res.inspect
     rescue ArgumentError => ae
 	hash = {"msg" => ae.message, "msg_type" => "error"}
 	re = Megam::Error.from_hash(hash)

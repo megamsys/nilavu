@@ -273,6 +273,7 @@ $.extend($.validator, {
 
 	messages: {
 		required: "This field is required.",
+		predef_name: "Atleast select one predef cloud ",
 		remote: "Please fix this field.",
 		email: "Please enter a valid email address.",
 		url: "Please enter a valid URL.",
@@ -803,6 +804,7 @@ $.extend($.validator, {
 
 	classRuleSettings: {
 		required: {required: true},
+		predef_name: {required: true},
 		email: {email: true},
 		url: {url: true},
 		date: {date: true},

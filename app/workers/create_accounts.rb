@@ -3,12 +3,14 @@ class CreateAccounts
   def self.perform(new_account)
     #new_account = new_account.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
     #sleep 3
-puts "=============================> CREATE ACCOUNT <================================== "
+puts "=============================> CREATE ACCOUNT PERFORM PARAMS <================================== "
 puts new_account
    begin
     Megam::Config[:email] = new_account[:email]
     Megam::Config[:api_key] = new_account[:api_key]
      @excon_res = Megam::Account.create(new_account)
+	puts "=========================> @excon_res in CREATE ACCOUNTS <====================="
+	puts @excon_res.inspect
      rescue ArgumentError => ae
 	puts "===========================> AE <======================================="
 	hash = {"msg" => ae.message, "msg_type" => "error"}

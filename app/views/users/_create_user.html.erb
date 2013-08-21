@@ -22,10 +22,10 @@
 <div class="control-group">
 	<div class="controls">
 		<% if params[:user_social_identity] %>
-		<%= f.text_field :email, :class => 'text_field required', placeholder: "Email", :readonly => true %>
+		<%= f.text_field :email, :class => 'text_field required email', placeholder: "Email", :readonly => true %>
 		<input type="hidden" name="social_uid" value="<%= @social_uid %>">
 		<% else %>
-		<%= f.text_field :email, :class => 'text_field required', placeholder: "Email" %>
+		<%= f.text_field :email, :class => 'text_field required email', placeholder: "Email" %>
 		<% end %>
 	</div>
 </div>

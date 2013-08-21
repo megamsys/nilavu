@@ -8,6 +8,10 @@
   <%= render @cloud_books %>
 </ul>
 
+				<%= link_to new_cloud_book_path do %>
+				<i class="icon-book"></i>Cloud Books
+				<% end %>
+
 <%= will_paginate %>
 
 <% end %>
