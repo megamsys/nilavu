@@ -5,7 +5,7 @@ class ListCloudTools
     begin
       Megam::Config[:email] = list_cloudtools[:email]
       Megam::Config[:api_key] = list_cloudtools[:api_key]
-      @excon_res = Megam::CloudTool.listas
+      @excon_res = Megam::CloudTool.list
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)

@@ -4,12 +4,15 @@ class CloudBooksController < ApplicationController
   add_breadcrumb "Dashboard", :dashboard_path
   
   def index
+      add_breadcrumb "Cloud_books", cloud_books_path
     @cloud_books = CloudBook.paginate(page: params[:page])
   end
   
   def new
+puts "================================= > TEST CB NEW <========================= "
     if current_user.onboarded_api
       @book =  current_user.cloud_books.build
+      add_breadcrumb "Cloud_books", cloud_books_path
       add_breadcrumb "Cloud_book_platform_selection", new_cloud_book_path
     else
     #redirect_to user_path(:id => current_user.id, :user_fields_form_type => "api_key")
@@ -18,8 +21,9 @@ class CloudBooksController < ApplicationController
   end
 
   def new_book
+      add_breadcrumb "Cloud_books", cloud_books_path
     add_breadcrumb "Cloud_book_platform_selection", new_cloud_book_path
-    add_breadcrumb "Cloud_book_platform_selection", new_book_path
+    add_breadcrumb "Cloud_book_creation", new_book_path
     @predef_name = params[:predef_name]
 
     @book =  current_user.cloud_books.build
