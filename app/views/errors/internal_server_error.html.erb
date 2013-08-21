@@ -1,10 +1,11 @@
-<% provide(:title, 'Error occurred') %>
+<% provide(:title, 'Internal Server Error') %>
 
 <div class="container">
 
 	<div class='row'>
 		<div class='span10 offset1'>
-			<h2>Sorry, the page you&#39;re looking for couldn&#39;t be found</h2>
+
+			<h2>We flunked.</h2>
 
 			<p>
 				<a href='javascript:history.back();'>Go Back</a> to the previous page, return to the <a href='/'>home page or
@@ -19,25 +20,10 @@
 			<p>
 				Get help from our skilled staff of Ruby and Rails. Scala experts.
 			</p>
-
-			<h4><%= link_to "Get Started", page_path("get_started") %></h4>
-			<%= image_tag "specman.png", :alt => "error"%>
-
-			<p>
-				The Megam Opensource Cloud Platform.
-			</p>
-
-			<h4><%= link_to "Blog",   "http://blog.megam.co", { :target => '_blank'} %></h4>
-
-			<p>
-				News from Megam and the voices of our people.
-			</p>
-
-			<h4> <%= link_to "About",  page_path("about") %> </h4>
-
-			<p>
-				Get to know the people behind Megam.
-			</p>
+			</h4>
+			We track these errors automatically, but if the problem persists feel free to contact us.
+			A twit was sent to (#supportmegam).
+			</h4>
 
 		</div>
 	</div>

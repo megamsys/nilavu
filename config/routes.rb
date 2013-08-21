@@ -2,6 +2,7 @@
 Cloudauth::Application.routes.draw do
 
   get "contents/header"
+  
   root :to => 'high_voltage/pages#show', :id => 'home'
 
   resources :users
@@ -29,16 +30,16 @@ Cloudauth::Application.routes.draw do
   # to-do: this is showing the index of billed_history (make it a separate controller)
   get '/history' => 'billing#history'
 
-#users
+  #users
   match '/worker', to: 'users#worker', via: [:get, :post]
 
-#Cloud Books
+  #Cloud Books
   match '/new_book', to: 'cloud_books#new_book', via: [:get, :post]
 
-# ...
-#mount Sidekiq::Web, at: '/worker'
+  # ...
+  #mount Sidekiq::Web, at: '/worker'
 
-# ======Users Controller
+  # ======Users Controller
   match '/signup', to: 'users#new', via: [:get, :post]
   match '/forgot', to: 'users#forgot', via: [:get]
   #to-do remove the users#edit named route.
@@ -51,30 +52,33 @@ Cloudauth::Application.routes.draw do
   match '/signin', to: 'sessions#new', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post,:delete]
   match '/auth/:provider/callback', :to => 'sessions#create', via: [:get, :post]
-  
+
   # ======Dashboard
   get "users/show"
-  match '/dashboard', to: 'users#dashboard',via: [:get] 
-  
+  match '/dashboard', to: 'users#dashboard',via: [:get]
+
   # ========Cloud Books Histories controller
   match '/node_log', to: 'cloud_books_histories#logs', via: [:get, :post]
- 
-  
-  # =======Cloud_identity controller
-  match '/federate', to: 'cloud_identities#federate', via: [:get, :post]
-
-  # =======apps_items_controller
-  match '/apps_items/destroy', to: 'apps_items#destroy', via: :delete
 
   # =======connector_project_ controller
   match '/deccanplato', to: 'connector_projects#deccanplato', via: [:get, :post]
   match '/import', to: 'connector_projects#import', via: [:get, :post]
-#   =======Connector_project_controller
-#  match '/connector_project/destroy', to: 'connector_projects#destroy'
-#  match '/connector_project/create', to: 'connector_projects#create'
-#  match '/connector_project/upload', to: 'connector_projects#upload'
-#  match '/connector_project/import', to: 'connector_projects#import'
-#  match '/connector_execution/export', to: 'connector_executions#export'
-#  match '/connector_execution/execute', to: 'connector_executions#execute'
+  #  match '/connector_project/destroy', to: 'connector_projects#destroy'
+  #  match '/connector_project/create', to: 'connector_projects#create'
+  #  match '/connector_project/upload', to: 'connector_projects#upload'
+  #  match '/connector_project/import', to: 'connector_projects#import'
+  #  match '/connector_execution/export', to: 'connector_executions#export'
+  #  match '/connector_execution/execute', to: 'connector_executions#execute'
+  
+  #   =======Error controller
+  get "/404", :to => "errors#not_found"
+  #get "/422", :to => "errors#unacceptable"
+  get "/500", :to => "errors#internal_error"
+  
+   # =======Cloud_identity controller
+  match '/federate', to: 'cloud_identities#federate', via: [:get, :post]
+
+  # =======apps_items_controller
+  match '/apps_items/destroy', to: 'apps_items#destroy', via: :delete
 
 end
