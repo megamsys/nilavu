@@ -42,4 +42,7 @@
 //= require unicorn.dashboard
 //= require flexslider 
 //= require socket.io
+//= require angular
+//= require app
 //= require_tree .
+

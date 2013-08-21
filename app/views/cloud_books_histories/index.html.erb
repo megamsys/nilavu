@@ -2,9 +2,11 @@
 <% provide(:title, 'cloud_book_history') %>
 <%= render :partial => "contents/header" , :locals => {:head => "CLoud Book Histories"}%>
 <div id="breadcrumb">
-<%= render_breadcrumbs %>
+	<%= render_breadcrumbs %>
 </div>
-
+<div ng-app="Nilavu">
+	<sample></sample>
+	</div>
 <div class="container-fluid">
 	<div class="widget-box">
 		<div class="widget-title">
@@ -24,10 +26,10 @@
 				<br/>
 				<tbody>
 					<% current_user.cloud_books.each do |cloud_book| %>
-					<% cloud_book.cloud_books_histories.each do |history| %>					
+					<% cloud_book.cloud_books_histories.each do |history| %>
 					<tr>
-					<!--<td><%= render :partial => "cloud_books_histories/log_button", :locals => {:book_name => history.book_name} %></td>-->
-					<td><%= link_to history.book_name, node_log_path(:node_name => history.book_name), :remote => true, :id => 'domain_link' %></td>
+						<!--<td><%= render :partial => "cloud_books_histories/log_button", :locals => {:book_name => history.book_name} %></td>-->
+						<td><%= link_to history.book_name, node_log_path(:node_name => history.book_name), :remote => true, :id => 'domain_link' %></td>
 						<td> <%= history.request_id %> </td>
 						<td> <%= history.status %> </td>
 					</tr>
@@ -50,7 +52,7 @@
 						<th>Timestamp</th>
 						<th>Dump</th>
 					</tr>
-					
+
 				</thead>
 				<br/>
 				<tbody>
@@ -59,6 +61,6 @@
 			</table>
 		</div>
 	</div>
-	
-	<% end %>
-	<%= render :template => users_show_path %>
+</div>
+<% end %>
+<%= render :template => users_show_path %>
