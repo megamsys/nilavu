@@ -1,0 +1,43 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'New Predef CLoud') %>
+<%= render :partial => "contents/header" , :locals => {:head => "New Predef CLoud"}%>
+<div id="breadcrumb">
+	<%= render_breadcrumbs %>
+</div>
+
+<div class="container-fluid">
+
+<div class="widget-box">
+		<div class="widget-title">
+			<span class="icon"> <i class="icon-th-list"></i> </span>
+			<h5>Cloud Book Settings</h5>
+			<div class="buttons">
+				<%= render :partial => "customizations/refresh" %>
+			</div>
+		</div>
+		<div class="widget-content">
+
+<%= form_tag(:controller => "predef_clouds", :action => "create") do %>
+<div class="row-fluid">
+ <div class="span1"> <%= label_tag "provider:" %></div>
+  <div class="span5"> <%= select_tag "provider", "<option>AWS-EC2</option><option>Rackspace</option><option>Openstack</option>".html_safe %></div> 
+</div>
+<%= text_field_tag 'group', nil, placeholder: 'Enter Group name' %><br/>
+<%= text_field_tag 'image', nil, placeholder: 'Enter Image value...' %><br/>
+<%= text_field_tag 'flavour', nil, placeholder: 'Enter instance size...' %><br/>
+<%= text_field_tag 'ssh_key', nil, placeholder: 'Enter ssh key...' %><br/>
+<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter ssh User..' %><br/>
+<div class="row-fluid">
+	<div class="span2"> <h5><%= label_tag "Upload ssh file   :" %> </div></h5>
+	<div class="span8"> <%= file_field_tag :ssh_file, placeholder: "Logo" %> </div>
+</div>
+  <%= submit_tag("Save", :class => "btn btn-large btn-success btn-block") %>
+<% end %>
+
+		</div>
+	</div>
+
+</div> <!-- container-fluid -->
+
+<% end %>
+<%= render :template => users_show_path %>

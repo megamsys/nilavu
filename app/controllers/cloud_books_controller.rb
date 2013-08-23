@@ -4,8 +4,12 @@ class CloudBooksController < ApplicationController
   add_breadcrumb "Dashboard", :dashboard_path
   
   def index
+	if current_user.cloud_books.any?
       add_breadcrumb "Cloud_books", cloud_books_path
-    @cloud_books = CloudBook.paginate(page: params[:page])
+    @cloud_books = current_user.cloud_books
+	else
+		redirect_to new_cloud_book_path
+	end
   end
   
   def new
@@ -66,6 +70,11 @@ puts "================================= > TEST CB NEW <=========================
     else
       render 'new'
     end
+  end
+
+  def show
+	puts "PARAMS SHOW ===> #{params}"
+	@cloud_book = CloudBook.find(params[:id])
   end
 
   private
