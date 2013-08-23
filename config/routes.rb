@@ -17,6 +17,7 @@ Cloudauth::Application.routes.draw do
   resources :connector_executions
   resources :cloud_books_histories
   resources :cloud_books
+  resources :predef_clouds
 
   # =======Static pages served via high_voltage
   get 'pages/get_started' => 'high_voltage/pages#show', :id => 'get_started'

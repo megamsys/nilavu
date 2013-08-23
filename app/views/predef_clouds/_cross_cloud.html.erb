@@ -1,0 +1,89 @@
+<div class="span10">
+<div class="span3">
+<div class="cb_box">
+    <h4 align="center">Predef Cloud Counter</h4>
+    <h3 align="center" ><%= @predef_clouds.count %>/2</h3>
+</div>
+<br/>
+<%= link_to "New Predef CLoud", new_predef_cloud_path, class: "btn btn-large btn-success btn-block" %>
+<br/>
+
+<div class="cb_box">
+    <h4 align="center" >Latest Creation</h4>
+	<% @predef_clouds.each do |pc| %>
+		<h5><p> <b> Name = </b><%= pc.name %><br/>
+        	<b> Created At = </b>TIME
+  		</p></h5>
+	<% end %>
+</div>
+<br/>
+
+<%= link_to "Upgrade", "#", class: "btn btn-large btn-success btn-block" %>
+
+</div> <!-- Span6 -->
+
+<div class="span6">
+<div class="widget-box">
+		<div class="widget-title">
+			<span class="icon"> <i class="icon-th-list"></i> </span>
+			<h5>Predef Clouds Usage</h5>
+		</div>
+		<div class="widget-content" overflow-y: scroll;">
+<% @percent = @predef_clouds.count/2.0*100 %>
+<div class="row-fluid">
+<div class="span1">
+<h3>0</h3>
+</div>
+<div class="span10">
+<% if @percent >= 80 %>
+    <div class="progress progress-danger">
+   <div class="bar" style="width: <%= @percent %>%;"></div>
+    </div>
+<% else %>
+        <div class="progress progress-success">
+        <div class="bar" style="width: <%= @percent %>%;"></div>
+        </div>
+<% end %>
+</div>
+<div class="span1">
+<h3>2</h3>
+</div>
+</div> 
+
+</div>
+</div>
+
+
+	<div class="widget-box">
+		<div class="widget-title">
+			<span class="icon"> <i class="icon-th-list"></i> </span>
+			<h5>Cloud Books</h5>
+		</div>
+		<div class="widget-content" style="height: 200px;  overflow-y: scroll;">
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Date</th>
+						<th>View</th>
+						<th>Clone</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% @predef_clouds.each do |pre_cl| %>
+					<tr>
+						<td> <%= pre_cl.name %></td>
+						<td> <%= "Created @" %> </td>
+						<td> <%= link_to "View", predef_cloud_path(pre_cl.name), :remote => true, class: "btn btn-mini btn-success" %> </td>
+						<td> <%= link_to "import", "#", class: "btn btn-mini btn-success" %> </td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</div> <!-- Span6 -->
+
+</div> <!-- Span12 -->
+
