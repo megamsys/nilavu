@@ -1,10 +1,33 @@
-	<p><b>Book Name = </b><%= cloud_book.name %></p>
-	<p><b>Domain Name = </b><%= cloud_book.domain_name %></p></p>
-	<p><b>Predef Name = </b><%= cloud_book.predef_name %></p>
-	<p><b>Predef Cloud Name = </b><%= cloud_book.predef_cloud_name %></p>
-	<p><b>Deps SCM = </b><%= cloud_book.deps_scm %></p>
-<% unless cloud_book.deps_war.nil? %>
-	<p><b>Deps WAR = </b><%= cloud_book.deps_war %></p>
-<% end %>
-	<p><b>Created at = </b><%= cloud_book.created_at.to_formatted_s(:rfc822) %></p>
-
+<h3><%= cloud_book.name %> : <span class="label label-info"><%= cloud_book.predef_name %></span></h3>
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Value</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><span class="label label-default">Domain</span></td>
+			<td><%= cloud_book.domain_name %></td>
+		</tr>
+		<tr>
+			<td><span class="label label-success">Created at</span></td>
+			<td><span class="label label-success"> <%= cloud_book.created_at.to_formatted_s(:rfc822) %> </span></td>
+		</tr>
+		<tr>
+			<td>Cross Cloud</td>
+			<td><%= cloud_book.predef_cloud_name %></td>
+		</tr>
+		<tr>
+			<td>SCM</td>
+			<td><%= cloud_book.deps_scm %></td>
+		</tr>
+		<% unless cloud_book.deps_war.nil? %>
+		<tr>
+			<td><span class="label label-info">Compressed Archive</span></td>
+			<td><%= cloud_book.deps_war %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
