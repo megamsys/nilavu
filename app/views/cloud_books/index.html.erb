@@ -68,13 +68,15 @@
 </div>
 </div>
 
-	<div class="widget-box">
-		<div class="widget-title">
-			<span class="icon"> <i class="icon-th-list"></i> </span>
-			<h5>Cloud Books</h5>
-		</div>
-		<div class="widget-content" style="height: 200px;  overflow-y: scroll;">
-			<table class="table table-striped table-bordered">
+						<div class="widget-box">
+							<div class="widget-title">
+								<span class="icon">
+									<i class="glyphicon glyphicon-th"></i>
+								</span>
+								<h5>Cloud Books</h5>
+							</div>
+							<div class="widget-content nopadding">
+								<table class="table table-bordered table-striped table-hover data-table">
 				<thead>
 					<tr>
 						<th>Name</th>
@@ -86,13 +88,14 @@
 				<tbody>
 					<% current_user.cloud_books.each do |cloud_book| %>
 					<tr>
-						<td> <%= cloud_book.name %></td>
+						<td> <%= link_to "#{cloud_book.name}", "http://#{cloud_book.name}#{cloud_book.domain_name}" %> </td>
 						<td> <%= cloud_book.created_at.to_formatted_s(:rfc822) %> </td>
 						<td> <%= link_to "View", cloud_book_path(cloud_book.id), :remote => true, class: "btn btn-mini btn-success" %> </td>
 						<td> <%= link_to "Clone", "#", class: "btn btn-mini btn-success" %> </td>
 					</tr>
 					<% end %>
 				</tbody>
+
 			</table>
 		</div>
 	</div>
