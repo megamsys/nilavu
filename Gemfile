@@ -15,7 +15,7 @@ gem 'turbolinks'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
-gem 'execjs','1.4.0'
+gem 'execjs','2.0.0'
 gem 'jquery-datatables-rails'
 gem "flot-rails", "~> 0.0.4"
 gem "gritter", "~> 1.0.3"

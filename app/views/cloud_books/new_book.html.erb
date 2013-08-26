@@ -29,10 +29,11 @@
 							<i class="logo_chef"></i>
 						</div>
 						<div class="span2">
-							<h3>Will Launch<h3><span class="badge badge-info"> <h4>Role : <%= @predef.provider_role %><h4></span>
+							<h3>Will Launch<h3>
+							<span class="badge badge-info"> <h4>Role : <%= @predef.provider_role %><h4></span>
 						</div>
 						<div class="span2">
-							<h3 align="center"><i class="i_cloud"></i>=></h3>
+							<h3 align="center"><i class="i_cloud"></i></h3>
 						</div>
 						<div class="span2">
 							<%= image_tag "build_monkey.png", :alt => "build bots" %>
@@ -88,8 +89,8 @@
 		<div class="widget-content">
 			<div class="control-group">
 				<p class="help-block">
-					<strong><span class="label label-info">Default</span> One cross cloud default available. Upgrade to avail more.</strong>
-					<%= link_to "Platform launch",   "http://docs.megam.co", { :target => '_blank'} %>
+					<strong><span class="label label-info">Default</span> Cross cloud default. Upgrade to create more.</strong>
+					<%= link_to "Cross Cloud Settings",   "http://docs.megam.co", { :target => '_blank'} %>
 				</p>
 				<p>
 					<%= f.select :predef_cloud_name, options_for_select(@predef_cloud.map{ |c| [c.name] }) %>
