@@ -3,6 +3,7 @@ class ListCloudTools
   
   def self.perform(list_cloudtools)
     begin
+      puts "perform1"
       Megam::Config[:email] = list_cloudtools[:email]
       Megam::Config[:api_key] = list_cloudtools[:api_key]
       @excon_res = Megam::CloudTool.list
@@ -22,6 +23,7 @@ class ListCloudTools
       @res = {"data" => {:body => re}}
       return @res["data"][:body]
     end
+    puts "perform2"
     @excon_res.data[:body]
   end
 
@@ -29,6 +31,8 @@ class ListCloudTools
   def self.make_command(data, group, action, user)
 
 	options = { :email => user.email, :api_key => user.api_token }
+	puts "---->"
+	puts options
     @predef_cloud_collection = ListPredefClouds.perform(options)
     @predef_cloud = @predef_cloud_collection.lookup("#{data[:cloud_book][:predef_cloud_name]}")
 

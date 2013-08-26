@@ -35,6 +35,7 @@
 //= require jquery.flot.resize
 //= require jquery.peity
 //= require fullcalendar
+//= require unicorn.tables
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require bootstrap-editable
@@ -45,4 +46,3 @@
 //= require angular
 //= require app
 //= require_tree .
-
