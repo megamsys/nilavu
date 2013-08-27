@@ -26,8 +26,6 @@
 //= require select2
 //= require jquery.validate
 //= require jquery.wizard
-//= require cloud_books
-//= require connector_projects
 //= require unicorn.form_validation
 //= require unicorn.wizard
 //= require theme
@@ -43,6 +41,9 @@
 //= require unicorn.dashboard
 //= require flexslider 
 //= require socket.io
-//= require angular
+//= require unstable/angular
+//= require unstable/angular-resource
 //= require app
+//= require cloud_books
+//= require connector_projects
 //= require_tree .

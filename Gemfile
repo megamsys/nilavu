@@ -39,7 +39,7 @@ gem "randexp", "~> 0.1.7"
 gem "megam_api"
 gem "flexslider", "~> 2.0.2"
 gem "megam_deccanplato", "~> 0.1.0"
-gem "angularjs-rails", "~> 1.0.7"
+gem "angularjs-rails"
 
 #For background processing of cloud jobs
 #gem 'resque'

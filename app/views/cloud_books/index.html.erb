@@ -6,128 +6,123 @@
 </div>
 
 <div class="container-fluid">
-<div class="span10">
-<div class="span3">
-<div class="cb_box">
-    <h4 align="center">Books Counter</h4>
-    <h3 align="center" ><%= @cloud_books.count %>/2</h3>
-</div>
-<br/>
-<%= link_to "Create", new_cloud_book_path, class: "btn btn-large btn-success btn-block" %>
-<br/>
+	<div class="span10">
+		<div class="span3">
+			<div class="cb_box">
+				<h4 align="center">Count</h4>
+				<h3 align="center" ><%= @cloud_books.count %>/of 2</h3>
+			</div>
+			<br/>
+			<%= link_to "Create", new_cloud_book_path, class: "btn btn-large btn-success btn-block" %>
+			<br/>
+			<div class="cb_box">
+				<h4 align="center" >Recent Activity</h4>
+				<% @latest_cloud_book = @cloud_books.last(:order => 'created_at DESC') %>
 
-<div class="cb_box">
-    <h4 align="center" >Latest Creation</h4>
-	<% @latest_cloud_book = @cloud_books.last(:order => 'created_at DESC') %>
-    <h5><p> <b> Book Name = </b><%= @latest_cloud_book.name %><br/>
-        <b> Created At = </b><%= @latest_cloud_book.created_at.to_formatted_s(:rfc822) %>
-    </p></h5>
-</div>
-<br/>
+				<h5 align="Center"><%= @latest_cloud_book.name %></h5>
 
-<%= link_to "Run History Information", cloud_books_histories_path, class: "btn btn-large btn-success btn-block" %>
-<br/>
-<% cbhc = 0 %>
-	<% @cloud_books.each do |cb| %>
-		<% cbhc = cbhc+cb.cloud_books_histories.count %>
-	<% end %>
-<input type="text" value="<%= cbhc %> Launched" name="cb_count" readonly=true >
+				<h5 align="Center"><b><%= @latest_cloud_book.created_at.to_formatted_s(:rfc822) %></b></h5>
 
-<%= link_to "Upgrade", "#", class: "btn btn-large btn-success btn-block" %>
+			</div>
+			<br/>
 
-</div> <!-- Span6 -->
+			<%= link_to "Run History Information", cloud_books_histories_path, class: "btn btn-large btn-success btn-block" %>
+			<br/>
+			<% cbhc = 0 %>
+			<% @cloud_books.each do |cb| %>
+			<% cbhc = cbhc+cb.cloud_books_histories.count %>
+			<% end %>
+			<input type="text" value="<%= cbhc %> Launched" name="cb_count" readonly=true >
 
-<div class="span6">
-<div class="widget-box">
-		<div class="widget-title">
-			<span class="icon"> <i class="icon-th-list"></i> </span>
-			<h5>Cloud Books Usage</h5>
+			<%= link_to "Upgrade", "#", class: "btn btn-large btn-inverse btn-block" %>
+
 		</div>
-		<div class="widget-content" overflow-y: scroll;">
-<% @percent = @cloud_books.count/2.0*100 %>
-<div class="row-fluid">
-<div class="span1">
-<h3>0</h3>
-</div>
-<div class="span10">
-<% if @percent >= 80 %>
-    <div class="progress progress-danger">
-   <div class="bar" style="width: <%= @percent %>%;"></div>
-    </div>
-<% else %>
-        <div class="progress progress-success">
-        <div class="bar" style="width: <%= @percent %>%;"></div>
-        </div>
-<% end %>
-</div>
-<div class="span1">
-<h3>2</h3>
-</div>
-</div> 
+		<!-- Span6 -->
 
-</div>
-</div>
+		<div class="span6">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Your Usage</h5>
+				</div>
+				<div class="widget-content" overflow-y: scroll;">
+				<% @percent = @cloud_books.count/2.0*100 %>
+				<div class="row-fluid">
+				<div class="span1">
+				<h3>0</h3>
+				</div>
+				<div class="span10">
+				<% if @percent >= 80 %>
+				<div class="progress progress-danger">
+				<div class="bar" style="width: <%= @percent %>%;"></div>
+				</div>
+				<% else %>
+				<div class="progress progress-success">
+				<div class="bar" style="width: <%= @percent %>%;"></div>
+				</div>
+				<% end %>
+				</div>
+				<div class="span1">
+				<h3>2</h3>
+				</div>
+				</div>
+				</div>
+				</div>
 
-						<div class="widget-box">
-							<div class="widget-title">
-								<span class="icon">
-									<i class="glyphicon glyphicon-th"></i>
-								</span>
-								<h5>Cloud Books</h5>
-							</div>
-							<div class="widget-content nopadding">
-								<table class="table table-bordered table-striped table-hover data-table">
+				<div class="widget-box">
+				<div class="widget-title">
+				<span class="icon">
+				<i class="glyphicon glyphicon-th"></i>
+				</span>
+				<h5>Cloud Books</h5>
+				</div>
+				<div class="widget-content nopadding">
+				<table class="table table-bordered table-striped table-hover data-table">
 				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Date</th>
-						<th>View</th>
-						<th>Clone</th>
-					</tr>
+				<tr>
+				<th>Name</th>
+				<th>Created At</th>
+				<th></th>
+				<th></th>
+				</tr>
 				</thead>
 				<tbody>
-					<% current_user.cloud_books.each do |cloud_book| %>
-					<tr>
-						<td> <%= link_to "#{cloud_book.name}", "http://#{cloud_book.name}#{cloud_book.domain_name}" %> </td>
-						<td> <%= cloud_book.created_at.to_formatted_s(:rfc822) %> </td>
-						<td> <%= link_to "View", cloud_book_path(cloud_book.id), :remote => true, class: "btn btn-mini btn-success" %> </td>
-						<td> <%= link_to "Clone", "#", class: "btn btn-mini btn-success" %> </td>
-					</tr>
-					<% end %>
+				<% current_user.cloud_books.each do |cloud_book| %>
+				<tr>
+				<td> <%= link_to "#{cloud_book.name}", "http://#{cloud_book.name}#{cloud_book.domain_name}" , { :target => '_blank'} %> </td>
+				<td> <%= cloud_book.created_at.to_formatted_s(:rfc822) %> </td>
+				<td> <%= link_to "View", cloud_book_path(cloud_book.id), :remote => true, class: "btn btn-mini btn-success" %> </td>
+				<td> <%= link_to "Clone", "#", class: "btn btn-mini btn-success" %> </td>
+				</tr>
+				<% end %>
 				</tbody>
 
-			</table>
-		</div>
-	</div>
+				</table>
+				</div>
+				</div>
 
-</div> <!-- Span6 -->
+				</div> <!-- Span6 -->
 
-</div> <!-- Span12 -->
+				</div> <!-- Span12 -->
 
+				<div id="cloudbook_show_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-
-	<div id="cloudbook_show_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 				×
-			</button>
-			<h3 id="myModalLabel">Cloud Book view</h3>
-		</div>
-		<div class="modal-body">
-			<div class="alert">
-			<p>
+				</button>
+				<h3 id="myModalLabel">Cloud Book view</h3>
+				</div>
+				<div class="modal-body">
+				<p>
 				<h4 id="book_show">
-				</h4> 
-			</p>
-			</div>
-		</div>
-		<div class="modal-footer"></div>
-	</div>
+				</h4>
+				</p>
+				</div>
+				<div class="modal-footer"></div>
+				</div>
 
+				</div> <!-- container-fluid -->
 
-
-</div> <!-- container-fluid -->
-
-<% end %>
-<%= render :template => users_show_path %>
+				<% end %>
+				<%= render :template => users_show_path %>
