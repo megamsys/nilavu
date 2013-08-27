@@ -1,6 +1,6 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'cloud_book_history') %>
-<%= render :partial => "contents/header" , :locals => {:head => "CLoud Book Histories"}%>
+<%= render :partial => "contents/header" , :locals => {:head => "Cloud Book Histories"}%>
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
@@ -12,9 +12,8 @@
 					<span class="icon"> <i class="icon-th-list"></i> </span>
 					<h5>Cloud Books Run History</h5>
 				</div>
-				<div class="widget-content" style="height: 200px;  overflow-y: scroll;">
-
-					<table class="table table-striped table-bordered">
+				<div class="widget-content nopadding" style="height: 200px;  overflow-y: scroll;">
+					<table class="table table-bordered table-striped table-hover">
 						<thead>
 							<tr>
 								<th>book_name</th>
@@ -22,7 +21,6 @@
 								<th>status</th>
 							</tr>
 						</thead>
-						<br/>
 						<tbody>
 							<% current_user.cloud_books.each do |cloud_book| %>
 							<% cloud_book.cloud_books_histories.each do |history| %>
@@ -39,26 +37,22 @@
 					</table>
 				</div>
 			</div>
+			<input type="hidden" ng-model="source">
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-th-list"></i> </span>
 					<h5>Watch Realtime Log</h5>
 					<span class="label label-info">{{source}}</span>
 				</div>
-				<div class="widget-content" style="height: 200px;  overflow-y: scroll;">
-					<input type="hidden" ng-model="source">
-					<div class="control-group span offset9">
-						<div class="controls">
-							Filter By
-							<input ng-model="filterLog" >
-						</div>
-					</div>
-					<table id="logTable" border="0">
-						<thead id="log_contents"  class="logBackground">
-							<tr id="headcolor">
+				<div class="widget-content nopadding" style="height: 250px;  overflow-y: scroll;">
+					<table class="table table-bordered table-striped table-hover">
+						<thead>
+							<tr>
 								<th class="span3">Timestamp</th>
 								<th class="span9">Message</th>
 							</tr>
+						</thead>
+						<tbody>
 							<tr ng-repeat="log in logs | orderBy:predicate:!reverse | filter:filterLog">
 								<td>
 								<p>
@@ -69,13 +63,10 @@
 									{{ log.message }}
 								</p></td>
 							</tr>
-						</thead>
-						<br/>
-						<tbody>
-							<tr class="success" ></tr>
 						</tbody>
 					</table>
 				</div>
+
 			</div>
 		</div>
 	</div>
