@@ -9,8 +9,8 @@
 	<div class="span10">
 		<div class="span3">
 			<div class="cb_box">
-				<h4 align="center">Count</h4>
-				<h3 align="center" ><%= @cloud_books.count %>/of 2</h3>
+				<h4 align="center"> Count</h4>
+				<h3 align="center" ><span class="icon"><i class="icon-book"></i></span><%= @cloud_books.count %> of 2</h3>
 			</div>
 			<br/>
 			<%= link_to "Create", new_cloud_book_path, class: "btn btn-large btn-success btn-block" %>
@@ -18,11 +18,8 @@
 			<div class="cb_box">
 				<h4 align="center" >Recent Activity</h4>
 				<% @latest_cloud_book = @cloud_books.last(:order => 'created_at DESC') %>
-
 				<h5 align="Center"><%= @latest_cloud_book.name %></h5>
-
-				<h5 align="Center"><b><%= @latest_cloud_book.created_at.to_formatted_s(:rfc822) %></b></h5>
-
+				<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @latest_cloud_book.created_at.to_formatted_s(:rfc822) %></b></h5>
 			</div>
 			<br/>
 
@@ -32,9 +29,11 @@
 			<% @cloud_books.each do |cb| %>
 			<% cbhc = cbhc+cb.cloud_books_histories.count %>
 			<% end %>
-			<input type="text" value="<%= cbhc %> Launched" name="cb_count" readonly=true >
 
-			<%= link_to "Upgrade", "#", class: "btn btn-large btn-inverse btn-block" %>
+			<span class="btn btn-large disabled btn-block"><h3><%= cbhc %></h3> <h4>Launched </h4></span>
+
+			</br>
+			<%= link_to "Upgrade", "#", class: "btn btn-large btn-inverse btn-block disabled" %>
 
 		</div>
 		<!-- Span6 -->
@@ -71,9 +70,7 @@
 
 				<div class="widget-box">
 				<div class="widget-title">
-				<span class="icon">
-				<i class="glyphicon glyphicon-th"></i>
-				</span>
+				<span class="icon"> <i class="icon-th-list"></i> </span>
 				<h5>Cloud Books</h5>
 				</div>
 				<div class="widget-content nopadding">
