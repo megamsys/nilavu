@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   respond_to :html, :js
 
-  add_breadcrumb "Dashboard", :dashboard_path
+  add_breadcrumb "Dashboard", :dashboards_path
 
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
   before_filter :correct_user, only: [:edit, :update]
@@ -49,6 +49,7 @@ class UsersController < ApplicationController
   end
 
   def dashboard
+    render :text => "", :layout => "application"
 =begin
 options = { :email => current_user.email, :api_key => current_user.api_token }
 res_body = ListPredefClouds.perform(options)
@@ -62,7 +63,7 @@ puts res_body
     @user= User.find_by_verification_hash(params[:format])
     UserMailer.welcome_email(@user).deliver
     logger.debug "users_controller:email_verify => exit"
-    redirect_to dashboard_path
+    redirect_to dashboards_path
   end
 
   def verified_email
@@ -104,9 +105,9 @@ puts res_body
         #update current user as onboard user(megam_api user)
         @user.update_attribute(:onboarded_api, true)
         sign_in @user
-        redirect_to dashboard_path, :gflash => { :success => { :value => "#{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        redirect_to dashboards_path, :gflash => { :success => { :value => "#{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
-        redirect_to dashboard_path, :gflash => { :warn => { :value => "Sorry. You are not yet onboard. Update profile.An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        redirect_to dashboards_path, :gflash => { :warn => { :value => "Sorry. You are not yet onboard. Update profile.An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       end
     else
       @user= User.find_by_email(params[:user][:email])

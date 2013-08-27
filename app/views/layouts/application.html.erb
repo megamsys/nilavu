@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="Nilavu">
 	<head>
 		<%= favicon_link_tag 'favicon.ico' %>
 		<title>Megam | <%= yield(:title) %></title>
@@ -9,18 +9,16 @@
 
 		<%= csrf_meta_tags %>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<%= render 'layouts/shim' %>
+		<%= render 'layouts/shim' %>		
 	</head>
 	<body>
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.min.js"></script>
-
 		<%= render 'layouts/header' %>
-		<a href="#" class="scrolltop"> <span>up</span> </a>
-		<%= yield %>
+		<a href="#" class="scrolltop"> <span>up</span> </a>		
+		<%= yield %>		
 		<%= render 'layouts/footer' %>
 		<!-- JQuery will invoke via the spinner and display a loading modal lock. -->
 		<div id="loading" />
 		<%= gflash %>
+       
 	</body>
 </html>

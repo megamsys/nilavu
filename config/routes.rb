@@ -2,7 +2,7 @@
 Cloudauth::Application.routes.draw do
 
   get "contents/header"
-  
+
   root :to => 'high_voltage/pages#show', :id => 'home'
 
   resources :users
@@ -19,6 +19,10 @@ Cloudauth::Application.routes.draw do
   resources :cloud_books
   resources :predef_clouds
 
+ namespace :api do
+    resources :dashboards 
+    end
+  
   # =======Static pages served via high_voltage
   get 'pages/get_started' => 'high_voltage/pages#show', :id => 'get_started'
   get 'pages/features' => 'high_voltage/pages#show', :id => 'features'
@@ -56,7 +60,9 @@ Cloudauth::Application.routes.draw do
 
   # ======Dashboard
   get "users/show"
-  match '/dashboard', to: 'users#dashboard',via: [:get]
+  match '/dashboards', to: 'users#dashboard',via: [:get]
+  #match '/dashboards', to: 'api/dashboards#index',via: [:get]
+ 
 
   # ========Cloud Books Histories controller
   match '/node_log', to: 'cloud_books_histories#logs', via: [:get, :post]
@@ -70,13 +76,13 @@ Cloudauth::Application.routes.draw do
   #  match '/connector_project/import', to: 'connector_projects#import'
   #  match '/connector_execution/export', to: 'connector_executions#export'
   #  match '/connector_execution/execute', to: 'connector_executions#execute'
-  
+
   #   =======Error controller
   get "/404", :to => "errors#not_found"
   #get "/422", :to => "errors#unacceptable"
   get "/500", :to => "errors#internal_error"
-  
-   # =======Cloud_identity controller
+
+  # =======Cloud_identity controller
   match '/federate', to: 'cloud_identities#federate', via: [:get, :post]
 
   # =======apps_items_controller

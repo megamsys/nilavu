@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130726050612) do
+ActiveRecord::Schema.define(version: 20130827143855) do
 
   create_table "apps_items", force: true do |t|
     t.integer  "users_id"
@@ -65,6 +65,13 @@ ActiveRecord::Schema.define(version: 20130726050612) do
   end
 
   add_index "cloud_identities", ["users_id"], name: "index_cloud_identities_on_users_id", using: :btree
+
+  create_table "dashboards", force: true do |t|
+    t.string   "name"
+    t.string   "layout"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "identities", force: true do |t|
     t.integer  "users_id"
