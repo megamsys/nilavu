@@ -23,6 +23,8 @@ gem "gritter", "~> 1.0.3"
 # Database posgresql
 gem 'pg'
 
+gem 'ejs'
+
 # OAuth authentication to twitter, facebook, openid using omniauth
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'

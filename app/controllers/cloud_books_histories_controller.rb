@@ -1,6 +1,6 @@
 class CloudBooksHistoriesController < ApplicationController
   respond_to :js, :html
-  add_breadcrumb "Dashboard", :dashboard_path
+  add_breadcrumb "Dashboard", :dashboards_path
   
   def index
   add_breadcrumb "Cloud Book History", :root_path

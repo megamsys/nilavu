@@ -1,7 +1,7 @@
 class PredefCloudsController < ApplicationController
 
   respond_to :html, :js
-  add_breadcrumb "Dashboard", :dashboard_path
+  add_breadcrumb "Dashboard", :dashboards_path
 
   def index
       add_breadcrumb "Predef CLouds", predef_clouds_path
