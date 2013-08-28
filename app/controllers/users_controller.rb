@@ -101,9 +101,10 @@ puts res_body
       flash[:success] = "Welcome #{current_user.first_name}"
       
       #Dashboard entry
-      puts("---------create---------->> entry")     
-      @dashboard = Dashboard.new(:name=> params[:first_name], :user_id => current_user.id)
-      @dashboard.save
+      #puts("---------create---------->> entry") 
+      #@dashboard=@user.dashboard || Dashboard.new    
+      #@dashboard = Dashboard.new(:name=> params[:first_name], :user_id => current_user.id)
+      
        
       if !(res_body.some_msg[:msg_type] == "error")
         #update current user as onboard user(megam_api user)

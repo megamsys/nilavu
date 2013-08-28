@@ -11,7 +11,8 @@ class DashboardsController < ApplicationController
 
     def index
       puts("------index ------------->> entry")
-      dashboards = Dashboard.order("NAME ASC").all
+      #dashboards = Dashboard.order("NAME ASC").all
+      dashboards = Dashboard.all
       respond_with dashboards
     end
 end

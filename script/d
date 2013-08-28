@@ -388,7 +388,11 @@ dbinit(){
        	        #create cloud_books
 		rake db:migrate:up VERSION=20130718123920
                 #create cloud_books_histories
-                rake db:migrate:up VERSION=20130726050612
+        rake db:migrate:up VERSION=20130726050612
+        #dashboards
+        rake db:migrate:up VERSION=20130828100755
+        #widgets
+        rake db:migrate:up VERSION=20130828101201        
 		rake db:seed
 
 		fi
@@ -422,6 +426,10 @@ rake db:migrate:down VERSION=20120811145124
 rake db:migrate:down VERSION=20120319154255
 #drop users
 rake db:migrate:down VERSION=20120319153913
+#dashboards
+rake db:migrate:down VERSION=20130828100755
+#widgets
+rake db:migrate:down VERSION=20130828101201 
 
 #create users
 rake db:migrate:up VERSION=20120319153913
@@ -441,6 +449,10 @@ rake db:migrate:up VERSION=20120829143151
  rake db:migrate:up VERSION=20130718123920
 #create cloud_books_histories
 rake db:migrate:up VERSION=20130726050612
+#dashboards
+rake db:migrate:up VERSION=20130828100755
+#widgets
+rake db:migrate:up VERSION=20130828101201 
 rake db:seed
 
 exitScript 0
