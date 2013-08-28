@@ -11,20 +11,18 @@ class CreateNodes
       re = Megam::Error.from_hash(hash)
       @res = {"data" => {:body => re}}
       return @res["data"][:body]
-    =begin
     rescue Megam::API::Errors::ErrorWithResponse => ewr
-    puts "===========================> EWR <======================================="
-    hash = {"msg" => ewr.message, "msg_type" => "error"}
-    re = Megam::Error.from_hash(hash)
-    @res = {"data" => {:body => re}}
-    return @res["data"][:body]
+      puts "===========================> EWR <======================================="
+      hash = {"msg" => ewr.message, "msg_type" => "error"}
+      re = Megam::Error.from_hash(hash)
+      @res = {"data" => {:body => re}}
+      return @res["data"][:body]
     rescue StandardError => se
-    puts "===========================> SE <======================================="
-    hash = {"msg" => se.message, "msg_type" => "error"}
-    re = Megam::Error.from_hash(hash)
-    @res = {"data" => {:body => re}}
-    return @res["data"][:body]
-    =end
+      puts "===========================> SE <======================================="
+      hash = {"msg" => se.message, "msg_type" => "error"}
+      re = Megam::Error.from_hash(hash)
+      @res = {"data" => {:body => re}}
+      return @res["data"][:body]
     end
     @excon_res.data[:body]
   end
