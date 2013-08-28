@@ -17,10 +17,17 @@ class User < ActiveRecord::Base
 
   has_many :cloud_books, :foreign_key  => 'users_id'
   accepts_nested_attributes_for :cloud_books, :update_only => true
+  
+  has_many :dashboards, :foreign_key  => 'users_id'
+  accepts_nested_attributes_for :dashboards, :update_only => true
  
 
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
+
+  #validates_existence_of :email
+
+  validates :email, :presence => true, :uniqueness => true
 
   def self.create_from_auth_hash!(auth_hash)
     create(:first_name => auth_hash["info"]["name"], :last_name => auth_hash["info"]["last_name"],

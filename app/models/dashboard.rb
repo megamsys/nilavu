@@ -1,9 +1,14 @@
-class Dashboard < ActiveRecord::Base   
+class Dashboard < ActiveRecord::Base
+  belongs_to :user
+  
+  has_many :widgets, :dependent => :destroy
 
   serialize :layout
-  validates :name, :presence => true 
+  validates :name, :presence => true
 
-  attr_accessible :name, :layout
+  after_initialize :set_defaults
+
+  attr_accessible :name, :layout, :user_id
 
   protected
 

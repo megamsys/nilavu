@@ -18,10 +18,8 @@ Cloudauth::Application.routes.draw do
   resources :cloud_books_histories
   resources :cloud_books
   resources :predef_clouds
-
- namespace :api do
-    resources :dashboards 
-    end
+  resources :dashboards
+ 
   
   # =======Static pages served via high_voltage
   get 'pages/get_started' => 'high_voltage/pages#show', :id => 'get_started'
@@ -60,7 +58,7 @@ Cloudauth::Application.routes.draw do
 
   # ======Dashboard
   get "users/show"
-  match '/dashboards', to: 'users#dashboard',via: [:get]
+  #match '/dashboards', to: 'users#dashboard',via: [:get]
   #match '/dashboards', to: 'api/dashboards#index',via: [:get]
  
 
