@@ -19,7 +19,7 @@ class CloudBooksController < ApplicationController
       add_breadcrumb "Cloud_book_platform_selection", new_cloud_book_path
     else
     #redirect_to user_path(:id => current_user.id, :user_fields_form_type => "api_key")
-      redirect_to dashboard_path, :gflash => { :error => { :value => "Sorry. You are not yet onboarded. Please update your profile", :sticky => false, :nodom_wrap => true } }
+      redirect_to dashboards_path, :gflash => { :error => { :value => "Sorry. You are not yet onboarded. Please update your profile", :sticky => false, :nodom_wrap => true } }
     end
   end
 
