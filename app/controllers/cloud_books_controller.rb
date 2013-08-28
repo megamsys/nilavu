@@ -2,18 +2,17 @@ class CloudBooksController < ApplicationController
 
   respond_to :html, :js
   add_breadcrumb "Dashboard", :dashboards_path
-  
   def index
-	if current_user.cloud_books.any?
+    if current_user.cloud_books.any?
       add_breadcrumb "Cloud_books", cloud_books_path
-    @cloud_books = current_user.cloud_books
-	else
-		redirect_to new_cloud_book_path
-	end
+      @cloud_books = current_user.cloud_books
+    else
+      redirect_to new_cloud_book_path
+    end
   end
-  
+
   def new
-puts "================================= > TEST CB NEW <========================= "
+    logger.debug "================================= > CB STEP1 <========================= "
     if current_user.onboarded_api
       @book =  current_user.cloud_books.build
       add_breadcrumb "Cloud_books", cloud_books_path
@@ -25,7 +24,8 @@ puts "================================= > TEST CB NEW <=========================
   end
 
   def new_book
-      add_breadcrumb "Cloud_books", cloud_books_path
+    logger.debug "================================= > CB NEW STEP2 <========================= "
+    add_breadcrumb "Cloud_books", cloud_books_path
     add_breadcrumb "Cloud_book_platform_selection", new_cloud_book_path
     add_breadcrumb "Cloud_book_creation", new_book_path
     @predef_name = params[:predef_name]
@@ -34,8 +34,8 @@ puts "================================= > TEST CB NEW <=========================
     predef_cloud_options = { :email => current_user.email, :api_key => current_user.api_token }
     predef_options = { :email => current_user.email, :api_key => current_user.api_token, :predef_name => @predef_name}
     @predef_cloud = ListPredefClouds.perform(predef_cloud_options)
-	puts "============================> @PREDEF LCOUD <==================================="
-	puts @predef_cloud.inspect
+    puts "============================> @PREDEF LCOUD <==================================="
+    puts @predef_cloud.inspect
     #if @predef_cloud.some_msg[:msg_type] != "error"
     pred = FindPredefsByName.perform(predef_options)
     @predef = pred.lookup(@predef_name)
@@ -56,8 +56,8 @@ puts "================================= > TEST CB NEW <=========================
     if @book.save
       options = { :email => current_user.email, :api_key => current_user.api_token, :node => mk_node(params, "server", "create") }
       @node = CreateNodes.perform(options)
-	puts "@NODE =================================== >>>> "
-	puts @node.inspect
+      puts "@NODE =================================== >>>> "
+      puts @node.inspect
       if @node.request["req_id"]
         param = {:book_name => @book.name, :request_id => @node.request["req_id"], :status => @node.request["status"]}
       else
@@ -73,8 +73,8 @@ puts "================================= > TEST CB NEW <=========================
   end
 
   def show
-	puts "PARAMS SHOW ===> #{params}"
-	@cloud_book = CloudBook.find(params[:id])
+    puts "PARAMS SHOW ===> #{params}"
+    @cloud_book = CloudBook.find(params[:id])
   end
 
   private
@@ -84,8 +84,8 @@ puts "================================= > TEST CB NEW <=========================
   def mk_node(data, group, action)
 
     command = ListCloudTools.make_command(data, group, action, current_user)
-puts "===========================> COMMAND <====================================="
-puts command
+    puts "===========================> COMMAND <====================================="
+    puts command
     unless data[:predef][:name] == "java"
       node_hash = {
         "node_name" => "#{data[:cloud_book][:name]}#{data[:cloud_book][:domain_name]}",

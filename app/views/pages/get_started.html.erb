@@ -22,10 +22,24 @@
 				<h4> Private Hosted Environment</h4>
 				<p class="environments">
 					For  Organization that want to get involved in using it for their cloud applications,
-					there is a great set of projects as shown below with installation instructions for you to run from your private hosted environment.
+					there is a great set of projects as shown below with <code>
+						installation instructions for you</code>
+					to run from your <code>
+						private hosted environment.</code>
 				</p>
 				<p>
-					<%= button_to 'Installing Megam', page_path("doc"), :class => 'btn' %>
+					<%= button_to 'Installing Megam', page_path("doc"), :class => 'btn btn-success btn-large' %>
+				</p>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="span12" align="center">
+				<i class="i_cloud"></i><h4> Cloud Readiness</h4>
+				<p class="environments">
+					Fill in this questionaire to see your PaaS readiness
+					<h5> Megam a polygot PaaS is a cloud platform that can be tailored for your needs. </h5>
+						<%= link_to "Am I Ready", signup_path, :class => "btn btn-info btn-large" %>
 				</p>
 			</div>
 		</div>
@@ -137,6 +151,6 @@
 					<%= image_tag "cloudshield.png", :alt => "cloud shield"%>
 				</div>
 			</div>
-		</div>			
+		</div>
 	</div>
 </div>
