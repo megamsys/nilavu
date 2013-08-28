@@ -48,8 +48,7 @@ class UsersController < ApplicationController
 =end
   end
 
-  def dashboard
-    render :text => "", :layout => "application"
+  def dashboard    
 =begin
 options = { :email => current_user.email, :api_key => current_user.api_token }
 res_body = ListPredefClouds.perform(options)
