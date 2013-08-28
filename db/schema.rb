@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130828101201) do
+ActiveRecord::Schema.define(version: 20130726050612) do
 
   create_table "apps_items", force: true do |t|
     t.integer  "users_id"
@@ -65,14 +65,6 @@ ActiveRecord::Schema.define(version: 20130828101201) do
   end
 
   add_index "cloud_identities", ["users_id"], name: "index_cloud_identities_on_users_id", using: :btree
-
-  create_table "dashboards", force: true do |t|
-    t.string   "name"
-    t.string   "layout"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "identities", force: true do |t|
     t.integer  "users_id"
@@ -137,19 +129,5 @@ ActiveRecord::Schema.define(version: 20130828101201) do
   add_index "users", ["onboarded_api"], name: "index_users_on_onboarded_api", using: :btree
   add_index "users", ["org_id"], name: "index_users_on_org_id", using: :btree
   add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
-
-  create_table "widgets", force: true do |t|
-    t.string   "name"
-    t.string   "kind"
-    t.string   "size"
-    t.string   "source"
-    t.string   "targets"
-    t.text     "settings"
-    t.integer  "dashboard_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "widgets", ["dashboard_id"], name: "index_widgets_on_dashboard_id", using: :btree
 
 end

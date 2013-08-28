@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="Nilavu">
+<html>
 	<head>
 		<%= favicon_link_tag 'favicon.ico' %>
 		<title>Megam | <%= yield(:title) %></title>
@@ -12,8 +12,6 @@
 		<%= render 'layouts/shim' %>
 	</head>
 	<body>
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.min.js"></script>
 		<%= render 'layouts/header' %>
 		<a href="#" class="scrolltop"> <span>up</span> </a>
 		<%= yield %>
