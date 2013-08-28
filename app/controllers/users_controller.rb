@@ -98,12 +98,10 @@ puts res_body
       options = { :id => current_user.id, :email => current_user.email, :api_key => current_user.api_token, :authority => "admin" }
       res_body = CreateAccounts.perform(options)
       puts "-----------------SUCCESS RES---------------"
-
       flash[:success] = "Welcome #{current_user.first_name}"
       
       #Dashboard entry
-      puts("---------create---------->> entry")
-     
+      puts("---------create---------->> entry")     
       @dashboard = Dashboard.new(:name=> params[:first_name], :user_id => current_user.id)
       @dashboard.save
        
