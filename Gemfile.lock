@@ -267,7 +267,7 @@ PLATFORMS
 DEPENDENCIES
   actionpack-action_caching
   actionpack-page_caching
-  angularjs-rails (~> 1.0.7)
+  angularjs-rails
   aws-sdk
   bcrypt-ruby (= 3.0.0)
   better_errors

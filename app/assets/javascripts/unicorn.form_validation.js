@@ -13,6 +13,11 @@ $(document).ready(function() {
 	 **************************************************************************/
 
 	// Form Validation
+
+
+var $radio_predef = $('input:radio[name="predef_name"]');
+$radio_predef.addClass("validate[required]");
+
 	$("#basic_validate").validate({
 		rules : {
 		/***********************************************************************
