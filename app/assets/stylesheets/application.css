@@ -10,7 +10,8 @@
  *
  *= require_self
  *= require jquery.ui.all
- *= require jquery.dataTables
+ *= require dataTables/jquery.dataTables
+ *= require dataTables/jquery.dataTables.bootstrap
  *= require bootstrap-editable
  *= require gritter 
  *= require select2 
