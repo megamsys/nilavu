@@ -1,0 +1,22 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'Dashboard') %>
+
+<%= render :partial => "contents/header" , :locals => {:head => "Dashboard"}%>
+
+<div id="breadcrumb">
+	<%= render_breadcrumbs %>
+</div>
+
+<div class="container-fluid">
+
+	<div class="row-fluid">
+		<div class="span12 center" style="text-align: center;">
+			
+			<%= render :partial => "widgets/booksRunning" %>
+		</div>
+	</div>
+	<%= render :partial => "widgets/default" %>
+</div>
+
+<% end %>
+<%= render :template => users_show_path %>

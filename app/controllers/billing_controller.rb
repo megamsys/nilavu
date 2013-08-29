@@ -1,6 +1,6 @@
 class BillingController < ApplicationController
 
-  add_breadcrumb "Dashboard", :dashboard_path
+  add_breadcrumb "Dashboard", :dashboards_path
 
   def pricing
 	add_breadcrumb "Pricing", pricing_path

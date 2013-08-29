@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   respond_to :html, :js
 
-  add_breadcrumb "Dashboard", :dashboard_path
+  add_breadcrumb "Dashboard", :dashboards_path
 
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
   before_filter :correct_user, only: [:edit, :update]
@@ -34,17 +34,17 @@ class UsersController < ApplicationController
 
   def worker
 =begin
-    options = { :email => current_user.email, :api_key => current_user.api_token }
-    #options = { :email => current_user.email, :api_key => current_user.api_token, :predef_name => "tom" }
-    puts "Options ==> #{options}"
-    #res_body = ListPredefs.perform(options)
-    res_body = ListPredefClouds.perform(options)
-    puts "-----------------Find Predefs---------------"
-    puts res_body.lookup("aws-ec2-predef-small")
+options = { :email => current_user.email, :api_key => current_user.api_token }
+#options = { :email => current_user.email, :api_key => current_user.api_token, :predef_name => "tom" }
+puts "Options ==> #{options}"
+#res_body = ListPredefs.perform(options)
+res_body = ListPredefClouds.perform(options)
+puts "-----------------Find Predefs---------------"
+puts res_body.lookup("aws-ec2-predef-small")
 
-  #Resque.enqueue(WorkerClass, options)
-  #success = Resque.enqueue(CreateAccounts, options)
-  #HardWorker.perform_async('bob', 5)
+#Resque.enqueue(WorkerClass, options)
+#success = Resque.enqueue(CreateAccounts, options)
+#HardWorker.perform_async('bob', 5)
 =end
   end
 
@@ -62,7 +62,7 @@ puts res_body
     @user= User.find_by_verification_hash(params[:format])
     UserMailer.welcome_email(@user).deliver
     logger.debug "users_controller:email_verify => exit"
-    redirect_to dashboard_path
+    redirect_to dashboards_path
   end
 
   def verified_email
@@ -98,15 +98,22 @@ puts res_body
       options = { :id => current_user.id, :email => current_user.email, :api_key => current_user.api_token, :authority => "admin" }
       res_body = CreateAccounts.perform(options)
       puts "-----------------SUCCESS RES---------------"
-
       flash[:success] = "Welcome #{current_user.first_name}"
+      
+      #Dashboard entry
+      #puts("---------create---------->> entry") 
+      #@dashboard=@user.dashboard || Dashboard.new    
+      #@dashboard = Dashboard.new(:name=> params[:first_name], :user_id => current_user.id)
+      
+       
       if !(res_body.some_msg[:msg_type] == "error")
         #update current user as onboard user(megam_api user)
         @user.update_attribute(:onboarded_api, true)
         sign_in @user
-        redirect_to dashboard_path, :gflash => { :success => { :value => "#{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+
+        redirect_to dashboards_path, :gflash => { :success => { :value => "#{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
-        redirect_to dashboard_path, :gflash => { :warn => { :value => "Sorry. You are not yet onboard. Update profile.An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        redirect_to dashboards_path, :gflash => { :warn => { :value => "Sorry. You are not yet onboard. Update profile.An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       end
     else
       @user= User.find_by_email(params[:user][:email])
@@ -125,7 +132,7 @@ puts res_body
   end
 
   def upgrade
-    add_breadcrumb "Dashboard", dashboard_path
+    add_breadcrumb "Dashboard", dashboards_path
     add_breadcrumb "Upgrade", upgrade_path
   end
 
@@ -137,8 +144,8 @@ puts res_body
     @user_fields_form_type = params[:user_fields_form_type]
     if @user_fields_form_type == 'api_key'
       @api_token = SecureRandom.urlsafe_base64(nil, true)
-	@user.update_attribute(:api_token, @api_token)
-        sign_in @user
+      @user.update_attribute(:api_token, @api_token)
+      sign_in @user
 
       options = { :id => current_user.id, :email => current_user.email, :api_key => current_user.api_token, :authority => "admin" }
       @res_body = CreateAccounts.perform(options)
@@ -157,7 +164,7 @@ puts res_body
         end
       else
         puts "TEST else !ERROR"
-	#@user.update_attribute(:api_token, @api_token)
+        #@user.update_attribute(:api_token, @api_token)
         #sign_in @user
         @res_msg = "#{@res_body.some_msg[:msg]}"
         respond_to do |format|
@@ -171,7 +178,7 @@ puts res_body
     else
       if @user.update_attributes(params[:user])
         sign_in @user
-        redirect_to dashboard_path, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } }
+        redirect_to dashboards_path, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } }
 
       else
         render 'edit'
