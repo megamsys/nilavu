@@ -119,10 +119,12 @@ puts res_body
       @user= User.find_by_email(params[:user][:email])
       if(@user)
         flash[:error] = "Email #{@user.email} already exists.<div class='right'> #{ActionController::Base.helpers.link_to 'Forgot Password ?.', forgot_path}</div>".html_safe
+	redirect_to signin_path
       else
         flash[:alert] = "An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}".html_safe
+	redirect_to signup_path
       end
-      render 'new'
+
     end
   end
 

@@ -116,7 +116,7 @@ GEM
     json (1.8.0)
     jwt (0.1.8)
       multi_json (>= 1.5)
-    less (2.3.2)
+    less (2.3.3)
       commonjs (~> 0.2.6)
     less-rails (2.3.3)
       actionpack (>= 3.1)

@@ -120,7 +120,9 @@
 		</div>
 		<div class="span4 animated fadeInUpBig", align="center"></div>
 		<div class="span4 animated fadeInUpBig", align="center">
+			<% unless current_user %>
 			<%= link_to "Sign Up Now!", signup_path, :class => "btn btn-success btn-large" %>
+			<% end %>
 		</div>
 		<div class="span4 animated fadeInUpBig", align="center"></div>
 	</div>

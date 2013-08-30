@@ -49,6 +49,7 @@ class CloudBooksController < ApplicationController
   #Upon creation of an entry in cloud_book_history, a request is sent to megam_play using the
   #resque background worker.
   def create
+	params[:cloud_book][:name] = "akka11"
     @book = current_user.cloud_books.create(params[:cloud_book])
     @domainname = @book.domain_name
     @book_id = @book.id
@@ -85,23 +86,28 @@ class CloudBooksController < ApplicationController
 
     command = ListCloudTools.make_command(data, group, action, current_user)
     puts "===========================> COMMAND <====================================="
-    puts command
+    puts command.class
+
     unless data[:predef][:name] == "java"
       node_hash = {
         "node_name" => "#{data[:cloud_book][:name]}#{data[:cloud_book][:domain_name]}",
-        "command" => "#{command}",
+        "command" => command,
         "predefs" => {"name" => data[:predef][:name], "scm" => data[:cloud_book][:deps_scm],
           "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => "", "queue" => "queue@queue1"}
       }
     else
       node_hash = {
         "node_name" => "#{data[:cloud_book][:name]}#{data[:cloud_book][:domain_name]}",
-        "command" => "#{command}",
+	"command" => command,
         "predefs" => {"name" => data[:predef][:name], "scm" => data[:cloud_book][:deps_scm],
           "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => data[:cloud_book][:deps_war], "queue" => "queue@queue1"}
       }
     end
-    node_hash
+	puts "==============================> NODE HASH <============================"
+puts node_hash.class
+puts node_hash.inspect
+
+node_hash
   end
 
 end
