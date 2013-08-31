@@ -33,6 +33,7 @@
 //= require theme
 //= require jquery.flot
 //= require jquery.flot.resize
+//= require flotr2.min
 //= require jquery.peity
 //= require fullcalendar
 //= require unicorn.tables

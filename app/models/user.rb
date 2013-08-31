@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   has_many :cloud_books, :foreign_key  => 'users_id'
   accepts_nested_attributes_for :cloud_books, :update_only => true
   
-  has_many :dashboards, :foreign_key  => 'users_id'
+  has_many :dashboards, :foreign_key  => 'user_id'
   accepts_nested_attributes_for :dashboards, :update_only => true
  
 

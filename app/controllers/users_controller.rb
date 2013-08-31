@@ -102,7 +102,7 @@ puts res_body
       
       #Dashboard entry
       #puts("---------create---------->> entry") 
-      #@dashboard=@user.dashboard || Dashboard.new    
+      @dashboard=@user.dashboards.create(:name=> params[:user][:first_name])   
       #@dashboard = Dashboard.new(:name=> params[:first_name], :user_id => current_user.id)
       
        
