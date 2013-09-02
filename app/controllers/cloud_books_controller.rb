@@ -49,7 +49,7 @@ class CloudBooksController < ApplicationController
   #Upon creation of an entry in cloud_book_history, a request is sent to megam_play using the
   #resque background worker.
   def create
-	params[:cloud_book][:name] = "akka11"
+	params[:cloud_book][:name] = "akka123"
     @book = current_user.cloud_books.create(params[:cloud_book])
     @domainname = @book.domain_name
     @book_id = @book.id

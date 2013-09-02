@@ -51,22 +51,23 @@ class ListCloudTools
        		      }
       			  },
       "compute" => {
-	"ctype" => "#{@predef_cloud.spec[:type_name]}",
+	"cctype" => "#{@predef_cloud.spec[:type_name]}",
          "cc"=> {
+          "groups" => "#{@predef_cloud.spec[:groups]}",
           "image" => "#{@predef_cloud.spec[:image]}",
           "flavor" => "#{@predef_cloud.spec[:flavor]}"
         },
         "access" => {
           "ssh_key" => "#{@predef_cloud.access[:ssh_key]}",
-          "identity_file" => "#{@predef_cloud.access[:identity_file]}",
+          "identity_file" => "/home/ubuntu/#{@predef_cloud.access[:identity_file]}",
           "ssh_user" => "#{@predef_cloud.access[:ssh_user]}"
         }
       },
-      "chefservice" => {
+      "cloudtool" => {
         "chef" => {
           "command" => "#{@tool.cli}",
           "plugin" => "#{@template.cctype} #{@ci_command}",
-          "run_list" => "role[#{data[:predef][:provider_role]}]",
+          "run_list" => "'role[#{data[:predef][:provider_role]}]'",
           "name" => "#{@ci_name} #{data[:cloud_book][:name]}"
         }
       }
