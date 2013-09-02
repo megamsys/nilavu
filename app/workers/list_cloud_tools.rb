@@ -43,41 +43,52 @@ class ListCloudTools
 
 @ci_command = @cloud_instruction.command
 @ci_name = @cloud_instruction.name
-=begin
+
     hash = {
-      'systemprovider' => {
-        'provider' => {
-          'prov' => data[:predef][:provider]
-        }
-      },
-      'compute' => {
-        @predef_cloud.spec[:type_name] => {
-          'image' => @predef_cloud.spec[:image],
-          'flavor' => @predef_cloud.spec[:flavor]
+      "systemprovider" => {
+        "provider" => {
+          "prov" => "#{data[:predef][:provider]}"
+       		      }
+      			  },
+      "compute" => {
+	"ctype" => "#{@predef_cloud.spec[:type_name]}",
+         "cc"=> {
+          "image" => "#{@predef_cloud.spec[:image]}",
+          "flavor" => "#{@predef_cloud.spec[:flavor]}"
         },
-        'access' => {
-          'ssh_key' => @predef_cloud.access[:ssh_key],
-          'identity_file' => @predef_cloud.access[:identity_file],
-          'ssh_user' => @predef_cloud.access[:ssh_user]
+        "access" => {
+          "ssh_key" => "#{@predef_cloud.access[:ssh_key]}",
+          "identity_file" => "#{@predef_cloud.access[:identity_file]}",
+          "ssh_user" => "#{@predef_cloud.access[:ssh_user]}"
         }
       },
-      'chefservice' => {
-        'chef' => {
-          'command' => @tool.cli,
-          'plugin' => "#{@template.cctype} #{@ci_command}",
-          'run_list' => 'role[#{data[:predef][:provider_role]}]',
-          'name' => "#{@ci_name} #{data[:cloud_book][:name]}"
+      "chefservice" => {
+        "chef" => {
+          "command" => "#{@tool.cli}",
+          "plugin" => "#{@template.cctype} #{@ci_command}",
+          "run_list" => "role[#{data[:predef][:provider_role]}]",
+          "name" => "#{@ci_name} #{data[:cloud_book][:name]}"
         }
       }
     }
-=end
+puts "==================================> Hash <========================================================="
+puts hash
 
-    hashtest = "{'systemprovider':{'provider':{'prov':#{data[:predef][:provider]}}}, 'compute':{#{@predef_cloud.spec[:type_name]}:{'image':#{@predef_cloud.spec[:image]},'flavor':#{@predef_cloud.spec[:flavor]}}, 'access':{'ssh_key':#{@predef_cloud.access[:ssh_key]}, 'identity_file':#{@predef_cloud.access[:identity_file]}, 'ssh_user':#{@predef_cloud.access[:ssh_user]}}}, chefservice':{'chef':{'command':#{@tool.cli}, 'plugin':#{@template.cctype} #{@ci_command}, 'run_list':'role[#{data[:predef][:provider_role]}]', 'name':#{@ci_name} #{data[:cloud_book][:name]}}}}"
+#puts "==================================> JSON <========================================================="
+#node_json = hash.to_json
+#puts node_json
 
-puts "=========================> Hash <=================================="
-puts  hashtest.class
-puts  hashtest 
-	hashtest
+
+   #hashtest = "{'systemprovider':{'provider':{'prov':'#{data[:predef][:provider]}'}}, 'compute':{'#{@predef_cloud.spec[:type_name]}':{'image':'#{@predef_cloud.spec[:image]}','flavor':'#{@predef_cloud.spec[:flavor]}'}, 'access':{'ssh_key':'#{@predef_cloud.access[:ssh_key]}', 'identity_file':'#{@predef_cloud.access[:identity_file]}', 'ssh_user':'#{@predef_cloud.access[:ssh_user]}'}}, 'chefservice':{'chef':{'command':'#{@tool.cli}', 'plugin':'#{@template.cctype} #{@ci_command}', 'run_list':'role[#{data[:predef][:provider_role]}]', 'name':'#{@ci_name} #{data[:cloud_book][:name]}'}}}"
+
+#hashtest = "{\"systemprovider\":{\"provider\":{\"prov\":\"#{data[:predef][:provider]}\"}}, \"compute\":{\"#{@predef_cloud.spec[:type_name]}\":{\"image\":\"#{@predef_cloud.spec[:image]}\",\"flavor\":\"#{@predef_cloud.spec[:flavor]}\"}, \"access\":{\"ssh_key\":\"#{@predef_cloud.access[:ssh_key]}\", \"identity_file\":\"#{@predef_cloud.access[:identity_file]}\", \"ssh_user\":\"#{@predef_cloud.access[:ssh_user]}\"}}, \"chefservice\":{\"chef\":{\"command\":\"#{@tool.cli}\", \"plugin\":\"#{@template.cctype} #{@ci_command}\", \"run_list\":\"role[#{data[:predef][:provider_role]}]\", \"name\":\"#{@ci_name} #{data[:cloud_book][:name]}\"}}}"
+
+#hashtest = '{"systemprovider":{"provider":{"prov":"#{data[:predef][:provider]}"}}, "compute":{"#{@predef_cloud.spec[:type_name]}":{"image":"#{@predef_cloud.spec[:image]}","flavor":"#{@predef_cloud.spec[:flavor]}"}, "access":{"ssh_key":"#{@predef_cloud.access[:ssh_key]}", "identity_file":"#{@predef_cloud.access[:identity_file]}", "ssh_user":"#{@predef_cloud.access[:ssh_user]}"}}, "chefservice":{"chef":{"command":"#{@tool.cli}", "plugin":"#{@template.cctype} #{@ci_command}", "run_list":"role[#{data[:predef][:provider_role]}]", "name":"#{@ci_name} #{data[:cloud_book][:name]}"}}}'
+
+
+#node_json
+#hashtest
+hash
   end
 
 end
