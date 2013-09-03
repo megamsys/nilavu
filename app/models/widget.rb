@@ -14,15 +14,12 @@ class Widget < ActiveRecord::Base
     def list_available
       puts "-----------list_available entry"
       path = Rails.root.join("app/assets/javascripts/angular/widgets")
+      puts "-----path"
+      puts path
+      puts Dir["#{path}/*"].map { |f| File.basename(f, '.*') }
       Dir["#{path}/*"].map { |f| File.basename(f, '.*') }
     end
-
-    def widget_chart
-      puts "-----------chart_available entry"
-      path = Rails.root.join("app/assets/javascripts/angular/widgets/graph")
-      Dir["#{path}/*"].map { |f| File.basename(f, '.*') }
-    end
-
+    
     def for_dashboard(id)
       where(:dashboard_id => id)
     end
