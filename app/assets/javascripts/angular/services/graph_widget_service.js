@@ -3,7 +3,7 @@ app.factory("GraphWidgetService", ["$http", function($http) {
  
 	function getParams(source) {
 	    return {
-	      kind: "datapoints",
+	      kind: 'datapoints',
 	      name: source
 	    };
 	  }
@@ -11,11 +11,10 @@ app.factory("GraphWidgetService", ["$http", function($http) {
   function getData(source) {
 	  console.log("data source entry");
 	 b = [];
-	 b = $http.get("api/data_sources", { params: getParams(source) });
+	 b = $http.get("api/data_sources.json", { params: getParams(source) });
 	 console.log(b);
     return b;
   }
-
   return {
     getData: getData
   };

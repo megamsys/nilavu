@@ -1,4 +1,4 @@
-app.directive("graphWidget", function() {              
+app.directive("graph", function() {              
 	 console.log("graph entry");
 	 return{
 	        restrict: 'E',

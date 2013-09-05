@@ -1,12 +1,13 @@
 class DashboardsController < ApplicationController
-  respond_to :html, :js
+  respond_to :json
 
-  add_breadcrumb "Dashboard", :dashboards_path
+  
   
     def show
-     # puts("------show ------------->> entry")
-     # dashboard = Dashboard.find(params[:id])
-     # respond_with dashboard
+      add_breadcrumb "Dashboard", :dashboard_path
+      puts("------show ------------->> entry")
+      dashboard = Dashboard.find(1)
+      #respond_with dashboard
     end
 
     def index

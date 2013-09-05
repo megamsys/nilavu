@@ -15,7 +15,13 @@
 			<%= render :partial => "widgets/booksRunning" %>
 		</div>
 	</div>
-	<div  ng-controller='GraphWidgetCtrl'>
+	 <div class="row-fluid">
+        <div id="main" class="span12">
+          <ng-view ng-show="resolved" ng-cloak></ng-view>
+          <!--<div ui-view></div>-->
+        </div>
+      </div>
+	<div ng-controller='GraphWidgetCtrl'>
 		<div class="btn-group">
 			<button class="btn btn-primary">
 				Select Source...
@@ -25,7 +31,7 @@
 			</button>
 			<ul class="dropdown-menu">
 				<li ng-repeat="w in availableNodes">
-					<a href="#" ng-click="changeNode(w)">{{w}}</a>
+					<a href="#" ng-click="changeNode(w)" remote=true>{{w}}</a>
 				</li>
 			</ul>
 		</div>
@@ -64,7 +70,7 @@
 						</ul>
 					</div>
 					<div class="span8">
-						<graphWidget class = "chart" ng-model='data' style="width:700px; height:984px;"></graphWidget>
+						<!--<graph ng-model='data' style="width:700px; height:984px;"></graph>-->
 					</div>
 				</div>
 

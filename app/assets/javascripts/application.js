@@ -43,5 +43,9 @@
 //= require flexslider
 //= require socket.io
 //= require angular
+//= require angular-bootstrap
+//= require angular-resource
+//= require angular-ui-router
+//= require angular-ui-states
 //= require app
 //= require_tree .
