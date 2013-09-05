@@ -1,18 +1,15 @@
 <div id="dash">
 	<div id="sidebar">
 		<ul>
-			<% if current_user.organization %>
-			<li>
-				<%= image_tag current_user.organization.logo, :alt => "Logo",  :class => "img-circle"%>
-			</li>
-			<% else %>
-			<li>
-
-				<%= image_tag "default_you.png", :alt => "Logo", :class => "img_circle"  %>
-			</li>
-			<% end %>
-
-			<li class=<%= "active" if controller_name== "users"%>>
+			<div class="you">
+				<li>
+					<%= image_tag avatar_url(current_user) %>
+					<%= link_to edit_user_path(current_user) do %>
+					<% current_user.first_name.capitalize %>
+					<%end%>
+				</li>
+			</div>
+			<li class=<%= "active" if controller_name== "dashboards"%>>
 				<%= link_to dashboards_path do %>
 				<i class="icon-dashboard"></i><span> Dashboard</span>
 				<% end %>
@@ -24,7 +21,7 @@
 				<% end %>
 			</li>
 
-			<li class=<%= "active" if controller_name== "cloud_books_history"%>>
+			<li class=<%= "active" if controller_name== "cloud_books_histories"%>>
 				<%= link_to cloud_books_histories_path do %>
 				<i class="icon-spinner"></i>Run History
 				<% end %>
@@ -69,12 +66,12 @@
 						<% end %>
 					</li>
 
-
 					<li>
 
-<%= link_to "Worker", worker_path, :remote => true, :method => "post", data: { spinner: '#fed'}  %>
-<%= spinner_tag 'fed' %>
-<!--<%= link_to "Worker", worker_path, :method => "post", :remote => true %>  -->
+						<%= link_to "Worker", worker_path, :remote => true, :method =>
+						"post", data: { spinner: '#fed'}  %>
+						<%= spinner_tag 'fed' %>
+						<!--<%= link_to "Worker", worker_path, :method => "post", :remote => true %>  -->
 					</li>
 
 				</ul>

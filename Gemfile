@@ -15,15 +15,14 @@ gem 'turbolinks'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
-gem 'execjs','2.0.0'
+gem 'execjs','2.0.1'
 gem 'jquery-datatables-rails'
 gem "flot-rails", "~> 0.0.4"
 gem "gritter", "~> 1.0.3"
 
 # Database posgresql
 gem 'pg'
-
-gem 'ejs'
+gem 'twitter'
 
 # OAuth authentication to twitter, facebook, openid using omniauth
 gem 'omniauth-twitter'
@@ -67,7 +66,7 @@ group :assets do
   gem 'sass-rails',   '~> 4.0.0'
   gem 'coffee-rails', '~> 4.0.0'
   gem "less-rails", "~> 2.3.3"
-  gem 'uglifier', '>= 2.1.2'
+  gem 'uglifier', '>= 2.2.1'
 end
 
 group :test do
