@@ -3,7 +3,7 @@ module Sources
     class Demo
       def get()
         puts "==========="
-        puts "Demo1"
+        puts "Demo2"
         datapoints = []
                
         data1 = [ [ [Random.rand(10...42), Random.rand(10...42)], [Random.rand(10...42), Random.rand(10...42)], [Random.rand(10...42), Random.rand(10...42)], [Random.rand(10...42), Random.rand(10...42)], [Random.rand(10...42), Random.rand(10...42)] ] ]     

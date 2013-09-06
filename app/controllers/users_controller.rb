@@ -64,7 +64,7 @@ puts res_body
     @user= User.find_by_verification_hash(params[:format])
     UserMailer.welcome_email(@user).deliver
     logger.debug "users_controller:email_verify => exit"
-    redirect_to dashboards_path
+    redirect_to dashboard_path(1)
   end
 
   def verified_email
@@ -103,8 +103,9 @@ puts res_body
       flash[:success] = "Welcome #{current_user.first_name}"
 
       #Dashboard entry
-      #puts("---------create---------->> entry")
-      @dashboard=@user.dashboards.create(:name=> params[:user][:first_name])
+      #puts("---------create---------->> entry") 
+      @dashboard=@user.dashboards.create(:name=> params[:user][:first_name])   
+      @widget=@dashboard.widgets.create(:name=>"graph", :kind=>"datapoints", :source=>"demo")
       #@dashboard = Dashboard.new(:name=> params[:first_name], :user_id => current_user.id)
 
       if !(res_body.some_msg[:msg_type] == "error")
@@ -112,9 +113,9 @@ puts res_body
         @user.update_attribute(:onboarded_api, true)
         sign_in @user
 
-        redirect_to dashboards_path, :gflash => { :success => { :value => "#{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        redirect_to dashboard_path(@dashboard.id), :gflash => { :success => { :value => "#{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
-        redirect_to dashboards_path, :gflash => { :warn => { :value => "Sorry. You are not yet onboard. Update profile.An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        redirect_to dashboard_path(@dashboard.id), :gflash => { :warn => { :value => "Sorry. You are not yet onboard. Update profile.An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       end
     else
       @user= User.find_by_email(params[:user][:email])
@@ -135,7 +136,7 @@ puts res_body
   end
 
   def upgrade
-    add_breadcrumb "Dashboard", dashboards_path
+    add_breadcrumb "Dashboard", dashboard_path
     add_breadcrumb "Upgrade", upgrade_path
   end
 
@@ -181,7 +182,7 @@ puts res_body
     else
       if @user.update_attributes(params[:user])
         sign_in @user
-        redirect_to dashboards_path, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } }
+        redirect_to dashboard_path(1), :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } }
 
       else
         render 'edit'
