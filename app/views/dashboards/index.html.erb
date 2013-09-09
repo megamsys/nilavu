@@ -1,0 +1,23 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'Dashboard') %>
+
+<%= render :partial => "contents/header" , :locals => {:head => "Dashboard"}%>
+
+<div id="breadcrumb">
+	<%= render_breadcrumbs %>
+</div>
+<!--<script type="text/ng-template" id="dash_show.html">
+<ul>
+<li class="widget" ng-repeat="widget in widgets" widget/>
+</ul>
+</script>-->
+<div class="container-fluid" ng-cloak>
+
+	<div class="row-fluid">
+		<div id="main" class="span12">
+			<ng-view ng-show="resolved" ng-cloak></ng-view>
+		</div>
+	</div>
+</div>
+<% end %>
+<%= render :template => users_show_path %>
