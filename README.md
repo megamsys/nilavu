@@ -2,7 +2,20 @@
 
 [![Build Status](https://travis-ci.org/indykish/nilavu.png?branch=master)](https://travis-ci.org/indykish/nilavu)
 
-Nilavu is a [Rails4](http://edgeguides.rubyonrails.org/) based [Megam's](http://www.megam.co) SaaS portal. We named it in dialect Tamil, which means "moon".
+Nilavu is a [Rails4](http://guides.rubyonrails.org/) based [Megam's](http://www.megam.co) SaaS portal. 
+We named it in dialect Tamil, which means "moon".
+
+This will be our main WebApp portal for [Megam's](http://www.megam.co) providing
+* Launch Cloud Apps(books) from our Polygot PaaS 
+
+* Cloud management for the launched apps sing [megam_api](https://github.com/indykish/megam_api.git) which interfaces to 
+  [megam_play](https://github.com/indykish/megam_play.git)
+  
+* Realtime Log for the launched Apps using Megam - using [tap](https://github.com/indykish/tap.git)
+
+* Dashboard with Metering Monitoring 
+
+* Cloud App Connectors [deccanplato](https://github.com/indykish/deccanplato.git)  
 
 Nilavu supports the following basic features:
 
@@ -17,25 +30,21 @@ Nilavu supports the following basic features:
 This code uses a `single user license` of the above themes. Anybody who `forks this code shall buy a 
 license` to use it for their own need.
 
-* UI for Cloud management approach using [megam_api](https://github.com/indykish/megam_api.git) which interfaces to 
-  [megam_play](https://github.com/indykish/megam_play.git)
-  
-* UI for Cloud streaming using [tap](https://github.com/indykish/tap.git)
-
-* UI for Live cloud `coming soon` [deccanplato](https://github.com/indykish/deccanplato.git)  
-
 ### Requirements
 
 > [Postgres 9.1 +](http://postgresql.org)
 > [Ruby 2.0]http://ruby-lang.org)
-> [Rails 4](http://edgeguides.rubyonrails.org/4_0_release_notes.html)
+> [Rails 4](http://guides.rubyonrails.org/4_0_release_notes.html)
 
 
-### Tested on Ubuntu 12.10, 13.04, AWS - EC2
+### Tested on Ubuntu 13.04, AWS - EC2
 
 ### Getting Started
 
 * Register here [http://www.megam.co](http://www.megam.co) - We'll launch soon.
+
+![Megam Polygot PaaS](http://indykish.files.wordpress.com/2012/06/megam_landing_page.png?w=645&h=996 "Megam Polygot PaaS")
+
 
 If you are interested in using this as a sample to build your Rails app, Go ahead.
 
@@ -55,16 +64,14 @@ If you are interested in using this as a sample to build your Rails app, Go ahea
 5. Follow the guidelines to start developing your application. You can find
 the following resources handy:
 
-* The Getting Started Guide: http://edgeguides.rubyonrails.org
+* The Getting Started Guide: http://guides.rubyonrails.org
 * Ruby on Rails Tutorial Book: http://www.railstutorial.org/
 
 
 #### TO - DO
 
-* Record Cloud Runs
-* Stream Logs, Metrics
+* Dashboard Metrics integration in progress using angular
 * Integrate to Paypal, bitcoin
-* Interface to megam_api
 	
 # License
 
