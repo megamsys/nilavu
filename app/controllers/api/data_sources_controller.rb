@@ -17,7 +17,7 @@ module Api
         #  respond_with(result.to_json)
         #}
       #end
-    respond_with(result.to_json)
+    respond_with result.to_json
     end
 
   end

@@ -15,5 +15,12 @@ class Widget < ActiveRecord::Base
       where(:dashboard_id => id)
     end
 
+   # flatten settings hash
+  def as_json(options = {})
+    result = super(:except => :settings)
+    result.merge!((settings || {}).stringify_keys)
+    result
+  end
+
   end
 end
