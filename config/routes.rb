@@ -19,8 +19,9 @@ Cloudauth::Application.routes.draw do
   resources :cloud_books
   resources :predef_clouds
   resources :dashboards
+  resources :widgets
 
-  namespace :api do   
+  namespace :api do
     match '/data_sources', to: 'data_sources#index', via: [:get, :post]
   end
 

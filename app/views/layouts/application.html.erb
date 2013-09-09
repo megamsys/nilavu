@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html ng-app="Nilavu">
+<html>
 	<head>
 		<%= favicon_link_tag 'favicon.ico' %>
 		<title>Megam | <%= yield(:title) %></title>
 		<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
-		<%= stylesheet_link_tag    "application", :media => "all" %>
-		<%= javascript_include_tag "application" %>
+		<%= stylesheet_link_tag    "application", :media => "all", "data-turbolinks-track" => true %>
+		<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 
 		<%= csrf_meta_tags %>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,9 +17,7 @@
 		</style>
 	</head>
 	<body>
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.min.js"></script>
-		<%= render 'layouts/header' %>
+			<%= render 'layouts/header' %>
 		<a href="#" class="scrolltop"> <span>up</span> </a>
 		<%= yield %>
 		<%= render 'layouts/footer' %>
