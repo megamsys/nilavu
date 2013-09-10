@@ -1,4 +1,4 @@
-app.directive("graph", ["GraphModel", function(GraphModel) {
+app.directive("graph", ["FlotrGraphHelper", "GraphModel", function(FlotrGraphHelper, GraphModel) {
 
   var currentColors = []; 
   
@@ -7,29 +7,15 @@ app.directive("graph", ["GraphModel", function(GraphModel) {
 	  console.log("graph entry");
 	 	 
 	  
-    function onSuccess(data) {
-    	 var plot = $.plot("#graph_placeholder", [ data ], {
- 			series: {
- 				shadowSize: 0	// Drawing is faster without shadows
- 			},
- 			yaxis: {
- 				min: 0,
- 				max: 100
- 			},
- 			xaxis: {
- 				min: 0,
- 				max: 50
- 			}
- 		});
-    	plot.setData([data]);   	
-   	
-     	plot.draw();	
-      //element.height(265);
-     // Flotr.draw(element[0], FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget));
-    }
+	  function onSuccess(data) {
+	    	 //var plot = $.plot("#graph_placeholder", FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget));
+	    	//plot.setData(FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors));   		   	
+	     //	plot.draw();	
+	      element.height(265);
+	      Flotr.draw(element[0], FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget));
+	    }     
 
-    function update() {
-      //return GraphModel.getData(scope.widget).success(onSuccess);
+    function update() {     
     	return GraphModel.getData("demo").success(onSuccess);
     }
 
@@ -39,11 +25,10 @@ app.directive("graph", ["GraphModel", function(GraphModel) {
     }
 
     scope.init(update);
-
-    // changing the widget config width should redraw flotr2 graph
+   
     scope.$watch("config.size_x", function(newValue, oldValue) {
       if (newValue !== oldValue) {
-        element.width(calculateWidth(scope.widget.size_x));
+        element.width(calculateWidth(3));
         scope.init(update);
       }
 
@@ -52,7 +37,8 @@ app.directive("graph", ["GraphModel", function(GraphModel) {
   };
 
   return {
-    template: '<input id="updateInterval" type="hidden" value="" style="text-align: right; width:5em"><div class="graph-container"><div id="graph_placeholder"  style=" height:300px; width:700px"></div></div>',          
+    //template: '<div class="graph-container"><div id="graph_placeholder"  style=" height:300px; width:700px"></div></div>',   
+	  template: '<div class="graph-container"></div>',
     link: linkFn
   };
 }]);

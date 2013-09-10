@@ -1,6 +1,8 @@
 <div class="widget-box" data-id="{{widget.id}}">
 	<div class="widget-title">
 		<span class="icon"><i class="icon-signal"></i></span><h5>{{widget.name}}</h5>
+		  <span class="title"><img ng-show="widget.enableSpinner" class="ajax-spinner" width="12" height="12" src="<%= asset_path('spinner2.gif') %>"></img></span>
+
 		<div class="buttons">
 			<a href="#" class="btn btn-mini"><i class="icon-refresh"></i> Update stats</a>
 		</div>
@@ -32,7 +34,7 @@
 				<div class="graph-container">
 					<div id="graph_placeholder"  style=" height:300px; width:700px"></div>
 				</div>-->
-				<div ng-hide="showError" class="widget-content"></div>
+				<div ng-hide="showError" class="widget_content"></div>
 			</div>
 		</div>
 

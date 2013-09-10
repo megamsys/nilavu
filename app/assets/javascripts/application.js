@@ -31,7 +31,9 @@
 //= require unicorn.form_validation
 //= require unicorn.wizard
 //= require theme
+//= require flotr2
 //= require jquery.flot
+//= require jquery.flot.time
 //= require jquery.peity
 //= require fullcalendar
 //= require unicorn.tables

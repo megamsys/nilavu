@@ -4,7 +4,7 @@ app.controller("WidgetCtrl", ["$scope", "$element", "$timeout", "$rootScope", fu
   var timer = null;
   var abortTimer = false;
   var updateFunction = null;
-
+  var update_interval = 20;
   $rootScope.$on('$routeChangeStart', function(ngEvent, route) {
     abortTimer = true;
     if (timer) $timeout.cancel(timer);
@@ -28,7 +28,7 @@ app.controller("WidgetCtrl", ["$scope", "$element", "$timeout", "$rootScope", fu
   function updateTimer() {
     $scope.widget.enableSpinner = false;
 
-    if (!abortTimer) timer = $timeout(startTimer, $scope.widget.update_interval * 2000);
+    if (!abortTimer) timer = $timeout(startTimer, update_interval * 200);
   }
 
   function startTimer() {
@@ -36,11 +36,11 @@ app.controller("WidgetCtrl", ["$scope", "$element", "$timeout", "$rootScope", fu
 
     var result = updateFunction();
     if (result && result.then) {
-      result.then(onSuccess, onError).then(updateTimer);
+     result.then(onSuccess, onError).then(updateTimer);
     } else {
       onSuccess(result);
       updateTimer();
-    }
+   }
   }
 
   $scope.init = function(updateFn) {
