@@ -9,7 +9,7 @@ module Api
       puts params[:name]
       plugin = Sources.plugin_clazz(params[:kind], params[:name])
       puts plugin
-      result = plugin.new.get()
+      result = plugin.new.get(params)
       puts result.to_json
       
       #respond_to do |format|
