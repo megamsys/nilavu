@@ -31,13 +31,13 @@ GEM
       tzinfo (~> 0.3.37)
     angularjs-rails (1.0.8)
     arel (4.0.0)
-    atomic (1.1.13)
+    atomic (1.1.14)
     aws-sdk (1.11.1)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
     bcrypt-ruby (3.0.0)
-    better_errors (0.9.0)
+    better_errors (1.0.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
@@ -66,11 +66,11 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     commonjs (0.2.7)
-    cucumber (1.3.6)
+    cucumber (1.3.8)
       builder (>= 2.1.2)
       diff-lcs (>= 1.1.3)
-      gherkin (~> 2.12.0)
-      multi_json (~> 1.7.5)
+      gherkin (~> 2.12.1)
+      multi_json (>= 1.7.5, < 2.0)
       multi_test (>= 0.0.2)
     cucumber-rails (1.4.0)
       capybara (>= 1.1.2)
@@ -90,6 +90,8 @@ GEM
       railties (>= 3.0.0)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
+    faraday_middleware (0.9.0)
+      faraday (>= 0.7.4, < 0.9)
     flexslider (2.0.2)
     flot-rails (0.0.4)
       jquery-rails
@@ -143,8 +145,9 @@ GEM
     minitest (4.7.5)
     mixlib-config (1.1.2)
     mixlib-log (1.6.0)
-    multi_json (1.7.9)
+    multi_json (1.8.0)
     multi_test (0.0.2)
+    multi_xml (0.5.5)
     multipart-post (1.2.0)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
@@ -239,7 +242,7 @@ GEM
       libv8 (~> 3.16.14.0)
       ref
     thor (0.18.1)
-    thread_safe (0.1.2)
+    thread_safe (0.1.3)
       atomic
     tilt (1.4.1)
     treetop (1.4.15)
@@ -281,6 +284,8 @@ DEPENDENCIES
   ejs
   execjs (= 2.0.0)
   factory_girl_rails
+  faraday
+  faraday_middleware
   flexslider (~> 2.0.2)
   flot-rails (~> 0.0.4)
   gritter (~> 1.0.3)
@@ -293,6 +298,7 @@ DEPENDENCIES
   megam_api
   megam_deccanplato (~> 0.1.0)
   meta_request
+  multi_xml
   omniauth-facebook
   omniauth-openid
   omniauth-twitter

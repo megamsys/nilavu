@@ -107,7 +107,8 @@ app.factory("FlotrGraphHelper", ["ColorFactory", "SuffixFormatter", "$window", f
   function transformSeriesOfDatapoints(series, widget, currentColors) {
     return _.map(series, function(model, index) {
       return {
-        color: initColor(currentColors, index),
+        //color: initColor(currentColors, index),
+    	color: '#E01B5D',
         lines: { fill: linesType("area"), lineWidth: 1 },
         label: model.target,
         data : swapDatapoints(model.datapoints)
