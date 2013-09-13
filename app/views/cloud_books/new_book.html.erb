@@ -29,8 +29,7 @@
 							<i class="logo_chef"></i>
 						</div>
 						<div class="span2">
-							<h3>Will Launch<h3>
-							<span class="badge badge-info"> <h4>Role : <%= @predef.provider_role %><h4></span>
+							<h3>Will Launch<h3><span class="badge badge-info"> <h4>Role : <%= @predef.provider_role %><h4></span>
 						</div>
 						<div class="span2">
 							<h3 align="center"><i class="i_cloud"></i></h3>
@@ -50,6 +49,8 @@
 	<div class="row-fluid">
 		<div class="span12">
 			<% @book_name = book_name %>
+			<input type="hidden" name="book_name" value="<%= @book_name %>">
+
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-th-list"></i> </span>
@@ -105,6 +106,7 @@
 
 	<% @predef_hash.each do |key,value| %>
 	<%= hidden_field_tag "predef[#{key}]",value %>
+
 	<% end %>
 
 	<%= f.text_field :predef_name, :type => 'hidden', :value => @predef_name %>
@@ -169,13 +171,11 @@
 		<div class="modal-body">
 			<div class="alert">
 
-			<p>
-				<h4>
-				A cloud book creation request to the megam cloud server was successful.
-				</h4> 
-			</br>
-				<strong>Click<span class="label label-info"> OK </span> to watch the status Real Time</strong>
-			</p>
+				<p>
+					<h4> A cloud book creation request to the megam cloud server was successful. </h4>
+					</br>
+					<strong>Click<span class="label label-info"> OK </span> to watch the status Real Time</strong>
+				</p>
 			</div>
 		</div>
 		<div class="modal-footer" id="history_path"></div>
