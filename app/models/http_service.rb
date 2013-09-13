@@ -66,20 +66,16 @@ module HttpService
   #  * HttpService.request("http://localhost/test", :params => { :key => "value" })
   #
   def request(url, options = {})
+    #begin
     uri = url.is_a?(URI) ? url : URI.parse(url)
-    puts uri
-    connection = Faraday.new(uri, options, &(faraday_middleware || DEFAULT_MIDDLEWARE))
-    puts "----------------"
-    puts connection
-    puts "-------------------"
-    puts uri.user
-    puts uri.password
-    puts "-------------------"
-    puts CGI.unescape(uri.user)
-    puts CGI.unescape(uri.password)
-    puts "-------------------"
+    puts uri    
+    connection = Faraday.new(uri, options, &(faraday_middleware || DEFAULT_MIDDLEWARE))     
     connection.basic_auth(CGI.unescape(uri.user), CGI.unescape(uri.password)) if uri.user && uri.password
     connection.get.body
+    #rescue StandardError => se
+     # puts "===========================> SE <======================================="
+     # puts se.message     
+   # end
   end
 
   # custom faraday middleware passes url along to simplify error reports

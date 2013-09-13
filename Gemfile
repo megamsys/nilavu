@@ -48,6 +48,9 @@ gem "faraday"
 gem "faraday_middleware"
 gem "multi_xml"
 
+#html parsing
+gem "nokogiri"
+
 #For background processing of cloud jobs
 #gem 'resque'
 #gem 'sidekiq'

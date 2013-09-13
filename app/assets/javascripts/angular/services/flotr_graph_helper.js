@@ -56,7 +56,7 @@ app.factory("FlotrGraphHelper", ["ColorFactory", "SuffixFormatter", "$window", f
     return _.template(html, data);
   }
 
-  function defaultOptions(model) {
+  function defaultOptions(model, y_max) {
     return {
       shadowSize: 1,
       grid: {
@@ -67,7 +67,7 @@ app.factory("FlotrGraphHelper", ["ColorFactory", "SuffixFormatter", "$window", f
       },
       yaxis: {
         tickFormatter: suffixFormatter,
-        max: 100 || null
+        max: y_max || null
       },    
     };
   }
@@ -86,7 +86,7 @@ app.factory("FlotrGraphHelper", ["ColorFactory", "SuffixFormatter", "$window", f
 
   // swap x/y values since backend and flotr2 define it different
   function swapDatapoints(datapoints) {
-    return _.map(datapoints, function(dp) {
+    return _.map(datapoints[0], function(dp) {
       return [dp[1], dp[0]];
     });
   }

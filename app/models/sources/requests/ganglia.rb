@@ -1,6 +1,5 @@
 #require 'xml'
 require 'open-uri'
-
 #
 # Configure the Ganglia URL and host in application.rb:
 #   config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
@@ -16,10 +15,10 @@ require 'open-uri'
 #   example: hostname@cluster(metric-name)
 #
 module Sources
-  module Datapoints
-    class Ganglia < Sources::Datapoints::Base
+  module Requests
+    class Ganglia < Sources::Requests::Base
 
-      PORT = 8649
+     PORT = 8649
 
       def initialize
         @url_builder = GangliaUrlBuilder.new(Rails.configuration.ganglia_web_url)
@@ -34,7 +33,7 @@ module Sources
         puts "get entry"
         from    = (options[:from]).to_i
         to      = (options[:to] || Time.now).to_i       
-         metric  = Rails.configuration.ganglia_graph_metric
+         metric  = Rails.configuration.ganglia_request_metric
         #targets = targets.reject(&:blank?)
         ganglia_datapoints = request_datapoints(from, to, metric)
         result = []   

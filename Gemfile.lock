@@ -299,6 +299,7 @@ DEPENDENCIES
   megam_deccanplato (~> 0.1.0)
   meta_request
   multi_xml
+  nokogiri
   omniauth-facebook
   omniauth-openid
   omniauth-twitter

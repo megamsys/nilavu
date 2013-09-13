@@ -1,6 +1,6 @@
 #require 'xml'
 require 'open-uri'
-
+require 'nokogiri'
 #
 # Configure the Ganglia URL and host in application.rb:
 #   config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
@@ -16,8 +16,8 @@ require 'open-uri'
 #   example: hostname@cluster(metric-name)
 #
 module Sources
-  module Datapoints
-    class Ganglia < Sources::Datapoints::Base
+  module Uptime
+    class Ganglia < Sources::Uptime::Base
 
       PORT = 8649
 
@@ -34,13 +34,10 @@ module Sources
         puts "get entry"
         from    = (options[:from]).to_i
         to      = (options[:to] || Time.now).to_i       
-         metric  = Rails.configuration.ganglia_graph_metric
+        metric  = Rails.configuration.ganglia_request_metric
         #targets = targets.reject(&:blank?)
         ganglia_datapoints = request_datapoints(from, to, metric)
-        result = []   
-          result << { "datapoints" => ganglia_datapoints }       
-        raise Sources::Datapoints::NotFoundError if result.empty?
-        result
+        { :value => ganglia_datapoints[0] }           
       end
 
       def available_targets(options = {})
@@ -86,13 +83,19 @@ module Sources
       def request_datapoints(from, to, target)        
          puts "request_datapoints"
         result = []       
-          hash = @url_builder.datapoints_url(from, to, target)
+          hash = @url_builder.data_url(from, to, target)
           Rails.logger.debug("Requesting datapoints from #{hash[:url]} with params #{hash[:params]} ...")
-          response = ::HttpService.request(hash[:url], :params => hash[:params])          
+          response = ::HttpService.request(hash[:url], :params => hash[:params])                
+          Nokogiri::HTML(response).xpath("//table/tr/td/table/tr").collect do |row|     
+             if row.at("td[1]/text()").to_s == "Uptime"        
+               @timestamp   = row.at("td[2]/text()").to_s
+             end             
+           end          
           if response == "null"
             result << []
           else
-            result << response.first["datapoints"]            
+            #result << response.first["datapoints"]    
+            result << @timestamp        
           end       
         result
       end
