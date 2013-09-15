@@ -43,6 +43,14 @@ gem "flexslider", "~> 2.0.2"
 gem "megam_deccanplato", "~> 0.1.0"
 gem "angularjs-rails"
 
+#http_proxy settings
+gem "faraday"
+gem "faraday_middleware"
+gem "multi_xml"
+
+#html parsing
+gem "nokogiri"
+
 #For background processing of cloud jobs
 #gem 'resque'
 #gem 'sidekiq'

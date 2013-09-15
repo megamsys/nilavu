@@ -10,13 +10,13 @@
 				</li>
 			</div>
 			<li class=<%= "active" if controller_name== "dashboards"%>>
-				<%= link_to dashboard_path(1) do %>
+				<%= link_to dashboards_path do %>
 				<i class="icon-dashboard"></i><span> Dashboard</span>
 				<% end %>
 			</li>
 
-			<li class=<%= "active" if controller_name== "cloud_books"%>>
-				<%= link_to cloud_books_path do %>
+			<li class=<%= "active" if controller_name== "cloud_books"%> >
+				<%= link_to cloud_books_path  do %>
 				<i class="icon-book"></i>Cloud Books
 				<% end %>
 			</li>
@@ -68,8 +68,7 @@
 
 					<li>
 
-						<%= link_to "Worker", worker_path, :remote => true, :method =>
-						"post", data: { spinner: '#fed'}  %>
+						<%= link_to "Worker", worker_path, :remote => true, :method => "post", data: { spinner: '#fed'}  %>
 						<%= spinner_tag 'fed' %>
 						<!--<%= link_to "Worker", worker_path, :method => "post", :remote => true %>  -->
 					</li>
@@ -79,7 +78,6 @@
 		</ul>
 
 	</div>
-
 	<div id="content">
 		<%= render :partial => "customizations/flash_messages" %>
 

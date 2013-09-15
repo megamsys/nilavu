@@ -1,7 +1,7 @@
 <div class="widget-box" data-id="{{widget.id}}">
 	<div class="widget-title">
 		<span class="icon"><i class="icon-signal"></i></span><h5>{{widget.name}}</h5>
-		  <span class="title"><img ng-show="widget.enableSpinner" class="ajax-spinner" width="12" height="12" src="<%= asset_path('spinner2.gif') %>"></img></span>
+		<span class="title"><img ng-show="widget.enableSpinner" class="ajax-spinner" width="12" height="12" src="<%= asset_path('spinner2.gif') %>"></img></span>
 
 		<div class="buttons">
 			<a href="#" class="btn btn-mini"><i class="icon-refresh"></i> Update stats</a>
@@ -9,34 +9,10 @@
 	</div>
 	<div class="widget-content">
 		<div class="row-fluid">
-			<div class="span4">
-				<ul class="site-stats">
-					<li>
-						<i class="icon-user"></i><strong>1433</strong><small>Total Books</small>
-					</li>
-					<li>
-						<i class="icon-arrow-right"></i><strong>16</strong><small>New Books (last week)</small>
-					</li>
-					<li class="divider"></li>
-					<li>
-						<i class="icon-shopping-cart"></i><strong>11259</strong><small>Total Requests</small>
-					</li>
-					<li>
-						<i class="icon-tag"></i><strong>8650</strong><small>Total Uptime(days)</small>
-					</li>
-					<li>
-						<i class="icon-repeat"></i><strong>29</strong><small>Total Queue Messages</small>
-					</li>
-				</ul>
-			</div>
 			<div class="span8">
-					<!--<input id="updateInterval" type="hidden" value="" style="text-align: right; width:5em">				
-				<div class="graph-container">
-					<div id="graph_placeholder"  style=" height:300px; width:700px"></div>
-				</div>-->
 				<div ng-hide="showError" class="widget_content"></div>
 			</div>
 		</div>
-
 	</div>
 </div>
+

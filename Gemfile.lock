@@ -90,6 +90,8 @@ GEM
       railties (>= 3.0.0)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
+    faraday_middleware (0.9.0)
+      faraday (>= 0.7.4, < 0.9)
     flexslider (2.0.2)
     flot-rails (0.0.4)
       jquery-rails
@@ -145,6 +147,7 @@ GEM
     mixlib-log (1.6.0)
     multi_json (1.8.0)
     multi_test (0.0.2)
+    multi_xml (0.5.5)
     multipart-post (1.2.0)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
@@ -286,6 +289,8 @@ DEPENDENCIES
   ejs
   execjs (= 2.0.1)
   factory_girl_rails
+  faraday
+  faraday_middleware
   flexslider (~> 2.0.2)
   flot-rails (~> 0.0.4)
   gritter (~> 1.0.3)
@@ -298,6 +303,8 @@ DEPENDENCIES
   megam_api
   megam_deccanplato (~> 0.1.0)
   meta_request
+  multi_xml
+  nokogiri
   omniauth-facebook
   omniauth-openid
   omniauth-twitter

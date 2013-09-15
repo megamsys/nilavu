@@ -106,6 +106,12 @@ puts res_body
       #puts("---------create---------->> entry") 
       @dashboard=@user.dashboards.create(:name=> params[:user][:first_name])   
       @widget=@dashboard.widgets.create(:name=>"graph", :kind=>"datapoints", :source=>"demo")
+      @widget=@dashboard.widgets.create(:name=>"totalbooks", :kind=>"totalbooks", :source=>"demo")
+      @widget=@dashboard.widgets.create(:name=>"newbooks", :kind=>"newbooks", :source=>"demo")
+      @widget=@dashboard.widgets.create(:name=>"requests", :kind=>"requests", :source=>"demo")
+      @widget=@dashboard.widgets.create(:name=>"uptime", :kind=>"uptime", :source=>"demo")
+      @widget=@dashboard.widgets.create(:name=>"queue", :kind=>"queue", :source=>"demo")
+
       #@dashboard = Dashboard.new(:name=> params[:first_name], :user_id => current_user.id)
 
       if !(res_body.some_msg[:msg_type] == "error")

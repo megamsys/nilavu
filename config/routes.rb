@@ -25,6 +25,7 @@ Cloudauth::Application.routes.draw do
     resources :dashboards do
       resources :widgets
     end
+    match "data_sources/:kind" => "data_sources#index", via: [:get, :post]
   end
 
   namespace :api do

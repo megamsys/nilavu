@@ -1,22 +1,11 @@
 module Api
   class DataSourcesController  < ApplicationController   
     respond_to :json
-    def index
-      
-      puts "entry entry"
-      #plugin = Sources.plugin_clazz('datapoints', 'demo')
-      puts params[:kind]
-      puts params[:name]
+    def index     
       plugin = Sources.plugin_clazz(params[:kind], params[:name])
       puts plugin
       result = plugin.new.get(params)
-      puts result.to_json
-      
-      #respond_to do |format|
-       # format.js {
-        #  respond_with(result.to_json)
-        #}
-      #end
+      puts result.to_json     
     respond_with result.to_json
     end
 

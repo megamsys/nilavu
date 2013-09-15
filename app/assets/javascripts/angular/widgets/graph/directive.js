@@ -12,11 +12,12 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", function(FlotrGraphHel
 	    	//plot.setData(FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors));   		   	
 	     //	plot.draw();	
 	      element.height(265);
-	      Flotr.draw(element[0], FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget));
+	      console.log(data);
+	      Flotr.draw(element[0], FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, 0.7));
 	    }     
 
     function update() {     
-    	return GraphModel.getData("demo").success(onSuccess);
+    	return GraphModel.getData("ganglia").success(onSuccess);
     }
 
     function calculateWidth(size_x) {
