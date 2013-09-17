@@ -5,11 +5,12 @@ app.controller("WidgetCtrl", ["$scope", "$element", "$timeout", "$rootScope", fu
   var abortTimer = false;
   var updateFunction = null;
   var update_interval = 20;
+ // console.log("++++++++++++++++++++++++++++++++++++++----"+$scope.widget.name);
   $rootScope.$on('$routeChangeStart', function(ngEvent, route) {
     abortTimer = true;
     if (timer) $timeout.cancel(timer);
   });
-
+  
   function onError(response) {
     $scope.showError = true;
     if (response.status === 0) {
@@ -42,10 +43,16 @@ app.controller("WidgetCtrl", ["$scope", "$element", "$timeout", "$rootScope", fu
       updateTimer();
    }
   }
-
+  
   $scope.init = function(updateFn) {
     updateFunction = updateFn;
     startTimer();
   };
+  
+  function update_widget(source) {
+	  if ($scope.widget.widget_type == "pernode") {
+		  $scope.widget.$update;
+	  }
+  }
 
 }]);

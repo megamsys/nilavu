@@ -103,12 +103,16 @@ puts res_body
       #Dashboard entry
       #puts("---------create---------->> entry") 
       @dashboard=@user.dashboards.create(:name=> params[:user][:first_name])   
-      @widget=@dashboard.widgets.create(:name=>"graph", :kind=>"datapoints", :source=>"demo")
-      @widget=@dashboard.widgets.create(:name=>"totalbooks", :kind=>"totalbooks", :source=>"demo")
-      @widget=@dashboard.widgets.create(:name=>"newbooks", :kind=>"newbooks", :source=>"demo")
-      @widget=@dashboard.widgets.create(:name=>"requests", :kind=>"requests", :source=>"demo")
-      @widget=@dashboard.widgets.create(:name=>"uptime", :kind=>"uptime", :source=>"demo")
-      @widget=@dashboard.widgets.create(:name=>"queue", :kind=>"queue", :source=>"demo")
+      @widget=@dashboard.widgets.create(:name=>"graph", :kind=>"datapoints", :source=>"demo", :widget_type=>"pernode")
+      @widget=@dashboard.widgets.create(:name=>"totalbooks", :kind=>"totalbooks", :source=>"demo", :widget_type=>"summary")
+      @widget=@dashboard.widgets.create(:name=>"newbooks", :kind=>"newbooks", :source=>"demo", :widget_type=>"summary")
+      @widget=@dashboard.widgets.create(:name=>"requests", :kind=>"requests", :source=>"demo", :widget_type=>"pernode")
+      @widget=@dashboard.widgets.create(:name=>"uptime", :kind=>"uptime", :source=>"demo", :widget_type=>"pernode")
+      @widget=@dashboard.widgets.create(:name=>"queue", :kind=>"queue", :source=>"demo", :widget_type=>"summary")
+      @widget=@dashboard.widgets.create(:name=>"runningbooks", :kind=>"runningbooks", :source=>"demo", :widget_type=>"summary")
+      @widget=@dashboard.widgets.create(:name=>"cumulativeuptime", :kind=>"cumulativeuptime", :source=>"demo", :widget_type=>"summary")
+      @widget=@dashboard.widgets.create(:name=>"requestserved", :kind=>"requestserved", :source=>"demo", :widget_type=>"pernode")
+      @widget=@dashboard.widgets.create(:name=>"queuetraffic", :kind=>"queuetraffic", :source=>"demo", :widget_type=>"summary")
 
       #@dashboard = Dashboard.new(:name=> params[:first_name], :user_id => current_user.id)
       

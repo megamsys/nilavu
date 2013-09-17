@@ -20,10 +20,9 @@ module Sources
     class Ganglia < Sources::Datapoints::Base
 
       PORT = 8649
-
       def initialize
         @url_builder = GangliaUrlBuilder.new(Rails.configuration.ganglia_web_url)
-        
+
       end
 
       def available?
@@ -33,69 +32,59 @@ module Sources
       def get(options = {})
         puts "get entry"
         from    = (options[:from]).to_i
-        to      = (options[:to] || Time.now).to_i       
-         metric  = Rails.configuration.ganglia_graph_metric
+        to      = (options[:to] || Time.now).to_i
+        graph_metric  = Rails.configuration.ganglia_graph_metric
+        uptime_metric  = Rails.configuration.ganglia_request_metric
         #targets = targets.reject(&:blank?)
-        ganglia_datapoints = request_datapoints(from, to, metric)
-        result = []   
-          result << { "datapoints" => ganglia_datapoints }       
+        ganglia_datapoints = request_datapoints(from, to, graph_metric)
+        ganglia_uptime = request_uptime(from, to, uptime_metric)
+        model_rpm = request_rpm(from, to, uptime_metric)
+        result = []
+        result << { "datapoints" => ganglia_datapoints, "uptime_data" => ganglia_uptime, "rpm" => model_rpm }
         raise Sources::Datapoints::NotFoundError if result.empty?
         result
       end
+    
 
-      def available_targets(options = {})
-        pattern = options[:pattern] || ""
-        limit   = (options[:limit] || 200).to_i
+      private      
 
-        cached_result = cached_get("ganglia") do
-          parse_targets(request_available_targets)
+      def request_datapoints(from, to, target)
+        puts "request_datapoints"
+        result = []
+        hash = @url_builder.datapoints_url(from, to, target)
+        Rails.logger.debug("Requesting datapoints from #{hash[:url]} with params #{hash[:params]} ...")
+        response = ::HttpService.request(hash[:url], :params => hash[:params])
+        if response == "null"
+          result << []
+        else
+          result << response.first["datapoints"]
         end
-
-        result = pattern.present? ? cached_result.reject { |target| target !~ /#{pattern}/ }  : cached_result
-        result.slice(0, limit)
+        result
       end
 
-     
-      private
-
-      def parse_targets(xml)
-        targets = []
-        source = XML::Parser.string(xml)
-        content = source.parse
-        hosts = content.root.find('//CLUSTER/HOST')
-        cluster = content.root.find_first('//CLUSTER').attributes['NAME']
-        hosts.each do |host|
-          host.find('./METRIC').each do |metric|
-            targets << "#{host.attributes['NAME']}@#{cluster}(#{metric.attributes['NAME']})"
+      def request_uptime(from, to, target)
+        puts "request_uptime"        
+        hash = @url_builder.data_url(from, to, target)
+        Rails.logger.debug("Requesting Uptime from #{hash[:url]} with params #{hash[:params]} ...")
+        response = ::HttpService.request(hash[:url], :params => hash[:params])
+        Nokogiri::HTML(response).xpath("//table/tr/td/table/tr").collect do |row|
+          if row.at("td[1]/text()").to_s == "Uptime"
+            @timestamp   = row.at("td[2]/text()").to_s
           end
         end
-        targets
-      end
-
-      def request_available_targets
-        Rails.logger.debug("Requesting available targets from #{Rails.configuration.ganglia_host}:#{PORT} ...")
-        client = TCPSocket.open(Rails.configuration.ganglia_host, PORT)
-        result = ""
-        while line = client.gets
-          result << line.chop
+        if response == "null"
+          result = ""
+        else
+        #result << response.first["datapoints"]
+        result = @timestamp
         end
-        client.close
         result
       end
 
-      def request_datapoints(from, to, target)        
-         puts "request_datapoints"
-        result = []       
-          hash = @url_builder.datapoints_url(from, to, target)
-          Rails.logger.debug("Requesting datapoints from #{hash[:url]} with params #{hash[:params]} ...")
-          response = ::HttpService.request(hash[:url], :params => hash[:params])          
-          if response == "null"
-            result << []
-          else
-            result << response.first["datapoints"]            
-          end       
-        result
+      def request_rpm(from, to ,target)
+        Random.rand(10...100)
       end
-end
+
     end
   end
+end

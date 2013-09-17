@@ -19,8 +19,7 @@ app.config(function($routeProvider, $locationProvider) {
 	// use angular/mustache style {{variable}} interpolation
 	_.templateSettings = {
 	  interpolate : /\{\{(.+?)\}\}/g
-	};
-
+	};	
 
 	function cloudbooksctrl($scope, $location){
 		console.log("$location---->"+$location.path());

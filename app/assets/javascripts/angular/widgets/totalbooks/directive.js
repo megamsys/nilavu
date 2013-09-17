@@ -17,7 +17,7 @@ app.directive("totalbooks", ["TotalBooksModel", function(TotalBooksModel) {
 		  };
 
   return {
-	  template: '<div class="span4"><ul class="site-stats"><li><i class="icon-user"></i><strong>{{data}}</strong><small>Total Books</small></li></ul></div>',    
+	  template: '<div class="span4 center"><ul class="site-stats"><li><i class="icon-user"></i><strong>{{data}}</strong><small>Total Books</small></li></ul></div>',    
       link: linkFn
   };
 }]);

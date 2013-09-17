@@ -27,7 +27,7 @@ class GangliaUrlBuilder
   def parse_target(target)
     #target =~ /(.*)@(.*)\((.*)\)/    
     #host = 'ip-10-142-85-146.ap-southeast-1.compute.internal'
-    host = 'roping.megam.co'
+    host = 'gmond'
     cluster = Rails.configuration.ganglia_cluster
     metric  = target
         [cluster, host, metric]

@@ -25,4 +25,8 @@ module DemoHelper
     result << result0
     result
   end
+  
+  def get_rand_data(from, to)
+     Random.rand(10...100) 
+  end
 end

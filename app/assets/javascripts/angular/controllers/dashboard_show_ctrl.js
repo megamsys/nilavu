@@ -6,7 +6,6 @@ app.controller("DashboardShowCtrl", ["$scope", "$rootScope", "$routeParams", "$l
   $scope.widgets   = Widget.query({ dashboard_id: $routeParams.id }, function() {
 	  console.log("===");	 
     $rootScope.resolved = true;
-  });
-
+  }); 
     
 }]);

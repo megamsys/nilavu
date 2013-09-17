@@ -1,5 +1,6 @@
 #require 'xml'
 require 'open-uri'
+require 'nokogiri'
 #
 # Configure the Ganglia URL and host in application.rb:
 #   config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
@@ -15,10 +16,10 @@ require 'open-uri'
 #   example: hostname@cluster(metric-name)
 #
 module Sources
-  module Requests
-    class Ganglia < Sources::Requests::Base
+  module CumulativeUptime
+    class Ganglia < Sources::Uptime::Base
 
-     PORT = 8649
+      PORT = 8649
 
       def initialize
         @url_builder = GangliaUrlBuilder.new(Rails.configuration.ganglia_web_url)
@@ -33,19 +34,10 @@ module Sources
         puts "get entry"
         from    = (options[:from]).to_i
         to      = (options[:to] || Time.now).to_i       
-         metric  = Rails.configuration.ganglia_request_metric
+        metric  = Rails.configuration.ganglia_request_metric
         #targets = targets.reject(&:blank?)
         ganglia_datapoints = request_datapoints(from, to, metric)
-
-        params = { :from => from, :to => to, :targets => "nginx_status" }
-        response_body = ::HttpService.request("http://gmond.megam.co/nginx_status.json", :params => params)
-        puts "+++++++++++++++++++++++++++++++++++++++++++++++"
-        puts response_body
-        
-        result = []   
-          result << { "datapoints" => ganglia_datapoints }       
-        raise Sources::Datapoints::NotFoundError if result.empty?
-        result
+        { :value => ganglia_datapoints[0] }           
       end
 
       def available_targets(options = {})
@@ -91,13 +83,19 @@ module Sources
       def request_datapoints(from, to, target)        
          puts "request_datapoints"
         result = []       
-          hash = @url_builder.datapoints_url(from, to, target)
+          hash = @url_builder.data_url(from, to, target)
           Rails.logger.debug("Requesting datapoints from #{hash[:url]} with params #{hash[:params]} ...")
-          response = ::HttpService.request(hash[:url], :params => hash[:params])          
+          response = ::HttpService.request(hash[:url], :params => hash[:params])                
+          Nokogiri::HTML(response).xpath("//table/tr/td/table/tr").collect do |row|     
+             if row.at("td[1]/text()").to_s == "Uptime"        
+               @timestamp   = row.at("td[2]/text()").to_s
+             end             
+           end          
           if response == "null"
             result << []
           else
-            result << response.first["datapoints"]            
+            #result << response.first["datapoints"]    
+            result << @timestamp        
           end       
         result
       end

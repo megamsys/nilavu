@@ -1,6 +1,6 @@
 <div id="dash">
-	<div id="sidebar">		
-		<ul>
+	<div id="sidebar">
+		<ul ng-controller="MainCtrl">
 			<% if current_user.organization %>
 			<li>
 				<%= image_tag current_user.organization.logo, :alt => "Logo",  :class => "img-circle"%>
@@ -10,18 +10,24 @@
 
 				<%= image_tag "default_you.png", :alt => "Logo", :class => "img_circle"  %>
 			</li>
-			<% end %>           
+			<% end %>
 			<li class=<%= "active" if controller_name== "users"%>>
 				<%= link_to dashboards_path  do %>
 				<i class="icon-dashboard"></i><span> Dashboard</span>
 				<% end %>
 			</li>
 
-			<li class=<%= "active" if controller_name== "cloud_books"%> > 				        
+			<li class=<%= "active" if controller_name== "cloud_books"%> >
 				<%= link_to cloud_books_path  do %>
 				<i class="icon-book"></i>Cloud Books
 				<% end %>
 			</li>
+
+			<!--<li class=<%= "active" if controller_name== "cloud_books"%> >
+				<a href="/cloud_books/index" ng-click="changeLocation()" >
+				<i class="icon-book"></i>Cloud Book
+				</a>
+			</li>-->
 
 			<li class=<%= "active" if controller_name== "cloud_books_history"%>>
 				<%= link_to cloud_books_histories_path do %>
@@ -68,16 +74,15 @@
 						<% end %>
 					</li>
 
-
 					<li>
-         
-<%= link_to "Worker", worker_path, :remote => true, :method => "post", data: { spinner: '#fed'}  %>
-<%= spinner_tag 'fed' %>
-<!--<%= link_to "Worker", worker_path, :method => "post", :remote => true %>  -->
+
+						<%= link_to "Worker", worker_path, :remote => true, :method => "post", data: { spinner: '#fed'}  %>
+						<%= spinner_tag 'fed' %>
+						<!--<%= link_to "Worker", worker_path, :method => "post", :remote => true %>  -->
 					</li>
 
 				</ul>
-			</li>		
+			</li>
 		</ul>
 
 	</div>

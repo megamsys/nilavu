@@ -15,7 +15,7 @@ require 'open-uri'
 #   example: hostname@cluster(metric-name)
 #
 module Sources
-  module Requests
+  module Requestserved
     class Ganglia < Sources::Requests::Base
 
      PORT = 8649
@@ -36,12 +36,6 @@ module Sources
          metric  = Rails.configuration.ganglia_request_metric
         #targets = targets.reject(&:blank?)
         ganglia_datapoints = request_datapoints(from, to, metric)
-
-        params = { :from => from, :to => to, :targets => "nginx_status" }
-        response_body = ::HttpService.request("http://gmond.megam.co/nginx_status.json", :params => params)
-        puts "+++++++++++++++++++++++++++++++++++++++++++++++"
-        puts response_body
-        
         result = []   
           result << { "datapoints" => ganglia_datapoints }       
         raise Sources::Datapoints::NotFoundError if result.empty?

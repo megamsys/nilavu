@@ -14,4 +14,14 @@ app.controller("MainCtrl", [ "$scope", "$rootScope", "$location",
 				 console.log("location");
 				  $location.path('/cloud_books');
 				};
+				
+				function changeLocation() {
+					  $scope = $scope || angular.element(document).scope();
+					    //only use this if you want to replace the history stack
+					    //$location.path(url).replace();
+
+					    //this this if you want to change the URL and add it to the history stack
+					    $location.path();
+					    $scope.$apply();		 
+					};
 		} ]);

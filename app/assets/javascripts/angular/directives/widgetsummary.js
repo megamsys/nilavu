@@ -1,12 +1,14 @@
-app.directive("widget", ["$compile", function($compile) {
-
+app.directive("widgetsummary", ["$compile", function($compile) {
+	
   var linkFn = function(scope, element, attrs) {
    console.log("scope widget"+scope.widget.kind);
+   if (scope.widget.widget_type == "summary") {
     // TODO: cleanup, an attribute can't be created in the template with expression
     var elm = element.find(".widget_content");
     //elm.append('<div ' + scope.widget.kind.replace("_", "-") + ' />');
     elm.append('<div '+ scope.widget.name + ' />');
     $compile(elm)(scope);
+   }
    
   };
 
@@ -15,4 +17,5 @@ app.directive("widget", ["$compile", function($compile) {
     template: JST["angular/templates/widget/show"],
     link: linkFn
   };
+	
 }]);
