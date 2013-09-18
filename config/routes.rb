@@ -61,7 +61,7 @@ Cloudauth::Application.routes.draw do
   #to-do remove the users#update named route.
   match '/update', to: 'users#update', via: [:get, :post, :patch]
   match '/upgrade', to: 'users#upgrade', via: [:post]
-  match '/email_verify', to: 'users#email_verify',via: [:post]
+  match '/email_verify', to: 'users#email_verify',via: [:get,:post]
   match '/verified_email', to: 'users#verified_email', via: [:get]
   match '/signin', to: 'sessions#new', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post,:delete]

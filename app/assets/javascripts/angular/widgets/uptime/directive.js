@@ -10,15 +10,16 @@ app.directive("uptime", ["UptimeModel", function(UptimeModel) {
 		    }
 
 		    function update() {
-		      return UptimeModel.getData("ganglia").success(onSuccess);
+		      return UptimeModel.getData("demo").success(onSuccess);
 		    }
 
 		    scope.init(update);
 		  };
 
   return {
-	  template: '<div class="span4"><ul class="site-stats"><li><i class="icon-user"></i><strong>{{data}}</strong><small>Total Uptime(days)</small></li></ul></div>',    
-      link: linkFn
+	  template: '<div class="span4" id="uptime"><ul class="site-stats"><li><i class="icon-user"></i><strong>{{data}}</strong><small>Total Uptime(days)</small></li></ul></div>',    
+      //template: '<i class="icon-tag"></i><strong>{{data}}</strong><small>Total Uptime(days)</small>',
+	  link: linkFn
   };
 }]);
 

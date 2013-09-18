@@ -148,6 +148,7 @@ ActiveRecord::Schema.define(version: 20130828101201) do
     t.string   "targets"
     t.text     "settings"
     t.integer  "dashboard_id"
+    t.string   "widget_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

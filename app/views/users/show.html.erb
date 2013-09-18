@@ -1,6 +1,6 @@
 <div id="dash">
 	<div id="sidebar">
-		<ul>
+		<ul ng-controller="MainCtrl">
 			<div class="you">
 				<li>
 					<%= image_tag avatar_url(current_user) %>
@@ -21,7 +21,13 @@
 				<% end %>
 			</li>
 
-			<li class=<%= "active" if controller_name== "cloud_books_histories"%>>
+			<!--<li class=<%= "active" if controller_name== "cloud_books"%> >
+			<a href="/cloud_books/index" ng-click="changeLocation()" >
+			<i class="icon-book"></i>Cloud Book
+			</a>
+			</li>-->
+
+			<li class=<%= "active" if controller_name== "cloud_books_history"%>>
 				<%= link_to cloud_books_histories_path do %>
 				<i class="icon-spinner"></i>Run History
 				<% end %>

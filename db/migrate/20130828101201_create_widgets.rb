@@ -8,6 +8,7 @@ class CreateWidgets < ActiveRecord::Migration
       t.string :targets
       t.text :settings
       t.integer :dashboard_id
+      t.string :widget_type
 
       t.timestamps
     end
