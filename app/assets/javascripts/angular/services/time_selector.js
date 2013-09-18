@@ -78,8 +78,8 @@ app.factory("TimeSelector", function() {
       case "60-minutes":
         range = 60*60;
         break;
-      case "3-hours":
-        range = 3600*3;
+      case "1-hours":
+        range = 3600*1;
         break;
       case "12-hours":
         range = 3600*12;

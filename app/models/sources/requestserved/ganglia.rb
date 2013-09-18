@@ -16,7 +16,7 @@ require 'open-uri'
 #
 module Sources
   module Requestserved
-    class Ganglia < Sources::Requests::Base
+    class Ganglia < Sources::Requestserved::Base
 
      PORT = 8649
 

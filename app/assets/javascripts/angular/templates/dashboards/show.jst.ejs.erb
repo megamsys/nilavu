@@ -2,10 +2,6 @@
 	<div class="widget-title">
 		<span class="icon"><i class="icon-signal"></i></span><h5>Summary</h5>
 		<span class="title"><img ng-show="enableSpinner" class="ajax-spinner" width="12" height="12" src="<%= asset_path('spinner2.gif') %>"></img></span>
-
-		<div class="buttons">
-			<a href="#" class="btn btn-mini"><i class="icon-refresh"></i> Update stats</a>
-		</div>
 	</div>
 	<div class="widget-content">
 		<div class="row-fluid ">
@@ -21,13 +17,9 @@
 	<div class="widget-title">
 		<span class="icon"><i class="icon-signal"></i></span><h5>PerNode</h5>
 		<span class="title"><img ng-show="enableSpinner" class="ajax-spinner" width="12" height="12" src="<%= asset_path('spinner2.gif') %>"></img></span>
-		
-		<div class="buttons">
-			<a href="#" class="btn btn-mini"><i class="icon-refresh"></i> Update stats</a>
-		</div>
 	</div>
-	<div class="widget-content">		
-			<div class="widget" ng-repeat="widget in widgets" widgetpernode/>		
+	<div class="widget-content">
+		<div class="widget" ng-repeat="widget in widgets" widgetpernode/>
 	</div>
 </div>
 </div>

@@ -1,25 +1,27 @@
-#require 'xml'
-require 'open-uri'
-
-#
-# Configure the Ganglia URL and host in application.rb:
-#   config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
-#   config.ganglia_host     = ENV['GANGLIA_HOST']
-#
-# or use and environment variable:
-#   GANGLIA_WEB_URL=http://localhost:8080 rails s
-#
-# Target Selection:
-#   You need to know the cluster name, hostname and metric name. Usually its easy
-#   to obtain these from the graph url directly.
-#
-#   example: hostname@cluster(metric-name)
-#
 module Sources
   module Datapoints
     class Ganglia < Sources::Datapoints::Base
 
+      #require 'xml'
+      require 'open-uri'
+
+      #
+      # Configure the Ganglia URL and host in application.rb:
+      #   config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
+      #   config.ganglia_host     = ENV['GANGLIA_HOST']
+      #
+      # or use and environment variable:
+      #   GANGLIA_WEB_URL=http://localhost:8080 rails s
+      #
+      # Target Selection:
+      #   You need to know the cluster name, hostname and metric name. Usually its easy
+      #   to obtain these from the graph url directly.
+      #
+      #   example: hostname@cluster(metric-name)
+      #
+
       PORT = 8649
+
       def initialize
         @url_builder = GangliaUrlBuilder.new(Rails.configuration.ganglia_web_url)
 
@@ -44,9 +46,8 @@ module Sources
         raise Sources::Datapoints::NotFoundError if result.empty?
         result
       end
-    
 
-      private      
+      private
 
       def request_datapoints(from, to, target)
         puts "request_datapoints"
@@ -63,7 +64,7 @@ module Sources
       end
 
       def request_uptime(from, to, target)
-        puts "request_uptime"        
+        puts "request_uptime"
         hash = @url_builder.data_url(from, to, target)
         Rails.logger.debug("Requesting Uptime from #{hash[:url]} with params #{hash[:params]} ...")
         response = ::HttpService.request(hash[:url], :params => hash[:params])

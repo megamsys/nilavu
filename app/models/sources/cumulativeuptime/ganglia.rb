@@ -16,8 +16,8 @@ require 'nokogiri'
 #   example: hostname@cluster(metric-name)
 #
 module Sources
-  module CumulativeUptime
-    class Ganglia < Sources::Uptime::Base
+  module Cumulativeuptime
+    class Ganglia < Sources::Cumulativeuptime::Base
 
       PORT = 8649
 

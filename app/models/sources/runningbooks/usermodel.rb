@@ -1,6 +1,6 @@
 module Sources
   module Runningbooks
-    class Usermodel
+    class Usermodel < Sources::Runningbooks::Base
       def get(options = {})
         widget  = Widget.find(7)
         dashboard_id = widget.dashboard_id
