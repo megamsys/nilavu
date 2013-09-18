@@ -1,17 +1,17 @@
-app.factory("GraphModel", ["$http", "TimeSelector", function($http, TimeSelector) {
+app.factory("GraphModel", ["$http", "TimeSelector", "Sources", function($http, TimeSelector, Sources) {
 
-	function getParams(source) {
+	function getParams(config) {
 	    return {	
-	    	 from: TimeSelector.getFrom("60-minutes"),
-	         to: TimeSelector.getCurrent("60-minutes"),
-	      kind: 'datapoints',
-	      name: source
+	    	 from: TimeSelector.getFrom(config.settings),
+	         to: TimeSelector.getCurrent(config.settings),
+	      kind: config.kind,
+	      name: config.source
 	    };
 	  }	 
 
-  function getData(source) {
-	  console.log("data source entry----->"+source);	
-	return $http.get("/api/data_sources/datapoints.json", { params: getParams(source) });
+  function getData(config) {
+	  console.log("data source entry----->"+config);	
+	return $http.get("/api/data_sources/datapoints.json", { params: getParams(config) });
   }
   return {
     getData: getData

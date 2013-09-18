@@ -1,6 +1,6 @@
 module Sources
   module Datapoints
-    class Demo
+    class Demo < Sources::Datapoints::Base
       
       def get(options = {})
         from    = (options[:from]).to_i

@@ -1,4 +1,4 @@
-app.directive("graph", ["FlotrGraphHelper", "GraphModel", function(FlotrGraphHelper, GraphModel) {
+app.directive("graph", ["FlotrGraphHelper", "GraphModel", "Sources", function(FlotrGraphHelper, GraphModel, Sources) {
 
   var currentColors = []; 
   
@@ -14,13 +14,13 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", function(FlotrGraphHel
 	    	 var plot = $.plot("#graph_placeholder", FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, 0.7));
 	    	plot.setData(FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors));   		   	
 	     	plot.draw();		  
-	      element.height(265);
+	      //element.height(265);
 	      console.log(data);
 	      //Flotr.draw(element[0], FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, 0.7));
 	    }     
 
     function update() {     
-    	return GraphModel.getData("ganglia").success(onSuccess);
+    	return GraphModel.getData(scope.widget).success(onSuccess);
     }
 
     function parseUptime(responsedata) {
@@ -54,34 +54,10 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", function(FlotrGraphHel
 
   return {
       //template: '<div id="graph_placeholder"  style=" height:300px; width:800px"></div>',   
-	  //template: '<div class="g_container"></div>',
-	   /*template: '<div class="widget-box">'+
-			+'<div class="widget-title">'+
-			+'<span class="icon"><i class="icon-signal"></i></span><h5>Site Statistics</h5>'+
-			+'<div class="buttons">'+
-			+'<a href="#" class="btn btn-mini"><i class="icon-refresh"></i> Update stats</a>'+
-			+'</div>'+
-			+'</div>'+
-			+'<div class="widget-content">'+
-			+'<div class="row-fluid">'+
-			+'<div class="span4">'+
-			+'<ul class="site-stats">'+
-			+'<li>'+
-			+'<i class="icon-user"></i><strong>{{uptime_data}}</strong><small>Total Uptime(days)</small>'+
-			+'</li>'+
-			+'<li class="divider"></li>'+
-			+'<li>'+
-			+'<div class="left peity_bar_bad"><span>3,5,9,7,12,20,10</span>-50%</div><div class="right"><strong>{{rpm_data}}</strong>Requests Served(rpm)</div>'+
-			+'</li>		'+												
-			+'</ul>'+
-			+'</div>'+
-			+'<div class="span8">'+
-			+'<div id="graph_placeholder"></div>'+
-			+'</div>'+
-			+'</div>'+
-			+'</div>'+
-			+'</div>',*/
-	  template: '<div class="row-fluid"><div class="span4"><ul class="site-stats"><li><i class="icon-user"></i><strong>{{uptime_data}}</strong><small>Total Uptime(days)</small></li><li class="divider"></li></ul><br/><div class="center" style="text-align: center;"><ul class="stat-boxes"><li class="popover-visits"><div class="left peity_bar_bad"><span>3,5,9,7,12,20,10</span>-50%</div><div class="right"><strong>{{rpm_data}}</strong>Requests Served(rpm)</div></li></ul></div></div><div class="span8"><div class="row-fluid><button class="btn btn-primary span3"><i class=" icon-signal icon-white"></i> LAST 24hours</button><button class="btn btn-primary span3"><i class=" icon-signal icon-white"></i> LAST 6hours</button><button class="btn btn-primary span3"><i class="icon-signal icon-white"></i> LAST 30minutes</button></div><br/><br/><div id="graph_placeholder" style=" height:300px; width:800px"></div></div></div></div>',
+	  //template: '<div class="g_container"></div>',	   
+	  //template: '<div class="row-fluid"><div class="span4"><ul class="site-stats"><li><i class="icon-user"></i><strong>{{uptime_data}}</strong><small>Total Uptime(days)</small></li><li class="divider"></li></ul><br/><div class="center" style="text-align: center;"><ul class="stat-boxes"><li class="popover-visits"><div class="left peity_bar_bad"><span>3,5,9,7,12,20,10</span>-50%</div><div class="right"><strong>{{rpm_data}}</strong>Requests Served(rpm)</div></li></ul></div></div><div class="span8"><div class="row-fluid"><div class="span12 center" style="text-align: center;"><ul class="quick-actions"><li><a href="#"><i class="icon-graph"></i>LAST 30-minutes</a></li><li><a href="#"><i class="icon-graph"></i>LAST 60-minutes</a></li><li><a href="#"><i class="icon-graph"></i>LAST 1-hour</a></li></ul></div></div><br/><br/><div id="graph_placeholder" style=" height:300px; width:800px"></div></div></div>',
+	  template: JST["angular/templates/widgets/pernode/show"],
+	  controller : "WidgetPerNodeCtrl",
 	  link: linkFn
   };
 }]);

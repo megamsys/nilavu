@@ -47,6 +47,7 @@
 //= require angular/templates/dashboards/index.jst
 //= require angular/templates/dashboards/show.jst
 //= require angular/templates/widget/show.jst
+//= require angular/templates/widgets/pernode/show.jst
 //= require underscore
 //= require angular
 //= require angular-bootstrap

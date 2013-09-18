@@ -32,3 +32,7 @@ function cloudbooksctrl($scope, $location) {
 		$location.path("/cloud_books/index").replace();
 	});
 }
+
+//WidgetPerNodeCtrl.$inject = ['$scope', 'mySharedService'];        
+
+//DashboardShowCtrl.$inject = ['$scope', 'mySharedService'];

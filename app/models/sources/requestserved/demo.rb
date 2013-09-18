@@ -1,6 +1,6 @@
 module Sources
   module Requestserved
-    class Demo
+    class Demo < Sources::Requestserved::Base
       def get(options = {})
         { :value => Random.rand(10...100) }
       end

@@ -1,18 +1,15 @@
 module Sources
   module Datapoints
-    class Demo
-      def get()
-        puts "==========="
-        puts "Demo2"
-        datapoints = []
-               
-        data1 = [ [ [Random.rand(10...42), Random.rand(10...42)], [Random.rand(10...42), Random.rand(10...42)], [Random.rand(10...42), Random.rand(10...42)], [Random.rand(10...42), Random.rand(10...42)], [Random.rand(10...42), Random.rand(10...42)] ] ]     
-      
-        datapoints = data1
-        
-        #datapoints = [ [ [0, 0], [1, 2], [10, 4], [11, 6], [4, 8] ] ];
+    class Demo1 < Sources::Datapoints::Base
+       def get(options = {})
+        from    = (options[:from]).to_i
+        to      = (options[:to] || Time.now).to_i       
+
+        datapoints = []       
+          datapoints << {:datapoints => ::DemoHelper.generate_datapoints(from, to), :uptime_data => ::DemoHelper.get_rand_data(from, to), :rpm => ::DemoHelper.get_rand_data(from, to) }       
         datapoints
       end
+      
 
     end
   end

@@ -1,6 +1,6 @@
 module Sources
   module Uptime
-    class Demo
+    class Demo < Sources::Uptime::Base
       def get(options = {})
         { :value => Random.rand(10...100) }
       end

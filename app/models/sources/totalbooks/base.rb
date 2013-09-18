@@ -1,5 +1,5 @@
 module Sources
-  module Cumulativeuptime
+  module Totalbooks
 
     class Error < StandardError; end
     class NotFoundError < Error; end

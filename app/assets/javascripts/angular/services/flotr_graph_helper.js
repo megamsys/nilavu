@@ -5,7 +5,7 @@ app.factory("FlotrGraphHelper", ["ColorFactory", "SuffixFormatter", "$window", f
     switch(range) {
     case "30-minutes":
     case "60-minutes":
-    case "3-hours":
+    case "1-hours":
     case "12-hours":
     case "24-hours":
     case "today":
