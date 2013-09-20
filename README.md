@@ -51,15 +51,24 @@ license` to use it for their own need.
 
 *  Click all bottom static links
 
-> Clean DB/ megam_play down, config.metric.source = demo
+> Clean DB/ megam_play down, config.metric.source = demo, config.payment.gateway = demo
 * Run the functional tests for Signin/Signup
-* Click Dashboard
-* Login, click the left links (growls should appear) and angular should get loaded correctly.
+* Update My Account, Organization, API Key, PW 
+(1) Click Dashboard
+(2) Login, click the left links 
+* Cloud Book - (Error growls should appear) 
+* Cloud Runs - Angular should get loaded correctly.
+(3) Signout, Sign In, and perform 1, 2
 
-> Clean DB/ megam_play up, config.metric.source = demo
+> Clean DB/ megam_play up, config.metric.source = demo, config.payment.gateway = demo
 * Run the functional tests for Signin/Signup
-* Login, click the left links (growls should appear) and angular should get loaded correctly.
-* Click "Create Cloud Books (Step 1, Step 2)"
+* Update My Account, Organization, API Key, PW
+(1) Click Dashboard
+(2) Login, click the left links
+* Cloud Books - (Success growls should appear)
+* Cloud Runs - Angular should get loaded correctly.
+(3) Click "Create Cloud Books (Step 1, Step 2)"
+(4) Signout, Sign In, and perform 1,2,3
 
 
 
