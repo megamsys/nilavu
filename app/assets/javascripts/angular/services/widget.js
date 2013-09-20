@@ -8,5 +8,6 @@ app.factory("Widget", ["$resource", function($resource) {
       'update':  { method: 'PUT' },
       'destroy': { method: 'DELETE' }
     }
-  );
+  ); 
+  
 }]);

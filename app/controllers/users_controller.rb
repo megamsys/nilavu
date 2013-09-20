@@ -105,16 +105,17 @@ puts res_body
       #Dashboard entry
       #puts("---------create---------->> entry") 
       @dashboard=@user.dashboards.create(:name=> params[:user][:first_name])   
-      @widget=@dashboard.widgets.create(:name=>"graph", :kind=>"datapoints", :source=>"demo", :widget_type=>"pernode")
-      @widget=@dashboard.widgets.create(:name=>"totalbooks", :kind=>"totalbooks", :source=>"demo", :widget_type=>"summary")
-      @widget=@dashboard.widgets.create(:name=>"newbooks", :kind=>"newbooks", :source=>"demo", :widget_type=>"summary")
-      @widget=@dashboard.widgets.create(:name=>"requests", :kind=>"requests", :source=>"demo", :widget_type=>"pernode")
-      @widget=@dashboard.widgets.create(:name=>"uptime", :kind=>"uptime", :source=>"demo", :widget_type=>"pernode")
-      @widget=@dashboard.widgets.create(:name=>"queue", :kind=>"queue", :source=>"demo", :widget_type=>"summary")
-      @widget=@dashboard.widgets.create(:name=>"runningbooks", :kind=>"runningbooks", :source=>"demo", :widget_type=>"summary")
-      @widget=@dashboard.widgets.create(:name=>"cumulativeuptime", :kind=>"cumulativeuptime", :source=>"demo", :widget_type=>"summary")
-      @widget=@dashboard.widgets.create(:name=>"requestserved", :kind=>"requestserved", :source=>"demo", :widget_type=>"pernode")
-      @widget=@dashboard.widgets.create(:name=>"queuetraffic", :kind=>"queuetraffic", :source=>"demo", :widget_type=>"summary")
+      book_source = Rails.configuration.metric_source  
+      @widget=@dashboard.widgets.create(:name=>"graph", :kind=>"datapoints", :source=>book_source, :widget_type=>"pernode")
+      @widget=@dashboard.widgets.create(:name=>"totalbooks", :kind=>"totalbooks", :source=>book_source, :widget_type=>"summary")
+      @widget=@dashboard.widgets.create(:name=>"newbooks", :kind=>"newbooks", :source=>book_source, :widget_type=>"summary")
+      @widget=@dashboard.widgets.create(:name=>"requests", :kind=>"requests", :source=>book_source, :widget_type=>"pernode")
+      @widget=@dashboard.widgets.create(:name=>"uptime", :kind=>"uptime", :source=>book_source, :widget_type=>"pernode")
+      @widget=@dashboard.widgets.create(:name=>"queue", :kind=>"queue", :source=>book_source, :widget_type=>"summary")
+      @widget=@dashboard.widgets.create(:name=>"runningbooks", :kind=>"runningbooks", :source=>book_source, :widget_type=>"summary")
+      @widget=@dashboard.widgets.create(:name=>"cumulativeuptime", :kind=>"cumulativeuptime", :source=>book_source, :widget_type=>"summary")
+      @widget=@dashboard.widgets.create(:name=>"requestserved", :kind=>"requestserved", :source=>book_source, :widget_type=>"pernode")
+      @widget=@dashboard.widgets.create(:name=>"queuetraffic", :kind=>"queuetraffic", :source=>book_source, :widget_type=>"summary")
 
       #@dashboard = Dashboard.new(:name=> params[:first_name], :user_id => current_user.id)
 
@@ -133,7 +134,7 @@ puts res_body
         flash[:error] = "Email #{@user.email} already exists.<div class='right'> #{ActionController::Base.helpers.link_to 'Forgot Password ?.', forgot_path}</div>".html_safe
         redirect_to signin_path
       else
-        flash[:alert] = "An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}".html_safe
+        #flash[:alert] = "An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}".html_safe
         redirect_to signup_path
       end
 

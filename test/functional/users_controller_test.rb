@@ -9,7 +9,7 @@ class UsersControllerTest < ActionController::TestCase
     assert_difference('User.count') do
       post :create, user: {:first_name => @@sample_user["first_name"], :last_name => @@sample_user["last_name"], :phone => @@sample_user["phone"], :email => @@sample_user["email"], :password => @@sample_user["password"], :password_confirmation => @@sample_user["password"]}
     end
-    assert_redirected_to dashboard_path
+    assert_redirected_to dashboards_path
     assert_equal flash[:success] , "Welcome #{@@sample_user["first_name"]}"
   end
 
@@ -17,16 +17,14 @@ class UsersControllerTest < ActionController::TestCase
     assert_difference('User.count') do
       post :create, user: {:first_name => @@sample_user["first_name"], :email => @@sample_user["email"], :password => @@sample_user["password"], :password_confirmation => @@sample_user["password"]}
     end
-    assert_redirected_to dashboard_path
+    assert_redirected_to dashboards_path
     assert_equal flash[:success] , "Welcome #{@@sample_user["first_name"]}"
   end
 
   test "Sign up with defferent values of password & password confirmations" do
-    assert_difference('User.count') do
-      post :create, user: {:first_name => @@sample_user["first_name"], :last_name => @@sample_user["last_name"], :phone => @@sample_user["phone"], :email => @@sample_user["email"], :password => @@sample_user["password"], :password_confirmation => @@sample_user["password_i"]}
-    end
-    assert_redirected_to dashboard_path
-    assert_equal flash[:success] , "Welcome #{@@sample_user["first_name"]}"
+     post :create, user: {:first_name => @@sample_user["first_name"], :last_name => @@sample_user["last_name"], :phone => @@sample_user["phone"], :email => @@sample_user["email"], :password => @@sample_user["password"], :password_confirmation => @@sample_user["password_i"]}
+     assert_redirected_to signup_path
+    #assert_equal flash[:success] , "Welcome #{@@sample_user["first_name"]}"
   end
 
 end

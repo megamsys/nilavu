@@ -71,6 +71,23 @@ license` to use it for their own need.
 (4) Signout, Sign In, and perform 1,2,3
 
 
+### Unit Testing for user SIGNIN and SIGNUP
+
+(1) Clean DB
+(2) Develop test specs for our condition's, for example we use following conditions via spec
+
+*  Sign up with all input parameters
+*  Sign up with defferent values of password & password confirmation
+*  login with valid credentials
+*  login with invalid credentials 
+                                 and etc...
+
+(3) * These conditions check the given data, 
+    * it'll not affect the original data, 
+    * it'll not create any records in database for signup
+    
+(4) For login testcases fixtures data will be loaded to database      
+
 
 ### Getting Started
 

@@ -2,15 +2,15 @@ module Sources
   module Runningbooks
     class Usermodel < Sources::Runningbooks::Base
       def get(options = {})
-        widget  = Widget.find(7)
+        puts "+++++++++++++++++++++++++++++++++++++++++++++++++++"
+        puts options[:widgetid].to_i
+        #widget  = Widget.find(options[:widgetid].to_i) 
+        widget  = Widget.find(1)
         dashboard_id = widget.dashboard_id
         dashboard = Dashboard.find(dashboard_id)
         user_id = dashboard.user_id
         r = (CloudBooksHistory.where(:book_id => CloudBook.where(:users_id => user_id)).where(:status => 'running').count).to_f
-        t = (CloudBook.where(:users_id => user_id).count).to_f
-        puts "++++++++++++++++++++++++++++++++++++++++++++++++++++"
-        puts r
-        puts t
+        t = (CloudBook.where(:users_id => user_id).count).to_f        
         if t == 0.0
         a = 0.0
         else

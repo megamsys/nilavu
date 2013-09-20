@@ -3,9 +3,10 @@ module Books
   
    def availableBooks(userID)
      c = []
-     c << { "nodes" => CloudBook.select("name").where(:users_id => userID) } 
-     puts c    
-     c
+     #CloudBook.select("name").where(:users_id => userID).map { |n|  n.name }
+     #puts c
+    { "books" => CloudBook.select("name").where(:users_id => userID).map { |n|  n.name } } 
+     
    end
   
 end 

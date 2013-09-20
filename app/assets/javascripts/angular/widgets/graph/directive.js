@@ -1,11 +1,8 @@
-app.directive("graph", ["FlotrGraphHelper", "GraphModel", "Sources", function(FlotrGraphHelper, GraphModel, Sources) {
+app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sources", function(FlotrGraphHelper, GraphModel, $routeParams, Sources) {
 
   var currentColors = []; 
   
-  var linkFn = function(scope, element, attrs) {
-	  
-	  console.log("graph entry");
-	 	 
+  var linkFn = function(scope, element, attrs) {  	 
 	  
 	  function onSuccess(data) {
 		  
@@ -19,8 +16,13 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", "Sources", function(Fl
 	      //Flotr.draw(element[0], FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, 0.7));
 	    }     
 
-    function update() {     
-    	return GraphModel.getData(scope.widget).success(onSuccess);
+    function update() {  
+    	if ($routeParams.book != null) {
+    		return GraphModel.getData(scope.widget, $routeParams.book).success(onSuccess);
+    	}
+    	else {    		
+    		return GraphModel.getData(scope.widget, "demo").success(onSuccess);
+    	}
     }
 
     function parseUptime(responsedata) {

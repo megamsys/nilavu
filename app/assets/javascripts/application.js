@@ -34,7 +34,6 @@
 //= require flotr2
 //= require jquery.flot
 //= require jquery.flot.time
-//= require jquery.peity
 //= require fullcalendar
 //= require unicorn.tables
 //= require dataTables/jquery.dataTables
@@ -46,8 +45,11 @@
 //= require socket.io
 //= require angular/templates/dashboards/index.jst
 //= require angular/templates/dashboards/show.jst
+//= require angular/templates/dashboards/book_show.jst
 //= require angular/templates/widget/show.jst
 //= require angular/templates/widgets/pernode/show.jst
+//= require angular/templates/widget/book_show.jst
+//= require jquery.peity
 //= require underscore
 //= require angular
 //= require angular-bootstrap

@@ -1,17 +1,20 @@
 app.factory("GraphModel", ["$http", "TimeSelector", "Sources", function($http, TimeSelector, Sources) {
 
-	function getParams(config) {
+	function getParams(config, book) {
 	    return {	
+	    	widgetid: config.id,
 	    	 from: TimeSelector.getFrom(config.settings),
 	         to: TimeSelector.getCurrent(config.settings),
 	      kind: config.kind,
-	      name: config.source
+	      name: config.source,
+	      host: book,
+	      target: config.targets
 	    };
 	  }	 
 
-  function getData(config) {
+  function getData(config, book) {	  
 	  console.log("data source entry----->"+config);	
-	return $http.get("/api/data_sources/datapoints.json", { params: getParams(config) });
+	return $http.get("/api/data_sources/datapoints.json", { params: getParams(config, book) });
   }
   return {
     getData: getData

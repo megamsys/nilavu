@@ -33,14 +33,18 @@ module Sources
 
       def get(options = {})
         puts "get entry"
+        puts "+++++++++++++++++++++++++++++++++++++++++++++++++++"
+        puts options[:widgetid].to_i
         from    = (options[:from]).to_i
         to      = (options[:to] || Time.now).to_i
-        graph_metric  = Rails.configuration.ganglia_graph_metric
+        host    = (options[:host]).to_s
+        #graph_metric  = Rails.configuration.ganglia_graph_metric
+        graph_metric = (options[:target]).to_s
         uptime_metric  = Rails.configuration.ganglia_request_metric
         #targets = targets.reject(&:blank?)
-        ganglia_datapoints = request_datapoints(from, to, graph_metric)
-        ganglia_uptime = request_uptime(from, to, uptime_metric)
-        model_rpm = request_rpm(from, to, uptime_metric)
+        ganglia_datapoints = request_datapoints(from, to, graph_metric, host)        
+        ganglia_uptime = request_uptime(from, to, uptime_metric, host)
+        model_rpm = request_rpm(from, to, uptime_metric, host)
         result = []
         result << { "datapoints" => ganglia_datapoints, "uptime_data" => ganglia_uptime, "rpm" => model_rpm }
         raise Sources::Datapoints::NotFoundError if result.empty?
@@ -49,10 +53,10 @@ module Sources
 
       private
 
-      def request_datapoints(from, to, target)
+      def request_datapoints(from, to, target, host)
         puts "request_datapoints"
         result = []
-        hash = @url_builder.datapoints_url(from, to, target)
+        hash = @url_builder.datapoints_url(from, to, target, host)
         Rails.logger.debug("Requesting datapoints from #{hash[:url]} with params #{hash[:params]} ...")
         response = ::HttpService.request(hash[:url], :params => hash[:params])
         if response == "null"
@@ -63,9 +67,9 @@ module Sources
         result
       end
 
-      def request_uptime(from, to, target)
+      def request_uptime(from, to, target, host)
         puts "request_uptime"
-        hash = @url_builder.data_url(from, to, target)
+        hash = @url_builder.data_url(from, to, target, host)
         Rails.logger.debug("Requesting Uptime from #{hash[:url]} with params #{hash[:params]} ...")
         response = ::HttpService.request(hash[:url], :params => hash[:params])
         Nokogiri::HTML(response).xpath("//table/tr/td/table/tr").collect do |row|
@@ -82,7 +86,7 @@ module Sources
         result
       end
 
-      def request_rpm(from, to ,target)
+      def request_rpm(from, to, target, host)
         Random.rand(10...100)
       end
 

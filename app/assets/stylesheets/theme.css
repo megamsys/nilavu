@@ -214,19 +214,19 @@ input[type="color"]:focus,
 }
 
   you {
-    .border-radius(0);
-    .box-shadow(none);
-    border-bottom: 1px solid @gray;
+     border-radius:0;
+    box-shadow:none;
+    border-bottom: 1px solid gray;
   }
 
   you > li > a {
     padding: 15px 15px 14px;
-        color: @white;
+        color: white;
     border-bottom: 1px solid transparent;
   }
 
   you > li > a:hover {
-    border-bottom: 1px solid @blue;
+    border-bottom: 1px solid blue;
   }
 
   

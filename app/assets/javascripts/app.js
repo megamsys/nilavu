@@ -9,11 +9,10 @@ app.config(function($routeProvider, $locationProvider) {
 	}).when("/dashboards/:id", {
 		template : JST["angular/templates/dashboards/show"],
 		controller : "DashboardShowCtrl"
-	});
-	// .when('/cloud_books', { controller: 'MainCtrl'});
-	// .when("/cloud_books", {template: ".../views/cloud_books/index.html",
-	// controller: ".../controllers/CloudBooksController" });
-	// .otherwise({ redirectTo: $location.path() });
+	}).when("/dashboards/:id/:book", {
+		template : JST["angular/templates/dashboards/show"],
+		controller : "DashboardShowCtrl"
+	});		
 });
 
 app.config(function($httpProvider) {
@@ -33,6 +32,7 @@ function cloudbooksctrl($scope, $location) {
 	});
 }
 
-//WidgetPerNodeCtrl.$inject = ['$scope', 'mySharedService'];        
+function BookCtrl($scope, $routeParams) {
+    $scope.templateUrl = JST["angular/templates/widget/book_show"];
+}
 
-//DashboardShowCtrl.$inject = ['$scope', 'mySharedService'];

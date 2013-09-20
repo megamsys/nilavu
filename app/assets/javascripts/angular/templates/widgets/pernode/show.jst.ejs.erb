@@ -1,51 +1,37 @@
-<div class="row-fluid">
-	<div class="span4">
-		<div class="btn-toolbar">
-			<div class="btn-group">
-				<button class="btn btn-inverse">
-					Books
-				</button>
-				<button data-toggle="dropdown" class="btn btn-inverse dropdown-toggle">
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu">
-					<li></li>
-				</ul>
-			</div>
+<div class="span4">
+	<div class="btn-toolbar" style="padding-left:40%;">
+		<div class="btn-group" title="select a source to watch METRICS" class="tip-bottom">
+			<button class="btn btn btn-large">
+				Sources
+			</button>
+			<button data-toggle="dropdown" class="btn btn btn-large dropdown-toggle">
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li ng-repeat="i in sources">
+					<a href="#" ng-click="update_widget_source(i.value, widget)">{{i.value}}</a>
+				</li>
+			</ul>
 		</div>
 	</div>
-	<div class="span4">
-		<div class="btn-toolbar">
-			<div class="btn-group">
-				<button class="btn btn-inverse">
-					Sources
-				</button>
-				<button data-toggle="dropdown" class="btn btn-inverse dropdown-toggle">
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu">
-					<li ng-repeat="i in sources">
-						<a href="#" ng-click="update_widget_source(i.value, widget)">{{i.value}}</a>
-					</li>
-				</ul>
-			</div>
+</div>
+<div class="span4">
+	<div class="btn-toolbar" style="padding-left:40%;">
+		<div class="btn-group" title="" class="tip-bottom">
+			<button class="btn btn btn-large">
+				Metrics
+			</button>
+			<button data-toggle="dropdown" class="btn btn btn-large dropdown-toggle">
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li ng-repeat="i in metrics">
+					<a href="#" ng-click="update_widget_metrics(i.value, widget)">{{i.value}}</a>
+				</li>
+			</ul>
 		</div>
 	</div>
-	<div class="span4">
-		<div class="btn-toolbar">
-			<div class="btn-group">
-				<button class="btn btn-inverse">
-					Metrics
-				</button>
-				<button data-toggle="dropdown" class="btn btn-inverse dropdown-toggle">
-					<span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu">
-					<li></li>
-				</ul>
-			</div>
-		</div>
-	</div>
+</div>
 </div>
 <hr>
 <div class="row-fluid">
@@ -55,23 +41,16 @@
 				<i class="icon-user"></i><strong>{{uptime_data}}</strong><small>Total Uptime(days)</small>
 			</li><li class="divider"></li>
 		</ul>
-		<br/>
-		<div class="center" style="text-align: center;">
-			<ul class="stat-boxes">
-				<li class="popover-visits">
-					<div class="left peity_bar_bad">
-						<span>3,5,9,7,12,20,10</span>-50%
-					</div>
-					<div class="right">
-						<strong>{{rpm_data}}</strong>Requests Served(rpm)
-					</div>
-				</li>
-			</ul>
-		</div>
+		<br/>		
+			<ul class="site-stats">
+				<li>
+					<i class="icon-user"></i><strong>{{rpm_data}}</strong><small>Total Uptime(days)</small>
+				</li><li class="divider"></li>
+			</ul>		
 	</div>
 	<div class="span8">
 		<div class="row-fluid">
-			<div class="span12" style="text-align: center;">
+			<div class="span12" style="padding:15px;">
 				<ul class="quick-actions">
 					<li>
 						<a href="#" ng-click="update_widget_range('30-minutes', widget)"><i class="icon-graph"></i>LAST 30-minutes</a>
