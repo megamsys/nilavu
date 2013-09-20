@@ -40,22 +40,26 @@ license` to use it for their own need.
 > [Rails 4](http://guides.rubyonrails.org/4_0_release_notes.html)
 
 
+### Configuration
+```ruby
+
+```
 
 ### Tested on Ubuntu 13.04, AWS - EC2
 
-### Unit Tests
+#### Unit Tests
 
-> Click all bottom static links
+*  Click all bottom static links
 
-#### clean DB/ megam_play down, config.metric.source = demo
-> Run the functional tests for Signin/Signup
-> Click Dashboard
-> Login, click the left links (growls should appear) and angular should get loaded correctly.
+> Clean DB/ megam_play down, config.metric.source = demo
+* Run the functional tests for Signin/Signup
+* Click Dashboard
+* Login, click the left links (growls should appear) and angular should get loaded correctly.
 
-#### clean DB/ megam_play up, config.metric.source = demo
-> Run the functional tests for Signin/Signup
-> Login, click the left links (growls should appear) and angular should get loaded correctly.
-> Click "Create Cloud Books (Step 1, Step 2)"
+> Clean DB/ megam_play up, config.metric.source = demo
+* Run the functional tests for Signin/Signup
+* Login, click the left links (growls should appear) and angular should get loaded correctly.
+* Click "Create Cloud Books (Step 1, Step 2)"
 
 
 
