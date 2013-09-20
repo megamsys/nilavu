@@ -2,22 +2,25 @@
 
 [![Build Status](https://travis-ci.org/indykish/nilavu.png?branch=master)](https://travis-ci.org/indykish/nilavu)
 
-Nilavu is a [Rails4](http://guides.rubyonrails.org/) based [Megam's](http://www.megam.co) SaaS portal. 
+Nilavu is a [Rails4](http://guides.rubyonrails.org/) based [Megam Cloud](http://www.megam.co) Web App. 
 We named it in dialect Tamil, which means "moon".
 
-This will be our main WebApp portal for [Megam's](http://www.megam.co) providing
+This will be our main WebApp for [Megam Cloud](http://www.megam.co) providing
+
 * Launch Cloud Apps(books) from our Polygot PaaS 
 
-* Cloud management for the launched apps sing [megam_api](https://github.com/indykish/megam_api.git) which interfaces to 
+* Cloud management for the launched apps using [megam_api](https://github.com/indykish/megam_api.git) which interfaces to 
   [megam_play](https://github.com/indykish/megam_play.git)
   
 * Realtime Log for the launched Apps using Megam - using [tap](https://github.com/indykish/tap.git)
 
-* Dashboard with Metering Monitoring 
+* Offline Log with metrics using [angularjs - kibana](http://www.elasticsearch.org/overview/kibana/) 
 
-* Cloud App Connectors [deccanplato](https://github.com/indykish/deccanplato.git)  
+* Dash with Metering Monitoring using [angularjs](http://angularjs.org) Inspired by (https://github.com/fdietz/team_dashboard)
 
-Nilavu supports the following basic features:
+* Cloud App Connectors Preview [deccanplato](https://github.com/indykish/deccanplato.git)  
+
+In general Nilavu supports the following basic features:
 
 * This project provides a skeleton for a portal to be built using Ruby on Rails. 
  
@@ -33,11 +36,28 @@ license` to use it for their own need.
 ### Requirements
 
 > [Postgres 9.1 +](http://postgresql.org)
-> [Ruby 2.0]http://ruby-lang.org)
+> [Ruby 2.0](http://ruby-lang.org)
 > [Rails 4](http://guides.rubyonrails.org/4_0_release_notes.html)
 
 
+
 ### Tested on Ubuntu 13.04, AWS - EC2
+
+### Unit Tests
+
+> Click all bottom static links
+
+#### clean DB/ megam_play down, config.metric.source = demo
+> Run the functional tests for Signin/Signup
+> Click Dashboard
+> Login, click the left links (growls should appear) and angular should get loaded correctly.
+
+#### clean DB/ megam_play up, config.metric.source = demo
+> Run the functional tests for Signin/Signup
+> Login, click the left links (growls should appear) and angular should get loaded correctly.
+> Click "Create Cloud Books (Step 1, Step 2)"
+
+
 
 ### Getting Started
 
@@ -71,7 +91,7 @@ the following resources handy:
 #### TO - DO
 
 * Dashboard Metrics integration in progress using angular
-* Integrate to Paypal, bitcoin
+* Integrate to Paypal, bitcoin, justpay.in
 	
 # License
 
