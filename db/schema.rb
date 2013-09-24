@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(version: 20130828101201) do
     t.string   "size"
     t.string   "source"
     t.string   "targets"
-    t.text     "settings"
+    t.text     "range"
     t.integer  "dashboard_id"
     t.string   "widget_type"
     t.datetime "created_at"

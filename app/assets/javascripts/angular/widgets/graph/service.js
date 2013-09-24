@@ -3,8 +3,8 @@ app.factory("GraphModel", ["$http", "TimeSelector", "Sources", function($http, T
 	function getParams(config, book) {
 	    return {	
 	    	widgetid: config.id,
-	    	 from: TimeSelector.getFrom(config.settings),
-	         to: TimeSelector.getCurrent(config.settings),
+	    	 from: TimeSelector.getFrom(config.range),
+	         to: TimeSelector.getCurrent(config.range),
 	      kind: config.kind,
 	      name: config.source,
 	      host: book,
@@ -12,7 +12,7 @@ app.factory("GraphModel", ["$http", "TimeSelector", "Sources", function($http, T
 	    };
 	  }	 
 
-  function getData(config, book) {	  
+  function getData(config, book) {		  
 	  console.log("data source entry----->"+config);	
 	return $http.get("/api/data_sources/datapoints.json", { params: getParams(config, book) });
   }

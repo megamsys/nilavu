@@ -17,10 +17,10 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sourc
 	    }     
 
     function update() {  
-    	if ($routeParams.book != null) {
+    	if ($routeParams.book != null) {    		
     		return GraphModel.getData(scope.widget, $routeParams.book).success(onSuccess);
     	}
-    	else {    		
+    	else {        	
     		return GraphModel.getData(scope.widget, "demo").success(onSuccess);
     	}
     }

@@ -5,7 +5,7 @@ class Widget < ActiveRecord::Base
 
   validates :name, :kind, :source, :dashboard_id, :presence => true
 
-  attr_accessible :name, :kind, :source, :size, :targets, :dashboard_id, :settings, :widget_type
+  attr_accessible :name, :kind, :source, :size, :targets, :dashboard_id, :range, :widget_type
 
   #after_initialize :set_defaults
   

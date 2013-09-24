@@ -1,7 +1,7 @@
 module Api
   class DataSourcesController  < ApplicationController   
     respond_to :json
-    def index     
+    def index         
       plugin = Sources.plugin_clazz(params[:kind], params[:name])
       puts plugin
       result = plugin.new.get(params)
