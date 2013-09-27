@@ -49,6 +49,10 @@
 //= require angular/templates/widget/show.jst
 //= require angular/templates/widgets/pernode/show.jst
 //= require angular/templates/widget/book_show.jst
+//= require mootools
+//= require swfobject
+//= require videobox
+//= require tour
 //= require jquery.peity
 //= require underscore
 //= require angular
