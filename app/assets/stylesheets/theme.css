@@ -213,6 +213,24 @@ input[type="color"]:focus,
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px #92C65F; 
 }
 
+  you {
+     border-radius:0;
+    box-shadow:none;
+    border-bottom: 1px solid gray;
+  }
+
+  you > li > a {
+    padding: 15px 15px 14px;
+        color: white;
+    border-bottom: 1px solid transparent;
+  }
+
+  you > li > a:hover {
+    border-bottom: 1px solid blue;
+  }
+
+  
+
 
 /* END - Ramzan gift :) Jazz the buttons/others(found elsewhere) (Aug 9, 2013)
 
@@ -592,6 +610,67 @@ input[type="color"]:focus,
 	margin-right: 10px;
 }
 #pricing .price_wrapper .section .btn {
+	position: absolute;
+	bottom: 15px;
+	left: 32%;
+	font-weight: bold;
+}
+
+
+/* policy section */
+#policy {
+}
+#policy .section_header {
+	margin-bottom: 70px;
+}
+#policy .section_header hr {
+	width: 35%;
+}
+#policy .policy_wrapper {
+	background-color: #fafafa;
+	border: 1px solid #d9d9d9;
+	box-shadow: 0px 0px 5px 2px #E8E8E8;
+	border-radius: 6px;
+	#width: 321px;
+	min-height: 375px;
+	position: relative;
+}
+
+#policy .policy_wrapper section .btn {
+	left: 35%;
+}
+#pricing .policy_wrapper .header {
+	height: 98px;
+	color: #fff;
+	padding: 25px 0px 0px 40px;
+}
+#policy .policy_wrapper .header > span {
+	font-size: 24px;
+	font-style: italic;
+}
+
+#policy .policy_wrapper .section {
+	padding: 15px 30px;
+}
+
+#policy .price_wrapper .section h3 {
+	color: #535861;
+	font-size: 17px;
+	line-height: 22px;
+}
+
+#policy .policy_wrapper .section ul.policy_item {
+	list-style-type: none;
+	margin-left: 0px;
+	margin-top: 18px;
+}
+#policy .policy_wrapper .section ul.policy_item li {
+	padding: 3px 0px;
+}
+#policyricing .policy_wrapper .section ul.policy_item i {
+	margin-right: 10px;
+}
+#policy .policy_wrapper .section .btn {
 	position: absolute;
 	bottom: 15px;
 	left: 32%;

@@ -1,5 +1,4 @@
 module ApplicationHelper
- 
   # Returns the full title on a per-page basis.
   def full_title(page_title)
     base_title = "Megam"
@@ -10,13 +9,22 @@ module ApplicationHelper
     end
   end
 
+  def avatar_url(user)
+    if user.organization.present?
+    user.organization.logo
+    else
+      gravatar_id = Digest::MD5::hexdigest(user.email).downcase
+      "http://gravatar.com/avatar/#{gravatar_id}.png?s=48"
+    end
+  end
+
   #A per page helper when passed in a sub entry link will fetch the correct help page.
   #For instance to insert the correct help link in cloud identity page, a help_entry_name with value "cloudidentity" will be passed
   #1.a link url = http://docs.megam.co/nilavu#cloudidentity can be clicked by an user to avail help in cloud identity page.
   #2.by default a link_url = http://docs.megam.co/nilavu#index can be clicked by an user to avail help (home page).
-    def help_link(help_entry_name=nil)
+  def help_link(help_entry_name=nil)
     docs_url = "https://docs.megam.co/nilavu"
-    
+
     if help_entry_name
       docs_url += "/#{help_entry_name}"
       link_text = "Help for #{help_entry_name.underscore_humanize}"
@@ -33,7 +41,7 @@ module ApplicationHelper
     #Assuming spinner image is called "spinner.gif"
     image_tag("ajax_64.png", :id => id, :alt => "Loading....", :style => "display:none")
   end
-  
+
   #spinner tag helper called from views which embeds a 40px circular gray spinner image.
   #We may change this name to small_circle_spinner_tag, for now lets leave it.
   def mini_spinner_tag id
@@ -50,6 +58,6 @@ module ApplicationHelper
     when :error then "alert alert-error"
     when :alert then "alert alert-error"
     end
-  end  
+  end
 end
 

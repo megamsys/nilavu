@@ -14,13 +14,19 @@ module DemoHelper
     when 3600*24*7 then 10*12*7
     when 3600*24*7*4 then 10*12*7*4
     else 10 end
-
+    
     result = []
+    result0 = []
     timestamp = from
     while (timestamp < to) 
-      result << [1+rand(100), timestamp]    
+      result0 << [Random.rand(0.1...0.7), timestamp]    
       timestamp = timestamp + interval*5 #* (1+rand(5))
     end
+    result << result0
     result
+  end
+  
+  def get_rand_data(from, to)
+     Random.rand(10...100) 
   end
 end

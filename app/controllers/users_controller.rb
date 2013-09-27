@@ -46,6 +46,8 @@ puts res_body.lookup("aws-ec2-predef-small")
 #success = Resque.enqueue(CreateAccounts, options)
 #HardWorker.perform_async('bob', 5)
 =end
+#    Twitter.update("Support tweet for beta launch => www.megam.co #megamsupport")
+
   end
 
   def dashboard
@@ -99,13 +101,24 @@ puts res_body
       res_body = CreateAccounts.perform(options)
       puts "-----------------SUCCESS RES---------------"
       flash[:success] = "Welcome #{current_user.first_name}"
-      
+
       #Dashboard entry
       #puts("---------create---------->> entry") 
       @dashboard=@user.dashboards.create(:name=> params[:user][:first_name])   
+      book_source = Rails.configuration.metric_source  
+      @widget=@dashboard.widgets.create(:name=>"graph", :kind=>"datapoints", :source=>book_source, :widget_type=>"pernode", :range=>"30-minutes")
+      @widget=@dashboard.widgets.create(:name=>"totalbooks", :kind=>"totalbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
+      @widget=@dashboard.widgets.create(:name=>"newbooks", :kind=>"newbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
+      #@widget=@dashboard.widgets.create(:name=>"requests", :kind=>"requests", :source=>book_source, :widget_type=>"pernode")
+      #@widget=@dashboard.widgets.create(:name=>"uptime", :kind=>"uptime", :source=>book_source, :widget_type=>"pernode")
+      @widget=@dashboard.widgets.create(:name=>"queue", :kind=>"queue", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
+      @widget=@dashboard.widgets.create(:name=>"runningbooks", :kind=>"runningbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
+      @widget=@dashboard.widgets.create(:name=>"cumulativeuptime", :kind=>"cumulativeuptime", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
+      #@widget=@dashboard.widgets.create(:name=>"requestserved", :kind=>"requestserved", :source=>book_source, :widget_type=>"pernode")
+      @widget=@dashboard.widgets.create(:name=>"queuetraffic", :kind=>"queuetraffic", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
+
       #@dashboard = Dashboard.new(:name=> params[:first_name], :user_id => current_user.id)
-      
-       
+
       if !(res_body.some_msg[:msg_type] == "error")
         #update current user as onboard user(megam_api user)
         @user.update_attribute(:onboarded_api, true)
@@ -119,10 +132,10 @@ puts res_body
       @user= User.find_by_email(params[:user][:email])
       if(@user)
         flash[:error] = "Email #{@user.email} already exists.<div class='right'> #{ActionController::Base.helpers.link_to 'Forgot Password ?.', forgot_path}</div>".html_safe
-	redirect_to signin_path
+        redirect_to signin_path
       else
-        flash[:alert] = "An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}".html_safe
-	redirect_to signup_path
+        #flash[:alert] = "An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}".html_safe
+        redirect_to signup_path
       end
 
     end

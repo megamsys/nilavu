@@ -19,8 +19,16 @@ Cloudauth::Application.routes.draw do
   resources :cloud_books
   resources :predef_clouds
   resources :dashboards
+  resources :widgets
 
-  namespace :api do   
+  namespace :api do
+    resources :dashboards do
+      resources :widgets
+    end
+    match "data_sources/:kind" => "data_sources#index", via: [:get, :post]
+  end
+
+  namespace :api do
     match '/data_sources', to: 'data_sources#index', via: [:get, :post]
   end
 
@@ -53,7 +61,7 @@ Cloudauth::Application.routes.draw do
   #to-do remove the users#update named route.
   match '/update', to: 'users#update', via: [:get, :post, :patch]
   match '/upgrade', to: 'users#upgrade', via: [:post]
-  match '/email_verify', to: 'users#email_verify',via: [:post]
+  match '/email_verify', to: 'users#email_verify',via: [:get,:post]
   match '/verified_email', to: 'users#verified_email', via: [:get]
   match '/signin', to: 'sessions#new', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post,:delete]
@@ -61,6 +69,9 @@ Cloudauth::Application.routes.draw do
 
   # ======Dashboard
   get "users/show"
+  match '/dashboards', to: 'dashboards#index', via: [:get]
+  match '/dashboards/:id', to: 'dashboards#index', via: [:get]
+  #match '/dashboards/:id/:book', to: 'dashboards#index', via [:get]
   #match '/dashboards', to: 'users#dashboard',via: [:get]
   #match '/dashboards', to: 'api/dashboards#index',via: [:get]
 

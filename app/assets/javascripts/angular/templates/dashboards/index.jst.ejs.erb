@@ -1,0 +1,16 @@
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Last Modified</th>
+			<th>Created At</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><a href="/dashboards/{{dashboard.id}}">{{dashboard.name}}</a></td>
+			<td>{{dashboard.updated_at | date:'medium' }}</td>
+			<td>{{dashboard.created_at | date:'medium' }}</td>
+		</tr>
+	</tbody>
+</table>

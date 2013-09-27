@@ -15,15 +15,15 @@ gem 'turbolinks'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
-gem 'execjs','2.0.0'
+gem 'execjs','2.0.1'
 gem 'jquery-datatables-rails'
 gem "flot-rails", "~> 0.0.4"
 gem "gritter", "~> 1.0.3"
 
 # Database posgresql
 gem 'pg'
-
 gem 'ejs'
+gem 'twitter'
 
 # OAuth authentication to twitter, facebook, openid using omniauth
 gem 'omniauth-twitter'
@@ -31,7 +31,7 @@ gem 'omniauth-facebook'
 gem 'omniauth-openid'
 
 gem 'will_paginate','3.0.4'
-gem 'bootstrap-will_paginate','0.0.9'
+gem 'bootstrap-will_paginate','0.0.10'
 gem 'paperclip','3.5.1'
 gem "aws-sdk"
 gem 'high_voltage',"1.2.4"
@@ -42,6 +42,14 @@ gem "megam_api"
 gem "flexslider", "~> 2.0.2"
 gem "megam_deccanplato", "~> 0.1.0"
 gem "angularjs-rails"
+
+#http_proxy settings
+gem "faraday"
+gem "faraday_middleware"
+gem "multi_xml"
+
+#html parsing
+gem "nokogiri"
 
 #For background processing of cloud jobs
 #gem 'resque'
@@ -66,8 +74,8 @@ group :assets do
   # supporting rails 4.0
   gem 'sass-rails',   '~> 4.0.0'
   gem 'coffee-rails', '~> 4.0.0'
-  gem "less-rails", "~> 2.3.3"
-  gem 'uglifier', '>= 2.1.2'
+  gem "less-rails", "~> 2.4.2"
+  gem 'uglifier', '>= 2.2.1'
 end
 
 group :test do

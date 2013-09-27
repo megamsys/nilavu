@@ -32,13 +32,11 @@
 								<div>
 									<div class="head">
 										<h4>Organization</h4>
-										<i class="icon-chevron-left"></i>
 										<% if current_user.admin %>
 										<span class="label label-info"> administrator </span>
 										<% else %>
 										<span class="label label-info"> user </span>
 										<% end %>
-										<i class="icon-chevron-right"></i>
 									</div>
 									<div class="form">
 										<%= render :partial => "users/organization_fields_form", :locals => {:user => @user} %>

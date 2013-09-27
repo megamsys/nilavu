@@ -6,8 +6,9 @@ class CreateWidgets < ActiveRecord::Migration
       t.string :size
       t.string :source
       t.string :targets
-      t.text :settings
+      t.text :range
       t.integer :dashboard_id
+      t.string :widget_type
 
       t.timestamps
     end

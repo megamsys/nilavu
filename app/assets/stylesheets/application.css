@@ -18,5 +18,5 @@
  *= require uniform 
  *= require dashboard.main
  *= require flexslider
- *= require_tree .
+ *= require_tree . 
 */

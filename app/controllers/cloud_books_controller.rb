@@ -82,7 +82,6 @@ class CloudBooksController < ApplicationController
   #build the required hash for the node and send it.
   #you can use Megam::Node itself to pass stuff.
   def mk_node(data, group, action)
-
     command = ListCloudTools.make_command(data, group, action, current_user)
     puts "===========================> COMMAND <====================================="
     puts command.class
@@ -97,16 +96,16 @@ class CloudBooksController < ApplicationController
     else
       node_hash = {
         "node_name" => "#{data[:cloud_book][:name]}#{data[:cloud_book][:domain_name]}",
-	"command" => command,
+        "command" => command,
         "predefs" => {"name" => data[:predef][:name], "scm" => data[:cloud_book][:deps_scm],
           "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => data[:cloud_book][:deps_war], "queue" => "queue@queue1"}
       }
     end
-	puts "==============================> NODE HASH <============================"
-puts node_hash.class
-puts node_hash.inspect
+    puts "==============================> NODE HASH <============================"
+    puts node_hash.class
+    puts node_hash.inspect
 
-node_hash
+    node_hash
   end
 
 end

@@ -17,29 +17,29 @@ class ConnectorProjectsController < ApplicationController
     add_breadcrumb "projects", :root_path
     @products = Product.all
   end
-  
+
   def import
-  @products = Product.all
-  logger.debug"Param = #{params}"
-  @api_name = params[:api_name]
+    @products = Product.all
+    logger.debug"Param = #{params}"
+    @api_name = params[:api_name]
     respond_to do |format|
-          format.js {
-            respond_with(@api_name, :layout => !request.xhr? )
-          }
-        end
-  end  
- 
-  def deccanplato    
-     logger.debug"Param-------- = #{params[:json]}"
-     @json = params[:json]
-     options = { :json => @json}
-      res_body = Crm.perform(options)
-      puts "output json-------->"+res_body
-     respond_to do |format|
-          format.js {
-            respond_with(:json => @json, :output_json => res_body, :layout => !request.xhr? )
-          }
-        end
+      format.js {
+        respond_with(@api_name, :layout => !request.xhr? )
+      }
+    end
+  end
+
+  def deccanplato
+    logger.debug"Param-------- = #{params[:json]}"
+    @json = params[:json]
+    options = { :json => @json}
+    res_body = Crm.perform(options)
+    puts "output json-------->"+res_body
+    respond_to do |format|
+      format.js {
+        respond_with(:json => @json, :output_json => res_body, :layout => !request.xhr? )
+      }
+    end
   end
 
   def create

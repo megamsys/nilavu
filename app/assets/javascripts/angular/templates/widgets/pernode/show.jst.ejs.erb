@@ -1,0 +1,73 @@
+<div class="span4">
+	<div class="btn-toolbar" style="padding-left:40%;">
+		<div class="btn-group" title="select a source to watch METRICS" class="tip-bottom">
+			<button class="btn btn btn-large">
+				Sources
+			</button>
+			<button data-toggle="dropdown" class="btn btn btn-large dropdown-toggle">
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li ng-repeat="i in sources">
+					<a href="#" ng-click="update_widget_source(i.value, widget)">{{i.value}}</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="span4">
+	<div class="btn-toolbar" style="padding-left:40%;">
+		<div class="btn-group" title="" class="tip-bottom">
+			<button class="btn btn btn-large">
+				Metrics
+			</button>
+			<button data-toggle="dropdown" class="btn btn btn-large dropdown-toggle">
+				<span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu">
+				<li ng-repeat="i in metrics">
+					<a href="#" ng-click="update_widget_metrics(i.value, widget)">{{i.value}}</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+</div>
+<hr>
+<div class="row-fluid">
+	<div class="span4">
+		<ul class="site-stats">
+			<li>
+				<i class="icon-user"></i><strong>{{uptime_data}}</strong><small>Total Uptime(days)</small>
+			</li><li class="divider"></li>
+		</ul>
+		<br/>
+		<ul class="site-stats">
+			<li>
+				<i class="icon-user"></i><strong>{{rpm_data}}</strong><small>Requests Served(rpm)</small>
+			</li><li class="divider"></li>
+		</ul>
+	</div>
+	<div class="span8">
+		<div class="row-fluid">
+			<div class="span12" style="padding:15px;">
+				<ul class="quick-actions">
+					<li>
+						<a href="#" ng-click="update_widget_range('30-minutes', widget)"><i class="icon-graph"></i>LAST 30-minutes</a>
+					</li>
+					<li>
+						<a href="#" ng-click="update_widget_range('60-minutes', widget)"><i class="icon-graph"></i>LAST 60-minutes</a>
+					</li>
+					<li>
+						<a href="#" ng-click="update_widget_range('1-hours', widget)"><i class="icon-graph"></i>LAST 1-hour</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<br/>
+		<br/>
+		<div id="graph_placeholder" style=" height:300px; width:800px"></div>
+	</div>
+</div>
+
+

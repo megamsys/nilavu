@@ -74,6 +74,8 @@ ActiveRecord::Schema.define(version: 20130828101201) do
     t.datetime "updated_at"
   end
 
+  add_index "dashboards", ["user_id"], name: "index_dashboards_on_user_id", using: :btree
+
   create_table "identities", force: true do |t|
     t.integer  "users_id"
     t.string   "provider"
@@ -144,8 +146,9 @@ ActiveRecord::Schema.define(version: 20130828101201) do
     t.string   "size"
     t.string   "source"
     t.string   "targets"
-    t.text     "settings"
+    t.text     "range"
     t.integer  "dashboard_id"
+    t.string   "widget_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

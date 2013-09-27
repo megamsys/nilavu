@@ -7,6 +7,7 @@ class CreateDashboards < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :dashboards, :user_id
   end
   
   def self.down
