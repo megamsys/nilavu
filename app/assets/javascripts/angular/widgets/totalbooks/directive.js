@@ -10,7 +10,7 @@ app.directive("totalbooks", ["TotalBooksModel", function(TotalBooksModel) {
 		    }
 
 		    function update() {
-		      return TotalBooksModel.getData("usermodel").success(onSuccess);
+		      return TotalBooksModel.getData(scope.widget, "usermodel").success(onSuccess);
 		    }
 
 		    scope.init(update);

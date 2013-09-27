@@ -8,8 +8,11 @@ module Api
     end
 
     def index
-      puts("------index ------------->> entry")
-      dashboards = Dashboard.order("NAME ASC").all
+      
+       @user_id = current_user.id
+       dashboards = Dashboard.find_by_user_id(@user_id)
+       puts("------index ------------->> entry",@user_id)
+      #dashboards = Dashboard.order("NAME ASC").all
       respond_with dashboards
     end
 

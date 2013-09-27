@@ -6,7 +6,7 @@
 			<th>Created At</th>
 		</tr>
 	</thead>
-	<tbody ng-repeat="dashboard in dashboards">
+	<tbody>
 		<tr>
 			<td><a href="/dashboards/{{dashboard.id}}">{{dashboard.name}}</a></td>
 			<td>{{dashboard.updated_at | date:'medium' }}</td>

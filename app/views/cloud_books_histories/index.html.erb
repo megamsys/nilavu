@@ -4,7 +4,7 @@
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
-<div ng-controller="MyCtrl">
+<div ng-controller="LogCtrl">
 	<div class="container-fluid">
 		<div class="widget-box">
 			<div class="widget-title">
@@ -44,21 +44,23 @@
 				<span class="label label-info">{{source}}</span>
 			</div>
 			<div class="widget-content nopadding">
+				<br/>
+				<div class="offset8">
+					<!--{{total}} == {{l_total}}-->
+					<a href="{{book_json}}" target="_blank">view Offline Log</a>
+				</div>
 				<div class="widget-box">
 					<div class="widget-title">
 						<ul class="nav nav-tabs">
 							<li class="active">
-								<a data-toggle="tab" href="#tab1">Home</a>
+								<a data-toggle="tab" href="#tab1">{{bookName}}</a>
 							</li>
 						</ul>
 					</div>
-					<div class="widget-content tab-content"  style="height: 200px;  overflow-y: scroll;">
+					<div class="widget-content tab-content"  style="height: 200px; ">
 						<div id="tab1" class="tab-pane active">
-							<div>
-								<a href="http://mob.co/kibana/index.html#/dashboard/file/tweets.json">view Offline Log</a>
-							</div>
 							<br/>
-		<!--template modify--><table class="table table-bordered table-striped table-hover">
+							<table class="table table-bordered table-striped table-hover"  style=" overflow-y: scroll;">
 								<thead>
 									<tr>
 										<th class="span3">Timestamp</th>
@@ -66,14 +68,14 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr ng-repeat="log in logs | orderBy:predicate:!reverse | filter:filterLog">
+									<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
 										<td>
 										<p>
 											{{ log.timestamp | date:'d  MMMM,  y - hh:mm a Z' }}
 										</p></td>
 										<td>
 										<p>
-											{{ log.message }}
+											{{log.message }}
 										</p></td>
 									</tr>
 								</tbody>
@@ -82,8 +84,96 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>		
 	</div>
 </div>
+</div>
+</div>
+
+<!--todo  multiple books logs display using tabs-->
+
+<!--<div ng-controller="MyCtrl">
+<div class="container-fluid">
+<div class="widget-box">
+<div class="widget-title">
+<span class="icon"> <i class="icon-th-list"></i> </span>
+<h5>Cloud Books Run History</h5>
+</div>
+<div class="widget-content nopadding">
+<table class="table table-bordered table-striped table-hover">
+<thead>
+<tr>
+<th>book_name</th>
+<th>request_id</th>
+<th>status</th>
+</tr>
+</thead>
+<tbody>
+<% current_user.cloud_books.each do |cloud_book| %>
+<% cloud_book.cloud_books_histories.each do |history| %>
+<tr>
+<td>
+<input type="button" ng-model="query" ng-click="tabManager.addTab('<%= history.book_name %>')" id="node_names" value="<%= history.book_name %>">
+</td>
+<td> <%= history.request_id %> </td>
+<td> <%= history.status %> </td>
+</tr>
+<% end %>
+<% end %>
+</tbody>
+</table>
+</div>
+</div>
+<input type="hidden" ng-model="source">
+<div class="widget-box">
+<div class="widget-title">
+<span class="icon"> <i class="icon-th-list"></i> </span>
+<h5>Watch Realtime Log</h5>
+<span class="label label-info">{{source}}</span>
+</div>
+<div class="widget-content nopadding">
+<div ng-cloak>
+<div class="container" >
+<span class="label label-info label-ext" ng-click="tabManager.addTab()" style="cursor:pointer">Add a Tab</span>
+<br/>
+<br/>
+<div>
+<div tabs>
+<div ng-repeat="tabInfo in tabManager.tabItems" pane title="{{ tabInfo.title  }}">
+<table class="table table-bordered table-striped table-hover">
+<thead>
+<tr>
+<th class="span3">Timestamp</th>
+<th class="span9">Message</th>
+</tr>
+</thead>
+<tbody>
+<tr ng-repeat="log in logs[tabInfo.title] | orderBy:predicate:!reverse | filter:filterLog">
+<td>
+<p>
+{{ log.timestamp | date:'d  MMMM,  y - hh:mm a Z' }}
+</p></td>
+<td>
+<p>
+{{ log.message }}
+</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<br/>
+<br/>
+<br/>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div> -->
+
 <% end %>
 <%= render :template => users_show_path %>
+

@@ -10,7 +10,7 @@ app.directive("newbooks", ["NewBooksModel", function(NewBooksModel) {
 		    }
 
 		    function update() {
-		      return NewBooksModel.getData("usermodel").success(onSuccess);
+		      return NewBooksModel.getData(scope.widget, "usermodel").success(onSuccess);
 		    }
 
 		    scope.init(update);

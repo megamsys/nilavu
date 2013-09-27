@@ -11,7 +11,7 @@ app.directive("runningbooks", ["RunningBooksModel", function(RunningBooksModel) 
 		    }
 
 		    function update() {
-		      return RunningBooksModel.getData("usermodel").success(onSuccess);
+		      return RunningBooksModel.getData(scope.widget,"usermodel").success(onSuccess);
 		    }
 
 		    scope.init(update);

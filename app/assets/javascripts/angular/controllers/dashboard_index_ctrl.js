@@ -1,12 +1,12 @@
 app.controller("DashboardIndexCtrl", ["$scope", "$rootScope", "$location", "Dashboard", function($scope, $rootScope, $location, Dashboard) {
 
 	console.log("DashboardIndexCrl");
-  $rootScope.resolved = false;
+  $rootScope.resolved = true;
 
-  $scope.dashboards = Dashboard.query(function() {
-    $rootScope.resolved = true;
-  });
-
+  //$scope.dashboards = Dashboard.query(function() {
+    //$rootScope.resolved = true;
+  //}); 
+  $scope.dashboard = Dashboard.get();
   $scope.createDashboard = function() {
     var dashboard = new Dashboard({ name: "Undefined name" });
     dashboard.$create(function(data) {
