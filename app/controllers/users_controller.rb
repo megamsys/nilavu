@@ -190,13 +190,14 @@ puts res_body
 
       #redirect_to dashboard_path, :gflash => { :error => { :value => "Sorry. You are not yet onboard. Update profile. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       end
-    else
-      if @user.update_attributes(params[:user])
+    else      
+      if @user.update_attributes(params[:user])        
         sign_in @user
         redirect_to dashboards_path, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } }
 
-      else
+      else        
         render 'edit'
+        #redirect_to edit_user_path(current_user), :target => "_self"
       end
     end
   end

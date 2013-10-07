@@ -17,7 +17,7 @@ app.directive("queuetraffic", ["QueueTrafficModel", function(QueueTrafficModel) 
 		  };
 
   return {
-	  template: '<div class="span4 center"><ul  class="stat-boxes"><li><div class="left peity_line_good"><span>12,6,9,23,14,10,17</span>+70%</div><div class="right"><strong>{{data}}</strong>Queue Traffic</div></li></ul></div>',    
+	  template: '<div class="span4 center"><ul class="stat-boxes"><li class="popover-tickets"><div class="left peity_line_good"><span>12,6,9,23,14,10,17</span>+70%</div><div class="right"><strong>{{data}}</strong>Queue Traffic</div></li></ul></div>',    
       link: linkFn
   };
 }]);

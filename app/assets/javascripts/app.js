@@ -1,5 +1,7 @@
+//jQuery(document).ready(function() {
+	// angular.bootstrap(document, [ 'Nilavu' ]);
+//}); 
 var app = angular.module('Nilavu', [ 'ngResource' ]);
-
 app.config(function($routeProvider, $locationProvider) {
 	$locationProvider.html5Mode(true).hashPrefix('!');
 	// console.log($location.path());
