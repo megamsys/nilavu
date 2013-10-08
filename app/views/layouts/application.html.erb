@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="Nilavu">
+<html xmlns:ng="http://angularjs.org" ng-app="Nilavu">
 	<head>
 		<%= favicon_link_tag 'favicon.ico' %>
 		<title>Megam | <%= yield(:title) %></title>
@@ -37,10 +37,7 @@
 		<!--End of Zopim Live Chat Script-->
 	</head>
 	<body>
-		<!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.min.js"></script>-->
-		
-		<%= render 'layouts/header' %>
+			<%= render 'layouts/header' %>
 		<a href="#" class="scrolltop"> <span>up</span> </a>
 		<%= yield %>
 		<%= render 'layouts/footer' %>
