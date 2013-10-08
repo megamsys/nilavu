@@ -9,7 +9,7 @@
 
 		<%= csrf_meta_tags %>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<%= render 'layouts/shim' %>		
+		<%= render 'layouts/shim' %>
 		<style type="text/css">
 			[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
 				display: none !important;
@@ -34,12 +34,17 @@
                 e.parentNode.insertBefore($, e)
             })(document, 'script');
 		</script>
+		<script type="text/javascript">
+            $(function() {
+                $('.nyroModal').nyroModal();
+            });
+		</script>
 		<!--End of Zopim Live Chat Script-->
 	</head>
 	<body>
 		<!--<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular-resource.min.js"></script>-->
-		
+
 		<%= render 'layouts/header' %>
 		<a href="#" class="scrolltop"> <span>up</span> </a>
 		<%= yield %>

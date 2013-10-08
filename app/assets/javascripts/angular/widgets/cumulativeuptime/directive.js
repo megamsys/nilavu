@@ -12,7 +12,10 @@ app.directive("cumulativeuptime", ["CumulativeUptimeModel", function(CumulativeU
 		    function update() {
 		      return CumulativeUptimeModel.getData("demo").success(onSuccess);
 		    }
-
+		    
+		    $(".peity_bar_neutral span").peity("bar", {
+				colour : "#757575"
+			});
 		    scope.init(update);
 		  };
 
