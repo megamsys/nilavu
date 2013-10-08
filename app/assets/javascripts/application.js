@@ -16,6 +16,7 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery.ui.all
+//= require jquery.peity
 //= require bowser
 //= require twitter/bootstrap
 //= require unstable/angular
@@ -48,7 +49,7 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require bootstrap-editable
-//= require jquery.peity
+//= require jquery-ui.custom
 //= require unicorn
 //= require unicorn.dashboard
 //= require flexslider
