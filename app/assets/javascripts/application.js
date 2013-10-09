@@ -26,6 +26,8 @@
 //= require select2
 //= require jquery.validate
 //= require jquery.wizard
+//= require jquery.peity.min
+//= require jquery.peity
 //= require cloud_books
 //= require connector_projects
 //= require unicorn.form_validation
@@ -49,7 +51,6 @@
 //= require angular/templates/widget/show.jst
 //= require angular/templates/widgets/pernode/show.jst
 //= require angular/templates/widget/book_show.jst
-//= require jquery.peity
 //= require underscore
 //= require angular
 //= require angular-bootstrap

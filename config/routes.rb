@@ -69,8 +69,8 @@ Cloudauth::Application.routes.draw do
 
   # ======Dashboard
   get "users/show"
-  match '/dashboards', to: 'dashboards#index', via: [:get]
-  match '/dashboards/:id', to: 'dashboards#index', via: [:get]
+  #match '/dashboards', to: 'dashboards#index', via: [:get]
+  #match '/dashboards/:id', to: 'dashboards#index', via: [:get]
   #match '/dashboards/:id/:book', to: 'dashboards#index', via [:get]
   #match '/dashboards', to: 'users#dashboard',via: [:get]
   #match '/dashboards', to: 'api/dashboards#index',via: [:get]
