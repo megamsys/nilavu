@@ -13,7 +13,9 @@ app.directive("runningbooks", ["RunningBooksModel", function(RunningBooksModel) 
 		    function update() {
 		      return RunningBooksModel.getData(scope.widget,"usermodel").success(onSuccess);
 		    }
-
+		    $(".peity_bar_good span").peity("bar", {
+				colour : "#459D1C"
+			});	
 		    scope.init(update);
 		  };
 

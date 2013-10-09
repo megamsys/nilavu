@@ -2,7 +2,6 @@ var app = angular.module('Nilavu', [ 'ngResource' ]);
 
 app.config(function($routeProvider, $locationProvider) {
 	$locationProvider.html5Mode(true).hashPrefix('!');
-	// console.log($location.path());
 	$routeProvider.when("/dashboards", {
 		template : JST["angular/templates/dashboards/index"],
 		controller : "DashboardIndexCtrl"
@@ -26,7 +25,7 @@ _.templateSettings = {
 };
 
 function cloudbooksctrl($scope, $location) {
-	console.log("$location---->" + $location.path());
+	console.log("cloudbookctrl: $location---->" + $location.path());
 	$apply(function() {
 		$location.path("/cloud_books/index").replace();
 	});

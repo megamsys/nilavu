@@ -24,16 +24,16 @@
 							<%= link_to "Blog",   "http://blog.megam.co", { :target => '_blank'} %>
 						</li>
 						<li>
-							<%= link_to "Team",  page_path("about") %>
+							<%= link_to "Team",  page_path("about"), { :target => '_self'} %>
 						</li>
 						<li>
-							<%= link_to "Contact Us",   page_path("contact_us") %>
+							<%= link_to "Contact Us",   page_path("contact_us"), { :target => '_self'} %>
 						</li>
 						<li>
 							<!-- Make it modal, with an option to provide a resume using dropbox, box,
 							googleapp, with links to github, linkedin
 							with a choice for apply for a job or internship-->
-							<%= link_to "Jobs",   page_path("jobs") %>
+							<%= link_to "Jobs",   page_path("jobs"), { :target => '_self'} %>
 						</li>
 
 					</ul>

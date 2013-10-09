@@ -30,11 +30,11 @@ gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-openid'
 
-gem 'will_paginate','3.0.4'
+gem 'will_paginate','3.0.5'
 gem 'bootstrap-will_paginate','0.0.10'
 gem 'paperclip','3.5.1'
 gem "aws-sdk"
-gem 'high_voltage',"1.2.4"
+gem 'high_voltage',"2.0.0"
 gem "therubyracer", :require => 'v8',:platforms => :ruby
 gem "breadcrumbs_on_rails"
 gem "randexp", "~> 0.1.7"

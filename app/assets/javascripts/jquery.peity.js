@@ -4,9 +4,9 @@
 // http://benpickles.github.com/peity/
 //
 // Released under MIT license.
-(function($, document) {
+(function($, document) {	
   var peity = $.fn.peity = function(type, options) {
-    if (document.createElement("canvas").getContext) {
+    if (document.createElement("canvas").getContext) {    	
       this.each(function() {
         $(this).change(function() {
           var opts = $.extend({}, options)
@@ -59,6 +59,7 @@
     function(opts) {
       var $this = $(this)
       var values = $this.text().split(opts.delimeter)
+      console.log("values--"+values);
       var v1 = parseFloat(values[0]);
       var v2 = parseFloat(values[1]);
       var adjust = -Math.PI / 2;

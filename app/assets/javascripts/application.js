@@ -10,14 +10,24 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require excanvas
 //= require turbolinks
+//= require excanvas
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery.ui.all
+//= require jquery.peity
 //= require bowser
 //= require twitter/bootstrap
+//= require unstable/angular
+//= require unstable/angular-loader
+//= require unstable/angular-resource
+//= require angular/templates/dashboards/index.jst
+//= require angular/templates/dashboards/show.jst
+//= require angular/templates/dashboards/book_show.jst
+//= require angular/templates/widget/show.jst
+//= require angular/templates/widgets/pernode/show.jst
+//= require angular/templates/widget/book_show.jst
 //= require spin
 //= require jquery.spin
 //= require jquery.spin.config
@@ -26,7 +36,6 @@
 //= require select2
 //= require jquery.validate
 //= require jquery.wizard
-//= require jquery.peity.min
 //= require jquery.peity
 //= require cloud_books
 //= require connector_projects
@@ -41,19 +50,11 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require bootstrap-editable
+//= require jquery-ui.custom
 //= require unicorn
 //= require unicorn.dashboard
 //= require flexslider
 //= require socket.io
-//= require angular/templates/dashboards/index.jst
-//= require angular/templates/dashboards/show.jst
-//= require angular/templates/dashboards/book_show.jst
-//= require angular/templates/widget/show.jst
-//= require angular/templates/widgets/pernode/show.jst
-//= require angular/templates/widget/book_show.jst
 //= require underscore
-//= require angular
-//= require angular-bootstrap
-//= require angular-resource
 //= require app
 //= require_tree .
