@@ -12,9 +12,15 @@
 				<h4 align="center"> Count</h4>
 				<h3 align="center" ><span class="icon"><i class="icon-book"></i></span><%= @cloud_books.count %> of 2</h3>
 			</div>
+			<% cbhc = 0 %>
+			<% @cloud_books.each do |cb| %>
+			<% cbhc = cbhc+cb.cloud_books_histories.count %>
+			<% end %>
+<% if cbhc < 2 %>
 			<br/>
 			<%= link_to "Create", new_cloud_book_path, class: "btn btn-large btn-success btn-block" %>
 			<br/>
+<% end %>
 			<div class="cb_box">
 				<h4 align="center" >Recent Activity</h4>
 				<% @latest_cloud_book = @cloud_books.last(:order => 'created_at DESC') %>
@@ -25,15 +31,11 @@
 
 			<%= link_to "Run History Information", cloud_books_histories_path, class: "btn btn-large btn-success btn-block" %>
 			<br/>
-			<% cbhc = 0 %>
-			<% @cloud_books.each do |cb| %>
-			<% cbhc = cbhc+cb.cloud_books_histories.count %>
-			<% end %>
-
+			
 			<span class="btn btn-large disabled btn-block"><h3><%= cbhc %></h3> <h4>Launched </h4></span>
 
 			</br>
-			<%= link_to "Upgrade", "#", class: "btn btn-large btn-inverse btn-block disabled" %>
+			<%= link_to "Upgrade", pricing_path, class: "btn btn-large btn-inverse btn-block " %>
 
 		</div>
 		<!-- Span6 -->
