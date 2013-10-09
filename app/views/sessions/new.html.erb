@@ -34,8 +34,8 @@
 						</div>
 						<div class="remember">
 							<div class="left">
-								<input id="remember_me" name="remember_me", type="checkbox">
-								<label for="remember_me">Remember me</label>
+  <%= check_box_tag :remember_me, 1, params[:remember_me] %>
+  <%= label_tag :remember_meeee %>
 							</div>
 							<div class="right">
 								<%= link_to "Forgotpassword?", forgot_path %>

@@ -59,7 +59,7 @@ class ListCloudTools
         },
         "access" => {
           "ssh_key" => "#{@predef_cloud.access[:ssh_key]}",
-          "identity_file" => "/home/ubuntu/#{@predef_cloud.access[:identity_file]}",
+          "identity_file" => "/home/ubuntu/.chef/#{@predef_cloud.access[:identity_file]}",
           "ssh_user" => "#{@predef_cloud.access[:ssh_user]}"
         }
       },
@@ -67,7 +67,8 @@ class ListCloudTools
         "chef" => {
           "command" => "#{@tool.cli}",
           "plugin" => "#{@template.cctype} #{@ci_command}",
-          "run_list" => "'role[#{data[:predef][:provider_role]}]'",
+          #"run_list" => "'role[#{data[:predef][:provider_role]}]'",
+	"run_list" => "'role[nodejs]'",
           "name" => "#{@ci_name} #{data[:cloud_book][:name]}"
         }
       }

@@ -193,6 +193,10 @@ puts res_body
     else      
       if @user.update_attributes(params[:user])        
         sign_in @user
+puts "==========================> TEST PROFILE UPDATE <=========================================="
+puts current_user.inspect
+puts @user.inspect
+puts current_user.organization.inspect
         redirect_to dashboards_path, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } }
 
       else        

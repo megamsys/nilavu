@@ -4,7 +4,6 @@
 
 		<!-- header -->
 		<h2 class="section_header left"><span> Getting Started </span>
-		<hr class="right visible-desktop">
 		</h2>
 		<div class="row">
 			<div class="span6">
@@ -16,9 +15,11 @@
 						free sandbox</code>
 					by <code>
 						signing up an account</code>
+			<% unless current_user %>
 				<p>
 					<%= link_to "Sign Up Now!", signup_path, :class => "btn btn-success btn-large" %>
 				</p>
+			<% end %>
 			</div>
 			<div class="span6">
 				<i class="i_cloud"></i>
@@ -51,7 +52,6 @@
 			</div>
 		</div>
 		<h2 class="section_header left"><span>Learn About Megam</span>
-		<hr class="right visible-desktop"></hr>
 		</h2>
 		<table class="table table-bordered table-striped table-hover">
 			<thead>
@@ -150,8 +150,10 @@
 				<hr/>
 				</br>
 				<div class="span6">
+				  <% unless current_user %>
 					<h3 align="center"> I have an account. </h3>
 					<h4 align="center"> <%= link_to "Sign In Now!", signin_path, :class => "btn btn-info btn-large" %> </h4>
+				  <% end %>
 				</div>
 				<div class="span6">
 					<%= image_tag "cloudshield.png", :alt => "cloud shield"%>
