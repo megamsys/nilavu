@@ -23,7 +23,6 @@ class User < ActiveRecord::Base
  
 
   before_save { |user| user.email = email.downcase }
-  before_save :create_remember_token
 
   #validates_existence_of :email
 
@@ -34,11 +33,21 @@ class User < ActiveRecord::Base
     :email => auth_hash["info"]["email"], :phone => auth_hash["info"]["phone"], :admin => true)
   end
 
-  private
 
-  def create_remember_token
-    self.remember_token = SecureRandom.urlsafe_base64
-  end
+before_create { generate_token(:remember_token) }
+
+def send_password_reset
+  generate_token(:password_reset_token)
+  self.password_reset_sent_at = Time.zone.now
+  save!
+  UserMailer.password_reset(self).deliver
+end
+
+def generate_token(column)
+  begin
+    self[column] = SecureRandom.urlsafe_base64
+  end while User.exists?(column => self[column])
+end
 
 end
 

@@ -1,7 +1,6 @@
 <% provide(:title, "Sign in") %>
 
 <%= render :partial => "customizations/flash_messages" %>
-
 <div id="box_login">
 	<div class="container">
 		<div class="span12 box_wrapper">
@@ -18,7 +17,7 @@
 							<hr class="right">
 						</div>
 					</div>
-					<div class="form">
+				<div class="form">
 						<%= form_for(:session, :url => sessions_path, :html => {:id =>'password_validate', :novalidate => 'novalidate'}) do |f| %>
 						<div class="control-group">
 							<div class="controls">
@@ -34,13 +33,14 @@
 						</div>
 						<div class="remember">
 							<div class="left">
-  <%= check_box_tag :remember_me, 1, params[:remember_me] %>
-  <%= label_tag :remember_meeee %>
+  <%= check_box_tag :remember_me, 1, params[:remember_me], :id => "remember_me" %>
+  <%= label_tag :remember_me %>
 							</div>
 							<div class="right">
-								<%= link_to "Forgotpassword?", forgot_path %>
+								<%= link_to "Forgotpassword?", new_password_reset_path %>
 							</div>
 						</div>
+
 						<%= f.submit "Sign in", :class => "btn" %>
 						<% end %>
 					</div>
@@ -52,4 +52,6 @@
 		</div>
 	</div>
 </div>
+
+  <!--   <script src="http://code.jquery.com/jquery-latest.js"></script> -->
 

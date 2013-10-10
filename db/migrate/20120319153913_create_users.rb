@@ -15,6 +15,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string :api_token
       t.boolean :onboarded_api, default: false
       t.timestamps
+      t.string :password_reset_token
+      t.datetime :password_reset_sent_at
+
     end
     add_index :users, :email, unique: true
     add_index :users, :remember_token

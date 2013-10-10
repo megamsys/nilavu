@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "alrin@megam.co.in"
+  default from: "support@megam.co.in"
   def welcome_email(user)
     logger.debug "user = #{user}"
     @mailer_user = user
@@ -8,4 +8,8 @@ class UserMailer < ActionMailer::Base
     mail(:to => user.email, :subject => "Megam Account Confirmation")
   end
 
+  def password_reset(user)
+    @user = user
+    mail :to => user.email, :subject => "Megam Password Reset"
+  end
 end

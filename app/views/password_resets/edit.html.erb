@@ -1,0 +1,47 @@
+<% provide(:title, "Forgot password") %> 
+<%= render :partial => "customizations/flash_messages" %>
+
+  <div id="box_login">
+        <div class="container">
+            <div class="span12 box_wrapper">
+                <div class="offset2 span12 box">
+                    <div>
+                        <div class="head">
+                            <h4>Enter password</h4>
+                        </div>
+                        <div class="form">
+<%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>
+  <% if @user.errors.any? %>
+    <div class="error_messages">
+      <h2>Form is invalid</h2>
+      <ul>
+        <% for message in @user.errors.full_messages %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+  <div class="field">
+    <%= f.label :password_confirmation %>
+    <%= f.password_field :password_confirmation %>
+  </div>
+  <div class="actions"><%= f.submit "Update Password" %></div>
+<% end %>
+                        </div>
+                    </div>
+                </div>
+                <p class="already">Know your password? <%= link_to "Sign in", signin_path %></p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+

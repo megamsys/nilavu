@@ -36,7 +36,6 @@
 //= require select2
 //= require jquery.validate
 //= require jquery.wizard
-//= require jquery.peity
 //= require cloud_books
 //= require connector_projects
 //= require unicorn.form_validation
