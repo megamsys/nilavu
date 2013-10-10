@@ -19,7 +19,7 @@ Cloudauth::Application.routes.draw do
   resources :cloud_books
   resources :predef_clouds
   resources :dashboards
-  resources :widgets
+  resources :widgets  
 
   namespace :api do
     resources :dashboards do
@@ -55,7 +55,8 @@ Cloudauth::Application.routes.draw do
 
   # ======Users Controller
   match '/signup', to: 'users#new', via: [:get, :post]
-  match '/forgot', to: 'users#forgot', via: [:get]
+  match '/forgot', to: 'users#forgot', via: [:get, :post]
+  match '/contact_us', to: 'users#contact', via: [:get, :post]
   #to-do remove the users#edit named route.
   match '/edit', to: 'users#edit',via: [:get]
   #to-do remove the users#update named route.
@@ -95,6 +96,7 @@ Cloudauth::Application.routes.draw do
 
   # =======Cloud_identity controller
   match '/federate', to: 'cloud_identities#federate', via: [:get, :post]
+  #match '/identities/new', to: 'cloud_identities#', via: [:get, :post]
 
   # =======apps_items_controller
   match '/apps_items/destroy', to: 'apps_items#destroy', via: :delete

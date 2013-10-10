@@ -21,7 +21,7 @@
 					<% if signed_in? %>
 					<li>
 					<li>
-						<%= link_to dashboards_path do %>
+						<%= link_to dashboards_path, :target => "_self" do %>
 						<i class="icon icon-dashboard"></i> My dash
 						<% end %>
 					</li>

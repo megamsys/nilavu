@@ -15,7 +15,15 @@ jQuery(document)
 					jQuery('#identity_new_account_name').editable({
 						send : 'never'
 					});
-
+                  
+					jQuery('#identity_new').editable({
+						 display: function(value) {
+							 $(this).text(value);
+							 $("#changename").val(value);
+							 $("#bookname").val(value);
+							 } 							
+					});					
+					
 					
 					// === Prepare peity charts === //
 					unicornpeity();

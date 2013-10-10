@@ -1,0 +1,220 @@
+/*!
+ * jQuery ClassyBox
+ * http://www.class.pm/projects/jquery/
+ *
+ * Copyright 2013, Class.PM www.class.pm
+ * Written by Marius Stanciu - Sergiu <marius@picozu.net>
+ * Licensed under the GPL Version 3 license.
+ * Version 1.0.0
+ *
+ */
+ 
+#classybox {
+    position:fixed;
+    height:100%;
+    width:100%;   
+    top:0;
+    left:0;
+    background-color: rgba(15, 15, 15, 0.6);
+    z-index:2195; 
+    overflow:auto;
+} 
+.classybox-loader {
+    position:absolute;
+    height: 45px;
+    width: 45px;
+    background: url(../images/classybox/default/load.gif) center no-repeat rgba(0, 0, 0, 0.8);
+    border-radius: 8px;
+    z-index: 2450;
+}
+.classybox-wrap {
+    position:absolute; 
+    height:20px;
+    width:20px;
+    padding:5px; 
+    background-color: rgba(255, 255, 240, 1);
+    border:solid 4px rgba(0, 0, 0, 0.5);
+    background-clip:border-box;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding;
+    background-clip: padding-box;
+    overflow:visible; 
+    z-index:2200;
+    margin:0 auto;
+    top:0; 
+    left:0;  
+    border-radius: 8px;
+} 
+.classybox-wrap .content {
+    position:relative;
+    overflow:visible;  
+}
+.classybox-wrap .content .image,
+.classybox-wrap .content .object,
+.classybox-wrap .content iframe,
+.youtube-player {
+    border-radius: 8px;
+    z-index:2220 !important;
+}
+.classybox-wrap .number {
+    position:absolute;
+    top:7px;
+    left:7px;
+    font-size:1.0em;
+    color:#FFFFFF;
+    text-shadow:#000 1px 1px 2px;
+    z-index:2250;
+} 
+.classybox-wrap .panel {
+    position: absolute;
+    width: 35px;
+    top: 7px;
+    right: 7px;
+    z-index:2250;
+}
+.classybox-wrap .panel div {
+    height:24px;
+    width:24px;
+    margin-bottom: 3px;
+    padding:5px;
+    border-radius: 8px;
+    opacity:0.5;
+    float: right;
+}
+.classybox-wrap .panel div:hover {
+    opacity: 1.0;
+    background-color: rgba(51, 204, 255, 0.9);
+}
+.classybox-wrap .resize {
+    background: url(../images/classybox/default/resize.png) center no-repeat rgba(0, 0, 0, 0.8);
+}
+.classybox-wrap .fb {
+    background: url(../images/classybox/default/facebook.png) center no-repeat rgba(0, 0, 0, 0.8);
+} 
+.classybox-wrap .tw {
+    background: url(../images/classybox/default/twitter.png) center no-repeat rgba(0, 0, 0, 0.8);
+} 
+.classybox-wrap .gp {
+    background: url(../images/classybox/default/google.png) center no-repeat rgba(0, 0, 0, 0.8);
+}
+.classybox-wrap .close {
+    position:absolute; 
+    top:-42px;
+    right:10px;
+    background:url(../images/classybox/default/close.png) top right no-repeat;
+    height:34px;
+    width:34px;
+}
+.classybox-wrap .next {
+    position:absolute;   
+    right:-43px;
+    background:url(../images/classybox/default/next.png) top right no-repeat;
+    height:34px;
+    width:34px;
+    z-index:2190;
+}
+.classybox-wrap .prev {
+    position:absolute;   
+    left:-43px;
+    background:url(../images/classybox/default/prev.png) top left no-repeat;
+    height:34px;
+    width:34px;
+    z-index:2190;
+}
+.classybox-wrap .close a,
+.classybox-wrap .next a,
+.classybox-wrap .prev a,
+.classybox-wrap .panel a {
+    display:block;
+    height:100%;
+    width:100%;
+    text-indent:-777em;
+    outline:none;
+}
+.classybox-wrap h1 {
+    margin:5px 0px 8px;
+    padding-bottom:3px;
+    letter-spacing:1.3px; 
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:0.9em;
+    color:#cdcdcd;
+    border-bottom:solid 1px #7e7e7e;
+}
+.classybox-wrap h2.hide {
+    text-indent: -999em;
+    height: 0px;
+    overflow: hidden;
+}
+.classybox-wrap p { 
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:1.0em;
+    text-align:justify;
+    color:#e5e5e5;
+}
+.classybox-wrap .text {
+    position:absolute;
+    background: url(../images/classybox/default/bg.png) bottom left repeat-x;
+    bottom:4px; left:0;
+    padding:5px;
+    width:99%; 
+    z-index:2110;
+}
+* html .classybox-wrap .text {
+    background-image:none;
+    background-color:#0f0e0e;
+}
+.classybox-wrap .text {
+    display: none;
+}
+.classybox-wrap .text h1 {
+    margin:2px; 
+    padding:1px;
+    color:#919191;
+    z-index:2230;
+}
+.classybox-wrap .text .description {
+    position:relative;
+    bottom:0px; 
+    left:0px;
+    padding:2px 2px;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:1.0em;
+    z-index:2260;
+    color:#949494; 
+}
+.classybox-wrap .content .adss {
+    position: absolute; 
+    width:100%;
+    background: rgba(0, 0, 0, 0.6);
+    bottom: 60px;
+    overflow:visible;
+    display:none; 
+    z-index: 9999;
+}
+.classybox-wrap .content .adss .qa {
+    position: relative;
+    margin: 0 auto;
+}
+.classybox-wrap .content .adss .qa .closeads {
+    position: absolute;
+    height:18px;
+    width:18px;
+    top:-20px;
+    right: 0px;
+    background: url(../images/classybox/default/close.gif) top left no-repeat;
+    z-index: 9999;
+}
+.classybox-wrap .content .adss .qa .closeads a {
+    display: block;
+    height: 100%;
+    width: 100%;
+}
+.classybox-wrap .content .adss span,
+.classybox-wrap .content .adss div {
+    margin: 0 auto;
+}
+.classybox-wrap .content .adss img {
+    display: block;
+    float:left;
+    z-index: 9999;
+}
