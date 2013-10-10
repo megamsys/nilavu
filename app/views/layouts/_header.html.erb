@@ -6,22 +6,22 @@
 			<div class="nav-collapse pull-right">
 				<ul class="nav">
 					<li>
-						<%= link_to "/" do %>
+						<%= link_to "/", :target => "_self" do %>
 						<i class="icon icon-home"></i> Home
 						<% end %>
 					</li>
 					<li>
-						<%= link_to page_path("get_started") do %>
+						<%= link_to page_path("get_started"), :target => "_self" do %>
 						<i class="icon icon-gears"></i> Get started
 						<% end %>
 					</li>
 					<li>
-						<%= link_to "Features", page_path("features") %>
+						<%= link_to "Features", page_path("features"), :target => "_self" %>
 					</li>
 					<% if signed_in? %>
 					<li>
 					<li>
-						<%= link_to dashboards_path do %>
+						<%= link_to dashboards_path, :target => "_self" do %>
 						<i class="icon icon-dashboard"></i> My dash
 						<% end %>
 					</li>
@@ -29,14 +29,14 @@
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon icon-user"></i> <%= current_user.first_name.capitalize %> <b class="caret"></b> </a>
 						<ul class="dropdown-menu">
 							<li>
-								<%= link_to edit_user_path(current_user) do %>
+								<%= link_to edit_user_path(current_user), :target => "_self" do %>
 								<i class="icon icon-user"></i> Profile
 								<% end %>
 							</li>
 							<li class="divider"></li>
 
 							<li>
-								<%= link_to "Visit Support", "http://support.megam.co/?user=current_user.email",:target => "_blank" %>
+								<%= link_to "Visit Support", "http://support.megam.co/?user=current_user.email", :target => "_blank" %>
 							</li>
 							<li class="divider"></li>
 							<li>

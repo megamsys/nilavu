@@ -123,16 +123,18 @@ ActiveRecord::Schema.define(version: 20130828101201) do
     t.string   "last_name"
     t.string   "email"
     t.string   "phone"
-    t.boolean  "admin",             default: true
+    t.boolean  "admin",                  default: true
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "verified_email",    default: false
+    t.boolean  "verified_email",         default: false
     t.string   "verification_hash"
     t.string   "user_type"
     t.string   "api_token"
-    t.boolean  "onboarded_api",     default: false
+    t.boolean  "onboarded_api",          default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "password_reset_token"
+    t.datetime "password_reset_sent_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

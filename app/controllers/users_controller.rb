@@ -29,36 +29,6 @@ class UsersController < ApplicationController
     @user.build_organization
   end
 
-  def forgot
-  end
-
-  def worker
-=begin
-options = { :email => current_user.email, :api_key => current_user.api_token }
-#options = { :email => current_user.email, :api_key => current_user.api_token, :predef_name => "tom" }
-puts "Options ==> #{options}"
-#res_body = ListPredefs.perform(options)
-res_body = ListPredefClouds.perform(options)
-puts "-----------------Find Predefs---------------"
-puts res_body.lookup("aws-ec2-predef-small")
-
-#Resque.enqueue(WorkerClass, options)
-#success = Resque.enqueue(CreateAccounts, options)
-#HardWorker.perform_async('bob', 5)
-=end
-#    Twitter.update("Support tweet for beta launch => www.megam.co #megamsupport")
-
-  end
-
-  def dashboard
-=begin
-options = { :email => current_user.email, :api_key => current_user.api_token }
-res_body = ListPredefClouds.perform(options)
-puts "-----------------SUCCESS RES---------------"
-puts res_body
-=end
-  end
-
   def email_verify
     logger.debug "users_controller:email_verify => entry"
     @user= User.find_by_verification_hash(params[:format])
@@ -126,7 +96,7 @@ puts res_body
 
         redirect_to dashboards_path, :gflash => { :success => { :value => "#{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
-        redirect_to dashboards_path, :gflash => { :warn => { :value => "Sorry. You are not yet onboard. Update profile.An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        redirect_to dashboards_path, :gflash => { :warn => { :value => "Sorry. You are not yet onboard. Update profile.An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       end
     else
       @user= User.find_by_email(params[:user][:email])
@@ -187,8 +157,6 @@ puts res_body
             respond_with(@res_msg, :user => current_user, :api_token => current_user.api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
           }
         end
-
-      #redirect_to dashboard_path, :gflash => { :error => { :value => "Sorry. You are not yet onboard. Update profile. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       end
     else      
       if @user.update_attributes(params[:user])        
@@ -212,21 +180,6 @@ puts current_user.organization.inspect
     redirect_to users_path
   end
 
-=begin
-def following
-@title = "Organization"
-@user = User.find(params[:id])
-@organization = @user.organizationfollowed_users.paginate(page: params[:page])
-render 'show_org'
-end
-
-def apps
-@title = "apps"
-@user = User.find(params[:id])
-@users = @user.apps.paginate(page: params[:page])
-render 'show_apps'
-end
-=end
 
   private
 

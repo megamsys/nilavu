@@ -1,6 +1,7 @@
 #require 'sidekiq/web'
 Cloudauth::Application.routes.draw do
 
+  get "password_resets/new"
   get "contents/header"
 
   root :to => 'high_voltage/pages#show', :id => 'home'
@@ -20,6 +21,7 @@ Cloudauth::Application.routes.draw do
   resources :predef_clouds
   resources :dashboards
   resources :widgets
+  resources :password_resets
 
   namespace :api do
     resources :dashboards do
@@ -53,9 +55,13 @@ Cloudauth::Application.routes.draw do
   # ...
   #mount Sidekiq::Web, at: '/worker'
 
+
+  match '/reset', to: 'password_resets#reset', via: [:get, :post]
+
   # ======Users Controller
   match '/signup', to: 'users#new', via: [:get, :post]
   match '/forgot', to: 'users#forgot', via: [:get]
+  match '/pass_email', to: 'users#pass_email', via: [:get, :post]
   #to-do remove the users#edit named route.
   match '/edit', to: 'users#edit',via: [:get]
   #to-do remove the users#update named route.

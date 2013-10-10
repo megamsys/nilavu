@@ -35,7 +35,7 @@
 									<div class="container-fluid">
 										<% if !current_user.verified_email %>
 										<%= current_user.email %>
-										<%= link_to('Verify', email_verify_path(current_user.verification_hash), :class => "btn btn-warning btn-mini email-verify", :rel => "popover", :"data-content" => "Check Your mail", :remote => true) %>
+										<%= link_to('Verify', email_verify_path(current_user.verification_hash), :class => "btn btn-warning btn-mini email-verify", :rel => "popover", :"data-content" => "Check Your mail", :remote => true, :target => "_self") %>
 										<% else %>
 										Hi <%= current_user.first_name %>, Great ! <span class="label label-success">verified <%= current_user.email %>. </span>Thank you.
 										<% end %>
@@ -53,7 +53,7 @@
 								<div class="widget-content">
 									<div class="container-fluid">
 										<% if !current_user.organization %>
-										<%= link_to "Update", edit_user_path(current_user), class: "btn btn-warning btn-mini"  %> your profile
+										<%= link_to "Update", edit_user_path(current_user), class: "btn btn-warning btn-mini", :target => "_self"  %> your profile
 										<% else %>
 										<%= current_user.first_name.capitalize %>, Great ! your profile is <span class="label label-info">up-to date.</span> Thank you.
 										<% end %>
