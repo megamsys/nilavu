@@ -15,7 +15,7 @@
 										<h4>My Account</h4>
 									</div>
 									<div class="form">
-										<%= render :partial => "users/user_fields_form_email", :locals => {:user => @user, :user_fields_form_type => 'email', :method => 'patch'} %>
+										<%= render :partial => "users/user_fields_form_email", :locals => {:user => @user, :user_fields_form_type => 'user', :method => 'patch'} %>
 									</div>
 								</div>
 							</div>
@@ -39,7 +39,7 @@
 										<% end %>
 									</div>
 									<div class="form">
-										<%= render :partial => "users/organization_fields_form", :locals => {:user => @user} %>
+										<%= render :partial => "users/organization_fields_form", :locals => {:user => @user, :user_fields_form_type => "organization"} %>
 									</div>
 								</div>
 
@@ -96,5 +96,28 @@
 		</div>
 	</div>
 </div>
+
+<div id="profile_postfinish_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				×
+			</button>
+			<h3 id="myModalLabel">Profile Update</h3>
+		</div>
+		<div class="modal-body">
+			<div class="alert">
+
+				<div id="msg">
+
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<%= link_to  "Ok", dashboards_path, :class => "btn btn-primary" %>
+		</div>
+	</div>
+
+
 <% end %>
 <%= render :template => users_show_path %>

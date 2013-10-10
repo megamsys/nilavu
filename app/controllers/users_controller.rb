@@ -29,7 +29,6 @@ class UsersController < ApplicationController
     @user.build_organization
   end
 
-
   def email_verify
     logger.debug "users_controller:email_verify => entry"
     @user= User.find_by_verification_hash(params[:format])
@@ -124,6 +123,7 @@ class UsersController < ApplicationController
 
   def update
     sleep 2
+    logger.debug "PARAMS===== ==> #{params}"
     @user=User.find(params[:id])
     logger.debug "@USER @ UPDATE ==> #{@user.inspect}"
     @organization=@user.organization || Organization.new
@@ -143,34 +143,34 @@ class UsersController < ApplicationController
         puts "TEST IF !ERROR"
         @res_msg = "SUCCESS---->>"
         puts "TEST IF !ERROR    -->  #{@res_body.some_msg[:msg]}"
-        respond_to do |format|
-          format.js {
-            respond_with(@res_msg, :user => current_user, :api_token => current_user.api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
-          }
-        end
       else
         puts "TEST else !ERROR"
         #@user.update_attribute(:api_token, @api_token)
         #sign_in @user
         @res_msg = "#{@res_body.some_msg[:msg]}"
-        respond_to do |format|
-          format.js {
-            respond_with(@res_msg, :user => current_user, :api_token => current_user.api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
-          }
-        end
+        puts "ELSE @RES_MSG ====> "
+        puts @res_msg
+        puts @res_msg.class
+      end
+      respond_to do |format|
+        format.js {
+          respond_with(@res_msg, :user => current_user, :api_token => current_user.api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
+        }
       end
     else
       if @user.update_attributes(params[:user])
         sign_in @user
-        puts "==========================> TEST PROFILE UPDATE <=========================================="
-        puts current_user.inspect
-        puts @user.inspect
-        puts current_user.organization.inspect
-        redirect_to dashboards_path, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } }
-
+        unless params[:user][:organization_attributes] && params[:user][:organization_attributes][:logo]
+          respond_to do |format|
+            format.js {
+              respond_with(@user_fields_form_type, :user => current_user, :layout => !request.xhr? )
+            }
+          end
+        else
+          redirect_to dashboards_path
+        end
       else
         render 'edit'
-      #redirect_to edit_user_path(current_user), :target => "_self"
       end
     end
   end
@@ -181,14 +181,10 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-
   def contact
-    logger.debug "email address : #{params.inspect}"    
+    logger.debug "email address : #{params.inspect}"
     UserMailer.contact_email(params).deliver
-    #logger.debug "users_controller:email_verify => exit"
-    #redirect_to root_url, :gflash => { :success => { :value => "Your information was send successfully", :sticky => false, :nodom_wrap => true } }
   end
-
 
   private
 

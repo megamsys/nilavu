@@ -17,6 +17,7 @@
 	
 })( jQuery );
 
+
 $(document).ready(function() {	
 	$('#platformfaulty input:radio').each(function() {
 		var self = $(this), label = self.next(), label_text = label.text();
