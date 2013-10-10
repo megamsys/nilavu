@@ -16,9 +16,9 @@
 			<% @cloud_books.each do |cb| %>
 			<% cbhc = cbhc+cb.cloud_books_histories.count %>
 			<% end %>
-<% if cbhc < 2 %>
+<% if cbhc < 20 %>
 			<br/>
-			<%= link_to "Create", new_cloud_book_path, class: "btn btn-large btn-success btn-block" %>
+			<%= link_to "Create", new_cloud_book_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
 			<br/>
 <% end %>
 			<div class="cb_box">
@@ -29,13 +29,13 @@
 			</div>
 			<br/>
 
-			<%= link_to "Run History Information", cloud_books_histories_path, class: "btn btn-large btn-success btn-block" %>
+			<%= link_to "Run History Information", cloud_books_histories_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
 			<br/>
 			
 			<span class="btn btn-large disabled btn-block"><h3><%= cbhc %></h3> <h4>Launched </h4></span>
 
 			</br>
-			<%= link_to "Upgrade", pricing_path, class: "btn btn-large btn-inverse btn-block " %>
+			<%= link_to "Upgrade", pricing_path, class: "btn btn-large btn-inverse btn-block ", :target => "_self" %>
 
 		</div>
 		<!-- Span6 -->

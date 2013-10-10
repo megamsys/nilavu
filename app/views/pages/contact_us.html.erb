@@ -20,52 +20,57 @@
 
 			<div class="row form">
 				<div class="span6">
-					<form class="form-horizontal" method=post name="basic_validate" id="basic_validate" novalidate="novalidate">
-						<div class="control-group">
-							<label class="control-label">Name</label>
-							<div class="controls">
-								<input type="text" class="span4 required" name="inputName" id="inputName">
-							</div>
+					<%= spinner_tag 'spin_reset' %>
+					<%= form_tag contact_us_path, :method => :post, :remote => true, data: { spinlock: '#spin_reset'} do %>
+					<!--<form class="form-horizontal" method=post name="basic_validate" id="basic_validate" novalidate="novalidate">-->
+					<div class="control-group">
+						<label class="control-label">Name</label>
+						<div class="controls">
+							<input type="text" class="span4 required" name="inputName" id="inputName">
 						</div>
-						<div class="control-group">
-							<label class="control-label">Email</label>
-							<div class="controls">
-								<input type="text" class="span4 required" name="inputEmail" id="inputEmail">
-							</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Email</label>
+						<div class="controls">
+							<input type="text" class="span4 required" name="inputEmail" id="inputEmail">
 						</div>
-						<div class="control-group">
-							<label class="control-label">Mobile Phone</label>
-							<div class="controls">
-								<input type="text" class="span4" name="inputPhone" id="inputPhone">
-							</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Mobile Phone</label>
+						<div class="controls">
+							<input type="text" class="span4" name="inputPhone" id="inputPhone">
 						</div>
-						<div class="control-group">
-							<label class="control-label">PaaS - You Wish</label>
-							<div class="controls">
-								<select class="required" multiple name="multiple_selects">
-									<option value="oracle">Oracle</option>
-									<option value="db2" selected>DB2</option>
-									<option value="mysql">MySQL</option>
-									<option value="php">PHP</option>
-									<option value="python">Python</option>
-									<option value="mongodb">MongoDB</option>
-								</select>
-							</div>
-						</div>						
-						<div class="control-group">
-							<label class="control-label">Use case</label>
-							<div class="controls">
-								<textarea class="span4 required" name="inputComment" id="inputComment" rows="6" , placeholder="Briefly describe your cloud application, How do you intend to access it ?"></textarea>
-							</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">PaaS - You Wish</label>
+						<div class="controls">
+							<select class="required" multiple name="multiple_selects">
+								<option value="oracle">Oracle</option>
+								<option value="db2" selected>DB2</option>
+								<option value="mysql">MySQL</option>
+								<option value="php">PHP</option>
+								<option value="python">Python</option>
+								<option value="mongodb">MongoDB</option>
+							</select>
 						</div>
-						<div class="control-group">
-							<div class="controls action">
-								<button type="submit" class="btn">
-									Send
-								</button>
-							</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label">Use case</label>
+						<div class="controls">
+							<textarea class="span4 required" name="inputComment" id="inputComment" rows="6" , placeholder="Briefly describe your cloud application, How do you intend to access it ?"></textarea>
 						</div>
-					</form>
+					</div>
+					<div class="control-group">
+						<div class="controls action">
+
+							<%= submit_tag "Submit" %>
+							<!--<button type="submit" class="btn">
+							Send
+							</button>-->
+						</div>
+					</div>
+					<!--</form>-->
+					<% end %>
 				</div>
 				<div class="span5 offset1">
 					<div class="address">
@@ -99,4 +104,19 @@
 
 		</div>
 	</div>
+	<div id="contact_mail_success" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				×
+			</button>
+			<h3 id="myModalLabel">Success</h3>
+		</div>
+		<div class="modal-body">
+			<p>
+				Your information has been sent to Megam support team.
+			</p>
+		</div>
 
+		<div class="modal-footer" id="contact_modal"></div>
+
+	</div>

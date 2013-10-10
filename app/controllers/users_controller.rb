@@ -29,6 +29,7 @@ class UsersController < ApplicationController
     @user.build_organization
   end
 
+
   def email_verify
     logger.debug "users_controller:email_verify => entry"
     @user= User.find_by_verification_hash(params[:format])
@@ -73,9 +74,9 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome #{current_user.first_name}"
 
       #Dashboard entry
-      #puts("---------create---------->> entry") 
-      @dashboard=@user.dashboards.create(:name=> params[:user][:first_name])   
-      book_source = Rails.configuration.metric_source  
+      #puts("---------create---------->> entry")
+      @dashboard=@user.dashboards.create(:name=> params[:user][:first_name])
+      book_source = Rails.configuration.metric_source
       @widget=@dashboard.widgets.create(:name=>"graph", :kind=>"datapoints", :source=>book_source, :widget_type=>"pernode", :range=>"30-minutes")
       @widget=@dashboard.widgets.create(:name=>"totalbooks", :kind=>"totalbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
       @widget=@dashboard.widgets.create(:name=>"newbooks", :kind=>"newbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
@@ -104,7 +105,7 @@ class UsersController < ApplicationController
         flash[:error] = "Email #{@user.email} already exists.<div class='right'> #{ActionController::Base.helpers.link_to 'Forgot Password ?.', forgot_path}</div>".html_safe
         redirect_to signin_path
       else
-        #flash[:alert] = "An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}".html_safe
+      #flash[:alert] = "An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}".html_safe
         redirect_to signup_path
       end
 
@@ -158,18 +159,18 @@ class UsersController < ApplicationController
           }
         end
       end
-    else      
-      if @user.update_attributes(params[:user])        
+    else
+      if @user.update_attributes(params[:user])
         sign_in @user
-puts "==========================> TEST PROFILE UPDATE <=========================================="
-puts current_user.inspect
-puts @user.inspect
-puts current_user.organization.inspect
+        puts "==========================> TEST PROFILE UPDATE <=========================================="
+        puts current_user.inspect
+        puts @user.inspect
+        puts current_user.organization.inspect
         redirect_to dashboards_path, :gflash => { :success => { :value => "Welcome #{@user.first_name}. Your profile was updated successfully.", :sticky => false, :nodom_wrap => true } }
 
-      else        
+      else
         render 'edit'
-        #redirect_to edit_user_path(current_user), :target => "_self"
+      #redirect_to edit_user_path(current_user), :target => "_self"
       end
     end
   end
@@ -178,6 +179,14 @@ puts current_user.organization.inspect
     User.find(params[:id]).destroy
     flash[:success] = "Sorry to see you go. Removed successfully."
     redirect_to users_path
+  end
+
+
+  def contact
+    logger.debug "email address : #{params.inspect}"    
+    UserMailer.contact_email(params).deliver
+    #logger.debug "users_controller:email_verify => exit"
+    #redirect_to root_url, :gflash => { :success => { :value => "Your information was send successfully", :sticky => false, :nodom_wrap => true } }
   end
 
 
@@ -195,4 +204,5 @@ puts current_user.organization.inspect
   def admin_user
     redirect_to(root_path) unless current_user.admin?
   end
+
 end

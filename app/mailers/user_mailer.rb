@@ -12,4 +12,11 @@ class UserMailer < ActionMailer::Base
     @user = user
     mail :to => user.email, :subject => "Megam Password Reset"
   end
+
+  def contact_email(user)
+    logger.debug "user = #{user[:inputName]}"
+    @contact_user = user      
+    mail(:to => "support@megam.co.in", :subject => "User contact information")
+  end
+
 end
