@@ -99,13 +99,29 @@
 		<div class="row-fluid">
 			<div class="span4"></div>
 			<div class="span4">
-				<%= submit_tag "Next", :class => "btn btn-large btn-success btn-block", :remote => true, :disable_with => "Please wait...", :data => { :spinner => '#spin-btn'} %>
+				<%= submit_tag "Next", :class => "btn btn-large btn-success btn-block", :onclick => "evalGroup()", :remote => true, :return => false, :disable_with => "Please wait...", :data => { :spinner => '#spin-btn'} %>
 				<%= spinner_tag 'spin-btn' %>
 				<% end %>
 			</div>
 			<div class="span4"></div>
 		</div>
 	</div>
+
+<script type="text/javascript">
+function evalGroup()
+{
+//var group = document.radioForm.myRadio;
+var group = document.predef.predef_name;
+for (var i=0; i<group.length; i++) {
+if (group[i].checked)
+break;
+}
+if (i==group.length)
+return alert("No radio button is checked");
+//alert("No radio button is checked");
+//return null;
+}
+</script>
 
 	<% end %>
 	<%= render :template => users_show_path %>
