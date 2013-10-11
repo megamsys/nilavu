@@ -16,7 +16,7 @@
 			<% @cloud_books.each do |cb| %>
 			<% cbhc = cbhc+cb.cloud_books_histories.count %>
 			<% end %>
-<% if cbhc < 2 %>
+<% if cbhc < 20 %>
 			<br/>
 			<%= link_to "Create", new_cloud_book_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
 			<br/>

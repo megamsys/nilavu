@@ -2,9 +2,9 @@
 	<div id="sidebar">
 		<ul ng-controller="MainCtrl">
 			<div class="you">
-				<li>
-					<%= image_tag avatar_url(current_user) %>
-					<%= link_to edit_user_path(current_user) do %>
+				<li >
+					<%= image_tag avatar_url(current_user), :size => "260x260" %>
+					<%= link_to edit_user_path(current_user), :target => "_self" do %>
 					<% current_user.first_name.capitalize %>
 					<%end%>
 				</li>

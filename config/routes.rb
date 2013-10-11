@@ -62,6 +62,7 @@ Cloudauth::Application.routes.draw do
   match '/signup', to: 'users#new', via: [:get, :post]
   match '/forgot', to: 'users#forgot', via: [:get]
   match '/pass_email', to: 'users#pass_email', via: [:get, :post]
+  match '/contact_us', to: 'users#contact', via: [:get, :post]
   #to-do remove the users#edit named route.
   match '/edit', to: 'users#edit',via: [:get]
   #to-do remove the users#update named route.
@@ -101,6 +102,7 @@ Cloudauth::Application.routes.draw do
 
   # =======Cloud_identity controller
   match '/federate', to: 'cloud_identities#federate', via: [:get, :post]
+  #match '/identities/new', to: 'cloud_identities#', via: [:get, :post]
 
   # =======apps_items_controller
   match '/apps_items/destroy', to: 'apps_items#destroy', via: :delete

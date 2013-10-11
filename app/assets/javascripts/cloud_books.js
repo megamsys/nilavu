@@ -36,8 +36,11 @@ $(document).ready(function() {
             var val = $(this).val(); 
         }
     });
-	});	
+	});		
 	
+	$("#identity_new").change(function() {						
+		$("#changename").val("gfhjhj");
+		});
 	
 });
 

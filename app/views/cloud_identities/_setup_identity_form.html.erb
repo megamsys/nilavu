@@ -1,4 +1,4 @@
-<%= form_tag(newidentity_path,:method => "post", data: { spinner: '#spin_create_identity', :remote => true}, :id => 'form_setup_identity') do %>
+<%= form_tag(cloud_identities_path,:method => "post", data: { spinner: '#spin_create_identity', :remote => true}, :id => 'form_setup_identity') do %>
 <% @acc_name = account_name %>
 <p class="help-block">
 	<strong><span class="label label-info">*optional</span> Click on the default account name </strong>

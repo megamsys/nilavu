@@ -51,8 +51,7 @@ class CloudBooksController < ApplicationController
   def create
     @book = current_user.cloud_books.create(params[:cloud_book])
     @domainname = @book.domain_name
-    @book_id = @book.id
-
+    @book_id = @book.id    
     if @book.save
       options = { :email => current_user.email, :api_key => current_user.api_token, :node => mk_node(params, "server", "create") }
       @node = CreateNodes.perform(options)

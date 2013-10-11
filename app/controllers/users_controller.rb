@@ -73,9 +73,9 @@ class UsersController < ApplicationController
       flash[:success] = "Welcome #{current_user.first_name}"
 
       #Dashboard entry
-      #puts("---------create---------->> entry") 
-      @dashboard=@user.dashboards.create(:name=> params[:user][:first_name])   
-      book_source = Rails.configuration.metric_source  
+      #puts("---------create---------->> entry")
+      @dashboard=@user.dashboards.create(:name=> params[:user][:first_name])
+      book_source = Rails.configuration.metric_source
       @widget=@dashboard.widgets.create(:name=>"graph", :kind=>"datapoints", :source=>book_source, :widget_type=>"pernode", :range=>"30-minutes")
       @widget=@dashboard.widgets.create(:name=>"totalbooks", :kind=>"totalbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
       @widget=@dashboard.widgets.create(:name=>"newbooks", :kind=>"newbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
@@ -104,7 +104,7 @@ class UsersController < ApplicationController
         flash[:error] = "Email #{@user.email} already exists.<div class='right'> #{ActionController::Base.helpers.link_to 'Forgot Password ?.', forgot_path}</div>".html_safe
         redirect_to signin_path
       else
-        #flash[:alert] = "An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}".html_safe
+      #flash[:alert] = "An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}".html_safe
         redirect_to signup_path
       end
 
@@ -149,30 +149,28 @@ class UsersController < ApplicationController
         #sign_in @user
         @res_msg = "#{@res_body.some_msg[:msg]}"
         puts "ELSE @RES_MSG ====> "
-	puts @res_msg
-	puts @res_msg.class
+        puts @res_msg
+        puts @res_msg.class
       end
-        respond_to do |format|
-          format.js {
-            respond_with(@res_msg, :user => current_user, :api_token => current_user.api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
-          }
-        end
-    else      
-      if @user.update_attributes(params[:user])        
+      respond_to do |format|
+        format.js {
+          respond_with(@res_msg, :user => current_user, :api_token => current_user.api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
+        }
+      end
+    else
+      if @user.update_attributes(params[:user])
         sign_in @user
-  	#if params[:user][:organization_attributes]
-	unless params[:user][:organization_attributes] && params[:user][:organization_attributes][:logo]
-        respond_to do |format|
-          format.js {
-            respond_with(@user_fields_form_type, :user => current_user, :layout => !request.xhr? )
-          }
+        unless params[:user][:organization_attributes] && params[:user][:organization_attributes][:logo]
+          respond_to do |format|
+            format.js {
+              respond_with(@user_fields_form_type, :user => current_user, :layout => !request.xhr? )
+            }
+          end
+        else
+          redirect_to dashboards_path
         end
-	else
-		redirect_to dashboards_path
-	end
-      else        
+      else
         render 'edit'
-        #redirect_to edit_user_path(current_user), :target => "_self"
       end
     end
   end
@@ -183,6 +181,10 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  def contact
+    logger.debug "email address : #{params.inspect}"
+    UserMailer.contact_email(params).deliver
+  end
 
   private
 
@@ -198,4 +200,5 @@ class UsersController < ApplicationController
   def admin_user
     redirect_to(root_path) unless current_user.admin?
   end
+
 end

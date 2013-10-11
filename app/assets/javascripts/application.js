@@ -16,7 +16,6 @@
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery.ui.all
-//= require jquery.peity
 //= require bowser
 //= require twitter/bootstrap
 //= require unstable/angular
@@ -36,6 +35,7 @@
 //= require select2
 //= require jquery.validate
 //= require jquery.wizard
+//= require jquery.peity
 //= require cloud_books
 //= require connector_projects
 //= require unicorn.form_validation
