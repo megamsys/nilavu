@@ -13,8 +13,6 @@ class ApplicationController < ActionController::Base
     rescue_from ActiveRecord::RecordNotFound, with: :render_404
   end
 
- 
-
   # renders 404 in an exception template.
   # A generic template exists in error which shows the error in a
   # usage way.
@@ -25,8 +23,8 @@ class ApplicationController < ActionController::Base
       format.all { render nothing: true, status: 404 }
     end
   end
-  
- # renders 505 in an exception template.
+
+  # renders 505 in an exception template.
   # A generic template exists in error which shows the error in a
   # usage way.
   def render_500(exception = nil)
@@ -35,7 +33,7 @@ class ApplicationController < ActionController::Base
       Rails.logger.fatal exception.backtrace.join("\n")
     end
     respond_to do |format|
-	puts "========================> APP CONTROLLLER <======================================== "
+      puts "========================> APP CONTROLLLER <======================================== "
       format.html { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
       format.js { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
       format.all { render nothing: true, status: 500}
