@@ -8,11 +8,11 @@ class SessionsController < ApplicationController
     if social_identity.nil?
       user = User.find_by_email(params[:session][:email])
       if user && user.authenticate(params[:session][:password])
-    if params[:remember_me]
-      cookies.permanent[:remember_token] = user.remember_token
-    else
-      cookies[:remember_token] = user.remember_token
-    end
+        if params[:remember_me]
+          cookies.permanent[:remember_token] = user.remember_token
+        else
+          cookies[:remember_token] = user.remember_token
+        end
         sign_in user
         flash[:success] = "Welcome #{current_user.first_name}"
         redirect_back_or dashboards_path, :gflash => { :success => { :value => "Welcome #{user.first_name}. Your registered email is #{user.email}, Thank you.", :sticky => false, :nodom_wrap => true } }

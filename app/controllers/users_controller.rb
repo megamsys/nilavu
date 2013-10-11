@@ -63,13 +63,13 @@ class UsersController < ApplicationController
 
     if @user.save
       if params[:social_uid]
+        logger.debug "Social Identity"
         @identity = Identity.find_by_uid(params[:social_uid])
         @identity.update_attribute(:users_id, @user.id)
       end
       sign_in @user
       options = { :id => current_user.id, :email => current_user.email, :api_key => current_user.api_token, :authority => "admin" }
       res_body = CreateAccounts.perform(options)
-      puts "-----------------SUCCESS RES---------------"
       flash[:success] = "Welcome #{current_user.first_name}"
 
       #Dashboard entry
@@ -89,22 +89,25 @@ class UsersController < ApplicationController
 
       #@dashboard = Dashboard.new(:name=> params[:first_name], :user_id => current_user.id)
 
-      if !(res_body.some_msg[:msg_type] == "error")
+      if !(res_body.class == Megam::Error)
         #update current user as onboard user(megam_api user)
+        logger.debug "User Onboarded"
         @user.update_attribute(:onboarded_api, true)
         sign_in @user
 
         redirect_to dashboards_path, :gflash => { :success => { :value => "#{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
+        logger.debug "User Not Onboarded"
         redirect_to dashboards_path, :gflash => { :warn => { :value => "Sorry. You are not yet onboard. Update profile.An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       end
     else
       @user= User.find_by_email(params[:user][:email])
       if(@user)
-        flash[:error] = "Email #{@user.email} already exists.<div class='right'> #{ActionController::Base.helpers.link_to 'Forgot Password ?.', forgot_path}</div>".html_safe
+        logger.debug "Already Existed email"
+        flash[:error] = "Email #{@user.email} already exists.<div class='right'> #{ActionController::Base.helpers.link_to 'Forgot Password ?.', new_password_reset_path}</div>".html_safe
         redirect_to signin_path
       else
-      #flash[:alert] = "An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', forgot_path}".html_safe
+      #flash[:alert] = "An error occurred while trying to register #{@user.email}. Try again. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', new_password_reset_path}".html_safe
         redirect_to signup_path
       end
 
@@ -135,7 +138,7 @@ class UsersController < ApplicationController
 
       options = { :id => current_user.id, :email => current_user.email, :api_key => current_user.api_token, :authority => "admin" }
       @res_body = CreateAccounts.perform(options)
-      if !(@res_body.some_msg[:msg_type] == "error")
+      if !(@res_body.class == Megam::Error)
         #update current user as onboard user(megam_api user)
         @user.update_attribute(:onboarded_api, true)
         #@user.update_attributes(api_token: @api_token, onboarded_api: true)

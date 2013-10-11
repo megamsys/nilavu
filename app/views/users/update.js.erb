@@ -3,7 +3,6 @@ var selected_entity = '.user_fields_form_<%= @user_fields_form_type %>';
 <% if @user_fields_form_type == 'api_key'%>
 var msg = '<%= @res_msg %>';
 $('#api_key_field').val('<%= @api_token %>');
-alert("Hello! I am an alert box=>  "+msg);
 var selected_entity = '#profile_postfinish_popup';
 $(selected_entity).modal('show');
 $("#msg").append('<h5>API Key updation status : <%= @res_msg %> </h5>');

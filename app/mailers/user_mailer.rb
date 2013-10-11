@@ -15,7 +15,7 @@ class UserMailer < ActionMailer::Base
 
   def contact_email(user)
     logger.debug "user = #{user[:inputName]}"
-    @contact_user = user      
+    @contact_user = user
     mail(:to => "support@megam.co.in", :subject => "User contact information")
   end
 

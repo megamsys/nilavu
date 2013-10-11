@@ -1,11 +1,11 @@
 class CreateNodes
   #this returns a Megam::Account object
   def self.perform(new_node)
-	puts "===================> NEW NODE worker params<==============================="
-	puts new_node.inspect
+    puts "===================> NEW NODE worker params<==============================="
+    puts new_node.inspect
 
-	puts "===================> NEW NODE worker params commands<==============================="
-	puts new_node[:node]["command"]
+    puts "===================> NEW NODE worker params commands<==============================="
+    #puts new_node[:node]["command"]
 
     begin
       Megam::Config[:email] = new_node[:email]
