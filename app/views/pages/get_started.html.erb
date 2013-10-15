@@ -3,23 +3,26 @@
 	<div class="container">
 
 		<!-- header -->
-		<h2 class="section_header left"><span> Getting Started </span>
-		</h2>
+		<h2 class="section_header left"><span> Getting Started </span></h2>
 		<div class="row">
 			<div class="span6">
 				<i class="i_cloud"></i><h4> Free, Hosted Environment</h4>
 				<p class="environments">
 				<p>
 					Megam a polygot PaaS is a cloud platform built using Chef 11 and Scala/Akka.
-					To see how Quick you can get a polygot cloud app running, you can play in the <code>
-						free sandbox</code>
-					by <code>
-						signing up an account</code>
-			<% unless current_user %>
+					To see how Quick you can get a polygot cloud app running, you can play in the
+					<code>
+						free sandbox
+					</code>
+					by
+					<code>
+						signing up an account
+					</code>
+					<% unless current_user %>
 				<p>
 					<%= link_to "Sign Up Now!", signup_path, :class => "btn btn-success btn-large" %>
 				</p>
-			<% end %>
+				<% end %>
 			</div>
 			<div class="span6">
 				<i class="i_cloud"></i>
@@ -51,8 +54,7 @@
 				</p>
 			</div>
 		</div>
-		<h2 class="section_header left"><span>Learn About Megam</span>
-		</h2>
+		<h2 class="section_header left"><span>Learn About Megam</span></h2>
 		<table class="table table-bordered table-striped table-hover">
 			<thead>
 				<tr>
@@ -65,17 +67,17 @@
 				<tr>
 					<td>Cloud API Server</td>
 					<td><%= link_to "Installing the Cloud API Server",   "http://docs.megam.co/cloudserver", { :target => '_blank'} %></td>
-					<td><%= link_to "Stateless RESTful Scala/Playframework server is the heart of our cloud ops",   "https://github.com/indykish/megam_play.git", { :target => '_blank'} %></td>
+					<td><%= link_to "A Stateless Cloud API Server [Scala/Playframework]",   "https://github.com/indykish/megam_play.git", { :target => '_blank'} %></td>
 				</tr>
 				<tr>
 					<td>Cloud Brdige Herk</td>
 					<td><%= link_to "Installing the Cloud Bridge Herk",   "http://docs.megam.co/cloudserver", { :target => '_blank'} %></td>
-					<td><%= link_to "Scala/Akka based Cloud Agent bridge ",   "https://github.com/indykish/megam_akka.git", { :target => '_blank'} %></td>
+					<td><%= link_to "Cloud Bridge to API Server and PubSub Agents",   "https://github.com/indykish/megam_akka.git", { :target => '_blank'} %></td>
 				</tr>
 				<tr>
 					<td>Cloud App Connector</td>
-					<td><%= link_to "Installing a set of Cloud App Connector",   "http://docs.megam.co/cloudserver", { :target => '_blank'} %></td>
-					<td><%= link_to "Preview - RESTful Cloud connectors to Salesforce, GoogleApp..",   "https://github.com/indykish/deccanplato.git", { :target => '_blank'} %></td>
+					<td><%= link_to "Installing the Cloud App Connector",   "http://docs.megam.co/cloudserver", { :target => '_blank'} %></td>
+					<td><%= link_to "RESTful Cloud connectors to Salesforce, GoogleApp[Preview]",   "https://github.com/indykish/deccanplato.git", { :target => '_blank'} %></td>
 				</tr>
 			</tbody>
 		</table>
@@ -95,10 +97,15 @@
 								What are the components of Megam ?
 							</div>
 							<div class="answer">
-								There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
-								<br>
-								All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.
-								Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum claritatem. Investigationes demonstraverunt lectores legere me lius quod ii legunt saepius
+								There are three major components <span class="label label-info">Medium</span>,<span class="label label-info">Cloud API Server</span>, <span class="label label-info">Cloud Bridge Herk</span>
+								</br>
+								<span class="label">Medium</span>:The Medium can be WebApp built using Rails, CLI (Ruby) or Mob (Sencha Touch
+								<code>
+									* coming soon
+								</code>
+								).</br><span class="label">Cloud API Server      </span>: Cloud API Server is a RESTful Play(Scala) responsible for managing the description of cloud resources.
+								</br>
+								<span class="label">Cloud Bridge Herk</span>: Cloud Bridge Herk is an instrumentor by taking the cloud description and mediates between the PubSubEngine and the Cloud API Server
 							</div>
 						</div>
 						<div class="faq">
@@ -110,7 +117,7 @@
 							</div>
 							<div class="answer">
 								Great. We would like to help you out. Give us a shout, we'll hand hold you.
-								Fill in this questionaire, before you start (Google doc. link to access the hardware, private cloud,
+								Fill in this questionaire, before you start (Google doc. link to assess the hardware, private cloud,
 								hybrid cloud, and openstack readiness)
 								<br>
 								<%= link_to "For further reading",   "http://docs.megam.co", { :target => '_blank'} %>
@@ -124,9 +131,11 @@
 								I am a Developer Great. How do I Quickly Launch Java for Staging ?
 							</div>
 							<div class="answer">
-								There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
+								There are screencasts in the <%= link_to "Tour",    page_path("tour"), { :target => '_blank'} %>
+                                which walks thru on how quick you can launch a java app.
 								<br>
-								All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.
+								All you need is a GitHub project. Refer <%= link_to "Tour",    page_path("tour"), { :target => '_blank'} %>, if you need help <%= link_to "Contact Us",   page_path("contact_us"), { :target => '_self'} %>.
+								<br>
 								<%= link_to "For further reading.",   "http://docs.megam.co", { :target => '_blank'} %>
 							</div>
 						</div>
@@ -138,10 +147,13 @@
 								I am  DevOps Guy. What is the deal with Cloud Management ?
 							</div>
 							<div class="answer">
-								There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
+								There are many cookbooks curated for Chef 11 that runs in the public hosted sandbox of Megam Cloud. 
 								<br>
 								<br>
-								All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.
+								Click here to see the  <%= link_to "chef-repo.",   "http://docs.megam.co", { :target => '_blank'} %>
+								We are testing <code>Hosted Chef</code> which lets you hook up your repo. If you wish to use our private 
+								offering then you can tweak the chef-repo as you wish.
+								<br>
 								<%= link_to "For further reading.",   "http://docs.megam.co", { :target => '_blank'} %>
 							</div>
 						</div>
@@ -150,10 +162,10 @@
 				<hr/>
 				</br>
 				<div class="span6">
-				  <% unless current_user %>
+					<% unless current_user %>
 					<h3 align="center"> I have an account. </h3>
 					<h4 align="center"> <%= link_to "Sign In Now!", signin_path, :class => "btn btn-info btn-large" %> </h4>
-				  <% end %>
+					<% end %>
 				</div>
 				<div class="span6">
 					<%= image_tag "cloudshield.png", :alt => "cloud shield"%>
