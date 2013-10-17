@@ -35,7 +35,9 @@
 									<div class="container-fluid">
 										<% if !current_user.verified_email %>
 										<%= current_user.email %>
-										<%= link_to('Verify', email_verify_path(current_user.verification_hash), :class => "btn btn-warning btn-mini email-verify", :rel => "popover", :"data-content" => "Check Your mail", :remote => true, :target => "_self") %>
+										  <%= link_to 'Verify', email_verify_path(current_user.verification_hash), :class => "btn btn-warning btn-mini email-verify", :remote => true, :target => "_self", :data => {:disable_with => "Sending mail"}, title: 'Verify your email for megam communication like billing, notifications etc', rel: 'tooltip' %>
+
+
 										<% else %>
 										Hi <%= current_user.first_name %>, Great ! <span class="label label-success">verified <%= current_user.email %>. </span>Thank you.
 										<% end %>
@@ -53,7 +55,10 @@
 								<div class="widget-content">
 									<div class="container-fluid">
 										<% if !current_user.organization %>
-										<%= link_to "Update", edit_user_path(current_user), class: "btn btn-warning btn-mini", :target => "_self"  %> your profile
+										<%= link_to "Update", edit_user_path(current_user), class: "btn btn-warning btn-mini", :target => "_self", title: 'Update your organization deatils', rel: 'tooltip'  %> your profile
+
+    <a href="#" data-toggle="tooltip" title="first tooltip">hover over me</a>
+
 										<% else %>
 										<%= current_user.first_name.capitalize %>, Great ! your profile is <span class="label label-info">up-to date.</span> Thank you.
 										<% end %>
@@ -173,6 +178,35 @@
 			</div>
 		</div>
 	</div>
+
+
+
+
+	<div id="email_verify_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				×
+			</button>
+			<h3 id="myModalLabel">Email Verification</h3>
+		</div>
+		<div class="modal-body">
+			<div class="alert">
+
+				<div id="msg">
+					Email has been sent to <%= current_user.email %> for email verification. Please check your email and follow the instructions
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">
+				Ok
+			</button>
+		</div>
+	</div>
+
+
+
 </div>
 <% end %>
    <script>

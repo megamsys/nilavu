@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
   end
 
   def create
+	logger.debug "==> Controller: sessions, Action: create, User signin"
     auth = social_identity
     if social_identity.nil?
       user = User.find_by_email(params[:session][:email])
