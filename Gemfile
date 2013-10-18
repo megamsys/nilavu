@@ -15,7 +15,7 @@ gem 'turbolinks'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
-gem 'execjs','2.0.1'
+gem 'execjs','2.0.2'
 gem 'jquery-datatables-rails'
 gem "flot-rails", "~> 0.0.4"
 gem "gritter", "~> 1.0.3"
@@ -73,7 +73,7 @@ group :assets do
 
   gem 'twitter-bootstrap-rails'
   # supporting rails 4.0
-  gem 'sass-rails',   '~> 4.0.0'
+  gem 'sass-rails',   '~> 4.0.1'
   gem 'coffee-rails', '~> 4.0.0'
   gem "less-rails", "~> 2.4.2"
   gem 'uglifier', '>= 2.2.1'
