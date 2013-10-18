@@ -12,7 +12,7 @@ module CloudBooksHelper
 #@account_name = RandomWordGenerator.composed(2, 15)
 
 @book_name = /\w+/.gen
-
+@book_name.downcase
  end
   
 end
