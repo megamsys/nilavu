@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Rails 4.0
-gem "rails", "~> 4.0.0"
+gem "rails", "~> 4.0.1.rc1"
 # add these gems to help with the transition to Rails 4.0
 gem 'protected_attributes'
 gem 'rails-observers'
@@ -60,7 +60,7 @@ gem "nokogiri"
 
 # To use ActiveModel has_secure_password there is a hard dependency to 3.0.0 version.
 # bummer.http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html
-gem 'bcrypt-ruby', '3.0.0',:require => 'bcrypt'
+gem 'bcrypt-ruby',:require => 'bcrypt'
 
 # We may not use dynamodb. This isn't compatible with Rails4.0.
 # Removing it for now.
