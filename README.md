@@ -7,14 +7,14 @@ We named it in dialect Tamil, which means "moon".
 
 This will be our main WebApp for [Megam Cloud](http://www.megam.co) providing
 
-* Launch Cloud Apps(books) from our Polygot PaaS 
+* Launching Cloud Applications Java, RoR, Play, Akka, Node.js instantly using a Git URL 
 
 * Cloud management for the launched apps using [megam_api](https://github.com/indykish/megam_api.git) which interfaces to 
   [megam_play](https://github.com/indykish/megam_play.git)
   
 * Realtime Log for the launched Apps using Megam - using [tap](https://github.com/indykish/tap.git)
 
-* Offline Log with metrics using [angularjs - kibana](http://www.elasticsearch.org/overview/kibana/) 
+* Offline Log with metrics using [angularjs - kibana](http://kibana.org) 
 
 * Dash with Metering Monitoring using [angularjs](http://angularjs.org) Inspired by (https://github.com/fdietz/team_dashboard)
 
@@ -24,14 +24,15 @@ In general Nilavu supports the following basic features:
 
 * This project provides a skeleton for a portal to be built using Ruby on Rails. 
  
-* The basic requirements of home page, signin, signout are handled. The template approach using twitter-bootstrap/Less is available.
+* The basic requirements of home page, signin, signout are handled. The template approach using twitter-bootstrap 2.3.x/Less is available.
+
+* Signin supported using Facebook identity. 
 
 * Nilavu uses a two bootstrap themes named 
   [Measure](http://bit.ly/UDywP8) bought from [wrapbootstrap.com](http://wrapbootstrap.com) for the main pages. 
   [Unicorn](http://bit.ly/RpG9bh) bought from [wrapbootstrap.com](http://wrapbootstrap.com) for the dashboard.
 
-This code uses a `single user license` of the above themes. Anybody who `forks this code shall buy a 
-license` to use it for their own need.
+This code uses a `single user license` of the above themes. It is recommended to buy the themes if you wish to fork/launch commercially.
 
 ### Requirements
 
@@ -120,8 +121,7 @@ the following resources handy:
 
 #### TO - DO
 
-* Dashboard Metrics integration in progress using angular
-* Integrate to Paypal, bitcoin, justpay.in
+* Integrate with cheddargettar.com for billing
 	
 # License
 
