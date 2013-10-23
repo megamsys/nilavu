@@ -15,6 +15,32 @@ jQuery(function () {
         }        
     });
 
+
+// Grab all elements with the class "hasTooltip"
+/*
+$('.hasTooltip').each(function() { // Notice the .each() loop, discussed below
+    $(this).qtip({
+        content: {
+            text: $(this).next('div') // Use the "div" element next to this for the content
+        }
+    });
+});
+*/
+
+
+/*
+ $(document).ready(function()
+ {
+     // MAKE SURE YOUR SELECTOR MATCHES SOMETHING IN YOUR HTML!!!
+     $('a').qtip({
+         // Your config here
+     });
+     $('input').qtip({
+         // Your config here
+     });
+ });
+*/
+
     // scroll back to top btn
     jQuery('.scrolltop').click(function(){
         jQuery("html, body").animate({ scrollTop: 0 }, 700);

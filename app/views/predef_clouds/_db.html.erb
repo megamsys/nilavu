@@ -1,11 +1,11 @@
 <div class="span10">
 <div class="span3">
 <div class="cb_box">
-    <h4 align="center">Cross Cloud Counter</h4>
+    <h4 align="center">Database Counter</h4>
     <h3 align="center" ><%= @predef_clouds.count %>/2</h3>
 </div>
 <br/>
-<%= link_to "New Cross CLoud", new_predef_cloud_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
+<%= link_to "New DB", new_db_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
 <br/>
 
 <div class="cb_box">
@@ -26,7 +26,7 @@
 <div class="widget-box">
 		<div class="widget-title">
 			<span class="icon"> <i class="icon-th-list"></i> </span>
-			<h5>Cross Clouds Usage</h5>
+			<h5>DB Usage</h5>
 		</div>
 		<div class="widget-content" overflow-y: scroll;">
 <% @percent = @predef_clouds.count/2.0*100 %>
@@ -58,7 +58,7 @@
 								<span class="icon">
 									<i class="glyphicon glyphicon-th"></i>
 								</span>
-								<h5>Cross Clouds</h5>
+								<h5>Databases</h5>
 							</div>
 							<div class="widget-content nopadding">
 								<table class="table table-bordered table-striped table-hover">

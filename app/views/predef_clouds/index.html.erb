@@ -1,6 +1,6 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'Predef CLouds') %>
-<%= render :partial => "contents/header" , :locals => {:head => "Predef Clouds"}%>
+<%= render :partial => "contents/header" , :locals => {:head => "Cross Clouds"}%>
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
@@ -20,7 +20,9 @@
                                 <div id="tab1" class="tab-pane active">
 					<%= render :partial => "predef_clouds/cross_cloud", :locals => {:predef_clouds => @predef_clouds, :method => 'post'} %>
 				</div>
-                                <div id="tab2" class="tab-pane">This is a Tab Two Content</div>
+                                <div id="tab2" class="tab-pane">
+					<%= render :partial => "predef_clouds/db", :locals => {:predef_clouds => @predef_clouds, :method => 'post'} %>
+				</div>
                                 <div id="tab3" class="tab-pane">This is a Tab Three Content</div>
                             </div>                            
                         </div>

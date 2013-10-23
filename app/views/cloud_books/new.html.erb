@@ -99,7 +99,7 @@
 		<div class="row-fluid">
 			<div class="span4"></div>
 			<div class="span4">
-				<%= submit_tag "Next", :class => "btn btn-large btn-success btn-block", :id => "cb_next", :disabled => true, :remote => true, :data => { :disable_with => "Please wait..."} %>
+				<%= submit_tag "Next", :class => "btn btn-large btn-success btn-block", :id => "cb_next", :disabled => true, :remote => true, :data => { :disable_with => "Please wait..."}, title: 'Please select your application platform and then click Next', rel: 'tooltip' %>
 				<% end %>
 			</div>
 			<div class="span4"></div>
