@@ -17,22 +17,14 @@
 		</div>
 		<div class="widget-content">
 
-<%= form_tag(:controller => "predef_clouds", :action => "create") do %>
-<div class="row-fluid">
- <div class="span2"> <%= label_tag "provider:" %></div>
-  <div class="span6"> <%= select_tag "provider", "<option>AWS-EC2</option><option>Rackspace</option><option>Openstack</option>".html_safe %></div> 
-</div>
-<%= text_field_tag 'group', nil, placeholder: 'Enter Group name' %><br/>
-<%= text_field_tag 'image', nil, placeholder: 'Enter Image value...' %><br/>
-<%= text_field_tag 'flavour', nil, placeholder: 'Enter instance size...' %><br/>
-<%= text_field_tag 'ssh_key', nil, placeholder: 'Enter ssh key...' %><br/>
-<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter ssh User..' %><br/>
-<div class="row-fluid">
-	<div class="span2"> <h5><%= label_tag "Upload ssh file   :" %> </div></h5>
-	<div class="span6"> <%= file_field_tag :ssh_file, placeholder: "Logo" %> </div>
-</div>
-
-
+<%= form_tag(create_db_path, :method => "post") do %>
+<%= text_field_tag 'store_db_name', "db_#{current_user.first_name}", :readonly => true %><br/>
+<% if @dbms == 'postgresql' %>
+<%= text_field_tag 'user_name', "#{current_user.first_name}", :readonly => true %><br/>
+<%= text_field_tag 'password', "#{current_user.api_token}", :readonly => true %><br/>
+<%= text_field_tag 'url', "postgres://#{current_user.first_name}:#{current_user.api_token}@postgres1.megam.co.in:5432/db_#{current_user.first_name}", :readonly => true %><br/>
+<%= text_area_tag 'prime', nil, placeholder: "Enter prime" %><br/>
+<% end %>
 
 		<div class="row-fluid">
 			<div class="span4"></div>

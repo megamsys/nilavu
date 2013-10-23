@@ -55,6 +55,11 @@ Cloudauth::Application.routes.draw do
   # ...
   #mount Sidekiq::Web, at: '/worker'
 
+#predef clouds
+  match '/new_db', to: 'predef_clouds#new_db', via: [:get, :post] 
+  match '/new_db_init', to: 'predef_clouds#new_db_init', via: [:get, :post] 
+  match '/create_db', to: 'predef_clouds#create_db', via: [:get, :post] 
+
 
   match '/reset', to: 'password_resets#reset', via: [:get, :post]
 

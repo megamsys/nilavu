@@ -71,7 +71,7 @@
 							<div class="collapse accordion-body" id="collapseGThree">
 								<div class="widget-content">
 									<% if current_user.cloud_books.empty?  %>
-									<%= link_to "Take me there", new_cloud_book_path, :target => "_self" , class: "btn btn-warning btn-mini", title: 'Create a new cloud Book for your own application', rel: 'tooltip'  %>Profile
+									<%= link_to "Take me there", new_cloud_book_path, :target => "_self" , class: "btn btn-warning btn-mini", title: 'Create a new cloud Book for your own application', rel: 'tooltip'  %>
 									<% else %>
 									Awesome ! <span class="label label-success"> you have one.</span>
 									<%= link_to "Take me there", cloud_books_path, :target => "_self" , class: "btn btn-success btn-mini", title: 'See the list of your cloud books @ megam', rel: 'tooltip'  %>
