@@ -7,7 +7,7 @@
 
 <div class="container-fluid">
 
-			<%= form_tag(new_db_init_path, :method => "post", :name => "predef") do %>
+			<%= form_tag(new_db_init_path, :method => "post") do %>
 
 
 <div class="widget-box">
@@ -22,7 +22,7 @@
 							</p>
 
 								<div class="row-fluid">
-								<div id="new_db1">
+								<div id="new_db1" class="required">
 									<div class="span6">
 										<%= radio_button_tag :db_model, 'Multitenant' %>
 										<%= label :platform, 'Java' do %>
@@ -53,7 +53,7 @@
 							</p>
 
 								<div class="row-fluid">
-								<div id="new_db2">
+								<div id="new_db2" class="required">
 									<div class="span4">
 										<%= radio_button_tag :dbms, 'postgresql' %>
 										<%= label :platform, 'postgresql' do %>
@@ -76,11 +76,18 @@
 								</div>
 								</div>
 
-				<%= submit_tag "Next", :class => "btn btn-large btn-success btn-block", :id => "db_next", :remote => true, :disabled => true, :data => { :disable_with => "Please wait..."}, title: 'Please select your application platform and then click Next', rel: 'tooltip' %>
-
 		</div>
 </div>
-			<% end %>
+
+		<div class="row-fluid">
+			<div class="span4"></div>
+			<div class="span4">
+				<%= submit_tag "Next", :class => "btn btn-large btn-success btn-block", :id => "db_next", :remote => true, :disabled => true, :data => { :disable_with => "Please wait..."}, title: 'Please select your DB model and dbms and then click Next', rel: 'tooltip' %>
+				<% end %>
+			</div>
+			<div class="span4"></div>
+		</div>
+
 
 </div> <!-- container-fluid -->
 
