@@ -1,4 +1,0 @@
-var selected_entity = '#predef_cloud_show_popup';
-$("#predef_cloud_show").html('<%= escape_javascript(render :partial => "predef_clouds/show_predef_cloud" , :locals => {:predef_cloud => @predef_cloud, :method => 'post'})%>');
-$(selected_entity).modal('show');
-

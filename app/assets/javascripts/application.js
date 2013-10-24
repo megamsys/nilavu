@@ -37,6 +37,7 @@
 //= require jquery.wizard
 //= require jquery.peity
 //= require cloud_books
+//= require cross_clouds
 //= require connector_projects
 //= require unicorn.form_validation
 //= require unicorn.wizard

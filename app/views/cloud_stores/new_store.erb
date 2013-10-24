@@ -1,17 +1,21 @@
 <% content_for :content_settings do %>
-<% provide(:title, 'cloud_books') %>
-<%= render :partial => "users/header" , :locals => {:head => "Cloud Platform - Step 2 of 2"}%>
+<% provide(:title, 'cloud_stores') %>
+<%= render :partial => "users/header" , :locals => {:head => "Cloud Store - Step 2 of 2"}%>
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
 <div class="container-fluid">
+
+			<% if @db_model == "multitenant" %>
+				<%= "List out the existing db" %>
+			<% else %>
 
 	<%= form_for @book, :html => {:multipart => true }, :remote => true, :method => 'post' do |f| %>
 
 	<div class="widget-box">
 		<div class="widget-title">
 			<span class="icon"> <i class="icon-th-list"></i> </span>
-			<h5>Platform Selected</h5>
+			<h5>Cloud store Platform Selected</h5>
 		</div>
 		<div class="widget-content">
 			<div class="control-group">
@@ -121,37 +125,23 @@
 			</div>
 		</div>
 		<div class="widget-content">
-			<div class="accordion" id="collapse-group">
-				<div class="accordion-group widget-box">
-					<div class="accordion-heading">
-						<div class="widget-title">
-							<a data-parent="#collapse-group" href="#collapseGOne" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h3>SCM</h3> </a>
-						</div>
-					</div>
-					<div class="collapse in accordion-body" id="collapseGOne">
-						<div class="widget-content">
-							SCM : <span class="full_text"> <%= text_field_tag 'deps_scm', nil, class: 'large_text_field', placeholder: "git@github.com:username/project.git" %> 
-</span>
-			
-						</div>
-					</div>
-				</div>
-				<% if @predef_name == "java" %>
-				<div class="accordion-group widget-box">
-					<div class="accordion-heading">
-						<div class="widget-title">
-							<a data-parent="#collapse-group" href="#collapseGTwo" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>WAR <span class="badge badge-info">*For java only</span></h5> </a>
-						</div>
-					</div>
-					<div class="collapse accordion-body" id="collapseGTwo">
-						<div class="widget-content">
-							WAR : <span class="full_text"> <%= text_field_tag 'deps_war', nil, class: 'large_text_field', placeholder: "https://s3-ap-southeast-1.amazonaws.com/bucket_name/folder_name/file_name.war" %> </span>
-
-						</div>
-					</div>
-				</div>
-				<% end %>
-			</div>
+			<%= label_tag "DB_Name" %>
+			<%= text_field_tag 'store_db_name', "db_#{current_user.first_name}", :readonly => true %>
+			<br/>
+			<% if @dbms == 'postgres' %>
+			<%= label_tag "DB_Username" %>
+			<%= text_field_tag 'user_name', "#{current_user.first_name}", :readonly => true %>
+			<br/>
+			<%= label_tag "DB_password" %>
+			<%= text_field_tag 'password', "#{current_user.api_token}", :readonly => true %>
+			<br/>
+			<%= label_tag "DB_url" %>
+			<%= text_field_tag 'url', "postgres://#{current_user.first_name}:#{current_user.api_token}@postgres1.megam.co.in:5432/db_#{current_user.first_name}", :readonly => true %>
+			<br/>
+			<%= label_tag "DB_prime" %>
+			<%= text_area_tag 'prime', nil, placeholder: "Enter prime" %>
+			<br/>
+			<% end %>
 		</div>
 	</div>
 	<div class="row-fluid">
@@ -159,6 +149,7 @@
 		<div class="span4">
 			<%= f.submit nil, :class => "btn btn-large btn-success btn-block" %>
 			<% end %>
+		<% end %>
 		</div>
 		<div class="span4"></div>
 

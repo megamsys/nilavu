@@ -1,7 +1,7 @@
 class CloudBook < ActiveRecord::Base
     validates :predef_name, presence: true
     validates :predef_cloud_name, presence: true
-  attr_accessible :users_id, :predef_name, :name, :predef_cloud_name, :deps_scm, :deps_war, :domain_name, :cloud_books_history_attributes
+  attr_accessible :users_id, :predef_name, :name, :book_type, :predef_cloud_name, :app_defn_ids, :bolt_defn_ids, :domain_name, :cloud_books_history_attributes
   
   belongs_to :user, :foreign_key  => 'users_id'
   
