@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Rails 4.0
-gem "rails", "~> 4.0.1.rc2"
+gem "rails", "~> 4.0.1.rc3"
 # add these gems to help with the transition to Rails 4.0
 gem 'protected_attributes'
 gem 'rails-observers'
