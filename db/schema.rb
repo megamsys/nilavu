@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20130828101201) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "apps_items", force: true do |t|
     t.integer  "users_id"
     t.integer  "cloud_identity_id"
@@ -33,9 +36,10 @@ ActiveRecord::Schema.define(version: 20130828101201) do
     t.string   "name"
     t.string   "predef_name"
     t.string   "predef_cloud_name"
-    t.string   "deps_scm"
-    t.string   "deps_war"
+    t.string   "app_defn_ids"
+    t.string   "bolt_defn_ids"
     t.string   "domain_name"
+    t.string   "book_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -126,11 +130,11 @@ ActiveRecord::Schema.define(version: 20130828101201) do
     t.boolean  "admin",                  default: true
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "verified_email",         default: false
+    t.boolean  "verified_email",         default: "false"
     t.string   "verification_hash"
     t.string   "user_type"
     t.string   "api_token"
-    t.boolean  "onboarded_api",          default: false
+    t.boolean  "onboarded_api",          default: "false"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "password_reset_token"

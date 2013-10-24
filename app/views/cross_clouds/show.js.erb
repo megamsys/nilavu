@@ -1,0 +1,4 @@
+var selected_entity = '#cross_cloud_show_popup';
+$("#cross_cloud_show").html('<%= escape_javascript(render :partial => "cross_clouds/show_cross_cloud" , :locals => {:cross_cloud => @cross_cloud, :method => 'post'})%>');
+$(selected_entity).modal('show');
+
