@@ -10,6 +10,7 @@
 		});
 
 		$('.books_total').text(books_count).fadeIn('slow');
+		$('#cb_count').val(books_count);
 		$('.selected_platformapp').fadeIn('slow').text(selected_platformapp);
 		
 

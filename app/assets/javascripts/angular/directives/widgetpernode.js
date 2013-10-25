@@ -3,7 +3,6 @@ app.directive("widgetpernode", ["$compile", function($compile) {
   var linkFn = function(scope, element, attrs) {
    console.log("scope widget"+scope.widget.kind);
    if (scope.widget.widget_type == "pernode" && scope.widget.name == "graph") {
-	   alert(scope.widget.name);
     // TODO: cleanup, an attribute can't be created in the template with expression
     var elm = element.find(".widget_content");
     //elm.append('<div ' + scope.widget.kind.replace("_", "-") + ' />');

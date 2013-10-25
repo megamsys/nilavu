@@ -74,7 +74,6 @@
 					<br/>
 
 					<%= f.text_field :name, :type => 'hidden', :id=> 'changename', :value => @new_book_name %>
-					<input type="hidden" name="book_name" id="bookname" value="<%= @new_book_name %>">
 					<%= f.text_field :domain_name, :type => 'hidden', :value => @domain_name %>
 				</div>
 			</div>
@@ -111,6 +110,7 @@
 
 	<%= f.text_field :predef_name, :type => 'hidden', :value => @predef_name %>
 	<%= f.text_field :book_type, :type => 'hidden', :value => "APP" %>
+		<input type="hidden" name="no_of_instances" value="<%= @no_of_instances %>">
 
 	<div class="widget-box">
 		<div class="widget-title">
