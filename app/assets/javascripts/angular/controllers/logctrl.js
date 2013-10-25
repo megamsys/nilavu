@@ -4,7 +4,7 @@ function LogCtrl($scope, socket, $location, LogStackLimit) {
 	$scope.l_total=0;
 	$scope.bookName = "Select one book name";
 	$scope.sendmessage = function(data) {
-		alert("connect");  
+
 		$scope.bookName = data;
 		socket.emit('message', data);		
 	};
@@ -15,7 +15,7 @@ function LogCtrl($scope, socket, $location, LogStackLimit) {
 
 	socket.on('disconnect', function(event) {
 		socket.disconnect();
-		alert("disconnect");	
+
 	});
 
 	socket.on('message', function(message) {	

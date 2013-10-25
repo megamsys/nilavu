@@ -3,9 +3,9 @@
 <input type="hidden" name="user_fields_form_type" value="<%= user_fields_form_type.to_s %>">
 <div class="control-group">
 	<div class="controls">
-		<%= f.text_field :api_token, :id => 'api_key_field', :disabled => 'disabled', :class=> 'required', placeholder: "Api_Key" %>
+		<%= f.text_field :api_token, :id => 'api_key_field', :disabled => 'disabled', :class=> 'required' %>
 
-		<%= text_field :created, :disabled => 'disabled', placeholder: "created_at" %>
+		<%= text_field_tag 'created_at', "created_at", :readonly => true %>
 	</div>
 </div>
 

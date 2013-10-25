@@ -44,6 +44,7 @@ class CloudBooksController < ApplicationController
       else
         @predef = pred.lookup(@predef_name)
         @domain_name = ".megam.co"
+	@no_of_instances=params[:no_of_instances]
       end
     end
   #else
@@ -57,8 +58,9 @@ class CloudBooksController < ApplicationController
   def create
     options = { :email => current_user.email, :api_key => current_user.api_token, :node => mk_node(params, "server", "create") }
     @node = CreateNodes.perform(options)
+	puts "==================> @NODE in CB CREATE == > #{@node.inspect}"
     if @node.class == Megam::Error
-      @res_msg="Connection refused - connect(2) (Errno::ECONNREFUSED)"
+      @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
       respond_to do |format|
         format.js {
           respond_with(@res_msg, :layout => !request.xhr? )
@@ -91,6 +93,40 @@ class CloudBooksController < ApplicationController
   #you can use Megam::Node itself to pass stuff.
   def mk_node(data, group, action)
     command = ListCloudTools.make_command(data, group, action, current_user)
+
+=begin
+command = {
+"systemprovider" => {
+"provider" => {
+"prov" => "chef"
+}
+},
+"compute" => {
+"cctype" => "ec2",
+"cc" => {
+"groups" => "megam",
+"image" => "ami-d783cd85",
+"flavor" => "t1.micro"
+},
+"access" => {
+"ssh_key" => "megam_ec2",
+"identity_file" => "~/.ssh/megam_ec2.pem",
+"ssh_user" => "ubuntu"
+}
+},
+"cloudtool" => {
+"chef" => {
+"command" => "knife",
+"plugin" => "ec2 server create",
+"run_list" => "role[opendj]",
+"name" => "-N TestOverAll"
+}
+}
+}
+=end
+
+
+
     if command.class == Megam::Error
       #redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{command.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
@@ -99,16 +135,30 @@ class CloudBooksController < ApplicationController
       unless data[:predef][:name] == "java"
         node_hash = {
           "node_name" => "#{data[:cloud_book][:name]}#{data[:cloud_book][:domain_name]}",
+	"node_type" => "#{data[:cloud_book][:book_type]}",
+	"req_type" => "#{action}",
+	"no_of_instances" => "#{data[:no_of_instances]}",
           "command" => command,
-          "predefs" => {"name" => data[:predef][:name], "scm" => data[:cloud_book][:deps_scm],
-            "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => "", "queue" => "queue@queue1"}
+          "predefs" => {"name" => data[:predef][:name], "scm" => data[:deps_scm],
+            "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => "", "queue" => "queue@queue1"},
+	"appdefns" => {"timetokill" => "timetokillTOM", "metered" => "meteredTOM", "logging" => "loggingTOM", "runtime_exec" => "runtime_execTOM"},
+	"boltdefns" => {"username" => "tom", "apikey" => "123456", "store_name" => "tom_db", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
+	"appreq" => {},
+	"boltreq" => {}
         }
       else
         node_hash = {
           "node_name" => "#{data[:cloud_book][:name]}#{data[:cloud_book][:domain_name]}",
+	"node_type" => "#{data[:cloud_book][:book_type]}",
+	"req_type" => "#{action}",
+	"no_of_instances" => "#{data[:no_of_instances]}",
           "command" => command,
-          "predefs" => {"name" => data[:predef][:name], "scm" => data[:cloud_book][:deps_scm],
-            "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => data[:cloud_book][:deps_war], "queue" => "queue@queue1"}
+          "predefs" => {"name" => data[:predef][:name], "scm" => data[:deps_scm],
+            "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => data[:deps_war], "queue" => "queue@queue1"},
+	"appdefns" => {"timetokill" => "timetokillTOM", "metered" => "meteredTOM", "logging" => "loggingTOM", "runtime_exec" => "runtime_execTOM"},
+	"boltdefns" => {"username" => "tom", "apikey" => "123456", "store_name" => "tom_db", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
+	"appreq" => {},
+	"boltreq" => {}
         }
       end
     end
