@@ -52,6 +52,7 @@
 //= require jquery-ui.custom
 //= require unicorn
 //= require unicorn.dashboard
+//= require jquery.prettyPhoto
 //= require flexslider
 //= require socket.io
 //= require underscore
