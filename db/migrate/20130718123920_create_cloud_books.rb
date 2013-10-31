@@ -5,9 +5,10 @@ class CreateCloudBooks < ActiveRecord::Migration
       t.string :name
       t.string :predef_name
       t.string :predef_cloud_name
-      t.string :deps_scm
-      t.string :deps_war
+      t.string :app_defn_ids
+      t.string :bolt_defn_ids
       t.string :domain_name
+	t.string :book_type
       t.timestamps
     end
     add_index :cloud_books, :users_id

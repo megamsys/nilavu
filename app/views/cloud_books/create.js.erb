@@ -1,3 +1,11 @@
+<% if @res_msg %>
+
+var selected_entity = '#cloudbook_postfinish_popup_error';
+$("#err_msg").append('<%= @res_msg %>');
+$(selected_entity).modal('show');
+
+<% else %>
+
 var selected_entity = '#cloudbook_postfinish_popup';
 <!-- $("#history_path").append('<%= link_to  "Ok", cloud_books_histories_path(:book_id => @book_id, :book_name => @domainname), :class => "btn btn-primary" %>'); -->
 
@@ -5,3 +13,4 @@ $("#history_path").append('<%= link_to  "Ok", cloud_books_path, :class => "btn b
 
 $(selected_entity).modal('show');
 
+<% end %>

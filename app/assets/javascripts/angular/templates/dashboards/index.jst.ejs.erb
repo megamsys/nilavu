@@ -1,16 +1,2 @@
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>Dashboard Name</th>
-			<!--th>Last Modified</th>-->
-			<th>Created At</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr >
-			<td class="span6"><a href="/dashboards/{{dashboard.id}}" class="btn btn-large btn-primary btn-block">{{dashboard.name}}</a></td>
-			<!--<td>{{dashboard.updated_at | date:'medium' }}</td>-->
-			<td class="span6">{{dashboard.created_at | date:'medium' }}</td>
-		</tr>
-	</tbody>
-</table>
+<a href="/dashboards/{{dashboard.id}}" class="btn btn-large btn-primary btn-block" title="Click here to see cloud book's metrics">{{dashboard.name}},
+Click Here to see Your Cloud  Metrics </a>

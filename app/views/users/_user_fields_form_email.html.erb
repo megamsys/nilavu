@@ -11,28 +11,15 @@
 </div>
 <div class="control-group">
 	<div class="controls">
-		<%= f.text_field :last_name, :id => 'last_name', :class => 'text_field required', placeholder: "Last name" %>
+		<%= f.text_field :last_name, :id => 'last_name', :class => 'text_field', placeholder: "Last name" %>
 	</div>
 </div>
 
 <div class="control-group">
 	<div class="controls">
-		<%= f.text_field :phone, :class => 'text_field required', placeholder: "Phone number" %>
+		<%= f.text_field :phone, :class => 'text_field', placeholder: "Phone number" %>
 	</div>
 </div>
-
-<% if current_user.nil? %>
-<div class="control-group">
-	<div class="controls">
-		<%= f.text_field :email, :class => 'text_field required', placeholder: "Email" %>
-	</div>
-</div>
-
-<% random_hash = p SecureRandom.urlsafe_base64(nil, true) %>
-<%= f.text_field :verification_hash, :value => random_hash, :type => 'hidden' %>
-<% random_api = p SecureRandom.urlsafe_base64(nil, true) %>
-<%= f.text_field :api_token, :value => random_api, :type => 'hidden' %>
-<% end %>
 
 <%= f.submit "Update", :class => "btn" %>
 

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Rails 4.0
-gem "rails", "~> 4.0.0"
+gem "rails", "~> 4.0.1.rc3"
 # add these gems to help with the transition to Rails 4.0
 gem 'protected_attributes'
 gem 'rails-observers'
@@ -15,7 +15,7 @@ gem 'turbolinks'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
-gem 'execjs','2.0.1'
+gem 'execjs','2.0.2'
 gem 'jquery-datatables-rails'
 gem "flot-rails", "~> 0.0.4"
 gem "gritter", "~> 1.0.3"
@@ -32,7 +32,7 @@ gem 'omniauth-openid'
 
 gem 'will_paginate','3.0.5'
 gem 'bootstrap-will_paginate','0.0.10'
-gem 'paperclip','3.5.1'
+gem 'paperclip','3.5.2'
 gem "aws-sdk"
 gem 'high_voltage',"2.0.0"
 gem "therubyracer", :require => 'v8',:platforms => :ruby
@@ -42,6 +42,7 @@ gem "megam_api"
 gem "flexslider", "~> 2.0.2"
 gem "megam_deccanplato", "~> 0.1.0"
 gem "angularjs-rails"
+#gem 'grizzled-rails-logger'
 
 #http_proxy settings
 gem "faraday"
@@ -59,7 +60,7 @@ gem "nokogiri"
 
 # To use ActiveModel has_secure_password there is a hard dependency to 3.0.0 version.
 # bummer.http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html
-gem 'bcrypt-ruby', '3.0.0',:require => 'bcrypt'
+gem 'bcrypt-ruby',:require => 'bcrypt'
 
 # We may not use dynamodb. This isn't compatible with Rails4.0.
 # Removing it for now.
@@ -72,8 +73,8 @@ group :assets do
 
   gem 'twitter-bootstrap-rails'
   # supporting rails 4.0
-  gem 'sass-rails',   '~> 4.0.0'
-  gem 'coffee-rails', '~> 4.0.0'
+  gem 'sass-rails',   '~> 4.0.1'
+  gem 'coffee-rails', '~> 4.0.1'
   gem "less-rails", "~> 2.4.2"
   gem 'uglifier', '>= 2.2.1'
 end

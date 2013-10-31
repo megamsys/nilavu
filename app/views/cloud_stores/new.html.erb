@@ -1,0 +1,131 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'cloud_store') %>
+<%= render :partial => "users/header" , :locals => {:head => "Cloud Store - Step 1 of 2"}%>
+<div id="breadcrumb">
+	<%= render_breadcrumbs %>
+</div>
+<div class="container-fluid">
+	<div class="widget-content nopadding">
+
+		<%= form_tag(new_store_path, :method => "post", :name => "store") do %>
+
+		<div id="form-wizard-1" class="step">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Cloud Store - Apps</h5>
+				</div>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="widget-content">
+							<p class="help-block">
+								<strong><span class="label label-info">*selection</span> Select any one cloud store model </strong>
+							</p>
+							</br>
+
+			<div class="row-fluid">
+				<div id="new_db1" class="required">
+					<div class="span6">
+
+						<%= label :multitenant, 'Multitenant' do %>
+						<%= radio_button_tag :db_model, 'multitenant' %>
+						<h1><i class="icon-cloud"></i> Multitenant</h1>
+						<% end %>
+
+					</div>
+					<div class="span6">
+						<%= radio_button_tag :db_model, 'full' %>
+						<%= label :full, 'Full' do %>
+						<h1><i class="icon-home"></i> Full</h1>
+						<% end %>
+					</div>
+				</div>
+			</div>
+<br/>
+<hr/>
+
+
+
+							<p class="help-block">
+								<strong><span class="label label-info">*selection</span> Select any one Cloud Store </strong>
+							</p>
+							</br>
+
+							<div class="row-fluid">
+								<div id="platformapps" class="required">
+								<div id="new_db2" class="required">
+									<div class="span3">
+										<%= radio_button_tag :dbms, 'postgres' %>
+										<%= label :platform, 'postgres' do %>
+										<i class="logo_postgres"></i>
+										<% end %>
+										<%= radio_button_tag :dbms, 'riak' %>
+						<%= label :platform, 'riak' do %>
+						<i class="logo_riak"></i>
+						<% end %>
+									</div>
+									<div class="span3">
+																<%= radio_button_tag :dbms, 'redis' %>
+						<%= label :platform, 'redis' do %>
+						<i class="logo_redis"></i>
+						<% end %>
+									</div>
+								</div>
+								</div>
+								<div class="span6">
+									<div class="row-fluid">
+										<div id="scalebooks">
+											<div class="alert">
+												<i class="icon-info-sign"></i> Scale books
+											</div>
+											<div class="overflow">
+												<table class="table table-condensed">
+													<thead>
+														<tr>
+															<th>My Books</th>
+															<th><a href="#" rel="tooltip" title="max 2 (*beta)" class='info'>Instances <i class="icon-info-sign"></i></a></th>
+															<th><i class="icon-trash"></i></th>
+														</tr>
+													</thead>
+													<tbody></tbody>
+												</table>
+											</div>
+										</div>
+										</br>
+										<div class="row-fluid">
+											<div class="alert alert-info alert-block">
+												<a class="close" data-dismiss="alert" href="#">×</a>
+												<h4 class="alert-heading">Info!</h4><i class="icon-ok"></i>
+												<span class="badge badge-success books_total">0</span>
+												Instances Of:<span class="badge badge-important selected_platformapp">none</span>
+											</div>
+											<ul class="no-list link-block">
+												<li class="span6">
+													<a href="support.html"> <h5><i class="icon-bar-chart"></i> Your platform isn't here?</h5> We are here to help
+													<div class="arrow-right">
+														<i class="icon-chevron-right"></i>
+													</div> </a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row-fluid">
+			<div class="span4"></div>
+			<div class="span4">
+				<%= submit_tag "Next", :class => "btn btn-large btn-success btn-block", :id => "db_next", :disabled => true, :remote => true, :data => { :disable_with => "Please wait..."}, title: 'Please select your application platform and then click Next', rel: 'tooltip' %>
+				<% end %>
+			</div>
+			<div class="span4"></div>
+		</div>
+	</div>
+
+	<% end %>
+	<%= render :template => users_show_path %>

@@ -10,6 +10,7 @@
 		});
 
 		$('.books_total').text(books_count).fadeIn('slow');
+		$('#cb_count').val(books_count);
 		$('.selected_platformapp').fadeIn('slow').text(selected_platformapp);
 		
 
@@ -57,6 +58,7 @@ $(document).ready(function(){
 	var $trash = '<td> <a href="#" class="trash"><i class="icon-trash"></i></a></td>'
 
 	$("#platformapps input:radio").click(function() {
+		$("#cb_next").attr("disabled", false); //enable next button
 		var service = $(this).attr("value");	
 		scale_counter.find('tr').remove();
 		$('#scalebooks').scale_aggregate();

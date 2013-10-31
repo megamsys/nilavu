@@ -1,3 +1,0 @@
-class ContentsController < ApplicationController
-
-end

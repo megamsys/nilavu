@@ -26,7 +26,6 @@ app.controller('TabManagerCtrl', ['$scope', function($scope) {
 
 	    
 	    $scope.tabManager.addTab = function(node){
-	    	alert($scope.tabManager.tabItems.length);
 	        if($scope.tabManager.checkIfMaxTabs()){
 	            alert("[Max Tabs] You have opened max tabs for this page.");
 	            return;

@@ -4,15 +4,17 @@ class SessionsController < ApplicationController
   end
 
   def create
+	logger.debug "==> Controller: sessions, Action: create, User signin"
     auth = social_identity
     if social_identity.nil?
       user = User.find_by_email(params[:session][:email])
       if user && user.authenticate(params[:session][:password])
-    if params[:remember_me]
-      cookies.permanent[:remember_token] = user.remember_token
-    else
-      cookies[:remember_token] = user.remember_token
-    end
+        if params[:remember_me]
+         cookies.permanent[:remember_token] = user.remember_token
+        #cookies[:remember_token] = { :value => user.remember_token, :expires => 24.weeks.from_now }
+        else
+          cookies[:remember_token] = user.remember_token
+        end
         sign_in user
         flash[:success] = "Welcome #{current_user.first_name}"
         redirect_back_or dashboards_path, :gflash => { :success => { :value => "Welcome #{user.first_name}. Your registered email is #{user.email}, Thank you.", :sticky => false, :nodom_wrap => true } }

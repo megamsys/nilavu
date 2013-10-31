@@ -2,8 +2,7 @@ app.controller("DashboardShowCtrl", ["$scope", "$rootScope", "$routeParams", "$l
 	
   
   $scope.bookwidget = "widgetpernode";
-  $rootScope.resolved = false;
-  console.log("----------d-show controller"+$routeParams.id);  
+  $rootScope.resolved = false;   
   $scope.dashboard_id = $routeParams.id;
   
   
@@ -14,8 +13,9 @@ app.controller("DashboardShowCtrl", ["$scope", "$rootScope", "$routeParams", "$l
   
   
   $scope.$on('handleBroadcast', function() {
-      $scope.widget = UpdateWidget.message;
-      replaceWidget($scope.widget.id, $scope.widget);            
+      $scope.widget = UpdateWidget.message;      
+      replaceWidget($scope.widget.id, $scope.widget);    
+      $scope.sm = UpdateWidget.sm;
   });       
   
   $scope.c_book_name = $routeParams.book;
@@ -26,7 +26,7 @@ app.controller("DashboardShowCtrl", ["$scope", "$rootScope", "$routeParams", "$l
 	    _.extend(w, widget);
 	  } 
   
-	
+    //$scope.a_books = [{value:'demo'},{value:'demo1'}];
 	$scope.a_books = availableBooks();
 	
 	function bookMapping(book) {
@@ -40,7 +40,11 @@ app.controller("DashboardShowCtrl", ["$scope", "$rootScope", "$routeParams", "$l
         return _.compact(_.map(a_books, function(book) {      
         	return bookMapping(book);
         }));	        
-      }  
+      }    
+     
+      $scope.sm_view = function() {    	 
+    	  UpdateWidget.showForBroadcast(false);    		  
+      }
       
       if ($routeParams.book != null) {    	  
     	  $scope.widgetpernode = "widgetpernode";

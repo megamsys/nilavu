@@ -1,6 +1,6 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'cloud_books') %>
-<%= render :partial => "contents/header" , :locals => {:head => "Cloud Platform - Step 1 of 2"}%>
+<%= render :partial => "users/header" , :locals => {:head => "Cloud Platform - Step 1 of 2"}%>
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
@@ -76,6 +76,9 @@
 												<a class="close" data-dismiss="alert" href="#">×</a>
 												<h4 class="alert-heading">Info!</h4><i class="icon-ok"></i>
 												<span class="badge badge-success books_total">0</span>
+
+		<input type="hidden" id="cb_count" name="no_of_instances" value="<%= @books_count %>">
+
 												Instances Of:<span class="badge badge-important selected_platformapp">none</span>
 											</div>
 											<ul class="no-list link-block">
@@ -99,8 +102,7 @@
 		<div class="row-fluid">
 			<div class="span4"></div>
 			<div class="span4">
-				<%= submit_tag "Next", :class => "btn btn-large btn-success btn-block", :remote => true, :disable_with => "Please wait...", :data => { :spinner => '#spin-btn'} %>
-				<%= spinner_tag 'spin-btn' %>
+				<%= submit_tag "Next", :class => "btn btn-large btn-success btn-block", :id => "cb_next", :disabled => true, :remote => true, :data => { :disable_with => "Please wait..."}, title: 'Please select your application platform and then click Next', rel: 'tooltip' %>
 				<% end %>
 			</div>
 			<div class="span4"></div>

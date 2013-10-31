@@ -1,12 +1,11 @@
  <% content_for :content_settings do %>
 <% provide(:title, 'Dashboard') %>
 
-<%= render :partial => "contents/header" , :locals => {:head => "Dashboard"}%>
+<%= render :partial => "users/header" , :locals => {:head => "Dashboard"}%>
 
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
-
 <div class="container-fluid" ng-cloak>
 	
 	<div class="row-fluid">
@@ -35,8 +34,10 @@
 									<div class="container-fluid">
 										<% if !current_user.verified_email %>
 										<%= current_user.email %>
-										<%= link_to('Verify', email_verify_path(current_user.verification_hash), :class => "btn btn-warning btn-mini email-verify", :rel => "popover", :"data-content" => "Check Your mail", :remote => true, :target => "_self") %>
-										<% else %>
+										  <%= link_to 'Verify', email_verify_path(current_user.verification_hash), :class => "btn btn-warning btn-mini", :remote => true, :target => "_self", :data => {spinner: '#spin_mail'}, title: 'Verify your email for megam communication like billing, notifications etc', rel: 'tooltip' %>
+	<%= mini_spinner_tag 'spin_mail' %>
+
+									<% else %>
 										Hi <%= current_user.first_name %>, Great ! <span class="label label-success">verified <%= current_user.email %>. </span>Thank you.
 										<% end %>
 									</div>
@@ -53,8 +54,8 @@
 								<div class="widget-content">
 									<div class="container-fluid">
 										<% if !current_user.organization %>
-										<%= link_to "Update", edit_user_path(current_user), class: "btn btn-warning btn-mini", :target => "_self"  %> your profile
-										<% else %>
+										<%= link_to "Update", edit_user_path(current_user), class: "btn btn-warning btn-mini", :target => "_self", title: 'Update your organization deatils', rel: 'tooltip'  %> your profile
+									<% else %>
 										<%= current_user.first_name.capitalize %>, Great ! your profile is <span class="label label-info">up-to date.</span> Thank you.
 										<% end %>
 									</div>
@@ -69,11 +70,11 @@
 							</div>
 							<div class="collapse accordion-body" id="collapseGThree">
 								<div class="widget-content">
-									<% if !current_user.cloud_identities  %>
-									<%= link_to "Take me there", cloud_identity_path(current_user.id), :target => "_self" , class: "btn btn-warning btn-mini"  %>Profile
+									<% if current_user.cloud_books.empty?  %>
+									<%= link_to "Take me there", new_cloud_book_path, :target => "_self" , class: "btn btn-warning btn-mini", title: 'Create a new cloud Book for your own application', rel: 'tooltip'  %>
 									<% else %>
 									Awesome ! <span class="label label-success"> you have one.</span>
-									<%= link_to "Take me there", cloud_identity_path(current_user.id), :target => "_self" , class: "btn btn-success btn-mini"  %>
+									<%= link_to "Take me there", cloud_books_path, :target => "_self" , class: "btn btn-success btn-mini", title: 'See the list of your cloud books @ megam', rel: 'tooltip'  %>
 									<% end %>
 								</div>
 							</div>
@@ -173,6 +174,35 @@
 			</div>
 		</div>
 	</div>
+
+
+
+
+	<div id="email_verify_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				×
+			</button>
+			<h3 id="myModalLabel">Email Verification</h3>
+		</div>
+		<div class="modal-body">
+			<div class="alert">
+
+				<div id="msg">
+					Email has been sent to <%= current_user.email %> for email verification. Please check your email and follow the instructions
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">
+				Ok
+			</button>
+		</div>
+	</div>
+
+
+
 </div>
 <% end %>
    <script>
