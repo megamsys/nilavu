@@ -1,7 +1,7 @@
 class CloudStoresController < ApplicationController
   def index
-if current_user.cloud_books.any? && current_user.cloud_books(:type == "bolt").any?
-    add_breadcrumb "Cross CLouds", cross_clouds_path
+if current_user.cloud_books && current_user.cloud_books.find_by_book_type("BOLT")
+    add_breadcrumb "CLoud Stores", cloud_stores_path
     cross_cloud_options = { :email => current_user.email, :api_key => current_user.api_token }
     @cloud_stores = ListPredefClouds.perform(cross_cloud_options)
     if @cloud_stores.class == Megam::Error

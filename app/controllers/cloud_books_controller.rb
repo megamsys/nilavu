@@ -94,59 +94,11 @@ class CloudBooksController < ApplicationController
   def mk_node(data, group, action)
     command = ListCloudTools.make_command(data, group, action, current_user)
 
-=begin
-command = {
-"systemprovider" => {
-"provider" => {
-"prov" => "chef"
-}
-},
-"compute" => {
-"cctype" => "ec2",
-"cc" => {
-"groups" => "megam",
-"image" => "ami-d783cd85",
-"flavor" => "t1.micro"
-},
-"access" => {
-"ssh_key" => "megam_ec2",
-"identity_file" => "~/.ssh/megam_ec2.pem",
-"ssh_user" => "ubuntu"
-}
-},
-"cloudtool" => {
-"chef" => {
-"command" => "knife",
-"plugin" => "ec2 server create",
-"run_list" => "role[opendj]",
-"name" => "-N TestOverAll"
-}
-}
-}
-=end
-
-
-
     if command.class == Megam::Error
       #redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{command.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
       logger.debug "Make command for chef run"
 
-      unless data[:predef][:name] == "java"
-        node_hash = {
-          "node_name" => "#{data[:cloud_book][:name]}#{data[:cloud_book][:domain_name]}",
-	"node_type" => "#{data[:cloud_book][:book_type]}",
-	"req_type" => "#{action}",
-	"no_of_instances" => "#{data[:no_of_instances]}",
-          "command" => command,
-          "predefs" => {"name" => data[:predef][:name], "scm" => data[:deps_scm],
-            "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => "", "queue" => "queue@queue1"},
-	"appdefns" => {"timetokill" => "timetokillTOM", "metered" => "meteredTOM", "logging" => "loggingTOM", "runtime_exec" => "runtime_execTOM"},
-	"boltdefns" => {"username" => "tom", "apikey" => "123456", "store_name" => "tom_db", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
-	"appreq" => {},
-	"boltreq" => {}
-        }
-      else
         node_hash = {
           "node_name" => "#{data[:cloud_book][:name]}#{data[:cloud_book][:domain_name]}",
 	"node_type" => "#{data[:cloud_book][:book_type]}",
@@ -155,12 +107,18 @@ command = {
           "command" => command,
           "predefs" => {"name" => data[:predef][:name], "scm" => data[:deps_scm],
             "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => data[:deps_war], "queue" => "queue@queue1"},
-	"appdefns" => {"timetokill" => "timetokillTOM", "metered" => "meteredTOM", "logging" => "loggingTOM", "runtime_exec" => "runtime_execTOM"},
-	"boltdefns" => {"username" => "tom", "apikey" => "123456", "store_name" => "tom_db", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
+	"appdefns" => {"timetokill" => "", "metered" => "meteredTOM", "logging" => "loggingTOM", "runtime_exec" => "runtime_execTOM"},
+	"boltdefns" => {"username" => data['user_name'], "apikey" => data['password'], "store_name" => data['store_db_name'], "url" => data['url'], "prime" => data['prime'], "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
 	"appreq" => {},
 	"boltreq" => {}
         }
-      end
+=begin
+	if data[:cloud_book][:book_type] == "APP"
+		"appdefns" => {"timetokill" => "timetokillTOM", "metered" => "meteredTOM", "logging" => "loggingTOM", "runtime_exec" => "runtime_execTOM"}
+	elsif data[:cloud_book][:book_type] == "BOLT"
+		"boltdefns" => {"username" => "tom", "apikey" => "123456", "store_name" => "tom_db", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""}
+	end
+=end
     end
     logger.debug "COMMAND HASH ==> #{node_hash.inspect}"
 

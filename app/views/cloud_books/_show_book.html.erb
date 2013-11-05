@@ -12,6 +12,10 @@
 			<td><%= cloud_book.predef_name.capitalize %></h3>
 		</tr>
 		<tr>
+			<td><span class="label label-default">Type</span></td>
+			<td><%= cloud_book.book_type.capitalize %></h3>
+		</tr>
+		<tr>
 			<td><span class="label label-default">Domain</span></td>
 			<td><%= cloud_book.domain_name %></td>
 		</tr>
@@ -23,15 +27,5 @@
 			<td>Launch Cloud Name</td>
 			<td><%= cloud_book.predef_cloud_name %></td>
 		</tr>
-		<tr>
-			<td>SCM</td>
-			<td><%= cloud_book.deps_scm %></td>
-		</tr>
-		<% unless cloud_book.deps_war.nil? %>
-		<tr>
-			<td>Compressed Archive</td>
-			<td><%= cloud_book.deps_war %></td>
-		</tr>
-		<% end %>
 	</tbody>
 </table>

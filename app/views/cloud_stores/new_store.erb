@@ -114,7 +114,7 @@
 	<% end %>
 
 	<%= f.text_field :predef_name, :type => 'hidden', :value => @predef_name %>
-	<%= f.text_field :book_type, :type => 'hidden', :value => "APP" %>
+	<%= f.text_field :book_type, :type => 'hidden', :value => "BOLT" %>
 
 	<div class="widget-box">
 		<div class="widget-title">
@@ -128,7 +128,7 @@
 			<%= label_tag "DB_Name" %>
 			<%= text_field_tag 'store_db_name', "db_#{current_user.first_name}", :readonly => true %>
 			<br/>
-			<% if @dbms == 'postgres' %>
+			<% if @dbms == 'postgresql' %>
 			<%= label_tag "DB_Username" %>
 			<%= text_field_tag 'user_name', "#{current_user.first_name}", :readonly => true %>
 			<br/>
