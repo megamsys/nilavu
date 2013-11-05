@@ -4,8 +4,7 @@ app.controller("WidgetCtrl", ["$scope", "$element", "$timeout", "$rootScope", fu
   var timer = null;
   var abortTimer = false;
   var updateFunction = null;
-  var update_interval = 20;
- // console.log("++++++++++++++++++++++++++++++++++++++----"+$scope.widget.name);
+  var update_interval = 20; 
   $rootScope.$on('$routeChangeStart', function(ngEvent, route) {
     abortTimer = true;
     if (timer) $timeout.cancel(timer);

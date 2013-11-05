@@ -33,7 +33,7 @@
                 $.type = 'text/javascript';
                 e.parentNode.insertBefore($, e)
             })(document, 'script');
-		</script>		
+		</script>
 		<!--End of Zopim Live Chat Script-->
 	</head>
 	<body>
@@ -44,6 +44,10 @@
 		<!-- JQuery will invoke via the spinner and display a loading modal lock. -->
 		<div id="loading" />
 		<%= gflash %>
-
+		<script type="text/javascript" charset="utf-8">
+            $(document).ready(function() {
+                $("a[rel^='prettyPhoto']").prettyPhoto();
+            });
+		</script>
 	</body>
 </html>

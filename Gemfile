@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Rails 4.0
-gem "rails", "~> 4.0.1.rc1"
+gem "rails", "~> 4.0.1.rc3"
 # add these gems to help with the transition to Rails 4.0
 gem 'protected_attributes'
 gem 'rails-observers'
@@ -32,7 +32,7 @@ gem 'omniauth-openid'
 
 gem 'will_paginate','3.0.5'
 gem 'bootstrap-will_paginate','0.0.10'
-gem 'paperclip','3.5.1'
+gem 'paperclip','3.5.2'
 gem "aws-sdk"
 gem 'high_voltage',"2.0.0"
 gem "therubyracer", :require => 'v8',:platforms => :ruby
@@ -74,7 +74,7 @@ group :assets do
   gem 'twitter-bootstrap-rails'
   # supporting rails 4.0
   gem 'sass-rails',   '~> 4.0.1'
-  gem 'coffee-rails', '~> 4.0.0'
+  gem 'coffee-rails', '~> 4.0.1'
   gem "less-rails", "~> 2.4.2"
   gem 'uglifier', '>= 2.2.1'
 end

@@ -1,6 +1,6 @@
 app.controller("DashboardIndexCtrl", ["$scope", "$rootScope", "$location", "Dashboard", function($scope, $rootScope, $location, Dashboard) {
 
-	console.log("DashboardIndexCrl");
+	
   $rootScope.resolved = true;
 
   //$scope.dashboards = Dashboard.query(function() {
