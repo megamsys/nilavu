@@ -5,9 +5,9 @@ class CreatePredefClouds
     puts "=============================> CREATE PREDEFCLOUDS PERFORM PARAMS <================================== "
     puts new_predef
     begin
-      Megam::Config[:email] = new_account[:email]
-      Megam::Config[:api_key] = new_account[:api_key]
-      @excon_res = Megam::PredefClouds.create(new_predef)
+      Megam::Config[:email] = new_predef[:email]
+      Megam::Config[:api_key] = new_predef[:api_key]
+      @excon_res = Megam::PredefCloud.create(new_predef)
       puts "=========================> @excon_res in CREATE PREDEFCLOUDS <====================="
       puts @excon_res.inspect
     rescue ArgumentError => ae

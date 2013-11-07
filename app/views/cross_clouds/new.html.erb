@@ -19,15 +19,18 @@
 			<%= form_tag(:controller => "cross_clouds", :action => "create") do %>
 			<div class="row-fluid">
 				<div class="span5">
-					<br/>
-					<br/>
-					<br/>
-					<div class="span2">
-						<%= label_tag "provider:" %>
+					<div class="row-fluid">
+						<br/>
+						<br/>						
+						<div class="span2">
+							<%= label_tag "provider:" %>
+						</div>
+						<div class="span4">
+							<%= select_tag "provider", "<option>Amazon EC2</option><option>hp cloud</option>".html_safe %>
+						</div>
 					</div>
-					<div class="span4">
-						<%= select_tag "provider", "<option>AWS-EC2</option><option>Rackspace</option><option>Openstack</option>".html_safe %>
-					</div>
+					<div class="row-fluid">
+						</div>
 				</div>
 				<div class="span5">
 					<br/>
@@ -64,9 +67,9 @@
 			<div class="row-fluid">
 				<div class="span4"></div>
 				<div class="span4">
-				<%= submit_tag "Save", :class => "btn btn-large btn-success btn-block", :remote => true, :disable_with => "Please wait...", :data => { :spinner => '#spin-btn'} %>
+					<%= submit_tag "Save", :class => "btn btn-large btn-success btn-block", :remote => true, :disable_with => "Please wait...", :data => { :spinner => '#spin-btn'} %>
+				</div>
 			</div>
-			</div>			
 			<% end %>
 			<%= spinner_tag 'spin-btn' %>
 		</div>
