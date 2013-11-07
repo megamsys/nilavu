@@ -1,4 +1,4 @@
-<h3 align="center"><span class="icon"><i class="icon-code"></i></span> <%= cloud_book.name.capitalize %> </h3>
+<h3 align="center"><span class="icon"><i class="icon-code"></i></span> <%= cloud_book.id %> </h3>
 <table class="table table-bordered table-striped">
 	<thead>
 		<tr>
@@ -7,31 +7,8 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr>
-			<td><span class="label label-default">Platform</span></td>
-			<td><%= cloud_book.predef_name.capitalize %></h3>
-		</tr>
-		<tr>
-			<td><span class="label label-default">Domain</span></td>
-			<td><%= cloud_book.domain_name %></td>
-		</tr>
-		<tr>
-			<td><span class="label label-default">Created at</span></td>
-			<td><%= cloud_book.created_at.to_formatted_s(:rfc822) %></td>
-		</tr>
-		<tr>
-			<td>Launch Cloud Name</td>
-			<td><%= cloud_book.predef_cloud_name %></td>
-		</tr>
-		<tr>
-			<td>SCM</td>
-			<td><%= cloud_book.deps_scm %></td>
-		</tr>
-		<% unless cloud_book.deps_war.nil? %>
-		<tr>
-			<td>Compressed Archive</td>
-			<td><%= cloud_book.deps_war %></td>
-		</tr>
-		<% end %>
+<!--
+
+-->
 	</tbody>
 </table>

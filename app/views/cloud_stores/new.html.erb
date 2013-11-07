@@ -55,9 +55,9 @@
 								<div id="platformapps" class="required">
 								<div id="new_db2" class="required">
 									<div class="span3">
-										<%= radio_button_tag :dbms, 'postgres' %>
-										<%= label :platform, 'postgres' do %>
-										<i class="logo_postgres"></i>
+										<%= radio_button_tag :dbms, 'postgresql' %>
+										<%= label :platform, 'postgresql' do %>
+										<i class="logo_postgresql"></i>
 										<% end %>
 										<%= radio_button_tag :dbms, 'riak' %>
 						<%= label :platform, 'riak' do %>
@@ -97,6 +97,9 @@
 												<a class="close" data-dismiss="alert" href="#">×</a>
 												<h4 class="alert-heading">Info!</h4><i class="icon-ok"></i>
 												<span class="badge badge-success books_total">0</span>
+
+		<input type="hidden" id="cb_count" name="no_of_instances" value="<%= @books_count %>">
+
 												Instances Of:<span class="badge badge-important selected_platformapp">none</span>
 											</div>
 											<ul class="no-list link-block">
