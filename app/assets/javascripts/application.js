@@ -41,7 +41,6 @@
 //= require connector_projects
 //= require unicorn.form_validation
 //= require unicorn.wizard
-//= require jquery.prettyPhoto
 //= require theme
 //= require flotr2
 //= require jquery.flot

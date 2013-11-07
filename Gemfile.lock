@@ -81,7 +81,7 @@ GEM
     diff-lcs (1.2.4)
     ejs (1.1.1)
     erubis (2.7.0)
-    excon (0.27.6)
+    excon (0.25.3)
     execjs (2.0.2)
     factory_girl (4.3.0)
       activesupport (>= 3.0.0)
@@ -310,7 +310,7 @@ DEPENDENCIES
   paperclip (= 3.5.2)
   pg
   protected_attributes
-  rails (~> 4.0.1.rc3)
+  rails (~> 4.0.1)
   rails-observers
   randexp (~> 0.1.7)
   rspec-rails (~> 2.14.0)
@@ -320,5 +320,5 @@ DEPENDENCIES
   turbolinks
   twitter
   twitter-bootstrap-rails
-  uglifier (>= 2.2.1)
+  uglifier (>= 2.3.0)
   will_paginate (= 3.0.5)
