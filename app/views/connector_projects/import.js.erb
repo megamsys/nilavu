@@ -2,6 +2,11 @@
 var selected_entity = '#cloud_rest_api';
 
 var api1 = '<%= @api_name %>';
+var bed =  '<%= @url %>';
+var appurl = '<%= @app_url %>';
+
+$("<h4>"+bed+"</h4>").replaceAll('#c_bed');
+$("<h4>"+appurl+"</h4>").replaceAll('#c_appurl'); 
 
 $(selected_entity).toggle();
 

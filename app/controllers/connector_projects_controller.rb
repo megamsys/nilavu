@@ -22,22 +22,41 @@ class ConnectorProjectsController < ApplicationController
     @products = Product.all
     logger.debug"Param = #{params}"
     @api_name = params[:api_name]
+    @url = params[:url]
+    @app_url = params[:app_url]
     respond_to do |format|
       format.js {
-        respond_with(@api_name, :layout => !request.xhr? )
+        respond_with(@api_name, @url, @app_url, :layout => !request.xhr? )
+      }
+    end
+  end 
+
+  def resource
+    @products = Product.all
+    logger.debug"Param = #{params}"
+    response = Net::HTTP.get_response(URI("https://raw.github.com/rajthilakmca/deccanplato/master/src/test/resources/salesforcecrm/account_create.json"))
+    puts response.body
+    @json = response.body
+    @api_name = params[:api_name]
+    respond_to do |format|
+      format.js {
+        respond_with(@json, :layout => !request.xhr? )
       }
     end
   end
 
   def deccanplato
-    logger.debug"Param-------- = #{params[:json]}"
+    logger.debug"Param-------- = #{params}"
     @json = params[:json]
     options = { :json => @json}
-    res_body = Crm.perform(options)
-    puts "output json-------->"+res_body
+    res_body = Crm.perform(options)    
+    @result = JSON.parse(res_body)["responseMap"]["salesforcecrm"]["output"]    
+    puts "output json-------->"
+    puts @result
+    
     respond_to do |format|
       format.js {
-        respond_with(:json => @json, :output_json => res_body, :layout => !request.xhr? )
+        respond_with(@result, :layout => !request.xhr? )
       }
     end
   end

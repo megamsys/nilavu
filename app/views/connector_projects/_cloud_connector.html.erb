@@ -8,7 +8,7 @@
 			<ul class="slides">
 				<% @products.each do |product| %>
 				<li>
-					<%= link_to import_path(:api_name => product.name), :remote => true, :type => "submit", :method => "post", data: { spinlock: '#dec'}  do %>
+					<%= link_to import_path(:api_name => product.name, :url => product.url, :app_url => product.deccanplato_url), :remote => true, :type => "submit", :method => "post", data: { spinlock: '#dec'}  do %>
 					<i class="logoc_<%= product.image_url %>", id ="slider-image"></i>
 					<% end %>
 				</li>
@@ -25,6 +25,7 @@
 			<h5>Live Cloud</h5>
 		</div>
 		<div class="widget-content">
+			<div id="output_display"></div>
 			</br>
 			<strong><span class="label label-info">*selection</span> Select any one URL </strong>
 			</br>
@@ -45,15 +46,22 @@
 						<td>
 						<div  style="height: 340px;  overflow-y: scroll;">
 							<h4>Data Explorer</h4>
-							Connector Bed
+							Connector Bed :
+							<div id="c_bed">
+								<div class="alert alert-info">
+									<span ><h5>Connector Bed not yet selected.</h5></span>
+								</div>
+							</div>
 							<br/>
-							<%= text_field :path, :id => 'large_text', placeholder: "Path" %>
-
 							<div class="control-group">
 								<div class="controls">
-									Cloud Application URL
+									Cloud Application URL :
+									<div id="c_appurl">
+										<div class="alert alert-info">
+											<span><h5>Cloud Application URL not yet selected.</h5></span>
+										</div>
+									</div>
 									<br/>
-									<%= text_field :path, :id => 'large_text', placeholder: "Path" %>
 								</div>
 							</div>
 							<div class="control-group">
@@ -61,16 +69,14 @@
 									Query string
 									<br/>
 									<%= text_field :json_text, :id => 'json_text', placeholder: "json" %>
-								</div>
-								<div class="offset3">
-									<%= submit_tag "Run Query", :class => "btn btn-primary" %>
-								</div>
+								</div>								
 							</div>
 						</div></td>
 						<td>
-						<div>
-							<h4>JSON</h4>
-							<%= text_area_tag "json", :id => 'json_input' %>
+						<div id="json_text">
+							<div class="alert alert-info">
+								<h5>Choose Cloud Application URL.</h5>
+							</div>
 						</div></td>
 					</tr>
 				</tbody>

@@ -88,6 +88,7 @@ match '/new_store', to: 'cloud_stores#new_store', via: [:get, :post]
   # =======connector_project_ controller
   match '/deccanplato', to: 'connector_projects#deccanplato', via: [:get, :post]
   match '/import', to: 'connector_projects#import', via: [:get, :post]
+  match '/resource', to: 'connector_projects#resource', via: [:get, :post]
   #  match '/connector_project/destroy', to: 'connector_projects#destroy'
   #  match '/connector_project/create', to: 'connector_projects#create'
   #  match '/connector_project/upload', to: 'connector_projects#upload'
