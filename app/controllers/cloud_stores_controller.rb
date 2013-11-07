@@ -5,7 +5,7 @@ if current_user.cloud_books && current_user.cloud_books.find_by_book_type("BOLT"
     cross_cloud_options = { :email => current_user.email, :api_key => current_user.api_token }
     @cloud_stores = ListPredefClouds.perform(cross_cloud_options)
     if @cloud_stores.class == Megam::Error
-      redirect_to dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@cross_clouds.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      redirect_to dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@cloud_stores.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     end
 else
      redirect_to new_cloud_store_path, :gflash => { :warning => { :value => "Oops! sorry, You don't have cloud_store, create new'", :sticky => false, :nodom_wrap => true } }

@@ -98,6 +98,38 @@
 		</div>
 	</div>
 
+	<div class="widget-box">
+		<div class="widget-title">
+			<span class="icon"> <i class="icon-th-list"></i> </span>
+			<h5>Application Definitions</h5><strong><span class="label label-info"><%= current_user.user_type %> user</span> </strong>
+		</div>
+		<div class="widget-content">
+			<div class="control-group">
+				<p class="help-block">
+					<strong><span class="label label-info">Default</span> Application Definition default. Upgrade to create more.</strong>
+					<%= link_to "Application Definition",   "http://docs.megam.co", { :target => '_blank'} %>
+				</p>
+				<p>
+					<br/>Metering<br/>Logging<br/>
+					<%= label_tag 'Run time execution' %>
+					<%= text_field_tag 'runtime_exec', nil, placeholder: 'Enter run time execution command' %>
+<div class="back" id="toggle"><br/>
+<label for="enjoy_web"></label>
+<div class="slideThree">
+<input type="checkbox" value="None" id="slideThree" name="check" />
+<label for="slideThree"></label>
+</div>
+</div>
+						<div class="slideThree">
+							<input type="checkbox" value="on" />
+							<label for="TEST"></label>
+						</div>
+
+				</p>
+			</div>
+		</div>
+	</div>
+
 	<% @predef_hash = {} %>
 	<% @predef_cloud.each do |k| %>
 	<% @predef_hash = @predef_hash.merge(@predef) %>
@@ -130,7 +162,7 @@
 					</div>
 					<div class="collapse in accordion-body" id="collapseGOne">
 						<div class="widget-content">
-							SCM : <span class="full_text"> <%= text_field_tag 'deps_scm', nil, class: 'large_text_field', placeholder: "git@github.com:username/project.git" %> 
+							<i class="icon-github"></i><span class="full_text"> <%= text_field_tag 'deps_scm', nil, class: 'large_text_field', placeholder: "git@github.com:username/project.git" %> 
 </span>
 			
 						</div>

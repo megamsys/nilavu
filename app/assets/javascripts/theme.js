@@ -67,3 +67,5 @@ $('.hasTooltip').each(function() { // Notice the .each() loop, discussed below
         jQuery("body").addClass("old-ie");
     }
 });
+
+
