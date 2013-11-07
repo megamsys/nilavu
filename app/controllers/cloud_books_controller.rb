@@ -6,6 +6,7 @@ class CloudBooksController < ApplicationController
     if current_user.cloud_books.any?
       add_breadcrumb "Cloud_books", cloud_books_path
       @cloud_books = current_user.cloud_books
+	logger.debug "Cloud Book Index ==> "
     else
       redirect_to new_cloud_book_path
     end
@@ -94,10 +95,25 @@ end
     @book = CloudBook.find(params[:id])
 	get_node = { :email => current_user.email, :api_key => current_user.api_token, :node => "#{@book.name}#{@book.domain_name}" }
 	@node = FindNodeByName.perform(get_node)
+	logger.debug "Get Node By Name NODE ==> "
+	puts @node.class
+	puts @node.inspect
+
 	@cloud_book = @node.lookup("#{@book.name}#{@book.domain_name}")
 	logger.debug "Get Node By Name ==> "
 	puts @cloud_book.inspect
   end
+
+  def destroy
+    @book = CloudBook.find(params[:id])
+	@book.cloud_books_histories.each do |cbh|
+		cbh.destroy
+	end
+	@book.destroy
+	redirect_to cloud_books_path, :gflash => { :success => { :value => "Cloud book and its histories are deleted successfully", :sticky => false, :nodom_wrap => true } }
+  end
+
+
 
   private
 
@@ -118,18 +134,18 @@ end
 	"noofinstances" => data[:no_of_instances],
           "command" => command,
           "predefs" => {"name" => data[:predef][:name], "scm" => data[:deps_scm],
-            "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => data[:deps_war], "queue" => "queue@queue1"},
-	"appdefns" => {"timetokill" => "", "metered" => "meteredTOM", "logging" => "loggingTOM", "runtime_exec" => "runtime_execTOM"},
+            "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => data[:deps_war], "queue" => "queue@queue1", "runtime_exec" => data[:predef][:runtime_exec]},
+	"appdefns" => {"timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
 	"boltdefns" => {"username" => "", "apikey" => "", "store_name" => "", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
 	"appreq" => {},
 	"boltreq" => {}
         }
 
 	if data[:cloud_book][:book_type] == "APP"
-		node_hash["appdefns"] = {"timetokill" => "0", "metered" => "megam", "logging" => "megam", "runtime_exec" => data['runtime_exec']}
+		node_hash["appdefns"] = {"timetokill" => "0", "metered" => "megam", "logging" => "megam", "runtime_exec" => "#{data['runtime_exec']}"}
 	end
 	if data[:cloud_book][:book_type] == "BOLT"
-		node_hash["boltdefns"] = {"username" => data['user_name'], "apikey" => data['password'], "store_name" => data['store_db_name'], "url" => data['url'], "prime" => data['prime'], "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""}
+		node_hash["boltdefns"] = {"username" => "#{data['user_name']}", "apikey" => "#{data['password']}", "store_name" => "#{data['store_db_name']}", "url" => "#{data['url']}", "prime" => "#{data['prime']}", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => "#{data['runtime_exec']}" }
 	end
     end
     logger.debug "COMMAND HASH ==> #{node_hash.inspect}"

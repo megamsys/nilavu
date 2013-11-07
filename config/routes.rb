@@ -14,7 +14,7 @@ Cloudauth::Application.routes.draw do
   resources :connector_outputs
   resources :connector_executions
   resources :cloud_books_histories
-  resources :cloud_books
+  resources :cloud_books #, via: [:get, :post, :destroy]
   resources :cross_clouds
   resources :cloud_stores
   resources :dashboards
