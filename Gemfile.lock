@@ -142,12 +142,13 @@ GEM
     mime-types (1.25)
     mini_portile (0.5.2)
     minitest (4.7.5)
-    mixlib-config (1.1.2)
+    mixlib-config (2.0.0)
     mixlib-log (1.6.0)
     multi_json (1.8.2)
     multi_test (0.0.2)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
+    net-http-predicates (1.0.0)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     oauth (0.4.7)
@@ -303,6 +304,7 @@ DEPENDENCIES
   megam_deccanplato (~> 0.1.0)
   meta_request
   multi_xml
+  net-http-predicates
   nokogiri
   omniauth-facebook
   omniauth-openid

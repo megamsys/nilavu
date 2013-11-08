@@ -6,7 +6,7 @@ class Crm
      puts json
      @excon_res = Megam::Crm.create(json)
      puts "---------------->"
-     puts @excon_res
+     puts @excon_res.inspect
    rescue ArgumentError => ae
   hash = {"msg" => ae.message, "msg_type" => "error"}
   re = Megam::Error.from_hash(hash)
@@ -24,6 +24,6 @@ class Crm
   return @res["data"][:body]
   
    end
-  @excon_res.data[:body]
+  @excon_res
   end
 end

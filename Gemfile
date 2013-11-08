@@ -52,6 +52,9 @@ gem "multi_xml"
 #html parsing
 gem "nokogiri"
 
+#net-http request and responses
+gem "net-http-predicates"
+
 #For background processing of cloud jobs
 #gem 'resque'
 #gem 'sidekiq'
