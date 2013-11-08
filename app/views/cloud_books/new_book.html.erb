@@ -56,7 +56,7 @@
 				</div>
 				<div class="widget-content">
 					<p class="help-block">
-						<strong><span class="label label-info">*optional</span> Click on the default book name to change it</strong>
+						<strong><span class="label label-warning">*optional</span> Click on the default book name to change it</strong>
 					</p>
 					</br>
 					<div class="span12">
@@ -106,26 +106,69 @@
 		<div class="widget-content">
 			<div class="control-group">
 				<p class="help-block">
-					<strong><span class="label label-info">Default</span> Application Definition default. Upgrade to create more.</strong>
+					<strong><span class="label label-info">Default</span> Application Definition default. Read about app_defns.</strong>
 					<%= link_to "Application Definition",   "http://docs.megam.co", { :target => '_blank'} %>
 				</p>
-				<p>
-					<br/>Metering<br/>Logging<br/>
-					<%= label_tag 'Run time execution' %>
-					<%= text_field_tag 'runtime_exec', nil, placeholder: 'Enter run time execution command' %>
-<div class="back" id="toggle"><br/>
-<label for="enjoy_web"></label>
-<div class="slideThree">
-<input type="checkbox" value="None" id="slideThree" name="check" />
-<label for="slideThree"></label>
-</div>
-</div>
-						<div class="slideThree">
-							<input type="checkbox" value="on" />
-							<label for="TEST"></label>
-						</div>
 
-				</p>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="span1">
+							<h3 align="center"><i class="i_cloud"></i></h3>
+						</div>
+						<div class="span4">
+							<span> <h4>Turn Off to Disable Monitoring<h4></span>
+						</div>
+						<div class = "span3">
+							<div class="back" id="toggle">
+								<br/>
+								<div class="slideThree">
+									<input type="checkbox" value="None" id="slideThree" name="check" />
+									<label for="slideThree"></label>
+								</div>
+							</div>
+						</div>
+						<div class = "span4">
+
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="span1">
+							<h3 align="center"><i class="i_chart"></i></h3>
+						</div>
+						<div class="span4">
+							<span> <h4>Turn Off to Disable Logging <h4></span>
+						</div>
+						<div class = "span3">
+							<div class="back" id="toggle">
+								<br/>
+								<label for="enjoy_web"></label>
+								<div class="slideThree">
+									<input type="checkbox" value="None" id="slideThree" name="check" />
+									<label for="slideThree"></label>
+								</div>
+							</div>
+						</div>
+						<div class = "span4">
+
+						</div>
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="span1">
+							<h3 align="center"><i class="icon-briefcase"></i></h3>
+						</div>
+						<div class="span4">
+							<span> <h4>Change the Default Start Script <span class="label label-warning">  *optional</span><h4></span>
+						</div>
+						<div class="span7">
+							<%= text_field_tag 'runtime_exec', nil, placeholder: 'Modify runtime exec - script' %>
+						</div>
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</div>
@@ -142,7 +185,7 @@
 
 	<%= f.text_field :predef_name, :type => 'hidden', :value => @predef_name %>
 	<%= f.text_field :book_type, :type => 'hidden', :value => "APP" %>
-		<input type="hidden" name="no_of_instances" value="<%= @no_of_instances %>">
+	<input type="hidden" name="no_of_instances" value="<%= @no_of_instances %>">
 
 	<div class="widget-box">
 		<div class="widget-title">
@@ -157,14 +200,13 @@
 				<div class="accordion-group widget-box">
 					<div class="accordion-heading">
 						<div class="widget-title">
-							<a data-parent="#collapse-group" href="#collapseGOne" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h3>SCM</h3> </a>
+							<a data-parent="#collapse-group" href="#collapseGOne" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span>.git</a>
 						</div>
 					</div>
 					<div class="collapse in accordion-body" id="collapseGOne">
 						<div class="widget-content">
-							<i class="icon-github"></i><span class="full_text"> <%= text_field_tag 'deps_scm', nil, class: 'large_text_field', placeholder: "git@github.com:username/project.git" %> 
-</span>
-			
+							<i class="icon-github"></i><span class="full_text"> <%= text_field_tag 'deps_scm', nil, class: 'large_text_field', placeholder: "git@github.com:username/project.git" %> </span>
+
 						</div>
 					</div>
 				</div>
