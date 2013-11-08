@@ -69,3 +69,4 @@ $('.hasTooltip').each(function() { // Notice the .each() loop, discussed below
 });
 
 
+

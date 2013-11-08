@@ -1,0 +1,156 @@
+
+	<div class="span10">
+		<div class="span3">
+			<div class="cb_box">
+				<h4 align="center"> Count</h4>
+				<h3 align="center" ><span class="icon"><i class="icon-book"></i></span><%= cloud_books.count %> of 2</h3>
+			</div>
+			<% cbhc = 0 %>
+			<% cloud_books.each do |cb| %>
+			<% cbhc = cbhc+cb.cloud_books_histories.count %>
+			<% end %>
+<% if cbhc < 2 %>
+			<br/>
+			<%= link_to "Create", new_cloud_book_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
+			<br/>
+<% else %>
+			<br/>
+			<%= link_to "Create", "", class: "btn btn-large btn-success btn-block", :target => "_self", :disabled => true %>
+			<br/>
+<% end %>
+			<div class="cb_box">
+				<h4 align="center" >Recent Activity</h4>
+				<% @latest_cloud_book = cloud_books.last(:order => 'created_at DESC') %>
+				<h5 align="Center"><%= @latest_cloud_book.name %></h5>
+				<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @latest_cloud_book.created_at.to_formatted_s(:rfc822) %></b></h5>
+			</div>
+			<br/>
+
+			<%= link_to "Run History Information", cloud_books_histories_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
+			<br/>
+			
+			<span class="btn btn-large disabled btn-block"><h3><%= cbhc %></h3> <h4>Launched </h4></span>
+
+			</br>
+			<%= link_to "Upgrade", pricing_path, class: "btn btn-large btn-inverse btn-block ", :target => "_self" %>
+
+		</div>
+		<!-- Span6 -->
+
+		<div class="span6">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Your Usage</h5>
+				</div>
+				<div class="widget-content" overflow-y: scroll;">
+
+				<% @percent = cloud_books.count/2.0*100 %>
+				<div class="row-fluid">
+				<div class="span1">
+				<h3>0</h3>
+				</div>
+				<div class="span10">
+				<% if @percent >= 80 %>
+				<div class="progress progress-danger">
+				<div class="bar" style="width: <%= @percent %>%;"></div>
+				</div>
+				<% else %>
+				<div class="progress progress-success">
+				<div class="bar" style="width: <%= @percent %>%;"></div>
+				</div>
+				<% end %>
+				</div>
+				<div class="span1">
+				<h3>2</h3>
+				</div>
+				</div>
+				</div>
+				</div>
+
+				<div class="widget-box">
+				<div class="widget-title">
+				<span class="icon"> <i class="icon-th-list"></i> </span>
+				<h5>Cloud Books</h5>
+				</div>
+				<div class="widget-content nopadding">
+				<table class="table table-bordered table-striped table-hover">
+				<thead>
+				<tr>
+				<th>Actions</th>
+				<th>Name</th>
+				<th>Created At</th>
+				<th>Type</th>
+				<th>Show</th>
+				<th>Clone</th>
+				<th>Destroy</th>
+
+				</tr>
+				</thead>
+				<tbody>
+				<% current_user.cloud_books.each do |cloud_book| %>
+				<tr>
+
+<td>
+<!--
+<div id="cloud_book_name" >
+	<%= radio_button_tag :cloud_book_name, "#{cloud_book.name}" %>
+</div> -->
+
+<div class="dropdown">
+   <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Action</a>
+  <ul class="dropdown-menu " role="menu" aria-labelledby="dLabel">
+    <li><%= link_to "Definition", definition_path(cloud_book.id), :remote => true %></li>
+ <li class="dropdown-submenu">
+<a tabindex="-1" href="#">Request</a>
+<ul class="dropdown-menu">
+    <li><%= link_to "Start", cloud_book_path(cloud_book.id), :remote => true %></li>
+    <li><%= link_to "Stop", cloud_book_path(cloud_book.id), :remote => true %></li>
+</ul>
+</li>
+  </ul>
+</div>
+</td>
+ 				<td> <%= link_to "#{cloud_book.name}", "http://#{cloud_book.name}#{cloud_book.domain_name}" , { :target => '_blank'} %> </td>
+				<td> <%= cloud_book.created_at.to_formatted_s(:rfc822) %> </td>
+				<% if cloud_book.book_type == 'APP' %>
+				<td> <span class="label label-info"><%= cloud_book.book_type %></span> </td>
+				<% elsif cloud_book.book_type == 'BOLT' %>
+				<td> <span class="label label-warning"><%= cloud_book.book_type %></span> </td>
+				<% end %>
+				<td> <%= link_to "View", cloud_book_path(cloud_book.id), :remote => true, class: "btn btn-mini btn-success" %> </td>
+				<td> <%= link_to "Clone", "#", class: "btn btn-mini btn-success" %> </td>
+				<td> <%= link_to "delete", cloud_book, method: :delete, class: "btn btn-mini btn-success", :data => { :confirm => "Are you sure?"}%>
+ </td>
+
+
+
+				</tr>
+				<% end %>
+				</tbody>
+
+				</table>
+				</div>
+				</div>
+
+
+
+	<div class="widget-box show">
+		<div class="widget-title">
+			<span class="icon"> <i class="icon-th-list"></i> </span>
+			<h5>Cloud Book Definitions</h5>
+			<div class="buttons">
+				<%= render :partial => "customizations/refresh" %>
+			</div>
+		</div>
+		<div class="widget-content">
+TEST
+		</div>
+	</div>
+
+
+
+
+				</div> <!-- Span6 -->
+
+				</div> <!-- Span12 -->

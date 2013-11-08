@@ -49,6 +49,7 @@ Cloudauth::Application.routes.draw do
 
   #Cloud Books
   match '/new_book', to: 'cloud_books#new_book', via: [:get, :post]
+  match '/definition', to: 'cloud_books#definition', via: [:get, :post]
 
   # ...
   #mount Sidekiq::Web, at: '/worker'

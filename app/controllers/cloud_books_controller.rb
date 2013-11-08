@@ -12,6 +12,16 @@ class CloudBooksController < ApplicationController
     end
   end
 
+  def definition
+      add_breadcrumb "Cloud_books", cloud_books_path
+      add_breadcrumb "Cloud_book's Definition", definition_path(params['format'])
+      @cloud_books = current_user.cloud_books
+	logger.debug "Cloud Book Definition ==> "
+	puts params['format']
+    @book = CloudBook.find(params['format'])
+	puts @book.inspect
+  end
+
   def new
     logger.debug ("================================= > CB STEP1 <========================= ")
     if current_user.onboarded_api
@@ -98,13 +108,23 @@ end
 	get_node = { :email => current_user.email, :api_key => current_user.api_token, :node => "#{@book.name}#{@book.domain_name}" }
 	@node = FindNodeByName.perform(get_node)
 	logger.debug "Get Node By Name NODE ==> "
-	puts @node.class
-	puts @node.inspect
 
-	#@cloud_book = @node.lookup("#{@book.name}#{@book.domain_name}")
-@cloud_book = @node.lookup("#{@book.name}#{@book.domain_name}")
-	logger.debug "Get Node By Name ==> "
-	puts @cloud_book.inspect
+    if @node.class == Megam::Error
+      @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      respond_to do |format|
+        format.js {
+          respond_with(@res_msg, :layout => !request.xhr? )
+        }
+      end
+    #redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@node.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+    else
+	@cloud_book = @node.lookup("#{@book.name}#{@book.domain_name}")
+      respond_to do |format|
+        format.js {
+          respond_with(@cloud_book, :layout => !request.xhr? )
+        }
+      end
+    end
   end
 
   def destroy

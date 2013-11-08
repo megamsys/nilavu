@@ -98,7 +98,33 @@ $(document).ready(function(){
 		scale_counter.scale_aggregate();
 		return false;
 	});
+
+
+var toggle = $('.dropdown-toggle');
+toggle.on('contextmenu',function(e){
+  e.preventDefault();
+  toggle.dropdown('toggle');
 });
+
+
+/* Context menu only when you click in #page_wrapper (not in it's children) 
+$(document).bind("contextmenu", function(event){
+if(event.toElement.id == 'page_wrapper'){
+$("#contextMenu").css({"top": event.pageY + "px", "left": event.pageX + "px"}).show();
+event.preventDefault();
+}
+});
+$(document).bind('click', function(){
+$('#contextMenu').hide();
+});
+*/
+
+
+});
+
+
+
+
 
 
 

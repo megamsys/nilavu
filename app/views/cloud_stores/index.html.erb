@@ -24,17 +24,14 @@
 						<%= link_to "New CLoud Store", new_cloud_store_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
 						<br/>
 
-						<div class="cb_box">
-							<h4 align="center" >Latest Creation</h4>
-							<% @cloud_stores.each do |pc| %>
-							<h5>
-							<p>
-								<b> Name = </b><%= pc.name %>
-								<br/>
-								<b> Created At = </b>TIME
-							</p></h5>
-							<% end %>
-						</div>
+			<div class="cb_box">
+				<h4 align="center" >Recent Activity</h4>
+				<% @latest_cloud_book = @cloud_stores.last(:order => 'created_at DESC') %>
+				<h5 align="Center"><%= @latest_cloud_book.name %></h5>
+				<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @latest_cloud_book.created_at.to_formatted_s(:rfc822) %></b></h5>
+			</div>
+
+
 						<br/>
 
 						<%= link_to "Upgrade", pricing_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
@@ -96,7 +93,7 @@
 							<% @cloud_stores.each do |pre_cl| %>
 							<tr>
 							<td> <%= pre_cl.name %></td>
-							<td> <%= "Created @" %> </td>
+							<td> <%= pre_cl.created_at.to_formatted_s(:rfc822) %> </td>
 							<td> <%= link_to "View", cloud_store_path(pre_cl.name), :remote => true, class: "btn btn-mini btn-success" %> </td>
 							<td> <%= link_to "import", "#", class: "btn btn-mini btn-success" %> </td>
 							</tr>
