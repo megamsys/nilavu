@@ -78,7 +78,7 @@ GEM
       nokogiri (>= 1.5.0)
       rails (>= 3.0.0)
     debug_inspector (0.0.2)
-    diff-lcs (1.2.4)
+    diff-lcs (1.2.5)
     ejs (1.1.1)
     erubis (2.7.0)
     excon (0.28.0)
@@ -104,6 +104,7 @@ GEM
     hike (1.2.3)
     httpauth (0.2.0)
     i18n (0.6.5)
+    inflector (0.0.1)
     jquery-datatables-rails (1.11.2)
       jquery-rails
     jquery-rails (3.0.4)
@@ -163,6 +164,10 @@ GEM
       rack
     omniauth-facebook (1.4.1)
       omniauth-oauth2 (~> 1.1.0)
+    omniauth-google (1.0.2)
+      multi_json
+      omniauth (~> 1.0)
+      omniauth-oauth
     omniauth-oauth (1.0.1)
       oauth
       omniauth (~> 1.0)
@@ -295,6 +300,7 @@ DEPENDENCIES
   flot-rails (~> 0.0.4)
   gritter (~> 1.0.3)
   high_voltage (= 2.0.0)
+  inflector
   jquery-datatables-rails
   jquery-rails
   jquery-turbolinks
@@ -307,6 +313,7 @@ DEPENDENCIES
   net-http-predicates
   nokogiri
   omniauth-facebook
+  omniauth-google
   omniauth-openid
   omniauth-twitter
   paperclip (= 3.5.2)

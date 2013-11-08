@@ -4,7 +4,7 @@
 
 <% if api_name == product.name %>
 	<% product.rest_api.split(',').map{ |s| s }.each do |restapi_url| %>
-	<%= link_to resource_path(:api_name => restapi_url, :url => product.url, :app_url => product.deccanplato_url), :remote => true, :type => "submit", :class => 'btn btn-block', :method => "post", data: { spinlock: '#dec'}  do %>
+	<%= link_to resource_path(:restapi_url => restapi_url, :url => product.url, :app_url => product.deccanplato_url), :remote => true, :type => "submit", :class => 'btn btn-block', :method => "post", data: { spinlock: '#dec'}  do %>
 	<%= restapi_url %>
 	<% end %>
 	<% end %>

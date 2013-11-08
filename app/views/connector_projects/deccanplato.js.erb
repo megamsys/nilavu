@@ -4,7 +4,7 @@ $(selected_entity).toggle();
 
 $(selected_entity).fadeIn("slow");
 
-var to_insert_content = "<%= escape_javascript(render :partial => 'connector_projects/result', :locals => {:result => @result }) %>";
+var to_insert_content = "<%= escape_javascript(render :partial => 'connector_projects/result', :locals => {:result => @result, :result_class => @result_class }) %>";
 	
 insertAt(selected_entity, to_insert_content);
 

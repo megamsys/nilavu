@@ -5,14 +5,14 @@ var api1 = '<%= @api_name %>';
 var bed =  '<%= @url %>';
 var appurl = '<%= @app_url %>';
 
-$("<h4>"+bed+"</h4>").replaceAll('#c_bed');
-$("<h4>"+appurl+"</h4>").replaceAll('#c_appurl'); 
+$("<div id='c_bed'><h4>"+bed+"</h4></div>").replaceAll('#c_bed');
+$("<div id='c_appurl'><h4>"+appurl+"</h4></div>").replaceAll('#c_appurl'); 
 
 $(selected_entity).toggle();
 
 $(selected_entity).fadeIn("slow");
 
-var to_insert_content = "<%= escape_javascript(render :partial => 'connector_projects/rest_api', :locals => {:api_name => @api_name }) %>";
+var to_insert_content = "<%= escape_javascript(render :partial => 'connector_projects/rest_api', :locals => {:api_name => @api_name, :url => @url, :app_url => @app_url }) %>";
 	
 insertAt(selected_entity, to_insert_content);
 

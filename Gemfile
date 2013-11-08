@@ -29,6 +29,7 @@ gem 'twitter'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-openid'
+gem 'omniauth-google'
 
 gem 'will_paginate','3.0.5'
 gem 'bootstrap-will_paginate','0.0.10'
@@ -54,6 +55,9 @@ gem "nokogiri"
 
 #net-http request and responses
 gem "net-http-predicates"
+
+#convert singularize
+gem "inflector"
 
 #For background processing of cloud jobs
 #gem 'resque'
