@@ -17,7 +17,6 @@ class AppsItemsController < ApplicationController
     @user = current_user
     @product = Product.find(params[:product_id])
     logger.debug "creating an item for product -> #{@product.id}"
-    sleep 1
     @apps_item = @user.apps_items.build(:product => @product) || AppsItem.new(params[:apps_item])
     puts @apps_item.inspect
     @apps_item.save

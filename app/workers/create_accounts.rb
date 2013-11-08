@@ -2,7 +2,6 @@ class CreateAccounts
   puts " -------> CREATE ACCOUNTS "
   def self.perform(new_account)
     #new_account = new_account.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
-    #sleep 3
     puts "=============================> CREATE ACCOUNT PERFORM PARAMS <================================== "
     puts new_account
     begin

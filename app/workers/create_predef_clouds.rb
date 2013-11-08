@@ -1,7 +1,6 @@
 class CreatePredefClouds
   puts " -------> CREATE PredefClouds "
   def self.perform(new_predef)
-    #sleep 3
     puts "=============================> CREATE PREDEFCLOUDS PERFORM PARAMS <================================== "
     puts new_predef
     begin

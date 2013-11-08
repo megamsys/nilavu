@@ -6,7 +6,6 @@ class CloudIdentitiesController < ApplicationController
   end
 
   def new_identity
-    sleep 1
     logger.debug ">>> Parms #{params}"
     logger.debug ">>> Parms data #{params[:data]}"
 

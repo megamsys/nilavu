@@ -5,7 +5,7 @@ var msg = '<%= @res_msg %>';
 $('#api_key_field').val('<%= @api_token %>');
 var selected_entity = '#profile_postfinish_popup';
 $(selected_entity).modal('show');
-$("#msg").append('<h5>API Key updation status : <%= @res_msg %> </h5>');
+$("#msg").append('<h5>API Key regenerated <%= @res_msg %>.You are onboarded</h5>');
 <% end %>
 
 <% if @user_fields_form_type == 'password'%>
