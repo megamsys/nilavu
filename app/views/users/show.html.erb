@@ -88,8 +88,7 @@
 
 	</div>
 	<div id="content">
-		<%= render :partial => "customizations/flash_messages" %>
-
+		<!-- <%= render :partial => "customizations/flash_messages" %> -->
 		<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
 	</div>
 

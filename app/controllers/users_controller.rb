@@ -13,7 +13,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     if !@user.organization
-      flash[:error] = "Hey ! Please update your profile to proceed further."
+      #flash[:error] = "Hey ! Please update your profile to proceed further."
       redirect_to edit_user_path(current_user)
     end
     current_user = @user
@@ -45,7 +45,7 @@ class UsersController < ApplicationController
       redirect_to signin_path(@user), :gflash => { :success => { :value => "Welcome back #{@user.first_name}. Your email #{@user.email} was verified. Thank you.", :sticky => false, :nodom_wrap => true } }
     else
 	logger.debug "==> Controller: users, Action: verified_email, Wrong user attempt to comeback"
-      flash[:alert] = "Ooops ! your verification failed. Sorry. resend the verification email again."
+      #flash[:alert] = "Ooops ! your verification failed. Sorry. resend the verification email again."
       redirect_to sign_up_path
     end
   end
@@ -71,7 +71,7 @@ class UsersController < ApplicationController
 		logger.debug "==> Controller: users, Action: create, User signed in after creation"
       options = { :id => current_user.id, :email => current_user.email, :api_key => current_user.api_token, :authority => "admin" }
       res_body = CreateAccounts.perform(options)
-      flash[:success] = "Welcome #{current_user.first_name}"
+      #flash[:success] = "Welcome #{current_user.first_name}"
 
       #Dashboard entry
       #puts("---------create---------->> entry")
@@ -189,7 +189,7 @@ class UsersController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy
-    flash[:success] = "Sorry to see you go. Removed successfully."
+    #flash[:success] = "Sorry to see you go. Removed successfully."
     redirect_to users_path
   end
 
