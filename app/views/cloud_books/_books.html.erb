@@ -20,7 +20,7 @@
 <% end %>
 			<div class="cb_box">
 				<h4 align="center" >Recent Activity</h4>
-				<% @latest_cloud_book = cloud_books.last(:order => 'created_at DESC') %>
+				<% @latest_cloud_book = latest_book %>
 				<h5 align="Center"><%= @latest_cloud_book.name %></h5>
 				<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @latest_cloud_book.created_at.to_formatted_s(:rfc822) %></b></h5>
 			</div>
@@ -92,24 +92,20 @@
 				<tr>
 
 <td>
-<!--
-<div id="cloud_book_name" >
-	<%= radio_button_tag :cloud_book_name, "#{cloud_book.name}" %>
-</div> -->
 
-<div class="dropdown">
-   <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">Action</a>
-  <ul class="dropdown-menu " role="menu" aria-labelledby="dLabel">
-    <li><%= link_to "Definition", definition_path(cloud_book.id), :remote => true %></li>
- <li class="dropdown-submenu">
-<a tabindex="-1" href="#">Request</a>
-<ul class="dropdown-menu">
-    <li><%= link_to "Start", cloud_book_path(cloud_book.id), :remote => true %></li>
-    <li><%= link_to "Stop", cloud_book_path(cloud_book.id), :remote => true %></li>
-</ul>
-</li>
-  </ul>
-</div>
+    <div class="btn-group">
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+    Actions
+    <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+    <li><%= link_to "Start", definition_path(cloud_book.id), :target => "_self" %></li>
+    <li><%= link_to "Stop", definition_path(cloud_book.id), :remote => true %></li>
+    <li><%= link_to "build", definition_path(cloud_book.id), :remote => true %></li>
+    <li><%= link_to "more", cloud_book_path(:id => cloud_book.id, :action_name => "action"), :remote => true, data: { spinlock: '#book'} %></li>
+    </ul>
+    </div>
+
 </td>
  				<td> <%= link_to "#{cloud_book.name}", "http://#{cloud_book.name}#{cloud_book.domain_name}" , { :target => '_blank'} %> </td>
 				<td> <%= cloud_book.created_at.to_formatted_s(:rfc822) %> </td>
@@ -134,23 +130,10 @@
 				</div>
 
 
-
-	<div class="widget-box show">
-		<div class="widget-title">
-			<span class="icon"> <i class="icon-th-list"></i> </span>
-			<h5>Cloud Book Definitions</h5>
-			<div class="buttons">
-				<%= render :partial => "customizations/refresh" %>
-			</div>
-		</div>
-		<div class="widget-content">
-TEST
-		</div>
-	</div>
-
-
-
-
 				</div> <!-- Span6 -->
 
+<div class="span6" >
+		<div  id="cb_action">
+     		</div>
+</div
 				</div> <!-- Span12 -->

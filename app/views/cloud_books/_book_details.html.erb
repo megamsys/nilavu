@@ -1,0 +1,39 @@
+	<div class="widget-box">
+		<div class="widget-title">
+			<span class="icon"> <i class="icon-th-list"></i> </span>
+			<h5>Cloud Book Definitions</h5>
+			<div class="buttons">
+				<%= render :partial => "customizations/refresh" %>
+			</div>
+		</div>
+		<div class="widget-content">
+			<div class="widget-box">
+                            <div class="widget-title">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a data-toggle="tab" href="#tab1">Details</a></li>
+                                    <li><a data-toggle="tab" href="#tab2">Actions</a></li>
+                                    <li><a data-toggle="tab" href="#tab3">Scaling</a></li>
+                                    <li><a data-toggle="tab" href="#tab4">Security</a></li>
+                                </ul>
+                            </div>
+                            <div class="widget-content tab-content">
+                                <div id="tab1" class="tab-pane active"> 
+
+<%= render :partial => "cloud_books/tab_details" , :locals => {:cloud_book => @cloud_book, :requests => @requests}%>
+
+				</div> <!-- tab1 -->
+
+                                <div id="tab2" class="tab-pane">
+<%= render :partial => "cloud_books/tab_actions" , :locals => {:cloud_book => @cloud_book, :requests => @requests}%>
+				</div><!-- tab2 -->
+                                <div id="tab3" class="tab-pane">
+<%= render :partial => "cloud_books/tab_scaling" , :locals => {:cloud_book => @cloud_book, :requests => @requests}%>
+				</div><!-- tab3 -->
+                                <div id="tab4" class="tab-pane">
+<%= render :partial => "cloud_books/tab_security" , :locals => {:cloud_book => @cloud_book, :requests => @requests}%>
+				</div><!-- tab4 -->
+                            </div>                            
+                        </div>
+		</div>
+	</div>
+

@@ -14,5 +14,11 @@ module CloudBooksHelper
 @book_name = /\w+/.gen
 @book_name.downcase
  end
+
+def latest_book
+current_user.cloud_books.last
+end
+
+
   
 end
