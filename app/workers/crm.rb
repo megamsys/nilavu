@@ -12,7 +12,7 @@ class Crm
   re = Megam::Error.from_hash(hash)
   @res = {"data" => {:body => re}}
   return @res["data"][:body]
-     rescue Megam::Deccanplato::Errors::ErrorWithResponse => ewr
+     rescue Megam::API::Errors::ErrorWithResponse => ewr
   hash = {"msg" => ewr.message, "msg_type" => "error"}
   re = Megam::Error.from_hash(hash)
   @res = {"data" => {:body => re}}

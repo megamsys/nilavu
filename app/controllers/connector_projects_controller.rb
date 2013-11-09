@@ -31,13 +31,34 @@ class ConnectorProjectsController < ApplicationController
     end
   end
 
+  def singularize
+    Inflector.singularize(self)
+  end
+
   def resource
     @products = Product.all
     logger.debug"Param = #{params}"
-    response = Net::HTTP.get_response(URI("https://raw.github.com/rajthilakmca/deccanplato/master/src/test/resources/salesforcecrm/account_create.json"))
+    @rest_api_name = Inflector.singularize(params[:restapi_url])
+    case params[:url]
+    when "http://www.salesforce.com"
+      @app_name = "salesforcecrm"
+    when "http://www.google.com"
+      @app_name = "googleapps"
+    when "http://xero.com"
+      @app_name = "xero"
+    when "http://sugarcrm.com"
+      @app_name = "sugarcrm"
+    when "http://www.zoho.com"
+      @app_name = "zohocrm"
+    when "http://www.box.com"
+      @app_name = "box"
+    else
+    puts "You gave me #{params[:url]} -- I have no idea what to do with that."
+    end
+    response = Net::HTTP.get_response(URI("https://raw.github.com/rajthilakmca/deccanplato/master/src/test/resources/"+@app_name+"/"+@rest_api_name+"_create.json"))
     puts response.body
     @json = response.body
-    @api_name = params[:api_name]
+    #@api_name = params[:api_name]
     respond_to do |format|
       format.js {
         respond_with(@json, :layout => !request.xhr? )
@@ -49,14 +70,22 @@ class ConnectorProjectsController < ApplicationController
     logger.debug"Param-------- = #{params}"
     @json = params[:json]
     options = { :json => @json}
-    res_body = Crm.perform(options)
-    @result = JSON.parse(res_body)["responseMap"]["salesforcecrm"]["output"]
+    res_body = Crm.perform(options) 
+    #@result_class = res_body.class   
+    if res_body.class == Megam::Error
+      #@result = "Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      @result = "Sorry Something Wrong. Please contact "
+      @result_class = "Megam_Error"
+    else
+      @result_class = "Deccanplato_result"
+      @result = JSON.parse(res_body)["responseMap"]["salesforcecrm"]["output"]
+    end
     puts "output json-------->"
     puts @result
 
     respond_to do |format|
       format.js {
-        respond_with(@result, :layout => !request.xhr? )
+        respond_with(@result, @result_class, :layout => !request.xhr? )
       }
     end
   end
