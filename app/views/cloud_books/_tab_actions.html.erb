@@ -1,0 +1,12 @@
+<div class="span1">
+<%= link_to "Start", definition_path(cloud_book.id), :remote => true, data: { spinlock: '#book'}, :class => "btn btn-large btn-success btn-block" %>
+</div>
+<div class="span1">
+<%= link_to "Stop", definition_path(cloud_book.id), :remote => true, data: { spinlock: '#book'}, :class => "btn btn-large btn-success btn-block" %>
+</div>
+<div class="span1">
+<%= link_to "build", definition_path(cloud_book.id), :remote => true, data: { spinlock: '#book'}, :class => "btn btn-large btn-success btn-block" %>
+</div>
+<div class="span1">
+<%= link_to "restart", cloud_book_path(cloud_book.id), :remote => true, data: { spinlock: '#book'}, :class => "btn btn-large btn-success btn-block" %>
+</div>

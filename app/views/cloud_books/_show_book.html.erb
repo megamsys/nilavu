@@ -7,26 +7,16 @@
 		</tr>
 	</thead>
 	<tbody>
+		<tr>
+			<td><b>Node Name</b></td> <td> <%= cloud_book.node_name %></td>
+		</tr>
 
 		<tr>
-			<td>Node Type</td> <td> <%= cloud_book.node_type %></td>
+			<td>N<b>ode Type</b></td> <td> <%= cloud_book.node_type %></td>
 		</tr>
 		<tr>
-			<td>Predef Name</td> <td> <%= cloud_book.predefs[:name] %></td>
+			<td><b>Predef Name</b></td> <td> <%= cloud_book.predefs[:name] %></td>
 		</tr>
-		<tr>
-			<td>SCM</td> <td> <%= cloud_book.predefs[:scm] %></td>
-		</tr>
-<% if cloud_book.predefs[:war] != 'null' %>
-		<tr>
-			<td>WAR</td> <td> <%= cloud_book.predefs[:war] %></td>
-		</tr>
-<% end %>
-		<tr>
-			<td>DB</td> <td> <%= cloud_book.predefs[:db] %></td>
-		</tr>
-		<tr>
-			<td>Queue</td> <td> <%= cloud_book.predefs[:queue] %></td>
-		</tr>
+
 	</tbody>
 </table>

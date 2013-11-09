@@ -104,6 +104,7 @@ end
   end
 
   def show
+puts params
     @book = CloudBook.find(params[:id])
 	get_node = { :email => current_user.email, :api_key => current_user.api_token, :node => "#{@book.name}#{@book.domain_name}" }
 	@node = FindNodeByName.perform(get_node)
@@ -119,11 +120,21 @@ end
     #redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@node.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
 	@cloud_book = @node.lookup("#{@book.name}#{@book.domain_name}")
+	if params["action_name"]
+		@full_detail = true 
+		@requests = "TEST"
+      respond_to do |format|
+        format.js {
+          respond_with(@full_detail, @cloud_book, @requests, :layout => !request.xhr? )
+        }
+      end
+	else
       respond_to do |format|
         format.js {
           respond_with(@cloud_book, :layout => !request.xhr? )
         }
       end
+	end
     end
   end
 

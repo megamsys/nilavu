@@ -8,27 +8,23 @@
 <div class="container-fluid">
 
 <%= render :partial => "cloud_books/books" , :locals => {:cloud_books => @cloud_books}%>
-				<div id="cloudbook_show_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-							×
-						</button>
-						<h3 id="myModalLabel">Cloud Book view</h3>
-					</div>
-					<div class="modal-body">
-						<p>
-							<h4 id="book_show"></h4>
-						</p>
-					</div>
-					<div class="modal-footer">
-						<button class="btn" data-dismiss="modal" aria-hidden="true">
-							Ok
-						</button>
-					</div>
-				</div>
+<div class="offset4 span6">
+	<div class="widget-box show">
+		<div class="widget-title">
+			<span class="icon"> <i class="icon-th-list"></i> </span>
+			<h5>Cloud Book Definitions</h5>
+			<div class="buttons">
+				<%= render :partial => "customizations/refresh" %>
+			</div>
+		</div>
+		<div class="widget-content">
+Request what needs to be filled in?
+		</div>
+	</div>
+</div>
 
-				</div> <!-- container-fluid -->
+</div> <!-- container-fluid -->
 
-				<% end %>
-				<%= render :template => users_show_path %>
+<% end %>
+<%= render :template => users_show_path %>
