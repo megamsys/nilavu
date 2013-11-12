@@ -73,8 +73,9 @@ match '/new_store', to: 'cloud_stores#new_store', via: [:get, :post]
   match '/verified_email', to: 'users#verified_email', via: [:get]
   match '/signin', to: 'sessions#new', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post,:delete]
-  match '/auth/:provider/callback', :to => 'sessions#create', via: [:get, :post]
-
+  match '/auth/facebook/callback', :to => 'sessions#create', via: [:get, :post]
+  match '/auth/google/callback', :to => 'cross_clouds#new', via: [:get, :post]
+  
   # ======Dashboard
   get "users/show"
   #match '/dashboards', to: 'dashboards#index', via: [:get]
