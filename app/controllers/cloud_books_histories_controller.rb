@@ -3,7 +3,12 @@ class CloudBooksHistoriesController < ApplicationController
   add_breadcrumb "Dashboard", :dashboards_path
   
   def index
-  add_breadcrumb "Cloud Book History", :root_path
+ 
+  if current_user.cloud_books.any?
+       add_breadcrumb "Cloud Book History", :root_path
+  else
+      redirect_to cloud_books_path, :gflash => { :warning => { :value => "Sorry. You don't have any books. Please create a book here.", :sticky => false, :nodom_wrap => true } }
+    end
     #@books = current_user.cloud_books.all
   #@books = @cloud_books.cloud_books_histories
   end
