@@ -307,7 +307,7 @@ DEPENDENCIES
   jquery-ui-rails
   less-rails (~> 2.4.2)
   megam_api
-  megam_deccanplato (~> 0.1.0)
+  megam_deccanplato
   meta_request
   multi_xml
   net-http-predicates

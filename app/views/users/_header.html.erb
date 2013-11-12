@@ -2,16 +2,20 @@
 	<h1> <%= head %> </h1>
 	<div class="btn-group">
 		<%= link_to cross_clouds_path, :class =>"btn btn-large", :title=> "Manage Cross Cloud", :target => "_self"  do %>
-		<i class="icon-briefcase"></i>
+		<i class="icon-random"></i>
+		Cross Cloud
 		<% end %>
 		<%= link_to cloud_stores_path, :class =>"btn btn-large", :title=> "Manage Cloud Store", :id => "db_link", :target => "_self"  do %>
-		<i class="icon-random"></i>
+		<i class="icon-list-alt"></i>
+		Cloud Store
 		<% end %>
 		<%= link_to cloud_books_path, :class =>"btn btn-large", :title=> "Manage Cloud queue", :target => "_self"  do %>
-		<i class="icon-user"></i>
+		<i class="icon-cog"></i>
+		Cloud Queue
 		<% end %>
-		<%= link_to cloud_books_path, :class =>"btn btn-large", :title=> "Manage Comments", :target => "_self"  do %>
+	<!--	<%= link_to cloud_books_path, :class =>"btn btn-large", :title=> "Manage Comments", :target => "_self"  do %>
 		<i class="icon-comment"></i><span class="label label-important">5</span>
 		<% end %>
+	-->
 	</div>
 </div>
