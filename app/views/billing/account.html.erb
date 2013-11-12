@@ -3,19 +3,24 @@
 
 <%= render :partial => "users/header" , :locals => {:head => "Upgrade"}%>
 <div id="breadcrumb">
-<%= render_breadcrumbs %>
+	<%= render_breadcrumbs %>
 </div>
 
 <div class="container-fluid">
 	<div class="row-fluid">
-		<div>
-			<p class="help-block">
-				<%= image_tag "helpbota.png", :alt => "help bot"%>
-				<strong>What do you get in our <span class="badge badge-important">paid</span> version ?.</strong>Learn more about it, insert help link using helper
-			</p>
+		<div class="alert alert-info alert-block">
+			<h4 class="alert-heading">Info!</h4>
+			<div>
+				<p class="help-block">
+					<%= image_tag "helpbota.png", :alt => "help bot"%>
+					<strong>What do you get in our <span class="badge badge-important">paid</span> version ?.</strong>
+					<a href="http://docs.megam.co/version">Learn more about it</a>
+				</p>
+			</div>
+			<a class="close" data-dismiss="alert alert-warning" href="#">×</a>
+			We are working to get the billing integrated using <a href="http://cheddargettar.com">CheddarGettar</a> with support for <b>Paypal</b>. Stay tuned.
 		</div>
 	</div>
-
 	<div class="row-fluid">
 		<div class="span12">
 			<div class="widget-box">

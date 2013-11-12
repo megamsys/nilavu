@@ -19,6 +19,7 @@ gem 'execjs','2.0.2'
 gem 'jquery-datatables-rails'
 gem "flot-rails", "~> 0.0.4"
 gem "gritter", "~> 1.0.3"
+gem "flexslider", "~> 2.0.2"
 
 # Database posgresql
 gem 'pg'
@@ -39,21 +40,19 @@ gem 'high_voltage',"2.0.0"
 gem "therubyracer", :require => 'v8',:platforms => :ruby
 gem "breadcrumbs_on_rails"
 gem "randexp", "~> 0.1.7"
-gem "megam_api"
-gem "flexslider", "~> 2.0.2"
-gem "megam_deccanplato", "~> 0.1.0"
 gem "angularjs-rails"
+gem "megam_api"
+gem "megam_deccanplato"
 
 #http_proxy settings
 gem "faraday"
 gem "faraday_middleware"
 gem "multi_xml"
+#net-http request and responses
+gem "net-http-predicates"
 
 #html parsing
 gem "nokogiri"
-
-#net-http request and responses
-gem "net-http-predicates"
 
 #convert singularize
 gem "inflector"
