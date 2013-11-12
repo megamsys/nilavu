@@ -49,34 +49,48 @@
 				<table class="table table-bordered table-striped table-hover">
 				<thead>
 				<tr>
-				<th>Name</th>
-				<th>Value</th>
+				<th>Actions</th>
+				<th>Request Type</th>
+				<th>Created At</th>
+				<th>Show</th>
+				<th>Destroy</th>
+
 				</tr>
 				</thead>
 				<tbody>
+				<% current_user.cloud_books.each do |cloud_book| %>
+				<tr>
 
-		<tr>
-			<td><b>Node Name</b></td> <td> <%= cloud_book.node_name %></td>
-		</tr>
+<td>
 
-		<tr>
-			<td><b>Node Type</b></td> <td> <%= cloud_book.node_type %></td>
-		</tr>
-		<tr>
-			<td><b>Platform</b></td> <td> <%= cloud_book.predefs[:name] %></td>
-		</tr>
-		<tr>
-			<td><b>SCM</b></td> <td> <%= cloud_book.predefs[:scm] %></td>
-		</tr>
-<% if !cloud_book.predefs[:war].empty? %>
-		<tr>
-			<td><b>WAR</b></td> <td> <%= cloud_book.predefs[:war] %></td>
-		</tr>
-<% end %>
+    <div class="btn-group">
+    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+    Actions
+    <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+    <li><%= link_to "Start", definition_path(cloud_book.id), :target => "_self" %></li>
+    <li><%= link_to "Stop", definition_path(cloud_book.id), :remote => true %></li>
+    <li><%= link_to "build", definition_path(cloud_book.id), :remote => true %></li>
+    <li><%= link_to "more", cloud_book_path(:id => cloud_book.id, :action_name => "action"), :remote => true, data: { spinlock: '#book'} %></li>
+    </ul>
+    </div>
+
+</td>
+ 				<td> <%= link_to "#{cloud_book.name}", "http://#{cloud_book.name}#{cloud_book.domain_name}" , { :target => '_blank'} %> </td>
+				<td> <%= cloud_book.created_at.to_formatted_s(:rfc822) %> </td>
+
+				<td> <%= link_to "View", cloud_book_path(cloud_book.id), :remote => true, class: "btn btn-mini btn-success" %> </td>
+				<td> <%= link_to "delete", cloud_book, method: :delete, class: "btn btn-mini btn-success", :data => { :confirm => "Are you sure?"}%>
+ </td>
+
+
+
+				</tr>
+				<% end %>
 				</tbody>
 
 				</table>
 				</div>
 				</div>
-
 
