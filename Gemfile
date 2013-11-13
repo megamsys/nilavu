@@ -20,6 +20,7 @@ gem 'jquery-datatables-rails'
 gem "flot-rails", "~> 0.0.4"
 gem "gritter", "~> 1.0.3"
 gem "flexslider", "~> 2.0.2"
+gem 'unicorn', :group => :production
 
 # Database posgresql
 gem 'pg'
@@ -74,13 +75,14 @@ gem 'bcrypt-ruby',:require => 'bcrypt'
 
 # Gems used only for assets and not required
 # in production environments by default.
-group :assets do
-  gem 'twitter-bootstrap-rails'
+  #gem 'twitter-bootstrap-rails'
+ gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+  gem "less-rails", "~> 2.4.2"
+#group :assets do
   gem 'sass-rails',   '~> 4.0.1'
   gem 'coffee-rails', '~> 4.0.1'
-  gem "less-rails", "~> 2.4.2"
   gem 'uglifier', '>= 2.3.1'
-end
+#end
 
 group :test do
   gem 'capybara','2.1.0'
@@ -95,6 +97,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'meta_request'
 end
+
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'

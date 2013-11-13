@@ -64,7 +64,7 @@ module Cloudauth
 
     # 404 catcher
     config.after_initialize do |app|
-      app.routes.append{ match '*a', :to => 'application#render_404' } unless config.consider_all_requests_local
+      app.routes.append{ match '*a', :to => 'application#render_404', via: [:get] } unless config.consider_all_requests_local
     end
     
     config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
@@ -76,5 +76,25 @@ module Cloudauth
     #config.ganglia_request_metric = 'nginx_status'
     config.metric_source = 'demo'
     config.payment_gateway = 'demo'
+
+
+
+config.assets.precompile << Proc.new do |path|
+  if path =~ /\.(css|js)\z/
+    full_path = Rails.application.assets.resolve(path).to_path
+    app_assets_path = Rails.root.join('app', 'assets').to_path
+    if full_path.starts_with? app_assets_path
+      puts "including asset: " + full_path
+      true
+    else
+      puts "excluding asset: " + full_path
+      false
+    end
+  else
+    false
+  end
+end
+
+
   end
 end
