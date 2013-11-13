@@ -20,6 +20,7 @@ gem 'jquery-datatables-rails'
 gem "flot-rails", "~> 0.0.4"
 gem "gritter", "~> 1.0.3"
 gem "flexslider", "~> 2.0.2"
+gem 'unicorn'
 
 # Database posgresql
 gem 'pg'
@@ -77,11 +78,11 @@ gem 'bcrypt-ruby',:require => 'bcrypt'
   #gem 'twitter-bootstrap-rails'
  gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
   gem "less-rails", "~> 2.4.2"
-group :assets do
+#group :assets do
   gem 'sass-rails',   '~> 4.0.1'
   gem 'coffee-rails', '~> 4.0.1'
   gem 'uglifier', '>= 2.3.1'
-end
+#end
 
 group :test do
   gem 'capybara','2.1.0'
