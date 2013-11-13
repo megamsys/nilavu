@@ -11,11 +11,11 @@ Cloudauth::Application.configure do
   config.action_controller.perform_caching = true
 
 # replace this with your tracker code
-  #GA.tracker = "UA-40323851-1"
-#GA.script_source = "('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js'"
+  GA.tracker = "UA-40323851-1"
+GA.script_source = "('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js'"
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = false #true
+  config.serve_static_assets = true
 
   config.assets.js_compressor = :uglifier
 
@@ -23,7 +23,7 @@ Cloudauth::Application.configure do
   #config.assets.compress = true
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false #true
+  config.assets.compile = true
 
   # Generate digests for assets URLs
   config.assets.digest = true
