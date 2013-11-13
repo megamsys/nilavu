@@ -18,26 +18,32 @@ $(document).ready(function() {
 		var cc = $(this).find("option:selected").text()
 		switch (cc) {
 		case "Amazon EC2":
-			//alert($(this).find("option:selected").text())
-			 // $("<%= image_tag('logo_aws.png', :size => '120x60', :id => 'cloud_logo') %>").replaceAll("#cloud_logo");
-			//$('#cloud_logo').attr({src: "logo_aws.png"});
+			// alert($(this).find("option:selected").text())
+			 // $("<%= image_tag('logo_aws.png', :size => '120x60', :id =>
+				// 'cloud_logo') %>").replaceAll("#cloud_logo");
+			// $('#cloud_logo').attr({src: "logo_aws.png"});
 			$("<div class='offset2' id='cloud_logo'><img src='/assets/logo_aws.png' height='100' width='100'/></div>").replaceAll('#cloud_logo');
 			break;
 		case "hp cloud":
-		//alert($(this).find("option:selected").text())
-			//$("<%= image_tag('logo_hp.png', :size => '120x60', :id => 'cloud_logo') %>").replaceAll("#cloud_logo");
-			//$('#cloud_logo').attr({src: "logo_hp.png"});
+		// alert($(this).find("option:selected").text())
+			// $("<%= image_tag('logo_hp.png', :size => '120x60', :id =>
+			// 'cloud_logo') %>").replaceAll("#cloud_logo");
+			// $('#cloud_logo').attr({src: "logo_hp.png"});
 			$("<div class='offset2' id='cloud_logo'><img src='/assets/logo_hp.png' height='100' width='100'/></div>").replaceAll('#cloud_logo');
 			break;
 		case "Google cloud Engine":
-			//alert($(this).find("option:selected").text())
+			// alert($(this).find("option:selected").text())
 			$('#google_auth').prop("disabled",false);
-			//$("<%= image_tag('logo_gce.png', :size => '120x60', :id => 'cloud_logo') %>").replaceAll("#cloud_logo");
-			//$('#cloud_logo').attr({src: "logo_gce.png"});
-			$("<div class='offset2' id='cloud_logo'><img src='/assets/logo_gce.png' height='100' width='100'/></div>").replaceAll('#cloud_logo');
+			// $("<%= image_tag('logo_gce.png', :size => '120x60', :id =>
+			// 'cloud_logo') %>").replaceAll("#cloud_logo");
+			// $('#cloud_logo').attr({src: "logo_gce.png"});
+			$("<div class='offset2' id='cloud_logo'>" +
+			   "<a href='/auth/google_oauth2'><img src='/assets/signin_google.png' /></a></br>" +
+					"<img src='/assets/logo_gce.png' height='100' width='100'/>" +
+					"</div>").replaceAll('#cloud_logo');
 			break;
 		default:
-			//$('#cloud_logo').attr({src: "logo_aws.png"});
+			// $('#cloud_logo').attr({src: "logo_aws.png"});
 			$("<div class='offset2' id='cloud_logo'><img src='/assets/logo_aws.png' height='100' width='100'/></div>").replaceAll('#cloud_logo');
 		}
 		// alert($(this).find("option:selected").text()+' clicked!');
