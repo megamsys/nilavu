@@ -74,11 +74,12 @@ gem 'bcrypt-ruby',:require => 'bcrypt'
 
 # Gems used only for assets and not required
 # in production environments by default.
+  #gem 'twitter-bootstrap-rails'
+ gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+  gem "less-rails", "~> 2.4.2"
 group :assets do
-  gem 'twitter-bootstrap-rails'
   gem 'sass-rails',   '~> 4.0.1'
   gem 'coffee-rails', '~> 4.0.1'
-  gem "less-rails", "~> 2.4.2"
   gem 'uglifier', '>= 2.3.1'
 end
 
@@ -95,6 +96,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'meta_request'
 end
+
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'

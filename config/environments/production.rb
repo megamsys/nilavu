@@ -1,30 +1,29 @@
 Cloudauth::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
-  config.eager_load = true
-  
-  config.assets.js_compressor = :uglifier
 
   # Code is not reloaded between requests
   config.cache_classes = true
 
+  config.eager_load = true
   # Full error reports are disabled and caching is turned on
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
 # replace this with your tracker code
-  GA.tracker = "UA-40323851-1"
-GA.script_source = "('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js'"
-
+  #GA.tracker = "UA-40323851-1"
+#GA.script_source = "('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js'"
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_assets = true
+  config.serve_static_assets = false #true
+
+  config.assets.js_compressor = :uglifier
 
   # Compress JavaScripts and CSS
-  config.assets.compress = true
+  #config.assets.compress = true
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = true
+  config.assets.compile = false #true
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -73,6 +72,7 @@ GA.script_source = "('https:' == document.location.protocol ? 'https://' : 'http
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+  #config.active_support.deprecation = :silence
 
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)

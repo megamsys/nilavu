@@ -1,6 +1,6 @@
 #require 'sidekiq/web'
 Cloudauth::Application.routes.draw do
-
+#=begin
   root :to => 'high_voltage/pages#show', :id => 'home'
 
   resources :users
@@ -20,6 +20,7 @@ Cloudauth::Application.routes.draw do
   resources :dashboards
   resources :widgets
   resources :password_resets
+
 
   namespace :api do
     resources :dashboards do
@@ -73,7 +74,7 @@ match '/new_store', to: 'cloud_stores#new_store', via: [:get, :post]
   match '/verified_email', to: 'users#verified_email', via: [:get]
   match '/signin', to: 'sessions#new', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post,:delete]
-  match '/auth/:provider/callback', :to => 'sessions#create', via: [:get, :post]
+  match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
 
   # ======Dashboard
   get "users/show"
@@ -107,6 +108,6 @@ match '/new_store', to: 'cloud_stores#new_store', via: [:get, :post]
   #match '/identities/new', to: 'cloud_identities#', via: [:get, :post]
 
   # =======apps_items_controller
-  match '/apps_items/destroy', to: 'apps_items#destroy', via: :delete
-
+  match '/apps_items/destroy', to: 'apps_items#destroy', via: [:delete]
+#=end
 end
