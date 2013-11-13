@@ -20,7 +20,7 @@ gem 'jquery-datatables-rails'
 gem "flot-rails", "~> 0.0.4"
 gem "gritter", "~> 1.0.3"
 gem "flexslider", "~> 2.0.2"
-gem 'unicorn'
+gem 'unicorn', :group => :production
 
 # Database posgresql
 gem 'pg'
