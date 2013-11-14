@@ -14,8 +14,8 @@ development:
   #url: postgres://mainuser:team4megam@postgres1.megam.co.in:5432/cocdb
   #url: postgres://megam:team4megam@localhost:5432/cocdb
   #url: postgresql://megam:team4megam@localhost:5432/cocdb
-  host: postgres1.megam.co.in
-  port: 5432
+  #host: postgres1.megam.co.in
+  #port: 5432
 
   bucket: megam
   use_ssl: false
