@@ -9,7 +9,7 @@ gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
 
 gem 'socket.io-rails'
-
+gem 'google-analytics-rails', '~> 0.0.4'
 #JQuery rails, other jquery scripts
 gem 'turbolinks'
 gem 'jquery-rails'

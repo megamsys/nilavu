@@ -107,6 +107,7 @@ GEM
       jquery-rails
     gherkin (2.12.2)
       multi_json (~> 1.3)
+    google-analytics-rails (0.0.4)
     gritter (1.0.3)
     hashie (2.0.5)
     high_voltage (2.0.0)
@@ -308,6 +309,7 @@ DEPENDENCIES
   faraday_middleware
   flexslider (~> 2.0.2)
   flot-rails (~> 0.0.4)
+  google-analytics-rails (~> 0.0.4)
   gritter (~> 1.0.3)
   high_voltage (= 2.0.0)
   inflector
