@@ -69,7 +69,7 @@ module Cloudauth
     
     config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
     config.ganglia_host     = ENV['GANGLIA_HOST']
-    config.ganglia_base_url = "http://monitor.megam.co/ganglia"
+    config.ganglia_base_url = "http://monitor.megam.co.in/ganglia"
     config.ganglia_cluster = 'EC2'
     config.ganglia_graph_metric  = 'cpu_system'
     config.ganglia_request_metric = 'nginx_requests'
@@ -78,7 +78,7 @@ module Cloudauth
     config.payment_gateway = 'demo'
 
 
-
+=begin
 config.assets.precompile << Proc.new do |path|
   if path =~ /\.(css|js)\z/
     full_path = Rails.application.assets.resolve(path).to_path
@@ -94,7 +94,7 @@ config.assets.precompile << Proc.new do |path|
     false
   end
 end
-
+=end
 
   end
 end
