@@ -84,22 +84,3 @@ jQuery(document)
 									});
 
 				});
-
-jQuery(function() {
-	function removeAt(selector_to_remove) {
-		$(selector_to_remove).remove();
-		console.log('removed selector :' + selector_to_remove);
-	}
-
-	function insertAt(location, content_to_insert) {
-		$(location).html(content_to_insert);
-		console.log('inserted  content :' + location + ' =>'
-				+ content_to_insert);
-	}
-
-	function repWith(location, content_to_replace) {
-		$(location).replaceWith(content_to_replace);
-		console.log('replaced  content :' + location + ' =>'
-				+ content_to_replace);
-	}
-});
