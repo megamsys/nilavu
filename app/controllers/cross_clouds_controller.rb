@@ -15,6 +15,8 @@ class CrossCloudsController < ApplicationController
   def new
     add_breadcrumb "Cross CLouds", cross_clouds_path
     add_breadcrumb "New Cross CLoud", new_cross_cloud_path
+    logger.debug "GOOGLE oauth token ============> "
+    puts request.env['omniauth.auth']
   end
 
   def create
@@ -24,6 +26,8 @@ class CrossCloudsController < ApplicationController
     res_body = CreatePredefClouds.perform(options)
     redirect_to cross_clouds_path, :gflash => { :warning => { :value => "CROSS  CLOUD CREATION DONE ", :sticky => false, :nodom_wrap => true } }
   end
+
+  
 
   def show
     cross_cloud_options = { :email => current_user.email, :api_key => current_user.api_token }

@@ -28,15 +28,15 @@
 						<div class="span4">
 							<!--<%= select_tag "provider", "<option>Amazon EC2</option><option>hp cloud</option><option>Google cloud Engine</option>".html_safe %>-->
 							<%= select_tag "provider", options_for_select(cross_cloud), selected: "Amazon EC2", :id => "cross_cloud_list" %>
-						    <!--<select ng-model="color" ng-options="c.name for c in crossclouds" style="width:170px;" ng-click="change_cross()"></select><br>-->
+							<!--<select ng-model="color" ng-options="c.name for c in crossclouds" style="width:170px;" ng-click="change_cross()"></select><br>-->
+
 						</div>
-					</div>
+					</div>					
 					<br/>
 					<br/>
 					<div class="row-fluid">
 						<div class="offset2" id="cloud_logo">
-							  <!--<img src="/images/logo_aws.png" height="42" width="42" />--> 
-							<%= image_tag("logo_aws.png", :size => "120x60") %>
+							<%= image_tag("logo_aws.png", :size => "100x100") %>
 						</div>
 					</div>
 				</div>
