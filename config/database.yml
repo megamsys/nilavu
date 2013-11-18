@@ -8,10 +8,8 @@ development:
   encoding: unicode
   database: cocdb
   pool: 5
-  #username: mainuser
   username: megam
   password: team4megam
-  #url: postgres://mainuser:team4megam@postgres1.megam.co.in:5432/cocdb
   #url: postgres://megam:team4megam@localhost:5432/cocdb
   #url: postgresql://megam:team4megam@localhost:5432/cocdb
   #host: postgres1.megam.co.in

@@ -33,6 +33,8 @@ class ListCloudTools
       @predef_cloud_collection = ListPredefClouds.perform(options)
       @predef_cloud = @predef_cloud_collection.lookup("#{data[:cloud_book][:predef_cloud_name]}")
       @cloud_tools = perform(options)
+	puts "================> @ CLOUD_TOOLs <==========================="
+	puts @cloud_tools.inspect
       @tool = @cloud_tools.lookup(data[:predef][:provider])
       @template = @tool.cloudtemplates.lookup(@predef_cloud.spec[:type_name])
       @cloud_instruction = @template.lookup_by_instruction(group, action)
@@ -47,7 +49,7 @@ class ListCloudTools
         "compute" => {
           "cctype" => "#{@predef_cloud.spec[:type_name]}",
           "cc"=> {
-            "groups" => "#{@predef_cloud.spec[:type_name]}",
+            "groups" => "#{@predef_cloud.spec[:groups]}",
             "image" => "#{@predef_cloud.spec[:image]}",
             "flavor" => "#{@predef_cloud.spec[:flavor]}"
           },
@@ -61,8 +63,8 @@ class ListCloudTools
           "chef" => {
             "command" => "#{@tool.cli}",
             "plugin" => "#{@template.cctype} #{@ci_command}",
-            #"run_list" => "'role[#{data[:predef][:provider_role]}]'",
-            "run_list" => "'role[nodejs]'",
+            "run_list" => "'role[#{data[:predef][:provider_role]}]'",
+            #"run_list" => "'role[nodejs]'",
             "name" => "#{@ci_name} #{data[:cloud_book][:name]}"
           }
         }
