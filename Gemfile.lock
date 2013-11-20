@@ -313,7 +313,6 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.0.1)
   cucumber-rails
-  execjs (= 2.0.2)
   factory_girl_rails
   faraday
   faraday_middleware

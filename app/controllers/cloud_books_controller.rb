@@ -10,7 +10,6 @@ class CloudBooksController < ApplicationController
       options = { :email => current_user.email, :api_key => current_user.api_token }
 
       @nodes = FindNodesByEmail.perform(options)
-      puts @nodes.inspect
       if @nodes.class == Megam::Error
         #@res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
         redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@cloud_books.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
@@ -47,9 +46,7 @@ class CloudBooksController < ApplicationController
     add_breadcrumb "Cloud_book's Definition", definition_path(params['format'])
     @cloud_books = current_user.cloud_books
     logger.debug "Cloud Book Definition ==> "
-    puts params['format']
     @book = CloudBook.find(params['format'])
-    puts @book.inspect
   end
 
   def new
@@ -80,8 +77,6 @@ class CloudBooksController < ApplicationController
     else
     #if @predef_cloud.some_msg[:msg_type] != "error"
       pred = FindPredefsByName.perform(predef_options)
-      puts "=================================> Predef COLLECTION <=============================================="
-      puts pred.inspect
       if pred.class == Megam::Error
         redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{pred.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
@@ -101,7 +96,6 @@ class CloudBooksController < ApplicationController
   def create
     options = { :email => current_user.email, :api_key => current_user.api_token, :node => mk_node(params, "server", "create") }
     @node = CreateNodes.perform(options)
-    puts "==================> @NODE in CB CREATE == > #{@node.inspect}"
     if @node.class == Megam::Error
       @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
       respond_to do |format|
@@ -128,12 +122,11 @@ else
   end
 
   def show
-    puts params
     @book = CloudBook.find(params[:id])
     get_node = { :email => current_user.email, :api_key => current_user.api_token, :node => "#{params[:name]}" }
     @node = FindNodeByName.perform(get_node)
     logger.debug "Get Node By Name NODE ==> "
-
+    @requests = GetRequestsByNode.perform(get_node)
     if @node.class == Megam::Error
       @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
       respond_to do |format|
@@ -144,11 +137,9 @@ else
     #redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@node.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
       @cloud_book = @node.lookup("#{params[:name]}")
-      puts "SHOW CLOUD BOOK ==> "
-      puts @cloud_book.inspect
       respond_to do |format|
         format.js {
-          respond_with(@cloud_book, :layout => !request.xhr? )
+          respond_with(@cloud_book, @requests, :layout => !request.xhr? )
         }
       end
     end
@@ -176,7 +167,6 @@ else
 
       n_name = params[:name]
       n_name = n_name[/[^.]+/]
-      puts n_name
       comm = "#{@cloud_instruction.command}"
       comm["<node_name>"]="#{n_name}"
 
@@ -217,7 +207,6 @@ else
 
       options = { :email => current_user.email, :api_key => current_user.api_token, :req => node_hash }
       @node = CreateRequests.perform(options)
-      puts "==================> @NODE in CB CREATE == > #{@node.inspect}"
       if @node.class == Megam::Error
         @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
         respond_to do |format|
@@ -226,10 +215,15 @@ else
           }
         end
       else
-        @book.cloud_books_histories.each do |cbh|
-          cbh.destroy
-        end
+        a = params[:n_hash]
+        count = a["#{@book.name}"].count
+        puts "TEST DELETE COUNT ==> #{count}"
+        if count<2
+          @book.cloud_books_histories.each do |cbh|
+            cbh.destroy
+          end
         @book.destroy
+        end
         redirect_to cloud_books_path, :gflash => { :success => { :value => "Cloud book and its histories are deleted successfully", :sticky => false, :nodom_wrap => true } }
 
       end

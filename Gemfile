@@ -15,7 +15,6 @@ gem 'google-analytics-rails', '~> 0.0.4'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
-gem 'execjs','2.0.2'
 gem 'jquery-datatables-rails'
 gem "flot-rails", "~> 0.0.4"
 gem "gritter", "~> 1.0.3"
@@ -24,7 +23,6 @@ gem 'unicorn', :group => :production
 
 # Database posgresql
 gem 'pg'
-#gem 'ejs'
 gem 'twitter'
 
 # OAuth authentication to twitter, facebook, openid using omniauth

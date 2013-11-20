@@ -18,12 +18,7 @@
 			<%= link_to "Create", "", class: "btn btn-large btn-success btn-block", :target => "_self", :disabled => true %>
 			<br/>
 			<% end %> -->
-			<div class="cb_box">
-				<h4 align="center" >Recent Activity</h4>
-				<% @latest_cloud_book = latest_book %>
-				<h5 align="Center"><%= @latest_cloud_book.name %></h5>
-				<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @latest_cloud_book.created_at.to_formatted_s(:rfc822) %></b></h5>
-			</div>
+
 			<br/>
 
 			<%= link_to "Run History Information", cloud_books_histories_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
@@ -44,13 +39,15 @@
 					<h5>Your Usage</h5>
 				</div>
 				<div class="widget-content" overflow-y: scroll;">
-
 				<% @percent = @cb_count/2.0*100 %>
 				<div class="row-fluid">
+ <div class="span6">
+			<div class="cb_box">
+	<br/><br/><br/>
 				<div class="span1">
 				<h3>0</h3>
 				</div>
-				<div class="span10">
+				<div class="span9">
 				<% if @percent >= 80 %>
 				<div class="progress progress-danger">
 				<div class="bar" style="width: <%= @percent %>%;"></div>
@@ -64,6 +61,23 @@
 				<div class="span1">
 				<h3>2</h3>
 				</div>
+</div></div>
+ <div class="span6">
+			<div class="cb_box">
+				<h4 align="center" >Recent Activity</h4>
+				<% @n_hash.select{|k, v|k==latest_book.name}.each do |k, v| %>
+					<% v.each do |node| %>
+					<% cloud_book = @nodes.lookup(node) %>
+					<h5 align="Center">
+					<%= link_to "#{cloud_book.node_name}", cloud_book_path(:id => latest_book.id, :class => "btn", :name => cloud_book.node_name), :remote => true, data: { spinlock: '#book'} %>
+					</h5>
+					<% end %>
+				<% end %>
+				<!--<% @latest_cloud_book = latest_book %>
+				<h5 align="Center"><%= @latest_cloud_book.name %></h5>-->
+				<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= latest_book.created_at.to_formatted_s(:rfc822) %></b></h5> 
+			</div>
+</div>
 				</div>
 				</div>
 				</div>
@@ -116,15 +130,28 @@
 				<li><%= link_to "Start", definition_path(cloud_book.node_name), :target => "_self" %></li>
 				<li><%= link_to "Stop", definition_path(cloud_book.node_name), :remote => true %></li>
 				<li><%= link_to "build", definition_path(cloud_book.node_name), :remote => true %></li>
-				<li><%= link_to "more", cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :action_name => "action"), :remote => true, data: { spinlock: '#book'} %></li>
+				<li><%= link_to "more", cloud_book_path(:id => cb.id, :name => cloud_book.node_name), :remote => true, data: { spinlock: '#book'} %></li>
 				</ul>
 				</div>
 
 				</td>
 				<td> <%= link_to "#{cloud_book.node_name}", "http://#{cloud_book.node_name}" , { :target => '_blank'} %> </td>
 				<td> <%= cloud_book.created_at.to_datetime.to_formatted_s(:rfc822) %> </td>
-				<td> <%= link_to "Clone", "#", class: "btn btn-mini btn-success" %> </td>
-				<td> <%= link_to "delete", cloud_book_path(:id => cb.id, :name => cloud_book.node_name), method: :delete, class: "btn btn-mini btn-success", :data => { :confirm => "Are you sure?"}%></td>
+				<td>
+		<%= link_to "#", :class =>"btn btn-mini btn-success", :title=> "CLone Cloud Book" do %>
+		<i class="icon-plus-sign"></i>
+		Clone
+		<% end %>
+				</td>
+
+				<td>
+		<%= link_to cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :n_hash => @n_hash), :class =>"btn btn-mini btn-success", :title=> "CLone Cloud Book", method: :delete, :data => { :confirm => "Are you sure?"} do %>
+		<i class="icon-trash"></i>
+		Delete
+		<% end %>
+				</td>
+
+				<!--<td> <%= link_to "delete", cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :n_hash => @n_hash), method: :delete, class: "btn btn-mini btn-success", :data => { :confirm => "Are you sure?"}%></td>-->
 				<td> <%= cloud_book.status %> </td>
 
 				</tr>
@@ -145,7 +172,7 @@
 
 				</div> <!-- Span6 -->
 
-				<div class="span6" >
+				<div class="span10" >
 				<div  id="cb_action">
 				</div>
 				</div>
