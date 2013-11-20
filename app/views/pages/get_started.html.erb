@@ -9,8 +9,8 @@
 				<i class="i_cloud"></i><h4> Free, Hosted Environment</h4>
 				<p class="environments">
 				<p>
-					Megam a polygot PaaS is a cloud platform built using Chef 11 and Scala/Akka.
-					To see how Quick you can get a polygot cloud app running, you can play in the
+					Megam is the easy way to manage your polygot apps on cloud. The cloud platform built using Chef and Scala/Akka.
+					To see how Quickly you can get a polygot cloud app running, you can play in the
 					<code>
 						free sandbox
 					</code>
@@ -28,7 +28,7 @@
 				<i class="i_cloud"></i>
 				<h4> Private Hosted Environment</h4>
 				<p class="environments">
-					For  Businesses that want to get involved in using it for their cloud applications,
+					For  Businesses that want to get involved in using it for their cloud move,
 					there is a great set of installables with
 					<code>
 						instructions for you
@@ -39,7 +39,7 @@
 					</code>
 				</p>
 				<p>
-					<%= link_to 'Installing Megam', page_path("doc"), :class => 'btn btn-success btn-large' %>
+					<%= link_to 'Installing Megam', "http://docs.megam.co/install", :class => 'btn btn-success btn-large' %>
 				</p>
 			</div>
 		</div>
@@ -48,9 +48,9 @@
 			<div class="span12" align="center">
 				<i class="i_cloud"></i><h4> Cloud Readiness</h4>
 				<p class="environments">
-					Fill in this questionaire to see your PaaS readiness
+					Read in this questionaire to see your PaaS readiness
 					<h5> Megam a polygot PaaS is a cloud platform that can be tailored for your needs. </h5>
-					<%= link_to "Am I Ready", signup_path, :class => "btn btn-info btn-large" %>
+					<%= link_to "Am I Ready", "http://docs.megam.co/contactus", :class => "btn btn-info btn-large" %>
 				</p>
 			</div>
 		</div>
@@ -66,17 +66,17 @@
 			<tbody>
 				<tr>
 					<td>Cloud API Server</td>
-					<td><%= link_to "Installing the Cloud API Server",   "http://docs.megam.co/cloudserver", { :target => '_blank'} %></td>
+					<td><%= link_to "Installing the Cloud API Server",   "http://docs.megam.co/install", { :target => '_blank'} %></td>
 					<td><%= link_to "A Stateless Cloud API Server [Scala/Playframework]",   "https://github.com/indykish/megam_play.git", { :target => '_blank'} %></td>
 				</tr>
 				<tr>
 					<td>Cloud Brdige Herk</td>
-					<td><%= link_to "Installing the Cloud Bridge Herk",   "http://docs.megam.co/cloudserver", { :target => '_blank'} %></td>
+					<td><%= link_to "Installing the Cloud Bridge Herk",   "http://docs.megam.co/install", { :target => '_blank'} %></td>
 					<td><%= link_to "Cloud Bridge to API Server and PubSub Agents",   "https://github.com/indykish/megam_akka.git", { :target => '_blank'} %></td>
 				</tr>
 				<tr>
 					<td>Cloud App Connector</td>
-					<td><%= link_to "Installing the Cloud App Connector",   "http://docs.megam.co/cloudserver", { :target => '_blank'} %></td>
+					<td><%= link_to "Installing the Cloud App Connector",   "http://docs.megam.co/install", { :target => '_blank'} %></td>
 					<td><%= link_to "RESTful Cloud connectors to Salesforce, GoogleApp[Preview]",   "https://github.com/indykish/deccanplato.git", { :target => '_blank'} %></td>
 				</tr>
 			</tbody>
@@ -117,8 +117,8 @@
 							</div>
 							<div class="answer">
 								Great. We would like to help you out. Give us a shout, we'll hand hold you.
-								Fill in this questionaire, before you start (Google doc. link to assess the hardware, private cloud,
-								hybrid cloud, and openstack readiness)
+								Read this questionaire, before you start (We'll provide an auto assessor `soon` for your hardware, private cloud,
+								hybrid cloud, and infor your readiness)
 								<br>
 								<%= link_to "For further reading",   "http://docs.megam.co", { :target => '_blank'} %>
 							</div>
@@ -150,9 +150,9 @@
 								There are many cookbooks curated for Chef 11 that runs in the public hosted sandbox of Megam Cloud. 
 								<br>
 								<br>
-								Click here to see the  <%= link_to "chef-repo.",   "http://docs.megam.co", { :target => '_blank'} %>
-								We are testing <code>Hosted Chef</code> which lets you hook up your repo. If you wish to use our private 
-								offering then you can tweak the chef-repo as you wish.
+								Click here to see the  <%= link_to "chef-repo.",   "http://github.com/indykish/chef-repo.git", { :target => '_blank'} %>
+								We don't support <code>Hosted Chef</code> yet, but we are testing it. If you wish to use our private 
+								offering then you can install chef-server, and clone/tweak the chef-repo as you wish.
 								<br>
 								<%= link_to "For further reading.",   "http://docs.megam.co", { :target => '_blank'} %>
 							</div>

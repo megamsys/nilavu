@@ -9,9 +9,9 @@ gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
 
 gem 'socket.io-rails'
-
+gem 'google-analytics-rails', '~> 0.0.4'
 #JQuery rails, other jquery scripts
-gem 'turbolinks'
+#gem 'turbolinks'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
@@ -19,10 +19,12 @@ gem 'execjs','2.0.2'
 gem 'jquery-datatables-rails'
 gem "flot-rails", "~> 0.0.4"
 gem "gritter", "~> 1.0.3"
+gem "flexslider", "~> 2.0.2"
+gem 'unicorn', :group => :production
 
 # Database posgresql
 gem 'pg'
-gem 'ejs'
+#gem 'ejs'
 gem 'twitter'
 
 # OAuth authentication to twitter, facebook, openid using omniauth
@@ -39,21 +41,19 @@ gem 'high_voltage',"2.0.0"
 gem "therubyracer", :require => 'v8',:platforms => :ruby
 gem "breadcrumbs_on_rails"
 gem "randexp", "~> 0.1.7"
+#gem "angularjs-rails"
 gem "megam_api"
-gem "flexslider", "~> 2.0.2"
-gem "megam_deccanplato", "~> 0.1.0"
-gem "angularjs-rails"
+gem "megam_deccanplato"
 
 #http_proxy settings
 gem "faraday"
 gem "faraday_middleware"
 gem "multi_xml"
+#net-http request and responses
+gem "net-http-predicates"
 
 #html parsing
 gem "nokogiri"
-
-#net-http request and responses
-gem "net-http-predicates"
 
 #convert singularize
 gem "inflector"
@@ -75,13 +75,14 @@ gem 'bcrypt-ruby',:require => 'bcrypt'
 
 # Gems used only for assets and not required
 # in production environments by default.
-group :assets do
-  gem 'twitter-bootstrap-rails'
+  #gem 'twitter-bootstrap-rails'
+ gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+  gem "less-rails", "~> 2.4.2"
+#group :assets do
   gem 'sass-rails',   '~> 4.0.1'
   gem 'coffee-rails', '~> 4.0.1'
-  gem "less-rails", "~> 2.4.2"
   gem 'uglifier', '>= 2.3.1'
-end
+#end
 
 group :test do
   gem 'capybara','2.1.0'
@@ -96,6 +97,7 @@ group :development do
   gem 'binding_of_caller'
   gem 'meta_request'
 end
+
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'

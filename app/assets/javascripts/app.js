@@ -1,27 +1,34 @@
-var app = angular.module('Nilavu', [ 'ngResource' ]);
+var app = angular.module('Nilavu', [ "ngResource", "ngSanitize", "ngRoute" ]);
 
-app.config(function($routeProvider, $locationProvider) {
-	$locationProvider.html5Mode(true).hashPrefix('!');
-	$routeProvider.when("/dashboards", {
-		template : JST["angular/templates/dashboards/index"],
-		controller : "DashboardIndexCtrl"
-	}).when("/dashboards/:id", {
-		template : JST["angular/templates/dashboards/show"],
-		controller : "DashboardShowCtrl"
-	}).when("/dashboards/:id/:book", {
-		template : JST["angular/templates/dashboards/show"],
-		controller : "DashboardShowCtrl"
-	});		
-});
+app.config([ "$routeProvider", "$locationProvider",
+     		function($routeProvider, $locationProvider) {
+     			$locationProvider.html5Mode(true);
+     			$routeProvider.when("/dashboards", {
+     				templateUrl : 'angular/templates/dashboards/index.html.erb',
+     				controller : "DashboardIndexCtrl"
+     			}).when("/dashboards/:id", {
+     				templateUrl : 'angular/templates/dashboards/show.html.erb',
+     				controller : "DashboardShowCtrl"
+     			}).when("/dashboards/:id/:book", {
+     				templateUrl : 'angular/templates/dashboards/show.html.erb',
+     				controller : "DashboardShowCtrl"
+     			});
+     		} ]);
 
-app.config(function($httpProvider) {
-	$httpProvider.defaults.headers.common['X-CSRF-Token'] = $(
-			'meta[name=csrf-token]').attr('content');
-});
+app
+.config([
+		"$httpProvider",
+		function($httpProvider) {
+			$httpProvider.defaults.headers.common['X-CSRF-Token'] = $(
+					'meta[name=csrf-token]').attr('content');
 
-// use angular/mustache style {{variable}} interpolation
+			$httpProvider.defaults.headers.common['Accept'] = "application/json";
+			$httpProvider.defaults.headers['common']['X-Requested-With'] = 'XMLHttpRequest';
+		} ]);
+
+//use angular/mustache style {{variable}} interpolation
 _.templateSettings = {
-	interpolate : /\{\{(.+?)\}\}/g
+  interpolate : /\{\{(.+?)\}\}/g
 };
 
 function cloudbooksctrl($scope, $location) {
@@ -32,6 +39,7 @@ function cloudbooksctrl($scope, $location) {
 }
 
 function BookCtrl($scope, $routeParams) {
-    $scope.templateUrl = JST["angular/templates/widget/book_show"];
+	//$scope.templateUrl = JST["angular/templates/widget/book_show"];
+	$scope.templateUrl = "angular/templates/widget/book_show.html.erb";
 }
 

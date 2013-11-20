@@ -64,14 +64,11 @@ module Cloudauth
 
     # 404 catcher
     config.after_initialize do |app|
-
       app.routes.append{ match '*a', :to => 'application#render_404', via: [:get] } unless config.consider_all_requests_local
-
     end
     
     config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
     config.ganglia_host     = ENV['GANGLIA_HOST']
-
     config.ganglia_base_url = "http://monitor.megam.co.in/ganglia"
     config.ganglia_cluster = 'EC2'
     config.ganglia_graph_metric  = 'cpu_system'
@@ -79,6 +76,7 @@ module Cloudauth
     #config.ganglia_request_metric = 'nginx_status'
     config.metric_source = 'demo'
     config.payment_gateway = 'demo'
+
 
 =begin
 config.assets.precompile << Proc.new do |path|

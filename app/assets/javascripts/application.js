@@ -10,7 +10,6 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require turbolinks
 //= require excanvas
 //= require jquery
 //= require jquery.turbolinks
@@ -18,15 +17,10 @@
 //= require jquery.ui.all
 //= require bowser
 //= require twitter/bootstrap
-//= require unstable/angular
-//= require unstable/angular-loader
-//= require unstable/angular-resource
-//= require angular/templates/dashboards/index.jst
-//= require angular/templates/dashboards/show.jst
-//= require angular/templates/dashboards/book_show.jst
-//= require angular/templates/widget/show.jst
-//= require angular/templates/widgets/pernode/show.jst
-//= require angular/templates/widget/book_show.jst
+//= require angular
+//= require angular-route
+//= require angular-resource
+//= require angular-sanitize
 //= require spin
 //= require jquery.spin
 //= require jquery.spin.config

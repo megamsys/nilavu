@@ -14,46 +14,42 @@
 				<i class="icon-dashboard"></i><span> Dashboard</span>
 				<% end %>
 			</li>
-             
-                         
-			<!--<li class=<%= "active" if controller_name== "cloud_books"%> >
-			<%= link_to cloud_books_path  do %>
-			<i class="icon-book"></i>Cloud Books
-			<% end %>
-			</li>-->
 
 			<li class=<%= "active" if controller_name== "cloud_books"%> >
-				<a target="_self" href="/cloud_books" > <i class="icon-book"></i>Cloud Book </a>
+				<a target="_self" href="/cloud_books" > <i class="icon-code"></i>Cloud Application</a>
 			</li>
 
-			<li class=<%= "active" if controller_name== "cloud_books_history"%> >
-				<a target="_self" href="/cloud_books_histories" > <i class="icon-book"></i>Run History</a>
+			<li class=<%= "active" if controller_name== "cloud_stores"%> >
+				<a target="_self" href="/cloud_stores" > <i class="icon-list-alt"></i>Cloud Store</a>
 			</li>
 
-			<!--<li class=<%= "active" if controller_name== "cloud_books_history"%>>
-				<%= link_to cloud_books_histories_path do %>
-				<i class="icon-spinner"></i>Run History
-				<% end %>
-			</li>-->
+			<li class=<%= "active" if controller_name== "cloud_books_histories"%> >
+				<a target="_self" href="/cloud_books_histories" > <i class="icon-facetime-video"></i>Cloud Run History</a>
+			</li>
 
+			<li class=<%= "active" if controller_name== "cross_clouds"%> >
+				<a target="_self" href="/cross_clouds" > <i class="icon-random" ></i>Cross Cloud</a>
+			</li>
+
+			<!--
 			<li class=<%= "active" if controller_name== "apps_items"%>>
-				<%= link_to new_apps_item_path, :target => "_self" do %>
-				<i class="icon-briefcase"></i>Cloud Applications
-				<% end %>
+			<%= link_to new_apps_item_path, :target => "_self" do %>
+			<i class="icon-briefcase"></i>Cloud Applications
+			<% end %>
 			</li>
 
 			<li class=<%= "active" if controller_name== "cloud_identities"%>>
-				<%= link_to cloud_identity_path(current_user.id),  :target => "_self" do %>
-				<i class="icon-unlock"></i>Cloud Identity
-				<% end %>
+			<%= link_to cloud_identity_path(current_user.id),  :target => "_self" do %>
+			<i class="icon-unlock"></i>Cloud Identity
+			<% end %>
 			</li>
 
 			<li class=<%= "active" if controller_name== "connector_projects"%>>
-				<%= link_to new_connector_project_path, :target => "_self" do %>
-				<i class="icon-cloud"></i>Live Cloud
-				<% end %>
+			<%= link_to new_connector_project_path, :target => "_self" do %>
+			<i class="icon-cloud"></i>Live Cloud
+			<% end %>
 			</li>
-
+			-->
 			<li class="submenu <%= "active" if controller_name== "billing"%> ">
 				<a href="#"><i class="icon icon-file"></i> <span>Billing</span> <span class="label">3</span></a>
 				<ul>
@@ -69,19 +65,12 @@
 						<% end %>
 					</li>
 
-					<li class=<%= "active" if controller_name== "billing"%>>
-						<%= link_to history_path, :target => "_self"  do %>
-						<i class="icon-book"></i>History
-						<% end %>
+					<!--	<li class=<%= "active" if controller_name== "billing"%>>
+					<%= link_to history_path, :target => "_self"  do %>
+					<i class="icon-book"></i>History
+					<% end %>
 					</li>
-
-					<li>
-
-						<%= link_to "Worker", worker_path, :remote => true, :method => "post", data: { spinner: '#fed'}  %>
-						<%= spinner_tag 'fed' %>
-						<!--<%= link_to "Worker", worker_path, :method => "post", :remote => true %>  -->
-					</li>
-
+					-->
 				</ul>
 			</li>
 		</ul>

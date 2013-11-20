@@ -4,15 +4,15 @@ app.controller("DashboardShowCtrl", ["$scope", "$rootScope", "$routeParams", "$l
   $scope.bookwidget = "widgetpernode";
   $rootScope.resolved = false;   
   $scope.dashboard_id = $routeParams.id;
-  
+   
   
   $scope.dashboard = Dashboard.get({ id: $routeParams.id });
-  $scope.widgets   = Widget.query({ dashboard_id: $routeParams.id }, function() {	  
-    $rootScope.resolved = true;
+ $scope.widgets   = Widget.query({ dashboard_id: $routeParams.id }, function() {	  
+   $rootScope.resolved = true;
   }); 
   
   
-  $scope.$on('handleBroadcast', function() {
+  $scope.$on('handleBroadcast', function() {	  
       $scope.widget = UpdateWidget.message;      
       replaceWidget($scope.widget.id, $scope.widget);    
       $scope.sm = UpdateWidget.sm;
@@ -29,14 +29,14 @@ app.controller("DashboardShowCtrl", ["$scope", "$rootScope", "$routeParams", "$l
     //$scope.a_books = [{value:'demo'},{value:'demo1'}];
 	$scope.a_books = availableBooks();
 	
-	function bookMapping(book) {
-        return {
+	function bookMapping(book) {        
+		return {
           value: book     
         };
       }
      
       function availableBooks() {    	  
-        var a_books = $.Books.books;
+        var a_books = $.Books.books;    		  
         return _.compact(_.map(a_books, function(book) {      
         	return bookMapping(book);
         }));	        
@@ -48,7 +48,7 @@ app.controller("DashboardShowCtrl", ["$scope", "$rootScope", "$routeParams", "$l
       
       if ($routeParams.book != null) {    	  
     	  $scope.widgetpernode = "widgetpernode";
-    	  $scope.templateUrl = JST["angular/templates/widget/book_show"];
+    	  $scope.templateUrl = "angular/templates/widget/book_show.html.erb";
     	 // $scope.templateUrl = "angular/templates/widget/book_show.html.erb";
       }
   

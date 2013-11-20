@@ -1,5 +1,4 @@
 app.controller("DashboardIndexCtrl", ["$scope", "$rootScope", "$location", "Dashboard", function($scope, $rootScope, $location, Dashboard) {
-
 	
   $rootScope.resolved = true;
 

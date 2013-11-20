@@ -4,7 +4,7 @@ app.factory('UpdateWidget', function($rootScope) {
     message = '';
     sm = true;
 
-    prepForBroadcast = function(msg) {
+    prepForBroadcast = function(msg) {    	
         this.message = msg;
         broadcastItem();
     };

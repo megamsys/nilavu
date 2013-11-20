@@ -9,7 +9,7 @@
 
 	<div class="widget-box">
 		<div class="widget-title">
-			<span class="icon"> <i class="icon-th-list"></i> </span>
+			<span class="icon"> <i class="icon-list-alt"></i> </span>
 			<h5>Cloud Store Management</h5>
 		</div>
 		<div class="widget-content">
@@ -24,13 +24,12 @@
 						<%= link_to "New CLoud Store", new_cloud_store_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
 						<br/>
 
-			<div class="cb_box">
-				<h4 align="center" >Recent Activity</h4>
-				<% @latest_cloud_book = @cloud_stores.last(:order => 'created_at DESC') %>
-				<h5 align="Center"><%= @latest_cloud_book.name %></h5>
-				<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @latest_cloud_book.created_at.to_formatted_s(:rfc822) %></b></h5>
-			</div>
-
+						<div class="cb_box">
+							<h4 align="center" >Recent Activity</h4>
+							<% @latest_cloud_book = @cloud_stores.last(:order => 'created_at DESC') %>
+							<h5 align="Center"><%= @latest_cloud_book.name %></h5>
+							<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @latest_cloud_book.created_at.to_formatted_s(:rfc822) %></b></h5>
+						</div>
 
 						<br/>
 

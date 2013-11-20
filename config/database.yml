@@ -6,7 +6,6 @@
 development:
   adapter: postgresql
   encoding: unicode
-
   database: cocdb
   pool: 5
   username: megam
@@ -30,7 +29,8 @@ test:
   database: cocdb_test
   pool: 5
   username: megam
-  password: team4megam  
+  password: team4megam
+  
   bucket: megam
   access_key_id: AKIAJHENLMZT7TBPVMZQ
   secret_access_key: 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
