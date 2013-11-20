@@ -85,14 +85,13 @@ gem 'bcrypt-ruby',:require => 'bcrypt'
 #end
 
 group :test do
-  gem 'capybara','2.1.0'
+  gem 'capybara'
   gem 'factory_girl_rails'
   gem 'cucumber-rails', :require => false
-  gem "rspec-rails", "~> 2.14.0"
 end
 
 group :development do
-  gem "rspec-rails", "~> 2.14.0"
+  gem "rspec-rails"
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'meta_request'
