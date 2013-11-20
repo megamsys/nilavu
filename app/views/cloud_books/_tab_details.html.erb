@@ -1,3 +1,6 @@
+<div class="row-fluid">
+<div class="span6">
+
 				<div class="widget-box">
 				<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
@@ -40,7 +43,8 @@
 				</table>
 				</div>
 				</div>
-
+</div>
+<div class="span6">
 				<div class="widget-box">
 				<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
@@ -50,43 +54,21 @@
 				<table class="table table-bordered table-striped table-hover">
 				<thead>
 				<tr>
-				<th>Actions</th>
 				<th>Request Type</th>
 				<th>Created At</th>
-				<th>Show</th>
+				<th>Launched At</th>
 				<th>Destroy</th>
 
 				</tr>
 				</thead>
 				<tbody>
-				<% current_user.cloud_books.each do |cb| %>
+				<% requests.each do |cb| %>
 				<tr>
-
-<td>
-
-    <div class="btn-group">
-    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-    Actions
-    <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu">
-    <li><%= link_to "Start", definition_path(cb.id), :target => "_self" %></li>
-    <li><%= link_to "Stop", definition_path(cb.id), :remote => true %></li>
-    <li><%= link_to "build", definition_path(cb.id), :remote => true %></li>
-    <li><%= link_to "more", cloud_book_path(:id => cb.id, :action_name => "action"), :remote => true, data: { spinlock: '#book'} %></li>
-    </ul>
-    </div>
-
-</td>
- 				<td> <%= link_to "#{cb.name}", "http://#{cb.name}#{cb.domain_name}" , { :target => '_blank'} %> </td>
-				<td> <%= cb.created_at.to_formatted_s(:rfc822) %> </td>
-
-				<td> <%= link_to "View", cloud_book_path(cb.id), :remote => true, class: "btn btn-mini btn-success" %> </td>
-				<td> <%= link_to "delete", cb, method: :delete, class: "btn btn-mini btn-success", :data => { :confirm => "Are you sure?"}%>
+  				<td> <%= cb.req_type %> </td>
+				<td> <%= cb.created_at.to_datetime.to_formatted_s(:rfc822) %> </td>
+				<td> <%= cb.command['compute']['cctype'] %> </td>
+				<td> <%= link_to "more", "#", class: "btn btn-mini btn-success", :data => { :confirm => "Are you sure?"}%>
  </td>
-
-
-
 				</tr>
 				<% end %>
 				</tbody>
@@ -94,4 +76,6 @@
 				</table>
 				</div>
 				</div>
+</div>
+</div>
 

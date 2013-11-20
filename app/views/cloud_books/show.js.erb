@@ -1,5 +1,5 @@
 var selected_entity = '#cb_action';
 alert("TEST");
-var to_insert_content = "<%= escape_javascript(render :partial => 'cloud_books/book_details', :locals => {:cloud_book => @cloud_book }) %>";
+var to_insert_content = "<%= escape_javascript(render :partial => 'cloud_books/book_details', :locals => {:cloud_book => @cloud_book, :requests => @requests }) %>";
 insertAt(selected_entity, to_insert_content);
 

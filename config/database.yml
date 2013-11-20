@@ -18,8 +18,8 @@ development:
   bucket: megam
   use_ssl: false
   dynamo_db_endpoint: localhost
-  access_key_id: AKIAJHENLMZT7TBPVMZQ
-  secret_access_key: 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 
+  access_key_id: <%= ENV['AWS_ACCESS_KEY'] %>
+  secret_access_key: <%= ENV['AWS_SECRET_KEY'] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -33,8 +33,8 @@ test:
   password: team4megam
   
   bucket: megam
-  access_key_id: AKIAJHENLMZT7TBPVMZQ
-  secret_access_key: 1RU6UaD/QaQFSeV2wwqXjDJGZ+rddJ7N8vyZD3dN
+  access_key_id: <%= ENV['AWS_ACCESS_KEY'] %>
+  secret_access_key: <%= ENV['AWS_SECRET_KEY'] %>
 
 
 production:
@@ -48,8 +48,8 @@ production:
   port: 5432
 
   bucket: megam
-  access_key_id: AKIAJHENLMZT7TBPVMZQ
-  secret_access_key: 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
+  access_key_id: <%= ENV['AWS_ACCESS_KEY'] %>
+  secret_access_key: <%= ENV['AWS_SECRET_KEY'] %>
 
  
 
