@@ -8,7 +8,7 @@ app.factory("Sources", function() {
   }
 
   function sourceConfig(widget) {
-    return $.Sources[kindMapping(widget.kind)][widget.source];
+    return $.Sources[kindMapping(widget.kind)][widget.source];	
   }
 
   function sourceMapping(source) {
@@ -25,7 +25,6 @@ app.factory("Sources", function() {
   // disabled attribute not available in current Angular select ng-options directive
   function availableSources(kind) {	
     var sources = $.Sources[kind];
-
     return _.compact(_.map(sources, function(source) {
       //if (source.available) return sourceMapping(source);
     	return sourceMapping(source);

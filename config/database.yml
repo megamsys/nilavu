@@ -46,7 +46,6 @@ production:
   password: team4megam
   host: postgres1.megam.co.in
   port: 5432
-
   bucket: megam
   access_key_id: AKIAJHENLMZT7TBPVMZQ
   secret_access_key: 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

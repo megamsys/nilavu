@@ -39,7 +39,6 @@ GEM
       multi_json (~> 1.3)
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
-    angularjs-rails (1.2.1)
     arel (4.0.1)
     atomic (1.1.14)
     aws-sdk (1.27.0)
@@ -91,7 +90,6 @@ GEM
     debug_inspector (0.0.2)
     descendants_tracker (0.0.3)
     diff-lcs (1.2.5)
-    ejs (1.1.1)
     equalizer (0.0.7)
     erubis (2.7.0)
     excon (0.29.0)
@@ -306,7 +304,6 @@ PLATFORMS
 DEPENDENCIES
   actionpack-action_caching
   actionpack-page_caching
-  angularjs-rails
   aws-sdk
   bcrypt-ruby
   better_errors
@@ -316,7 +313,6 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.0.1)
   cucumber-rails
-  ejs
   execjs (= 2.0.2)
   factory_girl_rails
   faraday
@@ -352,7 +348,6 @@ DEPENDENCIES
   sass-rails (~> 4.0.1)
   socket.io-rails
   therubyracer
-  turbolinks
   twitter
   twitter-bootstrap-rails!
   uglifier (>= 2.3.1)

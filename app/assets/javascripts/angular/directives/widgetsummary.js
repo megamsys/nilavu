@@ -14,7 +14,7 @@ app.directive("widgetsummary", ["$compile", function($compile) {
 
   return {   
     controller: "WidgetCtrl",
-    template: JST["angular/templates/widget/show"],
+    templateUrl: 'angular/templates/widget/show.html.erb',
     link: linkFn
   };
 	

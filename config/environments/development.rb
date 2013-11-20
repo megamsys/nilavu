@@ -10,6 +10,7 @@ Cloudauth::Application.configure do
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true #false #true
+
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
@@ -42,4 +43,5 @@ Cloudauth::Application.configure do
   config.log_level = :debug
   # to ignore the javascript files loaded in public assets, this results in running post twice in JQuery
   config.serve_static_assets = false
+
 end

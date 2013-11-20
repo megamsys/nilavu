@@ -11,7 +11,7 @@ gem 'actionpack-action_caching'
 gem 'socket.io-rails'
 gem 'google-analytics-rails', '~> 0.0.4'
 #JQuery rails, other jquery scripts
-gem 'turbolinks'
+#gem 'turbolinks'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
@@ -24,7 +24,7 @@ gem 'unicorn', :group => :production
 
 # Database posgresql
 gem 'pg'
-gem 'ejs'
+#gem 'ejs'
 gem 'twitter'
 
 # OAuth authentication to twitter, facebook, openid using omniauth
@@ -41,7 +41,7 @@ gem 'high_voltage',"2.0.0"
 gem "therubyracer", :require => 'v8',:platforms => :ruby
 gem "breadcrumbs_on_rails"
 gem "randexp", "~> 0.1.7"
-gem "angularjs-rails"
+#gem "angularjs-rails"
 gem "megam_api"
 gem "megam_deccanplato"
 
