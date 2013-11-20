@@ -21,6 +21,7 @@
 			<td><b>Node Type</b></td> <td> <%= cloud_book.node_type %></td>
 		</tr>
 		<tr>
+
 			<td><b>Platform</b></td> <td> <%= cloud_book.predefs[:name] %></td>
 		</tr>
 		<tr>
@@ -58,7 +59,7 @@
 				</tr>
 				</thead>
 				<tbody>
-				<% current_user.cloud_books.each do |cloud_book| %>
+				<% current_user.cloud_books.each do |cb| %>
 				<tr>
 
 <td>
@@ -69,19 +70,19 @@
     <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
-    <li><%= link_to "Start", definition_path(cloud_book.id), :target => "_self" %></li>
-    <li><%= link_to "Stop", definition_path(cloud_book.id), :remote => true %></li>
-    <li><%= link_to "build", definition_path(cloud_book.id), :remote => true %></li>
-    <li><%= link_to "more", cloud_book_path(:id => cloud_book.id, :action_name => "action"), :remote => true, data: { spinlock: '#book'} %></li>
+    <li><%= link_to "Start", definition_path(cb.id), :target => "_self" %></li>
+    <li><%= link_to "Stop", definition_path(cb.id), :remote => true %></li>
+    <li><%= link_to "build", definition_path(cb.id), :remote => true %></li>
+    <li><%= link_to "more", cloud_book_path(:id => cb.id, :action_name => "action"), :remote => true, data: { spinlock: '#book'} %></li>
     </ul>
     </div>
 
 </td>
- 				<td> <%= link_to "#{cloud_book.name}", "http://#{cloud_book.name}#{cloud_book.domain_name}" , { :target => '_blank'} %> </td>
-				<td> <%= cloud_book.created_at.to_formatted_s(:rfc822) %> </td>
+ 				<td> <%= link_to "#{cb.name}", "http://#{cb.name}#{cb.domain_name}" , { :target => '_blank'} %> </td>
+				<td> <%= cb.created_at.to_formatted_s(:rfc822) %> </td>
 
-				<td> <%= link_to "View", cloud_book_path(cloud_book.id), :remote => true, class: "btn btn-mini btn-success" %> </td>
-				<td> <%= link_to "delete", cloud_book, method: :delete, class: "btn btn-mini btn-success", :data => { :confirm => "Are you sure?"}%>
+				<td> <%= link_to "View", cloud_book_path(cb.id), :remote => true, class: "btn btn-mini btn-success" %> </td>
+				<td> <%= link_to "delete", cb, method: :delete, class: "btn btn-mini btn-success", :data => { :confirm => "Are you sure?"}%>
  </td>
 
 

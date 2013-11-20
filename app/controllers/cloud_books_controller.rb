@@ -7,6 +7,36 @@ class CloudBooksController < ApplicationController
       add_breadcrumb "Cloud_books", cloud_books_path
       @cloud_books = current_user.cloud_books
       logger.debug "Cloud Book Index ==> "
+      options = { :email => current_user.email, :api_key => current_user.api_token }
+
+      @nodes = FindNodesByEmail.perform(options)
+      puts @nodes.inspect
+      if @nodes.class == Megam::Error
+        #@res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+        redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@cloud_books.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      else
+        @n_hash=Hash.new
+        @cloud_books = current_user.cloud_books
+        @cloud_books.each do |cb|
+          i=0
+          ar=Array.new
+          @nodes.each do |n|
+            if n.node_name.start_with?(cb.name)
+            ar[i]=n.node_name
+            i += 1
+            end
+          end
+          @n_hash["#{cb.name}"] = ar
+        end
+        puts "========================> N_ HASH <=========================== "
+        puts @n_hash.inspect
+        @cb_count = 0
+        @n_hash.each do |k, v|
+          @cb_count = @cb_count+v.count
+        end
+        puts "===============> Cloud Book COUNT <==================="
+        puts @cb_count
+      end
     else
       redirect_to new_cloud_book_path
     end
@@ -81,32 +111,26 @@ class CloudBooksController < ApplicationController
       end
     #redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@node.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
-    #i = 0
-      no_of_nodes = params[:no_of_instances].to_i
-      for i in 1..no_of_nodes
-        if current_user.cloud_books.count < 2
-          params[:cloud_book][:name]="#{params[:cloud_book][:name]}#{i}"
-          @book = current_user.cloud_books.create(params[:cloud_book])
-          @book.save
+
+      @book = current_user.cloud_books.create(params[:cloud_book])
+      @book.save
 =begin
 if @node.request["req_id"]
 params = {:book_name => "#{@book.name}#{@book.domain_name}", :request_id => @node.request["req_id"], :status => @node.status}
 else
 =end
-          params = {:book_name => "#{@book.name}#{@book.domain_name}", :request_id => "req_id", :status => "status"}
-          #end
+      params = {:book_name => "#{@book.name}#{@book.domain_name}", :request_id => "req_id", :status => "status"}
+      #end
 
-          @history = @book.cloud_books_histories.create(params)
-        @history.save
-        end
-      end
+      @history = @book.cloud_books_histories.create(params)
+    @history.save
     end
   end
 
   def show
     puts params
     @book = CloudBook.find(params[:id])
-    get_node = { :email => current_user.email, :api_key => current_user.api_token, :node => "#{@book.name}#{@book.domain_name}" }
+    get_node = { :email => current_user.email, :api_key => current_user.api_token, :node => "#{params[:name]}" }
     @node = FindNodeByName.perform(get_node)
     logger.debug "Get Node By Name NODE ==> "
 
@@ -119,29 +143,44 @@ else
       end
     #redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@node.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
-      @cloud_book = @node.lookup("#{@book.name}#{@book.domain_name}")
-      if params["action_name"]
-        @full_detail = true
-        @requests = "TEST"
-        respond_to do |format|
-          format.js {
-            respond_with(@full_detail, @cloud_book, @requests, :layout => !request.xhr? )
-          }
-        end
-      else
-        respond_to do |format|
-          format.js {
-            respond_with(@cloud_book, :layout => !request.xhr? )
-          }
-        end
+      @cloud_book = @node.lookup("#{params[:name]}")
+      puts "SHOW CLOUD BOOK ==> "
+      puts @cloud_book.inspect
+      respond_to do |format|
+        format.js {
+          respond_with(@cloud_book, :layout => !request.xhr? )
+        }
       end
     end
   end
 
   def destroy
     @book = CloudBook.find(params[:id])
+    get_node = { :email => current_user.email, :api_key => current_user.api_token, :node => "#{params[:name]}" }
+    @node = FindNodeByName.perform(get_node)
 
-    @com = {
+    if @node.class == Megam::Error
+      @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      respond_to do |format|
+        format.js {
+          respond_with(@res_msg, :layout => !request.xhr? )
+        }
+      end
+    else
+      @cloud_book = @node.lookup("#{params[:name]}")
+      options = { :email => current_user.email, :api_key => current_user.api_token }
+      @cloud_tools = ListCloudTools.perform(options)
+      @tool = @cloud_tools.lookup(@cloud_book.request[:command]['systemprovider']['provider']['prov'])
+      @template = @tool.cloudtemplates.lookup(@cloud_book.request[:command]['compute']['cctype'])
+      @cloud_instruction = @template.lookup_by_instruction("server", "delete")
+
+      n_name = params[:name]
+      n_name = n_name[/[^.]+/]
+      puts n_name
+      comm = "#{@cloud_instruction.command}"
+      comm["<node_name>"]="#{n_name}"
+
+      @com = {
 "systemprovider" => {
 "provider" => {
 "prov" => "chef"
@@ -163,36 +202,37 @@ else
 "cloudtool" => {
 "chef" => {
 "command" => "knife",
-"plugin" => "ec2 server delete", #ec2 server delete or create
+"plugin" => "#{@cloud_book.request[:command]['compute']['cctype']} #{comm}", #ec2 server delete or create
 "run_list" => "",
-"name" => ""
+"name" => "-N #{n_name}"
 }
 }
 }
 
-    node_hash = {
-      "node_name" => "#{@book.name}#{@book.domain_name}",
-      "req_type" => "delete",
-      "command" => @com
-    }
+      node_hash = {
+        "node_name" => "#{params[:name]}",
+        "req_type" => "delete",
+        "command" => @com
+      }
 
-    options = { :email => current_user.email, :api_key => current_user.api_token, :req => node_hash }
-    @node = CreateRequests.perform(options)
-    puts "==================> @NODE in CB CREATE == > #{@node.inspect}"
-    if @node.class == Megam::Error
-      @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
-      respond_to do |format|
-        format.js {
-          respond_with(@res_msg, :layout => !request.xhr? )
-        }
+      options = { :email => current_user.email, :api_key => current_user.api_token, :req => node_hash }
+      @node = CreateRequests.perform(options)
+      puts "==================> @NODE in CB CREATE == > #{@node.inspect}"
+      if @node.class == Megam::Error
+        @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+        respond_to do |format|
+          format.js {
+            respond_with(@res_msg, :layout => !request.xhr? )
+          }
+        end
+      else
+        @book.cloud_books_histories.each do |cbh|
+          cbh.destroy
+        end
+        @book.destroy
+        redirect_to cloud_books_path, :gflash => { :success => { :value => "Cloud book and its histories are deleted successfully", :sticky => false, :nodom_wrap => true } }
+
       end
-    else
-      @book.cloud_books_histories.each do |cbh|
-        cbh.destroy
-      end
-      @book.destroy
-      redirect_to cloud_books_path, :gflash => { :success => { :value => "Cloud book and its histories are deleted successfully", :sticky => false, :nodom_wrap => true } }
-
     end
   end
 
@@ -201,7 +241,7 @@ else
   #build the required hash for the node and send it.
   #you can use Megam::Node itself to pass stuff.
   def mk_node(data, group, action)
-    command = ListCloudTools.make_command(data, group, action, current_user)
+    command = CreateCommand.make_command(data, group, action, current_user)
 
     if command.class == Megam::Error
       #redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{command.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }

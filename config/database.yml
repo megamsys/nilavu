@@ -11,6 +11,7 @@ development:
   username: megam
   password: team4megam
   #url: postgres://megam:team4megam@localhost:5432/cocdb
+  #url: postgresql://megam:team4megam@localhost:5432/cocdb
   #host: postgres1.megam.co.in
   #port: 5432
 

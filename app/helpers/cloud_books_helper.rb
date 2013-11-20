@@ -16,7 +16,7 @@ module CloudBooksHelper
  end
 
 def latest_book
-current_user.cloud_books.last
+current_user.cloud_books.first
 end
 
 

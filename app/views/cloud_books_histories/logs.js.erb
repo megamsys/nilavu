@@ -4,7 +4,7 @@ $(selected_entity).toggle();
 
 $(selected_entity).fadeIn("slow");
 
-var socket = io.connect('http://localhost:7000/');
+var socket = io.connect('http://nodejs1.megam.co.in:8000/');
 var i=0;
 $(document).ready(function() {
     var content = $('#log_contents');
@@ -13,6 +13,7 @@ $(document).ready(function() {
          i=i+1;
        });
     socket.on('message', function(data){
+alert(data);
 	     $('#log_contents').append($('<tr></tr>').text(data));
      }) ;
 
