@@ -1,0 +1,52 @@
+{{button}}
+<div class="widget-box">
+	<div class="widget-title">
+		<span class="icon"><i class="icon-signal"></i></span><h5>Summary</h5>
+		<span class="title"><img ng-show="enableSpinner" class="ajax-spinner" width="12" height="12" src="/assets/spinner2-061bcdf008dd7a10053be1d835439368.gif"></img></span>
+	</div>
+	<div class="widget-content">
+		<div class="row-fluid ">
+			<div class="span12 center" style="text-align: center;">
+				<div class="widget" ng-repeat="widget in widgets" widgetsummary/>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<div class="widget-box">
+	<div class="widget-title">
+		<span class="icon"><i class="icon-signal"></i></span><h5>Metrics_per_books</h5>
+		<span class="title"><img ng-show="enableSpinner" class="ajax-spinner" width="12" height="12" src="/assets/spinner2-061bcdf008dd7a10053be1d835439368.gif"></img></span>
+	</div>
+	<div class="widget-content">
+		<div class="row-fluid">
+			<div class="span4">
+				<h4>Now showing for Book Name: <span class="label label-info" >{{c_book_name}}</span></h4>
+			</div>			
+		</div>
+		<div class="row-fluid">
+			<div class="span4">
+				<div class="btn-toolbar" style="padding-left:40%;">
+					<div class="btn-group "  title="select a book to watch METRICS " class="tip-bottom">
+						<button class="btn btn-large">
+							Books
+						</button>
+						<button data-toggle="dropdown" class="btn btn btn-large dropdown-toggle">
+							<span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li ng-repeat="b in a_books">
+								<!--<a href="#" ng-click="update_widget_book(b.value, widget)">{{b.value}}</a>-->
+								<a href="/dashboards/{{dashboard_id}}/{{b.value}}" ng-click="sm_view()">{{b.value}}</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!--<div ng-include src="templateUrl"></div>-->
+			<div class="widget" ng-repeat="widget in widgets" widgetpernode/>
+		</div>
+	</div>
+</div>
+
