@@ -21,6 +21,7 @@ class CloudBooksController < ApplicationController
           ar=Array.new
           @nodes.each do |n|
             if n.node_name.start_with?(cb.name)
+	     #ar.push n.node_name
             ar[i]=n.node_name
             i += 1
             end
@@ -41,12 +42,60 @@ class CloudBooksController < ApplicationController
     end
   end
 
-  def definition
-    add_breadcrumb "Cloud_books", cloud_books_path
-    add_breadcrumb "Cloud_book's Definition", definition_path(params['format'])
-    @cloud_books = current_user.cloud_books
-    logger.debug "Cloud Book Definition ==> "
-    @book = CloudBook.find(params['format'])
+  def build_request
+=begin
+  tmp_hash = {
+      "req_type" => "#{params[:req]}",
+      "node_name" => "#{params[:name]}",
+      "appdefns_id" => "#{params[:defnsid]}",
+      "lc_apply" => "APPly",
+      "lc_additional" => "ADDition",
+      "lc_when" => "When"
+    }
+=end
+      @req_type = params[:req]
+      @node_name = params[:name]
+      @defns_id = params[:defnsid]
+      respond_to do |format|
+        format.js {
+          respond_with(@req_type, @node_name, @defns_id, :layout => !request.xhr? )
+        }
+      end
+  end
+
+  def send_request
+
+puts "SEND REQUEST PARAMS===========> "
+puts params
+  tmp_hash = {
+      "req_type" => "#{params[:req_type]}",
+      "node_name" => "#{params[:node_name]}",
+      "lc_apply" => "#{params[:lc_apply]}",
+      "lc_additional" => "#{params[:lc_additional]}",
+      "lc_when" => "#{params[:lc_when]}"
+    }
+  if params[:defns_id].start_with?('A')
+	tmp_hash["appdefns_id"] = "#{params[:defns_id]}" 
+        options = { :email => current_user.email, :api_key => current_user.api_token, :req => tmp_hash}
+	@req = CreateAppRequests.perform(options)
+  elsif params[:defns_id].start_with?('B')
+	tmp_hash["boltdefns_id"] = "#{params[:defns_id]}"
+        options = { :email => current_user.email, :api_key => current_user.api_token, :req => tmp_hash}
+	@req = CreateBoltRequests.perform(options)
+  end
+puts @req
+      if @req.class == Megam::Error
+        redirect_to cloud_books_path, :gflash => { :warning => { :value => "#{@req.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      else
+        redirect_to cloud_books_path, :gflash => { :success => { :value => "#{@req.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      end
+
+#When to apply something in an applications cloud life cycle
+#If apache is started apply lc_apply else lc_addition
+   #add_breadcrumb "Cloud_books", cloud_books_path
+    #@cloud_books = current_user.cloud_books
+    #logger.debug "Cloud Book Request ==> "
+    #@book = CloudBook.find(params['format'])
   end
 
   def new
@@ -122,11 +171,10 @@ else
   end
 
   def show
-    @book = CloudBook.find(params[:id])
+    #@book = CloudBook.find(params[:id])
     get_node = { :email => current_user.email, :api_key => current_user.api_token, :node => "#{params[:name]}" }
     @node = FindNodeByName.perform(get_node)
     logger.debug "Get Node By Name NODE ==> "
-    @requests = GetRequestsByNode.perform(get_node)
     if @node.class == Megam::Error
       @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
       respond_to do |format|
@@ -136,10 +184,18 @@ else
       end
     #redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@node.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
+    @requests = GetRequestsByNode.perform(get_node)
+	if params[:book_type] == "APP"
+	    @book_requests = GetAppRequestsByNode.perform(get_node)
+	elsif params[:book_type] == "BOLT"
+	    @book_requests = GetBoltRequestsByNode.perform(get_node)
+	end
       @cloud_book = @node.lookup("#{params[:name]}")
+puts "@book_requests===========================> "
+puts @book_requests
       respond_to do |format|
         format.js {
-          respond_with(@cloud_book, @requests, :layout => !request.xhr? )
+          respond_with(@cloud_book, @requests, @book_requests, :layout => !request.xhr? )
         }
       end
     end
@@ -177,21 +233,22 @@ else
 }
 },
 "compute" => {
-"cctype" => "ec2",
+"cctype" => "#{@cloud_book.request[:command]['compute']['cctype']}",
 "cc" => {
 "groups" => "",
 "image" => "",
 "flavor" => ""
 },
 "access" => {
-"ssh_key" => "megam_ec2",
-"identity_file" => "~/.ssh/megam_ec2.pem",
-"ssh_user" => ""
+"ssh_key" => "#{@cloud_book.request[:command]['compute']['access']['ssh_key']}",
+"identity_file" => "#{@cloud_book.request[:command]['compute']['access']['identity_file']}",
+"ssh_user" => "",
+"vault_location" => "#{@cloud_book.request[:command]['compute']['access']['vault_location']}"
 }
 },
 "cloudtool" => {
 "chef" => {
-"command" => "knife",
+"command" => "#{@cloud_book.request[:command]['cloudtool']['chef']['prov']}",
 "plugin" => "#{@cloud_book.request[:command]['compute']['cctype']} #{comm}", #ec2 server delete or create
 "run_list" => "",
 "name" => "-N #{n_name}"
@@ -235,7 +292,7 @@ else
   #build the required hash for the node and send it.
   #you can use Megam::Node itself to pass stuff.
   def mk_node(data, group, action)
-    command = CreateCommand.make_command(data, group, action, current_user)
+    command = CreateCommand.perform(data, group, action, current_user)
 
     if command.class == Megam::Error
       #redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{command.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
@@ -248,8 +305,8 @@ else
         "req_type" => "#{action}",
         "noofinstances" => data[:no_of_instances],
         "command" => command,
-        "predefs" => {"name" => data[:predef][:name], "scm" => data[:deps_scm],
-          "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => data[:deps_war], "queue" => "queue@queue1", "runtime_exec" => data[:predef][:runtime_exec]},
+        "predefs" => {"name" => data[:predef][:name], "scm" => "#{data[:deps_scm]}",
+          "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => "#{data[:deps_war]}", "queue" => "queue@queue1", "runtime_exec" => data[:predef][:runtime_exec]},
         "appdefns" => {"timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
         "boltdefns" => {"username" => "", "apikey" => "", "store_name" => "", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
         "appreq" => {},

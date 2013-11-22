@@ -55,6 +55,8 @@
 					<%= text_field_tag 'ssh_key', nil, placeholder: 'Enter ssh key...' %>
 					<br/>
 					<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter ssh User..' %>
+					<br/>
+					<%= text_field_tag 'vault_location', nil, placeholder: 'Enter public key location..' %>
 
 				</div>
 			</div>
@@ -75,7 +77,7 @@
 			<div class="row-fluid">
 				<div class="span4"></div>
 				<div class="span4">
-					<%= submit_tag "Save", :class => "btn btn-large btn-success btn-block", :remote => true, :disable_with => "Please wait...", :data => { :spinner => '#spin-btn'} %>
+					<%= submit_tag "Save", :class => "btn btn-large btn-success btn-block", :remote => true, :data => { :spinner => '#spin-btn', :disable_with => "Please wait..."} %>
 				</div>
 			</div>
 			<% end %>
