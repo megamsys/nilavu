@@ -3,7 +3,7 @@ class CrossCloudsController < ApplicationController
   include CrossCloudsHelper
   add_breadcrumb "Dashboard", :dashboards_path
   def index
-    add_breadcrumb "Cross CLouds", cross_clouds_path
+    add_breadcrumb "Cross Clouds", cross_clouds_path
     cross_cloud_options = { :email => current_user.email, :api_key => current_user.api_token }
     @cross_clouds = ListPredefClouds.perform(cross_cloud_options)
     if @cross_clouds.class == Megam::Error
@@ -14,8 +14,8 @@ class CrossCloudsController < ApplicationController
   end
 
   def new
-    add_breadcrumb "Cross CLouds", cross_clouds_path
-    add_breadcrumb "New Cross CLoud", new_cross_cloud_path
+    add_breadcrumb "Cross Clouds", cross_clouds_path
+    add_breadcrumb "New Cross Cloud", new_cross_cloud_path
     logger.debug "GOOGLE oauth token ============> "
     puts request.env['omniauth.auth']
   end

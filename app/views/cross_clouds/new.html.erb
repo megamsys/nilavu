@@ -1,6 +1,6 @@
 <% content_for :content_settings do %>
-<% provide(:title, 'New Cross CLoud') %>
-<%= render :partial => "users/header" , :locals => {:head => "New Cross CLoud"}%>
+<% provide(:title, 'New Cross Cloud') %>
+<%= render :partial => "users/header" , :locals => {:head => "New Cross Cloud"}%>
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
@@ -22,7 +22,7 @@
 					<br/>
 					<br/>
 					<div style="border-bottom-style:solid;">
-					<h4 class="alert-heading">Select Cloud...</h4>
+					<h4 class="alert-heading">Select Cloud Provider</h4>
 					</div>
 					<br/>
 					<div class="row-fluid">
@@ -48,7 +48,7 @@
 					<br/>
 					<br/>
 					<div style="border-bottom-style:solid;">
-					<h4 class="alert-heading">Instance Details...</h4>
+					<h4 class="alert-heading">Image & Size</h4>
 					</div>
 					<br/>
 					<%= text_field_tag 'name', nil, placeholder: 'Enter name' %>
@@ -64,7 +64,7 @@
 					<br/>
 					<br/>
 					<div style="border-bottom-style:solid;">
-					<h4 class="alert-heading">Privacy Details...</h4>
+					<h4 class="alert-heading">Security</h4>
 					</div>
 					<br/>
 					<%= text_field_tag 'ssh_key', nil, placeholder: 'Enter ssh key...' %>
