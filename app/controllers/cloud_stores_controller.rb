@@ -11,7 +11,7 @@ end
   def new
     logger.debug "Cloud Store new  ==> "
     add_breadcrumb "Cloud store", cross_clouds_path
-    add_breadcrumb "New Cloud store selection", new_cross_cloud_path
+    add_breadcrumb "New Cloud Store Selection", new_cross_cloud_path
   end
 
   def new_store

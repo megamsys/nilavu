@@ -102,8 +102,8 @@ puts @req
     logger.debug ("================================= > CB STEP1 <========================= ")
     if current_user.onboarded_api
       @book =  current_user.cloud_books.build
-      add_breadcrumb "Cloud_books", cloud_books_path
-      add_breadcrumb "Cloud_book_platform_selection", new_cloud_book_path
+      add_breadcrumb "Cloud_Books", cloud_books_path
+      add_breadcrumb "New Cloud Platform Selection", new_cloud_book_path
     else
     #redirect_to user_path(:id => current_user.id, :user_fields_form_type => "api_key")
       redirect_to dashboards_path, :gflash => { :warning => { :value => "Sorry. You are not yet onboarded. Please update your profile", :sticky => false, :nodom_wrap => true } }
@@ -112,9 +112,9 @@ puts @req
 
   def new_book
     logger.debug "================================= > CB NEW STEP2 <========================= "
-    add_breadcrumb "Cloud_books", cloud_books_path
-    add_breadcrumb "Cloud_book_platform_selection", new_cloud_book_path
-    add_breadcrumb "Cloud_book_creation", new_book_path
+    add_breadcrumb "Cloud_Books", cloud_books_path
+    add_breadcrumb "New Cloud_Platform Selection", new_cloud_book_path
+    add_breadcrumb "Create", new_book_path
     @predef_name = params[:predef_name]
 
     @book =  current_user.cloud_books.build
