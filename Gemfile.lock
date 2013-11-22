@@ -120,7 +120,7 @@ GEM
     httpauth (0.2.0)
     i18n (0.6.5)
     inflector (0.0.1)
-    jquery-datatables-rails (1.11.2)
+    jquery-datatables-rails (1.12.1)
       jquery-rails
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)

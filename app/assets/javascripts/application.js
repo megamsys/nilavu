@@ -39,9 +39,9 @@
 //= require jquery.flot
 //= require jquery.flot.time
 //= require fullcalendar
-//= require unicorn.tables
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
+//= require unicorn.tables
 //= require bootstrap-editable
 //= require jquery-ui.custom
 //= require unicorn
