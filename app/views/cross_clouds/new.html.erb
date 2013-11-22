@@ -18,10 +18,14 @@
 		<div class="widget-content">
 			<%= form_tag(:controller => "cross_clouds", :action => "create") do %>
 			<div class="row-fluid">
-				<div class="span5">
+				<div class="span4">
+					<br/>
+					<br/>
+					<div style="border-bottom-style:solid;">
+					<h4 class="alert-heading">Select Cloud...</h4>
+					</div>
+					<br/>
 					<div class="row-fluid">
-						<br/>
-						<br/>
 						<div class="span2">
 							<%= label_tag "provider:" %>
 						</div>
@@ -31,7 +35,7 @@
 							<!--<select ng-model="color" ng-options="c.name for c in crossclouds" style="width:170px;" ng-click="change_cross()"></select><br>-->
 
 						</div>
-					</div>					
+					</div>
 					<br/>
 					<br/>
 					<div class="row-fluid">
@@ -40,9 +44,12 @@
 						</div>
 					</div>
 				</div>
-				<div class="span5">
+				<div class="span4">
 					<br/>
 					<br/>
+					<div style="border-bottom-style:solid;">
+					<h4 class="alert-heading">Instance Details...</h4>
+					</div>
 					<br/>
 					<%= text_field_tag 'name', nil, placeholder: 'Enter name' %>
 					<br/>
@@ -51,25 +58,47 @@
 					<%= text_field_tag 'image', nil, placeholder: 'Enter Image value...' %>
 					<br/>
 					<%= text_field_tag 'flavour', nil, placeholder: 'Enter instance size...' %>
+				</div>
+				
+				<div class="span4">
+					<br/>
+					<br/>
+					<div style="border-bottom-style:solid;">
+					<h4 class="alert-heading">Privacy Details...</h4>
+					</div>
 					<br/>
 					<%= text_field_tag 'ssh_key', nil, placeholder: 'Enter ssh key...' %>
 					<br/>
 					<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter ssh User..' %>
-
+					<br/>
+					<%= text_field_tag 'aws_private_key', nil, placeholder: 'Enter aws_private_key..' %>
+					<br/>
+					<%= text_field_tag 'id_rsa_public_key', nil, placeholder: 'Enter id_rsa public key..' %>
+					<br/>
+					<%= text_field_tag 'aws_access_key', nil, placeholder: 'Enter aws access key..' %>
+					<br/>
+					<%= text_field_tag 'aws_secret_key', nil, placeholder: 'Enter aws secret key..' %>
+					<br/>
+					<!--<div class="span2">
+						<h5><%= label_tag "Upload AWS private key   :" %></h5>
+					</div>
+					<br/>
+					<div class="span8">
+						<%= file_field_tag :aws_private_key, placeholder: "Logo" %>
+					</div>
+					<br/>
+					<br/>
+					<br/>
+					<div class="span2">
+						<h5><%= label_tag "Upload id_rsa public key   :" %></h5>
+					</div>
+					<br/>
+					<div class="span8">
+						<%= file_field_tag :id_rsa_public_key, placeholder: "Logo" %>
+					</div>-->
 				</div>
 			</div>
 			<br/>
-			<div class="row-fluid">
-				<div class="span4"></div>
-				<div class="span8">
-					<div class="span2">
-						<h5><%= label_tag "Upload ssh file   :" %>
-					</div></h5>
-					<div class="span8">
-						<%= file_field_tag :ssh_file, placeholder: "Logo" %>
-					</div>
-				</div>
-			</div>
 			<br/>
 			<br/>
 			<div class="row-fluid">
