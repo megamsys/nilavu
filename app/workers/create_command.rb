@@ -1,6 +1,6 @@
 #List all the predefs
 class CreateCommand
-  def self.make_command(data, group, action, user)
+  def self.perform(data, group, action, user)
     begin
       options = { :email => user.email, :api_key => user.api_token }
 
@@ -28,7 +28,8 @@ class CreateCommand
           "access" => {
             "ssh_key" => "#{@predef_cloud.access[:ssh_key]}",
             "identity_file" => "/home/ubuntu/.chef/#{@predef_cloud.access[:identity_file]}",
-            "ssh_user" => "#{@predef_cloud.access[:ssh_user]}"
+            "ssh_user" => "#{@predef_cloud.access[:ssh_user]}",
+            "vault_location" => "#{@predef_cloud.access[:vault_location]}"
           }
         },
         "cloudtool" => {

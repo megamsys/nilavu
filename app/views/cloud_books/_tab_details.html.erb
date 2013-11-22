@@ -1,6 +1,5 @@
 <div class="row-fluid">
 <div class="span6">
-
 				<div class="widget-box">
 				<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
@@ -28,16 +27,17 @@
 			<td><b>Platform</b></td> <td> <%= cloud_book.predefs[:name] %></td>
 		</tr>
 		<tr>
-			<td><b>SCM</b></td> <td> <%= cloud_book.predefs[:scm] %></td>
+			<td><b>SCM</b></td> <td> <%= cloud_book.predefs[:scm] unless cloud_book.predefs[:scm].empty? %></td>
 		</tr>
-<% if !cloud_book.predefs[:war].empty? %>
+<% if !cloud_book.predefs[:war].blank? %>
 		<tr>
-			<td><b>WAR</b></td> <td> <%= cloud_book.predefs[:war] %></td>
+			<td><b>WAR</b></td> <td> <%= cloud_book.predefs[:war] if cloud_book.predefs[:scm].present? %></td>
 		</tr>
+<% end %>
 		<tr>
 			<td><b>Status</b></td> <td> <%= cloud_book.status %></td>
 		</tr>
-<% end %>
+
 				</tbody>
 
 				</table>
@@ -69,6 +69,8 @@
 				<td> <%= cb.command['compute']['cctype'] %> </td>
 				<td> <%= link_to "more", "#", class: "btn btn-mini btn-success", :data => { :confirm => "Are you sure?"}%>
  </td>
+
+
 				</tr>
 				<% end %>
 				</tbody>
@@ -77,5 +79,42 @@
 				</div>
 				</div>
 </div>
+
+
+<div class="span6">
+				<div class="widget-box">
+				<div class="widget-title">
+				<span class="icon"> <i class="icon-th-list"></i> </span>
+				<h5>Cloud Book <%= cloud_book.node_type %> Requests</h5>
+				</div>
+				<div class="widget-content nopadding">
+				<table class="table table-bordered table-striped table-hover">
+				<thead>
+				<tr>
+				<th>Request Type</th>
+				<th>Created At</th>
+				<th>Lifecycle_apply</th>
+				<th>Lifecycle_additional</th>
+
+				</tr>
+				</thead>
+				<tbody>
+				<% book_requests.each do |cb| %>
+				<tr>
+  				<td> <%= cb.req_type %> </td>
+				<td> <%= cb.created_at.to_datetime.to_formatted_s(:rfc822) %> </td>
+				<td> <%= cb.lc_apply %> </td>
+				<td> <%= cb.lc_additional %>
+ </td>
+				</tr>
+				<% end %>
+				</tbody>
+
+				</table>
+				</div>
+				</div>
+</div>
+
+
 </div>
 

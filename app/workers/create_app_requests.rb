@@ -1,10 +1,10 @@
-class GetRequestsByNode
+class CreateAppRequests
   #this returns a Megam::Account object
-  def self.perform(node)
+  def self.perform(new_req)
     begin
-      Megam::Config[:email] = node[:email]
-      Megam::Config[:api_key] = node[:api_key]
-      @excon_res = Megam::Request.list(node[:node])
+      Megam::Config[:email] = new_req[:email]
+      Megam::Config[:api_key] = new_req[:api_key]
+      @excon_res = Megam::AppRequest.create(new_req[:req])
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)

@@ -1,0 +1,15 @@
+<% if @node_name %>
+var test = '<%= @node_name %>';
+alert(test);
+
+
+var selected_entity = '#cloudbook_request_popup';
+$("#req_type_pop").val('<%= @req_type %>');
+$("#node_name_pop").val('<%= @node_name %>');
+$("#defns_id_pop").val('<%= @defns_id %>');
+$(selected_entity).modal('show');
+
+
+<% else %>
+alert("TEST");
+<% end %>

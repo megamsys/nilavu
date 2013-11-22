@@ -21,6 +21,9 @@ class CreateNodes
       @res = {"data" => {:body => re}}
       return @res["data"][:body]
     end
+puts "=========================================EXCON DETAILS ============================================> "
+puts @excon_res.class
+puts @excon_res.inspect
     @excon_res.data[:body]
   end
 end

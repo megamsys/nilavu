@@ -1,7 +1,7 @@
 	<div class="widget-box">
 		<div class="widget-title">
 			<span class="icon"> <i class="icon-th-list"></i> </span>
-			<h5>Cloud Book Definitions</h5>
+			<h5>Cloud Book Details</h5>
 			<div class="buttons">
 				<%= render :partial => "customizations/refresh" %>
 			</div>
@@ -19,7 +19,7 @@
                             <div class="widget-content tab-content">
                                 <div id="tab1" class="tab-pane active"> 
 
-<%= render :partial => "cloud_books/tab_details" , :locals => {:cloud_book => @cloud_book, :requests => @requests}%>
+<%= render :partial => "cloud_books/tab_details" , :locals => {:cloud_book => @cloud_book, :requests => @requests, :book_requests => @book_requests}%>
 
 				</div> <!-- tab1 -->
 
