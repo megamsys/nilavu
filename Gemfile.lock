@@ -41,7 +41,7 @@ GEM
       tzinfo (~> 0.3.37)
     arel (4.0.1)
     atomic (1.1.14)
-    aws-sdk (1.28.0)
+    aws-sdk (1.28.1)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
@@ -120,7 +120,7 @@ GEM
     httpauth (0.2.0)
     i18n (0.6.5)
     inflector (0.0.1)
-    jquery-datatables-rails (1.12.1)
+    jquery-datatables-rails (1.12.2)
       jquery-rails
     jquery-rails (3.0.4)
       railties (>= 3.0, < 5.0)
@@ -143,7 +143,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    megam_api (0.2.0)
+    megam_api (0.3.0)
       excon
       highline
       mixlib-config
@@ -158,7 +158,7 @@ GEM
       callsite
       rack-contrib
       railties
-    mime-types (1.25)
+    mime-types (1.25.1)
     mini_portile (0.5.2)
     minitest (4.7.5)
     mixlib-config (2.0.0)
@@ -253,7 +253,7 @@ GEM
     simple_oauth (0.2.0)
     socket.io-rails (0.9.16)
       railties (>= 3.1)
-    sprockets (2.10.0)
+    sprockets (2.10.1)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
