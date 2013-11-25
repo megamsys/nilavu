@@ -1,8 +1,9 @@
 class CrossCloudsController < ApplicationController
   respond_to :html, :js
+  include CrossCloudsHelper
   add_breadcrumb "Dashboard", :dashboards_path
   def index
-    add_breadcrumb "Cross CLouds", cross_clouds_path
+    add_breadcrumb "Cross Clouds", cross_clouds_path
     cross_cloud_options = { :email => current_user.email, :api_key => current_user.api_token }
     @cross_clouds = ListPredefClouds.perform(cross_cloud_options)
     if @cross_clouds.class == Megam::Error
@@ -13,8 +14,8 @@ class CrossCloudsController < ApplicationController
   end
 
   def new
-    add_breadcrumb "Cross CLouds", cross_clouds_path
-    add_breadcrumb "New Cross CLoud", new_cross_cloud_path
+    add_breadcrumb "Cross Clouds", cross_clouds_path
+    add_breadcrumb "New Cross Cloud", new_cross_cloud_path
     logger.debug "GOOGLE oauth token ============> "
     puts request.env['omniauth.auth']
   end
@@ -22,8 +23,13 @@ class CrossCloudsController < ApplicationController
   def create
     logger.debug "CROSS CLOUD CREATE PARAMS ============> "
     logger.debug "#{params}"
-    options = { :email => current_user.email, :api_key => current_user.api_token, :name => params[:name], :spec => { :type_name => params[:provider], :groups => params[:group], :image => params[:image], :flavor => params[:flavour] }, :access => { :ssh_key => params[:ssh_key], :identity_file => params[:ssh_file], :ssh_user => params[:ssh_user], :vault_location => params[:vault_location] }  }
-    res_body = CreatePredefClouds.perform(options)
+    options = { :email => current_user.email, :api_key => current_user.api_token, :name => params[:name], :spec => { :type_name => params[:provider], :groups => params[:group], :image => params[:image], :flavor => params[:flavour] }, :access => { :ssh_key => params[:ssh_key], :identity_file => params[:aws_private_key], :ssh_user => params[:ssh_user] }  }
+    #res_body = CreatePredefClouds.perform(options)
+    upload_option = {:email => current_user.email, :name => params[:name], :aws_private_key => params[:aws_private_key], :aws_access_key => params[:aws_access_key], :aws_secret_key => params[:aws_secret_key], :type => cc_type(params[:provider]), :id_rsa_public_key => params[:id_rsa_public_key]}
+    puts "=============================================="
+    puts upload_option
+    #aws_upload = S3Upload.perform(params[:aws_private_key], current_user.email+"/"+params[:name])
+    aws_upload = S3Upload.perform(upload_option)
     redirect_to cross_clouds_path, :gflash => { :warning => { :value => "CROSS  CLOUD CREATION DONE ", :sticky => false, :nodom_wrap => true } }
   end
 

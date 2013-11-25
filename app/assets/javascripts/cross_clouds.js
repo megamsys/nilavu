@@ -38,7 +38,7 @@ $(document).ready(function() {
 			// 'cloud_logo') %>").replaceAll("#cloud_logo");
 			// $('#cloud_logo').attr({src: "logo_gce.png"});
 			$("<div class='offset2' id='cloud_logo'>" +
-			   "<a href='/auth/google_oauth2'><img src='/assets/signin_google.png' /></a></br>" +
+			   "<a href='/auth/google_oauth2'  target='_self'><img src='/assets/signin_google.png' /></a></br>" +
 					"<img src='/assets/logo_gce.png' height='100' width='100'/>" +
 					"</div>").replaceAll('#cloud_logo');
 			break;
