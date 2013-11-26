@@ -98,6 +98,10 @@ $(document).ready(function(){
 		scale_counter.scale_aggregate();
 		return false;
 	});
+	
+	$(".more_command").click(function() {
+	    alert( this.id );
+	});
 
 });
 

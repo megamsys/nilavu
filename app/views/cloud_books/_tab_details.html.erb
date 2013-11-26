@@ -1,120 +1,115 @@
 <div class="row-fluid">
-<div class="span6">
-				<div class="widget-box">
-				<div class="widget-title">
+	<div class="span6">
+		<div class="widget-box">
+			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
 				<h5>Cloud Book</h5>
-				</div>
-				<div class="widget-content nopadding">
+			</div>
+			<div class="widget-content nopadding">
 				<table class="table table-bordered table-striped table-hover">
-				<thead>
-				<tr>
-				<th>Name</th>
-				<th>Value</th>
-				</tr>
-				</thead>
-				<tbody>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody>
 
-		<tr>
-			<td><b>Node Name</b></td> <td> <%= cloud_book.node_name %></td>
-		</tr>
+						<tr>
+							<td><b>Node Name</b></td><td> <%= cloud_book.node_name %></td>
+						</tr>
 
-		<tr>
-			<td><b>Node Type</b></td> <td> <%= cloud_book.node_type %></td>
-		</tr>
-		<tr>
+						<tr>
+							<td><b>Node Type</b></td><td> <%= cloud_book.node_type %></td>
+						</tr>
+						<tr>
 
-			<td><b>Platform</b></td> <td> <%= cloud_book.predefs[:name] %></td>
-		</tr>
-		<tr>
-			<td><b>SCM</b></td> <td> <%= cloud_book.predefs[:scm] unless cloud_book.predefs[:scm].empty? %></td>
-		</tr>
-<% if !cloud_book.predefs[:war].blank? %>
-		<tr>
-			<td><b>WAR</b></td> <td> <%= cloud_book.predefs[:war] if cloud_book.predefs[:scm].present? %></td>
-		</tr>
-<% end %>
-		<tr>
-			<td><b>Status</b></td> <td> <%= cloud_book.status %></td>
-		</tr>
+							<td><b>Platform</b></td><td> <%= cloud_book.predefs[:name] %></td>
+						</tr>
+						<tr>
+							<td><b>SCM</b></td><td> <%= cloud_book.predefs[:scm] unless cloud_book.predefs[:scm].empty? %></td>
+						</tr>
+						<% if !cloud_book.predefs[:war].blank? %>
+						<tr>
+							<td><b>WAR</b></td><td> <%= cloud_book.predefs[:war] if cloud_book.predefs[:scm].present? %></td>
+						</tr>
+						<% end %>
+						<tr>
+							<td><b>Status</b></td><td> <%= cloud_book.status %></td>
+						</tr>
 
-				</tbody>
+					</tbody>
 
 				</table>
-				</div>
-				</div>
-</div>
-<div class="span6">
-				<div class="widget-box">
-				<div class="widget-title">
+			</div>
+		</div>
+	</div>
+	<div class="span6">
+		<div class="widget-box">
+			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
 				<h5>Cloud Book Requests</h5>
-				</div>
-				<div class="widget-content nopadding">
+			</div>
+			<div class="widget-content nopadding">
 				<table class="table table-bordered table-striped table-hover">
-				<thead>
-				<tr>
-				<th>Request Type</th>
-				<th>Created At</th>
-				<th>Launched At</th>
-				<th>Destroy</th>
+					<thead>
+						<tr>
+							<th>Request Type</th>
+							<th>Created At</th>
+							<th>Launched At</th>
+							<th>Destroy</th>
 
-				</tr>
-				</thead>
-				<tbody>
-				<% requests.each do |cb| %>
-				<tr>
-  				<td> <%= cb.req_type %> </td>
-				<td> <%= cb.created_at.to_datetime.to_formatted_s(:rfc822) %> </td>
-				<td> <%= cb.command['compute']['cctype'] %> </td>
-				<td> <%= link_to "more", "#", class: "btn btn-mini btn-success", :data => { :confirm => "Are you sure?"}%>
- </td>
+						</tr>
+					</thead>
+					<tbody>
+						<% requests.each do |cb| %>
+						<tr>
+							<td> <%= cb.req_type %> </td>
+							<td> <%= cb.created_at.to_datetime.to_formatted_s(:rfc822) %> </td>
+							<td> <%= cb.command['compute']['cctype'] %> </td>
+							<td> <%= link_to "more", "#", class: "btn btn-mini btn-success more_command", :id => "#{cb.command}" %> </td>
 
-
-				</tr>
-				<% end %>
-				</tbody>
+						</tr>
+						<% end %>
+					</tbody>
 
 				</table>
-				</div>
-				</div>
-</div>
+			</div>
+		</div>
+	</div>
 
-
-<div class="span6">
-				<div class="widget-box">
-				<div class="widget-title">
+	<div class="span6">
+		<div class="widget-box">
+			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
 				<h5>Cloud Book <%= cloud_book.node_type %> Requests</h5>
-				</div>
-				<div class="widget-content nopadding">
+			</div>
+			<div class="widget-content nopadding">
 				<table class="table table-bordered table-striped table-hover">
-				<thead>
-				<tr>
-				<th>Request Type</th>
-				<th>Created At</th>
-				<th>Lifecycle_apply</th>
-				<th>Lifecycle_additional</th>
+					<thead>
+						<tr>
+							<th>Request Type</th>
+							<th>Created At</th>
+							<th>Lifecycle_apply</th>
+							<th>Lifecycle_additional</th>
 
-				</tr>
-				</thead>
-				<tbody>
-				<% book_requests.each do |cb| %>
-				<tr>
-  				<td> <%= cb.req_type %> </td>
-				<td> <%= cb.created_at.to_datetime.to_formatted_s(:rfc822) %> </td>
-				<td> <%= cb.lc_apply %> </td>
-				<td> <%= cb.lc_additional %>
- </td>
-				</tr>
-				<% end %>
-				</tbody>
+						</tr>
+					</thead>
+					<tbody>
+						<% book_requests.each do |cb| %>
+						<tr>
+							<td> <%= cb.req_type %> </td>
+							<td> <%= cb.created_at.to_datetime.to_formatted_s(:rfc822) %> </td>
+							<td> <%= cb.lc_apply %> </td>
+							<td> <%= cb.lc_additional %> </td>
+						</tr>
+						<% end %>
+					</tbody>
 
 				</table>
-				</div>
-				</div>
-</div>
-
+			</div>
+		</div>
+	</div>
 
 </div>
 

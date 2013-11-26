@@ -27,7 +27,10 @@
 
 		</br>
 		<%= link_to "Upgrade", pricing_path, class: "btn btn-large btn-inverse btn-block ", :target => "_self" %>
-
+		<a href="http://support.megam.co/kb/cloud-applications/"> <h5><i class="icon-bar-chart"></i></h5> We are here to help
+		<div class="arrow-right">
+			<i class="icon-chevron-right"></i>
+		</div> </a>
 	</div>
 	<!-- Span6 -->
 
@@ -37,7 +40,7 @@
 				<span class="icon"> <i class="icon-th-list"></i> </span>
 				<h5>Your Usage</h5>
 			</div>
-			<div class="widget-content">
+			<div class="widget-content" style="overflow-y: scroll;">
 				<% @percent = @cb_count/2.0*100 %>
 				<div class="row-fluid">
 					<div class="span6">
@@ -99,19 +102,17 @@
 				<div class="widget-title">
 					<a data-parent="#collapse-group" href="#collapse<%= k%>" data-toggle="collapse"> 
 						<span class="icon">
-							<i class="icon-magnet"></i> 
-							</span> 
+							<i class="icon-magnet"></i></span>							
 							<% if cb.book_type == 'APP' %> 
 							<span class="label label-info">
-								<%= cb.book_type %></span> 
-								<% elsif cb.book_type == 'BOLT' %> 
-								<span class="label label-warning">
-									<%= cb.book_type %></span> 
-									<% end %> 
-									</a>
-									<p></p>
-									<span class="badge badge-info">&nbsp;&nbsp;<%= k%></span> 
-
+								<%= cb.book_type %>
+							</span> 
+							<% elsif cb.book_type == 'BOLT' %>
+							<span class="label label-warning"><%= cb.book_type %></span> 
+							 <% end %> 
+							</a>
+							<p></p>
+							<span class="badge badge-info"><%= k%></span> 								
 				</div>
 			</div>
 			<div class="collapse accordion-body" id="collapse<%= k%>">
@@ -138,7 +139,6 @@
 										<ul class="dropdown-menu">
 											<li>
 												<%= link_to "Start App", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.appdefnsid, :req => "start"), :remote => true %>
-
 											</li>
 											<li>
 												<%= link_to "Stop App", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.appdefnsid, :req => "stop"), :remote => true %>
@@ -171,22 +171,24 @@
 									<td> <%= link_to "#{cloud_book.node_name}", "http://#{cloud_book.node_name}" , { :target => '_blank'} %> </td>
 									<td>
 									<div class="span1">
-										<%= link_to cloud_book_path(:id => 1), :class =>"btn btn-mini btn-success",:remote => true, :data => {spinner: '#minispin_clonebook'},:title=> "Clone Cloud Book" do %> <i class="icon-plus-sign"> Clone</i>
+										<%= link_to clone_build_path(:name => cloud_book.node_name), :class =>"btn btn-mini btn-success", :title=> "CLone Cloud Book", :remote => true, method: :post do %> <i class="icon-plus-sign"> Clone</i>
 										<% end %>
-										<%= mini_spinner_tag 'minispin_clonebook' %>
 									</div></td>
+
 									<td>
-									<div class="span1">
-										<%= link_to cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :n_hash => @n_hash), :class =>"btn btn-mini btn-danger", :title=> "CLone Cloud Book", method: :delete, :data => { :confirm => "Are you sure?", :spinner => "#mini_spin_delbook"} do %> <i class="icon-trash"> Delete</i>
-										<%= mini_spinner_tag 'mini_spin_delbook' %>
-										<% end %>
+									<div class=" span1 container-fluid">
+										<%= link_to cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :n_hash => @n_hash), :class =>"btn btn-mini btn-danger", :title=> "Delete Cloud Book", method: :delete, :remote => true, :target => "_self", :data => { :confirm => "Are you sure?", spinner: '#delete_node'} do %> <i class="icon-trash"> Delete</i>
+										<% end %>  <%= mini_spinner_tag 'delete_node' %>
 									</div></td>
+
 									<td>
 									<div class="span1">
 										<span class="icon"> <i class="icon-calendar"></i> </span> <%= cloud_book.created_at.to_datetime.to_formatted_s(:rfc822) %>
 									</div></td>
+
 									<!--<td> <%= link_to "delete", cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :n_hash => @n_hash), method: :delete, class: "btn btn-mini btn-success", :data => { :confirm => "Are you sure?"}%></td>-->
 									<td> <%= cloud_book.status %> </td>
+
 								</tr>
 
 								<% end %>
@@ -194,6 +196,7 @@
 
 						</table>
 
+					
 				</div>
 			</div>
 		</div>
@@ -206,8 +209,9 @@
 	<div class="span10" >
 		<div  id="cb_action"></div>
 	</div>
+
 </div>
-<!-- Span12 -->
+<!-- Span110 -->
 
 <div id="cloudbook_request_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
@@ -223,7 +227,9 @@
 			<input type="hidden" id="req_type_pop" name="req_type" value="">
 			<input type="hidden" id="node_name_pop" name="node_name" value="">
 			<input type="hidden" id="defns_id_pop" name="defns_id" value="">
-			<%= text_field_tag 'lc_apply', nil, placeholder: 'Modify runtime exec - script' %>
+
+			sample value : apache STOP - explanation maybe: When to apply (lc_apply) something in the lifecycle of an app or a bolt if apache is started. lc stands for lifecycle.
+			<%= text_field_tag 'lc_apply', nil, placeholder: 'Modify runtime exec - script', hint: "test" %>
 			<br/>
 			<%= text_field_tag 'lc_additional', nil, placeholder: 'Modify runtime exec - script' %>
 			<br/>
@@ -235,4 +241,3 @@
 		<% end %>
 	</div>
 </div>
-
