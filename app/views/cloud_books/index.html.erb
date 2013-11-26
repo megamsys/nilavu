@@ -6,31 +6,30 @@
 </div>
 
 <div class="container-fluid">
+	<div class="span12">
+		<%= render :partial => "cloud_books/books" , :locals => {:cb_count => @cb_count, :n_hash => @n_hash, :nodes => @nodes } %>
+	</div>
+</div>
+<!-- container-fluid -->
+<div id="cloudbook_show_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-<%= render :partial => "cloud_books/books" , :locals => {:cb_count => @cb_count, :n_hash => @n_hash, :nodes => @nodes } %>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			×
+		</button>
+		<h3 id="myModalLabel">Cloud Book view</h3>
+	</div>
+	<div class="modal-body">
+		<p>
+			<h4 id="book_show"></h4>
+		</p>
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">
+			Ok
+		</button>
+	</div>
+</div>
 
-
-				<div id="cloudbook_show_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-				<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-				×
-				</button>
-				<h3 id="myModalLabel">Cloud Book view</h3>
-				</div>
-				<div class="modal-body">
-				<p>
-				<h4 id="book_show"></h4>
-				</p>
-				</div>
-				<div class="modal-footer">
-				<button class="btn" data-dismiss="modal" aria-hidden="true">
-				Ok
-				</button>
-				</div>
-				</div>
-
-				</div> <!-- container-fluid -->
-
-				<% end %>
-				<%= render :template => users_show_path %>
+<% end %>
+<%= render :template => users_show_path %>

@@ -200,6 +200,10 @@ puts @book_requests
       end
     end
   end
+  
+  def clone
+    sleep(5)
+  end
 
   def destroy
     @book = CloudBook.find(params[:id])
