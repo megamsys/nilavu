@@ -21,7 +21,7 @@
 			<div class="row form">
 				<div class="span6">
 					<%= spinner_tag 'spin_reset' %>
-					<%= form_tag contact_us_path, :method => :post, :remote => true, data: { spinlock: '#spin_reset'} do %>
+					<%= form_tag contact_us_path, :method => :post, :name => "basic_validate", :id => "basic_validate", :novalidate => "novalidate", :remote => true, data: { spinlock: '#spin_reset'} do %>
 					<!--<form class="form-horizontal" method=post name="basic_validate" id="basic_validate" novalidate="novalidate">-->
 					<div class="control-group">
 						<label class="control-label">Name</label>

@@ -1,0 +1,82 @@
+<div class="span4">
+	<br/>
+	<br/>
+	<div class="div_border">
+		<h4 class="alert-heading">Image & Size</h4>
+	</div>
+	<br/>
+	<div id="cc_name">
+		<%= text_field_tag 'name', nil, :class=> 'required', placeholder: 'Enter name' %>
+		<%= link_to "#" do %>
+		<i class="icon-question-sign"></i>
+		<% end %>
+	</div>	
+	<div id="cc_image">
+		<%= text_field_tag 'image', nil, :class=> 'required', placeholder: 'Enter Image value...' %>
+		<%= link_to "#" do %>
+		<i class="icon-question-sign"></i>
+		<% end %>
+	</div>
+	<div id="cc_flavor">
+		<%= text_field_tag 'flavour', nil, :class=> 'required', placeholder: 'Enter instance size...' %>
+		<%= link_to "#" do %>
+		<i class="icon-question-sign"></i>
+		<% end %>
+	</div>
+
+</div>
+
+<div class="span4">
+	<br/>
+	<br/>
+	<div class="div_border">
+		<h4 class="alert-heading">Security</h4>
+	</div>
+	<br/>
+	<div id="cc_sshkey">
+		<%= text_field_tag 'ssh_key', nil, :class=> 'required', placeholder: 'Enter ssh key...' %>
+		<%= link_to "#" do %>
+		<i class="icon-question-sign"></i>
+		<% end %>
+	</div>
+
+	<div id="cc_sshuser">
+		<%= text_field_tag 'ssh_user', nil, :id => '', :class=> 'required', placeholder: 'Enter ssh User..' %>
+		<%= link_to "#" do %>
+		<i class="icon-question-sign"></i>
+		<% end %>
+	</div>	
+
+	<div id="cc_rsapk">
+		<%= text_field_tag 'id_rsa_public_key', nil, :class=> 'required', placeholder: 'Enter id_rsa public key..' %>
+		<%= link_to "#" do %>
+		<i class="icon-question-sign"></i>
+		<% end %>
+	</div>
+
+	<br/>
+	<!--<%= file_field_tag :aws_file, placeholder: "Logo" %>-->
+
+	<!--<input id="fileupload" type="file" name="files[]" data-url="https://s3-ap-southeast-1.amazonaws.com/cloudkeys/" multiple>
+	<div id="progress">
+	<div class="bar" style="width: 0%; height: 18px; background: green;"></div>
+	</div>
+	<button id="upload">click</button>-->
+	<!--<div class="span2">
+	<h5><%= label_tag "Upload AWS private key   :" %></h5>
+	</div>
+	<br/>
+	<div class="span8">
+	<%= file_field_tag :aws_private_key, placeholder: "Logo" %>
+	</div>
+	<br/>
+	<br/>
+	<br/>
+	<div class="span2">
+	<h5><%= label_tag "Upload id_rsa public key   :" %></h5>
+	</div>
+	<br/>
+	<div class="span8">
+	<%= file_field_tag :id_rsa_public_key, placeholder: "Logo" %>
+	</div>-->
+</div>

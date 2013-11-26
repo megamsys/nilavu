@@ -360,7 +360,7 @@ else
 
   #build the required hash for the node and send it.
   #you can use Megam::Node itself to pass stuff.
-  def mk_node(data, group, action)
+  def mk_node(data, group, action)    
     command = CreateCommand.perform(data, group, action, current_user)
 
     if command.class == Megam::Error

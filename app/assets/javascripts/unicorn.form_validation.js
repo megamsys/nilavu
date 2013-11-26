@@ -138,5 +138,34 @@ $radio_predef.addClass("validate[required]");
 		}
 	});
 
+	/*var validator = $(".cc_form").validate({
+		rules : {			
+			"$("#cc_name").val()" : {
+				required : true				
+			},
+			$("#cc_group").val() : {
+				required : true				
+			}			
+		},
+		errorClass : "help-inline",
+		errorElement : "span",
+		highlight : function(element, errorClass, validClass) {
+			$(element).parents('.control-group').removeClass('success');
+			$(element).parents('.control-group').addClass('error');
+
+		},
+		unhighlight : function(element, errorClass, validClass) {
+			$(element).parents('.control-group').removeClass('error');
+			$(element).parents('.control-group').addClass('success');
+
+		},
+		submitHandler : function(form) {
+			showLoadingScreen();
+			$.rails.handleRemote($(form)).always(function() {
+				hideLoadingScreen()
+			});
+		}
+	});*/
+	
 });
 

@@ -3,11 +3,13 @@ ec2:
   name: Amazon EC2
   Description: Virtual Servers in the cloud
   type: ec2_keys
+  value: ec2
   
 hp:
   name: hp cloud
   description: HP Public Cloud is a public cloud service from Hewlett-Packard (HP) that offers compute,storage, and platform services that are accessible via the public Internet to developers, independent software vendors (ISVs), SMBs, and enterprises of all sizes (including public sector).  
   type: hp_keys
+  value: hp
   
 google:
   name: Google cloud Engine
