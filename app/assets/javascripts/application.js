@@ -49,11 +49,5 @@
 //= require flexslider
 //= require socket.io
 //= require underscore
-//= require s3_direct_upload
-//= require jquery-fileupload
-//= require jquery-fileupload/basic
-//= require jquery-fileupload/vendor/jquery.ui.widget
-//= require jquery-fileupload/jquery.iframe-transport
-//= require jquery-fileupload/jquery.fileupload
 //= require app
 //= require_tree .
