@@ -8,8 +8,6 @@ class CloudBooksController < ApplicationController
       @cloud_books = current_user.cloud_books
       logger.debug "Cloud Book Index ==> "
       options = { :email => current_user.email, :api_key => current_user.api_token }
-      
-      
       #@predef_clouds = ListPredefClouds.perform(options)
       @nodes = FindNodesByEmail.perform(options)
       if @nodes.class == Megam::Error
