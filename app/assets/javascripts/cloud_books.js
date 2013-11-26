@@ -100,7 +100,7 @@ $(document).ready(function(){
 	});
 	
 	$(".more_command").click(function() {
-	    alert( this.id );
+	    alert( "TEST MORE" );
 	});
 
 });
