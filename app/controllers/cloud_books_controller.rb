@@ -8,7 +8,7 @@ class CloudBooksController < ApplicationController
       @cloud_books = current_user.cloud_books
       logger.debug "Cloud Book Index ==> "
       options = { :email => current_user.email, :api_key => current_user.api_token }
-
+      #@predef_clouds = ListPredefClouds.perform(options)
       @nodes = FindNodesByEmail.perform(options)
       if @nodes.class == Megam::Error
         #@res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
@@ -21,7 +21,7 @@ class CloudBooksController < ApplicationController
           ar=Array.new
           @nodes.each do |n|
             if n.node_name.start_with?(cb.name)
-	     #ar.push n.node_name
+            #ar.push n.node_name
             ar[i]=n.node_name
             i += 1
             end
@@ -44,72 +44,127 @@ class CloudBooksController < ApplicationController
 
   def build_request
 =begin
-  tmp_hash = {
-      "req_type" => "#{params[:req]}",
-      "node_name" => "#{params[:name]}",
-      "appdefns_id" => "#{params[:defnsid]}",
-      "lc_apply" => "APPly",
-      "lc_additional" => "ADDition",
-      "lc_when" => "When"
-    }
+tmp_hash = {
+"req_type" => "#{params[:req]}",
+"node_name" => "#{params[:name]}",
+"appdefns_id" => "#{params[:defnsid]}",
+"lc_apply" => "APPly",
+"lc_additional" => "ADDition",
+"lc_when" => "When"
+}
 =end
-      @req_type = params[:req]
-      @node_name = params[:name]
-      @defns_id = params[:defnsid]
-      respond_to do |format|
-        format.js {
-          respond_with(@req_type, @node_name, @defns_id, :layout => !request.xhr? )
-        }
-      end
+    @req_type = params[:req]
+    @node_name = params[:name]
+    @defns_id = params[:defnsid]
+    respond_to do |format|
+      format.js {
+        respond_with(@req_type, @node_name, @defns_id, :layout => !request.xhr? )
+      }
+    end
   end
 
   def send_request
 
-puts "SEND REQUEST PARAMS===========> "
-puts params
-  tmp_hash = {
+    puts "SEND REQUEST PARAMS===========> "
+    puts params
+    tmp_hash = {
       "req_type" => "#{params[:req_type]}",
       "node_name" => "#{params[:node_name]}",
       "lc_apply" => "#{params[:lc_apply]}",
       "lc_additional" => "#{params[:lc_additional]}",
       "lc_when" => "#{params[:lc_when]}"
     }
-  if params[:defns_id].start_with?('A')
-	tmp_hash["appdefns_id"] = "#{params[:defns_id]}" 
-        options = { :email => current_user.email, :api_key => current_user.api_token, :req => tmp_hash}
-	@req = CreateAppRequests.perform(options)
-  elsif params[:defns_id].start_with?('B')
-	tmp_hash["boltdefns_id"] = "#{params[:defns_id]}"
-        options = { :email => current_user.email, :api_key => current_user.api_token, :req => tmp_hash}
-	@req = CreateBoltRequests.perform(options)
-  end
-puts @req
-      if @req.class == Megam::Error
-        redirect_to cloud_books_path, :gflash => { :warning => { :value => "#{@req.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-      else
-        redirect_to cloud_books_path, :gflash => { :success => { :value => "#{@req.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-      end
+    if params[:defns_id].start_with?('A')
+      tmp_hash["appdefns_id"] = "#{params[:defns_id]}"
+      options = { :email => current_user.email, :api_key => current_user.api_token, :req => tmp_hash}
+      @req = CreateAppRequests.perform(options)
+    elsif params[:defns_id].start_with?('B')
+      tmp_hash["boltdefns_id"] = "#{params[:defns_id]}"
+      options = { :email => current_user.email, :api_key => current_user.api_token, :req => tmp_hash}
+      @req = CreateBoltRequests.perform(options)
+    end
+    puts @req
+    if @req.class == Megam::Error
+      redirect_to cloud_books_path, :gflash => { :warning => { :value => "#{@req.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+    else
+      redirect_to cloud_books_path, :gflash => { :success => { :value => "#{@req.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+    end
 
-#When to apply something in an applications cloud life cycle
-#If apache is started apply lc_apply else lc_addition
-   #add_breadcrumb "Cloud_books", cloud_books_path
-    #@cloud_books = current_user.cloud_books
-    #logger.debug "Cloud Book Request ==> "
-    #@book = CloudBook.find(params['format'])
+  #When to apply something in an applications cloud life cycle
+  #If apache is started apply lc_apply else lc_addition
+  #add_breadcrumb "Cloud_books", cloud_books_path
+  #@cloud_books = current_user.cloud_books
+  #logger.debug "Cloud Book Request ==> "
+  #@book = CloudBook.find(params['format'])
   end
-  
-    def clone_build
-            @node = params[:node]
-            #@node = JSON.parse(CGI.unescapeHTML(params[:node]))
-        logger.debug "BUILD CLONE FOR ==--------------- > #{@node.class} "
-       # @node = params[:node]
 
+  def clone_build
+    @node_name = "#{params[:name]}"
+  end
+
+  def clone_start
+    get_node = { :email => current_user.email, :api_key => current_user.api_token, :node => "#{params[:clone_name]}" }
+    @clone_nodes = FindNodeByName.perform(get_node)
+    logger.debug "Get Node By Name NODE ==> clone==> "
+    if @clone_nodes.class == Megam::Error
+      @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
       respond_to do |format|
         format.js {
-          respond_with(@node, :layout => !request.xhr? )
+          respond_with(@res_msg, :layout => !request.xhr? )
         }
       end
+    else
+      @clone_node = @clone_nodes.lookup("#{params[:clone_name]}")
 
+      node_hash = {
+        "node_name" => "#{params[:new_name]}",
+        "node_type" => "#{@clone_node.node_type}",
+        "req_type" => "#{@clone_node.request[:req_type]}",
+        "noofinstances" => params[:noofinstances].to_i,
+        "command" => @clone_node.request[:command],
+        "predefs" => @clone_node.predefs,
+        "appdefns" => {"timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
+        "boltdefns" => {"username" => "", "apikey" => "", "store_name" => "", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
+        "appreq" => {},
+        "boltreq" => {}
+      }
+=begin
+if data[:cloud_book][:book_type] == "APP"
+node_hash["appdefns"] = {"timetokill" => "0", "metered" => "megam", "logging" => "megam", "runtime_exec" => "#{data['runtime_exec']}"}
+end
+if data[:cloud_book][:book_type] == "BOLT"
+node_hash["boltdefns"] = {"username" => "#{data['user_name']}", "apikey" => "#{data['password']}", "store_name" => "#{data['store_db_name']}", "url" => "#{data['url']}", "prime" => "#{data['prime']}", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => "#{data['runtime_exec']}" }
+end
+=end
+
+      options = { :email => current_user.email, :api_key => current_user.api_token, :node => node_hash }
+      @node = CreateNodes.perform(options)
+      if @node.class == Megam::Error
+        @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+        respond_to do |format|
+          format.js {
+            respond_with(@res_msg, :layout => !request.xhr? )
+          }
+        end
+      #redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@node.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      else
+
+        @book = current_user.cloud_books.create(:name => params[:new_name], :predef_name => @clone_node.predefs[:name], :book_type => @clone_node.node_type, :domain_name => params[:domain_name], :predef_cloud_name => "default" )
+        @book.save
+=begin
+if @node.request["req_id"]
+params = {:book_name => "#{@book.name}#{@book.domain_name}", :request_id => @node.request["req_id"], :status => @node.status}
+else
+=end
+        params = {:book_name => "#{@book.name}#{@book.domain_name}", :request_id => "req_id", :status => "status"}
+        #end
+
+        @history = @book.cloud_books_histories.create(params)
+        @history.save
+
+        redirect_to cloud_books_path, :gflash => { :success => { :value => "Cloud book cloned successfully", :sticky => false, :nodom_wrap => true } }
+      end
+    end
   end
 
   def new
@@ -198,15 +253,15 @@ else
       end
     #redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@node.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
-    @requests = GetRequestsByNode.perform(get_node)
-	if params[:book_type] == "APP"
-	    @book_requests = GetAppRequestsByNode.perform(get_node)
-	elsif params[:book_type] == "BOLT"
-	    @book_requests = GetBoltRequestsByNode.perform(get_node)
-	end
+      @requests = GetRequestsByNode.perform(get_node)
+      if params[:book_type] == "APP"
+        @book_requests = GetAppRequestsByNode.perform(get_node)
+      elsif params[:book_type] == "BOLT"
+        @book_requests = GetBoltRequestsByNode.perform(get_node)
+      end
       @cloud_book = @node.lookup("#{params[:name]}")
-puts "@book_requests===========================> "
-puts @book_requests
+      puts "@book_requests===========================> "
+      puts @book_requests
       respond_to do |format|
         format.js {
           respond_with(@cloud_book, @requests, @book_requests, :layout => !request.xhr? )
@@ -222,11 +277,6 @@ puts @book_requests
 
     if @node.class == Megam::Error
       @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
-      respond_to do |format|
-        format.js {
-          respond_with(@res_msg, :layout => !request.xhr? )
-        }
-      end
     else
       @cloud_book = @node.lookup("#{params[:name]}")
       options = { :email => current_user.email, :api_key => current_user.api_token }
@@ -280,11 +330,6 @@ puts @book_requests
       @node = CreateRequests.perform(options)
       if @node.class == Megam::Error
         @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
-        respond_to do |format|
-          format.js {
-            respond_with(@res_msg, :layout => !request.xhr? )
-          }
-        end
       else
         a = params[:n_hash]
         count = a["#{@book.name}"].count
@@ -295,9 +340,15 @@ puts @book_requests
           end
         @book.destroy
         end
-        redirect_to cloud_books_path, :gflash => { :success => { :value => "Cloud book and its histories are deleted successfully", :sticky => false, :nodom_wrap => true } }
+        @res_msg = "Cloud Book deleted Successfully"
 
       end
+    end
+
+    respond_to do |format|
+      format.js {
+        respond_with(@res_msg, :layout => !request.xhr? )
+      }
     end
   end
 
