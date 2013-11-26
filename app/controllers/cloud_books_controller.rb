@@ -97,6 +97,20 @@ puts @req
     #logger.debug "Cloud Book Request ==> "
     #@book = CloudBook.find(params['format'])
   end
+  
+    def clone_build
+            @node = params[:node]
+            #@node = JSON.parse(CGI.unescapeHTML(params[:node]))
+        logger.debug "BUILD CLONE FOR ==--------------- > #{@node.class} "
+       # @node = params[:node]
+
+      respond_to do |format|
+        format.js {
+          respond_with(@node, :layout => !request.xhr? )
+        }
+      end
+
+  end
 
   def new
     logger.debug ("================================= > CB STEP1 <========================= ")

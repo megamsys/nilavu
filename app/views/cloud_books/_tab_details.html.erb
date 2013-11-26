@@ -67,7 +67,7 @@
   				<td> <%= cb.req_type %> </td>
 				<td> <%= cb.created_at.to_datetime.to_formatted_s(:rfc822) %> </td>
 				<td> <%= cb.command['compute']['cctype'] %> </td>
-				<td> <%= link_to "more", "#", class: "btn btn-mini btn-success", :data => { :confirm => "Are you sure?"}%>
+				<td> <%= link_to "more", "#", class: "btn btn-mini btn-success more_command", :id => "#{cb.command}" %>
  </td>
 
 

@@ -1,0 +1,7 @@
+alert("TEST clone build");
+alert('<%= @node %>');
+var selected_entity = '#cloudbook_clone_popup';
+$("#clone_command").val('<%= @node %>');
+$("#node_name_pop").val('<%= @node_name %>');
+$("#defns_id_pop").val('<%= @defns_id %>');
+$(selected_entity).modal('show');
