@@ -5,7 +5,7 @@
 		<title>Megam Cloud - PaaS for Your App  | <%= yield(:title) %></title>
 		<link href='https://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
 		<%= stylesheet_link_tag    "application", :media => "all" %>
-		
+
 		<%= javascript_include_tag "application" %>
 		<%= script_tag_for_all_templates %>
 		<%= csrf_meta_tags %>
@@ -22,33 +22,33 @@
 		</style>
 		<!--Start of Zopim Live Chat Script-->
 		<!--<script type="text/javascript">
-            window.$zopim || (function(d, s) {
-                var z = $zopim = function(c) {
-                    z._.push(c)
-                }, $ = z.s = d.createElement(s), e = d.getElementsByTagName(s)[0];
-                z.set = function(o) {
-                    z.set._.push(o)
-                };
-                z._ = [];
-                z.set._ = [];
-                $.async = !0;
-                $.setAttribute('charset', 'utf-8');
-                $.src = '//v2.zopim.com/?1W0tX49Sgz8ygMnPUaxFTVA5HwVn3xou';
-                z.t = +new Date;
-                $.type = 'text/javascript';
-                e.parentNode.insertBefore($, e)
-            })(document, 'script');
+		window.$zopim || (function(d, s) {
+		var z = $zopim = function(c) {
+		z._.push(c)
+		}, $ = z.s = d.createElement(s), e = d.getElementsByTagName(s)[0];
+		z.set = function(o) {
+		z.set._.push(o)
+		};
+		z._ = [];
+		z.set._ = [];
+		$.async = !0;
+		$.setAttribute('charset', 'utf-8');
+		$.src = '//v2.zopim.com/?1W0tX49Sgz8ygMnPUaxFTVA5HwVn3xou';
+		z.t = +new Date;
+		$.type = 'text/javascript';
+		e.parentNode.insertBefore($, e)
+		})(document, 'script');
 		</script>-->
-		<!--End of Zopim Live Chat Script-->
+		<!--End of Zopim Live Chat Script-->		
 	</head>
 	<body>
-		 
+
 		<%= render 'layouts/header' %>
 		<a href="#" class="scrolltop"> <span>up</span> </a>
 		<%= yield %>
 		<%= render 'layouts/footer' %>
 		<!-- JQuery will invoke via the spinner and display a loading modal lock. -->
 		<div id="loading" />
-		<%= gflash %>		
+		<%= gflash %>
 	</body>
 </html>

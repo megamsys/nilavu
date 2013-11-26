@@ -18,5 +18,7 @@
  *= require uniform 
  *= require dashboard.main
  *= require flexslider
+ *= require s3_direct_upload_progress_bars
+ *= require jquery.fileupload-ui
  *= require_tree . 
 */

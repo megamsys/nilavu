@@ -22,7 +22,7 @@ class ListCloudTools
       @res = {"data" => {:body => re}}
       return @res["data"][:body]
     end
-    puts "perform2"
+    puts "perform2"    
     @excon_res.data[:body]
   end
 end

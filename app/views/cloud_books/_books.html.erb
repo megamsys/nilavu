@@ -2,7 +2,7 @@
 	<div class="span3">
 		<div class="cb_box">
 			<h4 align="center"> Count</h4>
-			<h3 align="center" ><span class="icon"><i class="icon-book"></i></span><%= @cb_count %> of 2</h3>
+			<h3 align="center" ><span class="icon"><i class="icon-book"></i></span>&nbsp;<%= @cb_count %>&nbsp; of 2</h3>
 		</div>
 
 		<%= link_to "Create", new_cloud_book_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
@@ -27,12 +27,10 @@
 
 		</br>
 		<%= link_to "Upgrade", pricing_path, class: "btn btn-large btn-inverse btn-block ", :target => "_self" %>
-
 		<a href="http://support.megam.co/kb/cloud-applications/"> <h5><i class="icon-bar-chart"></i></h5> We are here to help
 		<div class="arrow-right">
 			<i class="icon-chevron-right"></i>
 		</div> </a>
-
 	</div>
 	<!-- Span6 -->
 
@@ -102,12 +100,23 @@
 		<div class="accordion-group widget-box">
 			<div class="accordion-heading">
 				<div class="widget-title">
-					<a data-parent="#collapse-group" href="#collapse<%= k%>" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><span class="badge badge-info"><%= k%></span></span> <% if cb.book_type == 'APP' %> <span class="label label-info"><%= cb.book_type %></span> <% elsif cb.book_type == 'BOLT' %> <span class="label label-warning"><%= cb.book_type %></span> <% end %> </a>
+					<a data-parent="#collapse-group" href="#collapse<%= k%>" data-toggle="collapse"> 
+						<span class="icon">
+							<i class="icon-magnet"></i></span>							
+							<% if cb.book_type == 'APP' %> 
+							<span class="label label-info">
+								<%= cb.book_type %>
+							</span> 
+							<% elsif cb.book_type == 'BOLT' %>
+							<span class="label label-warning"><%= cb.book_type %></span> 
+							 <% end %> 
+							</a>
+							<p></p>
+							<span class="badge badge-info"><%= k%></span> 								
 				</div>
 			</div>
 			<div class="collapse accordion-body" id="collapse<%= k%>">
-				<div class="widget-content" style="overflow-x: scroll;">
-					<div class="container-fluid ">
+				<div class="widget-content nopadding" style="overflow-x: scroll;">
 						<table class="table table-bordered table-striped table-hover">
 							<thead>
 								<tr>
@@ -187,7 +196,7 @@
 
 						</table>
 
-					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -218,6 +227,7 @@
 			<input type="hidden" id="req_type_pop" name="req_type" value="">
 			<input type="hidden" id="node_name_pop" name="node_name" value="">
 			<input type="hidden" id="defns_id_pop" name="defns_id" value="">
+
 			sample value : apache STOP - explanation maybe: When to apply (lc_apply) something in the lifecycle of an app or a bolt if apache is started. lc stands for lifecycle.
 			<%= text_field_tag 'lc_apply', nil, placeholder: 'Modify runtime exec - script', hint: "test" %>
 			<br/>
@@ -231,5 +241,3 @@
 		<% end %>
 	</div>
 </div>
-
-

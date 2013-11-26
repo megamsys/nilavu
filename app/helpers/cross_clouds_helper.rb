@@ -20,5 +20,20 @@ module CrossCloudsHelper
       end   
     end
     @type    
+  end
+  
+  def get_Vault_server
+    Rails.configuration.vault_server_path   
+  end
+    
+  def get_provider_value(prov)
+   @value = "" 
+    cc_config.each do |cc, cloud| 
+      if cloud["name"] == prov     
+         @value = cloud["value"]         
+      end   
+    end
+    @value    
   end  
+    
 end
