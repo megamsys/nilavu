@@ -76,7 +76,7 @@ module Cloudauth
     #config.ganglia_request_metric = 'nginx_status'
     config.metric_source = 'demo'
     config.payment_gateway = 'demo'
-
+    config.vault_server_path = 'https://s3-ap-southeast-1.amazonaws.com/cloudkeys/'
 
 =begin
 config.assets.precompile << Proc.new do |path|

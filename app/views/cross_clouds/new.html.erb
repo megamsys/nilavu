@@ -21,8 +21,8 @@
 				<div class="span4">
 					<br/>
 					<br/>
-					<div style="border-bottom-style:solid;">
-					<h4 class="alert-heading">Select Cloud Provider</h4>
+					<div style="border-bottom-style:solid; border-color:#FF00FF">
+						<h4 class="alert-heading">Select Cloud Provider</h4>
 					</div>
 					<br/>
 					<div class="row-fluid">
@@ -47,8 +47,8 @@
 				<div class="span4">
 					<br/>
 					<br/>
-					<div style="border-bottom-style:solid;">
-					<h4 class="alert-heading">Image & Size</h4>
+					<div style="border-bottom-style:solid; border-color:#FF00FF">
+						<h4 class="alert-heading">Image & Size</h4>
 					</div>
 					<br/>
 					<%= text_field_tag 'name', nil, placeholder: 'Enter name' %>
@@ -59,12 +59,12 @@
 					<br/>
 					<%= text_field_tag 'flavour', nil, placeholder: 'Enter instance size...' %>
 				</div>
-				
+
 				<div class="span4">
 					<br/>
 					<br/>
-					<div style="border-bottom-style:solid;">
-					<h4 class="alert-heading">Security</h4>
+					<div style="border-bottom-style:solid; border-color:#FF00FF">
+						<h4 class="alert-heading">Security</h4>
 					</div>
 					<br/>
 					<%= text_field_tag 'ssh_key', nil, placeholder: 'Enter ssh key...' %>
@@ -79,22 +79,27 @@
 					<br/>
 					<%= text_field_tag 'aws_secret_key', nil, placeholder: 'Enter aws secret key..' %>
 					<br/>
+					<!--<input id="fileupload" type="file" name="files[]" data-url="https://s3-ap-southeast-1.amazonaws.com/cloudkeys/" multiple>
+					<div id="progress">
+						<div class="bar" style="width: 0%; height: 18px; background: green;"></div>
+					</div>
+					<button id="upload">click</button>-->
 					<!--<div class="span2">
-						<h5><%= label_tag "Upload AWS private key   :" %></h5>
+					<h5><%= label_tag "Upload AWS private key   :" %></h5>
 					</div>
 					<br/>
 					<div class="span8">
-						<%= file_field_tag :aws_private_key, placeholder: "Logo" %>
+					<%= file_field_tag :aws_private_key, placeholder: "Logo" %>
 					</div>
 					<br/>
 					<br/>
 					<br/>
 					<div class="span2">
-						<h5><%= label_tag "Upload id_rsa public key   :" %></h5>
+					<h5><%= label_tag "Upload id_rsa public key   :" %></h5>
 					</div>
 					<br/>
 					<div class="span8">
-						<%= file_field_tag :id_rsa_public_key, placeholder: "Logo" %>
+					<%= file_field_tag :id_rsa_public_key, placeholder: "Logo" %>
 					</div>-->
 				</div>
 			</div>

@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	var boo = false;
 	var boo1 = false;
+	$("#s3-uploader").S3Uploader();
 	$("#new_db1 input:radio").click(function() {
 		boo = true;
 		if (boo1) {
@@ -12,8 +13,26 @@ $(document).ready(function() {
 		if (boo) {
 			$("#db_next").attr("disabled", false); // enable next button
 		}
-	});
-
+	});	
+	
+	/*$("#upload").click(function() {
+	    $('#fileupload').fileupload({
+	        dataType: 'json',
+	        done: function (e, data) {
+	            $.each(data.result.files, function (index, file) {
+	                $('<p/>').text(file.name).appendTo(document.body);
+	            });
+	        },
+	    progressall: function (e, data) {
+	        var progress = parseInt(data.loaded / data.total * 100, 10);
+	        $('#progress .bar').css(
+	            'width',
+	            progress + '%'
+	        );
+	    }
+	    });
+	});*/
+	
 	$("#cross_cloud_list").change(function() {
 		var cc = $(this).find("option:selected").text()
 		switch (cc) {
@@ -50,3 +69,5 @@ $(document).ready(function() {
 	});
 
 });
+
+

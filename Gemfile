@@ -53,6 +53,10 @@ gem "net-http-predicates"
 #html parsing
 gem "nokogiri"
 
+#s3-upload
+gem 's3_direct_upload'
+gem "jquery-fileupload-rails"
+
 #convert singularize
 gem "inflector"
 
