@@ -182,6 +182,9 @@ GEM
       rack
     omniauth-facebook (1.5.1)
       omniauth-oauth2 (~> 1.1.0)
+    omniauth-github (1.1.1)
+      omniauth (~> 1.0)
+      omniauth-oauth2 (~> 1.1)
     omniauth-google-oauth2 (0.2.1)
       omniauth (~> 1.0)
       omniauth-oauth2
@@ -334,6 +337,7 @@ DEPENDENCIES
   net-http-predicates
   nokogiri
   omniauth-facebook
+  omniauth-github
   omniauth-google-oauth2
   omniauth-openid
   omniauth-twitter

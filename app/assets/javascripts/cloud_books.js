@@ -19,34 +19,6 @@
 })( jQuery );
 
 
-$(document).ready(function() {	
-	$('#platformfaulty input:radio').each(function() {
-		var self = $(this), label = self.next(), label_text = label.text();
-		label.remove();
-		self.iCheck({
-			checkboxClass : 'icheckbox_flat',
-			radioClass : 'iradio_flat',
-			insert : '<div class="icheck_line-icon"></div>' + label_text
-		});
-	});	
-	$('#next').click(function(){
-		$('#domainname').val($('#identity_new_account_name').text() + $('#domain').text());	
-	$(".check-radio").each(function(){ 
-        if( $(this).is(":checked") ){ 
-        	$('#predefcloudname').val('ec2_' + $(this).val());
-            var val = $(this).val(); 
-        }
-    });
-	});		
-	
-	$("#identity_new").change(function() {						
-		$("#changename").val("gfhjhj");
-		});
-	
-});
-
-
-
 $(document).ready(function(){		
 	// find the scaling instance counter table element
 	var scale_counter = $('#scalebooks');
@@ -99,9 +71,6 @@ $(document).ready(function(){
 		return false;
 	});
 	
-	$(".more_command").click(function() {
-	    alert( "TEST MORE" );
-	});
 
 });
 

@@ -30,6 +30,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-openid'
 gem "omniauth-google-oauth2"
+gem 'omniauth-github'
 
 gem 'will_paginate','3.0.5'
 gem 'bootstrap-will_paginate','0.0.10'

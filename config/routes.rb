@@ -76,6 +76,7 @@ match '/new_store', to: 'cloud_stores#new_store', via: [:get, :post]
   match '/signin', to: 'sessions#new', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post,:delete]
   match '/auth/facebook/callback', :to => 'sessions#create', via: [:get, :post]
+  match '/auth/github/callback', :to => 'cloud_books#new_book', via: [:get, :post]
   match '/auth/google_oauth2/callback', :to => 'cross_clouds#new', via: [:get, :post]
  
 

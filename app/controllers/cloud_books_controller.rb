@@ -384,7 +384,7 @@ else
         "req_type" => "#{action}",
         "noofinstances" => data[:no_of_instances],
         "command" => command,
-        "predefs" => {"name" => data[:predef][:name], "scm" => "#{data[:deps_scm]}",
+        "predefs" => {"name" => data[:predef][:name], "scm" => "#{data['deps_scm']}",
           "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => "#{data[:deps_war]}", "queue" => "queue@queue1", "runtime_exec" => data[:predef][:runtime_exec]},
         "appdefns" => {"timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
         "boltdefns" => {"username" => "", "apikey" => "", "store_name" => "", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
@@ -393,10 +393,10 @@ else
       }
 
       if data[:cloud_book][:book_type] == "APP"
-        node_hash["appdefns"] = {"timetokill" => "0", "metered" => "megam", "logging" => "megam", "runtime_exec" => "#{data['runtime_exec']}"}
+        node_hash["appdefns"] = {"timetokill" => "#{data['timetokill']}", "metered" => "#{data['monitoring']}", "logging" => "#{data['logging']}", "runtime_exec" => "#{data['runtime_exec']}"}
       end
       if data[:cloud_book][:book_type] == "BOLT"
-        node_hash["boltdefns"] = {"username" => "#{data['user_name']}", "apikey" => "#{data['password']}", "store_name" => "#{data['store_db_name']}", "url" => "#{data['url']}", "prime" => "#{data['prime']}", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => "#{data['runtime_exec']}" }
+        node_hash["boltdefns"] = {"username" => "#{data['user_name']}", "apikey" => "#{data['password']}", "store_name" => "#{data['store_db_name']}", "url" => "#{data['url']}", "prime" => "#{data['prime']}", "timetokill" => "#{data['timetokill']}", "metered" => "#{data['monitoring']}", "logging" => "#{data['logging']}", "runtime_exec" => "#{data['runtime_exec']}" }
       end
     end
     logger.debug "COMMAND HASH ==> #{node_hash.inspect}"

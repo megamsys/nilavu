@@ -4,7 +4,7 @@
 jQuery(document).ready(
 		function() {
 
-			jQuery('input[type=checkbox],input[type=radio],input[type=file]').uniform();
+			//jQuery('input[type=checkbox],input[type=radio],input[type=file]').uniform();
 
 			jQuery('select').select2();
 			jQuery('.colorpicker').colorpicker();

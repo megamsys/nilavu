@@ -121,10 +121,9 @@
 						<div class = "span3">
 							<div class="back" id="toggle">
 								<br/>
-								<div class="slideThree">
-									<input type="checkbox" value="None" id="slideThree" name="check" />
-									<label for="slideThree"></label>
-								</div>
+							<%= hidden_field_tag 'monitoring', "" %>
+ 							 <%= check_box_tag 'monitoring', "megam" %>
+							 <%= label_tag :monitoring %>
 							</div>
 						</div>
 						<div class = "span4">
@@ -144,10 +143,9 @@
 							<div class="back" id="toggle">
 								<br/>
 								<label for="enjoy_web"></label>
-								<div class="slideThree">
-									<input type="checkbox" value="None" id="slideThree" name="check" />
-									<label for="slideThree"></label>
-								</div>
+							<%= hidden_field_tag 'logging', "" %>
+ 							 <%= check_box_tag 'logging', "megam" %>
+							 <%= label_tag :logging %>
 							</div>
 						</div>
 						<div class = "span4">
@@ -161,13 +159,30 @@
 							<h3 align="center"><i class="icon-briefcase"></i></h3>
 						</div>
 						<div class="span4">
-							<span> <h4>Change the Default Start Script <span class="label label-warning"> *optional</span><h4></span>
+							<span> <h4>Change the Default Start Script <span class="label label-warning"> *optional</span></h4></span>
+							
 						</div>
 						<div class="span7">
-							<%= text_field_tag 'runtime_exec', nil, placeholder: 'Modify runtime exec - script' %>
+							<%= text_field_tag 'runtime_exec', "#{@predef.runtime_exec}", placeholder: 'Modify runtime exec - script' %>
 						</div>
 					</div>
 				</div>
+
+				<div class="row-fluid">
+					<div class="span12">
+						<div class="span1">
+							<h3 align="center"><i class="icon-briefcase"></i></h3>
+						</div>
+						<div class="span4">
+							<span> <h4>Time to kill <span class="label label-warning"> *optional</span><h4></span>
+							
+						</div>
+						<div class="span7">
+							<%= text_field_tag 'tometokill', "#{Time.now.to_formatted_s(:rfc822)}", :readonly => true %>
+						</div>
+					</div>
+				</div>
+
 
 			</div>
 		</div>
@@ -231,6 +246,9 @@
 
 						</div>
 					</div>
+					
+					<a href="/auth/github" class="github_login btn btn-mini btn-success"> <i class="icon-github"></i> <span class="text">Sign in</span> </a>
+					
 				</div>
 				<% if @predef_name == "java" %>
 				<div class="accordion-group widget-box">
