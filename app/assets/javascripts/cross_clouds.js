@@ -1,7 +1,6 @@
 $(document).ready(function() {
 	var boo = false;
-	var boo1 = false;
-	$("#s3-uploader").S3Uploader();
+	var boo1 = false;	
 	$("#new_db1 input:radio").click(function() {
 		boo = true;
 		if (boo1) {
@@ -39,6 +38,7 @@ $(document).ready(function() {
 		switch (cc) {
 		case "Amazon EC2":			
 			$("<div class='offset2' id='cloud_logo'><img src='/assets/logo_aws.png' height='100' width='100'/></div>").replaceAll('#cloud_logo');
+			$$("<div class='offset2' id='acc_link'><a href='http://aws.amazon.com/console/' target='_blank'>Create an account for amazon.com</a></div>").replaceAll('#acc_link');
 			$("#cross_cloud_name").val("aws");	
 			$("#cc_name").show();
 			$("#cc_group").show();
@@ -53,6 +53,7 @@ $(document).ready(function() {
 			break;
 		case "hp cloud":		
 			$("<div class='offset2' id='cloud_logo'><img src='/assets/logo_hp.png' height='100' width='100'/></div>").replaceAll('#cloud_logo');
+			$("<div class='offset2' id='acc_link'><a href='https://account.hpcloud.com/signup' target='_blank'>Create an account for hpcloud.com</a></div>").replaceAll('#acc_link');
 			$("#cross_cloud_name").val("hp");	
 			$("#cc_name").show();
 			$("#cc_group").show();
@@ -66,6 +67,7 @@ $(document).ready(function() {
 			$("#cc_awssk").show();
 			break;
 		case "Google cloud Engine":			
+			$("<div class='offset2' id='acc_link'><a href='https://accounts.google.com/SignUp' target='_blank'>Create an account for google.com</a></div>").replaceAll('#acc_link');
 			$('#google_auth').prop("disabled",false);			
 			$("<div class='offset2' id='cloud_logo'>" +
 			   "<a href='/auth/google_oauth2'  target='_self'><img src='/assets/signin_google.png' /></a></br>" +
@@ -85,6 +87,7 @@ $(document).ready(function() {
 			break;
 		default:			
 			$("<div class='offset2' id='cloud_logo'><img src='/assets/logo_aws.png' height='100' width='100'/></div>").replaceAll('#cloud_logo');
+     		$("<div class='offset2' id='acc_link'><a href='http://aws.amazon.com/console/' target='_blank'>Create an account for amazon.com</a></div>").replaceAll('#acc_link');
 		    $("#cross_cloud_name").val("aws");
 		    $("#cc_name").show();
 			$("#cc_group").show();

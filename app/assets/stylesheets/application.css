@@ -17,6 +17,6 @@
  *= require select2 
  *= require uniform 
  *= require dashboard.main
- *= require flexslider  
+ *= require flexslider
  *= require_tree . 
 */
