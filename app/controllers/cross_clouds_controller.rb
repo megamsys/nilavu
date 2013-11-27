@@ -23,11 +23,22 @@ class CrossCloudsController < ApplicationController
     add_breadcrumb "New Cross Cloud", new_cross_cloud_path
     logger.debug "GOOGLE oauth token ============> "
     puts request.env['omniauth.auth']
+    if request.env['omniauth.auth']
+      @cloud_prov = "Google Cloud Engine"
+      @token = request.env['omniauth.auth']['credentials']['token']
+      @refresh_token = request.env['omniauth.auth']['credentials']['refresh_token']
+      @expire = request.env['omniauth.auth']['credentials']['expires_at']
+    else
+      @cloud_prov = "Amazon EC2"
+    end
   end
 
   def create
     logger.debug "CROSS CLOUD CREATE PARAMS ============> "
     logger.debug "#{params}"
+    if params[:access_token].length > 0     
+      CreateGoogleJSON.perform(params[:access_token], params[:refresh_token], params[:expire], params[:project_name], params[:google_client_id], params[:google_secret_key])
+    end
     vault_loc = get_Vault_server+current_user.email+"/"+params[:name]
     options = { :email => current_user.email, :api_key => current_user.api_token, :name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group], :image => params[:image], :flavor => params[:flavour] }, :access => { :ssh_key => params[:ssh_key], :identity_file => File.basename(params[:aws_private_key]), :ssh_user => params[:ssh_user], :vault_location => vault_loc }  }
     @res_body = CreatePredefClouds.perform(options)
@@ -65,7 +76,6 @@ class CrossCloudsController < ApplicationController
     end
   #redirect_to cross_clouds_path, :gflash => { :warning => { :value => "CROSS  CLOUD CREATION DONE ", :sticky => false, :nodom_wrap => true } }
   end
-  
 
   def show
     cross_cloud_options = { :email => current_user.email, :api_key => current_user.api_token }
