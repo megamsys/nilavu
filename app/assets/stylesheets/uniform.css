@@ -12,7 +12,7 @@ http://uniformjs.com/
 /* General settings */
 div.selector,
 div.selector span,
-div.checker span,
+/*div.checker span,*/
 div.radio span,
 div.uploader,
 div.uploader span.action,
@@ -23,7 +23,7 @@ div.button span {
   -webkit-font-smoothing: antialiased; }
 
 .selector,
-.checker,
+/*.checker,*/
 .button,
 .radio,
 .uploader {
@@ -35,18 +35,18 @@ div.button span {
 
 .selector select:focus,
 .radio input:focus,
-.checker input:focus,
+/*.checker input:focus,*/
 .uploader input:focus {
   outline: 0; }
 
 .selector,
 .radio,
-.checker,
+/*.checker,*/
 .uploader,
 .button,
 .selector *,
 .radio *,
-.checker *,
+/*.checker *,*/
 .uploader *,
 .button * {
   margin: 0;
@@ -79,11 +79,11 @@ textarea.uniform {
   outline: 0; }
 
 /* Remove default webkit and possible mozilla .search styles */
-div.checker input,
+/*div.checker input,
 input.search,
 input.search:active {
   -moz-appearance: none;
-  -webkit-appearance: none; }
+  -webkit-appearance: none; } */
 
 input.text:focus,
 input.email:focus,
@@ -183,7 +183,7 @@ div.selector.disabled:active span,
 div.selector.disabled.active span {
   background-position: right -104px; }
 
-/* Checkbox */
+/* Checkbox 
 div.checker,
 div.checker span,
 div.checker input {
@@ -252,7 +252,7 @@ div.checker.disabled span.checked,
 div.checker.disabled:active span.checked,
 div.checker.disabled.active span.checked {
   background-position: -171px -260px; }
-
+*/
 /* Radio */
 div.radio,
 div.radio span,
@@ -544,10 +544,10 @@ div.selector span {
 div.selector.disabled span {
   color: #bbb; }
 
-/* Checker */
+/* Checker 
 div.checker {
   margin-right: 5px; }
-
+*/
 /* Radio */
 div.radio {
   margin-right: 3px; }
