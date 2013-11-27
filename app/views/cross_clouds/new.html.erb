@@ -16,7 +16,7 @@
 			</div>
 		</div>
 		<div class="widget-content">
-			<%= form_tag cross_clouds_path, :method => :post, :name => "basic_validate1", :id => "basic_validate", :novalidate => "novalidate" do %>
+			<%= form_tag cross_clouds_path, :method => :post, :remote => true, data: { spinlock: '#spin_cross_cloud'}, :name => "basic_validate1", :id => "basic_validate", :novalidate => "novalidate" do %>
            
 			<div class="row-fluid">
 				<div class="span4">
@@ -42,6 +42,13 @@
 					<div class="row-fluid">
 						<div class="offset2" id="cloud_logo">
 							<%= image_tag("logo_aws.png", :size => "100x100") %>
+						</div>
+					</div>
+					<br/>
+					<br/>
+					<div class="row-fluid">
+						<div class="offset2" id="acc_link">
+							<%= link_to "Create an account for amazon.com", "http://aws.amazon.com/console/", :target => "_blank" %>
 						</div>
 					</div>
 				</div>
@@ -141,13 +148,55 @@
 				<div class="span4">
 					<div class="control-group">
 						<div class="controls action">
-							<%= submit_tag "Save", :class => "btn btn-large btn-success btn-block", :remote => true, :data => { :spinner => '#spin-btn', :disable_with => "Please wait..."} %>
+							<%= submit_tag "Save", :class => "btn btn-large btn-success btn-block"%>
 						</div>
 					</div>
 				</div>
 			</div>
-			<% end %>
-			<%= spinner_tag 'spin-btn' %>
+			<% end %>			
+		</div>
+	</div>
+
+<div id="crosscloud_postfinish_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				×
+			</button>
+			<h3 id="myModalLabel">Cross Cloud</h3>
+		</div>
+		<div class="modal-body">
+			<div class="alert alert-success">
+
+				<p>
+					<h4 id="res_msg"></h4>	
+						</br>									
+				</p>
+			</div>
+		</div>
+		<div class="modal-footer" id="crossclouds_path"></div>
+	</div>
+
+	<div id="crosscloud_postfinish_popup_error" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				×
+			</button>
+			<h3 id="myModalLabel">Cross Clouds</h3>
+		</div>
+		<div class="modal-body">
+			<div class="alert alert-error">
+
+				<p>
+					<h4> A cross clouds creation request to the megam cloud server was not successful. </h4>
+					</br>
+					<div id="err_msg"></div>
+				</p>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<%= link_to  "Ok", new_cross_cloud_path, :class => "btn btn-primary", :target => "_self" %>
 		</div>
 	</div>
 

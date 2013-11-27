@@ -1,19 +1,29 @@
 class S3Upload
   puts "----worker entry"
   def self.perform(options = {})
-
+    begin
     #Upload AWS private key...
-    s3_object_file_upload(options[:email]+"/"+options[:name]+"/"+File.basename(options[:aws_private_key]), :file => options[:aws_private_key])
+      s3_object_file_upload(options[:email]+"/"+options[:name]+"/"+File.basename(options[:aws_private_key]), :file => options[:aws_private_key])
 
-    #Upload id rsa public key...
-    s3_object_file_upload(options[:email]+"/"+File.basename(options[:id_rsa_public_key]), :file => options[:id_rsa_public_key])
+      #Upload id rsa public key...
+      s3_object_file_upload(options[:email]+"/"+File.basename(options[:id_rsa_public_key]), :file => options[:id_rsa_public_key])
 
-    #Create and Upload type file ...
-    s3_object_file_upload(options[:email]+"/"+options[:name]+"/type", 'type='+options[:type])
+      #Create and Upload type file ...
+      s3_object_file_upload(options[:email]+"/"+options[:name]+"/type", 'type='+options[:type])
 
-    #Create and Upload type file ...
-    s3_object_file_upload(options[:email]+"/"+options[:name]+"/"+options[:type], '-A='+options[:aws_access_key]+"\n"+'-K='+options[:aws_secret_key])
-
+      #Create and Upload type file ...
+      s3_object_file_upload(options[:email]+"/"+options[:name]+"/"+options[:type], '-A='+options[:aws_access_key]+"\n"+'-K='+options[:aws_secret_key])
+    rescue StandardError => se
+      hash = {"msg" => se.message, "msg_type" => "error"}
+      re = Megam::Error.from_hash(hash)
+      @res = {"data" => {:body => re}}
+      return @res["data"][:body]
+    rescue ResponseError => re
+      hash = {"msg" => re.message, "msg_type" => "error"}
+      res = Megam::Error.from_hash(hash)
+      @res = {"data" => {:body => res}}
+      return @res["data"][:body]
+    end
   end
 
   def self.s3_object_file_upload(filename, data)
