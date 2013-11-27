@@ -12,7 +12,7 @@ class CloudBooksController < ApplicationController
       @nodes = FindNodesByEmail.perform(options)
       if @nodes.class == Megam::Error
         #@res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
-        redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@cloud_books.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
         @n_hash=Hash.new
         @cloud_books = current_user.cloud_books
@@ -254,11 +254,21 @@ else
     #redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@node.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
       @requests = GetRequestsByNode.perform(get_node)
+=begin
+      if @requests.class == Megam::Error
+      	@requests={"results" => [{"req_type" => "", "create_at" => "", "command" => "{}"}]}
+      end
+=end
       if params[:book_type] == "APP"
         @book_requests = GetAppRequestsByNode.perform(get_node)
       elsif params[:book_type] == "BOLT"
         @book_requests = GetBoltRequestsByNode.perform(get_node)
       end
+          if @book_requests.class == Megam::Error
+      		@book_requests={"results" => {"req_type" => "", "create_at" => "", "lc_apply" => "", "lc_additional" => "", "lc_when" => ""}}
+#@book_requests={"results" => [Megam::AppRequest]}
+          end
+         puts "Book REQUEST CLASS==========================?> #{@book_requests.class}"
       @cloud_book = @node.lookup("#{params[:name]}")
       puts "@book_requests===========================> "
       puts @book_requests
