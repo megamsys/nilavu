@@ -16,7 +16,7 @@
 			</div>
 		</div>
 		<div class="widget-content">
-			<%= form_tag cross_clouds_path, :method => :post, :remote => true, :name => "basic_validate1", :id => "basic_validate", :novalidate => "novalidate" do %>
+			<%= form_tag cross_clouds_path, :method => :post, :remote => true, data: { spinlock: '#spin_cross_cloud'}, :name => "basic_validate1", :id => "basic_validate", :novalidate => "novalidate" do %>
            
 			<div class="row-fluid">
 				<div class="span4">
@@ -148,13 +148,12 @@
 				<div class="span4">
 					<div class="control-group">
 						<div class="controls action">
-							<%= submit_tag "Save", :class => "btn btn-large btn-success btn-block" %>
+							<%= submit_tag "Save", :class => "btn btn-large btn-success btn-block"%>
 						</div>
 					</div>
 				</div>
 			</div>
-			<% end %>
-			<%= spinner_tag 'spin-btn' %>
+			<% end %>			
 		</div>
 	</div>
 
