@@ -231,9 +231,9 @@ input[type="color"]:focus,
 .navbar-fixed-top.scroll {
 	opacity: 0.96;
 }
-.m-navbar-inner {
+.navbar {
 	border-bottom: 0 none;
-	height: 55px;
+	height: 70px;
 	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
@@ -245,7 +245,7 @@ input[type="color"]:focus,
 	font-size: 26px;
 	text-shadow: none;
 }
-.navbar .nav.pull-right {
+.navbar .nav.navbar-right {
 	top: 20px;
 	/*margin-right: 40px;*/
 }
@@ -275,25 +275,8 @@ input[type="color"]:focus,
 	background: none;
 	color: #fff;
 }
-.btn-dropnav {
-	float: right;
-	margin-left: 5px;
-	margin-right: 5px;
-	padding: 7px 10px;
-	display: none;
-}
-.btn-dropnav .icon-bar {
-	background-color: #F5F5F5;
-	-webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
-	-moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
-	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
-	display: block;
-	height: 2px;
-	width: 18px;
-}
-.btn-dropnav .icon-bar + .icon-bar {
-	margin-top: 3px;
-}
+
+
 .navbar .nav li.dropdown.open > .dropdown-toggle, 
 .navbar .nav li.dropdown.active > .dropdown-toggle, 
 .navbar .nav li.dropdown.open.active > .dropdown-toggle {

@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<div class="container">
 	<% provide(:title, 'Contact us') %>
 	<div id="contact" class="contact_page">
 		<div class="container">
@@ -9,7 +9,7 @@
 			</h2>
 
 			<div class="row map">
-				<div class="span12">
+				<div class="col-md-12">
 					<div class="gmaps">
 						<iframe style="width: 100%; height: 100%; border: none;" src="https://maps.google.com/maps?q=Megam+systems,+Chennai,+Tamil+Nadu,+India&hl=en&sll=37.0625,-95.677068&sspn=39.916234,80.859375&oq=Megam+syst&hq=Megam+systems,&hnear=Chennai,+Tamil+Nadu,+India&t=m&z=11&iwloc=A&amp;output=embed"></iframe>
 					</div>
@@ -19,29 +19,29 @@
 			</div>
 
 			<div class="row form">
-				<div class="span6">
+				<div class="col-md-6">
 					<%= spinner_tag 'spin_reset' %>
 					<%= form_tag contact_us_path, :method => :post, :name => "basic_validate", :id => "basic_validate", :novalidate => "novalidate", :remote => true, data: { spinlock: '#spin_reset'} do %>
 					<!--<form class="form-horizontal" method=post name="basic_validate" id="basic_validate" novalidate="novalidate">-->
-					<div class="control-group">
+					<div class="form-group">
 						<label class="control-label">Name</label>
 						<div class="controls">
-							<input type="text" class="span4 required" name="inputName" id="inputName">
+							<input type="text" class="col-md-4 required" name="inputName" id="inputName">
 						</div>
 					</div>
-					<div class="control-group">
+					<div class="form-group">
 						<label class="control-label">Email</label>
 						<div class="controls">
-							<input type="text" class="span4 required" name="inputEmail" id="inputEmail">
+							<input type="text" class="col-md-4 required" name="inputEmail" id="inputEmail">
 						</div>
 					</div>
-					<div class="control-group">
+					<div class="form-group">
 						<label class="control-label">Mobile Phone</label>
 						<div class="controls">
-							<input type="text" class="span4" name="inputPhone" id="inputPhone">
+							<input type="text" class="col-md-4" name="inputPhone" id="inputPhone">
 						</div>
 					</div>
-					<div class="control-group">
+					<div class="form-group">
 						<label class="control-label">PaaS - You Wish</label>
 						<div class="controls">
 							<select class="required" multiple name="multiple_selects">
@@ -54,13 +54,13 @@
 							</select>
 						</div>
 					</div>
-					<div class="control-group">
+					<div class="form-group">
 						<label class="control-label">Use case</label>
 						<div class="controls">
-							<textarea class="span4 required" name="inputComment" id="inputComment" rows="6" , placeholder="Briefly describe your cloud application, How do you intend to access it ?"></textarea>
+							<textarea class="col-md-4 required" name="inputComment" id="inputComment" rows="6" , placeholder="Briefly describe your cloud application, How do you intend to access it ?"></textarea>
 						</div>
 					</div>
-					<div class="control-group">
+					<div class="form-group">
 						<div class="controls action">
 
 							<%= submit_tag "Submit" %>
@@ -72,7 +72,7 @@
 					<!--</form>-->
 					<% end %>
 				</div>
-				<div class="span5 offset1">
+				<div class="col-md-5 col-md-offset-1">
 					<div class="address">
 						<h3>Address</h3>
 						<p>
