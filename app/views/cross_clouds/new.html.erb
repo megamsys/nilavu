@@ -17,9 +17,9 @@
 		</div>
 		<div class="widget-content">
 			<%= form_tag cross_clouds_path, :method => :post, :remote => true, data: { spinlock: '#spin_cross_cloud'}, :name => "basic_validate1", :id => "basic_validate", :novalidate => "novalidate" do %>
-            <input type="hidden" name="access_token" value="<%= @token %>">
-            <input type="hidden" name="refresh_token" value="<%= @refresh_token %>">
-            <input type="hidden" name="expire" value="<%= @expire %>">
+			<input type="hidden" name="access_token" value="<%= @token %>">
+			<input type="hidden" name="refresh_token" value="<%= @refresh_token %>">
+			<input type="hidden" name="expire" value="<%= @expire %>">
 			<div class="row-fluid">
 				<div class="span4">
 					<br/>
@@ -29,23 +29,14 @@
 					</div>
 					<br/>
 					<div class="row-fluid">
-						<div class="span2">
-							<%= label_tag "provider:" %>
-						</div>
-						<div class="span4">
-							<!--<%= select_tag "provider", "<option>Amazon EC2</option><option>hp cloud</option><option>Google cloud Engine</option>".html_safe %>-->
-							<%= select_tag "provider", options_for_select(cross_cloud, selected: "Amazon EC2"), :id => "cross_cloud_list" %>
-							<!--<select ng-model="color" ng-options="c.name for c in crossclouds" style="width:170px;" ng-click="change_cross()"></select><br>-->
-
-						</div>
-						<br/>
-						<br/>						
 						<div id="cc_name" >
-							Cross Cloud name : <%= text_field_tag 'name', nil, :class=> 'required', placeholder: 'Enter name' %>
+							Save this Cross Cloud As : <%= text_field_tag 'name', nil, :class=> 'required', placeholder: 'Enter a name' %>
 							<%= link_to "#" do %>
 							<i class="icon-question-sign"></i>
 							<% end %>
 						</div>
+						<br/>
+						<%= select_tag "provider", options_for_select(cross_cloud, selected: "Amazon EC2"), :id => "cross_cloud_list" %>
 					</div>
 					<br/>
 					<br/>
@@ -104,21 +95,21 @@
 					</div>
 					<br/>
 					<div id="cc_sshkey">
-						<%= text_field_tag 'ssh_key', nil, :class=> 'required', placeholder: 'Enter ssh key...' %>
+						<%= text_field_tag 'ssh_key', nil, :class=> 'required', placeholder: 'Enter SSH key...' %>
 						<%= link_to "#" do %>
 						<i class="icon-question-sign"></i>
 						<% end %>
 					</div>
 
 					<div id="cc_sshuser">
-						<%= text_field_tag 'ssh_user', nil, :class=> 'required', placeholder: 'Enter ssh User..' %>
+						<%= text_field_tag 'ssh_user', nil, :class=> 'required', placeholder: 'Enter SSH User..' %>
 						<%= link_to "#" do %>
 						<i class="icon-question-sign"></i>
 						<% end %>
 					</div>
 
 					<div id="cc_awspk">
-						<%= text_field_tag 'aws_private_key', nil, :class=> 'required', placeholder: 'Enter aws_private_key..' %>
+						<%= text_field_tag 'aws_private_key', nil, :class=> 'required', placeholder: 'Enter AWS_private_key..' %>
 						<%= link_to "#" do %>
 						<i class="icon-question-sign"></i>
 						<% end %>
@@ -132,19 +123,19 @@
 					</div>
 
 					<div id="cc_awsak">
-						<%= text_field_tag 'aws_access_key', nil, :class=> 'required', placeholder: 'Enter aws access key..' %>
+						<%= text_field_tag 'aws_access_key', nil, :class=> 'required', placeholder: 'Enter AWS access key..' %>
 						<%= link_to "#" do %>
 						<i class="icon-question-sign"></i>
 						<% end %>
 					</div>
 
 					<div id="cc_awssk">
-						<%= text_field_tag 'aws_secret_key', nil, :class=> 'required', placeholder: 'Enter aws secret key..' %>
+						<%= text_field_tag 'aws_secret_key', nil, :class=> 'required', placeholder: 'Enter AWS secret key..' %>
 						<%= link_to "#" do %>
 						<i class="icon-question-sign"></i>
 						<% end %>
 					</div>
-					
+
 					<div id="cc_gcli">
 						<%= text_field_tag 'google_client_id', nil, :class=> 'required', placeholder: 'Enter google client id..' %>
 						<%= link_to "#" do %>
