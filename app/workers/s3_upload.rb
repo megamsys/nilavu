@@ -1,18 +1,12 @@
 class S3Upload
   puts "----worker entry"
-  def self.perform(options = {})
+  def self.perform(filename, data)
     begin
-    #Upload AWS private key...
-      s3_object_file_upload(options[:email]+"/"+options[:name]+"/"+File.basename(options[:aws_private_key]), :file => options[:aws_private_key])
-
-      #Upload id rsa public key...
-      s3_object_file_upload(options[:email]+"/"+File.basename(options[:id_rsa_public_key]), :file => options[:id_rsa_public_key])
-
-      #Create and Upload type file ...
-      s3_object_file_upload(options[:email]+"/"+options[:name]+"/type", 'type='+options[:type])
-
-      #Create and Upload type file ...
-      s3_object_file_upload(options[:email]+"/"+options[:name]+"/"+options[:type], '-A='+options[:aws_access_key]+"\n"+'-K='+options[:aws_secret_key])
+      bucket = s3_bucket
+      # Grab a reference to an object in the bucket with the name we require
+      object = bucket.objects[filename]
+      # Write a local file to the aforementioned object on S3
+      object.write(data)      
     rescue StandardError => se
       hash = {"msg" => se.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)
@@ -24,14 +18,6 @@ class S3Upload
       @res = {"data" => {:body => res}}
       return @res["data"][:body]
     end
-  end
-
-  def self.s3_object_file_upload(filename, data)
-    bucket = s3_bucket
-    # Grab a reference to an object in the bucket with the name we require
-    object = bucket.objects[filename]
-    # Write a local file to the aforementioned object on S3
-    object.write(data)
   end
 
 =begin
