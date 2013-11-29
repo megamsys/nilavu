@@ -167,8 +167,8 @@ class UsersController < ApplicationController
       end
     else
       logger.debug "User update !api_key"
-      params[:user][:last_name] = @user.last_name if params[:user][:last_name].empty?
-      params[:user][:phone] = @user.phone if params[:user][:phone].empty?
+      #params[:user][:last_name] = @user.last_name if params[:user][:last_name].empty?
+      #params[:user][:phone] = @user.phone if params[:user][:phone].empty?
       if @user.update_attributes(params[:user])
         sign_in @user
         unless params[:user][:organization_attributes] && params[:user][:organization_attributes][:logo]

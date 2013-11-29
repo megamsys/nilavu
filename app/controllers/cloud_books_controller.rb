@@ -167,6 +167,24 @@ else
     end
   end
 
+def git_call
+     logger.debug "================================= > Git CALL <========================= "
+        auth_token = request.env['omniauth.auth']['credentials']['token']
+        github = Github.new oauth_token: auth_token
+        git_array = Array.new
+        github.repos.all.each do |repo|
+        	#puts repo
+        	#puts "===========================> URL <============================================"
+        	#puts repo.clone_url
+        	git_array.push repo.clone_url
+        end
+        @repos = git_array
+        puts "=========================================> GIT ARRAY <==================================== "
+        puts @repos
+        #render 'new'
+          render :template => "cloud_books/new", :locals => {:repos => @repos}
+        
+end
   def new
     logger.debug ("================================= > CB STEP1 <========================= ")
     if current_user.onboarded_api
@@ -180,12 +198,16 @@ else
   end
 
   def new_book
-    logger.debug "================================= > CB NEW STEP2 <========================= "
     add_breadcrumb "Cloud_Books", cloud_books_path
     add_breadcrumb "New Cloud_Platform Selection", new_cloud_book_path
     add_breadcrumb "Create", new_book_path
     @predef_name = params[:predef_name]
-
+    if"#{params[:deps_scm]}".strip.length != 0
+    @deps_scm = "#{params[:deps_scm]}"
+    elsif !"#{params[:scm]}".start_with("select")
+    @deps_scm = "#{params[:scm]}"
+    end
+    @deps_war = "#{params[:deps_war]}" if params[:deps_war]
     @book =  current_user.cloud_books.build
     predef_cloud_options = { :email => current_user.email, :api_key => current_user.api_token }
     predef_options = { :email => current_user.email, :api_key => current_user.api_token, :predef_name => @predef_name}

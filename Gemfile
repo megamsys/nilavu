@@ -21,6 +21,8 @@ gem "gritter", "~> 1.0.3"
 gem "flexslider", "~> 2.0.2"
 gem 'unicorn', :group => :production
 
+gem "github_api"
+
 # Database posgresql
 gem 'pg'
 gem 'twitter'
