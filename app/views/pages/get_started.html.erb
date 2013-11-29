@@ -1,11 +1,10 @@
 <% provide(:title, 'Get Started') %>
-<div class="container-fluid">
 	<div class="container">
 
 		<!-- header -->
 		<h2 class="section_header left"><span> Getting Started </span></h2>
 		<div class="row">
-			<div class="span6">
+			<div class="col-md-6">
 				<i class="i_cloud"></i><h4> Free, Hosted Environment</h4>
 				<p class="environments">
 				<p>
@@ -20,11 +19,11 @@
 					</code>
 					<% unless current_user %>
 				<p>
-					<%= link_to "Sign Up Now!", signup_path, :class => "btn btn-success btn-large" %>
+					<%= link_to "Sign Up Now!", signup_path, :class => "btn btn-default btn-success btn-lg" %>
 				</p>
 				<% end %>
 			</div>
-			<div class="span6">
+			<div class="col-md-6">
 				<i class="i_cloud"></i>
 				<h4> Private Hosted Environment</h4>
 				<p class="environments">
@@ -39,18 +38,18 @@
 					</code>
 				</p>
 				<p>
-					<%= link_to 'Installing Megam', "http://docs.megam.co/install", :class => 'btn btn-success btn-large' %>
+					<%= link_to 'Installing Megam', "http://docs.megam.co/install", :class => 'btn btn-default btn-success btn-lg' %>
 				</p>
 			</div>
 		</div>
 		</br>
 		<div class="row">
-			<div class="span12" align="center">
+			<div class="col-md-12" align="center">
 				<i class="i_cloud"></i><h4> Cloud Readiness</h4>
 				<p class="environments">
 					Read in this questionaire to see your PaaS readiness
 					<h5> Megam a polygot PaaS is a cloud platform that can be tailored for your needs. </h5>
-					<%= link_to "Am I Ready", "http://docs.megam.co/contactus", :class => "btn btn-info btn-large" %>
+					<%= link_to "Am I Ready", "http://docs.megam.co/contactus", :class => "btn btn-default btn-info btn-lg" %>
 				</p>
 			</div>
 		</div>
@@ -85,7 +84,7 @@
 
 		<div id="faq" class="faq_page">
 			<div class="row">
-				<div class="span12">
+				<div class="col-md-12">
 					<i class="i_chart"></i>
 					<h4>Quick Start </h4>
 					<p>
@@ -161,16 +160,16 @@
 				</div>
 				<hr/>
 				</br>
-				<div class="span6">
+				<div class="col-md-6">
 					<% unless current_user %>
 					<h3 align="center"> I have an account. </h3>
-					<h4 align="center"> <%= link_to "Sign In Now!", signin_path, :class => "btn btn-info btn-large" %> </h4>
+					<h4 align="center"> <%= link_to "Sign In Now!", signin_path, :class => "btn btn-default btn-info btn-lg" %> </h4>
 					<% end %>
 				</div>
-				<div class="span6">
+				<div class="col-md-6">
 					<%= image_tag "cloudshield.png", :alt => "cloud shield"%>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
+

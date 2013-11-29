@@ -6,9 +6,9 @@
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
-<div class="container-fluid" ng-cloak>
+<div class="container" ng-cloak>
 
-	<div class="row-fluid">
+	<div class="row">
 		<div class="alert alert-success alert-block">
 			<h4 class="alert-heading">First Step</h4>
 			<div>
@@ -24,8 +24,8 @@
 		</div>
 	</div>
 
-	<div class="row-fluid">
-		<div class="span6">
+	<div class="row">
+		<div class="col-md-6">
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"><i class="icon-time"></i></span>
@@ -33,19 +33,19 @@
 					<span class="label label-info">5 Simple steps</span>
 				</div>
 				<div class="widget-content">
-					<div class="accordion" id="collapse-group">
-						<div class="accordion-group widget-box">
-							<div class="accordion-heading">
+					<div class="panel-group" id="collapse-group">
+						<div class="panel panel-default widget-box">
+							<div class="panel-heading">
 								<div class="widget-title">
 									<a data-parent="#collapse-group" href="#collapseGOne" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 1: Verify your email address - <%= current_user.email %></h5> </a>
 								</div>
 							</div>
-							<div class="collapse accordion-body" id="collapseGOne">
+							<div class="collapse panel-collapse" id="collapseGOne">
 								<div class="widget-content">
-									<div class="container-fluid">
+									<div class="container">
 										<% if !current_user.verified_email %>
 										<%= current_user.email %>
-										<%= link_to 'Verify', email_verify_path(current_user.verification_hash), :class => "btn btn-warning btn-mini", :remote => true, :target => "_self", :data => {spinner: '#spin_mail'}, title: 'Verify your email for megam communication like billing, notifications etc', rel: 'tooltip' %>
+										<%= link_to 'Verify', email_verify_path(current_user.verification_hash), :class => "btn btn-default btn-warning btn-xs", :remote => true, :target => "_self", :data => {spinner: '#spin_mail'}, title: 'Verify your email for megam communication like billing, notifications etc', rel: 'tooltip' %>
 										<%= mini_spinner_tag 'spin_mail' %>
 
 										<% else %>
@@ -55,17 +55,17 @@
 								</div>
 							</div>
 						</div>
-						<div class="accordion-group widget-box">
-							<div class="accordion-heading">
+						<div class="panel panel-default widget-box">
+							<div class="panel-heading">
 								<div class="widget-title">
 									<a data-parent="#collapse-group" href="#collapseGTwo" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 2: Update your profile</h5> </a>
 								</div>
 							</div>
-							<div class="collapse in accordion-body" id="collapseGTwo">
+							<div class="collapse in panel-collapse" id="collapseGTwo">
 								<div class="widget-content">
-									<div class="container-fluid">
+									<div class="container">
 										<% if !current_user.organization %>
-										<%= link_to "Update", edit_user_path(current_user), class: "btn btn-warning btn-mini", :target => "_self", title: 'Update your organization deatils', rel: 'tooltip'  %> your profile
+										<%= link_to "Update", edit_user_path(current_user), class: "btn btn-default btn-warning btn-xs", :target => "_self", title: 'Update your organization deatils', rel: 'tooltip'  %> your profile
 										<% else %>
 										<%= current_user.first_name.capitalize %>, Great ! your profile is <span class="label label-info">up-to date.</span> Thank you.
 										<% end %>
@@ -73,54 +73,54 @@
 								</div>
 							</div>
 						</div>
-						<div class="accordion-group widget-box">
-							<div class="accordion-heading">
+						<div class="panel panel-default widget-box">
+							<div class="panel-heading">
 								<div class="widget-title">
 									<a data-parent="#collapse-group" href="#collapseGThree" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 3: Launch a Cloud Book </h5> <span class="label label-info">Java/Play/RoR/Node.js</span></a>
 								</div>
 							</div>
-							<div class="collapse accordion-body" id="collapseGThree">
+							<div class="collapse panel-collapse" id="collapseGThree">
 								<div class="widget-content">
 									<% if current_user.cloud_books.empty?  %>
-									<%= link_to "Take me there", new_cloud_book_path, :target => "_self" , class: "btn btn-warning btn-mini", title: 'Create a new cloud Book for your own application', rel: 'tooltip'  %>
+									<%= link_to "Take me there", new_cloud_book_path, :target => "_self" , class: "btn btn-default btn-warning btn-xs", title: 'Create a new cloud Book for your own application', rel: 'tooltip'  %>
 									<% else %>
 									Awesome ! <span class="label label-success"> you have one.</span>									
-									<%= link_to "Take me there", cloud_books_path, :target => "_self" , class: "btn btn-success btn-mini", title: 'See the list of your cloud books @ megam', rel: 'tooltip'  %>
+									<%= link_to "Take me there", cloud_books_path, :target => "_self" , class: "btn btn-default btn-success btn-xs", title: 'See the list of your cloud books @ megam', rel: 'tooltip'  %>
 									<% end %>
 								</div>
 							</div>
 						</div>
-						<div class="accordion-group widget-box">
-							<div class="accordion-heading">
+						<div class="panel panel-default widget-box">
+							<div class="panel-heading">
 								<div class="widget-title">
 									<a data-parent="#collapse-group" href="#collapseGFour" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 4: Customize Cross Cloud defaults</h5> <span class="label label-warning">*optional</span></a>
 								</div>
 							</div>
-							<div class="collapse accordion-body" id="collapseGFour">
+							<div class="collapse panel-collapse" id="collapseGFour">
 								<div class="widget-content">
-									<div class="container-fluid">
+									<div class="container">
 										<% if !current_user.onboarded_api %>
-										<%= link_to "Take me there", edit_user_path(current_user), :target => "_self" , class: "btn btn-warning btn-mini"  %>Profile
+										<%= link_to "Take me there", edit_user_path(current_user), :target => "_self" , class: "btn btn-default btn-warning btn-xs"  %>Profile
 										<% else %>
 										Super cool ! <span class="label label-success"> you have cross cloud defaults.</span>
-										<%= link_to "Take me there", cross_clouds_path, :target => "_self" , class: "btn btn-success btn-mini"  %>
+										<%= link_to "Take me there", cross_clouds_path, :target => "_self" , class: "btn btn-default btn-success btn-xs"  %>
 										<% end %>
 									</div>
 								</div>
 							</div>
 						</div>
-						<div class="accordion-group widget-box">
-							<div class="accordion-heading">
+						<div class="panel panel-default widget-box">
+							<div class="panel-heading">
 								<div class="widget-title">
 									<a data-parent="#collapse-group" href="#collapseGFive" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 5: Github Account ? </h5></a>
 								</div>
 							</div>
-							<div class="collapse accordion-body" id="collapseGFive">
+							<div class="collapse panel-collapse" id="collapseGFive">
 								<div class="widget-content">
 									Others scms, coming soon.
 									Awesome ! <span class="label label-success"> if you have one.</span>
 									(or)
-									<i class="icon-github"><%= link_to "Create ", "https://github.com", :target => "_blank" , class: "btn btn-success btn-mini", title: 'Create a Github.com Account', rel: 'tooltip'  %>
+									<i class="icon-github"><%= link_to "Create ", "https://github.com", :target => "_blank" , class: "btn btn-default btn-success btn-xs", title: 'Create a Github.com Account', rel: 'tooltip'  %>
 										</i>
 								</div>
 							</div>
@@ -129,7 +129,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="span6">
+		<div class="col-md-6">
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"><i class="icon-time"></i></span>
@@ -183,8 +183,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="row-fluid">
-		<div id="main" class="span12">
+	<div class="row">
+		<div id="main" class="col-md-12">
 			<ng-view ng-show="resolved" ng-cloak></ng-view>
 		</div>
 	</div>
@@ -206,7 +206,7 @@
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">
+			<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">
 				Ok
 			</button>
 		</div>

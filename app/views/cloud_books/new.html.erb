@@ -4,7 +4,7 @@
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
-<div class="container-fluid">
+<div class="container">
 	<div class="widget-content nopadding">
 
 		<%= form_tag(new_book_path, :method => "post", :name => "predef") do %>
@@ -14,17 +14,17 @@
 					<span class="icon"> <i class="icon-th-list"></i> </span>
 					<h5>Cloud Platform - App</h5>
 				</div>
-				<div class="row-fluid">
-					<div class="span12">
+				<div class="row">
+					<div class="col-md-12">
 						<div class="widget-content">
 							<p class="help-block">
 								<strong><span class="label label-info">*selection</span> Select any one platform </strong>
 							</p>
 							</br>
 
-							<div class="row-fluid">
+							<div class="row">
 								<div id="platformapps" class="required">
-									<div class="span3">
+									<div class="col-md-3">
 										<%= radio_button_tag :predef_name, 'java' %>
 										<%= label :platform, 'Java' do %>
 										<i class="logo_java"></i>
@@ -39,7 +39,7 @@
 										<% end %>
 
 									</div>
-									<div class="span3">
+									<div class="col-md-3">
 										<%= radio_button_tag :predef_name, 'nodejs' %>
 										<%= label :platform, 'Nodejs' do %>
 										<i class="logo_nodejs"></i>
@@ -50,8 +50,8 @@
 										<% end %>
 									</div>
 								</div>
-								<div class="span6">
-									<div class="row-fluid">
+								<div class="col-md-6">
+									<div class="row">
 										<div id="scalebooks">
 											<div class="alert">
 												<i class="icon-info-sign"></i> Scale books
@@ -70,7 +70,7 @@
 											</div>
 										</div>
 										</br>
-										<div class="row-fluid">
+										<div class="row">
 											<div class="alert alert-info alert-block">
 												<a class="close" data-dismiss="alert" href="#">×</a>
 												<h4 class="alert-heading">Info!</h4><i class="icon-ok"></i>
@@ -81,7 +81,7 @@
 												Instances Of:<span class="badge badge-important selected_platformapp">none</span>
 											</div>
 											<ul class="no-list link-block">
-												<li class="span6">
+												<li class="col-md-6">
 													<a href="support.html"> <h5><i class="icon-bar-chart"></i> Your platform isn't here?</h5> We are here to help
 													<div class="arrow-right">
 														<i class="icon-chevron-right"></i>
@@ -98,13 +98,13 @@
 				</div>
 			</div>
 		</div>
-		<div class="row-fluid">
-			<div class="span4"></div>
-			<div class="span4">
-				<%= submit_tag "Next", :class => "btn btn-large btn-success btn-block", :id => "cb_next", :disabled => true, :remote => true, :data => { :disable_with => "Please wait..."}, title: 'Please select your application platform and then click Next', rel: 'tooltip' %>
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<%= submit_tag "Next", :class => "btn btn-defaultbtn-lg btn-success btn-block", :id => "cb_next", :disabled => true, :remote => true, :data => { :disable_with => "Please wait..."}, title: 'Please select your application platform and then click Next', rel: 'tooltip' %>
 				<% end %>
 			</div>
-			<div class="span4"></div>
+			<div class="col-md-4"></div>
 		</div>
 	</div>
 
