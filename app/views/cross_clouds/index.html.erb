@@ -16,29 +16,23 @@
 			<div class="container-fluid">
 				<div class="span10">
 					<div class="span3">
-						<div class="cb_box">
-							<h4 align="center">Cross Cloud Counter</h4>
-							<h3 align="center" ><%= @cross_clouds.count %>/2</h3>
+						<div class="cb_box_withpadding">
+							<h4 align="center"> Count</h4><h3 align="center" ><span class="icon"><i class="icon-book"></i></span>&nbsp;<%= @cross_clouds.count %>
+							&nbsp; of 2</h3>
 						</div>
 						<br/>
-						<%= link_to "New Cross CLoud", new_cross_cloud_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
+						<%= link_to "New Cross Cloud", new_cross_cloud_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
 						<br/>
 
 						<div class="cb_box">
-							<h4 align="center" >Latest Creation</h4>
-							<% @cross_clouds.each do |pc| %>
-							<h5>
-							<p>
-								<b> Name = </b><%= pc.name %>
-								<br/>
-								<b> Created At = </b><%= pc.created_at %>
-							</p></h5>
-							<% break %>
-							<% end %>
+							<h4 align="center" >Recent Activity</h4>
+							<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @cross_clouds.last[:created_at] %></b></h5>
+							<h5 align="Center"><%= link_to "#{@cross_clouds.last[:name]}", cross_cloud_path(:id => "1", :name => "name"), :remote => true, data: { spinlock: '#crosscloud_current'} %> </h5>
+
 						</div>
 						<br/>
 
-						<%= link_to "Upgrade", pricing_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
+						<%= link_to "Upgrade", pricing_path, class: "btn btn-large btn-inverse btn-block", :target => "_self" %>
 
 					</div>
 					<!-- Span3 -->
@@ -96,9 +90,10 @@
 							<tbody>
 							<% @cross_clouds.each do |pre_cl| %>
 							<tr>
-							<td> <%= pre_cl.name %></td>
-							<td> <%= "Created @" %> </td>
-							<td> <%= link_to "View", cross_cloud_path(pre_cl.name), :remote => true, class: "btn btn-mini btn-success" %> </td>
+							<td> <%= pre_cl[:name] %></td>
+
+							<td><%= pre_cl[:created_at] %></td>
+							<td> <%= link_to "View", cross_cloud_path(pre_cl[:name]), :remote => true, class: "btn btn-mini btn-success" %> </td>
 							<td> <%= link_to "import", "#", class: "btn btn-mini btn-success" %> </td>
 							</tr>
 							<% end %>

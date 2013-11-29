@@ -77,7 +77,10 @@ module Cloudauth
     config.metric_source = 'demo'
     config.payment_gateway = 'demo'
     config.vault_server_path = 'https://s3-ap-southeast-1.amazonaws.com/cloudkeys/'
-
+    config.authorization_uri = 'https://accounts.google.com/o/oauth2/auth'
+    config.token_credential_uri = 'https://accounts.google.com/o/oauth2/token'
+    config.scope = 'https://www.googleapis.com/auth/userinfo.email'
+    config.redirect_uri = 'https://www.megam.co/auth/google_oauth2/callback'
 =begin
 config.assets.precompile << Proc.new do |path|
   if path =~ /\.(css|js)\z/

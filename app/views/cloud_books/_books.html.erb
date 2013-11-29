@@ -1,221 +1,185 @@
-<div class="span10">
-	<div class="span3">
-		<div class="cb_box">
-			<h4 align="center"> Count</h4>
-			<h3 align="center" ><span class="icon"><i class="icon-book"></i></span>&nbsp;<%= @cb_count %>&nbsp; of 2</h3>
-		</div>
-
-		<%= link_to "Create", new_cloud_book_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
-		<!--
-		<% cbhc = 6 %>
-		<% if cbhc < 2 %>
-		<br/>
-		<%= link_to "Create", new_cloud_book_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
-		<br/>
-		<% else %>
-		<br/>
-		<%= link_to "Create", "", class: "btn btn-large btn-success btn-block", :target => "_self", :disabled => true %>
-		<br/>
-		<% end %> -->
-
-		<br/>
-
-		<%= link_to "Run History Information", cloud_books_histories_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
-		<br/>
-
-		<span class="btn btn-large disabled btn-block"><h3><%= @cb_count %></h3> <h4>Launched </h4></span>
-
-		</br>
-		<%= link_to "Upgrade", pricing_path, class: "btn btn-large btn-inverse btn-block ", :target => "_self" %>
-		<a href="http://support.megam.co/kb/cloud-applications/"> <h5><i class="icon-bar-chart"></i></h5> We are here to help
-		<div class="arrow-right">
-			<i class="icon-chevron-right"></i>
-		</div> </a>
-	</div>
-	<!-- Span6 -->
-
-	<div class="span6">
-		<div class="widget-box">
-			<div class="widget-title">
-				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Your Usage</h5>
-			</div>
-			<div class="widget-content" >
-				<% @percent = @cb_count/2.0*100 %>
-				<div class="row-fluid">
-					<div class="span6">
-						<div class="cb_box">
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="span10">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Your Usage</h5>
+				</div>
+				<div class="widget-content" >
+					<div class="row-fluid">
+						<div class="span4">
+							<div class="cb_box">
+								<h4 align="center"> Count</h4><h3 align="center" ><span class="icon"><i class="icon-book"></i></span>&nbsp;<%= @cb_count %>&nbsp; of 2</h3> <% @percent = @cb_count/2.0*100 %>
+							</div>
 							<% if @percent >= 80 %>
-							<h4>
-							<p>
-								To launch more, click upgrade
-							</p></h4>
-							<div class="span1">
-								<h3>0</h3>
-							</div>
-							<div class="span9">
-								<div class="progress progress-danger">
-									<div class="bar" style="width: <%= @percent %>%;"></div>
-								</div>
-							</div>
-							<div class="span1">
-								<h3>2</h3>
+							<div class="progress progress-danger">
+								<div class="bar" style="width: <%= @percent %>%;"></div>
 							</div>
 							<% else %>
 							<br/>
-							<div class="span1">
-								<h3>0</h3>
+							<div class="progress progress-success">
+								<div class="bar" style="width: <%= @percent %>%;"></div>
 							</div>
-							<div class="span9">
-								<div class="progress progress-success">
-									<div class="bar" style="width: <%= @percent %>%;"></div>
+							<% end %>
+						</div>
+
+						<div class="span4">
+							<span class="btn btn-large disabled btn-block"><h3><%= @cb_count %></h3> <h4>Launched </h4> </span>
+							<i class="icon-question-sign"> <a href="http://support.megam.co/kb/cloud-applications/"> We are here to help </i>
+							</a>
+						</div>
+						<div class="span4">
+							<div class="cb_box">
+								<h4 align="center" >Recent Activity</h4><h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= latest_book.created_at.to_formatted_s(:rfc822) %></b></h5> <% @n_hash.select{|k, v|k==latest_book.name}.each do |k, v| %>
+								<% v.each do |node| %>
+								<% cloud_book = @nodes.lookup(node) %> <h5 align="Center"> <%= link_to "#{cloud_book.node_name}", cloud_book_path(:id => latest_book.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'} %> </h5> <% end %>
+								<% end %>
+							</div>
+						</div>
+					</div>
+					<div class="row-fluid">
+						<div class="span4">
+							<%= link_to "GoTo Run History", cloud_books_histories_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
+						</div>
+						<div class="span4">
+							<%= link_to "Create", new_cloud_book_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
+						</div>
+						<div class="span4">
+							<%= link_to "Upgrade", pricing_path, class: "btn btn-large btn-inverse btn-block ", :target => "_self" %>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span10">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Your Usage</h5>
+				</div>
+				<div class="widget-content" style="overflow-y: scroll; height: 300px;">
+					<% @n_hash.each do |k, v| %>
+					<% cb = CloudBook.find_by_name(k) %>
+					<div class="accordion" id="collapse-group">
+						<div class="accordion-group widget-box">
+							<div class="accordion-heading">
+								<div class="widget-title">
+									<a data-parent="#collapse-group" href="#collapse<%= k%>" data-toggle="collapse"> <span class="icon"> <i class="icon-magnet"></i></span> <% if cb.book_type == 'APP' %> <span class="label label-info"> <%= cb.book_type %> </span> <% elsif cb.book_type == 'BOLT' %> <span class="label label-warning"><%= cb.book_type %></span> <% end %> </a>
+									<p></p>
+									<span class="badge badge-info"><%= k%></span>
 								</div>
 							</div>
-							<div class="span1">
-								<h3>2</h3>
+							<div class="collapse accordion-body" id="collapse<%= k%>">
+								<div class="widget-content nopadding" style="overflow-x: scroll;">
+									<table class="table table-bordered table-striped table-hover">
+										<thead>
+											<tr>
+												<th>Actions</th>
+												<th>Name</th>
+												<th>Clone</th>
+												<th>Destroy</th>
+												<th>Created At</th>
+												<th>Status</th>
+											</tr>
+										</thead>
+										<tbody>
+											<% v.each do |node| %>
+
+											<tr>
+												<% cloud_book = @nodes.lookup(node) %>
+												<td> <% if cloud_book.node_type == "APP" %>
+												<div class="btn-group">
+													<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> Actions <span class="caret"></span> </a>
+													<ul class="dropdown-menu">
+														<li>
+															<%= link_to "Build App", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.appdefnsid, :req => "build"), :remote => true %>
+														</li>
+														<li class="divider"></li>
+														<li>
+															<%= link_to "Start App", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.appdefnsid, :req => "start"), :remote => true %>
+														</li>
+														<li>
+															<%= link_to "Stop App", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.appdefnsid, :req => "stop"), :remote => true %>
+														</li>
+														<li>
+															<%= link_to "Restart App", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.appdefnsid, :req => "restart"), :remote => true %>
+														</li>
+														<li class="divider"></li>
+														<li>
+															<%= link_to "More", cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'} %>
+														</li>
+													</ul>
+												</div> <% else %>
+												<div class="btn-group">
+													<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> Actions <span class="caret"></span> </a>
+													<ul class="dropdown-menu">
+														<li>
+															<%= link_to "Start Bolt", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.boltdefnsid, :req => "start"), :remote => true %>
+														</li>
+														<li>
+															<%= link_to "Stop Bolt", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.boltdefnsid, :req => "stop"), :remote => true %>
+														</li>
+														<li>
+															<%= link_to "Restart Bolt", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.boltdefnsid, :req => "restart"), :remote => true %>
+														</li>
+														<li>
+															<%= link_to "Build Bolt", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.boltdefnsid, :req => "build"), :remote => true %>
+														</li>
+														<li>
+															<%= link_to "More", cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'} %>
+														</li>
+													</ul>
+												</div> <% end %> </td>
+												<td> <%= link_to "#{cloud_book.node_name}", "http://#{cloud_book.node_name}" , { :target => '_blank'} %> </td>
+												<td>
+												<div class="span1">
+													<%= link_to clone_build_path(:name => cloud_book.node_name), :class =>"btn btn-mini btn-success", :title=> "CLone Cloud Book", :remote => true, method: :post do %> <i class="icon-plus-sign"> Clone</i>
+													<% end %>
+												</div></td>
+
+												<td>
+												<div class=" span1 container-fluid">
+													<%= link_to cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :n_hash => @n_hash), :class =>"btn btn-mini btn-danger", :title=> "Delete Cloud Book", method: :delete, :remote => true, :target => "_self", :data => { :confirm => "Are you sure?", spinner: '#delete_node'} do %> <i class="icon-trash"> Delete</i>
+													<% end %>  <%= mini_spinner_tag 'delete_node' %>
+												</div></td>
+
+												<td>
+												<div class="span1">
+													<span class="icon"> <i class="icon-calendar"></i> </span> <%= cloud_book.created_at.to_datetime.to_formatted_s(:rfc822) %>
+												</div></td>
+
+												<!--<td> <%= link_to "delete", cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :n_hash => @n_hash), method: :delete, class: "btn btn-mini btn-success", :data => { :confirm => "Are you sure?"}%></td>-->
+												<td> <%= cloud_book.status %> </td>
+
+											</tr>
+
+											<% end %>
+										</tbody>
+
+									</table>
+
+								</div>
 							</div>
-							<% end %>
 						</div>
 					</div>
-					<div class="span6">
-						<div class="cb_box">
-							<h4 align="center" >Recent Activity</h4>
-							<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= latest_book.created_at.to_formatted_s(:rfc822) %></b></h5>
-							<% @n_hash.select{|k, v|k==latest_book.name}.each do |k, v| %>
-							<% v.each do |node| %>
-							<% cloud_book = @nodes.lookup(node) %>
-							<h5 align="Center"> <%= link_to "#{cloud_book.node_name}", cloud_book_path(:id => latest_book.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'} %> </h5>
-							<% end %>
-							<% end %>
-							<!--<% @latest_cloud_book = latest_book %>
-							<h5 align="Center"><%= @latest_cloud_book.name %></h5>-->
-						</div>
-					</div>
+					<% end %>
 				</div>
 			</div>
 		</div>
-
-		<div class="widget-box">
-			<div class="widget-title">
-				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Your Usage</h5>
-			</div>
-			<div class="widget-content" style="overflow-y: scroll; height: 200px;">
-				<% @n_hash.each do |k, v| %>
-				<% cb = CloudBook.find_by_name(k) %>
-				<div class="accordion" id="collapse-group">
-					<div class="accordion-group widget-box">
-						<div class="accordion-heading">
-							<div class="widget-title">
-								<a data-parent="#collapse-group" href="#collapse<%= k%>" data-toggle="collapse"> <span class="icon"> <i class="icon-magnet"></i></span> <% if cb.book_type == 'APP' %> <span class="label label-info"> <%= cb.book_type %> </span> <% elsif cb.book_type == 'BOLT' %> <span class="label label-warning"><%= cb.book_type %></span> <% end %> </a>
-								<p></p>
-								<span class="badge badge-info"><%= k%></span>
-							</div>
-						</div>
-						<div class="collapse accordion-body" id="collapse<%= k%>">
-							<div class="widget-content nopadding" style="overflow-x: scroll;">
-								<table class="table table-bordered table-striped table-hover">
-									<thead>
-										<tr>
-											<th>Actions</th>
-											<th>Name</th>
-											<th>Clone</th>
-											<th>Destroy</th>
-											<th>Created At</th>
-											<th>Status</th>
-										</tr>
-									</thead>
-									<tbody>
-										<% v.each do |node| %>
-
-										<tr>
-											<% cloud_book = @nodes.lookup(node) %>
-											<td> <% if cloud_book.node_type == "APP" %>
-											<div class="btn-group">
-												<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> Actions <span class="caret"></span> </a>
-												<ul class="dropdown-menu">
-													<li>
-														<%= link_to "Start App", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.appdefnsid, :req => "start"), :remote => true %>
-													</li>
-													<li>
-														<%= link_to "Stop App", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.appdefnsid, :req => "stop"), :remote => true %>
-													</li>
-													<li>
-														<%= link_to "Restart App", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.appdefnsid, :req => "restart"), :remote => true %>
-													</li>
-													<li>
-														<%= link_to "Build App", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.appdefnsid, :req => "build"), :remote => true %>
-													</li>
-													<li>
-														<%= link_to "More", cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'} %>
-													</li>
-												</ul>
-											</div> <% else %>
-											<div class="btn-group">
-												<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> Actions <span class="caret"></span> </a>
-												<ul class="dropdown-menu">
-													<li>
-														<%= link_to "Start Bolt", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.boltdefnsid, :req => "start"), :remote => true %>
-													</li>
-													<li>
-														<%= link_to "Stop Bolt", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.boltdefnsid, :req => "stop"), :remote => true %>
-													</li>
-													<li>
-														<%= link_to "Restart Bolt", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.boltdefnsid, :req => "restart"), :remote => true %>
-													</li>
-													<li>
-														<%= link_to "Build Bolt", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.boltdefnsid, :req => "build"), :remote => true %>
-													</li>
-													<li>
-														<%= link_to "More", cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'} %>
-													</li>
-												</ul>
-											</div> <% end %> </td>
-											<td> <%= link_to "#{cloud_book.node_name}", "http://#{cloud_book.node_name}" , { :target => '_blank'} %> </td>
-											<td>
-											<div class="span1">
-												<%= link_to clone_build_path(:name => cloud_book.node_name), :class =>"btn btn-mini btn-success", :title=> "CLone Cloud Book", :remote => true, method: :post do %> <i class="icon-plus-sign"> Clone</i>
-												<% end %>
-											</div></td>
-
-											<td>
-											<div class=" span1 container-fluid">
-												<%= link_to cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :n_hash => @n_hash), :class =>"btn btn-mini btn-danger", :title=> "Delete Cloud Book", method: :delete, :remote => true, :target => "_self", :data => { :confirm => "Are you sure?", spinner: '#delete_node'} do %> <i class="icon-trash"> Delete</i>
-												<% end %>  <%= mini_spinner_tag 'delete_node' %>
-											</div></td>
-
-											<td>
-											<div class="span1">
-												<span class="icon"> <i class="icon-calendar"></i> </span> <%= cloud_book.created_at.to_datetime.to_formatted_s(:rfc822) %>
-											</div></td>
-
-											<!--<td> <%= link_to "delete", cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :n_hash => @n_hash), method: :delete, class: "btn btn-mini btn-success", :data => { :confirm => "Are you sure?"}%></td>-->
-											<td> <%= cloud_book.status %> </td>
-
-										</tr>
-
-										<% end %>
-									</tbody>
-
-								</table>
-
-							</div>
-						</div>
-					</div>
-				</div>
-				<% end %>
-			</div>
-		</div>
-
 	</div>
-	<!-- Span6 -->
+	<div class="row-fluid">
+		<div class="span10" >
+			<div  id="cb_action"></div>
+		</div>
 
-	<div class="span10" >
-		<div  id="cb_action"></div>
 	</div>
 
 </div>
-<!-- Span110 -->
+<!-- container-fluid -->
 
 <div id="cloudbook_request_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
