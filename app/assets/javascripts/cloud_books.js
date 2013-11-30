@@ -11,10 +11,12 @@
 
 		$('.books_total').text(books_count).fadeIn('slow');
 		$('#cb_count').val(books_count);
-		$('.selected_platformapp').fadeIn('slow').text(selected_platformapp);
+		$('#selected_platformapp').fadeIn('slow').html('<div id="selected_platformapp"><b>' + selected_platformapp +'</b></div>');
 		
 
 	};	
+	
+	
 	
 })( jQuery );
 
@@ -45,6 +47,12 @@ $(document).ready(function(){
 		//_gaq.push(['_trackEvent', 'Calculator', 'Service', service]);	
 	});
 	
+	$("[id^=githubsample_]").click(function() {
+			var selected_github = $(this).next().attr("href");
+			$("#deps_scm").val(selected_github);
+			$("#deps_scm").fadeIn("slow");
+			});	
+	
 	
 	//add the functionality to the +/- buttons
 	scale_counter.delegate('.instances a.plus', 'click', function(){ 
@@ -73,12 +81,3 @@ $(document).ready(function(){
 	
 
 });
-
-
-
-
-
-
-
-
-

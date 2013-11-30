@@ -44,7 +44,7 @@ class CrossCloudsController < ApplicationController
     @res_body = CreatePredefClouds.perform(options)
     if @res_body.class == Megam::Error
       @res_msg = nil
-      @err_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      @err_msg="Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
       respond_to do |format|
         format.js {
           respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
@@ -59,14 +59,14 @@ class CrossCloudsController < ApplicationController
       @aws_upload = S3Upload.perform(upload_option)
       if @aws_upload.class == Megam::Error
         @res_msg = nil
-        @err_msg="Cross Cloud Files uploading was failed. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+        @err_msg="Failed to upload cross cloud files. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
         respond_to do |format|
           format.js {
             respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
           }
         end
       else
-        @res_msg= "Cross cloud predefintion <"+ params[:name] + "> created successfully."
+        @res_msg= "Cross cloud defintion :"+ params[:name] + " created successfully."
         respond_to do |format|
           format.js {
             respond_with(@res_msg, @err_msg, :layout => !request.xhr? )

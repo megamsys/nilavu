@@ -190,7 +190,6 @@
 	</div>
 
 	<div id="email_verify_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 				×
@@ -198,10 +197,11 @@
 			<h3 id="myModalLabel">Email Verification</h3>
 		</div>
 		<div class="modal-body">
-			<div class="alert">
+			<div class="alert alert-success">
 
 				<div id="msg">
-					Email has been sent to <%= current_user.email %> for email verification. Please check your email and follow the instructions
+					Email has been sent to <h5><%= current_user.email %></h5> for verification. 
+					Please check your email and follow the instructions
 				</div>
 			</div>
 		</div>

@@ -1,12 +1,33 @@
-	<p><b>Cross Cloud Name = </b><%= cross_cloud.name %></p>
-	<p><b>Cloud Type = </b><%= cross_cloud.spec[:type_name] %></p>
-	<p><b>Group = </b><%= cross_cloud.spec[:groups] %></p>
-	<p><b>Image = </b><%= cross_cloud.spec[:image] %></p>
-	<p><b>Flavor = </b><%= cross_cloud.spec[:flavor] %></p><br/>
-	<p><b>SSH Key = </b><%= cross_cloud.access[:ssh_key] %></p>
-	<p><b>Identity File = </b><%= cross_cloud.access[:identity_file] %></p>
-	<p><b>SSH User = </b><%= cross_cloud.access[:ssh_user] %></p><br/>
-	<p><b>Cross Cloud Ideal = </b><%= cross_cloud.ideal %></p>
-	<p><b>Cross Cloud Performance = </b><%= cross_cloud.performance %></p>
-
-
+<h3><span class="label label-important"><%= cross_cloud.name %></span></h3>
+<table class="table table-bordered">
+	<tbody>
+		<tr>
+			<td>Cloud Type</td>
+			<td><b><%= cross_cloud.spec[:type_name] %></b></td>
+		</tr>
+		<tr>
+			<td>Group</td>
+			<td><b><%= cross_cloud.spec[:groups] %></b></td>
+		</tr>
+		<tr>
+			<td>Image</td>
+			<td><b><%= cross_cloud.spec[:image] %></b></td>
+		</tr>
+		<tr>
+			<td>Flavor</td>
+			<td><b><%= cross_cloud.spec[:flavor] %></b></td>
+		</tr>
+		<tr>
+			<td>SSH Key</td>
+			<td><b><%= cross_cloud.access[:ssh_key] %></b></td>
+		</tr>
+		<tr>
+			<td>Identity File</td>
+			<td><%= cross_cloud.access[:identity_file] %></td>
+		</tr>
+		<tr>
+			<td>SSH User</td>
+			<td><b><%= cross_cloud.access[:ssh_user] %></b></td>
+		</tr>
+	</tbody>
+</table>

@@ -5,25 +5,25 @@ var msg = '<%= @res_msg %>';
 $('#api_key_field').val('<%= @api_token %>');
 var selected_entity = '#profile_postfinish_popup';
 $(selected_entity).modal('show');
-$("#msg").append('<h5>API Key regenerated <%= @res_msg %>.You are onboarded</h5>');
+$("#msg").append('API Key was refreshed successfully <%= @res_msg %>.');
 <% end %>
 
 <% if @user_fields_form_type == 'password'%>
 var selected_entity = '#profile_postfinish_popup';
 $(selected_entity).modal('show');
-$("#msg").append('<h5>Password updated successfully</h5>');
+$("#msg").append('Your password was updated successfully</h5>');
 <% end %>
 
 <% if @user_fields_form_type == 'organization'%>
 var selected_entity = '#profile_postfinish_popup';
 $(selected_entity).modal('show');
-$("#msg").append('<h5>Organization updated successfully</h5>');
+$("#msg").append('Your organization details were updated successfully</h5>');
 <% end %>
 
 <% if @user_fields_form_type == 'user'%>
 var selected_entity = '#profile_postfinish_popup';
 $(selected_entity).modal('show');
-$("#msg").append('<h5>User updated successfully</h5>');
+$("#msg").append('Your account details were updated successfully');
 <% end %>
 
 $('.alert_flash_<%= @user_fields_form_type %>').replaceWith('<div class="alert alert-success fade in"><a href="#" data-dismiss="alert" class="close">×</a><h4 align="center">Updated successfully</h4></div>').fadeIn("slow");

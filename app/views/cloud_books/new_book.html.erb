@@ -116,10 +116,10 @@
 							<div class="row-fluid">
 								<div class="span12">
 									<div class="span1">
-										<h3 align="center"><i class="i_cloud"></i></h3>
+										<h3 align="center"><i class="i_chart"></i></h3>
 									</div>
 									<div class="span4">
-										<span> <h5>Want us to monitor ? <h5></h5></span>
+										<span> Want us to monitor ?</span>
 									</div>
 									<div class = "span3">
 										<div class="back" id="toggle">
@@ -139,10 +139,10 @@
 							<div class="row-fluid">
 								<div class="span12">
 									<div class="span1">
-										<h3 align="center"><i class="i_chart"></i></h3>
+										<h3 align="center"><i class="icon-download-alt"></i></h3>
 									</div>
 									<div class="span4">
-										<span> <h5>Want us to stream logs ?<h5></span>
+										<span>Want us to stream logs ?</span>
 									</div>
 									<div class = "span3">
 										<div class="back" id="toggle">
@@ -163,11 +163,11 @@
 							<div class="row-fluid">
 								<div class="span12">
 									<div class="span1">
-										<h3 align="center"><i class="icon-briefcase"></i></h3>
+										<h3 align="center"><i class="icon-edit"></i></h3>
 									</div>
 									<div class="span4">
-										<span> <h5>Wish to change default start script <span class="label label-warning"> *optional</span></h5></span>
-
+										<span class="label label-warning"> *optional</span>
+										<span> Wish to change default start script </span>
 									</div>
 									<div class="span7">
 										<%= text_field_tag 'runtime_exec', "#{@predef.runtime_exec}", placeholder: 'Modify runtime exec - script' %>
@@ -179,10 +179,10 @@
 							<div class="row-fluid">
 								<div class="span12">
 									<div class="span1">
-										<h3 align="center"><i class="icon-briefcase"></i></h3>
+										<h3 align="center"><i class="icon-fire"></i></h3>
 									</div>
 									<div class="span4">
-										<span> <h4>Time to kill <span class="label label-warning"> *free accounts - instances run for a day</span><h4></span>
+									<span class="label label-warning"> *free accounts - instances run for a day</span>	<span>Your Start Time</span>
 
 									</div>
 									<div class="span7">
@@ -237,7 +237,7 @@
 			<div class="alert alert-success">
 
 				<p>
-					<h4> A cloud book creation request to the megam cloud server was successful. </h4>
+					A cloud book creation request to the megam cloud server was successful.
 					</br>
 					<strong>Click<span class="label label-info"> OK </span> to watch the status Real Time</strong>
 				</p>
@@ -255,10 +255,10 @@
 			<h3 id="myModalLabel">Cloud Book</h3>
 		</div>
 		<div class="modal-body">
-			<div class="alert">
+			<div class="alert alert-error">
 
 				<p>
-					<h4> A cloud book creation request to the megam cloud server was not successful. </h4>
+					A cloud book creation request to the megam cloud server was not successful.
 					</br>
 					<div id="err_msg"></div>
 				</p>

@@ -28,12 +28,18 @@
 						<h4 class="alert-heading">Select Cloud Provider</h4>
 					</div>
 					<br/>
+
 					<div class="row-fluid">
-						<div id="cc_name" >
-							Save this Cross Cloud As : <%= text_field_tag 'name', nil, :class=> 'required', placeholder: 'Enter a name' %>
-							<%= link_to "#" do %>
-							<i class="icon-question-sign"></i>
-							<% end %>
+
+						<div class="control-group">
+							<div class="controls">
+								<div id="cc_name" >
+									Save this Cross Cloud As : <%= text_field_tag 'name', nil, :class=> 'required', placeholder: 'Enter a name' %>
+									<%= link_to "#" do %>
+									<i class="icon-question-sign"></i>
+									<% end %>
+								</div>
+							</div>
 						</div>
 						<br/>
 						<%= select_tag "provider", options_for_select(cross_cloud, selected: "Amazon EC2"), :id => "cross_cloud_list" %>
@@ -60,31 +66,47 @@
 						<h4 class="alert-heading">Image & Size</h4>
 					</div>
 					<br/>
-					<div id="cc_pname">
-						<%= text_field_tag 'project_name', nil, :class=> 'required', placeholder: 'Enter project name ..' %>
-						<%= link_to "#" do %>
-						<i class="icon-question-sign"></i>
-						<% end %>
-					</div>
-					<div id="cc_group">
-						<%= text_field_tag 'group', nil, :class=> 'required', placeholder: 'Enter Group name' %>
-						<%= link_to "#" do %>
-						<i class="icon-question-sign"></i>
-						<% end %>
-					</div>
-					<div id="cc_image">
-						<%= text_field_tag 'image', nil, :class=> 'required', placeholder: 'Enter Image value...' %>
-						<%= link_to "#" do %>
-						<i class="icon-question-sign"></i>
-						<% end %>
-					</div>
-					<div id="cc_flavor">
-						<%= text_field_tag 'flavour', nil, :class=> 'required', placeholder: 'Enter instance size...' %>
-						<%= link_to "#" do %>
-						<i class="icon-question-sign"></i>
-						<% end %>
-					</div>
 
+					<div class="control-group">
+						<div class="controls">
+							<div id="cc_pname">
+								<%= text_field_tag 'project_name', nil, :class=> 'required', placeholder: 'Enter project name ..' %>
+								<%= link_to "#" do %>
+								<i class="icon-question-sign"></i>
+								<% end %>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<div id="cc_group">
+								<%= text_field_tag 'group', nil, :class=> 'required', placeholder: 'Enter Group name' %>
+								<%= link_to "#" do %>
+								<i class="icon-question-sign"></i>
+								<% end %>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<div id="cc_image">
+								<%= text_field_tag 'image', nil, :class=> 'required', placeholder: 'Enter Image value...' %>
+								<%= link_to "#" do %>
+								<i class="icon-question-sign"></i>
+								<% end %>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<div id="cc_flavor">
+								<%= text_field_tag 'flavour', nil, :class=> 'required', placeholder: 'Enter instance size...' %>
+								<%= link_to "#" do %>
+								<i class="icon-question-sign"></i>
+								<% end %>
+							</div>
+						</div>
+					</div>
 				</div>
 
 				<div class="span4">
@@ -184,7 +206,7 @@
 			<div class="alert alert-success">
 
 				<p>
-					<h4 id="res_msg"></h4>
+					<div id="res_msg"></div>
 					</br>
 				</p>
 			</div>
@@ -204,7 +226,7 @@
 			<div class="alert alert-error">
 
 				<p>
-					<h4> A cross clouds creation request to the megam cloud server was not successful. </h4>
+					A cross clouds creation request to the megam cloud server was not successful.
 					</br>
 					<div id="err_msg"></div>
 				</p>
