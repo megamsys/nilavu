@@ -14,9 +14,8 @@ $(document).ready(function() {
 
 	// Form Validation
 
-
-var $radio_predef = $('input:radio[name="predef_name"]');
-$radio_predef.addClass("validate[required]");
+	var $radio_predef = $('input:radio[name="predef_name"]');
+	$radio_predef.addClass("validate[required]");
 
 	$("#basic_validate").validate({
 		rules : {
@@ -27,6 +26,7 @@ $radio_predef.addClass("validate[required]");
 		 **********************************************************************/
 
 		},
+		debug : true,
 		errorClass : "help-inline",
 		errorElement : "span",
 		highlight : function(element, errorClass, validClass) {
@@ -108,15 +108,15 @@ $radio_predef.addClass("validate[required]");
 			});
 		}
 	});
-	
+
 	var validator = $(".user_fields_form_organization").validate({
-		rules : {			
+		rules : {
 			"user[name]" : {
-				required : true				
+				required : true
 			},
 			"user[url]" : {
-				required : true				
-			}			
+				required : true
+			}
 		},
 		errorClass : "help-inline",
 		errorElement : "span",
@@ -138,34 +138,19 @@ $radio_predef.addClass("validate[required]");
 		}
 	});
 
-	/*var validator = $(".cc_form").validate({
-		rules : {			
-			"$("#cc_name").val()" : {
-				required : true				
-			},
-			$("#cc_group").val() : {
-				required : true				
-			}			
-		},
-		errorClass : "help-inline",
-		errorElement : "span",
-		highlight : function(element, errorClass, validClass) {
-			$(element).parents('.control-group').removeClass('success');
-			$(element).parents('.control-group').addClass('error');
+	/*
+	 * var validator = $(".cc_form").validate({ rules : { "$("#cc_name").val()" : {
+	 * required : true }, $("#cc_group").val() : { required : true } },
+	 * errorClass : "help-inline", errorElement : "span", highlight :
+	 * function(element, errorClass, validClass) {
+	 * $(element).parents('.control-group').removeClass('success');
+	 * $(element).parents('.control-group').addClass('error');
+	 *  }, unhighlight : function(element, errorClass, validClass) {
+	 * $(element).parents('.control-group').removeClass('error');
+	 * $(element).parents('.control-group').addClass('success');
+	 *  }, submitHandler : function(form) { showLoadingScreen();
+	 * $.rails.handleRemote($(form)).always(function() { hideLoadingScreen() }); }
+	 * });
+	 */
 
-		},
-		unhighlight : function(element, errorClass, validClass) {
-			$(element).parents('.control-group').removeClass('error');
-			$(element).parents('.control-group').addClass('success');
-
-		},
-		submitHandler : function(form) {
-			showLoadingScreen();
-			$.rails.handleRemote($(form)).always(function() {
-				hideLoadingScreen()
-			});
-		}
-	});*/
-	
 });
-

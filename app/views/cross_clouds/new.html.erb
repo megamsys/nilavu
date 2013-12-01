@@ -30,19 +30,20 @@
 					<br/>
 
 					<div class="row-fluid">
-
 						<div class="control-group">
 							<div class="controls">
-								<div id="cc_name" >
-									Save this Cross Cloud As : <%= text_field_tag 'name', nil, :class=> 'required', placeholder: 'Enter a name' %>
-									<%= link_to "#" do %>
-									<i class="icon-question-sign"></i>
-									<% end %>
-								</div>
+								Save this Cross Cloud As : <%= text_field_tag 'name', nil, :class=> 'required', placeholder: 'Enter a name' %>
+								<%= link_to "#" do %>
+								<i class="icon-question-sign"></i>
+								<% end %>
 							</div>
 						</div>
 						<br/>
-						<%= select_tag "provider", options_for_select(cross_cloud, selected: "Amazon EC2"), :id => "cross_cloud_list" %>
+						<div class="control-group">
+							<div class="controls" required name="cross cloud type">
+								<%= select_tag "provider",options_for_select(cross_cloud, selected: "Amazon EC2"), :id => "cross_cloud_list" , :name =>"type", :class => "filled" %>
+							</div>
+						</div>
 					</div>
 					<br/>
 					<br/>
@@ -69,42 +70,34 @@
 
 					<div class="control-group">
 						<div class="controls">
-							<div id="cc_pname">
-								<%= text_field_tag 'project_name', nil, :class=> 'required', placeholder: 'Enter project name ..' %>
-								<%= link_to "#" do %>
-								<i class="icon-question-sign"></i>
-								<% end %>
-							</div>
+							<%= text_field_tag 'project_name', nil, :class=> 'text_field required', placeholder: 'Enter project name ..' %>
+							<%= link_to "#" do %>
+							<i class="icon-question-sign"></i>
+							<% end %>
 						</div>
 					</div>
 					<div class="control-group">
 						<div class="controls">
-							<div id="cc_group">
-								<%= text_field_tag 'group', nil, :class=> 'required', placeholder: 'Enter Group name' %>
-								<%= link_to "#" do %>
-								<i class="icon-question-sign"></i>
-								<% end %>
-							</div>
+							<%= text_field_tag 'group', nil, :class=> 'required', placeholder: 'Enter Group name' %>
+							<%= link_to "#" do %>
+							<i class="icon-question-sign"></i>
+							<% end %>
 						</div>
 					</div>
 					<div class="control-group">
 						<div class="controls">
-							<div id="cc_image">
-								<%= text_field_tag 'image', nil, :class=> 'required', placeholder: 'Enter Image value...' %>
-								<%= link_to "#" do %>
-								<i class="icon-question-sign"></i>
-								<% end %>
-							</div>
+							<%= text_field_tag 'image', nil, :class=> 'required', placeholder: 'Enter Image value...' %>
+							<%= link_to "#" do %>
+							<i class="icon-question-sign"></i>
+							<% end %>
 						</div>
 					</div>
 					<div class="control-group">
 						<div class="controls">
-							<div id="cc_flavor">
-								<%= text_field_tag 'flavour', nil, :class=> 'required', placeholder: 'Enter instance size...' %>
-								<%= link_to "#" do %>
-								<i class="icon-question-sign"></i>
-								<% end %>
-							</div>
+							<%= text_field_tag 'flavour', nil, :class=> 'required', placeholder: 'Enter instance size...' %>
+							<%= link_to "#" do %>
+							<i class="icon-question-sign"></i>
+							<% end %>
 						</div>
 					</div>
 				</div>
@@ -183,62 +176,57 @@
 			<div class="row-fluid">
 				<div class="span4"></div>
 				<div class="span4">
-					<div class="control-group">
-						<div class="controls action">
-							<%= submit_tag "Save", :class => "btn btn-large btn-success btn-block"%>
-						</div>
-					</div>
+					<%= submit_tag "Save", :class => "btn btn-large btn-success btn-block"%>
+				</div>
+				<% end %>
+			</div>
+		</div>
+
+		<div id="crosscloud_postfinish_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">Cross Cloud</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-success">
+
+					<p>
+						<div id="res_msg"></div>
+						</br>
+					</p>
 				</div>
 			</div>
-			<% end %>
+			<div class="modal-footer" id="crossclouds_path"></div>
 		</div>
-	</div>
 
-	<div id="crosscloud_postfinish_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div id="crosscloud_postfinish_popup_error" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-				×
-			</button>
-			<h3 id="myModalLabel">Cross Cloud</h3>
-		</div>
-		<div class="modal-body">
-			<div class="alert alert-success">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">Cross Clouds</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-error">
 
-				<p>
-					<div id="res_msg"></div>
-					</br>
-				</p>
+					<p>
+						A cross clouds creation request to the megam cloud server was not successful.
+						</br>
+						<div id="err_msg"></div>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<%= link_to  "Ok", new_cross_cloud_path, :class => "btn btn-primary", :target => "_self" %>
 			</div>
 		</div>
-		<div class="modal-footer" id="crossclouds_path"></div>
+
 	</div>
+	<!-- container-fluid -->
 
-	<div id="crosscloud_postfinish_popup_error" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-				×
-			</button>
-			<h3 id="myModalLabel">Cross Clouds</h3>
-		</div>
-		<div class="modal-body">
-			<div class="alert alert-error">
-
-				<p>
-					A cross clouds creation request to the megam cloud server was not successful.
-					</br>
-					<div id="err_msg"></div>
-				</p>
-			</div>
-		</div>
-		<div class="modal-footer">
-			<%= link_to  "Ok", new_cross_cloud_path, :class => "btn btn-primary", :target => "_self" %>
-		</div>
-	</div>
-
-</div>
-<!-- container-fluid -->
-
-<% end %>
-<%= render :template => users_show_path %>
+	<% end %>
+	<%= render :template => users_show_path %>
