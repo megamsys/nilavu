@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
-  revision: 4b8a511e65181e28fd3caecdcf5ba730f4afe2b1
+  revision: 04bd5abba8e63f6004ebc50cde455da08b858023
   specs:
     twitter-bootstrap-rails (2.2.8)
       actionpack (>= 3.1)
@@ -297,7 +297,7 @@ GEM
       memoizable (~> 0.2.0)
       simple_oauth (~> 0.2.0)
     tzinfo (0.3.38)
-    uglifier (2.3.1)
+    uglifier (2.3.2)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     unicorn (4.7.0)

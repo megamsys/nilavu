@@ -1,7 +1,4 @@
 <% if @node_name %>
-var test = '<%= @node_name %>';
-alert(test);
-
 
 var selected_entity = '#cloudbook_request_popup';
 $("#req_type_pop").val('<%= @req_type %>');
@@ -11,5 +8,5 @@ $(selected_entity).modal('show');
 
 
 <% else %>
-alert("TEST Build Request");
+alert("TEST Build Request No value");
 <% end %>

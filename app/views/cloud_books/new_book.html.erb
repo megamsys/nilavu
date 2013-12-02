@@ -217,8 +217,7 @@
 		<div class="span4"></div>
 		<div class="span4 container-fluid">
 			<%= f.submit nil, :class => "btn btn-large btn-success btn-block", :data =>
-			{spinner: '#create_book'} %>
-			<%= mini_spinner_tag 'create_book' %>
+			{:disable_with => "Creating Book..."} %>
 			<% end %>
 		</div>
 		<div class="span4"></div>
@@ -243,7 +242,9 @@
 				</p>
 			</div>
 		</div>
-		<div class="modal-footer" id="history_path"></div>
+		<div class="modal-footer">
+		<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary", :target => "_self" %>
+		</div>
 	</div>
 
 	<div id="cloudbook_postfinish_popup_error" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

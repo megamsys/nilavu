@@ -20,6 +20,6 @@ ActionMailer::Base.smtp_settings = {
 }
 
 #ActionMailer::Base.default_url_options[:host] = "localhost:3000"
-ActionMailer::Base.default_url_options[:host] = "www.megam.co.in"
+ActionMailer::Base.default_url_options[:host] = "https://www.megam.co"
 
 #script/generate mailer UserMailer

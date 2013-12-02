@@ -194,7 +194,9 @@
 		</div>
 	</div>
 	<div class="modal-footer">
-		<%= submit_tag "OK", :class => "btn btn-large btn-success btn-block" %>
+<%= link_to send_request_path, :class =>"btn btn-success btn-block", :remote => true, :target => "_self", :data => { spinner: '#req_node'} do %> <i class="icon-trash"> Request Node</i> <% end %>  <%= mini_spinner_tag 'req_node' %>
+
 		<% end %>
 	</div>
+				 <%= spinner_tag 'spin_req' %>  
 </div>

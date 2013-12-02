@@ -204,7 +204,7 @@ end
     @predef_name = params[:predef_name]
     if"#{params[:deps_scm]}".strip.length != 0
     @deps_scm = "#{params[:deps_scm]}"
-    elsif !"#{params[:scm]}".start_with("select")
+    elsif !"#{params[:scm]}".start_with?("select")
     @deps_scm = "#{params[:scm]}"
     end
     @deps_war = "#{params[:deps_war]}" if params[:deps_war]
@@ -365,7 +365,7 @@ else
       options = { :email => current_user.email, :api_key => current_user.api_token, :req => node_hash }
       @node = CreateRequests.perform(options)
       if @node.class == Megam::Error
-        @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+        @res_msg="Sorry Something Wrong. MSG : #{@node.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
       else
         a = params[:n_hash]
         count = a["#{@book.name}"].count
