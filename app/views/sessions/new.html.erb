@@ -33,9 +33,10 @@
 						</div>
 						<div class="remember">
 							<div class="left">
-  <%= check_box_tag :remember_me, 1, params[:remember_me], :id => "remember_me" %>
-  <%= label_tag :remember_me %>
+ 							 <%= check_box_tag :remember_me, "checked", params[:remember_me], :id => "remember_me" %>
+							 <%= label_tag :remember_me %>
 							</div>
+							
 							<div class="right">
 								<%= link_to "Forgotpassword?", new_password_reset_path %>
 							</div>

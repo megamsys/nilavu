@@ -11,28 +11,23 @@
 	</div>
 </div>
 <!-- container-fluid -->
-<div id="cloudbook_show_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-	<%= render :partial => "cloud_books/books" , :locals => {:cb_count => @cb_count, :n_hash => @n_hash, :nodes => @nodes } %>
+<div id="cloudbook_delete_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-	<div id="cloudbook_delete_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-				×
-			</button>
-			<h3 id="myModalLabel">Cloud Book view</h3>
-		</div>
-		<div class="modal-body">
-			<p>
-				<h4 id="delete_body"></h4>
-			</p>
-		</div>
-		<div class="modal-footer">
-			<div id="delete_footer"></div>
-		</div>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			×
+		</button>
+		<h3 id="myModalLabel">Cloud Book view</h3>
 	</div>
-
+	<div class="modal-body">
+		<p>
+			<h4 id="delete_body"></h4>
+		</p>
+	</div>
+	<div class="modal-footer">
+		<div id="delete_footer"></div>
+	</div>
 </div>
 
 <div id="cloudbook_clone_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

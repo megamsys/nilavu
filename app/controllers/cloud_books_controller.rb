@@ -12,7 +12,7 @@ class CloudBooksController < ApplicationController
       @nodes = FindNodesByEmail.perform(options)
       if @nodes.class == Megam::Error
         #@res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
-        redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@cloud_books.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
         @n_hash=Hash.new
         @cloud_books = current_user.cloud_books
@@ -254,11 +254,21 @@ else
     #redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@node.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
       @requests = GetRequestsByNode.perform(get_node)
+=begin
+      if @requests.class == Megam::Error
+      	@requests={"results" => [{"req_type" => "", "create_at" => "", "command" => "{}"}]}
+      end
+=end
       if params[:book_type] == "APP"
         @book_requests = GetAppRequestsByNode.perform(get_node)
       elsif params[:book_type] == "BOLT"
         @book_requests = GetBoltRequestsByNode.perform(get_node)
       end
+          if @book_requests.class == Megam::Error
+      		@book_requests={"results" => {"req_type" => "", "create_at" => "", "lc_apply" => "", "lc_additional" => "", "lc_when" => ""}}
+#@book_requests={"results" => [Megam::AppRequest]}
+          end
+         puts "Book REQUEST CLASS==========================?> #{@book_requests.class}"
       @cloud_book = @node.lookup("#{params[:name]}")
       puts "@book_requests===========================> "
       puts @book_requests
@@ -374,7 +384,7 @@ else
         "req_type" => "#{action}",
         "noofinstances" => data[:no_of_instances],
         "command" => command,
-        "predefs" => {"name" => data[:predef][:name], "scm" => "#{data[:deps_scm]}",
+        "predefs" => {"name" => data[:predef][:name], "scm" => "#{data['deps_scm']}",
           "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => "#{data[:deps_war]}", "queue" => "queue@queue1", "runtime_exec" => data[:predef][:runtime_exec]},
         "appdefns" => {"timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
         "boltdefns" => {"username" => "", "apikey" => "", "store_name" => "", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
@@ -383,10 +393,10 @@ else
       }
 
       if data[:cloud_book][:book_type] == "APP"
-        node_hash["appdefns"] = {"timetokill" => "0", "metered" => "megam", "logging" => "megam", "runtime_exec" => "#{data['runtime_exec']}"}
+        node_hash["appdefns"] = {"timetokill" => "#{data['timetokill']}", "metered" => "#{data['monitoring']}", "logging" => "#{data['logging']}", "runtime_exec" => "#{data['runtime_exec']}"}
       end
       if data[:cloud_book][:book_type] == "BOLT"
-        node_hash["boltdefns"] = {"username" => "#{data['user_name']}", "apikey" => "#{data['password']}", "store_name" => "#{data['store_db_name']}", "url" => "#{data['url']}", "prime" => "#{data['prime']}", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => "#{data['runtime_exec']}" }
+        node_hash["boltdefns"] = {"username" => "#{data['user_name']}", "apikey" => "#{data['password']}", "store_name" => "#{data['store_db_name']}", "url" => "#{data['url']}", "prime" => "#{data['prime']}", "timetokill" => "#{data['timetokill']}", "metered" => "#{data['monitoring']}", "logging" => "#{data['logging']}", "runtime_exec" => "#{data['runtime_exec']}" }
       end
     end
     logger.debug "COMMAND HASH ==> #{node_hash.inspect}"

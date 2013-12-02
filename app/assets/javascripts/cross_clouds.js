@@ -1,6 +1,7 @@
 $(document).ready(function() {
 	var boo = false;
-	var boo1 = false;
+	var boo1 = false;	
+
 	$("#new_db1 input:radio").click(function() {
 		boo = true;
 		if (boo1) {
