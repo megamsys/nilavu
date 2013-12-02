@@ -188,15 +188,15 @@
 			sample value : apache STOP - explanation maybe: When to apply (lc_apply) something in the lifecycle of an app or a bolt if apache is started. lc stands for lifecycle.
 			<%= text_field_tag 'lc_apply', nil, placeholder: 'Modify runtime exec - script', hint: "test" %>
 			<br/>
-			<%= text_field_tag 'lc_additional', nil, placeholder: 'Modify runtime exec - script' %>
+			<%= text_field_tag 'lc_additional', nil, placeholder: 'Modify addtional runtime - script' %>
 			<br/>
-			<%= text_field_tag 'lc_when', nil, placeholder: 'Modify runtime exec - script' %>
+			<%= text_field_tag 'lc_when', nil, placeholder: 'Modify when to apply - script' %>
 		</div>
 	</div>
 	<div class="modal-footer">
-<%= link_to send_request_path, :class =>"btn btn-success btn-block", :remote => true, :target => "_self", :data => { spinner: '#req_node'} do %> <i class="icon-trash"> Request Node</i> <% end %>  <%= mini_spinner_tag 'req_node' %>
-
+		<%= link_to send_request_path(:defns_id => "deff",:req_type => "app_r_bolt"), :class =>"btn btn-success btn-block", :remote => true, :target => "_self", :data => { spinner: '#req_node'} do %> <i class="icon-trash"> Request Node</i> <% end %>  
+		<%= mini_spinner_tag 'req_node' %>
 		<% end %>
 	</div>
-				 <%= spinner_tag 'spin_req' %>  
+	<%= spinner_tag 'spin_req' %>
 </div>

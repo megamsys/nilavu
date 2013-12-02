@@ -1,67 +1,67 @@
-<% provide(:title, "Forgot password") %> 
+<% provide(:title, "Forgot password") %>
 <%= render :partial => "customizations/flash_messages" %>
 
-  <div id="box_login">
-        <div class="container">
-            <div class="span12 box_wrapper">
-                <div class="offset2 span12 box">
-                    <div>
-                        <div class="head">
-                            <h4>Enter your email address below to receive instructions on how to reset your password.</h4>
-                        </div>
-                        <div class="form">
+<div id="box_login">
+	<div class="container">
+		<div class="span12 box_wrapper">
+			<div class="offset2 span12 box">
+				<div>
+					<div class="head">
+						<h4>Enter your email address below to receive instructions on how to reset your password.</h4>
+					</div>
+					<div class="form">
 
-	<%= spinner_tag 'spin_reset' %> 
-<%= form_tag password_resets_path, :method => :post, :remote => true, data: { spinner: '#spin_reset'} do %>
-  <div class="field">
-    <%= label_tag :email %>
-    <%= text_field_tag :email, params[:email] %>
-  </div>
- <%= submit_tag "Reset Password" %> 
+						<%= spinner_tag 'spin_reset' %>
+						<%= form_tag password_resets_path, :method => :post, :remote => true, data: { spinner: '#spin_reset'} do %>
+						<div class="field">
+							<%= label_tag :email %>
+							<%= text_field_tag :email, params[:email] %>
+						</div>
+						<%= submit_tag "Reset Password" %>
 
-<% end %>
+						<% end %>
 
-
-                        </div>
-                    </div>
-                </div>
-                <p class="already">Know your password? <%= link_to "Sign in", signin_path %></p>
-            </div>
-        </div>
-    </div>
-
-
-
-	<div id="postfinish_reset_password" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-				×
-			</button>
-			<h3 id="myModalLabel">Success</h3>
+					</div>
+				</div>
+			</div>
+			<p class="already">
+				Know your password? <%= link_to "Sign in", signin_path %>
+			</p>
 		</div>
-		<div class="modal-body">
-			<p> You recently made a request for a lost password. Please remember to keep your passwords recorded in a safe place. Mail has been sent to your email address to reset your password</p>
-		</div>
+	</div>
+</div>
 
-		<div class="modal-footer" id="reset_path"></div>
-
+<div id="postfinish_reset_password" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			×
+		</button>
+		<h3 id="myModalLabel">Success</h3>
+	</div>
+	<div class="modal-body">
+		<p>
+			You recently made a request for a lost password. Please remember to keep your passwords recorded in a safe place. Mail has been sent to your email address to reset your password
+		</p>
 	</div>
 
+	<div class="modal-footer" id="reset_path"></div>
 
-	<div id="postfinish_reset_password_error" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-				×
-			</button>
-			<h3 id="myModalLabel">Failure</h3>
-		</div>
-		<div class="modal-body">
-			<p> You recently made a request for a lost password. Please Enter a valid megam account email address</p>
-		</div>
+</div>
 
-		<div class="modal-footer" id="reset_error_path"></div>
-
+<div id="postfinish_reset_password_error" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			×
+		</button>
+		<h3 id="myModalLabel">Failure</h3>
+	</div>
+	<div class="modal-body">
+		<p>
+			You recently made a request for a lost password. Please Enter a valid megam account email address
+		</p>
 	</div>
 
+	<div class="modal-footer" id="reset_error_path"></div>
 
+</div>
 
