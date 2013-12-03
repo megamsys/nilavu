@@ -234,7 +234,29 @@ end
   #Upon creation of an entry in cloud_book_history, a request is sent to megam_play using the
   #resque background worker.
   def create
-    options = { :email => current_user.email, :api_key => current_user.api_token, :node => mk_node(params, "server", "create") }
+  
+  data={:book_name => params[:cloud_book][:name], :book_type => params[:cloud_book][:book_type] , :predef_cloud_name => params[:cloud_book][:predef_cloud_name], :provider => params[:predef][:provider], :provider_role => params[:predef][:provider_role], :domain_name => params[:cloud_book][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}"} 
+
+      puts "=======================================================> NEW NODE TEST I <================================================"
+      puts data.inspect
+      
+  options = { :email => current_user.email, :api_key => current_user.api_token, :data => data, :group => "server", :action => "create" }
+   
+    node_hash=MakeNode.perform(options)
+    
+      puts "=======================================================> NEW NODE TEST <================================================"
+      puts node_hash.inspect
+      if node_hash.class == Megam::Error
+         puts "================================================> Node Create ERROR========================================> "
+         puts node_hash.inspect
+            @res_msg="Sorry Something Wrong. MSG : #{node_hash.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      respond_to do |format|
+        format.js {
+          respond_with(@res_msg, :layout => !request.xhr? )
+        }
+      end
+      else
+   options = { :email => current_user.email, :api_key => current_user.api_token, :node => node_hash }
     @node = CreateNodes.perform(options)
     if @node.class == Megam::Error
       @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
@@ -260,7 +282,7 @@ else
     @history.save
     end
   end
-
+end
   def show
     #@book = CloudBook.find(params[:id])
     get_node = { :email => current_user.email, :api_key => current_user.api_token, :node => "#{params[:name]}" }
