@@ -21,7 +21,7 @@
 		<br/>
 		<div class="row-fluid">
 			<div class="offset2" id="cloud_logo">
-				<%= image_tag("logo_aws.png", :size => "100x100") %>
+				<%= image_tag("logo_hp.png", :size => "100x100") %>
 			</div>
 		</div>
 		<br/>
@@ -91,27 +91,29 @@
 			</div>
 		</div>
 
-		<div class="control-group">
+		<div class="control-group" id="cc_awspk">
 			<div class="controls">
-				<%= file_field_tag 'aws_private_key' %>				
+				<%= file_field_tag 'aws_private_key' %>
+				<!--<%= text_field_tag 'aws_private_key', nil, :class=> 'required', placeholder: 'Enter AWS_private_key..' %>-->
 				<%= link_to "#" do %>
 				<i class="icon-question-sign"></i>
 				<% end %>
 			</div>
 		</div>
 
-		<div class="control-group">
+		<div class="control-group" id="cc_rsapk">
 			<div class="controls">
-				<%= file_field_tag 'id_rsa_public_key' %>				
+				<%= file_field_tag 'id_rsa_public_key' %>
+				<!--<%= text_field_tag 'id_rsa_public_key', nil, :class=> 'required', placeholder: 'Enter id_rsa public key..' %>-->
 				<%= link_to "#" do %>
 				<i class="icon-question-sign"></i>
 				<% end %>
 			</div>
 		</div>
-		
+
 		<div class="control-group" id="cc_awsak">
 			<div class="controls">
-				<%= text_field_tag 'aws_access_key', nil, :class=> 'required', placeholder: 'Enter AWS access key..' %>
+				<%= text_field_tag 'aws_access_key', nil, :class=> 'required', placeholder: 'Enter HP access key..' %>
 				<%= link_to "#" do %>
 				<i class="icon-question-sign"></i>
 				<% end %>
@@ -120,7 +122,7 @@
 
 		<div class="control-group" id="cc_awssk">
 			<div class="controls">
-				<%= text_field_tag 'aws_secret_key', nil, :class=> 'required', placeholder: 'Enter AWS secret key..' %>
+				<%= text_field_tag 'aws_secret_key', nil, :class=> 'required', placeholder: 'Enter HP secret key..' %>
 				<%= link_to "#" do %>
 				<i class="icon-question-sign"></i>
 				<% end %>

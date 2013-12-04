@@ -15,34 +15,15 @@ $(document).ready(function() {
 		}
 	});	
 	
-	/*$("#upload").click(function() {
-	    $('#fileupload').fileupload({
-	        dataType: 'json',
-	        done: function (e, data) {
-	            $.each(data.result.files, function (index, file) {
-	                $('<p/>').text(file.name).appendTo(document.body);
-	            });
-	        },
-	    progressall: function (e, data) {
-	        var progress = parseInt(data.loaded / data.total * 100, 10);
-	        $('#progress .bar').css(
-	            'width',
-	            progress + '%'
-	        );
-	    }
-	    });
-	});*/
 	
 	$('#cross_cloud_list').change(function(){
 	      $.ajax({url: '/selectclouds',
-	    	 contentType: 'application/js',
+	    	'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")},
 	        data: 'selected_cloud='+$(this).find("option:selected").text()	        
 	      })
 	    });
 	
-	$("#cc_pname").hide();	
-	$("#cc_gcli").hide();
-	$("#cc_gsk").hide();	 
+		 
 	/*$("#cross_cloud_list").change(function() {
 		var cc = $(this).find("option:selected").text()
 		switch (cc) {
