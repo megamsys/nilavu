@@ -9,18 +9,15 @@ class FindNodesByEmail
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)
-      @res = {"data" => {:body => re}}
-      return @res["data"][:body]
+      return re
     rescue Megam::API::Errors::ErrorWithResponse => ewr
       hash = {"msg" => ewr.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)
-      @res = {"data" => {:body => re}}
-      return @res["data"][:body]
+      return re
     rescue StandardError => se
       hash = {"msg" => se.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)
-      @res = {"data" => {:body => re}}
-      return @res["data"][:body]
+      return re
     end
     @excon_res.data[:body]
   end

@@ -330,60 +330,19 @@ end
 
   def destroy
     @book = CloudBook.find(params[:id])
-    get_node = { :email => current_user.email, :api_key => current_user.api_token, :node => "#{params[:name]}" }
-    @node = FindNodeByName.perform(get_node)
-
-    if @node.class == Megam::Error
+    #get_node = { :email => current_user.email, :api_key => current_user.api_token, :node => "#{params[:name]}" }
+    #@node = FindNodeByName.perform(get_node)
+    
+      options = { :email => current_user.email, :api_key => current_user.api_token, :node_name => "#{params[:name]}", :group => "server", :action => "delete" }
+   
+    node_hash=DeleteNode.perform(options)
+    
+      puts "=======================================================> NEW NODE TEST <================================================"
+      puts node_hash.inspect
+      
+    if node_hash.class == Megam::Error
       @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
     else
-      @cloud_book = @node.lookup("#{params[:name]}")
-      options = { :email => current_user.email, :api_key => current_user.api_token }
-      @cloud_tools = ListCloudTools.perform(options)
-      @tool = @cloud_tools.lookup(@cloud_book.request[:command]['systemprovider']['provider']['prov'])
-      @template = @tool.cloudtemplates.lookup(@cloud_book.request[:command]['compute']['cctype'])
-      @cloud_instruction = @template.lookup_by_instruction("server", "delete")
-
-      n_name = params[:name]
-      n_name = n_name[/[^.]+/]
-      comm = "#{@cloud_instruction.command}"
-      comm["<node_name>"]="#{n_name}"
-
-      @com = {
-"systemprovider" => {
-"provider" => {
-"prov" => "chef"
-}
-},
-"compute" => {
-"cctype" => "#{@cloud_book.request[:command]['compute']['cctype']}",
-"cc" => {
-"groups" => "",
-"image" => "",
-"flavor" => ""
-},
-"access" => {
-"ssh_key" => "#{@cloud_book.request[:command]['compute']['access']['ssh_key']}",
-"identity_file" => "#{@cloud_book.request[:command]['compute']['access']['identity_file']}",
-"ssh_user" => "",
-"vault_location" => "#{@cloud_book.request[:command]['compute']['access']['vault_location']}"
-}
-},
-"cloudtool" => {
-"chef" => {
-"command" => "#{@cloud_book.request[:command]['cloudtool']['chef']['prov']}",
-"plugin" => "#{@cloud_book.request[:command]['compute']['cctype']} #{comm}", #ec2 server delete or create
-"run_list" => "",
-"name" => "-N #{n_name}"
-}
-}
-}
-
-      node_hash = {
-        "node_name" => "#{params[:name]}",
-        "req_type" => "delete",
-        "command" => @com
-      }
-
       options = { :email => current_user.email, :api_key => current_user.api_token, :req => node_hash }
       @node = CreateRequests.perform(options)
       if @node.class == Megam::Error
@@ -408,44 +367,6 @@ end
         respond_with(@res_msg, :layout => !request.xhr? )
       }
     end
-  end
-
-  private
-
-  #build the required hash for the node and send it.
-  #you can use Megam::Node itself to pass stuff.
-  def mk_node(data, group, action)    
-    command = CreateCommand.perform(data, group, action, current_user)
-
-    if command.class == Megam::Error
-      #redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{command.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-      else
-      logger.debug "Make command for chef run"
-
-      node_hash = {
-        "node_name" => "#{data[:cloud_book][:name]}#{data[:cloud_book][:domain_name]}",
-        "node_type" => "#{data[:cloud_book][:book_type]}",
-        "req_type" => "#{action}",
-        "noofinstances" => data[:no_of_instances],
-        "command" => command,
-        "predefs" => {"name" => data[:predef][:name], "scm" => "#{data['deps_scm']}",
-          "db" => "postgres@postgresql1.megam.com/morning.megam.co", "war" => "#{data[:deps_war]}", "queue" => "queue@queue1", "runtime_exec" => data[:predef][:runtime_exec]},
-        "appdefns" => {"timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
-        "boltdefns" => {"username" => "", "apikey" => "", "store_name" => "", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
-        "appreq" => {},
-        "boltreq" => {}
-      }
-
-      if data[:cloud_book][:book_type] == "APP"
-        node_hash["appdefns"] = {"timetokill" => "#{data['timetokill']}", "metered" => "#{data['monitoring']}", "logging" => "#{data['logging']}", "runtime_exec" => "#{data['runtime_exec']}"}
-      end
-      if data[:cloud_book][:book_type] == "BOLT"
-        node_hash["boltdefns"] = {"username" => "#{data['user_name']}", "apikey" => "#{data['password']}", "store_name" => "#{data['store_db_name']}", "url" => "#{data['url']}", "prime" => "#{data['prime']}", "timetokill" => "#{data['timetokill']}", "metered" => "#{data['monitoring']}", "logging" => "#{data['logging']}", "runtime_exec" => "#{data['runtime_exec']}" }
-      end
-    end
-    logger.debug "COMMAND HASH ==> #{node_hash.inspect}"
-
-    node_hash
   end
 
 end
