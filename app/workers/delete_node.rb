@@ -1,13 +1,10 @@
 #List all the predefs
-class MakeNode
-  def self.perform(make_node)    
+class DeleteNode
+  def self.perform(delete_node)    
     begin     
-        puts "WORKER NODE HASH ===============> "
-        puts make_node[:data].class
-      Megam::Config[:email] = make_node[:email]
-      Megam::Config[:api_key] = make_node[:api_key]      
-      #command_hash = Megam::MakeCommand.command_deps
-      node_hash = Megam::MakeNode.create(make_node[:data], make_node[:group], make_node[:action])
+      Megam::Config[:email] = delete_node[:email]
+      Megam::Config[:api_key] = delete_node[:api_key]      
+      node_hash = Megam::DeleteNode.create(delete_node[:node_name], delete_node[:group], delete_node[:action])
        puts node_hash.inspect
       
     rescue ArgumentError => ae

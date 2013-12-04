@@ -7,12 +7,12 @@
 				<ul class="nav">
 					<li>
 						<%= link_to "/", :target => "_self" do %>
-						<i class="icon icon-home"></i> Home
+						<i class="fa fa-home"></i> Home
 						<% end %>
 					</li>
 					<li>
 						<%= link_to page_path("get_started"), :target => "_self" do %>
-						<i class="icon icon-gears"></i> Get started
+						<i class="fa fa-gears"></i> Get started
 						<% end %>
 					</li>
 					<li>
@@ -22,15 +22,15 @@
 					<li>
 					<li>
 						<%= link_to dashboards_path, :target => "_self" do %>
-						<i class="icon icon-dashboard"></i> My dash
+						<i class="fa fa-dashboard"></i> My dash
 						<% end %>
 					</li>
 					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon icon-user"></i> <%= current_user.first_name.capitalize %> <b class="caret"></b> </a>
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown"> <i class="fa fa-user"></i> <%= current_user.first_name.capitalize %> <b class="caret"></b> </a>
 						<ul class="dropdown-menu">
 							<li>
 								<%= link_to edit_user_path(current_user), :target => "_self" do %>
-								<i class="icon icon-user"></i> Profile
+								<i class="fa fa-user"></i> Profile
 								<% end %>
 							</li>
 							<li class="divider"></li>
@@ -41,7 +41,7 @@
 							<li class="divider"></li>
 							<li>
 								<%= link_to signout_path, method: "delete" do %>
-								<i class="icon  icon-eject"></i> Sign Out
+								<i class="fa  fa-eject"></i> Sign Out
 								<% end %>
 							</li>
 						</ul>

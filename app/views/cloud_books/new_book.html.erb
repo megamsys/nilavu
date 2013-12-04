@@ -10,7 +10,7 @@
 
 	<div class="widget-box">
 		<div class="widget-title">
-			<span class="icon"> <i class="icon-th-list"></i> </span>
+			<span class="icon"> <i class="fa fa-th-list"></i> </span>
 			<h5>Platform Selected</h5>
 		</div>
 		<div class="widget-content">
@@ -51,7 +51,7 @@
 			<% @new_book_name = book_name %>
 			<div class="widget-box">
 				<div class="widget-title">
-					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<span class="icon"> <i class="fa fa-th-list"></i> </span>
 					<h5>Cloud Book Name</h5>
 				</div>
 				<div class="widget-content">
@@ -82,7 +82,7 @@
 
 	<div class="widget-box">
 		<div class="widget-title">
-			<span class="icon"> <i class="icon-th-list"></i> </span>
+			<span class="icon"> <i class="fa fa-th-list"></i> </span>
 			<h5>Cross Cloud Selection</h5>
 		</div>
 		<div class="widget-content">
@@ -100,7 +100,7 @@
 
 	<div class="widget-box">
 		<div class="widget-title">
-			<span class="icon"> <i class="icon-th-list"></i> </span>
+			<span class="icon"> <i class="fa fa-th-list"></i> </span>
 			<h5>Application Definitions</h5><strong><span class="label label-info"><%= current_user.user_type %> user</span> </strong>
 		</div>
 		<div class="widget-content">
@@ -139,7 +139,7 @@
 							<div class="row-fluid">
 								<div class="span12">
 									<div class="span1">
-										<h3 align="center"><i class="icon-download-alt"></i></h3>
+										<h3 align="center"><i class="fa fa-download-alt"></i></h3>
 									</div>
 									<div class="span4">
 										<span>Want us to stream logs ?</span>
@@ -163,7 +163,7 @@
 							<div class="row-fluid">
 								<div class="span12">
 									<div class="span1">
-										<h3 align="center"><i class="icon-edit"></i></h3>
+										<h3 align="center"><i class="fa fa-edit"></i></h3>
 									</div>
 									<div class="span4">
 										<span class="label label-warning"> *optional</span>
@@ -179,14 +179,14 @@
 							<div class="row-fluid">
 								<div class="span12">
 									<div class="span1">
-										<h3 align="center"><i class="icon-fire"></i></h3>
+										<h3 align="center"><i class="fa fa-fire"></i></h3>
 									</div>
 									<div class="span4">
 									<span class="label label-warning"> *free accounts - instances run for a day</span>	<span>Your Start Time</span>
 
 									</div>
 									<div class="span7">
-										<%= text_field_tag 'tometokill', "#{Time.now.to_formatted_s(:rfc822)}", :readonly => true %>
+										<%= text_field_tag 'timetokill', "#{Time.now.to_formatted_s(:rfc822)}", :readonly => true %>
 									</div>
 								</div>
 							</div>
