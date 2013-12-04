@@ -6,8 +6,7 @@
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
-<div class="container-fluid" ng-cloak>
-
+<div class="container-fluid" ng-cloak>	
 	<div class="row-fluid">
 		<div class="alert alert-success alert-block">
 			<h4 class="alert-heading">First Step</h4>
@@ -84,7 +83,7 @@
 									<% if current_user.cloud_books.empty?  %>
 									<%= link_to "Take me there", new_cloud_book_path, :target => "_self" , class: "btn btn-warning btn-mini", title: 'Create a new cloud Book for your own application', rel: 'tooltip'  %>
 									<% else %>
-									Awesome ! <span class="label label-success"> you have one.</span>									
+									Awesome ! <span class="label label-success"> you have one.</span>
 									<%= link_to "Take me there", cloud_books_path, :target => "_self" , class: "btn btn-success btn-mini", title: 'See the list of your cloud books @ megam', rel: 'tooltip'  %>
 									<% end %>
 								</div>
@@ -120,8 +119,7 @@
 									Others scms, coming soon.
 									Awesome ! <span class="label label-success"> if you have one.</span>
 									(or)
-									<i class="icon-github"><%= link_to "Create ", "https://github.com", :target => "_blank" , class: "btn btn-success btn-mini", title: 'Create a Github.com Account', rel: 'tooltip'  %>
-										</i>
+									<i class="icon-github"><%= link_to "Create ", "https://github.com", :target => "_blank" , class: "btn btn-success btn-mini", title: 'Create a Github.com Account', rel: 'tooltip'  %> </i>
 								</div>
 							</div>
 						</div>
@@ -150,7 +148,7 @@
 								<td class="taskDesc"><i class="icon-info-sign"></i> How can I update my profile ?</td>
 								<td class="taskStatus"><span class="in-progress"> <a href="http://support.megam.co/kb/profile/creating-a-profile" target="_blank">here</a></span></td>
 								<td class="taskOptions"><a href="#like" class="tip-top" data-original-title="Yup"><i class="icon-thumbs-up"></i></a>&nbsp;<a href="" class="tip-top" data-original-title="Nah"><i class="icon-thumbs-down"></i></a></td>
-							</tr>							
+							</tr>
 							<tr>
 								<td class="taskDesc"><i class="icon-plus-sign"></i> Launch a Java App ?</td>
 								<td class="taskStatus"><span class="pending"> <a href="http://support.megam.co/kb/platform-applications/how-do-you-develop-a-java-application-on-megam" target="_blank">here</a></span></td>
@@ -215,9 +213,9 @@
 </div>
 <% end %>
 <script>
-    (function($) {
-$.Sources = JSON.parse('<%= raw Sources.sources.to_json %>');
-    $.Books = JSON.parse('<%= raw Books.availableBooks(@user_id).to_json %>');
-    })($);
+	    (function($) {
+	    $.Sources = JSON.parse('<%= raw Sources.sources.to_json %>');
+        $.Books = JSON.parse('<%= raw Books.availableBooks(@user_id).to_json %> ');
+        })($);
 </script>
 <%= render :template => users_show_path %>

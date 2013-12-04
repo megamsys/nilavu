@@ -78,12 +78,11 @@ match '/new_store', to: 'cloud_stores#new_store', via: [:get, :post]
   match '/auth/facebook/callback', :to => 'sessions#create', via: [:get, :post]
   match '/auth/github/callback', :to => 'cloud_books#git_call', via: [:get, :post]
   match '/auth/google_oauth2/callback', :to => 'cross_clouds#new', via: [:get, :post]
- 
-
+  
   # ======Dashboard
   get "users/show"
   #match '/dashboards', to: 'dashboards#index', via: [:get]
-  #get '/dashboards/:id' => 'dashboards#index'
+  #match '/dashboards/:id' => 'dashboards#index', via: [:get]
  # match '/dashboards/:id', to: 'dashboards#index', via: [:get]
   #match '/dashboards/:id/:book', to: 'dashboards#index', via [:get]
   #match '/dashboards', to: 'users#dashboard',via: [:get]
@@ -102,6 +101,9 @@ match '/new_store', to: 'cloud_stores#new_store', via: [:get, :post]
   #  match '/connector_project/import', to: 'connector_projects#import'
   #  match '/connector_execution/export', to: 'connector_executions#export'
   #  match '/connector_execution/execute', to: 'connector_executions#execute'
+
+ match '/selectclouds', to: 'cross_clouds#cloud_selector', via: [:get, :post]
+ #match '/selectclouds', to: 'cross_clouds#new', via: [:get, :post]
 
   #   =======Error controller
   get "/404", :to => "errors#not_found"
