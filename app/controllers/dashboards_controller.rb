@@ -9,4 +9,8 @@ class DashboardsController < ApplicationController
   #respond_with dashboards
   end
 
+  def show
+    redirect_to dashboards_path
+  end
+
 end

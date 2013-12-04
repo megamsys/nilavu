@@ -116,10 +116,10 @@
 							<div class="row-fluid">
 								<div class="span12">
 									<div class="span1">
-										<h3 align="center"><i class="i_cloud"></i></h3>
+										<h3 align="center"><i class="i_chart"></i></h3>
 									</div>
 									<div class="span4">
-										<span> <h5>Want us to monitor ? <h5></h5></span>
+										<span> Want us to monitor ?</span>
 									</div>
 									<div class = "span3">
 										<div class="back" id="toggle">
@@ -139,10 +139,10 @@
 							<div class="row-fluid">
 								<div class="span12">
 									<div class="span1">
-										<h3 align="center"><i class="i_chart"></i></h3>
+										<h3 align="center"><i class="icon-download-alt"></i></h3>
 									</div>
 									<div class="span4">
-										<span> <h5>Want us to stream logs ?<h5></span>
+										<span>Want us to stream logs ?</span>
 									</div>
 									<div class = "span3">
 										<div class="back" id="toggle">
@@ -163,11 +163,11 @@
 							<div class="row-fluid">
 								<div class="span12">
 									<div class="span1">
-										<h3 align="center"><i class="icon-briefcase"></i></h3>
+										<h3 align="center"><i class="icon-edit"></i></h3>
 									</div>
 									<div class="span4">
-										<span> <h5>Wish to change default start script <span class="label label-warning"> *optional</span></h5></span>
-
+										<span class="label label-warning"> *optional</span>
+										<span> Wish to change default start script </span>
 									</div>
 									<div class="span7">
 										<%= text_field_tag 'runtime_exec', "#{@predef.runtime_exec}", placeholder: 'Modify runtime exec - script' %>
@@ -179,10 +179,10 @@
 							<div class="row-fluid">
 								<div class="span12">
 									<div class="span1">
-										<h3 align="center"><i class="icon-briefcase"></i></h3>
+										<h3 align="center"><i class="icon-fire"></i></h3>
 									</div>
 									<div class="span4">
-										<span> <h4>Time to kill <span class="label label-warning"> *free accounts - instances run for a day</span><h4></span>
+									<span class="label label-warning"> *free accounts - instances run for a day</span>	<span>Your Start Time</span>
 
 									</div>
 									<div class="span7">
@@ -210,95 +210,9 @@
 	<%= f.text_field :predef_name, :type => 'hidden', :value => @predef_name %>
 	<%= f.text_field :book_type, :type => 'hidden', :value => "APP" %>
 	<input type="hidden" name="no_of_instances" value="<%= @no_of_instances %>">
-
-	<div class="widget-box">
-		<div class="widget-title">
-			<span class="icon"> <i class="icon-th-list"></i> </span>
-			<h5>Cloud Book Dependencies</h5>
-			<div class="buttons">
-				<%= render :partial => "customizations/refresh" %>
-			</div>
-		</div>
-		<div class="widget-content">
-			<div class="accordion" id="collapse-group">
-				<div class="accordion-group widget-box">
-					<div class="accordion-heading">
-						<div class="widget-title">
-							<a data-parent="#collapse-group" href="#collapseGOne" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span>git</a>
-						</div>
-					</div>
-					<div class="alert alert-info alert-block">
-						<h4 class="alert-heading">You aren't a GitHubber ?</h4>
-						<div>
-							<p class="help-block">
-								<%= image_tag "helpbota.png", :alt => "help bot"%>
-								<strong>No Worries,</strong>
-								Try our sample
-							</p>
-
-							<table class="table table-hover">
-								<thead>
-
-								</thead>
-								<tbody>
-									<tr>
-										<td><i class="icon-chevron-right"></i>&nbsp; &nbsp; <span class="badge badge-info">Rails &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></td>
-										<td><i class="icon-plus"></i> &nbsp; &nbsp;<a href="https://github.com/thomasalrin/aryabhata.git" target="_blank">https://github.com/thomasalrin/aryabhata.git</a></td>
-									</tr>
-									<tr>
-										<td><i class="icon-chevron-right"></i>&nbsp; &nbsp; <span class="badge badge-info">Java (WAR)&nbsp;&nbsp; </span></td>
-										<td><i class="icon-plus"></i> &nbsp; &nbsp; <a href="https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/orion.war" target="_blank">https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/orion.war</a></td>
-									</tr>
-									<tr>
-										<td><i class="icon-chevron-right"></i>&nbsp; &nbsp; <span class="badge badge-info">Java (.git)&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;</span></td>
-										<td><i class="icon-plus"></i> &nbsp; &nbsp; <a href="https://github.com/thomasalrin/spring-mvc-fulfillment-base.git" target="_blank">https://github.com/thomasalrin/spring-mvc-fulfillment-base.git</a></td>
-									</tr>
-									<tr>
-										<td><i class="icon-chevron-right"></i>&nbsp; &nbsp; <span class="badge badge-info">Play(Scala)&nbsp; &nbsp;</span></td>
-										<td><i class="icon-plus"></i> &nbsp; &nbsp; <a href="https://github.com/thomasalrin/megam_play.git" target="_blank">https://github.com/thomasalrin/megam_play.git</a></td>
-									</tr>
-									<tr>
-										<td><i class="icon-chevron-right"></i>&nbsp; &nbsp; <span class="badge badge-info">Akka(Scala)</span></td>
-										<td><i class="icon-plus"></i> &nbsp; &nbsp; <a href="https://github.com/thomasalrin/megam_akka.git" target="_blank">https://github.com/thomasalrin/megam_akka.git</a></td>
-									</tr>
-								</tbody>
-							</table>
-
-						</div>
-						<a class="close" data-dismiss="alert alert-warning" href="#">×</a>
-					</div>
-
-					<div class="collapse in accordion-body" id="collapseGOne">
-						<div class="widget-content">
-							<a href="/auth/github" class="btn"> Connect Repository
-							<%= image_tag "logo_github.png", :alt => "logo_github"%> 
-							</a>
-							&nbsp;(or) &nbsp;Manually type it&nbsp; <i class="icon-github"></i>
-							<span class="full_text"> 
-								<%= text_field_tag 'deps_scm', nil, class: 'large_text_field', placeholder: "https://github.com/username/project.git" %> 
-							</span>
-						</div>
-					</div>
-
-				</div>
-				<% if @predef_name == "java" %>
-				<div class="accordion-group widget-box">
-					<div class="accordion-heading">
-						<div class="widget-title">
-							<a data-parent="#collapse-group" href="#collapseGTwo" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>WAR <span class="badge badge-info">*For java only</span></h5> </a>
-						</div>
-					</div>
-					<div class="collapse accordion-body" id="collapseGTwo">
-						<div class="widget-content">
-							WAR : <span class="full_text"> <%= text_field_tag 'deps_war', nil, class: 'large_text_field', placeholder: "https://s3-ap-southeast-1.amazonaws.com/bucket_name/folder_name/file_name.war" %> </span>
-
-						</div>
-					</div>
-				</div>
-				<% end %>
-			</div>
-		</div>
-	</div>
+	<input type="hidden" name='deps_scm' value="<%= @deps_scm %>">
+	<input type="hidden" name="deps_war" value="<%= @deps_war %>">
+	
 	<div class="row-fluid">
 		<div class="span4"></div>
 		<div class="span4 container-fluid">
@@ -323,7 +237,7 @@
 			<div class="alert alert-success">
 
 				<p>
-					<h4> A cloud book creation request to the megam cloud server was successful. </h4>
+					A cloud book creation request to the megam cloud server was successful.
 					</br>
 					<strong>Click<span class="label label-info"> OK </span> to watch the status Real Time</strong>
 				</p>
@@ -341,10 +255,10 @@
 			<h3 id="myModalLabel">Cloud Book</h3>
 		</div>
 		<div class="modal-body">
-			<div class="alert">
+			<div class="alert alert-error">
 
 				<p>
-					<h4> A cloud book creation request to the megam cloud server was not successful. </h4>
+					A cloud book creation request to the megam cloud server was not successful.
 					</br>
 					<div id="err_msg"></div>
 				</p>

@@ -1,5 +1,5 @@
 <% content_for :content_settings do %>
-<% provide(:title, 'Cross CLouds') %>
+<% provide(:title, 'Cross Clouds') %>
 <%= render :partial => "users/header" , :locals => {:head => "Cross Clouds"}%>
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
@@ -17,7 +17,7 @@
 				<div class="span10">
 					<div class="span3">
 						<div class="cb_box_withpadding">
-							<h4 align="center"> Count</h4><h3 align="center" ><span class="icon"><i class="icon-book"></i></span>&nbsp;<%= @cross_clouds.count %>
+							<h4 align="center"> Quota</h4><h3 align="center" ><span class="icon"><i class="icon-book"></i></span>&nbsp;<%= @cross_clouds.count %>
 							&nbsp; of 2</h3>
 						</div>
 						<br/>
@@ -43,96 +43,92 @@
 								<span class="icon"> <i class="icon-th-list"></i> </span>
 								<h5>Cross Clouds Usage</h5>
 							</div>
-							<div class="widget-content" overflow-y: scroll;">
-							<% @percent = @cross_clouds.count/2.0*100 %>
-							<div class="row-fluid">
-							<div class="span1">
-							<h3>0</h3>
-							</div>
-							<div class="span10">
-							<% if @percent >= 80 %>
-							<div class="progress progress-danger">
-							<div class="bar" style="width: <%= @percent %>%;">
-							</div>
-							</div>
-							<% else %>
-							<div class="progress progress-success">
-							<div class="bar" style="width: <%= @percent %>%;">
-							</div>
-							</div>
-							<% end %>
-							</div>
-							<div class="span1">
-							<h3>2</h3>
-							</div>
-							</div>
+							<div class="widget-content" overflow-y: scroll;>
+								<% @percent = @cross_clouds.count/2.0*100 %>
+								<div class="row-fluid">
+									<div class="span1">
+										<h3>0</h3>
+									</div>
+									<div class="span10">
+										<% if @percent >= 80 %>
+										<div class="progress progress-danger">
+											<div class="bar" style="width: <%= @percent %>%;"></div>
+										</div>
+										<% else %>
+										<div class="progress progress-success">
+											<div class="bar" style="width: <%= @percent %>%;"></div>
+										</div>
+										<% end %>
+									</div>
+									<div class="span1">
+										<h3>2</h3>
+									</div>
+								</div>
 
 							</div>
-							</div>
+						</div>
 
-							<div class="widget-box">
+						<div class="widget-box">
 							<div class="widget-title">
-							<span class="icon">
-							<i class="glyphicon glyphicon-th"></i>
-							</span>
-							<h5>Cross Clouds</h5>
+								<span class="icon"> <i class="glyphicon glyphicon-th"></i> </span>
+								<h5>Cross Clouds</h5>
 							</div>
 							<div class="widget-content nopadding">
-							<table class="table table-bordered table-striped table-hover">
-							<thead>
-							<tr>
-							<th>Name</th>
-							<th>Date</th>
-							<th>View</th>
-							<th>Clone</th>
-							</tr>
-							</thead>
-							<tbody>
-							<% @cross_clouds.each do |pre_cl| %>
-							<tr>
-							<td> <%= pre_cl[:name] %></td>
+								<table class="table table-bordered table-striped table-hover">
+									<thead>
+										<tr>
+											<th>Name</th>
+											<th>Date</th>
+											<th>View</th>
+											<th>Clone</th>
+										</tr>
+									</thead>
+									<tbody>
+										<% @cross_clouds.each do |pre_cl| %>
+										<tr>
+											<td> <%= pre_cl[:name] %></td>
 
-							<td><%= pre_cl[:created_at] %></td>
-							<td> <%= link_to "View", cross_cloud_path(pre_cl[:name]), :remote => true, class: "btn btn-mini btn-success" %> </td>
-							<td> <%= link_to "import", "#", class: "btn btn-mini btn-success" %> </td>
-							</tr>
-							<% end %>
-							</tbody>
+											<td><%= pre_cl[:created_at] %></td>
+											<td> <%= link_to "View", cross_cloud_path(pre_cl[:name]), :remote => true, class: "btn btn-mini btn-success" %> </td>
+											<td> <%= link_to "import", "#", class: "btn btn-mini btn-success" %> </td>
+										</tr>
+										<% end %>
+									</tbody>
 
-							</table>
+								</table>
 							</div>
-							</div>
-							<!-- Span6 -->
+						</div>
+						<!-- Span6 -->
 
-							</div>
-							<!-- Span10 -->
-							</div>
-							</div>
-							</div>
-							</div>
-							<!-- container-fluid -->
+					</div>
+					<!-- Span10 -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- container-fluid -->
 
-							<div id="cross_cloud_show_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div id="cross_cloud_show_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-							<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-							×
-							</button>
-							<h3 id="myModalLabel">Cloud Book view</h3>
-							</div>
-							<div class="modal-body">
-							<div class="alert">
-							<p>
-							<h4 id="cross_cloud_show"></h4>
-							</p>
-							</div>
-							</div>
-							<div class="modal-footer">
-							<button class="btn" data-dismiss="modal" aria-hidden="true">
-							Ok
-							</button>
-							</div>
-							</div>
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				×
+			</button>
+			<h3 id="myModalLabel">Cloud Book view</h3>
+		</div>
+		<div class="modal-body">
+			<div class="alert alert-info">
+				<p>
+					<h4 id="cross_cloud_show"></h4>
+				</p>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">
+				Ok
+			</button>
+		</div>
+	</div>
 
-							<% end %>
-							<%= render :template => users_show_path %>
+	<% end %>
+	<%= render :template => users_show_path %>

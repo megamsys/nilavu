@@ -21,6 +21,8 @@ gem "gritter", "~> 1.0.3"
 gem "flexslider", "~> 2.0.2"
 gem 'unicorn', :group => :production
 
+gem "github_api"
+
 # Database posgresql
 gem 'pg'
 gem 'twitter'
@@ -40,7 +42,6 @@ gem 'high_voltage',"2.0.0"
 gem "therubyracer", :require => 'v8',:platforms => :ruby
 gem "breadcrumbs_on_rails"
 gem "randexp", "~> 0.1.7"
-#gem "angularjs-rails"
 gem "megam_api"
 gem "megam_deccanplato"
 

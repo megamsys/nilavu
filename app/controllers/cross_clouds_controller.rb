@@ -33,16 +33,16 @@ class CrossCloudsController < ApplicationController
     else
       @cloud_prov = "Amazon EC2"
     end
-  end  
-   
-  def create    
+  end
+
+  def create
     logger.debug "CROSS CLOUD CREATE PARAMS ============> "
     logger.debug "#{params}"
-    
+
     #uploaded_io = params[:picture]
-  #File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+    #File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
     #file.write(uploaded_io.read)
-  #end
+    #end
     puts current_user.email
     vault_loc = get_Vault_server+current_user.email+"/"+params[:name]
     sshpub_loc = get_Vault_server+current_user.email+"/"+params[:name]
@@ -51,7 +51,7 @@ class CrossCloudsController < ApplicationController
     @res_body = CreatePredefClouds.perform(options)
     if @res_body.class == Megam::Error
       @res_msg = nil
-      @err_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      @err_msg="Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
       respond_to do |format|
         format.js {
           respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
@@ -74,14 +74,14 @@ class CrossCloudsController < ApplicationController
       end
       if @upload.class == Megam::Error
         @res_msg = nil
-        @err_msg="Cross Cloud Files uploading was failed. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+        @err_msg="Failed to upload cross cloud files. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
         respond_to do |format|
           format.js {
             respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
           }
         end
       else
-        @res_msg= "Cross cloud predefintion <"+ params[:name] + "> created successfully."
+        @res_msg= "Cross cloud defintion :"+ params[:name] + " created successfully."
         respond_to do |format|
           format.js {
             respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
@@ -97,5 +97,25 @@ class CrossCloudsController < ApplicationController
     cross_cloud_options = { :email => current_user.email, :api_key => current_user.api_token }
     @cross_clouds = ListPredefClouds.perform(cross_cloud_options)
     @cross_cloud = @cross_clouds.lookup(params[:id])
+  end
+
+  def cloud_selector
+    puts "========================-=\-=\-=\-=\======================"
+    puts params.inspect
+    @provider = params[:selected_cloud]
+    if params[:selected_cloud] == "Amazon EC2"
+      @provider_form_name = "aws"
+    elsif params[:selected_cloud] == "Google cloud Engine"
+      @provider_form_name = "google"
+    elsif params[:selected_cloud] == "hp cloud"
+      @provider_form_name = "hp"
+    else
+      @provider_form_name = "aws"
+    end
+    respond_to do |format|
+      format.js {
+        respond_with(@provider, @provider_form_name, :layout => !request.xhr? )
+      }
+    end
   end
 end

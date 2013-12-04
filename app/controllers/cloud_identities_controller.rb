@@ -64,10 +64,10 @@ class CloudIdentitiesController < ApplicationController
   end
 
   def create
-    @cloud_identity = current_user.build_cloud_identities(params[:cloud_identity]) || CloudIdentity.new(params[:cloud_identity])
+    @cloud_identity = current_user.cloud_identities.create(params[:cloud_identity]) || CloudIdentity.new(params[:cloud_identity])
 
     if @cloud_identity.save
-      flash[:success] = "Cloud Identity Created with #{current_user.organization.account_name}"
+      flash[:success] = "Cloud Identity Created with #{current_user.organization.name}"
       #redirect_to users_show_url
 
       respond_to do |format|

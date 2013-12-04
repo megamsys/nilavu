@@ -53,7 +53,7 @@
 								<div class="span6">
 									<div class="row-fluid">
 										<div id="scalebooks">
-											<div class="alert">
+											<div class="alert alert-success">
 												<i class="icon-info-sign"></i> Scale books
 											</div>
 											<div class="overflow">
@@ -73,21 +73,20 @@
 										<div class="row-fluid">
 											<div class="alert alert-info alert-block">
 												<a class="close" data-dismiss="alert" href="#">×</a>
-												<h4 class="alert-heading">Info!</h4><i class="icon-ok"></i>
+												<i class="icon-ok"></i>
 												<span class="badge badge-success books_total">0</span>
 
-		<input type="hidden" id="cb_count" name="no_of_instances" value="<%= @books_count %>">
+												<input type="hidden" id="cb_count" name="no_of_instances" value="<%= @books_count %>">
 
-												Instances Of:<span class="badge badge-important selected_platformapp">none</span>
+												&nbsp; Instance(s) Of: &nbsp;
+												<span class="badge badge-important"><div id="selected_platformapp"><h3>none</h3></div></span>
 											</div>
-											<ul class="no-list link-block">
-												<li class="span6">
-													<a href="support.html"> <h5><i class="icon-bar-chart"></i> Your platform isn't here?</h5> We are here to help
-													<div class="arrow-right">
-														<i class="icon-chevron-right"></i>
-													</div> </a>
-												</li>
-											</ul>
+
+											<a href="http://support.megam.co" target="_blank"> <h5><i class="icon-bar-chart"></i> Your platform isn't here?</h5> We are here to help
+											<div class="arrow-right">
+												<i class="icon-chevron-right"></i>
+											</div> </a>
+
 										</div>
 									</div>
 								</div>
@@ -98,6 +97,104 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="widget-box">
+			<div class="widget-title">
+				<span class="icon"> <i class="icon-th-list"></i> </span>
+				<h5>Cloud Book Dependencies</h5>
+				<div class="buttons">
+					<%= render :partial => "customizations/refresh" %>
+				</div>
+			</div>
+			<div class="widget-content">
+				<div class="accordion" id="collapse-group">
+					<div class="accordion-group widget-box">
+						<div class="accordion-heading">
+							<div class="widget-title">
+								<a data-parent="#collapse-group" href="#collapseGOne" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span>git</a>
+							</div>
+						</div>
+						<div class="alert alert-info alert-block">
+							<h4 class="alert-heading">You aren't a GitHubber ?</h4>
+							<div>
+								<p class="help-block">
+									<%= image_tag "helpbota.png", :alt => "help bot"%>
+									<strong>No Worries,</strong>
+									Try our sample
+								</p>
+
+								<table class="table table-hover">
+									<thead>
+
+									</thead>
+									<tbody>
+										<tr>
+											<td><i class="icon-chevron-right"></i>&nbsp; &nbsp; <span class="badge badge-info">Rails &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></td>
+											<td><i class="icon-plus" id="githubsample_ror"></i> &nbsp; &nbsp;<a href="https://github.com/thomasalrin/aryabhata.git" target="_blank">https://github.com/thomasalrin/aryabhata.git</a></td>
+										</tr>
+										<tr>
+											<td><i class="icon-chevron-right"></i>&nbsp; &nbsp; <span class="badge badge-info">Java (WAR)&nbsp;&nbsp; </span></td>
+											<td><i class="icon-plus" id="githubsample_javawar"></i> &nbsp; &nbsp; <a href="https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/orion.war" target="_blank">https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/orion.war</a></td>
+										</tr>
+										<tr>
+											<td><i class="icon-chevron-right"></i>&nbsp; &nbsp; <span class="badge badge-info">Java (.git)&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;</span></td>
+											<td><i class="icon-plus" id="githubsample_java"></i> &nbsp; &nbsp; <a href="https://github.com/thomasalrin/spring-mvc-fulfillment-base.git" target="_blank">https://github.com/thomasalrin/spring-mvc-fulfillment-base.git</a></td>
+										</tr>
+										<tr>
+											<td><i class="icon-chevron-right"></i>&nbsp; &nbsp; <span class="badge badge-info">Play(Scala)&nbsp; &nbsp;</span></td>
+											<td><i class="icon-plus" id="githubsample_play"></i> &nbsp; &nbsp; <a href="https://github.com/thomasalrin/megam_play.git" target="_blank">https://github.com/thomasalrin/megam_play.git</a></td>
+										</tr>
+										<tr>
+											<td><i class="icon-chevron-right"></i>&nbsp; &nbsp; <span class="badge badge-info">Akka(Scala)</span></td>
+											<td><i class="icon-plus" id="githubsample_akka"></i> &nbsp; &nbsp; <a href="https://github.com/thomasalrin/megam_akka.git" target="_blank">https://github.com/thomasalrin/megam_akka.git</a></td>
+										</tr>
+									</tbody>
+								</table>
+
+							</div>
+							<a class="close" data-dismiss="alert alert-warning" href="#">×</a>
+						</div>
+
+						<div class="collapse in accordion-body" id="collapseGOne">
+							<div class="widget-content">
+
+								<% if defined?(repos) %>
+								<br/>
+								<%= select_tag 'scm', options_for_select(repos.insert(0, "Select a Repository")), :style => "width:600px" %>
+								<% else %>
+								<%= link_to "/auth/github", :class =>"btn", :title=> "Github Oauth", :target => "_self", :data => { spinner: '#git_oauth'} do %> Connect Repository
+								<%= image_tag "logo_github.png", :alt => "logo_github"%>
+								<% end %>
+								<% end %>
+								<br/>
+								<br/>
+								(or) &nbsp;Manually type it&nbsp;
+								<br/>
+								<i class="icon-github"></i>
+								<span class="full_text"> <%= text_field_tag 'deps_scm', nil, class: 'large_text_field', placeholder: "https://github.com/username/project.git" %> </span>
+
+							</div>
+						</div>
+					</div>
+					<% if @predef_name == "java" %>
+					<div class="accordion-group widget-box">
+						<div class="accordion-heading">
+							<div class="widget-title">
+								<a data-parent="#collapse-group" href="#collapseGTwo" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>WAR <span class="badge badge-info">*For java only</span></h5> </a>
+							</div>
+						</div>
+						<div class="collapse accordion-body" id="collapseGTwo">
+							<div class="widget-content">
+								WAR : <span class="full_text"> <%= text_field_tag 'deps_war', nil, class: 'large_text_field', placeholder: "https://s3-ap-southeast-1.amazonaws.com/bucket_name/folder_name/file_name.war" %> </span>
+
+							</div>
+						</div>
+					</div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+
 		<div class="row-fluid">
 			<div class="span4"></div>
 			<div class="span4">

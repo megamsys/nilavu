@@ -33,10 +33,17 @@ $(document).ready(function() {
 	    });
 	});*/
 	
+	$('#cross_cloud_list').change(function(){
+	      $.ajax({url: '/selectclouds',
+	    	 contentType: 'application/js',
+	        data: 'selected_cloud='+$(this).find("option:selected").text()	        
+	      })
+	    });
+	
 	$("#cc_pname").hide();	
 	$("#cc_gcli").hide();
 	$("#cc_gsk").hide();	 
-	$("#cross_cloud_list").change(function() {
+	/*$("#cross_cloud_list").change(function() {
 		var cc = $(this).find("option:selected").text()
 		switch (cc) {
 		case "Amazon EC2":			
@@ -79,8 +86,10 @@ $(document).ready(function() {
 			$("<div class='offset2' id='cloud_logo'>" +
 			   "<a href='/auth/google_oauth2'  target='_self'><img src='/assets/signin_google.png' /></a></br>" +
 					"<img src='/assets/logo_gce.png' height='100' width='100'/>" +
-					"</div>").replaceAll('#cloud_logo');				
-			$("#cc_name").show();
+					"</div>").replaceAll('#cloud_logo');	
+			//$("#cross_cloud_show").html('<%= escape_javascript(render :partial => "cross_clouds/google_form").html_safe %>');
+			$('#cross_cloud_show').html('<%= escape_javascript(render :partial => "cross_clouds/google_form").html_safe %>');
+			/*$("#cc_name").show();
 			$("#cc_group").hide();
 			$("#cc_pname").show();
 			$("#cc_image").show();
@@ -113,7 +122,7 @@ $(document).ready(function() {
 			$("#cc_gsk").hide();		   
 		}
 		
-	});
+	});*/
 	
 
 });
