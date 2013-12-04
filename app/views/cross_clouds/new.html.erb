@@ -22,13 +22,26 @@
 					Choose your provider : <%= select_tag "cloud_provider",options_for_select(cross_cloud, selected: "Amazon EC2"), :id => "cross_cloud_list" , :name =>"type", :class => "filled", :remote => true %>
 				</div>
 			</div>
+			<%= form_tag cross_clouds_path, :html => {:id =>'basic_validate', :novalidate => 'novalidate', :multipart => true },  :method => 'post', data: { spinlock: '#spin_cross_cloud', :remote => true}  do %>
+			<input type="hidden" name="access_token" value="<%= @token %>">
+			<input type="hidden" name="refresh_token" value="<%= @refresh_token %>">
+			<input type="hidden" name="expire" value="<%= @expire %>">
 			<div id="provider_form">
-				<%= render :partial => "cross_clouds/aws_form" , :locals => {:selected_cloud => "Amazon EC2", :method => 'post'}%>
+				<%= render :partial => "cross_clouds/aws_form" , :locals => {:selected_cloud => "Amazon EC2"}%>
 			</div>
+			<br/>
+			<br/>
+			<br/>
+			<div class="row-fluid">
+				<div class="span4"></div>
+				<div class="span4">
+					<%= submit_tag "Save", :class => "btn btn-large btn-success btn-block", :remote => true %>
+				</div>
+			</div>
+			<% end %>
 		</div>
 
 		<div id="crosscloud_postfinish_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					×
