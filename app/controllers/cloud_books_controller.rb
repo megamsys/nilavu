@@ -343,7 +343,9 @@ else
 "ssh_key" => "#{@cloud_book.request[:command]['compute']['access']['ssh_key']}",
 "identity_file" => "#{@cloud_book.request[:command]['compute']['access']['identity_file']}",
 "ssh_user" => "",
-"vault_location" => "#{@cloud_book.request[:command]['compute']['access']['vault_location']}"
+"vault_location" => "#{@cloud_book.request[:command]['compute']['access']['vault_location']}",
+"sshpub_location" => "#{@cloud_book.request[:command]['compute']['access']['sshpub_location']}",
+"zone" => "#{@cloud_book.request[:command]['compute']['access']['zone']}"
 }
 },
 "cloudtool" => {

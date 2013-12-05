@@ -90,25 +90,32 @@
 				<% end %>
 			</div>
 		</div>
-
-		<div class="control-group">
-			<div class="controls">
-				<%= file_field_tag 'aws_private_key' %>				
-				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
-				<% end %>
-			</div>
-		</div>
-
-		<div class="control-group">
-			<div class="controls">
-				<%= file_field_tag 'id_rsa_public_key' %>				
-				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
-				<% end %>
-			</div>
-		</div>
 		
+		<!--<div>
+			<%= file_field_tag 'aws_private_key' %>			
+		</div>
+
+		<div>
+			<%= file_field_tag 'id_rsa_public_key' %>			
+		</div>-->
+		<div class="control-group">
+			<div class="controls">
+				<%= text_field_tag 'aws_private_key', nil, :class=> 'required', placeholder: 'Enter AWS private key...' %>
+				<%= link_to "#" do %>
+				<i class="icon-question-sign"></i>
+				<% end %>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<div class="controls">
+				<%= text_field_tag 'id_rsa_public_key', nil, :class=> 'required', placeholder: 'Enter AWS public key..' %>
+				<%= link_to "#" do %>
+				<i class="icon-question-sign"></i>
+				<% end %>
+			</div>
+		</div>		
+
 		<div class="control-group" id="cc_awsak">
 			<div class="controls">
 				<%= text_field_tag 'aws_access_key', nil, :class=> 'required', placeholder: 'Enter AWS access key..' %>

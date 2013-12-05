@@ -64,6 +64,14 @@
 				<% end %>
 			</div>
 		</div>
+		<div class="control-group">
+			<div class="controls">
+				<%= text_field_tag 'zone', nil, :class=> 'required', placeholder: 'Enter zone...' %>
+				<%= link_to "#" do %>
+				<i class="icon-question-sign"></i>
+				<% end %>
+			</div>
+		</div>
 	</div>
 
 	<div class="span4">
@@ -83,15 +91,18 @@
 			</div>
 		</div>
 
-		<div class="control-group" id="cc_rsapk">
+		<!--<div id="cc_rsapk">			
+				<%= file_field_tag 'id_rsa_public_key' %>							
+		</div>-->
+
+        <div class="control-group">
 			<div class="controls">
-				<%= file_field_tag 'id_rsa_public_key' %>
-				<!--<%= text_field_tag 'id_rsa_public_key', nil, :class=> 'required', placeholder: 'Enter id_rsa public key..' %>-->
+				<%= text_field_tag 'id_rsa_public_key', nil, :class=> 'required', placeholder: 'Enter id_rsa public key..' %>
 				<%= link_to "#" do %>
 				<i class="icon-question-sign"></i>
 				<% end %>
 			</div>
-		</div>
+		</div>	
 
 		<div class="control-group" id="cc_gcli">
 			<div class="controls">

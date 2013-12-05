@@ -17,7 +17,11 @@ class CreateCommand
         puts "google entry"
         @ci_command = "#{@cloud_instruction.command}"
         @ci_command["<node_name>"] = "#{data[:cloud_book][:name]}"
-        @ci_command["-f"] = "-f " + user.email + "/#{data[:cloud_book][:predef_cloud_name]}/google-compute.json"
+        #c_file = user.email + "/#{data[:cloud_book][:predef_cloud_name]}/google-compute.json"
+        u = URI.parse(@predef_cloud.access[:vault_location])        
+        u.path[0]=""     
+        @ci_command["-f"] = "-f " + u.path + "/" + @predef_cloud.spec[:type_name] + ".json"
+        #@ci_command["-f"] = "-f " + user.email + "/#{data[:cloud_book][:predef_cloud_name]}/google-compute.json"
         puts "#{@ci_command}"
       end
       hash = get_command(data, @predef_cloud, @tool, @template, @ci_command, @ci_name)
@@ -60,7 +64,8 @@ class CreateCommand
           "identity_file" => "#{predef_cloud.access[:identity_file]}",
           "ssh_user" => "#{predef_cloud.access[:ssh_user]}",
           "vault_location" => "#{predef_cloud.access[:vault_location]}",
-          "sshpub_location" => "#{predef_cloud.access[:sshpub_location]}"
+          "sshpub_location" => "#{predef_cloud.access[:sshpub_location]}",
+          "zone" => "#{predef_cloud.access[:zone]}"
         }
       },
       "cloudtool" => {
