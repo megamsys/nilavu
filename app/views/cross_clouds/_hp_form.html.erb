@@ -91,25 +91,31 @@
 			</div>
 		</div>
 
-		<div class="control-group" id="cc_awspk">
+		<!--<div id="cc_awspk">			
+				<%= file_field_tag 'aws_private_key' %>						
+		</div>
+
+		<div id="cc_rsapk">			
+				<%= file_field_tag 'id_rsa_public_key' %>							
+		</div>-->
+
+       <div class="control-group">
 			<div class="controls">
-				<%= file_field_tag 'aws_private_key' %>
-				<!--<%= text_field_tag 'aws_private_key', nil, :class=> 'required', placeholder: 'Enter AWS_private_key..' %>-->
+				<%= text_field_tag 'aws_private_key', nil, :class=> 'required', placeholder: 'Enter HP private key...' %>
 				<%= link_to "#" do %>
 				<i class="icon-question-sign"></i>
 				<% end %>
 			</div>
 		</div>
 
-		<div class="control-group" id="cc_rsapk">
+		<div class="control-group">
 			<div class="controls">
-				<%= file_field_tag 'id_rsa_public_key' %>
-				<!--<%= text_field_tag 'id_rsa_public_key', nil, :class=> 'required', placeholder: 'Enter id_rsa public key..' %>-->
+				<%= text_field_tag 'id_rsa_public_key', nil, :class=> 'required', placeholder: 'Enter id_rsa public key..' %>
 				<%= link_to "#" do %>
 				<i class="icon-question-sign"></i>
 				<% end %>
 			</div>
-		</div>
+		</div>		
 
 		<div class="control-group" id="cc_awsak">
 			<div class="controls">

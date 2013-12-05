@@ -23,7 +23,7 @@ class CrossCloudsController < ApplicationController
   def new
     add_breadcrumb "Cross Clouds", cross_clouds_path
     add_breadcrumb "New Cross Cloud", new_cross_cloud_path
-    logger.debug "GOOGLE oauth token ============> "
+    logger.debug "GOOGLE oauth token ============> "     
     puts request.env['omniauth.auth']
     if request.env['omniauth.auth']
       @cloud_prov = "Google Cloud Engine"
@@ -39,15 +39,16 @@ class CrossCloudsController < ApplicationController
     logger.debug "CROSS CLOUD CREATE PARAMS ============> "
     logger.debug "#{params}"
 
-    #uploaded_io = params[:picture]
+    #uploaded_io = params[:aws_private_key]
     #File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
     #file.write(uploaded_io.read)
     #end
     puts current_user.email
     vault_loc = get_Vault_server+current_user.email+"/"+params[:name]
     sshpub_loc = get_Vault_server+current_user.email+"/"+params[:name]
-    aws_private_key = ((params[:aws_private_key].original_filename).length > 0) ? current_user.email+"/"+params[:name]+"/"+params[:aws_private_key].original_filename : ""
-    options = { :email => current_user.email, :api_key => current_user.api_token, :name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group], :image => params[:image], :flavor => params[:flavour] }, :access => { :ssh_key => params[:ssh_key], :identity_file => private_key, :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc }  }
+    aws_private_key = ((params[:aws_private_key]).present?) ? current_user.email+"/"+params[:name]+"/"+File.basename(params[:aws_private_key]) : ""
+    #aws_private_key = ((params[:aws_private_key].original_filename).length > 0) ? current_user.email+"/"+params[:name]+"/"+params[:aws_private_key].original_filename : ""
+    options = { :email => current_user.email, :api_key => current_user.api_token, :name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group], :image => params[:image], :flavor => params[:flavour] }, :access => { :ssh_key => params[:ssh_key], :identity_file => aws_private_key, :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone] }  }
     @res_body = CreatePredefClouds.perform(options)
     if @res_body.class == Megam::Error
       @res_msg = nil
@@ -69,7 +70,7 @@ class CrossCloudsController < ApplicationController
         if params[:access_token].length > 0
           @data = CreateGoogleJSON.perform(params[:access_token], params[:refresh_token], params[:expire], params[:project_name], params[:google_client_id], params[:google_secret_key])
         end
-        upload_options = {:email => current_user.email, :name => params[:name], :type => cc_type(params[:provider]), :g_json => @data, :id_rsa_public_key => params[:id_rsa_public_key]}
+        upload_options = {:email => current_user.email, :name => params[:name], :provider_value => get_provider_value(params[:provider]), :type => cc_type(params[:provider]), :g_json => @data, :id_rsa_public_key => params[:id_rsa_public_key]}
         @upload = GoogleCloud.perform(upload_options)
       end
       if @upload.class == Megam::Error

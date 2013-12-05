@@ -167,24 +167,25 @@ else
     end
   end
 
-def git_call
-     logger.debug "================================= > Git CALL <========================= "
-        auth_token = request.env['omniauth.auth']['credentials']['token']
-        github = Github.new oauth_token: auth_token
-        git_array = Array.new
-        github.repos.all.each do |repo|
-        	#puts repo
-        	#puts "===========================> URL <============================================"
-        	#puts repo.clone_url
-        	git_array.push repo.clone_url
-        end
-        @repos = git_array
-        puts "=========================================> GIT ARRAY <==================================== "
-        puts @repos
-        #render 'new'
-          render :template => "cloud_books/new", :locals => {:repos => @repos}
-        
-end
+  def git_call
+    logger.debug "================================= > Git CALL <========================= "
+    auth_token = request.env['omniauth.auth']['credentials']['token']
+    github = Github.new oauth_token: auth_token
+    git_array = Array.new
+    github.repos.all.each do |repo|
+    #puts repo
+    #puts "===========================> URL <============================================"
+    #puts repo.clone_url
+      git_array.push repo.clone_url
+    end
+    @repos = git_array
+    puts "=========================================> GIT ARRAY <==================================== "
+    puts @repos
+    #render 'new'
+    render :template => "cloud_books/new", :locals => {:repos => @repos}
+
+  end
+
   def new
     logger.debug ("================================= > CB STEP1 <========================= ")
     if current_user.onboarded_api
@@ -203,9 +204,9 @@ end
     add_breadcrumb "Create", new_book_path
     @predef_name = params[:predef_name]
     if"#{params[:deps_scm]}".strip.length != 0
-    @deps_scm = "#{params[:deps_scm]}"
+      @deps_scm = "#{params[:deps_scm]}"
     elsif !"#{params[:scm]}".start_with?("select")
-    @deps_scm = "#{params[:scm]}"
+      @deps_scm = "#{params[:scm]}"
     end
     @deps_war = "#{params[:deps_war]}" if params[:deps_war]
     @book =  current_user.cloud_books.build
@@ -234,55 +235,56 @@ end
   #Upon creation of an entry in cloud_book_history, a request is sent to megam_play using the
   #resque background worker.
   def create
-  
-  data={:book_name => params[:cloud_book][:name], :book_type => params[:cloud_book][:book_type] , :predef_cloud_name => params[:cloud_book][:predef_cloud_name], :provider => params[:predef][:provider], :provider_role => params[:predef][:provider_role], :domain_name => params[:cloud_book][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}"} 
 
-      puts "=======================================================> NEW NODE TEST I <================================================"
-      puts data.inspect
-      
-  options = { :email => current_user.email, :api_key => current_user.api_token, :data => data, :group => "server", :action => "create" }
-   
+    data={:book_name => params[:cloud_book][:name], :book_type => params[:cloud_book][:book_type] , :predef_cloud_name => params[:cloud_book][:predef_cloud_name], :provider => params[:predef][:provider], :provider_role => params[:predef][:provider_role], :domain_name => params[:cloud_book][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}"}
+
+    puts "=======================================================> NEW NODE TEST I <================================================"
+    puts data.inspect
+
+    options = { :email => current_user.email, :api_key => current_user.api_token, :data => data, :group => "server", :action => "create" }
+
     node_hash=MakeNode.perform(options)
-    
-      puts "=======================================================> NEW NODE TEST <================================================"
-      puts node_hash.inspect
-      if node_hash.class == Megam::Error
-         puts "================================================> Node Create ERROR========================================> "
-         puts node_hash.inspect
-            @res_msg="Sorry Something Wrong. MSG : #{node_hash.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
-      respond_to do |format|
-        format.js {
-          respond_with(@res_msg, :layout => !request.xhr? )
-        }
-      end
-      else
-   options = { :email => current_user.email, :api_key => current_user.api_token, :node => node_hash }
-    @node = CreateNodes.perform(options)
-    if @node.class == Megam::Error
-      @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
-      respond_to do |format|
-        format.js {
-          respond_with(@res_msg, :layout => !request.xhr? )
-        }
-      end
-    #redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@node.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-    else
 
-      @book = current_user.cloud_books.create(params[:cloud_book])
-      @book.save
+    puts "=======================================================> NEW NODE TEST <================================================"
+    puts node_hash.inspect
+    if node_hash.class == Megam::Error
+      puts "================================================> Node Create ERROR========================================> "
+      puts node_hash.inspect
+      @res_msg="Sorry Something Wrong. MSG : #{node_hash.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      respond_to do |format|
+        format.js {
+          respond_with(@res_msg, :layout => !request.xhr? )
+        }
+      end
+    else
+      options = { :email => current_user.email, :api_key => current_user.api_token, :node => node_hash }
+      @node = CreateNodes.perform(options)
+      if @node.class == Megam::Error
+        @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+        respond_to do |format|
+          format.js {
+            respond_with(@res_msg, :layout => !request.xhr? )
+          }
+        end
+      #redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@node.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      else
+
+        @book = current_user.cloud_books.create(params[:cloud_book])
+        @book.save
 =begin
 if @node.request["req_id"]
 params = {:book_name => "#{@book.name}#{@book.domain_name}", :request_id => @node.request["req_id"], :status => @node.status}
 else
 =end
-      params = {:book_name => "#{@book.name}#{@book.domain_name}", :request_id => "req_id", :status => "status"}
-      #end
+        params = {:book_name => "#{@book.name}#{@book.domain_name}", :request_id => "req_id", :status => "status"}
+        #end
 
-      @history = @book.cloud_books_histories.create(params)
-    @history.save
+        @history = @book.cloud_books_histories.create(params)
+      @history.save
+      end
     end
   end
-end
+
   def show
     #@book = CloudBook.find(params[:id])
     get_node = { :email => current_user.email, :api_key => current_user.api_token, :node => "#{params[:name]}" }
@@ -299,20 +301,20 @@ end
     else
       @requests = GetRequestsByNode.perform(get_node)
 =begin
-      if @requests.class == Megam::Error
-      	@requests={"results" => [{"req_type" => "", "create_at" => "", "command" => "{}"}]}
-      end
+if @requests.class == Megam::Error
+@requests={"results" => [{"req_type" => "", "create_at" => "", "command" => "{}"}]}
+end
 =end
       if params[:book_type] == "APP"
         @book_requests = GetAppRequestsByNode.perform(get_node)
       elsif params[:book_type] == "BOLT"
         @book_requests = GetBoltRequestsByNode.perform(get_node)
       end
-          if @book_requests.class == Megam::Error
-      		@book_requests={"results" => {"req_type" => "", "create_at" => "", "lc_apply" => "", "lc_additional" => "", "lc_when" => ""}}
-#@book_requests={"results" => [Megam::AppRequest]}
-          end
-         puts "Book REQUEST CLASS==========================?> #{@book_requests.class}"
+      if @book_requests.class == Megam::Error
+        @book_requests={"results" => {"req_type" => "", "create_at" => "", "lc_apply" => "", "lc_additional" => "", "lc_when" => ""}}
+      #@book_requests={"results" => [Megam::AppRequest]}
+      end
+      puts "Book REQUEST CLASS==========================?> #{@book_requests.class}"
       @cloud_book = @node.lookup("#{params[:name]}")
       puts "@book_requests===========================> "
       puts @book_requests
@@ -323,7 +325,7 @@ end
       end
     end
   end
-  
+
   def clone
     sleep(5)
   end
@@ -332,14 +334,14 @@ end
     @book = CloudBook.find(params[:id])
     #get_node = { :email => current_user.email, :api_key => current_user.api_token, :node => "#{params[:name]}" }
     #@node = FindNodeByName.perform(get_node)
-    
-      options = { :email => current_user.email, :api_key => current_user.api_token, :node_name => "#{params[:name]}", :group => "server", :action => "delete" }
-   
+
+    options = { :email => current_user.email, :api_key => current_user.api_token, :node_name => "#{params[:name]}", :group => "server", :action => "delete" }
+
     node_hash=DeleteNode.perform(options)
-    
-      puts "=======================================================> NEW NODE TEST <================================================"
-      puts node_hash.inspect
-      
+
+    puts "=======================================================> NEW NODE TEST <================================================"
+    puts node_hash.inspect
+
     if node_hash.class == Megam::Error
       @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
     else

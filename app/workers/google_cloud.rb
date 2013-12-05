@@ -1,4 +1,5 @@
 class GoogleCloud
+include CrossCloudsHelper
   puts "----worker entry"
   def self.perform(options = {})   
     
@@ -9,7 +10,7 @@ class GoogleCloud
       S3Upload.perform(options[:email]+"/"+options[:name]+"/type", 'type='+options[:type])
 
       #Create and Upload type file ...
-      S3Upload.perform(options[:email]+"/"+options[:name]+"/google-compute.json", options[:g_json])
+      S3Upload.perform(options[:email]+"/"+options[:name]+"/"+options[:provider_value]+".json", options[:g_json])
         
   end
 end
