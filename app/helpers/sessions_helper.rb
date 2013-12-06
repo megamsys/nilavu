@@ -24,6 +24,9 @@ module SessionsHelper
   def defaults_for_api
     {:email => current_user.email,
       :api_key => current_user.api_token }
+    Mixlib::Log::Formatter.show_time = false
+    Megam::Log.init(config[:log_location])
+    Megam::Log.level(config.log_level)
   end
 
   def signed_in_user
