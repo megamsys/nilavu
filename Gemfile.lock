@@ -42,7 +42,7 @@ GEM
     addressable (2.3.5)
     arel (4.0.1)
     atomic (1.1.14)
-    aws-sdk (1.29.0)
+    aws-sdk (1.29.1)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
@@ -64,6 +64,9 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    cheddargetter_client_ruby (0.3.2)
+      httparty (>= 0.4.3)
+      httparty (>= 0.4.3)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.3)
@@ -125,6 +128,9 @@ GEM
     http (0.5.0)
       http_parser.rb
     http_parser.rb (0.5.3)
+    httparty (0.12.0)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     httpauth (0.2.0)
     i18n (0.6.9)
     inflector (0.0.1)
@@ -169,7 +175,7 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.5.2)
     minitest (4.7.5)
-    mixlib-config (2.0.0)
+    mixlib-config (2.1.0)
     mixlib-log (1.6.0)
     multi_json (1.8.2)
     multi_test (0.0.2)
@@ -323,6 +329,7 @@ DEPENDENCIES
   bootstrap-will_paginate (= 0.0.10)
   breadcrumbs_on_rails
   capybara
+  cheddargetter_client_ruby
   coffee-rails (~> 4.0.1)
   cucumber-rails
   factory_girl_rails
@@ -334,6 +341,7 @@ DEPENDENCIES
   google-analytics-rails (~> 0.0.4)
   gritter (~> 1.0.3)
   high_voltage (= 2.0.0)
+  httparty
   inflector
   jquery-datatables-rails
   jquery-rails

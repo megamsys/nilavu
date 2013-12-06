@@ -42,7 +42,7 @@ Cloudauth::Application.routes.draw do
   get '/account' => 'billing#account'
   # to-do: this is showing the index of billed_history (make it a separate controller)
   get '/history' => 'billing#history'
-
+  get '/upgrade' => 'billing#upgrade'
   #users
   match '/worker', to: 'users#worker', via: [:get, :post]
 

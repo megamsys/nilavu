@@ -81,6 +81,12 @@ module Cloudauth
     config.token_credential_uri = 'https://accounts.google.com/o/oauth2/token'
     config.scope = 'https://www.googleapis.com/auth/userinfo.email'
     config.redirect_uri = 'https://www.megam.co/auth/google_oauth2/callback'
+    
+    #Cheddargetter API
+    config.gem 'cheddargetter_client_ruby'
+    config.ched_prod_code = ENV['CHED_PROD_CODE']
+    config.ched_user_name = ENV['CHED_USER_NAME']
+    config.ched_password = ENV['CHED_PASSWORD']
 =begin
 config.assets.precompile << Proc.new do |path|
   if path =~ /\.(css|js)\z/

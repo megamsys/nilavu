@@ -58,6 +58,10 @@ gem "nokogiri"
 #convert singularize
 gem "inflector"
 
+#chettargetter API
+gem "cheddargetter_client_ruby"
+gem "httparty"
+
 #For background processing of cloud jobs
 #gem 'resque'
 #gem 'sidekiq'
