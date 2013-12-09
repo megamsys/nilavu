@@ -1,7 +1,6 @@
 class CloudBooksController < ApplicationController
-
   respond_to :html, :js
-  add_breadcrumb "Dashboard", :dashboards_path
+  
   def index
     if current_user.cloud_books.any?
       add_breadcrumb "Cloud_books", cloud_books_path

@@ -1,7 +1,6 @@
 class CrossCloudsController < ApplicationController
   respond_to :html, :js
-  include CrossCloudsHelper
-  add_breadcrumb "Dashboard", :dashboards_path
+  include CrossCloudsHelper  
   def index
     add_breadcrumb "Cross Clouds", cross_clouds_path
     cross_cloud_options = { :email => current_user.email, :api_key => current_user.api_token }

@@ -1,6 +1,5 @@
 class BillingController < ApplicationController
-
-  add_breadcrumb "Dashboard", :dashboards_path
+  
   FREE_PLAN = "FREE"
   LITE_PLAN = "LITE"
   STANDARD_PLAN = "STANDARD"

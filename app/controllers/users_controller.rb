@@ -1,7 +1,5 @@
 class UsersController < ApplicationController
-  respond_to :html, :js
-
-  add_breadcrumb "Dashboard", :dashboards_path
+  respond_to :html, :js  
 
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
   before_filter :correct_user, only: [:edit, :update]
@@ -117,7 +115,8 @@ class UsersController < ApplicationController
     end
   end
 
-  def edit
+  def edit    
+    add_breadcrumb "Profile", edit_user_path
     logger.debug "==> Controller: users, Action: edit, Start edit"
     @user= User.find(params[:id])
     @user.organization

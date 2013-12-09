@@ -1,6 +1,5 @@
 class ConnectorProjectsController < ApplicationController
-  respond_to :html, :js
-  add_breadcrumb "Dashboard", :dashboards_path
+  respond_to :html, :js  
   def index
     add_breadcrumb "projects", :root_path
     if !current_user.organization
