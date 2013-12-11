@@ -15,15 +15,14 @@ $(document).ready(function() {
 		}
 	});	
 	
-	
-	$('#cross_cloud_list').change(function(){
+	$('#cross_cloud_list').change(function(){		
 	      $.ajax({url: '/selectclouds',
 	    	'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")},
 	        data: 'selected_cloud='+$(this).find("option:selected").text()	        
 	      })
 	    });
 	
-		 
+			 
 	/*$("#cross_cloud_list").change(function() {
 		var cc = $(this).find("option:selected").text()
 		switch (cc) {

@@ -3,6 +3,12 @@
 	height: 100px;
 }
 
+.flexslider #slider-ccimage {
+	width: 100px;  
+	height: 120px;
+}
+
+
 [class^="logoc_"], [class*="logoc_"] {
   background-image: url('cloudconnectors_sprites.png');
   background-position: 0 0;

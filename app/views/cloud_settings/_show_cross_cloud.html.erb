@@ -1,0 +1,33 @@
+<h3><span class="label label-important"><%= @cross_cloud.name %></span></h3>
+<table class="table table-bordered">
+	<tbody>
+		<tr>
+			<td>Cloud Type</td>
+			<td><b><%= @cross_cloud.spec[:type_name] %></b></td>
+		</tr>
+		<tr>
+			<td>Group</td>
+			<td><b><%= @cross_cloud.spec[:groups] %></b></td>
+		</tr>
+		<tr>
+			<td>Image</td>
+			<td><b><%= @cross_cloud.spec[:image] %></b></td>
+		</tr>
+		<tr>
+			<td>Flavor</td>
+			<td><b><%= @cross_cloud.spec[:flavor] %></b></td>
+		</tr>
+		<tr>
+			<td>SSH Key</td>
+			<td><b><%= @cross_cloud.access[:ssh_key] %></b></td>
+		</tr>
+		<tr>
+			<td>Identity File</td>
+			<td><%= @cross_cloud.access[:identity_file] %></td>
+		</tr>
+		<tr>
+			<td>SSH User</td>
+			<td><b><%= @cross_cloud.access[:ssh_user] %></b></td>
+		</tr>
+	</tbody>
+</table>

@@ -2,8 +2,8 @@
  * Unicorn Admin Template
  * Diablo9983 -> diablo9983@gmail.com
 **/
-$(document).ready(function(){
-
+$(document).ready(function(){	
+	
 	// === Sidebar navigation === //
 	
 	$('.submenu > a').click(function(e)

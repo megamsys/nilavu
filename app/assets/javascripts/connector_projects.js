@@ -6,5 +6,6 @@ $(document).ready(function() {
 		itemMargin : 5,
 		minItems : 5,
 		maxItems : 5
-	});
+	});	
+	
 });

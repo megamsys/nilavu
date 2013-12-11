@@ -1,8 +1,8 @@
 class S3Upload
   puts "----worker entry"
-  def self.perform(filename, data)
+  def self.perform(bucket_name, filename, data)
     begin
-      bucket = s3_bucket
+      bucket = s3_bucket(bucket_name)
       # Grab a reference to an object in the bucket with the name we require
       object = bucket.objects[filename]
       # Write a local file to the aforementioned object on S3
@@ -31,8 +31,8 @@ end
 end
 =end
 
-  def self.s3_bucket
-    bucket_name = ENV['MEGAM_AWS_S3_BUCKET']
+  def self.s3_bucket(bucket_name)
+    #bucket_name = ENV['MEGAM_AWS_S3_BUCKET']
     s3 = AWS::S3.new(
     :access_key_id => ENV['MEGAM_AWS_ACCESS_KEY'],
     :secret_access_key => ENV['MEGAM_AWS_SECRET_ID'])

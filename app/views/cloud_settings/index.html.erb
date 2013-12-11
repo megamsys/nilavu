@@ -1,0 +1,38 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'Cloud Settings') %>
+<%= render :partial => "users/header" , :locals => {:head => "Cloud Settings"}%>
+<div id="breadcrumb">
+	<%= render_breadcrumbs %>
+</div>
+
+<div class="container-fluid">
+	<div class="widget-box" style="overflow:hidden;">
+		<div class="widget-title">
+			<ul class="nav nav-tabs">
+				<li class="active">
+					<a data-toggle="tab" href="#cross_cloud_tab">Cross Clouds</a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#cloud_tools_tab">Cloud Tools</a>
+				</li>
+				<li>
+					<a data-toggle="tab" href="#tab3" >SSH Keys</a>
+				</li>
+			</ul>
+		</div>
+		<div class="widget-content tab-content" style="overflow:hidden;">
+			<div id="cross_cloud_tab" class="tab-pane active">				
+				<%= render :partial => "cloud_settings/cross_cloud_index" %>
+			</div>
+			<div id="cloud_tools_tab" class="tab-pane" style="overflow:hidden;">
+				<%= render :partial => "cloud_settings/cloud_tool_settings" %>
+			</div>
+			<div id="tab3" class="tab-pane">
+				This is a Tab Three Content
+			</div>
+		</div>
+	</div>	
+</div>
+
+<% end %>
+<%= render :template => users_show_path %>
