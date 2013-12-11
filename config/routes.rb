@@ -18,6 +18,8 @@ Cloudauth::Application.routes.draw do
   resources :dashboards
   resources :widgets
   resources :password_resets
+  resources :cloud_tool_settings
+  resources :cloud_settings
 
 
   namespace :api do
@@ -102,9 +104,12 @@ match '/new_store', to: 'cloud_stores#new_store', via: [:get, :post]
   #  match '/connector_execution/export', to: 'connector_executions#export'
   #  match '/connector_execution/execute', to: 'connector_executions#execute'
 
-
- #match '/selectclouds', to: 'cross_clouds#cloud_selector', via: [:get, :post]
- get '/selectclouds' => 'cross_clouds#cloud_selector'
+# ==========Cloud settings
+match '/cross_cloud_new', to: 'cloud_settings#cross_cloud_new', via: [:get, :post]
+match '/cross_cloud_create', to: 'cloud_settings#cross_cloud_create', via: [:get, :post]
+match '/cloud_tool_settings_create', to: 'cloud_settings#cloud_tool_setting_create', via: [:get, :post]
+match '/selectclouds', to: 'cross_clouds#cloud_selector', via: [:get, :post]
+ #get '/selectclouds' => 'cloud_settings#cloud_selector'
  #match '/selectclouds', to: 'cross_clouds#new', via: [:get, :post]
 
   #   =======Error controller

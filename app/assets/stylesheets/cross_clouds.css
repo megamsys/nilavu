@@ -2,3 +2,32 @@
 	border-bottom-style:solid; 
 	border-color:#FF00FF;
 }
+
+[class^="logor_"], [class*="logor_"] {
+  background-image: url('cross_clouds_sprites.png');
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 100px;
+  width: 100px;
+}
+
+
+.logor_aws{
+	background-position: -30px -20px ;
+	width: 100px;
+	height: 119px;
+}
+
+.logor_gce{
+	background-position: -214px -25px ;
+	width: 100px;
+	height: 99px;
+}
+
+.logor_hp{
+	background-position: -385px -20px ;
+	width: 100px;
+	height: 100px;
+}
+

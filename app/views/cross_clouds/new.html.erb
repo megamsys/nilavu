@@ -1,12 +1,21 @@
 <% content_for :content_settings do %>
-<% provide(:title, 'New Cross Cloud') %>
-<%= render :partial => "users/header" , :locals => {:head => "New Cross Cloud"}%>
+<% provide(:title, 'Cross Clouds') %>
+<%= render :partial => "users/header" , :locals => {:head => "Cross Clouds"}%>
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
 
 <div class="container-fluid">
-
+	<div class="alert alert-success alert-block">
+		<div>
+			<p class="help-block">
+				<%= image_tag "helpbotb.png", :alt => "help bot"%>
+				<strong>Go Ahead </strong>
+				Choose your cloud provider.....
+			</p>
+		</div>
+		<a class="close" data-dismiss="alert alert-warning" href="#">×</a>
+	</div>
 	<div class="widget-box">
 		<div class="widget-title">
 			<span class="icon"> <i class="icon-th-list"></i> </span>
@@ -16,19 +25,30 @@
 			</div>
 		</div>
 		<div class="widget-content">
-			<br/>
-			<div class="control-group">
-				<div class="controls" required name="cross cloud type">
-					Choose your provider : <%= select_tag "cloud_provider",options_for_select(cross_cloud, selected: "Amazon EC2"), :id => "cross_cloud_list" , :name =>"type", :class => "filled", :remote => true %>
-				</div>
+			<div class="flexslider" id="ccflex">
+				<ul class="slides">
+					<% cross_cloud_image.each do |cc| %>
+					<li>
+						<%= link_to selectclouds_path(:selected_cloud => cc), :remote => true, :type => "submit", :method => "post", data: { spinlock: '#dec'}  do %>
+						<i class="logor_<%= cc %>", id ="slider-ccimage"></i>
+						<% end %>
+					</li>
+					<% end %>
+				</ul>
 			</div>
+			<!--<div class="control-group">
+			<div class="controls" required name="cross cloud type">
+			Choose your provider : <%= select_tag "cloud_provider",options_for_select(cross_cloud, selected: "Amazon EC2"), :id => "cross_cloud_list" , :name =>"type", :class => "filled", :remote => true %>
+			</div>
+			</div>-->
 			<%= form_tag cross_clouds_path, multipart: true, :id =>'basic_validate', :novalidate => 'novalidate', :name => "basic_validate1",  :method => 'post', :remote => true, data: { spinlock: '#spin_cross_cloud'}  do %>
-			<input type="hidden" name="access_token" value="<%= @token %>">
-			<input type="hidden" name="refresh_token" value="<%= @refresh_token %>">
-			<input type="hidden" name="expire" value="<%= @expire %>">
+
 			<div id="provider_form">
 				<%= render :partial => "cross_clouds/aws_form" , :locals => {:selected_cloud => "Amazon EC2"}%>
 			</div>
+			<input type="hidden" name="access_token" value="<%= @token %>">
+			<input type="hidden" name="refresh_token" value="<%= @refresh_token %>">
+			<input type="hidden" name="expire" value="<%= @expire %>">
 			<br/>
 			<br/>
 			<br/>
@@ -79,12 +99,13 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<%= link_to  "Ok", new_cross_cloud_path, :class => "btn btn-primary", :target => "_self" %>
+				<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>
+
 			</div>
 		</div>
 
 	</div>
-	<!-- container-fluid -->
+</div>
 
-	<% end %>
-	<%= render :template => users_show_path %>
+<% end %>
+<%= render :template => users_show_path %>
