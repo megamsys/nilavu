@@ -1,6 +1,5 @@
 class CloudBooksController < ApplicationController
   respond_to :html, :js
-  
   def index
     if current_user.cloud_books.any?
       add_breadcrumb "Cloud_books", cloud_books_path
@@ -63,9 +62,6 @@ tmp_hash = {
   end
 
   def send_request
-
-    puts "SEND REQUEST PARAMS===========> "
-    puts params
     tmp_hash = {
       "req_type" => "#{params[:req_type]}",
       "node_name" => "#{params[:node_name]}",
