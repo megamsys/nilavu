@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Rails 4.0
-gem "rails", "~> 4.0.1"
+gem "rails", "~> 4.0.2"
 # add these gems to help with the transition to Rails 4.0
 gem 'protected_attributes'
 gem 'rails-observers'
@@ -85,7 +85,7 @@ gem 'bcrypt-ruby',:require => 'bcrypt'
 #group :assets do
   gem 'sass-rails',   '~> 4.0.1'
   gem 'coffee-rails', '~> 4.0.1'
-  gem 'uglifier', '>= 2.3.1'
+  gem 'uglifier', '>= 2.3.2'
 #end
 
 group :test do
