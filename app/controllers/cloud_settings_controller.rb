@@ -8,9 +8,7 @@ class CloudSettingsController < ApplicationController
   def cross_cloud_init
     cross_cloud_options = { :email => current_user.email, :api_key => current_user.api_token }
     @cross_clouds_collection = ListPredefClouds.perform(cross_cloud_options)
-    if @cross_clouds_collection.class == Megam::Error
-      redirect_to dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@cross_clouds_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-    else
+    if @cross_clouds_collection.class != Megam::Error
       @cross_clouds = []
       cross_clouds = []
       @cross_clouds_collection.each do |pre_cl|
@@ -25,9 +23,7 @@ class CloudSettingsController < ApplicationController
   def cloud_tools_init
     cloud_tool_setting_options = { :email => current_user.email, :api_key => current_user.api_token }
     @cloud_tool_setting_collection = ListCloudToolSettings.perform(cloud_tool_setting_options)
-    if @cloud_tool_setting_collection.class == Megam::Error
-      redirect_to dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@cloud_tool_setting_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-    else
+    if @cloud_tool_setting_collection.class != Megam::Error
       @cloud_tool_settings = []
       cloud_tool_settings = []
       @cloud_tool_setting_collection.each do |pre_cl|
@@ -43,6 +39,13 @@ class CloudSettingsController < ApplicationController
     add_breadcrumb "Cloud Settings", cloud_settings_path
     cross_cloud_init
     cloud_tools_init
+    if @cloud_tool_setting_collection.class == Megam::Error && @cross_clouds_collection.class == Megam::Error
+      redirect_to dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@cloud_tool_setting_collection.some_msg[:msg]}, #{@cross_clouds_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+    elsif @cloud_tool_setting_collection.class == Megam::Error
+      redirect_to dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@cloud_tool_setting_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+    elsif @cross_clouds_collection.class == Megam::Error
+      redirect_to dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@cross_clouds_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+    end
   end
 
   def show
@@ -72,7 +75,7 @@ class CloudSettingsController < ApplicationController
     logger.debug "#{params.inspect}"
     vault_loc = get_CTSVault_server+"/"+current_user.email+"/"+params[:cloud_type]+"/"+File.basename(params[:repo_file])
     options = { :email => current_user.email, :api_key => current_user.api_token, :cloud_type => params[:cloud_type], :repo => params[:repo], :vault_location => vault_loc }
-    @res_body = CreateCloudToolSettings.perform(options)    
+    @res_body = CreateCloudToolSettings.perform(options)
     if @res_body.class == Megam::Error
       puts "============================> @CLOUD TOOL SETTING ERROR <==================================="
       @res_msg = nil
