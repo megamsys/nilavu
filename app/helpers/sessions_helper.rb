@@ -1,12 +1,16 @@
 module SessionsHelper
   def sign_in(user)
     cookies.permanent[:remember_token] = user.remember_token
-    #set the API token here.
     self.current_user = user
+    configure_api(current_user.email, current_user.api_token)
   end
 
   def signed_in?
-    !current_user.nil?
+    am_in = !current_user.nil?
+    if am_in
+      configure_api(current_user.email, current_user.api_token)
+    end
+    am_in
   end
 
   def current_user=(user)
@@ -19,14 +23,6 @@ module SessionsHelper
 
   def current_user?(user)
     user == current_user
-  end
-
-  def defaults_for_api
-    {:email => current_user.email,
-      :api_key => current_user.api_token }
-    Mixlib::Log::Formatter.show_time = false
-    Megam::Log.init(config[:log_location])
-    Megam::Log.level(config.log_level)
   end
 
   def signed_in_user
@@ -49,6 +45,12 @@ module SessionsHelper
 
   def store_location
     session[:return_to] = request.fullpath
+  end
+
+  def configure_api(email, api_token)
+    Megam::Config[:email] = email
+    Megam::Config[:api_key] = api_token
+    Megam::Log.level(Rails.configuration.log_level)
   end
 end
 

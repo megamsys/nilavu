@@ -9,7 +9,7 @@
 
 	<div class="widget-box">
 		<div class="widget-title">
-			<span class="icon"> <i class="icon-list-alt"></i> </span>
+			<span class="icon"> <i class="fa fa-list-alt"></i> </span>
 			<h5>Cloud Store Management</h5>
 		</div>
 		<div class="widget-content">
@@ -28,7 +28,7 @@
 							<h4 align="center" >Recent Activity</h4>
 							<% @latest_cloud_book = @cloud_stores.last(:order => 'created_at DESC') %>
 							<h5 align="Center"><%= @latest_cloud_book.name %></h5>
-							<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @latest_cloud_book.created_at.to_formatted_s(:rfc822) %></b></h5>
+							<h5 align="Center"><span class="icon"> <i class="fa fa-calendar"></i> </span><b><%= @latest_cloud_book.created_at.to_formatted_s(:rfc822) %></b></h5>
 						</div>
 
 						<br/>
@@ -41,7 +41,7 @@
 					<div class="span6">
 						<div class="widget-box">
 							<div class="widget-title">
-								<span class="icon"> <i class="icon-th-list"></i> </span>
+								<span class="icon"> <i class="fa fa-th-list"></i> </span>
 								<h5>Cloud Stores Usage</h5>
 							</div>
 							<div class="widget-content" overflow-y: scroll;">
@@ -74,7 +74,7 @@
 							<div class="widget-box">
 							<div class="widget-title">
 							<span class="icon">
-							<i class="glyphicon glyphicon-th"></i>
+							<i class="fa fa-th"></i>
 							</span>
 							<h5>Cloud Stores</h5>
 							</div>

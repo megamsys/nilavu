@@ -1,6 +1,6 @@
 <div class="widget-box">
 	<div class="widget-title">
-		<span class="icon"> <i class="icon-th-list"></i> </span>
+		<span class="icon"> <i class="fa fa-th-list"></i> </span>
 		<h5>Cross Clouds Management</h5>
 	</div>
 	<div class="widget-content">
@@ -8,7 +8,7 @@
 			<div class="span10">
 				<div class="span3">
 					<div class="cb_box_withpadding">
-						<h4 align="center"> Quota</h4><h3 align="center" ><span class="icon"><i class="icon-book"></i></span>&nbsp;<%= @cross_clouds.count %>
+						<h4 align="center"> Quota</h4><h3 align="center" ><span class="icon"><i class="fa fa-book"></i></span>&nbsp;<%= @cross_clouds.count %>
 						&nbsp; of 2</h3>
 					</div>
 					<br/>
@@ -19,7 +19,7 @@
 
 					<div class="cb_box">
 						<h4 align="center" >Recent Activity</h4>
-						<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @cross_clouds.last[:created_at] %></b></h5>
+						<h5 align="Center"><span class="icon"> <i class="fa fa-calendar"></i> </span><b><%= @cross_clouds.last[:created_at] %></b></h5>
 						<h5 align="Center"><%= link_to "#{@cross_clouds.last[:name]}", cross_cloud_path(:id => "1", :name => "name"), :remote => true, data: { spinlock: '#crosscloud_current'} %> </h5>
 
 					</div>
@@ -33,7 +33,7 @@
 				<div class="span6">
 					<div class="widget-box">
 						<div class="widget-title">
-							<span class="icon"> <i class="icon-th-list"></i> </span>
+							<span class="icon"> <i class="fa fa-th-list"></i> </span>
 							<h5>Cross Clouds Usage</h5>
 						</div>
 						<div class="widget-content" overflow-y: scroll;>
@@ -63,7 +63,7 @@
 
 					<div class="widget-box">
 						<div class="widget-title">
-							<span class="icon"> <i class="glyphicon glyphicon-th"></i> </span>
+							<span class="icon"> <i class="fa fa-th"></i> </span>
 							<h5>Cross Clouds</h5>
 						</div>
 						<div class="widget-content nopadding">

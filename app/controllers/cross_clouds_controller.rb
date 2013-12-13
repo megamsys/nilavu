@@ -6,7 +6,6 @@ class CrossCloudsController < ApplicationController
     add_breadcrumb "Cross Clouds", cross_clouds_path
     add_breadcrumb "New Cross Cloud", new_cross_cloud_path
     logger.debug "GOOGLE oauth token ============> "     
-    puts request.env['omniauth.auth']
     if request.env['omniauth.auth']
       @cloud_prov = "Google Cloud Engine"
       @token = request.env['omniauth.auth']['credentials']['token']
@@ -25,7 +24,6 @@ class CrossCloudsController < ApplicationController
     #File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
     #file.write(uploaded_io.read)
     #end
-    puts current_user.email
     vault_loc = get_Vault_server+current_user.email+"/"+params[:name]
     sshpub_loc = get_Vault_server+current_user.email+"/"+params[:name]
     #aws_private_key = ((params[:aws_private_key]).present?) ? current_user.email+"/"+params[:name]+"/"+File.basename(params[:aws_private_key]) : ""
@@ -44,8 +42,6 @@ class CrossCloudsController < ApplicationController
       @err_msg = nil
       if params[:provider] == "Amazon EC2"
         upload_options = {:email => current_user.email, :name => params[:name], :aws_private_key => params[:aws_private_key], :aws_access_key => params[:aws_access_key], :aws_secret_key => params[:aws_secret_key], :type => cc_type(params[:provider]), :id_rsa_public_key => params[:id_rsa_public_key]}
-        puts "=============================================="
-        puts upload_options
         @upload = AmazonCloud.perform(upload_options, cross_cloud_bucket)
       end
       if params[:provider] == "Google cloud Engine"

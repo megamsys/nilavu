@@ -32,9 +32,6 @@ module Sources
       end
 
       def get(options = {})
-        puts "get entry"
-        puts "+++++++++++++++++++++++++++++++++++++++++++++++++++"
-        puts options[:widgetid].to_i
         from    = (options[:from]).to_i
         to      = (options[:to] || Time.now).to_i
         host    = (options[:host]).to_s
@@ -54,7 +51,6 @@ module Sources
       private
 
       def request_datapoints(from, to, target, host)
-        puts "request_datapoints"
         result = []
         hash = @url_builder.datapoints_url(from, to, target, host)
         Rails.logger.debug("Requesting datapoints from #{hash[:url]} with params #{hash[:params]} ...")
@@ -68,7 +64,6 @@ module Sources
       end
 
       def request_uptime(from, to, target, host)
-        puts "request_uptime"
         hash = @url_builder.data_url(from, to, target, host)
         Rails.logger.debug("Requesting Uptime from #{hash[:url]} with params #{hash[:params]} ...")
         response = ::HttpService.request(hash[:url], :params => hash[:params])

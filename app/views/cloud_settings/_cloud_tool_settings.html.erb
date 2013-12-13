@@ -1,6 +1,6 @@
 <div class="widget-box">
 	<div class="widget-title">
-		<span class="icon"> <i class="icon-th-list"></i> </span>
+		<span class="icon"> <i class="fa fa-th-list"></i> </span>
 		<h5>Cloud Tools Management</h5>
 	</div>
 	<div class="widget-content">
@@ -10,57 +10,58 @@
 					<div class="span3">
 						<div class="cb_box_withpadding">
 							<h4 align="center" >Recent Activity</h4>
-							<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @cloud_tool_settings.last[:created_at] %></b></h5>
+							<h5 align="Center"><span class="icon"> <i class="fa fa-calendar"></i> </span><b><%= @cloud_tool_settings.last[:created_at] %></b></h5>
 							<h5 align="Center"><%= link_to "#{@cloud_tool_settings.last[:name]}", cloud_tool_setting_path(:id => "1", :name => "name"), :remote => true, data: { spinlock: '#cloud_current'} %> </h5>
 						</div>
 						<br/>
 						<%= link_to "Upgrade", pricing_path, class: "btn btn-large btn-inverse btn-block", :target => "_self" %>
 						<div class="cb_box_withpadding">
-							<h4 align="center"> Quota</h4><h3 align="center" ><span class="icon"><i class="icon-book"></i></span>&nbsp;<%= @cloud_tool_settings.count %>
+							<h4 align="center"> Quota</h4><h3 align="center" ><span class="icon"><i class="fa fa-book"></i></span>&nbsp;<%= @cloud_tool_settings.count %>
 							&nbsp; of 2</h3>
 						</div>
 					</div>
 					<!-- Span3 -->
 
-					<div class="span5 offset2">
+					<div class="span6 offset1">
 						<div class="widget-box">
 							<div class="widget-title">
-								<h5>Cloud Tool Settings</h5>
+								<h5>New Cloud Tool Settings</h5>
 							</div>
 							<div class="widget-content">
 								<div>
-								<%= form_tag cloud_tool_settings_create_path, multipart: true, :id =>'basic_validate', :novalidate => 'novalidate', :name => "basic_validate1",  :method => 'post', :remote => true, data: { spinlock: '#spin_cross_cloud'}  do %>
-								<input type="hidden" name="cloud_type" value="chef">
-								<!--<div class="control-group">
-								<div class="controls">
-								<%= text_field_tag 'cloud_type', nil, :class=> 'required', placeholder: 'Cloud Type' %>
-								</div>
-								</div>-->
-								<div class="offset3">
-									<i class="logo_chef"></i>
-									<strong>Default Cloud Tool</strong>
-								</div>
-								<div class="control-group offset3">
+									<%= form_tag cloud_tool_settings_create_path, multipart: true, :id =>'basic_validate', :novalidate => 'novalidate', :name => "basic_validate1",  :method => 'post', :remote => true, data: { spinlock: '#spin_cross_cloud'}  do %>
+									<input type="hidden" name="cloud_type" value="chef">
+									<!--<div class="control-group">
 									<div class="controls">
-										<%= text_field_tag 'repo', nil, :class=> 'required', placeholder: 'https://github.com/username/project.git' %>
+									<%= text_field_tag 'cloud_type', nil, :class=> 'required', placeholder: 'Cloud Type' %>
 									</div>
-								</div>
-								<div class="control-group offset3">
+									</div>-->
+									<div class="offset3">
+										<i class="logo_chef"></i>
+									</div>
+									<div class="control-group offset2">
+										<div class="controls">
+											<i class="fa fa-github"></i>
+											<%= text_field_tag 'repo', nil, :class=> 'required', placeholder: 'https://github.com/username/project.git' %>
+										</div>
+									</div>
+									<div class="control-group offset2">
+										<div class="controls">
+											<i class="fa fa-github"></i>
+											<%= text_field_tag 'repo_file', nil, :class=> 'required', placeholder: 'Repository File' %>
+										</div>
+									</div>
+
+									<%= submit_tag "Save", :class => "btn btn-large btn-success btn-block" %>
+
+									<!--<div class="control-group">
+									<%= label "Upload Your repository file(.Zip only)", :class => 'control-label' %>
 									<div class="controls">
-										<%= text_field_tag 'repo_file', nil, :class=> 'required', placeholder: 'Repository File' %>
+									<%= file_field :repo_file, :id => 'repo_file', placeholder: "Repository File" %>
 									</div>
-								</div>
+									</div>-->
 
-								<%= submit_tag "Save", :class => "btn btn-large btn-success btn-block" %>
-
-								<!--<div class="control-group">
-								<%= label "Upload Your repository file(.Zip only)", :class => 'control-label' %>
-								<div class="controls">
-								<%= file_field :repo_file, :id => 'repo_file', placeholder: "Repository File" %>
-								</div>
-								</div>-->
-
-								<% end %>
+									<% end %>
 								</div>
 							</div>
 						</div>
@@ -83,8 +84,8 @@
 									<tr>
 										<th>Name</th>
 										<th>Date</th>
-										<th>View</th>
-										<th>Clone</th>
+										<th></th>
+										<th></th>
 									</tr>
 								</thead>
 								<tbody>

@@ -2,8 +2,6 @@ module Sources
   module Newbooks
     class Usermodel < Sources::Newbooks::Base
       def get(options = {})
-        puts "+++++++++++++++++++++++++++++++++++++++++++++++++++"
-        puts options[:wid].to_i           
         widget  = Widget.find(options[:wid].to_i)   
         dashboard_id = widget.dashboard_id        
         dashboard = Dashboard.find(dashboard_id)       

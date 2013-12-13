@@ -21,9 +21,6 @@ class GetBoltRequestsByNode
       @res = {"data" => {:body => re}}
       return @res["data"][:body]
     end
-	puts "GET BOLT REQUEST BY NAME ============================================== >  "
-	puts @excon_res.inspect
-	puts @excon_res.class
     @excon_res.data[:body]
   end
 end

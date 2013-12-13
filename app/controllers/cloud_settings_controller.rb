@@ -2,7 +2,6 @@ class CloudSettingsController < ApplicationController
   respond_to :html, :js
   include CrossCloudsHelper
   def new
-    puts "============================> @Cloud Tool Settings  <==================================="
   end
 
   def cross_cloud_init
@@ -15,8 +14,6 @@ class CloudSettingsController < ApplicationController
         cross_clouds << {:name => pre_cl.name, :created_at => pre_cl.created_at.to_time.to_formatted_s(:rfc822)}
       end
       @cross_clouds = cross_clouds.sort_by {|vn| vn[:created_at]}
-      puts "============================> @CROSS CLOUD INDEX <==================================="
-      puts @cross_clouds.inspect
     end
   end
 
@@ -30,8 +27,6 @@ class CloudSettingsController < ApplicationController
         cloud_tool_settings << {:name => pre_cl.cloud_type, :created_at => pre_cl.created_at.to_time.to_formatted_s(:rfc822)}
       end
       @cloud_tool_settings = cloud_tool_settings.sort_by {|vn| vn[:created_at]}
-      puts "============================> @CLOUD TOOL SETTING INDEX <==================================="
-      puts @cloud_tool_settings.inspect
     end
   end
 
@@ -71,17 +66,14 @@ class CloudSettingsController < ApplicationController
   end
 
   def cloud_tool_setting_create
-    puts "============================> @CLOUD TOOL SETTING CREATE <==================================="
     logger.debug "#{params.inspect}"
     vault_loc = get_CTSVault_server+"/"+current_user.email+"/"+params[:cloud_type]+"/"+File.basename(params[:repo_file])
     options = { :email => current_user.email, :api_key => current_user.api_token, :cloud_type => params[:cloud_type], :repo => params[:repo], :vault_location => vault_loc }
     @res_body = CreateCloudToolSettings.perform(options)
     if @res_body.class == Megam::Error
-      puts "============================> @CLOUD TOOL SETTING ERROR <==================================="
       @res_msg = nil
       @err_msg="Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
     else
-      puts "============================> @CLOUD TOOL SETTING UPLOAD <==================================="
       @err_msg = nil
       bucket = cloud_tool_setting_bucket
       @upload = S3Upload.perform(bucket, current_user.email+"/"+params[:cloud_type]+"/"+File.basename(params[:repo_file]), :file => params[:repo_file])

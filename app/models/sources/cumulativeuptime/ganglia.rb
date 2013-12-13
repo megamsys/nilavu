@@ -1,6 +1,7 @@
 #require 'xml'
 require 'open-uri'
 require 'nokogiri'
+
 #
 # Configure the Ganglia URL and host in application.rb:
 #   config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
@@ -20,10 +21,9 @@ module Sources
     class Ganglia < Sources::Cumulativeuptime::Base
 
       PORT = 8649
-
       def initialize
         @url_builder = GangliaUrlBuilder.new(Rails.configuration.ganglia_web_url)
-        
+
       end
 
       def available?
@@ -31,13 +31,12 @@ module Sources
       end
 
       def get(options = {})
-        puts "get entry"
         from    = (options[:from]).to_i
-        to      = (options[:to] || Time.now).to_i       
+        to      = (options[:to] || Time.now).to_i
         metric  = Rails.configuration.ganglia_request_metric
         #targets = targets.reject(&:blank?)
         ganglia_datapoints = request_datapoints(from, to, metric)
-        { :value => ganglia_datapoints[0] }           
+        { :value => ganglia_datapoints[0] }
       end
 
       def available_targets(options = {})
@@ -52,7 +51,6 @@ module Sources
         result.slice(0, limit)
       end
 
-     
       private
 
       def parse_targets(xml)
@@ -80,25 +78,24 @@ module Sources
         result
       end
 
-      def request_datapoints(from, to, target)        
-         puts "request_datapoints"
-        result = []       
-          hash = @url_builder.data_url(from, to, target)
-          Rails.logger.debug("Requesting datapoints from #{hash[:url]} with params #{hash[:params]} ...")
-          response = ::HttpService.request(hash[:url], :params => hash[:params])                
-          Nokogiri::HTML(response).xpath("//table/tr/td/table/tr").collect do |row|     
-             if row.at("td[1]/text()").to_s == "Uptime"        
-               @timestamp   = row.at("td[2]/text()").to_s
-             end             
-           end          
-          if response == "null"
-            result << []
-          else
-            #result << response.first["datapoints"]    
-            result << @timestamp        
-          end       
+      def request_datapoints(from, to, target)
+        result = []
+        hash = @url_builder.data_url(from, to, target)
+        Rails.logger.debug("Requesting datapoints from #{hash[:url]} with params #{hash[:params]} ...")
+        response = ::HttpService.request(hash[:url], :params => hash[:params])
+        Nokogiri::HTML(response).xpath("//table/tr/td/table/tr").collect do |row|
+          if row.at("td[1]/text()").to_s == "Uptime"
+            @timestamp   = row.at("td[2]/text()").to_s
+          end
+        end
+        if response == "null"
+          result << []
+        else
+        #result << response.first["datapoints"]
+        result << @timestamp
+        end
         result
       end
-end
     end
   end
+end

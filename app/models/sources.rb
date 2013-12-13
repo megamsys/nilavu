@@ -1,14 +1,13 @@
 module Sources
   extend self
- 
-  def plugin_clazz(type, name)    
-    "Sources::#{type.camelize}::#{name.camelize}".constantize  
+  def plugin_clazz(type, name)
+    "Sources::#{type.camelize}::#{name.camelize}".constantize
   end
 
-def available_source_types
+  def available_source_types
     @available_source_types ||= begin
-      path = Rails.root.join("app/models/sources")      
-      Dir["#{path}/*"].map { |directory| Pathname.new(directory).basename }.map(&:to_s)
+    path = Rails.root.join("app/models/sources")
+    Dir["#{path}/*"].map { |directory| Pathname.new(directory).basename }.map(&:to_s)
     end
   end
 
@@ -24,7 +23,7 @@ def available_source_types
     when "graph" then "datapoints"
     when "meter" then "number"
     else
-      type
+    type
     end
   end
 
@@ -32,8 +31,6 @@ def available_source_types
     result = {}
     available_source_types.each do |type|
       type_result = {}
-      puts "----------------------------"
-      puts type
       source_names(type).each do |name|
         type_result[name] = source_properties(type, name)
       end
@@ -44,10 +41,10 @@ def available_source_types
 
   def [](type)
     sources[type] || []
-  end  
+  end
 
   def source_names(type)
-    path = Rails.root.join("app/models/sources/#{type}")     
+    path = Rails.root.join("app/models/sources/#{type}")
     Dir["#{path}/*"].map { |f| File.basename(f, '.*') }.reject! { |name| name == "base" }
   end
 
@@ -64,6 +61,5 @@ def available_source_types
       default_fields:           plugin.default_fields
     }
   end
-
 
 end

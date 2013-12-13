@@ -1,6 +1,5 @@
 class GoogleCloud
   include CrossCloudsHelper
-  puts "----worker entry"
   def self.perform(options = {}, bucket_name)
 
     #Upload id rsa public key...

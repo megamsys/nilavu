@@ -3,8 +3,6 @@ class CreateGoogleJSON
   def self.perform(token, r_token, expire, p_name, id, s_key)    
     gsj = File.new(ENV['HOME']+"/.google-compute.json", "w")
     json = to_hash(token, r_token, expire, p_name, id, s_key).to_json
-    #gsj.puts(json)
-    #gsj.close
     json
   end
   

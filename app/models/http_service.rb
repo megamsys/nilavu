@@ -68,13 +68,10 @@ module HttpService
   def request(url, options = {})
     #begin
     uri = url.is_a?(URI) ? url : URI.parse(url)
-    puts uri    
     connection = Faraday.new(uri, options, &(faraday_middleware || DEFAULT_MIDDLEWARE))     
     connection.basic_auth(CGI.unescape(uri.user), CGI.unescape(uri.password)) if uri.user && uri.password
     connection.get.body
     #rescue StandardError => se
-     # puts "===========================> SE <======================================="
-     # puts se.message     
    # end
   end
 

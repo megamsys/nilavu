@@ -1,5 +1,4 @@
 class AmazonCloud
-  puts "----worker entry"
   def self.perform(options = {}, bucket_name)
 
     #Upload AWS private key...

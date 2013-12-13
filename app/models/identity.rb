@@ -7,9 +7,6 @@ attr_accessible :users_id, :uid, :provider
   end
 
   def self.create_from_omniauth(auth, user = nil)
-    #user ||= User.create_from_auth_hash!(auth)
-#puts user.inspect
-   #user.save
     self.create(:uid => auth['uid'], :provider => auth['provider'])
   end
 

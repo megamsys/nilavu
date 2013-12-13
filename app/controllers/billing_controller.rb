@@ -1,5 +1,5 @@
 class BillingController < ApplicationController
-  
+
   FREE_PLAN = "FREE"
   LITE_PLAN = "LITE"
   STANDARD_PLAN = "STANDARD"
@@ -17,11 +17,6 @@ class BillingController < ApplicationController
   end
 
   def upgrade
-    puts ""
-    puts "********************************************************************"
-    puts "** CREATE CUSTOMER ON THE FREE PLAN **"
-    puts "********************************************************************"
-
     # create a customer on a free plan
     data = {
       :code => current_user.first_name,
@@ -35,11 +30,10 @@ class BillingController < ApplicationController
 
     client = getclient
     response = client.new_customer(data)
-    puts response
     if response.valid?
-      puts "\tCreated Milton Waddams with code=MILTON_WADDAMS"
+      logger.debug "\tCreated Milton Waddams with code=MILTON_WADDAMS"
     else
-      puts "\tERROR: #{response.error_messages.inspect}"
+      logger.error "\tERROR: #{response.error_messages.inspect}"
     end
   end
 
@@ -54,7 +48,6 @@ class BillingController < ApplicationController
 
   def invoice
     client = getclient
-    puts "========================="
     response = client.get_customer(:code => 'BILL_LUMBERG')
     if response.valid?
       customer = response.customer
@@ -62,14 +55,14 @@ class BillingController < ApplicationController
       plan = response.customer_plan
       invoice = response.customer_invoice
 
-      puts "\t#{customer[:firstName]} #{customer[:lastName]}"
-      puts "\tPricing Plan: #{plan[:name]}"
-      puts "\tPending Invoice Scheduled: #{invoice[:billingDatetime].strftime('%m/%d/%Y')}"
+      logger.debug "\t#{customer[:firstName]} #{customer[:lastName]}"
+      logger.debug "\tPricing Plan: #{plan[:name]}"
+      logger.debug "\tPending Invoice Scheduled: #{invoice[:billingDatetime].strftime('%m/%d/%Y')}"
       invoice[:charges].each do |charge|
-        puts "\t\t(#{charge[:quantity]}) #{charge[:code]} $#{charge[:eachAmount]*charge[:quantity]}"
+        logger.debug "\t\t(#{charge[:quantity]}) #{charge[:code]} $#{charge[:eachAmount]*charge[:quantity]}"
       end
     else
-      puts "\tERROR: #{response.error_messages.inspect}"
+      logger.error "\tERROR: #{response.error_messages.inspect}"
     end
   end
 

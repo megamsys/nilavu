@@ -1,28 +1,20 @@
 class CreatePredefClouds
-  puts " -------> CREATE PredefClouds "
   def self.perform(new_predef)
-    puts "=============================> CREATE PREDEFCLOUDS PERFORM PARAMS <================================== "
-    puts new_predef
     begin
       Megam::Config[:email] = new_predef[:email]
       Megam::Config[:api_key] = new_predef[:api_key]
       @excon_res = Megam::PredefCloud.create(new_predef)
-      puts "=========================> @excon_res in CREATE PREDEFCLOUDS <====================="
-      puts @excon_res.inspect
     rescue ArgumentError => ae
-      puts "===========================> AE <======================================="
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)
       @res = {"data" => {:body => re}}
       return @res["data"][:body]
     rescue Megam::API::Errors::ErrorWithResponse => ewr
-      puts "===========================> EWR <======================================="
       hash = {"msg" => ewr.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)
       @res = {"data" => {:body => re}}
       return @res["data"][:body]
     rescue StandardError => se
-      puts "===========================> SE <======================================="
       hash = {"msg" => se.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)
       @res = {"data" => {:body => re}}

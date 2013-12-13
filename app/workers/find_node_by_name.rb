@@ -2,8 +2,6 @@ class FindNodeByName
   #this returns a Megam::Account object
   def self.perform(get_node)
     begin
-      Megam::Config[:email] = get_node[:email]
-      Megam::Config[:api_key] = get_node[:api_key]
       @excon_res = Megam::Node.show(get_node[:node])
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}

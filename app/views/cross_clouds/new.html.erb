@@ -7,18 +7,20 @@
 
 <div class="container-fluid">
 	<div class="alert alert-success alert-block">
+			<h4 class="alert-heading">Advanced Step</h4>
+
 		<div>
 			<p class="help-block">
-				<%= image_tag "helpbotb.png", :alt => "help bot"%>
+				<%= image_tag "helpbota.png", :alt => "help bot"%>
 				<strong>Go Ahead </strong>
-				Choose your cloud provider.....
+				Choose your cloud provider
 			</p>
 		</div>
 		<a class="close" data-dismiss="alert alert-warning" href="#">×</a>
-	</div>
+	</div>	
 	<div class="widget-box">
 		<div class="widget-title">
-			<span class="icon"> <i class="icon-th-list"></i> </span>
+			<span class="icon"> <i class="fa fa-th-list"></i> </span>
 			<h5>Cross cloud settings</h5>
 			<div class="buttons">
 				<%= render :partial => "customizations/refresh" %>
@@ -35,12 +37,7 @@
 					</li>
 					<% end %>
 				</ul>
-			</div>
-			<!--<div class="control-group">
-			<div class="controls" required name="cross cloud type">
-			Choose your provider : <%= select_tag "cloud_provider",options_for_select(cross_cloud, selected: "Amazon EC2"), :id => "cross_cloud_list" , :name =>"type", :class => "filled", :remote => true %>
-			</div>
-			</div>-->
+			</div>			
 			<%= form_tag cross_clouds_path, multipart: true, :id =>'basic_validate', :novalidate => 'novalidate', :name => "basic_validate1",  :method => 'post', :remote => true, data: { spinlock: '#spin_cross_cloud'}  do %>
 
 			<div id="provider_form">

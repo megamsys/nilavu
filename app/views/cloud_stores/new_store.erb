@@ -6,16 +6,24 @@
 </div>
 <div class="container-fluid">
 
-			<% if @db_model == "multitenant" %>
-				<%= "List out the existing db" %>
-			<% else %>
+	<% if @db_model == "multitenant" %>
+	<div class="alert alert-info alert-block">
+		<h4 class="alert-heading">Go Ahead Select "Full" </h4>
+		<div>
+<p class="help-block"></p>
+			<i class="fa fa-chevron-down"></i>&nbsp; &nbsp; We working on it. 
+			</br>
+		</div>
+		<a class="close" data-dismiss="alert alert-warning" href="#">×</a>
+	</div>
+	<% else %>
 
 	<%= form_for @book, :html => {:multipart => true }, :remote => true, :method => 'post' do |f| %>
 
 	<div class="widget-box">
 		<div class="widget-title">
-			<span class="icon"> <i class="icon-th-list"></i> </span>
-			<h5>Cloud store Platform Selected</h5>
+			<span class="icon"> <i class="fa fa-th-list"></i> </span>
+			<h5>Cloud Store Selected</h5>
 		</div>
 		<div class="widget-content">
 			<div class="control-group">
@@ -23,8 +31,8 @@
 					<div class="row-fluid">
 						<div class="span12">
 							<p class="help-block">
-								<strong><span class="label label-info">Platform launch</span> How does it happen ? For more information</strong>
-								<%= link_to "Platform launch",   "http://docs.megam.co", { :target => '_blank'} %>
+								<strong><span class="label label-info">Store launch</span> How does it happen ? </strong>
+								<%= link_to " For more information",   "http://docs.megam.co", { :target => '_blank'} %>
 							</p>
 						</div>
 					</div>
@@ -55,7 +63,7 @@
 			<% @new_book_name = book_name %>
 			<div class="widget-box">
 				<div class="widget-title">
-					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<span class="icon"> <i class="fa fa-th-list"></i> </span>
 					<h5>Cloud Book Name</h5>
 				</div>
 				<div class="widget-content">
@@ -65,8 +73,6 @@
 					</br>
 					<div class="span12">
 						<div class="span7">
-
-							<!--<%= link_to  @new_book_name, "#", :id => "identity_new", :onchange => "angular.element(this).scope().fileNameChaged()", :class => "btn btn-large btn-primary disabled btn-block", :data => { :type => 'text', :name => 'book_name'} %>-->
 							<a class="btn btn-large btn-primary disabled btn-block" data-name="book_name" data-type="text" href="#" id="identity_new" ><%= @new_book_name %></a>
 						</div>
 						<div class = "span4">
@@ -87,14 +93,14 @@
 
 	<div class="widget-box">
 		<div class="widget-title">
-			<span class="icon"> <i class="icon-th-list"></i> </span>
+			<span class="icon"> <i class="fa fa-th-list"></i> </span>
 			<h5>Cross Cloud Selection</h5>
 		</div>
 		<div class="widget-content">
 			<div class="control-group">
 				<p class="help-block">
-					<strong><span class="label label-info">Default</span> Cross cloud default. Upgrade to create more.</strong>
-					<%= link_to "Cross Cloud Settings",   "http://docs.megam.co", { :target => '_blank'} %>
+					<strong><span class="label label-info">Default</span> Cross cloud. You can create your own.</strong>
+					<%= link_to "For more information",   "http://docs.megam.co", { :target => '_blank'} %>
 				</p>
 				<p>
 					<%= f.select :predef_cloud_name, options_for_select(@predef_cloud.map{ |c| [c.name] }) %>
@@ -115,11 +121,11 @@
 
 	<%= f.text_field :predef_name, :type => 'hidden', :value => @predef_name %>
 	<%= f.text_field :book_type, :type => 'hidden', :value => "BOLT" %>
-		<input type="hidden" name="no_of_instances" value="<%= @no_of_instances %>">
+	<input type="hidden" name="no_of_instances" value="<%= @no_of_instances %>">
 
 	<div class="widget-box">
 		<div class="widget-title">
-			<span class="icon"> <i class="icon-th-list"></i> </span>
+			<span class="icon"> <i class="fa fa-th-list"></i> </span>
 			<h5>Cloud Book Dependencies</h5>
 			<div class="buttons">
 				<%= render :partial => "customizations/refresh" %>
@@ -150,7 +156,7 @@
 		<div class="span4">
 			<%= f.submit nil, :class => "btn btn-large btn-success btn-block" %>
 			<% end %>
-		<% end %>
+			<% end %>
 		</div>
 		<div class="span4"></div>
 

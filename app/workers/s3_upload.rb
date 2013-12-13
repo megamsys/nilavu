@@ -1,5 +1,4 @@
 class S3Upload
-  puts "----worker entry"
   def self.perform(bucket_name, filename, data)
     begin
       bucket = s3_bucket(bucket_name)
@@ -20,16 +19,6 @@ class S3Upload
     end
   end
 
-=begin
-def s3_object_file_create(filename, data)
-bucket = s3_bucket
-# Grab a reference to an object in the bucket with the name we require
-object = bucket.objects[filename]
-# Write a local file to the aforementioned object on S3
-object.write(data)
-end
-end
-=end
 
   def self.s3_bucket(bucket_name)
     #bucket_name = ENV['MEGAM_AWS_S3_BUCKET']

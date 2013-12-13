@@ -19,8 +19,8 @@
 					<div class="row-fluid">
 						<div class="span12">
 							<p class="help-block">
-								<strong><span class="label label-info">Platform launch</span> How does it happen ? For more information</strong>
-								<%= link_to "Platform launch",   "http://docs.megam.co", { :target => '_blank'} %>
+								<strong><span class="label label-info">Platform launch</span> How does it happen ?</strong>
+								<%= link_to " For more information",   "http://docs.megam.co", { :target => '_blank'} %>
 							</p>
 						</div>
 					</div>
@@ -88,8 +88,8 @@
 		<div class="widget-content">
 			<div class="control-group">
 				<p class="help-block">
-					<strong><span class="label label-info">Default</span> Cross cloud default. Upgrade to create more.</strong>
-					<%= link_to "Cross Cloud Settings",   "http://docs.megam.co", { :target => '_blank'} %>
+					<strong><span class="label label-info">Default</span> Cross cloud. You can create your own.</strong>
+					<%= link_to "For more information",   "http://docs.megam.co", { :target => '_blank'} %>
 				</p>
 				<p>
 					<%= f.select :predef_cloud_name, options_for_select(@predef_cloud.map{ |c| [c.name] }) %>
@@ -106,8 +106,8 @@
 		<div class="widget-content">
 			<div class="control-group">
 				<p class="help-block">
-					<strong><span class="label label-info">Default</span> Application Definition default. Read about app_defns.</strong>
-					<%= link_to "Application Definition",   "http://docs.megam.co", { :target => '_blank'} %>
+					<strong><span class="label label-info">Default</span> application definition.</strong>
+					<%= link_to "For more information",   "http://docs.megam.co", { :target => '_blank'} %>
 				</p>
 				<table class="table table-bordered table-hover">
 					<thead></thead>
@@ -115,42 +115,39 @@
 						<tr>
 							<div class="row-fluid">
 								<div class="span12">
-									<div class="span1">
-										<h3 align="center"><i class="i_chart"></i></h3>
-									</div>
-									<div class="span4">
-										<span> Want us to monitor ?</span>
+									<div class="span5">
+										<h3 align="center"><i class="fa fa-bar-chart-o"></i><span>
+											<p>
+												Want us to monitor ?
+											</p></span></h3>
 									</div>
 									<div class = "span3">
 										<div class="back" id="toggle">
 											<br/>
-											<%= hidden_field_tag 'monitoring', "" %>
+											<h3 align="center"><%= hidden_field_tag 'monitoring', "" %>
 											<%= check_box_tag 'monitoring', "megam" %>
-											<%= label_tag :monitoring %>
+											Yes</h3>
 										</div>
 									</div>
-									<div class = "span4">
-
-									</div>
+									<div class = "span4"></div>
 								</div>
 							</div>
 						</tr>
 						<tr>
 							<div class="row-fluid">
 								<div class="span12">
-									<div class="span1">
-										<h3 align="center"><i class="fa fa-download-alt"></i></h3>
-									</div>
-									<div class="span4">
-										<span>Want us to stream logs ?</span>
+									<div class="span5">
+										<h3 align="center"><i class="fa fa-exchange"></i><span>
+											<p>
+												Want us to stream logs ?
+											</p></span></h3>
 									</div>
 									<div class = "span3">
 										<div class="back" id="toggle">
 											<br/>
-											<label for="enjoy_web"></label>
-											<%= hidden_field_tag 'logging', "" %>
+											<h3 align="center"><%= hidden_field_tag 'logging', "" %>
 											<%= check_box_tag 'logging', "megam" %>
-											<%= label_tag :logging %>
+											Yes</h3>
 										</div>
 									</div>
 									<div class = "span4">
@@ -162,14 +159,15 @@
 						<tr>
 							<div class="row-fluid">
 								<div class="span12">
-									<div class="span1">
-										<h3 align="center"><i class="fa fa-edit"></i></h3>
-									</div>
-									<div class="span4">
-										<span class="label label-warning"> *optional</span>
-										<span> Wish to change default start script </span>
+									<div class="span5">
+										<h3 align="center"><i class="fa fa-edit"></i>
+										<p>
+											<span class="label label-warning"> *optional</span>
+											<span> Wish to change start script </span>
+										</p></h3>
 									</div>
 									<div class="span7">
+										<br/>
 										<%= text_field_tag 'runtime_exec', "#{@predef.runtime_exec}", placeholder: 'Modify runtime exec - script' %>
 									</div>
 								</div>
@@ -178,14 +176,17 @@
 						<tr>
 							<div class="row-fluid">
 								<div class="span12">
-									<div class="span1">
-										<h3 align="center"><i class="fa fa-fire"></i></h3>
-									</div>
-									<div class="span4">
-									<span class="label label-warning"> *free accounts - instances run for a day</span>	<span>Your Start Time</span>
+									<div class="span5">
+										<h3 align="center"><i class="fa fa-beer"></i>
+										<p>
+											<span class="label label-warning"> *free - run for a day</span>
+											<span>Your Start Time</span>
+
+										</p></h3>
 
 									</div>
 									<div class="span7">
+										</br>
 										<%= text_field_tag 'timetokill', "#{Time.now.to_formatted_s(:rfc822)}", :readonly => true %>
 									</div>
 								</div>
@@ -212,12 +213,12 @@
 	<input type="hidden" name="no_of_instances" value="<%= @no_of_instances %>">
 	<input type="hidden" name='deps_scm' value="<%= @deps_scm %>">
 	<input type="hidden" name="deps_war" value="<%= @deps_war %>">
-	
+
 	<div class="row-fluid">
 		<div class="span4"></div>
 		<div class="span4 container-fluid">
 			<%= f.submit nil, :class => "btn btn-large btn-success btn-block", :data =>
-			{:disable_with => "Creating Book..."} %>
+      {:disable_with => "Creating Book..."} %>
 			<% end %>
 		</div>
 		<div class="span4"></div>
@@ -236,14 +237,14 @@
 			<div class="alert alert-success">
 
 				<p>
-					A cloud book creation request to the megam cloud server was successful.
+					A cloud book creation request to the megam cloud gateway was successful.
 					</br>
-					<strong>Click<span class="label label-info"> OK </span> to watch the status Real Time</strong>
+					<strong>Click<span class="label label-info">&nbsp; OK &nbsp;</span>&nbsp; to watch the status Real Time</strong>
 				</p>
 			</div>
 		</div>
 		<div class="modal-footer">
-		<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary", :target => "_self" %>
+			<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary", :target => "_self" %>
 		</div>
 	</div>
 
@@ -259,7 +260,7 @@
 			<div class="alert alert-error">
 
 				<p>
-					A cloud book creation request to the megam cloud server was not successful.
+					A cloud book creation request to the megam cloud gateway was not successful.
 					</br>
 					<div id="err_msg"></div>
 				</p>
