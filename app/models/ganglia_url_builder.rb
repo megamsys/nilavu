@@ -5,7 +5,6 @@ class GangliaUrlBuilder
   end
 
   def datapoints_url(from, to, target, host)
-    puts "datapoints_url"
     cluster, metric = parse_target(target)
     url = "#{@base_url}/graph.php"    
     params = { :c => cluster, :h => host, :json => 1, :m => metric }
@@ -17,7 +16,6 @@ class GangliaUrlBuilder
   end
 
   def data_url(from, to, target, host)
-    puts "datapoints_url"
     cluster, metric = parse_target(target)
     url = "#{@base_url}/host_overview.php"    
     params = { :c => cluster, :h => host, :json => 1, :m => metric }

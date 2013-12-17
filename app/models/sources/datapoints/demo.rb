@@ -13,12 +13,10 @@ module Sources
       
 =begin      
       def get()
-        puts "==========="
-        puts "Demo1"
         data = []
         totalPoints = 300
         datapoints = []
-=begin
+
         if (data.length > 0)
         data = data.slice(1)
         end
@@ -39,11 +37,9 @@ module Sources
           for i in 0..data.length
             res.push([i, data[i]])
           end
-          puts "res"
-          puts res
           datapoints = res
+          datapoints = [ [ [0, 0], [1, 2], [10, 4], [11, 6], [4, 8] ] ];
 =end
-          #datapoints = [ [ [0, 0], [1, 2], [10, 4], [11, 6], [4, 8] ] ];
 
           data1 =  [ [Random.rand(10...20), Random.rand(10...42)], [Random.rand(10...30), Random.rand(10...42)], [Random.rand(10...42), Random.rand(10...12)], [Random.rand(10...42), Random.rand(10...62)], [Random.rand(10...22), Random.rand(10...42)] ]
           datapoints = data1

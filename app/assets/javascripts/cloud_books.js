@@ -27,9 +27,9 @@ $(document).ready(function(){
 	
 	//set the initial value of $0.00
 	scale_counter.scale_aggregate();
-	var $minus = '<a href="#" class="minus"><i class="icon-minus"></i></a>';
-	var $plus = '<a href="#" class="plus"><i class="icon-plus"></i></a>';
-	var $trash = '<td> <a href="#" class="trash"><i class="icon-trash"></i></a></td>'
+	var $minus = '<a href="#" class="minus"><i class="fa fa-minus-square-o"></i></a>';
+	var $plus = '<a href="#" class="plus"><i class="fa fa-plus-square-o"></i></a>';
+	var $trash = '<td> <a href="#" class="trash"><i class="fa fa-trash-o"></i></a></td>'
 
 	$("#platformapps input:radio").click(function() {
 		$("#cb_next").attr("disabled", false); //enable next button

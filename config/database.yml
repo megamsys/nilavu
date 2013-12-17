@@ -1,27 +1,26 @@
-# SQLite version 3.x
-#   gem install sqlite3
 #
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
+#   Ensure the postgresql gem is defined in your Gemfile
+#   gem 'pg'
 development:
   adapter: postgresql
   encoding: unicode
-  database: cocdb
+  database: <%= ENV['POSTGRES_DB'] %>
   pool: 5
-  username: megam
-  password: team4megam
-  #url: postgres://megam:team4megam@localhost:5432/cocdb
-  #url: postgresql://megam:team4megam@localhost:5432/cocdb
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PW'] %>
+  
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: <%= ENV['POSTGRES_DB'] %>
+  pool: 5
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PW'] %>
   #host: postgres1.megam.co.in
+  #url: postgresql://megam:team4megam@localhost:5432/cocdb
   #port: 5432
-
-  bucket: megam
-  use_ssl: false
-  dynamo_db_endpoint: localhost
-  access_key_id: <%= ENV['MEGAM_AWS_ACCESS_KEY'] %>
-  secret_access_key: <%= ENV['MEGAM_AWS_SECRET_ID'] %>
-
-# Warning: The database defined as "test" will be erased and
+  
+# A test db cocdb_test gets generated during rspec testing. 
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
@@ -29,26 +28,5 @@ test:
   encoding: unicode
   database: cocdb_test
   pool: 5
-  username: megam
-  password: team4megam
-  
-  bucket: megam
-  access_key_id: <%= ENV['MEGAM_AWS_ACCESS_KEY'] %>
-  secret_access_key: <%= ENV['MEGAM_AWS_SECRET_ID'] %>
-
-
-production:
-  adapter: postgresql
-  encoding: unicode
-  database: cocdb
-  pool: 5
-  username: megam
-  password: team4megam
-  #host: postgres1.megam.co.in
-  #port: 5432
-  bucket: megam
-  access_key_id: <%= ENV['MEGAM_AWS_ACCESS_KEY'] %>
-  secret_access_key: <%= ENV['MEGAM_AWS_SECRET_ID'] %>
-
- 
-
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PW'] %>

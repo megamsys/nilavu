@@ -4,20 +4,15 @@ staging:
   use_ssl: false
   access_key_id: <%= ENV['MEGAM_AWS_ACCESS_KEY'] %>
   secret_access_key: <%= ENV['MEGAM_AWS_SECRET_ID'] %>
-  #dynamo_db_endpoint: dynamodb.ap-southeast-1.amazonaws.com # Set the regional endpoint
 
 production:
   bucket: megam
   use_ssl: false
   access_key_id: <%= ENV['MEGAM_AWS_ACCESS_KEY'] %>
   secret_access_key: <%= ENV['MEGAM_AWS_SECRET_ID'] %>
-  #dynamo_db_endpoint: localhost
-  #dynamo_db_port: 4567
-  #dynamo_db_endpoint: dynamodb.ap-southeast-1.amazonaws.com # Set the regional endpoint
 
 
 development:
-
   bucket: megam
   use_ssl: false
   access_key_id: <%= ENV['MEGAM_AWS_ACCESS_KEY'] %>
@@ -31,4 +26,3 @@ test:
   use_ssl: false
   access_key_id: <%= ENV['MEGAM_AWS_ACCESS_KEY'] %>
   secret_access_key: <%= ENV['MEGAM_AWS_SECRET_ID'] %>
-

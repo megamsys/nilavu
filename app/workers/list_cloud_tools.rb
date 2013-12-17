@@ -1,10 +1,7 @@
 #List all the predefs
 class ListCloudTools
-  def self.perform(list_cloudtools)
+  def self.perform(wparams={})
     begin
-      puts "perform1"
-      Megam::Config[:email] = list_cloudtools[:email]
-      Megam::Config[:api_key] = list_cloudtools[:api_key]
       @excon_res = Megam::CloudTool.list
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
@@ -22,7 +19,6 @@ class ListCloudTools
       @res = {"data" => {:body => re}}
       return @res["data"][:body]
     end
-    puts "perform2"    
     @excon_res.data[:body]
   end
 end

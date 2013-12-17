@@ -52,12 +52,10 @@ class ConnectorProjectsController < ApplicationController
     when "http://www.box.com"
       @app_name = "box"
     else
-    puts "You gave me #{params[:url]} -- I have no idea what to do with that."
+    logger.debug "You gave me #{params[:url]} -- I have no idea what to do with that."
     end
     response = Net::HTTP.get_response(URI("https://raw.github.com/rajthilakmca/deccanplato/master/src/test/resources/"+@app_name+"/"+@rest_api_name+"_create.json"))
-    puts response.body
     @json = response.body
-    #@api_name = params[:api_name]
     respond_to do |format|
       format.js {
         respond_with(@json, :layout => !request.xhr? )
@@ -79,8 +77,6 @@ class ConnectorProjectsController < ApplicationController
       @result_class = "Deccanplato_result"
       @result = JSON.parse(res_body)["responseMap"]["salesforcecrm"]["output"]
     end
-    puts "output json-------->"
-    puts @result
 
     respond_to do |format|
       format.js {
@@ -101,14 +97,8 @@ class ConnectorProjectsController < ApplicationController
     end
   end
 
-  def upload
-    #@connector_project = ConnectorProject.find(params[:format])
-    #@connector_execution = @connector_project.connector_executions.first
-    #a = JSON.parse @connector_execution.result
-    #logger.debug "HASH A #{a}"
+  def upload    
     @connector_project = ConnectorProject.build
-  #@connector_execution = ConnectorExecution.new
-
   end
 
   def show

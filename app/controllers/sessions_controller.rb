@@ -16,10 +16,8 @@ class SessionsController < ApplicationController
           cookies[:remember_token] = user.remember_token
         end
         sign_in user
-        #flash[:success] = "Welcome #{current_user.first_name}"
         redirect_back_or dashboards_path, :gflash => { :success => { :value => "Welcome #{user.first_name}. Your registered email is #{user.email}, Thank you.", :sticky => false, :nodom_wrap => true } }
       else
-        puts "Invalidddd"
         flash[:error] = 'Invalid username and password combination'
         render 'new'
       end
@@ -40,11 +38,11 @@ class SessionsController < ApplicationController
       #No Megam Identity with current social identity
       user_identity = User.find_by_email(social_identity["info"]["email"])
       if user_identity
-        #If social user Already exist in megam
+        #If social user Already exists in megam
         user_identity.identities.create_from_omniauth(auth)
         redirect_to_dash(user_identity)
       else
-      #If social user don't exist in megam
+      #If social user don't exists in megam
         Identity.create_from_omniauth(auth)
         redirect_to_signup_with_fb
       end

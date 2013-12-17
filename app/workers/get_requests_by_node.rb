@@ -2,8 +2,6 @@ class GetRequestsByNode
   #this returns a Megam::Account object
   def self.perform(node)
     begin
-      Megam::Config[:email] = node[:email]
-      Megam::Config[:api_key] = node[:api_key]
       @excon_res = Megam::Request.list(node[:node])
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}

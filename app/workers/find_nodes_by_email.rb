@@ -1,10 +1,8 @@
 #Find all nodes by email
 class FindNodesByEmail
 
-  def self.perform(get_nodes)
+  def self.perform(wparams={})
     begin
-      Megam::Config[:email] = get_nodes[:email]
-      Megam::Config[:api_key] = get_nodes[:api_key]
       @excon_res = Megam::Node.list
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}

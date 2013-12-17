@@ -2,13 +2,11 @@ module Api
   class WidgetsController < ApplicationController
     respond_to :json
     def show
-      puts "-W------show---- #{params}"
       widget = Widget.for_dashboard(params[:dashboard_id]).find(params[:id])
       respond_with(widget)
     end
 
     def index
-      puts "-W----show------ #{params}"
       widgets = Widget.for_dashboard(params[:dashboard_id]).all
       respond_with(widgets)
     end

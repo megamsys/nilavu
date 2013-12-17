@@ -31,7 +31,6 @@ module Sources
       end
 
       def get(options = {})
-        puts "get entry"
         from    = (options[:from]).to_i
         to      = (options[:to] || Time.now).to_i       
         metric  = Rails.configuration.ganglia_request_metric
@@ -81,7 +80,6 @@ module Sources
       end
 
       def request_datapoints(from, to, target)        
-         puts "request_datapoints"
         result = []       
           hash = @url_builder.data_url(from, to, target)
           Rails.logger.debug("Requesting datapoints from #{hash[:url]} with params #{hash[:params]} ...")

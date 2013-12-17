@@ -14,8 +14,22 @@ hp:
   image: hp
     
 google:
-  name: Google cloud Engine
+  name: Google Compute Engine
   description: Compute Engine is an infrastructure as a service that lets you run your large-scale computing workloads on Linux virtual machines hosted on Google's infrastructure.
   type: gce_keys
   value: google
   image: gce  
+
+#podnix:
+#  name: Podnix Cloud
+#  description: Compute Engine is an infrastructure as a service that lets you run your large-scale computing workloads on Linux virtual machines hosted on Google's infrastructure.
+#  type: podnix_keys
+#  value: podnix
+#  image: podnix  
+#  
+#profitbricks:
+# name: Profit Bricks
+#  description: Compute Engine is an infrastructure as a service that lets you run your large-scale computing workloads on Linux virtual machines hosted on Google's infrastructure.
+#  type: profitbricks_keys
+#  value: profitbricks
+#  image: profitbricks  

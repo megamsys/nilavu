@@ -2,8 +2,6 @@ class CreateNodes
   #this returns a Megam::Account object
   def self.perform(new_node)
     begin
-      Megam::Config[:email] = new_node[:email]
-      Megam::Config[:api_key] = new_node[:api_key]
       @excon_res = Megam::Node.create(new_node[:node])
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
@@ -21,9 +19,6 @@ class CreateNodes
       @res = {"data" => {:body => re}}
       return @res["data"][:body]
     end
-puts "=========================================EXCON DETAILS ============================================> "
-puts @excon_res.class
-puts @excon_res.inspect
     @excon_res.data[:body]
   end
 end

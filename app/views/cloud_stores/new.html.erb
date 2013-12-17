@@ -12,7 +12,7 @@
 		<div id="form-wizard-1" class="step">
 			<div class="widget-box">
 				<div class="widget-title">
-					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<span class="icon"> <i class="fa fa-th-list"></i> </span>
 					<h5>Cloud Store - Bolts</h5>
 				</div>
 				<div class="row-fluid">
@@ -26,34 +26,37 @@
 							<div class="row-fluid">
 								<div id="new_db1" class="required">
 									<div class="span6">
+										<%= radio_button_tag :db_model, 'full' %>
+										<%= label :full, 'Full' do %>
+										<h3><i class="fa fa-folder-o"></i> Full</h3>
+										<span class="label label-info">*all yours</span> Cloud PostgreSQL only for You </strong>
+										<% end %>
+									</div>
+									<div class="span6">
 
 										<%= label :multitenant, 'Multitenant' do %>
 										<%= radio_button_tag :db_model, 'multitenant' %>
-										<h3><i class="icon-cloud"></i> Multitenant</h3>
+										<h3><i class="fa fa-envelope-o"></i> Multitenant</h3>
 										<span class="label label-info">*shared</span> Clustered, highly available Cloud PostgreSQL</strong>
 										<% end %>
 
 									</div>
-									<div class="span6">
-										<%= radio_button_tag :db_model, 'full' %>
-										<%= label :full, 'Full' do %>
-										<h3><i class="icon-home"></i> Full</h3>
-										<span class="label label-info">*all yours</span> Cloud PostgreSQL only for You </strong>
-										<% end %>
-									</div>
 								</div>
 							</div>
 							<div class="row-fluid">
-								<a href="support.html"> <h5><i class="icon-bar-chart"></i> Tell me more about these options ?</h5> We are here to help
-								<div class="arrow-right">
-									<i class="icon-chevron-right"></i>
-								</div> </a>
+								</br>
+								<div class="alert alert-info alert-block">
+									<a href="http://support.megam.co" target="_blank"> <h5><i class="fa fa-question"></i> Tell me more about these options</h5> We are here to help
+									<div class="arrow-right">
+										<i class="fa fa-chevron-right"></i>
+									</div> </a>
+								</div>
 							</div>
 							<br/>
 							<hr/>
 
 							<p class="help-block">
-								<strong><span class="label label-info">*selection</span> Select any one Cloud Store </strong>
+								<strong><span class="label label-info">*selection</span> Select any one store </strong>
 							</p>
 							</br>
 
@@ -81,16 +84,16 @@
 								<div class="span6">
 									<div class="row-fluid">
 										<div id="scalebooks">
-											<div class="alert">
-												<i class="icon-info-sign"></i> Scale books
+											<div class="alert alert-success">
+												<i class="fa fa-info-circle"></i> Scale store
 											</div>
 											<div class="overflow">
 												<table class="table table-condensed">
 													<thead>
 														<tr>
-															<th>My Books</th>
-															<th><a href="#" rel="tooltip" title="max 2 (*beta)" class='info'>Instances <i class="icon-info-sign"></i></a></th>
-															<th><i class="icon-trash"></i></th>
+															<th>My Stores</th>
+															<th><a href="#" rel="tooltip" title="max 2 (*beta)" class='info'>Instances <i class="fa fa-info-circle"></i></a></th>
+															<th><i class="fa fa-trash-o"></i></th>
 														</tr>
 													</thead>
 													<tbody></tbody>
@@ -98,25 +101,28 @@
 											</div>
 										</div>
 										</br>
+
 										<div class="row-fluid">
 											<div class="alert alert-info alert-block">
 												<a class="close" data-dismiss="alert" href="#">×</a>
-												<h4 class="alert-heading">Info!</h4><i class="icon-ok"></i>
+												<i class="fa fa-check-square-o"></i>
 												<span class="badge badge-success books_total">0</span>
 
 												<input type="hidden" id="cb_count" name="no_of_instances" value="<%= @books_count %>">
 
-												Instances Of:<span class="badge badge-important selected_platformapp">none</span>
+												&nbsp; Instance(s) Of: &nbsp;
+												<span class="badge badge-important">
+													<div id="selected_platformapp">
+														<h3>none</h3>
+													</div></span>
 											</div>
-											<ul class="no-list link-block">
-												<li class="span6">
-													<a href="support.html"> <h5><i class="icon-bar-chart"></i> Your platform isn't here?</h5> We are here to help
-													<div class="arrow-right">
-														<i class="icon-chevron-right"></i>
-													</div> </a>
-												</li>
-											</ul>
+
+											<a href="http://support.megam.co" target="_blank"> <h5><i class="fa fa-question"></i> Your platform isn't here?</h5> We are here to help
+											<div class="arrow-right">
+												<i class="fa fa-chevron-right"></i>
+											</div> </a>
 										</div>
+
 									</div>
 								</div>
 							</div>

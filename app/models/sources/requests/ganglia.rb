@@ -30,7 +30,6 @@ module Sources
       end
 
       def get(options = {})
-        puts "get entry"
         from    = (options[:from]).to_i
         to      = (options[:to] || Time.now).to_i       
          metric  = Rails.configuration.ganglia_request_metric
@@ -39,8 +38,6 @@ module Sources
 
         params = { :from => from, :to => to, :targets => "nginx_status" }
         response_body = ::HttpService.request("http://gmond.megam.co/nginx_status.json", :params => params)
-        puts "+++++++++++++++++++++++++++++++++++++++++++++++"
-        puts response_body
         
         result = []   
           result << { "datapoints" => ganglia_datapoints }       
@@ -89,7 +86,6 @@ module Sources
       end
 
       def request_datapoints(from, to, target)        
-         puts "request_datapoints"
         result = []       
           hash = @url_builder.datapoints_url(from, to, target)
           Rails.logger.debug("Requesting datapoints from #{hash[:url]} with params #{hash[:params]} ...")

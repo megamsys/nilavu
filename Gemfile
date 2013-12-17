@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Rails 4.0
-gem "rails", "~> 4.0.1"
+gem "rails", "~> 4.0.2"
 # add these gems to help with the transition to Rails 4.0
 gem 'protected_attributes'
 gem 'rails-observers'
@@ -11,7 +11,7 @@ gem 'actionpack-action_caching'
 gem 'socket.io-rails'
 gem 'google-analytics-rails', '~> 0.0.4'
 #JQuery rails, other jquery scripts
-#gem 'turbolinks'
+gem 'turbolinks'
 gem 'jquery-rails'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
@@ -27,10 +27,9 @@ gem "github_api"
 gem 'pg'
 gem 'twitter'
 
-# OAuth authentication to twitter, facebook, openid using omniauth
+# OAuth authentication to twitter, facebook, github, google using omniauth
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
-gem 'omniauth-openid'
 gem "omniauth-google-oauth2"
 gem 'omniauth-github'
 
@@ -44,13 +43,15 @@ gem "breadcrumbs_on_rails"
 gem "randexp", "~> 0.1.7"
 gem "megam_api"
 gem "megam_deccanplato"
+#password
+gem 'bcrypt-ruby',:require => 'bcrypt'
 
 #http_proxy settings
 gem "faraday"
 gem "faraday_middleware"
 gem "multi_xml"
-#net-http request and responses
-gem "net-http-predicates"
+#net-http request and responses, [why can't we use faraday] 
+gem "net-http-predicates"  
 
 #html parsing
 gem "nokogiri"
@@ -60,33 +61,15 @@ gem "inflector"
 
 #chettargetter API
 gem "cheddargetter_client_ruby"
-gem "httparty"
-
-#For background processing of cloud jobs
-#gem 'resque'
-#gem 'sidekiq'
-#gem 'sinatra', require: false
-#gem 'slim'
-
-# To use ActiveModel has_secure_password there is a hard dependency to 3.0.0 version.
-# bummer.http://api.rubyonrails.org/classes/ActiveModel/SecurePassword/ClassMethods.html
-gem 'bcrypt-ruby',:require => 'bcrypt'
-
-# We may not use dynamodb. This isn't compatible with Rails4.0.
-# Removing it for now.
-# gem "dynamoid", '0.6.1'
-# gem 'fake_dynamo', '~> 0.2.1'
+gem "httparty" # why can't we use faraday
 
 # Gems used only for assets and not required
 # in production environments by default.
-  #gem 'twitter-bootstrap-rails'
- gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
-  gem "less-rails", "~> 2.4.2"
-#group :assets do
-  gem 'sass-rails',   '~> 4.0.1'
-  gem 'coffee-rails', '~> 4.0.1'
-  gem 'uglifier', '>= 2.3.1'
-#end
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem "less-rails", "~> 2.4.2"
+gem 'sass-rails',   '~> 4.0.1'
+gem 'coffee-rails', '~> 4.0.1'
+gem 'uglifier', '>= 2.3.2'
 
 group :test do
   gem 'capybara'
@@ -101,6 +84,8 @@ group :development do
   gem 'meta_request'
 end
 
+#For background processing of cloud jobs
+#gem 'resque'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'

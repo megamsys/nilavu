@@ -18,7 +18,6 @@ class AppsItemsController < ApplicationController
     @product = Product.find(params[:product_id])
     logger.debug "creating an item for product -> #{@product.id}"
     @apps_item = @user.apps_items.build(:product => @product) || AppsItem.new(params[:apps_item])
-    puts @apps_item.inspect
     @apps_item.save
     respond_with( @apps_item,@product, :layout => !request.xhr? )
   end

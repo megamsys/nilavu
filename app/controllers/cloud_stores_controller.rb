@@ -1,11 +1,11 @@
 class CloudStoresController < ApplicationController
   def index
-if current_user.cloud_books && current_user.cloud_books.find_by_book_type("BOLT")
-    add_breadcrumb "CLoud Stores", cloud_stores_path
-    @cloud_stores = current_user.cloud_books.where(:book_type => 'BOLT')
-else
-     redirect_to new_cloud_store_path, :gflash => { :warning => { :value => "Oops! sorry, You don't have cloud_store, create new'", :sticky => false, :nodom_wrap => true } }
-end
+    if current_user.cloud_books && current_user.cloud_books.find_by_book_type("BOLT")
+      add_breadcrumb "CLoud Stores", cloud_stores_path
+      @cloud_stores = current_user.cloud_books.where(:book_type => 'BOLT')
+    else
+      redirect_to new_cloud_store_path, :gflash => { :success => { :value => "Create Your First Store.", :sticky => false, :nodom_wrap => true } }
+    end
   end
 
   def new
@@ -22,11 +22,10 @@ end
     add_breadcrumb "New Cloud Store selection", new_store_path
     @db_model = params[:db_model]
     @dbms = params[:dbms]
-	    @book =  current_user.cloud_books.build
+    @book =  current_user.cloud_books.build
     @predef_name = params[:dbms]
-    predef_cloud_options = { :email => current_user.email, :api_key => current_user.api_token }
-    predef_options = { :email => current_user.email, :api_key => current_user.api_token, :predef_name => @predef_name}
-    @predef_cloud = ListPredefClouds.perform(predef_cloud_options)
+    predef_options = { :predef_name => @predef_name}
+    @predef_cloud = ListPredefClouds.perform
     if @predef_cloud.class == Megam::Error
       redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
@@ -37,13 +36,11 @@ end
       else
         @predef = pred.lookup(@predef_name)
         @domain_name = ".megam.co"
-	@no_of_instances=params[:no_of_instances]
+        @no_of_instances=params[:no_of_instances]
       end
     end
 
-
   end
-
 
   def create
     logger.debug "Create Cloud store Params ==> "

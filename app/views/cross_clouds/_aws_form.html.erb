@@ -4,15 +4,17 @@
 		<br/>
 		<br/>
 		<div class="div_border">
-			<h4 class="alert-heading">Select Cloud Provider</h4>
+			<h4 class="alert-heading">Save this Cross Cloud As</h4>
 		</div>
 		<br/>
 		<div class="row-fluid">
 			<div class="control-group" id="cc_name">
 				<div class="controls">
-					Save this Cross Cloud As : <%= text_field_tag 'name', nil, :class=> 'required', placeholder: 'Enter a name' %>
+					<i class="fa fa-cloud"></i>
+					&nbsp;
+					<%= text_field_tag 'name', nil, :class=> 'required', placeholder: 'Enter a name' %>
 					<%= link_to "#" do %>
-					<i class="icon-question-sign"></i>
+					<i class="fa fa-question-circle"></i>
 					<% end %>
 				</div>
 			</div>
@@ -20,15 +22,13 @@
 		<br/>
 		<br/>
 		<div class="row-fluid">
-			<div class="offset2" id="cloud_logo">
-				<%= image_tag("logo_aws.png", :size => "100x100") %>
-			</div>
+			<div  id="cloud_logo"></div>
 		</div>
 		<br/>
 		<br/>
 		<div class="row-fluid">
-			<div class="offset2" id="acc_link">
-				<%= link_to "Create an account for amazon.com", "http://aws.amazon.com/console/", :target => "_blank" %>
+			<div  id="acc_link">
+				<%= link_to "Create a new Account for AWS(EC2)", "http://aws.amazon.com/console/", :target => "_blank", :class => "btn btn-large disabled btn-default btn-block"  %>
 			</div>
 		</div>
 	</div>
@@ -44,7 +44,7 @@
 			<div class="controls">
 				<%= text_field_tag 'group', nil, :class=> 'required', placeholder: 'Enter Group name' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="fa fa-question-circle"></i>
 				<% end %>
 			</div>
 		</div>
@@ -52,7 +52,7 @@
 			<div class="controls">
 				<%= text_field_tag 'image', nil, :class=> 'required', placeholder: 'Enter Image value...' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="fa fa-question-circle"></i>
 				<% end %>
 			</div>
 		</div>
@@ -60,7 +60,7 @@
 			<div class="controls">
 				<%= text_field_tag 'flavour', nil, :class=> 'required', placeholder: 'Enter instance size...' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="fa fa-question-circle"></i>
 				<% end %>
 			</div>
 		</div>
@@ -77,7 +77,7 @@
 			<div class="controls">
 				<%= text_field_tag 'ssh_key', nil, :class=> 'required', placeholder: 'Enter SSH key...' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="fa fa-question-circle"></i>
 				<% end %>
 			</div>
 		</div>
@@ -86,23 +86,16 @@
 			<div class="controls">
 				<%= text_field_tag 'ssh_user', nil, :class=> 'required', placeholder: 'Enter SSH User..' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="fa fa-question-circle"></i>
 				<% end %>
 			</div>
 		</div>
-		
-		<!--<div>
-			<%= file_field_tag 'aws_private_key' %>			
-		</div>
 
-		<div>
-			<%= file_field_tag 'id_rsa_public_key' %>			
-		</div>-->
 		<div class="control-group">
 			<div class="controls">
 				<%= text_field_tag 'aws_private_key', nil, :class=> 'required', placeholder: 'Enter AWS private key...' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="fa fa-question-circle"></i>
 				<% end %>
 			</div>
 		</div>
@@ -111,16 +104,16 @@
 			<div class="controls">
 				<%= text_field_tag 'id_rsa_public_key', nil, :class=> 'required', placeholder: 'Enter AWS public key..' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="fa fa-question-circle"></i>
 				<% end %>
 			</div>
-		</div>	
+		</div>
 
 		<div class="control-group" id="cc_awsak">
 			<div class="controls">
 				<%= text_field_tag 'aws_access_key', nil, :class=> 'required', placeholder: 'Enter AWS access key..' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="fa fa-question-circle"></i>
 				<% end %>
 			</div>
 		</div>
@@ -129,7 +122,7 @@
 			<div class="controls">
 				<%= text_field_tag 'aws_secret_key', nil, :class=> 'required', placeholder: 'Enter AWS secret key..' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="fa fa-question-circle"></i>
 				<% end %>
 			</div>
 		</div>

@@ -30,10 +30,8 @@
 	</div>
 </div>
 
-<% random_hash = p SecureRandom.urlsafe_base64(nil, true) %>
+<% random_hash = generate_api_token %>
 <%= f.text_field :verification_hash, :value => random_hash, :type => 'hidden' %>
-<% random_api = p SecureRandom.urlsafe_base64(nil, true) %>
-<%= f.text_field :api_token, :value => random_api, :type => 'hidden' %>
 <% end %>
 
 <% if current_user.nil? %>

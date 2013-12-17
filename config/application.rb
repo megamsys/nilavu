@@ -67,6 +67,8 @@ module Cloudauth
       app.routes.append{ match '*a', :to => 'application#render_404', via: [:get] } unless config.consider_all_requests_local
     end
     
+    config.megam_logo_url   = "http://nothing"
+    
     config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
     config.ganglia_host     = ENV['GANGLIA_HOST']
     config.ganglia_base_url = "http://monitor.megam.co.in/ganglia"
@@ -75,37 +77,21 @@ module Cloudauth
     config.ganglia_request_metric = 'nginx_requests'
     #config.ganglia_request_metric = 'nginx_status'
     config.metric_source = 'demo'
-    config.payment_gateway = 'demo'
-    config.crosscloud_bucket = 'cloudkeys'
-    config.cloudtoolsettings_bucket = 'cloudrecipes'
-    config.vault_server_path = 'https://s3-ap-southeast-1.amazonaws.com'
-    config.authorization_uri = 'https://accounts.google.com/o/oauth2/auth'
-    config.token_credential_uri = 'https://accounts.google.com/o/oauth2/token'
-    config.scope = 'https://www.googleapis.com/auth/userinfo.email'
-    config.redirect_uri = 'https://www.megam.co/auth/google_oauth2/callback'
+    
+    config.storage_crosscloud = 'cloudkeys'
+    config.storage_cloudtool = 'cloudrecipes'
+    config.storage_server_url = 'https://s3-ap-southeast-1.amazonaws.com'
+    
+    config.google_authorization_uri = 'https://accounts.google.com/o/oauth2/auth'
+    config.google_token_credential_uri = 'https://accounts.google.com/o/oauth2/token'
+    config.google_scope = 'https://www.googleapis.com/auth/userinfo.email'
+    config. google_redirect_uri = 'https://www.megam.co/auth/google_oauth2/callback'
     
     #Cheddargetter API
-    config.gem 'cheddargetter_client_ruby'
     config.ched_prod_code = ENV['CHED_PROD_CODE']
     config.ched_user_name = ENV['CHED_USER_NAME']
     config.ched_password = ENV['CHED_PASSWORD']
-=begin
-config.assets.precompile << Proc.new do |path|
-  if path =~ /\.(css|js)\z/
-    full_path = Rails.application.assets.resolve(path).to_path
-    app_assets_path = Rails.root.join('app', 'assets').to_path
-    if full_path.starts_with? app_assets_path
-      puts "including asset: " + full_path
-      true
-    else
-      puts "excluding asset: " + full_path
-      false
-    end
-  else
-    false
-  end
-end
-=end
+
 
   end
 end
