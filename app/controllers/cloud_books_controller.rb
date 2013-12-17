@@ -22,7 +22,7 @@ class CloudBooksController < ApplicationController
           end
           @n_hash["#{cb.name}"] = ar
         end
-        @cb_count = @nodes.length        
+        @cb_count = @nodes.all_nodes.length        
       end
     else
       redirect_to new_cloud_book_path
