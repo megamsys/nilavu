@@ -5,7 +5,7 @@
 Nilavu is a [Rails4](http://guides.rubyonrails.org/) based [Megam Cloud](http://www.megam.co) Web App. 
 We named it in dialect Tamil, which means "moon".
 
-This will be our main WebApp for [Megam Cloud](http://www.megam.co) providing
+This will be our main WebApp for [Megam Cloud](https://www.megam.co) providing
 
 * Launching Cloud Applications Java, RoR, Play, Akka, Node.js instantly using a Git URL 
 
@@ -38,7 +38,7 @@ This code uses a `single user license` of the above themes. It is recommended to
 
 > [Postgres 9.1 +](http://postgresql.org)
 > [Ruby 2.0](http://ruby-lang.org)
-> [Rails 4](http://guides.rubyonrails.org/4_0_release_notes.html)
+> [Rails 4+](http://guides.rubyonrails.org/4_0_release_notes.html)
 
 
 ### Configuration
@@ -46,7 +46,7 @@ This code uses a `single user license` of the above themes. It is recommended to
 
 ```
 
-### Tested on Ubuntu 13.04, AWS - EC2
+### Tested on Ubuntu 13.04 >, EC2, hp cloud, gce, podnix
 
 #### Unit Tests
 
@@ -92,7 +92,7 @@ This code uses a `single user license` of the above themes. It is recommended to
 
 ### Getting Started
 
-* Register here [http://www.megam.co](http://www.megam.co) - We'll launch soon.
+* Register here [http://www.megam.co](https://www.megam.co) - We'll launch soon.
 
 ![Megam Polygot PaaS](http://indykish.files.wordpress.com/2012/06/megam_landing_page.png?w=645&h=996 "Megam Polygot PaaS")
 
@@ -119,9 +119,7 @@ the following resources handy:
 * Ruby on Rails Tutorial Book: http://www.railstutorial.org/
 
 
-#### TO - DO
 
-* Integrate with cheddargettar.com for billing
 	
 # License
 

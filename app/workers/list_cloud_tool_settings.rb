@@ -1,6 +1,6 @@
 #List all the cloudtoolsettings
 class ListCloudToolSettings
-  def self.perform(list_cloudtoolsettings)
+  def self.perform(wparams={})
     begin
       @excon_res = Megam::CloudToolSetting.list
     rescue ArgumentError => ae

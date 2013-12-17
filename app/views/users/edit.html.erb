@@ -1,5 +1,7 @@
 <% content_for :content_settings do %>
 <%= provide(:title, 'Edit user') %>
+<%= render :partial => "users/header" , :locals => {:head => "My Profile"}%>
+
 
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>

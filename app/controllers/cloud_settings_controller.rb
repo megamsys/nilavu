@@ -5,8 +5,7 @@ class CloudSettingsController < ApplicationController
   end
 
   def cross_cloud_init
-    cross_cloud_options = { :email => current_user.email, :api_key => current_user.api_token }
-    @cross_clouds_collection = ListPredefClouds.perform(cross_cloud_options)
+    @cross_clouds_collection = ListPredefClouds.perform
     if @cross_clouds_collection.class != Megam::Error
       @cross_clouds = []
       cross_clouds = []
@@ -18,8 +17,7 @@ class CloudSettingsController < ApplicationController
   end
 
   def cloud_tools_init
-    cloud_tool_setting_options = { :email => current_user.email, :api_key => current_user.api_token }
-    @cloud_tool_setting_collection = ListCloudToolSettings.perform(cloud_tool_setting_options)
+    @cloud_tool_setting_collection = ListCloudToolSettings.perform
     if @cloud_tool_setting_collection.class != Megam::Error
       @cloud_tool_settings = []
       cloud_tool_settings = []
@@ -44,18 +42,17 @@ class CloudSettingsController < ApplicationController
   end
 
   def show
-    cloud_options = { :email => current_user.email, :api_key => current_user.api_token }
     @cc_msg = nil
     @cts_msg = nil
     if params[:type] == "cross_cloud"
       @cc_msg = params[:type]
       @cts_msg = nil
-      @cross_clouds = ListPredefClouds.perform(cloud_options)
+      @cross_clouds = ListPredefClouds.perform
       @cross_cloud = @cross_clouds.lookup(params[:id])
     else
       @cts_msg = params[:type]
       @cc_msg = nil
-      @cloud_tool_settings = ListCloudToolSettings.perform(cloud_options)
+      @cloud_tool_settings = ListCloudToolSettings.perform
       @cloud_tool_setting = @cloud_tool_settings.lookup(params[:id])
     end
     respond_to do |format|
@@ -67,16 +64,15 @@ class CloudSettingsController < ApplicationController
 
   def cloud_tool_setting_create
     logger.debug "#{params.inspect}"
-    vault_loc = get_CTSVault_server+"/"+current_user.email+"/"+params[:cloud_type]+"/"+File.basename(params[:repo_file])
-    options = { :email => current_user.email, :api_key => current_user.api_token, :cloud_type => params[:cloud_type], :repo => params[:repo], :vault_location => vault_loc }
+    vault_loc = cloudtool_base_url+"/"+current_user.email+"/"+params[:cloud_type]+"/"+File.basename(params[:repo_file])
+    options = { :cloud_type => params[:cloud_type], :repo => params[:repo], :vault_location => vault_loc }
     @res_body = CreateCloudToolSettings.perform(options)
     if @res_body.class == Megam::Error
       @res_msg = nil
       @err_msg="Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
     else
       @err_msg = nil
-      bucket = cloud_tool_setting_bucket
-      @upload = S3Upload.perform(bucket, current_user.email+"/"+params[:cloud_type]+"/"+File.basename(params[:repo_file]), :file => params[:repo_file])
+      @upload = S3Upload.perform(cloud_tool_setting_bucket, current_user.email+"/"+params[:cloud_type]+"/"+File.basename(params[:repo_file]), :file => params[:repo_file])
       if @upload.class == Megam::Error
         @res_msg = nil
         @err_msg="Failed to upload cross cloud files. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."

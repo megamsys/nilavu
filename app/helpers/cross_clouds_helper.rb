@@ -4,7 +4,6 @@ module CrossCloudsHelper
     cc_config.each do |cc, cloud|      
      cc_list.push cloud["name"]
     end
-    #[ "Amazon EC2", "hp cloud", "Google cloud Engine"]
     cc_list
   end
   
@@ -32,19 +31,19 @@ module CrossCloudsHelper
   end
   
   def cross_cloud_bucket
-    Rails.configuration.crosscloud_bucket 
+    Rails.configuration.storage_crosscloud 
   end
   
   def cloud_tool_setting_bucket
-    Rails.configuration.cloudtoolsettings_bucket 
+    Rails.configuration.storage_cloudtool 
   end
   
-  def get_Vault_server
-    Rails.configuration.vault_server_path+"/"+cross_cloud_bucket    
+  def vault_base_url
+    Rails.configuration.storage_server_url+"/"+cross_cloud_bucket    
   end
     
-  def get_CTSVault_server
-    Rails.configuration.vault_server_path+"/"+cloud_tool_setting_bucket    
+  def cloudtool_base_url
+    Rails.configuration.storage_server_url+"/"+cloud_tool_setting_bucket    
   end  
     
   def get_provider_value(prov)

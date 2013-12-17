@@ -1,13 +1,13 @@
 <div id="dash">
 	<div id="sidebar">
 		<ul ng-controller="MainCtrl">
-			<div class="you">
-				<li >
-					<%= link_to edit_user_path(current_user), :target => "_self" do %>
-					<%= image_tag avatar_url(current_user), :size => "260x260"%>					
-					<%end%>
-				</li>
-			</div>
+			<li >
+				<div class="media">	
+				<%= link_to edit_user_path(current_user), :target => "_self" do %>
+				<%= image_tag avatar_url(current_user),:class=> "img-rounded",  :size => "260x260"%>
+				<%end%>
+				</div>
+			</li>
 			<li class=<%= "active" if controller_name== "dashboards"%>>
 				<%= link_to dashboards_path, :target => "_self" do %>
 				<i class="fa fa-dashboard"></i><span> Dashboard</span>
@@ -45,9 +45,9 @@
 			</li>
 			-->
 			<li class=<%= "active" if controller_name== "connector_projects"%>>
-			<%= link_to new_connector_project_path, :target => "_self" do %>
-			<i class="fa fa-cloud"></i>Live Cloud
-			<% end %>
+				<%= link_to new_connector_project_path, :target => "_self" do %>
+				<i class="fa fa-cloud"></i>Live Cloud
+				<% end %>
 			</li>
 
 			<li class="submenu <%= "active" if controller_name== "billing"%> ">
@@ -77,7 +77,6 @@
 
 	</div>
 	<div id="content">
-		<!-- <%= render :partial => "customizations/flash_messages" %> -->
 		<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
 	</div>
 

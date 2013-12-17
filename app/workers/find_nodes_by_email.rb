@@ -1,7 +1,7 @@
 #Find all nodes by email
 class FindNodesByEmail
 
-  def self.perform(get_nodes)
+  def self.perform(wparams={})
     begin
       @excon_res = Megam::Node.list
     rescue ArgumentError => ae

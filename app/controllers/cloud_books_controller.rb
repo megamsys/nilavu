@@ -1,19 +1,16 @@
 class CloudBooksController < ApplicationController
   respond_to :html, :js
+  
   def index
-    if current_user.cloud_books.any?
-      add_breadcrumb "Cloud_books", cloud_books_path
-      @cloud_books = current_user.cloud_books
-      logger.debug "Cloud Book Index ==> "
-      options = { :email => current_user.email, :api_key => current_user.api_token }
-      #@predef_clouds = ListPredefClouds.perform(options)
-      @nodes = FindNodesByEmail.perform(options)
+    @cloud_books = current_user.cloud_books
+    if @cloud_books.any?
+      add_breadcrumb "Cloud_books", cloud_books_path      
+      logger.debug "--> CloudBooks:index, finding nodes by email"
+      @nodes = FindNodesByEmail.perform
       if @nodes.class == Megam::Error
-        #@res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
         redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
-        @n_hash=Hash.new
-        @cloud_books = current_user.cloud_books
+        @n_hash=Hash.new #we need to use map and build []                
         @cloud_books.each do |cb|
           i=0
           ar=Array.new
@@ -25,10 +22,7 @@ class CloudBooksController < ApplicationController
           end
           @n_hash["#{cb.name}"] = ar
         end
-        @cb_count = 0
-        @n_hash.each do |k, v|
-          @cb_count = @cb_count+v.count
-        end
+        @cb_count = @nodes.length        
       end
     else
       redirect_to new_cloud_book_path
@@ -57,15 +51,8 @@ class CloudBooksController < ApplicationController
       "lc_additional" => "#{params[:lc_additional]}",
       "lc_when" => "#{params[:lc_when]}"
     }
-    if params[:defns_id].start_with?('A')
-      tmp_hash["appdefns_id"] = "#{params[:defns_id]}"
-      options = { :email => current_user.email, :api_key => current_user.api_token, :req => tmp_hash}
-      @req = CreateAppRequests.perform(options)
-    elsif params[:defns_id].start_with?('B')
-      tmp_hash["boltdefns_id"] = "#{params[:defns_id]}"
-      options = { :email => current_user.email, :api_key => current_user.api_token, :req => tmp_hash}
-      @req = CreateBoltRequests.perform(options)
-    end
+     wparams = { :defns_id => "#{params[:defns_id]}",:req => tmp_hash}
+    @req = CreateDefnRequests.send, params[:req_type].to_sym, wparams      
     if @req.class == Megam::Error
       redirect_to cloud_books_path, :gflash => { :warning => { :value => "#{@req.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
@@ -79,9 +66,10 @@ class CloudBooksController < ApplicationController
   end
 
   def clone_start
-    get_node = { :email => current_user.email, :api_key => current_user.api_token, :node => "#{params[:clone_name]}" }
-    @clone_nodes = FindNodeByName.perform(get_node)
-    logger.debug "Get Node By Name NODE ==> clone==> "
+    wparams = { :node => "#{params[:clone_name]}" }
+    @clone_nodes =  FindNodeByName.perform(wparams)
+    logger.debug "CloudBooks:clone_start, found the node"
+    
     if @clone_nodes.class == Megam::Error
       @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
       respond_to do |format|
@@ -91,7 +79,6 @@ class CloudBooksController < ApplicationController
       end
     else
       @clone_node = @clone_nodes.lookup("#{params[:clone_name]}")
-
       node_hash = {
         "node_name" => "#{params[:new_name]}",
         "node_type" => "#{@clone_node.node_type}",
@@ -104,8 +91,8 @@ class CloudBooksController < ApplicationController
         "appreq" => {},
         "boltreq" => {}
       }
-      options = { :email => current_user.email, :api_key => current_user.api_token, :node => node_hash }
-      @node = CreateNodes.perform(options)
+      wparams = {:node => node_hash }
+      @node = CreateNodes.perform(wparams)
       if @node.class == Megam::Error
         @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
         respond_to do |format|
@@ -126,8 +113,8 @@ class CloudBooksController < ApplicationController
     end
   end
 
-  def git_call
-    logger.debug "================================= > Git CALL <========================= "
+  def authorize_scm
+    logger.debug "CloudBooks:authorize_scm, entry"
     auth_token = request.env['omniauth.auth']['credentials']['token']
     github = Github.new oauth_token: auth_token
     git_array = Array.new
@@ -144,7 +131,7 @@ class CloudBooksController < ApplicationController
       add_breadcrumb "Cloud_Books", cloud_books_path
       add_breadcrumb "New Cloud Platform Selection", new_cloud_book_path
     else
-      redirect_to dashboards_path, :gflash => { :warning => { :value => "Sorry. You are not yet onboarded. Please update your profile", :sticky => false, :nodom_wrap => true } }
+      redirect_to dashboards_path, :gflash => { :warning => { :value => "To create books, you need an API key. Click Profile, and generate a new API key", :sticky => false, :nodom_wrap => true } }
     end
   end
 
@@ -152,7 +139,6 @@ class CloudBooksController < ApplicationController
     add_breadcrumb "Cloud_Books", cloud_books_path
     add_breadcrumb "New Cloud_Platform Selection", new_cloud_book_path
     add_breadcrumb "Create", new_book_path
-    @predef_name = params[:predef_name]
     if"#{params[:deps_scm]}".strip.length != 0
       @deps_scm = "#{params[:deps_scm]}"
     elsif !"#{params[:scm]}".start_with?("select")
@@ -160,12 +146,12 @@ class CloudBooksController < ApplicationController
     end
     @deps_war = "#{params[:deps_war]}" if params[:deps_war]
     @book =  current_user.cloud_books.build
-    predef_cloud_options = { :email => current_user.email, :api_key => current_user.api_token }
-    predef_options = { :email => current_user.email, :api_key => current_user.api_token, :predef_name => @predef_name}
-    @predef_cloud = ListPredefClouds.perform(predef_cloud_options)
+    @predef_cloud = ListPredefClouds.perform
     if @predef_cloud.class == Megam::Error
       redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
+      @predef_name = params[:predef_name]
+      predef_options = {:predef_name => @predef_name}
       pred = FindPredefsByName.perform(predef_options)
       if pred.class == Megam::Error
         redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{pred.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
@@ -177,12 +163,9 @@ class CloudBooksController < ApplicationController
     end
   end
 
-  #Upon creation of an entry in cloud_book_history, a request is sent to megam_play using the
-  #resque background worker.
   def create
-
     data={:book_name => params[:cloud_book][:name], :book_type => params[:cloud_book][:book_type] , :predef_cloud_name => params[:cloud_book][:predef_cloud_name], :provider => params[:predef][:provider], :provider_role => params[:predef][:provider_role], :domain_name => params[:cloud_book][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}"}
-    options = { :email => current_user.email, :api_key => current_user.api_token, :data => data, :group => "server", :action => "create" }
+    options = {:data => data, :group => "server", :action => "create" }
     node_hash=MakeNode.perform(options)
     if node_hash.class == Megam::Error
       @res_msg="Sorry Something Wrong. MSG : #{node_hash.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
@@ -192,8 +175,8 @@ class CloudBooksController < ApplicationController
         }
       end
     else
-      options = { :email => current_user.email, :api_key => current_user.api_token, :node => node_hash }
-      @node = CreateNodes.perform(options)
+      wparams = {:node => node_hash }
+      @node = CreateNodes.perform(wparams)
       if @node.class == Megam::Error
         @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
         respond_to do |format|
@@ -201,13 +184,10 @@ class CloudBooksController < ApplicationController
             respond_with(@res_msg, :layout => !request.xhr? )
           }
         end
-      #redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@node.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
-
         @book = current_user.cloud_books.create(params[:cloud_book])
         @book.save
         params = {:book_name => "#{@book.name}#{@book.domain_name}", :request_id => "req_id", :status => "status"}
-
         @history = @book.cloud_books_histories.create(params)
       @history.save
       end
@@ -215,23 +195,19 @@ class CloudBooksController < ApplicationController
   end
 
   def show
-    get_node = { :email => current_user.email, :api_key => current_user.api_token, :node => "#{params[:name]}" }
-    @node = FindNodeByName.perform(get_node)
-    logger.debug "Get Node By Name NODE ==> "
+    wparams = {:node => "#{params[:name]}" }
+    @node = FindNodeByName.perform(wparams)
+    logger.debug "--> CloudBooks:show, found node #{wparams[:node]}"
     if @node.class == Megam::Error
-      @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      @res_msg="We went into nirvana, finding node #{wparams[:node]}. Open up a support ticket. We'll investigate its disappearence #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
       respond_to do |format|
         format.js {
           respond_with(@res_msg, :layout => !request.xhr? )
         }
       end
     else
-      @requests = GetRequestsByNode.perform(get_node)
-      if params[:book_type] == "APP"
-        @book_requests = GetAppRequestsByNode.perform(get_node)
-      elsif params[:book_type] == "BOLT"
-        @book_requests = GetBoltRequestsByNode.perform(get_node)
-      end
+      @requests = GetRequestsByNode.perform(wparams)  #no error checking for GetRequestsByNode ? 
+      @book_requests =  GetDefnRequestsByNode.send, params[:book_type].to_sym, params
       if @book_requests.class == Megam::Error
         @book_requests={"results" => {"req_type" => "", "create_at" => "", "lc_apply" => "", "lc_additional" => "", "lc_when" => ""}}
       end
@@ -250,15 +226,13 @@ class CloudBooksController < ApplicationController
 
   def destroy
     @book = CloudBook.find(params[:id])
-
-    options = { :email => current_user.email, :api_key => current_user.api_token, :node_name => "#{params[:name]}", :group => "server", :action => "delete" }
-
+    options = {:node_name => "#{params[:name]}", :group => "server", :action => "delete" }
     node_hash=DeleteNode.perform(options)
 
     if node_hash.class == Megam::Error
       @res_msg="Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
     else
-      options = { :email => current_user.email, :api_key => current_user.api_token, :req => node_hash }
+      options = { :req => node_hash }
       @node = CreateRequests.perform(options)
       if @node.class == Megam::Error
         @res_msg="Sorry Something Wrong. MSG : #{@node.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
@@ -272,7 +246,6 @@ class CloudBooksController < ApplicationController
         @book.destroy
         end
         @res_msg = "Cloud Book deleted Successfully"
-
       end
     end
 

@@ -24,12 +24,12 @@ class CrossCloudsController < ApplicationController
     #File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
     #file.write(uploaded_io.read)
     #end
-    vault_loc = get_Vault_server+current_user.email+"/"+params[:name]
-    sshpub_loc = get_Vault_server+current_user.email+"/"+params[:name]
+    vault_loc = vault_base_url+current_user.email+"/"+params[:name]
+    sshpub_loc = vault_base_url+current_user.email+"/"+params[:name]
     #aws_private_key = ((params[:aws_private_key]).present?) ? current_user.email+"/"+params[:name]+"/"+File.basename(params[:aws_private_key]) : ""
     aws_private_key = ((params[:aws_private_key].original_filename).length > 0) ? current_user.email+"/"+params[:name]+"/"+params[:aws_private_key].original_filename : ""
-    options = { :email => current_user.email, :api_key => current_user.api_token, :name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group], :image => params[:image], :flavor => params[:flavour] }, :access => { :ssh_key => params[:ssh_key], :identity_file => aws_private_key, :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone] }  }
-    @res_body = CreatePredefClouds.perform(options)
+    wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group], :image => params[:image], :flavor => params[:flavour] }, :access => { :ssh_key => params[:ssh_key], :identity_file => aws_private_key, :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone] }  }
+    @res_body = CreatePredefClouds.perform(wparams)
     if @res_body.class == Megam::Error
       @res_msg = nil
       @err_msg="Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."

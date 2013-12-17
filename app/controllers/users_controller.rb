@@ -19,7 +19,7 @@ class UsersController < ApplicationController
 
   def new
     if params[:user_social_identity]
-      logger.debug "==> Controller: users, Action: new, New Social Identity User"
+      logger.debug "--> Users:new, creating new user with social identity."
       @user = User.new(:email => params[:user_social_identity][:email], :first_name => params[:user_social_identity][:first_name], :last_name => params[:user_social_identity][:last_name], :phone => params[:user_social_identity][:phone])
       @social_uid = params[:user_social_identity][:uid]
     else
@@ -29,21 +29,21 @@ class UsersController < ApplicationController
   end
 
   def email_verify
-    logger.debug "==> Controller: users, Action: email_verify, Before Email verification"
+    logger.debug "--> Users:email_verify, sending email verification."
     @user= User.find_by_verification_hash(params[:format])
     UserMailer.welcome_email(@user).deliver
-    logger.debug "==> Controller: users, Action: email_verify, Email Verified"
+    logger.debug "--> Users:email_verify, delivered verification email."
   end
 
   def verified_email
     @user= User.find_by_verification_hash(params[:format])
     if @user.verification_hash === params[:format]
-      logger.debug "==> Controller: users, Action: verified_email, Email Verified User comeback"
+      logger.debug "--> Users:verified_email, updating verified_email flag"
       @user.update_attribute(:verified_email, 'true')
       redirect_to signin_path(@user), :gflash => { :success => { :value => "Welcome back #{@user.first_name}. Your email #{@user.email} was verified. Thank you.", :sticky => false, :nodom_wrap => true } }
     else
-      logger.debug "==> Controller: users, Action: verified_email, Wrong user attempt to comeback"
-      flash[:alert] = "Ooops ! your verification failed. Resend the verification email again."
+      logger.debug "--> Users:verified_email, verification check failure."
+      flash[:alert] = "Your verification failed. Resend the verification email again."
       redirect_to sign_up_path
     end
   end
@@ -54,23 +54,22 @@ class UsersController < ApplicationController
   # failure with email already exists, then display a message with a link to forgot_password.
   # any other errors , display a general message, with an option to contact support.
   def create
-    logger.debug "==> Controller: users, Action: create, Update socail identity for new social identity user"
+    logger.debug "--> Users:create, update socail identity for new social identity user"
     @user = User.new(params[:user])
     @user_fields_form_type = params[:user_fields_form_type]
 
     if @user.save
       if params[:social_uid]
-        logger.debug "==> Controller: users, Action: create, Update socail identity for new social identity user"
+        logger.debug "--> Users:create, update socail identity for new social identity user"
         @identity = Identity.find_by_uid(params[:social_uid])
         @identity.update_column(:users_id, @user.id)
       end
       # fix for remember me: send the remember_me flag to sign_in method to decide if the user wishes to be remembered or not.
-      logger.debug "#{params.inspect}"
       logger.debug "==> Controller: users, Action: create, User signed in after creation"
       api_token = view_context.generate_api_token
-      configure_api(@user.email, api_token)      
+      configure_api(@user.email, api_token)
       options = { :id => @user.id, :email => @user.email, :api_key => api_token, :authority => "admin" }
-      res_body = CreateAccounts.perform(options)      
+      res_body = CreateAccounts.perform(options)
       dash(params[:user][:first_name])
 
       if !(res_body.class == Megam::Error)
@@ -79,8 +78,8 @@ class UsersController < ApplicationController
         @user.update_columns(:onboarded_api => true, :api_token => api_token)
         redirect_to dashboards_path, :gflash => { :success => { :value => "Hi #{@user.first_name}, #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
-        logger.debug "==> Controller: users, Action: create, User onboard was not successfully"
-        redirect_to dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onbodard #{@user.email}. Try again by updating the api key by clicking profile. If it still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        logger.debug "==> Controller: users, Action: create, User onboard was not successful"
+        redirect_to dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onbodard #{@user.email}. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       end
       sign_in @user
     else
@@ -153,7 +152,6 @@ class UsersController < ApplicationController
 
   def destroy
     User.find(params[:id]).destroy
-    #flash[:success] = "Sorry to see you go. Removed successfully."
     redirect_to users_path
   end
 
@@ -165,8 +163,14 @@ class UsersController < ApplicationController
   private
 
   def dash(first_name)
-    #Dashboard entry
     @dashboard=@user.dashboards.create(:name=> first_name)
+    # Move the widgets creation to widgets model and use mass insert
+    #inserts = []
+    # TIMES.times do
+    #inserts.push "(3.0, '2009-01-23 20:21:13', 2, 1)"
+    # end
+    # sql = "INSERT INTO widgets (`name`, `datapoints`, 'source`, `widget_type`) VALUES #{inserts.join(", ")}"
+    ##
     book_source = Rails.configuration.metric_source
     @widget=@dashboard.widgets.create(:name=>"graph", :kind=>"datapoints", :source=>book_source, :widget_type=>"pernode", :range=>"30-minutes")
     @widget=@dashboard.widgets.create(:name=>"totalbooks", :kind=>"totalbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
@@ -178,7 +182,7 @@ class UsersController < ApplicationController
     @widget=@dashboard.widgets.create(:name=>"cumulativeuptime", :kind=>"cumulativeuptime", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
     #@widget=@dashboard.widgets.create(:name=>"requestserved", :kind=>"requestserved", :source=>book_source, :widget_type=>"pernode")
     @widget=@dashboard.widgets.create(:name=>"queuetraffic", :kind=>"queuetraffic", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
-  #@dashboard = Dashboard.new(:name=> params[:first_name], :user_id => current_user.id)
+    #@dashboard = Dashboard.new(:name=> params[:first_name], :user_id => current_user.id)
 
   end
 

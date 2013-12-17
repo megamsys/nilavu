@@ -96,7 +96,7 @@ GEM
     diff-lcs (1.2.5)
     equalizer (0.0.7)
     erubis (2.7.0)
-    excon (0.30.0)
+    excon (0.31.0)
     execjs (2.0.2)
     factory_girl (4.3.0)
       activesupport (>= 3.0.0)
@@ -112,8 +112,9 @@ GEM
       jquery-rails
     gherkin (2.12.2)
       multi_json (~> 1.3)
-    github_api (0.11.0)
+    github_api (0.11.1)
       addressable (~> 2.3)
+      descendants_tracker (~> 0.0.1)
       faraday (~> 0.8, < 0.10)
       hashie (>= 1.2)
       multi_json (>= 1.7.5, < 2.0)
@@ -142,7 +143,7 @@ GEM
     jquery-turbolinks (2.0.1)
       railties (>= 3.1.0)
       turbolinks
-    jquery-ui-rails (4.1.0)
+    jquery-ui-rails (4.1.1)
       railties (>= 3.1.0)
     json (1.8.1)
     jwt (0.1.8)
@@ -182,7 +183,7 @@ GEM
     multi_xml (0.5.5)
     multipart-post (1.2.0)
     net-http-predicates (1.0.0)
-    nokogiri (1.6.0)
+    nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     oauth (0.4.7)
     oauth2 (0.8.1)
@@ -208,9 +209,6 @@ GEM
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
-    omniauth-openid (1.0.1)
-      omniauth (~> 1.0)
-      rack-openid (~> 1.3.1)
     omniauth-twitter (1.0.1)
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
@@ -226,9 +224,6 @@ GEM
     rack (1.5.2)
     rack-contrib (1.1.0)
       rack (>= 0.9.1)
-    rack-openid (1.3.1)
-      rack (>= 1.1.0)
-      ruby-openid (>= 2.1.8)
     rack-test (0.6.2)
       rack (>= 1.0)
     rails (4.0.2)
@@ -261,7 +256,6 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
-    ruby-openid (2.3.0)
     sass (3.2.12)
     sass-rails (4.0.1)
       railties (>= 4.0.0, < 5.0)
@@ -357,7 +351,6 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-github
   omniauth-google-oauth2
-  omniauth-openid
   omniauth-twitter
   paperclip (= 3.5.2)
   pg
@@ -369,6 +362,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.1)
   socket.io-rails
   therubyracer
+  turbolinks
   twitter
   twitter-bootstrap-rails!
   uglifier (>= 2.3.2)

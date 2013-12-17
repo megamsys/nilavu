@@ -1,6 +1,6 @@
 #List all the predefs
 class ListPredefClouds
-  def self.perform(list_predefclouds)
+  def self.perform(wparams={})
     begin
       @excon_res = Megam::PredefCloud.list
     rescue ArgumentError => ae
