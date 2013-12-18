@@ -42,6 +42,12 @@
 									<div class="control-group offset2">
 										<div class="controls">
 											<i class="fa fa-github"></i>
+											<%= text_field_tag 'repo_name', nil, :class=> 'required', placeholder: 'Repository Name' %>
+										</div>
+									</div>
+									<div class="control-group offset2">
+										<div class="controls">
+											<i class="fa fa-github"></i>
 											<%= text_field_tag 'repo', nil, :class=> 'required', placeholder: 'https://github.com/username/project.git' %>
 										</div>
 									</div>

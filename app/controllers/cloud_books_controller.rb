@@ -6,7 +6,7 @@ class CloudBooksController < ApplicationController
     if @cloud_books.any?
       add_breadcrumb "Cloud_books", cloud_books_path      
       logger.debug "--> CloudBooks:index, finding nodes by email"
-      @nodes = FindNodesByEmail.perform
+      @nodes = FindNodesByEmail.perform      
       if @nodes.class == Megam::Error
         redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
@@ -22,7 +22,8 @@ class CloudBooksController < ApplicationController
           end
           @n_hash["#{cb.name}"] = ar
         end
-        @cb_count = @nodes.length        
+        @cb_count = @nodes.all_nodes.length     
+        
       end
     else
       redirect_to new_cloud_book_path
@@ -164,9 +165,9 @@ class CloudBooksController < ApplicationController
   end
 
   def create
-    data={:book_name => params[:cloud_book][:name], :book_type => params[:cloud_book][:book_type] , :predef_cloud_name => params[:cloud_book][:predef_cloud_name], :provider => params[:predef][:provider], :provider_role => params[:predef][:provider_role], :domain_name => params[:cloud_book][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}"}
+    data={:book_name => params[:cloud_book][:name], :book_type => params[:cloud_book][:book_type] , :predef_cloud_name => params[:cloud_book][:predef_cloud_name], :provider => params[:predef][:provider], :repo => 'default_chef', :provider_role => params[:predef][:provider_role], :domain_name => params[:cloud_book][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}"}
     options = {:data => data, :group => "server", :action => "create" }
-    node_hash=MakeNode.perform(options)
+    node_hash=MakeNode.perform(options)      
     if node_hash.class == Megam::Error
       @res_msg="Sorry Something Wrong. MSG : #{node_hash.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
       respond_to do |format|
