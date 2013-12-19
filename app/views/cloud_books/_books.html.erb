@@ -175,7 +175,7 @@
 
 </div>
 <!-- container-fluid -->
-<div id="cloudbook_buildrequest_postshow_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="cloud_book_request_now_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -189,16 +189,18 @@
 			<p>
 				Your request was submitted to megam cloud gateway was successful.
 				</br>
-				<strong>Click<span class="label label-info">&nbsp; OK &nbsp;</span>&nbsp; to watch the status Real Time</strong>
+				<div id="cloud_book_request_now_success"></div>
+				</br>
+				&nbsp;<strong>Click<span class="label label-info">&nbsp; OK &nbsp;</span>&nbsp;&nbsp; to watch the status</strong>
 			</p>
 		</div>
 	</div>
-	<div class="modal-footer">
-		<%= link_to  "Ok", nil, :class => "btn btn-primary"%>
+	<div class="modal-footer">	
+		<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary"%>
 	</div>
 </div>
 
-<div id="cloudbook_buildrequest_postshow_popup_error" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="cloud_book_request_now_popup_error" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -208,16 +210,14 @@
 	</div>
 	<div class="modal-body">
 		<div class="alert alert-error">
-
 			<p>
-				You buid request to the megam cloud gateway was not successful.
+				Your request to megam cloud gateway was not successful.
 				</br>
 				<div id="err_msg"></div>
 			</p>
 		</div>
 	</div>
 	<div class="modal-footer">
-		<%= link_to  "Ok", nil, :class => "btn btn-primary", :target => "_self" %>
-
+		<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary" %>
 	</div>
 </div>

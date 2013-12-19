@@ -22,7 +22,7 @@ class CloudSettingsController < ApplicationController
       @cloud_tool_settings = []
       cloud_tool_settings = []
       @cloud_tool_setting_collection.each do |pre_cl|
-        cloud_tool_settings << {:name => pre_cl.cloud_type, :created_at => pre_cl.created_at.to_time.to_formatted_s(:rfc822)}
+        cloud_tool_settings << {:name => pre_cl.repo_name, :created_at => pre_cl.created_at.to_time.to_formatted_s(:rfc822)}
       end
       @cloud_tool_settings = cloud_tool_settings.sort_by {|vn| vn[:created_at]}
     end
@@ -64,15 +64,15 @@ class CloudSettingsController < ApplicationController
 
   def cloud_tool_setting_create
     logger.debug "#{params.inspect}"
-    vault_loc = cloudtool_base_url+"/"+current_user.email+"/"+params[:cloud_type]+"/"+File.basename(params[:repo_file])
-    options = { :cloud_type => params[:cloud_type], :repo => params[:repo], :vault_location => vault_loc }
+    vault_loc = cloudtool_base_url+"/"+current_user.email+"/"+params[:repo_name]+"/"+File.basename(params[:repo_file])
+    options = { :cloud_type => params[:cloud_type], :repo_name => params[:repo_name], :repo => params[:repo], :vault_location => vault_loc, :conf_location => "sandy@megamsandbox.com/default_chef/chef-repo/.chef/knife.rb"  }
     @res_body = CreateCloudToolSettings.perform(options)
     if @res_body.class == Megam::Error
       @res_msg = nil
       @err_msg="Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
     else
       @err_msg = nil
-      @upload = S3Upload.perform(cloud_tool_setting_bucket, current_user.email+"/"+params[:cloud_type]+"/"+File.basename(params[:repo_file]), :file => params[:repo_file])
+      @upload = S3Upload.perform(cloud_tool_setting_bucket, current_user.email+"/"+params[:repo_name]+"/"+File.basename(params[:repo_file]), :file => params[:repo_file])
       if @upload.class == Megam::Error
         @res_msg = nil
         @err_msg="Failed to upload cross cloud files. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."

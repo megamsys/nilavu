@@ -43,18 +43,19 @@ class CloudBooksController < ApplicationController
 
   def send_request 
     logger.debug "--> CloudBooks:send_request"
-    sleep(2.seconds)
     packed_parms = packed_h("Meat::Defns",params)
-    logger.debug "--> CloudBooks:send_request, find defnid #{packed_parms}"
     defns_result =  FindDefnById.send(params[:book_type].downcase.to_sym, packed_parms) 
     params[:lc_apply] =  defns_result.lookup(params[:defns_id]).appdefns[:runtime_exec] unless defns_result.class == Megam::Error
-    #notify an error here.    
     packed_parms = packed("Meat::Defns",params)
-    logger.debug "--> CloudBooks:send_request, #{packed_parms}"
-=begin defns_result =  CreateDefnRequests.send(params[:book_type].downcase.to_sym, packed_parms)
-    level = :success || :warning if @req.class == Megam::Error 
-    redirect_to cloud_books_path, :gflash => { level => { :value => "#{@req.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-=end
+    @defnd_out ={}
+    defnd_result =  CreateDefnRequests.send(params[:book_type].downcase.to_sym, packed_parms)
+    @defnd_out[:error] = "Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}." if @req.class == Megam::Error
+    @defnd_out[:success] = defnd_result.some_msg[:msg] 
+    respond_to do |format|
+      format.js {
+        respond_with(@defnd_out, :layout => !request.xhr? )
+      }
+    end
   end
 
   def clone_start
@@ -153,9 +154,9 @@ class CloudBooksController < ApplicationController
   end
 
   def create
-    data={:book_name => params[:cloud_book][:name], :book_type => params[:cloud_book][:book_type] , :predef_cloud_name => params[:cloud_book][:predef_cloud_name], :provider => params[:predef][:provider], :provider_role => params[:predef][:provider_role], :domain_name => params[:cloud_book][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}"}
+    data={:book_name => params[:cloud_book][:name], :book_type => params[:cloud_book][:book_type] , :predef_cloud_name => params[:cloud_book][:predef_cloud_name], :provider => params[:predef][:provider], :repo => 'default_chef', :provider_role => params[:predef][:provider_role], :domain_name => params[:cloud_book][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}"}
     options = {:data => data, :group => "server", :action => "create" }
-    node_hash=MakeNode.perform(options)
+    node_hash=MakeNode.perform(options)      
     if node_hash.class == Megam::Error
       @res_msg="Sorry Something Wrong. MSG : #{node_hash.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
       respond_to do |format|
