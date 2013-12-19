@@ -1,7 +1,7 @@
-class CreateAppRequests
+class CreateDefnRequests
   def self.app(wparams)
     begin
-      @excon_res = Megam::AppRequest.create(wparams[:req])
+      @excon_res = Megam::AppRequest.create(wparams)
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)
@@ -23,7 +23,7 @@ class CreateAppRequests
   
   def self.bolt(wparams)
     begin
-      @excon_res = Megam::BoltRequest.create(wparams[:req])
+      @excon_res = Megam::BoltRequest.create(wparams)
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)

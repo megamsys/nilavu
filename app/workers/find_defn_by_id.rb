@@ -1,7 +1,7 @@
-class GetDefnRequestsByNode
-  def self.app(node)
+class FindDefnById
+  def self.app(defn)
     begin
-      @excon_res = Megam::AppRequest.list(node[:node])
+      @excon_res = Megam::Appdefns.show(defn[:node_name], defn[:id])
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)
@@ -24,7 +24,7 @@ class GetDefnRequestsByNode
   
   def self.bolt(node)
     begin
-      @excon_res = Megam::BoltRequest.list(node[:node])
+      @excon_res = Megam::Boltdefns.show(defn[:node], defn[:id])
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)

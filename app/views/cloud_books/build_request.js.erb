@@ -1,12 +1,9 @@
-<% if @node_name %>
-
-var selected_entity = '#cloudbook_request_popup';
-$("#req_type_pop").val('<%= @req_type %>');
-$("#node_name_pop").val('<%= @node_name %>');
-$("#defns_id_pop").val('<%= @defns_id %>');
+<% if @defn_out %>
+var selected_entity = '#cloudbook_buildrequest_postshow_popup';
+$("#cloudbook_buildrequest_postform").html('<%= escape_javascript(render :partial => "cloud_books/input_cloudbook_request" , :locals => {:defn_result => @defn_result, :method => 'post'})%>');
 $(selected_entity).modal('show');
-
-
 <% else %>
-alert("TEST Build Request No value");
+var selected_entity = '#cloudbook_buildrequest_postshow_popup_error';
+$(selected_entity).modal('show');
 <% end %>
+

@@ -308,30 +308,7 @@ input[type="color"]:focus,
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#475B77', endColorstr='#475B77', GradientType=0);
 }
 
-/* START - Ramzan gift :) New stuff(measure theme.css) (Aug 9, 2013)
 
-.navbar .btn-navbar .icon-bar {
-  display: block;
-  width: 18px;
-  height: 2px;
-  background-color: #5FAF08;
-  -webkit-border-radius: 1px;
-  -moz-border-radius: 1px;
-  border-radius: 1px;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-}
-@media (max-width: 979px) {
-	.nav-collapse .nav > li > a:hover,
-	.nav-collapse .dropdown-menu a:hover {
-    	background: none !important;
-	}
-	.nav-collapse .nav > li > a, .nav-collapse .dropdown-menu a {
-		color: #ccc;
-	}
-}
-/* END - Ramzan gift :) New stuff(measure theme.css) (Aug 9, 2013)
 
 /* Index
  -------------------------------------------------- */

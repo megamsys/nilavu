@@ -16,7 +16,9 @@
 						<% end %>
 					</li>
 					<li>
-						<%= link_to "Features", page_path("features"), :target => "_self" %>
+						<%= link_to page_path("features"), :target => "_self" do %>
+						<i class="fa fa-info"></i> Features
+						<% end%>
 					</li>
 					<% if signed_in? %>
 					<li>
@@ -36,12 +38,14 @@
 							<li class="divider"></li>
 
 							<li>
-								<%= link_to "Visit Support", "http://support.megam.co/?user=current_user.email", :target => "_blank" %>
+								<%= link_to "http://support.megam.co", :target => "_blank" do %>
+								<i class="fa fa-bullhorn"></i> Support
+								<% end %>	
 							</li>
 							<li class="divider"></li>
 							<li>
 								<%= link_to signout_path, method: "delete" do %>
-								<i class="fa  fa-eject"></i> Sign Out
+								<i class="fa  fa-sign-out"></i> Sign Out
 								<% end %>
 							</li>
 						</ul>
@@ -49,10 +53,10 @@
 					<% else %>
 
 					<li>
-						<%= link_to "Sign in", signin_path, :class => "btn-header" %>
+						<%= link_to "Sign In", signin_path, :class => "btn-header" %>
 					</li>
 					<li>
-						<%= link_to "Sign up", signup_path, :class => "btn-header" %>
+						<%= link_to "Sign Up", signup_path, :class => "btn-header" %>
 					</li>
 					<% end %>
 				</ul>

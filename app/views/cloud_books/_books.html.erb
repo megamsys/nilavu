@@ -10,7 +10,7 @@
 					<div class="row-fluid">
 						<div class="span4">
 							<div class="cb_box">
-								<h4 align="center"> Quota</h4><h3 align="center" ><span class="icon"><i class="fa fa-book"></i></span>&nbsp;<%= @cb_count %>&nbsp; of 2</h3> <% @percent = @cb_count/2.0*100 %>
+								<h4 align="center"> Quota</h4><h3 align="center" ><span class="icon"><i class="fa fa-book"></i></span>&nbsp;<%= @launched_books_quota %>&nbsp; of 2</h3> <% @percent = @launched_books_quota/2.0*100 %>
 							</div>
 							<% if @percent >= 80 %>
 							</br>
@@ -26,13 +26,13 @@
 						</div>
 
 						<div class="span4">
-							<span class="btn btn-large disabled btn-block"><h3><%= @cb_count %></h3> <h4>Launched </h4> </span>
+							<span class="btn btn-large disabled btn-block"><h3><%= @launched_books_quota %></h3> <h4>Launched </h4> </span>
 							</br>
 							<a href="http://support.megam.co/kb/cloud-applications/"><i class="fa fa-question"> We are here to help </i> </a>
 						</div>
 						<div class="span4">
 							<div class="cb_box">
-								<h4 align="center" >Recent Activity</h4><h5 align="Center"><span class="icon"> <i class="fa fa-calendar"></i> </span><b><%= latest_book.created_at.to_formatted_s(:rfc822) %></b></h5> <% @n_hash.select{|k, v|k==latest_book.name}.each do |k, v| %>
+								<h4 align="center" >Recent Activity</h4><h5 align="Center"><span class="icon"> <i class="fa fa-calendar"></i> </span><b><%= latest_book.created_at.to_formatted_s(:rfc822) %></b></h5> <% @launched_books.select{|k, v|k==latest_book.name}.each do |k, v| %>
 								<% v.each do |node| %>
 								<% cloud_book = @nodes.lookup(node) %> <h5 align="Center"> <%= link_to "#{cloud_book.node_name}", cloud_book_path(:id => latest_book.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'} %> </h5> <% end %>
 								<% end %>
@@ -63,7 +63,7 @@
 					<h5>Your Usage</h5>
 				</div>
 				<div class="widget-content">
-					<% @n_hash.each do |k, v| %>
+					<% @launched_books.each do |k, v| %>
 					<% cb = CloudBook.find_by_name(k) %>
 					<div class="accordion" id="collapse-group">
 						<div class="accordion-group widget-box">
@@ -97,21 +97,30 @@
 													<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> Actions <span class="caret"></span> </a>
 													<ul class="dropdown-menu">
 														<li>
-															<%= link_to "Build App", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.appdefnsid, :req => "build"), :remote => true %>
+															<%= link_to send_request_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "nbuild"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nbuild'} do %>
+															<i class="fa fa-building-o">&nbsp;Build&nbsp;</i> <% end %>
+															<%= mini_spinner_tag  'cloud_book_request_now_nbuild' %>
 														</li>
 														<li class="divider"></li>
 														<li>
-															<%= link_to "Start App", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.appdefnsid, :req => "start"), :remote => true %>
+															<%= link_to send_request_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "nstart"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstart'} do %>
+															<i class="fa fa-play">&nbsp;Start&nbsp;</i> <% end %>
+															<%= mini_spinner_tag  'cloud_book_request_now_nstart' %>
 														</li>
 														<li>
-															<%= link_to "Stop App", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.appdefnsid, :req => "stop"), :remote => true %>
+															<%= link_to send_request_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "nstop"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstop'} do %>
+															<i class="fa fa-stop">&nbsp;Stop&nbsp;</i> <% end %>
+															<%= mini_spinner_tag  'cloud_book_request_now_nstop' %>
 														</li>
 														<li>
-															<%= link_to "Restart App", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.appdefnsid, :req => "restart"), :remote => true %>
+															<%= link_to send_request_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "nrestart"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nrestart'} do %>
+															<i class="fa fa-refresh">&nbsp;Restart&nbsp;</i> <% end %>
+															<%= mini_spinner_tag  'cloud_book_request_now_nrestart' %>
 														</li>
 														<li class="divider"></li>
 														<li>
-															<%= link_to "More", cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'} %>
+															<%= link_to "More", cloud_book_path(:action => "show", :id => cb.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'} %>
+														</li>
 														</li>
 													</ul>
 												</div> <% else %>
@@ -137,13 +146,10 @@
 													</ul>
 												</div> <% end %> </td>
 												<td> <%= link_to "#{cloud_book.node_name}", "http://#{cloud_book.node_name}" , { :target => '_blank'} %> </td>
-												<td> <%= link_to clone_build_path(:name => cloud_book.node_name), :class =>"btn btn-mini btn-success", :title=> "CLone Cloud Book", :remote => true, method: :post do %> <i class="fa fa-plus-sign"> Clone</i> <% end %> </td>
-												<td> <%= link_to cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :n_hash => @n_hash), :class =>"btn btn-mini btn-danger", :title=> "Delete Cloud Book", method: :delete, :remote => true, :target => "_self", :data => { :confirm => "Are you sure?", spinner: '#delete_node'} do %> <i class="fa fa-trash"> Delete</i> <% end %>  <%= mini_spinner_tag 'delete_node' %> </td>
+												<td> <%= link_to clone_build_path(:name => cloud_book.node_name), :class =>"btn btn-mini btn-success", :title=> "Clone Cloud Book", :remote => true, method: :post do %> <i class="fa fa-plus-sign"> Clone</i> <% end %> </td>
+												<td> <%= link_to cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :launched_books => @launched_books), :class =>"btn btn-mini btn-danger", :title=> "Delete Cloud Book", method: :delete, :remote => true, :target => "_self", :data => { :confirm => "Are you sure?", spinner: '#delete_node'} do %> <i class="fa fa-trash"> Delete</i> <% end %>  <%= mini_spinner_tag 'delete_node' %> </td>
 												<td><span class="icon"> <i class="fa fa-calendar"></i> </span> <%= cloud_book.created_at.to_datetime.to_formatted_s(:rfc822) %> </td>
-
-												<!--<td> <%= link_to "delete", cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :n_hash => @n_hash), method: :delete, class: "btn btn-mini btn-success", :data => { :confirm => "Are you sure?"}%></td>-->
 												<td> <%= cloud_book.status %> </td>
-
 											</tr>
 
 											<% end %>
@@ -169,8 +175,7 @@
 
 </div>
 <!-- container-fluid -->
-
-<div id="cloudbook_request_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="cloudbook_buildrequest_postshow_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -179,24 +184,40 @@
 		<h3 id="myModalLabel">Cloud Book</h3>
 	</div>
 	<div class="modal-body">
-		<div class="info">
-			<%= form_tag(send_request_path, :method => "post") do %>
-			<input type="hidden" id="req_type_pop" name="req_type" value="">
-			<input type="hidden" id="node_name_pop" name="node_name" value="">
-			<input type="hidden" id="defns_id_pop" name="defns_id" value="">
+		<div class="alert alert-success">
 
-			sample value : apache STOP - explanation maybe: When to apply (lc_apply) something in the lifecycle of an app or a bolt if apache is started. lc stands for lifecycle.
-			<%= text_field_tag 'lc_apply', nil, placeholder: 'Modify runtime exec - script', hint: "test" %>
-			<br/>
-			<%= text_field_tag 'lc_additional', nil, placeholder: 'Modify addtional runtime - script' %>
-			<br/>
-			<%= text_field_tag 'lc_when', nil, placeholder: 'Modify when to apply - script' %>
+			<p>
+				Your request was submitted to megam cloud gateway was successful.
+				</br>
+				<strong>Click<span class="label label-info">&nbsp; OK &nbsp;</span>&nbsp; to watch the status Real Time</strong>
+			</p>
 		</div>
 	</div>
 	<div class="modal-footer">
-		<%= link_to send_request_path(:defns_id => "deff",:req_type => "app_r_bolt"), :class =>"btn btn-success btn-block", :remote => true, :target => "_self", :data => { spinner: '#req_node'} do %> <i class="fa fa-trash"> Request Node</i> <% end %>
-		<%= mini_spinner_tag 'req_node' %>
-		<% end %>
+		<%= link_to  "Ok", nil, :class => "btn btn-primary"%>
 	</div>
-	<%= spinner_tag 'spin_req' %>
+</div>
+
+<div id="cloudbook_buildrequest_postshow_popup_error" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			×
+		</button>
+		<h3 id="myModalLabel">Build</h3>
+	</div>
+	<div class="modal-body">
+		<div class="alert alert-error">
+
+			<p>
+				You buid request to the megam cloud gateway was not successful.
+				</br>
+				<div id="err_msg"></div>
+			</p>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<%= link_to  "Ok", nil, :class => "btn btn-primary", :target => "_self" %>
+
+	</div>
 </div>
