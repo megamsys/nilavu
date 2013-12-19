@@ -10,6 +10,11 @@ body {
 	font-family: 'Lato', sans-serif !important;
 	color: #333;
 }
+@media (min-width: 1200px) {
+    .container{
+        max-width: 970px;
+    }
+}
 .scrolltop {
 	background-color: #F1F1F1;
 	border: 1px solid darkGray;

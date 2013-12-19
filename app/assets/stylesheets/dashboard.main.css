@@ -206,10 +206,6 @@ a:hover {
 	top: -7px;
 }
 
-.container-fluid .row-fluid:first-child {
-	margin-top: 20px;
-}
-
 /* Breadcrumb */
 #breadcrumb  > ul {
 	height: 25px;
@@ -1405,28 +1401,7 @@ form {
 	}
 
 }
-@media (max-width: 767px) {
-	body {
-		padding: 0 !important;
-	}
-	.container-fluid {
-		padding-left: 20px;
-		padding-right: 20px;
-	}
-	#search { display: none; }
-	/*
-	#user-nav > ul > li > a > span.text {
-		display: none;
-	}*/
-}
-@media (min-width: 768px) and (max-width: 979px) {
-	[class*="span"], .row-fluid [class*="span"] {
-		display: block;
-		float: none;
-		margin-left: 0;
-		width: auto;
-	}
-}
+
 @media (max-width: 979px) {
 	div.dataTables_wrapper .ui-widget-header {
 		height: 68px;
