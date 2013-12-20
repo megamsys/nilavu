@@ -35,8 +35,9 @@
 									<div class="span6">
 
 										<%= label :multitenant, 'Multitenant' do %>
-										<%= radio_button_tag :db_model, 'multitenant' %>
-										<h3><i class="fa fa-envelope-o"></i> Multitenant</h3>
+										<%= radio_button_tag :db_model, 'multitenant', false, disabled: true %>
+										<h3><i class="fa fa-envelope-o"></i> Multitenant</h3> 										<span class="label label-important">work in progress</span>
+
 										<span class="label label-info">*shared</span> Clustered, highly available Cloud PostgreSQL</strong>
 										<% end %>
 

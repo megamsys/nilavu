@@ -14,7 +14,7 @@
 							</div>
 							<% if @percent >= 80 %>
 							</br>
-							<div class="progress progress-danger">
+							<div class="progress progress-warning">
 								<div class="bar" style="width: <%= @percent %>%;"></div>
 							</div>
 							<% else %>
@@ -41,10 +41,12 @@
 					</div>
 					<div class="row-fluid">
 						<div class="span4">
-							<%= link_to "GoTo Run History", cloud_books_histories_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
+							<%= link_to new_cloud_book_path, class: "btn btn-large btn-success btn-block", :target => "_self" do %>
+							Create
+							<% end %>
 						</div>
 						<div class="span4">
-							<%= link_to "Create", new_cloud_book_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
+							<%= link_to "Watch Run History", cloud_books_histories_path, class: "btn btn-large btn-info btn-block", :target => "_self" %>
 						</div>
 						<div class="span4">
 							<%= link_to "Upgrade", pricing_path, class: "btn btn-large btn-inverse btn-block ", :target => "_self" %>
@@ -60,7 +62,7 @@
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="fa fa-th-list"></i> </span>
-					<h5>Your Usage</h5>
+					<h5>Your Launched Books In Cloud {Nodes}</h5>
 				</div>
 				<div class="widget-content">
 					<% @launched_books.each do |k, v| %>
@@ -76,7 +78,7 @@
 							</div>
 							<div class="collapse accordion-body" id="collapse<%= k%>">
 								<div class="widget-content nopadding"  style="overflow-y: scroll; height:250px;">
-									<table class="table table-bordered table-striped table-hover">
+									<table class="table">
 										<thead>
 											<tr>
 												<th>Actions</th>
@@ -94,7 +96,7 @@
 												<% cloud_book = @nodes.lookup(node) %>
 												<td> <% if cloud_book.node_type == "APP" %>
 												<div class="btn-group">
-													<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> Actions <span class="caret"></span> </a>
+													<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="fa fa-folder-open"> Actions </span> <span class="caret"></span> </a>
 													<ul class="dropdown-menu">
 														<li>
 															<%= link_to send_request_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "nbuild"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nbuild'} do %>
@@ -146,8 +148,8 @@
 													</ul>
 												</div> <% end %> </td>
 												<td> <%= link_to "#{cloud_book.node_name}", "http://#{cloud_book.node_name}" , { :target => '_blank'} %> </td>
-												<td> <%= link_to clone_build_path(:name => cloud_book.node_name), :class =>"btn btn-mini btn-success", :title=> "Clone Cloud Book", :remote => true, method: :post do %> <i class="fa fa-plus-sign"> Clone</i> <% end %> </td>
-												<td> <%= link_to cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :launched_books => @launched_books), :class =>"btn btn-mini btn-danger", :title=> "Delete Cloud Book", method: :delete, :remote => true, :target => "_self", :data => { :confirm => "Are you sure?", spinner: '#delete_node'} do %> <i class="fa fa-trash"> Delete</i> <% end %>  <%= mini_spinner_tag 'delete_node' %> </td>
+												<td> <%= link_to clone_build_path(:name => cloud_book.node_name), :class =>"btn btn-mini btn-success", :title=> "Clone Cloud Book", :remote => true, method: :post do %> <i class="fa fa-copy"> Clone</i> <% end %> </td>
+												<td> <%= link_to cloud_book_path(:id => cb.id, :name => cloud_book.node_name, :launched_books => @launched_books), :class =>"btn btn-mini btn-danger", :title=> "Delete Cloud Book", method: :delete, :remote => true, :target => "_self", :data => { :confirm => "Are you sure?", spinner: '#delete_node'} do %> <i class="fa fa-trash-o"> Delete</i> <% end %>  <%= mini_spinner_tag 'delete_node' %> </td>
 												<td><span class="icon"> <i class="fa fa-calendar"></i> </span> <%= cloud_book.created_at.to_datetime.to_formatted_s(:rfc822) %> </td>
 												<td> <%= cloud_book.status %> </td>
 											</tr>
@@ -195,7 +197,7 @@
 			</p>
 		</div>
 	</div>
-	<div class="modal-footer">	
+	<div class="modal-footer">
 		<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary"%>
 	</div>
 </div>
