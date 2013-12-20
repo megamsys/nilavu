@@ -6,14 +6,17 @@ development:
   encoding: unicode
   database: <%= ENV['POSTGRES_DB'] %>
   pool: 5
+  host: localhost
   username: <%= ENV['POSTGRES_USER'] %>
   password: <%= ENV['POSTGRES_PW'] %>
-  
+  #host: 188.40.201.62
+  #port: 5432
 production:
   adapter: postgresql
   encoding: unicode
   database: <%= ENV['POSTGRES_DB'] %>
   pool: 5
+  host: localhost
   username: <%= ENV['POSTGRES_USER'] %>
   password: <%= ENV['POSTGRES_PW'] %>
   #host: postgres1.megam.co.in

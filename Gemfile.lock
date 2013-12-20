@@ -158,7 +158,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    megam_api (0.7.2)
+    megam_api (0.7.1)
       excon
       highline
       mixlib-config
