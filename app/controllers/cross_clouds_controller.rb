@@ -24,11 +24,11 @@ class CrossCloudsController < ApplicationController
     #File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
     #file.write(uploaded_io.read)
     #end
-    vault_loc = vault_base_url+current_user.email+"/"+params[:name]
-    sshpub_loc = vault_base_url+current_user.email+"/"+params[:name]
-    #aws_private_key = ((params[:aws_private_key]).present?) ? current_user.email+"/"+params[:name]+"/"+File.basename(params[:aws_private_key]) : ""
-    aws_private_key = ((params[:aws_private_key].original_filename).length > 0) ? current_user.email+"/"+params[:name]+"/"+params[:aws_private_key].original_filename : ""
-    wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group], :image => params[:image], :flavor => params[:flavour] }, :access => { :ssh_key => params[:ssh_key], :identity_file => aws_private_key, :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone] }  }
+    vault_loc = vault_base_url+"/"+current_user.email+"/"+params[:name]
+    sshpub_loc = vault_base_url+"/"+current_user.email+"/"+params[:name]
+    private_key = ((params[:private_key]).present?) ? cross_cloud_bucket+"/"+current_user.email+"/"+params[:name]+"/"+File.basename(params[:private_key]) : ""
+    #private_key = ((params[:private_key].original_filename).length > 0) ? current_user.email+"/"+params[:name]+"/"+params[:private_key].original_filename : ""
+    wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group], :image => params[:image], :flavor => params[:flavour], :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => private_key, :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
     @res_body = CreatePredefClouds.perform(wparams)
     if @res_body.class == Megam::Error
       @res_msg = nil
@@ -41,8 +41,12 @@ class CrossCloudsController < ApplicationController
     else
       @err_msg = nil
       if params[:provider] == "Amazon EC2"
-        upload_options = {:email => current_user.email, :name => params[:name], :aws_private_key => params[:aws_private_key], :aws_access_key => params[:aws_access_key], :aws_secret_key => params[:aws_secret_key], :type => cc_type(params[:provider]), :id_rsa_public_key => params[:id_rsa_public_key]}
+        upload_options = {:email => current_user.email, :name => params[:name], :private_key => params[:private_key], :aws_access_key => params[:aws_access_key], :aws_secret_key => params[:aws_secret_key], :type => cc_type(params[:provider]), :id_rsa_public_key => params[:id_rsa_public_key]}
         @upload = AmazonCloud.perform(upload_options, cross_cloud_bucket)
+      end
+      if params[:provider] == "hp cloud"
+        upload_options = {:email => current_user.email, :name => params[:name], :private_key => params[:private_key], :hp_access_key => params[:hp_access_key], :hp_secret_key => params[:hp_secret_key], :type => cc_type(params[:provider]), :id_rsa_public_key => params[:id_rsa_public_key]}
+        @upload = HpCloud.perform(upload_options, cross_cloud_bucket)
       end
       if params[:provider] == "Google cloud Engine"
         if params[:access_token].length > 0

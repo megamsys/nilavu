@@ -88,7 +88,7 @@ a:hover {
 #sidebar > ul {	
 	list-style: none;
 	margin: 0px 0 0;
-	padding: 0;
+	padding: 2;
 	position: absolute;
 	width: 220px;
 }

@@ -64,6 +64,15 @@
 				<% end %>
 			</div>
 		</div>
+		
+		<div class="control-group" id="cc_region">
+			<div class="controls">
+				<%= text_field_tag 'region', nil, :class=> 'required', placeholder: 'Enter AWS Region' %>
+				<%= link_to "#" do %>
+				<i class="fa fa-question-circle"></i>
+				<% end %>
+			</div>
+		</div>
 	</div>
 
 	<div class="span4">
@@ -91,9 +100,16 @@
 			</div>
 		</div>
 
+        <!--<div>
+                        <%= file_field_tag 'aws_private_key' %>                        
+                </div>
+
+                <div>
+                        <%= file_field_tag 'id_rsa_public_key' %>                        
+                </div>-->
 		<div class="control-group">
 			<div class="controls">
-				<%= text_field_tag 'aws_private_key', nil, :class=> 'required', placeholder: 'Enter AWS private key...' %>
+				<%= text_field_tag 'private_key', nil, :class=> 'required', placeholder: 'Enter AWS private key...' %>
 				<%= link_to "#" do %>
 				<i class="fa fa-question-circle"></i>
 				<% end %>

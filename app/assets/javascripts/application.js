@@ -21,6 +21,7 @@
 //= require angular-route
 //= require angular-resource
 //= require angular-sanitize
+//= require jquery.prettyPhoto
 //= require spin
 //= require jquery.spin
 //= require jquery.spin.config

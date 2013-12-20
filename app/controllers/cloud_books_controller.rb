@@ -1,28 +1,25 @@
 class CloudBooksController < ApplicationController
   respond_to :html, :js
+  include Packable
+
   
   def index
-    @cloud_books = current_user.cloud_books
-    if @cloud_books.any?
+    cloud_books = current_user.cloud_books
+    if cloud_books.any?
       add_breadcrumb "Cloud_books", cloud_books_path      
-      logger.debug "--> CloudBooks:index, finding nodes by email"
       @nodes = FindNodesByEmail.perform
       if @nodes.class == Megam::Error
         redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
-        @n_hash=Hash.new #we need to use map and build []                
-        @cloud_books.each do |cb|
-          i=0
-          ar=Array.new
-          @nodes.each do |n|
-            if n.node_name.start_with?(cb.name)
-            ar[i]=n.node_name
-            i += 1
-            end
-          end
-          @n_hash["#{cb.name}"] = ar
-        end
-        @cb_count = @nodes.all_nodes.length        
+        book_names = cloud_books.map {|c| c.name}
+        grouped = book_names.inject({}) do |base, b| #the grouped has a short_name/Megam::Nodes collection
+          group = @nodes.select{|n| n.node_name =~ /^#{b}/}
+          base[b] ||= []
+          base[b] << group
+          base
+        end        
+        @launched_books = Hash[grouped.map {|key, value| [key, value.flatten.map {|vn| vn.node_name}]}]
+        @launched_books_quota = @nodes.all_nodes.length        
       end
     else
       redirect_to new_cloud_book_path
@@ -30,39 +27,35 @@ class CloudBooksController < ApplicationController
   end
 
   def build_request
-    @req_type = params[:req]
-    @node_name = params[:name]
-    @defns_id = params[:defnsid]
+   logger.debug "--> CloudBooks:build_request"
+   packed_parms = packed_h("Meat::Defns",params)
+   logger.debug "--> CloudBooks:build_request, #{packed_parms}"
+   defns_result =  FindDefnById.send(params[:book_type].downcase.to_sym, packed_parms) 
+   #trap the error here and if on error send the below one
+   defn_result = {:node_name => params[:node_name],:req_type => packed_parms[:req_type],:book_type => params[:book_type]} 
+   defn_result = defns_result.lookup(params[:defns_id]) unless defns_result.class == Megam::Error
+   respond_to do |format|
+      format.js {
+        respond_with(@defn_out ={:scm => params[:scm],:defn => defn_result}, :layout => !request.xhr? )
+      }
+   end
+  end
+
+  def send_request 
+    logger.debug "--> CloudBooks:send_request"
+    packed_parms = packed_h("Meat::Defns",params)
+    defns_result =  FindDefnById.send(params[:book_type].downcase.to_sym, packed_parms) 
+    params[:lc_apply] =  defns_result.lookup(params[:defns_id]).appdefns[:runtime_exec] unless defns_result.class == Megam::Error
+    packed_parms = packed("Meat::Defns",params)
+    @defnd_out ={}
+    defnd_result =  CreateDefnRequests.send(params[:book_type].downcase.to_sym, packed_parms)
+    @defnd_out[:error] = "Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}." if @req.class == Megam::Error
+    @defnd_out[:success] = defnd_result.some_msg[:msg] 
     respond_to do |format|
       format.js {
-        respond_with(@req_type, @node_name, @defns_id, :layout => !request.xhr? )
+        respond_with(@defnd_out, :layout => !request.xhr? )
       }
     end
-  end
-
-  def send_request
-    #When to apply something in an applications cloud life cycle, If apache is started apply lc_apply else lc_addition
-    #add_breadcrumb "Cloud_books", cloud_books_path, @cloud_books = current_user.cloud_books, logger.debug "Cloud Book Request ==> "
-    #@book = CloudBook.find(params['format'])
-    tmp_hash = {
-      "req_type" => "#{params[:req_type]}",
-      "node_name" => "#{params[:node_name]}",
-      "lc_apply" => "#{params[:lc_apply]}",
-      "lc_additional" => "#{params[:lc_additional]}",
-      "lc_when" => "#{params[:lc_when]}"
-    }
-     wparams = { :defns_id => "#{params[:defns_id]}",:req => tmp_hash}
-    @req = CreateDefnRequests.send, params[:req_type].to_sym, wparams      
-    if @req.class == Megam::Error
-      redirect_to cloud_books_path, :gflash => { :warning => { :value => "#{@req.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-    else
-      redirect_to cloud_books_path, :gflash => { :success => { :value => "#{@req.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-    end
-
-  end
-
-  def clone_build
-    @node_name = "#{params[:name]}"
   end
 
   def clone_start
@@ -117,10 +110,7 @@ class CloudBooksController < ApplicationController
     logger.debug "CloudBooks:authorize_scm, entry"
     auth_token = request.env['omniauth.auth']['credentials']['token']
     github = Github.new oauth_token: auth_token
-    git_array = Array.new
-    github.repos.all.each do |repo|
-      git_array.push repo.clone_url
-    end
+    git_array = github.repos.all.collect { |repo| repo.clone_url }
     @repos = git_array
     render :template => "cloud_books/new", :locals => {:repos => @repos}
   end
@@ -164,9 +154,9 @@ class CloudBooksController < ApplicationController
   end
 
   def create
-    data={:book_name => params[:cloud_book][:name], :book_type => params[:cloud_book][:book_type] , :predef_cloud_name => params[:cloud_book][:predef_cloud_name], :provider => params[:predef][:provider], :provider_role => params[:predef][:provider_role], :domain_name => params[:cloud_book][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}"}
+    data={:book_name => params[:cloud_book][:name], :book_type => params[:cloud_book][:book_type] , :predef_cloud_name => params[:cloud_book][:predef_cloud_name], :provider => params[:predef][:provider], :repo => 'default_chef', :provider_role => params[:predef][:provider_role], :domain_name => params[:cloud_book][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}"}
     options = {:data => data, :group => "server", :action => "create" }
-    node_hash=MakeNode.perform(options)
+    node_hash=MakeNode.perform(options)      
     if node_hash.class == Megam::Error
       @res_msg="Sorry Something Wrong. MSG : #{node_hash.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
       respond_to do |format|
@@ -196,6 +186,8 @@ class CloudBooksController < ApplicationController
 
   def show
     wparams = {:node => "#{params[:name]}" }
+    #look at storing in a local session, as we are redoing it. 
+    # The node json is getting heavy as well    
     @node = FindNodeByName.perform(wparams)
     logger.debug "--> CloudBooks:show, found node #{wparams[:node]}"
     if @node.class == Megam::Error
@@ -207,7 +199,7 @@ class CloudBooksController < ApplicationController
       end
     else
       @requests = GetRequestsByNode.perform(wparams)  #no error checking for GetRequestsByNode ? 
-      @book_requests =  GetDefnRequestsByNode.send, params[:book_type].to_sym, params
+      @book_requests =  GetDefnRequestsByNode.send(params[:book_type].downcase.to_sym, wparams)
       if @book_requests.class == Megam::Error
         @book_requests={"results" => {"req_type" => "", "create_at" => "", "lc_apply" => "", "lc_additional" => "", "lc_when" => ""}}
       end
@@ -220,10 +212,7 @@ class CloudBooksController < ApplicationController
     end
   end
 
-  def clone
-    sleep(5)
-  end
-
+ 
   def destroy
     @book = CloudBook.find(params[:id])
     options = {:node_name => "#{params[:name]}", :group => "server", :action => "delete" }

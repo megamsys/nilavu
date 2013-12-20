@@ -64,6 +64,23 @@
 				<% end %>
 			</div>
 		</div>
+		<div class="control-group" id="cc_tenantid">
+			<div class="controls">
+				<%= text_field_tag 'tenant_id', nil, :class=> 'required', placeholder: 'Enter Tenant Id' %>
+				<%= link_to "#" do %>
+				<i class="fa fa-question-circle"></i>
+				<% end %>
+			</div>
+		</div>
+		<div class="control-group" id="cc_zone">
+			<div class="controls">
+				<%= text_field_tag 'zone', nil, :class=> 'required', placeholder: 'Enter HP zone' %>
+				<%= link_to "#" do %>
+				<i class="fa fa-question-circle"></i>
+				<% end %>
+			</div>
+		</div>		
+		
 	</div>
 
 	<div class="span4">
@@ -93,7 +110,7 @@
 
 		<div class="control-group">
 			<div class="controls">
-				<%= text_field_tag 'aws_private_key', nil, :class=> 'required', placeholder: 'Enter HP private key...' %>
+				<%= text_field_tag 'private_key', nil, :class=> 'required', placeholder: 'Enter HP private key...' %>
 				<%= link_to "#" do %>
 				<i class="fa fa-question-circle"></i>
 				<% end %>
@@ -111,7 +128,7 @@
 
 		<div class="control-group" id="cc_awsak">
 			<div class="controls">
-				<%= text_field_tag 'aws_access_key', nil, :class=> 'required', placeholder: 'Enter HP access key..' %>
+				<%= text_field_tag 'hp_access_key', nil, :class=> 'required', placeholder: 'Enter HP access key..' %>
 				<%= link_to "#" do %>
 				<i class="fa fa-question-circle"></i>
 				<% end %>
@@ -120,7 +137,7 @@
 
 		<div class="control-group" id="cc_awssk">
 			<div class="controls">
-				<%= text_field_tag 'aws_secret_key', nil, :class=> 'required', placeholder: 'Enter HP secret key..' %>
+				<%= text_field_tag 'hp_secret_key', nil, :class=> 'required', placeholder: 'Enter HP secret key..' %>
 				<%= link_to "#" do %>
 				<i class="fa fa-question-circle"></i>
 				<% end %>

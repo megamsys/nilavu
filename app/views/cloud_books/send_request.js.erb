@@ -1,4 +1,7 @@
-<% if @req %>
-alert("TEST");
-alert('<%= @erq %>');
+<% if @defnd_out[:success] %>
+var selected_entity = '#cloud_book_request_now_popup';
+$(selected_entity).modal('show');
+<% else %>
+var selected_entity = '#cloud_book_request_now_popup_error';
+$(selected_entity).modal('show');
 <% end %>
