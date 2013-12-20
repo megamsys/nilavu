@@ -48,10 +48,10 @@ class CrossCloudsController < ApplicationController
         upload_options = {:email => current_user.email, :name => params[:name], :private_key => params[:private_key], :hp_access_key => params[:hp_access_key], :hp_secret_key => params[:hp_secret_key], :type => cc_type(params[:provider]), :id_rsa_public_key => params[:id_rsa_public_key]}
         @upload = HpCloud.perform(upload_options, cross_cloud_bucket)
       end
-      if params[:provider] == "Google cloud Engine"
+      if params[:provider] == "Google Compute Engine"
         if params[:access_token].length > 0
           @data = CreateGoogleJSON.perform(params[:access_token], params[:refresh_token], params[:expire], params[:project_name], params[:google_client_id], params[:google_secret_key])
-        end
+        end        
         upload_options = {:email => current_user.email, :name => params[:name], :provider_value => get_provider_value(params[:provider]), :type => cc_type(params[:provider]), :g_json => @data, :id_rsa_public_key => params[:id_rsa_public_key]}
         @upload = GoogleCloud.perform(upload_options, cross_cloud_bucket)
       end
@@ -83,7 +83,7 @@ class CrossCloudsController < ApplicationController
     if params[:selected_cloud] == "aws"
       @provider_form_name = "Amazon EC2"
     elsif params[:selected_cloud] == "gce"
-      @provider_form_name = "Google cloud Engine"
+      @provider_form_name = "Google Compute Engine"
     elsif params[:selected_cloud] == "hp"
       @provider_form_name = "hp cloud"
     else
