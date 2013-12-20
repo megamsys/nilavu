@@ -18,6 +18,7 @@ Cloudauth::Application.configure do
   config.serve_static_assets = false
 
   #config.assets.js_compressor = :uglifier
+  #To load angular
   config.assets.js_compressor = Uglifier.new(:mangle => false)
 
   # Compress JavaScripts and CSS
