@@ -12,23 +12,28 @@
 				<div class="controls">
 					<i class="fa fa-cloud"></i>
 					&nbsp;
-					<%= text_field_tag 'name', nil, :class=> 'required', placeholder: 'Enter a name' %>
+					<%= text_field_tag 'name', nil, :class=> 'required', placeholder: 'Enter a name to save' %>
 					<%= link_to "#" do %>
 					<i class="fa fa-question-circle"></i>
 					<% end %>
 				</div>
 			</div>
 		</div>
-		<br/>
-		<br/>
-		<div class="row-fluid">
-			<div  id="cloud_logo"></div>
-		</div>
-		<br/>
-		<br/>
-		<div class="row-fluid">
-			<div  id="acc_link">
-				<%= link_to "Create a new Account for AWS(EC2)", "http://aws.amazon.com/console/", :target => "_blank", :class => "btn btn-large disabled btn-default btn-block"  %>
+		<div  id="acc_link">
+			<div class="well">
+					<span class="label label-info">Your own cloud setup</span>
+					</br>
+					<%= link_to "Create a new Account for AWS(EC2)", "http://aws.amazon.com/console/", :target => "_blank", :class => "btn-link"  %>
+					<ul class="inline-block">
+						<li>
+							AWS Access Key
+						</li>
+						<li>
+							AWS Secret Key
+						</li>
+
+					</ul>
+					Make sure you have them handy
 			</div>
 		</div>
 	</div>
@@ -50,7 +55,7 @@
 		</div>
 		<div class="control-group" id="cc_image">
 			<div class="controls">
-				<%= text_field_tag 'image', nil, :class=> 'required', placeholder: 'Enter Image value...' %>
+				<%= text_field_tag 'image', nil, :class=> 'required', placeholder: 'Enter Image id' %>
 				<%= link_to "#" do %>
 				<i class="fa fa-question-circle"></i>
 				<% end %>
@@ -58,13 +63,13 @@
 		</div>
 		<div class="control-group" id="cc_flavor">
 			<div class="controls">
-				<%= text_field_tag 'flavour', nil, :class=> 'required', placeholder: 'Enter instance size...' %>
+				<%= text_field_tag 'flavour', nil, :class=> 'required', placeholder: 'Enter Instance size(t1.micro etc)' %>
 				<%= link_to "#" do %>
 				<i class="fa fa-question-circle"></i>
 				<% end %>
 			</div>
 		</div>
-		
+
 		<div class="control-group" id="cc_region">
 			<div class="controls">
 				<%= text_field_tag 'region', nil, :class=> 'required', placeholder: 'Enter AWS Region' %>
@@ -84,7 +89,7 @@
 		<br/>
 		<div class="control-group" id="cc_sshkey">
 			<div class="controls">
-				<%= text_field_tag 'ssh_key', nil, :class=> 'required', placeholder: 'Enter SSH key...' %>
+				<%= text_field_tag 'ssh_key', nil, :class=> 'required', placeholder: 'Enter AWS SSH key' %>
 				<%= link_to "#" do %>
 				<i class="fa fa-question-circle"></i>
 				<% end %>
@@ -93,23 +98,7 @@
 
 		<div class="control-group" id="cc_sshuser">
 			<div class="controls">
-				<%= text_field_tag 'ssh_user', nil, :class=> 'required', placeholder: 'Enter SSH User..' %>
-				<%= link_to "#" do %>
-				<i class="fa fa-question-circle"></i>
-				<% end %>
-			</div>
-		</div>
-
-        <!--<div>
-                        <%= file_field_tag 'aws_private_key' %>                        
-                </div>
-
-                <div>
-                        <%= file_field_tag 'id_rsa_public_key' %>                        
-                </div>-->
-		<div class="control-group">
-			<div class="controls">
-				<%= text_field_tag 'private_key', nil, :class=> 'required', placeholder: 'Enter AWS private key...' %>
+				<%= text_field_tag 'ssh_user', nil, :class=> 'required', placeholder: 'Enter AWS SSH User' %>
 				<%= link_to "#" do %>
 				<i class="fa fa-question-circle"></i>
 				<% end %>
@@ -118,16 +107,25 @@
 
 		<div class="control-group">
 			<div class="controls">
-				<%= text_field_tag 'id_rsa_public_key', nil, :class=> 'required', placeholder: 'Enter AWS public key..' %>
+				<%= file_field :private_key, :id => 'private_key',placeholder: 'Enter AWS private key' %>
 				<%= link_to "#" do %>
 				<i class="fa fa-question-circle"></i>
-				<% end %>
+				<% end%>
+			</div>
+		</div>
+
+		<div class="control-group">
+			<div class="controls">
+				<%= file_field :id_rsa_public_key, :id => 'id_rsa_public_key',placeholder: 'Enter AWS Public key' %>
+				<%= link_to "#" do %>
+				<i class="fa fa-question-circle"> </i>
+				<% end%>
 			</div>
 		</div>
 
 		<div class="control-group" id="cc_awsak">
 			<div class="controls">
-				<%= text_field_tag 'aws_access_key', nil, :class=> 'required', placeholder: 'Enter AWS access key..' %>
+				<%= text_field_tag 'aws_access_key', nil, :class=> 'required', placeholder: 'Enter AWS Access key' %>
 				<%= link_to "#" do %>
 				<i class="fa fa-question-circle"></i>
 				<% end %>
@@ -136,7 +134,7 @@
 
 		<div class="control-group" id="cc_awssk">
 			<div class="controls">
-				<%= text_field_tag 'aws_secret_key', nil, :class=> 'required', placeholder: 'Enter AWS secret key..' %>
+				<%= text_field_tag 'aws_secret_key', nil, :class=> 'required', placeholder: 'Enter AWS Secret key' %>
 				<%= link_to "#" do %>
 				<i class="fa fa-question-circle"></i>
 				<% end %>
