@@ -21,19 +21,19 @@
 		</div>
 		<div  id="acc_link">
 			<div class="well">
-					<span class="label label-info">Your own cloud setup</span>
-					</br>
-					<%= link_to "Create a new Account for AWS(EC2)", "http://aws.amazon.com/console/", :target => "_blank", :class => "btn-link"  %>
-					<ul class="inline-block">
-						<li>
-							AWS Access Key
-						</li>
-						<li>
-							AWS Secret Key
-						</li>
+				<span class="label label-info">Your own cloud setup</span>
+				</br>
+				<%= link_to "Create a new Account for AWS(EC2)", "http://aws.amazon.com/console/", :target => "_blank", :class => "btn-link"  %>
+				<ul class="inline-block">
+					<li>
+						AWS Access Key
+					</li>
+					<li>
+						AWS Secret Key
+					</li>
 
-					</ul>
-					Make sure you have them handy
+				</ul>
+				Make sure you have them handy
 			</div>
 		</div>
 	</div>
@@ -105,21 +105,39 @@
 			</div>
 		</div>
 
+		<!--<div class="control-group">
+		<div class="controls">
+		<%= file_field :private_key, :id => 'private_key',placeholder: 'Enter AWS private key' %>
+		<%= link_to "#" do %>
+		<i class="fa fa-question-circle"></i>
+		<% end%>
+		</div>
+		</div>
+
+		<div class="control-group">
+		<div class="controls">
+		<%= file_field :id_rsa_public_key, :id => 'id_rsa_public_key',placeholder: 'Enter AWS Public key' %>
+		<%= link_to "#" do %>
+		<i class="fa fa-question-circle"> </i>
+		<% end%>
+		</div>
+		</div>-->
+
 		<div class="control-group">
 			<div class="controls">
-				<%= file_field :private_key, :id => 'private_key',placeholder: 'Enter AWS private key' %>
+				<%= text_field_tag 'private_key', nil, :class=> 'required', placeholder: 'Enter AWS private key...' %>
 				<%= link_to "#" do %>
 				<i class="fa fa-question-circle"></i>
-				<% end%>
+				<% end %>
 			</div>
 		</div>
 
 		<div class="control-group">
 			<div class="controls">
-				<%= file_field :id_rsa_public_key, :id => 'id_rsa_public_key',placeholder: 'Enter AWS Public key' %>
+				<%= text_field_tag 'id_rsa_public_key', nil, :class=> 'required', placeholder: 'Enter AWS public key..' %>
 				<%= link_to "#" do %>
-				<i class="fa fa-question-circle"> </i>
-				<% end%>
+				<i class="fa fa-question-circle"></i>
+				<% end %>
 			</div>
 		</div>
 

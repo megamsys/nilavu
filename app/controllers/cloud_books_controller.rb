@@ -27,12 +27,12 @@ class CloudBooksController < ApplicationController
   end
 
   def build_request
-   logger.debug "--> CloudBooks:build_request"
-   packed_parms = packed_h("Meat::Defns",params)
+   logger.debug "--> CloudBooks:build_request"   
+   packed_parms = packed_h("Meat::Defns",params)   
    logger.debug "--> CloudBooks:build_request, #{packed_parms}"
    defns_result =  FindDefnById.send(params[:book_type].downcase.to_sym, packed_parms) 
    #trap the error here and if on error send the below one
-   defn_result = {:node_name => params[:node_name],:req_type => packed_parms[:req_type],:book_type => params[:book_type]} 
+   defn_result = {:node_name => params[:node_name],:req_type => packed_parms[:req_type],:book_type => params[:book_type]}   
    defn_result = defns_result.lookup(params[:defns_id]) unless defns_result.class == Megam::Error
    respond_to do |format|
       format.js {
@@ -42,13 +42,16 @@ class CloudBooksController < ApplicationController
   end
 
   def send_request 
-    logger.debug "--> CloudBooks:send_request"
+    logger.debug "--> CloudBooks:send_request"      
     packed_parms = packed_h("Meat::Defns",params)
-    defns_result =  FindDefnById.send(params[:book_type].downcase.to_sym, packed_parms) 
+    defns_result =  FindDefnById.send(params[:book_type], packed_parms)  
     params[:lc_apply] =  defns_result.lookup(params[:defns_id]).appdefns[:runtime_exec] unless defns_result.class == Megam::Error
-    packed_parms = packed("Meat::Defns",params)
+    if params[:lc_apply]["#[start]"].present? 
+         params[:lc_apply]["#[start]"] = params[:req_type]
+    end          
+    packed_parms = packed("Meat::Defns",params)      
     @defnd_out ={}
-    defnd_result =  CreateDefnRequests.send(params[:book_type].downcase.to_sym, packed_parms)
+    defnd_result =  CreateDefnRequests.send(params[:book_type].downcase.to_sym, packed_parms)    
     @defnd_out[:error] = "Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}." if @req.class == Megam::Error
     @defnd_out[:success] = defnd_result.some_msg[:msg] 
     respond_to do |format|
