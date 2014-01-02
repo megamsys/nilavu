@@ -57,7 +57,45 @@ app.factory("FlotrGraphHelper", ["ColorFactory", "SuffixFormatter", "$window", f
   }
 
   function defaultOptions(model, y_max) {
-    return {
+	  return {
+		  grid: {
+				borderWidth: 1,
+				minBorderMargin: 20,
+				labelMargin: 10,
+				backgroundColor: {
+					colors: ["#fff", "#e4f4f4"]
+				},
+				margin: {
+					top: 8,
+					bottom: 20,
+					left: 20
+				},
+				markings: function(axes) {
+					var markings = [];
+					var xaxis = axes.xaxis;
+					for (var x = Math.floor(xaxis.min); x < xaxis.max; x += xaxis.tickSize * 2) {
+						markings.push({ xaxis: { from: x, to: x + xaxis.tickSize }, color: "rgba(232, 232, 255, 0.2)" });
+					}
+					return markings;
+				}
+			},
+			xaxis: {
+				mode: "time", timeMode: "local", timeUnit: 'second', timeFormat: timeUnit("60-minutes", parseInt(1, 10))
+			},
+			yaxis: {
+		        tickFormatter: suffixFormatter,
+		        max: y_max || null
+		      },  
+			legend: {
+				show: true
+			}
+	  };
+  }
+  
+  
+  
+ /* function defaultOptions(model, y_max) {
+    return {    	
       shadowSize: 1,
       grid: {
         outline: "", verticalLines: false, horizontalLines: false, labelMargin: 10
@@ -70,7 +108,7 @@ app.factory("FlotrGraphHelper", ["ColorFactory", "SuffixFormatter", "$window", f
         max: y_max || null
       },    
     };
-  }
+  }*/
 
   // reuse the same color for the same target
   function initColor(currentColors, index) {
@@ -103,14 +141,14 @@ app.factory("FlotrGraphHelper", ["ColorFactory", "SuffixFormatter", "$window", f
         return false;
     }
   }
-
+   
   function transformSeriesOfDatapoints(series, widget, currentColors) {
     return _.map(series, function(model, index) {
       return {
         //color: initColor(currentColors, index),
-    	color: '#E01B5D',
+    	//color: '#E01B5D',
         lines: { fill: linesType("area"), lineWidth: 1 },
-        label: model.target,
+        //label: model.target,
         data : swapDatapoints(model.datapoints)
       };
     });

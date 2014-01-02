@@ -1,9 +1,7 @@
-<% if @defn_out %>
-var selected_entity = '#cloudbook_buildrequest_postshow_popup';
-$("#cloudbook_buildrequest_postform").html('<%= escape_javascript(render :partial => "cloud_books/input_cloudbook_request" , :locals => {:defn_result => @defn_result, :method => 'post'})%>');
+<% if @defnd_out[:success] %>
+var selected_entity = '#cloud_book_request_now_popup';
 $(selected_entity).modal('show');
 <% else %>
-var selected_entity = '#cloudbook_buildrequest_postshow_popup_error';
+var selected_entity = '#cloud_book_request_now_popup_error';
 $(selected_entity).modal('show');
 <% end %>
-

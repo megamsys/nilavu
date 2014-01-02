@@ -1,27 +1,43 @@
-<% if cloud_book.node_type == "APP" %>
-<div class="span2">
-	<%= link_to "Start App", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.appdefnsid, :req => "start"), :remote => true, :class => "btn btn-large btn-success btn-block", rel: 'tooltip' %>
+<div class="container-fluid">
+	<div class="row-fluid">
+	<% if cloud_book.node_type == "APP" %>
+	
+	<div class="span3 offset2">
+		<br/>
+		<%= link_to "Start App", get_request_path(:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :req_type => "start"), :class => "btn btn-link", :remote => true, rel: 'tooltip', data: { spinner: '#lcrequest'} %>
+		<br/>
+		<%= link_to "Stop App", get_request_path(:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :req_type => "stop"), :class => "btn btn-link", :remote => true, data: { spinner: '#lcrequest'} %>
+		<br/>
+		<%= link_to "Build App", get_request_path(:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :req_type => "build"), :class => "btn btn-link", :remote => true, data: { spinner: '#lcrequest'} %>
+		<br/>
+		<%= link_to "Restart", cloud_book_path(cloud_book.id), :remote => true, data: { spinlock: '#book'}, :class => "btn btn-large btn-success btn-block", :class => "btn btn-link" %>
+		<br/>
+	</div>
+	<%= spinner_tag 'lcrequest' %>	
+	<div class="span6" id="lc_form">		
+		<div class="alert alert-info">			
+			<span >Choose any one action</span>
+		</div>
+	</div>
+	<% else %>
+	<div class="span3 offset2">		
+			<br/>
+			<%= link_to "Start Bolt", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.boltdefnsid, :req => "start"), :remote => true, :class => "btn btn-large btn-success btn-block" %>
+			<br/>
+			<%= link_to "Stop Bolt", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.boltdefnsid, :req => "stop"), :remote => true, :class => "btn btn-large btn-success btn-block" %>
+			<br/>
+			<%= link_to "Build Bolt", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.boltdefnsid, :req => "build"), :remote => true, :class => "btn btn-large btn-success btn-block" %>
+			<br/>
+			<%= link_to "Restart", cloud_book_path(cloud_book.id), :remote => true, data: { spinlock: '#book'}, :class => "btn btn-large btn-success btn-block" %>
+			<br/>
+		</div>
+		<%= spinner_tag 'lcrequest' %>		
+		<div class="span6" id="lc_form">			
+			<div class="alert alert-info">
+				<span ><h3>Choose any one action for <span class="label label-info"><h2><%= cloud_book.node_name%></h2></span></h5></span>
+			</div>
+		</div>
+	</div>
+	<% end %>
+	</div>
 </div>
-<div class="span2">
-	<%= link_to "Stop App", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.appdefnsid, :req => "stop"), :remote => true, :class => "btn btn-large btn-success btn-block" %>
-</div>
-<div class="span2">
-	<%= link_to "Build App", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.appdefnsid, :req => "build"), :remote => true, :class => "btn btn-large btn-success btn-block" %>
-</div>
-<div class="span2">
-	<%= link_to "Restart", cloud_book_path(cloud_book.id), :remote => true, data: { spinlock: '#book'}, :class => "btn btn-large btn-success btn-block" %>
-</div>
-<% else %>
-<div class="span2">
-	<%= link_to "Start Bolt", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.boltdefnsid, :req => "start"), :remote => true, :class => "btn btn-large btn-success btn-block" %>
-</div>
-<div class="span2">
-	<%= link_to "Stop Bolt", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.boltdefnsid, :req => "stop"), :remote => true, :class => "btn btn-large btn-success btn-block" %>
-</div>
-<div class="span2">
-	<%= link_to "Build Bolt", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.boltdefnsid, :req => "build"), :remote => true, :class => "btn btn-large btn-success btn-block" %>
-</div>
-<div class="span2">
-	<%= link_to "Restart", cloud_book_path(cloud_book.id), :remote => true, data: { spinlock: '#book'}, :class => "btn btn-large btn-success btn-block" %>
-</div>
-<% end %>

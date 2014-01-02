@@ -50,6 +50,7 @@ Cloudauth::Application.routes.draw do
 
   #Cloud Books
   match '/new_book', to: 'cloud_books#new_book', via: [:get, :post]
+  match '/get_request', to: 'cloud_books#get_request', via: [:get, :post]
   match '/build_request', to: 'cloud_books#build_request', via: [:get, :post]
   match '/send_request', to: 'cloud_books#send_request', via: [:get, :post]
   match '/clone_build', to: 'cloud_books#clone_build', via: [:get, :post]

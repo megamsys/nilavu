@@ -27,28 +27,50 @@ class CloudBooksController < ApplicationController
   end
 
   def build_request
-   logger.debug "--> CloudBooks:build_request"   
+   logger.debug "--> CloudBooks:Build_request, #{params}"
+   packed_parms = packed("Meat::Defns",params)      
+    @defnd_out ={}
+    defnd_result =  CreateDefnRequests.send(params[:book_type].downcase.to_sym, packed_parms)    
+    @defnd_out[:error] = "Sorry Something Wrong. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}." if @req.class == Megam::Error
+    @defnd_out[:success] = defnd_result.some_msg[:msg] 
+    respond_to do |format|
+      format.js {
+        respond_with(@defnd_out, :layout => !request.xhr? )
+      }
+    end
+  end
+
+  def get_request
+    logger.debug "--> CloudBooks:get_request"   
    packed_parms = packed_h("Meat::Defns",params)   
-   logger.debug "--> CloudBooks:build_request, #{packed_parms}"
-   defns_result =  FindDefnById.send(params[:book_type].downcase.to_sym, packed_parms) 
-   #trap the error here and if on error send the below one
-   defn_result = {:node_name => params[:node_name],:req_type => packed_parms[:req_type],:book_type => params[:book_type]}   
-   defn_result = defns_result.lookup(params[:defns_id]) unless defns_result.class == Megam::Error
+   logger.debug "--> CloudBooks:get_request, #{params}"
+   defns_result =  FindDefnById.send(params[:book_type], packed_parms) 
+   params[:lc_apply] =  defns_result.lookup(params[:defns_id]).appdefns[:runtime_exec] unless defns_result.class == Megam::Error
+    logger.debug "--> CloudBooks:get_request, #{params[:lc_apply]}"
+    if params[:lc_apply]["#[start]"].present? 
+         params[:lc_apply]["#[start]"] = params[:req_type]               
+    end          
+    packed_parms = packed("Meat::Defns",params) 
+      @req_type = params[:req_type]
+      @node_name = params[:node_name]  
+      @appdefns_id = params[:defns_id]
+      @lc_apply = params[:lc_apply]
+      @book_type = params[:book_type]
    respond_to do |format|
       format.js {
-        respond_with(@defn_out ={:scm => params[:scm],:defn => defn_result}, :layout => !request.xhr? )
+        respond_with(@book_type, @lc_apply, @req_type, @node_name, @appdefns_id, :layout => !request.xhr? )
       }
    end
   end
 
   def send_request 
     logger.debug "--> CloudBooks:send_request"      
-    packed_parms = packed_h("Meat::Defns",params)
+    packed_parms = packed_h("Meat::Defns",params)    
     defns_result =  FindDefnById.send(params[:book_type], packed_parms)  
     params[:lc_apply] =  defns_result.lookup(params[:defns_id]).appdefns[:runtime_exec] unless defns_result.class == Megam::Error
     if params[:lc_apply]["#[start]"].present? 
          params[:lc_apply]["#[start]"] = params[:req_type]
-    end          
+    end           
     packed_parms = packed("Meat::Defns",params)      
     @defnd_out ={}
     defnd_result =  CreateDefnRequests.send(params[:book_type].downcase.to_sym, packed_parms)    
