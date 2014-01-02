@@ -4,8 +4,8 @@ function LogCtrl($scope, socket, $location, LogStackLimit) {
 	$scope.l_total = 0;
 	$scope.bookName = "Select one book name";
 	$scope.sendmessage = function(data) {
-
-		$scope.bookName = data;
+		$scope.bookName = data;	
+		alert($scope.bookName);
 		socket.emit('message', data);
 	};
 
@@ -13,13 +13,7 @@ function LogCtrl($scope, socket, $location, LogStackLimit) {
 
 	});
 
-	socket.on('connect_failed', function(reason) {
-		if (reason.indexOf('handshake error') != -1) {
-
-		}
-		console.log('unable to connect to namespace', reason);
-	})
-
+	
 	socket.on('disconnect', function(event) {
 		socket.disconnect();
 

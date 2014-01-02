@@ -4,7 +4,7 @@ module Meat
     attr_accessor :id, :node_name, :req_type, :lc_apply, :lc_additional, :lc_when
 
     SUPPORTED_DEFNTYPES = %w[app bolt]
-    SUPPORTED_REQTYPES = %w[nstart nstop nrestart nbuild nmaintain]
+    SUPPORTED_REQTYPES = %w[start stop restart build maintain]
     def initialize(fparams = {})
       @id = fparams[:defns_id] || nil
       @node_name = fparams[:node_name] || nil
