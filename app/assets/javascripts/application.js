@@ -35,6 +35,8 @@
 //= require cross_clouds
 //= require connector_projects
 //= require unicorn.form_validation
+//= require megam.form_validation
+//= require jquery.remotipart
 //= require unicorn.wizard
 //= require theme
 //= require jquery.flot

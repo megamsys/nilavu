@@ -19,6 +19,11 @@ class CrossCloudsController < ApplicationController
   def create
     logger.debug "CROSS CLOUD CREATE PARAMS ============> "
     logger.debug "#{params}"
+    logger.debug "CROSS CLOUD CREATE Current User ============> "
+    logger.debug current_user.inspect
+    
+    logger.debug "CROSS CLOUD CREATE Private Key ============> "
+    logger.debug params[:private_key].inspect
 
     #uploaded_io = params[:aws_private_key]
     #File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
@@ -26,9 +31,9 @@ class CrossCloudsController < ApplicationController
     #end
     vault_loc = vault_base_url+"/"+current_user.email+"/"+params[:name]
     sshpub_loc = vault_base_url+"/"+current_user.email+"/"+params[:name]
-    private_key = ((params[:private_key]).present?) ? cross_cloud_bucket+"/"+current_user.email+"/"+params[:name]+"/"+File.basename(params[:private_key]) : ""
-    #private_key = ((params[:private_key].original_filename).length > 0) ? current_user.email+"/"+params[:name]+"/"+params[:private_key].original_filename : ""
-    wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group], :image => params[:image], :flavor => params[:flavour], :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => private_key, :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
+    #private_key = (params[:private_key]) ? cross_cloud_bucket+"/"+current_user.email+"/"+params[:name]+"/"+File.basename(params[:private_key]) : ""
+    private_key = ((params[:private_key].original_filename).length > 0) ? current_user.email+"/"+params[:name]+"/"+params[:private_key].original_filename : ""
+    wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group], :image => params[:image], :flavor => params[:flavor], :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => private_key, :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
     @res_body = CreatePredefClouds.perform(wparams)
     if @res_body.class == Megam::Error
       @res_msg = nil

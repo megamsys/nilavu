@@ -45,6 +45,8 @@ gem "megam_deccanplato"
 #password
 gem 'bcrypt-ruby',:require => 'bcrypt'
 
+gem 'remotipart'
+
 #http_proxy settings
 gem "faraday"
 gem "faraday_middleware"
