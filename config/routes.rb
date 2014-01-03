@@ -1,5 +1,5 @@
 Cloudauth::Application.routes.draw do
-  root :to => 'high_voltage/pages#show', :id => 'home'
+  root :to => 'sessions#new', :id => 'signin'
 
   resources :users
   resources :sessions
@@ -33,21 +33,7 @@ Cloudauth::Application.routes.draw do
     match '/data_sources', to: 'data_sources#index', via: [:get, :post]
   end
 
-  # =======Static pages served via high_voltage
-  get 'pages/get_started' => 'high_voltage/pages#show', :id => 'get_started'
-  get 'pages/features' => 'high_voltage/pages#show', :id => 'features'
-  get 'pages/about' => 'high_voltage/pages#show', :id => 'about'
-  get 'pages/contribute' => 'high_voltage/pages#show', :id => 'contribute'
-  # to-do: move it as a static page for pricing.
-  get '/pricing' => 'billing#pricing'
-  # to-do: this is more like creating a new billing account
-  get '/account' => 'billing#account'
-  # to-do: this is showing the index of billed_history (make it a separate controller)
-  get '/history' => 'billing#history'
-  get '/upgrade' => 'billing#upgrade'
-  #users
-  match '/worker', to: 'users#worker', via: [:get, :post]
-
+  
   #Cloud Books
   match '/new_book', to: 'cloud_books#new_book', via: [:get, :post]
   match '/get_request', to: 'cloud_books#get_request', via: [:get, :post]

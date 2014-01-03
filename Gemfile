@@ -36,7 +36,6 @@ gem 'will_paginate','3.0.5'
 gem 'bootstrap-will_paginate','0.0.10'
 gem 'paperclip','3.5.2'
 gem "aws-sdk"
-gem 'high_voltage',"2.0.0"
 gem "therubyracer", :require => 'v8',:platforms => :ruby
 gem "breadcrumbs_on_rails"
 gem "randexp", "~> 0.1.7"
