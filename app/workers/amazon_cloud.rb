@@ -2,7 +2,7 @@ class AmazonCloud
   def self.perform(options = {}, bucket_name)
 
     #Upload AWS private key...
-    S3Upload.perform(bucket_name, options[:email]+"/"+options[:name]+"/"+options[:aws_private_key].original_filename, options[:aws_private_key].read)
+    S3Upload.perform(bucket_name, options[:email]+"/"+options[:name]+"/"+options[:private_key].original_filename, options[:private_key].read)
     #S3Upload.perform(bucket_name, options[:email]+"/"+options[:name]+"/"+File.basename(options[:private_key]), :file => options[:private_key])
 
     #Upload id rsa public key...
