@@ -34,6 +34,7 @@
 //= require cloud_books
 //= require cross_clouds
 //= require connector_projects
+//= require unicorn.login
 //= require unicorn.form_validation
 //= require unicorn.wizard
 //= require theme

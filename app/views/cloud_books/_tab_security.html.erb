@@ -1,5 +1,5 @@
 <%= form_tag(:controller => "cross_clouds", :action => "create") do %>
-<div class="row-fluid">
+<div class="row">
 	<div class="span2">
 		<h5><%= label_tag "Upload ssh file   :" %>
 	</div></h5>
@@ -8,7 +8,7 @@
 	</div>
 </div>
 
-<div class="row-fluid">
+<div class="row">
 
 	<div class="span2">
 		<h5><%= label_tag "Upload ssh security   :" %>
@@ -20,7 +20,7 @@
 
 <br/>
 <br/>
-<div class="row-fluid">
+<div class="row">
 	<div class="span4"></div>
 	<div class="span4">
 		<%= submit_tag "Save", :class => "btn btn-large btn-success btn-block", :remote => true, :data => { :spinner => '#spin-btn'} %>

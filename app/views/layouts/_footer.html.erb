@@ -1,93 +1,50 @@
-<div id="footer">
-	<footer>
-		<div class="container">
-			<div class="row-fluid">
-				<div class="span3">
-					<h5>Products</h5>
-					<ul class="unstyled">
-						<li>
-							<!-- Essentially how the platform itself works -->
-							<%= link_to "Tour",    page_path("tour"), { :target => '_blank'} %>
-						</li>
-						<li>
-							<%= link_to "For Businesses",   "http://docs.megam.co/contactus", { :target => '_blank'} %>
-						</li>
-						<li>
-							<%= link_to "Cloud App Connector",   "http://docs.megam.co/cloudappcon", { :target => '_blank'} %>
-						</li>
-					</ul>
-				</div>
-				<div class="span3">
-					<h5>About Us</h5>
-					<ul class="unstyled">
-						<li>
-							<%= link_to "Blog",   "http://blog.megam.co", { :target => '_blank'} %>
-						</li>
-						<li>
-							<%= link_to "Team",  page_path("about"), { :target => '_self'} %>
-						</li>
-						<li>
-							<%= link_to "Contact Us",   page_path("contact_us"), { :target => '_self'} %>
-						</li>
-						<li>
-							<!-- Make it modal, with an option to provide a resume using dropbox, box,
-							googleapp, with links to github, linkedin
-							with a choice for apply for a job or internship-->
-							<%= link_to "Jobs",   "http://docs.megam.co/contactus", { :target => '_blank'} %>
-						</li>
-
-					</ul>
-				</div>
-				<div class="span3">
-					<h5>Support</h5>
-					<ul class="unstyled">
-						<li>
-							<%= link_to "Documentation",   "http://docs.megam.co", { :target => '_blank'} %>
-						</li>
-						<li>
-							<%= link_to "Support",   "http://support.megam.co", { :target => '_blank'} %>
-						</li>
-						<li>
-							<%= link_to "Forums",   "https://groups.google.com/forum/?fromgroups=#!forum/megamlive", { :target => '_blank'} %>
-						</li>
-						<li>
-							<%= link_to "Contribute",   "http://docs.megam.co/contribute", { :target => '_blank'} %>
-						</li>
-					</ul>
-				</div>
-				<div class="span3">
-					<h5>Hunt us At : </h5>
-					<ul class="unstyled">
-						<li>
-							<%= image_tag "logo-megam160x43.png", :alt => "Megam", :class => "megam_image" %>
-						</li>
-						<li>
-							<i class="fa fa-map-marker"></i><strong><span itemprop="name"> Megam</span>, </strong>
-						</li>
-						<li>
-							<span class="hidden" itemprop="address" itemscope itemtype="http://data-vocabulary.org/Address"> <span itemprop="street-address">Plot no:53 Second cross, Radha nagar</span>,
-						</li>
-						<li>
-							<span itemprop="locality"> Perumbakkam</span>, <span itemprop="region">Chennai</span>
-							</span>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<hr>
-			</hr>
-			<div class="row-fluid copyright">
-				<div class="span7">
-					<h3>Social</h3>
-					<a href="http://www.facebook.com/megamsys" class="social fb" target="_blank"> <i class="i_facebook"></i> </a>
-					<a href="http://www.twitter.com/indykish" class="social tw" target="_blank"> <i class="i_twitter"></i> </a>
-					<a href="http://www.youtube.com/indykish" class="social yt" target="_blank"> <i class="i_youtube"></i></a>
-				</div>
-				<div class="span5">
-					</br>
-					<small> &copy; 2013 megam. All rights reserved. <span class="seperator">|</span> <%= link_to "Terms of Use",  page_path("termsofuse")  %> <span class="seperator">|</span> <%= link_to "Privacy Policy",  page_path("privacypolicy")  %> </small>
-				</div>
-			</div>
+<div class="row">
+	<div id="footer">
+		<div class="col-md-3">
+			<ul class="unstyled">
+				<li>
+					<%= link_to "Documentation",   "http://docs.megam.co", { :target => '_blank'} %>
+				</li>
+			</ul>
 		</div>
-	</footer>
+		<div class="col-md-3">
+			<ul class="unstyled">
+				<li>
+					<%= link_to "Blog",   "http://blog.megam.co", { :target => '_blank'} %>
+				</li>
+			</ul>
+		</div>
+		<div class="col-md-3">
+			<ul class="unstyled">
+				<li>
+					<%= link_to "Support",   "http://support.megam.co", { :target => '_blank'} %>
+				</li>
+
+			</ul>
+		</div>
+		<div class="col-md-3">
+			<ul class="unstyled">
+				<li>
+					<%= link_to "Contribute",   "http://docs.megam.co/contribute", { :target => '_blank'} %>
+				</li>
+			</ul>
+		</div>
+	</div>
 </div>
+<hr>
+</hr>
+<div class="row">
+	<div id="footer">
+		<div class="col-md-7">
+			<h3>Social</h3>
+			<a href="http://www.facebook.com/megamsys" class="social fb" target="_blank"> <i class="i_facebook"></i> </a>
+			<a href="http://www.twitter.com/indykish" class="social tw" target="_blank"> <i class="i_twitter"></i> </a>
+			<a href="http://www.youtube.com/indykish" class="social yt" target="_blank"> <i class="i_youtube"></i></a>
+		</div>
+		<div class="col-md-5">
+			</br>
+			<small> &copy; 2013 megam. All rights reserved. <span class="seperator">|</span> <%= link_to "Terms of Use",  page_path("termsofuse")  %> <span class="seperator">|</span> <%= link_to "Privacy Policy",  page_path("privacypolicy")  %> </small>
+		</div>
+	</div>
+</div>
+

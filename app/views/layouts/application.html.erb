@@ -47,15 +47,12 @@
 		</script>-->
 		<!--End of Zopim Live Chat Script-->
 	</head>
-	<body>
-
-		<%= render 'layouts/header' %>
-		<a href="#" class="scrolltop"> <span>up</span> </a>
-		<%= yield %>
-		<%= render 'layouts/footer' %>
+	<body>	
+		<!--<a href="#" class="scrolltop"> <span>up</span> </a>-->
+		<%= yield %>		
 		<!-- JQuery will invoke via the spinner and display a loading modal lock. -->
 		<div id="loading" />
-		<%= gflash %>
+		<!--<%= gflash %>-->
 
 	</body>
 </html>

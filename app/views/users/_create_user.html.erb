@@ -1,25 +1,25 @@
 <%= form_for @user, :html => {:id =>'password_validate', :novalidate => 'novalidate', :class => 'user_fields_form_email'}, :method => method do |f| %>
 
-<div class="control-group">
+<div class="form-group">
 	<div class="controls">
 		<%= f.text_field :first_name, :id => 'first_name', :class => 'text_field required', placeholder: "First name" %>
 	</div>
 </div>
 <%= @form_authenticity_token.to_s %>
-<div class="control-group">
+<div class="form-group">
 	<div class="controls">
 		<%= f.text_field :last_name, :id => 'last_name', :class => 'text_field', placeholder: "Last name(*optional)" %>
 	</div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
 	<div class="controls">
 		<%= f.text_field :phone, :class => 'text_field', placeholder: "Phone number(*optional)" %>
 	</div>
 </div>
 
 <% if current_user.nil? %>
-<div class="control-group">
+<div class="form-group">
 	<div class="controls">
 		<% if params[:user_social_identity] %>
 		<%= f.text_field :email, :class => 'text_field required email', placeholder: "Email", :readonly => true %>
@@ -35,13 +35,13 @@
 <% end %>
 
 <% if current_user.nil? %>
-<div class="control-group">
+<div class="form-group">
 	<div class="controls">
 		<%= f.password_field :password, :class=> 'required', placeholder: "Password" %>
 	</div>
 </div>
 
-<div class="control-group">
+<div class="form-group">
 	<div class="controls">
 		<%= f.password_field :password_confirmation,  :class=> 'required', placeholder: "Confirm password" %>
 	</div>
@@ -50,6 +50,6 @@
 
 <%= f.text_field :user_type, :value => "free", :type => 'hidden' %>
 
-<%= f.submit nil, :class => "btn" %>
+<%= f.submit nil, :class => "btn " %>
 
 <% end %>
