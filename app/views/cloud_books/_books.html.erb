@@ -99,23 +99,23 @@
 													<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="fa fa-folder-open"> Actions </span> <span class="caret"></span> </a>
 													<ul class="dropdown-menu">
 														<li>
-															<%= link_to send_request_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "nbuild"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nbuild'} do %>
+															<%= link_to send_request_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "build"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nbuild'} do %>
 															<i class="fa fa-building-o">&nbsp;Build&nbsp;</i> <% end %>
 															<%= mini_spinner_tag  'cloud_book_request_now_nbuild' %>
 														</li>
 														<li class="divider"></li>
 														<li>
-															<%= link_to send_request_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "nstart"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstart'} do %>
+															<%= link_to send_request_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "start"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstart'} do %>
 															<i class="fa fa-play">&nbsp;Start&nbsp;</i> <% end %>
 															<%= mini_spinner_tag  'cloud_book_request_now_nstart' %>
 														</li>
 														<li>
-															<%= link_to send_request_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "nstop"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstop'} do %>
+															<%= link_to send_request_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "stop"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstop'} do %>
 															<i class="fa fa-stop">&nbsp;Stop&nbsp;</i> <% end %>
 															<%= mini_spinner_tag  'cloud_book_request_now_nstop' %>
 														</li>
 														<li>
-															<%= link_to send_request_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "nrestart"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nrestart'} do %>
+															<%= link_to send_request_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "restart"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nrestart'} do %>
 															<i class="fa fa-refresh">&nbsp;Restart&nbsp;</i> <% end %>
 															<%= mini_spinner_tag  'cloud_book_request_now_nrestart' %>
 														</li>
@@ -198,7 +198,7 @@
 		</div>
 	</div>
 	<div class="modal-footer">
-		<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary"%>
+		<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary", :target => "_self"%>
 	</div>
 </div>
 
@@ -220,6 +220,6 @@
 		</div>
 	</div>
 	<div class="modal-footer">
-		<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary" %>
+		<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary", :target => "_self"%>
 	</div>
 </div>
