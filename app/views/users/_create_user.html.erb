@@ -1,33 +1,34 @@
 <%= form_for @user, :html => {:id =>'password_validate', :novalidate => 'novalidate', :class => 'user_fields_form_email'}, :method => method do |f| %>
+<p>
+	Enter information required to register:
+</p>
 
-<div class="form-group">
-	<div class="controls">
-		<%= f.text_field :first_name, :id => 'first_name', :class => 'text_field required', placeholder: "First name" %>
-	</div>
+<div class="input-group">
+	<span class="input-group-addon"><i class="icon-user"></i></span>
+	<%= f.text_field :first_name, :id => 'first_name', :class => 'form-control required', placeholder: "First name" %>
 </div>
+
 <%= @form_authenticity_token.to_s %>
-<div class="form-group">
-	<div class="controls">
-		<%= f.text_field :last_name, :id => 'last_name', :class => 'text_field', placeholder: "Last name(*optional)" %>
-	</div>
+
+<div class="input-group">
+	<span class="input-group-addon"><i class="icon-user"></i></span>
+	<%= f.text_field :last_name, :id => 'last_name', :class => 'form-control', placeholder: "Last name(*optional)" %>
 </div>
 
-<div class="form-group">
-	<div class="controls">
-		<%= f.text_field :phone, :class => 'text_field', placeholder: "Phone number(*optional)" %>
-	</div>
+<div class="input-group">
+	<span class="input-group-addon"><i class="icon-phone-sign"></i></span>
+	<%= f.text_field :phone, :class => 'form-control', placeholder: "Phone number(*optional)" %>
 </div>
 
 <% if current_user.nil? %>
-<div class="form-group">
-	<div class="controls">
-		<% if params[:user_social_identity] %>
-		<%= f.text_field :email, :class => 'text_field required email', placeholder: "Email", :readonly => true %>
-		<input type="hidden" name="social_uid" value="<%= @social_uid %>">
-		<% else %>
-		<%= f.text_field :email, :class => 'text_field required email', placeholder: "Email" %>
-		<% end %>
-	</div>
+<div class="input-group">
+	<span class="input-group-addon"><i class="icon-envelope"></i></span>
+	<% if params[:user_social_identity] %>
+	<%= f.text_field :email, :class => 'form-control required email', placeholder: "Email", :readonly => true %>
+	<input type="hidden" name="social_uid" value="<%= @social_uid %>">
+	<% else %>
+	<%= f.text_field :email, :class => 'form-control required email', placeholder: "Email" %>
+	<% end %>
 </div>
 
 <% random_hash = generate_api_token %>
@@ -35,21 +36,26 @@
 <% end %>
 
 <% if current_user.nil? %>
-<div class="form-group">
-	<div class="controls">
-		<%= f.password_field :password, :class=> 'required', placeholder: "Password" %>
-	</div>
+<div class="input-group">
+	<span class="input-group-addon"><i class="icon-lock"></i></span>
+	<%= f.password_field :password, :class=> 'form-control required', placeholder: "Password" %>
 </div>
 
-<div class="form-group">
-	<div class="controls">
-		<%= f.password_field :password_confirmation,  :class=> 'required', placeholder: "Confirm password" %>
-	</div>
+<div class="input-group">
+	<span class="input-group-addon"><i class="icon-lock"></i></span>
+	<%= f.password_field :password_confirmation,  :class=> 'form-control required', placeholder: "Confirm password" %>
 </div>
 <% end %>
 
 <%= f.text_field :user_type, :value => "free", :type => 'hidden' %>
-
-<%= f.submit nil, :class => "btn " %>
-
+<hr />
+<div class="form-actions">
+	<div class="pull-left">
+		&laquo; <%= link_to "Back to login", signin_path %>		
+	</div>
+	<div class="pull-right">
+		<%= f.submit nil, :class => "btn btn-default" %>		
+	</div>
+</div>
 <% end %>
+

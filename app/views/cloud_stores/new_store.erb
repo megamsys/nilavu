@@ -164,47 +164,53 @@
 
 	</div>
 
-	<div id="cloudbook_postfinish_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div id="cloudbook_postfinish_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						×
+					</button>
+					<h3 id="myModalLabel">Cloud Book</h3>
+				</div>
+				<div class="modal-body">
+					<div class="alert">
 
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-				×
-			</button>
-			<h3 id="myModalLabel">Cloud Book</h3>
-		</div>
-		<div class="modal-body">
-			<div class="alert">
-
-				<p>
-					<h4> A cloud book creation request to the megam cloud gateway was successful. </h4>
-					</br>
-					<strong>Click<span class="label label-info"> OK </span> to watch the status Real Time</strong>
-				</p>
+						<p>
+							<h4> A cloud book creation request to the megam cloud gateway was successful. </h4>
+							</br>
+							<strong>Click<span class="label label-info"> OK </span> to watch the status Real Time</strong>
+						</p>
+					</div>
+				</div>
+				<div class="modal-footer" id="history_path"></div>
 			</div>
 		</div>
-		<div class="modal-footer" id="history_path"></div>
 	</div>
 
-	<div id="cloudbook_postfinish_popup_error" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div id="cloudbook_postfinish_popup_error" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						×
+					</button>
+					<h3 id="myModalLabel">Cloud Book</h3>
+				</div>
+				<div class="modal-body">
+					<div class="alert">
 
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-				×
-			</button>
-			<h3 id="myModalLabel">Cloud Book</h3>
-		</div>
-		<div class="modal-body">
-			<div class="alert">
-
-				<p>
-					<h4> A cloud book creation request to the megam cloud gateway was not successful. </h4>
-					</br>
-					<div id="err_msg"></div>
-				</p>
+						<p>
+							<h4> A cloud book creation request to the megam cloud gateway was not successful. </h4>
+							</br>
+							<div id="err_msg"></div>
+						</p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<%= link_to  "Ok", new_cloud_book_path, :class => "btn btn-primary", :target => "_self" %>
+				</div>
 			</div>
-		</div>
-		<div class="modal-footer">
-			<%= link_to  "Ok", new_cloud_book_path, :class => "btn btn-primary", :target => "_self" %>
 		</div>
 	</div>
 

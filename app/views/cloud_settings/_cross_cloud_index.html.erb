@@ -18,7 +18,7 @@
 
 				<div class="cb_box">
 					<h4 align="center" >Recent Activity</h4>
-					<h5 align="Center"><span class="icon"> <i class="fa fa-calendar"></i> </span><b><%= @cross_clouds.last[:created_at] %></b></h5>
+					<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @cross_clouds.last[:created_at] %></b></h5>
 					<h5 align="Center"><%= link_to "#{@cross_clouds.last[:name]}", cross_cloud_path(:id => "1", :name => "name"), :remote => true, data: { spinlock: '#crosscloud_current'} %> </h5>
 
 				</div>
@@ -96,23 +96,25 @@
 </div>
 <!-- container-fluid -->
 
-<div id="cross_cloud_show_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-			×
-		</button>
-		<h3 id="myModalLabel">Cross Cloud View</h3>
-	</div>
-	<div class="modal-body">
-		<div class="alert alert-info">
-			<p>
-				<h4 id="cross_cloud_show"></h4>
-			</p>
+<div id="cross_cloud_show_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">Cross Cloud View</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-info">
+					<p>
+						<h4 id="cross_cloud_show"></h4>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>
+			</div>
 		</div>
 	</div>
-	<div class="modal-footer">
-		<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>
-	</div>
 </div>
-

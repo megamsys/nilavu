@@ -30,14 +30,14 @@
 										<div class="col-md-6">											
 											<%= label :full, 'Full' do %>
 											<%= radio_button_tag :db_model, 'full' %>
-											<h3><i class="fa fa-folder-o"></i> Full</h3>
+											<h3><i class="icon-folder-open"></i> Full</h3>
 											<span class="label label-info">*all yours</span> Cloud PostgreSQL only for You </strong>
 											<% end %>
 										</div>
 										<div class="col-md-6">											
 											<%= label :multitenant, 'Multitenant' do %>			
 											<%= radio_button_tag :db_model, 'multitenant', false, disabled: true %>								
-											<h3><i class="fa fa-envelope-o"></i> Multitenant</h3><span class="label label-primary">work in progress</span>
+											<h3><i class="icon-envelope"></i> Multitenant</h3><span class="label label-primary">work in progress</span>
 											<span class="label label-info">*shared</span> Clustered, highly available Cloud PostgreSQL</strong>
 											<% end %>
 										</div>
@@ -94,15 +94,15 @@
 										<div class="row">
 											<div id="scalebooks">
 												<div class="alert alert-success">
-													<i class="icon-info-circle"></i> Scale store
+													<i class="icon-info-sign"></i> Scale store
 												</div>
 												<div class="overflow">
 													<table class="table table-condensed">
 														<thead>
 															<tr>
 																<th>My Stores</th>
-																<th><a href="#" rel="tooltip" title="max 2 (*beta)" class='info'>Instances <i class="icon-info-circle"></i></a></th>
-																<th><i class="fa fa-trash-o"></i></th>
+																<th><a href="#" rel="tooltip" title="max 2 (*beta)" class='info'>Instances <i class="icon-info-sign"></i></a></th>
+																<th><i class="icon-trash"></i></th>
 															</tr>
 														</thead>
 														<tbody></tbody>
@@ -114,7 +114,7 @@
 											<div class="row">
 												<div class="alert alert-info alert-block">
 													<a class="close" data-dismiss="alert" href="#">×</a>
-													<i class="icon-check-sign-o"></i>
+													<i class="icon-check-sign"></i>
 													<span class="badge badge-success books_total">0</span>
 
 													<input type="hidden" id="cb_count" name="no_of_instances" value="<%= @books_count %>">

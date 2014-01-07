@@ -390,18 +390,14 @@ a {
 /* Breadcrumb */
 #breadcrumb {
 	background-color: #e4e2e7;
-	box-shadow: 0 0 1px #ffffff;
-	border-top: 1px solid #d6d6d6;
-	border-bottom: 1px solid #d6d6d6;
-	padding-left: 10px;
+	box-shadow: 0 0 1px #666666;		
 }
-#breadcrumb a {
-	padding: 8px 20px 8px 10px;
-	display: inline-block;
-	background-image: url('breadcrumb.png');
+
+#breadcrumb a {		
+	background-image: url('images/breadcrumb.png');
 	background-position: center right;
 	background-repeat: no-repeat;
-	font-size: 11px;
+	font-size: 15px;
 	color: #666666;
 }
 #breadcrumb a:hover {
@@ -410,9 +406,9 @@ a {
 #breadcrumb a:last-child {
 	background-image:none;
 }
-#breadcrumb a.current {
+#breadcrumb a.current {	
 	font-weight: bold;
-	color: #444444;
+	color: #446666;
 }
 #breadcrumb a i {
 	margin-right: 5px;

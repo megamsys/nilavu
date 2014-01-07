@@ -10,66 +10,71 @@
 </div>
 <!-- container-fluid -->
 
-<div id="cloudbook_delete_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-			×
-		</button>
-		<h3 id="myModalLabel">Cloud Book view</h3>
-	</div>
-	<div class="modal-body">
-		<p>
-			<h4 id="delete_body"></h4>
-		</p>
-	</div>
-	<div class="modal-footer">
-		<div id="delete_footer"></div>
-	</div>
-</div>
-
-<div id="cloudbook_clone_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-			×
-		</button>
-
-		<h3 id="myModalLabel">Cloud Book</h3>
-	</div>
-	<div class="modal-body">
-		<div class="info">
-			<%= form_tag(clone_start_path, :method => "post") do %>
-			<% @new_book_name = book_name %>
-			<% @domain_name = ".megam.co" %>
-			<p class="help-block">
-				<strong><span class="label label-warning">*optional</span> Click on the default book name to change it</strong>
-			</p>
-			</br>
-			<div class="col-md-6">
-				<div class="col-md-3">
-
-					<!--<%= link_to  @new_book_name, "#", :id => "identity_new", :onchange => "angular.element(this).scope().fileNameChaged()", :class => "btn btn-large btn-primary disabled btn-block", :data => { :type => 'text', :name => 'book_name'} %>-->
-					<a class="btn btn-large btn-primary disabled btn-block" data-name="book_name" data-type="text" href="#" id="identity_new" ><%= @new_book_name %></a>
-				</div>
-				<div class = "col-md-2">
-					<%= link_to @domain_name, "#", :class => "btn btn-large btn-primary disabled btn-block", :id => 'domain'%>
-				</div>
+<div id="cloudbook_delete_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">Cloud Book view</h3>
 			</div>
-
-			<%= hidden_field_tag 'new_name', @new_book_name, :id=> 'changename' %>
-			<%= hidden_field_tag 'domain_name', @domain_name %>
-			<input type="hidden" id="clone_name" name="clone_name" value="">
-			<br/>
-			<%= number_field_tag 'noofinstances', nil, in: 1...10 %>
+			<div class="modal-body">
+				<p>
+					<h4 id="delete_body"></h4>
+				</p>
+			</div>
+			<div class="modal-footer">
+				<div id="delete_footer"></div>
+			</div>
 		</div>
 	</div>
-	<div class="modal-footer">
-		<%= submit_tag "OK", :class => "btn btn-large btn-success btn-block" %>
-		<% end %>
-	</div>
 </div>
 
+<div id="cloudbook_clone_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+
+				<h3 id="myModalLabel">Cloud Book</h3>
+			</div>
+			<div class="modal-body">
+				<div class="info">
+					<%= form_tag(clone_start_path, :method => "post") do %>
+					<% @new_book_name = book_name %>
+					<% @domain_name = ".megam.co" %>
+					<p class="help-block">
+						<strong><span class="label label-warning">*optional</span> Click on the default book name to change it</strong>
+					</p>
+					</br>
+					<div class="col-md-6">
+						<div class="col-md-3">
+
+							<!--<%= link_to  @new_book_name, "#", :id => "identity_new", :onchange => "angular.element(this).scope().fileNameChaged()", :class => "btn btn-large btn-primary disabled btn-block", :data => { :type => 'text', :name => 'book_name'} %>-->
+							<a class="btn btn-large btn-primary disabled btn-block" data-name="book_name" data-type="text" href="#" id="identity_new" ><%= @new_book_name %></a>
+						</div>
+						<div class = "col-md-2">
+							<%= link_to @domain_name, "#", :class => "btn btn-large btn-primary disabled btn-block", :id => 'domain'%>
+						</div>
+					</div>
+
+					<%= hidden_field_tag 'new_name', @new_book_name, :id=> 'changename' %>
+					<%= hidden_field_tag 'domain_name', @domain_name %>
+					<input type="hidden" id="clone_name" name="clone_name" value="">
+					<br/>
+					<%= number_field_tag 'noofinstances', nil, in: 1...10 %>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<%= submit_tag "OK", :class => "btn btn-large btn-success btn-block" %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
 <!-- container-fluid -->
 
 <% end %>

@@ -57,7 +57,7 @@
 												<% else %>
 												<div class="progress-bar progress-bar-success" style="width: <%= @percent %>%;"></div>
 												<% end %>
-											</div>											
+											</div>
 										</div>
 										<div class="col-md-1">
 											<h3>2</h3>
@@ -108,25 +108,28 @@
 </div>
 <!-- container-fluid -->
 
-<div id="cloud_store_show_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-			×
-		</button>
-		<h3 id="myModalLabel">Cloud Book view</h3>
-	</div>
-	<div class="modal-body">
-		<div class="alert">
-			<p>
-				<h4 id="cloud_store_show"></h4>
-			</p>
+<div id="cloud_store_show_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">Cloud Book view</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert">
+					<p>
+						<h4 id="cloud_store_show"></h4>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">
+					Ok
+				</button>
+			</div>
 		</div>
-	</div>
-	<div class="modal-footer">
-		<button class="btn" data-dismiss="modal" aria-hidden="true">
-			Ok
-		</button>
 	</div>
 </div>
 

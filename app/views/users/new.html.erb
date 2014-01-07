@@ -2,7 +2,20 @@
 <div class="row">
 	<%= render :partial => "customizations/flash_messages" %>
 </div>
-<div class="container">
+
+<div id="container">
+        <div id="logo">
+        <%= image_tag "logo-megam160x43w.png", :alt => "Megam", :class => "megam_image" %>
+        </div>
+        <div id="login_register_form">       
+        	<%= render :partial => "users/create_user" , :locals => {:user => @user, :method => 'post'}%>               
+        </div>
+</div>
+
+
+
+
+<!--<div class="container">
 
 	<div class="row">
 		<div class="col-md-5">
@@ -82,4 +95,4 @@
 
 		</div>
 	</div>
-</div>
+</div>-->

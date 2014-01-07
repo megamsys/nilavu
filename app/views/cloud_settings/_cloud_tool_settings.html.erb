@@ -47,7 +47,7 @@
 										<div class="controls">
 											<i class="icon-github"></i>
 											<%= text_field_tag 'repo_name', nil, :class=> 'required', placeholder: 'Repository Name' %>
-											
+
 										</div>
 									</div>
 								</div>
@@ -128,66 +128,75 @@
 </div>
 <!-- container-fluid -->
 
-<div id="cloud_tool_setting_show_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-			×
-		</button>
-		<h3 id="myModalLabel">Cloud Tool Setting View</h3>
-	</div>
-	<div class="modal-body">
-		<div class="alert alert-info">
-			<p>
-				<h4 id="cloud_tool_setting_show"></h4>
-			</p>
+<div id="cloud_tool_setting_show_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">Cloud Tool Setting View</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-info">
+					<p>
+						<h4 id="cloud_tool_setting_show"></h4>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>
+			</div>
 		</div>
-	</div>
-	<div class="modal-footer">
-		<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>
 	</div>
 </div>
 
-<div id="cloud_tool_setting_postfinish_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-			×
-		</button>
-		<h3 id="myModalLabel">Cloud Tool Settings</h3>
-	</div>
-	<div class="modal-body">
-		<div class="alert alert-success">
+<div id="cloud_tool_setting_postfinish_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">Cloud Tool Settings</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-success">
 
-			<p>
-				<div id="res_msg"></div>
-				</br>
-			</p>
+					<p>
+						<div id="res_msg"></div>
+						</br>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer" id="cloudtoolsettings_path"></div>
 		</div>
 	</div>
-	<div class="modal-footer" id="cloudtoolsettings_path"></div>
 </div>
 
-<div id="cloud_tool_setting_postfinish_popup_error" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="cloud_tool_setting_postfinish_popup_error" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">Cloud Tool Settings</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-error">
 
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-			×
-		</button>
-		<h3 id="myModalLabel">Cloud Tool Settings</h3>
-	</div>
-	<div class="modal-body">
-		<div class="alert alert-error">
-
-			<p>
-				A cloud tool setting creation request to the megam cloud gateway was not successful.
-				</br>
-				<div id="err_msg"></div>
-			</p>
+					<p>
+						A cloud tool setting creation request to the megam cloud gateway was not successful.
+						</br>
+						<div id="err_msg"></div>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>
+			</div>
 		</div>
-	</div>
-	<div class="modal-footer">
-		<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>
-
 	</div>
 </div>
 
