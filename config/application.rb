@@ -69,9 +69,9 @@ module Cloudauth
     
     config.megam_logo_url   = "http://nothing"
     
-    config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
-    config.ganglia_host     = ENV['GANGLIA_HOST']
-    config.ganglia_base_url = "http://monitor.megam.co.in/ganglia"
+    config.ganglia_web_url  = "http://monitor.megam.co/ganglia"
+    config.ganglia_host     = "dummy"
+    config.ganglia_base_url = "http://monitor.megam.co/ganglia"
     config.ganglia_cluster = 'EC2'
     config.ganglia_graph_metric  = 'cpu_system'
     config.ganglia_request_metric = 'nginx_requests'
