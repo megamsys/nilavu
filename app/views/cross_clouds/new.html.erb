@@ -38,7 +38,8 @@
 					<% end %>
 				</ul>
 			</div>			
-			<%= form_tag cross_clouds_path, multipart: true, :id =>'basic_validate', :novalidate => 'novalidate', :name => "basic_validate1",  :method => 'post', :remote => true, data: { spinlock: '#spin_cross_cloud'}  do %>
+			<%= form_tag cross_clouds_path, multipart: true, :class =>'megam_validate', :novalidate => 'novalidate', :method => 'post', :remote => true, data: { spinlock: '#spin_cross_cloud'}  do %>
+
 
 			<div id="provider_form">
 				<%= render :partial => "cross_clouds/aws_form" , :locals => {:selected_cloud => "Amazon EC2"}%>
