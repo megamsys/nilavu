@@ -6,9 +6,7 @@
 </div>
 
 <div class="container-fluid">
-	<div class="span12">
-		<%= render :partial => "cloud_books/books" , :locals => {:launched_books_quota => @launched_books_quota, :launched_books => @launched_books, :nodes => @nodes } %>
-	</div>
+	<%= render :partial => "cloud_books/books" , :locals => {:launched_books_quota => @launched_books_quota, :launched_books => @launched_books, :nodes => @nodes } %>
 </div>
 <!-- container-fluid -->
 
@@ -48,13 +46,13 @@
 				<strong><span class="label label-warning">*optional</span> Click on the default book name to change it</strong>
 			</p>
 			</br>
-			<div class="span6">
-				<div class="span3">
+			<div class="col-md-6">
+				<div class="col-md-3">
 
 					<!--<%= link_to  @new_book_name, "#", :id => "identity_new", :onchange => "angular.element(this).scope().fileNameChaged()", :class => "btn btn-large btn-primary disabled btn-block", :data => { :type => 'text', :name => 'book_name'} %>-->
 					<a class="btn btn-large btn-primary disabled btn-block" data-name="book_name" data-type="text" href="#" id="identity_new" ><%= @new_book_name %></a>
 				</div>
-				<div class = "span2">
+				<div class = "col-md-2">
 					<%= link_to @domain_name, "#", :class => "btn btn-large btn-primary disabled btn-block", :id => 'domain'%>
 				</div>
 			</div>

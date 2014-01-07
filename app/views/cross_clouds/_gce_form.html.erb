@@ -1,6 +1,6 @@
 <input type="hidden" name="provider" value="<%= selected_cloud %>">
 <div class="row">
-	<div class="span4">
+	<div class="col-md-4">
 		<div class="div_border">
 			<h4 class="alert-heading">Save this Cross Cloud As</h4>
 		</div>
@@ -8,11 +8,11 @@
 		<div class="row">
 			<div class="control-group" id="cc_name">
 				<div class="controls">
-					<i class="fa fa-cloud"></i>
+					<i class="icon-cloud"></i>
 					&nbsp;
 					<%= text_field_tag 'name', nil, :class=> 'required', placeholder: 'Enter a name' %>
 					<%= link_to "#" do %>
-					<i class="fa fa-question-circle"></i>
+					<i class="icon-question-sign"></i>
 					<% end %>
 				</div>
 			</div>
@@ -22,18 +22,18 @@
 		<div class="row">
 			<div id='cloud_logo'>
 				<a href='/auth/google_oauth2'  target='_self' class ="btn btn-large disabled btn-primary btn-block" >
-					<icon class="fa fa-google-plus" />&nbsp;Connect Your Cloud Account</a>
+					<icon class="icon-google-plus" />&nbsp;Connect Your Cloud Account</a>
 			</div>
 		</div>
 		<br/>
 		<br/>
 		<div class="row">
 			<div id='acc_link'>
-				<a href='https://accounts.google.com/SignUp' target='_blank' class ="btn btn-large disabled btn-default btn-block" >Create an Account for Google Cloud</a>
+				<a href='https://accounts.google.com/SignUp' target='_blank' class="btn-link" >Create an Account for Google Cloud</a>
 			</div>
 		</div>
 	</div>
-	<div class="span4">
+	<div class="col-md-4">
 		<div class="div_border">
 			<h4 class="alert-heading">Image & Size</h4>
 		</div>
@@ -43,37 +43,40 @@
 			<div class="controls">
 				<%= text_field_tag 'project_name', nil, :class=> 'text_field required', placeholder: 'Enter project name ..' %>
 				<%= link_to "#" do %>
-				<i class="fa fa-question-circle"></i>
+				<i class="icon-question-sign"></i>
 				<% end %>
 			</div>
 		</div>
+		<br/>
 		<div class="control-group" id="cc_image">
 			<div class="controls">
 				<%= text_field_tag 'image', nil, :class=> 'required', placeholder: 'Enter Image value...' %>
 				<%= link_to "#" do %>
-				<i class="fa fa-question-circle"></i>
+				<i class="icon-question-sign"></i>
 				<% end %>
 			</div>
 		</div>
+		<br/>
 		<div class="control-group" id="cc_flavor">
 			<div class="controls">
 				<%= text_field_tag 'flavour', nil, :class=> 'required', placeholder: 'Enter instance size...' %>
 				<%= link_to "#" do %>
-				<i class="fa fa-question-circle"></i>
+				<i class="icon-question-sign"></i>
 				<% end %>
 			</div>
 		</div>
+		<br/>
 		<div class="control-group">
 			<div class="controls">
 				<%= text_field_tag 'zone', nil, :class=> 'required', placeholder: 'Enter zone...' %>
 				<%= link_to "#" do %>
-				<i class="fa fa-question-circle"></i>
+				<i class="icon-question-sign"></i>
 				<% end %>
 			</div>
 		</div>
 	</div>
 
-	<div class="span4">
+	<div class="col-md-4">
 		<div class="div_border">
 			<h4 class="alert-heading">Security</h4>
 		</div>
@@ -83,34 +86,34 @@
 			<div class="controls">
 				<%= text_field_tag 'ssh_user', nil, :class=> 'required', placeholder: 'Enter SSH User..' %>
 				<%= link_to "#" do %>
-				<i class="fa fa-question-circle"></i>
+				<i class="icon-question-sign"></i>
 				<% end %>
 			</div>
 		</div>
-
+<br/>
 		<div class="control-group">
 			<div class="controls">
 				<%= text_field_tag 'id_rsa_public_key', nil, :class=> 'required', placeholder: 'Enter id_rsa public key..' %>
 				<%= link_to "#" do %>
-				<i class="fa fa-question-circle"></i>
+				<i class="icon-question-sign"></i>
 				<% end %>
 			</div>
 		</div>
-
+<br/>
 		<div class="control-group" id="cc_gcli">
 			<div class="controls">
 				<%= text_field_tag 'google_client_id', nil, :class=> 'required', placeholder: 'Enter google client id..' %>
 				<%= link_to "#" do %>
-				<i class="fa fa-question-circle"></i>
+				<i class="icon-question-sign"></i>
 				<% end %>
 			</div>
 		</div>
-
+<br/>
 		<div class="control-group" id="cc_gsk">
 			<div class="controls">
 				<%= text_field_tag 'google_secret_key', nil, :class=> 'required', placeholder: 'Enter google secret key..' %>
 				<%= link_to "#" do %>
-				<i class="fa fa-question-circle"></i>
+				<i class="icon-question-sign"></i>
 				<% end %>
 			</div>
 		</div>

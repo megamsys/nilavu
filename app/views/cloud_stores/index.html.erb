@@ -6,133 +6,129 @@
 </div>
 
 <div class="container-fluid">
+	<div class="row">
+		<div class="widget-box">
+			<div class="widget-title">
+				<span class="icon"> <i class="icon-list-alt"></i> </span>
+				<h5>Cloud Store Management</h5>
+			</div>
+			<div class="widget-content">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="col-md-3">
+							<div class="cb_box">
+								<h4 align="center">Quota</h4>
+								<h3 align="center" ><%= @cloud_stores.count %>/2</h3>
+							</div>
+							<br/>
+							<%= link_to "New CLoud Store", new_cloud_store_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
+							<br/>
 
-	<div class="widget-box">
-		<div class="widget-title">
-			<span class="icon"> <i class="fa fa-list-alt"></i> </span>
-			<h5>Cloud Store Management</h5>
-		</div>
-		<div class="widget-content">
-			<div class="container-fluid">
-				<div class="span10">
-					<div class="span3">
-						<div class="cb_box">
-							<h4 align="center">Quota</h4>
-							<h3 align="center" ><%= @cloud_stores.count %>/2</h3>
+							<div class="cb_box">
+								<h4 align="center" >Recent Activity</h4>
+								<% @latest_cloud_book = @cloud_stores.last(:order => 'created_at DESC') %>
+								<h5 align="Center"><%= @latest_cloud_book.name %></h5>
+								<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @latest_cloud_book.created_at.to_formatted_s(:rfc822) %></b></h5>
+							</div>
+
+							<br/>
+
+							<%= link_to "Upgrade", pricing_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
+
 						</div>
-						<br/>
-						<%= link_to "New CLoud Store", new_cloud_store_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
-						<br/>
+						<!-- Span3 -->
+						<div class="col-md-1"></div>
+						<div class="col-md-7">
+							<div class="widget-box">
+								<div class="widget-title">
+									<span class="icon"> <i class="icon-th-list"></i> </span>
+									<h5>Cloud Stores Usage</h5>
+								</div>
+								<div class="widget-content" style="overflow-y: scroll;">
+									<% @percent = @cloud_stores.count/2.0*100 %>
+									<div class="row">
+										<div class="col-md-1">
+											<h3>0</h3>
+										</div>
+										<div class="col-md-10">
+											<div class="progress">
+												<% if @percent >= 80 %>
+												<div class="progress-bar progress-bar-danger" style="width: <%= @percent %>%;"></div>
+												<% else %>
+												<div class="progress-bar progress-bar-success" style="width: <%= @percent %>%;"></div>
+												<% end %>
+											</div>											
+										</div>
+										<div class="col-md-1">
+											<h3>2</h3>
+										</div>
+									</div>
 
-						<div class="cb_box">
-							<h4 align="center" >Recent Activity</h4>
-							<% @latest_cloud_book = @cloud_stores.last(:order => 'created_at DESC') %>
-							<h5 align="Center"><%= @latest_cloud_book.name %></h5>
-							<h5 align="Center"><span class="icon"> <i class="fa fa-calendar"></i> </span><b><%= @latest_cloud_book.created_at.to_formatted_s(:rfc822) %></b></h5>
-						</div>
-
-						<br/>
-
-						<%= link_to "Upgrade", pricing_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
-
-					</div>
-					<!-- Span3 -->
-
-					<div class="span6">
-						<div class="widget-box">
-							<div class="widget-title">
-								<span class="icon"> <i class="fa fa-th-list"></i> </span>
-								<h5>Cloud Stores Usage</h5>
-							</div>
-							<div class="widget-content" overflow-y: scroll;">
-							<% @percent = @cloud_stores.count/2.0*100 %>
-							<div class="row">
-							<div class="span1">
-							<h3>0</h3>
-							</div>
-							<div class="span10">
-							<% if @percent >= 80 %>
-							<div class="progress progress-danger">
-							<div class="bar" style="width: <%= @percent %>%;">
-							</div>
-							</div>
-							<% else %>
-							<div class="progress progress-success">
-							<div class="bar" style="width: <%= @percent %>%;">
-							</div>
-							</div>
-							<% end %>
-							</div>
-							<div class="span1">
-							<h3>2</h3>
-							</div>
-							</div>
-
-							</div>
+								</div>
 							</div>
 
 							<div class="widget-box">
-							<div class="widget-title">
-							<span class="icon">
-							<i class="fa fa-th"></i>
-							</span>
-							<h5>Cloud Stores</h5>
-							</div>
-							<div class="widget-content nopadding">
-							<table class="table table-bordered table-striped table-hover">
-							<thead>
-							<tr>
-							<th>Name</th>
-							<th>Date</th>
-							<th>View</th>
-							<th>Clone</th>
-							</tr>
-							</thead>
-							<tbody>
-							<% @cloud_stores.each do |pre_cl| %>
-							<tr>
-							<td> <%= pre_cl.name %></td>
-							<td> <%= pre_cl.created_at.to_formatted_s(:rfc822) %> </td>
-							<td> <%= link_to "View", cloud_store_path(pre_cl.name), :remote => true, class: "btn btn-mini btn-success" %> </td>
-							<td> <%= link_to "import", "#", class: "btn btn-mini btn-success" %> </td>
-							</tr>
-							<% end %>
-							</tbody>
+								<div class="widget-title">
+									<span class="icon"> <i class="icon-th"></i> </span>
+									<h5>Cloud Stores</h5>
+								</div>
+								<div class="widget-content nopadding">
+									<table class="table table-bordered table-striped table-hover">
+										<thead>
+											<tr>
+												<th>Name</th>
+												<th>Date</th>
+												<th>View</th>
+												<th>Clone</th>
+											</tr>
+										</thead>
+										<tbody>
+											<% @cloud_stores.each do |pre_cl| %>
+											<tr>
+												<td> <%= pre_cl.name %></td>
+												<td> <%= pre_cl.created_at.to_formatted_s(:rfc822) %> </td>
+												<td> <%= link_to "View", cloud_store_path(pre_cl.name), :remote => true, class: "btn btn-mini btn-success" %> </td>
+												<td> <%= link_to "import", "#", class: "btn btn-mini btn-success" %> </td>
+											</tr>
+											<% end %>
+										</tbody>
 
-							</table>
-							</div>
+									</table>
+								</div>
 							</div>
 							<!-- Span6 -->
 
-							</div>
-							<!-- Span10 -->
-							</div>
-							</div>
-							</div>
-							</div>
-							<!-- container-fluid -->
+						</div>
+						<!-- Span10 -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- container-fluid -->
 
-							<div id="cloud_store_show_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="cloud_store_show_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-							<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-							×
-							</button>
-							<h3 id="myModalLabel">Cloud Book view</h3>
-							</div>
-							<div class="modal-body">
-							<div class="alert">
-							<p>
-							<h4 id="cloud_store_show"></h4>
-							</p>
-							</div>
-							</div>
-							<div class="modal-footer">
-							<button class="btn" data-dismiss="modal" aria-hidden="true">
-							Ok
-							</button>
-							</div>
-							</div>
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			×
+		</button>
+		<h3 id="myModalLabel">Cloud Book view</h3>
+	</div>
+	<div class="modal-body">
+		<div class="alert">
+			<p>
+				<h4 id="cloud_store_show"></h4>
+			</p>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal" aria-hidden="true">
+			Ok
+		</button>
+	</div>
+</div>
 
-							<% end %>
-							<%= render :template => users_show_path %>
+<% end %>
+<%= render :template => users_show_path %>

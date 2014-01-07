@@ -1,7 +1,7 @@
 <%= form_tag(build_request_path, :method => "post", :name => "lifecycle", :remote => true) do %>
 <div class="widget-box">
 	<div class="widget-title">
-		<span class="icon"> <i class="fa fa-th-list"></i> </span>
+		<span class="icon"> <i class="icon-th-list"></i> </span>
 		<h5>Life Cycle Requests</h5>
 	</div>
 	<div class="widget-content">
@@ -13,7 +13,7 @@
 			<div class="controls">
 				<input type="text" name="lc_apply" value="<%= @lc_apply %>">
 				<%= link_to "#" do %>
-				<i class="fa fa-question-circle"></i>
+				<i class="icon-question-sign"></i>
 				<% end %>
 			</div>
 		</div>
@@ -21,7 +21,7 @@
 			<div class="controls">
 				<%= text_field_tag 'lc_additional', nil, :id => "lc_additional", :class=> 'required', placeholder: 'Enter Life-Cycle Additional value' %>
 				<%= link_to "#" do %>
-				<i class="fa fa-question-circle"></i>
+				<i class="icon-question-sign"></i>
 				<% end %>
 			</div>
 		</div>
@@ -29,7 +29,7 @@
 			<div class="controls">
 				<%= text_field_tag 'lc_when', nil, :id => "lc_when", :class=> 'required', placeholder: 'Enter Life-Cycle When value' %>
 				<%= link_to "#" do %>
-				<i class="fa fa-question-circle"></i>
+				<i class="icon-question-sign"></i>
 				<% end %>
 			</div>
 		</div>

@@ -6,42 +6,46 @@
 </div>
 
 <div class="container-fluid">
-	<div class="widget-box" style="overflow:hidden;">
-		<div class="widget-title">
-			<ul class="nav nav-tabs">
-				<li class="active">
-					<a data-toggle="tab" href="#cross_cloud_tab">Cross Clouds</a>
-				</li>
-				<li>
-					<a data-toggle="tab" href="#cloud_tools_tab">Cloud Tools</a>
-				</li>
-				<li>
-					<a data-toggle="tab" href="#sshkeys_tab" >SSH Keys</a>
-				</li>
-			</ul>
-		</div>
-		<div class="widget-content tab-content" style="overflow:hidden;">
-			<div id="cross_cloud_tab" class="tab-pane active">
-				<%= render :partial => "cloud_settings/cross_cloud_index" %>
+	<div class="row">
+		<div class="widget-box">
+			<div class="widget-title">
+				<ul class="nav nav-tabs">
+					<li class="active">
+						<a data-toggle="tab" href="#cross_cloud_tab">Cross Clouds</a>
+					</li>
+					<li>
+						<a data-toggle="tab" href="#cloud_tools_tab">Cloud Tools</a>
+					</li>
+					<li>
+						<a data-toggle="tab" href="#sshkeys_tab" >SSH Keys</a>
+					</li>
+				</ul>
 			</div>
-			<div id="cloud_tools_tab" class="tab-pane" style="overflow:hidden;">
-				<%= render :partial => "cloud_settings/cloud_tool_settings" %>
-			</div>
-			<div id="sshkeys_tab" class="tab-pane">
-				<div class="alert alert-info alert-block">
-				<h4 class="alert-heading">Work in Progress</h4>
-				<div>
-					<p class="help-block">
-						<%= image_tag "helpbota.png", :alt => "help bot"%>
-						<strong>Go Ahead </strong>
-						Develop More Application on Cloud
-					</p>
-					<i class="fa fa-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> Cloud Application </span>
-					</br>
+			<div class="widget-content tab-content">
+				<div id="cross_cloud_tab" class="tab-pane active">
+					<%= render :partial => "cloud_settings/cross_cloud_index" %>
+				</div>
+				<div id="cloud_tools_tab" class="tab-pane" style="overflow:hidden;">
+					<%= render :partial => "cloud_settings/cloud_tool_settings" %>
+				</div>
+				<div id="sshkeys_tab" class="tab-pane">
+					<div class="alert alert-info alert-block">
+						<h4 class="alert-heading">Work in Progress</h4>
+						<div>
+							<p class="help-block">
+								<%= image_tag "helpbota.png", :alt => "help bot"%>
+								<strong>Go Ahead </strong>
+								Develop More Application on Cloud
+							</p>
+							<i class="icon-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> Cloud Application </span>
+							</br>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
 </div>
 
 <% end %>
