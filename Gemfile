@@ -36,7 +36,6 @@ gem 'will_paginate','3.0.5'
 gem 'bootstrap-will_paginate','0.0.10'
 gem 'paperclip','3.5.2'
 gem "aws-sdk"
-gem 'high_voltage',"2.0.0"
 gem "therubyracer", :require => 'v8',:platforms => :ruby
 gem "breadcrumbs_on_rails"
 gem "randexp", "~> 0.1.7"
@@ -66,11 +65,14 @@ gem "httparty" # why can't we use faraday
 
 # Gems used only for assets and not required
 # in production environments by default.
-gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
-gem "less-rails", "~> 2.4.2"
-gem 'sass-rails',   '~> 4.0.1'
-gem 'coffee-rails', '~> 4.0.1'
-gem 'uglifier', '>= 2.3.2'
+  #gem 'twitter-bootstrap-rails'
+ gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => "bootstrap3"
+  gem "less-rails", "~> 2.4.2"
+#group :assets do
+  gem 'sass-rails',   '~> 4.0.1'
+  gem 'coffee-rails', '~> 4.0.1'
+  gem 'uglifier', '>= 2.4.0'
+#end
 
 group :test do
   gem 'capybara'

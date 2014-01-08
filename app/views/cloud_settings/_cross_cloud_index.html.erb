@@ -1,123 +1,120 @@
 <div class="widget-box">
 	<div class="widget-title">
-		<span class="icon"> <i class="fa fa-th-list"></i> </span>
+		<span class="icon"> <i class="icon-th-list"></i> </span>
 		<h5>Cross Clouds Management</h5>
 	</div>
 	<div class="widget-content">
-		<div class="container-fluid">
-			<div class="span10">
-				<div class="span3">
-					<div class="cb_box_withpadding">
-						<h4 align="center"> Quota</h4><h3 align="center" ><span class="icon"><i class="fa fa-book"></i></span>&nbsp;<%= @cross_clouds.count %>
-						&nbsp; of 2</h3>
-					</div>
-					<br/>
-					<!--<%= link_to "New Cross Cloud" , cross_cloud_new_path, :class => "btn btn-large btn-success btn-block", :id => 'cross_cloud_new', :remote => true, data: { spinner: '#spin_cross_cloud'} %>
-					<%= spinner_tag 'spin_cross_cloud' %>-->
-					<%= link_to "New Cross Cloud", new_cross_cloud_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
-					<br/>
+		<div class="row">
+			<div class="col-md-3">
+				<div class="cb_box_withpadding">
+					<h4 align="center"> Quota</h4><h3 align="center" ><span class="icon"><i class="icon-book"></i></span>&nbsp;<%= @cross_clouds.count %>
+					&nbsp; of 2</h3>
+				</div>
+				<br/>
+				<!--<%= link_to "New Cross Cloud" , cross_cloud_new_path, :class => "btn btn-large btn-success btn-block", :id => 'cross_cloud_new', :remote => true, data: { spinner: '#spin_cross_cloud'} %>
+				<%= spinner_tag 'spin_cross_cloud' %>-->
+				<%= link_to "New Cross Cloud", new_cross_cloud_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
+				<br/>
 
-					<div class="cb_box">
-						<h4 align="center" >Recent Activity</h4>
-						<h5 align="Center"><span class="icon"> <i class="fa fa-calendar"></i> </span><b><%= @cross_clouds.last[:created_at] %></b></h5>
-						<h5 align="Center"><%= link_to "#{@cross_clouds.last[:name]}", cross_cloud_path(:id => "1", :name => "name"), :remote => true, data: { spinlock: '#crosscloud_current'} %> </h5>
-
-					</div>
-					<br/>
-
-					<%= link_to "Upgrade", pricing_path, class: "btn btn-large btn-inverse btn-block", :target => "_self" %>
+				<div class="cb_box">
+					<h4 align="center" >Recent Activity</h4>
+					<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @cross_clouds.last[:created_at] %></b></h5>
+					<h5 align="Center"><%= link_to "#{@cross_clouds.last[:name]}", cross_cloud_path(:id => "1", :name => "name"), :remote => true, data: { spinlock: '#crosscloud_current'} %> </h5>
 
 				</div>
-				<!-- Span3 -->
+				<br/>
 
-				<div class="span6">
-					<div class="widget-box">
-						<div class="widget-title">
-							<span class="icon"> <i class="fa fa-th-list"></i> </span>
-							<h5>Cross Clouds Usage</h5>
-						</div>
-						<div class="widget-content" overflow-y: scroll;>
-							<% @percent = @cross_clouds.count/2.0*100 %>
-							<div class="row-fluid">
-								<div class="span1">
-									<h3>0</h3>
-								</div>
-								<div class="span10">
+				<%= link_to "Upgrade", pricing_path, class: "btn btn-large btn-inverse btn-block", :target => "_self" %>
+
+			</div>
+			<!-- col-md-3 -->
+			<div class="col-md-1"></div>
+			<div class="col-md-6">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"> <i class="icon-th-list"></i> </span>
+						<h5>Cross Clouds Usage</h5>
+					</div>
+					<div class="widget-content" overflow-y: scroll;>
+						<% @percent = @cross_clouds.count/2.0*100 %>
+						<div class="row">
+							<div class="col-md-1">
+								<h3>0</h3>
+							</div>
+							<div class="col-md-10">
+								<div class="progress">
 									<% if @percent >= 80 %>
-									<div class="progress progress-warning">
-										<div class="bar" style="width: <%= @percent %>%;"></div>
-									</div>
+									<div class="progress-bar progress-bar-warning" style="width: <%= @percent %>%;"></div>
 									<% else %>
-									<div class="progress progress-success">
-										<div class="bar" style="width: <%= @percent %>%;"></div>
-									</div>
+									<div class="progress-bar progress-bar-success" style="width: <%= @percent %>%;"></div>
 									<% end %>
-								</div>
-								<div class="span1">
-									<h3>2</h3>
 								</div>
 							</div>
-
+							<div class="col-md-1">
+								<h3>2</h3>
+							</div>
 						</div>
+
 					</div>
-
-					<div class="widget-box">
-						<div class="widget-title">
-							<span class="icon"> <i class="fa fa-th"></i> </span>
-							<h5>Cross Clouds</h5>
-						</div>
-						<div class="widget-content nopadding">
-							<table class="table table-bordered table-striped table-hover">
-								<thead>
-									<tr>
-										<th>Name</th>
-										<th>Date</th>
-										<th>View</th>
-										<th>Clone</th>
-									</tr>
-								</thead>
-								<tbody>
-									<% @cross_clouds.each do |pre_cl| %>
-									<tr>
-										<td> <%= pre_cl[:name] %></td>
-
-										<td><%= pre_cl[:created_at] %></td>
-										<td> <%= link_to "View", cloud_setting_path(pre_cl[:name], :type => "cross_cloud"), :remote => true, class: "btn btn-mini btn-success" %> </td>
-										<td> <%= link_to "import", "#", class: "btn btn-mini btn-success" %> </td>
-									</tr>
-									<% end %>
-								</tbody>
-
-							</table>
-						</div>
-					</div>
-					<!-- Span6 -->
-
 				</div>
-				<!-- Span10 -->
+
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"> <i class="icon-th"></i> </span>
+						<h5>Cross Clouds</h5>
+					</div>
+					<div class="widget-content nopadding">
+						<table class="table table-bordered table-striped table-hover">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Date</th>
+									<th>View</th>
+									<th>Clone</th>
+								</tr>
+							</thead>
+							<tbody>
+								<% @cross_clouds.each do |pre_cl| %>
+								<tr>
+									<td> <%= pre_cl[:name] %></td>
+
+									<td><%= pre_cl[:created_at] %></td>
+									<td> <%= link_to "View", cloud_setting_path(pre_cl[:name], :type => "cross_cloud"), :remote => true, class: "btn btn-mini btn-success" %> </td>
+									<td> <%= link_to "import", "#", class: "btn btn-mini btn-success" %> </td>
+								</tr>
+								<% end %>
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+				<!-- Span6 -->
+
 			</div>
 		</div>
 	</div>
 </div>
-	<!-- container-fluid -->
+<!-- container-fluid -->
 
-	<div id="cross_cloud_show_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-				×
-			</button>
-			<h3 id="myModalLabel">Cross Cloud View</h3>
-		</div>
-		<div class="modal-body">
-			<div class="alert alert-info">
-				<p>
-					<h4 id="cross_cloud_show"></h4>
-				</p>
+<div id="cross_cloud_show_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">Cross Cloud View</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-info">
+					<p>
+						<h4 id="cross_cloud_show"></h4>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>
 			</div>
 		</div>
-		<div class="modal-footer">
-			<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>			
-		</div>
 	</div>
-
+</div>

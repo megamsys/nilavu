@@ -1,8 +1,8 @@
-/*
- * jQuery wizard plug-in 3.0.5
+/**
+ * @license jQuery wizard plug-in 3.0.7 (18-SEPT-2012)
  *
  *
- * Copyright (c) 2011 Jan Sundman (jan.sundman[at]aland.net)
+ * Copyright (c) 2012 Jan Sundman (jan.sundman[at]aland.net)
  *
  * http://www.thecodemine.org
  *
@@ -63,6 +63,10 @@
 					}
 				}
 			});
+			
+			if (this.options.historyEnabled) {
+				$.bbq.removeState("_" + $(this.element).attr('id'));
+			}
 
 			this.steps = this.element.find(".step").hide();
 
@@ -329,7 +333,10 @@
 				this.previousStep = this.currentStep;
 				this._checkIflastStep(step);
 				this.currentStep = step;
-				var stepShownCallback = function(){if(triggerStepShown)$(this.element).trigger('step_shown', $.extend({"isBackNavigation" : backwards},this._state()));};
+				var stepShownCallback = function(){if(triggerStepShown){$(this.element).trigger('step_shown', $.extend({"isBackNavigation" : backwards},this._state()));}}
+				if(triggerStepShown){
+					$(this.element).trigger('before_step_shown', $.extend({"isBackNavigation" : backwards},this._state()));
+				}
 				this._animate(this.previousStep, step, stepShownCallback);
 			};
 
@@ -419,6 +426,7 @@
 
 		update_steps : function(){
 			this.steps = this.element.find(".step").addClass("ui-formwizard-content");
+			this.firstStep = this.steps.eq(0).attr("id");
 			this.steps.not("#" + this.currentStep).hide().find(":input").addClass("ui-wizard-content").attr("disabled","disabled");
 			this._checkIflastStep(this.currentStep);
 			this._enableNavigation();

@@ -1,5 +1,5 @@
 Cloudauth::Application.routes.draw do
-  root :to => 'high_voltage/pages#show', :id => 'home'
+  root :to => 'sessions#new', :id => 'signin'
 
   resources :users
   resources :sessions
@@ -33,28 +33,21 @@ Cloudauth::Application.routes.draw do
     match '/data_sources', to: 'data_sources#index', via: [:get, :post]
   end
 
-  # =======Static pages served via high_voltage
-  get 'pages/get_started' => 'high_voltage/pages#show', :id => 'get_started'
-  get 'pages/features' => 'high_voltage/pages#show', :id => 'features'
-  get 'pages/about' => 'high_voltage/pages#show', :id => 'about'
-  get 'pages/contribute' => 'high_voltage/pages#show', :id => 'contribute'
-  # to-do: move it as a static page for pricing.
+  
+  #Cloud Books
+  match '/new_book', to: 'cloud_books#new_book', via: [:get, :post]
+  match '/get_request', to: 'cloud_books#get_request', via: [:get, :post]
+  match '/build_request', to: 'cloud_books#build_request', via: [:get, :post]
+  match '/send_request', to: 'cloud_books#send_request', via: [:get, :post]
+  match '/clone_build', to: 'cloud_books#clone_build', via: [:get, :post]
+  match '/clone_start', to: 'cloud_books#clone_start', via: [:get, :post]
+# to-do: move it as a static page for pricing.
   get '/pricing' => 'billing#pricing'
   # to-do: this is more like creating a new billing account
   get '/account' => 'billing#account'
   # to-do: this is showing the index of billed_history (make it a separate controller)
   get '/history' => 'billing#history'
   get '/upgrade' => 'billing#upgrade'
-  #users
-  match '/worker', to: 'users#worker', via: [:get, :post]
-
-  #Cloud Books
-  match '/new_book', to: 'cloud_books#new_book', via: [:get, :post]
-  match '/build_request', to: 'cloud_books#build_request', via: [:get, :post]
-  match '/send_request', to: 'cloud_books#send_request', via: [:get, :post]
-  match '/clone_build', to: 'cloud_books#clone_build', via: [:get, :post]
-  match '/clone_start', to: 'cloud_books#clone_start', via: [:get, :post]
-
   # ...
   #mount Sidekiq::Web, at: '/worker'
 
@@ -97,12 +90,12 @@ Cloudauth::Application.routes.draw do
   match '/deccanplato', to: 'connector_projects#deccanplato', via: [:get, :post]
   match '/import', to: 'connector_projects#import', via: [:get, :post]
   match '/resource', to: 'connector_projects#resource', via: [:get, :post]
-  #  match '/connector_project/destroy', to: 'connector_projects#destroy'
-  #  match '/connector_project/create', to: 'connector_projects#create'
-  #  match '/connector_project/upload', to: 'connector_projects#upload'
-  #  match '/connector_project/import', to: 'connector_projects#import'
-  #  match '/connector_execution/export', to: 'connector_executions#export'
-  #  match '/connector_execution/execute', to: 'connector_executions#execute'
+  # match '/connector_project/destroy', to: 'connector_projects#destroy'
+  # match '/connector_project/create', to: 'connector_projects#create'
+  # match '/connector_project/upload', to: 'connector_projects#upload'
+  # match '/connector_project/import', to: 'connector_projects#import'
+  # match '/connector_execution/export', to: 'connector_executions#export'
+  # match '/connector_execution/execute', to: 'connector_executions#execute'
 
   # ==========Cloud settings
   match '/cross_cloud_new', to: 'cloud_settings#cross_cloud_new', via: [:get, :post]
@@ -112,7 +105,7 @@ Cloudauth::Application.routes.draw do
   #get '/selectclouds' => 'cloud_settings#cloud_selector'
   #match '/selectclouds', to: 'cross_clouds#new', via: [:get, :post]
 
-  #   =======Error controller
+  # =======Error controller
   get "/404", :to => "errors#not_found"
   #get "/422", :to => "errors#unacceptable"
   get "/500", :to => "errors#internal_error"

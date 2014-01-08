@@ -5,143 +5,154 @@
 	<%= render_breadcrumbs %>
 </div>
 <div class="container-fluid">
-	<div class="widget-content nopadding">
+	<div class="row">
+		<div class="widget-content nopadding">
 
-		<%= form_tag(new_store_path, :method => "post", :name => "store") do %>
+			<%= form_tag(new_store_path, :method => "post", :name => "store") do %>
 
-		<div id="form-wizard-1" class="step">
-			<div class="widget-box">
-				<div class="widget-title">
-					<span class="icon"> <i class="fa fa-th-list"></i> </span>
-					<h5>Cloud Store - Bolts</h5>
-				</div>
-				<div class="row-fluid">
-					<div class="span12">
-						<div class="widget-content">
-							<p class="help-block">
-								<strong><span class="label label-info">*selection</span> Select any one cloud store model </strong>
-							</p>
-							</br>
-
-							<div class="row-fluid">
-								<div id="new_db1" class="required">
-									<div class="span6">
-										<%= radio_button_tag :db_model, 'full' %>
-										<%= label :full, 'Full' do %>
-										<h3><i class="fa fa-folder-o"></i> Full</h3>
-										<span class="label label-info">*all yours</span> Cloud PostgreSQL only for You </strong>
-										<% end %>
-									</div>
-									<div class="span6">
-
-										<%= label :multitenant, 'Multitenant' do %>
-										<%= radio_button_tag :db_model, 'multitenant', false, disabled: true %>
-										<h3><i class="fa fa-envelope-o"></i> Multitenant</h3> 										<span class="label label-important">work in progress</span>
-
-										<span class="label label-info">*shared</span> Clustered, highly available Cloud PostgreSQL</strong>
-										<% end %>
-
-									</div>
-								</div>
-							</div>
-							<div class="row-fluid">
+			<div id="form-wizard-1" class="step">
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"> <i class="icon-th-list"></i> </span>
+						<h5>Cloud Store - Bolts</h5>
+					</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="widget-content">
+								<p class="help-block">
+									<strong><span class="label label-info">*selection</span> Select any one cloud store model </strong>
+								</p>
 								</br>
-								<div class="alert alert-info alert-block">
-									<a href="http://support.megam.co" target="_blank"> <h5><i class="fa fa-question"></i> Tell me more about these options</h5> We are here to help
-									<div class="arrow-right">
-										<i class="fa fa-chevron-right"></i>
-									</div> </a>
-								</div>
-							</div>
-							<br/>
-							<hr/>
 
-							<p class="help-block">
-								<strong><span class="label label-info">*selection</span> Select any one store </strong>
-							</p>
-							</br>
-
-							<div class="row-fluid">
-								<div id="platformapps" class="required">
-									<div id="new_db2" class="required">
-										<div class="span3">
-											<%= radio_button_tag :dbms, 'postgresql' %>
-											<%= label :platform, 'postgresql' do %>
-											<i class="logo_postgresql"></i>
-											<% end %>
-											<%= radio_button_tag :dbms, 'riak' %>
-											<%= label :platform, 'riak' do %>
-											<i class="logo_riak"></i>
+								<div class="row">
+									<div class="col-md-12">
+									<div id="new_db1" class="required">
+										<div class="col-md-6">											
+											<%= label :full, 'Full' do %>
+											<%= radio_button_tag :db_model, 'full' %>
+											<h3><i class="icon-folder-open"></i> Full</h3>
+											<span class="label label-info">*all yours</span> Cloud PostgreSQL only for You </strong>
 											<% end %>
 										</div>
-										<div class="span3">
-											<%= radio_button_tag :dbms, 'redis' %>
-											<%= label :platform, 'redis' do %>
-											<i class="logo_redis"></i>
+										<div class="col-md-6">											
+											<%= label :multitenant, 'Multitenant' do %>			
+											<%= radio_button_tag :db_model, 'multitenant', false, disabled: true %>								
+											<h3><i class="icon-envelope"></i> Multitenant</h3><span class="label label-primary">work in progress</span>
+											<span class="label label-info">*shared</span> Clustered, highly available Cloud PostgreSQL</strong>
 											<% end %>
 										</div>
 									</div>
-								</div>
-								<div class="span6">
-									<div class="row-fluid">
-										<div id="scalebooks">
-											<div class="alert alert-success">
-												<i class="fa fa-info-circle"></i> Scale store
-											</div>
-											<div class="overflow">
-												<table class="table table-condensed">
-													<thead>
-														<tr>
-															<th>My Stores</th>
-															<th><a href="#" rel="tooltip" title="max 2 (*beta)" class='info'>Instances <i class="fa fa-info-circle"></i></a></th>
-															<th><i class="fa fa-trash-o"></i></th>
-														</tr>
-													</thead>
-													<tbody></tbody>
-												</table>
-											</div>
-										</div>
-										</br>
-
-										<div class="row-fluid">
-											<div class="alert alert-info alert-block">
-												<a class="close" data-dismiss="alert" href="#">×</a>
-												<i class="fa fa-check-square-o"></i>
-												<span class="badge badge-success books_total">0</span>
-
-												<input type="hidden" id="cb_count" name="no_of_instances" value="<%= @books_count %>">
-
-												&nbsp; Instance(s) Of: &nbsp;
-												<span class="badge badge-important">
-													<div id="selected_platformapp">
-														<h3>none</h3>
-													</div></span>
-											</div>
-
-											<a href="http://support.megam.co" target="_blank"> <h5><i class="fa fa-question"></i> Your platform isn't here?</h5> We are here to help
-											<div class="arrow-right">
-												<i class="fa fa-chevron-right"></i>
-											</div> </a>
-										</div>
-
 									</div>
 								</div>
-							</div>
+								<div class="row">
+									</br>
+									<div class="alert alert-info alert-block">
+										<a href="http://support.megam.co" target="_blank"> <h5><i class="icon-question-sign"></i> Tell me more about these options</h5> We are here to help
+										<div class="arrow-right">
+											<i class="icon-chevron-right"></i>
+										</div> </a>
+									</div>
+								</div>
+								<br/>
+								<hr/>
 
+								<p class="help-block">
+									<strong><span class="label label-info">*selection</span> Select any one store </strong>
+								</p>
+								</br>
+
+								<div class="row">
+									<div class="col-md-6">
+										<div id="platformapps" class="required">
+											<div id="new_db2" class="required">
+												<div class="row">
+													<div class="col-md-6">														
+														<%= label :platform, 'postgresql' do %>
+														<%= radio_button_tag :dbms, 'postgresql' %>
+														<i class="logo_postgresql"></i>
+														<% end %>
+													</div>
+													<div class="col-md-6">														
+														<%= label :platform, 'riak' do %>
+														<%= radio_button_tag :dbms, 'riak' %>
+														<i class="logo_riak"></i>
+														<% end %>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-6">														
+														<%= label :platform, 'redis' do %>
+														<%= radio_button_tag :dbms, 'redis' %>
+														<i class="logo_redis"></i>
+														<% end %>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="row">
+											<div id="scalebooks">
+												<div class="alert alert-success">
+													<i class="icon-info-sign"></i> Scale store
+												</div>
+												<div class="overflow">
+													<table class="table table-condensed">
+														<thead>
+															<tr>
+																<th>My Stores</th>
+																<th><a href="#" rel="tooltip" title="max 2 (*beta)" class='info'>Instances <i class="icon-info-sign"></i></a></th>
+																<th><i class="icon-trash"></i></th>
+															</tr>
+														</thead>
+														<tbody></tbody>
+													</table>
+												</div>
+											</div>
+											</br>
+
+											<div class="row">
+												<div class="alert alert-info alert-block">
+													<a class="close" data-dismiss="alert" href="#">×</a>
+													<i class="icon-check-sign"></i>
+													<span class="badge badge-success books_total">0</span>
+
+													<input type="hidden" id="cb_count" name="no_of_instances" value="<%= @books_count %>">
+
+													&nbsp; Instance(s) Of: &nbsp;
+													<span class="badge badge-important">
+														<div id="selected_platformapp">
+															<h3>none</h3>
+														</div></span>
+												</div>
+
+												<a href="http://support.megam.co" target="_blank"> <h5><i class="icon-question-sign"></i> Your platform isn't here?</h5> We are here to help
+												<div class="arrow-right">
+													<i class="icon-chevron-right"></i>
+												</div> </a>
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row-fluid">
-			<div class="span4"></div>
-			<div class="span4">
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
 				<%= submit_tag "Next", :class => "btn btn-large btn-success btn-block", :id => "db_next", :disabled => true, :remote => true, :data => { :disable_with => "Please wait..."}, title: 'Please select your application platform and then click Next', rel: 'tooltip' %>
 				<% end %>
+				<br/>
 			</div>
-			<div class="span4"></div>
+			<div class="col-md-4"></div>
 		</div>
 	</div>
 
-	<% end %>
-	<%= render :template => users_show_path %>
+</div>
+<% end %>
+<%= render :template => users_show_path %>

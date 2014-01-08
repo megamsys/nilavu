@@ -5,275 +5,281 @@
 	<%= render_breadcrumbs %>
 </div>
 <div class="container-fluid">
+	<div class="row">
+		<%= form_for @book, :html => {:multipart => true }, :remote => true, :method => 'post' do |f| %>
 
-	<%= form_for @book, :html => {:multipart => true }, :remote => true, :method => 'post' do |f| %>
-
-	<div class="widget-box">
-		<div class="widget-title">
-			<span class="icon"> <i class="fa fa-th-list"></i> </span>
-			<h5>Platform Selected</h5>
-		</div>
-		<div class="widget-content">
-			<div class="control-group">
-				<div class="controls">
-					<div class="row-fluid">
-						<div class="span12">
-							<p class="help-block">
-								<strong><span class="label label-info">Platform launch</span> How does it happen ?</strong>
-								<%= link_to " For more information",   "http://docs.megam.co", { :target => '_blank'} %>
-							</p>
-						</div>
-					</div>
-
-					<div class="row-fluid">
-						<div class="span6 offset1">
-							<div class="row-fluid">
-								<div class="span3">
-									<i class="logo_chef"></i>
-								</div>
-								<div class="span4 offset2">
-									<span class="badge badge-success"><%= @predef.provider_role.capitalize %>&nbsp;&nbsp; </span>
-									<span class="label label-important">launched in cloud&nbsp; </span>
-									</br>
-									<%= image_tag "lamda_cloud.png", :alt => "lamda cloud" , :size =>"200X200"%>
-								</div>
+		<div class="widget-box">
+			<div class="widget-title">
+				<span class="icon"> <i class="icon-th-list"></i> </span>
+				<h5>Platform Selected</h5>
+			</div>
+			<div class="widget-content">
+				<div class="control-group">
+					<div class="controls">
+						<div class="row">
+							<div class="col-md-12">
+								<p class="help-block">
+									<strong><span class="label label-info">Platform launch</span> How does it happen ?</strong>
+									<%= link_to " For more information",   "http://docs.megam.co", { :target => '_blank'} %>
+								</p>
 							</div>
 						</div>
-						<div class="span4">
-							<%= image_tag "lamda.png", :alt => "lamda functional" , :size =>"200X200"%>
-						</div>
-						<div class="span4">
-							<span class="label label-important"> Continious Integration using </span>
-							<span class="badge badge-success block"><%= @predef.build_monkey %></span>
 
+						<div class="row">
+							<div class="col-md-2">
+								<br/>
+								<br/>
+								<br/>
+								</br/>
+								<i class="logo_chef"></i>
+							</div>
+							<div class="col-md-4">
+								<span class="badge badge-success"><%= @predef.provider_role.capitalize %>&nbsp;&nbsp; </span>
+								<span class="label label-primary">launched in cloud&nbsp; </span>
+								</br>
+								<%= image_tag "lamda_cloud.png", :alt => "lamda cloud" , :size =>"100X100"%>
+							</div>
+							<div class="col-md-3">
+								<br/>
+								<%= image_tag "lamda.png", :alt => "lamda functional" , :size =>"100X100"%>
+							</div>
+							<div class="col-md-3">
+								<span class="label label-primary"> Continious Integration using </span>
+								<span class="badge badge-success block"><%= @predef.build_monkey %></span>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="row-fluid"  ng-controller="CloudBooksCtrl">
-			<div class="span12">
-				<% @new_book_name = book_name %>
-				<div class="widget-box">
-					<div class="widget-title">
-						<span class="icon"> <i class="fa fa-th-list"></i> </span>
-						<h5>Cloud Book Name</h5>
+
+		<div class="row"  ng-controller="CloudBooksCtrl">
+			<% @new_book_name = book_name %>
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Cloud Book Name</h5>
+				</div>
+				<div class="widget-content">
+					<p class="help-block">
+						<strong><span class="label label-warning">*optional</span> Click on the default book name to change it</strong>
+					</p>
+					</br>
+					<div class="col-md-12">
+						<div class="col-md-7">
+							<a class="btn btn-lg btn-primary disabled btn-block" data-name="book_name" data-type="text" href="#" id="identity_new" ><%= @new_book_name %></a>
+						</div>
+						<div class = "col-md-4">
+							<%= link_to  @domain_name, "#", :class => "btn btn-lg btn-primary disabled btn-block", :id => 'domain'%>
+						</div>
 					</div>
-					<div class="widget-content">
+					<br/>
+					<br/>
+					<br/>
+
+					<%= f.text_field :name, :type => 'hidden', :id=> 'changename', :value => @new_book_name %>
+					<%= f.text_field :domain_name, :type => 'hidden', :value => @domain_name %>
+				</div>
+			</div>
+		</div>
+		<div class="row" >
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Cross Cloud Selection</h5>
+				</div>
+				<div class="widget-content">
+					<div class="control-group">
 						<p class="help-block">
-							<strong><span class="label label-warning">*optional</span> Click on the default book name to change it</strong>
+							<strong><span class="label label-info">Default</span> Cross cloud. You can create your own.</strong>
+							<%= link_to "For more information",   "http://docs.megam.co", { :target => '_blank'} %>
 						</p>
-						</br>
-						<div class="span12">
-							<div class="span7">
-								<a class="btn btn-large btn-primary disabled btn-block" data-name="book_name" data-type="text" href="#" id="identity_new" ><%= @new_book_name %></a>
-							</div>
-							<div class = "span4">
-								<%= link_to  @domain_name, "#", :class => "btn btn-large btn-primary disabled btn-block", :id => 'domain'%>
-							</div>
-						</div>
-						<br/>
-						<br/>
-						<br/>
-
-						<%= f.text_field :name, :type => 'hidden', :id=> 'changename', :value => @new_book_name %>
-						<%= f.text_field :domain_name, :type => 'hidden', :value => @domain_name %>
+						<p>
+							<%= f.select :predef_cloud_name, options_for_select(@predef_cloud.map{ |c| [c.name] }) %>
+						</p>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<div class="widget-box">
-			<div class="widget-title">
-				<span class="icon"> <i class="fa fa-th-list"></i> </span>
-				<h5>Cross Cloud Selection</h5>
-			</div>
-			<div class="widget-content">
-				<div class="control-group">
-					<p class="help-block">
-						<strong><span class="label label-info">Default</span> Cross cloud. You can create your own.</strong>
-						<%= link_to "For more information",   "http://docs.megam.co", { :target => '_blank'} %>
-					</p>
-					<p>
-						<%= f.select :predef_cloud_name, options_for_select(@predef_cloud.map{ |c| [c.name] }) %>
-					</p>
+		<div class="row">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Application Definitions</h5><strong><span class="label label-info"><%= current_user.user_type %> user</span> </strong>
 				</div>
-			</div>
-		</div>
-
-		<div class="widget-box">
-			<div class="widget-title">
-				<span class="icon"> <i class="fa fa-th-list"></i> </span>
-				<h5>Application Definitions</h5><strong><span class="label label-info"><%= current_user.user_type %> user</span> </strong>
-			</div>
-			<div class="widget-content">
-				<div class="control-group">
-					<p class="help-block">
-						<strong><span class="label label-info">Default</span> application definition.</strong>
-						<%= link_to "For more information",   "http://docs.megam.co", { :target => '_blank'} %>
-					</p>
-					<table class="table table-bordered table-hover">
-						<thead></thead>
-						<tbody>
-							<tr>
-								<div class="row-fluid">
-									<div class="span12">
-										<div class="span5">
-											<i class="fa fa-bar-chart-o"></i><span>
-												<p>
-													Want us to monitor ?
-												</p></span>
+				<div class="widget-content">
+					<div class="control-group">
+						<p class="help-block">
+							<strong><span class="label label-info">Default</span> application definition.</strong>
+							<%= link_to "For more information",   "http://docs.megam.co", { :target => '_blank'} %>
+						</p>
+						<table class="table table-bordered table-hover">
+							<thead></thead>
+							<tbody>
+								<tr>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="col-md-5">
+												<i class="icon-bar-chart"></i><span>
+													<p>
+														Want us to monitor ?
+													</p></span>
+											</div>
+											<div class = "col-md-3">
+												<div class="back" id="toggle">
+													<br/>
+													<%= hidden_field_tag 'monitoring', "" %>
+													<%= check_box_tag 'monitoring', "megam" %>
+													Yes
+												</div>
+											</div>
+											<div class = "col-md-4"></div>
 										</div>
-										<div class = "span3">
-											<div class="back" id="toggle">
-												<br/>
-												<%= hidden_field_tag 'monitoring', "" %>
-												<%= check_box_tag 'monitoring', "megam" %>
-												Yes
+									</div>
+								</tr>
+								<tr>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="col-md-5">
+												<i class="icon-exchange"></i><span>
+													<p>
+														Want us to stream logs ?
+													</p></span>
+											</div>
+											<div class = "col-md-3">
+												<div class="back" id="toggle">
+													<br/>
+													<%= hidden_field_tag 'logging', "" %>
+													<%= check_box_tag 'logging', "megam" %>
+													Yes
+												</div>
+											</div>
+											<div class = "col-md-4">
+
 											</div>
 										</div>
-										<div class = "span4"></div>
 									</div>
-								</div>
-							</tr>
-							<tr>
-								<div class="row-fluid">
-									<div class="span12">
-										<div class="span5">
-											<i class="fa fa-exchange"></i><span>
+								</tr>
+								<tr>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="col-md-5">
+												<i class="icon-edit"></i>
 												<p>
-													Want us to stream logs ?
-												</p></span>
-										</div>
-										<div class = "span3">
-											<div class="back" id="toggle">
+													<span class="label label-warning"> *optional</span>
+													<span> Wish to change start script </span>
+												</p>
+											</div>
+											<div class="col-md-7">
 												<br/>
-												<%= hidden_field_tag 'logging', "" %>
-												<%= check_box_tag 'logging', "megam" %>
-												Yes
+												<%= text_field_tag 'runtime_exec', "#{@predef.runtime_exec}", placeholder: 'Modify runtime exec - script' %>
 											</div>
 										</div>
-										<div class = "span4">
+									</div>
+								</tr>
+								<tr>
+									<div class="row">
+										<div class="col-md-12">
+											<div class="col-md-5">
+												<i class="icon-beer"></i>
+												<p>
+													<span class="label label-warning"> *free - run for a day</span>
+													<span>Your Start Time</span>
 
+												</p>
+
+											</div>
+											<div class="col-md-7">
+												</br>
+												<%= text_field_tag 'timetokill', "#{Time.now.to_formatted_s(:rfc822)}", :readonly => true %>
+											</div>
 										</div>
 									</div>
-								</div>
-							</tr>
-							<tr>
-								<div class="row-fluid">
-									<div class="span12">
-										<div class="span5">
-											<i class="fa fa-edit"></i>
-											<p>
-												<span class="label label-warning"> *optional</span>
-												<span> Wish to change start script </span>
-											</p>
-										</div>
-										<div class="span7">
-											<br/>
-											<%= text_field_tag 'runtime_exec', "#{@predef.runtime_exec}", placeholder: 'Modify runtime exec - script' %>
-										</div>
-									</div>
-								</div>
-							</tr>
-							<tr>
-								<div class="row-fluid">
-									<div class="span12">
-										<div class="span5">
-											<i class="fa fa-beer"></i>
-											<p>
-												<span class="label label-warning"> *free - run for a day</span>
-												<span>Your Start Time</span>
-
-											</p>
-
-										</div>
-										<div class="span7">
-											</br>
-											<%= text_field_tag 'timetokill', "#{Time.now.to_formatted_s(:rfc822)}", :readonly => true %>
-										</div>
-									</div>
-								</div>
-							</tr>
-						</tbody>
-					</table>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+	<% @predef_hash = {} %>
+	<% @predef_cloud.each do |k| %>
+	<% @predef_hash = @predef_hash.merge(@predef) %>
+	<% end %>
 
-		<% @predef_hash = {} %>
-		<% @predef_cloud.each do |k| %>
-		<% @predef_hash = @predef_hash.merge(@predef) %>
-		<% end %>
+	<% @predef_hash.each do |key,value| %>
+	<%= hidden_field_tag "predef[#{key}]",value %>
 
-		<% @predef_hash.each do |key,value| %>
-		<%= hidden_field_tag "predef[#{key}]",value %>
+	<% end %>
 
-		<% end %>
+	<%= f.text_field :predef_name, :type => 'hidden', :value => @predef_name %>
+	<%= f.text_field :book_type, :type => 'hidden', :value => "APP" %>
+	<input type="hidden" name="no_of_instances" value="<%= @no_of_instances %>">
+	<input type="hidden" name='deps_scm' value="<%= @deps_scm %>">
+	<input type="hidden" name="deps_war" value="<%= @deps_war %>">
 
-		<%= f.text_field :predef_name, :type => 'hidden', :value => @predef_name %>
-		<%= f.text_field :book_type, :type => 'hidden', :value => "APP" %>
-		<input type="hidden" name="no_of_instances" value="<%= @no_of_instances %>">
-		<input type="hidden" name='deps_scm' value="<%= @deps_scm %>">
-		<input type="hidden" name="deps_war" value="<%= @deps_war %>">
-
-		<div class="row-fluid">
-			<div class="span4"></div>
-			<div class="span4 container-fluid">
-				<%= f.submit nil, :class => "btn btn-large btn-success btn-block", :data =>
-        {:disable_with => "Creating Book..."} %>
-				<% end %>
-			</div>
-			<div class="span4"></div>
-
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4 container-fluid">
+			<%= f.submit nil, :class => "btn btn-lg btn-success btn-block", :data =>
+      {:disable_with => "Creating Book..."} %>
+			<% end %>
+			<br/>
+			</br/>
 		</div>
+		<div class="col-md-4"></div>
+	</div>
 
-		<div id="cloudbook_postfinish_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div id="cloudbook_postfinish_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						×
+					</button>
+					<h3 id="myModalLabel">Cloud Book</h3>
+				</div>
+				<div class="modal-body">
+					<div class="alert alert-success">
 
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					×
-				</button>
-				<h3 id="myModalLabel">Cloud Book</h3>
-			</div>
-			<div class="modal-body">
-				<div class="alert alert-success">
-
-					<p>
-						A cloud book creation request to the megam cloud gateway was successful.
-						</br>
-						<strong>Click<span class="label label-info">&nbsp; OK &nbsp;</span>&nbsp; to watch the status Real Time</strong>
-					</p>
+						<p>
+							A cloud book creation request to the megam cloud gateway was successful.
+							</br>
+							<strong>Click<span class="label label-info">&nbsp; OK &nbsp;</span>&nbsp; to watch the status Real Time</strong>
+						</p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary", :target => "_self" %>
 				</div>
 			</div>
-			<div class="modal-footer">
-				<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary", :target => "_self" %>
-			</div>
 		</div>
+	</div>
+	<div id="cloudbook_postfinish_popup_error" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						×
+					</button>
+					<h3 id="myModalLabel">Cloud Book</h3>
+				</div>
+				<div class="modal-body">
+					<div class="alert alert-danger">
 
-		<div id="cloudbook_postfinish_popup_error" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					×
-				</button>
-				<h3 id="myModalLabel">Cloud Book</h3>
-			</div>
-			<div class="modal-body">
-				<div class="alert alert-error">
-
-					<p>
-						A cloud book creation request to the megam cloud gateway was not successful.
-						</br>
-						<div id="err_msg"></div>
-					</p>
+						<p>
+							A cloud book creation request to the megam cloud gateway was not successful.
+							</br>
+							<div id="err_msg"></div>
+						</p>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<%= link_to  "Ok", new_cloud_book_path, :class => "btn btn-primary", :target => "_self" %>
 				</div>
 			</div>
-			<div class="modal-footer">
-				<%= link_to  "Ok", new_cloud_book_path, :class => "btn btn-primary", :target => "_self" %>
-			</div>
 		</div>
-
 	</div>
 	<% end %>
 	<%= render :template => users_show_path %>

@@ -13,10 +13,11 @@
  *= require dataTables/jquery.dataTables
  *= require dataTables/jquery.dataTables.bootstrap
  *= require bootstrap-editable
- *= require gritter
- *= require uniform 
  *= require select2 
- *= require dashboard.main
+ *= require unicorn.main
+ *= require unicorn.grey 
+ *= require icheck/flat/blue
+ *= require gritter 
  *= require flexslider 
  *= require_tree . 
 */

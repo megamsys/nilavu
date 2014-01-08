@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   respond_to :html, :js
-
+  include UsersHelper
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
   before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: :destroy
@@ -70,8 +70,8 @@ class UsersController < ApplicationController
       configure_api(@user.email, api_token)
       options = { :id => @user.id, :email => @user.email, :api_key => api_token, :authority => "admin" }
       res_body = CreateAccounts.perform(options)
-      dash(params[:user][:first_name])
-
+      dash(params[:user][:first_name])   
+      
       if !(res_body.class == Megam::Error)
         #update current user as onboard user(megam_api user)
         logger.debug "==> Controller: users, Action: create, User onboarded successfully"
@@ -80,8 +80,8 @@ class UsersController < ApplicationController
       else
         logger.debug "==> Controller: users, Action: create, User onboard was not successful"
         redirect_to dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onbodard #{@user.email}. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-      end
-      sign_in @user
+      end  
+      sign_in @user    
     else
       @user= User.find_by_email(params[:user][:email])
       if(@user)
@@ -115,7 +115,7 @@ class UsersController < ApplicationController
     @user_fields_form_type = params[:user_fields_form_type]
     if @user_fields_form_type == 'api_key'
       logger.debug "User update For API key"
-      api_token = generated_api_token
+      api_token = generate_api_token
       options = { :id => current_user.id, :email => current_user.email, :api_key => api_token,
         :authority => "admin" }
       @res_body = CreateAccounts.perform(options)

@@ -1,0 +1,198 @@
+/**
+ * Unicorn Admin Template
+ * Version 2.0.2
+ * Diablo9983 -> diablo9983@gmail.com
+**/
+html, body {
+    width: 100%;
+    height: 100%;    
+}
+body {
+	background-color: #444444;
+	background-image: -webkit-gradient(linear, 0 0%, 0 100%, from(#555555), to(#111111));
+	background-image: -webkit-linear-gradient(top, #555555 0%, #111111 100%);
+    background-image: -moz-linear-gradient(top, #555555 0%, #111111 100%);
+    background-image: -ms-linear-gradient(top, #555555 0%, #111111 100%);
+    background-image: -o-linear-gradient(top, #555555 0%, #111111 100%);
+    background-image: linear-gradient(top, #555555 0%, #111111 100%);
+    background-position: fixed;
+    padding: 0;
+    margin: 0;
+}
+
+#container {
+    top: 0;
+    position: absolute;
+    left: 50%;
+    margin-left: -200px;
+    margin-top: 50px;
+}
+
+#logo, #loginbox, #loginbox_password_reset, #login_register_form  {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+#logo {
+    padding: 20px 0 20px 5px;
+}
+#logo img {
+    width: 215px;
+    margin: 0 auto;
+    display: block;
+}
+
+#loginbox  {
+    height: 280px;
+	background: #ffffff;
+    box-shadow: 0 0 4px #000000;
+    border-radius: 7px;
+    overflow: hidden !important;
+    text-align: center;
+    position: relative;   
+}
+
+#loginbox_password_reset {
+	 height: 170px;
+	background: #ffffff;
+    box-shadow: 0 0 4px #000000;
+    border-radius: 7px;
+    overflow: hidden !important;
+    text-align: center;
+    position: relative;  
+}
+
+#login_register_form {
+	height:350px;
+	background: #ffffff;
+    box-shadow: 0 0 4px #000000;
+    border-radius: 7px;
+    overflow: hidden !important;
+    text-align: center;
+    position: relative; 
+}
+
+#loginbox form, #login_register_form form, #loginbox_password_reset form {
+	width:100%;
+	height:100%;
+	position:absolute;
+	top:0;
+	left:0;
+}
+#loginbox p, #login_register_form p, #loginbox_password_reset p {
+    margin-top: 15px;
+    padding: 0 20px;
+}
+
+#loginbox .form-actions, #login_register_form .form-actions, #loginbox_password_reset .form-actions{
+	padding: 14px 20px 15px;
+    border-radius: 0 0 30px 30px;
+}
+#loginbox .form-actions .pull-left, #login_register_form .form-actions .pull-left, #loginbox_password_reset .form-actions .pull-left{
+	margin-top:-1px;
+    text-align: left;
+}
+#loginbox .form-actions .pull-right, #login_register_form .form-actions .pull-right, #loginbox_password_reset .form-actions .pull-right{
+    margin-top: 2px;
+}
+#loginbox form#loginform, #login_register_form form#loginform, #loginbox_password_reset form#loginform{
+	z-index: 200;
+}
+
+#loginbox form#recoverform, #login_register_form form#recoverform, #loginbox_password_reset form#recoverform{
+	z-index: 100;
+	opacity: 0;
+    display:none;
+}
+#loginbox form#registerform, #login_register_form form#registerform, #loginbox_password_reset form#registerform {
+    z-index: 100;
+    opacity: 0;
+    display:none;
+}
+
+/*
+#loginbox form#recoverform .form-actions {
+    margin-top: 27px;
+}*/
+
+#loginbox form#recoverform .control-group, #login_register_form form#recoverform .control-group, #loginbox_password_reset form#recoverform .control-group{
+	margin: 23px 0;
+}
+
+.input-group {
+    padding: 0 20px 5px;
+}
+
+.row {
+    margin: 0 15px;
+}
+.row.or-login {
+    margin: 0;
+    position: relative;
+}
+.row.or-login:before {
+    border-top: 1px dotted #ddd;
+    content: "";
+    display: block;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 55%;
+    z-index: -1;
+}
+.row.or-login span {
+    background-color: #fff;
+    padding: 0 5px;
+}
+.btn-social .btn i {
+    border-right: 1px solid #ffffff;
+    padding: 10px 10px 9px 10px;
+    margin-left:-10px;
+    margin-right: 8px;
+}
+.btn-social .btn.btn-primary i {
+    border-right-color: #357EBD;
+} 
+.btn-social .btn.btn-primary:hover i,
+.btn-social .btn.btn-primary:focus i,
+.btn-social .btn.btn-primary:active i,
+.btn-social .btn.btn-primary.active i {
+    border-right-color: #285E8E;
+}
+.btn-social .btn.btn-info i {
+    border-right-color: #46B8DA;
+} 
+.btn-social .btn.btn-info:hover i,
+.btn-social .btn.btn-info:focus i,
+.btn-social .btn.btn-info:active i,
+.btn-social .btn.btn-info.active i {
+    border-right-color: #269ABC;
+}
+.btn-social .btn.btn-danger i {
+    border-right-color: #D43F3A;
+} 
+.btn-social .btn.btn-danger:hover i,
+.btn-social .btn.btn-danger:focus i,
+.btn-social .btn.btn-danger:active i,
+.btn-social .btn.btn-danger.active i {
+    border-right-color: #AC2925;
+}
+hr {
+    margin: 8px 0 -5px;
+}
+@media (max-width: 480px){
+    #container {
+        margin: 50px 5% 0;
+        left: auto;
+        width: 90%;
+    }
+    #logo, #loginbox, #login_register_form, #loginbox_password_reset {
+        width: 100%;
+    }
+    @media (max-width: 420px) {
+        body {
+            font-size: 12px;
+        }
+    }
+}
