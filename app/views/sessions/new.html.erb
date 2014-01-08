@@ -4,7 +4,7 @@
 
 <div id="container">
         <div id="logo">
-        <%= image_tag "logo-megam160x43w.png", :alt => "Megam", :class => "megam_image" %>
+        <%= image_tag Rails.configuration.megam_logo_url , :alt => "Megam", :class => "megam_image" %>
         </div>
         <div id="loginbox">
                 <%= form_for(:session, :url => sessions_path, :html => {:id =>'password_validate', :novalidate => 'novalidate'}) do |f| %>
