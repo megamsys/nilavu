@@ -8,6 +8,9 @@ html, body {
     height: 100%;    
 }
 body {
+	background-color: #2e2c30;
+}
+/*body {
 	background-color: #444444;
 	background-image: -webkit-gradient(linear, 0 0%, 0 100%, from(#555555), to(#111111));
 	background-image: -webkit-linear-gradient(top, #555555 0%, #111111 100%);
@@ -18,8 +21,7 @@ body {
     background-position: fixed;
     padding: 0;
     margin: 0;
-}
-
+}*/
 #container {
     top: 0;
     position: absolute;

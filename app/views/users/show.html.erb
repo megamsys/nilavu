@@ -12,23 +12,22 @@
 				<%= link_to dashboards_path, :target => "_self" do %>
 				<i class="icon-dashboard"></i><span> Dashboard</span>
 				<% end %>
-			</li>           
+			</li>       
+			<li class=<%= "active" if controller_name== "cloud_settings"%> >
+				<a target="_self" href="/cloud_settings" > <i class="icon-random" ></i>Settings</a>
+			</li>    
 			<li class=<%= "active" if controller_name== "cloud_books"%> >
-				<a target="_self" href="/cloud_books" > <i class="icon-th"></i>Cloud Application</a>
+				<a target="_self" href="/cloud_books" > <i class="icon-th"></i>Custom Apps</a>
 			</li>
 
 			</li>
 			<li class=<%= "active" if controller_name== "cloud_stores"%> >
-				<a target="_self" href="/cloud_stores" > <i class="icon-list-alt"></i>Cloud Store</a>
+				<a target="_self" href="/cloud_stores" > <i class="icon-list-alt"></i>Store</a>
 			</li>
 
 			<li class=<%= "active" if controller_name== "cloud_books_histories"%> >
-				<a target="_self" href="/cloud_books_histories" > <i class="icon-facetime-video"></i>Cloud Run History</a>
-			</li>
-
-			<li class=<%= "active" if controller_name== "cloud_settings"%> >
-				<a target="_self" href="/cloud_settings" > <i class="icon-random" ></i>Cloud Settings</a>
-			</li>
+				<a target="_self" href="/cloud_books_histories" > <i class="icon-facetime-video"></i>Logs</a>
+			</li>			
 
 			<!--
 			<li class=<%= "active" if controller_name== "apps_items"%>>
@@ -45,7 +44,7 @@
 			-->
 			<li class=<%= "active" if controller_name== "connector_projects"%>>
 				<%= link_to new_connector_project_path, :target => "_self" do %>
-				<i class="icon-cloud"></i>Live Cloud
+				<i class="icon-cloud"></i>Cloud Sync
 				<% end %>
 			</li>
 			
