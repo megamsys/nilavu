@@ -1,8 +1,12 @@
 module Books
   extend self
   def availableBooks(userID)
-    c = []
-    { "books" => CloudBook.select("name").where(:users_id => userID).map { |n|  n.name } }
+  a=Array.new
+  @node = FindNodesByEmail.perform
+  @node.each do |n| 
+   a << n.node_name
+  end
+    { "books" => a }
   end
 
 end 

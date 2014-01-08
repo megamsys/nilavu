@@ -124,6 +124,10 @@ GEM
     google-analytics-rails (0.0.4)
     gritter (1.0.3)
     hashie (2.0.5)
+<<<<<<< HEAD
+=======
+    high_voltage (2.0.0)
+>>>>>>> ta/master
     highline (0.6.1)
     hike (1.2.3)
     http (0.5.0)

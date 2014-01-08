@@ -6,6 +6,12 @@ class CloudBooksHistoriesController < ApplicationController
  
   if current_user.cloud_books.any?
        add_breadcrumb "Cloud Book History", :root_path
+       cloud_books = current_user.cloud_books
+       @nodes = FindNodesByEmail.perform
+      if @nodes.class == Megam::Error
+        redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      end
+
   else
       redirect_to cloud_books_path, :gflash => { :warning => { :value => "Sorry. No history available. Please start creating books.", :sticky => false, :nodom_wrap => true } }
     end

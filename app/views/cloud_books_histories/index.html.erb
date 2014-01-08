@@ -14,28 +14,11 @@
 					<h5>Cloud Books Run History</h5>
 				</div>
 				<div class="widget-content nopadding">
-					<table class="table table-bordered table-striped table-hover">
-						<thead>
-							<tr>
-								<th>book_name</th>
-								<th>request_id</th>
-								<th>status</th>
-							</tr>
-						</thead>
-						<tbody>
-							<% current_user.cloud_books.each do |cloud_book| %>
-							<% cloud_book.cloud_books_histories.each do |history| %>
-							<tr>
-								<td>
-								<input type="button" ng-model="query" ng-click="sendmessage('<%= history.book_name %>')" id="node_names" value="<%= history.book_name %>">
-								</td>
-								<td> <%= history.request_id %> </td>
-								<td> <%= history.status %> </td>
-							</tr>
+					<% @nodes.each do |node| %>
+							<div class="span3">
+							<input type="button" ng-model="query" ng-click="sendmessage('<%= node.node_name %>')" id="node_names" value="<%= node.node_name %>" class="btn btn-block btn-success">
+							</div>
 							<% end %>
-							<% end %>
-						</tbody>
-					</table>
 				</div>
 			</div>
 			<input type="hidden" ng-model="source">
