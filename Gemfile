@@ -71,7 +71,7 @@ gem "httparty" # why can't we use faraday
 #group :assets do
   gem 'sass-rails',   '~> 4.0.1'
   gem 'coffee-rails', '~> 4.0.1'
-  gem 'uglifier', '>= 2.3.1'
+  gem 'uglifier', '>= 2.4.0'
 #end
 
 group :test do

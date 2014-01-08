@@ -14,7 +14,6 @@
  *= require dataTables/jquery.dataTables.bootstrap
  *= require bootstrap-editable
  *= require select2 
- *= require colorpicker
  *= require unicorn.main
  *= require unicorn.grey 
  *= require icheck/flat/blue

@@ -43,7 +43,6 @@
 //= require megam.form_validation
 //= require jquery.remotipart
 //= require unicorn.wizard
-//= require bootstrap-colorpicker
 //= require unicorn
 //= require unicorn.dashboard
 //= require theme
