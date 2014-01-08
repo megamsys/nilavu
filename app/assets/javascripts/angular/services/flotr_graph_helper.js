@@ -63,7 +63,7 @@ app.factory("FlotrGraphHelper", ["ColorFactory", "SuffixFormatter", "$window", f
         outline: "", verticalLines: false, horizontalLines: false, labelMargin: 10
       },
       xaxis: {
-        mode: "time", timeMode: "local", timeUnit: 'second', timeFormat: timeUnit("60-minutes", parseInt(1, 10))
+        mode: "time", timeMode: "local", timeUnit: 'minute', timeFormat: timeUnit("60-minutes", parseInt(1, 10))
       },
       yaxis: {
         tickFormatter: suffixFormatter,

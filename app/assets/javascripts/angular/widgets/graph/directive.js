@@ -8,7 +8,7 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sourc
 		  
 		     scope.uptime_data=parseUptime(data);
 		     scope.rpm_data=parseRPM(data);
-	    	 var plot = $.plot("#graph_placeholder", FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, 0.7));
+	    	 var plot = $.plot("#graph_placeholder", FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, 1));
 	    	plot.setData(FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors));   		   	
 	        plot.draw();		  
 	      //element.height(265);
