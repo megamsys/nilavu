@@ -26,22 +26,22 @@
 
 								<div class="row">
 									<div class="col-md-12">
-									<div id="new_db1" class="required">
-										<div class="col-md-6">											
-											<%= label :full, 'Full' do %>
-											<%= radio_button_tag :db_model, 'full' %>
-											<h3><i class="icon-folder-open"></i> Full</h3>
-											<span class="label label-info">*all yours</span> Cloud PostgreSQL only for You </strong>
-											<% end %>
+										<div id="new_db1" class="required">
+											<div class="col-md-6">
+												<%= label :full, 'Full' do %>
+												<%= radio_button_tag :db_model, 'full' %>
+												<h3><i class="icon-folder-open"></i> Full</h3>
+												<span class="label label-info">*all yours</span> Cloud PostgreSQL only for You </strong>
+												<% end %>
+											</div>
+											<div class="col-md-6">
+												<%= label :multitenant, 'Multitenant' do %>
+												<%= radio_button_tag :db_model, 'multitenant', false, disabled: true %>
+												<h3><i class="icon-envelope"></i> Multitenant</h3><span class="label label-primary">work in progress</span>
+												<span class="label label-info">*shared</span> Clustered, highly available Cloud PostgreSQL</strong>
+												<% end %>
+											</div>
 										</div>
-										<div class="col-md-6">											
-											<%= label :multitenant, 'Multitenant' do %>			
-											<%= radio_button_tag :db_model, 'multitenant', false, disabled: true %>								
-											<h3><i class="icon-envelope"></i> Multitenant</h3><span class="label label-primary">work in progress</span>
-											<span class="label label-info">*shared</span> Clustered, highly available Cloud PostgreSQL</strong>
-											<% end %>
-										</div>
-									</div>
 									</div>
 								</div>
 								<div class="row">
@@ -66,13 +66,13 @@
 										<div id="platformapps" class="required">
 											<div id="new_db2" class="required">
 												<div class="row">
-													<div class="col-md-6">														
+													<div class="col-md-6">
 														<%= label :platform, 'postgresql' do %>
 														<%= radio_button_tag :dbms, 'postgresql' %>
 														<i class="logo_postgresql"></i>
 														<% end %>
 													</div>
-													<div class="col-md-6">														
+													<div class="col-md-6">
 														<%= label :platform, 'riak' do %>
 														<%= radio_button_tag :dbms, 'riak' %>
 														<i class="logo_riak"></i>
@@ -80,7 +80,7 @@
 													</div>
 												</div>
 												<div class="row">
-													<div class="col-md-6">														
+													<div class="col-md-6">
 														<%= label :platform, 'redis' do %>
 														<%= radio_button_tag :dbms, 'redis' %>
 														<i class="logo_redis"></i>
@@ -109,29 +109,24 @@
 													</table>
 												</div>
 											</div>
-											</br>
-
-											<div class="row">
-												<div class="alert alert-info alert-block">
-													<a class="close" data-dismiss="alert" href="#">×</a>
-													<i class="icon-check-sign"></i>
-													<span class="badge badge-success books_total">0</span>
-
-													<input type="hidden" id="cb_count" name="no_of_instances" value="<%= @books_count %>">
-
-													&nbsp; Instance(s) Of: &nbsp;
-													<span class="badge badge-important">
-														<div id="selected_platformapp">
-															<h3>none</h3>
-														</div></span>
-												</div>
-
-												<a href="http://support.megam.co" target="_blank"> <h5><i class="icon-question-sign"></i> Your platform isn't here?</h5> We are here to help
-												<div class="arrow-right">
-													<i class="icon-chevron-right"></i>
-												</div> </a>
+										</div>
+										</br>
+										<div class="row">
+											<div class="alert alert-info alert-block">
+												<a class="close" data-dismiss="alert" href="#">×</a>
+												<i class="icon-check-sign"></i>
+												<span class="badge badge-success books_total">0</span>
+												<input type="hidden" id="cb_count" name="no_of_instances" value="<%= @books_count %>">
+												&nbsp; Instance(s) Of: &nbsp;
+												<span class="badge badge-important">
+													<div id="selected_platformapp">
+														<h3>none</h3>
+													</div></span>
 											</div>
-
+											<a href="http://support.megam.co" target="_blank"> <h5><i class="icon-question-sign"></i> Your platform isn't here?</h5> We are here to help
+											<div class="arrow-right">
+												<i class="icon-chevron-right"></i>
+											</div> </a>
 										</div>
 									</div>
 								</div>
@@ -145,7 +140,7 @@
 		<div class="row">
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
-				<%= submit_tag "Next", :class => "btn btn-large btn-success btn-block", :id => "db_next", :disabled => true, :remote => true, :data => { :disable_with => "Please wait..."}, title: 'Please select your application platform and then click Next', rel: 'tooltip' %>
+				<%= submit_tag "Next", :class => "btn btn-lg btn-success btn-block", :id => "db_next", :disabled => true, :remote => true, :data => { :disable_with => "Please wait..."}, title: 'Please select your application platform and then click Next', rel: 'tooltip' %>
 				<% end %>
 				<br/>
 			</div>

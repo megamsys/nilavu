@@ -16,8 +16,6 @@
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require bowser
-//= require bootstrap
-//= require bootstrap-editable
 //= require twitter/bootstrap
 //= require angular
 //= require angular-route

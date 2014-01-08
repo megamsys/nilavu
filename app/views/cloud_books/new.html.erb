@@ -7,7 +7,7 @@
 
 <div class="container-fluid">
 	<%= form_tag(new_book_path, :method => "post", :name => "predef") do %>
-	<div class="row">		
+	<div class="row">
 		<div class="widget-content nopadding">
 			<div id="form-wizard-1" class="step">
 				<div class="widget-box">
@@ -84,30 +84,26 @@
 													</table>
 												</div>
 											</div>
-											</br>
-											<div class="row">
-												<div class="alert alert-info alert-block">
-													<a class="close" data-dismiss="alert" href="#">×</a>
-													<i class="icon-check-sign"></i>
-													<span class="badge badge-success books_total">0</span>
+										</div>
+										</br>
+										<div class="row">
+											<div class="alert alert-info alert-block">
+												<a class="close" data-dismiss="alert" href="#">×</a>
+												<i class="icon-check-sign"></i>
+												<span class="badge badge-success books_total">0</span>
 
-													<input type="hidden" id="cb_count" name="no_of_instances" value="<%= @books_count %>">
+												<input type="hidden" id="cb_count" name="no_of_instances" value="<%= @books_count %>">
 
-													&nbsp; Instance(s) Of: &nbsp;
-													<span class="badge badge-danger">
-														<div id="selected_platformapp">
-															<h3>none</h3>
-														</div></span>
-												</div>
-												<div class="no-list link-block">
-													<div class="col-md-6">
-														<a href="support.html"> <h5><i class="icon-bar-chart"></i> Your platform isn't here?</h5> We are here to help
-														<div class="arrow-right">
-															<i class="icon-chevron-right"></i>
-														</div> </a>
-													</div>
-												</div>
+												&nbsp; Instance(s) Of: &nbsp;
+												<span class="badge badge-danger">
+													<div id="selected_platformapp">
+														<h3>none</h3>
+													</div></span>
 											</div>
+											<a href="support.html"> <h5><i class="icon-bar-chart"></i> Your platform isn't here?</h5> We are here to help
+											<div class="arrow-right">
+												<i class="icon-chevron-right"></i>
+											</div> </a>
 										</div>
 									</div>
 								</div>
@@ -229,9 +225,8 @@
 					<div class="col-md-4"></div>
 				</div>
 			</div>
-
-			<% end %>
-			<%= render :template => users_show_path %>
 		</div>
 	</div>
 </div>
+<% end %>
+<%= render :template => users_show_path %>
