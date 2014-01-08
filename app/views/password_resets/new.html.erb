@@ -1,36 +1,34 @@
 <% provide(:title, "Forgot password") %>
 <%= render :partial => "customizations/flash_messages" %>
 
-<div id="box_login">
-	<div class="container">
-		<div class="span12 box_wrapper">
-			<div class="offset2 span12 box">
-				<div>
-					<div class="head">
-						<h4>Enter your email address below to receive instructions on how to reset your password.</h4>
-					</div>
-					<div class="form">
-
-						<%= spinner_tag 'spin_reset' %>
-						<%= form_tag password_resets_path, :method => :post, :remote => true, data: { spinner: '#spin_reset'} do %>
-						<div class="field">
-							<%= label_tag :email %>
-							<%= text_field_tag :email, params[:email] %>
-						</div>
-						<%= submit_tag "Reset Password" %>
-
-						<% end %>
-
-					</div>
-				</div>
-			</div>
-			<p class="already">
-				Know your password? <%= link_to "Sign in", signin_path %>
-			</p>
+<div id="container">
+	<div id="logo">
+		<%= image_tag "logo-megam160x43w.png", :alt => "Megam", :class => "megam_image" %>
+	</div>
+	<div id="loginbox_password_reset">
+		<%= spinner_tag 'spin_reset' %>
+		<%= form_tag password_resets_path, :method => :post, :remote => true, data: { spinner: '#spin_reset'} do %>
+		<p>
+			Enter your e-mail address below and we will send you instructions how to recover a password.
+		</p>
+		<div class="input-group">
+			<span class="input-group-addon"><i class="icon-envelope"></i></span>
+			<%= text_field_tag :email, params[:email], :class => 'form-control required' %>
 		</div>
+		<hr />
+		<div class="form-actions">
+			<div class="pull-left">
+				&laquo; <%= link_to "Back to login", signin_path %>
+				<br />
+				<%= link_to "Need account? Register here!", signup_path %>
+			</div>
+			<div class="pull-right">
+				<%= submit_tag "Reset Password", :class => "btn btn-default" %>
+			</div>
+		</div>
+		<% end %>
 	</div>
 </div>
-
 <div id="postfinish_reset_password" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">

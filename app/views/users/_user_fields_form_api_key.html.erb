@@ -1,13 +1,15 @@
-<%= form_for @user, :html => {:id =>'password_validate', :novalidate => 'novalidate', :class => 'user_fields_form_api_key' }, :remote => true, data: { spinlock: '#spin_user_api'}, :method => method do |f| %>
+<div id="profilebox_apikey">
+	<%= form_for @user, :html => {:id =>'password_validate', :novalidate => 'novalidate', :class => 'user_fields_form_api_key' }, :remote => true, data: { spinlock: '#spin_user_api'}, :method => method do |f| %>
 
-<input type="hidden" name="user_fields_form_type" value="<%= user_fields_form_type.to_s %>">
-<div class="control-group">
-	<div class="controls">
-		<%= f.text_field :api_token, :id => 'api_key_field', :disabled => 'disabled', :class=> 'required' %>
-
-		<%= text_field_tag 'created_at', "#{@user.updated_at}", :readonly => true %>
+	<input type="hidden" name="user_fields_form_type" value="<%= user_fields_form_type.to_s %>">
+	<div class="input-group">
+		<span class="input-group-addon"><i class="icon-key"></i></span>
+		<%= f.text_field :api_token, :id => 'api_key_field', :disabled => 'disabled', :class=> 'form-control required' %>
 	</div>
+	<div class="input-group">
+		<span class="input-group-addon"><i class="icon-calendar"></i></span>
+		<%= text_field_tag 'created_at', "#{@user.updated_at}", :readonly => true, :class=> 'form-control' %>
+	</div>
+	<%= f.submit "Generate", :class => "btn btn-default" %>
+	<% end %>
 </div>
-
-<%= f.submit "Generate", :class => "btn" %>
-<% end %>

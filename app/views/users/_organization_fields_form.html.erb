@@ -1,27 +1,24 @@
-<%= form_for @user, :html => {:id =>'password_validate', :novalidate => 'novalidate', :multipart => true, :class => 'user_fields_form_organization' },  :method => 'patch', data: { spinner: '#spin_user_organization', :remote => true}  do |f| %>
+<div id="profilebox_right">
+	<%= form_for @user, :html => {:id =>'password_validate', :novalidate => 'novalidate', :multipart => true, :class => 'user_fields_form_organization' },  :method => 'patch', data: { spinner: '#spin_user_organization', :remote => true}  do |f| %>
 
-<%= f.text_field :user_type, :value => "free_user", :type => 'hidden' %>
-<input type="hidden" name="user_fields_form_type" value="<%= user_fields_form_type.to_s %>">
-<%= f.fields_for :organization_attributes, @user.organization do |org_f| %>
-<div class="control-group">
-	<div class="controls">
-		<%= org_f.text_field :name, :class=> 'span4 required', placeholder: "Organization name" %>
+	<%= f.text_field :user_type, :value => "free_user", :type => 'hidden' %>
+	<input type="hidden" name="user_fields_form_type" value="<%= user_fields_form_type.to_s %>">
+	<%= f.fields_for :organization_attributes, @user.organization do |org_f| %>
+	<div class="input-group">
+		<span class="input-group-addon"><i class="icon-group"></i></span>
+		<%= org_f.text_field :name, :class=> 'form-control required', placeholder: "Organization name" %>
 	</div>
-</div>
-<div class="control-group">
-	<div class="controls">
-		<%= org_f.text_field :url, :class=> 'span4 required', placeholder: "Organization URL" %>
+	<div class="input-group">
+		<span class="input-group-addon"><i class="icon-group"></i></span>
+		<%= org_f.text_field :url, :class=> 'form-control required', placeholder: "Organization URL" %>
 	</div>
-</div>
-<div class="control-group">
-	<%= org_f.label "Upload Your New Logo(Nuke existing)", :class => 'control-label' %>
-	<div class="controls">
+	<div class="input-group">
+		<%= org_f.label "Upload Your New Logo(Nuke existing)", :class => 'control-label' %>		
 		<%= org_f.file_field :logo, :id => 'org_logo', placeholder: "Logo" %>
 	</div>
 
+	<% end %>
+	<%= f.submit "Update", :class => "btn btn-default", :remote => true %>
+
+	<% end %>
 </div>
-
-<% end %>
-<%= f.submit "Update", :class => "btn", :remote => true %>
-
-<% end %>
