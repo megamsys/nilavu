@@ -1,8 +1,9 @@
 /**
  * Unicorn Admin Template
- * Version 2.1.0
+ * Version 2.0.2
  * Diablo9983 -> diablo9983@gmail.com
 **/
+
 $(document).ready(function(){
 	
 	$('input[type=checkbox],input[type=radio]').iCheck({
@@ -13,6 +14,4 @@ $(document).ready(function(){
 	$('select').select2();
     $('.colorpicker').colorpicker();
     $('.datepicker').datepicker();
-    $('.spinner').spinner();
-
 });
