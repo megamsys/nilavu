@@ -16,6 +16,8 @@
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require bowser
+//= require bootstrap
+//= require bootstrap-editable
 //= require twitter/bootstrap
 //= require angular
 //= require angular-route
@@ -31,12 +33,17 @@
 //= require jquery.validate
 //= require jquery.wizard
 //= require jquery.peity
+//= require jquery.icheck
 //= require cloud_books
 //= require cross_clouds
 //= require connector_projects
 //= require unicorn.login
+//= require unicorn.form_common
 //= require unicorn.form_validation
 //= require unicorn.wizard
+//= require bootstrap-colorpicker
+//= require unicorn
+//= require unicorn.dashboard
 //= require theme
 //= require jquery.flot
 //= require jquery.flot.time
@@ -44,10 +51,7 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap
 //= require unicorn.tables
-//= require bootstrap-editable
 //= require jquery-ui.custom
-//= require unicorn
-//= require unicorn.dashboard
 //= require flexslider
 //= require socket.io
 //= require underscore

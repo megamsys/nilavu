@@ -21,26 +21,15 @@
     position: relative;   
 }
 
-#profilebox_right   {	
-	left: -50%;
-    height: 280px;
-    width: 400px;
-   margin-left: auto;
-    margin-right: auto;  
-    padding: 30px 10px 30px 10px;	   
+#profilebox_small   {	
+	width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;  
+    height: 180px;
+    padding: 30px 10px 9px 10px;	   
     overflow: hidden !important;
     text-align: center;
-    position: relative;   
+    position: relative;
 }
 
-#profilebox_apikey   {	
-	left: -40%;
-    height: 280px;
-    width: 400px;
-   margin-left: auto;
-    margin-right: auto;  
-    padding: 30px 10px 30px 10px;	   
-    overflow: hidden !important;
-    text-align: center;
-    position: relative;   
-}

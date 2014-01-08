@@ -4,8 +4,7 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sourc
   
   var linkFn = function(scope, element, attrs) {  	 
 	  
-	  function onSuccess(data) {
-		     console.log("-----------",data);
+	  function onSuccess(data) {		     
 		     scope.uptime_data=parseUptime(data);
 		     scope.rpm_data=parseRPM(data);
 	    	 var plot = $.plot("#graph_placeholder", FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, 0.7));
