@@ -67,18 +67,10 @@ module Cloudauth
       app.routes.append{ match '*a', :to => 'application#render_404', via: [:get] } unless config.consider_all_requests_local
     end
     
-<<<<<<< HEAD
     config.megam_logo_url   = "https://s3-ap-southeast-1.amazonaws.com/megampub/images/logo-megam160x43w.png"
     config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
     config.ganglia_host     = ENV['GANGLIA_HOST']
     config.ganglia_base_url = "http://monitor.megam.co.in/ganglia"
-=======
-    config.megam_logo_url   = "http://nothing"
-    
-    config.ganglia_web_url  = "http://monitor.megam.co/ganglia"
-    config.ganglia_host     = "dummy"
-    config.ganglia_base_url = "http://monitor.megam.co/ganglia"
->>>>>>> ta/master
     config.ganglia_cluster = 'EC2'
     config.ganglia_graph_metric  = 'cpu_system'
     config.ganglia_request_metric = 'nginx_requests'
