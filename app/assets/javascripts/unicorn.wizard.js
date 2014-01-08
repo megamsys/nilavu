@@ -1,9 +1,16 @@
 /**
  * Unicorn Admin Template
+ * Version 2.1.0
  * Diablo9983 -> diablo9983@gmail.com
 **/
+
 $(document).ready(function(){
 	
+	$('input[type=checkbox],input[type=radio]').iCheck({
+    	checkboxClass: 'icheckbox_flat-blue',
+    	radioClass: 'iradio_flat-blue'
+	});
+
 	$("#form-wizard").formwizard({ 
 		formPluginEnabled: true,
 		validationEnabled: true,
@@ -18,8 +25,6 @@ $(document).ready(function(){
 		},
 		validationOptions : {
 			rules: {
-				cloud_book_predef_name_java: { checked: true },
-				cloud_book_predef_name_rails: { presence: true },
 				username: "required",
 				password: "required",
 				password2: {
@@ -29,8 +34,6 @@ $(document).ready(function(){
 				eula: "required"
 			},
 			messages: {
-				cloud_book_predef_name_java: "Please select any platform apps",
-				cloud_book_predef_name_rails: "Please select any platform apps",
 				username: "Please enter your name or username",
 				password: "You must enter the password",
 				password2: { equalTo: "Password don't match" },
@@ -40,10 +43,10 @@ $(document).ready(function(){
 			errorClass: "help-inline",
 			errorElement: "span",
 			highlight:function(element, errorClass, validClass) {
-			$(element).parents('.control-group').addClass('error');
+			$(element).parents('.form-group').addClass('has-error');
 			},
 			unhighlight: function(element, errorClass, validClass) {
-				$(element).parents('.control-group').removeClass('error');
+				$(element).parents('.form-group').removeClass('has-error');
 			}
 		}
 	});	

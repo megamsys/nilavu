@@ -1,47 +1,52 @@
 /**
  * Unicorn Admin Template
+ * Version 2.1.0
  * Diablo9983 -> diablo9983@gmail.com
 **/
+
 $(document).ready(function(){
 	
-	// === jQuery Peity === //
-	$.fn.peity.defaults.line = {
-		strokeWidth: 1,
-		delimeter: ",",
-		height: 24,
-		max: null,
-		min: 0,
-		width: 50
-	};
-	$.fn.peity.defaults.bar = {
-		delimeter: ",",
-		height: 24,
-		max: null,
-		min: 0,
-		width: 50
-	};
-	$(".peity_line_good span").peity("line", {
-		colour: "#B1FFA9",
-		strokeColour: "#459D1C"
+	$(".sparkline_line_good span").sparkline("html", {
+		type: "line",
+		fillColor: "#B1FFA9",
+		lineColor: "#459D1C",
+		width: "50",
+		height: "24"
 	});
-	$(".peity_line_bad span").peity("line", {
-		colour: "#FFC4C7",
-		strokeColour: "#BA1E20"
+	$(".sparkline_line_bad span").sparkline("html", {
+		type: "line",
+		fillColor: "#FFC4C7",
+		lineColor: "#BA1E20",
+		width: "50",
+		height: "24"
 	});	
-	$(".peity_line_neutral span").peity("line", {
-		colour: "#CCCCCC",
-		strokeColour: "#757575"
-	});
-	$(".peity_bar_good span").peity("bar", {
-		colour: "#459D1C"
-	});
-	$(".peity_bar_bad span").peity("bar", {
-		colour: "#BA1E20"
-	});	
-	$(".peity_bar_neutral span").peity("bar", {
-		colour: "#757575"
+	$(".sparkline_line_neutral span").sparkline("html", {
+		type: "line",
+		fillColor: "#CCCCCC",
+		lineColor: "#757575",
+		width: "50",
+		height: "24"
 	});
 	
+	$(".sparkline_bar_good span").sparkline('html',{
+		type: "bar",
+		barColor: "#459D1C",
+		barWidth: "5",
+		height: "24"
+	});
+	$(".sparkline_bar_bad span").sparkline('html',{
+		type: "bar",
+		barColor: "#BA1E20",
+		barWidth: "5",
+		height: "24"
+	});	
+	$(".sparkline_bar_neutral span").sparkline('html',{
+		type: "bar",
+		barColor: "#757575",
+		barWidth: "5",
+		height: "24"
+	});
+
 	// === jQeury Gritter, a growl-like notifications === //
 	$.gritter.add({
 		title:	'Unread messages',
@@ -74,6 +79,15 @@ $(document).ready(function(){
 			sticky: false
 		});		
 	});
+
+	$('#gritter-notify .light').click(function(){
+		$.gritter.add({
+			title:	'Normal notification',
+			text:	'This is a normal notification',
+			sticky: false,
+			class_name: 'light'
+		});
+	})
     
     
     // === Popovers === //
@@ -106,102 +120,47 @@ $(document).ready(function(){
        html: html   
     });
 
-    // === jQuery UI Components === //
-     $("#dialog").dialog({
-		autoOpen: false,
-		width: 600,
-		buttons: {
-			"Ok": function () {
-				$(this).dialog("close");
-			},
-			"Cancel": function () {
-				$(this).dialog("close");
-			}
-		},
-		show: {
-			effect: "fade",
-			duration: 500
-		},
-		hide: {
-			effect: "fade",
-			duration: 500
-		}
-	});
-
-     // Dialog message
-	$("#modal-dialog").dialog({
-		autoOpen: false,
-		modal: true,
-		buttons: {
-			Ok: function () {
-				$(this).dialog("close");
-			}
-		}
-	});
-	$("#open-dialog").click(function(){
-		$("#dialog").dialog("open");
-		return false;
-	});
-	$("#open-modal").click(function(){
-		$("#modal-dialog").dialog("open");
-		return false;
-	})
-
-	// Datepicker
-	$('#ui-datepicker').datepicker({
-		inline: true
-	});
-
-	// Horizontal Slider
-	$('#h-slider').slider({
-		range: true,
-		values: [17, 67]
-	});
-
-	// Vertical slider
-    $("#v-slider").slider({
-	    orientation: "vertical",
-	    range: "min",
-	    min: 0,
-	    max: 100,
-	    value: 60,
-	    slide: function (event, ui) {
-		    $("#amount").val(ui.value);
-	    }
+    $('#bootbox-confirm').click(function(e){
+    	e.preventDefault();
+    	bootbox.confirm("Are you sure?", function(result) {
+    		var msg = '';
+    		if(result == true) {
+    			msg = 'Yea! You confirmed this.';
+    		} else {
+    			msg = 'Not confirmed. Don\'t worry.';
+    		}
+			bootbox.dialog({
+				message: msg,
+				title: 'Result',
+				buttons: {
+					main: {
+						label: 'Ok',
+						className: 'btn-default'
+					}
+				}
+			});
+		}); 
     });
-    $("#amount").val($("#v-slider").slider("value"));
-
-    // Autocomplete
-    var availableTags = ["ActionScript", "AppleScript", "Asp", "BASIC", "C", "C++", "Clojure", "COBOL", "ColdFusion", "Erlang", "Fortran", "Groovy", "Haskell", "Java", "JavaScript", "Lisp", "Perl", "PHP", "Python", "Ruby", "Scala", "Scheme"];
-     
-    $("#tags").autocomplete({
-    	source: availableTags
+    $('#bootbox-prompt').click(function(e){
+    	e.preventDefault();
+    	bootbox.prompt("What is your name?", function(result) {
+			if (result !== null && result !== '') {
+				bootbox.dialog({
+					message: 'Hi '+result+'!',
+					title: 'Welcome',
+					buttons: {
+						main: {
+							label: 'Close',
+							className: 'btn-danger'
+						}
+					}
+				});
+			}
+		});
     });
-
-    // Menu
-    $("#menu").menu();
-
-    // Spinner
-	var spinner = $( "#spinner" ).spinner();
-	 
-	$( "#disable" ).click(function() {
-		if ( spinner.spinner( "option", "disabled" ) ) {
-			spinner.spinner( "enable" );
-		} else {
-			spinner.spinner( "disable" );
-		}
-	});
-	$( "#destroy" ).click(function() {
-		if ( spinner.data( "ui-spinner" ) ) {
-			spinner.spinner( "destroy" );
-		} else {
-			spinner.spinner();
-		}
-	});
-	$( "#getvalue" ).click(function() {
-		alert( spinner.spinner( "value" ) );
-	});
-	$( "#setvalue" ).click(function() {
-		spinner.spinner( "value", 5 );
-	});
+    $('#bootbox-alert').click(function(e){
+    	e.preventDefault();
+    	bootbox.alert('Hello World!');
+    });
+    
 });

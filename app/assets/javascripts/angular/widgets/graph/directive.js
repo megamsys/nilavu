@@ -4,8 +4,7 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sourc
   
   var linkFn = function(scope, element, attrs) {  	 
 	  
-	  function onSuccess(data) {
-		  
+	  function onSuccess(data) {		     
 		     scope.uptime_data=parseUptime(data);
 		     scope.rpm_data=parseRPM(data);
 	    	 var plot = $.plot("#graph_placeholder", FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, 1));
@@ -14,7 +13,16 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sourc
 	      //element.height(265);
 	      //console.log("element"+element);
 	      //Flotr.draw(element[0], FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, 0.7));
-	    }     
+	        var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>")
+			.text("Response Time (ms)")
+			.appendTo("#graph_placeholder");
+
+		// Since CSS transforms use the top-left corner of the label as the transform origin,
+		// we need to center the y-axis label by shifting it down by half its width.
+		// Subtract 20 to factor the chart's bottom margin into the centering.
+
+		yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);  
+	  }     
 
     function update() {  
     	if ($routeParams.book != null) {    		

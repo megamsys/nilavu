@@ -1,26 +1,28 @@
 /**
  * Unicorn Admin Template
+ * Version 2.1.0
  * Diablo9983 -> diablo9983@gmail.com
 **/
+
 $(document).ready(function(){
 	
-	unicorn_init();
+	unicorn.init();
 	
-	$('#add-event-submit').click(function(){
-		unicorn_add_event();
+	$('#add-event-submit').click(function(e){
+		unicorn.add_event();
 	});
 	
 	$('#event-name').keypress(function(e){
 		if(e.which == 13) {	
-			unicorn_add_event();
+			unicorn.add_event();
 		}
 	});	
 });
 
-
+unicorn = {	
 	
 	// === Initialize the fullCalendar and external draggable events === //
-	function unicorn_init() {	
+	init: function() {	
 		// Prepare the dates
 		var date = new Date();
 		var d = date.getDate();
@@ -58,24 +60,24 @@ $(document).ready(function(){
 				
 			}
 		});
-		this.unicorn_external_events();		
-	}
+		this.external_events();		
+	},
 	
 	// === Adds an event if name is provided === //
-	function unicorn_add_event() {
+	add_event: function(){
 		if($('#event-name').val() != '') {
 			var event_name = $('#event-name').val();
 			$('#external-events .panel-content').append('<div class="external-event ui-draggable label label-inverse">'+event_name+'</div>');
-			this.unicorn_external_events();
+			this.external_events();
 			$('#modal-add-event').modal('hide');
 			$('#event-name').val('');
 		} else {
-			this.unicorn_show_error();
+			this.show_error();
 		}
-	}
+	},
 	
 	// === Initialize the draggable external events === //
-	function unicorn_external_events(){
+	external_events: function(){
 		/* initialize the external events
 		-----------------------------------------------------------------*/
 		$('#external-events div.external-event').each(function() {		
@@ -95,10 +97,10 @@ $(document).ready(function(){
 				revertDuration: 0  //  original position after the drag
 			});		
 		});		
-	}
+	},
 	
 	// === Show error if no event name is provided === //
-	function unicorn_show_error(){
+	show_error: function(){
 		$('#modal-error').remove();
 		$('<div style="border-radius: 5px; top: 70px; font-size:14px; left: 50%; margin-left: -70px; position: absolute;width: 140px; background-color: #f00; text-align: center; padding: 5px; color: #ffffff;" id="modal-error">Enter event name!</div>').appendTo('#modal-add-event .modal-body');
 		$('#modal-error').delay('1500').fadeOut(700,function() {
@@ -107,4 +109,4 @@ $(document).ready(function(){
 	}
 	
 	
-
+};

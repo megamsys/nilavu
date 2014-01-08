@@ -1,13 +1,17 @@
 /**
- * Unicorn Admin Template Diablo9983 -> diablo9983@gmail.com
- */
-jQuery(document).ready(
-		function() {
+ * Unicorn Admin Template
+ * Version 2.0.2
+ * Diablo9983 -> diablo9983@gmail.com
+**/
 
-			//jQuery('input[type=checkbox],input[type=radio],input[type=file]').uniform();
-
-			jQuery('select').select2();
-			jQuery('.colorpicker').colorpicker();
-			jQuery('.datepicker').datepicker();
-			
-		});
+$(document).ready(function(){
+	
+	$('input[type=checkbox],input[type=radio]').iCheck({
+    	checkboxClass: 'icheckbox_flat-blue',
+    	radioClass: 'iradio_flat-blue'
+	});
+	
+	$('select').select2();
+    $('.colorpicker').colorpicker();
+    $('.datepicker').datepicker();
+});

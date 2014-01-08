@@ -1,7 +1,9 @@
 /**
  * Unicorn Admin Template
+ * Version 2.1.0
  * Diablo9983 -> diablo9983@gmail.com
 **/
+
 $(document).ready(function(){
 	
 	
@@ -14,12 +16,12 @@ $(document).ready(function(){
 
 	// === Make chart === //
     var plot = $.plot($(".chart"),
-           [ { data: sin, label: "sin(x)", color: "#BA1E20"}, { data: cos, label: "cos(x)",color: "#459D1C" } ], {
+           [ { data: sin, label: "sin(x)", color: "#4fabd2"}, { data: cos, label: "cos(x)",color: "#459D1C" } ], {
                series: {
                    lines: { show: true },
                    points: { show: true }
                },
-               grid: { hoverable: true, clickable: true },
+               grid: { hoverable: true, clickable: true, borderColor: "#eeeeee", borderWidth: 1, color: "#AAAAAA" },
                yaxis: { min: -1.6, max: 1.6 }
 		   });
     
@@ -92,7 +94,8 @@ $(document).ready(function(){
     });    
     //Display graph
     var bar = $.plot($(".bars"), data, {
-		legend: true
+		legend: true,
+        grid: { borderColor: "#eeeeee", borderWidth: 1, color: "#AAAAAA" }
 	});
 });
 

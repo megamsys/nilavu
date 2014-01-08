@@ -1,11 +1,11 @@
-<div class="span4" >
-	<div class="btn-toolbar" style="padding-left:40%;" >
+<div class="col-xs-4" >
+	<div class="btn-toolbar" style="padding-left:25%;" >
 		<div class="btn-group" title="select a source to watch METRICS" class="tip-bottom">
 			<!--<button class="btn btn btn-large" ng-disabled="button" required ng-init="button=true">-->
-			<button class="btn btn btn-large">
+			<button class="btn btn-default btn-lg">
 				Sources
 			</button>
-			<button data-toggle="dropdown" class="btn btn btn-large dropdown-toggle">
+			<button data-toggle="dropdown" class="btn btn-default btn-lg dropdown-toggle">
 				<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" >
@@ -16,13 +16,13 @@
 		</div>
 	</div>
 </div>
-<div class="span4">
-	<div class="btn-toolbar" style="padding-left:40%;" >
+<div class="col-xs-4 offset1">
+	<div class="btn-toolbar" style="padding-left:47%;" >
 		<div class="btn-group" title="" class="tip-bottom">
-			<button class="btn btn btn-large" >
+			<button class="btn btn-default btn-lg" >
 				Metrics
 			</button>
-			<button data-toggle="dropdown" class="btn btn btn-large dropdown-toggle" >
+			<button data-toggle="dropdown" class="btn btn-default btn-lg dropdown-toggle" >
 				<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" >
@@ -36,57 +36,54 @@
 </div>
 <br/>
 <br/>
+<br/>
+<br/>
 <hr/>
-<div class="row-fluid">
-	<div class="span6">
-		<ul class="site-stats">
+<br/>
+<br/>
+<div class="row">
+	<div class="col-xs-6" >
+		<ul class="site-stats" style="padding-left:9%;">
 			<li>
-				<i class="fa fa-user"></i><strong>{{uptime_data}}</strong><small>Total Uptime(days)</small>
+				<i class="icon-user"></i><strong>{{uptime_data}}</strong><small>Total Uptime(days)</small>
 			</li>
 		</ul>
 	</div>
-	<div class="span6">
-		<ul class="site-stats">
+	
+	<div class="col-xs-6">
+		<ul class="site-stats" style="padding-right:15%;">
 			<li>
-				<i class="fa fa-user"></i><strong>{{rpm_data}}</strong><small>Requests Served(rpm)</small>
+				<i class="icon-user"></i><strong>{{rpm_data}}</strong><small>Requests Served(rpm)</small>
 			</li>
 		</ul>
 	</div>
 </div>
 <br/>
 <hr/>
+<br/>
 <div class="container-fluid">
-	<div class="row-fluid">
-		<div class="span4 center" style="text-align: center;">
+	<div class="row">
+		<div class="col-xs-3" style="text-align: center;">			
 			<ul class="quick-actions">
 				<li>
 					<a href="#" ng-click="update_widget_range('30-minutes', widget)"><i class="icon-graph"></i>LAST 30-minutes</a>
 				</li>
 			</ul>
-		</div>
-		<div class="span4 center" style="text-align: center;">
 			<ul class="quick-actions">
 				<li>
 					<a href="#" ng-click="update_widget_range('60-minutes', widget)"><i class="icon-graph"></i>LAST 60-minutes</a>
 				</li>
 			</ul>
-		</div>
-		<div class="span4 center" style="text-align: center;">
 			<ul class="quick-actions">
 				<li>
 					<a href="#" ng-click="update_widget_range('1-hours', widget)"><i class="icon-graph"></i>LAST 1-hour</a>
 				</li>
 			</ul>
 		</div>
+		<div class="col-xs-7 offset2" id="graph_placeholder" style=" height: 320px;" ></div>
 	</div>
 </div>
 
 </div>
-</div>
-<br/>
-<hr/>
-<div class="span12">
-	<div id="graph_placeholder" style=" height: 300px;" ></div>
-	<!-- <div id="graph_placeholder" style="padding:15px;"></div> -->
 </div>
 

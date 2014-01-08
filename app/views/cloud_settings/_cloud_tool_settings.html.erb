@@ -1,112 +1,118 @@
 <div class="widget-box">
 	<div class="widget-title">
-		<span class="icon"> <i class="fa fa-th-list"></i> </span>
+		<span class="icon"> <i class="icon-th-list"></i> </span>
 		<h5>Cloud Tools Management</h5>
 	</div>
 	<div class="widget-content">
-		<div class="container-fluid">
-			<div class="row-fluid">
-				<div class="span12">
-					<div class="span3">
-						<div class="cb_box_withpadding">
-							<h4 align="center" >Recent Activity</h4>
-							<h5 align="Center"><span class="icon"> <i class="fa fa-calendar"></i> </span><b><%= @cloud_tool_settings.last[:created_at] %></b></h5>
-							<h5 align="Center"><%= link_to "#{@cloud_tool_settings.last[:name]}", cloud_tool_setting_path(:id => "1", :name => "name"), :remote => true, data: { spinlock: '#cloud_current'} %> </h5>
-						</div>
-						<br/>
-						<%= link_to "Upgrade", pricing_path, class: "btn btn-large btn-inverse btn-block", :target => "_self" %>
-						<div class="cb_box_withpadding">
-							<h4 align="center"> Quota</h4><h3 align="center" ><span class="icon"><i class="fa fa-book"></i></span>&nbsp;<%= @cloud_tool_settings.count %>
-							&nbsp; of 2</h3>
-						</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="col-md-3">
+					<div class="cb_box_withpadding">
+						<h4 align="center" >Recent Activity</h4>
+						<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @cloud_tool_settings.last[:created_at] %></b></h5>
+						<h5 align="Center"><%= link_to "#{@cloud_tool_settings.last[:name]}", cloud_tool_setting_path(:id => "1", :name => "name"), :remote => true, data: { spinlock: '#cloud_current'} %> </h5>
 					</div>
-					<!-- Span3 -->
-
-					<div class="span6 offset1">
-						<div class="widget-box">
-							<div class="widget-title">
-								<h5>New Cloud Tool Settings</h5>
-							</div>
-							<div class="widget-content">
-								<div>
-									<%= form_tag cloud_tool_settings_create_path, multipart: true, :id =>'basic_validate', :novalidate => 'novalidate', :name => "basic_validate1",  :method => 'post', :remote => true, data: { spinlock: '#spin_cross_cloud'}  do %>
-									<input type="hidden" name="cloud_type" value="chef">
-									<!--<div class="control-group">
-									<div class="controls">
-									<%= text_field_tag 'cloud_type', nil, :class=> 'required', placeholder: 'Cloud Type' %>
-									</div>
-									</div>-->
-									<div class="offset3">
-										<i class="logo_chef"></i>
-									</div>
-									<div class="control-group offset2">
-										<div class="controls">
-											<i class="fa fa-github"></i>
-											<%= text_field_tag 'repo_name', nil, :class=> 'required', placeholder: 'Repository Name' %>
-										</div>
-									</div>
-									<div class="control-group offset2">
-										<div class="controls">
-											<i class="fa fa-github"></i>
-											<%= text_field_tag 'repo', nil, :class=> 'required', placeholder: 'https://github.com/username/project.git' %>
-										</div>
-									</div>
-									<div class="control-group offset2">
-										<div class="controls">
-											<i class="fa fa-github"></i>
-											<%= text_field_tag 'repo_file', nil, :class=> 'required', placeholder: 'Repository File' %>
-										</div>
-									</div>
-
-									<%= submit_tag "Save", :class => "btn btn-large btn-success btn-block" %>
-
-									<!--<div class="control-group">
-									<%= label "Upload Your repository file(.Zip only)", :class => 'control-label' %>
-									<div class="controls">
-									<%= file_field :repo_file, :id => 'repo_file', placeholder: "Repository File" %>
-									</div>
-									</div>-->
-
-									<% end %>
-								</div>
-							</div>
-						</div>
-
-						<!-- Span6 -->
-
+					<br/>
+					<%= link_to "Upgrade", pricing_path, class: "btn btn-lg btn-inverse btn-block", :target => "_self" %>
+					<div class="cb_box_withpadding">
+						<h4 align="center"> Quota</h4><h3 align="center" ><span class="icon"><i class="icon-book"></i></span>&nbsp;<%= @cloud_tool_settings.count %>
+						&nbsp; of 2</h3>
 					</div>
-					<!-- Span10 -->
 				</div>
-			</div>
-			<div class="row-fluid">
-				<div class="span12">
+				<!-- Span3 -->
+				<div class="col-md-2"></div>
+				<div class="col-md-6 ">
 					<div class="widget-box">
 						<div class="widget-title">
-							<h5>Cloud Tool Settings</h5>
+							<h5>New Cloud Tool Settings</h5>
 						</div>
-						<div class="widget-content nopadding">
-							<table class="table table-bordered table-striped table-hover data-table">
-								<thead>
-									<tr>
-										<th>Name</th>
-										<th>Date</th>
-										<th></th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody>
-									<% @cloud_tool_settings.each do |pre_cl| %>
-									<tr class="gradeA">
-										<td> <%= pre_cl[:name] %></td>
+						<div class="widget-content">
+							<div>
+								<%= form_tag cloud_tool_settings_create_path, multipart: true, :id =>'basic_validate', :novalidate => 'novalidate', :name => "basic_validate1",  :method => 'post', :remote => true, data: { spinlock: '#spin_cross_cloud'}  do %>
+								<input type="hidden" name="cloud_type" value="chef">
+								<!--<div class="control-group">
+								<div class="controls">
+								<%= text_field_tag 'cloud_type', nil, :class=> 'required', placeholder: 'Cloud Type' %>
+								</div>
+								</div>-->
+								<div class="row">
+									<div class="col-md-4"></div>
+									<div class="col-md-3">
+										<i class="logo_chef"></i>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-3"></div>
+									<div class="input-group  col-md-9">
+										<span class="input-group-addon"><i class="icon-github"></i></span>
+										<%= text_field_tag 'repo_name', nil, :class=> 'required', placeholder: 'Repository Name' %>
+									</div>									
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-md-3"></div>
+									<div class="input-group  col-md-9">
+										<span class="input-group-addon"><i class="icon-github"></i></span>
+										<%= text_field_tag 'repo', nil, :class=> 'required', placeholder: 'https://github.com/username/project.git' %>
+									</div>									
+								</div>
+								<br/>
+								<div class="row">
+									<div class="col-md-3"></div>
+									<div class="input-group  col-md-9">
+										<span class="input-group-addon"><i class="icon-github"></i></span>
+										<%= text_field_tag 'repo_file', nil, :class=> 'required', placeholder: 'Repository File' %>
+									</div>									
+								</div>
+								<br/>
+								<%= submit_tag "Save", :class => "btn btn-lg btn-success btn-block" %>
+								<br/>
+								<!--<div class="control-group">
+								<%= label "Upload Your repository file(.Zip only)", :class => 'control-label' %>
+								<div class="controls">
+								<%= file_field :repo_file, :id => 'repo_file', placeholder: "Repository File" %>
+								</div>
+								</div>-->
 
-										<td><%= pre_cl[:created_at] %></td>
-										<td> <%= link_to "View", cloud_setting_path(pre_cl[:name], :type => "cloud_tool_setting"), :remote => true, class: "btn btn-mini btn-success" %> </td>
-										<td> <%= link_to "import", "#", class: "btn btn-mini btn-success" %> </td>
-									</tr>
-									<% end %>
-								</tbody>
-							</table>
+								<% end %>
+							</div>
 						</div>
+					</div>
+
+					<!-- Span6 -->
+
+				</div>
+				<!-- Span10 -->
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="widget-box">
+					<div class="widget-title">
+						<h5>Cloud Tool Settings</h5>
+					</div>
+					<div class="widget-content nopadding">
+						<table class="table table-bordered table-striped table-hover data-table">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Date</th>
+									<th></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<% @cloud_tool_settings.each do |pre_cl| %>
+								<tr class="gradeA">
+									<td> <%= pre_cl[:name] %></td>
+
+									<td><%= pre_cl[:created_at] %></td>
+									<td> <%= link_to "View", cloud_setting_path(pre_cl[:name], :type => "cloud_tool_setting"), :remote => true, class: "btn btn-mini btn-success" %> </td>
+									<td> <%= link_to "import", "#", class: "btn btn-mini btn-success" %> </td>
+								</tr>
+								<% end %>
+							</tbody>
+						</table>
 					</div>
 				</div>
 			</div>
@@ -115,66 +121,75 @@
 </div>
 <!-- container-fluid -->
 
-<div id="cloud_tool_setting_show_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-			×
-		</button>
-		<h3 id="myModalLabel">Cloud Tool Setting View</h3>
-	</div>
-	<div class="modal-body">
-		<div class="alert alert-info">
-			<p>
-				<h4 id="cloud_tool_setting_show"></h4>
-			</p>
+<div id="cloud_tool_setting_show_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">Cloud Tool Setting View</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-info">
+					<p>
+						<h4 id="cloud_tool_setting_show"></h4>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>
+			</div>
 		</div>
-	</div>
-	<div class="modal-footer">
-		<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>
 	</div>
 </div>
 
-<div id="cloud_tool_setting_postfinish_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-			×
-		</button>
-		<h3 id="myModalLabel">Cloud Tool Settings</h3>
-	</div>
-	<div class="modal-body">
-		<div class="alert alert-success">
+<div id="cloud_tool_setting_postfinish_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">Cloud Tool Settings</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-success">
 
-			<p>
-				<div id="res_msg"></div>
-				</br>
-			</p>
+					<p>
+						<div id="res_msg"></div>
+						</br>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer" id="cloudtoolsettings_path"></div>
 		</div>
 	</div>
-	<div class="modal-footer" id="cloudtoolsettings_path"></div>
 </div>
 
-<div id="cloud_tool_setting_postfinish_popup_error" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="cloud_tool_setting_postfinish_popup_error" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">Cloud Tool Settings</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-error">
 
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-			×
-		</button>
-		<h3 id="myModalLabel">Cloud Tool Settings</h3>
-	</div>
-	<div class="modal-body">
-		<div class="alert alert-error">
-
-			<p>
-				A cloud tool setting creation request to the megam cloud gateway was not successful.
-				</br>
-				<div id="err_msg"></div>
-			</p>
+					<p>
+						A cloud tool setting creation request to the megam cloud gateway was not successful.
+						</br>
+						<div id="err_msg"></div>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>
+			</div>
 		</div>
-	</div>
-	<div class="modal-footer">
-		<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>
-
 	</div>
 </div>
 

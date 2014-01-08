@@ -4,67 +4,73 @@
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
-<div ng-controller="LogCtrl">
-	<div class="container-fluid">
-		<div class="widget-box">
-			<div class="widget-title">
-				<span class="icon"> <i class="fa fa-th-list"></i> </span>
-				<h5>Cloud Books Run History</h5>
-			</div>
-			<div class="widget-content nopadding">
-				
-							<% @nodes.each do |node| %>
+<div class="container-fluid">
+	<div class="row">
+		<div ng-controller="LogCtrl">
+
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Cloud Books Run History</h5>
+				</div>
+				<div class="widget-content nopadding">
+					<% @nodes.each do |node| %>
 							<div class="span3">
 							<input type="button" ng-model="query" ng-click="sendmessage('<%= node.node_name %>')" id="node_names" value="<%= node.node_name %>" class="btn btn-block btn-success">
 							</div>
 							<% end %>
-
-			</div>
-		</div>
-		<input type="hidden" ng-model="source">
-		<div class="widget-box">
-			<div class="widget-title">
-				<span class="icon"> <i class="fa fa-th-list"></i> </span>
-				<h5>Watch Realtime Log</h5>
-				<span class="label label-info">{{source}}</span>
-			</div>
-			<div class="widget-content nopadding">
-				<br/>
-				<div class="offset8">
-					<!--{{total}} == {{l_total}}-->
-					<a href="{{book_json}}" target="_blank">view Offline Log</a>
 				</div>
-				<div class="widget-box">
-					<div class="widget-title">
-						<ul class="nav nav-tabs">
-							<li class="active">
-								<a data-toggle="tab" href="#tab1">{{bookName}}</a>
-							</li>
-						</ul>
+			</div>
+			<input type="hidden" ng-model="source">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Watch Realtime Log</h5>
+					<span class="label label-info">{{source}}</span>
+				</div>
+				<div class="widget-content nopadding">
+					<br/>
+					<div class="row">
+						<div class="col-md-8"></div>
+						<div class="col-md-3">
+							<!--{{total}} == {{l_total}}-->
+							<a href="{{book_json}}" target="_blank">view Offline Log</a>
+						</div>
 					</div>
-					<div class="widget-content tab-content"  style="height: 200px; ">
-						<div id="tab1" class="tab-pane active">
-							<br/>
-							<table class="table table-bordered table-striped table-hover"  style=" overflow-y: scroll;">
-								<thead>
-									<tr>
-										<th class="span3">Timestamp</th>
-										<th class="span9">Message</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
-										<td>
-										<p>
-											{{ log.timestamp | date:'d  MMMM,  y - hh:mm a Z' }}
-										</p></td>
-										<td>
-										<p>
-											{{log.message }}
-										</p></td>
-									</tr>
-								</tbody>
-							</table>
+					<div class="row">
+						<div class="widget-box">
+							<div class="widget-title">
+								<ul class="nav nav-tabs">
+									<li class="active">
+										<a data-toggle="tab" href="#tab1">{{bookName}}</a>
+									</li>
+								</ul>
+							</div>
+							<div class="widget-content tab-content"  style="height: 200px; ">
+								<div id="tab1" class="tab-pane active">
+									<br/>
+									<table class="table table-bordered table-striped table-hover"  style=" overflow-y: scroll;">
+										<thead>
+											<tr>
+												<th class="col-md-3">Timestamp</th>
+												<th class="col-md-9">Message</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
+												<td>
+												<p>
+													{{ log.timestamp | date:'d  MMMM,  y - hh:mm a Z' }}
+												</p></td>
+												<td>
+												<p>
+													{{log.message }}
+												</p></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -73,14 +79,13 @@
 	</div>
 </div>
 
-
 <!--todo  multiple books logs display using tabs-->
 
 <!--<div ng-controller="MyCtrl">
 <div class="container-fluid">
 <div class="widget-box">
 <div class="widget-title">
-<span class="icon"> <i class="fa fa-th-list"></i> </span>
+<span class="icon"> <i class="icon-th-list"></i> </span>
 <h5>Cloud Books Run History</h5>
 </div>
 <div class="widget-content nopadding">
@@ -111,7 +116,7 @@
 <input type="hidden" ng-model="source">
 <div class="widget-box">
 <div class="widget-title">
-<span class="icon"> <i class="fa fa-th-list"></i> </span>
+<span class="icon"> <i class="icon-th-list"></i> </span>
 <h5>Watch Realtime Log</h5>
 <span class="label label-info">{{source}}</span>
 </div>

@@ -1,84 +1,59 @@
-<div id="dash">
+<%= render 'layouts/header' %>
 	<div id="sidebar">
-		<ul ng-controller="MainCtrl">
-			<li >
-				<div class="media">	
-				<%= link_to edit_user_path(current_user), :target => "_self" do %>
-				<%= image_tag avatar_url(current_user),:class=> "img-rounded",  :size => "260x260"%>
-				<%end%>
-				</div>
-			</li>
+		<ul ng-controller="MainCtrl">					
+			<!--<div class="you">
+				<li >
+					<%= link_to edit_user_path(current_user), :target => "_self" do %>
+					<%= image_tag avatar_url(current_user), :size => "220x220"%>					
+					<%end%>
+				</li>
+			</div>-->
 			<li class=<%= "active" if controller_name== "dashboards"%>>
 				<%= link_to dashboards_path, :target => "_self" do %>
-				<i class="fa fa-dashboard"></i><span> Dashboard</span>
+				<i class="icon-dashboard"></i><span> Dashboard</span>
 				<% end %>
-			</li>
-
+			</li>       
+			<li class=<%= "active" if controller_name== "cloud_settings"%> >
+				<a target="_self" href="/cloud_settings" > <i class="icon-random" ></i>Settings</a>
+			</li>    
 			<li class=<%= "active" if controller_name== "cloud_books"%> >
-				<a target="_self" href="/cloud_books" > <i class="fa fa-th"></i>Cloud Application</a>
+				<a target="_self" href="/cloud_books" > <i class="icon-th"></i>Custom Apps</a>
 			</li>
 
 			</li>
 			<li class=<%= "active" if controller_name== "cloud_stores"%> >
-				<a target="_self" href="/cloud_stores" > <i class="fa fa-list-alt"></i>Cloud Store</a>
+				<a target="_self" href="/cloud_stores" > <i class="icon-list-alt"></i>Store</a>
 			</li>
 
 			<li class=<%= "active" if controller_name== "cloud_books_histories"%> >
-				<a target="_self" href="/cloud_books_histories" > <i class="fa fa-video-camera"></i>Cloud Run History</a>
-			</li>
-
-			<li class=<%= "active" if controller_name== "cloud_settings"%> >
-				<a target="_self" href="/cloud_settings" > <i class="fa fa-random" ></i>Cloud Settings</a>
-			</li>
+				<a target="_self" href="/cloud_books_histories" > <i class="icon-facetime-video"></i>Logs</a>
+			</li>			
 
 			<!--
 			<li class=<%= "active" if controller_name== "apps_items"%>>
 			<%= link_to new_apps_item_path, :target => "_self" do %>
-			<i class="fa fa-briefcase"></i>Cloud Applications
+			<i class="icon-briefcase"></i>Cloud Applications
 			<% end %>
 			</li>
 
 			<li class=<%= "active" if controller_name== "cloud_identities"%>>
 			<%= link_to cloud_identity_path(current_user.id),  :target => "_self" do %>
-			<i class="fa fa-unlock"></i>Cloud Identity
+			<i class="icon-unlock"></i>Cloud Identity
 			<% end %>
 			</li>
 			-->
 			<li class=<%= "active" if controller_name== "connector_projects"%>>
 				<%= link_to new_connector_project_path, :target => "_self" do %>
-				<i class="fa fa-cloud"></i>Live Cloud
+				<i class="icon-cloud"></i>Cloud Sync
 				<% end %>
 			</li>
-
-			<li class="submenu <%= "active" if controller_name== "billing"%> ">
-				<a href="#"><i class="fa fa-file"></i> <span>Billing</span> <span class="label">2</span></a>
-				<ul>
-					<li class=<%= "active" if controller_name== "billing"%>>
-						<%= link_to pricing_path, :target => "_self" do %>
-						<i class="fa fa-money"></i>Pricing
-						<% end %>
-					</li>
-
-					<li class=<%= "active" if controller_name== "billing"%>>
-						<%= link_to account_path, :target => "_self"  do %>
-						<i class="fa fa-credit-card"></i>Account
-						<% end %>
-					</li>
-
-					<!--	<li class=<%= "active" if controller_name== "billing"%>>
-					<%= link_to history_path, :target => "_self"  do %>
-					<i class="fa fa-book"></i>History
-					<% end %>
-					</li>
-					-->
-				</ul>
-			</li>
+			
 		</ul>
 
 	</div>
 	<div id="content">
 		<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
+		
 	</div>
-
-</div>
+<%= render 'layouts/footer' %>
 
