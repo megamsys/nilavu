@@ -7,11 +7,13 @@
 		<div class="flexslider">
 			<ul class="slides">
 				<% @products.each do |product| %>
+				<% if product.cloud_sync %>
 				<li>
 					<%= link_to import_path(:api_name => product.name, :url => product.url, :app_url => product.deccanplato_url), :remote => true, :type => "submit", :method => "post", data: { spinlock: '#dec'}  do %>
 					<i class="logoc_<%= product.image_url %>", id ="slider-image"></i>
 					<% end %>
 				</li>
+				<% end %>
 				<% end %>
 			</ul>
 		</div>

@@ -70,19 +70,6 @@ ActiveRecord::Schema.define(version: 20130828101201) do
 
   add_index "cloud_identities", ["users_id"], name: "index_cloud_identities_on_users_id", using: :btree
 
-  create_table "cloud_runs", force: true do |t|
-    t.integer  "users_id"
-    t.integer  "book_id"
-    t.string   "book_name"
-    t.string   "request_id"
-    t.string   "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "cloud_runs", ["book_id"], name: "index_cloud_runs_on_book_id", using: :btree
-  add_index "cloud_runs", ["users_id"], name: "index_cloud_runs_on_users_id", using: :btree
-
   create_table "dashboards", force: true do |t|
     t.string   "name"
     t.string   "layout"
@@ -132,6 +119,8 @@ ActiveRecord::Schema.define(version: 20130828101201) do
     t.boolean "app_provisioning"
     t.string  "rest_api"
     t.string  "deccanplato_url"
+    t.boolean "market_place"
+    t.boolean "cloud_sync"
   end
 
   create_table "users", force: true do |t|

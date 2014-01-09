@@ -10,8 +10,8 @@ Product.delete_all
 puts "== Products: loading"
 open("config/products_seed.data") do |products|
   products.read.each_line do |product|
-    name, description, url, image_url, category, identity, app_provisioning, rest_api, deccanplato_url = product.chomp.split("|")
-    Product.create!(:name => name, :description => description, :url => url, :image_url => image_url, :category => category, :identity => identity, :app_provisioning => app_provisioning, :rest_api => rest_api, :deccanplato_url => deccanplato_url)
+    name, description, url, image_url, category, identity, app_provisioning, rest_api, deccanplato_url, market_place, cloud_sync = product.chomp.split("|")
+    Product.create!(:name => name, :description => description, :url => url, :image_url => image_url, :category => category, :identity => identity, :app_provisioning => app_provisioning, :rest_api => rest_api, :deccanplato_url => deccanplato_url, :market_place => market_place, :cloud_sync => cloud_sync)
   end
 end
 puts "== Products: loaded"

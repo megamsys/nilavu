@@ -1,0 +1,68 @@
+[class^="logom_"], [class*="logom_"] {
+  background-image: url('market_place_sprites.png');
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  display: inline-block;
+  height: 100px;
+  width: 100px;
+}
+
+.logom_hadoop{
+	background-position: -161px -16px ;
+	width: 100px;
+	height: 100px;
+}
+
+.logom_jenkins{
+	background-position: -318px -16px ;
+	width: 100px;
+	height: 100px;
+}
+
+.logom_joomla{
+	background-position: -5px -130px ;
+	width: 100px;
+	height: 100px;
+}
+
+.logom_otrs{
+	background-position: -162px -132px ;
+	width: 100px;
+	height: 100px;
+}
+
+.logom_redmine{
+	background-position: -596px -6px ;
+	width: 100px;
+	height: 100px;
+}
+
+.logom_sugarcrm{
+	background-position: -15px -18px ;
+	width: 100px;
+	height: 100px;
+}
+
+.logom_orion{
+	background-position: -460px -12px ;
+	width: 100px;
+	height: 100px;
+}
+
+.logom_liferay{
+	background-position: -601px -123px ;
+	width: 100px;
+	height: 100px;
+}
+
+.logom_scmmanager{
+	background-position: -468px -124px ;
+	width: 100px;
+	height: 100px;
+}
+
+.logom_wordpress{
+	background-position: -322px -120px ;
+	width: 100px;
+	height: 100px;
+}

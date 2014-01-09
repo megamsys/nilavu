@@ -153,7 +153,7 @@ class CloudBooksController < ApplicationController
   def new_book
     add_breadcrumb "Cloud_Books", cloud_books_path
     add_breadcrumb "New Cloud_Platform Selection", new_cloud_book_path
-    add_breadcrumb "Create", new_book_path
+    add_breadcrumb "Create", new_book_path    
     if"#{params[:deps_scm]}".strip.length != 0
       @deps_scm = "#{params[:deps_scm]}"
     elsif !"#{params[:scm]}".start_with?("select")

@@ -1,0 +1,79 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'New Market_place') %>
+
+<%= render :partial => "users/header" , :locals => {:head => "Market Place"}%>
+<div id="breadcrumb">
+	<%= render_breadcrumbs %>
+</div>
+<div class="container-fluid">
+	<div class="row">
+		<div>
+			<p class="help-block">
+				<%= image_tag "helpbota.png", :alt => "help bot"%>
+				<strong> some text </strong>
+			</p>
+		</div>
+	</div>
+	<%= form_tag(new_book_path, :method => "post", :name => "predef") do %>
+	<input type="hidden" name="no_of_instances" value=1>
+	<input type="hidden" name="deps_scm" value="">
+	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
+	<div class="row">
+		<% @category.each do |key, value| %>
+		<div class="col-md-6">
+			<div class="widget-box"  >
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5><%= key %></h5>
+					<div class="buttons">
+						<a title="Icon Title" class="btn btn-mini" href="#"><i class="icon-shopping-cart"></i> Upgrade</a>
+						<a title="Icon Title" class="btn btn-mini" href="#"><i class="icon-shopping-cart"></i> Refresh</a>
+					</div>
+				</div>
+				<div class="widget-content" style="height:300px; overflow-y: scroll;">					
+							<table class="table table-bordered" >
+								<thead>
+									<tr>
+										<th> App </th>
+										<th> Description </th>
+										<th> Action </th>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr>
+										<th class="total-label" colspan="2"> Help </th>
+										<th class="total-amount"> <%= link_to "Click here", "http://docs.megam.co", :target => "_blank"%> </th>
+									</tr>
+								</tfoot>
+								<tbody>
+									<% value.each do |cat| %>
+									<% @products.each do |product| %>
+									<% if cat == product.name %>
+									<tr>
+										<td><i class="logom_<%= product.image_url %>", id =<%= product.name%> ></i></td><dd></dd>
+										<td>
+										<input type="hidden" name="predef_name" value="<%= product.image_url %>">
+										<%= product.description %></td><dd></dd>
+										<td>
+										<div class="row">
+											<div id=<%= dom_id(product) %>>
+												<%= render :partial => "market_place/add_button", :locals => {:product => product} %>
+											</div>
+										</div></td>
+										<dd/>
+									</tr>
+									<% end %>
+									<% end %>
+									<% end %>
+								</tbody>
+							</table>						
+				</div>
+			</div>
+		</div>
+		<% end %>
+		<% end %>
+	</div>
+</div>
+
+<% end %>
+<%= render :template => users_show_path %>
