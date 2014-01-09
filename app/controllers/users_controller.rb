@@ -59,6 +59,7 @@ class UsersController < ApplicationController
     @user_fields_form_type = params[:user_fields_form_type]
 
     if @user.save
+    sign_in @user
       if params[:social_uid]
         logger.debug "--> Users:create, update socail identity for new social identity user"
         @identity = Identity.find_by_uid(params[:social_uid])
@@ -81,7 +82,7 @@ class UsersController < ApplicationController
         logger.debug "==> Controller: users, Action: create, User onboard was not successful"
         redirect_to dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onbodard #{@user.email}. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       end  
-      sign_in @user    
+          
     else
       @user= User.find_by_email(params[:user][:email])
       if(@user)

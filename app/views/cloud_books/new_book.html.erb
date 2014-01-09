@@ -25,9 +25,7 @@
 						</div>
 
 						<div class="row">
-							<div class="col-md-2">
-								<br/>
-								<br/>
+							<div class="col-md-4">
 								<br/>
 								</br/>
 								<i class="logo_chef"></i>
@@ -36,15 +34,13 @@
 								<span class="badge badge-success"><%= @predef.provider_role.capitalize %>&nbsp;&nbsp; </span>
 								<span class="label label-primary">launched in cloud&nbsp; </span>
 								</br>
-								<%= image_tag "lamda_cloud.png", :alt => "lamda cloud" , :size =>"100X100"%>
+								<%= image_tag "lamda_cloud.png", :alt => "lamda cloud" , :size =>"150x150"%>
 							</div>
-							<div class="col-md-3">
-								<br/>
-								<%= image_tag "lamda.png", :alt => "lamda functional" , :size =>"100X100"%>
-							</div>
-							<div class="col-md-3">
+							<div class="col-md-4">
 								<span class="label label-primary"> Continious Integration using </span>
 								<span class="badge badge-success block"><%= @predef.build_monkey %></span>
+								<br/> <br/>
+								<%= image_tag "lamda.png", :alt => "lamda functional" , :size =>"150x150"%>
 							</div>
 						</div>
 					</div>
