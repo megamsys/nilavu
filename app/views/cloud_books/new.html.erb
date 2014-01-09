@@ -48,18 +48,18 @@
 													<% end %>
 												</div>
 												<div class="col-md-6">
-													<%= radio_button_tag :predef_name, 'nodejs' %>
-													<%= label :platform, 'Nodejs' do %>
-													<i class="logo_nodejs"></i>
+													<%= radio_button_tag :predef_name, 'akka' %>
+													<%= label :platform, 'Akka' do %>
+													<i class="logo_akka"></i>
 													<% end %>
 												</div>
 											</div>
 											<br/>
 											<div class="row">
-												<div class="col-md-6">
-													<%= radio_button_tag :predef_name, 'akka' %>
-													<%= label :platform, 'Akka' do %>
-													<i class="logo_akka"></i>
+												<div class="col-md-8">
+													<%= radio_button_tag :predef_name, 'nodejs' %>
+													<%= label :platform, 'Nodejs' do %>
+													<i class="logo_nodejs"></i>
 													<% end %>
 												</div>
 											</div>
@@ -182,7 +182,7 @@
 										<br/>
 										<%= select_tag 'scm', options_for_select(repos.insert(0, "Select a Repository")), :style => "width:600px" %>
 										<% else %>
-										<%= link_to "/auth/github", :class =>"btn", :title=> "Github Oauth", :target => "_self", :data => { spinner: '#git_oauth'} do %> Connect Repository
+										<%= link_to "/auth/github", :class =>"btn btn-default", :title=> "Github Oauth", :target => "_self", :data => { spinner: '#git_oauth'} do %> Connect Repository
 										<%= image_tag "logo_github.png", :alt => "logo_github"%>
 										<% end %>
 										<% end %>

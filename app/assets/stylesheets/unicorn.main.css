@@ -106,7 +106,7 @@ a {
 	font-size: 12px;
 	color: #ffffff;
 	opacity: 0.5;
-	margin-top:;
+	margin-top: 0;
 }
 #search button:hover i, #search button:active i {
 	opacity: 0.9;
