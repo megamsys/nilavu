@@ -1,6 +1,6 @@
 <% content_for :content_settings do %>
-<% provide(:title, 'Manage Cloud Books') %>
-<%= render :partial => "users/header" , :locals => {:head => "Manage Cloud Books"}%>
+<% provide(:title, 'Manage Custom Apps') %>
+<%= render :partial => "users/header" , :locals => {:head => "Manage Custom Apps"}%>
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
@@ -17,7 +17,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					×
 				</button>
-				<h3 id="myModalLabel">Cloud Book view</h3>
+				<h3 id="myModalLabel">View - Custom Apps</h3>
 			</div>
 			<div class="modal-body">
 				<p>
@@ -47,7 +47,7 @@
 					<% @new_book_name = book_name %>
 					<% @domain_name = ".megam.co" %>
 					<p class="help-block">
-						<strong><span class="label label-warning">*optional</span> Click on the default book name to change it</strong>
+						<strong><span class="label label-warning">*optional</span> Click on the default name to change it</strong>
 					</p>
 					</br>
 					<div class="col-md-6">

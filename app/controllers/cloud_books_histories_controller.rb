@@ -5,7 +5,7 @@ class CloudBooksHistoriesController < ApplicationController
   def index
  
   if current_user.cloud_books.any?
-       add_breadcrumb "Cloud Book History", :root_path
+       add_breadcrumb "Logs", :root_path
        cloud_books = current_user.cloud_books
        @nodes = FindNodesByEmail.perform
       if @nodes.class == Megam::Error

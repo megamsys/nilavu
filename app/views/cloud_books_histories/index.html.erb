@@ -1,6 +1,6 @@
 <% content_for :content_settings do %>
-<% provide(:title, 'cloud_book_history') %>
-<%= render :partial => "users/header" , :locals => {:head => "Cloud Book Histories"}%>
+<% provide(:title, 'Logs') %>
+<%= render :partial => "users/header" , :locals => {:head => "Logs"}%>
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
@@ -11,7 +11,7 @@
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-th-list"></i> </span>
-					<h5>Cloud Books Run History</h5>
+					<h5>Logs</h5>
 				</div>
 				<div class="widget-content nopadding">
 					<% @nodes.each do |node| %>

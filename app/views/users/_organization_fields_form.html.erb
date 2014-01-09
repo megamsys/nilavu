@@ -5,7 +5,11 @@
 	<%= f.fields_for :organization_attributes, @user.organization do |org_f| %>
 	<div class="row">
 		<div class="col-md-3">
-			<%= image_tag(current_user.organization.logo, :size => "100x100", :alt => "Upload your logo") %>
+			<% if current_user.organization.present? %>
+			<%= image_tag(current_user.organization.logo, :size => "90x90", :alt => "Upload your logo") %>
+			<% else %>
+			<%= image_tag avatar_url(current_user),:class=> "img-rounded",  :size => "90x90"%>
+			<% end %>
 		</div>
 		<div class="col-md-9">
 			<div class="input-group">
@@ -19,10 +23,15 @@
 		</div>
 	</div>
 	<br/>
-	<div class="input-group">
-		<%= org_f.label "Upload Your New Logo(Nuke existing)", :class => 'control-label' %>
-		<%= org_f.file_field :logo, :id => 'org_logo', placeholder: "Logo" %>
+	<div class="row">
+	<div class="form-group">
+		<label class="col-sm-5 col-md-5 col-lg-4 control-label">New Logo</label>
+		<div class="col-sm-7 col-md-7 col-lg-8">
+			<%= org_f.file_field :logo, :id => 'org_logo', placeholder: "Logo" %>
+		</div>
 	</div>
+	</div>
+	<br/>
 
 	<% end %>
 	<%= f.submit "Update", :class => "btn btn-default", :remote => true %>

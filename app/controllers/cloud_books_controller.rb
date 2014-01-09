@@ -6,7 +6,7 @@ class CloudBooksController < ApplicationController
   def index
     cloud_books = current_user.cloud_books
     if cloud_books.any?
-      add_breadcrumb "Cloud_books", cloud_books_path      
+      add_breadcrumb "Custom Apps", cloud_books_path      
       @nodes = FindNodesByEmail.perform
       if @nodes.class == Megam::Error
         redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }

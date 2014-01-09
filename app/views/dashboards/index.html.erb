@@ -87,7 +87,7 @@
 										<% if current_user.cloud_books.empty?  %>
 										<%= link_to "Take me there", new_cloud_book_path, :target => "_self" , class: "btn btn-default btn-warning btn-xs", title: 'Create a new cloud Book for your own application', rel: 'tooltip'  %>
 										<% else %>
-										Awesome ! <span class="label label-success"> you have one.</span>
+										Awesome !  you have one.
 										<%= link_to "Take me there", cloud_books_path, :target => "_self" , class: "btn btn-default btn-success btn-xs", title: 'See the list of your cloud books @ megam', rel: 'tooltip'  %>
 										<% end %>
 									</div>
@@ -106,7 +106,7 @@
 										<% if !current_user.onboarded_api %>
 										<%= link_to "Take me there", edit_user_path(current_user), :target => "_self" , class: "btn btn-default btn-warning btn-xs"  %>Profile
 										<% else %>
-										Super cool ! <span class="label label-success"> you have cross cloud defaults.</span>
+										Super cool ! you have cross cloud defaults.
 										<%= link_to "Take me there", cross_clouds_path, :target => "_self" , class: "btn btn-default btn-success btn-xs"  %>
 										<% end %>
 									</div>
@@ -122,8 +122,8 @@
 							<div class="collapse accordion-body" id="collapseGFive">
 								<div class="widget-content">
 									<div class="container">
-										Others scms, coming soon.
-										Awesome ! <span class="label label-success"> if you have one.</span>
+										CloudForge, Bitbucket, scm-manager in progress.
+										Awesome ! if you have one.</br>
 										(or)
 										<i class="icon-github"><%= link_to "Create ", "https://github.com", :target => "_blank" , class: "btn btn-default btn-success btn-xs", title: 'Create a Github.com Account', rel: 'tooltip'  %> </i>
 									</div>
@@ -154,33 +154,26 @@
 							<tr>
 								<td class="taskDesc"><i class="icon-info-sign"></i> How can I update my profile ?</td>
 								<td class="taskStatus"><span class="in-progress"> <a href="http://support.megam.co/kb/profile/creating-a-profile" target="_blank">here</a></span></td>
-
-								<td class="taskOptions"><a href="#like" class="tip-top" data-original-title="Yup"><i class="icon-thumbs-up"></i></a>&nbsp;<a href="" class="tip-top" data-original-title="Nah"><i class="icon-thumbs-down"></i></a></td>
 							</tr>
 							<tr>
 								<td class="taskDesc"><i class="icon-check-sign"></i> Launch a Java App ?</td>
 								<td class="taskStatus"><span class="pending"> <a href="http://support.megam.co/kb/platform-applications/how-do-you-develop-a-java-application-on-megam" target="_blank">here</a></span></td>
-								<td class="taskOptions"><a href="#like" class="tip-top" data-original-title="Yup"><i class="icon-thumbs-up"></i></a>&nbsp;<a href="" class="tip-top" data-original-title="Nah"><i class="icon-thumbs-down"></i></a></td>
 							</tr>
 							<tr>
 								<td class="taskDesc"><i class="icon-check-sign"></i> Launch a Playframework App ?</td>
 								<td class="taskStatus"><span class="pending"> <a href="http://support.megam.co/kb/platform-applications/how-do-you-develop-a-playframework-application-on-megam" target="_blank">here</a></span></td>
-								<td class="taskOptions"><a href="#like" class="tip-top" data-original-title="Yup"><i class="icon-thumbs-up"></i></a>&nbsp;<a href="" class="tip-top" data-original-title="Nah"><i class="icon-thumbs-down"></i></a></td>
 							</tr>
 							<tr>
 								<td class="taskDesc"><i class="icon-info-sign"></i> Why do I need to use Github ?</td>
 								<td class="taskStatus"><span class="done"> <a href="http://support.megam.co/kb/quick-start/why-do-i-need-github-account" target="_blank">here</a></span></td>
-								<td class="taskOptions"><a href="#like" class="tip-top" data-original-title="Yup"><i class="icon-thumbs-up"></i></a>&nbsp;<a href="" class="tip-top" data-original-title="Nah"><i class="icon-thumbs-down"></i></a></td>
 							</tr>
 							<tr>
-								<td class="taskDesc"><i class="icon-info-sign"></i>Meter and monitor - Cloud books ?</td>
+								<td class="taskDesc"><i class="icon-info-sign"></i>Meter and monitor - Cloud launches ?</td>
 								<td class="taskStatus"><span class="pending"> <a href="http://support.megam.co/kb/cloud-applications/what-do-your-meter-monitor" target="_blank">here</a></span></td>
-								<td class="taskOptions"><a href="#like" class="tip-top" data-original-title="Yup"><i class="icon-thumbs-up"></i></a>&nbsp;<a href="somedoclink" class="tip-top" data-original-title="Nah"><i class="icon-thumbs-down"></i></a></td>
 							</tr>
 							<tr>
 								<td class="taskDesc"><i class="icon-trophy"></i> Request for a feature</td>
 								<td class="taskStatus"><span class="done"> <a href="http://support.megam.co/discussions" target="_blank">Great. sure</a></span></td>
-								<td class="taskOptions"><a href="#like" class="tip-top" data-original-title="Likes old requests (Vote now)"><i class="icon-thumbs-up"></i></a></td>
 							</tr>
 
 						</tbody>
