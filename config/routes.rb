@@ -20,7 +20,7 @@ Cloudauth::Application.routes.draw do
   resources :password_resets
   resources :cloud_tool_settings
   resources :cloud_settings
-
+  resources :market_place
 
   namespace :api do
     resources :dashboards do
