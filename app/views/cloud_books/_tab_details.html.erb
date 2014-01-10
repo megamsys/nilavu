@@ -3,7 +3,7 @@
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Cloud Book</h5>
+				<h5>App</h5>
 			</div>
 			<div class="widget-content nopadding">
 				<table class="table table-bordered table-striped table-hover">
@@ -16,18 +16,18 @@
 					<tbody>
 
 						<tr>
-							<td><b>Node Name</b></td><td> <%= cloud_book.node_name %></td>
+							<td><b>Name</b></td><td> <%= cloud_book.node_name %></td>
 						</tr>
 
 						<tr>
-							<td><b>Node Type</b></td><td> <%= cloud_book.node_type %></td>
+							<td><b>Type</b></td><td> <%= cloud_book.node_type %></td>
 						</tr>
 						<tr>
 
-							<td><b>Platform</b></td><td> <%= cloud_book.predefs[:name] %></td>
+							<td><b>Framework</b></td><td> <%= cloud_book.predefs[:name] %></td>
 						</tr>
 						<tr>
-							<td><b>SCM</b></td><td> <%= cloud_book.predefs[:scm] unless cloud_book.predefs[:scm].empty? %></td>
+							<td><b>Source code</b></td><td> <%= cloud_book.predefs[:scm] unless cloud_book.predefs[:scm].empty? %></td>
 						</tr>
 						<% if !cloud_book.predefs[:war].blank? %>
 						<tr>
@@ -44,6 +44,7 @@
 			</div>
 		</div>
 	</div>
+	<!--
 	<div class="col-md-6">
 		<div class="widget-box">
 			<div class="widget-title">
@@ -77,12 +78,12 @@
 			</div>
 		</div>
 	</div>
-
+-->
 	<div class="col-md-6">
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Cloud Book <%= cloud_book.node_type %> Requests</h5>
+				<h5>App Lifecycle</h5>
 			</div>
 			<div class="widget-content nopadding" style="overflow-y: scroll; height: 100px;">
 				<table class="table table-bordered table-striped table-hover">

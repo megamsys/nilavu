@@ -3,13 +3,13 @@
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Your Usage</h5>
+				<h5>My Apps Usage</h5>
 			</div>
 			<div class="widget-content" >
 				<div class="row">
 					<div class="col-md-4">
 						<div class="cb_box">
-							<h4 align="center"> Quota</h4><h3 align="center" ><span class="icon"><i class="icon-book"></i></span>&nbsp;<%= @launched_books_quota %>&nbsp; of 2</h3> <% @percent = @launched_books_quota/2.0*100 %>
+							<h4 align="center"> Number of Apps </h4><h5 align="center" ><span class="icon"><i class="icon-book"></i></span>&nbsp;Used <b><%= @launched_books_quota %></b>&nbsp; Allowed <b>2</b></h5> <% @percent = @launched_books_quota/2.0*100 %>
 						</div>
 						<br/>
 						<div class="progress">
@@ -30,7 +30,7 @@
 					</div>
 					<div class="col-md-4">
 						<div class="cb_box">
-							<h4 align="center" >Recent Activity</h4><h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= latest_book.created_at.to_formatted_s(:rfc822) %></b></h5> <% @launched_books.select{|k, v|k==latest_book.name}.each do |k, v| %>
+							<h4 align="center" >Recent Activity </h4><h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><%= latest_book.created_at.to_formatted_s(:rfc822) %></h5> <% @launched_books.select{|k, v|k==latest_book.name}.each do |k, v| %>
 							<% v.each do |node| %>
 							<% cloud_book = @nodes.lookup(node) %> <h5 align="Center"> <%= link_to "#{cloud_book.node_name}", cloud_book_path(:id => latest_book.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'} %> </h5> <% end %>
 							<% end %>
@@ -39,12 +39,12 @@
 				</div>
 				<div class="row">
 					<div class="col-md-4">
-						<%= link_to new_cloud_book_path, class: "btn btn-lg btn-success btn-block", :target => "_self" do %>
-						Create
+						<%= link_to new_cloud_book_path, class: "btn btn-lg btn-success btn-block", title: 'Choose your application\'s framework', rel: 'tooltip', :target => "_self" do %>
+						Choose Your Framework
 						<% end %>
 					</div>
 					<div class="col-md-4">
-						<%= link_to "Watch Run History", cloud_books_histories_path, class: "btn btn-lg btn-info btn-block", :target => "_self" %>
+						<%= link_to "Watch Logs", cloud_books_histories_path, class: "btn btn-lg btn-info btn-block", title: 'Watch logs of created apps', rel: 'tooltip', :target => "_self" %>
 					</div>
 					<div class="col-md-4">
 						<%= link_to "Upgrade", pricing_path, class: "btn btn-lg btn-inverse btn-block ", :target => "_self" %>
@@ -60,7 +60,7 @@
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Your Launched Books In Cloud {Nodes}</h5>
+				<h5>My Apps</h5>
 			</div>
 			<div class="widget-content">
 				<% @launched_books.each do |k, v| %>
@@ -82,7 +82,7 @@
 											<th>Actions</th>
 											<th>Name</th>
 											<th>Clone</th>
-											<th>Destroy</th>
+											<th>Delete</th>
 											<th>Created At</th>
 											<th>Status</th>
 										</tr>
@@ -119,7 +119,7 @@
 													</li>
 													<li class="divider"></li>
 													<li>
-														<%= link_to "More", cloud_book_path(:action => "show", :id => cb.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'} %>
+														<%= link_to "Details", cloud_book_path(:action => "show", :id => cb.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'} %>
 													</li>
 													</li>
 												</ul>

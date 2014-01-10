@@ -1,63 +1,21 @@
 <% content_for :content_settings do %>
-<% provide(:title, 'cloud_books') %>
-<%= render :partial => "users/header" , :locals => {:head => "Cloud Platform - Step 2 of 2"}%>
+<% provide(:title, 'Apps') %>
+<%= render :partial => "users/header" , :locals => {:head => "Apps - Step 2 of 2"}%>
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
-<div class="container-fluid">
+<div class="container">
 	<%= form_for @book, :html => {:multipart => true }, :remote => true, :method => 'post' do |f| %>
-	<div class="row">
-		<div class="widget-box">
-			<div class="widget-title">
-				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Platform Selected</h5>
-			</div>
-			<div class="widget-content">
-				<div class="control-group">
-					<div class="controls">
-						<div class="row">
-							<div class="col-md-12">
-								<p class="help-block">
-									<strong><span class="label label-info">Platform launch</span> How does it happen ?</strong>
-									<%= link_to " For more information",   "http://docs.megam.co", { :target => '_blank'} %>
-								</p>
-							</div>
-						</div>
-
-						<div class="row">
-							<div class="col-md-4">
-								<br/>
-								</br/>
-								<i class="logo_chef"></i>
-							</div>
-							<div class="col-md-4">
-								<span class="badge badge-success"><%= @predef.provider_role.capitalize %>&nbsp;&nbsp; </span>
-								<span class="label label-primary">launched in cloud&nbsp; </span>
-								</br>
-								<%= image_tag "lamda_cloud.png", :alt => "lamda cloud" , :size =>"150x150"%>
-							</div>
-							<div class="col-md-4">
-								<span class="label label-primary"> Continious Integration using </span>
-								<span class="badge badge-success block"><%= @predef.build_monkey %></span>
-								<br/> <br/>
-								<%= image_tag "lamda.png", :alt => "lamda functional" , :size =>"150x150"%>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="row"  ng-controller="CloudBooksCtrl">
 		<% @new_book_name = book_name %>
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Cloud Book Name</h5>
+				<h5>App Name</h5>
 			</div>
 			<div class="widget-content">
 				<p class="help-block">
-					<strong><span class="label label-warning">*optional</span> Click on the default book name to change it</strong>
+					<strong><span class="label label-warning">*optional</span> Click on the default app name to change it</strong>
 				</p>
 				</br>
 				<div class="col-md-12">
@@ -81,12 +39,12 @@
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Cross Cloud Selection</h5>
+				<h5>Cloud Selection</h5>
 			</div>
 			<div class="widget-content">
 				<div class="control-group">
 					<p class="help-block">
-						<strong><span class="label label-info">Default</span> Cross cloud. You can create your own.</strong>
+						<strong><span class="label label-info">Default</span> Choose your cloud.</strong>
 						<%= link_to "For more information",   "http://docs.megam.co", { :target => '_blank'} %>
 					</p>
 					<p>
@@ -100,12 +58,12 @@
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Application Definitions</h5><strong><span class="label label-info"><%= current_user.user_type %> user</span> </strong>
+				<h5>Advanced app settings</h5><strong><span class="label label-info"><%= current_user.user_type %> user</span> </strong>
 			</div>
 			<div class="widget-content">
 				<div class="control-group">
 					<p class="help-block">
-						<strong><span class="label label-info">Default</span> application definition.</strong>
+						<strong><span class="label label-info">Default</span> Advanced app settings.</strong>
 						<%= link_to "For more information",   "http://docs.megam.co", { :target => '_blank'} %>
 					</p>
 					<table class="table table-bordered table-hover">
@@ -117,15 +75,15 @@
 										<div class="col-md-5">
 											<i class="icon-bar-chart"></i><span>
 												<p>
-													Want us to monitor ?
+													Want us to monitor? <span class="label label-info">Default YES</span> 
 												</p></span>
 										</div>
 										<div class = "col-md-3">
 											<div class="back" id="toggle">
 												<br/>
-												<%= hidden_field_tag 'monitoring', "" %>
-												<%= check_box_tag 'monitoring', "megam" %>
-												Yes
+												<%= hidden_field_tag 'monitoring', "megam" %>
+												<%= check_box_tag 'monitoring', "" %>
+												No
 											</div>
 										</div>
 										<div class = "col-md-4"></div>
@@ -138,15 +96,15 @@
 										<div class="col-md-5">
 											<i class="icon-exchange"></i><span>
 												<p>
-													Want us to stream logs ?
+													Want us to stream logs? <span class="label label-info">Default YES</span>
 												</p></span>
 										</div>
 										<div class = "col-md-3">
 											<div class="back" id="toggle">
 												<br/>
-												<%= hidden_field_tag 'logging', "" %>
-												<%= check_box_tag 'logging', "megam" %>
-												Yes
+												<%= hidden_field_tag 'logging', "megam" %>
+												<%= check_box_tag 'logging', "" %>
+												No
 											</div>
 										</div>
 										<div class = "col-md-4">
@@ -215,9 +173,8 @@
 
 	<div class="row">
 		<div class="col-md-4"></div>
-		<div class="col-md-4 container-fluid">
-			<%= f.submit nil, :class => "btn btn-lg btn-success btn-block", :data =>
-      {:disable_with => "Creating Book..."} %>
+		<div class="col-md-4 container">
+			<%= f.submit nil, :class => "btn btn-lg btn-success btn-block", :data => {:disable_with => "Creating Book..."} %>
 			<% end %>
 			<br/>
 			</br/>
