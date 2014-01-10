@@ -4,7 +4,7 @@
 		<br/>
 		<br/>
 		<div class="div_border">
-			<h4 class="alert-heading">Save this Cross Cloud As</h4>
+			<h4 class="alert-heading">Save My Cloud As</h4>
 		</div>
 		<br/>
 		<div class="row">
@@ -28,7 +28,14 @@
 		<br/>
 		<div class="row">
 			<div  id="acc_link">
-				<%= link_to "Create an account for hpcloud", "http://console.hpcloud.com", :target => "_blank", :class => "btn-link" %>
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						Create a new Account for hpcloud
+					</div>
+					<div class="panel-body">
+						Click here : <%= link_to "New hpcloud Account", "http://console.hpcloud.com", :target => "_blank", :class => "btn-link" %>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -83,8 +90,8 @@
 				<i class="icon-question-sign"></i>
 				<% end %>
 			</div>
-		</div>		
-		
+		</div>
+
 	</div>
 
 	<div class="col-md-4">
@@ -102,7 +109,7 @@
 				<% end %>
 			</div>
 		</div>
-<br/>
+		<br/>
 		<div class="control-group" id="cc_sshuser">
 			<div class="controls">
 				<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter SSH User..' %>
@@ -111,7 +118,7 @@
 				<% end %>
 			</div>
 		</div>
-<br/>
+		<br/>
 		<div class="control-group">
 			<div class="controls">
 				<!-- <%= text_field_tag 'private_key', nil, :class=> 'required', placeholder: 'Enter HP private key...' %> -->
@@ -121,7 +128,7 @@
 				<% end %>
 			</div>
 		</div>
-<br/>
+		<br/>
 		<div class="control-group">
 			<div class="controls">
 				<!-- <%= text_field_tag 'id_rsa_public_key', nil, :class=> 'required', placeholder: 'Enter id_rsa public key..' %> -->
@@ -131,7 +138,7 @@
 				<% end %>
 			</div>
 		</div>
-<br/>
+		<br/>
 		<div class="control-group" id="cc_awsak">
 			<div class="controls">
 				<%= text_field_tag 'hp_access_key', nil, placeholder: 'Enter HP access key..' %>
@@ -140,7 +147,7 @@
 				<% end %>
 			</div>
 		</div>
-<br/>
+		<br/>
 		<div class="control-group" id="cc_awssk">
 			<div class="controls">
 				<%= text_field_tag 'hp_secret_key', nil, placeholder: 'Enter HP secret key..' %>

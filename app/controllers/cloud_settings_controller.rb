@@ -29,7 +29,8 @@ class CloudSettingsController < ApplicationController
   end
 
   def index
-    add_breadcrumb "Cloud Settings", cloud_settings_path
+    add_breadcrumb "Home", "#"
+    add_breadcrumb "Manage Settings", cloud_settings_path
     cross_cloud_init
     cloud_tools_init
     if @cloud_tool_setting_collection.class == Megam::Error && @cross_clouds_collection.class == Megam::Error
@@ -62,9 +63,17 @@ class CloudSettingsController < ApplicationController
     end
   end
 
+   def cloud_tool_setting_new
+      add_breadcrumb "Home", "#"
+      add_breadcrumb "Manage Settings", cloud_settings_path
+      add_breadcrumb "Cloud Provisioners", cloud_settings_path
+      add_breadcrumb "New", cloud_tool_setting_new_path
+   end
+
   def cloud_tool_setting_create
     logger.debug "#{params.inspect}"
-    vault_loc = cloudtool_base_url+"/"+current_user.email+"/"+params[:repo_name]+"/"+File.basename(params[:repo_file])
+    vault_loc = ((params[:repo_file].original_filename).length > 0) ? cloudtool_base_url+"/"+current_user.email+"/"+params[:repo_name]+"/"+params[:repo_file].original_filename : ""
+    #vault_loc = cloudtool_base_url+"/"+current_user.email+"/"+params[:repo_name]+"/"+File.basename(params[:repo_file])
     options = { :cloud_type => params[:cloud_type], :repo_name => params[:repo_name], :repo => params[:repo], :vault_location => vault_loc, :conf_location => "sandy@megamsandbox.com/default_chef/chef-repo/.chef/knife.rb"  }
     @res_body = CreateCloudToolSettings.perform(options)
     if @res_body.class == Megam::Error
@@ -72,7 +81,8 @@ class CloudSettingsController < ApplicationController
       @err_msg="Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
     else
       @err_msg = nil
-      @upload = S3Upload.perform(cloud_tool_setting_bucket, current_user.email+"/"+params[:repo_name]+"/"+File.basename(params[:repo_file]), :file => params[:repo_file])
+      @upload = S3Upload.perform(cloud_tool_setting_bucket, current_user.email+"/"+params[:repo_name]+"/"+params[:repo_file].original_filename, params[:repo_file].read)
+      #@upload = S3Upload.perform(cloud_tool_setting_bucket, current_user.email+"/"+params[:repo_name]+"/"+File.basename(params[:repo_file]), :file => params[:repo_file])
       if @upload.class == Megam::Error
         @res_msg = nil
         @err_msg="Failed to upload cross cloud files. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."

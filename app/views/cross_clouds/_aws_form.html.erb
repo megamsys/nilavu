@@ -4,7 +4,7 @@
 		<br/>
 		<br/>
 		<div class="div_border">
-			<h4 class="alert-heading">Save this Cross Cloud As</h4>
+			<h4 class="alert-heading">Save My Cloud As</h4>
 		</div>
 		<br/>
 		<div class="row">
@@ -21,11 +21,13 @@
 		</div>
 		<br/>
 		<div  id="acc_link">
-			<div class="well">
-				<span class="label label-info">Your own cloud setup</span>
-				</br>
-				<%= link_to "Create a new Account for AWS(EC2)", "http://aws.amazon.com/console/", :target => "_blank", :class => "btn-link"  %>
-				<ul class="inline-block">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					Create a new Account for AWS(EC2)
+				</div>
+				<div class="panel-body">
+					Click here : <%= link_to "New AWS(EC2) Account", "http://aws.amazon.com/console/", :target => "_blank", :class => "btn-link"  %>
+					<ul class="inline-block">
 					<li>
 						AWS Access Key
 					</li>
@@ -35,7 +37,8 @@
 
 				</ul>
 				Make sure you have them handy
-			</div>
+				</div>
+			</div>			
 		</div>
 	</div>
 	<div class="col-md-4">
@@ -50,7 +53,7 @@
 			<div class="controls">
 				<%= text_field_tag 'group', nil, placeholder: 'Enter Group name' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_cloud"></i>
 				<% end %>
 			</div>
 		</div>
@@ -66,7 +69,7 @@
 		<br/>
 		<div class="control-group" id="cc_flavor">
 			<div class="controls">
-				<%= text_field_tag 'flavor', nil, placeholder: 'Enter Instance size(t1.micro etc)' %>
+				<%= text_field_tag 'flavor', nil, placeholder: 'Enter Instance size' %>
 				<%= link_to "#" do %>
 				<i class="icon-question-sign"></i>
 				<% end %>
@@ -160,7 +163,7 @@
 				<i class="icon-question-sign"></i>
 				<% end %>
 			</div>
-		</div>		
+		</div>
 		<br/>
 	</div>
 </div>

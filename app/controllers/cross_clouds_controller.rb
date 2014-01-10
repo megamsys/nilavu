@@ -3,8 +3,10 @@ class CrossCloudsController < ApplicationController
   include CrossCloudsHelper  
 
   def new
-    add_breadcrumb "Cross Clouds", cross_clouds_path
-    add_breadcrumb "New Cross Cloud", new_cross_cloud_path
+     add_breadcrumb "Home", "#"
+    add_breadcrumb "Manage Settings", cloud_settings_path
+    add_breadcrumb "Clouds", cloud_settings_path
+    add_breadcrumb "New", new_cross_cloud_path
     logger.debug "GOOGLE oauth token ============> "     
     if request.env['omniauth.auth']
       @cloud_prov = "Google Cloud Engine"
@@ -24,11 +26,7 @@ class CrossCloudsController < ApplicationController
     
     logger.debug "CROSS CLOUD CREATE Private Key ============> "
     logger.debug params[:private_key].inspect
-
-    #uploaded_io = params[:aws_private_key]
-    #File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
-    #file.write(uploaded_io.read)
-    #end
+    
     vault_loc = vault_base_url+"/"+current_user.email+"/"+params[:name]
     sshpub_loc = vault_base_url+"/"+current_user.email+"/"+params[:name]
     #private_key = (params[:private_key]) ? cross_cloud_bucket+"/"+current_user.email+"/"+params[:name]+"/"+File.basename(params[:private_key]) : ""

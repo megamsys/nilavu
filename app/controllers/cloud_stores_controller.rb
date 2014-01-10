@@ -1,25 +1,51 @@
 class CloudStoresController < ApplicationController
   def index
     if current_user.cloud_books && current_user.cloud_books.find_by_book_type("BOLT")
-      add_breadcrumb "CLoud Stores", cloud_stores_path
+      add_breadcrumb "Home", "#"
+      add_breadcrumb "Manage Databases", cloud_stores_path
       @cloud_stores = current_user.cloud_books.where(:book_type => 'BOLT')
     else
       redirect_to new_cloud_store_path, :gflash => { :success => { :value => "Create Your First Store.", :sticky => false, :nodom_wrap => true } }
     end
+    end
+=begin    
+  def index
+    add_breadcrumb "Database", cloud_stores_path
+    if current_user.cloud_books && current_user.cloud_books.find_by_book_type("BOLT")
+      cloud_stores = current_user.cloud_books.where(:book_type => 'BOLT')
+      @nodes = FindNodesByEmail.perform
+      if @nodes.class == Megam::Error
+        redirect_to cloud_stores_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      else
+        book_names = cloud_stores.map {|c| c.name}
+        grouped = book_names.inject({}) do |base, b| #the grouped has a short_name/Megam::Nodes collection
+          group = @nodes.select{|n| n.node_name =~ /^#{b}/}
+          base[b] ||= []
+          base[b] << group
+          base
+        end
+        @launched_books = Hash[grouped.map {|key, value| [key, value.flatten.map {|vn| vn.node_name}]}]
+        @launched_books_quota = @nodes.all_nodes.length
+      end
+    else
+      @launched_books = {}
+      @launched_books_quota = 0
+      redirect_to cloud_store_path, :gflash => { :success => { :value => "Create Your First Store.", :sticky => false, :nodom_wrap => true } }
+    end
   end
-
+=end
   def new
     logger.debug "Cloud Store new  ==> "
-    add_breadcrumb "Cloud store", cross_clouds_path
-    add_breadcrumb "New Cloud Store Selection", new_cross_cloud_path
+    add_breadcrumb "Database", cross_clouds_path
+    add_breadcrumb "Database Selection", new_cross_cloud_path
   end
 
   def new_store
     logger.debug "New Store init Params ==> "
     logger.debug "#{params}"
-    add_breadcrumb "CLoud Sore", cloud_stores_path
-    add_breadcrumb "New Cloud Store selection", new_cloud_store_path
-    add_breadcrumb "New Cloud Store selection", new_store_path
+    add_breadcrumb "Home", "#"
+    add_breadcrumb "Manage Databases", cloud_stores_path
+    add_breadcrumb "Manage Database", new_cloud_store_path
     @db_model = params[:db_model]
     @dbms = params[:dbms]
     @book =  current_user.cloud_books.build

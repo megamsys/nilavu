@@ -1,6 +1,6 @@
 <% content_for :content_settings do %>
-<% provide(:title, 'cloud_store') %>
-<%= render :partial => "users/header" , :locals => {:head => "Cloud Store - Step 1 of 2"}%>
+<% provide(:title, 'Databases') %>
+<%= render :partial => "users/header" , :locals => {:head => "Databases - Step 1 of 2"}%>
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
@@ -14,13 +14,13 @@
 				<div class="widget-box">
 					<div class="widget-title">
 						<span class="icon"> <i class="icon-th-list"></i> </span>
-						<h5>Cloud Store - Bolts</h5>
+						<h5>Database selection</h5>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
 							<div class="widget-content">
 								<p class="help-block">
-									<strong><span class="label label-info">*selection</span> Select any one cloud store model </strong>
+									<strong><span class="label label-info">*selection</span> Select any one database model</strong>
 								</p>
 								</br>
 
@@ -31,7 +31,7 @@
 												<%= label :full, 'Full' do %>
 												<%= radio_button_tag :db_model, 'full' %>
 												<h3><i class="icon-folder-open"></i> Full</h3>
-												<span class="label label-info">*all yours</span> Cloud PostgreSQL only for You </strong>
+												<span class="label label-info">*all yours</span> PostgreSQL only for You </strong>
 												<% end %>
 											</div>
 											<div class="col-md-6">
@@ -57,7 +57,7 @@
 								<hr/>
 
 								<p class="help-block">
-									<strong><span class="label label-info">*selection</span> Select any one store </strong>
+									<strong><span class="label label-info">*selection</span> Select any one Database </strong>
 								</p>
 								</br>
 
@@ -94,13 +94,13 @@
 										<div class="row">
 											<div id="scalebooks">
 												<div class="alert alert-success">
-													<i class="icon-info-sign"></i> Scale store
+													<i class="icon-info-sign"></i> Scale database
 												</div>
 												<div class="overflow">
 													<table class="table table-condensed">
 														<thead>
 															<tr>
-																<th>My Stores</th>
+																<th>My Databases</th>
 																<th><a href="#" rel="tooltip" title="max 2 (*beta)" class='info'>Instances <i class="icon-info-sign"></i></a></th>
 																<th><i class="icon-trash"></i></th>
 															</tr>

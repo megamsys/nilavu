@@ -17,6 +17,7 @@
 //= require jquery.ui.all
 //= require bowser
 //= require twitter/bootstrap
+//= require bootstrap
 //= require angular
 //= require angular-route
 //= require angular-resource

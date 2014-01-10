@@ -1,6 +1,6 @@
 <% content_for :content_settings do %>
-<% provide(:title, 'Cloud Settings') %>
-<%= render :partial => "users/header" , :locals => {:head => "Cloud Settings"}%>
+<% provide(:title, 'Manage Settings') %>
+<%= render :partial => "users/header" , :locals => {:head => "Manage Settings"}%>
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
@@ -11,10 +11,10 @@
 			<div class="widget-title">
 				<ul class="nav nav-tabs">
 					<li class="active">
-						<a data-toggle="tab" href="#cross_cloud_tab">Cross Clouds</a>
+						<a data-toggle="tab" href="#cross_cloud_tab">Clouds</a>
 					</li>
 					<li>
-						<a data-toggle="tab" href="#cloud_tools_tab">Cloud Tools</a>
+						<a data-toggle="tab" href="#cloud_tools_tab">Cloud Provisioners</a>
 					</li>
 					<li>
 						<a data-toggle="tab" href="#sshkeys_tab" >SSH Keys</a>
@@ -37,7 +37,7 @@
 								<strong>Go Ahead </strong>
 								Develop More Application on Cloud
 							</p>
-							<i class="icon-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> Cloud Application </span>
+							<i class="icon-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> My Apps </span>
 							</br>
 						</div>
 					</div>
