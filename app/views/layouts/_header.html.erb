@@ -5,16 +5,16 @@
 </div>
 <div id="user-nav">
 	<ul class="btn-group">
+		<li class="btn">
+			<%= link_to "http://slidesha.re/1h8k9tt", :target => "_blank" do %>
+			<i class="icon-puzzle-piece"></i> Technical brief
+			<% end %>
+		</li>
 		<li class="btn" >
 			<%= link_to edit_user_path(current_user), :target => "_self" do %>
 			<i class="icon-user"></i> Profile
 			<% end %>
-		</li>
-		<li class="btn">
-			<%= link_to cloud_settings_path, :target => "_self" do %>
-			<i class="icon-random"></i> Settings
-			<% end %>
-		</li>
+		</li>		
 		<li class="btn">
 			<%= link_to signout_path, method: "delete" do %>
 			<i class="icon-signout"></i> Sign Out

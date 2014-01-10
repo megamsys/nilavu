@@ -32,7 +32,6 @@
 //= require jquery.wizard
 //= require jquery.peity
 //= require jquery.icheck
-//= require jquery.jpanelmenu
 //= require cloud_books
 //= require cross_clouds
 //= require connector_projects
