@@ -6,7 +6,7 @@ var msg = '<%= @res_msg %>';
 $('#api_key_field').val('<%= @user.api_token %>');
 var selected_entity = '#profile_postfinish_popup';
 $(selected_entity).modal('show');
-$("#msg").append('API Key was refreshed successfully <%= @res_msg %>.');
+$("#msg").append('API Key was generated <%= @res_msg %>.');
 <% end %>
 
 <% if @user_fields_form_type == 'password'%>

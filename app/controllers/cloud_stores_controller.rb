@@ -13,7 +13,7 @@ class CloudStoresController < ApplicationController
     add_breadcrumb "Database", cloud_stores_path
     if current_user.cloud_books && current_user.cloud_books.find_by_book_type("BOLT")
       cloud_stores = current_user.cloud_books.where(:book_type => 'BOLT')
-      @nodes = FindNodesByEmail.perform
+      @nodes = FindNodesByEmail.perform({},current_user.email, current_user.api_token)
       if @nodes.class == Megam::Error
         redirect_to cloud_stores_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else

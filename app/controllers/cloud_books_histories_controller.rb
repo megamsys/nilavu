@@ -7,7 +7,7 @@ class CloudBooksHistoriesController < ApplicationController
   if current_user.cloud_books.any?
        add_breadcrumb "Logs", :root_path
        cloud_books = current_user.cloud_books
-       @nodes = FindNodesByEmail.perform
+       @nodes = FindNodesByEmail.perform({},current_user.email, current_user.api_token)
       if @nodes.class == Megam::Error
         redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       end
