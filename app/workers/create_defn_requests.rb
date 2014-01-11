@@ -1,7 +1,7 @@
 class CreateDefnRequests
-  def self.app(wparams)
+  def self.app(wparams,tmp_email, tmp_api_key)
     begin
-      @excon_res = Megam::AppRequest.create(wparams)
+      @excon_res = Megam::AppRequest.create(wparams,tmp_email, tmp_api_key)
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)
@@ -21,7 +21,7 @@ class CreateDefnRequests
     @excon_res.data[:body]
   end
   
-  def self.bolt(wparams)
+  def self.bolt(wparams,tmp_email, tmp_api_key)
     begin
       @excon_res = Megam::BoltRequest.create(wparams)
     rescue ArgumentError => ae

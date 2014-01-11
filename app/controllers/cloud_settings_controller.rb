@@ -5,7 +5,7 @@ class CloudSettingsController < ApplicationController
   end
 
   def cross_cloud_init
-    @cross_clouds_collection = ListPredefClouds.perform
+    @cross_clouds_collection = ListPredefClouds.perform(force_api[:email], force_api[:api_key])
     if @cross_clouds_collection.class != Megam::Error
       @cross_clouds = []
       cross_clouds = []
@@ -17,7 +17,7 @@ class CloudSettingsController < ApplicationController
   end
 
   def cloud_tools_init
-    @cloud_tool_setting_collection = ListCloudToolSettings.perform
+    @cloud_tool_setting_collection = ListCloudToolSettings.perform(force_api[:email], force_api[:api_key])
     if @cloud_tool_setting_collection.class != Megam::Error
       @cloud_tool_settings = []
       cloud_tool_settings = []
@@ -47,12 +47,12 @@ class CloudSettingsController < ApplicationController
     if params[:type] == "cross_cloud"
       @cc_msg = params[:type]
       @cts_msg = nil
-      @cross_clouds = ListPredefClouds.perform
+      @cross_clouds = ListPredefClouds.perform(force_api[:email], force_api[:api_key])
       @cross_cloud = @cross_clouds.lookup(params[:id])
     else
       @cts_msg = params[:type]
       @cc_msg = nil
-      @cloud_tool_settings = ListCloudToolSettings.perform
+      @cloud_tool_settings = ListCloudToolSettings.perform(force_api[:email], force_api[:api_key])
       @cloud_tool_setting = @cloud_tool_settings.lookup(params[:id])
     end
     respond_to do |format|
@@ -66,7 +66,7 @@ class CloudSettingsController < ApplicationController
     logger.debug "#{params.inspect}"
     vault_loc = cloudtool_base_url+"/"+current_user.email+"/"+params[:repo_name]+"/"+File.basename(params[:repo_file])
     options = { :cloud_type => params[:cloud_type], :repo_name => params[:repo_name], :repo => params[:repo], :vault_location => vault_loc, :conf_location => "sandy@megamsandbox.com/default_chef/chef-repo/.chef/knife.rb"  }
-    @res_body = CreateCloudToolSettings.perform(options)
+    @res_body = CreateCloudToolSettings.perform(options, forced_api[:email], forced_api[:api_key])
     if @res_body.class == Megam::Error
       @res_msg = nil
       @err_msg="Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."

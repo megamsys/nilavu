@@ -220,7 +220,7 @@
 <script>
 	    (function($) {
 	$.Sources = JSON.parse('<%= raw Sources.sources.to_json %>  ');
-        $.Books = JSON.parse('<%= raw Books.availableBooks(@user_id).to_json %> ');
+        $.Books = JSON.parse('<%= raw launched(@user_id).to_json %> ');
         })($);
 </script>
 <%= render :template => users_show_path %>

@@ -2,15 +2,10 @@ module SessionsHelper
   def sign_in(user)
     cookies.permanent[:remember_token] = user.remember_token
     self.current_user = user
-    configure_api(current_user.email, current_user.api_token)
   end
 
   def signed_in?
-    am_in = !current_user.nil?
-    if am_in
-      configure_api(current_user.email, current_user.api_token)
-    end
-    am_in
+    !current_user.nil?
   end
 
   def current_user=(user)
@@ -47,10 +42,14 @@ module SessionsHelper
     session[:return_to] = request.fullpath
   end
 
-  def configure_api(email, api_token)
-    Megam::Config[:email] = email
-    Megam::Config[:api_key] = api_token
+   def force_api(email=nil, api_token=nil)
+    # dangerous. You are setting a global variable
     Megam::Log.level(Rails.configuration.log_level)
+    email ||=current_user.email
+    api_token ||=current_user.api_token
+    logger.debug "--> force_api as email: #{email}, #{api_token}"
+    {:email => email, :api_key => api_token }
   end
+  
 end
 

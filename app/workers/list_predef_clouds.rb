@@ -1,8 +1,8 @@
 #List all the predefs
 class ListPredefClouds
-  def self.perform(wparams={})
+  def self.perform(wparams={},tmp_email, tmp_api_key)
     begin
-      @excon_res = Megam::PredefCloud.list
+      @excon_res = Megam::PredefCloud.list(tmp_email, tmp_api_key)
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)

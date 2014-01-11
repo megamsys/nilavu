@@ -25,12 +25,12 @@ class CloudStoresController < ApplicationController
     @book =  current_user.cloud_books.build
     @predef_name = params[:dbms]
     predef_options = { :predef_name => @predef_name}
-    @predef_cloud = ListPredefClouds.perform
+    @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key])
     if @predef_cloud.class == Megam::Error
       redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
     #if @predef_cloud.some_msg[:msg_type] != "error"
-      pred = FindPredefsByName.perform(predef_options)
+      pred = FindPredefsByName.perform(predef_options,force_api[:email],force_api[:api_key])
       if pred.class == Megam::Error
         redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{pred.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else

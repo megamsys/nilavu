@@ -1,8 +1,7 @@
 class CreateNodes
-  #this returns a Megam::Account object
-  def self.perform(new_node)
+  def self.perform(new_node, tmp_email, tmp_api_key)
     begin
-      @excon_res = Megam::Node.create(new_node[:node])
+      @excon_res = Megam::Node.create(new_node[:node],tmp_email, tmp_api_key)
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)

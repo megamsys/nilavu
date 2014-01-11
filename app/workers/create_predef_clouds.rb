@@ -1,7 +1,7 @@
 class CreatePredefClouds
-  def self.perform(new_predef)
+  def self.perform(new_predef,tmp_email, tmp_api_key)
     begin
-      @excon_res = Megam::PredefCloud.create(new_predef)
+      @excon_res = Megam::PredefCloud.create(new_predef, tmp_email, tmp_api_key)
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)

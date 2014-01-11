@@ -1,8 +1,8 @@
 #List all the cloudtoolsettings
 class ListCloudToolSettings
-  def self.perform(wparams={})
+  def self.perform(wparams={},tmp_email, tmp_api_key)
     begin
-      @excon_res = Megam::CloudToolSetting.list
+      @excon_res = Megam::CloudToolSetting.list(tmp_email,tmp_api_key)
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)

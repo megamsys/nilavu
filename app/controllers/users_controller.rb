@@ -59,7 +59,7 @@ class UsersController < ApplicationController
     @user_fields_form_type = params[:user_fields_form_type]
 
     if @user.save
-    sign_in @user
+      sign_in @user
       if params[:social_uid]
         logger.debug "--> Users:create, update socail identity for new social identity user"
         @identity = Identity.find_by_uid(params[:social_uid])
@@ -68,11 +68,11 @@ class UsersController < ApplicationController
       # fix for remember me: send the remember_me flag to sign_in method to decide if the user wishes to be remembered or not.
       logger.debug "==> Controller: users, Action: create, User signed in after creation"
       api_token = view_context.generate_api_token
-      configure_api(@user.email, api_token)
+      force_api(@user.email, api_token)
       options = { :id => @user.id, :email => @user.email, :api_key => api_token, :authority => "admin" }
       res_body = CreateAccounts.perform(options)
-      dash(params[:user][:first_name])   
-      
+      dash(params[:user][:first_name])
+
       if !(res_body.class == Megam::Error)
         #update current user as onboard user(megam_api user)
         logger.debug "==> Controller: users, Action: create, User onboarded successfully"
@@ -81,8 +81,8 @@ class UsersController < ApplicationController
       else
         logger.debug "==> Controller: users, Action: create, User onboard was not successful"
         redirect_to dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onbodard #{@user.email}. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-      end  
-          
+      end
+
     else
       @user= User.find_by_email(params[:user][:email])
       if(@user)
@@ -183,7 +183,7 @@ class UsersController < ApplicationController
     @widget=@dashboard.widgets.create(:name=>"cumulativeuptime", :kind=>"cumulativeuptime", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
     #@widget=@dashboard.widgets.create(:name=>"requestserved", :kind=>"requestserved", :source=>book_source, :widget_type=>"pernode")
     @widget=@dashboard.widgets.create(:name=>"queuetraffic", :kind=>"queuetraffic", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
-    #@dashboard = Dashboard.new(:name=> params[:first_name], :user_id => current_user.id)
+  #@dashboard = Dashboard.new(:name=> params[:first_name], :user_id => current_user.id)
 
   end
 

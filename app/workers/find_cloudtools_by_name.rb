@@ -1,8 +1,8 @@
 #Show a predef by name
 class FindCloudToolsByName
-  def self.perform(show_cloudtool)
+  def self.perform(show_cloudtool,tmp_email, tmp_api_key)
     begin
-      @excon_res = Megam::CloudTool.show(show_cloudtool[:predef_name])
+      @excon_res = Megam::CloudTool.show(show_cloudtool[:predef_name],tmp_email, tmp_api_key)
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)

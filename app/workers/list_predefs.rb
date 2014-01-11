@@ -1,9 +1,9 @@
 #List all the predefs
 class ListPredefs
-  def self.perform(list_predefs)
+  def self.perform(list_predefs,tmp_email, tmp_api_key)
 
     begin
-      @excon_res = Megam::Predef.list
+      @excon_res = Megam::Predef.list(tmp_email, tmp_api_key)
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)
