@@ -68,8 +68,9 @@
 	</div>
 </div>
 
-<div id="profile_postfinish_popup" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
+<div id="profile_postfinish_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal-dialog">
+		<div class="modal-content">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 			×
@@ -82,8 +83,10 @@
 		</div>
 	</div>
 	<div class="modal-footer">
-		<%= link_to "Ok", dashboards_path, :class => "btn btn-primary" %>
+		<%= link_to "Ok", dashboards_path, :class => "btn btn-primary", :target => "_self" %>
 	</div>
+</div>
+</div>
 </div>
 
 <% end %>

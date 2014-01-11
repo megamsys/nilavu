@@ -146,7 +146,7 @@ GEM
     jquery-ui-rails (4.1.1)
       railties (>= 3.1.0)
     json (1.8.1)
-    jwt (0.1.8)
+    jwt (0.1.10)
       multi_json (>= 1.5)
     kgio (2.8.1)
     less (2.4.0)
@@ -161,8 +161,8 @@ GEM
     megam_api (0.7.5)
       excon (~> 0.31)
       highline (~> 1.6)
-      mixlib-config (~> 2.0)
-      mixlib-log (~> 1.0)
+      mixlib-config (~> 2.1)
+      mixlib-log (~> 1.6)
       yajl-ruby (~> 1.2)
     megam_deccanplato (0.1.0)
       highline
@@ -285,7 +285,7 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (2.1.0)
+    turbolinks (2.2.0)
       coffee-rails
     twitter (5.5.1)
       addressable (~> 2.3)
@@ -302,7 +302,7 @@ GEM
     uglifier (2.4.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    unicorn (4.7.0)
+    unicorn (4.8.0)
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
