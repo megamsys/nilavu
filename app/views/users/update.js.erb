@@ -1,5 +1,6 @@
 var selected_entity = '.user_fields_form_<%= @user_fields_form_type %>';
-
+console.log(selected_entity);
+alert(selected_entity);
 <% if @user_fields_form_type == 'api_key'%>
 var msg = '<%= @res_msg %>';
 $('#api_key_field').val('<%= @user.api_token %>');

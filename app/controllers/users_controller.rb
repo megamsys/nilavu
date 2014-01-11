@@ -110,7 +110,8 @@ class UsersController < ApplicationController
   end
 
   def update
-    logger.debug "==> Controller: users, Action: update, Update user pw, org, api_key"
+    logger.debug "==> Controller: users, Action: update, Update user pw, org, api_key"    
+    puts params[:user_fields_form_type]
     @user=User.find(params[:id])
     @organization=@user.organization || Organization.new
     @user_fields_form_type = params[:user_fields_form_type]
@@ -135,8 +136,8 @@ class UsersController < ApplicationController
     else
       logger.debug "User update !api_key"
       if @user.update_attributes(params[:user])
-        sign_in @user
-        unless params[:user][:organization_attributes] && params[:user][:organization_attributes][:logo]
+        sign_in @user        
+        unless params[:user][:organzation_attributes] 
           respond_to do |format|
             format.js {
               respond_with(@user_fields_form_type, :user => current_user, :layout => !request.xhr? )
