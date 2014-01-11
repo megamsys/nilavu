@@ -21,8 +21,9 @@ class CloudBooksController < ApplicationController
         end        
         @launched_books = Hash[grouped.map {|key, value| [key, value.flatten.map {|vn| vn.node_name}]}]
         @launched_books_quota = @nodes.all_nodes.length 
-        end     
-      #redirect_to new_cloud_book_path
+        end 
+    else    
+      redirect_to new_cloud_book_path
     end
   end
 

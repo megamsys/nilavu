@@ -1,5 +1,5 @@
 <div id="profilebox">
-	<%= form_for @user, :html => {:id =>'password_validate', :novalidate => 'novalidate', :multipart => true, :class => 'user_fields_form_organization' },  :method => 'patch', data: { spinner: '#spin_user_organization', :remote => true}  do |f| %>
+	<%= form_for @user, :html => {:id =>'password_validate', :novalidate => 'novalidate', :class => 'user_fields_form_organization' }, :remote => true, data: { spinlock: '#spin_user_organization'}, :method => 'patch' do |f| %>
 	<%= f.text_field :user_type, :value => "free_user", :type => 'hidden' %>
 	<input type="hidden" name="user_fields_form_type" value="<%= user_fields_form_type.to_s %>">
 	<%= f.fields_for :organization_attributes, @user.organization do |org_f| %>
@@ -34,7 +34,7 @@
 	<br/>
 
 	<% end %>
-	<%= f.submit "Update", :class => "btn btn-default", :remote => true %>
+	<%= f.submit "Update", :class => "btn btn-default" %>
 
 	<% end %>
 </div>
