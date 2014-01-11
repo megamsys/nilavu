@@ -1,14 +1,7 @@
 <div class="widget-box">
 	<div class="widget-title">
 		<span class="icon"> <i class="icon-th-list"></i> </span>
-		<h5>Custom Apps Details</h5>
-		<div class="buttons">
-			<div class="container-fluid">
-				<%= link_to cloud_book_path(:id => @cloud_book.id, :name => @cloud_book.node_name, :book_type => @cloud_book.node_type), :class => "btn btn-mini", :title => "Icon Title", :remote => true, :target => "_self", :data => { spinner: '#refresh'} do %> <i class="icon-refresh"></i> Refresh <% end %>
-				<%= mini_spinner_tag 'refresh' %>
-			</div>
-
-		</div>
+		<h4>App <span class="label label-info"><%= @cloud_book.node_name %></span> Details</h4>
 	</div>
 	<div class="widget-content">
 		<div class="widget-box">
@@ -50,7 +43,7 @@
 									<strong>Go Ahead </strong>
 									Develop More Application on Cloud
 								</p>
-								<i class="icon-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> Cloud Application </span>
+								<i class="icon-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> My Apps </span>
 								</br>
 							</div>
 						</div>
@@ -68,7 +61,7 @@
 									<strong>Go Ahead </strong>
 									Develop More Application on Cloud
 								</p>
-								<i class="icon-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> Cloud Application </span>
+								<i class="icon-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> My Apps </span>
 								</br>
 							</div>
 						</div>
