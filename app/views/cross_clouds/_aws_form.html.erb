@@ -14,7 +14,7 @@
 					&nbsp;
 					<%= text_field_tag 'name', nil, placeholder: 'Enter a name to save' %>
 					<%= link_to "#" do %>
-					<i class="icon-question-sign"></i>
+					<i class="icon-question-sign" id="popover_aws_name"></i>
 					<% end %>
 				</div>
 			</div>
@@ -53,7 +53,7 @@
 			<div class="controls">
 				<%= text_field_tag 'group', nil, placeholder: 'Enter Group name' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign" id="popover_cloud"></i>
+				<i class="icon-question-sign" id="popover_aws_group" ></i>
 				<% end %>
 			</div>
 		</div>
@@ -62,7 +62,7 @@
 			<div class="controls">
 				<%= text_field_tag 'image', nil, placeholder: 'Enter Image id' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id = "popover_aws_image"></i>
 				<% end %>
 			</div>
 		</div>
@@ -71,7 +71,7 @@
 			<div class="controls">
 				<%= text_field_tag 'flavor', nil, placeholder: 'Enter Instance size' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_aws_flavor"></i>
 				<% end %>
 			</div>
 		</div>
@@ -80,7 +80,7 @@
 			<div class="controls">
 				<%= text_field_tag 'region', nil, placeholder: 'Enter AWS Region' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_aws_region"></i>
 				<% end %>
 			</div>
 		</div>
@@ -97,7 +97,7 @@
 			<div class="controls">
 				<%= text_field_tag 'ssh_key', nil, placeholder: 'Enter AWS SSH key' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_aws_sshkey"></i>
 				<% end %>
 			</div>
 		</div>
@@ -106,7 +106,7 @@
 			<div class="controls">
 				<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter AWS SSH User' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_aws_sshuser"></i>
 				<% end %>
 			</div>
 		</div>
@@ -133,7 +133,7 @@
 			<div class="controls">
 				<label for="file">Private key file</label> <%= file_field_tag "private_key" %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_aws_privatekey"></i>
 				<% end %>
 			</div>
 		</div>
@@ -142,7 +142,7 @@
 			<div class="controls">
 				<label for="file">Public Key</label> <%= file_field_tag "id_rsa_public_key" %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_aws_publickey"></i>
 				<% end %>
 			</div>
 		</div>
@@ -151,16 +151,16 @@
 			<div class="controls">
 				<%= text_field_tag 'aws_access_key', nil, placeholder: 'Enter AWS Access key' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_aws_accesskey"></i>
 				<% end %>
 			</div>
 		</div>
 		<br/>
 		<div class="control-group" id="cc_awssk">
 			<div class="controls">
-				<%= text_field_tag 'aws_secret_key', nil, placeholder: 'Enter AWS Secret key' %>
+				<%= text_field_tag 'aws_secret_key', nil, placeholder: 'Enter AWS Secret key'%>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_aws_secretkey" ></i>
 				<% end %>
 			</div>
 		</div>

@@ -12,7 +12,7 @@
 					&nbsp;
 					<%= text_field_tag 'name', nil, placeholder: 'Enter a name' %>
 					<%= link_to "#" do %>
-					<i class="icon-question-sign"></i>
+					<i class="icon-question-sign" id="popover_google_name"></i>
 					<% end %>
 				</div>
 			</div>
@@ -50,7 +50,7 @@
 			<div class="controls">
 				<%= text_field_tag 'project_name', nil, placeholder: 'Enter project name ..' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_google_projectname"></i>
 				<% end %>
 			</div>
 		</div>
@@ -59,7 +59,7 @@
 			<div class="controls">
 				<%= text_field_tag 'image', nil, placeholder: 'Enter Image value...' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_google_image"></i>
 				<% end %>
 			</div>
 		</div>
@@ -68,7 +68,7 @@
 			<div class="controls">
 				<%= text_field_tag 'flavor', nil, placeholder: 'Enter instance size...' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_google_flavor"></i>
 				<% end %>
 			</div>
 		</div>
@@ -77,7 +77,7 @@
 			<div class="controls">
 				<%= text_field_tag 'zone', nil, placeholder: 'Enter zone...' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_google_zone"></i>
 				<% end %>
 			</div>
 		</div>
@@ -93,7 +93,7 @@
 			<div class="controls">
 				<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter SSH User..' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_google_sshuser"></i>
 				<% end %>
 			</div>
 		</div>
@@ -102,7 +102,7 @@
 			<div class="controls">
 				<%= text_field_tag 'id_rsa_public_key', nil, placeholder: 'Enter id_rsa public key..' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_google_publickey"></i>
 				<% end %>
 			</div>
 		</div>
@@ -110,7 +110,7 @@
 		<div class="form-group" id="cc_gcli">			
 				<%= text_field_tag 'google_client_id', nil, placeholder: 'Enter google client id..' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_google_clientid"></i>
 				<% end %>			
 		</div>
 <br/>
@@ -118,7 +118,7 @@
 			<div class="controls">
 				<%= text_field_tag 'google_secret_key', nil, placeholder: 'Enter google secret key..' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_google_secretkey"></i>
 				<% end %>
 			</div>
 		</div>

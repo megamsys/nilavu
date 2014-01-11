@@ -14,7 +14,7 @@
 					&nbsp;
 					<%= text_field_tag 'name', nil, placeholder: 'Enter a name' %>
 					<%= link_to "#" do %>
-					<i class="icon-question-sign"></i>
+					<i class="icon-question-sign" id="popover_hp_name"></i>
 					<% end %>
 				</div>
 			</div>
@@ -51,7 +51,7 @@
 			<div class="controls">
 				<%= text_field_tag 'group', nil, placeholder: 'Enter Group name' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_hp_group"></i>
 				<% end %>
 			</div>
 		</div>
@@ -60,7 +60,7 @@
 			<div class="controls">
 				<%= text_field_tag 'image', nil, placeholder: 'Enter Image value...' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_hp_image"></i>
 				<% end %>
 			</div>
 		</div>
@@ -78,7 +78,7 @@
 			<div class="controls">
 				<%= text_field_tag 'tenant_id', nil, placeholder: 'Enter Tenant Id' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_hp_tenantid"></i>
 				<% end %>
 			</div>
 		</div>
@@ -87,7 +87,7 @@
 			<div class="controls">
 				<%= text_field_tag 'zone', nil, placeholder: 'Enter HP zone' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_hp_zone"></i>
 				<% end %>
 			</div>
 		</div>
@@ -105,7 +105,7 @@
 			<div class="controls">
 				<%= text_field_tag 'ssh_key', nil, placeholder: 'Enter SSH key...' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_hp_sshkey"></i>
 				<% end %>
 			</div>
 		</div>
@@ -114,7 +114,7 @@
 			<div class="controls">
 				<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter SSH User..' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_hp_sshuser"></i>
 				<% end %>
 			</div>
 		</div>
@@ -124,7 +124,7 @@
 				<!-- <%= text_field_tag 'private_key', nil, :class=> 'required', placeholder: 'Enter HP private key...' %> -->
 				<label for="file">Private Key</label>  <%= file_field_tag 'private_key', accept: 'text' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_hp_privatekey"></i>
 				<% end %>
 			</div>
 		</div>
@@ -134,7 +134,7 @@
 				<!-- <%= text_field_tag 'id_rsa_public_key', nil, :class=> 'required', placeholder: 'Enter id_rsa public key..' %> -->
 				<label for="file">Public Key</label> <%= file_field_tag 'id_rsa_public_key', accept: 'text' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_hp_publickey"></i>
 				<% end %>
 			</div>
 		</div>
@@ -143,7 +143,7 @@
 			<div class="controls">
 				<%= text_field_tag 'hp_access_key', nil, placeholder: 'Enter HP access key..' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_hp_accesskey"></i>
 				<% end %>
 			</div>
 		</div>
@@ -152,7 +152,7 @@
 			<div class="controls">
 				<%= text_field_tag 'hp_secret_key', nil, placeholder: 'Enter HP secret key..' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="icon-question-sign" id="popover_hp_secretkey"></i>
 				<% end %>
 			</div>
 		</div>

@@ -1,6 +1,6 @@
 <% content_for :content_settings do %>
-<% provide(:title, 'Manage Databases') %>
-<%= render :partial => "users/header" , :locals => {:head => "Manage Databases"}%>
+<% provide(:title, 'Manage Services') %>
+<%= render :partial => "users/header" , :locals => {:head => "Manage Services"}%>
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
@@ -10,13 +10,13 @@
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>My Database Usage</h5>
+				<h5>My Service Usage</h5>
 			</div>
 			<div class="widget-content" >
 				<div class="row">
 					<div class="col-md-4">
 						<div class="cb_box">
-							<h4 align="center">No of Databases</h4>
+							<h4 align="center">No of Services</h4>
 							<h5 align="center" ><span class="icon"><i class="icon-book"></i></span>&nbsp;Used <%= @cloud_stores.count %>&nbsp;Allowed 2</h5>
 						   <br/>
 						</div>						
@@ -58,10 +58,10 @@
 				<br/>
 				<div class="row">
 					<div class="col-md-6">
-						<%= link_to "Choose Your Database", new_cloud_store_path, class: "btn btn-lg btn-success btn-block", :target => "_self" %>
+						<%= link_to "Choose Your Service", new_cloud_store_path, class: "btn btn-lg btn-success btn-block", :target => "_self" %>
 					</div>
 					<div class="col-md-6">
-						<%= link_to "Upgrade", pricing_path, class: "btn btn-lg btn-inverse btn-block", :target => "_self" %>
+						<%= link_to "Upgrade", pricing_path, class: "btn btn-lg btn-inverse btn-block", :target => "_self", :disabled => true %>
 					</div>
 				</div>
 
@@ -71,7 +71,7 @@
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th"></i> </span>
-				<h5>My Databases</h5>
+				<h5>My Services</h5>
 			</div>
 			<div class="widget-content nopadding">
 				<table class="table table-bordered table-striped table-hover">

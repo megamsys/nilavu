@@ -48,10 +48,10 @@
 		<br/>
 		<div class="row">
 			<div class="col-md-6">
-				<%= link_to "Choose Your Cloud", new_cross_cloud_path, class: "btn btn-lg btn-success btn-block", :target => "_self" %>
+				<%= link_to "Choose Your Cloud", new_cross_cloud_path, class: "btn btn-lg btn-success btn-block", :id => "popover_clouds", :target => "_self" %>
 			</div>
 			<div class="col-md-6">
-				<%= link_to "Upgrade", pricing_path, class: "btn btn-lg btn-inverse btn-block ", :target => "_self" %>
+				<%= link_to "Upgrade", pricing_path, class: "btn btn-lg btn-inverse btn-block ", :target => "_self", :disabled => true %>
 			</div>
 		</div>
 
