@@ -75,7 +75,7 @@ class CloudSettingsController < ApplicationController
     vault_loc = ((params[:repo_file].original_filename).length > 0) ? cloudtool_base_url+"/"+current_user.email+"/"+params[:repo_name]+"/"+params[:repo_file].original_filename : ""
     #vault_loc = cloudtool_base_url+"/"+current_user.email+"/"+params[:repo_name]+"/"+File.basename(params[:repo_file])
     options = { :cloud_type => params[:cloud_type], :repo_name => params[:repo_name], :repo => params[:repo], :vault_location => vault_loc, :conf_location => "sandy@megamsandbox.com/default_chef/chef-repo/.chef/knife.rb"  }
-    @res_body = CreateCloudToolSettings.perform(options, forced_api[:email], forced_api[:api_key])
+    @res_body = CreateCloudToolSettings.perform(options, force_api[:email], force_api[:api_key])
     if @res_body.class == Megam::Error
       @res_msg = nil
       @err_msg="Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
