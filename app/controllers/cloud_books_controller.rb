@@ -146,7 +146,7 @@ class CloudBooksController < ApplicationController
       add_breadcrumb "Manage Apps", cloud_books_path
       add_breadcrumb "Apps Framework Selection", new_cloud_book_path
     else
-      redirect_to dashboards_path, :gflash => { :warning => { :value => "To create books, you need an API key. Click Profile, and generate a new API key", :sticky => false, :nodom_wrap => true } }
+      redirect_to dashboards_path, :gflash => { :warning => { :value => "You need an API key to launch an app. Click Profile from the top, and generate a new API key", :sticky => false, :nodom_wrap => true } }
     end
   end
 
@@ -259,7 +259,7 @@ class CloudBooksController < ApplicationController
           end
         @book.destroy
         end
-        @res_msg = "Cloud Book deleted Successfully"
+        @res_msg = "App deleted Successfully"
       end
     end
 

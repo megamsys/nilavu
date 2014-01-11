@@ -18,7 +18,7 @@
 						<strong>Go Ahead </strong>
 						Develop your Application on Cloud
 					</p>
-					<i class="icon-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> Apps to get stared. </span>
+					<i class="icon-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> My Apps to get stared. </span>
 					</br>
 				</div>
 				<a class="close" data-dismiss="alert alert-warning" href="#">×</a>
@@ -78,7 +78,7 @@
 						<div class="accordion-group widget-box">
 							<div class="accordion-heading">
 								<div class="widget-title">
-									<a data-parent="#collapse-group" href="#collapseGThree" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 3: Launch a Cloud Book </h5> <span class="label label-info">Java/Play/RoR/Node.js</span></a>
+									<a data-parent="#collapse-group" href="#collapseGThree" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 3: Choose Framework and Launch App </h5> <span class="label label-info">Java/Play/RoR/Node.js</span></a>
 								</div>
 							</div>
 							<div class="collapse accordion-body" id="collapseGThree">
@@ -97,7 +97,7 @@
 						<div class="accordion-group widget-box">
 							<div class="accordion-heading">
 								<div class="widget-title">
-									<a data-parent="#collapse-group" href="#collapseGFour" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 4: Customize Cross Cloud defaults</h5> <span class="label label-warning">*optional</span></a>
+									<a data-parent="#collapse-group" href="#collapseGFour" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 4: Manage Your Cloud</h5> <span class="label label-warning">*advanced</span></a>
 								</div>
 							</div>
 							<div class="collapse accordion-body" id="collapseGFour">
@@ -106,7 +106,7 @@
 										<% if !current_user.onboarded_api %>
 										<%= link_to "Take me there", edit_user_path(current_user), :target => "_self" , class: "btn btn-default btn-warning btn-xs"  %>Profile
 										<% else %>
-										Super cool ! you have cross cloud defaults.
+										Super cool ! you have a cloud default.  
 										<%= link_to "Take me there", cross_clouds_path, :target => "_self" , class: "btn btn-default btn-success btn-xs"  %>
 										<% end %>
 									</div>
@@ -116,16 +116,18 @@
 						<div class="accordion-group widget-box">
 							<div class="accordion-heading">
 								<div class="widget-title">
-									<a data-parent="#collapse-group" href="#collapseGFive" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 5: Github Account ? </h5></a>
+									<a data-parent="#collapse-group" href="#collapseGFive" data-toggle="collapse"> <span class="icon"><i class="icon-magnet"></i></span><h5>Step 5: Do you have source in Github ? </h5></a>
 								</div>
 							</div>
 							<div class="collapse accordion-body" id="collapseGFive">
 								<div class="widget-content">
 									<div class="container">
-										CloudForge, Bitbucket, scm-manager in progress.
-										Awesome ! if you have one.</br>
+										Awesome ! if you have one.
 										(or)
-										<i class="icon-github"><%= link_to "Create ", "https://github.com", :target => "_blank" , class: "btn btn-default btn-success btn-xs", title: 'Create a Github.com Account', rel: 'tooltip'  %> </i>
+										<i class="icon-github">
+											<%= link_to "Sign Up - Github ", "https://github.com", :target => "_blank" , class: "btn btn-default btn-success btn-xs", title: 'Create a Github.com Account', rel: 'tooltip'  %> 
+										</i> <br></br>
+										Suport for CloudForge, Bitbucket, scm-manager in progress.
 									</div>
 								</div>
 							</div>
@@ -167,7 +169,7 @@
 								<td class="taskStatus"><span class="done"> <a href="http://support.megam.co/kb/quick-start/why-do-i-need-github-account" target="_blank">here</a></span></td>
 							</tr>
 							<tr>
-								<td class="taskDesc"><i class="icon-info-sign"></i>Meter and monitor - Cloud launches ?</td>
+								<td class="taskDesc"><i class="icon-info-sign"></i>Meter and monitor - App launches ?</td>
 								<td class="taskStatus"><span class="pending"> <a href="http://support.megam.co/kb/cloud-applications/what-do-your-meter-monitor" target="_blank">here</a></span></td>
 							</tr>
 							<tr>

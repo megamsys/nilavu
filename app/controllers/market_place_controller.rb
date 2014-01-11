@@ -8,7 +8,7 @@ class MarketPlaceController < ApplicationController
     if current_user.onboarded_api
       @book =  current_user.cloud_books.build
       add_breadcrumb "Home", "#"
-      add_breadcrumb "Marketplace", new_market_place_path
+      add_breadcrumb "Market Place", new_market_place_path
       @products = Product.all
       @category = {}
       @products.each do |product|
@@ -23,7 +23,7 @@ class MarketPlaceController < ApplicationController
         end
       end
     else
-      redirect_to dashboards_path, :gflash => { :warning => { :value => "To create books, you need an API key. Click Profile, and generate a new API key", :sticky => false, :nodom_wrap => true } }
+      redirect_to dashboards_path, :gflash => { :warning => { :value => "You need an API key to launch an app from marketplace. Click Profile, and generate a new API key", :sticky => false, :nodom_wrap => true } }
     end
 
   end
