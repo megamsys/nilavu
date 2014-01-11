@@ -182,7 +182,7 @@ class CloudBooksController < ApplicationController
   def create
     data={:book_name => params[:cloud_book][:name], :book_type => params[:cloud_book][:book_type] , :predef_cloud_name => params[:cloud_book][:predef_cloud_name], :provider => params[:predef][:provider], :repo => 'default_chef', :provider_role => params[:predef][:provider_role], :domain_name => params[:cloud_book][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}"}
     options = {:data => data, :group => "server", :action => "create" }
-    node_hash=MakeNode.perform(options, forced_api[:email], forced_api[:api_key])      
+    node_hash=MakeNode.perform(options, forced_api[:email], force_api[:api_key])      
     if node_hash.class == Megam::Error
       @res_msg="Sorry Something Wrong. MSG : #{node_hash.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
       respond_to do |format|
