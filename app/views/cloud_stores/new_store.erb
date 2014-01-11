@@ -1,6 +1,6 @@
 <% content_for :content_settings do %>
-<% provide(:title, 'Databases') %>
-<%= render :partial => "users/header" , :locals => {:head => "Databases - Step 2 of 2"}%>
+<% provide(:title, 'Services') %>
+<%= render :partial => "users/header" , :locals => {:head => "Services - Step 2 of 2"}%>
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
@@ -64,11 +64,11 @@
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Database Name</h5>
+				<h5>Service Name</h5>
 			</div>
 			<div class="widget-content">
 				<p class="help-block">
-					<strong><span class="label label-info">*optional</span> Click on the default database name to change it</strong>
+					<strong><span class="label label-info">*optional</span> Click on the default service name to change it</strong>
 				</p>
 				</br>
 				<div class="col-md-12">
@@ -125,28 +125,28 @@
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Advanced Database Settings</h5>
+				<h5>Advanced Service Settings</h5>
 			</div>
 			<div class="widget-content">
 				<div class="input-group">
-					<span class="input-group-addon">Database Name</span>
+					<span class="input-group-addon">Service Name</span>
 					<%= text_field_tag 'store_db_name', "db_#{current_user.first_name}", :readonly => true %>
 				</div>
 				<% if @dbms == 'postgresql' %>
 				<div class="input-group">
-					<span class="input-group-addon">Database Username</span>
+					<span class="input-group-addon">Service Username</span>
 					<%= text_field_tag 'user_name', "#{current_user.first_name}", :readonly => true %>
 				</div>
 				<div class="input-group">
-					<span class="input-group-addon">Database password</span>
+					<span class="input-group-addon">Service password</span>
 					<%= text_field_tag 'password', "#{current_user.api_token}", :readonly => true %>
 				</div>
 				<div class="input-group">
-					<span class="input-group-addon">Database url</span>
+					<span class="input-group-addon">Service url</span>
 					<%= text_field_tag 'url', "postgres://#{current_user.first_name}:#{current_user.api_token}@postgres1.megam.co.in:5432/db_#{current_user.first_name}", :readonly => true %>
 				</div>
 				<div class="input-group">
-					<span class="input-group-addon">Database Initiation Commands</span>
+					<span class="input-group-addon">Service Initiation Commands</span>
 					<%= text_area_tag 'prime', nil, placeholder: "Enter prime" %>
 				</div>
 				<% end %>
@@ -156,7 +156,7 @@
 	<div class="row">
 		<div class="col-md-4"></div>
 		<div class="col-md-4">
-			<%= f.submit "Create Database", :class => "btn btn-lg btn-success btn-block" %>
+			<%= f.submit "Create Service", :class => "btn btn-lg btn-success btn-block" %>
 			<br/>
 			</br/>
 			<% end %>
@@ -173,13 +173,13 @@
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						×
 					</button>
-					<h3 id="myModalLabel">Database</h3>
+					<h3 id="myModalLabel">Service</h3>
 				</div>
 				<div class="modal-body">
 					<div class="alert">
 
 						<p>
-							<h4> A Database creation request to the megam cloud gateway was successful. </h4>
+							<h4> A Service creation request to the megam cloud gateway was successful. </h4>
 							</br>
 							<strong>Click<span class="label label-info"> OK </span> to watch the status Real Time</strong>
 						</p>
@@ -199,13 +199,13 @@
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						×
 					</button>
-					<h3 id="myModalLabel">Database</h3>
+					<h3 id="myModalLabel">Service</h3>
 				</div>
 				<div class="modal-body">
 					<div class="alert">
 
 						<p>
-							<h4> A Database creation request to the megam cloud gateway was not successful. </h4>
+							<h4> A Service creation request to the megam cloud gateway was not successful. </h4>
 							</br>
 							<div id="err_msg"></div>
 						</p>

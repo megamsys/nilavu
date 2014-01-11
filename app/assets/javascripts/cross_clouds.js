@@ -20,20 +20,9 @@ $(document).ready(function() {
 	    	'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")},
 	        data: 'selected_cloud='+$(this).find("option:selected").text()	        
 	      })
-	    });
+	    });				 
 	
-	 // === Popovers === //
-    var placement = 'bottom';
-    var trigger = 'click';
-    var html = true;
 	
-	$('#popover_cloud').popover({
-	       placement: placement,
-	       content: '<span class="content-small">choose this option enter settings for the cloud of your choice</span>',
-	       trigger: trigger,
-	       html: html   
-	    });
-			 
 	/*$("#cross_cloud_list").change(function() {
 		var cc = $(this).find("option:selected").text()
 		switch (cc) {

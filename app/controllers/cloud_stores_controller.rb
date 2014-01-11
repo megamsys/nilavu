@@ -2,7 +2,7 @@ class CloudStoresController < ApplicationController
   def index
     if current_user.cloud_books && current_user.cloud_books.find_by_book_type("BOLT")
       add_breadcrumb "Home", "#"
-      add_breadcrumb "Manage Databases", cloud_stores_path
+      add_breadcrumb "Manage Services", cloud_stores_path
       @cloud_stores = current_user.cloud_books.where(:book_type => 'BOLT')
     else
       redirect_to new_cloud_store_path, :gflash => { :success => { :value => "Create Your First Store.", :sticky => false, :nodom_wrap => true } }
@@ -36,16 +36,17 @@ class CloudStoresController < ApplicationController
 =end
   def new
     logger.debug "Cloud Store new  ==> "
-    add_breadcrumb "Database", cross_clouds_path
-    add_breadcrumb "Database Selection", new_cross_cloud_path
+    add_breadcrumb "Home", "#"
+    add_breadcrumb "Manage Services", cross_clouds_path
+    add_breadcrumb "New", new_cross_cloud_path
   end
 
   def new_store
     logger.debug "New Store init Params ==> "
     logger.debug "#{params}"
     add_breadcrumb "Home", "#"
-    add_breadcrumb "Manage Databases", cloud_stores_path
-    add_breadcrumb "Manage Database", new_cloud_store_path
+    add_breadcrumb "Manage Services", cloud_stores_path
+    add_breadcrumb "New", new_cloud_store_path
     @db_model = params[:db_model]
     @dbms = params[:dbms]
     @book =  current_user.cloud_books.build
