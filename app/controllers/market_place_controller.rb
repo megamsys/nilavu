@@ -7,7 +7,8 @@ class MarketPlaceController < ApplicationController
   def new
     if current_user.onboarded_api
       @book =  current_user.cloud_books.build
-      add_breadcrumb "Market Place", new_market_place_path
+      add_breadcrumb "Home", "#"
+      add_breadcrumb "Marketplace", new_market_place_path
       @products = Product.all
       @category = {}
       @products.each do |product|

@@ -4,14 +4,14 @@ class CloudBooksController < ApplicationController
 
   
   def index
-    cloud_books = current_user.cloud_books
+    cloud_books = current_user.cloud_books.where(:book_type => 'APP')
     if cloud_books.any?
       add_breadcrumb "Home", "#"      
       add_breadcrumb "Manage Apps", cloud_books_path      
       @nodes = FindNodesByEmail.perform
       if @nodes.class == Megam::Error
         redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-      else
+      else           
         book_names = cloud_books.map {|c| c.name}
         grouped = book_names.inject({}) do |base, b| #the grouped has a short_name/Megam::Nodes collection
           group = @nodes.select{|n| n.node_name =~ /^#{b}/}
@@ -20,10 +20,9 @@ class CloudBooksController < ApplicationController
           base
         end        
         @launched_books = Hash[grouped.map {|key, value| [key, value.flatten.map {|vn| vn.node_name}]}]
-        @launched_books_quota = @nodes.all_nodes.length        
-      end
-    else
-      redirect_to new_cloud_book_path
+        @launched_books_quota = @nodes.all_nodes.length 
+        end     
+      #redirect_to new_cloud_book_path
     end
   end
 

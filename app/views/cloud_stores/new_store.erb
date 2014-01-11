@@ -1,6 +1,6 @@
 <% content_for :content_settings do %>
-<% provide(:title, 'cloud_stores') %>
-<%= render :partial => "users/header" , :locals => {:head => "Cloud Store - Step 2 of 2"}%>
+<% provide(:title, 'Databases') %>
+<%= render :partial => "users/header" , :locals => {:head => "Databases - Step 2 of 2"}%>
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
@@ -20,63 +20,63 @@
 
 		<%= form_for @book, :html => {:multipart => true }, :remote => true, :method => 'post' do |f| %>
 
-		<div class="widget-box">
-			<div class="widget-title">
-				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Cloud Store Selected</h5>
-			</div>
-			<div class="widget-content">
-				<div class="control-group">
-					<div class="controls">
-						<div class="row">
-							<div class="col-md-12">
-								<p class="help-block">
-									<strong><span class="label label-info">Store launch</span> How does it happen ? </strong>
-									<%= link_to " For more information",   "http://docs.megam.co", { :target => '_blank'} %>
-								</p>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-3">
-								<i class="logo_chef"></i>
-							</div>
-							<div class="col-md-2">
-								<h3>Will Launch<h3><span class="badge badge-info"> <h4>Role : <%= @predef.provider_role %><h4></span>
-							</div>
-							<div class="col-md-2">
-								<h3 align="center"><i class="i_cloud"></i></h3>
-							</div>
-							<div class="col-md-2">
-								<%= image_tag "build_monkey.png", :alt => "build bots" %>
-							</div>
-							<div class="col-md-3">
-								<h3>Build monkey<h3><span class="badge badge-success"><h4> <%= @predef.build_monkey %></h4></span>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
+		<!--<div class="widget-box">
+		<div class="widget-title">
+		<span class="icon"> <i class="icon-th-list"></i> </span>
+		<h5>Cloud Store Selected</h5>
 		</div>
+		<div class="widget-content">
+		<div class="control-group">
+		<div class="controls">
+		<div class="row">
+		<div class="col-md-12">
+		<p class="help-block">
+		<strong><span class="label label-info">Store launch</span> How does it happen ? </strong>
+		<%= link_to " For more information",   "http://docs.megam.co", { :target => '_blank'} %>
+		</p>
+		</div>
+		</div>
+		<div class="row">
+		<div class="col-md-3">
+		<i class="logo_chef"></i>
+		</div>
+		<div class="col-md-2">
+		<h3>Will Launch<h3><span class="badge badge-info"> <h4>Role : <%= @predef.provider_role %><h4></span>
+		</div>
+		<div class="col-md-2">
+		<h3 align="center"><i class="i_cloud"></i></h3>
+		</div>
+		<div class="col-md-2">
+		<%= image_tag "build_monkey.png", :alt => "build bots" %>
+		</div>
+		<div class="col-md-3">
+		<h3>Build monkey<h3><span class="badge badge-success"><h4> <%= @predef.build_monkey %></h4></span>
+		</div>
+		</div>
+
+		</div>
+		</div>
+		</div>
+		</div>-->
 	</div>
 	<div class="row"  ng-controller="CloudBooksCtrl">
 		<% @new_book_name = book_name %>
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Cloud Book Name</h5>
+				<h5>Database Name</h5>
 			</div>
 			<div class="widget-content">
 				<p class="help-block">
-					<strong><span class="label label-info">*optional</span> Click on the default book name to change it</strong>
+					<strong><span class="label label-info">*optional</span> Click on the default database name to change it</strong>
 				</p>
 				</br>
 				<div class="col-md-12">
 					<div class="col-md-7">
-						<a class="btn btn-large btn-primary disabled btn-block" data-name="book_name" data-type="text" href="#" id="identity_new" ><%= @new_book_name %></a>
+						<a class="btn btn-lg btn-primary disabled btn-block" data-name="book_name" data-type="text" href="#" id="identity_new" ><%= @new_book_name %></a>
 					</div>
 					<div class = "col-md-4">
-						<%= link_to  @domain_name, "#", :class => "btn btn-large btn-primary disabled btn-block", :id => 'domain'%>
+						<%= link_to  @domain_name, "#", :class => "btn btn-lg btn-primary disabled btn-block", :id => 'domain'%>
 					</div>
 				</div>
 				<br/>
@@ -93,12 +93,12 @@
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Cross Cloud Selection</h5>
+				<h5>Cloud Selection</h5>
 			</div>
 			<div class="widget-content">
 				<div class="control-group">
 					<p class="help-block">
-						<strong><span class="label label-info">Default</span> Cross cloud. You can create your own.</strong>
+						<strong><span class="label label-info">Default</span> Cloud. You can create your own.</strong>
 						<%= link_to "For more information",   "http://docs.megam.co", { :target => '_blank'} %>
 					</p>
 					<p>
@@ -125,28 +125,30 @@
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Cloud Book Dependencies</h5>
-				<div class="buttons">
-					<%= render :partial => "customizations/refresh" %>
-				</div>
+				<h5>Advanced Database Settings</h5>
 			</div>
 			<div class="widget-content">
-				<%= label_tag "DB_Name" %>       :
-				<%= text_field_tag 'store_db_name', "db_#{current_user.first_name}", :readonly => true %>
-				<br/>
+				<div class="input-group">
+					<span class="input-group-addon">Database Name</span>
+					<%= text_field_tag 'store_db_name', "db_#{current_user.first_name}", :readonly => true %>
+				</div>
 				<% if @dbms == 'postgresql' %>
-				<%= label_tag "DB_Username" %>   :
-				<%= text_field_tag 'user_name', "#{current_user.first_name}", :readonly => true %>
-				<br/>
-				<%= label_tag "DB_password" %>   :
-				<%= text_field_tag 'password', "#{current_user.api_token}", :readonly => true %>
-				<br/>
-				<%= label_tag "DB_url" %>        :
-				<%= text_field_tag 'url', "postgres://#{current_user.first_name}:#{current_user.api_token}@postgres1.megam.co.in:5432/db_#{current_user.first_name}", :readonly => true %>
-				<br/>
-				<%= label_tag "DB_prime" %>      :
-				<%= text_area_tag 'prime', nil, placeholder: "Enter prime" %>
-				<br/>
+				<div class="input-group">
+					<span class="input-group-addon">Database Username</span>
+					<%= text_field_tag 'user_name', "#{current_user.first_name}", :readonly => true %>
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon">Database password</span>
+					<%= text_field_tag 'password', "#{current_user.api_token}", :readonly => true %>
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon">Database url</span>
+					<%= text_field_tag 'url', "postgres://#{current_user.first_name}:#{current_user.api_token}@postgres1.megam.co.in:5432/db_#{current_user.first_name}", :readonly => true %>
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon">Database Initiation Commands</span>
+					<%= text_area_tag 'prime', nil, placeholder: "Enter prime" %>
+				</div>
 				<% end %>
 			</div>
 		</div>
@@ -154,7 +156,7 @@
 	<div class="row">
 		<div class="col-md-4"></div>
 		<div class="col-md-4">
-			<%= f.submit nil, :class => "btn btn-lg btn-success btn-block" %>
+			<%= f.submit "Create Database", :class => "btn btn-lg btn-success btn-block" %>
 			<br/>
 			</br/>
 			<% end %>
@@ -171,19 +173,21 @@
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						×
 					</button>
-					<h3 id="myModalLabel">Cloud Book</h3>
+					<h3 id="myModalLabel">Database</h3>
 				</div>
 				<div class="modal-body">
 					<div class="alert">
 
 						<p>
-							<h4> A cloud book creation request to the megam cloud gateway was successful. </h4>
+							<h4> A Database creation request to the megam cloud gateway was successful. </h4>
 							</br>
 							<strong>Click<span class="label label-info"> OK </span> to watch the status Real Time</strong>
 						</p>
 					</div>
 				</div>
-				<div class="modal-footer" id="history_path"></div>
+				<div class="modal-footer" id="history_path">
+					<%= link_to  "Ok", cloud_stores_path, :class => "btn btn-sm btn-primary", :target => "_self" %>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -195,20 +199,20 @@
 					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						×
 					</button>
-					<h3 id="myModalLabel">Cloud Book</h3>
+					<h3 id="myModalLabel">Database</h3>
 				</div>
 				<div class="modal-body">
 					<div class="alert">
 
 						<p>
-							<h4> A cloud book creation request to the megam cloud gateway was not successful. </h4>
+							<h4> A Database creation request to the megam cloud gateway was not successful. </h4>
 							</br>
 							<div id="err_msg"></div>
 						</p>
 					</div>
 				</div>
 				<div class="modal-footer">
-					<%= link_to  "Ok", new_cloud_book_path, :class => "btn btn-primary", :target => "_self" %>
+					<%= link_to  "Ok", cloud_stores_path, :class => "btn btn-sm btn-primary", :target => "_self" %>
 				</div>
 			</div>
 		</div>

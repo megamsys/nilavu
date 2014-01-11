@@ -22,6 +22,17 @@ $(document).ready(function() {
 	      })
 	    });
 	
+	 // === Popovers === //
+    var placement = 'bottom';
+    var trigger = 'click';
+    var html = true;
+	
+	$('#popover_cloud').popover({
+	       placement: placement,
+	       content: '<span class="content-small">choose this option enter settings for the cloud of your choice</span>',
+	       trigger: trigger,
+	       html: html   
+	    });
 			 
 	/*$("#cross_cloud_list").change(function() {
 		var cc = $(this).find("option:selected").text()

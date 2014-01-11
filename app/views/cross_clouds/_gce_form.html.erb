@@ -2,7 +2,7 @@
 <div class="row">
 	<div class="col-md-4">
 		<div class="div_border">
-			<h4 class="alert-heading">Save this Cross Cloud As</h4>
+			<h4 class="alert-heading">Save My Cloud As</h4>
 		</div>
 		<br/>
 		<div class="row">
@@ -18,18 +18,25 @@
 			</div>
 		</div>
 		<br/>
-		<br/>
+		<br/>		
 		<div class="row">
-			<div id='cloud_logo'>
-				<a href='/auth/google_oauth2'  target='_self' class ="btn btn-large disabled btn-primary btn-block" >
-					<icon class="icon-google-plus" />&nbsp;Connect Your Cloud Account</a>
+			<div id='acc_link'>
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						Create a new Account for google
+					</div>
+					<div class="panel-body">
+						Click here : <a href='https://accounts.google.com/SignUp' target='_blank' class="btn-link" >New Google Account</a>
+					</div>
+				</div>				
 			</div>
 		</div>
 		<br/>
 		<br/>
 		<div class="row">
-			<div id='acc_link'>
-				<a href='https://accounts.google.com/SignUp' target='_blank' class="btn-link" >Create an Account for Google Cloud</a>
+			<div id='cloud_logo'>
+				<a href='/auth/google_oauth2'  target='_self' class ="btn btn-lg disabled btn-primary btn-block" >
+					<icon class="icon-google-plus" />&nbsp;Connect Your Google Account</a>
 			</div>
 		</div>
 	</div>
@@ -100,13 +107,11 @@
 			</div>
 		</div>
 <br/>
-		<div class="control-group" id="cc_gcli">
-			<div class="controls">
+		<div class="form-group" id="cc_gcli">			
 				<%= text_field_tag 'google_client_id', nil, placeholder: 'Enter google client id..' %>
 				<%= link_to "#" do %>
 				<i class="icon-question-sign"></i>
-				<% end %>
-			</div>
+				<% end %>			
 		</div>
 <br/>
 		<div class="control-group" id="cc_gsk">

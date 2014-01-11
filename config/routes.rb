@@ -101,6 +101,7 @@ Cloudauth::Application.routes.draw do
   match '/cross_cloud_new', to: 'cloud_settings#cross_cloud_new', via: [:get, :post]
   match '/cross_cloud_create', to: 'cloud_settings#cross_cloud_create', via: [:get, :post]
   match '/cloud_tool_settings_create', to: 'cloud_settings#cloud_tool_setting_create', via: [:get, :post]
+  match '/cloud_tool_setting_new', to: 'cloud_settings#cloud_tool_setting_new', via: [:get, :post]  
   match '/selectclouds', to: 'cross_clouds#cloud_selector', via: [:get, :post]
   #get '/selectclouds' => 'cloud_settings#cloud_selector'
   #match '/selectclouds', to: 'cross_clouds#new', via: [:get, :post]
