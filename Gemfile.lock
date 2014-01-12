@@ -134,6 +134,9 @@ GEM
       multi_xml (>= 0.5.2)
     httpauth (0.2.0)
     i18n (0.6.9)
+    icheck-rails (0.9.0.2)
+      jquery-rails
+      rails (>= 3.1.0)
     inflector (0.0.1)
     jquery-datatables-rails (1.12.2)
       jquery-rails
@@ -195,8 +198,8 @@ GEM
     omniauth (1.1.4)
       hashie (>= 1.2, < 3)
       rack
-    omniauth-facebook (1.5.1)
-      omniauth-oauth2 (~> 1.1.0)
+    omniauth-facebook (1.6.0)
+      omniauth-oauth2 (~> 1.1)
     omniauth-github (1.1.1)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.1)
@@ -337,6 +340,7 @@ DEPENDENCIES
   google-analytics-rails (~> 0.0.4)
   gritter (~> 1.0.3)
   httparty
+  icheck-rails
   inflector
   jquery-datatables-rails
   jquery-rails

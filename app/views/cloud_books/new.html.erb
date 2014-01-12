@@ -17,82 +17,78 @@
 					<div class="row">
 						<div class="col-md-12">
 							<p class="help-block">
-								<strong><span class="label label-info">*selection</span> Select any one framework </strong>
+								<strong><span class="label label-info">*selection</span> Choose a framework </strong>
 							</p>
 							</br>
 							<div class="row">
-								<div class="col-md-6">
+								<div class="col-md-7">
 									<div id="platformapps" class="required">
-										<div class="row">
-											<div class="col-md-6">
-												<a href="#" rel="tooltip" title="some content"> <%= radio_button_tag :predef_name, 'java' %>
-												<%= label :platform, 'Java' do %> <i class="logo_java"></i> <% end %> </a>
-											</div>
-											<div class="col-md-6">
-												<a href="#" rel="tooltip" title="some content"> <%= radio_button_tag :predef_name, 'play' %>
-												<%= label :platform, 'Play' do %> <i class="logo_play"></i> <% end %> </a>
-											</div>
+										<div class="col-md-6">
+											<a href="#" rel="tooltip" title="supports applications written in several Java based frameworks including Spring, Struts."> <%= radio_button_tag :predef_name, 'java' %>
+											<%= label :platform, 'Java' do %> <i class="logo_java"></i> <% end %> </a>
 										</div>
-										<br/>
-										<div class="row">
-											<div class="col-md-6">
-												<a href="#" rel="tooltip" title="some content"> <%= radio_button_tag :predef_name, 'rails' %>
-												<%= label :platform, 'Rails' do %> <i class="logo_rails"></i> <% end %> </a>
-											</div>
-											<div class="col-md-6">
-												<a href="#" rel="tooltip" title="some content"> <%= radio_button_tag :predef_name, 'akka' %>
-												<%= label :platform, 'Akka' do %> <i class="logo_akka"></i> <% end %> </a>
-											</div>
+
+										<div class="col-md-6">
+											<a href="#" rel="tooltip" title="supports Ruby applications written using the Rails 4.0 +, Sinatra, and Rack frameworks."> <%= radio_button_tag :predef_name, 'rails' %>
+											<%= label :platform, 'Rails' do %> <i class="logo_rails"></i> <% end %> </a>
 										</div>
-										<br/>
-										<div class="row">
-											<div class="col-md-8">
-												<a href="#" rel="tooltip" title="some content"> <%= radio_button_tag :predef_name, 'nodejs' %>
-												<%= label :platform, 'Nodejs' do %> <i class="logo_nodejs"></i> <% end %> </a>
-											</div>
-											<div class="col-md-4">
-												<a href="http://support.megam.co" target="_blank"> <h5><i class="icon-bar-chart"></i> Your platform isn't here?</h5> We are here to help
-												<div class="arrow-right">
-													<i class="icon-chevron-right"></i>
-												</div> </a>
-											</div>
+
+										<div class="col-md-6">
+											<a href="#" rel="tooltip" title="supports Scala based popular Playframework, the high velocity webframework for Scala. Play is based on a lightweight, stateless, web-friendly architecture"> <%= radio_button_tag :predef_name, 'play' %>
+											<%= label :platform, 'Play' do %> <i class="logo_play"></i> <% end %> </a>
+										</div>
+
+										<div class="col-md-6">
+											<a href="#" rel="tooltip" title="supports Scala based Akka toolkit. Akka is a toolkit and runtime for building highly concurrent, distributed, and fault tolerant event-driven applications on the JVM"> <%= radio_button_tag :predef_name, 'akka' %>
+											<%= label :platform, 'Akka' do %> <i class="logo_akka"></i> <% end %> </a>
+										</div>
+
+										<div class="col-md-6">
+											<a href="#" rel="tooltip" title="supports JavaScript applications using the Nodejs runtime and web frameworks like Express"> <%= radio_button_tag :predef_name, 'nodejs' %>
+											<%= label :platform, 'Nodejs' do %> <i class="logo_nodejs"></i> <% end %> </a>
+										</div>
+										<div class="col-md-6">
+											<a href="http://support.megam.co/discussion/new" target="_blank"> <h5><i class="icon-bar-chart"></i> Your framework isn't here?</h5> We are here to help
+											<div class="arrow-right">
+												<i class="icon-chevron-right"></i>
+											</div> </a>
 										</div>
 									</div>
 								</div>
-								<div class="col-md-6">
+								<div class="col-md-5">
 									<div class="row">
-										<div id="scalebooks">
-											<div class="alert alert-success">
-												<i class="icon-home"></i> Scale Apps
+										<div class="panel panel-primary">
+											<div class="panel-heading">
+												<i class="icon-home"></i> Scale Your App Quickly
+												<div>
+													<i class="icon-check-sign">&nbsp;You selected </i>
+													<span id="books_total">0</span>
+													<input type="hidden" id="cb_count" name="no_of_instances" value="<%= @books_count %>">
+													App(s) Of:
+													<span class="badge badge-danger">
+														<div id="selected_platformapp">
+															<h3>none</h3>
+														</div></span>
+												</div>
 											</div>
-											<div class="overflow">
-												<table class="table table-condensed">
-													<thead>
-														<tr>
-															<th>My Apps</th>
-															<th><a href="#" rel="tooltip" title="max 2 (*beta)" class='info'>Instances <i class="icon-info-sign"></i></a></th>
-															<th><i class="icon-trash"></i></th>
-														</tr>
-													</thead>
-													<tbody></tbody>
-												</table>
+											<div class="panel-body">
+												<div id="scalebooks">
+													<div class="overflow">
+														<table class="table table-striped">
+															<thead>
+																<tr>
+																	<th>My Apps</th>
+																	<th><a href="#" rel="tooltip" title="max 2 (*beta)" class='info'>Instances <i class="icon-info-sign"></i></a></th>
+																	<th><i class="icon-trash"></i></th>
+																</tr>
+															</thead>
+															<tbody>
+
+															</tbody>
+														</table>
+													</div>
+												</div>
 											</div>
-										</div>
-									</div>
-									</br>
-									<div class="row">
-										<div class="alert alert-info alert-block">
-											<a class="close" data-dismiss="alert" href="#">×</a>
-											<i class="icon-check-sign"></i>
-											<span class="badge badge-success books_total">0</span>
-
-											<input type="hidden" id="cb_count" name="no_of_instances" value="<%= @books_count %>">
-
-											Instance(s) Of:
-											<span class="badge badge-danger">
-												<div id="selected_platformapp">
-													<h3>none</h3>
-												</div></span>
 										</div>
 									</div>
 								</div>
@@ -105,76 +101,94 @@
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-th-list"></i> </span>
 					<h5>Source Code</h5>
-					<div class="buttons">
-						<%= render :partial => "customizations/refresh" %>
-					</div>
 				</div>
 				<div class="widget-content">
 					<div class="row">
 						<div class="col-md-2">
 							<div class="media">
-								<%= link_to "/auth/github", :title=> "Click here to automatically connect and list your github repositories", :target => "_self", :data => { spinner: '#git_oauth'} do %> 	<%= image_tag "logo_github.png",:class=> "img-thumbnail",:size => "80x80"%><% end %>
-								<%= image_tag "logo_bitbucket_200x200.png",:class=> "img-thumbnail",:size => "80x80"%>
-								<%= image_tag "logo_cloudforge_200x200.png",:class=> "img-thumbnail",:size => "80x80"%>
-								<%= image_tag "logo_scm_200x200.png",:class=> "img-thumbnail",:size => "80x80"%>
+								<div class="panel panel-primary">
+									<div class="panel-heading">
+										Repository setup
+									</div>
+									<div class="panel-body">
+										<%= link_to "/auth/github", :title=> "Click to connect and list your github repositories", :target => "_self", :data => { spinner: '#git_oauth'} do %>
+										<%= image_tag "logo_github.png",:class=> "img-responsive center-block",:size => "90x90"%><% end %>
+										<%= image_tag "logo_bitbucket_200x200.png",:class=> "img-responsive center-block",:size => "90x90"%>
+										<%= image_tag "logo_cloudforge_200x200.png",:class=> "img-responsive center-block",:size => "90x90"%>
+										<%= image_tag "logo_scm_200x200.png",:class=> "img-responsive center-block",:size => "90x90"%>
+									</div>
+								</div>
 							</div>
 						</div>
 						<div class="col-md-10">
-							<div class="alert alert-info alert-block">
-								<h4 class="alert-heading">You don't have source code repository?</h4>
-								<div>
+							<div class="panel panel-primary">
+								<div class="panel-heading">
 									<p class="help-block">
 										<%= image_tag "helpbota.png", :alt => "help bot"%>
+										<h4 class="alert-heading">You don't have source code repository?</h4>
 										<strong>No Worries,</strong>
 										Try our sample. Click <i class="icon-plus-sign"></i>
 									</p>
 
-									<table class="table table-hover">
-										<thead>
-
-										</thead>
-										<tbody>
-											<tr>
-												<td><i class="icon-chevron-right"></i><span class="badge badge-info">Java based eclipse cloud IDE </span></td>
-												<td><i class="icon-plus-sign" id="githubsample_javawar"></i><a href="https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/orion.war" target="_blank">https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/orion.war</a></td>
-											</tr>
-											<tr>
-												<td><i class="icon-chevron-right"></i><span class="badge badge-info">Java based spring framework application </span></td>
-												<td><i class="icon-plus-sign" id="githubsample_java"></i><a href="https://github.com/thomasalrin/spring-mvc-fulfillment-base.git" target="_blank">https://github.com/thomasalrin/spring-mvc-fulfillment-base.git</a></td>
-											</tr>
-
-											<tr>
-												<td><i class="icon-chevron-right"></i><span class="badge badge-info">Play framework based scala application</span></td>
-												<td><i class="icon-plus-sign" id="githubsample_play"></i><a href="https://github.com/thomasalrin/megam_play.git" target="_blank">https://github.com/thomasalrin/megam_play.git</a></td>
-											</tr>
-											<tr>
-												<td><i class="icon-chevron-right"></i><span class="badge badge-info">Ruby on rails based simple portal</span></td>
-												<td><i class="icon-plus-sign" id="githubsample_ror"></i><a href="https://github.com/thomasalrin/aryabhata.git" target="_blank">https://github.com/thomasalrin/aryabhata.git</a></td>
-											</tr>
-											<tr>
-												<td><i class="icon-chevron-right"></i><span class="badge badge-info">Akka master worker demon</span></td>
-												<td><i class="icon-plus-sign" id="githubsample_akka"></i><a href="https://github.com/thomasalrin/megam_akka.git" target="_blank">https://github.com/thomasalrin/megam_akka.git</a></td>
-											</tr>
-
-										</tbody>
-									</table>
-
 								</div>
-								<a class="close" data-dismiss="alert alert-warning" href="#">×</a>
+								<div class="panel-body">
+									<div class="alert alert-info alert-block">
+										<div>
+
+											<table class="table table-hover">
+												<thead></thead>
+												<tbody>
+													<tr>
+														<td><span class="badge badge-info">Java</span></td>
+														<td><i class="icon-plus-sign" id="githubsample_javawar"></i> This sample launches a java based online code editor called orion. The bundle that is used is available <a href="https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/orion.war" target="_blank"> here. </a></td>
+													</tr>
+													<tr>
+														<td><span class="badge badge-info">Java</span></td>
+														<td><i class="icon-plus-sign" id="githubsample_java"></i>This sample launches a spring based Java App.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/spring-mvc-fulfillment-base.git" target="_blank"> here.</a></td>
+													</tr>
+
+													<tr>
+														<td><span class="badge badge-info">Play</span></td>
+														<td><i class="icon-plus-sign" id="githubsample_play"></i>This sample launches a play based scala App.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/megam_play.git" target="_blank">here </a></td>
+													</tr>
+													<tr>
+														<td><span class="badge badge-info">Ruby</span></td>
+														<td><i class="icon-plus-sign" id="githubsample_ror"></i>This sample launches a ruby on rails 4.0 twitter bootstrap based portal.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/aryabhata.git" target="_blank"> here</a></td>
+													</tr>
+													<tr>
+														<td><span class="badge badge-info">Akka</span></td>
+														<td><i class="icon-plus-sign" id="githubsample_akka"></i>This sample launches a akka daemon that spawns a cluster of masters which delegates work to its slave.
+														The source code that is used for the launch is available<a href="https://github.com/thomasalrin/megam_akka.git" target="_blank">here</a></td>
+													</tr>
+
+												</tbody>
+											</table>
+
+										</div>
+										<a class="close" data-dismiss="alert alert-warning" href="#">×</a>
+									</div>
+								</div>
 							</div>
 
 							<div class="collapse in accordion-body" id="collapseGOne">
 								<div class="widget-content">
-
 									<% if defined?(repos) %>
 									<br/>
 									<%= select_tag 'scm', options_for_select(repos.insert(0, "Select a Repository")), :style => "width:600px" %>
 									<% end %>
-									<br/>
-									<br/>
-									<br/>
-									<i class="icon-github"></i>
-									<span class="full_text"> <%= text_field_tag 'deps_scm', nil, class: 'large_text_field', placeholder: "https://github.com/username/project.git" %> </span>
+									<div class="form-group">
+										<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Source code repository</label>
+										<div class="col-sm-9 col-md-9 col-lg-10">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="input-group input-group-sm">
+														<span class="input-group-addon"><i class="icon-github"></i></span>
+														<%= text_field_tag 'deps_scm', nil, class: 'form-control input-sm', placeholder: "https://github.com/username/project.git" %>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 
 								</div>
 							</div>

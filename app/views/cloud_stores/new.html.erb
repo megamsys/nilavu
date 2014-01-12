@@ -18,79 +18,74 @@
 						<div class="row">
 							<div class="col-md-12">
 								<p class="help-block">
-									<strong><span class="label label-info">*selection</span> Select any one Service </strong>
+									<strong><span class="label label-info">*selection</span> Choose a service </strong>
 								</p>
 								</br>
 								<div class="row">
 									<div class="col-md-6">
 										<div id="platformapps" class="required">
 											<div id="new_db2" class="required">
-												<div class="row">
-													<div class="col-md-6">
-														<%= label :platform, 'postgresql' do %>
-														<%= radio_button_tag :dbms, 'postgresql' %>
-														<i class="logo_postgresql"></i>
-														<% end %>
-													</div>
-													<div class="col-md-6">
-														<%= label :platform, 'riak' do %>
-														<%= radio_button_tag :dbms, 'riak' %>
-														<i class="logo_riak"></i>
-														<% end %>
-													</div>
+												<div class="col-md-6">
+													<%= label :platform, 'postgresql' do %>
+													<%= radio_button_tag :dbms, 'postgresql' %>
+													<i class="logo_postgresql"></i>
+													<% end %>
 												</div>
-												<div class="row">
-													<div class="col-md-6">
-														<%= label :platform, 'redis' do %>
-														<%= radio_button_tag :dbms, 'redis' %>
-														<i class="logo_redis"></i>
-														<% end %>
-													</div>
+												<div class="col-md-6">
+													<%= label :platform, 'riak' do %>
+													<%= radio_button_tag :dbms, 'riak' %>
+													<i class="logo_riak"></i>
+													<% end %>
 												</div>
-												<div class="row">
-													<div class="col-md-6"></div>
-													<div class="col-md-6 col-md-offset6">
-													<a href="http://support.megam.co" target="_blank"> <h5><i class="icon-question-sign"></i> Your platform isn't here?</h5> We are here to help
+												<div class="col-md-6">
+													<%= label :platform, 'redis' do %>
+													<%= radio_button_tag :dbms, 'redis' %>
+													<i class="logo_redis"></i>
+													<% end %>
+												</div>
+												<div class="col-md-6">
+													<a href="http://support.megam.co/discussion/new" target="_blank"> <h5><i class="icon-question-sign"></i> Your service isn't here?</h5> We are here to help
 													<div class="arrow-right">
 														<i class="icon-chevron-right"></i>
 													</div> </a>
-													</div>
 												</div>
 											</div>
 										</div>
 									</div>
 									<div class="col-md-6">
 										<div class="row">
-											<div id="scalebooks">
-												<div class="alert alert-success">
-													<i class="icon-info-sign"></i> Scale service
+											<div class="panel panel-primary">
+												<div class="panel-heading">
+													<i class="icon-home"></i> Scale Your Service Quickly
+													<div>
+														<i class="icon-check-sign">&nbsp;You selected </i>
+														<span id="books_total">0</span>
+														<input type="hidden" id="cb_count" name="no_of_instances" value="<%= @books_count %>">
+														Service(s) Of:
+														<span class="badge badge-danger">
+															<div id="selected_platformapp">
+																<h3>none</h3>
+															</div></span>
+													</div>
 												</div>
-												<div class="overflow">
-													<table class="table table-condensed">
-														<thead>
-															<tr>
-																<th>My Services</th>
-																<th><a href="#" rel="tooltip" title="max 2 (*beta)" class='info'>Instances <i class="icon-info-sign"></i></a></th>
-																<th><i class="icon-trash"></i></th>
-															</tr>
-														</thead>
-														<tbody></tbody>
-													</table>
+												<div class="panel-body">
+													<div id="scalebooks">
+														<div class="overflow">
+															<table class="table table-striped">
+																<thead>
+																	<tr>
+																		<th>My Apps</th>
+																		<th><a href="#" rel="tooltip" title="max 2 (*beta)" class='info'>Instances <i class="icon-info-sign"></i></a></th>
+																		<th><i class="icon-trash"></i></th>
+																	</tr>
+																</thead>
+																<tbody>
+
+																</tbody>
+															</table>
+														</div>
+													</div>
 												</div>
-											</div>
-										</div>
-										</br>
-										<div class="row">
-											<div class="alert alert-info alert-block">
-												<a class="close" data-dismiss="alert" href="#">×</a>
-												<i class="icon-check-sign"></i>
-												<span class="badge badge-success books_total">0</span>
-												<input type="hidden" id="cb_count" name="no_of_instances" value="<%= @books_count %>">
-												&nbsp; Instance(s) Of: &nbsp;
-												<span class="badge badge-important">
-													<div id="selected_platformapp">
-														<h3>none</h3>
-													</div></span>
 											</div>
 										</div>
 									</div>
@@ -108,9 +103,33 @@
 						<div class="col-md-12">
 							<div class="widget-content">
 								<p class="help-block">
-									<strong><span class="label label-info">*selection</span> Select any one service model</strong>
+									<strong><span class="label label-info">*selection</span> Choose a service model</strong>
 								</p>
 								</br>
+								<div class="row">
+									<div class="panel panel-primary">
+										<div class="panel panel-heading">
+											There are two service models.
+											<ul>
+												<li>
+													Unmanaged : This is a service that you manage and maintain.
+												</li>
+												<li>
+													Managed   : This is a service where you avail an account on a clustered highly available service managed by us.
+												</li>
+											</ul>
+
+										</div>
+										<div class="panel-body">
+											<div class="alert alert-info alert-block">
+												<a href="http://support.megam.co" target="_blank"> <h5><i class="icon-question-sign"></i> Tell me more about these service model</h5> We are here to help
+												<div class="arrow-right">
+													<i class="icon-chevron-right"></i>
+												</div> </a>
+											</div>
+										</div>
+									</div>
+								</div>
 
 								<div class="row">
 									<div class="col-md-12">
@@ -118,27 +137,16 @@
 											<div class="col-md-6">
 												<%= label :full, 'Full' do %>
 												<%= radio_button_tag :db_model, 'full' %>
-												<h3><i class="icon-folder-open"></i> Full</h3>
-												<span class="label label-info">*all yours</span> PostgreSQL only for You </strong>
+												<h3><i class="icon-folder-open"></i>Unmanaged</h3>
 												<% end %>
 											</div>
 											<div class="col-md-6">
 												<%= label :multitenant, 'Multitenant' do %>
 												<%= radio_button_tag :db_model, 'multitenant', false, disabled: true %>
-												<h3><i class="icon-envelope"></i> Multitenant</h3><span class="label label-primary">work in progress</span>
-												<span class="label label-info">*shared</span> Clustered, highly available Cloud PostgreSQL</strong>
+												<h3><i class="icon-envelope"></i>Managed</h3><span class="label label-primary">work in progress</span>
 												<% end %>
 											</div>
 										</div>
-									</div>
-								</div>
-								<div class="row">
-									</br>
-									<div class="alert alert-info alert-block">
-										<a href="http://support.megam.co" target="_blank"> <h5><i class="icon-question-sign"></i> Tell me more about these options</h5> We are here to help
-										<div class="arrow-right">
-											<i class="icon-chevron-right"></i>
-										</div> </a>
 									</div>
 								</div>
 							</div>
@@ -150,7 +158,7 @@
 		<div class="row">
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
-				<%= submit_tag "Next", :class => "btn btn-lg btn-success btn-block", :id => "db_next", :disabled => true, :remote => true, :data => { :disable_with => "Please wait..."}, title: 'Please select your application platform and then click Next', rel: 'tooltip' %>
+				<%= submit_tag "Next", :class => "btn btn-lg btn-success btn-block", :id => "db_next", :disabled => true, :remote => true, :data => { :disable_with => "Please wait..."}, title: 'Please select your service and click Next', rel: 'tooltip' %>
 				<% end %>
 				<br/>
 			</div>

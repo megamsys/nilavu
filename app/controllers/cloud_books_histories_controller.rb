@@ -13,7 +13,7 @@ class CloudBooksHistoriesController < ApplicationController
       end
 
   else
-      redirect_to cloud_books_path, :gflash => { :warning => { :value => "Sorry. No history available. Please start creating books.", :sticky => false, :nodom_wrap => true } }
+      redirect_to cloud_books_path, :gflash => { :warning => { :value => "Sorry. No logs available. Please create apps to see them.", :sticky => false, :nodom_wrap => true } }
     end
     #@books = current_user.cloud_books.all
   #@books = @cloud_books.cloud_books_histories

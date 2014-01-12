@@ -37,7 +37,7 @@ $(document).ready(function(){
         });
     });
     
-    if($.browser.msie == true && $.browser.version.slice(0,3) < 10) {
+    if(bowser.msie && bowser.version <= 10) {
         $('input[placeholder]').each(function(){            
             var input = $(this);     
             $(input).val(input.attr('placeholder'));                   

@@ -67,9 +67,11 @@
 				<h5>Service Name</h5>
 			</div>
 			<div class="widget-content">
-				<p class="help-block">
-					<strong><span class="label label-info">*optional</span> Click on the default service name to change it</strong>
-				</p>
+				<div class="col-md-12">
+					<p class="help-block">
+						Your current service launch URL
+					</p>
+				</div>
 				</br>
 				<div class="col-md-12">
 					<div class="col-md-7">
@@ -86,6 +88,27 @@
 				<%= f.text_field :name, :type => 'hidden', :id=> 'changename', :value => @new_book_name %>
 				<input type="hidden" name="book_name" id="bookname" value="<%= @new_book_name %>">
 				<%= f.text_field :domain_name, :type => 'hidden', :value => @domain_name %>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12">
+		<div class="widget-box">
+			<div class="widget-title">
+				<span class="icon"> <i class="icon-th-list"></i> </span>
+				<h5>Cloud Selection</h5>
+			</div>
+			<div class="widget-content">
+				<div class="row">
+					<div class="control-group">
+						<p class="help-block">
+							Choose a cloud.
+							<%= link_to "To learn more about attaching a new cloud account",   "http://docs.megam.co", { :target => '_blank'} %>
+						</p>
+						<p>
+							<%= f.select :predef_cloud_name, options_for_select(@predef_cloud.map{ |c| [c.name] }) %>
+						</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

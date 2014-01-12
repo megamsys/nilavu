@@ -19,5 +19,6 @@
  *= require icheck/flat/blue
  *= require gritter 
  *= require flexslider 
+ *= require bootstrap_and_overrides
  *= require_tree . 
 */

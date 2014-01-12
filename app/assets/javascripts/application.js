@@ -17,12 +17,10 @@
 //= require jquery.ui.all
 //= require bowser
 //= require twitter/bootstrap
-//= require bootstrap
 //= require angular
 //= require angular-route
 //= require angular-resource
 //= require angular-sanitize
-//= require jquery.prettyPhoto
 //= require spin
 //= require jquery.spin
 //= require jquery.spin.config
@@ -34,10 +32,12 @@
 //= require jquery.peity
 //= require jquery.icheck
 //= require popovers
-//= require cloud_books
 //= require cross_clouds
 //= require connector_projects
+//= require jquery.sparkline
+//= require bootstrap-editable
 //= require unicorn.login
+//= require cloud_books
 //= require unicorn.form_common
 //= require unicorn.form_validation
 //= require megam.form_validation
@@ -45,7 +45,6 @@
 //= require unicorn.wizard
 //= require unicorn
 //= require unicorn.dashboard
-//= require theme
 //= require jquery.flot
 //= require jquery.flot.time
 //= require fullcalendar

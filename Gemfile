@@ -6,7 +6,6 @@ gem 'protected_attributes'
 gem 'rails-observers'
 gem 'actionpack-page_caching'
 gem 'actionpack-action_caching'
-
 gem 'socket.io-rails'
 gem 'google-analytics-rails', '~> 0.0.4'
 #JQuery rails, other jquery scripts
@@ -52,6 +51,7 @@ gem "faraday_middleware"
 gem "multi_xml"
 #net-http request and responses, [why can't we use faraday] 
 gem "net-http-predicates"  
+gem "icheck-rails"
 
 #html parsing
 gem "nokogiri"

@@ -19,7 +19,7 @@ $(document).ready(function(){
 					jQuery('#identity_new').editable();
 					
 	// === Prepare sparklines charts === //
-	unicorn.sparkline();
+	//unicorn.sparkline();
 	
 	// === Prepare the chart data ===/
 	var sin = [], cos = [];

@@ -4,16 +4,9 @@
  * Diablo9983 -> diablo9983@gmail.com
 **/
 
+$(document).ready(function(){	
+	
 
-$(document).ready(function(){
-	
-	$('input[type=checkbox],input[type=radio]').iCheck({
-    	checkboxClass: 'icheckbox_flat-blue',
-    	radioClass: 'iradio_flat-blue'
-	});
-	
-	$('select').select2();
-	
 	// Form Validation
     $("#basic_validate").validate({
 		rules:{
