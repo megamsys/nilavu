@@ -9,13 +9,13 @@
 
 			<p>
 				<a href='javascript:history.back();'>Go Back</a> to the previous page, return to the <a href='/'>home page or
-				<%= link_to "Contact us",   page_path("contact_us") %>
+<a href="mailto:support@megam.co.in?subject=Help me">Email Us</a> 
 				about this problem.
 				<hr />
 				If you were looking for some information regarding our services, we&#39;ve listed a few resources below where you can find additional information and help.
 			</p>
 
-			<h4> <%= link_to "Visit Support", "http://support.megam.co/?user=current_user.email",:target => "_blank" %> </h4>
+			<h4> <%= link_to "Visit Support", "http://support.megam.co/?user=#{current_user.email}",:target => "_blank" %> </h4>
 
 			<p>
 				Get help from our skilled staff of Ruby and Rails. Scala experts.
