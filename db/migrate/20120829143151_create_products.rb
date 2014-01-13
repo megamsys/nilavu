@@ -12,7 +12,6 @@ class CreateProducts < ActiveRecord::Migration
       t.string :rest_api
       t.string :deccanplato_url
       t.boolean :market_place
-      t.boolean :cloud_sync
     end
   end
 

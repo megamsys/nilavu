@@ -410,8 +410,8 @@ dbinit(){
 dbclean(){
 #remove cloud_books_histories
 rake db:migrate:down VERSION=20130726050612
- #remove cloud_books
- rake db:migrate:down VERSION=20130718123920
+#remove cloud_books
+rake db:migrate:down VERSION=20130718123920
 #remove products
 rake db:migrate:down VERSION=20120829143151
 #remove apps_items
@@ -445,8 +445,10 @@ rake db:migrate:up VERSION=20120817045502
 rake db:migrate:up VERSION=20120824094944
 #create products
 rake db:migrate:up VERSION=20120829143151
- #create cloud_books
- rake db:migrate:up VERSION=20130718123920
+#alter products - cloud_sync
+rake db:migrate:up VERSION=20140113005233
+#create cloud_books
+rake db:migrate:up VERSION=20130718123920
 #create cloud_books_histories
 rake db:migrate:up VERSION=20130726050612
 #dashboards
