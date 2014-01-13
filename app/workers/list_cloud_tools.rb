@@ -1,6 +1,6 @@
 #List all the predefs
 class ListCloudTools
-  def self.perform(wparams={},tmp_email, tmp_api_key))
+  def self.perform(wparams={},tmp_email, tmp_api_key)
     begin
       @excon_res = Megam::CloudTool.list(tmp_email, tmp_api_key)
     rescue ArgumentError => ae
