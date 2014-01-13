@@ -14,9 +14,14 @@
 	</div>
 	<%= spinner_tag 'lcrequest' %>
 	<div class="col-md-6" id="lc_form">
-		<div class="alert alert-info">
-			<span >Choose any one action for <span class="label label-info"><h2><%= cloud_book.node_name%></h2></span></span>
-		</div>
+								<div class="panel panel-primary">
+									<div class="panel-heading">
+										App
+									</div>
+									<div class="panel-body">
+										<h2><%= cloud_book.node_name %></h2>
+									</div>
+								</div>
 	</div>
 	<% else %>
 	<div class="col-md-3 offset2">
@@ -33,9 +38,14 @@
 	</div>
 	<%= spinner_tag 'lcrequest' %>
 	<div class="col-md-6" id="lc_form">
-		<div class="alert alert-info">
-			<span >Choose any one action for <h2><%= cloud_book.node_name%></h2></span>
-		</div>
+								<div class="panel panel-primary">
+									<div class="panel-heading">
+										App
+									</div>
+									<div class="panel-body">
+										<h2><%= cloud_book.node_name %></h2>
+									</div>
+								</div>
 	</div>
 	<% end %>
 </div>

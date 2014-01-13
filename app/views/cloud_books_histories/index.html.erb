@@ -14,154 +14,55 @@
 					<h5>Logs</h5>
 				</div>
 				<div class="widget-content nopadding">
+				<div class="row">
 					<% @nodes.each do |node| %>
-							<div class="span3">
-							<input type="button" ng-model="query" ng-click="sendmessage('<%= node.node_name %>')" id="node_names" value="<%= node.node_name %>" class="btn btn-block btn-success">
-							</div>
-							<% end %>
+					<div class="col-md-3 col-md-offset-3">
+						<input type="button" ng-model="query" ng-click="sendmessage('<%= node.node_name %>')" id="node_names" value="<%= node.node_name %>" class="btn btn-lg btn-primary btn-block">
+					</div>
+					<% end %>
+					</div>
 				</div>
 			</div>
 			<input type="hidden" ng-model="source">
-			<div class="widget-box">
-				<div class="widget-title">
-					<span class="icon"> <i class="icon-th-list"></i> </span>
-					<h5>Watch Realtime Log</h5>
-					<span class="label label-info">{{source}}</span>
-				</div>
-				<div class="widget-content nopadding">
-					<br/>
-					<div class="row">
-						<div class="col-md-8"></div>
-						<div class="col-md-3">
-							<!--{{total}} == {{l_total}}-->
-							<a href="{{book_json}}" target="_blank">view Offline Log</a>
+
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							{{bookName}}
+							
+												<span class="label label-info pull-right"><a href="http://monitor.megam.co/kibana/#/dashboard/file/{{bookName}}.json" target="_blank">view Offline Log</a></span>
+												
 						</div>
-					</div>
-					<div class="row">
-						<div class="widget-box">
-							<div class="widget-title">
-								<ul class="nav nav-tabs">
-									<li class="active">
-										<a data-toggle="tab" href="#tab1">{{bookName}}</a>
-									</li>
-								</ul>
-							</div>
-							<div class="widget-content tab-content"  style="height:300px; overflow-y: scroll;">
-								<div id="tab1" class="tab-pane active">
-									<br/>
-									<table class="table table-bordered table-striped table-hover"  style=" overflow-y: scroll;">
-										<thead>
-											<tr>
-												<th class="col-md-3">Timestamp</th>
-												<th class="col-md-9">Message</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
-												<td>
-												<p>
-													{{ log.timestamp | date:'d  MMMM,  y - hh:mm a Z' }}
-												</p></td>
-												<td>
-												<p>
-													{{log.message }}
-												</p></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
+						<div class="panel-body">
+							<table class="table table-bordered table-striped table-hover"  style=" overflow-y: scroll;">
+								<thead>
+									<tr>
+										<th class="col-md-3">Timestamp</th>
+										<th class="col-md-9">Message</th>
+									</tr>
+								</thead>
+								<tbody>
+								
+									<div class="progress progress-striped active" style="{{prog_bar}}">
+										<div style="width: 40%;" class="progress-bar progress-bar-success"></div>
+									</div>
+									
+									<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
+										<td>
+										<p>
+											{{ log.timestamp | date:'d  MMMM,  y - hh:mm a Z' }}
+										</p></td>
+										<td>
+										<p>
+											{{log.message }}
+										</p></td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
-<!--todo  multiple books logs display using tabs-->
-
-<!--<div ng-controller="MyCtrl">
-<div class="container-fluid">
-<div class="widget-box">
-<div class="widget-title">
-<span class="icon"> <i class="icon-th-list"></i> </span>
-<h5>Cloud Books Run History</h5>
-</div>
-<div class="widget-content nopadding">
-<table class="table table-bordered table-striped table-hover">
-<thead>
-<tr>
-<th>book_name</th>
-<th>request_id</th>
-<th>status</th>
-</tr>
-</thead>
-<tbody>
-<% current_user.cloud_books.each do |cloud_book| %>
-<% cloud_book.cloud_books_histories.each do |history| %>
-<tr>
-<td>
-<input type="button" ng-model="query" ng-click="tabManager.addTab('<%= history.book_name %>')" id="node_names" value="<%= history.book_name %>">
-</td>
-<td> <%= history.request_id %> </td>
-<td> <%= history.status %> </td>
-</tr>
-<% end %>
-<% end %>
-</tbody>
-</table>
-</div>
-</div>
-<input type="hidden" ng-model="source">
-<div class="widget-box">
-<div class="widget-title">
-<span class="icon"> <i class="icon-th-list"></i> </span>
-<h5>Watch Realtime Log</h5>
-<span class="label label-info">{{source}}</span>
-</div>
-<div class="widget-content nopadding">
-<div ng-cloak>
-<div class="container" >
-<span class="label label-info label-ext" ng-click="tabManager.addTab()" style="cursor:pointer">Add a Tab</span>
-<br/>
-<br/>
-<div>
-<div tabs>
-<div ng-repeat="tabInfo in tabManager.tabItems" pane title="{{ tabInfo.title  }}">
-<table class="table table-bordered table-striped table-hover">
-<thead>
-<tr>
-<th class="span3">Timestamp</th>
-<th class="span9">Message</th>
-</tr>
-</thead>
-<tbody>
-<tr ng-repeat="log in logs[tabInfo.title] | orderBy:predicate:!reverse | filter:filterLog">
-<td>
-<p>
-{{ log.timestamp | date:'d  MMMM,  y - hh:mm a Z' }}
-</p></td>
-<td>
-<p>
-{{ log.message }}
-</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<br/>
-<br/>
-<br/>
-</div>
-</div>
-
-</div>
-</div>
-</div>
-</div> -->
 
 <% end %>
 <%= render :template => users_show_path %>
