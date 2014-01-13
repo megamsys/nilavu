@@ -2,8 +2,10 @@ function LogCtrl($scope, socket, $location, LogStackLimit) {
 	$scope.logs = [];
 	$scope.total = 0;
 	$scope.l_total = 0;
+	$scope.prog_bar = "visibility:hidden";
 	$scope.bookName = "Select one book name";
 	$scope.sendmessage = function(data) {
+		$scope.prog_bar = "";
 		$scope.bookName = data;			
 		socket.emit('message', data);
 	};
@@ -19,6 +21,7 @@ function LogCtrl($scope, socket, $location, LogStackLimit) {
 	});
 
 	socket.on('message', function(message) {
+		$scope.prog_bar = "visibility:hidden";
 		$scope.total = $scope.total + 1;
 		$scope.l_total = $scope.l_total + 1;
 		var replaceChar = message.logs.replace(/\@/g, "");
@@ -32,86 +35,7 @@ function LogCtrl($scope, socket, $location, LogStackLimit) {
 		predicate = 'timestamp';
 	});
 
-	$scope.book_json = 'http://mob.co/kibana/#/dashboard/{'
-			+ +'"title": "Logstash elastic search",' + +'"services": {'
-			+ +'"query": {' + +'"idQueue": [' + +'1,' + +'2,' + +'3,' + +'4'
-			+ +'],' + +'"list": {' + +'"0": {' + +'"query": "",'
-			+ +'"alias": "",' + +'"color": "#7EB26D",' + +'"id": 0' + +'}'
-			+ +'},' + +'"ids": [' + +'0' + +']' + +'},' + +'"filter": {'
-			+ +'"idQueue": [' + +'1,' + +'2' + +'],' + +'"list": {' + +'"0": {'
-			+ +'"from": "2013-07-27T09:37:57.908Z",'
-			+ +'"to": "2013-07-27T10:37:57.909Z",' + +'"field": "@timestamp",'
-			+ +'"type": "time",' + +'"mandate": "must",' + +'"active": true,'
-			+ +'"alias": "",' + +'"id": 0' + +'}' + +'},' + +'"ids": [' + +'0'
-			+ +']' + +'}' + +'},' + +'"rows": [' + +'{'
-			+ +'"title": "Options",' + +'"height": "50px",'
-			+ +'"editable": true,' + +'"collapse": false,'
-			+ +'"collapsable": true,' + +'"panels": [' + +' {'
-			+ +'  "error": "",' + +'"span": 6,' + +'"editable": true,'
-			+ +'"group": [' + +'"default"' + +'],' + +'"type": "timepicker",'
-			+ +'"status": "Stable",' + +'"mode": "relative",'
-			+ +'"time_options": [' + +'"5m",' + +'"15m",' + +'"1h",' + +'"6h",'
-			+ +'"12h",' + +'"24h",' + +'"2d",' + +'"7d",' + +'"30d"' + +'],'
-			+ +'"timespan": "1h",' + +'"timefield": "@timestamp",'
-			+ +'"timeformat": "",' + +'"refresh": {' + +'"enable": false,'
-			+ +'"interval": 10,' + +'"min": 3' + +'},' + +'"filter_id": 0,'
-			+ +'"status": "Stable"' + +'}' + +']' + +'},' + +'{'
-			+ +'"title": "Query",' + +'"height": "50px",'
-			+ +'"editable": true,' + +'"collapse": false,'
-			+ +'"collapsable": true,' + +'"panels": [' + +'{'
-			+ +'"error": false,' + +'"span": 12,' + +'"editable": true,'
-			+ +'"group": [' + +'"default"' + +'],' + +'"type": "query",'
-			+ +'"label": "Search",' + +'"query": "*",' + +'"history": [],'
-			+ +'"remember": 10,' + +'"pinned": true' + +'}' + +']' + +'},'
-			+ +'{' + +'"title": "Filters",' + +'"height": "50px",'
-			+ +'"editable": true,' + +'"collapse": true,'
-			+ +'"collapsable": true,' + +'"panels": [' + +'{'
-			+ +'"loading": false,' + +'"error": false,' + +'"span": 12,'
-			+ +'"editable": true,' + +'"group": [' + +'"default"' + +'],'
-			+ +'"type": "filtering",' + +'"status": "Experimental"' + +'}'
-			+ +']' + +'},' + +'{' + +'"title": "Graph",'
-			+ +'"height": "350px",' + +'"editable": true,'
-			+ +'"collapse": false,' + +'"collapsable": true,' + +'"panels": ['
-			+ +'{' + +'"loading": false,' + +'"span": 12,'
-			+ +'"editable": true,' + +'"group": [' + +'"default"' + +'],'
-			+ +'"type": "histogram",' + +'"status": "Stable",' + +'"query": ['
-			+ +'{' + +'"query": "*",' + +'"label": "Query"' + +'}' + +'],'
-			+ +'"mode": "count",' + +'"time_field": "@timestamp",'
-			+ +'"value_field": null,' + +'"auto_int": true,'
-			+ +'"resolution": 100,' + +'"interval": "30s",' + +'"fill": 3,'
-			+ +'"linewidth": 3,' + +'"timezone": "browser",'
-			+ +'"spyable": true,' + +'"zoomlinks": true,' + +'"bars": true,'
-			+ +'"stack": true,' + +'"points": false,' + +'"lines": false,'
-			+ +'"legend": true,' + +'"x-axis": true,' + +'"y-axis": true,'
-			+ +'"percentage": false,' + +'"interactive": true,'
-			+ +'"queries": {' + +'"mode": "all",' + +'"ids": [' + +'0' + +']'
-			+ +'}' + +'}' + +']' + +'},' + +'{' + +'"title": "Map",'
-			+ +'"height": "500px",' + +'"editable": true,'
-			+ +'"collapse": false,' + +'"collapsable": true,' + +'"panels": ['
-			+ +'{' + +'"loading": false,' + +'"error": false,' + +'"span": 12,'
-			+ +'"editable": true,' + +'"group": [' + +'"default"' + +'],'
-			+ +'"type": "map",' + +'"queries": {' + +'"mode": "all",'
-			+ +'"ids": [' + +'0' + +']' + +'},' + +'"size": 1000,'
-			+ +'"spyable": true,' + +'"tooltip": "_id",'
-			+ +'"field": "@collectorData.geo.country",'
-			+ +'"title": "Rule the world",' + +'"map": "world",'
-			+ +'"colors": [' + +'"#A0E2E2",' + +'"#265656"' + +'],'
-			+ +'"exclude": [],' + +'"index_limit": 0' + +'}' + +']' + +'},'
-			+ +'{' + +'"title": "Events",' + +'"height": "350px",'
-			+ +'"editable": true,' + +'"collapse": false,'
-			+ +'"collapsable": true,' + +'"panels": [' + +' {'
-			+ +'"error": false,' + +'"span": 12,' + +'"editable": true,'
-			+ +'"group": [' + +'"default"' + +'],' + +'"type": "table",'
-			+ +'"size": 100,' + +'"pages": 5,' + +'"offset": 0,' + +'"sort": ['
-			+ +'"@timestamp",' + +'"desc"' + +'],' + +'"style": {'
-			+ +'"font-size": "9pt"' + +'},' + +'"overflow": "min-height",'
-			+ +'"fields": [],' + +'"highlight": [],' + +'"sortable": true,'
-			+ +'"header": true,' + +'"paging": true,' + +'"spyable": true,'
-			+ +'"queries": {' + +'"mode": "all",' + +'"ids": [' + +'0' + +']'
-			+ +'},' + +'"field_list": true,' + +'"status": "Stable"' + +'}'
-			+ +']' + +'}' + +'],' + +'"editable": true,' + +'"index": {'
-			+ +'"interval": "none",' + +'"pattern": "[logstash-]YYYY.MM.DD",'
-			+ +'"default":' + $scope.bookName + +'}' + +'}.json';
+	$scope.book_json = 'http://mob.co/kibana/#/dashboard/.json';
 };
 
 /*
