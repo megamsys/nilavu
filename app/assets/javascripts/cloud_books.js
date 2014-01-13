@@ -54,8 +54,8 @@ jQuery(document)
 																+ '"></i></div></th>')
 												.append(
 														'<td class="instances">'
-																+ $minus
-																+ '<span class="books count">1</span>'
+																+ $minus + '&nbsp;'
+																+ '<span class="books count">1</span>&nbsp;'
 																+ $plus
 																+ '</td>')
 												.append($trash);

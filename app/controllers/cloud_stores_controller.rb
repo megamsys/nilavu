@@ -5,7 +5,7 @@ class CloudStoresController < ApplicationController
       add_breadcrumb "Manage Services", cloud_stores_path
       @cloud_stores = current_user.cloud_books.where(:book_type => 'BOLT')
     else
-      redirect_to new_cloud_store_path, :gflash => { :success => { :value => "Create Your First Store.", :sticky => false, :nodom_wrap => true } }
+      redirect_to new_cloud_store_path, :gflash => { :success => { :value => "Create your first service.", :sticky => false, :nodom_wrap => true } }
     end
     end
 =begin    

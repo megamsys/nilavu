@@ -384,10 +384,12 @@ dbinit(){
 		#create apps_items
 		rake db:migrate:up VERSION=20120824094944
 		#create products
-		rake db:migrate:up VERSION=20120829143151		
-       	        #create cloud_books
+		rake db:migrate:up VERSION=20120829143151
+		#alter products - cloud_sync
+		rake db:migrate:up VERSION=20140113005233		
+       	#create cloud_books
 		rake db:migrate:up VERSION=20130718123920
-                #create cloud_books_histories
+        #create cloud_books_histories
         rake db:migrate:up VERSION=20130726050612
         #dashboards
         rake db:migrate:up VERSION=20130828100755
