@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140113005233) do
+ActiveRecord::Schema.define(version: 20140113092436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20140113005233) do
     t.string   "book_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "group_name"
   end
 
   add_index "cloud_books", ["users_id"], name: "index_cloud_books_on_users_id", using: :btree
@@ -53,6 +54,7 @@ ActiveRecord::Schema.define(version: 20140113005233) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "group_name"
   end
 
   add_index "cloud_books_histories", ["book_id"], name: "index_cloud_books_histories_on_book_id", using: :btree

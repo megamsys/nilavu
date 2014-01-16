@@ -34,10 +34,8 @@
 					</div>
 					<div class="col-md-4">
 						<div class="cb_box">
-							<h4 align="center" >Recent Activity </h4><h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><%= latest_book.created_at.to_formatted_s(:rfc822) %></h5> <% @launched_books.select{|k, v|k==latest_book.name}.each do |k, v| %>
-							<% v.each do |node| %>
-							<% cloud_book = @nodes.lookup(node) %> <h5 align="Center"> <%= link_to "#{cloud_book.node_name}", cloud_book_path(:id => latest_book.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'} %> </h5> <% end %>
-							<% end %>
+							<h4 align="center">Recent Activity </h4><h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><%= latest_book.created_at.to_formatted_s(:rfc822) %></h5> 
+							<h5 align="Center"> <%= link_to latest_book.name, cloud_book_path(:id => latest_book.id, :name => latest_book.name, :book_type => latest_book.book_type), :remote => true, data: { spinlock: '#book'} %> </h5>
 						</div>
 					</div>
 				</div>
@@ -68,7 +66,7 @@
 			</div>
 			<div class="widget-content">
 				<% @launched_books.each do |k, v| %>
-				<% cb = CloudBook.find_by_name(k) %>
+				<% cb = CloudBook.find_by_group_name(k) %>
 				<div class="accordion" id="collapse-group">
 					<div class="accordion-group widget-box">
 						<div class="accordion-heading">
