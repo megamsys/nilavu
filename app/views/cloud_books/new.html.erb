@@ -124,10 +124,9 @@
 							<div class="panel panel-primary">
 								<div class="panel-heading">
 									<p class="help-block">
-										<%= image_tag "helpbota.png", :alt => "help bot"%>
-										<h4 class="alert-heading">You don't have source code repository?</h4>
-										<strong>No Worries,</strong>
-										Try our sample. Click <i class="icon-plus-sign"></i>
+										<h4 class="alert-heading">You don't have source code repository?
+										Try our sample. Click on <i class="icon-plus-sign"></i>
+										icon </h4>
 									</p>
 
 								</div>
@@ -173,8 +172,20 @@
 							<div class="collapse in accordion-body" id="collapseGOne">
 								<div class="widget-content">
 									<% if defined?(repos) %>
-									<br/>
-									<%= select_tag 'scm', options_for_select(repos.insert(0, "Select a Repository")), :style => "width:600px" %>
+									<div class="form-group">
+										<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Your repositories list </label>
+										<div class="col-sm-9 col-md-9 col-lg-10">
+											<div class="row">
+												<div class="col-md-12">
+													<div class="input-group input-group-sm">
+														<span class="input-group-addon"><i class="icon-github"></i></span>
+														<%= select_tag 'scm', options_for_select(repos.insert(0, "Select a Repository")), :style => "width:500px" %> 
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<br/>  (OR) <br/>
 									<% end %>
 									<div class="form-group">
 										<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Source code repository</label>

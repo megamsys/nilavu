@@ -7,7 +7,7 @@ $(document).ready(function() {
 	
 	$('#popover_clouds').popover({
 	       placement: 'bottom',
-	       content: '<span class="content-small">choose this option enter settings for the cloud of your choice</span>',
+	       content: '<span class="content-small">choose this option to enter settings for the cloud of your choice</span>',
 	       trigger: 'hover',
 	       html: html   
 	    });
@@ -21,7 +21,7 @@ $(document).ready(function() {
 	
 	$('#popover_aws_name').popover({
 	       placement: placement,
-	       content: '<span class="content-small">Enter your saved cloud name..</span>',
+	       content: '<span class="content-small">Enter a name to save your cloud. You can just point to this name and launch an app or service.</span>',
 	       trigger: 'click',
 	       html: html   
 	    });
@@ -98,7 +98,7 @@ $(document).ready(function() {
 	
 	$('#popover_hp_name').popover({
 	       placement: placement,
-	       content: '<span class="content-small">Enter your saved cloud name..</span>',
+	       content: '<span class="content-small">Enter a name to save your cloud. You can just point to this name and launch an app or service.</span>',
 	       trigger: 'click',
 	       html: html   
 	    });
@@ -183,7 +183,7 @@ $(document).ready(function() {
 	
 	$('#popover_google_name').popover({
 	       placement: placement,
-	       content: '<span class="content-small">Enter your saved cloud name..</span>',
+	       content: '<span class="content-small">Enter a name to save your cloud. You can just point to this name and launch an app or service.</span>',
 	       trigger: 'click',
 	       html: html   
 	    });

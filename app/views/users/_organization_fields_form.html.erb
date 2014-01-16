@@ -3,7 +3,7 @@
 	<%= f.text_field :user_type, :value => "free_user", :type => 'hidden' %>
 	<input type="hidden" name="user_fields_form_type" value="<%= user_fields_form_type.to_s %>">
 	<%= f.fields_for :organization_attributes, @user.organization do |org_f| %>
-	<div class="row">
+	<div class="row">   
 		<div class="col-md-3">
 			<% if current_user.organization.present? %>
 			<%= image_tag(current_user.organization.logo, :size => "90x90", :alt => "Upload your logo") %>
