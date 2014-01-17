@@ -1,9 +1,9 @@
 app.factory('socket', function ($rootScope) {
-  var socket = io.connect('http://redis1.megam.co.in:7000/'), disconnecting = false;	
-
+ // var socket = io.connect('http://redis1.megam.co.in:7000/'), disconnecting = false;        
+  var socket = io.connect('http://localhost:7000');
   return {
     on: function (eventName, callback) {
-      socket.on(eventName, function () {  
+      socket.on(eventName, function () {
         var args = arguments;
         $rootScope.$apply(function () {
           callback.apply(socket, args);
@@ -25,5 +25,7 @@ app.factory('socket', function ($rootScope) {
         socket.disconnect();
       },
       socket: socket
-    };  
+    };
 });
+
+

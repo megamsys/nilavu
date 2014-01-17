@@ -14,20 +14,38 @@
 
 
 .logor_aws{
-	background-position: -30px -20px ;
-	width: 100px;
-	height: 119px;
+	background-position: -49px -157px ;
+	width: 105px;
+	height: 124px;
 }
 
 .logor_gce{
-	background-position: -214px -25px ;
-	width: 100px;
-	height: 99px;
+	background-position: -215px -174px ;
+	width: 90px;
+	height: 92px;
 }
 
 .logor_hp{
-	background-position: -385px -20px ;
+	background-position: -370px -173px ;
+	width: 105px;
+	height: 102px;
+}
+
+.logor_artisan{
+	background-position: -37px -37px ;
 	width: 100px;
+	height: 100px;
+}
+
+.logor_podnix{
+	background-position: -215px -33px ;
+	width: 100px;
+	height: 100px;
+}
+
+.logor_profitbricks{
+	background-position: -386px -41px ;
+	width: 78px;
 	height: 100px;
 }
 
