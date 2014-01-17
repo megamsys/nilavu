@@ -10,10 +10,7 @@
 					<div class="col-md-4">
 						<div class="cb_box">
 							<h4 align="center"> Number of Apps </h4>
-							<h5 align="center" ><span class="icon">
-								<i class="icon-book"></i>
-								</span>&nbsp;Used <b><%= @launched_books_quota %></b>&nbsp; Allowed <b>2</b>
-								</h5> <% @percent = @launched_books_quota/2.0*100 %>
+							<h5 align="center" ><span class="icon"> <i class="icon-book"></i> </span>&nbsp;Used <b><%= @launched_books_quota %></b>&nbsp; Allowed <b>2</b></h5> <% @percent = @launched_books_quota/2.0*100 %>
 						</div>
 						<br/>
 						<div class="progress">
@@ -73,9 +70,7 @@
 					<div class="accordion-group widget-box">
 						<div class="accordion-heading">
 							<div class="widget-title">
-								<a data-parent="#collapse-group" href="#collapse<%= k%>" data-toggle="collapse"> <span class="icon"> <i class="icon-magnet"></i></span> <% if cb.book_type == 'APP' %> <span class="label label-info"> <%= cb.book_type %> </span> <% elsif cb.book_type == 'BOLT' %> <span class="label label-warning"><%= cb.book_type %></span> <% end %> </a>
-								<p></p>
-								<span class="badge badge-info"><%= k%></span>
+								<a data-parent="#collapse-group" href="#collapse<%= k%>" data-toggle="collapse"> <span class="icon"> <i class="icon-magnet"></i></span> <% if cb.book_type == 'APP' %> <span class="label label-info"> <%= cb.book_type %> </span> <% elsif cb.book_type == 'BOLT' %> <span class="label label-warning"><%= cb.book_type %></span> <% end %> <p></p> <span class="badge badge-info"><%= k%></span> </a>
 							</div>
 						</div>
 						<div class="collapse accordion-body" id="collapse<%= k%>">
@@ -218,7 +213,7 @@
 					<p>
 						Your request to megam cloud gateway was not successful.
 						</br>
-						<div id="err_msg"></div>
+						<%= link_to  "Please open a support ticket support.megam.co", "http://support.megam.co", :class => "btn btn-primary", :target => "_self"%>
 					</p>
 				</div>
 			</div>

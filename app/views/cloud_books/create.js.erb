@@ -1,7 +1,7 @@
 <% if @res_msg %>
 
 var selected_entity = '#cloudbook_postfinish_popup_error';
-$("#err_msg").append('<%= @res_msg %>');
+$("#err_msg").html('<%= @res_msg %>');
 $(selected_entity).modal('show');
 
 <% else %>

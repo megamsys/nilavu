@@ -246,6 +246,21 @@ $(document).ready(function() {
 	       html: html   
 	    });
 	
+	//popovers for services .
+	$('#popover_servicemodel_onlyforyou').popover({
+	       placement: placement,
+	       content: '<span class="content-small"> This stands up a selected service only for you on the cloud of your choice. </span>',
+	       trigger: 'hover',
+	       html: html   
+	    });
+	
+	$('#popover_servicemodel_managed').popover({
+	       placement: placement,
+	       content: '<span class="content-small"> The stands up a selected service in the shared megam managed environment. </span>',
+	       trigger: 'hover',
+	       html: html   
+	    });
+	
 });
 
 

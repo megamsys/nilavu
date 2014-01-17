@@ -10,19 +10,44 @@
 <div class="container-fluid" ng-cloak>
 	<div class="row">
 		<div class="col-xs-12">
-			<div class="alert alert-success alert-block">
-				<h4 class="alert-heading">First Step</h4>
-				<div>
+			<div class="panel panel-primary">
+				<div class="panel-heading">
 					<p class="help-block">
 						<%= image_tag "helpbota.png", :alt => "help bot"%>
-						<strong>Go Ahead </strong>
-						Develop your Application on Cloud
+						<h4 class="alert-heading">Welcome. Not sure what to do next?
 					</p>
-					<i class="icon-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> My Apps to get stared. </span>
-					</br>
 				</div>
-				<a class="close" data-dismiss="alert alert-warning" href="#">×</a>
+				<div class="panel-body">
+					<div class="alert alert-info alert-block">
+						<div>
+							Get started with...
+							<table class="table table-hover">
+								<thead></thead>
+								<tbody>
+									<tr>
+										<td><span class="badge badge-info">Java</span></td>
+										<td> <i class="icon-code"> </i><code>Onllne code editor</code> <%= link_to  "A simple web app run on Java container in megam.", new_cloud_book_path, :target => "_self", title: "Lauch your java app in megam"  %> </td>
+									</tr>
+									<tr>
+										<td><span class="badge badge-info">Ruby</span></td>
+										<td>  <i class="icon-plus-sign" > </i> <code>Ruby Sample app </code><%= link_to  "A simple general purpose Rails 4.0 web app run on Ruby on Rails container in megam.", new_cloud_book_path, :target => "_self", title: "Lauch your ruby on rails app in megam"  %> </td>
+									</tr>
+									<tr>
+										<td><span class="badge badge-info">Marketplace</span></td>
+										<td><i class="icon-shopping-cart"> </i><code> Marketplace </code>  <%= link_to  "Wordpress A ready to deploy, general purpose wordpress package with MySQL database.", new_market_place_path, :target => "_self", title: "Lauch your wordpress app in megam"  %> </td>
+
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div>
+						<i class="icon-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> My Apps to get stared. </span>
+						</br>
+					</div>
+				</div>
 			</div>
+
 		</div>
 	</div>
 
@@ -106,7 +131,7 @@
 										<% if !current_user.onboarded_api %>
 										<%= link_to "Take me there", edit_user_path(current_user), :target => "_self" , class: "btn btn-default btn-warning btn-xs"  %>Profile
 										<% else %>
-										Super cool ! you have a cloud default.  
+										Super cool ! you have a cloud default.
 										<%= link_to "Take me there", cross_clouds_path, :target => "_self" , class: "btn btn-default btn-success btn-xs"  %>
 										<% end %>
 									</div>
@@ -124,9 +149,9 @@
 									<div class="container">
 										Awesome ! if you have one.
 										(or)
-										<i class="icon-github">
-											<%= link_to "Sign Up - Github ", "https://github.com", :target => "_blank" , class: "btn btn-default btn-success btn-xs", title: 'Create a Github.com Account', rel: 'tooltip'  %> 
-										</i> <br></br>
+										<i class="icon-github"> <%= link_to "Sign Up - Github ", "https://github.com", :target => "_blank" , class: "btn btn-default btn-success btn-xs", title: 'Create a Github.com Account', rel: 'tooltip'  %> </i>
+										<br>
+										</br>
 										Suport for CloudForge, Bitbucket, scm-manager in progress.
 									</div>
 								</div>
@@ -221,8 +246,11 @@
 
 <script>
 	    (function($) {
-	$.Sources = JSON.parse('<%= raw Sources.sources.to_json %>  ');
-        $.Books = JSON.parse('<%= raw launched(@user_id).to_json %> ');
+	$.Sources = JSON.parse('<%= raw Sources.sources.to_json %>
+        ');
+        $.Books = JSON.parse('
+	<%= raw launched(@user_id).to_json %>
+        ');
         })($);
 </script>
 <%= render :template => users_show_path %>

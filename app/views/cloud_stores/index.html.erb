@@ -80,7 +80,6 @@
 							<th>Name</th>
 							<th>Date</th>
 							<th>View</th>
-							<th>Clone</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -89,7 +88,6 @@
 							<td> <%= pre_cl.name %></td>
 							<td> <%= pre_cl.created_at.to_formatted_s(:rfc822) %> </td>
 							<td> <%= link_to "View", cloud_store_path(pre_cl.name), :remote => true, class: "btn btn-mini btn-success" %> </td>
-							<td> <%= link_to "import", "#", class: "btn btn-mini btn-success" %> </td>
 						</tr>
 						<% end %>
 					</tbody>

@@ -60,7 +60,7 @@
 					<div class="control-group">
 						<p class="help-block">
 							Choose a cloud.
-							<%= link_to "To learn more about creating a new cloud setting",   "http://docs.megam.co", { :target => '_blank'} %>
+							<%= link_to "To learn more about creating a new cloud setting",   "http://gomegam.com/docs/crosscloud.html", { :target => '_blank'} %>
 						</p>
 						<p>
 							<%= f.select :predef_cloud_name, options_for_select(@predef_cloud.map{ |c| [c.name] }) %>
@@ -96,11 +96,14 @@
 						Service settings
 					</div>
 					<div class="panel-body">
-						The advanced services settings requires a name (Eg: database name, queue name), username, password and can be accessed using an URL from your framework.
+						The advanced services settings requires a name , username, password and can be accessed using an URL from your framework.
 						<ul class="list-unstyled list">
-							<li>	
-								<span class="icon"> <i class="icon-user"></i> </span>Service User and <span class="icon"> <i class="icon-lock"></i> </span> Password are your registered 
-																<span class="label label-info">email , api_key</span>
+							<li>
+								<i class="icon-user"></i>
+								</span>Service Name<span class="icon"> Database name, queue name </span>
+							</li>
+							<li>
+								<span class="icon"> <i class="icon-user"></i> </span>Service User and <span class="icon"> <i class="icon-lock"></i> </span> Password are your registered <span class="label label-info">email , api_key</span>
 							</li>
 						</ul>
 					</div>

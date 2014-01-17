@@ -109,7 +109,7 @@
 								<div class="row">
 									<div class="panel panel-primary">
 										<div class="panel panel-heading">
-											There are two service models.
+											What is this option ?											
 											<ul>
 												<li>
 													Only For You : This is a service that you manage and maintain and is only for you on cloud.
@@ -121,10 +121,10 @@
 
 										</div>
 										<div class="panel-body">
-												<a href="http://support.megam.co" target="_blank"> <h5><i class="icon-question-sign"></i> Tell me more about these service models</h5> We are here to help
-												<div class="arrow-right">
-													<i class="icon-chevron-right"></i>
-												</div> </a>
+											<a href="http://support.megam.co" target="_blank"> <h5><i class="icon-question-sign"></i> Tell me more about these service models</h5> We are here to help
+											<div class="arrow-right">
+												<i class="icon-chevron-right"></i>
+											</div> </a>
 										</div>
 									</div>
 								</div>
@@ -135,13 +135,13 @@
 											<div class="col-md-6">
 												<%= label :full, 'Full' do %>
 												<%= radio_button_tag :db_model, 'full' %>
-												<h3><i class="icon-folder-open"></i>&nbsp;Only For You</h3>
+												<h3><i class="icon-folder-open" id="popover_servicemodel_onlyforyou"></i>&nbsp;Only For You</h3>
 												<% end %>
 											</div>
 											<div class="col-md-6">
 												<%= label :multitenant, 'Multitenant' do %>
 												<%= radio_button_tag :db_model, 'multitenant', false, disabled: true %>
-												<h3><i class="icon-envelope"></i>&nbsp;Managed</h3><span class="label label-primary">work in progress</span>
+												<h3><i class="icon-envelope" id="popover_servicemodel_managed"></i>&nbsp;Managed</h3><span class="label label-primary">work in progress</span>
 												<% end %>
 											</div>
 										</div>
