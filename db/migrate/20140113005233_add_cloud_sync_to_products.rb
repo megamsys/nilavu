@@ -1,5 +1,5 @@
 class AddCloudSyncToProducts < ActiveRecord::Migration
-  def up
+  def self.up
     add_column :products, :cloud_sync, :boolean
   end
   def self.down
