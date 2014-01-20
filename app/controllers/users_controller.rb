@@ -71,7 +71,7 @@ class UsersController < ApplicationController
       force_api(@user.email, api_token)
       options = { :id => @user.id, :email => @user.email, :api_key => api_token, :authority => "admin" }
       res_body = CreateAccounts.perform(options)
-      dash(params[:user][:first_name])
+      #dash(params[:user][:first_name])
 
       if !(res_body.class == Megam::Error)
         #update current user as onboard user(megam_api user)
@@ -162,31 +162,7 @@ class UsersController < ApplicationController
     UserMailer.contact_email(params).deliver
   end
 
-  private
-
-  def dash(first_name)
-    @dashboard=@user.dashboards.create(:name=> first_name)
-    # Move the widgets creation to widgets model and use mass insert
-    #inserts = []
-    # TIMES.times do
-    #inserts.push "(3.0, '2009-01-23 20:21:13', 2, 1)"
-    # end
-    # sql = "INSERT INTO widgets (`name`, `datapoints`, 'source`, `widget_type`) VALUES #{inserts.join(", ")}"
-    ##
-    book_source = Rails.configuration.metric_source
-    @widget=@dashboard.widgets.create(:name=>"graph", :kind=>"datapoints", :source=>book_source, :widget_type=>"pernode", :range=>"30-minutes")
-    @widget=@dashboard.widgets.create(:name=>"totalbooks", :kind=>"totalbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
-    @widget=@dashboard.widgets.create(:name=>"newbooks", :kind=>"newbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
-    #@widget=@dashboard.widgets.create(:name=>"requests", :kind=>"requests", :source=>book_source, :widget_type=>"pernode")
-    #@widget=@dashboard.widgets.create(:name=>"uptime", :kind=>"uptime", :source=>book_source, :widget_type=>"pernode")
-    @widget=@dashboard.widgets.create(:name=>"queue", :kind=>"queue", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
-    @widget=@dashboard.widgets.create(:name=>"runningbooks", :kind=>"runningbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
-    @widget=@dashboard.widgets.create(:name=>"cumulativeuptime", :kind=>"cumulativeuptime", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
-    #@widget=@dashboard.widgets.create(:name=>"requestserved", :kind=>"requestserved", :source=>book_source, :widget_type=>"pernode")
-    @widget=@dashboard.widgets.create(:name=>"queuetraffic", :kind=>"queuetraffic", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
-  #@dashboard = Dashboard.new(:name=> params[:first_name], :user_id => current_user.id)
-
-  end
+  private  
 
   def correct_user
     @user = User.find(params[:id])

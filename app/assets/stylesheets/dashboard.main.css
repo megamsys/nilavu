@@ -47,3 +47,42 @@
 	font-size: 36px;
 	filter: progid:DXImageTransform.Microsoft.Matrix(M11=0.0, M12=0.33, M21=-0.33, M22=0.0,sizingMethod='auto expand');
 }
+
+
+.new-update {
+    border-top: 1px solid #DDDDDD;
+    padding: 10px 12px;
+}
+.new-update:first-child {
+    border-top: medium none;
+}
+.new-update span {
+	display:block;
+}
+.new-update i{
+	float: left;
+	margin-top: 3px;
+	margin-right: 13px;
+}
+.new-update .update-date {
+    color: #BBBBBB;
+    float: right;    
+    margin: 4px 40px 0 0;
+    text-align: left;
+    width: 390px;
+}
+.new-update .update-date .update-day {  	  
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: -4px;
+}
+.new-update .update-date .update-day-value {  	  
+    font-size: 15px;    
+    font-weight: bold;
+    margin-bottom: -4px;
+}
+.update-done, .update-alert, .update-notice {
+    display: block;
+    float: left;
+    max-width: 76%;
+}

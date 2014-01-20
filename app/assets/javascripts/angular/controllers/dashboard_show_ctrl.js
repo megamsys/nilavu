@@ -21,7 +21,7 @@ app.controller("DashboardShowCtrl", ["$scope", "$rootScope", "$routeParams", "$l
   $scope.c_book_name = $routeParams.book;
   
   function replaceWidget(id, widget) {    
-	    var w = _.findWhere($scope.widgets, { id: widget.id })
+	    var w = _.findWhere($scope.widgets, { id: widget.id });
 	    _.extend(w, widget);
 	  } 
   

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140113092436) do
+ActiveRecord::Schema.define(version: 20140120091328) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20140113092436) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "group_name"
+    t.string   "cloud_name"
   end
 
   add_index "cloud_books", ["users_id"], name: "index_cloud_books_on_users_id", using: :btree
@@ -122,7 +123,6 @@ ActiveRecord::Schema.define(version: 20140113092436) do
     t.string  "rest_api"
     t.string  "deccanplato_url"
     t.boolean "market_place"
-    t.boolean "cloud_sync"
   end
 
   create_table "users", force: true do |t|

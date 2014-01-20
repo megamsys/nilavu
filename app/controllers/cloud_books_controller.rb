@@ -207,17 +207,42 @@ class CloudBooksController < ApplicationController
         end
       else
         @node.each do |node|       
-        res = node.some_msg[:msg][node.some_msg[:msg].index("{")..node.some_msg[:msg].index("}")]        
-        res_hash = eval(res)       
-        book_params={:name=> "#{res_hash[:node_name]}", :domain_name=> "#{params[:cloud_book]['domain_name']}", :predef_cloud_name => "#{params[:cloud_book]['predef_cloud_name']}", :predef_name=> "#{params[:cloud_book]['predef_name']}", :book_type=> "#{params[:cloud_book]['book_type']}", :group_name => "#{params[:cloud_book]['name']}"}                  
+        res = node.some_msg[:msg][node.some_msg[:msg].index("{")..node.some_msg[:msg].index("}")]       
+        res_hash = eval(res)                  
+        book_params={:name=> "#{res_hash[:node_name]}", :domain_name=> "#{params[:cloud_book]['domain_name']}", :predef_cloud_name => "#{params[:cloud_book]['predef_cloud_name']}", :predef_name=> "#{params[:cloud_book]['predef_name']}", :book_type=> "#{params[:cloud_book]['book_type']}", :group_name => "#{params[:cloud_book]['name']}", :cloud_name => "#{node_hash["command"]["compute"]["cctype"]}"}                  
         @book = current_user.cloud_books.create(book_params)
         @book.save
         params = {:book_name => "#{@book.name}", :request_id => "#{res_hash[:req_id]}", :status => "created", :group_name => "#{@book.domain_name}"}
         @history = @book.cloud_books_histories.create(params)
         @history.save
+        dash(@book)
         end  
       end
     end
+  end
+
+  def dash(book)
+    #@dashboard=@user.dashboards.create(:name=> first_name)
+    # Move the widgets creation to widgets model and use mass insert
+    #inserts = []
+    # TIMES.times do
+    #inserts.push "(3.0, '2009-01-23 20:21:13', 2, 1)"
+    # end
+    # sql = "INSERT INTO widgets (`name`, `datapoints`, 'source`, `widget_type`) VALUES #{inserts.join(", ")}"
+    ##
+    book_source = Rails.configuration.metric_source
+    @widget=@book.widgets.create(:name=>"graph", :kind=>"datapoints", :source=>book_source, :widget_type=>"pernode", :range=>"30-minutes")
+    #@widget=@book.widgets.create(:name=>"totalbooks", :kind=>"totalbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
+    #@widget=@book.widgets.create(:name=>"newbooks", :kind=>"newbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
+    #@widget=@dashboard.widgets.create(:name=>"requests", :kind=>"requests", :source=>book_source, :widget_type=>"pernode")
+    #@widget=@dashboard.widgets.create(:name=>"uptime", :kind=>"uptime", :source=>book_source, :widget_type=>"pernode")
+    #@widget=@book.widgets.create(:name=>"queue", :kind=>"queue", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
+    @widget=@book.widgets.create(:name=>"runningbooks", :kind=>"runningbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
+    @widget=@book.widgets.create(:name=>"cumulativeuptime", :kind=>"cumulativeuptime", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
+    #@widget=@dashboard.widgets.create(:name=>"requestserved", :kind=>"requestserved", :source=>book_source, :widget_type=>"pernode")
+    @widget=@book.widgets.create(:name=>"queuetraffic", :kind=>"queuetraffic", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
+  #@dashboard = Dashboard.new(:name=> params[:first_name], :user_id => current_user.id)
+
   end
 
   def show
