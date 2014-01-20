@@ -1,7 +1,7 @@
 <% if @err_msg != nil %>
 
 var selected_entity = '#crosscloud_postfinish_popup_error';
-$("#err_msg").append('<%= @err_msg %>');
+$("#err_msg").html('<%= @err_msg %>');
 $(selected_entity).modal('show');
 
 <% else %>

@@ -4,61 +4,19 @@
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
-<div class="container-fluid">
-	<div class="row">
-		<% if @db_model == "multitenant" %>
-		<div class="alert alert-info alert-block">
-			<h4 class="alert-heading">Go Ahead Select "Full" </h4>
-			<div>
-				<p class="help-block"></p>
-				<i class="icon-chevron-down"></i>&nbsp; &nbsp; We working on it.
-				</br>
-			</div>
-			<a class="close" data-dismiss="alert alert-warning" href="#">×</a>
+<div class="row">
+	<% if @db_model == "multitenant" %>
+	<div class="alert alert-info alert-block">
+		<h4 class="alert-heading">Go Ahead Select "Full" </h4>
+		<div>
+			<p class="help-block"></p>
+			<i class="icon-chevron-down"></i>&nbsp; &nbsp; We working on it.
+			</br>
 		</div>
-		<% else %>
-
-		<%= form_for @book, :html => {:multipart => true }, :remote => true, :method => 'post' do |f| %>
-
-		<!--<div class="widget-box">
-		<div class="widget-title">
-		<span class="icon"> <i class="icon-th-list"></i> </span>
-		<h5>Cloud Store Selected</h5>
-		</div>
-		<div class="widget-content">
-		<div class="control-group">
-		<div class="controls">
-		<div class="row">
-		<div class="col-md-12">
-		<p class="help-block">
-		<strong><span class="label label-info">Store launch</span> How does it happen ? </strong>
-		<%= link_to " For more information",   "http://docs.megam.co", { :target => '_blank'} %>
-		</p>
-		</div>
-		</div>
-		<div class="row">
-		<div class="col-md-3">
-		<i class="logo_chef"></i>
-		</div>
-		<div class="col-md-2">
-		<h3>Will Launch<h3><span class="badge badge-info"> <h4>Role : <%= @predef.provider_role %><h4></span>
-		</div>
-		<div class="col-md-2">
-		<h3 align="center"><i class="i_cloud"></i></h3>
-		</div>
-		<div class="col-md-2">
-		<%= image_tag "build_monkey.png", :alt => "build bots" %>
-		</div>
-		<div class="col-md-3">
-		<h3>Build monkey<h3><span class="badge badge-success"><h4> <%= @predef.build_monkey %></h4></span>
-		</div>
-		</div>
-
-		</div>
-		</div>
-		</div>
-		</div>-->
+		<a class="close" data-dismiss="alert alert-warning" href="#">×</a>
 	</div>
+	<% else %>
+	<%= form_for @book, :html => {:multipart => true }, :remote => true, :method => 'post' do |f| %>
 	<div class="row"  ng-controller="CloudBooksCtrl">
 		<% @new_book_name = book_name %>
 		<div class="widget-box">
@@ -102,7 +60,7 @@
 					<div class="control-group">
 						<p class="help-block">
 							Choose a cloud.
-							<%= link_to "To learn more about attaching a new cloud account",   "http://docs.megam.co", { :target => '_blank'} %>
+							<%= link_to "To learn more about creating a new cloud setting",   "http://gomegam.com/docs/crosscloud.html", { :target => '_blank'} %>
 						</p>
 						<p>
 							<%= f.select :predef_cloud_name, options_for_select(@predef_cloud.map{ |c| [c.name] }) %>
@@ -112,25 +70,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="widget-box">
-			<div class="widget-title">
-				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Cloud Selection</h5>
-			</div>
-			<div class="widget-content">
-				<div class="control-group">
-					<p class="help-block">
-						<strong><span class="label label-info">Default</span> Cloud. You can create your own.</strong>
-						<%= link_to "For more information",   "http://docs.megam.co", { :target => '_blank'} %>
-					</p>
-					<p>
-						<%= f.select :predef_cloud_name, options_for_select(@predef_cloud.map{ |c| [c.name] }) %>
-					</p>
-				</div>
-			</div>
-		</div>
-	</div>
+
 	<% @predef_hash = {} %>
 	<% @predef_cloud.each do |k| %>
 	<% @predef_hash = @predef_hash.merge(@predef) %>
@@ -151,96 +91,160 @@
 				<h5>Advanced Service Settings</h5>
 			</div>
 			<div class="widget-content">
-				<div class="input-group">
-					<span class="input-group-addon">Service Name</span>
-					<%= text_field_tag 'store_db_name', "db_#{current_user.first_name}", :readonly => true %>
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						Service settings
+					</div>
+					<div class="panel-body">
+						The advanced services settings requires a name , username, password and can be accessed using an URL from your framework.
+						<ul class="list-unstyled list">
+							<li>
+								<i class="icon-user"></i>
+								</span>Service Name<span class="icon"> Database name, queue name </span>
+							</li>
+							<li>
+								<span class="icon"> <i class="icon-user"></i> </span>Service User and <span class="icon"> <i class="icon-lock"></i> </span> Password are your registered <span class="label label-info">email , api_key</span>
+							</li>
+						</ul>
+					</div>
 				</div>
+				<div class="form-group">
+					<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service Name </label>
+					<div class="col-sm-9 col-md-9 col-lg-10">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="input-group input-group-sm">
+									<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+									<%= text_field_tag 'store_db_name', "db_#{current_user.first_name}",:class => "form-control" ,:readonly => true %>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
 				<% if @dbms == 'postgresql' %>
-				<div class="input-group">
-					<span class="input-group-addon">Service Username</span>
-					<%= text_field_tag 'user_name', "#{current_user.first_name}", :readonly => true %>
+				<div class="form-group">
+					<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service User</label>
+					<div class="col-sm-9 col-md-9 col-lg-10">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="input-group input-group-sm">
+									<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+									<%= text_field_tag 'user_name', "#{current_user.email}", :class => "form-control",:readonly => true %>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="input-group">
-					<span class="input-group-addon">Service password</span>
-					<%= text_field_tag 'password', "#{current_user.api_token}", :readonly => true %>
+
+				<div class="form-group">
+					<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service Password</label>
+					<div class="col-sm-9 col-md-9 col-lg-10">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="input-group input-group-sm">
+									<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+									<%= text_field_tag 'password', "#{current_user.api_token}",:class => "form-control" ,:readonly => true %>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="input-group">
-					<span class="input-group-addon">Service url</span>
-					<%= text_field_tag 'url', "postgres://#{current_user.first_name}:#{current_user.api_token}@postgres1.megam.co.in:5432/db_#{current_user.first_name}", :readonly => true %>
+
+				<div class="form-group">
+					<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service URL</label>
+					<div class="col-sm-9 col-md-9 col-lg-10">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="input-group input-group-sm">
+									<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+									<%= text_field_tag 'url', "postgres://#{current_user.first_name}:#{current_user.api_token}@postgres1.megam.co.in:5432/db_#{current_user.first_name}", :class => "form-control", :readonly => true %>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="input-group">
-					<span class="input-group-addon">Service Initiation Commands</span>
-					<%= text_area_tag 'prime', nil, placeholder: "Enter prime" %>
+				<div class="form-group">
+					<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service Initiation</label>
+					<div class="col-sm-9 col-md-9 col-lg-10">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="input-group input-group-sm">
+									<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+									<%= text_area_tag 'prime', nil,:class => "form-control" ,placeholder: "Enter the service initiation commands" %>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 				<% end %>
+				<div class="input-group"></div>
 			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-4"></div>
-		<div class="col-md-4">
-			<%= f.submit "Create Service", :class => "btn btn-lg btn-success btn-block" %>
-			<br/>
-			</br/>
-			<% end %>
-			<% end %>
-		</div>
-		<div class="span4"></div>
-
-	</div>
-
-	<div id="cloudbook_postfinish_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-						×
-					</button>
-					<h3 id="myModalLabel">Service</h3>
-				</div>
-				<div class="modal-body">
-					<div class="alert">
-
-						<p>
-							<h4> A Service creation request to the megam cloud gateway was successful. </h4>
-							</br>
-							<strong>Click<span class="label label-info"> OK </span> to watch the status Real Time</strong>
-						</p>
-					</div>
-				</div>
-				<div class="modal-footer" id="history_path">
-					<%= link_to  "Ok", cloud_stores_path, :class => "btn btn-sm btn-primary", :target => "_self" %>
-				</div>
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4 offset4">
+				<%= f.submit "Launch", :class => "btn btn-lg btn-success btn-block" %>
+				</br>
 			</div>
 		</div>
+
 	</div>
-
-	<div id="cloudbook_postfinish_popup_error" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-						×
-					</button>
-					<h3 id="myModalLabel">Service</h3>
-				</div>
-				<div class="modal-body">
-					<div class="alert">
-
-						<p>
-							<h4> A Service creation request to the megam cloud gateway was not successful. </h4>
-							</br>
-							<div id="err_msg"></div>
-						</p>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<%= link_to  "Ok", cloud_stores_path, :class => "btn btn-sm btn-primary", :target => "_self" %>
-				</div>
-			</div>
-		</div>
-	</div>
-
+	<% end %>
+	<% end %>
 </div>
 <% end %>
 <%= render :template => users_show_path %>
+<div id="cloudbook_postfinish_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">Service</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-success">
+					<p>
+						Service launch was submitted to the megam cloud gateway successfully. It typically takes a few minutes to run it on the cloud of choice.
+						</br>
+						</br>
+						<span class="label label-info">Logs</span>&nbsp;streams the status of launch.</strong>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer" id="history_path">
+				<%= link_to  "Ok", cloud_stores_path, :class => "btn btn-sm btn-primary", :target => "_self" %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="cloudbook_postfinish_popup_error" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">Service</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-danger">
+
+					<p>
+						Service launch submission to the megam cloud gateway was not successful.
+						</br>
+						<div id="err_msg"></div>
+					</p>
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<%= link_to  "Ok", cloud_stores_path, :class => "btn btn-sm btn-primary", :target => "_self" %>
+			</div>
+		</div>
+	</div>
+</div>
+

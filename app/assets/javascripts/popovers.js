@@ -7,7 +7,7 @@ $(document).ready(function() {
 	
 	$('#popover_clouds').popover({
 	       placement: 'bottom',
-	       content: '<span class="content-small">choose this option enter settings for the cloud of your choice</span>',
+	       content: '<span class="content-small">choose this option to enter settings for the cloud of your choice</span>',
 	       trigger: 'hover',
 	       html: html   
 	    });
@@ -21,7 +21,7 @@ $(document).ready(function() {
 	
 	$('#popover_aws_name').popover({
 	       placement: placement,
-	       content: '<span class="content-small">Enter your saved cloud name..</span>',
+	       content: '<span class="content-small">Enter a name to save your cloud. You can just point to this name and launch an app or service.</span>',
 	       trigger: 'click',
 	       html: html   
 	    });
@@ -98,7 +98,7 @@ $(document).ready(function() {
 	
 	$('#popover_hp_name').popover({
 	       placement: placement,
-	       content: '<span class="content-small">Enter your saved cloud name..</span>',
+	       content: '<span class="content-small">Enter a name to save your cloud. You can just point to this name and launch an app or service.</span>',
 	       trigger: 'click',
 	       html: html   
 	    });
@@ -183,7 +183,7 @@ $(document).ready(function() {
 	
 	$('#popover_google_name').popover({
 	       placement: placement,
-	       content: '<span class="content-small">Enter your saved cloud name..</span>',
+	       content: '<span class="content-small">Enter a name to save your cloud. You can just point to this name and launch an app or service.</span>',
 	       trigger: 'click',
 	       html: html   
 	    });
@@ -243,6 +243,21 @@ $(document).ready(function() {
 	       placement: placement,
 	       content: '<span class="content-small"> The secret access key for the API endpoint used with . <br/><span class="label label-info">For eg. AkQ486786JKGHHJKJ</span> <br/>For more information, see <a href="https://developers.google.com/compute/docs/api/how-tos/authorization" target="_blank">Google Compute Engine Secret keys</a></span>',
 	       trigger: 'click',
+	       html: html   
+	    });
+	
+	//popovers for services .
+	$('#popover_servicemodel_onlyforyou').popover({
+	       placement: placement,
+	       content: '<span class="content-small"> This stands up a selected service only for you on the cloud of your choice. </span>',
+	       trigger: 'hover',
+	       html: html   
+	    });
+	
+	$('#popover_servicemodel_managed').popover({
+	       placement: placement,
+	       content: '<span class="content-small"> The stands up a selected service in the shared megam managed environment. </span>',
+	       trigger: 'hover',
 	       html: html   
 	    });
 	

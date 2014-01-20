@@ -5,10 +5,8 @@
 
 
 #graph_placeholder {
-	width: 850px;
-	height: 425px;
-	padding: 10px 5px 0 0;
-	margin: 15px auto 30px auto;
+	height: 300px;
+	margin: 0px auto 0px auto;
 	border: 1px solid #ddd;
 	background: #fff;
 	background: linear-gradient(#f6f6f6 0, #fff 50px);

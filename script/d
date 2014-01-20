@@ -384,15 +384,23 @@ dbinit(){
 		#create apps_items
 		rake db:migrate:up VERSION=20120824094944
 		#create products
-		rake db:migrate:up VERSION=20120829143151		
-       	        #create cloud_books
+		rake db:migrate:up VERSION=20120829143151
+		#alter products - cloud_sync
+		rake db:migrate:up VERSION=20140113005233		
+       	#create cloud_books
 		rake db:migrate:up VERSION=20130718123920
-                #create cloud_books_histories
+        #create cloud_books_histories
         rake db:migrate:up VERSION=20130726050612
         #dashboards
         rake db:migrate:up VERSION=20130828100755
         #widgets
-        rake db:migrate:up VERSION=20130828101201        
+        rake db:migrate:up VERSION=20130828101201
+        #products - cloud_sync
+        rake db:migrate:up VERSION=20140113005233
+        #cloud_books - group_name
+        rake db:migrate:up VERSION=20140113092030
+        #cloud_books_histories - group_name
+        rake db:migrate:up VERSION=20140113092436        
 		rake db:seed
 
 		fi
@@ -408,6 +416,10 @@ dbinit(){
 #also will perform the required cleanup.
 #--------------------------------------------------------------------------
 dbclean(){
+#cloud_books_histories - group_name
+rake db:migrate:down VERSION=20140113092436
+#cloud_books - group_name
+rake db:migrate:down VERSION=20140113092030
 #remove cloud_books_histories
 rake db:migrate:down VERSION=20130726050612
 #remove cloud_books
@@ -430,6 +442,7 @@ rake db:migrate:down VERSION=20120319153913
 rake db:migrate:down VERSION=20130828100755
 #widgets
 rake db:migrate:down VERSION=20130828101201 
+ 
 
 #create users
 rake db:migrate:up VERSION=20120319153913
@@ -455,6 +468,10 @@ rake db:migrate:up VERSION=20130726050612
 rake db:migrate:up VERSION=20130828100755
 #widgets
 rake db:migrate:up VERSION=20130828101201 
+#cloud_books - group_name
+rake db:migrate:up VERSION=20140113092030
+#cloud_books_histories - group_name
+rake db:migrate:up VERSION=20140113092436 
 rake db:seed
 
 exitScript 0

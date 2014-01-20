@@ -85,7 +85,7 @@ class CloudSettingsController < ApplicationController
       #@upload = S3Upload.perform(cloud_tool_setting_bucket, current_user.email+"/"+params[:repo_name]+"/"+File.basename(params[:repo_file]), :file => params[:repo_file])
       if @upload.class == Megam::Error
         @res_msg = nil
-        @err_msg="Failed to upload cross cloud files. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+        @err_msg="Failed to upload cloud files. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
         respond_to do |format|
           format.js {
             respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
