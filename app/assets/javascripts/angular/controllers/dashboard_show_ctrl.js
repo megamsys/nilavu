@@ -19,14 +19,12 @@ app.controller("DashboardShowCtrl", ["$scope", "$rootScope", "$routeParams", "$l
   });       
   
   $scope.c_book_name = $routeParams.book;
-  //$scope.c_source = _.findWhere($scope.widgets, { name: "graph" }).source
   
   function replaceWidget(id, widget) {    
 	    var w = _.findWhere($scope.widgets, { id: widget.id })
 	    _.extend(w, widget);
 	  } 
   
-    //$scope.a_books = [{value:'demo'},{value:'demo1'}];
 	$scope.a_books = availableBooks();
 	
 	function bookMapping(book) {        
@@ -49,7 +47,6 @@ app.controller("DashboardShowCtrl", ["$scope", "$rootScope", "$routeParams", "$l
       if ($routeParams.book != null) {    	  
     	  $scope.widgetpernode = "widgetpernode";
     	  $scope.templateUrl = "angular/templates/widget/book_show.html.erb";
-    	 // $scope.templateUrl = "angular/templates/widget/book_show.html.erb";
       }
   
 }]);

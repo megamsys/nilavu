@@ -6,7 +6,7 @@
 	</div>
 	<div class="widget-content">
 		<div class="row">
-			<div class="col-xs-12 center" style="text-align: center;">
+			<div class="col-md-12">
 				<div class="widget" ng-repeat="widget in widgets" widgetsummary/>
 			</div>
 		</div>
@@ -16,47 +16,73 @@
 
 <div class="widget-box">
 	<div class="widget-title">
-		<span class="icon"><i class="icon-signal"></i></span><h5>Live Monitor & Metrics Of Your Books</h5>
+		<span class="icon"><i class="icon-signal"></i></span><h5>Live Monitor & Metrics</h5>
 		<span class="title"><img ng-show="enableSpinner" class="ajax-spinner" width="12" height="12" src="<%= asset_path('openup_spinner.gif') %>"></img></span>
 	</div>
 	<div class="widget-content">
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-xs-12">
-					<div class="alert alert-info alert-block">
-						<h4 class="alert-heading">Go Ahead Select a Book</h4>
-						<div>
-							<p class="help-block"></p>
-							<i class="icon-chevron-down"></i>&nbsp; &nbsp; We Are Showing :<span class="label label-success"> {{c_book_name}} None</span>
-							</br>
+				<div class="col-md-12">
+					<div class="alert alert-info">
+						Welcome in the <strong>Unicorn Admin Theme</strong>. Don't forget to check all the pages! <a href="#" data-dismiss="alert" class="close">×</a>
+					</div>
+					<div class="widget-box">
+						<div class="widget-title">
+							<span class="icon"><i class="fa fa-signal"></i></span>
+							<h5>Site Statistics</h5>
+							<div class="buttons">
+								<select>
+									<option ng-repeat="b in a_books"><a href="/dashboards/{{dashboard_id}}/{{b.value}}" ng-click="sm_view()">{{b.value}}</a></option>
+								</select>
+								<a href="#" class="btn"><i class="fa fa-refresh"></i> <span class="text">Update cpu load</span></a>
+								<a href="#" class="btn"><i class="fa fa-refresh"></i> <span class="text">Update http requests</span></a>
+							</div>
 						</div>
-						<a class="close" data-dismiss="alert alert-warning" href="#">×</a>
+						<div class="widget-content">
+							<div class="row">
+								<div class="col-xs-12 col-sm-4">
+									<ul class="site-stats">
+										<li>
+											<div class="cc">
+												<i class="fa fa-user"></i><strong>1433</strong><small>Total Users</small>
+											</div>
+										</li>
+										<li>
+											<div class="cc">
+												<i class="fa fa-arrow-right"></i><strong>16</strong><small>New Users (last week)</small>
+											</div>
+										</li>
+										<li class="divider"></li>
+										<li>
+											<div class="cc">
+												<i class="fa fa-shopping-cart"></i><strong>259</strong><small>Total Shop Items</small>
+											</div>
+										</li>
+										<li>
+											<div class="cc">
+												<i class="fa fa-tag"></i><strong>8650</strong><small>Total Orders</small>
+											</div>
+										</li>
+										<li>
+											<div class="cc">
+												<i class="fa fa-repeat"></i><strong>29</strong><small>Pending Orders</small>
+											</div>
+										</li>
+									</ul>
+								</div>
+								<div class="col-xs-12 col-sm-8">
+									<div id="graph_placeholder"></div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-4">
-					<div class="btn-toolbar" style="padding-left:12%;">
-						<div class="btn-group "  title="select a book to watch METRICS " class="tip-bottom">
-							<button class="btn btn-default btn-lg">
-								Books
-							</button>
-							<button data-toggle="dropdown" class="btn btn-default btn-lg dropdown-toggle">
-								<span class="caret"></span>
-							</button>
-							<ul class="dropdown-menu">
-								<li ng-repeat="b in a_books">
-									<!--<a href="#" ng-click="update_widget_book(b.value, widget)">{{b.value}}</a>-->
-									<a href="/dashboards/{{dashboard_id}}/{{b.value}}" ng-click="sm_view()">{{b.value}}</a>
-								</li>
-							</ul>
-						</div>
-					</div>
+				<div class="col-md-4">
+					<div class="widget" ng-repeat="widget in widgets" widgetpernode/>
 				</div>
-				<!--<div ng-include src="templateUrl"></div>-->
-				<div class="widget" ng-repeat="widget in widgets" widgetpernode/>
 			</div>
 		</div>
 	</div>
-</div>
 

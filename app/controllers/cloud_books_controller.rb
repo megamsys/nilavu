@@ -84,6 +84,10 @@ class CloudBooksController < ApplicationController
       }
     end
   end
+  
+  def clone_build
+    @node_name = "#{params[:name]}"
+  end
 
   def clone_start
     wparams = { :node => "#{params[:clone_name]}" }
@@ -262,7 +266,7 @@ class CloudBooksController < ApplicationController
        @book.cloud_books_histories.each do |cbh|
             cbh.destroy
           end     
-        @res_msg = "App deleted Successfully"
+        @res_msg = "App #{params[:name]} deleted successfully"
       end
     end
 
