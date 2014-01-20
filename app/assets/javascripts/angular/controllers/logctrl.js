@@ -86,5 +86,5 @@ function LogCtrl($scope, socket, $location, LogStackLimit) {
 // init the first active tab
 // $scope.tabManager.select(0);
 // };
->>>>>>> origin/master
+
 
