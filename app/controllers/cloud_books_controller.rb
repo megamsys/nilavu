@@ -1,7 +1,7 @@
 class CloudBooksController < ApplicationController
   respond_to :html, :js
   include Packable
-
+  include CloudBooksHelper
   
   def index
     cloud_books = current_user.cloud_books.where(:book_type => 'APP')
@@ -114,18 +114,42 @@ class CloudBooksController < ApplicationController
         "appreq" => {},
         "boltreq" => {}
       }
+     @predef_name = @clone_node.predefs[:name]
+      predef_options = {:predef_name => @predef_name}
+      pred = FindPredefsByName.perform(predef_options,force_api[:email],force_api[:api_key])
+      if pred.class == Megam::Error
+        redirect_to cloud_books_path, :gflash => { :warning => { :value => "#{pred.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      else
+        @predef = pred.lookup(@predef_name)
+      end
+      
+      runtime_exec = @predef.runtime_exec
+       if @clone_node.node_type == "APP"
+        if @clone_node.predefs[:scm].length > 0
+          runtime_exec = change_runtime(@clone_node.predefs[:scm], @predef.runtime_exec)
+        end
+        if @clone_node.predefs[:war].length > 0
+          runtime_exec = change_runtime(@clone_node.predefs[:war], @predef.runtime_exec)
+        end
+        #node_hash["appdefns"] = {"timetokill" => "#{data[:timetokill]}", "metered" => "#{data[:metered]}", "logging" => "#{data[:logging]}", "runtime_exec" => "#{data[:runtime_exec]}"}
+        node_hash["appdefns"] = {"timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => "#{runtime_exec}"}
+      end
+      if @clone_node.node_type == "BOLT"
+        #node_hash["boltdefns"] = {"username" => "#{data['user_name']}", "apikey" => "#{data['password']}", "store_name" => "#{data['store_db_name']}", "url" => "#{data['url']}", "prime" => "#{data['prime']}", "timetokill" => "#{data['timetokill']}", "metered" => "#{data['monitoring']}", "logging" => "#{data['logging']}", "runtime_exec" => "#{data['runtime_exec']}" }
+      end
+      
+      
+      
       wparams = {:node => node_hash }
       @node = CreateNodes.perform(wparams,force_api[:email], force_api[:api_key])
       if @node.class == Megam::Error
-        @res_msg="Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
-        respond_to do |format|
-          format.js {
-            respond_with(@res_msg, :layout => !request.xhr? )
-          }
-        end
+      @res_msg="#{node_hash.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      respond_to do |format|
+        format.js {
+          respond_with(@res_msg, :layout => !request.xhr? )
+        }
+      end
       else
-      
-      
         @node.each do |node|       
         res = node.some_msg[:msg][node.some_msg[:msg].index("{")..node.some_msg[:msg].index("}")] 
         res_hash = eval(res)   
@@ -136,8 +160,6 @@ class CloudBooksController < ApplicationController
         @history = @book.cloud_books_histories.create(params)
         @history.save
         end
-
-       # redirect_to cloud_books_path, :gflash => { :success => { :value => "Cloud book cloned successfully", :sticky => false, :nodom_wrap => true } }
       end
     end
   end
