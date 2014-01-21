@@ -8,13 +8,11 @@
 <% if @count.to_i > 0 %>
 <div class="row">
 	<div id="main" class="col-md-12">
-		<div class="widget-box">
-			<div class="widget-title">
-				<span class="icon"> <i class="icon-refresh"></i> </span>
-				<h5>Latest updates</h5>
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title">My Apps</h3>
 			</div>
-
-			<div class="widget-content nopadding updates">
+			<div class="panel-body updates" style="height:400px; overflow-y: scroll; ">
 				<div class="new-update clearfix" ng-repeat="dashboard in dashboards">
 					<i class="icon-ok-sign"></i>
 					<div class="update-done">
@@ -42,6 +40,9 @@
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="panel-footer">
+				<h4>To see App Metrics Click App Name.....</h4>
 			</div>
 		</div>
 	</div>

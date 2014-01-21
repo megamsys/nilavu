@@ -10,7 +10,7 @@ module Api
       widgets = Widget.for_dashboard(params[:dashboard_id]).all
       respond_with(widgets)
     end
-=begin
+
     def create
       logger.debug ("-W-----create---- #{params}")
       dashboard = Dashboard.find(params[:dashboard_id])
@@ -25,6 +25,7 @@ module Api
     end
 
     def update
+      logger.debug ("-W-----update---- #{params}")
       dashboard = Dashboard.find(params[:dashboard_id])
       widget = dashboard.widgets.find(params[:id])
       input = JSON.parse(request.body.read.to_s)
@@ -41,6 +42,6 @@ module Api
       widget.destroy
       head :no_content
     end
-=end
+
   end
 end

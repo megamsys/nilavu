@@ -35,11 +35,12 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sourc
     	//if ($routeParams.book != null) {    		
     		//return GraphModel.getData(scope.widget, $routeParams.book).success(onSuccess);
     	//}
-    	//else {        	
+    	//else {        
+    	scope.widgets.targets = "cpu_system";
     		return GraphModel.getData(scope.widget).success(onSuccess);
     	//}
-    }
-
+    }    
+    
     function parseUptime(responsedata) {
     	return _.map(responsedata, function(model, index) {    		  
     	       return model.uptime_data;    	    

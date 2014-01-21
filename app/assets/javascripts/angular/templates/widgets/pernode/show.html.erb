@@ -1,24 +1,45 @@
 <input type="hidden" value="cpu_system" ng-model="xaxis_label">
 <div class="row">
 	<div class="col-md-12">
-		<div class="alert alert-info">
-			Welcome in the <strong>Unicorn Admin Theme</strong>. Don't forget to check all the pages! <a href="#" data-dismiss="alert" class="close">×</a>
-		</div>
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"><i class="fa fa-signal"></i></span>
 				<h5>Site Statistics</h5>
 				<div class="buttons">
 					<!--<select>
-						<option ng-repeat="b in a_books"><a href="/dashboards/{{dashboard_id}}/{{b.value}}" ng-click="sm_view()">{{b.value}}</a></option>
+					<option ng-repeat="b in a_books"><a href="/dashboards/{{dashboard_id}}/{{b.value}}" ng-click="sm_view()">{{b.value}}</a></option>
 					</select>-->
-					<a href="#" class="btn" ng-click="update_widget_metrics("cpu", widget)"><i class="fa fa-refresh"></i> <span class="text">Update cpu load</span></a>
-					<a href="#" class="btn" ng-click="update_widget_metrics("http requests", widget)"><i class="fa fa-refresh"></i> <span class="text">Update http requests</span></a>
+					<a href="#" class="btn" ng-click="update_widget_metrics('cpu', widget)">Update cpu load</a>
+					<a href="#" class="btn" ng-click="update_widget_metrics('http requests', widget)">Update http requests</a>
 				</div>
 			</div>
 			<div class="widget-content">
+				<!--<div class="row">
+				<div class="col-md-3">
+				<ul class="quick-actions">
+				<li>
+				<a href="#" ng-click="update_widget_range('30-minutes', widget)"> <i class="icon-graph"></i>LAST 30-minutes</a>
+				</li>
+				</ul>
+				</div>
+				<div class="col-md-3">
+				<ul class="quick-actions">
+				<li>
+				<a href="#" ng-click="update_widget_range('60-minutes', widget)"> <i class="icon-graph"></i>LAST 60-minutes</a>
+				</li>
+				</ul>
+				</div>
+				<div class="col-md-3">
+				<ul class="quick-actions">
+				<li>
+				<a href="#" ng-click="update_widget_range('12-hours', widget)"> <i class="icon-graph"></i>LAST 12-hours</a>
+				</li>
+				</ul>
+				</div>
+				</div>-->
 				<div class="row">
 					<div class="col-xs-12 col-sm-4">
+						<br/>
 						<ul class="site-stats">
 							<li>
 								<div class="cc">
@@ -49,7 +70,34 @@
 						</ul>
 					</div>
 					<div class="col-xs-12 col-sm-8">
-						<div id="graph_placeholder"></div>
+						<div class="row">
+							<ul class="pagination">
+								<li class="active">
+									<a href="#">Last</a>
+								</li>
+								<li >
+									<a href="#" ng-click="update_widget_range('hour', widget)">hour</a>
+								</li>
+								<li>
+									<a href="#" ng-click="update_widget_range('2hr', widget)">2hr</a>
+								</li>
+								<li>
+									<a href="#" ng-click="update_widget_range('4hr', widget)">4hr</a>
+								</li>
+								<li>
+									<a href="#" ng-click="update_widget_range('day', widget)">day</a>
+								</li>
+								<li>
+									<a href="#" ng-click="update_widget_range('week', widget)">week</a>
+								</li>
+								<li>
+									<a href="#" ng-click="update_widget_range('month', widget)">month</a>
+								</li>
+							</ul>
+						</div>
+						<div class="row">
+							<div id="graph_placeholder"></div>
+						</div>
 					</div>
 				</div>
 			</div>
