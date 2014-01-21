@@ -4,195 +4,185 @@
 <div id="breadcrumb">
 	<%= render_breadcrumbs %>
 </div>
-<div class="row">
-	<% if @db_model == "multitenant" %>
-	<div class="alert alert-info alert-block">
-		<h4 class="alert-heading">Go Ahead Select "Full" </h4>
-		<div>
-			<p class="help-block"></p>
-			<i class="icon-chevron-down"></i>&nbsp; &nbsp; We working on it.
-			</br>
-		</div>
-		<a class="close" data-dismiss="alert alert-warning" href="#">×</a>
-	</div>
-	<% else %>
-	<%= form_for @book, :html => {:multipart => true }, :remote => true, :method => 'post' do |f| %>
-	<div class="row"  ng-controller="CloudBooksCtrl">
-		<% @new_book_name = book_name %>
-		<div class="widget-box">
-			<div class="widget-title">
-				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Service Name</h5>
-			</div>
-			<div class="widget-content">
-				<div class="col-md-12">
-					<p class="help-block">
-						Your current service launch URL
-					</p>
-				</div>
-				</br>
-				<div class="col-md-12">
-					<div class="col-md-7">
-						<a class="btn btn-lg btn-primary disabled btn-block" data-name="book_name" data-type="text" href="#" id="identity_new" ><%= @new_book_name %></a>
-					</div>
-					<div class = "col-md-4">
-						<%= link_to  @domain_name, "#", :class => "btn btn-lg btn-primary disabled btn-block", :id => 'domain'%>
-					</div>
-				</div>
-				<br/>
-				<br/>
-				<br/>
-
-				<%= f.text_field :name, :type => 'hidden', :id=> 'changename', :value => @new_book_name %>
-				<input type="hidden" name="book_name" id="bookname" value="<%= @new_book_name %>">
-				<%= f.text_field :domain_name, :type => 'hidden', :value => @domain_name %>
-			</div>
-		</div>
-	</div>
-	<div class="col-xs-12 col-sm-12">
-		<div class="widget-box">
-			<div class="widget-title">
-				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Cloud Selection</h5>
-			</div>
-			<div class="widget-content">
-				<div class="row">
-					<div class="control-group">
-						<p class="help-block">
-							Choose a cloud.
-							<%= link_to "To learn more about creating a new cloud setting",   "http://gomegam.com/docs/crosscloud.html", { :target => '_blank'} %>
-						</p>
-						<p>
-							<%= f.select :predef_cloud_name, options_for_select(@predef_cloud.map{ |c| [c.name] }) %>
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<% @predef_hash = {} %>
-	<% @predef_cloud.each do |k| %>
-	<% @predef_hash = @predef_hash.merge(@predef) %>
-	<% end %>
-
-	<% @predef_hash.each do |key,value| %>
-	<%= hidden_field_tag "predef[#{key}]",value %>
-
-	<% end %>
-
-	<%= f.text_field :predef_name, :type => 'hidden', :value => @predef_name %>
-	<%= f.text_field :book_type, :type => 'hidden', :value => "BOLT" %>
-	<input type="hidden" name="no_of_instances" value="<%= @no_of_instances %>">
+<%= form_for @book, :html => {:multipart => true }, :remote => true, :method => 'post' do |f| %>
+<div class="container-fluid">
 	<div class="row">
-		<div class="widget-box">
-			<div class="widget-title">
-				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Advanced Service Settings</h5>
-			</div>
-			<div class="widget-content">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						Service settings
-					</div>
-					<div class="panel-body">
-						The advanced services settings requires a name , username, password and can be accessed using an URL from your framework.
-						<ul class="list-unstyled list">
-							<li>
-								<i class="icon-user"></i>
-								</span>Service Name<span class="icon"> Database name, queue name </span>
-							</li>
-							<li>
-								<span class="icon"> <i class="icon-user"></i> </span>Service User and <span class="icon"> <i class="icon-lock"></i> </span> Password are your registered <span class="label label-info">email , api_key</span>
-							</li>
-						</ul>
-					</div>
+		<div class="col-xs-12 col-sm-12">
+			<% @new_book_name = book_name %>
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Service Name</h5>
 				</div>
-				<div class="form-group">
-					<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service Name </label>
-					<div class="col-sm-9 col-md-9 col-lg-10">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="input-group input-group-sm">
-									<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-									<%= text_field_tag 'store_db_name', "db_#{current_user.first_name}",:class => "form-control" ,:readonly => true %>
-								</div>
+				<div class="widget-content">
+					<div class="col-md-12">
+						<p class="help-block">
+							Your service URL is
+							<strong><span class="label label-info"><%= @new_book_name %>.<%= @domain_name %> </span> </strong>
+						</p>
+					</div>
+					</br>
+					<p>
+						<div class="col-md-12">
+							<div class="col-md-7">
+								<a class="btn btn-lg btn-primary disabled btn-block" data-name="book_name" data-type="text" href="#" id="identity_new" ><%= @new_book_name %></a>
+							</div>
+							<div class = "col-md-4">
+								<%= link_to  @domain_name, "#", :class => "btn btn-lg btn-primary disabled btn-block", :id => 'domain'%>
 							</div>
 						</div>
-					</div>
-				</div>
+					</p>
+					<br/>
+					<br/>
+					<br/>
 
-				<% if @dbms == 'postgresql' %>
-				<div class="form-group">
-					<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service User</label>
-					<div class="col-sm-9 col-md-9 col-lg-10">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="input-group input-group-sm">
-									<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-									<%= text_field_tag 'user_name', "#{current_user.email}", :class => "form-control",:readonly => true %>
-								</div>
-							</div>
-						</div>
-					</div>
+					<%= f.text_field :name, :type => 'hidden', :id=> 'changename', :value => @new_book_name %>
+					<input type="hidden" name="book_name" id="bookname" value="<%= @new_book_name %>">
+					<%= f.text_field :domain_name, :type => 'hidden', :value => @domain_name %>
 				</div>
-
-				<div class="form-group">
-					<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service Password</label>
-					<div class="col-sm-9 col-md-9 col-lg-10">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="input-group input-group-sm">
-									<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-									<%= text_field_tag 'password', "#{current_user.api_token}",:class => "form-control" ,:readonly => true %>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="form-group">
-					<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service URL</label>
-					<div class="col-sm-9 col-md-9 col-lg-10">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="input-group input-group-sm">
-									<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-									<%= text_field_tag 'url', "postgres://#{current_user.first_name}:#{current_user.api_token}@postgres1.megam.co.in:5432/db_#{current_user.first_name}", :class => "form-control", :readonly => true %>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service Initiation</label>
-					<div class="col-sm-9 col-md-9 col-lg-10">
-						<div class="row">
-							<div class="col-md-12">
-								<div class="input-group input-group-sm">
-									<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-									<%= text_area_tag 'prime', nil,:class => "form-control" ,placeholder: "Enter the service initiation commands" %>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<% end %>
-				<div class="input-group"></div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-4"></div>
-			<div class="col-md-4 offset4">
-				<%= f.submit "Launch", :class => "btn btn-lg btn-success btn-block" %>
-				</br>
+		<div class="col-xs-12 col-sm-12">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Cloud Selection</h5>
+				</div>
+				<div class="widget-content">
+					<div class="row">
+						<div class="control-group">
+							<p class="help-block">
+								<%= link_to "To learn more about creating a new cloud setting",   "http://gomegam.com/docs/crosscloud.html", { :target => '_blank'} %>
+							</p>
+							<p>
+								Choose a cloud
+								<%= f.select :predef_cloud_name, options_for_select(@predef_cloud.map{ |c| [c.name] }) %>
+							</p>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 
+		<% @predef_hash = {} %>
+		<% @predef_cloud.each do |k| %>
+		<% @predef_hash = @predef_hash.merge(@predef) %>
+		<% end %>
+
+		<% @predef_hash.each do |key,value| %>
+		<%= hidden_field_tag "predef[#{key}]",value %>
+
+		<% end %>
+
+		<%= f.text_field :predef_name, :type => 'hidden', :value => @predef_name %>
+		<%= f.text_field :book_type, :type => 'hidden', :value => "BOLT" %>
+		<input type="hidden" name="no_of_instances" value="<%= @no_of_instances %>">
+		<div class="col-xs-12 col-sm-12">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<h5>Advanced Service Settings</h5>
+				</div>
+				<div class="widget-content">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							Service settings
+						</div>
+						<div class="panel-body">
+							<ul class="list-unstyled list">
+								<li>
+									<span class="icon"> <i class="icon-user"></i> </span>Service User and <span class="icon"> <i class="icon-lock"></i> </span> Password are your registered <span class="label label-info">email , api_key</span>
+								</li>
+							</ul>
+							<p class="help-block">
+								<%= link_to "To Learn more about these advanced settings",   "http://gomegam.com/docs/services.html", { :target => '_blank'} %>
+							</p>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service Name </label>
+						<div class="col-sm-9 col-md-9 col-lg-10">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+										<%= text_field_tag 'store_db_name', "db_#{current_user.first_name}",:class => "form-control" ,:readonly => true %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<% if @dbms == 'postgresql' %>
+					<div class="form-group">
+						<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service User</label>
+						<div class="col-sm-9 col-md-9 col-lg-10">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+										<%= text_field_tag 'user_name', "#{current_user.email}", :class => "form-control",:readonly => true %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service Password</label>
+						<div class="col-sm-9 col-md-9 col-lg-10">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+										<%= text_field_tag 'password', "#{current_user.api_token}",:class => "form-control" ,:readonly => true %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service URL</label>
+						<div class="col-sm-9 col-md-9 col-lg-10">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+										<%= text_field_tag 'url', "postgres://#{current_user.first_name}:#{current_user.api_token}@postgres1.megam.co.in:5432/db_#{current_user.first_name}", :class => "form-control", :readonly => true %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service Initiation</label>
+						<div class="col-sm-9 col-md-9 col-lg-10">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+										<%= text_area_tag 'prime', nil,:class => "form-control" ,placeholder: "Enter the service initiation commands" %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<% end %>
+					<div class="input-group"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4"></div>
+				<div class="col-md-4 offset4">
+					<%= f.submit "Launch", :class => "btn btn-lg btn-success btn-block" %>
+					</br>
+				</div>
+			</div>
+		</div>
 	</div>
-	<% end %>
-	<% end %>
 </div>
+<% end %>
 <% end %>
 <%= render :template => users_show_path %>
 <div id="cloudbook_postfinish_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
