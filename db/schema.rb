@@ -123,7 +123,6 @@ ActiveRecord::Schema.define(version: 20140120091328) do
     t.string  "rest_api"
     t.string  "deccanplato_url"
     t.boolean "market_place"
-    t.boolean "cloud_sync"
   end
 
   create_table "users", force: true do |t|

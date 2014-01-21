@@ -32,16 +32,20 @@ module Sources
       end
 
       def get(options = {})
-        from    = (options[:from]).to_i
-        to      = (options[:to] || Time.now).to_i
-        host    = getHost(options[:widgetid])
+        #from    = (options[:from]).to_i
+        #to      = (options[:to] || Time.now).to_i
+        range = options[:range].to_s
+        host    = getHost(options[:widgetid])       
         #graph_metric  = Rails.configuration.ganglia_graph_metric
         graph_metric = (options[:target]).to_s
         uptime_metric  = Rails.configuration.ganglia_request_metric
         #targets = targets.reject(&:blank?)
-        ganglia_datapoints = request_datapoints(from, to, graph_metric, host)        
-        ganglia_uptime = request_uptime(from, to, uptime_metric, host)
-        model_rpm = request_rpm(from, to, uptime_metric, host)
+        #ganglia_datapoints = request_datapoints(from, to, graph_metric, host)   
+        ganglia_datapoints = request_datapoints(range, graph_metric, host)      
+        #ganglia_uptime = request_uptime(from, to, uptime_metric, host)
+        ganglia_uptime = request_uptime(range, uptime_metric, host)
+        #model_rpm = request_rpm(from, to, uptime_metric, host)
+        model_rpm = request_rpm(range, uptime_metric, host)
         new_books = request_new_books(options)
         total_books = request_total_books(options)
         result = []
@@ -52,12 +56,12 @@ module Sources
 
       private
 
-      def request_datapoints(from, to, target, host)
+      def request_datapoints(range, target, host)
         result = []
-        hash = @url_builder.datapoints_url(from, to, target, host)
+        hash = @url_builder.datapoints_url(range, target, host)
         Rails.logger.debug("Requesting datapoints from #{hash[:url]} with params #{hash[:params]} ...")
         response = ::HttpService.request(hash[:url], :params => hash[:params])       
-        if response == "null"
+        if response == nil
           result << []
         else
           result << response.first["datapoints"]
@@ -65,8 +69,8 @@ module Sources
         result
       end
 
-      def request_uptime(from, to, target, host)
-        hash = @url_builder.data_url(from, to, target, host)
+      def request_uptime(range, target, host)
+        hash = @url_builder.data_url(range, target, host)
         Rails.logger.debug("Requesting Uptime from #{hash[:url]} with params #{hash[:params]} ...")
         response = ::HttpService.request(hash[:url], :params => hash[:params])
         Nokogiri::HTML(response).xpath("//table/tr/td/table/tr").collect do |row|
@@ -74,7 +78,7 @@ module Sources
             @timestamp   = row.at("td[2]/text()").to_s
           end
         end       
-        if response == "null"
+        if response == nil
           result = ""
         else
         #result << response.first["datapoints"]
@@ -83,12 +87,12 @@ module Sources
         result
       end
 
-      def request_rpm(from, to, target, host)
+      def request_rpm(range, target, host)
         Random.rand(10...100)
       end
 
       def request_new_books(options = {})
-        widget  = Widget.find(options[:wid].to_i)   
+        widget  = Widget.find(options[:widgetid].to_i)   
         dashboard_id = widget.dashboard_id        
         #dashboard = Dashboard.find(dashboard_id)    
         dashboard = CloudBook.find(dashboard_id)   
@@ -98,7 +102,7 @@ module Sources
       end
       
       def request_total_books(options = {})
-        widget  = Widget.find(options[:wid].to_i)
+        widget  = Widget.find(options[:widgetid].to_i)
         dashboard_id = widget.dashboard_id
         #dashboard = Dashboard.find(dashboard_id)
         dashboard = CloudBook.find(dashboard_id)
@@ -112,7 +116,7 @@ module Sources
         dashboard_id = widget.dashboard_id        
         #dashboard = Dashboard.find(dashboard_id)    
         dashboard = CloudBook.find(dashboard_id)   
-        dashboard.name       
+        dashboard.name                      
       end
 
     end

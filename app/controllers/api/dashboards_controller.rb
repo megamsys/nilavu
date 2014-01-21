@@ -13,7 +13,7 @@ module Api
         dashboards = current_user.cloud_books        
       respond_with dashboards
     end
-=begin
+
     def create
       input = JSON.parse(request.body.read.to_s)
       dashboard = Dashboard.new(input.slice(*Dashboard.accessible_attributes))
@@ -39,6 +39,6 @@ module Api
       Dashboard.destroy(params[:id])
       head :no_content
     end
-=end
+
   end
 end
