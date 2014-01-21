@@ -34,7 +34,7 @@ module Sources
       def get(options = {})
         from    = (options[:from]).to_i
         to      = (options[:to] || Time.now).to_i
-        host    = (options[:host]).to_s
+        host    = getHost(options[:widgetid])
         #graph_metric  = Rails.configuration.ganglia_graph_metric
         graph_metric = (options[:target]).to_s
         uptime_metric  = Rails.configuration.ganglia_request_metric
@@ -42,8 +42,10 @@ module Sources
         ganglia_datapoints = request_datapoints(from, to, graph_metric, host)        
         ganglia_uptime = request_uptime(from, to, uptime_metric, host)
         model_rpm = request_rpm(from, to, uptime_metric, host)
+        new_books = request_new_books(options)
+        total_books = request_total_books(options)
         result = []
-        result << { "datapoints" => ganglia_datapoints, "uptime_data" => ganglia_uptime, "rpm" => model_rpm }
+        result << { "datapoints" => ganglia_datapoints, "uptime_data" => ganglia_uptime, "rpm" => model_rpm, "new_books" => new_books, "total_books" => total_books, "total_queues" => Random.rand(10...100), "metric" => graph_metric}
         raise Sources::Datapoints::NotFoundError if result.empty?
         result
       end
@@ -54,7 +56,7 @@ module Sources
         result = []
         hash = @url_builder.datapoints_url(from, to, target, host)
         Rails.logger.debug("Requesting datapoints from #{hash[:url]} with params #{hash[:params]} ...")
-        response = ::HttpService.request(hash[:url], :params => hash[:params])
+        response = ::HttpService.request(hash[:url], :params => hash[:params])       
         if response == "null"
           result << []
         else
@@ -71,7 +73,7 @@ module Sources
           if row.at("td[1]/text()").to_s == "Uptime"
             @timestamp   = row.at("td[2]/text()").to_s
           end
-        end
+        end       
         if response == "null"
           result = ""
         else
@@ -83,6 +85,34 @@ module Sources
 
       def request_rpm(from, to, target, host)
         Random.rand(10...100)
+      end
+
+      def request_new_books(options = {})
+        widget  = Widget.find(options[:wid].to_i)   
+        dashboard_id = widget.dashboard_id        
+        #dashboard = Dashboard.find(dashboard_id)    
+        dashboard = CloudBook.find(dashboard_id)   
+        user_id = dashboard.users_id        
+         c = CloudBook.where(:users_id => user_id).where(:created_at => Time.now - 7.days..Time.now).count  
+         c
+      end
+      
+      def request_total_books(options = {})
+        widget  = Widget.find(options[:wid].to_i)
+        dashboard_id = widget.dashboard_id
+        #dashboard = Dashboard.find(dashboard_id)
+        dashboard = CloudBook.find(dashboard_id)
+        user_id = dashboard.users_id
+        c = CloudBook.where(:users_id => user_id).count 
+         c
+      end
+      
+      def getHost(widget_id)
+        widget  = Widget.find(widget_id.to_i)   
+        dashboard_id = widget.dashboard_id        
+        #dashboard = Dashboard.find(dashboard_id)    
+        dashboard = CloudBook.find(dashboard_id)   
+        dashboard.name       
       end
 
     end

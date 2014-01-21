@@ -10,7 +10,7 @@ module Api
       widgets = Widget.for_dashboard(params[:dashboard_id]).all
       respond_with(widgets)
     end
-
+=begin
     def create
       logger.debug ("-W-----create---- #{params}")
       dashboard = Dashboard.find(params[:dashboard_id])
@@ -41,6 +41,6 @@ module Api
       widget.destroy
       head :no_content
     end
-
+=end
   end
 end

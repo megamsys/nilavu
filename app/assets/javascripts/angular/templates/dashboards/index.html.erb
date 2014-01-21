@@ -1,6 +1,101 @@
-<div class="row">
-	<div class="col-md-6 col-md-offset-3">
-		<a href="/dashboards/{{dashboard.id}}" class="btn btn-lg btn-success btn-block" title="Click here to see cloud book's metrics"> <h3>Click Here to See Your Cloud  Metrics </h3></a>
-	</div>
-	<div class="col-md-3"></div>
+<!--<div class="row">
+<div class="col-md-6 col-md-offset-3">
+<a href="/dashboards/{{dashboard.id}}" class="btn btn-lg btn-success btn-block" title="Click here to see cloud book's metrics"> <h3>Click Here to See Your Cloud  Metrics </h3></a>
 </div>
+<div class="col-md-3"></div>
+</div>-->
+
+<% if @count.to_i > 0 %>
+<div class="row">
+	<div id="main" class="col-md-12">
+		<div class="widget-box">
+			<div class="widget-title">
+				<span class="icon"> <i class="icon-refresh"></i> </span>
+				<h5>Latest updates</h5>
+			</div>
+
+			<div class="widget-content nopadding updates">
+				<div class="new-update clearfix" ng-repeat="dashboard in dashboards">
+					<i class="icon-ok-sign"></i>
+					<div class="update-done">
+						<a title="" href="/dashboards/{{dashboard.id}}"><strong>{{dashboard.name}}</strong></a>
+						<span>We've just set up a new App using {{dashboard.predef_name}}</span>
+					</div>
+					<div class="update-date">
+						<div class="col-md-12">
+							<div class="col-md-6">
+								<span class="update-day">Cloud Setting Name : </span>
+							</div>
+							<div class="col-md-6">
+								<span class="update-day-value">{{dashboard.predef_cloud_name}}</span>
+							</div>
+						</div>
+						<br/>
+						<br/>
+						<div class="col-md-12">
+							<div class="col-md-6">
+								<span class="update-day">Launched to : </span>
+							</div>
+							<div class="col-md-6">
+								<span class="update-day-value">{{dashboard.cloud_name}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<% else %>
+<div class="row">
+	<div class="col-md-12">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<p class="help-block">
+					<%= image_tag "helpbota.png", :alt => "help bot"%>
+					<h4 class="alert-heading">Welcome. Not sure what to do next?
+				</p>
+			</div>
+			<div class="panel-body">
+				<div class="alert alert-info alert-block">
+					<div>
+						Get started with...
+						<table class="table table-hover">
+							<thead></thead>
+							<tbody>
+								<tr>
+									<td><span class="badge badge-info">Java</span></td>
+									<td><i class="icon-code"> </i>
+									<code>
+										Online code editor
+									</code> <%= link_to  "A simple web app run on Java container in megam.", new_cloud_book_path, :target => "_self", title: "Lauch your java app in megam"  %> </td>
+								</tr>
+								<tr>
+									<td><span class="badge badge-info">Ruby</span></td>
+									<td><i class="icon-plus-sign" > </i>
+									<code>
+										Ruby Sample app
+									</code><%= link_to  "A simple general purpose Rails 4.0 web app run on Ruby on Rails container in megam.", new_cloud_book_path, :target => "_self", title: "Lauch your ruby on rails app in megam"  %> </td>
+								</tr>
+								<tr>
+									<td><span class="badge badge-info">Marketplace</span></td>
+									<td><i class="icon-shopping-cart"> </i>
+									<code>
+										Marketplace
+									</code> <%= link_to  "Wordpress A ready to deploy, general purpose wordpress package with MySQL database.", new_market_place_path, :target => "_self", title: "Lauch your wordpress app in megam"  %> </td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div>
+					<i class="icon-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> My Apps to get stared. </span>
+					</br>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<% end %>

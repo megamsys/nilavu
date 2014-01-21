@@ -4,6 +4,8 @@ class DashboardsController < ApplicationController
   add_breadcrumb "Dashboard", :dashboards_path
   def index
     @user_id = current_user.id
+    dashboards = current_user.cloud_books 
+    @count = dashboards.length
   end
 
   def show

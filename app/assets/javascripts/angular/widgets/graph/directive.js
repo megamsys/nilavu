@@ -7,6 +7,9 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sourc
 	  function onSuccess(data) {		     
 		     scope.uptime_data=parseUptime(data);
 		     scope.rpm_data=parseRPM(data);
+		     scope.new_books=parseNewBooks(data);
+		     scope.total_books=parseTotalBooks(data);
+		     scope.total_queues=parseTotalQueues(data);
 	    	 var plot = $.plot("#graph_placeholder", FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, 1));
 	    	plot.setData(FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors));   		   	
 	        plot.draw();		  
@@ -16,21 +19,25 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sourc
 	        var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>")
 			.text("Response Time (ms)")
 			.appendTo("#graph_placeholder");
-
+	        var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>")
+			.text(parseMetricName(data))
+			.appendTo("#graph_placeholder");
 		// Since CSS transforms use the top-left corner of the label as the transform origin,
 		// we need to center the y-axis label by shifting it down by half its width.
 		// Subtract 20 to factor the chart's bottom margin into the centering.
 
 		yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);  
+		xaxisLabel.css("margin-top", yaxisLabel.width() / 2 + 220); 
+		xaxisLabel.css("margin-left", yaxisLabel.width() / 2 + 300); 
 	  }     
 
     function update() {  
-    	if ($routeParams.book != null) {    		
-    		return GraphModel.getData(scope.widget, $routeParams.book).success(onSuccess);
-    	}
-    	else {        	
-    		return GraphModel.getData(scope.widget, "demo").success(onSuccess);
-    	}
+    	//if ($routeParams.book != null) {    		
+    		//return GraphModel.getData(scope.widget, $routeParams.book).success(onSuccess);
+    	//}
+    	//else {        	
+    		return GraphModel.getData(scope.widget).success(onSuccess);
+    	//}
     }
 
     function parseUptime(responsedata) {
@@ -42,6 +49,30 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sourc
     function parseRPM(responsedata) {
     	return _.map(responsedata, function(model, index) {    		  
     	       return model.rpm;    	    
+    	});
+    }
+    
+    function parseNewBooks(responsedata) {
+    	return _.map(responsedata, function(model, index) {    		  
+    	       return model.new_books;    	    
+    	});
+    }
+    
+    function parseTotalBooks(responsedata) {
+    	return _.map(responsedata, function(model, index) {    		  
+    	       return model.total_books;    	    
+    	});
+    }
+    
+    function parseTotalQueues(responsedata) {
+    	return _.map(responsedata, function(model, index) {    		  
+    	       return model.total_queues;    	    
+    	});
+    }
+    
+    function parseMetricName(responsedata) {
+    	return _.map(responsedata, function(model, index) {    		  
+    	       return model.metric;    	    
     	});
     }
     
