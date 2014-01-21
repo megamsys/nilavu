@@ -1,25 +1,24 @@
 <div id="header">
-	<!--<h1><a href="./dashboard.html">Unicorn Admin</a></h1>-->
 	<br/>
-	<a href="http://www.megam.co"><%= image_tag Rails.configuration.megam_logo_url , :alt => "Megam", :class => "megam_image" %></a>	
+	<a href="http://www.megam.co"><%= image_tag Rails.configuration.megam_logo_url , :alt => "Megam", :class => "megam_image" %></a>
+	<a id="menu-trigger" href="#"><i class="fa fa-align-justify"></i></a>
+	<div id="user-nav">
+		<ul class="btn-group">
+			<li class="btn">
+				<%= link_to "http://slidesha.re/1h8k9tt", :target => "_blank" do %>
+				<i class="icon-puzzle-piece"></i> How does it work ?
+				<% end %>
+			</li>
+			<li class="btn" >
+				<%= link_to edit_user_path(current_user), :target => "_self" do %>
+				<i class="icon-user"></i> Profile
+				<% end %>
+			</li>
+			<li class="btn">
+				<%= link_to signout_path, method: "delete" do %>
+				<i class="icon-signout"></i> Sign Out
+				<% end %>
+			</li>
+		</ul>
+	</div>
 </div>
-<div id="user-nav">
-	<ul class="btn-group">
-		<li class="btn">
-			<%= link_to "http://slidesha.re/1h8k9tt", :target => "_blank" do %>
-			<i class="icon-puzzle-piece"></i> How does it work ?
-			<% end %>
-		</li>
-		<li class="btn" >
-			<%= link_to edit_user_path(current_user), :target => "_self" do %>
-			<i class="icon-user"></i> Profile
-			<% end %>
-		</li>		
-		<li class="btn">
-			<%= link_to signout_path, method: "delete" do %>
-			<i class="icon-signout"></i> Sign Out
-			<% end %>
-		</li>
-	</ul>
-</div>
-

@@ -7,10 +7,8 @@ html, body {
     width: 100%;
     height: 100%;    
 }
+
 body {
-	background-color: #2e2c30;
-}
-/*body {
 	background-color: #444444;
 	background-image: -webkit-gradient(linear, 0 0%, 0 100%, from(#555555), to(#111111));
 	background-image: -webkit-linear-gradient(top, #555555 0%, #111111 100%);
@@ -21,7 +19,8 @@ body {
     background-position: fixed;
     padding: 0;
     margin: 0;
-}*/
+}
+
 #container {
     top: 0;
     position: absolute;
@@ -46,7 +45,7 @@ body {
 }
 
 #loginbox  {
-    height: 300px;
+    height: 330px;
 	background: #ffffff;
     box-shadow: 0 0 4px #000000;
     border-radius: 7px;
@@ -111,6 +110,24 @@ body {
     z-index: 100;
     opacity: 0;
     display:none;
+}
+.row.or-login {
+    margin: 0;
+    position: relative;
+}
+.row.or-login:before {
+    border-top: 1px dotted #ddd;
+    content: "";
+    display: block;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 55%;
+    z-index: -1;
+}
+.row.or-login span {
+    background-color: #fff;
+    padding: 0 5px;
 }
 
 /*

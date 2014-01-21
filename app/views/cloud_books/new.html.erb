@@ -5,9 +5,9 @@
 	<%= render_breadcrumbs %>
 </div>
 <%= form_tag(new_book_path, :method => "post", :name => "predef") do %>
-<div class="row">
-	<div class="widget-content nopadding">
-		<div id="form-wizard-1" class="step">
+<div class="container">
+	<div class="row">
+		<div class="col-md-11">
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-list"></i> </span>
@@ -21,7 +21,7 @@
 							</p>
 							</br>
 							<div class="row">
-								<div class="col-md-7">
+								<div class="col-md-6">
 									<div id="platformapps" class="required">
 										<div class="col-md-6">
 											<a href="#" rel="tooltip" title="supports applications written in several Java based frameworks including Spring, Struts."> <%= radio_button_tag :predef_name, 'java' %>
@@ -97,6 +97,10 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-11">
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-th-list"></i> </span>
@@ -120,13 +124,12 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-10">
+						<div class="col-md-9">
 							<div class="panel panel-primary">
 								<div class="panel-heading">
 									<p class="help-block">
 										<h4 class="alert-heading">You don't have source code repository?
-										Try our sample. Click on <i class="icon-plus-sign"></i>
-										icon </h4>
+										Try our sample. Click on <i class="icon-plus-sign"></i> icon </h4>
 									</p>
 
 								</div>
@@ -176,16 +179,18 @@
 										<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Your repositories list </label>
 										<div class="col-sm-9 col-md-9 col-lg-10">
 											<div class="row">
-												<div class="col-md-12">
+												<div class="col-md-11">
 													<div class="input-group input-group-sm">
 														<span class="input-group-addon"><i class="icon-github"></i></span>
-														<%= select_tag 'scm', options_for_select(repos.insert(0, "Select a Repository")), :style => "width:500px" %> 
+														<%= select_tag 'scm', options_for_select(repos.insert(0, "Select a Repository")), :style => "width:500px" %>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-									<br/>  (OR) <br/>
+									<br/>
+									(OR)
+									<br/>
 									<% end %>
 									<div class="form-group">
 										<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Source code repository</label>
@@ -222,16 +227,16 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<%= submit_tag "Next", :class => "btn btn-default btn-lg btn-success btn-block", :id => "cb_next", :disabled => true, :remote => true, :data => { :disable_with => "Please wait..."}, title: 'Please select your application platform and then click Next', rel: 'tooltip' %>
+			<% end %>
+			<br/>
+		</div>
+		<div class="col-md-4">
 
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4">
-					<%= submit_tag "Next", :class => "btn btn-default btn-lg btn-success btn-block", :id => "cb_next", :disabled => true, :remote => true, :data => { :disable_with => "Please wait..."}, title: 'Please select your application platform and then click Next', rel: 'tooltip' %>
-					<% end %>
-					<br/>
-				</div>
-				<div class="col-md-4"></div>
-			</div>
 		</div>
 	</div>
 </div>

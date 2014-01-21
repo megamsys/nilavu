@@ -7,9 +7,9 @@
 </div>
 <br/>
 
-<div class="container-fluid" ng-cloak>
+<div class="container" ng-cloak>
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-11">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
 					<p class="help-block">
@@ -166,7 +166,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-5">
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"><i class="icon-suitcase"></i></span>
@@ -251,7 +251,7 @@
 
 <script>
     (function($) {
-$.Sources = JSON.parse('<%= raw Sources.sources.to_json %>');
+	$.Sources = JSON.parse('<%= raw Sources.sources.to_json %>');
     $.Books = JSON.parse('<%= raw launched(@user_id).to_json %>');
     })($);
 </script>

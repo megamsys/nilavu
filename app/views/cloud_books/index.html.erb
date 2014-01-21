@@ -5,10 +5,10 @@
 	<%= render_breadcrumbs %>
 </div>
 
-<div class="container-fluid">
+<div class="container">
 	<%= render :partial => "cloud_books/books" , :locals => {:launched_books_quota => @launched_books_quota, :launched_books => @launched_books, :nodes => @nodes } %>
 </div>
-<!-- container-fluid -->
+<!-- container -->
 
 <div id="cloudbook_delete_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -51,12 +51,12 @@
 					<strong><span class="label label-warning">*optional</span> Click on the default name to change it</strong>
 				</p>
 				</br>
-				<div class="col-md-9">
+				<div class="col-md-8">
 					<div class="col-md-6">
 						<!--<%= link_to  @new_book_name, "#", :id => "identity_new", :onchange => "angular.element(this).scope().fileNameChaged()", :class => "btn btn-large btn-primary disabled btn-block", :data => { :type => 'text', :name => 'book_name'} %>-->
 						<a class="btn btn-lg btn-primary disabled btn-block" data-name="book_name" data-type="text" href="#" id="identity_new" ><%= @new_book_name %></a>
 					</div>
-					<div class = "col-md-3">
+					<div class = "col-md-2">
 						<%= link_to @domain_name, "#", :class => "btn btn-lg btn-primary disabled btn-block", :id => 'domain'%>
 					</div>
 				</div>
@@ -74,7 +74,7 @@
 		</div>
 	</div>
 </div>
-<!-- container-fluid -->
+<!-- container -->
 
 <% end %>
 <%= render :template => users_show_path %>

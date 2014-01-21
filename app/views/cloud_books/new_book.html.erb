@@ -5,9 +5,9 @@
 	<%= render_breadcrumbs %>
 </div>
 <%= form_for @book, :html => {:multipart => true }, :remote => true, :method => 'post' do |f| %>
-<div class="container-fluid">
+<div class="container">
 	<div class="row">
-		<div class="col-xs-12 col-sm-12">
+		<div class="col-xs-11 col-sm-11">
 			<% @new_book_name = book_name %>
 			<div class="widget-box">
 				<div class="widget-title">
@@ -15,22 +15,24 @@
 					<h5>App Name</h5><strong><span class="label label-info"><%= @new_book_name %>.<%= @domain_name %> </span> </strong>
 				</div>
 				<div class="widget-content">
-					<div class="col-md-12">
-						<p class="help-block">
-							Your app URL is							
+					<div class="row">
+						<div class="col-sm-11 col-md-11 col-lg-11">
+							<p class="help-block">
+								Your app URL is
 								<strong><span class="label label-info">http://<%= @new_book_name %>.<%= @domain_name %> </span> </strong>
-						</p>
+							</p>
+						</div>
 					</div>
-					</br>
-					<p>
-						<div class="col-md-7 col-xs-7">
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-3 col-md-3 col-lg-2">
 							<a class="btn btn-lg btn-primary disabled btn-block" data-name="book_name" data-type="text" href="#" id="identity_new" ><%= @new_book_name %></a>
+							</div>
+							<div class="col-sm-9 col-md-9 col-lg-10">
+								<%= link_to  @domain_name, "#", :class => "btn btn-lg btn-primary disabled btn-block", :id => 'domain'%>
+							</div>
 						</div>
-						<div class = "col-md-5 col-xs-7">
-							<%= link_to  @domain_name, "#", :class => "btn btn-lg btn-primary disabled btn-block", :id => 'domain'%>
-						</div>
-					</p>
-					<br/>
+					</div>
 					<br/>
 					<br/>
 					<%= f.text_field :name, :type => 'hidden', :id=> 'changename', :value => @new_book_name %>
@@ -38,7 +40,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-12">
+		<div class="col-xs-11 col-sm-11">
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-th-list"></i> </span>
@@ -46,20 +48,25 @@
 				</div>
 				<div class="widget-content">
 					<div class="row">
-						<div class="control-group">
+						<div class="col-sm-11 col-md-11 col-lg-11">
 							<p class="help-block">
-								Choose a cloud.
 								<%= link_to "To learn more about creating a new cloud setting",   "http://gomegam.com/docs/crosscloud.html", { :target => '_blank'} %>
-							</p>
-							<p>
-								<%= f.select :predef_cloud_name, options_for_select(@predef_cloud.map{ |c| [c.name] }) %>
 							</p>
 						</div>
 					</div>
+					<div class="row">
+						<div class="form-group">
+							<label class="col-sm-3 col-md-3 col-lg-2 control-label">Choose a cloud</label>
+							<div class="col-sm-9 col-md-9 col-lg-10">
+								<%= f.select :predef_cloud_name, options_for_select(@predef_cloud.map{ |c| [c.name] }) %>
+							</div>
+						</div>
+					</div>
+					
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-12">
+		<div class="col-xs-11 col-sm-11">
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-th-list"></i> </span>
@@ -67,44 +74,49 @@
 				</div>
 				<div class="widget-content">
 					<div class="row">
-						<div class="control-group">
+						<div class="col-sm-11 col-md-11 col-lg-11">
 							<p class="help-block">
 								<%= link_to "To Learn more about these advanced settings",   "http://gomegam.com/docs/apps.html", { :target => '_blank'} %>
-							
-							<div class="form-group">
-								<label class="col-sm-3 col-md-3 col-lg-2 control-label">Monitor</label>
-								<div class="col-sm-9 col-md-9 col-lg-10">
-									<label> <%= hidden_field_tag 'monitoring', "megam" %>
-										<%= check_box_tag 'monitoring', "", :class => "checked" %></label>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 col-md-3 col-lg-2 control-label">Logging</label>
-								<div class="col-sm-9 col-md-9 col-lg-10">
-									<label><%= hidden_field_tag 'logging', "megam" %>
-										<%= check_box_tag 'logging', "", :class => "checked" %></label>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 col-md-3 col-lg-2 control-label">Lifecycle command</label>
-								<div class="col-sm-9 col-md-9 col-lg-10">
-									<%= text_field_tag 'runtime_exec', "#{@predef.runtime_exec}", :class => "form-control input-sm", placeholder: 'Modify runtime exec - script' %>
-								</div>
-							</div>
-							<div class="form-group"></div>
-							<div class="form-group">								
-								<label class="col-sm-3 col-md-3 col-lg-2 control-label">Launched At</label>
-								<div class="col-sm-9 col-md-9 col-lg-10">
-									<%= text_field_tag 'timetokill', "#{Time.now.to_formatted_s(:rfc822)}", :class => "form-control", :readonly => true, placeholder: 'Modify runtime exec - script' %>
-								</div>
-							</div>
 							</p>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<label class="col-sm-3 col-md-3 col-lg-2 control-label">Monitor</label>
+							<div class="col-sm-9 col-md-9 col-lg-10">
+								<label> <%= hidden_field_tag 'monitoring', "megam" %>
+									<%= check_box_tag 'monitoring', "", :class => "checked" %></label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<label class="col-sm-3 col-md-3 col-lg-2 control-label">Logging</label>
+							<div class="col-sm-8 col-md-8 col-lg-9">
+								<label><%= hidden_field_tag 'logging', "megam" %>
+									<%= check_box_tag 'logging', "", :class => "checked" %></label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<label class="col-sm-3 col-md-3 col-lg-2 control-label">Lifecycle command</label>
+							<div class="col-sm-8 col-md-8 col-lg-9">
+								<%= text_field_tag 'runtime_exec', "#{@predef.runtime_exec}", :class => "form-control input-sm", placeholder: 'Modify runtime exec - script' %>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<label class="col-sm-3 col-md-3 col-lg-2 control-label">Launched At</label>
+							<div class="col-sm-8 col-md-8 col-lg-9">
+								<%= text_field_tag 'timetokill', "#{Time.now.to_formatted_s(:rfc822)}", :class => "form-control", :readonly => true, placeholder: 'Modify runtime exec - script' %>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
 		<% @predef_hash = {} %>
 		<% @predef_cloud.each do |k| %>
 		<% @predef_hash = @predef_hash.merge(@predef) %>
@@ -129,7 +141,7 @@
 				<br/>
 				</br/>
 			</div>
-			<div class="col-md-4"></div>
+			<div class="col-md-3"></div>
 		</div>
 	</div>
 </div>

@@ -8,7 +8,7 @@
 		<div class="row">
 			<div class="control-group" id="cc_name">
 				<div class="controls">
-					<i class="icon-cloud"></i>
+					&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-cloud"></i>
 					&nbsp;
 					<%= text_field_tag 'name', nil, placeholder: 'Enter a name' %>
 					<%= link_to "#" do %>
@@ -18,26 +18,23 @@
 			</div>
 		</div>
 		<br/>
-		<br/>		
-		<div class="row">
-			<div id='acc_link'>
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						Create a new Account for google
-					</div>
-					<div class="panel-body">
-						Click here : <a href='https://accounts.google.com/SignUp' target='_blank' class="btn-link" >New Google Account</a>
-					</div>
-				</div>				
+		<br/>
+		<div id='acc_link'>
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					Create a new Account for google
+				</div>
+				<div class="panel-body">
+					Click here : <a href='https://accounts.google.com/SignUp' target='_blank' class="btn-link" >New Google Account</a>
+				</div>
 			</div>
 		</div>
 		<br/>
 		<br/>
-		<div class="row">
-			<div id='cloud_logo'>
-				<a href='/auth/google_oauth2'  target='_self' class ="btn btn-lg disabled btn-primary btn-block" >
-					<icon class="icon-google-plus" />&nbsp;Connect Your Google Account</a>
-			</div>
+		<div id='cloud_logo'>
+			<a href='/auth/google_oauth2'  target='_self' class ="btn btn-lg disabled btn-primary btn-block" >
+			<icon class="icon-google-plus" />
+			&nbsp;Connect Your Google Account</a>
 		</div>
 	</div>
 	<div class="col-md-4">
@@ -97,7 +94,7 @@
 				<% end %>
 			</div>
 		</div>
-<br/>
+		<br/>
 		<div class="control-group">
 			<div class="controls">
 				<%= text_field_tag 'id_rsa_public_key', nil, placeholder: 'Enter id_rsa public key..' %>
@@ -106,14 +103,16 @@
 				<% end %>
 			</div>
 		</div>
-<br/>
-		<div class="form-group" id="cc_gcli">			
+		<br/>
+		<div class="control-group" id="cc_gcli">
+			<div class="controls">
 				<%= text_field_tag 'google_client_id', nil, placeholder: 'Enter google client id..' %>
 				<%= link_to "#" do %>
 				<i class="icon-question-sign" id="popover_google_clientid"></i>
-				<% end %>			
+				<% end %>
+			</div>
 		</div>
-<br/>
+		<br/>
 		<div class="control-group" id="cc_gsk">
 			<div class="controls">
 				<%= text_field_tag 'google_secret_key', nil, placeholder: 'Enter google secret key..' %>
