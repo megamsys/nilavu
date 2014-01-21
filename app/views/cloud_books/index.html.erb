@@ -47,16 +47,13 @@
 			<div class="modal-body">
 				<% @new_book_name = book_name %>
 				<% @domain_name = ".megam.co" %>
-				<p class="help-block">
-					<strong><span class="label label-warning">*optional</span> Click on the default name to change it</strong>
-				</p>
 				</br>
-				<div class="col-md-9">
-					<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-8">
 						<!--<%= link_to  @new_book_name, "#", :id => "identity_new", :onchange => "angular.element(this).scope().fileNameChaged()", :class => "btn btn-large btn-primary disabled btn-block", :data => { :type => 'text', :name => 'book_name'} %>-->
 						<a class="btn btn-lg btn-primary disabled btn-block" data-name="book_name" data-type="text" href="#" id="identity_new" ><%= @new_book_name %></a>
 					</div>
-					<div class = "col-md-3">
+					<div class = "col-md-4">
 						<%= link_to @domain_name, "#", :class => "btn btn-lg btn-primary disabled btn-block", :id => 'domain'%>
 					</div>
 				</div>
@@ -65,7 +62,7 @@
 				<%= hidden_field_tag 'domain_name', @domain_name %>
 				<input type="hidden" id="clone_name" name="clone_name" value="">
 				<br/>
-				<%= number_field_tag 'noofinstances', nil, in: 1...10 %>
+				<%= number_field_tag 'noofinstances', 1, in: 1...10 %>
 			</div>
 			<div class="modal-footer">
 				<%= submit_tag "OK", :class => "btn btn-lg btn-success btn-block" %>

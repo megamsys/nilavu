@@ -87,3 +87,4 @@ function LogCtrl($scope, socket, $location, LogStackLimit) {
 // $scope.tabManager.select(0);
 // };
 
+

@@ -93,7 +93,6 @@ class CloudBooksController < ApplicationController
     wparams = { :node => "#{params[:clone_name]}" }
     @clone_nodes =  FindNodeByName.perform(wparams, force_api[:email],force_api[:api_key])
     logger.debug "CloudBooks:clone_start, found the node"
-    
     if @clone_nodes.class == Megam::Error
       @res_msg="Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
       respond_to do |format|
@@ -104,7 +103,7 @@ class CloudBooksController < ApplicationController
     else
       @clone_node = @clone_nodes.lookup("#{params[:clone_name]}")
       node_hash = {
-        "node_name" => "#{params[:new_name]}",
+        "node_name" => "#{params[:new_name]}#{params[:domain_name]}",
         "node_type" => "#{@clone_node.node_type}",
         "req_type" => "#{@clone_node.request[:req_type]}",
         "noofinstances" => params[:noofinstances].to_i,
@@ -125,14 +124,20 @@ class CloudBooksController < ApplicationController
           }
         end
       else
-
-        @book = current_user.cloud_books.create(:name => params[:new_name], :predef_name => @clone_node.predefs[:name], :book_type => @clone_node.node_type, :domain_name => params[:domain_name], :predef_cloud_name => "default" )
+      
+      
+        @node.each do |node|       
+        res = node.some_msg[:msg][node.some_msg[:msg].index("{")..node.some_msg[:msg].index("}")] 
+        res_hash = eval(res)   
+        book_params={:name=> "#{res_hash[:node_name]}", :domain_name=> "#{params[:domain_name]}", :predef_cloud_name => "default", :predef_name=> "#{@clone_node.predefs[:name]}", :book_type=> "#{@clone_node.node_type}", :group_name => "#{params[:new_name]}"}                  
+        @book = current_user.cloud_books.create(book_params)
         @book.save
-        params = {:book_name => "#{@book.name}#{@book.domain_name}", :request_id => "req_id", :status => "status"}
+        params = {:book_name => "#{@book.name}", :request_id => "#{res_hash[:req_id]}", :status => "created", :group_name => "#{@book.domain_name}"}
         @history = @book.cloud_books_histories.create(params)
         @history.save
+        end
 
-        redirect_to cloud_books_path, :gflash => { :success => { :value => "Cloud book cloned successfully", :sticky => false, :nodom_wrap => true } }
+       # redirect_to cloud_books_path, :gflash => { :success => { :value => "Cloud book cloned successfully", :sticky => false, :nodom_wrap => true } }
       end
     end
   end
