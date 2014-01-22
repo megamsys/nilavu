@@ -67,9 +67,9 @@
 .new-update .update-date {
     color: #BBBBBB;
     float: right;    
-    margin: 4px 40px 0 0;
+    margin: 4px 20px 0 0;
     text-align: left;
-    width: 390px;
+    width: 600px;
 }
 .new-update .update-date .update-day {  	  
     font-size: 15px;
