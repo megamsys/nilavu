@@ -1,48 +1,43 @@
-<!--<div class="row">
-<div class="col-md-6 col-md-offset-3">
-<a href="/dashboards/{{dashboard.id}}" class="btn btn-lg btn-success btn-block" title="Click here to see cloud book's metrics"> <h3>Click Here to See Your Cloud  Metrics </h3></a>
-</div>
-<div class="col-md-3"></div>
-</div>-->
-
 <% if @count.to_i > 0 %>
 <div class="row">
 	<div id="main" class="col-md-12">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h3 class="panel-title">My Apps</h3>
+				<h3 class="panel-title">My Dash</h3>
 			</div>
 			<div class="panel-body updates" style="height:400px; overflow-y: scroll; ">
 				<div class="new-update clearfix" ng-repeat="dashboard in dashboards">
 					<i class="icon-ok-sign"></i>
 					<div class="update-done">
 						<a title="" href="/dashboards/{{dashboard.id}}"><strong>{{dashboard.name}}</strong></a>
-						<span>We've just set up a new App using {{dashboard.predef_name}}</span>
+						<span>We've just set up a new App using <strong>{{dashboard.predef_name}}</strong></span>
 					</div>
 					<div class="update-date">
 						<div class="col-md-12">
-							<div class="col-md-6">
-								<span class="update-day">Cloud Setting Name : </span>
+							<div class="col-md-6">								
+								<span class="update-day">Cloud </span>
 							</div>
 							<div class="col-md-6">
-								<span class="update-day-value">{{dashboard.predef_cloud_name}}</span>
+								<i class="icon-cloud-upload"></i>
+								<span class="update-day-value">{{dashboard.cloud_name}}</span>
 							</div>
 						</div>
 						<br/>
 						<br/>
 						<div class="col-md-12">
 							<div class="col-md-6">
-								<span class="update-day">Launched to : </span>
+								<span class="update-day">Launched At </span>
 							</div>
 							<div class="col-md-6">
-								<span class="update-day-value">{{dashboard.cloud_name}}</span>
+								<i class="icon-calendar"></i>
+								<span class="update-day-value"> {{dashboard.created_at | date:'EEE, dd MMM yyyy HH:mm:ss Z'}} </span>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="panel-footer">
-				<h4>To see App Metrics Click App Name.....</h4>
+				<h4>To see Metrics Click App/Service .....</h4>
 			</div>
 		</div>
 	</div>

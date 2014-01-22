@@ -7,70 +7,89 @@
 </div>
 <div class="container-fluid">
 	<div class="row">
-		<div>
-			<div class="alert alert-success alert-block">
-				<div>
+		<div class="col-md-12">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
 					<p class="help-block">
 						<%= image_tag "helpbota.png", :alt => "help bot"%>
-						<br/>
-						 
-						 Marketplace contains ready to consume prepackaged apps which can be launched in the cloud of the choice.
-						 </br><i class="icon-chevron-right"></i>&nbsp;<span class="label label-info">Wordpress</span> is only supported now. 
+						<h4 class="alert-heading">Welcome. Not sure what to do next?
 					</p>
 				</div>
-			</div>
-		</div>
-	</div>
-	<%= form_tag(new_book_path, :method => "post", :name => "predef") do %>
-	<input type="hidden" name="no_of_instances" value=1>
-	<input type="hidden" name="deps_scm" value="">
-	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
-	<div class="row">
-		<% @category.each do |key, value| %>
-		<div class="col-md-6">
-			<div class="widget-box"  >
-				<div class="widget-title">
-					<span class="icon"> <i class="icon-th-list"></i> </span>
-					<h5><%= key %></h5>					
-				</div>
-				<div class="widget-content nopadding" style="height:300px; overflow-y: scroll;">
-					<table class="table table-bordered" >
-						<thead>
-							<tr>
-								<th> App </th>
-								<th> Description </th>
-								<th> Action </th>
-							</tr>
-						</thead>						
-						<tbody>
-							<% value.each do |cat| %>
-							<% @products.each do |product| %>
-							<% if cat == product.name %>
-							<tr>
-								<td><i class="logom_<%= product.image_url %>", id =<%= product.name%> ></i></td><dd></dd>
-								<td>
-								<input type="hidden" name="predef_name" value="<%= product.image_url %>">
-								<%= product.description %></td><dd></dd>
-								<td>
-								<div class="row">
-									<div id=<%= dom_id(product) %>>
-										<%= render :partial => "market_place/add_button", :locals => {:product => product} %>
-									</div>
-								</div></td>
-								<dd/>
-							</tr>
-							<% end %>
-							<% end %>
-							<% end %>
-						</tbody>
-					</table>
+				<div class="panel-body">
+					<div class="alert alert-info alert-block">
+						<div>
+							Get started with...
+							<table class="table table-hover">
+								<thead></thead>
+								<tbody>
+									<tr>
+										<td><span class="badge badge-info">Marketplace</span></td>
+										<td><i class="icon-shopping-cart"> </i>
+										<code>
+											Wordpress
+										</code> <%= link_to  "A ready to deploy, general purpose wordpress package with MySQL database.", new_market_place_path, :target => "_self", title: "Lauch your wordpress app in megam"  %> </td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div>
+						<i class="icon-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> Launch in cloud. </span>
+						</br>
+					</div>
 				</div>
 			</div>
 		</div>
-		<% end %>
-		<% end %>
+		<%= form_tag(new_book_path, :method => "post", :name => "predef") do %>
+		<input type="hidden" name="no_of_instances" value=1>
+		<input type="hidden" name="deps_scm" value="">
+		<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
+		<div class="row">
+			<% @category.each do |key, value| %>
+			<div class="col-md-6">
+				<div class="widget-box"  >
+					<div class="widget-title">
+						<span class="icon"> <i class="icon-th-list"></i> </span>
+						<h5><%= key %></h5>
+					</div>
+					<div class="widget-content nopadding" style="height:300px; overflow-y: scroll;">
+						<table class="table table-bordered" >
+							<thead>
+								<tr>
+									<th> App </th>
+									<th> Description </th>
+									<th> Action </th>
+								</tr>
+							</thead>
+							<tbody>
+								<% value.each do |cat| %>
+								<% @products.each do |product| %>
+								<% if cat == product.name %>
+								<tr>
+									<td><i class="logom_<%= product.image_url %>", id =<%= product.name%> ></i></td><dd></dd>
+									<td>
+									<input type="hidden" name="predef_name" value="<%= product.image_url %>">
+									<%= product.description %></td><dd></dd>
+									<td>
+									<div class="row">
+										<div id=<%= dom_id(product) %>>
+											<%= render :partial => "market_place/add_button", :locals => {:product => product} %>
+										</div>
+									</div></td>
+									<dd/>
+								</tr>
+								<% end %>
+								<% end %>
+								<% end %>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<% end %>
+			<% end %>
+		</div>
 	</div>
-</div>
 
-<% end %>
-<%= render :template => users_show_path %>
+	<% end %>
+	<%= render :template => users_show_path %>
