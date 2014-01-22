@@ -1,9 +1,6 @@
-<!--<div class="row">
-<div class="col-md-6 col-md-offset-3">
-<a href="/dashboards/{{dashboard.id}}" class="btn btn-lg btn-success btn-block" title="Click here to see cloud book's metrics"> <h3>Click Here to See Your Cloud  Metrics </h3></a>
-</div>
-<div class="col-md-3"></div>
-</div>-->
+<!--<div class="row"> <div class="col-md-6 col-md-offset-3"> <a href="/dashboards/{{dashboard.id}}" class="btn btn-lg btn-success 
+btn-block" title="Click here to see cloud book's metrics"> <h3>Click Here to See Your Cloud Metrics </h3></a> </div> <div 
+class="col-md-3"></div> </div>-->
 
 <% if @count.to_i > 0 %>
 <div class="row">
@@ -69,21 +66,21 @@
 									<td><i class="icon-code"> </i>
 									<code>
 										Online code editor
-									</code> <%= link_to  "A simple web app run on Java container in megam.", new_cloud_book_path, :target => "_self", title: "Lauch your java app in megam"  %> </td>
+									</code> <a  href="/cloud_books/new" target="_self" title="Lauch your java app in megam">A simple web app run on Java container in megam.</a>  </td>
 								</tr>
 								<tr>
 									<td><span class="badge badge-info">Ruby</span></td>
 									<td><i class="icon-plus-sign" > </i>
 									<code>
 										Ruby Sample app
-									</code><%= link_to  "A simple general purpose Rails 4.0 web app run on Ruby on Rails container in megam.", new_cloud_book_path, :target => "_self", title: "Lauch your ruby on rails app in megam"  %> </td>
+									</code> <a  href="/cloud_books/new" target="_self" title="Lauch your ruby on rails app in megam">A simple general purpose Rails 4.0 web app run on Ruby on Rails container in megam.</a> </td>
 								</tr>
 								<tr>
 									<td><span class="badge badge-info">Marketplace</span></td>
 									<td><i class="icon-shopping-cart"> </i>
 									<code>
 										Marketplace
-									</code> <%= link_to  "Wordpress A ready to deploy, general purpose wordpress package with MySQL database.", new_market_place_path, :target => "_self", title: "Lauch your wordpress app in megam"  %> </td>
+									</code> <a  href="/market_places/new" target="_self" title="Lauch your wordpress app in megam">Wordpress A ready to deploy, general purpose wordpress package with MySQL database.</a></td>
 
 								</tr>
 							</tbody>
