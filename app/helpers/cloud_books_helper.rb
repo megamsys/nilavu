@@ -16,7 +16,7 @@ module CloudBooksHelper
  end
 
 def latest_book
-current_user.cloud_books.first
+current_user.cloud_books.last
 end
 
 def change_runtime(deps, runtime)

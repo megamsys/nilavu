@@ -3,7 +3,7 @@ function LogCtrl($scope, socket, $location, LogStackLimit) {
         $scope.total = 0;
         $scope.l_total = 0;
         $scope.prog_bar = "visibility:hidden";
-        $scope.bookName = "Log";
+        $scope.bookName = "Select one App/Service..";
         $scope.sendmessage = function(data) {
                 $scope.prog_bar = "";
                 $scope.logs = [];

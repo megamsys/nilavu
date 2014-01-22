@@ -6,58 +6,61 @@
 </div>
 <div class="container-fluid">
 	<div class="row">
-		<div ng-controller="LogCtrl">
-
-			<div class="widget-box">
-				<div class="widget-title">
-					<span class="icon"> <i class="icon-th-list"></i> </span>
-					<h5>My Logs</h5>
-				</div>
-				<div class="widget-content nopadding">
-					<div class="row">
+		<div class="col-md-12" ng-controller="LogCtrl">
+			<div class="col-md-3">
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">My Logs</h3>
+					</div>
+					<div class="panel-body updates" style="height:450px; overflow-y: scroll; ">
 						<% @nodes.each do |node| %>
-						<div class="col-md-3 col-md-offset-3">
-							<input type="button" ng-model="query" ng-click="sendmessage('<%= node.node_name %>')" id="node_names" value="<%= node.node_name %>" class="btn btn-lg btn-primary btn-block">
+						<div class="new-update clearfix">
+							<i class="icon-ok-sign"></i>
+							<div class="update-done">
+								<a title="" href="" ng-click="sendmessage('<%= node.name %>')"><strong><%= node.name %></strong></a>
+							</div>
 						</div>
 						<% end %>
 					</div>
+					<div class="panel-footer">
+						<h5>To see Logs Click App/Service .....</h5>
+					</div>
 				</div>
+				<input type="hidden" ng-model="source">
 			</div>
-			<input type="hidden" ng-model="source">
+			<div class="col-md-9">
+				<div class="panel panel-primary ">
+					<div class="panel-heading">
+						{{bookName}}
+						<span class="pull-right"><a href="http://monitor.megam.co/kibana/#/dashboard/file/{{bookName}}.json" target="_blank" class="btn btn-success btn-xs">view Offline Log</a></span>
+					</div>
+					<div class="panel-body " style=" height:500px; overflow-y: scroll;">
+						<table class="table table-bordered table-striped table-hover" >
+							<thead>
+								<tr>
+									<th class="col-md-3">Timestamp</th>
+									<th class="col-md-9">Message</th>
+								</tr>
+							</thead>
+							<tbody>
 
-			<div class="panel panel-info">
-				<div class="panel-heading">
-					{{bookName}}
+								<div class="progress progress-striped active" style="{{prog_bar}}">
+									<div style="width: 40%;" class="progress-bar progress-bar-success"></div>
+								</div>
 
-					<span class="label label-info pull-right"><a href="http://monitor.megam.co/kibana/#/dashboard/file/{{bookName}}.json" target="_blank">View Offline Log</a></span>
-
-				</div>
-				<div class="panel-body" style=" height:300px; overflow-y: scroll;">
-					<table class="table table-bordered table-striped table-hover" >
-						<thead>
-							<tr>
-								<th class="col-md-3">Timestamp</th>
-								<th class="col-md-9">Message</th>
-							</tr>
-						</thead>
-						<tbody>
-
-							<div class="progress progress-striped active" style="{{prog_bar}}">
-								<div style="width: 40%;" class="progress-bar progress-bar-success"></div>
-							</div>
-
-							<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
-								<td>
-								<p>
-									{{ log.timestamp | date:'d  MMMM,  y - hh:mm a Z' }}
-								</p></td>
-								<td>
-								<p>
-									{{log.message }}
-								</p></td>
-							</tr>
-						</tbody>
-					</table>
+								<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
+									<td>
+									<p>
+										{{ log.timestamp | date:'d  MMMM,  y - hh:mm a Z' }}
+									</p></td>
+									<td>
+									<p>
+										{{log.message }}
+									</p></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
