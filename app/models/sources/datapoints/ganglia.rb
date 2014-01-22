@@ -116,7 +116,7 @@ module Sources
         dashboard_id = widget.dashboard_id        
         #dashboard = Dashboard.find(dashboard_id)    
         dashboard = CloudBook.find(dashboard_id)   
-        dashboard.name                      
+        dashboard.name                          
       end
 
     end
