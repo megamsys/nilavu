@@ -106,7 +106,7 @@
 								<div class="col-md-12">
 									<div class="input-group input-group-sm">
 										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-										<%= text_field_tag 'store_db_name', "db_#{current_user.first_name}",:class => "form-control" ,:readonly => true %>
+										<%= text_field_tag 'store_db_name', "db_#{current_user.first_name.downcase}",:class => "form-control" ,:readonly => true %>
 									</div>
 								</div>
 							</div>
@@ -175,7 +175,7 @@
 			<div class="row">
 				<div class="col-md-4"></div>
 				<div class="col-md-4 offset4">
-					<%= f.submit "Launch", :class => "btn btn-lg btn-success btn-block" %>
+					<%= f.submit "Launch", :class => "btn btn-lg btn-success btn-block" , :data => {:disable_with => "Creating Service..."} %>
 					</br>
 				</div>
 			</div>

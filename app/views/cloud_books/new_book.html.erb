@@ -12,19 +12,12 @@
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-th-list"></i> </span>
-					<h5>App Name</h5><strong><span class="label label-info"><%= @new_book_name %>.<%= @domain_name %> </span> </strong>
+					<h5>App Name</h5><strong><span class="label label-info"><%= @new_book_name %><%= @domain_name %> </span> </strong>
 				</div>
 				<div class="widget-content">
 					<p class="help-block">
-						<% if (@no_of_instances <= 1) %>
 						Your app URL is
 						<strong><span class="label label-info">http://<%= @new_book_name %><%= @domain_name %> </span> </strong>
-						<% else %>
-						Your app URLs are
-						<% @no_of_instances.each do |n| %>
-						<strong><span class="label label-info">http://<%= @new_book_name %><%= n %><%= @domain_name %> </span> </strong>
-						<% end %>
-						<% end %>
 					</p>
 					</br>
 					<div class="col-md-7 col-xs-7">

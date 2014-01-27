@@ -1,96 +1,189 @@
-<div class="span10">
-	<div class="span3">
-		<div class="cb_box">
-			<h4 align="center">Database Counter</h4>
-			<h3 align="center" ><%= @predef_clouds.count %>/2</h3>
-		</div>
-		<br/>
-		<%= link_to "New DB", new_db_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
-		<br/>
-
-		<div class="cb_box">
-			<h4 align="center" >Latest Creation</h4>
-			<% @predef_clouds.each do |pc| %>
-			<h5>
-			<p>
-				<b> Name = </b><%= pc.name %>
-				<br/>
-				<b> Created At = </b>TIME
-			</p></h5>
-			<% end %>
-		</div>
-		<br/>
-
-		<%= link_to "Upgrade", pricing_path, class: "btn btn-large btn-success btn-block", :target => "_self" %>
-
-	</div>
-	<!-- Span6 -->
-
-	<div class="span6">
+<div class="row">
+	<div class="col-md-12">
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>DB Usage</h5>
+				<h5>My Services Usage</h5>
 			</div>
-			<div class="widget-content" overflow-y: scroll;">
-			<% @percent = @predef_clouds.count/2.0*100 %>
-			<div class="row">
-			<div class="span1">
-			<h3>0</h3>
-			</div>
-			<div class="span10">
-			<% if @percent >= 80 %>
-			<div class="progress progress-danger">
-			<div class="bar" style="width: <%= @percent %>%;"></div>
-			</div>
-			<% else %>
-			<div class="progress progress-success">
-			<div class="bar" style="width: <%= @percent %>%;"></div>
-			</div>
-			<% end %>
-			</div>
-			<div class="span1">
-			<h3>2</h3>
-			</div>
-			</div>
+			<div class="widget-content" >
+				<div class="row">
+					<div class="col-md-4">
+						<div class="cb_box">
+							<h4 align="center"> Number of Services </h4>
+							<h5 align="center" ><span class="icon"> <i class="icon-book"></i> </span>&nbsp;Used <b><%= @launched_books_quota %></b>&nbsp; Allowed <b>2</b></h5> <% @percent = @launched_books_quota/2.0*100 %>
+						</div>
+						<br/>
+						<div class="progress">
+							<% if @percent >= 80 %>
+							<div class="progress-bar progress-bar-warning" style="width: <%= @percent %>%;"></div>
+							<% else %>
+							<div class="progress-bar progress-bar-success" style="width: <%= @percent %>%;"></div>
+							<% end %>
+						</div>
+					</div>
+					<div class="col-md-4">
+						<div class="cb_box">
+							<span class="btn btn-large disabled btn-block"><h3><%= @launched_books_quota %></h3> <h4>Launched </h4> </span>
+						</div>
+						</br>
+						<a href="http://support.megam.co/kb/cloud-applications/" target="_blank"><i class="icon-question-sign"> We are here to help </i> </a>
 
+					</div>
+					<div class="col-md-4">
+						<div class="cb_box">
+							<h4 align="center">Recent Activity </h4><h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><%= latest_book.created_at.to_formatted_s(:rfc822) %></h5> 
+							<h5 align="Center"> <%= link_to latest_book.name, cloud_book_path(:id => latest_book.id, :name => latest_book.name, :book_type => latest_book.book_type), :remote => true, data: { spinlock: '#book'} %> </h5>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						<%= link_to new_cloud_store_path, class: "btn btn-lg btn-success btn-block", title: 'Choose your Database Service', rel: 'tooltip', :target => "_self" do %>
+						Choose Your Service
+						<% end %>
+					</div>
+					<div class="col-md-4">
+						<%= link_to "Watch Logs", cloud_books_histories_path, class: "btn btn-lg btn-info btn-block", title: 'Watch logs of created services', rel: 'tooltip', :target => "_self" %>
+					</div>
+					<div class="col-md-4">
+						<%= link_to "Upgrade", pricing_path, class: "btn btn-lg btn-inverse btn-block ", :target => "_self" %>
+					</div>
+				</div>
 			</div>
-			</div>
-
-			<div class="widget-box">
-			<div class="widget-title">
-			<span class="icon">
-			<i class="icon-th"></i>
-			</span>
-			<h5>Databases</h5>
-			</div>
-			<div class="widget-content nopadding">
-			<table class="table table-bordered table-striped table-hover">
-			<thead>
-			<tr>
-			<th>Name</th>
-			<th>Date</th>
-			<th>View</th>
-			<th>Clone</th>
-			</tr>
-			</thead>
-			<tbody>
-				<% @predef_clouds.each do |pre_cl| %>
-				<tr>
-					<td> <%= pre_cl.name %></td>
-					<td> <%= "Created @" %> </td>
-					<td> <%= link_to "View", predef_cloud_path(pre_cl.name), :remote => true, class: "btn btn-mini btn-success" %> </td>
-					<td> <%= link_to "import", "#", class: "btn btn-mini btn-success" %> </td>
-				</tr>
-				<% end %>
-			</tbody>
-
-			</table>
 		</div>
 	</div>
-
 </div>
-<!-- Span6 -->
+<div class="row">
+	<div class="col-md-12">
+		<div class="widget-box">
+			<div class="widget-title">
+				<span class="icon"> <i class="icon-th-list"></i> </span>
+				<h5>My Services</h5>
+			</div>
+			<div class="widget-content">
+				<% @launched_books.each do |k, v| %>
+				<% cb = CloudBook.find_by_group_name(k) %>
+				<div class="accordion" id="collapse-group">
+					<div class="accordion-group widget-box">
+						<div class="accordion-heading">
+							<div class="widget-title">
+								<a data-parent="#collapse-group" href="#collapse<%= k%>" data-toggle="collapse"> <span class="icon"> <i class="icon-magnet"></i></span> <span class="label label-warning"><%= cb.book_type %></span> <p></p> <span class="badge badge-info"><%= k%></span> </a>
+							</div>
+						</div>
+						<div class="collapse accordion-body" id="collapse<%= k%>">
+							<div class="widget-content nopadding"  style="overflow-y: scroll; height:250px;">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Actions</th>
+											<th>Name</th>
+											<th>Clone</th>
+											<th>Delete</th>
+											<th>Created At</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody>
+										<% v.each do |node| %>
 
-</div> <!-- Span12 -->
+										<tr>
+											<% cloud_book = @nodes.lookup(node) %>
+											<td> <div class="btn-group">
+												<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> Actions <span class="caret"></span> </a>
+												<ul class="dropdown-menu">
+													<li>
+														<%= link_to "Start", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.boltdefnsid, :req => "start"), :remote => true %>
+													</li>
+													<li>
+														<%= link_to "Stop", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.boltdefnsid, :req => "stop"), :remote => true %>
+													</li>
+													<li>
+														<%= link_to "Restart", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.boltdefnsid, :req => "restart"), :remote => true %>
+													</li>
+													<li class="divider"></li>
+													<li>
+														<%= link_to "Backup", build_request_path(:name => cloud_book.node_name, :defnsid => cloud_book.boltdefnsid, :req => "build"), :remote => true %>
+													</li>
+													<li>
+														<%= link_to "More", cloud_store_path(:id => cb.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'} %>
+													</li>
+												</ul>
+											</div> </td>
+											<td> <%= link_to "#{cloud_book.node_name}", "http://#{cloud_book.node_name}" , { :target => '_blank'} %> </td>
+											<td> <%= link_to clone_build_path(:name => cloud_book.node_name), :class =>"btn btn-mini btn-success", :title=> "Clone Cloud Book", :remote => true, method: :post do %> <i class="icon-copy"> Clone</i> <% end %> </td>
+											<td> <%= link_to cloud_book_path(:id => cb.id, :name => cloud_book.node_name), :class =>"btn btn-mini btn-danger", :title=> "Delete Cloud Book", method: :delete, :remote => true, :target => "_self", :data => { :confirm => "Are you sure?", spinner: '#delete_node'} do %> <i class="icon-trash"> Delete</i> <% end %>  <%= mini_spinner_tag 'delete_node' %> </td>
+											<td><span class="icon"> <i class="icon-calendar"></i> </span> <%= cloud_book.created_at.to_datetime.to_formatted_s(:rfc822) %> </td>
+											<td> <%= cloud_book.status %> </td>
+										</tr>
 
+										<% end %>
+									</tbody>
+
+								</table>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-12" >
+		<div  id="cb_action"></div>
+	</div>
+</div>
+
+<div id="cloud_book_request_now_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">Cloud Book</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-success">
+
+					<p>
+						Your request was submitted to megam cloud gateway was successful.
+						</br>
+						<div id="cloud_book_request_now_success"></div>
+						</br>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary", :target => "_self"%>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="cloud_book_request_now_popup_error" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">Build</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-error">
+					<p>
+						Your request to megam cloud gateway was not successful.
+						</br>
+						<%= link_to  "Please open a support ticket support.megam.co", "http://support.megam.co", :class => "btn btn-primary", :target => "_self"%>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary", :target => "_self"%>
+			</div>
+		</div>
+	</div>
+</div>
