@@ -1,24 +1,31 @@
 class CloudBooksHistoriesController < ApplicationController
   respond_to :js, :html
   add_breadcrumb "Dashboard", :dashboards_path
-  
   def index
- 
-  if current_user.cloud_books.any?
-       add_breadcrumb "Logs", :root_path
-       cloud_books = current_user.cloud_books
-       @nodes = FindNodesByEmail.perform({},current_user.email, current_user.api_token)
-      if @nodes.class == Megam::Error
-        redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-      end
-
-  else
+    add_breadcrumb "Logs", :root_path
+    @nodes = current_user.cloud_books
+    count = @nodes.length
+    if count.to_i <= 0   
       redirect_to cloud_books_path, :gflash => { :warning => { :value => "Sorry. No logs available. Please create apps to see them.", :sticky => false, :nodom_wrap => true } }
     end
-    #@books = current_user.cloud_books.all
-  #@books = @cloud_books.cloud_books_histories
   end
-  
+=begin
+if current_user.cloud_books.any?
+add_breadcrumb "Logs", :root_path
+cloud_books = current_user.cloud_books
+@nodes = FindNodesByEmail.perform({},current_user.email, current_user.api_token)
+if @nodes.class == Megam::Error
+redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+end
+
+else
+redirect_to cloud_books_path, :gflash => { :warning => { :value => "Sorry. No logs available. Please create apps to see them.", :sticky => false, :nodom_wrap => true } }
+end
+#@books = current_user.cloud_books.all
+#@books = @cloud_books.cloud_books_histories
+end
+=end
+
   def new
   end
 
@@ -27,8 +34,6 @@ class CloudBooksHistoriesController < ApplicationController
     @books.cloud_books_histories.create(:book_id => params[:book_id], :book_name => params[:book_name])
     redirect_to cloud_books_histories_path
   end
-
-  
 
   def logs
     @books = current_user.cloud_books.all
