@@ -18,7 +18,7 @@
 					<div class="col-md-12">
 						<p class="help-block">
 							Your service URL is
-							<strong><span class="label label-info"><%= @new_book_name %>.<%= @domain_name %> </span> </strong>
+							<strong><span class="label label-info"><%= @new_book_name %><%= @domain_name %> </span> </strong>
 						</p>
 					</div>
 					</br>
@@ -100,21 +100,6 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service Name </label>
-						<div class="col-sm-9 col-md-9 col-lg-10">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="input-group input-group-sm">
-										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-										<%= text_field_tag 'store_db_name', "db_#{current_user.first_name.downcase}",:class => "form-control" ,:readonly => true %>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<% if @dbms == 'postgresql' %>
-					<div class="form-group">
 						<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service User</label>
 						<div class="col-sm-9 col-md-9 col-lg-10">
 							<div class="row">
@@ -141,7 +126,7 @@
 							</div>
 						</div>
 					</div>
-
+					<% if @dbms == 'riak' %>
 					<div class="form-group">
 						<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service URL</label>
 						<div class="col-sm-9 col-md-9 col-lg-10">
@@ -149,12 +134,60 @@
 								<div class="col-md-12">
 									<div class="input-group input-group-sm">
 										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-										<%= text_field_tag 'url', "postgres://#{current_user.first_name}:#{current_user.api_token}@postgres1.megam.co.in:5432/db_#{current_user.first_name}", :class => "form-control", :readonly => true %>
+										<%= text_field_tag 'url', "riak://#{current_user.email}@#{current_user.api_token}:http://#{@new_book_name}#{@domain_name}:8098", :class => "form-control", :readonly => true %>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					<% end %>
+
+					<% if @dbms == 'redis' %>
+					<div class="form-group">
+						<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service URL</label>
+						<div class="col-sm-9 col-md-9 col-lg-10">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+										<%= text_field_tag 'url', "redis://#{current_user.email}:#{current_user.api_token}@#{@new_book_name}#{@domain_name}:9402", :class => "form-control", :readonly => true %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<% end %>
+					
+					<% if @dbms == 'postgresql' %>
+					
+					<div class="form-group">
+						<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service Name </label>
+						<div class="col-sm-9 col-md-9 col-lg-10">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+										<%= text_field_tag 'store_db_name', "db_#{current_user.first_name.downcase}",:class => "form-control" ,:readonly => true %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service URL</label>
+						<div class="col-sm-9 col-md-9 col-lg-10">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="input-group input-group-sm">
+										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
+										<%= text_field_tag 'url', "postgres://#{current_user.email}:#{current_user.api_token}@#{@new_book_name}#{@domain_name}:5432/db_#{current_user.first_name}", :class => "form-control", :readonly => true %>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<% end %>
+					
 					<div class="form-group">
 						<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service Initiation</label>
 						<div class="col-sm-9 col-md-9 col-lg-10">
@@ -168,7 +201,7 @@
 							</div>
 						</div>
 					</div>
-					<% end %>
+					
 					<div class="input-group"></div>
 				</div>
 			</div>
