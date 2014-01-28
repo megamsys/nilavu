@@ -3,8 +3,8 @@ class CloudStoresController < ApplicationController
   def index
        cloud_books = current_user.cloud_books.where(:book_type => 'BOLT')
     if cloud_books.any?
-      add_breadcrumb "Home", "#"
-      add_breadcrumb "Manage Services", cloud_stores_path
+      add_breadcrumb "Home", "#", :target => "_self"
+      add_breadcrumb "Manage Services", cloud_stores_path, :target => "_self"
       @nodes = FindNodesByEmail.perform({},current_user.email, current_user.api_token)
       if @nodes.class == Megam::Error
         redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
@@ -21,24 +21,25 @@ class CloudStoresController < ApplicationController
         @launched_books_quota = @nodes.all_nodes.length 
         end           
         else    
-      redirect_to new_cloud_book_path
+      redirect_to new_cloud_store_path
     end
     end
 
 
   def new
     logger.debug "Cloud Store new  ==> "
-    add_breadcrumb "Home", "#"
-    add_breadcrumb "Manage Services", cross_clouds_path
-    add_breadcrumb "New", new_cross_cloud_path
+    add_breadcrumb "Home", "#", :target => "_self"
+    add_breadcrumb "Manage Services", cloud_stores_path, :target => "_self"
+    add_breadcrumb "Service Selection", new_cloud_store_path, :target => "_self"
   end
 
   def new_store
     logger.debug "New Store init Params ==> "
     logger.debug "#{params}"
-    add_breadcrumb "Home", "#"
-    add_breadcrumb "Manage Services", cloud_stores_path
-    add_breadcrumb "New", new_cloud_store_path
+    add_breadcrumb "Home", "#", :target => "_self"
+    add_breadcrumb "Manage Services", cloud_stores_path, :target => "_self"
+    add_breadcrumb "Service Selection", new_cloud_store_path, :target => "_self"
+    add_breadcrumb "Create Service", new_store_path, :target => "_self"
     @db_model = params[:db_model]
     @dbms = params[:dbms]
     @book =  current_user.cloud_books.build
