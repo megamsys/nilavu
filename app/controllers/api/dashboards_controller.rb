@@ -14,6 +14,13 @@ module Api
       respond_with dashboards
     end
 
+   def dash_show
+      @user_id = current_user.id
+       #dashboards = Dashboard.find_by_user_id(@user_id)
+        dashboards = current_user.cloud_books        
+      respond_with dashboards
+   end
+
     def create
       input = JSON.parse(request.body.read.to_s)
       dashboard = Dashboard.new(input.slice(*Dashboard.accessible_attributes))

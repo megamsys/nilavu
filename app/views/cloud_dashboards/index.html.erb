@@ -1,0 +1,44 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'Dashboard') %>
+
+<%= render :partial => "users/header" , :locals => {:head => "Dashboard"}%>
+<div id="breadcrumb">
+	<a href="#" class="current"><%= render_breadcrumbs %></a>
+</div>
+<br/>
+
+<div class="container-fluid" ng-cloak>	
+		<%= render :partial => "cloud_dashboards/dash_index_page"  %>
+	<!--<ng-view ng-show="resolved" ng-cloak></ng-view>-->
+	<br/>
+	<div id="email_verify_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						×
+					</button>
+					<h3 id="myModalLabel">Email Verification</h3>
+				</div>
+				<div class="modal-body">
+					<div class="alert alert-success">
+
+						<div id="msg">
+							Email has been sent to <h5><%= current_user.email %></h5> for verification.
+							Please check your email and follow the instructions
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-default" data-dismiss="modal" aria-hidden="true">
+						Ok
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<% end %>
+
+<%= render :template => users_show_path %>

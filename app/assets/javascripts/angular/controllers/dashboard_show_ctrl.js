@@ -3,8 +3,7 @@ app.controller("DashboardShowCtrl", ["$scope", "$rootScope", "$routeParams", "$l
   
   $scope.bookwidget = "widgetpernode";
   $rootScope.resolved = false;   
-  $scope.dashboard_id = $routeParams.id;
-   
+  $scope.dashboard_id = $routeParams.id; 
   
   $scope.dashboard = Dashboard.get({ id: $routeParams.id });
  $scope.widgets   = Widget.query({ dashboard_id: $routeParams.id }, function() {	  
