@@ -21,6 +21,7 @@ Cloudauth::Application.routes.draw do
   resources :cloud_tool_settings
   resources :cloud_settings
   resources :market_place
+  resources :cloud_dashboards
 
   namespace :api do
     resources :dashboards do
@@ -76,6 +77,7 @@ Cloudauth::Application.routes.draw do
   
   # ======Dashboard
   get "users/show"
+  #match '/dashboard_sidebar', to: 'dashboards#dashboard_sidebar', via: [:get]
   #match '/dashboards', to: 'dashboards#index', via: [:get]
   #match '/dashboards/:id' => 'dashboards#index', via: [:get]
  # match '/dashboards/:id', to: 'dashboards#index', via: [:get]

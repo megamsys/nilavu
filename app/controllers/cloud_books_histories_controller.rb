@@ -1,6 +1,6 @@
 class CloudBooksHistoriesController < ApplicationController
   respond_to :js, :html
-  add_breadcrumb "Dashboard", :dashboards_path
+  add_breadcrumb "Dashboard", :cloud_dashboards_path
   def index
     add_breadcrumb "Logs", :root_path
     @nodes = current_user.cloud_books

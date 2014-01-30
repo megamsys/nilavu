@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
           cookies[:remember_token] = user.remember_token
         end
         sign_in user
-        redirect_back_or dashboards_path, :gflash => { :success => { :value => "Welcome #{user.first_name}. Your registered email is #{user.email}, Thank you.", :sticky => false, :nodom_wrap => true } }
+        redirect_back_or cloud_dashboards_path, :gflash => { :success => { :value => "Welcome #{user.first_name}. Your registered email is #{user.email}, Thank you.", :sticky => false, :nodom_wrap => true } }
       else
         flash[:error] = 'Invalid username and password combination'
         render 'new'
@@ -63,7 +63,7 @@ class SessionsController < ApplicationController
 
   def redirect_to_dash(user)
     sign_in user
-    redirect_back_or dashboards_path, :gflash => { :success => { :value => "Welcome #{user.first_name}. Your registered email is #{user.email}, Thank you.", :sticky => false, :nodom_wrap => true } }
+    redirect_back_or cloud_dashboards_path, :gflash => { :success => { :value => "Welcome #{user.first_name}. Your registered email is #{user.email}, Thank you.", :sticky => false, :nodom_wrap => true } }
   end
 
   def destroy

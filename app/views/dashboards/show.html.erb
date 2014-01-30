@@ -1,0 +1,17 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'Dashboard') %>
+
+<%= render :partial => "dashboards/header" , :locals => {:head => "Dashboard"}%>
+
+	<ng-view ng-show="resolved" ng-cloak></ng-view>
+
+
+<% end %>
+
+<script>
+    (function($) {
+      $.Sources = JSON.parse('<%= raw Sources.sources.to_json %> ');
+    $.Books = JSON.parse('<%= raw launched(@user_id).to_json %> ');
+    })($);
+</script>
+<%= render :partial => "dashboards/dashboard_sidebar"%>

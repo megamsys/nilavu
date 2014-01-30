@@ -1,4 +1,3 @@
-<!--<input type="text" ng-model="dashboard_id" value="<%= @id %>">
 <% if @count.to_i > 0 %>
 <div class="row">
 	<div id="main" class="col-md-12">
@@ -7,11 +6,13 @@
 				<h3 class="panel-title">My Dash</h3>
 			</div>
 			<div class="panel-body updates" style="height:400px; overflow-y: scroll; ">
-				<div class="new-update clearfix" ng-repeat="dashboard in dashboards">
+				<% @dashboards.each do |dashboard| %>
+				<div class="new-update clearfix">
 					<i class="icon-ok-sign"></i>
 					<div class="update-done">
-						<a title="" href="/dashboards/{{dashboard.id}}"><strong>{{dashboard.name}}</strong></a>
-						<span>We've just set up a new App using <strong>{{dashboard.predef_name}}</strong></span>
+						<!--<a title="" href="/dashboards/<%= dashboard.id %>"><strong><%= dashboard.name %></strong></a>-->
+						<%= link_to dashboard.name, dashboard_path(dashboard.id),  :target => "_blank" %>
+						<span>We've just set up a new App using <strong><%= dashboard.predef_name %></strong></span>
 					</div>
 					<div class="update-date">
 						<div class="col-md-12">
@@ -20,7 +21,7 @@
 							</div>
 							<div class="col-md-4">
 								<i class="icon-cloud-upload"></i>
-								<span class="update-day-value">{{dashboard.cloud_name}}</span>
+								<span class="update-day-value"><%= dashboard.cloud_name %></span>
 							</div>
 						</div>
 						<br/>
@@ -31,11 +32,12 @@
 							</div>
 							<div class="col-md-6">
 								<i class="icon-calendar"></i>
-								<span class="update-day-value"> {{dashboard.created_at | date:'EEE, dd MMM yyyy HH:mm:ss Z'}} </span>
+								<span class="update-day-value"> <%= dashboard.created_at.to_formatted_s(:rfc822) %> </span>
 							</div>
 						</div>
 					</div>
 				</div>
+				<% end %>
 			</div>
 			<div class="panel-footer">
 				<h4>To see Metrics Click App/Service .....</h4>
@@ -95,4 +97,4 @@
 
 	</div>
 </div>
-<% end %>-->
+<% end %>
