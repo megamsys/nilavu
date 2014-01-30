@@ -3,7 +3,7 @@ class CloudBooksHistoriesController < ApplicationController
   add_breadcrumb "Dashboard", :dashboards_path
   def index
     add_breadcrumb "Logs", :root_path
-    @nodes = current_user.cloud_books
+    @nodes = current_user.cloud_books.order("id DESC").all
     count = @nodes.length
     if count.to_i <= 0   
       redirect_to cloud_books_path, :gflash => { :warning => { :value => "Sorry. No logs available. Please create apps to see them.", :sticky => false, :nodom_wrap => true } }
