@@ -6,11 +6,13 @@
 				<h3 class="panel-title">My Dash</h3>
 			</div>
 			<div class="panel-body updates" style="height:400px; overflow-y: scroll; ">
-				<div class="new-update clearfix" ng-repeat="dashboard in dashboards">
+				<% @dashboards.each do |dashboard| %>
+				<div class="new-update clearfix">
 					<i class="icon-ok-sign"></i>
 					<div class="update-done">
-						<a title="" href="/dashboards/{{dashboard.id}}"><strong>{{dashboard.name}}</strong></a>
-						<span>We've just set up a new App using <strong>{{dashboard.predef_name}}</strong></span>
+						<!--<a title="" href="/dashboards/<%= dashboard.id %>"><strong><%= dashboard.name %></strong></a>-->
+						<%= link_to dashboard.name, dashboard_path(dashboard.id),  :target => "_blank" %>
+						<span>We've just set up a new App using <strong><%= dashboard.predef_name %></strong></span>
 					</div>
 					<div class="update-date">
 						<div class="col-md-12">
@@ -19,7 +21,7 @@
 							</div>
 							<div class="col-md-4">
 								<i class="icon-cloud-upload"></i>
-								<span class="update-day-value">{{dashboard.cloud_name}}</span>
+								<span class="update-day-value"><%= dashboard.cloud_name %></span>
 							</div>
 						</div>
 						<br/>
@@ -30,11 +32,12 @@
 							</div>
 							<div class="col-md-6">
 								<i class="icon-calendar"></i>
-								<span class="update-day-value"> {{dashboard.created_at | date:'EEE, dd MMM yyyy HH:mm:ss Z'}} </span>
+								<span class="update-day-value"> <%= dashboard.created_at.to_formatted_s(:rfc822) %> </span>
 							</div>
 						</div>
 					</div>
 				</div>
+				<% end %>
 			</div>
 			<div class="panel-footer">
 				<h4>To see Metrics Click App/Service .....</h4>
@@ -64,21 +67,21 @@
 									<td><i class="icon-code"> </i>
 									<code>
 										Online code editor
-									</code> <a  href="/cloud_books/new" target="_self" title="Lauch your java app in megam">A simple web app run on Java container in megam.</a>  </td>
+									</code> <%= link_to  "A simple web app run on Java container in megam.", new_cloud_book_path, :target => "_self", title: "Lauch your java app in megam"  %> </td>
 								</tr>
 								<tr>
 									<td><span class="badge badge-info">Ruby</span></td>
 									<td><i class="icon-plus-sign" > </i>
 									<code>
 										Ruby Sample app
-									</code> <a  href="/cloud_books/new" target="_self" title="Lauch your ruby on rails app in megam">A simple general purpose Rails 4.0 web app run on Ruby on Rails container in megam.</a> </td>
+									</code><%= link_to  "A simple general purpose Rails 4.0 web app run on Ruby on Rails container in megam.", new_cloud_book_path, :target => "_self", title: "Lauch your ruby on rails app in megam"  %> </td>
 								</tr>
 								<tr>
 									<td><span class="badge badge-info">Marketplace</span></td>
 									<td><i class="icon-shopping-cart"> </i>
 									<code>
 										Marketplace
-									</code> <a  href="/market_places/new" target="_self" title="Lauch your wordpress app in megam">Wordpress A ready to deploy, general purpose wordpress package with MySQL database.</a></td>
+									</code> <%= link_to  "Wordpress A ready to deploy, general purpose wordpress package with MySQL database.", new_market_place_path, :target => "_self", title: "Lauch your wordpress app in megam"  %> </td>
 
 								</tr>
 							</tbody>

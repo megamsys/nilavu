@@ -181,7 +181,7 @@ class CloudBooksController < ApplicationController
       add_breadcrumb "Manage Apps", cloud_books_path, :target => "_self"
       add_breadcrumb "Apps Framework Selection", new_cloud_book_path, :target => "_self"
     else
-      redirect_to dashboards_path, :gflash => { :warning => { :value => "You need an API key to launch an app. Click Profile from the top, and generate a new API key", :sticky => false, :nodom_wrap => true } }
+      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "You need an API key to launch an app. Click Profile from the top, and generate a new API key", :sticky => false, :nodom_wrap => true } }
     end
   end
 
