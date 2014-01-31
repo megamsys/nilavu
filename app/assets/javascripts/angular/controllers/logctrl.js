@@ -3,7 +3,7 @@ function LogCtrl($scope, socket, $location, LogStackLimit) {
         $scope.total = 0;
         $scope.l_total = 0;
         $scope.prog_bar = "visibility:hidden";
-        $scope.bookName = "Select one book name";
+        $scope.bookName = "Select one App/Service..";
         $scope.sendmessage = function(data) {
                 $scope.prog_bar = "";
                 $scope.logs = [];
@@ -86,4 +86,5 @@ function LogCtrl($scope, socket, $location, LogStackLimit) {
 // init the first active tab
 // $scope.tabManager.select(0);
 // };
+
 

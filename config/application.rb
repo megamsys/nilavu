@@ -70,12 +70,12 @@ module Cloudauth
     config.megam_logo_url   = "https://s3-ap-southeast-1.amazonaws.com/megampub/images/logo-megam160x43w.png"
     config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
     config.ganglia_host     = ENV['GANGLIA_HOST']
-    config.ganglia_base_url = "http://monitor.megam.co.in/ganglia"
+    config.ganglia_base_url = "http://monitor.megam.co/ganglia"
     config.ganglia_cluster = 'EC2'
     config.ganglia_graph_metric  = 'cpu_system'
     config.ganglia_request_metric = 'nginx_requests'
     #config.ganglia_request_metric = 'nginx_status'
-    config.metric_source = 'demo'
+    config.metric_source = 'ganglia'
     
     config.storage_crosscloud = 'cloudkeys'
     config.storage_cloudtool = 'cloudrecipes'

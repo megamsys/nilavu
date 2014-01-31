@@ -12,7 +12,7 @@
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-th-list"></i> </span>
-					<h5>App Name</h5><strong><span class="label label-info"><%= @new_book_name %>.<%= @domain_name %> </span> </strong>
+					<h5>App Name</h5><strong><span class="label label-info"><%= @new_book_name %><%= @domain_name %> </span> </strong>
 				</div>
 				<div class="widget-content">
 					<div class="row">
@@ -25,14 +25,15 @@
 					</div>
 					<div class="row">
 						<div class="form-group">
-							<div class="col-sm-3 col-md-3 col-lg-2">
-							<a class="btn btn-lg btn-primary disabled btn-block" data-name="book_name" data-type="text" href="#" id="identity_new" ><%= @new_book_name %></a>
+							<div class="col-sm-5 col-md-5 col-lg-5">
+								<a class="btn btn-lg btn-primary disabled btn-block" data-name="book_name" data-type="text" href="#" id="identity_new" ><%= @new_book_name %></a>
 							</div>
-							<div class="col-sm-9 col-md-9 col-lg-10">
+							<div class="col-sm-7 col-md-7 col-lg-7">
 								<%= link_to  @domain_name, "#", :class => "btn btn-lg btn-primary disabled btn-block", :id => 'domain'%>
 							</div>
 						</div>
 					</div>
+
 					<br/>
 					<br/>
 					<%= f.text_field :name, :type => 'hidden', :id=> 'changename', :value => @new_book_name %>
@@ -44,7 +45,7 @@
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-th-list"></i> </span>
-					<h5>Cloud selection</h5>
+					<h5>Cloud Selection</h5>
 				</div>
 				<div class="widget-content">
 					<div class="row">
@@ -62,7 +63,7 @@
 							</div>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -70,7 +71,7 @@
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-th-list"></i> </span>
-					<h5>Advanced App settings</h5><strong><span class="label label-info"><%= current_user.user_type %> user</span> </strong>
+					<h5>Advanced App Settings</h5><strong><span class="label label-info"><%= current_user.user_type %> user</span> </strong>
 				</div>
 				<div class="widget-content">
 					<div class="row">
@@ -136,7 +137,7 @@
 		<div class="row">
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
-				<%= f.submit "Launch", :class => "btn btn-lg btn-success btn-block", :data => {:disable_with => "Creating Book..."} %>
+				<%= f.submit "Launch", :class => "btn btn-lg btn-success btn-block", :data => {:disable_with => "Launching App..."} %>
 				<% end %>
 				<br/>
 				</br/>

@@ -25,6 +25,7 @@ module Api
     end
 
     def update
+      logger.debug ("-W-----update---- #{params}")
       dashboard = Dashboard.find(params[:dashboard_id])
       widget = dashboard.widgets.find(params[:id])
       input = JSON.parse(request.body.read.to_s)

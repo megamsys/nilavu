@@ -26,28 +26,27 @@
 										<td><span class="badge badge-info">Marketplace</span></td>
 										<td><i class="icon-shopping-cart"> </i>
 										<code>
-											Marketplace
-										</code> <%= link_to  "Wordpress A ready to deploy, general purpose wordpress package with MySQL database.", new_market_place_path, :target => "_self", title: "Lauch your wordpress app in megam"  %> </td>
+
+											Wordpress
+										</code> <%= link_to  "A ready to deploy, general purpose wordpress package with MySQL database.", new_market_place_path, :target => "_self", title: "Lauch your wordpress app in megam"  %> </td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
 					<div>
-						<i class="icon-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> Launch in cloud. </span>
+						<i class="icon-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> Launch. </span>
 						</br>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<%= form_tag(new_book_path, :method => "post", :name => "predef") do %>
-	<input type="hidden" name="no_of_instances" value=1>
-	<input type="hidden" name="deps_scm" value="">
-	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
-	<div class="row">
-		<% @category.each do |key, value| %>
-		<div class="col-md-5">
+		<div class="col-md-11">
+			<%= form_tag(new_book_path, :method => "post", :name => "predef") do %>
+			<input type="hidden" name="no_of_instances" value=1>
+			<input type="hidden" name="deps_scm" value="">
+			<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
+			<% @category.each do |key, value| %>
 			<div class="widget-box"  >
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-th-list"></i> </span>
@@ -67,14 +66,15 @@
 							<% @products.each do |product| %>
 							<% if cat == product.name %>
 							<tr>
-								<td><i class="logom_<%= product.image_url %>", id =<%= product.name%> ></i></td>
+								<td><i class="logom_<%= product.image_url %>", id =<%= product.name%> ></i></td><dd></dd>
 								<td>
 								<input type="hidden" name="predef_name" value="<%= product.image_url %>">
-								<%= product.description %></td>
+								<%= product.description %></td><dd></dd>
 								<td>
 								<div id=<%= dom_id(product) %>>
 									<%= render :partial => "market_place/add_button", :locals => {:product => product} %>
 								</div></td>
+								<dd/>
 							</tr>
 							<% end %>
 							<% end %>
@@ -83,10 +83,12 @@
 					</table>
 				</div>
 			</div>
+
+			<% end %>
+			<% end %>
 		</div>
-		<% end %>
-		<% end %>
 	</div>
+</div>
 </div>
 
 <% end %>

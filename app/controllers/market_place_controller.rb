@@ -23,7 +23,7 @@ class MarketPlaceController < ApplicationController
         end
       end
     else
-      redirect_to dashboards_path, :gflash => { :warning => { :value => "You need an API key to launch an app from marketplace. Click Profile, and generate a new API key", :sticky => false, :nodom_wrap => true } }
+      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "You need an API key to launch an app from marketplace. Click Profile, and generate a new API key", :sticky => false, :nodom_wrap => true } }
     end
 
   end

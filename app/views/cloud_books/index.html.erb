@@ -8,7 +8,6 @@
 <div class="container">
 	<%= render :partial => "cloud_books/books" , :locals => {:launched_books_quota => @launched_books_quota, :launched_books => @launched_books, :nodes => @nodes } %>
 </div>
-<!-- container -->
 
 <div id="cloudbook_delete_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -43,15 +42,13 @@
 
 				<h3 id="myModalLabel">Clone - App</h3>
 			</div>
-			<%= form_tag(clone_start_path, :method => "post") do %>
+			<%= form_tag(clone_start_path, :method => "post", :remote => true) do %>
 			<div class="modal-body">
 				<% @new_book_name = book_name %>
 				<% @domain_name = ".megam.co" %>
-				<p class="help-block">
-					<strong><span class="label label-warning">*optional</span> Click on the default name to change it</strong>
-				</p>
 				</br>
 				<div class="col-md-8">
+
 					<div class="col-md-6">
 						<!--<%= link_to  @new_book_name, "#", :id => "identity_new", :onchange => "angular.element(this).scope().fileNameChaged()", :class => "btn btn-large btn-primary disabled btn-block", :data => { :type => 'text', :name => 'book_name'} %>-->
 						<a class="btn btn-lg btn-primary disabled btn-block" data-name="book_name" data-type="text" href="#" id="identity_new" ><%= @new_book_name %></a>
@@ -60,21 +57,76 @@
 						<%= link_to @domain_name, "#", :class => "btn btn-lg btn-primary disabled btn-block", :id => 'domain'%>
 					</div>
 				</div>
+				<br/><br/>
+				<div class="row">
+					<div class="col-md-6"> <%= label_tag 'Number_of_clones' %> </div>
+					<div class="col-md-6"> <%= number_field_tag 'noofinstances', 1, in: 1...10 %> </div>
+				</div>
 
 				<%= hidden_field_tag 'new_name', @new_book_name, :id=> 'changename' %>
 				<%= hidden_field_tag 'domain_name', @domain_name %>
 				<input type="hidden" id="clone_name" name="clone_name" value="">
 				<br/>
-				<%= number_field_tag 'noofinstances', nil, in: 1...10 %>
 			</div>
 			<div class="modal-footer">
-				<%= submit_tag "OK", :class => "btn btn-lg btn-success btn-block" %>
+				<%= submit_tag "OK", :class => "btn btn-primary", data: { disable_with: "Please wait..." } %>
 			</div>
 			<% end %>
 		</div>
 	</div>
 </div>
-<!-- container -->
+
+
+<div id="clone_postfinish_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">App</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-success">
+					<p>
+						App launch was submitted to the megam cloud gateway successfully. It typically takes a few minutes to run it on the cloud.
+						</br>
+						</br>
+						<span class="label label-info">Logs</span>&nbsp;streams the status of launch.</strong>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary", :target => "_self" %>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="clone_postfinish_popup_error" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">App</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-danger">
+					<p>
+						App launch to the megam cloud gateway was not successful.
+						</br>
+						<div id="err_msg"></div>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<%= link_to  "Ok", new_cloud_book_path, :class => "btn btn-primary", :target => "_self" %>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 <% end %>
 <%= render :template => users_show_path %>

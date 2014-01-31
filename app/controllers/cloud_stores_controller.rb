@@ -1,52 +1,49 @@
 class CloudStoresController < ApplicationController
+  respond_to :html, :js
+  
   def index
-    if current_user.cloud_books && current_user.cloud_books.find_by_book_type("BOLT")
       breadcrumbs.add "Home", "#"
-      breadcrumbs.add "Manage Services", cloud_stores_path
-      @cloud_stores = current_user.cloud_books.where(:book_type => 'BOLT')
-    else
-      redirect_to new_cloud_store_path, :gflash => { :success => { :value => "Create your first service.", :sticky => false, :nodom_wrap => true } }
-    end
-    end
-=begin    
-  def index
-    breadcrumbs.add "Database", cloud_stores_path
-    if current_user.cloud_books && current_user.cloud_books.find_by_book_type("BOLT")
-      cloud_stores = current_user.cloud_books.where(:book_type => 'BOLT')
+      breadcrumbs.add "Database", cloud_stores_path
+       cloud_books = current_user.cloud_books.where(:book_type => 'BOLT')
+    if cloud_books.any?
+      add_breadcrumb "Home", "#", :target => "_self"
+      add_breadcrumb "Manage Services", cloud_stores_path, :target => "_self"
       @nodes = FindNodesByEmail.perform({},current_user.email, current_user.api_token)
       if @nodes.class == Megam::Error
-        redirect_to cloud_stores_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-      else
-        book_names = cloud_stores.map {|c| c.name}
+        redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      else             
+        book_names = cloud_books.map {|c| c.group_name}
+        book_names = book_names.uniq
         grouped = book_names.inject({}) do |base, b| #the grouped has a short_name/Megam::Nodes collection
           group = @nodes.select{|n| n.node_name =~ /^#{b}/}
           base[b] ||= []
           base[b] << group
           base
-        end
+        end        
         @launched_books = Hash[grouped.map {|key, value| [key, value.flatten.map {|vn| vn.node_name}]}]
-        @launched_books_quota = @nodes.all_nodes.length
-      end
-    else
-      @launched_books = {}
-      @launched_books_quota = 0
-      redirect_to cloud_store_path, :gflash => { :success => { :value => "Create Your First Store.", :sticky => false, :nodom_wrap => true } }
+        @launched_books_quota = @nodes.all_nodes.length 
+      end           
+    else    
+      redirect_to new_cloud_store_path
     end
-  end
-=end
+ end
+
+
   def new
     logger.debug "Cloud Store new  ==> "
-    breadcrumbs.add "Home", "#"
-    breadcrumbs.add "Manage Services", cross_clouds_path
-    breadcrumbs.add "New", new_cross_cloud_path
+    breadcrumbs.add "Home", "#", :target => "_self"
+    breadcrumbs.add "Database", cloud_stores_path, :target => "_self"
+    breadcrumbs.add "New", new_cloud_store_path, :target => "_self"
   end
 
   def new_store
     logger.debug "New Store init Params ==> "
     logger.debug "#{params}"
-    breadcrumbs.add "Home", "#"
-    breadcrumbs.add "Manage Services", cloud_stores_path
-    breadcrumbs.add "New", new_cloud_store_path
+    breadcrumbs.add "Home", "#", :target => "_self"
+    breadcrumbs.add "Database", cloud_stores_path, :target => "_self"
+    breadcrumbs.add "New", new_cloud_store_path, :target => "_self"
+    breadcrumbs.add "Step 2", new_store_path, :target => "_self"
+
     @db_model = params[:db_model]
     @dbms = params[:dbms]
     @book =  current_user.cloud_books.build
@@ -75,5 +72,30 @@ class CloudStoresController < ApplicationController
   end
 
   def show
+    wparams = {:node => "#{params[:name]}" }
+    #look at storing in a local session, as we are redoing it. 
+    # The node json is getting heavy as well    
+    @node = FindNodeByName.perform(wparams,force_api[:email],force_api[:api_key])
+    logger.debug "--> CloudBooks:show, found node #{wparams[:node]}"
+    if @node.class == Megam::Error
+      @res_msg="We went into nirvana, finding node #{wparams[:node]}. Open up a support ticket. We'll investigate its disappearence #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      respond_to do |format|
+        format.js {
+          respond_with(@res_msg, :layout => !request.xhr? )
+        }
+      end
+    else
+      @requests = GetRequestsByNode.perform(wparams,force_api[:email], force_api[:api_key])  #no error checking for GetRequestsByNode ? 
+      @book_requests =  GetDefnRequestsByNode.send(params[:book_type].downcase.to_sym, wparams,force_api[:email], force_api[:api_key])
+      if @book_requests.class == Megam::Error
+        @book_requests={"results" => {"req_type" => "", "create_at" => "", "lc_apply" => "", "lc_additional" => "", "lc_when" => ""}}
+      end
+      @cloud_book = @node.lookup("#{params[:name]}")
+      respond_to do |format|
+        format.js {
+          respond_with(@cloud_book, @requests, @book_requests, :layout => !request.xhr? )
+        }
+      end
+    end
   end
 end

@@ -1,22 +1,16 @@
 class CloudBooksHistoriesController < ApplicationController
   respond_to :js, :html
+
   def index
-    breadcrumbs.add "Dashboard", :dashboards_path
-
-    if current_user.cloud_books.any?
-      breadcrumbs.add "Logs", :root_path
-      cloud_books = current_user.cloud_books
-      @nodes = FindNodesByEmail.perform({},current_user.email, current_user.api_token)
-      if @nodes.class == Megam::Error
-        redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-      end
-
-    else
+    breadcrumbs.add "Dashboard", :cloud_dashboards_path
+    breadcrumbs.add "Logs", :root_path
+    @nodes = current_user.cloud_books.order("id DESC").all
+    count = @nodes.length
+    if count.to_i <= 0   
       redirect_to cloud_books_path, :gflash => { :warning => { :value => "Sorry. No logs available. Please create apps to see them.", :sticky => false, :nodom_wrap => true } }
     end
-  #@books = current_user.cloud_books.all
-  #@books = @cloud_books.cloud_books_histories
   end
+
 
   def new
   end

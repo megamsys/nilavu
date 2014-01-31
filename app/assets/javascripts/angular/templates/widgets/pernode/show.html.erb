@@ -1,77 +1,76 @@
-<div class="col-md-4" >
-		<div class="btn-group" title="Select a source to watch METRICS" class="tip-bottom">
-			<button class="btn btn-default btn-lg">
-				Sources
-			</button>
-			<button data-toggle="dropdown" class="btn btn-default btn-lg dropdown-toggle">
-				<span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" >
-				<li ng-repeat="i in sources">
-					<a href="#" ng-click="update_widget_source(i.value, widget)">{{i.value}}</a>
-				</li>
-			</ul>
-		</div>
-</div>
-<!--
-	to-do: connect ngclick to the <ahref in the title
-<div class="col-md-4 col-md-offset1">
-	<div class="btn-toolbar">
-		<div class="btn-group" title="" class="tip-bottom">
-			<button class="btn btn-default btn-lg" >
-				Metrics
-			</button>
-			<button data-toggle="dropdown" class="btn btn-default btn-lg dropdown-toggle" >
-				<span class="caret"></span>
-			</button>
-			<ul class="dropdown-menu" >
-				<li ng-repeat="i in metrics">
-					<a href="#" ng-click="update_widget_metrics(i.value, widget)">{{i.value}}</a>
-				</li>
-			</ul>
+<input type="hidden" value="cpu_system" ng-model="xaxis_label" />
+
+
+<div class="widget-box">
+	<div class="widget-title">
+		<span class="icon"><i class="fa fa-signal"></i></span>
+		<h5>Site Statistics</h5>
+		<div class="buttons">
+			<a href="#" class="btn" ng-click="update_widget_metrics('cpu', widget)">Update cpu load</a>
+			<a href="#" class="btn" ng-click="update_widget_metrics('http requests', widget)">Update http requests</a>
 		</div>
 	</div>
-</div>
--->
-<hr/>
-<div class="row">
-	<div class="col-md-6" >
-		<ul class="site-stats">
-			<li>
-				<i class="icon-user"></i><strong>{{uptime_data}}</strong><small>Total Uptime(days)</small>
-			</li>
-		</ul>
+	<div class="widget-content">
+		<div class="row">
+			<div class="col-xs-11 col-sm-4">
+				<br/>
+				<ul class="site-stats">
+					<li>
+						<div class="cc">
+							<i class="fa fa-user"></i><strong>{{uptime_data}}</strong><small>Total Uptime(days)</small>
+						</div>
+					</li>
+					<li>
+						<div class="cc">
+							<i class="fa fa-arrow-right"></i><strong>{{rpm_data}}</strong><small>Requests Served(rpm)</small>
+						</div>
+					</li>
+					<li class="divider"></li>
+					<li>
+						<div class="cc">
+							<i class="fa fa-shopping-cart"></i><strong>{{new_books}}</strong><small>New Books (last week)</small>
+						</div>
+					</li>
+					<li>
+						<div class="cc">
+							<i class="fa fa-tag"></i><strong>{{total_books}}</strong><small>Total Books</small>
+						</div>
+					</li>
+					<li>
+						<div class="cc">
+							<i class="fa fa-repeat"></i><strong>{{total_queues}}</strong><small>Total Queue Messages</small>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="col-xs-11 col-sm-8">
+				<div class="row">
+					<ul class="pagination">
+						<li class="active">
+							<a href="#">Last</a>
+						</li>
+						<li >
+							<a href="#" ng-click="update_widget_range('hour', widget)">hour</a>
+						</li>
+						<li>
+							<a href="#" ng-click="update_widget_range('2hr', widget)">2hr</a>
+						</li>
+						<li>
+							<a href="#" ng-click="update_widget_range('4hr', widget)">4hr</a>
+						</li>
+						<li>
+							<a href="#" ng-click="update_widget_range('day', widget)">day</a>
+						</li>
+						<li>
+							<a href="#" ng-click="update_widget_range('week', widget)">week</a>
+						</li>
+						<li>
+							<a href="#" ng-click="update_widget_range('month', widget)">month</a>
+						</li>
+					</ul>
+				</div>
+				<div id="graph_placeholder"></div>
+			</div>
+		</div>
 	</div>
-
-	<div class="col-md-5">
-		<ul class="site-stats">
-			<li>
-				<i class="icon-user"></i><strong>{{rpm_data}}</strong><small>Requests Served(rpm)</small>
-			</li>
-		</ul>
-	</div>
 </div>
-<div class="row">
-	<div class="col-md-3">
-		<ul class="quick-actions">
-			<li>
-				<a href="#" ng-click="update_widget_range('30-minutes', widget)">
-					<i class="icon-graph"></i>LAST 30-minutes</a>
-			</li>
-		</ul>
-		<ul class="quick-actions">
-			<li>
-				<a href="#" ng-click="update_widget_range('60-minutes', widget)">
-					<i class="icon-graph"></i>LAST 60-minutes</a>
-			</li>
-		</ul>
-		<ul class="quick-actions">
-			<li>
-				<a href="#" ng-click="update_widget_range('1-hours', widget)">
-					<i class="icon-graph"></i>LAST 1-hour</a>
-			</li>
-		</ul>
-	</div>
-<!-- 	<div class="col-md-4" id="graph_placeholder" style=" height: 320px;" ></div> -->
-</div>
-

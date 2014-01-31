@@ -1,87 +1,57 @@
-{{button}}
-<div class="widget-box">
-	<div class="widget-title">
-		<span class="icon"><i class="icon-signal"></i></span><h5>Summary</h5>
-		<span class="title"><img ng-show="enableSpinner" class="ajax-spinner" width="12" height="12" src="<%= asset_path('openup_spinner.gif') %>"></img></span>
-	</div>
-	<div class="widget-content">
+<div id="content-header" class="mini">
+	<ul class="mini-stats box-3">
+		<div class="widget" ng-repeat="widget in widgets" widgetsummary></div>	
+	</ul>
+</div>
+<div id="dashboard_breadcrumb">
+	<a href="#overview" class="current">Overview</a>
+	<a href="#process">Processes</a>
+	<a href="#" >Networks</a>
+	<a href="#" >Disks</a>
+</div>
+<div class="container" id="overview" class="toggle" style="display:none" ng-cloak>
+		<input type="hidden" ng-model="dashboard_id" value="<%= @id %>">		
 		<div class="row">
 			<div class="col-md-11">
-				<div class="widget" ng-repeat="widget in widgets" widgetsummary/>
+				<div class="widget-box">
+					<div class="widget-title">
+						<span class="icon"><i class="icon-signal"></i></span><h5>Live Monitor & Metrics</h5>
+						<span class="title"><img ng-show="enableSpinner" class="ajax-spinner" width="12" height="12" src="<%= asset_path('openup_spinner.gif') %>"></img></span>
+					</div>
+					<div class="widget-content">
+							<div class="widget" ng-repeat="widget in widgets" widgetpernode></div>
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+<div class="container" class="toggle" style="display:none" id="process">
+	<div class="row">
+		<input type="hidden" ng-model="dashboard_id" value="<%= @id %>">
+		<div class="col-md-11">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"><i class="icon-signal"></i></span><h5>Live Monitor & Metrics</h5>
+					<span class="title"><img ng-show="enableSpinner" class="ajax-spinner" width="12" height="12" src="<%= asset_path('openup_spinner.gif') %>"></img></span>
+				</div>
+				<div class="widget-content">
+					<div class="widget" ng-repeat="widget in widgets" widgetpernode></div>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </div>
 
-<div class="widget-box">
-	<div class="widget-title">
-		<span class="icon"><i class="icon-signal"></i></span><h5>Live Monitor & Metrics</h5>
-		<span class="title"><img ng-show="enableSpinner" class="ajax-spinner" width="12" height="12" src="<%= asset_path('openup_spinner.gif') %>"></img></span>
-	</div>
-	<div class="widget-content">
-			<div class="row">
-				<div class="col-md-11">
-					<div class="alert alert-info">
-						Welcome in the <strong>Unicorn Admin Theme</strong>. Don't forget to check all the pages! <a href="#" data-dismiss="alert" class="close">×</a>
-					</div>
-					<div class="widget-box">
-						<div class="widget-title">
-							<span class="icon"><i class="fa fa-signal"></i></span>
-							<h5>Site Statistics</h5>
-							<div class="buttons">
-								<select>
-									<option ng-repeat="b in a_books"><a href="/dashboards/{{dashboard_id}}/{{b.value}}" ng-click="sm_view()">{{b.value}}</a></option>
-								</select>
-								<a href="#" class="btn"><i class="fa fa-refresh"></i> <span class="text">Update cpu load</span></a>
-								<a href="#" class="btn"><i class="fa fa-refresh"></i> <span class="text">Update http requests</span></a>
-							</div>
-						</div>
-						<div class="widget-content">
-							<div class="row">
-								<div class="col-md-4 col-xs-4 col-sm-3">
-									<ul class="site-stats">
-										<li>
-											<div class="cc">
-												<i class="fa fa-user"></i><strong>1433</strong><small>Total Users</small>
-											</div>
-										</li>
-										<li>
-											<div class="cc">
-												<i class="fa fa-arrow-right"></i><strong>16</strong><small>New Users (last week)</small>
-											</div>
-										</li>
-										<li class="divider"></li>
-										<li>
-											<div class="cc">
-												<i class="fa fa-shopping-cart"></i><strong>259</strong><small>Total Shop Items</small>
-											</div>
-										</li>
-										<li>
-											<div class="cc">
-												<i class="fa fa-tag"></i><strong>8650</strong><small>Total Orders</small>
-											</div>
-										</li>
-										<li>
-											<div class="cc">
-												<i class="fa fa-repeat"></i><strong>29</strong><small>Pending Orders</small>
-											</div>
-										</li>
-									</ul>
-								</div>
-								<div class="col-md-7 col-xs-7 col-sm-7">
-									<div id="graph_placeholder"></div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<div class="widget" ng-repeat="widget in widgets" widgetpernode/>
-				</div>
-			</div>
-		</div>
-</div>
-</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#overview").show();
+        $("#dashboard_breadcrumb a").click(function(e) {
+            e.preventDefault();
+            $("#overview").hide();
+            $("#process").hide();
+            var toShow = $(this).attr('href');
+            $(toShow).show();
+        });
+    });
+
+</script>

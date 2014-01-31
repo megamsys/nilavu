@@ -1,0 +1,115 @@
+<div class="row">
+	<div class="col-md-6">
+		<div class="widget-box">
+			<div class="widget-title">
+				<span class="icon"> <i class="icon-th-list"></i> </span>
+				<h5>Service</h5>
+			</div>
+			<div class="widget-content nopadding">
+				<table class="table table-bordered table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<tr>
+							<td><b>Name</b></td><td> <%= cloud_book.node_name %></td>
+						</tr>
+
+						<tr>
+							<td><b>Type</b></td><td> <%= cloud_book.node_type %></td>
+						</tr>
+						<tr>
+
+							<td><b>Framework</b></td><td> <%= cloud_book.predefs[:name] %></td>
+						</tr>
+						<% if !cloud_book.predefs[:war].blank? %>
+						<tr>
+							<td><b>WAR</b></td><td> <%= cloud_book.predefs[:war] if cloud_book.predefs[:scm].present? %></td>
+						</tr>
+						<% end %>
+						<tr>
+							<td><b>Status</b></td><td> <%= cloud_book.status %></td>
+						</tr>
+
+					</tbody>
+
+				</table>
+			</div>
+		</div>
+	</div>
+	<!--
+	<div class="col-md-6">
+		<div class="widget-box">
+			<div class="widget-title">
+				<span class="icon"> <i class="icon-th-list"></i> </span>
+				<h5>Cloud Book Requests</h5>
+			</div>
+			<div class="widget-content nopadding" style="overflow-y: scroll; height: 100px;">
+				<table class="table table-bordered table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Request Type</th>
+							<th>Created At</th>
+							<th>Launched At</th>
+							<th>Destroy</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<% requests.each do |cb| %>
+						<tr>
+							<td> <%= cb.req_type %> </td>
+							<td> <%= cb.created_at.to_datetime.to_formatted_s(:rfc822) %> </td>
+							<td> <%= cb.command['compute']['cctype'] %> </td>
+							<td> <%= link_to "more", "#", class: "btn btn-mini btn-success more_command", :id => "#{cb.command}" %> </td>
+
+						</tr>
+						<% end %>
+					</tbody>
+
+				</table>
+			</div>
+		</div>
+	</div>
+-->
+	<div class="col-md-6">
+		<div class="widget-box">
+			<div class="widget-title">
+				<span class="icon"> <i class="icon-th-list"></i> </span>
+				<h5>Service Lifecycle</h5>
+			</div>
+			<div class="widget-content nopadding" style="overflow-y: scroll; height: 100px;">
+				<table class="table table-bordered table-striped table-hover">
+					<thead>
+						<tr>
+							<th>Request Type</th>
+							<th>Created At</th>
+							<th>Lifecycle_apply</th>
+							<th>Lifecycle_additional</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<% if "#{book_requests.class}".start_with?("Megam::") %>
+						<% book_requests.each do |cb| %>
+						<tr>
+							<td> <%= cb.req_type %> </td>
+							<td> <%= cb.created_at.to_datetime.to_formatted_s(:rfc822) %> </td>
+							<td> <%= cb.lc_apply %> </td>
+							<td> <%= cb.lc_additional %> </td>
+						</tr>
+						<% end %>
+						<% end %>
+					</tbody>
+
+				</table>
+			</div>
+		</div>
+	</div>
+
+</div>
+

@@ -2,16 +2,24 @@ module Api
   class DashboardsController < ApplicationController
     respond_to :json, :html
     def show
-      dashboard = Dashboard.find(params[:id])
+      #dashboard = Dashboard.find(params[:id])
+      dashboard = CloudBook.find(params[:id])
       respond_with dashboard
     end
 
-    def index
-      
+    def index      
        @user_id = current_user.id
-       dashboards = Dashboard.find_by_user_id(@user_id)
+       #dashboards = Dashboard.find_by_user_id(@user_id)
+        dashboards = current_user.cloud_books        
       respond_with dashboards
     end
+
+   def dash_show
+      @user_id = current_user.id
+       #dashboards = Dashboard.find_by_user_id(@user_id)
+        dashboards = current_user.cloud_books        
+      respond_with dashboards
+   end
 
     def create
       input = JSON.parse(request.body.read.to_s)
@@ -24,7 +32,8 @@ module Api
     end
 
     def update
-      dashboard = Dashboard.find(params[:id])
+      #dashboard = Dashboard.find(params[:id])
+      dashboard = CloudBook.find(params[:id])
       input = JSON.parse(request.body.read.to_s)
       if dashboard.update_attributes(input.slice(*Dashboard.accessible_attributes))
         render :json => dashboard

@@ -1,13 +1,14 @@
 class CloudBooksController < ApplicationController
   respond_to :html, :js
   include Packable
-
+  include CloudBooksHelper
   
   def index
-    cloud_books = current_user.cloud_books.where(:book_type => 'APP')
+    cloud_books = current_user.cloud_books.where(:book_type => 'APP').order("id DESC").all
     if cloud_books.any?
-      breadcrumbs.add "Home", "#"      
-      breadcrumbs.add "Manage Apps", cloud_books_path      
+      breadcrumbs.add "Home", "#", :target => "_self"      
+      breadcrumbs.add "Manage Apps", cloud_books_path, :target => "_self"      
+
       @nodes = FindNodesByEmail.perform({},current_user.email, current_user.api_token)
       if @nodes.class == Megam::Error
         redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
@@ -93,7 +94,6 @@ class CloudBooksController < ApplicationController
     wparams = { :node => "#{params[:clone_name]}" }
     @clone_nodes =  FindNodeByName.perform(wparams, force_api[:email],force_api[:api_key])
     logger.debug "CloudBooks:clone_start, found the node"
-    
     if @clone_nodes.class == Megam::Error
       @res_msg="Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
       respond_to do |format|
@@ -104,7 +104,7 @@ class CloudBooksController < ApplicationController
     else
       @clone_node = @clone_nodes.lookup("#{params[:clone_name]}")
       node_hash = {
-        "node_name" => "#{params[:new_name]}",
+        "node_name" => "#{params[:new_name]}#{params[:domain_name]}",
         "node_type" => "#{@clone_node.node_type}",
         "req_type" => "#{@clone_node.request[:req_type]}",
         "noofinstances" => params[:noofinstances].to_i,
@@ -115,24 +115,52 @@ class CloudBooksController < ApplicationController
         "appreq" => {},
         "boltreq" => {}
       }
+     @predef_name = @clone_node.predefs[:name]
+      predef_options = {:predef_name => @predef_name}
+      pred = FindPredefsByName.perform(predef_options,force_api[:email],force_api[:api_key])
+      if pred.class == Megam::Error
+        redirect_to cloud_books_path, :gflash => { :warning => { :value => "#{pred.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      else
+        @predef = pred.lookup(@predef_name)
+      end
+      
+      runtime_exec = @predef.runtime_exec
+       if @clone_node.node_type == "APP"
+        if @clone_node.predefs[:scm].length > 0
+          runtime_exec = change_runtime(@clone_node.predefs[:scm], @predef.runtime_exec)
+        end
+        if @clone_node.predefs[:war].length > 0
+          runtime_exec = change_runtime(@clone_node.predefs[:war], @predef.runtime_exec)
+        end
+        #node_hash["appdefns"] = {"timetokill" => "#{data[:timetokill]}", "metered" => "#{data[:metered]}", "logging" => "#{data[:logging]}", "runtime_exec" => "#{data[:runtime_exec]}"}
+        node_hash["appdefns"] = {"timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => "#{runtime_exec}"}
+      end
+      if @clone_node.node_type == "BOLT"
+        #node_hash["boltdefns"] = {"username" => "#{data['user_name']}", "apikey" => "#{data['password']}", "store_name" => "#{data['store_name']}", "url" => "#{data['url']}", "prime" => "#{data['prime']}", "timetokill" => "#{data['timetokill']}", "metered" => "#{data['monitoring']}", "logging" => "#{data['logging']}", "runtime_exec" => "#{data['runtime_exec']}" }
+      end
+      
+      
+      
       wparams = {:node => node_hash }
       @node = CreateNodes.perform(wparams,force_api[:email], force_api[:api_key])
       if @node.class == Megam::Error
-        @res_msg="Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
-        respond_to do |format|
-          format.js {
-            respond_with(@res_msg, :layout => !request.xhr? )
-          }
-        end
+      @res_msg="#{node_hash.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      respond_to do |format|
+        format.js {
+          respond_with(@res_msg, :layout => !request.xhr? )
+        }
+      end
       else
-
-        @book = current_user.cloud_books.create(:name => params[:new_name], :predef_name => @clone_node.predefs[:name], :book_type => @clone_node.node_type, :domain_name => params[:domain_name], :predef_cloud_name => "default" )
+        @node.each do |node|       
+        res = node.some_msg[:msg][node.some_msg[:msg].index("{")..node.some_msg[:msg].index("}")] 
+        res_hash = eval(res)   
+        book_params={:name=> "#{res_hash[:node_name]}", :domain_name=> "#{params[:domain_name]}", :predef_cloud_name => "default", :predef_name=> "#{@clone_node.predefs[:name]}", :book_type=> "#{@clone_node.node_type}", :group_name => "#{params[:new_name]}"}                  
+        @book = current_user.cloud_books.create(book_params)
         @book.save
-        params = {:book_name => "#{@book.name}#{@book.domain_name}", :request_id => "req_id", :status => "status"}
+        params = {:book_name => "#{@book.name}", :request_id => "#{res_hash[:req_id]}", :status => "created", :group_name => "#{@book.domain_name}"}
         @history = @book.cloud_books_histories.create(params)
         @history.save
-
-        redirect_to cloud_books_path, :gflash => { :success => { :value => "Cloud book cloned successfully", :sticky => false, :nodom_wrap => true } }
+        end
       end
     end
   end
@@ -147,19 +175,24 @@ class CloudBooksController < ApplicationController
   end
 
   def new
+  
     if current_user.onboarded_api
       @book =  current_user.cloud_books.build
-      breadcrumbs.add "Manage Apps", cloud_books_path
-      breadcrumbs.add "Apps Framework Selection", new_cloud_book_path
+      breadcrumbs.add "Home", "#", :target => "_self"
+      breadcrumbs.add "Manage Apps", cloud_books_path, :target => "_self" 
+      breadcrumbs.add "Apps Framework Selection", new_cloud_book_path, :target => "_self"
+
     else
-      redirect_to dashboards_path, :gflash => { :warning => { :value => "You need an API key to launch an app. Click Profile from the top, and generate a new API key", :sticky => false, :nodom_wrap => true } }
+      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "You need an API key to launch an app. Click Profile from the top, and generate a new API key", :sticky => false, :nodom_wrap => true } }
     end
   end
 
   def new_book
-    breadcrumbs.add "Manage Apps", cloud_books_path
-    breadcrumbs.add "Apps Framework Selection", new_cloud_book_path
-    breadcrumbs.add "Create Apps", new_book_path
+    breadcrumbs.add "Home", "#", :target => "_self"
+    breadcrumbs.add "Manage Apps", cloud_books_path, :target => "_self"
+    breadcrumbs.add "Apps Framework Selection", new_cloud_book_path, :target => "_self"
+    breadcrumbs.add "New", new_book_path
+
    if"#{params[:deps_scm]}".strip.length != 0
       @deps_scm = "#{params[:deps_scm]}"
     elsif !"#{params[:scm]}".start_with?("select")
@@ -186,6 +219,12 @@ class CloudBooksController < ApplicationController
 
   def create
     data={:book_name => params[:cloud_book][:name], :book_type => params[:cloud_book][:book_type] , :predef_cloud_name => params[:cloud_book][:predef_cloud_name], :provider => params[:predef][:provider], :repo => 'default_chef', :provider_role => params[:predef][:provider_role], :domain_name => params[:cloud_book][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}"}
+   if params[:cloud_book][:book_type] == "BOLT"
+     data['user_name'] = params[:user_name]
+     data['password'] = params[:password]
+     data['store_db_name'] = params[:store_db_name]
+     data['url'] = params[:url]
+    end
     options = {:data => data, :group => "server", :action => "create" }
     node_hash=MakeNode.perform(options, force_api[:email], force_api[:api_key]) 
     if node_hash.class == Megam::Error
@@ -207,17 +246,42 @@ class CloudBooksController < ApplicationController
         end
       else
         @node.each do |node|       
-        res = node.some_msg[:msg][node.some_msg[:msg].index("{")..node.some_msg[:msg].index("}")]        
-        res_hash = eval(res)       
-        book_params={:name=> "#{res_hash[:node_name]}", :domain_name=> "#{params[:cloud_book]['domain_name']}", :predef_cloud_name => "#{params[:cloud_book]['predef_cloud_name']}", :predef_name=> "#{params[:cloud_book]['predef_name']}", :book_type=> "#{params[:cloud_book]['book_type']}", :group_name => "#{params[:cloud_book]['name']}"}                  
+        res = node.some_msg[:msg][node.some_msg[:msg].index("{")..node.some_msg[:msg].index("}")]       
+        res_hash = eval(res)                  
+        book_params={:name=> "#{res_hash[:node_name]}", :domain_name=> "#{params[:cloud_book]['domain_name']}", :predef_cloud_name => "#{params[:cloud_book]['predef_cloud_name']}", :predef_name=> "#{params[:cloud_book]['predef_name']}", :book_type=> "#{params[:cloud_book]['book_type']}", :group_name => "#{params[:cloud_book]['name']}", :cloud_name => "#{node_hash["command"]["compute"]["cctype"]}"}                  
         @book = current_user.cloud_books.create(book_params)
         @book.save
         params = {:book_name => "#{@book.name}", :request_id => "#{res_hash[:req_id]}", :status => "created", :group_name => "#{@book.domain_name}"}
         @history = @book.cloud_books_histories.create(params)
         @history.save
+        dash(@book)
         end  
       end
     end
+  end
+
+  def dash(book)
+    #@dashboard=@user.dashboards.create(:name=> first_name)
+    # Move the widgets creation to widgets model and use mass insert
+    #inserts = []
+    # TIMES.times do
+    #inserts.push "(3.0, '2009-01-23 20:21:13', 2, 1)"
+    # end
+    # sql = "INSERT INTO widgets (`name`, `datapoints`, 'source`, `widget_type`) VALUES #{inserts.join(", ")}"
+    ##
+    book_source = Rails.configuration.metric_source
+    @widget=@book.widgets.create(:name=>"graph", :kind=>"datapoints", :source=>book_source, :widget_type=>"pernode", :range=>"hour", :targets => "cpu_system")
+    #@widget=@book.widgets.create(:name=>"totalbooks", :kind=>"totalbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
+    #@widget=@book.widgets.create(:name=>"newbooks", :kind=>"newbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
+    #@widget=@dashboard.widgets.create(:name=>"requests", :kind=>"requests", :source=>book_source, :widget_type=>"pernode")
+    #@widget=@dashboard.widgets.create(:name=>"uptime", :kind=>"uptime", :source=>book_source, :widget_type=>"pernode")
+    #@widget=@book.widgets.create(:name=>"queue", :kind=>"queue", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
+    @widget=@book.widgets.create(:name=>"runningbooks", :kind=>"runningbooks", :source=>book_source, :widget_type=>"summary", :range=>"hour")
+    @widget=@book.widgets.create(:name=>"cumulativeuptime", :kind=>"cumulativeuptime", :source=>book_source, :widget_type=>"summary", :range=>"hour")
+    #@widget=@dashboard.widgets.create(:name=>"requestserved", :kind=>"requestserved", :source=>book_source, :widget_type=>"pernode")
+    @widget=@book.widgets.create(:name=>"queuetraffic", :kind=>"queuetraffic", :source=>book_source, :widget_type=>"summary", :range=>"hour")
+  #@dashboard = Dashboard.new(:name=> params[:first_name], :user_id => current_user.id)
+
   end
 
   def show

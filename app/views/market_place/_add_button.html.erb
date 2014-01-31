@@ -1,1 +1,5 @@
-<%= link_to "Launch", new_book_path(:predef_name => Product.find(product).image_url, :no_of_instances => 1, :deps_scm => ""), class: "btn btn-success btn-sm", :method => :post %>
+<% if Product.find(product).category == "Services" %>
+<%= link_to "Launch", new_store_path(:dbms => Product.find(product).image_url, :no_of_instances => 1, :db_model => "full"), class: "btn btn-success btn-sm btn-block", :method => :post %>
+<% else %>
+<%= link_to "Launch", new_book_path(:predef_name => Product.find(product).image_url, :no_of_instances => 1, :deps_scm => ""), class: "btn btn-success btn-sm btn-block", :method => :post %>
+<% end %>

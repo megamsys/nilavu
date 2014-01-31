@@ -71,16 +71,16 @@ class UsersController < ApplicationController
       force_api(@user.email, api_token)
       options = { :id => @user.id, :email => @user.email, :api_key => api_token, :authority => "admin" }
       res_body = CreateAccounts.perform(options)
-      dash(params[:user][:first_name])
+      #dash(params[:user][:first_name])
 
       if !(res_body.class == Megam::Error)
         #update current user as onboard user(megam_api user)
         logger.debug "==> Controller: users, Action: create, User onboarded successfully"
         @user.update_columns(:onboarded_api => true, :api_token => api_token)
-        redirect_to dashboards_path, :gflash => { :success => { :value => "Hi #{@user.first_name}, #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        redirect_to cloud_dashboards_path, :gflash => { :success => { :value => "Hi #{@user.first_name}, #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
         logger.debug "==> Controller: users, Action: create, User onboard was not successful"
-        redirect_to dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onbodard #{@user.email}. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onbodard #{@user.email}. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       end
 
     else
@@ -105,7 +105,7 @@ class UsersController < ApplicationController
 
   def upgrade
     logger.debug "==> Controller: users, Action: upgrade, Upgrade user from free to paid"
-    breadcrumbs.add "Dashboard", dashboards_path
+    breadcrumbs.add "Dashboard", cloud_dashboards_path
     breadcrumbs.add "Upgrade", upgrade_path
   end
 
@@ -144,7 +144,7 @@ class UsersController < ApplicationController
             }
           end
         else
-          redirect_to dashboards_path
+          redirect_to cloud_dashboards_path
         end
       else
         render 'edit'
@@ -162,31 +162,7 @@ class UsersController < ApplicationController
     UserMailer.contact_email(params).deliver
   end
 
-  private
-
-  def dash(first_name)
-    @dashboard=@user.dashboards.create(:name=> first_name)
-    # Move the widgets creation to widgets model and use mass insert
-    #inserts = []
-    # TIMES.times do
-    #inserts.push "(3.0, '2009-01-23 20:21:13', 2, 1)"
-    # end
-    # sql = "INSERT INTO widgets (`name`, `datapoints`, 'source`, `widget_type`) VALUES #{inserts.join(", ")}"
-    ##
-    book_source = Rails.configuration.metric_source
-    @widget=@dashboard.widgets.create(:name=>"graph", :kind=>"datapoints", :source=>book_source, :widget_type=>"pernode", :range=>"30-minutes")
-    @widget=@dashboard.widgets.create(:name=>"totalbooks", :kind=>"totalbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
-    @widget=@dashboard.widgets.create(:name=>"newbooks", :kind=>"newbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
-    #@widget=@dashboard.widgets.create(:name=>"requests", :kind=>"requests", :source=>book_source, :widget_type=>"pernode")
-    #@widget=@dashboard.widgets.create(:name=>"uptime", :kind=>"uptime", :source=>book_source, :widget_type=>"pernode")
-    @widget=@dashboard.widgets.create(:name=>"queue", :kind=>"queue", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
-    @widget=@dashboard.widgets.create(:name=>"runningbooks", :kind=>"runningbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
-    @widget=@dashboard.widgets.create(:name=>"cumulativeuptime", :kind=>"cumulativeuptime", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
-    #@widget=@dashboard.widgets.create(:name=>"requestserved", :kind=>"requestserved", :source=>book_source, :widget_type=>"pernode")
-    @widget=@dashboard.widgets.create(:name=>"queuetraffic", :kind=>"queuetraffic", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
-  #@dashboard = Dashboard.new(:name=> params[:first_name], :user_id => current_user.id)
-
-  end
+  private  
 
   def correct_user
     @user = User.find(params[:id])

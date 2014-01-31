@@ -1,0 +1,21 @@
+<%= render 'layouts/header' %>
+<div id="sidebar">
+	<ul ng-controller="MainCtrl">		
+		<li >
+			<a target="_self" href="#" > <i class="icon-random" ></i>Server Monitoring</a>
+		</li> 	
+
+		<!--<li class=<%= "active" if controller_name== "cloud_books"%> >
+			<a target="_self" href="/cloud_books" > <i class="icon-th"></i>My Apps</a>
+		</li>		-->
+		
+	</ul>
+
+</div>
+
+<div id="content">
+	<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
+
+</div>
+<%= render 'layouts/footer' %>
+

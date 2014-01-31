@@ -8,61 +8,80 @@
 }
 
 .logom_hadoop{
-	background-position: -161px -16px ;
+	background-position: 0 0;
 	width: 100px;
 	height: 100px;
 }
 
 .logom_jenkins{
-	background-position: -318px -16px ;
+	background-position: -127px -3px ;
 	width: 100px;
 	height: 100px;
 }
 
 .logom_joomla{
-	background-position: -5px -130px ;
-	width: 100px;
-	height: 100px;
-}
-
-.logom_otrs{
-	background-position: -162px -132px ;
-	width: 100px;
-	height: 100px;
-}
-
-.logom_redmine{
-	background-position: -596px -6px ;
-	width: 100px;
-	height: 100px;
-}
-
-.logom_sugarcrm{
-	background-position: -15px -18px ;
+	background-position: -258px -7px ;
 	width: 100px;
 	height: 100px;
 }
 
 .logom_orion{
-	background-position: -460px -12px ;
+	background-position: -131px -136px ;
 	width: 100px;
 	height: 100px;
+}
+
+.logom_otrs{
+	background-position: -397px -135px ;
+	width: 100px;
+	height: 100px;
+}
+
+.logom_redmine{
+	background-position: -394px -8px ;
+	width: 100px;
+	height: 100px;
+}
+
+.logom_sugarcrm{
+	background-position: -6px -269px ;
+	width: 100px;
+	height: 100px;
+}
+
+.logom_postgresql{
+	background-position: -273px -261px ;
+	width: 100px;
+	height: 104px;
+}
+
+.logom_redis{
+	background-position: -260px -399px ;
+	width: 100px;
+	height: 34px;
+}
+
+.logom_riak{
+	background-position: -40px -401px ;
+	width: 100px;
+	height: 36px;
 }
 
 .logom_liferay{
-	background-position: -601px -123px ;
-	width: 100px;
-	height: 100px;
-}
-
-.logom_scmmanager{
-	background-position: -468px -124px ;
+	background-position: -280px -137px ;
 	width: 100px;
 	height: 100px;
 }
 
 .logom_wordpress{
-	background-position: -322px -120px ;
+	background-position: -6px -126px ;
 	width: 100px;
 	height: 100px;
 }
+
+.logom_scmmanager{
+	background-position: -135px -262px ;
+	width: 100px;
+	height: 100px;
+}
+

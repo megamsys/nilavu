@@ -1,12 +1,10 @@
-app.controller("WidgetPerNodeCtrl", [ "$scope", "UpdateWidget", "Sources",
-		"MetricsHelper",
-		function($scope, UpdateWidget, Sources, MetricsHelper) {
+app.controller("WidgetPerNodeCtrl", [ "$scope", "UpdateWidget", "Sources", "MetricsHelper",	function($scope, UpdateWidget, Sources, MetricsHelper) {
 
 			metrics = [];
 			$scope.metrics = [{value : 'cpu'}, {value : 'http requests'	} ];
 			$scope.sources = Sources.availableSources($scope.widget.kind);			
 			$scope.update_widget_range = function(updatetime, widget) {
-				widget.settings = updatetime;
+				widget.range = updatetime;
 				widget.$update;
 				UpdateWidget.prepForBroadcast(widget);
 			};
@@ -17,9 +15,9 @@ app.controller("WidgetPerNodeCtrl", [ "$scope", "UpdateWidget", "Sources",
 				UpdateWidget.prepForBroadcast(widget);
 			};
 
-			$scope.update_widget_metrics = function(updatetarget, widget) {
+			$scope.update_widget_metrics = function(updatetarget, widget) {								
 				widget.targets = MetricsHelper.getTarget(updatetarget);
-				widget.$update;
+				widget.$update;				
 				UpdateWidget.prepForBroadcast(widget);
 			};
 

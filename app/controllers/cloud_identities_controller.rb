@@ -1,8 +1,8 @@
 class CloudIdentitiesController < ApplicationController
   respond_to :html, :js
-
-  breadcrumbs.add "Dashboard", :dashboards_path
   def index
+    breadcrumbs.add "Dashboard", :cloud_dashboards_path
+
   end
 
   def new_identity
@@ -10,7 +10,6 @@ class CloudIdentitiesController < ApplicationController
     logger.debug ">>> Parms data #{params[:data]}"
 
     tempparms = {:agent => "CloudIdentityAgent", :command => "listRealms", :message => "URL=http://nomansland.com REALM_NAME=temporealm"}
-
 
     @cloud_identity = current_user.cloud_identities.create(:account_name => params[:account_name], :url => "www.google.co.in")
     if @cloud_identity.save
@@ -20,6 +19,7 @@ class CloudIdentitiesController < ApplicationController
   end
 
   def go_identity
+    breadcrumbs.add "Dashboard", :cloud_dashboards_path
 
     breadcrumbs.add "Cloud Identity", cloud_identity_path(current_user.id)
     breadcrumbs.add params[:format], go_identity_path
@@ -78,6 +78,8 @@ class CloudIdentitiesController < ApplicationController
   end
 
   def show
+    breadcrumbs.add "Dashboard", :cloud_dashboards_path
+
     breadcrumbs.add "Cloud Identity", cloud_identity_path(current_user.id)
     @user = User.find(current_user.id)
     @products = Product.all
@@ -85,13 +87,12 @@ class CloudIdentitiesController < ApplicationController
     @cloud_identity = current_user.cloud_identities.all
 
     if !@user.organization
-       flash[:error] = "Update your organization in your profile. Why do we need it ? Read about it in our docs  #{ActionController::Base.helpers.link_to 'docs {}.', page_path('doc')}".html_safe
+      flash[:error] = "Update your organization in your profile. Why do we need it ? Read about it in our docs  #{ActionController::Base.helpers.link_to 'docs {}.', page_path('doc')}".html_safe
       redirect_to edit_user_path(current_user)
     end
   end
 
   def update
-    sleep 10
     @cloud_identity=CloudIdentity.find(params[:id])
     if @cloud_identity.update_attributes(params[:cloud_identity])
       respond_with(@cloud_identity, :layout => !request.xhr? )
@@ -99,7 +100,6 @@ class CloudIdentitiesController < ApplicationController
   end
 
   def destroy
-    sleep 1
     current_user.cloud_identities.find(params[:id]).destroy
     redirect_to dashboard_path(current_user.id)
   end
