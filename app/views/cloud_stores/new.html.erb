@@ -2,7 +2,7 @@
 <% provide(:title, 'Services') %>
 <%= render :partial => "users/header" , :locals => {:head => "Services - Step 1 of 2"}%>
 <div id="breadcrumb">
-	<%= render_breadcrumbs %>
+	<%= breadcrumbs.render(:format => :inline) %>
 </div>
 <%= form_tag(new_store_path, :method => "post", :name => "store") do %>
 <div class="container">

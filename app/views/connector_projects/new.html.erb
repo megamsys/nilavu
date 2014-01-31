@@ -2,7 +2,7 @@
 <% provide(:title, 'Projects') %>
 <%= render :partial => "users/header" , :locals => {:head => "Cloud Connectors"}%>
 <div id="breadcrumb">
-<%= render_breadcrumbs %>
+<%= breadcrumbs.render(:format => :inline) %>
 </div>
 <div class="container">
 	<%= render :partial => "connector_projects/cloud_connector", :locals => { :products => @products } %>	

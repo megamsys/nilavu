@@ -1,7 +1,7 @@
 class CloudIdentitiesController < ApplicationController
   respond_to :html, :js
 
-  add_breadcrumb "Dashboard", :dashboards_path
+  breadcrumbs.add "Dashboard", :dashboards_path
   def index
   end
 
@@ -21,8 +21,8 @@ class CloudIdentitiesController < ApplicationController
 
   def go_identity
 
-    add_breadcrumb "Cloud Identity", cloud_identity_path(current_user.id)
-    add_breadcrumb params[:format], go_identity_path
+    breadcrumbs.add "Cloud Identity", cloud_identity_path(current_user.id)
+    breadcrumbs.add params[:format], go_identity_path
     @cloud_identity = current_user.cloud_identities.find_by_account_name(params[:format])
     @products = Product.all
     @apps_item = current_user.apps_items
@@ -78,7 +78,7 @@ class CloudIdentitiesController < ApplicationController
   end
 
   def show
-    add_breadcrumb "Cloud Identity", cloud_identity_path(current_user.id)
+    breadcrumbs.add "Cloud Identity", cloud_identity_path(current_user.id)
     @user = User.find(current_user.id)
     @products = Product.all
     @apps_item = current_user.apps_items

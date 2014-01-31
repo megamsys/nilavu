@@ -1,12 +1,12 @@
 class DashboardsController < ApplicationController
   respond_to :html
-
-  add_breadcrumb "Dashboard", :dashboards_path
   def index
+    breadcrumbs.add "Dashboard", dashboards_path
     @user_id = current_user.id
   end
 
   def show
+    breadcrumbs.add "Dashboard", dashboards_path
     redirect_to dashboards_path
   end
 

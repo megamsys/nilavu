@@ -97,7 +97,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    add_breadcrumb "Profile", edit_user_path
+    breadcrumbs.add "Profile", edit_user_path
     logger.debug "==> Controller: users, Action: edit, Start edit"
     @user= User.find(params[:id])
     @user.organization
@@ -105,8 +105,8 @@ class UsersController < ApplicationController
 
   def upgrade
     logger.debug "==> Controller: users, Action: upgrade, Upgrade user from free to paid"
-    add_breadcrumb "Dashboard", dashboards_path
-    add_breadcrumb "Upgrade", upgrade_path
+    breadcrumbs.add "Dashboard", dashboards_path
+    breadcrumbs.add "Upgrade", upgrade_path
   end
 
   def update

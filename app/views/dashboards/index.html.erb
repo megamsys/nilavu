@@ -2,10 +2,11 @@
 <% provide(:title, 'Dashboard') %>
 
 <%= render :partial => "users/header" , :locals => {:head => "Dashboard"}%>
+
 <div id="breadcrumb">
-	<a href="#" class="current"><%= render_breadcrumbs %></a>
+<%= breadcrumbs.render(:format => :inline) %>
 </div>
-<br/>
+</br>
 
 <div class="container" ng-cloak>
 	<div class="row">
@@ -26,13 +27,17 @@
 								<tbody>
 									<tr>
 										<td><span class="badge badge-info">Java</span></td>
-										<td><i class="icon-code"> </i><code>
-											Onllne code editor</code> <%= link_to  "A simple web app run on Java container in megam.", new_cloud_book_path, :target => "_self", title: "Lauch your java app in megam"  %> </td>
+										<td><i class="icon-code"> </i>
+										<code>
+											Onllne code editor
+										</code> <%= link_to  "A simple web app run on Java container in megam.", new_cloud_book_path, :target => "_self", title: "Lauch your java app in megam"  %> </td>
 									</tr>
 									<tr>
 										<td><span class="badge badge-info">Ruby</span></td>
-										<td><i class="icon-plus-sign" > </i><code>
-											Ruby Sample app </code><%= link_to  "A simple general purpose Rails 4.0 web app run on Ruby on Rails container in megam.", new_cloud_book_path, :target => "_self", title: "Lauch your ruby on rails app in megam"  %> </td>
+										<td><i class="icon-plus-sign" > </i>
+										<code>
+											Ruby Sample app
+										</code><%= link_to  "A simple general purpose Rails 4.0 web app run on Ruby on Rails container in megam.", new_cloud_book_path, :target => "_self", title: "Lauch your ruby on rails app in megam"  %> </td>
 									</tr>
 									<tr>
 										<td><span class="badge badge-info">Marketplace</span></td>
@@ -251,8 +256,11 @@
 
 <script>
     (function($) {
-	$.Sources = JSON.parse('<%= raw Sources.sources.to_json %>');
-    $.Books = JSON.parse('<%= raw launched(@user_id).to_json %>');
+$.Sources = JSON.parse('<%= raw Sources.sources.to_json %>
+    ');
+    $.Books = JSON.parse('
+<%= raw launched(@user_id).to_json %>
+    ');
     })($);
 </script>
 <%= render :template => users_show_path %>

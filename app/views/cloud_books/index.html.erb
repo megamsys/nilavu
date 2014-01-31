@@ -2,7 +2,7 @@
 <% provide(:title, 'Manage Apps') %>
 <%= render :partial => "users/header" , :locals => {:head => "Manage Apps"}%>
 <div id="breadcrumb">
-	<%= render_breadcrumbs %>
+	<%= breadcrumbs.render(:format => :inline) %>
 </div>
 
 <div class="container">

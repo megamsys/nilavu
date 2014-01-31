@@ -2,7 +2,7 @@
 <% provide(:title, 'Manage Services') %>
 <%= render :partial => "users/header" , :locals => {:head => "Manage Services"}%>
 <div id="breadcrumb">
-	<%= render_breadcrumbs %>
+	<%= breadcrumbs.render(:format => :inline) %>
 </div>
 
 <div class="container">

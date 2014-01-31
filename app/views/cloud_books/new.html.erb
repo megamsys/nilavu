@@ -2,12 +2,12 @@
 <% provide(:title, 'Apps') %>
 <%= render :partial => "users/header" , :locals => {:head => "Apps - Step 1 of 2"}%>
 <div id="breadcrumb">
-	<%= render_breadcrumbs %>
+	<%= breadcrumbs.render(:format => :inline) %>
 </div>
 <%= form_tag(new_book_path, :method => "post", :name => "predef") do %>
 <div class="container">
 	<div class="row">
-		<div class="col-md-11">
+		<div class="col-lg-11">
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-list"></i> </span>
@@ -56,7 +56,6 @@
 									</div>
 								</div>
 								<div class="col-md-5">
-									<div class="row">
 										<div class="panel panel-primary">
 											<div class="panel-heading">
 												<i class="icon-home"></i> Scale Your App Quickly
@@ -90,7 +89,6 @@
 												</div>
 											</div>
 										</div>
-									</div>
 								</div>
 							</div>
 						</div>
@@ -100,7 +98,7 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-11">
+		<div class="col-lg-11">
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-th-list"></i> </span>

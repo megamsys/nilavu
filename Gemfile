@@ -36,7 +36,7 @@ gem 'bootstrap-will_paginate','0.0.10'
 gem 'paperclip','3.5.2'
 gem "aws-sdk"
 gem "therubyracer", :require => 'v8',:platforms => :ruby
-gem "breadcrumbs_on_rails"
+gem "breadcrumbs"
 gem "randexp", "~> 0.1.7"
 gem "megam_api"
 gem "megam_deccanplato"

@@ -2,7 +2,7 @@
 <% provide(:title, 'Apps') %>
 <%= render :partial => "users/header" , :locals => {:head => "Apps - Step 2 of 2"}%>
 <div id="breadcrumb">
-	<%= render_breadcrumbs %>
+	<%= breadcrumbs.render(:format => :inline) %>
 </div>
 <%= form_for @book, :html => {:multipart => true }, :remote => true, :method => 'post' do |f| %>
 <div class="container">

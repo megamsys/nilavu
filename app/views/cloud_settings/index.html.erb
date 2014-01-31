@@ -2,7 +2,7 @@
 <% provide(:title, 'Manage Settings') %>
 <%= render :partial => "users/header" , :locals => {:head => "Manage Settings"}%>
 <div id="breadcrumb">
-	<%= render_breadcrumbs %>
+	<%= breadcrumbs.render(:format => :inline) %>
 </div>
 
 <div class="container">
