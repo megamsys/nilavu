@@ -4,7 +4,7 @@ class CloudBooksController < ApplicationController
   include CloudBooksHelper
   
   def index
-    cloud_books = current_user.cloud_books.where(:book_type => 'APP')
+    cloud_books = current_user.cloud_books.where(:book_type => 'APP').order("id DESC").all
     if cloud_books.any?
       add_breadcrumb "Home", "#", :target => "_self"      
       add_breadcrumb "Manage Apps", cloud_books_path, :target => "_self"      
