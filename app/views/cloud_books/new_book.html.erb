@@ -14,22 +14,14 @@
 					<span class="icon"> <i class="icon-th-list"></i> </span>
 					<h5>App Name</h5><strong><span class="label label-info"><%= @new_book_name %><%= @domain_name %> </span> </strong>
 				</div>
-				<div class="widget-content">
-					<div class="row">
-						<div class="col-sm-11 col-md-11 col-lg-11">
-							<p class="help-block">
-								Your app URL is
-								<strong><span class="label label-info">http://<%= @new_book_name %>.<%= @domain_name %> </span> </strong>
-							</p>
-						</div>
-					</div>
+				<div class="widget-content">					
 					<div class="row">
 						<div class="form-group">
 							<div class="col-sm-5 col-md-5 col-lg-5">
-								<a class="btn btn-lg btn-primary disabled btn-block" data-name="book_name" data-type="text" href="#" id="identity_new" ><%= @new_book_name %></a>
+								<a class="btn btn-lg btn-purple btn-block" data-name="appname" data-type="text" href="#" id="changeappname" ><%= @new_book_name %></a>
 							</div>
 							<div class="col-sm-7 col-md-7 col-lg-7">
-								<%= link_to  @domain_name, "#", :class => "btn btn-lg btn-primary disabled btn-block", :id => 'domain'%>
+							<%= link_to  @domain_name, "#", :class => "btn btn-lg btn-dark-red disabled btn-block", :id => 'domain' %>
 							</div>
 						</div>
 					</div>

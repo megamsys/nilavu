@@ -1,78 +1,72 @@
 source 'https://rubygems.org'
 
-gem "rails", "~> 4.0.2"
-# add these gems to help with the transition to Rails 4.0
-gem 'protected_attributes'
-gem 'rails-observers'
-gem 'actionpack-page_caching'
-gem 'actionpack-action_caching'
+#rails 4.1.x (bleeding edge)
+gem "rails", "~> 4.1.0.beta1"
+# add these gems to help with the transition to Rails 4.x
+gem 'protected_attributes', :git => "git://github.com/rails/protected_attributes.git"
+
+# streaming
 gem 'socket.io-rails'
-gem 'google-analytics-rails', '~> 0.0.4'
-#JQuery rails, other jquery scripts
-gem 'turbolinks'
+
+#jquery & ui
 gem 'jquery-rails'
+gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => "bootstrap3"
+gem 'turbolinks'
 gem 'jquery-turbolinks'
 gem 'jquery-ui-rails'
-gem 'jquery-datatables-rails'
+gem "icheck-rails"
+gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
 gem "flot-rails", "~> 0.0.4"
 gem "gritter", "~> 1.0.3"
 gem "flexslider", "~> 2.0.2"
-gem 'unicorn', :group => :production
+gem 'will_paginate','3.0.5'
+gem 'bootstrap-will_paginate','0.0.10'
+gem "breadcrumbs"
+gem 'remotipart'
 
-gem "github_api"
-
-# Database posgresql
+# db posgresql
 gem 'pg'
-gem 'twitter'
 
-# OAuth authentication to twitter, facebook, github, google using omniauth
+# security and oauth
+gem 'bcrypt-ruby',:require => 'bcrypt'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem "omniauth-google-oauth2"
 gem 'omniauth-github'
 
-gem 'will_paginate','3.0.5'
-gem 'bootstrap-will_paginate','0.0.10'
+#general
+gem "github_api"
+gem 'twitter'
 gem 'paperclip','3.5.2'
 gem "aws-sdk"
-gem "therubyracer", :require => 'v8',:platforms => :ruby
-gem "breadcrumbs"
 gem "randexp", "~> 0.1.7"
 gem "megam_api"
 gem "megam_deccanplato"
-#password
-gem 'bcrypt-ruby',:require => 'bcrypt'
+gem "inflector" #convert singularize
+gem "cheddargetter_client_ruby" #chettargetter API
+gem 'google-analytics-rails', '~> 0.0.4'
 
-gem 'remotipart'
 
-#http_proxy settings
+# http request and responses, http_proxy
 gem "faraday"
+gem "net-http-predicates" # [why can't we use faraday]   
+gem "httparty" # why can't we use faraday
 gem "faraday_middleware"
 gem "multi_xml"
-#net-http request and responses, [why can't we use faraday] 
-gem "net-http-predicates"  
-gem "icheck-rails"
-
-#html parsing
 gem "nokogiri"
 
-#convert singularize
-gem "inflector"
 
-#chettargetter API
-gem "cheddargetter_client_ruby"
-gem "httparty" # why can't we use faraday
+gem 'unicorn', :group => :production
+gem "therubyracer", :require => 'v8',:platforms => :ruby
+
 
 # Gems used only for assets and not required
 # in production environments by default.
-  #gem 'twitter-bootstrap-rails'
- gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => "bootstrap3"
-  gem "less-rails", "~> 2.4.2"
-#group :assets do
-  gem 'sass-rails',   '~> 4.0.1'
-  gem 'coffee-rails', '~> 4.0.1'
-  gem 'uglifier', '>= 2.4.0'
-#end
+gem "less-rails", "~> 2.4.2"
+gem 'sass-rails',   '~> 4.0.1'
+gem 'coffee-rails', '~> 4.0.1'
+gem 'uglifier', '>= 2.4.0'
+
 
 group :test do
   gem 'capybara'

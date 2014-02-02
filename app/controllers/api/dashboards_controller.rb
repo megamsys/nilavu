@@ -7,19 +7,17 @@ module Api
       respond_with dashboard
     end
 
-    def index      
-       @user_id = current_user.id
-       #dashboards = Dashboard.find_by_user_id(@user_id)
-        dashboards = current_user.cloud_books        
+    def index
+      @user_id = current_user.id
+      dashboards = current_user.cloud_books
       respond_with dashboards
     end
 
-   def dash_show
+    def dash_show
       @user_id = current_user.id
-       #dashboards = Dashboard.find_by_user_id(@user_id)
-        dashboards = current_user.cloud_books        
+      dashboards = current_user.cloud_books
       respond_with dashboards
-   end
+    end
 
     def create
       input = JSON.parse(request.body.read.to_s)
@@ -32,7 +30,6 @@ module Api
     end
 
     def update
-      #dashboard = Dashboard.find(params[:id])
       dashboard = CloudBook.find(params[:id])
       input = JSON.parse(request.body.read.to_s)
       if dashboard.update_attributes(input.slice(*Dashboard.accessible_attributes))

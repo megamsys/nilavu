@@ -314,7 +314,6 @@ class CloudBooksController < ApplicationController
 
  
   def destroy    
-    #@book = CloudBook.find(params[:id])
     @book = CloudBook.find_by_name(params[:name])
     options = {:node_name => "#{params[:name]}", :group => "server", :action => "delete", :repo => 'default_chef' }
     node_hash=DeleteNode.perform(options, force_api[:email], force_api[:api_key])    

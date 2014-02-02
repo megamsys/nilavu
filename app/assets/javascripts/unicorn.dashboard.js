@@ -1,21 +1,16 @@
-/**
- * Unicorn Admin Template Version 2.1.0 Diablo9983 -> diablo9983@gmail.com
- */
 
 $(document)
 		.ready(
 				function() {
-					$.fn.editable.defaults.mode = 'inline';
-					jQuery('#dash').each(function() {
-						jQuery('body').css('background', '#444444');
-					});
-
+					$.fn.editable.defaults.mode = 'inline';				
+					
 					// init editables
 
-					jQuery('#identity_new_account_name').editable({
+					$('#changeappname').editable({
 						send : 'never'
 					});
-					jQuery('#identity_new').editable({
+					
+					$('#changeservicename').editable({
 						send : 'never'
 					});
 
