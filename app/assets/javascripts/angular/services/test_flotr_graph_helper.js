@@ -1,4 +1,4 @@
-app.factory("FlotrGraphHelper", ["ColorFactory", "SuffixFormatter", "$window", function(ColorFactory, SuffixFormatter, $window) {
+app.factory("TestFlotrGraphHelper", ["TestColorFactory", "SuffixFormatter", "$window", function(TestColorFactory, SuffixFormatter, $window) {
 	  console.log("flotr graph entry");
   // TODO: refactor
   function timeUnit(range, size) {
@@ -92,7 +92,7 @@ app.factory("FlotrGraphHelper", ["ColorFactory", "SuffixFormatter", "$window", f
 					var markings = [];
 					var xaxis = axes.xaxis;
 					for (var x = Math.floor(xaxis.min); x < xaxis.max; x += xaxis.tickSize * 2) {
-						markings.push({ xaxis: { from: x, to: x + xaxis.tickSize }, color: "rgba(232, 232, 255, 0.2)" });
+						markings.push({ xaxis: { from: x, to: x + xaxis.tickSize }, color: "rgba(255, 0, 255, 0)" });
 					}
 					return markings;
 				}
@@ -132,7 +132,7 @@ app.factory("FlotrGraphHelper", ["ColorFactory", "SuffixFormatter", "$window", f
   function initColor(currentColors, index) {
     var color = null;
     if (!currentColors[index]) {
-      color = ColorFactory.get();
+      color = TestColorFactory.get();
       currentColors.push(color);
     } else {
       color = currentColors[index];

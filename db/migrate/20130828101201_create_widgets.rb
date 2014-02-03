@@ -5,7 +5,7 @@ class CreateWidgets < ActiveRecord::Migration
       t.string :kind
       t.string :size
       t.string :source
-      t.string :targets
+      t.text :targets, :default => [].to_yaml
       t.text :range
       t.integer :dashboard_id
       t.string :widget_type
