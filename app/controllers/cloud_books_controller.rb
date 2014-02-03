@@ -6,8 +6,9 @@ class CloudBooksController < ApplicationController
   def index
     cloud_books = current_user.cloud_books.where(:book_type => 'APP').order("id DESC").all
     if cloud_books.any?
-      add_breadcrumb "Home", "#", :target => "_self"      
-      add_breadcrumb "Manage Apps", cloud_books_path, :target => "_self"      
+      breadcrumbs.add "Home", "#", :target => "_self"      
+      breadcrumbs.add "Manage Apps", cloud_books_path, :target => "_self"      
+
       @nodes = FindNodesByEmail.perform({},current_user.email, current_user.api_token)
       if @nodes.class == Megam::Error
         redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
@@ -177,19 +178,21 @@ class CloudBooksController < ApplicationController
   
     if current_user.onboarded_api
       @book =  current_user.cloud_books.build
-            add_breadcrumb "Home", "#", :target => "_self"      
-      add_breadcrumb "Manage Apps", cloud_books_path, :target => "_self"
-      add_breadcrumb "Apps Framework Selection", new_cloud_book_path, :target => "_self"
+      breadcrumbs.add "Home", "#", :target => "_self"
+      breadcrumbs.add "Manage Apps", cloud_books_path, :target => "_self" 
+      breadcrumbs.add "Apps Framework Selection", new_cloud_book_path, :target => "_self"
+
     else
       redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "You need an API key to launch an app. Click Profile from the top, and generate a new API key", :sticky => false, :nodom_wrap => true } }
     end
   end
 
   def new_book
-        add_breadcrumb "Home", "#", :target => "_self"      
-    add_breadcrumb "Manage Apps", cloud_books_path, :target => "_self"
-    add_breadcrumb "Apps Framework Selection", new_cloud_book_path, :target => "_self"
-    add_breadcrumb "Create Apps", new_book_path, :target => "_self"
+    breadcrumbs.add "Home", "#", :target => "_self"
+    breadcrumbs.add "Manage Apps", cloud_books_path, :target => "_self"
+    breadcrumbs.add "Apps Framework Selection", new_cloud_book_path, :target => "_self"
+    breadcrumbs.add "New", new_book_path
+
    if"#{params[:deps_scm]}".strip.length != 0
       @deps_scm = "#{params[:deps_scm]}"
     elsif !"#{params[:scm]}".start_with?("select")
@@ -316,7 +319,6 @@ class CloudBooksController < ApplicationController
 
  
   def destroy    
-    #@book = CloudBook.find(params[:id])
     @book = CloudBook.find_by_name(params[:name])
     options = {:node_name => "#{params[:name]}", :group => "server", :action => "delete", :repo => 'default_chef' }
     node_hash=DeleteNode.perform(options, force_api[:email], force_api[:api_key])    

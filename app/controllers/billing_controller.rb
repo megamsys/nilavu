@@ -4,16 +4,17 @@ class BillingController < ApplicationController
   LITE_PLAN = "LITE"
   STANDARD_PLAN = "STANDARD"
   PRO_PLAN = "PRO"
+  
   def pricing
-    add_breadcrumb "Pricing", pricing_path
+    breadcrumbs.add "Pricing", pricing_path
   end
 
   def account
-    add_breadcrumb "Account", account_path
+    breadcrumbs.add "Account", account_path
   end
 
   def history
-    add_breadcrumb "History", history_path
+    breadcrumbs.add "History", history_path
   end
 
   def upgrade

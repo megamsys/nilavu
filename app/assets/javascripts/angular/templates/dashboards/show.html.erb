@@ -1,101 +1,54 @@
+<div id="content-header" class="mini">
+<ul class="mini-stats box-3">
+<div class="widget" ng-repeat="widget in widgets" widgetsummary></div>	
+</ul>
+</div>
 <div id="dashboard_breadcrumb">
-	<a href="#overview" class="current">Overview</a>
-	<a href="#processes">Processes</a>
-	<a href="#networks" >Networks</a>
-	<a href="#" >Disks</a>
+<a href="#overview" class="current">Overview</a>
+<a href="#process">Processes</a>
+<a href="#" >Networks</a>
+<a href="#" >Disks</a>
 </div>
-<br/>
-<div class="row" ng-cloak>
-	<div class="container-fluid" id="overview" class="toggle" style="display:none">
-		<div class="row">
-			<input type="hidden" ng-model="dashboard_id" value="<%= @id %>">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="widget-box">
-						<div class="widget-title">
-							<span class="icon"><i class="icon-signal"></i></span><h5>Summary</h5>
-							<span class="title"><img ng-show="enableSpinner" class="ajax-spinner" width="12" height="12" src="<%= asset_path('openup_spinner.gif') %>"></img></span>
-						</div>
-						<div class="widget-content">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="widget" ng-repeat="widget in widgets" widgetsummary></div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="widget-box">
-						<div class="widget-title">
-							<span class="icon"><i class="icon-signal"></i></span><h5>Live Monitor & Metrics</h5>
-							<span class="title"><img ng-show="enableSpinner" class="ajax-spinner" width="12" height="12" src="<%= asset_path('openup_spinner.gif') %>"></img></span>
-						</div>
-						<div class="widget-content">
-							<div class="container-fluid">
-								<div class="widget" ng-repeat="widget in widgets" widgetpernode></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="container-fluid" class="toggle" style="display:none" id="processes">
-		<div class="row">
-			<input type="hidden" ng-model="dashboard_id" value="<%= @id %>">
-			<div class="col-md-12">
-				<div class="widget-box">
-					<div class="widget-title">
-						<span class="icon"><i class="icon-signal"></i></span><h5>Live Monitor & Metrics</h5>
-						<span class="title"><img ng-show="enableSpinner" class="ajax-spinner" width="12" height="12" src="<%= asset_path('openup_spinner.gif') %>"></img></span>
-					</div>
-					<div class="widget-content">
-						<div class="container-fluid">
-							<div class="widget" ng-repeat="widget in widgets" widgetpernode></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
-	<div class="container-fluid" class="toggle" style="display:none" id="networks">
-		<div class="row">
-			<input type="hidden" ng-model="dashboard_id" value="<%= @id %>">
-			<div class="col-md-12">
-				<div class="widget-box">
-					<div class="widget-title">
-						<span class="icon"><i class="icon-signal"></i></span><h5>Live Monitor & Metrics</h5>
-						<span class="title"><img ng-show="enableSpinner" class="ajax-spinner" width="12" height="12" src="<%= asset_path('openup_spinner.gif') %>"></img></span>
-					</div>
-					<div class="widget-content">
-						<div class="container-fluid">
-							<div class="widget" ng-repeat="widget in widgets" widgetfornetworks></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	
+<div class="container" id="overview" class="toggle" style="display:none" ng-cloak>
+<input type="hidden" ng-model="dashboard_id" value="<%= @id %>">	
+<div class="row">
+<div class="col-md-11">
+<div class="widget-box">
+<div class="widget-title">
+<span class="icon"><i class="icon-signal"></i></span><h5>Live Monitor & Metrics</h5>
+<span class="title"><img ng-show="enableSpinner" class="ajax-spinner" width="12" height="12" src="<%= asset_path('openup_spinner.gif') %>"></img></span>
 </div>
-
-
-						<!-- TODO_TOM -->
-
-
+<div class="widget-content">
+<div class="widget" ng-repeat="widget in widgets" widgetpernode></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="container" class="toggle" style="display:none" id="process">
+<div class="row">
+<input type="hidden" ng-model="dashboard_id" value="<%= @id %>">
+<div class="col-md-11">
+<div class="widget-box">
+<div class="widget-title">
+<span class="icon"><i class="icon-signal"></i></span><h5>Live Monitor & Metrics</h5>
+<span class="title"><img ng-show="enableSpinner" class="ajax-spinner" width="12" height="12" src="<%= asset_path('openup_spinner.gif') %>"></img></span>
+</div>
+<div class="widget-content">
+<div class="widget" ng-repeat="widget in widgets" widgetpernode></div>
+</div>
+</div>
+</div>
+</div>
+</div>
 
 <script type="text/javascript">
     $(document).ready(function() {
-    	$("#overview").show();
+        $("#overview").show();
         $("#dashboard_breadcrumb a").click(function(e) {
             e.preventDefault();
             $("#overview").hide();
-            $("#networks").hide();            
-            $("#processes").hide();
+            $("#process").hide();
             var toShow = $(this).attr('href');
             $(toShow).show();
         });

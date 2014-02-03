@@ -3,11 +3,11 @@
 
 <%= render :partial => "users/header" , :locals => {:head => "Dashboard"}%>
 <div id="breadcrumb">
-	<a href="#" class="current"><%= render_breadcrumbs %></a>
+	<%= breadcrumbs.render(:format => :inline) %>
 </div>
 <br/>
 
-<div class="container-fluid" ng-cloak>	
+<div class="container" ng-cloak>	
 		<%= render :partial => "cloud_dashboards/dash_index_page"  %>
 	<!--<ng-view ng-show="resolved" ng-cloak></ng-view>-->
 	<br/>

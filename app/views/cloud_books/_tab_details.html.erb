@@ -44,41 +44,6 @@
 			</div>
 		</div>
 	</div>
-	<!--
-	<div class="col-md-6">
-		<div class="widget-box">
-			<div class="widget-title">
-				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Cloud Book Requests</h5>
-			</div>
-			<div class="widget-content nopadding" style="overflow-y: scroll; height: 100px;">
-				<table class="table table-bordered table-striped table-hover">
-					<thead>
-						<tr>
-							<th>Request Type</th>
-							<th>Created At</th>
-							<th>Launched At</th>
-							<th>Destroy</th>
-
-						</tr>
-					</thead>
-					<tbody>
-						<% requests.each do |cb| %>
-						<tr>
-							<td> <%= cb.req_type %> </td>
-							<td> <%= cb.created_at.to_datetime.to_formatted_s(:rfc822) %> </td>
-							<td> <%= cb.command['compute']['cctype'] %> </td>
-							<td> <%= link_to "more", "#", class: "btn btn-mini btn-success more_command", :id => "#{cb.command}" %> </td>
-
-						</tr>
-						<% end %>
-					</tbody>
-
-				</table>
-			</div>
-		</div>
-	</div>
--->
 	<div class="col-md-6">
 		<div class="widget-box">
 			<div class="widget-title">
@@ -113,6 +78,5 @@
 			</div>
 		</div>
 	</div>
-
 </div>
 

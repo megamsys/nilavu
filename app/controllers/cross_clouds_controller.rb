@@ -3,10 +3,10 @@ class CrossCloudsController < ApplicationController
   include CrossCloudsHelper  
 
   def new
-     add_breadcrumb "Home", "#"
-    add_breadcrumb "Manage Settings", cloud_settings_path
-    add_breadcrumb "Clouds", cloud_settings_path
-    add_breadcrumb "New", new_cross_cloud_path
+     breadcrumbs.add "Home", "#"
+    breadcrumbs.add "Manage Settings", cloud_settings_path
+    breadcrumbs.add "Clouds", cloud_settings_path
+    breadcrumbs.add "New", new_cross_cloud_path
     logger.debug "GOOGLE oauth token ============> "     
     if request.env['omniauth.auth']
       @cloud_prov = "Google Cloud Engine"

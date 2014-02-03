@@ -2,47 +2,49 @@
 <% provide(:title, 'Services') %>
 <%= render :partial => "users/header" , :locals => {:head => "Services - Step 2 of 2"}%>
 <div id="breadcrumb">
-	<%= render_breadcrumbs %>
+	<%= breadcrumbs.render(:format => :inline) %>
 </div>
 <%= form_for @book, :html => {:multipart => true }, :remote => true, :method => 'post' do |f| %>
-<div class="container-fluid">
+<div class="container">
 	<div class="row">
-		<div class="col-xs-12 col-sm-12">
+		<div class="col-xs-11 col-sm-11">
 			<% @new_book_name = book_name %>
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-th-list"></i> </span>
-					<h5>Service Name</h5>
+					<h5>Service Name</h5><strong><span class="label label-info"><%= @new_book_name %>.<%= @domain_name %> </span> </strong>
 				</div>
+
 				<div class="widget-content">
-					<div class="col-md-12">
-						<p class="help-block">
-							Your service URL is
-							<strong><span class="label label-info"><%= @new_book_name %><%= @domain_name %> </span> </strong>
-						</p>
+					<div class="row">
+						<div class="col-sm-11 col-md-11 col-lg-11">
+							<p class="help-block">
+								Your service URL is
+								<strong><span class="label label-info"><%= @new_book_name %>.<%= @domain_name %> </span> </strong>
+							</p>
+						</div>
 					</div>
-					</br>
-					<p>
-						<div class="col-md-12">
-							<div class="col-md-7">
+
+					<div class="row">
+						<div class="form-group">
+							<div class="col-sm-5 col-md-5 col-lg-5">
 								<a class="btn btn-lg btn-primary disabled btn-block" data-name="book_name" data-type="text" href="#" id="identity_new" ><%= @new_book_name %></a>
 							</div>
-							<div class = "col-md-4">
+							<div class="col-sm-7 col-md-7 col-lg-7">
 								<%= link_to  @domain_name, "#", :class => "btn btn-lg btn-primary disabled btn-block", :id => 'domain'%>
 							</div>
 						</div>
-					</p>
+					</div>
 					<br/>
 					<br/>
-					<br/>
-
 					<%= f.text_field :name, :type => 'hidden', :id=> 'changename', :value => @new_book_name %>
 					<input type="hidden" name="book_name" id="bookname" value="<%= @new_book_name %>">
 					<%= f.text_field :domain_name, :type => 'hidden', :value => @domain_name %>
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-12">
+		<div class="col-xs-11 col-sm-11">
+
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-th-list"></i> </span>
@@ -50,16 +52,21 @@
 				</div>
 				<div class="widget-content">
 					<div class="row">
-						<div class="control-group">
+						<div class="col-sm-11 col-md-11 col-lg-11">
 							<p class="help-block">
 								<%= link_to "To learn more about creating a new cloud setting",   "http://gomegam.com/docs/crosscloud.html", { :target => '_blank'} %>
 							</p>
-							<p>
-								Choose a cloud
-								<%= f.select :predef_cloud_name, options_for_select(@predef_cloud.map{ |c| [c.name] }) %>
-							</p>
 						</div>
 					</div>
+					<div class="row">
+						<div class="form-group">
+							<label class="col-sm-3 col-md-3 col-lg-2 control-label">Choose a cloud</label>
+							<div class="col-sm-9 col-md-9 col-lg-10">
+								<%= f.select :predef_cloud_name, options_for_select(@predef_cloud.map{ |c| [c.name] }) %>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</div>
@@ -77,7 +84,8 @@
 		<%= f.text_field :predef_name, :type => 'hidden', :value => @predef_name %>
 		<%= f.text_field :book_type, :type => 'hidden', :value => "BOLT" %>
 		<input type="hidden" name="no_of_instances" value="<%= @no_of_instances %>">
-		<div class="col-xs-12 col-sm-12">
+
+		<div class="col-xs-11 col-sm-11">
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-th-list"></i> </span>
@@ -99,118 +107,74 @@
 							</p>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service User</label>
-						<div class="col-sm-9 col-md-9 col-lg-10">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="input-group input-group-sm">
-										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-										<%= text_field_tag 'user_name', "#{current_user.email}", :class => "form-control",:readonly => true %>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
 
-					<div class="form-group">
-						<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service Password</label>
-						<div class="col-sm-9 col-md-9 col-lg-10">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="input-group input-group-sm">
-										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-										<%= text_field_tag 'password', "#{current_user.api_token}",:class => "form-control" ,:readonly => true %>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<% if @dbms == 'riak' %>
-					<div class="form-group">
-						<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service URL</label>
-						<div class="col-sm-9 col-md-9 col-lg-10">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="input-group input-group-sm">
-										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-										<%= text_field_tag 'url', "riak://#{current_user.email}@#{current_user.api_token}:http://#{@new_book_name}#{@domain_name}:8098", :class => "form-control", :readonly => true %>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<% end %>
-
-					<% if @dbms == 'redis' %>
-					<div class="form-group">
-						<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service URL</label>
-						<div class="col-sm-9 col-md-9 col-lg-10">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="input-group input-group-sm">
-										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-										<%= text_field_tag 'url', "redis://#{current_user.email}:#{current_user.api_token}@#{@new_book_name}#{@domain_name}:9402", :class => "form-control", :readonly => true %>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<% end %>
-					
 					<% if @dbms == 'postgresql' %>
-					
-					<div class="form-group">
-						<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service Name </label>
-						<div class="col-sm-9 col-md-9 col-lg-10">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="input-group input-group-sm">
-										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-										<%= text_field_tag 'store_db_name', "db_#{current_user.first_name.downcase}",:class => "form-control" ,:readonly => true %>
-									</div>
+					<div class="row">
+						<div class="form-group">
+							<label for="" class="col-sm-4 col-md-4 col-lg-3 control-label">Service Name </label>
+							<div class="col-sm-8 col-md-8 col-lg-9">
+								<div class="input-group input-group-sm">
+									<span class="input-group-addon"><i class="icon-globe"></i></span>
+									<%= text_field_tag 'store_db_name', "db_#{current_user.first_name}",:class => "form-control" ,:readonly => true %>
+
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="form-group">
-						<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service URL</label>
-						<div class="col-sm-9 col-md-9 col-lg-10">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="input-group input-group-sm">
-										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-										<%= text_field_tag 'url', "postgres://#{current_user.email}:#{current_user.api_token}@#{@new_book_name}#{@domain_name}:5432/db_#{current_user.first_name}", :class => "form-control", :readonly => true %>
-									</div>
+					<div class="row">
+						<div class="form-group">
+							<label for="" class="col-sm-4 col-md-4 col-lg-3 control-label">Service User</label>
+							<div class="col-sm-8 col-md-8 col-lg-9">
+								<div class="input-group input-group-sm">
+									<span class="input-group-addon"><i class="icon-user"></i></span>
+									<%= text_field_tag 'user_name', "#{current_user.email}", :class => "form-control",:readonly => true %>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
+							<label for="" class="col-sm-4 col-md-4 col-lg-3 control-label">Service Password</label>
+							<div class="col-sm-8 col-md-8 col-lg-9">
+								<div class="input-group input-group-sm">
+									<span class="input-group-addon"><i class="icon-lock"></i></span>
+									<%= text_field_tag 'password', "#{current_user.api_token}",:class => "form-control" ,:readonly => true %>
 								</div>
 							</div>
 						</div>
 					</div>
 					<% end %>
-					
-					<div class="form-group">
-						<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Service Initiation</label>
-						<div class="col-sm-9 col-md-9 col-lg-10">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="input-group input-group-sm">
-										<span class="input-group-addon"><i class="fa fa-globe"></i></span>
-										<%= text_area_tag 'prime', nil,:class => "form-control" ,placeholder: "Enter the service initiation commands" %>
-									</div>
+
+					<div class="row">
+						<div class="form-group">
+							<label for="" class="col-sm-4 col-md-4 col-lg-3 control-label">Service URL</label>
+							<div class="col-sm-8 col-md-8 col-lg-9">
+								<div class="input-group input-group-sm">
+									<span class="input-group-addon"><i class="icon-globe"></i></span>
+
+									<%
+ dburl = case @dbms
+                    when "postgresql"
+                      "postgres://#{current_user.first_name}:#{current_user.api_token}@postgres1.megam.co.in:5432/db_#{current_user.first_name}"
+                    when "riak"
+                      "riak://#{current_user.email}@#{current_user.api_token}:http://#{@new_book_name}#{@domain_name}:8098"
+                    when "redis"
+                      "redis://#{current_user.email}:#{current_user.api_token}@#{@new_book_name}#{@domain_name}:9402"
+                    end
+%>
+									<%= text_field_tag 'url',"#{dburl}",  :class => "form-control", :readonly => true %>
 								</div>
 							</div>
 						</div>
 					</div>
-					
-					<div class="input-group"></div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4 offset4">
-					<%= f.submit "Launch", :class => "btn btn-lg btn-success btn-block" , :data => {:disable_with => "Creating Service..."} %>
-					</br>
-				</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4 offset3">
+				<%= f.submit "Launch", :class => "btn btn-lg btn-success btn-block" , :data => {:disable_with => "Launching Service..."} %>
+				</br>
 			</div>
 		</div>
 	</div>

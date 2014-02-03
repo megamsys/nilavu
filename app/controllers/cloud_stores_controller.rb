@@ -1,6 +1,9 @@
 class CloudStoresController < ApplicationController
   respond_to :html, :js
+  
   def index
+      breadcrumbs.add "Home", "#"
+      breadcrumbs.add "Database", cloud_stores_path
        cloud_books = current_user.cloud_books.where(:book_type => 'BOLT')
     if cloud_books.any?
       add_breadcrumb "Home", "#", :target => "_self"
@@ -19,27 +22,28 @@ class CloudStoresController < ApplicationController
         end        
         @launched_books = Hash[grouped.map {|key, value| [key, value.flatten.map {|vn| vn.node_name}]}]
         @launched_books_quota = @nodes.all_nodes.length 
-        end           
-        else    
+      end           
+    else    
       redirect_to new_cloud_store_path
     end
-    end
+ end
 
 
   def new
     logger.debug "Cloud Store new  ==> "
-    add_breadcrumb "Home", "#", :target => "_self"
-    add_breadcrumb "Manage Services", cloud_stores_path, :target => "_self"
-    add_breadcrumb "Service Selection", new_cloud_store_path, :target => "_self"
+    breadcrumbs.add "Home", "#", :target => "_self"
+    breadcrumbs.add "Database", cloud_stores_path, :target => "_self"
+    breadcrumbs.add "New", new_cloud_store_path, :target => "_self"
   end
 
   def new_store
     logger.debug "New Store init Params ==> "
     logger.debug "#{params}"
-    add_breadcrumb "Home", "#", :target => "_self"
-    add_breadcrumb "Manage Services", cloud_stores_path, :target => "_self"
-    add_breadcrumb "Service Selection", new_cloud_store_path, :target => "_self"
-    add_breadcrumb "Create Service", new_store_path, :target => "_self"
+    breadcrumbs.add "Home", "#", :target => "_self"
+    breadcrumbs.add "Database", cloud_stores_path, :target => "_self"
+    breadcrumbs.add "New", new_cloud_store_path, :target => "_self"
+    breadcrumbs.add "Step 2", new_store_path, :target => "_self"
+
     @db_model = params[:db_model]
     @dbms = params[:dbms]
     @book =  current_user.cloud_books.build

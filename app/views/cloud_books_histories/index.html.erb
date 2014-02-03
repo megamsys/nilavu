@@ -2,65 +2,62 @@
 <% provide(:title, 'Manage Logs') %>
 <%= render :partial => "users/header" , :locals => {:head => "Logs"}%>
 <div id="breadcrumb">
-	<%= render_breadcrumbs %>
+	<%= breadcrumbs.render(:format => :inline) %>
 </div>
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12" ng-controller="LogCtrl">
-			<div class="col-md-3">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">My Logs</h3>
-					</div>
-					<div class="panel-body updates" style="height:450px; overflow-y: scroll; ">
-						<% @nodes.each do |node| %>
-						<div class="new-update clearfix">
-							<i class="icon-ok-sign"></i>
-							<div class="update-done">
-								<a title="" href="" ng-click="sendmessage('<%= node.name %>')"><strong><%= node.name %></strong></a>
-							</div>
-						</div>
-						<% end %>
-					</div>
-					<div class="panel-footer">
-						<h5>To see Logs Click App/Service .....</h5>
-					</div>
+<div class="row">
+	<div class="col-sm-12 col-md-12 col-lg-12" ng-controller="LogCtrl">
+		<div class="col-md-3">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">My Logs</h3>
 				</div>
-				<input type="hidden" ng-model="source">
+				<div class="panel-body updates" style="height:450px; overflow-y: scroll; ">
+					<% @nodes.each do |node| %>
+					<div class="new-update clearfix">
+						<i class="icon-ok-sign"></i>
+						<div class="update-done">
+							<a title="" href="" ng-click="sendmessage('<%= node.name %>')"><strong><%= node.name %></strong></a>
+						</div>
+					</div>
+					<% end %>
+				</div>
+				<div class="panel-footer">
+					<h5>Click App/Service .....</h5>
+				</div>
 			</div>
-			<div class="col-md-9">
-				<div class="panel panel-primary ">
-					<div class="panel-heading">
-						{{bookName}}
-						<span class="pull-right"><a href="http://monitor.megam.co/kibana/#/dashboard/file/{{bookName}}.json" target="_blank" class="btn btn-success btn-xs">view Offline Log</a></span>
-					</div>
-					<div class="panel-body " style=" height:500px; overflow-y: scroll;">
-						<table class="table table-bordered table-striped table-hover" >
-							<thead>
-								<tr>
-									<th class="col-md-3">Timestamp</th>
-									<th class="col-md-9">Message</th>
-								</tr>
-							</thead>
-							<tbody>
-
-								<div class="progress progress-striped active" style="{{prog_bar}}">
-									<div style="width: 40%;" class="progress-bar progress-bar-success"></div>
-								</div>
-
-								<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
-									<td>
-									<p>
-										{{ log.timestamp | date:'d  MMMM,  y - hh:mm a Z' }}
-									</p></td>
-									<td>
-									<p>
-										{{log.message }}
-									</p></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+			<input type="hidden" ng-model="source">
+		</div>
+		<div class="col-sm-9 col-md-9 col-lg-9">
+			<div class="panel panel-primary ">
+				<div class="panel-heading">
+					{{bookName}}
+					<span class="pull-right"><a href="http://monitor.megam.co/kibana/#/dashboard/file/{{bookName}}.json" target="_blank" class="btn btn-success btn-xs">view Offline Log</a></span>
+				</div>
+				<div class="panel-body nopadding" style=" height:500px; overflow-y: scroll;">
+					<table class="table table-bordered table-striped table-hover" >
+						<thead>
+							<tr>
+								<th class="col-md-3">Timestamp</th>
+								<th class="col-md-9">Message</th>
+							</tr>
+						</thead>
+						<tbody>
+							<!-- 	<div class="progress progress-sm" style="{{prog_bar}}">
+							<div style="width: 40%;" class="progress-bar progress-bar-danger"></div>
+							</div> 
+							-->
+							<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
+								<td>
+								<p>
+									{{ log.timestamp | date:'d  MMM, hh:mm a Z' }}
+								</p></td>
+								<td>
+								<p>
+									{{log.message }}
+								</p></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -68,4 +65,4 @@
 </div>
 
 <% end %>
-<%= render :template => users_show_path %> 
+<%= render :template => users_show_path %>
