@@ -31,7 +31,11 @@ class CrossCloudsController < ApplicationController
     sshpub_loc = vault_base_url+"/"+current_user.email+"/"+params[:name]
     #private_key = (params[:private_key]) ? cross_cloud_bucket+"/"+current_user.email+"/"+params[:name]+"/"+File.basename(params[:private_key]) : ""
     private_key = ((params[:private_key].original_filename).length > 0) ? cross_cloud_bucket+"/"+current_user.email+"/"+params[:name]+"/"+params[:private_key].original_filename : ""
-    wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group], :image => params[:image], :flavor => params[:flavor], :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => private_key, :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
+    wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group],  :image => params[:image], :flavor => params[:flavor], :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => private_key, :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
+    
+    if params[:provider] == "profitbricks"
+    	wparams[:spec][:flavor] = "cpus=#{params[:cpus]},ram=#{params[:ram]},hdd-size=#{params[:flavor]}"
+    end
     @res_body = CreatePredefClouds.perform(wparams,force_api[:email], force_api[:api_key])
     if @res_body.class == Megam::Error
       @res_msg = nil
@@ -49,8 +53,15 @@ class CrossCloudsController < ApplicationController
       end
       if params[:provider] == "hp cloud"
         upload_options = {:email => current_user.email, :name => params[:name], :private_key => params[:private_key], :hp_access_key => params[:hp_access_key], :hp_secret_key => params[:hp_secret_key], :type => cc_type(params[:provider]), :id_rsa_public_key => params[:id_rsa_public_key]}
+        
         @upload = HpCloud.perform(upload_options, cross_cloud_bucket)
       end
+      
+      if params[:provider] == "profitbricks"
+        upload_options = {:email => current_user.email, :name => params[:name], :private_key => params[:private_key], :profitbricks_username => params[:profitbricks_username], :profitbricks_password => params[:profitbricks_password], :type => cc_type(params[:provider]), :id_rsa_public_key => params[:id_rsa_public_key]}
+        @upload = ProfitbricksCloud.perform(upload_options, cross_cloud_bucket)
+      end
+      
       if params[:provider] == "Google Compute Engine"
         if params[:access_token].length > 0
           @data = CreateGoogleJSON.perform(params[:access_token], params[:refresh_token], params[:expire], params[:project_name], params[:google_client_id], params[:google_secret_key])
@@ -80,8 +91,6 @@ class CrossCloudsController < ApplicationController
   end
   
   def cloud_selector
-    puts "========================-=\-=\-=\-=\======================"
-    puts params.inspect
     @provider = params[:selected_cloud]
     if params[:selected_cloud] == "aws"
       @provider_form_name = "Amazon EC2"
@@ -89,6 +98,8 @@ class CrossCloudsController < ApplicationController
       @provider_form_name = "Google Compute Engine"
     elsif params[:selected_cloud] == "hp"
       @provider_form_name = "hp cloud"
+    elsif params[:selected_cloud] == "profitbricks"
+      @provider_form_name = "profitbricks"
     else
       @provider_form_name = "Amazon EC2"
     end
