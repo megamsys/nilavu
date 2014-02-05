@@ -37,6 +37,7 @@ function LogCtrl($scope, socket, $location, LogStackLimit) {
 };
 
 /*
+* This code is left around as the  intention was to display the logs in separate Tabs.
 * function MyCtrl($scope) { $scope.logs = {}; socket.on('connect',
 * function(data) {
 *

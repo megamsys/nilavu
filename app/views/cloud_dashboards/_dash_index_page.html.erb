@@ -1,101 +1,112 @@
-<div class="container">
-	<% if @count.to_i > 0 %>
-	<div class="row">
-		<div id="main" class="col-md-11">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<h3 class="panel-title">My Dash</h3>
-				</div>
-				<div class="panel-body updates" style="height:400px; overflow-y: scroll; ">
-					<% @dashboards.each do |dashboard| %>
-					<div class="new-update clearfix">
-						<i class="icon-ok-sign"></i>
-						<div class="update-done">
-							<%= link_to dashboard.name, dashboard_path(dashboard.id),  :target => "_blank" %>
-							<span>We've just set up a new App using <strong><%= dashboard.predef_name %></strong></span>
-						</div>
-						<div class="update-date">
-							<div class="col-md-11">
-								<div class="col-md-4 col-md-offset-2">
-									<span class="update-day">Cloud </span>
-								</div>
-								<div class="col-md-4">
-									<i class="icon-cloud-upload"></i>
-									<span class="update-day-value"><%= dashboard.cloud_name %></span>
-								</div>
-							</div>
-							<br/>
-							<br/>
-							<div class="col-md-11">
-								<div class="col-md-4 col-md-offset-2">
-									<span class="update-day">Launched At </span>
-								</div>
-								<div class="col-md-6">
-									<i class="icon-calendar"></i>
-									<span class="update-day-value"> <%= dashboard.created_at.to_formatted_s(:rfc822) %> </span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<% end %>
-				</div>
-				<div class="panel-footer">
-					<h4>To see Metrics Click App/Service .....</h4>
-				</div>
+<% if @count.to_i > 0 %>
+<div class="row clearfix">
+	<div class="col-xs-5 col-sm-5 col-md-6">
+		<div class="widget-box">
+			<div class="widget-title">
+				<span class="icon"> <i class="icon icon-bar-chart"></i> </span>
+				<h5>Bar chart</h5>
+			</div>
+			<div class="widget-content">
+				<div class="bars"></div>
 			</div>
 		</div>
 	</div>
-	<% else %>
-	<div class="row">
-		<div class="col-md-11">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<p class="help-block">
-						<%= image_tag "helpbota.png", :alt => "help bot"%>
-						<h4 class="alert-heading">Welcome. Not sure what to do next?
-					</p>
-				</div>
-				<div class="panel-body">
-					<div class="alert alert-info alert-block">
-						<div>
-							Get started with...
-							<table class="table table-hover">
-								<thead></thead>
-								<tbody>
-									<tr>
-										<td><span class="badge badge-info">Java</span></td>
-										<td><i class="icon-code"> </i>
-										<code>
-											Online code editor
-										</code> <%= link_to  "A simple web app run on Java container in megam.", new_cloud_book_path, :target => "_self", title: "Lauch your java app in megam"  %> </td>
-									</tr>
-									<tr>
-										<td><span class="badge badge-info">Ruby</span></td>
-										<td><i class="icon-plus-sign" > </i>
-										<code>
-											Ruby Sample app
-										</code><%= link_to  "A simple general purpose Rails 4.0 web app run on Ruby on Rails container in megam.", new_cloud_book_path, :target => "_self", title: "Lauch your ruby on rails app in megam"  %> </td>
-									</tr>
-									<tr>
-										<td><span class="badge badge-info">Marketplace</span></td>
-										<td><i class="icon-shopping-cart"> </i>
-										<code>
-											Marketplace
-										</code> <%= link_to  "Wordpress A ready to deploy, general purpose wordpress package with MySQL database.", new_market_place_path, :target => "_self", title: "Lauch your wordpress app in megam"  %> </td>
-
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div>
-						<i class="icon-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> My Apps to get stared. </span>
-						</br>
-					</div>
-				</div>
+	<div class="col-xs-5 col-sm-5 col-md-5">
+		<div class="widget-box">
+			<div class="widget-title">
+				<span class="icon"> <i class="icon icon-bar-chart"></i> </span>
+				<h5>Pie chart</h5>
 			</div>
-
+			<div class="widget-content">
+				<div class="pie"></div>
+			</div>
 		</div>
 	</div>
-	<% end %>
 </div>
+<div class="row">
+	<div class="col-xs-11 col-sm-11">
+		<div class="widget-box" style="height:400px; overflow-y: scroll;">
+			<div class="widget-title">
+				<span class="icon"> <i class="icon icon-refresh"></i> </span>
+				<h5>Latest updates</h5>
+			</div>
+
+			<div class="widget-content nopadding updates">
+				<% @dashboards.each do |dashboard| %>
+				<div class="new-update clearfix">
+					<i class="icon icon-ok-sign"></i>
+					<div class="update-done">
+						<a title="" href="#"><strong>A new <strong><%= dashboard.predef_name %></strong> server is on the board!</strong></a>
+						<span class="update-day-value"> <%= dashboard.created_at.to_formatted_s(:rfc822) %> </span>
+					</div>
+					<div class="update-date">
+						<div class="col-md-7">
+							<%= link_to dashboard.name, dashboard_path(dashboard.id), :class=>"btn btn-primary btn-lg active",  :target => "_blank" %>
+						</div>
+						<div class="col-md-4">
+							<span class="update-day-value btn btn-dark-green btn-lg">
+								<i class="icon icon-cloud"></i>Runs at <%= dashboard.cloud_name %>						
+								
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+</div>
+<% else %>
+<div class="row">
+	<div class="col-md-11">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<p class="help-block">
+					<%= image_tag "helpbota.png", :alt => "help bot"%>
+					<h4 class="alert-heading">Welcome. Not sure what to do next?
+				</p>
+			</div>
+			<div class="panel-body">
+				<div class="alert alert-info alert-block">
+					<div>
+						Get started with...
+						<table class="table table-hover">
+							<thead></thead>
+							<tbody>
+								<tr>
+									<td><span class="badge badge-info">Java</span></td>
+									<td><i class="icon-code"> </i>
+									<code>
+										Online code editor
+									</code> <%= link_to  "A simple web app run on Java container in megam.", new_cloud_book_path, :target => "_self", title: "Lauch your java app in megam"  %> </td>
+								</tr>
+								<tr>
+									<td><span class="badge badge-info">Ruby</span></td>
+									<td><i class="icon-plus-sign" > </i>
+									<code>
+										Ruby Sample app
+									</code><%= link_to  "A simple general purpose Rails 4.0 web app run on Ruby on Rails container in megam.", new_cloud_book_path, :target => "_self", title: "Lauch your ruby on rails app in megam"  %> </td>
+								</tr>
+								<tr>
+									<td><span class="badge badge-info">Marketplace</span></td>
+									<td><i class="icon-shopping-cart"> </i>
+									<code>
+										Marketplace
+									</code> <%= link_to  "Wordpress A ready to deploy, general purpose wordpress package with MySQL database.", new_market_place_path, :target => "_self", title: "Lauch your wordpress app in megam"  %> </td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div>
+					<i class="icon-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> My Apps to get stared. </span>
+					</br>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
+<% end %>

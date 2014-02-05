@@ -18,7 +18,7 @@ gem "icheck-rails"
 gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
 gem "flot-rails", "~> 0.0.4"
 gem "gritter", "~> 1.0.3"
-gem "flexslider", "~> 2.0.2"
+gem "flexslider", "~> 2.2.0"
 gem 'will_paginate','3.0.5'
 gem 'bootstrap-will_paginate','0.0.10'
 gem "breadcrumbs"
@@ -37,7 +37,7 @@ gem 'omniauth-github'
 #general
 gem "github_api"
 gem 'twitter'
-gem 'paperclip','3.5.2'
+gem 'paperclip','4.0.0'
 gem "aws-sdk"
 gem "randexp", "~> 0.1.7"
 gem "megam_api"

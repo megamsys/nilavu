@@ -14,10 +14,8 @@ $(document).ready(function(){
 	
 	var checkboxClass = 'icheckbox_flat-blue';
 	var radioClass = 'iradio_flat-blue';
-	$('input[type=checkbox],input[type=radio]').iCheck({
-    	checkboxClass: checkboxClass,
-    	radioClass: radioClass
-	});
+	
+	
 	
 	$('select').select2();
 	

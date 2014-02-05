@@ -122,7 +122,8 @@ GEM
       multipart-post (~> 1.2.0)
     faraday_middleware (0.9.0)
       faraday (>= 0.7.4, < 0.9)
-    flexslider (2.0.2)
+    flexslider (2.2.0)
+      sass-rails (>= 3.1.0)
     flot-rails (0.0.4)
       jquery-rails
     gherkin (2.12.2)
@@ -162,7 +163,7 @@ GEM
     json (1.8.1)
     jwt (0.1.11)
       multi_json (>= 1.5)
-    kgio (2.8.1)
+    kgio (2.9.0)
     less (2.4.0)
       commonjs (~> 0.2.7)
     less-rails (2.4.2)
@@ -228,7 +229,7 @@ GEM
     omniauth-twitter (1.0.1)
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
-    paperclip (3.5.2)
+    paperclip (4.0.0)
       activemodel (>= 3.0.0)
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
@@ -289,7 +290,7 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
-    therubyracer (0.12.0)
+    therubyracer (0.12.1)
       libv8 (~> 3.16.14.0)
       ref
     thor (0.18.1)
@@ -344,7 +345,7 @@ DEPENDENCIES
   factory_girl_rails
   faraday
   faraday_middleware
-  flexslider (~> 2.0.2)
+  flexslider (~> 2.2.0)
   flot-rails (~> 0.0.4)
   github_api
   google-analytics-rails (~> 0.0.4)
@@ -367,7 +368,7 @@ DEPENDENCIES
   omniauth-github
   omniauth-google-oauth2
   omniauth-twitter
-  paperclip (= 3.5.2)
+  paperclip (= 4.0.0)
   pg
   protected_attributes!
   rails (~> 4.1.0.beta1)

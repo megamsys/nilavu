@@ -7,11 +7,11 @@
 </div>
 <br/>
 
-<div class="container" ng-cloak>	
-		<%= render :partial => "cloud_dashboards/dash_index_page"  %>
-	<!--<ng-view ng-show="resolved" ng-cloak></ng-view>-->
-	<br/>
-	<div id="email_verify_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="container">
+	<%= render :partial => "cloud_dashboards/dash_index_page"  %>		
+</div>
+
+<div id="email_verify_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -25,7 +25,7 @@
 
 						<div id="msg">
 							Email has been sent to <h5><%= current_user.email %></h5> for verification.
-							Please check your email and follow the instructions
+							Please check your email and follow the instructions.
 						</div>
 					</div>
 				</div>
@@ -37,7 +37,6 @@
 			</div>
 		</div>
 	</div>
-</div>
 
 <% end %>
 

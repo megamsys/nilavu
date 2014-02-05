@@ -1,4 +1,4 @@
-var app = angular.module('Nilavu', [ "ngResource", "ngSanitize", "ngRoute" ]);
+var app = angular.module('Nilavu', [ "ngResource", "ngSanitize", "ngRoute" ,"ngAnimate",'cgBusy','ajoslin.promise-tracker']);
 
 app.config([ "$routeProvider", "$locationProvider",
      		function($routeProvider, $locationProvider) {
@@ -14,6 +14,24 @@ app.config([ "$routeProvider", "$locationProvider",
      				controller : "DashboardShowCtrl"
      			});
      		} ]);
+
+
+angular.module('Nilavu').controller('DemoCtrl',function($scope,promiseTracker,$q,$timeout){
+
+	$scope.delay1 = $scope.delay2 = 2000;
+
+	$scope.demoBusy = function(trackerName,delay){
+
+		//For the demo we're using a simple promise not $http since thats easier to control
+		var testPromise = $q.defer();
+		promiseTracker(trackerName).addPromise(testPromise.promise);
+		$timeout(function(){
+			testPromise.resolve();
+		},delay);
+
+	};
+
+});
 
 app
 .config([
