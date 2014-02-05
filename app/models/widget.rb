@@ -2,6 +2,7 @@ class Widget < ActiveRecord::Base
    belongs_to :cloud_book
 
   serialize :settings
+  serialize :targets, Array
 
   validates :name, :kind, :source, :dashboard_id, :presence => true
 

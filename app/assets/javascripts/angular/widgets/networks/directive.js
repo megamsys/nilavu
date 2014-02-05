@@ -1,27 +1,62 @@
-app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sources", function(FlotrGraphHelper, GraphModel, $routeParams, Sources) {
+app.directive("networks", ["FlotrGraphHelper", "TestFlotrGraphHelper", "NetworksModel", "$routeParams", "Sources", function(FlotrGraphHelper, TestFlotrGraphHelper, NetworksModel, $routeParams, Sources) {
 
   var currentColors = []; 
-  
+
   var linkFn = function(scope, element, attrs) {  	 
 	  
-	  function onSuccess(data) {		     
-		     scope.uptime_data=parseUptime(data);
-		     scope.rpm_data=parseRPM(data);
-		     scope.new_books=parseNewBooks(data);
-		     scope.total_books=parseTotalBooks(data);
-		     scope.total_queues=parseTotalQueues(data);
-	    	 var plot = $.plot("#graph_placeholder", FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, "graph"));
+	  function onSuccess(data_json) {
+		  //var data = data_json.pkts_out 
+		  
+		  //TODO_TOM
+		 // var data1;
+		  $.each(data_json,function(key,data){
+		  
+			 if(key=="pkts_out" || key=="pkts_in")
+				 {
+				// {
+				// data1=data;
+				// }
+				// if(key=="pkts_in")
+				 //{
+				 //data=data.push(data);
+		        var plot = $.plot("#networks_graph_packets", TestFlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), TestFlotrGraphHelper.defaultOptions(scope.widget, key));
+		    	 plot.setData(TestFlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors));   		   	
+		        //plot.append.draw();
+		    	//plot.setData([TestFlotrGraphHelper.transformSeriesOfDatapoints(data1, scope.widget, currentColors), TestFlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors)]);   		   	
+
+		    	 //var mul_data = [ { label: "Foo", data: TestFlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), color: red },
+		    	  //{ label: "Bar", data: TestFlotrGraphHelper.transformSeriesOfDatapoints(data1, scope.widget, currentColors), color: blue } ];
+		    	 
+		    	 //plot.setData(mul_data);
+		    	//var plot = $.plot("#networks_graph_packets", mul_data);
+		    	 
+		    	 //var plot = $.plot($("#networks_graph_packets"), [ { label: "Foo", data: TestFlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), color: red },
+		    	                        //{ label: "Bar", data: TestFlotrGraphHelper.transformSeriesOfDatapoints(data1, scope.widget, currentColors), color: blue } ]);
+		    	 
+		    	plot.draw();
+		        var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>")
+				.text(getYaxisLabel(key.toString()))
+				.appendTo("#networks_graph_packets");
+		      	var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>")
+				.text("Packets")
+				.appendTo("#networks_graph_packets");
+				 }
+		        
+			var plot = $.plot("#networks_graph_"+key, FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, key));
 	    	plot.setData(FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors));   		   	
-	        plot.draw();		  
-	      //element.height(265);
+	        plot.draw();	
+	        
+	      //element.height(265);  
 	      //console.log("element"+element);
 	      //Flotr.draw(element[0], FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, 0.7));
+	        //var metric=parseMetricName(data);
 	        var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>")
-			.text("%")
-			.appendTo("#graph_placeholder");
-	        var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>")
-			.text(parseMetricName(data))
-			.appendTo("#graph_placeholder");
+			.text(getYaxisLabel(key.toString()))
+			.appendTo("#networks_graph_"+key);
+	      	var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>")
+			.text(key)
+			.appendTo("#networks_graph_"+key);
+	        
 		// Since CSS transforms use the top-left corner of the label as the transform origin,
 		// we need to center the y-axis label by shifting it down by half its width.
 		// Subtract 20 to factor the chart's bottom margin into the centering.
@@ -29,6 +64,8 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sourc
 		yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);  
 		xaxisLabel.css("margin-top", yaxisLabel.width() / 2 + 220); 
 		xaxisLabel.css("margin-left", yaxisLabel.width() / 2 + 300); 
+		  });
+		//network_loop
 	  }     
 
     function update() {  
@@ -36,46 +73,37 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sourc
     		//return GraphModel.getData(scope.widget, $routeParams.book).success(onSuccess);
     	//}
     	//else {        
-    	scope.widgets.targets = "cpu_system";
-    		return GraphModel.getData(scope.widget).success(onSuccess);
+    	//scope.widgets.targets = "pkts_out";
+    		return NetworksModel.getData(scope.widget).success(onSuccess);
     	//}
     }    
     
-    function parseUptime(responsedata) {
-    	return _.map(responsedata, function(model, index) {    		  
-    	       return model.uptime_data;    	    
-    	});
-    }
+    function getYaxisLabel(metric) {
+	    switch(metric) {
+	    case "pkts_out":
+	    	return "packets/sec";
+	    case "pkts_in":
+	      return "packets/sec";
+	    case "bytes_in":
+	    	return "bytes/sec";
+	    case "bytes_out":
+		      return "bytes/sec";
+	    default:
+	      throw "unknown Target(METRIC NAME) : " + metric;
+	    }
+	  }
     
-    function parseRPM(responsedata) {
-    	return _.map(responsedata, function(model, index) {    		  
-    	       return model.rpm;    	    
-    	});
-    }
     
-    function parseNewBooks(responsedata) {
-    	return _.map(responsedata, function(model, index) {    		  
-    	       return model.new_books;    	    
-    	});
-    }
-    
-    function parseTotalBooks(responsedata) {
-    	return _.map(responsedata, function(model, index) {    		  
-    	       return model.total_books;    	    
-    	});
-    }
-    
-    function parseTotalQueues(responsedata) {
-    	return _.map(responsedata, function(model, index) {    		  
-    	       return model.total_queues;    	    
-    	});
-    }
-    
-    function parseMetricName(responsedata) {
+       function parseMetricName(responsedata) {
     	return _.map(responsedata, function(model, index) {    		  
     	       return model.metric;    	    
     	});
     }
+       function parseYaxis(responsedata) {
+       	return _.map(responsedata, function(model, index) {    		  
+       	       return model.y_max;    	    
+       	});
+       }
     
     function calculateWidth(size_x) {
       var widthMapping = { 1: 290, 2: 630, 3: 965 };
@@ -98,7 +126,7 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sourc
       //template: '<div id="graph_placeholder"  style=" height:300px; width:800px"></div>',   
 	  //template: '<div class="g_container"></div>',	   
 	  //template: '<div class="row-fluid"><div class="span4"><ul class="site-stats"><li><i class="icon-user"></i><strong>{{uptime_data}}</strong><small>Total Uptime(days)</small></li><li class="divider"></li></ul><br/><div class="center" style="text-align: center;"><ul class="stat-boxes"><li class="popover-visits"><div class="left peity_bar_bad"><span>3,5,9,7,12,20,10</span>-50%</div><div class="right"><strong>{{rpm_data}}</strong>Requests Served(rpm)</div></li></ul></div></div><div class="span8"><div class="row-fluid"><div class="span12 center" style="text-align: center;"><ul class="quick-actions"><li><a href="#"><i class="icon-graph"></i>LAST 30-minutes</a></li><li><a href="#"><i class="icon-graph"></i>LAST 60-minutes</a></li><li><a href="#"><i class="icon-graph"></i>LAST 1-hour</a></li></ul></div></div><br/><br/><div id="graph_placeholder" style=" height:300px; width:800px"></div></div></div>',
-	  templateUrl: 'angular/templates/widgets/pernode/show.html.erb',
+	  templateUrl: 'angular/templates/widgets/networks/show.html.erb',
 	  controller : "WidgetPerNodeCtrl",
 	  link: linkFn
   };

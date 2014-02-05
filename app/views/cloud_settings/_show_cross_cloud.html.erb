@@ -5,10 +5,29 @@
 			<td>Cloud Type</td>
 			<td><b><%= @cross_cloud.spec[:type_name] %></b></td>
 		</tr>
+		<% if @cross_cloud.spec[:type_name] == 'profitbricks' %>
+		<tr>
+			<td>Datacenter</td>
+			<td><b><%= @cross_cloud.spec[:datacenter] %></b></td>
+		</tr>
+		<tr>
+			<td>CPUs</td>
+			<td><b><%= @cross_cloud.spec[:cpus] %></b></td>
+		</tr>
+		<tr>
+			<td>RAM</td>
+			<td><b><%= @cross_cloud.spec[:ram] %></b></td>
+		</tr>
+		<% else %>
 		<tr>
 			<td>Group</td>
 			<td><b><%= @cross_cloud.spec[:groups] %></b></td>
 		</tr>
+				<tr>
+			<td>SSH Key</td>
+			<td><b><%= @cross_cloud.access[:ssh_key] %></b></td>
+		</tr>
+		<% end %>
 		<tr>
 			<td>Image</td>
 			<td><b><%= @cross_cloud.spec[:image] %></b></td>
@@ -17,10 +36,7 @@
 						<td>Flavor</td>
 			<td><b><%= @cross_cloud.spec[:flavor] %></b></td>
 		</tr>
-		<tr>
-			<td>SSH Key</td>
-			<td><b><%= @cross_cloud.access[:ssh_key] %></b></td>
-		</tr>
+
 		<tr>
 			<td>Identity File</td>
 			<td><%= @cross_cloud.access[:identity_file] %></td>

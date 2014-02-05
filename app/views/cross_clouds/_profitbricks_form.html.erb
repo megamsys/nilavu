@@ -1,0 +1,130 @@
+<input type="hidden" name="provider" value="<%= selected_cloud %>">
+<div class="row">
+	<div class="col-md-4">
+		<br/>
+		<br/>
+		<div class="div_border">
+			<h4 class="alert-heading">Save My Cloud As</h4>
+		</div>
+		<br/>
+		<div class="row">
+			<div class="control-group" id="cc_name">
+				<div class="controls">
+					&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-cloud"></i>
+					&nbsp;
+					<%= text_field_tag 'name', nil, placeholder: 'Enter a name' %>
+					<%= link_to "#" do %>
+					<i class="icon-question-sign" id="popover_pb_name"></i>
+					<% end %>
+				</div>
+			</div>
+		</div>
+		<br/>
+		<div  id="acc_link">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					Create a new Account for Profitbricks Cloud
+				</div>
+				<div class="panel-body">
+					Click here : <%= link_to "New Profitbricks Cloud Account", "https://www.profitbricks.com/signup", :target => "_blank", :class => "btn-link" %>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-4">
+		<br/>
+		<br/>
+		<div class="div_border">
+			<h4 class="alert-heading">Image & Size</h4>
+		</div>
+		<br/>
+		<div class="control-group" id="cc_tenantid">
+			<div class="controls">
+				<%= text_field_tag 'tenant_id', nil, placeholder: 'Enter Datacenter Name' %>
+				<%= link_to "#" do %>
+				<i class="icon-question-sign" id="popover_hp_datacenter"></i>
+				<% end %>
+			</div>
+		</div>
+		<br/>
+		<div class="control-group" id="cc_image">
+			<div class="controls">
+				<%= text_field_tag 'image', "ubuntu-13.04-server-amd64-05.28.13.img", :readonly => true, :title => "Image value" %>
+				<%= link_to "#" do %>
+				<i class="icon-question-sign" id="popover_pb_image"></i>
+				<% end %>
+			</div>
+		</div>
+		<br/>
+		<div class="control-group" id="cc_flavor">
+			<div class="controls">
+				<%= text_field_tag 'flavor', 10, :title => "Storage hdd Size", :size => 5 %>
+				<%= text_field_tag 'ram', 1024, :title => "Ram size(only in the multiple of 256)", :size => 5 %>
+				<%= text_field_tag 'cpus', 1, :title => "No of cores(cpus)", :size => 5 %>
+				<%= link_to "#" do %>
+				<i class="icon-question-sign"></i>
+				<% end %>
+			</div>
+		</div>
+
+		<br/>
+
+	</div>
+
+	<div class="col-md-4">
+		<br/>
+		<br/>
+		<div class="div_border">
+			<h4 class="alert-heading">Security</h4>
+		</div>
+		<br/>
+		<div class="control-group" id="cc_sshuser">
+			<div class="controls">
+				<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter SSH User..' %>
+				<%= link_to "#" do %>
+				<i class="icon-question-sign" id="popover_pb_sshuser"></i>
+				<% end %>
+			</div>
+		</div>
+		<br/>
+		<div class="control-group">
+			<div class="controls">
+				<!-- <%= text_field_tag 'private_key', nil, :class=> 'required', placeholder: 'Enter Profitbricks private key...' %> -->
+				<label for="file">Private Key</label>  <%= file_field_tag 'private_key', accept: 'text' %>
+				<%= link_to "#" do %>
+				<i class="icon-question-sign" id="popover_pb_privatekey"></i>
+				<% end %>
+			</div>
+		</div>
+		<br/>
+		<div class="control-group">
+			<div class="controls">
+				<!-- <%= text_field_tag 'id_rsa_public_key', nil, :class=> 'required', placeholder: 'Enter id_rsa public key..' %> -->
+				<label for="file">Public Key</label> <%= file_field_tag 'id_rsa_public_key', accept: 'text' %>
+				<%= link_to "#" do %>
+				<i class="icon-question-sign" id="popover_pb_publickey"></i>
+				<% end %>
+			</div>
+		</div>
+		<br/>
+		<div class="control-group" id="cc_awsak">
+			<div class="controls">
+				<%= text_field_tag 'profitbricks_username', nil, placeholder: 'Enter Profitbricks user email..' %>
+				<%= link_to "#" do %>
+				<i class="icon-question-sign" id="popover_pb_username"></i>
+				<% end %>
+			</div>
+		</div>
+		<br/>
+		<div class="control-group" id="cc_awssk">
+			<div class="controls">
+				<%= text_field_tag 'profitbricks_password', nil, placeholder: 'Enter profitbricks password..' %>
+				<%= link_to "#" do %>
+				<i class="icon-question-sign" id="popover_pb_password"></i>
+				<% end %>
+			</div>
+		</div>
+
+		<br/>
+	</div>
+</div>

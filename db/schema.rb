@@ -156,7 +156,7 @@ ActiveRecord::Schema.define(version: 20140120091328) do
     t.string   "kind"
     t.string   "size"
     t.string   "source"
-    t.string   "targets"
+    t.text     "targets",      default: "--- []\n"
     t.text     "range"
     t.integer  "dashboard_id"
     t.string   "widget_type"
