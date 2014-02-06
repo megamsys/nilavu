@@ -49,9 +49,28 @@
 		<br/>
 		<div class="control-group" id="cc_image">
 			<div class="controls">
-				<%= text_field_tag 'image', "ubuntu-13.04-server-amd64-05.28.13.img", :readonly => true, :title => "Image value" %>
+				<%= text_field_tag 'image', nil, :readonly => true, :title => "Enter Image Name" %>
 				<%= link_to "#" do %>
 				<i class="icon-question-sign" id="popover_pb_image"></i>
+				<% end %>
+			</div>
+		</div>
+		(OR)
+		<br/>
+			<div class="control-group" id="cc_group">
+			<div class="controls">
+				<%= text_field_tag 'group', "ubuntu13.04-Snapshot-02/06/2014", :readonly => true, :title => "Enter Snapshot Name", placeholder: 'Enter Snapshot Name' %>
+				<%= link_to "#" do %>
+				<i class="icon-question-sign" id="popover_pb_snapshot"></i>
+				<% end %>
+			</div>
+		</div>
+		<br/>
+		<div class="control-group" id="cc_sshkey">
+			<div class="controls">
+				<%= text_field_tag 'ssh_key', nil, placeholder: 'Enter Image or snapshot Password..' %>
+				<%= link_to "#" do %>
+				<i class="icon-question-sign" id="popover_pb_image_password"></i>
 				<% end %>
 			</div>
 		</div>
