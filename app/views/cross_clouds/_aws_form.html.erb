@@ -138,14 +138,22 @@
 			</div>
 		</div>
 		<br/>
-		<div class="control-group">
+		<!--<div class="control-group">
 			<div class="controls">
 				<label for="file">Public Key</label> <%= file_field_tag "id_rsa_public_key" %>
 				<%= link_to "#" do %>
 				<i class="icon-question-sign" id="popover_aws_publickey"></i>
 				<% end %>
 			</div>
-		</div>
+		</div>-->
+		<div class="control-group">
+			<div class="controls">
+				 <%= select_tag :id_rsa_public_key, options_for_select(@ssh_keys.map{ |c| [c.name] }) %>
+				<%= link_to "#" do %>
+				<i class="icon-question-sign" id="popover_aws_publickey"></i>
+				<% end %><label>My Key pairs</label>
+			</div>
+		</div>		
 		<br/>
 		<div class="control-group" id="cc_awsak">
 			<div class="controls">

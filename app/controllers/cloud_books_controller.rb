@@ -200,13 +200,13 @@ class CloudBooksController < ApplicationController
     end
     @deps_war = "#{params[:deps_war]}" if params[:deps_war]
     @book =  current_user.cloud_books.build
-    @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key])
-    if @predef_cloud.class == Megam::Error
-      redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+    @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key])    
+    if @predef_cloud.class == Megam::Error 
+      redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}--#{@ssh_keys.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
       @predef_name = params[:predef_name]
       predef_options = {:predef_name => @predef_name}
-      pred = FindPredefsByName.perform(predef_options,force_api[:email],force_api[:api_key])
+      pred = FindPredefsByName.perform(predef_options,force_api[:email],force_api[:api_key])    
       if pred.class == Megam::Error
         redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{pred.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else

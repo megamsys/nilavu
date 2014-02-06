@@ -1,0 +1,21 @@
+<% if @err_msg != nil %>
+
+var selected_entity = '#sshkey_postfinish_popup_error';
+$("#err_msg").html('<%= @err_msg %>');
+$(selected_entity).modal('show');
+
+<% else %>
+var selected_entity = '#sshkey_postfinish_popup';
+$("#res_msg").html('<%= @res_msg %>');
+$(selected_entity).modal('show');
+/*var selected_entity = '#key_view';
+
+$(selected_entity).toggle();
+
+$(selected_entity).fadeIn("slow");
+
+var to_insert_content = "<%= escape_javascript(render :partial => 'cloud_settings/sshkey_download_page', :locals => {:filename => @filename}) %>";
+	
+insertAt(selected_entity, to_insert_content);*/
+
+<% end %>

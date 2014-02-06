@@ -6,7 +6,7 @@ class AmazonCloud
     #S3Upload.perform(bucket_name, options[:email]+"/"+options[:name]+"/"+File.basename(options[:private_key]), :file => options[:private_key])
 
     #Upload id rsa public key...
-    S3Upload.perform(bucket_name, options[:email]+"/"+options[:id_rsa_public_key].original_filename, options[:id_rsa_public_key].read)
+   # S3Upload.perform(bucket_name, options[:email]+"/"+options[:id_rsa_public_key].original_filename, options[:id_rsa_public_key].read)
     #S3Upload.perform(bucket_name, options[:email]+"/"+File.basename(options[:id_rsa_public_key]), :file => options[:id_rsa_public_key])
 
     #Create and Upload type file ...

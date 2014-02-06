@@ -30,26 +30,13 @@
 						<%= render :partial => "cloud_settings/cloud_tool_settings" %>
 					</div>
 					<div id="sshkeys_tab" class="tab-pane">
-						<div class="alert alert-info alert-block">
-							<h4 class="alert-heading">Work in Progress</h4>
-							<div>
-								<p class="help-block">
-									<%= image_tag "helpbota.png", :alt => "help bot"%>
-									<strong>Go Ahead </strong>
-									Develop More Application on Cloud
-								</p>
-								<i class="icon-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> My Apps </span>
-								</br>
-							</div>
-						</div>
+						<%= render :partial => "cloud_settings/sshkey_index" %>
 					</div>
-					<%= link_to "Generate new SSHKey", sshkey_new_path, class: "btn btn-lg btn-success btn-block", :id => "popover_clouds", :target => "_self" %>
 				</div>
 			</div>
 		</div>
-
 	</div>
-	</div>
+</div>
 
-	<% end %>
-	<%= render :template => users_show_path %>
+<% end %>
+<%= render :template => users_show_path %>
