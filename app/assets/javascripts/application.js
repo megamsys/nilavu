@@ -23,7 +23,6 @@
 //= require angular-sanitize
 //= require spin
 //= require jquery.spin
-//= require jquery.spin.config
 //= require gritter
 //= require jquery.uniform
 //= require select2
@@ -31,11 +30,11 @@
 //= require jquery.wizard
 //= require jquery.peity
 //= require jquery.icheck
-//= require popovers
+//= require megam.popovers
+//= require megam.spin
 //= require cross_clouds
 //= require connector_projects
 //= require jquery.sparkline
-//= require bootstrap-editable
 //= require unicorn.login
 //= require cloud_books
 //= require unicorn.form_common
@@ -49,9 +48,10 @@
 //= require jquery.flot.time
 //= require fullcalendar
 //= require dataTables/jquery.dataTables
-//= require dataTables/jquery.dataTables.bootstrap
+//= require dataTables/jquery.dataTables.bootstrap3
 //= require unicorn.tables
 //= require jquery-ui.custom
+//= require bootstrap-editable
 //= require flexslider
 //= require socket.io
 //= require underscore

@@ -2,12 +2,12 @@
 <% provide(:title, 'Apps') %>
 <%= render :partial => "users/header" , :locals => {:head => "Apps - Step 1 of 2"}%>
 <div id="breadcrumb">
-	<%= render_breadcrumbs %>
+	<%= breadcrumbs.render(:format => :inline) %>
 </div>
 <%= form_tag(new_book_path, :method => "post", :name => "predef") do %>
-<div class="row">
-	<div class="widget-content nopadding">
-		<div id="form-wizard-1" class="step">
+<div class="container">
+	<div class="row">
+		<div class="col-lg-11">
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-list"></i> </span>
@@ -21,7 +21,7 @@
 							</p>
 							</br>
 							<div class="row">
-								<div class="col-md-7">
+								<div class="col-md-6">
 									<div id="platformapps" class="required">
 										<div class="col-md-6">
 											<a href="#" rel="tooltip" title="supports applications written in several Java based frameworks including Spring, Struts."> <%= radio_button_tag :predef_name, 'java' %>
@@ -56,37 +56,35 @@
 									</div>
 								</div>
 								<div class="col-md-5">
-									<div class="row">
-										<div class="panel panel-primary">
-											<div class="panel-heading">
-												<i class="icon-home"></i> Scale Your App Quickly
-												<div>
-													<i class="icon-check-sign">&nbsp;You selected </i>
-													<span id="books_total">0</span>
-													<input type="hidden" id="cb_count" name="no_of_instances" value="<%= @books_count %>">
-													App(s) Of:
-													<span class="badge badge-danger">
-														<div id="selected_platformapp">
-															<h3>none</h3>
-														</div></span>
-												</div>
+									<div class="panel panel-primary">
+										<div class="panel-heading">
+											<i class="icon-home"></i> Scale Your App Quickly
+											<div>
+												<i class="icon-check-sign">&nbsp;You selected </i>
+												<span id="books_total">0</span>
+												<input type="hidden" id="cb_count" name="no_of_instances" value="<%= @books_count %>">
+												App(s) Of:
+												<span class="badge badge-danger">
+													<div id="selected_platformapp">
+														<h3>none</h3>
+													</div></span>
 											</div>
-											<div class="panel-body">
-												<div id="scalebooks">
-													<div class="overflow">
-														<table class="table table-striped">
-															<thead>
-																<tr>
-																	<th>My Apps</th>
-																	<th><a href="#" rel="tooltip" title="max 2 (*beta)" class='info'>Instances <i class="icon-info-sign"></i></a></th>
-																	<th><i class="icon-trash"></i></th>
-																</tr>
-															</thead>
-															<tbody>
+										</div>
+										<div class="panel-body">
+											<div id="scalebooks">
+												<div class="overflow">
+													<table class="table table-striped">
+														<thead>
+															<tr>
+																<th>My Apps</th>
+																<th><a href="#" rel="tooltip" title="max 2 (*beta)" class='info'>Instances <i class="icon-info-sign"></i></a></th>
+																<th><i class="icon-trash"></i></th>
+															</tr>
+														</thead>
+														<tbody>
 
-															</tbody>
-														</table>
-													</div>
+														</tbody>
+													</table>
 												</div>
 											</div>
 										</div>
@@ -97,6 +95,10 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-11">
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-th-list"></i> </span>
@@ -120,13 +122,12 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-md-10">
+						<div class="col-md-9">
 							<div class="panel panel-primary">
 								<div class="panel-heading">
 									<p class="help-block">
 										<h4 class="alert-heading">You don't have source code repository?
-										Try our sample. Click on <i class="icon-plus-sign"></i>
-										icon </h4>
+										Try our sample. Click on <i class="icon-plus-sign"></i> icon </h4>
 									</p>
 
 								</div>
@@ -169,32 +170,36 @@
 								</div>
 							</div>
 
+						</div>
+						<div class="row">
 							<div class="collapse in accordion-body" id="collapseGOne">
 								<div class="widget-content">
 									<% if defined?(repos) %>
 									<div class="form-group">
-										<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Your repositories list </label>
-										<div class="col-sm-9 col-md-9 col-lg-10">
+										<label for="" class="col-sm-3 col-md-3 col-lg-3 control-label">Your repositories list </label>
+										<div class="col-sm-9 col-md-9 col-lg-9">
 											<div class="row">
-												<div class="col-md-12">
+												<div class="col-md-11">
 													<div class="input-group input-group-sm">
 														<span class="input-group-addon"><i class="icon-github"></i></span>
-														<%= select_tag 'scm', options_for_select(repos.insert(0, "Select a Repository")), :style => "width:500px" %> 
+														<%= select_tag 'scm', options_for_select(repos.insert(0, "Select a Repository")), :style => "width:500px" %>
 													</div>
 												</div>
 											</div>
 										</div>
 									</div>
-									<br/>  (OR) <br/>
+									<br/>
+									(OR)
+									<br/>
 									<% end %>
 									<div class="form-group">
-										<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label">Source code repository</label>
+										<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label"><b>Source Repository</b></label>
 										<div class="col-sm-9 col-md-9 col-lg-10">
 											<div class="row">
 												<div class="col-md-12">
 													<div class="input-group input-group-sm">
-														<span class="input-group-addon"><i class="icon-github"></i></span>
-														<%= text_field_tag 'deps_scm', nil, class: 'form-control input-sm', placeholder: "https://github.com/username/project.git" %>
+														<span class="input-group-btn"> <a href="https://github.com" class="btn btn-warning" target="_blank">Git!</a> </span>
+														<strong><%= text_field_tag 'deps_scm', nil, class: 'form-control input-sm', placeholder: "https://github.com/username/project.git" %> </strong>
 													</div>
 												</div>
 											</div>
@@ -222,16 +227,16 @@
 					</div>
 				</div>
 			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<%= submit_tag "Next", :class => "btn btn-default btn-lg btn-success btn-block", :id => "cb_next", :disabled => true, :remote => true, :data => { :disable_with => "Please wait..."}, title: 'Please select your application platform and then click Next', rel: 'tooltip' %>
+			<% end %>
+			<br/>
+		</div>
+		<div class="col-md-4">
 
-			<div class="row">
-				<div class="col-md-4"></div>
-				<div class="col-md-4">
-					<%= submit_tag "Next", :class => "btn btn-default btn-lg btn-success btn-block", :id => "cb_next", :disabled => true, :remote => true, :data => { :disable_with => "Please wait..."}, title: 'Please select your application platform and then click Next', rel: 'tooltip' %>
-					<% end %>
-					<br/>
-				</div>
-				<div class="col-md-4"></div>
-			</div>
 		</div>
 	</div>
 </div>

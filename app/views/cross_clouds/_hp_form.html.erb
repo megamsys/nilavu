@@ -10,7 +10,7 @@
 		<div class="row">
 			<div class="control-group" id="cc_name">
 				<div class="controls">
-					<i class="icon-cloud"></i>
+					&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-cloud"></i>
 					&nbsp;
 					<%= text_field_tag 'name', nil, placeholder: 'Enter a name' %>
 					<%= link_to "#" do %>
@@ -20,21 +20,13 @@
 			</div>
 		</div>
 		<br/>
-		<br/>
-		<div class="row">
-			<div id="cloud_logo"></div>
-		</div>
-		<br/>
-		<br/>
-		<div class="row">
-			<div  id="acc_link">
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						Create a new Account for hpcloud
-					</div>
-					<div class="panel-body">
-						Click here : <%= link_to "New hpcloud Account", "http://console.hpcloud.com", :target => "_blank", :class => "btn-link" %>
-					</div>
+		<div  id="acc_link">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					Create a new Account for hpcloud
+				</div>
+				<div class="panel-body">
+					Click here : <%= link_to "New hpcloud Account", "http://console.hpcloud.com", :target => "_blank", :class => "btn-link" %>
 				</div>
 			</div>
 		</div>

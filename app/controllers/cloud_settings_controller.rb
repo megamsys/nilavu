@@ -29,8 +29,8 @@ class CloudSettingsController < ApplicationController
   end
 
   def index
-    add_breadcrumb "Home", "#"
-    add_breadcrumb "Manage Settings", cloud_settings_path
+    breadcrumbs.add "Home", "#"
+    breadcrumbs.add "Manage Settings", cloud_settings_path
     cross_cloud_init
     cloud_tools_init
     if @cloud_tool_setting_collection.class == Megam::Error && @cross_clouds_collection.class == Megam::Error
@@ -64,10 +64,10 @@ class CloudSettingsController < ApplicationController
   end
 
    def cloud_tool_setting_new
-      add_breadcrumb "Home", "#"
-      add_breadcrumb "Manage Settings", cloud_settings_path
-      add_breadcrumb "Cloud Provisioners", cloud_settings_path
-      add_breadcrumb "New", cloud_tool_setting_new_path
+      breadcrumbs.add "Home", "#"
+      breadcrumbs.add "Manage Settings", cloud_settings_path
+      breadcrumbs.add "Cloud Provisioners", cloud_settings_path
+      breadcrumbs.add "New", cloud_tool_setting_new_path
    end
 
   def cloud_tool_setting_create

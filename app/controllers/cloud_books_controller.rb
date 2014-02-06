@@ -4,10 +4,11 @@ class CloudBooksController < ApplicationController
   include CloudBooksHelper
   
   def index
-    cloud_books = current_user.cloud_books.where(:book_type => 'APP')
+    cloud_books = current_user.cloud_books.where(:book_type => 'APP').order("id DESC").all
     if cloud_books.any?
-      add_breadcrumb "Home", "#"      
-      add_breadcrumb "Manage Apps", cloud_books_path      
+      breadcrumbs.add "Home", "#", :target => "_self"      
+      breadcrumbs.add "Manage Apps", cloud_books_path, :target => "_self"      
+
       @nodes = FindNodesByEmail.perform({},current_user.email, current_user.api_token)
       if @nodes.class == Megam::Error
         redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
@@ -135,7 +136,7 @@ class CloudBooksController < ApplicationController
         node_hash["appdefns"] = {"timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => "#{runtime_exec}"}
       end
       if @clone_node.node_type == "BOLT"
-        #node_hash["boltdefns"] = {"username" => "#{data['user_name']}", "apikey" => "#{data['password']}", "store_name" => "#{data['store_db_name']}", "url" => "#{data['url']}", "prime" => "#{data['prime']}", "timetokill" => "#{data['timetokill']}", "metered" => "#{data['monitoring']}", "logging" => "#{data['logging']}", "runtime_exec" => "#{data['runtime_exec']}" }
+        #node_hash["boltdefns"] = {"username" => "#{data['user_name']}", "apikey" => "#{data['password']}", "store_name" => "#{data['store_name']}", "url" => "#{data['url']}", "prime" => "#{data['prime']}", "timetokill" => "#{data['timetokill']}", "metered" => "#{data['monitoring']}", "logging" => "#{data['logging']}", "runtime_exec" => "#{data['runtime_exec']}" }
       end
       
       
@@ -174,19 +175,24 @@ class CloudBooksController < ApplicationController
   end
 
   def new
+  
     if current_user.onboarded_api
       @book =  current_user.cloud_books.build
-      add_breadcrumb "Manage Apps", cloud_books_path
-      add_breadcrumb "Apps Framework Selection", new_cloud_book_path
+      breadcrumbs.add "Home", "#", :target => "_self"
+      breadcrumbs.add "Manage Apps", cloud_books_path, :target => "_self" 
+      breadcrumbs.add "Apps Framework Selection", new_cloud_book_path, :target => "_self"
+
     else
       redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "You need an API key to launch an app. Click Profile from the top, and generate a new API key", :sticky => false, :nodom_wrap => true } }
     end
   end
 
   def new_book
-    add_breadcrumb "Manage Apps", cloud_books_path
-    add_breadcrumb "Apps Framework Selection", new_cloud_book_path
-    add_breadcrumb "Create Apps", new_book_path
+    breadcrumbs.add "Home", "#", :target => "_self"
+    breadcrumbs.add "Manage Apps", cloud_books_path, :target => "_self"
+    breadcrumbs.add "Apps Framework Selection", new_cloud_book_path, :target => "_self"
+    breadcrumbs.add "New", new_book_path
+
    if"#{params[:deps_scm]}".strip.length != 0
       @deps_scm = "#{params[:deps_scm]}"
     elsif !"#{params[:scm]}".start_with?("select")
@@ -213,6 +219,12 @@ class CloudBooksController < ApplicationController
 
   def create
     data={:book_name => params[:cloud_book][:name], :book_type => params[:cloud_book][:book_type] , :predef_cloud_name => params[:cloud_book][:predef_cloud_name], :provider => params[:predef][:provider], :repo => 'default_chef', :provider_role => params[:predef][:provider_role], :domain_name => params[:cloud_book][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}"}
+   if params[:cloud_book][:book_type] == "BOLT"
+     data['user_name'] = params[:user_name]
+     data['password'] = params[:password]
+     data['store_db_name'] = params[:store_db_name]
+     data['url'] = params[:url]
+    end
     options = {:data => data, :group => "server", :action => "create" }
     node_hash=MakeNode.perform(options, force_api[:email], force_api[:api_key]) 
     if node_hash.class == Megam::Error
@@ -302,7 +314,6 @@ class CloudBooksController < ApplicationController
 
  
   def destroy    
-    #@book = CloudBook.find(params[:id])
     @book = CloudBook.find_by_name(params[:name])
     options = {:node_name => "#{params[:name]}", :group => "server", :action => "delete", :repo => 'default_chef' }
     node_hash=DeleteNode.perform(options, force_api[:email], force_api[:api_key])    

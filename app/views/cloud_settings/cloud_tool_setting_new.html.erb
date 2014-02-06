@@ -2,90 +2,94 @@
 <% provide(:title, 'Cloud Provisioners') %>
 <%= render :partial => "users/header" , :locals => {:head => "Cloud Provisioners"}%>
 <div id="breadcrumb">
-	<%= render_breadcrumbs %>
+	<%= breadcrumbs.render(:format => :inline) %>
 </div>
 
-<div class="container-fluid">
+<div class="container">
 	<div class="row">
-		<div class="widget-box">
-			<div class="widget-title">
-				<h5>Cloud Provisioners</h5>
-			</div>
-			<div class="widget-content">
-				<div class="row">
-					<div class="col-md-6">
-						<div class="widget-box">
-							<div class="widget-content">
-								<%= form_tag cloud_tool_settings_create_path, multipart: true, :id =>'basic_validate', :novalidate => 'novalidate', :name => "basic_validate1",  :method => 'post', :remote => true, data: { spinlock: '#spin_cross_cloud'}  do %>
-								<div class="row">
-									<input type="hidden" name="cloud_type" value="chef">
-									<!--<div class="control-group">
-									<div class="controls">
-									<%= text_field_tag 'cloud_type', nil, :class=> 'required', placeholder: 'Cloud Type' %>
-									</div>
-									</div>-->
-									<div class="col-md-5">
-										<div class="row">
-											<br/>
-											<div class="col-md-3">
-												<span class="badge badge-info">Default Cloud Provisioner</span>
-												<i class="logo_chef"></i>
-											</div>
+		<div class="col-md-11">
+			<div class="widget-box">
+				<div class="widget-title">
+					<h5>Cloud Provisioners</h5>
+				</div>
+				<div class="widget-content">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="widget-box">
+								<div class="widget-content">
+									<%= form_tag cloud_tool_settings_create_path, multipart: true, :id =>'basic_validate', :novalidate => 'novalidate', :name => "basic_validate1",  :method => 'post', :remote => true, data: { spinlock: '#spin_cross_cloud'}  do %>
+									<div class="row">
+										<input type="hidden" name="cloud_type" value="chef">
+										<!--<div class="control-group">
+										<div class="controls">
+										<%= text_field_tag 'cloud_type', nil, :class=> 'required', placeholder: 'Cloud Type' %>
 										</div>
-									</div>
-									<div class="col-md-4">
-										<div class="row">
-											<br/>
-											<div class="col-md-3"></div>
-											<div class="input-group  col-md-9">
-												<span class="input-group-addon"><i class="icon-ticket"></i></span>
-												<%= text_field_tag 'repo_name', nil, :class=> 'required', placeholder: 'Enter a Name to Save' %>
-											</div>
-										</div>
-										<br/>
-										<div class="row">
-											<div class="col-md-3"></div>
-											<div class="input-group  col-md-9">
-												<span class="input-group-addon"><i class="icon-map-marker"></i></span>
-												<%= text_field_tag 'repo', nil, :class=> 'required', placeholder: 'Cloud Provisioner Repository' %>
-											</div>
-										</div>
-										<div class="row">
-										<span class="label label-info">Ex: https://github.com/username/project.git</span>
-										</div>
-										<br/>										
-										<div class="row">
-											<div class="col-md-3"></div>
-											<div class="input-group col-md-9">
-												<div class="controls">
-													<label class="control-label">Upload Your repository file(.Zip only)</label>
-													<%= file_field_tag :repo_file, :id => 'repo_file', placeholder: "Repository File" %>
+										</div>-->
+										<div class="col-md-5">
+											<div class="row">
+												<br/>
+												<div class="col-md-3">
+													<span class="badge badge-info">Default Cloud Provisioner</span>
+													<i class="logo_chef"></i>
 												</div>
 											</div>
 										</div>
+										<div class="col-md-4">
+											<div class="row">
+												<br/>
+												<div class="col-md-3"></div>
+												<div class="input-group  col-md-9">
+													<span class="input-group-addon"><i class="icon-ticket"></i></span>
+													<%= text_field_tag 'repo_name', nil, :class=> 'required', placeholder: 'Enter a Name to Save' %>
+												</div>
+											</div>
+											<br/>
+											<div class="row">
+												<div class="col-md-3"></div>
+												<div class="input-group  col-md-9">
+													<span class="input-group-addon"><i class="icon-map-marker"></i></span>
+													<%= text_field_tag 'repo', nil, :class=> 'required', placeholder: 'Cloud Provisioner Repository' %>
+												</div>
+											</div>
+											<div class="row">
+												<span class="label label-info">Ex: https://github.com/username/project.git</span>
+											</div>
+											<br/>
+											<div class="row">
+												<div class="col-md-3"></div>
+												<div class="input-group col-md-9">
+													<div class="controls">
+														<label class="control-label">Chef setup(as zip only)</label>
+														<%= file_field_tag :repo_file, :id => 'repo_file', placeholder: "Repository File" %>
+													</div>
+												</div>
+											</div>
+											<br/>
+										</div>
+
+									</div>
+									<div class="row">
+										<%= submit_tag "Create Cloud Provisioner", :class => "btn btn-lg btn-success btn-block" %>
 										<br/>
 									</div>
-
+									<% end %>
 								</div>
-								<div class="row">
-									<%= submit_tag "Create Cloud Provisioner", :class => "btn btn-lg btn-success btn-block" %>
-									<br/>
-								</div>
-								<% end %>
 							</div>
 						</div>
-					</div>
-					<div class="col-md-6">
-						<br/>
-						<br/>
-						<br/>
-						<div class="alert alert-success alert-block">
-							<h4 class="alert-heading">My Cloud Provisioner</h4>
-							<div>
-								<p class="help-block">
-									<i class="icon-chevron-left"></i>&nbsp; &nbsp; <%= image_tag "helpbota.png", :alt => "help bot"%><br/> 
-									Your provided with one default <span class="label label-info">cloud provisioner</span> connected to <a href="https://github.com/indykish/chef-repo.git" target="_blank">https://github.com/indykish/chef-repo.git</a>. If you wish to use your own repository enter the remote repository details. At the moment we support <span class="label label-info">chef</span> only. <br/>Information about chef : <a href="https://wiki.opscode.com/display/chef/Home" class="btn btn-link" target="_blank">Click here</a> 
-								</p>								
+						<div class="col-md-6">
+							<br/>
+							<br/>
+							<br/>
+							<div class="alert alert-success alert-block">
+								<h4 class="alert-heading">My Cloud Provisioner</h4>
+								<div>
+									<p class="help-block">
+										<i class="icon-chevron-left"></i>&nbsp; &nbsp; <%= image_tag "helpbota.png", :alt => "help bot"%>
+										<br/>
+										A default <span class="label label-info">cloud provisioner</span> connected to <a href="https://github.com/indykish/chef-repo.git" target="_blank">https://github.com/indykish/chef-repo.git</a> exists. </br> Use this option, If you wish to use your own remote chef repository.
+										<a href="https://wiki.opscode.com/display/chef/Home" class="btn btn-link" target="_blank">Click here to know about chef</a>
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -101,7 +105,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					×
 				</button>
-				<h3 id="myModalLabel">Cloud Tool Settings</h3>
+				<h3 id="myModalLabel">Cloud Provisioner</h3>
 			</div>
 			<div class="modal-body">
 				<div class="alert alert-success">
@@ -124,13 +128,12 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					×
 				</button>
-				<h3 id="myModalLabel">Cloud Tool Settings</h3>
+				<h3 id="myModalLabel">Cloud Provisioner</h3>
 			</div>
 			<div class="modal-body">
 				<div class="alert alert-error">
-
 					<p>
-						A cloud tool setting creation request to the megam cloud gateway was not successful.
+						A cloud provisioner setup to the megam cloud gateway was not successful.
 						</br>
 						<div id="err_msg"></div>
 					</p>

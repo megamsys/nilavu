@@ -2,123 +2,129 @@
 <% provide(:title, 'Manage Services') %>
 <%= render :partial => "users/header" , :locals => {:head => "Manage Services"}%>
 <div id="breadcrumb">
-	<%= render_breadcrumbs %>
+	<%= breadcrumbs.render(:format => :inline) %>
 </div>
 
-<div class="container-fluid">
-	<div class="row">
-		<div class="widget-box">
-			<div class="widget-title">
-				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>My Service Usage</h5>
-			</div>
-			<div class="widget-content" >
-				<div class="row">
-					<div class="col-md-4">
-						<div class="cb_box">
-							<h4 align="center">No of Services</h4>
-							<h5 align="center" ><span class="icon"><i class="icon-book"></i></span>&nbsp;Used <%= @cloud_stores.count %>&nbsp;Allowed 2</h5>
-						   <br/>
-						</div>						
-					</div>
-					<div class="col-md-4">
-						<div class="cb_box">
-							<% @percent = @cloud_stores.count/2.0*100 %>
-							<br/>
-							<br/>
-							<div class="row">
-								<div class="col-md-1">
-									<h3>0</h3>
-								</div>
-								<div class="col-md-9">
-									<div class="progress">
-										<% if @percent >= 80 %>
-										<div class="progress-bar progress-bar-warning" style="width: <%= @percent %>%;"></div>
-										<% else %>
-										<div class="progress-bar progress-bar-success" style="width: <%= @percent %>%;"></div>
-										<% end %>
-									</div>
-								</div>
-								<div class="col-md-1">
-									<h3>2</h3>
-								</div>
-							</div>
-							<br/>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<div class="cb_box">
-							<h4 align="center" >Recent Activity</h4>
-							<% @latest_cloud_book = @cloud_stores.last(:order => 'created_at DESC') %>
-							<h5 align="Center"><%= @latest_cloud_book.name %></h5>
-							<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @latest_cloud_book.created_at.to_formatted_s(:rfc822) %></b></h5>
-						</div>
-					</div>
-				</div>
-				<br/>
-				<div class="row">
-					<div class="col-md-6">
-						<%= link_to "Choose Your Service", new_cloud_store_path, class: "btn btn-lg btn-success btn-block", :target => "_self" %>
-					</div>
-					<div class="col-md-6">
-						<%= link_to "Upgrade", pricing_path, class: "btn btn-lg btn-inverse btn-block", :target => "_self", :disabled => true %>
-					</div>
-				</div>
-
-			</div>
-		</div>
-		<br/>
-		<div class="widget-box">
-			<div class="widget-title">
-				<span class="icon"> <i class="icon-th"></i> </span>
-				<h5>My Services</h5>
-			</div>
-			<div class="widget-content nopadding">
-				<table class="table table-bordered table-striped table-hover">
-					<thead>
-						<tr>
-							<th>Name</th>
-							<th>Date</th>
-							<th>View</th>
-						</tr>
-					</thead>
-					<tbody>
-						<% @cloud_stores.each do |pre_cl| %>
-						<tr>
-							<td> <%= pre_cl.name %></td>
-							<td> <%= pre_cl.created_at.to_formatted_s(:rfc822) %> </td>
-							<td> <%= link_to "View", cloud_store_path(pre_cl.name), :remote => true, class: "btn btn-mini btn-success" %> </td>
-						</tr>
-						<% end %>
-					</tbody>
-
-				</table>
-			</div>
-		</div>
-	</div>
+<div class="container">
+	<%= render :partial => "cloud_stores/db" , :locals => {:launched_books_quota => @launched_books_quota, :launched_books => @launched_books, :nodes => @nodes } %>
 </div>
-<!-- container-fluid -->
 
-<div id="cloud_store_show_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="cloudbook_delete_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					×
 				</button>
-				<h3 id="myModalLabel">Database view</h3>
+				<h3 id="myModalLabel">Delete - App</h3>
 			</div>
 			<div class="modal-body">
-				<div class="alert">
+				<div class="alert alert-success">
 					<p>
-						<h4 id="cloud_store_show"></h4>
+						<div id="delete_body"></div>
 					</p>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn" data-dismiss="modal" aria-hidden="true">
-					Ok
+				<div id="delete_footer"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="cloudbook_clone_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
 				</button>
+
+				<h3 id="myModalLabel">Clone - App</h3>
+			</div>
+			<%= form_tag(clone_start_path, :method => "post", :remote => true) do %>
+			<div class="modal-body">
+				<% @new_book_name = book_name %>
+				<% @domain_name = ".megam.co" %>
+				</br>
+				<div class="row">
+					<div class="col-md-6">
+						<!--<%= link_to  @new_book_name, "#", :id => "identity_new", :onchange => "angular.element(this).scope().fileNameChaged()", :class => "btn btn-large btn-primary disabled btn-block", :data => { :type => 'text', :name => 'book_name'} %>-->
+						<a class="btn btn-lg btn-primary disabled btn-block" data-name="book_name" data-type="text" href="#" id="identity_new" ><%= @new_book_name %></a>
+					</div>
+					<div class = "col-md-6">
+						<%= link_to @domain_name, "#", :class => "btn btn-lg btn-primary disabled btn-block", :id => 'domain'%>
+					</div>
+				</div>
+				<br/>
+				<br/>
+				<div class="row">
+					<div class="col-md-6">
+						<%= label_tag 'Number_of_clones' %>
+					</div>
+					<div class="col-md-6">
+						<%= number_field_tag 'noofinstances', 1, in: 1...10 %>
+					</div>
+				</div>
+
+				<%= hidden_field_tag 'new_name', @new_book_name, :id=> 'changename' %>
+				<%= hidden_field_tag 'domain_name', @domain_name %>
+				<input type="hidden" id="clone_name" name="clone_name" value="">
+				<br/>
+			</div>
+			<div class="modal-footer">
+				<%= submit_tag "OK", :class => "btn btn-primary", data: { disable_with: "Please wait..." } %>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+<div id="clone_postfinish_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">App</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-success">
+					<p>
+						App launch was submitted to the megam cloud gateway successfully. It typically takes a few minutes to run it on the cloud.
+						</br>
+						</br>
+						<span class="label label-info">Logs</span>&nbsp;streams the status of launch.</strong>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary", :target => "_self" %>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="clone_postfinish_popup_error" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">App</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-danger">
+					<p>
+						App launch to the megam cloud gateway was not successful.
+						</br>
+						<div id="err_msg"></div>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<%= link_to  "Ok", cloud_stores_path, :class => "btn btn-primary", :target => "_self" %>
 			</div>
 		</div>
 	</div>

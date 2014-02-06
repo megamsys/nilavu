@@ -1,7 +1,7 @@
 class ConnectorProjectsController < ApplicationController
   respond_to :html, :js  
   def index
-    add_breadcrumb "projects", :root_path
+    breadcrumbs.add "projects", :root_path
     if !current_user.organization
       flash[:error] = "Please Create Organization Details first"
       redirect_to edit_user_path(current_user)
@@ -13,7 +13,7 @@ class ConnectorProjectsController < ApplicationController
   end
 
   def new
-    add_breadcrumb "projects", :root_path
+    breadcrumbs.add "projects", :root_path
     @products = Product.all
   end
 
