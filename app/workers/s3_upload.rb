@@ -5,7 +5,7 @@ class S3Upload
       # Grab a reference to an object in the bucket with the name we require
       object = bucket.objects[filename]
       # Write a local file to the aforementioned object on S3
-      object.write(data)      
+      object.write(data)
     rescue StandardError => se
       hash = {"msg" => se.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)
@@ -19,7 +19,6 @@ class S3Upload
     end
   end
 
-
   def self.s3_bucket(bucket_name)
     #bucket_name = ENV['MEGAM_AWS_S3_BUCKET']
     s3 = AWS::S3.new(
@@ -31,6 +30,20 @@ class S3Upload
     s3.buckets.create(bucket_name)
     end
     s3.buckets[bucket_name]
+  end
+
+  def self.download(bucket_name, filename)
+    begin
+      bucket = s3_bucket(bucket_name)
+      # Grab a reference to an object in the bucket with the name we require
+      object = bucket.objects[filename]
+      # Write a local file to the aforementioned object on S3
+      #File.open(filename, 'wb') do |file|
+       # object.read do |chunk|
+        #  file.write(chunk)
+        #end
+      #end    
+    end
   end
 
 end

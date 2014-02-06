@@ -61,6 +61,9 @@ gem 'unicorn', :group => :production
 gem "therubyracer", :require => 'v8',:platforms => :ruby
 
 
+#ssh key-gen
+gem "sshkey"
+
 # Gems used only for assets and not required
 # in production environments by default.
 gem "less-rails", "~> 2.4.2"
