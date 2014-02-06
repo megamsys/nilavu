@@ -2,10 +2,8 @@ function LogCtrl($scope, socket, $location, LogStackLimit) {
         $scope.logs = [];
         $scope.total = 0;
         $scope.l_total = 0;
-        $scope.prog_bar = "visibility:hidden";
-        $scope.bookName = "Select one App/Service..";
+        $scope.bookName = "Choose App/Service..";
         $scope.sendmessage = function(data) {
-                $scope.prog_bar = "";
                 $scope.logs = [];
                 $scope.bookName = data;                        
                 socket.emit('message', data);
@@ -19,7 +17,6 @@ function LogCtrl($scope, socket, $location, LogStackLimit) {
         });
 
         socket.on('message', function(message) {
-                $scope.prog_bar = "visibility:hidden";
                 $scope.total = $scope.total + 1;
                 $scope.l_total = $scope.l_total + 1;
                 var replaceChar = message.logs.replace(/\@/g, "");

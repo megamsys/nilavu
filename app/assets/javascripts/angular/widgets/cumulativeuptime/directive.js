@@ -20,7 +20,7 @@ app.directive("cumulativeuptime", ["CumulativeUptimeModel", function(CumulativeU
 		  };
 
   return {
-	  template: '<li><div class="left peity_bar_neutral"><span>20,15,18,14,10,9,9,9</span>99.3%</div><div class="right"><strong>{{data}}</strong>Books Uptime(days.hrs)</div></li>',              
+	  template: '<li><div class="left peity_bar_neutral"><span>20,15,18,14,10,9,9,9</span>99.3%</div><div class="right"><strong>{{data}}</strong>Apps Uptime(days.hrs)</div></li>',              
       link: linkFn
   };
 }]);

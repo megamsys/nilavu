@@ -5,15 +5,11 @@
 	<%= breadcrumbs.render(:format => :inline) %>
 </div>
 
-<div ng-controller="DemoCtrl">	
-			<input type="text" ng-model="delay1">
-			<button class="btn" ng-click="demoBusy('demo1',delay1)">
-				Try It
-			</button>
-		</fieldset>
-	</form>
+<div ng-controller="LogBusyCtrl">
+	<button class="btn" ng-click="logBusy('logloader',1000)">
+		Try It
+	</button>
 </div>
-
 
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-12" ng-controller="LogCtrl">
@@ -39,7 +35,7 @@
 			<input type="hidden" ng-model="source">
 		</div>
 		<div class="col-sm-9 col-md-9 col-lg-9">
-			<div class="panel panel-primary " cg-busy="{tracker:'demo1'}">
+			<div class="panel panel-primary " cg-busy="{tracker:'logloader'}">
 				<div class="panel-heading">
 					{{bookName}}
 					<span class="pull-right"><a href="http://monitor.megam.co/kibana/#/dashboard/file/{{bookName}}.json" target="_blank" class="btn btn-success btn-xs">view Offline Log</a></span>

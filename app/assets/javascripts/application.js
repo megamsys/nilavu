@@ -37,9 +37,9 @@
 //= require megam.spin
 //= require cross_clouds
 //= require connector_projects
-//= require jquery.sparkline
 //= require unicorn.login
 //= require cloud_books
+//= require masonry/jquery.masonry
 //= require unicorn.form_common
 //= require unicorn.form_validation
 //= require megam.form_validation

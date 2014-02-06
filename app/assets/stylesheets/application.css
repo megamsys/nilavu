@@ -19,6 +19,7 @@
  *= require bootstrap-editable
  *= require gritter
  *= require flexslider
+*= require 'masonry/basic'
  *= require bootstrap_and_overrides
  *= require_tree .
  */

@@ -1,12 +1,14 @@
 <% content_for :content_settings do %>
-<% provide(:title, 'Dashboard') %>
+<% provide(:title, 'Monitoring Console') %>
 
-<%= render :partial => "dashboards/header" , :locals => {:head => "Dashboard"}%>
+<%= render :partial => "dashboards/header" , :locals => {:head => "Monitoring Console"}%>
 
 	<ng-view ng-show="resolved" ng-cloak></ng-view>
 
 
 <% end %>
+<%= render :partial => "dashboards/dashboard_sidebar"%>
+<%= render 'layouts/footer' %>
 
 <script>
     (function($) {
@@ -14,4 +16,3 @@
     $.Books = JSON.parse('<%= raw launched(@user_id).to_json %> ');
     })($);
 </script>
-<%= render :partial => "dashboards/dashboard_sidebar"%>

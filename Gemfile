@@ -19,6 +19,7 @@ gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-ra
 gem "flot-rails", "~> 0.0.4"
 gem "gritter", "~> 1.0.3"
 gem "flexslider", "~> 2.2.0"
+gem "masonry-rails"
 gem 'will_paginate','3.0.5'
 gem 'bootstrap-will_paginate','0.0.10'
 gem "breadcrumbs"

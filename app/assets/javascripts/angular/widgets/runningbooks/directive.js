@@ -20,7 +20,7 @@ app.directive("runningbooks", ["RunningBooksModel", function(RunningBooksModel) 
 		  };
 
   return {
-	  template: '<li><div class="left peity_bar_good"><span>2,4,9,7,12,10,12</span>+{{average}}%</div><div class="right"><strong>{{data}}</strong>Books Running</div></li>',    
+	  template: '<li><div class="left peity_bar_good"><span>2,4,9,7,12,10,12</span>+{{average}}%</div><div class="right"><strong>{{data}}</strong>Apps Running</div></li>',    
       link: linkFn
   };
 }]);

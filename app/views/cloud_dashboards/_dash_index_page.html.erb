@@ -4,7 +4,7 @@
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon icon-bar-chart"></i> </span>
-				<h5>Bar chart</h5>
+				<h5>Distribution of Apps in cloud</h5>
 			</div>
 			<div class="widget-content">
 				<div class="bars"></div>
@@ -15,7 +15,7 @@
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon icon-bar-chart"></i> </span>
-				<h5>Pie chart</h5>
+				<h5>Distribution of Apps/Services</h5>
 			</div>
 			<div class="widget-content">
 				<div class="pie"></div>
@@ -36,18 +36,18 @@
 				<div class="new-update clearfix">
 					<i class="icon icon-ok-sign"></i>
 					<div class="update-done">
-						<a title="" href="#"><strong>A new <strong><%= dashboard.predef_name %></strong> server is on the board!</strong></a>
+						<a title="" href="http://<%= dashboard.name %>" target="_blank" ><strong>[<%= dashboard.name %>] <%= dashboard.predef_name.capitalize %> <%= dashboard.book_type.downcase %> is onboard!</strong></a>
 						<span class="update-day-value"> <%= dashboard.created_at.to_formatted_s(:rfc822) %> </span>
 					</div>
 					<div class="update-date">
 						<div class="col-md-7">
-							<%= link_to dashboard.name, dashboard_path(dashboard.id), :class=>"btn btn-primary btn-lg active",  :target => "_blank" %>
+							<%= link_to dashboard_path(dashboard.id), :class=>"btn btn-primary btn-lg active", :id =>id="popover_dashboard_monitor", :target => "_blank"  do %>
+							&nbsp;&nbsp;<i class="icon icon-bolt"></i>
+							&nbsp;Monitor
+							<% end %>
 						</div>
 						<div class="col-md-4">
-							<span class="update-day-value btn btn-dark-green btn-lg">
-								<i class="icon icon-cloud"></i>Runs at <%= dashboard.cloud_name %>						
-								
-							</span>
+							<span class="btn btn-dark-green btn-lg active" id="popover_dashboard_cloud"> &nbsp;&nbsp;<i class="icon icon-cloud"></i>  <%= dashboard.cloud_name %> </span>
 						</div>
 					</div>
 				</div>

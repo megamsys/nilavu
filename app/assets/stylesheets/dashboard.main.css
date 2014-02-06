@@ -174,40 +174,5 @@
     max-width: 76%;
 }
 
-/* Breadcrumb */
-#dashboard_breadcrumb {
-	 background-color: #e4e2e7;
-        box-shadow: 0 0 1px #666666; 	
-        padding: 10px;
-}
-#dashboard_breadcrumb a {                
-        background-image: url('images/breadcrumb.png');
-        background-position: center right;
-        background-repeat: no-repeat;
-        box-shadow: 0px 0px 0px #666666; 
-        font-size: 15px;
-        padding: 50px;
-        color: #666666;
-}
-#dashboard_breadcrumb a:hover {
-	color: #333333;
-}
-#dashboard_breadcrumb a:last-child {
-	background-image:none;
-}
-#dashboard_breadcrumb a.current {
-	font-weight: bold;
-	color: #444444;
-}
-
-#dashboard_breadcrumb a i {
-	margin-right: 5px;
-	opacity: .6;
-	vertical-align: middle;
-}
-#dashboard_breadcrumb a:hover i {
-	margin-right: 5px;
-	opacity: .8;
-}
 
 

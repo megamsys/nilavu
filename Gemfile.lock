@@ -163,7 +163,7 @@ GEM
     json (1.8.1)
     jwt (0.1.11)
       multi_json (>= 1.5)
-    kgio (2.9.0)
+    kgio (2.9.1)
     less (2.4.0)
       commonjs (~> 0.2.7)
     less-rails (2.4.2)
@@ -173,6 +173,8 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    masonry-rails (0.2.1)
+      rails
     megam_api (0.7.9)
       excon (~> 0.31)
       highline (~> 1.6)
@@ -318,7 +320,7 @@ GEM
     uglifier (2.4.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
-    unicorn (4.8.1)
+    unicorn (4.8.2)
       kgio (~> 2.6)
       rack
       raindrops (~> 0.7)
@@ -358,6 +360,7 @@ DEPENDENCIES
   jquery-turbolinks
   jquery-ui-rails
   less-rails (~> 2.4.2)
+  masonry-rails
   megam_api
   megam_deccanplato
   meta_request
