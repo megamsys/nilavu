@@ -102,4 +102,43 @@ class CloudSettingsController < ApplicationController
       end
     end
   end
+  
+  def sshkey_new
+      add_breadcrumb "Home", "#"
+      add_breadcrumb "Manage Settings", cloud_settings_path
+      add_breadcrumb "SSH Keys", cloud_settings_path
+      add_breadcrumb "New", sshkey_new_path
+   end
+  
+   def sshkey_create
+     puts "+++++++++++++++++++++++++++++"
+     puts params
+     k = SSHKey.generate(:type => params[:key_type], :bits => params[:key_bit].to_i, :comment => params[:key_comment], :passphrase => params[:key_pass])
+     puts k.private_key
+     puts k.public_key
+     private_key_name = params[:key_name]+".key"
+     public_key_name = params[:key_name]+".pub"
+     options ={ :ssh_key_name => params[:key_name], :ssh_private_key => k.private_key, :ssh_public_key => k.public_key }
+     upload = SshKey.perform(options, cross_cloud_bucket)
+     if upload.class == Megam::Error
+        @res_msg = nil
+        @err_msg="Failed to Generate SSH keys. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+        @public_key = "" 
+        respond_to do |format|
+          format.js {
+            respond_with(@res_msg, @err_msg, @public_key, :layout => !request.xhr? )
+          }
+        end
+      else
+        @err_msg = nil
+        @res_msg = "SSH key created successfully"
+        @public_key = k.public_ley
+        respond_to do |format|
+          format.js {
+            respond_with(@res_msg, @err_msg, @public_key, :layout => !request.xhr? )
+          }
+        end
+      end
+   end
+  
 end

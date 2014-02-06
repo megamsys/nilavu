@@ -63,6 +63,9 @@ gem "inflector"
 gem "cheddargetter_client_ruby"
 gem "httparty" # why can't we use faraday
 
+#ssh key-gen
+gem "sshkey"
+
 # Gems used only for assets and not required
 # in production environments by default.
   #gem 'twitter-bootstrap-rails'
