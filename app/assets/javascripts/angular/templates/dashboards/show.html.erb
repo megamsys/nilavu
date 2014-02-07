@@ -4,29 +4,39 @@
 	</ul>
 </div>
 
-<div id="breadcrumb">
-	<div id="dashboard_breadcrumb">
-		<%= breadcrumbs.render(:format => :inline,:separator => '') %>
-	</div>
-</div>
-
-<br/>
-
-<div class="container" id="overview" class="toggle" style="display:none" ng-cloak>
-	<input type="hidden" ng-model="dashboard_id" value="<%= @id %>">
+<div class="container">
 	<div class="row">
-		<div class="col-md-11">
-			<div class="widget-box">
-				<div class="widget-title">
-					<span class="icon"><i class="icon-signal"></i></span><h5>Live Monitor & Metrics</h5>
-					<span class="title"><img ng-show="enableSpinner" class="ajax-spinner" width="12" height="12" src="<%= asset_path('openup_spinner.gif') %>"></img></span>
-				</div>
-				<div class="widget-content">
-					<div class="widget" ng-repeat="widget in widgets" widgetpernode></div>
-				</div>
+		<div class="col-xs-7 col-sm-7 col-md-7">
+			<div class="btn-group">
+				<button class="btn btn-purple">
+					<i class="fa fa-dribbble"></i>Overview
+				</button>
+				<button class="btn btn-purple">
+					<i class="fa fa-dribbble"></i>Networks
+				</button>
+				<button class="btn btn-purple">
+					<i class="fa fa-dribbble"></i>Processes
+				</button>
+				<button class="btn btn-purple">
+					<i class="fa fa-dribbble"></i>Disks
+				</button>
 			</div>
 		</div>
 	</div>
+</div>
+<!--<div id="breadcrumb">
+<div id="dashboard_breadcrumb">
+<%= breadcrumbs.render(:format => :inline) %>
+</div>
+</div>
+<br/>-->
+<div class="container" id="overview" class="toggle" style="display:none" ng-cloak>
+	<input type="hidden" ng-model="dashboard_id" value="<%= @id %>">
+	<div class="widget" ng-repeat="widget in widgets" widgetpernode></div>
+</div>
+<div class="container" id="networks" class="toggle" style="display:none" ng-cloak>
+	<input type="hidden" ng-model="dashboard_id" value="<%= @id %>">
+	<div class="widget" ng-repeat="widget in widgets" widgetpernode></div>
 </div>
 <div class="container" class="toggle" style="display:none" id="process">
 	<div class="row">
@@ -44,13 +54,14 @@
 		</div>
 	</div>
 </div>
-
+<br/></br/>
 <script type="text/javascript">
     $(document).ready(function() {
         $("#overview").show();
         $("#dashboard_breadcrumb a").click(function(e) {
             e.preventDefault();
             $("#overview").hide();
+            $("#networks").hide();
             $("#process").hide();
             var toShow = $(this).attr('href');
             $(toShow).show();

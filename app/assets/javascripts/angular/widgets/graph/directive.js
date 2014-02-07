@@ -4,33 +4,130 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sourc
   
   var linkFn = function(scope, element, attrs) {  	 
 	  
-	  function onSuccess(data) {		     
+	  function onSuccess(data) {		 
+		  scope.host=parseHost(data);		  
 		     scope.uptime_data=parseUptime(data);
 		     scope.rpm_data=parseRPM(data);
 		     scope.new_books=parseNewBooks(data);
 		     scope.total_books=parseTotalBooks(data);
 		     scope.total_queues=parseTotalQueues(data);
-	    	 var plot = $.plot("#graph_placeholder", FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, "graph"));
-	    	plot.setData(FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors));   		   	
-	        plot.draw();		  
+		     scope.target_names=["cpu_system", "nginx_requests", "disk_free", "proc_run", "mem_free", "bytes_out"];
+		     scope.graph_targets=parseDatapoints(data);
+	         //angular.forEach(scope.target_names,function(name){
+	         //       alert(gett(name));
+	         //  })
+		     cpu_system_data = [{"datapoints" : scope.graph_targets[0].cpu_system }];
+	    	 var plot1 = $.plot("#cpu_system_graph", FlotrGraphHelper.transformSeriesOfDatapoints(cpu_system_data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, "cpu_system"));
+	    	plot1.setData(FlotrGraphHelper.transformSeriesOfDatapoints(cpu_system_data, scope.widget, currentColors));   		   	
+	        plot1.draw();	
+	        
+	        nginx_requests_data = [{"datapoints" : scope.graph_targets[0].nginx_requests }];
+	        var plot2 = $.plot("#nginx_requests_graph", FlotrGraphHelper.transformSeriesOfDatapoints(nginx_requests_data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, "nginx_requests"));
+	    	plot2.setData(FlotrGraphHelper.transformSeriesOfDatapoints(nginx_requests_data, scope.widget, currentColors));   		   	
+	        plot2.draw();
+	        
+	        disk_free_data = [{"datapoints" : scope.graph_targets[0].disk_free }];
+	    	 var plot3 = $.plot("#disk_free_graph", FlotrGraphHelper.transformSeriesOfDatapoints(disk_free_data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, "disk_free"));
+	    	plot3.setData(FlotrGraphHelper.transformSeriesOfDatapoints(disk_free_data, scope.widget, currentColors));   		   	
+	        plot3.draw();
+	        
+	        proc_run_data = [{"datapoints" : scope.graph_targets[0].proc_run }];
+	    	 var plot4 = $.plot("#proc_run_graph", FlotrGraphHelper.transformSeriesOfDatapoints(proc_run_data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, "proc_run"));
+	    	plot4.setData(FlotrGraphHelper.transformSeriesOfDatapoints(proc_run_data, scope.widget, currentColors));   		   	
+	        plot4.draw();
+	        
+	        mem_free_data = [{"datapoints" : scope.graph_targets[0].mem_free }];
+	    	 var plot5 = $.plot("#mem_free_graph", FlotrGraphHelper.transformSeriesOfDatapoints(mem_free_data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, "mem_free"));
+	    	plot5.setData(FlotrGraphHelper.transformSeriesOfDatapoints(mem_free_data, scope.widget, currentColors));   		   	
+	        plot5.draw();
+	        
+	        bytes_out_data = [{"datapoints" : scope.graph_targets[0].bytes_out }];
+	    	 var plot6 = $.plot("#bytes_out_graph", FlotrGraphHelper.transformSeriesOfDatapoints(bytes_out_data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, "bytes_out"));
+	    	plot6.setData(FlotrGraphHelper.transformSeriesOfDatapoints(bytes_out_data, scope.widget, currentColors));   		   	
+	        plot6.draw();
 	      //element.height(265);
 	      //console.log("element"+element);
 	      //Flotr.draw(element[0], FlotrGraphHelper.transformSeriesOfDatapoints(data, scope.widget, currentColors), FlotrGraphHelper.defaultOptions(scope.widget, 0.7));
-	        var yaxisLabel = $("<div class='axisLabel yaxisLabel'></div>")
+	        var cyaxisLabel = $("<div class='axisLabel cyaxisLabel'></div>")
 			.text("%")
-			.appendTo("#graph_placeholder");
-	        var xaxisLabel = $("<div class='axisLabel xaxisLabel'></div>")
-			.text(parseMetricName(data))
-			.appendTo("#graph_placeholder");
+			.appendTo("#cpu_system_graph");
+	        var cxaxisLabel = $("<div class='axisLabel cxaxisLabel'></div>")
+			.text("cpu_system")
+			.appendTo("#cpu_system_graph");
+	        
+	        var nyaxisLabel = $("<div class='axisLabel nyaxisLabel'></div>")
+			.text("%")
+			.appendTo("#nginx_requests_graph");
+	        var nxaxisLabel = $("<div class='axisLabel nxaxisLabel'></div>")
+			.text("nginx_requests")
+			.appendTo("#nginx_requests_graph");
+	        
+	        var dfyaxisLabel = $("<div class='axisLabel dfyaxisLabel'></div>")
+			.text("%")
+			.appendTo("#disk_free_graph");
+	        var dfxaxisLabel = $("<div class='axisLabel dfxaxisLabel'></div>")
+			.text("disk_free")
+			.appendTo("#disk_free_graph");
+	        
+	        var pryaxisLabel = $("<div class='axisLabel pryaxisLabel'></div>")
+			.text("%")
+			.appendTo("#proc_run_graph");
+	        var prxaxisLabel = $("<div class='axisLabel prxaxisLabel'></div>")
+			.text("proc_run")
+			.appendTo("#proc_run_graph");
+	        
+	        var mfyaxisLabel = $("<div class='axisLabel mfyaxisLabel'></div>")
+			.text("%")
+			.appendTo("#mem_free_graph");
+	        var mfxaxisLabel = $("<div class='axisLabel mfxaxisLabel'></div>")
+			.text("mem_free")
+			.appendTo("#mem_free_graph");
+	        
+	        var boyaxisLabel = $("<div class='axisLabel boyaxisLabel'></div>")
+			.text("%")
+			.appendTo("#bytes_out_graph");
+	        var boxaxisLabel = $("<div class='axisLabel boxaxisLabel'></div>")
+			.text("bytes_out")
+			.appendTo("#bytes_out_graph");
 		// Since CSS transforms use the top-left corner of the label as the transform origin,
 		// we need to center the y-axis label by shifting it down by half its width.
 		// Subtract 20 to factor the chart's bottom margin into the centering.
 
-		yaxisLabel.css("margin-top", yaxisLabel.width() / 2 - 20);  
-		xaxisLabel.css("margin-top", yaxisLabel.width() / 2 + 220); 
-		xaxisLabel.css("margin-left", yaxisLabel.width() / 2 + 300); 
+		cyaxisLabel.css("margin-top", cyaxisLabel.width() / 2 + 115);  
+		cyaxisLabel.css("margin-left", cyaxisLabel.width() / 2 + 8); 
+		cxaxisLabel.css("margin-top", cyaxisLabel.width() / 2 + 270); 
+		cxaxisLabel.css("margin-left", cyaxisLabel.width() / 2 + 240); 
+		
+		nyaxisLabel.css("margin-top", nyaxisLabel.width() / 2 + 115); 
+		nyaxisLabel.css("margin-left", nyaxisLabel.width() / 2 + 8);
+		nxaxisLabel.css("margin-top", nyaxisLabel.width() / 2 + 270); 
+		nxaxisLabel.css("margin-left", nyaxisLabel.width() / 2 + 240);
+		
+		dfyaxisLabel.css("margin-top", dfyaxisLabel.width() / 2 + 115);  
+		dfyaxisLabel.css("margin-left", dfyaxisLabel.width() / 2 + 8); 
+		dfxaxisLabel.css("margin-top", dfyaxisLabel.width() / 2 + 270); 
+		dfxaxisLabel.css("margin-left", dfyaxisLabel.width() / 2 + 240); 
+		
+		pryaxisLabel.css("margin-top", pryaxisLabel.width() / 2 + 115); 
+		pryaxisLabel.css("margin-left", pryaxisLabel.width() / 2 + 8);
+		prxaxisLabel.css("margin-top", pryaxisLabel.width() / 2 + 270); 
+		prxaxisLabel.css("margin-left", pryaxisLabel.width() / 2 + 240);
+		
+		mfyaxisLabel.css("margin-top", mfyaxisLabel.width() / 2 + 115); 
+		mfyaxisLabel.css("margin-left", mfyaxisLabel.width() / 2 + 8);
+		mfxaxisLabel.css("margin-top", mfyaxisLabel.width() / 2 + 270); 
+		mfxaxisLabel.css("margin-left", mfyaxisLabel.width() / 2 + 240);
+		
+		boyaxisLabel.css("margin-top", boyaxisLabel.width() / 2 + 115); 
+		boyaxisLabel.css("margin-left", boyaxisLabel.width() / 2 + 8);
+		boxaxisLabel.css("margin-top", boyaxisLabel.width() / 2 + 270); 
+		boxaxisLabel.css("margin-left", boyaxisLabel.width() / 2 + 240);
 	  }     
 
+	  function gett(name){
+		  return "scope.graph_targets[0].cpu_system";
+	  }
+	  
     function update() {  
     	//if ($routeParams.book != null) {    		
     		//return GraphModel.getData(scope.widget, $routeParams.book).success(onSuccess);
@@ -71,9 +168,15 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sourc
     	});
     }
     
-    function parseMetricName(responsedata) {
+    function parseHost(responsedata) {
     	return _.map(responsedata, function(model, index) {    		  
-    	       return model.metric;    	    
+    	       return model.host;    	    
+    	});
+    }
+    
+    function parseDatapoints(responsedata) {
+    	return _.map(responsedata, function(model, index) {    		  
+    	       return model.datapoints;    	    
     	});
     }
     
