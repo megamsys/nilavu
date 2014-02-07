@@ -1,8 +1,8 @@
 $(document)
 		.ready(
 				function() {
+					
 					$.fn.editable.defaults.mode = 'popup';
-
 					// bootstrap3 editable
 					
 					$('#changeappname').editable();
@@ -10,20 +10,14 @@ $(document)
 					$('#changeservicename').editable({
 						send : 'never'
 					});
-					// === Prepare the chart data ===/
-					var sin = [], cos = [];
-					for (var i = 0; i < 14; i += 0.5) {
-						sin.push([ i, Math.sin(i) ]);
-						cos.push([ i, Math.cos(i) ]);
-					}
-
+					
 					var data = [];
-					var series = Math.floor(Math.random() * 10) + 1;
+					var series = 6;
 					for (var i = 0; i < series; i++) {
 						data[i] = {
 							label : "Series" + (i + 1),
 							data : Math.floor(Math.random() * 100) + 1
-						}
+						};
 					}
 
 					var pie = $

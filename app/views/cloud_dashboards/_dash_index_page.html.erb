@@ -1,4 +1,4 @@
-<% if @count.to_i > 0 %>
+<% if @apps_distrib.length > 0 %>
 <div class="row clearfix">
 	<div class="col-xs-5 col-sm-5 col-md-6">
 		<div class="widget-box">
@@ -32,22 +32,22 @@
 			</div>
 
 			<div class="widget-content nopadding updates">
-				<% @dashboards.each do |dashboard| %>
+				<% @launched_apps_services.each do |one_app_service| %>
 				<div class="new-update clearfix">
 					<i class="icon icon-ok-sign"></i>
 					<div class="update-done">
-						<a title="" href="http://<%= dashboard.name %>" target="_blank" ><strong>[<%= dashboard.name %>] <%= dashboard.predef_name.capitalize %> <%= dashboard.book_type.downcase %> is onboard!</strong></a>
-						<span class="update-day-value"> <%= dashboard.created_at.to_formatted_s(:rfc822) %> </span>
+						<a title="" href="http://<%= one_app_service.name %>" target="_blank" ><strong>[<%= one_app_service.name %>] <%= one_app_service.predef_name.capitalize %> <%= one_app_service.book_type.downcase %> is onboard!</strong></a>
+						<span class="update-day-value"> <%= one_app_service.created_at.to_formatted_s(:rfc822) %> </span>
 					</div>
 					<div class="update-date">
 						<div class="col-md-7">
-							<%= link_to dashboard_path(dashboard.id), :class=>"btn btn-primary btn-lg active", :id =>id="popover_dashboard_monitor", :target => "_blank"  do %>
+							<%= link_to dashboard_path(one_app_service.id), :class=>"btn btn-primary btn-lg active", :id =>id="popover_dashboard_monitor", :target => "_blank"  do %>
 							&nbsp;&nbsp;<i class="icon icon-bolt"></i>
 							&nbsp;Monitor
 							<% end %>
 						</div>
 						<div class="col-md-4">
-							<span class="btn btn-dark-green btn-lg active" id="popover_dashboard_cloud"> &nbsp;&nbsp;<i class="icon icon-cloud"></i>  <%= dashboard.cloud_name %> </span>
+							<span class="btn btn-dark-green btn-lg active" id="popover_dashboard_cloud"> &nbsp;&nbsp;<i class="icon icon-cloud"></i>  <%= one_app_service.cloud_name %> </span>
 						</div>
 					</div>
 				</div>
