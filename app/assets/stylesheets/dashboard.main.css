@@ -4,7 +4,7 @@
 **/
 
 
-#graph_placeholder {
+#cpu_system_graph, #nginx_requests_graph, #disk_free_graph, #proc_run_graph, #mem_free_graph, #bytes_out_graph {
 	height: 300px;
 	margin: 0px auto 0px auto;
 	border: 1px solid #ddd;
@@ -20,6 +20,7 @@
 	-moz-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 	-webkit-box-shadow: 0 3px 10px rgba(0,0,0,0.1);
 }
+
 
 /* TODO_TOM */
 

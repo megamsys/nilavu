@@ -37,11 +37,18 @@ module Sources
         range = options[:range].to_s
         host    = getHost(options[:widgetid])       
         #graph_metric  = Rails.configuration.ganglia_graph_metric
-        graph_metric = (options[:target]).to_s
+        result_json = {}
+        options[:target] = ["cpu_system", "nginx_requests", "disk_free", "proc_run", "mem_free", "bytes_out"]
+        options[:target].each do |target|
+        graph_metric = target.to_s
+        ganglia_datapoints = request_datapoints(range, graph_metric, host)        
+        result_json["#{target}"] = ganglia_datapoints
+        end
+        
         uptime_metric  = Rails.configuration.ganglia_request_metric
         #targets = targets.reject(&:blank?)
         #ganglia_datapoints = request_datapoints(from, to, graph_metric, host)   
-        ganglia_datapoints = request_datapoints(range, graph_metric, host)      
+             
         #ganglia_uptime = request_uptime(from, to, uptime_metric, host)
         ganglia_uptime = request_uptime(range, uptime_metric, host)
         #model_rpm = request_rpm(from, to, uptime_metric, host)
@@ -49,7 +56,7 @@ module Sources
         new_books = request_new_books(options)
         total_books = request_total_books(options)
         result = []
-        result << { "datapoints" => ganglia_datapoints, "uptime_data" => ganglia_uptime, "rpm" => model_rpm, "new_books" => new_books, "total_books" => total_books, "total_queues" => Random.rand(10...100), "metric" => graph_metric}
+        result << { "datapoints" => result_json, "uptime_data" => ganglia_uptime, "rpm" => model_rpm, "new_books" => new_books, "total_books" => total_books, "total_queues" => Random.rand(10...100), "host" => host}
         raise Sources::Datapoints::NotFoundError if result.empty?
         result
       end
@@ -116,7 +123,7 @@ module Sources
         dashboard_id = widget.dashboard_id        
         #dashboard = Dashboard.find(dashboard_id)    
         dashboard = CloudBook.find(dashboard_id)   
-        dashboard.name                          
+        dashboard.name                           
       end
 
     end
