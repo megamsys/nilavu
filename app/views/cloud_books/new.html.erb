@@ -2,7 +2,7 @@
 <% provide(:title, 'Apps') %>
 <%= render :partial => "users/header" , :locals => {:head => "Apps - Step 1 of 2"}%>
 <div id="breadcrumb">
-	<%= breadcrumbs.render(:format => :inline) %>
+	<%= breadcrumbs.render(:format => :inline, :separator => '') %>
 </div>
 <%= form_tag(new_book_path, :method => "post", :name => "predef") do %>
 <div class="container">
@@ -126,17 +126,13 @@
 							<div class="panel panel-primary">
 								<div class="panel-heading">
 									<p class="help-block">
-										<h4 class="alert-heading">You don't have source code repository?
+										<h4 class="alert-heading">Need a sample source code repository ?
 										Try our sample. Click on <i class="icon-plus-sign"></i> icon </h4>
 									</p>
-
 								</div>
 								<div class="panel-body">
-									<div class="alert alert-info alert-block">
-										<div>
-
+									<div class="alert alert-info alert-block  nopadding clearfix">
 											<table class="table table-hover">
-												<thead></thead>
 												<tbody>
 													<tr>
 														<td><span class="badge badge-info">Java</span></td>
@@ -153,23 +149,20 @@
 													</tr>
 													<tr>
 														<td><span class="badge badge-info">Ruby</span></td>
-														<td><i class="icon-plus-sign" id="githubsample_ror"></i>This sample launches a ruby on rails 4.0 twitter bootstrap based portal.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/aryabhata.git" target="_blank"> here</a></td>
+														<td><i class="icon-plus-sign" id="githubsample_ror"></i>This sample launches a ruby on rails 4.0 twitter bootstrap based portal.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/aryabhata.git" target="_blank"> here
+														</a>
+														</td>
 													</tr>
 													<tr>
 														<td><span class="badge badge-info">Akka</span></td>
 														<td><i class="icon-plus-sign" id="githubsample_akka"></i>This sample launches a akka daemon that spawns a cluster of masters which delegates work to its slave.
 														The source code that is used for the launch is available<a href="https://github.com/thomasalrin/megam_akka.git" target="_blank">here</a></td>
 													</tr>
-
 												</tbody>
 											</table>
-
-										</div>
-										<a class="close" data-dismiss="alert alert-warning" href="#">×</a>
 									</div>
 								</div>
 							</div>
-
 						</div>
 						<div class="row">
 							<div class="collapse in accordion-body" id="collapseGOne">
@@ -180,7 +173,7 @@
 										<div class="col-sm-9 col-md-9 col-lg-9">
 											<div class="row">
 												<div class="col-md-11">
-													<div class="input-group input-group-sm">
+													<div class="input-group input-group-lg">
 														<span class="input-group-addon"><i class="icon-github"></i></span>
 														<%= select_tag 'scm', options_for_select(repos.insert(0, "Select a Repository")), :style => "width:500px" %>
 													</div>
@@ -189,19 +182,14 @@
 										</div>
 									</div>
 									<br/>
-									(OR)
+									<span class="label label-default center-block">(OR)</span></h3>
 									<br/>
 									<% end %>
 									<div class="form-group">
-										<label for="" class="col-sm-3 col-md-3 col-lg-2 control-label"><b>Source Repository</b></label>
-										<div class="col-sm-9 col-md-9 col-lg-10">
-											<div class="row">
-												<div class="col-md-12">
-													<div class="input-group input-group-lg">
-														<span class="input-group-btn"> <a href="https://github.com" class="btn btn-warning" target="_blank">Git!</a> </span>
-														<strong><%= text_field_tag 'deps_scm', nil, class: 'form-control input-sm', placeholder: "https://github.com/username/project.git" %> </strong>
-													</div>
-												</div>
+										<div class="col-sm-11 col-md-11 col-lg-11">
+											<div class="input-group input-group-lg">
+												<span class="input-group-btn"> <a href="https://github.com" class="btn btn-warning" target="_blank">Git!</a> </span>
+												<strong><%= text_field_tag 'deps_scm', nil, class: 'form-control input-lg', placeholder: "https://github.com/username/project.git" %> </strong>
 											</div>
 										</div>
 									</div>

@@ -1,12 +1,11 @@
 $(document)
 		.ready(
 				function() {
-					$.fn.editable.defaults.mode = 'inline';
+					$.fn.editable.defaults.mode = 'popup';
 
 					// bootstrap3 editable
-					$('#changeappname').editable({
-						send : 'never'
-					});
+					
+					$('#changeappname').editable();
 
 					$('#changeservicename').editable({
 						send : 'never'

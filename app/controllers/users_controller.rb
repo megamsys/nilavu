@@ -105,7 +105,7 @@ class UsersController < ApplicationController
 
   def upgrade
     logger.debug "==> Controller: users, Action: upgrade, Upgrade user from free to paid"
-    breadcrumbs.add "Dashboard", cloud_dashboards_path
+    breadcrumbs.add " Dashboard", cloud_dashboards_path, :class => "icon icon-dashboard"
     breadcrumbs.add "Upgrade", upgrade_path
   end
 

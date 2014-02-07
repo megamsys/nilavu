@@ -2,7 +2,7 @@
 <% provide(:title, 'Manage Logs') %>
 <%= render :partial => "users/header" , :locals => {:head => "Logs"}%>
 <div id="breadcrumb">
-	<%= breadcrumbs.render(:format => :inline) %>
+	<%= breadcrumbs.render(:format => :inline, :separator => '') %>
 </div>
 
 <div ng-controller="LogBusyCtrl">

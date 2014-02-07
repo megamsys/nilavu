@@ -2,7 +2,7 @@ class CrossCloudsController < ApplicationController
   respond_to :html, :js
   include CrossCloudsHelper
   def new
-    breadcrumbs.add "Home", "#"
+    breadcrumbs.add " Home", "#", :class => "icon icon-home"
     breadcrumbs.add "Manage Settings", cloud_settings_path
     breadcrumbs.add "Clouds", cloud_settings_path
     breadcrumbs.add "New", new_cross_cloud_path

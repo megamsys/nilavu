@@ -2,7 +2,7 @@ class CloudDashboardsController < ApplicationController
 
   respond_to :html
   def index
-    breadcrumbs.add "Dashboard", :cloud_dashboards_path
+    breadcrumbs.add " Dashboard", :cloud_dashboards_path, :class => "icon icon-dashboard"
     @user_id = current_user.id
     @dashboards = current_user.cloud_books
     @count = @dashboards.length

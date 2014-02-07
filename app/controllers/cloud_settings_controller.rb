@@ -41,7 +41,7 @@ class CloudSettingsController < ApplicationController
   end
 
   def index
-    breadcrumbs.add "Home", "#"
+    breadcrumbs.add " Home", "#", :class => "icon icon-home"
     breadcrumbs.add "Manage Settings", cloud_settings_path
     cross_cloud_init
     cloud_tools_init
@@ -79,7 +79,7 @@ class CloudSettingsController < ApplicationController
   end
 
   def cloud_tool_setting_new
-    breadcrumbs.add "Home", "#"
+    breadcrumbs.add " Home", "#", :class => "icon icon-home"
     breadcrumbs.add "Manage Settings", cloud_settings_path
     breadcrumbs.add "Cloud Provisioners", cloud_settings_path
     breadcrumbs.add "New", cloud_tool_setting_new_path
@@ -119,7 +119,7 @@ class CloudSettingsController < ApplicationController
   end
 
   def sshkey_new
-    breadcrumbs.add "Home", "#", :target => "_self"
+    breadcrumbs.add " Home", "#", :class => "icon icon-home", :target => "_self"
     breadcrumbs.add "Manage Settings", cloud_settings_path, :target => "_self"
     breadcrumbs.add "SSH Keys", cloud_settings_path, :target => "_self"
     breadcrumbs.add "New", sshkey_new_path, :target => "_self"
