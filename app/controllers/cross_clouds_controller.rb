@@ -15,9 +15,16 @@ class CrossCloudsController < ApplicationController
     else
       @cloud_prov = "Amazon EC2"
     end
-    @ssh_keys = ListSshKeys.perform(force_api[:email], force_api[:api_key])
+    @ssh_keys_collection = ListSshKeys.perform(force_api[:email], force_api[:api_key])
     if @ssh_keys_collection.class == Megam::Error
-      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@ssh_keys_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      redirect_to cloud_settings_path, :gflash => { :warning => { :value => "Oops! sorry, #{@ssh_keys_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+    else
+      @ssh_keys = []
+      ssh_keys = []
+      @ssh_keys_collection.each do |sshkey|
+        ssh_keys << {:name => sshkey.name, :created_at => sshkey.created_at.to_time.to_formatted_s(:rfc822)}
+      end
+      @ssh_keys = ssh_keys.sort_by {|vn| vn[:created_at]}
     end
   end
 
@@ -27,9 +34,12 @@ class CrossCloudsController < ApplicationController
     vault_loc = vault_base_url+"/"+current_user.email+"/"+params[:name]
     sshpub_loc = vault_base_url+"/"+current_user.email+"/"+params[:id_rsa_public_key]
     #private_key = (params[:private_key]) ? cross_cloud_bucket+"/"+current_user.email+"/"+params[:name]+"/"+File.basename(params[:private_key]) : ""
-    private_key = ((params[:private_key].original_filename).length > 0) ? cross_cloud_bucket+"/"+current_user.email+"/"+params[:name]+"/"+params[:private_key].original_filename : ""
-    wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group],  :image => params[:image], :flavor => params[:flavor], :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => private_key, :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
-
+    if params[:provider] != "profitbricks"
+      private_key = ((params[:private_key].original_filename).length > 0) ? cross_cloud_bucket+"/"+current_user.email+"/"+params[:name]+"/"+params[:private_key].original_filename : ""
+      wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group],  :image => params[:image], :flavor => params[:flavor], :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => private_key, :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
+    else
+      wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group],  :image => params[:image], :flavor => params[:flavor], :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => "", :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
+    end
     if params[:provider] == "profitbricks"
       wparams[:spec][:flavor] = "cpus=#{params[:cpus]},ram=#{params[:ram]},hdd-size=#{params[:flavor]}"
     end
@@ -87,6 +97,7 @@ class CrossCloudsController < ApplicationController
   end
 
   def cloud_selector
+    @sshkeys = params[:ssh_keys]
     @provider = params[:selected_cloud]
     if params[:selected_cloud] == "aws"
       @provider_form_name = "Amazon EC2"
@@ -101,7 +112,7 @@ class CrossCloudsController < ApplicationController
     end
     respond_to do |format|
       format.js {
-        respond_with(@provider, @provider_form_name, :layout => !request.xhr? )
+        respond_with(@provider, @provider_form_name, @sshkeys, :layout => !request.xhr? )
       }
     end
   end

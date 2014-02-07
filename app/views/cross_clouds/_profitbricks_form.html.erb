@@ -106,23 +106,22 @@
 			</div>
 		</div>
 		<br/>
-		<div class="control-group">
+		<!--<div class="control-group">
 			<div class="controls">
-				<!-- <%= text_field_tag 'private_key', nil, :class=> 'required', placeholder: 'Enter Profitbricks private key...' %> -->
+				 <%= text_field_tag 'private_key', nil, :class=> 'required', placeholder: 'Enter Profitbricks private key...' %> 
 				<label for="file">Private Key</label>  <%= file_field_tag 'private_key', accept: 'text' %>
 				<%= link_to "#" do %>
 				<i class="icon-question-sign" id="popover_pb_privatekey"></i>
 				<% end %>
 			</div>
 		</div>
-		<br/>
+		<br/>-->		
 		<div class="control-group">
 			<div class="controls">
-				<!-- <%= text_field_tag 'id_rsa_public_key', nil, :class=> 'required', placeholder: 'Enter id_rsa public key..' %> -->
-				<label for="file">Public Key</label> <%= file_field_tag 'id_rsa_public_key', accept: 'text' %>
+				 <%= select_tag :id_rsa_public_key, options_for_select(ssh_keys.map{ |c| c[:name] }) %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign" id="popover_pb_publickey"></i>
-				<% end %>
+				<i class="icon-question-sign" id="popover_aws_publickey"></i>
+				<% end %><label>My Key pairs</label>
 			</div>
 		</div>
 		<br/>

@@ -23,7 +23,7 @@
 						<ul class="slides">
 							<% cross_cloud_image.each do |cc| %>
 							<li>
-								<%= link_to selectclouds_path(:selected_cloud => cc), :remote => true, :type => "submit", :method => "post", data: { spinlock: '#dec'}  do %>
+								<%= link_to selectclouds_path(:selected_cloud => cc, :ssh_keys => @ssh_keys), :remote => true, :type => "submit", :method => "post", data: { spinlock: '#dec'}  do %>
 								<i class="logor_<%= cc %>", id ="slider-ccimage"></i>
 								<% end %>
 							</li>

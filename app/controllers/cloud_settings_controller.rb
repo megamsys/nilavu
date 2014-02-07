@@ -52,8 +52,8 @@ class CloudSettingsController < ApplicationController
       redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@cloud_tool_setting_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     elsif @cross_clouds_collection.class == Megam::Error
       redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@cross_clouds_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-      elsif @ssh_keys_collection.class == Megam::Error
-      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@ssh_keys_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      #elsif @ssh_keys_collection.class == Megam::Error
+      #redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@ssh_keys_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     end
   end
 

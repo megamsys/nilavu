@@ -33,6 +33,7 @@
 			</div>
 		</div>
 		<br/><br/>
+		<% if @ssh_keys_collection.class != Megam::Error %>
 		<div class="widget-box nopadding">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th"></i> </span>
@@ -59,6 +60,7 @@
 				</table>
 			</div>
 		</div>
+		<% end %>
 	</div>
 </div>
 <div id="sshkey_postfinish_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
