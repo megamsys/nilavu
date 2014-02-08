@@ -13,7 +13,7 @@ class CloudDashboardsController < ApplicationController
 
   def collapse_cloud_distrib
     lac = @launched_apps_services.each_with_object(Hash.new{|h,k|h[k]='0'}) do |h,res|
-      res[h[:cloud_name]].succ!
+      res[h[:cloud_name].to_sym].succ!
     end
     # this is a stupid idea, move it to enum (Rails 4.1 feature)
     lac[:aws] = 0 unless lac[:aws]
@@ -26,8 +26,10 @@ class CloudDashboardsController < ApplicationController
 
   def collapse_apps_distrib
     lac = @launched_apps_services.each_with_object(Hash.new{|h,k|h[k]='0'}) do |h,res|
-      res[h[:predef_name]].succ!
+      res[h[:predef_name].to_sym].succ!
     end
+    puts @launched_apps_services.inspect
+    puts lac.inspect
     # this is a stupid idea, move it to enum (Rails 4.1 feature)
     lac[:wordpress] = 0 unless lac[:wordpress]
     lac[:riak] = 0 unless lac[:riak]

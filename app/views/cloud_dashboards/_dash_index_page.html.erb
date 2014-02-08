@@ -47,15 +47,17 @@
 							<% end %>
 						</div>
 						<div class="col-md-4">
-							<span class="btn btn-dark-green btn-lg active" id="popover_dashboard_cloud"> &nbsp;&nbsp;<i class="icon icon-cloud"></i>  <%= one_app_service.cloud_name %> </span>
+							<span class="btn btn-dark-green btn-lg active" id="popover_dashboard_cloud"> &nbsp;&nbsp;<i class="icon icon-cloud"></i> <%= one_app_service.cloud_name %> </span>
 						</div>
 					</div>
 				</div>
 				<% end %>
-			</div>			
+			</div>
 		</div>
 	</div>
 </div>
+<%=javascript_tag "drawAppDistribution(#{raw @apps_distrib.to_json})" =%>
+<%=javascript_tag "drawCloudDistribution(#{raw @cloud_distrib.to_json})" =%>
 <% else %>
 <div class="row">
 	<div class="col-xs-11 col-sm-11 col-md-12">
