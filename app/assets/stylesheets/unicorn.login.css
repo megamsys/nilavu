@@ -9,12 +9,19 @@ html, body {
 }
 
 body {
-	background-color: #444444;
-	background-image: url('login_background.png');
-    background-position: fixed;
+	/*background-color: #444444; 
+	 background-image: url('login_background.jpg'); 
+    background-position: fixed; */
     padding: 0;
     margin: 0;
 }
+
+ #door { 
+ 	background: url('/assets/login_background.jpg');
+ 	padding: 0;
+    	margin: 0;
+ 	
+ 	 } 
 
 #container {
     top: 0;
