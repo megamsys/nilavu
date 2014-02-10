@@ -1,6 +1,6 @@
 <% if @apps_distrib.length > 0 %>
 <div class="row clearfix">
-	<div class="col-xs-5 col-sm-5 col-md-6">
+	<div class="col-xs-5 col-sm-5 col-md-6 col-lg-6">
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon icon-bar-chart"></i> </span>
@@ -11,7 +11,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-xs-5 col-sm-5 col-md-5">
+	<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon icon-bar-chart"></i> </span>
@@ -24,7 +24,7 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-xs-11 col-sm-11 col-md-12">
+	<div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
 		<div class="widget-box" style="height:400px; overflow-y: scroll;">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon icon-refresh"></i> </span>
@@ -60,7 +60,7 @@
 <%=javascript_tag "drawCloudDistribution(#{raw @cloud_distrib.to_json})" =%>
 <% else %>
 <div class="row">
-	<div class="col-xs-11 col-sm-11 col-md-12">
+	<div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
 				<p class="help-block">

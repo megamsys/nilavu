@@ -39,11 +39,13 @@
 				<div class="row">
 					<div class="col-md-4">
 						<%= link_to new_cloud_book_path, class: "btn btn-lg btn-success btn-block", title: 'Choose your application\'s framework', rel: 'tooltip', :target => "_self" do %>
-						Choose Your Framework
+						<i class="icon-rocket">&nbsp;Choose Your Framework</i>
 						<% end %>
 					</div>
 					<div class="col-md-4">
-						<%= link_to "Watch Logs", cloud_books_histories_path, class: "btn btn-lg btn-info btn-block", title: 'Watch logs of created apps', rel: 'tooltip', :target => "_self" %>
+						<%= link_to  cloud_books_histories_path, class: "btn btn-lg btn-info btn-block", title: 'Watch logs of created apps', rel: 'tooltip', :target => "_self" do %>
+						<i class="icon-facetime-video">&nbsp;Watch Logs</i>
+						<%end %>
 					</div>
 					<div class="col-md-4">
 						<%= link_to "Upgrade", pricing_path, class: "btn btn-lg btn-inverse btn-block ", :target => "_self" %>
@@ -67,7 +69,7 @@
 					<div class="accordion-group widget-box">
 						<div class="accordion-heading">
 							<div class="widget-title">
-								<a data-parent="#collapse-group" href="#collapse<%= k%>" data-toggle="collapse"> <span class="icon"> <i class="icon-magnet"></i></span> <% if cb.book_type == 'APP' %> <span class="label label-info"> <%= cb.book_type %> </span> <% elsif cb.book_type == 'BOLT' %> <span class="label label-warning"><%= cb.book_type %></span> <% end %> <p></p> <span class="badge badge-info"><%= k%></span> </a>
+								<a data-parent="#collapse-group" href="#collapse<%= k%>" data-toggle="collapse"> <span class="icon"> <i class="icon-magnet"></i></span> <% if cb.book_type == 'APP' %> <span class="label label-info pull-right"><strong> <%= cb.book_type %><strong> </span> <% elsif cb.book_type == 'BOLT' %> <span class="label label-warning"><%= cb.book_type %></span> <% end %> <p></p> <span class="label label-danger pull-left">&nbsp;<strong><%= k%></strong></span> </a>
 							</div>
 						</div>
 						<div class="collapse accordion-body" id="collapse<%= k%>">

@@ -77,7 +77,7 @@ class CloudBooksController < ApplicationController
     packed_parms = packed("Meat::Defns",params)      
     @defnd_out ={}
     defnd_result =  CreateDefnRequests.send(params[:book_type].downcase.to_sym, packed_parms, force_api[:email], force_api[:api_key])    
-    @defnd_out[:error] = "Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}." if @req.class == Megam::Error
+    @defnd_out[:error] = "Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}." if @req.class == Megam::Error
     @defnd_out[:success] = defnd_result.some_msg[:msg] 
     respond_to do |format|
       format.js {
@@ -95,7 +95,7 @@ class CloudBooksController < ApplicationController
     @clone_nodes =  FindNodeByName.perform(wparams, force_api[:email],force_api[:api_key])
     logger.debug "CloudBooks:clone_start, found the node"
     if @clone_nodes.class == Megam::Error
-      @res_msg="Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      @res_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
       respond_to do |format|
         format.js {
           respond_with(@res_msg, :layout => !request.xhr? )
@@ -144,7 +144,7 @@ class CloudBooksController < ApplicationController
       wparams = {:node => node_hash }
       @node = CreateNodes.perform(wparams,force_api[:email], force_api[:api_key])
       if @node.class == Megam::Error
-      @res_msg="#{node_hash.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      @res_msg="#{node_hash.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
       respond_to do |format|
         format.js {
           respond_with(@res_msg, :layout => !request.xhr? )
@@ -230,7 +230,7 @@ class CloudBooksController < ApplicationController
     options = {:data => data, :group => "server", :action => "create" }
     node_hash=MakeNode.perform(options, force_api[:email], force_api[:api_key]) 
     if node_hash.class == Megam::Error
-      @res_msg="#{node_hash.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      @res_msg="#{node_hash.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
       respond_to do |format|
         format.js {
           respond_with(@res_msg, :layout => !request.xhr? )
@@ -240,7 +240,7 @@ class CloudBooksController < ApplicationController
       wparams = {:node => node_hash }
       @node = CreateNodes.perform(wparams,force_api[:email], force_api[:api_key])     
       if @node.class == Megam::Error
-        @res_msg="Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+        @res_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
         respond_to do |format|
           format.js {
             respond_with(@res_msg, :layout => !request.xhr? )
@@ -298,7 +298,7 @@ class CloudBooksController < ApplicationController
     @node = FindNodeByName.perform(wparams,force_api[:email],force_api[:api_key])
     logger.debug "--> CloudBooks:show, found node #{wparams[:node]}"
     if @node.class == Megam::Error
-      @res_msg="We went into nirvana, finding node #{wparams[:node]}. Open up a support ticket. We'll investigate its disappearence #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      @res_msg="We went into nirvana, finding node #{wparams[:node]}. Open up a support ticket. We'll investigate its disappearence #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
       respond_to do |format|
         format.js {
           respond_with(@res_msg, :layout => !request.xhr? )
@@ -325,12 +325,12 @@ class CloudBooksController < ApplicationController
     options = {:node_name => "#{params[:name]}", :group => "server", :action => "delete", :repo => 'default_chef' }
     node_hash=DeleteNode.perform(options, force_api[:email], force_api[:api_key])    
     if node_hash.class == Megam::Error
-      @res_msg="Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      @res_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
     else
       options = { :req => node_hash }
       @node = CreateRequests.perform(options, force_api[:email], force_api[:api_key])
       if @node.class == Megam::Error
-        @res_msg="#{@node.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+        @res_msg="#{@node.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
       else      
        @book.destroy
        @book.cloud_books_histories.each do |cbh|

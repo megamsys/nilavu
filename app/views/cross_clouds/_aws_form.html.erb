@@ -157,10 +157,11 @@
 		<% if @ssh_keys.any? %>
 		<div class="control-group">
 			<div class="controls">
+				<label>My Key pairs</label>
 				<%= select_tag :id_rsa_public_key, options_for_select(@ssh_keys.map{ |c| c[:name] }) %>
 				<%= link_to "#" do %>
 				<i class="icon-question-sign" id="popover_aws_publickey"></i>
-				<% end %><label>My Key pairs</label>
+				<% end %>
 			</div>
 		</div>
 		<% else %>

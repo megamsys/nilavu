@@ -78,7 +78,7 @@ class CloudStoresController < ApplicationController
     @node = FindNodeByName.perform(wparams,force_api[:email],force_api[:api_key])
     logger.debug "--> CloudBooks:show, found node #{wparams[:node]}"
     if @node.class == Megam::Error
-      @res_msg="We went into nirvana, finding node #{wparams[:node]}. Open up a support ticket. We'll investigate its disappearence #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      @res_msg="We went into nirvana, finding node #{wparams[:node]}. Open up a support ticket. We'll investigate its disappearence #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
       respond_to do |format|
         format.js {
           respond_with(@res_msg, :layout => !request.xhr? )

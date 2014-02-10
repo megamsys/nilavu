@@ -137,7 +137,7 @@ GEM
       nokogiri (~> 1.6.0)
       oauth2
     google-analytics-rails (0.0.4)
-    gritter (1.0.3)
+    gritter (1.1.0)
     hashie (2.0.5)
     highline (1.6.20)
     hike (1.2.3)
@@ -352,7 +352,7 @@ DEPENDENCIES
   flot-rails (~> 0.0.4)
   github_api
   google-analytics-rails (~> 0.0.4)
-  gritter (~> 1.0.3)
+  gritter (~> 1.1.0)
   httparty
   icheck-rails
   inflector

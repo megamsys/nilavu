@@ -17,7 +17,7 @@ gem 'jquery-ui-rails'
 gem "icheck-rails"
 gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
 gem "flot-rails", "~> 0.0.4"
-gem "gritter", "~> 1.0.3"
+gem "gritter", "~> 1.1.0"
 gem "flexslider", "~> 2.2.0"
 gem "masonry-rails"
 gem 'will_paginate','3.0.5'
