@@ -5,12 +5,6 @@
 	<%= breadcrumbs.render(:format => :inline, :separator => '') %>
 </div>
 
-<div ng-controller="LogBusyCtrl">
-<!--	<button class="btn" ng-click="logBusy('logloader',1000)">
-		Try It
-	</button> -->
-</div>
-
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-12" ng-controller="LogCtrl">
 		<div class="col-md-3">
@@ -23,7 +17,7 @@
 					<div class="new-update clearfix">
 						<i class="icon-ok-sign"></i>
 						<div class="update-done">
-							<a title="" href="" ng-click="sendmessage('<%= node.name %>')"><strong><%= node.name %></strong></a>
+							<a title="" href="" ng-click="sendmessage('logloader','<%= node.name %>')"><strong><%= node.name %></strong></a>
 						</div>
 					</div>
 					<% end %>
