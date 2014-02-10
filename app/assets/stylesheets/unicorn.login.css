@@ -5,6 +5,7 @@ height: 100%;
 
 body.login {
 background-image: url('login_background.jpg');
+background-repeat:no-repeat;
 background-attachment: fixed;
 background-position: transparent;
 padding: 0;
