@@ -70,7 +70,7 @@ class ConnectorProjectsController < ApplicationController
     res_body = Crm.perform(options) 
     #@result_class = res_body.class   
     if res_body.class == Megam::Error
-      @result = "Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      @result = "Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
       @result_class = "Megam_Error"
     else
       @result_class = "Deccanplato_result"

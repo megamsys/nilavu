@@ -1,143 +1,147 @@
-/**
- * Unicorn Admin Template
- * Version 2.0.2
- * Diablo9983 -> diablo9983@gmail.com
-**/
 html, body {
-    width: 100%;
-    height: 100%;    
+width: 100%;
+height: 100%;
+}
+
+body.login {
+background-image: url('login_background.jpg');
+background-attachment: fixed;
+background-position: transparent;
+padding: 0;
+margin: 0;
 }
 
 body {
-	/*background-color: #444444; 
-	 background-image: url('login_background.jpg'); 
-    background-position: fixed; */
-    padding: 0;
-    margin: 0;
+background-color: #444444;
+background-position: fixed;
+padding: 0;
+margin: 0;
 }
 
- #door { 
- 	background: url('/assets/login_background.jpg');
- 	padding: 0;
-    	margin: 0;
- 	
- 	 } 
-
-#container {
-    top: 0;
-    position: absolute;
-    left: 50%;
-    margin-left: -200px;
-    margin-top: 50px;
+#containerlogin {
+top: 0px;
+position: absolute;
+left: 50%;
+margin-left: -200px;
+margin-top: 100px;
 }
 
-#logo, #loginbox, #loginbox_password_reset, #login_register_form  {
-    width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
+#loginbox, #loginbox_password_reset, #login_register_form {
+width: 400px;
+margin-left: auto;
+margin-right: auto;
+position: relative;
 }
+
 #logo {
-    padding: 20px 0 20px 5px;
+padding: 20px 0 20px 5px;
+width: 400px;
+margin-left: auto;
+margin-right: auto;
+position: relative;
 }
 #logo img {
-    width: 215px;
-    margin: 0 auto;
-    display: block;
+width: 215px;
+margin: 10px auto;
+display: block;
+margin-left: auto;
+margin-right: auto;
+position: relative;
 }
 
-#loginbox  {
-    height: 330px;
-	background: #ffffff;
-    box-shadow: 0 0 4px #000000;
-    border-radius: 7px;
-    overflow: hidden !important;
-    text-align: center;
-    position: relative;   
+#loginbox {
+height: 330px;
+margin-top: auto;
+box-shadow: 0 0 4px #000000;
+border-radius: 7px;
+overflow: hidden !important;
+text-align: center;
+background-color: #ffffff;
+position: relative;
 }
 
 #loginbox_password_reset {
-	height: 200px;
-	background: #ffffff;
-    box-shadow: 0 0 4px #000000;
-    border-radius: 7px;
-    overflow: hidden !important;
-    text-align: center;
-    position: relative;  
+height: 200px;
+margin-top: auto;
+box-shadow: 0 0 4px #000000;
+border-radius: 7px;
+overflow: hidden !important;
+text-align: center;
+background-color: #ffffff;
+position: relative;
 }
 
 #login_register_form {
-	height:375px;
-	background: #ffffff;
-    box-shadow: 0 0 4px #000000;
-    border-radius: 7px;
-    overflow: hidden !important;
-    text-align: center;
-    position: relative; 
+height: 375px;
+margin-top: auto;
+box-shadow: 0 0 4px #000000;
+border-radius: 7px;
+overflow: hidden !important;
+text-align: center;
+background-color: #ffffff;
+position: relative;
 }
 
 #loginbox form, #login_register_form form, #loginbox_password_reset form {
-	width:100%;
-	height:100%;
-	position:absolute;
-	top:0;
-	left:0;
+width: 100%;
+height: 100%;
+position: absolute;
+top: 0;
+left: 0;
 }
 #loginbox p, #login_register_form p, #loginbox_password_reset p {
-    margin-top: 10px;
-    padding: 0 10px;
+margin-top: 10px;
+padding: 0 10px;
 }
 
-#loginbox .form-actions, #login_register_form .form-actions, #loginbox_password_reset .form-actions{
-	padding: 14px 20px 15px;
-    border-radius: 0 0 30px 30px;
+#loginbox .form-actions, #login_register_form .form-actions, #loginbox_password_reset .form-actions {
+padding: 14px 20px 15px;
+border-radius: 0 0 30px 30px;
 }
-#loginbox .form-actions .pull-left, #login_register_form .form-actions .pull-left, #loginbox_password_reset .form-actions .pull-left{
-	margin-top:-1px;
-    text-align: left;
+#loginbox .form-actions .pull-left, #login_register_form .form-actions .pull-left, #loginbox_password_reset .form-actions .pull-left {
+margin-top: -1px;
+text-align: left;
 }
-#loginbox .form-actions .pull-right, #login_register_form .form-actions .pull-right, #loginbox_password_reset .form-actions .pull-right{
-    margin-top: 2px;
+#loginbox .form-actions .pull-right, #login_register_form .form-actions .pull-right, #loginbox_password_reset .form-actions .pull-right {
+margin-top: 2px;
 }
-#loginbox form#loginform, #login_register_form form#loginform, #loginbox_password_reset form#loginform{
-	z-index: 200;
+#loginbox form#loginform, #login_register_form form#loginform, #loginbox_password_reset form#loginform {
+z-index: 200;
 }
 
-#loginbox form#recoverform, #login_register_form form#recoverform, #loginbox_password_reset form#recoverform{
-	z-index: 100;
-	opacity: 0;
-    display:none;
+#loginbox form#recoverform, #login_register_form form#recoverform, #loginbox_password_reset form#recoverform {
+z-index: 100;
+opacity: 0;
+display: none;
 }
 #loginbox form#registerform, #login_register_form form#registerform, #loginbox_password_reset form#registerform {
-    z-index: 100;
-    opacity: 0;
-    display:none;
+z-index: 100;
+opacity: 0;
+display: none;
 }
 .row.or-login {
-    margin: 0;
-    position: relative;
+margin: 0;
+position: relative;
 }
 .row.or-login:before {
-    border-top: 1px dotted #ddd;
-    content: "";
-    display: block;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 55%;
-    z-index: -1;
+border-top: 1px dotted #ddd;
+content: "";
+display: block;
+left: 0;
+position: absolute;
+right: 0;
+top: 55%;
+z-index: -1;
 }
 .row.or-login span {
-    background-color: #fff;
-    padding: 0 5px;
+background-color: #fff;
+padding: 0 5px;
 }
 
-
-
-#loginbox form#recoverform .control-group, #login_register_form form#recoverform .control-group, #loginbox_password_reset form#recoverform .control-group{
-	margin: 23px 0;
+#loginbox form#recoverform .control-group, #login_register_form form#recoverform .control-group, #loginbox_password_reset form#recoverform .control-group {
+margin: 23px 0;
 }
 
 .input-group {
-    padding: 0 20px 5px;
+padding: 0 20px 5px;
 }

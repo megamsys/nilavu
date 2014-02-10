@@ -8,6 +8,14 @@
 		</div>
 		<br/>
 		<div class="row">
+			<!--
+			<div class="form-group">
+			<label class="col-sm-3 col-md-3 col-lg-2 control-label">Required Field</label>
+			<div class="col-sm-9 col-md-9 col-lg-10">
+			<input type="text" class="form-control input-sm" name="required" id="required">
+			</div>
+			</div>
+			-->
 			<div class="control-group" id="cc_name">
 				<div class="controls">
 					&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-cloud"></i>
@@ -149,10 +157,11 @@
 		<% if @ssh_keys.any? %>
 		<div class="control-group">
 			<div class="controls">
+				<label>My Key pairs</label>
 				<%= select_tag :id_rsa_public_key, options_for_select(@ssh_keys.map{ |c| c[:name] }) %>
 				<%= link_to "#" do %>
 				<i class="icon-question-sign" id="popover_aws_publickey"></i>
-				<% end %><label>My Key pairs</label>
+				<% end %>
 			</div>
 		</div>
 		<% else %>

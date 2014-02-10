@@ -1,93 +1,70 @@
 $(document)
 		.ready(
 				function() {
-					$.fn.editable.defaults.mode = 'inline';
 
+					$.fn.editable.defaults.mode = 'popup';
 					// bootstrap3 editable
-					$('#changeappname').editable({
-						send : 'never'
-					});
+
+					$('#changeappname').editable();
 
 					$('#changeservicename').editable({
 						send : 'never'
 					});
-					// === Prepare the chart data ===/
-					var sin = [], cos = [];
-					for (var i = 0; i < 14; i += 0.5) {
-						sin.push([ i, Math.sin(i) ]);
-						cos.push([ i, Math.cos(i) ]);
-					}
 
-					var data = [];
-					var series = Math.floor(Math.random() * 10) + 1;
-					for (var i = 0; i < series; i++) {
-						data[i] = {
-							label : "Series" + (i + 1),
-							data : Math.floor(Math.random() * 100) + 1
-						}
-					}
-
-					var pie = $
-							.plot(
-									$(".pie"),
-									data,
-									{
-										series : {
-											pie : {
-												show : true,
-												radius : 3 / 4,
-												label : {
-													show : true,
-													radius : 3 / 4,
-													formatter : function(label,
-															series) {
-														return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">'
-																+ label
-																+ '<br/>'
-																+ Math
-																		.round(series.percent)
-																+ '%</div>';
-													},
-													background : {
-														opacity : 0.5,
-														color : '#000'
-													}
-												},
-												innerRadius : 0.2
-											},
-											legend : {
-												show : false
-											}
-										}
-									});
-
-					var d1 = [];
-					for (var i = 0; i <= 10; i += 1)
-						d1.push([ i, parseInt(Math.random() * 30) ]);
-					
-					var data = new Array();
-					data.push({
-						data : d1,
-						bars : {
-							show : true,
-							barWidth : 0.4,
-							order : 1,
-						}
-					});
-					// Display graph
-					var bar = $.plot($(".bars"), data, {
-						legend : true,
-						grid : {
-							borderColor : "#eeeeee",
-							borderWidth : 1,
-							color : "#AAAAAA"
-						}
-					});
-					
-				
-					$('<div id="tooltip">' + contents + '</div>').css({
-						top : y + 5,
-						left : x + 5
-					}).appendTo("body").fadeIn(200);
-
+	
 				});
+
+unicorn = {
+	// === Peity charts === //
+	sparkline : function() {
+		$(".sparkline_line_good span").sparkline("html", {
+			type : "line",
+			fillColor : "#B1FFA9",
+			lineColor : "#459D1C",
+			width : "50",
+			height : "24"
+		});
+		$(".sparkline_line_bad span").sparkline("html", {
+			type : "line",
+			fillColor : "#FFC4C7",
+			lineColor : "#BA1E20",
+			width : "50",
+			height : "24"
+		});
+		$(".sparkline_line_neutral span").sparkline("html", {
+			type : "line",
+			fillColor : "#CCCCCC",
+			lineColor : "#757575",
+			width : "50",
+			height : "24"
+		});
+
+		$(".sparkline_bar_good span").sparkline('html', {
+			type : "bar",
+			barColor : "#83bd67",
+			barWidth : "5",
+			height : "24"
+		});
+		$(".sparkline_bar_bad span").sparkline('html', {
+			type : "bar",
+			barColor : "#55acd2",
+			barWidth : "5",
+			height : "24"
+		});
+		$(".sparkline_bar_neutral span").sparkline('html', {
+			type : "bar",
+			barColor : "#757575",
+			barWidth : "5",
+			height : "24"
+		});
+	},
+
+	// === Tooltip for flot charts === //
+	flot_tooltip : function(x, y, contents) {
+
+		$('<div id="tooltip">' + contents + '</div>').css({
+			top : y + 5,
+			left : x + 5
+		}).appendTo("body").fadeIn(200);
+	}
+}

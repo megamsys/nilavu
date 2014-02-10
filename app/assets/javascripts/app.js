@@ -16,6 +16,37 @@ app.config([ "$routeProvider", "$locationProvider",
 			});
 		} ]);
 
+var Person = function (name, $log) {
+
+	this.eat = function (food) {
+	    $log.info(name + " is eating delicious " + food);
+	  };
+	this.beHungry = function (reason) {
+	    $log.warn(name + " is hungry because: " + reason);
+	  }
+	};
+var Restaurant = function($q, $rootScope) {
+	var currentOrder;
+	this.takeOrder = function(orderedItems) {
+		currentOrder = {
+			deferred : $q.defer(),
+			items : orderedItems
+		};
+		return currentOrder.deferred.promise;
+	};
+	this.deliverOrder = function() {
+		currentOrder.deferred.resolve(currentOrder.items);
+		$rootScope.$digest();
+	};
+	this.problemWithOrder = function(reason) {
+		currentOrder.deferred.reject(reason);
+		$rootScope.$digest();
+	};
+};
+
+
+
+
 angular.module('Nilavu').controller('LogBusyCtrl',
 		function($scope, promiseTracker, $q, $timeout) {
 
@@ -32,7 +63,9 @@ angular.module('Nilavu').controller('LogBusyCtrl',
 
 		});
 
-app.config(["$httpProvider",
+app
+		.config([
+				"$httpProvider",
 				function($httpProvider) {
 					$httpProvider.defaults.headers.common['X-CSRF-Token'] = $(
 							'meta[name=csrf-token]').attr('content');

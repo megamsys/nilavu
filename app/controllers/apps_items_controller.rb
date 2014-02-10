@@ -2,7 +2,7 @@ class AppsItemsController < ApplicationController
   respond_to :html, :js
 
   def index
-    breadcrumbs.add "Dashboard", :cloud_dashboards_path
+    breadcrumbs.add " Dashboard", :cloud_dashboards_path, :class => "icon icon-dashboard"
   end
 
   def new
