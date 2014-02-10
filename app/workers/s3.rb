@@ -1,10 +1,8 @@
-class S3Upload
-  def self.perform(bucket_name, filename, data)
+class S3
+  def self.upload(bucket_name, filename, data)
     begin
       bucket = s3_bucket(bucket_name)
-      # Grab a reference to an object in the bucket with the name we require
       object = bucket.objects[filename]
-      # Write a local file to the aforementioned object on S3
       object.write(data)
     rescue StandardError => se
       hash = {"msg" => se.message, "msg_type" => "error"}
@@ -20,13 +18,11 @@ class S3Upload
   end
 
   def self.s3_bucket(bucket_name)
-    #bucket_name = ENV['MEGAM_AWS_S3_BUCKET']
     s3 = AWS::S3.new(
     :access_key_id => ENV['MEGAM_AWS_ACCESS_KEY'],
     :secret_access_key => ENV['MEGAM_AWS_SECRET_ID'])
     # If the bucket doesn't exist, create it
     unless s3.buckets[bucket_name].exists?
-      puts "Need to make bucket #{bucket_name}.."
     s3.buckets.create(bucket_name)
     end
     s3.buckets[bucket_name]
@@ -35,14 +31,11 @@ class S3Upload
   def self.download(bucket_name, filename)
     begin
       bucket = s3_bucket(bucket_name)
-      # Grab a reference to an object in the bucket with the name we require
       object = bucket.objects[filename]
-      # Write a local file to the aforementioned object on S3
-      #File.open(filename, 'wb') do |file|
-       # object.read do |chunk|
-        #  file.write(chunk)
-        #end
-      #end    
+      bucket.object.url_for(:read,
+      :secure => true,
+      :expires => 24*3600,  # 24 hours
+      :response_content_disposition => "attachment; filename='#{creative_file_name}'").to_s
     end
   end
 

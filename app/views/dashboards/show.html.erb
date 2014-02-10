@@ -2,17 +2,15 @@
 <% provide(:title, 'Monitoring Console') %>
 
 <%= render :partial => "dashboards/header" , :locals => {:head => "Monitoring Console"}%>
-
 	<ng-view ng-show="resolved" ng-cloak></ng-view>
-
-
 <% end %>
+
 <%= render :partial => "dashboards/dashboard_sidebar"%>
 <%= render 'layouts/footer' %>
 
 <script>
     (function($) {
-      $.Sources = JSON.parse('<%= raw Sources.sources.to_json %> ');
+    $.Sources = JSON.parse('<%= raw Sources.sources.to_json %> ');
     $.Books = JSON.parse('<%= raw launched(@user_id).to_json %> ');
     })($);
 </script>

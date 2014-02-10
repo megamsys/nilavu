@@ -56,6 +56,7 @@
 //= require jquery.flot.pie
 //= require jquery.flot.resize
 //= require jquery.flot.time
+//= require jquery.flot.categories
 //= require bootstrap-editable
 //= require jquery.flexslider
 //= require socket.io

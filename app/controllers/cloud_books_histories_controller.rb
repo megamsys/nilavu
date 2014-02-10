@@ -2,7 +2,7 @@ class CloudBooksHistoriesController < ApplicationController
   respond_to :js, :html
 
   def index
-    breadcrumbs.add "Dashboard", :cloud_dashboards_path
+    breadcrumbs.add " Dashboard", :cloud_dashboards_path,  :class => "icon icon-dashboard"
     breadcrumbs.add "Logs", :root_path
     @nodes = current_user.cloud_books.order("id DESC").all
     count = @nodes.length

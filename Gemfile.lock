@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
-  revision: 4d0bd4271f7f01d79bbb2b72c04f30a5766db0ef
+  revision: f74df016a051b4ed6ae3459e384ae171fb0e97b0
   branch: bootstrap3
   specs:
     twitter-bootstrap-rails (2.2.7)
@@ -137,7 +137,7 @@ GEM
       nokogiri (~> 1.6.0)
       oauth2
     google-analytics-rails (0.0.4)
-    gritter (1.0.3)
+    gritter (1.1.0)
     hashie (2.0.5)
     highline (1.6.20)
     hike (1.2.3)
@@ -175,7 +175,7 @@ GEM
       treetop (~> 1.4.8)
     masonry-rails (0.2.1)
       rails
-    megam_api (0.7.9)
+    megam_api (0.8.0)
       excon (~> 0.31)
       highline (~> 1.6)
       mixlib-config (~> 2.1)
@@ -352,7 +352,7 @@ DEPENDENCIES
   flot-rails (~> 0.0.4)
   github_api
   google-analytics-rails (~> 0.0.4)
-  gritter (~> 1.0.3)
+  gritter (~> 1.1.0)
   httparty
   icheck-rails
   inflector

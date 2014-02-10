@@ -2,33 +2,37 @@
 <% provide(:title, 'Apps') %>
 <%= render :partial => "users/header" , :locals => {:head => "Apps - Step 2 of 2"}%>
 <div id="breadcrumb">
-	<%= breadcrumbs.render(:format => :inline) %>
+	<%= breadcrumbs.render(:format => :inline, :separator => '') %>
 </div>
-<%= form_for @book, :html => {:multipart => true }, :remote => true, :method => 'post' do |f| %>
+<%= form_for @book,  :remote => true, :method => 'post' do |f| %>
+
+<% @appname = book_name %>
+
 <div class="container">
 	<div class="row">
 		<div class="col-xs-11 col-sm-11">
-			<% @new_book_name = book_name %>
 			<div class="widget-box">
 				<div class="widget-title">
 					<span class="icon"> <i class="icon-th-list"></i> </span>
 					<h5>App Name</h5>
 				</div>
-				<div class="widget-content">					
+				<div class="widget-content">
+					<br/>
 					<div class="row">
 						<div class="form-group">
 							<div class="col-sm-5 col-md-5 col-lg-5">
-								<a class="btn btn-lg btn-purple btn-block" data-name="appname" data-type="text" href="#" id="changeappname" ><%= @new_book_name %></a>
+								<%= link_to  @appname, "#", :id => "changeappname",
+								:class => "btn btn-lg btn-purple btn-block",
+								:data => { :type => 'text', :name => 'appname'} %>
 							</div>
 							<div class="col-sm-7 col-md-7 col-lg-7">
-							<%= link_to  @domain_name, "#", :class => "btn btn-lg btn-dark-red disabled btn-block", :id => 'domain' %>
+								<%= link_to  @domain_name, "#", :class => "btn btn-lg btn btn-pink btn-block", :id => 'domain' %>
 							</div>
 						</div>
 					</div>
-
 					<br/>
 					<br/>
-					<%= f.text_field :name, :type => 'hidden', :id=> 'changename', :value => @new_book_name %>
+					<%= f.text_field :appname, :type => 'hidden',  :value => @appname, :id => "appname" %>
 					<%= f.text_field :domain_name, :type => 'hidden', :value => @domain_name %>
 				</div>
 			</div>
@@ -58,7 +62,7 @@
 
 				</div>
 			</div>
-		</div>		
+		</div>
 		<div class="col-xs-11 col-sm-11">
 			<div class="widget-box">
 				<div class="widget-title">
@@ -129,7 +133,7 @@
 		<div class="row">
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
-				<%= f.submit "Launch", :class => "btn btn-lg btn-success btn-block", :data => {:disable_with => "Launching App..."} %>
+				<%= f.submit  "Launch",:class => "btn btn-lg btn-success btn-block", :data => {:disable_with => "Launching App..."} %>
 				<% end %>
 				<br/>
 				</br/>
@@ -152,7 +156,7 @@
 			<div class="modal-body">
 				<div class="alert alert-success">
 					<p>
-						App launch was submitted to the megam cloud gateway successfully. It typically takes a few minutes to run it on the cloud.
+						App was launched successfully. It typically takes a few minutes to spin it on the cloud.
 						</br>
 						</br>
 						<span class="label label-info">Logs</span>&nbsp;streams the status of launch.</strong>

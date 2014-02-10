@@ -1,6 +1,7 @@
 class CloudSettingsController < ApplicationController
   respond_to :html, :js
   include CrossCloudsHelper
+  
   def new
   end
 
@@ -41,7 +42,7 @@ class CloudSettingsController < ApplicationController
   end
 
   def index
-    breadcrumbs.add "Home", "#"
+    breadcrumbs.add " Home", "#", :class => "icon icon-home"
     breadcrumbs.add "Manage Settings", cloud_settings_path
     cross_cloud_init
     cloud_tools_init
@@ -79,7 +80,7 @@ class CloudSettingsController < ApplicationController
   end
 
   def cloud_tool_setting_new
-    breadcrumbs.add "Home", "#"
+    breadcrumbs.add " Home", "#", :class => "icon icon-home"
     breadcrumbs.add "Manage Settings", cloud_settings_path
     breadcrumbs.add "Cloud Provisioners", cloud_settings_path
     breadcrumbs.add "New", cloud_tool_setting_new_path
@@ -93,14 +94,14 @@ class CloudSettingsController < ApplicationController
     @res_body = CreateCloudToolSettings.perform(options, force_api[:email], force_api[:api_key])
     if @res_body.class == Megam::Error
       @res_msg = nil
-      @err_msg="Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
     else
       @err_msg = nil
-      @upload = S3Upload.perform(cloud_tool_setting_bucket, current_user.email+"/"+params[:repo_name]+"/"+params[:repo_file].original_filename, params[:repo_file].read)
-      #@upload = S3Upload.perform(cloud_tool_setting_bucket, current_user.email+"/"+params[:repo_name]+"/"+File.basename(params[:repo_file]), :file => params[:repo_file])
+      @upload = S3.upload(cloud_tool_setting_bucket, current_user.email+"/"+params[:repo_name]+"/"+params[:repo_file].original_filename, params[:repo_file].read)
+      #@upload = S3.upload(cloud_tool_setting_bucket, current_user.email+"/"+params[:repo_name]+"/"+File.basename(params[:repo_file]), :file => params[:repo_file])
       if @upload.class == Megam::Error
         @res_msg = nil
-        @err_msg="Failed to upload cloud files. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+        @err_msg="Failed to upload cloud files. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
         respond_to do |format|
           format.js {
             respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
@@ -119,7 +120,7 @@ class CloudSettingsController < ApplicationController
   end
 
   def sshkey_new
-    breadcrumbs.add "Home", "#", :target => "_self"
+    breadcrumbs.add " Home", "#", :class => "icon icon-home", :target => "_self"
     breadcrumbs.add "Manage Settings", cloud_settings_path, :target => "_self"
     breadcrumbs.add "SSH Keys", cloud_settings_path, :target => "_self"
     breadcrumbs.add "New", sshkey_new_path, :target => "_self"
@@ -142,7 +143,7 @@ class CloudSettingsController < ApplicationController
     @res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
     if @res_body.class == Megam::Error
       @res_msg = nil
-      @err_msg="Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
       respond_to do |format|
         format.js {
           respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
@@ -154,7 +155,7 @@ class CloudSettingsController < ApplicationController
       upload = SshKey.perform(options, cross_cloud_bucket)      
       if upload.class == Megam::Error
         @res_msg = nil
-        @err_msg="Failed to Generate SSH keys. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+        @err_msg="Failed to Generate SSH keys. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
         @public_key = ""
         respond_to do |format|
           format.js {
@@ -177,11 +178,11 @@ class CloudSettingsController < ApplicationController
 
   def sshkey_download
     @filename = params[:filename]
-    download_key = S3Upload.download(cross_cloud_bucket, current_user.email+"/"+params[:filename]+".key")
-    download_pub = S3Upload.download(cross_cloud_bucket, current_user.email+"/"+params[:filename]+".pub")
+    download_key = S3.download(cross_cloud_bucket, current_user.email+"/"+params[:filename]+".key")
+    download_pub = S3.download(cross_cloud_bucket, current_user.email+"/"+params[:filename]+".pub")
     if download_key.class == Megam::Error && download_pub.class == Megam::Error
       @res_msg = nil
-      @err_msg="Failed to Download SSH keys. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      @err_msg="Failed to Download SSH keys. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
       @public_key = ""
       respond_to do |format|
         format.js {

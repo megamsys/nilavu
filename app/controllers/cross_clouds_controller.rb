@@ -2,7 +2,7 @@ class CrossCloudsController < ApplicationController
   respond_to :html, :js
   include CrossCloudsHelper
   def new
-    breadcrumbs.add "Home", "#"
+    breadcrumbs.add " Home", "#", :class => "icon icon-home"
     breadcrumbs.add "Manage Settings", cloud_settings_path
     breadcrumbs.add "Clouds", cloud_settings_path
     breadcrumbs.add "New", new_cross_cloud_path
@@ -46,7 +46,7 @@ class CrossCloudsController < ApplicationController
     @res_body = CreatePredefClouds.perform(wparams,force_api[:email], force_api[:api_key])
     if @res_body.class == Megam::Error
       @res_msg = nil
-      @err_msg="Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
       respond_to do |format|
         format.js {
           respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
@@ -77,7 +77,7 @@ class CrossCloudsController < ApplicationController
       end
       if @upload.class == Megam::Error
         @res_msg = nil
-        @err_msg="Failed to upload cross cloud files. Please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+        @err_msg="Failed to upload cross cloud files. Please contact #{ActionController::Base.helpers.link_to 'support.', "http://support.megam.co/"}."
         respond_to do |format|
           format.js {
             respond_with(@res_msg, @err_msg, :layout => !request.xhr? )

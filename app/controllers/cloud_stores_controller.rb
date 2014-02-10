@@ -2,7 +2,7 @@ class CloudStoresController < ApplicationController
   respond_to :html, :js
   
   def index
-      breadcrumbs.add "Home", "#"
+      breadcrumbs.add " Home", "#", :class => "icon icon-home"
       breadcrumbs.add "Database", cloud_stores_path
        cloud_books = current_user.cloud_books.where(:book_type => 'BOLT')
     if cloud_books.any?
@@ -31,7 +31,7 @@ class CloudStoresController < ApplicationController
 
   def new
     logger.debug "Cloud Store new  ==> "
-    breadcrumbs.add "Home", "#", :target => "_self"
+    breadcrumbs.add " Home", "#", :class => "icon icon-home", :target => "_self"
     breadcrumbs.add "Database", cloud_stores_path, :target => "_self"
     breadcrumbs.add "New", new_cloud_store_path, :target => "_self"
   end
@@ -39,7 +39,7 @@ class CloudStoresController < ApplicationController
   def new_store
     logger.debug "New Store init Params ==> "
     logger.debug "#{params}"
-    breadcrumbs.add "Home", "#", :target => "_self"
+    breadcrumbs.add " Home", "#", :class => "icon icon-home", :target => "_self"
     breadcrumbs.add "Database", cloud_stores_path, :target => "_self"
     breadcrumbs.add "New", new_cloud_store_path, :target => "_self"
     breadcrumbs.add "Step 2", new_store_path, :target => "_self"
@@ -78,7 +78,7 @@ class CloudStoresController < ApplicationController
     @node = FindNodeByName.perform(wparams,force_api[:email],force_api[:api_key])
     logger.debug "--> CloudBooks:show, found node #{wparams[:node]}"
     if @node.class == Megam::Error
-      @res_msg="We went into nirvana, finding node #{wparams[:node]}. Open up a support ticket. We'll investigate its disappearence #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}."
+      @res_msg="We went into nirvana, finding node #{wparams[:node]}. Open up a support ticket. We'll investigate its disappearence #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
       respond_to do |format|
         format.js {
           respond_with(@res_msg, :layout => !request.xhr? )

@@ -1,13 +1,15 @@
 <% provide(:title, "Forgot password") %>
 <%= render :partial => "customizations/flash_messages" %>
-
-<div id="container">
+<div id="containerlogin">
 	<div id="logo">
+		<a href="http://www.gomegam.com" target="_blank">
 		<%= image_tag Rails.configuration.megam_logo_url , :alt => "Megam", :class => "megam_image" %>
+		</a>
 	</div>
 	<div id="loginbox_password_reset">
 		<%= spinner_tag 'spin_reset' %>
-		<%= form_tag password_resets_path, :method => :post, :remote => true, data: { spinner: '#spin_reset'} do %>
+		<%= form_tag password_resets_path, :method => :post, :remote =>
+		true, data: { spinner: '#spin_reset'} do %>
 		<p>
 			Enter your e-mail address below and we will send you instructions how to recover a password.
 		</p>
@@ -29,6 +31,11 @@
 		<% end %>
 	</div>
 </div>
+<script>
+    $(document).ready(function() {
+        $("body").addClass("login");
+    }); 
+</script>
 <div id="postfinish_reset_password" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">

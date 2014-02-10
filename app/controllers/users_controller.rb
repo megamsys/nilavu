@@ -80,7 +80,7 @@ class UsersController < ApplicationController
         redirect_to cloud_dashboards_path, :gflash => { :success => { :value => "Hi #{@user.first_name}, #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
         logger.debug "==> Controller: users, Action: create, User onboard was not successful"
-        redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onbodard #{@user.email}. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'Our Support !.', "http://support.megam.co/"}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onbodard #{@user.email}. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}. Error : #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       end
 
     else
@@ -97,7 +97,7 @@ class UsersController < ApplicationController
   end
 
   def edit
-    breadcrumbs.add "Profile", edit_user_path
+    breadcrumbs.add " Profile", edit_user_path, :class =>"icon icon-user"
     logger.debug "==> Controller: users, Action: edit, Start edit"
     @user= User.find(params[:id])
     @user.organization
@@ -105,7 +105,7 @@ class UsersController < ApplicationController
 
   def upgrade
     logger.debug "==> Controller: users, Action: upgrade, Upgrade user from free to paid"
-    breadcrumbs.add "Dashboard", cloud_dashboards_path
+    breadcrumbs.add " Dashboard", cloud_dashboards_path, :class => "icon icon-dashboard"
     breadcrumbs.add "Upgrade", upgrade_path
   end
 

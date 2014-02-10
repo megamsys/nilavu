@@ -1,13 +1,6 @@
 <%= render 'layouts/header' %>
 <div id="sidebar">
 	<ul ng-controller="MainCtrl">
-		<!--<div class="you">
-		<li >
-		<%= link_to edit_user_path(current_user), :target => "_self" do %>
-		<%= image_tag avatar_url(current_user), :size => "220x220"%>
-		<%end%>
-		</li>
-		</div>-->
 		<li class=<%= "active" if controller_name== "dashboards"%>>
 			<%= link_to cloud_dashboards_path, :target => "_self" do %>
 			<i class="icon-dashboard"></i><span> Dashboard</span>

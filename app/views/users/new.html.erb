@@ -2,97 +2,97 @@
 <div class="row">
 	<%= render :partial => "customizations/flash_messages" %>
 </div>
-
-<div id="container">
-        <div id="logo">
-        <%= image_tag Rails.configuration.megam_logo_url, :alt => "Megam", :class => "megam_image" %>
-        </div>
-        <div id="login_register_form">       
-        	<%= render :partial => "users/create_user" , :locals => {:user => @user, :method => 'post'}%>               
-        </div>
+<div id="containerlogin">
+	<div id="logo">
+		<a href="http://www.gomegam.com" target="_blank"> <%= image_tag Rails.configuration.megam_logo_url , :alt => "Megam", :class => "megam_image" %> </a>
+	</div>
+	<div id="login_register_form">
+		<%= render :partial => "users/create_user" , :locals => {:user => @user, :method => 'post'}%>
+	</div>
 </div>
-
-
-
-
+<script>
+    $(document).ready(function() {
+        $("body").addClass("login");
+    }); 
+</script>
 <!--<div class="container">
 
-	<div class="row">
-		<div class="col-md-5">
-			<div id="box_sign">
-				<div class="container">
-					<div class="box_wrapper">
-						<div class="box">
-							<div>
-								<div class="head">
-									<h4>Create your account</h4>
-								</div>
-								<div class="form">
-									<%= render :partial => "users/create_user" , :locals => {:user => @user, :method => 'post'}%>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 col-md-offset-1">
-						<p class="already">
-							Already have an account? <%= link_to "Sign in", signin_path %>
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-7 widget-content">
-			<div id="blog_wrapper">
-				<div class="post">
-					<div class="row">
-						<div class="col-md-2">
-							<%= image_tag "helpbota.png", :alt => "helpbot",:class => "main_pic", :alt => "helpbot"%>
-						</div>
-						<div class="col-md-5 info">
-							<a href="#somedoclink"> <h3>Launch your Apps - Free</h3> <span class="badge badge-info">beta</span></a>
-							<strong>Polygot - Cross cloud and monitor them. </strong>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+<div class="row">
+<div class="col-md-5">
+<div id="box_sign">
+<div class="container">
+<div class="box_wrapper">
+<div class="box">
+<div>
+<div class="head">
+<h4>Create your account</h4>
+</div>
+<div class="form">
+<%= render :partial => "users/create_user" , :locals => {:user => @user, :method => 'post'}%>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-4 col-md-offset-1">
+<p class="already">
+Already have an account? <%= link_to "Sign in", signin_path %>
+</p>
+</div>
+</div>
+</div>
+</div>
+<div class="col-md-7 widget-content">
+<div id="blog_wrapper">
+<div class="post">
+<div class="row">
+<div class="col-md-2">
+<%= image_tag "helpbota.png", :alt => "helpbot",:class => "main_pic", :alt => "helpbot"%>
+</div>
+<div class="col-md-5 info">
+<a href="#somedoclink"> <h3>Launch your Apps - Free</h3> <span class="badge badge-info">beta</span></a>
+<strong>Polygot - Cross cloud and monitor them. </strong>
+</div>
+</div>
+</div>
+</div>
+</div>
 
-		<div class="col-md-7 widget-content">
-			<div id="myCarousel" class="carousel slide">
-				<div class="carousel-inner">
-					<div class="item active">
-						<%= image_tag "sales_pitch1.png", :alt => "Cloud computing"%>
+<div class="col-md-7 widget-content">
+<div id="myCarousel" class="carousel slide">
+<div class="carousel-inner">
+<div class="item active">
+<%= image_tag "sales_pitch1.png", :alt => "Cloud computing"%>
 
-						<div class="carousel-caption">
-							<h4>Cloud Apps</h4>
-							<p>
-								Tech stack : Java, Scala, Playframework(Scala), RoR, Node.js, others soon.
-							</p>
-						</div>
-					</div>
-					<div class="item">
-						<%= image_tag "sales_pitch2.png", :alt => "Cloud identity"%>
-						<div class="carousel-caption">
-							<h4>Metered & Monitored</h4>
-							<p>
-								Monitor your cloud books (instances) for free.
-							</p>
-						</div>
-					</div>
-					<div class="item">
-						<%= image_tag "sales_pitch3.png", :alt => "Cloud integration"%>
-						<div class="carousel-caption">
-							<h4>API, CLI & Preview of cloud connectors</h4>
-							<p>
-								Powerful REST API, CLI $ >, and Preview - cloud connectors to salesforce CRM, Google App, ZoHoCRM, Twilio and more.
-							</p>
-						</div>
-					</div>
-				</div>
-				<a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-				<a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
-			</div>
+<div class="carousel-caption">
+<h4>Cloud Apps</h4>
+<p>
+Tech stack : Java, Scala, Playframework(Scala), RoR, Node.js, others soon.
+</p>
+</div>
+</div>
+<div class="item">
+<%= image_tag "sales_pitch2.png", :alt => "Cloud identity"%>
+<div class="carousel-caption">
+<h4>Metered & Monitored</h4>
+<p>
+Monitor your cloud books (instances) for free.
+</p>
+</div>
+</div>
+<div class="item">
+<%= image_tag "sales_pitch3.png", :alt => "Cloud integration"%>
+<div class="carousel-caption">
+<h4>API, CLI & Preview of cloud connectors</h4>
+<p>
+Powerful REST API, CLI $ >, and Preview - cloud connectors to salesforce CRM, Google App, ZoHoCRM, Twilio and more.
+</p>
+</div>
+</div>
+</div>
+<a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+<a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
+</div>
 
-		</div>
-	</div>
+</div>
+</div>
 </div>-->
