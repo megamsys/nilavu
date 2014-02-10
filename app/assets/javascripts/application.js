@@ -39,6 +39,7 @@
 //= require connector_projects
 //= require unicorn.login
 //= require cloud_books
+//= require cloud_settings
 //= require masonry/jquery.masonry
 //= require unicorn.form_common
 //= require unicorn.form_validation

@@ -2,7 +2,7 @@ class HpCloud
   def self.perform(options = {}, bucket_name)
 
     #Upload HP private key...
-    S3.upload(bucket_name, options[:email]+"/"+options[:name]+"/"+options[:private_key].original_filename, options[:private_key].read)
+    #S3.upload(bucket_name, options[:email]+"/"+options[:name]+"/"+options[:private_key].original_filename, options[:private_key].read)
     #S3.upload(bucket_name, options[:email]+"/"+options[:name]+"/"+File.basename(options[:private_key]), :file => options[:private_key])
 
     #Upload id rsa public key...
