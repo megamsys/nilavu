@@ -1,4 +1,4 @@
-<% if @apps_distrib.length > 0 %>
+<% if @apps_distrib.has_value?(0) %>
 <div class="row clearfix">
 	<div class="col-xs-5 col-sm-5 col-md-6 col-lg-6">
 		<div class="widget-box">
@@ -31,7 +31,7 @@
 				<h5>Latest updates</h5>
 			</div>
 
-			<div class="widget-content nopadding updates">
+			<div class="widget-content nopadding">
 				<% @launched_apps_services.each do |one_app_service| %>
 				<div class="new-update clearfix">
 					<i class="icon icon-ok-sign"></i>
@@ -41,13 +41,13 @@
 					</div>
 					<div class="update-date">
 						<div class="col-md-7">
-							<%= link_to dashboard_path(one_app_service.id), :class=>"btn btn-primary btn-lg active", :id =>id="popover_dashboard_monitor", :target => "_blank"  do %>
-							&nbsp;&nbsp;<i class="icon icon-bolt"></i>
+							<%= link_to dashboard_path(one_app_service.id), :class=>"btn btn-primary btn-lg active", :id => "popover_dashboard_monitor", :target => "_blank"  do %>
+							<i class="icon icon-bolt"></i>
 							&nbsp;Monitor
 							<% end %>
 						</div>
 						<div class="col-md-4">
-							<span class="btn btn-dark-green btn-lg active" id="popover_dashboard_cloud"> &nbsp;&nbsp;<i class="icon icon-cloud"></i> <%= one_app_service.cloud_name %> </span>
+							<span class="btn btn-dark-green btn-lg active" id="popover_dashboard_cloud"> <i class="icon icon-cloud"></i> <%= one_app_service.cloud_name %> </span>
 						</div>
 					</div>
 				</div>
