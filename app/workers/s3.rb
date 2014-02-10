@@ -32,10 +32,11 @@ class S3
     begin
       bucket = s3_bucket(bucket_name)
       object = bucket.objects[filename]
-      bucket.object.url_for(:read,
+      bb = object.url_for(:read,
       :secure => true,
       :expires => 24*3600,  # 24 hours
-      :response_content_disposition => "attachment; filename='#{creative_file_name}'").to_s
+      :response_content_disposition => "attachment; filename='#{filename}'").to_s
+      puts bb
     end
   end
 

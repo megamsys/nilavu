@@ -23,7 +23,7 @@ class CrossCloudsController < ApplicationController
       ssh_keys = []
       @ssh_keys_collection.each do |sshkey|
         ssh_keys << {:name => sshkey.name, :created_at => sshkey.created_at.to_time.to_formatted_s(:rfc822)}
-      end
+      end      
       @ssh_keys = ssh_keys.sort_by {|vn| vn[:created_at]}
     end
   end
@@ -35,8 +35,8 @@ class CrossCloudsController < ApplicationController
     sshpub_loc = vault_base_url+"/"+current_user.email+"/"+params[:id_rsa_public_key]
     #private_key = (params[:private_key]) ? cross_cloud_bucket+"/"+current_user.email+"/"+params[:name]+"/"+File.basename(params[:private_key]) : ""
     if params[:provider] != "profitbricks"
-      private_key = ((params[:private_key].original_filename).length > 0) ? cross_cloud_bucket+"/"+current_user.email+"/"+params[:name]+"/"+params[:private_key].original_filename : ""
-      wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group],  :image => params[:image], :flavor => params[:flavor], :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => private_key, :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
+      #private_key = ((params[:private_key].original_filename).length > 0) ? cross_cloud_bucket+"/"+current_user.email+"/"+params[:name]+"/"+params[:private_key].original_filename : ""
+      wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group],  :image => params[:image], :flavor => params[:flavor], :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => sshpub_loc, :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
     else
       wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group],  :image => params[:image], :flavor => params[:flavor], :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => "", :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
     end
@@ -97,7 +97,7 @@ class CrossCloudsController < ApplicationController
   end
 
   def cloud_selector
-    @sshkeys = params[:ssh_keys]
+    @ssh_keys = params[:ssh_keys]
     @provider = params[:selected_cloud]
     if params[:selected_cloud] == "aws"
       @provider_form_name = "Amazon EC2"
@@ -112,7 +112,7 @@ class CrossCloudsController < ApplicationController
     end
     respond_to do |format|
       format.js {
-        respond_with(@provider, @provider_form_name, @sshkeys, :layout => !request.xhr? )
+        respond_with(@provider, @provider_form_name, @ssh_keys, :layout => !request.xhr? )
       }
     end
   end

@@ -1,3 +1,4 @@
+require 'open-uri'
 class CloudSettingsController < ApplicationController
   respond_to :html, :js
   include CrossCloudsHelper
@@ -176,10 +177,50 @@ class CloudSettingsController < ApplicationController
 
   end
 
-  def sshkey_download
+  def sshkey_import
+   # @filename = params[:ssh_private_key].original_filename
+   @filename = params[:key_name]
+   key_name = params[:key_name]
+    sshpub_loc = vault_base_url+"/"+current_user.email+"/"+key_name
+    wparams = { :name => key_name, :path => sshpub_loc }
+    @res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
+    if @res_body.class == Megam::Error
+      @res_msg = nil
+      @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+      respond_to do |format|
+        format.js {
+          respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
+        }
+      end
+    else
+      @err_msg = nil
+      options ={:email => current_user.email, :ssh_key_name => key_name, :ssh_private_key => params[:ssh_private_key], :ssh_public_key => params[:ssh_public_key] }
+      upload = SshKey.upload(options, cross_cloud_bucket)      
+      if upload.class == Megam::Error
+        @res_msg = nil
+        @err_msg="Failed to Generate SSH keys. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+        @public_key = ""
+        respond_to do |format|
+          format.js {
+            respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
+          }
+        end
+      else
+        @err_msg = nil
+        @res_msg = "SSH key uploaded successfully"        
+        respond_to do |format|
+          format.js {
+            respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
+          }
+        end
+      end
+    end
+  end
+
+  def sshkey_download     
     @filename = params[:filename]
-    download_key = S3.download(cross_cloud_bucket, current_user.email+"/"+params[:filename]+".key")
-    download_pub = S3.download(cross_cloud_bucket, current_user.email+"/"+params[:filename]+".pub")
+    download_key = S3.download(cross_cloud_bucket, current_user.email+"/"+"sample.key")
+    download_pub = S3.download(cross_cloud_bucket, current_user.email+"/"+"sample.pub")
     if download_key.class == Megam::Error && download_pub.class == Megam::Error
       @res_msg = nil
       @err_msg="Failed to Download SSH keys. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
@@ -198,6 +239,6 @@ class CloudSettingsController < ApplicationController
         }
       end
     end
-  end
+  end  
 
 end

@@ -1,3 +1,3 @@
 var selected_entity = '#provider_form';
-var to_insert_content = "<%= escape_javascript(render :partial => 'cross_clouds/'+@provider+'_form', :locals => {:selected_cloud => @provider_form_name, :ssh_keys => @sshkeys }) %>";
+var to_insert_content = "<%= escape_javascript(render :partial => 'cross_clouds/'+@provider+'_form', :locals => {:selected_cloud => @provider_form_name, :ssh_keys => @ssh_keys}) %>";
 insertAt(selected_entity, to_insert_content);
