@@ -2,7 +2,7 @@
 	<div class="col-md-12">
 		<div class="alert alert-success alert-block">
 			<div>
-				Generate a SSH RSA 1024 bit key pair. Read <a href="https://help.ubuntu.com/community/SSH/OpenSSH/Keys" target="_blank">here</a> for more information.
+				Generate a SSH RSA 2024 bit key pair. Read <a href="https://help.ubuntu.com/community/SSH/OpenSSH/Keys" target="_blank">here</a> for more information.
 			</div>
 		</div>
 		<div class="widget-box">
@@ -22,8 +22,8 @@
 							</div>
 						</div>
 					</div>
-					<input type="hidden" name="key_type" value="DSA">
-					<input type="hidden" name="key_bit" value="1024">
+					<input type="hidden" name="key_type" value="RSA">
+					<input type="hidden" name="key_bit" value="2048">
 					<div class="col-md-6">
 						<%= submit_tag "Generate", :class => "btn btn-lg btn-success btn-block" %>
 					</div>
