@@ -106,7 +106,7 @@ Cloudauth::Application.routes.draw do
   match '/cross_cloud_create', to: 'cloud_settings#cross_cloud_create', via: [:get, :post]
   match '/cloud_tool_settings_create', to: 'cloud_settings#cloud_tool_setting_create', via: [:get, :post]
   match '/cloud_tool_setting_new', to: 'cloud_settings#cloud_tool_setting_new', via: [:get, :post]  
-  match '/sshkey_download', to: 'ssh_keys#sshkey_download', via: [:get, :post] 
+  match '/sshkeys_download', to: 'ssh_keys#download', via: [:get, :post] 
   match '/sshkey_create', to: 'cloud_settings#sshkey_create', via: [:get, :post] 
   match '/sshkey_import', to: 'ssh_keys#sshkey_import', via: [:get, :post] 
   match '/ssh_key_import', to: 'ssh_keys#ssh_key_import', via: [:get, :post]
