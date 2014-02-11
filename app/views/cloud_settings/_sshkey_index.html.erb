@@ -13,7 +13,8 @@
 						<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @ssh_keys.last[:created_at] %></b></h5>
 						<h5 align="Center"><%= link_to "#{@ssh_keys.last[:name]}", ssh_keys_path(:id => "1", :name => "name"), :remote => true, data: { spinlock: '#sshkey_current'} %> </h5>
 						<% else %>
-							You don't have create any ssh_keys yet. Just click <b>New Key</b> to get one. 
+
+						<h5 align="Center">You don't have any SSH Keys yet. Just click <strong>New Key (or) Import </strong> button.
 						<% end %>
 					</div>
 				</div>
