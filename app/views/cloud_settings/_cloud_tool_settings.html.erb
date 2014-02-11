@@ -75,7 +75,7 @@
 							<tbody>
 								<% @cloud_tool_settings.each do |pre_cl| %>
 								<tr class="gradeA">
-									<td align="center"> <%= link_to cloud_tool_setting_path(pre_cl[:name], :type => "cloud_tool_setting"), :remote => true, 
+									<td align="center"> <%= link_to cloud_tool_setting_path(pre_cl[:name], :type => "cloud_tool_setting"), :remote => true,
 									:class => "btn btn-dark-blue" do %> <i class="icon-eye-open">&nbsp;View</i> <% end %> </td>
 									<td align="center"> <%= pre_cl[:name] %></td>
 									<td align="center"><span class="icon"> <i class="icon-calendar"></i> </span> <%= pre_cl[:created_at] %> </td>
@@ -89,7 +89,6 @@
 		</div>
 	</div>
 </div>
-
 <div id="cloud_tool_setting_show_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -107,7 +106,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>
+				<button class="btn btn-pink" data-dismiss="modal">Ok</button>								
 			</div>
 		</div>
 	</div>
