@@ -40,14 +40,17 @@
 						<span class="update-day-value"> <%= one_app_service.created_at.to_formatted_s(:rfc822) %> </span>
 					</div>
 					<div class="update-date">
-						<div class="col-md-7">
+						<div class="col-md-4 col-md-offset-4">
 							<%= link_to dashboard_path(one_app_service.id), :class=>"btn btn-primary btn-lg active", :id =>id="popover_dashboard_monitor", :target => "_blank"  do %>
-							&nbsp;&nbsp;<i class="icon icon-bolt"></i>
-							&nbsp;Monitor
+							<i class="icon icon-bolt"></i>
+							Monitor
 							<% end %>
 						</div>
 						<div class="col-md-4">
-							<span class="btn btn-dark-green btn-lg active" id="popover_dashboard_cloud"> &nbsp;&nbsp;<i class="icon icon-cloud"></i> <%= one_app_service.cloud_name %> </span>
+							<%= link_to "#", :class=>"btn btn-dark-green btn-lg active", :id =>id="popover_dashboard_cloud" do %>
+							<i class="icon icon-cloud"></i>
+							<%= one_app_service.cloud_name %>
+							<% end %>
 						</div>
 					</div>
 				</div>

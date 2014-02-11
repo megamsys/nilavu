@@ -336,6 +336,9 @@ class CloudBooksController < ApplicationController
        @book.cloud_books_histories.each do |cbh|
             cbh.destroy
           end     
+       @book.widgets.each do |cbh|
+            cbh.destroy
+          end  
         @res_msg = "App #{params[:name]} deleted successfully"
       end
     end
