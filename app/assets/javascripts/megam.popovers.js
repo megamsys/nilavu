@@ -276,6 +276,19 @@ $(document).ready(function() {
 	       html: html   
 	    });
 	
+	$('#popover_sshkey_new').popover({
+	       placement: placement_bottom,
+	       content: '<span class="content-small">Choose this option to generate a new SSH key pair, using RSA algorithm and 1024 bit.</span>',
+	       trigger: 'hover', 
+	       html: html   
+	    });
+	
+	$('#popover_sshkey_import').popover({
+	       placement: placement_bottom,
+	       content: '<span class="content-small"> Choose this option to import your own key pair. </span>',
+	       trigger: 'hover',
+	       html: html   
+	    });
 	
 });
 

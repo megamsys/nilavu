@@ -1,16 +1,6 @@
-<% if @cc_msg != nil %>
-
 var selected_entity = '#cross_cloud_show_popup';
 $("#cross_cloud_show").html('<%= escape_javascript(render :partial => "cloud_settings/show_cross_cloud" , :locals => {:cross_cloud => @cross_cloud, :method => 'post'})%>');
 $(selected_entity).modal('show');
-
-<% else %>
-
-var selected_entity = '#cloud_tool_setting_show_popup';
-$("#cloud_tool_setting_show").html('<%= escape_javascript(render :partial => "cloud_settings/show_cloud_tool_setting" , :locals => {:cross_cloud => @cross_cloud, :method => 'post'})%>');
-$(selected_entity).modal('show');
-
-<% end %>
 
 
 

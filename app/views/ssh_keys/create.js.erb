@@ -1,0 +1,12 @@
+<% if @err_msg != nil %>
+
+var selected_entity = '#sshkey_postfinish_popup_error';
+$("#err_msg").html('<%= @err_msg %>');
+$(selected_entity).modal('show');
+
+<% else %>
+var selected_entity = '#sshkey_postfinish_popup';
+$("#res_msg").html('<%= @res_msg %>');
+$(selected_entity).modal('show');
+
+<% end %>
