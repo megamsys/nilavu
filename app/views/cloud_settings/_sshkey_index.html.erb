@@ -9,8 +9,12 @@
 				<div class="col-md-4">
 					<div class="cb_box">
 						<h4 align="center" >Recent Activity</h4>
+						<% if !@ssh_keys.nil? %>
 						<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @ssh_keys.last[:created_at] %></b></h5>
 						<h5 align="Center"><%= link_to "#{@ssh_keys.last[:name]}", ssh_keys_path(:id => "1", :name => "name"), :remote => true, data: { spinlock: '#sshkey_current'} %> </h5>
+						<% else %>
+						<h5 align="Center">You don't have any SSH Keys yet. Just click <strong>New Key (or) Import </strong> button.
+						<% end %>
 					</div>
 				</div>
 				<div class="col-md-4">
