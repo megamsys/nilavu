@@ -17,7 +17,7 @@
 						<div class="col-md-6">
 							<div class="widget-box">
 								<div class="widget-content">
-									<%= form_tag cloud_tool_settings_create_path, multipart: true, :id =>'basic_validate', :novalidate => 'novalidate', :name => "basic_validate1",  :method => 'post', :remote => true, data: { spinlock: '#spin_cross_cloud'}  do %>
+									<%= form_tag cloud_tool_settings_path, multipart: true, :id =>'basic_validate', :novalidate => 'novalidate', :name => "basic_validate1",  :method => 'post', :remote => true, data: { spinlock: '#spin_cross_cloud'}  do %>
 									<div class="row">
 										<input type="hidden" name="cloud_type" value="chef">
 										<!--<div class="control-group">

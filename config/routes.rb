@@ -22,6 +22,8 @@ Cloudauth::Application.routes.draw do
   resources :cloud_settings
   resources :market_place
   resources :cloud_dashboards
+  resources :cloud_tool_settings
+  resources :ssh_keys
 
   namespace :api do
     resources :dashboards do
@@ -106,11 +108,12 @@ Cloudauth::Application.routes.draw do
   match '/cloud_tool_setting_new', to: 'cloud_settings#cloud_tool_setting_new', via: [:get, :post]  
   match '/sshkey_download', to: 'cloud_settings#sshkey_download', via: [:get, :post] 
   match '/sshkey_create', to: 'cloud_settings#sshkey_create', via: [:get, :post] 
-  match '/sshkey_import', to: 'cloud_settings#sshkey_import', via: [:get, :post] 
+  match '/sshkey_import', to: 'ssh_keys#sshkey_import', via: [:get, :post] 
+  match '/ssh_key_import', to: 'ssh_keys#ssh_key_import', via: [:get, :post]
   match '/selectclouds', to: 'cross_clouds#cloud_selector', via: [:get, :post]
   #get '/selectclouds' => 'cloud_settings#cloud_selector'
   #match '/selectclouds', to: 'cross_clouds#new', via: [:get, :post]
-
+  
   # =======Error controller
   get "/404", :to => "errors#not_found"
   #get "/422", :to => "errors#unacceptable"

@@ -1,129 +1,67 @@
-<div class="row"  id="ssh_keys_page">
-	<div class="col-md-12">
-		<div class="alert alert-success alert-block">
-			<div>
-				Generate a SSH RSA 2024 bit key pair. Read <a href="https://help.ubuntu.com/community/SSH/OpenSSH/Keys" target="_blank">here</a> for more information.
-			</div>
-		</div>
-		<div class="tabbable inline tabs-left">
-			<ul class="nav nav-tabs tab-green" id="myTab3">
-				<li class="active">
-					<a data-toggle="tab" href="#panel_tab4_example1"> <h5><strong>New</strong></h5> </a>
-				</li>
-				<li class="">
-					<a data-toggle="tab" href="#panel_tab4_example2"> <h5><strong>Import</strong></h5> </a>
-				</li>
-			</ul>
-			<div class="tab-content">
-				<div id="panel_tab4_example1" class="tab-pane active">
-					<div class="col-sm-12 col-md-12 col-lg-12">
-						<div class="widget-box", id="new_ssh_keys">
-							<div class="widget-title">
-								<h5>New SSH Keys</h5>
-							</div>
-							<div class="widget-content">
-								<div class="row">
-									<%= form_tag sshkey_create_path, multipart: true, :id =>'basic_validate', :novalidate => 'novalidate', :name => "basic_validate1",  :method => 'post', :remote => true, data: { spinlock: '#spin_sshkey'}  do %>
-									<div class="col-sm-6 col-md-6 col-lg-6">
-										<div class="form-group">
-											<div class="col-sm-12 col-md-12 col-lg-12">
-												<div class="input-group input-group-lg">
-													<span class="input-group-addon"><i class="icon icon-certificate"></i></span>
-													<%= text_field_tag 'key_name', nil, :class=> 'required form-control input-lg', placeholder: 'Key pair name to Save' %>
-												</div>
-											</div>
-										</div>
-									</div>
-									<input type="hidden" name="key_type" value="DSA">
-									<input type="hidden" name="key_bit" value="1024">
-									<div class="col-sm-6 col-md-6 col-lg-6">
-										<%= submit_tag "Generate", :class => "btn btn-lg btn-success btn-block" %>
-									</div>
-									<% end %>
-								</div>
-							</div>
-						</div>
+<div class="widget-box nopadding">
+	<div class="widget-title">
+		<span class="icon"> <i class="icon-th-list"></i> </span>
+		<h5>Manage Keys</h5>
+	</div>
+	<div class="widget-content" >
+		<div class="row"  id="ssh_keys_page">
+			<div class="col-md-12">
+				<div class="col-md-4">
+					<div class="cb_box">
+						<h4 align="center" >Recent Activity</h4>
+						<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @ssh_keys.last[:created_at] %></b></h5>
+						<h5 align="Center"><%= link_to "#{@ssh_keys.last[:name]}", ssh_keys_path(:id => "1", :name => "name"), :remote => true, data: { spinlock: '#sshkey_current'} %> </h5>
 					</div>
 				</div>
-				<div id="panel_tab4_example2" class="tab-pane">
-					<div class="col-sm-12 col-md-12 col-lg-12">
-						<div class="widget-box", id="upload_ssh_keys", disabled>
-							<div class="widget-title">
-								<h5>Upload Your SSH Keys</h5>
-							</div>
-							<div class="widget-content">
-								<div class="row">
-									<%= form_tag sshkey_import_path, multipart: true, :id =>'basic_validate', :novalidate => 'novalidate', :name => "basic_validate1",  :method => 'post', :remote => true, data: { spinlock: '#spin_sshkey1'}  do %>
-									<div class="form-group">
-										<div class="col-sm-12 col-md-12 col-lg-12">
-											<div class="col-sm-6 col-md-6 col-lg-6">
-												<div class="input-group">
-													<label>Private Key</label> <%= file_field_tag :ssh_private_key, :id => 'ssh_private_key',placeholder: 'Upload private key' %>
-												</div>
-											</div>
-											<div class="col-sm-6 col-md-6 col-lg-6">
-												<div class="input-group">
-													<label>Public Key</label> <%= file_field_tag :ssh_public_key, :id => 'ssh_public_key',placeholder: 'Upload public key' %>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="col-sm-12 col-md-12 col-lg-12">
-										<div class="form-group">
-											<div class="col-sm-6 col-md-6 col-lg-6">
-												<div class="input-group input-group-lg">
-													<span class="input-group-addon"><i class="icon icon-certificate"></i></span>
-													<%= text_field_tag 'key_name', nil, :class=> 'required form-control input-lg', placeholder: 'Key pair name to Save' %>
-												</div>
-											</div>
-											<div class="col-sm-6 col-md-6 col-lg-6">
-												<%= submit_tag "Import", :class => "btn btn-lg btn-success btn-block" %>
-											</div>
-										</div>
-									</div>
-									<% end %>
-								</div>
-							</div>
-						</div>
-					</div>
+				<div class="col-md-4">
+					<br/>
+					</br/>
+					<%= link_to new_ssh_key_path, class: "btn btn-lg btn-success btn-block", :id => "popover_sshkey_new", :target => "_self" do %>
+					<i class="icon-cloud">&nbsp;New Key</i>
+					<% end %>
+				</div>
+				<div class="col-md-4">
+					<br/>
+					</br/>
+					<%= link_to ssh_key_import_path, class: "btn btn-lg btn-success btn-block", :id => "popover_sshkey_import", :target => "_self" do %>
+					<i class="icon-cloud-upload">&nbsp;Import Key</i>
+					<% end %>
 				</div>
 			</div>
 		</div>
-		<br/>
-		<br/>
-
+	</div>
+</div>
+<div class="widget-box nopadding">
+	<div class="widget-title">
+		<span class="icon"> <i class="icon-th"></i> </span>
+		<h5>SSH Keys</h5>
+	</div>
+	<div class="widget-content nopadding">
 		<% if @ssh_keys_collection.class != Megam::Error %>
-		<div class="widget-box nopadding">
-			<div class="widget-title">
-				<span class="icon"> <i class="icon-th"></i> </span>
-				<h5>SSH Keys</h5>
-			</div>
-			<div class="widget-content nopadding">
-				<table class="table table-bordered table-striped table-hover">
-					<thead>
-						<tr>
-							<th>Actions</th>
-							<th>Name</th>
-							<th>Created At</th>
-						</tr>
-					</thead>
-					<tbody>
-						<% @ssh_keys.each do |sshkey| %>
-						<tr>
-							<td align="center"> <%= link_to   "#", :class => "btn btn-dark-blue" do %> <i class="icon-eye-open">&nbsp;View</i> <% end %>
-							<%= link_to  sshkey_download_path(:filename => sshkey[:name]), :class => "btn btn-dark-blue", :target => "_self" do %> <i class="icon-cloud-download">&nbsp;Pub</i> <% end %>
-							<%= link_to  sshkey_download_path(:filename => sshkey[:name]), :class => "btn btn-dark-red", :target => "_self" do %> <i class="icon-cloud-download">&nbsp;Private</i> <% end %> </td>
-							<td align="center"><%= sshkey[:name] %></td>
-							<td align="center"><span class="icon"> <i class="icon-calendar"></i> </span> <%= sshkey[:created_at] %></td>
-						</tr>
-						<% end %>
-					</tbody>
-				</table>
-			</div>
-		</div>
+		<table class="table table-bordered table-striped table-hover">
+			<thead>
+				<tr>
+					<th>Actions</th>
+					<th>Name</th>
+					<th>Created At</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @ssh_keys.each do |sshkey| %>
+				<tr>
+					<td align="center"> <%= link_to   "#", :class => "btn btn-dark-blue" do %> <i class="icon-eye-open">&nbsp;View</i> <% end %>
+					<%= link_to  sshkey_download_path(:filename => sshkey[:name]), :class => "btn btn-dark-blue" ,:remote => true, :target => "_self" do %> <i class="icon-cloud-download">&nbsp;Pub</i> <% end %>
+					<%= link_to  sshkey_download_path(:filename => sshkey[:name]), :class => "btn btn-dark-red", :remote => true, :target => "_self" do %> <i class="icon-cloud-download">&nbsp;Private</i> <% end %> </td>
+					<td align="center"><%= sshkey[:name] %></td>
+					<td align="center"><span class="icon"> <i class="icon-calendar"></i> </span> <%= sshkey[:created_at] %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
 		<% end %>
 	</div>
 </div>
+
 <div id="sshkey_postfinish_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
