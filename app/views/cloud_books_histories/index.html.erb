@@ -28,8 +28,9 @@
 			</div>
 			<input type="hidden" ng-model="source">
 		</div>
+		<div  cg-busy="{tracker:'logloader', backdrop:false}"/>
 		<div class="col-sm-9 col-md-9 col-lg-9">
-			<div class="panel panel-primary " cg-busy="{tracker:'logloader'}">
+			<div class="panel panel-primary" >
 				<div class="panel-heading">
 					{{bookName}}
 					<span class="pull-right"><a href="http://monitor.megam.co/kibana/#/dashboard/file/{{bookName}}.json" target="_blank" class="btn btn-pink btn-xs">view Offline Log</a></span>
