@@ -9,13 +9,17 @@ body.login {
 	background-position: transparent;
 	padding: 0;
 	margin: 0;
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;    
 }
 
 body {
 	background-color: #444444;
 	background-position: fixed;
 	padding: 0;
-	margin: 0;
+	margin: 0;	   
 }
 
 #containerlogin {

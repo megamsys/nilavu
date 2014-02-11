@@ -48,7 +48,7 @@
 		<br/>
 		<div class="row">
 			<div class="col-md-6">
-				<%= link_to cloud_tool_setting_new_path, :id => "popover_cloud_provisioner", class: "btn btn-lg btn-success btn-block", :target => "_self" do %>
+				<%= link_to new_cloud_tool_setting_path, :id => "popover_cloud_provisioner", class: "btn btn-lg btn-success btn-block", :target => "_self" do %>
 				<i class="icon-paper-clip">&nbsp;Choose Your Cloud Provisioner</i>
 				<% end %>
 			</div>
@@ -75,7 +75,7 @@
 							<tbody>
 								<% @cloud_tool_settings.each do |pre_cl| %>
 								<tr class="gradeA">
-									<td align="center"> <%= link_to cloud_setting_path(pre_cl[:name], :type => "cloud_tool_setting"), :remote => true, 
+									<td align="center"> <%= link_to cloud_tool_setting_path(pre_cl[:name], :type => "cloud_tool_setting"), :remote => true, 
 									:class => "btn btn-dark-blue" do %> <i class="icon-eye-open">&nbsp;View</i> <% end %> </td>
 									<td align="center"> <%= pre_cl[:name] %></td>
 									<td align="center"><span class="icon"> <i class="icon-calendar"></i> </span> <%= pre_cl[:created_at] %> </td>
