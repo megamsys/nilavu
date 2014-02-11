@@ -1,4 +1,4 @@
-<% if @apps_distrib.length > 0 %>
+<% if @launched_apps_services.count > 0 %>
 <div class="row clearfix">
 	<div class="col-xs-5 col-sm-5 col-md-6 col-lg-6">
 		<div class="widget-box">
@@ -31,7 +31,7 @@
 				<h5>Latest updates</h5>
 			</div>
 
-			<div class="widget-content nopadding updates">
+			<div class="widget-content nopadding">
 				<% @launched_apps_services.each do |one_app_service| %>
 				<div class="new-update clearfix">
 					<i class="icon icon-ok-sign"></i>

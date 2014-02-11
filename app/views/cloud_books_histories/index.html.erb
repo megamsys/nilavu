@@ -5,12 +5,6 @@
 	<%= breadcrumbs.render(:format => :inline, :separator => '') %>
 </div>
 
-<div ng-controller="LogBusyCtrl">
-<!--	<button class="btn" ng-click="logBusy('logloader',1000)">
-		Try It
-	</button> -->
-</div>
-
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-12" ng-controller="LogCtrl">
 		<div class="col-md-3">
@@ -23,7 +17,7 @@
 					<div class="new-update clearfix">
 						<i class="icon-ok-sign"></i>
 						<div class="update-done">
-							<a title="" href="" ng-click="sendmessage('<%= node.name %>')"><strong><%= node.name %></strong></a>
+							<a title="" href="" ng-click="sendmessage('logloader','<%= node.name %>')"><strong><%= node.name %></strong></a>
 						</div>
 					</div>
 					<% end %>
@@ -44,8 +38,8 @@
 					<table class="table table-bordered table-striped table-hover" >
 						<thead>
 							<tr>
-								<th class="col-md-3">Timestamp <span>Zone: {{ log.timestamp | date:'Z' }}</span></th>
-								<th class="col-md-9">Message</th>
+								<th class="col-md-4">Timestamp <span>Zone: {{ log.timestamp | date:'Z' }}</span></th>
+								<th class="col-md-8">Message</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -56,7 +50,7 @@
 							<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
 								<td>
 								<p>
-									{{ log.timestamp | date:'d MMM YY, hh:mm a Z' }}
+									{{ log.timestamp | date:'d MMM yy, hh:mm a Z' }}
 								</p></td>
 								<td>
 								<p>
