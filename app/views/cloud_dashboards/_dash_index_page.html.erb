@@ -1,4 +1,4 @@
-<% if !@apps_distrib.has_value?(0) %>
+<% if @launched_apps_services.count > 0 %>
 <div class="row clearfix">
 	<div class="col-xs-5 col-sm-5 col-md-6 col-lg-6">
 		<div class="widget-box">
@@ -25,13 +25,13 @@
 </div>
 <div class="row">
 	<div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
-		<div class="widget-box" style="height:400px; overflow-y: scroll;">
+		<div class="widget-box" >
 			<div class="widget-title">
 				<span class="icon"> <i class="icon icon-refresh"></i> </span>
 				<h5>Latest updates</h5>
 			</div>
 
-			<div class="widget-content nopadding">
+			<div class="widget-content nopadding" style="height:400px; overflow-y: scroll;">
 				<% @launched_apps_services.each do |one_app_service| %>
 				<div class="new-update clearfix">
 					<i class="icon icon-ok-sign"></i>
