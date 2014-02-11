@@ -38,8 +38,8 @@
 					<table class="table table-bordered table-striped table-hover" >
 						<thead>
 							<tr>
-								<th class="col-md-3">Timestamp <span>Zone: {{ log.timestamp | date:'Z' }}</span></th>
-								<th class="col-md-9">Message</th>
+								<th class="col-md-4">Timestamp <span>Zone: {{ log.timestamp | date:'Z' }}</span></th>
+								<th class="col-md-8">Message</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -50,7 +50,7 @@
 							<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
 								<td>
 								<p>
-									{{ log.timestamp | date:'d MMM YY, hh:mm a Z' }}
+									{{ log.timestamp | date:'d MMM yy, hh:mm a Z' }}
 								</p></td>
 								<td>
 								<p>
