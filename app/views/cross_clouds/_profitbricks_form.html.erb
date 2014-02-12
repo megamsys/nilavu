@@ -23,10 +23,10 @@
 		<div  id="acc_link">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					Create a new Account for Profitbricks Cloud
+					Sign Up for ProfitBricks
 				</div>
 				<div class="panel-body">
-					Click here : <%= link_to "New Profitbricks Cloud Account", "https://www.profitbricks.com/signup", :target => "_blank", :class => "btn-link" %>
+					Click here : <%= link_to "Sign Up", "https://www.profitbricks.com/signup", :target => "_blank", :class => "btn-link" %>
 				</div>
 			</div>
 		</div>
@@ -78,7 +78,7 @@
 		<div class="control-group" id="cc_flavor">
 			<div class="controls">
 				<%= text_field_tag 'flavor', 20, :title => "Storage hdd Size", :size => 5 %>
-				<%= text_field_tag 'ram', 1024, :title => "Ram size(only in the multiple of 256)", :size => 5 %>
+				<%= text_field_tag 'ram', 1024, :title => "Ram size(Multiples of 256)", :size => 5 %>
 				<%= text_field_tag 'cpus', 1, :title => "No of cores(cpus)", :size => 5 %>
 				<%= link_to "#" do %>
 				<i class="icon-question-sign"></i>
@@ -105,23 +105,13 @@
 				<% end %>
 			</div>
 		</div>
-		<br/>
-		<!--<div class="control-group">
-			<div class="controls">
-				 <%= text_field_tag 'private_key', nil, :class=> 'required', placeholder: 'Enter Profitbricks private key...' %> 
-				<label for="file">Private Key</label>  <%= file_field_tag 'private_key', accept: 'text' %>
-				<%= link_to "#" do %>
-				<i class="icon-question-sign" id="popover_pb_privatekey"></i>
-				<% end %>
-			</div>
-		</div>
-		<br/>-->		
+		<br/>		
 		<div class="control-group">
 			<div class="controls">
 				 <%= select_tag :id_rsa_public_key, options_for_select(ssh_keys.map{ |c| c[:name] }) %>
 				<%= link_to "#" do %>
 				<i class="icon-question-sign" id="popover_aws_publickey"></i>
-				<% end %><label>My Key pairs</label>
+				<% end %>
 			</div>
 		</div>
 		<br/>

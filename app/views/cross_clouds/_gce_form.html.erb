@@ -22,10 +22,10 @@
 		<div id='acc_link'>
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					Create a new Account for google
+					Sign Up for Google Cloud
 				</div>
 				<div class="panel-body">
-					Click here : <a href='https://accounts.google.com/SignUp' target='_blank' class="btn-link" >New Google Account</a>
+					Sign Up <a href='https://accounts.google.com/SignUp' target='_blank' class="btn-link" >New Google Account</a>
 				</div>
 			</div>
 		</div>
@@ -108,7 +108,7 @@
 				 <%= select_tag :id_rsa_public_key, options_for_select(ssh_keys.map{ |c| c[:name] }) %>
 				<%= link_to "#" do %>
 				<i class="icon-question-sign" id="popover_aws_publickey"></i>
-				<% end %><label>My Key pairs</label>
+				<% end %>
 			</div>
 		</div>
 		<br/>

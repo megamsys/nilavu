@@ -31,10 +31,10 @@
 		<div  id="acc_link">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					Create a new Account for AWS(EC2)
+					Sign Up for AWS(EC2)
 				</div>
 				<div class="panel-body">
-					Click here : <%= link_to "New AWS(EC2) Account", "http://aws.amazon.com/console/", :target => "_blank", :class => "btn-link"  %>
+					Click here : <%= link_to "Sign Up", "http://aws.amazon.com/console/", :target => "_blank", :class => "btn-link"  %>
 					<ul class="inline-block">
 						<li>
 							AWS Access Key
@@ -157,7 +157,6 @@
 		<% if @ssh_keys.any? %>
 		<div class="control-group">
 			<div class="controls">
-				<label>My Key pairs</label>
 				<%= select_tag :id_rsa_public_key, options_for_select(@ssh_keys.map{ |c| c[:name] }) %>
 				<%= link_to "#" do %>
 				<i class="icon-question-sign" id="popover_aws_publickey"></i>
@@ -170,7 +169,7 @@
 				<%= select_tag :id_rsa_public_key, options_for_select(ssh_keys.map{ |c| c[:name] }) %>
 				<%= link_to "#" do %>
 				<i class="icon-question-sign" id="popover_aws_publickey"></i>
-				<% end %><label>My Key pairs</label>
+				<% end %>
 			</div>
 		</div>
 		<% end %>

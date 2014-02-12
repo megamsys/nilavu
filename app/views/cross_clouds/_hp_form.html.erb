@@ -23,10 +23,10 @@
 		<div  id="acc_link">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					Create a new Account for hpcloud
+					Sign Up for hpcloud
 				</div>
 				<div class="panel-body">
-					Click here : <%= link_to "New hpcloud Account", "http://console.hpcloud.com", :target => "_blank", :class => "btn-link" %>
+					Click here : <%= link_to "Sign Up", "http://console.hpcloud.com", :target => "_blank", :class => "btn-link" %>
 				</div>
 			</div>
 		</div>
@@ -124,7 +124,7 @@
 				<%= select_tag :id_rsa_public_key, options_for_select(ssh_keys.map{ |c| c[:name] }) %>
 				<%= link_to "#" do %>
 				<i class="icon-question-sign" id="popover_aws_publickey"></i>
-				<% end %><label>My Key pairs</label>
+				<% end %>
 			</div>
 		</div>
 		<br/>

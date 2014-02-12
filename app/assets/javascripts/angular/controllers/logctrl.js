@@ -2,7 +2,7 @@ function LogCtrl($q, $scope, socket, $location,promiseTracker, $timeout, LogStac
 	$scope.logs = [];
 	$scope.total = 0;
 	$scope.l_total = 0;
-	$scope.bookName = "Choose App/Service..";
+	$scope.bookName = "";
 	var trackerName = "logloader";
 	
 	//create promise(delayed task or something that gets executed in the future	

@@ -10,7 +10,7 @@
 					<div class="col-md-4">
 						<div class="cb_box">
 							<h4 align="center"> Number of Apps </h4>
-							<h5 align="center" ><span class="icon"> <i class="icon-book"></i> </span>&nbsp;Used <b><%= @launched_books_quota %></b>&nbsp; Allowed <b>20</b></h5> <% @percent = @launched_books_quota/2.0*100 %>
+							<h5 align="center" ><span class="icon"> <i class="icon-book"></i> </span>&nbsp;Used <b><%= @launched_books_quota %></b>&nbsp; Allowed <b>20</b></h5> <% @percent = @launched_books_quota/20.0*100 %>
 						</div>
 						<br/>
 						<div class="progress">
@@ -31,7 +31,7 @@
 					</div>
 					<div class="col-md-4">
 						<div class="cb_box">
-							<h4 align="center">Recent Activity </h4><h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><%= latest_book.created_at.to_formatted_s(:rfc822) %></h5> 
+							<h4 align="center">Recent Activity </h4><h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><%= latest_book.created_at.to_formatted_s(:rfc822) %></h5>
 							<h5 align="Center"> <%= link_to latest_book.name, cloud_book_path(:id => latest_book.id, :name => latest_book.name, :book_type => latest_book.book_type), :remote => true, data: { spinlock: '#book'} %> </h5>
 						</div>
 					</div>
@@ -48,7 +48,8 @@
 						<%end %>
 					</div>
 					<div class="col-md-4">
-						<%= link_to "Upgrade", pricing_path, class: "btn btn-lg btn-inverse btn-block ", :target => "_self" %>
+						<!-- 	<%= link_to "Upgrade", pricing_path, class: "btn btn-lg btn-inverse btn-block ", :target => "_self" %> -->
+						<%= link_to "Upgrade", "http://www.gomegam.com/contact", class: "btn btn-lg btn-inverse btn-block ", :target => "_blank" %>
 					</div>
 				</div>
 			</div>

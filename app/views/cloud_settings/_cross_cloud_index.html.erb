@@ -7,9 +7,9 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="cb_box">
-					<h4 align="center">No of Clouds</h4>
-					<h5 align="center" ><span class="icon"><i class="icon-book"></i></span>&nbsp;Used <%= @cross_clouds.count %>&nbsp;Allowed 20</h5>
-					<br/>
+					<h4 align="center" >Recent Activity</h4>
+					<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @cross_clouds.last[:created_at] %></b></h5>
+					<h5 align="Center"><%= link_to "#{@cross_clouds.last[:name]}", cloud_setting_path("#{@cross_clouds.last[:name]}",:type => "cross_cloud"), :remote => true, data: { spinlock: '#crosscloud_current'} %> </h5>
 				</div>
 			</div>
 			<div class="col-md-4">
@@ -39,11 +39,12 @@
 			</div>
 			<div class="col-md-4">
 				<div class="cb_box">
-					<h4 align="center" >Recent Activity</h4>
-					<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @cross_clouds.last[:created_at] %></b></h5>
-					<h5 align="Center"><%= link_to "#{@cross_clouds.last[:name]}", cross_cloud_path(:id => "1", :name => "name"), :remote => true, data: { spinlock: '#crosscloud_current'} %> </h5>
+					<h4 align="center">No of Clouds</h4>
+					<h5 align="center" ><span class="icon"><i class="icon-book"></i></span>&nbsp;Used <%= @cross_clouds.count %>&nbsp;Allowed 20</h5>
+					<br/>
 				</div>
 			</div>
+
 		</div>
 		<br/>
 		<div class="row">
@@ -53,7 +54,8 @@
 				<% end %>
 			</div>
 			<div class="col-md-6">
-				<%= link_to "Upgrade", pricing_path, class: "btn btn-lg btn-inverse btn-block ", :target => "_self", :disabled => true %>
+				<!-- 	<%= link_to "Upgrade", pricing_path, class: "btn btn-lg btn-inverse btn-block ", :target => "_self" %> -->
+				<%= link_to "Upgrade", "http://www.gomegam.com/contact", class: "btn btn-lg btn-inverse btn-block ", :target => "_blank" %>
 			</div>
 		</div>
 
@@ -77,7 +79,7 @@
 			<tbody>
 				<% @cross_clouds.each do |pre_cl| %>
 				<tr>
-					<td align="center"> <%= link_to cloud_setting_path(pre_cl[:name], :type => "cross_cloud"), :remote => true, 
+					<td align="center"> <%= link_to cloud_setting_path(pre_cl[:name], :type => "cross_cloud"), :remote => true,
 					:class => "btn btn-dark-blue" do %> <i class="icon-eye-open">&nbsp;View</i> <% end %> </td>
 					<td align="center"> <%= pre_cl[:name] %></td>
 					<td align="center"><span class="icon"> <i class="icon-calendar"></i> </span> <%= pre_cl[:created_at] %></td>
@@ -104,7 +106,9 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-pink" data-dismiss="modal">Ok</button>
+				<button class="btn btn-pink" data-dismiss="modal">
+					Ok
+				</button>
 			</div>
 		</div>
 	</div>

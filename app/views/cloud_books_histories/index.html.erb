@@ -4,7 +4,6 @@
 <div id="breadcrumb">
 	<%= breadcrumbs.render(:format => :inline, :separator => '') %>
 </div>
-
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-12" ng-controller="LogCtrl">
 		<div class="col-md-3">
@@ -23,39 +22,41 @@
 					<% end %>
 				</div>
 				<div class="panel-footer">
-					<h5>Click App/Service .....</h5>
+					<h5>Choose App/Service</h5>
 				</div>
 			</div>
-			<input type="hidden" ng-model="source">
+			<input type="hidden" ng-model="source" />
 		</div>
-		<div  cg-busy="{tracker:'logloader', backdrop:false}"/>
 		<div class="col-sm-9 col-md-9 col-lg-9">
 			<div class="panel panel-primary" >
-				<div class="panel-heading">
-					{{bookName}}
-					<span class="pull-right"><a href="http://monitor.megam.co/kibana/#/dashboard/file/{{bookName}}.json" target="_blank" class="btn btn-pink btn-xs">view Offline Log</a></span>
+				<div class="panel-heading" cg-busy="{tracker:'logloader', backdrop:false}">
+					<div class="row">
+						<label class="col-sm-7 col-md-7 col-lg-8 control-label">{{bookName}}</label>
+						<!--<div class="col-sm-4 col-md-4 col-lg-4">
+						<input type="search" ng-model="q" placeholder="filter message..." class="form-control input-sm"/>
+						</div> -->
+						<div class="col-sm-5 col-md-5 col-lg-4">
+							<span class="pull-right"><a href="http://monitor.megam.co/kibana/#/dashboard/file/{{bookName}}.json" target="_blank" class="btn btn-pink btn-xs"><strong>Offline Log : {{bookName}} </strong></a></span>
+						</div>
+					</div>
 				</div>
 				<div class="panel-body nopadding" style=" height:500px; overflow-y: scroll;">
 					<table class="table table-bordered table-striped table-hover" >
 						<thead>
 							<tr>
-								<th class="col-md-4">Timestamp <span>Zone: {{ log.timestamp | date:'Z' }}</span></th>
+								<th class="col-md-4">Timestamp <!-- <span class="label label-default">{{logTimezone }}</span>--></th>
 								<th class="col-md-8">Message</th>
 							</tr>
 						</thead>
 						<tbody>
-							<!-- 	<div class="progress progress-sm" style="{{prog_bar}}">
-							<div style="width: 40%;" class="progress-bar progress-bar-danger"></div>
-							</div>
-							-->
 							<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
 								<td>
 								<p>
-									{{ log.timestamp | date:'d MMM yy, hh:mm a Z' }}
+									<small> {{ log.timestamp | date:'d MMM yy, hh:mm a Z' }}</small>
 								</p></td>
 								<td>
 								<p>
-									{{log.message }}
+									<small>{{log.message }}</small>
 								</p></td>
 							</tr>
 						</tbody>
@@ -65,6 +66,5 @@
 		</div>
 	</div>
 </div>
-
 <% end %>
 <%= render :template => users_show_path %>
