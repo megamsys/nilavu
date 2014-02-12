@@ -1,5 +1,5 @@
 Cloudauth::Application.routes.draw do
-  root :to => 'sessions#new', :id => 'signin'
+  root :to => 'cloud_dashboards#index', :id => 'signin'
 
   resources :users
   resources :sessions

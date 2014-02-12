@@ -16,7 +16,8 @@ class SshKeysController < ApplicationController
   end
 
   def create
-    k = SSHKey.generate(:type => params[:key_type], :bits => params[:key_bit].to_i, :comment => current_user.email)    
+    #k = SSHKey.generate(:type => params[:key_type], :bits => params[:key_bit].to_i, :comment => current_user.email)    
+    k = SSHKey.generate
     if params[:key_name] == ""
       key_name = current_user.first_name
     else
