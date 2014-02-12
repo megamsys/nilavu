@@ -7,7 +7,7 @@ class CloudBooksHistoriesController < ApplicationController
     @nodes = current_user.cloud_books.order("id DESC").all
     count = @nodes.length
     if count.to_i <= 0   
-      redirect_to cloud_books_path, :gflash => { :warning => { :value => "Sorry. No logs available. Please create apps to see them.", :sticky => false, :nodom_wrap => true } }
+      gflash :success => { :value => "You need apps to see logs. Go ahead, and launch it.. ", :sticky => false, :nodom_wrap => true } 
     end
   end
 
@@ -23,7 +23,6 @@ class CloudBooksHistoriesController < ApplicationController
 
   def logs
     @books = current_user.cloud_books.all
-    logger.debug "node_name_log ==> #{params[:node_name]}"
     @node_name = params[:node_name]
     respond_to do |format|
       format.js {

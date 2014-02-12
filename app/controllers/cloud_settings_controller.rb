@@ -1,7 +1,6 @@
 class CloudSettingsController < ApplicationController
   respond_to :html, :js
   include CrossCloudsHelper
-  
   def new
   end
 
@@ -28,7 +27,7 @@ class CloudSettingsController < ApplicationController
       @cloud_tool_settings = cloud_tool_settings.sort_by {|vn| vn[:created_at]}
     end
   end
-  
+
   def ssh_key_init
     @ssh_keys_collection = ListSshKeys.perform(force_api[:email], force_api[:api_key])
     if @ssh_keys_collection.class != Megam::Error
@@ -48,13 +47,9 @@ class CloudSettingsController < ApplicationController
     cloud_tools_init
     ssh_key_init
     if @cloud_tool_setting_collection.class == Megam::Error && @cross_clouds_collection.class == Megam::Error
-      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@cloud_tool_setting_collection.some_msg[:msg]}, #{@cross_clouds_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-    elsif @cloud_tool_setting_collection.class == Megam::Error
-      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@cloud_tool_setting_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
     elsif @cross_clouds_collection.class == Megam::Error
-      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@cross_clouds_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-      #elsif @ssh_keys_collection.class == Megam::Error
-      #redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@ssh_keys_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
     end
   end
 
@@ -65,14 +60,13 @@ class CloudSettingsController < ApplicationController
       @cc_msg = params[:type]
       @cts_msg = nil
       @cross_clouds = ListPredefClouds.perform(force_api[:email], force_api[:api_key])
-      @cross_cloud = @cross_clouds.lookup(params[:id])   
+      @cross_cloud = @cross_clouds.lookup(params[:id])
     end
     respond_to do |format|
       format.js {
         respond_with(@cc_msg, @cts_msg, @cross_cloud, @cloud_tool_setting, :layout => !request.xhr? )
       }
     end
-  end  
+  end
 
-  
 end

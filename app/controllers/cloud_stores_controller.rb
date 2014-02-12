@@ -10,7 +10,7 @@ class CloudStoresController < ApplicationController
       add_breadcrumb "Manage Services", cloud_stores_path, :target => "_self"
       @nodes = FindNodesByEmail.perform({},current_user.email, current_user.api_token)
       if @nodes.class == Megam::Error
-        redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@nodes.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
       else             
         book_names = cloud_books.map {|c| c.group_name}
         book_names = book_names.uniq
