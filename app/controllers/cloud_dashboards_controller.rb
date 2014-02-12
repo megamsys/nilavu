@@ -2,12 +2,16 @@ class CloudDashboardsController < ApplicationController
 
   respond_to :html
   def index
+    if current_user
     breadcrumbs.add " Dashboard", :cloud_dashboards_path, :class => "icon icon-dashboard"
     @user_id = current_user.id
     @launched_apps_services = current_user.cloud_books
     @cloud_distrib = collapse_cloud_distrib
     @apps_distrib=collapse_apps_distrib
     @apps_distrib.each_pair{|k,v| @apps_distrib.store(k,v.to_i)}
+    else
+    	redirect_to signin_path
+    end
   end
 
   private
