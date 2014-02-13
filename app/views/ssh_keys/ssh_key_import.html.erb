@@ -7,6 +7,7 @@
 
 <div class="container">
 	<div class="row">
+		<div class="col-md-11">
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
@@ -18,7 +19,7 @@
 					<div class="col-md-12">
 						<div class="alert alert-success alert-block">
 							<div>
-								Import a SSH RSA 1024 bit key pair. Read <a href="https://help.ubuntu.com/community/SSH/OpenSSH/Keys" target="_blank">here</a> for more information.
+								Import a SSH RSA 2048bit key pair. Read <a href="https://help.ubuntu.com/community/SSH/OpenSSH/Keys" target="_blank">here</a> for more information.
 							</div>
 						</div>
 						<div class="col-sm-12 col-md-12 col-lg-12">
@@ -29,12 +30,12 @@
 											<div class="col-sm-12 col-md-12 col-lg-12">
 												<div class="col-sm-6 col-md-6 col-lg-6">
 													<div class="input-group">
-														<label>Private Key</label> <%= file_field_tag :ssh_private_key, :id => 'ssh_private_key',placeholder: 'Upload private key' %>
+														<label>Private Key(eg:id_rsa)</label> <%= file_field_tag :ssh_private_key, :id => 'ssh_private_key',placeholder: 'Upload private key' %>
 													</div>
 												</div>
 												<div class="col-sm-6 col-md-6 col-lg-6">
 													<div class="input-group">
-														<label>Public Key</label> <%= file_field_tag :ssh_public_key, :id => 'ssh_public_key',placeholder: 'Upload public key' %>
+														<label>SSH Public Key(eg:id_rsa.pub)</label> <%= file_field_tag :ssh_public_key, :id => 'ssh_public_key',placeholder: 'Upload public key' %>
 													</div>
 												</div>
 											</div>
@@ -68,6 +69,7 @@
 					<% end %>
 				</div>
 			</div>
+		</div>
 		</div>
 	</div>
 </div>

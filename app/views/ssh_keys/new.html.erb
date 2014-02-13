@@ -4,10 +4,10 @@
 <div id="breadcrumb">
 	<%= breadcrumbs.render(:format => :inline, :separator => '') %>
 </div>
-
 <div class="container">
 	<div class="row">
-		<div class="widget-box">
+		<div class="col-md-11">
+		<div class="widget-box nopadding">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
 				<h5>New Keys</h5>
@@ -21,13 +21,13 @@
 							</div>
 						</div>
 						<div class="col-sm-12 col-md-12 col-lg-12">
-							<div class="widget-box", id="new_ssh_keys">								
+							<div class="widget-box", id="new_ssh_keys">
 								<div class="widget-content">
 									<div class="row">
 										<%= form_tag ssh_keys_path, multipart: true, :id =>'basic_validate', :novalidate => 'novalidate', :name => "basic_validate1",  :method => 'post', :remote => true, data: { spinlock: '#spin_sshkey'}  do %>
 										<div class="col-sm-6 col-md-6 col-lg-6">
 											<div class="form-group">
-												<div class="col-sm-12 col-md-12 col-lg-12">
+												<div class="col-sm-11 col-md-11 col-lg-11">
 													<div class="input-group input-group-lg">
 														<span class="input-group-addon"><i class="icon icon-certificate"></i></span>
 														<%= text_field_tag 'key_name', nil, :class=> 'required form-control input-lg', placeholder: 'Key pair name to Save' %>
@@ -50,7 +50,10 @@
 			</div>
 		</div>
 	</div>
+	</div>
 </div>
+<% end %>
+
 <div id="sshkey_postfinish_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -74,7 +77,6 @@
 		</div>
 	</div>
 </div>
-
 <div id="sshkey_postfinish_popup_error" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
@@ -100,5 +102,4 @@
 		</div>
 	</div>
 </div>
-<% end %>
 <%= render :template => users_show_path %>
