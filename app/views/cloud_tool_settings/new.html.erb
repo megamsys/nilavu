@@ -14,84 +14,47 @@
 				</div>
 				<div class="widget-content">
 					<div class="row">
-						<div class="col-md-6">
-							<div class="widget-box">
-								<div class="widget-content">
-									<%= form_tag cloud_tool_settings_path, multipart: true, :id =>'basic_validate', :novalidate => 'novalidate', :name => "basic_validate1",  :method => 'post', :remote => true, data: { spinlock: '#spin_cross_cloud'}  do %>
-									<div class="row">
-										<input type="hidden" name="cloud_type" value="chef">
-										<!--<div class="control-group">
-										<div class="controls">
-										<%= text_field_tag 'cloud_type', nil, :class=> 'required', placeholder: 'Cloud Type' %>
-										</div>
-										</div>-->
-										<div class="col-md-5">
-											<div class="row">
-												<br/>
-												<div class="col-md-3">
-													<span class="badge badge-info">Default Cloud Provisioner</span>
-													<i class="logo_chef"></i>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-4">
-											<div class="row">
-												<br/>
-												<div class="col-md-3"></div>
-												<div class="input-group  col-md-9">
-													<span class="input-group-addon"><i class="icon-ticket"></i></span>
-													<%= text_field_tag 'repo_name', nil, :class=> 'required', placeholder: 'Enter a Name to Save' %>
-												</div>
-											</div>
-											<br/>
-											<div class="row">
-												<div class="col-md-3"></div>
-												<div class="input-group  col-md-9">
-													<span class="input-group-addon"><i class="icon-map-marker"></i></span>
-													<%= text_field_tag 'repo', nil, :class=> 'required', placeholder: 'Cloud Provisioner Repository' %>
-												</div>
-											</div>
-											<div class="row">
-												<span class="label label-info">Ex: https://github.com/username/project.git</span>
-											</div>
-											<br/>
-											<div class="row">
-												<div class="col-md-3"></div>
-												<div class="input-group col-md-9">
-													<div class="controls">
-														<label class="control-label">Chef setup(as zip only)</label>
-														<%= file_field_tag :repo_file, :id => 'repo_file', placeholder: "Repository File" %>
-													</div>
-												</div>
-											</div>
-											<br/>
-										</div>
-
-									</div>
-									<div class="row">
-										<%= submit_tag "Create Cloud Provisioner", :class => "btn btn-lg btn-success btn-block" %>
-										<br/>
-									</div>
-									<% end %>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<br/>
-							<br/>
-							<br/>
+						<div class="col-md-12">
 							<div class="alert alert-success alert-block">
-								<h4 class="alert-heading">My Cloud Provisioner</h4>
+								<h4 class="alert-heading"></h4>
 								<div>
-									<p class="help-block">
-										<i class="icon-chevron-left"></i>&nbsp; &nbsp; <%= image_tag "helpbota.png", :alt => "help bot"%>
-										<br/>
-										A default <span class="label label-info">cloud provisioner</span> connected to <a href="https://github.com/indykish/chef-repo.git" target="_blank">https://github.com/indykish/chef-repo.git</a> exists. </br> Use this option, If you wish to use your own remote chef repository.
-										<a href="https://wiki.opscode.com/display/chef/Home" class="btn btn-link" target="_blank">Click here to know about chef</a>
-									</p>
+										<i class="logo_chef"></i>
+									 default <span class="label label-info">cloud provisioner</span> connected to <a href="https://github.com/indykish/chef-repo.git" target="_blank">https://github.com/indykish/chef-repo.git</a> exists.
+									Use this option, If you wish to use your own remote chef repository.
+									<a href="https://wiki.opscode.com/display/chef/Home" class="btn btn-link" target="_blank"> Click here to know about chef</a>
 								</div>
 							</div>
 						</div>
+						<%= form_tag cloud_tool_settings_path, multipart: true, :id =>'basic_validate', :novalidate => 'novalidate', :name => "basic_validate1",  :method => 'post', :remote => true, data: { spinlock: '#spin_cross_cloud'}  do %>
+						<div class="row">
+							<input type="hidden" name="cloud_type" value="chef">
+
+							<div class="form-group">
+								<div class="col-sm-12 col-md-12 col-lg-12">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="input-group input-group-lg">
+												<span class="input-group-addon"><i class="icon icon-ticket"></i></span>
+												<%= text_field_tag 'repo_name', nil, :class=> 'required form-control', placeholder: 'Enter a Name to Save' %>
+
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="input-group input-group-lg">
+												<%= text_field_tag 'repo', nil, :class=> 'required form-control', placeholder: 'Cloud Provisioner Repository' %>
+												<span class="input-group-addon"><i class="icon icon-map-marker"></i></span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-offset-4">
+								<%= submit_tag "Create Cloud Provisioner", :class => "btn btn-lg btn-success" %>
+							</div>
+						</div>
+
+						<% end %>
 					</div>
 				</div>
 			</div>
@@ -117,7 +80,7 @@
 				</div>
 			</div>
 			<div class="modal-footer" id="cloudtoolsettings_path">
-				<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>
+				<%= link_to  "OK", cloud_settings_path, :class => "btn btn-pink", :target => "_self" %>
 			</div>
 		</div>
 	</div>
@@ -141,7 +104,7 @@
 					</p>
 				</div>
 			</div>
-			<div class="modal-footer">				
+			<div class="modal-footer">
 				<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>
 			</div>
 		</div>

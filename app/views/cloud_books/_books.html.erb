@@ -9,18 +9,11 @@
 				<div class="row">
 					<div class="col-md-4">
 						<div class="cb_box">
-							<h4 align="center"> Number of Apps </h4>
-							<h5 align="center" ><span class="icon"> <i class="icon-book"></i> </span>&nbsp;Used <b><%= @launched_books_quota %></b>&nbsp; Allowed <b>20</b></h5> <% @percent = @launched_books_quota/20.0*100 %>
-						</div>
-						<br/>
-						<div class="progress">
-							<% if @percent >= 80 %>
-							<div class="progress-bar progress-bar-warning" style="width: <%= @percent %>%;"></div>
-							<% else %>
-							<div class="progress-bar progress-bar-success" style="width: <%= @percent %>%;"></div>
-							<% end %>
+							<h4 align="center">Recent Activity </h4><h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><%= latest_book.created_at.to_formatted_s(:rfc822) %></h5>
+							<h5 align="Center"> <%= link_to latest_book.name, cloud_book_path(:id => latest_book.id, :name => latest_book.name, :book_type => latest_book.book_type), :remote => true, data: { spinlock: '#book'} %> </h5>
 						</div>
 					</div>
+
 					<div class="col-md-4">
 						<div class="cb_box">
 							<span class="btn btn-large disabled btn-block"><h3><%= @launched_books_quota %></h3> <h4>Launched </h4> </span>
@@ -31,8 +24,16 @@
 					</div>
 					<div class="col-md-4">
 						<div class="cb_box">
-							<h4 align="center">Recent Activity </h4><h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><%= latest_book.created_at.to_formatted_s(:rfc822) %></h5>
-							<h5 align="Center"> <%= link_to latest_book.name, cloud_book_path(:id => latest_book.id, :name => latest_book.name, :book_type => latest_book.book_type), :remote => true, data: { spinlock: '#book'} %> </h5>
+							<h4 align="center"> Number of Apps </h4>
+							<h5 align="center" ><span class="icon"> <i class="icon-book"></i> </span>&nbsp;Used <b><%= @launched_books_quota %></b>&nbsp; Allowed <b>20</b></h5> <% @percent = @launched_books_quota/20.0*100 %>
+						</div>
+						<br/>
+						<div class="progress">
+							<% if @percent >= 80 %>
+							<div class="progress-bar progress-bar-warning" style="width: <%= @percent %>%;"></div>
+							<% else %>
+							<div class="progress-bar progress-bar-success" style="width: <%= @percent %>%;"></div>
+							<% end %>
 						</div>
 					</div>
 				</div>
@@ -118,7 +119,9 @@
 													</li>
 													<li class="divider"></li>
 													<li>
-														<%= link_to "Details", cloud_book_path(:action => "show", :id => cb.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'} %>
+														<%= link_to  cloud_book_path(:action => "show", :id => cb.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'}  do %>
+														<i class="icon-list">&nbsp;Details&nbsp;</i>
+														<% end %>
 													</li>
 													</li>
 												</ul>

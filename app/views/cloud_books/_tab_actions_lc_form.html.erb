@@ -1,10 +1,10 @@
 <%= form_tag(build_request_path, :method => "post", :name => "lifecycle", :remote => true) do %>
-<div class="widget-box">
-	<div class="widget-title">
+<div class="panel panel-success">
+	<div class="panel-heading">
 		<span class="icon"> <i class="icon-th-list"></i> </span>
-		<h5>Change App Lifecycle</h5>
+		<h5>Advanced Lifecycle</h5>
 	</div>
-	<div class="widget-content">
+	<div class="panel-body">
 		<input type="hidden"  name="appdefns_id" value="<%= @appdefns_id %>">
 		<input type="hidden"  name="req_type" value="<%= @req_type %>">
 		<input type="hidden"  name="book_type" value="<%= @book_type %>">
@@ -21,7 +21,10 @@
 			<%= text_field_tag 'lc_when', nil, :id => "lc_when", :class=> 'form-control required', placeholder: 'Enter Life-Cycle When value' %>
 			<span class="input-group-addon"><%= link_to "#" do %> <i class="icon-question-sign"></i> <% end %></span>
 		</div>			
-		<%= submit_tag @req_type, :class => "btn btn-lg btn-success btn-block", :remote => true, data: { spinner: '#send_request_spinner'} %>
+		<%= submit_tag @req_type.capitalize, :class => "btn btn-lg btn-success btn-block", :remote => true, data: { spinner: '#send_request_spinner'} %>
+	</div>
+	<div class="panel-footer">
+		<span class="label label-warning">Warning:</span>&nbsp; This is an advanced option.  
 	</div>
 </div>
 <% end %>
