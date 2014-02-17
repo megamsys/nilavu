@@ -220,6 +220,7 @@ class CloudBooksController < ApplicationController
   def create
     logger.debug ">>> Parms #{params}"
     logger.debug ">>> Parms data #{params[:data]}"
+    #FORM DATA FROM PARAMS
     data={:book_name => params[:cloud_book][:appname], :book_type => params[:cloud_book][:book_type] , :predef_cloud_name => params[:cloud_book][:predef_cloud_name], :provider => params[:predef][:provider], :repo => 'default_chef', :provider_role => params[:predef][:provider_role], :domain_name => params[:cloud_book][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}"}
    if params[:cloud_book][:book_type] == "BOLT"
      data['user_name'] = params[:user_name]
