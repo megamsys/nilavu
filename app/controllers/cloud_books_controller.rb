@@ -230,7 +230,7 @@ class CloudBooksController < ApplicationController
     options = {:data => data, :group => "server", :action => "create" }
     node_hash=MakeNode.perform(options, force_api[:email], force_api[:api_key]) 
     if node_hash.class == Megam::Error
-      @res_msg="#{node_hash.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+      @res_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
       respond_to do |format|
         format.js {
           respond_with(@res_msg, :layout => !request.xhr? )
