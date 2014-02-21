@@ -14,6 +14,8 @@ app.factory("GraphModel", ["$http", "TimeSelector", "Sources", function($http, T
 
   function getData(config) {		  
 	  console.log("data source entry----->"+config);	
+	  console.log("TEST!-----------> 33333");
+
 	return $http.get("/api/data_sources/datapoints.json", { params: getParams(config) });
   }
   return {

@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
-  revision: a67a5ebb48f3031e14f20dfa9dcb3099675b1ac2
+  revision: 8e3e4d362b94ac9582ad3bf6d788dca082c0be90
   branch: bootstrap3
   specs:
     twitter-bootstrap-rails (2.2.7)
@@ -283,7 +283,7 @@ GEM
     simple_oauth (0.2.0)
     socket.io-rails (0.9.16)
       railties (>= 3.1)
-    sprockets (2.10.1)
+    sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)

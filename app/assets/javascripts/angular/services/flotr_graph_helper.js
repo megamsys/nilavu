@@ -1,15 +1,17 @@
 app.factory("FlotrGraphHelper", ["ColorFactory", "SuffixFormatter", "$window", function(ColorFactory, SuffixFormatter, $window) {
-	  console.log("flotr graph entry");
+
   // TODO: refactor
   function timeUnit(range, size) {
     switch(range) {
     case "30-minutes":
     case "60-minutes":
+    case "4hr":
     case "1-hours":
-    case "12-hours":
-    case "24-hours":
-    case "today":
-    case "yesterday":
+    case "hour":
+    case "2hr":
+    case "day":
+    case "week":
+    case "month":
       return "%H:%M";
     case "3-days":
       if (size === 1) {
@@ -55,40 +57,41 @@ app.factory("FlotrGraphHelper", ["ColorFactory", "SuffixFormatter", "$window", f
 
     return _.template(html, data);
   }
-  //TODO_TOM
+
+  
   function getYvalue(target) {
-	    switch(target) {
-	    case "pkts_out":
-	      return 10;
-	    case "pkts_in":
-	      return 8;
-	    case "bytes_in":
-		      return 15000;
-	    case "bytes_out":
-		      return 5000000;
-	    case "graph":
-		      return 6;
-	    case "cpu_system":
-		      return 5;
-		case "nginx_requests":
-		      return 10;
-		case "load_five":
-			  return 1;
-		case "proc_run":
-			  return 5;
-		case "mem_cached":
-			  return 5000000;
-		case "mem_free":
-			  return 5000000;
-		case "disk_free":
-			  return 400000000;
-	    default:
-	      throw "unknown Target(METRIC NAME) : " + target;
-	    }
+	  switch(target) {
+	  case "pkts_out":
+	  return 10;
+	  case "pkts_in":
+	  return 8;
+	  case "bytes_in":
+	  return 15000;
+	  case "bytes_out":
+	  return 5000000;
+	  case "graph":
+	  return 6;
+	  case "cpu_system":
+	  return 5;
+	  case "nginx_requests":
+	  return 500;
+	  case "load_five":
+	  return 1;
+	  case "proc_run":
+	  return 5;
+	  case "mem_cached":
+	  return 5000000;
+	  case "mem_free":
+	  return 5000000;
+	  case "disk_free":
+	  return 10;
+	  default:
+	  throw "unknown Target(METRIC NAME) : " + target;
+	  }
 	  }
   
   
-  function defaultOptions(model, target) {
+  function defaultOptions(model,target) {
 	  return {
 		  grid: {
 				borderWidth: 1,
@@ -123,24 +126,6 @@ app.factory("FlotrGraphHelper", ["ColorFactory", "SuffixFormatter", "$window", f
 			}
 	  };
   }
-  
-  
-  
- /* function defaultOptions(model, y_max) {
-    return {    	
-      shadowSize: 1,
-      grid: {
-        outline: "", verticalLines: false, horizontalLines: false, labelMargin: 10
-      },
-      xaxis: {
-        mode: "time", timeMode: "local", timeUnit: 'minute', timeFormat: timeUnit("60-minutes", parseInt(1, 10))
-      },
-      yaxis: {
-        tickFormatter: suffixFormatter,
-        max: y_max || null
-      },    
-    };
-  }*/
 
   // reuse the same color for the same target
   function initColor(currentColors, index) {
@@ -156,7 +141,7 @@ app.factory("FlotrGraphHelper", ["ColorFactory", "SuffixFormatter", "$window", f
 
   // swap x/y values since backend and flotr2 define it different
   function swapDatapoints(datapoints) {
-    return _.map(datapoints[0], function(dp) {
+    return _.map(datapoints, function(dp) {
       return [dp[1], dp[0]];
     });
   }
@@ -173,14 +158,14 @@ app.factory("FlotrGraphHelper", ["ColorFactory", "SuffixFormatter", "$window", f
         return false;
     }
   }
-   
+
   function transformSeriesOfDatapoints(series, widget, currentColors) {
     return _.map(series, function(model, index) {
       return {
-        //color: initColor(currentColors, index),
-    	//color: '#E01B5D',
+        color: initColor(currentColors, index),
+        //color: '#E01B5D',
         lines: { fill: linesType("area"), lineWidth: 1 },
-        //label: model.target,
+        label: model.target,
         data : swapDatapoints(model.datapoints)
       };
     });
