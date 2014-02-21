@@ -2,7 +2,7 @@
 
 var selected_entity = '#cloud_tool_setting_postfinish_popup_error';
 $("#err_msg").html('<%= @err_msg %>');
-$(selected_entity).modal('show');
+$(selected_entity).modal({backdrop : false,keyboard: false,show : true,remote : '#'});
 
 <% else %>
 
@@ -10,6 +10,6 @@ var selected_entity = '#cloud_tool_setting_postfinish_popup';
 
 $("#cloudtoolsettings_path").append('<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>');
 $("#res_msg").append('<%= @res_msg %>');
-$(selected_entity).modal('show');
+$(selected_entity).modal({backdrop : false,keyboard: false,show : true,remote : '#'});
 
 <% end %>

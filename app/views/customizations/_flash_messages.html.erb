@@ -1,9 +1,13 @@
 <div>
-	<% flash.each do |key, value| %>
-	<div class="<%= flash_class(key) %>">
+	<% flash.each do |type, value| %>
+	<% type = type.to_sym
+      type = :success if type == :notice
+      type = :danger  if type == :alert
+      type = :danger  if type == :error %>
+      
+	<div class="<%= "alert fade in alert-#{type} alert-dismissable" %>">
 		<a href="#" data-dismiss="alert" class="close">×</a>
 		<h4  align="center"> <%= value %> </h4>
 	</div>
 	<% end %>
 </div>
-

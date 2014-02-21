@@ -11,7 +11,7 @@ Cloudauth::Application.configure do
   config.action_controller.perform_caching = true
 
 # replace this with your tracker code
-  GA.tracker = "UA-40323851-1"
+  GA.tracker = "UA-48042337-1"
   GA.script_source = "('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js'"
 
   # Disable Rails's static asset server (Apache or nginx will already do this)

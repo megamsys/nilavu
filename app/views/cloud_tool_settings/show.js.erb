@@ -1,7 +1,7 @@
 
 var selected_entity = '#cloud_tool_setting_show_popup';
 $("#cloud_tool_setting_show").html('<%= escape_javascript(render :partial => "cloud_tool_settings/show" , :locals => {:cross_cloud => @cross_cloud, :method => 'post'})%>');
-$(selected_entity).modal('show');
+$(selected_entity).modal({backdrop : false,keyboard: false,show : true,remote : '#'});
 
 
 

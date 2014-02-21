@@ -79,7 +79,7 @@
 			<tbody>
 				<% @cross_clouds.each do |pre_cl| %>
 				<tr>
-					<td align="center"> <%= link_to cloud_setting_path(pre_cl[:name], :type => "cross_cloud"), :remote => true,
+					<td align="center"> <%= link_to cloud_setting_path(pre_cl[:name], :type => "cross_cloud"), :data => {:keyboard=>"false", :backdrop =>"false", :remote => true},
 					:class => "btn btn-dark-blue" do %> <i class="icon-eye-open">&nbsp;View</i> <% end %> </td>
 					<td align="center"> <%= pre_cl[:name] %></td>
 					<td align="center"><span class="icon"> <i class="icon-calendar"></i> </span> <%= pre_cl[:created_at] %></td>

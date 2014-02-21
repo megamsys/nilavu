@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 #rails 4.1.x (bleeding edge)
-gem "rails", "~> 4.1.0.beta1"
+gem "rails", "~> 4.1.0.rc1"
 # add these gems to help with the transition to Rails 4.x
 gem 'protected_attributes', :git => "git://github.com/rails/protected_attributes.git"
 
@@ -20,8 +20,8 @@ gem "flot-rails", "~> 0.0.4"
 gem "gritter", "~> 1.1.0"
 gem "flexslider", "~> 2.2.0"
 gem "masonry-rails"
-gem 'will_paginate','3.0.5'
-gem 'bootstrap-will_paginate','0.0.10'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 gem "breadcrumbs"
 gem 'remotipart'
 
@@ -38,7 +38,7 @@ gem 'omniauth-github'
 #general
 gem "github_api"
 gem 'twitter'
-gem 'paperclip','4.0.0'
+gem 'paperclip'
 gem "aws-sdk"
 gem "randexp", "~> 0.1.7"
 gem "megam_api"
@@ -66,10 +66,10 @@ gem "sshkey"
 
 # Gems used only for assets and not required
 # in production environments by default.
-gem "less-rails", "~> 2.4.2"
-gem 'sass-rails',   '~> 4.0.1'
-gem 'coffee-rails', '~> 4.0.1'
-gem 'uglifier', '>= 2.4.0'
+gem "less-rails"
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier'
 
 
 group :test do
