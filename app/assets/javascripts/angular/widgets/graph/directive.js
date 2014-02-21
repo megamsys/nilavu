@@ -10,11 +10,11 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sourc
  	  //scope.host=parseHost(data[0]);
 		  scope.host=data.host;
 		     //scope.uptime_data=parseUptime(data);
-		  scope.uptime_data=data.uptime_data;
-		  scope.rpm_data=data.rpm;
-		  scope.new_books=data.new_books;
-		  scope.total_books=data.total_books;
-		  scope.total_queues=data.total_queues;
+		  scope.uptime=data.uptime;
+		  scope.os=data.os;
+		  scope.cpus=data.cpus;
+		  //scope.memory=data.memory;
+		  //scope.total_queues=data.total_queues;
 		     //scope.rpm_data=parseRPM(data);
 		     //scope.new_books=parseNewBooks(data);
 		     //scope.total_books=parseTotalBooks(data);
@@ -84,7 +84,7 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sourc
 			.appendTo("#cpu_system_graph");
 	        
 	        var dfyaxisLabel = $("<div class='axisLabel dfyaxisLabel'></div>")
-			.text("%")
+			.text("GB")
 			.appendTo("#disk_free_graph");
 	        var dfxaxisLabel = $("<div class='axisLabel dfxaxisLabel'></div>")
 			.text("disk_free")
@@ -92,14 +92,14 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sourc
 	        
 	        
 	        var mfyaxisLabel = $("<div class='axisLabel mfyaxisLabel'></div>")
-			.text("%")
+			.text("GB")
 			.appendTo("#mem_free_graph");
 	        var mfxaxisLabel = $("<div class='axisLabel mfxaxisLabel'></div>")
 			.text("mem_free")
 			.appendTo("#mem_free_graph");
 	        
 	        var nyaxisLabel = $("<div class='axisLabel nyaxisLabel'></div>")
-			.text("%")
+			.text("Bytes")
 			.appendTo("#nginx_requests_graph");
 	        var nxaxisLabel = $("<div class='axisLabel nxaxisLabel'></div>")
 			.text("nginx_requests")

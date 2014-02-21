@@ -72,9 +72,9 @@ app.factory("FlotrGraphHelper", ["ColorFactory", "SuffixFormatter", "$window", f
 	  case "graph":
 	  return 6;
 	  case "cpu_system":
-	  return 5;
+	  return 100;
 	  case "nginx_requests":
-	  return 500;
+	  return 800;
 	  case "load_five":
 	  return 1;
 	  case "proc_run":
@@ -82,9 +82,9 @@ app.factory("FlotrGraphHelper", ["ColorFactory", "SuffixFormatter", "$window", f
 	  case "mem_cached":
 	  return 5000000;
 	  case "mem_free":
-	  return 5000000;
+	  return 200000;
 	  case "disk_free":
-	  return 10;
+	  return 20;
 	  default:
 	  throw "unknown Target(METRIC NAME) : " + target;
 	  }
