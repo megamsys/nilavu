@@ -2,13 +2,11 @@
 
 var selected_entity = '#cloudbook_postfinish_popup_error';
 $("#err_msg").html('<%= @res_msg %>');
-$(selected_entity).modal({backdrop : false,keyboard: false,show : true,remote : '#'});
+$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
 
 <% else %>
 
 var selected_entity = '#cloudbook_postfinish_popup';
-
-
-$(selected_entity).modal({backdrop : false,keyboard: false,show : true,remote : '#'});
+$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
 
 <% end %>

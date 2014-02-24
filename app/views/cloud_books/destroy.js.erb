@@ -2,6 +2,6 @@ var selected_entity = '#cloudbook_delete_popup';
 $("#delete_body").append('<%= @res_msg %>');
 $("#delete_footer").append('<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary", :target => "_self" %>');
 
-$(selected_entity).modal({backdrop : false,keyboard: false,show : true,remote : '#'});
+$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
 
 

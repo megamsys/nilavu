@@ -1,25 +1,12 @@
 <% provide(:title, "Sign in") %>
 
 <%= render :partial => "customizations/flash_messages" %>
-<div class="alert alert-success fade in">
-	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-		&times;
-	</button>
-	<h4>Welcome ! Platform as service portal for Megam</h4>
-	<p>
-		You can launch your apps on any cloud instantly. <strong> <%= link_to "Signup for an account", signup_path %> </strong> to get started
-	<p>
-	<p>
-		<a href="http://www.gomegam.com" type="button" class="btn btn-danger" target="_blank">Go to Gomegam.com for more info.</a>
-	</p>
-</div>
 <div id="containerlogin">
 	<div id="logo">
 		<a href="http://www.gomegam.com" target="_blank"> <%= image_tag Rails.configuration.megam_logo_url , :alt => "Megam", :class => "megam_image" %> </a>
 	</div>
 
 	<div id="loginbox">
-
 		<%= form_for(:session, :url => sessions_path, :html => {:id =>'password_validate', :novalidate => 'novalidate'}) do |f| %>
 		<p>
 			Enter username and password to continue.
@@ -32,7 +19,6 @@
 			<span class="input-group-addon"><i class="icon icon-lock"></i></span>
 			<%= f.password_field :password, :id => 'password', :class => 'form-control required',placeholder: "Password" %>
 		</div>
-
 		<div class="form-actions clearfix">
 			<div class="pull-left">
 				<%= link_to "Create new account", signup_path, :class => "flip-link to-register blue" %>
@@ -40,8 +26,8 @@
 			<div class="pull-right">
 				<%= link_to "Lost password?", new_password_reset_path, :class=> "flip-link to-recover grey" %>
 			</div>
-			<%= f.submit "Sign in", :class => "btn btn-default btn-success btn-block" %>
-
+			<%= f.submit "Sign in", :class => "btn btn-default btn-success btn-block"  %>
+			<a href="http://www.gomegam.com" type="button" class="btn btn-dark-red btn-block" target="_blank"><i class="icon icon-globe"></i>&nbsp;Visit <strong>Gomegam.com</strong></a>
 		</div>
 		<div class="footer-login">
 			<div class="pull-left text">
@@ -61,7 +47,7 @@
 
 </div>
 <script>
-    $(document).ready(function() {
-        $("body").addClass("login");
-    }); 
+	$(document).ready(function() {
+	$("body").addClass("login");
+	});
 </script>

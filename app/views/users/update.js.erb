@@ -3,25 +3,25 @@ var selected_entity = '.user_fields_form_<%= @user_fields_form_type %>';
 var msg = '<%= @res_msg %>';
 $('#api_key_field').val('<%= @user.api_token %>');
 var selected_entity = '#profile_postfinish_popup';
-$(selected_entity).modal({backdrop : false,keyboard: false,show : true,remote : '#'});
+$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
 $("#msg").append('API Key was generated <%= @res_msg %>.');
 <% end %>
 
 <% if @user_fields_form_type == 'password'%>
 var selected_entity = '#profile_postfinish_popup';
-$(selected_entity).modal({backdrop : false,keyboard: false,show : true,remote : '#'});
+$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
 $("#msg").append('Your password was updated successfully</h5>');
 <% end %>
 
 <% if @user_fields_form_type == 'organization'%>
 var selected_entity = '#profile_postfinish_popup';
-$(selected_entity).modal({backdrop : false,keyboard: false,show : true,remote : '#'});
+$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
 $("#msg").append('Your organization details were updated successfully</h5>');
 <% end %>
 
 <% if @user_fields_form_type == 'user'%>
 var selected_entity = '#profile_postfinish_popup';
-$(selected_entity).modal({backdrop : false,keyboard: false,show : true,remote : '#'});
+$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
 $("#msg").append('Your account details were updated successfully');
 <% end %>
 
