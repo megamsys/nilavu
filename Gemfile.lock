@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
-  revision: f74df016a051b4ed6ae3459e384ae171fb0e97b0
+  revision: a67a5ebb48f3031e14f20dfa9dcb3099675b1ac2
   branch: bootstrap3
   specs:
     twitter-bootstrap-rails (2.2.7)
@@ -144,7 +144,7 @@ GEM
     http (0.5.0)
       http_parser.rb
     http_parser.rb (0.6.0)
-    httparty (0.12.0)
+    httparty (0.13.0)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.6.9)
@@ -155,7 +155,7 @@ GEM
     jquery-rails (3.1.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    jquery-turbolinks (2.0.1)
+    jquery-turbolinks (2.0.2)
       railties (>= 3.1.0)
       turbolinks
     jquery-ui-rails (4.1.1)
@@ -163,7 +163,7 @@ GEM
     json (1.8.1)
     jwt (0.1.11)
       multi_json (>= 1.5)
-    kgio (2.9.1)
+    kgio (2.9.2)
     less (2.4.0)
       commonjs (~> 0.2.7)
     less-rails (2.4.2)
