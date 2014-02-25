@@ -1,3 +1,4 @@
+
 class CloudBooksController < ApplicationController
   respond_to :html, :js
   include Packable
@@ -181,15 +182,14 @@ class CloudBooksController < ApplicationController
       @book =  current_user.cloud_books.build
       breadcrumbs.add " Home", "#", :class => "icon icon-home", :target => "_self"
       breadcrumbs.add "Manage Apps", cloud_books_path, :target => "_self" 
-      breadcrumbs.add "Apps Framework Selection", new_cloud_book_path, :target => "_self"
-
+      breadcrumbs.add "Apps Framework Selection", new_cloud_book_path, :target => "_self"      
     else
       redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "You need an API key to launch an app. Click Profile from the top, and generate a new API key", :sticky => false, :nodom_wrap => true } }
     end
   end
 
   def new_book
-    breadcrumbs.add " Home", "#", :class => "icon icon-home", :target => "_self"
+    breadcrumbs.add "Home", "#", :class => "icon icon-home", :target => "_self"
     breadcrumbs.add "Manage Apps", cloud_books_path, :target => "_self"
     breadcrumbs.add "Apps Framework Selection", new_cloud_book_path, :target => "_self"
     breadcrumbs.add "New", new_book_path
@@ -349,5 +349,23 @@ class CloudBooksController < ApplicationController
       }
     end
   end
+  
+  def scm_manager_auth  
+   
+   end 
+   
+   def scmmanager_auth    
+     path = [] 
+     res = ListRepoNames.perform(params[:scm_session][:username], params[:scm_session][:password])     
+     res[:body].each do |repo|
+       uri = repo.split("//")
+       path << "#{uri[0]}//#{params[:scm_session][:username]}:#{params[:scm_session][:password]}@#{uri[1]}"
+     end
+     render :template => "cloud_books/new", :locals => {:repos => path}
+   end
+   
+   def create_scm_user
+   
+   end
 
 end

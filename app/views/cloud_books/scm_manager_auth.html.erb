@@ -1,0 +1,44 @@
+<% provide(:title, "Sign in") %>
+
+<%= render :partial => "customizations/flash_messages" %>
+<div id="containerlogin">
+	<div id="logo">
+		<a href="http://www.gomegam.com" target="_blank"> <%= image_tag "logo_scm_200x200.png", :alt => "Megam", :class => "megam_image" %> </a>
+	</div>
+
+	<div id="loginbox">
+		<%= form_for(:scm_session, :url => scmmanager_auth_path, :html => {:id =>'password_validate', :novalidate => 'novalidate'}) do |f| %>
+		<br/>
+		<p>
+			Enter username and password to continue.
+		</p>
+		<div class="input-group">
+			<span class="input-group-addon"><i class="icon icon-user"></i></span>
+			<%= f.text_field :username, :class => 'form-control required',placeholder: "User Name" %>
+		</div>
+		<div class="input-group">
+			<span class="input-group-addon"><i class="icon icon-lock"></i></span>
+			<%= f.password_field :password, :id => 'password', :class => 'form-control required',placeholder: "Password" %>
+		</div>
+		<br/></br/>
+		<div class="footer-login">
+			<div class="form-actions clearfix">
+				<div class="pull-left">
+					<%= link_to "Create new User", create_scm_user_path, :class => "btn btn-default btn-success" %>
+				</div>
+				<div class="pull-right">
+					<%= f.submit "Sign in", :class => "btn btn-default btn-success"  %>
+				</div>
+			</div>
+		</div>
+
+		<% end %>
+
+	</div>
+
+</div>
+<script>
+    $(document).ready(function() {
+        $("body").addClass("login");
+    }); 
+</script>

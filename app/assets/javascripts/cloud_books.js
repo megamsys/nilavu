@@ -36,8 +36,21 @@
 					});
 					
 	};
+	
 
 })(jQuery);
+
+$(document).ready(function()
+		{
+		    $("#repo_select").change(function()
+		    {
+		        var id=$(this).val();
+		        $('#selected_debs_scm').val(id);
+		         return false;
+
+		    });
+
+		});
 
 function java()
 {

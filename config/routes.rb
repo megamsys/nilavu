@@ -76,7 +76,9 @@ Cloudauth::Application.routes.draw do
   match '/auth/facebook/callback', :to => 'sessions#create', via: [:get, :post]
   match '/auth/github/callback', :to => 'cloud_books#authorize_scm', via: [:get, :post]
   match '/auth/google_oauth2/callback', :to => 'cross_clouds#new', via: [:get, :post]
-  
+  match '/scm_manager_auth', :to => 'cloud_books#scm_manager_auth', via: [:get, :post]
+  match '/scmmanager_auth', :to => 'cloud_books#scmmanager_auth', via: [:get, :post]
+  match '/create_scm_user', :to => 'cloud_books#create_scm_user', via: [:get, :post]
   # ======Dashboard
   get "users/show"
   #match '/dashboard_sidebar', to: 'dashboards#dashboard_sidebar', via: [:get]

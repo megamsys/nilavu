@@ -42,6 +42,7 @@ gem 'paperclip'
 gem "aws-sdk"
 gem "randexp", "~> 0.1.7"
 gem "megam_api"
+gem "megam_scmmanager"
 gem "megam_deccanplato"
 gem "inflector" #convert singularize
 gem "cheddargetter_client_ruby" #chettargetter API
