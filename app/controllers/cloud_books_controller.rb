@@ -3,6 +3,8 @@ class CloudBooksController < ApplicationController
   include Packable
   include CloudBooksHelper
   
+  ## I don't see a point in calling all the node details for an user. We should avoid it. 
+  ## ie. skip FindNodesByEmail ?
   def index
     cloud_books = current_user.cloud_books.where(:book_type => 'APP').order("id DESC").all
     if cloud_books.any?
@@ -174,8 +176,7 @@ class CloudBooksController < ApplicationController
     render :template => "cloud_books/new", :locals => {:repos => @repos}
   end
 
-  def new
-  
+  def new  
     if current_user.onboarded_api
       @book =  current_user.cloud_books.build
       breadcrumbs.add " Home", "#", :class => "icon icon-home", :target => "_self"
@@ -274,10 +275,8 @@ class CloudBooksController < ApplicationController
     ##
     book_source = Rails.configuration.metric_source
     @widget=@book.widgets.create(:name=>"graph", :kind=>"datapoints", :source=>book_source, :widget_type=>"pernode", :range=>"hour", :targets => ["cpu_system"])
-    
+  
     #TODO_TOM
-
-
     @widget=@book.widgets.create(:name=>"networks", :kind=>"networks_datapoints", :source=>book_source, :widget_type=>"pernode", :range=>"hour", :targets => ["pkts_out"])
     #@widget=@book.widgets.create(:name=>"totalbooks", :kind=>"totalbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
     #@widget=@book.widgets.create(:name=>"newbooks", :kind=>"newbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
@@ -307,14 +306,14 @@ class CloudBooksController < ApplicationController
       end
     else
       @requests = GetRequestsByNode.perform(wparams,force_api[:email], force_api[:api_key])  #no error checking for GetRequestsByNode ? 
-      @book_requests =  GetDefnRequestsByNode.send(params[:book_type].downcase.to_sym, wparams,force_api[:email], force_api[:api_key])
-      if @book_requests.class == Megam::Error
-        @book_requests={"results" => {"req_type" => "", "create_at" => "", "lc_apply" => "", "lc_additional" => "", "lc_when" => ""}}
+      @defnrequests =  GetDefnRequestsByNode.send(params[:book_type].downcase.to_sym, wparams,force_api[:email], force_api[:api_key])
+      if @defnrequests.class == Megam::Error
+        @defnrequests={"results" => {"req_type" => "", "create_at" => "", "lc_apply" => "", "lc_additional" => "", "lc_when" => ""}}
       end
       @cloud_book = @node.lookup("#{params[:name]}")
       respond_to do |format|
         format.js {
-          respond_with(@cloud_book, @requests, @book_requests, :layout => !request.xhr? )
+          respond_with(@cloud_book, @requests, @defnrequests, :layout => !request.xhr? )
         }
       end
     end

@@ -4,11 +4,15 @@
 <div id="breadcrumb">
 	<%= breadcrumbs.render(:format => :inline, :separator => '') %>
 </div>
+
 <%= form_for @book,  :remote => true, :method => 'post' do |f| %>
 
 <% @appname = book_name %>
 
 <div class="container">
+	<%= link_to  new_cloud_book_path, :class =>"btn btn-default", :target=>"_self" do %>
+	<i class="icon icon-chevron-left"></i>
+	<% end %>
 	<div class="row">
 		<div class="col-xs-11 col-sm-11">
 			<div class="widget-box">

@@ -1,0 +1,29 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<span class="icon"> <i class="icon-th-list"></i> </span>
+		<h4>App <span class="label label-info"><%= @cloud_book.node_name %></span></h4>
+		<div class="row">
+			<div class="col-xs-12 center" style="text-align: center;">
+				<ul class="quick-actions">
+					<li>
+						<a href="#"> <i class="icon-home"></i> &nbsp;&nbsp; </a>
+					</li>
+					<li>
+						<a href="#"> <i class="icon-cabinet"></i> Activities </a>
+					</li>
+					<li>
+						<a href="#"> <i class="icon-shopping-bag"></i> Marketplace Items </a>
+					</li>
+					<li>
+						<a href="#"> <i class="icon-survey"></i> Settings </a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="panel-content">
+		<%= render :partial => "cloud_books/showoneapp" , :locals => {:cloud_book => @cloud_book, :requests => @requests,:defnrequests => @defnrequests }%>
+	</div>
+</div>
+

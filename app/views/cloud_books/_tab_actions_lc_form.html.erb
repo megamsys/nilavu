@@ -2,7 +2,7 @@
 <div class="panel panel-success">
 	<div class="panel-heading">
 		<span class="icon"> <i class="icon-th-list"></i> </span>
-		<h5>Advanced Lifecycle</h5>
+		<h5>Modify Action</h5>
 	</div>
 	<div class="panel-body">
 		<input type="hidden"  name="appdefns_id" value="<%= @appdefns_id %>">
@@ -14,11 +14,11 @@
 			<span class="input-group-addon"><%= link_to "#" do %> <i class="icon-question-sign"></i> <% end %></span>
 		</div>		
 		<div class="input-group">
-			<%= text_field_tag 'lc_additional', nil, :id => "lc_additional", :class=> 'form-control required', placeholder: 'Enter Life-Cycle Additional value' %>
+			<%= text_field_tag 'lc_additional', nil, :id => "lc_additional", :class=> 'form-control required', placeholder: 'Enter additional value' %>
 			<span class="input-group-addon"><%= link_to "#" do %> <i class="icon-question-sign"></i> <% end %></span>
 		</div>
 		<div class="input-group">
-			<%= text_field_tag 'lc_when', nil, :id => "lc_when", :class=> 'form-control required', placeholder: 'Enter Life-Cycle When value' %>
+			<%= text_field_tag 'lc_when', nil, :id => "lc_when", :class=> 'form-control required', placeholder: 'Enter preconditions if any' %>
 			<span class="input-group-addon"><%= link_to "#" do %> <i class="icon-question-sign"></i> <% end %></span>
 		</div>			
 		<%= submit_tag @req_type.capitalize, :class => "btn btn-lg btn-success btn-block", :remote => true, data: { spinner: '#send_request_spinner'} %>

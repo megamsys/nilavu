@@ -65,6 +65,11 @@
 </div>
 <div class="row">
 	<div class="col-md-11">
+		<div id="oneapp"></div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-11">
 		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
@@ -87,15 +92,14 @@
 										<tr>
 											<th>Actions</th>
 											<th>Name</th>
-											<th>Clone</th>
-											<th>Delete</th>
-											<th>Created At</th>
+											<th>Marketplace</th>
+											<th>Settings</th>
+											<th>Activities</th>
 											<th>Status</th>
 										</tr>
 									</thead>
 									<tbody>
 										<% v.each do |node| %>
-
 										<tr>
 											<% cloud_book = @nodes.lookup(node) %>
 											<td> <% if cloud_book.node_type == "APP" %>
@@ -124,11 +128,21 @@
 														<%= mini_spinner_tag  'cloud_book_request_now_nrestart' %>
 													</li>
 													<li class="divider"></li>
+													<!--
 													<li>
-														<%= link_to  cloud_book_path(:action => "show", :id => cb.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'}  do %>
-														<i class="icon-list">&nbsp;Details&nbsp;</i>
-														<% end %>
+													<%= link_to  cloud_book_path(:action => "show", :id => cb.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'}  do %>
+													<i class="icon-list">&nbsp;Details&nbsp;</i>
+													<% end %>
 													</li>
+
+													<span class="icon"> <i class="icon-calendar"></i> </span> <%= cloud_book.created_at.to_datetime.to_formatted_s(:rfc822) %>
+
+													-->
+													<li>
+														<%= link_to clone_build_path(:name => cloud_book.node_name),  :title=> "Clone Cloud Book", :remote => true, method: :post do %> <i class="icon-copy"> Clone</i> <% end %>
+													</li>
+													<li>
+														<%= link_to cloud_book_path(:id => cb.id, :name => cloud_book.node_name), :title=> "Delete Cloud Book", method: :delete, :remote => true,  data: { spinlock: '#cloud_book_request_delete'}, :target => "_self", :data => { :confirm => "Are you sure you wish to delete the app ?"} do %> <i class="icon-trash"> Delete</i> <% end %>
 													</li>
 												</ul>
 											</div> <% else %>
@@ -153,13 +167,12 @@
 													</li>
 												</ul>
 											</div> <% end %> </td>
-											<td> <%= link_to "#{cloud_book.node_name}", "http://#{cloud_book.node_name}" , { :target => '_blank'} %> </td>
-											<td> <%= link_to clone_build_path(:name => cloud_book.node_name), :class =>"btn btn-mini btn-success", :title=> "Clone Cloud Book", :remote => true, method: :post do %> <i class="icon-copy"> Clone</i> <% end %> </td>
-											<td> <%= link_to cloud_book_path(:id => cb.id, :name => cloud_book.node_name), :class =>"btn btn-mini btn-danger", :title=> "Delete Cloud Book", method: :delete, :remote => true, :target => "_self", :data => { :confirm => "Are you sure?", spinner: '#delete_node'} do %> <i class="icon-trash"> Delete</i> <% end %>  <%= mini_spinner_tag 'delete_node' %> </td>
-											<td><span class="icon"> <i class="icon-calendar"></i> </span> <%= cloud_book.created_at.to_datetime.to_formatted_s(:rfc822) %> </td>
-											<td> <%= cloud_book.status %> </td>
+											<td> <%= link_to  "http://#{cloud_book.node_name}" , { :target => '_blank'} do %> <i class="icon icon-external-link">&nbsp;<%= "#{cloud_book.node_name}" %></i> <%end%> </td>
+											<td align="center"> <%= link_to  cloud_book_path(:action => "show", :id => cb.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'}  do %> <i class="icon-shopping-cart"></i> <% end %> </td>
+											<td align="center"> <%= link_to  cloud_book_path(:action => "show", :id => cb.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'}  do %> <i class="icon-cog"></i> <% end %> </td>
+											<td align="center"> <%= link_to  cloud_book_path(:action => "show", :id => cb.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'}  do %> <i class="icon-list"></i> <% end %> </td>
+											<td align="center"><i class="icon-circle"> </i><span class="label label-success" , align="center"><%= cloud_book.status %></span></td>
 										</tr>
-
 										<% end %>
 									</tbody>
 
@@ -172,11 +185,6 @@
 				<% end %>
 			</div>
 		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-11" >
-		<div  id="cb_action"></div>
 	</div>
 </div>
 

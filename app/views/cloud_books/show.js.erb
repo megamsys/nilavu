@@ -1,4 +1,7 @@
-var selected_entity = '#cb_action';
-var to_insert_content = "<%= escape_javascript(render :partial => 'cloud_books/book_details', :locals => {:cloud_book => @cloud_book, :requests => @requests, :book_requests => @book_requests }) %>";
+$(document).ready(function() {
+console.log( "ready!" );
+var selected_entity = '#oneapp';
+var to_insert_content = "<%= escape_javascript(render :partial => 'cloud_books/oneapp', :locals => {:cloud_book => @cloud_book ,:requests => @requests,:defnrequests => @defnrequests }) %>";
 insertAt(selected_entity, to_insert_content);
+});
 
