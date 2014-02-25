@@ -1,3 +1,4 @@
+
 class CloudBooksController < ApplicationController
   respond_to :html, :js
   include Packable
@@ -354,10 +355,14 @@ class CloudBooksController < ApplicationController
    
    end 
    
-   def scmmanager_auth     
+   def scmmanager_auth    
+     path = [] 
      res = ListRepoNames.perform(params[:scm_session][:username], params[:scm_session][:password])     
-     
-     render :template => "cloud_books/new", :locals => {:repos => res[:body]}
+     res[:body].each do |repo|
+       uri = repo.split("//")
+       path << "#{uri[0]}//#{params[:scm_session][:username]}:#{params[:scm_session][:password]}@#{uri[1]}"
+     end
+     render :template => "cloud_books/new", :locals => {:repos => path}
    end
    
    def create_scm_user
