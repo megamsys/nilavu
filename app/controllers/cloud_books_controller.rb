@@ -180,15 +180,14 @@ class CloudBooksController < ApplicationController
       @book =  current_user.cloud_books.build
       breadcrumbs.add " Home", "#", :class => "icon icon-home", :target => "_self"
       breadcrumbs.add "Manage Apps", cloud_books_path, :target => "_self" 
-      breadcrumbs.add "Apps Framework Selection", new_cloud_book_path, :target => "_self"
-
+      breadcrumbs.add "Apps Framework Selection", new_cloud_book_path, :target => "_self"      
     else
       redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "You need an API key to launch an app. Click Profile from the top, and generate a new API key", :sticky => false, :nodom_wrap => true } }
     end
   end
 
   def new_book
-    breadcrumbs.add " Home", "#", :class => "icon icon-home", :target => "_self"
+    breadcrumbs.add "Home", "#", :class => "icon icon-home", :target => "_self"
     breadcrumbs.add "Manage Apps", cloud_books_path, :target => "_self"
     breadcrumbs.add "Apps Framework Selection", new_cloud_book_path, :target => "_self"
     breadcrumbs.add "New", new_book_path
@@ -220,6 +219,7 @@ class CloudBooksController < ApplicationController
   def create
     logger.debug ">>> Parms #{params}"
     logger.debug ">>> Parms data #{params[:data]}"
+    #FORM DATA FROM PARAMS
     data={:book_name => params[:cloud_book][:appname], :book_type => params[:cloud_book][:book_type] , :predef_cloud_name => params[:cloud_book][:predef_cloud_name], :provider => params[:predef][:provider], :repo => 'default_chef', :provider_role => params[:predef][:provider_role], :domain_name => params[:cloud_book][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}"}
    if params[:cloud_book][:book_type] == "BOLT"
      data['user_name'] = params[:user_name]
@@ -230,7 +230,7 @@ class CloudBooksController < ApplicationController
     options = {:data => data, :group => "server", :action => "create" }
     node_hash=MakeNode.perform(options, force_api[:email], force_api[:api_key]) 
     if node_hash.class == Megam::Error
-      @res_msg="#{node_hash.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+      @res_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
       respond_to do |format|
         format.js {
           respond_with(@res_msg, :layout => !request.xhr? )
@@ -349,5 +349,19 @@ class CloudBooksController < ApplicationController
       }
     end
   end
+  
+  def scm_manager_auth  
+   
+   end 
+   
+   def scmmanager_auth     
+     res = ListRepoNames.perform(params[:scm_session][:username], params[:scm_session][:password])     
+     
+     render :template => "cloud_books/new", :locals => {:repos => res[:body]}
+   end
+   
+   def create_scm_user
+   
+   end
 
 end

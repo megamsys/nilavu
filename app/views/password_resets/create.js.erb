@@ -1,11 +1,11 @@
 <% if !@error %>
 var selected_entity = '#postfinish_reset_password';
-$(selected_entity).modal('show');
+$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
 $("#reset").show();
 $("#reset_path").append('<%= link_to  "Ok", root_path, :class => "btn btn-primary" %>');
 <% else %>
 var selected_entity = '#postfinish_reset_password_error';
-$(selected_entity).modal('show');
+$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
 $("#reset").show();
 $("#reset_error_path").append('<%= link_to  "Ok", signin_path, :class => "btn btn-primary" %>');
 <% end %>

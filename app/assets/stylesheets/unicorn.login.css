@@ -55,7 +55,7 @@ body {
 }
 
 #loginbox {
-	height: 330px;
+	height: 295px;
 	margin-top: auto;
 	box-shadow: 0 0 4px #000000;
 	border-radius: 7px;
@@ -124,29 +124,30 @@ body {
 	opacity: 0;
 	display: none;
 }
-.row.or-login {
-	margin: 0;
-	position: relative;
-}
-.row.or-login:before {
-	border-top: 1px dotted #ddd;
-	content: "";
-	display: block;
-	left: 0;
-	position: absolute;
-	right: 0;
-	top: 55%;
-	z-index: -1;
-}
-.row.or-login span {
-	background-color: #fff;
-	padding: 0 5px;
-}
+
 
 #loginbox form#recoverform .control-group, #login_register_form form#recoverform .control-group, #loginbox_password_reset form#recoverform .control-group {
 	margin: 23px 0;
 }
 
+
 .input-group {
 	padding: 0 20px 5px;
 }
+
+.footer-login {
+  border-top: 1px solid #e6e6e6;
+}
+
+.footer-login .text {
+  font-size: 16px;
+  font-weight: bold;
+  color: #555555;
+  padding: 12px 20px;
+}
+
+hr {
+  margin: 8px 0 -5px;
+}
+
+

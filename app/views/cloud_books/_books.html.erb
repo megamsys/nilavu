@@ -1,56 +1,62 @@
 <div class="row">
 	<div class="col-md-11">
-		<div class="widget-box">
+		<div class="widget-box widget-chat nopadding">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>My Apps Usage</h5>
+				<h5>Apps Activity</h5>
+				<div class="buttons">
+					<%= link_to  cloud_books_histories_path, class: "btn", title: 'Watch logs of created apps', rel: 'tooltip', :target => "_self" do %>
+					<i class="icon-facetime-video">&nbsp;Logs</i>
+					<%end %>
+					<%= link_to "http://www.gomegam.com/contact", class: "btn", :target => "_blank" do %>
+					<i class="icon icon-upgrade">&nbsp;Upgrade</i>
+					<% end %>
+				</div>
 			</div>
-			<div class="widget-content" >
-				<div class="row">
-					<div class="col-md-4">
-						<div class="cb_box">
-							<h4 align="center">Recent Activity </h4><h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><%= latest_book.created_at.to_formatted_s(:rfc822) %></h5>
-							<h5 align="Center"> <%= link_to latest_book.name, cloud_book_path(:id => latest_book.id, :name => latest_book.name, :book_type => latest_book.book_type), :remote => true, data: { spinlock: '#book'} %> </h5>
+			<div class="widget-content nopadding" >
+				<div class="chat-content panel-left">
+
+					<div class="chat-messages" id="chat-messages">
+						<div class="row">
+							<div class="col-md-11">
+								<div class="col-md-5">
+									<h4 align="Center"> <%= link_to cloud_book_path(:id => latest_book.id,:name => latest_book.name, :book_type => latest_book.book_type), :remote => true, data: { spinlock: '#book'} do %>
+									<%= latest_book.name %>&nbsp;<i class="icon-edit"></i> <% end %> </h4>
+								</div>
+								<div class="col-md-6">
+									<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><%= latest_book.created_at.to_formatted_s(:rfc822) %></h5>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+
+							</div>
 						</div>
 					</div>
-
-					<div class="col-md-4">
-						<div class="cb_box">
-							<span class="btn btn-large disabled btn-block"><h3><%= @launched_books_quota %></h3> <h4>Launched </h4> </span>
-						</div>
-						</br>
-						<a href="http://support.megam.co/kb/cloud-applications/" target="_blank"><i class="icon-question-sign"> We are here to help </i> </a>
-
-					</div>
-					<div class="col-md-4">
-						<div class="cb_box">
-							<h4 align="center"> Number of Apps </h4>
-							<h5 align="center" ><span class="icon"> <i class="icon-book"></i> </span>&nbsp;Used <b><%= @launched_books_quota %></b>&nbsp; Allowed <b>20</b></h5> <% @percent = @launched_books_quota/20.0*100 %>
-						</div>
-						<br/>
-						<div class="progress">
-							<% if @percent >= 80 %>
-							<div class="progress-bar progress-bar-warning" style="width: <%= @percent %>%;"></div>
-							<% else %>
-							<div class="progress-bar progress-bar-success" style="width: <%= @percent %>%;"></div>
-							<% end %>
-						</div>
+					<div class="chat-message well">
+						<span class="input-box input-group input-group-lg"> <span class="input-group-btn"> <%= link_to new_cloud_book_path, class: "btn btn-dark-green btn-lg btn-block", title: 'Choose your application\'s framework', rel: 'tooltip', :target => "_self" do %> <i class="icon-plus-sign">&nbsp;&nbsp;Create &nbsp;a &nbsp;new &nbsp;app&nbsp;&nbsp;</i> <% end %> </span>
+							<input placeholder="Launch apps by choosing your framework..." type="text" class="form-control" disabled name="msg-box" id="msg-box" />
+						</span>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-4">
-						<%= link_to new_cloud_book_path, class: "btn btn-lg btn-success btn-block", title: 'Choose your application\'s framework', rel: 'tooltip', :target => "_self" do %>
-						<i class="icon-rocket">&nbsp;Choose Your Framework</i>
-						<% end %>
+				<div class="chat-users panel-right">
+					<div class="panel-title">
+						<h5>Apps usage <a href="http://support.megam.co/kb/cloud-applications/" class="pull-right" target="_blank"><i class="icon-question-sign"> Help</i> </a></h5>
 					</div>
-					<div class="col-md-4">
-						<%= link_to  cloud_books_histories_path, class: "btn btn-lg btn-info btn-block", title: 'Watch logs of created apps', rel: 'tooltip', :target => "_self" do %>
-						<i class="icon-facetime-video">&nbsp;Watch Logs</i>
-						<%end %>
-					</div>
-					<div class="col-md-4">
-						<!-- 	<%= link_to "Upgrade", pricing_path, class: "btn btn-lg btn-inverse btn-block ", :target => "_self" %> -->
-						<%= link_to "Upgrade", "http://www.gomegam.com/contact", class: "btn btn-lg btn-inverse btn-block ", :target => "_blank" %>
+					<div class="panel-content nopadding">
+						<ul class="contact-list">
+							<li id="user-michelle" class="online new">
+								<h5 align="center" ><span class="icon"> <i class="icon-rocket"></i> </span>&nbsp;Launched <b><%= @launched_books_quota %></b>&nbsp; Allowed <b>20</b></h5> <% @percent = @launched_books_quota/20.0*100 %>
+								<div class="progress">
+									<% if @percent >= 80 %>
+									<div class="progress-bar progress-bar-warning" style="width: <%= @percent %>%;"></div>
+									<% else %>
+									<div class="progress-bar progress-bar-success" style="width: <%= @percent %>%;"></div>
+									<% end %>
+								</div>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</div>
@@ -64,7 +70,7 @@
 				<span class="icon"> <i class="icon-th-list"></i> </span>
 				<h5>My Apps</h5>
 			</div>
-			<div class="widget-content">
+			<div class="widget-content nopadding">
 				<% @launched_books.each do |k, v| %>
 				<% cb = CloudBook.find_by_group_name(k) %>
 				<div class="accordion" id="collapse-group">
@@ -195,7 +201,9 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary", :target => "_self"%>
+				<button class="btn btn-pink" data-dismiss="modal">
+					Ok
+				</button>
 			</div>
 		</div>
 	</div>
@@ -220,7 +228,9 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary", :target => "_self"%>
+				<button class="btn btn-pink" data-dismiss="modal">
+					Ok
+				</button>
 			</div>
 		</div>
 	</div>

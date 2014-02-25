@@ -5,11 +5,8 @@
 **/
 $(document).ready(function(){		
    
-    $('.spinner').spinner();
-
-		
-	$('select').select2();
-   
+    $('.spinner').spinner();		
+	$('select').select2();  
     
 
 });

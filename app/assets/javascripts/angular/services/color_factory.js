@@ -1,7 +1,7 @@
 app.factory("ColorFactory", function() {
 
   var colorPalette = [
-    '#DEFFA1',
+    //'#DEFFA1',
     // '#D26771',
     '#6CCC70',
     '#FF8900',

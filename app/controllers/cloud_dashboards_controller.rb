@@ -3,14 +3,14 @@ class CloudDashboardsController < ApplicationController
   respond_to :html
   def index
     if current_user
-    breadcrumbs.add " Dashboard", :cloud_dashboards_path, :class => "icon icon-dashboard"
-    @user_id = current_user.id
-    @launched_apps_services = current_user.cloud_books
-    @cloud_distrib = collapse_cloud_distrib
-    @apps_distrib=collapse_apps_distrib
-    @apps_distrib.each_pair{|k,v| @apps_distrib.store(k,v.to_i)}
+      breadcrumbs.add " Dashboard", :cloud_dashboards_path, :class => "icon icon-dashboard"
+      @user_id = current_user.id
+      @launched_apps_services = current_user.cloud_books
+      @cloud_distrib = collapse_cloud_distrib
+      @apps_distrib=collapse_apps_distrib
+      @apps_distrib.each_pair{|k,v| @apps_distrib.store(k,v.to_i)}
     else
-    	redirect_to signin_path
+      redirect_to signin_path
     end
   end
 
@@ -18,7 +18,7 @@ class CloudDashboardsController < ApplicationController
 
   def collapse_cloud_distrib
     lac = @launched_apps_services.each_with_object(Hash.new{|h,k|h[k]='0'}) do |h,res|
-      res[h[:cloud_name].to_sym].succ!
+      res[h[:cloud_name].to_sym].succ! if h[:cloud_name] 
     end
     # this is a stupid idea, move it to enum (Rails 4.1 feature)
     lac[:aws] = 0 unless lac[:aws]

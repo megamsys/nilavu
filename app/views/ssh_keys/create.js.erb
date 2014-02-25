@@ -2,11 +2,11 @@
 
 var selected_entity = '#sshkey_postfinish_popup_error';
 $("#err_msg").html('<%= @err_msg %>');
-$(selected_entity).modal('show');
+$(selected_entity).modal({backdrop : false,keyboard: true, show : true});
 
 <% else %>
 var selected_entity = '#sshkey_postfinish_popup';
 $("#res_msg").html('<%= @res_msg %>');
-$(selected_entity).modal('show');
+$(selected_entity).modal({backdrop : false,show : true});
 
 <% end %>

@@ -27,11 +27,9 @@
 //= require spin
 //= require jquery.spin
 //= require gritter
-//= require jquery.uniform
 //= require select2
 //= require jquery.validate
 //= require jquery.wizard
-//= require jquery.peity
 //= require jquery.icheck
 //= require megam.popovers
 //= require megam.spin
@@ -40,6 +38,7 @@
 //= require unicorn.login
 //= require cloud_books
 //= require cloud_settings
+//= require jquery.peity
 //= require masonry/jquery.masonry
 //= require unicorn.form_common
 //= require unicorn.form_validation

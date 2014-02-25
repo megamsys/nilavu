@@ -32,33 +32,36 @@ module Sources
       end
 
       def get(options = {})
-        #from    = (options[:from]).to_i
-        #to      = (options[:to] || Time.now).to_i
         range = options[:range].to_s
         host    = getHost(options[:widgetid])       
-        #graph_metric  = Rails.configuration.ganglia_graph_metric
         result_json = {}
-        options[:target] = ["cpu_system", "nginx_requests", "disk_free", "proc_run", "mem_free", "bytes_out"]
-        options[:target].each do |target|
-        graph_metric = target.to_s
-        ganglia_datapoints = request_datapoints(range, graph_metric, host)        
-        result_json["#{target}"] = ganglia_datapoints
-        end
         
         uptime_metric  = Rails.configuration.ganglia_request_metric
-        #targets = targets.reject(&:blank?)
-        #ganglia_datapoints = request_datapoints(from, to, graph_metric, host)   
-             
-        #ganglia_uptime = request_uptime(from, to, uptime_metric, host)
-        ganglia_uptime = request_uptime(range, uptime_metric, host)
-        #model_rpm = request_rpm(from, to, uptime_metric, host)
+        overview_hash = request_overview(range, uptime_metric, host)
+        ganglia_uptime = overview_hash["uptime"]
+        
         model_rpm = request_rpm(range, uptime_metric, host)
         new_books = request_new_books(options)
         total_books = request_total_books(options)
+        result1 = {}
+        result1 = { "uptime" => overview_hash["uptime"], "os" => overview_hash["os"], "cpus" => overview_hash["cpus"], "host" => host}
+        
+        
+        target_hash={"cpu" => ["cpu_idle", "cpu_user", "cpu_system"], "disk" => ["disk_total", "disk_free"], "memory" => ["mem_free", "mem_cached"], "network" => ["bytes_out", "bytes_in"]}
+        target_hash.each do |target_key, target_value|
+          
+        targets = target_value
+        ganglia_datapoints = request_datapoints_dash(range, targets, host)        
+
         result = []
-        result << { "datapoints" => result_json, "uptime_data" => ganglia_uptime, "rpm" => model_rpm, "new_books" => new_books, "total_books" => total_books, "total_queues" => Random.rand(10...100), "host" => host}
-        raise Sources::Datapoints::NotFoundError if result.empty?
-        result
+        targets.each_with_index do |target, index|
+          result << { "target" => target, "datapoints" => ganglia_datapoints[index] }
+        end
+          result1["#{target_key}"] = result
+         end #Each target_hash
+        raise Sources::Datapoints::NotFoundError if result1.empty?
+        puts "RESULT!!!!!!!11111111=======================================================================> "
+        result1
       end
 
       private
@@ -76,20 +79,49 @@ module Sources
         result
       end
 
-      def request_uptime(range, target, host)
+      def request_datapoints_dash(range, targets, host)
+        result = []
+        targets.each do |target|
+          hash = @url_builder.datapoints_url(range, target, host)
+          Rails.logger.debug("Requesting datapoints from #{hash[:url]} with params #{hash[:params]} ...")
+          response = ::HttpService.request(hash[:url], :params => hash[:params])
+          if response == "null"
+            result << []
+          else
+            result << response.first["datapoints"]
+          end
+        end
+        result
+      end
+      
+      
+      def request_overview(range, target, host)
         hash = @url_builder.data_url(range, target, host)
         Rails.logger.debug("Requesting Uptime from #{hash[:url]} with params #{hash[:params]} ...")
         response = ::HttpService.request(hash[:url], :params => hash[:params])
         Nokogiri::HTML(response).xpath("//table/tr/td/table/tr").collect do |row|
+          puts "ROW============> "
+          puts row.inspect
           if row.at("td[1]/text()").to_s == "Uptime"
-            @timestamp   = row.at("td[2]/text()").to_s
+            @uptime   = row.at("td[2]/text()").to_s
+          end
+          if row.at("td[1]/text()").to_s == "Operating System"
+            @os = row.at("td[2]/text()").to_s
+          end
+          if row.at("td[1]/text()").to_s == "CPU Count"
+            @cpus = row.at("td[2]/text()").to_s
+          end
+          if row.at("td[1]/text()").to_s == "Memory Total"
+            @memory = row.at("td[2]/text()").to_s
           end
         end       
         if response == nil
           result = ""
         else
         #result << response.first["datapoints"]
-        result = @timestamp
+        #result = @timestamp
+        #result = {"uptime" => "#{@uptime}", "os" => "#{@os}", "cpus" => "#{@cpus}", "memory" => "#{@memory}"}
+        result = {"uptime" => "#{@uptime}", "os" => "#{@os}", "cpus" => "#{@cpus}"}
         end
         result
       end
