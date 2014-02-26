@@ -9,13 +9,13 @@ module Api
 
     def index
       @user_id = current_user.id
-      dashboards = current_user.cloud_books
+      dashboards = current_user.apps
       respond_with dashboards
     end
 
     def dash_show
       @user_id = current_user.id
-      dashboards = current_user.cloud_books
+      dashboards = current_user.apps
       respond_with dashboards
     end
 

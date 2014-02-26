@@ -36,7 +36,7 @@
 //= require cross_clouds
 //= require connector_projects
 //= require unicorn.login
-//= require cloud_books
+//= require apps
 //= require cloud_settings
 //= require jquery.peity
 //= require masonry/jquery.masonry

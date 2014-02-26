@@ -1,20 +1,20 @@
 
-class CloudBooksController < ApplicationController
+class AppsController < ApplicationController
   respond_to :html, :js
   include Packable
-  include CloudBooksHelper
+  include AppsHelper
   
   ## I don't see a point in calling all the node details for an user. We should avoid it. 
   ## ie. skip FindNodesByEmail ?
   def index
-    cloud_books = current_user.cloud_books.where(:book_type => 'APP').order("id DESC").all
+    cloud_books = current_user.apps.where(:book_type => 'APP').order("id DESC").all
     if cloud_books.any?
       breadcrumbs.add " Home", "#", :class => "icon icon-home", :target => "_self"      
-      breadcrumbs.add "Manage Apps", cloud_books_path, :target => "_self"      
+      breadcrumbs.add "Manage Apps", apps_path, :target => "_self"      
 
       @nodes = FindNodesByEmail.perform({},current_user.email, current_user.api_token)
       if @nodes.class == Megam::Error
-        redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
+        redirect_to new_app_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
       else             
         book_names = cloud_books.map {|c| c.group_name}
         book_names = book_names.uniq
@@ -28,12 +28,12 @@ class CloudBooksController < ApplicationController
         @launched_books_quota = @nodes.all_nodes.length 
         end           
         else    
-      redirect_to new_cloud_book_path
+      redirect_to new_app_path
     end
   end
 
   def build_request
-   logger.debug "--> CloudBooks:Build_request, #{params}"
+   logger.debug "--> Apps:Build_request, #{params}"
    packed_parms = packed("Meat::Defns",params)      
     @defnd_out ={}
     defnd_result =  CreateDefnRequests.send(params[:book_type].downcase.to_sym, packed_parms, force_api[:email], force_api[:api_key])    
@@ -47,12 +47,12 @@ class CloudBooksController < ApplicationController
   end
 
   def get_request
-    logger.debug "--> CloudBooks:get_request"   
+    logger.debug "--> Apps:get_request"   
    packed_parms = packed_h("Meat::Defns",params)   
-   logger.debug "--> CloudBooks:get_request, #{params}"
+   logger.debug "--> Apps:get_request, #{params}"
    defns_result =  FindDefnById.send(params[:book_type].downcase.to_sym, packed_parms, force_api[:email], force_api[:api_key]) 
    params[:lc_apply] =  defns_result.lookup(params[:defns_id]).appdefns[:runtime_exec] unless defns_result.class == Megam::Error
-    logger.debug "--> CloudBooks:get_request, #{params[:lc_apply]}"
+    logger.debug "--> Apps:get_request, #{params[:lc_apply]}"
     if params[:lc_apply]["#[start]"].present? 
          params[:lc_apply]["#[start]"] = params[:req_type]               
     end          
@@ -69,130 +69,31 @@ class CloudBooksController < ApplicationController
    end
   end
 
-  def send_request 
-    logger.debug "--> CloudBooks:send_request"      
-    packed_parms = packed_h("Meat::Defns",params)    
-    defns_result =  FindDefnById.send(params[:book_type].downcase.to_sym, packed_parms, force_api[:email], force_api[:api_key])  
-    params[:lc_apply] =  defns_result.lookup(params[:defns_id]).appdefns[:runtime_exec] unless defns_result.class == Megam::Error
-    if params[:lc_apply]["#[start]"].present? 
-         params[:lc_apply]["#[start]"] = params[:req_type]
-    end           
-    packed_parms = packed("Meat::Defns",params)      
-    @defnd_out ={}
-    defnd_result =  CreateDefnRequests.send(params[:book_type].downcase.to_sym, packed_parms, force_api[:email], force_api[:api_key])    
-    @defnd_out[:error] = "Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}." if @req.class == Megam::Error
-    @defnd_out[:success] = defnd_result.some_msg[:msg] 
-    respond_to do |format|
-      format.js {
-        respond_with(@defnd_out, :layout => !request.xhr? )
-      }
-    end
-  end
-  
-  def clone_build
-    @node_name = "#{params[:name]}"
-  end
-
-  def clone_start
-    wparams = { :node => "#{params[:clone_name]}" }
-    @clone_nodes =  FindNodeByName.perform(wparams, force_api[:email],force_api[:api_key])
-    logger.debug "CloudBooks:clone_start, found the node"
-    if @clone_nodes.class == Megam::Error
-      @res_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
-      respond_to do |format|
-        format.js {
-          respond_with(@res_msg, :layout => !request.xhr? )
-        }
-      end
-    else
-      @clone_node = @clone_nodes.lookup("#{params[:clone_name]}")
-      node_hash = {
-        "node_name" => "#{params[:new_name]}#{params[:domain_name]}",
-        "node_type" => "#{@clone_node.node_type}",
-        "req_type" => "#{@clone_node.request[:req_type]}",
-        "noofinstances" => params[:noofinstances].to_i,
-        "command" => @clone_node.request[:command],
-        "predefs" => @clone_node.predefs,
-        "appdefns" => {"timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
-        "boltdefns" => {"username" => "", "apikey" => "", "store_name" => "", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
-        "appreq" => {},
-        "boltreq" => {}
-      }
-     @predef_name = @clone_node.predefs[:name]
-      predef_options = {:predef_name => @predef_name}
-      pred = FindPredefsByName.perform(predef_options,force_api[:email],force_api[:api_key])
-      if pred.class == Megam::Error
-        redirect_to cloud_books_path, :gflash => { :warning => { :value => "#{pred.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-      else
-        @predef = pred.lookup(@predef_name)
-      end
-      
-      runtime_exec = @predef.runtime_exec
-       if @clone_node.node_type == "APP"
-        if @clone_node.predefs[:scm].length > 0
-          runtime_exec = change_runtime(@clone_node.predefs[:scm], @predef.runtime_exec)
-        end
-        if @clone_node.predefs[:war].length > 0
-          runtime_exec = change_runtime(@clone_node.predefs[:war], @predef.runtime_exec)
-        end
-        #node_hash["appdefns"] = {"timetokill" => "#{data[:timetokill]}", "metered" => "#{data[:metered]}", "logging" => "#{data[:logging]}", "runtime_exec" => "#{data[:runtime_exec]}"}
-        node_hash["appdefns"] = {"timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => "#{runtime_exec}"}
-      end
-      if @clone_node.node_type == "BOLT"
-        #node_hash["boltdefns"] = {"username" => "#{data['user_name']}", "apikey" => "#{data['password']}", "store_name" => "#{data['store_name']}", "url" => "#{data['url']}", "prime" => "#{data['prime']}", "timetokill" => "#{data['timetokill']}", "metered" => "#{data['monitoring']}", "logging" => "#{data['logging']}", "runtime_exec" => "#{data['runtime_exec']}" }
-      end
-      
-      
-      
-      wparams = {:node => node_hash }
-      @node = CreateNodes.perform(wparams,force_api[:email], force_api[:api_key])
-      if @node.class == Megam::Error
-      @res_msg="#{node_hash.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
-      respond_to do |format|
-        format.js {
-          respond_with(@res_msg, :layout => !request.xhr? )
-        }
-      end
-      else
-        @node.each do |node|       
-        res = node.some_msg[:msg][node.some_msg[:msg].index("{")..node.some_msg[:msg].index("}")] 
-        res_hash = eval(res)   
-        book_params={:name=> "#{res_hash[:node_name]}", :domain_name=> "#{params[:domain_name]}", :predef_cloud_name => "default", :predef_name=> "#{@clone_node.predefs[:name]}", :book_type=> "#{@clone_node.node_type}", :group_name => "#{params[:new_name]}"}                  
-        @book = current_user.cloud_books.create(book_params)
-        @book.save
-        params = {:book_name => "#{@book.name}", :request_id => "#{res_hash[:req_id]}", :status => "created", :group_name => "#{@book.domain_name}"}
-        @history = @book.cloud_books_histories.create(params)
-        @history.save
-        end
-      end
-    end
-  end
-
   def authorize_scm
     logger.debug "CloudBooks:authorize_scm, entry"
     auth_token = request.env['omniauth.auth']['credentials']['token']
     github = Github.new oauth_token: auth_token
     git_array = github.repos.all.collect { |repo| repo.clone_url }
     @repos = git_array
-    render :template => "cloud_books/new", :locals => {:repos => @repos}
+    render :template => "apps/new", :locals => {:repos => @repos}
   end
 
   def new  
     if current_user.onboarded_api
-      @book =  current_user.cloud_books.build
+      @book =  current_user.apps.build
       breadcrumbs.add " Home", "#", :class => "icon icon-home", :target => "_self"
-      breadcrumbs.add "Manage Apps", cloud_books_path, :target => "_self" 
-      breadcrumbs.add "Apps Framework Selection", new_cloud_book_path, :target => "_self"      
+      breadcrumbs.add "Manage Apps", apps_path, :target => "_self" 
+      breadcrumbs.add "Apps Framework Selection", new_app_path, :target => "_self"      
     else
       redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "You need an API key to launch an app. Click Profile from the top, and generate a new API key", :sticky => false, :nodom_wrap => true } }
     end
   end
 
-  def new_book
+  def launch
     breadcrumbs.add "Home", "#", :class => "icon icon-home", :target => "_self"
-    breadcrumbs.add "Manage Apps", cloud_books_path, :target => "_self"
-    breadcrumbs.add "Apps Framework Selection", new_cloud_book_path, :target => "_self"
-    breadcrumbs.add "New", new_book_path
+    breadcrumbs.add "Manage Apps", apps_path, :target => "_self"
+    breadcrumbs.add "Apps Framework Selection", new_app_path, :target => "_self"
+
 
    if"#{params[:deps_scm]}".strip.length != 0
       @deps_scm = "#{params[:deps_scm]}"
@@ -200,16 +101,16 @@ class CloudBooksController < ApplicationController
       @deps_scm = "#{params[:scm]}"
     end
     @deps_war = "#{params[:deps_war]}" if params[:deps_war]
-    @book =  current_user.cloud_books.build
+    @book =  current_user.apps.build
     @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key])    
     if @predef_cloud.class == Megam::Error 
-      redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}--#{@ssh_keys.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}--#{@ssh_keys.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
       @predef_name = params[:predef_name]
       predef_options = {:predef_name => @predef_name}
       pred = FindPredefsByName.perform(predef_options,force_api[:email],force_api[:api_key])    
       if pred.class == Megam::Error
-        redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{pred.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        redirect_to new_app_path, :gflash => { :warning => { :value => "#{pred.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
         @predef = pred.lookup(@predef_name)
         @domain_name = ".megam.co"
@@ -220,10 +121,9 @@ class CloudBooksController < ApplicationController
 
   def create
     logger.debug ">>> Parms #{params}"
-    logger.debug ">>> Parms data #{params[:data]}"
     #FORM DATA FROM PARAMS
-    data={:book_name => params[:cloud_book][:appname], :book_type => params[:cloud_book][:book_type] , :predef_cloud_name => params[:cloud_book][:predef_cloud_name], :provider => params[:predef][:provider], :repo => 'default_chef', :provider_role => params[:predef][:provider_role], :domain_name => params[:cloud_book][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}"}
-   if params[:cloud_book][:book_type] == "BOLT"
+    data={:book_name => params[:app][:appname], :book_type => params[:app][:book_type] , :predef_cloud_name => params[:app][:predef_cloud_name], :provider => params[:predef][:provider], :repo => 'default_chef', :provider_role => params[:predef][:provider_role], :domain_name => params[:app][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}"}
+   if params[:app][:book_type] == "BOLT"
      data['user_name'] = params[:user_name]
      data['password'] = params[:password]
      data['store_db_name'] = params[:store_db_name]
@@ -252,11 +152,11 @@ class CloudBooksController < ApplicationController
         @node.each do |node|       
         res = node.some_msg[:msg][node.some_msg[:msg].index("{")..node.some_msg[:msg].index("}")]       
         res_hash = eval(res)                  
-        book_params={:name=> "#{res_hash[:node_name]}", :domain_name=> "#{params[:cloud_book]['domain_name']}", :predef_cloud_name => "#{params[:cloud_book]['predef_cloud_name']}", :predef_name=> "#{params[:cloud_book]['predef_name']}", :book_type=> "#{params[:cloud_book]['book_type']}", :group_name => "#{params[:cloud_book]['appname']}", :cloud_name => "#{node_hash["command"]["compute"]["cctype"]}"}                  
-        @book = current_user.cloud_books.create(book_params)
+        book_params={:name=> "#{res_hash[:node_name]}", :domain_name=> "#{params[:app]['domain_name']}", :predef_cloud_name => "#{params[:app]['predef_cloud_name']}", :predef_name=> "#{params[:app]['predef_name']}", :book_type=> "#{params[:app]['book_type']}", :group_name => "#{params[:app]['appname']}", :cloud_name => "#{node_hash["command"]["compute"]["cctype"]}"}                  
+        @book = current_user.apps.create(book_params)
         @book.save
         params = {:book_name => "#{@book.name}", :request_id => "#{res_hash[:req_id]}", :status => "created", :group_name => "#{@book.domain_name}"}
-        @history = @book.cloud_books_histories.create(params)
+        @history = @book.apps_histories.create(params)
         @history.save
         dash(@book)
         end  
@@ -305,15 +205,10 @@ class CloudBooksController < ApplicationController
         }
       end
     else
-      @requests = GetRequestsByNode.perform(wparams,force_api[:email], force_api[:api_key])  #no error checking for GetRequestsByNode ? 
-      @defnrequests =  GetDefnRequestsByNode.send(params[:book_type].downcase.to_sym, wparams,force_api[:email], force_api[:api_key])
-      if @defnrequests.class == Megam::Error
-        @defnrequests={"results" => {"req_type" => "", "create_at" => "", "lc_apply" => "", "lc_additional" => "", "lc_when" => ""}}
-      end
       @cloud_book = @node.lookup("#{params[:name]}")
       respond_to do |format|
         format.js {
-          respond_with(@cloud_book, @requests, @defnrequests, :layout => !request.xhr? )
+          respond_with(@cloud_book, :layout => !request.xhr? )
         }
       end
     end
@@ -321,7 +216,7 @@ class CloudBooksController < ApplicationController
 
  
   def destroy    
-    @book = CloudBook.find_by_name(params[:name])
+    @book = App.find_by_name(params[:name])
     options = {:node_name => "#{params[:name]}", :group => "server", :action => "delete", :repo => 'default_chef' }
     node_hash=DeleteNode.perform(options, force_api[:email], force_api[:api_key])    
     if node_hash.class == Megam::Error
@@ -333,7 +228,7 @@ class CloudBooksController < ApplicationController
         @res_msg="#{@node.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
       else      
        @book.destroy
-       @book.cloud_books_histories.each do |cbh|
+       @book.apps_histories.each do |cbh|
             cbh.destroy
           end     
        @book.widgets.each do |cbh|
@@ -361,7 +256,7 @@ class CloudBooksController < ApplicationController
        uri = repo.split("//")
        path << "#{uri[0]}//#{params[:scm_session][:username]}:#{params[:scm_session][:password]}@#{uri[1]}"
      end
-     render :template => "cloud_books/new", :locals => {:repos => path}
+     render :template => "apps/new", :locals => {:repos => path}
    end
    
    def create_scm_user

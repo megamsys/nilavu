@@ -1,0 +1,7 @@
+$(document).ready(function() {
+console.log( "ready!" );
+var selected_entity = '#oneapp';
+var to_insert_content = "<%= escape_javascript(render :partial => 'apps/oneapp', :locals => {:cloud_book => @cloud_book }) %>";
+insertAt(selected_entity, to_insert_content);
+});
+

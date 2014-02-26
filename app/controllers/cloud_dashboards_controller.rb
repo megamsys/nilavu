@@ -5,7 +5,7 @@ class CloudDashboardsController < ApplicationController
     if current_user
       breadcrumbs.add " Dashboard", :cloud_dashboards_path, :class => "icon icon-dashboard"
       @user_id = current_user.id
-      @launched_apps_services = current_user.cloud_books
+      @launched_apps_services = current_user.apps
       @cloud_distrib = collapse_cloud_distrib
       @apps_distrib=collapse_apps_distrib
       @apps_distrib.each_pair{|k,v| @apps_distrib.store(k,v.to_i)}

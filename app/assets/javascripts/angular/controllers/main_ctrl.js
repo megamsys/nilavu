@@ -12,7 +12,7 @@ app.controller("MainCtrl", [ "$scope", "$rootScope", "$location",
 			}
 			 $scope.go = function ( path ) {
 				 console.log("location");
-				  $location.path('/cloud_books');
+				  $location.path('/apps');
 				};
 				
 				function changeLocation() {

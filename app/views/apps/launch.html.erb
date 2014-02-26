@@ -10,7 +10,7 @@
 <% @appname = book_name %>
 
 <div class="container">
-	<%= link_to  new_cloud_book_path, :class =>"btn btn-default", :target=>"_self" do %>
+	<%= link_to  new_app_path, :class =>"btn btn-default", :target=>"_self" do %>
 	<i class="icon icon-chevron-left"></i>
 	<% end %>
 	<div class="row">
@@ -168,7 +168,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<%= link_to  "Ok", cloud_books_path, :class => "btn btn-primary", :target => "_self" %>
+				<%= link_to  "Ok", apps_path, :class => "btn btn-primary", :target => "_self" %>
 			</div>
 		</div>
 	</div>
@@ -192,7 +192,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<%= link_to  "OK", new_cloud_book_path, :class => "btn btn-pink", :target => "_self" %>
+				<%= link_to  "OK", new_app_path, :class => "btn btn-pink", :target => "_self" %>
 			</div>
 		</div>
 	</div>

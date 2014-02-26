@@ -32,12 +32,6 @@ _.templateSettings = {
 	interpolate : /\{\{(.+?)\}\}/g
 };
 
-function cloudbooksctrl($scope, $location) {
-	console.log("cloudbookctrl: $location---->" + $location.path());
-	$apply(function() {
-		$location.path("/cloud_books/index").replace();
-	});
-}
 
 function BookCtrl($scope, $routeParams) {
 	// $scope.templateUrl = JST["angular/templates/widget/book_show"];

@@ -5,10 +5,10 @@ module Sources
         widget  = Widget.find(options[:wid].to_i)
         dashboard_id = widget.dashboard_id
         #dashboard = Dashboard.find(dashboard_id)
-        dashboard = CloudBook.find(dashboard_id)
+        dashboard = App.find(dashboard_id)
         user_id = dashboard.users_id
-        r = (CloudBooksHistory.where(:book_id => CloudBook.where(:id => dashboard_id)).where(:status => 'created').count).to_f
-        t = (CloudBook.where(:users_id => user_id).count).to_f
+        r = (AppsHistory.where(:book_id => App.where(:id => dashboard_id)).where(:status => 'created').count).to_f
+        t = (App.where(:users_id => user_id).count).to_f
         if t == 0.0
         a = 0.0
         else

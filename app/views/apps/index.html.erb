@@ -6,7 +6,7 @@
 </div>
 
 <div class="container">
-	<%= render :partial => "cloud_books/apps" , :locals => {:launched_books_quota => @launched_books_quota, :launched_books => @launched_books, :nodes => @nodes } %>
+	<%= render :partial => "apps/apps" , :locals => {:launched_books_quota => @launched_books_quota, :launched_books => @launched_books, :nodes => @nodes } %>
 </div>
 
 <div id="cloudbook_delete_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -42,7 +42,7 @@
 
 				<h3 id="myModalLabel">Clone - App</h3>
 			</div>
-			<%= form_tag(clone_start_path, :method => "post", :remote => true) do %>
+			<%= form_tag(clone_path, :method => "post", :remote => true) do %>
 			<div class="modal-body">
 				<% @new_book_name = book_name %>
 				<% @domain_name = ".megam.co" %>
@@ -95,7 +95,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<%= link_to  "OK", cloud_books_path, :class => "btn btn-pink", :target => "_self" %>
+				<%= link_to  "OK", apps_path, :class => "btn btn-pink", :target => "_self" %>
 			</div>
 		</div>
 	</div>
@@ -119,7 +119,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<%= link_to  "OK", new_cloud_book_path, :class => "btn btn-pink", :target => "_self" %>
+				<%= link_to  "OK", new_app_path, :class => "btn btn-pink", :target => "_self" %>
 			</div>
 		</div>
 	</div>

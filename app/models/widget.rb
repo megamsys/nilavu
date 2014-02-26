@@ -1,5 +1,5 @@
 class Widget < ActiveRecord::Base
-   belongs_to :cloud_book
+   belongs_to :app
 
   serialize :settings
   serialize :targets, Array

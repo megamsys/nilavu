@@ -13,7 +13,7 @@ class DashboardsController < ApplicationController
     breadcrumbs.add "Disks", "#"
     @id = params[:id]
     @user_id = current_user.id
-    @dashboards = current_user.cloud_books
+    @dashboards = current_user.apps
     @count = @dashboards.length
   end
 

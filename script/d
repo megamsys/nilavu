@@ -377,32 +377,20 @@ dbinit(){
 		rake db:migrate:up VERSION=20120319154255
 		#create organization
 		rake db:migrate:up VERSION=20120811145124
-		#alter organization - logo
-		rake db:migrate:up VERSION=20120811145726
 		#create cloud_identities
 		rake db:migrate:up VERSION=20120817045502
 		#create apps_items
 		rake db:migrate:up VERSION=20120824094944
 		#create products
 		rake db:migrate:up VERSION=20120829143151
-		#alter products - cloud_sync
-		rake db:migrate:up VERSION=20140113005233		
-       	#create cloud_books
+	       	#create apps
 		rake db:migrate:up VERSION=20130718123920
-        #create cloud_books_histories
+        #create apps_histories
         rake db:migrate:up VERSION=20130726050612
         #dashboards
         rake db:migrate:up VERSION=20130828100755
         #widgets
         rake db:migrate:up VERSION=20130828101201
-        #products - cloud_sync
-        rake db:migrate:up VERSION=20140113005233
-        #cloud_books - group_name
-        rake db:migrate:up VERSION=20140113092030
-        #cloud_books_histories - group_name
-        rake db:migrate:up VERSION=20140113092436  
-        #cloud_books - cloud_name
-        rake db:migrate:up VERSION=20140120091328       
 		rake db:seed
 
 		fi
@@ -418,17 +406,9 @@ dbinit(){
 #also will perform the required cleanup.
 #--------------------------------------------------------------------------
 dbclean(){
-#cloud_books - cloud_name
-rake db:migrate:down VERSION=20140120091328 
-#cloud_books_histories - group_name
-rake db:migrate:down VERSION=20140113092436
-#cloud_books - group_name
-rake db:migrate:down VERSION=20140113092030
-#alter products - cloud_sync
-rake db:migrate:down VERSION=20140113005233
-#remove cloud_books_histories
+#remove apps_histories
 rake db:migrate:down VERSION=20130726050612
-#remove cloud_books
+#remove apps
 rake db:migrate:down VERSION=20130718123920
 #remove products
 rake db:migrate:down VERSION=20120829143151
@@ -436,8 +416,6 @@ rake db:migrate:down VERSION=20120829143151
 rake db:migrate:down VERSION=20120824094944
 #remove cloud_identities
 rake db:migrate:down VERSION=20120817045502
-#remove logo
-rake db:migrate:down VERSION=20120811145726
 #drop organizations
 rake db:migrate:down VERSION=20120811145124
 #drop identities
@@ -449,37 +427,26 @@ rake db:migrate:down VERSION=20130828100755
 #widgets
 rake db:migrate:down VERSION=20130828101201 
  
-
 #create users
 rake db:migrate:up VERSION=20120319153913
 #create identities
 rake db:migrate:up VERSION=20120319154255
 #create organization
 rake db:migrate:up VERSION=20120811145124
-#alter organization - logo
-rake db:migrate:up VERSION=20120811145726
 #create cloud_identities
 rake db:migrate:up VERSION=20120817045502
 #create apps_items
 rake db:migrate:up VERSION=20120824094944
 #create products
 rake db:migrate:up VERSION=20120829143151
-#create cloud_books
+#create apps
 rake db:migrate:up VERSION=20130718123920
-#create cloud_books_histories
+#create apps_histories
 rake db:migrate:up VERSION=20130726050612
 #dashboards
 rake db:migrate:up VERSION=20130828100755
 #widgets
 rake db:migrate:up VERSION=20130828101201 
-#alter products - cloud_sync
-rake db:migrate:up VERSION=20140113005233
-#cloud_books - group_name
-rake db:migrate:up VERSION=20140113092030
-#cloud_books_histories - group_name
-rake db:migrate:up VERSION=20140113092436
-#cloud_books - cloud_name
-rake db:migrate:up VERSION=20140120091328  
 rake db:seed
 
 exitScript 0
