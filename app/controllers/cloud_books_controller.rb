@@ -356,14 +356,23 @@ class CloudBooksController < ApplicationController
    
    def scmmanager_auth    
      path = [] 
-     res = ListRepoNames.perform(params[:scm_session][:username], params[:scm_session][:password])     
-     res[:body].each do |repo|
-       uri = repo.split("//")
-       path << "#{uri[0]}//#{params[:scm_session][:username]}:#{params[:scm_session][:password]}@#{uri[1]}"
-     end
-     render :template => "cloud_books/new", :locals => {:repos => path}
+     res = ListRepoNames.perform(params[:scm_session][:username], params[:scm_session][:password])    
+     puts res 
+     if res[:status] != "200" && res[:status] == "401"
+       flash[:error] = 'Invalid username and password combination'
+        render 'cloud_books/scm_manager_auth'
+      elsif res[:status] != "200" && res[:status] != "401"
+           flash[:error] = res[:some_msg]
+        render 'cloud_books/scm_manager_auth'       
+      else
+         res[:body].each do |repo|
+           uri = repo.split("//")
+           path << "#{uri[0]}//#{params[:scm_session][:username]}:#{params[:scm_session][:password]}@#{uri[1]}"
+          end
+         render :template => "cloud_books/new", :locals => {:repos => path}
+     end     
    end
-   
+ 
    def create_scm_user
    
    end

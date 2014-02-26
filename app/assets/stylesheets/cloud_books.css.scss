@@ -195,3 +195,27 @@ border:2px solid #CCC;
 .cb_box h4 {color: #000000 ; padding:10px;}
 
 i[id*='githubsample_'] {margin: 5px; cursor: pointer }
+
+ul.scm_tool_horizontal{
+margin:0;
+padding:0;
+}
+
+ul.scm_tool_horizontal li{
+display:block;
+float:left;
+padding:0 70px;
+}
+
+ul.scm_code_horizontal{
+margin:0;
+padding:0;
+}
+
+ul.scm_code_horizontal li{
+display:block;
+float:left;
+padding:0 70px;
+}
+
+

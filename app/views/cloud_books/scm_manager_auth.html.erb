@@ -3,14 +3,14 @@
 <%= render :partial => "customizations/flash_messages" %>
 <div id="containerlogin">
 	<div id="logo">
-		<a href="http://www.gomegam.com" target="_blank"> <%= image_tag "logo_scm_200x200.png", :alt => "Megam", :class => "megam_image" %> </a>
+		<a href="http://www.gomegam.com" target="_blank"> <%= image_tag "scm-manager_logo.png", :alt => "Megam", :class => "megam_image" %> </a>
 	</div>
 
 	<div id="loginbox">
 		<%= form_for(:scm_session, :url => scmmanager_auth_path, :html => {:id =>'password_validate', :novalidate => 'novalidate'}) do |f| %>
 		<br/>
 		<p>
-			Enter username and password to continue.
+			Enter username and password to authenticate with <a href="http://scm-manager.megam.co:8080/scmmanager" target="_blank">http://scm-manager.megam.co:8080/scmmanager</a>.
 		</p>
 		<div class="input-group">
 			<span class="input-group-addon"><i class="icon icon-user"></i></span>
@@ -22,13 +22,8 @@
 		</div>
 		<br/></br/>
 		<div class="footer-login">
-			<div class="form-actions clearfix">
-				<div class="pull-left">
-					<%= link_to "Create new User", create_scm_user_path, :class => "btn btn-default btn-success" %>
-				</div>
-				<div class="pull-right">
-					<%= f.submit "Sign in", :class => "btn btn-default btn-success"  %>
-				</div>
+			<div class="form-actions clearfix">					
+					<%= f.submit "Sign in", :class => "btn btn-default btn-block btn-success"  %>				
 			</div>
 		</div>
 

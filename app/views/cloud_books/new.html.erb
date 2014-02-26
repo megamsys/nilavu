@@ -104,59 +104,99 @@
 					<span class="icon"> <i class="icon-th-list"></i> </span>
 					<h5>Source Code</h5>
 				</div>
-				<div class="widget-content">
-					<div class="row">
-						<div class="col-md-2">
-							<div class="media">
-								<div class="panel panel-primary">
-									<div class="panel-heading">
-										List Repositories
-									</div>
-									<div class="panel-body">
-										<%= link_to "/auth/github", :title=> "Click to connect and list your github repositories", :target => "_self", :data => { spinner: '#git_oauth'} do %>
-										<%= image_tag "logo_github.png",:class=> "img-responsive center-block",:size => "90x90"%><% end %>
-										<%= link_to scm_manager_auth_path, :title=> "Click to connect and list your scm-manager git repositories", :target => "_self", :data => { spinner: '#scm_oauth'} do %>
-										<%= image_tag "logo_scm_200x200.png",:class=> "img-responsive center-block",:size => "90x90"%><% end %>
-										<%= image_tag "logo_bitbucket_200x200.png",:class=> "img-responsive center-block",:size => "90x90"%>
-										<%= image_tag "logo_cloudforge_200x200.png",:class=> "img-responsive center-block",:size => "90x90"%>
-									</div>
-								</div>
-							</div>
+				<div class="widget-content" id="scm_code">
+					<div class="row form-group">
+						<div class="col-lg-5">
+							<br/>
+							<label>
+								<input type="radio" name="radios" value="scm_tool" checked/>
+								Cloud source code manager </label>
 						</div>
-						<div class="col-md-9">
+						<div class="col-lg-5">
+							<br/>
+							<label>
+								<input type="radio" name="radios" value="scm_sample" />
+								Try our sample</label>
+						</div>
+					</div>
+					<br/>
+					<br/>
+					<div class="row">
+						<div class="col-md-12"  id="scm_tool">
 							<div class="panel panel-primary">
 								<div class="panel-heading">
 									<p class="help-block">
-										<h4 class="alert-heading">Need a sample source code repository ?
-										Try our sample. Click on <i class="icon-plus-sign"></i> icon </h4>
+										<h4 class="alert-heading">Choose your source code manager and list your repos</h4>
+									</p>									
+								</div>
+								<div class="panel-body">
+									<ul class="scm_tool_horizontal">
+										<li>
+											<%= link_to "/auth/github", :title=> "Click to connect and list your github repositories", :target => "_self", :data => { spinner: '#git_oauth'} do %>
+											<%= image_tag "logo_github.png",:class=> "img-responsive center-block",:size => "90x90", :id => "slider-image"%><% end %>
+										</li>
+										<li>
+											<%= link_to scm_manager_auth_path, :title=> "Click to connect and list your scm-manager git repositories", :target => "_self", :data => { spinner: '#scm_oauth'} do %>
+											<%= image_tag "logo_scm_200x200.png",:class=> "img-responsive center-block",:size => "90x90", :id => "slider-image"%><% end %>
+										</li>
+										<li>
+											<%= image_tag "logo_bitbucket_200x200.png",:class=> "img-responsive center-block",:size => "90x90", :id => "slider-image"%>
+										</li>
+										<li>
+											<%= image_tag "logo_cloudforge_200x200.png",:class=> "img-responsive center-block",:size => "90x90", :id => "slider-image"%>
+										</li>
+									</ul>
+								</div>
+								<% if defined?(repos) %>
+								<div class="panel-footer">
+									<h3><label class="label label-info"> Choose repository URL </label></h3>
+									<br/>
+									<%= select_tag 'scm', options_for_select(repos.insert(0, "Select a Repository")), :id => "repo_select", :style => "width:900px; height:400px;"  %>									
+								</div>
+								<% end %>
+							</div>
+						</div>
+						<div class="col-md-12"  id="scm_sample">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									<p class="help-block">
+										<h4 class="alert-heading">Choose a framework to show sample repos and Click on <i class="icon-plus-sign"></i> icon to choose</h4>
 									</p>
 								</div>
 								<div class="panel-body">
+									<ul class="scm_code_horizontal">
+										<li>
+											<a href="#" rel="tooltip" title="supports applications written in several Java based frameworks including Spring, Struts."> <%= radio_button_tag :scm_code_name, 'java' %>
+											<%= label :scm_code_platform, 'Java' do %> <h4>Java</h4> <% end %> </a>
+										</li>
+										<li>
+											<a href="#" rel="tooltip" title="supports Ruby applications written using the Rails 4.0 +, Sinatra, and Rack frameworks."> <%= radio_button_tag :scm_code_name, 'rails' %>
+											<%= label :scm_code_platform, 'Rails' do %> <h4>Rails</h4> <% end %> </a>
+										</li>
+										<li>
+											<a href="#" rel="tooltip" title="supports Scala based popular Playframework, the high velocity webframework for Scala. Play is based on a lightweight, stateless, web-friendly architecture"> <%= radio_button_tag :scm_code_name, 'play' %>
+											<%= label :scm_code_platform, 'Play' do %> <h4>Play</h4> <% end %> </a>
+										</li>
+										<li>
+											<a href="#" rel="tooltip" title="supports Scala based Akka toolkit. Akka is a toolkit and runtime for building highly concurrent, distributed, and fault tolerant event-driven applications on the JVM"> <%= radio_button_tag :scm_code_name, 'akka' %>
+											<%= label :scm_code_platform, 'Akka' do %> <h4>Akka</h4> <% end %> </a>
+										</li>
+										<li>
+											<a href="#" rel="tooltip" title="supports JavaScript applications using the Nodejs runtime and web frameworks like Express"> <%= radio_button_tag :scm_code_name, 'nodejs' %>
+											<%= label :scm_code_platform, 'Nodejs' do %> <h4>Nodejs</h4> <% end %> </a>
+										</li>
+									</ul>
+								</div>
+								<div class="panel-footer">
 									<div class="alert alert-info alert-block  nopadding clearfix" id="sample_repo"></div>
 								</div>
 							</div>
-
-							<% if defined?(repos) %>
-							<div class="panel panel-success">
-								<div class="panel-heading">
-									<p class="help-block">
-										<h4 class="alert-heading">Your repositories list
-									</p>
-								</div>
-								<div class="panel-body">
-									<div class="col-md-11">
-										<%= select_tag 'scm', options_for_select(repos.insert(0, "Select a Repository")), :id => "repo_select", :style => "width:500px" %>
-									</div>
-									<br/>
-								</div>
-							</div>
-							<% end %>
-
-							<div class="input-group input-group-lg">
-								<span class="input-group-btn"> <a href="https://github.com" class="btn btn-warning" target="_blank">Git!</a> </span>
-								<%= text_field_tag 'deps_scm', nil, class: 'form-control input-lg', id: "selected_debs_scm", placeholder: "https://github.com/username/project.git" %>
-							</div>
-
+						</div>
+					</div>
+					<div class="row">
+						<div class="input-group input-group-lg">
+							<span class="input-group-btn"> <a href="https://github.com" class="btn btn-warning" target="_blank">Git!</a> </span>
+							<%= text_field_tag 'deps_scm', nil, class: 'form-control input-lg', id: "selected_debs_scm", placeholder: "https://github.com/username/project.git" %>
 						</div>
 						<% if @predef_name == "java" %>
 						<div class="accordion-group widget-box">
