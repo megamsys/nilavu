@@ -53,7 +53,7 @@
 			<tbody>
 				<% @ssh_keys.each do |sshkey| %>
 				<tr>
-					<td align="center"> <%= link_to   "#", :class => "btn btn-dark-blue" do %> <i class="icon-eye-open">&nbsp;View</i> <% end %>
+					<td align="center"> 
 					<%= link_to  sshkeys_download_path(:filename => sshkey[:name]+".pub"), :class => "btn btn-dark-blue" , :target => "_self" do %> <i class="icon-cloud-download">&nbsp;Pub</i> <% end %>
 					<%= link_to  sshkeys_download_path(:filename => sshkey[:name]+".key"), :class => "btn btn-dark-red", :target => "_self" do %> <i class="icon-cloud-download">&nbsp;Private</i> <% end %> </td>
 					<td align="center"><%= sshkey[:name] %></td>

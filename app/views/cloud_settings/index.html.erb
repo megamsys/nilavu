@@ -11,10 +11,10 @@
 			<div class="widget-box nopadding">
 				<div class="widget-title">
 					<ul class="nav nav-tabs">
-						<li>
+						<li class="active">
 							<a data-toggle="tab" href="#sshkeys_tab" >SSH Keys</a>
 						</li>
-						<li class="active">
+						<li>
 							<a data-toggle="tab" href="#cross_cloud_tab">Clouds</a>
 						</li>
 						<li>
@@ -23,10 +23,10 @@
 					</ul>
 				</div>
 				<div class="widget-content tab-content">
-					<div id="sshkeys_tab" class="tab-pane">
+					<div id="sshkeys_tab" class="tab-pane active">
 						<%= render :partial => "cloud_settings/sshkey_index" %>
 					</div>
-					<div id="cross_cloud_tab" class="tab-pane active">
+					<div id="cross_cloud_tab" class="tab-pane">
 						<%= render :partial => "cloud_settings/cross_cloud_index" %>
 					</div>
 					<div id="cloud_tools_tab" class="tab-pane" style="overflow:hidden;">
