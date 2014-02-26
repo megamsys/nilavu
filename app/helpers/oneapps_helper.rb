@@ -1,12 +1,4 @@
-module CloudBooksHelper
-  def book_name
-    @book_name = /\w+/.gen
-    @book_name.downcase
-  end
-
-  def latest_book
-    current_user.cloud_books.last
-  end
+module OneappsHelper
 
   def change_runtime(deps, runtime)
     project_name = File.basename(deps).split(".").first
@@ -15,5 +7,4 @@ module CloudBooksHelper
     end
     runtime
   end
-
 end

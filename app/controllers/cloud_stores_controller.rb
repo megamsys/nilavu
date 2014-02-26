@@ -4,13 +4,13 @@ class CloudStoresController < ApplicationController
   def index
       breadcrumbs.add " Home", "#", :class => "icon icon-home"
       breadcrumbs.add "Database", cloud_stores_path
-       cloud_books = current_user.cloud_books.where(:book_type => 'BOLT')
+       cloud_books = current_user.apps.where(:book_type => 'BOLT')
     if cloud_books.any?
       add_breadcrumb "Home", "#", :target => "_self"
       add_breadcrumb "Manage Services", cloud_stores_path, :target => "_self"
       @nodes = FindNodesByEmail.perform({},current_user.email, current_user.api_token)
       if @nodes.class == Megam::Error
-        redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
+        redirect_to new_app_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
       else             
         book_names = cloud_books.map {|c| c.group_name}
         book_names = book_names.uniq
@@ -46,17 +46,17 @@ class CloudStoresController < ApplicationController
 
     @db_model = params[:db_model]
     @dbms = params[:dbms]
-    @book =  current_user.cloud_books.build
+    @book =  current_user.apps.build
     @predef_name = params[:dbms]
     predef_options = { :predef_name => @predef_name}
     @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key])
     if @predef_cloud.class == Megam::Error
-      redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
     #if @predef_cloud.some_msg[:msg_type] != "error"
       pred = FindPredefsByName.perform(predef_options,force_api[:email],force_api[:api_key])
       if pred.class == Megam::Error
-        redirect_to new_cloud_book_path, :gflash => { :warning => { :value => "#{pred.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        redirect_to new_app_path, :gflash => { :warning => { :value => "#{pred.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
         @predef = pred.lookup(@predef_name)
         @domain_name = ".megam.co"

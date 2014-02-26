@@ -32,7 +32,7 @@
 					<div class="col-md-4">
 						<div class="cb_box">
 							<h4 align="center">Recent Activity </h4><h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><%= latest_book.created_at.to_formatted_s(:rfc822) %></h5> 
-							<h5 align="Center"> <%= link_to latest_book.name, cloud_book_path(:id => latest_book.id, :name => latest_book.name, :book_type => latest_book.book_type), :remote => true, data: { spinlock: '#book'} %> </h5>
+							<h5 align="Center"> <%= link_to latest_book.name, app_path(:id => latest_book.id, :name => latest_book.name, :book_type => latest_book.book_type), :remote => true, data: { spinlock: '#book'} %> </h5>
 						</div>
 					</div>
 				</div>
@@ -43,7 +43,7 @@
 						<% end %>
 					</div>
 					<div class="col-md-4">
-						<%= link_to "Watch Logs", cloud_books_histories_path, class: "btn btn-lg btn-info btn-block", title: 'Watch logs of created services', rel: 'tooltip', :target => "_self" %>
+						<%= link_to "Watch Logs", apps_histories_path, class: "btn btn-lg btn-info btn-block", title: 'Watch logs of created services', rel: 'tooltip', :target => "_self" %>
 					</div>
 					<div class="col-md-4">
 						<!-- 	<%= link_to "Upgrade", pricing_path, class: "btn btn-lg btn-inverse btn-block ", :target => "_self" %> -->
@@ -63,7 +63,7 @@
 			</div>
 			<div class="widget-content">
 				<% @launched_books.each do |k, v| %>
-				<% cb = CloudBook.find_by_group_name(k) %>
+				<% cb = App.find_by_group_name(k) %>
 				<div class="accordion" id="collapse-group">
 					<div class="accordion-group widget-box">
 						<div class="accordion-heading">

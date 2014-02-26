@@ -11,10 +11,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140120091328) do
+ActiveRecord::Schema.define(version: 20130828101201) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "apps", force: true do |t|
+    t.integer  "users_id"
+    t.string   "name"
+    t.string   "predef_name"
+    t.string   "predef_cloud_name"
+    t.string   "app_defn_ids"
+    t.string   "bolt_defn_ids"
+    t.string   "domain_name"
+    t.string   "book_type"
+    t.string   "group_name"
+    t.string   "cloud_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "apps", ["users_id"], name: "index_apps_on_users_id", using: :btree
+
+  create_table "apps_histories", force: true do |t|
+    t.integer  "book_id"
+    t.string   "book_name"
+    t.string   "request_id"
+    t.string   "status"
+    t.string   "group_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "apps_histories", ["book_id"], name: "index_apps_histories_on_book_id", using: :btree
 
   create_table "apps_items", force: true do |t|
     t.integer  "users_id"
@@ -30,35 +59,6 @@ ActiveRecord::Schema.define(version: 20140120091328) do
   add_index "apps_items", ["cloud_identity_id"], name: "index_apps_items_on_cloud_identity_id", using: :btree
   add_index "apps_items", ["product_id"], name: "index_apps_items_on_product_id", using: :btree
   add_index "apps_items", ["users_id"], name: "index_apps_items_on_users_id", using: :btree
-
-  create_table "cloud_books", force: true do |t|
-    t.integer  "users_id"
-    t.string   "name"
-    t.string   "predef_name"
-    t.string   "predef_cloud_name"
-    t.string   "app_defn_ids"
-    t.string   "bolt_defn_ids"
-    t.string   "domain_name"
-    t.string   "book_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "group_name"
-    t.string   "cloud_name"
-  end
-
-  add_index "cloud_books", ["users_id"], name: "index_cloud_books_on_users_id", using: :btree
-
-  create_table "cloud_books_histories", force: true do |t|
-    t.integer  "book_id"
-    t.string   "book_name"
-    t.string   "request_id"
-    t.string   "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "group_name"
-  end
-
-  add_index "cloud_books_histories", ["book_id"], name: "index_cloud_books_histories_on_book_id", using: :btree
 
   create_table "cloud_identities", force: true do |t|
     t.string   "url"
@@ -103,12 +103,12 @@ ActiveRecord::Schema.define(version: 20140120091328) do
     t.string   "billing_city"
     t.string   "billing_state"
     t.string   "billing_country"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.string   "logo_file_name"
     t.string   "logo_content_type"
     t.integer  "logo_file_size"
     t.datetime "logo_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "products", force: true do |t|

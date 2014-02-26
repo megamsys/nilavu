@@ -1,4 +1,14 @@
 Cloudauth::Application.routes.draw do
+  get 'oneapps/marketplaces'
+
+  get 'oneapps/activities'
+
+  get 'oneapps/settings'
+
+  get 'oneapps/preclone'
+
+  get 'oneapps/clone'
+
   root :to => 'cloud_dashboards#index', :id => 'signin'
 
   resources :users
@@ -11,8 +21,8 @@ Cloudauth::Application.routes.draw do
   resources :connector_actions
   resources :connector_outputs
   resources :connector_executions
-  resources :cloud_books_histories
-  resources :cloud_books #, via: [:get, :post, :destroy]
+  resources :apps_histories
+  resources :apps #, via: [:get, :post, :destroy]
   resources :cross_clouds
   resources :cloud_stores
   resources :dashboards
@@ -38,12 +48,14 @@ Cloudauth::Application.routes.draw do
 
   
   #Cloud Books
-  match '/new_book', to: 'cloud_books#new_book', via: [:get, :post]
-  match '/get_request', to: 'cloud_books#get_request', via: [:get, :post]
-  match '/build_request', to: 'cloud_books#build_request', via: [:get, :post]
-  match '/send_request', to: 'cloud_books#send_request', via: [:get, :post]
-  match '/clone_build', to: 'cloud_books#clone_build', via: [:get, :post]
-  match '/clone_start', to: 'cloud_books#clone_start', via: [:get, :post]
+  match '/launch', to: 'apps#launch', via: [:get, :post]
+  match '/get_request', to: 'apps#get_request', via: [:get, :post]
+  match '/build_request', to: 'apps#build_request', via: [:get, :post]
+  match '/requests', to: 'oneapps#requests', via: [:get, :post]
+  match '/activities', to: 'oneapps#activities', via: [:get, :post]
+  
+  match '/preclone', to: 'oneapps#preclone', via: [:get, :post]
+  match '/clone', to: 'oneapps#clone', via: [:get, :post]
 # to-do: move it as a static page for pricing.
   get '/pricing' => 'billing#pricing'
   # to-do: this is more like creating a new billing account
@@ -74,11 +86,11 @@ Cloudauth::Application.routes.draw do
   match '/signin', to: 'sessions#new', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post,:delete]
   match '/auth/facebook/callback', :to => 'sessions#create', via: [:get, :post]
-  match '/auth/github/callback', :to => 'cloud_books#authorize_scm', via: [:get, :post]
+  match '/auth/github/callback', :to => 'apps#authorize_scm', via: [:get, :post]
   match '/auth/google_oauth2/callback', :to => 'cross_clouds#new', via: [:get, :post]
-  match '/scm_manager_auth', :to => 'cloud_books#scm_manager_auth', via: [:get, :post]
-  match '/scmmanager_auth', :to => 'cloud_books#scmmanager_auth', via: [:get, :post]
-  match '/create_scm_user', :to => 'cloud_books#create_scm_user', via: [:get, :post]
+  match '/scm_manager_auth', :to => 'apps#scm_manager_auth', via: [:get, :post]
+  match '/scmmanager_auth', :to => 'apps#scmmanager_auth', via: [:get, :post]
+  match '/create_scm_user', :to => 'apps#create_scm_user', via: [:get, :post]
   # ======Dashboard
   get "users/show"
   #match '/dashboard_sidebar', to: 'dashboards#dashboard_sidebar', via: [:get]
@@ -90,7 +102,7 @@ Cloudauth::Application.routes.draw do
   #match '/dashboards', to: 'api/dashboards#index',via: [:get]
 
   # ========Cloud Books Histories controller
-  match '/node_log', to: 'cloud_books_histories#logs', via: [:get, :post]
+  match '/node_log', to: 'apps_histories#logs', via: [:get, :post]
 
   # =======connector_project_ controller
   match '/deccanplato', to: 'connector_projects#deccanplato', via: [:get, :post]

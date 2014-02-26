@@ -1,0 +1,46 @@
+<div class="panel panel-primary">
+	<div class="panel-heading">
+		<span class="icon"> <i class="icon-th-list"></i> </span>
+		<h4>App <span class="label label-info"><%= @name %></span></h4>
+		<div class="row">
+			<div class="col-xs-12 center" style="text-align: center;">
+				<ul class="quick-actions">
+					<li>
+						<%= link_to app_path(:id => "1", :name => @name), :remote => true, data: { spinlock: '#book'}  do %> <i class="icon-cabinet"></i> General <% end %>
+					</li>
+					<li>
+					<%= link_to  activities_path( :node_name => @name, :book_type => @book_type), :remote => true, data: { spinlock: '#book'}  do %> <i class="icon-cabinet"></i> Activities <% end %>
+					</li>
+					<li>
+						<a href="#"> <i class="icon-shopping-bag"></i> Marketplace Items </a>
+					</li>
+					<li>
+						<a href="#"> <i class="icon-survey"></i> Settings </a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="panel-content">
+			<ul class="list-group">
+			<% @requests.each do |req| %>
+			<li class="list-group-item">
+			 <div class="row"><div class="col-md-4"> App created at  </div> <div class="col-md-8"><span class="badge"> <i class="icon-calendar"></i> <%= req.created_at.to_datetime.to_formatted_s(:rfc822) %></span></div> </div></li>
+			<% end %>
+		<% if "#{@defnrequests.class}".start_with?("Megam::") %>
+		<% @defnrequests.each do |dr| %>
+		<li class="list-group-item">
+		<div class="row">
+		<div class="col-md-4">
+			<%= dr.lc_apply %> </div><div class="col-md-8"><span class="badge"> <i class="icon-calendar"></i> <%= dr.created_at.to_datetime.to_formatted_s(:rfc822) %></span></div> </div>
+			
+			</li>
+			<% end %>
+			</ul>
+		<% else %>
+			<h5> No actions done </h5>
+		<% end %>
+	</div>
+</div>
+
