@@ -18,5 +18,11 @@ class UserMailer < ActionMailer::Base
     @contact_user = user
     mail(:to => "support@megam.co.in", :subject => "User contact information")
   end
+  
+  def error_email(error)
+    logger.debug "error #{error[:email]} = #{error[:message]}"
+    @error = error
+    mail(:from => error[:email], :to => "support@megam.co.in", :subject => "#{@error[:email]} :www.megam.co, got #{@error[:message]}")
+  end
 
 end

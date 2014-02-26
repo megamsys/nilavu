@@ -1,30 +1,52 @@
 <% provide(:title, 'Internal Server Error') %>
 
-<div class="container">
+<%= render 'layouts/header' %>
+<div id="content">
+	<div class="container">
+		<div class='row'>
+			<div class='col-lg-10 colmd-10'>
+				<h2>We flunked.</h2>
+				<p>
+					<a href='javascript:history.back();'>Go Back</a> to the previous page, return to the <a href='/'>home page or <a href="mailto:support@megam.co.in?subject=Help me">Email Us</a> about this problem.
+				</p>
+				<%= image_tag "specman.png", :alt => "error"%>
+				<br>
+				</br>
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						<b>Site Links</b>
+					</div>
+					<div class="panel-content">
+						<div class="alert alert-warning">
+							<ul class="list-group">
+								<li class="list-group-item">
+									We track errors automaticallys.
+								</li>
+								<li class="list-group-item">
+									Successfully sent a twitter message to <a href="http://twitter.com/indykish" target="_blank">@indykish</a>
 
-	<div class='row'>
-		<div class='span10 offset1'>
+								</li>
+								<li class="list-group-item">
+									<b>Note:</b>Twitter filters duplicate messages.
+								</li>
+								<li class="list-group-item">
+									A support problem was <a href="http://support.megam.co" target="_blank">registered</a> via email.
+								</li>
+							</ul>
+						</div>
+						<h4>&nbsp;&nbsp;<%= link_to "    Documentation",  "http://www.gomegam.com/docs", { :target => '_blank'}  %></h4>
 
-			<h2>We flunked.</h2>
+						<h4>&nbsp;&nbsp;<%= link_to "    Gomegam.com",  "http://www.gomegam.com", { :target => '_blank'}  %></h4>
 
-			<p>
-				<a href='javascript:history.back();'>Go Back</a> to the previous page, return to the <a href='/'>home page or
-<a href="mailto:support@megam.co.in?subject=Help me">Email Us</a> 
-				about this problem.
-				<hr />
-				If you were looking for some information regarding our services, we&#39;ve listed a few resources below where you can find additional information and help.
-			</p>
+						<h4>&nbsp;&nbsp;<%= link_to "    Blog",   "http://blog.megam.co", { :target => '_blank'} %></h4>
 
-			<h4> <%= link_to "Visit Support", "http://support.megam.co/?user=#{current_user.email}",:target => "_blank" %> </h4>
+						<h4>&nbsp;&nbsp;<%= link_to "    Code",  "https://github.com/indykish", { :target => '_blank'} %></h4>
+						<h4>&nbsp;&nbsp;<%= link_to"    Contact Support", "http://support.megam.co",:target => "_blank" %> </h4>
 
-			<p>
-				Get help from our skilled staff of Ruby and Rails. Scala experts.
-			</p>
-			</h4>
-			We track these errors automatically, but if the problem persists feel free to contact us.
-			A twit was sent to (#supportmegam).
-			</h4>
-
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
+<%= render 'layouts/footer' %>
