@@ -13,73 +13,21 @@
 		$('#cb_count').val(books_count);
 		$('#selected_platformapp').fadeIn('slow').html(
 				'<div id="selected_platformapp"><b>' + selected_platformapp
-						+ '</b></div>');
-		if (selected_platformapp == 'java') {
-		java();
-		}
-		if (selected_platformapp == 'play') {
-		play();
-		}
-		if (selected_platformapp == 'rails') {
-		rails();
-		}
-		if (selected_platformapp == 'akka') {
-		akka();
-		}
-		if (selected_platformapp == 'nodejs') {
-		nodejs();
-		}
-							$("[id^=githubsample_]").click(function() {
-						var selected_github = $(this).next().attr("href");
-						$("#deps_scm").val(selected_github);
-						$("#deps_scm").fadeIn("slow");
-					});
-					
+						+ '</b></div>');		
+
 	};
-	
 
 })(jQuery);
 
-$(document).ready(function()
-		{
-		    $("#repo_select").change(function()
-		    {
-		        var id=$(this).val();
-		        $('#selected_debs_scm').val(id);
-		         return false;
+$(document).ready(function() {
+	$("#repo_select").change(function() {
+		var id = $(this).val();
+		$('#selected_debs_scm').val(id);
+		return false;
 
-		    });
+	});
 
-		});
-
-function java()
-{
-$('#sample_repo').fadeIn('slow').html(
-				'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Java</span></td><td><i class="icon-plus-sign git_javawar" id="githubsample_javawar"></i> This sample launches a java based online code editor called orion. The bundle that is used is available <a href="https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/orion.war" target="_blank"> here. </a></td></tr><tr><td><span class="badge badge-info">Java</span></td><td><i class="icon-plus-sign" id="githubsample_java"></i>This sample launches a spring based Java App.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/spring-mvc-fulfillment-base.git" target="_blank"> here.</a></td></tr></tbody></table> </div>');
-}
-
-function play()
-{
-$('#sample_repo').fadeIn('slow').html(
-				'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Play</span></td><td><i class="icon-plus-sign" id="githubsample_play"></i>This sample launches a play based scala App.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/megam_play.git" target="_blank">here </a></td></tr></tbody></table> </div>');
-}
-
-function rails()
-{
-$('#sample_repo').fadeIn('slow').html(
-				'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Ruby</span></td><td><i class="icon-plus-sign" id="githubsample_ror"></i>This sample launches a ruby on rails 4.0 twitter bootstrap based portal.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/aryabhata.git" target="_blank"> here</a></td></tr></tbody></table> </div>');
-}
-
-function akka()
-{
-$('#sample_repo').fadeIn('slow').html(
-				'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Akka</span></td><td><i class="icon-plus-sign" id="githubsample_akka"></i>This sample launches a akka daemon that spawns a cluster of masters which delegates work to its slave.The source code that is used for the launch is available<a href="https://github.com/thomasalrin/megam_akka.git" target="_blank">here</a></td></tr></tbody></table> </div>');
-}
-function nodejs()
-{
-$('#sample_repo').fadeIn('slow').html(
-				'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Nodejs</span></td><td><i class="icon-plus-sign" id="githubsample_nodejs"></i>This sample launches ghost which is a free, open, simple blogging platform.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/ghost.git" target="_blank"> here</a></td></tr></tbody></table> </div>');
-}
+});
 
 jQuery(document)
 		.ready(
@@ -116,7 +64,8 @@ jQuery(document)
 																+ '"></i></div></th>')
 												.append(
 														'<td class="instances">'
-																+ $minus + '&nbsp;'
+																+ $minus
+																+ '&nbsp;'
 																+ '<span class="books count">1</span>&nbsp;'
 																+ $plus
 																+ '</td>')
@@ -167,3 +116,78 @@ jQuery(document)
 							});
 
 				});
+
+jQuery(document).ready(function() {
+	$("#scm_sample").hide();
+	$("#scm_sample_view").hide();
+	$("#scm_code input:radio").on("ifClicked", function() {
+		var service = $(this).attr("value");
+		if (service == "scm_tool") {
+			$("#scm_sample").hide();
+			$("#scm_tool").show();
+			$("#scm_sample_view").hide();			
+		}
+		if (service == "scm_sample") {
+			$("#scm_sample").show();
+			$("#scm_tool").hide();
+			$("#scm_sample_view").show();
+			$("#scm_tool_view").hide();
+		}		
+	});
+	$("#scm_sample input:radio").on("ifClicked", function() {
+		selected_scm_sample = $(this).attr("value");
+		if (selected_scm_sample == 'java') {
+			java();
+		}
+		if (selected_scm_sample == 'play') {
+			play();
+		}
+		if (selected_scm_sample == 'rails') {
+			rails();
+		}
+		if (selected_scm_sample == 'akka') {
+			akka();
+		}
+		if (selected_scm_sample == 'nodejs') {
+			nodejs();
+		}
+		$("[id^=githubsample_]").click(function() {
+			var selected_github = $(this).next().attr("href");			
+			$("#selected_debs_scm").val(selected_github);
+			$("#selected_debs_scm").fadeIn("slow");
+		});
+	});	
+});
+function java() {
+	$('#sample_repo')
+			.fadeIn('slow')
+			.html(
+					'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Java</span></td><td><i class="icon-plus-sign git_javawar" id="githubsample_javawar"></i> This sample launches a java based online code editor called orion. The bundle that is used is available <a href="https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/orion.war" target="_blank"> here. </a></td></tr><tr><td><span class="badge badge-info">Java</span></td><td><i class="icon-plus-sign" id="githubsample_java"></i>This sample launches a spring based Java App.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/spring-mvc-fulfillment-base.git" target="_blank"> here.</a></td></tr></tbody></table> </div>');
+}
+
+function play() {
+	$('#sample_repo')
+			.fadeIn('slow')
+			.html(
+					'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Play</span></td><td><i class="icon-plus-sign" id="githubsample_play"></i>This sample launches a play based scala App.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/megam_play.git" target="_blank">here </a></td></tr></tbody></table> </div>');
+}
+
+function rails() {
+	$('#sample_repo')
+			.fadeIn('slow')
+			.html(
+					'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Ruby</span></td><td><i class="icon-plus-sign" id="githubsample_ror"></i>This sample launches a ruby on rails 4.0 twitter bootstrap based portal.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/aryabhata.git" target="_blank"> here</a></td></tr></tbody></table> </div>');
+}
+
+function akka() {
+	$('#sample_repo')
+			.fadeIn('slow')
+			.html(
+					'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Akka</span></td><td><i class="icon-plus-sign" id="githubsample_akka"></i>This sample launches a akka daemon that spawns a cluster of masters which delegates work to its slave.The source code that is used for the launch is available<a href="https://github.com/thomasalrin/megam_akka.git" target="_blank">here</a></td></tr></tbody></table> </div>');
+}
+function nodejs() {
+	$('#sample_repo')
+			.fadeIn('slow')
+			.html(
+					'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Nodejs</span></td><td><i class="icon-plus-sign" id="githubsample_nodejs"></i>This sample launches ghost which is a free, open, simple blogging platform.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/ghost.git" target="_blank"> here</a></td></tr></tbody></table> </div>');
+}
