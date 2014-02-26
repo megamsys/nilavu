@@ -29,8 +29,23 @@ class ApplicationController < ActionController::Base
   # usage way.
   def render_500(exception = nil)
     if exception
-      Rails.logger.fatal "\n#{exception.class.to_s} (#{exception.message})"
-      Rails.logger.fatal exception.backtrace.join("\n")
+      twit_msg  =  "www.megam.co: error received: #{exception.message}, stacktace emailed.".slice! 0..140
+      client = Twitter::REST::Client.new do |config|
+        config.consumer_key        = ENV['TWITTER_CLIENT_ID']
+        config.consumer_secret     = ENV['TWITTER_SECRET_KEY']
+        config.access_token        =ENV['TWITTER_ACCESS_TOKEN']
+        config.access_token_secret =ENV['TWITTER_ACCESS_TOKEN_SECRET']
+      end
+      begin
+        client.update(twit_msg)
+      rescue Twitter::Error
+      ## just ignore twitter errors.
+      end
+      short_msg = "#{exception.class.to_s} (#{exception.message})"
+      full_stacktrace =  exception.backtrace.join("\n")
+      Rails.logger.fatal "\n#{short_msg}"
+      Rails.logger.fatal "#{full_stacktrace}"
+      UserMailer.error_email({:email => current_user.email, :message =>"#{short_msg}", :stacktrace => "#{full_stacktrace}" }).deliver
     end
     respond_to do |format|
       format.html { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
