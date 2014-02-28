@@ -372,7 +372,7 @@ dbinit(){
 		psql -U postgres -c "GRANT ALL PRIVILEGES ON DATABASE cocdb to megam"
 
 		#create users
-		rake db:migrate:up VERSION=20120319153913
+		rake db:migrate:up VERSION=20120319153913  #RAILS_ENV=production
 		#create identities
 		rake db:migrate:up VERSION=20120319154255
 		#create organization
