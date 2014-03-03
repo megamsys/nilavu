@@ -84,6 +84,7 @@ Cloudauth::Application.routes.draw do
   match '/email_verify', to: 'users#email_verify',via: [:get,:post]
   match '/verified_email', to: 'users#verified_email', via: [:get]
   match '/signin', to: 'sessions#new', via: [:get]
+  match '/demo', to: 'sessions#demo', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post,:delete]
   match '/auth/facebook/callback', :to => 'sessions#create', via: [:get, :post]
   match '/auth/github/callback', :to => 'apps#authorize_scm', via: [:get, :post]

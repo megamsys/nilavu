@@ -1,8 +1,7 @@
 <% if @err_msg != nil %>
-
 var selected_entity = '#sshkey_postfinish_popup_error';
 $("#err_msg").html('<%= @err_msg %>');
-$(selected_entity).modal({backdrop : false,keyboard: true, show : true});
+$(selected_entity).modal({backdrop : false, show : true});
 
 <% else %>
 var selected_entity = '#sshkey_postfinish_popup';

@@ -16,7 +16,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					×
 				</button>
-				<h3 id="myModalLabel">Delete - App</h3>
+				<h3 id="myModalLabel">Delete App</h3>
 			</div>
 			<div class="modal-body">
 				<div class="alert alert-success">
@@ -40,7 +40,7 @@
 					×
 				</button>
 
-				<h3 id="myModalLabel">Clone - App</h3>
+				<h3 id="myModalLabel">Clone App</h3>
 			</div>
 			<%= form_tag(clone_path, :method => "post", :remote => true) do %>
 			<div class="modal-body">
@@ -82,16 +82,35 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					×
 				</button>
-				<h3 id="myModalLabel">App</h3>
+				<h3 id="myModalLabel">Clone App</h3>
 			</div>
 			<div class="modal-body">
 				<div class="alert alert-success">
 					<p>
-						App launch was submitted to the megam cloud gateway successfully. It typically takes a few minutes to run it on the cloud.
+						Cloned the app successfully
+						<% unless apply_to_cloud %>
+						 in <span class="label label-danger">demo dryrun mode.</span></br></br>
+						No actual clone of app in <span class="label label-danger">cloud</span>
+						</br>For full version, please
+						<%= link_to signout_path, method: "delete" do %>
+						<i class="icon-signout"></i> Sign Out
+						<% end %>
+						and 
+						<%= link_to signup_path do %>
+						<i class="icon-signin"></i> Sign up 
+						<%end%> for an account.
 						</br>
 						</br>
-						<span class="label label-info">Logs</span>&nbsp;streams the status of launch.</strong>
-					</p>
+						<% else %>
+						</br></br>
+						It typically takes a few minutes to clone app in the cloud.</br></br>
+						<%= link_to apps_histories_path do %>
+						<i class="icon-facetime-video"></i> Logs (tail -f ..) 
+						<%end%>
+						</br>
+						</br>
+						<% end %>
+					</p>	
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -112,7 +131,7 @@
 			<div class="modal-body">
 				<div class="alert alert-danger">
 					<p>
-						App launch to the megam cloud gateway was not successful.
+						Whew! Failed to the clone app in cloud.
 						</br>
 						<div id="err_msg"></div>
 					</p>
