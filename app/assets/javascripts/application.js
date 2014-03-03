@@ -37,7 +37,6 @@
 //= require connector_projects
 //= require unicorn.login
 //= require apps
-//= require cloud_settings
 //= require jquery.peity
 //= require masonry/jquery.masonry
 //= require unicorn.form_common

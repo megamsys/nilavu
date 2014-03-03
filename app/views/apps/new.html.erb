@@ -160,32 +160,10 @@
 							<div class="panel panel-primary">
 								<div class="panel-heading">
 									<p class="help-block">
-										<h4 class="alert-heading">Choose a framework to show sample repos and Click on <i class="icon-plus-sign"></i> icon to choose</h4>
+										<h4 class="alert-heading">Click on <i class="icon-plus-sign"></i> icon to choose</h4>
 									</p>
 								</div>
-								<div class="panel-body">
-									<ul class="scm_code_horizontal">
-										<li>
-											<a href="#" rel="tooltip" title="supports applications written in several Java based frameworks including Spring, Struts."> <%= radio_button_tag :scm_code_name, 'java' %>
-											<%= label :scm_code_platform, 'Java' do %> <h4>Java</h4> <% end %> </a>
-										</li>
-										<li>
-											<a href="#" rel="tooltip" title="supports Ruby applications written using the Rails 4.0 +, Sinatra, and Rack frameworks."> <%= radio_button_tag :scm_code_name, 'rails' %>
-											<%= label :scm_code_platform, 'Rails' do %> <h4>Rails</h4> <% end %> </a>
-										</li>
-										<li>
-											<a href="#" rel="tooltip" title="supports Scala based popular Playframework, the high velocity webframework for Scala. Play is based on a lightweight, stateless, web-friendly architecture"> <%= radio_button_tag :scm_code_name, 'play' %>
-											<%= label :scm_code_platform, 'Play' do %> <h4>Play</h4> <% end %> </a>
-										</li>
-										<li>
-											<a href="#" rel="tooltip" title="supports Scala based Akka toolkit. Akka is a toolkit and runtime for building highly concurrent, distributed, and fault tolerant event-driven applications on the JVM"> <%= radio_button_tag :scm_code_name, 'akka' %>
-											<%= label :scm_code_platform, 'Akka' do %> <h4>Akka</h4> <% end %> </a>
-										</li>
-										<li>
-											<a href="#" rel="tooltip" title="supports JavaScript applications using the Nodejs runtime and web frameworks like Express"> <%= radio_button_tag :scm_code_name, 'nodejs' %>
-											<%= label :scm_code_platform, 'Nodejs' do %> <h4>Nodejs</h4> <% end %> </a>
-										</li>
-									</ul>
+								<div class="panel-body">									
 								</div>
 								<div class="panel-footer">
 									<div class="alert alert-info alert-block  nopadding clearfix" id="sample_repo"></div>

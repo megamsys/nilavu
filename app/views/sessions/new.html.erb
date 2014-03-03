@@ -24,10 +24,18 @@
 				<%= link_to "Create new account", signup_path, :class => "flip-link to-register blue" %>
 			</div>
 			<div class="pull-right">
-				<%= link_to "Lost password?", new_password_reset_path, :class=> "flip-link to-recover grey" %>
+				<%= link_to "Forgot password?", new_password_reset_path, :class=> "flip-link to-recover grey" %>
 			</div>
-			<%= f.submit "Sign in", :class => "btn btn-default btn-success btn-block"  %>
-			<a href="http://www.gomegam.com" type="button" class="btn btn-dark-red btn-block" target="_blank"><i class="icon icon-globe"></i>&nbsp;Visit <strong>Gomegam.com</strong></a>
+			<div class="row">
+				<div class="col-md-6">
+					<%= link_to "Demo Sign in", demo_path(:email =>"dummy@megamsandbox.com",:password =>"dummykeysandbox#megam"),:class => "btn btn-lg btn-warning btn-block"  %>
+				</div>
+				<div class="col-md-6">
+					<%= f.submit "Sign in", :class => "btn btn-lg btn-dark-green btn-block"  %>
+				</div>
+			</div>
+
+			<a href="http://www.gomegam.com" type="button" class="btn btn-sm btn-dark-red btn-block" target="_blank"><i class="icon icon-globe"></i>&nbsp;Visit <strong>Gomegam.com</strong></a>
 		</div>
 		<div class="footer-login">
 			<div class="pull-left text">

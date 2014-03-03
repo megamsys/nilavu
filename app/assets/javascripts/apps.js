@@ -13,7 +13,7 @@
 		$('#cb_count').val(books_count);
 		$('#selected_platformapp').fadeIn('slow').html(
 				'<div id="selected_platformapp"><b>' + selected_platformapp
-						+ '</b></div>');		
+						+ '</b></div>');
 
 	};
 
@@ -51,6 +51,8 @@ jQuery(document)
 										// next
 										// button
 										var service = $(this).attr("value");
+										choose_samples(service);
+
 										scale_counter.find('tr').remove();
 										$('#scalebooks').scale_aggregate();
 										scale_counter.find('tbody').append(
@@ -117,47 +119,58 @@ jQuery(document)
 
 				});
 
-jQuery(document).ready(function() {
-	$("#scm_sample").hide();
-	$("#scm_sample_view").hide();
-	$("#scm_code input:radio").on("ifClicked", function() {
-		var service = $(this).attr("value");
-		if (service == "scm_tool") {
-			$("#scm_sample").hide();
-			$("#scm_tool").show();
-			$("#scm_sample_view").hide();			
-		}
-		if (service == "scm_sample") {
-			$("#scm_sample").show();
-			$("#scm_tool").hide();
-			$("#scm_sample_view").show();
-			$("#scm_tool_view").hide();
-		}		
+jQuery(document)
+		.ready(
+				function() {
+					$("#scm_sample").hide();
+					$("#scm_sample_view").hide();
+					$("#scm_code input:radio")
+							.on(
+									"ifClicked",
+									function() {
+										var service = $(this).attr("value");
+										if (service == "scm_tool") {
+											$("#scm_sample").hide();
+											$("#scm_tool").show();
+											$("#scm_sample_view").hide();
+										}
+										if (service == "scm_sample") {
+											$("#scm_sample").show();
+											choose_samples($(
+													"#platformapps input[type='radio']:checked")
+													.val());
+											$("#scm_tool").hide();
+											$("#scm_sample_view").show();
+											$("#scm_tool_view").hide();
+
+										}
+									});
+
+				});
+
+function choose_samples(selected_sample_framework) {
+	if (selected_sample_framework == 'java') {
+		java();
+	}
+	if (selected_sample_framework == 'play') {
+		play();
+	}
+	if (selected_sample_framework == 'rails') {
+		rails();
+	}
+	if (selected_sample_framework == 'akka') {
+		akka();
+	}
+	if (selected_sample_framework == 'nodejs') {
+		nodejs();
+	}
+	$("[id^=githubsample_]").click(function() {
+		var selected_github = $(this).next().attr("href");
+		$("#selected_debs_scm").val(selected_github);
+		$("#selected_debs_scm").fadeIn("slow");
 	});
-	$("#scm_sample input:radio").on("ifClicked", function() {
-		selected_scm_sample = $(this).attr("value");
-		if (selected_scm_sample == 'java') {
-			java();
-		}
-		if (selected_scm_sample == 'play') {
-			play();
-		}
-		if (selected_scm_sample == 'rails') {
-			rails();
-		}
-		if (selected_scm_sample == 'akka') {
-			akka();
-		}
-		if (selected_scm_sample == 'nodejs') {
-			nodejs();
-		}
-		$("[id^=githubsample_]").click(function() {
-			var selected_github = $(this).next().attr("href");			
-			$("#selected_debs_scm").val(selected_github);
-			$("#selected_debs_scm").fadeIn("slow");
-		});
-	});	
-});
+}
+
 function java() {
 	$('#sample_repo')
 			.fadeIn('slow')

@@ -392,7 +392,6 @@ dbinit(){
         #widgets
         rake db:migrate:up VERSION=20130828101201
 		rake db:seed
-
 		fi
 
 

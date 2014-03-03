@@ -129,20 +129,20 @@ class AppsController < ApplicationController
     options = {:data => data, :group => "server", :action => "create" }
     node_hash=MakeNode.perform(options, force_api[:email], force_api[:api_key])
     if node_hash.class == Megam::Error
-      @res_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+      @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
       respond_to do |format|
         format.js {
-          respond_with(@res_msg, :layout => !request.xhr? )
+          respond_with(@err_msg, :layout => !request.xhr? )
         }
       end
     else
       wparams = {:node => node_hash }
       @node = CreateNodes.perform(wparams,force_api[:email], force_api[:api_key])
       if @node.class == Megam::Error
-        @res_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+        @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
         respond_to do |format|
           format.js {
-            respond_with(@res_msg, :layout => !request.xhr? )
+            respond_with(@err_msg, :layout => !request.xhr? )
           }
         end
       else
@@ -156,23 +156,15 @@ class AppsController < ApplicationController
           @history = @book.apps_histories.create(params)
           @history.save
           dash(@book)
-        end
+        end         
       end
     end
   end
 
-  def dash(book)
-    #@dashboard=@user.dashboards.create(:name=> first_name)
-    # Move the widgets creation to widgets model and use mass insert
-    #inserts = []
-    # TIMES.times do
-    #inserts.push "(3.0, '2009-01-23 20:21:13', 2, 1)"
-    # end
-    # sql = "INSERT INTO widgets (`name`, `datapoints`, 'source`, `widget_type`) VALUES #{inserts.join(", ")}"
-    ##
+  def dash(book)   
     book_source = Rails.configuration.metric_source
+    book_source = "demo" unless apply_to_cloud
     @widget=@book.widgets.create(:name=>"graph", :kind=>"datapoints", :source=>book_source, :widget_type=>"pernode", :range=>"hour", :targets => ["cpu_system"])
-
     #TODO_TOM
     @widget=@book.widgets.create(:name=>"networks", :kind=>"networks_datapoints", :source=>book_source, :widget_type=>"pernode", :range=>"hour", :targets => ["pkts_out"])
     #@widget=@book.widgets.create(:name=>"totalbooks", :kind=>"totalbooks", :source=>book_source, :widget_type=>"summary", :range=>"30-minutes")
@@ -241,10 +233,12 @@ class AppsController < ApplicationController
     end
   end
 
+#this is a prescmmanager auth
   def scm_manager_auth
 
   end
 
+#this is a post scmmanager auth return, where the repos are listed.
   def scmmanager_auth
     path = []
     res = ListRepoNames.perform(params[:scm_session][:username], params[:scm_session][:password])

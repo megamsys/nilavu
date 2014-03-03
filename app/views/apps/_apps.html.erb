@@ -15,7 +15,6 @@
 			</div>
 			<div class="widget-content nopadding" >
 				<div class="chat-content panel-left">
-
 					<div class="chat-messages" id="chat-messages">
 						<div class="row">
 							<div class="col-md-11">
@@ -29,9 +28,7 @@
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-6">
-
-							</div>
+							<div class="col-md-6"></div>
 						</div>
 					</div>
 					<div class="chat-message well">
@@ -139,10 +136,10 @@
 
 													-->
 													<li>
-														<%= link_to preclone_path(:name => cloud_book.node_name),  :title=> "Clone Cloud Book", :remote => true, method: :post do %> <i class="icon-copy"> Clone</i> <% end %>
+														<%= link_to preclone_path(:name => cloud_book.node_name),  :title=> "Clone App", :remote => true, method: :post do %> <i class="icon-copy"> Clone</i> <% end %>
 													</li>
 													<li>
-														<%= link_to app_path(:id => cb.id, :name => cloud_book.node_name), :title=> "Delete Cloud Book", method: :delete, :remote => true,  data: { spinlock: '#cloud_book_request_delete'}, :target => "_self", :data => { :confirm => "Are you sure you wish to delete the app ?"} do %> <i class="icon-trash"> Delete</i> <% end %>
+														<%= link_to app_path(:id => cb.id, :name => cloud_book.node_name), :title=> "Delete App", method: :delete, :remote => true,  data: { spinlock: '#cloud_book_request_delete'}, :target => "_self", :data => { :confirm => "Are you sure you wish to delete the app ?"} do %> <i class="icon-trash"> Delete</i> <% end %>
 													</li>
 												</ul>
 											</div> <% else %>
@@ -159,8 +156,7 @@
 														<i class="icon-play">&nbsp;Start&nbsp;</i> <% end %>
 														<%= mini_spinner_tag  'cloud_book_request_now_nstart' %>
 													</li>
-													
-																										
+
 													<li>
 														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.boltdefnsid, :status => cloud_book.status, :req_type => "restart"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstart'} do %>
 														<i class="icon-play">&nbsp;Start&nbsp;</i> <% end %>
@@ -205,16 +201,27 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					×
 				</button>
-				<h3 id="myModalLabel">Cloud Book</h3>
+				<h3 id="myModalLabel">App Action</h3>
 			</div>
 			<div class="modal-body">
 				<div class="alert alert-success">
-
 					<p>
-						Your request was submitted to megam cloud gateway was successful.
+						App action submitted successfully.</br></br>
+						<% unless apply_to_cloud %>
+						This is a <span class="label label-danger">demo dry run mode</span>.
+						</br>For full version, please
+						<%= link_to signout_path, method: "delete" do %>
+						<i class="icon-signout"></i> Sign Out
+						<% end %>
+						and 
+						<%= link_to signup_path do %>
+						<i class="icon-signin"></i> Sign up 
+						<%end%> for an account.
 						</br>
+						</br>
+						<% else %>
 						<div id="cloud_book_request_now_success"></div>
-						</br>
+						<% end %>
 					</p>
 				</div>
 			</div>
@@ -234,12 +241,12 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					×
 				</button>
-				<h3 id="myModalLabel">Build</h3>
+				<h3 id="myModalLabel">App Action</h3>
 			</div>
 			<div class="modal-body">
 				<div class="alert alert-error">
 					<p>
-						Your request to megam cloud gateway was not successful.
+						Whew ! Failed to submit action for the app in cloud.
 						</br>
 						<%= link_to  "Please open a support ticket support.megam.co", "http://support.megam.co", :class => "btn btn-primary", :target => "_self"%>
 					</p>

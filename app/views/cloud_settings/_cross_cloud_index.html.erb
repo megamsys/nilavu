@@ -1,67 +1,66 @@
-<div class="widget-box nopadding">
-	<div class="widget-title">
-		<span class="icon"> <i class="icon-th-list"></i> </span>
-		<h5>Manage Clouds</h5>
-	</div>
-	<div class="widget-content" >
-		<div class="row">
-			<div class="col-md-4">
-				<div class="cb_box">
-					<h4 align="center" >Recent Activity</h4>
-					<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @cross_clouds.last[:created_at] %></b></h5>
-					<h5 align="Center"><%= link_to "#{@cross_clouds.last[:name]}", cloud_setting_path("#{@cross_clouds.last[:name]}",:type => "cross_cloud"), :remote => true, data: { spinlock: '#crosscloud_current'} %> </h5>
+<div class="row">
+	<div class="col-md-12">
+		<div class="widget-box widget-chat nopadding">
+			<div class="widget-title">
+				<span class="icon"> <i class="icon-th-list"></i> </span>
+				<h5>Clouds Activity</h5>
+				<div class="buttons">
+					<%= link_to "http://www.gomegam.com/contact", class: "btn", :target => "_blank" do %>
+					<i class="icon icon-upgrade">&nbsp;Upgrade</i>
+					<% end %>
 				</div>
 			</div>
-			<div class="col-md-4">
-				<div class="cb_box">
-					<% @percent = @cross_clouds.count/20.0*100 %>
-					<br/>
-					<br/>
-					<div class="row">
-						<div class="col-md-1">
-							<h3>&nbsp;1</h3>
-						</div>
-						<div class="col-md-8">
-							<div class="progress">
-								<% if @percent >= 80 %>
-								<div class="progress-bar progress-bar-warning" style="width: <%= @percent %>%;"></div>
-								<% else %>
-								<div class="progress-bar progress-bar-success" style="width: <%= @percent %>%;"></div>
-								<% end %>
+			<div class="widget-content nopadding">
+				<div class="chat-content panel-left">
+					<div class="chat-messages" id="chat-messages">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="col-md-6">
+									<h4 align="Center"> <%= link_to "#{@cross_clouds.last[:name]}", cloud_setting_path("#{@cross_clouds.last[:name]}",:type => "cross_cloud"), :remote => true, data: { spinlock: '#crosscloud_current'} %> </h4>
+								</div>
+								<div class="col-md-6">
+									<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @cross_clouds.last[:created_at] %></b></h5>
+								</div>
 							</div>
 						</div>
-						<div class="col-md-2">
-							<h3>20</h3>
+						<div class="row">
+							<div class="col-md-6"></div>
 						</div>
 					</div>
-					<br/>
+					<div class="chat-message well">
+						<span class="input-box input-group input-group-lg"> <span class="input-group-btn"> <%= link_to new_cross_cloud_path, class: "btn btn-dark-green btn-lg btn-block", :id => "popover_clouds", :target => "_self" do %> <i class="icon-plus-sign">&nbsp;&nbsp;New &nbsp; Target &nbsp;Cloud &nbsp;&nbsp;</i> <% end %> </span>
+							<input placeholder="Choose your cloud (AWS, hp, Profitbricks,GCE)..." type="text" class="form-control" disabled name="msg-box" id="msg-box" />
+						</span>
+				</div>
+				</div>
+				<div class="chat-users panel-right">
+					<div class="panel-title">
+						<h5>Clouds usage <a href="http://support.megam.co/kb/cloud-applications/" class="pull-right" target="_blank"><i class="icon-question-sign"> Help</i> </a></h5>
+					</div>
+					<div class="panel-content nopadding">
+						<ul class="contact-list">
+							<li class="online new">
+								<h5 align="center" ><span class="icon"><i class="icon-book"></i></span>&nbsp;Used
+								<%= @cross_clouds.count %>&nbsp;Allowed 20</h5>
+								<% @percent = @cross_clouds.count/20.0*100 %>
+
+								<div class="progress">
+									<% if @percent >= 80 %>
+									<div class="progress-bar progress-bar-warning" style="width: <%= @percent %>%;"></div>
+									<% else %>
+									<div class="progress-bar progress-bar-success" style="width: <%= @percent %>%;"></div>
+									<% end %>
+								</div>
+							</li>
+						</ul>
+					</div>
 				</div>
 			</div>
-			<div class="col-md-4">
-				<div class="cb_box">
-					<h4 align="center">No of Clouds</h4>
-					<h5 align="center" ><span class="icon"><i class="icon-book"></i></span>&nbsp;Used <%= @cross_clouds.count %>&nbsp;Allowed 20</h5>
-					<br/>
-				</div>
-			</div>
-
 		</div>
-		<br/>
-		<div class="row">
-			<div class="col-md-6">
-				<%= link_to new_cross_cloud_path, class: "btn btn-lg btn-success btn-block", :id => "popover_clouds", :target => "_self" do %>
-				<i class="icon-cloud">&nbsp;Choose Your Cloud</i>
-				<% end %>
-			</div>
-			<div class="col-md-6">
-				<!-- 	<%= link_to "Upgrade", pricing_path, class: "btn btn-lg btn-inverse btn-block ", :target => "_self" %> -->
-				<%= link_to "Upgrade", "http://www.gomegam.com/contact", class: "btn btn-lg btn-inverse btn-block ", :target => "_blank" %>
-			</div>
-		</div>
-
 	</div>
 </div>
-<br/>
+<div class="row">
+	<div class="col-md-12">
 <div class="widget-box nopadding">
 	<div class="widget-title">
 		<span class="icon"> <i class="icon-th"></i> </span>
@@ -88,6 +87,8 @@
 			</tbody>
 		</table>
 	</div>
+</div>
+</div>
 </div>
 <div id="cross_cloud_show_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">

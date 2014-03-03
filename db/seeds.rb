@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 Product.delete_all
+User.where(:email => "dummy@megamsandbox.com").delete_all
 
 puts "== Products: loading"
 open("config/products_seed.data") do |products|
@@ -15,6 +16,11 @@ open("config/products_seed.data") do |products|
   end
 end
 puts "== Products: loaded"
+puts "== Users: dummy user"
+dummyparams = {:email => "dummy@megamsandbox.com", :password => "dummykeysandbox#megam", :password_confirmation => "dummykeysandbox#megam", :first_name => "Demo user",:last_name => "View only",:api_token =>"dummykeysandbox#megam", :onboarded_api => true, :admin => false, :user_type =>"demo"}
+dummyuser = User.new(dummyparams)
+dummyuser.save
+puts "== Users: dummy user created."
 
 =begin
 puts "NOTICE: fake_dynamo[rvmsudo fake_dynamo --port 4567] should be running."
@@ -23,52 +29,50 @@ puts "==  DynamoDB: deleting:"
 # delete only if the tables exists. If you encounter an error, then move on.
 begin
 @ce = ConnectorExecution.all
-@ce.each do |ce| 
-  ce.delete()
+@ce.each do |ce|
+ce.delete()
 end
 puts "-- ConnectorExecution: deleted"
 rescue => ex
-  puts "-- #{ex.message}"
-  puts "-- skip ConnectorExecution: deletion"
+puts "-- #{ex.message}"
+puts "-- skip ConnectorExecution: deletion"
 end
-  
+
 begin
 @co = ConnectorOutput.all
-@co.each do |co| 
-  co.delete()
+@co.each do |co|
+co.delete()
 end
 puts "-- ConnectorOutput   : deleted"
 rescue => ex
-  puts "-- #{ex.message}"
-  puts "-- skip ConnectorOutput: deletion"
+puts "-- #{ex.message}"
+puts "-- skip ConnectorOutput: deletion"
 end
 
 begin
 @ca = ConnectorAction.all
-@ca.each do |ca| 
-  ca.delete()
+@ca.each do |ca|
+ca.delete()
 end
 puts "-- ConnectorAction   : deleted"
 rescue => ex
-  puts "-- #{ex.message}"
-  puts "-- skip ConnectorAction: deletion"
+puts "-- #{ex.message}"
+puts "-- skip ConnectorAction: deletion"
 end
 
 begin
 @cp = ConnectorProject.all
-@cp.each do |cp| 
-  cp.delete()
+@cp.each do |cp|
+cp.delete()
 end
 puts "-- ConnectorProject  : deleted"
 rescue => ex
-  puts "-- #{ex.message}"
-  puts "-- skip ConnectorProject: deletion"
+puts "-- #{ex.message}"
+puts "-- skip ConnectorProject: deletion"
 end
-
 
 puts "==  DynamoDB: deleted"
 puts "==  DynamoDB: creating"
-
 
 cp = ConnectorProject.create_table
 puts "-- ConnectorProject   : created"

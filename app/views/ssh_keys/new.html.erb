@@ -72,7 +72,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>
+				<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-pink", :target => "_self" %>
 			</div>
 		</div>
 	</div>
@@ -84,20 +84,19 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					×
 				</button>
-				<h3 id="myModalLabel">SSH keys</h3>
+				<h3 id="myModalLabel">SSH Key</h3>
 			</div>
 			<div class="modal-body">
-				<div class="alert alert-error">
-
+				<div class="alert alert-danger">
 					<p>
-						A SSH key creation request to the megam cloud gateway was not successful.
+					SSH key was not created..
 						</br>
 						<div id="err_msg"></div>
 					</p>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>
+				<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-pink", :target => "_self" %>
 			</div>
 		</div>
 	</div>
