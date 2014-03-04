@@ -1,16 +1,27 @@
 class SessionsController < ApplicationController
   def new
-
+  end
+ 
+ #this is a demo user who can only touch anything but mutate megam.
+  def demo
+    user = User.find_by_email(params[:email])
+    if user && user.authenticate(params[:password])
+      sign_in user
+      redirect_back_or cloud_dashboards_path, :gflash => { :success => { :value => "This is a demo dry run mode. No actual launches to cloud happens. For full version, please signout and signup for a new account.", :sticky => false, :nodom_wrap => true } }
+    else
+      flash[:error] = 'Invalid demo username and password combination'
+      render 'new'
+    end
   end
 
   def create
-	logger.debug "==> Controller: sessions, Action: create, User signin"
+    logger.debug "==> Controller: sessions, Action: create, User signin"
     auth = social_identity
     if social_identity.nil?
       user = User.find_by_email(params[:session][:email])
       if user && user.authenticate(params[:session][:password])
         if params[:remember_me]
-         cookies.permanent[:remember_token] = user.remember_token
+          cookies.permanent[:remember_token] = user.remember_token
         #cookies[:remember_token] = { :value => user.remember_token, :expires => 24.weeks.from_now }
         else
           cookies[:remember_token] = user.remember_token
