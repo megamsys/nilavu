@@ -42,7 +42,7 @@
 			</div>
 		</div>
 		<div class="col-md-11">
-			<%= form_tag(new_book_path, :method => "post", :name => "predef") do %>
+			<%= form_tag(launch_path, :method => "post", :name => "predef") do %>
 			<input type="hidden" name="no_of_instances" value=1>
 			<input type="hidden" name="deps_scm" value="">
 			<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">

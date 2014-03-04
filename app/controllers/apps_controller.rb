@@ -247,11 +247,10 @@ class AppsController < ApplicationController
 
   def scmmanager_auth
     path = []
-    res = ListRepoNames.perform(params[:scm_session][:username], params[:scm_session][:password])
-    puts res
+    res = ListRepoNames.perform(params[:scm_session][:username], params[:scm_session][:password])    
     if res[:status] != "200" && res[:status] == "401"
       flash[:error] = 'Invalid username and password combination'
-      render 'cloud_books/scm_manager_auth'
+      render 'apps/scm_manager_auth'
     elsif res[:status] != "200" && res[:status] != "401"
       flash[:error] = res[:some_msg]
       render 'apps/scm_manager_auth'
