@@ -3,8 +3,9 @@
 		<div class="widget-box widget-chat nopadding">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th-list"></i> </span>
-				<h5>Clouds Activity</h5>
+				<h5>Cloud Provisioners Activity</h5>
 				<div class="buttons">
+					<!-- 	<%= link_to "Upgrade", pricing_path, class: "btn btn-lg btn-inverse btn-block ", :target => "_self" %> -->
 					<%= link_to "http://www.gomegam.com/contact", class: "btn", :target => "_blank" do %>
 					<i class="icon icon-upgrade">&nbsp;Upgrade</i>
 					<% end %>
@@ -16,10 +17,10 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="col-md-6">
-									<h4 align="Center"> <%= link_to "#{@cross_clouds.last[:name]}", cloud_setting_path("#{@cross_clouds.last[:name]}",:type => "cross_cloud"), :remote => true, data: { spinlock: '#crosscloud_current'} %> </h4>
+									<h4 align="Center"><%= link_to "#{@cloud_tool_settings.last[:name]}", cloud_tool_setting_path("#{@cloud_tool_settings.last[:name]}", :type => "cloud_tool_setting"), :remote => true, data: { spinlock: '#cloud_current'} %> </h4>
 								</div>
 								<div class="col-md-6">
-									<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @cross_clouds.last[:created_at] %></b></h5>
+									<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @cloud_tool_settings.last[:created_at] %></b></h5>
 								</div>
 							</div>
 						</div>
@@ -28,21 +29,22 @@
 						</div>
 					</div>
 					<div class="chat-message well">
-						<span class="input-box input-group input-group-lg"> <span class="input-group-btn"> <%= link_to new_cross_cloud_path, class: "btn btn-dark-green btn-lg btn-block", :id => "popover_clouds", :target => "_self" do %> <i class="icon-plus-sign">&nbsp;&nbsp;New &nbsp; Target &nbsp;Cloud &nbsp;&nbsp;</i> <% end %> </span>
-							<input placeholder="Choose your cloud (AWS, hp, Profitbricks,GCE)..." type="text" class="form-control" disabled name="msg-box" id="msg-box" />
+						<span class="input-box input-group input-group-lg"> <span class="input-group-btn"> <%= link_to new_cloud_tool_setting_path, :id => "popover_cloud_provisioner", class: "btn btn-dark-green btn-lg btn-block", :target => "_self" do %> <i class="icon-plus-sign">&nbsp;&nbsp;New &nbsp; Cloud &nbsp;Provisioner &nbsp;&nbsp;</i> <% end %> </span>
+							<input placeholder="Import your chef-repo (git supported)..." type="text" class="form-control" disabled name="msg-box" id="msg-box" />
 						</span>
 					</div>
 				</div>
+
 				<div class="chat-users panel-right">
 					<div class="panel-title">
-						<h5>Clouds usage <a href="http://support.megam.co/kb/cloud-applications/" class="pull-right" target="_blank"><i class="icon-question-sign"> Help</i> </a></h5>
+						<h5>Cloud Provisioners usage <a href="http://support.megam.co/kb/cloud-applications/" class="pull-right" target="_blank"><i class="icon-question-sign"> Help</i> </a></h5>
 					</div>
 					<div class="panel-content nopadding">
 						<ul class="contact-list">
 							<li class="online new">
 								<h5 align="center" ><span class="icon"><i class="icon-book"></i></span>&nbsp;Used
-								<%= @cross_clouds.count %>&nbsp;Allowed 20</h5>
-								<% @percent = @cross_clouds.count/20.0*100 %>
+								<%= @cloud_tool_settings.count %>&nbsp;Allowed 20</h5>
+								<% @percent = @cloud_tool_settings.count/2.0*100 %>
 
 								<div class="progress">
 									<% if @percent >= 80 %>
@@ -59,15 +61,17 @@
 		</div>
 	</div>
 </div>
+
 <div class="row">
 	<div class="col-md-12">
-		<div class="widget-box nopadding">
+		<div class="widget-box">
 			<div class="widget-title">
 				<span class="icon"> <i class="icon-th"></i> </span>
-				<h5>Clouds</h5>
+
+				<h5>Cloud Provisioners</h5>
 			</div>
 			<div class="widget-content nopadding">
-				<table class="table table-bordered table-striped table-hover">
+				<table class="table table-bordered table-striped table-hover data-table">
 					<thead>
 						<tr>
 							<th>Actions</th>
@@ -76,12 +80,12 @@
 						</tr>
 					</thead>
 					<tbody>
-						<% @cross_clouds.each do |pre_cl| %>
-						<tr>
-							<td align="center"> <%= link_to cloud_setting_path(pre_cl[:name], :type => "cross_cloud"), :data => {:keyboard=>"false", :backdrop =>"false", :remote => true},
+						<% @cloud_tool_settings.each do |pre_cl| %>
+						<tr class="gradeA">
+							<td align="center"> <%= link_to cloud_tool_setting_path(pre_cl[:name], :type => "cloud_tool_setting"), :remote => true,
 							:class => "btn btn-dark-blue" do %> <i class="icon-eye-open">&nbsp;View</i> <% end %> </td>
 							<td align="center"> <%= pre_cl[:name] %></td>
-							<td align="center"><span class="icon"> <i class="icon-calendar"></i> </span> <%= pre_cl[:created_at] %></td>
+							<td align="center"><span class="icon"> <i class="icon-calendar"></i> </span> <%= pre_cl[:created_at] %> </td>
 						</tr>
 						<% end %>
 					</tbody>
@@ -90,19 +94,19 @@
 		</div>
 	</div>
 </div>
-<div id="cross_cloud_show_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="cloud_tool_setting_show_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					×
 				</button>
-				<h3 id="myModalLabel">View Cloud</h3>
+				<h3 id="myModalLabel">View Cloud Provisioner</h3>
 			</div>
 			<div class="modal-body">
 				<div class="alert alert-info">
 					<p>
-						<h4 id="cross_cloud_show"></h4>
+						<div id="cloud_tool_setting_show"></div>
 					</p>
 				</div>
 			</div>

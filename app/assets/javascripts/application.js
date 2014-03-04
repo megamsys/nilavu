@@ -10,12 +10,12 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require excanvas
+//= require excanvas.compiled
 //= require jquery
 //= require jquery.turbolinks
 //= require jquery_ujs
 //= require jquery.ui.all
-//= require bowser
+//= require bowser.min
 //= require twitter/bootstrap
 //= require angular
 //= require angular-route
@@ -23,8 +23,8 @@
 //= require angular-sanitize
 //= require angular-animate
 //= require promise-tracker
-//= require angular-busy
-//= require spin
+//= require angular-busy.min
+//= require spin.min
 //= require jquery.spin
 //= require gritter
 //= require select2
@@ -37,7 +37,7 @@
 //= require connector_projects
 //= require unicorn.login
 //= require apps
-//= require jquery.peity
+//= require jquery.peity.min
 //= require masonry/jquery.masonry
 //= require unicorn.form_common
 //= require unicorn.form_validation
@@ -56,9 +56,9 @@
 //= require jquery.flot.resize
 //= require jquery.flot.time
 //= require jquery.flot.categories
-//= require bootstrap-editable
+//= require bootstrap-editable.min
 //= require jquery.flexslider
 //= require socket.io
-//= require underscore
+//= require underscore.min
 //= require app
 //= require_tree .
