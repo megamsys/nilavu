@@ -29,6 +29,10 @@
 			<div class="col-md-6">
 				<ul class="list-group">
 					<li class="list-group-item">
+						<span class="badge"><h4><%= @mkp[:plan][:plantype]%></h4></span>
+						<h4>Plan Type</h4>
+					</li>
+					<li class="list-group-item">
 						<span class="badge"><h4><%= @mkp[:plan][:price]%></h4></span>
 						<h4>Price</h4>
 					</li>
@@ -36,29 +40,43 @@
 						<span class="badge"><h4><%= @mkp[:plan][:description]%></h4></span>
 						<h4>Description</h4>
 					</li>
-					<li class="list-group-item">
-						<span class="badge"><h4><%= @mkp[:plan][:plantype]%></h4></span>
-						<h4>Plant Type</h4>
-					</li>
 				</ul>
-				<!--<ul class="nav nav-pills nav-stacked">
-				<li class="active">
-				<a href="#"> <span class="badge pull-right"><%= @mkp[:plan][:price]%></span> Price </a>
-				</li>
-				<li class="active">
-				<a href="#"> <span class="badge pull-right"><%= @mkp[:plan][:description]%></span> Description </a>
-				</li>
-				<li class="active">
-				<a href="#"> <span class="badge pull-right"><%= @mkp[:plan][:plantype]%></span> Plan type </a>
-				</li>
-				</ul>-->
 			</div>
 			<div class="col-md-5">
-				<button class="btn btn-purple btn-block btn-lg">
-					Launch...
-				</button>
+				<% if @mkp[:approved] == "true" %>
+				<%= render :partial => "market_places/add_button", :locals => {:name => @mkp[:name], :category => @mkp[:catagory]} %>
+				<br/>
+				<% if @mkp[:attach] == "true" %>
+				<!--<h4 class="divborder">Attach options</h4>-->
+				<div class="well well-lg">
+					<div class="form-group">
+						<label class="col-sm-4 col-md-4 col-lg-3 control-label">Select App</label>
+						<div class="col-sm-8 col-md-8 col-lg-9">
+							<%= select_tag 'App', options_for_select(@my_apps.insert(0, "Select a App")), :id => "attach_app_select", :style => "width:300px; height:30px;" %>
+						</div>
+					</div>
+					<br/>
+					<button class="btn btn-warning btn-block btn-lg">
+						Attach
+					</button>
+				</div>
+				<% else %>
+				<div class="alert alert-info alert-block">
+					<a class="close" data-dismiss="alert" href="#">×</a>
+					<h4 class="alert-heading">Work Inprogress!</h4>
+					This Addon doesn't attach any app now.
+				</div>
+				<% end %>
+				<% else %>
+				<div class="alert alert-info alert-block">
+					<a class="close" data-dismiss="alert" href="#">×</a>
+					<h4 class="alert-heading">Work Inprogress!</h4>
+					This Addon doesn't Launch and Attach.
+				</div>
+				<% end %>
 			</div>
 		</div>
+		<br/>
 		<div class="col-md-11">
 			<div class="col-md-11">
 				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
@@ -76,8 +94,18 @@
 								<div class="col-md-3"></div>
 								<div class="col-md-6">
 									<p>
-										<h4>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. </h4>
-										<!--<strong><h4><%= @mkp[:features][:feature1]%></h4></strong>-->
+										<h4><%= @mkp[:features][:feature1]%></h4>
+									</p>
+								</div>
+								<div class="col-md-3"></div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="col-md-12">
+								<div class="col-md-3"></div>
+								<div class="col-md-6">
+									<p>
+										<h4><%= @mkp[:features][:feature2]%></h4>
 									</p>
 								</div>
 								<div class="col-md-3"></div>
@@ -88,8 +116,7 @@
 								<div class="col-md-3"></div>
 								<div class="col-md-6">
 									<p>
-										<h4>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. </h4>
-										<!--<strong><h4><%= @mkp[:features][:feature1]%></h4></strong>-->
+										<h4><%= @mkp[:features][:feature3]%></h4>
 									</p>
 								</div>
 								<div class="col-md-3"></div>
@@ -100,8 +127,7 @@
 								<div class="col-md-3"></div>
 								<div class="col-md-6">
 									<p>
-										<h4>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. </h4>
-										<!--<strong><h4><%= @mkp[:features][:feature1]%></h4></strong>-->
+										<h4><%= @mkp[:features][:feature4]%></h4>
 									</p>
 								</div>
 								<div class="col-md-3"></div>
