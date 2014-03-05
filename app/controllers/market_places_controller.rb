@@ -5,7 +5,12 @@ class MarketPlacesController < ApplicationController
     breadcrumbs.add "MarketPlace", market_places_path, :target => "_self"
     mkp = get_marketplaces
     @mkp_collection = mkp[:mkp_collection]
-    @categories = mkp[:categories] 
+   if @mkp_collection.class == Megam::Error
+      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@mkp_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+    end
+    @categories=[]
+    @categories = @mkp_collection.map {|c| c.catagory}
+    @categories = @categories.uniq
   end
 
   def new
@@ -26,7 +31,12 @@ class MarketPlacesController < ApplicationController
   def category_view    
     mkp = get_marketplaces
     @mkp_collection = mkp[:mkp_collection]
-    @categories = mkp[:categories]   
+   if @mkp_collection.class == Megam::Error
+      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@mkp_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+    end
+    @categories=[]
+    @categories = @mkp_collection.map {|c| c.catagory}
+    @categories = @categories.uniq
     @category = params[:category]
     respond_to do |format|
       format.js {
@@ -36,14 +46,8 @@ class MarketPlacesController < ApplicationController
   end
   
   def get_marketplaces
-    mkp_collection = ListMarketPlaceApps.perform(force_api[:email], force_api[:api_key])
-    if mkp_collection.class == Megam::Error
-      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{mkp_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-    end
-    categories=[]
-    categories = mkp_collection.map {|c| c.catagory}
-    categories = categories.uniq
-    {:mkp_collection => mkp_collection, :categories => categories}
+    mkp_collection = ListMarketPlaceApps.perform(force_api[:email], force_api[:api_key])    
+    {:mkp_collection => mkp_collection}
   end
 
 end
