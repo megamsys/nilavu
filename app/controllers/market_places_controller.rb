@@ -10,7 +10,7 @@ class MarketPlacesController < ApplicationController
 
   def new
     breadcrumbs.add "Home", "#", :class => "icon icon-home", :target => "_self"
-    breadcrumbs.add "MarketPlace", market_place_path, :target => "_self"
+    breadcrumbs.add "MarketPlace", market_places_path, :target => "_self"
     breadcrumbs.add "New", new_cloud_store_path, :target => "_self"
   end
 

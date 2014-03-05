@@ -177,7 +177,7 @@ GEM
       treetop (~> 1.4.8)
     masonry-rails (0.2.1)
       rails
-    megam_api (0.8.1)
+    megam_api (0.8.2)
       excon (~> 0.31)
       highline (~> 1.6)
       mixlib-config (~> 2.1)
