@@ -15,10 +15,10 @@ GIT
 
 GIT
   remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
-  revision: 0816e10fa85eabaa4235b09b6d6bab7615643bcc
+  revision: ae4418ec22213076643c2ed5471737c53965fb64
   branch: bootstrap3
   specs:
-    twitter-bootstrap-rails (2.2.7)
+    twitter-bootstrap-rails (3.1.1)
       actionpack (>= 3.1)
       execjs
       rails (>= 3.1)
@@ -72,6 +72,7 @@ GEM
       will_paginate
     breadcrumbs (0.1.6)
       i18n
+    buftok (0.2.0)
     builder (3.2.2)
     callsite (0.0.11)
     capybara (2.2.1)
@@ -110,6 +111,7 @@ GEM
     debug_inspector (0.0.2)
     descendants_tracker (0.0.3)
     diff-lcs (1.2.5)
+    equalizer (0.0.9)
     erubis (2.7.0)
     excon (0.32.0)
     execjs (2.0.2)
@@ -141,6 +143,9 @@ GEM
     hashie (2.0.5)
     highline (1.6.21)
     hike (1.2.3)
+    http (0.5.0)
+      http_parser.rb
+    http_parser.rb (0.6.0)
     httparty (0.13.0)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -172,7 +177,7 @@ GEM
       treetop (~> 1.4.8)
     masonry-rails (0.2.1)
       rails
-    megam_api (0.8.1)
+    megam_api (0.8.2)
       excon (~> 0.31)
       highline (~> 1.6)
       mixlib-config (~> 2.1)
@@ -184,6 +189,8 @@ GEM
     megam_scmmanager (0.1.0)
       highline (~> 1.6)
       nokogiri (~> 1.6)
+    memoizable (0.4.1)
+      thread_safe (~> 0.2.0)
     meta_request (0.2.8)
       callsite
       rack-contrib
@@ -193,7 +200,7 @@ GEM
     minitest (5.3.0)
     mixlib-config (2.1.0)
     mixlib-log (1.6.0)
-    multi_json (1.8.4)
+    multi_json (1.9.0)
     multi_test (0.0.3)
     multi_xml (0.5.5)
     multipart-post (1.2.0)
@@ -303,10 +310,17 @@ GEM
       polyglot (>= 0.3.1)
     turbolinks (2.2.1)
       coffee-rails
-    twitter (4.8.1)
-      faraday (~> 0.8, < 0.10)
-      multi_json (~> 1.0)
-      simple_oauth (~> 0.2)
+    twitter (5.5.1)
+      addressable (~> 2.3)
+      buftok (~> 0.2.0)
+      descendants_tracker (~> 0.0.3)
+      equalizer (~> 0.0.9)
+      faraday (>= 0.8, < 0.10)
+      http (~> 0.5.0)
+      http_parser.rb (~> 0.6.0)
+      json (~> 1.8)
+      memoizable (~> 0.4.0)
+      simple_oauth (~> 0.2.0)
     tzinfo (1.1.0)
       thread_safe (~> 0.1)
     uglifier (2.4.0)
