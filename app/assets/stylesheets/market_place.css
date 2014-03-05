@@ -85,3 +85,10 @@
 	height: 100px;
 }
 
+.divborder {
+	border-bottom-style: solid;
+	border-top-style: none;
+	border-left-style: none;
+	border-right-style: none;
+	border-bottom-color: #990033;
+}

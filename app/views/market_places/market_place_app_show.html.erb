@@ -1,0 +1,124 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'Marketplace') %>
+
+<%= render :partial => "users/header" , :locals => {:head => "Marketplace"}%>
+<div id="breadcrumb">
+	<%= breadcrumbs.render(:format => :inline,:separator => '') %>
+</div>
+<div class="container">
+	<div class="row divborder">
+		<div class="col-md-12" >
+			<div class="col-md-2">
+				<a href="#" > <%= image_tag @mkp[:logo], :alt => @mkp[:name], :class => "megam_image" %> </a>
+				<br/>
+				<br/>
+			</div>
+			<div class="col-md-4">
+				<p>
+					<strong><h3><%= @mkp[:name].upcase %></h3></strong>
+				</p>
+				<p>
+					<h5><%= @mkp[:catagory].upcase %></h5>
+				</p>
+			</div>
+		</div>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-md-12">
+			<div class="col-md-6">
+				<ul class="list-group">
+					<li class="list-group-item">
+						<span class="badge"><h4><%= @mkp[:plan][:price]%></h4></span>
+						<h4>Price</h4>
+					</li>
+					<li class="list-group-item">
+						<span class="badge"><h4><%= @mkp[:plan][:description]%></h4></span>
+						<h4>Description</h4>
+					</li>
+					<li class="list-group-item">
+						<span class="badge"><h4><%= @mkp[:plan][:plantype]%></h4></span>
+						<h4>Plant Type</h4>
+					</li>
+				</ul>
+				<!--<ul class="nav nav-pills nav-stacked">
+				<li class="active">
+				<a href="#"> <span class="badge pull-right"><%= @mkp[:plan][:price]%></span> Price </a>
+				</li>
+				<li class="active">
+				<a href="#"> <span class="badge pull-right"><%= @mkp[:plan][:description]%></span> Description </a>
+				</li>
+				<li class="active">
+				<a href="#"> <span class="badge pull-right"><%= @mkp[:plan][:plantype]%></span> Plan type </a>
+				</li>
+				</ul>-->
+			</div>
+			<div class="col-md-6">
+				<button class="btn btn-purple btn-block btn-lg">
+					LAUNCH...
+				</button>
+			</div>
+		</div>
+		<div class="col-md-12">
+			<div class="col-md-12">
+				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+					<!-- Indicators -->
+					<ol class="carousel-indicators">
+						<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+						<li data-target="#carousel-example-generic" data-slide-to="1"></li>
+						<li data-target="#carousel-example-generic" data-slide-to="2"></li>
+					</ol>
+
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner">
+						<div class="item active">
+							<div class="col-md-12">
+								<div class="col-md-3"></div>
+								<div class="col-md-6">
+									<p>
+										<h4>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. </h4>
+										<!--<strong><h4><%= @mkp[:features][:feature1]%></h4></strong>-->
+									</p>
+								</div>
+								<div class="col-md-3"></div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="col-md-12">
+								<div class="col-md-3"></div>
+								<div class="col-md-6">
+									<p>
+										<h4>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. </h4>
+										<!--<strong><h4><%= @mkp[:features][:feature1]%></h4></strong>-->
+									</p>
+								</div>
+								<div class="col-md-3"></div>
+							</div>
+						</div>
+						<div class="item">
+							<div class="col-md-12">
+								<div class="col-md-3"></div>
+								<div class="col-md-6">
+									<p>
+										<h4>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. </h4>
+										<!--<strong><h4><%= @mkp[:features][:feature1]%></h4></strong>-->
+									</p>
+								</div>
+								<div class="col-md-3"></div>
+							</div>
+						</div>
+					</div>
+
+					<!-- Controls -->
+					<a class="left carousel-control" href="#carousel-example-generic" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left"></span> </a>
+					<a class="right carousel-control" href="#carousel-example-generic" data-slide="next"> <span class="glyphicon glyphicon-chevron-right"></span> </a>
+				</div>
+				<br/>
+				</br/>
+			</div>
+		</div>
+	</div>
+</div>
+
+<% end %>
+<%= render :template => users_show_path %>
