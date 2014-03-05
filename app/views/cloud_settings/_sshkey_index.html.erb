@@ -31,8 +31,9 @@
 
 								</div>
 								<div class="col-md-6">
+									<% if !@ssh_keys.nil? %>
 									<h5 align="Center"><span class="icon"> <i class="fa fa-calendar"></i> </span><b><%= @ssh_keys.last[:created_at] %></b></h5>
-
+ 									<% end %>
 								</div>
 							</div>
 						</div>
