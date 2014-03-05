@@ -12,13 +12,13 @@
 				<div class="widget-title">
 					<ul class="nav nav-tabs">
 						<li class="active">
-							<a data-toggle="tab" href="#sshkeys_tab" >SSH Keys</a>
+							<a data-toggle="tab" href="#sshkeys_tab" ><i class="fa fa-certificate"></i> SSH Keys</a>
 						</li>
 						<li>
-							<a data-toggle="tab" href="#cross_cloud_tab">Clouds</a>
+							<a data-toggle="tab" href="#cross_cloud_tab"><i class="fa fa-cloud"></i>Clouds</a>
 						</li>
 						<li>
-							<a data-toggle="tab" href="#cloud_tools_tab">Cloud Provisioners</a>
+							<a data-toggle="tab" href="#cloud_tools_tab"><i class="fa fa-tasks"></i>Cloud Provisioners</a>
 						</li>
 					</ul>
 				</div>
@@ -29,8 +29,8 @@
 					<div id="cross_cloud_tab" class="tab-pane">
 						<%= render :partial => "cloud_settings/cross_cloud_index" %>
 					</div>
-					<div id="cloud_tools_tab" class="tab-pane" style="overflow:hidden;">
-						<%= render :partial => "cloud_settings/cloud_tool_settings" %>
+					<div id="cloud_tools_tab" class="tab-pane">
+						<%= render :partial => "cloud_settings/cloud_tool_index" %>
 					</div>					
 				</div>
 			</div>

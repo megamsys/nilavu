@@ -4,15 +4,15 @@
 	<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
 	<input type="hidden" name="user_fields_form_type" value="<%= user_fields_form_type.to_s %>">
 	<div class="input-group">
-		<span class="input-group-addon"><i class="icon-user"></i></span>
+		<span class="input-group-addon"><i class="fa fa-user"></i></span>
 		<%= f.text_field :first_name, :id => 'first_name', :class => 'form-control required', placeholder: "First name" %>
 	</div>
 	<div class="input-group">
-		<span class="input-group-addon"><i class="icon-user"></i></span>
+		<span class="input-group-addon"><i class="fa fa-user"></i></span>
 		<%= f.text_field :last_name, :id => 'last_name', :class => 'form-control', placeholder: "Last name" %>
 	</div>
 	<div class="input-group">
-		<span class="input-group-addon"><i class="icon-phone"></i></span>
+		<span class="input-group-addon"><i class="fa fa-phone"></i></span>
 		<%= f.text_field :phone, :class => 'form-control', placeholder: "Phone number" %>
 	</div>
 <br/>

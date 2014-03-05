@@ -14,7 +14,7 @@
 				<div class="panel-body updates" style="height:450px; overflow-y: scroll; ">
 					<% @nodes.each do |node| %>
 					<div class="new-update clearfix">
-						<i class="icon-ok-sign"></i>
+						<i class="fa fa-check-circle"></i>
 						<div class="update-done">
 							<a title="" href="" ng-click="sendmessage('logloader','<%= node.name %>')"><strong><%= node.name %></strong></a>
 						</div>

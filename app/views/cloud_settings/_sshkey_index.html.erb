@@ -1,59 +1,98 @@
-<div class="widget-box nopadding">
-	<div class="widget-title">
-		<span class="icon"> <i class="icon-th-list"></i> </span>
-		<h5>SSH Keys Activity</h5>
-		<div class="buttons">
-			<%= link_to new_ssh_key_path, class: "btn", :id => "popover_sshkey_new", :target => "_self" do %>
-			<i class="icon-cloud">&nbsp;New</i>
-			<% end %>
+<div class="row">
+	<div class="col-md-12">
+		<div class="widget-box widget-chat nopadding">
+			<div class="widget-title">
+				<span class="icon"> <i class="fa fa-th-list"></i> </span>
 
-			<%= link_to ssh_key_import_path, class: "btn", :id => "popover_sshkey_import", :target => "_self" do %>
-			<i class="icon-cloud-upload">&nbsp;Import</i>
-			<% end %>
-		</div>
-	</div>
-	<div class="widget-content" >
-		<div class="row"">
-		<div class="col-md-12">
-		<% if !@ssh_keys.nil? %>
-		<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><b><%= @ssh_keys.last[:created_at] %></b></h5>
-		<h5 align="Center"><%= link_to "#{@ssh_keys.last[:name]}", sshkeys_download_path(:filename =>"#{@ssh_keys.last[:name]}" + ".pub"), :remote => true, data: { spinlock: '#sshkey_current'} %> </h5>
-		<% else %>
-		<div class="alert alert-success alert-block">
-		You don't have any SSH Keys yet. Just click New(or) Import.
-		</div>
-		<% end %>
-		</div>
-		</div>
-		</div>
-		</div>
+				<h5>SSH Keys Activity</h5>
+				<div class="buttons">
+					<%= link_to new_ssh_key_path, class: "btn", :id => "popover_sshkey_new", :target => "_self" do %>
+					<i class="fa fa-cloud">&nbsp;New</i>
+					<% end %>
 
-		<div class="widget-box nopadding">
-		<div class="widget-title">
-		<span class="icon"> <i class="icon-th"></i> </span>
-		<h5>SSH Keys</h5>
+					<%= link_to ssh_key_import_path, class: "btn", :id => "popover_sshkey_import", :target => "_self" do %>
+					<i class="fa fa-cloud-upload">&nbsp;Import</i>
+					<% end %>
+				</div>
+			</div>
+			<div class="widget-content nopadding">
+				<div class="chat-content panel-left">
+					<div class="chat-messages" id="chat-messages">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="col-md-6">
+									<% if !@ssh_keys.nil? %>
+									<h4 align="Center"><%= link_to "#{@ssh_keys.last[:name]}", sshkeys_download_path(:filename =>"#{@ssh_keys.last[:name]}" + ".pub"), :remote => true, data: { spinlock: '#sshkey_current'} %> </h4>
+									<% else %>
+									<div class="alert alert-success alert-block">
+										You don't have any SSH Keypairs yet. Click New (or) Import to get started.
+									</div>
+									<% end %>
+
+								</div>
+								<div class="col-md-6">
+									<h5 align="Center"><span class="icon"> <i class="fa fa-calendar"></i> </span><b><%= @ssh_keys.last[:created_at] %></b></h5>
+
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6"></div>
+						</div>
+					</div>
+					<div class="chat-message well">
+						<span class="input-box input-group input-group-lg"> <span class="input-group-btn"> <%= link_to new_ssh_key_path, class: "btn btn-dark-green btn-lg btn-block", :id => "popover_sshkey_new", :target => "_self" do %> <i class="fa fa-plus-circle">&nbsp;&nbsp;New &nbsp; SSH &nbsp;Keypair &nbsp;&nbsp;</i> <% end %> </span>
+							<input placeholder="Generate a new SSH Keypair (RSA)..." type="text" class="form-control" disabled name="msg-box" id="msg-box" />
+						</span>
+					</div>
+				</div>
+
+				<div class="chat-users panel-right">
+					<div class="panel-title">
+						<h5>SSHKeypairs usage <a href="http://support.megam.co/kb/cloud-applications/" class="pull-right" target="_blank"><i class="fa-question-circle"> Help</i> </a></h5>
+					</div>
+					<div class="panel-content nopadding">
+						<ul class="contact-list">
+							<li class="online new">
+								<h5 align="center" ><span class="icon"><i class="fa fa-book"></i></span>&nbsp;Used <!-- 	<%= @cloud_tool_settings.count %>&nbsp;Allowed 20</h5> -->
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="widget-content nopadding">
-		<% if @ssh_keys_collection.class != Megam::Error %>
-		<table class="table table-bordered table-striped table-hover">
-		<thead>
-		<tr>
-		<th>Actions</th>
-		<th>Name</th>
-		<th>Created At</th>
-		</tr>
-		</thead>
-		<tbody>
-		<% @ssh_keys.each do |sshkey| %>
-		<tr>
-		<td align="center">
-		<%= link_to  sshkeys_download_path(:filename => sshkey[:name]+".pub"), :class => "btn btn-dark-blue" , :target => "_self" do %> <i class="icon-cloud-download">&nbsp;Pub</i> <% end %>
-		<%= link_to  sshkeys_download_path(:filename => sshkey[:name]+".key"), :class => "btn btn-dark-red", :target => "_self" do %> <i class="icon-cloud-download">&nbsp;Private</i> <% end %> </td> <td align="center"><%= sshkey[:name] %></td>
-		<td align="center"><span class="icon"> <i class="icon-calendar"></i> </span> <%= sshkey[:created_at] %></td>
-		</tr>
-		<% end %>
-		</tbody>
-		</table>
-		<% end %>
 	</div>
 </div>
+<div class="row">
+	<div class="col-md-12">
+		<div class="widget-box">
+			<div class="widget-title">
+				<span class="icon"> <i class="fa fa-th"></i> </span>
+				<h5>SSH Keypairs</h5>
+			</div>
+			<div class="widget-content nopadding">
+				<table class="table table-bordered table-striped table-hover data-table">
+					<thead>
+						<tr>
+							<th>Actions</th>
+							<th>Name</th>
+							<th>Created At</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% if @ssh_keys_collection.class != Megam::Error %>
+						<% @ssh_keys.each do |sshkey| %>
+						<tr>
+							<td align="center"> <%= link_to  sshkeys_download_path(:filename => sshkey[:name]+".pub"), :class => "btn btn-dark-blue" , :target => "_self" do %> <i class="fa fa-cloud-download">&nbsp;Pub</i> <% end %>
+							<%= link_to  sshkeys_download_path(:filename => sshkey[:name]+".key"), :class => "btn btn-dark-red", :target => "_self" do %> <i class="fa fa-cloud-download">&nbsp;Private</i> <% end %> </td><td align="center"><%= sshkey[:name] %></td>
+							<td align="center"><span class="icon"> <i class="fa fa-calendar"></i> </span> <%= sshkey[:created_at] %></td>
+						</tr>
+						<% end %>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+
