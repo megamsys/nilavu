@@ -1,7 +1,7 @@
 class CloudIdentitiesController < ApplicationController
   respond_to :html, :js
   def index
-    breadcrumbs.add " Dashboard", :cloud_dashboards_path,  :class => "icon icon-dashboard"
+    breadcrumbs.add " Dashboard", :cloud_dashboards_path,  :class => "fa fa-dashboard"
 
   end
 
@@ -19,7 +19,7 @@ class CloudIdentitiesController < ApplicationController
   end
 
   def go_identity
-    breadcrumbs.add " Dashboard", :cloud_dashboards_path, :class => "icon icon-dashboard"
+    breadcrumbs.add " Dashboard", :cloud_dashboards_path, :class => "fa fa-dashboard"
 
     breadcrumbs.add "Cloud Identity", cloud_identity_path(current_user.id)
     breadcrumbs.add params[:format], go_identity_path
@@ -78,7 +78,7 @@ class CloudIdentitiesController < ApplicationController
   end
 
   def show
-    breadcrumbs.add " Dashboard", :cloud_dashboards_path, :class => "icon icon-dashboard"
+    breadcrumbs.add " Dashboard", :cloud_dashboards_path, :class => "fa fa-dashboard"
 
     breadcrumbs.add "Cloud Identity", cloud_identity_path(current_user.id)
     @user = User.find(current_user.id)

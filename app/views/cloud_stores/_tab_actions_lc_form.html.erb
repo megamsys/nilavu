@@ -1,7 +1,7 @@
 <%= form_tag(build_request_path, :method => "post", :name => "lifecycle", :remote => true) do %>
 <div class="widget-box">
 	<div class="widget-title">
-		<span class="icon"> <i class="icon-th-list"></i> </span>
+		<span class="icon"> <i class="fa fa-th-list"></i> </span>
 		<h5>Change Service Lifecycle</h5>
 	</div>
 	<div class="widget-content">
@@ -11,15 +11,15 @@
 		<input type="hidden"  name="node_name" value="<%= @node_name %>">
 		<div class="input-group">
 			<input type="text" name="lc_apply" value="<%= @lc_apply %>" class="form-control">
-			<span class="input-group-addon"><%= link_to "#" do %> <i class="icon-question-sign"></i> <% end %></span>
+			<span class="input-group-addon"><%= link_to "#" do %> <i class="fa-question-sign"></i> <% end %></span>
 		</div>		
 		<div class="input-group">
 			<%= text_field_tag 'lc_additional', nil, :id => "lc_additional", :class=> 'form-control required', placeholder: 'Enter Life-Cycle Additional value' %>
-			<span class="input-group-addon"><%= link_to "#" do %> <i class="icon-question-sign"></i> <% end %></span>
+			<span class="input-group-addon"><%= link_to "#" do %> <i class="fa-question-sign"></i> <% end %></span>
 		</div>
 		<div class="input-group">
 			<%= text_field_tag 'lc_when', nil, :id => "lc_when", :class=> 'form-control required', placeholder: 'Enter Life-Cycle When value' %>
-			<span class="input-group-addon"><%= link_to "#" do %> <i class="icon-question-sign"></i> <% end %></span>
+			<span class="input-group-addon"><%= link_to "#" do %> <i class="fa-question-sign"></i> <% end %></span>
 		</div>			
 		<%= submit_tag @req_type, :class => "btn btn-lg btn-success btn-block", :remote => true, data: { spinner: '#send_request_spinner'} %>
 	</div>

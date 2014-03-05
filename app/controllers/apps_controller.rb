@@ -7,7 +7,7 @@ class AppsController < ApplicationController
   def index
     cloud_books = current_user.apps.where(:book_type => 'APP').order("id DESC").all
     if cloud_books.any?
-      breadcrumbs.add " Home", "#", :class => "icon icon-home", :target => "_self"
+      breadcrumbs.add " Home", "#", :class => "fa fa-home", :target => "_self"
       breadcrumbs.add "Manage Apps", apps_path, :target => "_self"
 
       @nodes = FindNodesByEmail.perform({},current_user.email, current_user.api_token)
@@ -79,7 +79,7 @@ class AppsController < ApplicationController
   def new
     if current_user.onboarded_api
       @book =  current_user.apps.build
-      breadcrumbs.add " Home", "#", :class => "icon icon-home", :target => "_self"
+      breadcrumbs.add " Home", "#", :class => "fa fa-home", :target => "_self"
       breadcrumbs.add "Manage Apps", apps_path, :target => "_self"
       breadcrumbs.add "Apps Framework Selection", new_app_path, :target => "_self"
     else
@@ -88,7 +88,7 @@ class AppsController < ApplicationController
   end
 
   def launch
-    breadcrumbs.add "Home", "#", :class => "icon icon-home", :target => "_self"
+    breadcrumbs.add "Home", "#", :class => "fa fa-home", :target => "_self"
     breadcrumbs.add "Manage Apps", apps_path, :target => "_self"
     breadcrumbs.add "Apps Framework Selection", new_app_path, :target => "_self"
 

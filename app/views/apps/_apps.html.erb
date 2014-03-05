@@ -2,14 +2,14 @@
 	<div class="col-md-11">
 		<div class="widget-box widget-chat nopadding">
 			<div class="widget-title">
-				<span class="icon"> <i class="icon-th-list"></i> </span>
+				<span class="icon"> <i class="fa fa-th-list"></i> </span>
 				<h5>Apps Activity</h5>
 				<div class="buttons">
 					<%= link_to  apps_histories_path, class: "btn", title: 'Watch logs of created apps', rel: 'tooltip', :target => "_self" do %>
-					<i class="icon-facetime-video">&nbsp;Logs</i>
+					<i class="fa fa-video-camera">&nbsp;Logs</i>
 					<%end %>
 					<%= link_to "http://www.gomegam.com/contact", class: "btn", :target => "_blank" do %>
-					<i class="icon icon-upgrade">&nbsp;Upgrade</i>
+					<i class="fa fa-star-o">&nbsp;Upgrade</i>
 					<% end %>
 				</div>
 			</div>
@@ -20,10 +20,10 @@
 							<div class="col-md-11">
 								<div class="col-md-5">
 									<h4 align="Center"> <%= link_to app_path(:id => latest_book.id,:name => latest_book.name), :remote => true, data: { spinlock: '#book'} do %>
-									<%= latest_book.name %>&nbsp;<i class="icon-edit"></i> <% end %> </h4>
+									<%= latest_book.name %>&nbsp;<i class="fa fa-edit"></i> <% end %> </h4>
 								</div>
 								<div class="col-md-6">
-									<h5 align="Center"><span class="icon"> <i class="icon-calendar"></i> </span><%= latest_book.created_at.to_formatted_s(:rfc822) %></h5>
+									<h5 align="Center"><span class="icon"> <i class="fa fa-calendar"></i> </span><%= latest_book.created_at.to_formatted_s(:rfc822) %></h5>
 								</div>
 							</div>
 						</div>
@@ -32,19 +32,19 @@
 						</div>
 					</div>
 					<div class="chat-message well">
-						<span class="input-box input-group input-group-lg"> <span class="input-group-btn"> <%= link_to new_app_path, class: "btn btn-dark-green btn-lg btn-block", title: 'Choose your application\'s framework', rel: 'tooltip', :target => "_self" do %> <i class="icon-plus-sign">&nbsp;&nbsp;Create &nbsp;a &nbsp;new &nbsp;app&nbsp;&nbsp;</i> <% end %> </span>
+						<span class="input-box input-group input-group-lg"> <span class="input-group-btn"> <%= link_to new_app_path, class: "btn btn-dark-green btn-lg btn-block", title: 'Choose your application\'s framework', rel: 'tooltip', :target => "_self" do %> <i class="fa fa-plus-circle">&nbsp;&nbsp;Create &nbsp;a &nbsp;new &nbsp;app&nbsp;&nbsp;</i> <% end %> </span>
 							<input placeholder="Launch apps by choosing your framework..." type="text" class="form-control" disabled name="msg-box" id="msg-box" />
 						</span>
 					</div>
 				</div>
 				<div class="chat-users panel-right">
 					<div class="panel-title">
-						<h5>Apps usage <a href="http://support.megam.co/kb/cloud-applications/" class="pull-right" target="_blank"><i class="icon-question-sign"> Help</i> </a></h5>
+						<h5>Apps usage <a href="http://support.megam.co/kb/cloud-applications/" class="pull-right" target="_blank"><i class="fa fa-question-circle"> Help</i> </a></h5>
 					</div>
 					<div class="panel-content nopadding">
 						<ul class="contact-list">
 							<li id="user-michelle" class="online new">
-								<h5 align="center" ><span class="icon"> <i class="icon-rocket"></i> </span>&nbsp;Launched <b><%= @launched_books_quota %></b>&nbsp; Allowed <b>20</b></h5> <% @percent = @launched_books_quota/20.0*100 %>
+								<h5 align="center" ><span class="icon"> <i class="fa fa-rocket"></i> </span>&nbsp;Launched <b><%= @launched_books_quota %></b>&nbsp; Allowed <b>20</b></h5> <% @percent = @launched_books_quota/20.0*100 %>
 								<div class="progress">
 									<% if @percent >= 80 %>
 									<div class="progress-bar progress-bar-warning" style="width: <%= @percent %>%;"></div>
@@ -69,7 +69,7 @@
 	<div class="col-md-11">
 		<div class="widget-box">
 			<div class="widget-title">
-				<span class="icon"> <i class="icon-th-list"></i> </span>
+				<span class="icon"> <i class="fa fa-th-list"></i> </span>
 				<h5>My Apps</h5>
 			</div>
 			<div class="widget-content nopadding">
@@ -79,7 +79,7 @@
 					<div class="accordion-group widget-box">
 						<div class="accordion-heading">
 							<div class="widget-title">
-								<a data-parent="#collapse-group" href="#collapse<%= k%>" data-toggle="collapse"> <span class="icon"> <i class="icon-magnet"></i></span> <% if cb.book_type == 'APP' %> <span class="label label-info pull-right"><strong> <%= cb.book_type %><strong> </span> <% elsif cb.book_type == 'BOLT' %> <span class="label label-warning"><%= cb.book_type %></span> <% end %> <p></p> <span class="label label-danger pull-left">&nbsp;<strong><%= k%></strong></span> </a>
+								<a data-parent="#collapse-group" href="#collapse<%= k%>" data-toggle="collapse"> <span class="icon"> <i class="fa fa-magnet"></i></span> <% if cb.book_type == 'APP' %> <span class="label label-info pull-right"><strong> <%= cb.book_type %><strong> </span> <% elsif cb.book_type == 'BOLT' %> <span class="label label-warning"><%= cb.book_type %></span> <% end %> <p></p> <span class="label label-danger pull-left">&nbsp;<strong><%= k%></strong></span> </a>
 							</div>
 						</div>
 						<div class="collapse accordion-body" id="collapse<%= k%>">
@@ -101,45 +101,45 @@
 											<% cloud_book = @nodes.lookup(node) %>
 											<td> <% if cloud_book.node_type == "APP" %>
 											<div class="btn-group">
-												<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="icon-folder-open"> Actions </span> <span class="caret"></span> </a>
+												<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"><span class="fa fa-folder-open"> Actions </span> <span class="caret"></span> </a>
 												<ul class="dropdown-menu">
 													<li>
 														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "build"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nbuild'} do %>
-														<i class="icon-building">&nbsp;Build&nbsp;</i> <% end %>
+														<i class="fa fa-building-o">&nbsp;Build&nbsp;</i> <% end %>
 														<%= mini_spinner_tag  'cloud_book_request_now_nbuild' %>
 													</li>
 													<li class="divider"></li>
 													<li>
 														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "start"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstart'} do %>
-														<i class="icon-play">&nbsp;Start&nbsp;</i> <% end %>
+														<i class="fa fa-play">&nbsp;Start&nbsp;</i> <% end %>
 														<%= mini_spinner_tag  'cloud_book_request_now_nstart' %>
 													</li>
 													<li>
 														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "stop"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstop'} do %>
-														<i class="icon-stop">&nbsp;Stop&nbsp;</i> <% end %>
+														<i class="fa fa-stop">&nbsp;Stop&nbsp;</i> <% end %>
 														<%= mini_spinner_tag  'cloud_book_request_now_nstop' %>
 													</li>
 													<li>
 														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "restart"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nrestart'} do %>
-														<i class="icon-refresh">&nbsp;Restart&nbsp;</i> <% end %>
+														<i class="fa fa-refresh">&nbsp;Restart&nbsp;</i> <% end %>
 														<%= mini_spinner_tag  'cloud_book_request_now_nrestart' %>
 													</li>
 													<li class="divider"></li>
 													<!--
 													<li>
 													<%= link_to  app_path(:action => "show", :id => cb.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'}  do %>
-													<i class="icon-list">&nbsp;Details&nbsp;</i>
+													<i class="fa-list">&nbsp;Details&nbsp;</i>
 													<% end %>
 													</li>
 
-													<span class="icon"> <i class="icon-calendar"></i> </span> <%= cloud_book.created_at.to_datetime.to_formatted_s(:rfc822) %>
+													<span class="icon"> <i class="fa-calendar"></i> </span> <%= cloud_book.created_at.to_datetime.to_formatted_s(:rfc822) %>
 
 													-->
 													<li>
-														<%= link_to preclone_path(:name => cloud_book.node_name),  :title=> "Clone App", :remote => true, method: :post do %> <i class="icon-copy"> Clone</i> <% end %>
+														<%= link_to preclone_path(:name => cloud_book.node_name),  :title=> "Clone App", :remote => true, method: :post do %> <i class="fa fa-copy"> Clone</i> <% end %>
 													</li>
 													<li>
-														<%= link_to app_path(:id => cb.id, :name => cloud_book.node_name), :title=> "Delete App", method: :delete, :remote => true,  data: { spinlock: '#cloud_book_request_delete'}, :target => "_self", :data => { :confirm => "Are you sure you wish to delete the app ?"} do %> <i class="icon-trash"> Delete</i> <% end %>
+														<%= link_to app_path(:id => cb.id, :name => cloud_book.node_name), :title=> "Delete App", method: :delete, :remote => true,  data: { spinlock: '#cloud_book_request_delete'}, :target => "_self", :data => { :confirm => "Are you sure you wish to delete the app ?"} do %> <i class="fa fa-trash-o"> Delete</i> <% end %>
 													</li>
 												</ul>
 											</div> <% else %>
@@ -148,24 +148,24 @@
 												<ul class="dropdown-menu">
 													<li>
 														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.boltdefnsid, :status => cloud_book.status, :req_type => "start"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstart'} do %>
-														<i class="icon-play">&nbsp;Start&nbsp;</i> <% end %>
+														<i class="fa fa-play">&nbsp;Start&nbsp;</i> <% end %>
 														<%= mini_spinner_tag  'cloud_book_request_now_nstart' %>
 													</li>
 													<li>
 														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.boltdefnsid, :status => cloud_book.status, :req_type => "stop"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstart'} do %>
-														<i class="icon-play">&nbsp;Start&nbsp;</i> <% end %>
+														<i class="fa fa-play">&nbsp;Start&nbsp;</i> <% end %>
 														<%= mini_spinner_tag  'cloud_book_request_now_nstart' %>
 													</li>
 
 													<li>
 														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.boltdefnsid, :status => cloud_book.status, :req_type => "restart"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstart'} do %>
-														<i class="icon-play">&nbsp;Start&nbsp;</i> <% end %>
+														<i class="fa fa-play">&nbsp;Start&nbsp;</i> <% end %>
 														<%= mini_spinner_tag  'cloud_book_request_now_nstart' %>
 													</li>
 													<li class="divider"></li>
 													<li>
 														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.boltdefnsid, :status => cloud_book.status, :req_type => "build"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstart'} do %>
-														<i class="icon-play">&nbsp;Start&nbsp;</i> <% end %>
+														<i class="fa fa-play">&nbsp;Start&nbsp;</i> <% end %>
 														<%= mini_spinner_tag  'cloud_book_request_now_nstart' %>
 													</li>
 													<li>
@@ -173,11 +173,11 @@
 													</li>
 												</ul>
 											</div> <% end %> </td>
-											<td> <%= link_to  "http://#{cloud_book.node_name}" , { :target => '_blank'} do %> <i class="icon icon-external-link">&nbsp;<%= "#{cloud_book.node_name}" %></i> <%end%> </td>
-											<td align="center"> <%= link_to  app_path(:action => "show", :id => cb.id, :name => cloud_book.node_name), :remote => true, data: { spinlock: '#book'}  do %> <i class="icon-shopping-cart"></i> <% end %> </td>
-											<td align="center"> <%= link_to  app_path(:action => "show", :id => cb.id, :name => cloud_book.node_name), :remote => true, data: { spinlock: '#book'}  do %> <i class="icon-cog"></i> <% end %> </td>
-											<td align="center"> <%= link_to  activities_path(:name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'}  do %> <i class="icon-list"></i> <% end %> </td>
-											<td align="center"><i class="icon-circle"> </i><span class="label label-success" , align="center"><%= cloud_book.status %></span></td>
+											<td> <%= link_to  "http://#{cloud_book.node_name}" , { :target => '_blank'} do %> <i class="fa fa-external-link">&nbsp;<%= "#{cloud_book.node_name}" %></i> <%end%> </td>
+											<td align="center"> <%= link_to  app_path(:action => "show", :id => cb.id, :name => cloud_book.node_name), :remote => true, data: { spinlock: '#book'}  do %> <i class="fa fa-shopping-cart"></i> <% end %> </td>
+											<td align="center"> <%= link_to  app_path(:action => "show", :id => cb.id, :name => cloud_book.node_name), :remote => true, data: { spinlock: '#book'}  do %> <i class="fa fa-cog"></i> <% end %> </td>
+											<td align="center"> <%= link_to  activities_path(:name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'}  do %> <i class="fa fa-list"></i> <% end %> </td>
+											<td align="center"><i class="fa fa-circle"> </i><span class="label label-success" , align="center"><%= cloud_book.status %></span></td>
 										</tr>
 										<% end %>
 									</tbody>
@@ -211,11 +211,11 @@
 						This is a <span class="label label-danger">demo dry run mode</span>.
 						</br>For full version, please
 						<%= link_to signout_path, method: "delete" do %>
-						<i class="icon-signout"></i> Sign Out
+						<i class="fa fa-sign-out"></i> Sign Out
 						<% end %>
 						and 
 						<%= link_to signup_path do %>
-						<i class="icon-signin"></i> Sign up 
+						<i class="fa fa-sign-in"></i> Sign up 
 						<%end%> for an account.
 						</br>
 						</br>

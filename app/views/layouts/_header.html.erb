@@ -6,17 +6,17 @@
 		<ul class="btn-group">
 			<li class="btn">
 				<%= link_to "http://slidesha.re/1h8k9tt", :target => "_blank" do %>
-				<i class="icon-puzzle-piece"></i> How does it work ?
+				<i class="fa fa-puzzle-piece"></i> Under the Hood
 				<% end %>
 			</li>
 			<li class="btn" >
 				<%= link_to edit_user_path(current_user), :target => "_self" do %>
-				<i class="icon-user"></i> <%= current_user.first_name.capitalize %>
+				<i class="fa fa-user"></i> <%= current_user.first_name.capitalize %>
 				<% end %>
 			</li>
 			<li class="btn">
 				<%= link_to signout_path, method: "delete" do %>
-				<i class="icon-signout"></i> Sign Out
+				<i class="fa fa-sign-out"></i> Sign Out
 				<% end %>
 			</li>
 		</ul>

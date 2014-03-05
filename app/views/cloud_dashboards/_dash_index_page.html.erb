@@ -3,7 +3,7 @@
 	<div class="col-xs-5 col-sm-5 col-md-6 col-lg-6">
 		<div class="widget-box">
 			<div class="widget-title">
-				<span class="icon"> <i class="icon icon-bar-chart"></i> </span>
+				<span class="icon"> <i class="fa fa-bar-chart-o"></i> </span>
 				<h5>Distribution of Apps in cloud</h5>
 			</div>
 			<div class="widget-content">
@@ -14,7 +14,8 @@
 	<div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
 		<div class="widget-box">
 			<div class="widget-title">
-				<span class="icon"> <i class="icon icon-bar-chart"></i> </span>
+				<span class="icon">
+				<i class="fa fa-bar-chart-o"></i></span> 
 				<h5>Distribution of Apps/Services</h5>
 			</div>
 			<div class="widget-content">
@@ -27,14 +28,14 @@
 	<div class="col-xs-11 col-sm-11 col-md-11 col-lg-11">
 		<div class="widget-box" >
 			<div class="widget-title">
-				<span class="icon"> <i class="icon icon-refresh"></i> </span>
+				<span class="icon"> <i class="fa fa-refresh"></i> </span>
 				<h5>Latest updates</h5>
 			</div>
 
 			<div class="widget-content nopadding" style="height:400px; overflow-y: scroll;">
 				<% @launched_apps_services.each do |one_app_service| %>
 				<div class="new-update clearfix">
-					<i class="icon icon-ok-sign"></i>
+					<i class="fa fa-check-circle"></i>
 					<div class="update-done">
 						<a title="" href="http://<%= one_app_service.name %>" target="_blank" ><strong>[<%= one_app_service.name %>] <%= one_app_service.predef_name.capitalize %> <%= one_app_service.book_type.downcase %> is onboard!</strong></a>
 						<span class="update-day-value"> <%= one_app_service.created_at.to_formatted_s(:rfc822) %> </span>
@@ -42,13 +43,13 @@
 					<div class="update-date">
 						<div class="col-md-4 col-md-offset-4">
 							<%= link_to dashboard_path(one_app_service.id), :class=>"btn btn-primary btn-lg active", :id =>id="popover_dashboard_monitor", :target => "_blank"  do %>
-							<i class="icon icon-bolt"></i>
+							<i class="fa fa-bolt"></i>
 							Monitor
 							<% end %>
 						</div>
 						<div class="col-md-4">
 							<%= link_to "#", :class=>"btn btn-dark-green btn-lg active", :id =>id="popover_dashboard_cloud" do %>
-							<i class="icon icon-cloud"></i>
+							<i class="fa fa-cloud"></i>
 							<%= one_app_service.cloud_name %>
 							<% end %>
 						</div>
@@ -80,21 +81,21 @@
 							<tbody>
 								<tr>
 									<td><span class="badge badge-info">Java</span></td>
-									<td><i class="icon-code"> </i>
+									<td><i class="fa fa-code"> </i>
 									<code>
 										Online code editor
 									</code> <%= link_to  "A simple web app run on Java container in megam.", new_app_path, :target => "_self", title: "Lauch your java app in megam"  %> </td>
 								</tr>
 								<tr>
 									<td><span class="badge badge-info">Ruby</span></td>
-									<td><i class="icon-plus-sign" > </i>
+									<td><i class="fa fa-plus-sign" > </i>
 									<code>
 										Ruby Sample app
 									</code><%= link_to  "A simple general purpose Rails 4.0 web app run on Ruby on Rails container in megam.", new_app_path, :target => "_self", title: "Lauch your ruby on rails app in megam"  %> </td>
 								</tr>
 								<tr>
 									<td><span class="badge badge-info">Marketplace</span></td>
-									<td><i class="icon-shopping-cart"> </i>
+									<td><span class="icon"><i class="fa fa-shopping-cart"> </i></span>
 									<code>
 										Marketplace
 									</code> <%= link_to  "Wordpress A ready to deploy, general purpose wordpress package with MySQL database.", new_market_place_path, :target => "_self", title: "Lauch your wordpress app in megam"  %> </td>
@@ -105,7 +106,7 @@
 					</div>
 				</div>
 				<div>
-					<i class="icon-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> My Apps to get stared. </span>
+					<i class="fa fa-chevron-left"></i>&nbsp; &nbsp; Click <span class="badge badge-important"> My Apps to get stared. </span>
 					</br>
 				</div>
 			</div>
