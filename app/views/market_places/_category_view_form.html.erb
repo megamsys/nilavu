@@ -11,36 +11,17 @@
 						<span class="fa fa-bar"></span>
 					</button>
 				</div>
-
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <b class="caret"></b></a>
-							<ul class="dropdown-menu" style="height:200px; overflow-y: scroll;">
-								<li>
-									<a href="#" onclick="do_stuff();">blah</a>
-								</li>
-								<li>
-									<a href="#" onclick="do_stuff();">blah</a>
-									<!--<%= link_to category_view_path(:category => "All"), :target => "_self", :remote => true, :type => "submit", :method => "post", data: { spinlock: '#catt'} do %>All<% end %>-->
-								</li>
-								<% categories.each do |cat| %>
-								<li>
-									<%= link_to category_view_path(:category => cat), :target => "_self", :remote => true, :type => "submit", :method => "post", data: { spinlock: '#catt'} do %><%= cat %><% end %>
-								</li>
-								<% end %>
-							</ul>
-						</li>
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Price <b class="caret"></b></a>
-							<ul class="dropdown-menu" style="height:200px; overflow-y: scroll;">
-								<li>
-									<a href="#">...</a>
-								</li>
-							</ul>
-						</li>
-					</ul>
+					<div class="nav navbar-nav" id="filters">
+						<br/>
+						<select class="option-set clearfix"  data-filter-group="category">
+							<option value="*" data-filter-value="" class="selected">All</option>
+							<% categories.each do |cat| %>
+							<option value="#filter-category-<%= cat %>" data-filter-value=".<%= cat %>"><%= cat %></option>
+							<% end %>
+						</select>
+					</div>
 					<form class="navbar-form navbar-right" role="search">
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Search">
@@ -57,38 +38,25 @@
 		<br/>
 		</br/>
 		<div class="row">
-			<div class="gallery-masonry">
-				<% if category == "All" %>
-				<% mkp_collection.each do |mkp| %>
-				<div class="item">
-					<a href="#" class="thumbnail" > <%= image_tag mkp.logo, :alt => mkp.name %> </a>
-					<p>
-						<%= mkp.name %>
-					</p>
-					<div class="actions">
-						<div class="actions-inner">
-							<%= link_to  market_place_app_show_path(:name => mkp.name, :logo => mkp.logo, :features => mkp.features, :pricetype => mkp.pricetype, :plan => mkp.plan, :catagory => mkp.catagory, :attach => mkp.attach, :approved => mkp.approved), :target => "_self", title: "Open" do %><i class="icon-folder-open"></i><%end%>
+			<div class="col-lg-12">
+				<br/>
+				<div id="iso_container">
+					<div class="gallery-masonry" >
+						<% mkp_collection.each do |mkp| %>
+						<div class="item produkt-element  <%= mkp.catagory %>" id='<%= mkp.catagory %>' >
+							<a href="#" class="thumbnail" > <%= image_tag mkp.logo, :alt => mkp.name %> </a>
+							<p>
+								<%= mkp.catagory %>_<%= mkp.name %>
+							</p>
+							<div class="actions">
+								<div class="actions-inner">
+									<%= link_to  market_place_app_show_path(:name => mkp.name, :logo => mkp.logo, :features => mkp.features, :pricetype => mkp.pricetype, :plan => mkp.plan, :catagory => mkp.catagory, :attach => mkp.attach, :approved => mkp.approved), :target => "_self", title: "Open" do %><i class="fa fa-folder-open"></i><%end%>
+								</div>
+							</div>
 						</div>
+						<% end %>
 					</div>
 				</div>
-				<% end %>
-				<% else %>
-				<% mkp_collection.each do |mkp| %>
-				<% if category == mkp.catagory %>
-				<div class="item">
-					<a href="#" class="thumbnail" > <%= image_tag mkp.logo, :alt => mkp.name %> </a>
-					<p>
-						<%= mkp.name %>
-					</p>
-					<div class="actions">
-						<div class="actions-inner">
-							<%= link_to  market_place_app_show_path(:name => mkp.name, :logo => mkp.logo, :features => mkp.features, :pricetype => mkp.pricetype, :plan => mkp.plan, :catagory => mkp.catagory), :target => "_self", title: "Open" do %><i class="fa fa-folder-open"></i><%end%>
-						</div>
-					</div>
-				</div>
-				<% end %>
-				<% end %>
-				<% end %>
 			</div>
 		</div>
 	</div>
