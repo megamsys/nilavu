@@ -177,7 +177,28 @@
 											<td align="center"> <%= link_to  app_path(:action => "show", :id => cb.id, :name => cloud_book.node_name), :remote => true, data: { spinlock: '#book'}  do %> <i class="fa fa-shopping-cart"></i> <% end %> </td>
 											<td align="center"> <%= link_to  app_path(:action => "show", :id => cb.id, :name => cloud_book.node_name), :remote => true, data: { spinlock: '#book'}  do %> <i class="fa fa-cog"></i> <% end %> </td>
 											<td align="center"> <%= link_to  activities_path(:name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'}  do %> <i class="fa fa-list"></i> <% end %> </td>
-											<td align="center"><i class="fa fa-circle"> </i><span class="label label-success" , align="center"><%= cloud_book.status %></span></td>
+											<td align="center"> 
+											<% case cloud_book.status.downcase  %>
+											<% when 'launching' %> 
+											<%= image_tag "openup_spinner.gif",:class=> "img-responsive center-block"%>
+											<span class="label label-info" , align="center"> 
+												<%= cloud_book.status %>
+											</span> 
+											<% when 'running' %> 
+											<%= image_tag "appup.png",:class=> "img-responsive center-block",:size => "50x50"%>
+											<span class="label label-success" , align="center">
+												<%= cloud_book.status %>	
+											</span>					
+											<% when 'deleted' %>
+											<%= image_tag "appdown.png",:class=> "img-responsive center-block",:size => "50x50"%>
+											<span class="label label-danger" , align="center">
+												<%= cloud_book.status %>	
+											</span>	 
+											<% when 'notrunning' %> 
+											<%= image_tag "appdown.png",:class=> "img-responsive center-block",:size => "50x50"%>
+											  <span class="label label-warning" , align="center"><%= cloud_book.status %></span> 
+											<% end %>
+											</td>
 										</tr>
 										<% end %>
 									</tbody>
@@ -213,9 +234,9 @@
 						<%= link_to signout_path, method: "delete" do %>
 						<i class="fa fa-sign-out"></i> Sign Out
 						<% end %>
-						and 
+						and
 						<%= link_to signup_path do %>
-						<i class="fa fa-sign-in"></i> Sign up 
+						<i class="fa fa-sign-in"></i> Sign up
 						<%end%> for an account.
 						</br>
 						</br>
