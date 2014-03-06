@@ -12,39 +12,46 @@
 			Enter username and password to continue.
 		</p>
 		<div class="input-group">
-			<span class="input-group-addon"><i class="icon icon-user"></i></span>
+			<span class="input-group-addon"><i class="fa fa-user"></i></span>
 			<%= f.text_field :email, :class => 'form-control required',placeholder: "Email" %>
 		</div>
 		<div class="input-group">
-			<span class="input-group-addon"><i class="icon icon-lock"></i></span>
+			<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 			<%= f.password_field :password, :id => 'password', :class => 'form-control required',placeholder: "Password" %>
 		</div>
-		<div class="form-actions clearfix">
-			<div class="pull-left">
-				<%= link_to "Create new account", signup_path, :class => "flip-link to-register blue" %>
-			</div>
-			<div class="pull-right">
-				<%= link_to "Forgot password?", new_password_reset_path, :class=> "flip-link to-recover grey" %>
+		<div class="form-actions">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="pull-left">
+						<%= link_to "Create new account", signup_path, :class => "flip-link to-register blue" %>
+					</div>
+					<div class="pull-right">
+						<%= link_to "Forgot password?", new_password_reset_path, :class=> "flip-link to-recover grey" %>
+					</div>
+				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<%= link_to "Demo Sign in", demo_path(:email =>"dummy@megamsandbox.com",:password =>"dummykeysandbox#megam"),:class => "btn btn-lg btn-warning btn-block"  %>
+					<%= link_to "Demo Sign in", demo_path(:email =>"dummy@megamsandbox.com",:password =>"dummykeysandbox#megam"),:class => "btn btn-info btn-lg btn-block"  %>
 				</div>
 				<div class="col-md-6">
-					<%= f.submit "Sign in", :class => "btn btn-lg btn-dark-green btn-block"  %>
+					<%= f.submit "Sign in", :class => "btn btn-info btn-lg btn-block"  %>
 				</div>
 			</div>
-
-			<a href="http://www.gomegam.com" type="button" class="btn btn-sm btn-dark-red btn-block" target="_blank"><i class="icon icon-globe"></i>&nbsp;Visit <strong>Gomegam.com</strong></a>
+			<div class="row">
+				<div class="col-md-12">
+					<a href="http://www.gomegam.com" class="btn btn-sm btn-dark-red btn-block" target="_blank"><i class="fa fa-globe"></i>&nbsp;Visit <strong>Gomegam.com</strong></a>
+				</div>
+			</div>
 		</div>
 		<div class="footer-login">
 			<div class="pull-left text">
 				Login with
 			</div>
 			<div class="pull-right btn-social">
-				<a class="btn btn-facebook" href="/auth/facebook"><i class="icon icon-facebook"></i></a>
-				<a class="btn btn-twitter disabled" href="/auth/twitter"><i class="icon icon-twitter"></i></a>
-				<a class="btn btn-google-plus disabled" href="/auth/google-plus"><i class="icon icon-google-plus"></i></a>
+				<a class="btn btn-facebook" href="/auth/facebook"><i class="fa fa-facebook"></i></a>
+				<a class="btn btn-twitter disabled" href="/auth/twitter"><i class="fa fa-twitter"></i></a>
+				<a class="btn btn-google-plus disabled" href="/auth/google-plus"><i class="fa fa-google-plus"></i></a>
 			</div>
 
 		</div>

@@ -10,11 +10,11 @@
 		<div class="row">
 			<div class="control-group" id="cc_name">
 				<div class="controls">
-					&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-cloud"></i>
+					&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-cloud"></i>
 					&nbsp;
 					<%= text_field_tag 'name', nil, placeholder: 'Enter a name' %>
 					<%= link_to "#" do %>
-					<i class="icon-question-sign" id="popover_hp_name"></i>
+					<i class="fa-question-sign" id="popover_hp_name"></i>
 					<% end %>
 				</div>
 			</div>
@@ -43,7 +43,7 @@
 			<div class="controls">
 				<%= text_field_tag 'group', nil, placeholder: 'Enter Group name' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign" id="popover_hp_group"></i>
+				<i class="fa-question-sign" id="popover_hp_group"></i>
 				<% end %>
 			</div>
 		</div>
@@ -52,7 +52,7 @@
 			<div class="controls">
 				<%= text_field_tag 'image', nil, placeholder: 'Enter Image value...' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign" id="popover_hp_image"></i>
+				<i class="fa-question-sign" id="popover_hp_image"></i>
 				<% end %>
 			</div>
 		</div>
@@ -61,7 +61,7 @@
 			<div class="controls">
 				<%= text_field_tag 'flavor', nil, placeholder: 'Enter instance size...' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign"></i>
+				<i class="fa-question-sign"></i>
 				<% end %>
 			</div>
 		</div>
@@ -70,7 +70,7 @@
 			<div class="controls">
 				<%= text_field_tag 'tenant_id', nil, placeholder: 'Enter Tenant Id' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign" id="popover_hp_tenantid"></i>
+				<i class="fa-question-sign" id="popover_hp_tenantid"></i>
 				<% end %>
 			</div>
 		</div>
@@ -79,7 +79,7 @@
 			<div class="controls">
 				<%= text_field_tag 'zone', nil, placeholder: 'Enter HP zone' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign" id="popover_hp_zone"></i>
+				<i class="fa-question-sign" id="popover_hp_zone"></i>
 				<% end %>
 			</div>
 		</div>
@@ -97,7 +97,7 @@
 			<div class="controls">
 				<%= text_field_tag 'ssh_key', nil, placeholder: 'Enter SSH key...' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign" id="popover_hp_sshkey"></i>
+				<i class="fa-question-sign" id="popover_hp_sshkey"></i>
 				<% end %>
 			</div>
 		</div>
@@ -106,7 +106,7 @@
 			<div class="controls">
 				<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter SSH User..' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign" id="popover_hp_sshuser"></i>
+				<i class="fa-question-sign" id="popover_hp_sshuser"></i>
 				<% end %>
 			</div>
 		</div>		
@@ -115,7 +115,7 @@
 		<div class="controls">
 		<label for="file">Public Key</label> <%= file_field_tag 'id_rsa_public_key', accept: 'text' %>
 		<%= link_to "#" do %>
-		<i class="icon-question-sign" id="popover_hp_publickey"></i>
+		<i class="fa-question-sign" id="popover_hp_publickey"></i>
 		<% end %>
 		</div>
 		</div>-->
@@ -123,7 +123,7 @@
 			<div class="controls">
 				<%= select_tag :id_rsa_public_key, options_for_select(ssh_keys.map{ |c| c[:name] }) %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign" id="popover_aws_publickey"></i>
+				<i class="fa-question-sign" id="popover_aws_publickey"></i>
 				<% end %>
 			</div>
 		</div>
@@ -132,7 +132,7 @@
 			<div class="controls">
 				<%= text_field_tag 'hp_access_key', nil, placeholder: 'Enter HP access key..' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign" id="popover_hp_accesskey"></i>
+				<i class="fa-question-sign" id="popover_hp_accesskey"></i>
 				<% end %>
 			</div>
 		</div>
@@ -141,7 +141,7 @@
 			<div class="controls">
 				<%= text_field_tag 'hp_secret_key', nil, placeholder: 'Enter HP secret key..' %>
 				<%= link_to "#" do %>
-				<i class="icon-question-sign" id="popover_hp_secretkey"></i>
+				<i class="fa-question-sign" id="popover_hp_secretkey"></i>
 				<% end %>
 			</div>
 		</div>

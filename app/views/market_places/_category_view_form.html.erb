@@ -6,9 +6,9 @@
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
 						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
+						<span class="fa fa-bar"></span>
+						<span class="fa fa-bar"></span>
+						<span class="fa fa-bar"></span>
 					</button>
 				</div>
 
@@ -19,7 +19,11 @@
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Category <b class="caret"></b></a>
 							<ul class="dropdown-menu" style="height:200px; overflow-y: scroll;">
 								<li>
-									<%= link_to category_view_path(:category => "All"), :target => "_self", :remote => true, :type => "submit", :method => "post", data: { spinlock: '#catt'} do %>All<% end %>
+									<a href="#" onclick="do_stuff();">blah</a>
+								</li>
+								<li>
+									<a href="#" onclick="do_stuff();">blah</a>
+									<!--<%= link_to category_view_path(:category => "All"), :target => "_self", :remote => true, :type => "submit", :method => "post", data: { spinlock: '#catt'} do %>All<% end %>-->
 								</li>
 								<% categories.each do |cat| %>
 								<li>
@@ -30,10 +34,10 @@
 						</li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Price <b class="caret"></b></a>
-							<ul class="dropdown-menu" style="height:200px; overflow-y: scroll;">								
+							<ul class="dropdown-menu" style="height:200px; overflow-y: scroll;">
 								<li>
 									<a href="#">...</a>
-								</li>								
+								</li>
 							</ul>
 						</li>
 					</ul>
@@ -55,7 +59,7 @@
 		<div class="row">
 			<div class="gallery-masonry">
 				<% if category == "All" %>
-				<% mkp_collection.each do |mkp| %>				
+				<% mkp_collection.each do |mkp| %>
 				<div class="item">
 					<a href="#" class="thumbnail" > <%= image_tag mkp.logo, :alt => mkp.name %> </a>
 					<p>
@@ -66,7 +70,7 @@
 							<%= link_to  market_place_app_show_path(:name => mkp.name, :logo => mkp.logo, :features => mkp.features, :pricetype => mkp.pricetype, :plan => mkp.plan, :catagory => mkp.catagory, :attach => mkp.attach, :approved => mkp.approved), :target => "_self", title: "Open" do %><i class="icon-folder-open"></i><%end%>
 						</div>
 					</div>
-				</div>				
+				</div>
 				<% end %>
 				<% else %>
 				<% mkp_collection.each do |mkp| %>
@@ -78,7 +82,7 @@
 					</p>
 					<div class="actions">
 						<div class="actions-inner">
-							<%= link_to  market_place_app_show_path(:name => mkp.name, :logo => mkp.logo, :features => mkp.features, :pricetype => mkp.pricetype, :plan => mkp.plan, :catagory => mkp.catagory), :target => "_self", title: "Open" do %><i class="icon-folder-open"></i><%end%>
+							<%= link_to  market_place_app_show_path(:name => mkp.name, :logo => mkp.logo, :features => mkp.features, :pricetype => mkp.pricetype, :plan => mkp.plan, :catagory => mkp.catagory), :target => "_self", title: "Open" do %><i class="fa fa-folder-open"></i><%end%>
 						</div>
 					</div>
 				</div>

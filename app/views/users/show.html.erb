@@ -3,31 +3,31 @@
 	<ul ng-controller="MainCtrl">
 		<li class=<%= "active" if controller_name== "dashboards"%>>
 			<%= link_to cloud_dashboards_path, :target => "_self" do %>
-			<i class="icon-dashboard"></i><span> Dashboard</span>
+			<i class="fa fa-dashboard"></i><span> Dashboard</span>
 			<% end %>
 		</li>
 		<li class=<%= "active" if controller_name== "cloud_settings"%> >
-			<a target="_self" href="/cloud_settings" > <i class="icon-random" ></i>Settings</a>
+			<a target="_self" href="/cloud_settings" > <i class="fa fa-random" ></i>Settings</a>
 		</li> 	
 
 		<li class=<%= "active" if controller_name== "apps"%> >
-			<a target="_self" href="/apps" > <i class="icon-th"></i>My Apps</a>
+			<a target="_self" href="/apps" > <i class="fa fa-th"></i>My Apps</a>
 		</li>		
 
 		<li class=<%= "active" if controller_name== "cloud_books_histories"%> >
-			<a target="_self" href="/apps_histories" > <i class="icon-facetime-video"></i>Logs</a>
+			<a target="_self" href="/apps_histories" > <i class="fa fa-video-camera"></i>Logs</a>
 		</li>
 
 		<!--
 		<li class=<%= "active" if controller_name== "apps_items"%>>
 		<%= link_to new_apps_item_path, :target => "_self" do %>
-		<i class="icon-briefcase"></i>Cloud Applications
+		<i class="fa-briefcase"></i>Cloud Applications
 		<% end %>
 		</li>
 
 		<li class=<%= "active" if controller_name== "cloud_identities"%>>
 		<%= link_to cloud_identity_path(current_user.id),  :target => "_self" do %>
-		<i class="icon-unlock"></i>Cloud Identity
+		<i class="fa-unlock"></i>Cloud Identity
 		<% end %>
 		</li>
 		-->

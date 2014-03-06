@@ -10,7 +10,7 @@
 		<div class="col-md-11">
 			<div class="widget-box">
 				<div class="widget-title">
-					<span class="icon"> <i class="icon-list"></i> </span>
+					<span class="icon"> <i class="fa-list"></i> </span>
 					<h5>Service Selection</h5>
 				</div>
 				<div class="widget-content">
@@ -43,9 +43,9 @@
 												<% end %>
 											</div>
 											<div class="col-md-6">
-												<a href="http://support.megam.co/discussion/new" target="_blank"> <h5><i class="icon-question-sign"></i> Your service isn't here?</h5> We are here to help
+												<a href="http://support.megam.co/discussion/new" target="_blank"> <h5><i class="fa-question-sign"></i> Your service isn't here?</h5> We are here to help
 												<div class="arrow-right">
-													<i class="icon-chevron-right"></i>
+													<i class="fa-chevron-right"></i>
 												</div> </a>
 											</div>
 										</div>
@@ -55,9 +55,9 @@
 									<div class="row">
 										<div class="panel panel-primary">
 											<div class="panel-heading">
-												<i class="icon-home"></i> Scale Your Service Quickly
+												<i class="fa-home"></i> Scale Your Service Quickly
 												<div>
-													<i class="icon-check-sign">&nbsp;You selected </i>
+													<i class="fa-check-sign">&nbsp;You selected </i>
 													<span id="books_total">0</span>
 													<input type="hidden" id="cb_count" name="no_of_instances" value="<%= @books_count %>">
 													Service(s) Of:
@@ -74,8 +74,8 @@
 															<thead>
 																<tr>
 																	<th>My Apps</th>
-																	<th><a href="#" rel="tooltip" title="max 2 (*beta)" class='info'>Instances <i class="icon-info-sign"></i></a></th>
-																	<th><i class="icon-trash"></i></th>
+																	<th><a href="#" rel="tooltip" title="max 2 (*beta)" class='info'>Instances <i class="fa-info-sign"></i></a></th>
+																	<th><i class="fa-trash"></i></th>
 																</tr>
 															</thead>
 															<tbody>
@@ -99,7 +99,7 @@
 		<div class="col-md-11">
 			<div class="widget-box">
 				<div class="widget-title">
-					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<span class="icon"> <i class="fa fa-th-list"></i> </span>
 					<h5>Service selection</h5>
 				</div>
 
@@ -128,9 +128,9 @@
 
 								</div>
 								<div class="panel-body">
-									<a href="http://support.megam.co" target="_blank"> <h5><i class="icon-question-sign"></i> Tell me more about these service models</h5> We are here to help
+									<a href="http://support.megam.co" target="_blank"> <h5><i class="fa-question-sign"></i> Tell me more about these service models</h5> We are here to help
 									<div class="arrow-right">
-										<i class="icon-chevron-right"></i>
+										<i class="fa-chevron-right"></i>
 									</div> </a>
 								</div>
 							</div>
@@ -143,13 +143,13 @@
 								<div class="col-md-6">
 									<%= label :full, 'Full' do %>
 									<%= radio_button_tag :db_model, 'full' %>
-									<h3><i class="icon-folder-open" id="popover_servicemodel_onlyforyou"></i>&nbsp;Captive</h3>
+									<h3><i class="fa-folder-open" id="popover_servicemodel_onlyforyou"></i>&nbsp;Captive</h3>
 									<% end %>
 								</div>
 								<div class="col-md-5">
 									<%= label :multitenant, 'Service' do %>
 									<%= radio_button_tag :db_model, 'multitenant', false, disabled: true %>
-									<h3><i class="icon-envelope" id="popover_servicemodel_managed"></i>&nbsp;Service</h3><span class="label label-primary">work in progress</span>
+									<h3><i class="fa-envelope" id="popover_servicemodel_managed"></i>&nbsp;Service</h3><span class="label label-primary">work in progress</span>
 									<% end %>
 
 								</div>

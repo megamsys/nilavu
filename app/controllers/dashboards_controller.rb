@@ -2,7 +2,7 @@ class DashboardsController < ApplicationController
   respond_to :html
   
   def index
-    breadcrumbs.add " Home", "#", :class => "icon icon-home", :target => "_self"
+    breadcrumbs.add " Home", "#", :class => "fa fa-home", :target => "_self"
     breadcrumbs.add "Performance Monitoring Console", cloud_dashboards_path, :target => "_self"
   end
 

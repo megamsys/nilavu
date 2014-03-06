@@ -8,3 +8,11 @@ $(function(){
     
 });
 
+function do_stuff() {
+	  if (prompt("Are you sure?")) {
+	    document.forms[0].submit();
+	  } else {
+	    alert("hello");
+	  }
+	  return false;
+	}

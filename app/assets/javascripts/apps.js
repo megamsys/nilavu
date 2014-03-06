@@ -37,9 +37,9 @@ jQuery(document)
 
 					// set the initial value of $0.00
 					scale_counter.scale_aggregate();
-					var $minus = '<a href="#" class="minus"><i class="icon-minus-sign-alt"></i></a>';
-					var $plus = '<a href="#" class="plus"><i class="icon-plus-sign-alt"></i></a>';
-					var $trash = '<td> <a href="#" class="trash"><i class="icon-trash"></i></a></td>';
+					var $minus = '<a href="#" class="minus"><i class="fa fa-minus-square"></i></a>';
+					var $plus = '<a href="#" class="plus"><i class="fa fa-plus-square"></i></a>';
+					var $trash = '<td> <a href="#" class="trash"><i class="fa fa-trash-o"></i></a></td>';
 
 					$("#platformapps input:radio")
 							.on(
@@ -61,7 +61,7 @@ jQuery(document)
 										row = $('tr.' + service);
 										row
 												.append(
-														'<td><div class="overlay"><i class="icon-trash"></i></div><i class="logo_'
+														'<td><div class="overlay"><i class="fa fa-trash-o"></i></div><i class="logo_'
 																+ service
 																+ '"></i></div></th>')
 												.append(
@@ -175,32 +175,32 @@ function java() {
 	$('#sample_repo')
 			.fadeIn('slow')
 			.html(
-					'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Java</span></td><td><i class="icon-plus-sign git_javawar" id="githubsample_javawar"></i> This sample launches a java based online code editor called orion. The bundle that is used is available <a href="https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/orion.war" target="_blank"> here. </a></td></tr><tr><td><span class="badge badge-info">Java</span></td><td><i class="icon-plus-sign" id="githubsample_java"></i>This sample launches a spring based Java App.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/spring-mvc-fulfillment-base.git" target="_blank"> here.</a></td></tr></tbody></table> </div>');
+					'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Java</span></td><td><i class="fa fa-plus-square git_javawar" id="githubsample_javawar"></i> This sample launches a java based online code editor called orion. The bundle that is used is available <a href="https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/orion.war" target="_blank"> here. </a></td></tr><tr><td><span class="badge badge-info">Java</span></td><td><i class="icon-plus-sign" id="githubsample_java"></i>This sample launches a spring based Java App.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/spring-mvc-fulfillment-base.git" target="_blank"> here.</a></td></tr></tbody></table> </div>');
 }
 
 function play() {
 	$('#sample_repo')
 			.fadeIn('slow')
 			.html(
-					'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Play</span></td><td><i class="icon-plus-sign" id="githubsample_play"></i>This sample launches a play based scala App.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/megam_play.git" target="_blank">here </a></td></tr></tbody></table> </div>');
+					'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Play</span></td><td><i class="fa fa-plus-square" id="githubsample_play"></i>This sample launches a play based scala App.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/megam_play.git" target="_blank">here </a></td></tr></tbody></table> </div>');
 }
 
 function rails() {
 	$('#sample_repo')
 			.fadeIn('slow')
 			.html(
-					'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Ruby</span></td><td><i class="icon-plus-sign" id="githubsample_ror"></i>This sample launches a ruby on rails 4.0 twitter bootstrap based portal.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/aryabhata.git" target="_blank"> here</a></td></tr></tbody></table> </div>');
+					'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Ruby</span></td><td><i class="fa fa-plus-square" id="githubsample_ror"></i>This sample launches a ruby on rails 4.0 twitter bootstrap based portal.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/aryabhata.git" target="_blank"> here</a></td></tr></tbody></table> </div>');
 }
 
 function akka() {
 	$('#sample_repo')
 			.fadeIn('slow')
 			.html(
-					'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Akka</span></td><td><i class="icon-plus-sign" id="githubsample_akka"></i>This sample launches a akka daemon that spawns a cluster of masters which delegates work to its slave.The source code that is used for the launch is available<a href="https://github.com/thomasalrin/megam_akka.git" target="_blank">here</a></td></tr></tbody></table> </div>');
+					'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Akka</span></td><td><i class="fa fa-plus-square" id="githubsample_akka"></i>This sample launches a akka daemon that spawns a cluster of masters which delegates work to its slave.The source code that is used for the launch is available<a href="https://github.com/thomasalrin/megam_akka.git" target="_blank">here</a></td></tr></tbody></table> </div>');
 }
 function nodejs() {
 	$('#sample_repo')
 			.fadeIn('slow')
 			.html(
-					'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Nodejs</span></td><td><i class="icon-plus-sign" id="githubsample_nodejs"></i>This sample launches ghost which is a free, open, simple blogging platform.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/ghost.git" target="_blank"> here</a></td></tr></tbody></table> </div>');
+					'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Nodejs</span></td><td><i class="fa fa-plus-square" id="githubsample_nodejs"></i>This sample launches ghost which is a free, open, simple blogging platform.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/ghost.git" target="_blank"> here</a></td></tr></tbody></table> </div>');
 }

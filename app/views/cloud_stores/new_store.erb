@@ -11,7 +11,7 @@
 			<% @new_book_name = book_name %>
 			<div class="widget-box">
 				<div class="widget-title">
-					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<span class="icon"> <i class="fa fa-th-list"></i> </span>
 					<h5>Service Name</h5><strong><span class="label label-info"><%= @new_book_name %>.<%= @domain_name %> </span> </strong>
 				</div>
 
@@ -47,7 +47,7 @@
 
 			<div class="widget-box">
 				<div class="widget-title">
-					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<span class="icon"> <i class="fa fa-th-list"></i> </span>
 					<h5>Cloud Selection</h5>
 				</div>
 				<div class="widget-content">
@@ -88,7 +88,7 @@
 		<div class="col-xs-11 col-sm-11">
 			<div class="widget-box">
 				<div class="widget-title">
-					<span class="icon"> <i class="icon-th-list"></i> </span>
+					<span class="icon"> <i class="fa fa-th-list"></i> </span>
 					<h5>Advanced Service Settings</h5>
 				</div>
 				<div class="widget-content">
@@ -99,7 +99,7 @@
 						<div class="panel-body">
 							<ul class="list-unstyled list">
 								<li>
-									<span class="icon"> <i class="icon-user"></i> </span>Service User and <span class="icon"> <i class="icon-lock"></i> </span> Password are your registered <span class="label label-info">email , api_key</span>
+									<span class="icon"> <i class="fa-user"></i> </span>Service User and <span class="icon"> <i class="fa-lock"></i> </span> Password are your registered <span class="label label-info">email , api_key</span>
 								</li>
 							</ul>
 							<p class="help-block">
@@ -114,7 +114,7 @@
 							<label for="" class="col-sm-4 col-md-4 col-lg-3 control-label">Service Name </label>
 							<div class="col-sm-8 col-md-8 col-lg-9">
 								<div class="input-group input-group-sm">
-									<span class="input-group-addon"><i class="icon-globe"></i></span>
+									<span class="input-group-addon"><i class="fa-globe"></i></span>
 									<%= text_field_tag 'store_db_name', "db_#{current_user.first_name}",:class => "form-control" ,:readonly => true %>
 
 								</div>
@@ -126,7 +126,7 @@
 							<label for="" class="col-sm-4 col-md-4 col-lg-3 control-label">Service User</label>
 							<div class="col-sm-8 col-md-8 col-lg-9">
 								<div class="input-group input-group-sm">
-									<span class="input-group-addon"><i class="icon-user"></i></span>
+									<span class="input-group-addon"><i class="fa-user"></i></span>
 									<%= text_field_tag 'user_name', "#{current_user.email}", :class => "form-control",:readonly => true %>
 								</div>
 							</div>
@@ -137,7 +137,7 @@
 							<label for="" class="col-sm-4 col-md-4 col-lg-3 control-label">Service Password</label>
 							<div class="col-sm-8 col-md-8 col-lg-9">
 								<div class="input-group input-group-sm">
-									<span class="input-group-addon"><i class="icon-lock"></i></span>
+									<span class="input-group-addon"><i class="fa-lock"></i></span>
 									<%= text_field_tag 'password', "#{current_user.api_token}",:class => "form-control" ,:readonly => true %>
 								</div>
 							</div>
@@ -150,7 +150,7 @@
 							<label for="" class="col-sm-4 col-md-4 col-lg-3 control-label">Service URL</label>
 							<div class="col-sm-8 col-md-8 col-lg-9">
 								<div class="input-group input-group-sm">
-									<span class="input-group-addon"><i class="icon-globe"></i></span>
+									<span class="input-group-addon"><i class="fa-globe"></i></span>
 
 									<%
  dburl = case @dbms

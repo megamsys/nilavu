@@ -41,7 +41,7 @@ class CloudSettingsController < ApplicationController
   end
 
   def index
-    breadcrumbs.add " Home", "#", :class => "icon icon-home"
+    breadcrumbs.add " Home", "#", :class => "fa fa-home"
     breadcrumbs.add "Manage Settings", cloud_settings_path
     cross_cloud_init
     cloud_tools_init

@@ -1,7 +1,7 @@
 class MarketPlacesController < ApplicationController
   respond_to :html, :js
   def index
-    breadcrumbs.add "Home", "#", :class => "icon icon-home", :target => "_self"
+    breadcrumbs.add "Home", "#", :class => "fa fa-home", :target => "_self"
     breadcrumbs.add "MarketPlace", market_places_path, :target => "_self"
     mkp = get_marketplaces
     @mkp_collection = mkp[:mkp_collection]
@@ -15,7 +15,7 @@ class MarketPlacesController < ApplicationController
   end  
 
   def market_place_app_show
-    breadcrumbs.add "Home", "#", :class => "icon icon-home", :target => "_self"
+    breadcrumbs.add "Home", "#", :class => "fa fa-home", :target => "_self"
     breadcrumbs.add "MarketPlace", market_places_path, :target => "_self"
     breadcrumbs.add "#{params[:name]}", market_places_path, :target => "_self"
     @mkp = params

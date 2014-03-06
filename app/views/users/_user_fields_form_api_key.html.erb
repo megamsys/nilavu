@@ -3,11 +3,11 @@
 
 	<input type="hidden" name="user_fields_form_type" value="<%= user_fields_form_type.to_s %>">
 	<div class="input-group">
-		<span class="input-group-addon"><i class="icon-key"></i></span>
+		<span class="input-group-addon"><i class="fa fa-key"></i></span>
 		<%= f.text_field :api_token, :id => 'api_key_field', :disabled => 'disabled', :class=> 'form-control required' %>
 	</div>
 	<div class="input-group">
-		<span class="input-group-addon"><i class="icon-calendar"></i></span>
+		<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
 		<%= text_field_tag 'created_at', "#{@user.updated_at}", :readonly => true, :class=> 'form-control' %>
 	</div>
 	<%= f.submit "Generate", :class => "btn btn-default" %>
