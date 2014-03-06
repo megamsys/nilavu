@@ -27,7 +27,7 @@
 										<td><i class="fa fa-shopping-cart"> </i>
 										<code>
 											Wordpress
-										</code> <%= link_to  "A ready to deploy, general purpose wordpress package with MySQL database.", new_market_place_path, :target => "_self", title: "Lauch your wordpress app in megam"  %> </td>
+										</code> <%= link_to  "A ready to deploy, general purpose wordpress package with MySQL database.", market_places_path, :target => "_self", title: "Lauch your wordpress app in megam"  %> </td>
 									</tr>
 								</tbody>
 							</table>
@@ -40,8 +40,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-11"  id="category_view_value">
-			<%= render :partial => "market_places/category_view_form" , :locals => {:category => "All", :mkp_collection => @mkp_collection, :categories => @categories}%>			
+		<div class="col-xs-11"  id="category_view_value">			
+			<%= render :partial => "market_places/category_view_form" , :locals => {:category => "All", :mkp_collection => @mkp_collection, :categories => @categories}%>
 		</div>
 	</div>
 </div>

@@ -1,5 +1,6 @@
 class MarketPlacesController < ApplicationController
   respond_to :html, :js
+   include MarketPlaceHelper
   def index
     breadcrumbs.add "Home", "#", :class => "fa fa-home", :target => "_self"
     breadcrumbs.add "MarketPlace", market_places_path, :target => "_self"
@@ -21,6 +22,8 @@ class MarketPlacesController < ApplicationController
     @mkp = params
     @catagory = params[:catagory]
     @logo = params[:logo]
+    @predef_name = get_predef_name(params[:name])
+    @deps_scm = get_deps_scm(params[:name])
     @my_apps = []
     cloud_books = current_user.apps.order("id DESC").all
     if cloud_books.any?

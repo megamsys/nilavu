@@ -29,22 +29,22 @@
 			<div class="col-md-6">
 				<ul class="list-group">
 					<li class="list-group-item">
-						<span class="badge"><h4><%= @mkp[:plan][:plantype]%></h4></span>
+						<span class="label label-info pull-right"><h4><%= @mkp[:plan][:plantype]%></h4></span>
 						<h4>Plan Type</h4>
 					</li>
 					<li class="list-group-item">
-						<span class="badge"><h4><%= @mkp[:plan][:price]%></h4></span>
+						<span class="label label-info pull-right"><h4><%= @mkp[:plan][:price]%></h4></span>
 						<h4>Price</h4>
 					</li>
 					<li class="list-group-item">
-						<span class="badge"><h4><%= @mkp[:plan][:description]%></h4></span>
+						<span class="label label-warning pull-right"><h5><%= @mkp[:plan][:description]%></h5></span>
 						<h4>Description</h4>
 					</li>
 				</ul>
 			</div>
 			<div class="col-md-5">
 				<% if @mkp[:approved] == "true" %>
-				<%= render :partial => "market_places/add_button", :locals => {:name => @mkp[:name], :category => @mkp[:catagory]} %>
+				<%= render :partial => "market_places/add_button", :locals => {:name => @mkp[:name], :category => @mkp[:catagory], :predef_name => @predef_name, :deps_scm => @deps_scm} %>
 				<br/>
 				<% if @mkp[:attach] == "true" %>
 				<!--<h4 class="divborder">Attach options</h4>-->
@@ -52,11 +52,11 @@
 					<div class="form-group">
 						<label class="col-sm-4 col-md-4 col-lg-3 control-label">Select App</label>
 						<div class="col-sm-8 col-md-8 col-lg-9">
-							<%= select_tag 'App', options_for_select(@my_apps.insert(0, "Select a App")), :id => "attach_app_select", :style => "width:300px; height:30px;" %>
+							<%= select_tag 'App', options_for_select(@my_apps.insert(0, "Select a App")), :id => "attach_app_select" %>
 						</div>
 					</div>
 					<br/>
-					<button class="btn btn-warning btn-block btn-lg">
+					<button class="btn btn-purple btn-block btn-lg">
 						Attach
 					</button>
 				</div>
@@ -71,77 +71,57 @@
 				<div class="alert alert-info alert-block">
 					<a class="close" data-dismiss="alert" href="#">×</a>
 					<h4 class="alert-heading">Work Inprogress!</h4>
-					This Addon doesn't Launch and Attach.
+					We will support this market place addon shortly.
 				</div>
 				<% end %>
 			</div>
 		</div>
 		<br/>
 		<div class="col-md-11">
-			<div class="col-md-11">
-				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-					<!-- Indicators -->
-					<ol class="carousel-indicators">
-						<li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-						<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-						<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-					</ol>
-
-					<!-- Wrapper for slides -->
-					<div class="carousel-inner">
-						<div class="item active">
-							<div class="col-md-11">
-								<div class="col-md-3"></div>
-								<div class="col-md-6">
-									<p>
-										<h4><%= @mkp[:features][:feature1]%></h4>
-									</p>
-								</div>
-								<div class="col-md-3"></div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="col-md-12">
-								<div class="col-md-3"></div>
-								<div class="col-md-6">
-									<p>
-										<h4><%= @mkp[:features][:feature2]%></h4>
-									</p>
-								</div>
-								<div class="col-md-3"></div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="col-md-11">
-								<div class="col-md-3"></div>
-								<div class="col-md-6">
-									<p>
-										<h4><%= @mkp[:features][:feature3]%></h4>
-									</p>
-								</div>
-								<div class="col-md-3"></div>
-							</div>
-						</div>
-						<div class="item">
-							<div class="col-md-11">
-								<div class="col-md-3"></div>
-								<div class="col-md-6">
-									<p>
-										<h4><%= @mkp[:features][:feature4]%></h4>
-									</p>
-								</div>
-								<div class="col-md-3"></div>
-							</div>
-						</div>
-					</div>
-
-					<!-- Controls -->
-					<a class="left carousel-control" href="#carousel-example-generic" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left"></span> </a>
-					<a class="right carousel-control" href="#carousel-example-generic" data-slide="next"> <span class="glyphicon glyphicon-chevron-right"></span> </a>
-				</div>
-				<br/>
-				</br/>
+			<div class="col-md-3">
+				<h3 class="divborder"><%= image_tag "icons/32/cabinet.png", :alt => "help bot"%><strong>Features</strong></h3>
 			</div>
+		</div>
+		<br/><br/>
+		<div class="col-md-11">
+			<% if @mkp[:features][:feature1].length > 0 %>
+			<div class="col-md-6">
+				<div class="alert alert-info alert-block mkp_settings">
+					<p align="justify">
+						<%= image_tag "icons/32/book.png", :alt => "help bot"%>&nbsp; &nbsp;<%= @mkp[:features][:feature1]%>
+					</p>
+				</div>
+			</div>
+			<% end %>
+			<% if @mkp[:features][:feature2].length > 0 %>
+			<div class="col-md-5">
+				<div class="alert alert-info alert-block mkp_settings">
+					<p align="justify">
+						<%= image_tag "icons/32/book.png", :alt => "help bot"%>&nbsp; &nbsp;<%= @mkp[:features][:feature2]%>
+					</p>
+				</div>
+			</div>
+			<% end %>
+		</div>
+		<div class="col-md-11">
+			<% if @mkp[:features][:feature3].length > 0 %>
+			<div class="col-md-6">
+				<div class="alert alert-info alert-block mkp_settings">
+					<p align="justify">
+						<%= image_tag "icons/32/book.png", :alt => "help bot"%>&nbsp; &nbsp;<%= @mkp[:features][:feature3]%>
+					</p>
+				</div>
+			</div>
+			<% end %>
+			<% if @mkp[:features][:feature4].length > 0 %>
+			<div class="col-md-5">
+				<div class="alert alert-info alert-block mkp_settings">
+					<p align="justify">
+						<%= image_tag "icons/32/book.png", :alt => "help bot"%>&nbsp; &nbsp;<%= @mkp[:features][:feature4]%>
+					</p>
+				</div>
+			</div>
+			<% end %>
 		</div>
 	</div>
 </div>
