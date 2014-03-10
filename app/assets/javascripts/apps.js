@@ -175,7 +175,7 @@ function java() {
 	$('#sample_repo')
 			.fadeIn('slow')
 			.html(
-					'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Java</span></td><td><i class="fa fa-plus-square git_javawar" id="githubsample_javawar"></i> This sample launches a java based online code editor called orion. The bundle that is used is available <a href="https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/orion.war" target="_blank"> here. </a></td></tr><tr><td><span class="badge badge-info">Java</span></td><td><i class="icon-plus-sign" id="githubsample_java"></i>This sample launches a spring based Java App.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/spring-mvc-fulfillment-base.git" target="_blank"> here.</a></td></tr></tbody></table> </div>');
+					'<div id="sample_repo"> <table class="table table-hover"> <tbody><tr><td><span class="badge badge-info">Java</span></td><td><i class="fa fa-plus-square git_javawar" id="githubsample_javawar"></i> This sample launches a java based online code editor called orion. The bundle that is used is available <a href="https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/orion.war" target="_blank"> here. </a></td></tr><tr><td><span class="badge badge-info">Java</span></td><td><i class="fa fa-plus-square" id="githubsample_java"></i>This sample launches a spring based Java App.The source code that is used for the launch is available <a href="https://github.com/thomasalrin/spring-mvc-fulfillment-base.git" target="_blank"> here.</a></td></tr></tbody></table> </div>');
 }
 
 function play() {

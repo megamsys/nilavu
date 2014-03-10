@@ -110,13 +110,13 @@
 							<br/>
 							<label>
 								<input type="radio" name="radios" value="scm_tool" checked/>
-								Cloud source code manager </label>
+								<i class="fa fa-cloud-download fa-bitbucket fa-github"></i> Cloud source code manager </label>
 						</div>
 						<div class="col-lg-5">
 							<br/>
-							<label>
+							<label> 
 								<input type="radio" name="radios" value="scm_sample" />
-								Try our sample</label>
+								<i class="fa fa-code"></i> Try our sample</label>
 						</div>
 					</div>
 					<br/>
@@ -127,7 +127,7 @@
 								<div class="panel-heading">
 									<p class="help-block">
 										<h4 class="alert-heading">Choose your source code manager and list your repos</h4>
-									</p>									
+									</p>
 								</div>
 								<div class="panel-body">
 									<ul class="scm_tool_horizontal">
@@ -151,7 +151,7 @@
 								<div class="panel-footer">
 									<h3><label class="label label-info"> Choose repository URL </label></h3>
 									<br/>
-									<%= select_tag 'scm', options_for_select(repos.insert(0, "Select a Repository")), :id => "repo_select", :style => "width:900px; height:400px;"  %>									
+									<%= select_tag 'scm', options_for_select(repos.insert(0, "Select a Repository")), :id => "repo_select", :style => "width:900px; height:400px;"  %>
 								</div>
 								<% end %>
 							</div>
@@ -163,8 +163,7 @@
 										<h4 class="alert-heading">Click on <i class="fa-plus-sign"></i> icon to choose</h4>
 									</p>
 								</div>
-								<div class="panel-body">									
-								</div>
+								<div class="panel-body"></div>
 								<div class="panel-footer">
 									<div class="alert alert-info alert-block  nopadding clearfix" id="sample_repo"></div>
 								</div>

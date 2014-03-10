@@ -57,6 +57,8 @@
 //= require jquery.flot.time
 //= require jquery.flot.categories
 //= require bootstrap-editable.min
+//= require jquery.isotope.min
+//= require jquery.masonry.min
 //= require jquery.flexslider
 //= require socket.io
 //= require underscore.min

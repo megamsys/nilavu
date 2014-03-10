@@ -2,9 +2,23 @@ $(document).ready(function() {
 // === Popovers === //
     var placement_right = 'right';
     var placement_bottom = 'bottom';
+    var placement_left ='left';
     var trigger = 'click';
     var html = true;
 		
+    $('#popover_demosignin').popover({
+	       placement: placement_right,
+	       content: '<span class="content-medium"><strong>Demo signin</strong> auto signin </br>which lets you feel Megam..<span class="label label-danger"> No actual launch to the cloud</span></br>Sign up is free.</span>',
+	       trigger: 'hover',
+	       html: html   
+	    });
+    
+    $('#popover_signin').popover({
+	       placement: placement_left,
+	       content: '<span class="content-medium"><strong>Signin</strong> logs you into to Megam. You can launch <span class="label label-info">apps in any cloud</span> using your cloud settings.</span>',
+	       trigger: 'hover',
+	       html: html   
+	    });
 	
 	$('#popover_clouds').popover({
 	       placement: placement_bottom,

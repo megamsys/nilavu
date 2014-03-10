@@ -32,15 +32,17 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<%= link_to "Demo Sign in", demo_path(:email =>"dummy@megamsandbox.com",:password =>"dummykeysandbox#megam"),:class => "btn btn-info btn-lg btn-block"  %>
+					<%= link_to  demo_path(:email =>"dummy@megamsandbox.com",:password =>"dummykeysandbox#megam"),:class => "btn btn-primary btn-lg btn-block", :id => "popover_demosignin" do %>					
+					<i class="fa fa-sign-in">&nbsp;Demo Sign in</i>
+					<% end %>
 				</div>
 				<div class="col-md-6">
-					<%= f.submit "Sign in", :class => "btn btn-info btn-lg btn-block"  %>
+					<%= f.submit "Sign in", :class => "btn btn-primary btn-lg btn-block", :id => "popover_signin" %>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-12">
-					<a href="http://www.gomegam.com" class="btn btn-sm btn-dark-red btn-block" target="_blank"><i class="fa fa-globe"></i>&nbsp;Visit <strong>Gomegam.com</strong></a>
+					<a href="http://www.gomegam.com" class="btn btn-dark-red btn-block" target="_blank"><i class="fa fa-globe"></i>&nbsp;Visit <strong>Gomegam.com</strong></a>
 				</div>
 			</div>
 		</div>

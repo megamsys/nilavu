@@ -20,20 +20,20 @@
 					<div class="chat-messages" id="chat-messages">
 						<div class="row">
 							<div class="col-md-12">
+								<% if !@ssh_keys.nil? %>
 								<div class="col-md-6">
-									<% if !@ssh_keys.nil? %>
 									<h4 align="Center"><%= link_to "#{@ssh_keys.last[:name]}", sshkeys_download_path(:filename =>"#{@ssh_keys.last[:name]}" + ".pub"), :remote => true, data: { spinlock: '#sshkey_current'} %> </h4>
-									<% else %>
-									<div class="alert alert-success alert-block">
-										You don't have any SSH Keypairs yet. Click New (or) Import to get started.
-									</div>
-									<% end %>
-
 								</div>
 								<div class="col-md-6">
 									<h5 align="Center"><span class="icon"> <i class="fa fa-calendar"></i> </span><b><%= @ssh_keys.last[:created_at] %></b></h5>
-
 								</div>
+								<% else %>
+								<div class="row">
+									<div class="col-md-11">
+										No SSH Keypairs. Click <strong>New</strong> (or) <strong>Import</strong>
+									</div>
+								</div>
+								<% end %>
 							</div>
 						</div>
 						<div class="row">
@@ -49,7 +49,7 @@
 
 				<div class="chat-users panel-right">
 					<div class="panel-title">
-						<h5>SSHKeypairs usage <a href="http://support.megam.co/kb/cloud-applications/" class="pull-right" target="_blank"><i class="fa-question-circle"> Help</i> </a></h5>
+						<h5>SSHKeys usage <a href="http://support.megam.co/kb/cloud-applications/" class="pull-right" target="_blank"><i class="fa fa-question-circle"> Help</i> </a></h5>
 					</div>
 					<div class="panel-content nopadding">
 						<ul class="contact-list">
