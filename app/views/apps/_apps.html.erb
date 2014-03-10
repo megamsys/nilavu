@@ -180,22 +180,22 @@
 											<td align="center"> 
 											<% case cloud_book.status.downcase  %>
 											<% when 'launching' %> 
-											<%= image_tag "openup_spinner.gif",:class=> "img-responsive center-block"%>
+											<%= image_tag "launching.gif",:class=> "img-responsive center-block"%>
 											<span class="label label-info" , align="center"> 
 												<%= cloud_book.status %>
 											</span> 
 											<% when 'running' %> 
-											<%= image_tag "appup.png",:class=> "img-responsive center-block",:size => "50x50"%>
+											<%= image_tag "appup.png",:class=> "img-responsive center-block",:size => "30x30"%>
 											<span class="label label-success" , align="center">
 												<%= cloud_book.status %>	
 											</span>					
 											<% when 'deleted' %>
-											<%= image_tag "appdown.png",:class=> "img-responsive center-block",:size => "50x50"%>
+											<%= image_tag "appdown.png",:class=> "img-responsive center-block",:size => "30x30"%>
 											<span class="label label-danger" , align="center">
 												<%= cloud_book.status %>	
 											</span>	 
 											<% when 'notrunning' %> 
-											<%= image_tag "appdown.png",:class=> "img-responsive center-block",:size => "50x50"%>
+											<%= image_tag "appdown.png",:class=> "img-responsive center-block",:size => "30x30"%>
 											  <span class="label label-warning" , align="center"><%= cloud_book.status %></span> 
 											<% end %>
 											</td>
