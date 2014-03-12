@@ -25,9 +25,7 @@
 						<div class="form-group">
 							<input type="text" class="form-control" placeholder="Enter name of app">
 						</div>
-						<button type="submit" class="btn btn-default">
-							Search
-						</button>
+						<a href="#" class="btn btn-default" >Search</a>						
 					</form>
 				</div><!-- /.navbar-collapse -->
 		</nav>
@@ -41,20 +39,20 @@
 				<div id="iso_container">
 					<div class="gallery-masonry" >
 						<% mkp_collection.each do |mkp| %>
-						<div class="item produkt-element  <%= mkp.catagory %>" id='<%= mkp.catagory %>' >
+						<div class="item produkt-element  <%= mkp.appdetails[:category] %>" id='<%= mkp.appdetails[:category] %>' >
 							<% case mkp.approved  %>
 							<% when "true" %>
 							<i class="fa fa-check-circle-o"></i>
 							<% when "false" %>
 							<i class="fa"></i>
 							<% end %>
-							<a href="#" class="thumbnail" > <%= image_tag mkp.logo, :alt => mkp.name %> </a>
+							<a href="#" class="thumbnail" > <%= image_tag mkp.appdetails[:logo], :alt => mkp.name %> </a>
 							<p>
 								<span class="label label-info"><%= mkp.name %></span>
 							</p>
 							<div class="actions">
 								<div class="actions-inner">
-									<%= link_to  market_place_app_show_path(:name => mkp.name, :logo => mkp.logo, :features => mkp.features, :pricetype => mkp.pricetype, :plan => mkp.plan, :catagory => mkp.catagory, :attach => mkp.attach, :approved => mkp.approved), :target => "_self", title: "Open" do %><i class="fa fa-folder-open"></i><%end%>
+									<%= link_to  market_place_app_show_path(:name => mkp.name, :features => mkp.features, :pricetype => mkp.pricetype, :appdetails => mkp.appdetails, :plan => mkp.plan, :attach => mkp.attach, :approved => mkp.approved), :target => "_self", title: "Open" do %><i class="fa fa-folder-open"></i><%end%>
 								</div>
 							</div>
 						</div>

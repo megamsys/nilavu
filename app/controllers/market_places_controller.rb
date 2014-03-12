@@ -10,7 +10,7 @@ class MarketPlacesController < ApplicationController
       redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@mkp_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
       @categories=[]
-      @categories = @mkp_collection.map {|c| c.catagory}
+      @categories = @mkp_collection.map {|c| c.appdetails[:category]}
       @categories = @categories.uniq
     end
   end  
@@ -41,7 +41,7 @@ class MarketPlacesController < ApplicationController
       redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@mkp_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
       @categories=[]
-      @categories = @mkp_collection.map {|c| c.catagory}
+      @categories = @mkp_collection.map {|c| c.appdetails[:category]}
       @categories = @categories.uniq
       @category = params[:category]
       respond_to do |format|
