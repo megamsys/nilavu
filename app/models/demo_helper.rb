@@ -19,11 +19,10 @@ module DemoHelper
     result0 = []
     timestamp = from
     while (timestamp < to) 
-      result0 << [Random.rand(0.1...0.7), timestamp]    
+      result0 << [Random.rand(1...7), timestamp]    
       timestamp = timestamp + interval*5 #* (1+rand(5))
-    end
-    result << result0
-    result
+    end    
+    result0
   end
   
   def get_rand_data(from, to)

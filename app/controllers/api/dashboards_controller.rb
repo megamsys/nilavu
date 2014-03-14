@@ -3,7 +3,7 @@ module Api
     respond_to :json, :html
     def show
       #dashboard = Dashboard.find(params[:id])
-      dashboard = CloudBook.find(params[:id])
+      dashboard = App.find(params[:id])
       respond_with dashboard
     end
 
@@ -30,7 +30,7 @@ module Api
     end
 
     def update
-      dashboard = CloudBook.find(params[:id])
+      dashboard = App.find(params[:id])
       input = JSON.parse(request.body.read.to_s)
       if dashboard.update_attributes(input.slice(*Dashboard.accessible_attributes))
         render :json => dashboard

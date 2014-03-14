@@ -161,7 +161,7 @@ class AppsController < ApplicationController
     end
   end
 
-  def dash(book)   
+  def dash(book)     
     book_source = Rails.configuration.metric_source
     book_source = "demo" unless apply_to_cloud
     @widget=@book.widgets.create(:name=>"graph", :kind=>"datapoints", :source=>book_source, :widget_type=>"pernode", :range=>"hour", :targets => ["cpu_system"])
