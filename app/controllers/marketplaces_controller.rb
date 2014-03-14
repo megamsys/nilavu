@@ -1,9 +1,9 @@
-class MarketPlacesController < ApplicationController
+class MarketplacesController < ApplicationController
   respond_to :html, :js
-   include MarketPlaceHelper
+  include MarketplaceHelper
   def index
     breadcrumbs.add "Home", "#", :class => "fa fa-home", :target => "_self"
-    breadcrumbs.add "MarketPlace", market_places_path, :target => "_self"
+    breadcrumbs.add "MarketPlace", marketplaces_path, :target => "_self"
     mkp = get_marketplaces
     @mkp_collection = mkp[:mkp_collection]
     if @mkp_collection.class == Megam::Error
@@ -13,24 +13,28 @@ class MarketPlacesController < ApplicationController
       @categories = @mkp_collection.map {|c| c.appdetails[:category]}
       @categories = @categories.uniq
     end
-  end  
+  end
 
-  def market_place_app_show
+  def show
     breadcrumbs.add "Home", "#", :class => "fa fa-home", :target => "_self"
-    breadcrumbs.add "MarketPlace", market_places_path, :target => "_self"
-    breadcrumbs.add "#{params[:name]}", market_places_path, :target => "_self"
-    @mkp = params
-    @catagory = params[:catagory]
-    @logo = params[:logo]
-    @predef_name = get_predef_name(params[:name])
-    @deps_scm = get_deps_scm(params[:name])
-    @my_apps = []
-    cloud_books = current_user.apps.order("id DESC").all
-    if cloud_books.any?
-      @my_apps = cloud_books.map {|c| c.group_name}
-      @my_apps = @my_apps.uniq
+    breadcrumbs.add "MarketPlace", marketplaces_path, :target => "_self"
+    breadcrumbs.add "#{params[:id]}", marketplaces_path, :target => "_self"
+    @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])     
+    if @mkp.class == Megam::Error
+      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@mkp.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
-      @my_apps << "No apps created."
+      @mkp = @mkp.lookup(params[:id])
+      @predef_name = get_predef_name(params[:id])
+      @deps_scm = get_deps_scm(params[:id])
+      @pricing = get_pricing
+      @my_apps = []
+      cloud_books = current_user.apps.order("id DESC").all
+      if cloud_books.any?
+        @my_apps = cloud_books.map {|c| c.group_name}
+        @my_apps = @my_apps.uniq
+      else
+        @my_apps << "No apps created."
+      end
     end
   end
 

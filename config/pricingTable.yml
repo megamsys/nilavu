@@ -1,0 +1,98 @@
+Profit-bricks:
+  1 Web-Server:
+    memory: 2GB
+    price: $29.52 / 30 days
+  2 Web-Frontend Servers+1 DB-Backend Server: 
+    memory: 16GB 
+    price: $164.80 / 30 days
+  1 Terminal-Server:
+    memory: 16GB
+    price: $235.20 / 30 days
+  1 Number-Cruncher/ Accounting Server:
+    memory: 128GB
+    price: $1,287.20 / 30 days  
+     
+GoGrid:
+  X-Small:
+    memory: 0.5GB
+    price: $0.03/hr
+  Small:
+    memory: 1GB
+    price:  $0.06/hr
+  Medium:
+    memory: 2GB
+    price: $0.12/hr
+  Large:
+    memory: 4GB
+    price: $0.24/hr
+  X-Large:
+    memory: 8GB
+    price: $0.48/hr
+  XX-Large:
+    memory: 16GB
+    price: $0.96/hr
+  XXX-Large:
+    memory: 24GB
+    price: $1.44/hr                                                                                                                           
+  
+Amazon-EC2:
+  t1.micro:
+    memory: 0.615GB
+    price: $0.020/hr
+  m1.small:
+    memory: 1.7GB
+    price: $0.060/hr
+  m1.medium: 
+    memory: 3.75GB
+    price: $0.120/hr
+  m1.large:
+    memory: 7.5GB
+    price: $0.240/hr
+  m2.xlarge:
+    memory: 17.1GB
+    price: $0.410/hr
+  i2.xlarge:
+    memory: 30.5GB
+    price: $0.853/hr
+      
+hpcloud:
+  Standard Extra Small:
+    memory: 1GB
+    price: $0.03/hr
+  Standard Medium:
+    memory: 4GB
+    price: $0.12/hr
+  Standard Large:
+    memory: 8GB
+    price: $0.24/hr
+  Standard XL:
+    memory: 15GB
+    price: $0.45/hr
+  High Memory Large:
+    memory: 16GB
+    price: $0.36/hr
+  High Memory XL:
+    memory: 30GB
+    price: $0.68/hr
+   
+Google-Compute-Engine:
+  f1-micro:
+    memory: 0.60GB
+    price: $0.019/hr
+  g1-small:
+    memory: 1.70GB
+    price: $0.054/hr
+  n1-standard-1:
+    memory: 3.75GB
+    price: $0.104/hr
+  n1-standard-8:
+    memory: 30GB
+    price: $0.829/hr
+  n1-highmem-2:
+    memory: 13GB
+    price: $0.244/hr
+  n1-highcpu-2:
+    memory: 1.80GB
+    price: $0.131/hr   
+
+  

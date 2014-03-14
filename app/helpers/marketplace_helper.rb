@@ -1,7 +1,11 @@
-module MarketPlaceHelper
+module MarketplaceHelper
   
   def mkp_config
-    YAML.load(File.open("#{Rails.root}/config/market_place_addons.yml", 'r'))
+    YAML.load(File.open("#{Rails.root}/config/marketplace_addons.yml", 'r'))
+  end
+  
+  def mkp_pricing
+    YAML.load(File.open("#{Rails.root}/config/pricingTable.yml", 'r'))
   end
   
   def get_predef_name(name)
@@ -22,6 +26,10 @@ module MarketPlaceHelper
       end   
     end
     @scm    
+  end
+  
+  def get_pricing  
+    mkp_pricing
   end
   
 end
