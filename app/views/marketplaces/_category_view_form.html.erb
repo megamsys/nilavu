@@ -52,7 +52,7 @@
 							</p>
 							<div class="actions">
 								<div class="actions-inner">
-									<%= link_to  market_place_app_show_path(:name => mkp.name, :features => mkp.features, :pricetype => mkp.pricetype, :appdetails => mkp.appdetails, :plan => mkp.plan, :attach => mkp.attach, :approved => mkp.approved), :target => "_self", title: "Open" do %><i class="fa fa-folder-open"></i><%end%>
+									<%= link_to  marketplace_path(:id => mkp.name), :target => "_self", title: "Open" do %><i class="fa fa-folder-open"></i><%end%>
 								</div>
 							</div>
 						</div>
