@@ -20,12 +20,12 @@ profitbricks:
   value: profitbricks
   image: profitbricks
   
-artisan:  
-  name: Artisan
+gogrid:  
+  name: Gogrid
   description: Compute Engine is an infrastructure as a service that lets you run your large-scale computing workloads on Linux virtual machines hosted on Google's infrastructure.
-  type: artisan_keys
-  value: artisan
-  image: artisan    
+  type: gogrid_keys
+  value: gogrid
+  image: gogrid    
     
 google:
   name: Google Compute Engine
