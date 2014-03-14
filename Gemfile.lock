@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/rails/protected_attributes.git
-  revision: fb6bb951120daf85241390b3d4a6ad17aa218fae
+  revision: 4e5726c290a81764c1269081b2130347c67150bb
   specs:
-    protected_attributes (1.0.6)
+    protected_attributes (1.0.7)
       activemodel (>= 4.0.1, < 5.0)
 
 GIT
@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
-  revision: ae4418ec22213076643c2ed5471737c53965fb64
+  revision: 436ceba61ad40bbef649c9b87b75684b37bea409
   branch: bootstrap3
   specs:
     twitter-bootstrap-rails (3.1.1)
@@ -56,7 +56,7 @@ GEM
     addressable (2.3.5)
     arel (5.0.0)
     atomic (1.1.15)
-    aws-sdk (1.36.0)
+    aws-sdk (1.36.1)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
       uuidtools (~> 2.1)
@@ -113,7 +113,7 @@ GEM
     diff-lcs (1.2.5)
     equalizer (0.0.9)
     erubis (2.7.0)
-    excon (0.32.0)
+    excon (0.32.1)
     execjs (2.0.2)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
@@ -166,18 +166,18 @@ GEM
     jwt (0.1.11)
       multi_json (>= 1.5)
     kgio (2.9.2)
-    less (2.4.0)
+    less (2.5.0)
       commonjs (~> 0.2.7)
-    less-rails (2.4.2)
+    less-rails (2.5.0)
       actionpack (>= 3.1)
-      less (~> 2.4.0)
+      less (~> 2.5.0)
     libv8 (3.16.14.3)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     masonry-rails (0.2.1)
       rails
-    megam_api (0.8.2)
+    megam_api (0.9.1)
       excon (~> 0.31)
       highline (~> 1.6)
       mixlib-config (~> 2.1)
@@ -280,7 +280,7 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
-    sass (3.3.1)
+    sass (3.3.2)
     sass-rails (4.0.1)
       railties (>= 4.0.0, < 5.0)
       sass (>= 3.1.10)
@@ -288,7 +288,7 @@ GEM
     simple_oauth (0.2.0)
     socket.io-rails (0.9.16)
       railties (>= 3.1)
-    sprockets (2.11.0)
+    sprockets (2.12.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
