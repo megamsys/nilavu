@@ -6,7 +6,7 @@ app.directive("graph", ["FlotrGraphHelper", "GraphModel", "$routeParams", "Sourc
 	  
 	  function onSuccess(data) {	
 		  console.log("TEST!-----------> 1111");
-		  
+		  console.log(data);
  	  //scope.host=parseHost(data[0]);
 		  scope.host=data.host;
 		     //scope.uptime_data=parseUptime(data);
