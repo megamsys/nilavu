@@ -1,33 +1,34 @@
 <div class="widget-box">
 	<div class="widget-title">
 		<nav class="navbar navbar-default" role="navigation">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<div class="nav navbar-nav" id="filters">
+					<br/>
+					<select class="option-set clearfix"  data-filter-group="category">
+						<option value="*" data-filter-value="" class="selected">All</option>
+						<% categories.sort.each do |cat| %>
+						<option value="#filter-category-<%= cat %>" data-filter-value=".<%= cat %>"><%= cat %></option>
+						<% end %>
+					</select>
+					</br>
 				</div>
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<div class="nav navbar-nav" id="filters">
-						<br/>
-						<select class="option-set clearfix"  data-filter-group="category">
-							<option value="*" data-filter-value="" class="selected">All</option>
-							<% categories.sort.each do |cat| %>
-							<option value="#filter-category-<%= cat %>" data-filter-value=".<%= cat %>"><%= cat %></option>
-							<% end %>
-						</select>
+				<form class="navbar-form navbar-right" role="search">
+					<div class="form-group">
+						<input type="text" class="form-control">
 					</div>
-					<form class="navbar-form navbar-right" role="search">
-						<div class="form-group">
-							<input type="text" class="form-control" placeholder="Enter name of app">
-						</div>
-						<a href="#" class="btn btn-default" >Search</a>						
-					</form>
-				</div><!-- /.navbar-collapse -->
+					<a href="#" class="btn btn-default" >Search</a>
+				</form>
+			</div><!-- /.navbar-collapse -->
 		</nav>
 	</div>
 	<div class="widget-content">

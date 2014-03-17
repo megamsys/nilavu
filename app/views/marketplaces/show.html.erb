@@ -21,7 +21,7 @@
 			</p>
 		</div>
 		<div class="col-md-6">
-			<%= @mkp.appdetails[:description].html_safe %>			
+			<%= @mkp.appdetails[:description].html_safe %>
 		</div>
 	</div>
 	<br/>
@@ -47,7 +47,7 @@
 								</tr>
 								<tr>
 									<td><b>Base Operating System</b></td>
-									<td>Linux/Unix, Ubuntu 13.04</td>
+									<td>Linux/Unix, Ubuntu 13.04 +</td>
 								</tr>
 								<tr>
 									<td><b>Delivery Method</b></td>
@@ -86,9 +86,9 @@
 		<% else %>
 		<% end %>
 		<% else %>
-		<div class="alert alert-info alert-block">
+		<div class="alert alert-danger alert-block">
 			<a class="close" data-dismiss="alert" href="#">×</a>
-			<h4 class="alert-heading">Announcing soon.</h4>
+			<h4 class="alert-heading"><b>Announcing soon.</b></h4>
 			We will support this market place addon shortly.
 		</div>
 		<% end %>
@@ -111,7 +111,7 @@
 							<table class="table table-bordered table-striped table-hover" >
 								<thead>
 									<tr>
-										<th class="col-md-3">Type <th class="col-md-3">Memory (GiB) <th class="col-md-9">Pricing</th>
+										<th class="col-md-3">Type <th class="col-md-3">Memory (GB) <th class="col-md-9">Pricing</th>
 										<th class="col-md-9">Setup</th>
 									</tr>
 								</thead>
@@ -142,9 +142,6 @@
 					<div class="col-sm-7 col-md-7 col-lg-8">
 						<span class="pull-left"><b>Features</b></span>
 					</div>
-					<div class="col-sm-5 col-md-5 col-lg-4">
-						<span class="pull-right"> <a href="<%= @mkp.applinks[:content_link] %>" target="_blank" class="btn btn-default btn-sm active" target="_blank" role="button">Read more about <%= @mkp.name.upcase %></a> </span>
-					</div>
 				</div>
 			</div>
 			<table class="table table-hover" >
@@ -152,8 +149,8 @@
 					<% @mkp.features.each do |k, v| %>
 					<% if v.length > 0 %>
 					<tr>
-						<td><i class="fa fa-check">&nbsp;<%= k.capitalize %></i></td>
-						<td><i class="fa fa-plus-circle">&nbsp;<%= v.capitalize %></i></td>
+						<td><i class="fa fa-check">&nbsp;</i></td>
+						<td><%= v.capitalize %></td>
 					</tr>
 					<% end %>
 					<% end %>
@@ -172,28 +169,29 @@
 				<ul class="recent-posts">
 					<li>
 						<div class="user-thumb">
-							<%= image_tag "knol1.png", :alt => "user", :width => "40", :height => "40" %>
+							<%= image_tag "knol3.png", :alt => "user", :width => "40", :height => "40" %>
 						</div>
 						<div class="article-post">
-							<span class="user-info"><%= @mkp.name.capitalize %></span>
+							<span class="user-info"><h4><%= @mkp.name %> support</h4></span>
 							<p>
-								<a href="<%= @mkp.applinks[:free_support] %>" target="_blank">Free support (Forums) ..</a>
+								<a href="<%= @mkp.applinks[:free_support] %>" target="_blank">Free (Forums) ..</a>
 							</p>
 							<% if @mkp.applinks[:paid_support] != "#" %>
-							<a href="<%= @mkp.applinks[:paid_support] %>" class="btn btn-danger btn-xs" target="_blank">Paid support</a>
-                            <% end %>
+							<a href="<%= @mkp.applinks[:paid_support] %>" class="btn btn-danger btn-xs" target="_blank">Paid</a>
+							<% end %>
 						</div>
 					</li>
 					<li>
 						<div class="user-thumb">
-							<%= image_tag "knol2.png", :alt => "user", :width => "40", :height => "40" %>
+							<%= image_tag "knol1.png", :alt => "user", :width => "40", :height => "40" %>
 						</div>
 						<div class="article-post">
-							<span class="user-info"> Megam support </span>
+
+							<span class="user-info"><h4>Megam support</h4></span>
 							<p>
-								<a href="http://support.megam.co" target="_blank">Free support, No SLA...</a>
+								<a href="http://support.megam.co" target="_blank">Free</a>
 							</p>
-							<a href="#" class="btn btn-danger btn-xs" target="_blank">Paid support</a>
+							<a href="http://www.gomegam.com/contact/" class="btn btn-danger btn-xs" target="_blank">Paid</a>
 						</div>
 					</li>
 				</ul>
@@ -209,26 +207,26 @@
 				<ul class="recent-comments">
 					<li>
 						<div class="user-thumb">
-							<%= image_tag "knol1.png", :alt => "user", :width => "40", :height => "40" %>
+							<%= image_tag "knol2.png", :alt => "user", :width => "40", :height => "40" %>
 						</div>
 						<div class="comments">
-							<span class="user-info"><%= @mkp.name.capitalize %> page</span>
+							<span class="user-info"><h4><%= @mkp.name %> docs</h4></span>
 							<p>
-								<a href="<%= @mkp.applinks[:info_link] %>" target="_blank">This page contains information about <%= @mkp.name %>...</a>
+								<a href="<%= @mkp.applinks[:info_link] %>" target="_blank">Learn more ...</a>
 							</p>
 							<a href="<%= @mkp.applinks[:home_link] %>" class="btn btn-warning btn-xs" target="_blank">Home</a>
 						</div>
 					</li>
 					<li>
 						<div class="user-thumb">
-							<%= image_tag "knol2.png", :alt => "user", :width => "40", :height => "40" %>
+							<%= image_tag "knol3.png", :alt => "user", :width => "40", :height => "40" %>
 						</div>
 						<div class="comments">
-							<span class="user-info"><%= @mkp.name.capitalize %> Wiki</span>
+							<span class="user-info"><h4><%= @mkp.name %> wiki/others</h4></span>
 							<p>
-								<a href="<%= @mkp.applinks[:wiki_link] %>" target="_blank">Community wiki - <%= @mkp.name.capitalize %>...</a>
+								<a href="<%= @mkp.applinks[:wiki_link] %>" target="_blank">Community wiki - <%= @mkp.name %>...</a>
 							</p>
-							<a href="<%= @mkp.applinks[:source_link] %>" class="btn btn-warning btn-xs" target="_blank">Source</a>
+							<a href="<%= @mkp.applinks[:source_link] %>" class="btn btn-warning btn-xs" target="_blank">Code</a>
 						</div>
 					</li>
 
