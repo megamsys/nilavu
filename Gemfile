@@ -30,6 +30,9 @@ gem 'pg'
 
 # security and oauth
 gem 'bcrypt-ruby',:require => 'bcrypt'
+gem 'oauth2'
+gem 'oauth'
+gem 'omniauth-oauth2'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem "omniauth-google-oauth2"
