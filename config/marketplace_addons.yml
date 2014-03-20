@@ -1,34 +1,34 @@
 #This file is needed for market_places
-drbd:
-  name: drbd
+DRBD:
+  name: DRBD
   predef_name: 
   no_of_instances: 1
   radios: scm_sample
   deps_scm: 
   
-jenkins:
-  name: jenkins
-  predef_name: 
+Jenkins:
+  name: Jenkins
+  predef_name: java 
   no_of_instances: 1
   radios: scm_sample
   deps_scm: 
   
-scmmanager:
-  name: scmmanager
+SCM-Manager:
+  name: SCM-Manager
   predef_name: java 
   no_of_instances: 1
   radios: scm_sample
   deps_scm: https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/scmmanager.war
   
-ghost:
+Ghost:
   name: ghost
   predef_name: nodejs 
   no_of_instances: 1
   radios: scm_sample
   deps_scm: https://github.com/thomasalrin/ghost.git
   
-wordpress:
-  name: wordpress
+Wordpress:
+  name: Wordpress
   predef_name: wordpress
   no_of_instances: 1
   radios: scm_sample
