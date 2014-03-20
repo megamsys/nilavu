@@ -23,8 +23,8 @@ class MarketplacesController < ApplicationController
     if @mkp.class == Megam::Error
       redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@mkp.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
-      @mkp = @mkp.lookup(params[:id])
-      @predef_name = get_predef_name(params[:id])
+      @mkp = @mkp.lookup(params[:id])    
+      @predef_name = get_predef_name(params[:id])     
       @deps_scm = get_deps_scm(params[:id])
       @pricing = get_pricing
       @my_apps = []

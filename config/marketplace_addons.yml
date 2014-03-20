@@ -27,7 +27,7 @@ Ghost:
   radios: scm_sample
   deps_scm: https://github.com/thomasalrin/ghost.git
   
-Wordpress:
+WordPress:
   name: Wordpress
   predef_name: wordpress
   no_of_instances: 1

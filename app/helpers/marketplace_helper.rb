@@ -9,13 +9,13 @@ module MarketplaceHelper
   end
   
   def get_predef_name(name)
-    @p_name = "" 
-    mkp_config.each do |mkp, addon| 
-      if addon["name"] == name     
+    @p_name = ""    
+    mkp_config.each do |mkp, addon|      
+      if mkp == name     
          @p_name = addon["predef_name"]         
       end   
     end
-    @p_name    
+    @p_name      
   end
   
   def get_deps_scm(name)
