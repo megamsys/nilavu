@@ -53,6 +53,16 @@
 			<% end %>
 		</div>
 		<br/>
+		<div class="form-group" id="cc_group">
+			<div class="col-sm-11 col-md-11 col-lg-11">
+				<%= text_field_tag 'group', nil, placeholder: 'Enter Network value', :id =>"required",
+				:class =>"form-control input-sm" %>
+			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id="popover_google_group" ></i>
+			<% end %>
+		</div>
+		<br/>
 		<div class="form-group" id="cc_image">
 			<div class="col-sm-11 col-md-11 col-lg-11">
 				<%= text_field_tag 'image', nil, placeholder: 'Enter Image value', :id =>"required",

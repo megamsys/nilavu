@@ -360,9 +360,12 @@ DEPENDENCIES
   multi_xml
   net-http-predicates
   nokogiri
+  oauth
+  oauth2
   omniauth-facebook
   omniauth-github
   omniauth-google-oauth2
+  omniauth-oauth2
   omniauth-twitter
   paperclip
   pg
