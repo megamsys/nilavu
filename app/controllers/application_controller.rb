@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   # usage way.
   def render_500(exception = nil)
     if exception
-      twit_msg  =  "www.megam.co: error received: #{exception.message}, stacktace emailed.".slice! 0..140
+      twit_msg  =  "http://www.megam.co: error, support issue created.".slice! 0..140
       client = Twitter::REST::Client.new do |config|
         config.consumer_key        = ENV['TWITTER_CLIENT_ID']
         config.consumer_secret     = ENV['TWITTER_SECRET_KEY']
@@ -41,11 +41,15 @@ class ApplicationController < ActionController::Base
       rescue Twitter::Error
       ## just ignore twitter errors.
       end
-      short_msg = "#{exception.class.to_s} (#{exception.message})"
-      full_stacktrace =  exception.backtrace.join("\n")
-      Rails.logger.fatal "\n#{short_msg}"
-      Rails.logger.fatal "#{full_stacktrace}"
-      UserMailer.error_email({:email => current_user.email, :message =>"#{short_msg}", :stacktrace => "#{full_stacktrace}" }).deliver
+
+      short_msg = "(#{exception.message})"
+      filtered_trace = exception.backtrace.grep(/#{Regexp.escape("nilavu")}/)
+      if !filtered_trace.empty?
+        full_stacktrace =  filtered_trace.join("\n")
+        Rails.logger.fatal "\n#{short_msg}"
+        Rails.logger.fatal "#{full_stacktrace}"
+        UserMailer.error_email({:email => current_user.email, :message =>"#{short_msg}", :stacktrace => "#{full_stacktrace}" }).deliver
+      end
     end
     respond_to do |format|
       format.html { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
