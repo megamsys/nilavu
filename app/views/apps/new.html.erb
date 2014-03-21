@@ -132,7 +132,8 @@
 								<div class="panel-body">
 									<ul class="scm_tool_horizontal">
 										<li>
-											<%= image_tag "logo_assembla_200x200.png",:class=> "img-responsive center-block",:size => "90x90", :id => "slider-image"%>
+											<%= link_to "/auth/assembla", :title=> "Click to connect and list your github repositories", :target => "_self", :data => { spinner: '#git_oauth'} do %>
+											<%= image_tag "logo_assembla_200x200.png",:class=> "img-responsive center-block",:size => "90x90", :id => "slider-image"%><% end %>											
 										</li>
 										<li>
 											<%= link_to "/auth/github", :title=> "Click to connect and list your github repositories", :target => "_self", :data => { spinner: '#git_oauth'} do %>

@@ -76,6 +76,16 @@ class AppsController < ApplicationController
     render :template => "apps/new", :locals => {:repos => @repos}
   end
 
+ def authorize_assembla
+   logger.debug "CloudBooks:authorize_assembla, entry"
+   puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+   puts request.env['omniauth.auth']   
+   @repos_collection = ListAssemblaRepos.perform(request.env['omniauth.auth']['credentials']['token'])
+   puts @repos_collection.inspect
+   # path to get spaces
+   #https://api.assembla.com/v1/spaces?grant_type=access_token&access_token=_access_token value
+ end
+
   def new
     if current_user.onboarded_api
       @book =  current_user.apps.build
