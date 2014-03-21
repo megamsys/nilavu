@@ -6,4 +6,5 @@ Rails.application.config.middleware.use OmniAuth::Builder do
       :scope => "userinfo.profile, userinfo.email, devstorage.full_control, compute",
       :prompt => 'consent'     
     }
+  provider :assembla, ENV['ASSEMBLA_APP_ID'], ENV['ASSEMBLA_APP_SECRET']
 end

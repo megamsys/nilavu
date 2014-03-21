@@ -37,12 +37,17 @@ gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem "omniauth-google-oauth2"
 gem 'omniauth-github'
+gem "omniauth-assembla"
+
+gem "megam_assembla"
+gem "aws-sdk"
+gem 'json'
+gem 'assemblabla'
 
 #general
 gem "github_api"
 gem 'twitter'
 gem 'paperclip'
-gem "aws-sdk"
 gem "randexp", "~> 0.1.7"
 gem "megam_api"
 gem "megam_scmmanager"

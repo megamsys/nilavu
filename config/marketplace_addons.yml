@@ -21,14 +21,14 @@ SCM-Manager:
   deps_scm: https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/scmmanager.war
   
 Ghost:
-  name: ghost
+  name: Ghost
   predef_name: nodejs 
   no_of_instances: 1
   radios: scm_sample
   deps_scm: https://github.com/thomasalrin/ghost.git
   
 WordPress:
-  name: Wordpress
+  name: WordPress
   predef_name: wordpress
   no_of_instances: 1
   radios: scm_sample
