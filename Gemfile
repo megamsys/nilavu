@@ -39,10 +39,8 @@ gem "omniauth-google-oauth2"
 gem 'omniauth-github'
 gem "omniauth-assembla"
 
-gem "megam_assembla"
 gem "aws-sdk"
 gem 'json'
-gem 'assemblabla'
 
 #general
 gem "github_api"
@@ -52,6 +50,7 @@ gem "randexp", "~> 0.1.7"
 gem "megam_api"
 gem "megam_scmmanager"
 gem "megam_deccanplato"
+gem "megam_assembla"
 gem "inflector" #convert singularize
 gem "cheddargetter_client_ruby" #chettargetter API
 gem 'google-analytics-rails', '~> 0.0.4'
@@ -65,10 +64,8 @@ gem "faraday_middleware"
 gem "multi_xml"
 gem "nokogiri"
 
-
 gem 'unicorn', :group => :production
 gem "therubyracer", :require => 'v8',:platforms => :ruby
-
 
 #ssh key-gen
 gem "sshkey"

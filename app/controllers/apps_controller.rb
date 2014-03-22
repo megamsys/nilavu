@@ -76,15 +76,12 @@ class AppsController < ApplicationController
     render :template => "apps/new", :locals => {:repos => @repos}
   end
 
- def authorize_assembla
-   logger.debug "CloudBooks:authorize_assembla, entry"
-   puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-   puts request.env['omniauth.auth']   
-   @repos_collection = ListAssemblaRepos.perform(request.env['omniauth.auth']['credentials']['token'])
-   puts @repos_collection.inspect
-   # path to get spaces
-   #https://api.assembla.com/v1/spaces?grant_type=access_token&access_token=_access_token value
- end
+  def authorize_assembla
+    logger.debug "CloudBooks:authorize_assembla, entry"
+    puts request.env['omniauth.auth']
+    @assembla_repos = ListAssemblaRepos.perform(request.env['omniauth.auth']['credentials']['token'])
+    render :template => "apps/new", :locals => {:repos => @assembla_repos}
+  end
 
   def new
     if current_user.onboarded_api
@@ -166,12 +163,12 @@ class AppsController < ApplicationController
           @history = @book.apps_histories.create(params)
           @history.save
           dash(@book)
-        end         
+        end
       end
     end
   end
 
-  def dash(book)     
+  def dash(book)
     book_source = Rails.configuration.metric_source
     book_source = "demo" unless apply_to_cloud
     @widget=@book.widgets.create(:name=>"graph", :kind=>"datapoints", :source=>book_source, :widget_type=>"pernode", :range=>"hour", :targets => ["cpu_system"])
@@ -243,15 +240,15 @@ class AppsController < ApplicationController
     end
   end
 
-#this is a prescmmanager auth
+  #this is a prescmmanager auth
   def scm_manager_auth
 
   end
 
-#this is a post scmmanager auth return, where the repos are listed.
+  #this is a post scmmanager auth return, where the repos are listed.
   def scmmanager_auth
     path = []
-    res = ListRepoNames.perform(params[:scm_session][:username], params[:scm_session][:password])    
+    res = ListRepoNames.perform(params[:scm_session][:username], params[:scm_session][:password])
     if res[:status] != "200" && res[:status] == "401"
       flash[:error] = 'Invalid username and password combination'
       render 'apps/scm_manager_auth'
