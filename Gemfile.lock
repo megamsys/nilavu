@@ -172,7 +172,7 @@ GEM
       treetop (~> 1.4.8)
     masonry-rails (0.2.1)
       rails
-    megam_api (0.10)
+    megam_api (0.9.2)
       excon (~> 0.31)
       highline (~> 1.6)
       mixlib-config (~> 2.1)
@@ -180,7 +180,7 @@ GEM
       yajl-ruby (~> 1.2)
     megam_assembla (0.1.0)
       excon (~> 0.31)
-      megam_api (~> 0.10)
+      megam_api
       yajl-ruby (~> 1.2)
     megam_deccanplato (0.1.0)
       highline
