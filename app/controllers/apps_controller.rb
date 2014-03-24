@@ -78,9 +78,17 @@ class AppsController < ApplicationController
 
   def authorize_assembla
     logger.debug "CloudBooks:authorize_assembla, entry"
-    puts request.env['omniauth.auth']
-    @assembla_repos = ListAssemblaRepos.perform(request.env['omniauth.auth']['credentials']['token'])
-    render :template => "apps/new", :locals => {:repos => @assembla_repos}
+    assembla_repos = ListAssemblaRepos.perform(request.env['omniauth.auth']['credentials']['token'])  
+    if assembla_repos.class == Megam::Error
+      redirect_to new_app_path, :gflash => { :warning => { :value => "#{assembla_repos.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+    else
+      git_array = []
+      assembla_repos.each do |repo|
+         git_array << "git://git.assembla.com/#{repo["wiki_name"]}.git" 
+       end       
+      @repos = git_array
+      render :template => "apps/new", :locals => {:repos => @repos}
+    end
   end
 
   def new

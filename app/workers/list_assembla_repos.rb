@@ -14,8 +14,7 @@ class ListAssemblaRepos
       re = Megam::Error.from_hash(hash)
       @res = {"data" => {:body => re}}
       return @res["data"][:body]
-    rescue StandardError => se
-      puts se .inspect
+    rescue StandardError => se      
       hash = {"msg" => se.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)
       @res = {"data" => {:body => re}}
