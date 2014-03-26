@@ -113,6 +113,10 @@ class CrossCloudsController < ApplicationController
       format.js {
         respond_with(@provider, @provider_form_name, @ssh_keys, :layout => !request.xhr? )
       }
+      format.html {
+        #render :partial => 'cross_clouds/'+@provider+'_form', :locals => {:selected_cloud => @provider_form_name, :ssh_keys => @ssh_keys}
+        redirect_to new_cross_cloud_path
+      }
     end
   end
 end
