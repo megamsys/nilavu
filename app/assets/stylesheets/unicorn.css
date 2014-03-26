@@ -11,8 +11,13 @@
 html {
   overflow-x: hidden;
 }
-
-@media (nax-width: 767px) {
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-top: -20px;
+  background: #000000 url('megam_background.png') repeat scroll top center;
+}
+@media (max-width: 767px) {
   body {
     margin-top: -2px;
   }

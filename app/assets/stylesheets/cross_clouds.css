@@ -32,42 +32,47 @@ div.rule:after {
 	background-repeat: no-repeat;
 	display: inline-block;
 	height: 100px;
-	width: 100px;
+	width: 120px;
 }
 
-.logor_aws {
-	background-position: -49px -157px;
-	width: 105px;
-	height: 124px;
-}
-
-.logor_gce {
-	background-position: -215px -174px;
-	width: 90px;
-	height: 92px;
-}
-
-.logor_hp {
-	background-position: -370px -173px;
-	width: 105px;
-	height: 102px;
-}
-
-.logor_artisan {
-	background-position: -37px -37px;
+.logor_artisan{
+	background-position: -140px -165px ;
 	width: 100px;
 	height: 100px;
 }
 
-.logor_podnix {
-	background-position: -215px -33px;
+.logor_aws{
+	background-position: -408px -19px ;
+	width: 100px;
+	height: 119px;
+}
+
+.logor_gce{
+	background-position: -280px -165px ;
+	width: 100px;
+	height: 99px;
+}
+
+.logor_gogrid{
+	background-position: -268px -33px ;
+	width: 108px;
+	height: 100px;
+}
+
+.logor_hp{
+	background-position: -24px -168px ;
 	width: 100px;
 	height: 100px;
 }
 
-.logor_profitbricks {
-	background-position: -386px -41px;
-	width: 78px;
+.logor_podnix{
+	background-position: -136px -32px ;
+	width: 100px;
 	height: 100px;
 }
 
+.logor_profitbricks{
+	background-position: -19px -22px ;
+	width: 100px;
+	height: 128px;
+}

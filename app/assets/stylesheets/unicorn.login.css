@@ -17,10 +17,15 @@ body.login {
 }
 
 body {
-	background-color: #444444;
-	background-position: fixed;
+	background-color: #6D7B8D;	
+	background-attachment: fixed;
+	background-position: transparent;
 	padding: 0;
-	margin: 0;	   
+	margin: 0;
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;     
 }
 
 #containerlogin {

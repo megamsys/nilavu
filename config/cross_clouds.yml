@@ -20,19 +20,19 @@ profitbricks:
   value: profitbricks
   image: profitbricks
   
-gogrid:  
-  name: Gogrid
-  description: Compute Engine is an infrastructure as a service that lets you run your large-scale computing workloads on Linux virtual machines hosted on Google's infrastructure.
-  type: gogrid_keys
-  value: gogrid
-  image: gogrid    
-    
 google:
   name: Google Compute Engine
   description: Compute Engine is an infrastructure as a service that lets you run your large-scale computing workloads on Linux virtual machines hosted on Google's infrastructure.
   type: gce_keys
   value: google
   image: gce  
+  
+gogrid:  
+  name: Gogrid
+  description: Compute Engine is an infrastructure as a service that lets you run your large-scale computing workloads on Linux virtual machines hosted on Google's infrastructure.
+  type: gogrid_keys
+  value: gogrid
+  image: gogrid        
 
 podnix:
   name: Podnix Cloud
