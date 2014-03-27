@@ -84,7 +84,7 @@ module Cloudauth
     config.google_authorization_uri = 'https://accounts.google.com/o/oauth2/auth'
     config.google_token_credential_uri = 'https://accounts.google.com/o/oauth2/token'
     config.google_scope = 'https://www.googleapis.com/auth/userinfo.email'
-    config. google_redirect_uri = 'https://www.megam.co/auth/google_oauth2/callback'
+    config.google_redirect_uri = 'https://www.megam.co/auth/google_oauth2/callback'
     
     #Cheddargetter API
     config.ched_prod_code = ENV['CHED_PROD_CODE']

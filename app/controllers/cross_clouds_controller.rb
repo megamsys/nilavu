@@ -6,7 +6,7 @@ class CrossCloudsController < ApplicationController
     breadcrumbs.add "Manage Settings", cloud_settings_path
     breadcrumbs.add "Clouds", cloud_settings_path
     breadcrumbs.add "New", new_cross_cloud_path
-    if request.env['omniauth.auth']
+    if request.env['omniauth.auth']     
       @cloud_prov = "Google Cloud Engine"
       @token = request.env['omniauth.auth']['credentials']['token']
       @refresh_token = request.env['omniauth.auth']['credentials']['refresh_token']
@@ -112,6 +112,10 @@ class CrossCloudsController < ApplicationController
     respond_to do |format|
       format.js {
         respond_with(@provider, @provider_form_name, @ssh_keys, :layout => !request.xhr? )
+      }
+      format.html {
+        #render :partial => 'cross_clouds/'+@provider+'_form', :locals => {:selected_cloud => @provider_form_name, :ssh_keys => @ssh_keys}
+        redirect_to new_cross_cloud_path
       }
     end
   end

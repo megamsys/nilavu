@@ -34,6 +34,7 @@ $(function(){
 	    var selector = isoFilters.join('');
 	    $container.isotope({ filter: selector });
 	    return false;
-	  });
+	  });	  
+	 
 
 	});

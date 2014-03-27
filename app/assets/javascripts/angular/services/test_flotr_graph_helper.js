@@ -5,6 +5,7 @@ app.factory("TestFlotrGraphHelper", ["TestColorFactory", "SuffixFormatter", "$wi
     switch(range) {
     case "30-minutes":
     case "60-minutes":
+    case "hour":	
     case "1-hours":
     case "12-hours":
     case "24-hours":

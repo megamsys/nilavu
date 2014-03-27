@@ -10,9 +10,10 @@
 <% @appname = book_name %>
 
 <div class="container">
-	<%= link_to  new_app_path, :class =>"btn btn-default", :target=>"_self" do %>
+	<!-- 	<%= link_to  new_app_path, :class =>"btn btn-default", :target=>"_self" do %>
 	<i class="fa fa-chevron-left"></i>
 	<% end %>
+	-->
 	<div class="row">
 		<div class="col-xs-11 col-sm-11">
 			<div class="widget-box">
@@ -162,15 +163,15 @@
 					<p>
 						App was launched successfully
 						<% unless apply_to_cloud %>
-						 in <span class="label label-danger">demo dryrun mode.</span></br></br>
+						in <span class="label label-danger">demo dryrun mode.</span></br></br>
 						No actual launches to <span class="label label-danger">cloud</span>
 						</br>For full version, please
 						<%= link_to signout_path, method: "delete" do %>
 						<i class="fa fa-sign-out"></i> Sign Out
 						<% end %>
-						and 
+						and
 						<%= link_to signup_path do %>
-						<i class="fa fa-sign-in"></i> Sign up 
+						<i class="fa fa-sign-in"></i> Sign up
 						<%end%> for an account.
 						</br>
 						</br>
@@ -178,12 +179,12 @@
 						</br></br>
 						It typically takes a few minutes to spin it on the cloud.</br></br>
 						<%= link_to apps_histories_path do %>
-						<i class="fa fa-video-camera"></i> Logs (tail -f ..) 
+						<i class="fa fa-video-camera"></i> Logs (tail -f ..)
 						<%end%>
 						</br>
 						</br>
 						<% end %>
-					</p>					
+					</p>
 				</div>
 			</div>
 			<div class="modal-footer">

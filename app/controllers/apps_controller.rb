@@ -76,6 +76,21 @@ class AppsController < ApplicationController
     render :template => "apps/new", :locals => {:repos => @repos}
   end
 
+  def authorize_assembla
+    logger.debug "CloudBooks:authorize_assembla, entry"
+    assembla_repos = ListAssemblaRepos.perform(request.env['omniauth.auth']['credentials']['token'])  
+    if assembla_repos.class == Megam::Error
+      redirect_to new_app_path, :gflash => { :warning => { :value => "#{assembla_repos.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+    else
+      git_array = []
+      assembla_repos.each do |repo|
+         git_array << "git://git.assembla.com/#{repo["wiki_name"]}.git" 
+       end       
+      @repos = git_array
+      render :template => "apps/new", :locals => {:repos => @repos}
+    end
+  end
+
   def new
     if current_user.onboarded_api
       @book =  current_user.apps.build
@@ -156,12 +171,12 @@ class AppsController < ApplicationController
           @history = @book.apps_histories.create(params)
           @history.save
           dash(@book)
-        end         
+        end
       end
     end
   end
 
-  def dash(book)   
+  def dash(book)
     book_source = Rails.configuration.metric_source
     book_source = "demo" unless apply_to_cloud
     @widget=@book.widgets.create(:name=>"graph", :kind=>"datapoints", :source=>book_source, :widget_type=>"pernode", :range=>"hour", :targets => ["cpu_system"])
@@ -233,15 +248,15 @@ class AppsController < ApplicationController
     end
   end
 
-#this is a prescmmanager auth
+  #this is a prescmmanager auth
   def scm_manager_auth
 
   end
 
-#this is a post scmmanager auth return, where the repos are listed.
+  #this is a post scmmanager auth return, where the repos are listed.
   def scmmanager_auth
     path = []
-    res = ListRepoNames.perform(params[:scm_session][:username], params[:scm_session][:password])    
+    res = ListRepoNames.perform(params[:scm_session][:username], params[:scm_session][:password])
     if res[:status] != "200" && res[:status] == "401"
       flash[:error] = 'Invalid username and password combination'
       render 'apps/scm_manager_auth'

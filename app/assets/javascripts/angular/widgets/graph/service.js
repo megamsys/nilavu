@@ -3,8 +3,8 @@ app.factory("GraphModel", ["$http", "TimeSelector", "Sources", function($http, T
 	function getParams(config) {
 	    return {	
 	    	widgetid: config.id,
-	    	 //from: TimeSelector.getFrom(config.range),
-	         //to: TimeSelector.getCurrent(config.range),
+	    	 from: TimeSelector.getFrom(config.range),
+	         to: TimeSelector.getCurrent(config.range),
 	    	range: config.range,
 	      kind: config.kind,
 	      name: config.source,	      

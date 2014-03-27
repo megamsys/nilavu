@@ -6,20 +6,7 @@ $(document).ready(function() {
     var trigger = 'click';
     var html = true;
 		
-    $('#popover_demosignin').popover({
-	       placement: placement_right,
-	       content: '<span class="content-medium"><strong>Demo signin</strong> auto signin </br>which lets you feel Megam..<span class="label label-danger"> No actual launch to the cloud</span></br>Sign up is free.</span>',
-	       trigger: 'hover',
-	       html: html   
-	    });
-    
-    $('#popover_signin').popover({
-	       placement: placement_left,
-	       content: '<span class="content-medium"><strong>Signin</strong> logs you into to Megam. You can launch <span class="label label-info">apps in any cloud</span> using your cloud settings.</span>',
-	       trigger: 'hover',
-	       html: html   
-	    });
-	
+   	
 	$('#popover_clouds').popover({
 	       placement: placement_bottom,
 	       content: '<span class="content-small">choose this option to enter settings for the cloud of your choice</span>',
@@ -35,23 +22,23 @@ $(document).ready(function() {
 	    });
 	
 	$('#popover_aws_name').popover({
-	       placement: placement_right,
-	       content: '<span class="content-small">Enter a name to save your cloud. You can just point to this name and launch an app or service.</span>',
-	       trigger: 'click',
+	       placement: placement_bottom,
+	       content: '<span class="content-small">Enter a name to save your cloud. This name can be used to launch an app or service.</span>',
+	       trigger: 'hover',
 	       html: html   
 	    });
 	
 	$('#popover_aws_group').popover({
 	       placement: placement_right,
 	       content: '<span class="content-small">A security group is for use with instances either in the EC2-Classic platform or in a specific VPC. <br/><span class="label label-info">For eg. megam, default</span> <br/>For more information, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-network-security.html" target="_blank">Amazon EC2 Security Groups</a> </span>',
-	       trigger: 'click',
+	       trigger: 'hover',
 	       html: html   
 	    });
 	
 	$('#popover_aws_image').popover({
 	       placement: placement_right,
 	       content: '<span class="content-small">Describes one or more of the images (AMIs, AKIs, and ARIs) available to you. Images available to you include public images, private images that you own, and private images owned by other AWS accounts but for which you have explicit launch permissions. <br/><span class="label label-info">For eg. ami-a0074df2</span> <br/>For more information, see <a href="http://docs.aws.amazon.com/AWSEC2/latest/CommandLineReference/ApiReference-cmd-DescribeImages.html" target="_blank">Amazon EC2 Images</a></span>',
-	       trigger: 'click',
+	       trigger: 'hover',
 	       html: html   
 	    });
 	

@@ -6,15 +6,15 @@
 		</div>
 		<br/>
 		<div class="row">
-			<div class="control-group" id="cc_name">
-				<div class="controls">
-					&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-cloud"></i>
-					&nbsp;
-					<%= text_field_tag 'name', nil, placeholder: 'Enter a name' %>
-					<%= link_to "#" do %>
-					<i class="fa-question-sign" id="popover_google_name"></i>
-					<% end %>
+			<div class="form-group" id="cc_name">
+				<label class="col-sm-2 col-md-2 col-lg-1 control-label"> &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-cloud"></i> &nbsp; </label>
+				<div class="col-sm-8 col-md-8 col-lg-9">
+					<%= text_field_tag 'name', nil, placeholder: 'Enter a name to save', :id =>"required",
+					:class =>"form-control input-sm" %>
 				</div>
+				<%= link_to "#" do %>
+				<i class="fa fa-question-circle" id="popover_google_name"></i>
+				<% end %>
 			</div>
 		</div>
 		<br/>
@@ -43,40 +43,54 @@
 		</div>
 		<br/>
 
-		<div class="control-group" id="cc_pname">
-			<div class="controls">
-				<%= text_field_tag 'project_name', nil, placeholder: 'Enter project name ..' %>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id="popover_google_projectname"></i>
-				<% end %>
+		<div class="form-group" id="cc_pname">
+			<div class="col-sm-11 col-md-11 col-lg-11">
+				<%= text_field_tag 'project_name', nil, placeholder: 'Enter Project name', :id =>"required",
+				:class =>"form-control input-sm" %>
 			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id="popover_google_projectname" ></i>
+			<% end %>
 		</div>
 		<br/>
-		<div class="control-group" id="cc_image">
-			<div class="controls">
-				<%= text_field_tag 'image', nil, placeholder: 'Enter Image value...' %>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id="popover_google_image"></i>
-				<% end %>
+		<div class="form-group" id="cc_group">
+			<div class="col-sm-11 col-md-11 col-lg-11">
+				<%= text_field_tag 'group', nil, placeholder: 'Enter Network value', :id =>"required",
+				:class =>"form-control input-sm" %>
 			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id="popover_google_group" ></i>
+			<% end %>
 		</div>
 		<br/>
-		<div class="control-group" id="cc_flavor">
-			<div class="controls">
-				<%= text_field_tag 'flavor', nil, placeholder: 'Enter instance size...' %>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id="popover_google_flavor"></i>
-				<% end %>
+		<div class="form-group" id="cc_image">
+			<div class="col-sm-11 col-md-11 col-lg-11">
+				<%= text_field_tag 'image', nil, placeholder: 'Enter Image value', :id =>"required",
+				:class =>"form-control input-sm" %>
 			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id="popover_google_image" ></i>
+			<% end %>
 		</div>
 		<br/>
-		<div class="control-group">
-			<div class="controls">
-				<%= text_field_tag 'zone', nil, placeholder: 'Enter zone...' %>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id="popover_google_zone"></i>
-				<% end %>
+		<div class="form-group" id="cc_flavor">
+			<div class="col-sm-11 col-md-11 col-lg-11">
+				<%= text_field_tag 'flavor', nil, placeholder: 'Enter instance size', :id =>"required",
+				:class =>"form-control input-sm" %>
 			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id="popover_google_flavor" ></i>
+			<% end %>
+		</div>
+		<br/>
+		<div class="form-group">
+			<div class="col-sm-11 col-md-11 col-lg-11">
+				<%= text_field_tag 'zone', nil, placeholder: 'Enter zone', :id =>"required",
+				:class =>"form-control input-sm" %>
+			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id="popover_google_zone" ></i>
+			<% end %>
 		</div>
 	</div>
 
@@ -86,48 +100,53 @@
 		</div>
 		<br/>
 
-		<div class="control-group" id="cc_sshuser">
-			<div class="controls">
-				<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter SSH User..' %>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id="popover_google_sshuser"></i>
-				<% end %>
+		<div class="form-group" id="cc_sshuser">
+			<div class="col-sm-11 col-md-11 col-lg-11">
+				<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter SSH user', :id =>"required",
+				:class =>"form-control input-sm" %>
 			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id="popover_google_sshuser" ></i>
+			<% end %>
 		</div>
 		<br/>
 		<!--<div class="control-group">
-			<div class="controls">
-				<%= text_field_tag 'id_rsa_public_key', nil, placeholder: 'Enter id_rsa public key..' %>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id="popover_google_publickey"></i>
-				<% end %>
-			</div>
+		<div class="controls">
+		<%= text_field_tag 'id_rsa_public_key', nil, placeholder: 'Enter id_rsa public key..' %>
+		<%= link_to "#" do %>
+		<i class="fa-question-sign" id="popover_google_publickey"></i>
+		<% end %>
+		</div>
 		</div>-->
-		<div class="control-group">
-			<div class="controls">
-				 <%= select_tag :id_rsa_public_key, options_for_select(ssh_keys.map{ |c| c[:name] }) %>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id="popover_aws_publickey"></i>
-				<% end %>
+		<div class="form-group">
+			<div class="col-sm-11 col-md-11 col-lg-11">
+				<%= select_tag :id_rsa_public_key, options_for_select(ssh_keys.map{ |c| c[:name] }) %>
+
 			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id="popover_aws_publickey"></i>
+			<% end %>
+
 		</div>
 		<br/>
-		<div class="control-group" id="cc_gcli">
-			<div class="controls">
-				<%= text_field_tag 'google_client_id', nil, placeholder: 'Enter google client id..' %>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id="popover_google_clientid"></i>
-				<% end %>
+		<div class="form-group" id="cc_gcli">
+			<div class="col-sm-11 col-md-11 col-lg-11">
+				<%= text_field_tag 'google_client_id', nil, placeholder: 'Enter google client id', :id =>"required",
+				:class =>"form-control input-sm" %>
 			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id="popover_google_clientid" ></i>
+			<% end %>
 		</div>
 		<br/>
-		<div class="control-group" id="cc_gsk">
-			<div class="controls">
-				<%= text_field_tag 'google_secret_key', nil, placeholder: 'Enter google secret key..' %>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id="popover_google_secretkey"></i>
-				<% end %>
+		<div class="form-group" id="cc_gsk">
+			<div class="col-sm-11 col-md-11 col-lg-11">
+				<%= text_field_tag 'google_secret_key', nil, placeholder: 'Enter google secret key', :id =>"required",
+				:class =>"form-control input-sm" %>
 			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id="popover_google_secretkey" ></i>
+			<% end %>
 		</div>
 		<br/>
 	</div>

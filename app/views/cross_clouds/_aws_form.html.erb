@@ -8,23 +8,15 @@
 		</div>
 		<br/>
 		<div class="row">
-			<!--
-			<div class="form-group">
-			<label class="col-sm-3 col-md-3 col-lg-2 control-label">Required Field</label>
-			<div class="col-sm-9 col-md-9 col-lg-10">
-			<input type="text" class="form-control input-sm" name="required" id="required">
-			</div>
-			</div>
-			-->
-			<div class="control-group" id="cc_name">
-				<div class="controls">
-					&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-cloud"></i>
-					&nbsp;
-					<%= text_field_tag 'name', nil, placeholder: 'Enter a name to save' %>
-					<%= link_to "#" do %>
-					<i class="fa-question-sign" id="popover_aws_name"></i>
-					<% end %>
+			<div class="form-group" id="cc_name">
+				<label class="col-sm-2 col-md-2 col-lg-1 control-label"> &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-cloud"></i> &nbsp; </label>
+				<div class="col-sm-8 col-md-8 col-lg-9">
+					<%= text_field_tag 'name', nil, placeholder: 'Enter a name to save', :id =>"required",
+					:class =>"form-control input-sm" %>
 				</div>
+				<%= link_to "#" do %>
+				<i class="fa fa-question-circle" id="popover_aws_name"></i>
+				<% end %>
 			</div>
 		</div>
 		<br/>
@@ -35,6 +27,7 @@
 				</div>
 				<div class="panel-body">
 					Click here : <%= link_to "Sign Up", "http://aws.amazon.com/console/", :target => "_blank", :class => "btn-link"  %>
+					.Make sure you have the keys handy
 					<ul class="inline-block">
 						<li>
 							AWS Access Key
@@ -44,7 +37,6 @@
 						</li>
 
 					</ul>
-					Make sure you have them handy
 				</div>
 			</div>
 		</div>
@@ -55,42 +47,49 @@
 		<div class="underlineolivegreen">
 			<h4 class="alert-heading">Image & Size</h4>
 		</div>
+		<br/>		
+
+		<div class="form-group" id="cc_group">
+			<div class="col-sm-11 col-md-11 col-lg-11">
+				<%= text_field_tag 'group', nil, placeholder: 'Enter Group name', :id =>"required",
+				:class =>"form-control input-sm" %>
+			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id="popover_aws_group" ></i>
+			<% end %>
+		</div>
 		<br/>
 
-		<div class="control-group" id="cc_group">
-			<div class="controls">
-				<%= text_field_tag 'group', nil, placeholder: 'Enter Group name' %>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id="popover_aws_group" ></i>
-				<% end %>
+		<div class="form-group" id="cc_image">
+			<div class="col-sm-11 col-md-11 col-lg-11">
+				<%= text_field_tag 'image', nil, placeholder: 'Enter Image id' , :id =>"required",
+				:class =>"form-control input-sm" %>
+
 			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id = "popover_aws_image"></i>
+			<% end %>
 		</div>
 		<br/>
-		<div class="control-group" id="cc_image">
-			<div class="controls">
-				<%= text_field_tag 'image', nil, placeholder: 'Enter Image id' %>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id = "popover_aws_image"></i>
-				<% end %>
+		<div class="form-group" id="cc_flavor">
+			<div class="col-sm-11 col-md-11 col-lg-11">
+				<%= text_field_tag 'flavor', nil, placeholder: 'Enter Instance size' , :id =>"required",
+				:class =>"form-control input-sm" %>
 			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id="popover_aws_flavor"></i>
+			<% end %>
 		</div>
 		<br/>
-		<div class="control-group" id="cc_flavor">
-			<div class="controls">
-				<%= text_field_tag 'flavor', nil, placeholder: 'Enter Instance size' %>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id="popover_aws_flavor"></i>
-				<% end %>
+		<div class="form-group"  id="cc_region">
+			<div class="col-sm-11 col-md-11 col-lg-11">
+				<%= text_field_tag 'region', nil, placeholder: 'Enter AWS Region' , :id =>"required",
+				:class =>"form-control input-sm" %>
+
 			</div>
-		</div>
-		<br/>
-		<div class="control-group" id="cc_region">
-			<div class="controls">
-				<%= text_field_tag 'region', nil, placeholder: 'Enter AWS Region' %>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id="popover_aws_region"></i>
-				<% end %>
-			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id="popover_aws_region"></i>
+			<% end %>
 		</div>
 	</div>
 
@@ -101,95 +100,66 @@
 			<h4 class="alert-heading">Security</h4>
 		</div>
 		<br/>
-		<div class="control-group" id="cc_sshkey">
-			<div class="controls">
-				<%= text_field_tag 'ssh_key', nil, placeholder: 'Enter AWS SSH key' %>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id="popover_aws_sshkey"></i>
-				<% end %>
+		<div class="form-group" id="cc_sshkey">
+			<div class="col-sm-11 col-md-11 col-lg-11">
+				<%= text_field_tag 'ssh_key', nil, placeholder: 'Enter AWS SSH key' , :id =>"required",
+				:class =>"form-control input-sm" %>
 			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id="popover_aws_sshkey"></i>
+			<% end %>
 		</div>
 		<br/>
-		<div class="control-group" id="cc_sshuser">
-			<div class="controls">
-				<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter AWS SSH User' %>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id="popover_aws_sshuser"></i>
-				<% end %>
+		<div class="form-group" id="cc_sshuser">
+			<div class="col-sm-11 col-md-11 col-lg-11">
+				<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter AWS SSH User' , :id =>"required",
+				:class =>"form-control input-sm" %>
+
 			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id="popover_aws_sshuser"></i>
+			<% end %>
 		</div>
 		<br/>
-		<!--<div class="control-group">
-		<div class="controls">
-		<%= file_field :private_key, :id => 'private_key',placeholder: 'Enter AWS private key' %>
-		<%= link_to "#" do %>
-		<i class="fa-question-circle"></i>
-		<% end%>
-		</div>
-		</div>
-
-		<div class="control-group">
-		<div class="controls">
-		<%= file_field :id_rsa_public_key, :id => 'id_rsa_public_key',placeholder: 'Enter AWS Public key' %>
-		<%= link_to "#" do %>
-		<i class="fa-question-circle"> </i>
-		<% end%>
-		</div>
-		</div>-->
-
-		<!--<div class="control-group">
-			<div class="controls">
-				<label for="file">Private key file</label> <%= file_field_tag "private_key" %>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id="popover_aws_privatekey"></i>
-				<% end %>
-			</div>
-		</div>-->
-		
-		<!--<div class="control-group">
-		<div class="controls">
-		<label for="file">Public Key</label> <%= file_field_tag "id_rsa_public_key" %>
-		<%= link_to "#" do %>
-		<i class="fa-question-sign" id="popover_aws_publickey"></i>
-		<% end %>
-		</div>
-		</div>-->
 		<% if @ssh_keys.any? %>
-		<div class="control-group">
-			<div class="controls">
+		<div class="form-group">
+			<div class="col-sm-11 col-md-11 col-lg-11">
 				<%= select_tag :id_rsa_public_key, options_for_select(@ssh_keys.map{ |c| c[:name] }) %>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id="popover_aws_publickey"></i>
-				<% end %>
+
 			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id="popover_aws_publickey"></i>
+			<% end %>
 		</div>
 		<% else %>
-		<div class="control-group">
-			<div class="controls">
+		<div class="form-group">
+			<div class="col-sm-11 col-md-11 col-lg-11">
 				<%= select_tag :id_rsa_public_key, options_for_select(ssh_keys.map{ |c| c[:name] }) %>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id="popover_aws_publickey"></i>
-				<% end %>
 			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id="popover_aws_publickey"></i>
+			<% end %>
 		</div>
 		<% end %>
 		<br/>
-		<div class="control-group" id="cc_awsak">
-			<div class="controls">
-				<%= text_field_tag 'aws_access_key', nil, placeholder: 'Enter AWS Access key' %>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id="popover_aws_accesskey"></i>
-				<% end %>
+		<div class="form-group" id="cc_awsak">
+			<div class="col-sm-11 col-md-11 col-lg-11">
+				<%= text_field_tag 'aws_access_key', nil, placeholder: 'Enter AWS Access key' , :id =>"required",
+				:class =>"form-control input-sm" %>
 			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id="popover_aws_accesskey"></i>
+			<% end %>
 		</div>
 		<br/>
-		<div class="control-group" id="cc_awssk">
-			<div class="controls">
-				<%= text_field_tag 'aws_secret_key', nil, placeholder: 'Enter AWS Secret key'%>
-				<%= link_to "#" do %>
-				<i class="fa-question-sign" id="popover_aws_secretkey" ></i>
-				<% end %>
+		<div class="form-group" id="cc_awssk">
+			<div class="col-sm-11 col-md-11 col-lg-11">
+				<%= text_field_tag 'aws_secret_key', nil, placeholder: 'Enter AWS Secret key', :id =>"required",
+				:class =>"form-control input-sm" %>
 			</div>
+			<%= link_to "#" do %>
+			<i class="fa fa-question-circle" id="popover_aws_secretkey" ></i>
+			<% end %>
 		</div>
 		<br/>
 	</div>

@@ -30,7 +30,7 @@ Cloudauth::Application.routes.draw do
   resources :password_resets
   resources :cloud_tool_settings
   resources :cloud_settings
-  resources :market_places
+  resources :marketplaces
   resources :cloud_dashboards
   resources :cloud_tool_settings
   resources :ssh_keys
@@ -89,6 +89,7 @@ Cloudauth::Application.routes.draw do
   match '/auth/facebook/callback', :to => 'sessions#create', via: [:get, :post]
   match '/auth/github/callback', :to => 'apps#authorize_scm', via: [:get, :post]
   match '/auth/google_oauth2/callback', :to => 'cross_clouds#new', via: [:get, :post]
+  match '/auth/assembla/callback', :to => 'apps#authorize_assembla', via: [:get, :post]
   match '/scm_manager_auth', :to => 'apps#scm_manager_auth', via: [:get, :post]
   match '/scmmanager_auth', :to => 'apps#scmmanager_auth', via: [:get, :post]
   match '/create_scm_user', :to => 'apps#create_scm_user', via: [:get, :post]
@@ -128,8 +129,8 @@ Cloudauth::Application.routes.draw do
   match '/selectclouds', to: 'cross_clouds#cloud_selector', via: [:get, :post]
   #get '/selectclouds' => 'cloud_settings#cloud_selector'
   #match '/selectclouds', to: 'cross_clouds#new', via: [:get, :post]
-  match '/market_place_app_show', to: 'market_places#market_place_app_show', via: [:get, :post]
-  match '/category_view', to: 'market_places#category_view', via: [:get, :post]
+  #match '/market_place_app_show', to: 'marketplaces#market_place_app_show', via: [:get, :post]
+  match '/category_view', to: 'marketplaces#category_view', via: [:get, :post]
   # =======Error controller
   get "/404", :to => "errors#not_found"
   #get "/422", :to => "errors#unacceptable"
