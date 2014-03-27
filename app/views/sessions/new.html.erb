@@ -32,9 +32,8 @@
 			</div>
 			<div class="row">
 				<div class="col-md-6">
-					<%= link_to  demo_path(:email =>"dummy@megamsandbox.com",:password =>"dummykeysandbox#megam"),:class => "btn btn-primary btn-lg btn-block", :id => "popover_demosignin" do %>					
-					<i class="fa fa-sign-in">&nbsp;Demo Sign in</i>
-					<% end %>
+					<%= link_to "Demo Sign in", demo_path(:email =>"dummy@megamsandbox.com",:password =>"dummykeysandbox#megam"),:class => "btn btn-primary btn-lg btn-block", :id => "popover_demosignin" %>					
+					
 				</div>
 				<div class="col-md-6">
 					<%= f.submit "Sign in", :class => "btn btn-primary btn-lg btn-block", :id => "popover_signin" %>
