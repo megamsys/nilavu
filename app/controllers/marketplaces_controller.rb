@@ -10,27 +10,31 @@ class MarketplacesController < ApplicationController
       redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@mkp_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
       @categories=[]
-      @categories = @mkp_collection.map {|c| c.appdetails[:category]}
+      @order=[]
+     @order = @mkp_collection.map {|c| c.name}
+      @order = @order.sort_by {|elt| ary = elt.split("-").map(&:to_i); ary[0] + ary[1]}      
+      @categories = @mkp_collection.map {|c| c.appdetails[:category]}      
       @categories = @categories.uniq
     end
   end
 
   def show
+    pro_name = params[:id].split("-")
     breadcrumbs.add "Home", "#", :class => "fa fa-home", :target => "_self"
     breadcrumbs.add "MarketPlace", marketplaces_path, :target => "_self"
-    breadcrumbs.add "#{params[:id]}", marketplaces_path, :target => "_self"
+    breadcrumbs.add pro_name[1], marketplaces_path, :target => "_self"
     @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])     
     if @mkp.class == Megam::Error
       redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@mkp.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
       @mkp = @mkp.lookup(params[:id])    
-      @predef_name = get_predef_name(params[:id])     
-      @deps_scm = get_deps_scm(params[:id])
+      @predef_name = get_predef_name(pro_name[1])     
+      @deps_scm = get_deps_scm(pro_name[1])      
       @pricing = get_pricing
       @my_apps = []
       cloud_books = current_user.apps.order("id DESC").all
       if cloud_books.any?
-        @my_apps = cloud_books.map {|c| c.group_name}
+        @my_apps = cloud_books.map {|c| c.name}
         @my_apps = @my_apps.uniq
       else
         @my_apps << "No apps created."

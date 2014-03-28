@@ -39,7 +39,9 @@
 				<br/>
 				<div id="iso_container">
 					<div class="gallery-masonry" >
+						 <% order.each do |name| %>
 						<% mkp_collection.each do |mkp| %>
+						 <%if name == mkp.name %> 
 						<div class="item produkt-element  <%= mkp.appdetails[:category] %>" id='<%= mkp.appdetails[:category] %>' >
 							<% case mkp.approved  %>
 							<% when "true" %>
@@ -49,7 +51,8 @@
 							<% end %>
 							<a href="#" class="thumbnail" > <%= image_tag mkp.appdetails[:logo], :alt => mkp.name %> </a>
 							<p>
-								<span class="label label-info"><%= mkp.name %></span>
+								 <% cat_name = mkp.name.split("-") %>
+								<span class="label label-info"><%= cat_name[1] %></span> 								
 							</p>
 							<div class="actions">
 								<div class="actions-inner">
@@ -57,6 +60,8 @@
 								</div>
 							</div>
 						</div>
+						<% end %>
+						 <% end %>
 						<% end %>
 					</div>
 				</div>

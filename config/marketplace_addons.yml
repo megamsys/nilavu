@@ -5,20 +5,26 @@ DRBD:
   no_of_instances: 1
   radios: scm_sample
   deps_scm: 
+  db_model:
+  dbms: 
   
 Jenkins:
   name: Jenkins
   predef_name: java 
   no_of_instances: 1
   radios: scm_sample
-  deps_scm: 
+  deps_scm: http://mirrors.jenkins-ci.org/war/latest/jenkins.war
+  db_model:
+  dbms: 
   
-SCM-Manager:
-  name: SCM-Manager
+SCMManager:
+  name: SCMManager
   predef_name: java 
   no_of_instances: 1
   radios: scm_sample
   deps_scm: https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/scmmanager.war
+  db_model:
+  dbms: 
   
 Ghost:
   name: Ghost
@@ -26,10 +32,23 @@ Ghost:
   no_of_instances: 1
   radios: scm_sample
   deps_scm: https://github.com/thomasalrin/ghost.git
+  db_model:
+  dbms: 
   
 WordPress:
   name: WordPress
   predef_name: wordpress
   no_of_instances: 1
   radios: scm_sample
-  deps_scm:     
+  deps_scm:
+  db_model:
+  dbms:      
+
+Riak:
+  name: Riak
+  no_of_instances: 1
+  db_model: full
+  dbms: riak
+  predef_name:
+  radios:
+  deps_scm:
