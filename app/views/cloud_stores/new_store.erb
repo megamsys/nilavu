@@ -37,7 +37,7 @@
 					</div>
 					<br/>
 					<br/>
-					<%= f.text_field :name, :type => 'hidden', :id=> 'changename', :value => @new_book_name %>
+					<%= f.text_field :appname, :type => 'hidden', :id=> 'changename', :value => @new_book_name %>
 					<input type="hidden" name="book_name" id="bookname" value="<%= @new_book_name %>">
 					<%= f.text_field :domain_name, :type => 'hidden', :value => @domain_name %>
 				</div>
@@ -202,7 +202,8 @@
 				</div>
 			</div>
 			<div class="modal-footer" id="history_path">
-				<%= link_to  "Ok", cloud_stores_path, :class => "btn btn-sm btn-primary", :target => "_self" %>
+				<!--<%= link_to  "Ok", cloud_stores_path, :class => "btn btn-sm btn-primary", :target => "_self" %>-->
+				<%= link_to  "Ok", marketplaces_path, :class => "btn btn-sm btn-primary", :target => "_self" %>
 			</div>
 		</div>
 	</div>
@@ -229,7 +230,7 @@
 
 			</div>
 			<div class="modal-footer">
-				<%= link_to  "Ok", cloud_stores_path, :class => "btn btn-sm btn-primary", :target => "_self" %>
+				<%= link_to  "Ok", marketplaces_path, :class => "btn btn-sm btn-primary", :target => "_self" %>
 			</div>
 		</div>
 	</div>

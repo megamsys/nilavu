@@ -17,7 +17,8 @@
 						</div>
 						<div class="col-md-3">
 							<p>
-								<strong><h3><%= @mkp.name %></h3></strong>
+								<% cat_name = @mkp.name.split("-") %>
+								<strong><h3><%= cat_name[1] %></h3></strong>
 							</p>
 							<p>
 								<h5><%= @mkp.appdetails[:category].upcase %></h5>
@@ -71,7 +72,7 @@
 						</div>
 
 						<% if @mkp.approved == "true" %>
-						<%= render :partial => "marketplaces/add_button", :locals => {:name => @mkp.name, :category => @mkp.appdetails[:category], :predef_name => @predef_name, :deps_scm => @deps_scm} %>
+						<%= render :partial => "marketplaces/add_button", :locals => {:name => cat_name[1].downcase!, :category => @mkp.appdetails[:category], :predef_name => @predef_name, :deps_scm => @deps_scm} %>
 						<br/>
 						<% if @mkp.attach == "true" %>
 						<br/>
