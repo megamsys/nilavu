@@ -6,7 +6,7 @@ class CrossCloudsController < ApplicationController
     breadcrumbs.add "Manage Settings", cloud_settings_path
     breadcrumbs.add "Clouds", cloud_settings_path
     breadcrumbs.add "New", new_cross_cloud_path
-    if request.env['omniauth.auth']     
+    if request.env['omniauth.auth']
       @cloud_prov = "Google Cloud Engine"
       @token = request.env['omniauth.auth']['credentials']['token']
       @refresh_token = request.env['omniauth.auth']['credentials']['refresh_token']
@@ -22,7 +22,7 @@ class CrossCloudsController < ApplicationController
       ssh_keys = []
       @ssh_keys_collection.each do |sshkey|
         ssh_keys << {:name => sshkey.name, :created_at => sshkey.created_at.to_time.to_formatted_s(:rfc822)}
-      end      
+      end
       @ssh_keys = ssh_keys.sort_by {|vn| vn[:created_at]}
     end
   end
@@ -41,6 +41,9 @@ class CrossCloudsController < ApplicationController
     end
     if params[:provider] == "profitbricks"
       wparams[:spec][:flavor] = "cpus=#{params[:cpus]},ram=#{params[:ram]},hdd-size=#{params[:flavor]}"
+    end
+    if params[:provider] == "GoGrid"
+      wparams[:access][:zone] = get_gogrid_ip(params[:api_key], params[:shared_secret], params[:datacenter])
     end
     @res_body = CreatePredefClouds.perform(wparams,force_api[:email], force_api[:api_key])
     if @res_body.class == Megam::Error
@@ -74,6 +77,12 @@ class CrossCloudsController < ApplicationController
         upload_options = {:email => current_user.email, :name => params[:name], :provider_value => get_provider_value(params[:provider]), :type => cc_type(params[:provider]), :g_json => @data}
         @upload = GoogleCloud.perform(upload_options, cross_cloud_bucket)
       end
+
+      if params[:provider] == "GoGrid"
+        upload_options = {:email => current_user.email, :name => params[:name], :api_key => params[:api_key], :shared_secret => params[:shared_secret], :type => cc_type(params[:provider]) }
+        @upload = Gogrid.perform(upload_options, cross_cloud_bucket)
+      end
+
       if @upload.class == Megam::Error
         @res_msg = nil
         @err_msg="Failed to upload cross cloud files. Please contact #{ActionController::Base.helpers.link_to 'support.', "http://support.megam.co/"}."
@@ -106,6 +115,8 @@ class CrossCloudsController < ApplicationController
       @provider_form_name = "hp cloud"
     elsif params[:selected_cloud] == "profitbricks"
       @provider_form_name = "profitbricks"
+    elsif params[:selected_cloud] == "gogrid"
+      @provider_form_name = "GoGrid"
     else
       @provider_form_name = "Amazon EC2"
     end
@@ -114,9 +125,26 @@ class CrossCloudsController < ApplicationController
         respond_with(@provider, @provider_form_name, @ssh_keys, :layout => !request.xhr? )
       }
       format.html {
-        #render :partial => 'cross_clouds/'+@provider+'_form', :locals => {:selected_cloud => @provider_form_name, :ssh_keys => @ssh_keys}
         redirect_to new_cross_cloud_path
       }
     end
   end
+
+  def get_gogrid_ip(api_key, shared_secret, datacenter)
+    connection = Fog::Compute::GoGrid.new(
+    :go_grid_api_key => api_key,
+    :go_grid_shared_secret => shared_secret
+    )
+    options = {:datacenter => datacenter}
+    ip_list_collection1 = connection.grid_ip_list(options)
+    ip_list_collection = ip_list_collection1.data[:body]["list"]
+    iplist = []
+    ip_list_collection.each do |ip_list|
+      if ip_list["state"]["name"] == "Unassigned" && ip_list["public"] == true
+        iplist << ip_list["ip"]
+      end
+    end
+    iplist[0]
+  end
+
 end
