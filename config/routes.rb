@@ -1,4 +1,6 @@
 Cloudauth::Application.routes.draw do
+  get 'data_recovery/drbd_config'
+
   get 'oneapps/marketplaces'
 
   get 'oneapps/activities'
@@ -34,6 +36,7 @@ Cloudauth::Application.routes.draw do
   resources :cloud_dashboards
   resources :cloud_tool_settings
   resources :ssh_keys
+  resources :disaster_recovery
 
   namespace :api do
     resources :dashboards do
@@ -130,7 +133,13 @@ Cloudauth::Application.routes.draw do
   #get '/selectclouds' => 'cloud_settings#cloud_selector'
   #match '/selectclouds', to: 'cross_clouds#new', via: [:get, :post]
   #match '/market_place_app_show', to: 'marketplaces#market_place_app_show', via: [:get, :post]
+  
+  #Market place
   match '/category_view', to: 'marketplaces#category_view', via: [:get, :post]
+  #Disaster Recovery
+  match '/drbd_config', to: 'disaster_recovery#drbd_config', via: [:get, :post]
+  match '/drbd_submit', to: 'disaster_recovery#drbd_submit', via: [:get, :post]
+  
   # =======Error controller
   get "/404", :to => "errors#not_found"
   #get "/422", :to => "errors#unacceptable"

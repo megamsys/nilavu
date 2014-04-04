@@ -1,5 +1,7 @@
 <% if category == "DB" %>
 <%= link_to "Proceed", new_store_path(:dbms => name, :no_of_instances => 1, :db_model => "full"), class: "btn btn-success btn-block btn-lg", :method => :post %>
+<% elsif name == "1-DRBD" %>
+<%= link_to "Configure", drbd_config_path, class: "btn btn-success btn-block btn-lg", :method => :post %>
 <% else %>
 <%= link_to "Proceed", launch_path(:predef_name => predef_name, :no_of_instances => 1, :deps_scm => deps_scm), class: "btn btn-success btn-block btn-lg", :method => :post %>
 <% end %>
