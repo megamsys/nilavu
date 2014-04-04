@@ -30,7 +30,7 @@ class MarketplacesController < ApplicationController
       @my_apps = []
       cloud_books = current_user.apps.order("id DESC").all
       if cloud_books.any?
-        @my_apps = cloud_books.map {|c| c.group_name}
+        @my_apps = cloud_books.map {|c| c.name}
         @my_apps = @my_apps.uniq
       else
         @my_apps << "No apps created."
@@ -60,5 +60,4 @@ class MarketplacesController < ApplicationController
     mkp_collection = ListMarketPlaceApps.perform(force_api[:email], force_api[:api_key])
     {:mkp_collection => mkp_collection}
   end
-
 end

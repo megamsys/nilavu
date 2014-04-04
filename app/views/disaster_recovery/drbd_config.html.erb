@@ -1,0 +1,96 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'Disaster Recovery') %>
+<%= render :partial => "users/header" , :locals => {:head => "Apply Disaster Recovery(DR)"}%>
+<div id="breadcrumb">
+	<%= breadcrumbs.render(:format => :inline, :separator => '') %>
+</div>
+<%= form_tag(drbd_submit_path, :method => "post") do %>
+<div class="container">
+<div class="row">
+		<div class="col-md-11">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="fa fa-th-list"></i> </span>
+					<h5>Disaster Recovery Type</h5>
+				</div>
+
+				<div class="widget-content">
+					<div class="row">
+						<div class="col-md-11 col-md-offset1">
+							<p class="help-block">
+								<strong><span class="label label-info">*selection</span> Choose a disaster recovery type</strong>
+							</p>
+							</br>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="col-md-11">
+							<div id="new_db1" class="required">
+								<div class="col-md-6">
+									<%= label :full, 'Full' do %>
+									<%= radio_button_tag :drbd_service, 'dr' %>
+									<h3><span class="icon"> <i class="fa fa-files-o"></i> </span>&nbsp;Data Recovery</h3>
+									<% end %>
+								</div>
+								<div class="col-md-5">
+									<%= label :multitenant, 'Service' do %>
+									<%= radio_button_tag :drbd_service, 'backup', false, disabled: true %>
+									<h3><span class="icon"> <i class="fa fa-clipboard"></i> </span>&nbsp;Backup Storage</h3><span class="label label-primary">work in progress</span>
+									<% end %>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-11">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="fa fa-th-list"></i> </span>
+					<h5>Service Selection</h5>
+				</div>
+				<div class="widget-content">
+					<div class="row">
+								<div class="col-md-6">
+									<%= label_tag 'From_host : ' %>
+									<%= select_tag 'from_host', options_for_select(@my_apps.insert(0, "Choose an App")), :id => "drbd_from" %>
+								</div>
+
+								<div class="col-md-6">
+									<%= label_tag 'To_host : ' %>
+											<select multiple>
+											<% @my_apps.each do |app| %>
+												<option> <%= app %></option>
+											<% end %>
+											</select>
+								</div>
+					</div>
+					<br/>
+					<div class="row">
+					<div class="col-md-12">
+							<%= text_field_tag 'location', nil, class: 'form-control input-lg', placeholder: "Enter Data Location. eg : /var/lib/riak, /usr/local/directory" %>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<%= submit_tag "Submit", :class => "btn btn-lg btn-success btn-block", :id => "drbd_next", :remote => true, :data => { :disable_with => "Please wait..."}, title: 'Please select disaster recovery type, Choose two nodes and click Submit', rel: 'tooltip' %>
+			<% end %>
+			<br/>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+</div>
+
+<% end %>
+<%= render :template => users_show_path %>
