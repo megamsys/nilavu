@@ -86,7 +86,7 @@ GEM
       httparty (>= 0.4.3)
     climate_control (0.0.3)
       activesupport (>= 3.0)
-    cocaine (0.5.3)
+    cocaine (0.5.4)
       climate_control (>= 0.0.3, < 1.0)
     coderay (1.1.0)
     coffee-rails (4.0.1)
@@ -178,7 +178,7 @@ GEM
       treetop (~> 1.4.8)
     masonry-rails (0.2.1)
       rails
-    megam_api (0.10)
+    megam_api (0.11)
       excon (~> 0.31)
       highline (~> 1.6)
       mixlib-config (~> 2.1)
@@ -202,7 +202,7 @@ GEM
       railties
     mime-types (1.25.1)
     mini_portile (0.5.3)
-    minitest (5.3.1)
+    minitest (5.3.2)
     mixlib-config (2.1.0)
     mixlib-log (1.6.0)
     multi_json (1.9.2)
