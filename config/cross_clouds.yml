@@ -28,8 +28,8 @@ google:
   image: gce  
   
 gogrid:  
-  name: Gogrid
-  description: Compute Engine is an infrastructure as a service that lets you run your large-scale computing workloads on Linux virtual machines hosted on Google's infrastructure.
+  name: GoGrid
+  description: GoGrid is the world's first multi-cloud-server control panel that enables you to deploy and manage on-demand server hosting.
   type: gogrid_keys
   value: gogrid
   image: gogrid        
