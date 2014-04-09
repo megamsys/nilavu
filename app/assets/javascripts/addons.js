@@ -1,7 +1,26 @@
+//everything is just for the disaster recovery service. Doesn't make sense to have it in here.
+jQuery(document).ready(function() {
+	$("#backup_storage_view").hide();
+	$('#drbd_next').prop('disabled', true);
+
+	$("#dr_selection input:radio").on("ifClicked", function() {
+		var drtype = $(this).attr("value");
+		if (drtype == "existing_app") {
+			$("#backup_storage_view").hide();
+			$("#existing_app_dr_view").show();
+		}
+		if (drtype == "backup_storage") {
+			$("#backup_storage_view").show();
+			$("#existing_app_dr_view").hide();
+		}
+	});
+
+});
+
 jQuery(document).ready(
 		function() {
-
 			// used by drbd
+			var CHOOSE_DEFAULT = "Choose an App/Service"
 			$("#fromhost select").click(
 					function() {
 						var addon_nodename = "";
@@ -20,7 +39,7 @@ jQuery(document).ready(
 							$('#addon_nodename').val(addon_nodename);
 						} else {
 							$('#fromhost select[name=fromhost]').val(
-									'Choose an App/Service').trigger("change");
+									CHOOSE_DEFAULT).trigger("change");
 							
 							$('#drbdhost_selection_error').modal({
 								backdrop : false,
@@ -28,6 +47,7 @@ jQuery(document).ready(
 								show : true
 							});
 						}
+						check_submit($('#fromhost select').select2('val'),$('#tohosts select').select2('val'));
 						return allowed;
 
 					});
@@ -50,15 +70,24 @@ jQuery(document).ready(
 							}
 
 						});
-						if (!allowed) {							
-							
+						if (!allowed) {	
 							$('#drbdhost_selection_error').modal({
 								backdrop : false,
 								keyboard : false,
 								show : true
 							});
-						}
+						}						
+						check_submit($('#fromhost select').select2('val'),$('#tohosts select').select2('val'));
 						return allowed;
 
 					});
+			
+			function check_submit(fromHostVal, toHostVal) {
+				  if (fromHostVal.length == 0 || toHostVal.length ==0 || fromHostVal == CHOOSE_DEFAULT || toHostVal == CHOOSE_DEFAULT) {
+				    $("#drbd_next").attr("disabled", true);
+				  } else {
+				    $("#drbd_next").removeAttr("disabled");
+				  }
+				}
+		
 		});

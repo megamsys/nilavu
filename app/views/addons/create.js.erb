@@ -1,12 +1,12 @@
-<% if @defnd_out[:success] %>
-var selected_entity = '#_success';
+<% if @addons_out[:success] %>
+var selected_entity = '#addon_<%= @addon_name %>_success';
 $(selected_entity).modal({
 backdrop : false,
 keyboard: false,
 show : true
 });
 <% else %>
-var selected_entity = '#_error';
+var selected_entity = '#addon_<%= @addon_name %>_error';
 $(selected_entity).modal({
 backdrop : false,
 keyboard: false,

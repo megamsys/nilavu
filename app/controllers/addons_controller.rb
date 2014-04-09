@@ -11,14 +11,16 @@ class AddonsController < ApplicationController
     unless @marketplace_id
       redirect_to marketplace_path(:id => params[:id]), :gflash => { :warning => { :value => "Please select the addon again.", :sticky => false, :nodom_wrap => true } }
     else
-
+      
+      @addon_name = params[:name]
+      
       @my_apps = []
       tmp_myapps = current_user.apps.order("id DESC").all
       if tmp_myapps.any?
         @my_apps = tmp_myapps.map {|c| c.name}
         @my_apps = @my_apps.uniq
       else
-        @my_apps << "No apps created."
+        @my_apps << "None"
       end
       render "addons/#{params[:name]}"
     end
@@ -43,13 +45,18 @@ class AddonsController < ApplicationController
     unless @addons_out[:error]
       packed_parms = packed("Meat::Addons",params)
       addons_result =  CreateMarketplaceAddons.perform(packed_parms, force_api[:email], force_api[:api_key])
-      @addons_out[:error] = "error" if @req.class == Megam::Error
-      @addons_out[:success] = addons_result.map {|oneaddon_out| oneaddon_out.some_msg[:msg] }.join("\n")
+      if @req.class == Megam::Error
+        @addons_out[:error] = "error"
+      else
+        @addons_out[:success] = addons_result.map {|oneaddon_out| oneaddon_out.some_msg[:msg] }.join("\n")
+      end
     end
+
+    @addon_name = params[:addon_name]
 
     respond_to do |format|
       format.js {
-        respond_with(@addon_out, :layout => !request.xhr? )
+        respond_with(@addon_out, @addon_name,:layout => !request.xhr? )
       }
     end
   end

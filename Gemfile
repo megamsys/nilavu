@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
-#rails 4.1.x (bleeding edge)
-gem "rails", "~> 4.1.0.rc1"
+gem "rails", "~> 4.1.0"
 # add these gems to help with the transition to Rails 4.x
 gem 'protected_attributes', :git => "git://github.com/rails/protected_attributes.git"
 
@@ -18,7 +17,7 @@ gem "icheck-rails"
 gem 'jquery-datatables-rails', git: 'git://github.com/rweng/jquery-datatables-rails.git'
 gem "flot-rails", "~> 0.0.4"
 gem "gritter", "~> 1.1.0"
-gem "flexslider", "~> 2.2.0"
+gem "flexslider"
 gem "masonry-rails"
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
