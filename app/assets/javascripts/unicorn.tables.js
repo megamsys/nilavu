@@ -4,6 +4,9 @@
 
 $(document).ready(
 		function() {
+			
+		    $('.spinner').spinner();		
+
 
 			$('.datatable').dataTable({
 				"sPaginationType" : "bootstrap"
@@ -12,7 +15,11 @@ $(document).ready(
 			var checkboxClass = 'icheckbox_flat-blue';
 			var radioClass = 'iradio_flat-blue';
 
-			$('select').select2();
+			$('select').select2({
+				width: "element",
+				allowClear: true,
+				placeholder: "Choose .."
+			});
 
 			$("span.icon input:checkbox, th input:checkbox").on(
 					'ifChecked || ifUnchecked',

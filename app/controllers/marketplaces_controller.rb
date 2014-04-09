@@ -64,5 +64,4 @@ class MarketplacesController < ApplicationController
     mkp_collection = ListMarketPlaceApps.perform(force_api[:email], force_api[:api_key])
     {:mkp_collection => mkp_collection}
   end
-
 end

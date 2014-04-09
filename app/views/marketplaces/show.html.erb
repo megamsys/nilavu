@@ -27,6 +27,7 @@
 						<div class="col-md-6"></div>
 					</div>
 				</div>
+				<input type="hidden" name="marketplace_id" value="<%= @mkp.id %>">
 
 				<div class="panel-body">
 					<div class="row">
@@ -44,50 +45,42 @@
 									<div class="panel panel-primary">
 										<!-- Default panel contents -->
 										<div class="panel-body">
-											<table>
-												<tr>
-													<td><b>Latest Version</b></td>
-													<td><span class="label label-primary">&nbsp;<%= @mkp.appdetails[:version] %></span> on Ubuntu 13.04</td>
-												</tr>
-												<tr>
-													<td><b>Operating System</b></td>
-													<td>&nbsp;Linux/Unix, Ubuntu 13.04 +</td>
-												</tr>
-												<tr>
-													<td><b>Delivery Method</b></td>
-													<td>&nbsp;64-bit Image</td>
-												</tr>
-												<tr>
-													<td><b>Support</b></td>
-													<td>&nbsp;See Product description</td>
-												</tr>
-												<tr>
-													<td><b>Services Required</b></td>
-													<td>&nbsp;Compute cloud (<a href="http://gogrid.com/" target="_blank">GOGRID</a>,<a href="http://www.profitbricks.com" target="_blank">ProfitBricks</a>..)</td>
-												</tr>
-
+											<table class="table-condensed table">
+												<thead></thead>
+												<tbody>
+													<tr>
+														<td><b>Latest Version</b></td>
+														<td><span class="label label-primary"><%= @mkp.appdetails[:version] %></span> on Ubuntu 13.04</td>
+													</tr>
+													<tr>
+														<td><b>Operating System</b></td>
+														<td>Linux/Unix, Ubuntu 13.04 +</td>
+													</tr>
+													<tr>
+														<td><b>Delivery Method</b></td>
+														<td>64-bit Image</td>
+													</tr>
+													<tr>
+														<td><b>Support</b></td>
+														<td>See Product description</td>
+													</tr>
+													<tr>
+														<td><b>Services Required</b></td>
+														<td>Compute cloud (<a href="http://gogrid.com/" target="_blank">GOGRID</a>,<a href="http://www.profitbricks.com" target="_blank">ProfitBricks</a>..)</td>
+													</tr>
+												</tbody>
 											</table>
 										</div
 									</div>
 						</div>
 
 						<% if @mkp.approved == "true" %>
-						<%= render :partial => "marketplaces/add_button", :locals => {:name => cat_name[1].downcase!, :category => @mkp.appdetails[:category], :predef_name => @predef_name, :deps_scm => @deps_scm} %>
-						<br/>
 						<% if @mkp.attach == "true" %>
 						<br/>
-						<div class="well well-lg">
-							<div class="form-group">
-								<div class="col-sm-8 col-md-8 col-lg-9">
-									<b><%= select_tag 'App', options_for_select(@my_apps.insert(0, "Choose an App")), :id => "attach_app_select" %></b>
-								</div>
-							</div>
-							<br/>
-							<button class="btn btn-purple btn-block btn-lg">
-								Attach
-							</button>
-						</div>
+						<%= link_to "Configure", addon_path(:id =>@mkp.id, :name => @mkp.name), class: "btn btn-success btn-block btn-lg", :method => :get %>
 						<% else %>
+						<%= render :partial => "marketplaces/add_button", :locals => {:name => cat_name[1].downcase!, :category => @mkp.appdetails[:category], :predef_name => @predef_name, :deps_scm => @deps_scm} %>
+						<br/>
 						<% end %>
 						<% else %>
 						<div class="alert alert-danger alert-block">
@@ -105,52 +98,38 @@
 								<h4>Product description</h4>
 							</div>
 							<div class="panel-body">
-								<div class="article-post">
-									<%= @mkp.appdetails[:description].html_safe %>
+								<div class="alert alert-success">
+									<div class="article-post">
+										<%= @mkp.appdetails[:description].html_safe %>
+
+									</div>
+									</br>
+									<div class="comments">
+										<span class="icon"><i class="fa fa-list-alt"></i>&nbsp; <b>Links</b></span>
+										</br>
+										<a href="<%= @mkp.applinks[:home_link] %>" target="_blank" class="btn btn-primary"><%= @mkp.applinks[:home_link] %> <i class="fa fa-external-link"></i></a>
+										<a href="<%= @mkp.applinks[:info_link] %>" target="_blank" class="btn btn-primary"><%= @mkp.applinks[:info_link] %> <i class="fa fa-external-link"></i></a>
+										<a href="<%= @mkp.applinks[:wiki_link] %>" target="_blank" class="btn btn-primary"><%= @mkp.applinks[:wiki_link] %> <i class="fa fa-external-link"></i></a>
+										<a href="<%= @mkp.applinks[:source_link] %>" target="_blank" class="btn btn-primary"><%= @mkp.applinks[:source_link] %> <i class="fa fa-external-link"></i></a>
+									</div>
 								</div>
-								</br>
-								<div class="comments">
-									<span class="icon"><i class="fa fa-list-alt"></i>&nbsp; <b>Links</b></span>
+								<div class="alert alert-info">
+
+									<span class="icon"><i class="fa fa-list-alt"></i>&nbsp; <b>Support</b></span>
 									<p>
-										<ul>
-											<li>
-												<a href="<%= @mkp.applinks[:home_link] %>" target="_blank"><%= @mkp.applinks[:home_link] %> <i class="fa fa-external-link"></i></a>
-											</li>
-											<li>
-												<a href="<%= @mkp.applinks[:info_link] %>" target="_blank"><%= @mkp.applinks[:info_link] %> <i class="fa fa-external-link"></i></a>
-											</li>
-											<li>
-												<a href="<%= @mkp.applinks[:wiki_link] %>" target="_blank"><%= @mkp.applinks[:wiki_link] %> <i class="fa fa-external-link"></i></a>
-											</li>
-											<li>
-												<a href="<%= @mkp.applinks[:source_link] %>" target="_blank"><%= @mkp.applinks[:source_link] %> <i class="fa fa-external-link"></i></a>
-											</li>
-										</ul>
-									</p>
-								</div>
-								</br>
-								<span class="icon"><i class="fa fa-list-alt"></i>&nbsp; <b>Support</b></span>
-								<p>
-									<ul>
-										<li>
-											<a href="<%= @mkp.applinks[:free_support] %>" target="_blank"><b><%= @mkp.name %></b>&nbsp;<span class="label label-success">Free</span>&nbsp;<%= @mkp.applinks[:free_support]%>&nbsp;<i class="fa fa-external-link"></i></a>
-										</li>
+
+										<a href="<%= @mkp.applinks[:free_support] %>" target="_blank" class="btn btn-info"><b><%= @mkp.name %></b>&nbsp;<span class="label label-success">Free</span>&nbsp;<i class="fa fa-external-link"></i></a>
 										<% if @mkp.applinks[:paid_support] != "#" %>
-										<li>
-											<a href="<%= @mkp.applinks[:paid_support] %>" target="_blank"><b><%= @mkp.name %></b>&nbsp;<span class="label label-danger">Paid</span>&nbsp;<%= @mkp.applinks[:paid_support] %>&nbsp;<i class="fa fa-external-link"></i></a>
-										</li>
+										<a href="<%= @mkp.applinks[:paid_support] %>" target="_blank" class="btn btn-info"><b><%= @mkp.name %></b>&nbsp;<span class="label label-danger">Paid</span>&nbsp;<i class="fa fa-external-link"></i></a>
 										<%end %>
-										<li>
-											<a href="http://support.megam.co" target="_blank"><b>Megam</b>&nbsp;<span class="label label-success">Free</span>&nbsp;http://support.megam.co&nbsp;<i class="fa fa-external-link"></i></a>
-										</li>
-										<li>
-											<a href="http://www.gomegam.com/contact" target="_blank"><b>Megam</b>&nbsp;<span class="label label-danger">Paid</span>&nbsp;http://gomegam.com/contact/&nbsp;<i class="fa fa-external-link"></i></a>
-										</li>
-									</ul>
-								</p>
-								<div class="list-group">
-									<a href="http://gomegam.com/partners"
-									class="list-group-item list-group-item-warning" target="_blank">&nbsp;<b>Our Partners Cloud Pricing </b>http://gomegam.com/partners <i class="fa fa-external-link"></i></a>
+										<a href="http://support.megam.co" target="_blank" class="btn btn-info"><b>Megam</b>&nbsp;<span class="label label-success">Free</span>&nbsp;<i class="fa fa-external-link"></i></a>
+										<a href="http://www.gomegam.com/contact" target="_blank" class="btn btn-info"><b>Megam</b>&nbsp;<span class="label label-danger">Paid</span>&nbsp;<i class="fa fa-external-link"></i></a>
+									</p>
+									</br>
+									<div class="list-group">
+										<a href="http://gomegam.com/partners"
+										class="list-group-item" target="_blank">&nbsp;<b>Our Partners Cloud Pricing </b> <i class="fa fa-external-link"></i></a>
+									</div>
 								</div>
 							</div>
 

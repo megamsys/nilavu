@@ -1,3 +1,7 @@
+<div class="alert alert-info">
+	The <span class="badge badge-success">supported</span> addons are marked by a <i class="fa fa-check-circle-o"> </i>
+	Click on the addon to select it.
+</div>
 <div class="widget-box">
 	<div class="widget-title">
 		<nav class="navbar navbar-default" role="navigation">
@@ -39,29 +43,29 @@
 				<br/>
 				<div id="iso_container">
 					<div class="gallery-masonry" >
-						 <% order.each do |name| %>
+						<% order.each do |name| %>
 						<% mkp_collection.each do |mkp| %>
-						 <%if name == mkp.name %> 
+						<%if name == mkp.name %>
 						<div class="item produkt-element  <%= mkp.appdetails[:category] %>" id='<%= mkp.appdetails[:category] %>' >
-							<% case mkp.approved  %>
-							<% when "true" %>
-							<i class="fa fa-check-circle-o"></i>
-							<% when "false" %>
-							<i class="fa"></i>
-							<% end %>
-							<a href="#" class="thumbnail" > <%= image_tag mkp.appdetails[:logo], :alt => mkp.name %> </a>
-							<p>
-								 <% cat_name = mkp.name.split("-") %>
-								<span class="label label-info"><%= cat_name[1] %></span> 								
-							</p>
+							<div class="well well-lg alert alert-success">
+								<a href="#"  > 
+								<% case mkp.approved  %>
+								<% when "true" %> 
+								<i class="fa fa-check-circle-o"></i> 
+								<% when "false" %> 
+								<i class="fa"></i> 
+								<% end %>
+								<%= image_tag mkp.appdetails[:logo], :alt => mkp.name %> </a>
+							</div>
 							<div class="actions">
 								<div class="actions-inner">
 									<%= link_to  marketplace_path(:id => mkp.name), :target => "_self", title: "Open" do %><i class="fa fa-folder-open"></i><%end%>
 								</div>
 							</div>
 						</div>
+
 						<% end %>
-						 <% end %>
+						<% end %>
 						<% end %>
 					</div>
 				</div>

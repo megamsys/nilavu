@@ -114,7 +114,7 @@
 						</div>
 						<div class="col-lg-5">
 							<br/>
-							<label> 
+							<label>
 								<input type="radio" name="radios" value="scm_sample" />
 								<i class="fa fa-code"></i> Try our sample</label>
 						</div>
@@ -133,16 +133,18 @@
 									<ul class="scm_tool_horizontal">
 										<li>
 											<%= link_to "/auth/assembla", :title=> "Click to connect and list your github repositories", :target => "_self", :data => { spinner: '#git_oauth'} do %>
-											<%= image_tag "logo_assembla_200x200.png",:class=> "img-responsive center-block",:size => "90x90", :id => "slider-image"%><% end %>											
+											<%= image_tag "logo_assembla_200x200.png",:class=> "img-responsive center-block",:size => "90x90", :id => "slider-image"%><% end %>
 										</li>
 										<li>
 											<%= link_to "/auth/github", :title=> "Click to connect and list your github repositories", :target => "_self", :data => { spinner: '#git_oauth'} do %>
 											<%= image_tag "logo_github.png",:class=> "img-responsive center-block",:size => "90x90", :id => "slider-image"%><% end %>
 										</li>
-								<!-- 		<li>
-											<%= link_to scm_manager_auth_path, :title=> "Click to connect and list your scm-manager git repositories", :target => "_self", :data => { spinner: '#scm_oauth'} do %>
-											<%= image_tag "logo_scm_200x200.png",:class=> "img-responsive center-block",:size => "90x90", :id => "slider-image"%><% end %>
-								</li> -->
+
+										<!-- 		<li>
+										<%= link_to scm_manager_auth_path, :title=> "Click to connect and list your scm-manager git repositories", :target => "_self", :data => { spinner: '#scm_oauth'} do %>
+										<%= image_tag "logo_scm_200x200.png",:class=> "img-responsive center-block",:size => "90x90", :id => "slider-image"%><% end %>
+										</li> -->
+
 										<li>
 											<%= image_tag "logo_bitbucket_200x200.png",:class=> "img-responsive center-block",:size => "90x90", :id => "slider-image"%>
 										</li>
@@ -153,9 +155,9 @@
 								</div>
 								<% if defined?(repos) %>
 								<div class="panel-footer">
-									<h3><label class="label label-info"> Choose repository URL </label></h3>
+									<h3><label class="label label-info"> Choose Repository</label></h3>
 									<br/>
-									<%= select_tag 'scm', options_for_select(repos.insert(0, "Select a Repository")), :id => "repo_select", :style => "width:900px; height:400px;"  %>
+									<%= select_tag 'scm', options_for_select(repos.insert(0, "Select a Repository")), :id => "scm_sample_view", :style => "width:900px; height:400px;" %>
 								</div>
 								<% end %>
 							</div>
@@ -210,5 +212,31 @@
 		</div>
 	</div>
 </div>
+
+<div id="choose_framework_error_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">Framework missing</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-danger">
+					<p>
+						Choose a framework from above to display the sample code repositories.</br></br>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-pink" data-dismiss="modal">
+					Ok
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
 <% end %>
+
 <%= render :template => users_show_path %>

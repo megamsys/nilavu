@@ -16,7 +16,7 @@ class CrossCloudsController < ApplicationController
     end
     @ssh_keys_collection = ListSshKeys.perform(force_api[:email], force_api[:api_key])
     if @ssh_keys_collection.class == Megam::Error
-      redirect_to cloud_settings_path, :gflash => { :warning => { :value => "Oops! sorry, #{@ssh_keys_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      redirect_to cloud_settings_path, :gflash => { :warning => { :value => "A keypair is needed for target cloud creation. Click New keypair to generate one.", :sticky => false, :nodom_wrap => true } }
     else
       @ssh_keys = []
       ssh_keys = []
