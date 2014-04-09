@@ -14,8 +14,9 @@ $(function(){
 	      filters = {};
 
 	  $container.isotope({
-	    itemSelector : '.produkt-element'
-	  });
+	    itemSelector : '.produkt-element',
+	    layoutMode: 'fitRows'
+	    		});
 
 	  // filter buttons
 	  $('#filters select').change(function(){

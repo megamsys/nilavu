@@ -5,8 +5,6 @@
 **/
 $(document).ready(function(){		
    
-    $('.spinner').spinner();		
-	$('select').select2();  
     
 
 });

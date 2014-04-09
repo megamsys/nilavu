@@ -36,7 +36,7 @@ Cloudauth::Application.routes.draw do
   resources :cloud_dashboards
   resources :cloud_tool_settings
   resources :ssh_keys
-  resources :disaster_recovery
+  resources :addons
 
   namespace :api do
     resources :dashboards do

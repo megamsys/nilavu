@@ -51,8 +51,13 @@ jQuery(document)
 										// next
 										// button
 										var service = $(this).attr("value");
-										choose_samples(service);
-
+										if ($("#scm_code input[type='radio']:checked").val() == "scm_sample") {
+											$("#scm_sample").show();	
+											choose_samples(service);
+											$("#scm_tool").hide();
+											$("#scm_sample_view").show();
+											$("#scm_tool_view").hide();
+										}
 										scale_counter.find('tr').remove();
 										$('#scalebooks').scale_aggregate();
 										scale_counter.find('tbody').append(
@@ -129,19 +134,29 @@ jQuery(document)
 									"ifClicked",
 									function() {
 										var service = $(this).attr("value");
-										if (service == "scm_tool") {
-											$("#scm_sample").hide();
-											$("#scm_tool").show();
-											$("#scm_sample_view").hide();
-										}
-										if (service == "scm_sample") {
-											$("#scm_sample").show();
-											choose_samples($(
-													"#platformapps input[type='radio']:checked")
-													.val());
-											$("#scm_tool").hide();
-											$("#scm_sample_view").show();
-											$("#scm_tool_view").hide();
+										var selected_app_fwrk = $(
+												"#platformapps input[type='radio']:checked")
+												.val()
+										if (selected_app_fwrk != null) {
+											if (service == "scm_tool") {
+												$("#scm_sample").hide();
+												$("#scm_tool").show();
+												$("#scm_sample_view").hide();
+											}
+											if (service == "scm_sample") {
+												$("#scm_sample").show();	
+												choose_samples(selected_app_fwrk);			
+												$("#scm_tool").hide();
+												$("#scm_sample_view").show();
+												$("#scm_tool_view").hide();
+											}
+										} else {
+											$("#choose_framework_error_popup")
+													.modal({
+														backdrop : false,
+														keyboard : false,
+														show : true
+													});
 
 										}
 									});
@@ -149,6 +164,8 @@ jQuery(document)
 				});
 
 function choose_samples(selected_sample_framework) {
+
+	
 	if (selected_sample_framework == 'java') {
 		java();
 	}
@@ -169,6 +186,7 @@ function choose_samples(selected_sample_framework) {
 		$("#selected_debs_scm").val(selected_github);
 		$("#selected_debs_scm").fadeIn("slow");
 	});
+	
 }
 
 function java() {
