@@ -1,0 +1,207 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'Disaster Recovery') %>
+<%= render :partial => "users/header" , :locals => {:head => "Apply Disaster Recovery(DR)"}%>
+<div id="breadcrumb">
+	<%= breadcrumbs.render(:format => :inline, :separator => '') %>
+</div>
+<%= form_tag(addons_path, :method => "post") do %>
+
+<input type="hidden" name='marketplace_id' value="<%= @marketplace_id %>">
+<input type="hidden" name='node_name' value="<%= params[:fromhost] %>" id="addon_nodename">
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-11">
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="fa fa-th-list"></i> </span>
+					<h5>Disaster Recovery Type</h5>
+				</div>
+
+				<div class="widget-content">
+					<div class="row">
+						<div class="col-md-11 col-md-offset1">
+							<p class="help-block">
+								<strong><span class="label label-info">*selection</span> Choose a disaster recovery type</strong>
+							</p>
+							</br>
+						</div>
+					</div>
+
+					<div class="row form-group">
+						<div class="col-md-11">
+							<div id="dr_selection" class="required">
+								<div class="col-md-6">
+									<%= label :existing_app, 'Existing App' do %>
+									<%= radio_button_tag :existing_app, 'existing_app', true %>
+									<h3><span class="icon"> <i class="fa fa-files-o"></i> </span>&nbsp;HA For Existing App/Service</h3>
+									<% end %>
+								</div>
+								<div class="col-md-5">
+									<%= label :backup_storage, 'Backup' do %>
+									<%= radio_button_tag :backup_storage, 'backup_storage', false, disabled: true %>
+									<h3><span class="icon"> <i class="fa fa-clipboard"></i> </span>&nbsp;Backup Storage</h3><span class="label label-danger">work in progress</span>
+									<% end %>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" id="existing_app_dr_view">
+		<div class="col-md-11" >
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="fa fa-th-list"></i> </span>
+					<h5>Configure DR Service</h5>
+				</div>
+				<div class="widget-content">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="form-group" id="fromhost">
+								<%= label_tag 'From Host : ' %>
+								<%= select_tag 'fromhost', options_for_select(@my_apps.insert(0, "Choose an App/Service")), :id => "fromhost_select" %>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-group" id="tohosts">
+								<%= label_tag 'To Host : ' %>
+								<%= select_tag 'tohosts', options_for_select(@my_apps), :id => "tohosts_select", :multiple => true %>
+							</div>
+						</div>
+					</div>
+					<br/>
+					<div class="row"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row" id="backup_storage_view">
+		<div class="col-md-11">
+			<p class="help-block">
+				<h4 class="alert-heading">Click on <i class="fa-plus-sign"></i> icon to add</h4>
+			</p>
+			<div class="widget-box">
+				<div class="widget-title">
+					<span class="icon"> <i class="fa fa-th-list"></i> </span>
+					<h5>Configure Backup Location</h5>
+				</div>
+				<div class="widget-content">
+					<div class="row">
+						<div class="col-md-12"  >
+							<%= text_field_tag 'locations', nil, class: 'form-control input-lg', placeholder: "Enter Data Location. eg : /var/lib/riak, /usr/local/directory" %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<%= submit_tag "Submit", :class => "btn btn-lg btn-success btn-block", :id => "drbd_next", :remote => true, :data => { :disable_with => "Please wait..."}, title: 'Please select disaster recovery type, Choose two nodes and click Submit', rel: 'tooltip' %>
+			<% end %>
+			<br/>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+</div>
+<% end %>
+<div id="adddrbd_success" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">DR Action</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-success">
+					<p>
+						Your DR request was submitted successfully.</br></br>
+						<% unless apply_to_cloud %>
+						This is a <span class="label label-danger">demo dry run mode</span>.
+						</br>For full version, please
+						<%= link_to signout_path, method: "delete" do %>
+						<i class="fa fa-sign-out"></i> Sign Out
+						<% end %>
+						and
+						<%= link_to signup_path do %>
+						<i class="fa fa-sign-in"></i> Sign up
+						<%end%> for an account.
+						</br>
+						</br>
+						<% else %>
+						<div id="drbdsuccess"></div>
+						<% end %>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-pink" data-dismiss="modal">
+					Ok
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="addondrbd_error" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">DR Action</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-error">
+					<p>
+						Whew ! Failed to submit action for the app in cloud.
+						</br>
+						<%= link_to  "Please open a support ticket support.megam.co", "http://support.megam.co", :class => "btn btn-primary", :target => "_self"%>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-pink" data-dismiss="modal">
+					Ok
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="drbdhost_selection_error" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">DR Host Selection</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-error">
+					<p>
+						You can't select the same from and to hosts to have High Availability(HA).
+						Please select two different hosts.
+						eg: first1.megam.co and second1.megam.co
+						</br>
+					</p>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-pink" data-dismiss="modal">
+					Ok
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<%= render :template => users_show_path %>
