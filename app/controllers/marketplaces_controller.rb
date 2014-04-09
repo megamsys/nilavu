@@ -7,13 +7,13 @@ class MarketplacesController < ApplicationController
     mkp = get_marketplaces
     @mkp_collection = mkp[:mkp_collection]
     if @mkp_collection.class == Megam::Error
-      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@mkp_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
     else
       @categories=[]
       @order=[]
-     @order = @mkp_collection.map {|c| c.name}
-      @order = @order.sort_by {|elt| ary = elt.split("-").map(&:to_i); ary[0] + ary[1]}      
-      @categories = @mkp_collection.map {|c| c.appdetails[:category]}      
+      @order = @mkp_collection.map {|c| c.name}
+      @order = @order.sort_by {|elt| ary = elt.split("-").map(&:to_i); ary[0] + ary[1]}
+      @categories = @mkp_collection.map {|c| c.appdetails[:category]}
       @categories = @categories.uniq
     end
   end
@@ -23,13 +23,13 @@ class MarketplacesController < ApplicationController
     breadcrumbs.add "Home", "#", :class => "fa fa-home", :target => "_self"
     breadcrumbs.add "MarketPlace", marketplaces_path, :target => "_self"
     breadcrumbs.add pro_name[1], marketplaces_path, :target => "_self"
-    @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])     
+    @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])
     if @mkp.class == Megam::Error
-      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@mkp.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
     else
-      @mkp = @mkp.lookup(params[:id])    
-      @predef_name = get_predef_name(pro_name[1])     
-      @deps_scm = get_deps_scm(pro_name[1])      
+      @mkp = @mkp.lookup(params[:id])
+      @predef_name = get_predef_name(pro_name[1])
+      @deps_scm = get_deps_scm(pro_name[1])
       @pricing = get_pricing
       @my_apps = []
       cloud_books = current_user.apps.order("id DESC").all
@@ -46,7 +46,7 @@ class MarketplacesController < ApplicationController
     mkp = get_marketplaces
     @mkp_collection = mkp[:mkp_collection]
     if @mkp_collection.class == Megam::Error
-      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Oops! sorry, #{@mkp_collection.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+       redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
     else
       @categories=[]
       @categories = @mkp_collection.map {|c| c.appdetails[:category]}
