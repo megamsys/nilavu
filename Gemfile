@@ -24,6 +24,9 @@ gem 'bootstrap-will_paginate'
 gem "breadcrumbs"
 gem 'remotipart'
 
+#fog
+gem 'fog'
+
 # db posgresql
 gem 'pg'
 

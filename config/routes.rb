@@ -133,7 +133,7 @@ Cloudauth::Application.routes.draw do
   #get '/selectclouds' => 'cloud_settings#cloud_selector'
   #match '/selectclouds', to: 'cross_clouds#new', via: [:get, :post]
   #match '/market_place_app_show', to: 'marketplaces#market_place_app_show', via: [:get, :post]
-  
+  match '/changeversion', to: 'marketplaces#changeversion', via: [:get, :post]
   #Market place
   match '/category_view', to: 'marketplaces#category_view', via: [:get, :post]
   #Disaster Recovery

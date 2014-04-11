@@ -90,7 +90,7 @@ module Cloudauth
     config.ched_prod_code = ENV['CHED_PROD_CODE']
     config.ched_user_name = ENV['CHED_USER_NAME']
     config.ched_password = ENV['CHED_PASSWORD']
-
-
+    config.gogrid_api_key = ENV['GOGRID_API_KEY']
+    config.gogrid_shared_secret = ENV['GOGRID_SHARED_SECRET']
   end
 end

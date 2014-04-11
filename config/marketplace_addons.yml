@@ -52,3 +52,30 @@ Riak:
   predef_name:
   radios:
   deps_scm:
+    
+PostgreSQL:
+  name: PostgreSQL
+  no_of_instances: 1
+  db_model: full
+  dbms: postgresql
+  predef_name:
+  radios:
+  deps_scm:    
+
+Redis:
+  name: Redis
+  no_of_instances: 1
+  db_model: full
+  dbms: redis
+  predef_name:
+  radios:
+  deps_scm:
+
+Op5:
+  name: Op5
+  no-of-instances: 1
+  radios: scm_sample
+  deps_scm:
+  db_model:
+  dbms:
+  predef_name: op5     

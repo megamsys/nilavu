@@ -39,3 +39,15 @@ $(function(){
 	 
 
 	});
+
+$(document).ready(function() {	
+	
+	$('#app_version').change(function(){		
+	      $.ajax({url: '/changeversion',
+	    	'beforeSend': function(xhr) {xhr.setRequestHeader("Accept", "text/javascript")},
+	        data: 'version='+$(this).find("option:selected").text()+':'+$("#marketplace_name").val()	        
+	      })
+	    });				 
+});
+
+

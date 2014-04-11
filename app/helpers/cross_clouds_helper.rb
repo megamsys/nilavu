@@ -42,6 +42,14 @@ module CrossCloudsHelper
     Rails.configuration.storage_server_url+"/"+cross_cloud_bucket    
   end
     
+  def gogrid_api_key
+    Rails.configuration.gogrid_api_key
+  end    
+  
+  def gogrid_shared_secret
+    Rails.configuration.gogrid_shared_secret
+  end  
+    
   def cloudtool_base_url
     Rails.configuration.storage_server_url+"/"+cloud_tool_setting_bucket    
   end  
