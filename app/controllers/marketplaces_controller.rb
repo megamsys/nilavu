@@ -40,6 +40,9 @@ class MarketplacesController < ApplicationController
       else
         @my_apps << "No apps created."
       end
+      @version_order=[]
+      @version_order = @mkp.plans.map {|c| c["version"]}      
+      @version_order = @version_order.sort     
     end
   end
 
