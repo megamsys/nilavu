@@ -49,7 +49,7 @@
 												<thead></thead>
 												<tbody>
 													<tr>
-														<td><b>Latest Version</b></td>
+														<td><b>Versions</b></td>
 														<td><span class="label label-primary"><%= @mkp.appdetails[:version] %></span> on Ubuntu 13.04</td>
 													</tr>
 													<tr>
@@ -118,9 +118,9 @@
 									<span class="icon"><i class="fa fa-list-alt"></i>&nbsp; <b>Support</b></span>
 									<p>
 
-										<a href="<%= @mkp.applinks[:free_support] %>" target="_blank" class="btn btn-info"><b><%= @mkp.name %></b>&nbsp;<span class="label label-success">Free</span>&nbsp;<i class="fa fa-external-link"></i></a>
+										<a href="<%= @mkp.applinks[:free_support] %>" target="_blank" class="btn btn-info"><b><%= cat_name[1] %></b>&nbsp;<span class="label label-success">Free</span>&nbsp;<i class="fa fa-external-link"></i></a>
 										<% if @mkp.applinks[:paid_support] != "#" %>
-										<a href="<%= @mkp.applinks[:paid_support] %>" target="_blank" class="btn btn-info"><b><%= @mkp.name %></b>&nbsp;<span class="label label-danger">Paid</span>&nbsp;<i class="fa fa-external-link"></i></a>
+										<a href="<%= @mkp.applinks[:paid_support] %>" target="_blank" class="btn btn-info"><b><%= cat_name[1] %></b>&nbsp;<span class="label label-danger">Paid</span>&nbsp;<i class="fa fa-external-link"></i></a>
 										<%end %>
 										<a href="http://support.megam.co" target="_blank" class="btn btn-info"><b>Megam</b>&nbsp;<span class="label label-success">Free</span>&nbsp;<i class="fa fa-external-link"></i></a>
 										<a href="http://www.gomegam.com/contact" target="_blank" class="btn btn-info"><b>Megam</b>&nbsp;<span class="label label-danger">Paid</span>&nbsp;<i class="fa fa-external-link"></i></a>
