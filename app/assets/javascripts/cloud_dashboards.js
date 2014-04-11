@@ -28,6 +28,7 @@ function drawAppDistribution(pieDataJSON) {
 								label : {
 									show : true,
 									radius : 3 / 4,
+									threshold: 0.03,
 									formatter : function(label, series) {
 										return '<div style="font-size:8pt;text-align:center;padding:2px;color:white;">'
 												+ label
@@ -61,6 +62,7 @@ function drawCloudDistribution(barDataJSON) {
 	});
 
 	$.plot(".bars", [ data ], {
+		colors: ["#FF1493"],
 		grid : {
 			borderColor : "#eeeeee",
 			borderWidth : 1,

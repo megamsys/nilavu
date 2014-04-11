@@ -39,7 +39,6 @@
 //= require apps
 //= require jquery.peity.min
 //= require masonry/jquery.masonry
-//= require unicorn.form_common
 //= require unicorn.form_validation
 //= require megam.form_validation
 //= require jquery.remotipart
