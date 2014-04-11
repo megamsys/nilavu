@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
-  revision: cdc2facf19c9a08d2a72fa281b4be3ed72fbee03
+  revision: c79ba5c0430b056474be3b13f2619005685a86e9
   branch: bootstrap3
   specs:
     twitter-bootstrap-rails (3.1.1)
@@ -380,7 +380,7 @@ DEPENDENCIES
   factory_girl_rails
   faraday
   faraday_middleware
-  flexslider (~> 2.2.0)
+  flexslider
   flot-rails (~> 0.0.4)
   fog
   github_api
@@ -415,7 +415,7 @@ DEPENDENCIES
   paperclip
   pg
   protected_attributes!
-  rails (~> 4.1.0.rc1)
+  rails (~> 4.1.0)
   randexp (~> 0.1.7)
   remotipart
   rspec-rails

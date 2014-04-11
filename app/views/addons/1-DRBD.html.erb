@@ -1,12 +1,13 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'Disaster Recovery') %>
-<%= render :partial => "users/header" , :locals => {:head => "Apply Disaster Recovery(DR)"}%>
+<%= render :partial => "users/header" , :locals => {:head => "Disaster Recovery(DR) Service"}%>
 <div id="breadcrumb">
 	<%= breadcrumbs.render(:format => :inline, :separator => '') %>
 </div>
-<%= form_tag(addons_path, :method => "post") do %>
+<%= form_tag(addons_path, :method => "post",:remote => true) do %>
 
 <input type="hidden" name='marketplace_id' value="<%= @marketplace_id %>">
+<input type="hidden" name='addon_name' value="<%= @addon_name %>">
 <input type="hidden" name='node_name' value="<%= params[:fromhost] %>" id="addon_nodename">
 
 <div class="container">
@@ -58,17 +59,27 @@
 					<h5>Configure DR Service</h5>
 				</div>
 				<div class="widget-content">
+					<% if @my_apps.include?("None") %>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="alert alert-warning">
+								You don't have any apps/services.
+								Launch <a target="_self" href="/apps" > <i class="fa fa-rocket"></i> apps</a> and <a target="_self" href="/marketplaces" > <i class="fa fa-shopping-cart"></i> services</a> to make them highly available (HA). 
+							</div>
+						</div>
+					</div>
+					<% end %>
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group" id="fromhost">
 								<%= label_tag 'From Host : ' %>
-								<%= select_tag 'fromhost', options_for_select(@my_apps.insert(0, "Choose an App/Service")), :id => "fromhost_select" %>
+								<%= select_tag 'fromhost', options_for_select(@my_apps.insert(0, "Choose an App/Service")), :id => "fromhost_select", :disabled => @my_apps.include?("None")  %>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group" id="tohosts">
 								<%= label_tag 'To Host : ' %>
-								<%= select_tag 'tohosts', options_for_select(@my_apps), :id => "tohosts_select", :multiple => true %>
+								<%= select_tag 'tohosts', options_for_select(@my_apps), :id => "tohosts_select", :multiple => true, :disabled => @my_apps.include?("None") %>
 							</div>
 						</div>
 					</div>
@@ -102,7 +113,7 @@
 	<div class="row">
 		<div class="col-md-4"></div>
 		<div class="col-md-4">
-			<%= submit_tag "Submit", :class => "btn btn-lg btn-success btn-block", :id => "drbd_next", :remote => true, :data => { :disable_with => "Please wait..."}, title: 'Please select disaster recovery type, Choose two nodes and click Submit', rel: 'tooltip' %>
+			<%= submit_tag "Submit", :class => "btn btn-lg btn-success btn-block", :id => "drbd_next", :data => { :disable_with => "Please wait..."}, title: 'Please select disaster recovery type, Choose two nodes and click Submit', rel: 'tooltip' %>
 			<% end %>
 			<br/>
 		</div>
@@ -110,7 +121,7 @@
 	</div>
 </div>
 <% end %>
-<div id="adddrbd_success" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="addon_1-DRBD_success" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -136,21 +147,25 @@
 						</br>
 						</br>
 						<% else %>
-						<div id="drbdsuccess"></div>
+						</br></br>
+						It typically takes a few minutes to spin it on the cloud.</br></br>
+						<%= link_to apps_histories_path do %>
+						<i class="fa fa-video-camera"></i> Logs (tail -f ..)						
+						<% end %>
+						</br>
+						</br>
 						<% end %>
 					</p>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-pink" data-dismiss="modal">
-					Ok
-				</button>
+				<%= link_to  "Ok", apps_path, :class => "btn btn-pink", :target => "_self" %>
 			</div>
 		</div>
 	</div>
 </div>
 
-<div id="addondrbd_error" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="addon_1-DRBD_error" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -160,18 +175,16 @@
 				<h3 id="myModalLabel">DR Action</h3>
 			</div>
 			<div class="modal-body">
-				<div class="alert alert-error">
+				<div class="alert alert-danger">
 					<p>
-						Whew ! Failed to submit action for the app in cloud.
+						Whew ! Failed to submit DR action in cloud.
 						</br>
-						<%= link_to  "Please open a support ticket support.megam.co", "http://support.megam.co", :class => "btn btn-primary", :target => "_self"%>
+						<%= link_to  "Please open a support ticket support.megam.co", "http://support.megam.co",  :target => "_blank"%>
 					</p>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-pink" data-dismiss="modal">
-					Ok
-				</button>
+					<%= link_to  "Ok", marketplaces_path, :class => "btn btn-pink", :target => "_self" %>
 			</div>
 		</div>
 	</div>
@@ -186,11 +199,12 @@
 				<h3 id="myModalLabel">DR Host Selection</h3>
 			</div>
 			<div class="modal-body">
-				<div class="alert alert-error">
+				<div class="alert alert-danger">
 					<p>
-						You can't select the same from and to hosts to have High Availability(HA).
-						Please select two different hosts.
-						eg: first1.megam.co and second1.megam.co
+						HA can't be performed for the same host.
+						</br>
+						Please choose different hosts. <span class="label label-success">eg</span>
+						<b> first1.megam.co</b> and <b>second1.megam.co</b>
 						</br>
 					</p>
 				</div>
