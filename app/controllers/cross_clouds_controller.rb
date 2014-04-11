@@ -117,6 +117,8 @@ class CrossCloudsController < ApplicationController
       @provider_form_name = "profitbricks"
     elsif params[:selected_cloud] == "gogrid"
       @provider_form_name = "GoGrid"
+    #elsif params[:selected_cloud] == "openqrm"
+      #@provider_form_name = "openqrm"
     else
       @provider_form_name = "Amazon EC2"
     end

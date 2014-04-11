@@ -74,8 +74,8 @@
 									</div>
 						</div>
 
-						<% if @mkp.approved == "true" %>
-						<% if @mkp.attach == "true" %>
+						<% if @mkp.approved == "false" %>
+						<% if @mkp.attach == "false" %>
 						<br/>
 						<%= link_to "Configure", addon_path(:id =>@mkp.id, :name => @mkp.name), class: "btn btn-success btn-block btn-lg", :method => :get %>
 						<% else %>
