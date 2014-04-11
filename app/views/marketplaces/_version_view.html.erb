@@ -1,0 +1,81 @@
+<% @mkp.plans.each do |c| %>
+<% if c["version"] == version %>
+<% @mkp_price = c["price"] %>
+<% @mkp_plan = c["plantype"] %>
+<% @mkp_description = c["description"] %>
+<% @mkp_source = c["source"] %>
+<% end %>
+<% end %>
+<% if @mkp_source == "" %>
+<% @deps_scm = get_deps_scm(@pro_name[1]) %>
+<% else %>
+<% @deps_scm = @mkp_source %>
+<% end %>
+<ul class="list-group">
+	<li class="list-group-item">
+		<div class="panel panel-primary">
+			<!-- Default panel contents -->
+			<div class="panel-body">
+				<table class="table-condensed table">
+					<thead><h4><span class="label label-info">Version based details</span></h4></thead>
+					<tbody>						
+						<tr>
+							<td><b>Plan Type</b></td>
+							<td><span class="label label-primary"></span> <%= @mkp_plan %></td>
+						</tr>
+						<tr>
+							<td><b>Software Price</b></td>
+							<td><span class="label label-primary"></span> <%= @mkp_price %> </td>
+						</tr>
+						<tr>
+							<td><b>Version</b></td>
+							<td><span class="label label-primary"></span> <%= version %> on Ubuntu 13.04</td>
+						</tr>
+						<tr>
+							<td><b>Description</b></td>
+							<td><span class="label label-primary"></span> <%= @mkp_description %> </td>
+						</tr>											
+					</tbody>
+				</table>
+				<table class="table-condensed table">
+					<thead><h4><span class="label label-info">Common details</span></h4></thead>
+					<tbody>							
+						<tr>
+							<td><b>Operating System</b></td>
+							<td>Linux/Unix, Ubuntu 13.04 +</td>
+						</tr>
+						<tr>
+							<td><b>Delivery Method</b></td>
+							<td>64-bit Image</td>
+						</tr>
+						<tr>
+							<td><b>Support</b></td>
+							<td>See Product description</td>
+						</tr>
+						<tr>
+							<td><b>Services Required</b></td>
+							<td>Compute cloud (<a href="http://gogrid.com/" target="_blank">GOGRID</a>,<a href="http://www.profitbricks.com" target="_blank">ProfitBricks</a>..)</td>
+						</tr>						
+					</tbody>
+				</table>
+			</div
+		</div>
+		</div>
+		<% cat_name = @mkp.name.split("-") %>
+		<% if @mkp.approved == "true" %>
+		<% if @mkp.attach == "true" %>
+		<br/>
+		<%= link_to "Configure", addon_path(:id =>@mkp.id, :name => @mkp.name), class: "btn btn-success btn-block btn-lg", :method => :get %>
+		<% else %>
+		<%= render :partial => "marketplaces/add_button", :locals => {:name => cat_name[1].downcase!, :category => @mkp.appdetails[:category], :predef_name => @predef_name, :deps_scm => @deps_scm} %>
+		<br/>
+		<% end %>
+		<% else %>
+		<div class="alert alert-danger alert-block">
+			<a class="close" data-dismiss="alert" href="#">×</a>
+			<h4 class="alert-heading"><b>Announcing soon.</b></h4>
+			We will support this market place addon shortly.
+		</div>
+		<% end %>
+	</li>
+</ul>

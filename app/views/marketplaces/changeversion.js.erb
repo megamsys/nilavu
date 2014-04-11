@@ -1,0 +1,3 @@
+var selected_entity = '#detail_form';
+var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/version_view', :locals => {:version => @version, :mkp => @mkp}) %>";
+insertAt(selected_entity, to_insert_content);

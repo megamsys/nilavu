@@ -28,143 +28,99 @@
 					</div>
 				</div>
 				<input type="hidden" name="marketplace_id" value="<%= @mkp.id %>">
-
+				<input type="hidden" name="marketplace_name" id="marketplace_name" value="<%= @mkp.name %>">
 				<div class="panel-body">
 					<div class="row">
 						<div class="col-md-6">
-							<ul class="list-group">
-								<li class="list-group-item">
-									<span class="pull-right"><h4><%= @mkp.plan[:plantype].capitalize %></h4></span>
-									<h4><span class="label label-default">Plan Type</span></h4>
-								</li>
-								<li class="list-group-item">
-									<span class="pull-right"><h4><%= @mkp.plan[:price]%></h4></span>
-									<h4><span class="label label-default">Software Price</span></h4>
-								</li>
-								<li class="list-group-item">
-									<div class="panel panel-primary">
-										<!-- Default panel contents -->
-										<div class="panel-body">
-											<table class="table-condensed table">
-												<thead></thead>
-												<tbody>
-													<tr>
-														<td><b>Versions</b></td>
-														<td><span class="label label-primary"><%= @mkp.appdetails[:version] %></span> on Ubuntu 13.04</td>
-													</tr>
-													<tr>
-														<td><b>Operating System</b></td>
-														<td>Linux/Unix, Ubuntu 13.04 +</td>
-													</tr>
-													<tr>
-														<td><b>Delivery Method</b></td>
-														<td>64-bit Image</td>
-													</tr>
-													<tr>
-														<td><b>Support</b></td>
-														<td>See Product description</td>
-													</tr>
-													<tr>
-														<td><b>Services Required</b></td>
-														<td>Compute cloud (<a href="http://gogrid.com/" target="_blank">GOGRID</a>,<a href="http://www.profitbricks.com" target="_blank">ProfitBricks</a>..)</td>
-													</tr>
-												</tbody>
-											</table>
-										</div
-									</div>
-						</div>
-
-						<% if @mkp.approved == "true" %>
-						<% if @mkp.attach == "true" %>
-						<br/>
-						<%= link_to "Configure", addon_path(:id =>@mkp.id, :name => @mkp.name), class: "btn btn-success btn-block btn-lg", :method => :get %>
-						<% else %>
-						<%= render :partial => "marketplaces/add_button", :locals => {:name => cat_name[1].downcase!, :category => @mkp.appdetails[:category], :predef_name => @predef_name, :deps_scm => @deps_scm} %>
-						<br/>
-						<% end %>
-						<% else %>
-						<div class="alert alert-danger alert-block">
-							<a class="close" data-dismiss="alert" href="#">×</a>
-							<h4 class="alert-heading"><b>Announcing soon.</b></h4>
-							We will support this market place addon shortly.
-						</div>
-						<% end %>
-
-					</div>
-					<div class="col-md-6">
-						<div class="panel panel-default nopadding">
-							<!-- Default panel contents -->
-							<div class="panel-heading">
-								<h4>Product description</h4>
+							<div class="row">
+								<div class="col-sm-11 col-md-11 col-lg-11">
+									<div class="form-group">
+										<label class="col-sm-5 col-md-5 col-lg-4 control-label">Select version</label>
+										<div class="col-sm-6 col-md-6 col-lg-7">
+											<%= select_tag :app_version, options_for_select(@mkp.plans.map{ |c|  c["version"] }) %>
+										</div>
+									</div>									
+								</div>
 							</div>
-							<div class="panel-body">
-								<div class="alert alert-success">
-									<div class="article-post">
-										<%= @mkp.appdetails[:description].html_safe %>
+							<br/>
+							<div class="row"  id="detail_form">
+								<%= render :partial => "marketplaces/version_view", :locals => {:version => "6.2.1", :mkp => @mkp}%>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="panel panel-default nopadding">
+								<!-- Default panel contents -->
+								<div class="panel-heading">
+									<h4>Product description</h4>
+								</div>
+								<div class="panel-body">
+									<div class="alert alert-success">
+										<div class="article-post">
+											<%= @mkp.appdetails[:description].html_safe %>
 
-									</div>
-									</br>
-									<div class="comments">
-										<span class="icon"><i class="fa fa-list-alt"></i>&nbsp; <b>Links</b></span>
+										</div>
 										</br>
-										<a href="<%= @mkp.applinks[:home_link] %>" target="_blank" class="btn btn-primary"><%= @mkp.applinks[:home_link] %> <i class="fa fa-external-link"></i></a>
-										<a href="<%= @mkp.applinks[:info_link] %>" target="_blank" class="btn btn-primary"><%= @mkp.applinks[:info_link] %> <i class="fa fa-external-link"></i></a>
-										<a href="<%= @mkp.applinks[:wiki_link] %>" target="_blank" class="btn btn-primary"><%= @mkp.applinks[:wiki_link] %> <i class="fa fa-external-link"></i></a>
-										<a href="<%= @mkp.applinks[:source_link] %>" target="_blank" class="btn btn-primary"><%= @mkp.applinks[:source_link] %> <i class="fa fa-external-link"></i></a>
+										<div class="comments">
+											<span class="icon"><i class="fa fa-list-alt"></i>&nbsp; <b>Links</b></span>
+											</br>
+											<a href="<%= @mkp.applinks[:home_link] %>" target="_blank" class="btn btn-primary"><%= @mkp.applinks[:home_link] %> <i class="fa fa-external-link"></i></a>
+											<a href="<%= @mkp.applinks[:info_link] %>" target="_blank" class="btn btn-primary"><%= @mkp.applinks[:info_link] %> <i class="fa fa-external-link"></i></a>
+											<a href="<%= @mkp.applinks[:wiki_link] %>" target="_blank" class="btn btn-primary"><%= @mkp.applinks[:wiki_link] %> <i class="fa fa-external-link"></i></a>
+											<a href="<%= @mkp.applinks[:source_link] %>" target="_blank" class="btn btn-primary"><%= @mkp.applinks[:source_link] %> <i class="fa fa-external-link"></i></a>
+										</div>
+									</div>
+									<div class="alert alert-info">
+
+										<span class="icon"><i class="fa fa-list-alt"></i>&nbsp; <b>Support</b></span>
+										<p>
+
+											<a href="<%= @mkp.applinks[:free_support] %>" target="_blank" class="btn btn-info"><b><%= cat_name[1] %></b>&nbsp;<span class="label label-success">Free</span>&nbsp;<i class="fa fa-external-link"></i></a>
+											<% if @mkp.applinks[:paid_support] != "#" %>
+											<a href="<%= @mkp.applinks[:paid_support] %>" target="_blank" class="btn btn-info"><b><%= cat_name[1] %></b>&nbsp;<span class="label label-danger">Paid</span>&nbsp;<i class="fa fa-external-link"></i></a>
+											<%end %>
+											<a href="http://support.megam.co" target="_blank" class="btn btn-info"><b>Megam</b>&nbsp;<span class="label label-success">Free</span>&nbsp;<i class="fa fa-external-link"></i></a>
+											<a href="http://www.gomegam.com/contact" target="_blank" class="btn btn-info"><b>Megam</b>&nbsp;<span class="label label-danger">Paid</span>&nbsp;<i class="fa fa-external-link"></i></a>
+										</p>
+										</br>
+										<div class="list-group">
+											<a href="http://gomegam.com/partners"
+											class="list-group-item" target="_blank">&nbsp;<b>Our Partners Cloud Pricing </b> <i class="fa fa-external-link"></i></a>
+										</div>
 									</div>
 								</div>
-								<div class="alert alert-info">
 
-									<span class="icon"><i class="fa fa-list-alt"></i>&nbsp; <b>Support</b></span>
-									<p>
-
-										<a href="<%= @mkp.applinks[:free_support] %>" target="_blank" class="btn btn-info"><b><%= cat_name[1] %></b>&nbsp;<span class="label label-success">Free</span>&nbsp;<i class="fa fa-external-link"></i></a>
-										<% if @mkp.applinks[:paid_support] != "#" %>
-										<a href="<%= @mkp.applinks[:paid_support] %>" target="_blank" class="btn btn-info"><b><%= cat_name[1] %></b>&nbsp;<span class="label label-danger">Paid</span>&nbsp;<i class="fa fa-external-link"></i></a>
-										<%end %>
-										<a href="http://support.megam.co" target="_blank" class="btn btn-info"><b>Megam</b>&nbsp;<span class="label label-success">Free</span>&nbsp;<i class="fa fa-external-link"></i></a>
-										<a href="http://www.gomegam.com/contact" target="_blank" class="btn btn-info"><b>Megam</b>&nbsp;<span class="label label-danger">Paid</span>&nbsp;<i class="fa fa-external-link"></i></a>
-									</p>
-									</br>
-									<div class="list-group">
-										<a href="http://gomegam.com/partners"
-										class="list-group-item" target="_blank">&nbsp;<b>Our Partners Cloud Pricing </b> <i class="fa fa-external-link"></i></a>
-									</div>
-								</div>
 							</div>
-
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
-<div class="row">
-	<div class="col-md-11">
-		<div class="panel panel-primary">
-			<div class="panel-heading">
-				<div class="row">
-					<div class="col-sm-7 col-md-7 col-lg-8">
-						<span class="pull-left"><b>Features</b></span>
+	<div class="row">
+		<div class="col-md-11">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-sm-7 col-md-7 col-lg-8">
+							<span class="pull-left"><b>Features</b></span>
+						</div>
 					</div>
 				</div>
+				<table class="table table-hover" >
+					<tbody>
+						<% @mkp.features.each do |k, v| %>
+						<% if v.length > 0 %>
+						<tr>
+							<td><i class="fa fa-check">&nbsp;</i></td>
+							<td><%= v.capitalize %></td>
+						</tr>
+						<% end %>
+						<% end %>
+					</tbody>
+				</table>
 			</div>
-			<table class="table table-hover" >
-				<tbody>
-					<% @mkp.features.each do |k, v| %>
-					<% if v.length > 0 %>
-					<tr>
-						<td><i class="fa fa-check">&nbsp;</i></td>
-						<td><%= v.capitalize %></td>
-					</tr>
-					<% end %>
-					<% end %>
-				</tbody>
-			</table>
 		</div>
 	</div>
-</div>
 </div>
 
 <% end %>

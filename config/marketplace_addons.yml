@@ -70,3 +70,12 @@ Redis:
   predef_name:
   radios:
   deps_scm:
+
+Op5:
+  name: Op5
+  no-of-instances: 1
+  radios: scm_sample
+  deps_scm:
+  db_model:
+  dbms:
+  predef_name: op5     
