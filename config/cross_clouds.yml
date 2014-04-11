@@ -34,6 +34,13 @@ gogrid:
   value: gogrid
   image: gogrid        
 
+#openqrm:
+#  name: openqrm
+#  description: The openQRM platform manages a data center's infrastructure to build private, public and hybrid IaaS (Infrastructure as a #Service) clouds
+#  type: openqrm_keys
+#  value: openqrm
+#  image: openqrm
+  
 podnix:
   name: Podnix Cloud
   description: Compute Engine is an infrastructure as a service that lets you run your large-scale computing workloads on Linux virtual machines hosted on Google's infrastructure.

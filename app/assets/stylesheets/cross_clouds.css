@@ -36,43 +36,49 @@ div.rule:after {
 }
 
 .logor_artisan{
-	background-position: -140px -165px ;
+	background-position: -306px -184px ;
 	width: 100px;
 	height: 100px;
 }
 
 .logor_aws{
-	background-position: -408px -19px ;
+	background-position: -468px -33px ;
 	width: 100px;
 	height: 119px;
 }
 
 .logor_gce{
-	background-position: -280px -165px ;
+	background-position: -168px -190px ;
 	width: 100px;
 	height: 99px;
 }
 
 .logor_gogrid{
-	background-position: -268px -33px ;
+	background-position: -303px -52px ;
 	width: 108px;
 	height: 100px;
 }
 
 .logor_hp{
-	background-position: -24px -168px ;
+	background-position: -12px -193px ;
+	width: 100px;
+	height: 100px;
+}
+
+.logor_openqrm{
+	background-position: -166px -42px ;
 	width: 100px;
 	height: 100px;
 }
 
 .logor_podnix{
-	background-position: -136px -32px ;
+	background-position: -20px -38px ;
 	width: 100px;
 	height: 100px;
 }
 
 .logor_profitbricks{
-	background-position: -19px -22px ;
+	background-position: -453px -182px ;
 	width: 100px;
 	height: 128px;
 }
