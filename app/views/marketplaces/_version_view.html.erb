@@ -4,6 +4,7 @@
 <% @mkp_plan = c["plantype"] %>
 <% @mkp_description = c["description"] %>
 <% @mkp_source = c["source"] %>
+<% @mkp_os = c["os"] %>
 <% end %>
 <% end %>
 <% if @mkp_source == "" %>
@@ -44,7 +45,7 @@
 						</tr>
 						<tr>
 							<td><b>Operating System</b></td>
-							<td>Linux/Unix, <code><b>Ubuntu 13.04 +</b></code></td>
+							<td>Linux/Unix, <code><b><%= @mkp_os %></b></code></td>
 						</tr>
 						<tr>
 							<td><b>Delivery Method</b></td>
