@@ -1,3 +1,4 @@
+<%= javascript_include_tag "megam.popovers.js" %>
 <input type="hidden" name="provider" value="<%= selected_cloud %>">
 <div class="row">
 	<div class="col-md-4">
@@ -11,11 +12,11 @@
 			<div class="form-group" id="cc_name">
 				<label class="col-sm-2 col-md-2 col-lg-1 control-label"> &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-cloud"></i> &nbsp; </label>
 				<div class="col-sm-8 col-md-8 col-lg-9">
-					<%= text_field_tag 'name', nil, placeholder: 'Enter a name to save', :id =>"required",
+					<%= text_field_tag 'name', nil, placeholder: 'Enter a name to save', :required => true,
 					:class =>"form-control input-sm" %>
 				</div>
 				<%= link_to "#" do %>
-				<i class="fa fa-question-circle" id="popover_pb_name"></i>
+				<i class="fa fa-question-circle" id="popover_cloud_name"></i>
 				<% end %>
 			</div>
 		</div>
@@ -40,38 +41,38 @@
 		<br/>
 		<div class="form-group" id="cc_tenantid">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'tenant_id', nil, placeholder: 'Datacenter name', :id =>"required",
+				<%= text_field_tag 'tenant_id', nil, placeholder: 'Datacenter name', :required => true,
 				:class =>"form-control input-sm" %>
 			</div>
 			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_hp_datacenter" ></i>
+			<i class="fa fa-question-circle" id="popover_datacenter" ></i>
 			<% end %>
 		</div>
 		<br/>
 		<div class="form-group" id="cc_image">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'image', nil, placeholder: 'Enter image value', :id =>"required", :readonly => true,
+				<%= text_field_tag 'image', nil, placeholder: 'Enter image value', :required => true, :readonly => true,
 				:class =>"form-control input-sm" %>
 			</div>
 			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_pb_image" ></i>
+			<i class="fa fa-question-circle" id="popover_image" ></i>
 			<% end %>
 		</div>
 		(OR)
 		<br/>
 		<div class="form-group" id="cc_group">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'group', "raring-stencil", placeholder: 'Snapshot name', :id =>"required", :readonly => true,
+				<%= text_field_tag 'group', "raring-stencil", placeholder: 'Snapshot name', :required => true, :readonly => true,
 				:class =>"form-control input-sm" %>
 			</div>
 			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_pb_snapshot" ></i>
+			<i class="fa fa-question-circle" id="popover_snapshot" ></i>
 			<% end %>
 		</div>
 		<br/>
 		<div class="form-group" id="cc_sshkey">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'ssh_key', nil, placeholder: 'Password for Image or snapshot', :id =>"required",
+				<%= text_field_tag 'ssh_key', nil, placeholder: 'Password for Image or snapshot', :required => true,
 				:class =>"form-control input-sm" %>
 			</div>
 			<%= link_to "#" do %>
@@ -81,17 +82,17 @@
 		<br/>
 		<div class="form-group" id="cc_flavor">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'flavor', 10, placeholder: "Storage ghdd size", :id =>"required",
+				<%= text_field_tag 'flavor', 10, placeholder: "Storage hdd size", :required => true,
 				:class =>"form-control input-sm" %>
 			</div>
 			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_pb_flavor" ></i>
+			<i class="fa fa-question-circle" id="popover_pb_hdd" ></i>
 			<% end %>
 		</div>
 		<br/>
 		<div class="form-group" id="cc_ram">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'ram', 1024, placeholder: "Ram size(Multiples of 256)", :id =>"required",
+				<%= text_field_tag 'ram', 1024, placeholder: "Ram size(Multiples of 256)", :required => true,
 				:class =>"form-control input-sm" %>
 			</div>
 			<%= link_to "#" do %>
@@ -101,7 +102,7 @@
 		<br/>
 		<div class="form-group" id="cc_cpus">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'cpus', 1, placeholder: "No of cores(cpus)", :id =>"required",
+				<%= text_field_tag 'cpus', 1, placeholder: "No of cores(cpus)", :required => true,
 				:class =>"form-control input-sm" %>
 			</div>
 			<%= link_to "#" do %>
@@ -119,11 +120,11 @@
 		<br/>
 		<div class="form-group" id="cc_sshuser">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'ssh_user', nil, placeholder: 'SSH user', :id =>"required",
+				<%= text_field_tag 'ssh_user', nil, placeholder: 'SSH user', :required => true,
 				:class =>"form-control input-sm" %>
 			</div>
 			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_pb_sshuser" ></i>
+			<i class="fa fa-question-circle" id="popover_sshuser" ></i>
 			<% end %>
 		</div>
 		<br/>
@@ -133,23 +134,23 @@
 
 			</div>
 			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_aws_publickey"></i>
+			<i class="fa fa-question-circle" id="popover_sshkey"></i>
 			<% end %>
 		</div>
 		<br/>
 		<div class="form-group" id="cc_awsak">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'profitbricks_username', nil, placeholder: 'Profitbricks user email', :id =>"required",
+				<%= text_field_tag 'profitbricks_username', nil, placeholder: 'Profitbricks user email', :required => true,
 				:class =>"form-control input-sm" %>
 			</div>
 			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_pb_username" ></i>
+			<i class="fa fa-question-circle" id="popover_pb_useremail" ></i>
 			<% end %>
 		</div>
 		<br/>
 		<div class="form-group" id="cc_awssk">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'profitbricks_password', nil, placeholder: 'profitbricks password', :id =>"required",
+				<%= text_field_tag 'profitbricks_password', nil, placeholder: 'profitbricks password', :required => true,
 				:class =>"form-control input-sm" %>
 			</div>
 			<%= link_to "#" do %>

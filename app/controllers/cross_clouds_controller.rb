@@ -2,10 +2,10 @@ class CrossCloudsController < ApplicationController
   respond_to :html, :js
   include CrossCloudsHelper
   def new
-    breadcrumbs.add " Home", "#", :class => "fa fa-home"
-    breadcrumbs.add "Manage Settings", cloud_settings_path
-    breadcrumbs.add "Clouds", cloud_settings_path
-    breadcrumbs.add "New", new_cross_cloud_path
+    breadcrumbs.add " Home", "#", :class => "fa fa-home", :target => "_self"
+    breadcrumbs.add "Manage Settings", cloud_settings_path, :target => "_self"
+    breadcrumbs.add "Clouds", cloud_settings_path, :target => "_self"
+    breadcrumbs.add "New", new_cross_cloud_path, :target => "_self"
     if request.env['omniauth.auth']
       @cloud_prov = "Google Cloud Engine"
       @token = request.env['omniauth.auth']['credentials']['token']
