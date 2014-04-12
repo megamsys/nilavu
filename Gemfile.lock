@@ -6,16 +6,8 @@ GIT
       activemodel (>= 4.0.1, < 5.0)
 
 GIT
-  remote: git://github.com/rweng/jquery-datatables-rails.git
-  revision: 788a7b24caf8fe58a5493aa3f6a065879a9f752a
-  specs:
-    jquery-datatables-rails (1.12.2)
-      jquery-rails
-      sass-rails
-
-GIT
   remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
-  revision: c79ba5c0430b056474be3b13f2619005685a86e9
+  revision: d30b56bf94966f7e3477130ba3f5207adf14fe17
   branch: bootstrap3
   specs:
     twitter-bootstrap-rails (3.1.1)
@@ -27,27 +19,27 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    actionmailer (4.1.0.rc2)
-      actionpack (= 4.1.0.rc2)
-      actionview (= 4.1.0.rc2)
+    actionmailer (4.1.0)
+      actionpack (= 4.1.0)
+      actionview (= 4.1.0)
       mail (~> 2.5.4)
-    actionpack (4.1.0.rc2)
-      actionview (= 4.1.0.rc2)
-      activesupport (= 4.1.0.rc2)
+    actionpack (4.1.0)
+      actionview (= 4.1.0)
+      activesupport (= 4.1.0)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
-    actionview (4.1.0.rc2)
-      activesupport (= 4.1.0.rc2)
+    actionview (4.1.0)
+      activesupport (= 4.1.0)
       builder (~> 3.1)
       erubis (~> 2.7.0)
-    activemodel (4.1.0.rc2)
-      activesupport (= 4.1.0.rc2)
+    activemodel (4.1.0)
+      activesupport (= 4.1.0)
       builder (~> 3.1)
-    activerecord (4.1.0.rc2)
-      activemodel (= 4.1.0.rc2)
-      activesupport (= 4.1.0.rc2)
+    activerecord (4.1.0)
+      activemodel (= 4.1.0)
+      activesupport (= 4.1.0)
       arel (~> 5.0.0)
-    activesupport (4.1.0.rc2)
+    activesupport (4.1.0)
       i18n (~> 0.6, >= 0.6.9)
       json (~> 1.7, >= 1.7.7)
       minitest (~> 5.1)
@@ -133,7 +125,7 @@ GEM
       fog-core (~> 1.21, >= 1.21.1)
       fog-json
       nokogiri (~> 1.5, >= 1.5.11)
-    fog-brightbox (0.0.1)
+    fog-brightbox (0.0.2)
       fog-core
       fog-json
     fog-core (1.21.1)
@@ -172,6 +164,8 @@ GEM
       jquery-rails
       rails (>= 3.1.0)
     inflector (0.0.1)
+    jquery-datatables-rails (1.12.2)
+      jquery-rails
     jquery-rails (3.1.0)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
@@ -195,7 +189,7 @@ GEM
       treetop (~> 1.4.8)
     masonry-rails (0.2.1)
       rails
-    megam_api (0.12)
+    megam_api (0.13)
       excon (~> 0.31)
       highline (~> 1.6)
       mixlib-config (~> 2.1)
@@ -203,7 +197,7 @@ GEM
       yajl-ruby (~> 1.2)
     megam_assembla (0.1.0)
       excon (~> 0.31)
-      megam_api
+      megam_api (~> 0.10)
       yajl-ruby (~> 1.2)
     megam_deccanplato (0.1.0)
       highline
@@ -227,7 +221,7 @@ GEM
     multi_xml (0.5.5)
     multipart-post (1.2.0)
     net-http-predicates (1.0.0)
-    net-scp (1.1.2)
+    net-scp (1.2.0)
       net-ssh (>= 2.6.5)
     net-ssh (2.8.0)
     nokogiri (1.6.1)
@@ -276,19 +270,19 @@ GEM
       rack (>= 0.9.1)
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails (4.1.0.rc2)
-      actionmailer (= 4.1.0.rc2)
-      actionpack (= 4.1.0.rc2)
-      actionview (= 4.1.0.rc2)
-      activemodel (= 4.1.0.rc2)
-      activerecord (= 4.1.0.rc2)
-      activesupport (= 4.1.0.rc2)
+    rails (4.1.0)
+      actionmailer (= 4.1.0)
+      actionpack (= 4.1.0)
+      actionview (= 4.1.0)
+      activemodel (= 4.1.0)
+      activerecord (= 4.1.0)
+      activesupport (= 4.1.0)
       bundler (>= 1.3.0, < 2.0)
-      railties (= 4.1.0.rc2)
-      sprockets-rails (~> 2.0.0)
-    railties (4.1.0.rc2)
-      actionpack (= 4.1.0.rc2)
-      activesupport (= 4.1.0.rc2)
+      railties (= 4.1.0)
+      sprockets-rails (~> 2.0)
+    railties (4.1.0)
+      actionpack (= 4.1.0)
+      activesupport (= 4.1.0)
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
@@ -308,20 +302,21 @@ GEM
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
-    sass (3.3.4)
-    sass-rails (4.0.1)
+    sass (3.2.19)
+    sass-rails (4.0.3)
       railties (>= 4.0.0, < 5.0)
-      sass (>= 3.1.10)
-      sprockets-rails (~> 2.0.0)
+      sass (~> 3.2.0)
+      sprockets (~> 2.8, <= 2.11.0)
+      sprockets-rails (~> 2.0)
     simple_oauth (0.2.0)
     socket.io-rails (0.9.16)
       railties (>= 3.1)
-    sprockets (2.12.0)
+    sprockets (2.11.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    sprockets-rails (2.0.1)
+    sprockets-rails (2.1.3)
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
@@ -380,7 +375,7 @@ DEPENDENCIES
   factory_girl_rails
   faraday
   faraday_middleware
-  flexslider
+  flexslider (~> 2.2.0)
   flot-rails (~> 0.0.4)
   fog
   github_api
@@ -389,7 +384,7 @@ DEPENDENCIES
   httparty
   icheck-rails
   inflector
-  jquery-datatables-rails!
+  jquery-datatables-rails
   jquery-rails
   jquery-turbolinks
   jquery-ui-rails
