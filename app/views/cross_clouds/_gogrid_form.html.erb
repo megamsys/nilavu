@@ -1,3 +1,4 @@
+<%= javascript_include_tag "megam.popovers.js" %>
 <input type="hidden" name="provider" value="<%= selected_cloud %>">
 <div class="row">
 	<div class="col-md-4">
@@ -11,11 +12,11 @@
 			<div class="form-group" id="cc_name">
 				<label class="col-sm-2 col-md-2 col-lg-1 control-label"> &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-cloud"></i> &nbsp; </label>
 				<div class="col-sm-8 col-md-8 col-lg-9">
-					<%= text_field_tag 'name', nil, placeholder: 'Enter a name to save', :id =>"required",
+					<%= text_field_tag 'name', nil, placeholder: 'Enter a name to save', :required => true,
 					:class =>"form-control input-sm" %>
 				</div>
 				<%= link_to "#" do %>
-				<i class="fa fa-question-circle" id="popover_gogrid_name"></i>
+				<i class="fa fa-question-circle" id="popover_cloud_name"></i>
 				<% end %>
 			</div>
 		</div>
@@ -40,27 +41,27 @@
 		<br/>
 		<div class="form-group" id="cc_tenantid">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'datacenter', nil, placeholder: 'Datacenter name', :id =>"required",
+				<%= text_field_tag 'datacenter', nil, placeholder: 'Datacenter name', :required => true,
 				:class =>"form-control input-sm" %>
 			</div>
 			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_gogrid_datacenter" ></i>
+			<i class="fa fa-question-circle" id="popover_datacenter" ></i>
 			<% end %>
 		</div>
 		<br/>
 		<div class="form-group" id="cc_image">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'image', nil, placeholder: 'Enter image value', :id =>"required",
+				<%= text_field_tag 'image', nil, placeholder: 'Enter image value', :required => true,
 				:class =>"form-control input-sm" %>
 			</div>
 			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_gogrid_image" ></i>
+			<i class="fa fa-question-circle" id="popover_image" ></i>
 			<% end %>
 		</div>		
 		<br/>		
 		<div class="form-group" id="cc_flavor">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'flavor', nil, placeholder: "Storage size", :id =>"required",
+				<%= text_field_tag 'flavor', nil, placeholder: "Storage size", :required => true,
 				:class =>"form-control input-sm" %>
 			</div>
 			<%= link_to "#" do %>
@@ -79,11 +80,11 @@
 		<br/>
 		<div class="form-group" id="cc_sshuser">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'ssh_user', nil, placeholder: 'SSH user', :id =>"required",
+				<%= text_field_tag 'ssh_user', nil, placeholder: 'SSH user', :required => true,
 				:class =>"form-control input-sm" %>
 			</div>
 			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_pb_sshuser" ></i>
+			<i class="fa fa-question-circle" id="popover_sshuser" ></i>
 			<% end %>
 		</div>
 		<br/>
@@ -93,13 +94,13 @@
 
 			</div>
 			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_aws_publickey"></i>
+			<i class="fa fa-question-circle" id="popover_sshkey"></i>
 			<% end %>
 		</div>
 		<br/>
 		<div class="form-group" id="cc_awsak">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'api_key', nil, placeholder: 'API Key', :id =>"required",
+				<%= text_field_tag 'api_key', nil, placeholder: 'API Key', :required => true,
 				:class =>"form-control input-sm" %>
 			</div>
 			<%= link_to "#" do %>
@@ -109,7 +110,7 @@
 		<br/>
 		<div class="form-group" id="cc_awssk">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'shared_secret', nil, placeholder: 'Shared Secret', :id =>"required",
+				<%= text_field_tag 'shared_secret', nil, placeholder: 'Shared Secret', :required => true,
 				:class =>"form-control input-sm" %>
 			</div>
 			<%= link_to "#" do %>
