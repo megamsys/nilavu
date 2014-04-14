@@ -46,6 +46,7 @@ jQuery(document)
 									"ifClicked",
 									function() {										
 										$("#db_next").attr("disabled", false); // enable
+										checkscmvalue();
 										enabledbutton();
 										// next
 										// button
@@ -178,17 +179,25 @@ jQuery(document)
 					});  					
 				});
 
+function checkscmvalue() {
+	var scm = $("#selected_debs_scm").val();
+	if (scm.length != 0) {
+		$("#selected_debs_scm").val(null);		
+		$("#cb_next").hide();
+		$("#cb_next_danger").show();
+	}
+}
+
 function enabledbutton() {
 	var scm = $("#selected_debs_scm").val();
 	var selected_app_fwrk = $("#platformapps input[type='radio']:checked").val();	
-	if (selected_app_fwrk != null && scm != null) {
+	if (selected_app_fwrk != null && scm.length != 0) {
 		$("#cb_next_danger").hide();
 		$("#cb_next").show();
 		$("#cb_next").attr("disabled", false); // enable
 	} else {
 		$("#cb_next_danger").show();
-		$("#cb_next").hide();
-		$("#cb_next").attr("disabled", "disabled"); // disable
+		$("#cb_next").hide();	
 	}
 }
 
