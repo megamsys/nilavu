@@ -5,7 +5,7 @@ class AppsController < ApplicationController
   ## I don't see a point in calling all the node details for an user. We should avoid it.
   ## ie. skip FindNodesByEmail ?
   def index
-    cloud_books = current_user.apps.where(:book_type => 'APP').order("id DESC").all
+    cloud_books = current_user.apps.order("id DESC").all
     if cloud_books.any?
       breadcrumbs.add " Home", "#", :class => "fa fa-home", :target => "_self"
       breadcrumbs.add "Manage Apps", apps_path, :target => "_self"

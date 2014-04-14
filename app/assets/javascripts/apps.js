@@ -44,10 +44,9 @@ jQuery(document)
 					$("#platformapps input:radio")
 							.on(
 									"ifClicked",
-									function() {
-										$("#cb_next").attr("disabled", true); // enable
-										$("#db_next").attr("disabled", true); // enable
-
+									function() {										
+										$("#db_next").attr("disabled", false); // enable
+										enabledbutton();
 										// next
 										// button
 										var service = $(this).attr("value");
@@ -58,6 +57,8 @@ jQuery(document)
 											$("#scm_sample_view").show();
 											$("#scm_tool_view").hide();
 										}
+										$("#scm_tool_error_view").hide();
+										$("#scm_tool_view").show();
 										scale_counter.find('tr').remove();
 										$('#scalebooks').scale_aggregate();
 										scale_counter.find('tbody').append(
@@ -127,28 +128,25 @@ jQuery(document)
 jQuery(document)
 		.ready(
 				function() {
-					$("#scm_sample").hide();
-					$("#scm_sample_view").hide();
+					$("#scm_sample").hide();	
+					$("#cb_next").hide();
 					$("#scm_code input:radio")
 							.on(
 									"ifClicked",
 									function() {
-										var service = $(this).attr("value");
-										var selected_app_fwrk = $(
-												"#platformapps input[type='radio']:checked")
-												.val()
+										var service = $(this).attr("value");									
+										var selected_app_fwrk = $("#platformapps input[type='radio']:checked").val();										
 										if (selected_app_fwrk != null) {
 											if (service == "scm_tool") {
 												$("#scm_sample").hide();
 												$("#scm_tool").show();
-												$("#scm_tool_view").show();
+												$("#scm_sample_view").show();
 											}
 											if (service == "scm_sample") {
 												$("#scm_sample").show();	
 												choose_samples(selected_app_fwrk);			
 												$("#scm_tool").hide();
-												$("#scm_sample_view").show();
-												$("#scm_tool_view").hide();
+												$("#scm_sample_view").hide();
 											}
 										} else {
 											$("#choose_framework_error_popup")
@@ -160,11 +158,41 @@ jQuery(document)
 
 										}
 									});
-
+					$("#scm_tool_error_view").hide();					
+					var service = $("#scm_code input[type='radio']:checked").val();
+					var selected_app_fwrk = $("#platformapps input[type='radio']:checked").val();										
+					if (service == "scm_tool") {
+					if (selected_app_fwrk != null) {						
+							$("#scm_tool_error_view").hide();
+							$("#scm_tool_view").show();
+						} else {
+							$("#scm_tool_error_view").show();
+							$("#scm_tool_view").hide();
+						}						
+					}
+					$("#scm_sample_view").change(function() {
+						 $( "#scm_sample_view option:selected" ).each(function() {
+						 $("#selected_debs_scm").val($( this ).text());
+						 enabledbutton();
+						});    
+					});  					
 				});
 
-function choose_samples(selected_sample_framework) {
+function enabledbutton() {
+	var scm = $("#selected_debs_scm").val();
+	var selected_app_fwrk = $("#platformapps input[type='radio']:checked").val();	
+	if (selected_app_fwrk != null && scm != null) {
+		$("#cb_next_danger").hide();
+		$("#cb_next").show();
+		$("#cb_next").attr("disabled", false); // enable
+	} else {
+		$("#cb_next_danger").show();
+		$("#cb_next").hide();
+		$("#cb_next").attr("disabled", "disabled"); // disable
+	}
+}
 
+function choose_samples(selected_sample_framework) {
 	
 	if (selected_sample_framework == 'java') {
 		java();
@@ -185,6 +213,7 @@ function choose_samples(selected_sample_framework) {
 		var selected_github = $(this).next().attr("href");
 		$("#selected_debs_scm").val(selected_github);
 		$("#selected_debs_scm").fadeIn("slow");
+		enabledbutton();
 	});
 	
 }
