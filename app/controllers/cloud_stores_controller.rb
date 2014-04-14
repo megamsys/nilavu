@@ -48,6 +48,11 @@ class CloudStoresController < ApplicationController
     @dbms = params[:dbms]
     @book =  current_user.apps.build
     @predef_name = params[:dbms]
+    if"#{params[:deps_scm]}".strip.length != 0
+      @deps_scm = "#{params[:deps_scm]}"
+    elsif !"#{params[:scm]}".start_with?("select")
+      @deps_scm = "#{params[:scm]}"
+    end
     predef_options = { :predef_name => @predef_name}
     @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key])
     if @predef_cloud.class == Megam::Error
