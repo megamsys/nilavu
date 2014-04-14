@@ -5,6 +5,8 @@
 <% @mkp_description = c["description"] %>
 <% @mkp_source = c["source"] %>
 <% @mkp_os = c["os"] %>
+<% @pro_name = (@mkp.name).split("-") %>
+<% @predef_name = get_predef_name(@pro_name[1]) %>
 <% end %>
 <% end %>
 <% if @mkp_source == "" %>
