@@ -45,8 +45,8 @@ jQuery(document)
 							.on(
 									"ifClicked",
 									function() {
-										$("#cb_next").attr("disabled", false); // enable
-										$("#db_next").attr("disabled", false); // enable
+										$("#cb_next").attr("disabled", true); // enable
+										$("#db_next").attr("disabled", true); // enable
 
 										// next
 										// button
@@ -141,7 +141,7 @@ jQuery(document)
 											if (service == "scm_tool") {
 												$("#scm_sample").hide();
 												$("#scm_tool").show();
-												$("#scm_sample_view").hide();
+												$("#scm_tool_view").show();
 											}
 											if (service == "scm_sample") {
 												$("#scm_sample").show();	
