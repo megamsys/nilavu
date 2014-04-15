@@ -46,7 +46,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
     addressable (2.3.6)
-    arel (5.0.0)
+    arel (5.0.1.20140414130214)
     aws-sdk (1.38.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
@@ -213,7 +213,7 @@ GEM
       railties
     mime-types (1.25.1)
     mini_portile (0.5.3)
-    minitest (5.3.2)
+    minitest (5.3.3)
     mixlib-config (2.1.0)
     mixlib-log (1.6.0)
     multi_json (1.9.2)
