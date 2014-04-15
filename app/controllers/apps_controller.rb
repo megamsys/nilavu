@@ -54,15 +54,17 @@ class AppsController < ApplicationController
     if params[:lc_apply]["#[start]"].present?
       params[:lc_apply]["#[start]"] = params[:req_type]
     end
+    params[:env_sh] = defns_result.lookup(params[:defns_id]).appdefns[:env_sh] unless defns_result.class == Megam::Error
     packed_parms = packed("Meat::Defns",params)
     @req_type = params[:req_type]
     @node_name = params[:node_name]
     @appdefns_id = params[:defns_id]
     @lc_apply = params[:lc_apply]
     @book_type = params[:book_type]
+    @lc_additional = params[:env_sh]
     respond_to do |format|
       format.js {
-        respond_with(@book_type, @lc_apply, @req_type, @node_name, @appdefns_id, :layout => !request.xhr? )
+        respond_with(@book_type, @lc_apply, @req_type, @node_name, @appdefns_id, @lc_additional, :layout => !request.xhr? )
       }
     end
   end
@@ -134,7 +136,7 @@ class AppsController < ApplicationController
   def create
     logger.debug ">>> Parms #{params}"
     #FORM DATA FROM PARAMS
-    data={:book_name => params[:app][:appname], :book_type => params[:app][:book_type] , :predef_cloud_name => params[:app][:predef_cloud_name], :provider => params[:predef][:provider], :repo => 'default_chef', :provider_role => params[:predef][:provider_role], :domain_name => params[:app][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}"}
+    data={:book_name => params[:app][:appname], :book_type => params[:app][:book_type] , :predef_cloud_name => params[:app][:predef_cloud_name], :provider => params[:predef][:provider], :repo => 'default_chef', :provider_role => params[:predef][:provider_role], :domain_name => params[:app][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}", :env_sh => "#{params['env_sh']}"}        
     if params[:app][:book_type] == "BOLT"
       data['user_name'] = params[:user_name]
       data['password'] = params[:password]

@@ -14,7 +14,7 @@
 			<span class="input-group-addon"><%= link_to "#" do %> <i class="fa fa-question-circle"></i> <% end %></span>
 		</div>		
 		<div class="input-group">
-			<%= text_field_tag 'lc_additional', nil, :id => "lc_additional", :class=> 'form-control required', placeholder: 'Enter additional value' %>
+			<input type="text" name="lc_additional" value="<%= @lc_additional %>" class="form-control">
 			<span class="input-group-addon"><%= link_to "#" do %> <i class="fa fa-question-circle"></i> <% end %></span>
 		</div>
 		<div class="input-group">
