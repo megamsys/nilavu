@@ -7,7 +7,7 @@ GIT
 
 GIT
   remote: git://github.com/seyhunak/twitter-bootstrap-rails.git
-  revision: d30b56bf94966f7e3477130ba3f5207adf14fe17
+  revision: 69463f0ca0122f6e235c6f4b54ba9a38add3de60
   branch: bootstrap3
   specs:
     twitter-bootstrap-rails (3.1.1)
@@ -150,7 +150,7 @@ GEM
       oauth2
     google-analytics-rails (0.0.5)
     gritter (1.1.0)
-    hashie (2.1.0)
+    hashie (2.1.1)
     highline (1.6.21)
     hike (1.2.3)
     http (0.5.0)
