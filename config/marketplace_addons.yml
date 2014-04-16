@@ -79,3 +79,12 @@ Op5:
   db_model:
   dbms:
   predef_name: op5     
+
+Zarafa:
+  name: Zarafa
+  no-of-instances: 1
+  radios: scm_sample
+  deps_scm:
+  db_model:
+  dbms:
+  predef_name: zarafa 

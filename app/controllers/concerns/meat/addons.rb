@@ -39,17 +39,17 @@ module Meat
         "loadbalancing"=>{
           "haproxyhost"=>@haproxyhost,
           "loadbalancehost"=>@loadbalancehost,
-          "recipe" => ""
+          "recipe" => "role[haproxy]"
         },
         "autoscaling"=>{
           "cputhreshold"=>@cputhreshhold,
           "memorythreshold"=>@memorythreshhold,
           "noofinstances"=>@noofinstances,
-          "recipe" => ""
+          "recipe" => "role[autoscaling]"
         },
         "monitoring"=>{
           "agent"=>@agent,
-          "recipe" => "role[op5]"
+          "recipe" => "role[op5agent]"
         }
       }
 
