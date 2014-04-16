@@ -33,17 +33,6 @@ class CloudDashboardsController < ApplicationController
     lac = @launched_apps_services.each_with_object(Hash.new{|h,k|h[k]='0'}) do |h,res|
       res[h[:predef_name].to_sym].succ!
     end
-    puts @launched_apps_services.inspect
-    puts lac.inspect
-    # this is a stupid idea, move it to enum (Rails 4.1 feature)
-    lac[:wordpress] = 0 unless lac[:wordpress]
-    lac[:riak] = 0 unless lac[:riak]
-    lac[:postgres] = 0 unless lac[:postgres]
-    lac[:java] = 0 unless lac[:java]
-    lac[:rails] = 0 unless lac[:rails]
-    lac[:nodejs] = 0 unless lac[:nodejs]
-    lac[:play] = 0 unless lac[:play]
-    lac[:akka] = 0 unless lac[:akka]
     lac
   end
 
