@@ -124,17 +124,7 @@
 														<i class="fa fa-refresh">&nbsp;Restart&nbsp;</i> <% end %>
 														<%= mini_spinner_tag  'cloud_book_request_now_nrestart' %>
 													</li>
-													<li class="divider"></li>
-													<!--
-													<li>
-													<%= link_to  app_path(:action => "show", :id => cb.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'}  do %>
-													<i class="fa-list">&nbsp;Details&nbsp;</i>
-													<% end %>
-													</li>
-
-													<span class="icon"> <i class="fa-calendar"></i> </span> <%= cloud_book.created_at.to_datetime.to_formatted_s(:rfc822) %>
-
-													-->
+													<li class="divider"></li>													
 													<li>
 														<%= link_to preclone_path(:name => cloud_book.node_name),  :title=> "Clone App", :remote => true, method: :post do %> <i class="fa fa-copy"> Clone</i> <% end %>
 													</li>
@@ -147,30 +137,33 @@
 												<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"> Actions <span class="caret"></span> </a>
 												<ul class="dropdown-menu">
 													<li>
-														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.boltdefnsid, :status => cloud_book.status, :req_type => "start"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstart'} do %>
-														<i class="fa fa-play">&nbsp;Start&nbsp;</i> <% end %>
-														<%= mini_spinner_tag  'cloud_book_request_now_nstart' %>
+														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.boltdefnsid, :status => cloud_book.status, :req_type => "build"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nbuild'} do %>
+														<i class="fa fa-building-o">&nbsp;Build&nbsp;</i> <% end %>
+														<%= mini_spinner_tag  'cloud_book_request_now_nbuild' %>
 													</li>
 													<li>
-														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.boltdefnsid, :status => cloud_book.status, :req_type => "stop"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstart'} do %>
+														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.boltdefnsid, :status => cloud_book.status, :req_type => "start"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstart'} do %>
 														<i class="fa fa-play">&nbsp;Start&nbsp;</i> <% end %>
 														<%= mini_spinner_tag  'cloud_book_request_now_nstart' %>
 													</li>
 
 													<li>
-														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.boltdefnsid, :status => cloud_book.status, :req_type => "restart"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstart'} do %>
-														<i class="fa fa-play">&nbsp;Start&nbsp;</i> <% end %>
-														<%= mini_spinner_tag  'cloud_book_request_now_nstart' %>
-													</li>
-													<li class="divider"></li>
+														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.boltdefnsid, :status => cloud_book.status, :req_type => "stop"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstop'} do %>
+														<i class="fa fa-stop">&nbsp;Stop&nbsp;</i> <% end %>
+														<%= mini_spinner_tag  'cloud_book_request_now_nstop' %>
+													</li>													
 													<li>
-														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.boltdefnsid, :status => cloud_book.status, :req_type => "build"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstart'} do %>
-														<i class="fa fa-play">&nbsp;Start&nbsp;</i> <% end %>
-														<%= mini_spinner_tag  'cloud_book_request_now_nstart' %>
+														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.boltdefnsid, :status => cloud_book.status, :req_type => "restart"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nrestart'} do %>
+														<i class="fa fa-refresh">&nbsp;Restart&nbsp;</i> <% end %>
+														<%= mini_spinner_tag  'cloud_book_request_now_nrestart' %>
+													</li>
+													<li class="divider"></li>													
+													<li>
+														<%= link_to preclone_path(:name => cloud_book.node_name),  :title=> "Clone App", :remote => true, method: :post do %> <i class="fa fa-copy"> Clone</i> <% end %>
 													</li>
 													<li>
-														<%= link_to "More", app_path(:id => cb.id, :name => cloud_book.node_name, :book_type => cloud_book.node_type), :remote => true, data: { spinlock: '#book'} %>
-													</li>
+														<%= link_to app_path(:id => cb.id, :name => cloud_book.node_name), :title=> "Delete App", method: :delete, :remote => true,  data: { spinlock: '#cloud_book_request_delete'}, :target => "_self", :data => { :confirm => "Are you sure you wish to delete the app ?"} do %> <i class="fa fa-trash-o"> Delete</i> <% end %>
+													</li>													
 												</ul>
 											</div> <% end %> </td>
 											<td> <%= link_to  "http://#{cloud_book.node_name}" , { :target => '_blank'} do %> <i class="fa fa-external-link">&nbsp;<%= "#{cloud_book.node_name}" %></i> <%end%> </td>
@@ -247,9 +240,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-pink" data-dismiss="modal">
-					Ok
-				</button>
+				<%= link_to  "Ok", apps_path, :class => "btn btn-pink", :target => "_self" %>
 			</div>
 		</div>
 	</div>
@@ -274,9 +265,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-pink" data-dismiss="modal">
-					Ok
-				</button>
+				<%= link_to  "Ok", apps_path, :class => "btn btn-pink", :target => "_self" %>
 			</div>
 		</div>
 	</div>

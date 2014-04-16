@@ -110,6 +110,14 @@
 					</div>
 					<div class="row">
 						<div class="form-group">
+							<label class="col-sm-3 col-md-3 col-lg-2 control-label">Enviroment variables</label>
+							<div class="col-sm-8 col-md-8 col-lg-9">
+								<%= text_field_tag 'env_sh', "", :class => "form-control input-sm", placeholder: 'Enter environment variables' %>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="form-group">
 							<label class="col-sm-3 col-md-3 col-lg-2 control-label">Launched At</label>
 							<div class="col-sm-8 col-md-8 col-lg-9">
 								<%= text_field_tag 'timetokill', "#{Time.now.to_formatted_s(:rfc822)}", :class => "form-control", :readonly => true, placeholder: 'Modify runtime exec - script' %>
