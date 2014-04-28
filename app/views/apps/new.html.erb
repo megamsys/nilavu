@@ -153,11 +153,18 @@
 										</li>
 									</ul>
 								</div>
+								
 								<% if defined?(repos) %>
 								<div class="panel-footer">
-									<h3><label class="label label-info"> Choose Repository</label></h3>
-									<br/>
-									<%= select_tag 'scm', options_for_select(repos.insert(0, "Select a Repository")), :id => "scm_sample_view", :style => "width:900px; height:400px;" %>
+									<div id="scm_tool_view">
+										<h3><label class="label label-info"> Choose Repository</label></h3>
+										<br/>
+										<%= select_tag 'scm', options_for_select(repos.insert(0, "Select a Repository")), :id => "scm_sample_view", :style => "width:900px;" %>
+									</div>
+									<div class="alert alert-danger alert-block" id="scm_tool_error_view">
+										<a class="close" data-dismiss="alert" href="#">×</a>
+										Please choose application framework.
+									</div>
 								</div>
 								<% end %>
 							</div>
@@ -203,6 +210,7 @@
 	</div>
 	<div class="row">
 		<div class="col-md-4 col-md-offset-4">
+			<%= submit_tag "Next", :class => "btn btn-default btn-lg btn-danger btn-block", :id => "cb_next_danger", :disabled => true, title: 'Please select your application platform and then click Next', rel: 'tooltip' %>
 			<%= submit_tag "Next", :class => "btn btn-default btn-lg btn-success btn-block", :id => "cb_next", :disabled => true, :remote => true, :data => { :disable_with => "Please wait..."}, title: 'Please select your application platform and then click Next', rel: 'tooltip' %>
 			<% end %>
 			<br/>
@@ -230,9 +238,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-pink" data-dismiss="modal">
-					Ok
-				</button>
+					<%= link_to  "Ok", apps_path, :class => "btn btn-pink", :target => "_self" %>				
 			</div>
 		</div>
 	</div>

@@ -84,7 +84,7 @@
 		<%= f.text_field :predef_name, :type => 'hidden', :value => @predef_name %>
 		<%= f.text_field :book_type, :type => 'hidden', :value => "BOLT" %>
 		<input type="hidden" name="no_of_instances" value="<%= @no_of_instances %>">
-
+        <input type="hidden" name='deps_scm' value="<%= @deps_scm %>">
 		<div class="col-xs-11 col-sm-11">
 			<div class="widget-box">
 				<div class="widget-title">
@@ -167,6 +167,17 @@
 							</div>
 						</div>
 					</div>
+					<div class="row">
+						<div class="form-group">
+							<label for="" class="col-sm-4 col-md-4 col-lg-3 control-label">Enviroment variables</label>
+							<div class="col-sm-8 col-md-8 col-lg-9">
+								<div class="input-group input-group-sm">
+									<span class="input-group-addon"><i class="fa-user"></i></span>
+									<%= text_field_tag 'env_sh', "", :class => "form-control input-sm", placeholder: 'Enter environment variables' %>
+								</div>
+							</div>
+						</div>
+					</div>					
 				</div>
 			</div>
 		</div>

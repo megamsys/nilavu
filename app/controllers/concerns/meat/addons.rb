@@ -2,7 +2,7 @@ module Meat
   class Addons
 
     attr_accessor :node_id, :node_name, :marketplace_id, :locations, :fromhost, :tohosts,  :haproxyhost, :loadbalancehost,
-    :cputhreshhold, :memorythreshhold, :noofinstances, :agemt
+    :cputhreshhold, :memorythreshhold, :noofinstances, :agent 
     def initialize(fparams = {})
       @node_id = fparams[:node_id] || nil
       @node_name = fparams[:node_name] || nil
@@ -15,7 +15,7 @@ module Meat
       @cputhreshhold = fparams[:cputhreshhold] || nil
       @memorythreshhold = fparams[:memorythreshhold] || nil
       @noofinstances = fparams[:noofinstances] || nil
-      @agent = fparams[:agent] || nil
+      @agent = fparams[:agent] || nil     
     end
 
     def meatball(validate=false)
@@ -34,18 +34,22 @@ module Meat
           "locations"=> @locations,
           "fromhost"=> @fromhost,
           "tohosts"=> tmp_tohosts,
+          "recipe" => "role[drbd]"
         },
         "loadbalancing"=>{
           "haproxyhost"=>@haproxyhost,
-          "loadbalancehost"=>@loadbalancehost
+          "loadbalancehost"=>@loadbalancehost,
+          "recipe" => "role[haproxy]"
         },
         "autoscaling"=>{
           "cputhreshold"=>@cputhreshhold,
           "memorythreshold"=>@memorythreshhold,
-          "noofinstances"=>@noofinstances
+          "noofinstances"=>@noofinstances,
+          "recipe" => "role[autoscaling]"
         },
         "monitoring"=>{
-          "agent"=>@agent
+          "agent"=>@agent,
+          "recipe" => "role[op5agent]"
         }
       }
 

@@ -45,7 +45,6 @@
 //= require unicorn.wizard
 //= require unicorn
 //= require unicorn.dashboard
-//= require fullcalendar
 //= require dataTables/jquery.dataTables
 //= require dataTables/jquery.dataTables.bootstrap3
 //= require unicorn.tables

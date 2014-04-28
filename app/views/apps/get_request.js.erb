@@ -5,6 +5,6 @@ $(selected_entity).toggle();
 
 $(selected_entity).fadeIn("slow");
 
-var to_insert_content = "<%= escape_javascript(render :partial => 'apps/tab_actions_lc_form', :locals => {:book_type => @book_type, :lc_apply => @lc_apply, :req_type => @req_type, :node_name => @node_name, :appdefns_id => @appdefns_id }) %>";
+var to_insert_content = "<%= escape_javascript(render :partial => 'apps/tab_actions_lc_form', :locals => {:book_type => @book_type, :lc_apply => @lc_apply, :lc_additional => @lc_additional, :req_type => @req_type, :node_name => @node_name, :appdefns_id => @appdefns_id }) %>";
 	
 insertAt(selected_entity, to_insert_content);
