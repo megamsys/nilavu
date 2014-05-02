@@ -40,7 +40,7 @@
 								</div>
 								<div class="col-md-5">
 									<%= label :backup_storage, 'Backup' do %>
-									<%= radio_button_tag :backup_storage, 'backup_storage', false, disabled: true %>
+									<%= radio_button_tag :backup_storage, 'backup_storage', false %>
 									<h3><span class="icon"> <i class="fa fa-clipboard"></i> </span>&nbsp;Backup Storage</h3><span class="label label-danger">work in progress</span>
 									<% end %>
 								</div>
@@ -101,9 +101,18 @@
 				</div>
 				<div class="widget-content">
 					<div class="row">
+					
+						<div class="form-group" id="fromhost">
+								<%= label_tag 'From Host : ' %>
+								<%= select_tag 'fromhost', options_for_select(@my_apps.insert(0, "Choose an App/Service")), :id => "fromhost_select", :disabled => @my_apps.include?("None")  %>
+						</div>
+						<br/>
 						<div class="col-md-12"  >
 							<%= text_field_tag 'locations', nil, class: 'form-control input-lg', placeholder: "Enter Data Location. eg : /var/lib/riak, /usr/local/directory" %>
 						</div>
+						
+						
+							
 					</div>
 				</div>
 			</div>

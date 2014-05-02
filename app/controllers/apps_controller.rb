@@ -145,6 +145,8 @@ class AppsController < ApplicationController
     end
     options = {:data => data, :group => "server", :action => "create" }
     node_hash=MakeNode.perform(options, force_api[:email], force_api[:api_key])
+    puts "==============> Node HAsh <=========================== "
+    puts node_hash.inspect
     if node_hash.class == Megam::Error
       @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
       respond_to do |format|
@@ -155,7 +157,10 @@ class AppsController < ApplicationController
     else
       wparams = {:node => node_hash }
       @node = CreateNodes.perform(wparams,force_api[:email], force_api[:api_key])
+      puts "================> @NODE <========================="
+      puts @node.inspect
       if @node.class == Megam::Error
+      
         @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
         respond_to do |format|
           format.js {
