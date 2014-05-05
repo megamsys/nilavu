@@ -1,4 +1,4 @@
-# Cloud Management Portal for PaaS : (https://www.megam.co)[https://www.megam.co]
+# Cloud Management Portal : [https://www.megam.co](https://www.megam.co)
 
 [![Build Status](https://travis-ci.org/indykish/nilavu.png?branch=master)](https://travis-ci.org/indykish/nilavu)
 
