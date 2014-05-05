@@ -32,7 +32,7 @@ Nilavu is a [Rails4.1](http://guides.rubyonrails.org/) based service portal for 
 
 * Register here [https://www.megam.co](https://www.megam.co)
 
-* The Megam Documentation: http://guides.rubyonrails.org
+* The Megam Documentation: http://gomegam.com/docs
 
 
 	
