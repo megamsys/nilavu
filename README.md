@@ -8,10 +8,10 @@ Nilavu is a [Rails4.1](http://guides.rubyonrails.org/) based service portal for 
 
 * Launching Cloud Applications Java, RoR, Play, Akka, Node.js instantly using a Git URL 
 
-* Cloud management for the launched apps using [megam_api](https://github.com/indykish/megam_api.git) which interfaces to 
-  [megam_play](https://github.com/indykish/megam_play.git)
+* Cloud management for the launched apps using [ruby api](https://github.com/megamsys/megam_api.git) which interfaces to 
+  [api server](https://github.com/megamsys/megam_play.git)
   
-* Realtime Log for the launched Apps using Megam - using [tap](https://github.com/indykish/tap.git)
+* Realtime Log for the launched Apps using Megam - using [Nodejs realtime streamer](https://github.com/megamsys/tap.git)
 
 * Offline Log with metrics using [angularjs - kibana](http://kibana.org) 
 
@@ -44,7 +44,7 @@ Nilavu is a [Rails4.1](http://guides.rubyonrails.org/) based service portal for 
 | **Author:**          | Thomal Alrin (<alrin@megam.co.in>)
 |                      | Rajthilak (<rajthilak@megam.co.in>)
 |		               | KishorekumarNeelamegam (<nkishore@megam.co.in>)
-| **Copyright:**       | Copyright (c) 2012-2013 Megam Systems.
+| **Copyright:**       | Copyright (c) 2014 Megam Systems.
 | **License:**         | Apache License, Version 2.0
 
 Licensed under the Apache License, Version 2.0 (the "License");
