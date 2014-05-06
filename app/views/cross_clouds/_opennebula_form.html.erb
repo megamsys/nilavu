@@ -24,17 +24,17 @@
 		<div  id="acc_link">
 			<div class="panel panel-primary">
 				<div class="panel-heading">
-					Sign Up for Openqrm
+					Sign Up for OpenNebula
 				</div>
 				<div class="panel-body">
-					Click here : <%= link_to "Sign Up", "http://aws.amazon.com/console/", :target => "_blank", :class => "btn-link"  %>
+					Click here : <%= link_to "Sign Up", "http://opennebula.org/", :target => "_blank", :class => "btn-link"  %>
 					.Make sure you have the keys handy
 					<ul class="inline-block">
 						<li>
-							Openqrm
+							OpenNebula
 						</li>
 						<li>
-							OpenQrm
+							OpenNebula
 						</li>
 
 					</ul>
@@ -50,46 +50,26 @@
 		</div>
 		<br/>		
 
-		<div class="form-group" id="cc_group">
-			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'group', nil, placeholder: 'Enter Group name', :required => true,
-				:class =>"form-control input-sm" %>
-			</div>
-			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_openqrm_group" ></i>
-			<% end %>
-		</div>
-		<br/>
 
 		<div class="form-group" id="cc_image">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'image', nil, placeholder: 'Enter Image id' , :required => true,
+				<%= text_field_tag 'image', nil, placeholder: 'Enter Opennebula Template name' , :required => true,
 				:class =>"form-control input-sm" %>
 
 			</div>
 			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id = "popover_openqrm_image"></i>
-			<% end %>
-		</div>
-		<br/>
-		<div class="form-group" id="cc_flavor">
-			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'flavor', nil, placeholder: 'Enter Instance size' , :required => true,
-				:class =>"form-control input-sm" %>
-			</div>
-			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_aws_flavor"></i>
+			<i class="fa fa-question-circle" id = "popover_opennebula_template"></i>
 			<% end %>
 		</div>
 		<br/>
 		<div class="form-group"  id="cc_region">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'region', nil, placeholder: 'Enter AWS Region' , :required => true,
+				<%= text_field_tag 'zone', nil, placeholder: 'Enter Opennebula End point' , :required => true,
 				:class =>"form-control input-sm" %>
 
 			</div>
 			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_aws_region"></i>
+			<i class="fa fa-question-circle" id="popover_opennubula_endpoint"></i>
 			<% end %>
 		</div>
 	</div>
@@ -101,19 +81,9 @@
 			<h4 class="alert-heading">Security</h4>
 		</div>
 		<br/>
-		<div class="form-group" id="cc_sshkey">
-			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'username', nil, placeholder: 'Enter Openqrm UserName' , :required => true,
-				:class =>"form-control input-sm" %>
-			</div>
-			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_sshkey"></i>
-			<% end %>
-		</div>
-		<br/>
 		<div class="form-group" id="cc_sshuser">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'password', nil, placeholder: 'Enter Openqrm user\'s password' , :required => true,
+				<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter AWS SSH User' , :required => true,
 				:class =>"form-control input-sm" %>
 
 			</div>
@@ -122,6 +92,7 @@
 			<% end %>
 		</div>
 		<br/>
+
 		<% if @ssh_keys.any? %>
 		<div class="form-group">
 			<div class="col-sm-11 col-md-11 col-lg-11">
@@ -143,23 +114,23 @@
 		</div>
 		<% end %>
 		<br/>
-		<div class="form-group" id="cc_awsak">
+		<div class="form-group" id="cc_oneuser">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'openqrm_cloud_user', nil, placeholder: 'Enter Openqrm Cloud User Name' , :required => true,
+				<%= text_field_tag 'opennebula_username', nil, placeholder: 'Enter Opennebula Username' , :required => true,
 				:class =>"form-control input-sm" %>
 			</div>
 			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_aws_accesskey"></i>
+			<i class="fa fa-question-circle" id="popover_opennebula_username"></i>
 			<% end %>
 		</div>
 		<br/>
-		<div class="form-group" id="cc_awssk">
+		<div class="form-group" id="cc_onepass">
 			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'aws_secret_key', nil, placeholder: 'Enter AWS Secret key', :required => true,
+				<%= text_field_tag 'opennebula_password', nil, placeholder: 'Enter Opennebula Password', :required => true,
 				:class =>"form-control input-sm" %>
 			</div>
 			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_aws_secretkey" ></i>
+			<i class="fa fa-question-circle" id="popover_opennebula_password" ></i>
 			<% end %>
 		</div>
 		<br/>

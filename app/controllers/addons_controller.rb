@@ -31,6 +31,10 @@ class AddonsController < ApplicationController
     ## if the node_name is blank, then we may have to skip Finding it. This can happen where addons are configured but
     ## not attached to an app or service
     @addons_out ={}
+    if params[:backuphost] && params[:backuphost] != "Choose an App/Service"
+    	params[:fromhost] = params[:backuphost]
+    	params[:tohosts] = [""]
+    end
     if params[:node_name]
       wparams = {:node => "#{params[:node_name]}" }
       @nodes = FindNodeByName.perform(wparams,force_api[:email],force_api[:api_key])
@@ -61,3 +65,4 @@ class AddonsController < ApplicationController
     end
   end
 end
+

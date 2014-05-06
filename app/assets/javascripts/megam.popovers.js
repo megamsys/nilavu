@@ -375,6 +375,34 @@ jQuery(document).ready(function() {
 	       trigger: 'hover',
 	       html: html   
 	});
+	
+	$('#popover_opennebula_template').popover({
+	       placement: placement_left,
+	       content: '<span class="content-small">Virtual Resources template_name.</span>',
+	       trigger: 'hover',
+	       html: html   
+	});
+	
+	$('#popover_opennubula_endpoint').popover({
+	       placement: placement_left,
+	       content: '<span class="content-small">Opennebula Endpoint. Eg: http://my_nebula.com:2633/RPC2</span>',
+	       trigger: 'hover',
+	       html: html   
+	});
+	
+	$('#popover_opennebula_username').popover({
+	       placement: placement_left,
+	       content: '<span class="content-small">Your opennebula Username.</span>',
+	       trigger: 'hover',
+	       html: html   
+	});
+	
+	$('#popover_opennebula_password').popover({
+	       placement: placement_left,
+	       content: '<span class="content-small">Your opennebula user_password.</span>',
+	       trigger: 'hover',
+	       html: html   
+	});
 });
 
 
