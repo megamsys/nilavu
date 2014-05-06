@@ -48,7 +48,11 @@ class AddonsController < ApplicationController
       if @req.class == Megam::Error
         @addons_out[:error] = "error"
       else
-        @addons_out[:success] = addons_result.map {|oneaddon_out| oneaddon_out.some_msg[:msg] }.join("\n")
+        if addons_result.respond_to?(:map) 
+          @addons_out[:success] = addons_result.map {|oneaddon_out| oneaddon_out.some_msg[:msg] }.join("\n")
+         else 
+           @addons_out[:success] = addons_result.some_msg[:msg] 
+         end
       end
     end
 
