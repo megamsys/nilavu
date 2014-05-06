@@ -12,6 +12,7 @@ jQuery(document).ready(function() {
 		if (drtype == "backup_storage") {
 			$("#backup_storage_view").show();
 			$("#existing_app_dr_view").hide();
+			$("#locations").prop("required", true);
 		}
 	});
 	
@@ -81,12 +82,6 @@ jQuery(document).ready(
 						return allowed;
 
 					});
-					
-				
-				$('#locations').bind('hastext', function () {
-					//flag = true;
-					alert("LOCATION HAS TEXT");
-				  });
 				  
 			$("#backuphost select").click(
 					function() {
@@ -111,12 +106,8 @@ jQuery(document).ready(
 				  }
 				}
 			function check_backup(backuphostVal) {
-				  var flag = false;
-				  $('#locations').bind('hastext', function () {
-					flag = true;
-				  });
-				  alert("Allowed"+flag);
-				  if (backuphostVal.length == 0 ||  backuphostVal == CHOOSE_DEFAULT || !allowed) {
+
+				  if (backuphostVal.length == 0 ||  backuphostVal == CHOOSE_DEFAULT ) {
 				    $("#drbd_next").attr("disabled", true);
 				  } else {
 				    $("#drbd_next").removeAttr("disabled");
