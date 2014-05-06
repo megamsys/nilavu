@@ -14,7 +14,7 @@ jQuery(document).ready(function() {
 			$("#existing_app_dr_view").hide();
 		}
 	});
-
+	
 });
 
 jQuery(document).ready(
@@ -81,6 +81,27 @@ jQuery(document).ready(
 						return allowed;
 
 					});
+					
+				
+				$('#locations').bind('hastext', function () {
+					//flag = true;
+					alert("LOCATION HAS TEXT");
+				  });
+				  
+			$("#backuphost select").click(
+					function() {
+						var addon_nodename = "";
+						var allowed = true;
+
+						$("#backuphost option:selected").each(function() {
+							addon_nodename = $(this).text();
+							$('#addon_nodename').val(addon_nodename);
+						});
+						check_backup($('#backuphost select').select2('val'));
+						return allowed;
+					});
+					
+					
 			
 			function check_submit(fromHostVal, toHostVal) {
 				  if (fromHostVal.length == 0 || toHostVal.length ==0 || fromHostVal == CHOOSE_DEFAULT || toHostVal == CHOOSE_DEFAULT) {
@@ -89,5 +110,17 @@ jQuery(document).ready(
 				    $("#drbd_next").removeAttr("disabled");
 				  }
 				}
-		
+			function check_backup(backuphostVal) {
+				  var flag = false;
+				  $('#locations').bind('hastext', function () {
+					flag = true;
+				  });
+				  alert("Allowed"+flag);
+				  if (backuphostVal.length == 0 ||  backuphostVal == CHOOSE_DEFAULT || !allowed) {
+				    $("#drbd_next").attr("disabled", true);
+				  } else {
+				    $("#drbd_next").removeAttr("disabled");
+				  }
+				}
 		});
+
