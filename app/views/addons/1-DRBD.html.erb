@@ -34,14 +34,14 @@
 							<div id="dr_selection" class="required">
 								<div class="col-md-6">
 									<%= label :existing_app, 'Existing App' do %>
-									<%= radio_button_tag :existing_app, 'existing_app', true %>
+									<%= radio_button_tag :drbd, 'existing_app', true %>
 									<h3><span class="icon"> <i class="fa fa-files-o"></i> </span>&nbsp;HA For Existing App/Service</h3>
 									<% end %>
 								</div>
 								<div class="col-md-5">
 									<%= label :backup_storage, 'Backup' do %>
-									<%= radio_button_tag :backup_storage, 'backup_storage', false, disabled: true %>
-									<h3><span class="icon"> <i class="fa fa-clipboard"></i> </span>&nbsp;Backup Storage</h3><span class="label label-danger">work in progress</span>
+									<%= radio_button_tag :drbd, 'backup_storage', false %>
+									<h3><span class="icon"> <i class="fa fa-clipboard"></i> </span>&nbsp;Backup Storage</h3>
 									<% end %>
 								</div>
 							</div>
@@ -100,15 +100,22 @@
 					<h5>Configure Backup Location</h5>
 				</div>
 				<div class="widget-content">
+				
+				<div class="form-group" id="backuphost">
+					<%= label_tag 'Backup Host : ' %>
+					<%= select_tag 'backuphost', options_for_select(@my_apps), :id => "backuphost_select", :disabled => @my_apps.include?("None")  %>
+				</div>
 					<div class="row">
 						<div class="col-md-12"  >
 							<%= text_field_tag 'locations', nil, class: 'form-control input-lg', placeholder: "Enter Data Location. eg : /var/lib/riak, /usr/local/directory" %>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 		</div>
 	</div>
+
 
 	<div class="row">
 		<div class="col-md-4"></div>

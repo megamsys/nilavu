@@ -39,6 +39,7 @@ class CrossCloudsController < ApplicationController
     else
       wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group],  :image => params[:image], :flavor => params[:flavor], :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => "", :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
     end
+
     if params[:provider] == "profitbricks"
       wparams[:spec][:flavor] = "cpus=#{params[:cpus]},ram=#{params[:ram]},hdd-size=#{params[:flavor]}"
     end
@@ -68,6 +69,11 @@ class CrossCloudsController < ApplicationController
       if params[:provider] == "profitbricks"
         upload_options = {:email => current_user.email, :name => params[:name], :private_key => params[:private_key], :profitbricks_username => params[:profitbricks_username], :profitbricks_password => params[:profitbricks_password], :type => cc_type(params[:provider]), :id_rsa_public_key => params[:id_rsa_public_key]}
         @upload = ProfitbricksCloud.perform(upload_options, cross_cloud_bucket)
+      end
+
+      if params[:provider] == "opennebula"
+        upload_options = {:email => current_user.email, :name => params[:name], :private_key => params[:private_key], :opennebula_username => params[:opennebula_username], :opennebula_password => params[:opennebula_password], :type => cc_type(params[:provider])}
+        @upload = OpennebulaCloud.perform(upload_options, cross_cloud_bucket)
       end
 
       if params[:provider] == "Google Compute Engine"
@@ -117,8 +123,8 @@ class CrossCloudsController < ApplicationController
       @provider_form_name = "profitbricks"
     elsif params[:selected_cloud] == "gogrid"
       @provider_form_name = "GoGrid"
-    #elsif params[:selected_cloud] == "openqrm"
-      #@provider_form_name = "openqrm"
+    elsif params[:selected_cloud] == "opennebula"
+      @provider_form_name = "opennebula"
     else
       @provider_form_name = "Amazon EC2"
     end

@@ -34,12 +34,12 @@ gogrid:
   value: gogrid
   image: gogrid        
 
-#openqrm:
-#  name: openqrm
-#  description: The openQRM platform manages a data center's infrastructure to build private, public and hybrid IaaS (Infrastructure as a #Service) clouds
-#  type: openqrm_keys
-#  value: openqrm
-#  image: openqrm
+opennebula:
+  name: opennebula
+  description: The OpenNebula toolkit manages a data center's virtual infrastructure to build private, public and hybrid implementations of infrastructure as a service.
+  type: opennebula_keys
+  value: opennebula
+  image: opennebula
   
 podnix:
   name: Podnix Cloud
