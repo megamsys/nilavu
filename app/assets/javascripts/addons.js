@@ -12,9 +12,10 @@ jQuery(document).ready(function() {
 		if (drtype == "backup_storage") {
 			$("#backup_storage_view").show();
 			$("#existing_app_dr_view").hide();
+			$("#locations").prop("required", true);
 		}
 	});
-
+	
 });
 
 jQuery(document).ready(
@@ -81,6 +82,21 @@ jQuery(document).ready(
 						return allowed;
 
 					});
+				  
+			$("#backuphost select").click(
+					function() {
+						var addon_nodename = "";
+						var allowed = true;
+
+						$("#backuphost option:selected").each(function() {
+							addon_nodename = $(this).text();
+							$('#addon_nodename').val(addon_nodename);
+						});
+						check_backup($('#backuphost select').select2('val'));
+						return allowed;
+					});
+					
+					
 			
 			function check_submit(fromHostVal, toHostVal) {
 				  if (fromHostVal.length == 0 || toHostVal.length ==0 || fromHostVal == CHOOSE_DEFAULT || toHostVal == CHOOSE_DEFAULT) {
@@ -89,5 +105,13 @@ jQuery(document).ready(
 				    $("#drbd_next").removeAttr("disabled");
 				  }
 				}
-		
+			function check_backup(backuphostVal) {
+
+				  if (backuphostVal.length == 0 ||  backuphostVal == CHOOSE_DEFAULT ) {
+				    $("#drbd_next").attr("disabled", true);
+				  } else {
+				    $("#drbd_next").removeAttr("disabled");
+				  }
+				}
 		});
+

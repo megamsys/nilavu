@@ -36,49 +36,50 @@ div.rule:after {
 }
 
 .logor_artisan{
-	background-position: -306px -184px ;
+	background-position: -139px -23px ;
 	width: 100px;
 	height: 100px;
 }
 
-.logor_aws{
-	background-position: -468px -33px ;
-	width: 100px;
-	height: 119px;
-}
-
 .logor_gce{
-	background-position: -168px -190px ;
+	background-position: -495px -5px ;
 	width: 100px;
 	height: 99px;
 }
 
 .logor_gogrid{
-	background-position: -303px -52px ;
+	background-position: -308px -157px ;
 	width: 108px;
 	height: 100px;
 }
 
 .logor_hp{
-	background-position: -12px -193px ;
-	width: 100px;
-	height: 100px;
-}
-
-.logor_openqrm{
-	background-position: -166px -42px ;
-	width: 100px;
-	height: 100px;
-}
-
-.logor_podnix{
-	background-position: -20px -38px ;
+	background-position: -158px -158px ;
 	width: 100px;
 	height: 100px;
 }
 
 .logor_profitbricks{
-	background-position: -453px -182px ;
+	background-position: -477px -146px ;
 	width: 100px;
 	height: 128px;
 }
+
+.logor_podnix{
+	background-position: -8px -170px ;
+	width: 100px;
+	height: 100px;
+}
+
+.logor_aws{
+	background-position: -306px -13px ;
+	width: 100px;
+	height: 119px;
+}
+
+.logor_opennebula{
+	background-position: -7px -18px ;
+	width: 100px;
+	height: 100px;
+}
+
