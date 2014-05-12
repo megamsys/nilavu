@@ -1,5 +1,4 @@
-var app = angular.module('Nilavu', [ "ngResource", "ngSanitize", "ngRoute",
-		"ngAnimate", 'cgBusy', 'ajoslin.promise-tracker' ]);
+var app = angular.module('Nilavu', [ "ngResource", "ngSanitize", "ngRoute",'cgBusy']);
 
 app.config([ "$routeProvider", "$locationProvider",
 		function($routeProvider, $locationProvider) {

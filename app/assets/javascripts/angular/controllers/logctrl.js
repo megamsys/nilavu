@@ -1,8 +1,14 @@
-function LogCtrl($q, $scope, socket, $location,promiseTracker, $timeout, LogStackLimit) {
+function LogCtrl($q, $scope, socket, $location, $timeout, LogStackLimit) {
 	$scope.logs = [];
 	$scope.total = 0;
 	$scope.l_total = 0;
 	$scope.bookName = "";
+	//The parameters for angular-busy	
+	$scope.delay = 0;
+    $scope.minDuration = 0;
+    $scope.message = 'Please Wait...';
+    $scope.backdrop = true;
+    $scope.promise = null;
 	var trackerName = "logloader";
 	
 	//create promise(delayed task or something that gets executed in the future	
@@ -13,7 +19,8 @@ function LogCtrl($q, $scope, socket, $location,promiseTracker, $timeout, LogStac
 		$scope.logs = [];
 		$scope.bookName = data;
 		socket.emit('message', data);
-		spinTheTracker(promiseTracker,$timeout, trackerName, deferredemit);
+		$scope.promise = $q.defer().promise;
+		spinTheTracker($timeout, trackerName, deferredemit);
 	};
 
 	socket.on('connect', function(data) {
@@ -36,14 +43,14 @@ function LogCtrl($q, $scope, socket, $location,promiseTracker, $timeout, LogStac
 			$scope.total = 0;
 		}
 		predicate = 'timestamp';
-		spinTheTracker(promiseTracker,$timeout, trackerName, deferredmsg);
+		$scope.promise = $q.defer().promise;
+		spinTheTracker($timeout, trackerName, deferredmsg);
 	});
 
 	$scope.book_json = 'http://mob.co/kibana/#/dashboard/.json';
 };
 
-function spinTheTracker(promiseTracker,$timeout, trackerName, deferred) {
-	promiseTracker(trackerName).addPromise(deferred.promise);
+function spinTheTracker($timeout, trackerName, deferred) {
 	$timeout(function() {
 		deferred.resolve();
 	}, 2000);
