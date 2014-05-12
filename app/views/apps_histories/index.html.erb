@@ -28,8 +28,8 @@
 			<input type="hidden" ng-model="source" />
 		</div>
 		<div class="col-sm-9 col-md-9 col-lg-9">
-			<div class="panel panel-primary" >
-				<div class="panel-heading" cg-busy="{tracker:'logloader', backdrop:false}">
+			<div class="panel panel-primary" >				
+				<div class="panel-heading" cg-busy="{promise:promise, message:message, backdrop:backdrop, delay:delay, minDuration:minDuration}">
 					<div class="row">
 						<label class="col-sm-7 col-md-7 col-lg-8 control-label">{{bookName}}</label>
 						<!--<div class="col-sm-4 col-md-4 col-lg-4">

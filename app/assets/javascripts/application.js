@@ -21,8 +21,6 @@
 //= require angular-route
 //= require angular-resource
 //= require angular-sanitize
-//= require angular-animate
-//= require promise-tracker
 //= require angular-busy.min
 //= require spin.min
 //= require jquery.spin
