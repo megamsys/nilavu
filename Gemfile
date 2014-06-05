@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-gem "rails", "~> 4.1.0"
+gem "rails", "~> 4.1.2.rc1"
+gem "sprockets", "~> 2.11.0"
 # add these gems to help with the transition to Rails 4.x
 gem 'protected_attributes', :git => "git://github.com/rails/protected_attributes.git"
 
@@ -32,6 +33,7 @@ gem 'pg'
 
 # security and oauth
 gem 'bcrypt'
+
 gem 'oauth2'
 gem 'oauth'
 gem 'omniauth-oauth2'
