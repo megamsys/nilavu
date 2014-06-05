@@ -2,13 +2,19 @@ module Meat
   class Addons
 
     attr_accessor :node_id, :node_name, :marketplace_id, :locations, :fromhost, :tohosts,  :haproxyhost, :loadbalancehost,
-    :cputhreshhold, :memorythreshhold, :noofinstances, :agent 
+    :cputhreshhold, :memorythreshhold, :noofinstances, :agent, :backuphost
     def initialize(fparams = {})
       @node_id = fparams[:node_id] || nil
       @node_name = fparams[:node_name] || nil
       @marketplace_id = fparams[:marketplace_id] || nil
       @locations = fparams[:locations] || nil
       @fromhost = fparams[:fromhost] || nil
+
+      if (fparams[:backuphost] != "Choose an App/Service" && fparams[:backuphost].to_s.strip.length != 0 ) 
+      	@backuphost = fparams[:backuphost]
+      else
+      	@backuphost = ""
+      end
       @tohosts = fparams[:tohosts] || nil
       @haproxyhost = fparams[:haproxyhost] || nil
       @loadbalancehost = fparams[:loadbalancehost] || nil
@@ -28,13 +34,18 @@ module Meat
 
       tmp_tohosts = @tohosts.join(",")  if !@tohosts.nil?
       tmp_tohosts || @tohosts
-      
+      if @backuphost.to_s.strip.length == 0
+      		role = "role[drbd]"
+      else
+      		role = "role[backup]"
+      end
+      	
       addon_config = {
         "disaster"=> {
           "locations"=> @locations,
           "fromhost"=> @fromhost,
           "tohosts"=> tmp_tohosts,
-          "recipe" => "role[drbd]"
+          "recipe" => role
         },
         "loadbalancing"=>{
           "haproxyhost"=>@haproxyhost,

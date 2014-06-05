@@ -31,7 +31,7 @@ gem 'fog'
 gem 'pg'
 
 # security and oauth
-gem 'bcrypt-ruby',:require => 'bcrypt'
+gem 'bcrypt'
 gem 'oauth2'
 gem 'oauth'
 gem 'omniauth-oauth2'
