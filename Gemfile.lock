@@ -103,7 +103,7 @@ GEM
     diff-lcs (1.2.5)
     equalizer (0.0.9)
     erubis (2.7.0)
-    excon (0.34.0)
+    excon (0.36.0)
     execjs (2.1.0)
     factory_girl (4.4.0)
       activesupport (>= 3.0.0)
