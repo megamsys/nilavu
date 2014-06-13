@@ -12,11 +12,14 @@ Ext.define('SimpleTasks.view.tasks.Form', {
     initComponent: function() {
         this.items = [
             {
-                xtype: 'component',
-                cls: 'tasks-new',
-                width: 24,
-                height: 24
-            },
+                 xtype: 'container',
+ 		layout:{
+		 type: 'hbox',
+		 align: 'center',
+		enableDragDrop: true,
+		 pack: 'center'
+	        }
+	    },
             {
                 xtype: 'textfield',
                 name: 'title',

@@ -5,6 +5,12 @@
 Ext.define('SimpleTasks.view.Toolbar', {
     extend: 'Ext.toolbar.Toolbar',
     xtype: 'tasksToolbar',
+    alias: 'widget.header_menu',
+    requires: [
+        'SimpleTasks.ux.DragDrop',
+	'Ext.dd.DropTarget',
+        'Ext.grid.plugin.DragDrop'
+              ],
     items: [
         {
             text: 'New',
@@ -12,37 +18,66 @@ Ext.define('SimpleTasks.view.Toolbar', {
             menu: {
                 items: [
                     {
-                        text: 'New Task',
-                        iconCls: 'tasks-new'
-                    },
-                    {
-                        text: 'New List',
-                        iconCls: 'tasks-new-list'
-                    },
-                    {
-                        text: 'New Folder',
-                        iconCls: 'tasks-new-folder'
+                        text: 'Import',
+                        iconCls: 'tasks-import',
+                        handler: function() {
+                            alert("New Text - Hello World");  
+                            //import.js;
+                            }
+                      
                     }
                 ]
             }
         },
+
         {
-            iconCls: 'tasks-delete-task',
-            id: 'delete-task-btn',
+            iconCls: 'tasks-mark-complete',
+            text: 'Save',
+            id: 'save-app',
             disabled: true,
-            tooltip: 'Delete Task'
+            tooltip: 'Save app'
         },
         {
             iconCls: 'tasks-mark-complete',
-            id: 'mark-complete-btn',
+            text: 'Run',
+            id: 'run-app',
             disabled: true,
-            tooltip: 'Mark Complete'
+            tooltip: 'Run App'
         },
         {
             iconCls: 'tasks-mark-active',
+            text: 'test',
             id: 'mark-active-btn',
             disabled: true,
             tooltip: 'Mark Active'
+        },
+
+        {
+            iconCls: 'tasks-show-all',
+            text: 'App',
+            id: 'toolApp',
+            tooltip: 'Select App',
+	    draggable: true,
+            enableDragDrop: true,
+            toggleGroup: 'status',
+		 xtype: 'button',
+	    click: function (b,e) {
+     alert('x');
+    }
+        },
+        {
+            iconCls: 'tasks-show-active',
+            text: 'LB',
+            id: 'LB',
+            tooltip: 'Load Balancer',
+            toggleGroup: 'status'
+        },
+        {
+            iconCls: 'tasks-show-complete',
+            text: 'DB',
+            id: 'DB',
+            tooltip: 'Select Database',
+            toggleGroup: 'status'
         },
         '->',
         {

@@ -342,7 +342,7 @@ Ext.define('SimpleTasks.controller.Lists', {
         tasksStore.filter(filters);
 
         // set the center panel's title to the name of the currently selected list
-        this.getTaskGrid().setTitle(list.get('name'));
+        //this.getTaskGrid().setTitle(list.get('name'));
 
         // enable or disable the "delete list" and "delete folder" buttons depending on what type of node is selected
         if(list.get('id') === -1) {
@@ -357,7 +357,7 @@ Ext.define('SimpleTasks.controller.Lists', {
         }
 
         // make the currently selected list the default value for the list field on the new task form
-        this.getTaskForm().query('[name=list_id]')[0].setValue(list.get('id'));
+       // this.getTaskForm().query('[name=list_id]')[0].setValue(list.get('id'));
     },
 
     /**
@@ -376,7 +376,7 @@ Ext.define('SimpleTasks.controller.Lists', {
         task.save({
             success: function(task, operation) {
                 // refresh the filters on the task list
-                me.getTaskGrid().refreshFilters();
+              //  me.getTaskGrid().refreshFilters();
                 // refresh the lists view so the task counts will be updated.
                 me.getListTree().refreshView();
             },
@@ -457,7 +457,7 @@ Ext.define('SimpleTasks.controller.Lists', {
         // refresh the lists view so the task counts will be updated.
         listTree.refreshView();
         // filter the task grid by the selected list
-        me.filterTaskGrid(selectionModel, selectionModel.getSelection());
+        //me.filterTaskGrid(selectionModel, selectionModel.getSelection());
         // remove the event listener after the first run
         tasksStore.un('load', this.handleTasksLoad, this);
     },
