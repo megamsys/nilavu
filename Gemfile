@@ -24,6 +24,7 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem "breadcrumbs"
 gem 'remotipart'
+gem 'sqlite3'
 
 #fog
 gem 'fog'
@@ -31,12 +32,12 @@ gem 'fog'
 # db posgresql
 #gem 'pg'
 
-group :production do
-  gem 'pg'
-end
-group :development, :test do
-  gem 'sqlite3'
-end
+#group :production do
+#  gem 'pg'
+#end
+#group :development, :test do
+
+#end
 
 
 # security and oauth

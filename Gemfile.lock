@@ -263,7 +263,6 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
-    pg (0.17.1)
     polyglot (0.3.5)
     rack (1.5.2)
     rack-contrib (1.1.0)
@@ -412,7 +411,6 @@ DEPENDENCIES
   omniauth-oauth2
   omniauth-twitter
   paperclip
-  pg
   protected_attributes!
   rails (~> 4.1.2.rc1)
   randexp (~> 0.1.7)
