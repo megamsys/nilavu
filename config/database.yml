@@ -2,26 +2,15 @@
 #   Ensure the postgresql gem is defined in your Gemfile
 #   gem 'pg'
 development:
-  adapter: postgresql
-  encoding: unicode
-  database: cocdb
+  adapter: sqlite3
+  database: db/cocdb
   pool: 5
-  host: localhost
-  username: <%= ENV['POSTGRES_USER'] %>
-  password: <%= ENV['POSTGRES_PW'] %>
-  #host: 188.40.201.62
-  #port: 5432
-production:
-  adapter: postgresql
-  encoding: unicode
-  database: <%= ENV['POSTGRES_DB'] %>
+  timeout: 5000
+development:
+  adapter: sqlite3
+  database: db/cocdb
   pool: 5
-  host: localhost
-  username: <%= ENV['POSTGRES_USER'] %>
-  password: <%= ENV['POSTGRES_PW'] %>
-  #host: postgres1.megam.co.in
-  #url: postgresql://megam:team4megam@localhost:5432/cocdb
-  #port: 5432
+  timeout: 5000
   
 # A test db cocdb_test gets generated during rspec testing. 
 # re-generated from your development database when you run "rake".
