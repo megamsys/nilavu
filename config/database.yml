@@ -6,7 +6,7 @@ development:
   database: db/cocdb
   pool: 5
   timeout: 5000
-development:
+production:
   adapter: sqlite3
   database: db/cocdb
   pool: 5
