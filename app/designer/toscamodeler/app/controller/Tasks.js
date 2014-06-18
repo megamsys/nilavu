@@ -9,7 +9,7 @@ Ext.define('SimpleTasks.controller.Tasks', {
     stores: ['Tasks'],
 
     views: [
-        'tasks.Grid',
+        //'tasks.Grid',
         'tasks.Form',
         'tasks.EditWindow',
         'tasks.DefaultTimeWindow',
@@ -26,10 +26,7 @@ Ext.define('SimpleTasks.controller.Tasks', {
             ref: 'taskForm',
             selector: 'taskForm'
         },
-        {
-            ref: 'taskGrid',
-            selector: 'taskGrid'
-        },
+
         {
             ref: 'tasksToolbar',
             selector: 'tasksToolbar'

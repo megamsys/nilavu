@@ -1,0 +1,2 @@
+#!/bin/sh
+pkgr package ../ --user=megam --group=megam --maintainer="Megam Systems" --runner='upstart-1.5' --dependencies=git-core curl bundler rake nginx zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties ruby2.0 --after-install=./post-script.sh  --auto --clean --name=megamnilavu --version=0.5 --iteration=1

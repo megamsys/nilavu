@@ -24,15 +24,25 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem "breadcrumbs"
 gem 'remotipart'
+gem 'sqlite3'
 
 #fog
 gem 'fog'
 
 # db posgresql
-gem 'pg'
+#gem 'pg'
+
+#group :production do
+#  gem 'pg'
+#end
+#group :development, :test do
+
+#end
+
 
 # security and oauth
-gem 'bcrypt',:require => 'bcrypt'
+gem 'bcrypt'
+
 gem 'oauth2'
 gem 'oauth'
 gem 'omniauth-oauth2'
