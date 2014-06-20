@@ -1,0 +1,1 @@
+mkdir /usr/share/megam
