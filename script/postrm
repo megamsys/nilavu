@@ -1,9 +1,18 @@
 #!/bin/sh
-rm /etc/nginx/private/nilavu.key
-rm /etc/nginx/certs/nilavu_pub.crt
+echo "==============> post remove start <======================"
+[ -f /etc/nginx/private/nilavu.key ] && rm /etc/nginx/private/nilavu.key
+[ -f /etc/nginx/certs/nilavu_pub.crt ] && rm /etc/nginx/certs/nilavu_pub.crt
+[ -f /etc/nginx/sites-available/nilavu ] && rm /etc/nginx/sites-available/nilavu
 
-rm /etc/nginx/sites-available/nilavu
-rm /etc/nginx/sites-enabled/nilavu
 
-rm ./conf/nilavu_pub.crt
-rm ./conf/nilavu.key
+[ -f /usr/share/megam/megamnilavu/conf/nilavu_pub.crt ] && rm /usr/share/megam/megamnilavu/conf/nilavu_pub.crt
+[ -f /usr/share/megam/megamnilavu/conf/nilavu.key ] && rm /usr/share/megam/megamnilavu/conf/nilavu.key
+
+[ -d /var/log/megam/megamnilavu ] && rm -rf /var/log/megam/megamnilavu
+
+[ -d /var/run/megam/megamnilavu ] && rm -rf /var/run/megam/megamnilavu
+
+
+[ -f /etc/unicorn/nilavu.rb ] && rm /etc/unicorn/nilavu.rb
+
+echo "==============> post remove end<======================"
