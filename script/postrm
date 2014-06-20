@@ -1,0 +1,9 @@
+#!/bin/sh
+rm /etc/nginx/private/nilavu.key
+rm /etc/nginx/certs/nilavu_pub.crt
+
+rm /etc/nginx/sites-available/nilavu
+rm /etc/nginx/sites-enabled/nilavu
+
+rm ./conf/nilavu_pub.crt
+rm ./conf/nilavu.key
