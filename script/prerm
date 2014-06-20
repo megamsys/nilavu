@@ -1,2 +1,5 @@
 #!/bin/sh
-service megamnilavu stop || echo "nilavu.mypass.io wasn't even running!"
+
+
+service megamnilavu stop || echo "megamnilavu wasn't even running!"
+
