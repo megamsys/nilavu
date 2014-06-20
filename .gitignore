@@ -16,7 +16,7 @@
 
 # Ignore all files which ends with ~
 *~
-
+*.deb
 # Ignore all files which ends with lock
 *.lock
 
