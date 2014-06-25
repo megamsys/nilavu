@@ -1,5 +1,10 @@
 source 'https://rubygems.org'
 
+ 
+ruby '1.9.3'
+
+
+
 gem "rails", "~> 4.1.2.rc2"
 gem "sprockets", "~> 2.11.0"
 # add these gems to help with the transition to Rails 4.x

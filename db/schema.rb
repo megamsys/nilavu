@@ -13,9 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20130828101201) do
 
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
   create_table "apps", force: true do |t|
     t.integer  "users_id"
     t.string   "name"
@@ -31,7 +28,7 @@ ActiveRecord::Schema.define(version: 20130828101201) do
     t.datetime "updated_at"
   end
 
-  add_index "apps", ["users_id"], name: "index_apps_on_users_id", using: :btree
+  add_index "apps", ["users_id"], name: "index_apps_on_users_id"
 
   create_table "apps_histories", force: true do |t|
     t.integer  "book_id"
@@ -43,7 +40,7 @@ ActiveRecord::Schema.define(version: 20130828101201) do
     t.datetime "updated_at"
   end
 
-  add_index "apps_histories", ["book_id"], name: "index_apps_histories_on_book_id", using: :btree
+  add_index "apps_histories", ["book_id"], name: "index_apps_histories_on_book_id"
 
   create_table "apps_items", force: true do |t|
     t.integer  "users_id"
@@ -56,9 +53,9 @@ ActiveRecord::Schema.define(version: 20130828101201) do
     t.datetime "updated_at"
   end
 
-  add_index "apps_items", ["cloud_identity_id"], name: "index_apps_items_on_cloud_identity_id", using: :btree
-  add_index "apps_items", ["product_id"], name: "index_apps_items_on_product_id", using: :btree
-  add_index "apps_items", ["users_id"], name: "index_apps_items_on_users_id", using: :btree
+  add_index "apps_items", ["cloud_identity_id"], name: "index_apps_items_on_cloud_identity_id"
+  add_index "apps_items", ["product_id"], name: "index_apps_items_on_product_id"
+  add_index "apps_items", ["users_id"], name: "index_apps_items_on_users_id"
 
   create_table "cloud_identities", force: true do |t|
     t.string   "url"
@@ -71,7 +68,7 @@ ActiveRecord::Schema.define(version: 20130828101201) do
     t.datetime "updated_at"
   end
 
-  add_index "cloud_identities", ["users_id"], name: "index_cloud_identities_on_users_id", using: :btree
+  add_index "cloud_identities", ["users_id"], name: "index_cloud_identities_on_users_id"
 
   create_table "dashboards", force: true do |t|
     t.string   "name"
@@ -81,7 +78,7 @@ ActiveRecord::Schema.define(version: 20130828101201) do
     t.datetime "updated_at"
   end
 
-  add_index "dashboards", ["user_id"], name: "index_dashboards_on_user_id", using: :btree
+  add_index "dashboards", ["user_id"], name: "index_dashboards_on_user_id"
 
   create_table "identities", force: true do |t|
     t.integer  "users_id"
@@ -91,7 +88,7 @@ ActiveRecord::Schema.define(version: 20130828101201) do
     t.datetime "updated_at"
   end
 
-  add_index "identities", ["users_id"], name: "index_identities_on_users_id", using: :btree
+  add_index "identities", ["users_id"], name: "index_identities_on_users_id"
 
   create_table "organizations", force: true do |t|
     t.string   "name"
@@ -146,10 +143,10 @@ ActiveRecord::Schema.define(version: 20130828101201) do
     t.datetime "password_reset_sent_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["onboarded_api"], name: "index_users_on_onboarded_api", using: :btree
-  add_index "users", ["org_id"], name: "index_users_on_org_id", using: :btree
-  add_index "users", ["remember_token"], name: "index_users_on_remember_token", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["onboarded_api"], name: "index_users_on_onboarded_api"
+  add_index "users", ["org_id"], name: "index_users_on_org_id"
+  add_index "users", ["remember_token"], name: "index_users_on_remember_token"
 
   create_table "widgets", force: true do |t|
     t.string   "name"
@@ -164,6 +161,6 @@ ActiveRecord::Schema.define(version: 20130828101201) do
     t.datetime "updated_at"
   end
 
-  add_index "widgets", ["dashboard_id"], name: "index_widgets_on_dashboard_id", using: :btree
+  add_index "widgets", ["dashboard_id"], name: "index_widgets_on_dashboard_id"
 
 end
