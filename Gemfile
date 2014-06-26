@@ -1,11 +1,6 @@
 source 'https://rubygems.org'
 
- 
-
-
-
-
-gem "rails", "~> 4.1.2.rc2"
+gem "rails", "~> 4.1.2.rc3"
 gem "sprockets", "~> 2.11.0"
 # add these gems to help with the transition to Rails 4.x
 gem 'protected_attributes', "~> 1.0.8"
@@ -74,7 +69,7 @@ gem 'google-analytics-rails', '~> 0.0.6'
 
 # http request and responses, http_proxy
 gem "faraday", "~> 0.9.0"
-gem "net-http-predicates", "~> 1.0.o0" # [why can't we use faraday]
+gem "net-http-predicates", "~> 1.0.0" # [why can't we use faraday]
 gem "httparty", "~> 0.13.1" # why can't we use faraday
 gem "faraday_middleware", "~> 0.9.1"
 gem "multi_xml", "~> 0.5.5"

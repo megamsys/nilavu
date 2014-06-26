@@ -1,5 +1,0 @@
-#!/bin/sh
-# this will have nothing. 
-echo "==============> preinstall  start<======================"
-mkdir -p /usr/share/megam
-echo "==============> preinstall end<======================"

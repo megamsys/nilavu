@@ -1,5 +1,0 @@
-#!/bin/sh
-
-
-service megamnilavu stop || echo "megamnilavu wasn't even running!"
-
