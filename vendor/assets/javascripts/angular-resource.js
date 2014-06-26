@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.3.0-beta.10
+ * @license AngularJS v1.3.0-beta.13
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -498,6 +498,13 @@ angular.module('ngResource', ['ng']).
           shallowClearAndCopy(value || {}, this);
         }
 
+        Resource.prototype.toJSON = function () {
+          var data = extend({}, this);
+          delete data.$promise;
+          delete data.$resolved;
+          return data;
+        };
+
         forEach(actions, function (action, name) {
           var hasBody = /^(POST|PUT|PATCH)$/i.test(action.method);
 
@@ -578,7 +585,14 @@ angular.module('ngResource', ['ng']).
                 if (action.isArray) {
                   value.length = 0;
                   forEach(data, function (item) {
-                    value.push(new Resource(item));
+                    if (typeof item === "object") {
+                      value.push(new Resource(item));
+                    } else {
+                      // Valid JSON values may be string literals, and these should not be converted
+                      // into objects. These items will not have access to the Resource prototype
+                      // methods, but unfortunately there
+                      value.push(item);
+                    }
                   });
                 } else {
                   shallowClearAndCopy(data, value);

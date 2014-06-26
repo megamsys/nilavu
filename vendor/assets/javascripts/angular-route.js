@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.3.0-beta.10
+ * @license AngularJS v1.3.0-beta.13
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -27,7 +27,7 @@ var ngRouteModule = angular.module('ngRoute', ['ng']).
 /**
  * @ngdoc provider
  * @name $routeProvider
- * @function
+ * @kind function
  *
  * @description
  *
@@ -695,7 +695,6 @@ ngRouteModule.directive('ngView', ngViewFillContentFactory);
           <pre>$location.path() = {{main.$location.path()}}</pre>
           <pre>$route.current.templateUrl = {{main.$route.current.templateUrl}}</pre>
           <pre>$route.current.params = {{main.$route.current.params}}</pre>
-          <pre>$route.current.scope.name = {{main.$route.current.scope.name}}</pre>
           <pre>$routeParams = {{main.$routeParams}}</pre>
         </div>
       </file>
