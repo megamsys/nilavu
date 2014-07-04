@@ -1,5 +1,6 @@
 require File.expand_path('../boot', __FILE__)
 require 'rails/all'
+require 'yaml'                  #COMMON YML
 
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -67,18 +68,20 @@ module Cloudauth
       app.routes.append{ match '*a', :to => 'application#render_404', via: [:get] } unless config.consider_all_requests_local
     end
     
+common = YAML.load_file("#{ENV['MEGAM_HOME']}/common.yml")                  #COMMON YML
+
     config.megam_logo_url   = "https://s3-ap-southeast-1.amazonaws.com/megampub/images/logo-megam160x43w.png"    
     config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
-    config.ganglia_host     = ENV['GANGLIA_HOST']
-    config.ganglia_base_url = "http://monitor.megam.co.in/ganglia"
+    config.ganglia_host     = "#{common["monitor"]["host"]}" || ENV['GANGLIA_HOST']
+    config.ganglia_base_url = "#{common["monitor"]["base_url"]}" || "http://monitor.megam.co.in/ganglia"
     config.ganglia_cluster = 'megampaas'
     config.ganglia_graph_metric  = 'cpu_system'
     config.ganglia_request_metric = 'nginx_requests'
     #config.ganglia_request_metric = 'nginx_status'
-    config.metric_source = 'ganglia'
+    config.metric_source = "#{common["monitor"]["metric_source"]}"|| 'ganglia'
     
-    config.storage_crosscloud = 'cloudkeys'
-    config.storage_cloudtool = 'cloudrecipes'
+    config.storage_crosscloud = "#{common["storage"]["cross_cloud"]}"
+    config.storage_cloudtool = "#{common["storage"]["cloud_tool"]}"
     config.storage_server_url = 'https://s3-ap-southeast-1.amazonaws.com'
     
     config.google_authorization_uri = 'https://accounts.google.com/o/oauth2/auth'
