@@ -4,14 +4,15 @@ class Organization < ActiveRecord::Base
   has_many :users
 
 
-	has_attached_file :logo,
-
-    :storage => :s3,
+	has_attached_file :logo,     :storage => :s3,
     :s3_permissions => :public_read,
     :s3_credentials => "config/aws.yml",
     :s3_host_name => "s3-ap-southeast-1.amazonaws.com",
     :path => "dino/:id/:filename"
 
+=begin
+ :storage => :fog, :fog_credentials => {:provider => "Local", :local_root => "#{Rails.root}/public"}, :fog_directory => "test", :fog_host => "localhost"
+=end
   validates_attachment_presence :logo
   validates_attachment_size :logo, :less_than => 5.megabytes
   validates_attachment_content_type :logo, :content_type => ['image/jpeg', 'image/png', 'image/gif']

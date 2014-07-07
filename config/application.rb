@@ -67,9 +67,12 @@ module Cloudauth
     config.after_initialize do |app|
       app.routes.append{ match '*a', :to => 'application#render_404', via: [:get] } unless config.consider_all_requests_local
     end
-    
-common = YAML.load_file("#{ENV['MEGAM_HOME']}/common.yml")                  #COMMON YML
-
+if File.exist?("#{ENV['MEGAM_HOME']}/nilavu.yml")
+common = YAML.load_file("#{ENV['MEGAM_HOME']}/nilavu.yml")                  #COMMON YML
+else
+common={}
+end
+        
     config.megam_logo_url   = "https://s3-ap-southeast-1.amazonaws.com/megampub/images/logo-megam160x43w.png"    
     config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
     config.ganglia_host     = "#{common["monitor"]["host"]}" || ENV['GANGLIA_HOST']
@@ -80,8 +83,9 @@ common = YAML.load_file("#{ENV['MEGAM_HOME']}/common.yml")                  #COM
     #config.ganglia_request_metric = 'nginx_status'
     config.metric_source = "#{common["monitor"]["metric_source"]}"|| 'ganglia'
     
-    config.storage_crosscloud = "#{common["storage"]["cross_cloud"]}"
-    config.storage_cloudtool = "#{common["storage"]["cloud_tool"]}"
+        config.storage_type = "#{common["storage"]["type"]}" || "s3"                   #Usage in code ==> Rails.configuration.storage_type
+    config.storage_crosscloud = "#{common["storage"]["cross_cloud"]}" || 'cloudkeys'
+    config.storage_cloudtool = "#{common["storage"]["cloud_tool"]}" || 'cloudrecipes'
     config.storage_server_url = 'https://s3-ap-southeast-1.amazonaws.com'
     
     config.google_authorization_uri = 'https://accounts.google.com/o/oauth2/auth'
