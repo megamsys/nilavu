@@ -67,13 +67,16 @@ module Cloudauth
     config.after_initialize do |app|
       app.routes.append{ match '*a', :to => 'application#render_404', via: [:get] } unless config.consider_all_requests_local
     end
-if File.exist?("#{ENV['MEGAM_HOME']}/nilavu.yml")
-common = YAML.load_file("#{ENV['MEGAM_HOME']}/nilavu.yml")                  #COMMON YML
-else
-common={}
-end
-        
-    config.megam_logo_url   = "https://s3-ap-southeast-1.amazonaws.com/megampub/images/logo-megam160x43w.png"    
+
+    if File.exist?("#{ENV['MEGAM_HOME']}/nilavu.yml")
+      common = YAML.load_file("#{ENV['MEGAM_HOME']}/nilavu.yml")                  #COMMON YML
+      puts "=> Loaded #{ENV['MEGAM_HOME']}/nilavu.yml\n#{common}"
+    else
+      puts "=> Warning ! MEGAM_HOME environment variable not set."
+      common={"storage" => {}, "monitor" => {}, "api" => {}}
+    end
+
+    config.megam_logo_url   = "https://s3-ap-southeast-1.amazonaws.com/megampub/images/logo-megam160x43w.png"
     config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
     config.ganglia_host     = "#{common["monitor"]["host"]}" || ENV['GANGLIA_HOST']
     config.ganglia_base_url = "#{common["monitor"]["base_url"]}" || "http://monitor.megam.co.in/ganglia"
@@ -82,17 +85,17 @@ end
     config.ganglia_request_metric = 'nginx_requests'
     #config.ganglia_request_metric = 'nginx_status'
     config.metric_source = "#{common["monitor"]["metric_source"]}"|| 'ganglia'
-    
-        config.storage_type = "#{common["storage"]["type"]}" || "s3"                   #Usage in code ==> Rails.configuration.storage_type
-    config.storage_crosscloud = "#{common["storage"]["cross_cloud"]}" || 'cloudkeys'
-    config.storage_cloudtool = "#{common["storage"]["cloud_tool"]}" || 'cloudrecipes'
+
+    config.storage_type =  "s3"
+    config.storage_crosscloud = 'cloudkeys'
+    config.storage_cloudtool =  'cloudrecipes'
     config.storage_server_url = 'https://s3-ap-southeast-1.amazonaws.com'
-    
+
     config.google_authorization_uri = 'https://accounts.google.com/o/oauth2/auth'
     config.google_token_credential_uri = 'https://accounts.google.com/o/oauth2/token'
     config.google_scope = 'https://www.googleapis.com/auth/userinfo.email'
     config.google_redirect_uri = 'https://www.megam.co/auth/google_oauth2/callback'
-    
+
     #Cheddargetter API
     config.ched_prod_code = ENV['CHED_PROD_CODE']
     config.ched_user_name = ENV['CHED_USER_NAME']
