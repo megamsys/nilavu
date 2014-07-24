@@ -1,18 +1,25 @@
 #
 #   Ensure the postgresql gem is defined in your Gemfile
 #   gem 'pg'
+<% if File.exist?("#{ENV['MEGAM_HOME']}") %>
+  <% db_data = "#{ENV['MEGAM_HOME']}" %>
+<% else %>
+  <%= puts "=> Warning ! MEGAM_HOME environment variable not set." %>
+  <% db_data = "." %>
+<% end %>
+
 development:
   adapter: sqlite3
-  database: <%= ENV['MEGAM_HOME'] %>/db/cocdb
+  database: <%= db_data %>/db/cocdb
   pool: 5
   timeout: 5000
 production:
   adapter: sqlite3
-  database: <%= ENV['MEGAM_HOME'] %>/db/cocdb
+  database: <%= db_data %>/db/cocdb
   pool: 5
   timeout: 5000
-  
-# A test db cocdb_test gets generated during rspec testing. 
+
+# A test db cocdb_test gets generated during rspec testing.
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:

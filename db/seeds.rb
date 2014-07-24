@@ -6,7 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 Product.delete_all
-User.where(:email => "dummy@megamsandbox.com").delete_all
+User.where(:email => "fake@mypaas.io").delete_all
 
 puts "== Products: loading"
 open("config/products_seed.data") do |products|
@@ -17,7 +17,7 @@ open("config/products_seed.data") do |products|
 end
 puts "== Products: loaded"
 puts "== Users: dummy user"
-dummyparams = {:email => "dummy@megamsandbox.com", :password => "dummykeysandbox#megam", :password_confirmation => "dummykeysandbox#megam", :first_name => "Demo user",:last_name => "View only",:api_token =>"dummykeysandbox#megam", :onboarded_api => true, :admin => false, :user_type =>"demo"}
+dummyparams = {:email => "fake@mypaas.io", :password => "fakemypaas#megam", :password_confirmation => "fakemypaas#megam", :first_name => "Demo user",:last_name => "View only",:api_token =>"fakemypaas#megam", :onboarded_api => true, :admin => false, :user_type =>"demo"}
 dummyuser = User.new(dummyparams)
 dummyuser.save
 puts "== Users: dummy user created."
