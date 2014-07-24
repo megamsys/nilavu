@@ -1,21 +1,22 @@
 #
 #   Ensure the postgresql gem is defined in your Gemfile
 #   gem 'pg'
-if File.exist?("#{ENV['MEGAM_HOME']}")
-  db_data = "#{ENV['MEGAM_HOME']}"
-else
-  puts "=> Warning ! MEGAM_HOME environment variable not set."
-  db_data = "."
-end
+<% if File.exist?("#{ENV['MEGAM_HOME']}") %>
+  <% db_data = "#{ENV['MEGAM_HOME']}" %>
+<% else %>
+  <%= puts "=> Warning ! MEGAM_HOME environment variable not set." %>
+  <% db_data = "." %>
+<% end %>
+
 
 development:
   adapter: sqlite3
-  database: "#{db_data}"/db/cocdb
+  database: <%= db_data %>/db/cocdb
   pool: 5
   timeout: 5000
 production:
   adapter: sqlite3
-  database: ./db/cocdb
+  database: <%= db_data %>/db/cocdb
   pool: 5
   timeout: 5000
 
