@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.3.0-beta.16
+ * @license AngularJS v1.3.0-beta.14
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -473,7 +473,9 @@ function $RouteProvider(){
       for (var i = 1, len = m.length; i < len; ++i) {
         var key = keys[i - 1];
 
-        var val = m[i];
+        var val = 'string' == typeof m[i]
+              ? decodeURIComponent(m[i])
+              : m[i];
 
         if (key && val) {
           params[key.name] = val;
