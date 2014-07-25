@@ -10,7 +10,7 @@
 
 development:
   adapter: sqlite3
-  database: <%= db_data %>/db/cocdb
+  database: ./db/cocdb
   pool: 5
   timeout: 5000
 production:
