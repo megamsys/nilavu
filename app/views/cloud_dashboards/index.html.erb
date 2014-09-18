@@ -1,7 +1,7 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'Dashboard') %>
 
-<%= render :partial => "users/header" , :locals => {:head => "Dashboard"}%>
+<%= render :partial => "users/header" , :locals => {:user => current_user, :head => "Dashboard"}%>
 <div id="breadcrumb">
 	<%= breadcrumbs.render(:format => :inline,:separator => '') %>
 </div>
