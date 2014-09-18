@@ -1,6 +1,6 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'Disaster Recovery') %>
-<%= render :partial => "users/header" , :locals => {:head => "Disaster Recovery(DR) Service"}%>
+<%= render :partial => "users/header" , :locals => {:user => current_user, :head => "Disaster Recovery(DR) Service"}%>
 <div id="breadcrumb">
 	<%= breadcrumbs.render(:format => :inline, :separator => '') %>
 </div>

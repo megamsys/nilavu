@@ -102,5 +102,9 @@ module Cloudauth
     config.ched_password = ENV['CHED_PASSWORD']
     config.gogrid_api_key = ENV['GOGRID_API_KEY']
     config.gogrid_shared_secret = ENV['GOGRID_SHARED_SECRET']
+
+    #designer
+    config.designer_host = 'localhost'
+    config.designer_port = '1880'
   end
 end
