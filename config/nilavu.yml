@@ -12,6 +12,10 @@ storage:
   cloud_tool: cloudrecipes
   server_url: https://s3-ap-southeast-1.amazonaws.com
 
+designer:
+  host: localhost
+  port: 1880
+  
 api:
   host: api.megam.co
   scheme: https

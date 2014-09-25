@@ -1,8 +1,7 @@
 <div id="content-header">
 	<h1> <%= head %> </h1>
 	<div class="btn-group">
-		<%= link_to "http://localhost:1880/?email=#{current_user.email}&api_key=#{current_user.api_token}", :class =>"btn btn-lg", :title=> "TOSCA Designer", :id => "designer_link", :target => "_blank"  do %>
-		<i class="fa fa-picture-o"></i>
+<%= link_to "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user.email}&api_key=#{current_user.api_token}&callbackURL=https://www.megam.co/visualCallback", :class =>"btn btn-lg", :title=> "TOSCA Designer", :id => "designer_link", :target => "_blank"  do %>		<i class="fa fa-picture-o"></i>
 		Designer
 		<% end %>
 
