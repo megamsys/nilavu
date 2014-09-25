@@ -104,7 +104,7 @@ module Cloudauth
     config.gogrid_shared_secret = ENV['GOGRID_SHARED_SECRET']
 
     #designer
-    config.designer_host = 'localhost'
-    config.designer_port = '1880'
+    config.designer_host = "#{common["designer"]["host"]}"
+    config.designer_port = "#{common["designer"]["port"]}"
   end
 end
