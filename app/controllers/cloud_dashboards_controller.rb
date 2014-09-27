@@ -3,7 +3,7 @@ class CloudDashboardsController < ApplicationController
   respond_to :html
   def index
     if current_user
-      breadcrumbs.add " Dashboard", :cloud_dashboards_path, :class => "fa fa-dashboard"
+      breadcrumbs.add " Dashboard", :cloud_dashboards_path, :class => "fa fa-dashboard"      
       @user_id = current_user.id
       @launched_apps_services = current_user.apps
       @cloud_distrib = collapse_cloud_distrib
@@ -13,6 +13,17 @@ class CloudDashboardsController < ApplicationController
       redirect_to signin_path
     end
   end
+  
+  def visualCallback
+    if current_user    
+     redirect_to cloud_dashboards_path, :gflash => { :error => { :value => "Invalid username and password combination, Please Enter your correct megam email", :sticky => false, :nodom_wrap => true } }
+    else
+      redirect_to signin_path, :gflash => { :error => { :value => "Invalid username and password combination, Please Enter your correct megam email", :sticky => false, :nodom_wrap => true } }
+     # redirect_to signin_path
+    end
+  end
+  
+  
 
   private
 
