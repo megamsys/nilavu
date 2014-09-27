@@ -1,5 +1,5 @@
 /**
- * @license AngularJS v1.3.0-rc.2
+ * @license AngularJS v1.3.0-rc.3
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -192,7 +192,7 @@ function shallowClearAndCopy(src, dst) {
  *   read, update, delete) on server-side data like this:
  *   ```js
  *   var User = $resource('/user/:userId', {userId:'@id'});
- *   var user = User.get({id:123}, function() {
+ *   var user = User.get({userId:123}, function() {
  *     user.abc = true;
  *     user.$save();
  *   });
