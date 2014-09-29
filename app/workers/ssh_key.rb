@@ -13,6 +13,8 @@ class SshKey
   end 
   
   def self.upload(options = {}, bucket_name)
+#riak_changes Key format ssh_key_name+accountid
+#Send content type also
     
     S3.upload(bucket_name, options[:email]+"/"+options[:ssh_key_name]+".key", options[:ssh_private_key].read)
     

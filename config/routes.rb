@@ -13,6 +13,7 @@ Cloudauth::Application.routes.draw do
 
   root :to => 'cloud_dashboards#index', :id => 'signin'
 
+
   resources :users
   resources :sessions
   resources :identities

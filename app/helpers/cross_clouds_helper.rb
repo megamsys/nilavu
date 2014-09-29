@@ -37,11 +37,18 @@ module CrossCloudsHelper
   def cloud_tool_setting_bucket
     Rails.configuration.storage_cloudtool 
   end
-  
+  if Rails.configuration.storage_type == 's3'
   def vault_base_url
+      #Riak_change
     Rails.configuration.storage_server_url+"/"+cross_cloud_bucket    
   end
-    
+  #Riak_change
+  def cloudtool_base_url
+    Rails.configuration.storage_server_url+"/"+cloud_tool_setting_bucket    
+  end 
+  
+  end
+  
   def gogrid_api_key
     Rails.configuration.gogrid_api_key
   end    
@@ -50,10 +57,7 @@ module CrossCloudsHelper
     Rails.configuration.gogrid_shared_secret
   end  
     
-  def cloudtool_base_url
-    Rails.configuration.storage_server_url+"/"+cloud_tool_setting_bucket    
-  end  
-    
+
   def get_provider_value(prov)
    @value = "" 
     cc_config.each do |cc, cloud| 
