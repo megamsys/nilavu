@@ -1,13 +1,13 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'Dashboard') %>
 
-<%= render :partial => "users/header" , :locals => {:head => "Dashboard"}%>
+<%= render :partial => "users/header" , :locals => {:user => current_user, :head => "Dashboard"}%>
 <div id="breadcrumb">
 	<%= breadcrumbs.render(:format => :inline,:separator => '') %>
 </div>
 <br/>
 
-<div class="container">
+<div class="container">    
 	<%= render :partial => "cloud_dashboards/dash_index_page", :locals => {:apps_distrib => @apps_distrib}  %>
 </div>
 <div id="email_verify_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -150,5 +150,8 @@ Cloudauth::Application.routes.draw do
   #match '/identities/new', to: 'cloud_identities#', via: [:get, :post]
 
   # =======apps_items_controller
-  match '/apps_items/destroy', to: 'apps_items#destroy', via: [:delete]
+  match '/apps_items/destroy', to: 'apps_items#destroy', via: [:delete] 
+ 
+  match '/visualCallback', to: 'cloud_dashboards#visualCallback', via: [:get]
+  
 end

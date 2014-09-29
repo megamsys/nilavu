@@ -11,10 +11,10 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require excanvas.compiled
-//= require jquery
+//= require jquery2
 //= require jquery.turbolinks
 //= require jquery_ujs
-//= require jquery.ui.all
+//= require jquery-ui
 //= require bowser.min
 //= require twitter/bootstrap
 //= require angular
@@ -28,7 +28,7 @@
 //= require select2
 //= require jquery.validate
 //= require jquery.wizard
-//= require jquery.icheck
+//= require icheck
 //= require megam.popovers
 //= require megam.spin
 //= require cross_clouds
@@ -44,7 +44,7 @@
 //= require unicorn
 //= require unicorn.dashboard
 //= require dataTables/jquery.dataTables
-//= require dataTables/jquery.dataTables.bootstrap3
+//= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require unicorn.tables
 //= require jquery-ui.custom
 //= require jquery.flot

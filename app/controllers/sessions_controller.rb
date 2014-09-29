@@ -4,7 +4,8 @@ class SessionsController < ApplicationController
  
  #this is a demo user who can only touch anything but mutate megam.
   def demo
-    user = User.find_by_email(params[:email])
+    user = User.find_by_email(params[:email]) 
+    
     if user && user.authenticate(params[:password])
       sign_in user
       redirect_back_or cloud_dashboards_path, :gflash => { :success => { :value => "This is a demo dry run mode. No actual launches to cloud happens. For full version, please signout and signup for a new account.", :sticky => false, :nodom_wrap => true } }
