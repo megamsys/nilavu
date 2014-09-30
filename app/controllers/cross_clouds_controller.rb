@@ -30,8 +30,14 @@ class CrossCloudsController < ApplicationController
   def create
     logger.debug "CROSS CLOUD CREATE PARAMS ============> "
 
+if Rails.configuration.storage_type == "s3"
     vault_loc = vault_base_url+"/"+current_user.email+"/"+params[:name]
     sshpub_loc = vault_base_url+"/"+current_user.email+"/"+params[:id_rsa_public_key]
+else
+         {accesskey:"",  secretkey:""}
+     vault_loc = current_user.email+"_"+params[:name]
+    sshpub_loc = current_user.email+"_"+params[:id_rsa_public_key]    #Riak changes
+end
     #private_key = (params[:private_key]) ? cross_cloud_bucket+"/"+current_user.email+"/"+params[:name]+"/"+File.basename(params[:private_key]) : ""
     if params[:provider] != "profitbricks"
       #private_key = ((params[:private_key].original_filename).length > 0) ? cross_cloud_bucket+"/"+current_user.email+"/"+params[:name]+"/"+params[:private_key].original_filename : ""
