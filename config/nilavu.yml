@@ -5,22 +5,27 @@ monitor:
   cluster: megampaas
 
 storage:
-  type: local
-  aws_access_key: AWS_ACCCESS_KEY
-  aws_secret_key: AWS_SECRET_KEY
-  cross_cloud: cloud_keys
-  cloud_tool: cloudrecipes
-  server_url: https://s3-ap-southeast-1.amazonaws.com
+  type: riak #s3
+  server_url: localhost
+  #server_url: https://s3-ap-southeast-1.amazonaws.com
+  cloud_tool_bucket: cloudrecipes
+  cloud_keys_bucket: cloudkeys
 
 designer:
   host: localhost
   port: 1880
   
 api:
-  host: api.megam.co
-  scheme: https
+  host: localhost
+  scheme: http
   pub_key: megamgateway_pub.crt
   private_key: megamgateway.key
+
+keys:
+  gogrid_api_key: 
+  gogrid_shared_secret: 
+
+  
 
 #if db and production are start from begining of the line it assumes as two inner hashes 
 #{"db"=>nil, "production"=>{"adapter"=>"sqlite3"}}
