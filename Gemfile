@@ -54,6 +54,7 @@ gem "omniauth-assembla", "~> 0.0.3"
 
 gem "aws-sdk", "~> 1.53.0"
 gem 'json', "~> 1.8.1"
+gem 'riak-client', '~> 2.0.0'
 
 #general
 gem "github_api", "~>0.12.1"

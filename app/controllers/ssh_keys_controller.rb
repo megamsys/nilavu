@@ -24,9 +24,11 @@ class SshKeysController < ApplicationController
       key_name = params[:key_name]
     end
     @filename = key_name
-    private_key_name = key_name+".key"
-    public_key_name = key_name+".pub"
-    sshpub_loc = vault_base_url+"/"+current_user.email+"/"+key_name
+if Rails.configuration.storage_type == "s3"
+    sshpub_loc = vault_s3_url+"/"+current_user.email+"/"+key_name
+else
+    sshpub_loc = current_user.email+"_"+key_name     #Riak changes
+end
     wparams = { :name => key_name, :path => sshpub_loc }
     @res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
     if @res_body.class == Megam::Error
@@ -40,7 +42,7 @@ class SshKeysController < ApplicationController
     else
       @err_msg = nil
       options ={:email => current_user.email, :ssh_key_name => key_name, :ssh_private_key => k.private_key, :ssh_public_key => k.ssh_public_key }
-      upload = SshKey.perform(options, cross_cloud_bucket)
+      upload = SshKey.perform(options, ssh_files_bucket)
       if upload.class == Megam::Error
         @res_msg = nil
         @err_msg="Failed to Generate SSH keys. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
@@ -68,7 +70,11 @@ class SshKeysController < ApplicationController
     # @filename = params[:ssh_private_key].original_filename
     @filename = params[:key_name]
     key_name = params[:key_name]
-    sshpub_loc = vault_base_url+"/"+current_user.email+"/"+key_name
+if Rails.configuration.storage_type == "s3"
+    sshpub_loc = vault_s3_url+"/"+current_user.email+"/"+key_name
+else
+    sshpub_loc = current_user.email+"_"+key_name     #Riak changes
+end
     wparams = { :name => key_name, :path => sshpub_loc }
     @res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
     if @res_body.class == Megam::Error
@@ -82,7 +88,7 @@ class SshKeysController < ApplicationController
     else
       @err_msg = nil
       options ={:email => current_user.email, :ssh_key_name => key_name, :ssh_private_key => params[:ssh_private_key], :ssh_public_key => params[:ssh_public_key] }
-      upload = SshKey.upload(options, cross_cloud_bucket)
+      upload = SshKey.upload(options, ssh_files_bucket)
       if upload.class == Megam::Error
         @res_msg = nil
         @err_msg="Failed to Generate SSH keys. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
