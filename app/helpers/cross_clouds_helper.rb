@@ -34,14 +34,20 @@ module CrossCloudsHelper
     Rails.configuration.storage_crosscloud 
   end
   
+ def ssh_files_bucket
+    Rails.configuration.storage_sshfiles 
+  end
+
   def cloud_tool_setting_bucket
     Rails.configuration.storage_cloudtool 
   end
   if Rails.configuration.storage_type == 's3'
-  def vault_base_url
+
+  def vault_s3_url
       #Riak_change
     Rails.configuration.storage_server_url+"/"+cross_cloud_bucket    
   end
+
   #Riak_change
   def cloudtool_base_url
     Rails.configuration.storage_server_url+"/"+cloud_tool_setting_bucket    

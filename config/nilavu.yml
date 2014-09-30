@@ -8,8 +8,9 @@ storage:
   type: riak #s3
   server_url: localhost
   #server_url: https://s3-ap-southeast-1.amazonaws.com
-  cloud_tool_bucket: cloudrecipes
-  cloud_keys_bucket: cloudkeys
+  cloud_tool_bucket: cloudtools
+  cloud_keys_bucket: cloudaccesskeys
+  ssh_files_bucket: sshfiles
 
 designer:
   host: localhost
@@ -22,8 +23,15 @@ api:
   private_key: megamgateway.key
 
 keys:
-  gogrid_api_key: 
-  gogrid_shared_secret: 
+  gogrid_api_key: ""
+  gogrid_shared_secret: ""
+
+  fb_client_id: ""
+  fb_secret_key: ""
+  
+  twitter_client_id: ""
+  twitter_secret_key: ""
+  
 
   
 

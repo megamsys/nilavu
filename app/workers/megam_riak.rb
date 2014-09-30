@@ -1,22 +1,29 @@
-class Riak
-  def self.upload(bucket_name, filename, data)
+class MegamRiak
+  def self.upload(bucket_name, keyname, data, type)
+
+puts "riak upload===============> "
+
 #params needs bucket_name, Key, Value and content type
     begin
       bucket = riak_bucket(bucket_name)
 
-      object = bucket.get_or_new(filename)
+      object = bucket.get_or_new(keyname)
 
      object.raw_data = data
-object.content_type = content_type
+object.content_type =type
 object.store
 
-
+puts "riak Erors===============> "
     rescue StandardError => se
+puts "riak SE===============> "
+puts se
       hash = {"msg" => se.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)
       @res = {"data" => {:body => re}}
       return @res["data"][:body]
     rescue ResponseError => re
+puts "riak rE===============> "
+puts re
       hash = {"msg" => re.message, "msg_type" => "error"}
       res = Megam::Error.from_hash(hash)
       @res = {"data" => {:body => res}}
@@ -25,10 +32,11 @@ object.store
   end
 
   def self.riak_bucket(bucket_name)
+puts "riak bucket===============> "
     client = Riak::Client.new(:nodes => [
          {:host => "#{Rails.configuration.storage_server_url}"}
     ])
-        bucket = client.bucket(bucket_name) 
+       client.bucket(bucket_name) 
   end
 
   def self.download(bucket_name, filename)

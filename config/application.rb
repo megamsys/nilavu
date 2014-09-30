@@ -87,7 +87,8 @@ module Cloudauth
     config.metric_source = "#{common['monitor']['metric_source']}"|| 'ganglia'
 
     config.storage_type =  "#{common['storage']['type']}" || 'riak'
-    config.storage_crosscloud = "#{common['storage']['cloud_keys_bucket']}" || 'cloudkeys'
+    config.storage_crosscloud = "#{common['storage']['cloud_keys_bucket']}" || 'cloudaccesskeys'
+    config.storage_sshfiles = "#{common['storage']['ssh_files_bucket']}" || 'sshfiles'
     config.storage_cloudtool =  "#{common['storage']['cloud_tool_bucket']}" || 'cloudtools'
     config.storage_server_url = "#{common['storage']['server_url']}" || 'localhost'
    if Rails.configuration.storage_type == 's3'
@@ -104,8 +105,16 @@ module Cloudauth
     config.ched_prod_code = ENV['CHED_PROD_CODE']
     config.ched_user_name = ENV['CHED_USER_NAME']
     config.ched_password = ENV['CHED_PASSWORD']
+
+    #KEYS
     config.gogrid_api_key = "#{common['keys']['gogrid_api_key']}" || ""
     config.gogrid_shared_secret = "#{common['keys']['gogrid_shared_secret']}" || ""
+
+    config.fb_client_id = "#{common['keys']['fb_client_id']}" || ""
+    config.fb_secret_key = "#{common['keys']['fb_secret_key']}" || ""
+
+    config.twitter_client_id = "#{common['keys']['twitter_client_id']}" || ""
+    config.twitter_secret_key = "#{common['keys']['twitter_secret_key']}" || ""
 
     #designer
     config.designer_host = "#{common['designer']['host']}"
