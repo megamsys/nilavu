@@ -15,7 +15,7 @@ class MarketplacesController < ApplicationController
       @order = @order.sort_by {|elt| ary = elt.split("-").map(&:to_i); ary[0] + ary[1]}
       @categories = @mkp_collection.map {|c| c.appdetails[:category]}
       @categories = @categories.uniq
-      
+
     end
   end
 
@@ -28,10 +28,9 @@ class MarketplacesController < ApplicationController
     if @mkp.class == Megam::Error
       redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
     else
-      @mkp = @mkp.lookup(params[:id])      
+      @mkp = @mkp.lookup(params[:id])
       @predef_name = get_predef_name(@pro_name[1])
       @deps_scm = get_deps_scm(@pro_name[1])
-      @pricing = get_pricing
       @my_apps = []
       cloud_books = current_user.apps.order("id DESC").all
       if cloud_books.any?
@@ -41,8 +40,8 @@ class MarketplacesController < ApplicationController
         @my_apps << "No apps created."
       end
       @version_order=[]
-      @version_order = @mkp.plans.map {|c| c["version"]}      
-      @version_order = @version_order.sort     
+      @version_order = @mkp.plans.map {|c| c["version"]}
+      @version_order = @version_order.sort
     end
   end
 
@@ -68,7 +67,7 @@ class MarketplacesController < ApplicationController
     mkp_collection = ListMarketPlaceApps.perform(force_api[:email], force_api[:api_key])
     {:mkp_collection => mkp_collection}
   end
-  
+
   def changeversion
     puts params[:version]
     @version = (params[:version].split(":"))[0]
@@ -85,5 +84,5 @@ class MarketplacesController < ApplicationController
       end
     end
   end
-  
+
 end

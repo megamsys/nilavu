@@ -28,18 +28,6 @@ gem 'sqlite3', "~> 1.3.9"
 #fog
 gem 'fog', "~> 1.23.0"
 
-# db posgresql
-#gem 'pg'
-
-#group :production do
-#  gem 'pg'
-#end
-
-#group :development, :test do
-
-#end
-
-
 # security and oauth
 gem 'bcrypt', "~> 3.1.7"
 
@@ -59,13 +47,11 @@ gem 'riak-client', '~> 2.0.0'
 #general
 gem "github_api", "~>0.12.1"
 gem 'twitter', "~> 5.11.0"
-gem 'paperclip', "~> 4.2.0"
 gem "randexp", "~> 0.1.7"
 gem "megam_api", "~> 0.16"
 gem "megam_scmmanager", "~> 0.1.0"
 gem "megam_deccanplato", "~> 0.1.0"
 gem "megam_assembla", "~> 0.1.0"
-gem "inflector", "~> 0.0.1" #convert singularize
 gem 'google-analytics-rails', '~> 0.0.6'
 
 
@@ -104,8 +90,6 @@ group :development do
   gem 'meta_request'
 end
 
-#For background processing of cloud jobs
-#gem 'resque'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'

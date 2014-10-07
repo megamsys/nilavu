@@ -1,45 +1,36 @@
-monitor:
-  metric_source: ganglia
-  host: ganglia_host
-  base_url: http://monitor.megam.co.in/ganglia
-  cluster: megampaas
-
-storage:
-  type: riak #s3
-  server_url: localhost
-  #server_url: https://s3-ap-southeast-1.amazonaws.com
-  cloud_tool_bucket: cloudtools
-  cloud_keys_bucket: cloudaccesskeys
-  ssh_files_bucket: sshfiles
-
-designer:
-  host: localhost
-  port: 1880
-  
 api:
   host: localhost
   scheme: http
   pub_key: megamgateway_pub.crt
   private_key: megamgateway.key
 
-keys:
-  gogrid_api_key: ""
-  gogrid_shared_secret: ""
+storage:
+  type: riak
+  server_url: localhost
+  cloud_tool_bucket: cloudtools
+  cloud_keys_bucket: cloudaccesskeys
+  ssh_files_bucket: sshfiles
+  #type :s3
+  #server_url: https://s3-ap-southeast-1.amazonaws.com
 
-  fb_client_id: ""
-  fb_secret_key: ""
-  
-  twitter_client_id: ""
-  twitter_secret_key: ""
-  
+varai:
+  host: localhost
+  port: 1880
 
-  
+auth:
+  fb_client_id:
+  fb_secret_key:
+  twitter_client_id:
+  twitter_secret_key:
+  github_client_id:
+  github_secret_key:
+  assembla_client_id:
+  assembla_secret_key:
+  google_client_id:
+  google_secret_key:
 
-#if db and production are start from begining of the line it assumes as two inner hashes 
-#{"db"=>nil, "production"=>{"adapter"=>"sqlite3"}}
-#db:
-#  production:
-#        adapter: sqlite3
-#        database: db/cocdb
-#        pool: 5
-#        timeout: 5000
+monitor:
+  metric_source: ganglia
+  host: ganglia_host
+  base_url: http://monitor.megam.co.in/ganglia
+  cluster: megampaas
