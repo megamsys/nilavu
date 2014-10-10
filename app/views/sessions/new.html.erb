@@ -1,73 +1,112 @@
 <% provide(:title, "Sign in") %>
+<div class="signin login">
+  <!-- BEGIN LOGO -->
+	<div class="container">
+   	<div class="row">
+       	<div class="logo">
+           	<%= image_tag "logo.png" %> 
+         </div>
+   	</div>   
+   	<!-- END LOGO -->
+   	<!-- BEGIN LOGIN -->
+   	<div class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer bg_white border_grey">
+         <div class="container">
+            <div class="row bottom-divider">
+               <div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
+                  <h2>Login</h2>
+               </div>
+               <!-- <div class="col-lg-7 col-md-7">
+                  <p>it wont take morethan 1 minut we promise</p>
+               </div> -->
+            </div>
+         </div>   
+         
+      	<div class="cover col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
+            <!-- BEGIN LOGIN FORM -->
+		<%= form_for(:session, :url => sessions_path, :html => {:id =>'theform', role: "form", :novalidate => 'novalidate'}) do |f| %>
+            	<div class="c_inline">
+               	<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+               	<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
+                  <div class="form-group">
+                     <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
+                           <i class="c_ico-excla"></i>
+                           <%= f.text_field :email, :class => 'form-control', :id => "txt_month", placeholder: "User Email" %>
+                        </div>
+                     </div>
+                  </div>
 
-<%= render :partial => "customizations/flash_messages" %>
-<div id="containerlogin">
-	<div id="logo">
-		<a href="http://www.gomegam.com" target="_blank"> <%= image_tag Rails.configuration.megam_logo_url , :alt => "Megam", :class => "megam_image" %> </a>
-	</div>
+                  <div class="form-group">
+                     <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
+                           <i class="c_ico-excla"></i>
+			<%= f.password_field :password, :id => 'txt_day', :class => 'form-control',placeholder: "Password" %>
+                        </div>
+                     </div>
+                  </div>
 
-	<div id="loginbox">
-		<%= form_for(:session, :url => sessions_path, :html => {:id =>'password_validate', :novalidate => 'novalidate'}) do |f| %>
-		<p>
-			Enter username and password to continue.
-		</p>
-		<div class="input-group">
-			<span class="input-group-addon"><i class="fa fa-user"></i></span>
-			<%= f.text_field :email, :class => 'form-control required',placeholder: "Email" %>
-		</div>
-		<div class="input-group">
-			<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-			<%= f.password_field :password, :id => 'password', :class => 'form-control required',placeholder: "Password" %>
-		</div>
-		<div class="form-actions">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="pull-left">
-						<%= link_to "Create new account", signup_path, :class => "flip-link to-register blue" %>
-					</div>
-					<div class="pull-right">
-						<%= link_to "Forgot password?", new_password_reset_path, :class=> "flip-link to-recover grey" %>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-6">
-					<%= link_to "Demo Sign in", demo_path(:email =>"fake@mypaas.io",:password =>"fakemypaas#megam"),:class => "btn btn-primary btn-lg btn-block", :id => "popover_demosignin" %>					
+                  <div class="row">
+                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
+                        <div class="row">
+                           <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 tour-btn">
+                              <span>
+                                <a href="signup"><u class="colr-bluegrey">Create new account ? </u></a>
+                              </span>   
+                           </div>   
+                           <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right tour-btn">
+                              <span>
+                                 <a class="pull-right" href="reset"><u class="colr-denimblue">Forgot password ?</u></a>
+                              </span>
+                           </div>
+                        </div>
+                     </div>   
+                  </div>
 
-				</div>
-				<div class="col-md-6">
-					<%= f.submit "Sign in", :class => "btn btn-primary btn-lg btn-block" %>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<a href="http://www.gomegam.com" class="btn btn-dark-red btn-block" target="_blank"><i class="fa fa-globe"></i>&nbsp;Visit <strong>Gomegam.com</strong></a>
-				</div>
-			</div>
-		</div>
-		<div class="footer-login">
-			<div class="pull-left text">
-				Login with
-			</div>
-			<div class="pull-right btn-social">
-				<a class="btn btn-facebook" href="/auth/facebook"><i class="fa fa-facebook"></i></a>
-				<a class="btn btn-twitter disabled" href="/auth/twitter"><i class="fa fa-twitter"></i></a>
-				<a class="btn btn-google-plus disabled" href="/auth/google-plus"><i class="fa fa-google-plus"></i></a>
-			</div>
+                  <div class="row">
+                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="row">
+                           <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 tour-btn">
+                              <button type="submit" class="btn btn-success btn-plain">Take a tour</button>
+                           </div>   
+                           <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right tour-btn">
+                                <%= f.submit "Login", :class => "btn btn-success btn-plain-green" %>
+                           </div>
+                        </div>
+                     </div>   
+                  </div>
+                  <div class="row">
+                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <p class="text-center login-social">Login with social media</p>
+                     </div>
+                  </div>
 
-		</div>
+                  <div class="row">
+                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 social">
+                        <ul class="list-inline text-center">
+                           <li><a href="#" class="github icon"></a></li>
+                           <li><a href="#" class="facebook icon"></a></li>
+                           <li><a href="#" class="twitter icon"></a></li>
+                           <li><a href="#" class="google icon"></a></li>
+                        </ul>
+                     </div>
+                  </div>  
+            	</div>
 
+
+            	
 		<% end %>
+            <!-- END REGISTRATION FORM -->
+     	   </div>
 
-	</div>
-	</br>
-	<div class="pull-right">
-		<small> <a href="http://www.podnix.com" target="_blank"><font color="black">Powered by Podnix cloud</font></a></small>
-	</div>
+         
+      </div>
+      <div  class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">
+            <div class="row">
+               <p>Powered by Podnix Cloud<span class="pull-right">gomegam.com</span></p>
+            </div>
+      </div>
+   <!-- END LOGIN -->
+   </div>
 </div>
 
-<script>
-    $(document).ready(function() {
-        $("body").addClass("login");
-    });
-</script>
+   <!-- END JAVASCRIPTS -->
