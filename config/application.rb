@@ -98,7 +98,7 @@ module Cloudauth
         config.s3.secret_key = "#{common['storage']['aws_secret_key']}"
       end
   else
-      puts "=> Warning ! Missing [storage] in nilavu.yml.I don't know where to storage."
+      puts "=> Warning ! Disabled storage. Missing [storage] in nilavu.yml.I don't know where to storage."
   end
 
   if "#{common['auth']}".chop!
@@ -127,7 +127,7 @@ module Cloudauth
     config.assembla_secret_key = ""
     config.google_client_id  = ""
     config.google_secret_key = ""
-    puts "=> Warning ! Missing [keys] in nilavu.yml."
+    puts "=> Warning ! Disabled oauth. Missing [auth] in nilavu.yml."
   end
 
   if "#{common['varai']}".chop!
@@ -135,7 +135,7 @@ module Cloudauth
     config.designer_host = "#{common['varai']['host']}"
     config.designer_port = "#{common['varai']['port']}"
   else
-    puts "=> Warning ! Disabling varai. Missing [varai] in nilavu.yml."
+    puts "=> Warning ! Disabled varai. Missing [varai] in nilavu.yml."
   end
 
   config.google_authorization_uri = 'https://accounts.google.com/o/oauth2/auth'

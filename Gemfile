@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem "rails", "~> 4.2.0.beta1"
+gem "rails", "~> 4.2.0.beta2"
 gem "sprockets", "~> 2.12.2"
 # add these gems to help with the transition to Rails 4.2.x
 gem 'protected_attributes', "~> 1.0.8"
