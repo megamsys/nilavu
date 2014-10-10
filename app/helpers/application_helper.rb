@@ -9,15 +9,6 @@ module ApplicationHelper
     end
   end
 
-  def avatar_url(user)
-    if user.organization.present?
-    user.organization.logo
-    else
-      gravatar_id = Digest::MD5::hexdigest(user.email).downcase
-      "http://gravatar.com/avatar/#{gravatar_id}.png?s=140"
-    end
-  end
-
   #A per page helper when passed in a sub entry link will fetch the correct help page.
   #For instance to insert the correct help link in cloud identity page, a help_entry_name with value "cloudidentity" will be passed
   #1.a link url = http://docs.megam.co/nilavu#cloudidentity can be clicked by an user to avail help in cloud identity page.
