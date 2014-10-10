@@ -1,99 +1,139 @@
 <% provide(:title, 'Sign up') %>
-<div class="row">
-<%= render :partial => "customizations/flash_messages" %>
-</div>
-<div id="containerlogin">
-	<div id="logo">
-		<a href="http://www.gomegam.com" target="_blank"> <%= image_tag Rails.configuration.megam_logo_url , :alt => "Megam", :class => "megam_image" %> </a>
-	</div>
-	<div id="login_register_form">
-		<%= render :partial => "users/create_user" , :locals => {:user => @user, :method => 'post'}%>
-	</div>
-</div>
-<script>
-    $(document).ready(function() {
-        $("body").addClass("login");
-    });
-</script>
+   <!-- BEGIN LOGO -->
+<div class="login">
+	<div class="container">
+   	<div class="row">
+       	<div class="logo">
+                <%= image_tag "logo.png" %>
+         </div>
+   	</div>   
+   	<!-- END LOGO -->
+   	<!-- BEGIN LOGIN -->
+   	<div class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer bg_white border_grey">
+         <div class="container">
+            <div class="row bottom-divider">
+               <div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
+                  <h2>Sign up<span class="sign_up_small"><i>It wont take morethan 1 minute, we promise</span></i></h2>
+               </div>
+               <!-- <div class="col-lg-7 col-md-7">
+                  <p>it wont take morethan 1 minut we promise</p>
+               </div> -->
+            </div>
+         </div>   
+         
+      	<div class="cover col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
+            <!-- BEGIN LOGIN FORM -->
+            <form role="form" id="theform" method="POST" name="theform">
+            	<div class="c_inline">
+               	<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+               	<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
+               	<div class="row">
+                  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                  		<i class="c_ico-excla"></i>
+                     	<input type="text" id="txt_month" name="example5" class="form-control"  placeholder="First Name"  >
+                  	</div>
+                  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 input-icon right">
+                  		<i class="c_ico-tick"></i>
+                     	<input type="text" id="txt_day" name="txt_day" class="form-control"  placeholder="Last Name"  >
+                  	</div>
+               	</div>
+            	</div>
+            	<div class="form-group">
+                  <div class="row">
+                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
+                        <i class="c_ico-excla"></i>
+                        <input type="text" id="txt_month" name="txt_month" class="form-control"  placeholder="Phone Number"  >
+                     </div>
+                  </div>
+            	</div>
 
-<!--<div class="container">
+               <div class="form-group">
+                  <div class="row">
+                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <i class="c_ico-excla"></i>
+                        <input type="email" id="txt_month" name="example4" class="form-control"  placeholder="Email" >
+                     </div>
+                  </div>
+               </div>
 
-<div class="row">
-<div class="col-md-5">
-<div id="box_sign">
-<div class="container">
-<div class="box_wrapper">
-<div class="box">
-<div>
-<div class="head">
-<h4>Create your account</h4>
-</div>
-<div class="form">
-<%= render :partial => "users/create_user" , :locals => {:user => @user, :method => 'post'}%>
-</div>
-</div>
-</div>
-</div>
-<div class="col-md-4 col-md-offset-1">
-<p class="already">
-Already have an account? <%= link_to "Sign in", signin_path %>
-</p>
-</div>
-</div>
-</div>
-</div>
-<div class="col-md-7 widget-content">
-<div id="blog_wrapper">
-<div class="post">
-<div class="row">
-<div class="col-md-2">
-<%= image_tag "helpbota.png", :alt => "helpbot",:class => "main_pic", :alt => "helpbot"%>
-</div>
-<div class="col-md-5 info">
-<a href="#somedoclink"> <h3>Launch your Apps - Free</h3> <span class="badge badge-info">beta</span></a>
-<strong>Polygot - Cross cloud and monitor them. </strong>
-</div>
-</div>
-</div>
-</div>
-</div>
+            	<div class="form-group">
+				   <!-- <input type="text" class="form-control" placeholder="Enter text"> -->
 
-<div class="col-md-7 widget-content">
-<div id="myCarousel" class="carousel slide">
-<div class="carousel-inner">
-<div class="item active">
-<%= image_tag "sales_pitch1.png", :alt => "Cloud computing"%>
+               	<div class="c_inline">
+                  	<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                  	<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
+                  	<div class="row">
+                     	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        	<input type="text" id="txt_month" name="txt_month" class="form-control"  placeholder="Your Password" >
+                     	</div>
+                     	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                        	<input type="text" id="txt_day" name="txt_day" class="form-control"  placeholder="Confirm Password" >
+                     	</div>
+                  	</div>
+               	</div>
+	            </div> 
 
-<div class="carousel-caption">
-<h4>Cloud Apps</h4>
-<p>
-Tech stack : Java, Scala, Playframework(Scala), RoR, Node.js, others soon.
-</p>
-</div>
-</div>
-<div class="item">
-<%= image_tag "sales_pitch2.png", :alt => "Cloud identity"%>
-<div class="carousel-caption">
-<h4>Metered & Monitored</h4>
-<p>
-Monitor your cloud books (instances) for free.
-</p>
-</div>
-</div>
-<div class="item">
-<%= image_tag "sales_pitch3.png", :alt => "Cloud integration"%>
-<div class="carousel-caption">
-<h4>API, CLI & Preview of cloud connectors</h4>
-<p>
-Powerful REST API, CLI $ >, and Preview - cloud connectors to salesforce CRM, Google App, ZoHoCRM, Twilio and more.
-</p>
-</div>
-</div>
-</div>
-<a class="left carousel-control" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-<a class="right carousel-control" href="#myCarousel" data-slide="next">&rsaquo;</a>
-</div>
+	            <!-- <div class="form-group">
+					   <div class="col-lg-6">
+                     <div class="input-group">
+                        <div class="input-group-btn">
+                           <button type="button" class="btn default" tabindex="-1">Action</button>
+                           <button type="button" class="btn default dropdown-toggle" data-toggle="dropdown" tabindex="-1">
+                           <i class="icon-angle-down"></i>
+                           </button>
+                           <ul class="dropdown-menu" role="menu">
+                              <li>Action</li>
+                              <li>123</li>
+                              <li>456</li>
+                              <li>586</li>
+                           </ul>
+                        </div>
+                     <input type="text" class="form-control">
+                     </div>
+                  </div>	
+               </div> -->  
+            	<button type="submit" class="btn btn-success col-md-5 col-xs-offset-2 col-sm-offset-4 col-md-offset-4 col-lg-offset-4 col-xl-offset-4">Create Account</button>
+            </form>
+            <!-- END REGISTRATION FORM -->
+     	   </div>
 
-</div>
-</div>
-</div>-->
+         <div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10 footer">
+               <p class="text-center">
+                  <a href=""><u class="colr-bluegrey">Already have an account ? </u></a>
+                  <a href=""><u class="colr-denimblue">Login here</u></a>
+               </p>   
+         </div>
+      </div>
+      <div  class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">
+            <div class="row">
+               <p>Powered by Podnix Cloud</p>
+            </div>
+      </div>
+   <!-- END LOGIN -->
+   </div>
+   </div>
+<!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
+
+<script type="text/javascript">     
+   $(document).ready(function(){
+      $("#theform").validate({
+         rules: {     
+            example5: {required: true}
+         },
+         messages: {
+            example5: "Just check the box"
+         },
+         tooltip_options: {
+            example5: {placement:'right',html:true}
+         },
+         // submitHandler: function(form) { 
+         //    $("#validity_label").html('<div class="alert alert-success">No errors.  Like a boss.</div>');
+         // },
+         // invalidHandler: function(form, validator) {
+         //    $("#validity_label").html('<div class="alert alert-error">There be '+validator.numberOfInvalids()+' error'+(validator.numberOfInvalids()>1?'s':'')+' here.  OH NOES!!!!!</div>');
+         // }
+      });
+   });
+   </script>
+
+   <!-- END JAVASCRIPTS -->

@@ -11,9 +11,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    if !@user.organization
-      redirect_to edit_user_path(current_user)
-    end
     current_user = @user
   end
 
@@ -25,7 +22,6 @@ class UsersController < ApplicationController
     else
       @user = User.new
     end
-    @user.build_organization
   end
 
   def email_verify
@@ -100,7 +96,6 @@ class UsersController < ApplicationController
     breadcrumbs.add " Profile", edit_user_path, :class =>"fa fa-user"
     logger.debug "==> Controller: users, Action: edit, Start edit"
     @user= User.find(params[:id])
-    @user.organization
   end
 
   def upgrade
@@ -110,10 +105,9 @@ class UsersController < ApplicationController
   end
 
   def update
-    logger.debug "==> Controller: users, Action: update, Update user pw, org, api_key"    
+    logger.debug "==> Controller: users, Action: update, Update user pw, api_key"    
     puts params[:user_fields_form_type]
     @user=User.find(params[:id])
-    @organization=@user.organization || Organization.new
     @user_fields_form_type = params[:user_fields_form_type]
     if @user_fields_form_type == 'api_key'
       logger.debug "User update For API key"
@@ -137,15 +131,6 @@ class UsersController < ApplicationController
       logger.debug "User update !api_key"
       if @user.update_attributes(params[:user])
         sign_in @user        
-        unless params[:user][:organzation_attributes] 
-          respond_to do |format|
-            format.js {
-              respond_with(@user_fields_form_type, :user => current_user, :layout => !request.xhr? )
-            }
-          end
-        else
-          redirect_to cloud_dashboards_path
-        end
       else
         render 'edit'
       end

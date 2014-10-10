@@ -102,20 +102,20 @@ module Cloudauth
   end
 
   if "#{common['auth']}".chop!
-    config.fb_client_id = "#{common['keys']['fb_client_id']}" || ""
-    config.fb_secret_key = "#{common['keys']['fb_secret_key']}" || ""
+    config.fb_client_id = "#{common['auth']['fb_client_id']}" || ""
+    config.fb_secret_key = "#{common['auth']['fb_secret_key']}" || ""
 
-    config.twitter_client_id = "#{common['keys']['twitter_client_id']}" || ""
-    config.twitter_secret_key = "#{common['keys']['twitter_secret_key']}" || ""
+    config.twitter_client_id = "#{common['auth']['twitter_client_id']}" || ""
+    config.twitter_secret_key = "#{common['auth']['twitter_secret_key']}" || ""
 
-    config.github_client_id = "#{common['keys']['github_client_id']}" || ""
-    config.github_secret_key = "#{common['keys']['github_secret_key']}" || ""
+    config.github_client_id = "#{common['auth']['github_client_id']}" || ""
+    config.github_secret_key = "#{common['auth']['github_secret_key']}" || ""
 
-    config.assembla_client_id = "#{common['auth']['gogrid_client_id']}" || ""
-    config.assembla_secret_key = "#{common['auth']['gogrid_secret_key']}" || ""
+    config.assembla_client_id = "#{common['auth']['assembla_client_id']}" || ""
+    config.assembla_secret_key = "#{common['auth']['assembla_secret_key']}" || ""
 
-    config.google_client_id  = "#{common['auth']['gogrid_client_id']}" || ""
-    config.google_secret_key = "#{common['auth']['gogrid_secret_key']}" || ""
+    config.google_client_id  = "#{common['auth']['google_client_id']}" || ""
+    config.google_secret_key = "#{common['auth']['google_secret_key']}" || ""
   else
     config.fb_client_id = ""
     config.fb_secret_key =  ""
