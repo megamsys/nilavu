@@ -16,4 +16,5 @@
 //= require jquery.uniform.min
 //= require validation.jquery
 //= require jquery-validate.bootstrap-tooltip
+//= require megam.form_validation
 //= require_tree .
