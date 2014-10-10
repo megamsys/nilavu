@@ -10,8 +10,6 @@ gem "responders", "~> 2.0.0"
 gem 'socket.io-rails', "~> 1.0.6"
 
 #jquery & ui
-gem 'jquery-rails', "~> 4.0.0.beta2"
-gem 'twitter-bootstrap-rails', "~> 3.2.0"
 gem 'turbolinks', "~> 2.3.0"
 gem 'jquery-turbolinks',"~> 2.1.0"
 gem 'jquery-ui-rails',"~> 5.0.0"
@@ -48,7 +46,7 @@ gem 'riak-client', '~> 2.0.0'
 gem "github_api", "~>0.12.1"
 gem 'twitter', "~> 5.11.0"
 gem "randexp", "~> 0.1.7"
-gem "megam_api", "~> 0.16"
+gem "megam_api", "0.15"
 gem "megam_scmmanager", "~> 0.1.0"
 gem "megam_deccanplato", "~> 0.1.0"
 gem "megam_assembla", "~> 0.1.0"

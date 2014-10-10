@@ -420,18 +420,11 @@ dbip(){
 #also will perform the required cleanup.
 #--------------------------------------------------------------------------
 dbclean(){
+
 #remove apps_histories
 rake db:migrate:down VERSION=20130726050612
 #remove apps
 rake db:migrate:down VERSION=20130718123920
-#remove products
-rake db:migrate:down VERSION=20120829143151
-#remove apps_items
-rake db:migrate:down VERSION=20120824094944
-#remove cloud_identities
-rake db:migrate:down VERSION=20120817045502
-#drop organizations
-rake db:migrate:down VERSION=20120811145124
 #drop identities
 rake db:migrate:down VERSION=20120319154255
 #drop users
@@ -445,14 +438,6 @@ rake db:migrate:down VERSION=20130828101201
 rake db:migrate:up VERSION=20120319153913
 #create identities
 rake db:migrate:up VERSION=20120319154255
-#create organization
-rake db:migrate:up VERSION=20120811145124
-#create cloud_identities
-rake db:migrate:up VERSION=20120817045502
-#create apps_items
-rake db:migrate:up VERSION=20120824094944
-#create products
-rake db:migrate:up VERSION=20120829143151
 #create apps
 rake db:migrate:up VERSION=20130718123920
 #create apps_histories

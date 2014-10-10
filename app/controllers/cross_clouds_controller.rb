@@ -3,8 +3,8 @@ class CrossCloudsController < ApplicationController
   include CrossCloudsHelper
   def new
     breadcrumbs.add " Home", "#", :class => "fa fa-home", :target => "_self"
-    breadcrumbs.add "Manage Settings", cloud_settings_path, :target => "_self"
-    breadcrumbs.add "Clouds", cloud_settings_path, :target => "_self"
+    breadcrumbs.add "Manage Settings", settings_path, :target => "_self"
+    breadcrumbs.add "Clouds", settings_path, :target => "_self"
     breadcrumbs.add "New", new_cross_cloud_path, :target => "_self"
     if request.env['omniauth.auth']
       @cloud_prov = "Google Cloud Engine"
@@ -16,7 +16,7 @@ class CrossCloudsController < ApplicationController
     end
     @ssh_keys_collection = ListSshKeys.perform(force_api[:email], force_api[:api_key])
     if @ssh_keys_collection.class == Megam::Error
-      redirect_to cloud_settings_path, :gflash => { :warning => { :value => "A keypair is needed for target cloud creation. Click New keypair to generate one.", :sticky => false, :nodom_wrap => true } }
+      redirect_to settings_path, :gflash => { :warning => { :value => "A keypair is needed for target cloud creation. Click New keypair to generate one.", :sticky => false, :nodom_wrap => true } }
     else
       @ssh_keys = []
       ssh_keys = []

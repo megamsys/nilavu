@@ -11,7 +11,7 @@ Cloudauth::Application.routes.draw do
 
   get 'oneapps/clone'
 
-  root :to => 'cloud_dashboards#index', :id => 'signin'
+  root :to => 'main_dashboards#index', :id => 'signin'
 
 
   resources :users
@@ -32,9 +32,9 @@ Cloudauth::Application.routes.draw do
   resources :widgets
   resources :password_resets
   resources :cloud_tool_settings
-  resources :cloud_settings
+  resources :settings
   resources :marketplaces
-  resources :cloud_dashboards
+  resources :main_dashboards
   resources :cloud_tool_settings
   resources :ssh_keys
   resources :addons
@@ -122,16 +122,16 @@ Cloudauth::Application.routes.draw do
   # match '/connector_execution/execute', to: 'connector_executions#execute'
 
   # ==========Cloud settings
-  match '/cross_cloud_new', to: 'cloud_settings#cross_cloud_new', via: [:get, :post]
-  match '/cross_cloud_create', to: 'cloud_settings#cross_cloud_create', via: [:get, :post]
-  match '/cloud_tool_settings_create', to: 'cloud_settings#cloud_tool_setting_create', via: [:get, :post]
-  match '/cloud_tool_setting_new', to: 'cloud_settings#cloud_tool_setting_new', via: [:get, :post]  
+  match '/cross_cloud_new', to: 'settings#cross_cloud_new', via: [:get, :post]
+  match '/cross_cloud_create', to: 'settings#cross_cloud_create', via: [:get, :post]
+  match '/cloud_tool_settings_create', to: 'settings#cloud_tool_setting_create', via: [:get, :post]
+  match '/cloud_tool_setting_new', to: 'settings#cloud_tool_setting_new', via: [:get, :post]  
   match '/sshkeys_download', to: 'ssh_keys#download', via: [:get, :post] 
-  match '/sshkey_create', to: 'cloud_settings#sshkey_create', via: [:get, :post] 
+  match '/sshkey_create', to: 'settings#sshkey_create', via: [:get, :post] 
   match '/sshkey_import', to: 'ssh_keys#sshkey_import', via: [:get, :post] 
   match '/ssh_key_import', to: 'ssh_keys#ssh_key_import', via: [:get, :post]
   match '/selectclouds', to: 'cross_clouds#cloud_selector', via: [:get, :post]
-  #get '/selectclouds' => 'cloud_settings#cloud_selector'
+  #get '/selectclouds' => 'settings#cloud_selector'
   #match '/selectclouds', to: 'cross_clouds#new', via: [:get, :post]
   #match '/market_place_app_show', to: 'marketplaces#market_place_app_show', via: [:get, :post]
   match '/changeversion', to: 'marketplaces#changeversion', via: [:get, :post]
@@ -153,6 +153,6 @@ Cloudauth::Application.routes.draw do
   # =======apps_items_controller
   match '/apps_items/destroy', to: 'apps_items#destroy', via: [:delete] 
  
-  match '/visualCallback', to: 'cloud_dashboards#visualCallback', via: [:get]
+  match '/visualCallback', to: 'main_dashboards#visualCallback', via: [:get]
   
 end

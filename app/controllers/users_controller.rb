@@ -73,10 +73,10 @@ class UsersController < ApplicationController
         #update current user as onboard user(megam_api user)
         logger.debug "==> Controller: users, Action: create, User onboarded successfully"
         @user.update_columns(:onboarded_api => true, :api_token => api_token)
-        redirect_to cloud_dashboards_path, :gflash => { :success => { :value => "Hi #{@user.first_name}, #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        redirect_to main_dashboards_path, :gflash => { :success => { :value => "Hi #{@user.first_name}, #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
         logger.debug "==> Controller: users, Action: create, User onboard was not successful"
-        redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onboard #{@user.email} into our API server. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}.", :sticky => false, :nodom_wrap => true } }
+        redirect_to main_dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onboard #{@user.email} into our API server. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}.", :sticky => false, :nodom_wrap => true } }
       end
 
     else
@@ -100,7 +100,7 @@ class UsersController < ApplicationController
 
   def upgrade
     logger.debug "==> Controller: users, Action: upgrade, Upgrade user from free to paid"
-    breadcrumbs.add " Dashboard", cloud_dashboards_path, :class => "fa fa-dashboard"
+    breadcrumbs.add " Dashboard", main_dashboards_path, :class => "fa fa-dashboard"
     breadcrumbs.add "Upgrade", upgrade_path
   end
 
