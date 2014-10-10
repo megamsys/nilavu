@@ -10,8 +10,6 @@ gem "responders", "~> 2.0.0"
 gem 'socket.io-rails', "~> 1.0.6"
 
 #jquery & ui
-gem 'jquery-rails', "~> 4.0.0.beta2"
-gem 'twitter-bootstrap-rails', "~> 3.2.0"
 gem 'turbolinks', "~> 2.3.0"
 gem 'jquery-turbolinks',"~> 2.1.0"
 gem 'jquery-ui-rails',"~> 5.0.0"
