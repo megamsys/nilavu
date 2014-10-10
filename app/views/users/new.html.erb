@@ -23,18 +23,18 @@
          
       	<div class="cover col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
             <!-- BEGIN LOGIN FORM -->
-            <form role="form" id="theform" method="POST" name="theform">
+            <%= form_for @user, :html => {:id =>'theform', :novalidate => 'novalidate'}, :method => "post" do |f| %>
             	<div class="c_inline">
                	<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
                	<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
                	<div class="row">
                   	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
                   		<i class="c_ico-excla"></i>
-                     	<input type="text" id="txt_month" name="example5" class="form-control"  placeholder="First Name"  >
+                        <%= f.text_field :first_name, :required => true, :id => 'first_name', :class => 'form-control', placeholder: "First name" %>
                   	</div>
                   	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 input-icon right">
                   		<i class="c_ico-tick"></i>
-                     	<input type="text" id="txt_day" name="txt_day" class="form-control"  placeholder="Last Name"  >
+                        <%= f.text_field :last_name, :id => 'last_name', :class => 'form-control', placeholder: "Last name(*optional)" %>
                   	</div>
                	</div>
             	</div>
@@ -42,7 +42,7 @@
                   <div class="row">
                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
                         <i class="c_ico-excla"></i>
-                        <input type="text" id="txt_month" name="txt_month" class="form-control"  placeholder="Phone Number"  >
+                        <%= f.text_field :phone, :class => 'form-control', placeholder: "Phone number(*optional)" %>
                      </div>
                   </div>
             	</div>
@@ -51,10 +51,23 @@
                   <div class="row">
                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <i class="c_ico-excla"></i>
-                        <input type="email" id="txt_month" name="example4" class="form-control"  placeholder="Email" >
+
+        <% if params[:user_social_identity] %>
+	<%= f.text_field :email, :class => 'form-control', placeholder: "Email", :readonly => true %>
+	<input type="hidden" name="social_uid" value="<%= @social_uid %>">
+	<% else %>
+	<%= f.text_field :email, :required => true, :class => 'form-control', placeholder: "Email" %>
+	<% end %>
+
                      </div>
                   </div>
                </div>
+
+<!--  Megam USAGE -->
+<% random_hash = generate_api_token %>
+<%= f.text_field :verification_hash, :value => random_hash, :type => 'hidden' %>
+
+<%= f.text_field :user_type, :value => "free", :type => 'hidden' %>
 
             	<div class="form-group">
 				   <!-- <input type="text" class="form-control" placeholder="Enter text"> -->
@@ -64,10 +77,10 @@
                   	<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
                   	<div class="row">
                      	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                        	<input type="text" id="txt_month" name="txt_month" class="form-control"  placeholder="Your Password" >
+                                <%= f.password_field :password, :required => true, :class=> 'form-control', placeholder: "Your Password" %>
                      	</div>
                      	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                        	<input type="text" id="txt_day" name="txt_day" class="form-control"  placeholder="Confirm Password" >
+                                <%= f.password_field :password_confirmation, :required => true, :class=> 'form-control', placeholder: "Confirm password" %>
                      	</div>
                   	</div>
                	</div>
@@ -92,15 +105,16 @@
                      </div>
                   </div>	
                </div> -->  
-            	<button type="submit" class="btn btn-success col-md-5 col-xs-offset-2 col-sm-offset-4 col-md-offset-4 col-lg-offset-4 col-xl-offset-4">Create Account</button>
-            </form>
+            	
+<%= f.submit "Create Account", :class => "btn btn-success col-md-5 col-xs-offset-2 col-sm-offset-4 col-md-offset-4 col-lg-offset-4 col-xl-offset-4" %>
+<% end %>
             <!-- END REGISTRATION FORM -->
      	   </div>
 
          <div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10 footer">
                <p class="text-center">
-                  <a href=""><u class="colr-bluegrey">Already have an account ? </u></a>
-                  <a href=""><u class="colr-denimblue">Login here</u></a>
+                  <u class="colr-bluegrey">Already have an account ? </u>
+                  <a href="signin"><u class="colr-denimblue">Login here</u></a>
                </p>   
          </div>
       </div>
@@ -113,27 +127,4 @@
    </div>
    </div>
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
-
-<script type="text/javascript">     
-   $(document).ready(function(){
-      $("#theform").validate({
-         rules: {     
-            example5: {required: true}
-         },
-         messages: {
-            example5: "Just check the box"
-         },
-         tooltip_options: {
-            example5: {placement:'right',html:true}
-         },
-         // submitHandler: function(form) { 
-         //    $("#validity_label").html('<div class="alert alert-success">No errors.  Like a boss.</div>');
-         // },
-         // invalidHandler: function(form, validator) {
-         //    $("#validity_label").html('<div class="alert alert-error">There be '+validator.numberOfInvalids()+' error'+(validator.numberOfInvalids()>1?'s':'')+' here.  OH NOES!!!!!</div>');
-         // }
-      });
-   });
-   </script>
-
    <!-- END JAVASCRIPTS -->
