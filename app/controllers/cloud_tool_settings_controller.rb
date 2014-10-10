@@ -4,8 +4,8 @@ class CloudToolSettingsController < ApplicationController
   
   def new
     breadcrumbs.add " Home", "#", :class => "fa fa-home"
-    breadcrumbs.add "Manage Settings", cloud_settings_path
-    breadcrumbs.add "Cloud Provisioners", cloud_settings_path
+    breadcrumbs.add "Manage Settings", settings_path
+    breadcrumbs.add "Cloud Provisioners", settings_path
     breadcrumbs.add "New", cloud_tool_setting_new_path
   end
 

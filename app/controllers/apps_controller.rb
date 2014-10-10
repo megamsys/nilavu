@@ -100,7 +100,7 @@ class AppsController < ApplicationController
       breadcrumbs.add "Manage Apps", apps_path, :target => "_self"
       breadcrumbs.add "Apps Framework Selection", new_app_path, :target => "_self"
     else
-      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "You need an API key to launch an app. Click Profile from the top, and generate a new API key", :sticky => false, :nodom_wrap => true } }
+      redirect_to main_dashboards_path, :gflash => { :warning => { :value => "You need an API key to launch an app. Click Profile from the top, and generate a new API key", :sticky => false, :nodom_wrap => true } }
     end
   end
 

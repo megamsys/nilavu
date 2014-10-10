@@ -3,7 +3,7 @@ class DashboardsController < ApplicationController
   
   def index
     breadcrumbs.add " Home", "#", :class => "fa fa-home", :target => "_self"
-    breadcrumbs.add "Performance Monitoring Console", cloud_dashboards_path, :target => "_self"
+    breadcrumbs.add "Performance Monitoring Console", main_dashboards_path, :target => "_self"
   end
 
   def show

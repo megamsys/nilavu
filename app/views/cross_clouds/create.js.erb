@@ -8,7 +8,7 @@ $(selected_entity).modal({backdrop : false,keyboard: false,show : true});
 
 var selected_entity = '#crosscloud_postfinish_popup';
 
-$("#crossclouds_path").append('<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>');
+$("#crossclouds_path").append('<%= link_to  "Ok", settings_path, :class => "btn btn-primary", :target => "_self" %>');
 $("#res_msg").append('<%= @res_msg %>');
 $(selected_entity).modal({backdrop : false,keyboard: false,show : true});
 
