@@ -10,11 +10,11 @@
  *
  *= require_self
  *= require bootstrap
+ *= require uniform.default
  *= require custom
- *= require font-awesome.min
  *= require metronic
  *= require style
  *= require style-elegant
- *= require uniform.default
+ *= require font-awesome
  *= require_tree .
  */

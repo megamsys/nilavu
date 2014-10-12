@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html ng-app="Nilavu">
 	<head>
+	  <base href="/">
 		<%= favicon_link_tag 'favicon.ico' %>
 		<title>Megam - PaaS | <%= yield(:title) %></title>
+
 		<%= stylesheet_link_tag "application", :media => "all" %>
 
 		<%= javascript_include_tag "application" %>
@@ -11,18 +13,18 @@
 		<meta name="description=" content="Megam is a platform as service provider. We offer launching app cross cloud bundled with
 		realtime logging, application monitoring.">
 
-   <meta charset="utf-8" />
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-   <meta content="" name="description" />
-   <meta content="" name="author" />
-   <meta name="MobileOptimized" content="320">
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+		<meta name="MobileOptimized" content="320">
 
 		<%= render 'layouts/shim' %>
 
-        </head>
+	</head>
 	<body >
-			<%= yield %>
-			<!-- JQuery will invoke via the spinner and display a loading modal lock. -->
+		<%= yield %>
+		<!-- JQuery will invoke via the spinner and display a loading modal lock. -->
 	</body>
 </html>

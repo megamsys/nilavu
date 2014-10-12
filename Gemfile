@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem "rails", "~> 4.2.0.beta2"
+gem "rails",  "~> 4.2.0.beta2"
 # add these gems to help with the transition to Rails 4.2.x
 gem 'protected_attributes', "~> 1.0.8"
 gem "responders", "~> 2.0.0"
@@ -9,8 +9,11 @@ gem "responders", "~> 2.0.0"
 gem 'socket.io-rails', "~> 1.0.6"
 
 #jquery & ui
+gem 'jquery-rails', "~> 4.0.0.beta2"
+gem "font-awesome-rails", "3.2.1.3"
 gem 'breadcrumbs', "~> 0.1.7"
 gem 'turbolinks', "~> 2.4.0"
+gem 'jquery-turbolinks',"~> 2.1.0"
 gem "flot-rails", "~> 0.0.6"
 gem "gritter", "~> 1.1.0"
 gem 'remotipart', "~> 1.2.1"
@@ -38,7 +41,7 @@ gem 'riak-client', '~> 2.1.0'
 gem "github_api", "~>0.12.1"
 gem 'twitter', "~> 5.11.0"
 gem "randexp", "~> 0.1.7"
-gem "megam_api", "0.15"
+gem "megam_api", "~> 0.17"
 gem "megam_scmmanager", "~> 0.1.0"
 gem "megam_deccanplato", "~> 0.1.0"
 gem "megam_assembla", "~> 0.1.0"
@@ -76,7 +79,3 @@ group :development do
   gem 'binding_of_caller'
   gem 'meta_request'
 end
-
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'

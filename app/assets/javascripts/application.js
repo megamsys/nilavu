@@ -10,11 +10,20 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery-1.10.2.min
-//= require jquery-migrate-1.2.1.min
+//= require jquery
+//= require jquery.turbolinks
+//= require jquery_ujs
+//= require angular
+//= require angular-route
+//= require angular-resource
+//= require angular-sanitize
+//= require angular-busy.min
+//= require underscore.min
 //= require bootstrap.min
 //= require jquery.uniform.min
 //= require validation.jquery
 //= require jquery-validate.bootstrap-tooltip
+//= require jquery.jcarousellite
 //= require megam.form_validation
+//= require monitorapp
 //= require_tree .
