@@ -1,16 +1,16 @@
-	<!-- BEGIN HEADER -->   
+	<!-- BEGIN HEADER -->
    	<div class="header navbar navbar-fixed-top">
    		<div class="container">
 		<!-- BEGIN TOP NAVIGATION BAR -->
 		<div class="header-inner">
 		<div class="row">
 		<div class="col-lg-2 col-md-2 col-sm-3 col-xs-5">
-		 	<!-- BEGIN LOGO -->  
+		 	<!-- BEGIN LOGO -->
 			 <a class="navbar-brand" href="www.gomegam.com">
                         <%= image_tag "dash-logo.png", :alt => "logo", :class => "img-responsive" %>
 			 </a>
 			 <!-- END LOGO -->
-		</div>	 
+		</div>
 		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
 			 <ul class="nav navbar-nav pull-right">
 			    <!-- BEGIN NOTIFICATION DROPDOWN -->
@@ -26,72 +26,72 @@
 			          </li>
 			          <li>
 			             <ul class="dropdown-menu-list scroller" style="height: 250px;">
-			                <li>  
+			                <li>
 			                   <a href="#">
 			                   <span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span>
-			                   New user registered. 
+			                   New user registered.
 			                   <span class="time">Just now</span>
 			                   </a>
 			                </li>
-			                <li>  
+			                <li>
 			                   <a href="#">
 			                   <span class="label label-sm label-icon label-danger"><i class="icon-bolt"></i></span>
-			                   Server #12 overloaded. 
+			                   Server #12 overloaded.
 			                   <span class="time">15 mins</span>
 			                   </a>
 			                </li>
-			                <li>  
+			                <li>
 			                   <a href="#">
 			                   <span class="label label-sm label-icon label-warning"><i class="icon-bell"></i></span>
 			                   Server #2 not responding.
 			                   <span class="time">22 mins</span>
 			                   </a>
 			                </li>
-			                <li>  
+			                <li>
 			                   <a href="#">
 			                   <span class="label label-sm label-icon label-info"><i class="icon-bullhorn"></i></span>
 			                   Application error.
 			                   <span class="time">40 mins</span>
 			                   </a>
 			                </li>
-			                <li>  
+			                <li>
 			                   <a href="#">
 			                   <span class="label label-sm label-icon label-danger"><i class="icon-bolt"></i></span>
-			                   Database overloaded 68%. 
+			                   Database overloaded 68%.
 			                   <span class="time">2 hrs</span>
 			                   </a>
 			                </li>
-			                <li>  
+			                <li>
 			                   <a href="#">
 			                   <span class="label label-sm label-icon label-danger"><i class="icon-bolt"></i></span>
 			                   2 user IP blocked.
 			                   <span class="time">5 hrs</span>
 			                   </a>
 			                </li>
-			                <li>  
+			                <li>
 			                   <a href="#">
 			                   <span class="label label-sm label-icon label-warning"><i class="icon-bell"></i></span>
 			                   Storage Server #4 not responding.
 			                   <span class="time">45 mins</span>
 			                   </a>
 			                </li>
-			                <li>  
+			                <li>
 			                   <a href="#">
 			                   <span class="label label-sm label-icon label-info"><i class="icon-bullhorn"></i></span>
 			                   System Error.
 			                   <span class="time">55 mins</span>
 			                   </a>
 			                </li>
-			                <li>  
+			                <li>
 			                   <a href="#">
 			                   <span class="label label-sm label-icon label-danger"><i class="icon-bolt"></i></span>
-			                   Database overloaded 68%. 
+			                   Database overloaded 68%.
 			                   <span class="time">2 hrs</span>
 			                   </a>
 			                </li>
 			             </ul>
 			          </li>
-			          <li class="external">   
+			          <li class="external">
 			             <a href="#">See all notifications <i class="m-icon-swapright"></i></a>
 			          </li>
 			       </ul>
@@ -100,10 +100,10 @@
 			</ul>
 		</div>
 		<div class="col-lg-2 col-md-2 col-sm-2 col-xs-5 col-lg-offset-6 col-md-offset-6 col-sm-offset-5">
-			 <!-- BEGIN RESPONSIVE MENU TOGGLER --> 
+			 <!-- BEGIN RESPONSIVE MENU TOGGLER -->
 			 <a href="javascript:;" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
                         <%= image_tag "menu-toggler.png", :alt => "" %>
-			 </a> 
+			 </a>
 			 <!-- END RESPONSIVE MENU TOGGLER -->
 			 <!-- BEGIN TOP NAVIGATION MENU -->
 			 <ul class="nav navbar-nav pull-right">
@@ -123,18 +123,15 @@
 							My Profile
 							<% end %>
 			          </li>
-			          <li><a href="page_calendar.html"><i class="icon-calendar"></i> My Calendar</a>
-			          </li>
-			          <li><a href="inbox.html"><i class="icon-envelope"></i> My Inbox <span class="badge badge-danger">3</span></a>
-			          </li>
 			          <li><a href="#"><i class="icon-tasks"></i> My Tasks <span class="badge badge-success">7</span></a>
 			          </li>
 			          <li class="divider"></li>
-			          <li><a href="javascript:;" id="trigger_fullscreen"><i class="icon-move"></i> Full Screen</a>
-			          </li>
 			          <li><a href="extra_lock.html"><i class="icon-lock"></i> Lock Screen</a>
 			          </li>
-			          <li><a href="login.html"><i class="icon-key"></i> Log Out</a>
+			          <li>
+                  <%= link_to signout_path, method: "delete" do %>
+				              <i class="icon-key"></i> Sign Out
+				          <% end %>
 			          </li>
 			       </ul>
 			    </li>
@@ -142,7 +139,7 @@
 			 </ul>
 			 <!-- END TOP NAVIGATION MENU -->
 		</div>
-		</div>	 
+		</div>
 		</div>
 		<!-- END TOP NAVIGATION BAR -->
 		</div>
