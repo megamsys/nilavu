@@ -52,14 +52,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $("#overview").show();
-        $("#dashboard_breadcrumb a").click(function(e) {
-            e.preventDefault();
-            $("#overview").hide();
-            $("#networks").hide();
-            $("#process").hide();
-            var toShow = $(this).attr('href');
-            $(toShow).show();
-        });
+
     });
 
 </script>

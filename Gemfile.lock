@@ -46,8 +46,6 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    breadcrumbs (0.1.7)
-      i18n
     buftok (0.2.0)
     builder (3.2.2)
     callsite (0.0.11)
@@ -180,8 +178,8 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.1)
       mime-types (>= 1.16, < 3)
-    megam_api (0.17)
-      excon (~> 0.39)
+    megam_api (0.15)
+      excon (~> 0.31)
       highline (~> 1.6)
       mixlib-config (~> 2.1)
       mixlib-log (~> 1.6)
@@ -368,7 +366,6 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   better_errors
   binding_of_caller
-  breadcrumbs (~> 0.1.7)
   capybara
   coffee-rails (~> 4.0.1)
   cucumber-rails
@@ -385,7 +382,7 @@ DEPENDENCIES
   jquery-turbolinks (~> 2.1.0)
   json (~> 1.8.1)
   less-rails (~> 2.5.0)
-  megam_api (~> 0.17)
+  megam_api (= 0.15)
   megam_assembla (~> 0.1.0)
   megam_deccanplato (~> 0.1.0)
   megam_scmmanager (~> 0.1.0)

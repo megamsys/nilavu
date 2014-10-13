@@ -1,9 +1,6 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'Manage Logs') %>
 <%= render :partial => "users/header" , :locals => {:head => "Logs"}%>
-<div id="breadcrumb">
-	<%= breadcrumbs.render(:format => :inline, :separator => '') %>
-</div>
 <div class="row">
 	<div class="col-sm-12 col-md-12 col-lg-12" ng-controller="LogCtrl">
 		<div class="col-md-3">

@@ -93,15 +93,12 @@ class UsersController < ApplicationController
   end
 
   def edit
-    breadcrumbs.add " Profile", edit_user_path, :class =>"fa fa-user"
     logger.debug "==> Controller: users, Action: edit, Start edit"
     @user= User.find(params[:id])
   end
 
   def upgrade
     logger.debug "==> Controller: users, Action: upgrade, Upgrade user from free to paid"
-    breadcrumbs.add " Dashboard", main_dashboards_path, :class => "fa fa-dashboard"
-    breadcrumbs.add "Upgrade", upgrade_path
   end
 
   def update

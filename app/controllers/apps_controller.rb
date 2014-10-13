@@ -7,9 +7,6 @@ class AppsController < ApplicationController
   def index
     cloud_books = current_user.apps.order("id DESC").all
     if cloud_books.any?
-      breadcrumbs.add " Home", "#", :class => "fa fa-home", :target => "_self"
-      breadcrumbs.add "Manage Apps", apps_path, :target => "_self"
-
       @nodes = FindNodesByEmail.perform({},current_user.email, current_user.api_token)
       if @nodes.class == Megam::Error
         redirect_to new_app_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
@@ -96,19 +93,12 @@ class AppsController < ApplicationController
   def new
     if current_user.onboarded_api
       @book =  current_user.apps.build
-      breadcrumbs.add " Home", "#", :class => "fa fa-home", :target => "_self"
-      breadcrumbs.add "Manage Apps", apps_path, :target => "_self"
-      breadcrumbs.add "Apps Framework Selection", new_app_path, :target => "_self"
     else
       redirect_to main_dashboards_path, :gflash => { :warning => { :value => "You need an API key to launch an app. Click Profile from the top, and generate a new API key", :sticky => false, :nodom_wrap => true } }
     end
   end
 
   def launch
-    breadcrumbs.add "Home", "#", :class => "fa fa-home", :target => "_self"
-    breadcrumbs.add "Manage Apps", apps_path, :target => "_self"
-    breadcrumbs.add "Apps Framework Selection", new_app_path, :target => "_self"
-
     if"#{params[:deps_scm]}".strip.length != 0
       @deps_scm = "#{params[:deps_scm]}"
     elsif !"#{params[:scm]}".start_with?("select")
