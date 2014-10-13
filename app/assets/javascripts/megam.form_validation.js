@@ -1,6 +1,6 @@
 $(document).ready(function(){
-      $("#theform").validate({
-         rules: {     
+      $("#signinform").validate({
+         rules: {
             check_req: {required: true}
          },
          messages: {
@@ -47,5 +47,3 @@ $(".c_remove").click(function(){
 
 // LOAD cloud-1 by default
 $( "#tab_1_1_2" ).load( "cloud-1.php" );
-
-

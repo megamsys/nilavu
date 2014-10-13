@@ -6,10 +6,10 @@
 				<div class="page-sidebar navbar-collapse collapse">
 
 					<!-- BEGIN SIDEBAR MENU -->
-					<ul class="page-sidebar-menu"ul ng-controller="MainCtrl">
+					<ul class="page-sidebar-menu">
 
 						<li></li>
-						<li class="start active " >
+						<li class="start active" >
 							<%= link_to main_dashboards_path do %>
 							<i class="c_icon c_icon-dash pull-left"></i>
 							<span class="title pull-left">Dashboard</span>
@@ -17,7 +17,7 @@
 							<% end %>
 						</li>
 
-                                        	<li class="start active ">
+						<li class=<%= "start active" if controller_name="apps"%>>
 							<%= link_to apps_path do %>
 							<i class="c_icon c_icon-browser pull-left"></i>
 							<span class="title pull-left">Apps</span>
@@ -25,15 +25,15 @@
 							<% end %>
 						</li>
 
-						<li class=<%= "start active" if controller_name == "dashboards"%>>
-							<%= link_to main_dashboards_path do %>
+						<li class=<%= "start active" if controller_name == "services"%>>
+							<%= link_to apps_path do %>
 							<i class="c_icon c_icon-layer pull-left"></i>
 							<span class="title pull-left">Services</span>
 							<span class="selected hidden-xs"></span>
 							<% end %>
 						</li>
 
-						<li class=<%= "start active" if controller_name== "dashboards"%>>
+						<li class=<%= "start active" if controller_name== "addons"%>>
 							<%= link_to main_dashboards_path do %>
 							<i class="c_icon c_icon-stack pull-left"></i>
 							<span class="title pull-left">Add ons</span>
@@ -53,12 +53,12 @@
 			</div>
 		</div>
 
-	<div id="content">
-		<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
+		<div id="content">
+			<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
+
+		</div>
 
 	</div>
 
-	</div>
-
-</div>	
-	<%= render 'layouts/footer' %>
+</div>
+<%= render 'layouts/footer' %>

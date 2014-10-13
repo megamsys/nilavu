@@ -18,12 +18,7 @@ Cloudauth::Application.routes.draw do
   resources :sessions
   resources :identities
   resources :organizations, only: [:create, :destroy]
-  resources :cloud_identities
   resources :apps_items
-  resources :connector_projects
-  resources :connector_actions
-  resources :connector_outputs
-  resources :connector_executions
   resources :apps_histories
   resources :apps #, via: [:get, :post, :destroy]
   resources :cross_clouds
@@ -31,11 +26,9 @@ Cloudauth::Application.routes.draw do
   resources :dashboards
   resources :widgets
   resources :password_resets
-  resources :cloud_tool_settings
   resources :settings
   resources :marketplaces
   resources :main_dashboards
-  resources :cloud_tool_settings
   resources :ssh_keys
   resources :addons
 
@@ -110,17 +103,6 @@ Cloudauth::Application.routes.draw do
   # ========Cloud Books Histories controller
   match '/node_log', to: 'apps_histories#logs', via: [:get, :post]
 
-  # =======connector_project_ controller
-  match '/deccanplato', to: 'connector_projects#deccanplato', via: [:get, :post]
-  match '/import', to: 'connector_projects#import', via: [:get, :post]
-  match '/resource', to: 'connector_projects#resource', via: [:get, :post]
-  # match '/connector_project/destroy', to: 'connector_projects#destroy'
-  # match '/connector_project/create', to: 'connector_projects#create'
-  # match '/connector_project/upload', to: 'connector_projects#upload'
-  # match '/connector_project/import', to: 'connector_projects#import'
-  # match '/connector_execution/export', to: 'connector_executions#export'
-  # match '/connector_execution/execute', to: 'connector_executions#execute'
-
   # ==========Cloud settings
   match '/cross_cloud_new', to: 'settings#cross_cloud_new', via: [:get, :post]
   match '/cross_cloud_create', to: 'settings#cross_cloud_create', via: [:get, :post]
@@ -146,11 +128,7 @@ Cloudauth::Application.routes.draw do
   #get "/422", :to => "errors#unacceptable"
   get "/500", :to => "errors#internal_error"
 
-  # =======Cloud_identity controller
-  match '/federate', to: 'cloud_identities#federate', via: [:get, :post]
-  #match '/identities/new', to: 'cloud_identities#', via: [:get, :post]
-
-  # =======apps_items_controller
+   # =======apps_items_controller
   match '/apps_items/destroy', to: 'apps_items#destroy', via: [:delete] 
  
   match '/visualCallback', to: 'main_dashboards#visualCallback', via: [:get]
