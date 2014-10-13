@@ -4,7 +4,6 @@ class MainDashboardsController < ApplicationController
   respond_to :html
   def index
     if current_user
-      breadcrumbs.add " Dashboard", :main_dashboards_path, :class => "fa fa-dashboard"      
       @user_id = current_user.id
     else
       redirect_to signin_path

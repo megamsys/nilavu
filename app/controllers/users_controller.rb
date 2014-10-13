@@ -93,14 +93,13 @@ class UsersController < ApplicationController
   end
 
   def edit
+    logger.debug "==> Controller: users, Action: edit, Start edit"
     @user= User.find(params[:id])
     @user
   end
 
   def upgrade
     logger.debug "==> Controller: users, Action: upgrade, Upgrade user from free to paid"
-    breadcrumbs.add " Dashboard", main_dashboards_path, :class => "fa fa-dashboard"
-    breadcrumbs.add "Upgrade", upgrade_path
   end
 
   def update
@@ -126,7 +125,7 @@ class UsersController < ApplicationController
           respond_with(@res_msg, :user => current_user, :api_token => current_user.api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
         }
       end
-    else    
+    else
       logger.debug "User update !api_key"
       if @user.update_attributes(params[:user])
         sign_in @user

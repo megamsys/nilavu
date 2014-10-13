@@ -46,8 +46,6 @@ GEM
       rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    breadcrumbs (0.1.7)
-      i18n
     buftok (0.2.0)
     builder (3.2.2)
     callsite (0.0.11)
@@ -368,7 +366,6 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   better_errors
   binding_of_caller
-  breadcrumbs (~> 0.1.7)
   capybara
   coffee-rails (~> 4.0.1)
   cucumber-rails

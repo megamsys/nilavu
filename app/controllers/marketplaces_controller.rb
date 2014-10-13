@@ -2,8 +2,7 @@ class MarketplacesController < ApplicationController
   respond_to :html, :js
   include MarketplaceHelper
   def index
-    breadcrumbs.add "Home", "#", :class => "fa fa-home", :target => "_self"
-    breadcrumbs.add "MarketPlace", marketplaces_path, :target => "_self"
+
     mkp = get_marketplaces
     @mkp_collection = mkp[:mkp_collection]
     if @mkp_collection.class == Megam::Error
@@ -21,9 +20,7 @@ class MarketplacesController < ApplicationController
 
   def show
     @pro_name = params[:id].split("-")
-    breadcrumbs.add "Home", "#", :class => "fa fa-home", :target => "_self"
-    breadcrumbs.add "MarketPlace", marketplaces_path, :target => "_self"
-    breadcrumbs.add @pro_name[1], marketplaces_path, :target => "_self"
+
     @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])
     if @mkp.class == Megam::Error
       redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }

@@ -11,7 +11,6 @@ gem 'socket.io-rails', "~> 1.0.6"
 #jquery & ui
 gem 'jquery-rails', "~> 4.0.0.beta2"
 gem "font-awesome-rails", "3.2.1.3"
-gem 'breadcrumbs', "~> 0.1.7"
 gem 'turbolinks', "~> 2.4.0"
 gem 'jquery-turbolinks',"~> 2.1.0"
 gem "flot-rails", "~> 0.0.6"

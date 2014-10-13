@@ -1,9 +1,6 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'Manage Apps') %>
 <%= render :partial => "users/header" , :locals => {:user => current_user, :head => "Manage Apps"}%>
-<div id="breadcrumb">
-	<%= breadcrumbs.render(:format => :inline, :separator => '') %>
-</div>
 
 <div class="container">
 	<%= render :partial => "apps/apps" , :locals => {:launched_books_quota => @launched_books_quota, :launched_books => @launched_books, :nodes => @nodes } %>

@@ -43,10 +43,9 @@ class SettingsController < ApplicationController
   end
 
   def index
-    breadcrumbs.add " Home", "#", :class => "fa fa-home"
-    breadcrumbs.add "Manage Settings", settings_path
+
     cross_cloud_init
-    cloud_tools_init
+    #cloud_tools_init
     ssh_key_init
     if @cloud_tool_setting_collection.class == Megam::Error && @cross_clouds_collection.class == Megam::Error
       redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }

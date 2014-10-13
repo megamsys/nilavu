@@ -2,8 +2,6 @@ class AppsHistoriesController < ApplicationController
   respond_to :js, :html
 
   def index
-    breadcrumbs.add " Dashboard", :cloud_dashboards_path,  :class => "fa fa-dashboard"
-    breadcrumbs.add "Logs", :root_path
     @nodes = current_user.apps.order("id DESC").all
     count = @nodes.length
     if count.to_i <= 0   
