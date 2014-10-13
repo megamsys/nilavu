@@ -1,9 +1,6 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'Manage Services') %>
 <%= render :partial => "users/header" , :locals => {:head => "Manage Services"}%>
-<div id="breadcrumb">
-	<%= breadcrumbs.render(:format => :inline, :separator => '') %>
-</div>
 
 <div class="container">
 	<%= render :partial => "cloud_stores/db" , :locals => {:launched_books_quota => @launched_books_quota, :launched_books => @launched_books, :nodes => @nodes } %>

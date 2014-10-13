@@ -2,8 +2,6 @@ class AddonsController < ApplicationController
   respond_to :html, :js
   include Packable
   def show
-    breadcrumbs.add "Home", "#", :class => "fa fa-home", :target => "_self"
-    breadcrumbs.add "MarketPlace", marketplaces_path, :target => "_self"
     @marketplace_id = params[:id]
 
     #the param[:id] actually has the full name as `1-DRBD`.

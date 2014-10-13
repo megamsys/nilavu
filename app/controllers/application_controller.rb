@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
 
-  protect_from_forgery
+    #To fix Processing by SessionsController#destroy as HTML Can't verify CSRF token authenticity
+protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
+
   include SessionsHelper
 
   #If the requests donot come from local then the exception page will be shown.

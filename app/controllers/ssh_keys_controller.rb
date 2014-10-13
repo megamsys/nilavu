@@ -2,17 +2,11 @@ class SshKeysController < ApplicationController
   respond_to :html, :js
   include CrossCloudsHelper
   def new
-    breadcrumbs.add " Home", "#", :class => "fa fa-home", :target => "_self"
-    breadcrumbs.add "Manage Settings", settings_path, :target => "_self"
-    breadcrumbs.add "SSH Keys", settings_path, :target => "_self"
-    breadcrumbs.add "New", new_ssh_key_path, :target => "_self"
+
   end
 
   def ssh_key_import
-    breadcrumbs.add " Home", "#", :class => "fa fa-home", :target => "_self"
-    breadcrumbs.add "Manage Settings", settings_path, :target => "_self"
-    breadcrumbs.add "SSH Keys", ssh_keys_path, :target => "_self"
-    breadcrumbs.add "Import", ssh_key_import_path, :target => "_self"
+
   end
 
   def create
