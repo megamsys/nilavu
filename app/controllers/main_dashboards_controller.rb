@@ -6,10 +6,6 @@ class MainDashboardsController < ApplicationController
     if current_user
       breadcrumbs.add " Dashboard", :main_dashboards_path, :class => "fa fa-dashboard"      
       @user_id = current_user.id
-      @launched_apps_services = current_user.apps
-      @cloud_distrib = collapse_cloud_distrib
-      @apps_distrib=collapse_apps_distrib
-      @apps_distrib.each_pair{|k,v| @apps_distrib.store(k,v.to_i)}
     else
       redirect_to signin_path
     end

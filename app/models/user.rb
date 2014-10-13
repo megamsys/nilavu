@@ -6,18 +6,6 @@ class User < ActiveRecord::Base
   has_many :identities, :foreign_key => 'users_id'
   accepts_nested_attributes_for :identities, :update_only => true 
 
-  #belongs_to :organization, :foreign_key => 'org_id'
- # accepts_nested_attributes_for :organization, :update_only => true
-
-  has_many :cloud_identities, :foreign_key => 'users_id'
-  accepts_nested_attributes_for :cloud_identities, :update_only => true
-
-  has_many :apps_items, :foreign_key => 'users_id'
-  accepts_nested_attributes_for :apps_items, :update_only => true
-
-  has_many :apps, :foreign_key  => 'users_id'
-  accepts_nested_attributes_for :apps, :update_only => true
-  
   has_many :dashboards, :foreign_key  => 'user_id'
   accepts_nested_attributes_for :dashboards, :update_only => true
  

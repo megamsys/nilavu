@@ -41,7 +41,7 @@ gem 'riak-client', '~> 2.1.0'
 gem "github_api", "~>0.12.1"
 gem 'twitter', "~> 5.11.0"
 gem "randexp", "~> 0.1.7"
-gem "megam_api", "~> 0.17"
+gem "megam_api", "~> 0.18"
 gem "megam_scmmanager", "~> 0.1.0"
 gem "megam_deccanplato", "~> 0.1.0"
 gem "megam_assembla", "~> 0.1.0"

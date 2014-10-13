@@ -93,9 +93,8 @@ class UsersController < ApplicationController
   end
 
   def edit
-    breadcrumbs.add " Profile", edit_user_path, :class =>"fa fa-user"
-    logger.debug "==> Controller: users, Action: edit, Start edit"
     @user= User.find(params[:id])
+    @user
   end
 
   def upgrade
@@ -105,7 +104,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    logger.debug "==> Controller: users, Action: update, Update user pw, api_key"    
+    logger.debug "==> Controller: users, Action: update, Update user pw, api_key"
     puts params[:user_fields_form_type]
     @user=User.find(params[:id])
     @user_fields_form_type = params[:user_fields_form_type]
@@ -127,10 +126,10 @@ class UsersController < ApplicationController
           respond_with(@res_msg, :user => current_user, :api_token => current_user.api_token, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
         }
       end
-    else
+    else    
       logger.debug "User update !api_key"
       if @user.update_attributes(params[:user])
-        sign_in @user        
+        sign_in @user
       else
         render 'edit'
       end
@@ -147,7 +146,7 @@ class UsersController < ApplicationController
     UserMailer.contact_email(params).deliver
   end
 
-  private  
+  private
 
   def correct_user
     @user = User.find(params[:id])
@@ -156,7 +155,6 @@ class UsersController < ApplicationController
 
   def admin_user
     redirect_to(root_path) unless current_user.admin?
-  end 
-  
+  end
 
 end
