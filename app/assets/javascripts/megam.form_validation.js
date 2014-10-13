@@ -46,4 +46,3 @@ $(".c_remove").click(function(){
     });
 
 // LOAD cloud-1 by default
-$( "#tab_1_1_2" ).load( "cloud-1.php" );

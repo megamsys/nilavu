@@ -1,10 +1,11 @@
 <% if @err_msg != nil %>
+$('#create-ssh').modal('hide');
 var selected_entity = '#sshkey_postfinish_popup_error';
 $("#ssh_err_msg").html('<%= @err_msg %>');
 $(selected_entity).modal({backdrop : false, show : true});
 
 <% else %>
- $('#create-ssh').modal('hide');
+$('#create-ssh').modal('hide');
 var selected_entity = '#sshkey_postfinish_popup';
 $("#ssh_res_msg").html('<%= @res_msg %>');
 $(selected_entity).modal({backdrop : false,show : true});
