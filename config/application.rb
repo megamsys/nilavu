@@ -90,6 +90,7 @@ module Cloudauth
   if "#{common['storage']}".chop!
       config.storage_type =  "#{common['storage']['type']}" || 'riak'
       config.storage_crosscloud = "#{common['storage']['cloud_keys_bucket']}" || 'cloudaccesskeys'
+     
       config.storage_sshfiles = "#{common['storage']['ssh_files_bucket']}" || 'sshfiles'
       config.storage_cloudtool =  "#{common['storage']['cloud_tool_bucket']}" || 'cloudtools'
       config.storage_server_url = "#{common['storage']['server_url']}" || 'localhost'
