@@ -1,53 +1,51 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'Manage Settings') %>
 
-
-
-        		<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
-				<div class="row c_pading-b15 settings_top">
-					<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-						<h3> Settings <small>Manage settings</small></h3>
-					</div>
-					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 settings_grid">
-						<div class="pull-right list-grid">
-							<span class="icon-th-large"></span>
-							<span class="icon-reorder"></span>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-						<div class="alert c_remove_main alert-info">
-			                <strong>Info!</strong> You have 198 unread messages.
-			                <i class="icon-remove c_remove pull-right"></i>
-			            </div>
-			        </div>  
-			    </div> 
-			    <div class="row">
-			    	<div class="tabbable-custom nav-justified">
-                        <ul class="nav nav-tabs nav-justified">
-                           <li class="active"><a href="#tab_1_1_1" data-toggle="tab"> SSH Keys </a></li>
-                           <li><a href="#tab_1_1_2" data-toggle="tab"> Clouds </a></li>
-                           <!-- <li><a href="#tab_1_1_3" data-toggle="tab"> Cloud Provisioners </a></li> -->
-                        </ul>
-                        <div class="tab-content c_tab-content">
-							<div class="tab-pane active" id="tab_1_1_1">
-							  	<%= render :partial => "ssh_keys/sshkeys" %>
-							</div>
-							<!-- TAB -2 STARTS HERE -->
-							<div class="tab-pane" id="tab_1_1_2">
-                                                                <%= render :partial => "ssh_keys/sshkeys" %>
-							</div>
-
-                        </div>
-                     </div>
-			    </div>
-			</div>	Zz
-			     
+<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
+	<div class="row c_pading-b15 settings_top">
+		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+			<h3> Settings <small>Manage settings</small></h3>
 		</div>
-		  
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 settings_grid">
+			<div class="pull-right list-grid">
+				<span class="icon-th-large"></span>
+				<span class="icon-reorder"></span>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+			<div class="alert c_remove_main alert-info">
+				<strong>Info!</strong> You have 198 unread messages. <i class="icon-remove c_remove pull-right"></i>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="tabbable-custom nav-justified">
+			<ul class="nav nav-tabs nav-justified">
+				<li class="active">
+					<a href="#tab_sshkey" data-toggle="tab"> SSH Keys </a>
+				</li>
+				<li>
+					<a href="#tab_cloud" data-toggle="tab"> Clouds </a>
+				</li>
+				<!-- <li><a href="#tab_1_1_3" data-toggle="tab"> Cloud Provisioners </a></li> -->
+			</ul>
+			<div class="tab-content c_tab-content">
+				<div class="tab-pane active" id="tab_sshkey">
+					<%= render :partial => "ssh_keys/sshkeys" %>
+				</div>
+				<!-- TAB -2 STARTS HERE -->
+				<div class="tab-pane" id="tab_cloud">
+					<%= render :partial => "cross_clouds/crossclouds" %>
+				</div>
 
+			</div>
+		</div>
+	</div>
+</div>	Zz
 
+</div>
 
 <% end %>
 <%= render :template => users_show_path %>
