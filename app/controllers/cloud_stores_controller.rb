@@ -2,12 +2,10 @@ class CloudStoresController < ApplicationController
   respond_to :html, :js
   
   def index
-      breadcrumbs.add " Home", "#", :class => "fa fa-home"
-      breadcrumbs.add "Database", cloud_stores_path
+
        cloud_books = current_user.apps.where(:book_type => 'BOLT')
     if cloud_books.any?
-      add_breadcrumb "Home", "#", :target => "_self"
-      add_breadcrumb "Manage Services", cloud_stores_path, :target => "_self"
+
       @nodes = FindNodesByEmail.perform({},current_user.email, current_user.api_token)
       if @nodes.class == Megam::Error
         redirect_to new_app_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
@@ -31,18 +29,11 @@ class CloudStoresController < ApplicationController
 
   def new
     logger.debug "Cloud Store new  ==> "
-    breadcrumbs.add " Home", "#", :class => "fa fa-home", :target => "_self"
-    breadcrumbs.add "Database", cloud_stores_path, :target => "_self"
-    breadcrumbs.add "New", new_cloud_store_path, :target => "_self"
   end
 
   def new_store
     logger.debug "New Store init Params ==> "
     logger.debug "#{params}"
-    breadcrumbs.add " Home", "#", :class => "fa fa-home", :target => "_self"
-    breadcrumbs.add "Database", cloud_stores_path, :target => "_self"
-    breadcrumbs.add "New", new_cloud_store_path, :target => "_self"
-    breadcrumbs.add "Step 2", new_store_path, :target => "_self"
 
     @db_model = params[:db_model]
     @dbms = params[:dbms]

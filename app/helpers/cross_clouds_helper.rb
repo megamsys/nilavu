@@ -35,6 +35,7 @@ module CrossCloudsHelper
   end
 
  def ssh_files_bucket
+    puts "--> ssh_files_bucket #{Rails.configuration.storage_sshfiles}"
     Rails.configuration.storage_sshfiles
   end
 

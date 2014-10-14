@@ -1,223 +1,51 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'Manage Settings') %>
 
-
-
-        		<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
-				<div class="row c_pading-b15 settings_top">
-					<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-						<h3> Settings <small>Manage settings</small></h3>
-					</div>
-					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 settings_grid">
-						<div class="pull-right list-grid">
-							<span class="icon-th-large"></span>
-							<span class="icon-reorder"></span>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-						<div class="alert c_remove_main alert-info">
-			                <strong>Info!</strong> You have 198 unread messages.
-			                <i class="icon-remove c_remove pull-right"></i>
-			            </div>
-			        </div>  
-			    </div> 
-			    <div class="row">
-			    	<div class="tabbable-custom nav-justified">
-                        <ul class="nav nav-tabs nav-justified">
-                           <li class="active"><a href="#tab_1_1_1" data-toggle="tab"> SSH Keys </a></li>
-                           <li><a href="#tab_1_1_2" data-toggle="tab"> Clouds </a></li>
-                           <!-- <li><a href="#tab_1_1_3" data-toggle="tab"> Cloud Provisioners </a></li> -->
-                        </ul>
-                        <div class="tab-content c_tab-content">
-							<div class="tab-pane active" id="tab_1_1_1">
-							  	<div class="row">
-							      	<div class="col-xs-6 col-sm-7 col-md-9 col-lg-9 col-xl-9">
-							      		<h4>Activity</h4>
-							      	</div>
-							      	<div class="col-xs-6 col-sm-5 col-md-3 col-lg-3 col-xl-3">
-							      		<ul class="list-inline c_sett_inline">
-							      			<li><i class="c_icon-compose"></i><a href="#">New</a></li>
-							      			<li class="pull-right"><i class="c_icon-import pull"></i><a href="#">Import</a></li>
-							      		</ul>
-							      	</div>
-							  	
-							  	</div>
-
-							  	<div class="row">
-							  		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-							      		<table class="table tb-settings">
-							                   <tr>
-							                      <td class="set_title">Sample SSH Key File test</td>
-							                      <td><i class="c_icon-calendar"></i>Wed, 30 Jul 2014 07:21:22 -0400</td>
-							                      <td class="text-right">SSH Keypairs <i class="c_icon-sett"></i></td>
-							                   </tr>
-
-							            </table>
-							        </div>     
-							  	</div>
-							  	<div class="row">
-							  		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-							  			<a class="btn green settings_create col-md-2 col-xs-2" data-toggle="modal" href="#create-ssh">Create</a>
-							  		</div>
-							  	</div>
-							  	<div class="row">
-							  		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-							          	<h4>SSH Keypairs</h4>
-							          	<div class="bottom-divider"></div>
-							        </div>  	
-							  		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-							      		<table class="table tb_action_list">
-							                <thead>
-							                   <tr>
-							                      <th>Actions</th>
-							                      <th>Name</th>
-							                      <th>Created At</th>
-							                   </tr>
-							                </thead>
-							                <tbody>
-							                   	<tr>
-							                      	<td>
-							                      		<div class="row">
-							                      			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-public">
-							                      				<i class="c_icon-in"></i>Public
-							                      			</div>
-							                      			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-private">
-							                          			<i class="c_icon-inBlue"></i>Private
-							                      			</div>
-							                      		</div>		
-							                      	
-							                      	</td>
-							                      	<td class="set_title">Sample SSH Key File test</td>
-							                      	<td> Wed, 30 Jul 2014 07:21:22 -0400 </td>
-							                   	</tr>
-
-							                   	<tr>
-							                      	<td>
-							                      		<div class="row">
-							                      			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-public">
-							                      				<i class="c_icon-in"></i>Public
-							                      			</div>
-							                      			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-private">
-							                          			<i class="c_icon-inBlue"></i>Private
-							                      			</div>
-							                      		</div>		
-							                      	
-							                      	</td>
-							                      	<td class="set_title">Sample SSH Key File test</td>
-							                      	<td> Wed, 30 Jul 2014 07:21:22 -0400 </td>
-							                   	</tr>
-
-							                   	<tr>
-							                      	<td>
-							                      		<div class="row">
-							                      			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-public">
-							                      				<i class="c_icon-in"></i>Public
-							                      			</div>
-							                      			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-private">
-							                          			<i class="c_icon-inBlue"></i>Private
-							                      			</div>
-							                      		</div>		
-							                      	
-							                      	</td>
-							                      	<td class="set_title">Sample SSH Key File test</td>
-							                      	<td> Wed, 30 Jul 2014 07:21:22 -0400 </td>
-							                   	</tr>
-
-							                   	<tr>
-							                      	<td>
-							                      		<div class="row">
-							                      			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-public">
-							                      				<i class="c_icon-in"></i>Public
-							                      			</div>
-							                      			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-private">
-							                          			<i class="c_icon-inBlue"></i>Private
-							                      			</div>
-							                      		</div>		
-							                      	
-							                      	</td>
-							                      	<td class="set_title">Sample SSH Key File test</td>
-							                      	<td> Wed, 30 Jul 2014 07:21:22 -0400 </td>
-							                   	</tr>
-
-							                   	<tr>
-							                      	<td>
-							                      		<div class="row">
-							                      			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-public">
-							                      				<i class="c_icon-in"></i>Public
-							                      			</div>
-							                      			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-private">
-							                          			<i class="c_icon-inBlue"></i>Private
-							                      			</div>
-							                      		</div>		
-							                      	
-							                      	</td>
-							                      	<td class="set_title">Sample SSH Key File test</td>
-							                      	<td> Wed, 30 Jul 2014 07:21:22 -0400 </td>
-							                   	</tr>
-
-							                   
-							                </tbody>
-							            </table>
-							        </div> 
-							  	</div>
-							</div>
-							<!-- TAB -2 STARTS HERE -->
-							<div class="tab-pane" id="tab_1_1_2">
-								
-							</div>
-							<!-- TAB -2 ENDS HERE -->
-							<!-- <div class="tab-pane" id="tab_1_1_3">
-							  <p>Howdy, I'm in Section 3.</p>
-							  <p>
-							     Duis autem vel eum iriure dolor in hendrerit in vulputate.
-							     Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat
-							  </p>
-							  <p>
-							     <a class="btn yellow" href="ui_tabs_accordions_navs.html#tab_1_1_3" target="_blank">Activate this tab via URL</a>
-							  </p>
-							</div> -->
-                        </div>
-                     </div>
-			    </div>
-			</div>	
-			     
+<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
+	<div class="row c_pading-b15 settings_top">
+		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+			<h3> Settings <small>Manage settings</small></h3>
 		</div>
-		  
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 settings_grid">
+			<div class="pull-right list-grid">
+				<span class="icon-th-large"></span>
+				<span class="icon-reorder"></span>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+			<div class="alert c_remove_main alert-info">
+				<strong>Info!</strong> You have 198 unread messages. <i class="icon-remove c_remove pull-right"></i>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="tabbable-custom nav-justified">
+			<ul class="nav nav-tabs nav-justified">
+				<li class="active">
+					<a href="#tab_sshkey" data-toggle="tab"> SSH Keys </a>
+				</li>
+				<li>
+					<a href="#tab_cloud" data-toggle="tab"> Clouds </a>
+				</li>
+				<!-- <li><a href="#tab_1_1_3" data-toggle="tab"> Cloud Provisioners </a></li> -->
+			</ul>
+			<div class="tab-content c_tab-content">
+				<div class="tab-pane active" id="tab_sshkey">
+					<%= render :partial => "ssh_keys/sshkeys" %>
+				</div>
+				<!-- TAB -2 STARTS HERE -->
+				<div class="tab-pane" id="tab_cloud">
+					<%= render :partial => "cross_clouds/crossclouds" %>
+				</div>
 
-<!-- create SSH modal starts here -->
-<div id="create-ssh" class="modal fade" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog" style="max-width:400px">
-       <div class="modal-content">
-          <div class="modal-header">
-             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-             <h4 class="modal-title">New key</h4>
-          </div>
-          <div class="modal-body">
-             <div class="scroller" style="min-height:200px" data-always-visible="1" data-rail-visible1="1">
-                <div class="row">
-                   	<div class="col-md-12">
-                   		<div class="alert alert-success">
-			                Generate a SSH RSA 1024 key pair. Read <a href="#"> <strong>here</strong></a> for more information.
-			            </div>	
+			</div>
+		</div>
+	</div>
+</div>	Zz
 
-			            <div class="form-group">
-                          	<label for="ssh-key_name">Name</label>
-                          	<input type="text" class="form-control" id="ssh-key_name" placeholder="Enter a key pair name to save">
-                       	</div> 
-                       	<button type="button" style="height:50px;" class="btn green col-md-12 col-xs-12">Save changes</button  
-                   	</div>
-                </div>
-             </div>
-          </div>
-
-       </div>
-    </div>
 </div>
-
-
-
 
 <% end %>
 <%= render :template => users_show_path %>

@@ -3,10 +3,7 @@ class CloudToolSettingsController < ApplicationController
   include CrossCloudsHelper
   
   def new
-    breadcrumbs.add " Home", "#", :class => "fa fa-home"
-    breadcrumbs.add "Manage Settings", settings_path
-    breadcrumbs.add "Cloud Provisioners", settings_path
-    breadcrumbs.add "New", cloud_tool_setting_new_path
+
   end
 
   def create
@@ -45,11 +42,11 @@ class CloudToolSettingsController < ApplicationController
   def show
     @cts_msg = params[:type]
       @cc_msg = nil
-      @cloud_tool_settings = ListCloudToolSettings.perform(force_api[:email], force_api[:api_key])
-      @cloud_tool_setting = @cloud_tool_settings.lookup(params[:id])
+      #@cloud_tool_settings = ListCloudToolSettings.perform(force_api[:email], force_api[:api_key])
+      #@cloud_tool_setting = @cloud_tool_settings.lookup(params[:id])
        respond_to do |format|
       format.js {
-        respond_with(@cc_msg, @cts_msg, @cross_cloud, @cloud_tool_setting, :layout => !request.xhr? )
+        respond_with(@cc_msg, @cts_msg, @cross_cloud, :layout => !request.xhr? )
       }
     end    
   end

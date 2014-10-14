@@ -2,33 +2,23 @@ class SshKeysController < ApplicationController
   respond_to :html, :js
   include CrossCloudsHelper
   def new
-    breadcrumbs.add " Home", "#", :class => "fa fa-home", :target => "_self"
-    breadcrumbs.add "Manage Settings", settings_path, :target => "_self"
-    breadcrumbs.add "SSH Keys", settings_path, :target => "_self"
-    breadcrumbs.add "New", new_ssh_key_path, :target => "_self"
+
   end
 
   def ssh_key_import
-    breadcrumbs.add " Home", "#", :class => "fa fa-home", :target => "_self"
-    breadcrumbs.add "Manage Settings", settings_path, :target => "_self"
-    breadcrumbs.add "SSH Keys", ssh_keys_path, :target => "_self"
-    breadcrumbs.add "Import", ssh_key_import_path, :target => "_self"
   end
 
   def create
-    #k = SSHKey.generate(:type => params[:key_type], :bits => params[:key_bit].to_i, :comment => current_user.email)    
+    #k = SSHKey.generate(:type => params[:key_type], :bits => params[:key_bit].to_i, :comment => current_user.email)
     k = SSHKey.generate
-    if params[:key_name] == ""
-      key_name = current_user.first_name
-    else
-      key_name = params[:key_name]
-    end
+    sleep 100
+    key_name = params[:key_name] || current_user.first_name
     @filename = key_name
-if Rails.configuration.storage_type == "s3"
-    sshpub_loc = vault_s3_url+"/"+current_user.email+"/"+key_name
-else
-    sshpub_loc = current_user.email+"_"+key_name     #Riak changes
-end
+    if Rails.configuration.storage_type == "s3"
+      sshpub_loc = vault_s3_url+"/"+current_user.email+"/"+key_name
+    else
+      sshpub_loc = current_user.email+"_"+key_name     #Riak changes
+    end
     wparams = { :name => key_name, :path => sshpub_loc }
     @res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
     if @res_body.class == Megam::Error
@@ -45,7 +35,7 @@ end
       upload = SshKey.perform(options, ssh_files_bucket)
       if upload.class == Megam::Error
         @res_msg = nil
-        @err_msg="Failed to Generate SSH keys. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+        @err_msg="SSH keys creation failed."
         @public_key = ""
         respond_to do |format|
           format.js {
@@ -54,7 +44,7 @@ end
         end
       else
         @err_msg = nil
-        @res_msg = "SSH key created successfully"
+        @res_msg = "SSH keys created successfully"
         @public_key = k.public_key
         respond_to do |format|
           format.js {
@@ -70,11 +60,11 @@ end
     # @filename = params[:ssh_private_key].original_filename
     @filename = params[:key_name]
     key_name = params[:key_name]
-if Rails.configuration.storage_type == "s3"
-    sshpub_loc = vault_s3_url+"/"+current_user.email+"/"+key_name
-else
-    sshpub_loc = current_user.email+"_"+key_name     #Riak changes
-end
+    if Rails.configuration.storage_type == "s3"
+      sshpub_loc = vault_s3_url+"/"+current_user.email+"/"+key_name
+    else
+      sshpub_loc = current_user.email+"_"+key_name     #Riak changes
+    end
     wparams = { :name => key_name, :path => sshpub_loc }
     @res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
     if @res_body.class == Megam::Error
@@ -110,13 +100,13 @@ end
     end
   end
 
-  
   def download
     @filename = params[:filename]
-    downloaded_file = S3.download(cross_cloud_bucket, current_user.email+"/"+"#{@filename}")
+    options ={:email => current_user.email, :download_location => current_user.email+"/"+"#{@filename}" }
+    downloaded_file = SshKey.download(options,ssh_files_bucket)
     if downloaded_file.class == Megam::Error
       @res_msg = nil
-      @err_msg="Failed to Download SSH key. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+      @err_msg="Failed to Download SSH key."
       @public_key = ""
       respond_to do |format|
         format.js {
@@ -126,7 +116,7 @@ end
     else
       @err_msg = nil
       @res_msg = "SSH key downloaded successfully"
-      send_file Rails.root.join("#{@filename}"), :x_sendfile=>true    
+      send_file Rails.root.join("#{@filename}"), :x_sendfile=>true
     end
   end
 

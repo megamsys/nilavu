@@ -16,5 +16,7 @@
  *= require style
  *= require style-elegant
  *= require font-awesome
+ *= require megam 
  *= require_tree .
  */
+

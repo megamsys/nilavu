@@ -2,29 +2,7 @@ class CrossCloudsController < ApplicationController
   respond_to :html, :js
   include CrossCloudsHelper
   def new
-    breadcrumbs.add " Home", "#", :class => "fa fa-home", :target => "_self"
-    breadcrumbs.add "Manage Settings", settings_path, :target => "_self"
-    breadcrumbs.add "Clouds", settings_path, :target => "_self"
-    breadcrumbs.add "New", new_cross_cloud_path, :target => "_self"
-    if request.env['omniauth.auth']
-      @cloud_prov = "Google Cloud Engine"
-      @token = request.env['omniauth.auth']['credentials']['token']
-      @refresh_token = request.env['omniauth.auth']['credentials']['refresh_token']
-      @expire = request.env['omniauth.auth']['credentials']['expires_at']
-    else
-      @cloud_prov = "Amazon EC2"
-    end
-    @ssh_keys_collection = ListSshKeys.perform(force_api[:email], force_api[:api_key])
-    if @ssh_keys_collection.class == Megam::Error
-      redirect_to settings_path, :gflash => { :warning => { :value => "A keypair is needed for target cloud creation. Click New keypair to generate one.", :sticky => false, :nodom_wrap => true } }
-    else
-      @ssh_keys = []
-      ssh_keys = []
-      @ssh_keys_collection.each do |sshkey|
-        ssh_keys << {:name => sshkey.name, :created_at => sshkey.created_at.to_time.to_formatted_s(:rfc822)}
-      end
-      @ssh_keys = ssh_keys.sort_by {|vn| vn[:created_at]}
-    end
+
   end
 
   def create

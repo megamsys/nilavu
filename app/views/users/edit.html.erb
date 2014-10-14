@@ -1,200 +1,229 @@
 <% content_for :content_settings do %>
 <%= provide(:title, 'Edit user') %>
 
-			<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
-				<div class="row c_pading-b15 settings_top">
-					<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-						<h3> My profile <small> Settings > My Account </small></h3>
+<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
+	<div class="row c_pading-b15 settings_top">
+		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+			<h3> My profile</h3>
+		</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 settings_grid">
+			<div class="pull-right list-grid">
+				<span class="icon-th-large"></span>
+				<span class="icon-reorder"></span>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+			<div class="alert alert-info">
+				<strong></strong> Tip  Change your Account settings, Organization, API Key here
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="tabbable-custom nav-justified">
+			<ul class="nav nav-tabs nav-justified">
+				<li class="active">
+					<a href="#profile_1" data-toggle="tab"> My Account </a>
+				</li>
+				<li>
+					<a href="#profile_2" data-toggle="tab"> Organization </a>
+				</li>
+				<!-- <li><a href="#profile_3" data-toggle="tab"> API Key </a></li> -->
+			</ul>
+			<div class="tab-content c_tab-content">
+				<div class="tab-pane active" id="profile_1">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<h4 class="bottom_border_grey">Basic information</h4>
+						</div>
+
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
+							<%= form_for @user, html: {class:  'form-horizontal', role: 'form'}, remote: true, data:  { spinlock: '#saving_profilename'} do |f| %>
+							<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
+							<input type="hidden" name="user_fields_form_type" value="profile">
+							<div class="form-group">
+								<label class="col-md-3 control-label label-profile">Profile name</label>
+								<div class="col-md-6 input-group margin-top-10">
+									<%= f.text_field :first_name, :id => 'first_name', :class => 'form-control', placeholder: "Enter text" %>
+									<!-- <%= f.text_field :last_name, :id => 'last_name', :class => 'form-control', placeholder: "Last name" %> -->
+									<span class="input-group-addon" ><a href="#">Change ?</a></span>
+								</div>
+								<div class="col-md-3 pull-right c_cog_icon">
+									<span>View only</span>
+									<i class="icon-cog"></i>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-3 control-label label-profile">Phone</label>
+								<div class="col-md-6 input-group margin-top-10">
+									<%= f.text_field :phone, :class => 'form-control', placeholder: "Enter text" %>
+									<span class="input-group-addon" ><a href="#">Change ?</a></span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
+									<%= f.submit "Save", :class => "btn btn-default c_btn_save_success col-md-5 col-xs-12" %>
+								</div>
+							</div>
+							<% end %>
+						</div>
 					</div>
-					<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 settings_grid">
-						<div class="pull-right list-grid">
-							<span class="icon-th-large"></span>
-							<span class="icon-reorder"></span>
+
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<h4 class="bottom_border_grey">Change password</h4>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
+							<%= form_for @user, html: {:class => 'form-horizontal', :role => 'form' }, :remote => true, data: { spinlock: '#saving profile_password'} do |f| %>
+							<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
+							<input type="hidden" name="user_fields_form_type" value="password">
+							<div class="form-group">
+								<label class="col-md-3 control-label label-profile">Current</label>
+								<div class="col-md-6 input-group margin-top-10">
+									<%= f.password_field :password, :class=> 'form-control', placeholder: "Current password" %>
+									<span class="input-group-addon" ><a href="#">Change ?</a></span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-3 control-label label-profile">New</label>
+								<div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-9">
+									<%= f.password_field :password, :class=> 'form-control', :readonly => true, placeholder: "New password" %>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-3 control-label label-profile">Retype</label>
+								<div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-9">
+									<%= f.password_field :password_confirmation,  :class=> 'form-control', :readonly => true, placeholder: "Confirm new password" %>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
+									<%= f.submit "Update", :id => "save_password", :class => "btn btn-default c_btn_save_success col-md-5 col-xs-12" %>
+
+								</div>
+							</div>
+							<% end %>
+
+						</div>
+					</div>
+
+				</div>
+				<!-- PROFILE-1 tab ENDS HERE -->
+				<div class="tab-pane" id="profile_2">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<h4 class="bottom_border_grey">Basic information</h4>
+						</div>
+
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
+							<form class="form-horizontal" role="form">
+								<div class="form-group">
+									<label class="col-md-3 control-label label-profile">Profile name</label>
+									<div class="col-md-6 input-group margin-top-10">
+										<input type="text" class="form-control" placeholder="Enter text">
+										<span class="input-group-addon" ><a href="#">Change ?</a></span>
+									</div>
+									<div class="col-md-3 pull-right c_cog_icon">
+										<span>View only</span>
+										<i class="icon-cog"></i>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-md-3 control-label label-profile">Phone</label>
+									<div class="col-md-6 input-group margin-top-10">
+										<input type="text" class="form-control" placeholder="Enter text">
+										<span class="input-group-addon" ><a href="#">Change ?</a></span>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
+										<a class="btn btn-default c_btn_save_success col-md-5 col-xs-12" href="#"> Save </a>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<h4 class="bottom_border_grey">Change password</h4>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
+							<form class="form-horizontal" role="form">
+								<div class="form-group">
+									<label class="col-md-3 control-label label-profile">Current</label>
+									<div class="col-md-6 input-group margin-top-10">
+										<input type="text" class="form-control" placeholder="Current password">
+										<span class="input-group-addon" ><a href="#">Change ?</a></span>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-md-3 control-label label-profile">New</label>
+									<div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-9">
+										<input type="password" readonly class="form-control" placeholder="New password">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="col-md-3 control-label label-profile">Retype</label>
+									<div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-9">
+										<input type="password" readonly class="form-control" placeholder="Confirm new password">
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
+										<a class="btn btn-default c_btn_save_success col-md-5 col-xs-12" href="#">Update</a>
+									</div>
+								</div>
+							</form>
 						</div>
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-						<div class="alert alert-info">
-			                <strong></strong> Tip  Change your account settings , Organization ,API Key etc here 
-			            </div>
-			        </div>  
-			    </div> 
-			    <div class="row">
-			    	<div class="tabbable-custom nav-justified">
-                        <ul class="nav nav-tabs nav-justified">
-                           <li class="active"><a href="#profile_1" data-toggle="tab"> My Account </a></li>
-                           <li><a href="#profile_2" data-toggle="tab"> Organization </a></li>
-                           <!-- <li><a href="#profile_3" data-toggle="tab"> API Key </a></li> -->
-                        </ul>
-                        <div class="tab-content c_tab-content">
-							<div class="tab-pane active" id="profile_1">
-							  	<div class="row">
-							      	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-							      		<h4 class="bottom_border_grey">Basic information</h4>
-							      	</div>
-
-							  		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
-							  			<form class="form-horizontal" role="form">
-				                           	<div class="form-group">
-				                              	<label class="col-md-3 control-label label-profile">Profile name</label>
-				                              	<div class="col-md-6 input-group margin-top-10">
-				                                 	<input type="text" class="form-control" placeholder="Enter text">
-				                                	<span class="input-group-addon" ><a href="#">Change ?</a></span>
-				                              	</div>
-				                              	<div class="col-md-3 pull-right c_cog_icon">
-				                              		<span>View only</span>
-				                              		<i class="icon-cog"></i>
-				                              	</div>
-				                           	</div>
-
-				                           	<div class="form-group">
-				                              	<label class="col-md-3 control-label label-profile">Phone</label>
-				                              	<div class="col-md-6 input-group margin-top-10">
-				                                 	<input type="text" class="form-control" placeholder="Enter text">
-				                                	<span class="input-group-addon" ><a href="#">Change ?</a></span>
-				                              	</div>
-				                           	</div>
-
-				                           	<div class="form-group">
-				                              	<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
-				                              		<a class="btn btn-default c_btn_save_success col-md-5 col-xs-12" href="#"> Save </a>
-				                              	</div>
-				                           	</div>
-					                    </form>
-							        </div>     
-							  	</div>
-
-							  	<div class="row">
-							      	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-							      		<h4 class="bottom_border_grey">Change password</h4>
-							      	</div>
-							  		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
-							  			<form class="form-horizontal" role="form">
-				                           	<div class="form-group">
-				                              	<label class="col-md-3 control-label label-profile">Current</label>
-				                              	<div class="col-md-6 input-group margin-top-10">
-				                                 	<input type="text" class="form-control" placeholder="Current password">
-				                                	<span class="input-group-addon" ><a href="#">Change ?</a></span>
-				                              	</div>
-				                           	</div>
-
-				                           	<div class="form-group">
-				                              	<label class="col-md-3 control-label label-profile">New</label>
-				                              	<div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-9">
-				                                 	<input type="password" readonly class="form-control" placeholder="New password">
-				                              	</div>
-				                           	</div>
-
-				                           	<div class="form-group">
-				                              	<label class="col-md-3 control-label label-profile">Retype</label>
-				                              	<div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-9">
-				                                 	<input type="password" readonly class="form-control" placeholder="Confirm new password">
-				                              	</div>
-				                           	</div>
-
-				                           	<div class="form-group">
-				                              	<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
-
-				                              		<a class="btn btn-default c_btn_save_success col-md-5 col-xs-12" href="#">Update</a>
-				                              	</div>
-				                           	</div>
-					                    </form>
-							        </div>     
-							  	</div>
-
-							</div> <!-- PROFILE-1 tab ENDS HERE --> 
-							<div class="tab-pane" id="profile_2">
-								<div class="row">
-							      	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-							      		<h4 class="bottom_border_grey">Basic information</h4>
-							      	</div>
-
-							  		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
-							  			<form class="form-horizontal" role="form">
-				                           	<div class="form-group">
-				                              	<label class="col-md-3 control-label label-profile">Profile name</label>
-				                              	<div class="col-md-6 input-group margin-top-10">
-				                                 	<input type="text" class="form-control" placeholder="Enter text">
-				                                	<span class="input-group-addon" ><a href="#">Change ?</a></span>
-				                              	</div>
-				                              	<div class="col-md-3 pull-right c_cog_icon">
-				                              		<span>View only</span>
-				                              		<i class="icon-cog"></i>
-				                              	</div>
-				                           	</div>
-
-				                           	<div class="form-group">
-				                              	<label class="col-md-3 control-label label-profile">Phone</label>
-				                              	<div class="col-md-6 input-group margin-top-10">
-				                                 	<input type="text" class="form-control" placeholder="Enter text">
-				                                	<span class="input-group-addon" ><a href="#">Change ?</a></span>
-				                              	</div>
-				                           	</div>
-
-				                           	<div class="form-group">
-				                              	<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
-				                              		<a class="btn btn-default c_btn_save_success col-md-5 col-xs-12" href="#"> Save </a>
-				                              	</div>
-				                           	</div>
-					                    </form>
-							        </div>     
-							  	</div>
-
-							  	<div class="row">
-							      	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-							      		<h4 class="bottom_border_grey">Change password</h4>
-							      	</div>
-							  		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
-							  			<form class="form-horizontal" role="form">
-				                           	<div class="form-group">
-				                              	<label class="col-md-3 control-label label-profile">Current</label>
-				                              	<div class="col-md-6 input-group margin-top-10">
-				                                 	<input type="text" class="form-control" placeholder="Current password">
-				                                	<span class="input-group-addon" ><a href="#">Change ?</a></span>
-				                              	</div>
-				                           	</div>
-
-				                           	<div class="form-group">
-				                              	<label class="col-md-3 control-label label-profile">New</label>
-				                              	<div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-9">
-				                                 	<input type="password" readonly class="form-control" placeholder="New password">
-				                              	</div>
-				                           	</div>
-
-				                           	<div class="form-group">
-				                              	<label class="col-md-3 control-label label-profile">Retype</label>
-				                              	<div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-9">
-				                                 	<input type="password" readonly class="form-control" placeholder="Confirm new password">
-				                              	</div>
-				                           	</div>
-
-				                           	<div class="form-group">
-				                              	<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
-
-				                              		<a class="btn btn-default c_btn_save_success col-md-5 col-xs-12" href="#">Update</a>
-				                              	</div>
-				                           	</div>
-					                    </form>
-							        </div>     
-							  	</div>
-							</div>
-							<!-- <div class="tab-pane" id="profile_3">
-							  <p>Howdy, I'm in Section 3.</p>
-							  <p>
-							     Duis autem vel eum iriure dolor in hendrerit in vulputate.
-							     Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat
-							  </p>
-							  <p>
-							     <a class="btn yellow" href="ui_tabs_accordions_navs.html#tab_1_1_3" target="_blank">Activate this tab via URL</a>
-							  </p>
-							</div> -->
-                        </div>
-                     </div>
-			    </div>
-			</div>	
-			     
+				<!-- <div class="tab-pane" id="profile_3">
+				<p>Howdy, I'm in Section 3.</p>
+				<p>
+				Duis autem vel eum iriure dolor in hendrerit in vulputate.
+				Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat
+				</p>
+				<p>
+				<a class="btn yellow" href="ui_tabs_accordions_navs.html#tab_1_1_3" target="_blank">Activate this tab via URL</a>
+				</p>
+				</div> -->
+			</div>
 		</div>
+	</div>
+</div>
+
+<div id="profile_postfinish_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">Profile Update</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-success">
+					<div id="msg"></div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<%= link_to "Ok", main_dashboards_path, :class => "btn btn-primary", :target => "_self" %>
+			</div>
+		</div>
+	</div>
+</div>
 
 <% end %>
 

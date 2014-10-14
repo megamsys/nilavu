@@ -1,130 +1,130 @@
-<% provide(:title, 'Sign up') %>
-   <!-- BEGIN LOGO -->
+<% provide(:title, 'Sign up') %> <!-- BEGIN LOGO -->
 <div class="login">
 	<div class="container">
-   	<div class="row">
-       	<div class="logo">
-                <%= image_tag "logo.png" %>
-         </div>
-   	</div>
-   	<!-- END LOGO -->
-   	<!-- BEGIN LOGIN -->
-   	<div class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer bg_white border_grey">
-         <div class="container">
-            <div class="row bottom-divider">
-               <div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
-                  <h2>Sign up<span class="sign_up_small"><i>Just a minute to step into our Megam  PaaS</span></i></h2>
-               </div>
-               <!-- <div class="col-lg-7 col-md-7">
-                  <p>it wont take more than 1 minut we promise</p>
-               </div> -->
-            </div>
-         </div>
+		<div class="row">
+			<div class="logo">
+				<%= image_tag "logo.png" %>
+			</div>
+		</div>
+		<!-- END LOGO -->
+		<!-- BEGIN LOGIN -->
+		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer bg_white border_grey">
+			<div class="container">
+				<div class="row bottom-divider">
+					<div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
+						<h2>Sign up<span class="sign_up_small"><i>Just a minute to step into our Megam  PaaS</span></i></h2>
+					</div>
+					<!-- <div class="col-lg-7 col-md-7">
+					<p>it wont take more than 1 minut we promise</p>
+					</div> -->
+				</div>
+			</div>
 
-      	<div class="cover col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
-            <!-- BEGIN LOGIN FORM -->
-            <%= form_for @user, :html => {:id =>'signupform'}, :method => "POST" do |f| %>
-            	<div class="c_inline">
-               	<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-               	<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
-               	<div class="row">
-                  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                  		<i class="c_ico-excla"></i>
-                        <%= f.text_field :first_name, :required => true, :id => 'first_name', :class => 'form-control', placeholder: "First Name" %>
-                  	</div>
-                  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 input-icon right">
-                  		<i class="c_ico-tick"></i>
-                        <%= f.text_field :last_name, :id => 'last_name', :class => 'form-control', placeholder: "Last Name" %>
-                  	</div>
-               	</div>
-            	</div>
-            	<div class="form-group">
-                  <div class="row">
-                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
-                        <i class="c_ico-excla"></i>
-                        <%= f.text_field :phone, :class => 'form-control', placeholder: "Phone Number" %>
-                     </div>
-                  </div>
-            	</div>
+			<div class="cover col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
+				<!-- BEGIN LOGIN FORM -->
+				<%= form_for @user, :html => {:id =>'signupform'}, :method => "POST" do |f| %>
+				<div class="c_inline">
+					<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+					<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
+					<div class="row">
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+							<i class="c_ico-excla"></i>
+							<%= f.text_field :first_name, :required => true, :id => 'first_name', :class => 'form-control', placeholder: "First Name" %>
+						</div>
+						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 input-icon right">
+							<i class="c_ico-tick"></i>
+							<%= f.text_field :last_name, :id => 'last_name', :class => 'form-control', placeholder: "Last Name" %>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
+							<i class="c_ico-excla"></i>
+							<%= f.text_field :phone, :class => 'form-control', placeholder: "Phone Number" %>
+						</div>
+					</div>
+				</div>
 
-               <div class="form-group">
-                  <div class="row">
-                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <i class="c_ico-excla"></i>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<i class="c_ico-excla"></i>
 
-        <% if params[:user_social_identity] %>
-	<%= f.text_field :email, :class => 'form-control', placeholder: "Email", :readonly => true %>
-	<input type="hidden" name="social_uid" value="<%= @social_uid %>">
-	<% else %>
-	<%= f.text_field :email, :required => true, :class => 'form-control', placeholder: "Email" %>
-	<% end %>
+							<% if params[:user_social_identity] %>
+							<%= f.text_field :email, :class => 'form-control', placeholder: "Email", :readonly => true %>
+							<input type="hidden" name="social_uid" value="<%= @social_uid %>">
+							<% else %>
+							<%= f.text_field :email, :required => true, :class => 'form-control', placeholder: "Email" %>
+							<% end %>
 
-                     </div>
-                  </div>
-               </div>
+						</div>
+					</div>
+				</div>
 
-<!--  Megam USAGE -->
-<% random_hash = generate_api_token %>
-<%= f.text_field :verification_hash, :value => random_hash, :type => 'hidden' %>
+				<!--  Megam USAGE -->
+				<% random_hash = generate_api_token %>
+				<%= f.text_field :verification_hash, :value => random_hash, :type => 'hidden' %>
 
-<%= f.text_field :user_type, :value => "free", :type => 'hidden' %>
+				<%= f.text_field :user_type, :value => "free", :type => 'hidden' %>
 
-            	<div class="form-group">
-				   <!-- <input type="text" class="form-control" placeholder="Enter text"> -->
+				<div class="form-group">
+					<!-- <input type="text" class="form-control" placeholder="Enter text"> -->
 
-               	<div class="c_inline">
-                  	<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                  	<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
-                  	<div class="row">
-                     	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <%= f.password_field :password, :required => true, :class=> 'form-control', placeholder: "Your Password" %>
-                     	</div>
-                     	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                <%= f.password_field :password_confirmation, :required => true, :class=> 'form-control', placeholder: "Confirm Password" %>
-                     	</div>
-                  	</div>
-               	</div>
-	            </div>
+					<div class="c_inline">
+						<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+						<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
+						<div class="row">
+							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+								<%= f.password_field :password, :required => true, :class=> 'form-control', placeholder: "Your Password" %>
+							</div>
+							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+								<%= f.password_field :password_confirmation, :required => true, :class=> 'form-control', placeholder: "Confirm Password" %>
+							</div>
+						</div>
+					</div>
+				</div>
 
-	            <!-- <div class="form-group">
-					   <div class="col-lg-6">
-                     <div class="input-group">
-                        <div class="input-group-btn">
-                           <button type="button" class="btn default" tabindex="-1">Action</button>
-                           <button type="button" class="btn default dropdown-toggle" data-toggle="dropdown" tabindex="-1">
-                           <i class="icon-angle-down"></i>
-                           </button>
-                           <ul class="dropdown-menu" role="menu">
-                              <li>Action</li>
-                              <li>123</li>
-                              <li>456</li>
-                              <li>586</li>
-                           </ul>
-                        </div>
-                     <input type="text" class="form-control">
-                     </div>
-                  </div>
-               </div> -->
+				<!-- <div class="form-group">
+				<div class="col-lg-6">
+				<div class="input-group">
+				<div class="input-group-btn">
+				<button type="button" class="btn default" tabindex="-1">Action</button>
+				<button type="button" class="btn default dropdown-toggle" data-toggle="dropdown" tabindex="-1">
+				<i class="icon-angle-down"></i>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+				<li>Action</li>
+				<li>123</li>
+				<li>456</li>
+				<li>586</li>
+				</ul>
+				</div>
+				<input type="text" class="form-control">
+				</div>
+				</div>
+				</div> -->
 
-<%= f.submit "Create Account", :class => "btn btn-success col-md-5 col-xs-offset-2 col-sm-offset-4 col-md-offset-4 col-lg-offset-4 col-xl-offset-4" %>
-<% end %>
-            <!-- END REGISTRATION FORM -->
-     	   </div>
+				<%= f.submit "Create Account", :class => "btn btn-success col-md-5 col-xs-offset-2 col-sm-offset-4 col-md-offset-4 col-lg-offset-4 col-xl-offset-4" %>
+				<% end %>
+				<!-- END REGISTRATION FORM -->
+			</div>
 
-         <div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10 footer">
-               <p class="text-center">
-                  <u class="colr-bluegrey">Already have an account ? </u>&nbsp;&nbsp;
-                  <a href="signin"><u class="colr-denimblue">Login here</u></a>
-               </p>
-         </div>
-      </div>
-      <div  class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">
-            <div class="row">
-               <p><a href="http://podnix.com" target="_blank">Powered by Podnix Cloud</a></p>
-            </div>
-      </div>
-   <!-- END LOGIN -->
-   </div>
-   </div>
+			<div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10 footer">
+				<p class="text-center">
+					<u class="colr-bluegrey">Already have an account ? </u>&nbsp;&nbsp; <a href="signin"><u class="colr-denimblue">Login here</u></a>
+				</p>
+			</div>
+		</div>
+		<div  class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">
+			<div class="row">
+				<p>
+					<a href="http://podnix.com" target="_blank">Powered by Podnix Cloud</a>
+				</p>
+			</div>
+		</div>
+		<!-- END LOGIN -->
+	</div>
+</div>
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- END JAVASCRIPTS -->
