@@ -88,3 +88,48 @@ Zarafa:
   db_model:
   dbms:
   predef_name: zarafa 
+
+Java:
+  name: Java
+  predef_name: java 
+  no_of_instances: 1
+  radios: scm_sample
+  deps_scm: https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/orion.war
+  db_model:
+  dbms:    
+  
+Rails:
+  name: Rails
+  predef_name: rails 
+  no_of_instances: 1
+  radios: scm_sample
+  deps_scm: https://github.com/thomasalrin/aryabhata.git
+  db_model:
+  dbms:  
+  
+Play:
+  name: Play
+  predef_name: play 
+  no_of_instances: 1
+  radios: scm_sample
+  deps_scm: https://github.com/thomasalrin/megam_play.git
+  db_model:
+  dbms:  
+  
+Akka:
+  name: Akka
+  predef_name: akka 
+  no_of_instances: 1
+  radios: scm_sample
+  deps_scm: https://github.com/thomasalrin/megam_akka.git
+  db_model:
+  dbms:  
+  
+Nodejs:
+  name: Nodejs
+  predef_name: nodejs 
+  no_of_instances: 1
+  radios: scm_sample
+  deps_scm: https://github.com/thomasalrin/ghost.git
+  db_model:
+  dbms:  

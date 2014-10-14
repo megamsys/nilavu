@@ -45,7 +45,7 @@ Cloudauth::Application.routes.draw do
 
   
   #Cloud Books
-  match '/launch', to: 'apps#launch', via: [:get, :post]
+  match '/launch', to: 'marketplaces#create', via: [:get, :post]
   match '/get_request', to: 'apps#get_request', via: [:get, :post]
   match '/build_request', to: 'apps#build_request', via: [:get, :post]
   match '/requests', to: 'oneapps#requests', via: [:get, :post]

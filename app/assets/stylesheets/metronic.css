@@ -951,6 +951,22 @@ h7 .label {
   vertical-align: middle;
 }
 
+.badge_blue {
+  font-size: 11px !important;
+  font-weight: 300;
+  text-align: center;
+  background-color: #70b1ee;
+  height: 18px;
+  padding: 3px 6px 3px 6px;
+  -webkit-border-radius: 12px !important;
+     -moz-border-radius: 12px !important;
+          border-radius: 12px !important;
+  text-shadow:none !important;
+  text-align: center;
+  vertical-align: middle;
+}
+
+
 .badge.badge-roundless {
    -webkit-border-radius: 0 !important;
       -moz-border-radius: 0 !important;
@@ -1239,7 +1255,7 @@ Bootstrap modal
 Modal header close button fix
 ***/
 .modal-header .close {
-  margin-top: 14px !important;
+  margin-top: 14px;
 }
 
 .modal > .loading {

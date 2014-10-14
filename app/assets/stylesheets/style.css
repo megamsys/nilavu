@@ -338,7 +338,7 @@ hr {
     z-index: 100;
 }
 .page-sidebar ul > li > a > .arrow:before {
-    content: "";
+    content: "ï„„";
     display: inline;
     float: right;
     font-family: FontAwesome;
@@ -350,7 +350,7 @@ hr {
     text-shadow: none;
 }
 .page-sidebar-menu > li > a > .arrow.open:before {
-    content: "";
+    content: "ï„‡";
     display: inline;
     float: right;
     font-family: FontAwesome;
@@ -405,7 +405,7 @@ hr {
     margin: 0;
 }
 .page-sidebar-menu > li > ul.sub-menu li > a > .arrow:before {
-    content: "";
+    content: "ï„„";
     display: inline;
     float: right;
     font-family: FontAwesome;
@@ -417,7 +417,7 @@ hr {
     text-shadow: none;
 }
 .page-sidebar-menu > li > ul.sub-menu li > a > .arrow.open:before {
-    content: "";
+    content: "ï„‡";
     display: inline;
     float: right;
     font-family: FontAwesome;
@@ -1464,12 +1464,12 @@ i.normal {
 }
 .rating span.star:before {
     color: #999999;
-    content: "";
+    content: "ï€†";
     padding-right: 5px;
 }
 .rating span.star:hover:before, .rating span.star:hover ~ span.star:before {
     color: #e3cf7a;
-    content: "";
+    content: "ï€…";
 }
 .item {
     display: block;
@@ -2092,7 +2092,7 @@ i.normal {
     top: -3px;
 }
 .tile.selected .check:after {
-    content: "";
+    content: "ï€Œ";
     display: inline-block;
     font-family: FontAwesome;
     font-size: 13px;
@@ -2559,91 +2559,91 @@ ul.sidebar-tags li {
     opacity: 1;
 }
 .social-icons .amazon {
-    background: url("amazon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/amazon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .behance {
-    background: url("behance.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/behance.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .blogger {
-    background: url("blogger.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/blogger.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .deviantart {
-    background: url("deviantart.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/deviantart.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .dribbble {
-    background: url("dribbble.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/dribbble.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .dropbox {
-    background: url("dropbox.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/dropbox.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .evernote {
-    background: url("evernote.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/evernote.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .facebook {
-    background: url("facebook.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/facebook.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .forrst {
-    background: url("forrst.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/forrst.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .github {
-    background: url("github.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/github.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .googleplus {
-    background: url("googleplus.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/googleplus.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .jolicloud {
-    background: url("jolicloud.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/jolicloud.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .last-fm {
-    background: url("last-fm.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/last-fm.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .linkedin {
-    background: url("linkedin.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/linkedin.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .picasa {
-    background: url("picasa.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/picasa.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .pintrest {
-    background: url("pintrest.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/pintrest.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .rss {
-    background: url("rss.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/rss.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .skype {
-    background: url("skype.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/skype.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .spotify {
-    background: url("spotify.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/spotify.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .stumbleupon {
-    background: url("stumbleupon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/stumbleupon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .tumblr {
-    background: url("tumblr.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/tumblr.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .twitter {
-    background: url("twitter.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/twitter.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .vimeo {
-    background: url("vimeo.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/vimeo.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .wordpress {
-    background: url("wordpress.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/wordpress.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .xing {
-    background: url("xing.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/xing.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .yahoo {
-    background: url("yahoo.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/yahoo.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .youtube {
-    background: url("youtube.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/youtube.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .vk {
-    background: url("vk.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/vk.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .instagram {
-    background: url("instagram.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/instagram.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .note {
     border-left: 5px solid #eee;
