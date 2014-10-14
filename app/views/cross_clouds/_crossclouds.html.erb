@@ -21,26 +21,21 @@
 		<table class="table tb_action_list">
 			<thead>
 				<tr>
-					<th>Actions</th>
+					<th>View</th>
 					<th>Name</th>
 					<th>Created At</th>
 				</tr>
 			</thead>
-			<tbody>
+						<tbody>
+				<% if @cross_clouds_collection.class != Megam::Error %>
+				<% @cross_clouds.each do |cloud| %>
 				<tr>
-					<td>
-					<div class="row">
-						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-public">
-							<i class="c_icon-in"></i>Public
-						</div>
-						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-private">
-							<i class="c_icon-inBlue"></i>Private
-						</div>
-					</div></td>
-					<td class="set_title">Sample SSH Key File test</td>
-					<td> Wed, 30 Jul 2014 07:21:22 -0400 </td>
+					<td class="set_title"><%= cloud[:name] %></td>
+					<td class="set_title"><%= cloud[:name] %></td>
+					<td> <%= cloud[:created_at] %> </td>
 				</tr>
-
+				<% end %>
+				<% end %>
 			</tbody>
 		</table>
 	</div>
