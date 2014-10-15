@@ -8,7 +8,7 @@
 				<i class="c_icon-compose"></i><a data-toggle="modal" href="#create-ssh">New</a>
 			</li>
 			<li class="pull-right">
-				<i class="c_icon-import pull"></i><a href="#">Import</a>
+				<i class="c_icon-import pull"></i><a data-toggle="modal" href="#import-ssh">New</a>
 			</li>
 		</ul>
 	</div>
@@ -77,7 +77,7 @@
 								<input type="hidden" name="key_type" value="RSA">
 								<input type="hidden" name="key_bit" value="2048">
 							</div>
-							<%= submit_tag "Save changes", :class => "btn green col-md-12 col-xs-12" %>
+							<%= submit_tag "Create key", :class => "btn green col-md-12 col-xs-12" %>
 							<% end %>
 						</div>
 					</div>
@@ -87,6 +87,41 @@
 		</div>
 	</div>
 </div>
+
+
+<!-- import SSH modal starts here -->
+<div id="import-ssh" class="modal fade" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog" style="max-width:400px">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">New key</h4>
+			</div>
+			<div class="modal-body">
+				<div class="scroller" style="min-height:200px" data-always-visible="1" data-rail-visible1="1">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="alert alert-success">
+								Generate a SSH RSA 2048 key pair. Read <a href="http://www.gomegam.com/docs/sshkeys" target="_blank"> <strong>here</strong></a> for more information.
+							</div>
+							<%= form_tag ssh_keys_path, multipart: true, :method => 'post', :remote => true, data: { spinlock: '#createing_sshkeys'}  do %>
+							<div class="form-group">
+								<label for="ssh-key_name">Name</label>
+								<%= text_field_tag 'key_name', nil, :class=> 'form-control', placeholder: 'Enter a key pair name to save', :required => true %>
+								<input type="hidden" name="key_type" value="RSA">
+								<input type="hidden" name="key_bit" value="2048">
+							</div>
+							<%= submit_tag "Create key", :class => "btn green col-md-12 col-xs-12" %>
+							<% end %>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</div>
+
 
 <div id="sshkey_postfinish_popup" class="modal fade" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog" style="max-width:400px">

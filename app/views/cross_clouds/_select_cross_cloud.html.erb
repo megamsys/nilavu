@@ -16,13 +16,13 @@
 		    </div>
 		    <div class="jCarouselLite c_jCarouselLite">
 		        <ul>
-		            <li><img src="1.png" alt="" width="123" height="120"></li>
-		            <li><img src="2.png" alt="" width="123" height="120"></li>
-		            <li><img src="3.png" alt="" width="123" height="120"></li>
-		            <li><img src="4.png" alt="" width="123" height="120"></li>
+		            <li><%= link_to image_tag("amazon.png", :width => "123", :height => "120"), cloud_selector_path(:cloud => "aws"), :remote => true %></li>
+		            <li><%= link_to image_tag("hp.png", :width => "123", :height => "120"), cloud_selector_path(:cloud => "hp"), :remote => true %></li>
+		            <li><%= link_to image_tag("gce.png", :width => "123", :height => "120"), cloud_selector_path(:cloud => "gce"), :remote => true %></li>
+		            <li><%= link_to image_tag("profitbricks.png", :width => "123", :height => "120"), cloud_selector_path(:cloud => "profitbricks"), :remote => true %></li>
+		            <li><%= link_to image_tag("opennebula.png", :width => "123", :height => "120"), cloud_selector_path(:cloud => "opennebula"), :remote => true %></li>
+		            <li><%= link_to image_tag("gogrid.png", :width => "123", :height => "120"), cloud_selector_path(:cloud => "gogrid"), :remote => true %></li>
 
-		            <li><img src="5.png" alt="" width="123" height="120"></li>
-		            <li><img src="6.png" alt="" width="123" height="120"></li>
 		        </ul>
 		    </div>
 		    <div class="next">
@@ -34,81 +34,27 @@
 		
 	<!-- </div> -->
 </div>
-<div class="row cloud_signup_save">
-  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-		<h5>Sign Up for Google Cloud</h5>
-		<a class="btn btn-default c_btn_gplus" href="#">Login with Google +</a>
-		<a class="colr-denimblue" href=""> Create a new google account </a>
-		<!-- <button class="btn btn-default btn-md c_btn_gplus"> Login with Google + </button> -->
-	</div>
 
-	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-		<h5>Save My Cloud As</h5>
-		<form role="form">
-			<div class="input-group margin-top-10" style="width:100%">
-                <input type="email" class="form-control" placeholder="Enter a name to save">                                   
-                <span class="input-group-addon" style="width:35px" ></span>
-            </div>
-		</form>	
-	</div>	
-</div>
+					<%= form_tag cross_clouds_path, multipart: true, :novalidate => 'novalidate', :method => 'post', :remote => true, data: { spinlock: '#spin_cross_cloud'}  do %>
 
-<div class="row cloud_signup_save">
-  	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-		<h5>Image & Size</h5>
-		<div class="input-group margin-top-10">
-            <input type="email" class="form-control" placeholder="Enter project name">                                   
-            <span class="input-group-addon" ><i class="icon-question-sign" style=""></i></span>
-        </div>
+					<div id="provider_form">
+						<%= render :partial => "cross_clouds/aws_form", :locals => {:selected_cloud => "aws", :ssh_keys => @ssh_keys}%>
+					</div>
+					<input type="hidden" name="access_token" value="<%= @token %>">
+					<input type="hidden" name="refresh_token" value="<%= @refresh_token %>">
+					<input type="hidden" name="expire" value="<%= @expire %>">
+					<br/>
+					<br/>
+					<br/>
+					<div class="row">
+						<div class="col-md-4"></div>
+						<div class="col-md-4">
+							<%= submit_tag "Create", :style => "width:150px; height:50px;", :class => "btn green settings_create" %>
+						</div>
+					</div>
+					<% end %>
 
-        <div class="input-group margin-top-10">
-            <input type="email" class="form-control" placeholder="Enter network value">                                   
-            <span class="input-group-addon" ><i class="icon-question-sign" style=""></i></span>
-        </div>
 
-        <div class="input-group margin-top-10">
-            <input type="email" class="form-control" placeholder="Enter image value">                                   
-            <span class="input-group-addon" ><i class="icon-question-sign" style=""></i></span>
-        </div>
-
-        <div class="input-group margin-top-10">
-            <input type="email" class="form-control" placeholder="Enter instence size">                                   
-            <span class="input-group-addon" ><i class="icon-question-sign"></i></span>
-        </div>
-
-        <div class="input-group margin-top-10">
-            <input type="email" class="form-control" placeholder="Enter zone">                                   
-            <span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
-        </div>
-	</div>
-
-	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-		<h5>Image & Size</h5>
-		<div class="input-group margin-top-10">
-            <input type="email" class="form-control" placeholder="Enter a name to save">                                   
-            <span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
-        </div>
-
-        <div class="input-group margin-top-10">
-            <input type="email" class="form-control" placeholder="Enter a name to save">                                   
-            <span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
-        </div>
-
-        <div class="input-group margin-top-10">
-            <input type="email" class="form-control" placeholder="Enter a name to save">                                   
-            <span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
-        </div>
-
-        <div class="input-group margin-top-10">
-            <input type="email" class="form-control" placeholder="Enter a name to save">                                   
-            <span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
-        </div>
-
-        <div class="input-group margin-top-10">
-        	<button class="btn green settings_create" style="width:150px; height:50px;"> Generate </button>
-        </div>
-	</div>	
-</div>
 
 <script type="text/javascript">
     $(".default .jCarouselLite").jCarouselLite({

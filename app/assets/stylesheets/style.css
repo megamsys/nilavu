@@ -67,7 +67,7 @@ li .icon-large[class^="icon-"], li .icon-large[class*=" icon-"] {
     width: 1.5625em;
 }
 .close {
-    background-image: url("../img/remove-icon-small.png") !important;
+    background-image: url("remove-icon-small.png") !important;
     background-repeat: no-repeat !important;
     display: inline-block;
     height: 9px;
@@ -327,7 +327,7 @@ hr {
     text-shadow: none;
 }
 .page-sidebar-menu > li.active > a .selected {
-    background-image: url("../img/sidebar-menu-arrow.png");
+    background-image: url("sidebar-menu-arrow.png");
     display: block;
     float: right;
     height: 25px;
@@ -338,7 +338,7 @@ hr {
     z-index: 100;
 }
 .page-sidebar ul > li > a > .arrow:before {
-    content: "";
+    content: "ï„„";
     display: inline;
     float: right;
     font-family: FontAwesome;
@@ -350,7 +350,7 @@ hr {
     text-shadow: none;
 }
 .page-sidebar-menu > li > a > .arrow.open:before {
-    content: "";
+    content: "ï„‡";
     display: inline;
     float: right;
     font-family: FontAwesome;
@@ -405,7 +405,7 @@ hr {
     margin: 0;
 }
 .page-sidebar-menu > li > ul.sub-menu li > a > .arrow:before {
-    content: "";
+    content: "ï„„";
     display: inline;
     float: right;
     font-family: FontAwesome;
@@ -417,7 +417,7 @@ hr {
     text-shadow: none;
 }
 .page-sidebar-menu > li > ul.sub-menu li > a > .arrow.open:before {
-    content: "";
+    content: "ï„‡";
     display: inline;
     float: right;
     font-family: FontAwesome;
@@ -878,29 +878,29 @@ i.normal {
     color: #000 !important;
 }
 .portlet > .portlet-title > .tools > a.remove {
-    background-image: url("../img/portlet-remove-icon.png");
+    background-image: url("portlet-remove-icon.png");
     background-repeat: no-repeat;
     margin-bottom: 2px;
     width: 11px;
 }
 .portlet > .portlet-title > .tools > a.config {
-    background-image: url("../img/portlet-config-icon.png");
+    background-image: url("portlet-config-icon.png");
     background-repeat: no-repeat;
     margin-bottom: 2px;
     width: 12px;
 }
 .portlet > .portlet-title > .tools > a.reload {
-    background-image: url("../img/portlet-reload-icon.png");
+    background-image: url("portlet-reload-icon.png");
     margin-bottom: 2px;
     width: 13px;
 }
 .portlet > .portlet-title > .tools > a.expand {
-    background-image: url("../img/portlet-expand-icon.png");
+    background-image: url("portlet-expand-icon.png");
     margin-bottom: 2px;
     width: 14px;
 }
 .portlet > .portlet-title > .tools > a.collapse {
-    background-image: url("../img/portlet-collapse-icon.png");
+    background-image: url("portlet-collapse-icon.png");
     margin-bottom: 2px;
     width: 14px;
 }
@@ -1025,19 +1025,19 @@ i.normal {
     margin-top: 3px;
 }
 .portlet.box > .portlet-title > .tools > a.remove, .portlet.solid > .portlet-title > .tools > a.remove {
-    background-image: url("../img/portlet-remove-icon-white.png");
+    background-image: url("portlet-remove-icon-white.png");
 }
 .portlet.box > .portlet-title > .tools > a.config, .portlet.solid > .portlet-title > .tools > a.config {
-    background-image: url("../img/portlet-config-icon-white.png");
+    background-image: url("portlet-config-icon-white.png");
 }
 .portlet.box > .portlet-title > .tools > a.reload, .portlet.solid > .portlet-title > .tools > a.reload {
-    background-image: url("../img/portlet-reload-icon-white.png");
+    background-image: url("portlet-reload-icon-white.png");
 }
 .portlet.box > .portlet-title > .tools > a.expand, .portlet.solid > .portlet-title > .tools > a.expand {
-    background-image: url("../img/portlet-expand-icon-white.png");
+    background-image: url("portlet-expand-icon-white.png");
 }
 .portlet.box > .portlet-title > .tools > a.collapse, .portlet.solid > .portlet-title > .tools > a.collapse {
-    background-image: url("../img/portlet-collapse-icon-white.png");
+    background-image: url("portlet-collapse-icon-white.png");
 }
 .portlet.box > .portlet-body {
     background-color: #fff;
@@ -1464,12 +1464,12 @@ i.normal {
 }
 .rating span.star:before {
     color: #999999;
-    content: "";
+    content: "ï€†";
     padding-right: 5px;
 }
 .rating span.star:hover:before, .rating span.star:hover ~ span.star:before {
     color: #e3cf7a;
-    content: "";
+    content: "ï€…";
 }
 .item {
     display: block;
@@ -1505,7 +1505,7 @@ i.normal {
 }
 .zoom .zoom-icon {
     background-color: #222;
-    background-image: url("../img/overlay-icon.png");
+    background-image: url("overlay-icon.png");
     background-position: 50% center;
     background-repeat: no-repeat;
     height: inherit;
@@ -2092,7 +2092,7 @@ i.normal {
     top: -3px;
 }
 .tile.selected .check:after {
-    content: "";
+    content: "ï€Œ";
     display: inline-block;
     font-family: FontAwesome;
     font-size: 13px;
@@ -2237,7 +2237,7 @@ i.normal {
     z-index: 999;
 }
 .theme-panel > .toggler {
-    background: url("../img/icon-color.png") no-repeat scroll center center #c9c9c9;
+    background: url("icon-color.png") no-repeat scroll center center #c9c9c9;
     cursor: pointer;
     padding: 20px;
     position: absolute;
@@ -2248,7 +2248,7 @@ i.normal {
     background-color: #3d3d3d !important;
 }
 .theme-panel > .toggler-close {
-    background: url("../img/icon-color-close.png") no-repeat scroll center center #3d3d3d !important;
+    background: url("icon-color-close.png") no-repeat scroll center center #3d3d3d !important;
     cursor: pointer;
     display: none;
     padding: 20px;
@@ -2403,7 +2403,7 @@ i.normal {
     border-bottom: medium none !important;
 }
 .header .hor-menu .hor-menu-search-form-toggler {
-    background: url("../img/hor-menu-search.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+    background: url("hor-menu-search.png") no-repeat scroll center center rgba(0, 0, 0, 0);
     cursor: pointer;
     display: inline-block;
     padding: 12px 22px !important;
@@ -2412,7 +2412,7 @@ i.normal {
     opacity: 0.8;
 }
 .header .hor-menu .hor-menu-search-form-toggler.off {
-    background: url("../img/hor-menu-search-close.png") no-repeat scroll center center #101010;
+    background: url("hor-menu-search-close.png") no-repeat scroll center center #101010;
 }
 .header .hor-menu a.hor-menu-search-form-toggler-close {
     display: none;
@@ -2427,7 +2427,7 @@ i.normal {
     z-index: 999;
 }
 .header .hor-menu .search-form .btn {
-    background: url("../img/search-icon.png") no-repeat scroll center center #2d2d2d;
+    background: url("search-icon.png") no-repeat scroll center center #2d2d2d;
     color: #999;
     display: inline-block;
     height: 32px;
@@ -2559,91 +2559,91 @@ ul.sidebar-tags li {
     opacity: 1;
 }
 .social-icons .amazon {
-    background: url("../img/social/amazon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/amazon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .behance {
-    background: url("../img/social/behance.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/behance.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .blogger {
-    background: url("../img/social/blogger.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/blogger.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .deviantart {
-    background: url("../img/social/deviantart.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/deviantart.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .dribbble {
-    background: url("../img/social/dribbble.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/dribbble.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .dropbox {
-    background: url("../img/social/dropbox.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/dropbox.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .evernote {
-    background: url("../img/social/evernote.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/evernote.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .facebook {
-    background: url("../img/social/facebook.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/facebook.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .forrst {
-    background: url("../img/social/forrst.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/forrst.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .github {
-    background: url("../img/social/github.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/github.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .googleplus {
-    background: url("../img/social/googleplus.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/googleplus.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .jolicloud {
-    background: url("../img/social/jolicloud.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/jolicloud.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .last-fm {
-    background: url("../img/social/last-fm.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/last-fm.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .linkedin {
-    background: url("../img/social/linkedin.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/linkedin.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .picasa {
-    background: url("../img/social/picasa.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/picasa.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .pintrest {
-    background: url("../img/social/pintrest.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/pintrest.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .rss {
-    background: url("../img/social/rss.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/rss.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .skype {
-    background: url("../img/social/skype.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/skype.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .spotify {
-    background: url("../img/social/spotify.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/spotify.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .stumbleupon {
-    background: url("../img/social/stumbleupon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/stumbleupon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .tumblr {
-    background: url("../img/social/tumblr.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/tumblr.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .twitter {
-    background: url("../img/social/twitter.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/twitter.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .vimeo {
-    background: url("../img/social/vimeo.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/vimeo.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .wordpress {
-    background: url("../img/social/wordpress.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/wordpress.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .xing {
-    background: url("../img/social/xing.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/xing.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .yahoo {
-    background: url("../img/social/yahoo.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/yahoo.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .youtube {
-    background: url("../img/social/youtube.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/youtube.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .vk {
-    background: url("../img/social/vk.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/vk.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .instagram {
-    background: url("../img/social/instagram.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("social/instagram.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .note {
     border-left: 5px solid #eee;

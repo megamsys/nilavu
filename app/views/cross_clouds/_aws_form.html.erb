@@ -1,167 +1,74 @@
-<%= javascript_include_tag "megam.popovers.js" %>
+<div class="row cloud_signup_save">
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+		<h5>Sign Up for Google Cloud</h5>
+		<a class="btn btn-default c_btn_gplus" href="#">Login with amazon</a>
+		<a class="colr-denimblue" href=""> Create a new aws account </a>
+		<!-- <button class="btn btn-default btn-md c_btn_gplus"> Login with Google + </button> -->
+	</div>
+
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+		<h5>Save My Cloud As</h5>
+		<div class="input-group margin-top-10" style="width:100%">
+			<%= text_field_tag 'name', nil, placeholder: 'Enter a name to save', :required => true, :class =>"form-control" %>
+			<span class="input-group-addon" style="width:35px" ></span>
+		</div>
+	</div>
+</div>
+
 <input type="hidden" name="provider" value="<%= selected_cloud %>">
-<div class="row">
-	<div class="col-md-4">
-		<br/>
-		<br/>
-		<div class="underlineolivegreen">
-			<h4 class="alert-heading">Save My Cloud As</h4>
-		</div>
-		<br/>
-		<div class="row">
-			<div class="form-group" id="cc_name">
-				<label class="col-sm-2 col-md-2 col-lg-1 control-label"> &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa fa-cloud"></i> &nbsp; </label>
-				<div class="col-sm-8 col-md-8 col-lg-9">
-					<%= text_field_tag 'name', nil, placeholder: 'Enter a name to save', :required => true,
-					:class =>"form-control input-sm" %>
-				</div>
-				<%= link_to "#" do %>
-				<i class="fa fa-question-circle" id="popover_cloud_name"></i>
-				<% end %>
-			</div>
-		</div>
-		<br/>
-		<div  id="acc_link">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					Sign Up for AWS(EC2)
-				</div>
-				<div class="panel-body">
-					Click here : <%= link_to "Sign Up", "http://aws.amazon.com/console/", :target => "_blank", :class => "btn-link"  %>
-					.Make sure you have the keys handy
-					<ul class="inline-block">
-						<li>
-							AWS Access Key
-						</li>
-						<li>
-							AWS Secret Key
-						</li>
 
-					</ul>
-				</div>
-			</div>
+<div class="row cloud_signup_save">
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+		<h5>Image & Size</h5>
+		<div class="input-group margin-top-10">
+			<%= text_field_tag 'group', nil, placeholder: 'Enter Group name', :required => true, :class =>"form-control" %>
+			<span class="input-group-addon" ><i class="icon-question-sign" style=""></i></span>
 		</div>
-	</div>
-	<div class="col-md-4">
-		<br/>
-		<br/>
-		<div class="underlineolivegreen">
-			<h4 class="alert-heading">Image & Size</h4>
-		</div>
-		<br/>		
 
-		<div class="form-group" id="cc_group">
-			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'group', nil, placeholder: 'Enter Group name', :required => true,
-				:class =>"form-control input-sm" %>
-			</div>
-			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_aws_group" ></i>
-			<% end %>
+		<div class="input-group margin-top-10">
+			<%= text_field_tag 'image', nil, placeholder: 'Enter Image id' , :required => true, :class =>"form-control" %>
+			<span class="input-group-addon" ><i class="icon-question-sign" style=""></i></span>
 		</div>
-		<br/>
 
-		<div class="form-group" id="cc_image">
-			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'image', nil, placeholder: 'Enter Image id' , :required => true,
-				:class =>"form-control input-sm" %>
-
-			</div>
-			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id = "popover_aws_image"></i>
-			<% end %>
+		<div class="input-group margin-top-10">
+			<%= text_field_tag 'flavor', nil, placeholder: 'Enter Instance size' , :required => true, :class =>"form-control" %>
+			<span class="input-group-addon" ><i class="icon-question-sign" style=""></i></span>
 		</div>
-		<br/>
-		<div class="form-group" id="cc_flavor">
-			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'flavor', nil, placeholder: 'Enter Instance size' , :required => true,
-				:class =>"form-control input-sm" %>
-			</div>
-			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_aws_flavor"></i>
-			<% end %>
-		</div>
-		<br/>
-		<div class="form-group"  id="cc_region">
-			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'region', nil, placeholder: 'Enter AWS Region' , :required => true,
-				:class =>"form-control input-sm" %>
 
-			</div>
-			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_aws_region"></i>
-			<% end %>
+		<div class="input-group margin-top-10">
+			<%= text_field_tag 'region', nil, placeholder: 'Enter AWS Region' , :required => true, :class =>"form-control" %>
+			<span class="input-group-addon" ><i class="icon-question-sign"></i></span>
 		</div>
 	</div>
 
-	<div class="col-md-4">
-		<br/>
-		<br/>
-		<div class="underlineolivegreen">
-			<h4 class="alert-heading">Security</h4>
-		</div>
-		<br/>
-		<div class="form-group" id="cc_sshkey">
-			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'ssh_key', nil, placeholder: 'Enter AWS SSH key' , :required => true,
-				:class =>"form-control input-sm" %>
-			</div>
-			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_sshkey"></i>
-			<% end %>
-		</div>
-		<br/>
-		<div class="form-group" id="cc_sshuser">
-			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter AWS SSH User' , :required => true,
-				:class =>"form-control input-sm" %>
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+		<h5>Security</h5>
 
-			</div>
-			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_sshuser"></i>
-			<% end %>
+		<div class="input-group margin-top-10">
+                        <%= text_field_tag 'ssh_key', nil, placeholder: 'Enter AWS SSH key' , :required => true, :class =>"form-control" %>
+			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
 		</div>
-		<br/>
-		<% if @ssh_keys.any? %>
-		<div class="form-group">
-			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= select_tag :id_rsa_public_key, options_for_select(@ssh_keys.map{ |c| c[:name] }) %>
 
-			</div>
-			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_aws_publickey"></i>
-			<% end %>
+
+		<div class="input-group margin-top-10">
+			<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter AWS SSH User' , :required => true, :class =>"form-control" %>
+			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
 		</div>
-		<% else %>
-		<div class="form-group">
-			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= select_tag :id_rsa_public_key, options_for_select(ssh_keys.map{ |c| c[:name] }) %>
-			</div>
-			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_aws_publickey"></i>
-			<% end %>
+
+		<div class="input-group margin-top-10">
+			<%= select_tag :id_rsa_public_key, options_for_select(@ssh_keys.map{ |c| c[:name] }), { :class => 'form-control input-sm' }%>
+
+			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
 		</div>
-		<% end %>
-		<br/>
-		<div class="form-group" id="cc_awsak">
-			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'aws_access_key', nil, placeholder: 'Enter AWS Access key' , :required => true,
-				:class =>"form-control input-sm" %>
-			</div>
-			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_aws_accesskey"></i>
-			<% end %>
+
+		<div class="input-group margin-top-10">
+			<%= text_field_tag 'aws_access_key', nil, placeholder: 'Enter AWS Access key' , :required => true, :class =>"form-control" %>
+			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
 		</div>
-		<br/>
-		<div class="form-group" id="cc_awssk">
-			<div class="col-sm-11 col-md-11 col-lg-11">
-				<%= text_field_tag 'aws_secret_key', nil, placeholder: 'Enter AWS Secret key', :required => true,
-				:class =>"form-control input-sm" %>
-			</div>
-			<%= link_to "#" do %>
-			<i class="fa fa-question-circle" id="popover_aws_secretkey" ></i>
-			<% end %>
+
+		<div class="input-group margin-top-10">
+			<%= text_field_tag 'aws_secret_key', nil, placeholder: 'Enter AWS Secret key', :required => true, :class =>"form-control" %>
+			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
 		</div>
-		<br/>
 	</div>
 </div>

@@ -45,7 +45,7 @@ Cloudauth::Application.routes.draw do
 
   
   #Cloud Books
-  match '/launch', to: 'apps#launch', via: [:get, :post]
+  match '/launch', to: 'marketplaces#create', via: [:get, :post]
   match '/get_request', to: 'apps#get_request', via: [:get, :post]
   match '/build_request', to: 'apps#build_request', via: [:get, :post]
   match '/requests', to: 'oneapps#requests', via: [:get, :post]
@@ -85,7 +85,7 @@ Cloudauth::Application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: [:post,:delete]
   match '/auth/facebook/callback', :to => 'sessions#create', via: [:get, :post]
   match '/auth/github/callback', :to => 'apps#authorize_scm', via: [:get, :post]
-  match '/auth/google_oauth2/callback', :to => 'cross_clouds#new', via: [:get, :post]
+  match '/auth/google_oauth2/callback', :to => 'cross_clouds#cloud_selector', via: [:get, :post]
   match '/auth/assembla/callback', :to => 'apps#authorize_assembla', via: [:get, :post]
   match '/scm_manager_auth', :to => 'apps#scm_manager_auth', via: [:get, :post]
   match '/scmmanager_auth', :to => 'apps#scmmanager_auth', via: [:get, :post]
@@ -112,7 +112,7 @@ Cloudauth::Application.routes.draw do
   match '/sshkey_create', to: 'settings#sshkey_create', via: [:get, :post] 
   match '/sshkey_import', to: 'ssh_keys#sshkey_import', via: [:get, :post] 
   match '/ssh_key_import', to: 'ssh_keys#ssh_key_import', via: [:get, :post]
-  match '/selectclouds', to: 'cross_clouds#cloud_selector', via: [:get, :post]
+  match '/cloud_selector', to: 'cross_clouds#cloud_selector', via: [:get, :post]
   #get '/selectclouds' => 'settings#cloud_selector'
   #match '/selectclouds', to: 'cross_clouds#new', via: [:get, :post]
   #match '/market_place_app_show', to: 'marketplaces#market_place_app_show', via: [:get, :post]

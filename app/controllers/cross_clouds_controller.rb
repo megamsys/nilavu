@@ -2,7 +2,12 @@ class CrossCloudsController < ApplicationController
   respond_to :html, :js
   include CrossCloudsHelper
   def new
-
+        list_sshkeys
+      respond_to do |format|
+        format.js {
+          respond_with(@ssh_keys, :layout => !request.xhr? )
+        }
+      end
   end
 
   def create
@@ -95,19 +100,19 @@ end
   end
 
   def cloud_selector
-    @ssh_keys = params[:ssh_keys]
-    @provider = params[:selected_cloud]
-    if params[:selected_cloud] == "aws"
+    list_sshkeys
+    @provider = params[:cloud]
+    if params[:cloud] == "aws"
       @provider_form_name = "Amazon EC2"
-    elsif params[:selected_cloud] == "gce"
+    elsif params[:cloud] == "gce"
       @provider_form_name = "Google Compute Engine"
-    elsif params[:selected_cloud] == "hp"
+    elsif params[:cloud] == "hp"
       @provider_form_name = "hp cloud"
-    elsif params[:selected_cloud] == "profitbricks"
+    elsif params[:cloud] == "profitbricks"
       @provider_form_name = "profitbricks"
-    elsif params[:selected_cloud] == "gogrid"
+    elsif params[:cloud] == "gogrid"
       @provider_form_name = "GoGrid"
-    elsif params[:selected_cloud] == "opennebula"
+    elsif params[:cloud] == "opennebula"
       @provider_form_name = "opennebula"
     else
       @provider_form_name = "Amazon EC2"
@@ -119,6 +124,21 @@ end
       format.html {
         redirect_to new_cross_cloud_path
       }
+    end
+  end
+
+  def list_sshkeys
+    logger.debug "--> #{self.class} : list sshkeys entry"
+    @ssh_keys_collection = ListSshKeys.perform(force_api[:email], force_api[:api_key])
+    logger.debug "--> #{self.class} : listed sshkeys"
+
+    if @ssh_keys_collection.class != Megam::Error
+      @ssh_keys = []
+      ssh_keys = []
+      @ssh_keys_collection.each do |sshkey|
+        ssh_keys << {:name => sshkey.name, :created_at => sshkey.created_at.to_time.to_formatted_s(:rfc822)}
+      end
+      @ssh_keys = ssh_keys.sort_by {|vn| vn[:created_at]}
     end
   end
 

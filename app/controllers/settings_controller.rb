@@ -35,6 +35,8 @@ class SettingsController < ApplicationController
     logger.debug "--> #{self.class} : list clouds entry"
     @cross_clouds_collection = ListPredefClouds.perform( force_api[:email], force_api[:api_key])
     logger.debug "--> #{self.class} : listed clouds"
+        logger.debug "============================>clouds ===================================="
+        logger.debug @cross_clouds_collection.inspect
     if @cross_clouds_collection.class != Megam::Error
       @cross_clouds = []
       cross_clouds = []
