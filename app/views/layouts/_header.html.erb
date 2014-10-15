@@ -14,7 +14,7 @@
 						<!-- BEGIN NOTIFICATION DROPDOWN -->
 						<li class="dropdown" id="header_notification_bar">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown"
-							data-close-others="true"> <i class="icon-warning-sign"></i> <span class="badge">6</span> </a>
+							data-close-others="true"> <i class="c_glob glyphicon glyphicon-globe"></i> <span class="badge badge-success">6</span> </a>
 							<ul class="dropdown-menu extended notification">
 								<li>
 									<p>
@@ -22,33 +22,12 @@
 									</p>
 								</li>
 								<li>
-									<ul class="dropdown-menu-list scroller" style="height: 250px;">
+									<ul class="dropdown-menu-list scroller">
 										<li>
 											<a href="#"> <span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> New user registered. <span class="time">Just now</span> </a>
 										</li>
 										<li>
 											<a href="#"> <span class="label label-sm label-icon label-danger"><i class="icon-bolt"></i></span> Server #12 overloaded. <span class="time">15 mins</span> </a>
-										</li>
-										<li>
-											<a href="#"> <span class="label label-sm label-icon label-warning"><i class="icon-bell"></i></span> Server #2 not responding. <span class="time">22 mins</span> </a>
-										</li>
-										<li>
-											<a href="#"> <span class="label label-sm label-icon label-info"><i class="icon-bullhorn"></i></span> Application error. <span class="time">40 mins</span> </a>
-										</li>
-										<li>
-											<a href="#"> <span class="label label-sm label-icon label-danger"><i class="icon-bolt"></i></span> Database overloaded 68%. <span class="time">2 hrs</span> </a>
-										</li>
-										<li>
-											<a href="#"> <span class="label label-sm label-icon label-danger"><i class="icon-bolt"></i></span> 2 user IP blocked. <span class="time">5 hrs</span> </a>
-										</li>
-										<li>
-											<a href="#"> <span class="label label-sm label-icon label-warning"><i class="icon-bell"></i></span> Storage Server #4 not responding. <span class="time">45 mins</span> </a>
-										</li>
-										<li>
-											<a href="#"> <span class="label label-sm label-icon label-info"><i class="icon-bullhorn"></i></span> System Error. <span class="time">55 mins</span> </a>
-										</li>
-										<li>
-											<a href="#"> <span class="label label-sm label-icon label-danger"><i class="icon-bolt"></i></span> Database overloaded 68%. <span class="time">2 hrs</span> </a>
 										</li>
 									</ul>
 								</li>
@@ -71,19 +50,12 @@
 						<li class="dropdown user" style="width:77px;height:auto;">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> <!-- <img alt="" src="assets/img/avatar1_small.jpg"/>
 							<span class="username">Bob Nilson</span> --> <i class="c_icon-user hidden-xs pull-left"></i> <i class="icon-angle-down c_icon-angle-down pull-left"></i> </a>
-							<ul class="dropdown-menu">
+							<ul class="dropdown-menu c_user_dd">
 								<li>
 									<%= link_to edit_user_path(current_user) do %>
 									<i class="icon-user"></i>
 									My Profile
 									<% end %>
-								</li>
-								<li class="divider"></li>
-								<li>
-									<a href="http://www.gomegam.com/docs" target="_blank"><i class="icon-lock"></i> Documentation</a>
-								</li>
-								<li>
-									<a href="http://support.megam.co" target="_blank"><i class="icon-tasks"></i> Support</a>
 								</li>
 								<li>
 									<%= link_to signout_path, method: "delete" do %>

@@ -1,13 +1,17 @@
-<% content_for :content_settings do %>
-<% provide(:title, 'Dashboard') %>
-
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9 c_bg_white c_height_5">
 	<div class="row c_pading-b15 settings_top">
 		<div class="margin_15">
 			<div class="col-xs-12 col-sm-6">
 				<h3> Dashboard </h3>
 			</div>
-			<%= render :partial => "users/topright_icons" %>
+			<div class="col-xs-12 col-sm-6 settings_grid pad_t25">
+				<div class="pull-right mplace-icons">
+					<span class="mplace-selected">Marketplace</span>
+					<i class="c_icon-window-lg"></i>
+					<span>Visual Designer</span>
+					<i class="c_icon-grid-25"></i>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div class="row">
@@ -119,11 +123,11 @@
 									<a href="#">firstassembly.mydrive.co</a>
 									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 										<ul class="list-inline app_icon_bottom">
-											<li><img src="apps1.png">
+											<li><img src="assets/img/apps1.png">
 											</li>
-											<li><img src="apps1.png">
+											<li><img src="assets/img/apps1.png">
 											</li>
-											<li><img src="apps1.png">
+											<li><img src="assets/img/apps1.png">
 											</li>
 										</ul>
 									</div>
@@ -167,11 +171,11 @@
 									<a href="#">firstassembly.mydrive.co</a>
 									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 										<ul class="list-inline app_icon_bottom">
-											<li><img src="apps1.png">
+											<li><img src="assets/img/apps1.png">
 											</li>
-											<li><img src="apps1.png">
+											<li><img src="assets/img/apps1.png">
 											</li>
-											<li><img src="apps1.png">
+											<li><img src="assets/img/apps1.png">
 											</li>
 										</ul>
 									</div>
@@ -215,11 +219,11 @@
 									<a href="#">firstassembly.mydrive.co</a>
 									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 										<ul class="list-inline app_icon_bottom">
-											<li><img src="apps1.png">
+											<li><img src="assets/img/apps1.png">
 											</li>
-											<li><img src="apps1.png">
+											<li><img src="assets/img/apps1.png">
 											</li>
-											<li><img src="apps1.png">
+											<li><img src="assets/img/apps1.png">
 											</li>
 										</ul>
 									</div>
@@ -285,11 +289,11 @@
 									<a href="#">firstassembly.mydrive.co</a>
 									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 										<ul class="list-inline app_icon_bottom">
-											<li><img src="apps1.png">
+											<li><img src="assets/img/apps1.png">
 											</li>
-											<li><img src="apps1.png">
+											<li><img src="assets/img/apps1.png">
 											</li>
-											<li><img src="apps1.png">
+											<li><img src="assets/img/apps1.png">
 											</li>
 										</ul>
 									</div>
@@ -333,11 +337,11 @@
 									<a href="#">firstassembly.mydrive.co</a>
 									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 										<ul class="list-inline app_icon_bottom">
-											<li><img src="apps1.png">
+											<li><img src="assets/img/apps1.png">
 											</li>
-											<li><img src="apps1.png">
+											<li><img src="assets/img/apps1.png">
 											</li>
-											<li><img src="apps1.png">
+											<li><img src="assets/img/apps1.png">
 											</li>
 										</ul>
 									</div>
@@ -380,11 +384,11 @@
 									<a href="#">firstassembly.mydrive.co</a>
 									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 										<ul class="list-inline app_icon_bottom">
-											<li><img src="apps1.png">
+											<li><img src="assets/img/apps1.png">
 											</li>
-											<li><img src="apps1.png">
+											<li><img src="assets/img/apps1.png">
 											</li>
-											<li><img src="apps1.png">
+											<li><img src="assets/img/apps1.png">
 											</li>
 										</ul>
 									</div>
@@ -509,5 +513,4 @@
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-<% end %>
-<%= render :template => users_show_path %>
+

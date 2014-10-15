@@ -3,15 +3,10 @@
 
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
 	<div class="row c_pading-b15 settings_top">
-		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+		<div class="col-xs-12 col-sm-6">
 			<h3> My profile</h3>
 		</div>
-		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 settings_grid">
-			<div class="pull-right list-grid">
-				<span class="icon-th-large"></span>
-				<span class="icon-reorder"></span>
-			</div>
-		</div>
+		<%= render :partial => "users/topright_icons" %>
 	</div>
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -65,7 +60,7 @@
 
 							<div class="form-group">
 								<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
-									<%= f.submit "Save", :class => "btn btn-default c_btn_save_success col-md-5 col-xs-12" %>
+									<%= f.submit "Save", :class => "btn btn-default c_btn-success col-md-5 col-xs-12" %>
 								</div>
 							</div>
 							<% end %>
@@ -104,7 +99,7 @@
 
 							<div class="form-group">
 								<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
-									<%= f.submit "Update", :id => "save_password", :class => "btn btn-default c_btn_save_success col-md-5 col-xs-12" %>
+									<%= f.submit "Update", :id => "save_password", :class => "btn btn-success col-md-5 col-xs-12" %>
 
 								</div>
 							</div>
@@ -145,7 +140,7 @@
 
 								<div class="form-group">
 									<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
-										<a class="btn btn-default c_btn_save_success col-md-5 col-xs-12" href="#"> Save </a>
+										<a class="btn btn-success col-md-5 col-xs-12" href="#"> Save </a>
 									</div>
 								</div>
 							</form>
@@ -182,7 +177,7 @@
 
 								<div class="form-group">
 									<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
-										<a class="btn btn-default c_btn_save_success col-md-5 col-xs-12" href="#">Update</a>
+										<a class="btn btn-success col-md-5 col-xs-12" href="#">Update</a>
 									</div>
 								</div>
 							</form>
