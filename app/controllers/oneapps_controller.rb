@@ -4,6 +4,20 @@ class OneappsController < ApplicationController
   include Packable
   include OneappsHelper
 
+def show
+        #@app = Appscollection(params[:app_name])
+        #get the selected app
+end
+def overview
+        #@app = Appscollection(params[:app_name])
+        #get the selected app
+end
+
+def logs
+        #@app = Appscollection(params[:app_name])
+        #get the selected app
+end
+
   def marketplaces
   end
 
