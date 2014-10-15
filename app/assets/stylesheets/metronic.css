@@ -448,7 +448,7 @@ Dropdown
 
 .dropdown.open .dropdown-toggle {
   color: #08c;
-  /*background: #f4f4f5;*/
+  background: #f4f4f5;
   /*background: rgba(0, 0, 0, 0.3);*/
 }
 
@@ -472,7 +472,7 @@ Dropdown Menu
   -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);  
   font-size: 14px;
-  font-family: "Segoe UI",Helvetica, Arial, sans-serif;
+  /*font-family: "Segoe UI",Helvetica, Arial, sans-serif;*/
   border: 1px solid #ddd;
 }
 
@@ -614,7 +614,7 @@ Dropdown Menu
 
   .navbar-nav .open .dropdown-menu > li > a:hover,
   .navbar-nav .open .dropdown-menu > li > a:focus {
-    background-color: #eee !important;
+    /*background-color: #eee !important;*/
   }
 
 }
