@@ -9,9 +9,13 @@
 //
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
+
+// AJAX for file uploads
+// Added //= require jquery.remotipart in application.js
 //
 //= require jquery2
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require jquery.turbolinks
 //= require angular
 //= require angular-route
