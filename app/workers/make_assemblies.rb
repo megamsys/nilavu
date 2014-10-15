@@ -36,7 +36,7 @@ class MakeAssemblies
               "artifacts"=>{
                 "artifact_type"=>"",
                 "content"=>"",
-                "requirements"=>"",
+                "artifact_requirements"=>"",
               },
               "related_components"=>"",
               "operations"=>{
