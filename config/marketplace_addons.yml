@@ -7,6 +7,7 @@ DRBD:
   deps_scm: 
   db_model:
   dbms: 
+  link:
   
 Jenkins:
   name: Jenkins
@@ -16,6 +17,7 @@ Jenkins:
   deps_scm: http://mirrors.jenkins-ci.org/war/latest/jenkins.war
   db_model:
   dbms: 
+  link:
   
 SCMManager:
   name: SCMManager
@@ -25,6 +27,7 @@ SCMManager:
   deps_scm: https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/scmmanager.war
   db_model:
   dbms: 
+  link:
   
 Ghost:
   name: Ghost
@@ -34,6 +37,7 @@ Ghost:
   deps_scm: https://github.com/thomasalrin/ghost.git
   db_model:
   dbms: 
+  link:
   
 WordPress:
   name: WordPress
@@ -42,7 +46,8 @@ WordPress:
   radios: scm_sample
   deps_scm:
   db_model:
-  dbms:      
+  dbms:  
+  link:    
 
 Riak:
   name: Riak
@@ -52,6 +57,7 @@ Riak:
   predef_name:
   radios:
   deps_scm:
+  link: http://gomegam.com/docs/users/services/index.html
     
 PostgreSQL:
   name: PostgreSQL
@@ -61,6 +67,7 @@ PostgreSQL:
   predef_name:
   radios:
   deps_scm:    
+  link: http://gomegam.com/docs/users/services/index.html
 
 Redis:
   name: Redis
@@ -70,6 +77,17 @@ Redis:
   predef_name:
   radios:
   deps_scm:
+  link: http://gomegam.com/docs/users/services/index.html
+  
+RabbitMQ:
+  name: RabbitMQ
+  no_of_instances: 1
+  db_model: full
+  dbms: rabbitmq
+  predef_name:
+  radios:
+  deps_scm:
+  link: http://gomegam.com/docs/users/services/index.html 
 
 Op5:
   name: Op5
@@ -78,7 +96,8 @@ Op5:
   deps_scm:
   db_model:
   dbms:
-  predef_name: op5     
+  predef_name: op5  
+  link:   
 
 Zarafa:
   name: Zarafa
@@ -88,6 +107,7 @@ Zarafa:
   db_model:
   dbms:
   predef_name: zarafa 
+  link:
 
 Java:
   name: Java
@@ -96,7 +116,8 @@ Java:
   radios: scm_sample
   deps_scm: https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/orion.war
   db_model:
-  dbms:    
+  dbms:   
+  link: http://gomegam.com/docs/users/apps/index.html 
   
 Rails:
   name: Rails
@@ -106,6 +127,7 @@ Rails:
   deps_scm: https://github.com/thomasalrin/aryabhata.git
   db_model:
   dbms:  
+  link: http://gomegam.com/docs/users/apps/index.html
   
 Play:
   name: Play
@@ -115,6 +137,7 @@ Play:
   deps_scm: https://github.com/thomasalrin/megam_play.git
   db_model:
   dbms:  
+  link: http://gomegam.com/docs/users/apps/index.html
   
 Akka:
   name: Akka
@@ -124,6 +147,7 @@ Akka:
   deps_scm: https://github.com/thomasalrin/megam_akka.git
   db_model:
   dbms:  
+  link: http://gomegam.com/docs/users/apps/index.html
   
 Nodejs:
   name: Nodejs
@@ -133,3 +157,4 @@ Nodejs:
   deps_scm: https://github.com/thomasalrin/ghost.git
   db_model:
   dbms:  
+  link: http://gomegam.com/docs/users/apps/index.html

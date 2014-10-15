@@ -49,8 +49,9 @@
 
 		<% categories.sort.each do |cat| %>
 		<div class="bottom-divider"></div>
-		<h4><%= cat %></h4>
-
+		<% c = cat.split("-") %>
+		<h4> <%= c[1] %> <small><i> <%= get_category_description(c[1]) %> <i></small></h4>
+		
 		<div class="col-xs-12">
 
 			<div class="row app_box">
