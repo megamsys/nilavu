@@ -11,7 +11,6 @@ class SshKeysController < ApplicationController
   def create
     #k = SSHKey.generate(:type => params[:key_type], :bits => params[:key_bit].to_i, :comment => current_user.email)
     k = SSHKey.generate
-    sleep 100
     key_name = params[:key_name] || current_user.first_name
     @filename = key_name
     if Rails.configuration.storage_type == "s3"

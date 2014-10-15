@@ -67,7 +67,7 @@ li .icon-large[class^="icon-"], li .icon-large[class*=" icon-"] {
     width: 1.5625em;
 }
 .close {
-    background-image: url("remove-icon-small.png") !important;
+    background-image: url("../img/remove-icon-small.png") !important;
     background-repeat: no-repeat !important;
     display: inline-block;
     height: 9px;
@@ -327,7 +327,7 @@ hr {
     text-shadow: none;
 }
 .page-sidebar-menu > li.active > a .selected {
-    background-image: url("sidebar-menu-arrow.png");
+    background-image: url("../img/sidebar-menu-arrow.png");
     display: block;
     float: right;
     height: 25px;
@@ -878,29 +878,29 @@ i.normal {
     color: #000 !important;
 }
 .portlet > .portlet-title > .tools > a.remove {
-    background-image: url("portlet-remove-icon.png");
+    background-image: url("../img/portlet-remove-icon.png");
     background-repeat: no-repeat;
     margin-bottom: 2px;
     width: 11px;
 }
 .portlet > .portlet-title > .tools > a.config {
-    background-image: url("portlet-config-icon.png");
+    background-image: url("../img/portlet-config-icon.png");
     background-repeat: no-repeat;
     margin-bottom: 2px;
     width: 12px;
 }
 .portlet > .portlet-title > .tools > a.reload {
-    background-image: url("portlet-reload-icon.png");
+    background-image: url("../img/portlet-reload-icon.png");
     margin-bottom: 2px;
     width: 13px;
 }
 .portlet > .portlet-title > .tools > a.expand {
-    background-image: url("portlet-expand-icon.png");
+    background-image: url("../img/portlet-expand-icon.png");
     margin-bottom: 2px;
     width: 14px;
 }
 .portlet > .portlet-title > .tools > a.collapse {
-    background-image: url("portlet-collapse-icon.png");
+    background-image: url("../img/portlet-collapse-icon.png");
     margin-bottom: 2px;
     width: 14px;
 }
@@ -1025,19 +1025,19 @@ i.normal {
     margin-top: 3px;
 }
 .portlet.box > .portlet-title > .tools > a.remove, .portlet.solid > .portlet-title > .tools > a.remove {
-    background-image: url("portlet-remove-icon-white.png");
+    background-image: url("../img/portlet-remove-icon-white.png");
 }
 .portlet.box > .portlet-title > .tools > a.config, .portlet.solid > .portlet-title > .tools > a.config {
-    background-image: url("portlet-config-icon-white.png");
+    background-image: url("../img/portlet-config-icon-white.png");
 }
 .portlet.box > .portlet-title > .tools > a.reload, .portlet.solid > .portlet-title > .tools > a.reload {
-    background-image: url("portlet-reload-icon-white.png");
+    background-image: url("../img/portlet-reload-icon-white.png");
 }
 .portlet.box > .portlet-title > .tools > a.expand, .portlet.solid > .portlet-title > .tools > a.expand {
-    background-image: url("portlet-expand-icon-white.png");
+    background-image: url("../img/portlet-expand-icon-white.png");
 }
 .portlet.box > .portlet-title > .tools > a.collapse, .portlet.solid > .portlet-title > .tools > a.collapse {
-    background-image: url("portlet-collapse-icon-white.png");
+    background-image: url("../img/portlet-collapse-icon-white.png");
 }
 .portlet.box > .portlet-body {
     background-color: #fff;
@@ -1505,7 +1505,7 @@ i.normal {
 }
 .zoom .zoom-icon {
     background-color: #222;
-    background-image: url("overlay-icon.png");
+    background-image: url("../img/overlay-icon.png");
     background-position: 50% center;
     background-repeat: no-repeat;
     height: inherit;
@@ -2237,7 +2237,7 @@ i.normal {
     z-index: 999;
 }
 .theme-panel > .toggler {
-    background: url("icon-color.png") no-repeat scroll center center #c9c9c9;
+    background: url("../img/icon-color.png") no-repeat scroll center center #c9c9c9;
     cursor: pointer;
     padding: 20px;
     position: absolute;
@@ -2248,7 +2248,7 @@ i.normal {
     background-color: #3d3d3d !important;
 }
 .theme-panel > .toggler-close {
-    background: url("icon-color-close.png") no-repeat scroll center center #3d3d3d !important;
+    background: url("../img/icon-color-close.png") no-repeat scroll center center #3d3d3d !important;
     cursor: pointer;
     display: none;
     padding: 20px;
@@ -2403,7 +2403,7 @@ i.normal {
     border-bottom: medium none !important;
 }
 .header .hor-menu .hor-menu-search-form-toggler {
-    background: url("hor-menu-search.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+    background: url("../img/hor-menu-search.png") no-repeat scroll center center rgba(0, 0, 0, 0);
     cursor: pointer;
     display: inline-block;
     padding: 12px 22px !important;
@@ -2412,7 +2412,7 @@ i.normal {
     opacity: 0.8;
 }
 .header .hor-menu .hor-menu-search-form-toggler.off {
-    background: url("hor-menu-search-close.png") no-repeat scroll center center #101010;
+    background: url("../img/hor-menu-search-close.png") no-repeat scroll center center #101010;
 }
 .header .hor-menu a.hor-menu-search-form-toggler-close {
     display: none;
@@ -2427,7 +2427,7 @@ i.normal {
     z-index: 999;
 }
 .header .hor-menu .search-form .btn {
-    background: url("search-icon.png") no-repeat scroll center center #2d2d2d;
+    background: url("../img/search-icon.png") no-repeat scroll center center #2d2d2d;
     color: #999;
     display: inline-block;
     height: 32px;
@@ -2559,91 +2559,91 @@ ul.sidebar-tags li {
     opacity: 1;
 }
 .social-icons .amazon {
-    background: url("amazon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/amazon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .behance {
-    background: url("behance.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/behance.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .blogger {
-    background: url("blogger.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/blogger.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .deviantart {
-    background: url("deviantart.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/deviantart.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .dribbble {
-    background: url("dribbble.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/dribbble.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .dropbox {
-    background: url("dropbox.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/dropbox.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .evernote {
-    background: url("evernote.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/evernote.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .facebook {
-    background: url("facebook.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/facebook.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .forrst {
-    background: url("forrst.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/forrst.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .github {
-    background: url("github.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/github.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .googleplus {
-    background: url("googleplus.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/googleplus.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .jolicloud {
-    background: url("jolicloud.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/jolicloud.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .last-fm {
-    background: url("last-fm.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/last-fm.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .linkedin {
-    background: url("linkedin.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/linkedin.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .picasa {
-    background: url("picasa.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/picasa.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .pintrest {
-    background: url("pintrest.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/pintrest.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .rss {
-    background: url("rss.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/rss.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .skype {
-    background: url("skype.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/skype.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .spotify {
-    background: url("spotify.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/spotify.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .stumbleupon {
-    background: url("stumbleupon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/stumbleupon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .tumblr {
-    background: url("tumblr.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/tumblr.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .twitter {
-    background: url("twitter.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/twitter.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .vimeo {
-    background: url("vimeo.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/vimeo.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .wordpress {
-    background: url("wordpress.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/wordpress.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .xing {
-    background: url("xing.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/xing.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .yahoo {
-    background: url("yahoo.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/yahoo.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .youtube {
-    background: url("youtube.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/youtube.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .vk {
-    background: url("vk.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/vk.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .instagram {
-    background: url("instagram.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("../img/social/instagram.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .note {
     border-left: 5px solid #eee;
