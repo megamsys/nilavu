@@ -8,7 +8,7 @@
 				<i class="c_icon-compose"></i><a data-toggle="modal" href="#create-ssh">New</a>
 			</li>
 			<li class="pull-right">
-				<i class="c_icon-import pull"></i><a data-toggle="modal" href="#import-ssh">New</a>
+				<i class="c_icon-import pull"></i><a data-toggle="modal" href="#import-ssh">import</a>
 			</li>
 		</ul>
 	</div>
@@ -35,13 +35,13 @@
 					<td>
 					<div class="row">
 						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-public">
-							<%= link_to sshkeys_download_path(:filename => sshkey[:name]+".pub"), :class => "btn btn-dark-blue" , :target => "_self" do %>
-							<i class="c_icon-in"></i>Public
+							<%= link_to sshkeys_download_path(:filename => sshkey[:name]+"_pub"), :class => "btn btn-dark-blue" , :target => "_self" do %>
+							<i class="c_icon-in"></i><span>Public</span>
 							<% end %>
 						</div>
 						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-private">
-							<%= link_to sshkeys_download_path(:filename => sshkey[:name]+".key"), :class => "btn btn-dark-red", :target => "_self" do %>
-							<i class="c_icon-inBlue"></i>Private
+							<%= link_to sshkeys_download_path(:filename => sshkey[:name]+"_key"), :class => "btn btn-dark-red", :target => "_self" do %>
+							<i class="c_icon-inBlue"></i><span>Private</span>
 							<% end %>
 						</div>
 					</div></td>
@@ -70,7 +70,7 @@
 							<div class="alert alert-success">
 								Generate a SSH RSA 2048 key pair. Read <a href="http://www.gomegam.com/docs/sshkeys" target="_blank"> <strong>here</strong></a> for more information.
 							</div>
-							<%= form_tag ssh_keys_path, multipart: true, :method => 'post', :remote => true, data: { spinlock: '#createing_sshkeys'}  do %>
+							<%= form_tag ssh_keys_path, multipart: true, :method => 'post', :remote => true, data: { spinlock: '#creating_sshkeys'}  do %>
 							<div class="form-group">
 								<label for="ssh-key_name">Name</label>
 								<%= text_field_tag 'key_name', nil, :class=> 'form-control', placeholder: 'Enter a key pair name to save', :required => true %>
@@ -95,7 +95,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">New key</h4>
+				<h4 class="modal-title">Import key</h4>
 			</div>
 			<div class="modal-body">
 				<div class="scroller" style="min-height:200px" data-always-visible="1" data-rail-visible1="1">
@@ -104,14 +104,18 @@
 							<div class="alert alert-success">
 								Generate a SSH RSA 2048 key pair. Read <a href="http://www.gomegam.com/docs/sshkeys" target="_blank"> <strong>here</strong></a> for more information.
 							</div>
-							<%= form_tag ssh_keys_path, multipart: true, :method => 'post', :remote => true, data: { spinlock: '#createing_sshkeys'}  do %>
+							<%= form_tag sshkey_import_path, multipart: true, :method => 'post', :remote => true do %>
 							<div class="form-group">
+<label>Private Key(eg:id_rsa)</label> <%= file_field_tag :ssh_private_key, placeholder: 'Upload private key' %>
+                                                        </div>
+                                                        <div class="form-group">
+<label>SSH Public Key(eg:id_rsa.pub)</label> <%= file_field_tag :ssh_public_key, placeholder: 'Upload public key' %>
+                                                        </div>
+                                                        <div class="form-group">
 								<label for="ssh-key_name">Name</label>
 								<%= text_field_tag 'key_name', nil, :class=> 'form-control', placeholder: 'Enter a key pair name to save', :required => true %>
-								<input type="hidden" name="key_type" value="RSA">
-								<input type="hidden" name="key_bit" value="2048">
 							</div>
-							<%= submit_tag "Create key", :class => "btn green col-md-12 col-xs-12" %>
+							<%= submit_tag "Import key", :class => "btn green col-md-12 col-xs-12" %>
 							<% end %>
 						</div>
 					</div>

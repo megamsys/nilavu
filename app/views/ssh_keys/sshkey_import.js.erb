@@ -1,12 +1,13 @@
 <% if @err_msg != nil %>
-
+$('#import-ssh').modal('hide');
 var selected_entity = '#sshkey_postfinish_popup_error';
-$("#err_msg").html('<%= @err_msg %>');
+$("#ssh_res_msg").html('<%= @err_msg %>');
 $(selected_entity).modal({backdrop : false,keyboard: false,show : true});
 
 <% else %>
+$('#import-ssh').modal('hide');
 var selected_entity = '#sshkey_postfinish_popup';
-$("#res_msg").html('<%= @res_msg %>');
+$("#ssh_res_msg").html('<%= @res_msg %>');
 $(selected_entity).modal({backdrop : false,keyboard: false,show : true});
 
 <% end %>

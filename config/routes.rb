@@ -43,6 +43,9 @@ Cloudauth::Application.routes.draw do
     match '/data_sources', to: 'data_sources#index', via: [:get, :post]
   end
 
+#oneapp Overview
+  match '/overview', to: 'oneapps#overview', via: [:get, :post]
+  match '/logs', to: 'oneapps#logs', via: [:get, :post]
   
   #Cloud Books
   match '/launch', to: 'marketplaces#create', via: [:get, :post]
@@ -92,6 +95,7 @@ Cloudauth::Application.routes.draw do
   match '/create_scm_user', :to => 'apps#create_scm_user', via: [:get, :post]
   # ======Dashboard
   get "users/show"
+  get "oneapps/show"
   #match '/dashboard_sidebar', to: 'dashboards#dashboard_sidebar', via: [:get]
   #match '/dashboards', to: 'dashboards#index', via: [:get]
   #match '/dashboards/:id' => 'dashboards#index', via: [:get]

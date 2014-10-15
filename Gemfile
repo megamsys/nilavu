@@ -18,6 +18,9 @@ gem "gritter", "~> 1.1.0"
 gem 'remotipart', "~> 1.2.1"
 gem 'sqlite3', "~> 1.3.9"
 
+#AJAX for file uploads
+#Added //= require jquery.remotipart in application.js
+
 #fog
 gem 'fog', "~> 1.24.0"
 
