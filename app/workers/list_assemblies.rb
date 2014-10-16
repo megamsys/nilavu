@@ -1,16 +1,19 @@
 class ListAssemblies
-  def self.perform(wparams={},tmp_email, tmp_api_key)
+  def self.perform(tmp_email, tmp_api_key)
     begin
-      @excon_res = Megam::Assemblies.list(tmp_email,tmp_api_key)
+                puts "Excon Responce ==========================> calling"
+      @excon_res = Megam::Assemblies.list(tmp_email, tmp_api_key)
+        puts "Excon Responce ==========================> recieved "
+        puts @excon_res
       out = @excon_res.data[:body]    
       
       temp_out = out.each do |asmblies|
         temp_aa = asmblies.assemblies.collect  do  |one_asmblies|
           if !one_asmblies.empty?
-            Megam::Assembly.show(one_asmblies,tmp_email, tmp_api_key).data[:body].each do |one_asmbly|           
+            Megam::Assembly.show(one_asmblies, tmp_email, tmp_api_key).data[:body].each do |one_asmbly|           
               temp_bb = one_asmbly.components.collect do |one_comp|
                 if !one_comp.empty?
-                  Megam::Components.show(one_comp,tmp_email, tmp_api_key).data[:body]                     
+                  Megam::Components.show(one_comp, tmp_email, tmp_api_key).data[:body]                     
                 else
                   nil
                 end               

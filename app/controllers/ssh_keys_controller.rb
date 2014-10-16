@@ -116,7 +116,7 @@ class SshKeysController < ApplicationController
     else
       @err_msg = nil
       @res_msg = "SSH key downloaded successfully"
-      send_file "/Downloads/#{@filename}"), :x_sendfile=>true
+      send_file Rails.root.join("#{@filename}"), :x_sendfile=>true
     end
   end
 

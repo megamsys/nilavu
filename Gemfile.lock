@@ -178,7 +178,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.1)
       mime-types (>= 1.16, < 3)
-    megam_api (0.18)
+    megam_api (0.19)
       excon (~> 0.39)
       highline (~> 1.6)
       mixlib-config (~> 2.1)
