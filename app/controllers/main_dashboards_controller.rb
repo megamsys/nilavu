@@ -4,6 +4,9 @@ class MainDashboardsController < ApplicationController
     if current_user
       @user_id = current_user.id
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
+      puts "+++++++++++++++++++++++++++++++"
+      puts @assemblies.class
+      if !@assemblies.any?
       @assemblies.each do |asm|
       if asm.class == Megam::Error
         else
@@ -13,6 +16,7 @@ class MainDashboardsController < ApplicationController
 
       end
       end
+     end
     else
       redirect_to signin_path
     end
