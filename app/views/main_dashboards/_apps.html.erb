@@ -1,0 +1,90 @@
+<div class="row c_pading-b15">
+	<div class="portlet-body-head">
+		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+			<i class="c_icon-grid"></i>Your Apps <span>3 Apps running</span>
+		</div>
+	</div>
+</div>
+<div class="bottom-divider"></div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+	<div class="row app_box">
+
+		<%= link_to marketplaces_path do %>
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+			<div class="app_inner">
+				<div class="app_new">
+					<span class="glyphicon glyphicon-plus"></span>
+					<p>
+						Create New App
+					</p>
+				</div>
+			</div>
+		</div>
+		<% end %>
+		<% @assemblies.each do |asm| %>
+		<% asm.assemblies.each do |assembly| %>
+		<% if assembly != nil %>
+		<% if assembly[0].class != Megam::Error %>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+			<div class="app_inner">
+				<div class="app">
+					<div class="app_head">
+						<span class="app_config" id="config_menu_1"><i class="c_icon-config"></i></span>
+						<div class="config_menu config_menu_1">
+							<ul>
+								<li>
+									<a data-toggle="modal" href="#app_start" ><i class="glyphicon glyphicon-play-circle"></i>Start App</a>
+								</li>
+								<li>
+									<a data-toggle="modal" href="#app_stop"><i class="glyphicon glyphicon-record"></i>Stop App</a>
+								</li>
+								<li>
+									<a data-toggle="modal" href="#app_restart"><i class="glyphicon glyphicon-refresh"></i>Restart App</a>
+								</li>
+								<li>
+									<a data-toggle="modal" href="#app_delete"><i class="glyphicon glyphicon-trash"></i>Delete App</a>
+								</li>
+							</ul>
+						</div>
+						<div class="row app_icon">
+							<h5><%= assembly[0].name %></h5>
+							<% appkey = assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain] %>
+							<%= link_to appkey, overview_path(:appkey => appkey) %>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+								<ul class="list-inline app_icon_bottom">
+									<%  assembly[0].components.each do |com| %>
+									<% if com != nil %>
+									<% com.each do |c| %>
+									<% com_type = c.tosca_type.split(".") %>
+									<% ctype = get_type(com_type[2].capitalize) %>
+									<li>	
+										<%= image_tag "logos/"+com_type[2].downcase+".png", :alt => "" %>
+									</li>
+									<% end %>
+									<% end %>
+									<% end %>
+								</ul>
+							</div>
+						</div>
+						<!-- <img class="center-block" src="assets/img/app2.png"> -->
+					</div>
+					<div class="app_footer">
+						<!-- <div class="circle_red"></div> -->
+						<i class="circle_red"></i>
+						<span>Down</span>
+						<i class="c_icon-window pull-right"></i>
+						<i class="c_icon-star pull-right"></i>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<% end %>
+		<% end %>
+		<% end %>
+		<% end %>
+
+	</div>
+</div><!-- running apps ends here -->
