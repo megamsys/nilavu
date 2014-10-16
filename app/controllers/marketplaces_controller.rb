@@ -4,6 +4,7 @@ class MarketplacesController < ApplicationController
   respond_to :js
   include MarketplaceHelper
   include AppsHelper
+  
   def index
     puts "========================================================="
     mkp = get_marketplaces

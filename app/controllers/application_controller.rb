@@ -29,6 +29,7 @@ protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format ==
   # renders 505 in an exception template.
   # A generic template exists in error which shows the error in a
   # usage way.
+  
   def render_500(exception = nil)
     if exception
 #      twit_msg  =  "http://www.megam.co: error, support issue created.".slice! 0..140
