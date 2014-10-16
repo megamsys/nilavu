@@ -88,7 +88,6 @@
 	</div>
 </div>
 
-
 <!-- import SSH modal starts here -->
 <div id="import-ssh" class="modal fade" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog" style="max-width:400px">
@@ -104,19 +103,36 @@
 							<div class="alert alert-success">
 								Generate a SSH RSA 2048 key pair. Read <a href="http://www.gomegam.com/docs/sshkeys" target="_blank"> <strong>here</strong></a> for more information.
 							</div>
-							<%= form_tag sshkey_import_path, multipart: true, :method => 'post', :remote => true do %>
+							<%= form_tag sshkey_import_path, multipart: true, :id => "megamform", :method => 'post', :remote => true do %>
+
+							<div class="row margintb_15">
+								<div class="col-xs-6">
+									<label for="ssh-key_name">Public key</label>
+
+									<div class="form-group">
+										<span class="btn green fileinput-button col-xs-11"> <i class="icon-plus"></i> <span>Add files...</span> <%= file_field_tag :ssh_private_key, placeholder: 'Upload private key' %> </span>
+									</div>
+								</div>
+
+								<div class="col-xs-6">
+									<div>
+										<label for="ssh-key_name">Private key</label>
+
+										<div class="form-group">
+
+											<span class="btn blue fileinput-button  col-xs-11"> <i class="icon-plus"></i> <span>Add files...</span> <%= file_field_tag :ssh_public_key, placeholder: 'Upload public key' %> </span>
+										</div>
+									</div>
+
+								</div>
+							</div>
 							<div class="form-group">
-<label>Private Key(eg:id_rsa)</label> <%= file_field_tag :ssh_private_key, placeholder: 'Upload private key' %>
-                                                        </div>
-                                                        <div class="form-group">
-<label>SSH Public Key(eg:id_rsa.pub)</label> <%= file_field_tag :ssh_public_key, placeholder: 'Upload public key' %>
-                                                        </div>
-                                                        <div class="form-group">
 								<label for="ssh-key_name">Name</label>
 								<%= text_field_tag 'key_name', nil, :class=> 'form-control', placeholder: 'Enter a key pair name to save', :required => true %>
 							</div>
 							<%= submit_tag "Import key", :class => "btn green col-md-12 col-xs-12" %>
 							<% end %>
+
 						</div>
 					</div>
 				</div>
@@ -125,7 +141,6 @@
 		</div>
 	</div>
 </div>
-
 
 <div id="sshkey_postfinish_popup" class="modal fade" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog" style="max-width:400px">

@@ -3,7 +3,6 @@ class ListAssemblies
     begin
       @excon_res = Megam::Assemblies.list(tmp_email,tmp_api_key)
       out = @excon_res.data[:body]
-
       temp_out = out.each do |asmblies|
         temp_aa = asmblies.assemblies.collect  do  |one_asmblies|
           if !one_asmblies.empty?
