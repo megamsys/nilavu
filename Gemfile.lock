@@ -382,7 +382,7 @@ DEPENDENCIES
   jquery-turbolinks (~> 2.1.0)
   json (~> 1.8.1)
   less-rails (~> 2.5.0)
-  megam_api (~> 0.18)
+  megam_api (~> 0.19)
   megam_assembla (~> 0.1.0)
   megam_deccanplato (~> 0.1.0)
   megam_scmmanager (~> 0.1.0)
