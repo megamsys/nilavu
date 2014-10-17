@@ -3,16 +3,18 @@ class MainDashboardsController < ApplicationController
   def index
     if current_user
       @user_id = current_user.id
-      @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
-      @assemblies.each do |asm|
-        asm.assemblies.each do |assembly|
-          if assembly != nil
-            if assembly[0].class != Megam::Error
-              assembly[0].components.each do |com|
-                puts com.class
-                if com != nil
-                  com.each do |c|
-                    puts c.name
+      if @assemblies != nil
+        @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
+        @assemblies.each do |asm|
+          asm.assemblies.each do |assembly|
+            if assembly != nil
+              if assembly[0].class != Megam::Error
+                assembly[0].components.each do |com|
+                  puts com.class
+                  if com != nil
+                    com.each do |c|
+                      puts c.name
+                    end
                   end
                 end
               end

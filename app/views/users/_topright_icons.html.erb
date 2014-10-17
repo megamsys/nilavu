@@ -2,19 +2,14 @@
 	<div class="row">
 		<div class="mplace-icons">
 			<div class="cil-xs-6">
-				<%= link_to marketplaces_path, :class =>"btn btn-lg", :title=> "Marketplace", :id => "marketplace_link", :target => "_self"  do %>
-				<span class="mplace-selected hidden-xs hidden-sm pull-right">Marketplace</span>
+				<span class="mplace-selected hidden-xs hidden-sm pull-right"><a href="/marketplaces">Marketplace</a></span>
 				<i class="c_icon-window-lg pull-right"></i>
-				<% end %>
 			</div>
 			<div class="cil-xs-6">
-				<%= link_to "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user.email}&api_key=#{current_user.api_token}&callbackURL=https://www.megam.co/visualCallback", :class =>"btn btn-lg", :title=> "TOSCA Designer", :id => "designer_link", :target => "_blank"  do %>
-				<span class="hidden-xs hidden-sm pull-right">Visual Designer</span>
+			    <% url = "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user.email}&api_key=#{current_user.api_token}&callbackURL=https://www.megam.co/visualCallback" %>
+				<span class="hidden-xs hidden-sm pull-right"><a href="<%= url %>" target="_blank">Visual Designer</a></span>
 				<i class="c_icon-grid-25 pull-right"></i>
-				<% end %>
 			</div>
 		</div>
 	</div>
 </div>
-
-

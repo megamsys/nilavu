@@ -21,7 +21,7 @@
 			</div>
 		</div>
 		<% end %>
-
+		<% if @assemblies != nil %>
 		<% @assemblies.each do |asm| %>
 		<% asm.assemblies.each do |assembly| %>
 		<% sflag = false %>
@@ -68,7 +68,7 @@
 									<% com_type = c.tosca_type.split(".") %>
 									<% ctype = get_type(com_type[2].capitalize) %>
 									<% if ctype == "SERVICE" %>
-									<li>									    									
+									<li>
 										<%= image_tag "logos/"+com_type[2].downcase+".png", :alt => "" %>
 									</li>
 									<% end %>
@@ -91,6 +91,7 @@
 			</div>
 
 		</div>
+		<% end %>
 		<% end %>
 		<% end %>
 		<% end %>
