@@ -48,5 +48,25 @@ module MarketplaceHelper
     @link
  end
  
+ def get_combos(name)
+   @combo = ""  
+    mkp_config.each do |mkp, addon|
+      if mkp == name
+        @combo = addon["basic_combos"]
+      end
+    end  
+    @combo
+ end
+ 
+  def get_type(name)
+   @type = ""  
+    mkp_config.each do |mkp, addon|
+      if mkp == name
+        @type = addon["type"]
+      end
+    end  
+    @type
+ end
+ 
 
 end

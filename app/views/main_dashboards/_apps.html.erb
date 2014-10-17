@@ -1,7 +1,7 @@
 <div class="row c_pading-b15">
 	<div class="portlet-body-head">
 		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-			<i class="c_icon-grid"></i>Your Apps <span>3 Apps running</span>
+			<i class="c_icon-grid"></i>Your Apps <span><%= @app_counter %> Apps running</span>
 		</div>
 	</div>
 </div>
@@ -60,7 +60,7 @@
 									<% if com != nil %>
 									<% com.each do |c| %>
 									<% com_type = c.tosca_type.split(".") %>
-									<% ctype = get_type(com_type[2].capitalize) %>
+									<% ctype = get_type(com_type[2]) %>
 									<li>
 										<%= image_tag "logos/"+com_type[2].downcase+".png", :alt => "" %>
 									</li>

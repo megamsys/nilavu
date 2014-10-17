@@ -1,6 +1,6 @@
 #This file is needed for market_places
-DRBD:
-  name: DRBD
+drbd:
+  name: drbd
   predef_name: 
   no_of_instances: 1
   radios: scm_sample
@@ -9,9 +9,10 @@ DRBD:
   dbms: 
   link:
   type: SERVICE
+  basic_combos: 
   
-Jenkins:
-  name: Jenkins
+jenkins:
+  name: jenkins
   predef_name: java 
   no_of_instances: 1
   radios: scm_sample
@@ -20,9 +21,10 @@ Jenkins:
   dbms: 
   link:
   type: SERVICE
+  basic_combos:
   
-SCMManager:
-  name: SCMManager
+scmmanager:
+  name: scmmanager
   predef_name: java 
   no_of_instances: 1
   radios: scm_sample
@@ -31,9 +33,10 @@ SCMManager:
   dbms: 
   link:
   type: SERVICE
+  basic_combos:
   
-Ghost:
-  name: Ghost
+ghost:
+  name: ghost
   predef_name: nodejs 
   no_of_instances: 1
   radios: scm_sample
@@ -42,9 +45,10 @@ Ghost:
   dbms: 
   link:
   type: SERVICE
+  basic_combos:
   
-WordPress:
-  name: WordPress
+wordPress:
+  name: wordpress
   predef_name: wordpress
   no_of_instances: 1
   radios: scm_sample
@@ -52,10 +56,11 @@ WordPress:
   db_model:
   dbms:  
   link:  
-  type: SERVICE  
+  type: SERVICE 
+  basic_combos: 
 
-Riak:
-  name: Riak
+riak:
+  name: riak
   no_of_instances: 1
   db_model: full
   dbms: riak
@@ -64,9 +69,10 @@ Riak:
   deps_scm:
   link: http://gomegam.com/docs/users/services/index.html
   type: SERVICE
+  basic_combos: riak
     
-PostgreSQL:
-  name: PostgreSQL
+postgresql:
+  name: postgresql
   no_of_instances: 1
   db_model: full
   dbms: postgresql
@@ -75,9 +81,22 @@ PostgreSQL:
   deps_scm:    
   link: http://gomegam.com/docs/users/services/index.html
   type: SERVICE
+  basic_combos: postgresql
+  
+sqlite:
+  name: sqlite
+  no_of_instances: 1
+  db_model: full
+  dbms: sqlite
+  predef_name:
+  radios:
+  deps_scm:    
+  link: http://gomegam.com/docs/users/services/index.html
+  type: SERVICE
+  basic_combos: sqlite  
 
-Redis:
-  name: Redis
+redis:
+  name: redis
   no_of_instances: 1
   db_model: full
   dbms: redis
@@ -86,9 +105,10 @@ Redis:
   deps_scm:
   link: http://gomegam.com/docs/users/services/index.html
   type: SERVICE
+  basic_combos: redis
   
-RabbitMQ:
-  name: RabbitMQ
+rabbitmq:
+  name: rabbitmq
   no_of_instances: 1
   db_model: full
   dbms: rabbitmq
@@ -97,9 +117,10 @@ RabbitMQ:
   deps_scm:
   link: http://gomegam.com/docs/users/services/index.html 
   type: SERVICE
+  basic_combos: rabbitmq
 
-Op5:
-  name: Op5
+op5:
+  name: op5
   no-of-instances: 1
   radios: scm_sample
   deps_scm:
@@ -108,9 +129,10 @@ Op5:
   predef_name: op5  
   link:   
   type: SERVICE
+  basic_combos:
 
-Zarafa:
-  name: Zarafa
+zarafa:
+  name: zarafa
   no-of-instances: 1
   radios: scm_sample
   deps_scm:
@@ -119,9 +141,22 @@ Zarafa:
   predef_name: zarafa 
   link:
   type: SERVICE
+  basic_combos:
+  
+docker:
+  name: docker
+  no-of-instances: 1
+  radios: 
+  deps_scm:
+  db_model:
+  dbms:
+  predef_name: docker  
+  link:   
+  type: ADDON
+  basic_combos: docker  
 
-Java:
-  name: Java
+java:
+  name: java
   predef_name: java 
   no_of_instances: 1
   radios: scm_sample
@@ -130,9 +165,10 @@ Java:
   dbms:   
   link: http://gomegam.com/docs/users/apps/index.html
   type: APP 
+  basic_combos: java+sqlite
   
-Rails:
-  name: Rails
+rails:
+  name: rails
   predef_name: rails 
   no_of_instances: 1
   radios: scm_sample
@@ -141,9 +177,10 @@ Rails:
   dbms:  
   link: http://gomegam.com/docs/users/apps/index.html
   type: APP
+  basic_combos: rails+sqlite
   
-Play:
-  name: Play
+play:
+  name: play
   predef_name: play 
   no_of_instances: 1
   radios: scm_sample
@@ -152,9 +189,10 @@ Play:
   dbms:  
   link: http://gomegam.com/docs/users/apps/index.html
   type: APP
+  basic_combos: play+riak
   
-Akka:
-  name: Akka
+akka:
+  name: akka
   predef_name: akka 
   no_of_instances: 1
   radios: scm_sample
@@ -163,9 +201,10 @@ Akka:
   dbms:  
   link: http://gomegam.com/docs/users/apps/index.html
   type: APP
+  basic_combos: akka+rabbitmq
   
-Nodejs:
-  name: Nodejs
+nodejs:
+  name: nodejs
   predef_name: nodejs 
   no_of_instances: 1
   radios: scm_sample
@@ -174,3 +213,4 @@ Nodejs:
   dbms:  
   link: http://gomegam.com/docs/users/apps/index.html
   type: APP
+  basic_combos: nodejs+sqlite

@@ -1,4 +1,3 @@
-
 <% @mkp.plans.each do |c| %>
 <% if c["version"] == version %>
 <% @mkp_price = c["price"] %>
@@ -8,11 +7,13 @@
 <% @mkp_source = c["source"] %>
 <% @mkp_os = c["os"] %>
 <% @pro_name = (@mkp.name).split("-") %>
-<% @predef_name = get_predef_name(@pro_name[3]) %>
+<% @predef_name = get_predef_name(@pro_name[3].downcase) %>
+<% @combos = get_combos(@pro_name[3].downcase) %>
+<% @combo = @combos.split("+") %>
 <% end %>
 <% end %>
 <% if @mkp_source == "" %>
-<% @deps_scm = get_deps_scm(@pro_name[3]) %>
+<% @deps_scm = get_deps_scm(@pro_name[3].downcase) %>
 <% else %>
 <% @deps_scm = @mkp_source %>
 <% end %>
@@ -22,6 +23,9 @@
 <% end %>
 <%= hidden_field_tag 'source', nil, placeholder: "", :class =>"form-control", :value => @deps_scm  %>
 <%= hidden_field_tag 'type', nil, placeholder: "", :class =>"form-control", :value =>  @pro_name[3] %>
+<%= hidden_field_tag 'combos', nil, placeholder: "", :class =>"form-control", :value =>  @combos %>
+<%= hidden_field_tag 'combo1', nil, placeholder: "", :class =>"form-control", :value =>  book_name %>
+<%= hidden_field_tag 'combo2', nil, placeholder: "", :class =>"form-control", :value =>  book_name %>
 <div class="row">
 	<div class="col-sm-7 body_left">
 		<h4>Basic Combo</h4>
@@ -29,7 +33,7 @@
 			<div class="col-sm-5">
 				<div class="app_inner brad-3">
 					<div class="stpack">
-						<%= image_tag "tomcat.png" %>
+					    <%= image_tag "combos/"+@combo[0].downcase+".png", :alt => "" %>
 					</div>
 				</div>
 			</div>
@@ -39,7 +43,7 @@
 			<div class="col-sm-5">
 				<div class="app_inner brad-3">
 					<div class="stpack">
-						<%= image_tag "sqlite.png" %>
+						<%= image_tag "combos/"+@combo[1].downcase+".png", :alt => "" %>
 					</div>
 				</div>
 			</div>
@@ -60,7 +64,7 @@
 				<span>Description</span>
 			</div>
 			<div class="col-sm-9 app_left_desc">
-				<span ><%= @mkp_description %> <a href=<%= get_doc_link(@pro_name[3]) %> target="_blank">View Docs</a> </span>
+				<span ><%= @mkp_description %> <a href=<%= get_doc_link(@pro_name[3].downcase) %> target="_blank">View Docs</a> </span>
 			</div>
 		</div>
 		<div class="bottom-divider"></div>
