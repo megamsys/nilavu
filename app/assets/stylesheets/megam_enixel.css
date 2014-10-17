@@ -1,10 +1,3 @@
-/* remove rounds from all elements */
-
- {
-  -webkit-border-radius: 0 !important;
-     -moz-border-radius: 0 !important;
-          border-radius: 0 !important;
-}
 
 /***
 Buttons & Dropdown Buttons
