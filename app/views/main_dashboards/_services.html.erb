@@ -23,6 +23,7 @@
 		<% end %>
 		<% if @assemblies != nil %>
 		<% @assemblies.each do |asm| %>
+		<% if asm.class != Megam:: Error %>
 		<% asm.assemblies.each do |assembly| %>
 		<% sflag = false %>
 		<% if assembly != nil %>
@@ -91,6 +92,7 @@
 			</div>
 
 		</div>
+		<% end %>
 		<% end %>
 		<% end %>
 		<% end %>
