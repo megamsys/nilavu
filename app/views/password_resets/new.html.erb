@@ -11,11 +11,8 @@
 			<div class="container">
 				<div class="row bottom-divider">
 					<div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
-						<h2>Login</h2>
+						<h2>Forgot Password</h2>
 					</div>
-					<!-- <div class="col-lg-7 col-md-7">
-					<p>it wont take morethan 1 minut we promise</p>
-					</div> -->
 				</div>
 			</div>
 
@@ -23,8 +20,6 @@
 				<!-- BEGIN LOGIN FORM -->
 				<%= form_tag password_resets_path, :method => :post, :remote => true do %>
 				<div class="c_inline">
-					<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-					<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
 					<div class="form-group">
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
@@ -38,7 +33,7 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div class="row">
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 tour-btn">
-									<%= link_to "Need account? Register here!", signup_path, :class => 'btn btn-success btn-plain' %>
+									<%= link_to "Need account?", signup_path, :class => 'btn btn-success btn-plain' %>
 								</div>
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right tour-btn">
 									<%= submit_tag "Reset Password", :class => "btn btn-success btn-plain-green" %>
@@ -52,15 +47,17 @@
 				</div>
 
 			</div>
-</div>
-      <div  class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">
-            <div class="row">
-               <p>Powered by Podnix Cloud<span class="pull-right">gomegam.com</span></p>
-            </div>
-      </div>
-
 		</div>
+		<div  class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">
+			<div class="row">
+				<p>
+					<a href="http://www.podnix.com" target="_blank">Powered by Podnix Cloud</a><span class="pull-right">gomegam.com</span>
+				</p>
+			</div>
+		</div>
+
 	</div>
+</div>
 </div>
 
 <div id="postfinish_reset_password" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
