@@ -15,7 +15,7 @@ class MainDashboardsController < ApplicationController
             asm.assemblies.each do |assembly|
               if assembly != nil
                 if assembly[0].class != Megam::Error
-                  @app_counter = assembly[0].components.count + @app_counter                  
+                  #@app_counter = assembly[0].components.count + @app_counter                  
                   assembly[0].components.each do |com|
                     if com != nil
                       com.each do |c|
@@ -23,6 +23,8 @@ class MainDashboardsController < ApplicationController
                         ctype = get_type(com_type[2])
                          if ctype == "SERVICE" 
                            @service_counter = @service_counter + 1
+                        else
+                                @app_counter = @app_counter + 1
                          end 
                       end
                     end
