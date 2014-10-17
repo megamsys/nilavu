@@ -3,15 +3,28 @@ class MainDashboardsController < ApplicationController
   def index
     if current_user
       @user_id = current_user.id
+     
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
-      @assemblies.each do |asm|
-      if asm.class == Megam::Error
-        else
-        puts "============>    output <============"
-        puts asm
-        puts "============>    output <============"
-
-      end
+      puts @assemblies.class
+      if @assemblies != nil
+        @assemblies.each do |asm|
+          if asm.class != Megam:: Error
+            asm.assemblies.each do |assembly|
+              if assembly != nil
+                if assembly[0].class != Megam::Error
+                  assembly[0].components.each do |com|
+                    puts com.class
+                    if com != nil
+                      com.each do |c|
+                        puts c.name
+                      end
+                    end
+                  end
+                end
+              end
+            end
+          end
+        end
       end
     else
       redirect_to signin_path

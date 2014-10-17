@@ -8,6 +8,7 @@ DRBD:
   db_model:
   dbms: 
   link:
+  type: SERVICE
   
 Jenkins:
   name: Jenkins
@@ -18,6 +19,7 @@ Jenkins:
   db_model:
   dbms: 
   link:
+  type: SERVICE
   
 SCMManager:
   name: SCMManager
@@ -28,6 +30,7 @@ SCMManager:
   db_model:
   dbms: 
   link:
+  type: SERVICE
   
 Ghost:
   name: Ghost
@@ -38,6 +41,7 @@ Ghost:
   db_model:
   dbms: 
   link:
+  type: SERVICE
   
 WordPress:
   name: WordPress
@@ -47,7 +51,8 @@ WordPress:
   deps_scm:
   db_model:
   dbms:  
-  link:    
+  link:  
+  type: SERVICE  
 
 Riak:
   name: Riak
@@ -58,6 +63,7 @@ Riak:
   radios:
   deps_scm:
   link: http://gomegam.com/docs/users/services/index.html
+  type: SERVICE
     
 PostgreSQL:
   name: PostgreSQL
@@ -68,6 +74,7 @@ PostgreSQL:
   radios:
   deps_scm:    
   link: http://gomegam.com/docs/users/services/index.html
+  type: SERVICE
 
 Redis:
   name: Redis
@@ -78,6 +85,7 @@ Redis:
   radios:
   deps_scm:
   link: http://gomegam.com/docs/users/services/index.html
+  type: SERVICE
   
 RabbitMQ:
   name: RabbitMQ
@@ -88,6 +96,7 @@ RabbitMQ:
   radios:
   deps_scm:
   link: http://gomegam.com/docs/users/services/index.html 
+  type: SERVICE
 
 Op5:
   name: Op5
@@ -98,6 +107,7 @@ Op5:
   dbms:
   predef_name: op5  
   link:   
+  type: SERVICE
 
 Zarafa:
   name: Zarafa
@@ -108,6 +118,7 @@ Zarafa:
   dbms:
   predef_name: zarafa 
   link:
+  type: SERVICE
 
 Java:
   name: Java
@@ -117,7 +128,8 @@ Java:
   deps_scm: https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/orion.war
   db_model:
   dbms:   
-  link: http://gomegam.com/docs/users/apps/index.html 
+  link: http://gomegam.com/docs/users/apps/index.html
+  type: APP 
   
 Rails:
   name: Rails
@@ -128,6 +140,7 @@ Rails:
   db_model:
   dbms:  
   link: http://gomegam.com/docs/users/apps/index.html
+  type: APP
   
 Play:
   name: Play
@@ -138,6 +151,7 @@ Play:
   db_model:
   dbms:  
   link: http://gomegam.com/docs/users/apps/index.html
+  type: APP
   
 Akka:
   name: Akka
@@ -148,6 +162,7 @@ Akka:
   db_model:
   dbms:  
   link: http://gomegam.com/docs/users/apps/index.html
+  type: APP
   
 Nodejs:
   name: Nodejs
@@ -158,3 +173,4 @@ Nodejs:
   db_model:
   dbms:  
   link: http://gomegam.com/docs/users/apps/index.html
+  type: APP

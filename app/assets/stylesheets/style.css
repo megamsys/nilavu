@@ -184,7 +184,7 @@ hr {
     box-shadow: none;
     color: #fff;
     filter: none;
-    margin: 8px 6px 4px;
+    margin: 25px 6px 4px;
     padding: 2px 0 6px;
 }
 .header .navbar-toggle:hover {
@@ -193,7 +193,7 @@ hr {
 }
 .header .navbar-nav {
     display: block;
-    margin-right: 20px;
+    /*margin-right: 20px;*/
 }
 .header .navbar-nav > li {
     margin: 0;
@@ -212,7 +212,7 @@ hr {
 }
 .header .navbar-nav > li.dropdown .dropdown-toggle {
     margin: 0;
-    padding: 15px 10px 7px;
+    padding: 15px 10px 0px;
 }
 .header .navbar-nav > li.dropdown .dropdown-toggle > i {
     font-size: 18px;
@@ -330,15 +330,16 @@ hr {
     background-image: url("sidebar-menu-arrow.png");
     display: block;
     float: right;
-    height: 25px;
+    height: 39px;
     position: absolute;
     right: -1px;
-    top: 15px;
-    width: 8px;
+    top: 6px;
+    width: 19px;
     z-index: 100;
+    background-color: #fff;
 }
 .page-sidebar ul > li > a > .arrow:before {
-    content: "ï„„";
+    content: "";
     display: inline;
     float: right;
     font-family: FontAwesome;
@@ -350,7 +351,7 @@ hr {
     text-shadow: none;
 }
 .page-sidebar-menu > li > a > .arrow.open:before {
-    content: "ï„‡";
+    content: "";
     display: inline;
     float: right;
     font-family: FontAwesome;
@@ -405,7 +406,7 @@ hr {
     margin: 0;
 }
 .page-sidebar-menu > li > ul.sub-menu li > a > .arrow:before {
-    content: "ï„„";
+    content: "";
     display: inline;
     float: right;
     font-family: FontAwesome;
@@ -417,7 +418,7 @@ hr {
     text-shadow: none;
 }
 .page-sidebar-menu > li > ul.sub-menu li > a > .arrow.open:before {
-    content: "ï„‡";
+    content: "";
     display: inline;
     float: right;
     font-family: FontAwesome;
@@ -1274,7 +1275,7 @@ i.normal {
 }
 .dropdown-menu.extended li a {
     border-bottom: 1px solid #f4f4f4 !important;
-    font-size: 12px;
+    font-size: 14px;
     list-style: none outside none;
     padding: 7px 0 5px;
     text-shadow: none;
@@ -1464,12 +1465,12 @@ i.normal {
 }
 .rating span.star:before {
     color: #999999;
-    content: "ï€†";
+    content: "";
     padding-right: 5px;
 }
 .rating span.star:hover:before, .rating span.star:hover ~ span.star:before {
     color: #e3cf7a;
-    content: "ï€…";
+    content: "";
 }
 .item {
     display: block;
@@ -2092,7 +2093,7 @@ i.normal {
     top: -3px;
 }
 .tile.selected .check:after {
-    content: "ï€Œ";
+    content: "";
     display: inline-block;
     font-family: FontAwesome;
     font-size: 13px;
@@ -2619,31 +2620,31 @@ ul.sidebar-tags li {
     background: url("social/stumbleupon.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .tumblr {
-    background: url("social/tumblr.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("tumblr.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .twitter {
-    background: url("social/twitter.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("twitter.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .vimeo {
-    background: url("social/vimeo.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("vimeo.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .wordpress {
-    background: url("social/wordpress.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("wordpress.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .xing {
-    background: url("social/xing.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("xing.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .yahoo {
-    background: url("social/yahoo.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("yahoo.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .youtube {
-    background: url("social/youtube.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("youtube.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .vk {
-    background: url("social/vk.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("vk.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .social-icons .instagram {
-    background: url("social/instagram.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    background: url("instagram.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
 }
 .note {
     border-left: 5px solid #eee;

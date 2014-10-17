@@ -28,7 +28,9 @@ class SessionsController < ApplicationController
           cookies[:remember_token] = user.remember_token
         end
         sign_in user
-        redirect_back_or main_dashboards_path, :gflash => { :success => { :value => "Welcome #{user.first_name}. Your registered email is #{user.email}, Thank you.", :sticky => false, :nodom_wrap => true } }
+
+redirect_to main_dashboards_path, :notice => "Welcome #{user.first_name}."
+
       else
         flash[:error] = 'Invalid username and password combination'
         render 'new'

@@ -35,7 +35,7 @@
 	<!-- </div> -->
 </div>
 
-					<%= form_tag cross_clouds_path, multipart: true, :novalidate => 'novalidate', :method => 'post', :remote => true, data: { spinlock: '#spin_cross_cloud'}  do %>
+					<%= form_tag cross_clouds_path, multipart: true, :id => "megamform", :novalidate => 'novalidate', :method => 'post', :remote => true, data: { spinlock: '#spin_cross_cloud'}  do %>
 
 					<div id="provider_form">
 						<%= render :partial => "cross_clouds/aws_form", :locals => {:selected_cloud => "aws", :ssh_keys => @ssh_keys}%>

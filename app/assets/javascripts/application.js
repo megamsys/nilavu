@@ -23,8 +23,8 @@
 //= require angular-sanitize
 //= require angular-busy.min
 //= require underscore.min
-//= require bootstrap.min
-//= require jquery.uniform.min
+//= require bootstrap
+//= require jquery.uniform
 //= require validation.jquery
 //= require jquery-validate.bootstrap-tooltip
 //= require jquery.jcarousellite
