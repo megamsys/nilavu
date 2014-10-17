@@ -1513,7 +1513,6 @@ a.btn-success:hover
 	margin-right: 31px;
 }
 
-
 /* Custom, iPhone Retina */ 
 @media only screen and (min-width : 320px) {
 
@@ -1565,13 +1564,14 @@ a.btn-success:hover
 /* Custom, iPhone Retina */ 
 @media only screen and (max-width : 480px) {
 
-.login .tooltip
-{
-	left: auto !important;
-	right: -30px !important;
-}
+	.login .tooltip
+	{
+		left: auto !important;
+		right: -30px !important;
+	}
 }
 @media only screen and (max-width : 768px) {
+
 
 	.m10
 	{
