@@ -1,51 +1,13 @@
 class MakeAssemblies
   def self.perform(options, tmp_email, tmp_api_key)
+
     hash = {
       "name"=>"",
       "assemblies"=>[
         {
           "name"=>"#{options[:assembly_name]}",
-          "components"=>[
-            {
-              "name"=>"#{options[:assembly_name]}",
-              "tosca_type"=>"tosca.web.#{options[:type]}",
-              "requirements"=> {
-                "host"=>"#{options[:cloud]}",
-                "dummy"=>""
-              },
-              "inputs"=>{
-                "domain"=>"#{options[:domain]}",
-                "port"=>"",
-                "username"=>"",
-                "password"=>"",
-                "version"=>"#{options[:version]}",
-                "source"=>"#{options[:source]}",
-                "design_inputs"=>{
-                  "id"=>"",
-                  "x"=>nil,
-                  "y"=>nil,
-                  "z"=>nil,
-                  "wires"=>[]
-                },
-                "service_inputs"=>{
-                  "dbname"=>"",
-                  "dbpassword"=>"",
-                },
-              },
-              "external_management_resource"=>"",
-              "artifacts"=>{
-                "artifact_type"=>"",
-                "content"=>"",
-                "artifact_requirements"=>"",
-              },
-              "related_components"=>"",
-              "operations"=>{
-                "operation_type"=>"",
-                "target_resource"=>"",
-              },
-            }
-          ],
-          "policies"=>[],
+          "components"=> build_components(options),
+          "policies"=>build_policies(options),
           "inputs"=>"",
           "operations"=>"",
         }
@@ -60,5 +22,98 @@ class MakeAssemblies
 
     hash
   end
+
+  def self.build_components(options)
+    com = []    
+    options[:combo].each do |c|
+    puts "=========================entry=========="
+      type = get_type(c)
+      if type == "APP"
+        name = options[:appname]
+        if options[:servicename] != nil
+          related_components = "#{options[:assembly_name]}.#{options[:domain]}/#{options[:servicename]}"
+        end
+      end
+      if type == "SERVICE"
+        name = options[:servicename]
+        if options[:appname] != nil
+          related_components = "#{options[:assembly_name]}.#{options[:domain]}/#{options[:appname]}"
+        end
+      end
+      if type == "ADDON"
+        name = options[:appname]
+      end
+      value = {
+        "name"=>"#{name}",
+        "tosca_type"=>"tosca.web.#{c}",
+        "requirements"=> {
+          "host"=>"#{options[:cloud]}",
+          "dummy"=>""
+        },
+        "inputs"=>{
+          "domain"=>"#{options[:domain]}",
+          "port"=>"",
+          "username"=>"",
+          "password"=>"",
+          "version"=>"#{options[:version]}",
+          "source"=>"#{options[:source]}",
+          "design_inputs"=>{
+            "id"=>"",
+            "x"=>nil,
+            "y"=>nil,
+            "z"=>nil,
+            "wires"=>[]
+          },
+          "service_inputs"=>{
+            "dbname"=>"",
+            "dbpassword"=>"",
+          },
+        },
+        "external_management_resource"=>"",
+        "artifacts"=>{
+          "artifact_type"=>"",
+          "content"=>"",
+          "artifact_requirements"=>"",
+        },
+        "related_components"=>"#{related_components}",
+        "operations"=>{
+          "operation_type"=>"",
+          "target_resource"=>"",
+        },
+      }
+      com << value
+    end
+    com
+  end
+
+  def self.build_policies(options)
+    com = []
+    if options[:appname] != nil && options[:servicename] != nil
+      value = {
+        :name=>"bind policy",
+        :ptype=>"colocated",
+        :members=>[
+          "#{options[:assembly_name]}.#{options[:domain]}/#{options[:appname]}",
+          "#{options[:assembly_name]}.#{options[:domain]}/#{options[:servicename]}"
+        ]
+      }
+    com << value
+    end
+    com
+  end
+  
+  def self.mkp_config
+    YAML.load(File.open("#{Rails.root}/config/marketplace_addons.yml", 'r'))
+  end
+
+  def self.get_type(name)
+   @type = ""  
+    mkp_config.each do |mkp, addon|
+      if mkp == name
+        @type = addon["type"]
+      end
+    end  
+    @type
+ end
 
 end

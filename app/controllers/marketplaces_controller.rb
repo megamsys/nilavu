@@ -6,7 +6,6 @@ class MarketplacesController < ApplicationController
   include AppsHelper
   
   def index
-    puts "========================================================="
     mkp = get_marketplaces
     @mkp_collection = mkp[:mkp_collection]
     if @mkp_collection.class == Megam::Error
@@ -33,10 +32,13 @@ class MarketplacesController < ApplicationController
       redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
     else
       @mkp = @mkp.lookup(params[:id])
-      @predef_name = get_predef_name(@pro_name[1])
-      @deps_scm = get_deps_scm(@pro_name[1])
+      @predef_name = get_predef_name(@pro_name[3].downcase)
+      @deps_scm = get_deps_scm(@pro_name[3].downcase)
       @my_apps = []
 
+      @type = get_type(@pro_name[3].downcase)
+      puts "++++++++++++++++++++++++++"
+      puts @type
       @version_order=[]
       @version_order = @mkp.plans.map {|c| c["version"]}
       @version_order = @version_order.sort
@@ -44,7 +46,7 @@ class MarketplacesController < ApplicationController
       puts @mkp.class
       respond_to do |format|
         format.js {
-          respond_with(@mkp, @version_order, :layout => !request.xhr? )
+          respond_with(@mkp, @version_order, @type, :layout => !request.xhr? )
         }
       end
     end
@@ -75,30 +77,55 @@ class MarketplacesController < ApplicationController
   end
 
   def changeversion
+    @pro_name = params[:id].split("-")
     @version = params[:version]
     @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])
     if @mkp.class == Megam::Error
       redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
     else
       @mkp = @mkp.lookup(params[:id])
-
+      @type = get_type(@pro_name[3].downcase)
       respond_to do |format|
         format.js {
-          respond_with(@mkp, @version, :layout => !request.xhr? )
+          respond_with(@mkp, @version, @type, :layout => !request.xhr? )
         }
       end
     end
 
   end
 
-  def create   
-    name = params[:name]
+  def create
+    assembly_name = params[:name]
     version = params[:version]
     domain = params[:domain]
     cloud = params[:cloud]
     source = params[:source]
-    type = params[:type]
-    options = {:assembly_name => name, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :type => type }
+    type = params[:type].downcase
+
+    combos = params[:combos]
+    combo = combos.split("+")
+    if combo.count > 1
+      #bind_service = ["#{combo[0]}+#{combo[1]}"]
+      appname = params[:combo1]
+      servicename = params[:combo2]
+    else
+    #combo = []
+      if params.has_key?("bindedAPP")
+        #bind_service = ["#{type}+#{params[:bindedAPP]}"]
+        servicename = params[:combo1]
+        if params[:bindedAPP] != "" && params[:bindedAPP] != "select your APP"
+          appname = params[:bindedAPP]
+        else 
+          appname = nil  
+        end
+      else
+      #bind_service = nil
+        appname = params[:combo1]
+        servicename = nil
+      end
+    end
+
+    options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :type => type, :combo => combo }
     app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
     @res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
     if @res.class == Megam::Error
