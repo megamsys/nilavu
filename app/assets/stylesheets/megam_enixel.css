@@ -12,8 +12,8 @@ Buttons & Dropdown Buttons
 
 .btn {
 	border-width: 0;
-	padding: 12px 14px; 
-  height: 45px;	
+	padding: 12px 40px; 
+  height: 50px;	
   font-size: 16px;  
 	outline: none !important;
   -webkit-box-shadow: none !important;
@@ -468,9 +468,9 @@ Dropdown Menu
   padding: 0px;
   margin:0px;
   background-color: #ffffff;
-  -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);  
+  /*-webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);*/
+  /*-moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);*/
+  /*box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);  */
   font-size: 14px;
   /*font-family: "Segoe UI",Helvetica, Arial, sans-serif;*/
   border: 1px solid #ddd;
@@ -566,8 +566,8 @@ Dropdown Menu
 
 .nav.pull-right > li > .dropdown-menu,
 .nav > li > .dropdown-menu.pull-right {
-  right: 0;
-  left: auto;
+  right: 0px;
+  left: auto;margin-top: 10px;
 }
 
 .nav.pull-right > li > .dropdown-menu:before,
