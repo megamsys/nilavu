@@ -53,7 +53,7 @@
 						<div class="row app_icon">
 							<h5><%= assembly[0].name %></h5>
 							<% appkey = assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain] %>
-							<%= link_to appkey, overview_path(:appkey => appkey) %>
+							<%= link_to appkey, overview_path(:appkey => assembly[0].id) %>
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 								<ul class="list-inline app_icon_bottom">
 									<%  assembly[0].components.each do |com| %>

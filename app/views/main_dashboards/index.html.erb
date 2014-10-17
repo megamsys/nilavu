@@ -36,7 +36,7 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 			</div>
 			<div class="col-xs-12 col-md-9 mplace-middle hidden-xs hidden-sm">
 				<!-- <span>The <span class="badge_blue">supported</span> addons are marked by a Click on the addon to select it.</span> -->
-				<span class="pull-right c_small">Not sure what to do next?<i class="c_icon-rocket"></i><a href="#">Take a Tour</a></span>
+				<span class="pull-right c_small">Not sure what to do next?<i class="c_icon-rocket"></i><a href="http://www.gomegam.com/docs/users/apps/apps.html" target="_blank">Take a Tour</a></span>
 			</div>
 		</div>
 	</div>
@@ -44,7 +44,7 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 		<div class="row c_pading-b15">
 			<div class="portlet-body-head">
 				<div class="col-xs-12">
-					<i class="c_icon-grid"></i>Over all <span>3 Apps &amp; 0 services running</span>
+					<i class="c_icon-grid"></i>Over all <span><%= @app_counter %> Apps &amp; <%= @service_counter %> services running</span>
 				</div>
 			</div>
 			<!-- <div class="pull-right">
@@ -54,7 +54,7 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 		<div class="bottom-divider"></div>
 		<div class="row progressbar-cover">
 			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-				<h5>Memory used</h5>
+				<h5>Docker containers</h5>
 				<div class="progress">
 					<div class="progress-bar progress-bar-success" style="width: 35%">
 						<span class="sr-only">35% Complete (success)</span>
@@ -70,23 +70,17 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
 				<h5>App health</h5>
 				<div class="progress">
-					<div class="progress-bar progress-bar-success" style="width: 35%">
-						<span class="sr-only">35% Complete (success)</span>
+					<div class="progress-bar progress-bar-success" style="width: 100%">
+						<span class="sr-only">100% Complete (success)</span>
 					</div>
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
 				<h5>Services used</h5>
 				<div class="progress">
-					<div class="progress-bar progress-bar-success" style="width: 35%">
-						<span class="sr-only">35% Complete (success)</span>
-					</div>
-					<div class="progress-bar progress-bar-warning" style="width: 20%">
-						<span class="sr-only">20% Complete (warning)</span>
-					</div>
-					<div class="progress-bar progress-bar-danger" style="width: 10%">
-						<span class="sr-only">10% Complete (danger)</span>
-					</div>
+
+						<p align="center"> Apps <strong><%= @app_counter %>/<%= @service_counter %></strong> Services </p>
+
 				</div>
 			</div>
 		</div>

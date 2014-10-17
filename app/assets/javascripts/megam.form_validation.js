@@ -9,6 +9,17 @@ $(document).ready(function(){
       });
 });
 
+//Notification alert
+$(document).ready(function(){
+//var count = $("#events ul").children().length;
+var count = $("#events li").length;
+
+if (count > 0) {
+               $('#notification').removeClass('badge badge-success').addClass('badge badge-alert');
+            }
+
+});
+
 $(document).ready( function(){
 
     $('.app_config').click( function(event){

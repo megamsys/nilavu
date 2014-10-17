@@ -38,7 +38,8 @@ end
     @res_body = CreatePredefClouds.perform(wparams,force_api[:email], force_api[:api_key])
     if @res_body.class == Megam::Error
       @res_msg = nil
-      @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+      #@err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+        @err_msg="Sorry, Cloud creation failed"
       respond_to do |format|
         format.js {
           respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
@@ -80,7 +81,7 @@ end
 
       if @upload.class == Megam::Error
         @res_msg = nil
-        @err_msg="Failed to upload cross cloud files. Please contact #{ActionController::Base.helpers.link_to 'support.', "http://support.megam.co/"}."
+        @err_msg="Failed to upload cross cloud files."
         respond_to do |format|
           format.js {
             respond_with(@res_msg, @err_msg, :layout => !request.xhr? )

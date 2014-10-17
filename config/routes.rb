@@ -45,7 +45,9 @@ Cloudauth::Application.routes.draw do
 
 #oneapp Overview
   match '/overview', to: 'oneapps#overview', via: [:get, :post]
-  match '/logs', to: 'oneapps#logs', via: [:get, :post]
+  match '/runtime', to: 'oneapps#runtime', via: [:get, :post]
+  match '/metrics', to: 'oneapps#metrics', via: [:get, :post]
+  match '/oneapp_services', to: 'oneapps#services', via: [:get, :post]
   
   #Cloud Books
   match '/launch', to: 'marketplaces#create', via: [:get, :post]

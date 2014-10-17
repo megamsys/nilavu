@@ -9,14 +9,28 @@ def show
         #get the selected app
 end
 def overview
+        appid = params["appkey"]
+        @assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
         #@app = Appscollection(params[:app_name])
         #get the selected app
 end
 
-def logs
+def metrics
+        appid = params["appkey"]
         #@app = Appscollection(params[:app_name])
         #get the selected app
 end
+def runtime
+        appid = params["appkey"]
+        #@app = Appscollection(params[:app_name])
+        #get the selected app
+end
+def services
+        appid = params["appkey"]
+        #@app = Appscollection(params[:app_name])
+        #get the selected app
+end
+
 
   def marketplaces
   end
