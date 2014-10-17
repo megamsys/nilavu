@@ -1,7 +1,7 @@
 <div class="row c_pading-b15">
 	<div class="portlet-body-head">
 		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-			<i class="c_icon-layer_lg"></i>Your Services <span>0 Services running</span>
+			<i class="c_icon-layer_lg"></i>Your Services <span><%= @service_counter %> Services running</span>
 		</div>
 	</div>
 </div>
@@ -30,7 +30,7 @@
 		<% if assembly[0].class != Megam::Error %>
 		<% assembly[0].components[0].each do |com| %>
 		<% com_type = com.tosca_type.split(".") %>
-		<% ctype = get_type(com_type[2].capitalize) %>
+		<% ctype = get_type(com_type[2]) %>
 		<% if ctype == "SERVICE" %>
 		<% sflag = true %>
 		<%end %>
@@ -67,7 +67,7 @@
 									<% if com != nil %>
 									<% com.each do |c| %>
 									<% com_type = c.tosca_type.split(".") %>
-									<% ctype = get_type(com_type[2].capitalize) %>
+									<% ctype = get_type(com_type[2]) %>
 									<% if ctype == "SERVICE" %>
 									<li>
 										<%= image_tag "logos/"+com_type[2].downcase+".png", :alt => "" %>

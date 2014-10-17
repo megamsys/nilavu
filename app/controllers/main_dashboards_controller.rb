@@ -4,7 +4,7 @@ class MainDashboardsController < ApplicationController
   def index
     if current_user
       @user_id = current_user.id
-     
+
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
       @service_counter = 0
       @app_counter = 0
@@ -15,7 +15,7 @@ class MainDashboardsController < ApplicationController
             asm.assemblies.each do |assembly|
               if assembly != nil
                 if assembly[0].class != Megam::Error
-                  #@app_counter = assembly[0].components.count
+                  @app_counter = assembly[0].components.count + @app_counter                  
                   assembly[0].components.each do |com|
                     if com != nil
                       com.each do |c|
@@ -23,8 +23,6 @@ class MainDashboardsController < ApplicationController
                         ctype = get_type(com_type[2])
                          if ctype == "SERVICE" 
                            @service_counter = @service_counter + 1
-                        else
-                                @app_counter = @app_counter + 1
                          end 
                       end
                     end
@@ -35,6 +33,7 @@ class MainDashboardsController < ApplicationController
           end
         end
       end
+     
     else
       redirect_to signin_path
     end
