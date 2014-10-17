@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe "cloud_stores/new.html.erb" do
+describe "serives/new.html.erb" do
   pending "add some examples to (or delete) #{__FILE__}"
 end

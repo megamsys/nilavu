@@ -1,9 +1,98 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'Manage Apps') %>
-<%= render :partial => "users/header" , :locals => {:user => current_user, :head => "Manage Apps"}%>
+<% if flash[:notice] %>
+<script>
 
-<div class="container">
-	<%= render :partial => "apps/apps" , :locals => {:launched_books_quota => @launched_books_quota, :launched_books => @launched_books, :nodes => @nodes } %>
+$("#events").prepend('<li><a href="#"><span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> <%=flash[:notice] %> <span class="time">Just now</span></a></li>');
+
+</script>
+<% end %>
+
+<% if flash[:alert] %>
+<script>
+
+$("#events").prepend('<li><a href="#"><span class="label label-sm label-icon label-danger"><i class="icon-plus"></i></span> <%=flash[:notice] %> <span class="time">Just now</span></a></li>');
+
+</script>
+<% end %>
+
+
+<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9 c_bg_white c_height_5">
+	<div class="row c_pading-b15 settings_top">
+		<div class="margin_15">
+			<div class="col-xs-12 col-sm-6">
+				<h3> Dashboard </h3>
+			</div>
+			<%= render :partial => "users/topright_icons" %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="mplace mplace-head">
+			<div class="col-xs-12 col-md-3 mplace-left">
+				<h4>Dashboard</h4>
+			</div>
+			<div class="col-xs-12 col-md-9 mplace-middle hidden-xs hidden-sm">
+				<!-- <span>The <span class="badge_blue">supported</span> addons are marked by a Click on the addon to select it.</span> -->
+				<span class="pull-right c_small">Not sure what to do next?<i class="c_icon-rocket"></i><a href="#">Take a Tour</a></span>
+			</div>
+		</div>
+	</div>
+	<div class="margin_30 pad_t25">
+		<div class="row c_pading-b15">
+			<div class="portlet-body-head">
+				<div class="col-xs-12">
+					<i class="c_icon-grid"></i>Over all <span>3 Apps &amp; 0 services running</span>
+				</div>
+			</div>
+			<!-- <div class="pull-right">
+			<span class="icon-th-large"></span>
+			</div> -->
+		</div>
+		<div class="bottom-divider"></div>
+		<div class="row progressbar-cover">
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+				<h5>Memory used</h5>
+				<div class="progress">
+					<div class="progress-bar progress-bar-success" style="width: 35%">
+						<span class="sr-only">35% Complete (success)</span>
+					</div>
+					<div class="progress-bar progress-bar-warning" style="width: 20%">
+						<span class="sr-only">20% Complete (warning)</span>
+					</div>
+					<div class="progress-bar progress-bar-danger" style="width: 10%">
+						<span class="sr-only">10% Complete (danger)</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+				<h5>App health</h5>
+				<div class="progress">
+					<div class="progress-bar progress-bar-success" style="width: 35%">
+						<span class="sr-only">35% Complete (success)</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+				<h5>Services used</h5>
+				<div class="progress">
+					<div class="progress-bar progress-bar-success" style="width: 35%">
+						<span class="sr-only">35% Complete (success)</span>
+					</div>
+					<div class="progress-bar progress-bar-warning" style="width: 20%">
+						<span class="sr-only">20% Complete (warning)</span>
+					</div>
+					<div class="progress-bar progress-bar-danger" style="width: 10%">
+						<span class="sr-only">10% Complete (danger)</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<%= render :partial => "main_dashboards/apps", :locals => {:user => current_user, :assemblies => @assemblies} %>
+
+		<%= render :partial => "main_dashboards/services", :locals => {:user => current_user, :assemblies => @assemblies} %>
+
+	</div>
 </div>
 
 <div id="cloudbook_delete_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

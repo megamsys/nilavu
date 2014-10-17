@@ -1,15 +1,15 @@
-require 'spec_helper'
+require 'rails_helper'
 
 # Specs in this file have access to a helper object that includes
-# the CloudStoresHelper. For example:
+# the ServicesHelper. For example:
 #
-# describe CloudStoresHelper do
+# describe ServicesHelper do
 #   describe "string concat" do
 #     it "concats two strings with spaces" do
 #       expect(helper.concat_strings("this","that")).to eq("this that")
 #     end
 #   end
 # end
-describe CloudStoresHelper do
+RSpec.describe ServicesHelper, :type => :helper do
   pending "add some examples to (or delete) #{__FILE__}"
 end

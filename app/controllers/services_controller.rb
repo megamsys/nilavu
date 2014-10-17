@@ -1,4 +1,5 @@
-class CloudStoresController < ApplicationController
+class ServicesController < ApplicationController
+
   respond_to :html, :js
   
   def index
@@ -94,4 +95,6 @@ class CloudStoresController < ApplicationController
       end
     end
   end
+
+
 end
