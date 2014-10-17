@@ -20,11 +20,13 @@ class MainDashboardsController < ApplicationController
                       com.each do |c|
                         com_type = c.tosca_type.split(".")
                         ctype = get_type(com_type[2])
-                        if ctype == "SERVICE"
-                          @service_counter = @service_counter + 1
+
+                         if ctype == "SERVICE" 
+                           @service_counter = @service_counter + 1
                         else
-                          @app_counter = assembly[0].components.count + @app_counter
-                        end
+                                @app_counter = @app_counter + 1
+                         end 
+
                       end
                     end
                   end
