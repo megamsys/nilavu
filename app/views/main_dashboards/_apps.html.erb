@@ -23,6 +23,7 @@
 			</div>
 		</div>
 		<% end %>
+		<% if @assemblies != nil %>
 		<% @assemblies.each do |asm| %>
 		<% asm.assemblies.each do |assembly| %>
 		<% if assembly != nil %>
@@ -81,6 +82,7 @@
 			</div>
 
 		</div>
+		<% end %>
 		<% end %>
 		<% end %>
 		<% end %>
