@@ -1,7 +1,10 @@
 @font-face {
 	font-family: 'ElegantIcons';
-	src: url('ElegantIcons.eot');
-	src: url('ElegantIcons.eot?#iefix') format('embedded-opentype'), url('ElegantIcons.woff') format('woff'), url('ElegantIcons.ttf') format('truetype'), url('ElegantIcons.svg#ElegantIcons') format('svg');
+	src:url('ElegantIcons.eot');
+	src:url('ElegantIcons.eot?#iefix') format('embedded-opentype'),
+		url('ElegantIcons.woff') format('woff'),
+		url('ElegantIcons.ttf') format('truetype'),
+		url('ElegantIcons.svg#ElegantIcons') format('svg');
 	font-weight: normal;
 	font-style: normal;
 }
@@ -1131,9 +1134,7 @@
 	margin-right: 20px;
 }
 
-.glyph div {
-	padding-bottom: 10px;
-}
+        .glyph div { padding-bottom: 10px;}
 
 .glyph input {
 	font-family: consolas, monospace;
