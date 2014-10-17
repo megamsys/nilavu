@@ -95,8 +95,28 @@ class UsersController < ApplicationController
 
   def edit
     logger.debug "==> Controller: users, Action: edit, Start edit"
-    @user= User.find(params[:id])
+    list_organizations
+    
+    @user= User.find(params[:id])    
     @user
+  end
+  
+  def list_organizations
+    logger.debug "--> #{self.class} : list organizations entry"
+    @org_collection = ListOrganizations.perform(force_api[:email], force_api[:api_key])
+    logger.debug "--> #{self.class} : listed organiztions"
+
+    if @org_collection.class != Megam::Error
+      @org = []
+      org = []
+      @org_collection.each do |orgs|
+        org << {:name => org.name, :created_at => org.created_at.to_time.to_formatted_s(:rfc822)}
+        
+        
+      end
+      
+      @org = org.sort_by {|vn| vn[:created_at]}
+    end
   end
 
   def upgrade
