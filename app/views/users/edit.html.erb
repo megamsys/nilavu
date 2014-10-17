@@ -31,8 +31,8 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 							<h4 class="bottom_border_grey">Basic information</h4>
-							 
-			             </div>
+
+						</div>
 
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
 							<%= form_for @user, html: {class:  'form-horizontal', role: 'form'}, remote: true, data:  { spinlock: '#saving_profilename'} do |f| %>
@@ -41,7 +41,7 @@
 							<div class="form-group">
 								<label class="col-md-3 control-label label-profile">Profile name</label>
 								<div class="col-md-6 input-group margin-top-10">
-									<%= f.text_field :first_name, :id => 'first_name', :class => 'form-control', placeholder: "Enter text" %>
+									<%= f.text_field :first_name, :id => 'first_name', :class => 'form-control',:readonly => true, placeholder: "Enter text" %>
 									<!-- <%= f.text_field :last_name, :id => 'last_name', :class => 'form-control', placeholder: "Last name" %> -->
 									<span class="input-group-addon" ><a href="#">Change ?</a></span>
 								</div>
@@ -54,14 +54,14 @@
 							<div class="form-group">
 								<label class="col-md-3 control-label label-profile">Phone</label>
 								<div class="col-md-6 input-group margin-top-10">
-									<%= f.text_field :phone, :class => 'form-control', placeholder: "Enter text" %>
-									<span class="input-group-addon" ><a href="#">Change ?</a></span>
+									<%= f.text_field :phone, :class => 'form-control',:readonly => true, placeholder: "Enter text" %>
+									<span class="input-group-addon" ><a href="" id="changeprof">Change ?</a></span>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
-									<%= f.submit "Save", :class => "btn btn-default c_btn-success col-md-5 col-xs-12" %>
+									<%= f.submit "Save", :class => "btn btn-success col-md-5 col-xs-12" %>
 								</div>
 							</div>
 							<% end %>
@@ -114,35 +114,21 @@
 				<div class="tab-pane" id="profile_2">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-							<h4 class="bottom_border_grey"> Hello, user! </h4>
-							
+							<h4 class="bottom_border_grey"> Basic Group Information </h4>
+
 						</div>
 
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
 							<form class="form-horizontal" role="form">
 								<div class="form-group">
-									<label class="col-md-3 control-label label-profile">Profile name</label>
+									<label class="col-md-3 control-label label-profile">Org name</label>
 									<div class="col-md-6 input-group margin-top-10">
-										<input type="text" class="form-control" placeholder="Enter text">
-										<span class="input-group-addon" ><a href="#">Change ?</a></span>
+										<input type="text" class="form-control" placeholder="Enter text" value="org.megam" readonly />
+										<span class="input-group-addon" ></span>
 									</div>
 									<div class="col-md-3 pull-right c_cog_icon">
 										<span>View only</span>
 										<i class="icon-cog"></i>
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label class="col-md-3 control-label label-profile">Phone</label>
-									<div class="col-md-6 input-group margin-top-10">
-										<input type="text" class="form-control" placeholder="Enter text">
-										<span class="input-group-addon" ><a href="#">Change ?</a></span>
-									</div>
-								</div>
-
-								<div class="form-group">
-									<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
-										<a class="btn btn-success col-md-5 col-xs-12" href="#"> Save </a>
 									</div>
 								</div>
 							</form>
@@ -151,37 +137,19 @@
 
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-							<h4 class="bottom_border_grey">Change password</h4>
+							<h4 class="bottom_border_grey">Domain</h4>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
 							<form class="form-horizontal" role="form">
 								<div class="form-group">
-									<label class="col-md-3 control-label label-profile">Current</label>
+									<label class="col-md-3 control-label label-profile">Name</label>
 									<div class="col-md-6 input-group margin-top-10">
-										<input type="text" class="form-control" placeholder="Current password">
-										<span class="input-group-addon" ><a href="#">Change ?</a></span>
+										<input type="text" class="form-control" placeholder="Default Domain" value="megam.co" readonly/>
+										<span class="input-group-addon" ></span>
 									</div>
 								</div>
 
-								<div class="form-group">
-									<label class="col-md-3 control-label label-profile">New</label>
-									<div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-9">
-										<input type="password" readonly class="form-control" placeholder="New password">
-									</div>
-								</div>
-
-								<div class="form-group">
-									<label class="col-md-3 control-label label-profile">Retype</label>
-									<div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-9">
-										<input type="password" readonly class="form-control" placeholder="Confirm new password">
-									</div>
-								</div>
-
-								<div class="form-group">
-									<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
-										<a class="btn btn-success col-md-5 col-xs-12" href="#">Update</a>
-									</div>
-								</div>
+								
 							</form>
 						</div>
 					</div>
@@ -225,3 +193,4 @@
 <% end %>
 
 <%= render :template => users_show_path %>
+

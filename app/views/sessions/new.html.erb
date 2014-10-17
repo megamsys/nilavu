@@ -1,111 +1,115 @@
 <% provide(:title, "Sign in") %>
 <div class="signin login">
-  <!-- BEGIN LOGO -->
+	<!-- BEGIN LOGO -->
 	<div class="container">
-   	<div class="row">
-       	<div class="logo">
-           	<%= image_tag "logo.png" %>
-         </div>
-   	</div>
-   	<!-- END LOGO -->
-   	<!-- BEGIN LOGIN -->
-   	<div class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer bg_white border_grey">
-         <div class="container">
-            <div class="row bottom-divider">
-               <div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
-                  <h2>Login</h2>
-               </div>
-               <!-- <div class="col-lg-7 col-md-7">
-                  <p>it wont take morethan 1 minut we promise</p>
-               </div> -->
-            </div>
-         </div>
+		<div class="row">
+			<div class="logo">
+				<%= image_tag "logo.png" %>
+			</div>
+		</div>
+		<!-- END LOGO -->
+		<!-- BEGIN LOGIN -->
+		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer bg_white border_grey">
+			<div class="container">
+				<div class="row bottom-divider">
+					<div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
+						<h2>Login</h2>
+					</div>
+				</div>
+			</div>
 
-      	<div class="cover col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
-            <!-- BEGIN LOGIN FORM -->
-		<%= form_for(:session, :url => sessions_path, :html => {:id =>'megamform', role: "form", :novalidate => 'novalidate'}) do |f| %>
-            	<div class="c_inline">
-               	<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-               	<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
-                  <div class="form-group">
-                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
-                           <i class="c_ico-excla"></i>
-                           <%= f.text_field :email, :class => 'form-control', :required => true, placeholder: "Email" %>
-                        </div>
-                     </div>
-                  </div>
+			<div class="cover col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
+				<!-- BEGIN LOGIN FORM -->
+				<%= form_for(:session, :url => sessions_path, :html => {:id =>'megamform', role: "form", :novalidate => 'novalidate'}) do |f| %>
+				<div class="c_inline">
+					<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+					<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
+								<i class="c_ico-excla"></i>
+								<%= f.text_field :email, :class => 'form-control', :required => true, placeholder: "Email" %>
+							</div>
+						</div>
+					</div>
 
-                  <div class="form-group">
-                     <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
-                           <i class="c_ico-excla"></i>
-			<%= f.password_field :password, :class => 'form-control', :required => true, placeholder: "Password" %>
-                        </div>
-                     </div>
-                  </div>
+					<div class="form-group">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
+								<i class="c_ico-excla"></i>
+								<%= f.password_field :password, :class => 'form-control', :required => true, placeholder: "Password" %>
+							</div>
+						</div>
+					</div>
 
-                  <div class="row">
-                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
-                        <div class="row">
-                           <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 tour-btn">
-                              <span>
-                                <a href="signup"><u class="colr-bluegrey">Create new account ? </u></a>
-                              </span>
-                           </div>
-                           <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right tour-btn">
-                              <span>
-                                 <a class="pull-right" href="reset"><u class="colr-denimblue">Forgot password ?</u></a>
-                              </span>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
+							<div class="row">
+								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 tour-btn">
+									<span> <a href="signup"><u class="colr-bluegrey">Create new account ? </u></a> </span>
+								</div>
+								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right tour-btn">
+									<span> <a class="pull-right" href="reset"><u class="colr-denimblue">Forgot password ?</u></a> </span>
+								</div>
+							</div>
+						</div>
+					</div>
 
-                  <div class="row">
-                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="row">
-                           <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 tour-btn">
-                              <button type="submit" class="btn btn-success btn-plain">Take a tour</button>
-                           </div>
-                           <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right tour-btn">
-                                <%= f.submit "Login", :class => "btn btn-success btn-plain-green" %>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-                  <div class="row">
-                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <p class="text-center login-social">Login with social media</p>
-                     </div>
-                  </div>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<div class="row">
+								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 tour-btn">
+									<button type="submit" class="btn btn-success btn-plain">
+										Take a tour
+									</button>
+								</div>
+								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right tour-btn">
+									<%= f.submit "Login", :class => "btn btn-success btn-plain-green" %>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<p class="text-center login-social">
+								Login with social media
+							</p>
+						</div>
+					</div>
 
-                  <div class="row">
-                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 social">
-                        <ul class="list-inline text-center">
-                           <li><a href="#" class="github icon"></a></li>
-                           <li><a href="#" class="facebook icon"></a></li>
-                           <li><a href="#" class="twitter icon"></a></li>
-                           <li><a href="#" class="google icon"></a></li>
-                        </ul>
-                     </div>
-                  </div>
-            	</div>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 social">
+							<ul class="list-inline text-center">
+								<li>
+									<a href="/auth/github" class="github icon"></a>
+								</li>
+								<li>
+									<a href="/auth/facebook" class="facebook icon"></a>
+								</li>
+								<li>
+									<a href="/auth/twitter" class="twitter icon"></a>
+								</li>
+								<li>
+									<a href="/auth/google_oauth2" class="google icon"></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
 
+				<% end %>
+				<!-- END REGISTRATION FORM -->
+			</div>
 
-
-		<% end %>
-            <!-- END REGISTRATION FORM -->
-     	   </div>
-
-
-      </div>
-      <div  class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">
-            <div class="row">
-               <p>Powered by Podnix Cloud<span class="pull-right">gomegam.com</span></p>
-            </div>
-      </div>
-   <!-- END LOGIN -->
-   </div>
+		</div>
+		<div  class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">
+			<div class="row">
+				<p>
+					<a href="http://www.podnix.com" target="_blank">Powered by Podnix Cloud</a><span class="pull-right"><a href="http://www.gomegam.com" target="_blank">gomegam.com</a></span>
+				</p>
+			</div>
+		</div>
+		<!-- END LOGIN -->
+	</div>
 </div>
-   <!-- END JAVASCRIPTS -->
+<!-- END JAVASCRIPTS -->
