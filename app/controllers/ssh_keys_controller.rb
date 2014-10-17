@@ -34,7 +34,7 @@ class SshKeysController < ApplicationController
       upload = SshKey.perform(options, ssh_files_bucket)
       if upload.class == Megam::Error
         @res_msg = nil
-        @err_msg="SSH keys creation failed."
+        @err_msg="SSH key #{key_name} creation failed."
         @public_key = ""
         respond_to do |format|
           format.js {
@@ -43,7 +43,7 @@ class SshKeysController < ApplicationController
         end
       else
         @err_msg = nil
-        @res_msg = "SSH keys created successfully"
+        @res_msg = "SSH key #{key_name} created successfully"
         @public_key = k.public_key
         respond_to do |format|
           format.js {

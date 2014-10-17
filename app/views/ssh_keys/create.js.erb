@@ -2,10 +2,18 @@
 $('#create-ssh').modal('hide');
 var selected_entity = '#sshkey_postfinish_popup_error';
 $("#ssh_err_msg").html('<%= @err_msg %>');
+
+$("#events").prepend('<li><a href="#"><span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> <%= @err_msg %> <span class="time">Just now</span></a></li>');
+
 $(selected_entity).modal({backdrop : false, show : true});
 <% else %>
+
 $('#create-ssh').modal('hide');
 var selected_entity = '#sshkey_postfinish_popup';
 $("#ssh_res_msg").html('<%= @res_msg %>');
+
+$("#events").prepend('<li><a href="#"><span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> <%= @res_msg %> <span class="time">Just now</span></a></li>');
+
 $(selected_entity).modal({backdrop : false,show : true});
+
 <% end %>
