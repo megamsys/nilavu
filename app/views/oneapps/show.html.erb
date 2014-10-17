@@ -9,36 +9,50 @@
 					<ul class="page-sidebar-menu">
 
 						<li></li>
-						<li class="start active" >
-							<% appkey = "appname" %>
-							<%= link_to overview_path(:appkey => appkey) do %>
+
+                                                <li class="start" >
+							<%= link_to main_dashboards_path do %>
 							<i class="c_icon c_icon-dash pull-left"></i>
-							<span class="title pull-left">Overview</span>
+							<span class="title pull-left">Back to dash</span>
 							<span class="selected hidden-xs"></span>
 							<% end %>
 						</li>
+<% appkey = request.original_url.partition('=').last %>
 
-						<li class=<%= "start active" if controller_name=="apps"%>>
-							<%= link_to apps_path do %>
+
+						<li class= "start active">
+							<%= link_to overview_path(:appkey => appkey), :target => "_self" do %>
 							<i class="c_icon c_icon-browser pull-left"></i>
+							<span class="title pull-left">Overview</span>
+							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'overview')%>"></span>
+							<% end %>
+						</li>
+
+						<li class= "start active">
+							<%= link_to runtime_path(:appkey => appkey), :target => "_self" do %>
+							<i class="c_icon c_icon-layer pull-left"></i>
 							<span class="title pull-left">Runtime</span>
-							<span class="selected hidden-xs"></span>
+							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'runtime')%>"></span>
 							<% end %>
 						</li>
 
-						<li class=<%= "start active" if controller_name== "addons"%>>
-							<%= link_to logs_path do %>
+						<li class= "start active">
+							<%= link_to metrics_path(:appkey => appkey), :target => "_self" do %>
 							<i class="c_icon c_icon-stack pull-left"></i>
-							<span class="title pull-left">Logs</span>
+							<span class="title pull-left">Metrics</span>
+							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'metrics')%>"></span>
 							<% end %>
 						</li>
 
-						<li class=<%= "start active" if controller_name== "settings"%>>
-							<%= link_to settings_path do %>
+						<li class="start active">
+							<%= link_to oneapp_services_path(:appkey => appkey), :target => "_self" do %>
 							<i class="c_icon c_icon-settings pull-left"></i>
 							<span class="title pull-left">Services</span>
+							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'services')%>"></span>
 							<% end %>
 						</li>
+
+
 
 					</ul>
 					<!-- END SIDEBAR MENU -->

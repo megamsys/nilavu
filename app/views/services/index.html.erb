@@ -1,9 +1,45 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'Manage Services') %>
-<%= render :partial => "users/header" , :locals => {:head => "Manage Services"}%>
+<% if flash[:notice] %>
+<script>
+$("#events").prepend('<li><a href="#"><span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> <%=flash[:notice] %> <span class="time">Just now</span></a></li>');
+</script>
+<% end %>
+<% if flash[:alert] %>
+<script>
+$("#events").prepend('<li><a href="#"><span class="label label-sm label-icon label-danger"><i class="icon-plus"></i></span> <%=flash[:notice] %> <span class="time">Just now</span></a></li>');
+</script>
+<% end %>
 
-<div class="container">
-	<%= render :partial => "cloud_stores/db" , :locals => {:launched_books_quota => @launched_books_quota, :launched_books => @launched_books, :nodes => @nodes } %>
+
+<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9 c_bg_white c_height_5">
+	<div class="row c_pading-b15 settings_top">
+		<div class="margin_15">
+			<div class="col-xs-9 col-sm-6 col-md-7">
+				<h3> Services </h3>
+			</div>
+			<%= render :partial => "users/topright_icons" %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="mplace mplace-head">
+			<div class="col-xs-12 col-md-3 mplace-left">
+				<h4> Services </h4>
+			</div>
+			<div class="col-xs-12 col-md-9 mplace-middle hidden-xs hidden-sm">
+				<!-- <span>The <span class="badge_blue">supported</span> addons are marked by a Click on the addon to select it.</span> -->
+				<span class="pull-right c_small">Manage your services<i class="c_icon-rocket"></i><a href="#">Take a Tour</a></span>
+			</div>
+		</div>
+	</div>
+	<div class="margin_30 pad_t25">
+
+		<div class="bottom-divider"></div>
+
+
+		<%= render :partial => "main_dashboards/services", :locals => {:user => current_user, :assemblies => @assemblies} %>
+
+	</div>
 </div>
 
 <div id="cloudbook_delete_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -39,7 +75,7 @@
 
 				<h3 id="myModalLabel">Clone - App</h3>
 			</div>
-			<%= form_tag(clone_start_path, :method => "post", :remote => true) do %>
+			<%= form_tag(clone_path, :method => "post", :remote => true) do %>
 			<div class="modal-body">
 				<% @new_book_name = book_name %>
 				<% @domain_name = ".megam.co" %>
@@ -121,7 +157,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<%= link_to  "Ok", cloud_stores_path, :class => "btn btn-primary", :target => "_self" %>
+				<%= link_to  "Ok", services_path, :class => "btn btn-primary", :target => "_self" %>
 			</div>
 		</div>
 	</div>

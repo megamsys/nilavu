@@ -5,25 +5,11 @@ class AppsController < ApplicationController
   ## I don't see a point in calling all the node details for an user. We should avoid it.
   ## ie. skip FindNodesByEmail ?
   def index
-    cloud_books = current_user.apps.order("id DESC").all
-    if cloud_books.any?
-      @nodes = FindNodesByEmail.perform({},current_user.email, current_user.api_token)
-      if @nodes.class == Megam::Error
-        redirect_to new_app_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
-      else
-        book_names = cloud_books.map {|c| c.group_name}
-        book_names = book_names.uniq
-        grouped = book_names.inject({}) do |base, b| #the grouped has a short_name/Megam::Nodes collection
-          group = @nodes.select{|n| n.node_name =~ /^#{b}/}
-          base[b] ||= []
-          base[b] << group
-          base
-        end
-        @launched_books = Hash[grouped.map {|key, value| [key, value.flatten.map {|vn| vn.node_name}]}]
-        @launched_books_quota = @nodes.all_nodes.length
-      end
+     if current_user
+      @user_id = current_user.id
+      @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
     else
-      redirect_to new_app_path
+      redirect_to signin_path
     end
   end
 

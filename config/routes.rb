@@ -22,7 +22,7 @@ Cloudauth::Application.routes.draw do
   resources :apps_histories
   resources :apps #, via: [:get, :post, :destroy]
   resources :cross_clouds
-  resources :cloud_stores
+  resources :services
   resources :dashboards
   resources :widgets
   resources :password_resets
@@ -45,7 +45,9 @@ Cloudauth::Application.routes.draw do
 
 #oneapp Overview
   match '/overview', to: 'oneapps#overview', via: [:get, :post]
-  match '/logs', to: 'oneapps#logs', via: [:get, :post]
+  match '/runtime', to: 'oneapps#runtime', via: [:get, :post]
+  match '/metrics', to: 'oneapps#metrics', via: [:get, :post]
+  match '/oneapp_services', to: 'oneapps#services', via: [:get, :post]
   
   #Cloud Books
   match '/launch', to: 'marketplaces#create', via: [:get, :post]
@@ -68,8 +70,8 @@ Cloudauth::Application.routes.draw do
 
  match '/reset', to: 'password_resets#new', via: [:get, :post]
 
-  #cloud_stores
-  match '/new_store', to: 'cloud_stores#new_store', via: [:get, :post]
+  #services
+  match '/new_store', to: 'services#new_store', via: [:get, :post]
 
   # ======Users Controller
   match '/signup', to: 'users#new', via: [:get, :post]
