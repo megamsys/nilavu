@@ -125,7 +125,7 @@ GEM
     fog-sakuracloud (0.1.1)
       fog-core
       fog-json
-    fog-softlayer (0.3.20)
+    fog-softlayer (0.3.21)
       fog-core
       fog-json
     fog-xml (0.1.0)
