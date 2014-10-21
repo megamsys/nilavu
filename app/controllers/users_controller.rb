@@ -118,6 +118,7 @@ redirect_to main_dashboards_path, :alert => "onboard Failure #{@user.email}."
       
       @org = org.sort_by {|vn| vn[:created_at]}
     end
+    @org
   end
 
   def upgrade
