@@ -1,11 +1,11 @@
 class SessionsController < ApplicationController
   def new
   end
- 
- #this is a demo user who can only touch anything but mutate megam.
+
+  #this is a demo user who can only touch anything but mutate megam.
   def demo
-    user = User.find_by_email(params[:email]) 
-    
+    user = User.find_by_email(params[:email])
+
     if user && user.authenticate(params[:password])
       sign_in user
       redirect_back_or main_dashboards_path, :gflash => { :success => { :value => "This is a demo dry run mode. No actual launches to cloud happens. For full version, please signout and signup for a new account.", :sticky => false, :nodom_wrap => true } }
@@ -29,11 +29,12 @@ class SessionsController < ApplicationController
         end
         sign_in user
 
-redirect_to main_dashboards_path, :notice => "Welcome #{user.first_name}."
+        redirect_to main_dashboards_path, :notice => "Welcome #{user.first_name}."
 
       else
-        flash[:error] = 'Invalid username and password combination'
-        render 'new'
+        flash[:error] = "Invalid username and password combination"
+        render "new"
+
       end
     else
       create_social_identity(auth)

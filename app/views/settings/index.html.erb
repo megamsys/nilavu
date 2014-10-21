@@ -1,6 +1,24 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'Manage Settings') %>
 
+
+<% if flash[:notice] %>
+<script>
+
+$("#events").prepend('<li><a href="#"><span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> <%=flash[:notice] %> <span class="time">Just now</span></a></li>');
+
+</script>
+<% end %>
+
+<% if flash[:alert] %>
+<script>
+
+$("#events").prepend('<li><a href="#"><span class="label label-sm label-icon label-danger"><i class="icon-plus"></i></span> <%=flash[:notice] %> <span class="time">Just now</span></a></li>');
+
+</script>
+<% end %>
+
+
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
 	<div class="row c_pading-b15 settings_top">
 
@@ -21,7 +39,7 @@
 	</div>
 	<div class="row">
 		<div class="tabbable-custom nav-justified">
-			<ul class="nav nav-tabs nav-justified">
+			<ul class="nav nav-tabs nav-justified" id="settings_tab">
 				<li class="active">
 					<a href="#tab_sshkey" data-toggle="tab"> SSH Key Pairs </a>
 				</li>
@@ -30,7 +48,7 @@
 				</li>
 				<!-- <li><a href="#tab_1_1_3" data-toggle="tab"> Cloud Provisioners </a></li> -->
 			</ul>
-			<div class="tab-content c_tab-content">
+			<div class="tab-content c_tab-content ">
 				<div class="tab-pane active" id="tab_sshkey">
 					<%= render :partial => "ssh_keys/sshkeys" %>
 				</div>

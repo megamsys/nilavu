@@ -43,7 +43,7 @@
 								<div class="col-md-6 input-group margin-top-10">
 									<%= f.text_field :first_name, :id => 'first_name', :class => 'form-control',:readonly => true, placeholder: "Enter text" %>
 									<!-- <%= f.text_field :last_name, :id => 'last_name', :class => 'form-control', placeholder: "Last name" %> -->
-									<span class="input-group-addon" ><a href="#">Change ?</a></span>
+									<span class="input-group-addon" ><a id="change_profilename">Change ?</a></span>
 								</div>
 								<div class="col-md-3 pull-right c_cog_icon">
 									<span>View only</span>
@@ -54,8 +54,8 @@
 							<div class="form-group">
 								<label class="col-md-3 control-label label-profile">Phone</label>
 								<div class="col-md-6 input-group margin-top-10">
-									<%= f.text_field :phone, :class => 'form-control',:readonly => true, placeholder: "Enter text" %>
-									<span class="input-group-addon" ><a href="" id="changeprof">Change ?</a></span>
+									<%= f.text_field :phone, :class => 'form-control',:readonly => true, :id => 'phonenumber',placeholder: "Enter text" %>
+									<span class="input-group-addon" ><a id="change_phonenumber">Change ?</a></span>
 								</div>
 							</div>
 
@@ -80,21 +80,21 @@
 								<label class="col-md-3 control-label label-profile">Current</label>
 								<div class="col-md-6 input-group margin-top-10">
 									<%= f.password_field :password, :class=> 'form-control', placeholder: "Current password" %>
-									<span class="input-group-addon" ><a href="#">Change ?</a></span>
+									<span class="input-group-addon" ><a id="change_password">Change ?</a></span>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-3 control-label label-profile">New</label>
 								<div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-9">
-									<%= f.password_field :password, :class=> 'form-control', :readonly => true, placeholder: "New password" %>
+									<%= f.password_field :password, :class=> 'form-control', :id => 'newpassword', :readonly => true, placeholder: "New password" %>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-3 control-label label-profile">Retype</label>
 								<div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-9">
-									<%= f.password_field :password_confirmation,  :class=> 'form-control', :readonly => true, placeholder: "Confirm new password" %>
+									<%= f.password_field :password_confirmation,  :class=> 'form-control', :id => 'newpassword_confirmation', :readonly => true, placeholder: "Confirm new password" %>
 								</div>
 							</div>
 
