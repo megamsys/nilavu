@@ -4,7 +4,7 @@
 <% if flash[:notice] %>
 <script>
 
-$("#events").prepend('<li><a href="#"><span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> <%=flash[:notice] %> <span class="time">Just now</span></a></li>');
+$("#events").prepend('<li><span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> <%=flash[:notice] %> <span class="time">Just now</span></li>');
 
 </script>
 <% end %>
@@ -12,7 +12,7 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 <% if flash[:alert] %>
 <script>
 
-$("#events").prepend('<li><a href="#"><span class="label label-sm label-icon label-danger"><i class="icon-plus"></i></span> <%=flash[:notice] %> <span class="time">Just now</span></a></li>');
+$("#events").prepend('<li><span class="label label-sm label-icon label-danger"><i class="icon-plus"></i></span> <%=flash[:notice] %> <span class="time">Just now</span></li>');
 
 </script>
 <% end %>
