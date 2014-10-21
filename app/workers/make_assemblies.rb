@@ -65,8 +65,8 @@ class MakeAssemblies
             "wires"=>[]
           },
           "service_inputs"=>{
-            "dbname"=>"",
-            "dbpassword"=>"",
+            "dbname"=>"#{options[:dbname]}",
+            "dbpassword"=>"#{options[:dbpassword]}",
           },
         },
         "external_management_resource"=>"",

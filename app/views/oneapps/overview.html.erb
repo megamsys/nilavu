@@ -85,8 +85,8 @@
 			<div class="col-xs-12 col-sm-12 col-md-4 app_library">
 				<div class="row">
 					<div class="col-xs-6 col-sm-6">
-                                <%= image_tag "https://s3-ap-southeast-1.amazonaws.com/megampub/images/market_place_images/"+@assembly.components[0][0].tosca_type.split(".")[2].downcase+".png", :alt => "" %>
-
+                               <!-- <%= image_tag "https://s3-ap-southeast-1.amazonaws.com/megampub/images/market_place_images/"+@assembly.components[0][0].tosca_type.split(".")[2].downcase+".png", :alt => "" %> -->
+                                <%= image_tag "logos/"+@assembly.components[0][0].tosca_type.split(".")[2].downcase+".png", :alt => "" %>
 					</div>
 					<div class="pad_0 col-xs-6 col-sm-6">
 						<div class="app_library-text">

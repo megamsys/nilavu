@@ -1,4 +1,7 @@
-h3{font-weight: normal;}
+h3
+{
+font-weight: normal;
+}
 select.form-control
 {
 	border-radius:2px !important;
@@ -872,7 +875,7 @@ background-color: white;
 	margin-right: 5px;
 	margin-left: 5px;
 }
-}
+
 .portlet-title
 {
 	border: 2px solid #70b1ee;

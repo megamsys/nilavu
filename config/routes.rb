@@ -106,6 +106,13 @@ Cloudauth::Application.routes.draw do
   #match '/dashboards', to: 'users#dashboard',via: [:get]
   #match '/dashboards', to: 'api/dashboards#index',via: [:get]
 
+ #app lifecycle 
+ match '/startapp', :to => 'main_dashboards#startapp', via: [:get]
+ match '/stopapp', :to => 'main_dashboards#stopapp', via: [:get]
+ match '/restartapp', :to => 'main_dashboards#restartapp', via: [:get]
+ match '/deleteapp', :to => 'main_dashboards#deleteapp', via: [:get]
+ match '/app_request', :to => 'main_dashboards#app_request', via: [:get, :post]
+
   # ========Cloud Books Histories controller
   match '/node_log', to: 'apps_histories#logs', via: [:get, :post]
 
