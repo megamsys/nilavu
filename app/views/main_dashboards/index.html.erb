@@ -3,23 +3,17 @@
 
 <% if flash[:notice] %>
 <script>
-
-$("#events").prepend('<li><span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> <%=flash[:notice] %> <span class="time">Just now</span></li>');
-
+$("#events").prepend('<li><a href=""><span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> <%= flash[:notice] %> <span class="time">Just now</span></a></li>');
 </script>
 <% end %>
 
 <% if flash[:alert] %>
 <script>
-
-$("#events").prepend('<li><span class="label label-sm label-icon label-danger"><i class="icon-plus"></i></span> <%=flash[:notice] %> <span class="time">Just now</span></li>');
-
+$("#events").prepend('<li><a href=""><span class="label label-sm label-icon label-danger"><i class="icon-plus"></i></span> <%= flash[:notice] %> <span class="time">Just now</span></a></li>');
 </script>
 <% end %>
 
-
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9 c_bg_white c_height_5">
-
 
 	<div class="row c_pading-b15 settings_top">
 		<div class="margin_15">
@@ -54,7 +48,7 @@ $("#events").prepend('<li><span class="label label-sm label-icon label-danger"><
 		<div class="bottom-divider"></div>
 		<div class="row progressbar-cover">
 			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-				<h5>Docker containers</h5>
+				<h5>Containers</h5>
 				<div class="progress">
 					<div class="progress-bar progress-bar-success" style="width: 35%">
 						<span class="sr-only">35% Complete (success)</span>
@@ -76,11 +70,11 @@ $("#events").prepend('<li><span class="label label-sm label-icon label-danger"><
 				</div>
 			</div>
 			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-				<h5>Services used</h5>
+				<h5>Apps/Services used</h5>
 				<div class="progress">
-
-						<p align="center"> Apps <strong><%= @app_counter %>/<%= @service_counter %></strong> Services </p>
-
+					<p align="center">
+						<span> <%= @app_counter %> Apps / <%= @service_counter %> Services </span>
+					</p>
 				</div>
 			</div>
 		</div>
