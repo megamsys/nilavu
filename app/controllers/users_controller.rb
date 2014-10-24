@@ -98,6 +98,9 @@ redirect_to main_dashboards_path, :alert => "onboard Failure #{@user.email}."
   def edit
     logger.debug "==> Controller: users, Action: edit, Start edit"
     list_organizations
+    puts "-----top-------------"
+    puts @org.inspect
+    puts "------------------------"
     
     @user= User.find(params[:id])    
     @user
@@ -112,15 +115,17 @@ redirect_to main_dashboards_path, :alert => "onboard Failure #{@user.email}."
       @org = []
       org = []
       @org_collection.each do |orgs|
-        org << {:name => org.name, :created_at => org.created_at.to_time.to_formatted_s(:rfc822)}
+        orgs << {:name => org.name, :created_at => org.created_at.to_time.to_formatted_s(:rfc822)}
         
       end
       
       @org = org.sort_by {|vn| vn[:created_at]}
+      puts @org
+      
     end
     @org
   end
-
+ 
   def upgrade
     logger.debug "==> Controller: users, Action: upgrade, Upgrade user from free to paid"
   end
