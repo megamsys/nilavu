@@ -20,6 +20,8 @@ class ListOrganizations
       return @res["data"][:body]
     end
     @excon_res.data[:body]
+    puts "-----------daonelist------"
+    puts @excon_res.data[:body].inspect
   end
 
 end
