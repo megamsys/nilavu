@@ -114,7 +114,7 @@ redirect_to main_dashboards_path, :alert => "onboard Failure #{@user.email}."
     if @org_collection.class != Megam::Error
       @org = []
       org = []
-      @org_collection = [] 
+      @org_collection = []
       @org_collection.each do |orgs|
         org << {:name => org.name, :created_at => org.created_at.to_time.to_formatted_s(:rfc822)}
         
