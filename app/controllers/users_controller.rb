@@ -98,6 +98,9 @@ redirect_to main_dashboards_path, :alert => "onboard Failure #{@user.email}."
   def edit
     logger.debug "==> Controller: users, Action: edit, Start edit"
     list_organizations
+    puts "-----top-------------"
+    puts @org.inspect
+    puts "------------------------"
     
     @user= User.find(params[:id])    
     @user
@@ -111,15 +114,16 @@ redirect_to main_dashboards_path, :alert => "onboard Failure #{@user.email}."
     if @org_collection.class != Megam::Error
       @org = []
       org = []
+      @org_collection = []
       @org_collection.each do |orgs|
         org << {:name => org.name, :created_at => org.created_at.to_time.to_formatted_s(:rfc822)}
         
-      end
-      
-      @org = org.sort_by {|vn| vn[:created_at]}
+      end      
+      @org = org.sort_by {|vn| vn[:created_at]}      
     end
+    @org
   end
-
+ 
   def upgrade
     logger.debug "==> Controller: users, Action: upgrade, Upgrade user from free to paid"
   end
