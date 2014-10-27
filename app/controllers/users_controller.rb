@@ -73,13 +73,13 @@ class UsersController < ApplicationController
         #update current user as onboard user(megam_api user)
         logger.debug "==> Controller: users, Action: create, User onboarded successfully"
         @user.update_columns(:onboarded_api => true, :api_token => api_token)
-        
+
         #redirect_to main_dashboards_path, :gflash => { :success => { :value => "Hi #{@user.first_name}, #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-redirect_to main_dashboards_path, :notice => "onboard Success #{@user.email}."
+        redirect_to main_dashboards_path, :notice => "onboard Success #{@user.email}."
       else
         logger.debug "==> Controller: users, Action: create, User onboard was not successful"
         #redirect_to main_dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onboard #{@user.email} into our API server. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}.", :sticky => false, :nodom_wrap => true } }
-redirect_to main_dashboards_path, :alert => "onboard Failure #{@user.email}."
+        redirect_to main_dashboards_path, :alert => "onboard Failure #{@user.email}."
       end
 
     else
@@ -97,28 +97,9 @@ redirect_to main_dashboards_path, :alert => "onboard Failure #{@user.email}."
 
   def edit
     logger.debug "==> Controller: users, Action: edit, Start edit"
-    list_organizations
-    
-    @user= User.find(params[:id])    
+    @orgs = list_organizations
+    @user= User.find(params[:id])
     @user
-  end
-  
-  def list_organizations
-    logger.debug "--> #{self.class} : list organizations entry"
-    @org_collection = ListOrganizations.perform(force_api[:email], force_api[:api_key])
-    logger.debug "--> #{self.class} : listed organiztions"
-
-    if @org_collection.class != Megam::Error
-      @org = []
-      org = []
-      @org_collection.each do |orgs|
-        org << {:name => org.name, :created_at => org.created_at.to_time.to_formatted_s(:rfc822)}
-        
-        
-      end
-      
-      @org = org.sort_by {|vn| vn[:created_at]}
-    end
   end
 
   def upgrade
@@ -177,6 +158,20 @@ redirect_to main_dashboards_path, :alert => "onboard Failure #{@user.email}."
 
   def admin_user
     redirect_to(root_path) unless current_user.admin?
+  end
+
+  def list_organizations
+    logger.debug "--> #{self.class} : list organizations entry"
+    org_collection = ListOrganizations.perform(force_api[:email], force_api[:api_key])
+    orgs = []
+
+    if org_collection.class != Megam::Error
+      org_collection.each do |one_org|
+        orgs << {:name => one_org.name, :created_at => one_org.created_at.to_time.to_formatted_s(:rfc822)}
+      end
+      orgs = orgs.sort_by {|vn| vn[:created_at]}
+    end
+    orgs
   end
 
 end

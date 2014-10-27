@@ -68,9 +68,7 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div class="row">
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 tour-btn">
-									<button type="submit" class="btn btn-success btn-plain">
-										Take a tour
-									</button>
+									<%= link_to "Take a tour", demo_path(:email =>"fake@mypaas.io",:password =>"fakemypaas#megam"),:class => "btn btn-success btn-plain", :id => "popover_demosignin" %>
 								</div>
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right tour-btn">
 									<%= f.submit "Login", :class => "btn btn-success btn-plain-green" %>

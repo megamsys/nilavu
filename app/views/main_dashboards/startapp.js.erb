@@ -1,0 +1,7 @@
+$('#replace_app_id').empty();
+$('#replace_app_id').html(' <input id="app_id" name="app_id" type="hidden" value="<%= @id %>" />');
+
+$('#replace_app_name').empty();
+$('#replace_app_name').html(' <input id="app_name" name="app_name" type="hidden" value="<%= @name %>" />');
+
+$("#app_start").modal({backdrop : false,keyboard: false,show : true});

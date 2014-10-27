@@ -43,7 +43,7 @@
 								<div class="col-md-6 input-group margin-top-10">
 									<%= f.text_field :first_name, :id => 'first_name', :class => 'form-control',:readonly => true, placeholder: "Enter text" %>
 									<!-- <%= f.text_field :last_name, :id => 'last_name', :class => 'form-control', placeholder: "Last name" %> -->
-									<span class="input-group-addon" ><a href="#">Change ?</a></span>
+									<span class="input-group-addon" ><a id="change_profilename">Change ?</a></span>
 								</div>
 								<div class="col-md-3 pull-right c_cog_icon">
 									<span>View only</span>
@@ -54,8 +54,8 @@
 							<div class="form-group">
 								<label class="col-md-3 control-label label-profile">Phone</label>
 								<div class="col-md-6 input-group margin-top-10">
-									<%= f.text_field :phone, :class => 'form-control',:readonly => true, placeholder: "Enter text" %>
-									<span class="input-group-addon" ><a href="" id="changeprof">Change ?</a></span>
+									<%= f.text_field :phone, :class => 'form-control',:readonly => true, :id => 'phonenumber',placeholder: "Enter text" %>
+									<span class="input-group-addon" ><a id="change_phonenumber">Change ?</a></span>
 								</div>
 							</div>
 
@@ -80,21 +80,21 @@
 								<label class="col-md-3 control-label label-profile">Current</label>
 								<div class="col-md-6 input-group margin-top-10">
 									<%= f.password_field :password, :class=> 'form-control', placeholder: "Current password" %>
-									<span class="input-group-addon" ><a href="#">Change ?</a></span>
+									<span class="input-group-addon" ><a id="change_password">Change ?</a></span>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-3 control-label label-profile">New</label>
 								<div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-9">
-									<%= f.password_field :password, :class=> 'form-control', :readonly => true, placeholder: "New password" %>
+									<%= f.password_field :password, :class=> 'form-control', :id => 'newpassword', :readonly => true, placeholder: "New password" %>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<label class="col-md-3 control-label label-profile">Retype</label>
 								<div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-9">
-									<%= f.password_field :password_confirmation,  :class=> 'form-control', :readonly => true, placeholder: "Confirm new password" %>
+									<%= f.password_field :password_confirmation,  :class=> 'form-control', :id => 'newpassword_confirmation', :readonly => true, placeholder: "Confirm new password" %>
 								</div>
 							</div>
 
@@ -115,21 +115,24 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 							<h4 class="bottom_border_grey"> Basic Group Information </h4>
-
 						</div>
 
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
 							<form class="form-horizontal" role="form">
 								<div class="form-group">
+									<% if @orgs.class != Megam::Error %>
+									<% @orgs.each do |one_org| %>
 									<label class="col-md-3 control-label label-profile">Org name</label>
 									<div class="col-md-6 input-group margin-top-10">
-										<input type="text" class="form-control" placeholder="Enter text" value="org.megam" readonly />
+										<input type="text" class="form-control" placeholder="Enter text" value="<%= one_org[:name] %>" readonly />
 										<span class="input-group-addon" ></span>
 									</div>
 									<div class="col-md-3 pull-right c_cog_icon">
 										<span>View only</span>
 										<i class="icon-cog"></i>
 									</div>
+									<% end %>
+									<% end %>
 								</div>
 							</form>
 						</div>
@@ -149,7 +152,6 @@
 									</div>
 								</div>
 
-								
 							</form>
 						</div>
 					</div>
