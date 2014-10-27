@@ -17,8 +17,6 @@ Cloudauth::Application.routes.draw do
   resources :users
   resources :sessions
   resources :identities
-  resources :organizations, only: [:create, :destroy]
-  resources :apps_items
   resources :apps_histories
   resources :apps #, via: [:get, :post, :destroy]
   resources :cross_clouds
@@ -134,8 +132,6 @@ Cloudauth::Application.routes.draw do
   #get "/422", :to => "errors#unacceptable"
   get "/500", :to => "errors#internal_error"
 
-   # =======apps_items_controller
-  match '/apps_items/destroy', to: 'apps_items#destroy', via: [:delete] 
  
   match '/visualCallback', to: 'main_dashboards#visualCallback', via: [:get]
   
