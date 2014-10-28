@@ -29,6 +29,7 @@
 //= require jquery-validate.bootstrap-tooltip
 //= require jquery.jcarousellite
 //= require megam.form_validation
+//= require socket.io
 //= require megam.monitor
 //= require megam.spin
 //= require_tree .

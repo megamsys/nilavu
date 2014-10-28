@@ -142,46 +142,42 @@
 	</div>
 </div>
 
-<div id="sshkey_postfinish_popup" class="modal fade" tabindex="-1" aria-hidden="true">
-	<div class="modal-dialog" style="max-width:400px">
-		<div class="modal-content">
+<div class="modal fade" id="sshkey_postfinish_popup" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">New key</h4>
+				<h4 class="modal-title">Result</h4>
 			</div>
-			<div class="modal-body">
-				<div class="alert alert-success">
-					<p>
-						<div id="ssh_res_msg"></div>
-						</br>
-					</p>
-				</div>
+			<div class="modal-body text-center">
+				<div id="ssh_res_msg"></div>
 			</div>
-			<div class="modal-footer">
-				<%= link_to  "Ok", settings_path, :class => "btn btn-pink", :target => "_self" %>
+			<div class="modal-footer c_modal-footer">
+				<%= link_to  "Ok", settings_path, :class => "btn btn-success", :target => "_self" %>
 			</div>
 		</div>
+		<!-- /.modal-content -->
 	</div>
+	<!-- /.modal-dialog -->
 </div>
 
-<div id="sshkey_postfinish_popup_error" class="modal fade" tabindex="-1" aria-hidden="true">
-	<div class="modal-dialog" style="max-width:400px">
-		<div class="modal-content">
+<div class="modal fade" id="sshkey_postfinish_popup_error" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">New key</h4>
+				<h4 class="modal-title">Result</h4>
 			</div>
-			<div class="modal-body">
-				<div class="alert alert-success">
-					<p>
-						<div id="ssh_err_msg"></div>
-						</br>
-					</p>
-				</div>
+			<div class="modal-body text-center">
+				<div id="ssh_err_msg"></div>
 			</div>
-			<div class="modal-footer">
-				<%= link_to  "Ok", settings_path, :class => "btn btn-pink", :target => "_self" %>
+			<div class="modal-footer c_modal-footer">
+				<%= link_to  "Ok", settings_path, :class => "btn btn-success", :target => "_self" %>
 			</div>
 		</div>
+		<!-- /.modal-content -->
 	</div>
+	<!-- /.modal-dialog -->
 </div>
+
+

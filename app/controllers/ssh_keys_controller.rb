@@ -101,7 +101,7 @@ class SshKeysController < ApplicationController
 
   def download
     @keyname = params[:filename]
-        @filename = current_user.email+"_"+"#{@keyname}"
+    @filename = current_user.email+"_"+"#{@keyname}"
     options ={:email => current_user.email, :download_location => "#{@filename}" }
     downloaded_file = SshKey.download(options, ssh_files_bucket)
     if downloaded_file.class == Megam::Error
