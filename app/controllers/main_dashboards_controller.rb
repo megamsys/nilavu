@@ -90,9 +90,9 @@ class MainDashboardsController < ApplicationController
     options = {:app_id => "#{params[:app_id]}", :app_name => "#{params[:app_name]}", :action => "#{params[:command]}"}
     defnd_result =  CreateAppRequests.perform(options, force_api[:email], force_api[:api_key])
     if params[:command] == "stop"
-      @res_msg = "App #{params[:command]}ped"
+      @res_msg = "App #{params[:command]}ped successfully"
     else
-      @res_msg = "App #{params[:command]}ed"
+      @res_msg = "App #{params[:command]}ed successfully"
     end
     @err_msg = nil
     if defnd_result.class == Megam::Error

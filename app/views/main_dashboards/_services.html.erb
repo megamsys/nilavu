@@ -15,7 +15,7 @@
 				<div class="app_new">
 					<span class="glyphicon glyphicon-plus"></span>
 					<p>
-						Create a service
+						Create service
 					</p>
 				</div>
 			</div>
@@ -28,13 +28,20 @@
 		<% sflag = false %>
 		<% if assembly != nil %>
 		<% if assembly[0].class != Megam::Error %>
-		<% assembly[0].components[0].each do |com| %>
-		<% com_type = com.tosca_type.split(".") %>
-		<% ctype = get_type(com_type[2]) %>
-		<% if ctype == "SERVICE" %>
-		<% sflag = true %>
-		<%end %>
-		<%end%>
+		
+		<% assembly[0].components.each do |com| %>
+        <% if com != nil %>
+        <% com.each do |c| %>
+        <% com_type = c.tosca_type.split(".") %>
+        <% ctype = get_type(com_type[2]) %>
+        <% if ctype == "SERVICE" %>
+        <% sflag = true %>
+        <% end %>
+        <% end %>
+        <% end %>
+        <% end %>	
+		
+		
 		<% if sflag %>
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
 			<div class="app_inner">
@@ -45,21 +52,21 @@
 							<ul>
 								<li>
 									<%= link_to startapp_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
-									<i class="glyphicon glyphicon-play-circle"></i>Start App
+									<i class="glyphicon glyphicon-play-circle"></i>Start Service
 									<% end %>
 								</li>
 								<li>
 									<%= link_to stopapp_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
-									<i class="glyphicon glyphicon-record"></i>Stop App
+									<i class="glyphicon glyphicon-record"></i>Stop Service
 									<% end %>
 								</li>
 								<li>
 									<%= link_to restartapp_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
-									<i class="glyphicon glyphicon-refresh"></i>Restart App
+									<i class="glyphicon glyphicon-refresh"></i>Restart Service
 									<% end %>
 								</li>
 								<li>
-									<a data-toggle="modal" href="#app_delete"><i class="glyphicon glyphicon-trash"></i>Delete App</a>
+									<a data-toggle="modal" href="#app_delete"><i class="glyphicon glyphicon-trash"></i>Delete Service</a>
 								</li>
 							</ul>					
 						</div>
