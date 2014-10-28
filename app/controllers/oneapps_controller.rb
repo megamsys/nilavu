@@ -8,6 +8,7 @@ def show
         #@app = Appscollection(params[:app_name])
         #get the selected app
 end
+
 def overview
         appid = params["appkey"]
         @assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
@@ -17,23 +18,30 @@ end
 
 def metrics
         appid = params["appkey"]
-        #@app = Appscollection(params[:app_name])
-        #get the selected app
+        assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
+        if assembly.class != Megam::Error
+        @appname = assembly.name + "." + assembly.components[0][0].inputs[:domain]       
+        else 
+        @appname = nil       
+        end
+      #  respond_to do |format|
+    #    format.js {
+     #     respond_with(@appname, :layout => !request.xhr? )
+     #   }
+     # end
 end
+
 def runtime
         appid = params["appkey"]
         #@app = Appscollection(params[:app_name])
         #get the selected app
 end
+
 def services
         appid = params["appkey"]
         #@app = Appscollection(params[:app_name])
         #get the selected app
 end
-
-
-  def marketplaces
-  end
 
   def activities
     logger.debug "--> OneApps:Activities"
@@ -72,9 +80,6 @@ end
         respond_with(@defnd_out, :layout => !request.xhr? )
       }
     end
-  end
-
-  def settings
   end
 
   def preclone

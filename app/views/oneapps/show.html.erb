@@ -10,15 +10,14 @@
 
 						<li></li>
 
-                                                <li class="start" >
+						<li class="start" >
 							<%= link_to main_dashboards_path do %>
 							<i class="c_icon c_icon-dash pull-left"></i>
 							<span class="title pull-left">Back to dash</span>
 							<span class="selected hidden-xs"></span>
 							<% end %>
 						</li>
-<% appkey = request.original_url.partition('=').last %>
-
+						<% appkey = request.original_url.partition('=').last %>
 
 						<li class= "start active">
 							<%= link_to overview_path(:appkey => appkey), :target => "_self" do %>
@@ -51,8 +50,6 @@
 							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'services')%>"></span>
 							<% end %>
 						</li>
-
-
 
 					</ul>
 					<!-- END SIDEBAR MENU -->

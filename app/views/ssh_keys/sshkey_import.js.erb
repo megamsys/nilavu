@@ -3,7 +3,7 @@ $('#import-ssh').modal('hide');
 var selected_entity = '#sshkey_postfinish_popup_error';
 $("#ssh_res_msg").html('<%= @err_msg %>');
 // if i use modal, no event notification
-//$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
+$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
 
 $('#notification').removeClass('badge badge-success').addClass('badge badge-alert');
 $("#events").prepend('<li><span class="label label-sm label-icon label-error"><i class="icon-plus"></i></span> <%= @err_msg %> <span class="time">Just now</span></li>');
@@ -16,7 +16,7 @@ $('#import-ssh').modal('hide');
 var selected_entity = '#sshkey_postfinish_popup';
 $("#ssh_res_msg").html('<%= @res_msg %>');
 
-//$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
+$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
 
 $('#notification').removeClass('badge badge-success').addClass('badge badge-alert');
 $("#events").prepend('<li><span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> <%= @res_msg %> <span class="time">Just now</span></li>');

@@ -62,7 +62,7 @@ class MainDashboardsController < ApplicationController
       }
     end
   end
-  
+
   def stopapp
     puts params
     @id = params[:id]
@@ -73,7 +73,7 @@ class MainDashboardsController < ApplicationController
       }
     end
   end
-  
+
   def restartapp
     puts params
     @id = params[:id]
@@ -89,17 +89,22 @@ class MainDashboardsController < ApplicationController
     logger.debug "--> Apps:Build_request, #{params}"
     options = {:app_id => "#{params[:app_id]}", :app_name => "#{params[:app_name]}", :action => "#{params[:command]}"}
     defnd_result =  CreateAppRequests.perform(options, force_api[:email], force_api[:api_key])
-         
-     if defnd_result.class == Megam::Error
+    if params[:command] == "stop"
+      @res_msg = "App #{params[:command]}ped"
+    else
+      @res_msg = "App #{params[:command]}ed"
+    end
+    @err_msg = nil
+    if defnd_result.class == Megam::Error
+      @res_msg = nil
       @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
       respond_to do |format|
         format.js {
-          respond_with(@err_msg, :layout => !request.xhr? )
+          respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
         }
       end
     end
-  
-   
+
   end
 
 end
