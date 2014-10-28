@@ -4,7 +4,7 @@
 //$("#cloud_err_msg").html('<%= @err_msg %>');
 
 $('#notification').removeClass('badge badge-success').addClass('badge badge-alert');
-$("#events").prepend('<li><a href="#"><span class="label label-sm label-icon label-error"><i class="icon-plus"></i></span> <%= @err_msg %> <span class="time">Just now</span></a></li>');
+$("#events").prepend('<li><span class="label label-sm label-icon label-error"><i class="icon-plus"></i></span> <%= @err_msg %> <span class="time">Just now</span></li>');
 
 //$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
 
@@ -16,6 +16,6 @@ $("#cloud_res_msg").append('<%= @res_msg %>');
 $(selected_entity).modal({backdrop : false,keyboard: false,show : true});
 
 $('#notification').removeClass('badge badge-success').addClass('badge badge-alert');
-$("#events").prepend('<li><a href="#"><span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> <%= @res_msg %> <span class="time">Just now</span></a></li>');
+$("#events").prepend('<li><span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> <%= @res_msg %> <span class="time">Just now</span></li>');
 
 <% end %>

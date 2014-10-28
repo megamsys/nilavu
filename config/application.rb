@@ -75,7 +75,7 @@ module Cloudauth
       puts "=> Warning ! MEGAM_HOME environment variable not set."
       common={"api" => {}, "storage" => {}, "varai" => {}, "auth" => {}, "monitor" => {}}
     end
-
+  
     config.megam_logo_url   = "https://s3-ap-southeast-1.amazonaws.com/megampub/images/logo-megam160x43w.png"
 
     config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
@@ -146,3 +146,4 @@ module Cloudauth
 
   end
 end
+

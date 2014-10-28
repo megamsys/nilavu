@@ -875,7 +875,6 @@ background-color: white;
 	margin-right: 5px;
 	margin-left: 5px;
 }
-
 .portlet-title
 {
 	border: 2px solid #70b1ee;
@@ -1540,7 +1539,7 @@ a.btn-success:hover
 	}
 	.page-sidebar-menu > li > a 
 	{	   
-		position: absolute; !important;
+		position: absolute !important;
 	}
 	.label-profile
 	{

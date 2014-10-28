@@ -20,7 +20,7 @@ class MarketplacesController < ApplicationController
       @order = @order.sort_by {|elt| ary = elt.split("-").map(&:to_i); ary[0] + ary[1]}
       @categories = @mkp_collection.map {|c| c.appdetails[:category]}
       @categories = @categories.uniq
-
+     
     end
   end
 
@@ -40,7 +40,7 @@ class MarketplacesController < ApplicationController
       @version_order=[]
       @version_order = @mkp.plans.map {|c| c["version"]}
       @version_order = @version_order.sort
-
+      
       puts @mkp.class
       respond_to do |format|
         format.js {
@@ -64,7 +64,7 @@ class MarketplacesController < ApplicationController
       respond_to do |format|
         format.js {
           respond_with(@category, @mkp_collection, @categories, :layout => !request.xhr? )
-        }
+        }       
       end
     end
   end

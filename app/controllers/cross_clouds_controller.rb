@@ -2,12 +2,23 @@ class CrossCloudsController < ApplicationController
   respond_to :html, :js
   include CrossCloudsHelper
   def new
-        list_sshkeys
+        keys = list_sshkeys
+        unless keys.nil?
       respond_to do |format|
         format.js {
           respond_with(@ssh_keys, :layout => !request.xhr? )
         }
       end
+        else
+        @err_msg = "Create a ssh_key first"
+        @ssh_keys = keys
+                #redirect_to settings_path, :alert => "Please create a ssh key"
+                      respond_to do |format|
+        format.js {
+          respond_with(keys, @err_msg, :layout => !request.xhr? )
+        }
+        end
+end
   end
 
   def create
