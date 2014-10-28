@@ -62,13 +62,34 @@ class MainDashboardsController < ApplicationController
       }
     end
   end
+  
+  def stopapp
+    puts params
+    @id = params[:id]
+    @name = params[:name]
+    respond_to do |format|
+      format.js {
+        respond_with(@id, @name, :layout => !request.xhr? )
+      }
+    end
+  end
+  
+  def restartapp
+    puts params
+    @id = params[:id]
+    @name = params[:name]
+    respond_to do |format|
+      format.js {
+        respond_with(@id, @name, :layout => !request.xhr? )
+      }
+    end
+  end
 
   def app_request
     logger.debug "--> Apps:Build_request, #{params}"
     options = {:app_id => "#{params[:app_id]}", :app_name => "#{params[:app_name]}", :action => "#{params[:command]}"}
     defnd_result =  CreateAppRequests.perform(options, force_api[:email], force_api[:api_key])
-      
-   
+         
      if defnd_result.class == Megam::Error
       @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
       respond_to do |format|

@@ -37,15 +37,19 @@
 						<div class="config_menu config_menu_<%= assembly[0].name %>">
 							<ul>
 								<li>
-								   <%= link_to startapp_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<%= link_to startapp_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
 									<i class="glyphicon glyphicon-play-circle"></i>Start App
 									<% end %>
 								</li>
 								<li>
-									<a data-toggle="modal" href="#app_stop"><i class="glyphicon glyphicon-record"></i>Stop App</a>
+									<%= link_to stopapp_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-record"></i>Stop App
+									<% end %>
 								</li>
 								<li>
-									<a data-toggle="modal" href="#app_restart"><i class="glyphicon glyphicon-refresh"></i>Restart App</a>
+									<%= link_to restartapp_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-refresh"></i>Restart App
+									<% end %>
 								</li>
 								<li>
 									<a data-toggle="modal" href="#app_delete"><i class="glyphicon glyphicon-trash"></i>Delete App</a>
