@@ -151,7 +151,7 @@ docker:
   db_model:
   dbms:
   predef_name: docker  
-  link:   
+  link: http://gomegam.com/docs/users/index.html  
   type: ADDON
   basic_combos: docker  
 
