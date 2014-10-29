@@ -132,7 +132,7 @@ Cloudauth::Application.routes.draw do
  
 
   # ========Cloud Books Histories controller
-  match '/node_log', to: 'apps_histories#logs', via: [:get, :post]
+  match '/logs', to: 'apps_histories#logs', via: [:get, :post]
 
   # ==========Cloud settings
   match '/cross_cloud_new', to: 'settings#cross_cloud_new', via: [:get, :post]
