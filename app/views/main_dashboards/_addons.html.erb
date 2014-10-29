@@ -81,7 +81,7 @@
 									<% com.each do |c| %>
 									<% com_type = c.tosca_type.split(".") %>
 									<% ctype = get_type(com_type[2]) %>
-									<% if ctype == "SERVICE" %>
+									<% if ctype == "ADDON" %>
 									<li>
 										<%= image_tag "logos/"+com_type[2].downcase+".png", :alt => "" %>
 									</li>
