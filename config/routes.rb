@@ -43,11 +43,20 @@ Cloudauth::Application.routes.draw do
     match '/data_sources', to: 'data_sources#index', via: [:get, :post]
   end
 
+
 #oneapp Overview
   match '/overview', to: 'oneapps#overview', via: [:get, :post]
   match '/runtime', to: 'oneapps#runtime', via: [:get, :post]
-  match '/metrics', to: 'oneapps#metrics', via: [:get, :post]
+  match '/logs', to: 'oneapps#logs', via: [:get, :post]
   match '/oneapp_services', to: 'oneapps#services', via: [:get, :post]
+  
+  
+  #oneservice Overview
+  match '/overview', to: 'oneservice#overview', via: [:get, :post]
+  match '/runtime', to: 'oneservice#runtime', via: [:get, :post]
+  match '/metrics', to: 'oneservice#metrics', via: [:get, :post]
+  match '/oneservice_services', to: 'oneservice#services', via: [:get, :post]
+  
   
   #Cloud Books
   match '/starter_packs_launch', to: 'marketplaces#starter_packs_create', via: [:get, :post]
@@ -100,6 +109,7 @@ Cloudauth::Application.routes.draw do
   # ======Dashboard
   get "users/show"
   get "oneapps/show"
+  get "oneservice/show"
   #match '/dashboard_sidebar', to: 'dashboards#dashboard_sidebar', via: [:get]
   #match '/dashboards', to: 'dashboards#index', via: [:get]
   #match '/dashboards/:id' => 'dashboards#index', via: [:get]

@@ -64,12 +64,12 @@ class ServicesController < ApplicationController
     predef_options = { :predef_name => @predef_name}
     @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key])
     if @predef_cloud.class == Megam::Error
-      redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+      redirect_to new_service_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
     #if @predef_cloud.some_msg[:msg_type] != "error"
       pred = FindPredefsByName.perform(predef_options,force_api[:email],force_api[:api_key])
       if pred.class == Megam::Error
-        redirect_to new_app_path, :gflash => { :warning => { :value => "#{pred.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        redirect_to new_service_path, :gflash => { :warning => { :value => "#{pred.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
       else
         @predef = pred.lookup(@predef_name)
         @domain_name = ".megam.co"
