@@ -1,0 +1,7 @@
+$('#stop_service_id').empty();
+$('#stop_service_id').html(' <input id="service_id" name="service_id" type="hidden" value="<%= @id %>" />');
+
+$('#stop_service_name').empty();
+$('#stop_service_name').html(' <input id="service_name" name="service_name" type="hidden" value="<%= @name %>" />');
+
+$("#service_stop").modal({backdrop : false,keyboard: false,show : true});

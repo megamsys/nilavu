@@ -1,7 +1,7 @@
 <div class="row c_pading-b15">
 	<div class="portlet-body-head">
 		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-			<i class="c_icon-layer_lg"></i>Your Services <span><%= @service_counter %> Services running</span>
+			<i class="c_icon-layer_lg"></i>Your Addons <span><%= @service_counter %> Addons running</span>
 		</div>
 	</div>
 </div>
@@ -15,7 +15,7 @@
 				<div class="app_new">
 					<span class="glyphicon glyphicon-plus"></span>
 					<p>
-						Create service
+						Create addons
 					</p>
 				</div>
 			</div>
@@ -34,7 +34,7 @@
         <% com.each do |c| %>
         <% com_type = c.tosca_type.split(".") %>
         <% ctype = get_type(com_type[2]) %>
-        <% if ctype == "SERVICE" %>
+        <% if ctype == "ADDON" %>
         <% sflag = true %>
         <% end %>
         <% end %>
@@ -51,22 +51,22 @@
 						<div class="config_menu config_menu_<%= assembly[0].name %>">
 							<ul>
 								<li>
-									<%= link_to startservice_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
-									<i class="glyphicon glyphicon-play-circle"></i>Start Service
+									<%= link_to startaddon_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-play-circle"></i>Start Addon
 									<% end %>
 								</li>
 								<li>
-									<%= link_to stopservice_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
-									<i class="glyphicon glyphicon-record"></i>Stop Service
+									<%= link_to stopaddon_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-record"></i>Stop Addon
 									<% end %>
 								</li>
 								<li>
-									<%= link_to restartservice_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
-									<i class="glyphicon glyphicon-refresh"></i>Restart Service
+									<%= link_to restartaddon_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-refresh"></i>Restart Addon
 									<% end %>
 								</li>
 								<li>
-									<a data-toggle="modal" href="#service_delete"><i class="glyphicon glyphicon-trash"></i>Delete Service</a>
+									<a data-toggle="modal" href="#addon_delete"><i class="glyphicon glyphicon-trash"></i>Delete Service</a>
 								</li>
 							</ul>					
 						</div>
