@@ -13,7 +13,8 @@
 					<div class="new-update clearfix">
 						<i class="fa fa-check-circle"></i>
 						<div class="update-done">
-							<a title="" href="" ng-click="sendmessage('logloader','<%= node.name %>')"><strong><%= node.name %></strong></a>
+							<a title="" href="" ng-click="sendmessage(<%= node.name %>')"><strong><%= node.name %></strong></a>
+							<span us-spinner="{radius:30, width:8, length: 16}" spinner-key="spinner-1"></span>
 						</div>
 					</div>
 					<% end %>
@@ -25,7 +26,7 @@
 			<input type="hidden" ng-model="source" />
 		</div>
 		<div class="col-sm-9 col-md-9 col-lg-9">
-			<div class="panel panel-primary" >				
+			<div class="panel panel-primary" >
 				<div class="panel-heading" cg-busy="{promise:promise, message:message, backdrop:backdrop, delay:delay, minDuration:minDuration}">
 					<div class="row">
 						<label class="col-sm-7 col-md-7 col-lg-8 control-label">{{bookName}}</label>

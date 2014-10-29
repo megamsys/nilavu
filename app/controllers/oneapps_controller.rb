@@ -16,7 +16,7 @@ def overview
         #get the selected app
 end
 
-def metrics
+def logs
         appid = params["appkey"]
         assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
         if assembly.class != Megam::Error
@@ -24,11 +24,7 @@ def metrics
         else 
         @appname = nil       
         end
-      #  respond_to do |format|
-    #    format.js {
-     #     respond_with(@appname, :layout => !request.xhr? )
-     #   }
-     # end
+      
 end
 
 def runtime

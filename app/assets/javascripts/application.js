@@ -17,11 +17,12 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require jquery.turbolinks
+//= require spin.min.js
 //= require angular
 //= require angular-route
 //= require angular-resource
 //= require angular-sanitize
-//= require angular-busy.min
+//= require angular-spinner.js
 //= require underscore.min
 //= require bootstrap
 //= require jquery.uniform
@@ -31,5 +32,6 @@
 //= require megam.form_validation
 //= require socket.io
 //= require megam.monitor
+//= require jquery.spin
 //= require megam.spin
 //= require_tree .

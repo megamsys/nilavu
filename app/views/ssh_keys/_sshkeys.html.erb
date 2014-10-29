@@ -103,7 +103,7 @@
 							<div class="alert alert-success">
 								Import your SSH RSA 2048 key pair. Read <a href="http://gomegam.com/docs/users/security/sshkeypairs.html" target="_blank"> <strong>here</strong></a> for more information.
 							</div>
-							<%= form_tag sshkey_import_path, multipart: true, :id => "megamform", :method => 'post', :remote => true do %>
+							<%= form_tag sshkey_import_path, multipart: true, :id => "megamform", :method => 'post', :remote => true, data: { spinlock: '#importing_sshkeys'} do %>
 
 							<div class="row margintb_15">
 								<div class="col-xs-6">
