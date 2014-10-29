@@ -5,6 +5,9 @@ class AppsController < ApplicationController
   ## I don't see a point in calling all the node details for an user. We should avoid it.
   ## ie. skip FindNodesByEmail ?
   include MainDashboardsHelper
+def logs
+
+end
 
  def index
     if current_user
