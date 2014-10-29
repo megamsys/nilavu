@@ -96,7 +96,7 @@ class MainDashboardsController < ApplicationController
     @err_msg = nil
     if defnd_result.class == Megam::Error
       @res_msg = nil
-      @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+      @err_msg= ActionController::Base.helpers.link_to 'Contact support ', "http://support.megam.co/"
       respond_to do |format|
         format.js {
           respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
