@@ -130,7 +130,8 @@ class MarketplacesController < ApplicationController
     app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
     @res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
     if @res.class == Megam::Error
-      @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+    @profile = "http://support.megam.co/"          
+     @err_msg= ActionController::Base.helpers.link_to 'Contact support', @profile
       respond_to do |format|
         format.js {
           respond_with(@err_msg, :layout => !request.xhr? )
