@@ -59,7 +59,9 @@ Cloudauth::Application.routes.draw do
   
   
   #Cloud Books
-  match '/launch', to: 'marketplaces#create', via: [:get, :post]
+  match '/starter_packs_launch', to: 'marketplaces#starter_packs_create', via: [:get, :post]
+  match '/app_boilers_launch', to: 'marketplaces#app_boilers_create', via: [:get, :post]
+  match '/addons_launch', to: 'marketplaces#addons_create', via: [:get, :post]
   match '/get_request', to: 'apps#get_request', via: [:get, :post]
   match '/build_request', to: 'apps#build_request', via: [:get, :post]
   match '/requests', to: 'oneapps#requests', via: [:get, :post]
@@ -123,6 +125,7 @@ Cloudauth::Application.routes.draw do
  match '/deleteapp', :to => 'main_dashboards#deleteapp', via: [:get]
  match '/app_request', :to => 'main_dashboards#app_request', via: [:get, :post]
  
+
  #service lifecycle 
  match '/startservice', :to => 'main_dashboards#startservice', via: [:get]
  match '/stopservice', :to => 'main_dashboards#stopservice', via: [:get]
@@ -170,5 +173,7 @@ Cloudauth::Application.routes.draw do
   match '/apps_items/destroy', to: 'apps_items#destroy', via: [:delete] 
  
   match '/visualCallback', to: 'main_dashboards#visualCallback', via: [:get]
+  
+  match '/bind_service_list', :to => 'oneapps#bind_service_list', via: [:get, :post]
   
 end

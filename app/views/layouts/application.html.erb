@@ -10,7 +10,7 @@
 		<%= javascript_include_tag "application" %>
 		<%= script_tag_for_all_templates %>
 
-		<meta name="description=" content="Megam is a platform as service provider. We offer launching app cross cloud bundled with
+		<meta name="description=" content="Megam is a platform as service. We offer launching app cross cloud bundled with
 		realtime logging, application monitoring.">
 
 		<meta charset="utf-8" />
@@ -24,9 +24,7 @@
 
 	</head>
 	<body>
-		<div id="spinner" class="spinner" style="display:none;">
-			<%= image_tag "ajax-loading.gif"%>
-		</div>
+		<div id="loading" />
 		<%= yield %>
 	</body>
 </html>

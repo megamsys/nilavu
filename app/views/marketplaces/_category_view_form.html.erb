@@ -102,8 +102,7 @@
 
 <!-- App1 modal starts here -->
 <div id="app-1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<!-- <div id="app-1" class="modal fade" tabindex="-1" aria-hidden="true"> -->
-	<%= form_tag launch_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+	<!-- <div id="app-1" class="modal fade" tabindex="-1" aria-hidden="true"> -->	
 	<div class="modal-dialog modal-full" style="max-width:900px;">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -136,20 +135,19 @@
 			</div>
 			<!-- app_body ends here -->
 		</div>
-	</div>
-	<% end %>
+	</div>	
 </div>
 <!-- App1 ends here -->
 
-<div class="modal fade" id="app_postfinish_popup" tabindex="-1" role="basic" aria-hidden="true">
+<div class="modal fade" id="starterpack_postfinish_popup" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">Create App</h4>
+				<h4 class="modal-title">Create Starter Packs</h4>
 			</div>
 			<div class="modal-body text-center">
-				App launched successfully.
+				Starter Packs launched successfully.
 			</div>
 			<div class="modal-footer c_modal-footer">
 				<%= link_to  "Ok", "#", :class => "btn btn-success", :target => "_self" %>
@@ -160,12 +158,53 @@
 	<!-- /.modal-dialog -->
 </div>
 
-<div class="modal fade" id="app_postfinish_popup_error" tabindex="-1" role="basic" aria-hidden="true">
+<div class="modal fade" id="starterpack_postfinish_popup_error" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">Create App</h4>
+				<h4 class="modal-title">Create Starter Packs</h4>
+			</div>
+			<div class="modal-body text-center">
+				Whew! Failed to launch the Starter Packs.
+				</br>
+				<div id="err_msg"></div>
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<%= link_to  "OK", "#", :class => "btn btn-danger", :target => "_self" %>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="appboilers_postfinish_popup" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Create Service</h4>
+			</div>
+			<div class="modal-body text-center">
+				Service launched successfully.
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<%= link_to  "Ok", "#", :class => "btn btn-success", :target => "_self" %>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="appboilers_postfinish_popup_error" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Create Service</h4>
 			</div>
 			<div class="modal-body text-center">
 				Oops! Failed to launch the app.
@@ -180,4 +219,45 @@
 	</div>
 	<!-- /.modal-dialog -->
 </div>
+
+<div class="modal fade" id="addons_postfinish_popup" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Create Addons</h4>
+			</div>
+			<div class="modal-body text-center">
+				Addons launched successfully.
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<%= link_to  "Ok", "#", :class => "btn btn-success", :target => "_self" %>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="addons_postfinish_popup_error" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Create Addons</h4>
+			</div>
+			<div class="modal-body text-center">
+				Oops! Failed to launch the addon.
+				</br>
+				<div id="err_msg"></div>
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<%= link_to  "OK", "#", :class => "btn btn-danger", :target => "_self" %>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
 
