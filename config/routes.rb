@@ -119,6 +119,14 @@ Cloudauth::Application.routes.draw do
  match '/restartservice', :to => 'main_dashboards#restartservice', via: [:get]
  match '/deleteservice', :to => 'main_dashboards#deleteservice', via: [:get]
  match '/service_request', :to => 'main_dashboards#service_request', via: [:get, :post]
+ 
+ #addon lifecycle
+ match '/startaddon', :to => 'main_dashboards#startaddon', via: [:get]
+ match '/stopaddon', :to => 'main_dashboards#stopaddon', via: [:get]
+ match '/restartaddon', :to => 'main_dashboards#restartaddon', via: [:get]
+ match '/deleteaddon', :to => 'main_dashboards#deleteaddon', via: [:get]
+ match '/addon_request', :to => 'main_dashboards#addon_request', via: [:get, :post]
+ 
 
   # ========Cloud Books Histories controller
   match '/node_log', to: 'apps_histories#logs', via: [:get, :post]
