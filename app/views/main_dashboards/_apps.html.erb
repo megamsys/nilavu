@@ -27,8 +27,25 @@
 		<% @assemblies.each do |asm| %>
 		<% if asm.class != Megam:: Error %>
 		<% asm.assemblies.each do |assembly| %>
+		<% sflag = true %>
 		<% if assembly != nil %>
 		<% if assembly[0].class != Megam::Error %>
+		
+		<% assembly[0].components.each do |com| %>
+        <% if com != nil %>
+        <% com.each do |c| %>
+        <% com_type = c.tosca_type.split(".") %>
+        <% ctype = get_type(com_type[2]) %>
+        <% if ctype == "SERVICE" %>
+        <% if assembly[0].components.length == 2 %>
+        <% sflag = false %>
+        <% end %>
+        <% end %>
+        <% end %>
+        <% end %>
+        <% end %>	
+		
+		<% if sflag %>
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
 			<div class="app_inner">
 				<div class="app">
@@ -89,6 +106,7 @@
 			</div>
 
 		</div>
+		<% end %>
 		<% end %>
 		<% end %>
 		<% end %>

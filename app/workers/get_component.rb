@@ -1,16 +1,7 @@
-class  GetAssembly
-  def self.perform(assembly_id,tmp_email, tmp_api_key)
+class  GetComponent
+  def self.perform(com_id,tmp_email, tmp_api_key)
     begin
-      @excon_res = Megam::Assembly.show(assembly_id,tmp_email, tmp_api_key).data[:body].each do |one_asmbly|
-              temp_bb = one_asmbly.components.collect do |one_comp|
-                if !one_comp.empty?
-                  Megam::Components.show(one_comp,tmp_email, tmp_api_key).data[:body]
-                else
-                  nil
-                end
-              end
-              one_asmbly.components.replace(temp_bb)
-            end
+      @excon_res = Megam::Components.show(com_id,tmp_email, tmp_api_key).data[:body]                
       #=end
       puts "=====> Inflated Assembly <======"
       puts @excon_res[0].inspect

@@ -125,7 +125,7 @@ GEM
     fog-sakuracloud (0.1.1)
       fog-core
       fog-json
-    fog-softlayer (0.3.22)
+    fog-softlayer (0.3.23)
       fog-core
       fog-json
     fog-xml (0.1.0)
@@ -233,7 +233,7 @@ GEM
     omniauth-github (1.1.2)
       omniauth (~> 1.0)
       omniauth-oauth2 (~> 1.1)
-    omniauth-google-oauth2 (0.2.5)
+    omniauth-google-oauth2 (0.2.6)
       omniauth (> 1.0)
       omniauth-oauth2 (~> 1.1)
     omniauth-oauth (1.0.1)

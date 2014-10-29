@@ -43,6 +43,40 @@ def services
         #get the selected app
 end
 
+def bind_service_list
+@service = []
+  puts "++++++++++++++++++++++++++++++"
+   @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
+      @service_counter = 0
+      @app_counter = 0
+      if @assemblies != nil
+        @assemblies.each do |asm|
+          if asm.class != Megam:: Error
+            asm.assemblies.each do |assembly|
+              if assembly != nil
+                if assembly[0].class != Megam::Error
+
+                  assembly[0].components.each do |com|
+                    if com != nil
+                      com.each do |c|
+                        com_type = c.tosca_type.split(".")
+                        ctype = get_type(com_type[2])
+                        if ctype == "SERVICE" 
+                          @service << {"name" => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain] + "/" + com[0].name, "aid" => assembly[0].id, "cid" => assembly[0].components[0][0].id }
+                        end
+                      end
+                    end
+                  end
+                  
+                end
+              end
+            end
+          end
+        end
+      end
+
+end
+
   def activities
     logger.debug "--> OneApps:Activities"
     logger.debug params
