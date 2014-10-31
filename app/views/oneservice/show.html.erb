@@ -20,7 +20,7 @@
 						<% servicekey = request.original_url.partition('=').last %>
 
 						<li class= "start active">
-							<%= link_to overview_path(:servicekey => servicekey), :target => "_self" do %>
+							<%= link_to serviceoverview_path(:servicekey => servicekey), :target => "_self" do %>
 							<i class="c_icon c_icon-browser pull-left"></i>
 							<span class="title pull-left">Overview</span>
 							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'overview')%>"></span>
@@ -28,7 +28,7 @@
 						</li>
 
 						<li class= "start active">
-							<%= link_to runtime_path(:servicekey => servicekey), :target => "_self" do %>
+							<%= link_to serviceruntime_path(:servicekey => servicekey), :target => "_self" do %>
 							<i class="c_icon c_icon-layer pull-left"></i>
 							<span class="title pull-left">Runtime</span>
 							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'runtime')%>"></span>
@@ -36,7 +36,7 @@
 						</li>
 
 						<li class= "start active">
-							<%= link_to metrics_path(:servicekey => servicekey), :target => "_self" do %>
+							<%= link_to servicemetrics_path(:servicekey => servicekey), :target => "_self" do %>
 							<i class="c_icon c_icon-stack pull-left"></i>
 							<span class="title pull-left">Logs</span>
 							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'metrics')%>"></span>
@@ -50,7 +50,7 @@
 		</div>
 
 		<div id="content">
-			<%= content_for?(:oneapp_contents) ? yield(:oneapp_contents) : yield %>
+			<%= content_for?(:oneservice_contents) ? yield(:oneservice_contents) : yield %>
 
 		</div>
 
