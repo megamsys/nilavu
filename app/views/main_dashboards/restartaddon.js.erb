@@ -1,0 +1,7 @@
+$('#restart_addon_id').empty();
+$('#restart_addon_id').html(' <input id="addon_id" name="addon_id" type="hidden" value="<%= @id %>" />');
+
+$('#restart_addon_name').empty();
+$('#restart_addon_name').html(' <input id="addon_name" name="addon_name" type="hidden" value="<%= @name %>" />');
+
+$("#addon_restart").modal({backdrop : false,keyboard: false,show : true});
