@@ -102,7 +102,7 @@ class MainDashboardsController < ApplicationController
     defnd_result =  CreateAppRequests.perform(options, force_api[:email], force_api[:api_key])
     if params[:command] == "stop"
       @res_msg = "App #{params[:command]}ped successfully"
-    elsif params[:command] == "delete"
+    elsif params[:command] == "deleteapp"
        @res_msg = "App #{params[:command]}ed successfully"
     else 
       @res_msg = "App #{params[:command]}ed successfully"
