@@ -102,7 +102,9 @@ class MainDashboardsController < ApplicationController
     defnd_result =  CreateAppRequests.perform(options, force_api[:email], force_api[:api_key])
     if params[:command] == "stop"
       @res_msg = "App #{params[:command]}ped successfully"
-    else
+    elsif params[:command] == "deleteapp"
+       @res_msg = "App #{params[:command]}ed successfully"
+    else 
       @res_msg = "App #{params[:command]}ed successfully"
     end
     @err_msg = nil
@@ -115,30 +117,8 @@ class MainDashboardsController < ApplicationController
         }
       end
     end
+   end 
 
-   def app_delete
-     logger.debug "--> Apps:Delete_request. #{params}
-     options = {:app_id => "#{params[:app_id]}", :app_name => "#{params[:app_name]}", :action => "#{params[:command]}"}
-    defnd_result =  CreateAppRequests.perform(options, force_api[:email], force_api[:api_key])
-    if params[:command] == "stop"
-      @res_msg = "App #{params[:command]}ped successfully"
-    else
-      @res_msg = "App #{params[:command]}ed successfully"
-    end
-    @err_msg = nil
-    if defnd_result.class == Megam::Error
-      @res_msg = nil
-      @err_msg= ActionController::Base.helpers.link_to 'Contact support ', "http://support.megam.co/"
-      respond_to do |format|
-        format.js {
-          respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
-        }
-      end
-    end
-
-
-
-  end
-
-end
+   
+ 
 end
