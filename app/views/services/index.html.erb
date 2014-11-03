@@ -28,19 +28,169 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 			</div>
 			<div class="col-xs-12 col-md-9 mplace-middle hidden-xs hidden-sm">
 				<!-- <span>The <span class="badge_blue">supported</span> addons are marked by a Click on the addon to select it.</span> -->
-				<span class="pull-right c_small">Manage your services<i class="c_icon-rocket"></i><a href="http://www.gomegam.com/docs/users/apps/apps.html">Take a Tour</a></span>
+				<span class="pull-right c_small">Manage your services<i class="c_icon-rocket"></i><a href="http://www.gomegam.com/docs/users/services/index.html" target="_blank">Take a Tour</a></span>
 			</div>
 		</div>
 	</div>
 	<div class="margin_30 pad_t25">
 
-		<div class="bottom-divider"></div>
-
-
 		<%= render :partial => "main_dashboards/services", :locals => {:user => current_user, :assemblies => @assemblies} %>
 
 	</div>
 </div>
+
+<!-- APP START MODAL -->
+<div class="modal fade app_exist" id="app_start" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+	 <%= form_tag app_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Start App</h4>
+			</div>
+			<div class="modal-body text-center">
+			   <span id="start_app_id"></span>
+			   <span id="start_app_name"></span>
+			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "start"  %>
+				Are you sure you want to start the App?
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<button type="button" class="btn default" data-dismiss="modal">
+					Cancel
+				</button>
+				<%= submit_tag "Confirm", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>				
+			</div>
+		</div>
+		<% end %>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- APP STOP MODAL -->
+<div class="modal fade app_exist" id="app_stop" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+	 <%= form_tag app_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Stop App</h4>
+			</div>
+			<div class="modal-body text-center">
+			   <span id="stop_app_id"></span>
+			   <span id="stop_app_name"></span>
+			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "stop"  %>
+				Are you sure you want to stop the App?
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<button type="button" class="btn default" data-dismiss="modal">
+					Cancel
+				</button>
+				<%= submit_tag "Confirm", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>
+			</div>
+		</div>
+		<% end %>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<!-- APP RESTART MODAL -->
+<div class="modal fade app_exist" id="app_restart" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+	 <%= form_tag app_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Restart App</h4>
+			</div>
+			<div class="modal-body text-center">
+			   <span id="restart_app_id"></span>
+			   <span id="restart_app_name"></span>
+			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "restart"  %>
+				Are you sure you want to restart the App?
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<button type="button" class="btn default" data-dismiss="modal">
+					Cancel
+				</button>
+				<%= submit_tag "Confirm", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>
+			</div>
+		</div>
+		<% end %>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- APP DELETE MODAL -->
+<div class="modal fade" id="app_delete" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Delete App</h4>
+			</div>
+			<div class="modal-body text-center">
+				Are you sure you want to delete the App?
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<button type="button" class="btn default" data-dismiss="modal">
+					Cancel
+				</button>
+				<button type="button" class="btn btn-danger">
+					Confirm
+				</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="app_postfinish_popup" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Result</h4>
+			</div>
+			<div class="modal-body text-center">
+				<div id="app_res_msg"></div>
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<%= link_to  "Ok", main_dashboards_path, :class => "btn btn-success", :target => "_self" %>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="app_postfinish_popup_error" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Result</h4>
+			</div>
+			<div class="modal-body text-center">
+				Whew! Failed to App Request published.
+				</br>
+						<div id="app_err_msg"></div>
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<%= link_to  "Ok", main_dashboards_path, :class => "btn btn-success", :target => "_self" %>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
 
 <div id="cloudbook_delete_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog">

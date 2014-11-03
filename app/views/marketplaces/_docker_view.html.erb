@@ -1,3 +1,4 @@
+<%= form_tag addons_launch_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 <% @mkp.plans.each do |c| %>
 <% if c["version"] == version %>
 <% @mkp_price = c["price"] %>
@@ -21,6 +22,7 @@
 <%  if @predef_cloud.class == Megam::Error %>
 <%  redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }     %>    
 <% end %>
+<%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
 <%= hidden_field_tag 'source', nil, placeholder: "", :class =>"form-control", :value => @deps_scm  %>
 <%= hidden_field_tag 'type', nil, placeholder: "", :class =>"form-control", :value =>  @pro_name[3] %>
 <%= hidden_field_tag 'combos', nil, placeholder: "", :class =>"form-control", :value =>  @combos %>
@@ -56,7 +58,7 @@
 			<div class="col-sm-9 app_left_desc">
 				<div class="row">
 					<div class="col-sm-6 col-xs-6">
-						<a class="btn btn-success col-md-12 col-xs-12" data-toggle="modal" href="#create-ssh">Create</a>
+						<%= link_to settings_path, :class => "btn green col-md-12 col-xs-12" do %>Create<%end%>
 					</div>
 					<div class="col-sm-6 col-xs-6">
 						<%= select_tag "cloud", options_for_select(@predef_cloud.map{ |c| [c.name] }, :selected=>@predef_cloud[0]), :class =>"form-control" %>	
@@ -72,7 +74,7 @@
 		<div class="row">
 			<div class="col-xs-6">
 				<div class="form-group">
-					<%= text_field_tag 'name', nil, placeholder: 'App Name', :class =>"form-control", :value => @appname %>
+					<%= text_field_tag 'name', nil, placeholder: 'Addon Name', :class =>"form-control", :value => @appname %>
 				</div>
 			</div>
 			<div class="col-xs-6">
@@ -85,7 +87,7 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="form-group">
-					<%= submit_tag "Create App", :class => "btn green col-xs-12" %>
+					<%= submit_tag "Create", :class => "btn green col-xs-12" %>
 				</div>
 			</div>
 			<!-- <div class="col-xs-12">
@@ -98,3 +100,4 @@
 	</div>
 	<!-- body_right ends here -->
 </div>
+<% end %>

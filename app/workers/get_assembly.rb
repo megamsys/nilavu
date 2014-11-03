@@ -1,4 +1,4 @@
-class GetAssembly
+class  GetAssembly
   def self.perform(assembly_id,tmp_email, tmp_api_key)
     begin
       @excon_res = Megam::Assembly.show(assembly_id,tmp_email, tmp_api_key).data[:body].each do |one_asmbly|
@@ -11,7 +11,7 @@ class GetAssembly
               end
               one_asmbly.components.replace(temp_bb)
             end
-#=end
+      #=end
       puts "=====> Inflated Assembly <======"
       puts @excon_res[0].inspect
       puts "=====> Assemblies <======"

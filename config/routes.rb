@@ -41,14 +41,25 @@ Cloudauth::Application.routes.draw do
     match '/data_sources', to: 'data_sources#index', via: [:get, :post]
   end
 
+
 #oneapp Overview
-  match '/overview', to: 'oneapps#overview', via: [:get, :post]
-  match '/runtime', to: 'oneapps#runtime', via: [:get, :post]
-  match '/metrics', to: 'oneapps#metrics', via: [:get, :post]
+  match '/appoverview', to: 'oneapps#overview', via: [:get, :post]
+  match '/appruntime', to: 'oneapps#runtime', via: [:get, :post]
+  match '/applogs', to: 'oneapps#logs', via: [:get, :post]
   match '/oneapp_services', to: 'oneapps#services', via: [:get, :post]
   
+  
+  #oneservice Overview
+  match '/serviceoverview', to: 'oneservice#overview', via: [:get, :post]
+  match '/serviceruntime', to: 'oneservice#runtime', via: [:get, :post]
+  match '/servicemetrics', to: 'oneservice#metrics', via: [:get, :post]
+  match '/oneservice_services', to: 'oneservice#services', via: [:get, :post]
+  
+  
   #Cloud Books
-  match '/launch', to: 'marketplaces#create', via: [:get, :post]
+  match '/starter_packs_launch', to: 'marketplaces#starter_packs_create', via: [:get, :post]
+  match '/app_boilers_launch', to: 'marketplaces#app_boilers_create', via: [:get, :post]
+  match '/addons_launch', to: 'marketplaces#addons_create', via: [:get, :post]
   match '/get_request', to: 'apps#get_request', via: [:get, :post]
   match '/build_request', to: 'apps#build_request', via: [:get, :post]
   match '/requests', to: 'oneapps#requests', via: [:get, :post]
@@ -96,6 +107,7 @@ Cloudauth::Application.routes.draw do
   # ======Dashboard
   get "users/show"
   get "oneapps/show"
+  get "oneservice/show"
   #match '/dashboard_sidebar', to: 'dashboards#dashboard_sidebar', via: [:get]
   #match '/dashboards', to: 'dashboards#index', via: [:get]
   #match '/dashboards/:id' => 'dashboards#index', via: [:get]
@@ -110,6 +122,22 @@ Cloudauth::Application.routes.draw do
  match '/restartapp', :to => 'main_dashboards#restartapp', via: [:get]
  match '/deleteapp', :to => 'main_dashboards#deleteapp', via: [:get]
  match '/app_request', :to => 'main_dashboards#app_request', via: [:get, :post]
+ 
+
+ #service lifecycle 
+ match '/startservice', :to => 'main_dashboards#startservice', via: [:get]
+ match '/stopservice', :to => 'main_dashboards#stopservice', via: [:get]
+ match '/restartservice', :to => 'main_dashboards#restartservice', via: [:get]
+ match '/deleteservice', :to => 'main_dashboards#deleteservice', via: [:get]
+ match '/service_request', :to => 'main_dashboards#service_request', via: [:get, :post]
+ 
+ #addon lifecycle
+ match '/startaddon', :to => 'main_dashboards#startaddon', via: [:get]
+ match '/stopaddon', :to => 'main_dashboards#stopaddon', via: [:get]
+ match '/restartaddon', :to => 'main_dashboards#restartaddon', via: [:get]
+ match '/deleteaddon', :to => 'main_dashboards#deleteaddon', via: [:get]
+ match '/addon_request', :to => 'main_dashboards#addon_request', via: [:get, :post]
+ 
 
   # ========Cloud Books Histories controller
   match '/node_log', to: 'apps_histories#logs', via: [:get, :post]
@@ -141,5 +169,7 @@ Cloudauth::Application.routes.draw do
 
  
   match '/visualCallback', to: 'main_dashboards#visualCallback', via: [:get]
+  
+  match '/bind_service_list', :to => 'oneapps#bind_service_list', via: [:get, :post]
   
 end

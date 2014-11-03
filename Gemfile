@@ -1,22 +1,21 @@
 source 'https://rubygems.org'
 
-gem "rails",  "~> 4.2.0.beta2"
+gem "rails",  "~> 4.2.0.beta4"
 # add these gems to help with the transition to Rails 4.2.x
 gem 'protected_attributes', "~> 1.0.8"
 gem "responders", "~> 2.0.0"
 
 # streaming
-gem 'socket.io-rails', "~> 1.0.6"
+gem 'socket.io-rails', "~> 1.2.0"
 
 #jquery & ui
 gem 'jquery-rails', "~> 4.0.0.beta2"
 gem "font-awesome-rails", "3.2.1.3"
-gem 'turbolinks', "~> 2.4.0"
+gem 'turbolinks', "~> 2.5.1"
 gem 'jquery-turbolinks',"~> 2.1.0"
 gem "flot-rails", "~> 0.0.6"
-gem "gritter", "~> 1.1.0"
 gem 'remotipart', "~> 1.2.1"
-gem 'sqlite3', "~> 1.3.9"
+gem 'sqlite3', "~> 1.3.10"
 
 #AJAX for file uploads
 #Added //= require jquery.remotipart in application.js
@@ -25,14 +24,14 @@ gem 'sqlite3', "~> 1.3.9"
 gem 'fog', "~> 1.24.0"
 
 # security and oauth
-gem 'bcrypt', "~> 3.1.7"
+gem 'bcrypt', "~> 3.1.9"
 
 gem 'oauth2', "~> 1.0.0"
 gem 'oauth', "~> 0.4.7"
 gem 'omniauth-oauth2', "~> 1.2.0"
-gem 'omniauth-twitter', "~> 1.0.1"
+gem 'omniauth-twitter', "~> 1.1.0"
 gem 'omniauth-facebook', "~> 2.0.0"
-gem "omniauth-google-oauth2", "~> 0.2.5"
+gem "omniauth-google-oauth2", "~> 0.2.6"
 gem 'omniauth-github', "~> 1.1.2"
 gem "omniauth-assembla", "~> 0.0.3"
 
@@ -40,10 +39,10 @@ gem 'json', "~> 1.8.1"
 gem 'riak-client', '~> 2.1.0'
 
 #general
-gem "github_api", "~>0.12.1"
+gem "github_api", "~>0.12.2"
 gem 'twitter', "~> 5.11.0"
 gem "randexp", "~> 0.1.7"
-gem "megam_api", "~> 0.23"
+gem "megam_api", "~> 0.24"
 gem "megam_scmmanager", "~> 0.1.0"
 gem "megam_deccanplato", "~> 0.1.0"
 gem "megam_assembla", "~> 0.1.0"
@@ -65,7 +64,7 @@ gem "sshkey", "~> 1.6.1"
 # in production environments by default.
 gem "less-rails", "~> 2.5.0"
 gem 'sass-rails', "~> 5.0.0.beta1"
-gem 'coffee-rails', "~> 4.0.1"
+gem 'coffee-rails', "~> 4.1.0"
 gem 'uglifier', "~> 2.5.3"
 
 

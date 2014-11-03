@@ -8,6 +8,7 @@ def show
         #@app = Appscollection(params[:app_name])
         #get the selected app
 end
+
 def overview
         appid = params["appkey"]
         @assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
@@ -15,25 +16,62 @@ def overview
         #get the selected app
 end
 
-def metrics
+def logs
         appid = params["appkey"]
-        #@app = Appscollection(params[:app_name])
-        #get the selected app
+        assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
+        if assembly.class != Megam::Error
+        @appname = assembly.name + "." + assembly.components[0][0].inputs[:domain]       
+        else 
+        @appname = nil       
+        end
+      
 end
+
 def runtime
         appid = params["appkey"]
         #@app = Appscollection(params[:app_name])
         #get the selected app
 end
+
 def services
         appid = params["appkey"]
         #@app = Appscollection(params[:app_name])
         #get the selected app
 end
 
+def bind_service_list
+@service = []
+  puts "++++++++++++++++++++++++++++++"
+   @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
+      @service_counter = 0
+      @app_counter = 0
+      if @assemblies != nil
+        @assemblies.each do |asm|
+          if asm.class != Megam:: Error
+            asm.assemblies.each do |assembly|
+              if assembly != nil
+                if assembly[0].class != Megam::Error
 
-  def marketplaces
-  end
+                  assembly[0].components.each do |com|
+                    if com != nil
+                      com.each do |c|
+                        com_type = c.tosca_type.split(".")
+                        ctype = get_type(com_type[2])
+                        if ctype == "SERVICE" 
+                          @service << {"name" => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain] + "/" + com[0].name, "aid" => assembly[0].id, "cid" => assembly[0].components[0][0].id }
+                        end
+                      end
+                    end
+                  end
+                  
+                end
+              end
+            end
+          end
+        end
+      end
+
+end
 
   def activities
     logger.debug "--> OneApps:Activities"
@@ -72,9 +110,6 @@ end
         respond_with(@defnd_out, :layout => !request.xhr? )
       }
     end
-  end
-
-  def settings
   end
 
   def preclone

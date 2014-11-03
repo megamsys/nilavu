@@ -17,7 +17,7 @@
 				<div class="app_new">
 					<span class="glyphicon glyphicon-plus"></span>
 					<p>
-						Create New App
+						Create App
 					</p>
 				</div>
 			</div>
@@ -27,8 +27,25 @@
 		<% @assemblies.each do |asm| %>
 		<% if asm.class != Megam:: Error %>
 		<% asm.assemblies.each do |assembly| %>
+		<% sflag = true %>
 		<% if assembly != nil %>
 		<% if assembly[0].class != Megam::Error %>
+		
+		<% assembly[0].components.each do |com| %>
+        <% if com != nil %>
+        <% com.each do |c| %>
+        <% com_type = c.tosca_type.split(".") %>
+        <% ctype = get_type(com_type[2]) %>
+        <% if ctype == "SERVICE" %>
+        <% if assembly[0].components.length == 2 %>
+        <% sflag = false %>
+        <% end %>
+        <% end %>
+        <% end %>
+        <% end %>
+        <% end %>	
+		
+		<% if sflag %>
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
 			<div class="app_inner">
 				<div class="app">
@@ -37,15 +54,19 @@
 						<div class="config_menu config_menu_<%= assembly[0].name %>">
 							<ul>
 								<li>
-								   <%= link_to startapp_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<%= link_to startapp_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
 									<i class="glyphicon glyphicon-play-circle"></i>Start App
 									<% end %>
 								</li>
 								<li>
-									<a data-toggle="modal" href="#app_stop"><i class="glyphicon glyphicon-record"></i>Stop App</a>
+									<%= link_to stopapp_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-record"></i>Stop App
+									<% end %>
 								</li>
 								<li>
-									<a data-toggle="modal" href="#app_restart"><i class="glyphicon glyphicon-refresh"></i>Restart App</a>
+									<%= link_to restartapp_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-refresh"></i>Restart App
+									<% end %>
 								</li>
 								<li>
 									<a data-toggle="modal" href="#app_delete"><i class="glyphicon glyphicon-trash"></i>Delete App</a>
@@ -55,7 +76,7 @@
 						<div class="row app_icon">
 							<h5><%= assembly[0].name %></h5>
 							<% appkey = assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain] %>
-							<%= link_to appkey, overview_path(:appkey => assembly[0].id) %>
+							<%= link_to appkey, appoverview_path(:appkey => assembly[0].id) %>
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 								<ul class="list-inline app_icon_bottom">
 									<%  assembly[0].components.each do |com| %>
@@ -85,6 +106,7 @@
 			</div>
 
 		</div>
+		<% end %>
 		<% end %>
 		<% end %>
 		<% end %>

@@ -1,0 +1,117 @@
+<div class="row c_pading-b15">
+	<div class="portlet-body-head">
+		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+			<i class="c_icon-layer_lg"></i>Your Addons <span><%= @service_counter %> Addons running</span>
+		</div>
+	</div>
+</div>
+<div class="bottom-divider"></div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+	<div class="row app_box">
+		<%= link_to marketplaces_path do %>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+			<div class="app_inner">
+				<div class="app_new">
+					<span class="glyphicon glyphicon-plus"></span>
+					<p>
+						Create addons
+					</p>
+				</div>
+			</div>
+		</div>
+		<% end %>
+		<% if @assemblies != nil %>
+		<% @assemblies.each do |asm| %>
+		<% if asm.class != Megam:: Error %>
+		<% asm.assemblies.each do |assembly| %>
+		<% sflag = false %>
+		<% if assembly != nil %>
+		<% if assembly[0].class != Megam::Error %>
+		
+		<% assembly[0].components.each do |com| %>
+        <% if com != nil %>
+        <% com.each do |c| %>
+        <% com_type = c.tosca_type.split(".") %>
+        <% ctype = get_type(com_type[2]) %>
+        <% if ctype == "ADDON" %>
+        <% sflag = true %>
+        <% end %>
+        <% end %>
+        <% end %>
+        <% end %>	
+		
+		
+		<% if sflag %>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+			<div class="app_inner">
+				<div class="app">
+					<div class="app_head">
+						<span class="app_config" id="config_menu_<%= assembly[0].name %>"><i class="c_icon-config"></i></span>
+						<div class="config_menu config_menu_<%= assembly[0].name %>">
+							<ul>
+								<li>
+									<%= link_to startaddon_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-play-circle"></i>Start Addon
+									<% end %>
+								</li>
+								<li>
+									<%= link_to stopaddon_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-record"></i>Stop Addon
+									<% end %>
+								</li>
+								<li>
+									<%= link_to restartaddon_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-refresh"></i>Restart Addon
+									<% end %>
+								</li>
+								<li>
+									<a data-toggle="modal" href="#addon_delete"><i class="glyphicon glyphicon-trash"></i>Delete Service</a>
+								</li>
+							</ul>					
+						</div>
+						<div class="row app_icon">
+							<h5><%= assembly[0].name %></h5>
+							<% appkey = assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain] %>
+							<%= link_to appkey, appoverview_path(:appkey => appkey) %>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+								<ul class="list-inline app_icon_bottom">
+									<%  assembly[0].components.each do |com| %>
+									<% if com != nil %>
+									<% com.each do |c| %>
+									<% com_type = c.tosca_type.split(".") %>
+									<% ctype = get_type(com_type[2]) %>
+									<% if ctype == "ADDON" %>
+									<li>
+										<%= image_tag "logos/"+com_type[2].downcase+".png", :alt => "" %>
+									</li>
+									<% end %>
+									<% end %>
+									<% end %>
+									<% end %>
+								</ul>
+							</div>
+						</div>
+						<!-- <img class="center-block" src="assets/img/app2.png"> -->
+					</div>
+					<div class="app_footer">
+						<!-- <div class="circle_red"></div> -->
+						<i class="circle_green"></i>
+						<span>Launched</span>
+						<i class="c_icon-window pull-right"></i>
+						<i class="c_icon-star pull-right"></i>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<% end %>
+		<% end %>
+		<% end %>
+		<% end %>
+		<% end %>
+		<% end %>
+		<% end %>
+
+	</div>
+</div><!-- services ends here -->

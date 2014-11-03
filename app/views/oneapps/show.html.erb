@@ -10,18 +10,17 @@
 
 						<li></li>
 
-                                                <li class="start" >
-							<%= link_to main_dashboards_path do %>
+						<li class="start" >
+							<%= link_to main_dashboards_path , :target => "_self" do %>
 							<i class="c_icon c_icon-dash pull-left"></i>
 							<span class="title pull-left">Back to dash</span>
 							<span class="selected hidden-xs"></span>
 							<% end %>
 						</li>
-<% appkey = request.original_url.partition('=').last %>
-
+						<% appkey = request.original_url.partition('=').last %>
 
 						<li class= "start active">
-							<%= link_to overview_path(:appkey => appkey), :target => "_self" do %>
+							<%= link_to appoverview_path(:appkey => appkey), :target => "_self" do %>
 							<i class="c_icon c_icon-browser pull-left"></i>
 							<span class="title pull-left">Overview</span>
 							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'overview')%>"></span>
@@ -37,22 +36,12 @@
 						</li>
 
 						<li class= "start active">
-							<%= link_to metrics_path(:appkey => appkey), :target => "_self" do %>
+							<%= link_to logs_path(:appkey => appkey), :target => "_self" do %>
 							<i class="c_icon c_icon-stack pull-left"></i>
-							<span class="title pull-left">Metrics</span>
-							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'metrics')%>"></span>
+							<span class="title pull-left">Logs</span>
+							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'logs')%>"></span>
 							<% end %>
-						</li>
-
-						<li class="start active">
-							<%= link_to oneapp_services_path(:appkey => appkey), :target => "_self" do %>
-							<i class="c_icon c_icon-settings pull-left"></i>
-							<span class="title pull-left">Services</span>
-							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'services')%>"></span>
-							<% end %>
-						</li>
-
-
+						</li>						
 
 					</ul>
 					<!-- END SIDEBAR MENU -->

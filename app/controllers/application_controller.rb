@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
 
   include SessionsHelper
-
+  
   #If the requests donot come from local then the exception page will be shown.
   #a catcher exists using rails globber for routes in config/application.rb to trap 404.
   unless Rails.application.config.consider_all_requests_local

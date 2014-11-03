@@ -75,11 +75,11 @@ class UsersController < ApplicationController
         @user.update_columns(:onboarded_api => true, :api_token => api_token)
 
         #redirect_to main_dashboards_path, :gflash => { :success => { :value => "Hi #{@user.first_name}, #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-        redirect_to main_dashboards_path, :notice => "onboard Success #{@user.email}."
+        redirect_to main_dashboards_path, :notice => "Welcome #{@user.first_name}."
       else
         logger.debug "==> Controller: users, Action: create, User onboard was not successful"
         #redirect_to main_dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onboard #{@user.email} into our API server. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}.", :sticky => false, :nodom_wrap => true } }
-        redirect_to main_dashboards_path, :alert => "onboard Failure #{@user.email}."
+        redirect_to main_dashboards_path, :alert => "Gateway Failure."
       end
 
     else

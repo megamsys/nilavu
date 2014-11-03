@@ -1,8 +1,7 @@
 <div class="row cloud_signup_save">
 	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-		<h5>Sign Up for gogrid Cloud</h5>
-		<a class="btn btn-default c_btn_gplus" href="#">Login with Gogrid</a>
-		<a class="colr-denimblue" href="https://securesignup.gogrid.com/"> Create a new gogrid account </a>
+		<h5>Sign Up for gogrid Cloud</h5>		
+		<a class=" btn btn-default colr-denimblue" href="https://securesignup.gogrid.com/"> Create a new gogrid account </a>
 		<!-- <button class="btn btn-default btn-md c_btn_gplus"> Login with Google + </button> -->
 	</div>
 
@@ -11,6 +10,26 @@
 		<div class="input-group margin-top-10" style="width:100%">
 			<%= text_field_tag 'name', nil, placeholder: 'Enter a name to save', :required => true, :class =>"form-control" %>
 			<span class="input-group-addon" style="width:35px" ></span>
+		</div>
+	</div>
+</div>
+
+<div class="row cloud_signup_save">
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+		<h5>Sign In with gogrid credentials</h5>
+		<a class="btn btn-default c_btn_gplus" href="#" disabled>Login with Gogrid</a>
+	</div>
+
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+		<h5>Security credentials</h5>
+		<div class="input-group margin-top-10">
+			<%= text_field_tag 'api_key', nil, placeholder: 'Enter Gogrid api key' , :required => true, :class =>"form-control" %>
+			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
+		</div>
+
+		<div class="input-group margin-top-10">
+			<%= text_field_tag 'shared_secret', nil, placeholder: 'Enter Gogrid shared secret', :required => true, :class =>"form-control" %>
+			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
 		</div>
 	</div>
 </div>
@@ -41,7 +60,7 @@
 		<h5>Security</h5>
 
 		<div class="input-group margin-top-10">
-			<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter AWS SSH User' , :required => true, :class =>"form-control" %>
+			<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter SSH User' , :required => true, :class =>"form-control" %>
 			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
 		</div>
 
@@ -50,15 +69,6 @@
 
 			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
 		</div>
-
-		<div class="input-group margin-top-10">
-			<%= text_field_tag 'api_key', nil, placeholder: 'Enter Gogrid api key' , :required => true, :class =>"form-control" %>
-			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
-		</div>
-
-		<div class="input-group margin-top-10">
-			<%= text_field_tag 'shared_secret', nil, placeholder: 'Enter Gogrid shared secret', :required => true, :class =>"form-control" %>
-			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
-		</div>
+		
 	</div>
 </div>

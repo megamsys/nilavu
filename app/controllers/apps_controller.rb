@@ -5,6 +5,9 @@ class AppsController < ApplicationController
   ## I don't see a point in calling all the node details for an user. We should avoid it.
   ## ie. skip FindNodesByEmail ?
   include MainDashboardsHelper
+def logs
+
+end
 
  def index
     if current_user
@@ -16,7 +19,7 @@ class AppsController < ApplicationController
       puts @assemblies.class
       if @assemblies != nil
         @assemblies.each do |asm|
-          if asm.class != Megam:: Error
+          if asm.class != Megam::Error
             asm.assemblies.each do |assembly|
               if assembly != nil
                 if assembly[0].class != Megam::Error
@@ -174,7 +177,7 @@ class AppsController < ApplicationController
       puts @node.inspect
       if @node.class == Megam::Error
       
-        @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+        @err_msg=ActionController::Base.helpers.link_to 'Contact Support', "http://support.megam.co/"
         respond_to do |format|
           format.js {
             respond_with(@err_msg, :layout => !request.xhr? )
@@ -243,7 +246,7 @@ class AppsController < ApplicationController
     options = {:node_name => "#{params[:name]}", :group => "server", :action => "delete", :repo => 'default_chef' }
     node_hash=DeleteNode.perform(options, force_api[:email], force_api[:api_key])
     if node_hash.class == Megam::Error
-      @res_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+      @res_msg= ActionController::Base.helpers.link_to 'Contact Support', "http://support.megam.co/"
     else
       options = { :req => node_hash }
       @node = CreateRequests.perform(options, force_api[:email], force_api[:api_key])

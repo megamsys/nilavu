@@ -24,20 +24,31 @@ class MakeAssemblies
   end
 
   def self.build_components(options)
-    com = []    
-    options[:combo].each do |c|
-    puts "=========================entry=========="
+    com = []
+    options[:combo].each do |c|   
       type = get_type(c)
       if type == "APP"
         name = options[:appname]
         if options[:servicename] != nil
-          related_components = "#{options[:assembly_name]}.#{options[:domain]}/#{options[:servicename]}"
+          if options.has_key?(:related_components)
+            if options[:related_components] != nil
+              related_components = options[:related_components]
+            end
+          else
+            related_components = "#{options[:assembly_name]}.#{options[:domain]}/#{options[:servicename]}"
+          end
         end
       end
       if type == "SERVICE"
         name = options[:servicename]
         if options[:appname] != nil
-          related_components = "#{options[:assembly_name]}.#{options[:domain]}/#{options[:appname]}"
+          if options.has_key?(:related_components)
+            if options[:related_components] != nil
+              related_components = options[:related_components]
+            end
+          else
+            related_components = "#{options[:assembly_name]}.#{options[:domain]}/#{options[:appname]}"
+          end
         end
       end
       if type == "ADDON"
@@ -101,19 +112,19 @@ class MakeAssemblies
     end
     com
   end
-  
+
   def self.mkp_config
     YAML.load(File.open("#{Rails.root}/config/marketplace_addons.yml", 'r'))
   end
 
   def self.get_type(name)
-   @type = ""  
+    @type = ""
     mkp_config.each do |mkp, addon|
       if mkp == name
         @type = addon["type"]
       end
-    end  
+    end
     @type
- end
+  end
 
 end
