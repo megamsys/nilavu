@@ -74,6 +74,8 @@ class UsersController < ApplicationController
         logger.debug "==> Controller: users, Action: create, User onboarded successfully"
         @user.update_columns(:onboarded_api => true, :api_token => api_token)
 
+        @user.send_welcome_email                                #WELCOME EMAIL
+
         #redirect_to main_dashboards_path, :gflash => { :success => { :value => "Hi #{@user.first_name}, #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
         redirect_to main_dashboards_path, :notice => "Welcome #{@user.first_name}."
       else
