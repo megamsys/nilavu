@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem "rails",  "~> 4.2.0.beta2"
+gem "rails",  "~> 4.2.0.beta4"
 # add these gems to help with the transition to Rails 4.2.x
 gem 'protected_attributes', "~> 1.0.8"
 gem "responders", "~> 2.0.0"
@@ -15,7 +15,7 @@ gem 'turbolinks', "~> 2.5.1"
 gem 'jquery-turbolinks',"~> 2.1.0"
 gem "flot-rails", "~> 0.0.6"
 gem 'remotipart', "~> 1.2.1"
-gem 'sqlite3', "~> 1.3.9"
+gem 'sqlite3', "~> 1.3.10"
 
 #AJAX for file uploads
 #Added //= require jquery.remotipart in application.js

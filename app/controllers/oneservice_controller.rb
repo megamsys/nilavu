@@ -1,4 +1,4 @@
-class OneServiceController < ApplicationController
+class OneserviceController < ApplicationController
 
   respond_to :html, :js
   include Packable

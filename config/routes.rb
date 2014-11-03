@@ -45,16 +45,16 @@ Cloudauth::Application.routes.draw do
 
 
 #oneapp Overview
-  match '/overview', to: 'oneapps#overview', via: [:get, :post]
-  match '/runtime', to: 'oneapps#runtime', via: [:get, :post]
-  match '/logs', to: 'oneapps#logs', via: [:get, :post]
+  match '/appoverview', to: 'oneapps#overview', via: [:get, :post]
+  match '/appruntime', to: 'oneapps#runtime', via: [:get, :post]
+  match '/applogs', to: 'oneapps#logs', via: [:get, :post]
   match '/oneapp_services', to: 'oneapps#services', via: [:get, :post]
   
   
   #oneservice Overview
-  match '/overview', to: 'oneservice#overview', via: [:get, :post]
-  match '/runtime', to: 'oneservice#runtime', via: [:get, :post]
-  match '/metrics', to: 'oneservice#metrics', via: [:get, :post]
+  match '/serviceoverview', to: 'oneservice#overview', via: [:get, :post]
+  match '/serviceruntime', to: 'oneservice#runtime', via: [:get, :post]
+  match '/servicemetrics', to: 'oneservice#metrics', via: [:get, :post]
   match '/oneservice_services', to: 'oneservice#services', via: [:get, :post]
   
   
