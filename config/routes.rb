@@ -77,7 +77,6 @@ Cloudauth::Application.routes.draw do
   # ...
   #mount Sidekiq::Web, at: '/worker'
 
- match '/reset', to: 'password_resets#new', via: [:get, :post]
 
   #services
   match '/new_store', to: 'services#new_store', via: [:get, :post]

@@ -1,0 +1,17 @@
+$(document).ready(function() {
+console.log( "ready!" );
+var selected_entity = '#oneapp-content';
+<% if @need == 'log' %>
+console.log( "Logs11!" );
+console.log( '<%= @assembly_name %>' );
+console.log( "Logs22!" );
+var to_insert_content = "<%= escape_javascript(render :partial => 'oneapps/logs', :locals => {:assembly_name => @assembly_name }) %>";
+console.log( "Logs33!" );
+<% end %>
+<% if @need == 'overview' %>
+sendmessage('logloader','<%= @assembly_name %>')
+var to_insert_content = "<%= escape_javascript(render :partial => 'oneapps/overview', :locals => {:assembly => @assembly }) %>";
+<% end %>
+insertAt(selected_entity, to_insert_content);
+});
+
