@@ -166,11 +166,11 @@ class MarketplacesController < ApplicationController
         }
       end
     else
-      if predef[0].spec[:type_name] == "docker"
-        ttype = "tosca.docker."
-      else
+     # if predef[0].spec[:type_name] == "docker"
+       # ttype = "tosca.docker."
+     # else
         ttype = "tosca.web."
-      end
+      #end
 
       options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword  }
       app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
@@ -223,11 +223,11 @@ class MarketplacesController < ApplicationController
         }
       end
     else
-      if predef[0].spec[:type_name] == "docker"
-        ttype = "tosca.docker."
-      else
+      #if predef[0].spec[:type_name] == "docker"
+      #  ttype = "tosca.docker."
+      #else
         ttype = "tosca.web."
-      end
+      #end
 
       options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :related_components => related_components, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword  }
       app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])

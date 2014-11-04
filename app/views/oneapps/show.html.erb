@@ -28,7 +28,7 @@
 						</li>
 
 						<li class= "start active">
-							<%= link_to runtime_path(:appkey => appkey), :target => "_self" do %>
+							<%= link_to appruntime_path(:appkey => appkey), :target => "_self" do %>
 							<i class="c_icon c_icon-layer pull-left"></i>
 							<span class="title pull-left">Runtime</span>
 							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'runtime')%>"></span>
@@ -36,7 +36,7 @@
 						</li>
 
 						<li class= "start active">
-							<%= link_to logs_path(:appkey => appkey), :target => "_self" do %>
+							<%= link_to applogs_path(:appkey => appkey), :target => "_self" do %>
 							<i class="c_icon c_icon-stack pull-left"></i>
 							<span class="title pull-left">Logs</span>
 							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'logs')%>"></span>
