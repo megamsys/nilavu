@@ -122,6 +122,7 @@ Cloudauth::Application.routes.draw do
  match '/deleteapp', :to => 'main_dashboards#deleteapp', via: [:get]
  match '/app_request', :to => 'main_dashboards#app_request', via: [:get, :post]
  
+ match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :post]
 
  #service lifecycle 
  match '/startservice', :to => 'main_dashboards#startservice', via: [:get]
