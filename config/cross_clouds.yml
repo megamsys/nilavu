@@ -1,5 +1,5 @@
 #This file is needed for cross clouds
-ec2:
+aws:
   name: Amazon EC2
   Description: Virtual Servers in the cloud
   type: ec2_keys
