@@ -31,6 +31,10 @@ def send_password_reset
   UserMailer.password_reset(self).deliver
 end
 
+def send_welcome_email
+  UserMailer.welcome_email(self).deliver
+end
+
 def generate_token(column)
   begin
     self[column] = SecureRandom.urlsafe_base64

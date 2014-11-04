@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
-		<title>Confirmation of your email</title>
+		<title>Welcome Megam</title>
 		<style type="text/css">
 			<!--
 			body {
@@ -25,7 +25,7 @@
 							<tr>
 								<td valign="top" height="40" style="padding:0;">
 								<div>
-									<a href="http://www.megam.co"><img src="http://www.megam.co/assets/logo-megam160x43.png" border="0" style="max-width:600px;" id="headerImage campaign-icon" /></a>
+									<a href="https://www.megam.co"><img src="http://www.megam.co/assets/logo.png" border="0" style="max-width:600px;" id="headerImage campaign-icon" /></a>
 								</div></td>
 								<td valign="bottom" width="190" height="40" style="padding:0;"><div style="color:#505050;font-size:10px;line-height:100%;text-align:left;"></div></td>
 							</tr>
@@ -40,26 +40,22 @@
 								<td valign="top" class="bodyContent" style="background-color : #FFFFFF;">
 								<table border="0" cellpadding="20" cellspacing="0" width="100%">
 									<tr>
-										<td valign="top"><h3>Confirmation of your email</h3>
-										<br />
-										Dear <%= @mailer_user.first_name %><span style="color: #999;"></span>
-										<br />
-										<div style="width:566px; text-align:left; word-wrap:break-word;">
-											<strong>Thank you for registering your email_id with us. </strong>
-											<br />
-											<br />
-											Click here <%= link_to "Email Confirmation", @url %> to confirm your email address.
-										</div>
-										<br />
-										<br />
-										If you have any questions at all, don't hesitate to contact our support team.
-										<br />
-										Email: <a href="mailto:support@megam.co">support@megam.co</a>
-										<br />
-										Web: <a href="http://support.megam.co">support.megam.co</a>
-										<br />
-										</td>
-									</tr>
+<br /><td>
+										<b>Dear <%= @user.first_name %>!</b>
+										<br /> 
+
+											<p style="padding-left: 1cm;">
+
+We're ready to activate your account. All we need to do is make sure this is your email address. </p>
+
+
+<%= link_to "Go to Megam", "https://www.megam.co", target: "_blank", :class => "btn btn-large btn-primary" %>
+
+<p style="padding-left: 1cm;">Megam Support Team. </p>
+
+
+										
+									</td></tr>
 								</table></td>
 							</tr>
 						</table></td>
@@ -73,9 +69,9 @@
 									<tr>
 										<td colspan="2" valign="middle" id="social" style="background-color : #f0f0f0; border: 0;">
 										<div style="text-align: center;">
-											<a href="http://www.facebook.com/megamsys" target="_blank"><img height="40" border="0" width="40" style="margin-right: 10px" alt="Facebook" src="http://www.megam.co/assets/flogo.png" /></a>
-											<a href="http://twitter.com/indykish" target="_blank"><img height="40" border="0" width="38" style="margin-right: 10px" alt="Twitter" src="http://www.megam.co/assets/twit.png" /></a>
-											<a href="http://blog.megam.co" style="color: black; margin-right: 10px">Our Blog</a>
+											<a href="http://www.facebook.com/megamsys" target="_blank"><img height="40" border="0" width="40" style="margin-right: 10px" alt="Facebook" src="https://www.megam.co/assets/facebook.png" /></a>
+											<a href="http://twitter.com/indykish" target="_blank"><img height="40" border="0" width="38" style="margin-right: 10px" alt="Twitter" src="https://www.megam.co/assets/twitter.png" /></a>
+											<a href="http://gomegam.com/blog/" target="_blank"><img height="40" border="0" width="38" style="margin-right: 10px" alt="Blog" src="https://www.megam.co/assets/blog.png" /></a>
 										</div></td>
 									</tr>
 								</table></td>

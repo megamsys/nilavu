@@ -69,7 +69,9 @@
 									<% end %>
 								</li>
 								<li>
-									<a data-toggle="modal" href="#app_delete"><i class="glyphicon glyphicon-trash"></i>Delete App</a>
+									<%= link_to deleteapp_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-refresh"></i>Delete App
+									<% end %>
 								</li>
 							</ul>
 						</div>

@@ -17,8 +17,6 @@ Cloudauth::Application.routes.draw do
   resources :users
   resources :sessions
   resources :identities
-  resources :organizations, only: [:create, :destroy]
-  resources :apps_items
   resources :apps_histories
   resources :apps #, via: [:get, :post, :destroy]
   resources :cross_clouds
@@ -79,7 +77,6 @@ Cloudauth::Application.routes.draw do
   # ...
   #mount Sidekiq::Web, at: '/worker'
 
- match '/reset', to: 'password_resets#new', via: [:get, :post]
 
   #services
   match '/new_store', to: 'services#new_store', via: [:get, :post]
@@ -125,6 +122,7 @@ Cloudauth::Application.routes.draw do
  match '/deleteapp', :to => 'main_dashboards#deleteapp', via: [:get]
  match '/app_request', :to => 'main_dashboards#app_request', via: [:get, :post]
  
+ match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :post]
 
  #service lifecycle 
  match '/startservice', :to => 'main_dashboards#startservice', via: [:get]
@@ -169,8 +167,6 @@ Cloudauth::Application.routes.draw do
   #get "/422", :to => "errors#unacceptable"
   get "/500", :to => "errors#internal_error"
 
-   # =======apps_items_controller
-  match '/apps_items/destroy', to: 'apps_items#destroy', via: [:delete] 
  
   match '/visualCallback', to: 'main_dashboards#visualCallback', via: [:get]
   
