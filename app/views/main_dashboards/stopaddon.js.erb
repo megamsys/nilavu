@@ -1,0 +1,7 @@
+$('#stop_addon_id').empty();
+$('#stop_addon_id').html(' <input id="addon_id" name="addon_id" type="hidden" value="<%= @id %>" />');
+
+$('#stop_addon_name').empty();
+$('#stop_addon_name').html(' <input id="addon_name" name="addon_name" type="hidden" value="<%= @name %>" />');
+
+$("#addon_stop").modal({backdrop : false,keyboard: false,show : true});

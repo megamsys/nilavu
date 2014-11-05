@@ -46,13 +46,13 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">Start App</h4>
+				<h4 class="modal-title">Start Addon</h4>
 			</div>
 			<div class="modal-body text-center">
 			   <span id="start_addon_id"></span>
 			   <span id="start_addon_name"></span>
 			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "start"  %>
-				Are you sure you want to start the App?
+				Are you sure you want to start the addon ?
 			</div>
 			<div class="modal-footer c_modal-footer">
 				<button type="button" class="btn default" data-dismiss="modal">
@@ -75,13 +75,13 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">Stop App</h4>
+				<h4 class="modal-title">Stop Addon</h4>
 			</div>
 			<div class="modal-body text-center">
 			   <span id="stop_addon_id"></span>
 			   <span id="stop_addon_name"></span>
 			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "stop"  %>
-				Are you sure you want to stop the App?
+				Are you sure you want to stop the addon ?
 			</div>
 			<div class="modal-footer c_modal-footer">
 				<button type="button" class="btn default" data-dismiss="modal">
@@ -104,13 +104,13 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">Restart App</h4>
+				<h4 class="modal-title">Restart Addon</h4>
 			</div>
 			<div class="modal-body text-center">
 			   <span id="restart_addon_id"></span>
 			   <span id="restart_addon_name"></span>
 			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "restart"  %>
-				Are you sure you want to restart the App?
+				Are you sure you want to restart the Addon ?
 			</div>
 			<div class="modal-footer c_modal-footer">
 				<button type="button" class="btn default" data-dismiss="modal">
@@ -131,10 +131,10 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">Delete App</h4>
+				<h4 class="modal-title">Delete Addon</h4>
 			</div>
 			<div class="modal-body text-center">
-				Are you sure you want to delete the App?
+				Are you sure you want to delete the addon ?
 			</div>
 			<div class="modal-footer c_modal-footer">
 				<button type="button" class="btn default" data-dismiss="modal">
@@ -199,7 +199,7 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					×
 				</button>
-				<h3 id="myModalLabel">Delete - App</h3>
+				<h3 id="myModalLabel">Delete - Addon</h3>
 			</div>
 			<div class="modal-body">
 				<div class="alert alert-success">

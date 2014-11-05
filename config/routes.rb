@@ -17,8 +17,6 @@ Cloudauth::Application.routes.draw do
   resources :users
   resources :sessions
   resources :identities
-  resources :organizations, only: [:create, :destroy]
-  resources :apps_items
   resources :apps_histories
   resources :apps #, via: [:get, :post, :destroy]
   resources :cross_clouds
@@ -43,11 +41,20 @@ Cloudauth::Application.routes.draw do
     match '/data_sources', to: 'data_sources#index', via: [:get, :post]
   end
 
+
 #oneapp Overview
-  match '/overview', to: 'oneapps#overview', via: [:get, :post]
-  match '/runtime', to: 'oneapps#runtime', via: [:get, :post]
-  match '/metrics', to: 'oneapps#metrics', via: [:get, :post]
+  match '/appoverview', to: 'oneapps#overview', via: [:get, :post]
+  match '/appruntime', to: 'oneapps#runtime', via: [:get, :post]
+  match '/applogs', to: 'oneapps#logs', via: [:get, :post]
   match '/oneapp_services', to: 'oneapps#services', via: [:get, :post]
+  
+  
+  #oneservice Overview
+  match '/serviceoverview', to: 'oneservice#overview', via: [:get, :post]
+  match '/serviceruntime', to: 'oneservice#runtime', via: [:get, :post]
+  match '/servicemetrics', to: 'oneservice#metrics', via: [:get, :post]
+  match '/oneservice_services', to: 'oneservice#services', via: [:get, :post]
+  
   
   #Cloud Books
   match '/starter_packs_launch', to: 'marketplaces#starter_packs_create', via: [:get, :post]
@@ -70,7 +77,6 @@ Cloudauth::Application.routes.draw do
   # ...
   #mount Sidekiq::Web, at: '/worker'
 
- match '/reset', to: 'password_resets#new', via: [:get, :post]
 
   #services
   match '/new_store', to: 'services#new_store', via: [:get, :post]
@@ -100,6 +106,7 @@ Cloudauth::Application.routes.draw do
   # ======Dashboard
   get "users/show"
   get "oneapps/show"
+  get "oneservice/show"
   #match '/dashboard_sidebar', to: 'dashboards#dashboard_sidebar', via: [:get]
   #match '/dashboards', to: 'dashboards#index', via: [:get]
   #match '/dashboards/:id' => 'dashboards#index', via: [:get]
@@ -115,6 +122,7 @@ Cloudauth::Application.routes.draw do
  match '/deleteapp', :to => 'main_dashboards#deleteapp', via: [:get]
  match '/app_request', :to => 'main_dashboards#app_request', via: [:get, :post]
  
+ match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :post]
 
  #service lifecycle 
  match '/startservice', :to => 'main_dashboards#startservice', via: [:get]
@@ -132,7 +140,7 @@ Cloudauth::Application.routes.draw do
  
 
   # ========Cloud Books Histories controller
-  match '/node_log', to: 'apps_histories#logs', via: [:get, :post]
+  match '/logs', to: 'apps_histories#logs', via: [:get, :post]
 
   # ==========Cloud settings
   match '/cross_cloud_new', to: 'settings#cross_cloud_new', via: [:get, :post]
@@ -159,8 +167,6 @@ Cloudauth::Application.routes.draw do
   #get "/422", :to => "errors#unacceptable"
   get "/500", :to => "errors#internal_error"
 
-   # =======apps_items_controller
-  match '/apps_items/destroy', to: 'apps_items#destroy', via: [:delete] 
  
   match '/visualCallback', to: 'main_dashboards#visualCallback', via: [:get]
   

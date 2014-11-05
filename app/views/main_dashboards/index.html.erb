@@ -165,6 +165,70 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 				</button>
 				<%= submit_tag "Confirm", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>
 			</div>
+		</div>	
+		<% end %>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade app_exist" id="app_delete" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+	 <%= form_tag delete_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Start App</h4>
+			</div>
+			<div class="modal-body text-center">
+			   <span id="start_app_id"></span>
+			   <span id="start_app_name"></span>
+			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "delete"  %>
+				Are you sure you want to start the app ?
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<button type="button" class="btn default" data-dismiss="modal">
+					Cancel
+				</button>
+				<%= submit_tag "Confirm", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>				
+			</div>
+		</div>
+		<% end %>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+
+
+
+
+<!-- /.modal -->
+<!-- APP DELETE MODAL -->
+<!--
+<div class="modal fade app_exist" id="app_delete" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+	<%= form_tag delete_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Delete App</h4>
+			</div>
+			
+			<div class="modal-body text-center">
+			 <span id="delete_app_id"></span>
+			 <span id="delete_app_name"></span>
+	          	<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "delete"  %>
+
+				Are you sure you want to delete the app ?
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<button type="button" class="btn default" data-dismiss="modal">
+					Cancel
+				</button>
+			<%= submit_tag "Confirm", :class => "btn btn-danger", data: { disable_with: "Please wait..." } %>
+
+			</div>
 		</div>
 		<% end %>
 		<!-- /.modal-content -->
@@ -172,32 +236,7 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-<!-- APP DELETE MODAL -->
-<div class="modal fade" id="app_delete" tabindex="-1" role="basic" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content c_modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">Delete App</h4>
-			</div>
-			<div class="modal-body text-center">
-				Are you sure you want to delete the app ?
-			</div>
-			<div class="modal-footer c_modal-footer">
-				<button type="button" class="btn default" data-dismiss="modal">
-					Cancel
-				</button>
-				<button type="button" class="btn btn-danger">
-					Confirm
-				</button>
-			</div>
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-
+-->
 <div class="modal fade" id="app_postfinish_popup" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content c_modal-content">

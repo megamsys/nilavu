@@ -69,14 +69,16 @@
 									<% end %>
 								</li>
 								<li>
-									<a data-toggle="modal" href="#app_delete"><i class="glyphicon glyphicon-trash"></i>Delete App</a>
+									<%= link_to deleteapp_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-refresh"></i>Delete App
+									<% end %>
 								</li>
 							</ul>
 						</div>
 						<div class="row app_icon">
 							<h5><%= assembly[0].name %></h5>
 							<% appkey = assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain] %>
-							<%= link_to appkey, overview_path(:appkey => assembly[0].id) %>
+							<%= link_to appkey, appoverview_path(:appkey => assembly[0].id) %>
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 								<ul class="list-inline app_icon_bottom">
 									<%  assembly[0].components.each do |com| %>

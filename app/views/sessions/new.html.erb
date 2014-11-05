@@ -58,7 +58,9 @@
 									<span> <a href="signup"><u class="colr-bluegrey">Create new account ? </u></a> </span>
 								</div>
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right tour-btn">
-									<span> <a class="pull-right" href="reset"><u class="colr-denimblue">Forgot password ?</u></a> </span>
+									<span> <a  data-toggle="modal" href="#forgot_password"  class="pull-right" href="#"><u class="colr-denimblue">Forgot password ?</u></a> </span>
+
+
 								</div>
 							</div>
 						</div>
@@ -119,4 +121,84 @@
 		<!-- END LOGIN -->
 	</div>
 </div>
-<!-- END JAVASCRIPTS -->
+
+
+<!-- Forgot password form modal -->
+<div class="modal fade" id="forgot_password" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog" style="max-width:400px">
+       <div class="modal-content">
+          <div class="modal-header">
+             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+             <h4 class="modal-title">Forgot password</h4>
+          </div>
+          <div class="modal-body">
+               <div class="scroller" style="min-height:200px" data-always-visible="1" data-rail-visible1="1">
+                   <div class="row">
+                        <div class="col-md-12">
+                        <div class="form-group">
+<%= form_tag password_resets_path, :method => :post, :remote => true, data: { spinlock: '#creating_sshkeys'}  do %>
+
+                              <label for="ssh-key_name">Email</label>
+<%= text_field_tag :email, nil, :class => 'form-control', :required => true, placeholder: "Email" %>
+                           </div> 
+
+<%= submit_tag "Reset Password", :class => "btn btn-success col-md-12 col-xs-12" %>
+<% end %>
+                        </div>
+                   </div>
+               </div>
+            </div>
+         </div>
+    </div>
+ </div>
+
+
+<div class="modal fade" id="postfinish_reset_password" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Reset Password</h4>
+			</div>
+			<div class="modal-body text-center">
+				<div>
+
+<p>
+			An email has been sent to your registered email address to reset your password
+		</p>
+                                </div>
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<%= link_to  "Ok", root_path, :class => "btn btn-success", :target => "_self" %>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="postfinish_reset_password_error" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Reset Password</h4>
+			</div>
+			<div class="modal-body text-center">
+				<div>
+
+<p>
+			You recently made a request for a lost password. Please Enter a valid megam account email address
+		</p>
+                                </div>
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<%= link_to  "Ok", root_path, :class => "btn btn-success", :target => "_self" %>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+
