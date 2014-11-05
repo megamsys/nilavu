@@ -246,7 +246,7 @@ body
 	border: 2px solid #ed8f8f;
 	color: #f56b6b;
 	font-size: 14px;
-	background-image: url(../img/ico-triangle-warning.png);
+	background-image: url(ico-triangle-warning.png);
 	background-repeat: no-repeat;
 	background-origin: content-box;
 	/*background-position-y: 10px;*/
@@ -292,7 +292,7 @@ body
 }
 .c_ico-excla
 {
-	background-image: url(../img/ico-exclamation.png);
+	background-image: url(ico-exclamation.png);
 	padding: 14px;
 	height: 16px;
 	clear: both;
@@ -304,7 +304,7 @@ body
 }
 .c_ico-tick
 {
-	background-image: url(../img/ico-tick.png);
+	background-image: url(ico-tick.png);
 	padding: 14px;
 	height: 16px;
 	clear: both;
@@ -315,7 +315,7 @@ body
 	margin: 20px;
 }
 .c_ico-arrow-down {
-background-image: url(../img/ico-arrow_down.png);
+background-image: url(ico-arrow_down.png);
 padding: 14px;
 height: 16px;
 clear: both;
@@ -376,26 +376,26 @@ background-color: white;
 }
 
 .twitter {
-  background-image:url(../img/twitter.png);
+  background-image:url(twitter.png);
   background-color:#00ACED;
 }
 
 .facebook {
-  background-image: url(../img/facebook.png);
+  background-image: url(facebook.png);
   background-color:#3B579D;
 }
 
 .google {
-  background-image:url(../img/gplus.png);
+  background-image:url(gplus.png);
   background-color:#DF4A32;
 }
 
 .linkedin {
-  background-color:#006699;background-image:url(../img/linkedin.png);
+  background-color:#006699;background-image:url(linkedin.png);
 }
 
 .github {
-  background-image:url(../img/gh.png);
+  background-image:url(gh.png);
   background-color:white;/*#4183C4*/
 }
 
@@ -430,27 +430,27 @@ background-color: white;
 }
 .c_icon-dash
 {
-	background-image:url(../img/icon-dashboard.png);
+	background-image:url(icon-dashboard.png);
 }
 
 .c_icon-browser
 {
-	background-image:url(../img/icon-browser.png);
+	background-image:url(icon-browser.png);
 }
 
 .c_icon-layer
 {
-	background-image:url(../img/icon-layer.png);
+	background-image:url(icon-layer.png);
 }
 
 .c_icon-stack
 {
-	background-image:url(../img/icon-stack_file.png);
+	background-image:url(icon-stack_file.png);
 }
 
 .c_icon-settings
 {
-	background-image:url(../img/icon-settings.png);
+	background-image:url(icon-settings.png);
 }
 
 .c_icon-rocket
@@ -465,7 +465,7 @@ background-color: white;
 	background-position: center;
 	/* border-radius: 50%; */
 	vertical-align: middle;
-	background-image:url(../img/icon-rocket.png);
+	background-image:url(icon-rocket.png);
 	margin-left: 10px;
 	margin-right: 10px;
 }
@@ -481,7 +481,7 @@ background-color: white;
 	background-position: center;
 	/* border-radius: 50%; */
 	vertical-align: middle;
-	background-image:url(../img/icon-grid.png);
+	background-image:url(icon-grid.png);
 	/*margin-left: 10px;*/
 	margin-right: 10px;
 }
@@ -497,7 +497,7 @@ background-color: white;
 	background-position: center;
 	/* border-radius: 50%; */
 	vertical-align: middle;
-	background-image:url(../img/icon-grid.png);
+	background-image:url(icon-grid.png);
 	/*margin-left: 10px;*/
 	/*margin-right: 10px;*/
 }
@@ -513,7 +513,7 @@ background-color: white;
 	background-position: center;
 	/* border-radius: 50%; */
 	vertical-align: middle;
-	background-image:url(../img/icon-plus.png);
+	background-image:url(icon-plus.png);
 	/*margin-left: 10px;*/
 	/*margin-right: 10px;*/
 }
@@ -530,7 +530,7 @@ background-color: white;
 	background-position: center;
 	/* border-radius: 50%; */
 	vertical-align: middle;
-	background-image:url(../img/icon-star.png);
+	background-image:url(icon-star.png);
 	/*margin-left: 10px;*/
 	/*margin-right: 10px;*/
 }
@@ -547,7 +547,7 @@ background-color: white;
 	background-position: center;
 	/* border-radius: 50%; */
 	vertical-align: middle;
-	background-image:url(../img/icon-window.png);
+	background-image:url(icon-window.png);
 	/*margin-left: 10px;*/
 	/*margin-right: 10px;*/
 }
@@ -564,7 +564,7 @@ background-color: white;
 	background-position: center;
 	/* border-radius: 50%; */
 	vertical-align: middle;
-	background-image:url(../img/icon-window-lg.png);
+	background-image:url(icon-window-lg.png);
 	margin-left: 5px;
 	margin-right: 5px;
 }
@@ -581,7 +581,7 @@ background-color: white;
 	background-position: center;
 	/* border-radius: 50%; */
 	vertical-align: middle;
-	background-image:url(../img/icon-layer.png);
+	background-image:url(icon-layer.png);
 	/*margin-left: 10px;*/
 	margin-right: 10px;
 }
@@ -598,7 +598,7 @@ background-color: white;
 	background-position: center;
 	/* border-radius: 50%; */
 	vertical-align: middle;
-	background-image:url(../img/icon_config.png);
+	background-image:url(icon_config.png);
 	/*margin-left: 10px;*/
 	/*margin-right: 10px;*/
 }
@@ -614,7 +614,7 @@ background-color: white;
 	background-repeat: no-repeat;
 	background-position: center;
 	vertical-align: middle;
-	background-image:url(../img/icon_user.png);
+	background-image:url(icon_user.png);
 	margin-bottom: 15px !important;
 }*/
 .icon-user
@@ -636,7 +636,7 @@ background-color: white;
 	background-position: center;
 	/* border-radius: 50%; */
 	vertical-align: middle;
-	background-image:url(../img/icon-compose.png);
+	background-image:url(icon-compose.png);
 	margin-bottom: 3px !important;
 	margin-right: 5px;
 }
@@ -652,7 +652,7 @@ background-color: white;
 	background-position: center;
 	/* border-radius: 50%; */
 	vertical-align: middle;
-	background-image:url(../img/icon-import.png);
+	background-image:url(icon-import.png);
 	margin-bottom: 3px !important;
 	margin-right: 5px;
 }
@@ -669,7 +669,7 @@ background-color: white;
 	background-position: center;
 	/* border-radius: 50%; */
 	vertical-align: middle;
-	background-image:url(../img/icon-calendar.png);
+	background-image:url(icon-calendar.png);
 	margin-bottom: 3px !important;
 	margin-right: 5px;
 }
@@ -686,7 +686,7 @@ background-color: white;
 	background-position: center;
 	/* border-radius: 50%; */
 	vertical-align: middle;
-	background-image:url(../img/icon-sett.png);
+	background-image:url(icon-sett.png);
 	margin-bottom: 3px !important;
 	margin-right: 5px;
 }
@@ -703,7 +703,7 @@ background-color: white;
 	background-position: center;
 	/* border-radius: 50%; */
 	vertical-align: middle;
-	background-image:url(../img/icon-in.png);
+	background-image:url(icon-in.png);
 	margin-bottom: 3px !important;
 	margin-right: 5px;
 }
@@ -720,7 +720,7 @@ background-color: white;
 	background-position: center;
 	/* border-radius: 50%; */
 	vertical-align: middle;
-	background-image:url(../img/icon-in-blue.png);
+	background-image:url(icon-in-blue.png);
 	margin-bottom: 3px !important;
 	margin-right: 5px;
 }

@@ -1,0 +1,7 @@
+var selected_entity = '#cloud_init_form';
+
+var to_insert_content = "<%= escape_javascript(render :partial => 'cross_clouds/'+@provider+'_api_form', :locals => {:selected_cloud => @provider}) %>";
+insertAt(selected_entity, to_insert_content);
+
+$('#crosscloud_init_popup').modal({ show : true});
+

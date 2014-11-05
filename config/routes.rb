@@ -152,6 +152,7 @@ Cloudauth::Application.routes.draw do
   match '/sshkey_import', to: 'ssh_keys#sshkey_import', via: [:get, :post] 
   match '/ssh_key_import', to: 'ssh_keys#ssh_key_import', via: [:get, :post]
   match '/cloud_selector', to: 'cross_clouds#cloud_selector', via: [:get, :post]
+  match '/cloud_init', to: 'cross_clouds#cloud_init', via: [:get, :post]
   #get '/selectclouds' => 'settings#cloud_selector'
   #match '/selectclouds', to: 'cross_clouds#new', via: [:get, :post]
   #match '/market_place_app_show', to: 'marketplaces#market_place_app_show', via: [:get, :post]
