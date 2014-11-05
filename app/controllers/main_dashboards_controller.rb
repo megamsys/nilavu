@@ -13,7 +13,7 @@ class MainDashboardsController < ApplicationController
           if asm.class != Megam:: Error
             asm.assemblies.each do |assembly|
               if assembly != nil
-                if assembly[0].class != Megam::Error          
+                if assembly[0].class != Megam::Error
                   assembly[0].components.each do |com|
                     if com != nil
                       com.each do |c|
@@ -84,6 +84,36 @@ class MainDashboardsController < ApplicationController
     end
   end
 
+  def deleteapp
+    puts params
+    @id = params[:id]
+    @name = params[:name]
+    respond_to do |format|
+      format.js {
+        respond_with(@id, @name, :layout => !request.xhr? )
+      }
+    end
+  end
+
+  def delete_request
+    logger.debug "--> Apps:Delete_request, #{params}"
+    options = {:app_id => "#{params[:app_id]}", :app_name => "#{params[:app_name]}", :action => "#{params[:command]}"}
+    defnd_result = CreateRequests.perform(options, force_api[:email], force_api[:api_key])
+    if params[:command] == "delete"
+      @res_msg = "App #{params[:command]}ed successfully"
+    end
+    @err_msg = nil
+    if defnd_result.class == Megam::Error
+      @res_msg = nil
+      @err_msg = ActionController::Base.helpers.link_to 'Contact Support', "http://support.megam.co/"
+      respond_to do |format|
+        format.js {
+          respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
+        }
+      end
+    end
+  end
+
   def app_request
     logger.debug "--> Apps:Build_request, #{params}"
     options = {:app_id => "#{params[:app_id]}", :app_name => "#{params[:app_name]}", :action => "#{params[:command]}"}
@@ -103,7 +133,6 @@ class MainDashboardsController < ApplicationController
         }
       end
     end
-
   end
 
 end

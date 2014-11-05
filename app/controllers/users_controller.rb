@@ -74,6 +74,8 @@ class UsersController < ApplicationController
         logger.debug "==> Controller: users, Action: create, User onboarded successfully"
         @user.update_columns(:onboarded_api => true, :api_token => api_token)
 
+        @user.send_welcome_email                                #WELCOME EMAIL
+
         #redirect_to main_dashboards_path, :gflash => { :success => { :value => "Hi #{@user.first_name}, #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
         redirect_to main_dashboards_path, :notice => "Welcome #{@user.first_name}."
       else
@@ -99,6 +101,10 @@ class UsersController < ApplicationController
     logger.debug "==> Controller: users, Action: edit, Start edit"
     @orgs = list_organizations
     @user= User.find(params[:id])
+    puts "--acctt-------------------"
+    #@accounts= list_accounts
+    puts "---------------------"
+    puts @accounts.inspect
     @user
   end
 
@@ -173,5 +179,18 @@ class UsersController < ApplicationController
     end
     orgs
   end
+  
+  def list_accounts
+    logger.debug "--> #{self.class} : list accounts entry"
+    acct_collection = ListAccounts.perform(force_api[:email], force_api[:api_key])
+    accts = []
 
+    if acct_collection.class != Megam::Error
+      acct_collection.each do |one_acct|
+        accts << {:name => one_acct.api_key, :created_at => one_acct.created_at.to_time.to_formatted_s(:rfc822)}
+      end
+      accts = accts.sort_by {|vn| vn[:created_at]}
+    end
+    accts
+  end
 end

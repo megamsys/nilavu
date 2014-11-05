@@ -56,7 +56,7 @@ class MakeAssemblies
       end
       value = {
         "name"=>"#{name}",
-        "tosca_type"=>"tosca.web.#{c}",
+        "tosca_type"=>"#{options[:ttype]}#{c}",
         "requirements"=> {
           "host"=>"#{options[:cloud]}",
           "dummy"=>""
