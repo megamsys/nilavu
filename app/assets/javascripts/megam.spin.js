@@ -24,6 +24,8 @@ jQuery(document).ready(function() {
 
 });
 
+
+
 function removeAt(selector_to_remove) {
     $(selector_to_remove).remove();
     console.log('removed :' + selector_to_remove);

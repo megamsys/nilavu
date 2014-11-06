@@ -23,9 +23,6 @@ end
 
   def create
     logger.debug "CROSS CLOUD CREATE PARAMS ============> "
-    puts "+++++++++++++++++++++++++"
-    puts params[:provider]
-    puts get_provider_value(params[:provider])
 if Rails.configuration.storage_type == "s3"
     vault_loc = vault_base_url+"/"+current_user.email+"/"+params[:name]
     sshpub_loc = vault_base_url+"/"+current_user.email+"/"+params[:id_rsa_public_key]
@@ -36,12 +33,13 @@ end
     #private_key = (params[:private_key]) ? cross_cloud_bucket+"/"+current_user.email+"/"+params[:name]+"/"+File.basename(params[:private_key]) : ""
     if params[:provider] != "profitbricks"
       #private_key = ((params[:private_key].original_filename).length > 0) ? cross_cloud_bucket+"/"+current_user.email+"/"+params[:name]+"/"+params[:private_key].original_filename : ""
-      wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group],  :image => params[:image], :flavor => params[:flavor], :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => sshpub_loc, :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
+      wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group],  :image => params[:image].split(',').last.partition(':').last, :flavor => params[:flavor].split(',').last.partition(':').last, :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => sshpub_loc, :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
     else
-      wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group],  :image => params[:image], :flavor => params[:flavor], :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => "", :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
+      wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group],  :image => params[:image].split(',').last.partition(':').last, :flavor => params[:flavor].split(',').last.partition(':').last, :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => "", :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
     end
 
     if params[:provider] == "profitbricks"
+        #Profitbricks flavor parsing has to be decided yet
       wparams[:spec][:flavor] = "cpus=#{params[:cpus]},ram=#{params[:ram]},hdd-size=#{params[:flavor]}"
     end
     if params[:provider] == "GoGrid"
@@ -117,10 +115,24 @@ end
     @provider = params[:cloud]
     if params[:cloud] == "aws"
       @provider_form_name = "Amazon EC2"
-    elsif params[:cloud] == "gce"
-      @provider_form_name = "Google Compute Engine"
+        list_aws_data(params[:aws_access_key], params[:aws_secret_key], params[:region])
+        @images = @aws_imgs
+        @flavors = @aws_flavors
+        @keypairs = @aws_keypairs
+        @groups = @aws_groups
+        @credentials = {"aws_access_key" => "#{params[:aws_access_key]}", "aws_secret_key" => "#{params[:aws_secret_key]}", "region" => "#{params[:region]}"}
+
     elsif params[:cloud] == "hp"
       @provider_form_name = "hp cloud"
+        list_hp_data(params[:hp_access_key], params[:hp_secret_key], params[:tenant_id], params[:region])
+        @images = @hp_imgs
+        @flavors = @hp_flavors
+        @keypairs = @hp_keypairs
+        @groups = []
+        @credentials = {"hp_access_key" => "#{params[:hp_access_key]}", "hp_secret_key" => "#{params[:hp_secret_key]}", "tenant_id" => "#{params[:tenant_id]}", "region" => "#{params[:region]}"}
+
+    elsif params[:cloud] == "gce"
+      @provider_form_name = "Google Compute Engine"
     elsif params[:cloud] == "profitbricks"
       @provider_form_name = "profitbricks"
     elsif params[:cloud] == "gogrid"
@@ -132,13 +144,14 @@ end
     end
     respond_to do |format|
       format.js {
-        respond_with(@provider, @provider_form_name, @ssh_keys, :layout => !request.xhr? )
+        respond_with(@provider, @provider_form_name, @credentials, @images, @flavors, @keypairs, @groups, @ssh_keys, :layout => !request.xhr? )
       }
       format.html {
         redirect_to new_cross_cloud_path
       }
     end
   end
+
 
   def list_sshkeys
     logger.debug "--> #{self.class} : list sshkeys entry"
