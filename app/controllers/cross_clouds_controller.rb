@@ -111,20 +111,6 @@ end
 
   end
 
-  def cloud_init
-    list_sshkeys
-    @provider = params[:cloud]
-    respond_to do |format|
-      format.js {
-        respond_with(@provider, :layout => !request.xhr? )
-      }
-      format.html {
-        redirect_to new_cross_cloud_path
-      }
-    end
-  end
-
-
   def cloud_selector
     list_sshkeys
     @provider = params[:cloud]
@@ -136,10 +122,18 @@ end
         @keypairs = @aws_keypairs
         @groups = @aws_groups
         @credentials = {"aws_access_key" => "#{params[:aws_access_key]}", "aws_secret_key" => "#{params[:aws_secret_key]}", "region" => "#{params[:region]}"}
-    elsif params[:cloud] == "gce"
-      @provider_form_name = "Google Compute Engine"
+
     elsif params[:cloud] == "hp"
       @provider_form_name = "hp cloud"
+        list_hp_data(params[:hp_access_key], params[:hp_secret_key], params[:tenant_id], params[:region])
+        @images = @hp_imgs
+        @flavors = @hp_flavors
+        @keypairs = @hp_keypairs
+        @groups = []
+        @credentials = {"hp_access_key" => "#{params[:hp_access_key]}", "hp_secret_key" => "#{params[:hp_secret_key]}", "tenant_id" => "#{params[:tenant_id]}", "region" => "#{params[:region]}"}
+
+    elsif params[:cloud] == "gce"
+      @provider_form_name = "Google Compute Engine"
     elsif params[:cloud] == "profitbricks"
       @provider_form_name = "profitbricks"
     elsif params[:cloud] == "gogrid"

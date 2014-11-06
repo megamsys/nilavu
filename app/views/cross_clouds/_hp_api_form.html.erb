@@ -1,0 +1,32 @@
+<div class="modal-body text-center">
+	<div class="input-group margin-top-10">
+		<%= text_field_tag 'hp_access_key', nil, placeholder: 'Enter HP Access key' , :required => true, :class =>"form-control" %>
+		<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
+	</div>
+
+	<div class="input-group margin-top-10">
+		<%= text_field_tag 'hp_secret_key', nil, placeholder: 'Enter HP Secret key', :required => true, :class =>"form-control" %>
+		<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
+	</div>
+
+	<div class="input-group margin-top-10">
+		<%= text_field_tag 'tenant_id', nil, placeholder: 'Enter Tenant id' , :required => true, :class =>"form-control" %>
+		<span class="input-group-addon" ><i class="icon-question-sign"></i></span>
+	</div>
+
+	<div class="input-group margin-top-10">
+		<%= text_field_tag 'region', nil, placeholder: 'Enter HP Region' , :required => true, :class =>"form-control" %>
+		<span class="input-group-addon" ><i class="icon-question-sign"></i></span>
+	</div>
+
+	<input type="hidden" name="cloud" value="hp">
+
+</div>
+<div class="modal-footer c_modal-footer">
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+		<%= submit_tag "Login with HP", :style => "width:250px; height:50px;", :class => "btn btn-default c_btn_gplus" %>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+		<a href="https://horizon.hpcloud.com/"> Create a new HP account </a>
+	</div>
+</div>

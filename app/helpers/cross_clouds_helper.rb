@@ -63,6 +63,7 @@ module CrossCloudsHelper
     @value
   end
 
+  #=======================> AWS <========================
   def list_aws_data(access_key, secret_key, region)
     connection = Fog::Compute.new(
     :provider => 'AWS',
@@ -74,14 +75,12 @@ module CrossCloudsHelper
     img = connection.images.all({"owner-id" => "915134024303"})
     img.each do |i|
       @aws_imgs.push({"id" => "#{i.id}", "name" => "#{i.name}"})
-    #@aws_imgs.push("Name:#{i.name}, Id:#{i.id}")
     end
 
     #List Flavors
     @aws_flavors=[]
     connection.flavors.each do |f|
       @aws_flavors.push({"id" => "#{f.id}", "ram" => "#{f.ram}", "core" => "#{f.cores}", "disk" => "#{f.disk}"})
-    #@aws_flavors.push("Ram:#{f.ram}, Core:#{f.cores}, Disk:#{f.disk}, Id:#{f.id}")
     end
 
     #List Keypairs
@@ -98,6 +97,52 @@ module CrossCloudsHelper
 
     return @aws_imgs, @aws_flavors, @aws_keypairs, @aws_groups
 
+  end
+
+  #=======================> HP <========================
+  def list_hp_data(access_key, secret_key, tenant_id, zone)
+    avl_zone = hp_availability_zone(zone)
+    connection = Fog::Compute.new(
+    :provider => 'HP',
+    :version => :v2,
+    :hp_auth_uri => 'https://region-a.geo-1.identity.hpcloudsvc.com:35357/v2.0/',
+    :hp_access_key => "#{access_key}",
+    :hp_secret_key => "#{secret_key}",
+    :hp_tenant_id => "#{tenant_id}",
+    :hp_avl_zone => "#{avl_zone}" )
+
+    #List Images
+    @hp_imgs=[]
+    img = connection.images.all({"name" => "drbd-rsyslog"})
+    img.each do |i|
+      @hp_imgs.push({"id" => "#{i.id}", "name" => "#{i.name}"})
+    end
+
+    #List Flavors
+    @hp_flavors=[]
+    connection.flavors.each do |f|
+      @hp_flavors.push({"id" => "#{f.id}", "name" => "#{f.name}"})
+    end
+
+    #List Keypairs
+    @hp_keypairs=[]
+    connection.key_pairs.each do |k|
+      @hp_keypairs.push("#{k.name}")
+    end
+
+    return @aws_imgs, @aws_flavors, @aws_keypairs
+
+  end
+
+  def hp_availability_zone(zone)
+    case "#{zone}"
+    when 'az3'
+      return 'az-3.region-a.geo-1'
+    when 'az2'
+      return 'az-2.region-a.geo-1'
+    else
+    return 'az-1.region-a.geo-1'
+    end
   end
 
 end
