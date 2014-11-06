@@ -1,7 +1,4 @@
-h3
-{
-font-weight: normal;
-}
+h3{font-weight: normal;}
 select.form-control
 {
 	border-radius:2px !important;
@@ -749,6 +746,7 @@ background-color: white;
 {
 	border-left: 1px solid #e6e6e6;
 	padding-top: 80px;
+	min-height: 540px;
 }
 .main-cover
 {
@@ -875,6 +873,7 @@ background-color: white;
 	margin-right: 5px;
 	margin-left: 5px;
 }
+}
 .portlet-title
 {
 	border: 2px solid #70b1ee;
@@ -925,6 +924,8 @@ background-color: white;
 	list-style: none;
 	border-bottom: 1px solid #e5e6ef;
 	padding: 5px 0px 5px 0px;
+	text-align: left;
+	margin-left: 15px;
 }
 .config_menu li a
 {
@@ -1172,6 +1173,10 @@ background-color: white;
 {
 	margin-left: 30px;
 	margin-right: 30px;
+	color: #5a97cf;
+}
+.mplace-title
+{
 	color: #5a97cf;
 }
 .mplace-head
@@ -1515,6 +1520,11 @@ a.btn-success:hover
 	margin-right: 31px;
 }
 
+.footer-menu
+{
+	margin-top: 30px;
+}
+
 /* Custom, iPhone Retina */ 
 @media only screen and (min-width : 320px) {
 
@@ -1539,7 +1549,7 @@ a.btn-success:hover
 	}
 	.page-sidebar-menu > li > a 
 	{	   
-		position: absolute !important;
+		position: absolute; !important;
 	}
 	.label-profile
 	{
@@ -1583,4 +1593,20 @@ a.btn-success:hover
 	{
 		margin-top: 15px !important;
 	}
+}
+
+.profile-actions a
+{
+	margin-left: 10px;
+	margin-right: 10px;
+}
+.profile-actions a i
+{
+	margin-right: 5px;
+}
+.modal
+{
+transform: translate(0, 20%) !important;
+-ms-transform: translate(0, 20%) !important; /* IE 9 */
+-webkit-transform: translate(0, 20%) !important; /* Safari and Chrome */
 }

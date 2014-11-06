@@ -1,9 +1,7 @@
 <% content_for :oneapp_contents do %>
 <% provide(:title, 'Metrics') %>
 
-
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9" ng-controller="LogCtrl" data-ng-init="sendmessage('<%= @appname %>')">
-
 
 	<div class="row c_pading-b15 settings_top">
 		<div class="margin_15">
@@ -15,41 +13,47 @@
 		</div>
 	</div>
 
-	<div class="col-sm-9 col-md-9 col-lg-9">
-		<div class="panel panel-primary" >
-			<div class="panel-heading" 	 us-spinner="{radius:30, width:8, length: 16}" spinner-key="spinner-1">
-				<div class="row">
-					<label class="col-sm-7 col-md-7 col-lg-8 control-label">{{bookName}}</label>
-					<div class="col-sm-5 col-md-5 col-lg-4">
-						<span class="pull-right"><a href="http://monitor.megam.co.in/kibana/#/dashboard/file/{{bookName}}.json" target="_blank" class="btn btn-pink btn-xs"><strong>Offline Log : {{bookName}} </strong></a></span>
-					</div>
-				</div>
-			</div>
-			<div class="panel-body nopadding" style=" height:500px; overflow-y: scroll;">
-				<table class="table table-bordered table-striped table-hover" >
-					<thead>
-						<tr>
-							<th class="col-md-3">Timestamp <!-- <span class="label label-default">{{logTimezone }}</span>--></th>
-							<th class="col-md-9">Message</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
-							<td>
-							<p>
-								<small> {{ log.timestamp | date:'d MMM yy, hh:mm a Z' }}</small>
-							</p></td>
-							<td>
-							<p>
-								<small>{{log.message }}</small>
-							</p></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+	<div class="row" style="max-height:500px; overflow-y:scroll">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+			<h4>App Log</h4>
+			<div class="bottom-divider"></div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+			<table class="table tb_action_list">
+				<thead>
+					<tr>
+						<th>Timestamp</th>
+						<th>Message</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
+						<td>
+						<p>
+							<small> {{ log.timestamp | date:'d MMM yy, hh:mm a Z' }}</small>
+						</p></td>
+						<td>
+						<p>
+							<small>{{log.message }}</small>
+						</p></td>
+					</tr>
+
+					<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
+						<td>
+						<p>
+							<small> {{ log.timestamp | date:'d MMM yy, hh:mm a Z' }}</small>
+						</p></td>
+						<td>
+						<p>
+							<small>{{log.message }}</small>
+						</p></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 	</div>
-
 </div>
+
 <% end %>
 <%= render :template => oneapps_show_path %>
