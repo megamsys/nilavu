@@ -3,13 +3,17 @@
 
 <% if flash[:notice] %>
 <script>
-$("#events").prepend('<li><a href=""><span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> <%= flash[:notice] %> <span class="time">Just now</span></a></li>');
+$("#events").prepend('<li><a href=""><span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> <%= flash[:notice] %>
+    <span class=
+    "time" > Just now</span></a></li>');
 </script>
 <% end %>
 
 <% if flash[:alert] %>
 <script>
-$("#events").prepend('<li><a href=""><span class="label label-sm label-icon label-danger"><i class="icon-plus"></i></span> <%= flash[:notice] %> <span class="time">Just now</span></a></li>');
+$("#events").prepend('<li><a href=""><span class="label label-sm label-icon label-danger"><i class="icon-plus"></i></span> <%= flash[:notice] %>
+    <span class=
+    "time" > Just now</span></a></li>');
 </script>
 <% end %>
 
@@ -89,23 +93,23 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 <!-- APP START MODAL -->
 <div class="modal fade app_exist" id="app_start" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-	 <%= form_tag app_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag app_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 				<h4 class="modal-title">Start App</h4>
 			</div>
 			<div class="modal-body text-center">
-			   <span id="start_app_id"></span>
-			   <span id="start_app_name"></span>
-			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "start"  %>
+				<span id="start_app_id"></span>
+				<span id="start_app_name"></span>
+				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "start"  %>
 				Are you sure you want to start the app ?
 			</div>
 			<div class="modal-footer c_modal-footer">
 				<button type="button" class="btn default" data-dismiss="modal">
 					Cancel
 				</button>
-				<%= submit_tag "Confirm", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>				
+				<%= submit_tag "Confirm", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>
 			</div>
 		</div>
 		<% end %>
@@ -118,16 +122,16 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 <!-- APP STOP MODAL -->
 <div class="modal fade app_exist" id="app_stop" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-	 <%= form_tag app_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag app_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 				<h4 class="modal-title">Stop App</h4>
 			</div>
 			<div class="modal-body text-center">
-			   <span id="stop_app_id"></span>
-			   <span id="stop_app_name"></span>
-			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "stop"  %>
+				<span id="stop_app_id"></span>
+				<span id="stop_app_name"></span>
+				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "stop"  %>
 				Are you sure you want to stop the app ?
 			</div>
 			<div class="modal-footer c_modal-footer">
@@ -147,16 +151,16 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 <!-- APP RESTART MODAL -->
 <div class="modal fade app_exist" id="app_restart" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-	 <%= form_tag app_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag app_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 				<h4 class="modal-title">Restart App</h4>
 			</div>
 			<div class="modal-body text-center">
-			   <span id="restart_app_id"></span>
-			   <span id="restart_app_name"></span>
-			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "restart"  %>
+				<span id="restart_app_id"></span>
+				<span id="restart_app_name"></span>
+				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "restart"  %>
 				Are you sure you want to restart the app ?
 			</div>
 			<div class="modal-footer c_modal-footer">
@@ -165,60 +169,27 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 				</button>
 				<%= submit_tag "Confirm", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>
 			</div>
-		</div>	
-		<% end %>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
-
-<div class="modal fade app_exist" id="app_delete" tabindex="-1" role="basic" aria-hidden="true">
-	<div class="modal-dialog">
-	 <%= form_tag delete_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
-		<div class="modal-content c_modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">Start App</h4>
-			</div>
-			<div class="modal-body text-center">
-			   <span id="start_app_id"></span>
-			   <span id="start_app_name"></span>
-			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "start"  %>
-				Are you sure you want to start the app ?
-			</div>
-			<div class="modal-footer c_modal-footer">
-				<button type="button" class="btn default" data-dismiss="modal">
-					Cancel
-				</button>
-				<%= submit_tag "Confirm", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>				
-			</div>
 		</div>
 		<% end %>
 		<!-- /.modal-content -->
 	</div>
 	<!-- /.modal-dialog -->
 </div>
-
-
-
-
-
 <!-- /.modal -->
 <!-- APP DELETE MODAL -->
-<!--
 <div class="modal fade app_exist" id="app_delete" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-	<%= form_tag delete_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag delete_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 				<h4 class="modal-title">Delete App</h4>
 			</div>
-			
+
 			<div class="modal-body text-center">
-			 <span id="delete_app_id"></span>
-			 <span id="delete_app_name"></span>
-	          	<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "delete"  %>
+				<span id="delete_app_id"></span>
+				<span id="delete_app_name"></span>
+				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "delete"  %>
 
 				Are you sure you want to delete the app ?
 			</div>
@@ -226,7 +197,7 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 				<button type="button" class="btn default" data-dismiss="modal">
 					Cancel
 				</button>
-			<%= submit_tag "Confirm", :class => "btn btn-danger", data: { disable_with: "Please wait..." } %>
+				<%= submit_tag "Confirm", :class => "btn btn-danger", data: { disable_with: "Please wait..." } %>
 
 			</div>
 		</div>
@@ -236,7 +207,7 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
--->
+
 <div class="modal fade" id="app_postfinish_popup" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content c_modal-content">
@@ -266,7 +237,7 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 			<div class="modal-body text-center">
 				Whew! Failed to App Request published.
 				</br>
-						<div id="app_err_msg"></div>
+				<div id="app_err_msg"></div>
 			</div>
 			<div class="modal-footer c_modal-footer">
 				<%= link_to  "Ok", main_dashboards_path, :class => "btn btn-success", :target => "_self" %>
@@ -277,33 +248,26 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 	<!-- /.modal-dialog -->
 </div>
 
-
-
-
-
-
-
-
 <!-- SERVICE START MODAL -->
 <div class="modal fade app_exist" id="service_start" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-	 <%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 				<h4 class="modal-title">Start Service</h4>
 			</div>
 			<div class="modal-body text-center">
-			   <span id="start_service_id"></span>
-			   <span id="start_service_name"></span>
-			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "start"  %>
+				<span id="start_service_id"></span>
+				<span id="start_service_name"></span>
+				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "start"  %>
 				Are you sure you want to start the service ?
 			</div>
 			<div class="modal-footer c_modal-footer">
 				<button type="button" class="btn default" data-dismiss="modal">
 					Cancel
 				</button>
-				<%= submit_tag "Confirm", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>				
+				<%= submit_tag "Confirm", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>
 			</div>
 		</div>
 		<% end %>
@@ -315,16 +279,16 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 <!-- SERVICE STOP MODAL -->
 <div class="modal fade app_exist" id="service_stop" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-	 <%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 				<h4 class="modal-title">Stop Service</h4>
 			</div>
 			<div class="modal-body text-center">
-			   <span id="stop_service_id"></span>
-			   <span id="stop_service_name"></span>
-			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "stop"  %>
+				<span id="stop_service_id"></span>
+				<span id="stop_service_name"></span>
+				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "stop"  %>
 				Are you sure you want to stop the service ?
 			</div>
 			<div class="modal-footer c_modal-footer">
@@ -343,16 +307,16 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 <!-- SERVICE RESTART MODAL -->
 <div class="modal fade app_exist" id="service_restart" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-	 <%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 				<h4 class="modal-title">Restart Service</h4>
 			</div>
 			<div class="modal-body text-center">
-			   <span id="restart_service_id"></span>
-			   <span id="restart_service_name"></span>
-			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "restart"  %>
+				<span id="restart_service_id"></span>
+				<span id="restart_service_name"></span>
+				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "restart"  %>
 				Are you sure you want to restart the service ?
 			</div>
 			<div class="modal-footer c_modal-footer">
@@ -394,28 +358,26 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 </div>
 <!-- /.modal -->
 
-
-
 <!-- ADDON START MODAL -->
 <div class="modal fade app_exist" id="addon_start" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-	 <%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 				<h4 class="modal-title">Start Addon</h4>
 			</div>
 			<div class="modal-body text-center">
-			   <span id="start_addon_id"></span>
-			   <span id="start_addon_name"></span>
-			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "start"  %>
+				<span id="start_addon_id"></span>
+				<span id="start_addon_name"></span>
+				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "start"  %>
 				Are you sure you want to start the addon ?
 			</div>
 			<div class="modal-footer c_modal-footer">
 				<button type="button" class="btn default" data-dismiss="modal">
 					Cancel
 				</button>
-				<%= submit_tag "Confirm", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>				
+				<%= submit_tag "Confirm", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>
 			</div>
 		</div>
 		<% end %>
@@ -425,20 +387,19 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 </div>
 <!-- /.modal -->
 
-
 <!-- ADDON STOP MODAL -->
 <div class="modal fade app_exist" id="service_stop" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-	 <%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 				<h4 class="modal-title">Stop Service</h4>
 			</div>
 			<div class="modal-body text-center">
-			   <span id="stop_service_id"></span>
-			   <span id="stop_service_name"></span>
-			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "stop"  %>
+				<span id="stop_service_id"></span>
+				<span id="stop_service_name"></span>
+				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "stop"  %>
 				Are you sure you want to stop the service ?
 			</div>
 			<div class="modal-footer c_modal-footer">
@@ -457,16 +418,16 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 <!-- ADDON RESTART MODAL -->
 <div class="modal fade app_exist" id="service_restart" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-	 <%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 				<h4 class="modal-title">Restart Service</h4>
 			</div>
 			<div class="modal-body text-center">
-			   <span id="restart_service_id"></span>
-			   <span id="restart_service_name"></span>
-			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "restart"  %>
+				<span id="restart_service_id"></span>
+				<span id="restart_service_name"></span>
+				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "restart"  %>
 				Are you sure you want to restart the service ?
 			</div>
 			<div class="modal-footer c_modal-footer">
@@ -507,8 +468,6 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 	<!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
-
 
 <% end %>
 <%= render :template => users_show_path %>

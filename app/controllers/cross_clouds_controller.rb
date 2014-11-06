@@ -27,7 +27,6 @@ if Rails.configuration.storage_type == "s3"
     vault_loc = vault_base_url+"/"+current_user.email+"/"+params[:name]
     sshpub_loc = vault_base_url+"/"+current_user.email+"/"+params[:id_rsa_public_key]
 else
-         {accesskey:"",  secretkey:""}
      vault_loc = current_user.email+"_"+params[:name]
     sshpub_loc = current_user.email+"_"+params[:id_rsa_public_key]    #Riak changes
 end

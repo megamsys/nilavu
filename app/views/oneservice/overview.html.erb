@@ -39,7 +39,7 @@
 						<!-- <button class="btn green" type="button" data-toggle="dropdown">CODE</button> -->
 					</div>
 					<div class="col-xs-3 overview-submit">
-					<a href="<%= @assembly.components[0][0].inputs[:source] %>" target="_blank" class="btn green">CODE</a>
+						<a href="<%= @assembly.components[0][0].inputs[:source] %>" target="_blank" class="btn green">CODE</a>
 					</div>
 				</div>
 			</div>
@@ -171,6 +171,7 @@
 									<% end %>
 									<% end %>
 									<% end %>
+									<% end %>
 							</div>
 						</div>
 						<!-- <img class="center-block" src="assets/img/app2.png"> -->
@@ -190,27 +191,26 @@
 
 </div>
 
-
 <!-- APP START MODAL -->
 <div class="modal fade app_exist" id="service_start" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-	 <%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 				<h4 class="modal-title">Start App</h4>
 			</div>
 			<div class="modal-body text-center">
-			   <span id="start_service_id"></span>
-			   <span id="start_service_name"></span>
-			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "start"  %>
+				<span id="start_service_id"></span>
+				<span id="start_service_name"></span>
+				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "start"  %>
 				Are you sure you want to start the App?
 			</div>
 			<div class="modal-footer c_modal-footer">
 				<button type="button" class="btn default" data-dismiss="modal">
 					Cancel
 				</button>
-				<%= submit_tag "Confirm", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>				
+				<%= submit_tag "Confirm", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>
 			</div>
 		</div>
 		<% end %>
@@ -223,16 +223,16 @@
 <!-- APP STOP MODAL -->
 <div class="modal fade app_exist" id="service_stop" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-	 <%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 				<h4 class="modal-title">Stop App</h4>
 			</div>
 			<div class="modal-body text-center">
-			   <span id="stop_app_id"></span>
-			   <span id="stop_app_name"></span>
-			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "stop"  %>
+				<span id="stop_app_id"></span>
+				<span id="stop_app_name"></span>
+				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "stop"  %>
 				Are you sure you want to stop the App?
 			</div>
 			<div class="modal-footer c_modal-footer">
@@ -252,16 +252,16 @@
 <!-- APP RESTART MODAL -->
 <div class="modal fade app_exist" id="service_restart" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-	 <%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 				<h4 class="modal-title">Restart App</h4>
 			</div>
 			<div class="modal-body text-center">
-			   <span id="restart_service_id"></span>
-			   <span id="restart_service_name"></span>
-			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "restart"  %>
+				<span id="restart_service_id"></span>
+				<span id="restart_service_name"></span>
+				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "restart"  %>
 				Are you sure you want to restart the App?
 			</div>
 			<div class="modal-footer c_modal-footer">
@@ -332,7 +332,7 @@
 			<div class="modal-body text-center">
 				Whew! Failed to App Request published.
 				</br>
-						<div id="app_err_msg"></div>
+				<div id="app_err_msg"></div>
 			</div>
 			<div class="modal-footer c_modal-footer">
 				<%= link_to  "Ok", main_dashboards_path, :class => "btn btn-success", :target => "_self" %>
@@ -342,7 +342,6 @@
 	</div>
 	<!-- /.modal-dialog -->
 </div>
-
 
 <% end %>
 <%= render :template => oneservice_show_path %>

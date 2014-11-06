@@ -23,6 +23,7 @@ class MegamRiak
   def self.riak_bucket(bucket_name)
     client = Riak::Client.new(:nodes => [
       {:host => "#{Rails.configuration.storage_server_url}"}
+   #    {:host => "167.88.40.75" }
     ])
     client.bucket(bucket_name)
   end
