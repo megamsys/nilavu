@@ -55,6 +55,11 @@ Cloudauth::Application.routes.draw do
   match '/servicemetrics', to: 'oneservice#metrics', via: [:get, :post]
   match '/oneservice_services', to: 'oneservice#services', via: [:get, :post]
   
+  #oneaddons Overview
+  match '/addonsoverview', to: 'oneaddons#overview', via: [:get, :post]
+  match '/addonsruntime', to: 'oneaddons#runtime', via: [:get, :post]
+  match '/addonslogs', to: 'oneaddons#logs', via: [:get, :post]
+  match '/oneaddons_services', to: 'oneaddons#services', via: [:get, :post]
   
   #Cloud Books
   match '/starter_packs_launch', to: 'marketplaces#starter_packs_create', via: [:get, :post]
@@ -132,11 +137,11 @@ Cloudauth::Application.routes.draw do
  match '/service_request', :to => 'main_dashboards#service_request', via: [:get, :post]
  
  #addon lifecycle
- match '/startaddon', :to => 'main_dashboards#startaddon', via: [:get]
- match '/stopaddon', :to => 'main_dashboards#stopaddon', via: [:get]
- match '/restartaddon', :to => 'main_dashboards#restartaddon', via: [:get]
- match '/deleteaddon', :to => 'main_dashboards#deleteaddon', via: [:get]
- match '/addon_request', :to => 'main_dashboards#addon_request', via: [:get, :post]
+ match '/startaddon', :to => 'oneaddons#startaddon', via: [:get]
+ match '/stopaddon', :to => 'oneaddons#stopaddon', via: [:get]
+ match '/restartaddon', :to => 'oneaddons#restartaddon', via: [:get]
+ match '/deleteaddon', :to => 'oneaddons#deleteaddon', via: [:get]
+ match '/addon_request', :to => 'oneaddons#addon_request', via: [:get, :post]
  
 
   # ========Cloud Books Histories controller
