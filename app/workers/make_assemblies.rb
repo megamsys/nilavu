@@ -9,6 +9,7 @@ class MakeAssemblies
           "components"=> build_components(options),
           "policies"=>build_policies(options),
           "inputs"=>"",
+          "output"=>[],
           "operations"=>"",
         }
       ],
