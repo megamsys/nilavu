@@ -27,22 +27,22 @@
 						<div class="config_menu config_menu_<%= c.name %>">
 							<ul>
 								<li>
-									<%= link_to startaddon_path(:id => c.id, :name => @cluster ), :remote => true, :class => "link_img" do %>
+									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :command => "start" ), :remote => true, :class => "link_img" do %>
 									<i class="glyphicon glyphicon-play-circle"></i>Start App
 									<% end %>
 								</li>
 								<li>
-									<%= link_to stopaddon_path(:id => c.id, :name => @cluster ), :remote => true, :class => "link_img" do %>
+									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :command => "stop" ), :remote => true, :class => "link_img" do %>
 									<i class="glyphicon glyphicon-record"></i>Stop App
 									<% end %>
 								</li>
 								<li>
-									<%= link_to restartaddon_path(:id => c.id, :name => @cluster), :remote => true, :class => "link_img" do %>
+									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :command => "restart"), :remote => true, :class => "link_img" do %>
 									<i class="glyphicon glyphicon-refresh"></i>Restart App
 									<% end %>
 								</li>
 								<li>
-									<%= link_to deleteaddon_path(:id => c.id, :name => @cluster), :remote => true, :class => "link_img" do %>
+									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :command => "delete"), :remote => true, :class => "link_img" do %>
 									<i class="glyphicon glyphicon-refresh"></i>Delete App
 									<% end %>
 								</li>

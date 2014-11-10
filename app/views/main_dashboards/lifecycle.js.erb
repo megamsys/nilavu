@@ -1,0 +1,7 @@
+$('#<%= @command %>_<%= @type %>_id').empty();
+$('#<%= @command %>_<%= @type %>_id').html(' <input id="<%= @type %>_id" name="<%= @type %>_id" type="hidden" value="<%= @id %>" />');
+
+$('#<%= @command %>_<%= @type %>_name').empty();
+$('#<%= @command %>_<%= @type %>_name').html(' <input id="<%= @type %>_name" name="<%= @type %>_name" type="hidden" value="<%= @name %>" />');
+
+$("#<%= @type %>_<%= @command %>").modal({backdrop : false,keyboard: false,show : true});

@@ -125,10 +125,10 @@ GEM
     fog-sakuracloud (0.1.1)
       fog-core
       fog-json
-    fog-softlayer (0.3.23)
+    fog-softlayer (0.3.24)
       fog-core
       fog-json
-    fog-xml (0.1.0)
+    fog-xml (0.1.1)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
     font-awesome-rails (3.2.1.3)
@@ -282,7 +282,7 @@ GEM
     randexp (0.1.7)
     ref (1.0.5)
     remotipart (1.2.1)
-    responders (2.0.1)
+    responders (2.0.2)
       railties (>= 4.2.0.alpha, < 5)
     riak-client (2.1.0)
       beefcake (~> 1.0)

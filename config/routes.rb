@@ -29,6 +29,9 @@ Cloudauth::Application.routes.draw do
   resources :main_dashboards
   resources :ssh_keys
   resources :addons
+  resources :oneaddons
+  resources :oneapps
+  resources :oneservice
 
   namespace :api do
     resources :dashboards do
@@ -112,6 +115,7 @@ Cloudauth::Application.routes.draw do
   get "users/show"
   get "oneapps/show"
   get "oneservice/show"
+  get "oneaddons/show"
   #match '/dashboard_sidebar', to: 'dashboards#dashboard_sidebar', via: [:get]
   #match '/dashboards', to: 'dashboards#index', via: [:get]
   #match '/dashboards/:id' => 'dashboards#index', via: [:get]
@@ -120,27 +124,24 @@ Cloudauth::Application.routes.draw do
   #match '/dashboards', to: 'users#dashboard',via: [:get]
   #match '/dashboards', to: 'api/dashboards#index',via: [:get]
 
- #app lifecycle 
- match '/startapp', :to => 'main_dashboards#startapp', via: [:get]
- match '/stopapp', :to => 'main_dashboards#stopapp', via: [:get]
- match '/restartapp', :to => 'main_dashboards#restartapp', via: [:get]
- match '/deleteapp', :to => 'main_dashboards#deleteapp', via: [:get]
- match '/app_request', :to => 'main_dashboards#app_request', via: [:get, :post]
- 
- match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :post]
+match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :post]
 
- #service lifecycle 
- match '/startservice', :to => 'main_dashboards#startservice', via: [:get]
- match '/stopservice', :to => 'main_dashboards#stopservice', via: [:get]
- match '/restartservice', :to => 'main_dashboards#restartservice', via: [:get]
- match '/deleteservice', :to => 'main_dashboards#deleteservice', via: [:get]
- match '/service_request', :to => 'main_dashboards#service_request', via: [:get, :post]
+ #DenselyPacked app lifecycle 
+ match '/lifecycle', :to => 'main_dashboards#lifecycle', via: [:get] 
+ match '/deleteapp', :to => 'main_dashboards#deleteapp', via: [:get]
+ match '/lifecycle_request', :to => 'main_dashboards#lifecycle_request', via: [:get, :post]
  
- #addon lifecycle
- match '/startaddon', :to => 'oneaddons#startaddon', via: [:get]
- match '/stopaddon', :to => 'oneaddons#stopaddon', via: [:get]
- match '/restartaddon', :to => 'oneaddons#restartaddon', via: [:get]
- match '/deleteaddon', :to => 'oneaddons#deleteaddon', via: [:get]
+ 
+ #one app lifecycle 
+ match '/lcapp', :to => 'oneapps#lcapp', via: [:get] 
+ match '/app_request', :to => 'oneapps#app_request', via: [:get, :post] 
+ 
+ #one service lifecycle 
+ match '/lcservice', :to => 'oneservice#lcservice', via: [:get] 
+ match '/service_request', :to => 'oneservice#service_request', via: [:get, :post]
+ 
+ #one addon lifecycle
+ match '/lcaddon', :to => 'oneaddons#lcaddon', via: [:get] 
  match '/addon_request', :to => 'oneaddons#addon_request', via: [:get, :post]
  
 

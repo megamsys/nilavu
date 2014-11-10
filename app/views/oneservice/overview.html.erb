@@ -13,7 +13,7 @@
 	<div class="row">
 		<div class="mplace mplace-head">
 			<div class="col-xs-6 col-md-3 mplace-left">
-				<h4> Apps Overview </h4>
+				<h4> Services Overview </h4>
 			</div>
 			<div class="col-xs-12 col-md-6 mplace-middle hidden-xs hidden-sm">
 				<span> Overview of the application.</span>
@@ -66,17 +66,17 @@
 				<div class="app_menu config_menu config_menu_3">
 					<ul>
 						<li>
-							<%= link_to startservice_path(:id => @assembly.id, :name => @assembly.name + "." + @assembly.components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+							<%= link_to lcservice_path(:id => @assembly.id, :name => @assembly.name, :command => "start"), :remote => true, :class => "link_img" do %>
 							<i class="glyphicon glyphicon-play-circle"></i>Start App
 							<% end %>
 						</li>
 						<li>
-							<%= link_to stopservice_path(:id => @assembly.id, :name => @assembly.name + "." + @assembly.components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+							<%= link_to lcservice_path(:id => @assembly.id, :name => @assembly.name, :command => "stop"), :remote => true, :class => "link_img" do %>
 							<i class="glyphicon glyphicon-record"></i>Stop App
 							<% end %>
 						</li>
 						<li>
-							<%= link_to restartservice_path(:id => @assembly.id, :name => @assembly.name + "." + @assembly.components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+							<%= link_to lcservice_path(:id => @assembly.id, :name => @assembly.name, :command => "restart"), :remote => true, :class => "link_img" do %>
 							<i class="glyphicon glyphicon-refresh"></i>Restart App
 							<% end %>
 						</li>
@@ -136,17 +136,17 @@
 						<div class="config_menu config_menu_1">
 							<ul>
 								<li>
-									<%= link_to startservice_path(:id => @assembly.id, :name => @assembly.name + "." + @assembly.components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<%= link_to lcservice_path(:id => @assembly.id, :name => @assembly.name, :command => "start"), :remote => true, :class => "link_img" do %>
 									<i class="glyphicon glyphicon-play-circle"></i>Start App
 									<% end %>
 								</li>
 								<li>
-									<%= link_to stopservice_path(:id => @assembly.id, :name => @assembly.name + "." + @assembly.components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<%= link_to lcservice_path(:id => @assembly.id, :name => @assembly.name, :command => "stop"), :remote => true, :class => "link_img" do %>
 									<i class="glyphicon glyphicon-record"></i>Stop App
 									<% end %>
 								</li>
 								<li>
-									<%= link_to restartservice_path(:id => @assembly.id, :name => @assembly.name + "." + @assembly.components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<%= link_to lcservice_path(:id => @assembly.id, :name => @assembly.name, :command => "restart"), :remote => true, :class => "link_img" do %>
 									<i class="glyphicon glyphicon-refresh"></i>Restart App
 									<% end %>
 								</li>
@@ -192,7 +192,7 @@
 </div>
 
 <!-- APP START MODAL -->
-<div class="modal fade app_exist" id="service_start" tabindex="-1" role="basic" aria-hidden="true">
+<div class="modal fade app_exist" id="one_service_start" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
 		<%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
@@ -201,9 +201,9 @@
 				<h4 class="modal-title">Start App</h4>
 			</div>
 			<div class="modal-body text-center">
-				<span id="start_service_id"></span>
-				<span id="start_service_name"></span>
-				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "start"  %>
+				<span id="one_start_service_id"></span>
+				<span id="one_start_service_name"></span>
+				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "componentstart"  %>
 				Are you sure you want to start the App?
 			</div>
 			<div class="modal-footer c_modal-footer">
@@ -221,7 +221,7 @@
 <!-- /.modal -->
 
 <!-- APP STOP MODAL -->
-<div class="modal fade app_exist" id="service_stop" tabindex="-1" role="basic" aria-hidden="true">
+<div class="modal fade app_exist" id="one_service_stop" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
 		<%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
@@ -230,9 +230,9 @@
 				<h4 class="modal-title">Stop App</h4>
 			</div>
 			<div class="modal-body text-center">
-				<span id="stop_app_id"></span>
-				<span id="stop_app_name"></span>
-				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "stop"  %>
+				<span id="one_stop_service_id"></span>
+				<span id="one_stop_service_name"></span>
+				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "componentstop"  %>
 				Are you sure you want to stop the App?
 			</div>
 			<div class="modal-footer c_modal-footer">
@@ -250,7 +250,7 @@
 <!-- /.modal -->
 
 <!-- APP RESTART MODAL -->
-<div class="modal fade app_exist" id="service_restart" tabindex="-1" role="basic" aria-hidden="true">
+<div class="modal fade app_exist" id="one_service_restart" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
 		<%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
@@ -259,9 +259,9 @@
 				<h4 class="modal-title">Restart App</h4>
 			</div>
 			<div class="modal-body text-center">
-				<span id="restart_service_id"></span>
-				<span id="restart_service_name"></span>
-				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "restart"  %>
+				<span id="one_restart_service_id"></span>
+				<span id="one_restart_service_name"></span>
+				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "componentrestart"  %>
 				Are you sure you want to restart the App?
 			</div>
 			<div class="modal-footer c_modal-footer">
@@ -278,7 +278,7 @@
 </div>
 <!-- /.modal -->
 <!-- APP DELETE MODAL -->
-<div class="modal fade" id="service_delete" tabindex="-1" role="basic" aria-hidden="true">
+<div class="modal fade" id="one_service_delete" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
