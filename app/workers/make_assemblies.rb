@@ -9,6 +9,7 @@ class MakeAssemblies
           "components"=> build_components(options),
           "policies"=>build_policies(options),
           "inputs"=>"",
+          "output"=>[],
           "operations"=>"",
         }
       ],
@@ -56,7 +57,7 @@ class MakeAssemblies
       end
       value = {
         "name"=>"#{name}",
-        "tosca_type"=>"tosca.web.#{c}",
+        "tosca_type"=>"#{options[:ttype]}#{c}",
         "requirements"=> {
           "host"=>"#{options[:cloud]}",
           "dummy"=>""

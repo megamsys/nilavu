@@ -23,7 +23,7 @@
 							<%= link_to serviceoverview_path(:servicekey => servicekey), :target => "_self" do %>
 							<i class="c_icon c_icon-browser pull-left"></i>
 							<span class="title pull-left">Overview</span>
-							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'overview')%>"></span>
+							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneservice', :action => 'overview')%>"></span>
 							<% end %>
 						</li>
 
@@ -31,7 +31,7 @@
 							<%= link_to serviceruntime_path(:servicekey => servicekey), :target => "_self" do %>
 							<i class="c_icon c_icon-layer pull-left"></i>
 							<span class="title pull-left">Runtime</span>
-							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'runtime')%>"></span>
+							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneservice', :action => 'runtime')%>"></span>
 							<% end %>
 						</li>
 
@@ -39,7 +39,7 @@
 							<%= link_to servicemetrics_path(:servicekey => servicekey), :target => "_self" do %>
 							<i class="c_icon c_icon-stack pull-left"></i>
 							<span class="title pull-left">Logs</span>
-							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'metrics')%>"></span>
+							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneservice', :action => 'metrics')%>"></span>
 							<% end %>
 						</li>						
 

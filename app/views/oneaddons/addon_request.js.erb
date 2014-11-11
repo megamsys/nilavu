@@ -1,0 +1,11 @@
+<% if @err_msg %>
+$('.app_exist').modal('hide');
+var selected_entity = '#app_postfinish_popup_error';
+$("#app_err_msg").html('<%= @err_msg %>');
+$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
+<% else %>
+$('.app_exist').modal('hide');
+var selected_entity = '#app_postfinish_popup';
+$("#app_res_msg").html('<%= @res_msg %>');
+$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
+<% end %>

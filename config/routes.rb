@@ -29,6 +29,9 @@ Cloudauth::Application.routes.draw do
   resources :main_dashboards
   resources :ssh_keys
   resources :addons
+  resources :oneaddons
+  resources :oneapps
+  resources :oneservice
 
   namespace :api do
     resources :dashboards do
@@ -55,6 +58,11 @@ Cloudauth::Application.routes.draw do
   match '/servicemetrics', to: 'oneservice#metrics', via: [:get, :post]
   match '/oneservice_services', to: 'oneservice#services', via: [:get, :post]
   
+  #oneaddons Overview
+  match '/addonsoverview', to: 'oneaddons#overview', via: [:get, :post]
+  match '/addonsruntime', to: 'oneaddons#runtime', via: [:get, :post]
+  match '/addonslogs', to: 'oneaddons#logs', via: [:get, :post]
+  match '/oneaddons_services', to: 'oneaddons#services', via: [:get, :post]
   
   #Cloud Books
   match '/starter_packs_launch', to: 'marketplaces#starter_packs_create', via: [:get, :post]
@@ -107,6 +115,7 @@ Cloudauth::Application.routes.draw do
   get "users/show"
   get "oneapps/show"
   get "oneservice/show"
+  get "oneaddons/show"
   #match '/dashboard_sidebar', to: 'dashboards#dashboard_sidebar', via: [:get]
   #match '/dashboards', to: 'dashboards#index', via: [:get]
   #match '/dashboards/:id' => 'dashboards#index', via: [:get]
@@ -115,32 +124,29 @@ Cloudauth::Application.routes.draw do
   #match '/dashboards', to: 'users#dashboard',via: [:get]
   #match '/dashboards', to: 'api/dashboards#index',via: [:get]
 
- #app lifecycle 
- match '/startapp', :to => 'main_dashboards#startapp', via: [:get]
- match '/stopapp', :to => 'main_dashboards#stopapp', via: [:get]
- match '/restartapp', :to => 'main_dashboards#restartapp', via: [:get]
- match '/deleteapp', :to => 'main_dashboards#deleteapp', via: [:get]
- match '/app_request', :to => 'main_dashboards#app_request', via: [:get, :post]
- 
- match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :post]
+match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :post]
 
- #service lifecycle 
- match '/startservice', :to => 'main_dashboards#startservice', via: [:get]
- match '/stopservice', :to => 'main_dashboards#stopservice', via: [:get]
- match '/restartservice', :to => 'main_dashboards#restartservice', via: [:get]
- match '/deleteservice', :to => 'main_dashboards#deleteservice', via: [:get]
- match '/service_request', :to => 'main_dashboards#service_request', via: [:get, :post]
+ #DenselyPacked app lifecycle 
+ match '/lifecycle', :to => 'main_dashboards#lifecycle', via: [:get] 
+ match '/deleteapp', :to => 'main_dashboards#deleteapp', via: [:get]
+ match '/lifecycle_request', :to => 'main_dashboards#lifecycle_request', via: [:get, :post]
  
- #addon lifecycle
- match '/startaddon', :to => 'main_dashboards#startaddon', via: [:get]
- match '/stopaddon', :to => 'main_dashboards#stopaddon', via: [:get]
- match '/restartaddon', :to => 'main_dashboards#restartaddon', via: [:get]
- match '/deleteaddon', :to => 'main_dashboards#deleteaddon', via: [:get]
- match '/addon_request', :to => 'main_dashboards#addon_request', via: [:get, :post]
+ 
+ #one app lifecycle 
+ match '/lcapp', :to => 'oneapps#lcapp', via: [:get] 
+ match '/app_request', :to => 'oneapps#app_request', via: [:get, :post] 
+ 
+ #one service lifecycle 
+ match '/lcservice', :to => 'oneservice#lcservice', via: [:get] 
+ match '/service_request', :to => 'oneservice#service_request', via: [:get, :post]
+ 
+ #one addon lifecycle
+ match '/lcaddon', :to => 'oneaddons#lcaddon', via: [:get] 
+ match '/addon_request', :to => 'oneaddons#addon_request', via: [:get, :post]
  
 
   # ========Cloud Books Histories controller
-  match '/node_log', to: 'apps_histories#logs', via: [:get, :post]
+  match '/logs', to: 'apps_histories#logs', via: [:get, :post]
 
   # ==========Cloud settings
   match '/cross_cloud_new', to: 'settings#cross_cloud_new', via: [:get, :post]
@@ -152,6 +158,7 @@ Cloudauth::Application.routes.draw do
   match '/sshkey_import', to: 'ssh_keys#sshkey_import', via: [:get, :post] 
   match '/ssh_key_import', to: 'ssh_keys#ssh_key_import', via: [:get, :post]
   match '/cloud_selector', to: 'cross_clouds#cloud_selector', via: [:get, :post]
+  match '/cloud_init', to: 'cross_clouds#cloud_init', via: [:get, :post]
   #get '/selectclouds' => 'settings#cloud_selector'
   #match '/selectclouds', to: 'cross_clouds#new', via: [:get, :post]
   #match '/market_place_app_show', to: 'marketplaces#market_place_app_show', via: [:get, :post]

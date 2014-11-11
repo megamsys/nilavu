@@ -83,7 +83,7 @@ GEM
     diff-lcs (1.2.5)
     equalizer (0.0.9)
     erubis (2.7.0)
-    excon (0.40.0)
+    excon (0.41.0)
     execjs (2.2.2)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -125,10 +125,10 @@ GEM
     fog-sakuracloud (0.1.1)
       fog-core
       fog-json
-    fog-softlayer (0.3.23)
+    fog-softlayer (0.3.24)
       fog-core
       fog-json
-    fog-xml (0.1.0)
+    fog-xml (0.1.1)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
     font-awesome-rails (3.2.1.3)
@@ -175,7 +175,7 @@ GEM
     libv8 (3.16.14.7)
     loofah (2.0.1)
       nokogiri (>= 1.5.9)
-    mail (2.6.1)
+    mail (2.6.3)
       mime-types (>= 1.16, < 3)
     megam_api (0.24)
       excon (~> 0.39)
@@ -282,7 +282,7 @@ GEM
     randexp (0.1.7)
     ref (1.0.5)
     remotipart (1.2.1)
-    responders (2.0.1)
+    responders (2.0.2)
       railties (>= 4.2.0.alpha, < 5)
     riak-client (2.1.0)
       beefcake (~> 1.0)

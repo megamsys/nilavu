@@ -1,0 +1,205 @@
+<% content_for :oneaddon_contents do %>
+<% provide(:title, 'Addons Overview') %>
+
+<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
+	<div class="row c_pading-b15 settings_top">
+		<div class="margin_15">
+			<div class="col-xs-9 col-sm-6 col-md-7">
+				<h3> Docker Cluster Overview </h3>
+			</div>
+			<%= render :partial => "users/topright_icons" %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="mplace mplace-head">
+			<div class="col-xs-6 col-md-3 mplace-left">
+				<h4> Docker Overview </h4>
+			</div>
+			<div class="col-xs-12 col-md-6 mplace-middle hidden-xs hidden-sm">
+				<span> Overview of the application.</span>
+			</div>
+			<div class="col-xs-6 col-md-3 mplace-right">
+				<span class="pull-right"><i class="c_icon-rocket"></i><a href="http://www.gomegam.com/docs/users/apps/apps.html" target="_blank">Take a Tour</a></span>
+			</div>
+		</div>
+	</div>
+	<!-- TITLE BOX ENDS HERE -->
+	<div class="row margin_15 overview margintb_15">
+		<div class="overview-top">
+			<div class="col-xs-12 col-sm-12 col-md-6 overview-route">
+				<span>URL: </span><a href="http://<%= @assembly.name + "." + @assembly.components[0][0].inputs[:domain] %>" target="_blank"><%= @assembly.name + "." + @assembly.components[0][0].inputs[:domain] %></a>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 overview-git">
+				<div class="row">
+					<div class="col-xs-3">
+						<label>GIT URL: </label>
+					</div>
+					<div class="col-xs-6">
+						<input type="text" class="overview-giturl form-control" value="<%= @assembly.components[0][0].inputs[:source] %>" placeholder="Enter text">
+						<!-- <button class="btn green" type="button" data-toggle="dropdown">CODE</button> -->
+					</div>
+					<div class="col-xs-3 overview-submit">
+						<a href="<%= @assembly.components[0][0].inputs[:source] %>" target="_blank" class="btn green">CODE</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+     <%= render :partial => "oneaddons/overview", :locals => {:user => current_user, :assemblies => @assemblies, :dockerID => @dockerID, :cluster => @cluster} %>
+</div>
+
+<!-- ADDON START MODAL -->
+<div class="modal fade app_exist" id="one_addon_start" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+	 <%= form_tag addon_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Start Addon</h4>
+			</div>
+			<div class="modal-body text-center">
+			   <span id="one_start_addon_id"></span>
+			   <span id="one_start_addon_name"></span>
+			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "componentstart"  %>
+				Are you sure you want to start the addon ?
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<button type="button" class="btn default" data-dismiss="modal">
+					Cancel
+				</button>
+				<%= submit_tag "Confirm", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>				
+			</div>
+		</div>
+		<% end %>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+<!-- ADDON STOP MODAL -->
+<div class="modal fade app_exist" id="one_addon_stop" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+	 <%= form_tag addon_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Stop Service</h4>
+			</div>
+			<div class="modal-body text-center">
+			   <span id="one_stop_addon_id"></span>
+			   <span id="one_stop_addon_name"></span>
+			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "componentstop"  %>
+				Are you sure you want to stop the service ?
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<button type="button" class="btn default" data-dismiss="modal">
+					Cancel
+				</button>
+				<%= submit_tag "Confirm", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>
+			</div>
+		</div>
+		<% end %>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- ADDON RESTART MODAL -->
+<div class="modal fade app_exist" id="one_addon_restart" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+	 <%= form_tag addon_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Restart Service</h4>
+			</div>
+			<div class="modal-body text-center">
+			   <span id="one_restart_addon_id"></span>
+			   <span id="one_restart_addon_name"></span>
+			   <%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => "componentrestart"  %>
+				Are you sure you want to restart the service ?
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<button type="button" class="btn default" data-dismiss="modal">
+					Cancel
+				</button>
+				<%= submit_tag "Confirm", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>
+			</div>
+		</div>
+		<% end %>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+<!-- APP DELETE MODAL -->
+<div class="modal fade" id="app_delete" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Delete App</h4>
+			</div>
+			<div class="modal-body text-center">
+				Are you sure you want to delete the App?
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<button type="button" class="btn default" data-dismiss="modal">
+					Cancel
+				</button>
+				<button type="button" class="btn btn-danger">
+					Confirm
+				</button>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+<div class="modal fade" id="app_postfinish_popup" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Result</h4>
+			</div>
+			<div class="modal-body text-center">
+				<div id="app_res_msg"></div>
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<%= link_to  "Ok", main_dashboards_path, :class => "btn btn-success", :target => "_self" %>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="app_postfinish_popup_error" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Result</h4>
+			</div>
+			<div class="modal-body text-center">
+				Whew! Failed to App Request published.
+				</br>
+				<div id="app_err_msg"></div>
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<%= link_to  "Ok", main_dashboards_path, :class => "btn btn-success", :target => "_self" %>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+<% end %>
+<%= render :template => oneaddons_show_path %>
