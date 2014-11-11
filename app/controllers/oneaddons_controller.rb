@@ -18,6 +18,7 @@ class OneaddonsController < ApplicationController
           @dockerID = output["value"]
         end
       end
+      #@cluster = @assembly.name + "." + @assembly.components[0][0].inputs[:domain]
       @cluster = @assembly.name
       component = GetComponent.perform(@assembly.components[0],force_api[:email],force_api[:api_key])
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
@@ -71,41 +72,21 @@ class OneaddonsController < ApplicationController
     appid = params["appkey"]
   end
 
-  def startaddon
+ def lcaddon
     puts params
     @id = params[:id]
     @name = params[:name]
+    @command = params[:command]
     respond_to do |format|
       format.js {
-        respond_with(@id, @name, :layout => !request.xhr? )
-      }
-    end
-  end
-
-  def stopaddon
-    puts params
-    @id = params[:id]
-    @name = params[:name]
-    respond_to do |format|
-      format.js {
-        respond_with(@id, @name, :layout => !request.xhr? )
-      }
-    end
-  end
-
-  def restartaddon
-    puts params
-    @id = params[:id]
-    @name = params[:name]
-    respond_to do |format|
-      format.js {
-        respond_with(@id, @name, :layout => !request.xhr? )
+        respond_with(@id, @name, @command, :layout => !request.xhr? )
       }
     end
   end
   
+  
     def addon_request
-    logger.debug "--> Apps:Build_request, #{params}"
+    logger.debug "--> Addons:Build_request, #{params}"
     options = {:app_id => "#{params[:addon_id]}", :app_name => "#{params[:addon_name]}", :action => "#{params[:command]}"}
     defnd_result =  CreateAppRequests.perform(options, force_api[:email], force_api[:api_key])
     if params[:command] == "stop"

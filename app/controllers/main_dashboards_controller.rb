@@ -51,40 +51,20 @@ class MainDashboardsController < ApplicationController
     redirect_to main_dashboards_path
   end
 
-  def startapp
+  def lifecycle
     puts params
     @id = params[:id]
     @name = params[:name]
+    @command = params[:command]
+    @type = params[:type]
     respond_to do |format|
       format.js {
-        respond_with(@id, @name, :layout => !request.xhr? )
+        respond_with(@id, @name, @command, @type, :layout => !request.xhr? )
       }
     end
   end
 
-  def stopapp
-    puts params
-    @id = params[:id]
-    @name = params[:name]
-    respond_to do |format|
-      format.js {
-        respond_with(@id, @name, :layout => !request.xhr? )
-      }
-    end
-  end
-
-  def restartapp
-    puts params
-    @id = params[:id]
-    @name = params[:name]
-    respond_to do |format|
-      format.js {
-        respond_with(@id, @name, :layout => !request.xhr? )
-      }
-    end
-  end
-
-  def deleteapp
+ def deleteapp
     puts params
     @id = params[:id]
     @name = params[:name]
@@ -114,7 +94,7 @@ class MainDashboardsController < ApplicationController
     end
   end
 
-  def app_request
+  def lifecycle_request
     logger.debug "--> Apps:Build_request, #{params}"
     options = {:app_id => "#{params[:app_id]}", :app_name => "#{params[:app_name]}", :action => "#{params[:command]}"}
     defnd_result =  CreateAppRequests.perform(options, force_api[:email], force_api[:api_key])

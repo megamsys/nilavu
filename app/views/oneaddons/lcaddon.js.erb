@@ -1,0 +1,7 @@
+$('#one_<%= @command %>_addon_id').empty();
+$('#one_<%= @command %>_addon_id').html(' <input id="addon_id" name="addon_id" type="hidden" value="<%= @id %>" />');
+
+$('#one_<%= @command %>_addon_name').empty();
+$('#one_<%= @command %>_addon_name').html(' <input id="addon_name" name="addon_name" type="hidden" value="<%= @name %>" />');
+
+$("#one_addon_<%= @command %>").modal({backdrop : false,keyboard: false,show : true});

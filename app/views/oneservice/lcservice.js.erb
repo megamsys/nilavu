@@ -1,0 +1,7 @@
+$('#one_<%= @command %>_service_id').empty();
+$('#one_<%= @command %>_service_id').html(' <input id="service_id" name="service_id" type="hidden" value="<%= @id %>" />');
+
+$('#one_<%= @command %>_service_name').empty();
+$('#one_<%= @command %>_service_name').html(' <input id="service_name" name="service_name" type="hidden" value="<%= @name %>" />');
+
+$("#one_service_<%= @command %>").modal({backdrop : false,keyboard: false,show : true});

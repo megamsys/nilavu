@@ -51,17 +51,17 @@
 						<div class="config_menu config_menu_<%= assembly[0].name %>">
 							<ul>
 								<li>
-									<%= link_to startaddon_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<%= link_to lifecycle_path(:id => assembly[0].id, :name => assembly[0].name, :command => "start", :type => "addon"), :remote => true, :class => "link_img" do %>
 									<i class="glyphicon glyphicon-play-circle"></i>Start Addon
 									<% end %>
 								</li>
 								<li>
-									<%= link_to stopaddon_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<%= link_to lifecycle_path(:id => assembly[0].id, :name => assembly[0].name, :command => "stop", :type => "addon"), :remote => true, :class => "link_img" do %>
 									<i class="glyphicon glyphicon-record"></i>Stop Addon
 									<% end %>
 								</li>
 								<li>
-									<%= link_to restartaddon_path(:id => assembly[0].id, :name => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain]), :remote => true, :class => "link_img" do %>
+									<%= link_to lifecycle_path(:id => assembly[0].id, :name => assembly[0].name, :command => "restart", :type => "addon"), :remote => true, :class => "link_img" do %>
 									<i class="glyphicon glyphicon-refresh"></i>Restart Addon
 									<% end %>
 								</li>
