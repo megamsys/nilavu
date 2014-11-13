@@ -135,8 +135,16 @@ end
       @provider_form_name = "Google Compute Engine"
     elsif params[:cloud] == "profitbricks"
       @provider_form_name = "profitbricks"
+      
     elsif params[:cloud] == "gogrid"
       @provider_form_name = "GoGrid"
+        list_gogrid_data(params[:gogrid_access_key], params[:gogrid_secret_key], params[:region])
+        @images = @gogrid_imgs
+        @flavors = @gogrid_flavors
+        @keypairs = @gogrid_keypairs
+        @groups = @gogrid_groups
+        @credentials = {"gogrid_access_key" => "#{params[:gogrid_access_key]}", "gogrid_secret_key" => "#{params[:gogird_secret_key]}", "region" => "#{params[:region]}"}
+        
     elsif params[:cloud] == "opennebula"
       @provider_form_name = "opennebula"
     else
