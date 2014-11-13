@@ -5,8 +5,8 @@ app.controller("DashboardShowCtrl", ["$scope", "$rootScope", "$routeParams", "$l
   $rootScope.resolved = false;   
   $scope.dashboard_id = $routeParams.id; 
   
-  $scope.dashboard = Dashboard.get({ id: $routeParams.id });
- $scope.widgets   = Widget.query({ dashboard_id: $routeParams.id }, function() {	  
+ // $scope.dashboard = Dashboard.get({ id: $routeParams.id });
+ $scope.widgets   = Widget.query({ dashboard_id: 1 }, function() {	  
    $rootScope.resolved = true;
   }); 
   
@@ -24,7 +24,7 @@ app.controller("DashboardShowCtrl", ["$scope", "$rootScope", "$routeParams", "$l
 	    _.extend(w, widget);
 	  } 
   
-	$scope.a_books = availableBooks();
+	//$scope.a_books = availableBooks();
 	
 	function bookMapping(book) {        
 		return {
@@ -32,12 +32,12 @@ app.controller("DashboardShowCtrl", ["$scope", "$rootScope", "$routeParams", "$l
         };
       }
      
-      function availableBooks() {    	  
+    /*  function availableBooks() {    	  
         var a_books = $.Books.books;    		  
         return _.compact(_.map(a_books, function(book) {      
         	return bookMapping(book);
         }));	        
-      }    
+      }    */
      
       $scope.sm_view = function() {    	 
     	  UpdateWidget.showForBroadcast(false);    		  

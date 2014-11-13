@@ -1,4 +1,4 @@
-<% content_for :oneapp_contents do %>
+<% content_for :oneservice_contents do %>
 <% provide(:title, 'Runtime') %>
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
 	<div class="row c_pading-b15 settings_top">
@@ -8,13 +8,12 @@
 			</div>
 			<%= render :partial => "users/topright_icons" %>
 		</div>
-	</div>	
+	</div>
 
-<ng-view ng-show="resolved" ng-cloak></ng-view>
+	<ng-view ng-show="resolved" ng-cloak></ng-view>
+	
 </div>
-
 <% end %>
-
 
 <script>
     (function($) {
@@ -22,4 +21,5 @@
      })($);
 </script>
 
-<%= render :template => oneapps_show_path %>
+<%= render :template => oneservice_show_path %>
+

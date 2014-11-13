@@ -13,7 +13,6 @@ gem 'jquery-rails', "~> 4.0.0.beta2"
 gem "font-awesome-rails", "3.2.1.3"
 gem 'turbolinks', "~> 2.5.1"
 gem 'jquery-turbolinks',"~> 2.1.0"
-gem "flot-rails", "~> 0.0.6"
 gem 'remotipart', "~> 1.2.1"
 gem 'sqlite3', "~> 1.3.10"
 
