@@ -37,18 +37,7 @@
 						<p>
 							<small>{{log.message }}</small>
 						</p></td>
-					</tr>
-
-					<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
-						<td>
-						<p>
-							<small> {{ log.timestamp | date:'d MMM yy, hh:mm a Z' }}</small>
-						</p></td>
-						<td>
-						<p>
-							<small>{{log.message }}</small>
-						</p></td>
-					</tr>
+					</tr>					
 				</tbody>
 			</table>
 		</div>

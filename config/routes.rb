@@ -135,6 +135,8 @@ match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :p
  #one app lifecycle 
  match '/lcapp', :to => 'oneapps#lcapp', via: [:get] 
  match '/app_request', :to => 'oneapps#app_request', via: [:get, :post] 
+ match '/bind_service_list', :to => 'oneapps#bind_service_list', via: [:get]
+ match '/bindService', :to => 'oneapps#bindService', via: [:get]
  
  #one service lifecycle 
  match '/lcservice', :to => 'oneservice#lcservice', via: [:get] 
@@ -176,7 +178,5 @@ match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :p
 
  
   match '/visualCallback', to: 'main_dashboards#visualCallback', via: [:get]
-  
-  match '/bind_service_list', :to => 'oneapps#bind_service_list', via: [:get, :post]
   
 end

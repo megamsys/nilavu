@@ -18,6 +18,10 @@
 //= require jquery.remotipart
 //= require jquery.turbolinks
 //= require spin.min.js
+//= require jquery.flot
+//= require jquery.flot.time
+//= require jquery.flot.resize
+//= require jquery.flot.selection
 //= require angular
 //= require angular-route
 //= require angular-resource

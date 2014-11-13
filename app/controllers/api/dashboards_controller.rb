@@ -9,8 +9,8 @@ module Api
 
     def index
       @user_id = current_user.id
-      dashboards = current_user.apps
-      respond_with dashboards
+      #dashboards = current_user.apps
+      respond_with @user_id
     end
 
     def dash_show
