@@ -144,5 +144,41 @@ module CrossCloudsHelper
     return 'az-1.region-a.geo-1'
     end
   end
+  
+#============GOGRID===========
+def list_gogrid_data(access_key, secret_key)
+    connection = Fog::Compute.new(
+    :provider => 'GoGrid',
+    :go_grid_api_key => "#{access_key}",
+    :go_grid_shared_secret => "#{secret_key}")
+    
+    #List Images
+    @gogrid_imgs=[]
+    img = connection.images.all({"owner-id" => "915134024303"}) 
+    img.each do |i|
+      @gogrid_imgs.push({"id" => "#{i.id}", "name" => "#{i.name}"})
+    end
+
+    #List Flavors
+    @gogrid_flavors=[]
+    connection.flavors.each do |f|
+      @gogrid_flavors.push({"id" => "#{f.id}", "ram" => "#{f.ram}", "core" => "#{f.cores}", "disk" => "#{f.disk}"})
+    end
+
+    #List Keypairs
+    @gogrid_keypairs=[]
+    connection.key_pairs.each do |k|
+      @gogrid_keypairs.push("#{k.name}")
+    end
+
+    #List Securitygroups
+    @gogrid_groups=[]
+    connection.security_groups.each do |s|
+      @aws_groups.push("#{s.name}")
+    end
+
+    return @gogrid_imgs, @gogrid_flavors, @gogrid_keypairs, @gogrid_groups
+
+  end
 
 end
