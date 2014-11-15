@@ -16,7 +16,8 @@ module Sources
         from    = (options[:from]).to_i
         to      = (options[:to] || Time.now).to_i                   
         result_json = {}        
-       host    = getHost(options[:widgetid])
+     #  host    = getHost(options[:widgetid])
+        host = "app1.megam.co"
        uptime = Random.rand(10...100) 
        os =  Random.rand(10...100)
        cpus = Random.rand(10...100)  

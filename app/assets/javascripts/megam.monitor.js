@@ -3,10 +3,16 @@ var app = angular.module('Nilavu', ["ngResource", "ngSanitize", "ngRoute", 'angu
 app.config(["$routeProvider", "$locationProvider",
 function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
-    $routeProvider.when("/dashboards", {
-        templateUrl : 'angular/templates/dashboards/index.html.erb',
-        controller : "DashboardIndexCtrl"
-    }).when("/dashboards/:id", {
+    $routeProvider.when("/appruntime", {
+        templateUrl : 'angular/templates/dashboards/show.html.erb',
+        controller : "DashboardShowCtrl"
+    }).when("/serviceruntime", {
+        templateUrl : 'angular/templates/dashboards/show.html.erb',
+        controller : "DashboardShowCtrl"
+    }).when("/addonsruntime", {
+        templateUrl : 'angular/templates/dashboards/show.html.erb',
+        controller : "DashboardShowCtrl"
+    }).when("/appruntime/:id", {
         templateUrl : 'angular/templates/dashboards/show.html.erb',
         controller : "DashboardShowCtrl"
     }).when("/dashboards/:id/:book", {

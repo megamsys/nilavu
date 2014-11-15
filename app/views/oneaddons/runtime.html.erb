@@ -1,4 +1,4 @@
-<% content_for :oneapp_contents do %>
+<% content_for :oneaddon_contents do %>
 <% provide(:title, 'Runtime') %>
 
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
@@ -12,41 +12,15 @@
 		</div>
 	</div>
 
-	<div class="col-sm-9 col-md-9 col-lg-9">
-		<div class="panel panel-primary" >
-			<div class="panel-heading" cg-busy="{promise:promise, message:message, backdrop:backdrop, delay:delay, minDuration:minDuration}">
-				<div class="row">
-					<label class="col-sm-7 col-md-7 col-lg-8 control-label">{{bookName}}</label>
-					<div class="col-sm-5 col-md-5 col-lg-4">
-						<span class="pull-right"><a href="http://monitor.megam.co.in/kibana/#/dashboard/file/{{bookName}}.json" target="_blank" class="btn btn-pink btn-xs"><strong>Offline Log : {{bookName}} </strong></a></span>
-					</div>
-				</div>
-			</div>
-			<div class="panel-body nopadding" style=" height:500px; overflow-y: scroll;">
-				<table class="table table-bordered table-striped table-hover" >
-					<thead>
-						<tr>
-							<th class="col-md-3">Timestamp <!-- <span class="label label-default">{{logTimezone }}</span>--></th>
-							<th class="col-md-9">Message</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
-							<td>
-							<p>
-								<small> {{ log.timestamp | date:'d MMM yy, hh:mm a Z' }}</small>
-							</p></td>
-							<td>
-							<p>
-								<small>{{log.message }}</small>
-							</p></td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
+	<ng-view ng-show="resolved" ng-cloak></ng-view>
 
 </div>
 <% end %>
-<%= render :template => oneapps_show_path %>
+
+<script>
+    (function($) {
+    $.Sources = JSON.parse('<%= raw Sources.sources.to_json %> ');
+     })($);
+</script>
+
+<%= render :template => oneaddons_show_path %>

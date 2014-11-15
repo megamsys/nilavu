@@ -1,10 +1,10 @@
-<div id="content-header" class="mini">
+<!-- <div id="content-header" class="mini">
 	<ul class="mini-stats box-3">
 		<li class="widget" ng-repeat="widget in widgets" widgetsummary></li>
 	</ul>
-</div>
+</div> -->
 
-<div class="container">
+<!--<div class="container">
 	<div class="row">
 		<div class="col-xs-7 col-sm-7 col-md-7">
 			<div class="btn-group">
@@ -23,7 +23,28 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
+<div class="row">
+		<div class="col-sm-6 float_nav">
+			<ul class="list-inline">
+				<li>
+					App:
+				</li>
+				<a href="">
+				<li>
+					Overview
+				</a></li> | <a href="">
+				<li>
+					Network
+				</a></li> | <a href="">
+				<li>
+					Preocess
+				</a></li> | <a href="">
+				<li>
+					Works
+				</a></li>
+			</ul>
+		</div>
 <div class="container" id="overview" class="toggle" style="display:none" ng-cloak>
 	<input type="hidden" ng-model="dashboard_id" value="<%= @id %>">
 	<div class="widget" ng-repeat="widget in widgets" widgetpernode></div>
