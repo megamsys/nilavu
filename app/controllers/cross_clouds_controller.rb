@@ -115,8 +115,11 @@ end
     @provider = params[:cloud]
     if params[:cloud] == "aws"
       @provider_form_name = "Amazon EC2"
+      puts "ENTERING INSIDE EC2 list"
         list_aws_data(params[:aws_access_key], params[:aws_secret_key], params[:region])
         @images = @aws_imgs
+        puts "PRINTING AWS IMAGES DATA"
+        puts @images.inspect
         @flavors = @aws_flavors
         @keypairs = @aws_keypairs
         @groups = @aws_groups
@@ -134,7 +137,14 @@ end
     elsif params[:cloud] == "gce"
       @provider_form_name = "Google Compute Engine"
     elsif params[:cloud] == "profitbricks"
-      @provider_form_name = "profitbricks"
+      @provider_form_name = "ProfitBricks"
+      list_profitbricks_data(params[:profitbricks_access_key], params[:profitbricks_secret_key])
+        @images = @profitbricks_imgs
+        @flavors = []
+        @keypairs = []
+        @groups = []
+        @credentials = {"profitbricks_access_key" => "#{params[:profitbricks_access_key]}", "profitbricks_secret_key" => "#{params[:profitbricks_secret_key]}"}
+        
       
     elsif params[:cloud] == "gogrid"
       @provider_form_name = "GoGrid"
