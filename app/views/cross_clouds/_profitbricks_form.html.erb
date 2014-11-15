@@ -1,8 +1,6 @@
 <div class="row cloud_signup_save">
 	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-		<h5>Sign Up for profitbricks Cloud</h5>
-		<a class="btn btn-default colr-denimblue" href="https://www.profitbricks.com/signup"> Create a new profitbricks account </a>
-		<!-- <button class="btn btn-default btn-md c_btn_gplus"> Login with Google + </button> -->
+
 	</div>
 
 	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
@@ -13,26 +11,9 @@
 		</div>
 	</div>
 </div>
-
-<div class="row cloud_signup_save">
-	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-		<h5>Sign In with profitbricks credentials</h5>
-		<a class="btn btn-default c_btn_gplus" href="#" disabled>Login with profitbricks</a>
-	</div>
-
-	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-		<h5>Security credentials</h5>
-		<div class="input-group margin-top-10">
-			<%= text_field_tag 'profitbricks_username', nil, placeholder: 'Enter profitbricks user email' , :required => true, :class =>"form-control" %>
-			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
-		</div>
-
-		<div class="input-group margin-top-10">
-			<%= text_field_tag 'profitbricks_password', nil, placeholder: 'Enter profitbricks password', :required => true, :class =>"form-control" %>
-			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
-		</div>
-	</div>
-</div>
+<% if defined? credentials %>
+<input type="hidden" name="profitbricks_access_key" value="<%= credentials['profitbricks_access_key'] %>">
+<input type="hidden" name="profitbricks_secret_key" value="<%= credentials['profitbricks_secret_key'] %>">
 
 <input type="hidden" name="provider" value="<%= selected_cloud %>">
 
@@ -41,54 +22,63 @@
 		<h5>Image & Size</h5>
 
 		<div class="input-group margin-top-10">
-			<%= text_field_tag 'tenant_id', nil, placeholder: 'Datacenter name' , :required => true, :class =>"form-control" %>
+                        <%= label_tag 'Region'%>
+			<%= text_field_tag 'region', "#{credentials['region']}", readonly: true, :required => true, :class =>"form-control" %>
 			<span class="input-group-addon" ><i class="icon-question-sign" style=""></i></span>
 		</div>
 
 		<div class="input-group margin-top-10">
-			<%= text_field_tag 'image', nil, placeholder: 'Enter Image id' , :required => true, :readonly => true, :class =>"form-control" %>
+<%= label_tag 'Group'%>
+<%= select_tag :group, options_for_select(@groups.map{ |c| "#{c}" }), { :class => 'form-control' }%>
 			<span class="input-group-addon" ><i class="icon-question-sign" style=""></i></span>
 		</div>
 
 		<div class="input-group margin-top-10">
-			<%= text_field_tag 'group', 'raring-stencil', placeholder: 'Enter Snapshot name', :required => true, :class =>"form-control" %>
+<%= label_tag 'Image'%>
+			<%= select_tag :image, options_for_select(@images.map{ |c| "Name:#{c['name']}, Id:#{c['id']}" }), { :class => 'form-control' }%>
+
 			<span class="input-group-addon" ><i class="icon-question-sign" style=""></i></span>
 		</div>
 
 		<div class="input-group margin-top-10">
-			<%= text_field_tag 'ssh_key', nil, placeholder: 'Password for Image or snapshot' , :required => true, :class =>"form-control" %>
-			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
-		</div>
-
-		<div class="input-group margin-top-10">
-			<%= text_field_tag 'flavor', nil, placeholder: 'Storage hdd size' , :required => true, :class =>"form-control" %>
+<%= label_tag 'Flavor'%>
+<%= select_tag :flavor, options_for_select(@flavors.map{ |c| "RAM:#{c['ram']}, Core:#{c['core']}, Disk:#{c['disk']}, Id:#{c['id']}" }), { :class => 'form-control' }%>
 			<span class="input-group-addon" ><i class="icon-question-sign" style=""></i></span>
 		</div>
 
-		<div class="input-group margin-top-10">
-			<%= text_field_tag 'ram', 1024, placeholder: 'Ram size(Multiples of 256)' , :required => true, :class =>"form-control" %>
-			<span class="input-group-addon" ><i class="icon-question-sign"></i></span>
-		</div>
-
-		<div class="input-group margin-top-10">
-			<%= text_field_tag 'cpus', 1, placeholder: 'No of cores(cpus)' , :required => true, :class =>"form-control" %>
-			<span class="input-group-addon" ><i class="icon-question-sign"></i></span>
-		</div>
 	</div>
 
 	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
 		<h5>Security</h5>
 
 		<div class="input-group margin-top-10">
-			<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter SSH User' , :required => true, :class =>"form-control" %>
+<%= label_tag 'Keypair'%>
+<%= select_tag :ssh_key, options_for_select(@keypairs.map{ |c| "#{c}" }), { :class => 'form-control' }%>
+			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
+		</div>
+
+
+		<div class="input-group margin-top-10">
+<%= label_tag 'SSHuser'%>
+			<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter AWS SSH User' , :required => true, :class =>"form-control" %>
 			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
 		</div>
 
 		<div class="input-group margin-top-10">
-			<%= select_tag :id_rsa_public_key, options_for_select(@ssh_keys.map{ |c| c[:name] }), { :class => 'form-control input-sm' }%>
+<%= label_tag 'SSHkey'%>
+			<%= select_tag :id_rsa_public_key, options_for_select(@ssh_keys.map{ |c| c[:name] }), { :class => 'form-control' }%>
 
 			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
 		</div>
 
+		<div class="input-group margin-top-10">
+<br/>
+                        <%= submit_tag "Create", :style => "width:150px; height:50px;", :class => "btn green settings_create" %>
+
+		</div>
+
+
+		
 	</div>
+<% end %>
 </div>

@@ -49,6 +49,8 @@ gem "megam_assembla", "~> 0.1.0"
 gem 'google-analytics-rails', '~> 0.0.6'
 
 
+
+
 # http request and responses, http_proxy
 gem "faraday", "~> 0.9.0"
 gem "faraday_middleware", "~> 0.9.1"

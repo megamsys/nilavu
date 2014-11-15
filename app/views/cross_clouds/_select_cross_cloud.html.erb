@@ -90,7 +90,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 				<h4 class="modal-title">Load Cloud Credentials</h4>
 			</div>
-			<%= form_tag cloud_selector_path, multipart: true, :method => 'post', :remote => true, data: { spinlock: '#signn_cloud_aws'}  do %>
+			<%= form_tag cloud_selector_path, multipart: true, :method => 'post', :remote => true, data: { spinlock: '#signn_cloud_profitbricks'}  do %>
 			<%= render :partial => "cross_clouds/profitbricks_api_form" %>
 			<% end %>
 		</div>

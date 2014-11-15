@@ -154,7 +154,7 @@ def list_gogrid_data(access_key, secret_key)
     
     #List Images
     @gogrid_imgs=[]
-    img = connection.images.all({"owner-id" => "915134024303"}) 
+    img = connection.images.all
     img.each do |i|
       @gogrid_imgs.push({"id" => "#{i.id}", "name" => "#{i.name}"})
     end
@@ -174,11 +174,31 @@ def list_gogrid_data(access_key, secret_key)
     #List Securitygroups
     @gogrid_groups=[]
     connection.security_groups.each do |s|
-      @aws_groups.push("#{s.name}")
+      @gogrid_groups.push("#{s.name}")
     end
 
     return @gogrid_imgs, @gogrid_flavors, @gogrid_keypairs, @gogrid_groups
 
   end
+  
+ #=============================>>ProfitBricks<<=================================
+
+ def list_profitbricks_data(access_key, secret_key)
+ puts "ENTERING THE FUNCTIONS"
+ puts access_key
+ puts secret_key
+ Profitbricks.configure do |config|
+    config.username = "#{access_key}"
+    config.password = "#{secret_key}"
+    end
+    @profitbricks_imgs = []
+    img = Image.all
+    puts img.inspect
+    puts "=================================================================================================================================="
+    img.each do |i|
+     @profitbricks_imgs.push({"id" => "#{i.id}", "name" => "#{i.name}"})
+    end
+    return @profitbricks_imgs
+ end
 
 end
