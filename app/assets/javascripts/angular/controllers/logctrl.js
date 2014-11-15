@@ -6,8 +6,14 @@ function($scope, socket, $location, usSpinnerService, $rootScope, LogStackLimit)
     $scope.l_total = 0;
     $scope.bookName = "";
     $scope.spinneractive = false;
+    $scope.listOfOptions = $scope.books;
 
+  $scope.selectedItemChanged = function(){
+    $scope.calculatedValue = 'You selected number ' + $scope.selectedItem;
+  };   
+    
     $scope.sendmessage = function(data) {
+    console.log("=================================");
         if (!$scope.spinneractive) {
             usSpinnerService.spin('spinner-1');
         }
