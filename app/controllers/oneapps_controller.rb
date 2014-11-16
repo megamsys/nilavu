@@ -16,6 +16,7 @@ class OneappsController < ApplicationController
   end
 
   def logs
+    @com_books = []
     appid = params["appkey"]
     assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
     if assembly.class != Megam::Error
@@ -23,7 +24,13 @@ class OneappsController < ApplicationController
     else
       @appname = nil
     end
-
+    assembly.components.each do |com|
+      if com != nil
+        com.each do |c|
+            @com_books << c.name
+        end
+      end
+    end
   end
 
   def runtime
@@ -76,10 +83,10 @@ class OneappsController < ApplicationController
     end
   end
 
-  def bindService 
+  def bindService
     updatebinds(params[:bindapp], params[:bindservice])
     updatebinds(params[:bindservice], params[:bindapp])
-    
+
   end
 
   def updatebinds(data, bindData)

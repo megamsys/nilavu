@@ -40,11 +40,11 @@
 							<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
 								<td>
 								<p>
-									<small> {{ log.timestamp | date:'d MMM yy, hh:mm a Z' }}</small>
+									<small> {{ log.Timestamp | date:'d MMM yy, hh:mm a Z' }}</small>
 								</p></td>
 								<td>
 								<p>
-									<small>{{log.message }}</small>
+									<small>{{log.Payload }}</small>
 								</p></td>
 							</tr>
 						</tbody>

@@ -15,7 +15,7 @@
  *= require megam_enixel
  *= require style
  *= require style-elegant
- *= require font-awesome
+ *= require font-awesome 
  *= require megam 
  *= require_tree .
  */
