@@ -23,14 +23,21 @@ class OneserviceController < ApplicationController
   end
   
   def logs
-    serviceid = params["servicekey"]
-    assembly=GetAssembly.perform(serviceid,force_api[:email],force_api[:api_key])
+    @com_books = []
+    appid = params["servicekey"]
+    assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
     if assembly.class != Megam::Error
       @appname = assembly.name + "." + assembly.components[0][0].inputs[:domain]
     else
       @appname = nil
     end
-
+    assembly.components.each do |com|
+      if com != nil
+        com.each do |c|
+            @com_books << c.name
+        end
+      end
+    end
   end
 
   def runtime

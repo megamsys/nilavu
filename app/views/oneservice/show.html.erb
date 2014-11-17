@@ -36,10 +36,10 @@
 						</li>
 
 						<li class= "start active">
-							<%= link_to servicemetrics_path(:servicekey => servicekey), :target => "_self" do %>
+							<%= link_to servicelogs_path(:servicekey => servicekey), :target => "_self" do %>
 							<i class="c_icon c_icon-stack pull-left"></i>
 							<span class="title pull-left">Logs</span>
-							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneservice', :action => 'metrics')%>"></span>
+							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneservice', :action => 'logs')%>"></span>
 							<% end %>
 						</li>						
 
