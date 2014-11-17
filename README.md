@@ -1,4 +1,6 @@
-# Megam PaaS : Web [http://www.gomegam.com/docs](http://www.gomegam.com/docs)
+=========================================================================
+Megam PaaS : Web [http://www.gomegam.com](http://www.gomegam.com)
+=========================================================================
 
 [![Build Status](https://travis-ci.org/indykish/nilavu.png?branch=0.5)](https://travis-ci.org/megamsys/nilavu)
 
@@ -6,7 +8,7 @@ Nilavu is a [Rails 4.2](http://guides.rubyonrails.org/) browser based user inter
 
 ## Features:
 
-* Launching Cloud Applications is a breeze
+* Launching Cloud Applications is a breeze in hybrid cloud (private - [OpenNebula] (http://opennebula.org), public - aws, gce, profitbricks, gogrid, hp) 
 
 * Management of the launched apps/services  using [ruby api](https://github.com/megamsys/megam_api.git) which interfaces to
   [api server](https://github.com/megamsys/megam_gateway.git)
@@ -17,10 +19,12 @@ Nilavu is a [Rails 4.2](http://guides.rubyonrails.org/) browser based user inter
 
 * Marketplace with cool addons
 
+* Support for launching Docker containers
+
 
 ## Requirements
 
-> [SQLlite]
+> [SQlite]
 > [Ruby 2.0.x](http://ruby-lang.org)
 > [Rails 4.x](http://guides.rubyonrails.org/4_1_release_notes.html)
 
@@ -29,7 +33,7 @@ Nilavu is a [Rails 4.2](http://guides.rubyonrails.org/) browser based user inter
 
 The UX/UI design was done by [enixel](http://enixel.com).
 
-![Awesome Dashboard](https://github.com/megamsys/nilavu/blob/master/public/nilavu_dash.png)
+![Our Awesome Dashboard](https://github.com/megamsys/nilavu/blob/0.5/public/nilavu_dash.png)
 
 
 
@@ -41,16 +45,28 @@ The UX/UI design was done by [enixel](http://enixel.com).
 
 
 
-# License
+### Documentation
 
+Refer [documentation] (http://www.gomegam.com/docs)
+
+
+
+We are glad to help if you have questions, or request for new features..
+
+[twitter @megamsys](http://twitter.com/megamsys) [email support@megam.co.in](<support@megam.co.in>)
+
+
+
+	
+# License
 
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
-| **Author:**          | Thomal Alrin (<alrin@megam.co.in>)
-|                      | Rajthilak (<rajthilak@megam.co.in>)
-|		               | Yeshwanth Kumar (<getyesh@megam.co.in>)
-|		               | KishorekumarNeelamegam (<nkishore@megam.co.in>)
-| **Copyright:**       | Copyright (c) 2014 Megam Systems.
+| **Author:**          | Rajthilak (<rajthilak@megam.co.in>)
+|                      | Thomas Alrin (<alrin@megam.co.in>)
+|		       	       | KishorekumarNeelamegam (<nkishore@megam.co.in>)
+|		       	       | Yeshwanth Kumar (<getyesh@megam.co.in>)
+| **Copyright:**       | Copyright (c) 2012-2014 Megam Systems.
 | **License:**         | Apache License, Version 2.0
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -64,3 +80,4 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+ 
