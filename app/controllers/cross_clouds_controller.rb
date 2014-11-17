@@ -113,6 +113,7 @@ end
   def cloud_selector
     list_sshkeys
     @provider = params[:cloud]
+    puts @provider
     if params[:cloud] == "aws"
       @provider_form_name = "Amazon EC2"
       puts "ENTERING INSIDE EC2 list"
@@ -137,24 +138,19 @@ end
     elsif params[:cloud] == "gce"
       @provider_form_name = "Google Compute Engine"
     elsif params[:cloud] == "profitbricks"
-      @provider_form_name = "ProfitBricks"
-      list_profitbricks_data(params[:profitbricks_access_key], params[:profitbricks_secret_key])
-        @images = @profitbricks_imgs
-        @flavors = []
-        @keypairs = []
-        @groups = []
-        @credentials = {"profitbricks_access_key" => "#{params[:profitbricks_access_key]}", "profitbricks_secret_key" => "#{params[:profitbricks_secret_key]}"}
-        
+      @provider_form_name = "profitbricks"
+
       
     elsif params[:cloud] == "gogrid"
       @provider_form_name = "GoGrid"
+=begin
         list_gogrid_data(params[:gogrid_access_key], params[:gogrid_secret_key], params[:region])
         @images = @gogrid_imgs
         @flavors = @gogrid_flavors
         @keypairs = @gogrid_keypairs
         @groups = @gogrid_groups
         @credentials = {"gogrid_access_key" => "#{params[:gogrid_access_key]}", "gogrid_secret_key" => "#{params[:gogird_secret_key]}", "region" => "#{params[:region]}"}
-        
+=end        
     elsif params[:cloud] == "opennebula"
       @provider_form_name = "opennebula"
     else
