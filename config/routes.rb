@@ -55,7 +55,7 @@ Cloudauth::Application.routes.draw do
   #oneservice Overview
   match '/serviceoverview', to: 'oneservice#overview', via: [:get, :post]
   match '/serviceruntime', to: 'oneservice#runtime', via: [:get, :post]
-  match '/servicemetrics', to: 'oneservice#metrics', via: [:get, :post]
+  match '/servicelogs', to: 'oneservice#logs', via: [:get, :post]
   match '/oneservice_services', to: 'oneservice#services', via: [:get, :post]
   
   #oneaddons Overview

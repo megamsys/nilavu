@@ -53,7 +53,8 @@ class OneaddonsController < ApplicationController
     end    
   end
 
-  def logs
+  def metrics
+    @com_books = []
     appid = params["appkey"]
     assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
     if assembly.class != Megam::Error
@@ -61,7 +62,13 @@ class OneaddonsController < ApplicationController
     else
       @appname = nil
     end
-
+    assembly.components.each do |com|
+      if com != nil
+        com.each do |c|
+            @com_books << c.name
+        end
+      end
+    end
   end
 
   def runtime
