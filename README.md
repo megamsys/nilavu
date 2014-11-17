@@ -13,7 +13,7 @@ Nilavu is a [Rails 4.2](http://guides.rubyonrails.org/) browser based user inter
 
 * Watch realtime logs of the launched apps [streamer](https://github.com/megamsys/tap.git)
 
-* Metering Monitoring using [angularjs](http://angularjs.org) Inspired by (https://github.com/fdietz/team_dashboard)
+* Metering Monitoring using [angularjs](http://angularjs.org) based charts.
 
 * Marketplace with cool addons
 
