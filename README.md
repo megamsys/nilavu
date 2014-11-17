@@ -1,19 +1,17 @@
-# Cloud Management Portal : [https://www.megam.co](https://www.megam.co)
+# Web : Cloud Management  : [http://www.gomegam.com/docs](http://www.gomegam.com/docs)
 
-[![Build Status](https://travis-ci.org/indykish/nilavu.png?branch=master)](https://travis-ci.org/indykish/nilavu)
+[![Build Status](https://travis-ci.org/indykish/nilavu.png?branch=0.5)](https://travis-ci.org/megamsys/nilavu)
 
-Nilavu is a [Rails4.1](http://guides.rubyonrails.org/) based service portal for PaaS [Megam ](https://www.megam.co). 
+Nilavu is a [Rails4.2](http://guides.rubyonrails.org/) based service portal for [Megam PaaS ](http://www.gomegam.com/docs). 
 
 ## Features:
 
-* Launching Cloud Applications Java, RoR, Play, Akka, Node.js instantly using a Git URL 
+* Launching Cloud Applications using a Git URL 
 
-* Cloud management for the launched apps using [ruby api](https://github.com/megamsys/megam_api.git) which interfaces to 
-  [api server](https://github.com/megamsys/megam_play.git)
+* Management of the launched apps/services  using [ruby api](https://github.com/megamsys/megam_api.git) which interfaces to 
+  [api server](https://github.com/megamsys/megam_gateway.git)
   
-* Realtime Log for the launched Apps using Megam - using [Nodejs realtime streamer](https://github.com/megamsys/tap.git)
-
-* Offline Log with metrics using [angularjs - kibana](http://kibana.org) 
+* Watch realtime logs of the launched apps [streamer](https://github.com/megamsys/tap.git)
 
 * Metering Monitoring using [angularjs](http://angularjs.org) Inspired by (https://github.com/fdietz/team_dashboard)
 
@@ -22,17 +20,26 @@ Nilavu is a [Rails4.1](http://guides.rubyonrails.org/) based service portal for 
 
 ## Requirements
 
-> [Postgres 9.3 +](http://postgresql.org)
-> [Ruby 2.1.x](http://ruby-lang.org)
+> [SQLlite]
+> [Ruby 2.0.x](http://ruby-lang.org)
 > [Rails 4.x](http://guides.rubyonrails.org/4_1_release_notes.html)
+
+
+## Dashboard
+
+Is it this pretty cool. The UX/UI design was done by [enixel](http://enixel.com).
+
+![Awesome Dashboard](https://github.com/megamsys/nilavu/blob/master/images/nilavu_dash.png)
 
 
 
 ## Getting Started 
 
-* Register here [https://www.megam.co](https://www.megam.co)
+* For more information to use in your private datacenter :  [Documentation:](http://gomegam.com/docs)
 
-* The Megam Documentation: http://gomegam.com/docs
+* Try It : Register here [https://www.megam.co](https://www.megam.co)
+
+* Cloud In  a Box : [Download ISO](http://www.gomegam.com/cloudinabox)
 
 
 	
@@ -43,6 +50,7 @@ Nilavu is a [Rails4.1](http://guides.rubyonrails.org/) based service portal for 
 |:---------------------|:-----------------------------------------|
 | **Author:**          | Thomal Alrin (<alrin@megam.co.in>)
 |                      | Rajthilak (<rajthilak@megam.co.in>)
+|		               | Yeshwanth Kumar (<getyesh@megam.co.in>)
 |		               | KishorekumarNeelamegam (<nkishore@megam.co.in>)
 | **Copyright:**       | Copyright (c) 2014 Megam Systems.
 | **License:**         | Apache License, Version 2.0
