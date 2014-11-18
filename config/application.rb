@@ -106,9 +106,6 @@ module Cloudauth
     config.fb_client_id = "#{common['auth']['fb_client_id']}" || ""
     config.fb_secret_key = "#{common['auth']['fb_secret_key']}" || ""
 
-    config.twitter_client_id = "#{common['auth']['twitter_client_id']}" || ""
-    config.twitter_secret_key = "#{common['auth']['twitter_secret_key']}" || ""
-
     config.github_client_id = "#{common['auth']['github_client_id']}" || ""
     config.github_secret_key = "#{common['auth']['github_secret_key']}" || ""
 
@@ -120,8 +117,6 @@ module Cloudauth
   else
     config.fb_client_id = ""
     config.fb_secret_key =  ""
-    config.twitter_client_id = ""
-    config.twitter_secret_key =  ""
     config.github_client_id =  ""
     config.github_secret_key = ""
     config.assembla_client_id =  ""
