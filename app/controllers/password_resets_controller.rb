@@ -4,7 +4,9 @@ class PasswordResetsController < ApplicationController
   def create
     user = User.find_by_email(params[:email])
     if user
-    user.send_password_reset
+        if "#{Rails.configuration.support_email}".chop!
+          user.send_password_reset
+        end
     else
       logger.debug "Email doesn't match with megam account"
       @error = "not_match"
