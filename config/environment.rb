@@ -12,8 +12,8 @@ ActionMailer::Base.smtp_settings = {
   :address        => "smtp.googlemail.com",
   :port           => "587",
   :domain         => "megam.co.in",
-  :user_name      => ENV['SUPPORT_EMAIL'],
-  :password       => ENV['SUPPORT_PASSWORD'],
+  :user_name      => Rails.configuration.support_email,
+  :password       => Rails.configuration.support_password,
   :authentication => :plain
 }
 

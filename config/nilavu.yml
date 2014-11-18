@@ -17,6 +17,10 @@ varai:
   host: localhost
   port: 1880
 
+support:
+  email: support@megam.co.in
+  password: team4megam
+
 auth:
   fb_client_id:
   fb_secret_key:

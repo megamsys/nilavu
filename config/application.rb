@@ -139,6 +139,15 @@ module Cloudauth
     puts "=> Warning ! Disabled varai. Missing [varai] in nilavu.yml."
   end
 
+  if "#{common['support']}".chop!
+    #Support Service
+    config.support_email = "#{common['support']['email']}"
+    config.support_password = "#{common['support']['password']}"
+  else
+    puts "=> Warning ! Disabled support email service. Missing [support] in nilavu.yml."
+  end
+
+
   config.google_authorization_uri = 'https://accounts.google.com/o/oauth2/auth'
   config.google_token_credential_uri = 'https://accounts.google.com/o/oauth2/token'
   config.google_scope = 'https://www.googleapis.com/auth/userinfo.email'
