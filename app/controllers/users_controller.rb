@@ -102,7 +102,8 @@ class UsersController < ApplicationController
     @orgs = list_organizations
     @user= User.find(params[:id])
     puts "--acctt-------------------"
-    #@accounts= list_accounts
+    @accounts= list_accounts
+    puts @accounts.inspect
     puts "---------------------"
     puts @accounts.inspect
     @user
@@ -191,6 +192,8 @@ class UsersController < ApplicationController
       end
       accts = accts.sort_by {|vn| vn[:created_at]}
     end
+    puts accts.inspect
+    puts "------------------accts--------"
     accts
   end
 end
