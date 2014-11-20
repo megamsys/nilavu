@@ -106,9 +106,6 @@ module Cloudauth
     config.fb_client_id = "#{common['auth']['fb_client_id']}" || ""
     config.fb_secret_key = "#{common['auth']['fb_secret_key']}" || ""
 
-    config.twitter_client_id = "#{common['auth']['twitter_client_id']}" || ""
-    config.twitter_secret_key = "#{common['auth']['twitter_secret_key']}" || ""
-
     config.github_client_id = "#{common['auth']['github_client_id']}" || ""
     config.github_secret_key = "#{common['auth']['github_secret_key']}" || ""
 
@@ -120,8 +117,6 @@ module Cloudauth
   else
     config.fb_client_id = ""
     config.fb_secret_key =  ""
-    config.twitter_client_id = ""
-    config.twitter_secret_key =  ""
     config.github_client_id =  ""
     config.github_secret_key = ""
     config.assembla_client_id =  ""
@@ -138,6 +133,15 @@ module Cloudauth
   else
     puts "=> Warning ! Disabled varai. Missing [varai] in nilavu.yml."
   end
+
+  if "#{common['support']}".chop!
+    #Support Service
+    config.support_email = "#{common['support']['email']}"
+    config.support_password = "#{common['support']['password']}"
+  else
+    puts "=> Warning ! Disabled support email service. Missing [support] in nilavu.yml."
+  end
+
 
   config.google_authorization_uri = 'https://accounts.google.com/o/oauth2/auth'
   config.google_token_credential_uri = 'https://accounts.google.com/o/oauth2/token'
