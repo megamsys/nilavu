@@ -115,8 +115,101 @@
 				<!-- PROFILE-1 tab ENDS HERE -->
 				<div class="tab-pane" id="profile_2">
 					<div class="row">
-						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-							<h4 class="bottom_border_grey"> Basic Group Information </h4>
+					
+					
+						<div class="col-xs-12 bottom_border_grey">
+							      		<div class="row">
+							      			<div class="col-xs-7 col-sm-6">
+							      				<h4 class="">Organisation Information</h4>
+							      			</div>
+							      			
+							      			<% if @orgs.class != Megam::Error %>
+									<% @orgs.each do |one_org| %>
+							      			<div class="dropdown">
+  <button class="pull-right btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+   <%= one_org[:name] %>
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" name="orglist" role="menu" aria-labelledby="dropdownMenu1">
+  <%= select_tag(:city_id, options_for_select(@orgs)) %>
+    
+  </ul>
+</div>
+							      			
+							      			<div class="col-xs-5 col-sm-6">
+							  					<a class="btn btn-success settings_create " data-toggle="modal" href="#create-organisation">Create</a>
+							      			</div>
+							      		</div>
+							      		
+							  			
+							      	</div>
+							  	</div>
+							  	<div class="row">
+							  		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							  		</div>
+							  	</div>
+							  	<div class="row">
+							  		<div class="col-xs-12 margintb_15">
+
+						                     <ul  class="nav nav-pills c_nav_pills">
+						                        <li class="active"><a href="#tab_2_1" data-toggle="tab">Users <span style="margin-left:15px;">|</span></a></li>
+						                        <li class=""><a href="#tab_2_2" data-toggle="tab">Domains</a></li>
+						                     </ul>
+						                     <div  class="tab-content">
+						                        <div class="tab-pane fade active in" id="tab_2_1">
+						                        	<table class="table tb_action_list">
+						                        		<thead>
+										                   <tr>
+										                      <th>Username</th>
+										                      <th>Email</th>
+										                   </tr>
+										                </thead>
+										                <tbody>
+										                   	<tr>
+										                      	<td> <a href="">mybluemix</a> </td>
+										                      	<td> <a href="">user@mybluemix.in</a> </td>
+										                   	</tr>
+										                   	<tr>
+										                      	<td> <a href="">mybluemix</a> </td>
+										                      	<td> <a href="">user@mybluemix.in</a> </td>
+										                   	</tr>
+										                   	<tr>
+										                      	<td> <a href="">mybluemix</a> </td>
+										                      	<td> <a href="">user@mybluemix.in</a> </td>
+										                   	</tr>
+										                   	<tr>
+										                      	<td> <a href="">mybluemix</a> </td>
+										                      	<td> <a href="">user@mybluemix.in</a> </td>
+										                   	</tr>
+										                </tbody>
+										            </table>
+						                        </div>
+						                        <div class="tab-pane fade" id="tab_2_2">
+								                    <table class="table tb_action_list">
+										                <tbody>
+										                	<tr>
+										                      	<td class="set_title">System Domain:</td>
+										                      	<td> <a href="">mybluemix.in</a> </td>
+										                   	</tr>
+										                   	<tr>
+										                      	<td class="set_title">System Domain:</td>
+										                      	<td> <a href="">mybluemix.in</a> </td>
+										                   	</tr>
+										                </tbody>
+										            </table>
+						                        </div>
+						                     </div>
+
+						               </div>
+							  	</div>
+							  </div>
+							  <% end %>
+							  <% end %> 
+							 
+							      		
+							      		
+						<!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<h4 class="bottom_border_grey"> Organizations </h4>
 						</div>
 
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
@@ -155,9 +248,8 @@
 								</div>
 
 							</form>
-						</div>
-					</div>
-				</div>
+						</div> -->
+				 
 <div class="tab-pane" id="profile_3">
 								<div class="row">
 							      	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
