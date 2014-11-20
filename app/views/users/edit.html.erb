@@ -131,14 +131,12 @@
     <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" name="orglist" role="menu" aria-labelledby="dropdownMenu1">
-  <%= select_tag(:city_id, options_for_select(@orgs)) %>
+  <%= select_tag(:orglist, options_for_select(@orgs)) %>
     
   </ul>
 </div>
 							      			
-							      			<div class="col-xs-5 col-sm-6">
-							  					<a class="btn btn-success settings_create " data-toggle="modal" href="#create-organisation">Create</a>
-							      			</div>
+							      			
 							      		</div>
 							      		
 							  			
@@ -160,27 +158,17 @@
 						                        	<table class="table tb_action_list">
 						                        		<thead>
 										                   <tr>
-										                      <th>Username</th>
-										                      <th>Email</th>
+										                      <th>Users</th>
+										                      
 										                   </tr>
 										                </thead>
+										                
 										                <tbody>
 										                   	<tr>
-										                      	<td> <a href="">mybluemix</a> </td>
-										                      	<td> <a href="">user@mybluemix.in</a> </td>
-										                   	</tr>
-										                   	<tr>
-										                      	<td> <a href="">mybluemix</a> </td>
-										                      	<td> <a href="">user@mybluemix.in</a> </td>
-										                   	</tr>
-										                   	<tr>
-										                      	<td> <a href="">mybluemix</a> </td>
-										                      	<td> <a href="">user@mybluemix.in</a> </td>
-										                   	</tr>
-										                   	<tr>
-										                      	<td> <a href="">mybluemix</a> </td>
-										                      	<td> <a href="">user@mybluemix.in</a> </td>
-										                   	</tr>
+										                   	  
+										                   	    <td><%= current_user.email %></td>
+										                      	</tr>
+										                   	
 										                </tbody>
 										            </table>
 						                        </div>

@@ -22,6 +22,8 @@ gem 'sqlite3', "~> 1.3.10"
 #fog
 gem 'fog', "~> 1.24.0"
 
+
+
 # security and oauth
 gem 'bcrypt', "~> 3.1.9"
 
