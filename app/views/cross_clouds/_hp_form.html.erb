@@ -23,14 +23,15 @@
 		<h5>Image & Size</h5>
 
 		<div class="input-group margin-top-10">
-			<%= label_tag 'Region'%>
-			<%= text_field_tag 'zone', "#{credentials['region']}", readonly: true, :required => true, :class =>"form-control" %>
+			<%= label_tag 'availabilty_zone'%>
+<% zones = ["az1", "az2", "az3"] %>
+<%= select_tag :zone, options_for_select(zones.map{ |c| "#{c}" }), { :class => 'form-control' }%>
 			<span class="input-group-addon" ><i class="icon-question-sign" style=""></i></span>
 		</div>
 
 		<div class="input-group margin-top-10">
 			<%= label_tag 'Group'%>
-			<%= text_field_tag 'group', nil, placeholder: 'Enter Group name', :required => true, :class =>"form-control" %>
+<%= select_tag :group, options_for_select(@groups.map{ |c| "#{c}" }), { :class => 'form-control' }%>
 			<span class="input-group-addon" ><i class="icon-question-sign" style=""></i></span>
 		</div>
 

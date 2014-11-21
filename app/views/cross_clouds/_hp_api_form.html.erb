@@ -15,7 +15,8 @@
 	</div>
 
 	<div class="input-group margin-top-10">
-		<%= text_field_tag 'region', nil, placeholder: 'Enter HP Region' , :required => true, :class =>"form-control" %>
+<% regions = ["us-west", "us-east"] %>
+<%= select_tag 'region', options_for_select(regions.map{ |c| "#{c}" }), { :required => true, :class => 'form-control' }%>
 		<span class="input-group-addon" ><i class="icon-question-sign"></i></span>
 	</div>
 

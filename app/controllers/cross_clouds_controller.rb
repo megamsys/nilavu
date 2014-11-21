@@ -132,7 +132,7 @@ end
         @images = @hp_imgs
         @flavors = @hp_flavors
         @keypairs = @hp_keypairs
-        @groups = []
+        @groups = @hp_groups
         @credentials = {"hp_access_key" => "#{params[:hp_access_key]}", "hp_secret_key" => "#{params[:hp_secret_key]}", "tenant_id" => "#{params[:tenant_id]}", "region" => "#{params[:region]}"}
 
     elsif params[:cloud] == "gce"
