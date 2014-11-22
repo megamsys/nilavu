@@ -1,0 +1,15 @@
+<div class="col-xs-3 col-sm-6 col-md-5 settings_grid pad_t25">
+	<div class="row">
+		<div class="mplace-icons">
+			<div class="cil-xs-6">
+				<span class="mplace-selected hidden-xs hidden-sm pull-right"><a href="/marketplaces">Marketplace</a></span>
+				<i class="c_icon-window-lg pull-right"></i>
+			</div>
+			<div class="cil-xs-6">
+			    <% url = "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user.email}&api_key=#{current_user.api_token}&callbackURL=https://www.megam.co/visualCallback" %>
+				<span class="hidden-xs hidden-sm pull-right"><a href="<%= url %>" target="_blank">Visual Designer</a></span>
+				<i class="c_icon-grid-25 pull-right"></i>
+			</div>
+		</div>
+	</div>
+</div>

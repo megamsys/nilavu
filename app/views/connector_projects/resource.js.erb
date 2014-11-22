@@ -1,9 +1,0 @@
-var selected_entity = '#json_text';
-
-$(selected_entity).toggle();
-
-$(selected_entity).fadeIn("slow");
-
-var to_insert_content = "<%= escape_javascript(render :partial => 'connector_projects/upload_json', :locals => {:json => @json }) %>";
-	
-insertAt(selected_entity, to_insert_content);

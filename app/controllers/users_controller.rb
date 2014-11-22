@@ -11,9 +11,6 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    if !@user.organization
-      redirect_to edit_user_path(current_user)
-    end
     current_user = @user
   end
 
@@ -25,7 +22,6 @@ class UsersController < ApplicationController
     else
       @user = User.new
     end
-    @user.build_organization
   end
 
   def email_verify
@@ -77,10 +73,15 @@ class UsersController < ApplicationController
         #update current user as onboard user(megam_api user)
         logger.debug "==> Controller: users, Action: create, User onboarded successfully"
         @user.update_columns(:onboarded_api => true, :api_token => api_token)
-        redirect_to cloud_dashboards_path, :gflash => { :success => { :value => "Hi #{@user.first_name}, #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        if "#{Rails.configuration.support_email}".chop!
+        @user.send_welcome_email                                #WELCOME EMAIL
+        end
+        #redirect_to main_dashboards_path, :gflash => { :success => { :value => "Hi #{@user.first_name}, #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
+        redirect_to main_dashboards_path, :notice => "Welcome #{@user.first_name}."
       else
         logger.debug "==> Controller: users, Action: create, User onboard was not successful"
-        redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onboard #{@user.email} into our API server. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}.", :sticky => false, :nodom_wrap => true } }
+        #redirect_to main_dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onboard #{@user.email} into our API server. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}.", :sticky => false, :nodom_wrap => true } }
+        redirect_to main_dashboards_path, :alert => "Gateway Failure."
       end
 
     else
@@ -97,23 +98,25 @@ class UsersController < ApplicationController
   end
 
   def edit
-    breadcrumbs.add " Profile", edit_user_path, :class =>"fa fa-user"
     logger.debug "==> Controller: users, Action: edit, Start edit"
+    @orgs = list_organizations
     @user= User.find(params[:id])
-    @user.organization
+    puts "--acctt-------------------"
+    @accounts= list_accounts
+    puts @accounts.inspect
+    puts "---------------------"
+    puts @accounts.inspect
+    @user
   end
 
   def upgrade
     logger.debug "==> Controller: users, Action: upgrade, Upgrade user from free to paid"
-    breadcrumbs.add " Dashboard", cloud_dashboards_path, :class => "fa fa-dashboard"
-    breadcrumbs.add "Upgrade", upgrade_path
   end
 
   def update
-    logger.debug "==> Controller: users, Action: update, Update user pw, org, api_key"    
+    logger.debug "==> Controller: users, Action: update, Update user pw, api_key"
     puts params[:user_fields_form_type]
     @user=User.find(params[:id])
-    @organization=@user.organization || Organization.new
     @user_fields_form_type = params[:user_fields_form_type]
     if @user_fields_form_type == 'api_key'
       logger.debug "User update For API key"
@@ -136,16 +139,7 @@ class UsersController < ApplicationController
     else
       logger.debug "User update !api_key"
       if @user.update_attributes(params[:user])
-        sign_in @user        
-        unless params[:user][:organzation_attributes] 
-          respond_to do |format|
-            format.js {
-              respond_with(@user_fields_form_type, :user => current_user, :layout => !request.xhr? )
-            }
-          end
-        else
-          redirect_to cloud_dashboards_path
-        end
+        sign_in @user
       else
         render 'edit'
       end
@@ -162,7 +156,7 @@ class UsersController < ApplicationController
     UserMailer.contact_email(params).deliver
   end
 
-  private  
+  private
 
   def correct_user
     @user = User.find(params[:id])
@@ -173,4 +167,33 @@ class UsersController < ApplicationController
     redirect_to(root_path) unless current_user.admin?
   end
 
+  def list_organizations
+    logger.debug "--> #{self.class} : list organizations entry"
+    org_collection = ListOrganizations.perform(force_api[:email], force_api[:api_key])
+    orgs = []
+
+    if org_collection.class != Megam::Error
+      org_collection.each do |one_org|
+        orgs << {:name => one_org.name, :created_at => one_org.created_at.to_time.to_formatted_s(:rfc822)}
+      end
+      orgs = orgs.sort_by {|vn| vn[:created_at]}
+    end
+    orgs
+  end
+
+  def list_accounts
+    logger.debug "--> #{self.class} : list accounts entry"
+    acct_collection = ListAccounts.perform(force_api[:email], force_api[:api_key])
+    accts = []
+
+    if acct_collection.class != Megam::Error
+      acct_collection.each do |one_acct|
+        accts << {:name => one_acct.api_key, :created_at => one_acct.created_at.to_time.to_formatted_s(:rfc822)}
+      end
+      accts = accts.sort_by {|vn| vn[:created_at]}
+    end
+    puts accts.inspect
+    puts "------------------accts--------"
+    accts
+  end
 end

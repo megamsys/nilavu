@@ -1,0 +1,129 @@
+<div class="row c_pading-b15">
+	<div class="portlet-body-head">
+		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+			<i class="c_icon-grid"></i>Your Apps <span><%= @app_counter %> Apps running</span>
+		</div>
+	</div>
+</div>
+<div class="bottom-divider"></div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+	<div class="row app_box">
+
+		<%= link_to marketplaces_path do %>
+
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+			<div class="app_inner">
+				<div class="app_new">
+					<span class="glyphicon glyphicon-plus"></span>
+					<p>
+						Create App
+					</p>
+				</div>
+			</div>
+		</div>
+		<% end %>
+		<% if @assemblies != nil %>
+		<% @assemblies.each do |asm| %>
+		<% if asm.class != Megam:: Error %>
+		<% asm.assemblies.each do |assembly| %>
+		<% sflag = true %>
+		<% if assembly != nil %>
+		<% if assembly[0].class != Megam::Error %>
+
+		<% assembly[0].components.each do |com| %>
+		<% if com != nil %>
+		<% com.each do |c| %>
+		<% com_type = c.tosca_type.split(".") %>
+		<% ctype = get_type(com_type[2]) %>
+		<% if ctype == "SERVICE" %>
+		<% if assembly[0].components.length == 2 %>
+		<% sflag = false %>
+		<% end %>
+		<% end %>
+		<% end %>
+		<% end %>
+		<% end %>
+
+		<% if sflag %>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+			<div class="app_inner">
+				<div class="app">
+					<div class="app_head">
+						<span class="app_config" id="config_menu_<%= assembly[0].name %>"><i class="c_icon-config"></i></span>
+						<div class="config_menu config_menu_<%= assembly[0].name %>">
+							<ul>
+								<li>
+									<%= link_to lifecycle_path(:id => assembly[0].id, :name => assembly[0].name, :command => "start", :type => "app"), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-play-circle"></i>Start App
+									<% end %>
+								</li>
+								<li>
+									<%= link_to lifecycle_path(:id => assembly[0].id, :name => assembly[0].name, :command => "stop", :type => "app"), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-record"></i>Stop App
+									<% end %>
+								</li>
+								<li>
+									<%= link_to lifecycle_path(:id => assembly[0].id, :name => assembly[0].name, :command => "restart", :type => "app"), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-refresh"></i>Restart App
+									<% end %>
+								</li>
+								<li>
+									<%= link_to deleteapp_path(:id => assembly[0].id, :name => assembly[0].name, :command => "delete", :type => "app"), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-refresh"></i>Delete App
+									<% end %>
+								</li>
+							</ul>
+						</div>
+						<div class="row app_icon">
+							<h5><%= assembly[0].name %></h5>
+							<% appkey = assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain] %>
+							<% com_type = assembly[0].components[0][0].tosca_type.split(".") %>
+							<% ctype = get_type(com_type[2]) %>
+							<% if ctype == "ADDON" %>
+							<%= link_to appkey, addonsoverview_path(:appkey => assembly[0].id) %>
+							<% else %>
+							<%= link_to appkey, appoverview_path(:appkey => assembly[0].id) %>
+							<% end %>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+								<ul class="list-inline app_icon_bottom">
+									<%  assembly[0].components.each do |com| %>
+									<% if com != nil %>
+									<% com.each do |c| %>
+									<% com_type = c.tosca_type.split(".") %>
+									<% ctype = get_type(com_type[2]) %>
+									<li>
+										<%= image_tag "logos/"+com_type[2].downcase+".png", :alt => "" %>
+									</li>
+									<% end %>
+									<% end %>
+									<% end %>
+								</ul>
+							</div>
+						</div>
+						<!-- <img class="center-block" src="assets/img/app2.png"> -->
+					</div>
+					<div class="app_footer">
+						<!-- <div class="circle_red"></div> -->
+						<i class="circle_green"></i>
+						<span>Launched</span>
+						<% if asm.inputs[:id].length > 1 %>
+						<% url = "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user.email}&api_key=#{current_user.api_token}&callbackURL=https://www.megam.co/visualCallback&assembliesID=#{asm.id}" %>
+						<a href="<%= url %>" target="_blank" ><i class="c_icon-window pull-right" style="color:blue"></i></a>
+						<% end %>
+						<i class="c_icon-star pull-right"></i>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<% end %>
+		<% end %>
+		<% end %>
+		<% end %>
+		<% end %>
+		<% end %>
+		<% end %>
+
+	</div>
+</div><!-- running apps ends here -->

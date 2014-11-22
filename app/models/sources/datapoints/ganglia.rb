@@ -100,8 +100,6 @@ module Sources
         Rails.logger.debug("Requesting Uptime from #{hash[:url]} with params #{hash[:params]} ...")
         response = ::HttpService.request(hash[:url], :params => hash[:params])
         Nokogiri::HTML(response).xpath("//table/tr/td/table/tr").collect do |row|
-          puts "ROW============> "
-          puts row.inspect
           if row.at("td[1]/text()").to_s == "Uptime"
             @uptime   = row.at("td[2]/text()").to_s
           end

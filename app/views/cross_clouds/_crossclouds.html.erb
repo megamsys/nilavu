@@ -1,0 +1,43 @@
+<div class="row">
+	<div class="col-xs-6 col-sm-7 col-md-9 col-lg-9 col-xl-9">
+		<h4>Activity</h4>
+	</div>
+	<div class="col-xs-6 col-sm-5 col-md-3 col-lg-3 col-xl-3">
+		<ul class="list-inline c_sett_inline">
+			<li class="pull-right">
+				<i class="c_icon-compose"></i>
+				<%= link_to  "Create", new_cross_cloud_path, :remote => true %>
+			</li>
+		</ul>
+	</div>
+
+</div>
+
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+		<div class="bottom-divider"></div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+		<table class="table tb_action_list">
+			<thead>
+				<tr>
+					<th>View</th>
+					<th>Name</th>
+					<th>Created At</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% if @cross_clouds_collection.class != Megam::Error %>
+				<% @cross_clouds.each do |cloud| %>
+				<tr>
+					<td class="set_title"><%= cloud[:name] %></td>
+					<td class="set_title"><%= cloud[:name] %></td>
+					<td><i class="c_icon-calendar"></i> <%= cloud[:created_at] %> </td>
+				</tr>
+				<% end %>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>
+

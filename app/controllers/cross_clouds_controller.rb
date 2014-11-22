@@ -2,45 +2,44 @@ class CrossCloudsController < ApplicationController
   respond_to :html, :js
   include CrossCloudsHelper
   def new
-    breadcrumbs.add " Home", "#", :class => "fa fa-home", :target => "_self"
-    breadcrumbs.add "Manage Settings", cloud_settings_path, :target => "_self"
-    breadcrumbs.add "Clouds", cloud_settings_path, :target => "_self"
-    breadcrumbs.add "New", new_cross_cloud_path, :target => "_self"
-    if request.env['omniauth.auth']
-      @cloud_prov = "Google Cloud Engine"
-      @token = request.env['omniauth.auth']['credentials']['token']
-      @refresh_token = request.env['omniauth.auth']['credentials']['refresh_token']
-      @expire = request.env['omniauth.auth']['credentials']['expires_at']
-    else
-      @cloud_prov = "Amazon EC2"
-    end
-    @ssh_keys_collection = ListSshKeys.perform(force_api[:email], force_api[:api_key])
-    if @ssh_keys_collection.class == Megam::Error
-      redirect_to cloud_settings_path, :gflash => { :warning => { :value => "A keypair is needed for target cloud creation. Click New keypair to generate one.", :sticky => false, :nodom_wrap => true } }
-    else
-      @ssh_keys = []
-      ssh_keys = []
-      @ssh_keys_collection.each do |sshkey|
-        ssh_keys << {:name => sshkey.name, :created_at => sshkey.created_at.to_time.to_formatted_s(:rfc822)}
+        keys = list_sshkeys
+        unless keys.nil?
+      respond_to do |format|
+        format.js {
+          respond_with(@ssh_keys, :layout => !request.xhr? )
+        }
       end
-      @ssh_keys = ssh_keys.sort_by {|vn| vn[:created_at]}
-    end
+        else
+        @err_msg = "Create a ssh_key first"
+        @ssh_keys = keys
+                #redirect_to settings_path, :alert => "Please create a ssh key"
+                      respond_to do |format|
+        format.js {
+          respond_with(keys, @err_msg, :layout => !request.xhr? )
+        }
+        end
+end
   end
 
   def create
     logger.debug "CROSS CLOUD CREATE PARAMS ============> "
-
+if Rails.configuration.storage_type == "s3"
     vault_loc = vault_base_url+"/"+current_user.email+"/"+params[:name]
     sshpub_loc = vault_base_url+"/"+current_user.email+"/"+params[:id_rsa_public_key]
+else
+     vault_loc = current_user.email+"_"+params[:name]
+    sshpub_loc = current_user.email+"_"+params[:id_rsa_public_key]    #Riak changes
+end
     #private_key = (params[:private_key]) ? cross_cloud_bucket+"/"+current_user.email+"/"+params[:name]+"/"+File.basename(params[:private_key]) : ""
     if params[:provider] != "profitbricks"
       #private_key = ((params[:private_key].original_filename).length > 0) ? cross_cloud_bucket+"/"+current_user.email+"/"+params[:name]+"/"+params[:private_key].original_filename : ""
-      wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group],  :image => params[:image], :flavor => params[:flavor], :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => sshpub_loc, :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
+      wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group],  :image => params[:image].split(',').last.partition(':').last, :flavor => params[:flavor].split(',').last.partition(':').last, :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => sshpub_loc, :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
     else
-      wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group],  :image => params[:image], :flavor => params[:flavor], :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => "", :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
+      wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group],  :image => params[:image].split(',').last.partition(':').last, :flavor => params[:flavor].split(',').last.partition(':').last, :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => "", :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
     end
 
     if params[:provider] == "profitbricks"
+        #Profitbricks flavor parsing has to be decided yet
       wparams[:spec][:flavor] = "cpus=#{params[:cpus]},ram=#{params[:ram]},hdd-size=#{params[:flavor]}"
     end
     if params[:provider] == "GoGrid"
@@ -49,7 +48,8 @@ class CrossCloudsController < ApplicationController
     @res_body = CreatePredefClouds.perform(wparams,force_api[:email], force_api[:api_key])
     if @res_body.class == Megam::Error
       @res_msg = nil
-      @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+      #@err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+        @err_msg="Sorry, Cloud creation failed"
       respond_to do |format|
         format.js {
           respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
@@ -91,7 +91,7 @@ class CrossCloudsController < ApplicationController
 
       if @upload.class == Megam::Error
         @res_msg = nil
-        @err_msg="Failed to upload cross cloud files. Please contact #{ActionController::Base.helpers.link_to 'support.', "http://support.megam.co/"}."
+        @err_msg="Failed to upload cross cloud files."
         respond_to do |format|
           format.js {
             respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
@@ -111,30 +111,74 @@ class CrossCloudsController < ApplicationController
   end
 
   def cloud_selector
-    @ssh_keys = params[:ssh_keys]
-    @provider = params[:selected_cloud]
-    if params[:selected_cloud] == "aws"
+    list_sshkeys
+    @provider = params[:cloud]
+    puts @provider
+    if params[:cloud] == "aws"
       @provider_form_name = "Amazon EC2"
-    elsif params[:selected_cloud] == "gce"
-      @provider_form_name = "Google Compute Engine"
-    elsif params[:selected_cloud] == "hp"
+      puts "ENTERING INSIDE EC2 list"
+        list_aws_data(params[:aws_access_key], params[:aws_secret_key], params[:region])
+        @images = @aws_imgs
+        puts "PRINTING AWS IMAGES DATA"
+        puts @images.inspect
+        @flavors = @aws_flavors
+        @keypairs = @aws_keypairs
+        @groups = @aws_groups
+        @credentials = {"aws_access_key" => "#{params[:aws_access_key]}", "aws_secret_key" => "#{params[:aws_secret_key]}", "region" => "#{params[:region]}"}
+
+    elsif params[:cloud] == "hp"
       @provider_form_name = "hp cloud"
-    elsif params[:selected_cloud] == "profitbricks"
+        list_hp_data(params[:hp_access_key], params[:hp_secret_key], params[:tenant_id], params[:region])
+        @images = @hp_imgs
+        @flavors = @hp_flavors
+        @keypairs = @hp_keypairs
+        @groups = @hp_groups
+        @credentials = {"hp_access_key" => "#{params[:hp_access_key]}", "hp_secret_key" => "#{params[:hp_secret_key]}", "tenant_id" => "#{params[:tenant_id]}", "region" => "#{params[:region]}"}
+
+    elsif params[:cloud] == "gce"
+      @provider_form_name = "Google Compute Engine"
+    elsif params[:cloud] == "profitbricks"
       @provider_form_name = "profitbricks"
-    elsif params[:selected_cloud] == "gogrid"
+
+      
+    elsif params[:cloud] == "gogrid"
       @provider_form_name = "GoGrid"
-    elsif params[:selected_cloud] == "opennebula"
+=begin
+        list_gogrid_data(params[:gogrid_access_key], params[:gogrid_secret_key], params[:region])
+        @images = @gogrid_imgs
+        @flavors = @gogrid_flavors
+        @keypairs = @gogrid_keypairs
+        @groups = @gogrid_groups
+        @credentials = {"gogrid_access_key" => "#{params[:gogrid_access_key]}", "gogrid_secret_key" => "#{params[:gogird_secret_key]}", "region" => "#{params[:region]}"}
+=end        
+    elsif params[:cloud] == "opennebula"
       @provider_form_name = "opennebula"
     else
       @provider_form_name = "Amazon EC2"
     end
     respond_to do |format|
       format.js {
-        respond_with(@provider, @provider_form_name, @ssh_keys, :layout => !request.xhr? )
+        respond_with(@provider, @provider_form_name, @credentials, @images, @flavors, @keypairs, @groups, @ssh_keys, :layout => !request.xhr? )
       }
       format.html {
         redirect_to new_cross_cloud_path
       }
+    end
+  end
+
+
+  def list_sshkeys
+    logger.debug "--> #{self.class} : list sshkeys entry"
+    @ssh_keys_collection = ListSshKeys.perform(force_api[:email], force_api[:api_key])
+    logger.debug "--> #{self.class} : listed sshkeys"
+
+    if @ssh_keys_collection.class != Megam::Error
+      @ssh_keys = []
+      ssh_keys = []
+      @ssh_keys_collection.each do |sshkey|
+        ssh_keys << {:name => sshkey.name, :created_at => sshkey.created_at.to_time.to_formatted_s(:rfc822)}
+      end
+      @ssh_keys = ssh_keys.sort_by {|vn| vn[:created_at]}
     end
   end
 

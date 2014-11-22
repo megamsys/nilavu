@@ -1,47 +1,68 @@
 <%= render 'layouts/header' %>
-<div id="sidebar">
-	<ul ng-controller="MainCtrl">
-		<li class=<%= "active" if controller_name== "dashboards"%>>
-			<%= link_to cloud_dashboards_path, :target => "_self" do %>
-			<i class="fa fa-dashboard"></i><span> Dashboard</span>
-			<% end %>
-		</li>
-		<li class=<%= "active" if controller_name== "cloud_settings"%> >
-			<a target="_self" href="/cloud_settings" > <i class="fa fa-random" ></i>Settings</a>
-		</li> 	
+<div class="container main-cover">
+	<div class="row">
+		<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 c_bg_white cover">
+			<div class="row">
+				<div class="page-sidebar navbar-collapse collapse">
 
-		<li class=<%= "active" if controller_name== "apps"%> >
-			<a target="_self" href="/apps" > <i class="fa fa-th"></i>My Apps</a>
-		</li>		
+					<!-- BEGIN SIDEBAR MENU -->
+					<ul class="page-sidebar-menu">
 
-		<li class=<%= "active" if controller_name== "cloud_books_histories"%> >
-			<a target="_self" href="/apps_histories" > <i class="fa fa-video-camera"></i>Logs</a>
-		</li>
+						<li></li>
+						
 
-        <!-- <li class=<%= "active" if controller_name== "cloud_stores"%> >
-			<a target="_self" href="/cloud_stores/new" > <i class="fa fa-th"></i>cloud_stores</a>
-		</li> --> 
+						<li class= "start active">
+							<%= link_to main_dashboards_path, :target => "_self" do %>
+							<i class="c_icon c_icon-dash pull-left"></i>
+							<span class="title pull-left">Dashboard</span>
+							<span class="hidden-xs <%= "selected" if controller_name == 'main_dashboards'%>"></span>
+							<% end %>
+						</li>
 
-		<!--
-		<li class=<%= "active" if controller_name== "apps_items"%>>
-		<%= link_to new_apps_item_path, :target => "_self" do %>
-		<i class="fa-briefcase"></i>Cloud Applications
-		<% end %>
-		</li>
+						<li class= "start active">
+							<%= link_to apps_path, :target => "_self" do %>
+							<i class="c_icon c_icon-browser pull-left"></i>
+							<span class="title pull-left">Apps</span>
+							<span class="hidden-xs <%= "selected" if controller_name == 'apps'%>"></span>
+							<% end %>
+						</li>
 
-		<li class=<%= "active" if controller_name== "cloud_identities"%>>
-		<%= link_to cloud_identity_path(current_user.id),  :target => "_self" do %>
-		<i class="fa-unlock"></i>Cloud Identity
-		<% end %>
-		</li>
-		-->
-	</ul>
+						<li class= "start active">
+							<%= link_to services_path, :target => "_self" do %>
+							<i class="c_icon c_icon-layer pull-left"></i>
+							<span class="title pull-left">Services</span>
+							<span class="hidden-xs <%= "selected" if controller_name == "services"%>"></span>
+							<% end %>
+						</li>
 
-</div>
+						<li class= "start active">
+							<%= link_to addons_path, :target => "_self" do %>
+							<i class="c_icon c_icon-stack pull-left"></i>
+							<span class="title pull-left">Add ons</span>
+							<span class="hidden-xs <%= "selected" if controller_name == "addons"%>"></span>
+							<% end %>
+						</li>
 
-<div id="content">
-	<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
+						<li class="start active">
+							<%= link_to settings_path, :target => "_self" do %>
+							<i class="c_icon c_icon-settings pull-left"></i>
+							<span class="title pull-left">Settings</span>
+							<span class="hidden-xs <%= "selected" if controller_name == "settings"%>"></span>
+							<% end %>
+						</li>
+
+					</ul>
+					<!-- END SIDEBAR MENU -->
+				</div>
+			</div>
+		</div>
+
+		<div id="content">
+			<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
+
+		</div>
+
+	</div>
 
 </div>
 <%= render 'layouts/footer' %>
-

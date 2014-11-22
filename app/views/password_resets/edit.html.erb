@@ -1,47 +1,77 @@
-<% provide(:title, "Forgot password") %> 
-<%= render :partial => "customizations/flash_messages" %>
 
-  <div id="box_login">
-        <div class="container">
-            <div class="span12 box_wrapper">
-                <div class="offset2 span12 box">
-                    <div>
-                        <div class="head">
-                            <h4>Enter password</h4>
-                        </div>
-                        <div class="form">
-<%= form_for @user, :url => password_reset_path(params[:id]) do |f| %>
-  <% if @user.errors.any? %>
-    <div class="error_messages">
-      <h2>Form is invalid</h2>
-      <ul>
-        <% for message in @user.errors.full_messages %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div class="field">
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </div>
-  <div class="actions"><%= f.submit "Update Password" %></div>
-<% end %>
-                        </div>
-                    </div>
-                </div>
-                <p class="already">Know your password? <%= link_to "Sign in", signin_path %></p>
-            </div>
-        </div>
-    </div>
+<% provide(:title, "Password reset") %>
+<div class="signin login">
+	<!-- BEGIN LOGO -->
+	<div class="container">
+		<div class="row">
+			<div class="logo">
+				<%= image_tag "logo.png" %>
+			</div>
+		</div>
 
+		<!-- END LOGO -->
+		<!-- BEGIN LOGIN -->
+		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer bg_white border_grey">
+			<div class="container">
+				<div class="row bottom-divider">
+					<div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
+						<h2>Reset password</h2>
+					</div>
+				</div>
+			</div>
 
+			<% if flash[:error] %>
 
+			<div class="alert alert-error">
+				<h4> <%= flash[:error] %></h4>
+			</div>
 
+			<% end %>
+
+			<div class="cover col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
+				<!-- BEGIN LOGIN FORM -->
+					<%= form_for @user, :url => password_reset_path(params[:id]), :html => {:id =>'megamform', role: "form", :novalidate => 'novalidate'} do |f| %>
+				<div class="c_inline">
+					<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+					<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
+					<div class="form-group">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
+								<i class="c_ico-excla"></i>
+								<%= f.password_field :password, :class => 'form-control', :required => true, placeholder: "New Password" %>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
+								<i class="c_ico-excla"></i>
+								<%= f.password_field :password_confirmation, :class => 'form-control', :required => true, placeholder: "Retype Password" %>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<div class="row">
+								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right tour-btn">
+									<%= f.submit "Update Password", :class => "btn btn-success btn-plain-green" %>
+								</div>
+							</div>
+						</div>
+					</div>
+					</div>
+
+				<% end %>
+				<!-- END REGISTRATION FORM -->
+			</div>
+
+		</div>
+
+	</div>
+</div>
 
 
 

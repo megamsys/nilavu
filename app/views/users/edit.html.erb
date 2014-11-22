@@ -1,93 +1,320 @@
 <% content_for :content_settings do %>
 <%= provide(:title, 'Edit user') %>
-<%= render :partial => "users/header" , :locals => {:head => "My Profile"}%>
 
-<div id="breadcrumb">
-	<%= breadcrumbs.render(:format => :inline, :separator => '') %>
-</div>
-
-<div class="container">
+<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
+	<div class="row c_pading-b15 settings_top">
+		<div class="col-xs-12 col-sm-6">
+			<h3> My profile</h3>
+		</div>
+		<%= render :partial => "users/topright_icons" %>
+	</div>
 	<div class="row">
-		<div class="col-md-12">
-			<div class="col-md-5">
-				<div class="alert_flash_email"></div>
-				<div class="widget-box">
-					<div class="widget-title">
-						<span class="icon"> <i class="fa fa-th-list"></i> </span>
-						<h5>My Account</h5>
-					</div>
-					<div class="widget-content nopadding">
-						<%= render :partial => "users/user_fields_form_email", :locals => {:user => @user, :user_fields_form_type => 'user', :method => 'patch'} %>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-5">
-				<div class="widget-box">
-					<div class="widget-title">
-						<span class="icon"> <i class="fa fa-th-list"></i> </span>
-						<h5>Organization&nbsp;</h5>
-						<span class="label label-info"> <% if current_user.admin %>
-							administrator
-							<% else %>
-							user
-							<% end %> </span>
-					</div>
-					<div class="widget-content nopadding">
-						<%= render :partial => "users/organization_fields_form", :locals => {:user => @user, :user_fields_form_type => "organization"} %>
-					</div>
-				</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+			<div class="alert alert-info">
+				<strong></strong> Tip  Change your Account settings, Organization, API Key here
 			</div>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-12">
-			<div class="col-md-5">
-				<div class="alert_flash_password"></div>
-				<div class="widget-box">
-					<div class="widget-title">
-						<span class="icon"> <i class="fa fa-th-list"></i> </span>
-						<h5>Password</h5>
+		<div class="tabbable-custom nav-justified">
+			<ul class="nav nav-tabs nav-justified">
+				<li class="active">
+					<a href="#profile_1" data-toggle="tab"> My Account </a>
+				</li>
+				<li>
+					<a href="#profile_2" data-toggle="tab"> Organization </a>
+				</li>
+				 <li>
+				    <a href="#profile_3" data-toggle="tab"> API Key </a>
+				 </li>
+				
+	       </ul>
+			<div class="tab-content c_tab-content">
+				<div class="tab-pane active" id="profile_1">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<h4 class="bottom_border_grey">Basic information <span class="pull-right" > <%= current_user.email %></span> </h4>
+						</div>
+
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
+							<%= form_for @user, html: {class:  'form-horizontal', role: 'form'}, remote: true, data:  { spinlock: '#saving_profilename'} do |f| %>
+							<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
+							<input type="hidden" name="user_fields_form_type" value="profile">
+							<div class="form-group">
+								<label class="col-md-3 control-label label-profile">Profile name</label>
+								<div class="col-md-6 input-group margin-top-10">
+									<%= f.text_field :first_name, :id => 'first_name', :class => 'form-control',:readonly => true, placeholder: "Enter text" %>
+									<!-- <%= f.text_field :last_name, :id => 'last_name', :class => 'form-control', placeholder: "Last name" %> -->
+									<span class="input-group-addon" ><a id="change_profilename">Change ?</a></span>
+								</div>
+								<div class="col-md-3 pull-right c_cog_icon">
+									<span>View only</span>
+									<i class="icon-cog"></i>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-3 control-label label-profile">Phone</label>
+								<div class="col-md-6 input-group margin-top-10">
+									<%= f.text_field :phone, :class => 'form-control',:readonly => true, :id => 'phonenumber',placeholder: "Enter text" %>
+									<span class="input-group-addon" ><a id="change_phonenumber">Change ?</a></span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
+									<%= f.submit "Save", :class => "btn btn-success col-md-5 col-xs-12" %>
+								</div>
+							</div>
+							<% end %>
+						</div>
 					</div>
-					<div class="widget-content nopadding">
-						<%= render :partial => "users/user_fields_form_password", :locals => {:user => @user, :user_fields_form_type => "password", :method => 'patch'} %>
+
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<h4 class="bottom_border_grey">Change password</h4>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
+							<%= form_for @user, html: {:class => 'form-horizontal', :role => 'form' }, :remote => true, data: { spinlock: '#saving profile_password'} do |f| %>
+							<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
+							<input type="hidden" name="user_fields_form_type" value="password">
+							<div class="form-group">
+								<label class="col-md-3 control-label label-profile">Current</label>
+								<div class="col-md-6 input-group margin-top-10">
+									<%= f.password_field :password, :class=> 'form-control', placeholder: "Current password" %>
+									<span class="input-group-addon" ><a id="change_password">Change ?</a></span>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-3 control-label label-profile">New</label>
+								<div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-9">
+									<%= f.password_field :password, :class=> 'form-control', :id => 'newpassword', :readonly => true, placeholder: "New password" %>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-3 control-label label-profile">Retype</label>
+								<div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-9">
+									<%= f.password_field :password_confirmation,  :class=> 'form-control', :id => 'newpassword_confirmation', :readonly => true, placeholder: "Confirm new password" %>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
+									<%= f.submit "Update", :id => "save_password", :class => "btn btn-success col-md-5 col-xs-12" %>
+
+								</div>
+							</div>
+							<% end %>
+
+						</div>
 					</div>
+
 				</div>
-			</div>
-			<div class="col-md-5">
-				<div class="widget-box">
-					<div class="widget-title">
-						<span class="icon"> <i class="fa fa-th-list"></i> </span>
-						<h5>API Key </h5><span class="label label-info"><%= @user.user_type %>&nbsp; plan</span>
+				<!-- PROFILE-1 tab ENDS HERE -->
+				<div class="tab-pane" id="profile_2">
+					<div class="row">
+					
+					
+						<div class="col-xs-12 bottom_border_grey">
+							      		<div class="row">
+							      			<div class="col-xs-7 col-sm-6">
+							      				<h4 class="">Organisation Information</h4>
+							      			</div>
+							      			
+							      			<% if @orgs.class != Megam::Error %>
+									<% @orgs.each do |one_org| %>
+							      			<div class="dropdown">
+  <button class="pull-right btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+   <%= one_org[:name] %>
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" name="orglist" role="menu" aria-labelledby="dropdownMenu1">
+  <%= select_tag(:orglist, options_for_select(@orgs)) %>
+    
+  </ul>
+</div>
+							      			
+							      			
+							      		</div>
+							      		
+							  			
+							      	</div>
+							  	</div>
+							  	<div class="row">
+							  		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							  		</div>
+							  	</div>
+							  	<div class="row">
+							  		<div class="col-xs-12 margintb_15">
+
+						                     <ul  class="nav nav-pills c_nav_pills">
+						                        <li class="active"><a href="#tab_2_1" data-toggle="tab">Users <span style="margin-left:15px;">|</span></a></li>
+						                        <li class=""><a href="#tab_2_2" data-toggle="tab">Domains</a></li>
+						                     </ul>
+						                     <div  class="tab-content">
+						                        <div class="tab-pane fade active in" id="tab_2_1">
+						                        	<table class="table tb_action_list">
+						                        		<thead>
+										                   <tr>
+										                      <th>Users</th>
+										                      
+										                   </tr>
+										                </thead>
+										                
+										                <tbody>
+										                   	<tr>
+										                   	  
+										                   	    <td><%= current_user.email %></td>
+										                      	</tr>
+										                   	
+										                </tbody>
+										            </table>
+						                        </div>
+						                        <div class="tab-pane fade" id="tab_2_2">
+								                    <table class="table tb_action_list">
+										                <tbody>
+										                	
+										                   	<tr>
+										                      	
+										                      	<td> <a href="">mymegam.in</a> </td>
+										                   	</tr>
+										                </tbody>
+										            </table>
+						                        </div>
+						                     </div>
+
+						               </div>
+							  	</div>
+							  </div>
+							  <% end %>
+							  <% end %> 
+							 
+							      		
+							      		
+						<!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<h4 class="bottom_border_grey"> Organizations </h4>
+						</div>
+
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
+							<form class="form-horizontal" role="form">
+								<div class="form-group">
+									<% if @orgs.class != Megam::Error %>
+									<% @orgs.each do |one_org| %>
+									<label class="col-md-3 control-label label-profile">Org name</label>
+									<div class="col-md-6 input-group margin-top-10">
+										<input type="text" class="form-control" placeholder="Enter text" value="<%= one_org[:name] %>" readonly />
+										<span class="input-group-addon" ></span>
+									</div>
+									<div class="col-md-3 pull-right c_cog_icon">
+										<span>View only</span>
+										<i class="icon-cog"></i>
+									</div>
+									<% end %>
+									<% end %>
+								</div>
+							</form>
+						</div>
 					</div>
-					<div class="widget-content nopadding">
-						<%= render :partial => "users/user_fields_form_api_key", :locals => {:user => @user, :user_fields_form_type => "api_key", :method => 'patch'} %>
-					</div>
-				</div>
-			</div>
+
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<h4 class="bottom_border_grey">Domain</h4>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
+							<form class="form-horizontal" role="form">
+								<div class="form-group">
+									<label class="col-md-3 control-label label-profile">Name</label>
+									<div class="col-md-6 input-group margin-top-10">
+										<input type="text" class="form-control" placeholder="Default Domain" value="megam.co" readonly/>
+										<span class="input-group-addon" ></span>
+									</div>
+								</div>
+
+							</form>
+						</div> -->
+				 
+<div class="tab-pane" id="profile_3">
+								<div class="row">
+							      	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							      		<h4 class="bottom_border_grey">Api Keys</h4>
+							      	</div>
+							  	</div>
+							  	<div class="row">
+							  		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							  			<a class="btn btn-success settings_create col-md-2 col-xs-2" data-toggle="modal" href="#create-organisation">Create</a>
+							  		</div>
+							  	</div>
+							  	<div class="row">
+							      	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							      		<h4 class="bottom_border_grey">Generated Api Keys</h4>
+							      	</div>
+							  	</div>
+							  	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							      		<table class="table tb_action_list">
+							                <thead>
+							                   <tr>
+							                      <th>Name</th>
+							                      <th>Created At</th>
+							                   </tr>
+							                </thead>
+							                <tbody>
+							                   	<tr>
+							                      	<td class="set_title">8273872387thnyjm7</td>
+							                      	<td> Wed, 30 Jul 2014 07:21:22 -0400 </td>
+							                      	
+							                   	</tr>
+
+							                   	
+							                   
+							                </tbody>
+							            </table>
+							        </div>
+							</div>
+							<!-- <div class="tab-pane" id="profile_3">
+							  <p>Howdy, I'm in Section 3.</p>
+							  <p>
+							     Duis autem vel eum iriure dolor in hendrerit in vulputate.
+							     Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat
+							  </p>
+							  <p>
+							     <a class="btn yellow" href="ui_tabs_accordions_navs.html#tab_1_1_3" target="_blank">Activate this tab via URL</a>
+							  </p>
+							</div> -->
+                        </div>
+                     </div>
+			    </div>
+			</div>	
+			     
 		</div>
+		  
 	</div>
 </div>
 
 <div id="profile_postfinish_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog">
+	<div class="modal-dialog">
 		<div class="modal-content">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-			×
-		</button>
-		<h3 id="myModalLabel">Profile Update</h3>
-	</div>
-	<div class="modal-body">
-		<div class="alert alert-success">
-			<div id="msg"></div>
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
+				</button>
+				<h3 id="myModalLabel">Profile Update</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-success">
+					<div id="msg"></div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<%= link_to "Ok", main_dashboards_path, :class => "btn btn-primary", :target => "_self" %>
+			</div>
 		</div>
 	</div>
-	<div class="modal-footer">
-		<%= link_to "Ok", cloud_dashboards_path, :class => "btn btn-primary", :target => "_self" %>
-	</div>
-</div>
-</div>
 </div>
 
+    		
 <% end %>
+
 <%= render :template => users_show_path %>
+

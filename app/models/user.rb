@@ -1,23 +1,11 @@
 class User < ActiveRecord::Base
   # users.password_hash in the database is a :string
-  attr_accessible :first_name, :last_name, :admin, :phone, :onboarded_api, :user_type, :email, :api_token, :password, :password_confirmation, :verified_email, :verification_hash, :org_id, :app_attributes, :organization_attributes, :cloud_identity_attributes, :apps_item_attributes
+  attr_accessible :first_name, :last_name, :admin, :phone, :onboarded_api, :user_type, :email, :api_token, :password, :password_confirmation, :verified_email, :verification_hash, :app_attributes, :cloud_identity_attributes, :apps_item_attributes
   has_secure_password
   
   has_many :identities, :foreign_key => 'users_id'
   accepts_nested_attributes_for :identities, :update_only => true 
 
-  belongs_to :organization, :foreign_key => 'org_id'
-  accepts_nested_attributes_for :organization, :update_only => true
-
-  has_many :cloud_identities, :foreign_key => 'users_id'
-  accepts_nested_attributes_for :cloud_identities, :update_only => true
-
-  has_many :apps_items, :foreign_key => 'users_id'
-  accepts_nested_attributes_for :apps_items, :update_only => true
-
-  has_many :apps, :foreign_key  => 'users_id'
-  accepts_nested_attributes_for :apps, :update_only => true
-  
   has_many :dashboards, :foreign_key  => 'user_id'
   accepts_nested_attributes_for :dashboards, :update_only => true
  
@@ -41,6 +29,10 @@ def send_password_reset
   self.password_reset_sent_at = Time.zone.now
   save!
   UserMailer.password_reset(self).deliver
+end
+
+def send_welcome_email
+  UserMailer.welcome_email(self).deliver
 end
 
 def generate_token(column)

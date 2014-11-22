@@ -9,17 +9,14 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require jquery.ui.all
- *= require dataTables/jquery.dataTables
- *= require dataTables/jquery.dataTables.bootstrap3
- *= require select2
- *= require unicorn
- *= require unicorn.login
- *= require icheck/flat/blue
- *= require bootstrap-editable
- *= require gritter
- *= require flexslider
-*= require 'masonry/basic'
- *= require bootstrap_and_overrides
+ *= require bootstrap
+ *= require uniform.default
+ *= require custom
+ *= require megam_enixel
+ *= require style
+ *= require style-elegant
+ *= require font-awesome 
+ *= require megam 
  *= require_tree .
  */
+

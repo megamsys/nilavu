@@ -1,0 +1,7 @@
+$(document).ready(function() {
+console.log( "ready!" );
+var selected_entity = '#oneapp';
+var to_insert_content = "<%= escape_javascript(render :partial => 'oneapps/activities', :locals => {:name => @name , :book_type => @book_type, :requests => @requests,:defnrequests => @defnrequests }) %>";
+insertAt(selected_entity, to_insert_content);
+});
+

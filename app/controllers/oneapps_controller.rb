@@ -3,128 +3,178 @@ class OneappsController < ApplicationController
   respond_to :html, :js
   include Packable
   include OneappsHelper
-
-  def marketplaces
+  include MainDashboardsHelper
+  include MarketplaceHelper
+  def show
+    #@app = Appscollection(params[:app_name])
+    #get the selected app
   end
 
-  def activities
-    logger.debug "--> OneApps:Activities"
-    logger.debug params
-    wparams = {:node => "#{params[:name]}" }
-    @name = "#{params[:name]}"
-    @book_type = "#{params[:book_type]}"
-    @requests = GetRequestsByNode.perform(wparams,force_api[:email], force_api[:api_key])  #no error checking for GetRequestsByNode ?
-    @defnrequests = GetDefnRequestsByNode.send(params[:book_type].downcase.to_sym, wparams,force_api[:email], force_api[:api_key])
-    logger.debug "--> OneApps:Activities REQUESTS====> "
-    logger.debug @requests.inspect
+  def overview
+    appid = params["appkey"]
+    @assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
+  end
 
-    logger.debug "--> OneApps:Activities DEFNS REQUESTS====> "
-    logger.debug @defnrequests.inspect
-
-    if @defnrequests.class == Megam::Error
-      @defnrequests={"results" => {"req_type" => "", "create_at" => "", "lc_apply" => "", "lc_additional" => "", "lc_when" => ""}}
+  def logs
+    @com_books = []
+    appid = params["appkey"]
+    assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
+    if assembly.class != Megam::Error
+      @appname = assembly.name + "." + assembly.components[0][0].inputs[:domain]
+    else
+      @appname = nil
+    end
+    assembly.components.each do |com|
+      if com != nil
+        com.each do |c|
+            @com_books << c.name
+        end
+      end
     end
   end
 
-  def requests
-    logger.debug "--> OneApps:requests"
-    packed_parms = packed_h("Meat::Defns",params)
-    defns_result =  FindDefnById.send(params[:book_type].downcase.to_sym, packed_parms, force_api[:email], force_api[:api_key])
-    params[:lc_apply] =  defns_result.lookup(params[:defns_id]).appdefns[:runtime_exec] unless defns_result.class == Megam::Error
-    if params[:lc_apply]["#[start]"].present?
-      params[:lc_apply]["#[start]"] = params[:req_type]
+  def runtime
+    appid = params["appkey"]
+  end
+
+  def services
+    appid = params["appkey"]
+  end
+
+  def bind_service_list
+    @bindapp = params[:bindapp]
+    @service = []
+    @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
+    @service_counter = 0
+    @app_counter = 0
+    if @assemblies != nil
+      @assemblies.each do |asm|
+        if asm.class != Megam:: Error
+          asm.assemblies.each do |assembly|
+            if assembly != nil
+              if assembly[0].class != Megam::Error
+                assembly[0].components.each do |com|
+                  if com != nil
+                    com.each do |c|
+                      if c.related_components == ""
+                        com_type = c.tosca_type.split(".")
+                        ctype = get_type(com_type[2])
+                        if ctype == "SERVICE"
+                          @service << {"name" => assembly[0].name + "." + c.inputs[:domain] + "/" + c.name, "aid" => assembly[0].id, "cid" => c.id }
+                        # @service << assembly[0].name + "." + c.inputs[:domain] + "/" + c.name
+                        end
+                      end
+                    end
+                  end
+                end
+
+              end
+            end
+          end
+        end
+      end
     end
-    packed_parms = packed("Meat::Defns",params)
-    @defnd_out ={}
-    defnd_result =  CreateDefnRequests.send(params[:book_type].downcase.to_sym, packed_parms, force_api[:email], force_api[:api_key])
-    @defnd_out[:error] = "Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}." if @req.class == Megam::Error
-    @defnd_out[:success] = defnd_result.some_msg[:msg]
+    puts "++++++++++++++++++++++++++++"
+    puts params
     respond_to do |format|
       format.js {
-        respond_with(@defnd_out, :layout => !request.xhr? )
+        respond_with(@bindapp, @service, :layout => !request.xhr? )
       }
     end
   end
 
-  def settings
+  def bindService
+    updatebinds(params[:bindapp], params[:bindservice])
+    updatebinds(params[:bindservice], params[:bindapp])
+
   end
 
-  def preclone
-    @node_name = "#{params[:name]}"
-  end
-
-  def clone
-    wparams = { :node => "#{params[:clone_name]}" }
-    @clone_nodes =  FindNodeByName.perform(wparams, force_api[:email],force_api[:api_key])
-    logger.debug "CloudBooks:clone_start, found the node"
-    if @clone_nodes.class == Megam::Error
-      @res_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
-      respond_to do |format|
-        format.js {
-          respond_with(@res_msg, :layout => !request.xhr? )
-        }
-      end
-    else
-      @clone_node = @clone_nodes.lookup("#{params[:clone_name]}")
-      node_hash = {
-        "node_name" => "#{params[:new_name]}#{params[:domain_name]}",
-        "node_type" => "#{@clone_node.node_type}",
-        "req_type" => "#{@clone_node.request[:req_type]}",
-        "noofinstances" => params[:noofinstances].to_i,
-        "command" => @clone_node.request[:command],
-        "predefs" => @clone_node.predefs,
-        "appdefns" => {"timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
-        "boltdefns" => {"username" => "", "apikey" => "", "store_name" => "", "url" => "", "prime" => "", "timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => ""},
-        "appreq" => {},
-        "boltreq" => {}
-      }
-      @predef_name = @clone_node.predefs[:name]
-      predef_options = {:predef_name => @predef_name}
-      pred = FindPredefsByName.perform(predef_options,force_api[:email],force_api[:api_key])
-      if pred.class == Megam::Error
-        redirect_to apps_path, :gflash => { :warning => { :value => "#{pred.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-      else
-        @predef = pred.lookup(@predef_name)
-      end
-
-      runtime_exec = @predef.runtime_exec
-      if @clone_node.node_type == "APP"
-        if @clone_node.predefs[:scm].length > 0
-          runtime_exec = change_runtime(@clone_node.predefs[:scm], @predef.runtime_exec)
-        end
-        if @clone_node.predefs[:war].length > 0
-          runtime_exec = change_runtime(@clone_node.predefs[:war], @predef.runtime_exec)
-        end
-        #node_hash["appdefns"] = {"timetokill" => "#{data[:timetokill]}", "metered" => "#{data[:metered]}", "logging" => "#{data[:logging]}", "runtime_exec" => "#{data[:runtime_exec]}"}
-        node_hash["appdefns"] = {"timetokill" => "", "metered" => "", "logging" => "", "runtime_exec" => "#{runtime_exec}"}
-      end
-      if @clone_node.node_type == "BOLT"
-        #node_hash["boltdefns"] = {"username" => "#{data['user_name']}", "apikey" => "#{data['password']}", "store_name" => "#{data['store_name']}", "url" => "#{data['url']}", "prime" => "#{data['prime']}", "timetokill" => "#{data['timetokill']}", "metered" => "#{data['monitoring']}", "logging" => "#{data['logging']}", "runtime_exec" => "#{data['runtime_exec']}" }
-      end
-
-
-
-      wparams = {:node => node_hash }
-      @node = CreateNodes.perform(wparams,force_api[:email], force_api[:api_key])
-      if @node.class == Megam::Error
-        @res_msg="#{node_hash.some_msg[:msg]} Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+  def updatebinds(data, bindData)
+    if data != ""
+      bindedAPP = data.split(":")
+      get_assembly = GetAssemblyWithoutComponentCollection.perform(bindedAPP[0], force_api[:email], force_api[:api_key])
+      if get_assembly.class == Megam::Error
+        @res_msg = nil
+        @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
         respond_to do |format|
           format.js {
-            respond_with(@res_msg, :layout => !request.xhr? )
+            respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
           }
         end
       else
-        @node.each do |node|
-          res = node.some_msg[:msg][node.some_msg[:msg].index("{")..node.some_msg[:msg].index("}")]
-          res_hash = eval(res)
-          book_params={:name=> "#{res_hash[:node_name]}", :domain_name=> "#{params[:domain_name]}", :predef_cloud_name => "default", :predef_name=> "#{@clone_node.predefs[:name]}", :book_type=> "#{@clone_node.node_type}", :group_name => "#{params[:new_name]}"}
-          @book = current_user.apps.create(book_params)
-          @book.save
-          params = {:book_name => "#{@book.name}", :request_id => "#{res_hash[:req_id]}", :status => "created", :group_name => "#{@book.domain_name}"}
-          @history = @book.apps_histories.create(params)
-          @history.save
+        get_component = GetComponent.perform(bindedAPP[1], force_api[:email], force_api[:api_key])
+        if get_component.class == Megam::Error
+          @res_msg = nil
+          @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+          respond_to do |format|
+            format.js {
+              respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
+            }
+          end
+        else
+          bindedData = bindData.split(":")
+          relatedcomponent = bindedData[2]
+          update_component_json = UpdateComponentJson.perform(get_component, relatedcomponent)
+          update_component = UpdateComponent.perform(update_component_json, force_api[:email], force_api[:api_key])
+          if update_component.class == Megam::Error
+            @res_msg = nil
+            @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+            respond_to do |format|
+              format.js {
+                respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
+              }
+            end
+          else
+            update_json = UpdateAssemblyJson.perform(get_assembly, get_component)
+            update_assembly = UpdateAssembly.perform(update_json, force_api[:email], force_api[:api_key])
+            if update_assembly.class == Megam::Error
+              @res_msg = nil
+              @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+              respond_to do |format|
+                format.js {
+                  respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
+                }
+              end
+            else
+              @err_msg = nil
+            end
+          end
         end
       end
     end
   end
+
+  def lcapp
+    puts params
+    @id = params[:id]
+    @name = params[:name]
+    @command = params[:command]
+    respond_to do |format|
+      format.js {
+        respond_with(@id, @name, @command, :layout => !request.xhr? )
+      }
+    end
+  end
+
+  def app_request
+    logger.debug "--> Apps:Build_request, #{params}"
+    options = {:app_id => "#{params[:app_id]}", :app_name => "#{params[:app_name]}", :action => "#{params[:command]}"}
+    defnd_result =  CreateAppRequests.perform(options, force_api[:email], force_api[:api_key])
+    if params[:command] == "stop"
+      @res_msg = "App #{params[:command]}ped successfully"
+    else
+      @res_msg = "App #{params[:command]}ed successfully"
+    end
+    @err_msg = nil
+    if defnd_result.class == Megam::Error
+      @res_msg = nil
+      @err_msg= ActionController::Base.helpers.link_to 'Contact support ', "http://support.megam.co/"
+      respond_to do |format|
+        format.js {
+          respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
+        }
+      end
+    end
+  end
+
 end

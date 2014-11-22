@@ -1,15 +1,21 @@
 <% if @err_msg != nil %>
 
-var selected_entity = '#crosscloud_postfinish_popup_error';
-$("#err_msg").html('<%= @err_msg %>');
-$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
+//var selected_entity = '#crosscloud_postfinish_popup_error';
+//$("#cloud_err_msg").html('<%= @err_msg %>');
+
+$('#notification').removeClass('badge badge-success').addClass('badge badge-alert');
+$("#events").prepend('<li><span class="label label-sm label-icon label-error"><i class="icon-plus"></i></span> <%= @err_msg %> <span class="time">Just now</span></li>');
+
+//$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
 
 <% else %>
 
 var selected_entity = '#crosscloud_postfinish_popup';
 
-$("#crossclouds_path").append('<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>');
-$("#res_msg").append('<%= @res_msg %>');
+$("#cloud_res_msg").append('<%= @res_msg %>');
 $(selected_entity).modal({backdrop : false,keyboard: false,show : true});
+
+$('#notification').removeClass('badge badge-success').addClass('badge badge-alert');
+$("#events").prepend('<li><span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> <%= @res_msg %> <span class="time">Just now</span></li>');
 
 <% end %>

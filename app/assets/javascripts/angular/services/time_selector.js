@@ -81,24 +81,27 @@ app.factory("TimeSelector", function() {
       case "hour":
           range = 3600*1;
           break;  
-      case "1-hours":
-        range = 3600*1;
+      case "2hr":
+        range = 3600*2;
+        break;    
+      case "4hr":
+        range = 3600*4;
         break;
       case "12-hours":
         range = 3600*12;
         break;
-      case "24-hours":
+      case "day":
       case "today":
         range = 3600*24;
         break;
       case "3-days":
         range = 3600*24*3;
         break;
-      case "7-days":
+      case "week":
         range = 3600*24*7;
         break;
       case "4-weeks":
-      case "this-month":
+      case "month":
         range = 3600*24*7*4;
         break;
       default:

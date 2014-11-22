@@ -1,11 +1,22 @@
 <% if @err_msg != nil %>
 var selected_entity = '#sshkey_postfinish_popup_error';
-$("#err_msg").html('<%= @err_msg %>');
-$(selected_entity).modal({backdrop : false, show : true});
+$("#ssh_err_msg").html('<%= @err_msg %>');
+
+$(selected_entity).modal({ show : true});
+
+$('#notification').removeClass('badge badge-success').addClass('badge badge-alert');
+$("#events").prepend('<li><span class="label label-sm label-icon label-error"><i class="icon-plus"></i></span> <%= @err_msg %> <span class="time">Just now</span></li>');
+$('#create-ssh').modal('hide');
 
 <% else %>
-var selected_entity = '#sshkey_postfinish_popup';
-$("#res_msg").html('<%= @res_msg %>');
-$(selected_entity).modal({backdrop : false,show : true});
 
+
+var selected_entity = '#sshkey_postfinish_popup';
+$("#ssh_res_msg").html('<%= @res_msg %>');
+
+// if i use modal, no event notification
+$(selected_entity).modal({show : true});
+$('#notification').removeClass('badge badge-success').addClass('badge badge-alert');
+$("#events").prepend('<li><span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> <%= @res_msg %> <span class="time">Just now</span></li>');
+$('#create-ssh').modal('hide');
 <% end %>
