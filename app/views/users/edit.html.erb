@@ -122,8 +122,6 @@
 								<div class="col-xs-7 col-sm-6">
 									<h4 class="">Organisation Information</h4>
 								</div>
-
-								<% if @orgs.class != Megam::Error %>
 								<% if @orgs.length > 0 %>
 								<% @orgs.each do |one_org| %>
 								<div class="dropdown">
@@ -143,16 +141,7 @@
 										<span class="caret"></span>
 									</button>
 								</div>
-								<% end %>
-								<% else %>
-								<div class="dropdown">
-									<button class="pull-right btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-										No Orgs Found
-										<span class="caret"></span>
-									</button>
-								</div>
-								<% end %>
-								<% end %>
+								<% end %>								
 							</div>
 						</div>
 					</div>
@@ -208,52 +197,55 @@
 
 				<div class="tab-pane" id="profile_3">
 					<%= form_tag(update_path, :method => "post", :remote => true) do %>
-
-					<div class="tab-pane" id="profile_3">
-						<div class="row">
-							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-								<h4 class="bottom_border_grey">API Keys</h4>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-								<input type="hidden" name="user_fields_form_type" value="api_key">
-								<%= submit_tag "Create", :class => "btn btn-default" %>
-							</div>
-
-						</div>
-						<% end %>
-						<%= form_for @user, :remote => true do |f| %>
-						<div class="row">
-							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-								<h4 class="bottom_border_grey">API Keys</h4>
-							</div>
-						</div>
+					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-							<table class="table tb_action_list">
-								<thead>
-									<tr>
-										<th>Name</th>
-										<th>Created At</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td class="set_title" > <%= f.text_field :api_token, :id => 'api_key_field', :disabled => 'disabled', :class=> 'form-control required' %></td>
-										<td > <%= text_field_tag 'created_at', "#{@user.updated_at}", :readonly => true, :class=> 'form-control' %></td>
-									</tr>
-
-								</tbody>
-							</table>
-							<% end %>
+							<h4 class="bottom_border_grey">Api Keys</h4>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<input type="hidden" name="user_fields_form_type" value="api_key">
+							<%= submit_tag "Create", :class => "btn btn-default" %>
+						</div>
+
+					</div>
+					<% end %>
+					<%= form_for @user, :remote => true do |f| %>
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+							<h4 class="bottom_border_grey">Generated API Keys</h4>
+						</div>
+					</div>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+						<table class="table tb_action_list">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Created At</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="set_title" > <%= f.text_field :api_token, :id => 'api_key_field', :disabled => 'disabled', :class=> 'form-control required' %></td>
+									<td > <%= text_field_tag 'created_at', "#{@user.updated_at}", :readonly => true, :class=> 'form-control' %></td>
+
+								</tr>
+
+							</tbody>
+						</table>
+						<% end %>
+					</div>
+
 				</div>
 			</div>
 		</div>
-
 	</div>
+</div>
 
+</div>
+
+</div>
 </div>
 
 <div id="profile_postfinish_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -280,4 +272,3 @@
 <% end %>
 
 <%= render :template => users_show_path %>
-
