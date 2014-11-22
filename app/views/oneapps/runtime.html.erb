@@ -9,7 +9,6 @@
 			<%= render :partial => "users/topright_icons" %>
 		</div>
 	</div>	
-
 <ng-view ng-show="resolved" ng-cloak></ng-view>
 </div>
 
@@ -19,6 +18,7 @@
 <script>
     (function($) {
     $.Sources = JSON.parse('<%= raw Sources.sources.to_json %> ');
+    $.AppName = "<%= @appname %>";
      })($);
 </script>
 

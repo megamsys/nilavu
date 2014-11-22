@@ -42,6 +42,12 @@ class OneserviceController < ApplicationController
 
   def runtime
     serviceid = params["servicekey"]
+     assembly=GetAssembly.perform(serviceid,force_api[:email],force_api[:api_key])
+    if assembly.class != Megam::Error
+      @appname = assembly.name + "." + assembly.components[0][0].inputs[:domain]
+    else
+      @appname = nil
+    end
   end
 
   def services

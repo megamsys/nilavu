@@ -34,9 +34,15 @@ class OneappsController < ApplicationController
   end
 
   def runtime
-    appid = params["appkey"]
-  end
-
+    appid = params["appkey"]   
+     assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
+    if assembly.class != Megam::Error
+      @appname = assembly.name + "." + assembly.components[0][0].inputs[:domain]
+    else
+      @appname = nil
+    end
+  end  
+ 
   def services
     appid = params["appkey"]
   end
@@ -74,8 +80,6 @@ class OneappsController < ApplicationController
         end
       end
     end
-    puts "++++++++++++++++++++++++++++"
-    puts params
     respond_to do |format|
       format.js {
         respond_with(@bindapp, @service, :layout => !request.xhr? )

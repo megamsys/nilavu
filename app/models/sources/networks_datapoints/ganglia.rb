@@ -34,7 +34,7 @@ module Sources
         #from    = (options[:from]).to_i
         #to      = (options[:to] || Time.now).to_i
         range = options[:range].to_s
-        host    = getHost(options[:widgetid])       
+        host    = options[:appkey]       
         #graph_metric  = Rails.configuration.ganglia_graph_metric
         result_json = { } 
         #network_loop
@@ -75,15 +75,7 @@ module Sources
           result << response.first["datapoints"]
         end
         result
-      end
-
-      def getHost(widget_id)
-        widget  = Widget.find(widget_id.to_i)   
-        dashboard_id = widget.dashboard_id        
-        #dashboard = Dashboard.find(dashboard_id)    
-        dashboard = App.find(dashboard_id)   
-        dashboard.name                          
-      end
+      end    
 
     end
   end
