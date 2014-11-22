@@ -111,9 +111,25 @@ module CrossCloudsHelper
     :hp_tenant_id => "#{tenant_id}",
     :hp_avl_zone => "#{avl_zone}" )
 
+
+netconnection = Fog::HP::Network.new(
+     :hp_auth_uri => 'https://region-a.geo-1.identity.hpcloudsvc.com:35357/v2.0/',
+    :hp_access_key => "#{access_key}",
+    :hp_secret_key => "#{secret_key}",
+    :hp_tenant_id => "#{tenant_id}",
+    :hp_avl_zone => "#{avl_zone}" )
+
+#List Groups
+@hp_groups=[]
+netconnection.security_groups.sort_by(&:name).each do |group|
+@hp_groups.push("#{group.name}")
+end
+
+
+
     #List Images
     @hp_imgs=[]
-    img = connection.images.all({"name" => "drbd-rsyslog"})
+    img = connection.images.all({"name" => "megam-trusty"})
     img.each do |i|
       @hp_imgs.push({"id" => "#{i.id}", "name" => "#{i.name}"})
     end
@@ -130,18 +146,16 @@ module CrossCloudsHelper
       @hp_keypairs.push("#{k.name}")
     end
 
-    return @aws_imgs, @aws_flavors, @aws_keypairs
+    return @aws_imgs, @aws_flavors, @aws_keypairs, @hp_groups
 
   end
 
   def hp_availability_zone(zone)
     case "#{zone}"
-    when 'az3'
-      return 'az-3.region-a.geo-1'
-    when 'az2'
-      return 'az-2.region-a.geo-1'
+    when 'us-east'
+      return 'region-b.geo-1'
     else
-    return 'az-1.region-a.geo-1'
+      return 'region-a.geo-1'
     end
   end
   

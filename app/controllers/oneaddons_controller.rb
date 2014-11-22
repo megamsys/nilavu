@@ -73,6 +73,12 @@ class OneaddonsController < ApplicationController
 
   def runtime
     appid = params["appkey"]
+     assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
+    if assembly.class != Megam::Error
+      @appname = assembly.name + "." + assembly.components[0][0].inputs[:domain]
+    else
+      @appname = nil
+    end
   end
 
   def services

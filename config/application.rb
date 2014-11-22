@@ -136,10 +136,12 @@ module Cloudauth
 
   if "#{common['support']}".chop!
     #Support Service
-    config.support_email = "#{common['support']['email']}"
-    config.support_password = "#{common['support']['password']}"
+    config.support_email = "#{common['support']['email']}" || ""
+    config.support_password = "#{common['support']['password']}" || ""
   else
     puts "=> Warning ! Disabled support email service. Missing [support] in nilavu.yml."
+     config.support_email = ""
+    config.support_password = ""
   end
 
 

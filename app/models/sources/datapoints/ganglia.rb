@@ -31,9 +31,9 @@ module Sources
         Rails.configuration.ganglia_web_url.present? && Rails.configuration.ganglia_host.present?
       end
 
-      def get(options = {})
+      def get(options = {}, email, apikey)
         range = options[:range].to_s
-        host    = getHost(options[:widgetid])       
+        host    = options[:appkey]      
         result_json = {}
         
         uptime_metric  = Rails.configuration.ganglia_request_metric
@@ -41,8 +41,6 @@ module Sources
         ganglia_uptime = overview_hash["uptime"]
         
         model_rpm = request_rpm(range, uptime_metric, host)
-        new_books = request_new_books(options)
-        total_books = request_total_books(options)
         result1 = {}
         result1 = { "uptime" => overview_hash["uptime"], "os" => overview_hash["os"], "cpus" => overview_hash["cpus"], "host" => host}
         
@@ -123,38 +121,11 @@ module Sources
         end
         result
       end
+    
 
       def request_rpm(range, target, host)
         Random.rand(10...100)
-      end
-
-      def request_new_books(options = {})
-        widget  = Widget.find(options[:widgetid].to_i)   
-        dashboard_id = widget.dashboard_id        
-        #dashboard = Dashboard.find(dashboard_id)    
-        dashboard = App.find(dashboard_id)   
-        user_id = dashboard.users_id        
-         c = App.where(:users_id => user_id).where(:created_at => Time.now - 7.days..Time.now).count  
-         c
-      end
-      
-      def request_total_books(options = {})
-        widget  = Widget.find(options[:widgetid].to_i)
-        dashboard_id = widget.dashboard_id
-        #dashboard = Dashboard.find(dashboard_id)
-        dashboard = App.find(dashboard_id)
-        user_id = dashboard.users_id
-        c = App.where(:users_id => user_id).count 
-         c
-      end
-      
-      def getHost(widget_id)
-        widget  = Widget.find(widget_id.to_i)   
-        dashboard_id = widget.dashboard_id        
-        #dashboard = Dashboard.find(dashboard_id)    
-        dashboard = App.find(dashboard_id)   
-        dashboard.name                           
-      end
+      end    
 
     end
   end
