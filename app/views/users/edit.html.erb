@@ -123,6 +123,7 @@
 								</div>
 
 								<% if @orgs.class != Megam::Error %>
+								<% if @orgs.length > 0 %>
 								<% @orgs.each do |one_org| %>
 								<div class="dropdown">
 									<button class="pull-right btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
@@ -131,13 +132,27 @@
 									</button>
 									<ul class="dropdown-menu" name="orglist" role="menu" aria-labelledby="dropdownMenu1">
 										<%= select_tag(:orglist, options_for_select(@orgs)) %>
-
 									</ul>
+								</div>
+								<% end %>
+								<% else %>
+								<div class="dropdown">
+									<button class="pull-right btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+										No Orgs Found
+										<span class="caret"></span>
+									</button>
+								</div>
+								<% end %>
+								<% else %>
+								<div class="dropdown">
+									<button class="pull-right btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+										No Orgs Found
+										<span class="caret"></span>
+									</button>
 								</div>
 								<% end %>
 								<% end %>
 							</div>
-
 						</div>
 					</div>
 					<div class="row">
