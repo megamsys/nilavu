@@ -116,9 +116,9 @@ class UsersController < ApplicationController
   def update
     logger.debug "==> Controller: users, Action: update, Update user pw, api_key"
     puts params[:user_fields_form_type]
-    @user=User.find(params[:id])
+    @user=User.find(current_user.id)
     @user_fields_form_type = params[:user_fields_form_type]
-    if @user_fields_form_type == 'api_key'
+      if @user_fields_form_type == 'api_key'
       logger.debug "User update For API key"
       api_token = generate_api_token
       options = { :id => current_user.id, :email => current_user.email, :api_key => api_token,
@@ -159,7 +159,7 @@ class UsersController < ApplicationController
   private
 
   def correct_user
-    @user = User.find(params[:id])
+    @user = User.find(current_user.id)
     redirect_to(root_path) unless current_user?(@user)
   end
 

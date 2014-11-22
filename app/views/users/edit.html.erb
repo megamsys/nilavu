@@ -18,13 +18,14 @@
 	<div class="row">
 		<div class="tabbable-custom nav-justified">
 			<ul class="nav nav-tabs nav-justified">
+
 				<li class="active">
 					<a href="#profile_1" data-toggle="tab"> My Account </a>
 				</li>
 				<li>
 					<a href="#profile_2" data-toggle="tab"> Organization </a>
 				</li>
-				<li>
+				<li >
 					<a href="#profile_3" data-toggle="tab"> API Key </a>
 				</li>
 
@@ -206,58 +207,53 @@
 				</div>
 
 				<div class="tab-pane" id="profile_3">
-					<div class="row">
-						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-							<h4 class="bottom_border_grey">Api Keys</h4>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-							<a class="btn btn-success settings_create col-md-2 col-xs-2" data-toggle="modal" href="#create-organisation">Create</a>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-							<h4 class="bottom_border_grey">Generated Api Keys</h4>
-						</div>
-					</div>
-					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-						<table class="table tb_action_list">
-							<thead>
-								<tr>
-									<th>Name</th>
-									<th>Created At</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td class="set_title">8273872387thnyjm7</td>
-									<td> Wed, 30 Jul 2014 07:21:22 -0400 </td>
+					<%= form_tag(update_path, :method => "post", :remote => true) do %>
 
-								</tr>
+					<div class="tab-pane" id="profile_3">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+								<h4 class="bottom_border_grey">API Keys</h4>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+								<input type="hidden" name="user_fields_form_type" value="api_key">
+								<%= submit_tag "Create", :class => "btn btn-default" %>
+							</div>
 
-							</tbody>
-						</table>
+						</div>
+						<% end %>
+						<%= form_for @user, :remote => true do |f| %>
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+								<h4 class="bottom_border_grey">API Keys</h4>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<table class="table tb_action_list">
+								<thead>
+									<tr>
+										<th>Name</th>
+										<th>Created At</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td class="set_title" > <%= f.text_field :api_token, :id => 'api_key_field', :disabled => 'disabled', :class=> 'form-control required' %></td>
+										<td > <%= text_field_tag 'created_at', "#{@user.updated_at}", :readonly => true, :class=> 'form-control' %></td>
+									</tr>
+
+								</tbody>
+							</table>
+							<% end %>
+						</div>
 					</div>
 				</div>
-				<!-- <div class="tab-pane" id="profile_3">
-				<p>Howdy, I'm in Section 3.</p>
-				<p>
-				Duis autem vel eum iriure dolor in hendrerit in vulputate.
-				Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat
-				</p>
-				<p>
-				<a class="btn yellow" href="ui_tabs_accordions_navs.html#tab_1_1_3" target="_blank">Activate this tab via URL</a>
-				</p>
-				</div> -->
 			</div>
 		</div>
+
 	</div>
-</div>
 
-</div>
-
-</div>
 </div>
 
 <div id="profile_postfinish_popup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
