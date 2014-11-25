@@ -311,7 +311,7 @@ GEM
       sprockets (~> 2.12)
       sprockets-rails (>= 2.0, < 4.0)
     simple_oauth (0.2.0)
-    socket.io-rails (1.2.0)
+    socket.io-rails (1.2.1)
       railties (>= 3.1)
     sprockets (2.12.3)
       hike (~> 1.2)
