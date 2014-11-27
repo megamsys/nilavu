@@ -7,7 +7,7 @@ function(FlotrGraphHelper, GraphModel, $routeParams, Sources) {
 
 		function onSuccess(data) {
 			console.log("TEST!-----------> 1111");
-			console.log($AppName);
+			console.log($.AppName);
 			scope.host = data.host;
 			scope.uptime = data.uptime;
 			scope.os = data.os;

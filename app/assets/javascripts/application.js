@@ -28,6 +28,7 @@
 //= require angular-sanitize
 //= require angular-spinner.js
 //= require underscore.min
+//= require jquery.oauthpopup
 //= require bootstrap
 //= require jquery.uniform
 //= require validation.jquery
