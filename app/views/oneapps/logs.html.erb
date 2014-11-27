@@ -43,9 +43,13 @@
 
 			<table class="table tb_action_list">
 				<tbody>
+				    <tr>
+				      <td><a title="" href="" ng-click="sendmessage('<%= @appname %>')"><strong><%= @appname %></strong></a>&nbsp;&nbsp;<%= image_tag "icon-window.png", :alt => "" %></td>
+				    </tr>
 					<% @com_books.each do |cb| %>
 					<tr>
-						<td> <a title="" href="" ng-click="sendmessage('<%= cb %>')"><strong><%= cb %></strong></a> </td>
+					    <% com = cb.split("-") %>
+						<td> <a title="" href="" ng-click="sendmessage('<%= com[0] %>')"><strong><%= com[0] %></strong></a>&nbsp;&nbsp;<%= image_tag "logos/"+com[1].downcase+".png", :alt => "" %> </td>
 					</tr>							
 						
 					<% end %>					
@@ -79,5 +83,10 @@
 	</div>
 </div>
 <% end %>
+<script>
+    (function($) {   
+    $.SocketURL = "<%= @socketURL %>";
+     })($);
+</script>
 <%= render :template => oneapps_show_path %>
 

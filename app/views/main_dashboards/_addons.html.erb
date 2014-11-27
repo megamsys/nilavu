@@ -28,21 +28,21 @@
 		<% sflag = false %>
 		<% if assembly != nil %>
 		<% if assembly[0].class != Megam::Error %>
-		
+
 		<% assembly[0].components.each do |com| %>
-        <% if com != nil %>
-        <% com.each do |c| %>
-        <% com_type = c.tosca_type.split(".") %>
-        <% ctype = get_type(com_type[2]) %>
-        <% if ctype == "ADDON" %>
-        <% sflag = true %>
-        <% end %>
-        <% end %>
-        <% end %>
-        <% end %>	
-		
-		
+		<% if com != nil %>
+		<% com.each do |c| %>
+		<% com_type = c.tosca_type.split(".") %>
+		<% ctype = get_type(com_type[2]) %>
+		<% if ctype == "ADDON" %>
+		<% sflag = true %>
+		<% end %>
+		<% end %>
+		<% end %>
+		<% end %>
+
 		<% if sflag %>
+		<% if assembly[0].status != "Terminated" %>
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
 			<div class="app_inner">
 				<div class="app">
@@ -65,10 +65,10 @@
 									<i class="glyphicon glyphicon-refresh"></i>Restart Addon
 									<% end %>
 								</li>
-								<li>
-									<a data-toggle="modal" href="#addon_delete"><i class="glyphicon glyphicon-trash"></i>Delete Service</a>
-								</li>
-							</ul>					
+								<!-- <li>
+								<a data-toggle="modal" href="#addon_delete"><i class="glyphicon glyphicon-trash"></i>Delete Service</a>
+								</li> -->
+							</ul>
 						</div>
 						<div class="row app_icon">
 							<h5><%= assembly[0].name %></h5>
@@ -97,7 +97,7 @@
 					<div class="app_footer">
 						<!-- <div class="circle_red"></div> -->
 						<i class="circle_green"></i>
-						<span>Launched</span>
+						<span><strong><%= assembly[0].status %></strong></span>
 						<% if asm.inputs[:id].length > 1 %>
 						<% url = "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user.email}&api_key=#{current_user.api_token}&callbackURL=https://www.megam.co/visualCallback&assembliesID=#{asm.id}" %>
 						<a href="<%= url %>" target="_blank" ><i class="c_icon-window pull-right" style="color:blue"></i></a>
@@ -108,6 +108,61 @@
 			</div>
 
 		</div>
+		<% else %>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+			<div class="app_inner">
+				<div class="app">
+					<div class="app_head">
+						<span class="app_config" id="config_menu_<%= assembly[0].name %>"><i class="c_icon-config"></i></span>
+						<div class="config_menu config_menu_<%= assembly[0].name %>">
+							<ul>
+								<li>
+									<i class="glyphicon glyphicon-play-circle"></i>Start App
+								</li>
+								<li>
+									<i class="glyphicon glyphicon-record"></i>Stop App
+								</li>
+								<li>
+									<i class="glyphicon glyphicon-refresh"></i>Restart App
+								</li>
+								<li>
+									<i class="glyphicon glyphicon-trash"></i>Delete App
+								</li>
+							</ul>
+						</div>
+						<div class="row app_icon">
+							<h5><%= assembly[0].name %></h5>
+							<%= assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain] %>
+
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+								<ul class="list-inline app_icon_bottom">
+									<%  assembly[0].components.each do |com| %>
+									<% if com != nil %>
+									<% com.each do |c| %>
+									<% com_type = c.tosca_type.split(".") %>
+									<% ctype = get_type(com_type[2]) %>
+									<li>
+										<%= image_tag "logos/"+com_type[2].downcase+".png", :alt => "" %>
+									</li>
+									<% end %>
+									<% end %>
+									<% end %>
+								</ul>
+							</div>
+						</div>
+						<!-- <img class="center-block" src="assets/img/app2.png"> -->
+					</div>
+					<div class="app_footer">
+						<i class="circle_red"></i>
+						<span><strong><%= assembly[0].status %></strong></span>
+						<i class="c_icon-window pull-right" style="color:blue"></i>
+						<i class="c_icon-star pull-right"></i>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<% end %>
 		<% end %>
 		<% end %>
 		<% end %>

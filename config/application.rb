@@ -87,6 +87,8 @@ module Cloudauth
     #config.ganglia_request_metric = 'nginx_status'
     config.metric_source = "#{common['monitor']['metric_source']}"|| 'ganglia'
 
+    config.socket_url = "http://#{common['tap']['host']}:#{common['tap']['port']}" || "http://megamd.megam.co.in:8000" || "http://localhost:7000"  
+
   if "#{common['storage']}".chop!
       config.storage_type =  "#{common['storage']['type']}" || 'riak'
       config.storage_crosscloud = "#{common['storage']['cloud_keys_bucket']}" || 'cloudaccesskeys'

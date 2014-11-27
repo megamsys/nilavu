@@ -6,11 +6,12 @@ class MakeAssemblies
       "assemblies"=>[
         {
           "name"=>"#{options[:assembly_name]}",
-          "components"=> build_components(options),
+          "components"=> build_components(options, tmp_email, tmp_api_key),
           "policies"=>build_policies(options),
           "inputs"=>"",
           "output"=>[],
           "operations"=>"",
+          "status"=>"Launching",
         }
       ],
       "inputs"=>{
@@ -24,7 +25,7 @@ class MakeAssemblies
     hash
   end
 
-  def self.build_components(options)
+  def self.build_components(options, email, apikey)
     com = []
     options[:combo].each do |c|   
       type = get_type(c)
@@ -65,8 +66,8 @@ class MakeAssemblies
         "inputs"=>{
           "domain"=>"#{options[:domain]}",
           "port"=>"",
-          "username"=>"",
-          "password"=>"",
+          "username"=>email,
+          "password"=>apikey,
           "version"=>"#{options[:version]}",
           "source"=>"#{options[:source]}",
           "design_inputs"=>{
