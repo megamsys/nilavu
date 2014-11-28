@@ -13,6 +13,10 @@
 
 </div>
 
+
+<!--	<a data-toggle="modal" href="#view-details">View Details</a> -->
+
+
 <div class="row">
 	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 		<div class="bottom-divider"></div>
@@ -30,7 +34,9 @@
 				<% if @cross_clouds_collection.class != Megam::Error %>
 				<% @cross_clouds.each do |cloud| %>
 				<tr>
-					<td class="set_title"><%= cloud[:name] %></td>
+					<td class="set_title"><i class=""></i>
+			 
+			 <%= link_to "View Details", view_details_path(:settingsname => cloud[:name]), :remote => true %></td>
 					<td class="set_title"><%= cloud[:name] %></td>
 					<td><i class="c_icon-calendar"></i> <%= cloud[:created_at] %> </td>
 				</tr>
@@ -40,4 +46,5 @@
 		</table>
 	</div>
 </div>
+
 

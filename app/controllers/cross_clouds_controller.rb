@@ -203,5 +203,25 @@ class CrossCloudsController < ApplicationController
     end
     iplist[0]
   end
-
+  
+ def view_details
+ input = params[:settingsname]
+ @details = GetPredefCloud.perform(params[:settingsname], force_api[:email], force_api[:api_key])
+ puts @details.inspect
+ puts "------------->>>>>>>>>>>>>>>>>>>>>>>"
+ if @details.class == Megam::Error
+      @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+      respond_to do |format|
+        format.js {
+          respond_with(@err_msg, :layout => !request.xhr? )
+        }
+      end
+    else
+      respond_to do |format|
+        format.js {
+          respond_with(@details, :layout => !request.xhr? )
+        }
+      end
+   end
+  end
 end
