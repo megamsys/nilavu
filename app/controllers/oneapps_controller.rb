@@ -17,23 +17,25 @@ class OneappsController < ApplicationController
 
   def logs
     @com_books = []
+    @socketURL = Rails.configuration.socket_url
     appid = params["appkey"]
     assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
-    if assembly.class != Megam::Error
+   # if assembly.class != Megam::Error
       @appname = assembly.name + "." + assembly.components[0][0].inputs[:domain]
-    else
-      @appname = nil
-    end
+   # else
+    #  @appname = nil
+    #end   
     assembly.components.each do |com|
       if com != nil
         com.each do |c|
-            @com_books << c.name
+            com_type = c.tosca_type.split(".")
+            @com_books << c.name + "-" + com_type[2] 
         end
       end
     end
   end
 
-  def runtime
+  def runtime    
     appid = params["appkey"]   
      assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
     if assembly.class != Megam::Error

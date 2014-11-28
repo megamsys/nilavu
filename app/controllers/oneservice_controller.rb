@@ -24,6 +24,7 @@ class OneserviceController < ApplicationController
   
   def logs
     @com_books = []
+    @socketURL = Rails.configuration.socket_url
     appid = params["servicekey"]
     assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
     if assembly.class != Megam::Error
@@ -34,7 +35,8 @@ class OneserviceController < ApplicationController
     assembly.components.each do |com|
       if com != nil
         com.each do |c|
-            @com_books << c.name
+             com_type = c.tosca_type.split(".")
+            @com_books << c.name + "-" + com_type[2] 
         end
       end
     end

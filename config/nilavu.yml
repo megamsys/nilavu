@@ -36,3 +36,7 @@ monitor:
   host: ganglia_host
   base_url: http://monitor.megam.co.in/ganglia
   cluster: megampaas
+
+tap:
+ host: localhost
+ port: 7000

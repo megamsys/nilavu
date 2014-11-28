@@ -55,6 +55,7 @@ class OneaddonsController < ApplicationController
 
   def metrics
     @com_books = []
+    @socketURL = Rails.configuration.socket_url
     appid = params["appkey"]
     assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
     if assembly.class != Megam::Error
@@ -65,7 +66,8 @@ class OneaddonsController < ApplicationController
     assembly.components.each do |com|
       if com != nil
         com.each do |c|
-            @com_books << c.name
+            com_type = c.tosca_type.split(".")
+            @com_books << c.name + "-" + com_type[2] 
         end
       end
     end

@@ -8,6 +8,7 @@ class UpdateAssemblyJson
       "policies" => assembly.policies,
       "inputs" => assembly.inputs,
       "operations" => assembly.operations,
+      "status" => assembly.status,
       "created_at" => assembly.created_at
     }
 
