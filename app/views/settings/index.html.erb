@@ -66,4 +66,55 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 
 
 <% end %>
+
+
+
+
+<div class="modal fade" id="viewdetails_postfinish_popup" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Cloud Details</h4>
+			</div>
+			<div class="modal-body text-center">
+			<div id="details2">
+			
+			
+			</div>
+
+							
+			 
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<%= link_to  "Ok", "#", :class => "btn btn-success", :target => "_self" %>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="viewdetails_postfinish_popup_error" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				
+			<div class="modal-body text-center">
+				Error
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<%= link_to  "Ok", "#", :class => "btn btn-success", :target => "_self" %>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+  </div>
+
+</div>
+
+
+
 <%= render :template => users_show_path %>

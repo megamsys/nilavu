@@ -170,6 +170,8 @@ match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :p
   #Disaster Recovery
   match '/drbd_config', to: 'disaster_recovery#drbd_config', via: [:get, :post]
   match '/drbd_submit', to: 'disaster_recovery#drbd_submit', via: [:get, :post]
+    match '/view_details', to: 'cross_clouds#view_details', via: [:get, :post] 
+
   
   # =======Error controller
   get "/404", :to => "errors#not_found"

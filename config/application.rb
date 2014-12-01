@@ -86,6 +86,12 @@ module Cloudauth
     config.ganglia_request_metric = 'nginx_requests'
     #config.ganglia_request_metric = 'nginx_status'
     config.metric_source = "#{common['monitor']['metric_source']}"|| 'ganglia'
+    
+    if	"#{common['tap']}".chop!
+    config.socket_url = "http://#{common['tap']['host']}:#{common['tap']['port']}" 
+    else
+    config.socker_url = "http://localhost:7000"   
+    end
 
   if "#{common['storage']}".chop!
       config.storage_type =  "#{common['storage']['type']}" || 'riak'
