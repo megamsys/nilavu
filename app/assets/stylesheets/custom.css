@@ -728,10 +728,9 @@ background-color: white;
 
 .title
 {
-	font-size: 16px;
-	font-weight: bold;
+	font-size: 18px;
 	/*padding-left: 15px;*/
-	/*padding-top: 5px;*/
+	padding-top: 5px;
 	/*display: inline !important;*/
 }
 .header
@@ -874,7 +873,6 @@ background-color: white;
 	margin-right: 5px;
 	margin-left: 5px;
 }
-}
 .portlet-title
 {
 	border: 2px solid #70b1ee;
@@ -1003,7 +1001,7 @@ background-color: white;
 }
 .tb_action_list tbody tr
 {
-	height: 60px;
+	height: 75px;
 }
 .tb_action_list thead th
 {
@@ -1210,7 +1208,7 @@ background-color: white;
 }
 .mplace-icons
 {
-	color: #d5d7e3;
+	color: #989aab;
 }
 .mplace-icons:hover
 {
@@ -1240,11 +1238,6 @@ background-color: white;
 {
 	margin-bottom: 15px;
 	margin-top: 15px;
-}
-.margintb_30
-{
-	margin-bottom: 30px;
-	margin-top: 30px;
 }
 .stpack
 {
@@ -1555,7 +1548,7 @@ a.btn-success:hover
 	}
 	.page-sidebar-menu > li > a 
 	{	   
-		position: absolute; !important;
+		position: absolute !important;
 	}
 	.label-profile
 	{
@@ -1615,58 +1608,4 @@ a.btn-success:hover
 transform: translate(0, 20%) !important;
 -ms-transform: translate(0, 20%) !important; /* IE 9 */
 -webkit-transform: translate(0, 20%) !important; /* Safari and Chrome */
-}
-.graph
-{
-	border-top: 1px solid  #e5e6ef;
-	/*border-left: 1px solid  #e5e6ef;*/
-	min-height: 200px;
-	margin-bottom: 90px;
-}
-.c_nav_pills a
-{
-	background-color: #fff !important;
-	color: #000 !important;
-	padding: 10px 20px 10px 0px !important;
-}
-.c_nav-pills > li.active > a, .c_nav-pills > li.active > a:hover, .c_nav-pills > li.active > a:focus
-.c_nav_pills li:hover, .c_nav_pills li:active, .c_nav_pills li a:focus, .c_nav_pills .active a
-{
-	color: #8BB6DD !important;
-}
-.sel-app
-{
-	font-size: 16px;
-	text-align: right;
-	line-height: 25px;
-}
-.inner-child
-{
-	margin-top: 70px;
-	display: none;
-	margin-left: 30px;
-	font-size: 18px;
-}
-.inner-child li
-{
-	margin-top: 10px;
-	margin-bottom: 10px;
-}
-
-.inner-child i
-{
-	margin-right: 15px;
-	font-size: 24px;
-	color: #dddddd;
-}
-.inner-child a:hover, .inner-child i:hover, .inner-child li:hover
-{
-	text-decoration: none;
-	color: #4e9de6 !important;
-}
-.dwn
-{
-	margin-bottom: 2px;
-	background-image: url(portlet-collapse-icon.png);
-	width: 14px;
 }

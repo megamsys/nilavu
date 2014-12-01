@@ -13,7 +13,7 @@
 
 						<li class= "start active">
 							<%= link_to main_dashboards_path, :target => "_self" do %>
-							<i class="icon-dashboard pull-left"></i>
+							<i class="c_icon c_icon-dash pull-left"></i>
 							<span class="title pull-left">Dashboard</span>
 							<span class="hidden-xs <%= "selected" if controller_name == 'main_dashboards'%>"></span>
 							<% end %>
@@ -21,7 +21,7 @@
 
 						<li class= "start active">
 							<%= link_to apps_path, :target => "_self" do %>
-							<i class="icon-credit-card pull-left"></i>
+							<i class="c_icon c_icon-browser pull-left"></i>
 							<span class="title pull-left">Apps</span>
 							<span class="hidden-xs <%= "selected" if controller_name == 'apps'%>"></span>
 							<% end %>
@@ -29,7 +29,7 @@
 
 						<li class= "start active">
 							<%= link_to services_path, :target => "_self" do %>
-							<i class="icon-tasks pull-left"></i>
+							<i class="c_icon c_icon-layer pull-left"></i>
 							<span class="title pull-left">Services</span>
 							<span class="hidden-xs <%= "selected" if controller_name == "services"%>"></span>
 							<% end %>
@@ -37,7 +37,7 @@
 
 						<li class= "start active">
 							<%= link_to addons_path, :target => "_self" do %>
-							<i class="icon-pushpin pull-left"></i>
+							<i class="c_icon c_icon-stack pull-left"></i>
 							<span class="title pull-left">Add ons</span>
 							<span class="hidden-xs <%= "selected" if controller_name == "addons"%>"></span>
 							<% end %>
@@ -45,7 +45,7 @@
 
 						<li class="start active">
 							<%= link_to settings_path, :target => "_self" do %>
-							<i class="icon-cog pull-left"></i>
+							<i class="c_icon c_icon-settings pull-left"></i>
 							<span class="title pull-left">Settings</span>
 							<span class="hidden-xs <%= "selected" if controller_name == "settings"%>"></span>
 							<% end %>
