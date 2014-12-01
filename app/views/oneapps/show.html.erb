@@ -36,18 +36,12 @@
 						</li>
 
 						<li class= "start active">
-							<%= link_to applogs_path(:appkey => appkey), :target => "_self", :class => "inner-menu" do %>
+							<%= link_to applogs_path(:appkey => appkey), :target => "_self" do %>
 							<i class="c_icon c_icon-stack pull-left"></i>
 							<span class="title pull-left">Logs</span>
 							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'logs')%>"></span>
 							<% end %>
-	   <ul class="inner-child" id="sub-logs">
-	   		<!--<li><a href=""><i class="icon-list-alt"></i>test</a></li>
-	   		<li><a href=""><i class="icon-list-alt"></i>test</a></li>
-	   		<li><a href=""><i class="icon-list-alt"></i>test</a></li> -->
-	   </ul>
 						</li>						
-
 
 					</ul>
 					<!-- END SIDEBAR MENU -->

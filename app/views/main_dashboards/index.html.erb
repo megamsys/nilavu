@@ -3,8 +3,6 @@
 
 <% if flash[:notice] %>
 <script>
-alert("TEST1=====>");
-alert(flash[:notice]);
 $("#events").prepend('<li><a href=""><span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> <%= flash[:notice] %>
     <span class=
     "time" > Just now</span></a></li>');
