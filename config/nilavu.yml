@@ -28,8 +28,8 @@ auth:
   github_secret_key:
   assembla_client_id:
   assembla_secret_key:
-  google_client_id:
-  google_secret_key:
+  google_client_id: 747654586796-8aqmg4t037s1v2r1vaf1qmjlk121s4ji.apps.googleusercontent.com
+  google_secret_key: vWm0M_Eiyik9EeIhUeLE95bZ
 
 monitor:
   metric_source: ganglia

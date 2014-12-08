@@ -3166,4 +3166,3 @@ Licensed under the MIT license.
     }
 
 })(jQuery);
-

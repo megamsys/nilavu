@@ -83,7 +83,7 @@ GEM
     diff-lcs (1.2.5)
     equalizer (0.0.9)
     erubis (2.7.0)
-    excon (0.41.0)
+    excon (0.42.0)
     execjs (2.2.2)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -123,7 +123,7 @@ GEM
     fog-sakuracloud (0.1.1)
       fog-core
       fog-json
-    fog-softlayer (0.3.24)
+    fog-softlayer (0.3.25)
       fog-core
       fog-json
     fog-xml (0.1.1)
@@ -175,7 +175,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    megam_api (0.30)
+    megam_api (0.31)
       excon (~> 0.41)
       highline (~> 1.6)
       mixlib-config (~> 2.1)
@@ -276,7 +276,7 @@ GEM
       rake (>= 0.8.7)
       thor (>= 0.18.1, < 2.0)
     raindrops (0.13.0)
-    rake (10.4.0)
+    rake (10.4.2)
     randexp (0.1.7)
     ref (1.0.5)
     remotipart (1.2.1)
@@ -378,7 +378,7 @@ DEPENDENCIES
   jquery-turbolinks (~> 2.1.0)
   json (~> 1.8.1)
   less-rails (~> 2.5.0)
-  megam_api (~> 0.29)
+  megam_api (= 0.31)
   megam_assembla (~> 0.1.0)
   megam_deccanplato (~> 0.1.0)
   megam_scmmanager (~> 0.1.0)
