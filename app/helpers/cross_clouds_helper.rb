@@ -129,7 +129,7 @@ end
 
     #List Images
     @hp_imgs=[]
-    img = connection.images.all({"name" => "megam-trusty"})
+    img = connection.images.all         #({"name" => "megam-trusty"})
     img.each do |i|
       @hp_imgs.push({"id" => "#{i.id}", "name" => "#{i.name}"})
     end
