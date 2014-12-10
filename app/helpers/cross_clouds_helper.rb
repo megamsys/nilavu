@@ -129,9 +129,12 @@ end
 
     #List Images
     @hp_imgs=[]
-    img = connection.images.all         #({"name" => "megam-trusty"})
+    img = connection.images.all
     img.each do |i|
+        if (i.name == "megam-trusty - Partner Image" || i.name == "CentOS 7 x86_64 (2014-09-29) - Partner Image")
       @hp_imgs.push({"id" => "#{i.id}", "name" => "#{i.name}"})
+        end
+        end
     end
 
     #List Flavors
