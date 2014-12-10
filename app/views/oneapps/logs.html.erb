@@ -38,25 +38,12 @@
 	</div>
 	<br/>
 	
-
-<script>
-
-$("#sub-logs").append('<li><a href=""><i class="icon-list-alt"></i><a title="" href="" ng-click="sendmessage(\'<%= @appname %>\')"><strong><%= @appname %></strong></a></a></li>');
-
-<% @com_books.each do |cb| %>
-					    <% com = cb.split("-") %>
-$("#sub-logs").append('<li><a href=""><i class="icon-list-alt"></i><a title="" href="" ng-click="sendmessage(\'<%= com[0] %>\')"><strong><%= com[0] %></strong></a></li>');
-
-<% end %>
-</script>
-
-
 	<div class="row">
 		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3" style="max-height:500px; overflow-y:scroll">
 
 			<table class="table tb_action_list">
 				<tbody>
-			    <tr>
+				    <tr>
 				      <td><a title="" href="" ng-click="sendmessage('<%= @appname %>')"><strong><%= @appname %></strong></a>&nbsp;&nbsp;<%= image_tag "icon-window.png", :alt => "" %></td>
 				    </tr>
 					<% @com_books.each do |cb| %>
