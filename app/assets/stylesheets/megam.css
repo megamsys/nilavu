@@ -1392,3 +1392,16 @@ Bootstrap Panel
      -moz-box-shadow: none !important;
           box-shadow: none !important;
 }
+
+/* top right icons css change by RAJ */
+.mplace-icons a {
+    font-family: FontAwesome;
+    font-size: 16px;
+    font-weight: 300;
+}
+.mplace-icons i {
+  font-size: 23px;
+}
+
+
+

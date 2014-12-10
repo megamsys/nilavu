@@ -1159,7 +1159,16 @@ background-color: white;
 	border-right: 1px solid #f0f0f0;
 	border-bottom: 2px solid #dddddd;
 	margin: 14px;
+	background-color: #6dabe5;
 }
+.c_jCarouselLite li:hover {
+   background-color: #F3C878;
+}
+
+.c_jCarouselLiteactive {
+   background-color: #FF0000;
+}
+
 .c_cog_icon
 {
 	margin-top: 22px;
@@ -1212,7 +1221,9 @@ background-color: white;
 {
 	color: #d5d7e3;
 }
-.mplace-icons:hover
+
+/* top right icons css change by RAJ */
+.mplace-icons .icons:hover
 {
 	color: #8BB6DD;
 }
