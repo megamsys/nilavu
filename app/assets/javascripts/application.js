@@ -35,6 +35,13 @@
 //= require jquery-validate.bootstrap-tooltip
 //= require jquery.jcarousellite
 //= require megam.form_validation
+//= require app
+//= require contact-us
+//= require index
+//= require jquery.flot
+//= require jquery.flot.resize
+//= require jquery.flot.selection
+//= require portfolio
 //= require socket.io
 //= require megam.monitor
 //= require jquery.spin
