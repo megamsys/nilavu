@@ -12,8 +12,8 @@
 
 						<li class="start" >
 							<%= link_to main_dashboards_path , :target => "_self" do %>
-							<i class="c_icon c_icon-dash pull-left"></i>
-							<span class="title pull-left">Back to dash</span>
+							<i class="icon-dashboard pull-left"></i>
+							<span class="title pull-left">Dashboard</span>
 							<span class="selected hidden-xs"></span>
 							<% end %>
 						</li>
@@ -37,7 +37,7 @@
 
 						<li class= "start active">
 							<%= link_to addonslogs_path(:appkey => appkey), :target => "_self" do %>
-							<i class="c_icon c_icon-stack pull-left"></i>
+							<i class="icon-list-ul pull-left"></i>
 							<span class="title pull-left">Logs</span>
 							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneaddons', :action => 'logs')%>"></span>
 							<% end %>

@@ -366,7 +366,7 @@ GEM
     thread_safe (0.3.4)
     tilt (1.4.1)
     trollop (2.0)
-    turbolinks (2.5.2)
+    turbolinks (2.5.3)
       coffee-rails
     twitter (5.11.0)
       addressable (~> 2.3)
