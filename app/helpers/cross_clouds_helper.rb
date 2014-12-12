@@ -129,8 +129,9 @@ module CrossCloudsHelper
     img = connection.images.all
     img.each do |i|
       if (i.name == "megam-trusty - Partner Image" || i.name == "CentOS 7 x86_64 (2014-09-29) - Partner Image")
-        @hp_imgs.push({"id" => "#{i.id}", "name" => "#{i.name}"})
-      end
+      @hp_imgs.push({"id" => "#{i.id}", "name" => "#{i.name}"})
+        end
+
     end
 
     #List Flavors
