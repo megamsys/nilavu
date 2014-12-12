@@ -111,30 +111,26 @@ module CrossCloudsHelper
     :hp_tenant_id => "#{tenant_id}",
     :hp_avl_zone => "#{avl_zone}" )
 
-
-netconnection = Fog::HP::Network.new(
-     :hp_auth_uri => 'https://region-a.geo-1.identity.hpcloudsvc.com:35357/v2.0/',
+    netconnection = Fog::HP::Network.new(
+    :hp_auth_uri => 'https://region-a.geo-1.identity.hpcloudsvc.com:35357/v2.0/',
     :hp_access_key => "#{access_key}",
     :hp_secret_key => "#{secret_key}",
     :hp_tenant_id => "#{tenant_id}",
     :hp_avl_zone => "#{avl_zone}" )
 
-#List Groups
-@hp_groups=[]
-netconnection.security_groups.sort_by(&:name).each do |group|
-@hp_groups.push("#{group.name}")
-end
-
-
+    #List Groups
+    @hp_groups=[]
+    netconnection.security_groups.sort_by(&:name).each do |group|
+      @hp_groups.push("#{group.name}")
+    end
 
     #List Images
     @hp_imgs=[]
     img = connection.images.all
     img.each do |i|
-        if (i.name == "megam-trusty - Partner Image" || i.name == "CentOS 7 x86_64 (2014-09-29) - Partner Image")
-      @hp_imgs.push({"id" => "#{i.id}", "name" => "#{i.name}"})
-        end
-        end
+      if (i.name == "megam-trusty - Partner Image" || i.name == "CentOS 7 x86_64 (2014-09-29) - Partner Image")
+        @hp_imgs.push({"id" => "#{i.id}", "name" => "#{i.name}"})
+      end
     end
 
     #List Flavors
@@ -158,17 +154,17 @@ end
     when 'us-east'
       return 'region-b.geo-1'
     else
-      return 'region-a.geo-1'
+    return 'region-a.geo-1'
     end
   end
-  
-#============GOGRID===========
-def list_gogrid_data(access_key, secret_key)
+
+  #============GOGRID===========
+  def list_gogrid_data(access_key, secret_key)
     connection = Fog::Compute.new(
     :provider => 'GoGrid',
     :go_grid_api_key => "#{access_key}",
     :go_grid_shared_secret => "#{secret_key}")
-    
+
     #List Images
     @gogrid_imgs=[]
     img = connection.images.all
@@ -197,25 +193,24 @@ def list_gogrid_data(access_key, secret_key)
     return @gogrid_imgs, @gogrid_flavors, @gogrid_keypairs, @gogrid_groups
 
   end
-  
- #=============================>>ProfitBricks<<=================================
 
- def list_profitbricks_data(access_key, secret_key)
- puts "ENTERING THE FUNCTIONS"
- puts access_key
- puts secret_key
- Profitbricks.configure do |config|
-    config.username = "#{access_key}"
-    config.password = "#{secret_key}"
+  #=============================>>ProfitBricks<<=================================
+
+  def list_profitbricks_data(access_key, secret_key)
+    puts "ENTERING THE FUNCTIONS"
+    puts access_key
+    puts secret_key
+    Profitbricks.configure do |config|
+      config.username = "#{access_key}"
+      config.password = "#{secret_key}"
     end
     @profitbricks_imgs = []
     img = Image.all
     puts img.inspect
     puts "=================================================================================================================================="
     img.each do |i|
-     @profitbricks_imgs.push({"id" => "#{i.id}", "name" => "#{i.name}"})
+      @profitbricks_imgs.push({"id" => "#{i.id}", "name" => "#{i.name}"})
     end
     return @profitbricks_imgs
- end
-
+  end
 end
