@@ -218,4 +218,4 @@ def list_gogrid_data(access_key, secret_key)
     return @profitbricks_imgs
  end
 
-end
+
