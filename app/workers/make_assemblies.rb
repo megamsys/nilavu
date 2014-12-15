@@ -31,6 +31,7 @@ class MakeAssemblies
       type = get_type(c)
       if type == "APP"
         name = options[:appname]
+        ttype = "tosca.app."
         if options[:servicename] != nil
           if options.has_key?(:related_components)
             if options[:related_components] != nil
@@ -43,6 +44,7 @@ class MakeAssemblies
       end
       if type == "SERVICE"
         name = options[:servicename]
+        ttype = "tosca.service."
         if options[:appname] != nil
           if options.has_key?(:related_components)
             if options[:related_components] != nil
@@ -58,7 +60,7 @@ class MakeAssemblies
       end
       value = {
         "name"=>"#{name}",
-        "tosca_type"=>"#{options[:ttype]}#{c}",
+        "tosca_type"=>"#{ttype}#{c}",
         "requirements"=> {
           "host"=>"#{options[:cloud]}",
           "dummy"=>""
