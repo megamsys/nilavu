@@ -143,6 +143,16 @@ class CrossCloudsController < ApplicationController
       @groups = @hp_groups
       @credentials = {"hp_access_key" => "#{params[:hp_access_key]}", "hp_secret_key" => "#{params[:hp_secret_key]}", "tenant_id" => "#{params[:tenant_id]}", "region" => "#{params[:region]}"}
 
+    elsif params[:cloud] == "opennebula"
+      @provider_form_name = "opennebula"
+      list_one_data(params[:opennebula_access_key], params[:opennebula_secret_key], params[:zone])
+      @images = []
+      @flavors = @one_flavors
+      @keypairs = []
+      @groups = []
+      @credentials = {"opennebula_access_key" => "#{params[:opennebula_access_key]}", "opennebula_secret_key" => "#{params[:opennebula_secret_key]}", "zone" => "#{params[:zone]}"}
+
+
     elsif params[:cloud] == "gce"
       @provider_form_name = "Google Compute Engine"
     elsif params[:cloud] == "profitbricks"
