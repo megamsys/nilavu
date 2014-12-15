@@ -208,16 +208,14 @@ module CrossCloudsHelper
     @profitbricks_imgs = []
     img = Image.all
     puts img.inspect
-    puts "=================================================================================================================================="
     img.each do |i|
       @profitbricks_imgs.push({"id" => "#{i.id}", "name" => "#{i.name}"})
     end
     return @profitbricks_imgs
-<<<<<<< HEAD
+
  end
 
 
-=======
-  end
+
 end
->>>>>>> origin/0.5
+

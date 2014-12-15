@@ -66,6 +66,7 @@ Cloudauth::Application.routes.draw do
   
   #Cloud Books
   match '/starter_packs_launch', to: 'marketplaces#starter_packs_create', via: [:get, :post]
+  match '/byoc_packs_launch', to: 'marketplaces#byoc_create', via: [:get, :post]
   match '/app_boilers_launch', to: 'marketplaces#app_boilers_create', via: [:get, :post]
   match '/addons_launch', to: 'marketplaces#addons_create', via: [:get, :post]
   match '/get_request', to: 'apps#get_request', via: [:get, :post]
