@@ -1,10 +1,6 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :facebook, ENV['FACEBOOK_CLIENT_ID'], ENV['FACEBOOK_SECRET_KEY']
-  provider :twitter, ENV['TWITTER_CLIENT_ID'], ENV['TWITTER_SECRET_KEY']
-  provider :github, ENV['GITHUB_KEY'], ENV['GITHUB_SECRET'], :scope => "user:email, public_repo, repo, repo:status, notification"
-  provider :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_SECRET_KEY'], {  
-      :scope => "userinfo.profile, userinfo.email, devstorage.full_control, compute",
-      :prompt => 'consent'     
-    }
-  provider :assembla, ENV['ASSEMBLA_APP_ID'], ENV['ASSEMBLA_APP_SECRET']
+  provider :facebook, Rails.configuration.fb_client_id,  Rails.configuration.fb_secret_key
+  provider :github, Rails.configuration.github_client_id,Rails.configuration.github_secret_key,:scope => "user:email, public_repo, repo, repo:status, notification"
+  provider :google_oauth2, Rails.configuration.google_client_id, Rails.configuration.google_secret_key , { :scope => "userinfo.profile, userinfo.email, devstorage.full_control, compute", :prompt => 'consent'}
+  provider :assembla, Rails.configuration.assembla_client_id, Rails.configuration.assembla_secret_key
 end

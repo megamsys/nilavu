@@ -1,9 +1,7 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'Apps') %>
-<%= render :partial => "users/header" , :locals => {:head => "Apps - Step 1 of 2"}%>
-<div id="breadcrumb">
-	<%= breadcrumbs.render(:format => :inline, :separator => '') %>
-</div>
+<%= render :partial => "users/header" , :locals => {:user => current_user, :head => "Apps - Step 1 of 2"}%>
+
 <%= form_tag(launch_path, :method => "post", :name => "predef") do %>
 <div class="container">
 	<div class="row">

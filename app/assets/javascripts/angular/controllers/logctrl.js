@@ -1,109 +1,65 @@
-function LogCtrl($q, $scope, socket, $location, $timeout, LogStackLimit) {
-	$scope.logs = [];
-	$scope.total = 0;
-	$scope.l_total = 0;
-	$scope.bookName = "";
-	//The parameters for angular-busy	
-	$scope.delay = 0;
-    $scope.minDuration = 0;
-    $scope.message = 'Please Wait...';
-    $scope.backdrop = true;
-    $scope.promise = null;
-	var trackerName = "logloader";
-	
-	//create promise(delayed task or something that gets executed in the future	
-	//we should build a promise executor i think. this isn't a good way to do so.
-	$scope.sendmessage = function(passedName, data) {
-		trackerName = passedName;
-		var	deferredemit = $q.defer();
-		$scope.logs = [];
-		$scope.bookName = data;
-		socket.emit('message', data);
-		$scope.promise = $q.defer().promise;
-		spinTheTracker($timeout, trackerName, deferredemit);
-	};
+app.controller("LogCtrl", ["$scope", "socket", "$location", "usSpinnerService", "$rootScope", "LogStackLimit",
 
-	socket.on('connect', function(data) {
-	});
+function($scope, socket, $location, usSpinnerService, $rootScope, LogStackLimit) {
+    $scope.logs = [];
+    $scope.total = 0;
+    $scope.l_total = 0;
+    $scope.bookName = "";
+    $scope.spinneractive = false;
+    $scope.listOfOptions = $scope.books;
 
-	socket.on('disconnect', function(event) {
-		socket.disconnect();
-	});
+  $scope.selectedItemChanged = function(){
+    $scope.calculatedValue = 'You selected number ' + $scope.selectedItem;
+  };   
+    
+    $scope.sendmessage = function(data) {
+    console.log("=================================");
+        if (!$scope.spinneractive) {
+            usSpinnerService.spin('spinner-1');
+        }
+        $scope.logs = [];
+        $scope.bookName = data;
+        socket.emit('message', data);
+        if ($scope.spinneractive) {
+            usSpinnerService.stop('spinner-1');
+        }
+    };
 
-	socket.on('message', function(message) {
-		var	deferredmsg = $q.defer();
-		$scope.total = $scope.total + 1;
-		$scope.l_total = $scope.l_total + 1;
-		var replaceChar = message.logs.replace(/\@/g, "");
-		var parse = JSON.parse(replaceChar);
-		$scope.source = parse.source;
-		$scope.logs.push(LogStackLimit.push(parse));
-		if ($scope.total > 100) {
-			$scope.logs = [];
-			$scope.total = 0;
-		}
-		predicate = 'timestamp';
-		$scope.promise = $q.defer().promise;
-		spinTheTracker($timeout, trackerName, deferredmsg);
-	});
+    $rootScope.$on('us-spinner:spin', function(event, key) {
+        $scope.spinneractive = true;
+    });
 
-	$scope.book_json = 'http://mob.co/kibana/#/dashboard/.json';
-};
+    $rootScope.$on('us-spinner:stop', function(event, key) {
+        $scope.spinneractive = false;
+    });
 
-function spinTheTracker($timeout, trackerName, deferred) {
-	$timeout(function() {
-		deferred.resolve();
-	}, 2000);
-};
+    socket.on('connect', function(data) {
+        console.log("connected successfully");
+    });
 
+    socket.on('disconnect', function(event) {
+        socket.disconnect();
+    });
 
-/*
- * This code is left around as the intention was to display the logs in separate
- * Tabs. function MyCtrl($scope) { $scope.logs = {}; socket.on('connect',
- * function(data) {
- * 
- * });
- * 
- * socket.on('disconnect', function(event) { socket.removeAllListeners();
- * alert("disconnect"); });
- * 
- * socket.on('message', function(message) { alert(message.name);
- * $scope.logs[message.name] = []; var replaceChar = message.logs.replace(/\@/g,
- * ""); var parse = JSON.parse(replaceChar); $scope.source = parse.source;
- * $scope.logs[message.name].push(parse); predicate = 'timestamp';
- * alert(logs[message.name].message); });
- * 
- * $scope.tabManager = {};
- * 
- * $scope.tabManager.tabItems = [];
- * 
- * $scope.tabManager.checkIfMaxTabs = function(){ var max = 4; var i =
- * $scope.tabManager.tabItems.length; if(i > max){ return true; } return false; };
- * 
- * $scope.tabManager.getTitle = function(tabInfo){ console.log("[ title ] ->
- * ",tabInfo.title); tabInfo.title.substr(0,10); };
- * 
- * $scope.tabManager.resetSelected = function(){
- * angular.forEach($scope.tabManager.tabItems, function(pane) { pane.selected =
- * false; }); };
- * 
- * 
- * $scope.tabManager.addTab = function(node){
- * alert($scope.tabManager.tabItems.length);
- * if($scope.tabManager.checkIfMaxTabs()){ alert("[Max Tabs] You have opened max
- * tabs for this page."); return; } $scope.tabManager.resetSelected(); var i =
- * ($scope.tabManager.tabItems.length +1); $scope.tabManager.tabItems.push({
- * title: node, selected: true }); };
- * 
- * //to select the tab $scope.tabManager.select = function(i) {
- * angular.forEach($scope.tabManager.tabItems, function(tabInfo) {
- * tabInfo.selected = false; }); $scope.tabManager.tabItems[i].selected = true; }
- * 
- * 
- * //add few tabs /* for(var i = 1; i < 2; i++){
- * $scope.tabManager.tabItems.push({ title: "Tab No: " + i, selected: false }); }
- */
+    socket.on('message', function(message) {
+        if (!$scope.spinneractive) {
+            usSpinnerService.spin('spinner-1');
+        }
+        $scope.total = $scope.total + 1;
+        $scope.l_total = $scope.l_total + 1;
+        var replaceChar = message.logs.replace(/\@/g, "");
+        var parse = JSON.parse(replaceChar);
+        $scope.source = parse.source;
+        $scope.logs.push(LogStackLimit.push(parse));
+        if ($scope.total > 100) {
+            $scope.logs = [];
+            $scope.total = 0;
+        }
+        predicate = 'timestamp';
+        if ($scope.spinneractive) {
+            usSpinnerService.stop('spinner-1');
+        }
+    });
 
-// init the first active tab
-// $scope.tabManager.select(0);
-// };
+    $scope.book_json = 'http://mob.co/kibana/#/dashboard/.json';
+}]);

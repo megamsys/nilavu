@@ -1,9 +1,6 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'Disaster Recovery') %>
-<%= render :partial => "users/header" , :locals => {:head => "Disaster Recovery(DR) Service"}%>
-<div id="breadcrumb">
-	<%= breadcrumbs.render(:format => :inline, :separator => '') %>
-</div>
+<%= render :partial => "users/header" , :locals => {:user => current_user, :head => "Disaster Recovery(DR) Service"}%>
 <%= form_tag(addons_path, :method => "post",:remote => true) do %>
 
 <input type="hidden" name='marketplace_id' value="<%= @marketplace_id %>">
@@ -64,7 +61,7 @@
 						<div class="col-md-12">
 							<div class="alert alert-warning">
 								You don't have any apps/services.
-								Launch <a target="_self" href="/apps" > <i class="fa fa-rocket"></i> apps</a> and <a target="_self" href="/marketplaces" > <i class="fa fa-shopping-cart"></i> services</a> to make them highly available (HA). 
+								Launch <a target="_self" href="/apps" > <i class="fa fa-rocket"></i> apps</a> and <a target="_self" href="/marketplaces" > <i class="fa fa-shopping-cart"></i> services</a> to make them highly available (HA).
 							</div>
 						</div>
 					</div>
@@ -100,7 +97,7 @@
 					<h5>Configure Backup Location</h5>
 				</div>
 				<div class="widget-content">
-				
+
 				<div class="form-group" id="backuphost">
 					<%= label_tag 'Backup Host : ' %>
 					<%= select_tag 'backuphost', options_for_select(@my_apps), :id => "backuphost_select", :disabled => @my_apps.include?("None")  %>
@@ -110,7 +107,7 @@
 							<%= text_field_tag 'locations', nil, class: 'form-control input-lg', placeholder: "Enter Data Location. eg : /var/lib/riak, /usr/local/directory" %>
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
@@ -157,7 +154,7 @@
 						</br></br>
 						It typically takes a few minutes to spin it on the cloud.</br></br>
 						<%= link_to apps_histories_path do %>
-						<i class="fa fa-video-camera"></i> Logs (tail -f ..)						
+						<i class="fa fa-video-camera"></i> Logs (tail -f ..)
 						<% end %>
 						</br>
 						</br>

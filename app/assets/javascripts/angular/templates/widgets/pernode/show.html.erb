@@ -1,90 +1,81 @@
-<input type="hidden" value="cpu_system" ng-model="xaxis_label" />
-<!--<span><h4>Host Name :</h4>{{host}}</span>
-<h1><small>Host Name : </small> {{host | delc}} </h1>-->
-<div class="row">
-	<div class="col-xs-11 col-sm-11 col-md-11">
-		<ul class="pagination">
-			<li class="active">
-				<a href="#">Last</a>
-			</li>
-			<li >
-				<a href="#" ng-click="update_widget_range('hour', widget)">hour</a>
-			</li>
-			<li>
-				<a href="#" ng-click="update_widget_range('2hr', widget)">2hr</a>
-			</li>
-			<li>
-				<a href="#" ng-click="update_widget_range('4hr', widget)">4hr</a>
-			</li>
-			<li>
-				<a href="#" ng-click="update_widget_range('day', widget)">day</a>
-			</li>
-			<li>
-				<a href="#" ng-click="update_widget_range('week', widget)">week</a>
-			</li>
-			<li>
-				<a href="#" ng-click="update_widget_range('month', widget)">month</a>
-			</li>
-		</ul>
-	</div>
-
+<div class="col-sm-6 float_nav">
+	<ul class="list-inline">
+		<li>
+			Last:
+		</li> | <a href="" ng-click="update_widget_range('hour', widget)">
+		<li>
+			Hour
+		</a></li> | <a href="" ng-click="update_widget_range('2hr', widget)">
+		<li>
+			2hr
+		</a></li> | <a href="" ng-click="update_widget_range('4hr', widget)">
+		<li>
+			4hr
+		</a></li> | <a href="" ng-click="update_widget_range('day', widget)">
+		<li>
+			Day
+		</a></li> | <a href="" ng-click="update_widget_range('week', widget)">
+		<li>
+			Week
+		</a></li> | <a href="" ng-click="update_widget_range('month', widget)">
+		<li>
+			Month
+		</a></li>
+	</ul>
 </div>
+</div>
+<div class="clearfix"></div>
 <div class="row">
-	<div class="col-xs-11 col-sm-11 col-md-11">
-		<div class="col-xs-5 col-sm-5 col-md-6">
-			<h1><small>Host Info </small></h1>
-			<ul class="site-stats">
-				<li>
-					<div class="cc">
-						<i class="fa fa-user"></i><strong>{{uptime}}</strong><small>Total Uptime(days)</small>
-					</div>
-				</li>
-
-				<li>
-					<div class="cc">
-						<i class="fa fa-arrow-right"></i><strong>{{os}}</strong><small>Operating System</small>
-					</div>
-				</li>
-				<li class="divider"></li>
-				<li>
-					<div class="cc">
-						<i class="fa fa-desktop"></i><strong>{{cpus}}</strong><small>CPU Count</small>
-					</div>
-				</li>
-			</ul>
+	<div class="col-sm-12">
+		<div class="row">
+			<div class="col-sm-12 graph">
+				<!-- Graph HTML -->
+				<div class="demo-container">
+					<h4>CPU Usage</h4>
+					<hr>
+					<div id="cpu_system_graph" class="demo-placeholder"></div>
+				</div>
+				<!-- end Graph HTML -->
+			</div>
+			<br/>
 		</div>
-		<div class="col-xs-5 col-sm-5">
-			<p>
-			<img src="<%= asset_path('servermonitor.png') %>"></img>
-			</p>
+		<div class="row">
+			<div class="col-sm-12 graph">
+				<!-- Graph HTML -->
+				<div class="demo-container">
+					<h4>Disc Usage</h4>
+					<hr>
+					<div id="disk_free_graph" class="demo-placeholder"></div>
+				</div>
+				<!-- end Graph HTML -->
+			</div>
+			<br/>
 		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-xs-11 col-sm-11 col-md-11">
-		<h1><small>CPU Usage </small></h1>
-		<div id="cpu_system_graph"></div>
-	</div>
-</div>
+		<div class="row">
+			<div class="col-sm-12 graph">
+				<!-- Graph HTML -->
+				<div class="demo-container">
+					<h4>Memory Usage</h4>
+					<hr>
+					<div id="mem_free_graph" class="demo-placeholder"></div>
+				</div>
+				<!-- end Graph HTML -->
+			</div>
+			<br/>
+		</div>
+		<div class="row">
+			<div class="col-sm-12 graph">
+				<!-- Graph HTML -->
+				<div class="demo-container">
+					<h4>Network Status</h4>
+					<hr>
+					<div id="nginx_requests_graph" class="demo-placeholder"></div>
+				</div>
+				<!-- end Graph HTML -->
+			</div>
 
-<div class="row">
-	<div class="col-xs-11 col-sm-11 col-md-11">
-		<h1><small>Disk Usage </small></h1>
-		<div id="disk_free_graph"></div>
+		</div>
+		<br/>
+		<br/>
 	</div>
 </div>
-
-<div class="row">
-	<div class="col-xs-11 col-sm-11 col-md-11">
-		<h1><small>Memory Usage </small></h1>
-		<div id="mem_free_graph"></div>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-xs-11 col-sm-11 col-md-11">
-		<h1><small>Network Status </small></h1>
-		<div id="nginx_requests_graph"></div>
-	</div>
-</div>
-

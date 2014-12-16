@@ -1,8 +1,10 @@
 class ApplicationController < ActionController::Base
 
-  protect_from_forgery
-  include SessionsHelper
+    #To fix Processing by SessionsController#destroy as HTML Can't verify CSRF token authenticity
+protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
 
+  include SessionsHelper
+  
   #If the requests donot come from local then the exception page will be shown.
   #a catcher exists using rails globber for routes in config/application.rb to trap 404.
   unless Rails.application.config.consider_all_requests_local
@@ -27,6 +29,7 @@ class ApplicationController < ActionController::Base
   # renders 505 in an exception template.
   # A generic template exists in error which shows the error in a
   # usage way.
+  
   def render_500(exception = nil)
     if exception
 #      twit_msg  =  "http://www.megam.co: error, support issue created.".slice! 0..140

@@ -79,23 +79,23 @@ do
 	    echo "Cleaning up tmp and assets, precompiling..."
             precom
             ;;
- 	[dD][bB][cC][lL][eA][aA][nN])
-	    echo "Cleaning up db..."
-            dbclean
+	'dbis')
+	    echo "Initializing sqllite db..."
+            dbis
             ;;
-	'dbinit')
-	    echo "Initializing db..."
-            dbinit
-            ;;
-        [vV][eE][rR][sS][iI][oO][nN])
+   'dbip')
+     echo "Initializing psql db..."
+          dbip
+          ;;
+  [vV][eE][rR][sS][iI][oO][nN])
 	   version
             ;;
-        'status')
+  'status')
 	   status
             ;;
-        *)
-	    echo "Unknown option : $item - refer help."
-            help
+   *)
+	  echo "Unknown option : $item - refer help."
+      help
             ;;
 esac
 index=$(($index+1))
@@ -118,8 +118,8 @@ help(){
     echo "           (committer only)"
     echo "clean    : cleans up the temp files."
     echo "precom   : cleans up the temp files and precompiles asset."
-    echo "dbinit   : initializes your database."
-    echo "dbclean  : cleans up the db. (*valid on an existing setup system)" 
+    echo "dbis     : initializes your sqllite db."
+    echo "dbip     : initializes your psql db."
 
 exitScript 0
 }
@@ -211,7 +211,7 @@ mystuff(){
 # performs a push to the committers origin in github.
 #-------------------------------------------------------------------------
 origin_stuff(){
-	
+
 	clean
 	echo -n "Do you want to add/commit files [y/n]? "
 	read -n 1 addcommit
@@ -343,6 +343,21 @@ rake tmp:clear
 rake assets:precompile
 exitScript 0
 }
+dbis() {
+echo    "========================================================="
+echo -n "!!! Do you want to init(drop & recreate) your db [y/n]? "
+read -n 1 initdb
+echo
+
+if [[ $initdb =~ ^[Yy]$ ]]
+then
+  echo "========================================================="
+  rm -f $MEGAM_HOME/cocdb.db
+ rake db:migrate
+fi
+exitScript 0
+
+}
 #
 #
 #
@@ -350,12 +365,12 @@ exitScript 0
 #This command will automatically bring up the required migration versions and bring it up.
 #Run it the first time.
 #--------------------------------------------------------------------------
-dbinit(){
+dbip(){
 		echo    "========================================================="
 		echo -n "!!! Do you want to init(drop & recreate) your db [y/n]? "
 		read -n 1 initdb
 		echo
-	
+
 		if [[ $initdb =~ ^[Yy]$ ]]
 		then
 		echo "========================================================="
@@ -405,18 +420,11 @@ dbinit(){
 #also will perform the required cleanup.
 #--------------------------------------------------------------------------
 dbclean(){
+
 #remove apps_histories
 rake db:migrate:down VERSION=20130726050612
 #remove apps
 rake db:migrate:down VERSION=20130718123920
-#remove products
-rake db:migrate:down VERSION=20120829143151
-#remove apps_items
-rake db:migrate:down VERSION=20120824094944
-#remove cloud_identities
-rake db:migrate:down VERSION=20120817045502
-#drop organizations
-rake db:migrate:down VERSION=20120811145124
 #drop identities
 rake db:migrate:down VERSION=20120319154255
 #drop users
@@ -424,20 +432,12 @@ rake db:migrate:down VERSION=20120319153913
 #dashboards
 rake db:migrate:down VERSION=20130828100755
 #widgets
-rake db:migrate:down VERSION=20130828101201 
- 
+rake db:migrate:down VERSION=20130828101201
+
 #create users
 rake db:migrate:up VERSION=20120319153913
 #create identities
 rake db:migrate:up VERSION=20120319154255
-#create organization
-rake db:migrate:up VERSION=20120811145124
-#create cloud_identities
-rake db:migrate:up VERSION=20120817045502
-#create apps_items
-rake db:migrate:up VERSION=20120824094944
-#create products
-rake db:migrate:up VERSION=20120829143151
 #create apps
 rake db:migrate:up VERSION=20130718123920
 #create apps_histories
@@ -445,7 +445,7 @@ rake db:migrate:up VERSION=20130726050612
 #dashboards
 rake db:migrate:up VERSION=20130828100755
 #widgets
-rake db:migrate:up VERSION=20130828101201 
+rake db:migrate:up VERSION=20130828101201
 rake db:seed
 
 exitScript 0

@@ -1,6 +1,6 @@
 app.factory("GraphModel", ["$http", "TimeSelector", "Sources", function($http, TimeSelector, Sources) {
 
-	function getParams(config) {
+	function getParams(config, appkey) {
 	    return {	
 	    	widgetid: config.id,
 	    	 from: TimeSelector.getFrom(config.range),
@@ -8,15 +8,16 @@ app.factory("GraphModel", ["$http", "TimeSelector", "Sources", function($http, T
 	    	range: config.range,
 	      kind: config.kind,
 	      name: config.source,	      
-	      target: config.targets
+	      target: config.targets,
+	      appkey: appkey
 	    };
 	  }	 
 
-  function getData(config) {		  
+  function getData(config, appkey) {		  
 	  console.log("data source entry----->"+config);	
 	  console.log("TEST!-----------> 33333");
 
-	return $http.get("/api/data_sources/datapoints.json", { params: getParams(config) });
+	return $http.get("/api/data_sources/datapoints.json", { params: getParams(config, appkey) });
   }
   return {
     getData: getData

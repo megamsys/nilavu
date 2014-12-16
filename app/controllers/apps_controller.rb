@@ -4,31 +4,54 @@ class AppsController < ApplicationController
   include AppsHelper
   ## I don't see a point in calling all the node details for an user. We should avoid it.
   ## ie. skip FindNodesByEmail ?
-  def index
-    cloud_books = current_user.apps.order("id DESC").all
-    if cloud_books.any?
-      breadcrumbs.add " Home", "#", :class => "fa fa-home", :target => "_self"
-      breadcrumbs.add "Manage Apps", apps_path, :target => "_self"
+  include MainDashboardsHelper
+def logs
 
-      @nodes = FindNodesByEmail.perform({},current_user.email, current_user.api_token)
-      if @nodes.class == Megam::Error
-        redirect_to new_app_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
-      else
-        book_names = cloud_books.map {|c| c.group_name}
-        book_names = book_names.uniq
-        grouped = book_names.inject({}) do |base, b| #the grouped has a short_name/Megam::Nodes collection
-          group = @nodes.select{|n| n.node_name =~ /^#{b}/}
-          base[b] ||= []
-          base[b] << group
-          base
+end
+
+ def index
+    if current_user
+      @user_id = current_user.id
+
+      @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
+      @service_counter = 0
+      @app_counter = 0
+      puts @assemblies.class
+      if @assemblies != nil
+        @assemblies.each do |asm|
+          if asm.class != Megam::Error
+            asm.assemblies.each do |assembly|
+              if assembly != nil
+                if assembly[0].class != Megam::Error
+                  #@app_counter = assembly[0].components.count + @app_counter                  
+                  assembly[0].components.each do |com|
+                    if com != nil
+                      com.each do |c|
+                        com_type = c.tosca_type.split(".")
+                        ctype = get_type(com_type[2])
+                         if ctype == "SERVICE" 
+                           @service_counter = @service_counter + 1
+                        else
+                                @app_counter = @app_counter + 1
+                         end 
+                      end
+                    end
+                  end
+                end
+              end
+            end
+          end
         end
-        @launched_books = Hash[grouped.map {|key, value| [key, value.flatten.map {|vn| vn.node_name}]}]
-        @launched_books_quota = @nodes.all_nodes.length
       end
+     
     else
-      redirect_to new_app_path
+      redirect_to signin_path
     end
   end
+
+
+
+
 
   def build_request
     logger.debug "--> Apps:Build_request, #{params}"
@@ -96,19 +119,12 @@ class AppsController < ApplicationController
   def new
     if current_user.onboarded_api
       @book =  current_user.apps.build
-      breadcrumbs.add " Home", "#", :class => "fa fa-home", :target => "_self"
-      breadcrumbs.add "Manage Apps", apps_path, :target => "_self"
-      breadcrumbs.add "Apps Framework Selection", new_app_path, :target => "_self"
     else
-      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "You need an API key to launch an app. Click Profile from the top, and generate a new API key", :sticky => false, :nodom_wrap => true } }
+      redirect_to main_dashboards_path, :gflash => { :warning => { :value => "You need an API key to launch an app. Click Profile from the top, and generate a new API key", :sticky => false, :nodom_wrap => true } }
     end
   end
 
   def launch
-    breadcrumbs.add "Home", "#", :class => "fa fa-home", :target => "_self"
-    breadcrumbs.add "Manage Apps", apps_path, :target => "_self"
-    breadcrumbs.add "Apps Framework Selection", new_app_path, :target => "_self"
-
     if"#{params[:deps_scm]}".strip.length != 0
       @deps_scm = "#{params[:deps_scm]}"
     elsif !"#{params[:scm]}".start_with?("select")
@@ -161,7 +177,7 @@ class AppsController < ApplicationController
       puts @node.inspect
       if @node.class == Megam::Error
       
-        @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+        @err_msg=ActionController::Base.helpers.link_to 'Contact Support', "http://support.megam.co/"
         respond_to do |format|
           format.js {
             respond_with(@err_msg, :layout => !request.xhr? )
@@ -230,7 +246,7 @@ class AppsController < ApplicationController
     options = {:node_name => "#{params[:name]}", :group => "server", :action => "delete", :repo => 'default_chef' }
     node_hash=DeleteNode.perform(options, force_api[:email], force_api[:api_key])
     if node_hash.class == Megam::Error
-      @res_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+      @res_msg= ActionController::Base.helpers.link_to 'Contact Support', "http://support.megam.co/"
     else
       options = { :req => node_hash }
       @node = CreateRequests.perform(options, force_api[:email], force_api[:api_key])

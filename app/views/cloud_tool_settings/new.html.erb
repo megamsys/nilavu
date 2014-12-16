@@ -1,9 +1,6 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'Cloud Provisioners') %>
 <%= render :partial => "users/header" , :locals => {:head => "Cloud Provisioners"}%>
-<div id="breadcrumb">
-	<%= breadcrumbs.render(:format => :inline, :separator => '') %>
-</div>
 
 <div class="container">
 	<div class="row">
@@ -80,7 +77,7 @@
 				</div>
 			</div>
 			<div class="modal-footer" id="cloudtoolsettings_path">
-				<%= link_to  "OK", cloud_settings_path, :class => "btn btn-pink", :target => "_self" %>
+				<%= link_to  "OK", settings_path, :class => "btn btn-pink", :target => "_self" %>
 			</div>
 		</div>
 	</div>
@@ -105,7 +102,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<%= link_to  "Ok", cloud_settings_path, :class => "btn btn-primary", :target => "_self" %>
+				<%= link_to  "Ok", settings_path, :class => "btn btn-primary", :target => "_self" %>
 			</div>
 		</div>
 	</div>

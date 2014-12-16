@@ -1,41 +1,65 @@
-<% provide(:title, "Forgot password") %>
-<%= render :partial => "customizations/flash_messages" %>
-<div id="containerlogin">
-	<div id="logo">
-		<a href="http://www.gomegam.com" target="_blank">
-		<%= image_tag Rails.configuration.megam_logo_url , :alt => "Megam", :class => "megam_image" %>
-		</a>
-	</div>
-	<div id="loginbox_password_reset">
-		<%= spinner_tag 'spin_reset' %>
-		<%= form_tag password_resets_path, :method => :post, :remote =>
-		true, data: { spinner: '#spin_reset'} do %>
-		<p>
-			Enter your e-mail address below and we will send you instructions how to recover a password.
-		</p>
-		<div class="input-group">
-			<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-			<%= text_field_tag :email, params[:email], :class => 'form-control required' %>
-		</div>
-		<hr />
-		<div class="form-actions">
-			<div class="pull-left">
-				&laquo; <%= link_to "Back to login", signin_path %>
-				<br />
-				<%= link_to "Need account? Register here!", signup_path %>
-			</div>
-			<div class="pull-right">
-				<%= submit_tag "Reset Password", :class => "btn btn-default" %>
+<% provide(:title, "Reset") %>
+<div class="signin login">
+	<!-- BEGIN LOGO -->
+	<div class="container">
+		<div class="row">
+			<div class="logo">
+				<%= image_tag "logo.png" %>
 			</div>
 		</div>
-		<% end %>
+		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer bg_white border_grey">
+			<div class="container">
+				<div class="row bottom-divider">
+					<div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
+						<h2>Forgot Password</h2>
+					</div>
+				</div>
+			</div>
+
+			<div class="cover col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
+				<!-- BEGIN LOGIN FORM -->
+				<%= form_tag password_resets_path, :method => :post, :remote => true do %>
+				<div class="c_inline">
+					<div class="form-group">
+						<div class="row">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
+								<i class="c_ico-excla"></i>
+								<%= text_field_tag :email, params[:email], :class => 'form-control', :required => true, placeholder: "Email" %>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+							<div class="row">
+								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 tour-btn">
+									<%= link_to "Need account?", signup_path, :class => 'btn btn-success btn-plain' %>
+								</div>
+								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right tour-btn">
+									<%= submit_tag "Reset Password", :class => "btn btn-success btn-plain-green" %>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<% end %>
+					<!-- END REGISTRATION FORM -->
+				</div>
+
+			</div>
+		</div>
+		<div  class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">
+			<div class="row">
+				<p>
+					<a href="http://www.podnix.com" target="_blank">Powered by Podnix Cloud</a><span class="pull-right">gomegam.com</span>
+				</p>
+			</div>
+		</div>
+
 	</div>
 </div>
-<script>
-    $(document).ready(function() {
-        $("body").addClass("login");
-    }); 
-</script>
+</div>
+
 <div id="postfinish_reset_password" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
