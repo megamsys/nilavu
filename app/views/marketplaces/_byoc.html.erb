@@ -10,6 +10,7 @@
 <% @pro_name = (@mkp.name).split("-") %>
 <% @predef_name = get_predef_name(@pro_name[3].downcase) %>
 <% @combos = get_combos(@pro_name[3].downcase) %>
+<% @type = get_type(@pro_name[3].downcase) %>
 <% @combo = @combos.split("+") %>
 <% end %>
 <% end %>
@@ -18,6 +19,8 @@
 <% else %>
 <% @deps_scm = @mkp_source %>
 <% end %>
+<%  @mkp_collection = ListMarketPlaceApps.perform(force_api[:email], force_api[:api_key]) %>
+
 <%  @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key]) %>
 <%  if @predef_cloud.class == Megam::Error %>
 <%  redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }     %>    
@@ -30,12 +33,18 @@
 <div class="row">
 	<div class="col-sm-7 body_left">
 		<h4>Bring Your Own Code</h4>
+		<%= link_to "https://www.megam.co/auth/github", :title=> "Click to connect and list your github repositories", :target => "_self", :data => { spinner: '#git_oauth'} do %>
+		<%= image_tag "logo_github.png",:class=> "img-responsive center-block",:size => "90x90", :id => "slider-image"%><% end %>
+		
+		
 		<div class="row pad_tb25">
 			<div class="col-sm-5">
 				<div class="app_inner brad-3">
-					<div class="stpack">
-						<%= image_tag "combos/"+@pro_name[3].downcase+".png", :alt => "" %>
+						
+					<div class="col-sm-10 col-xs-10">
+						<%= select_tag "byoc", options_for_select(@mkp_collection.map{ |c| [c.name] }, :selected=>@mkp_collection[0]), :class =>"form-control" %>	
 					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -70,7 +79,8 @@
 	<!-- body_left ends here -->
 
 	<div class="col-sm-5 body_right c_height_2">
-		<h4>Attach An Addon</h4>
+	
+		<h4>Choose your SCM</h4>
 		<div class="row">
 			<div class="col-xs-6">
 				<div class="form-group">
@@ -92,7 +102,6 @@
 			</div>
 			<!-- <div class="col-xs-12">
 			<div class="form-group">
-
 			</div>
 			</div> -->
 		</div>

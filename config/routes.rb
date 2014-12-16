@@ -117,6 +117,7 @@ Cloudauth::Application.routes.draw do
   get "oneapps/show"
   get "oneservice/show"
   get "oneaddons/show"
+ 
   #match '/dashboard_sidebar', to: 'dashboards#dashboard_sidebar', via: [:get]
   #match '/dashboards', to: 'dashboards#index', via: [:get]
   #match '/dashboards/:id' => 'dashboards#index', via: [:get]
