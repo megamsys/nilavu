@@ -21,7 +21,7 @@ gem 'sqlite3', "~> 1.3.10"
 #Added //= require jquery.remotipart in application.js
 
 #fog
-gem 'fog', github: 'thomasalrin/fog'
+gem 'fog', "~> 1.26.0"
 
 
 
