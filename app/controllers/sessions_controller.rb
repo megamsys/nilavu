@@ -45,6 +45,9 @@ class SessionsController < ApplicationController
   def social_identity
     auth = request.env['omniauth.auth']
   end
+  
+  
+  
 
   def create_social_identity(auth)
     @identity = Identity.find_from_omniauth(auth)

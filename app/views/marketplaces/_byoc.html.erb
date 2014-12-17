@@ -20,7 +20,14 @@
 <% @deps_scm = @mkp_source %>
 <% end %>
 <%  @mkp_collection = ListMarketPlaceApps.perform(force_api[:email], force_api[:api_key]) %>
-
+<% @mkpname = []  %>
+<% @mkp_collection.each do |a| %>
+<%  @splitname =  a.name.split("-") %>
+<% @typename = get_type(@splitname[3].downcase) %>
+<% if @typename == "APP" %>
+<% @mkpname.push(@splitname[3]) %>
+<% end %>
+<% end %>
 <%  @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key]) %>
 <%  if @predef_cloud.class == Megam::Error %>
 <%  redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }     %>    
@@ -33,8 +40,8 @@
 <div class="row">
 	<div class="col-sm-7 body_left">
 		<h4>Bring Your Own Code</h4>
-		<%= link_to "https://www.megam.co/auth/github", :title=> "Click to connect and list your github repositories", :target => "_self", :data => { spinner: '#git_oauth'} do %>
-		<%= image_tag "logo_github.png",:class=> "img-responsive center-block",:size => "90x90", :id => "slider-image"%><% end %>
+				<a class="btn btn-default c_btn_gplus" id="connect">Github </a>
+
 		
 		
 		<div class="row pad_tb25">
@@ -42,7 +49,7 @@
 				<div class="app_inner brad-3">
 						
 					<div class="col-sm-10 col-xs-10">
-						<%= select_tag "byoc", options_for_select(@mkp_collection.map{ |c| [c.name] }, :selected=>@mkp_collection[0]), :class =>"form-control" %>	
+						<%= select_tag "byoc", options_for_select(@mkpname.map{ |c| [c] }, :selected=>@mkpname[0]), :class =>"form-control" %>	
 					</div>
 					
 				</div>
@@ -110,3 +117,20 @@
 	<!-- body_right ends here -->
 </div>
 <% end %>
+
+
+<script>  
+ 
+   $('#connect').click(function(){
+      $.oauthpopup({
+        path: '/auth/github',
+        callback: function(){
+       //   $.get('/github', function(data){
+          //  console.log(session[:info]);
+        //    console.log("------------------------------------");
+            window.close();
+        //  });
+        }
+      });
+    });  
+</script>
