@@ -129,8 +129,9 @@ module CrossCloudsHelper
     img = connection.images.all
     img.each do |i|
       if (i.name == "megam-trusty - Partner Image" || i.name == "CentOS 7 x86_64 (2014-09-29) - Partner Image")
-        @hp_imgs.push({"id" => "#{i.id}", "name" => "#{i.name}"})
-      end
+      @hp_imgs.push({"id" => "#{i.id}", "name" => "#{i.name}"})
+        end
+
     end
 
     #List Flavors
@@ -213,4 +214,25 @@ module CrossCloudsHelper
     end
     return @profitbricks_imgs
   end
+
+  #=======================> Opennebula <========================
+  def list_one_data(access_key, secret_key, region)
+    connection = Fog::Compute.new(
+    {
+      :provider => 'OpenNebula',
+      :opennebula_username => "#{access_key}",
+      :opennebula_password => "#{secret_key}",
+      :opennebula_endpoint => "#{region}"
+    } )
+
+
+    #List Flavors
+    @one_flavors=[]
+    connection.flavors.each do |f|
+      @one_flavors.push({"id" => "#{f.id}", "name" => "#{f.name}", "image" => "#{f.disk["IMAGE"]}", "ram" => "#{f.memory}"})
+    end
+
+    return @one_flavors
+  end
+
 end
