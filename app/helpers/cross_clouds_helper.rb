@@ -208,12 +208,17 @@ module CrossCloudsHelper
     @profitbricks_imgs = []
     img = Image.all
     puts img.inspect
-    puts "=================================================================================================================================="
     img.each do |i|
       @profitbricks_imgs.push({"id" => "#{i.id}", "name" => "#{i.name}"})
     end
     return @profitbricks_imgs
-  end
+
+
+ end
+
+
+
+  
 
   #=======================> Opennebula <========================
   def list_one_data(access_key, secret_key, region)
@@ -234,5 +239,5 @@ module CrossCloudsHelper
 
     return @one_flavors
   end
+ end
 
-end

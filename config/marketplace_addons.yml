@@ -155,6 +155,19 @@ docker:
   type: ADDON
   basic_combos: docker  
 
+byoc:
+  name: byoc
+  no-of-instances: 1
+  radios: 
+  deps_scm:
+  db_model:
+  dbms:
+  predef_name: byoc
+  link: http://gomegam.com/docs/users/index.html  
+  type: BYOC
+  basic_combos: byoc  
+
+
 java:
   name: java
   predef_name: java 

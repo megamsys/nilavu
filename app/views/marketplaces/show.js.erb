@@ -3,6 +3,8 @@ var selected_entity = '#version_view';
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/app_view', :locals => {:version => @version_order[0], :mkp => @mkp}) %>";
 <% elsif @type == "SERVICE" %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/app_boilers_view', :locals => {:version => @version_order[0], :mkp => @mkp}) %>";
+<% elsif @type == "BYOC" %>
+var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/byoc', :locals => {:version => @version_order[0],:type => @type, :mkp => @mkp}) %>";
 <% else %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/docker_view', :locals => {:version => @version_order[0], :mkp => @mkp}) %>";
 <% end %>

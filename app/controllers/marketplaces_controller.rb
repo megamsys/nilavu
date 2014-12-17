@@ -25,7 +25,10 @@ class MarketplacesController < ApplicationController
 
   def show
     @pro_name = params[:id].split("-")
+    puts @pro_name
+    puts "---------------------------------------"
     @apps = get_apps
+    
     @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])
     if @mkp.class == Megam::Error
       redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
