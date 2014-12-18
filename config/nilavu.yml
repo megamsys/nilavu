@@ -24,8 +24,8 @@ support:
 auth:
   fb_client_id:
   fb_secret_key:
-  github_client_id: 
-  github_secret_key: 
+  github_client_id: dc161ea567cf79adb11f
+  github_secret_key: 5b2b9de2f6e3d86116ed0c9f02f645fc70376887
   assembla_client_id:
   assembla_secret_key:
   google_client_id: 747654586796-8aqmg4t037s1v2r1vaf1qmjlk121s4ji.apps.googleusercontent.com
