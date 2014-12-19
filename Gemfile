@@ -22,6 +22,7 @@ gem 'sqlite3', "~> 1.3.10"
 
 #fog
 gem 'fog', "~> 1.26.0"
+gem 'opennebula'
 
 
 
