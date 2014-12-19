@@ -107,7 +107,7 @@ Cloudauth::Application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: [:post,:delete]
   match '/auth/facebook/callback', :to => 'sessions#create', via: [:get, :post]
   #match '/sess', :to => 'sessions#create', via: [:post]
-  match '/auth/github/callback', :to => 'apps#github_scm', via: [:get, :post]
+  match '/auth/github/callback', :to => 'marketplaces#github_scm', via: [:get, :post]
   match '/auth/google_oauth2/callback', :to => 'cross_clouds#gwindow', via: [:get, :post]
   match '/auth/assembla/callback', :to => 'apps#authorize_assembla', via: [:get, :post]
   match '/scm_manager_auth', :to => 'apps#scm_manager_auth', via: [:get, :post]

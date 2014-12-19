@@ -92,36 +92,6 @@ end
     end
   end
 
-  def authorize_scm
-=begin logger.debug "CloudBooks:authorize_scm, entry"
-    auth_token = request.env['omniauth.auth']['credentials']['token']
-    github = Github.new oauth_token: auth_token
-    git_array = github.repos.all.collect { |repo| repo.clone_url }
-    @repos = git_array
-    render :template => "apps/new", :locals => {:repos => @repos} 
-=end
-
-puts request.env['omniauth.auth']
-    #session[:info] = request.env['omniauth.auth']['credentials']
-    auth_token = request.env['omniauth.auth']['credentials']['token']
-    github = Github.new oauth_token: auth_token
-    git_array = github.repos.all.collect { |repo| repo.clone_url }
-    @repos = git_array
-    respond_to do |format|
-      format.js {
-        respond_with(@repos, :layout => !request.xhr? )}
-      end
-  end
-  
-  
-  def github_scm
-     
-     if current_user.nil?
- redirect_to :controller=>'sessions', :action=>'create'    
-  else
-    authorize_scm
-     end
-   end
 
   def authorize_assembla
     logger.debug "CloudBooks:authorize_assembla, entry"
