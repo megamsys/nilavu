@@ -88,14 +88,18 @@
 							<% end %>
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 								<ul class="list-inline app_icon_bottom">
+								   
 									<%  assembly[0].components.each do |com| %>
 									<% if com != nil %>
 									<% com.each do |c| %>
 									<% com_type = c.tosca_type.split(".") %>
 									<% ctype = get_type(com_type[2]) %>
+									<% if ctype != "" %>
+				
 									<li>
 										<%= image_tag "logos/"+com_type[2].downcase+".png", :alt => "" %>
 									</li>
+									<% end %>
 									<% end %>
 									<% end %>
 									<% end %>
