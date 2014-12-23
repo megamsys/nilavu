@@ -42,6 +42,6 @@ Cloudauth::Application.configure do
   # Log level to debug
   config.log_level = :debug
   # to ignore the javascript files loaded in public assets, this results in running post twice in JQuery
-  config.serve_static_assets = false
+  config.serve_static_files = false
 
 end
