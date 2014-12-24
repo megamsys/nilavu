@@ -20,24 +20,24 @@
 			<ul>
 			    
 				<li>
-					<a data-toggle="modal" href="#aws_init_popup"> <%= image_tag("amazon.png", :width => "123", :height => "120") %> </a>
+					<a data-toggle="modal" rel="tooltip" title="Amazon cloud" href="#aws_init_popup"> <%= image_tag("amazon.png", :width => "123", :height => "120") %> </a>
 				</li>
 				<li>
-					<a data-toggle="modal" href="#hp_init_popup"> <%= image_tag("hp.png", :width => "123", :height => "120") %> </a>
+					<a data-toggle="modal" rel="tooltip" title="HP cloud" href="#hp_init_popup"> <%= image_tag("hp.png", :width => "123", :height => "120") %> </a>
 				</li>
 				<li>
-					<%= link_to image_tag("gce.png", :width => "123", :height => "120"), cloud_selector_path(:cloud => "gce"), :remote => true %>
+					<%= link_to image_tag("gce.png", :width => "123", :height => "120"), cloud_selector_path(:cloud => "gce"), :remote => true, :title => 'Google cloud', :rel => 'tooltip' %>
 				</li>
 				<li>
-                      <a data-toggle="modal" href="#profitbricks_init_popup"> <%= image_tag("profitbricks.png", :width => "123", :height => "120") %> </a>
+                      <a data-toggle="modal" rel="tooltip" title="Profitbricks cloud" href="#profitbricks_init_popup"> <%= image_tag("profitbricks.png", :width => "123", :height => "120") %> </a>
 
 				</li>
 				<li>
-				    <a data-toggle="modal" href="#opennebula_init_popup"> <%= image_tag("opennebula.png", :width => "123", :height => "120") %> </a>
+				    <a data-toggle="modal" rel="tooltip" title="Opennebula cloud" href="#opennebula_init_popup"> <%= image_tag("opennebula.png", :width => "123", :height => "120") %> </a>
 
 				</li>
 				<li>
-				    <a data-toggle="modal" href="#gogrid_init_popup"> <%= image_tag("gogrid.png", :width => "123", :height => "120") %> </a>
+				    <a data-toggle="modal" href="#gogrid_init_popup" rel="tooltip" title="Gogrid cloud"> <%= image_tag("gogrid.png", :width => "123", :height => "120") %> </a>
 
 				</li>
 
