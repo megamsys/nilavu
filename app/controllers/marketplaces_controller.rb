@@ -103,6 +103,63 @@ class MarketplacesController < ApplicationController
     end
     apps
   end
+=begin
+  def authorize_scm
+ logger.debug "CloudBooks:authorize_scm, entry"
+    auth_token = request.env['omniauth.auth']['credentials']['token']
+    github = Github.new oauth_token: auth_token
+    git_array = github.repos.all.collect { |repo| repo.clone_url }
+    @repos = git_array
+    render :template => "apps/new", :locals => {:repos => @repos} 
+
+puts "ENTERING AUTHORIZE SCM---------------------------------"
+puts request.env['omniauth.auth']
+    #session[:info] = request.env['omniauth.auth']['credentials']
+    auth_token = request.env['omniauth.auth']['credentials']['token']
+    github = Github.new oauth_token: auth_token
+    git_array = github.repos.all.collect { |repo| repo.clone_url }
+    @repos = git_array
+    
+ # @repos
+  end
+  
+=end
+
+
+  def github_scm
+     
+     if current_user.nil?
+ redirect_to :controller=>'sessions', :action=>'create'    
+  else
+    @auth_token = request.env['omniauth.auth']['credentials']['token']
+    session[:github] =  @auth_token
+     end
+    
+   end
+
+def github_sessions
+
+auth_id = params['id']
+puts auth_id
+ github = Github.new oauth_token: auth_id
+    git_array = github.repos.all.collect { |repo| repo.clone_url }
+    @repos = git_array
+respond_to do |format|
+        format.js {
+          respond_with(@repos, :layout => !request.xhr? )
+        }
+      end
+end
+
+def github_sessions_data
+
+@tokens_gh = session[:github] 
+
+render :text => @tokens_gh
+
+
+end
+
 
   def category_view
     mkp = get_marketplaces
@@ -331,4 +388,38 @@ class MarketplacesController < ApplicationController
     end
   end
 
+
+
+def byoc_create
+
+    assembly_name = params[:name]
+    version = params[:version]
+    domain = params[:domain]
+    cloud = params[:cloud]
+    source = params[:source]
+    type = params[:type].downcase
+    dbname = nil
+    dbpassword = nil
+
+    combos = params[:combos]
+    combo = combos.split("+")
+    ttype = "tosca.web."
+    appname = params[:appname]
+    servicename = nil
+
+    options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword  }
+    app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
+    @res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
+    if @res.class == Megam::Error
+      @profile = "http://support.megam.co/"
+      @err_msg= ActionController::Base.helpers.link_to 'Contact support', @profile
+      respond_to do |format|
+        format.js {
+          respond_with(@err_msg, :layout => !request.xhr? )
+        }
+      end
+    end
+  end
+
 end
+

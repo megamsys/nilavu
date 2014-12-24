@@ -23,6 +23,8 @@ class CrossCloudsController < ApplicationController
 
   def gwindow
     puts request.env['omniauth.auth']
+    
+    puts "---------------------------------------------------------------------"
     session[:info] = request.env['omniauth.auth']['credentials']
   end
 

@@ -66,7 +66,7 @@ Cloudauth::Application.routes.draw do
   
   #Cloud Books
   match '/starter_packs_launch', to: 'marketplaces#starter_packs_create', via: [:get, :post]
-  match '/byoc_packs_launch', to: 'marketplaces#byoc_create', via: [:get, :post]
+  match '/byoc_launch', to: 'marketplaces#byoc_create', via: [:get, :post]
   match '/app_boilers_launch', to: 'marketplaces#app_boilers_create', via: [:get, :post]
   match '/addons_launch', to: 'marketplaces#addons_create', via: [:get, :post]
   match '/get_request', to: 'apps#get_request', via: [:get, :post]
@@ -106,10 +106,11 @@ Cloudauth::Application.routes.draw do
   match '/demo', to: 'sessions#demo', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post,:delete]
   match '/auth/facebook/callback', :to => 'sessions#create', via: [:get, :post]
-  #match '/sess', :to => 'sessions#create', via: [:post]
-  match '/auth/github/callback', :to => 'apps#github_scm', via: [:get, :post]
+  match '/auth/github/callback', :to => 'marketplaces#github_scm', via: [:get, :post]
+  match '/github_call', :to => 'marketplaces#github_sessions_data', via: [:get, :post]
   match '/auth/google_oauth2/callback', :to => 'cross_clouds#gwindow', via: [:get, :post]
   match '/auth/assembla/callback', :to => 'apps#authorize_assembla', via: [:get, :post]
+  match '/github_ajax', :to => 'marketplaces#github_sessions', via: [:get, :post]
   match '/scm_manager_auth', :to => 'apps#scm_manager_auth', via: [:get, :post]
   match '/scmmanager_auth', :to => 'apps#scmmanager_auth', via: [:get, :post]
   match '/create_scm_user', :to => 'apps#create_scm_user', via: [:get, :post]
