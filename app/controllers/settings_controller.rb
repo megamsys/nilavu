@@ -5,11 +5,15 @@ class SettingsController < ApplicationController
   end
 
   def index
-    logger.debug "--> #{self.class} : index entry"
-    list_clouds
-    list_sshkeys
-    if @cross_clouds_collection.class == Megam::Error
-      redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
+    if current_user_verify
+      logger.debug "--> #{self.class} : index entry"
+      list_clouds
+      list_sshkeys
+      if @cross_clouds_collection.class == Megam::Error
+        redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
+      end
+    else
+      redirect_to signin_path
     end
   end
 
@@ -35,8 +39,8 @@ class SettingsController < ApplicationController
     logger.debug "--> #{self.class} : list clouds entry"
     @cross_clouds_collection = ListPredefClouds.perform( force_api[:email], force_api[:api_key])
     logger.debug "--> #{self.class} : listed clouds"
-        logger.debug "============================>clouds ===================================="
-        logger.debug @cross_clouds_collection.inspect
+    logger.debug "============================>clouds ===================================="
+    logger.debug @cross_clouds_collection.inspect
     if @cross_clouds_collection.class != Megam::Error
       @cross_clouds = []
       cross_clouds = []

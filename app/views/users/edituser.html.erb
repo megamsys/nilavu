@@ -34,18 +34,17 @@
 				<div class="tab-pane active" id="profile_1">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-							<h4 class="bottom_border_grey">Basic information <span class="pull-right" > <%= current_user.email %></span></h4>
+							<h4 class="bottom_border_grey">Basic information <span class="pull-right" > <%= current_user["email"] %></span></h4>
 						</div>
 
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
-							<%= form_for @user, html: {class:  'form-horizontal', role: 'form'}, remote: true, data:  { spinlock: '#saving_profilename'} do |f| %>
+							<%= form_tag userupdate_path, multipart: true, :id => "megamform", remote: true, method: 'put', data: { spinlock: "#saving_profilenam"}  do %>
 							<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
 							<input type="hidden" name="user_fields_form_type" value="profile">
 							<div class="form-group">
 								<label class="col-md-3 control-label label-profile">Profile name</label>
 								<div class="col-md-6 input-group margin-top-10">
-									<%= f.text_field :first_name, :id => 'first_name', :class => 'form-control',:readonly => true, placeholder: "Enter text" %>
-									<!-- <%= f.text_field :last_name, :id => 'last_name', :class => 'form-control', placeholder: "Last name" %> -->
+									<%= text_field_tag 'first_name', nil, :id => 'first_name', :class => 'form-control',:readonly => true, placeholder: "Enter text", :value => @userdata["first_name"] %>
 									<span class="input-group-addon" ><a id="change_profilename">Change ?</a></span>
 								</div>
 								<div class="col-md-3 pull-right c_cog_icon">
@@ -53,18 +52,20 @@
 									<i class="icon-cog"></i>
 								</div>
 							</div>
-
+							<br/>
+							<br/>
+							<br/>
 							<div class="form-group">
 								<label class="col-md-3 control-label label-profile">Phone</label>
 								<div class="col-md-6 input-group margin-top-10">
-									<%= f.text_field :phone, :class => 'form-control',:readonly => true, :id => 'phonenumber',placeholder: "Enter text" %>
+									<%= text_field_tag 'phone', nil, :class => 'form-control',:readonly => true, :id => 'phonenumber', placeholder: "Phone Number", :value => @userdata["phone"] %>
 									<span class="input-group-addon" ><a id="change_phonenumber">Change ?</a></span>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
-									<%= f.submit "Save", :class => "btn btn-success col-md-5 col-xs-12" %>
+									<%= submit_tag "Update", :class => "btn btn-success col-md-5 col-xs-12" %>
 								</div>
 							</div>
 							<% end %>
@@ -76,35 +77,38 @@
 							<h4 class="bottom_border_grey">Change password</h4>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
-							<%= form_for @user, html: {:class => 'form-horizontal', :role => 'form' }, :remote => true, data: { spinlock: '#saving profile_password'} do |f| %>
+							<%= form_tag userupdate_path, multipart: true, :id => "megamform", remote: true, method: 'put', data: { spinlock: "#saving profile_password"}  do %>
 							<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
 							<input type="hidden" name="user_fields_form_type" value="password">
 							<div class="form-group">
 								<label class="col-md-3 control-label label-profile">Current</label>
 								<div class="col-md-6 input-group margin-top-10">
-									<%= f.password_field :password, :class=> 'form-control', placeholder: "Current password" %>
+									<%= password_field_tag 'current_password', nil, :class=> 'form-control', placeholder: "Current password" %>
 									<span class="input-group-addon" ><a id="change_password">Change ?</a></span>
 								</div>
 							</div>
-
+							<br/>
+							<br/>
+							<br/>
 							<div class="form-group">
 								<label class="col-md-3 control-label label-profile">New</label>
 								<div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-9">
-									<%= f.password_field :password, :class=> 'form-control', :id => 'newpassword', :readonly => true, placeholder: "New password" %>
+									<%= password_field_tag 'password', nil, :class=> 'form-control', :id => 'newpassword', :readonly => true, placeholder: "New password" %>
 								</div>
 							</div>
-
+							<br/>
+							<br/>
+							<br/>
 							<div class="form-group">
 								<label class="col-md-3 control-label label-profile">Retype</label>
 								<div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-9">
-									<%= f.password_field :password_confirmation,  :class=> 'form-control', :id => 'newpassword_confirmation', :readonly => true, placeholder: "Confirm new password" %>
+									<%= password_field_tag 'password_confirmation', nil, :class=> 'form-control', :id => 'newpassword_confirmation', :readonly => true, placeholder: "Confirm new password" %>
 								</div>
 							</div>
 
 							<div class="form-group">
 								<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
-									<%= f.submit "Update", :id => "save_password", :class => "btn btn-success col-md-5 col-xs-12" %>
-
+									<%= submit_tag "Update", :id => "save_password", :class => "btn btn-success col-md-5 col-xs-12" %>
 								</div>
 							</div>
 							<% end %>
@@ -181,7 +185,7 @@
 										<tbody>
 											<tr>
 
-												<td><%= current_user.email %></td>
+												<td><%= current_user["email"] %></td>
 											</tr>
 
 										</tbody>
@@ -212,15 +216,14 @@
 								<div class="col-xs-10 col-sm-9">
 									<h4 class="">Generated API Keys</h4>
 								</div>
-								<%= form_tag(update_path, :method => "post", :remote => true) do %>
+								<%= form_tag(userupdate_path, :method => "put", :remote => true) do %>
 								<input type="hidden" name="user_fields_form_type" value="api_key">
 								<%= submit_tag "Create", :class => "pull-right btn btn-success" %>
 								<% end %>
 							</div>
 						</div>
 					</div>
-
-					<%= form_for @user, :remote => true do |f| %>				
+					<%= form_tag userupdate_path, :remote => true  do %>
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 						<table class="table tb_action_list">
 							<thead>
@@ -231,8 +234,8 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td class="set_title" > <%= f.text_field :api_token, :id => 'api_key_field', :disabled => 'disabled', :class=> 'form-control required' %></td>
-									<td > <%= text_field_tag 'created_at', "#{@user.updated_at}", :readonly => true, :class=> 'form-control' %></td>
+									<td class="set_title" > <%= text_field_tag 'api_token', nil, :id => 'api_key_field', :disabled => 'disabled', :class=> 'form-control required', :value => @userdata["api_token"] %></td>
+									<td > <%= text_field_tag 'created_at', "#{@userdata["updated_at"]}", :readonly => true, :class=> 'form-control', :value => @userdata["updated_at"] %></td>
 
 								</tr>
 
@@ -262,12 +265,15 @@
 				<h3 id="myModalLabel">Profile Update</h3>
 			</div>
 			<div class="modal-body">
-				<div class="alert alert-success">
+				<div class="alert alert-success" style="display:none" id = "profileres">
 					<div id="msg"></div>
+				</div>
+				<div class="alert alert-danger" style="display:none" id = "profileerr">
+					<div id="err"></div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<%= link_to "Ok", main_dashboards_path, :class => "btn btn-primary", :target => "_self" %>
+				<%= link_to "Ok", edituser_path, :class => "btn btn-primary", :target => "_self" %>
 			</div>
 		</div>
 	</div>

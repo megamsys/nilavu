@@ -44,7 +44,9 @@ Cloudauth::Application.routes.draw do
     match '/data_sources', to: 'data_sources#index', via: [:get, :post]
   end
 
-
+ match '/edituser' => 'users#edituser', via: [:get, :post]
+ match '/userupdate' => 'users#userupdate', via: [:put]
+ 
 #oneapp Overview
   match '/appoverview', to: 'oneapps#overview', via: [:get, :post]
   match '/appruntime', to: 'oneapps#runtime', via: [:get, :post]

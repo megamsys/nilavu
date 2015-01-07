@@ -113,7 +113,7 @@
 							<div class="col-sm-8 col-md-8 col-lg-9">
 								<div class="input-group input-group-sm">
 									<span class="input-group-addon"><i class="fa-globe"></i></span>
-									<%= text_field_tag 'store_db_name', "db_#{current_user.first_name}",:class => "form-control" ,:readonly => true %>
+									<%= text_field_tag 'store_db_name', "db_#{current_user["first_name"]}",:class => "form-control" ,:readonly => true %>
 
 								</div>
 							</div>
@@ -125,7 +125,7 @@
 							<div class="col-sm-8 col-md-8 col-lg-9">
 								<div class="input-group input-group-sm">
 									<span class="input-group-addon"><i class="fa-user"></i></span>
-									<%= text_field_tag 'user_name', "#{current_user.email}", :class => "form-control",:readonly => true %>
+									<%= text_field_tag 'user_name', "#{current_user["email"]}", :class => "form-control",:readonly => true %>
 								</div>
 							</div>
 						</div>
@@ -136,7 +136,7 @@
 							<div class="col-sm-8 col-md-8 col-lg-9">
 								<div class="input-group input-group-sm">
 									<span class="input-group-addon"><i class="fa-lock"></i></span>
-									<%= text_field_tag 'password', "#{current_user.api_token}",:class => "form-control" ,:readonly => true %>
+									<%= text_field_tag 'password', "#{current_user["api_token"]}",:class => "form-control" ,:readonly => true %>
 								</div>
 							</div>
 						</div>
@@ -153,11 +153,11 @@
 									<%
  dburl = case @dbms
                     when "postgresql"
-                      "postgres://#{current_user.first_name}:#{current_user.api_token}@postgres1.megam.co.in:5432/db_#{current_user.first_name}"
+                      "postgres://#{current_user["first_name"]}:#{current_user["api_token"]}@postgres1.megam.co.in:5432/db_#{current_user["first_name"]}"
                     when "riak"
-                      "riak://#{current_user.email}@#{current_user.api_token}:http://#{@new_book_name}#{@domain_name}:8098"
+                      "riak://#{current_user["email"]}@#{current_user["api_token"]}:http://#{@new_book_name}#{@domain_name}:8098"
                     when "redis"
-                      "redis://#{current_user.email}:#{current_user.api_token}@#{@new_book_name}#{@domain_name}:9402"
+                      "redis://#{current_user["email"]}:#{current_user["api_token"]}@#{@new_book_name}#{@domain_name}:9402"
                     end
 %>
 									<%= text_field_tag 'url',"#{dburl}",  :class => "form-control", :readonly => true %>
