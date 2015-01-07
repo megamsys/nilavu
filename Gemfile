@@ -1,29 +1,29 @@
 source 'https://rubygems.org'
 
-gem "rails",  "~> 4.2.0.rc3"
-#gem 'arel', '6.0.0'
+gem "rails",  "~> 4.2.0"
 # add these gems to help with the transition to Rails 4.2.x
 gem 'protected_attributes', "~> 1.0.8"
-gem "responders", "~> 2.0.0"
+gem "responders", "~> 2.0.2"
 
 # streaming
 gem 'socket.io-rails', "~> 1.2.0"
 
 #jquery & ui
-gem 'jquery-rails', "~> 4.0.0"
+gem 'jquery-rails', "~> 4.0.2"
 gem "font-awesome-rails", "3.2.1.3"
-gem 'turbolinks', "~> 2.5.1"
+gem 'turbolinks', "~> 2.5.3"
 gem 'jquery-turbolinks',"~> 2.1.0"
 gem 'remotipart', "~> 1.2.1"
-gem 'sqlite3', "~> 1.3.10"
+#gem 'sqlite3', "~> 1.3.10"
 
 #AJAX for file uploads
 #Added //= require jquery.remotipart in application.js
 
 #fog
 gem 'fog', "~> 1.26.0"
+gem 'opennebula'
 
-
+#gem 'ripple', "~> 1.0.1"
 
 # security and oauth
 gem 'bcrypt', "~> 3.1.9"
@@ -68,8 +68,6 @@ gem "less-rails", "~> 2.6.0"
 gem 'sass-rails', "~> 5.0.0"
 gem 'coffee-rails', "~> 4.1.0"
 gem 'uglifier', "~> 2.5.3"
-
-
 
 group :test do
   gem 'capybara'

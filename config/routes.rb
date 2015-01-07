@@ -44,7 +44,9 @@ Cloudauth::Application.routes.draw do
     match '/data_sources', to: 'data_sources#index', via: [:get, :post]
   end
 
-
+ match '/edituser' => 'users#edituser', via: [:get, :post]
+ match '/userupdate' => 'users#userupdate', via: [:put]
+ 
 #oneapp Overview
   match '/appoverview', to: 'oneapps#overview', via: [:get, :post]
   match '/appruntime', to: 'oneapps#runtime', via: [:get, :post]
@@ -105,8 +107,9 @@ Cloudauth::Application.routes.draw do
   match '/signin', to: 'sessions#new', via: [:get]
   match '/demo', to: 'sessions#demo', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post,:delete]
-  match '/auth/facebook/callback', :to => 'sessions#create', via: [:get, :post]
+ # match '/auth/facebook/callback', :to => 'sessions#create', via: [:get, :post]
   #match '/sess', :to => 'sessions#create', via: [:post]
+  match '/auth/facebook/callback', :to => 'sessions#fb_auth', via: [:get, :post]
   match '/auth/github/callback', :to => 'apps#github_scm', via: [:get, :post]
   match '/auth/google_oauth2/callback', :to => 'cross_clouds#gwindow', via: [:get, :post]
   match '/auth/assembla/callback', :to => 'apps#authorize_assembla', via: [:get, :post]

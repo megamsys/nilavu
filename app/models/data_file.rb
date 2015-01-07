@@ -1,3 +1,4 @@
+=begin
 class DataFile < ActiveRecord::Base
   def self.save(upload)
     name =  upload['datafile'].path.original_filename
@@ -23,3 +24,4 @@ class DataFile < ActiveRecord::Base
     end
   
 end
+=end

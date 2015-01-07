@@ -1,7 +1,7 @@
 <% content_for :content_settings do %>
 <% provide(:title, 'API Token') %>
 
-<% if !current_user.organization.api_token %>
+<% if !current_user["organization"]["api_token"] %>
 <br/>
 <div class="span9 alert alert-success">
 	Well done !. You are almost there. <%= link_to "Click here", organizations_create_api_access_key_url %> to Create an API
@@ -12,19 +12,19 @@
 		<table class="table table-condensed table-striped table-bordered">
 			<tr>
 				<td><h5> Organization Name : </h5></td>
-				<td><%= current_user.organization.name %></td>
+				<td><%= current_user["organization"]["name"] %></td>
 			</tr>
 			<tr>
 				<td><h5> Your Email : </h5></td>
-				<td><%= current_user.email %></td>
+				<td><%= current_user["email"] %></td>
 			</tr>
 			<tr>
 				<td><h5> API Access Token : </h5></td>
-				<td><%= current_user.organization.api_token %></td>
+				<td><%= current_user["organization"]["api_token"] %></td>
 			</tr>
 			 <tr>
 				<td><h5> API Updated At : </h5></td>
-				<td><%= current_user.organization.updated_at %></td>
+				<td><%= current_user["organization"]["updated_at"] %></td>
 			</tr>
 		</table>
 	</div>

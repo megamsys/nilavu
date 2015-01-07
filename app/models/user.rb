@@ -1,45 +1,111 @@
-class User < ActiveRecord::Base
-  # users.password_hash in the database is a :string
-  attr_accessible :first_name, :last_name, :admin, :phone, :onboarded_api, :user_type, :email, :api_token, :password, :password_confirmation, :verified_email, :verification_hash, :app_attributes, :cloud_identity_attributes, :apps_item_attributes
-  has_secure_password
-  
-  has_many :identities, :foreign_key => 'users_id'
-  accepts_nested_attributes_for :identities, :update_only => true 
+#class User < ActiveRecord::Base
+require 'json'
+require 'bcrypt'
 
-  has_many :dashboards, :foreign_key  => 'user_id'
-  accepts_nested_attributes_for :dashboards, :update_only => true
- 
-
-  before_save { |user| user.email = email.downcase }
-
-  #validates_existence_of :email
-
-  validates :email, :presence => true, :uniqueness => true
-
-  def self.create_from_auth_hash!(auth_hash)
-    create(:first_name => auth_hash["info"]["name"], :last_name => auth_hash["info"]["last_name"],
-    :email => auth_hash["info"]["email"], :phone => auth_hash["info"]["phone"], :admin => true)
+class User
+  include BCrypt
+  def initialize()
+    @first_name = nil
+    @last_name = nil
+    @admin = true
+    @phone = nil
+    @onboarded_api = false
+    @user_type = nil
+    @email = nil
+    @api_token = nil
+    @password = nil
+    @password_confirmation = nil
+    @verified_email = false
+    @verification_hash = nil
+    @app_attributes = nil
+    @cloud_identity_attributes = nil
+    @apps_item_attributes = nil
   end
 
+  def send_welcome_email
+    UserMailer.welcome_email(current_user).deliver
+  end
 
-before_create { generate_token(:remember_token) }
+  def generate_token
+    SecureRandom.urlsafe_base64
+  end
 
-def send_password_reset
-  generate_token(:password_reset_token)
-  self.password_reset_sent_at = Time.zone.now
-  save!
-  UserMailer.password_reset(self).deliver
-end
+  def builder(options)
+    hash = {
+      "first_name" => options["first_name"],
+      "last_name" => options["last_name"],
+      "admin" => true,
+      "phone" => options["phone"],
+      "onboarded_api" => false,
+      "user_type" => options["user_type"],
+      "email" => options["email"],
+      "api_token" => "",
+      "password" => password_encrypt(options["password"]),
+      "password_confirmation" => password_encrypt(options["password_confirmation"]),
+      "verified_email" => false,
+      "verification_hash" => options["verification_hash"],
+      "created_at" => Time.zone.now,
+      "updated_at" => Time.zone.now,
+      "password_reset_token" => "",
+      "password_reset_sent_at" => "",
+      "remember_token" => options["remember_token"],
+      "org_id" => ""
+    }
 
-def send_welcome_email
-  UserMailer.welcome_email(self).deliver
-end
+    hash.to_json
+  end
 
-def generate_token(column)
-  begin
-    self[column] = SecureRandom.urlsafe_base64
-  end while User.exists?(column => self[column])
-end
+  def save(options)
+    hash = builder(options)
+    result = true
+    res_body = MegamRiak.upload("profile", options[:email], hash, "application/json")
+    if res_body.class == Megam::Error
+    result = false
+    end
+    result
+  end
+
+  def update_columns(columns, email)
+    result = true
+    res = MegamRiak.fetch("profile", email)
+    res.content.data.map { |p|
+      if columns["#{p[0]}"].present?
+        res.content.data["#{p[0]}"] = columns["#{p[0]}"]
+      end
+    }
+    res_body = MegamRiak.upload("profile", email, res.content.data.to_json, "application/json")
+    if res_body.class == Megam::Error
+    result = false
+    end
+    result
+  end
+
+  def find_by_remember_token(remember_token, email)
+    result = nil
+    res = MegamRiak.fetch("profile", email)
+    if res.class != Megam::Error
+    result = res.content.data
+    end
+    result
+  end
+
+  def find_by_email(email)
+    result = nil
+    res = MegamRiak.fetch("profile", email)
+    puts res
+    if res.class != Megam::Error
+    result = res.content.data
+    end
+    result
+  end
+
+  def password_encrypt(password)
+    Password.create(password)
+  end
+
+  def password_decrypt(pass)
+    Password.new(pass)
+  end
 
 end
 
