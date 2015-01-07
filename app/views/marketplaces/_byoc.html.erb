@@ -1,4 +1,4 @@
-<%= form_tag starter_packs_launch_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+<%= form_tag byoc_launch_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 <% @mkp.plans.each do |c| %>
 <% if c["version"] == version %>
 <% @mkp_price = c["price"] %>
@@ -40,9 +40,9 @@
 <div class="row">
 	<div class="col-sm-7 body_left">
 		<h4>Bring Your Own Code</h4>
-				<a class="btn btn-default c_btn_gplus" id="connect">Github </a>
-
-		
+               <div id="byoc_connect"><i class="icon-github"></i></div>              
+                
+                
 		
 		<div class="row pad_tb25">
 			<div class="col-sm-5">
@@ -101,7 +101,15 @@
 				</div>
 			</div>
 		</div>
+		<div  class="col-xs-20">
+		
+		
+		    <div id="repos_list">
+		    </div>
+		    
+       </div>
 		<div class="row">
+		
 			<div class="col-xs-12">
 				<div class="form-group">
 					<%= submit_tag "Create", :class => "btn green col-xs-12" %>
@@ -120,17 +128,44 @@
 
 
 <script>  
- 
-   $('#connect').click(function(){
-      $.oauthpopup({
-        path: '/auth/github',
+
+  
+$(document).ready(function(){
+$("#byoc_connect").click(function(){
+$.oauthpopup({
+        path: "/auth/github",          
         callback: function(){
-       //   $.get('/github', function(data){
-          //  console.log(session[:info]);
-        //    console.log("------------------------------------");
-            window.close();
-        //  });
+        $.get("/github_call", function(data){
+        console.log(data)
+        console.log("----data----")
+        
+         var dataString = data
+         console.log(dataString);
+         
+         
+         $.ajax({  
+          type: "POST",  
+          url: "/github_ajax",  
+          //dataType: 'json',
+          data: {id: dataString},            
+          success: function(data) {      
+                   console.log("It worked!")
+                   console.log(dataString);
+                },
+              
+                       error : function(data) {
+                           console.log("ERROR CHECK PROPERLY!!");
+                           console.log(data);
+                       }
+        }); 
+         
+    
+         
+     });       
+        return false; 
+    
         }
-      });
-    });  
+    });
+});
+});
 </script>

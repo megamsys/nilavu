@@ -99,9 +99,9 @@ class AppsController < ApplicationController
 
   def github_scm
     if !current_user_verify
-    #  session[:auth] = request.env['omniauth.auth']
+      #  session[:auth] = request.env['omniauth.auth']
       auth = request.env['omniauth.auth']
-      session[:auth] = { :uid => auth['uid'], :provider => auth['provider'], :email => auth['info']["email"] } 
+      session[:auth] = { :uid => auth['uid'], :provider => auth['provider'], :email => auth['info']["email"] }
       redirect_to :controller=>'sessions', :action=>'create'
     else
       puts request.env['omniauth.auth']
