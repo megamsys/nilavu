@@ -2,8 +2,9 @@ class MainDashboardsController < ApplicationController
   respond_to :html, :js
   include MainDashboardsHelper
   def index
-    if current_user
-      @user_id = current_user.id
+    if current_user_verify
+      
+      @user_id = current_user["email"]
 
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
       @service_counter = 0
@@ -32,15 +33,14 @@ class MainDashboardsController < ApplicationController
             end
           end
         end
-      end
-
+      end    
     else
       redirect_to signin_path
     end
   end
 
   def visualCallback
-    if current_user
+    if current_user_verify
       redirect_to main_dashboards_path, :gflash => { :error => { :value => "Invalid username and password combination, Please Enter your correct megam email", :sticky => false, :nodom_wrap => true } }
     else
       redirect_to signin_path, :gflash => { :error => { :value => "Invalid username and password combination, Please Enter your correct megam email", :sticky => false, :nodom_wrap => true } }

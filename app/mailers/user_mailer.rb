@@ -5,12 +5,12 @@ class UserMailer < ActionMailer::Base
     @user = user
     #@random_token = user.verification_hash
     #@url  = "https://www.megam.co/verified_email.#{@random_token}"
-    mail(:to => user.email, :subject => "Megam Account Confirmation")
+    mail(:to => user["email"], :subject => "Megam Account Confirmation")
   end
 
   def password_reset(user)
     @user = user
-    mail :to => user.email, :subject => "Reset your Megam Password"
+    mail :to => user["email"], :subject => "Reset your Megam Password"
   end
 
   def contact_email(user)
