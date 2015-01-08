@@ -14,7 +14,6 @@ gem "font-awesome-rails", "3.2.1.3"
 gem 'turbolinks', "~> 2.5.3"
 gem 'jquery-turbolinks',"~> 2.1.0"
 gem 'remotipart', "~> 1.2.1"
-#gem 'sqlite3', "~> 1.3.10"
 
 #AJAX for file uploads
 #Added //= require jquery.remotipart in application.js
@@ -22,8 +21,6 @@ gem 'remotipart', "~> 1.2.1"
 #fog
 gem 'fog', "~> 1.26.0"
 gem 'opennebula'
-
-#gem 'ripple', "~> 1.0.1"
 
 # security and oauth
 gem 'bcrypt', "~> 3.1.9"
