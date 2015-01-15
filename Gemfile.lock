@@ -352,6 +352,9 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (~> 1.1)
+    simple_form (3.1.0)
+      actionpack (~> 4.0)
+      activemodel (~> 4.0)
     simple_oauth (0.2.0)
     socket.io-rails (1.2.1)
       railties (>= 3.1)
@@ -442,6 +445,7 @@ DEPENDENCIES
   riak-client (~> 2.1.0)
   rspec-rails
   sass-rails (~> 5.0.1)
+  simple_form
   socket.io-rails (~> 1.2.1)
   sshkey (~> 1.6.1)
   therubyracer (~> 0.12.1)

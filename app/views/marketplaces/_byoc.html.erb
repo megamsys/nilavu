@@ -41,9 +41,15 @@
 	<div class="col-sm-7 body_left">
 		<h4>Bring Your Own Code</h4>
                <div id="byoc_connect"><i class="icon-github"></i></div>              
-                
-                
-		
+
+		 <div class="col-md-2 col-md-offset-4">
+    <%= link_to gogs_path, remote: true do %>
+      <button class="btn btn-default">Gogs</button>
+    <% end %>
+  </div>>   
+
+  <div class="col-md-6 col-md-offset-2" id="task-form" style="display:none;"></div>
+
 		<div class="row pad_tb25">
 			<div class="col-sm-5">
 				<div class="app_inner brad-3">
@@ -168,4 +174,5 @@ $.oauthpopup({
     });
 });
 });
-</script>
+
+

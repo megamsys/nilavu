@@ -37,6 +37,10 @@ gem "omniauth-assembla", "~> 0.0.3"
 gem 'json', "~> 1.8.1"
 gem 'riak-client', '~> 2.1.0'
 
+#simpleform
+
+gem 'simple_form'
+
 #general
 gem "github_api", "~>0.12.2"
 gem 'twitter', "~> 5.11.0"

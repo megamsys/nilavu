@@ -1,0 +1,11 @@
+<%= form_tag('/trigger', method: 'post', remote: true) do %>
+  		<%= text_field_tag 'gogs_username', nil, placeholder: 'Enter Gogs Username' , :required => true, :class =>"form-control" %>
+
+ 		<%= text_field_tag 'gogs_password', nil, placeholder: 'Enter gogs password', :required => true, :class =>"form-control" %>
+		<%= submit_tag "Login", :style => "width:250px; height:50px;", data: { disable_with: "Hold on! accessing gogs!" }, :class => "btn btn-default c_btn_gplus" %>
+
+   
+<% end %>
+
+
+
