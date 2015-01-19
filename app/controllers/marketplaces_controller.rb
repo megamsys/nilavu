@@ -167,13 +167,20 @@ end
 
 def gogs
  puts "tadaaaaa"
- puts params[:username]
+ 
  
 end
 
+def gogswindow
+end
+
 def gogs_return 
+puts params[:gogs_username]
+puts params[:gogs_password]
 
 @token = ListGogsTokens.perform(params[:gogs_username], params[:gogs_password])
+puts @token
+puts "printing tokens!!--------"
 @gogs_repos = ListGogsRepo.perform(@token)
 
 respond_to do |format|
@@ -181,7 +188,7 @@ respond_to do |format|
             respond_with(@gogs_repos, :layout => !request.xhr? )
           }
         end
-
+ 
 end
   def category_view
     mkp = get_marketplaces
