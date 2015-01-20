@@ -40,10 +40,12 @@
 <div class="row">
 	<div class="col-sm-7 body_left">
 		<h4>Bring Your Own Code</h4>
-               <div id="byoc_connect"><i class="icon-github"></i></div>              
-                
-                
-		
+               <div id="byoc_connect"><i class="icon-github"></i></div>  
+               <div id="gogs_connect"><i class="icon-github"></i></div>              
+
+
+  <div class="col-md-6 col-md-offset-2" id="task-form" style="display:none;"></div>
+
 		<div class="row pad_tb25">
 			<div class="col-sm-5">
 				<div class="app_inner brad-3">
@@ -131,6 +133,14 @@
 
   
 $(document).ready(function(){
+$("#gogs_connect").click(function(){
+$.oauthpopup({
+          path: "/gogs_popup",
+          //callback: function(){
+          //}
+         });
+        });
+        
 $("#byoc_connect").click(function(){
 $.oauthpopup({
         path: "/auth/github",          
@@ -168,4 +178,5 @@ $.oauthpopup({
     });
 });
 });
-</script>
+
+

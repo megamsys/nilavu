@@ -1,8 +1,8 @@
-class ListGogsTokens
-   def self.perform(username, password)
+class ListGogsRepo
+   def self.perform(token)
    
    begin
-      @excon_resp = Megam::GogsToken.List(username, password)
+      @excon_resp = Megam::GogsRepo.list(token)
       rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)

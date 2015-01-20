@@ -1,0 +1,5 @@
+var selected_entity = '#repos_list';
+
+var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/repo_dropdown', :locals => {:repos => @gogs_repos) %>";
+
+insertAt(selected_entity, to_insert_content);

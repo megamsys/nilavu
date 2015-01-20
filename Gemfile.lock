@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    CFPropertyList (2.2.8)
+    CFPropertyList (2.3.0)
     actionmailer (4.2.0)
       actionpack (= 4.2.0)
       actionview (= 4.2.0)
@@ -41,7 +41,7 @@ GEM
     arel (6.0.0)
     bcrypt (3.1.9)
     beefcake (1.0.0)
-    better_errors (2.1.0)
+    better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
       rack (>= 0.9.0)
@@ -84,7 +84,7 @@ GEM
     diff-lcs (1.2.5)
     equalizer (0.0.9)
     erubis (2.7.0)
-    excon (0.42.1)
+    excon (0.43.0)
     execjs (2.2.2)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
@@ -121,7 +121,7 @@ GEM
       fog-core (~> 1.22)
       fog-json
       inflecto (~> 0.0.2)
-    fog-core (1.27.2)
+    fog-core (1.27.3)
       builder
       excon (~> 0.38)
       formatador (~> 0.2)
@@ -141,10 +141,10 @@ GEM
       fog-core (>= 1.21.0)
       fog-json
       fog-xml (>= 0.0.1)
-    fog-sakuracloud (0.1.1)
+    fog-sakuracloud (0.1.2)
       fog-core
       fog-json
-    fog-softlayer (0.3.26)
+    fog-softlayer (0.3.30)
       fog-core
       fog-json
     fog-storm_on_demand (0.1.0)
@@ -195,9 +195,9 @@ GEM
     jquery-turbolinks (2.1.0)
       railties (>= 3.1.0)
       turbolinks
-    json (1.8.1)
+    json (1.8.2)
     jwt (1.2.0)
-    kgio (2.9.2)
+    kgio (2.9.3)
     less (2.6.0)
       commonjs (~> 0.2.7)
     less-rails (2.6.0)
@@ -221,6 +221,9 @@ GEM
     megam_deccanplato (0.1.0)
       highline
       megam_api
+    megam_gogs (0.1.0)
+      highline (~> 1.6)
+      nokogiri (~> 1.6)
     megam_scmmanager (0.1.0)
       highline (~> 1.6)
       nokogiri (~> 1.6)
@@ -232,7 +235,7 @@ GEM
       railties (>= 3.0.0, < 5.0.0)
     mime-types (2.4.3)
     mini_portile (0.6.2)
-    minitest (5.5.0)
+    minitest (5.5.1)
     mixlib-config (2.1.0)
     mixlib-log (1.6.0)
     multi_json (1.10.1)
@@ -242,7 +245,7 @@ GEM
     naught (1.0.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
-    net-ssh (2.9.1)
+    net-ssh (2.9.2)
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
     oauth (0.4.7)
@@ -277,7 +280,7 @@ GEM
     omniauth-twitter (1.1.0)
       multi_json (~> 1.3)
       omniauth-oauth (~> 1.0)
-    opennebula (4.10.1)
+    opennebula (4.10.2)
       json
       nokogiri
       rbvmomi
@@ -286,7 +289,7 @@ GEM
     rack (1.6.0)
     rack-contrib (1.2.0)
       rack (>= 0.9.1)
-    rack-test (0.6.2)
+    rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.0)
       actionmailer (= 4.2.0)
@@ -345,7 +348,7 @@ GEM
       rspec-mocks (~> 3.1.0)
       rspec-support (~> 3.1.0)
     rspec-support (3.1.2)
-    sass (3.4.9)
+    sass (3.4.10)
     sass-rails (5.0.1)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)
@@ -422,6 +425,7 @@ DEPENDENCIES
   megam_api (~> 0.31)
   megam_assembla (~> 0.1.0)
   megam_deccanplato (~> 0.1.0)
+  megam_gogs (~> 0.1.0)
   megam_scmmanager (~> 0.1.0)
   meta_request
   nokogiri (~> 1.6.5)

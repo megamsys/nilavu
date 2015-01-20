@@ -31,7 +31,7 @@ class MarketplacesController < ApplicationController
     if current_user_verify
       @pro_name = params[:id].split("-")
       puts @pro_name
-      puts "---------------------------------------"
+     
       @apps = get_apps
 
       @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])
@@ -163,11 +163,33 @@ def github_sessions_data
 @tokens_gh = session[:github] 
 
 render :text => @tokens_gh
-
-
 end
 
+def gogs
+ puts "tadaaaaa"
+ 
+ 
+end
 
+def gogswindow
+end
+
+def gogs_return 
+puts params[:gogs_username]
+puts params[:gogs_password]
+
+@token = ListGogsTokens.perform(params[:gogs_username], params[:gogs_password])
+puts @token
+puts "printing tokens!!--------"
+@gogs_repos = ListGogsRepo.perform(@token)
+
+respond_to do |format|
+          format.js {
+            respond_with(@gogs_repos, :layout => !request.xhr? )
+          }
+        end
+ 
+end
   def category_view
     mkp = get_marketplaces
     @mkp_collection = mkp[:mkp_collection]

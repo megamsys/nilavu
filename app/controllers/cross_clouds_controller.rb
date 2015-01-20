@@ -132,6 +132,7 @@ class CrossCloudsController < ApplicationController
     list_sshkeys
     @provider = params[:cloud]
     puts @provider
+    puts "checkeckeckekcekckeckeckeckekckekceckeckekc--------------"
     if params[:cloud] == "aws"
       @provider_form_name = "Amazon EC2"
       puts "ENTERING INSIDE EC2 list"

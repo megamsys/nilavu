@@ -37,6 +37,7 @@ gem "omniauth-assembla", "~> 0.0.3"
 gem 'json', "~> 1.8.1"
 gem 'riak-client', '~> 2.1.0'
 
+
 #general
 gem "github_api", "~>0.12.2"
 gem 'twitter', "~> 5.11.0"
@@ -46,6 +47,8 @@ gem "megam_scmmanager", "~> 0.1.0"
 gem "megam_deccanplato", "~> 0.1.0"
 gem "megam_assembla", "~> 0.1.0"
 gem 'google-analytics-rails', '~> 0.0.6'
+gem 'megam_gogs', "~> 0.1.0"
+
 
 
 # http request and responses, http_proxy

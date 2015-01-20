@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   respond_to :html, :js
   include UsersHelper
+  include SessionsHelper
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
   before_filter :correct_user, only: [:edit, :update]
   before_filter :admin_user, only: :destroy
@@ -77,7 +78,8 @@ class UsersController < ApplicationController
         if res_update
           if "#{Rails.configuration.support_email}".chop!
             begin
-              @user.send_welcome_email                                #WELCOME EMAIL
+            
+             @user.send_welcome_email   #WELCOME EMAIL                         
               mail_res = "Email verification success"
             rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
               mail_res = "Email verification Failed"
