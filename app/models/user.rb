@@ -22,7 +22,7 @@ class User
     @apps_item_attributes = nil
   end
 
-  def send_welcome_email(current_user)
+  def send_welcome_email
     UserMailer.welcome_email(current_user).deliver
   end
 
