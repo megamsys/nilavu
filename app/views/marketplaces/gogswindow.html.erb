@@ -7,9 +7,9 @@
   		<%= text_field_tag 'gogs_username', nil, placeholder: 'Enter Gogs Username' , :required => true, :class =>"form-control" %>
 
  		<%= text_field_tag 'gogs_password', nil, placeholder: 'Enter gogs password', :required => true, :class =>"form-control" %>
-		<%= submit_tag "Login", :style => "width:250px; height:50px;", data: { disable_with: "Hold on! accessing gogs!" }, :class => "btn btn-default c_btn_gplus" %>
+		<%= submit_tag "Login", :style => "width:250px; height:50px;", data: { disable_with: "Hold on! accessing gogs!" }, :class => "btn btn-default c_btn_gplus", :id => "close_it" %>
 
    
 <% end %>
 
-  
+

@@ -18,7 +18,18 @@ module SessionsHelper
 #  end
 
  def current_user
-    @current_user 
+    
+    @user = User.new
+    res = @user.find_by_remember_token(cookies[:remember_token], cookies[:email]) if cookies[:remember_token] && cookies[:email]
+    if res != nil
+    puts res
+      puts "CURRENT USER --------------------"
+      @current_user ||= res
+      
+     else 
+      redirect_to signin_path
+     end    
+     
  end
   
   def current_user_verify
