@@ -2,7 +2,8 @@ class ListGogsTokens
    def self.perform(username, password)
    
    begin
-      @excon_resp = Megam::GogsTokens.List(username, password)
+      @excon_resp = Megam::GogsTokens.list(username, password)
+      puts @excon_resp
       rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)
@@ -19,7 +20,10 @@ class ListGogsTokens
       @res = {"data" => {:body => re}}
       return @res["data"][:body]
     end
-    @excon_resp.data[:body]
+    puts "testsetste"
+    puts @excon_resp[:body]
+    @excon_resp[:body]
+    
   end
 
 end
