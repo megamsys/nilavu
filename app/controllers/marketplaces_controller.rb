@@ -5,14 +5,12 @@ class MarketplacesController < ApplicationController
   include MarketplaceHelper
   include AppsHelper
   def index
-   # if current_user_verify
+   if current_user_verify
       mkp = get_marketplaces
       @mkp_collection = mkp[:mkp_collection]
       if @mkp_collection.class == Megam::Error
-      puts "ENTERING IFFFF"
         redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
       else
-      puts "ENTERING ELSEEE"
         @categories=[]
         @order=[]
         @order = @mkp_collection.map {|c|
@@ -24,13 +22,12 @@ class MarketplacesController < ApplicationController
         @categories = @categories.uniq
 
       end
-    #else
-     # redirect_to signin_path
-    #end
+    else
+     redirect_to signin_path
+    end
   end
 
   def show
-  puts "Entered show----------------printing proname"
     if current_user_verify
       @pro_name = params[:id].split("-")
       puts @pro_name
@@ -39,10 +36,8 @@ class MarketplacesController < ApplicationController
 
       @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])
       if @mkp.class == Megam::Error
-      puts "ENTERING 2nd IFFF"
         redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
       else
-      puts "ENTERING 2nd ELSE"
         @mkp = @mkp.lookup(params[:id])
         @predef_name = get_predef_name(@pro_name[3].downcase)
         @deps_scm = get_deps_scm(@pro_name[3].downcase)

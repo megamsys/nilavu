@@ -20,8 +20,6 @@ class ListGogsTokens
       @res = {"data" => {:body => re}}
       return @res["data"][:body]
     end
-    puts "testsetste"
-    puts @excon_resp[:body]
     @excon_resp[:body]
     
   end
