@@ -221,7 +221,7 @@ GEM
     megam_deccanplato (0.1.0)
       highline
       megam_api
-    megam_gogs (0.1.0)
+    megam_gogs (0.3.0)
       highline (~> 1.6)
       nokogiri (~> 1.6)
     megam_scmmanager (0.1.0)
@@ -425,7 +425,7 @@ DEPENDENCIES
   megam_api (~> 0.31)
   megam_assembla (~> 0.1.0)
   megam_deccanplato (~> 0.1.0)
-  megam_gogs (~> 0.1.0)
+  megam_gogs (~> 0.3.0)
   megam_scmmanager (~> 0.1.0)
   meta_request
   nokogiri (~> 1.6.5)
