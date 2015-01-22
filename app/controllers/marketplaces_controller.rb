@@ -5,7 +5,7 @@ class MarketplacesController < ApplicationController
   include MarketplaceHelper
   include AppsHelper
   def index
-    if current_user_verify
+   if current_user_verify
       mkp = get_marketplaces
       @mkp_collection = mkp[:mkp_collection]
       if @mkp_collection.class == Megam::Error
@@ -23,7 +23,7 @@ class MarketplacesController < ApplicationController
 
       end
     else
-      redirect_to signin_path
+     redirect_to signin_path
     end
   end
 
@@ -166,9 +166,6 @@ render :text => @tokens_gh
 end
 
 def gogs
- puts "tadaaaaa"
- 
- 
 end
 
 def gogswindow
@@ -178,17 +175,25 @@ def gogs_return
 puts params[:gogs_username]
 puts params[:gogs_password]
 
-@token = ListGogsTokens.perform(params[:gogs_username], params[:gogs_password])
-puts @token
-puts "printing tokens!!--------"
-@gogs_repos = ListGogsRepo.perform(@token)
-
+tokens = ListGogsTokens.perform(params[:gogs_username], params[:gogs_password])
+obj = JSON.parse(tokens)
+token = obj[0]["sha1"]
+ 
+@gogs_repos = ListGogsRepo.perform(token)
+    
+    obj_repo = JSON.parse(@gogs_repos)
+   
+    @repos_arr = []
+    
+    obj_repo.each do |one_repo|
+    
+    @repos_arr << one_repo["clone_url"]
+    end
 respond_to do |format|
           format.js {
-            respond_with(@gogs_repos, :layout => !request.xhr? )
+            respond_with(@repos_arr, :layout => !request.xhr?)
           }
         end
- 
 end
   def category_view
     mkp = get_marketplaces

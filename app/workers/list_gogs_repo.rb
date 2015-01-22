@@ -3,6 +3,7 @@ class ListGogsRepo
    
    begin
       @excon_resp = Megam::GogsRepo.list(token)
+      
       rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)
@@ -19,7 +20,8 @@ class ListGogsRepo
       @res = {"data" => {:body => re}}
       return @res["data"][:body]
     end
-    @excon_res.data[:body]
+    
+    @excon_resp[:body]
   end
 
 end
