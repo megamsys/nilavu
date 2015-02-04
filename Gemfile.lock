@@ -97,15 +97,17 @@ GEM
       faraday (>= 0.7.4, < 0.10)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
-    fog (1.26.0)
+    fog (1.27.0)
       fog-atmos
+      fog-aws (~> 0.0)
       fog-brightbox (~> 0.4)
-      fog-core (~> 1.27, >= 1.27.1)
+      fog-core (~> 1.27, >= 1.27.3)
       fog-ecloud
       fog-json
       fog-profitbricks
       fog-radosgw (>= 0.0.2)
       fog-sakuracloud (>= 0.0.4)
+      fog-serverlove
       fog-softlayer
       fog-storm_on_demand
       fog-terremark
@@ -117,6 +119,11 @@ GEM
     fog-atmos (0.1.0)
       fog-core
       fog-xml
+    fog-aws (0.1.0)
+      fog-core (~> 1.27)
+      fog-json (~> 1.0)
+      fog-xml (~> 0.1)
+      ipaddress (~> 0.8)
     fog-brightbox (0.7.1)
       fog-core (~> 1.22)
       fog-json
@@ -142,6 +149,9 @@ GEM
       fog-json
       fog-xml (>= 0.0.1)
     fog-sakuracloud (1.0.0)
+      fog-core
+      fog-json
+    fog-serverlove (0.1.1)
       fog-core
       fog-json
     fog-softlayer (0.4.0)
@@ -406,7 +416,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bcrypt (~> 3.1.9)
+  bcrypt (~> 3.1.10)
   better_errors
   binding_of_caller
   capybara
@@ -415,7 +425,7 @@ DEPENDENCIES
   factory_girl_rails
   faraday (~> 0.9.0)
   faraday_middleware (~> 0.9.1)
-  fog (~> 1.26.0)
+  fog (~> 1.27.0)
   font-awesome-rails (= 3.2.1.3)
   github_api (~> 0.12.2)
   google-analytics-rails (~> 0.0.6)
