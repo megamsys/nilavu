@@ -19,11 +19,11 @@ gem 'remotipart', "~> 1.2.1"
 #Added //= require jquery.remotipart in application.js
 
 #fog
-gem 'fog', "~> 1.26.0"
+gem 'fog', "~> 1.27.0"
 gem 'opennebula'
 
 # security and oauth
-gem 'bcrypt', "~> 3.1.9"
+gem 'bcrypt', "~> 3.1.10"
 
 gem 'oauth2', "~> 1.0.0"
 gem 'oauth', "~> 0.4.7"
@@ -36,7 +36,6 @@ gem "omniauth-assembla", "~> 0.0.3"
 
 gem 'json', "~> 1.8.1"
 gem 'riak-client', '~> 2.1.0'
-
 
 #general
 gem "github_api", "~>0.12.2"
