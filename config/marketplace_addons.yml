@@ -227,3 +227,16 @@ nodejs:
   link: http://gomegam.com/docs/users/apps/index.html
   type: APP
   basic_combos: nodejs+sqlite
+
+hadoop:
+  name: hadoop
+  no_of_instances: 1
+  db_model: 
+  dbms: 
+  predef_name: hadoop
+  radios:
+  deps_scm:
+  link: http://gomegam.com/docs/users/services/index.html
+  type: ANALYTICS
+  basic_combos: hadoop
+
