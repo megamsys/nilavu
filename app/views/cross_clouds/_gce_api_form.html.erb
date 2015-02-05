@@ -1,0 +1,22 @@
+<div class="modal-body text-center">
+	<div class="input-group margin-top-10">
+		<%= text_field_tag 'google_client_id', nil, placeholder: 'Enter google client id' , :required => true, :class =>"form-control" %>
+		<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
+	</div>
+
+	<div class="input-group margin-top-10">
+		<%= text_field_tag 'google_secret_key', nil, placeholder: 'Enter Google client Secret', :required => true, :class =>"form-control" %>
+		<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
+	</div>
+
+	<input type="hidden" name="cloud" value="gce">
+
+</div>
+<div class="modal-footer c_modal-footer">
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+		<%= submit_tag "Login with Google", :style => "width:250px; height:50px;", :class => "btn btn-default c_btn_gplus" %>
+	</div>
+	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+		<a href="http://aws.amazon.com/"> Create a new aws account </a>
+	</div>
+</div>

@@ -28,8 +28,9 @@ class CrossCloudsController < ApplicationController
       session[:auth] = { :uid => auth['uid'], :provider => auth['provider'], :email => auth['info']["email"] }
       redirect_to :controller=>'sessions', :action=>'create'
     else
-      puts request.env['omniauth.auth']
+        puts request.env['omniauth.auth']['credentials'].to_yaml
       session[:info] = request.env['omniauth.auth']['credentials']
+        
     end
   end
 
@@ -131,15 +132,11 @@ class CrossCloudsController < ApplicationController
   def cloud_selector
     list_sshkeys
     @provider = params[:cloud]
-    puts @provider
-    puts "checkeckeckekcekckeckeckeckekckekceckeckekc--------------"
+
     if params[:cloud] == "aws"
       @provider_form_name = "Amazon EC2"
-      puts "ENTERING INSIDE EC2 list"
       list_aws_data(params[:aws_access_key], params[:aws_secret_key], params[:region])
       @images = @aws_imgs
-      puts "PRINTING AWS IMAGES DATA"
-      puts @images.inspect
       @flavors = @aws_flavors
       @keypairs = @aws_keypairs
       @groups = @aws_groups
@@ -164,7 +161,14 @@ class CrossCloudsController < ApplicationController
       @credentials = {"opennebula_access_key" => "#{params[:opennebula_access_key]}", "opennebula_secret_key" => "#{params[:opennebula_secret_key]}", "zone" => "#{params[:zone]}"}
 
     elsif params[:cloud] == "gce"
+#Api call not fix yet
       @provider_form_name = "Google Compute Engine"
+     @images = []
+      @flavors = []
+      @keypairs = []
+      @groups = []
+      @credentials = {"google_client_id" => "#{params[:google_client_id]}", "google_secret_key" => "#{params[:google_secret_key]}"}
+
     elsif params[:cloud] == "profitbricks"
       @provider_form_name = "profitbricks"
 
@@ -232,8 +236,6 @@ class CrossCloudsController < ApplicationController
     if current_user_verify
       input = params[:settingsname]
       @details = GetPredefCloud.perform(params[:settingsname], force_api[:email], force_api[:api_key])
-      puts @details.inspect
-      puts "------------->>>>>>>>>>>>>>>>>>>>>>>"
       if @details.class == Megam::Error
         @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
         respond_to do |format|

@@ -171,7 +171,6 @@ class OneappsController < ApplicationController
   end
 
   def lcapp
-    puts params
     @id = params[:id]
     @name = params[:name]
     @command = params[:command]

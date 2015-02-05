@@ -131,7 +131,6 @@ class UsersController < ApplicationController
   def userupdate
     if current_user_verify
       logger.debug "==> Controller: users, Action: update, Update user pw, api_key"
-      puts params[:user_fields_form_type]
       @user = User.new
       @userdata = @user.find_by_email(current_user["email"])
       @user_fields_form_type = params[:user_fields_form_type]

@@ -12,9 +12,6 @@ class  GetAssembly
               one_asmbly.components.replace(temp_bb)
             end
       #=end
-      puts "=====> Inflated Assembly <======"
-      puts @excon_res[0].inspect
-      puts "=====> Assemblies <======"
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)

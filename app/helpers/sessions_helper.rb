@@ -22,8 +22,6 @@ module SessionsHelper
     @user = User.new
     res = @user.find_by_remember_token(cookies[:remember_token], cookies[:email]) if cookies[:remember_token] && cookies[:email]
     if res != nil
-    puts res
-      puts "CURRENT USER --------------------"
       @current_user ||= res
       
      else 
