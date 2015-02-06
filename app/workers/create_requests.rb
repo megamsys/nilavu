@@ -1,7 +1,5 @@
   class CreateRequests
   def self.perform(new_req,tmp_email, tmp_api_key)
-  puts "_________________________________"
-  puts new_req  
     begin
       @excon_res = Megam::Request.create(new_req, tmp_email, tmp_api_key)
     rescue ArgumentError => ae

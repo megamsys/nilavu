@@ -1,8 +1,9 @@
 <div class="row cloud_signup_save">
 	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-		<h5>Sign Up for Google Cloud</h5>
-		<a class="btn btn-default colr-denimblue" href="https://accounts.google.com/SignUp"> Create a new google account </a>
-		<!-- <button class="btn btn-default btn-md c_btn_gplus"> Login with Google + </button> -->
+		<h5>Sign In for google</h5>
+		<!-- <a class="btn btn-default c_btn_gplus" href="/auth/google_oauth2" onClick='login();' id="loginText">Login with Google </a> -->
+		<!-- <a class="btn btn-default c_btn_gplus" onClick='handleAuthClick();' id="loginText">Login with Google </a> -->
+		<a class="btn btn-default c_btn_gplus" id="connect">Login with Google </a>
 	</div>
 
 	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
@@ -14,75 +15,67 @@
 	</div>
 </div>
 
-<div class="row cloud_signup_save">
-	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-		<h5>Sign In for google</h5>
-		<!-- <a class="btn btn-default c_btn_gplus" href="/auth/google_oauth2" onClick='login();' id="loginText">Login with Google </a> -->
-		<!-- <a class="btn btn-default c_btn_gplus" onClick='handleAuthClick();' id="loginText">Login with Google </a> -->
-		<a class="btn btn-default c_btn_gplus" id="connect">Login with Google </a>
-	</div>
-
-	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-		<h5>Security credentials</h5>
-		<div class="input-group margin-top-10">
-			<%= text_field_tag 'google_client_id', nil, placeholder: 'Enter google client id', :required => true,:class =>"form-control" %>
-			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
-		</div>
-
-		<div class="input-group margin-top-10">
-			<%= text_field_tag 'google_secret_key', nil, placeholder: 'Enter google secret key', :required => true, :class =>"form-control" %>
-			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
-		</div>
-	</div>
-</div>
+<input type="hidden" name="google_client_id" value="<%= credentials['google_client_id'] %>">
+<input type="hidden" name="google_secret_key" value="<%= credentials['google_secret_key'] %>">
 
 <input type="hidden" name="provider" value="<%= selected_cloud %>">
 
-<input type="text" id="testing">
+<!-- Pass Hash in form element
+<% session[:info].each do |key,value| %>
+<%= hidden_field_tag "gce_auth_tokens[#{key}]",value %> 
+<% end %>
+-->
 
 <div class="row cloud_signup_save">
 	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
 		<h5>Image & Size</h5>
 		<div class="input-group margin-top-10">
+<%= label_tag 'Project Name'%>
 			<%= text_field_tag 'project_name', nil, placeholder: 'Enter Project name', :required => true, :class =>"form-control" %>
 			<span class="input-group-addon" ><i class="icon-question-sign" style=""></i></span>
 		</div>
 
 		<div class="input-group margin-top-10">
+<%= label_tag 'Group'%>
 			<%= text_field_tag 'group', nil, placeholder: 'Enter Network value', :required => true, :class =>"form-control" %>
 			<span class="input-group-addon" ><i class="icon-question-sign" style=""></i></span>
 		</div>
 
 		<div class="input-group margin-top-10">
+<%= label_tag 'Image'%>
 			<%= text_field_tag 'image', nil, placeholder: 'Enter Image value', :required => true, :class =>"form-control" %>
 			<span class="input-group-addon" ><i class="icon-question-sign" style=""></i></span>
 		</div>
 
 		<div class="input-group margin-top-10">
+<%= label_tag 'Flavor'%>
 			<%= text_field_tag 'flavor', nil, placeholder: 'Enter instance size', :required => true, :class =>"form-control" %>
 			<span class="input-group-addon" ><i class="icon-question-sign"></i></span>
 		</div>
-
-		<div class="input-group margin-top-10">
-			<%= text_field_tag 'zone', nil, placeholder: 'Enter zone', :required => true, :class =>"form-control" %>
-			<span class="input-group-addon" ><i class="icon-question-sign"></i></span>
-		</div>
-
 	</div>
 
 	<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
 		<h5>Security</h5>
 
 		<div class="input-group margin-top-10">
+<%= label_tag 'Zone'%>
+			<%= text_field_tag 'zone', nil, placeholder: 'Enter zone', :required => true, :class =>"form-control" %>
+			<span class="input-group-addon" ><i class="icon-question-sign"></i></span>
+		</div>
+
+		<div class="input-group margin-top-10">
+<%= label_tag 'SSHuser'%>
 			<%= text_field_tag 'ssh_user', nil, placeholder: 'Enter SSH user', :required => true, :class =>"form-control" %>
 			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
 		</div>
 
 		<div class="input-group margin-top-10">
-			<%= select_tag :id_rsa_public_key, options_for_select(@ssh_keys.map{ |c| c[:name] }), { :class => 'form-control input-sm' }%>
+<%= label_tag 'SSHkey'%>
+			<%= select_tag :id_rsa_public_key, options_for_select(@ssh_keys.map{ |c| c[:name] }), { :class => 'form-control' }%>
 
 			<span class="input-group-addon" ><i class="icon-question-sign" ></i></span>
 		</div>
+
 		<div class="input-group margin-top-10">
 			<br/>
 			<%= submit_tag "Create", :style => "width:150px; height:50px;", :class => "btn green settings_create" %>

@@ -31,9 +31,7 @@ class MegamRiak
   def self.download(bucket_name, filename)
     begin
       bucket = riak_bucket(bucket_name)
-      puts "--> #{bucket.inspect}"
       object = bucket.get_or_new(filename)
-      puts "--> #{object.inspect}"
 
       File.open(File.basename(filename), 'wb') do |file|
         #object.read do |chunk|

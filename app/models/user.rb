@@ -92,7 +92,6 @@ class User
   def find_by_email(email)
     result = nil
     res = MegamRiak.fetch("profile", email)
-    puts res
     if res.class != Megam::Error
     result = res.content.data
     end

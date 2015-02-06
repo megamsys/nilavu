@@ -10,6 +10,7 @@
 
 </div>
 <div class="row">
+
 	<!-- <div class="col-md-12 col-xs-12"> -->
 	<div class="carousel c_carousel default">
 
@@ -26,7 +27,9 @@
 					<a data-toggle="modal" rel="tooltip" title="HP cloud" href="#hp_init_popup"> <%= image_tag("hp.png", :width => "123", :height => "120") %> </a>
 				</li>
 				<li>
-					<%= link_to image_tag("gce.png", :width => "123", :height => "120"), cloud_selector_path(:cloud => "gce"), :remote => true, :title => 'Google cloud', :rel => 'tooltip' %>
+					<!-- <%= link_to image_tag("gce.png", :width => "123", :height => "120"), cloud_selector_path(:cloud => "gce"), :remote => true, :title => 'Google cloud', :rel => 'tooltip' %> -->
+
+					<a data-toggle="modal" rel="tooltip" title="Google Compute Engine" href="#gce_init_popup"> <%= image_tag("gce.png", :width => "123", :height => "120") %> </a>
 				</li>
 				<li>
                       <a data-toggle="modal" rel="tooltip" title="Profitbricks cloud" href="#profitbricks_init_popup"> <%= image_tag("profitbricks.png", :width => "123", :height => "120") %> </a>
@@ -126,6 +129,22 @@
 			</div>
 			<%= form_tag cloud_selector_path, multipart: true, :method => 'post', :remote => true, data: { spinlock: '#signin_cloud_hp'}  do %>
 			<%= render :partial => "cross_clouds/hp_api_form" %>
+			<% end %>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="gce_init_popup" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Load Cloud Credentials</h4>
+			</div>
+			<%= form_tag cloud_selector_path, multipart: true, :method => 'post', :remote => true, data: { spinlock: '#signin_cloud_gce'}  do %>
+			<%= render :partial => "cross_clouds/gce_api_form" %>
 			<% end %>
 		</div>
 		<!-- /.modal-content -->

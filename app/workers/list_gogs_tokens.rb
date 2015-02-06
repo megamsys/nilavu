@@ -3,7 +3,6 @@ class ListGogsTokens
    
    begin
       @excon_resp = Megam::GogsTokens.list(username, password)
-      puts @excon_resp
       rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)

@@ -1,9 +1,6 @@
 class UserMailer < ActionMailer::Base
   default from: "support@megam.co.in"
   def welcome_email(user)
-  puts "-------------------------"
-  puts user.inspect
-  puts "userc heck--------------"
     logger.debug "user = #{user}"
     @user = user
     #@random_token = user.verification_hash

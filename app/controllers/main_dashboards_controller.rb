@@ -52,7 +52,6 @@ class MainDashboardsController < ApplicationController
   end
 
   def lifecycle
-    puts params
     @id = params[:id]
     @name = params[:name]
     @command = params[:command]
@@ -65,7 +64,6 @@ class MainDashboardsController < ApplicationController
   end
 
  def deleteapp
-    puts params
     @id = params[:id]
     @name = params[:name]
     respond_to do |format|

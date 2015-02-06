@@ -100,7 +100,6 @@ class OneaddonsController < ApplicationController
   end
 
   def lcaddon
-    puts params
     @id = params[:id]
     @name = params[:name]
     @command = params[:command]

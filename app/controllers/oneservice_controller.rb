@@ -73,7 +73,6 @@ class OneserviceController < ApplicationController
   end
 
   def lcservice
-    puts params
     @id = params[:id]
     @name = params[:name]
     @command = params[:command]
