@@ -132,4 +132,10 @@ class MainDashboardsController < ApplicationController
     end
   end
 
+  private
+
+  def main_dashboard_params
+    params.require(:main_dashboard).permit(:first_name, :last_name, :admin, :phone, :onboarded_api, :user_type, :email, :api_token, :password, :password_confirmation, :verified_email, :verification_hash, :app_attributes, :cloud_identity_attributes, :apps_item_attributes)
+  end
+
 end
