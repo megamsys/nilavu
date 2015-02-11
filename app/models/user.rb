@@ -4,6 +4,7 @@ require 'bcrypt'
 
 class User
   include BCrypt
+  include SessionsHelper
   def initialize()
     @first_name = nil
     @last_name = nil
@@ -22,8 +23,10 @@ class User
     @apps_item_attributes = nil
   end
 
-  def send_welcome_email
-    UserMailer.welcome_email(current_user).deliver
+
+  def send_welcome_email(cookies)
+    test = sign_in_current_user(cookies[:remember_token], cookies[:email])
+    UserMailer.welcome_email(test).deliver
   end
 
   def generate_token
@@ -107,4 +110,3 @@ class User
   end
 
 end
-

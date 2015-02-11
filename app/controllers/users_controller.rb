@@ -78,8 +78,8 @@ class UsersController < ApplicationController
         if res_update
           if "#{Rails.configuration.support_email}".chop!
             begin
-            
-             @user.send_welcome_email  #WELCOME EMAIL                         
+              
+             @user.send_welcome_email(cookies)  #WELCOME EMAIL
               mail_res = "Email verification success"
             rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
               mail_res = "Email verification Failed"
