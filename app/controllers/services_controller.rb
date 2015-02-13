@@ -9,7 +9,6 @@ class ServicesController < ApplicationController
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
       @service_counter = 0
       @app_counter = 0
-      puts @assemblies.class
       if @assemblies != nil
         @assemblies.each do |asm|
           if asm.class != Megam:: Error

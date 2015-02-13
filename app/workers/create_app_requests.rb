@@ -1,9 +1,7 @@
 class CreateAppRequests
   def self.perform(new_req, tmp_email, tmp_api_key)
     begin
-      puts "+++++++++++++++++++++++++++++++"
-      puts new_req
-      @excon_res = Megam::AppRequest.create(new_req, tmp_email, tmp_api_key)
+       @excon_res = Megam::AppRequest.create(new_req, tmp_email, tmp_api_key)
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)

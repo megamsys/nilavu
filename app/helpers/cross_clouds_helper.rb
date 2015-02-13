@@ -35,7 +35,6 @@ module CrossCloudsHelper
   end
 
   def ssh_files_bucket
-    puts "--> ssh_files_bucket #{Rails.configuration.storage_sshfiles}"
     Rails.configuration.storage_sshfiles
   end
 
@@ -198,16 +197,13 @@ module CrossCloudsHelper
   #=============================>>ProfitBricks<<=================================
 
   def list_profitbricks_data(access_key, secret_key)
-    puts "ENTERING THE FUNCTIONS"
-    puts access_key
-    puts secret_key
+
     Profitbricks.configure do |config|
       config.username = "#{access_key}"
       config.password = "#{secret_key}"
     end
     @profitbricks_imgs = []
     img = Image.all
-    puts img.inspect
     img.each do |i|
       @profitbricks_imgs.push({"id" => "#{i.id}", "name" => "#{i.name}"})
     end

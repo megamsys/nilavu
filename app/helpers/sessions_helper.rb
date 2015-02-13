@@ -17,31 +17,44 @@ module SessionsHelper
  #   @current_user ||= User.find_by_remember_token(cookies[:remember_token], cookies[:email]) if cookies[:remember_token] && cookies[:email]
 #  end
 
+def sign_in_current_user(remember_token,email)
+
+   @user = User.new
+   res = @user.find_by_remember_token(remember_token,email) if remember_token && email
+   if res != nil
+     @current_user ||= res
+
+    else
+     redirect_to signin_path
+    end
+
+end
+
  def current_user
-    
+
     @user = User.new
     res = @user.find_by_remember_token(cookies[:remember_token], cookies[:email]) if cookies[:remember_token] && cookies[:email]
     if res != nil
-    puts res
-      puts "CURRENT USER --------------------"
       @current_user ||= res
-      
-     else 
+
+     else
       redirect_to signin_path
-     end    
-     
+     end
+
  end
-  
+
   def current_user_verify
    @user = User.new
     res = @user.find_by_remember_token(cookies[:remember_token], cookies[:email]) if cookies[:remember_token] && cookies[:email]
     if res != nil
       @current_user ||= res
       return true
-     else 
+     else
        return false
-     end    
+     end
   end
+
+
 
   def current_user?(user)
     user == current_user
@@ -77,6 +90,5 @@ module SessionsHelper
     logger.debug "--> force_api as email: #{email}, #{api_token}"
     {:email => email, :api_key => api_token }
   end
-  
-end
 
+end

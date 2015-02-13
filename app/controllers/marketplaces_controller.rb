@@ -14,7 +14,6 @@ class MarketplacesController < ApplicationController
         @categories=[]
         @order=[]
         @order = @mkp_collection.map {|c|
-      puts c.name
       c.name
       }
         @order = @order.sort_by {|elt| ary = elt.split("-").map(&:to_i); ary[0] + ary[1]}
@@ -30,8 +29,7 @@ class MarketplacesController < ApplicationController
   def show
     if current_user_verify
       @pro_name = params[:id].split("-")
-      puts @pro_name
-     
+    
       @apps = get_apps
 
       @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])
@@ -48,7 +46,6 @@ class MarketplacesController < ApplicationController
         @version_order = @mkp.plans.map {|c| c["version"]}
         @version_order = @version_order.sort
 
-        puts @mkp.class
         respond_to do |format|
           format.js {
             respond_with(@mkp, @version_order, @type, :layout => !request.xhr? )
@@ -119,8 +116,7 @@ class MarketplacesController < ApplicationController
     @repos = git_array
     render :template => "apps/new", :locals => {:repos => @repos} 
 
-puts "ENTERING AUTHORIZE SCM---------------------------------"
-puts request.env['omniauth.auth']
+
     #session[:info] = request.env['omniauth.auth']['credentials']
     auth_token = request.env['omniauth.auth']['credentials']['token']
     github = Github.new oauth_token: auth_token
@@ -147,7 +143,6 @@ puts request.env['omniauth.auth']
 def github_sessions
 
 auth_id = params['id']
-puts auth_id
  github = Github.new oauth_token: auth_id
     git_array = github.repos.all.collect { |repo| repo.clone_url }
     @repos = git_array
@@ -172,8 +167,6 @@ def gogswindow
 end
 
 def gogs_return 
-puts params[:gogs_username]
-puts params[:gogs_password]
 
 tokens = ListGogsTokens.perform(params[:gogs_username], params[:gogs_password])
 obj = JSON.parse(tokens)

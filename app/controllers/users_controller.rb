@@ -78,8 +78,8 @@ class UsersController < ApplicationController
         if res_update
           if "#{Rails.configuration.support_email}".chop!
             begin
-            
-             @user.send_welcome_email  #WELCOME EMAIL                         
+              
+             @user.send_welcome_email(cookies)  #WELCOME EMAIL
               mail_res = "Email verification success"
             rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
               mail_res = "Email verification Failed"
@@ -131,7 +131,6 @@ class UsersController < ApplicationController
   def userupdate
     if current_user_verify
       logger.debug "==> Controller: users, Action: update, Update user pw, api_key"
-      puts params[:user_fields_form_type]
       @user = User.new
       @userdata = @user.find_by_email(current_user["email"])
       @user_fields_form_type = params[:user_fields_form_type]
