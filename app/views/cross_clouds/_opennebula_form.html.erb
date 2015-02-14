@@ -14,6 +14,7 @@
 <% if defined? credentials %>
 <input type="hidden" name="opennebula_username" value="<%= credentials['opennebula_access_key'] %>">
 <input type="hidden" name="opennebula_password" value="<%= credentials['opennebula_secret_key'] %>">
+<input type="hidden" name="zone" value="<%= credentials['zone'] %>">
 <input type="hidden" name="flavor" value="id:0, name:empty">
 
 <input type="hidden" name="provider" value="<%= selected_cloud %>">
@@ -24,7 +25,7 @@
 
 		<div class="input-group margin-top-10">
 <%= label_tag 'Template'%>
-<%= select_tag :image, options_for_select(@flavors.map{ |c| "Id:#{c['id']}, Name:#{c['name']}, Image:#{c['image']}, Ram:#{c['ram']}" }), { :class => 'form-control' }%>
+<%= select_tag :image, options_for_select(@flavors.map{ |c| "Id:#{c['id']}, Image:#{c['image']}, Ram:#{c['ram']}, Name:#{c['name']}" }), { :class => 'form-control' }%>
 			<span class="input-group-addon" ><i class="icon-question-sign" style=""></i></span>
 		</div>
 
