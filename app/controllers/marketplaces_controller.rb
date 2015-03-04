@@ -244,11 +244,16 @@ end
       cloud = params[:cloud]
       source = params[:source]
       type = params[:type].downcase
+      
       dbname = nil
       dbpassword = nil
 
       combos = params[:combos]
+      
+      
       combo = combos.split("+")
+      puts combo.inspect
+      
       appname = params[:appname]
       servicename = params[:servicename]
 
@@ -413,6 +418,7 @@ end
 
       combos = params[:combos]
       combo = combos.split("+")
+      
       ttype = "tosca.web."
       appname = params[:appname]
       servicename = nil
@@ -439,16 +445,23 @@ end
 def byoc_create
 
     assembly_name = params[:name]
+    
     version = params[:version]
     domain = params[:domain]
     cloud = params[:cloud]
+    #app_type = params[:byoc]
     source = params[:source]
-    type = params[:type].downcase
+    type = params[:byoc].downcase
+   
     dbname = nil
     dbpassword = nil
-
-    combos = params[:combos]
-    combo = combos.split("+")
+    combo = []
+    #combos = params[:combos]
+    #combo = combos.split("+")
+     combo << params[:byoc].downcase
+     
+     
+   
     ttype = "tosca.web."
     appname = params[:appname]
     servicename = nil

@@ -19,18 +19,18 @@
 <% else %>
 <% @deps_scm = @mkp_source %>
 <% end %>
-<%  @mkp_collection = ListMarketPlaceApps.perform(force_api[:email], force_api[:api_key]) %>
+<% @mkp_collection = ListMarketPlaceApps.perform(force_api[:email], force_api[:api_key]) %>
 <% @mkpname = []  %>
 <% @mkp_collection.each do |a| %>
-<%  @splitname =  a.name.split("-") %>
+<% @splitname =  a.name.split("-") %>
 <% @typename = get_type(@splitname[3].downcase) %>
 <% if @typename == "APP" %>
 <% @mkpname.push(@splitname[3]) %>
 <% end %>
 <% end %>
-<%  @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key]) %>
+<% @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key]) %>
 <%  if @predef_cloud.class == Megam::Error %>
-<%  redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }     %>    
+<% redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }     %>    
 <% end %>
 <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
 <%= hidden_field_tag 'source', nil, placeholder: "", :class =>"form-control", :value => @deps_scm  %>
@@ -38,13 +38,16 @@
 <%= hidden_field_tag 'combos', nil, placeholder: "", :class =>"form-control", :value =>  @combos %>
 <%= hidden_field_tag 'appname', nil, placeholder: "", :class =>"form-control", :value =>  book_name %>
 <div class="row">
-	<div class="col-sm-7 body_left">
-		<h4>Bring Your Own Code</h4>
-               <div id="byoc_connect"><i class="icon-github"></i></div>  
-               <div id="gogs_connect"><i class="icon-github"></i></div>              
-
-
-  <div class="col-md-6 col-md-offset-2" id="task-form" style="display:none;"></div>
+ 
+	<div class="col-md-7 body_left">
+		 <div class="row">
+			<div class="col-md-4">
+               <div id="byoc_connect"><%= image_tag "gitimg.png",:class=> "img-responsive_byoc "%>
+ </div>  </div>
+  <div class="col-md-4">
+               <div id="gogs_connect"><%= image_tag "gogsimg.png",:class=> "img-responsive_byoc "%>
+</div>     </div>
+</div>           
 
 		<div class="row pad_tb25">
 			<div class="col-sm-5">
@@ -133,54 +136,50 @@
 <% end %>
 
 
-<script>  
+<script>
+	$(document).ready(function() {
+		$("#gogs_connect").click(function() {
+			$.oauthpopup({
+				path : "/gogs_popup",
+				//callback: function(){
+				//}
+			});
+		});
 
-  
-$(document).ready(function(){
-$("#gogs_connect").click(function(){
-$.oauthpopup({
-          path: "/gogs_popup",
-          //callback: function(){
-          //}
-         });
-        });
-        
-$("#byoc_connect").click(function(){
-$.oauthpopup({
-        path: "/auth/github",          
-        callback: function(){
-        $.get("/github_call", function(data){
-        console.log(data)
-        console.log("----data----")
-        
-         var dataString = data
-         console.log(dataString);
-         
-         
-         $.ajax({  
-          type: "POST",  
-          url: "/github_ajax",  
-          //dataType: 'json',
-          data: {id: dataString},            
-          success: function(data) {      
-                   console.log("It worked!")
-                   console.log(dataString);
-                },
-              
-                       error : function(data) {
-                           console.log("ERROR CHECK PROPERLY!!");
-                           console.log(data);
-                       }
-        }); 
-         
-    
-         
-     });       
-        return false; 
-    
-        }
-    });
-});
-});
+		$("#byoc_connect").click(function() {
+			$.oauthpopup({
+				path : "/auth/github",
+				callback : function() {
+					$.get("/github_call", function(data) {
+						console.log(data)
+						console.log("----data----")
 
+						var dataString = data
+						console.log(dataString);
+
+						$.ajax({
+							type : "POST",
+							url : "/github_ajax",
+							//dataType: 'json',
+							data : {
+								id : dataString
+							},
+							success : function(data) {
+								console.log("It worked!")
+								console.log(dataString);
+							},
+
+							error : function(data) {
+								console.log("ERROR CHECK PROPERLY!!");
+								console.log(data);
+							}
+						});
+
+					});
+					return false;
+
+				}
+			});
+		});
+	});
 

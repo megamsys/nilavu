@@ -1395,4 +1395,9 @@ Bootstrap Panel
 }
 
 
+.img-responsive_byoc {
+  /*display: block; */
+  height: 70px;
+  max-width: 70px !important;
+}
 
