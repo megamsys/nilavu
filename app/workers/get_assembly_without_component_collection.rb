@@ -3,9 +3,6 @@ class  GetAssemblyWithoutComponentCollection
     begin
       @excon_res = Megam::Assembly.show(assembly_id,tmp_email, tmp_api_key).data[:body]
       #=end
-      puts "=====> Inflated Assembly <======"
-      puts @excon_res[0].inspect
-      puts "=====> Assemblies <======"
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)

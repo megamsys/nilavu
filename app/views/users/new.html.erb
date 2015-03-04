@@ -22,18 +22,26 @@
 
 			<div class="cover col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
 				<!-- BEGIN LOGIN FORM -->
-				<%= form_for @user, :html => {:id =>'megamform'}, :method => "POST" do |f| %>
+				<%= form_tag users_path, multipart: true, :id => "megamform", :novalidate => "novalidate", :method => "post", data: { spinlock: "#spin_cross_cloud"}  do %>
 				<div class="c_inline">
-					<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-					<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
 					<div class="row">
 						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
 							<i class="c_ico-excla"></i>
-							<%= f.text_field :first_name, :required => true, :id => 'first_name', :class => 'form-control', placeholder: "First Name", :data => {:placement=>"right"} %>
+							<% if session[:auth] %>
+							<%= text_field_tag 'first_name', nil, :required => true, :id => 'first_name', :class => 'form-control', placeholder: "First Name", :value => @firstname , :data => {:placement=>"right"} %>
+							<% else %>
+							<%= text_field_tag 'first_name', nil, :required => true, :id => 'first_name', :class => 'form-control', placeholder: "First Name", :data => {:placement=>"right"} %>
+							<% end %>
+							
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 input-icon right">
 							<i class="c_ico-tick"></i>
-							<%= f.text_field :last_name, :id => 'last_name', :class => 'form-control', placeholder: "Last Name" %>
+							<% if session[:auth] %>
+							<%= text_field_tag 'last_name', nil, :id => 'last_name', :class => 'form-control', placeholder: "Last Name", :value => @lastname %>
+							<% else %>
+							<%= text_field_tag 'last_name', nil, :id => 'last_name', :class => 'form-control', placeholder: "Last Name" %>
+							<% end %>
+							
 						</div>
 					</div>
 				</div>
@@ -41,7 +49,11 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
 							<i class="c_ico-excla"></i>
-							<%= f.text_field :phone, :class => 'form-control', placeholder: "Phone Number" %>
+							<% if session[:auth] %>
+							<%= text_field_tag 'phone', nil, :class => 'form-control', placeholder: "Phone Number", :value => @phone %>
+							<% else %>
+							<%= text_field_tag 'phone', nil, :class => 'form-control', placeholder: "Phone Number" %>
+							<% end %>
 						</div>
 					</div>
 				</div>
@@ -51,64 +63,37 @@
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 							<i class="c_ico-excla"></i>
 
-							<% if params[:user_social_identity] %>
-							<%= f.text_field :email, :class => 'form-control', placeholder: "Email", :readonly => true %>
+							<% if session[:auth] %>
+							<%= text_field_tag 'email', nil, placeholder: "Email", :readonly => true, :class => 'form-control', :value => @email %>
 							<input type="hidden" name="social_uid" value="<%= @social_uid %>">
 							<% else %>
-							<%= f.text_field :email, :required => true, :class => 'form-control', placeholder: "Email" %>
+							<%= text_field_tag 'email', nil, placeholder: "Email", :required => true, :class => 'form-control' %>
 							<% end %>
 
 						</div>
 					</div>
 				</div>
 
-				<!--  Megam USAGE -->
 				<% random_hash = generate_api_token %>
-				<%= f.text_field :verification_hash, :value => random_hash, :type => 'hidden' %>
-
-				<%= f.text_field :user_type, :value => "normal", :type => 'hidden' %>
+				<input type="hidden" name="verification_hash" value="<%= random_hash %>">
+				<input type="hidden" name="user_type" value="normal">
 
 				<div class="form-group">
-					<!-- <input type="text" class="form-control" placeholder="Enter text"> -->
-
 					<div class="c_inline">
-						<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-						<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-								<%= f.password_field :password, :required => true, :class=> 'form-control', placeholder: "Your Password" %>
+								<%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: "Your Password" %>
 							</div>
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-								<%= f.password_field :password_confirmation, :required => true, :class=> 'form-control', placeholder: "Confirm Password" %>
+								<%= password_field_tag 'password_confirmation', nil, :required => true, :class=> 'form-control', placeholder: "Confirm Password" %>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<!-- <div class="form-group">
-				<div class="col-lg-6">
-				<div class="input-group">
-				<div class="input-group-btn">
-				<button type="button" class="btn default" tabindex="-1">Action</button>
-				<button type="button" class="btn default dropdown-toggle" data-toggle="dropdown" tabindex="-1">
-				<i class="icon-angle-down"></i>
-				</button>
-				<ul class="dropdown-menu" role="menu">
-				<li>Action</li>
-				<li>123</li>
-				<li>456</li>
-				<li>586</li>
-				</ul>
+				<div class="text-center">
+					<%= submit_tag "Create Account", :class => "btn btn-success" %>
 				</div>
-				<input type="text" class="form-control">
-				</div>
-				</div>
-				</div>
-				col-md-5 col-xs-offset-2 col-sm-offset-4 col-md-offset-4 col-lg-offset-4 col-xl-offset-4
-				-->
-                <div class="text-center">
-				<%= f.submit "Create Account", :class => "btn btn-success" %>
-				</div>  
 				<% end %>
 				<!-- END REGISTRATION FORM -->
 			</div>

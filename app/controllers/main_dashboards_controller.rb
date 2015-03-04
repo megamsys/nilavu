@@ -2,8 +2,9 @@ class MainDashboardsController < ApplicationController
   respond_to :html, :js
   include MainDashboardsHelper
   def index
-    if current_user
-      @user_id = current_user.id
+    if current_user_verify
+      
+      @user_id = current_user["email"]
 
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
       @service_counter = 0
@@ -32,15 +33,14 @@ class MainDashboardsController < ApplicationController
             end
           end
         end
-      end
-
+      end    
     else
       redirect_to signin_path
     end
   end
 
   def visualCallback
-    if current_user
+    if current_user_verify
       redirect_to main_dashboards_path, :gflash => { :error => { :value => "Invalid username and password combination, Please Enter your correct megam email", :sticky => false, :nodom_wrap => true } }
     else
       redirect_to signin_path, :gflash => { :error => { :value => "Invalid username and password combination, Please Enter your correct megam email", :sticky => false, :nodom_wrap => true } }
@@ -52,7 +52,6 @@ class MainDashboardsController < ApplicationController
   end
 
   def lifecycle
-    puts params
     @id = params[:id]
     @name = params[:name]
     @command = params[:command]
@@ -65,7 +64,6 @@ class MainDashboardsController < ApplicationController
   end
 
  def deleteapp
-    puts params
     @id = params[:id]
     @name = params[:name]
     respond_to do |format|
@@ -132,6 +130,12 @@ class MainDashboardsController < ApplicationController
         }
       end
     end
+  end
+
+  private
+
+  def main_dashboard_params
+    params.require(:main_dashboard).permit(:first_name, :last_name, :admin, :phone, :onboarded_api, :user_type, :email, :api_token, :password, :password_confirmation, :verified_email, :verification_hash, :app_attributes, :cloud_identity_attributes, :apps_item_attributes)
   end
 
 end

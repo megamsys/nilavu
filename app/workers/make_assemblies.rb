@@ -55,9 +55,26 @@ class MakeAssemblies
           end
         end
       end
+      
+      if type == "BYOC"
+        name = options[:appname]
+        ttype = "tosca.app."
+        if options[:servicename] != nil
+          if options.has_key?(:related_components)
+            if options[:related_components] != nil
+              related_components = options[:related_components]
+            end
+          else
+            related_components = "#{options[:assembly_name]}.#{options[:domain]}/#{options[:servicename]}"
+          end
+        end
+      end
+      
+      
       if type == "ADDON"
         name = options[:appname]
       end
+      
       value = {
         "name"=>"#{name}",
         "tosca_type"=>"#{ttype}#{c}",

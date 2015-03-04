@@ -8,9 +8,9 @@ class DashboardsController < ApplicationController
   def show
 
     @id = params[:id]
-    @user_id = current_user.id
-    @dashboards = current_user.apps
-    @count = @dashboards.length
+    @user_id = current_user["email"]
+ #   @dashboards = current_user.apps
+ #   @count = @dashboards.length
   end
 
 end

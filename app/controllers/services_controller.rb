@@ -3,13 +3,12 @@ class ServicesController < ApplicationController
   respond_to :html, :js
     include MainDashboardsHelper
  def index
-    if current_user
-      @user_id = current_user.id
+    if current_user_verify
+      @user_id = current_user["email"]
 
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
       @service_counter = 0
       @app_counter = 0
-      puts @assemblies.class
       if @assemblies != nil
         @assemblies.each do |asm|
           if asm.class != Megam:: Error
@@ -54,7 +53,7 @@ class ServicesController < ApplicationController
 
     @db_model = params[:db_model]
     @dbms = params[:dbms]
-    @book =  current_user.apps.build
+ #   @book =  current_user.apps.build
     @predef_name = params[:dbms]
     if"#{params[:deps_scm]}".strip.length != 0
       @deps_scm = "#{params[:deps_scm]}"

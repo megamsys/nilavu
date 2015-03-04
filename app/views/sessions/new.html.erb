@@ -21,7 +21,7 @@
 
 			<div class="cover col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
 				<!-- BEGIN LOGIN FORM -->
-				<%= form_for(:session, :url => sessions_path, :html => {:id =>'megamform', role: "form", :novalidate => 'novalidate'}) do |f| %>
+				<%= form_tag sessions_path, multipart: true, :id => "megamform", role: "form", :novalidate => "novalidate", :method => "post", data: { spinlock: "#spin_cross_cloud"}  do %>
 				<div class="c_inline">
 					<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
 					<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
@@ -29,7 +29,7 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
 								<i class="c_ico-excla"></i>
-								<%= f.text_field :email, :class => 'form-control', :required => true, placeholder: "Email" %>
+								<%= text_field_tag 'email', nil, :required => true, :class => 'form-control', placeholder: "Email" %>
 							</div>
 						</div>
 					</div>
@@ -38,23 +38,21 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
 								<i class="c_ico-excla"></i>
-								<%= f.password_field :password, :class => 'form-control', :required => true, placeholder: "Password" %>
+								<%= password_field_tag 'password', nil, :required => true, :class => 'form-control', placeholder: "Password" %>
 							</div>
 						</div>
 					</div>
 
- 
-			<% if flash[:error] %>
-               	<div class="row">
-                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
-                        <div class="alert alert-danger alert-dismissable">
-	                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-	                        <strong>Warning!</strong> <%= flash[:error] %>
-	                    </div>
-                     </div>
-               	</div>
-			<% end %>
-
+					<% if flash[:error] %>
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
+							<div class="alert alert-danger alert-dismissable">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+								<strong>Warning!</strong> <%= flash[:error] %>
+							</div>
+						</div>
+					</div>
+					<% end %>
 
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
@@ -64,7 +62,6 @@
 								</div>
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right tour-btn">
 									<span> <a  data-toggle="modal" href="#forgot_password"  class="pull-right" href="#"><u class="colr-denimblue">Forgot password ?</u></a> </span>
-
 
 								</div>
 							</div>
@@ -78,7 +75,7 @@
 									<%= link_to "Take a tour", demo_path(:email =>"fake@mypaas.io",:password =>"fakemypaas#megam"),:class => "btn btn-success btn-plain", :id => "popover_demosignin" %>
 								</div>
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right tour-btn">
-									<%= f.submit "Login", :class => "btn btn-success btn-plain-green" %>
+								    <%= submit_tag "Login", :class => "btn btn-success btn-plain-green" %>
 								</div>
 							</div>
 						</div>
@@ -95,7 +92,7 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 social">
 							<ul class="list-inline text-center">
 								<li>
-									<a href="/auth/github" class="github icon"></a>
+									<a href="/auth/github" class="github icon" ></a>
 								</li>
 								<li>
 									<a href="/auth/facebook" class="facebook icon"></a>
@@ -124,36 +121,34 @@
 	</div>
 </div>
 
-
 <!-- Forgot password form modal -->
 <div class="modal fade" id="forgot_password" tabindex="-1" role="basic" aria-hidden="true">
-    <div class="modal-dialog" style="max-width:400px">
-       <div class="modal-content">
-          <div class="modal-header">
-             <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-             <h4 class="modal-title">Forgot password</h4>
-          </div>
-          <div class="modal-body">
-               <div class="scroller" style="min-height:200px" data-always-visible="1" data-rail-visible1="1">
-                   <div class="row">
-                        <div class="col-md-12">
-                        <div class="form-group">
-<%= form_tag password_resets_path, :method => :post, :remote => true, data: { spinlock: '#creating_sshkeys'}  do %>
+	<div class="modal-dialog" style="max-width:400px">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Forgot password</h4>
+			</div>
+			<div class="modal-body">
+				<div class="scroller" style="min-height:200px" data-always-visible="1" data-rail-visible1="1">
+					<div class="row">
+						<div class="col-md-12">
+							<div class="form-group">
+								<%= form_tag password_resets_path, :method => :post, :remote => true, data: { spinlock: '#creating_sshkeys'}  do %>
 
-                              <label for="ssh-key_name">Email</label>
-<%= text_field_tag :email, nil, :class => 'form-control', :required => true, placeholder: "Email" %>
-                           </div> 
+								<label for="ssh-key_name">Email</label>
+								<%= text_field_tag :email, nil, :class => 'form-control', :required => true, placeholder: "Email" %>
+							</div>
 
-<%= submit_tag "Reset Password", :class => "btn btn-success col-md-12 col-xs-12" %>
-<% end %>
-                        </div>
-                   </div>
-               </div>
-            </div>
-         </div>
-    </div>
- </div>
-
+							<%= submit_tag "Reset Password", :class => "btn btn-success col-md-12 col-xs-12" %>
+							<% end %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <div class="modal fade" id="postfinish_reset_password" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
@@ -165,10 +160,10 @@
 			<div class="modal-body text-center">
 				<div>
 
-<p>
-			An email has been sent to your registered email address to reset your password
-		</p>
-                                </div>
+					<p>
+						An email has been sent to your registered email address to reset your password
+					</p>
+				</div>
 			</div>
 			<div class="modal-footer c_modal-footer">
 				<%= link_to  "Ok", root_path, :class => "btn btn-success", :target => "_self" %>
@@ -189,10 +184,10 @@
 			<div class="modal-body text-center">
 				<div>
 
-<p>
-			You recently made a request for a lost password. Please Enter a valid megam account email address
-		</p>
-                                </div>
+					<p>
+						You recently made a request for a lost password. Please Enter a valid megam account email address
+					</p>
+				</div>
 			</div>
 			<div class="modal-footer c_modal-footer">
 				<%= link_to  "Ok", root_path, :class => "btn btn-success", :target => "_self" %>
@@ -202,5 +197,4 @@
 	</div>
 	<!-- /.modal-dialog -->
 </div>
-
 

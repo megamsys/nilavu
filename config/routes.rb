@@ -44,7 +44,9 @@ Cloudauth::Application.routes.draw do
     match '/data_sources', to: 'data_sources#index', via: [:get, :post]
   end
 
-
+ match '/edituser' => 'users#edituser', via: [:get, :post]
+ match '/userupdate' => 'users#userupdate', via: [:put]
+ 
 #oneapp Overview
   match '/appoverview', to: 'oneapps#overview', via: [:get, :post]
   match '/appruntime', to: 'oneapps#runtime', via: [:get, :post]
@@ -66,6 +68,7 @@ Cloudauth::Application.routes.draw do
   
   #Cloud Books
   match '/starter_packs_launch', to: 'marketplaces#starter_packs_create', via: [:get, :post]
+  match '/byoc_launch', to: 'marketplaces#byoc_create', via: [:get, :post]
   match '/app_boilers_launch', to: 'marketplaces#app_boilers_create', via: [:get, :post]
   match '/addons_launch', to: 'marketplaces#addons_create', via: [:get, :post]
   match '/get_request', to: 'apps#get_request', via: [:get, :post]
@@ -105,9 +108,11 @@ Cloudauth::Application.routes.draw do
   match '/demo', to: 'sessions#demo', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post,:delete]
   match '/auth/facebook/callback', :to => 'sessions#create', via: [:get, :post]
-  match '/auth/github/callback', :to => 'sessions#create', via: [:get, :post]
+  match '/auth/github/callback', :to => 'marketplaces#github_scm', via: [:get, :post]
+  match '/github_call', :to => 'marketplaces#github_sessions_data', via: [:get, :post]
   match '/auth/google_oauth2/callback', :to => 'cross_clouds#gwindow', via: [:get, :post]
   match '/auth/assembla/callback', :to => 'apps#authorize_assembla', via: [:get, :post]
+  match '/github_ajax', :to => 'marketplaces#github_sessions', via: [:get, :post]
   match '/scm_manager_auth', :to => 'apps#scm_manager_auth', via: [:get, :post]
   match '/scmmanager_auth', :to => 'apps#scmmanager_auth', via: [:get, :post]
   match '/create_scm_user', :to => 'apps#create_scm_user', via: [:get, :post]
@@ -116,6 +121,7 @@ Cloudauth::Application.routes.draw do
   get "oneapps/show"
   get "oneservice/show"
   get "oneaddons/show"
+ 
   #match '/dashboard_sidebar', to: 'dashboards#dashboard_sidebar', via: [:get]
   #match '/dashboards', to: 'dashboards#index', via: [:get]
   #match '/dashboards/:id' => 'dashboards#index', via: [:get]
@@ -171,8 +177,13 @@ match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :p
   match '/drbd_config', to: 'disaster_recovery#drbd_config', via: [:get, :post]
   match '/drbd_submit', to: 'disaster_recovery#drbd_submit', via: [:get, :post]
     match '/view_details', to: 'cross_clouds#view_details', via: [:get, :post] 
-
-  
+    
+    #=====Gog
+    match '/gogs', to: 'marketplaces#gogs', via: [:get, :post]
+   # match '/gogs_return', to: 'marketplaces#gogs_return', via: [:get, :post]
+  post 'trigger', :to => 'marketplaces#gogs_return', via: [:post]
+  match '/gogs_popup', :to => 'marketplaces#gogswindow', via: [:get, :post]
+  #root :to => 'marketplaces#gogswindow'
   # =======Error controller
   get "/404", :to => "errors#not_found"
   #get "/422", :to => "errors#unacceptable"

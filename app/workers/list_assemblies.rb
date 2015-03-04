@@ -22,9 +22,6 @@ class ListAssemblies
         end
         asmblies.assemblies.replace(temp_aa)
       end
-      puts "=====> Inflated Assembly <======"
-      puts temp_out
-      puts "=====> Assemblies <======"
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)
