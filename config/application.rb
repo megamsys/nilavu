@@ -1,7 +1,13 @@
 require File.expand_path('../boot', __FILE__)
-require 'rails/all'
-require 'yaml'                  #COMMON YML
-
+#require 'rails/all'
+require "action_controller/railtie"
+require "action_mailer/railtie"
+#require "active_resource/railtie"
+require "rails/test_unit/railtie"
+require "sprockets/railtie"
+require 'yaml'     
+require 'active_record'
+             #COMMON YML
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
 #  Bundler.require(:default, Rails.env)

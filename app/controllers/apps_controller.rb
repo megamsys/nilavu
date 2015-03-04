@@ -5,35 +5,34 @@ class AppsController < ApplicationController
   ## I don't see a point in calling all the node details for an user. We should avoid it.
   ## ie. skip FindNodesByEmail ?
   include MainDashboardsHelper
-def logs
+  def logs
 
-end
+  end
 
- def index
-    if current_user
-      @user_id = current_user.id
+  def index
+    if current_user_verify
+      @user_id = current_user["email"]
 
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
       @service_counter = 0
       @app_counter = 0
-      puts @assemblies.class
       if @assemblies != nil
         @assemblies.each do |asm|
           if asm.class != Megam::Error
             asm.assemblies.each do |assembly|
               if assembly != nil
                 if assembly[0].class != Megam::Error
-                  #@app_counter = assembly[0].components.count + @app_counter                  
+                  #@app_counter = assembly[0].components.count + @app_counter
                   assembly[0].components.each do |com|
                     if com != nil
                       com.each do |c|
                         com_type = c.tosca_type.split(".")
                         ctype = get_type(com_type[2])
-                         if ctype == "SERVICE" 
-                           @service_counter = @service_counter + 1
+                        if ctype == "SERVICE"
+                          @service_counter = @service_counter + 1
                         else
-                                @app_counter = @app_counter + 1
-                         end 
+                          @app_counter = @app_counter + 1
+                        end
                       end
                     end
                   end
@@ -43,15 +42,11 @@ end
           end
         end
       end
-     
+
     else
       redirect_to signin_path
     end
   end
-
-
-
-
 
   def build_request
     logger.debug "--> Apps:Build_request, #{params}"
@@ -101,25 +96,36 @@ end
     render :template => "apps/new", :locals => {:repos => @repos}
   end
 
+  def github_scm
+    if !current_user_verify
+      #  session[:auth] = request.env['omniauth.auth']
+      auth = request.env['omniauth.auth']
+      session[:auth] = { :uid => auth['uid'], :provider => auth['provider'], :email => auth['info']["email"] }
+      redirect_to :controller=>'sessions', :action=>'create'
+    else
+      session[:info] = request.env['omniauth.auth']['credentials']
+    end
+  end
+
   def authorize_assembla
     logger.debug "CloudBooks:authorize_assembla, entry"
-    assembla_repos = ListAssemblaRepos.perform(request.env['omniauth.auth']['credentials']['token'])  
+    assembla_repos = ListAssemblaRepos.perform(request.env['omniauth.auth']['credentials']['token'])
     if assembla_repos.class == Megam::Error
       redirect_to new_app_path, :gflash => { :warning => { :value => "#{assembla_repos.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
     else
       git_array = []
       assembla_repos.each do |repo|
-         git_array << "git://git.assembla.com/#{repo["wiki_name"]}.git" 
-       end       
+        git_array << "git://git.assembla.com/#{repo["wiki_name"]}.git"
+      end
       @repos = git_array
       render :template => "apps/new", :locals => {:repos => @repos}
     end
   end
 
   def new
-    if current_user.onboarded_api
-      @book =  current_user.apps.build
-    else
+    if current_user["onboarded_api"]
+      #@book =  current_user.apps.build
+      else
       redirect_to main_dashboards_path, :gflash => { :warning => { :value => "You need an API key to launch an app. Click Profile from the top, and generate a new API key", :sticky => false, :nodom_wrap => true } }
     end
   end
@@ -131,7 +137,7 @@ end
       @deps_scm = "#{params[:scm]}"
     end
     @deps_war = "#{params[:deps_war]}" if params[:deps_war]
-    @book =  current_user.apps.build
+    #   @book =  current_user.apps.build
     @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key])
     if @predef_cloud.class == Megam::Error
       redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}--#{@ssh_keys.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
@@ -152,7 +158,7 @@ end
   def create
     logger.debug ">>> Parms #{params}"
     #FORM DATA FROM PARAMS
-    data={:book_name => params[:app][:appname], :book_type => params[:app][:book_type] , :predef_cloud_name => params[:app][:predef_cloud_name], :provider => params[:predef][:provider], :repo => 'default_chef', :provider_role => params[:predef][:provider_role], :domain_name => params[:app][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}", :env_sh => "#{params['env_sh']}"}        
+    data={:book_name => params[:app][:appname], :book_type => params[:app][:book_type] , :predef_cloud_name => params[:app][:predef_cloud_name], :provider => params[:predef][:provider], :repo => 'default_chef', :provider_role => params[:predef][:provider_role], :domain_name => params[:app][:domain_name], :no_of_instances => params[:no_of_instances], :predef_name => params[:predef][:name], :deps_scm => params['deps_scm'], :deps_war => "#{params['deps_war']}", :timetokill => "#{params['timetokill']}", :metered => "#{params['monitoring']}", :logging => "#{params['logging']}", :runtime_exec => "#{params['runtime_exec']}", :env_sh => "#{params['env_sh']}"}
     if params[:app][:book_type] == "BOLT"
       data['user_name'] = params[:user_name]
       data['password'] = params[:password]
@@ -161,8 +167,6 @@ end
     end
     options = {:data => data, :group => "server", :action => "create" }
     node_hash=MakeNode.perform(options, force_api[:email], force_api[:api_key])
-    puts "==============> Node HAsh <=========================== "
-    puts node_hash.inspect
     if node_hash.class == Megam::Error
       @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
       respond_to do |format|
@@ -173,10 +177,8 @@ end
     else
       wparams = {:node => node_hash }
       @node = CreateNodes.perform(wparams,force_api[:email], force_api[:api_key])
-      puts "================> @NODE <========================="
-      puts @node.inspect
       if @node.class == Megam::Error
-      
+
         @err_msg=ActionController::Base.helpers.link_to 'Contact Support', "http://support.megam.co/"
         respond_to do |format|
           format.js {
@@ -188,12 +190,12 @@ end
           res = node.some_msg[:msg][node.some_msg[:msg].index("{")..node.some_msg[:msg].index("}")]
           res_hash = eval(res)
           book_params={:name=> "#{res_hash[:node_name]}", :domain_name=> "#{params[:app]['domain_name']}", :predef_cloud_name => "#{params[:app]['predef_cloud_name']}", :predef_name=> "#{params[:app]['predef_name']}", :book_type=> "#{params[:app]['book_type']}", :group_name => "#{params[:app]['appname']}", :cloud_name => "#{node_hash["command"]["compute"]["cctype"]}"}
-          @book = current_user.apps.create(book_params)
-          @book.save
-          params = {:book_name => "#{@book.name}", :request_id => "#{res_hash[:req_id]}", :status => "created", :group_name => "#{@book.domain_name}"}
-          @history = @book.apps_histories.create(params)
-          @history.save
-          dash(@book)
+        #       @book = current_user.apps.create(book_params)
+        #    @book.save
+        #     params = {:book_name => "#{@book.name}", :request_id => "#{res_hash[:req_id]}", :status => "created", :group_name => "#{@book.domain_name}"}
+        #     @history = @book.apps_histories.create(params)
+        #    @history.save
+        #   dash(@book)
         end
       end
     end

@@ -8,15 +8,15 @@ module Api
     end
 
     def index
-      @user_id = current_user.id
+      @user_id = current_user["email"]
       #dashboards = current_user.apps
       respond_with @user_id
     end
 
     def dash_show
-      @user_id = current_user.id
-      dashboards = current_user.apps
-      respond_with dashboards
+   #   @user_id = current_user.id
+   #   dashboards = current_user.apps
+    #  respond_with dashboards
     end
 
     def create

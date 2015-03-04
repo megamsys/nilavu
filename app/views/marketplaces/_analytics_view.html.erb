@@ -1,0 +1,103 @@
+<%= form_tag addons_launch_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+<% @mkp.plans.each do |c| %>
+<% if c["version"] == version %>
+<% @mkp_price = c["price"] %>
+<% @appname = book_name %>
+<% @mkp_plan = c["plantype"] %>
+<% @mkp_description = c["description"] %>
+<% @mkp_source = c["source"] %>
+<% @mkp_os = c["os"] %>
+<% @pro_name = (@mkp.name).split("-") %>
+<% @predef_name = get_predef_name(@pro_name[3].downcase) %>
+<% @combos = get_combos(@pro_name[3].downcase) %>
+<% @combo = @combos.split("+") %>
+<% end %>
+<% end %>
+<% if @mkp_source == "" %>
+<% @deps_scm = get_deps_scm(@pro_name[3].downcase) %>
+<% else %>
+<% @deps_scm = @mkp_source %>
+<% end %>
+<%  @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key]) %>
+<%  if @predef_cloud.class == Megam::Error %>
+<%  redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }     %>    
+<% end %>
+<%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
+<%= hidden_field_tag 'source', nil, placeholder: "", :class =>"form-control", :value => @deps_scm  %>
+<%= hidden_field_tag 'type', nil, placeholder: "", :class =>"form-control", :value =>  @pro_name[3] %>
+<%= hidden_field_tag 'combos', nil, placeholder: "", :class =>"form-control", :value =>  @combos %>
+<%= hidden_field_tag 'appname', nil, placeholder: "", :class =>"form-control", :value =>  book_name %>
+<div class="row">
+	<div class="col-sm-7 body_left">
+		<h4>Analytics-Hadoop</h4>
+		<div class="row pad_tb25">
+			<div class="col-sm-5">
+				<div class="app_inner brad-3">
+					<div class="stpack">
+						<%= image_tag "combos/"+@pro_name[3].downcase+".png", :alt => "" %>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bottom-divider"></div>
+
+		<div class="row">
+			<div class="col-sm-3 app_left_name">
+				<span>Description</span>
+			</div>
+			<div class="col-sm-9 app_left_desc">
+				<span> <%= @mkp_description %> <a href=<%= get_doc_link(@pro_name[3].downcase) %> target="_blank">View Docs</a> </span>
+			</div>
+		</div>
+		<div class="bottom-divider"></div>
+
+		<div class="row">
+			<div class="col-sm-3 app_left_name">
+				<span>Pick a Cloud</span>
+			</div>
+			<div class="col-sm-9 app_left_desc">
+				<div class="row">
+					<div class="col-sm-6 col-xs-6">
+						<%= link_to settings_path, :class => "btn green col-md-12 col-xs-12" do %>Create<%end%>
+					</div>
+					<div class="col-sm-6 col-xs-6">
+						<%= select_tag "cloud", options_for_select(@predef_cloud.map{ |c| [c.name] }, :selected=>@predef_cloud[0]), :class =>"form-control" %>	
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- body_left ends here -->
+
+	<div class="col-sm-5 body_right c_height_2">
+		<h4>Attach An Addon</h4>
+		<div class="row">
+			<div class="col-xs-6">
+				<div class="form-group">
+					<%= text_field_tag 'name', nil, placeholder: 'Addon Name', :class =>"form-control", :value => @appname %>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<div class="form-group">
+					<%= text_field_tag 'domain', nil, placeholder: "megam.co", :class =>"form-control", :value => "megam.co", disabled: true %>
+				    <%= hidden_field_tag 'domain', nil, placeholder: ".megam.co", :class =>"form-control", :value => "megam.co" %>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="form-group">
+					<%= submit_tag "Create", :class => "btn green col-xs-12" %>
+				</div>
+			</div>
+			<!-- <div class="col-xs-12">
+			<div class="form-group">
+
+			</div>
+			</div> -->
+		</div>
+
+	</div>
+	<!-- body_right ends here -->
+</div>
+<% end %>
