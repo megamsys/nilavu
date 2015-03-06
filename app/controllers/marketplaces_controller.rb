@@ -5,7 +5,7 @@ class MarketplacesController < ApplicationController
   include MarketplaceHelper
   include AppsHelper
   def index
-   if current_user_verify
+    if current_user_verify
       mkp = get_marketplaces
       @mkp_collection = mkp[:mkp_collection]
       if @mkp_collection.class == Megam::Error
@@ -22,14 +22,14 @@ class MarketplacesController < ApplicationController
 
       end
     else
-     redirect_to signin_path
+      redirect_to signin_path
     end
   end
 
   def show
     if current_user_verify
       @pro_name = params[:id].split("-")
-    
+
       @apps = get_apps
 
       @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])
@@ -108,86 +108,85 @@ class MarketplacesController < ApplicationController
     apps
   end
 =begin
-  def authorize_scm
- logger.debug "CloudBooks:authorize_scm, entry"
-    auth_token = request.env['omniauth.auth']['credentials']['token']
-    github = Github.new oauth_token: auth_token
-    git_array = github.repos.all.collect { |repo| repo.clone_url }
-    @repos = git_array
-    render :template => "apps/new", :locals => {:repos => @repos} 
+def authorize_scm
+logger.debug "CloudBooks:authorize_scm, entry"
+auth_token = request.env['omniauth.auth']['credentials']['token']
+github = Github.new oauth_token: auth_token
+git_array = github.repos.all.collect { |repo| repo.clone_url }
+@repos = git_array
+render :template => "apps/new", :locals => {:repos => @repos}
 
+#session[:info] = request.env['omniauth.auth']['credentials']
+auth_token = request.env['omniauth.auth']['credentials']['token']
+github = Github.new oauth_token: auth_token
+git_array = github.repos.all.collect { |repo| repo.clone_url }
+@repos = git_array
 
-    #session[:info] = request.env['omniauth.auth']['credentials']
-    auth_token = request.env['omniauth.auth']['credentials']['token']
-    github = Github.new oauth_token: auth_token
-    git_array = github.repos.all.collect { |repo| repo.clone_url }
-    @repos = git_array
-    
- # @repos
-  end
-  
+# @repos
+end
+
 =end
 
-
   def github_scm
-     
-     if current_user.nil?
- redirect_to :controller=>'sessions', :action=>'create'    
-  else
-    @auth_token = request.env['omniauth.auth']['credentials']['token']
-    session[:github] =  @auth_token
-     end
-    
-   end
 
-def github_sessions
+    if current_user.nil?
+      redirect_to :controller=>'sessions', :action=>'create'
+    else
+      @auth_token = request.env['omniauth.auth']['credentials']['token']
+      session[:github] =  @auth_token
+    end
 
-auth_id = params['id']
- github = Github.new oauth_token: auth_id
+  end
+
+  def github_sessions
+
+    auth_id = params['id']
+    github = Github.new oauth_token: auth_id
     git_array = github.repos.all.collect { |repo| repo.clone_url }
     @repos = git_array
-respond_to do |format|
-        format.js {
-          respond_with(@repos, :layout => !request.xhr? )
-        }
-      end
-end
-
-def github_sessions_data
-
-@tokens_gh = session[:github] 
-
-render :text => @tokens_gh
-end
-
-def gogs
-end
-
-def gogswindow
-end
-
-def gogs_return 
-
-tokens = ListGogsTokens.perform(params[:gogs_username], params[:gogs_password])
-obj = JSON.parse(tokens)
-token = obj[0]["sha1"]
- 
-@gogs_repos = ListGogsRepo.perform(token)
-    
-    obj_repo = JSON.parse(@gogs_repos)
-   
-    @repos_arr = []
-    
-    obj_repo.each do |one_repo|
-    
-    @repos_arr << one_repo["clone_url"]
+    respond_to do |format|
+      format.js {
+        respond_with(@repos, :layout => !request.xhr? )
+      }
     end
-respond_to do |format|
-          format.js {
-            respond_with(@repos_arr, :layout => !request.xhr?)
-          }
-        end
-end
+  end
+
+  def github_sessions_data
+
+    @tokens_gh = session[:github]
+
+    render :text => @tokens_gh
+  end
+
+  def gogs
+  end
+
+  def gogswindow
+  end
+
+  def gogs_return
+
+    tokens = ListGogsTokens.perform(params[:gogs_username], params[:gogs_password])
+    obj = JSON.parse(tokens)
+    token = obj[0]["sha1"]
+
+    @gogs_repos = ListGogsRepo.perform(token)
+
+    obj_repo = JSON.parse(@gogs_repos)
+
+    @repos_arr = []
+
+    obj_repo.each do |one_repo|
+
+      @repos_arr << one_repo["clone_url"]
+    end
+    respond_to do |format|
+      format.js {
+        respond_with(@repos_arr, :layout => !request.xhr?)
+      }
+    end
+  end
+
   def category_view
     mkp = get_marketplaces
     @mkp_collection = mkp[:mkp_collection]
@@ -244,16 +243,15 @@ end
       cloud = params[:cloud]
       source = params[:source]
       type = params[:type].downcase
-      
+
       dbname = nil
       dbpassword = nil
 
       combos = params[:combos]
-      
-      
+
       combo = combos.split("+")
       puts combo.inspect
-      
+
       appname = params[:appname]
       servicename = params[:servicename]
 
@@ -418,7 +416,7 @@ end
 
       combos = params[:combos]
       combo = combos.split("+")
-      
+
       ttype = "tosca.web."
       appname = params[:appname]
       servicename = nil
@@ -440,36 +438,32 @@ end
     end
   end
 
-
-
-def byoc_create
+  def byoc_create
 
     assembly_name = params[:name]
-    
+
     version = params[:version]
     domain = params[:domain]
     cloud = params[:cloud]
     #app_type = params[:byoc]
     source = params[:source]
     type = params[:byoc].downcase
-   
+
     dbname = nil
     dbpassword = nil
     combo = []
     #combos = params[:combos]
     #combo = combos.split("+")
-     combo << params[:byoc].downcase
-     
-     
-   
+    combo << params[:byoc].downcase
+
     ttype = "tosca.web."
     appname = params[:appname]
     servicename = nil
-    if params[:check_ci] == "true" 
-       options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => true, :scm_name => params[:scm_name]  }
-    else 
-       options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword  }
-    end   
+    if params[:check_ci] == "true"
+      options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => true, :scm_name => params[:scm_name]  }
+    else
+      options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword  }
+    end
     app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
     @res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
     if @res.class == Megam::Error
