@@ -3,6 +3,12 @@ class ApplicationController < ActionController::Base
     #To fix Processing by SessionsController#destroy as HTML Can't verify CSRF token authenticity
 protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
 
+=begin
+ if !MegamRiak.ping
+	redirect_to signin_path, :error => "Riak down"
+ end
+=end
+
   include SessionsHelper
   
   #If the requests donot come from local then the exception page will be shown.

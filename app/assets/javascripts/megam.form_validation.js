@@ -24,7 +24,11 @@ $(document).ready(function() {
         rules : {
             check_req : {
                 required : true
-            }
+            },
+        email: {
+            required: true,
+            email: true
+        }
         },
         messages : {
             check_req : "Just check the box"
