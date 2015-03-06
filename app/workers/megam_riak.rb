@@ -28,21 +28,6 @@ class MegamRiak
     client.bucket(bucket_name)
   end
 
-  def self.ping
-    begin
-    client = Riak::Client.new(:nodes => [
-      {:host => "#{Rails.configuration.storage_server_url}"}
-    ])     
-    if "#{client.ping}" == "true"
-	ret = true
-    end
-    rescue Exception => se
-	ret = false
-    end
-  ret
-  end
-
-
   def self.download(bucket_name, filename)
     begin
       bucket = riak_bucket(bucket_name)

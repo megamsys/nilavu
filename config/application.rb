@@ -106,6 +106,7 @@ module Cloudauth
       config.storage_sshfiles = "#{common['storage']['ssh_files_bucket']}" || 'sshfiles'
       config.storage_cloudtool =  "#{common['storage']['cloud_tool_bucket']}" || 'cloudtools'
       config.storage_server_url = "#{common['storage']['server_url']}" || 'localhost'
+      config.api_server_url = "#{common['api']['host']}" || 'localhost'
       if Rails.configuration.storage_type == 's3'
         config.s3.access_key = "#{common['storage']['aws_access_key']}"
         config.s3.secret_key = "#{common['storage']['aws_secret_key']}"

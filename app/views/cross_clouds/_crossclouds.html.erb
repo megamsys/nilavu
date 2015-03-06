@@ -25,20 +25,30 @@
 		<table class="table tb_action_list">
 			<thead>
 				<tr>
-					<th>View</th>
 					<th>Name</th>
 					<th>Created At</th>
+					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
 				<% if @cross_clouds_collection.class != Megam::Error %>
 				<% @cross_clouds.each do |cloud| %>
 				<tr>
-					<td class="set_title"><i class=""></i>
-			 
-			 <%= link_to "View Details", view_details_path(:settingsname => cloud[:name]), :remote => true %></td>
 					<td class="set_title"><%= cloud[:name] %></td>
 					<td><i class="c_icon-calendar"></i> <%= cloud[:created_at] %> </td>
+
+					<td>
+
+						<div class="row profile-actions">
+							<%= link_to view_details_path(:settingsname => cloud[:name]), :remote => true do %>
+							<i class="icon-eye-open pull-left"></i> View  
+							<% end %>
+						<%= link_to view_details_path(:settingsname => cloud[:name]), :remote => true do %>
+							<i class="icon-trash"></i> Delete 
+							<% end %>
+						</div>
+					</td>
+
 				</tr>
 				<% end %>
 				<% end %>

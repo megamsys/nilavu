@@ -43,6 +43,38 @@ end
 
  end
 
+=begin
+def riak_ping?
+    begin
+    client = Riak::Client.new(:nodes => [
+      {:host => "#{Rails.configuration.storage_server_url}"}
+    ])     
+    true if "#{client.ping}" == "true"
+    rescue Exception => se
+	false
+    end
+  ret
+end
+=end
+
+require 'open-uri'
+def riak_ping?
+  begin
+    true if open("http://#{Rails.configuration.storage_server_url}:8098")
+  rescue Exception => se
+    false
+  end
+end
+
+def api_ping?
+  begin
+    true if open("http://#{Rails.configuration.api_server_url}:9000")
+  rescue
+    false
+  end
+end
+
+
   def current_user_verify
    @user = User.new
     res = @user.find_by_remember_token(cookies[:remember_token], cookies[:email]) if cookies[:remember_token] && cookies[:email]

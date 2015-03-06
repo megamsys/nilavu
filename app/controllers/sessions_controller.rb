@@ -46,8 +46,10 @@ class SessionsController < ApplicationController
   def create
     logger.debug "==> Controller: sessions, Action: create, User signin"
     auth = social_identity
+ if !riak_ping?
+	redirect_to signin_path, :flash => { :error => "Problem in Riak! Check 'riak ping' in #{Rails.configuration.storage_server_url}." } and return
+ end
     if social_identity.nil?
- if MegamRiak.ping
       @user = User.new
       user = @user.find_by_email(params[:email])
       if user != nil && @user.password_decrypt(user["password"]) == params[:password]
@@ -67,11 +69,6 @@ class SessionsController < ApplicationController
         render "new"
 
       end
-else
-	#redirect_to signin_path, :error => "Riak down"
-        flash[:error] = "Riak down"
-        render "new"
- end
     else
       create_social_identity(auth)
     end

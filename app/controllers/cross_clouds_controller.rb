@@ -254,4 +254,9 @@ class CrossCloudsController < ApplicationController
       redirect_to signin_path
     end
   end
+
+  def destroy
+	
+  end
+
 end

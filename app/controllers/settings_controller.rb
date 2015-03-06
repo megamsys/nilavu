@@ -45,7 +45,7 @@ class SettingsController < ApplicationController
       @cross_clouds = []
       cross_clouds = []
       @cross_clouds_collection.each do |pre_cl|
-        cross_clouds << {:name => pre_cl.name, :created_at => pre_cl.created_at.to_time.to_formatted_s(:rfc822)}
+        cross_clouds << {:name => pre_cl.name, :type => pre_cl.spec[:type_name], :created_at => pre_cl.created_at.to_time.to_formatted_s(:rfc822)}
       end
       @cross_clouds = cross_clouds.sort_by {|vn| vn[:created_at]}
     end
