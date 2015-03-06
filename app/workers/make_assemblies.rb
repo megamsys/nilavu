@@ -70,6 +70,13 @@ class MakeAssemblies
         end
       end
       
+      others = []
+      
+      if options.has_key?(:ci)
+        if options[:ci]
+          others << { "otherkey" => "ci", "othervalue" => options[:scm_name] }        
+        end      
+      end
       
       if type == "ADDON"
         name = options[:appname]
@@ -112,6 +119,7 @@ class MakeAssemblies
           "operation_type"=>"",
           "target_resource"=>"",
         },
+        "others"=>others,
       }
       com << value
     end

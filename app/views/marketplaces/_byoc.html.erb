@@ -37,6 +37,7 @@
 <%= hidden_field_tag 'type', nil, placeholder: "", :class =>"form-control", :value =>  @pro_name[3] %>
 <%= hidden_field_tag 'combos', nil, placeholder: "", :class =>"form-control", :value =>  @combos %>
 <%= hidden_field_tag 'appname', nil, placeholder: "", :class =>"form-control", :value =>  book_name %>
+<%= hidden_field_tag 'scm_name', nil, placeholder: "", :class =>"form-control"%>
 <div class="row">
 
 	<div class="col-md-6 body_left">
@@ -155,6 +156,7 @@
 		});
 
 		$("#byoc_connect").click(function() {
+		   $("#scm_name").val("github");
 			$.oauthpopup({
 				path : "/auth/github",
 				callback : function() {

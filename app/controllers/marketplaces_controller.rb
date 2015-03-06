@@ -465,8 +465,11 @@ def byoc_create
     ttype = "tosca.web."
     appname = params[:appname]
     servicename = nil
-
-    options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword  }
+    if params[:check_ci] == "true" 
+       options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => true, :scm_name => params[:scm_name]  }
+    else 
+       options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword  }
+    end   
     app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
     @res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
     if @res.class == Megam::Error

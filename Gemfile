@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem "rails",  "~> 4.2.0"
+gem "rails",  "~> 4.2.1.rc3"
 # add these gems to help with the transition to Rails 4.2.x
 gem 'protected_attributes', "~> 1.0.8"
 gem "responders", "~> 2.0.2"
@@ -19,7 +19,7 @@ gem 'remotipart', "~> 1.2.1"
 #Added //= require jquery.remotipart in application.js
 
 #fog
-gem 'fog', "~> 1.27.0"
+gem 'fog', "~> 1.28.0"
 gem 'opennebula'
 
 # security and oauth
@@ -29,30 +29,26 @@ gem 'oauth2', "~> 1.0.0"
 gem 'oauth', "~> 0.4.7"
 gem 'omniauth-oauth2', "~> 1.2.0"
 gem 'omniauth-twitter', "~> 1.1.0"
-gem 'omniauth-facebook', "~> 2.0.0"
+gem 'omniauth-facebook', "~> 2.0.1"
 gem "omniauth-google-oauth2", "~> 0.2.6"
 gem 'omniauth-github', "~> 1.1.2"
 gem "omniauth-assembla", "~> 0.0.3"
 
-gem 'json', "~> 1.8.1"
+gem 'json', "~> 1.8.2"
 gem 'riak-client', '~> 2.1.0'
 
 #general
-gem "github_api", "~>0.12.2"
-gem 'twitter', "~> 5.11.0"
+gem "github_api", "~>0.12.3"
 gem "randexp", "~> 0.1.7"
-gem "megam_api", "~> 0.31"
-gem "megam_scmmanager", "~> 0.1.0"
-gem "megam_deccanplato", "~> 0.1.0"
-gem "megam_assembla", "~> 0.1.0"
+gem "megam_api", "~> 0.32"
 gem 'google-analytics-rails', '~> 0.0.6'
 gem 'megam_gogs', "~> 0.4.0"
 
 
 # http request and responses, http_proxy
-gem "faraday", "~> 0.9.0"
+gem "faraday", "~> 0.9.1"
 gem "faraday_middleware", "~> 0.9.1"
-gem "nokogiri", "~> 1.6.5"
+gem "nokogiri", "~> 1.6.6.2"
 
 gem 'unicorn', "~> 4.8.3",:group => :production
 gem "therubyracer","~> 0.12.1", :require => 'v8',:platforms => :ruby
@@ -65,7 +61,7 @@ gem "sshkey", "~> 1.6.1"
 gem "less-rails", "~> 2.6.0"
 gem 'sass-rails', "~> 5.0.1"
 gem 'coffee-rails', "~> 4.1.0"
-gem 'uglifier', "~> 2.6.0"
+gem 'uglifier', "~> 2.7.1"
 
 group :test do
   gem 'capybara'
