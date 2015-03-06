@@ -30,7 +30,7 @@
 <% end %>
 <% @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key]) %>
 <%  if @predef_cloud.class == Megam::Error %>
-<% redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }     %>    
+<% redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }     %>
 <% end %>
 <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
 <%= hidden_field_tag 'source', nil, placeholder: "", :class =>"form-control", :value => @deps_scm  %>
@@ -38,30 +38,69 @@
 <%= hidden_field_tag 'combos', nil, placeholder: "", :class =>"form-control", :value =>  @combos %>
 <%= hidden_field_tag 'appname', nil, placeholder: "", :class =>"form-control", :value =>  book_name %>
 <div class="row">
- 
-	<div class="col-md-7 body_left">
-		 <div class="row">
+
+	<div class="col-md-6 body_left">
+		<div class="row">
+			<div class="col-sm-7 app_left_name">
+				<span>Choose your SCM</span>
+			</div>
+		</div>
+		<div class="row">
 			<div class="col-md-4">
-               <div id="byoc_connect"><%= image_tag "gitimg.png",:class=> "img-responsive_byoc "%>
- </div>  </div>
-  <div class="col-md-4">
-               <div id="gogs_connect"><%= image_tag "gogsimg.png",:class=> "img-responsive_byoc "%>
-</div>     </div>
-</div>           
+				<div id="byoc_connect">
+					<%= image_tag "gitimg.png",:class=> "img-responsive_byoc "%>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div id="gogs_connect">
+					<%= image_tag "gogsimg.png",:class=> "img-responsive_byoc "%>
+				</div>
+			</div>
+		</div>
 
 		<div class="row pad_tb25">
-			<div class="col-sm-5">
-				<div class="app_inner brad-3">
-						
-					<div class="col-sm-10 col-xs-10">
-						<%= select_tag "byoc", options_for_select(@mkpname.map{ |c| [c] }, :selected=>@mkpname[0]), :class =>"form-control" %>	
-					</div>
-					
+			<div id="repos_list"></div>
+			<div id="gogs_repos_list"></div>
+		</div>
+
+		<div class="row pad_tb25">
+			<div class="col-sm-6 app_left_name">
+				<span>Select platform</span>
+			</div>
+			<div class="col-sm-6">
+				<div class="col-sm-10 col-xs-10">
+					<%= select_tag "byoc", options_for_select(@mkpname.map{ |c| [c] }, :selected=>@mkpname[0]), :class =>"form-control" %>
+				</div>
+			</div>
+		</div>
+		<div class="row pad_tb25">
+			<div class="col-sm-6 app_left_name">
+				<span>Continious Integration</span>
+			</div>
+			<div class="col-sm-6 check_ci">
+				<%= check_box_tag "check_ci", "true", true, {:checked => "checked"} %>
+				<!-- <input type="checkbox" value="ci" id="slideThree" name="check" /> -->
+				<label for="check_ci"></label>
+			</div>
+		</div>
+	</div>
+	<!-- body_left ends here -->
+
+	<div class="col-sm-6 body_right c_height_2">
+		<div class="row">
+			<div class="col-xs-6">
+				<div class="form-group">
+					<%= text_field_tag 'name', nil, placeholder: 'Addon Name', :class =>"form-control", :value => @appname %>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<div class="form-group">
+					<%= text_field_tag 'domain', nil, placeholder: "megam.co", :class =>"form-control", :value => "megam.co", disabled: true %>
+					<%= hidden_field_tag 'domain', nil, placeholder: ".megam.co", :class =>"form-control", :value => "megam.co" %>
 				</div>
 			</div>
 		</div>
 		<div class="bottom-divider"></div>
-
 		<div class="row">
 			<div class="col-sm-3 app_left_name">
 				<span>Description</span>
@@ -72,53 +111,23 @@
 		</div>
 		<div class="bottom-divider"></div>
 
-		<div class="row">
+		<div class="row pad_tb25">
 			<div class="col-sm-3 app_left_name">
 				<span>Pick a Cloud</span>
 			</div>
 			<div class="col-sm-9 app_left_desc">
 				<div class="row">
 					<div class="col-sm-6 col-xs-6">
-						<%= link_to settings_path, :class => "btn green col-md-12 col-xs-12" do %>Create<%end%>
+						<%= link_to settings_path, :class => "btn purple col-md-12 col-xs-12" do %>Create<%end%>
 					</div>
 					<div class="col-sm-6 col-xs-6">
-						<%= select_tag "cloud", options_for_select(@predef_cloud.map{ |c| [c.name] }, :selected=>@predef_cloud[0]), :class =>"form-control" %>	
+						<%= select_tag "cloud", options_for_select(@predef_cloud.map{ |c| [c.name] }, :selected=>@predef_cloud[0]), :class =>"form-control" %>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<!-- body_left ends here -->
+		<div class="row">
 
-	<div class="col-sm-5 body_right c_height_2">
-	
-		<h4>Choose your SCM</h4>
-		<div class="row">
-			<div class="col-xs-6">
-				<div class="form-group">
-					<%= text_field_tag 'name', nil, placeholder: 'Addon Name', :class =>"form-control", :value => @appname %>
-				</div>
-			</div>
-			<div class="col-xs-6">
-				<div class="form-group">
-					<%= text_field_tag 'domain', nil, placeholder: "megam.co", :class =>"form-control", :value => "megam.co", disabled: true %>
-				    <%= hidden_field_tag 'domain', nil, placeholder: ".megam.co", :class =>"form-control", :value => "megam.co" %>
-				</div>
-			</div>
-		</div>
-		<div  class="col-xs-20">
-		
-		
-		    <div id="repos_list">
-		    </div>
-		    
-		    
-		    <div id="gogs_repos_list">
-		    </div>
-		    
-       </div>
-		<div class="row">
-		
 			<div class="col-xs-12">
 				<div class="form-group">
 					<%= submit_tag "Create", :class => "btn green col-xs-12" %>
@@ -134,7 +143,6 @@
 	<!-- body_right ends here -->
 </div>
 <% end %>
-
 
 <script>
 	$(document).ready(function() {
@@ -181,5 +189,5 @@
 				}
 			});
 		});
-	});
-
+	}); 
+</script>
