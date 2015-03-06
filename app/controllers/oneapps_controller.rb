@@ -106,12 +106,27 @@ class OneappsController < ApplicationController
   end
 
   def bindService
-    updatebinds(params[:bindapp], params[:bindservice])
-    updatebinds(params[:bindservice], params[:bindapp])
-
+  
+ app_update  =  updatebinds(params[:bindapp], params[:bindservice])
+  service_update = updatebinds(params[:bindservice], params[:bindapp])
+  if app_update == true && service_update == true
+   respond_to do |format|
+              format.js {
+                respond_with( :layout => !request.xhr? )
+              }
+            end
+  else
+  respond_to do |format|
+              format.js {
+                respond_with( :layout => !request.xhr? )
+              }
+            end
+   end
+    
   end
 
   def updatebinds(data, bindData)
+  
     if current_user_verify
       if data != ""
         bindedAPP = data.split(":")
@@ -119,47 +134,60 @@ class OneappsController < ApplicationController
         if get_assembly.class == Megam::Error
           @res_msg = nil
           @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
-          respond_to do |format|
-            format.js {
-              respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
-            }
-          end
+          #respond_to do |format|
+           # format.js {
+            #  respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
+            #}
+          #end
+          return false
         else
           get_component = GetComponent.perform(bindedAPP[1], force_api[:email], force_api[:api_key])
           if get_component.class == Megam::Error
             @res_msg = nil
             @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
-            respond_to do |format|
-              format.js {
-                respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
-              }
-            end
+            #respond_to do |format|
+            #  format.js {
+            #    respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
+            #  }
+            #end
+            return false
           else
             bindedData = bindData.split(":")
             relatedcomponent = bindedData[2]
             update_component_json = UpdateComponentJson.perform(get_component, relatedcomponent)
+             
             update_component = UpdateComponent.perform(update_component_json, force_api[:email], force_api[:api_key])
             if update_component.class == Megam::Error
               @res_msg = nil
               @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
-              respond_to do |format|
-                format.js {
-                  respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
-                }
-              end
+              #respond_to do |format|
+              #  format.js {
+              #    respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
+              #  }
+              #end
+              return false
             else
+           bindedData = bindData.split(":")
+           
+            get_bindAssembly = GetAssemblyWithoutComponentCollection.perform(bindedData[0], force_api[:email], force_api[:api_key])
+            get_bindComponent = GetComponent.perform(bindedData[1], force_api[:email], force_api[:api_key])
+             
               update_json = UpdateAssemblyJson.perform(get_assembly, get_component)
+              update_bind_json = UpdateSeperateAssemblyJson.perform(get_assembly, get_bindAssembly, get_bindComponent)
               update_assembly = UpdateAssembly.perform(update_json, force_api[:email], force_api[:api_key])
+              update_bindassembly = UpdateAssembly.perform(update_bind_json, force_api[:email], force_api[:api_key])
               if update_assembly.class == Megam::Error
                 @res_msg = nil
                 @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
-                respond_to do |format|
-                  format.js {
-                    respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
-                  }
-                end
+                #respond_to do |format|
+                #  format.js {
+                #    respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
+                #  }
+                #end
+                return false
               else
-                @err_msg = nil
+                #@err_msg = nil
+                return true
               end
             end
           end
