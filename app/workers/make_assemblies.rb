@@ -71,10 +71,11 @@ class MakeAssemblies
       end
       
       others = []
+      enable = "true"
       
       if options.has_key?(:ci)
-        if options[:ci]
-          others << { "otherkey" => "ci", "othervalue" => options[:scm_name] }        
+        if !options[:ci]          
+           enable = "false"        
         end      
       end
       
@@ -107,6 +108,10 @@ class MakeAssemblies
             "dbname"=>"#{options[:dbname]}",
             "dbpassword"=>"#{options[:dbpassword]}",
           },
+          "ci"=>{
+             "scm"=>"#{options[:scm_name]}",
+             "enable"=>enable,
+            } 
         },
         "external_management_resource"=>"",
         "artifacts"=>{
