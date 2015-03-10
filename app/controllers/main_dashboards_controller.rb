@@ -2,6 +2,8 @@ class MainDashboardsController < ApplicationController
   respond_to :html, :js
   include MainDashboardsHelper
   def index
+	puts "===============Current user ==================="
+	puts current_user.inspect
     if current_user_verify
       
       @user_id = current_user["email"]
@@ -48,7 +50,7 @@ class MainDashboardsController < ApplicationController
   end
 
   def show
-    redirect_to main_dashboards_path
+    redirect_to main_dashboards_path and return
   end
 
   def lifecycle

@@ -53,12 +53,11 @@
 				<%if name == mkp.name && cat == mkp.appdetails[:category] %>
 				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
 					<div class="app_inner brad-3">
-						<a data-toggle="modal" href="#app-1">
 						<div class="stpack">
-							<%= link_to marketplace_path(:id => mkp.name), :target => "_self", title: "Open", :remote => true, :class => "link_img" do %>
+							<%= link_to marketplace_path(:id => mkp.name), :target => "_self", title: "Open", :remote => true, :class => "link_img", :data => {:toggle => "modal", target: "#app-1"} do %>
 							<%= image_tag mkp.appdetails[:logo], :alt => mkp.name %>
 							<% end %>
-						</div> </a>
+						</div> 
 					</div>
 				</div>
 				<% end %>

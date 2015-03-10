@@ -13,6 +13,7 @@ module ApplicationHelper
   #For instance to insert the correct help link in cloud identity page, a help_entry_name with value "cloudidentity" will be passed
   #1.a link url = http://docs.megam.co/nilavu#cloudidentity can be clicked by an user to avail help in cloud identity page.
   #2.by default a link_url = http://docs.megam.co/nilavu#index can be clicked by an user to avail help (home page).
+=begin
   def help_link(help_entry_name=nil)
     docs_url = "https://docs.megam.co/nilavu"
 
@@ -25,7 +26,7 @@ module ApplicationHelper
     end
     link_to_ link_text, docs_url, { :target => '_blank'}
   end
-
+=end
   #spinner tag helper called from views which embeds a 64px circular gray spinner image.
   #We may change this name to big_circle_spinner_tag, for now lets leave it.
   def spinner_tag id

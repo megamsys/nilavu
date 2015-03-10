@@ -1222,9 +1222,15 @@ wells
 Bootstrap modal 
 ***/
 
-.modal {
+.modal
+{
+
+-ms-transform: translate(0, 20%) !important; /* IE 9 */
+-webkit-transform: translate(0, 20%) !important; /* Safari and Chrome */
+
   z-index: 10050 !important;
   outline: none !important;
+  position: absolute;
 }
 
 .modal-header {
@@ -1241,21 +1247,20 @@ Bootstrap modal
 
 .modal-full {
   width: 100% !important;
+  height: 650px;
+
 }
 
 /***
 Modal header close button fix
 ***/
 .modal-header .close {
-  margin-top: 14px;
+  margin-top: 1px;
 }
 
 .modal > .loading {
   position: absolute;
-  top: 50%;
-  left:50%;
-  margin-top: -22px;
-  margin-left: -22px;
+
 }
 
 .modal-backdrop {

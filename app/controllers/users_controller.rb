@@ -2,15 +2,16 @@ class UsersController < ApplicationController
   respond_to :html, :js
   include UsersHelper
   include SessionsHelper
-  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
-  before_filter :correct_user, only: [:edit, :update]
-  before_filter :admin_user, only: :destroy
+  #before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
+  #before_filter :correct_user, only: [:edit, :update]
+  #before_filter :admin_user, only: :destroy
   def index
     #Should list all the users of an organization.
     @users = User.paginate(page: params[:page])
   end
 
   def show
+	puts params
     @user = User.find(params[:id])
     current_user = @user
   end
@@ -30,25 +31,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def email_verify
-    logger.debug "--> Users:email_verify, sending email verification."
-    @user= User.find_by_verification_hash(params[:format])
-    UserMailer.welcome_email(@user).deliver
-    logger.debug "--> Users:email_verify, delivered verification email."
-  end
-
-  def verified_email
-    @user= User.find_by_verification_hash(params[:format])
-    if @user.verification_hash === params[:format]
-      logger.debug "--> Users:verified_email, updating verified_email flag"
-      @user.update_attribute(:verified_email, 'true')
-      redirect_to signin_path(@user), :gflash => { :success => { :value => "Welcome back #{@user.first_name}. Your email #{@user.email} was verified. Thank you.", :sticky => false, :nodom_wrap => true } }
-    else
-      logger.debug "--> Users:verified_email, verification check failure."
-      flash[:alert] = "Your verification failed. Resend the verification email again."
-      redirect_to sign_up_path
-    end
-  end
 
   #This method is used to create a new user. The form parameters as entered during the
   #signup, is used to create a new user.
@@ -120,16 +102,18 @@ class UsersController < ApplicationController
       logger.debug "==> Controller: users, Action: edit, Start edit"
       @orgs = list_organizations
       @userdata= @user.find_by_email(current_user["email"])
-      @accounts= list_accounts
+      #@accounts= list_accounts
     @userdata
     else
       redirect_to signin_path
     end
   end
 
+=begin
   def upgrade
     logger.debug "==> Controller: users, Action: upgrade, Upgrade user from free to paid"
   end
+=end
 
   def userupdate
     if current_user_verify
@@ -221,18 +205,9 @@ class UsersController < ApplicationController
     end
   end
 
-  def destroy
-    User.find(params[:id]).destroy
-    redirect_to users_path
-  end
-
-  def contact
-    logger.debug "email address : #{params.inspect}"
-    UserMailer.contact_email(params).deliver
-  end
 
   private
-
+=begin
   def correct_user
     if current_user_verify
       @user = User.find_by_email(current_user["email"])
@@ -249,7 +224,7 @@ class UsersController < ApplicationController
       redirect_to signin_path
     end
   end
-
+=end
   def list_organizations
     if current_user_verify
       logger.debug "--> #{self.class} : list organizations entry"
@@ -267,7 +242,7 @@ class UsersController < ApplicationController
       redirect_to signin_path
     end
   end
-
+=begin
   def list_accounts
     if current_user_verify
       logger.debug "--> #{self.class} : list accounts entry"
@@ -285,5 +260,6 @@ class UsersController < ApplicationController
       redirect_to signin_path
     end
   end
+=end
 end
 
