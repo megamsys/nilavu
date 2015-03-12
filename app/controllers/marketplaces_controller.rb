@@ -132,8 +132,13 @@ end
     if current_user.nil?
       redirect_to :controller=>'sessions', :action=>'create'
     else
+      puts request.env['omniauth.auth'].inspect
+      puts "--------------------------------------"
+      puts request.env['omniauth.auth']['extra']['raw_info']['login']
       @auth_token = request.env['omniauth.auth']['credentials']['token']
       session[:github] =  @auth_token
+      session[:git_owner] = request.env['omniauth.auth']['extra']['raw_info']['login']
+     
     end
 
   end
@@ -460,9 +465,9 @@ end
     appname = params[:appname]
     servicename = nil
     if params[:check_ci] == "true"
-      options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => true, :scm_name => params[:scm_name]  }
+      options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => true, :scm_name => params[:scm_name], :scm_token =>  session[:github], :scm_owner => session[:git_owner] }
     else
-      options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => false, :scm_name => params[:scm_name]   }
+      options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => false, :scm_name => params[:scm_name], :scm_token =>  session[:github], :scm_owner => session[:git_owner]   }
     end
     app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
     @res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
