@@ -151,7 +151,7 @@ match '/view_details', to: 'cross_clouds#view_details', via: [:get, :post]
 match '/gogs', to: 'marketplaces#gogs', via: [:get, :post]
 # match '/gogs_return', to: 'marketplaces#gogs_return', via: [:get, :post]
 post 'trigger', :to => 'marketplaces#gogs_return', via: [:post]
-match '/gogs_popup', :to => 'marketplaces#gogswindow', via: [:get, :post]
+match '/auth/gogs', :to => 'marketplaces#gogswindow', via: [:get, :post]
 #root :to => 'marketplaces#gogswindow'
 # =======Error controller
 get "/404", :to => "errors#not_found"
