@@ -2,8 +2,6 @@ class MainDashboardsController < ApplicationController
   respond_to :html, :js
   include MainDashboardsHelper
   def index
-	puts "===============Current user ==================="
-	puts current_user.inspect
     if current_user_verify
       
       @user_id = current_user["email"]
@@ -37,7 +35,7 @@ class MainDashboardsController < ApplicationController
         end
       end    
     else
-      redirect_to signin_path
+      redirect_to signin_path and return
     end
   end
 

@@ -78,6 +78,8 @@ end
   def current_user_verify
    @user = User.new
     res = @user.find_by_remember_token(cookies[:remember_token], cookies[:email]) if cookies[:remember_token] && cookies[:email]
+puts "CUrrent user verify============> "
+puts res.inspect
     if res != nil
       @current_user ||= res
       return true

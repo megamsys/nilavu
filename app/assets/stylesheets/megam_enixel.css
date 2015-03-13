@@ -1230,7 +1230,6 @@ Bootstrap modal
 
   z-index: 10050 !important;
   outline: none !important;
-  position: absolute;
 }
 
 .modal-header {

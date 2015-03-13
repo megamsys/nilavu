@@ -88,6 +88,8 @@ class User
   def find_by_remember_token(remember_token, email)
     result = nil
     res = MegamRiak.fetch("profile", email)
+puts "find_by_remember_token============> "
+puts res.inspect
     if res.class != Megam::Error
     result = res.content.data
     end

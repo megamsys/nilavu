@@ -11,8 +11,6 @@ Cloudauth::Application.routes.draw do
 
   #get 'oneapps/clone'
 
-  root :to => 'main_dashboards#index', :id => 'signin'
-
 
   resources :users
   resources :sessions
@@ -32,6 +30,8 @@ Cloudauth::Application.routes.draw do
   resources :oneaddons
   resources :oneapps
   resources :oneservice
+
+  root :to => 'main_dashboards#index'
 
   namespace :api do
     resources :dashboards do
@@ -133,8 +133,8 @@ Cloudauth::Application.routes.draw do
 match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :post]	#Used in maindashboard_index.html.erb
 
  #DenselyPacked app lifecycle 
- #match '/lifecycle', :to => 'main_dashboards#lifecycle', via: [:get] 
- #match '/deleteapp', :to => 'main_dashboards#deleteapp', via: [:get]
+ match '/lifecycle', :to => 'main_dashboards#lifecycle', via: [:get] 
+ match '/deleteapp', :to => 'main_dashboards#deleteapp', via: [:get]
  #match '/lifecycle_request', :to => 'main_dashboards#lifecycle_request', via: [:get, :post]
  
  

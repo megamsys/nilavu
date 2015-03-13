@@ -16,7 +16,7 @@
 				<span>Click on a market place item to get started.</span>
 			</div>
 			<div class="col-xs-6 col-md-3 mplace-right">
-				<span class="pull-right"><i class="c_icon-rocket"></i><a href="http://www.gomegam.com/docs/users/marketplaces/index.html" target="_blank">Take a Tour</a></span>
+				<span class="pull-right"><i class="c_icon-rocket"></i><a href="http://docs.megam.io/v1.0/docs/megam_cloudmanagement_intro" target="_blank">Take a Tour</a></span>
 			</div>
 		</div>
 	</div>
@@ -28,8 +28,14 @@
 				</div>
 				<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
 					<div class="pull-right">
-						<span>Search</span>
-						<span class="icon-search"></span>
+						
+<form method="post">
+    <fieldset>
+        <input type="text" class="icon-search" id="filter" placeholder="Search" style="width: 100px;font-size: 0.7em;" >
+	<span class="icon-search"></span> </input>
+    </fieldset>
+</form>
+
 					</div>
 				</div>
 			</div>
@@ -38,30 +44,38 @@
 			</div> -->
 		</div>
 
-		<!-- STARTER PACKS STARTS HERE -->
 
+
+		<!-- STARTER PACKS STARTS HERE -->
+				<div class="mp-search-filter">
 		<% categories.sort.each do |cat| %>
+		<div class="mp-category-head-<%=cat.delete(' ')%>">
 		<div class="bottom-divider"></div>
 		<% c = cat.split("-") %>
 		<h4> <%= c[1] %> <small><i> <%= get_category_description(c[1]) %> <i></small></h4>
-
+		</div>
 		<div class="col-xs-12">
 
 			<div class="row app_box">
 				<% order.each do |name| %>
+
 				<% mkp_collection.each do |mkp| %>
 				<%if name == mkp.name && cat == mkp.appdetails[:category] %>
-				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+
+
+
+				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover mp_box_<%= mkp.name.split('-').last %>" id="<%= cat.delete(' ') %>">
 					<div class="app_inner brad-3">
 						<div class="stpack">
-							<%= link_to marketplace_path(:id => mkp.name), :target => "_self", title: "Open", :remote => true, :class => "link_img", :data => {:toggle => "modal", target: "#app-1"} do %>
+							<%= link_to marketplace_path(:id => mkp.name), :id => mkp.name.split('-').last, :target => "_self", title: "Open", :remote => true, :class => "link_img", :data => {:toggle => "modal", target: "#app-1"} do %>
 							<%= image_tag mkp.appdetails[:logo], :alt => mkp.name %>
 							<% end %>
-						</div> 
-					</div>
+						</div>
+					</div> 
 				</div>
 				<% end %>
 				<% end %>
+
 				<% end %>
 			</div>
 			
@@ -70,9 +84,12 @@
 
 		<% end %>
 
+				</div>
 	</div>
 
 </div>
+
+
 
 <script type="text/javascript">
 	// Secipt to show hide config menu
@@ -95,10 +112,44 @@
 		});
 	});
 
-	// Remove alert message on clicking the close button
+// Remove alert message on clicking the close button
 	$(".c_remove").click(function() {
 		$('.c_remove_main').hide();
 	}); 
+
+// filter textbox size change in marketplace page
+$('#filter').focus(function()
+{
+    $(this).animate({ width: '+=50' }, 'slow');
+}).blur(function()
+{
+    $(this).animate({ width: '-=50' }, 'slow');
+});
+
+//Filter marketplace items with strings given
+$(document).ready(function(){
+    $("#filter").keyup(function(){
+        // Retrieve the input field text and reset the count to zero
+        var filter = $(this).val();
+    $("[class^=mp-category-head-]").fadeOut();
+
+if(filter.length == 0){
+console.log("LENGTH =============> "+filter.length);
+$("[class^=mp-category-head-]").show();
+}
+        $('.mp-search-filter').find('a').each(function(){
+            if (this.id.search(new RegExp(filter, "i")) < 0) {
+ 		$('.mp_box_'+this.id).fadeOut();
+            } else {
+		var ok_cat_name = document.querySelector('.mp_box_'+this.id).id
+		$('.mp_box_'+this.id).show();
+		$(".mp-category-head-"+ok_cat_name).show();
+            }
+        });
+    });
+
+});
+
 </script>
 
 <!-- App1 modal starts here -->
