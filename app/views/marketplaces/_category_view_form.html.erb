@@ -46,49 +46,37 @@
 
 
 
-		<!-- STARTER PACKS STARTS HERE -->
-				<div class="mp-search-filter">
-		<% categories.sort.each do |cat| %>
-		<div class="mp-category-head-<%=cat.delete(' ')%>">
-		<div class="bottom-divider"></div>
-		<% c = cat.split("-") %>
-		<h4> <%= c[1] %> <small><i> <%= get_category_description(c[1]) %> <i></small></h4>
-		</div>
-		<div class="col-xs-12">
 
-			<div class="row app_box">
-				<% order.each do |name| %>
-
-				<% mkp_collection.each do |mkp| %>
-				<%if name == mkp.name && cat == mkp.appdetails[:category] %>
-
-
-
-				<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover mp_box_<%= mkp.name.split('-').last %>" id="<%= cat.delete(' ') %>">
-					<div class="app_inner brad-3">
-						<div class="stpack">
-							<%= link_to marketplace_path(:id => mkp.name), :id => mkp.name.split('-').last, :target => "_self", title: "Open", :remote => true, :class => "link_img", :data => {:toggle => "modal", target: "#app-1"} do %>
-							<%= image_tag mkp.appdetails[:logo], :alt => mkp.name %>
-							<% end %>
-						</div>
-					</div> 
-				</div>
-				<% end %>
-				<% end %>
-
-				<% end %>
-			</div>
-			
-			
-		</div>
-
-		<% end %>
-
-				</div>
-	</div>
-
+<% categories.sort.each do |cat| %>	
+<div class="bottom-divider"></div>
+<div class="jcorgFilterTextRootParent">
+<% c = cat.split("-") %>
+<h4> <%= c[1] %> <small><i> <%= get_category_description(c[1]) %> <i></small></h4>
+<div class="col-xs-12">
+<div class="row app_box ">
+<% order.each do |name| %>
+<% mkp_collection.each do |mkp| %>
+<%if name == mkp.name && cat == mkp.appdetails[:category] %>
+<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover ">
+<div class="app_inner brad-3 jcorgFilterTextParent">
+<a data-toggle="modal" href="#app-1">
+<div class="stpack ">
+<%= link_to marketplace_path(:id => mkp.name), :target => "_self", title: "Open", :remote => true, :class => "link_img" do %>
+<%= image_tag mkp.appdetails[:logo], :alt => mkp.name %>
+<% end %>
+</div> </a>
+<div class="jcorgFilterTextChild" style="display:none"><%= mkp.name.split('-').last %> </div>
 </div>
-
+</div>
+<% end %>
+<% end %>
+<% end %>
+</div>
+</div>
+</div>
+<% end %>
+</div>
+</div>
 
 
 <script type="text/javascript">
@@ -150,6 +138,19 @@ $("[class^=mp-category-head-]").show();
 
 });
 
+</script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+jQuery("#filter").jcOnPageFilter({animateHideNShow: true,
+focusOnLoad:true,
+highlightColor:'yellow',
+textColorForHighlights:'#000000',
+caseSensitive:false,
+hideNegatives:true,
+parentLookupClass:'jcorgFilterTextParent',
+childBlockClass:'jcorgFilterTextChild'});
+});
 </script>
 
 <!-- App1 modal starts here -->
