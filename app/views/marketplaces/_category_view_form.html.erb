@@ -31,8 +31,7 @@
 						
 <form method="post">
     <fieldset>
-        <input type="text" class="icon-search" id="filter" placeholder="Search" style="width: 100px;font-size: 0.7em;" >
-	<span class="icon-search"></span> </input>
+        <input type="text" class="icon-search" id="filter" placeholder="Search" style="width: 60px;font-size: 0.7em;border: none;" ></input><span class="icon-search"></span>
     </fieldset>
 </form>
 
@@ -113,31 +112,6 @@ $('#filter').focus(function()
 {
     $(this).animate({ width: '-=50' }, 'slow');
 });
-
-//Filter marketplace items with strings given
-$(document).ready(function(){
-    $("#filter").keyup(function(){
-        // Retrieve the input field text and reset the count to zero
-        var filter = $(this).val();
-    $("[class^=mp-category-head-]").fadeOut();
-
-if(filter.length == 0){
-console.log("LENGTH =============> "+filter.length);
-$("[class^=mp-category-head-]").show();
-}
-        $('.mp-search-filter').find('a').each(function(){
-            if (this.id.search(new RegExp(filter, "i")) < 0) {
- 		$('.mp_box_'+this.id).fadeOut();
-            } else {
-		var ok_cat_name = document.querySelector('.mp_box_'+this.id).id
-		$('.mp_box_'+this.id).show();
-		$(".mp-category-head-"+ok_cat_name).show();
-            }
-        });
-    });
-
-});
-
 </script>
 
 <script type="text/javascript">

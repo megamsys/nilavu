@@ -1226,16 +1226,6 @@ wells
   border-color: transparent #ddd #ddd #ddd;
 }
 
-/* top right icons css change by RAJ */
-.mplace-icons a {
-    font-family: FontAwesome;
-    font-size: 16px;
-    font-weight: 300;
-}
-.mplace-icons i {
-  font-size: 23px;
-}
-
 
 .img-responsive_byoc {
   /*display: block; */

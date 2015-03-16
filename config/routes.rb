@@ -118,7 +118,7 @@ Cloudauth::Application.routes.draw do
   #match '/create_scm_user', :to => 'apps#create_scm_user', via: [:get, :post]
   # ======Dashboard
   get "users/show"		#Used for <%= render :template => users_show_path %>
-  #get "oneapps/show"
+  get "oneapps/show"
   #get "oneservice/show"
   #get "oneaddons/show"
  
