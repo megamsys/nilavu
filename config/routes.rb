@@ -1,23 +1,21 @@
 Cloudauth::Application.routes.draw do
-  get 'data_recovery/drbd_config'
+  #get 'data_recovery/drbd_config'
 
-  get 'oneapps/marketplaces'
+  #get 'oneapps/marketplaces'
 
-  get 'oneapps/activities'
+  #get 'oneapps/activities'
 
-  get 'oneapps/settings'
+  #get 'oneapps/settings'
 
-  get 'oneapps/preclone'
+  #get 'oneapps/preclone'
 
-  get 'oneapps/clone'
-
-  root :to => 'main_dashboards#index', :id => 'signin'
+  #get 'oneapps/clone'
 
 
   resources :users
   resources :sessions
-  resources :identities
-  resources :apps_histories
+  #resources :identities
+  #resources :apps_histories
   resources :apps #, via: [:get, :post, :destroy]
   resources :cross_clouds
   resources :services
@@ -32,6 +30,8 @@ Cloudauth::Application.routes.draw do
   resources :oneaddons
   resources :oneapps
   resources :oneservice
+
+  root :to => 'main_dashboards#index'
 
   namespace :api do
     resources :dashboards do
@@ -71,39 +71,39 @@ Cloudauth::Application.routes.draw do
   match '/byoc_launch', to: 'marketplaces#byoc_create', via: [:get, :post]
   match '/app_boilers_launch', to: 'marketplaces#app_boilers_create', via: [:get, :post]
   match '/addons_launch', to: 'marketplaces#addons_create', via: [:get, :post]
-  match '/get_request', to: 'apps#get_request', via: [:get, :post]
-  match '/build_request', to: 'apps#build_request', via: [:get, :post]
-  match '/requests', to: 'oneapps#requests', via: [:get, :post]
-  match '/activities', to: 'oneapps#activities', via: [:get, :post]
+  #match '/get_request', to: 'apps#get_request', via: [:get, :post]
+  #match '/build_request', to: 'apps#build_request', via: [:get, :post]
+  #match '/requests', to: 'oneapps#requests', via: [:get, :post]
+  #match '/activities', to: 'oneapps#activities', via: [:get, :post]
   
-  match '/preclone', to: 'oneapps#preclone', via: [:get, :post]
-  match '/clone', to: 'oneapps#clone', via: [:get, :post]
+  #match '/preclone', to: 'oneapps#preclone', via: [:get, :post]
+  #match '/clone', to: 'oneapps#clone', via: [:get, :post]
 # to-do: move it as a static page for pricing.
-  get '/pricing' => 'billing#pricing'
+  #get '/pricing' => 'billing#pricing'
   # to-do: this is more like creating a new billing account
-  get '/account' => 'billing#account'
+  #get '/account' => 'billing#account'
   # to-do: this is showing the index of billed_history (make it a separate controller)
-  get '/history' => 'billing#history'
-  get '/upgrade' => 'billing#upgrade'
+  #get '/history' => 'billing#history'
+  #get '/upgrade' => 'billing#upgrade'
   # ...
   #mount Sidekiq::Web, at: '/worker'
 
 
   #services
-  match '/new_store', to: 'services#new_store', via: [:get, :post]
+  #match '/new_store', to: 'services#new_store', via: [:get, :post]
 
   # ======Users Controller
   match '/signup', to: 'users#new', via: [:get, :post]
   match '/forgot', to: 'users#forgot', via: [:get]
-  match '/pass_email', to: 'users#pass_email', via: [:get, :post]
-  match '/contact_us', to: 'users#contact', via: [:get, :post]
+  #match '/pass_email', to: 'users#pass_email', via: [:get, :post]
+  #match '/contact_us', to: 'users#contact', via: [:get, :post]
   #to-do remove the users#edit named route.
   match '/edit', to: 'users#edit',via: [:get]
   #to-do remove the users#update named route.
   match '/update', to: 'users#update', via: [:get, :post, :patch]
-  match '/upgrade', to: 'users#upgrade', via: [:post]
-  match '/email_verify', to: 'users#email_verify',via: [:get,:post]
-  match '/verified_email', to: 'users#verified_email', via: [:get]
+  #match '/upgrade', to: 'users#upgrade', via: [:post]
+  #match '/email_verify', to: 'users#email_verify',via: [:get,:post]
+  #match '/verified_email', to: 'users#verified_email', via: [:get]
   match '/signin', to: 'sessions#new', via: [:get]
   match '/demo', to: 'sessions#demo', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post,:delete]
@@ -113,14 +113,14 @@ Cloudauth::Application.routes.draw do
   match '/auth/google_oauth2/callback', :to => 'cross_clouds#gwindow', via: [:get, :post]
   match '/auth/assembla/callback', :to => 'apps#authorize_assembla', via: [:get, :post]
   match '/github_ajax', :to => 'marketplaces#github_sessions', via: [:get, :post]
-  match '/scm_manager_auth', :to => 'apps#scm_manager_auth', via: [:get, :post]
-  match '/scmmanager_auth', :to => 'apps#scmmanager_auth', via: [:get, :post]
-  match '/create_scm_user', :to => 'apps#create_scm_user', via: [:get, :post]
+  #match '/scm_manager_auth', :to => 'apps#scm_manager_auth', via: [:get, :post]
+  #match '/scmmanager_auth', :to => 'apps#scmmanager_auth', via: [:get, :post]
+  #match '/create_scm_user', :to => 'apps#create_scm_user', via: [:get, :post]
   # ======Dashboard
-  get "users/show"
+  get "users/show"		#Used for <%= render :template => users_show_path %>
   get "oneapps/show"
-  get "oneservice/show"
-  get "oneaddons/show"
+  #get "oneservice/show"
+  #get "oneaddons/show"
  
   #match '/dashboard_sidebar', to: 'dashboards#dashboard_sidebar', via: [:get]
   #match '/dashboards', to: 'dashboards#index', via: [:get]
@@ -130,12 +130,12 @@ Cloudauth::Application.routes.draw do
   #match '/dashboards', to: 'users#dashboard',via: [:get]
   #match '/dashboards', to: 'api/dashboards#index',via: [:get]
 
-match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :post]
+match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :post]	#Used in maindashboard_index.html.erb
 
  #DenselyPacked app lifecycle 
  match '/lifecycle', :to => 'main_dashboards#lifecycle', via: [:get] 
  match '/deleteapp', :to => 'main_dashboards#deleteapp', via: [:get]
- match '/lifecycle_request', :to => 'main_dashboards#lifecycle_request', via: [:get, :post]
+ #match '/lifecycle_request', :to => 'main_dashboards#lifecycle_request', via: [:get, :post]
  
  
  #one app lifecycle 
@@ -154,13 +154,13 @@ match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :p
  
 
   # ========Cloud Books Histories controller
-  match '/logs', to: 'apps_histories#logs', via: [:get, :post]
+  #match '/logs', to: 'apps_histories#logs', via: [:get, :post]
 
   # ==========Cloud settings
   match '/cross_cloud_new', to: 'settings#cross_cloud_new', via: [:get, :post]
   match '/cross_cloud_create', to: 'settings#cross_cloud_create', via: [:get, :post]
-  match '/cloud_tool_settings_create', to: 'settings#cloud_tool_setting_create', via: [:get, :post]
-  match '/cloud_tool_setting_new', to: 'settings#cloud_tool_setting_new', via: [:get, :post]  
+  #match '/cloud_tool_settings_create', to: 'settings#cloud_tool_setting_create', via: [:get, :post]
+  #match '/cloud_tool_setting_new', to: 'settings#cloud_tool_setting_new', via: [:get, :post]  
   match '/sshkeys_download', to: 'ssh_keys#download', via: [:get, :post] 
   match '/sshkey_create', to: 'settings#sshkey_create', via: [:get, :post] 
   match '/sshkey_import', to: 'ssh_keys#sshkey_import', via: [:get, :post] 
@@ -174,14 +174,14 @@ match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :p
   #Market place
   match '/category_view', to: 'marketplaces#category_view', via: [:get, :post]
   #Disaster Recovery
-  match '/drbd_config', to: 'disaster_recovery#drbd_config', via: [:get, :post]
-  match '/drbd_submit', to: 'disaster_recovery#drbd_submit', via: [:get, :post]
+  #match '/drbd_config', to: 'disaster_recovery#drbd_config', via: [:get, :post]
+  #match '/drbd_submit', to: 'disaster_recovery#drbd_submit', via: [:get, :post]
     match '/view_details', to: 'cross_clouds#view_details', via: [:get, :post] 
     
     #=====Gog
     match '/gogs', to: 'marketplaces#gogs', via: [:get, :post]
    # match '/gogs_return', to: 'marketplaces#gogs_return', via: [:get, :post]
-  post 'trigger', :to => 'marketplaces#gogs_return', via: [:post]
+  #post 'trigger', :to => 'marketplaces#gogs_return', via: [:post]
   match '/gogs_popup', :to => 'marketplaces#gogswindow', via: [:get, :post]
   #root :to => 'marketplaces#gogswindow'
   # =======Error controller

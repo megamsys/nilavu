@@ -1621,12 +1621,6 @@ a.btn-success:hover
 {
 	margin-right: 5px;
 }
-.modal
-{
-transform: translate(0, 20%) !important;
--ms-transform: translate(0, 20%) !important; /* IE 9 */
--webkit-transform: translate(0, 20%) !important; /* Safari and Chrome */
-}
 .graph
 {
 	border-top: 1px solid  #e5e6ef;

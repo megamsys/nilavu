@@ -33,6 +33,21 @@ class SettingsController < ApplicationController
     end
   end
 
+  def destroy
+	puts "=================>Settings Destroy================="
+	del_settings = DeletePredefCloud.perform(params[:id], force_api[:email], force_api[:api_key])
+	if del_settings.class != Megam::Error
+      		@res_msg = "Cloud_Setting deleted successfully"
+	else
+		@res_msg = "Sorry! Cloud_Setting was not deleted successfully"
+	end
+    respond_to do |format|
+      format.js {
+        respond_with(@res_msg, :layout => !request.xhr? )
+      }
+    end
+  end
+
   private
 
   def list_clouds

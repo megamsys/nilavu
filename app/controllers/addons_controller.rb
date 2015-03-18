@@ -47,6 +47,7 @@ class AddonsController < ApplicationController
     logger.debug "Cloud Store new  ==> "
   end
 
+=begin
   def new_store
     logger.debug "New Store init Params ==> "
     logger.debug "#{params}"
@@ -77,7 +78,7 @@ class AddonsController < ApplicationController
     end
 
   end
-
+=end
   def create
     logger.debug "Create Cloud store Params ==> "
     logger.debug "#{params}"
