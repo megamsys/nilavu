@@ -83,6 +83,7 @@ class ServicesController < ApplicationController
     logger.debug "#{params}"
   end
 
+=begin
   def show
     wparams = {:node => "#{params[:name]}" }
     #look at storing in a local session, as we are redoing it. 
@@ -110,6 +111,6 @@ class ServicesController < ApplicationController
       end
     end
   end
-
+=end
 
 end

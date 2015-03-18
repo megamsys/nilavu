@@ -40,10 +40,10 @@
 					<td>
 
 						<div class="row profile-actions">
-							<%= link_to view_details_path(:settingsname => cloud[:name]), :remote => true do %>
-							<i class="icon-eye-open pull-left"></i> View  
+							<%= link_to view_details_path(:settingsname => cloud[:name]), :data => {:toggle => "modal", target: "#viewdetails_postfinish_popup"}, :remote => true do %>
+							<i class="icon-info pull-left"></i> View  
 							<% end %>
-						<%= link_to view_details_path(:settingsname => cloud[:name]), :remote => true do %>
+						<%= link_to setting_path(:id => cloud[:name]), method: :delete, :data => {:toggle => "modal", target: "#settings_delete_popup", confirm: "Are you sure?"}, :remote => true do %>
 							<i class="icon-trash"></i> Delete 
 							<% end %>
 						</div>
@@ -56,5 +56,27 @@
 		</table>
 	</div>
 </div>
+
+<div class="modal fade" id="settings_delete_popup" tabindex="-1" aria-hidden="true">
+
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Cloud Details</h4>
+			</div>
+			<div class="modal-body text-center">
+				<div id="del_setting_msg">
+				</div>
+			</div>
+			<div class="modal-footer c_modal-footer">
+<%= link_to  "Ok", settings_path, :class => "btn btn-success" %>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+
 
 

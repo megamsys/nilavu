@@ -1,2 +1,0 @@
-module AppsHistoriesHelper
-end

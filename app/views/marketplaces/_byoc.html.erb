@@ -39,7 +39,6 @@
 <%= hidden_field_tag 'appname', nil, placeholder: "", :class =>"form-control", :value =>  book_name %>
 <%= hidden_field_tag 'scm_name', nil, placeholder: "", :class =>"form-control"%>
 <div class="row">
-
 	<div class="col-md-6 body_left">
 		<div class="row">
 			<div class="col-sm-7 app_left_name">
@@ -59,10 +58,17 @@
 			</div>
 		</div>
 
+		<div class="bottom-divider"></div>
+
 		<div class="row pad_tb25">
+			<div class="alert alert-info alert-dismissable">Access your scm by clicking the above icons</div>
 			<div id="repos_list"></div>
 			<div id="gogs_repos_list"></div>
 		</div>
+
+
+		<div class="bottom-divider"></div>
+
 
 		<div class="row pad_tb25">
 			<div class="col-sm-6 app_left_name">
@@ -74,17 +80,28 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="bottom-divider"></div>
+
 		<div class="row pad_tb25">
-			<div class="col-sm-6 app_left_name">
-				<span>Continious Integration</span>
+			<div class="col-sm-3 app_left_name">
+				<span>Pick a Cloud</span>
 			</div>
-			<div class="col-sm-6 check_ci">
-				<%= check_box_tag "check_ci", "true", true, {:checked => "checked"} %>
-				<!-- <input type="checkbox" value="ci" id="slideThree" name="check" /> -->
-				<label for="check_ci"></label>
+			<div class="col-sm-9 app_left_desc">
+				<div class="row">
+					<div class="col-sm-6 col-xs-6">
+						<%= link_to settings_path, :class => "btn btn-success col-md-12 col-xs-12" do %>Create<%end%>
+					</div>
+					<div class="col-sm-6 col-xs-6">
+						<%= select_tag "cloud", options_for_select(@predef_cloud.map{ |c| [c.name] }, :selected=>@predef_cloud[0]), :class =>"form-control" %>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
+
+		<div class="bottom-divider"></div>
+
 	<!-- body_left ends here -->
 
 	<div class="col-sm-6 body_right c_height_2">
@@ -112,26 +129,11 @@
 		</div>
 		<div class="bottom-divider"></div>
 
-		<div class="row pad_tb25">
-			<div class="col-sm-3 app_left_name">
-				<span>Pick a Cloud</span>
-			</div>
-			<div class="col-sm-9 app_left_desc">
-				<div class="row">
-					<div class="col-sm-6 col-xs-6">
-						<%= link_to settings_path, :class => "btn btn-success btn-plain-green" do %>Create<%end%>
-					</div>
-					<div class="col-sm-6 col-xs-6">
-						<%= select_tag "cloud", options_for_select(@predef_cloud.map{ |c| [c.name] }, :selected=>@predef_cloud[0]), :class =>"form-control" %>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
 
+		<div class="row">
 			<div class="col-xs-12">
 				<div class="form-group">
-					<%= submit_tag "Create", :class => "btn btn-success btn-plain-green" %>
+					<%= submit_tag "Create app", :class => "btn btn-success col-xs-12" %>
 				</div>
 			</div>
 			<!-- <div class="col-xs-12">

@@ -48,6 +48,7 @@ class AppsController < ApplicationController
     end
   end
 
+=begin
   def build_request
     logger.debug "--> Apps:Build_request, #{params}"
     packed_parms = packed("Meat::Defns",params)
@@ -86,7 +87,7 @@ class AppsController < ApplicationController
       }
     end
   end
-
+=end
   def authorize_scm
     logger.debug "CloudBooks:authorize_scm, entry"
     auth_token = request.env['omniauth.auth']['credentials']['token']
@@ -107,6 +108,7 @@ class AppsController < ApplicationController
     end
   end
 
+=begin
   def authorize_assembla
     logger.debug "CloudBooks:authorize_assembla, entry"
     assembla_repos = ListAssemblaRepos.perform(request.env['omniauth.auth']['credentials']['token'])
@@ -200,6 +202,7 @@ class AppsController < ApplicationController
       end
     end
   end
+=end
 
   def dash(book)
     book_source = Rails.configuration.metric_source
@@ -220,6 +223,7 @@ class AppsController < ApplicationController
 
   end
 
+=begin
   def show
     wparams = {:node => "#{params[:name]}" }
     #look at storing in a local session, as we are redoing it.
@@ -300,5 +304,5 @@ class AppsController < ApplicationController
   def create_scm_user
 
   end
-
+=end
 end

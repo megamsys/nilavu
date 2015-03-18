@@ -35,7 +35,7 @@ class MainDashboardsController < ApplicationController
         end
       end    
     else
-      redirect_to signin_path
+      redirect_to signin_path and return
     end
   end
 
@@ -48,7 +48,7 @@ class MainDashboardsController < ApplicationController
   end
 
   def show
-    redirect_to main_dashboards_path
+    redirect_to main_dashboards_path and return
   end
 
   def lifecycle

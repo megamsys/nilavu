@@ -36,6 +36,7 @@
 //= require jquery.jcarousellite
 //= require megam.form_validation
 //= require app
+//= require filter
 //= require contact-us
 //= require index
 //= require jquery.flot

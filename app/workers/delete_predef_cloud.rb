@@ -1,5 +1,9 @@
 class DeletePredefCloud
   def self.perform(predefid, tmp_email, tmp_api_key)   
+	puts "Delete Predef Cloud================================> "
+	puts predefid
+	puts tmp_email
+	puts tmp_api_key
     begin
       @excon_res = Megam::PredefCloud.delete(predefid, tmp_email, tmp_api_key)
     rescue ArgumentError => ae
