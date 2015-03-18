@@ -47,4 +47,5 @@
 //= require megam.monitor
 //= require jquery.spin
 //= require megam.spin
+//= require filter
 //= require_tree .

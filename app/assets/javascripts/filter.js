@@ -84,4 +84,5 @@ jQuery.fn.jcOnPageFilter = function(a) {
             }
         })
     })
+
 }

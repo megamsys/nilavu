@@ -1,3 +1,4 @@
+
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9 c_bg_white c_height_5">
 	<div class="row c_pading-b15 settings_top">
 		<div class="margin_15">
@@ -20,6 +21,10 @@
 			</div>
 		</div>
 	</div>
+	
+	Filter by keyword <input id="filter" style="background: url('img/filter.png') 95% 60% no-repeat; background-size: 16px; width: 150px;" type="text" />
+   
+	
 	<div class="margin_30 pad_t25">
 		<div class="row c_pading-b15">
 			<div class="portlet-body-head">
@@ -42,9 +47,6 @@
 			<span class="icon-th-large"></span>
 			</div> -->
 		</div>
-
-
-
 
 <% categories.sort.each do |cat| %>	
 <div class="bottom-divider"></div>
@@ -80,8 +82,8 @@
 
 <script type="text/javascript">
 	// Secipt to show hide config menu
-	$(document).ready(function() {
-
+	jQuery(document).ready(function() {
+       $(".jcorgFilterTextChild").attr("disabled", "disabled")
 		$('.app_config').click(function(event) {
 
 			$('.config_menu').hide();
@@ -126,6 +128,19 @@ parentLookupClass:'jcorgFilterTextParent',
 childBlockClass:'jcorgFilterTextChild'});
 });
 </script>
+
+<script type="text/javascript">
+       $(document).ready(function(){
+          jQuery("#filter").jcOnPageFilter({animateHideNShow: true,
+                    focusOnLoad:true,
+                    highlightColor:'yellow',
+                    textColorForHighlights:'#000000',
+                    caseSensitive:false,
+                    hideNegatives:true,
+                    parentLookupClass:'jcorgFilterTextParent',
+                    childBlockClass:'jcorgFilterTextChild'});
+       });          
+       </script>
 
 <!-- App1 modal starts here -->
 <div id="app-1" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

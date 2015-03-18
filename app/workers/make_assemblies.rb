@@ -70,6 +70,20 @@ class MakeAssemblies
         end
       end
       
+      others = []
+      enable = "false"
+      scm = ""
+      scm_token = ""
+      scm_owner = ""
+      
+      if options.has_key?(:ci)
+        if options[:ci]          
+           enable = "true"        
+        end  
+        scm = "#{options[:scm_name]}"
+        scm_token = "#{options[:scm_token]}"
+        scm_owner = "#{options[:scm_owner]}"    
+      end
       
       if type == "ADDON"
         name = options[:appname]
@@ -100,6 +114,12 @@ class MakeAssemblies
             "dbname"=>"#{options[:dbname]}",
             "dbpassword"=>"#{options[:dbpassword]}",
           },
+          "ci"=>{
+             "scm"=>scm,
+             "enable"=>enable,
+             "token"=>scm_token,
+             "owner"=>scm_owner,
+            } 
         },
         "external_management_resource"=>"",
         "artifacts"=>{
@@ -112,6 +132,7 @@ class MakeAssemblies
           "operation_type"=>"",
           "target_resource"=>"",
         },
+        "others"=>others,
       }
       com << value
     end
