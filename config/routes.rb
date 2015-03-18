@@ -96,6 +96,8 @@ match '/github_ajax', :to => 'marketplaces#github_sessions', via: [:get, :post]
 match '/scm_manager_auth', :to => 'apps#scm_manager_auth', via: [:get, :post]
 match '/scmmanager_auth', :to => 'apps#scmmanager_auth', via: [:get, :post]
 match '/create_scm_user', :to => 'apps#create_scm_user', via: [:get, :post]
+
+match '/gogs_call', :to => 'marketplaces#gogs_sessions', via: [:get, :post]
 # ======Dashboard
 get "users/show"
 get "oneapps/show"

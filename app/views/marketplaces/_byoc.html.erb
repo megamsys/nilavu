@@ -147,11 +147,27 @@
 
 <script>
 	$(document).ready(function() {
+	$("#scm_name").val("gogs");
 		$("#gogs_connect").click(function() {
 			$.oauthpopup({
 				path : "/auth/gogs",
-				//callback: function(){
-				//}
+				callback: function(){
+				 $.ajax({
+							type : "POST",
+							url : "/gogs_call",
+							//dataType: 'json',							
+							success : function(data) {
+								console.log("It worked!")
+								console.log(dataString);
+							},
+
+							error : function(data) {
+								console.log("ERROR CHECK PROPERLY!!");
+								console.log(data);
+							}
+						});
+						return false;
+				}
 			});
 		});
 

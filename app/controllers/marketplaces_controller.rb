@@ -157,9 +157,7 @@ end
   end
 
   def github_sessions_data
-
     @tokens_gh = session[:github]
-
     render :text => @tokens_gh
   end
 
@@ -169,27 +167,36 @@ end
   def gogswindow
   end
 
-  def gogs_return
+  def gogs_sessions
+	@repos = session[:gogs_repos]
+	 respond_to do |format|
+       format.js {
+       		 respond_with(@repos, :layout => !request.xhr? )
+     	 }
+   		 end
+	end
 
+  def gogs_return
+    session[:gogs_owner] = params[:gogs_username]
     tokens = ListGogsTokens.perform(params[:gogs_username], params[:gogs_password])
     obj = JSON.parse(tokens)
     token = obj[0]["sha1"]
-
+    session[:gogs_token] = token
     @gogs_repos = ListGogsRepo.perform(token)
-
     obj_repo = JSON.parse(@gogs_repos)
-
     @repos_arr = []
 
     obj_repo.each do |one_repo|
-
       @repos_arr << one_repo["clone_url"]
     end
-    respond_to do |format|
-      format.js {
-        respond_with(@repos_arr, :layout => !request.xhr?)
-      }
-    end
+    
+    session[:gogs_repos] =  @repos_arr
+    
+   # respond_to do |format|
+    #  format.js {
+    #    respond_with(@repos_arr, :layout => !request.xhr?)
+     # }
+    #end
   end
 
   def category_view
@@ -443,8 +450,8 @@ end
     end
   end
 
-  def byoc_create
 
+  def byoc_create
     assembly_name = params[:name]
 
     version = params[:version]
@@ -464,10 +471,22 @@ end
     ttype = "tosca.web."
     appname = params[:appname]
     servicename = nil
+    
+    if params[:scm_name] == "github"
+      scmtoken =  session[:github]
+      scmowner =  session[:git_owner]
+    elsif params[:scm_name] == "gogs"
+      scmtoken =  session[:gogs_token]
+      scmowner =  session[:gogs_owner]
+    else 
+       scmtoken =  ""
+       scmowner =  ""
+    end      
+    
     if params[:check_ci] == "true"
-      options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => true, :scm_name => params[:scm_name], :scm_token =>  session[:github], :scm_owner => session[:git_owner] }
+      options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => true, :scm_name => params[:scm_name], :scm_token =>  scmtoken, :scm_owner => scmowner }
     else
-      options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => false, :scm_name => params[:scm_name], :scm_token =>  session[:github], :scm_owner => session[:git_owner]   }
+      options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => false, :scm_name => params[:scm_name], :scm_token =>  scmtoken, :scm_owner => scmowner   }
     end
     app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
     @res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
