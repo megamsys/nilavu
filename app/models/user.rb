@@ -21,6 +21,8 @@ class User
     @app_attributes = nil
     @cloud_identity_attributes = nil
     @apps_item_attributes = nil
+    @password_reset_token = nil
+    @password_reset_sent_at = nil
   end
 
 
@@ -37,22 +39,22 @@ class User
     hash = {
       "first_name" => options["first_name"],
       "last_name" => options["last_name"],
-      "admin" => true,
+      "admin" => options["admin"],
       "phone" => options["phone"],
-      "onboarded_api" => false,
+      "onboarded_api" => options["onboarded_api"],
       "user_type" => options["user_type"],
       "email" => options["email"],
-      "api_token" => "",
+      "api_token" => options["api_token"],
       "password" => password_encrypt(options["password"]),
       "password_confirmation" => password_encrypt(options["password_confirmation"]),
-      "verified_email" => false,
+      "verified_email" => options["verified_email"],
       "verification_hash" => options["verification_hash"],
       "created_at" => Time.zone.now,
       "updated_at" => Time.zone.now,
-      "password_reset_token" => "",
-      "password_reset_sent_at" => "",
+      "password_reset_token" => options["password_reset_token"],
+      "password_reset_sent_at" => options["password_reset_sent_at"],
       "remember_token" => options["remember_token"],
-      "org_id" => ""
+      "org_id" => options["org_id"]
     }
 
     hash.to_json
@@ -92,6 +94,16 @@ class User
     result
   end
 
+  def find_by_password_reset_token(password_reset_token, email)
+    result = nil
+    res = MegamRiak.fetch("profile", email)
+    if (res.class != Megam::Error) && (res.content.data["password_reset_token"] == "#{password_reset_token}")
+    result = res.content.data
+    end
+    result
+  end
+
+
   def find_by_email(email)
     result = nil
     res = MegamRiak.fetch("profile", email)
@@ -108,5 +120,18 @@ class User
   def password_decrypt(pass)
     Password.new(pass)
   end
+
+def send_password_reset(email)
+	@user = User.new
+	  update_options = { "password_reset_sent_at" => "#{Time.zone.now}", "password_reset_token" => generate_token }
+          res_update = @user.update_columns(update_options, email)
+	user = @user.find_by_email(email)
+          if res_update
+            UserMailer.password_reset(user).deliver_now
+          else
+            puts "API Key update: Something went wrong! User not updated"
+          end
+
+end
 
 end

@@ -32,11 +32,11 @@ class SessionsController < ApplicationController
 
   #this is a demo user who can only touch anything but mutate megam.
   def demo
-    user = User.find_by_email(params[:email])
-
-    if user && user.authenticate(params[:password])
+      @user = User.new
+      user = @user.find_by_email(params[:email])
+    if user != nil && @user.password_decrypt(user["password"]) == params[:password]
       sign_in user
-      redirect_back_or main_dashboards_path, :gflash => { :success => { :value => "This is a demo dry run mode. No actual launches to cloud happens. For full version, please signout and signup for a new account.", :sticky => false, :nodom_wrap => true } }
+      redirect_to main_dashboards_path, :notice => "Welcome #{user["first_name"]}."
     else
       flash[:error] = 'Invalid demo username and password combination'
       render 'new'
@@ -46,6 +46,9 @@ class SessionsController < ApplicationController
   def create
     logger.debug "==> Controller: sessions, Action: create, User signin"
     auth = social_identity
+ if !riak_ping?
+	redirect_to signin_path, :flash => { :error => "Problem in Riak! Check 'riak ping' in #{Rails.configuration.storage_server_url}." } and return
+ end
     if social_identity.nil?
       @user = User.new
       user = @user.find_by_email(params[:email])

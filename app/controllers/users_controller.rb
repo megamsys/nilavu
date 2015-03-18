@@ -61,6 +61,9 @@ class UsersController < ApplicationController
     @user = User.new
     @user_fields_form_type = params[:user_fields_form_type]
     params["remember_token"] = @user.generate_token
+ if !riak_ping?
+	redirect_to signin_path, :flash => { :error => "Problem in Riak! Check 'riak ping' in #{Rails.configuration.storage_server_url}." } and return
+ end
     if @user.save(params)
       sign_in params
       # fix for remember me: send the remember_me flag to sign_in method to decide if the user wishes to be remembered or not.
@@ -86,7 +89,7 @@ class UsersController < ApplicationController
             end
           end
           #  redirect_to main_dashboards_path, :gflash => { :success => { :value => "Hi #{params["first_name"]}, #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-          redirect_to main_dashboards_path, :format => 'html', :notice => "Welcome #{params['first_name']}. Your #{mail_res}"
+          redirect_to main_dashboards_path, :format => 'html', :flash => { :alert => "Welcome #{params['first_name']}. Your #{mail_res}"}
         else
           logger.debug "==> Controller: users, Action: create, User onboard was not successful"
           #redirect_to main_dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onboard #{@user.email} into our API server. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}.", :sticky => false, :nodom_wrap => true } }
@@ -95,7 +98,7 @@ class UsersController < ApplicationController
       else
         logger.debug "==> Controller: users, Action: create, User onboard was not successful"
         #redirect_to main_dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onboard #{@user.email} into our API server. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}.", :sticky => false, :nodom_wrap => true } }
-        redirect_to main_dashboards_path, :alert => "Gateway Failure.", :format => 'html'
+        redirect_to main_dashboards_path, :flash => { :alert => "Gateway Failure. Check gateway logs." }, :format => 'html'
       end
 
     else
@@ -283,3 +286,4 @@ class UsersController < ApplicationController
     end
   end
 end
+
