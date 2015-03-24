@@ -10,7 +10,7 @@ var App = function () {
 
         if ($('body').css('direction') === 'rtl') {
             isRTL = true;
-        }
+        };
 
         isIE8 = !! navigator.userAgent.match(/MSIE 8.0/);
         isIE9 = !! navigator.userAgent.match(/MSIE 9.0/);
@@ -18,8 +18,8 @@ var App = function () {
         
         if (isIE10) {
             jQuery('html').addClass('ie10'); // detect IE10 version
-        }
-    }
+        };
+    };
 
     function handleIEFixes() {
         //fix html5 placeholder attribute for ie7 & ie8
@@ -101,7 +101,7 @@ var App = function () {
     var handleFancybox = function () {
         if (!jQuery.fancybox) {
             return;
-        }
+        };
 
         if (jQuery(".fancybox-button").size() > 0) {            
             jQuery(".fancybox-button").fancybox({
@@ -120,7 +120,7 @@ var App = function () {
                 type: 'iframe'
             });
         }
-    }
+    };
 	
     var handleFixedHeader = function() {
 
@@ -128,11 +128,11 @@ var App = function () {
         window.attachEvent( 'scroll', function( event ) {
                     if ($('body').hasClass("page-header-fixed") === false) {
                         return;
-                    }
+                    };
         if( !didScroll ) {
         didScroll = true;
         setTimeout( scrollPage, 250 );
-        }
+        };
         });
             } else {
                 window.addEventListener( 'scroll', function( event ) {
@@ -144,7 +144,7 @@ var App = function () {
                         setTimeout( scrollPage, 250 );
                     }
                 }, false );
-            }
+            };
         var docElem = document.documentElement,
         header = $( '.navbar-inner' ),
         headerwrap = $( '.front-header' ),
@@ -166,13 +166,13 @@ var App = function () {
                 $('#logoimg').attr('height', '21px');
             }
             didScroll = false;
-        }
+        };
 
         function scrollY() {
             return window.pageYOffset || docElem.scrollTop;
-        }
+        };
 
-    }
+    };
 
     var handleTheme = function () {
 	
@@ -184,7 +184,7 @@ var App = function () {
             $('#logoimg').attr("src", "assets/img/logo_" + color + ".png");
             $('#rev-hint1').attr("src", "assets/img/sliders/revolution/hint1-" + color + ".png");
             $('#rev-hint2').attr("src", "assets/img/sliders/revolution/hint2-" + color + ".png");
-        }
+        };
 
         $('.icon-color', panel).click(function () {
             $('.color-mode').show();
@@ -218,7 +218,7 @@ var App = function () {
 			}
 		});
 		
-	}
+	};
 	
     return {
         init: function () {

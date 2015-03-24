@@ -5,7 +5,7 @@ function($scope, socket, $location, usSpinnerService, $rootScope, LogStackLimit)
     $scope.total = 0;
     $scope.l_total = 0;
     $scope.bookName = "";
-    $scope.spinneractive = false;
+    $scope.spinneractive = true;
     $scope.listOfOptions = $scope.books;
 
   $scope.selectedItemChanged = function(){
@@ -14,23 +14,24 @@ function($scope, socket, $location, usSpinnerService, $rootScope, LogStackLimit)
     
     $scope.sendmessage = function(data) {
     console.log("=================================");
-        if (!$scope.spinneractive) {
+        if ($scope.spinneractive) {
             usSpinnerService.spin('spinner-1');
         }
         $scope.logs = [];
         $scope.bookName = data;
         socket.emit('message', data);
-        if ($scope.spinneractive) {
-            usSpinnerService.stop('spinner-1');
-        }
+        //if ($scope.spinneractive) {
+         //   usSpinnerService.stop('spinner-1');
+       // }
     };
-
     $rootScope.$on('us-spinner:spin', function(event, key) {
-        $scope.spinneractive = true;
+
+        $scope.spinneractive = false;
     });
 
     $rootScope.$on('us-spinner:stop', function(event, key) {
-        $scope.spinneractive = false;
+
+        $scope.spinneractive = true;
     });
 
     socket.on('connect', function(data) {
@@ -43,7 +44,7 @@ function($scope, socket, $location, usSpinnerService, $rootScope, LogStackLimit)
 
     socket.on('message', function(message) {
         if (!$scope.spinneractive) {
-            usSpinnerService.spin('spinner-1');
+            usSpinnerService.stop('spinner-1');
         }
         $scope.total = $scope.total + 1;
         $scope.l_total = $scope.l_total + 1;
@@ -56,9 +57,9 @@ function($scope, socket, $location, usSpinnerService, $rootScope, LogStackLimit)
             $scope.total = 0;
         }
         predicate = 'timestamp';
-        if ($scope.spinneractive) {
-            usSpinnerService.stop('spinner-1');
-        }
+       //if ($scope.spinneractive) {
+         //   usSpinnerService.stop('spinner-1');
+        //}
     });
 
     $scope.book_json = 'http://mob.co/kibana/#/dashboard/.json';
