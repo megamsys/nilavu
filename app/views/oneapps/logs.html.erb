@@ -68,19 +68,25 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
+						<div us-spinner ng-hide="spinneractive">
+							
 						<td>
-						<p>
+						<p><
 							<small> {{ log.Timestamp | date:'d MMM yy, hh:mm a Z' }}</small>
 						</p></td>
+						
 						<td>
 						<p>
 							<small>{{log.Payload }}</small>
 						</p></td>
+						</div>
 					</tr>
+					
 				</tbody>
 			</table>
 		</div>
 	</div>
+	
 </div>
 <% end %>
 <script>
