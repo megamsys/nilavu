@@ -4,6 +4,10 @@ class MarketplacesController < ApplicationController
   respond_to :js
   include MarketplaceHelper
   include AppsHelper
+  ##
+  ## index page get all marketplace items from storage(we use riak) using megam_gateway
+  ## and show the items in order of category
+  ##
   def index
     if current_user_verify
       mkp = get_marketplaces
@@ -128,7 +132,6 @@ end
 =end
 
   def github_scm
-
     if current_user.nil?
       redirect_to :controller=>'sessions', :action=>'create'
     else
@@ -138,13 +141,10 @@ end
       @auth_token = request.env['omniauth.auth']['credentials']['token']
       session[:github] =  @auth_token
       session[:git_owner] = request.env['omniauth.auth']['extra']['raw_info']['login']
-     
     end
-
   end
 
   def github_sessions
-
     auth_id = params['id']
     github = Github.new oauth_token: auth_id
     git_array = github.repos.all.collect { |repo| repo.clone_url }
@@ -168,13 +168,13 @@ end
   end
 
   def gogs_sessions
-	@repos = session[:gogs_repos]
-	 respond_to do |format|
-       format.js {
-       		 respond_with(@repos, :layout => !request.xhr? )
-     	 }
-   		 end
-	end
+    @repos = session[:gogs_repos]
+    respond_to do |format|
+      format.js {
+        respond_with(@repos, :layout => !request.xhr? )
+      }
+    end
+  end
 
   def gogs_return
     session[:gogs_owner] = params[:gogs_username]
@@ -189,14 +189,14 @@ end
     obj_repo.each do |one_repo|
       @repos_arr << one_repo["clone_url"]
     end
-    
+
     session[:gogs_repos] =  @repos_arr
-    
-   # respond_to do |format|
-    #  format.js {
-    #    respond_with(@repos_arr, :layout => !request.xhr?)
-     # }
-    #end
+
+  # respond_to do |format|
+  #  format.js {
+  #    respond_with(@repos_arr, :layout => !request.xhr?)
+  # }
+  #end
   end
 
   def category_view
@@ -378,6 +378,8 @@ end
                 end
               else
                 relatedcomponent = assembly_name + "." + domain + "/" + servicename
+                puts "++++++++++++++++++++++++++++++++++++++++"
+                puts get_component.inputs
                 update_component_json = UpdateComponentJson.perform(get_component, relatedcomponent)
                 update_component = UpdateComponent.perform(update_component_json, force_api[:email], force_api[:api_key])
                 if update_component.class == Megam::Error
@@ -450,7 +452,6 @@ end
     end
   end
 
-
   def byoc_create
     assembly_name = params[:name]
 
@@ -471,22 +472,22 @@ end
     ttype = "tosca.web."
     appname = params[:appname]
     servicename = nil
-    
+
     if params[:scm_name] == "github"
       scmtoken =  session[:github]
       scmowner =  session[:git_owner]
     elsif params[:scm_name] == "gogs"
       scmtoken =  session[:gogs_token]
       scmowner =  session[:gogs_owner]
-    else 
-       scmtoken =  ""
-       scmowner =  ""
-    end      
-    
+    else
+      scmtoken =  ""
+      scmowner =  ""
+    end
+
     if params[:check_ci] == "true"
       options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => true, :scm_name => params[:scm_name], :scm_token =>  scmtoken, :scm_owner => scmowner }
     else
-     #options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => false, :scm_name => params[:scm_name], :scm_token =>  scmtoken, :scm_owner => scmowner   }
+    #options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => false, :scm_name => params[:scm_name], :scm_token =>  scmtoken, :scm_owner => scmowner   }
       options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => true, :scm_name => params[:scm_name], :scm_token =>  scmtoken, :scm_owner => scmowner }
     end
     app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])

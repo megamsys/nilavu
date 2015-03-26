@@ -119,8 +119,8 @@ Cloudauth::Application.routes.draw do
   # ======Dashboard
   get "users/show"		#Used for <%= render :template => users_show_path %>
   get "oneapps/show"
-  #get "oneservice/show"
-  #get "oneaddons/show"
+  get "oneservice/show"
+  get "oneaddons/show"
  
   #match '/dashboard_sidebar', to: 'dashboards#dashboard_sidebar', via: [:get]
   #match '/dashboards', to: 'dashboards#index', via: [:get]
