@@ -3,7 +3,7 @@ class MainDashboardsController < ApplicationController
   include MainDashboardsHelper
   def index
     if current_user_verify
-      
+
       @user_id = current_user["email"]
 
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
@@ -33,7 +33,7 @@ class MainDashboardsController < ApplicationController
             end
           end
         end
-      end    
+      end
     else
       redirect_to signin_path and return
     end
@@ -63,7 +63,7 @@ class MainDashboardsController < ApplicationController
     end
   end
 
- def deleteapp
+  def deleteapp
     @id = params[:id]
     @name = params[:name]
     respond_to do |format|

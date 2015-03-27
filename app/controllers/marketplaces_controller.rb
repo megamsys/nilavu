@@ -4,6 +4,10 @@ class MarketplacesController < ApplicationController
   respond_to :js
   include MarketplaceHelper
   include AppsHelper
+  ##
+  ## index page get all marketplace items from storage(we use riak) using megam_gateway
+  ## and show the items in order of category
+  ##
   def index
     if current_user_verify
       mkp = get_marketplaces
@@ -26,12 +30,13 @@ class MarketplacesController < ApplicationController
     end
   end
 
+  ##
+  ## to show the selected marketplace item
+  ##
   def show
     if current_user_verify
       @pro_name = params[:id].split("-")
-
       @apps = get_apps
-
       @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])
       if @mkp.class == Megam::Error
         redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
@@ -45,7 +50,6 @@ class MarketplacesController < ApplicationController
         @version_order=[]
         @version_order = @mkp.plans.map {|c| c["version"]}
         @version_order = @version_order.sort
-
         respond_to do |format|
           format.js {
             respond_with(@mkp, @version_order, @type, :layout => !request.xhr? )
@@ -57,11 +61,14 @@ class MarketplacesController < ApplicationController
     end
   end
 
+  ##
+  ## get all assemblies(it means applications) for that user launched and
+  ## list the applications in dashboard
+  ##
   def get_apps
     apps = []
     if current_user_verify
       @user_id = current_user["email"]
-
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
       @service_counter = 0
       @app_counter = 0
@@ -71,7 +78,6 @@ class MarketplacesController < ApplicationController
             asm.assemblies.each do |assembly|
               if assembly != nil
                 if assembly[0].class != Megam::Error
-
                   assembly[0].components.each do |com|
                     if com != nil
                       com.each do |c|
@@ -83,7 +89,6 @@ class MarketplacesController < ApplicationController
                       end
                     end
                   end
-
                   assembly[0].components.each do |com|
                     if com != nil
                       com.each do |c|
@@ -101,12 +106,12 @@ class MarketplacesController < ApplicationController
           end
         end
       end
-
     else
       redirect_to signin_path
     end
     apps
   end
+
 =begin
 def authorize_scm
 logger.debug "CloudBooks:authorize_scm, entry"
@@ -127,24 +132,25 @@ end
 
 =end
 
+  ##
+  ## after finish the github authentication the callback url comes this method
+  ## this function parse the request and get the github credentials
+  ## and store that credentials to session
+  ##
   def github_scm
-
     if current_user.nil?
       redirect_to :controller=>'sessions', :action=>'create'
     else
-      puts request.env['omniauth.auth'].inspect
-      puts "--------------------------------------"
-      puts request.env['omniauth.auth']['extra']['raw_info']['login']
       @auth_token = request.env['omniauth.auth']['credentials']['token']
       session[:github] =  @auth_token
       session[:git_owner] = request.env['omniauth.auth']['extra']['raw_info']['login']
-     
     end
-
   end
 
+  ##
+  ## this method collect all repositories for user using oauth token
+  ##
   def github_sessions
-
     auth_id = params['id']
     github = Github.new oauth_token: auth_id
     git_array = github.repos.all.collect { |repo| repo.clone_url }
@@ -156,6 +162,9 @@ end
     end
   end
 
+  ##
+  ## get session data and sends to UI
+  ##
   def github_sessions_data
     @tokens_gh = session[:github]
     render :text => @tokens_gh
@@ -164,18 +173,28 @@ end
   def gogs
   end
 
+  ##
+  ## gogswindow html page method
+  ##
   def gogswindow
   end
 
+  ##
+  ## get the repositories from session
+  ##
   def gogs_sessions
-	@repos = session[:gogs_repos]
-	 respond_to do |format|
-       format.js {
-       		 respond_with(@repos, :layout => !request.xhr? )
-     	 }
-   		 end
-	end
+    @repos = session[:gogs_repos]
+    respond_to do |format|
+      format.js {
+        respond_with(@repos, :layout => !request.xhr? )
+      }
+    end
+  end
 
+  ##
+  ## this function get the gogs token using username and password
+  ## then list the repositories using oauth tokens.
+  ##
   def gogs_return
     session[:gogs_owner] = params[:gogs_username]
     tokens = ListGogsTokens.perform(params[:gogs_username], params[:gogs_password])
@@ -185,20 +204,16 @@ end
     @gogs_repos = ListGogsRepo.perform(token)
     obj_repo = JSON.parse(@gogs_repos)
     @repos_arr = []
-
     obj_repo.each do |one_repo|
       @repos_arr << one_repo["clone_url"]
     end
-    
-    session[:gogs_repos] =  @repos_arr
-    
-   # respond_to do |format|
-    #  format.js {
-    #    respond_with(@repos_arr, :layout => !request.xhr?)
-     # }
-    #end
+    session[:gogs_repos] =  @repos_arr 
   end
 
+  ##
+  ## user clicks the particular marketplace item then this controller collect the details of
+  ## that selected item and show the contents
+  ##
   def category_view
     mkp = get_marketplaces
     @mkp_collection = mkp[:mkp_collection]
@@ -217,6 +232,9 @@ end
     end
   end
 
+  ##
+  ## this controller collect all registered marketplace items from megam storage
+  ##
   def get_marketplaces
     if current_user_verify
       mkp_collection = ListMarketPlaceApps.perform(force_api[:email], force_api[:api_key])
@@ -226,6 +244,9 @@ end
     end
   end
 
+  ##
+  ## when change the version of marketplace item then this controller change the contents of that item
+  ##
   def changeversion
     if current_user_verify
       @pro_name = params[:id].split("-")
@@ -247,6 +268,9 @@ end
     end
   end
 
+  ##
+  ## this controller launch the starters pack(megam provide these packages)
+  ##
   def starter_packs_create
     if current_user_verify
       assembly_name = params[:name]
@@ -299,6 +323,10 @@ end
     end
   end
 
+  ##
+  ## this controller launch the services
+  ## it checks service is bind any of the applications, the service is bind to application then add the application name to inputs
+  ##
   def app_boilers_create
     if current_user_verify
       assembly_name = params[:name]
@@ -415,6 +443,9 @@ end
     end
   end
 
+  ##
+  ## this controller launch the addons
+  ##
   def addons_create
     if current_user_verify
       assembly_name = params[:name]
@@ -450,7 +481,11 @@ end
     end
   end
 
-
+  ##
+  ## byoc means bring your own code
+  ## this option the users put their project from scm(github, gogs...)
+  ## then launch the application to cloud
+  ##
   def byoc_create
     assembly_name = params[:name]
 
@@ -463,30 +498,29 @@ end
 
     dbname = nil
     dbpassword = nil
-    combo = []
-    #combos = params[:combos]
-    #combo = combos.split("+")
+    combo = [] 
     combo << params[:byoc].downcase
 
     ttype = "tosca.web."
     appname = params[:appname]
     servicename = nil
-    
+
     if params[:scm_name] == "github"
       scmtoken =  session[:github]
       scmowner =  session[:git_owner]
     elsif params[:scm_name] == "gogs"
       scmtoken =  session[:gogs_token]
       scmowner =  session[:gogs_owner]
-    else 
-       scmtoken =  ""
-       scmowner =  ""
-    end      
-    
+    else
+      scmtoken =  ""
+      scmowner =  ""
+    end
+
     if params[:check_ci] == "true"
       options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => true, :scm_name => params[:scm_name], :scm_token =>  scmtoken, :scm_owner => scmowner }
     else
-      options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => false, :scm_name => params[:scm_name], :scm_token =>  scmtoken, :scm_owner => scmowner   }
+    #options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => false, :scm_name => params[:scm_name], :scm_token =>  scmtoken, :scm_owner => scmowner   }
+      options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => true, :scm_name => params[:scm_name], :scm_token =>  scmtoken, :scm_owner => scmowner }
     end
     app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
     @res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])

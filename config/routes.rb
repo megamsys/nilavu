@@ -113,22 +113,12 @@ Cloudauth::Application.routes.draw do
   match '/auth/google_oauth2/callback', :to => 'cross_clouds#gwindow', via: [:get, :post]
   match '/auth/assembla/callback', :to => 'apps#authorize_assembla', via: [:get, :post]
   match '/github_ajax', :to => 'marketplaces#github_sessions', via: [:get, :post]
-  #match '/scm_manager_auth', :to => 'apps#scm_manager_auth', via: [:get, :post]
-  #match '/scmmanager_auth', :to => 'apps#scmmanager_auth', via: [:get, :post]
-  #match '/create_scm_user', :to => 'apps#create_scm_user', via: [:get, :post]
+ 
   # ======Dashboard
   get "users/show"		#Used for <%= render :template => users_show_path %>
   get "oneapps/show"
-  #get "oneservice/show"
-  #get "oneaddons/show"
- 
-  #match '/dashboard_sidebar', to: 'dashboards#dashboard_sidebar', via: [:get]
-  #match '/dashboards', to: 'dashboards#index', via: [:get]
-  #match '/dashboards/:id' => 'dashboards#index', via: [:get]
- # match '/dashboards/:id', to: 'dashboards#index', via: [:get]
-  #match '/dashboards/:id/:book', to: 'dashboards#index', via [:get]
-  #match '/dashboards', to: 'users#dashboard',via: [:get]
-  #match '/dashboards', to: 'api/dashboards#index',via: [:get]
+  get "oneservice/show"
+  get "oneaddons/show" 
 
 match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :post]	#Used in maindashboard_index.html.erb
 
@@ -152,25 +142,17 @@ match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :p
  match '/lcaddon', :to => 'oneaddons#lcaddon', via: [:get] 
  match '/addon_request', :to => 'oneaddons#addon_request', via: [:get, :post]
  
-
-  # ========Cloud Books Histories controller
-  #match '/logs', to: 'apps_histories#logs', via: [:get, :post]
-
   # ==========Cloud settings
   match '/cross_cloud_new', to: 'settings#cross_cloud_new', via: [:get, :post]
   match '/cross_cloud_create', to: 'settings#cross_cloud_create', via: [:get, :post]
-  #match '/cloud_tool_settings_create', to: 'settings#cloud_tool_setting_create', via: [:get, :post]
-  #match '/cloud_tool_setting_new', to: 'settings#cloud_tool_setting_new', via: [:get, :post]  
   match '/sshkeys_download', to: 'ssh_keys#download', via: [:get, :post] 
   match '/sshkey_create', to: 'settings#sshkey_create', via: [:get, :post] 
   match '/sshkey_import', to: 'ssh_keys#sshkey_import', via: [:get, :post] 
   match '/ssh_key_import', to: 'ssh_keys#ssh_key_import', via: [:get, :post]
   match '/cloud_selector', to: 'cross_clouds#cloud_selector', via: [:get, :post]
   match '/cloud_init', to: 'cross_clouds#cloud_init', via: [:get, :post]
-  #get '/selectclouds' => 'settings#cloud_selector'
-  #match '/selectclouds', to: 'cross_clouds#new', via: [:get, :post]
-  #match '/market_place_app_show', to: 'marketplaces#market_place_app_show', via: [:get, :post]
   match '/changeversion', to: 'marketplaces#changeversion', via: [:get, :post]
+  
   #Market place
   match '/category_view', to: 'marketplaces#category_view', via: [:get, :post]
   #Disaster Recovery
@@ -180,9 +162,10 @@ match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :p
     
     #=====Gog
     match '/gogs', to: 'marketplaces#gogs', via: [:get, :post]
-   # match '/gogs_return', to: 'marketplaces#gogs_return', via: [:get, :post]
-  #post 'trigger', :to => 'marketplaces#gogs_return', via: [:post]
-  match '/gogs_popup', :to => 'marketplaces#gogswindow', via: [:get, :post]
+    match '/gogs_return', to: 'marketplaces#gogs_return', via: [:get, :post]
+    post 'trigger', :to => 'marketplaces#gogs_return', via: [:post]
+    match '/auth/gogs', :to => 'marketplaces#gogswindow', via: [:get, :post]
+    match '/gogs_call', :to => 'marketplaces#gogs_sessions', via: [:get, :post]
   #root :to => 'marketplaces#gogswindow'
   # =======Error controller
   get "/404", :to => "errors#not_found"
