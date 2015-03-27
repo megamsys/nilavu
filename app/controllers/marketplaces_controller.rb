@@ -193,7 +193,7 @@ end
 
   ##
   ## this function get the gogs token using username and password
-  ## then list the repositories using oauth tokens
+  ## then list the repositories using oauth tokens.
   ##
   def gogs_return
     session[:gogs_owner] = params[:gogs_username]
