@@ -11,6 +11,7 @@ class MarketplacesController < ApplicationController
   def index
     if current_user_verify
       mkp = get_marketplaces
+
       @mkp_collection = mkp[:mkp_collection]
       if @mkp_collection.class == Megam::Error
         redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
@@ -50,9 +51,22 @@ class MarketplacesController < ApplicationController
         @version_order=[]
         @version_order = @mkp.plans.map {|c| c["version"]}
         @version_order = @version_order.sort
+
+        @ssh_keys_collection = ListSshKeys.perform(force_api[:email], force_api[:api_key])
+        logger.debug "--> #{self.class} : listed sshkeys"
+
+        if @ssh_keys_collection.class != Megam::Error
+          @ssh_keys = []
+          ssh_keys = []
+          @ssh_keys_collection.each do |sshkey|
+            ssh_keys << {:name => sshkey.name, :created_at => sshkey.created_at.to_time.to_formatted_s(:rfc822)}
+          end
+          @ssh_keys = ssh_keys.sort_by {|vn| vn[:created_at]}
+        end
+
         respond_to do |format|
           format.js {
-            respond_with(@mkp, @version_order, @type, :layout => !request.xhr? )
+            respond_with(@mkp, @version_order, @type, @ssh_keys, :layout => !request.xhr? )
           }
         end
       end
@@ -207,7 +221,7 @@ end
     obj_repo.each do |one_repo|
       @repos_arr << one_repo["clone_url"]
     end
-    session[:gogs_repos] =  @repos_arr 
+    session[:gogs_repos] =  @repos_arr
   end
 
   ##
@@ -265,6 +279,36 @@ end
       end
     else
       redirect_to signin_path
+    end
+  end
+
+  ##
+  ## this controller launch the instances(which means virtual machines)
+  ## this performs three types of condition operations for launching instances using sshkeys
+  ##
+  def instances_create
+    if current_user_verify
+      assembly_name = params[:name]
+      version = params[:version]
+      domain = params[:domain]
+      cloud = params[:cloud]
+      source = params[:source]
+      type = params[:type].downcase
+      sshoption = params[:sshoption]
+      sshcreatename = params[:sshcreatename]
+      sshuploadname = params[:sshuploadname]
+      sshexistname = params[:sshexistname]
+
+      dbname = nil
+      dbpassword = nil
+
+      combos = params[:combos]
+      combo = combos.split("+")
+
+      ttype = "tosca.web."
+      appname = params[:appname]
+      servicename = nil      
+      
     end
   end
 
@@ -498,7 +542,7 @@ end
 
     dbname = nil
     dbpassword = nil
-    combo = [] 
+    combo = []
     combo << params[:byoc].downcase
 
     ttype = "tosca.web."

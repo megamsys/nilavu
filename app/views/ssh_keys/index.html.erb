@@ -1,61 +1,33 @@
-<!-- /.create or import sshkeys buttons here -->
-<div class="row">
-	<div class="col-xs-6 col-sm-7 col-md-9 col-lg-9 col-xl-9">
-		<h4>Activity</h4>
-	</div>
-	<div class="col-xs-6 col-sm-5 col-md-3 col-lg-3 col-xl-3">
-		<ul class="list-inline c_sett_inline">
-			<li>
-				<i class="c_icon-compose"></i><a data-toggle="modal" href="#create-ssh">Create</a>
-			</li>
-			<li class="pull-right">
-				<i class="c_icon-import pull"></i><a data-toggle="modal" href="#import-ssh">import</a>
-			</li>
-		</ul>
-	</div>
+<% content_for :content_settings do %>
+<% provide(:title, 'Manage Ssh keys') %>
 
+<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9 c_bg_white c_height_5">
+	<div class="row c_pading-b15 settings_top">
+		<div class="margin_15">
+			<div class="col-xs-9 col-sm-6 col-md-7">
+				<h3> Ssh keys </h3>
+			</div>
+			<%= render :partial => "users/topright_icons" %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="mplace mplace-head">
+			<div class="col-xs-12 col-md-3 mplace-left">
+				<h4> Ssh keys </h4>
+			</div>
+			<!--<div class="col-xs-12 col-md-9 mplace-middle hidden-xs hidden-sm">
+				<span class="pull-right c_small">Manage your ssh keys<i class="c_icon-rocket"></i><a href="http://www.gomegam.com/docs/users/services/index.html" target="_blank">Take a Tour</a></span>
+			</div> -->
+		</div>
+	</div>
+	<div class="margin_30 pad_t25">
+
+		<%= render :partial => "ssh_keys/sshkeys", :locals => {:user => current_user, :ssh_keys_collection => @ssh_keys_collection, :ssh_keys => @ssh_keys} %>
+
+	</div>
 </div>
 
-<!-- /.show the ssh keys collection in table format -->
-<div class="row">
-	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-		<div class="bottom-divider"></div>
-	</div>
-	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-		<table class="table tb_action_list">
-			<thead>
-				<tr>
-					<th>Actions</th>
-					<th>Name</th>
-					<th>Created At</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% if @ssh_keys_collection.class != Megam::Error %>
-				<% @ssh_keys.each do |sshkey| %>
-				<tr>
-					<td>
-					<div class="row">
-						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-public">
-							<%= link_to sshkeys_download_path(:filename => sshkey[:name]+"_pub"), :class => "btn btn-dark-blue" , :target => "_self" do %>
-							<i class="c_icon-in"></i><span>Public</span>
-							<% end %>
-						</div>
-						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-private">
-							<%= link_to sshkeys_download_path(:filename => sshkey[:name]+"_key"), :class => "btn btn-dark-red", :target => "_self" do %>
-							<i class="c_icon-inBlue"></i><span>Private</span>
-							<% end %>
-						</div>
-					</div></td>
-					<td class="set_title"><%= sshkey[:name] %></td>
-					<td><i class="c_icon-calendar"></i> <%= sshkey[:created_at] %> </td>
-				</tr>
-				<% end %>
-				<% end %>
-			</tbody>
-		</table>
-	</div>
-</div>
+<% end %>
 
 <!-- create SSH modal starts here -->
 <div id="create-ssh" class="modal fade" tabindex="-1" aria-hidden="true">
@@ -66,23 +38,23 @@
 				<h4 class="modal-title">Create SSH Key Pair</h4>
 			</div>
 			<div class="modal-body">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="alert alert-success">
-								Generate a SSH RSA 2048 key pair. Read <a href="http://gomegam.com/docs/users/security/sshkeypairs.html" target="_blank"> <strong>here</strong></a> for more information.
-							</div>
-							<%= form_tag ssh_keys_path, multipart: true, :method => 'post', :remote => true, data: { spinlock: '#creating_sshkeys'}  do %>
-							<div class="form-group">
-								<label for="ssh-key_name">Name</label>
-								<%= text_field_tag 'key_name', nil, :class=> 'form-control', placeholder: 'Enter a key pair name to save', :required => true %>
-								<input type="hidden" name="key_type" value="RSA">
-								<input type="hidden" name="key_bit" value="2048">
-							</div>
-							<%= submit_tag "Create", :class => "btn btn-success col-md-12 col-xs-12" %>
-							<% end %>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="alert alert-success">
+							Generate a SSH RSA 2048 key pair. Read <a href="http://gomegam.com/docs/users/security/sshkeypairs.html" target="_blank"> <strong>here</strong></a> for more information.
 						</div>
+						<%= form_tag ssh_keys_path, multipart: true, :method => 'post', :remote => true, data: { spinlock: '#creating_sshkeys'}  do %>
+						<div class="form-group">
+							<label for="ssh-key_name">Name</label>
+							<%= text_field_tag 'key_name', nil, :class=> 'form-control', placeholder: 'Enter a key pair name to save', :required => true %>
+							<input type="hidden" name="key_type" value="RSA">
+							<input type="hidden" name="key_bit" value="2048">
+						</div>
+						<%= submit_tag "Create", :class => "btn btn-success col-md-12 col-xs-12" %>
+						<% end %>
 					</div>
 				</div>
+			</div>
 
 		</div>
 	</div>
@@ -153,7 +125,7 @@
 				<div id="ssh_res_msg"></div>
 			</div>
 			<div class="modal-footer c_modal-footer">
-				<%= link_to  "Ok", settings_path, :class => "btn btn-success", :target => "_self" %>
+				<%= link_to  "Ok", ssh_keys_path, :class => "btn btn-success", :target => "_self" %>
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -172,7 +144,7 @@
 				<div id="ssh_err_msg"></div>
 			</div>
 			<div class="modal-footer c_modal-footer">
-				<%= link_to  "Ok", settings_path, :class => "btn btn-success", :target => "_self" %>
+				<%= link_to  "Ok", ssh_keys_path, :class => "btn btn-success", :target => "_self" %>
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -180,3 +152,4 @@
 	<!-- /.modal-dialog -->
 </div>
 
+<%= render :template => users_show_path %>

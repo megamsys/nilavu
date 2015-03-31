@@ -30,6 +30,7 @@ Cloudauth::Application.routes.draw do
   resources :oneaddons
   resources :oneapps
   resources :oneservice
+  resources :vms
 
   root :to => 'main_dashboards#index'
 
@@ -71,6 +72,7 @@ Cloudauth::Application.routes.draw do
   match '/byoc_launch', to: 'marketplaces#byoc_create', via: [:get, :post]
   match '/app_boilers_launch', to: 'marketplaces#app_boilers_create', via: [:get, :post]
   match '/addons_launch', to: 'marketplaces#addons_create', via: [:get, :post]
+  match '/instances_launch', to: 'marketplaces#instances_create', via: [:get, :post]
   #match '/get_request', to: 'apps#get_request', via: [:get, :post]
   #match '/build_request', to: 'apps#build_request', via: [:get, :post]
   #match '/requests', to: 'oneapps#requests', via: [:get, :post]
@@ -141,6 +143,9 @@ match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :p
  #one addon lifecycle
  match '/lcaddon', :to => 'oneaddons#lcaddon', via: [:get] 
  match '/addon_request', :to => 'oneaddons#addon_request', via: [:get, :post]
+ 
+ #one instance lifecycle
+ match '/vm_request', :to => 'onevms#vm_request', via: [:get, :post]
  
   # ==========Cloud settings
   match '/cross_cloud_new', to: 'settings#cross_cloud_new', via: [:get, :post]

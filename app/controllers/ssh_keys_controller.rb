@@ -4,6 +4,24 @@ class SshKeysController < ApplicationController
   def new
 
   end
+  
+  ##
+  ## get all sshkeys from storage and sort the keys for creating time based
+  ##
+  def index
+    logger.debug "--> #{self.class} : list sshkeys entry"
+    @ssh_keys_collection = ListSshKeys.perform(force_api[:email], force_api[:api_key])
+    logger.debug "--> #{self.class} : listed sshkeys"
+
+    if @ssh_keys_collection.class != Megam::Error
+      @ssh_keys = []
+      ssh_keys = []
+      @ssh_keys_collection.each do |sshkey|
+        ssh_keys << {:name => sshkey.name, :created_at => sshkey.created_at.to_time.to_formatted_s(:rfc822)}
+      end
+      @ssh_keys = ssh_keys.sort_by {|vn| vn[:created_at]}
+    end
+  end
 
   def ssh_key_import
   end
