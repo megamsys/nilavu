@@ -7,6 +7,8 @@ var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/byoc', :locals => {:version => @version_order[0],:type => @type, :mkp => @mkp}) %>";
 <% elsif @type == "ANALYTICS" %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/analytics_view', :locals => {:version => @version_order[0],:type => @type, :mkp => @mkp}) %>";
+<% elsif @type == "INSTANCE" %>
+var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/instance_view', :locals => {:version => @version_order[0],:type => @type, :mkp => @mkp, :ssh_keys => @ssh_keys}) %>";
 <% else %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/docker_view', :locals => {:version => @version_order[0], :mkp => @mkp}) %>";
 <% end %>

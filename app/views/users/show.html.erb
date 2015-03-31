@@ -9,13 +9,20 @@
 					<ul class="page-sidebar-menu">
 
 						<li></li>
-						
 
 						<li class= "start active">
 							<%= link_to main_dashboards_path, :target => "_self" do %>
 							<i class="icon-dashboard pull-left"></i>
 							<span class="title pull-left">Dashboard</span>
 							<span class="hidden-xs <%= "selected" if controller_name == 'main_dashboards'%>"></span>
+							<% end %>
+						</li>
+
+						<li class= "start active">
+							<%= link_to vms_path, :target => "_self" do %>
+							<i class="icon-pushpin pull-left"></i>
+							<span class="title pull-left">Instances</span>
+							<span class="hidden-xs <%= "selected" if controller_name == "vms"%>"></span>
 							<% end %>
 						</li>
 
@@ -43,13 +50,21 @@
 							<% end %>
 						</li>
 
-						<li class="start active">
-							<%= link_to settings_path, :target => "_self" do %>
-							<i class="icon-cog pull-left"></i>
-							<span class="title pull-left">Settings</span>
-							<span class="hidden-xs <%= "selected" if controller_name == "settings"%>"></span>
+						<li class= "start active">
+							<%= link_to ssh_keys_path, :target => "_self" do %>
+							<i class="icon-pushpin pull-left"></i>
+							<span class="title pull-left">ssh keys</span>
+							<span class="hidden-xs <%= "selected" if controller_name == "sshkeys"%>"></span>
 							<% end %>
 						</li>
+
+						<!-- <li class="start active">
+						<%= link_to settings_path, :target => "_self" do %>
+						<i class="icon-cog pull-left"></i>
+						<span class="title pull-left">Settings</span>
+						<span class="hidden-xs <%= "selected" if controller_name == "settings"%>"></span>
+						<% end %>
+						</li> -->
 
 					</ul>
 					<!-- END SIDEBAR MENU -->

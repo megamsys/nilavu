@@ -240,3 +240,50 @@ hadoop:
   type: ANALYTICS
   basic_combos: hadoop
 
+ubuntu:
+  name: ubuntu
+  no_of_instances: 1
+  db_model: 
+  dbms: 
+  predef_name: ubuntu
+  radios:
+  deps_scm:
+  link: 
+  type: INSTANCE
+  basic_combos: ubuntu
+  
+coreos:
+  name: coreos
+  no_of_instances: 1
+  db_model: 
+  dbms: 
+  predef_name: coreos
+  radios:
+  deps_scm:
+  link: 
+  type: INSTANCE
+  basic_combos: coreos
+  
+debian:
+  name: debian
+  no_of_instances: 1
+  db_model: 
+  dbms: 
+  predef_name: debian
+  radios:
+  deps_scm:
+  link: 
+  type: INSTANCE
+  basic_combos: debian
+  
+centos:
+  name: centos
+  no_of_instances: 1
+  db_model: 
+  dbms: 
+  predef_name: centos
+  radios:
+  deps_scm:
+  link: 
+  type: INSTANCE
+  basic_combos: centos
