@@ -51,11 +51,19 @@ class MainDashboardsController < ApplicationController
     redirect_to main_dashboards_path and return
   end
 
+#
+## Lifecycle of the app, services and VMs  - start, stop, restart and delete. 
+#
+
   def lifecycle
     @id = params[:id]
     @name = params[:name]
     @command = params[:command]
-    @type = params[:type]
+    @type = params[:type]    
+    options = {:id => "#{params[:id]}", :name => "#{params[:name]}", :command => "#{params[:command]}", :type => "#{params[:type]}"  }
+    puts options
+    create_events = CreateEvent.perform(options, force_api[:email], force_api[:api_key])
+    puts create_events
     respond_to do |format|
       format.js {
         respond_with(@id, @name, @command, @type, :layout => !request.xhr? )
