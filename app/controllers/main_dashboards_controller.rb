@@ -56,17 +56,17 @@ class MainDashboardsController < ApplicationController
 #
 
   def lifecycle
-    @id = params[:id]
-    @name = params[:name]
+    @a_id = params[:id]
+    @a_name = params[:name]
     @command = params[:command]
-    @type = params[:type]    
-    options = {:id => "#{params[:id]}", :name => "#{params[:name]}", :command => "#{params[:command]}", :type => "#{params[:type]}"  }
+    @launch_type = params[:type]    
+    options = {:a_id => "#{params[:id]}", :a_name => "#{params[:name]}", :command => "#{params[:command]}", :launch_type => "#{params[:type]}"  }
     puts options
     create_events = CreateEvent.perform(options, force_api[:email], force_api[:api_key])
     puts create_events
     respond_to do |format|
       format.js {
-        respond_with(@id, @name, @command, @type, :layout => !request.xhr? )
+        respond_with(@a_id, @a_name, @command, @launch_type, :layout => !request.xhr? )
       }
     end
   end

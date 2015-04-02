@@ -1,5 +1,5 @@
 class CreateEvent
-  Rails.logger.debug "Worker: " "CreateEvent------------------"
+  Rails.logger.debug "Worker: " "CreateEvent"
   def self.perform(new_event, tmp_email, tmp_apikey)
     begin
       @excon_res = Megam::Event.create(new_event, tmp_email, tmp_apikey)
