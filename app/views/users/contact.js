@@ -1,3 +1,4 @@
+
 var selected_entity = '#contact_mail_success';
 $(selected_entity).modal('show');
 $("#reset").show();

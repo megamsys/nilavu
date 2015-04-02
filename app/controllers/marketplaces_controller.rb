@@ -1,9 +1,25 @@
+##
+## Copyright [2013-2015] [Megam Systems]
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+## http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+##
 require 'json'
 
 class MarketplacesController < ApplicationController
   respond_to :js
   include MarketplaceHelper
   include AppsHelper
+  include CrossCloudsHelper
   ##
   ## index page get all marketplace items from storage(we use riak) using megam_gateway
   ## and show the items in order of category
@@ -295,9 +311,6 @@ end
       source = params[:source]
       type = params[:type].downcase
       sshoption = params[:sshoption]
-      sshcreatename = params[:sshcreatename]
-      sshuploadname = params[:sshuploadname]
-      sshexistname = params[:sshexistname]
 
       dbname = nil
       dbpassword = nil
@@ -307,8 +320,109 @@ end
 
       ttype = "tosca.web."
       appname = params[:appname]
-      servicename = nil      
-      
+      servicename = nil
+      sshkeyname = nil
+    logger.debug "--> #{self.class} : Instance creation - I'm in..."
+      ## check the user chose what type of ssh option and then perform it
+      ## in this case we have three options
+      ## first  - create option then we create a new ssh key for user
+      ## second - user already have ssh keys and upload it
+      ## third  - it is user already create and upload sshkeys on megam storage
+      ## finally set the sshkeys and launch the instance
+      if sshoption == "CREATE"
+        k = SSHKey.generate
+        key_name = params[:sshcreatename] + "_" + assembly_name || current_user["first_name"]
+        sshkeyname = key_name
+        @filename = key_name
+        if Rails.configuration.storage_type == "s3"
+          sshpub_loc = vault_s3_url+"/"+current_user["email"]+"/"+key_name
+        else
+          sshpub_loc = current_user["email"]+"_"+key_name     #Riak changes
+        end
+        wparams = { :name => key_name, :path => sshpub_loc }
+        @res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
+        if @res_body.class == Megam::Error
+          @res_msg = nil
+          @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+          respond_to do |format|
+            format.js {
+              respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
+            }
+          end
+        else
+          logger.debug "--> #{self.class} : Instance creation - ssh key creating..."
+          @err_msg = nil
+          options ={:email => current_user["email"], :ssh_key_name => key_name, :ssh_private_key => k.private_key, :ssh_public_key => k.ssh_public_key }
+          upload = SshKey.perform(options, ssh_files_bucket)
+          if upload.class == Megam::Error
+            @res_msg = nil
+            @err_msg="SSH key #{key_name} creation failed."
+            @public_key = ""
+            respond_to do |format|
+              format.js {
+                respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
+              }
+            end
+          end
+          logger.debug "--> #{self.class} : Instance creation - ssh key created..."
+        end
+      end
+    
+      if sshoption == "UPLOAD"
+        @filename = params[:key_name]
+        key_name = params[:sshuploadname] + "_" + assembly_name
+        sshkeyname = key_name
+        if Rails.configuration.storage_type == "s3"
+          sshpub_loc = vault_s3_url+"/"+current_user["email"]+"/"+key_name
+        else
+          sshpub_loc = current_user["email"]+"_"+key_name     #Riak changes
+        end
+        wparams = { :name => key_name, :path => sshpub_loc }
+        @res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
+        if @res_body.class == Megam::Error
+          @res_msg = nil
+          @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+          respond_to do |format|
+            format.js {
+              respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
+            }
+          end
+        else
+          logger.debug "--> #{self.class} : Instance creation - ssh key uploading..."
+          @err_msg = nil
+          options ={:email => current_user["email"], :ssh_key_name => key_name, :ssh_private_key => params[:ssh_private_key], :ssh_public_key => params[:ssh_public_key] }
+          upload = SshKey.upload(options, ssh_files_bucket)
+          if upload.class == Megam::Error
+            @res_msg = nil
+            @err_msg="Failed to Generate SSH keys. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+            @public_key = ""
+            respond_to do |format|
+              format.js {
+                respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
+              }
+            end
+          end
+          logger.debug "--> #{self.class} : Instance creation - sshkey uploaded..."
+        end
+      end
+
+      if sshoption == "EXIST"
+        sshkeyname = params[:sshexistname]
+    end
+
+      logger.debug "--> #{self.class} : Instance creation - Instance launching..."
+      options = {:instance => true, :assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :sshkeyname => sshkeyname  }
+        app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
+        @res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
+        if @res.class == Megam::Error
+          @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+          respond_to do |format|
+            format.js {
+              respond_with(@err_msg, :layout => !request.xhr? )
+            }
+          end
+        end
+        logger.debug "--> #{self.class} : Instance creation - Instance launched successfully..."
     end
   end
 
@@ -350,7 +464,7 @@ end
         ttype = "tosca.web."
         #end
 
-        options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword  }
+        options = {:instance => false, :assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword  }
         app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
         @res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
         if @res.class == Megam::Error
@@ -415,7 +529,7 @@ end
         ttype = "tosca.web."
         #end
 
-        options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :related_components => related_components, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword  }
+        options = {:instance => false, :assembly_name => assembly_name, :appname => appname, :servicename => servicename, :related_components => related_components, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword  }
         app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
         @res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
         if @res.class == Megam::Error
@@ -508,7 +622,7 @@ end
       appname = params[:appname]
       servicename = nil
 
-      options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword  }
+      options = {:instance => false, :assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword  }
       app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
       @res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
       if @res.class == Megam::Error
@@ -561,10 +675,10 @@ end
     end
 
     if params[:check_ci] == "true"
-      options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => true, :scm_name => params[:scm_name], :scm_token =>  scmtoken, :scm_owner => scmowner }
+      options = {:instance => false, :assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => true, :scm_name => params[:scm_name], :scm_token =>  scmtoken, :scm_owner => scmowner }
     else
     #options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => false, :scm_name => params[:scm_name], :scm_token =>  scmtoken, :scm_owner => scmowner   }
-      options = {:assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => true, :scm_name => params[:scm_name], :scm_token =>  scmtoken, :scm_owner => scmowner }
+      options = {:instance => false, :assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :ci => true, :scm_name => params[:scm_name], :scm_token =>  scmtoken, :scm_owner => scmowner }
     end
     app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
     @res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
