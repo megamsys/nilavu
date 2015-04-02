@@ -44,6 +44,7 @@
 		<% if assembly != nil %>
 		<% if assembly[0].class != Megam::Error %>
 
+		<% if assembly[0].components.length > 0 %>
 		<% assembly[0].components.each do |com| %>
 		<% if com != nil %>
 		<% com.each do |c| %>
@@ -51,6 +52,7 @@
 		<% ctype = get_type(com_type[2]) %>
 		<% if ctype == "ADDON" %>
 		<% sflag = true %>
+		<% end %>
 		<% end %>
 		<% end %>
 		<% end %>
@@ -87,6 +89,7 @@
 						</div>
 						<div class="row app_icon">
 							<h5><%= assembly[0].name %></h5>
+							<% if assembly[0].components.length > 0 %>
 							<% appkey = assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain] %>
 							<%= link_to appkey, addonsoverview_path(:appkey => assembly[0].id) %>
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -106,6 +109,7 @@
 									<% end %>
 								</ul>
 							</div>
+							<% end %>
 						</div>
 						<!-- <img class="center-block" src="assets/img/app2.png"> -->
 					</div>
@@ -147,6 +151,7 @@
 						</div>
 						<div class="row app_icon">
 							<h5><%= assembly[0].name %></h5>
+							<% if assembly[0].components.length > 0 %>
 							<%= assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain] %>
 
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -164,6 +169,7 @@
 									<% end %>
 								</ul>
 							</div>
+							<% end %>
 						</div>
 						<!-- <img class="center-block" src="assets/img/app2.png"> -->
 					</div>

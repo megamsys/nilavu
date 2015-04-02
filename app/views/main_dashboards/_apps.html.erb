@@ -45,7 +45,8 @@
 		<% sflag = true %>
 		<% if assembly != nil %>
 		<% if assembly[0].class != Megam::Error %>
-
+		
+        <% if assembly[0].components.length > 0 %>
 		<% assembly[0].components.each do |com| %>
 		<% if com != nil %>
 		<% com.each do |c| %>
@@ -59,7 +60,7 @@
 		<% end %>
 		<% end %>
 		<% end %>
-
+		
 		<% if sflag %>
 		<% if assembly[0].status != "Terminated" %>
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
@@ -103,7 +104,6 @@
 							<% end %>
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 								<ul class="list-inline app_icon_bottom">
-								   
 									<%  assembly[0].components.each do |com| %>
 									<% if com != nil %>
 									<% com.each do |c| %>
@@ -162,7 +162,6 @@
 						<div class="row app_icon">
 							<h5><%= assembly[0].name %></h5>
 							<%= assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain] %>
-							
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 								<ul class="list-inline app_icon_bottom">
 									<%  assembly[0].components.each do |com| %>
@@ -199,6 +198,6 @@
 		<% end %>
 		<% end %>
 		<% end %>
-
+        <% end %>
 	</div>
 </div><!-- running apps ends here -->

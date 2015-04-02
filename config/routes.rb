@@ -31,6 +31,7 @@ Cloudauth::Application.routes.draw do
   resources :oneapps
   resources :oneservice
   resources :vms
+  resources :onevms
 
   root :to => 'main_dashboards#index'
 
@@ -47,6 +48,9 @@ Cloudauth::Application.routes.draw do
 
  match '/edituser' => 'users#edituser', via: [:get, :post]
  match '/userupdate' => 'users#userupdate', via: [:put]
+ 
+#vm Overview
+ match '/vmoverview', to: 'onevms#overview', via: [:get, :post]
  
 #oneapp Overview
   match '/appoverview', to: 'oneapps#overview', via: [:get, :post]
@@ -121,6 +125,7 @@ Cloudauth::Application.routes.draw do
   get "oneapps/show"
   get "oneservice/show"
   get "oneaddons/show" 
+  get "onevms/show"
 
 match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :post]	#Used in maindashboard_index.html.erb
 
