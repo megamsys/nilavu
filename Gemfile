@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem "rails",  "~> 4.2.1.rc3"
+gem "rails",  "~> 4.2.1"
 # add these gems to help with the transition to Rails 4.2.x
 gem 'protected_attributes', "~> 1.0.8"
 gem "responders", "~> 2.0.2"
@@ -40,7 +40,7 @@ gem 'riak-client', '~> 2.1.0'
 #general
 gem "github_api", "~>0.12.3"
 gem "randexp", "~> 0.1.7"
-gem "megam_api", "~> 0.35"
+gem "megam_api", "~> 0.36"
 gem 'google-analytics-rails', '~> 0.0.6'
 gem 'megam_gogs', "~> 0.5.0"
 
