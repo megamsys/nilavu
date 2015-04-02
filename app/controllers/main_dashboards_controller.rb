@@ -24,18 +24,20 @@ class MainDashboardsController < ApplicationController
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
       @service_counter = 0
       @app_counter = 0
+      @vm_counter = 0
       if @assemblies != nil
         @assemblies.each do |asm|
           if asm.class != Megam:: Error
             asm.assemblies.each do |assembly|
               if assembly != nil
                 if assembly[0].class != Megam::Error
+                  if assembly[0].components.length == 0
+                    @vm_counter = @vm_counter + 1
+                  end
                   assembly[0].components.each do |com|
                     if com != nil
                       com.each do |c|
                         com_type = c.tosca_type.split(".")
-                        puts "+++++++++++++++++++++++++++"
-                        puts com_type
                         ctype = get_type(com_type[2])
                         puts ctype
                         if ctype == "SERVICE"
@@ -69,15 +71,15 @@ class MainDashboardsController < ApplicationController
     redirect_to main_dashboards_path and return
   end
 
-#
-## Lifecycle of the app, services and VMs  - start, stop, restart and delete. 
-#
+  #
+  ## Lifecycle of the app, services and VMs  - start, stop, restart and delete.
+  #
 
   def lifecycle
     @a_id = params[:id]
     @a_name = params[:name]
     @command = params[:command]
-    @launch_type = params[:type]    
+    @launch_type = params[:type]
     options = {:a_id => "#{params[:id]}", :a_name => "#{params[:name]}", :command => "#{params[:command]}", :launch_type => "#{params[:type]}"  }
     puts options
     create_events = CreateEvent.perform(options, force_api[:email], force_api[:api_key])

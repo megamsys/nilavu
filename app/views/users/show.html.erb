@@ -35,7 +35,7 @@
 
 						<li class= "start active">
 							<%= link_to vms_path, :target => "_self" do %>
-							<i class="icon-pushpin pull-left"></i>
+							<i class="icon-bar-chart pull-left"></i>	
 							<span class="title pull-left">Instances</span>
 							<span class="hidden-xs <%= "selected" if controller_name == "vms"%>"></span>
 							<% end %>
@@ -67,7 +67,7 @@
 
 						<li class= "start active">
 							<%= link_to ssh_keys_path, :target => "_self" do %>
-							<i class="icon-pushpin pull-left"></i>
+							<i class="icon-key pull-left"></i>
 							<span class="title pull-left">ssh keys</span>
 							<span class="hidden-xs <%= "selected" if controller_name == "sshkeys"%>"></span>
 							<% end %>

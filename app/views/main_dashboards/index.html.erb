@@ -97,6 +97,7 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 				</div>
 			</div>
 		</div>
+		<%= render :partial => "main_dashboards/vms", :locals => {:user => current_user, :assemblies => @assemblies} %>
 
 		<%= render :partial => "main_dashboards/apps", :locals => {:user => current_user, :assemblies => @assemblies} %>
 
