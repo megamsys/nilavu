@@ -47,5 +47,6 @@
 //= require megam.monitor
 //= require jquery.spin
 //= require megam.spin
+//= require tawk-chat.js
 //= require filter
 //= require_tree .
