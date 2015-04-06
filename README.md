@@ -1,32 +1,26 @@
 =========================================================================
-Megam PaaS : Web [http://www.gomegam.com](http://www.gomegam.com)
+Megam CMP - UI [https://www.megam.io](https://www.megam.io)
 =========================================================================
 
-[![Build Status](https://travis-ci.org/indykish/nilavu.png?branch=0.5)](https://travis-ci.org/megamsys/nilavu)
+[![Build Status](https://travis-ci.org/indykish/nilavu.png?branch=0.8)](https://travis-ci.org/megamsys/nilavu)
 
-Nilavu is a [Rails 4.2](http://guides.rubyonrails.org/) browser based user interface for [Megam PaaS ](http://www.gomegam.com/docs).
+Nilavu is a [Rails 4.2.1](http://guides.rubyonrails.org/) browser based user interface for [Megam PaaS ](http://www.gomegam.com/docs).
 
 ## Features:
 
-* Launching Cloud Applications is a breeze in hybrid cloud (private - [OpenNebula] (http://opennebula.org), public - aws, gce, profitbricks, gogrid, hp) 
+* The UI for the upcoming public launch of [https://console.megam.io](https://console.megam.io) which helps you to launch apps, services in cloud.
 
-* Management of the launched apps/services  using [ruby api](https://github.com/megamsys/megam_api.git) which interfaces to
-  [api server](https://github.com/megamsys/megam_gateway.git)
+* You can watch realtime logs of the launched apps in cloud
 
-* Watch realtime logs of the launched apps [streamer](https://github.com/megamsys/tap.git)
-
-* Metering Monitoring using [angularjs](http://angularjs.org) based charts.
-
-* Marketplace with cool addons
+* Bundled metering monitoring built using angularjs.
 
 * Support for launching Docker containers
 
 
 ## Requirements
 
-> [SQlite]
-> [Ruby 2.0.x](http://ruby-lang.org)
-> [Rails 4.x](http://guides.rubyonrails.org/4_1_release_notes.html)
+> [Ruby 2.2.x](http://ruby-lang.org)
+> [Rails 4.2.x](http://guides.rubyonrails.org/4_1_release_notes.html)
 
 
 ## Dashboard
@@ -39,21 +33,18 @@ The UX/UI design was done by [enixel](http://enixel.com).
 
 ## Getting Started
 
-* Try our Public SaaS  [https://www.megam.co](https://www.megam.co)
-
-* Private Installation : [Download ISO](http://www.gomegam.com/cloudinabox)
-
+* Try our public service (launching on April 30, 2015)  [https://console.megam.io](https://console.megam.io)
 
 
 ### Documentation
 
-Refer [documentation] (http://www.gomegam.com/docs)
+Refer [documentation] (http://docs.megam.io)
 
 
 
 We are glad to help if you have questions, or request for new features..
 
-[twitter @megamsys](http://twitter.com/megamsys) [email support@megam.co.in](<support@megam.co.in>)
+[twitter @megamsys](http://twitter.com/megamsys) [email support@megam.io](<support@megam.io>)
 
 
 
@@ -62,11 +53,11 @@ We are glad to help if you have questions, or request for new features..
 
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
-| **Author:**          | Rajthilak (<rajthilak@megam.co.in>)
-|                      | Thomas Alrin (<alrin@megam.co.in>)
-|		       	       | KishorekumarNeelamegam (<nkishore@megam.co.in>)
-|		       	       | Yeshwanth Kumar (<getyesh@megam.co.in>)
-| **Copyright:**       | Copyright (c) 2012-2014 Megam Systems.
+| **Author:**          | Rajthilak (<rajthilak@megam.io>)
+|                      | Thomas Alrin (<thomasalrin@megam.io>)
+|	    	       	       | KishorekumarNeelamegam (<nkishore@megam.io>)
+|		          	       | Yeshwanth Kumar (<getyesh@megam.io>)
+| **Copyright:**       | Copyright (c) 2013-2015 Megam Systems.
 | **License:**         | Apache License, Version 2.0
 
 Licensed under the Apache License, Version 2.0 (the "License");
