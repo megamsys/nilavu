@@ -8,19 +8,20 @@ Nilavu is a [Rails 4.2.1](http://guides.rubyonrails.org/) browser based user int
 
 ## Features:
 
-* The UI for the upcoming public launch of [https://console.megam.io](https://console.megam.io) which helps you to launch apps, services in cloud.
+* The UI for the upcoming public launch of [https://console.megam.io](https://console.megam.io) launch on April 30,2015.
 
-* You can watch realtime logs of the launched apps in cloud
+* Launch apps, services in cloud in seconds.
+
+* Watch realtime logs of the launched apps in cloud
 
 * Bundled metering monitoring built using angularjs.
 
-* Support for launching Docker containers
 
 
 ## Requirements
 
 > [Ruby 2.2.x](http://ruby-lang.org)
-> [Rails 4.2.x](http://guides.rubyonrails.org/4_1_release_notes.html)
+> [Riak](http://docs.basho.com)
 
 
 ## Dashboard
