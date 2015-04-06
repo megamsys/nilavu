@@ -6,7 +6,7 @@
 
 # Ignore bundler config
 /.bundle
-/.c9/**
+/.c9/
 
 # Ignore the default SQLite database.
 /db/*.sqlite3
