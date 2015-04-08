@@ -20,6 +20,13 @@ class OnevmsController < ApplicationController
   include MainDashboardsHelper
   include MarketplaceHelper
   
+  
+  def show
+    
+ end   
+ 
+ 
+ 
   def overview
     if current_user_verify
       appid = params["appkey"]
@@ -28,5 +35,10 @@ class OnevmsController < ApplicationController
       redirect_to signin_path
     end
   end
+
+def logs
+  
+  
+end
 
 end
