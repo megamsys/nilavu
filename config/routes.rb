@@ -71,6 +71,9 @@ Cloudauth::Application.routes.draw do
   match '/addonslogs', to: 'oneaddons#logs', via: [:get, :post]
   match '/oneaddons_services', to: 'oneaddons#services', via: [:get, :post]
   
+  #onevms Overview
+  match '/vmlogs', to: 'onevms#logs', via: [:get, :post]
+  
   #Cloud Books
   match '/starter_packs_launch', to: 'marketplaces#starter_packs_create', via: [:get, :post]
   match '/byoc_launch', to: 'marketplaces#byoc_create', via: [:get, :post]
