@@ -60,7 +60,7 @@ GEM
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
-    coffee-script (2.3.0)
+    coffee-script (2.4.1)
       coffee-script-source
       execjs
     coffee-script-source (1.9.1)
@@ -83,7 +83,7 @@ GEM
     diff-lcs (1.2.5)
     erubis (2.7.0)
     excon (0.45.1)
-    execjs (2.4.0)
+    execjs (2.5.0)
     factory_girl (4.5.0)
       activesupport (>= 3.0.0)
     factory_girl_rails (4.5.0)
@@ -95,13 +95,15 @@ GEM
       faraday (>= 0.7.4, < 0.10)
     fission (0.5.0)
       CFPropertyList (~> 2.2)
-    fog (1.28.0)
+    fog (1.29.0)
       fog-atmos
       fog-aws (~> 0.0)
       fog-brightbox (~> 0.4)
-      fog-core (~> 1.27, >= 1.27.3)
+      fog-core (~> 1.27, >= 1.27.4)
       fog-ecloud
       fog-json
+      fog-local
+      fog-powerdns (>= 0.1.1)
       fog-profitbricks
       fog-radosgw (>= 0.0.2)
       fog-riakcs
@@ -127,23 +129,29 @@ GEM
       fog-core (~> 1.22)
       fog-json
       inflecto (~> 0.0.2)
-    fog-core (1.29.0)
+    fog-core (1.30.0)
       builder
-      excon (~> 0.38)
+      excon (~> 0.45)
       formatador (~> 0.2)
       mime-types
       net-scp (~> 1.1)
       net-ssh (>= 2.1.3)
-    fog-ecloud (0.0.2)
+    fog-ecloud (0.1.1)
       fog-core
       fog-xml
     fog-json (1.0.0)
       multi_json (~> 1.0)
+    fog-local (0.1.0)
+      fog-core (~> 1.27)
+    fog-powerdns (0.1.1)
+      fog-core (~> 1.27)
+      fog-json (~> 1.0)
+      fog-xml (~> 0.1)
     fog-profitbricks (0.0.2)
       fog-core
       fog-xml
       nokogiri
-    fog-radosgw (0.0.3)
+    fog-radosgw (0.0.4)
       fog-core (>= 1.21.0)
       fog-json
       fog-xml (>= 0.0.1)
@@ -151,28 +159,28 @@ GEM
       fog-core
       fog-json
       fog-xml
-    fog-sakuracloud (1.0.0)
+    fog-sakuracloud (1.0.1)
       fog-core
       fog-json
-    fog-serverlove (0.1.1)
+    fog-serverlove (0.1.2)
       fog-core
       fog-json
     fog-softlayer (0.4.1)
       fog-core
       fog-json
-    fog-storm_on_demand (0.1.0)
+    fog-storm_on_demand (0.1.1)
       fog-core
       fog-json
-    fog-terremark (0.0.4)
+    fog-terremark (0.1.0)
       fog-core
       fog-xml
-    fog-vmfusion (0.0.1)
+    fog-vmfusion (0.1.0)
       fission
       fog-core
-    fog-voxel (0.0.2)
+    fog-voxel (0.1.0)
       fog-core
       fog-xml
-    fog-xml (0.1.1)
+    fog-xml (0.1.2)
       fog-core
       nokogiri (~> 1.5, >= 1.5.11)
     font-awesome-rails (3.2.1.3)
@@ -224,7 +232,7 @@ GEM
       mixlib-config (~> 2.1)
       mixlib-log (~> 1.6)
       yajl-ruby (~> 1.2)
-    megam_gogs (0.5.0)
+    megam_gogs (0.7.0)
       highline (~> 1.6)
       nokogiri (~> 1.6)
     meta_request (0.3.4)
@@ -321,17 +329,17 @@ GEM
       trollop
     ref (1.0.5)
     remotipart (1.2.1)
-    responders (2.0.2)
-      railties (>= 4.2.0.alpha, < 5)
+    responders (2.1.0)
+      railties (>= 4.2.0, < 5)
     riak-client (2.1.0)
       beefcake (~> 1.0)
       cert_validator (~> 0.0.1)
       i18n (>= 0.4.0)
       innertube (~> 1.0.2)
       multi_json (~> 1.0)
-    rspec-core (3.2.2)
+    rspec-core (3.2.3)
       rspec-support (~> 3.2.0)
-    rspec-expectations (3.2.0)
+    rspec-expectations (3.2.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.2.0)
     rspec-mocks (3.2.1)
@@ -353,7 +361,7 @@ GEM
       sprockets (>= 2.8, < 4.0)
       sprockets-rails (>= 2.0, < 4.0)
       tilt (~> 1.1)
-    socket.io-rails (1.2.1)
+    socket.io-rails (1.3.5)
       railties (>= 3.1)
     sprockets (2.12.3)
       hike (~> 1.2)
@@ -365,7 +373,7 @@ GEM
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
     sshkey (1.6.1)
-    therubyracer (0.12.1)
+    therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
     thor (0.19.1)
@@ -400,7 +408,7 @@ DEPENDENCIES
   factory_girl_rails
   faraday (~> 0.9.1)
   faraday_middleware (~> 0.9.1)
-  fog (~> 1.28.0)
+  fog (~> 1.29.0)
   font-awesome-rails (= 3.2.1.3)
   github_api (~> 0.12.3)
   google-analytics-rails (~> 0.0.6)
@@ -409,7 +417,7 @@ DEPENDENCIES
   json (~> 1.8.2)
   less-rails (~> 2.6.0)
   megam_api (~> 0.36)
-  megam_gogs (~> 0.5.0)
+  megam_gogs (~> 0.7.0)
   meta_request
   nokogiri (~> 1.6.6.2)
   oauth (~> 0.4.7)
@@ -420,16 +428,16 @@ DEPENDENCIES
   omniauth-google-oauth2 (~> 0.2.6)
   omniauth-oauth2 (~> 1.2.0)
   omniauth-twitter (~> 1.1.0)
-  opennebula
-  protected_attributes (~> 1.0.8)
+  opennebula (~> 4.12.0)
+  protected_attributes (~> 1.0.9)
   rails (~> 4.2.1)
   randexp (~> 0.1.7)
   remotipart (~> 1.2.1)
-  responders (~> 2.0.2)
+  responders (~> 2.1.0)
   riak-client (~> 2.1.0)
   rspec-rails
-  sass-rails (~> 5.0.1)
-  socket.io-rails (~> 1.2.1)
+  sass-rails (~> 5.0.3)
+  socket.io-rails (~> 1.3.5)
   sshkey (~> 1.6.1)
   therubyracer (~> 0.12.1)
   turbolinks (~> 2.5.3)
