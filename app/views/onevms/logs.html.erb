@@ -13,7 +13,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<% content_for :oneapp_contents do %>
+<% content_for :onevm_contents do %>
 <% provide(:title, 'Metrics') %>
 
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9" ng-controller="LogCtrl">
@@ -28,29 +28,7 @@
 		</div>
 	</div>
 	<!-- <input type="text"  value="<%= @com_books %>" > -->
-	<div class="row">
-		<div class="col-xs-12 col-sm-7">
-			<h4 style="margin-top:13px;">App Log</h4>
-		</div>
-		<!--<div class="col-xs-12 col-sm-5">
-		<div class="form-group margintb_15">
-		<label class="col-sm-6 control-label sel-app">Select App</label>
-		<div class="col-sm-6 pull-right">
-		<select class="form-control input-sm" id="applog">
-		<option >-- choose App --</option>
-		<% @com_books.each do |cb| %>
-		<option ng-click="sendmessage(<%= cb %>)"><%= cb %></option>
-		<% end %>
-		</select>
-		<select ng-options="option for option in listOfOptions"
-		ng-model="selectedItem"
-		ng-change="selectedItemChanged()"></select>
-
-		</div>
-		</div>
-		</div> -->
-
-	</div>
+	
 	<br/>
 	
 	<div class="row">
@@ -104,5 +82,5 @@
     $.SocketURL = "<%= @socketURL %>";
      })($);
 </script>
-<%= render :template => oneapps_show_path %>
+<%= render :template => onevms_show_path %>
 
