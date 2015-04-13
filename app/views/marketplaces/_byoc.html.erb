@@ -33,6 +33,8 @@
 <% @deps_scm = get_deps_scm(@pro_name[3].downcase) %>
 <% else %>
 <% @deps_scm = @mkp_source %>
+<%= puts @mkp_source %>
+<%= puts "-----------------------" %>
 <% end %>
 <% @mkp_collection = ListMarketPlaceApps.perform(force_api[:email], force_api[:api_key]) %>
 <% @mkpname = []  %>
@@ -54,11 +56,12 @@
 <%= hidden_field_tag 'appname', nil, placeholder: "", :class =>"form-control", :value =>  book_name %>
 <%= hidden_field_tag 'scm_name', nil, placeholder: "", :class =>"form-control"%>
 <div class="row">
-	<div class="col-md-6 body_left">
+		<div class="col-md-6 body_left">
 		<div class="row">
 			<div class="col-sm-7 app_left_name">
 				<span>Choose your SCM</span>
-			</div>
+			</div><%= puts @deps_scm %>
+			<%= puts "------------------------" %>
 		</div>
 		<div class="row">
 			<div class="col-md-4">
