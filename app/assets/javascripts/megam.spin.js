@@ -36,7 +36,28 @@ jQuery(document).ready(function() {
         console.log('Error ' + errorStr + "\n" + xhr.reponseText);
         return false;
     });
-  
+
+    
+    
+    var inProgress = false;
+    Array.prototype.slice.call(document.querySelectorAll( '#la-button' ) ).forEach(function(el, i) {
+	var anim = el.getAttribute( 'data-anim' );
+    var animEl = document.querySelector( '.' + anim );
+			el.addEventListener( 'click', function() {
+				if( inProgress ) return false;
+				
+				inProgress = true;
+				classie.add( animEl, 'la-animate' );
+				alert("added "+animEl);
+
+				setTimeout( function() {
+				classie.remove( animEl, 'la-animate' );
+				inProgress = false;
+				}, 6000 );
+		} );
+	});
+
+
 
 });
 
