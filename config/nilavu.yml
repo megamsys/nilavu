@@ -16,6 +16,8 @@ storage:
 varai:
   host: localhost
   port: 1880
+  
+
 
 support:
   email: support@megam.co.in
@@ -40,3 +42,8 @@ monitor:
 tap:
  host: localhost
  port: 7000
+ 
+
+gogs:
+ host: localhost
+ port: 6001
