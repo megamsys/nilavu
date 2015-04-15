@@ -13,7 +13,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<%= form_tag starter_packs_launch_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+<%= form_tag byoc_launch_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 <% @mkp.plans.each do |c| %>
 <% if c["version"] == version %>
 <% @mkp_price = c["price"] %>
@@ -30,77 +30,147 @@
 <% end %>
 <% if @mkp_source == "" %>
 <% @deps_scm = get_deps_scm(@pro_name[3].downcase) %>
+<%= puts @pro_name[3] %>
 <% else %>
 <% @deps_scm = @mkp_source %>
 <% end %>
-<%  @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key]) %>
+<% @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key]) %>
 <%  if @predef_cloud.class == Megam::Error %>
-<%  redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }     %>    
+<% redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }     %>    
 <% end %>
 <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
 <%= hidden_field_tag 'source', nil, placeholder: "", :class =>"form-control", :value => @deps_scm  %>
-<%= hidden_field_tag 'type', nil, placeholder: "", :class =>"form-control", :value =>  @pro_name[3] %>
+<%= hidden_field_tag 'byoc', nil, placeholder: "", :class =>"form-control", :value =>  @pro_name[3] %>
 <%= hidden_field_tag 'combos', nil, placeholder: "", :class =>"form-control", :value =>  @combos %>
 <%= hidden_field_tag 'appname', nil, placeholder: "", :class =>"form-control", :value =>  book_name %>
 <%= hidden_field_tag 'servicename', nil, placeholder: "", :class =>"form-control", :value =>  book_name %>
+<%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
+
 <div class="row">
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+    </head>
 	<div class="col-sm-7 body_left">
-		<h4>Basic Combo</h4>
-		<div class="row pad_tb25">
-			<div class="col-sm-5">
-				<div class="app_inner brad-3">
-					<div class="stpack">
-					    <%= image_tag "combos/"+@combo[0].downcase+".png", :alt => "" %>
-					</div>
+		<div class="row">
+			<div class="col-sm-7 app_left_name">
+				<span>Choose your SCM</span>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div id="byoc_connect">
+					<%= image_tag "gitimg.png",:class=> "img-responsive_byoc "%>
 				</div>
 			</div>
-			<div class="col-sm-2 combo-plus">
-				<i class="icon-plus"></i>
-			</div>
-			<div class="col-sm-5">
-				<div class="app_inner brad-3">
-					<div class="stpack">
-						<%= image_tag "combos/"+@combo[1].downcase+".png", :alt => "" %>
-					</div>
+			<div class="col-md-4">
+				<div id="gogs_connect">
+					<%= image_tag "gogsimg.png",:class=> "img-responsive_byoc "%>
 				</div>
 			</div>
 		</div>
 		<div class="bottom-divider"></div>
-		<div class="row">
-			<div class="col-sm-3 app_left_name">
-				<span>Plan Type</span>
-			</div>
-			<div class="col-sm-9 app_left_desc">
-				<span><%= @mkp_plan %></span>
-			</div>
+	<div class="row pad_tb25" id="scm">
+			<div data-role="content">
+                <div id="localPropList" data-role="controlgroup">
+                	 <div id="scm">
+                   <input name="assigned_proposal_id" type="radio" value="scm" id="chk1" />
+                         <label for="chk1">SCM</label>
+			          <div id="repos_list"></div>
+			         <div id="gogs_repos_list"></div>
+		             </div>
+		           
+		           <div id="starterpack">
+                   <input name="assigned_proposal_id" type="radio" value="STARTERPACK" id="chk2" />
+                   <label for="chk2">Megam's Starter Pack </label>
+        
+		         	 <%= text_field_tag 'source_starterpacks', nil, placeholder: '', :class =>"form-control spacks", :value => @deps_scm %>
+                  </div>
+		        </div>
+
 		</div>
-		<div class="bottom-divider"></div>
+		</div>
+		
+</br>  
+<%= hidden_field_tag 'source', nil, placeholder: '', :class =>"form-control main_source", :value => '' %>
 
 		<div class="row">
-			<div class="col-sm-3 app_left_name">
-				<span>Description</span>
-			</div>
-			<div class="col-sm-9 app_left_desc">
-				<span ><%= @mkp_description %> <a href=<%= get_doc_link(@pro_name[3].downcase) %> target="_blank">View Docs</a> </span>
+	<div class="col-sm-7 body_left">
+		<div class="bottom-divider"></div>
+		<div class="row">
+			<div class="col-sm-7 app_left_name">
+				<span>Create or Import SSH keys</span>
 			</div>
 		</div>
-		<div class="bottom-divider"></div>
-
 		<div class="row">
-			<div class="col-sm-3 app_left_name">
-				<span>Pick a Cloud</span>
-			</div>
-			<div class="col-sm-9 app_left_desc">
+			<div class="col-sm-12 app_left_desc">
 				<div class="row">
-					<div class="col-sm-6 col-xs-6">
-					    <%= link_to settings_path, :class => "btn btn-success col-md-12 col-xs-12" do %>Create<%end%>
+					<div class="col-xs-12" >
+						<div class="form-group">
+							<select class="form-control" id="sshkeyoption">
+								<option>Choose your sshkeys options</option>
+								<option value="CREATE">Create a new sshkey</option>
+								<option value="EXIST">Use your already uploaded keys </option>
+								<option value="UPLOAD">Upload your ssh keys</option>
+							</select>
+						</div>
 					</div>
-					<div class="col-sm-6 col-xs-6">
-				    	<%= select_tag "cloud", options_for_select(@predef_cloud.map{ |c| [c.name] }, :selected=>@predef_cloud[0]), :class =>"form-control" %>						
+				</div>
+				
+				<div class="row"  style="display:none;" id="sshkey_exist">
+					<% if @ssh_keys != nil %>
+					
+					<div class="col-sm-3 app_left_name">
+						<span>Pick a sshkey</span>
+					</div>
+					<div class="col-sm-9 app_left_desc">
+						<%= select_tag "sshexistname", options_for_select(@ssh_keys.map{ |c| c[:name] }, :selected=>@ssh_keys[0]), :class =>"form-control" %>
+					</div>
+					<% else %>
+					<div class="app_left_name">
+						<span>You must have create or upload the sshkeys</span>
+					</div>
+					<% end %>
+				</div>
+				<div class="row"  style="display:none;" id="sshkey_create">
+					<div class="col-sm-3 app_left_name">
+						<span>Name</span>
+					</div>
+					<div class="col-sm-9 app_left_desc">
+						<%= text_field_tag 'sshcreatename', nil, placeholder: 'Type a key pair name to save', :class =>"form-control" %>
+					</div>
+				</div>
+				<div class="row" style="display:none;" id="sshkey_upload">
+					<div class="col-sm-12 col-xs-12" >
+						<div class="row margintb_15">
+							<div class="col-xs-6">
+								<label for="ssh-key_name">Private key</label>
+
+								<div class="form-group">
+									<span class="btn green fileinput-button col-xs-11"> <i class="icon-plus"></i> <span>Add files...</span> <%= file_field_tag :ssh_private_key, placeholder: 'Upload private key' %> </span>
+								</div>
+							</div>
+							<div class="col-xs-6">
+								<div>
+									<label for="ssh-key_name">Public key</label>
+									<div class="form-group">
+										<span class="btn blue fileinput-button  col-xs-11"> <i class="icon-plus"></i> <span>Add files...</span> <%= file_field_tag :ssh_public_key, placeholder: 'Upload public key' %> </span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-5 app_left_name">
+								<span>Name</span>
+							</div>
+							<div class="col-sm-7 app_left_desc">
+								<%= text_field_tag 'sshuploadname', nil, placeholder: 'Type a key pair name to save', :class =>"form-control" %>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+	</div> 
 	</div>
 	<!-- body_left ends here -->
 
@@ -145,3 +215,123 @@
 	<!-- body_right ends here -->
 </div>
 <% end %>
+
+
+
+<script>
+    $(document).ready(function() {
+        $("#scm_name").val("gogs");
+        $("#gogs_connect").click(function() {
+            $.oauthpopup({
+                path : "/auth/gogs",
+                callback : function() {
+                    $.ajax({
+                        type : "POST",
+                        url : "/gogs_call",
+                        //dataType: 'json',
+                        success : function(data) {
+                            console.log("It worked!")
+                            console.log(dataString);
+                        },
+
+                        error : function(data) {
+                            console.log("ERROR CHECK PROPERLY!!");
+                            console.log(data);
+                        }
+                    });
+                    return false;
+                }
+            });
+        });
+
+        $("#byoc_connect").click(function() {
+            $("#scm_name").val("github");
+            $.oauthpopup({
+                path : "/auth/github",
+                callback : function() {
+                    $.get("/github_call", function(data) {
+                        console.log(data)
+                        console.log("----data----")
+
+                        var dataString = data
+                        console.log(dataString);
+
+                        $.ajax({
+                            type : "POST",
+                            url : "/github_ajax",
+                            //dataType: 'json',
+                            data : {
+                                id : dataString
+                            },
+                            success : function(data) {
+                                console.log("It worked!")
+                                console.log(dataString);
+                            },
+
+                            error : function(data) {
+                                console.log("ERROR CHECK PROPERLY!!");
+                                console.log(data);
+                            }
+                        });
+
+                    });
+                    return false;
+
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    // Script to show the ssh keys options
+    $(document).ready(function() {
+        $('#sshkeyoption').on('change', function() {
+            if (this.value == "CREATE") {
+                $("#sshkey_create").show();
+                $("#sshkey_exist").hide();
+                $("#sshkey_upload").hide();
+                $(".sshoption").val("CREATE");
+            }
+            console.log(value)
+
+            if (this.value == "EXIST") {
+                $("#sshkey_create").hide();
+                $("#sshkey_exist").show();
+                $("#sshkey_upload").hide();
+                $(".sshoption").val("EXIST");
+            }
+            if (this.value == "UPLOAD") {
+                $("#sshkey_create").hide();
+                $("#sshkey_exist").hide();
+                $("#sshkey_upload").show();
+                $(".sshoption").val("UPLOAD");
+            }
+        });
+        
+    });
+</script>
+
+<script>
+    	    $(document).ready(function() {
+    $("input:radio[name=assigned_proposal_id]").click(function() {
+    var value = $(this).val();
+console.log(value)
+    if (value == 'STARTERPACK'){
+    	$(".main_source").val($(".spacks").val());
+    	console.log("now trying to disable")
+   document.getElementById("#scm").disabled = true; 
+    } else {
+    	 $(".main_source").val($(".scm_select").val());
+    	    $(".spacks").disabled = true;
+    document.getElementById("#starterpack").disabled = true; 
+    }
+  });
+  	
+   
+
+});
+	
+
+</script>
+
+

@@ -36,6 +36,7 @@ jQuery(document).ready(function() {
         console.log('Error ' + errorStr + "\n" + xhr.reponseText);
         return false;
     });
+
     
     
     var inProgress = false;
@@ -75,3 +76,5 @@ function repWith(location, content_to_replace) {
     $(location).replaceWith(content_to_replace);
     console.log('replaced :' + location + ' =>' + content_to_replace);
 }
+
+

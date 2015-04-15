@@ -52,3 +52,4 @@ _.templateSettings = {
 function BookCtrl($scope, $routeParams) {
     $scope.templateUrl = "angular/templates/widget/book_show.html.erb";
 }
+
