@@ -23,7 +23,7 @@ class OneserviceController < ApplicationController
   end
 
   def overview
-    if !!current_user
+    if user_in_cookie?
       serviceid = params["servicekey"]
       @assembly=GetAssembly.perform(serviceid,force_api[:email],force_api[:api_key])
     else
@@ -32,7 +32,7 @@ class OneserviceController < ApplicationController
   end
 
   def metrics
-    if !!current_user
+    if user_in_cookie?
       serviceid = params["servicekey"]
       assembly=GetAssembly.perform(serviceid,force_api[:email],force_api[:api_key])
       if assembly.class != Megam::Error
@@ -46,7 +46,7 @@ class OneserviceController < ApplicationController
   end
 
   def logs
-    if !!current_user
+    if user_in_cookie?
       @com_books = []
       @socketURL = Rails.configuration.socket_url
       appid = params["servicekey"]
@@ -70,7 +70,7 @@ class OneserviceController < ApplicationController
   end
 
   def runtime
-    if !!current_user
+    if user_in_cookie?
       serviceid = params["servicekey"]
       assembly=GetAssembly.perform(serviceid,force_api[:email],force_api[:api_key])
       if assembly.class != Megam::Error
@@ -99,7 +99,7 @@ class OneserviceController < ApplicationController
   end
 
   def service_request
-    if !!current_user
+    if user_in_cookie?
       logger.debug "--> service:Build_request, #{params}"
       options = {:app_id => "#{params[:service_id]}", :app_name => "#{params[:service_name]}", :action => "#{params[:command]}"}
       defnd_result =  CreateAppRequests.perform(options, force_api[:email], force_api[:api_key])

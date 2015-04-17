@@ -28,13 +28,17 @@ module SessionsHelper
     !current_user.nil?
   end
 
-
+  #return true if the user is in the cookie
+  def user_in_cookie?
+    @user = User.new
+    res = @user.find_by_remember_token(cookies[:remember_token], cookies[:email]) if cookies[:remember_token] && cookies[:email]
+    res != nil
+  end
+  
  #return the current_user object by looking at the  remembertoken, email from cookie jar or
  #redirect to the sign page.
  def current_user
-    @user = User.new
-    res = @user.find_by_remember_token(cookies[:remember_token], cookies[:email]) if cookies[:remember_token] && cookies[:email]
-    if res != nil
+    if user_in_cookie?
       @current_user ||= res
      else
       redirect_to signin_path

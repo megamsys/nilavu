@@ -45,7 +45,7 @@
 //= require portfolio
 //= require socket.io
 //= require jquery.spin
-//= require youtube.classie
+//= require youtube.nprogress
 //= require megam.monitor
 //= require megam.spin
 //= require megam.support

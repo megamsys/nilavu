@@ -33,11 +33,9 @@ class PasswordResetsController < ApplicationController
   end
 
   def edit
-	user = User.new
+	  user = User.new
     @user = user.find_by_password_reset_token(params[:id], params[:email])
-	puts "Password reset Edit =============> "
-	puts @user.inspect
-	@user
+	  @user
   end
 
   def update
@@ -54,4 +52,3 @@ class PasswordResetsController < ApplicationController
     end
   end
 end
-
