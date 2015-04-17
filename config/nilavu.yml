@@ -40,3 +40,8 @@ monitor:
 tap:
  host: localhost
  port: 7000
+
+gogs:
+ host: localhost
+ port: 6001
+
