@@ -42,7 +42,7 @@ class User
 
 
   def send_welcome_email(cookies)
-    test = sign_in_current_user(cookies[:remember_token], cookies[:email])
+    test = current_user
     UserMailer.welcome_email(test).deliver
   end
 

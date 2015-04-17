@@ -91,7 +91,7 @@ class SessionsController < ApplicationController
 
   def fb_auth
     auth = request.env['omniauth.auth']
-    session[:auth] = { :uid => auth['uid'], :provider => auth['provider'], :email => auth['info']["email"], :first_name => auth['info']['name'], :phone => auth['info']['phone'], :last_name => auth['info']['last_name'] } 
+    session[:auth] = { :uid => auth['uid'], :provider => auth['provider'], :email => auth['info']["email"], :first_name => auth['info']['name'], :phone => auth['info']['phone'], :last_name => auth['info']['last_name'] }
     redirect_to :controller=>'sessions'
   end
 
@@ -128,7 +128,6 @@ class SessionsController < ApplicationController
       end
     elsif @user.find_by_email(social_identity[:email])
       #if user and identity already connected
-      
       logger.debug "Found user with id #{social_identity[:email]}"
       user_identity = @user.find_by_email(social_identity[:email])
       redirect_to_dash(user_identity)
@@ -140,13 +139,12 @@ class SessionsController < ApplicationController
 
   def redirect_to_signup_with_fb
     fb = {:email => social_identity[:email], :first_name => social_identity[:name], :phone => social_identity[:phone], :last_name => social_identity[:last_name], :uid => social_identity[:uid]}
-    #  redirect_to new_user_path(:user_social_identity => fb)
     redirect_to new_user_path
   end
 
   def redirect_to_dash(user)
     sign_in user
-    redirect_back_or main_dashboards_path, :gflash => { :success => { :value => "Welcome #{social_identity[:name]}. Your registered email is #{social_identity[:email]}, Thank you.", :sticky => false, :nodom_wrap => true } }
+    redirect_to(main_dashboards_path, :gflash => { :success => { :value => "Welcome #{social_identity[:name]}. Your registered email is #{social_identity[:email]}, Thank you.", :sticky => false, :nodom_wrap => true } })
   end
 
   def destroy

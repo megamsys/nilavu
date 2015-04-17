@@ -20,7 +20,7 @@ class SettingsController < ApplicationController
   end
 
   def index
-    if current_user_verify
+    if !!current_user
       logger.debug "--> #{self.class} : index entry"
       list_clouds
       list_sshkeys

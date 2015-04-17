@@ -25,7 +25,7 @@ class MarketplacesController < ApplicationController
   ## and show the items in order of category
   ##
   def index
-    if current_user_verify
+    if !!current_user
       mkp = get_marketplaces
 
       @mkp_collection = mkp[:mkp_collection]
@@ -51,7 +51,7 @@ class MarketplacesController < ApplicationController
   ## to show the selected marketplace item
   ##
   def show
-    if current_user_verify
+    if !!current_user
       @pro_name = params[:id].split("-")
       @apps = get_apps
       @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])
@@ -97,7 +97,7 @@ class MarketplacesController < ApplicationController
   ##
   def get_apps
     apps = []
-    if current_user_verify
+    if !!current_user
       @user_id = current_user["email"]
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
       @service_counter = 0
@@ -267,7 +267,7 @@ end
   ## this controller collect all registered marketplace items from megam storage
   ##
   def get_marketplaces
-    if current_user_verify
+    if !!current_user
       mkp_collection = ListMarketPlaceApps.perform(force_api[:email], force_api[:api_key])
       {:mkp_collection => mkp_collection}
     else
@@ -279,7 +279,7 @@ end
   ## when change the version of marketplace item then this controller change the contents of that item
   ##
   def changeversion
-    if current_user_verify
+    if !!current_user
       @pro_name = params[:id].split("-")
       @version = params[:version]
       @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])
@@ -304,7 +304,7 @@ end
   ## this performs three types of condition operations for launching instances using sshkeys
   ##
   def instances_create
-    if current_user_verify
+    if !!current_user
       assembly_name = params[:name]
       version = params[:version]
       domain = params[:domain]
@@ -431,7 +431,7 @@ end
   ## this controller launch the starters pack(megam provide these packages)
   ##
   def starter_packs_create
-    if current_user_verify
+    if !!current_user
       assembly_name = params[:name]
       version = params[:version]
       domain = params[:domain]
@@ -487,7 +487,7 @@ end
   ## it checks service is bind any of the applications, the service is bind to application then add the application name to inputs
   ##
   def app_boilers_create
-    if current_user_verify
+    if !!current_user
       assembly_name = params[:name]
       version = params[:version]
       domain = params[:domain]
@@ -606,7 +606,7 @@ end
   ## this controller launch the addons
   ##
   def addons_create
-    if current_user_verify
+    if !!current_user
       assembly_name = params[:name]
       version = params[:version]
       domain = params[:domain]

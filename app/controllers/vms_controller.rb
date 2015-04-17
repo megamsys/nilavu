@@ -17,7 +17,7 @@ class VmsController < ApplicationController
   respond_to :html, :js
   
   def index
-    if current_user_verify
+    if !!current_user
       @user_id = current_user["email"]
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
       @vm_counter = 0
