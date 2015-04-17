@@ -28,7 +28,7 @@ class OnevmsController < ApplicationController
  
  
   def overview
-    if current_user_verify
+    if !!current_user
       appid = params["appkey"]
       @assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
     else

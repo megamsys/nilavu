@@ -24,7 +24,7 @@ class OneaddonsController < ApplicationController
   end
 
   def overview
-    if current_user_verify
+    if !!current_user
       appid = params["appkey"]
       @dockerID = ""
       @assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
@@ -73,7 +73,7 @@ class OneaddonsController < ApplicationController
   end
 
   def metrics
-    if current_user_verify
+    if !!current_user
       @com_books = []
       @socketURL = Rails.configuration.socket_url
       appid = params["appkey"]
@@ -97,7 +97,7 @@ class OneaddonsController < ApplicationController
   end
 
   def runtime
-    if current_user_verify
+    if !!current_user
       appid = params["appkey"]
       assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
       if assembly.class != Megam::Error
@@ -126,7 +126,7 @@ class OneaddonsController < ApplicationController
   end
 
   def addon_request
-    if current_user_verify
+    if !!current_user
       logger.debug "--> Addons:Build_request, #{params}"
       options = {:app_id => "#{params[:addon_id]}", :app_name => "#{params[:addon_name]}", :action => "#{params[:command]}"}
       defnd_result =  CreateAppRequests.perform(options, force_api[:email], force_api[:api_key])

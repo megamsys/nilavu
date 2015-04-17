@@ -37,21 +37,17 @@ class CrossCloudsController < ApplicationController
   end
 
   def gwindow
-    if !current_user_verify
-      #  session[:auth] = request.env['omniauth.auth']
+    if !!current_user
+      session[:info] = request.env['omniauth.auth']['credentials']
+    else
       auth = request.env['omniauth.auth']
       session[:auth] = { :uid => auth['uid'], :provider => auth['provider'], :email => auth['info']["email"] }
       redirect_to :controller=>'sessions', :action=>'create'
-    else
-        puts request.env['omniauth.auth']['credentials'].to_yaml
-      session[:info] = request.env['omniauth.auth']['credentials']
-        
     end
   end
 
   def create
-    if current_user_verify
-      logger.debug "CROSS CLOUD CREATE PARAMS ============> "
+    if !!current_user
       if Rails.configuration.storage_type == "s3"
         vault_loc = vault_base_url+"/"+current_user["email"]+"/"+params[:name]
         sshpub_loc = vault_base_url+"/"+current_user["email"]+"/"+params[:id_rsa_public_key]
@@ -59,7 +55,6 @@ class CrossCloudsController < ApplicationController
         vault_loc = current_user["email"]+"_"+params[:name]
         sshpub_loc = current_user["email"]+"_"+params[:id_rsa_public_key]    #Riak changes
       end
-      #private_key = (params[:private_key]) ? cross_cloud_bucket+"/"+current_user["email"]+"/"+params[:name]+"/"+File.basename(params[:private_key]) : ""
       if params[:provider] != "profitbricks"
         if params[:provider] == "Google Compute Engine"
           wparams = {:name => params[:name], :spec => { :type_name => get_provider_value(params[:provider]), :groups => params[:group],  :image => params[:image], :flavor => params[:flavor], :tenant_id => params[:tenant_id]}, :access => { :ssh_key => params[:ssh_key], :identity_file => sshpub_loc, :ssh_user => params[:ssh_user], :vault_location => vault_loc, :sshpub_location => sshpub_loc, :zone => params[:zone], :region => params[:region] }  }
@@ -71,7 +66,6 @@ class CrossCloudsController < ApplicationController
       end
 
       if params[:provider] == "profitbricks"
-        #Profitbricks flavor parsing has to be decided yet
         wparams[:spec][:flavor] = "cpus=#{params[:cpus]},ram=#{params[:ram]},hdd-size=#{params[:flavor]}"
       end
       if params[:provider] == "GoGrid"
@@ -138,7 +132,6 @@ class CrossCloudsController < ApplicationController
           end
         end
       end
-    #redirect_to cross_clouds_path, :gflash => { :warning => { :value => "CROSS  CLOUD CREATION DONE ", :sticky => false, :nodom_wrap => true } }
     else
       redirect_to signin_path
     end
@@ -147,7 +140,6 @@ class CrossCloudsController < ApplicationController
   def cloud_selector
     list_sshkeys
     @provider = params[:cloud]
-
     if params[:cloud] == "aws"
       @provider_form_name = "Amazon EC2"
       list_aws_data(params[:aws_access_key], params[:aws_secret_key], params[:region])
@@ -176,7 +168,6 @@ class CrossCloudsController < ApplicationController
       @credentials = {"opennebula_access_key" => "#{params[:opennebula_access_key]}", "opennebula_secret_key" => "#{params[:opennebula_secret_key]}", "zone" => "#{params[:zone]}"}
 
     elsif params[:cloud] == "gce"
-#Api call not fix yet
       @provider_form_name = "Google Compute Engine"
      @images = []
       @flavors = []
@@ -190,12 +181,6 @@ class CrossCloudsController < ApplicationController
     elsif params[:cloud] == "gogrid"
       @provider_form_name = "GoGrid"
 
-    #  list_gogrid_data(params[:gogrid_access_key], params[:gogrid_secret_key], params[:region])
-    #   @images = @gogrid_imgs
-    #  @flavors = @gogrid_flavors
-    #   @keypairs = @gogrid_keypairs
-    #  @groups = @gogrid_groups
-    #  @credentials = {"gogrid_access_key" => "#{params[:gogrid_access_key]}", "gogrid_secret_key" => "#{params[:gogird_secret_key]}", "region" => "#{params[:region]}"}
     elsif params[:cloud] == "opennebula"
       @provider_form_name = "opennebula"
     else
@@ -212,11 +197,10 @@ class CrossCloudsController < ApplicationController
   end
 
   def list_sshkeys
-    if current_user_verify
-      logger.debug "--> #{self.class} : list sshkeys entry"
+    if !!current_user
+      logger.debug ">----#{self.class}> index: list sshkeys entry"
       @ssh_keys_collection = ListSshKeys.perform(force_api[:email], force_api[:api_key])
-      logger.debug "--> #{self.class} : listed sshkeys"
-
+      logger.debug ">----#{self.class}> : listed sshkeys"
       if @ssh_keys_collection.class != Megam::Error
         @ssh_keys = []
         ssh_keys = []
@@ -248,7 +232,7 @@ class CrossCloudsController < ApplicationController
   end
 
   def view_details
-    if current_user_verify
+    if !!current_user
       input = params[:settingsname]
       @details = GetPredefCloud.perform(params[:settingsname], force_api[:email], force_api[:api_key])
       if @details.class == Megam::Error
@@ -271,7 +255,7 @@ class CrossCloudsController < ApplicationController
   end
 
   def destroy
-	
+
   end
 
 end

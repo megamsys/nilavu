@@ -42,7 +42,7 @@ class SshKeysController < ApplicationController
   end
 
   def create
-    if current_user_verify
+    if !!current_user
       #k = SSHKey.generate(:type => params[:key_type], :bits => params[:key_bit].to_i, :comment => current_user["email"])
       k = SSHKey.generate
       key_name = params[:key_name] || current_user["first_name"]
@@ -92,7 +92,7 @@ class SshKeysController < ApplicationController
   end
 
   def sshkey_import
-    if current_user_verify
+    if !!current_user
       # @filename = params[:ssh_private_key].original_filename
       @filename = params[:key_name]
       key_name = params[:key_name]
@@ -140,7 +140,7 @@ class SshKeysController < ApplicationController
   end
 
   def download
-    if current_user_verify
+    if !!current_user
       @keyname = params[:filename]
       @filename = current_user["email"]+"_"+"#{@keyname}"
       options ={:email => current_user["email"], :download_location => "#{@filename}" }
