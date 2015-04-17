@@ -1,3 +1,18 @@
+##
+## Copyright [2013-2015] [Megam Systems]
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+## http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+##
 class OneaddonsController < ApplicationController
 
   respond_to :html, :js
@@ -9,7 +24,7 @@ class OneaddonsController < ApplicationController
   end
 
   def overview
-    if current_user_verify
+    if !!current_user
       appid = params["appkey"]
       @dockerID = ""
       @assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
@@ -58,7 +73,7 @@ class OneaddonsController < ApplicationController
   end
 
   def metrics
-    if current_user_verify
+    if !!current_user
       @com_books = []
       @socketURL = Rails.configuration.socket_url
       appid = params["appkey"]
@@ -82,7 +97,7 @@ class OneaddonsController < ApplicationController
   end
 
   def runtime
-    if current_user_verify
+    if !!current_user
       appid = params["appkey"]
       assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
       if assembly.class != Megam::Error
@@ -111,7 +126,7 @@ class OneaddonsController < ApplicationController
   end
 
   def addon_request
-    if current_user_verify
+    if !!current_user
       logger.debug "--> Addons:Build_request, #{params}"
       options = {:app_id => "#{params[:addon_id]}", :app_name => "#{params[:addon_name]}", :action => "#{params[:command]}"}
       defnd_result =  CreateAppRequests.perform(options, force_api[:email], force_api[:api_key])

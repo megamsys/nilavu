@@ -1,12 +1,25 @@
+##
+## Copyright [2013-2015] [Megam Systems]
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+## http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+##
 class UsersController < ApplicationController
   respond_to :html, :js
   include UsersHelper
   include SessionsHelper
-  #before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
-  #before_filter :correct_user, only: [:edit, :update]
-  #before_filter :admin_user, only: :destroy
+
+  #Should list all the users of an organization.
   def index
-    #Should list all the users of an organization.
     @users = User.paginate(page: params[:page])
   end
 
@@ -17,17 +30,14 @@ class UsersController < ApplicationController
   end
 
   def new
-    #  if params[:user_social_identity]
     if session[:auth]
       logger.debug "--> Users:new, creating new user with social identity."
-      # @user = User.new(:email => params[:user_social_identity][:email], :first_name => params[:user_social_identity][:first_name], :last_name => params[:user_social_identity][:last_name], :phone => params[:user_social_identity][:phone])
       @user = User.new
       @social_uid = session[:auth][:uid]
       @email = session[:auth][:email]
       @firstname = session[:auth][:first_name]
       @lastname = session[:auth][:last_name]
       @phone = session[:auth][:phone]
-    #   session.delete(:auth)
     end
   end
 
@@ -63,23 +73,20 @@ class UsersController < ApplicationController
         if res_update
           if "#{Rails.configuration.support_email}".chop!
             begin
-              
+
              @user.send_welcome_email(cookies)  #WELCOME EMAIL
               mail_res = "Email verification success"
             rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
               mail_res = "Email verification Failed"
             end
           end
-          #  redirect_to main_dashboards_path, :gflash => { :success => { :value => "Hi #{params["first_name"]}, #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
           redirect_to main_dashboards_path, :format => 'html', :flash => { :alert => "Welcome #{params['first_name']}. Your #{mail_res}"}
         else
           logger.debug "==> Controller: users, Action: create, User onboard was not successful"
-          #redirect_to main_dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onboard #{@user.email} into our API server. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}.", :sticky => false, :nodom_wrap => true } }
           redirect_to main_dashboards_path, :alert => " Gateway Failure.", :format => 'html'
         end
       else
         logger.debug "==> Controller: users, Action: create, User onboard was not successful"
-        #redirect_to main_dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onboard #{@user.email} into our API server. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}.", :sticky => false, :nodom_wrap => true } }
         redirect_to main_dashboards_path, :flash => { :alert => "Gateway Failure. Check gateway logs." }, :format => 'html'
       end
 
@@ -97,26 +104,20 @@ class UsersController < ApplicationController
   end
 
   def edituser
-    if current_user_verify
+    if !!current_user
       @user = User.new
       logger.debug "==> Controller: users, Action: edit, Start edit"
       @orgs = list_organizations
       @userdata= @user.find_by_email(current_user["email"])
-      #@accounts= list_accounts
     @userdata
     else
       redirect_to signin_path
     end
   end
 
-=begin
-  def upgrade
-    logger.debug "==> Controller: users, Action: upgrade, Upgrade user from free to paid"
-  end
-=end
 
   def userupdate
-    if current_user_verify
+    if !!current_user
       logger.debug "==> Controller: users, Action: update, Update user pw, api_key"
       @user = User.new
       @userdata = @user.find_by_email(current_user["email"])
@@ -199,7 +200,6 @@ class UsersController < ApplicationController
           end
         end
       end
-    # render 'edit'
     else
       redirect_to signin_path
     end
@@ -207,30 +207,12 @@ class UsersController < ApplicationController
 
 
   private
-=begin
-  def correct_user
-    if current_user_verify
-      @user = User.find_by_email(current_user["email"])
-      redirect_to(root_path) unless current_user?(@user)
-    else
-      redirect_to signin_path
-    end
-  end
 
-  def admin_user
-    if current_user_verify
-      redirect_to(root_path) if current_user["admin"]
-    else
-      redirect_to signin_path
-    end
-  end
-=end
   def list_organizations
-    if current_user_verify
+    if !!current_user
       logger.debug "--> #{self.class} : list organizations entry"
       org_collection = ListOrganizations.perform(force_api[:email], force_api[:api_key])
       orgs = []
-
       if org_collection.class != Megam::Error
         org_collection.each do |one_org|
           orgs << {:name => one_org.name, :created_at => one_org.created_at.to_time.to_formatted_s(:rfc822)}
@@ -242,24 +224,5 @@ class UsersController < ApplicationController
       redirect_to signin_path
     end
   end
-=begin
-  def list_accounts
-    if current_user_verify
-      logger.debug "--> #{self.class} : list accounts entry"
-      acct_collection = ListAccounts.perform(force_api[:email], force_api[:api_key])
-      accts = []
 
-      if acct_collection.class != Megam::Error
-        acct_collection.each do |one_acct|
-          accts << {:name => one_acct.api_key, :created_at => one_acct.created_at.to_time.to_formatted_s(:rfc822)}
-        end
-        accts = accts.sort_by {|vn| vn[:created_at]}
-      end
-    accts
-    else
-      redirect_to signin_path
-    end
-  end
-=end
 end
-

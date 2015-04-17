@@ -44,8 +44,10 @@
 //= require jquery.flot.selection
 //= require portfolio
 //= require socket.io
-//= require megam.monitor
 //= require jquery.spin
+//= require youtube.classie
+//= require megam.monitor
 //= require megam.spin
+//= require megam.support
 //= require filter
 //= require_tree .

@@ -16,6 +16,8 @@ storage:
 varai:
   host: localhost
   port: 1880
+  
+
 
 support:
   email: support@megam.co.in

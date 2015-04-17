@@ -1,3 +1,18 @@
+##
+## Copyright [2013-2015] [Megam Systems]
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+## http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+##
 class SshKeysController < ApplicationController
   respond_to :html, :js
   include CrossCloudsHelper
@@ -27,7 +42,7 @@ class SshKeysController < ApplicationController
   end
 
   def create
-    if current_user_verify
+    if !!current_user
       #k = SSHKey.generate(:type => params[:key_type], :bits => params[:key_bit].to_i, :comment => current_user["email"])
       k = SSHKey.generate
       key_name = params[:key_name] || current_user["first_name"]
@@ -77,7 +92,7 @@ class SshKeysController < ApplicationController
   end
 
   def sshkey_import
-    if current_user_verify
+    if !!current_user
       # @filename = params[:ssh_private_key].original_filename
       @filename = params[:key_name]
       key_name = params[:key_name]
@@ -125,7 +140,7 @@ class SshKeysController < ApplicationController
   end
 
   def download
-    if current_user_verify
+    if !!current_user
       @keyname = params[:filename]
       @filename = current_user["email"]+"_"+"#{@keyname}"
       options ={:email => current_user["email"], :download_location => "#{@filename}" }

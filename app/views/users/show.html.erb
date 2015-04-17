@@ -1,3 +1,18 @@
+<!--
+** Copyright [2013-2015] [Megam Systems]
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+** http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+-->
 <%= render 'layouts/header' %>
 <div class="container main-cover">
 	<div class="row">
@@ -20,7 +35,7 @@
 
 						<li class= "start active">
 							<%= link_to vms_path, :target => "_self" do %>
-							<i class="icon-pushpin pull-left"></i>
+							<i class="icon-bar-chart pull-left"></i>
 							<span class="title pull-left">Instances</span>
 							<span class="hidden-xs <%= "selected" if controller_name == "vms"%>"></span>
 							<% end %>
@@ -52,19 +67,13 @@
 
 						<li class= "start active">
 							<%= link_to ssh_keys_path, :target => "_self" do %>
-							<i class="icon-pushpin pull-left"></i>
+							<i class="icon-key pull-left"></i>
 							<span class="title pull-left">ssh keys</span>
 							<span class="hidden-xs <%= "selected" if controller_name == "sshkeys"%>"></span>
 							<% end %>
 						</li>
 
-						<!-- <li class="start active">
-						<%= link_to settings_path, :target => "_self" do %>
-						<i class="icon-cog pull-left"></i>
-						<span class="title pull-left">Settings</span>
-						<span class="hidden-xs <%= "selected" if controller_name == "settings"%>"></span>
-						<% end %>
-						</li> -->
+						
 
 					</ul>
 					<!-- END SIDEBAR MENU -->

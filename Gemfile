@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
 
-gem "rails",  "~> 4.2.1.rc3"
+gem "rails",  "~> 4.2.1"
 # add these gems to help with the transition to Rails 4.2.x
-gem 'protected_attributes', "~> 1.0.8"
-gem "responders", "~> 2.0.2"
+gem 'protected_attributes', "~> 1.0.9"
+gem "responders", "~> 2.1.0"
 
 # streaming
-gem 'socket.io-rails', "~> 1.2.1"
+gem 'socket.io-rails', "~> 1.3.5"
 
 #jquery & ui
 gem 'jquery-rails', "~> 4.0.3"
@@ -19,8 +19,8 @@ gem 'remotipart', "~> 1.2.1"
 #Added //= require jquery.remotipart in application.js
 
 #fog
-gem 'fog', "~> 1.28.0"
-gem 'opennebula'
+gem 'fog', "~> 1.29.0"
+gem 'opennebula', "~> 4.12.0"
 
 # security and oauth
 gem 'bcrypt', "~> 3.1.10"
@@ -42,7 +42,7 @@ gem "github_api", "~>0.12.3"
 gem "randexp", "~> 0.1.7"
 gem "megam_api", "~> 0.36"
 gem 'google-analytics-rails', '~> 0.0.6'
-gem 'megam_gogs', "~> 0.5.0"
+gem 'megam_gogs', "~> 0.7.0"
 
 
 # http request and responses, http_proxy
@@ -59,7 +59,7 @@ gem "sshkey", "~> 1.6.1"
 # Gems used only for assets and not required
 # in production environments by default.
 gem "less-rails", "~> 2.6.0"
-gem 'sass-rails', "~> 5.0.1"
+gem 'sass-rails', "~> 5.0.3"
 gem 'coffee-rails', "~> 4.1.0"
 gem 'uglifier', "~> 2.7.1"
 

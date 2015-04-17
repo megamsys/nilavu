@@ -1,3 +1,18 @@
+##
+## Copyright [2013-2015] [Megam Systems]
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+## http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+##
 class OneappsController < ApplicationController
 
   respond_to :html, :js
@@ -11,7 +26,7 @@ class OneappsController < ApplicationController
   end
 
   def overview
-    if current_user_verify
+    if !!current_user
       appid = params["appkey"]
       @assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
     else
@@ -20,7 +35,7 @@ class OneappsController < ApplicationController
   end
 
   def logs
-    if current_user_verify
+    if !!current_user
       @com_books = []
       @socketURL = Rails.configuration.socket_url
       appid = params["appkey"]
@@ -44,7 +59,7 @@ class OneappsController < ApplicationController
   end
 
   def runtime
-    if current_user_verify
+    if !!current_user
       appid = params["appkey"]
       assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
       if assembly.class != Megam::Error
@@ -62,7 +77,7 @@ class OneappsController < ApplicationController
   end
 
   def bind_service_list
-    if current_user_verify
+    if !!current_user
       @bindapp = params[:bindapp]
       @service = []
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
@@ -106,7 +121,7 @@ class OneappsController < ApplicationController
   end
 
   def bindService
-  
+
  app_update  =  updatebinds(params[:bindapp], params[:bindservice])
   service_update = updatebinds(params[:bindservice], params[:bindapp])
   if app_update == true && service_update == true
@@ -122,12 +137,12 @@ class OneappsController < ApplicationController
               }
             end
    end
-    
+
   end
 
   def updatebinds(data, bindData)
-  
-    if current_user_verify
+
+    if !!current_user
       if data != ""
         bindedAPP = data.split(":")
         get_assembly = GetAssemblyWithoutComponentCollection.perform(bindedAPP[0], force_api[:email], force_api[:api_key])
@@ -155,7 +170,7 @@ class OneappsController < ApplicationController
             bindedData = bindData.split(":")
             relatedcomponent = bindedData[2]
             update_component_json = UpdateComponentJson.perform(get_component, relatedcomponent)
-             
+
             update_component = UpdateComponent.perform(update_component_json, force_api[:email], force_api[:api_key])
             if update_component.class == Megam::Error
               @res_msg = nil
@@ -168,10 +183,10 @@ class OneappsController < ApplicationController
               return false
             else
            bindedData = bindData.split(":")
-           
+
             get_bindAssembly = GetAssemblyWithoutComponentCollection.perform(bindedData[0], force_api[:email], force_api[:api_key])
             get_bindComponent = GetComponent.perform(bindedData[1], force_api[:email], force_api[:api_key])
-             
+
               update_json = UpdateAssemblyJson.perform(get_assembly, get_component)
               update_bind_json = UpdateSeperateAssemblyJson.perform(get_assembly, get_bindAssembly, get_bindComponent)
               update_assembly = UpdateAssembly.perform(update_json, force_api[:email], force_api[:api_key])
@@ -210,7 +225,7 @@ class OneappsController < ApplicationController
   end
 
   def app_request
-    if current_user_verify
+    if !!current_user
       logger.debug "--> Apps:Build_request, #{params}"
       options = {:app_id => "#{params[:app_id]}", :app_name => "#{params[:app_name]}", :action => "#{params[:command]}"}
       defnd_result =  CreateAppRequests.perform(options, force_api[:email], force_api[:api_key])

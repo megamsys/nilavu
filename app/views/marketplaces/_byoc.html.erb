@@ -1,3 +1,18 @@
+<!--
+** Copyright [2013-2015] [Megam Systems]
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+** http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+-->
 <%= form_tag byoc_launch_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 <% @mkp.plans.each do |c| %>
 <% if c["version"] == version %>
@@ -18,6 +33,8 @@
 <% @deps_scm = get_deps_scm(@pro_name[3].downcase) %>
 <% else %>
 <% @deps_scm = @mkp_source %>
+<%= puts @mkp_source %>
+<%= puts "-----------------------" %>
 <% end %>
 <% @mkp_collection = ListMarketPlaceApps.perform(force_api[:email], force_api[:api_key]) %>
 <% @mkpname = []  %>
@@ -39,11 +56,12 @@
 <%= hidden_field_tag 'appname', nil, placeholder: "", :class =>"form-control", :value =>  book_name %>
 <%= hidden_field_tag 'scm_name', nil, placeholder: "", :class =>"form-control"%>
 <div class="row">
-	<div class="col-md-6 body_left">
+		<div class="col-md-6 body_left">
 		<div class="row">
 			<div class="col-sm-7 app_left_name">
 				<span>Choose your SCM</span>
-			</div>
+			</div><%= puts @deps_scm %>
+			<%= puts "------------------------" %>
 		</div>
 		<div class="row">
 			<div class="col-md-4">

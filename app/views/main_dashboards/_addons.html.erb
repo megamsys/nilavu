@@ -1,3 +1,18 @@
+<!--
+** Copyright [2013-2015] [Megam Systems]
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+** http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+-->
 <div class="row c_pading-b15">
 	<div class="portlet-body-head">
 		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
@@ -29,6 +44,7 @@
 		<% if assembly != nil %>
 		<% if assembly[0].class != Megam::Error %>
 
+		<% if assembly[0].components.length > 0 %>
 		<% assembly[0].components.each do |com| %>
 		<% if com != nil %>
 		<% com.each do |c| %>
@@ -36,6 +52,7 @@
 		<% ctype = get_type(com_type[2]) %>
 		<% if ctype == "ADDON" %>
 		<% sflag = true %>
+		<% end %>
 		<% end %>
 		<% end %>
 		<% end %>
@@ -72,6 +89,7 @@
 						</div>
 						<div class="row app_icon">
 							<h5><%= assembly[0].name %></h5>
+							<% if assembly[0].components.length > 0 %>
 							<% appkey = assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain] %>
 							<%= link_to appkey, addonsoverview_path(:appkey => assembly[0].id) %>
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -91,6 +109,7 @@
 									<% end %>
 								</ul>
 							</div>
+							<% end %>
 						</div>
 						<!-- <img class="center-block" src="assets/img/app2.png"> -->
 					</div>
@@ -132,6 +151,7 @@
 						</div>
 						<div class="row app_icon">
 							<h5><%= assembly[0].name %></h5>
+							<% if assembly[0].components.length > 0 %>
 							<%= assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain] %>
 
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -149,6 +169,7 @@
 									<% end %>
 								</ul>
 							</div>
+							<% end %>
 						</div>
 						<!-- <img class="center-block" src="assets/img/app2.png"> -->
 					</div>

@@ -1,7 +1,22 @@
+<!--
+** Copyright [2013-2015] [Megam Systems]
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+** http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+-->
 <div class="row c_pading-b15">
 	<div class="portlet-body-head">
 		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-			<i class="c_icon-grid"></i>Your Instances <span><%= @app_counter %> Instances running</span>
+			<i class="c_icon-grid"></i>Your Instances <span><%= @vm_counter %> Instances running</span>
 		</div>
 	</div>
 </div>
@@ -29,22 +44,9 @@
 		<% asm.assemblies.each do |assembly| %>
 		<% sflag = true %>
 		<% if assembly != nil %>
-		<% if assembly[0].class != Megam::Error %>
-
-		<% assembly[0].components.each do |com| %>
-		<% if com != nil %>
-		<% com.each do |c| %>
-		<% com_type = c.tosca_type.split(".") %>
-		<% ctype = get_type(com_type[2]) %>
-		<% if ctype == "INSTANCE" %>
-		<% if assembly[0].components.length == 2 %>
-		<% sflag = false %>
-		<% end %>
-		<% end %>
-		<% end %>
-		<% end %>
-		<% end %>
-
+		<% if assembly[0].class != Megam::Error %>		
+         
+        <% if assembly[0].components.length == 0 %>
 		<% if sflag %>
 		<% if assembly[0].status != "Terminated" %>
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
@@ -78,31 +80,11 @@
 						</div>
 						<div class="row app_icon">
 							<h5><%= assembly[0].name %></h5>
-							<% appkey = assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain] %>
-							<% com_type = assembly[0].components[0][0].tosca_type.split(".") %>
-							<% ctype = get_type(com_type[2]) %>
-							<% if ctype == "ADDON" %>
-							<%= link_to appkey, addonsoverview_path(:appkey => assembly[0].id) %>
-							<% else %>
+							<% appkey = assembly[0].name + ".megam.io" %>
 							<%= link_to appkey, vmoverview_path(:appkey => assembly[0].id) %>
-							<% end %>
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 								<ul class="list-inline app_icon_bottom">
-
-									<%  assembly[0].components.each do |com| %>
-									<% if com != nil %>
-									<% com.each do |c| %>
-									<% com_type = c.tosca_type.split(".") %>
-									<% ctype = get_type(com_type[2]) %>
-									<% if ctype != "" %>
-
-									<li>
-										<%= image_tag "logos/"+com_type[2].downcase+".png", :alt => "" %>
-									</li>
-									<% end %>
-									<% end %>
-									<% end %>
-									<% end %>
+									
 								</ul>
 							</div>
 						</div>
@@ -146,21 +128,11 @@
 						</div>
 						<div class="row app_icon">
 							<h5><%= assembly[0].name %></h5>
-							<%= assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain] %>
+							<%= assembly[0].name + ".megam.io" %>
 
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 								<ul class="list-inline app_icon_bottom">
-									<%  assembly[0].components.each do |com| %>
-									<% if com != nil %>
-									<% com.each do |c| %>
-									<% com_type = c.tosca_type.split(".") %>
-									<% ctype = get_type(com_type[2]) %>
-									<li>
-										<%= image_tag "logos/"+com_type[2].downcase+".png", :alt => "" %>
-									</li>
-									<% end %>
-									<% end %>
-									<% end %>
+									
 								</ul>
 							</div>
 						</div>
@@ -176,6 +148,7 @@
 			</div>
 
 		</div>
+		<% end %>
 		<% end %>
 		<% end %>
 		<% end %>

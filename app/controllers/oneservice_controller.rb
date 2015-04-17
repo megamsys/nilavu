@@ -1,3 +1,18 @@
+##
+## Copyright [2013-2015] [Megam Systems]
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+## http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+##
 class OneserviceController < ApplicationController
 
   respond_to :html, :js
@@ -8,7 +23,7 @@ class OneserviceController < ApplicationController
   end
 
   def overview
-    if current_user_verify
+    if !!current_user
       serviceid = params["servicekey"]
       @assembly=GetAssembly.perform(serviceid,force_api[:email],force_api[:api_key])
     else
@@ -17,7 +32,7 @@ class OneserviceController < ApplicationController
   end
 
   def metrics
-    if current_user_verify
+    if !!current_user
       serviceid = params["servicekey"]
       assembly=GetAssembly.perform(serviceid,force_api[:email],force_api[:api_key])
       if assembly.class != Megam::Error
@@ -31,7 +46,7 @@ class OneserviceController < ApplicationController
   end
 
   def logs
-    if current_user_verify
+    if !!current_user
       @com_books = []
       @socketURL = Rails.configuration.socket_url
       appid = params["servicekey"]
@@ -55,7 +70,7 @@ class OneserviceController < ApplicationController
   end
 
   def runtime
-    if current_user_verify
+    if !!current_user
       serviceid = params["servicekey"]
       assembly=GetAssembly.perform(serviceid,force_api[:email],force_api[:api_key])
       if assembly.class != Megam::Error
@@ -84,7 +99,7 @@ class OneserviceController < ApplicationController
   end
 
   def service_request
-    if current_user_verify
+    if !!current_user
       logger.debug "--> service:Build_request, #{params}"
       options = {:app_id => "#{params[:service_id]}", :app_name => "#{params[:service_name]}", :action => "#{params[:command]}"}
       defnd_result =  CreateAppRequests.perform(options, force_api[:email], force_api[:api_key])

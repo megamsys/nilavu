@@ -1,3 +1,18 @@
+<!--
+** Copyright [2013-2015] [Megam Systems]
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+** http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+-->
 <% provide(:title, "Sign in") %>
 <div class="signin login">
 	<!-- BEGIN LOGO -->
@@ -58,10 +73,10 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
 							<div class="row">
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 tour-btn">
-									<span> <a href="signup"><u class="colr-bluegrey">Create new account ? </u></a> </span>
+									<span> <a href="signup" id="la-button" data-anim="la-anim-1"><u class="colr-bluegrey">Create new account ? </u></a> </span>
 								</div>
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right tour-btn">
-									<span> <a  data-toggle="modal" href="#forgot_password"  class="pull-right" href="#"><u class="colr-denimblue">Forgot password ?</u></a> </span>
+									<span> <a  data-toggle="modal" href="#forgot_password"  class="pull-right" id="la-button" data-anim="la-anim-1"><u class="colr-denimblue">Forgot password ?</u></a> </span>
 
 								</div>
 							</div>
@@ -72,10 +87,10 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div class="row">
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 tour-btn">
-									<%= link_to "Take a tour", demo_path(:email =>"fake@mypaas.io",:password =>"fakemypaas#megam"),:class => "btn btn-success btn-plain", :id => "popover_demosignin" %>
+									<%= link_to "Take a tour", demo_path(:email =>"fake@mypaas.io",:password =>"fakemypaas#megam"),:class => "btn btn-success btn-plain", :id => "popover_demosignin", :id => "la-button", :data => {:anim => "la-anim-1"} %>
 								</div>
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right tour-btn">
-								    <%= submit_tag "Login", :class => "btn btn-success btn-plain-green" %>
+								    <%= submit_tag "Login", :class => "btn btn-success btn-plain-green", :id => "la-button", :data => {:anim => "la-anim-1"} %>
 								</div>
 							</div>
 						</div>
@@ -113,7 +128,7 @@
 		<div  class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">
 			<div class="row">
 				<p>
-					<a href="http://enixel.com/" target="_blank">Powered by Enixel</a><span class="pull-right"><a href="https://www.megam.io" target="_blank">megam.io</a></span>
+					<a href="http://enixel.com/" target="_blank">Designed by Enixel</a><span class="pull-right"><a href="https://www.megam.io" target="_blank">megam.io</a></span>
 				</p>
 			</div>
 		</div>
@@ -140,7 +155,7 @@
 								<%= text_field_tag :email, nil, :class => 'form-control', :required => true, placeholder: "Email" %>
 							</div>
 
-							<%= submit_tag "Reset Password", :class => "btn btn-success col-md-12 col-xs-12" %>
+							<%= submit_tag "Reset Password", :class => "btn btn-success col-md-12 col-xs-12", :id => "la-button", :data => {:anim => "la-anim-1"} %>
 							<% end %>
 						</div>
 					</div>
@@ -185,7 +200,7 @@
 				<div>
 
 					<p>
-						You recently made a request for a lost password. Please Enter a valid megam account email address
+						You recently made a request for a lost password. Please type a valid email address
 					</p>
 				</div>
 			</div>
@@ -197,4 +212,3 @@
 	</div>
 	<!-- /.modal-dialog -->
 </div>
-
