@@ -47,11 +47,16 @@ jQuery(document).ready(function() {
 				if( inProgress ) return false;
 
 				inProgress = true;
+        NProgress.start();
+
 				classie.add( animEl, 'la-animate' );
-        //alert("Howdy");
+
+        NProgress.inc(0.2);
+
 				setTimeout( function() {
 				classie.remove( animEl, 'la-animate' );
 				inProgress = false;
+        NProgress.done(true);
 				}, 6000 );
 		} );
 	});

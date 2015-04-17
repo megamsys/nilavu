@@ -26,7 +26,7 @@ class OneappsController < ApplicationController
   end
 
   def overview
-    if !!current_user
+    if user_in_cookie?
       appid = params["appkey"]
       @assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
     else
@@ -35,7 +35,7 @@ class OneappsController < ApplicationController
   end
 
   def logs
-    if !!current_user
+    if user_in_cookie?
       @com_books = []
       @socketURL = Rails.configuration.socket_url
       appid = params["appkey"]
@@ -59,7 +59,7 @@ class OneappsController < ApplicationController
   end
 
   def runtime
-    if !!current_user
+    if user_in_cookie?
       appid = params["appkey"]
       assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
       if assembly.class != Megam::Error
@@ -77,7 +77,7 @@ class OneappsController < ApplicationController
   end
 
   def bind_service_list
-    if !!current_user
+    if user_in_cookie?
       @bindapp = params[:bindapp]
       @service = []
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
@@ -142,7 +142,7 @@ class OneappsController < ApplicationController
 
   def updatebinds(data, bindData)
 
-    if !!current_user
+    if user_in_cookie?
       if data != ""
         bindedAPP = data.split(":")
         get_assembly = GetAssemblyWithoutComponentCollection.perform(bindedAPP[0], force_api[:email], force_api[:api_key])
@@ -225,7 +225,7 @@ class OneappsController < ApplicationController
   end
 
   def app_request
-    if !!current_user
+    if user_in_cookie?
       logger.debug "--> Apps:Build_request, #{params}"
       options = {:app_id => "#{params[:app_id]}", :app_name => "#{params[:app_name]}", :action => "#{params[:command]}"}
       defnd_result =  CreateAppRequests.perform(options, force_api[:email], force_api[:api_key])

@@ -104,7 +104,7 @@ class UsersController < ApplicationController
   end
 
   def edituser
-    if !!current_user
+    if user_in_cookie?
       @user = User.new
       logger.debug "==> Controller: users, Action: edit, Start edit"
       @orgs = list_organizations
@@ -117,7 +117,7 @@ class UsersController < ApplicationController
 
 
   def userupdate
-    if !!current_user
+    if user_in_cookie?
       logger.debug "==> Controller: users, Action: update, Update user pw, api_key"
       @user = User.new
       @userdata = @user.find_by_email(current_user["email"])
@@ -209,7 +209,7 @@ class UsersController < ApplicationController
   private
 
   def list_organizations
-    if !!current_user
+    if user_in_cookie?
       logger.debug "--> #{self.class} : list organizations entry"
       org_collection = ListOrganizations.perform(force_api[:email], force_api[:api_key])
       orgs = []

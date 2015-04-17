@@ -37,7 +37,7 @@ class CrossCloudsController < ApplicationController
   end
 
   def gwindow
-    if !!current_user
+    if user_in_cookie?
       session[:info] = request.env['omniauth.auth']['credentials']
     else
       auth = request.env['omniauth.auth']
@@ -47,7 +47,7 @@ class CrossCloudsController < ApplicationController
   end
 
   def create
-    if !!current_user
+    if user_in_cookie?
       if Rails.configuration.storage_type == "s3"
         vault_loc = vault_base_url+"/"+current_user["email"]+"/"+params[:name]
         sshpub_loc = vault_base_url+"/"+current_user["email"]+"/"+params[:id_rsa_public_key]
@@ -197,7 +197,7 @@ class CrossCloudsController < ApplicationController
   end
 
   def list_sshkeys
-    if !!current_user
+    if user_in_cookie?
       logger.debug ">----#{self.class}> index: list sshkeys entry"
       @ssh_keys_collection = ListSshKeys.perform(force_api[:email], force_api[:api_key])
       logger.debug ">----#{self.class}> : listed sshkeys"
@@ -232,7 +232,7 @@ class CrossCloudsController < ApplicationController
   end
 
   def view_details
-    if !!current_user
+    if user_in_cookie?
       input = params[:settingsname]
       @details = GetPredefCloud.perform(params[:settingsname], force_api[:email], force_api[:api_key])
       if @details.class == Megam::Error

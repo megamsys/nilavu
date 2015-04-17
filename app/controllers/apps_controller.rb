@@ -23,7 +23,7 @@ class AppsController < ApplicationController
   end
 
   def index
-    if !!current_user
+    if user_in_cookie?
       @user_id = current_user["email"]
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
       @service_counter = 0
@@ -77,7 +77,7 @@ class AppsController < ApplicationController
   ##SCRP: I think the methods should be a separate controller GitHubController in which this a "new method"
   def github_scm
     logger.debug ">----apps> callback github: entry"
-    if !!current_user
+    if user_in_cookie?
       session[:info] = request.env['omniauth.auth']['credentials']
     else
       auth = request.env['omniauth.auth']

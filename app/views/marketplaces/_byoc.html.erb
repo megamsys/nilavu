@@ -33,8 +33,6 @@
 <% @deps_scm = get_deps_scm(@pro_name[3].downcase) %>
 <% else %>
 <% @deps_scm = @mkp_source %>
-<%= puts @mkp_source %>
-<%= puts "-----------------------" %>
 <% end %>
 <% @mkp_collection = ListMarketPlaceApps.perform(force_api[:email], force_api[:api_key]) %>
 <% @mkpname = []  %>
@@ -176,7 +174,7 @@
 				 $.ajax({
 							type : "POST",
 							url : "/gogs_call",
-							//dataType: 'json',							
+							//dataType: 'json',
 							success : function(data) {
 								console.log("It worked!")
 								console.log(dataString);
@@ -228,5 +226,5 @@
 				}
 			});
 		});
-	}); 
+	});
 </script>
