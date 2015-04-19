@@ -53,9 +53,10 @@ class UsersController < ApplicationController
     @user = User.new
     @user_fields_form_type = params[:user_fields_form_type]
     params["remember_token"] = @user.generate_token
- if !riak_ping?
-	redirect_to signin_path, :flash => { :error => "Problem in Riak! Check 'riak ping' in #{Rails.configuration.storage_server_url}." } and return
- end
+    if !riak_ping?
+	     redirect_to signin_path, :flash => { :error => "Problem in Riak! Check 'riak ping' in #{Rails.configuration.storage_server_url}." } and return
+    end
+
     if @user.save(params)
       sign_in params
       # fix for remember me: send the remember_me flag to sign_in method to decide if the user wishes to be remembered or not.
@@ -73,8 +74,7 @@ class UsersController < ApplicationController
         if res_update
           if "#{Rails.configuration.support_email}".chop!
             begin
-
-             @user.send_welcome_email(cookies)  #WELCOME EMAIL
+              UserMailer.welcome(current_user).deliver
               mail_res = "Email verification success"
             rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
               mail_res = "Email verification Failed"
