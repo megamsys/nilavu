@@ -58,15 +58,16 @@ class UsersController < ApplicationController
 	redirect_to signin_path, :flash => { :error => "oops! there is some issue. Please contact support@megam.io" } and return
  end
  api_token = view_context.generate_api_token
-    if GetProfile.perform(params[:email], api_token ) != Megam::Error
+  if GetProfile.perform(params[:email], api_token ) != Megam::Error
+    if !riak_ping?
+	     redirect_to signin_path, :flash => { :error => "Problem in Riak! Check 'riak ping' in #{Rails.configuration.storage_server_url}." } and return
+    end
       sign_in params
       # fix for remember me: send the remember_me flag to sign_in method to decide if the user wishes to be remembered or not.
       logger.debug "==> Controller: users, Action: create, User signed in after creation"
       force_api(params["email"], api_token)
       options = { :id => "", :email => params["email"], :api_key => api_token, :authority => "admin" }
       res_body = CreateAccounts.perform(options)
-
-
       if !(res_body.class == Megam::Error)
         #update current user as onboard user(megam_api user)
         logger.debug "==> Controller: users, Action: create, User onboarded successfully"
@@ -75,8 +76,7 @@ class UsersController < ApplicationController
         #if res_update
           if "#{Rails.configuration.support_email}".chop!
             begin
-
-             @user.send_welcome_email(cookies)  #WELCOME EMAIL
+              UserMailer.welcome(current_user).deliver
               mail_res = "Email verification success"
             rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
               mail_res = "Email verification Failed"
@@ -227,5 +227,4 @@ class UsersController < ApplicationController
       redirect_to signin_path
     end
   end
-
 end
