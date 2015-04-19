@@ -41,11 +41,6 @@ class User
   end
 
 
-  def send_welcome_email(cookies)
-    test = current_user
-    UserMailer.welcome_email(test).deliver
-  end
-
   def generate_token
     SecureRandom.urlsafe_base64
   end
