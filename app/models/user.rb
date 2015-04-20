@@ -70,10 +70,11 @@ class User
     hash.to_json
   end
 
-  def save(options)
+  def save(options, api_token)
     hash = builder(options)
     result = true
-    res_body = MegamRiak.upload("profile", options[:email], hash, "application/json")
+    #res_body = MegamRiak.upload("profile", options[:email], hash, "application/json")
+    res_body = CreateProfile.perform(options, options[:email], api_token)
     if res_body.class == Megam::Error
     result = false
     end

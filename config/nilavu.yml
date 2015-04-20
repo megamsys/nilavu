@@ -1,5 +1,5 @@
 api:
-  host: api.megam.co
+  host: localhost
   scheme: http
   pub_key: megamgateway_pub.crt
   private_key: megamgateway.key
@@ -16,7 +16,7 @@ storage:
 varai:
   host: localhost
   port: 1880
-  
+
 
 
 support:
@@ -42,7 +42,7 @@ monitor:
 tap:
  host: localhost
  port: 7000
- 
+
 
 gogs:
  host: localhost
