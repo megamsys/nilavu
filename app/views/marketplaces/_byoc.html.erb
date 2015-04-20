@@ -33,8 +33,6 @@
 <% @deps_scm = get_deps_scm(@pro_name[3].downcase) %>
 <% else %>
 <% @deps_scm = @mkp_source %>
-<%= puts @mkp_source %>
-<%= puts "-----------------------" %>
 <% end %>
 <% @mkp_collection = ListMarketPlaceApps.perform(force_api[:email], force_api[:api_key]) %>
 <% @mkpname = []  %>
@@ -56,12 +54,11 @@
 <%= hidden_field_tag 'appname', nil, placeholder: "", :class =>"form-control", :value =>  book_name %>
 <%= hidden_field_tag 'scm_name', nil, placeholder: "", :class =>"form-control"%>
 <div class="row">
-		<div class="col-md-6 body_left">
+	<div class="col-md-6 body_left">
 		<div class="row">
 			<div class="col-sm-7 app_left_name">
 				<span>Choose your SCM</span>
-			</div><%= puts @deps_scm %>
-			<%= puts "------------------------" %>
+			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-4">
@@ -79,14 +76,14 @@
 		<div class="bottom-divider"></div>
 
 		<div class="row pad_tb25">
-			<div class="alert alert-info alert-dismissable">Access your scm by clicking the above icons</div>
+			<div class="alert alert-info alert-dismissable">
+				Access your scm by clicking the above icons
+			</div>
 			<div id="repos_list"></div>
 			<div id="gogs_repos_list"></div>
 		</div>
 
-
 		<div class="bottom-divider"></div>
-
 
 		<div class="row pad_tb25">
 			<div class="col-sm-6 app_left_name">
@@ -99,7 +96,7 @@
 			</div>
 		</div>
 
-<!-- Need a checkbox to check for CI(continuous integration) -->
+		<!-- Need a checkbox to check for CI(continuous integration) -->
 		<div class="bottom-divider"></div>
 
 		<div class="row pad_tb25">
@@ -119,7 +116,7 @@
 		</div>
 	</div>
 
-		<div class="bottom-divider"></div>
+	<div class="bottom-divider"></div>
 
 	<!-- body_left ends here -->
 
@@ -148,32 +145,12 @@
 		</div>
 		<div class="bottom-divider"></div>
 
-
 		<div class="row">
 			<div class="col-xs-12">
 				<div class="form-group">
 					<%= submit_tag "Create app", :class => "btn btn-success col-xs-12" %>
 				</div>
-			</div>
-			<div class="row">
-    <h1>Radio Group #2</h1>
-    <label for="year" class="control-label input-group">Year</label>
-    <div class="btn-group" data-toggle="buttons">
-        <label class="btn btn-default">
-            <input type="radio" name="year" value="2011">2011
-        </label>
-        <label class="btn btn-default">
-            <input type="radio" name="year" value="2012">2012
-        </label>
-        <label class="btn btn-default active">
-            <input type="radio" name="year" value="2013" checked="">2013
-        </label>
-    </div>
-  </div>
-			<!-- <div class="col-xs-12">
-			<div class="form-group">
-			</div>
-			</div> -->
+			</div>		
 		</div>
 
 	</div>
@@ -183,32 +160,32 @@
 
 <script>
 	$(document).ready(function() {
-	$("#scm_name").val("gogs");
+		$("#scm_name").val("gogs");
 		$("#gogs_connect").click(function() {
 			$.oauthpopup({
 				path : "/auth/gogs",
-				callback: function(){
-				 $.ajax({
-							type : "POST",
-							url : "/gogs_call",
-							//dataType: 'json',							
-							success : function(data) {
-								console.log("It worked!")
-								console.log(dataString);
-							},
+				callback : function() {
+					$.ajax({
+						type : "POST",
+						url : "/gogs_call",
+						//dataType: 'json',
+						success : function(data) {
+							console.log("It worked!")
+							console.log(dataString);
+						},
 
-							error : function(data) {
-								console.log("ERROR CHECK PROPERLY!!");
-								console.log(data);
-							}
-						});
-						return false;
+						error : function(data) {
+							console.log("ERROR CHECK PROPERLY!!");
+							console.log(data);
+						}
+					});
+					return false;
 				}
 			});
 		});
 
 		$("#byoc_connect").click(function() {
-		   $("#scm_name").val("github");
+			$("#scm_name").val("github");
 			$.oauthpopup({
 				path : "/auth/github",
 				callback : function() {

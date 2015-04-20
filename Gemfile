@@ -63,8 +63,6 @@ gem 'sass-rails', "~> 5.0.3"
 gem 'coffee-rails', "~> 4.1.0"
 gem 'uglifier', "~> 2.7.1"
 
-gem 'chargebee', "~> 1.5.4"
-
 group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
