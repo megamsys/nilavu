@@ -15,7 +15,6 @@
 ##
 #List all the market place apps
 class GetProfile
-  puts "Entered getprofile"
   def self.perform(tmp_email, tmp_api_key)
 
     begin
@@ -38,5 +37,4 @@ class GetProfile
     end
     @excon_res.data[:body]
   end
-puts "Done.. now let us create account"
 end
