@@ -52,48 +52,55 @@ class MarketplacesController < ApplicationController
   ##
   def show
     if user_in_cookie?
-      @bill_collection = Actions.perform("Megam::Balances", {}, force_api[:email], force_api[:api_key])
-      if @bill_collection == Megam::Error 
-        redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
+      @bill_collection = GetBalance.perform(force_api[:email], force_api[:api_key])
+      if @bill_collection == Megam::Error
+        respond_to do |format|
+          format.html {redirect_to billings_path}
+          format.js {render :js => "window.location.href='"+billings_path+"'"}
+        end
       else
         puts "----------------------------------------"
-        @bill = @bill_collection.lookup(force_api[:email]) 
-        if @bill.credit.to_i <= 0 
-          redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
-        end
-      end
-      @pro_name = params[:id].split("-")
-      @apps = get_apps
-      @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])
-      if @mkp.class == Megam::Error
-        redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
-      else
-        @mkp = @mkp.lookup(params[:id])
-        @predef_name = get_predef_name(@pro_name[3].downcase)
-        @deps_scm = get_deps_scm(@pro_name[3].downcase)
-        @my_apps = []
-
-        @type = get_type(@pro_name[3].downcase)
-        @version_order=[]
-        @version_order = @mkp.plans.map {|c| c["version"]}
-        @version_order = @version_order.sort
-
-        @ssh_keys_collection = ListSshKeys.perform(force_api[:email], force_api[:api_key])
-        logger.debug "--> #{self.class} : listed sshkeys"
-
-        if @ssh_keys_collection.class != Megam::Error
-          @ssh_keys = []
-          ssh_keys = []
-          @ssh_keys_collection.each do |sshkey|
-            ssh_keys << {:name => sshkey.name, :created_at => sshkey.created_at.to_time.to_formatted_s(:rfc822)}
+        @bill = @bill_collection.lookup(force_api[:email])
+        if @bill.credit.to_i <= 0
+          respond_to do |format|
+            format.html {redirect_to billings_path}
+            format.js {render :js => "window.location.href='"+billings_path+"'"}
           end
-          @ssh_keys = ssh_keys.sort_by {|vn| vn[:created_at]}
-        end
+        else
+          @pro_name = params[:id].split("-")
+          @apps = get_apps
+          @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])
+          if @mkp.class == Megam::Error
+            redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
+          else
+            @mkp = @mkp.lookup(params[:id])
+            @predef_name = get_predef_name(@pro_name[3].downcase)
+            @deps_scm = get_deps_scm(@pro_name[3].downcase)
+            @my_apps = []
 
-        respond_to do |format|
-          format.js {
-            respond_with(@mkp, @version_order, @type, @ssh_keys, :layout => !request.xhr? )
-          }
+            @type = get_type(@pro_name[3].downcase)
+            @version_order=[]
+            @version_order = @mkp.plans.map {|c| c["version"]}
+            @version_order = @version_order.sort
+
+            @ssh_keys_collection = ListSshKeys.perform(force_api[:email], force_api[:api_key])
+            logger.debug "--> #{self.class} : listed sshkeys"
+
+            if @ssh_keys_collection.class != Megam::Error
+              @ssh_keys = []
+              ssh_keys = []
+              @ssh_keys_collection.each do |sshkey|
+                ssh_keys << {:name => sshkey.name, :created_at => sshkey.created_at.to_time.to_formatted_s(:rfc822)}
+              end
+              @ssh_keys = ssh_keys.sort_by {|vn| vn[:created_at]}
+            end
+
+            respond_to do |format|
+              format.js {
+                respond_with(@mkp, @version_order, @type, @ssh_keys, :layout => !request.xhr? )
+              }
+            end
+          end
         end
       end
     else

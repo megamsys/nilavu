@@ -168,7 +168,8 @@ match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :p
   match '/changeversion', to: 'marketplaces#changeversion', via: [:get, :post]
   
   #billings
-  match '/billings/execute', to: 'billings#execute', via: [:get, :post]
+  match '/payment_execute', to: 'billings#payment_execute', via: [:get, :post]
+  match '/pay', to: 'billings#pay', via: [:get, :post]
   
   #Market place
   match '/category_view', to: 'marketplaces#category_view', via: [:get, :post]

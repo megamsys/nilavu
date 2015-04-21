@@ -1,0 +1,13 @@
+test: &default
+  mode: sandbox
+  client_id: 
+  client_secret: 
+
+development:
+  <<: *default
+
+production:
+  mode: live
+  client_id: CLIENT_ID
+  client_secret: CLIENT_SECRET
+  # rest_endpoint: "https://api.paypal.com"
