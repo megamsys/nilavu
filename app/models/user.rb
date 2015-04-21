@@ -41,11 +41,6 @@ class User
   end
 
 
-  def send_welcome_email(cookies)
-    test = current_user
-    UserMailer.welcome_email(test).deliver
-  end
-
   def generate_token
     SecureRandom.urlsafe_base64
   end
@@ -75,10 +70,11 @@ class User
     hash.to_json
   end
 
-  def save(options)
+  def save(options, api_token)
     hash = builder(options)
     result = true
-    res_body = MegamRiak.upload("profile", options[:email], hash, "application/json")
+    #res_body = MegamRiak.upload("profile", options[:email], hash, "application/json")
+    res_body = CreateProfile.perform(options, options[:email], api_token)
     if res_body.class == Megam::Error
     result = false
     end
@@ -103,8 +99,6 @@ class User
   def find_by_remember_token(remember_token, email)
     result = nil
     res = MegamRiak.fetch("profile", email)
-puts "find_by_remember_token============> "
-puts res.inspect
     if res.class != Megam::Error
     result = res.content.data
     end
@@ -138,17 +132,16 @@ puts res.inspect
     Password.new(pass)
   end
 
-def send_password_reset(email)
-	@user = User.new
-	  update_options = { "password_reset_sent_at" => "#{Time.zone.now}", "password_reset_token" => generate_token }
-          res_update = @user.update_columns(update_options, email)
-	user = @user.find_by_email(email)
-          if res_update
-            UserMailer.password_reset(user).deliver_now
-          else
-            puts "API Key update: Something went wrong! User not updated"
-          end
-
-end
+  def send_password_reset(email)
+	   @user = User.new
+	    update_options = { "password_reset_sent_at" => "#{Time.zone.now}", "password_reset_token" => generate_token }
+      res_update = @user.update_columns(update_options, email)
+	    user = @user.find_by_email(email)
+      if res_update
+        UserMailer.password_reset(user).deliver_now
+      else
+        puts "API Key update: Something went wrong! User not updated"
+      end
+    end
 
 end

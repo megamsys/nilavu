@@ -52,59 +52,62 @@ class UsersController < ApplicationController
     logger.debug "--> Users:create, update social identity for new social identity user"
     @user = User.new
     @user_fields_form_type = params[:user_fields_form_type]
+
     params["remember_token"] = @user.generate_token
  if !riak_ping?
-	redirect_to signin_path, :flash => { :error => "Problem in Riak! Check 'riak ping' in #{Rails.configuration.storage_server_url}." } and return
+	redirect_to signin_path, :flash => { :error => "oops! there is some issue. Please contact support@megam.io" } and return
  end
-    if @user.save(params)
+ api_token = view_context.generate_api_token
+  if GetProfile.perform(params[:email], api_token ) != Megam::Error
+    if !riak_ping?
+	     redirect_to signin_path, :flash => { :error => "Problem in Riak! Check 'riak ping' in #{Rails.configuration.storage_server_url}." } and return
+    end
       sign_in params
       # fix for remember me: send the remember_me flag to sign_in method to decide if the user wishes to be remembered or not.
       logger.debug "==> Controller: users, Action: create, User signed in after creation"
-      api_token = view_context.generate_api_token
       force_api(params["email"], api_token)
       options = { :id => "", :email => params["email"], :api_key => api_token, :authority => "admin" }
       res_body = CreateAccounts.perform(options)
-
       if !(res_body.class == Megam::Error)
         #update current user as onboard user(megam_api user)
         logger.debug "==> Controller: users, Action: create, User onboarded successfully"
         update_options = { "onboarded_api" => true, "api_token" => api_token }
-        res_update = @user.update_columns(update_options, params["email"])
-        if res_update
+        #res_update = @user.update_columns(update_options, params["email"])
+        #if res_update
           if "#{Rails.configuration.support_email}".chop!
             begin
-
-             @user.send_welcome_email(cookies)  #WELCOME EMAIL
+              UserMailer.welcome(current_user).deliver
               mail_res = "Email verification success"
             rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
               mail_res = "Email verification Failed"
             end
           end
           redirect_to main_dashboards_path, :format => 'html', :flash => { :alert => "Welcome #{params['first_name']}. Your #{mail_res}"}
-        else
-          logger.debug "==> Controller: users, Action: create, User onboard was not successful"
-          redirect_to main_dashboards_path, :alert => " Gateway Failure.", :format => 'html'
+        #else
+          #logger.debug "==> Controller: users, Action: create, User onboard was not successful"
+          #redirect_to main_dashboards_path, :alert => " Gateway Failure.", :format => 'html'
         end
       else
         logger.debug "==> Controller: users, Action: create, User onboard was not successful"
         redirect_to main_dashboards_path, :flash => { :alert => "Gateway Failure. Check gateway logs." }, :format => 'html'
       end
+      if @user.save(params, api_token) != false
+        begin
+          logger.debug "==> Profile: Created"
+        rescue
+          logger.debug "==> Creating profile was not successful"
+      end
 
     else
-      @user= User.find_by_email(params[:user][:email])
-      if(@user)
-        logger.debug "==> Controller: users, Action: create, User email duplicate"
-        redirect_to signin_path, :gflash => { :warning => { :value => "Hey #{@user.first_name}, I know you already. Your email id is : #{@user.email}.", :sticky => false, :nodom_wrap => true } }
-      else
+
         logger.debug "==> Controller: users, Action: create, Something went wrong! User not saved"
         redirect_to signup_path
-      end
 
     end
   end
 
   def edituser
-    if !!current_user
+    if user_in_cookie?
       @user = User.new
       logger.debug "==> Controller: users, Action: edit, Start edit"
       @orgs = list_organizations
@@ -117,7 +120,7 @@ class UsersController < ApplicationController
 
 
   def userupdate
-    if !!current_user
+    if user_in_cookie?
       logger.debug "==> Controller: users, Action: update, Update user pw, api_key"
       @user = User.new
       @userdata = @user.find_by_email(current_user["email"])
@@ -209,7 +212,7 @@ class UsersController < ApplicationController
   private
 
   def list_organizations
-    if !!current_user
+    if user_in_cookie?
       logger.debug "--> #{self.class} : list organizations entry"
       org_collection = ListOrganizations.perform(force_api[:email], force_api[:api_key])
       orgs = []
@@ -224,5 +227,4 @@ class UsersController < ApplicationController
       redirect_to signin_path
     end
   end
-
 end

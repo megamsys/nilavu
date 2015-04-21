@@ -13,10 +13,13 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class DeletePredefCloud
-  def self.perform(predefid, tmp_email, tmp_api_key)
-	  begin
-      @excon_res = Megam::PredefCloud.delete(predefid, tmp_email, tmp_api_key)
+#List all the market place apps
+class GetProfile
+  puts "Entered getprofile"
+  def self.perform(tmp_email, tmp_api_key)
+
+    begin
+      @excon_res = Megam::Profile.show(tmp_email, tmp_api_key)
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)
@@ -35,4 +38,5 @@ class DeletePredefCloud
     end
     @excon_res.data[:body]
   end
+puts "Done.. now let us create account"
 end

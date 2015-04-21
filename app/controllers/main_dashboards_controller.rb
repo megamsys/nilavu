@@ -18,10 +18,10 @@ class MainDashboardsController < ApplicationController
   include MainDashboardsHelper
 
   def index
-    logger.debug ">----main> index: current_user is #{!!current_user}"
+    logger.debug ">----main> index: entry"
 
-    ##!!current_user retuns true, if you want false then use !current_user
-    if !!current_user
+    ##user_in_cookie? retuns true, if you want false then use !current_user
+    if user_in_cookie?
       @user_id = current_user["email"]
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
       @service_counter = 0
@@ -41,7 +41,6 @@ class MainDashboardsController < ApplicationController
                       com.each do |c|
                         com_type = c.tosca_type.split(".")
                         ctype = get_type(com_type[2])
-                        puts ctype
                         if ctype == "SERVICE"
                           @service_counter = @service_counter + 1
                         else
@@ -62,7 +61,7 @@ class MainDashboardsController < ApplicationController
   end
 
   def visualCallback
-    if !!current_user
+    if user_in_cookie?
       redirect_to main_dashboards_path, :gflash => { :error => { :value => "Invalid username and password combination, Please Enter your correct megam email", :sticky => false, :nodom_wrap => true } }
     else
       redirect_to signin_path, :gflash => { :error => { :value => "Invalid username and password combination, Please Enter your correct megam email", :sticky => false, :nodom_wrap => true } }
@@ -83,9 +82,7 @@ class MainDashboardsController < ApplicationController
     @command = params[:command]
     @launch_type = params[:type]
     options = {:a_id => "#{params[:id]}", :a_name => "#{params[:name]}", :command => "#{params[:command]}", :launch_type => "#{params[:type]}"  }
-    puts options
     create_events = CreateEvent.perform(options, force_api[:email], force_api[:api_key])
-    puts create_events
     respond_to do |format|
       format.js {
         respond_with(@a_id, @a_name, @command, @launch_type, :layout => !request.xhr? )
