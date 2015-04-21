@@ -30,13 +30,12 @@
 <% end %>
 <% if @mkp_source == "" %>
 <% @deps_scm = get_deps_scm(@pro_name[3].downcase) %>
-<%= puts @pro_name[3] %>
 <% else %>
 <% @deps_scm = @mkp_source %>
 <% end %>
 <% @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key]) %>
 <%  if @predef_cloud.class == Megam::Error %>
-<% redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }     %>    
+<% redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }     %>
 <% end %>
 <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
 <%= hidden_field_tag 'source', nil, placeholder: "", :class =>"form-control", :value => @deps_scm  %>
@@ -77,19 +76,19 @@
 			          <div id="repos_list"></div>
 			         <div id="gogs_repos_list"></div>
 		             </div>
-		           
+
 		           <div id="starterpack">
                    <input name="assigned_proposal_id" type="radio" value="STARTERPACK" id="chk2" />
                    <label for="chk2">Megam's Starter Pack </label>
-        
+
 		         	 <%= text_field_tag 'source_starterpacks', nil, placeholder: '', :class =>"form-control spacks", :value => @deps_scm %>
                   </div>
 		        </div>
 
 		</div>
 		</div>
-		
-</br>  
+
+</br>
 <%= hidden_field_tag 'source', nil, placeholder: '', :class =>"form-control main_source", :value => '' %>
 
 		<div class="row">
@@ -114,10 +113,10 @@
 						</div>
 					</div>
 				</div>
-				
+
 				<div class="row"  style="display:none;" id="sshkey_exist">
 					<% if @ssh_keys != nil %>
-					
+
 					<div class="col-sm-3 app_left_name">
 						<span>Pick a sshkey</span>
 					</div>
@@ -170,7 +169,7 @@
 			</div>
 		</div>
 	</div>
-	</div> 
+	</div>
 	</div>
 	<!-- body_left ends here -->
 
@@ -307,7 +306,7 @@
                 $(".sshoption").val("UPLOAD");
             }
         });
-        
+
     });
 </script>
 
@@ -319,19 +318,17 @@ console.log(value)
     if (value == 'STARTERPACK'){
     	$(".main_source").val($(".spacks").val());
     	console.log("now trying to disable")
-   document.getElementById("#scm").disabled = true; 
+   document.getElementById("#scm").disabled = true;
     } else {
     	 $(".main_source").val($(".scm_select").val());
     	    $(".spacks").disabled = true;
-    document.getElementById("#starterpack").disabled = true; 
+    document.getElementById("#starterpack").disabled = true;
     }
   });
-  	
-   
+
+
 
 });
-	
+
 
 </script>
-
-

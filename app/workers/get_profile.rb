@@ -13,11 +13,13 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-#List all the organizations
-class ListAccounts
-  def self.perform(wparams={},tmp_email, tmp_api_key)
+#List all the market place apps
+class GetProfile
+  puts "Entered getprofile"
+  def self.perform(tmp_email, tmp_api_key)
+
     begin
-      @excon_res = Megam::Accounts.list(tmp_email, tmp_api_key)
+      @excon_res = Megam::Profile.show(tmp_email, tmp_api_key)
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
       re = Megam::Error.from_hash(hash)
@@ -36,5 +38,5 @@ class ListAccounts
     end
     @excon_res.data[:body]
   end
-
+puts "Done.. now let us create account"
 end

@@ -35,7 +35,7 @@
 
 						<li class= "start active">
 							<%= link_to vms_path, :target => "_self" do %>
-							<i class="icon-bar-chart pull-left"></i>	
+							<i class="icon-bar-chart pull-left"></i>
 							<span class="title pull-left">Instances</span>
 							<span class="hidden-xs <%= "selected" if controller_name == "vms"%>"></span>
 							<% end %>
@@ -73,13 +73,13 @@
 							<% end %>
 						</li>
 
-						<!-- <li class="start active">
-						<%= link_to settings_path, :target => "_self" do %>
-						<i class="icon-cog pull-left"></i>
-						<span class="title pull-left">Settings</span>
-						<span class="hidden-xs <%= "selected" if controller_name == "settings"%>"></span>
-						<% end %>
-						</li> -->
+						<li class= "start active">
+							<%= link_to billings_path, :target => "_self" do %>
+							<i class="icon-money pull-left"></i>
+							<span class="title pull-left">Billings</span>
+							<span class="hidden-xs <%= "selected" if controller_name == "billings"%>"></span>
+							<% end %>
+						</li>
 
 					</ul>
 					<!-- END SIDEBAR MENU -->

@@ -20,7 +20,7 @@ class SettingsController < ApplicationController
   end
 
   def index
-    if current_user_verify
+    if user_in_cookie?
       logger.debug "--> #{self.class} : index entry"
       list_clouds
       list_sshkeys
@@ -49,7 +49,6 @@ class SettingsController < ApplicationController
   end
 
   def destroy
-	puts "=================>Settings Destroy================="
 	del_settings = DeletePredefCloud.perform(params[:id], force_api[:email], force_api[:api_key])
 	if del_settings.class != Megam::Error
       		@res_msg = "Cloud_Setting deleted successfully"
