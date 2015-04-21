@@ -18,20 +18,15 @@ class UsersController < ApplicationController
   include UsersHelper
   include SessionsHelper
 
-  #Should list all the users of an organization.
-  def index
-    @users = User.paginate(page: params[:page])
-  end
 
   def show
-	puts params
     @user = User.find(params[:id])
     current_user = @user
   end
 
   def new
+    logger.debug "--> Users:new, creating new user with social identity."
     if session[:auth]
-      logger.debug "--> Users:new, creating new user with social identity."
       @user = User.new
       @social_uid = session[:auth][:uid]
       @email = session[:auth][:email]
@@ -47,15 +42,17 @@ class UsersController < ApplicationController
   #After a successful save : redirect to users dashboard.
   # failure with email already exists, then display a message with a link to forgot_password.
   # any other errors , display a general message, with an option to contact support.
+  #SCRP: I will have to write a base controller which does
+  #  1. API worker returns Success or Failure
+  #  2. Allow to execute a block when a successful, failure, call to an api worker is done.
+  #  3. Has prechecks built in
+  #  4. Has spinner and status built in
+  #  4. API workers can be chained.
   def create
+    logger.debug "--> Users:create, entry."
     session.delete(:auth)
-    logger.debug "--> Users:create, update social identity for new social identity user"
     @user = User.new
-    @user_fields_form_type = params[:user_fields_form_type]
     params["remember_token"] = @user.generate_token
-    if !riak_ping?
-	     redirect_to signin_path, :flash => { :error => "Problem in Riak! Check 'riak ping' in #{Rails.configuration.storage_server_url}." } and return
-    end
 
     if @user.save(params)
       sign_in params
@@ -67,11 +64,10 @@ class UsersController < ApplicationController
       res_body = CreateAccounts.perform(options)
 
       if !(res_body.class == Megam::Error)
-        #update current user as onboard user(megam_api user)
-        logger.debug "==> Controller: users, Action: create, User onboarded successfully"
-        update_options = { "onboarded_api" => true, "api_token" => api_token }
-        res_update = @user.update_columns(update_options, params["email"])
-        if res_update
+      #update current user as onboard user(megam_api user)
+      update_options = { "onboarded_api" => true, "api_token" => api_token }
+      res_update = @user.update_columns(update_options, params["email"])
+      if res_update
           if "#{Rails.configuration.support_email}".chop!
             begin
               UserMailer.welcome(current_user).deliver
@@ -82,27 +78,22 @@ class UsersController < ApplicationController
           end
           redirect_to main_dashboards_path, :format => 'html', :flash => { :alert => "Welcome #{params['first_name']}. Your #{mail_res}"}
         else
-          logger.debug "==> Controller: users, Action: create, User onboard was not successful"
           redirect_to main_dashboards_path, :alert => " Gateway Failure.", :format => 'html'
         end
       else
-        logger.debug "==> Controller: users, Action: create, User onboard was not successful"
         redirect_to main_dashboards_path, :flash => { :alert => "Gateway Failure. Check gateway logs." }, :format => 'html'
       end
-
     else
       @user= User.find_by_email(params[:user][:email])
       if(@user)
-        logger.debug "==> Controller: users, Action: create, User email duplicate"
         redirect_to signin_path, :gflash => { :warning => { :value => "Hey #{@user.first_name}, I know you already. Your email id is : #{@user.email}.", :sticky => false, :nodom_wrap => true } }
       else
-        logger.debug "==> Controller: users, Action: create, Something went wrong! User not saved"
         redirect_to signup_path
       end
-
     end
   end
 
+  #SCRP: the method should be renamed as "edit"
   def edituser
     if user_in_cookie?
       @user = User.new
@@ -115,7 +106,8 @@ class UsersController < ApplicationController
     end
   end
 
-
+  #SCRP: this method should be renamed as "update"
+  #      redo it with case, match.
   def userupdate
     if user_in_cookie?
       logger.debug "==> Controller: users, Action: update, Update user pw, api_key"

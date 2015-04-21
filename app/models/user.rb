@@ -95,15 +95,7 @@ class User
     result
   end
 
-  def find_by_remember_token(remember_token, email)
-    result = nil
-    res = MegamRiak.fetch("profile", email)
-    if res.class != Megam::Error
-    result = res.content.data
-    end
-    result
-  end
-
+  
   def find_by_password_reset_token(password_reset_token, email)
     result = nil
     res = MegamRiak.fetch("profile", email)

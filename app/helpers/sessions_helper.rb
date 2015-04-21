@@ -31,7 +31,7 @@ module SessionsHelper
   #return true if the user is in the cookie
   def user_in_cookie?
     @user = User.new
-    res = @user.find_by_remember_token(cookies[:remember_token], cookies[:email]) if cookies[:remember_token] && cookies[:email]
+    res = @user.find_by_email(cookies[:email]) if cookies[:remember_token] && cookies[:email]
     res != nil
   end
 
@@ -39,7 +39,7 @@ module SessionsHelper
  #redirect to the sign page.
  def current_user
    @user = User.new
-   res = @user.find_by_remember_token(cookies[:remember_token], cookies[:email]) if cookies[:remember_token] && cookies[:email]
+   res = @user.find_by_email(cookies[:email]) if cookies[:remember_token] && cookies[:email]
 
     if res != nil
       @current_user ||= res

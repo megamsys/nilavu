@@ -24,65 +24,42 @@ class SessionsController < ApplicationController
       @user = User.new
       user = @user.find_by_email(params[:email])
       if user != nil && @user.password_decrypt(user["password"]) == params[:password]
-        if params[:remember_me]
-          cookies.permanent[:remember_token] = user["remember_token"]
-          cookies.permanent[:email] = user["email"]
-        #cookies[:remember_token] = { :value => user.remember_token, :expires => 24.weeks.from_now }
-        else
-          cookies.permanent[:remember_token] = user["remember_token"]
-          cookies.permanent[:email] = user["email"]
-        end
         sign_in user
         redirect_to main_dashboards_path, :notice => "Welcome #{user["first_name"]}."
-
       else
         flash[:error] = "Invalid username and password combination "
         render "new"
-
       end
     else
       create_social_identity(auth)
     end
   end
 
-  #this is a demo user who can only touch anything but mutate megam.
+  #this is a demo user who can only touch anything.
   def demo
       @user = User.new
       user = @user.find_by_email(params[:email])
-    if user != nil && @user.password_decrypt(user["password"]) == params[:password]
-      sign_in user
-      redirect_to main_dashboards_path, :notice => "Welcome #{user["first_name"]}."
-    else
-      flash[:error] = 'Invalid demo username and password combination'
-      render 'new'
-    end
+      if user != nil && @user.password_decrypt(user["password"]) == params[:password]
+        sign_in user
+        redirect_to main_dashboards_path, :notice => "Welcome #{user["first_name"]}."
+      else
+        flash[:error] = 'Invalid demo username and password combination'
+        render 'new'
+      end
   end
 
   def create
     logger.debug "==> Controller: sessions, Action: create, User signin"
     auth = social_identity
- if !riak_ping?
-	redirect_to signin_path, :flash => { :error => "Problem in Riak! Check 'riak ping' in #{Rails.configuration.storage_server_url}." } and return
- end
     if social_identity.nil?
       @user = User.new
       user = @user.find_by_email(params[:email])
       if user != nil && @user.password_decrypt(user["password"]) == params[:password]
-        if params[:remember_me]
-          cookies.permanent[:remember_token] = user["remember_token"]
-          cookies.permanent[:email] = user["email"]
-        #cookies[:remember_token] = { :value => user.remember_token, :expires => 24.weeks.from_now }
-        else
-          cookies.permanent[:remember_token] = user["remember_token"]
-          cookies.permanent[:email] = user["email"]
-        end
         sign_in user
         redirect_to main_dashboards_path, :notice => "Welcome #{user["first_name"]}."
-
       else
         flash[:error] = "Invalid username and password combination "
         render "new"
-
       end
     else
       create_social_identity(auth)
@@ -97,7 +74,6 @@ class SessionsController < ApplicationController
 
   # verify if an omniauth.auth hash exists, if not consider it as a locally registered user.
   def social_identity
-    #  auth = request.env['omniauth.auth']
     auth = session[:auth]
   end
 
