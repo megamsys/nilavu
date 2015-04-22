@@ -1,3 +1,4 @@
+server: console.megam.io
 api:
   host: localhost
   scheme: http
@@ -44,4 +45,10 @@ tap:
 gogs:
  host: localhost
  port: 6001
+
+opennebula:
+ host: 192.168.1.100
+ port: 2633
+ username: username
+ password: password
 

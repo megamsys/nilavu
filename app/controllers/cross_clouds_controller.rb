@@ -169,7 +169,7 @@ class CrossCloudsController < ApplicationController
 
     elsif params[:cloud] == "gce"
       @provider_form_name = "Google Compute Engine"
-     @images = []
+      @images = []
       @flavors = []
       @keypairs = []
       @groups = []

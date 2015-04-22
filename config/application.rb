@@ -84,6 +84,8 @@ module Cloudauth
     end
   
     config.megam_logo_url   = "https://s3-ap-southeast-1.amazonaws.com/megampub/images/logo-megam160x43w.png"
+    
+    config.server_url = "#{common['server']}"
 
     config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
     config.ganglia_host     = "#{common['monitor']['host']}" || ENV['GANGLIA_HOST']
@@ -156,8 +158,7 @@ module Cloudauth
     puts "=> Warning ! Disabled support email service. Missing [support] in nilavu.yml."
      config.support_email = ""
     config.support_password = ""
-  end
-
+  end 
 
   config.google_authorization_uri = 'https://accounts.google.com/o/oauth2/auth'
   config.google_token_credential_uri = 'https://accounts.google.com/o/oauth2/token'

@@ -32,6 +32,7 @@ Cloudauth::Application.routes.draw do
   resources :oneservice
   resources :vms
   resources :onevms
+  resources :billings
 
   root :to => 'main_dashboards#index'
 
@@ -165,6 +166,9 @@ match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :p
   match '/cloud_selector', to: 'cross_clouds#cloud_selector', via: [:get, :post]
   match '/cloud_init', to: 'cross_clouds#cloud_init', via: [:get, :post]
   match '/changeversion', to: 'marketplaces#changeversion', via: [:get, :post]
+  
+  #billings
+  match '/payment_execute', to: 'billings#payment_execute', via: [:get, :post]
   
   #Market place
   match '/category_view', to: 'marketplaces#category_view', via: [:get, :post]

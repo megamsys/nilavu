@@ -17,7 +17,6 @@ class UsersController < ApplicationController
   respond_to :html, :js
   include UsersHelper
   include SessionsHelper
-
   #Should list all the users of an organization.
   def index
     @users = User.paginate(page: params[:page])
@@ -40,7 +39,6 @@ class UsersController < ApplicationController
     end
   end
 
-
   #This method is used to create a new user. The form parameters as entered during the
   #signup, is used to create a new user.
   #After a successful save : redirect to users dashboard.
@@ -54,49 +52,44 @@ class UsersController < ApplicationController
 
     params["remember_token"] = @user.generate_token
     if !riak_ping?
-	  redirect_to signin_path, :flash => { :error => "oops! there is some issue. Please contact support@megam.io" } and return
+      redirect_to signin_path, :flash => { :error => "oops! there is some issue. Please contact support@megam.io" } and return
     end
- api_token = view_context.generate_api_token 
- if GetProfile.perform(params[:email], api_token).class == Megam::Error
-   #Reason for GetProfile worker - params can get over written in riak. hence hard to check if profile exists
-   #or not. 
-    
-     # fix for remember me: send the remember_me flag to sign_in method to decide if the user wishes to be remembered or not.
-    logger.debug "==> Controller: users, Action: create, User signed in after creation"
-    force_api(params["email"], api_token)
-    options = { :id => "", :email => params["email"], :api_key => api_token, :authority => "admin" }
-    res_body = CreateAccounts.perform(options)
-    if @user.save(params, api_token) != false
-       sign_in params
-       logger.debug "==> Profile: Created"
-         if !(res_body.class == Megam::Error)
-            logger.debug "==> Controller: users, Action: create, User onboarded successfully"
-            if "#{Rails.configuration.support_email}".chop!
-              begin
-                UserMailer.welcome(current_user).deliver
-                 mail_res = "Email verification success"
-              rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
-                mail_res = "Email verification Failed"
-              end
-           end          
-          
+    api_token = view_context.generate_api_token
+    if GetProfile.perform(params[:email], api_token).class == Megam::Error
+      #Reason for GetProfile worker - params can get over written in riak. hence hard to check if profile exists
+      #or not.
+
+      # fix for remember me: send the remember_me flag to sign_in method to decide if the user wishes to be remembered or not.
+      logger.debug "==> Controller: users, Action: create, User signed in after creation"
+      force_api(params["email"], api_token)
+      options = { :id => "", :email => params["email"], :api_key => api_token, :authority => "admin" }
+      res_body = CreateAccounts.perform(options)
+      if @user.save(params, api_token) != false
+        sign_in params
+        logger.debug "==> Profile: Created"
+        if !(res_body.class == Megam::Error)
+          logger.debug "==> Controller: users, Action: create, User onboarded successfully"
+          if "#{Rails.configuration.support_email}".chop!
+            begin
+              UserMailer.welcome(current_user).deliver
+              mail_res = "Email verification success"
+            rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
+              mail_res = "Email verification Failed"
+            end
+          end
           redirect_to main_dashboards_path, :format => 'html', :flash => { :alert => "Welcome aboard #{params['first_name']}."}
-
+        else
+          logger.debug "==> Creating profile was not successful"
+          redirect_to signup_path, :flash => { :alert => "Could not create. Please contact support" }, :format => 'html'
+        end
       else
-        logger.debug "==> Creating profile was not successful"
-        redirect_to signup_path, :flash => { :alert => "Could not create. Please contact support" }, :format => 'html'
-
-       end
-    else
-      logger.debug "==> Controller: users, Action: create, User onboard was not successful"
-      redirect_to main_dashboards_path, :alert => " Gateway Failure.", :format => 'html'
-    end
-
-       
+        logger.debug "==> Controller: users, Action: create, User onboard was not successful"
+        redirect_to main_dashboards_path, :alert => " Gateway Failure.", :format => 'html'
+      end
     else
 
-        logger.debug "==> Controller: users, Action: create, Something went wrong! Profile already exist"
-        redirect_to signup_path
+      logger.debug "==> Controller: users, Action: create, Something went wrong! Profile already exist"
+      redirect_to signup_path
 
     end
   end
@@ -112,7 +105,6 @@ class UsersController < ApplicationController
       redirect_to signin_path
     end
   end
-
 
   def userupdate
     if user_in_cookie?
@@ -202,9 +194,6 @@ class UsersController < ApplicationController
       redirect_to signin_path
     end
   end
-
-
-  #private
 
   def list_organizations
     if user_in_cookie?

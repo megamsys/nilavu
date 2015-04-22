@@ -19,6 +19,8 @@ class UserMailer < ActionMailer::Base
   def welcome(user)
     #@url  = "https://www.megam.co/verified_email.#{@random_token}"
     @user = user
+    puts "--------------------------"
+    puts user.inspect
     mail(:to => user[:email], :subject => "Megam Account Confirmation")
   end
 
