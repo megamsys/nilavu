@@ -17,10 +17,8 @@ varai:
   host: localhost
   port: 1880
 
-
-
 support:
-  email: support@megam.co.in
+  email: support@megam.io
   password: team4megam
 
 auth:
@@ -43,7 +41,7 @@ tap:
  host: localhost
  port: 7000
 
-
 gogs:
  host: localhost
  port: 6001
+

@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 class UserMailer < ActionMailer::Base
-  default from: "support@megam.co.in"
+  default from: "support@megam.io"
 
   def welcome(user)
     #@url  = "https://www.megam.co/verified_email.#{@random_token}"
