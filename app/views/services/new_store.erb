@@ -168,7 +168,7 @@
 									<%
  dburl = case @dbms
                     when "postgresql"
-                      "postgres://#{current_user["first_name"]}:#{current_user["api_token"]}@postgres1.megam.co.in:5432/db_#{current_user["first_name"]}"
+                      "postgres://#{current_user["first_name"]}:#{current_user["api_token"]}@postgres1.megam.io:5432/db_#{current_user["first_name"]}"
                     when "riak"
                       "riak://#{current_user["email"]}@#{current_user["api_token"]}:http://#{@new_book_name}#{@domain_name}:8098"
                     when "redis"
