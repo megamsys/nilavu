@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe User do
   before do
-    @user = User.new(first_name: "Thomas", last_name: "Alrin", phone: "9789345999", email: "alrin@megam.co.in", password: "team4megam", password_confirmation: "team4megam")
+    @user = User.new(first_name: "Thomas", last_name: "Alrin", phone: "9789345999", email: "thomasalrin@megam.io", password: "team4megam", password_confirmation: "team4megam")
   end
 
   subject { @user }

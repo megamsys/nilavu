@@ -19,7 +19,7 @@ varai:
   port: 1880
 
 support:
-  email: support@megam.co.in
+  email: support@megam.io
   password: team4megam
 
 auth:
@@ -51,3 +51,4 @@ opennebula:
  port: 2633
  username: username
  password: password
+
