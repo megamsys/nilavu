@@ -20,5 +20,6 @@ class CreateProfile
       return @res["data"][:body]
     end
     @excon_res.data[:body]
+    puts @excon_res
   end
 end
