@@ -13,17 +13,31 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<%= image_tag "gogs-logo.png",:class=> "img-responsive center-block",:size => "90x90", :id => "slider-image"%>
+<div class="row">
+  <div class="col-xs-12">
 
+    
+ 
 
-<%= form_tag('/trigger', method: 'post') do %>
-  		
-  		
-  		<%= text_field_tag 'gogs_username', nil, placeholder: 'Enter Gogs Username' , :required => true, :class =>"form-control" %>
+    <div class="col-sm-2 body_left">
+    </div>
+    
+    <div class="col-sm-2 body_right">
+    </div>
+    <div class="col-sm-6 body_center">
+    </br>
+    	<%= image_tag "gogsimg.png",:class=> "img-responsive center-block",:size => "90x90", :id => "slider-image"%>
 
- 		<%= text_field_tag 'gogs_password', nil, placeholder: 'Enter gogs password', :required => true, :class =>"form-control" %>
-		<%= submit_tag "Login", :style => "width:250px; height:50px;", data: { disable_with: "Hold on! accessing gogs!" }, :class => "btn btn-default c_btn_gplus", :id => "close_it" %>
-
+        <%= form_tag('/trigger', method: 'post') do %>
+  		</br>
+  		<%= email_field_tag 'gogs_username', nil, placeholder: 'Enter Gogs Username', :style => "width:350px; height:50px;" ,:required => true, :class =>"form-control" %>
+    </br>
+ 		<%= password_field_tag 'gogs_password', nil, placeholder: 'Enter gogs password', :style => "width:350px; height:50px;", :required => true, :class =>"form-control" %>
+</br>
+		<%= submit_tag "Login", :style => "width:350px; height:50px;", data: { disable_with: "Hold on! accessing gogs!" }, :class => "btn green col-xs-12", :id => "close_it" %>
+    </div>
+   </div> 
+   </div>
    
 <% end %>
 
