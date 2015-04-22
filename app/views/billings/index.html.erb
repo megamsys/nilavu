@@ -39,49 +39,30 @@
 		<div class="margintb_15 margin_30 ">
 			<div class="col-md-10 col-sm-12 card-details row">
 
-				<form>
-
-					<div class="col-md-12 row">
-						<div class="form-group col-md-8 col-sm-6 row">
-							<label for="exampleInputName2"  class="col-md-6 col-sm-12 col-xs-12 row">Current Ballance :</label>
-							<input type="text" class="form-control-card-details col-md-6 col-xs-12 col-sm-12" id="exampleInputName2" value="<%= @bill.credit %>">
-						</div>
-						<div class="form-group col-md-4 col-sm-6 row">
-							<a href="#">Invite User</a>
-
-						</div>
+				<div class="col-md-12 row">
+					<div class="form-group col-md-8 col-sm-6 row">
+						<label for="exampleInputName2"  class="col-md-6 col-sm-12 col-xs-12 row">Current Ballance :</label>
+						<input type="text" class="form-control-card-details col-md-6 col-xs-12 col-sm-12" id="exampleInputName2" value="<%= @bill.credit %>">
 					</div>
-					<div class="col-md-12 row">
-						<div class="form-group col-md-8 col-sm-6 row">
-							<label for="exampleInputName2"  class="col-md-6 col-sm-12 col-xs-12 row">Promo Code :</label>
-							<input type="text" class="form-control-card-details col-md-6 col-xs-12 col-sm-12" id="exampleInputName2" placeholder="Promo Code">
-						</div>
-
+					<div class="form-group col-md-4 col-sm-6 row">
+						<a href="#">Invite User</a>
 					</div>
-					<div class="col-md-12 row">
-						<div class="form-group col-md-6 col-sm-6 row">
-							<!-- <%= form_tag pay_path, multipart: true, :id => "paypalform", :novalidate => "novalidate", :method => "post", data: { spinlock: "#spin_cross_cloud"}  do %>
-							<div class="c_inline">
-								<div class="row">
-									<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-										<%= text_field_tag 'amount', nil, :required => true, :id => 'amount', :class => 'form-control', placeholder: "Amount", :data => {:placement=>"right"} %>
-									</div>
-									 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-										<%= select_tag "currency", options_for_select(@currencies.map{ |c| c }, :selected=>@currencies[0]), :class =>"form-control" %>
-									</div> 
-								</div>
-							</div>
-							<%= submit_tag "Pay with Paypal", :id => "la-button", :data => {:anim => "la-anim-1"}, :class => "btn btn-success" %>
-							
-							<% end %> -->
-							 <%= link_to  "Pay with Paypal", billings_path %> 
-						</div>
-						<div class="form-group col-md-6 col-sm-6 row">
-							<a href="#">Pay with Bit Coin</a>
-						</div>
+				</div>
+				<div class="col-md-12 row">
+					<div class="form-group col-md-8 col-sm-6 row">
+						<label for="exampleInputName2"  class="col-md-6 col-sm-12 col-xs-12 row">Promo Code :</label>
+						<input type="text" class="form-control-card-details col-md-6 col-xs-12 col-sm-12" id="exampleInputName2" placeholder="Promo Code">
 					</div>
+				</div>
+				<div class="col-md-12 row">
+					<div class="form-group col-md-6 col-sm-6 row">
+						<%= render :partial => "billings/amount_form" %>
+					</div>
+					<div class="form-group col-md-6 col-sm-6 row">
+						<a href="#">Pay with Bit Coin</a>
+					</div>
+				</div>
 
-				</form>
 				<div class="margin_30 bottom-divider"></div>
 				<div class="col-md-12 row">
 					<h2>Billing the History :</h2>
@@ -90,38 +71,21 @@
 							<thead>
 								<tr>
 
-									<th class="info">Type</th>
-									<th>Name</th>
-									<th class="danger">Price</th>
-									<th>Status</th>
+									<th class="info">Application</th>
+									<th>Amount</th>
+									<th class="danger">Currency</th>
 									<th class="success">Time show</th>
 								</tr>
 							</thead>
 							<tbody>
+								<% @billinghistories.each do |history| %>
 								<tr>
-
-									<td>Table cell</td>
-									<td>Table cell</td>
-									<td>Table cell</td>
-									<td>Table cell</td>
-									<td>Table cell</td>
+									<td><%= history.assembly_id %></td>
+									<td><%= history.billing_amount %></td>
+									<td><%= history.currency_type %></td>
+									<td><%= history.created_at %></td>
 								</tr>
-								<tr>
-
-									<td>Table cell</td>
-									<td>Table cell</td>
-									<td>Table cell</td>
-									<td>Table cell</td>
-									<td>Table cell</td>
-								</tr>
-								<tr>
-
-									<td>Table cell</td>
-									<td>Table cell</td>
-									<td>Table cell</td>
-									<td>Table cell</td>
-									<td>Table cell</td>
-								</tr>
+								<% end %>
 							</tbody>
 						</table>
 					</div>

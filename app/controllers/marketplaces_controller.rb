@@ -52,16 +52,18 @@ class MarketplacesController < ApplicationController
   ##
   def show
     if user_in_cookie?
-      @bill_collection = GetBalance.perform(force_api[:email], force_api[:api_key])
-      if @bill_collection == Megam::Error
+      bill_collection = GetBalance.perform(force_api[:email], force_api[:api_key])
+      case 
+      when bill_collection.class == Megam::Error
+        logger.debug "--> #{self.class} : Get user balances got error"
         respond_to do |format|
           format.html {redirect_to billings_path}
           format.js {render :js => "window.location.href='"+billings_path+"'"}
         end
-      else
-        puts "----------------------------------------"
-        @bill = @bill_collection.lookup(force_api[:email])
-        if @bill.credit.to_i <= 0
+      when bill_collection.class != Megam::Error
+        logger.debug "--> #{self.class} : Got user balance"
+        bill = bill_collection.lookup(force_api[:email])
+        if bill.credit.to_i <= 0
           respond_to do |format|
             format.html {redirect_to billings_path}
             format.js {render :js => "window.location.href='"+billings_path+"'"}
@@ -78,7 +80,7 @@ class MarketplacesController < ApplicationController
             @deps_scm = get_deps_scm(@pro_name[3].downcase)
             @my_apps = []
 
-            @type = get_type(@pro_name[3].downcase)
+            @type = get_type(@pro_name[3].downcase)           
             @version_order=[]
             @version_order = @mkp.plans.map {|c| c["version"]}
             @version_order = @version_order.sort
@@ -342,40 +344,40 @@ end
       ## in this case we have three options
       ## first  - create option then we create a new ssh key for user
       ## second - user already have ssh keys and upload it
-      ## third  - it is user already create and upload sshkeys on megam storage
+      ## third  - user already create and upload sshkeys on megam storage
       ## finally set the sshkeys and launch the instance
       if sshoption == "CREATE"
         k = SSHKey.generate
         key_name = params[:sshcreatename] + "_" + assembly_name || current_user["first_name"]
         sshkeyname = key_name
-        @filename = key_name
+        filename = key_name
         if Rails.configuration.storage_type == "s3"
           sshpub_loc = vault_s3_url+"/"+current_user["email"]+"/"+key_name
         else
           sshpub_loc = current_user["email"]+"_"+key_name     #Riak changes
         end
         wparams = { :name => key_name, :path => sshpub_loc }
-        @res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
-        if @res_body.class == Megam::Error
-          @res_msg = nil
-          @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+        res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
+        if res_body.class == Megam::Error
+          res_msg = nil
+          err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
           respond_to do |format|
             format.js {
-              respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
+              respond_with(res_msg, err_msg, filename, :layout => !request.xhr? )
             }
           end
         else
           logger.debug "--> #{self.class} : Instance creation - ssh key creating..."
-          @err_msg = nil
+          err_msg = nil
           options ={:email => current_user["email"], :ssh_key_name => key_name, :ssh_private_key => k.private_key, :ssh_public_key => k.ssh_public_key }
           upload = SshKey.perform(options, ssh_files_bucket)
           if upload.class == Megam::Error
-            @res_msg = nil
-            @err_msg="SSH key #{key_name} creation failed."
-            @public_key = ""
+            res_msg = nil
+            err_msg="SSH key #{key_name} creation failed."
+            public_key = ""
             respond_to do |format|
               format.js {
-                respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
+                respond_with(res_msg, err_msg, filename, :layout => !request.xhr? )
               }
             end
           end
@@ -384,7 +386,7 @@ end
       end
 
       if sshoption == "UPLOAD"
-        @filename = params[:key_name]
+        filename = params[:key_name]
         key_name = params[:sshuploadname] + "_" + assembly_name
         sshkeyname = key_name
         if Rails.configuration.storage_type == "s3"
@@ -393,27 +395,27 @@ end
           sshpub_loc = current_user["email"]+"_"+key_name     #Riak changes
         end
         wparams = { :name => key_name, :path => sshpub_loc }
-        @res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
-        if @res_body.class == Megam::Error
-          @res_msg = nil
-          @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+        res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
+        if res_body.class == Megam::Error
+          res_msg = nil
+          err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
           respond_to do |format|
             format.js {
-              respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
+              respond_with(res_msg, err_msg, filename, :layout => !request.xhr? )
             }
           end
         else
           logger.debug "--> #{self.class} : Instance creation - ssh key uploading..."
-          @err_msg = nil
+          err_msg = nil
           options ={:email => current_user["email"], :ssh_key_name => key_name, :ssh_private_key => params[:ssh_private_key], :ssh_public_key => params[:ssh_public_key] }
           upload = SshKey.upload(options, ssh_files_bucket)
           if upload.class == Megam::Error
-            @res_msg = nil
-            @err_msg="Failed to Generate SSH keys. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
-            @public_key = ""
+            res_msg = nil
+            err_msg="Failed to Generate SSH keys. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+            public_key = ""
             respond_to do |format|
               format.js {
-                respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
+                respond_with(res_msg, err_msg, filename, :layout => !request.xhr? )
               }
             end
           end
@@ -428,12 +430,12 @@ end
       logger.debug "--> #{self.class} : Instance creation - Instance launching..."
       options = {:instance => true, :assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :sshkeyname => sshkeyname  }
       app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
-      @res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
-      if @res.class == Megam::Error
-        @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+      res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
+      if res.class == Megam::Error
+        err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
         respond_to do |format|
           format.js {
-            respond_with(@err_msg, :layout => !request.xhr? )
+            respond_with(err_msg, :layout => !request.xhr? )
           }
         end
       end
@@ -466,10 +468,10 @@ end
 
       predef = GetPredefCloud.perform(params[:cloud], force_api[:email], force_api[:api_key])
       if predef.class == Megam::Error
-        @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+        err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
         respond_to do |format|
           format.js {
-            respond_with(@err_msg, :layout => !request.xhr? )
+            respond_with(err_msg, :layout => !request.xhr? )
           }
         end
       else
@@ -481,12 +483,12 @@ end
 
         options = {:instance => false, :assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword  }
         app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
-        @res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
-        if @res.class == Megam::Error
-          @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+        res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
+        if res.class == Megam::Error
+          err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
           respond_to do |format|
             format.js {
-              respond_with(@err_msg, :layout => !request.xhr? )
+              respond_with(err_msg, :layout => !request.xhr? )
             }
           end
         end
@@ -531,10 +533,10 @@ end
 
       predef = GetPredefCloud.perform(params[:cloud], force_api[:email], force_api[:api_key])
       if predef.class == Megam::Error
-        @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+        err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
         respond_to do |format|
           format.js {
-            respond_with(@err_msg, :layout => !request.xhr? )
+            respond_with(err_msg, :layout => !request.xhr? )
           }
         end
       else
@@ -546,13 +548,13 @@ end
 
         options = {:instance => false, :assembly_name => assembly_name, :appname => appname, :servicename => servicename, :related_components => related_components, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword  }
         app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
-        @res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
-        if @res.class == Megam::Error
-          @res_msg = nil
-          @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+        res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
+        if res.class == Megam::Error
+          res_msg = nil
+          err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
           respond_to do |format|
             format.js {
-              respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
+              respond_with(res_msg, err_msg, :layout => !request.xhr? )
             }
           end
         else
@@ -560,21 +562,21 @@ end
             bindedAPP = params[:bindedAPP].split(":")
             get_assembly = GetAssemblyWithoutComponentCollection.perform(bindedAPP[1], force_api[:email], force_api[:api_key])
             if get_assembly.class == Megam::Error
-              @res_msg = nil
-              @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+              res_msg = nil
+              err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
               respond_to do |format|
                 format.js {
-                  respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
+                  respond_with(res_msg, err_msg, :layout => !request.xhr? )
                 }
               end
             else
               get_component = GetComponent.perform(bindedAPP[2], force_api[:email], force_api[:api_key])
               if get_component.class == Megam::Error
-                @res_msg = nil
-                @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+                res_msg = nil
+                err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
                 respond_to do |format|
                   format.js {
-                    respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
+                    respond_with(res_msg, err_msg, :layout => !request.xhr? )
                   }
                 end
               else
@@ -582,26 +584,26 @@ end
                 update_component_json = UpdateComponentJson.perform(get_component, relatedcomponent)
                 update_component = UpdateComponent.perform(update_component_json, force_api[:email], force_api[:api_key])
                 if update_component.class == Megam::Error
-                  @res_msg = nil
-                  @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+                  res_msg = nil
+                  err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
                   respond_to do |format|
                     format.js {
-                      respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
+                      respond_with(res_msg, err_msg, :layout => !request.xhr? )
                     }
                   end
                 else
                   update_json = UpdateAssemblyJson.perform(get_assembly, get_component)
                   update_assembly = UpdateAssembly.perform(update_json, force_api[:email], force_api[:api_key])
                   if update_assembly.class == Megam::Error
-                    @res_msg = nil
-                    @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+                    res_msg = nil
+                    err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
                     respond_to do |format|
                       format.js {
-                        respond_with(@res_msg, @err_msg, :layout => !request.xhr? )
+                        respond_with(res_msg, err_msg, :layout => !request.xhr? )
                       }
                     end
                   else
-                    @err_msg = nil
+                    err_msg = nil
                   end
                 end
               end
@@ -609,8 +611,8 @@ end
           end
         end
       end
-      @res_msg = "success"
-      @err_msg = nil
+      res_msg = "success"
+      err_msg = nil
     else
       redirect_to signin_path
     end
@@ -639,13 +641,13 @@ end
 
       options = {:instance => false, :assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword  }
       app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
-      @res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
-      if @res.class == Megam::Error
-        @profile = "http://support.megam.co/"
-        @err_msg= ActionController::Base.helpers.link_to 'Contact support', @profile
+      res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
+      if res.class == Megam::Error
+        profile = "http://support.megam.co/"
+        err_msg= ActionController::Base.helpers.link_to 'Contact support', profile
         respond_to do |format|
           format.js {
-            respond_with(@err_msg, :layout => !request.xhr? )
+            respond_with(err_msg, :layout => !request.xhr? )
           }
         end
       end
@@ -701,34 +703,34 @@ end
       k = SSHKey.generate
       key_name = params[:sshcreatename] + "_" + assembly_name || current_user["first_name"]
       sshkeyname = key_name
-      @filename = key_name
+      filename = key_name
       if Rails.configuration.storage_type == "s3"
         sshpub_loc = vault_s3_url+"/"+current_user["email"]+"/"+key_name
       else
         sshpub_loc = current_user["email"]+"_"+key_name     #Riak changes
       end
       wparams = { :name => key_name, :path => sshpub_loc }
-      @res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
-      if @res_body.class == Megam::Error
-        @res_msg = nil
-        @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+      res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
+      if res_body.class == Megam::Error
+        res_msg = nil
+        err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
         respond_to do |format|
           format.js {
-            respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
+            respond_with(res_msg, err_msg, filename, :layout => !request.xhr? )
           }
         end
       else
         logger.debug "--> #{self.class} : Instance creation - ssh key creating..."
-        @err_msg = nil
+        err_msg = nil
         options ={:email => current_user["email"], :ssh_key_name => key_name, :ssh_private_key => k.private_key, :ssh_public_key => k.ssh_public_key }
         upload = SshKey.perform(options, ssh_files_bucket)
         if upload.class == Megam::Error
-          @res_msg = nil
-          @err_msg="SSH key #{key_name} creation failed."
-          @public_key = ""
+          res_msg = nil
+          err_msg="SSH key #{key_name} creation failed."
+          public_key = ""
           respond_to do |format|
             format.js {
-              respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
+              respond_with(res_msg, err_msg, filename, :layout => !request.xhr? )
             }
           end
         end
@@ -737,7 +739,7 @@ end
     end
 
     if sshoption == "UPLOAD"
-      @filename = params[:key_name]
+      filename = params[:key_name]
       key_name = params[:sshuploadname] + "_" + assembly_name
       sshkeyname = key_name
       if Rails.configuration.storage_type == "s3"
@@ -746,27 +748,27 @@ end
         sshpub_loc = current_user["email"]+"_"+key_name     #Riak changes
       end
       wparams = { :name => key_name, :path => sshpub_loc }
-      @res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
-      if @res_body.class == Megam::Error
-        @res_msg = nil
-        @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+      res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
+      if res_body.class == Megam::Error
+        res_msg = nil
+        err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
         respond_to do |format|
           format.js {
-            respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
+            respond_with(res_msg, err_msg, filename, :layout => !request.xhr? )
           }
         end
       else
         logger.debug "--> #{self.class} : Instance creation - ssh key uploading..."
-        @err_msg = nil
+        err_msg = nil
         options ={:email => current_user["email"], :ssh_key_name => key_name, :ssh_private_key => params[:ssh_private_key], :ssh_public_key => params[:ssh_public_key] }
         upload = SshKey.upload(options, ssh_files_bucket)
         if upload.class == Megam::Error
-          @res_msg = nil
-          @err_msg="Failed to Generate SSH keys. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
-          @public_key = ""
+          res_msg = nil
+          err_msg="Failed to Generate SSH keys. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
+          public_key = ""
           respond_to do |format|
             format.js {
-              respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
+              respond_with(res_msg, err_msg, filename, :layout => !request.xhr? )
             }
           end
         end
@@ -779,13 +781,13 @@ end
     end
 
     app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
-    @res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
-    if @res.class == Megam::Error
-      @profile = "http://support.megam.co/"
-      @err_msg= ActionController::Base.helpers.link_to 'Contact support', @profile
+    res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
+    if res.class == Megam::Error
+      profile = "http://support.megam.co/"
+      err_msg= ActionController::Base.helpers.link_to 'Contact support', profile
       respond_to do |format|
         format.js {
-          respond_with(@err_msg, :layout => !request.xhr? )
+          respond_with(err_msg, :layout => !request.xhr? )
         }
       end
 

@@ -23,8 +23,13 @@ class ListBillingHistories
       re = Megam::Error.from_hash(hash)
       @res = {"data" => {:body => re}}
       return @res["data"][:body]
-    rescue Megam::API::Errors::ErrorWithResponse => ewr
-      hash = {"msg" => ewr.message, "msg_type" => "error"}
+    rescue Megam::API::Errors::ErrorWithResponse => ewr    
+      case 
+      when ewr.class == Megam::API::Errors::NotFound
+        hash = {"msg" => ewr.message, "msg_type" => "error", "code" => 404}
+      else
+      hash = {"msg" => ewr.message, "msg_type" => "error", "code" => 500}
+      end
       re = Megam::Error.from_hash(hash)
       @res = {"data" => {:body => re}}
       return @res["data"][:body]

@@ -19,21 +19,26 @@ class BillingsController < ApplicationController
   include PayPal::SDK::REST
   def index
     @currencies = ["USD", "IN"]
-     @bill_collection = GetBalance.perform(force_api[:email], force_api[:api_key])
-      if @bill_collection.class == Megam::Error
-         logger.info @bill_collection.inspect
+     balance_collection = GetBalance.perform(force_api[:email], force_api[:api_key])
+      if balance_collection.class == Megam::Error
+         logger.info balance_collection.inspect
          redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
       else    
-        @billinghistories_collection = ListBillingHistories.perform(force_api[:email], force_api[:api_key])
-        if @billinghistories_collection.class == Megam::Error
-           logger.info @billinghistories_collection.inspect
-           redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
+        billinghistories_collection = ListBillingHistories.perform(force_api[:email], force_api[:api_key])
+        case billinghistories_collection
+        when Megam::Error   
+           case 
+           when billinghistories_collection.some_msg[:code] == 404
+                 @billinghistories = []  
+           else 
+             redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
+           end
         else
-           @bill = @bill_collection.lookup(force_api[:email])
-           puts "+++++++++++++++++++++++++++++++++++++++++++++"
-           puts @billinghistories.inspect
-          #@bill.credit.to_i 
-        end  
+              
+             
+             @billinghistories = billinghistories_collection.sort_by{|e| e.created_at}.reverse[0..9]            
+        end            
+        @bill = balance_collection.lookup(force_api[:email])         
       end  
   end
 
@@ -42,19 +47,29 @@ class BillingsController < ApplicationController
     # PayerID is required to approve the payment.
     if payment.execute( :payer_id => params["PayerID"] )  # return true or false
       logger.info "Payment[#{payment.id}] execute successfully"
-      bill_collection = GetBalance.perform(force_api[:email], force_api[:api_key])
-      if bill_collection.class == Megam::Error
+      balance_collection = GetBalance.perform(force_api[:email], force_api[:api_key])
+      case
+      when balance_collection.class == Megam::Error
          logger.info bill_collection.inspect
          redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
       else
-        bill = bill_collection.lookup(force_api[:email])       
-         options = { :id => bill.id, :accounts_id => bill.accounts_id, :name => bill.name, :credit => bill.credit.to_i + payment.transactions[0].amount.total.to_i, :created_at => bill.created_at, :updated_at => bill.updated_at }
+        balance = balance_collection.lookup(force_api[:email])       
+         options = { :id => balance.id, :accounts_id => balance.accounts_id, :name => balance.name, :credit => balance.credit.to_i + payment.transactions[0].amount.total.to_i, :created_at => balance.created_at, :updated_at => balance.updated_at }
          res_body = UpdateBalance.perform(options, force_api[:email], force_api[:api_key])
-         if res_body.class == Megam::Error
+         case
+         when res_body.class == Megam::Error
             logger.info res_body.inspect
             redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
          else
-            redirect_to billings_path
+            credithistory_options = { :accounts_id => balance.accounts_id, :bill_type => "paypal", :credit_amount => payment.transactions[0].amount.total.to_s, :currency_type => "USD"}
+            credit_res = CreateCreditHistory.perform(credithistory_options, force_api[:email], force_api[:api_key])
+            case
+            when credit_res.class == Megam::Error
+                logger.info res_body.inspect
+                redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
+            else
+                redirect_to billings_path
+            end
          end
       end       
     else
@@ -89,7 +104,7 @@ class BillingsController < ApplicationController
     # ###Amount
     # Let's you specify a payment amount.
     :amount =>  {
-      :total =>  "5",
+      :total =>  params["amount"].to_s,
       :currency =>  "USD" 
       },
     :description =>  "This is the payment transaction description." }]})
@@ -100,10 +115,16 @@ class BillingsController < ApplicationController
       redirect_url = payment.links.find{|v| v.method == "REDIRECT" }.href
       logger.info "Payment[#{payment.id}]"
       logger.info "Redirect: #{redirect_url}"
-      redirect_to redirect_url
+      respond_to do |format|
+          format.html {redirect_to redirect_url}
+          format.js {render :js => "window.location.href='"+redirect_url+"'"}
+       end
     else
       logger.error payment.error.inspect
-      redirect_to billings_path, :gflash => { :warning => { :value => "Error occured - #{payment.error.inspect}. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
+      respond_to do |format|
+          format.html {redirect_to billings_path}
+          format.js {render :js => "window.location.href='"+billings_path+"'"}
+       end
     end
   end
 
