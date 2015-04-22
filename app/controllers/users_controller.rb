@@ -17,14 +17,13 @@ class UsersController < ApplicationController
   respond_to :html, :js
   include UsersHelper
   include SessionsHelper
-
   #Should list all the users of an organization.
   def index
     @users = User.paginate(page: params[:page])
   end
 
   def show
-	puts params
+    puts params
     @user = User.find(params[:id])
     current_user = @user
   end
@@ -41,7 +40,6 @@ class UsersController < ApplicationController
     end
   end
 
-
   #This method is used to create a new user. The form parameters as entered during the
   #signup, is used to create a new user.
   #After a successful save : redirect to users dashboard.
@@ -54,14 +52,14 @@ class UsersController < ApplicationController
     @user_fields_form_type = params[:user_fields_form_type]
 
     params["remember_token"] = @user.generate_token
- if !riak_ping?
-	redirect_to signin_path, :flash => { :error => "oops! there is some issue. Please contact support@megam.io" } and return
- end
- api_token = view_context.generate_api_token
-  if GetProfile.perform(params[:email], api_token ) != Megam::Error
     if !riak_ping?
-	     redirect_to signin_path, :flash => { :error => "Problem in Riak! Check 'riak ping' in #{Rails.configuration.storage_server_url}." } and return
+      redirect_to signin_path, :flash => { :error => "oops! there is some issue. Please contact support@megam.io" } and return
     end
+    api_token = view_context.generate_api_token
+    if GetProfile.perform(params[:email], api_token ) != Megam::Error
+      if !riak_ping?
+        redirect_to signin_path, :flash => { :error => "Problem in Riak! Check 'riak ping' in #{Rails.configuration.storage_server_url}." } and return
+      end
       sign_in params
       # fix for remember me: send the remember_me flag to sign_in method to decide if the user wishes to be remembered or not.
       logger.debug "==> Controller: users, Action: create, User signed in after creation"
@@ -74,34 +72,34 @@ class UsersController < ApplicationController
         update_options = { "onboarded_api" => true, "api_token" => api_token }
         #res_update = @user.update_columns(update_options, params["email"])
         #if res_update
-          if "#{Rails.configuration.support_email}".chop!
-            begin
-              UserMailer.welcome(current_user).deliver
-              mail_res = "Email verification success"
-            rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
-              mail_res = "Email verification Failed"
-            end
+        if "#{Rails.configuration.support_email}".chop!
+          begin
+            UserMailer.welcome(current_user).deliver
+            mail_res = "Email verification success"
+          rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
+            mail_res = "Email verification Failed"
           end
-          redirect_to main_dashboards_path, :format => 'html', :flash => { :alert => "Welcome #{params['first_name']}. Your #{mail_res}"}
-        #else
-          #logger.debug "==> Controller: users, Action: create, User onboard was not successful"
-          #redirect_to main_dashboards_path, :alert => " Gateway Failure.", :format => 'html'
         end
-      else
-        logger.debug "==> Controller: users, Action: create, User onboard was not successful"
-        redirect_to main_dashboards_path, :flash => { :alert => "Gateway Failure. Check gateway logs." }, :format => 'html'
+        redirect_to main_dashboards_path, :format => 'html', :flash => { :alert => "Welcome #{params['first_name']}. Your #{mail_res}"}
+      #else
+      #logger.debug "==> Controller: users, Action: create, User onboard was not successful"
+      #redirect_to main_dashboards_path, :alert => " Gateway Failure.", :format => 'html'
       end
-      if @user.save(params, api_token) != false
-        begin
-          logger.debug "==> Profile: Created"
-        rescue
-          logger.debug "==> Creating profile was not successful"
+    else
+      logger.debug "==> Controller: users, Action: create, User onboard was not successful"
+      redirect_to main_dashboards_path, :flash => { :alert => "Gateway Failure. Check gateway logs." }, :format => 'html'
+    end
+    if @user.save(params, api_token) != false
+      begin
+        logger.debug "==> Profile: Created"
+      rescue
+        logger.debug "==> Creating profile was not successful"
       end
 
     else
 
-        logger.debug "==> Controller: users, Action: create, Something went wrong! User not saved"
-        redirect_to signup_path
+      logger.debug "==> Controller: users, Action: create, Something went wrong! User not saved"
+      redirect_to signup_path
 
     end
   end
@@ -117,7 +115,6 @@ class UsersController < ApplicationController
       redirect_to signin_path
     end
   end
-
 
   def userupdate
     if user_in_cookie?
@@ -207,7 +204,6 @@ class UsersController < ApplicationController
       redirect_to signin_path
     end
   end
-
 
   private
 
