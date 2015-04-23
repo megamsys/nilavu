@@ -44,6 +44,8 @@ gem "megam_api", "~> 0.36"
 gem 'google-analytics-rails', '~> 0.0.6'
 gem 'megam_gogs', "~> 0.7.0"
 
+#billing gems
+gem "paypal-sdk-rest", "~>1.1.3"
 
 # http request and responses, http_proxy
 gem "faraday", "~> 0.9.1"

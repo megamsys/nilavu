@@ -19,4 +19,8 @@ module UsersHelper
     p SecureRandom.urlsafe_base64(nil, true)
   end
 
+  def rem_tokgen
+    SecureRandom.urlsafe_base64
+  end
+
 end

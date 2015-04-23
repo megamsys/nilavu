@@ -24,6 +24,7 @@ Cloudauth::Application.routes.draw do
   resources :oneservice
   resources :vms
   resources :onevms
+  resources :billings
 
 
   namespace :api do
@@ -45,11 +46,9 @@ Cloudauth::Application.routes.draw do
   match '/tour', to: 'sessions#tour', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post,:delete]
   match '/auth/facebook/callback', :to => 'sessions#create', via: [:get, :post]
-  match '/auth/github/callback', :to => 'marketplaces#github_scm', via: [:get, :post]
-  match '/github_call', :to => 'marketplaces#github_sessions_data', via: [:get, :post]
   match '/auth/google_oauth2/callback', :to => 'cross_clouds#gwindow', via: [:get, :post]
   match '/auth/assembla/callback', :to => 'apps#authorize_assembla', via: [:get, :post]
-  match '/github_ajax', :to => 'marketplaces#github_sessions', via: [:get, :post]
+
 
   #oneapp Overview
   match '/appoverview', to: 'oneapps#overview', via: [:get, :post]
@@ -98,6 +97,18 @@ Cloudauth::Application.routes.draw do
   match '/instances_launch', to: 'marketplaces#instances_create', via: [:get, :post]
   #Market place
   match '/category_view', to: 'marketplaces#category_view', via: [:get, :post]
+  #billings
+  match '/payment_execute', to: 'billings#payment_execute', via: [:get, :post]
+  #gogs
+  match '/gogs', to: 'marketplaces#gogs', via: [:get, :post]
+  match '/gogs_return', to: 'marketplaces#gogs_return', via: [:get, :post]
+  post 'trigger', :to => 'marketplaces#gogs_return', via: [:post]
+  match '/auth/gogs', :to => 'marketplaces#gogswindow', via: [:get, :post]
+  match '/gogs_call', :to => 'marketplaces#gogs_sessions', via: [:get, :post]
+  #github
+  match '/auth/github/callback', :to => 'marketplaces#github_scm', via: [:get, :post]
+  match '/github_ajax', :to => 'marketplaces#github_sessions', via: [:get, :post]
+  match '/github_call', :to => 'marketplaces#github_sessions_data', via: [:get, :post]
 
 
   # ==========Cloud settings
@@ -110,14 +121,9 @@ Cloudauth::Application.routes.draw do
   match '/cloud_selector', to: 'cross_clouds#cloud_selector', via: [:get, :post]
   match '/cloud_init', to: 'cross_clouds#cloud_init', via: [:get, :post]
   match '/changeversion', to: 'marketplaces#changeversion', via: [:get, :post]
-    match '/view_details', to: 'cross_clouds#view_details', via: [:get, :post]
+ match '/view_details', to: 'cross_clouds#view_details', via: [:get, :post]
 
-  #=====Gog
-  match '/gogs', to: 'marketplaces#gogs', via: [:get, :post]
-  match '/gogs_return', to: 'marketplaces#gogs_return', via: [:get, :post]
-  post 'trigger', :to => 'marketplaces#gogs_return', via: [:post]
-  match '/auth/gogs', :to => 'marketplaces#gogswindow', via: [:get, :post]
-  match '/gogs_call', :to => 'marketplaces#gogs_sessions', via: [:get, :post]
+
 
   # =======Error controller
   get "/404", :to => "errors#not_found"

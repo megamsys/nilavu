@@ -13,13 +13,13 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-#class User < ActiveRecord::Base
 require 'json'
 require 'bcrypt'
 
-class User
+class Profiles < BaseAPIFascade
   include BCrypt
-  include SessionsHelper
+
+
   def initialize()
     @first_name = nil
     @last_name = nil
@@ -33,54 +33,32 @@ class User
     @password_confirmation = nil
     @verified_email = false
     @verification_hash = nil
-    @app_attributes = nil
-    @cloud_identity_attributes = nil
-    @apps_item_attributes = nil
     @password_reset_token = nil
     @password_reset_sent_at = nil
   end
 
 
-  def generate_token
-    SecureRandom.urlsafe_base64
+  def create(api_params,&block)
+      final_options = {:first_name => api_params[:first_name], :last_name => api_params[:last_name],
+                      :email => api_params[:email], :api_key => api_params[:api_key], :password => api_params[:password],
+                       :password_confirmation => api_params[:password_confirmation], :password_reset_token => "" }
+    @res = api_request(api_params,PROFILE, CREATE)
+    yield (@res.data[:body]) if block_given?
+    return @res.data[:body]
   end
 
-  def builder(options)
-    hash = {
-      "first_name" => options["first_name"],
-      "last_name" => options["last_name"],
-      "admin" => options["admin"],
-      "phone" => options["phone"],
-      "onboarded_api" => options["onboarded_api"],
-      "user_type" => options["user_type"],
-      "email" => options["email"],
-      "api_token" => options["api_token"],
-      "password" => password_encrypt(options["password"]),
-      "password_confirmation" => password_encrypt(options["password_confirmation"]),
-      "verified_email" => options["verified_email"],
-      "verification_hash" => options["verification_hash"],
-      "created_at" => Time.zone.now,
-      "updated_at" => Time.zone.now,
-      "password_reset_token" => options["password_reset_token"],
-      "password_reset_sent_at" => options["password_reset_sent_at"],
-      "remember_token" => options["remember_token"],
-      "org_id" => options["org_id"]
-    }
 
-    hash.to_json
+  def list(api_params, &block)
+    @res = api_request(api_params,ACCOUNT, LIST)
+    yield (@res.data[:body]) if block_given?
+    return @res.data[:body]
   end
 
-  def save(options)
-    hash = builder(options)
-    result = true
-    res_body = MegamRiak.upload("profile", options[:email], hash, "application/json")
-    if res_body.class == Megam::Error
-    result = false
-    end
-    result
+  def dup?
+    false
   end
 
-  def update_columns(columns, email)
+  def update(columns, email)
     result = true
     res = MegamRiak.fetch("profile", email)
     res.content.data.map { |p|
@@ -95,15 +73,6 @@ class User
     result
   end
 
-  
-  def find_by_password_reset_token(password_reset_token, email)
-    result = nil
-    res = MegamRiak.fetch("profile", email)
-    if (res.class != Megam::Error) && (res.content.data["password_reset_token"] == "#{password_reset_token}")
-    result = res.content.data
-    end
-    result
-  end
 
 
   def find_by_email(email)
@@ -115,12 +84,13 @@ class User
     result
   end
 
-  def password_encrypt(password)
-    Password.create(password)
-  end
-
-  def password_decrypt(pass)
-    Password.new(pass)
+  def find_by_password_reset_token(password_reset_token, email)
+      result = nil
+      res = MegamRiak.fetch("profile", email)
+      if (res.class != Megam::Error) && (res.content.data["password_reset_token"] == "#{password_reset_token}")
+        result = res.content.data
+      end
+      result
   end
 
   def send_password_reset(email)
@@ -131,8 +101,16 @@ class User
       if res_update
         UserMailer.password_reset(user).deliver_now
       else
-        puts "API Key update: Something went wrong! User not updated"
+        puts "API update: Something went wrong!"
       end
-    end
+  end
+
+  def password_encrypt(password)
+    Password.create(password)
+  end
+
+  def password_decrypt(pass)
+    Password.new(pass)
+  end
 
 end

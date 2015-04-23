@@ -73,7 +73,13 @@
 							<% end %>
 						</li>
 
-						
+						<li class= "start active">
+							<%= link_to billings_path, :target => "_self" do %>
+							<i class="icon-money pull-left"></i>
+							<span class="title pull-left">Billings</span>
+							<span class="hidden-xs <%= "selected" if controller_name == "billings"%>"></span>
+							<% end %>
+						</li>
 
 					</ul>
 					<!-- END SIDEBAR MENU -->

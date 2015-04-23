@@ -5,7 +5,7 @@ require "action_mailer/railtie"
 #require "active_resource/railtie"
 require "rails/test_unit/railtie"
 require "sprockets/railtie"
-require 'yaml'     
+require 'yaml'
 require 'active_record'
 
 #COMMON YML
@@ -82,28 +82,30 @@ module Cloudauth
       puts "=> Warning ! MEGAM_HOME environment variable not set."
       common={"api" => {}, "storage" => {}, "varai" => {}, "auth" => {}, "monitor" => {}}
     end
-  
+
     config.megam_logo_url   = "https://s3-ap-southeast-1.amazonaws.com/megampub/images/logo-megam160x43w.png"
+
+    config.server_url = "#{common['server']}"
 
     config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
     config.ganglia_host     = "#{common['monitor']['host']}" || ENV['GANGLIA_HOST']
-    config.ganglia_base_url = "#{common['monitor']['base_url']}" || "http://monitor.megam.co.in/ganglia" || "http://localhost/ganglia"
+    config.ganglia_base_url = "#{common['monitor']['base_url']}" || "http://monitor.megam.io/ganglia" || "http://localhost/ganglia"
     config.ganglia_cluster = 'megampaas'
     config.ganglia_graph_metric  = 'cpu_system'
     config.ganglia_request_metric = 'nginx_requests'
     #config.ganglia_request_metric = 'nginx_status'
     config.metric_source = "#{common['monitor']['metric_source']}"|| 'ganglia'
-    
+
     if	"#{common['tap']}".chop!
-    config.socket_url = "http://#{common['tap']['host']}:#{common['tap']['port']}" 
+    config.socket_url = "http://#{common['tap']['host']}:#{common['tap']['port']}"
     else
-    config.socker_url = "http://localhost:7000"   
+    config.socker_url = "http://localhost:7000"
     end
 
   if "#{common['storage']}".chop!
       config.storage_type =  "#{common['storage']['type']}" || 'riak'
       config.storage_crosscloud = "#{common['storage']['cloud_keys_bucket']}" || 'cloudaccesskeys'
-     
+
       config.storage_sshfiles = "#{common['storage']['ssh_files_bucket']}" || 'sshfiles'
       config.storage_cloudtool =  "#{common['storage']['cloud_tool_bucket']}" || 'cloudtools'
       config.storage_server_url = "#{common['storage']['server_url']}" || 'localhost'
@@ -158,12 +160,15 @@ module Cloudauth
     config.support_password = ""
   end
 
-
   config.google_authorization_uri = 'https://accounts.google.com/o/oauth2/auth'
   config.google_token_credential_uri = 'https://accounts.google.com/o/oauth2/token'
   config.google_scope = 'https://www.googleapis.com/auth/userinfo.email'
   config.google_redirect_uri = 'https://www.megam.co/auth/google_oauth2/callback'
 
+  puts("""
+  ╔╗╔┬┬  ┌─┐┬  ┬┬ ┬
+  ║║║││  ├─┤└┐┌┘│ │
+  ╝╚╝┴┴─┘┴ ┴ └┘ └─┘
+      """)
   end
 end
-

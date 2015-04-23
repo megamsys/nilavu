@@ -1,5 +1,6 @@
+server: console.megam.io
 api:
-  host: api.megam.co
+  host: localhost
   scheme: http
   pub_key: megamgateway_pub.crt
   private_key: megamgateway.key
@@ -16,11 +17,9 @@ storage:
 varai:
   host: localhost
   port: 1880
-  
-
 
 support:
-  email: support@megam.co.in
+  email: support@megam.io
   password: team4megam
 
 auth:
@@ -42,8 +41,14 @@ monitor:
 tap:
  host: localhost
  port: 7000
- 
 
 gogs:
  host: localhost
  port: 6001
+
+opennebula:
+ host: 192.168.1.100
+ port: 2633
+ username: username
+ password: password
+

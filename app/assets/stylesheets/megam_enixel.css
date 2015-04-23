@@ -1227,7 +1227,7 @@ Bootstrap modal
 
 -ms-transform: translate(0, 20%) !important; /* IE 9 */
 -webkit-transform: translate(0, 20%) !important; /* Safari and Chrome */
-
+position: absolute;
   z-index: 10050 !important;
   outline: none !important;
 }

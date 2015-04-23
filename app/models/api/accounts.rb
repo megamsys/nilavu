@@ -16,9 +16,6 @@
 class Accounts < BaseAPIFascade
 
   ADMIN   = 'admin'.freeze
-  ACCOUNT = 'account'.freeze
-  CREATE  = 'create'.freeze
-  LIST    = 'list'.freeze
 
   def create(api_params,&block)
     @res = api_request(api_params,ACCOUNT, CREATE)

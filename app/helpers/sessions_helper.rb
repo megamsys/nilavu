@@ -17,18 +17,17 @@ module SessionsHelper
 
   def new_session
     session.delete(:auth)
-    user = User.new
-    params[:remember_token] = new_remember_token
-    params[:api_key] = api_keygen
-    (user, params)
+    session_params[:remember_token] = rem_tokgen
+    session_params[:api_key] = api_keygen
+    session_params
   end
 
   #a cache to store the sign details of an user in a cookie jar using keys
   #email and remember_token
-  def sign_in(user)
-    cookies.permanent[:email] = user["email"]
-    cookies.permanent[:remember_token] = user["remember_token"]
-    self.current_user = user
+  def sign_in(profile)
+    cookies.permanent[:email] = profile.email
+    cookies.permanent[:remember_token] = profile.remember_token
+    self.current_user = profile
   end
 
   #return if an user is signed in or not. ?
@@ -38,16 +37,16 @@ module SessionsHelper
 
   #return true if the user is in the cookie
   def user_in_cookie?
-    @user = User.new
-    res = @user.find_by_email(cookies[:email]) if cookies[:remember_token] && cookies[:email]
+    @profile = Profile.new
+    res = @profile.find_by_email(cookies[:email]) if cookies[:remember_token] && cookies[:email]
     res != nil
   end
 
  #return the current_user object by looking at the  remembertoken, email from cookie jar or
  #redirect to the sign page.
  def current_user
-   @user = User.new
-   res = @user.find_by_email(cookies[:email]) if cookies[:remember_token] && cookies[:email]
+   profile = Profile.new
+   res = profile.find_by_email(cookies[:email]) if cookies[:remember_token] && cookies[:email]
 
     if res != nil
       @current_user ||= res
@@ -57,8 +56,8 @@ module SessionsHelper
  end
 
  #a setter for the current user in the class variable currernt_user.
- def current_user=(user)
-   @current_user = user
+ def current_user=(profile)
+   @current_user = profile
  end
 
  #signout the current user by nuking current_user value as nil
@@ -67,17 +66,6 @@ module SessionsHelper
    current_user = nil
    cookies.delete(:remember_token)
    cookies.delete(:email)
- end
-
- #this method merely forces a setter for the api worker. Before calling the api worker, its
- #needed to call this force_api
- def force_api(email=nil, api_token=nil)
-  # dangerous. You are setting a global variable
-  Megam::Log.level(Rails.configuration.log_level)
-  email ||=current_user["email"]
-  api_token ||=current_user["api_token"]
-  logger.debug "--> force_api as email: #{email}, #{api_token}"
-  {:email => email, :api_key => api_token }
  end
 
 end

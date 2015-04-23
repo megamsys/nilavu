@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   include UsersHelper
   include SessionsHelper
 
-
+=begin
   def show
     @user = User.find(params[:id])
     current_user = @user
@@ -35,34 +35,28 @@ class UsersController < ApplicationController
       @phone = session[:auth][:phone]
     end
   end
-
+=end
 
   #This method is used to create a new user.
   #After a successful save : redirect to users dashboard.
   #1. create a  new session, upon creating a profile, save the session and create an account.
   #2.If the user already exists then redirect to signin.
   def create
-    @user, params = new_session
-    logger.debug "--> Users:create, saved profile."
-    begin
-      Profile.new.list
-    rescue DuplicateEmailError
-       redirect_to signin_path, :flash => { :warning => "Hey #{@user.first_name}, I know you already."}
-    else
-      Accounts.new.create({ :id => "",
-                  :email => params[:email],
-                  :api_key => params[:api_key],
-                  :authority => Accounts.ADMIN ,
-                  "onboarded_api" => true}) do
-         Profile.new.create(params) do
-           params = sign_in params
-           UserMailer.welcome(user).deliver_now
-         end
+    logger.debug "--> Users:create."
+    params = params.merge(new_session)
+    logger.debug "--> params \n #{params}"
+
+    prof = api.Profiles.new
+
+    redirect_to signin_path, :flash => { :warning => "Hey #{@user.first_name}, I know you already."} and return if prof.dup(params[:email])
+
+    prof.create(params) do
+      sign_in prof
+      UserMailer.welcome(prof).deliver_now
+      redirect_to main_dashboards_path, :format => 'html', :flash => { :alert => "Welcome #{params[:first_name]}."}
      end
-     redirect_to main_dashboards_path, :format => 'html', :flash => { :alert => "Welcome #{params['first_name']}."}
   end
 
-  #SCRP: the method should be renamed as "edit"
   def edit
     if user_in_cookie?
       logger.debug "--> Users:edit, user in cookie."
@@ -70,14 +64,12 @@ class UsersController < ApplicationController
       logger.debug "==> Controller: users, Action: edit, Start edit"
       @orgs = list_organizations
       @userdata= @user.find_by_email(current_user["email"])
-    @userdata
+      @userdata
     else
       redirect_to signin_path
     end
   end
 
-  #SCRP: this method should be renamed as "update"
-  #      redo it with case, match.
   def update
     if user_in_cookie?
       logger.debug "==> Controller: users, Action: update, Update user pw, api_key"
@@ -167,9 +159,6 @@ class UsersController < ApplicationController
     end
   end
 
-
-  private
-
   def list_organizations
     if user_in_cookie?
       logger.debug "--> #{self.class} : list organizations entry"
@@ -186,5 +175,4 @@ class UsersController < ApplicationController
       redirect_to signin_path
     end
   end
-
 end
