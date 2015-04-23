@@ -17,5 +17,5 @@ ActionMailer::Base.smtp_settings = {
   :authentication => :plain
 }
 
-#ActionMailer::Base.default_url_options[:host] = "https://www.megam.co"
+#ActionMailer::Base.default_url_options[:host] = "https://www.megam.io"
 ActionMailer::Base.default_url_options[:host] = "localhost:3000"

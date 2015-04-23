@@ -33,7 +33,6 @@ module Sources
   end
 
   def widget_type_to_source_type(type)
-    logger.debug("----- widget_type_to_source =>" + type)
     case type
     when "graph" then "datapoints"
     when "meter" then "number"

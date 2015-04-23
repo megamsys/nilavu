@@ -14,6 +14,8 @@
 ## limitations under the License.
 ##
 class SessionsController < ApplicationController
+
+
   def new
   end
 
@@ -35,8 +37,8 @@ class SessionsController < ApplicationController
     end
   end
 
-  #this is a demo user who can only touch anything.
-  def demo
+  #this is a tour user who can only touch anything.
+  def tour
       @user = User.new
       user = @user.find_by_email(params[:email])
       if user != nil && @user.password_decrypt(user["password"]) == params[:password]

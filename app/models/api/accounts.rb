@@ -13,10 +13,24 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-module UsersHelper
+class Accounts < BaseAPIFascade
 
-  def api_keygen
-    p SecureRandom.urlsafe_base64(nil, true)
+  ADMIN   = 'admin'.freeze
+  ACCOUNT = 'account'.freeze
+  CREATE  = 'create'.freeze
+  LIST    = 'list'.freeze
+
+  def create(api_params,&block)
+    @res = api_request(api_params,ACCOUNT, CREATE)
+    yield (@res.data[:body]) if block_given?
+    return @res.data[:body]
+  end
+
+
+  def list(api_params, &block)
+    @res = api_request(api_params,ACCOUNT, LIST)
+    yield (@res.data[:body]) if block_given?
+    return @res.data[:body]
   end
 
 end

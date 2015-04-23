@@ -15,6 +15,14 @@
 ##
 module SessionsHelper
 
+  def new_session
+    session.delete(:auth)
+    user = User.new
+    params[:remember_token] = new_remember_token
+    params[:api_key] = api_keygen
+    (user, params)
+  end
+
   #a cache to store the sign details of an user in a cookie jar using keys
   #email and remember_token
   def sign_in(user)
@@ -71,28 +79,5 @@ module SessionsHelper
   logger.debug "--> force_api as email: #{email}, #{api_token}"
   {:email => email, :api_key => api_token }
  end
-
-require 'open-uri'
-
-##we need to know if our gateway (api server) is running. this is a friendly ping.
-def api_ping?
-  begin
-    true if open("http://#{Rails.configuration.api_server_url}:9000")
-  rescue
-    false
-  end
-end
-
-#we need to know riak is working, for nilavu to work reliably. Just a ping check.
-#probably move it to a API call like status in the future.
-def riak_ping?
-  begin
-    true if open("http://#{Rails.configuration.storage_server_url}:8098")
-  rescue Exception => se
-    false
-  end
-end
-
-
 
 end

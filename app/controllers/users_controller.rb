@@ -37,65 +37,35 @@ class UsersController < ApplicationController
   end
 
 
-  #This method is used to create a new user. The form parameters as entered during the
-  #signup, is used to create a new user.
+  #This method is used to create a new user.
   #After a successful save : redirect to users dashboard.
-  # failure with email already exists, then display a message with a link to forgot_password.
-  # any other errors , display a general message, with an option to contact support.
-  #SCRP: I will have to write a base controller which does
-  #  1. API worker returns Success or Failure
-  #  2. Allow to execute a block when a successful, failure, call to an api worker is done.
-  #  3. Has prechecks built in
-  #  4. Has spinner and status built in
-  #  4. API workers can be chained.
+  #1. create a  new session, upon creating a profile, save the session and create an account.
+  #2.If the user already exists then redirect to signin.
   def create
-    logger.debug "--> Users:create, entry."
-    session.delete(:auth)
-    @user = User.new
-    params["remember_token"] = @user.generate_token
-
-    if @user.save(params)
-      sign_in params
-      # fix for remember me: send the remember_me flag to sign_in method to decide if the user wishes to be remembered or not.
-      logger.debug "==> Controller: users, Action: create, User signed in after creation"
-      api_token = view_context.generate_api_token
-      force_api(params["email"], api_token)
-      options = { :id => "", :email => params["email"], :api_key => api_token, :authority => "admin" }
-      res_body = CreateAccounts.perform(options)
-
-      if !(res_body.class == Megam::Error)
-      #update current user as onboard user(megam_api user)
-      update_options = { "onboarded_api" => true, "api_token" => api_token }
-      res_update = @user.update_columns(update_options, params["email"])
-      if res_update
-          if "#{Rails.configuration.support_email}".chop!
-            begin
-              UserMailer.welcome(current_user).deliver
-              mail_res = "Email verification success"
-            rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
-              mail_res = "Email verification Failed"
-            end
-          end
-          redirect_to main_dashboards_path, :format => 'html', :flash => { :alert => "Welcome #{params['first_name']}. Your #{mail_res}"}
-        else
-          redirect_to main_dashboards_path, :alert => " Gateway Failure.", :format => 'html'
-        end
-      else
-        redirect_to main_dashboards_path, :flash => { :alert => "Gateway Failure. Check gateway logs." }, :format => 'html'
-      end
+    @user, params = new_session
+    logger.debug "--> Users:create, saved profile."
+    begin
+      Profile.new.list
+    rescue DuplicateEmailError
+       redirect_to signin_path, :flash => { :warning => "Hey #{@user.first_name}, I know you already."}
     else
-      @user= User.find_by_email(params[:user][:email])
-      if(@user)
-        redirect_to signin_path, :gflash => { :warning => { :value => "Hey #{@user.first_name}, I know you already. Your email id is : #{@user.email}.", :sticky => false, :nodom_wrap => true } }
-      else
-        redirect_to signup_path
-      end
-    end
+      Accounts.new.create({ :id => "",
+                  :email => params[:email],
+                  :api_key => params[:api_key],
+                  :authority => Accounts.ADMIN ,
+                  "onboarded_api" => true}) do
+         Profile.new.create(params) do
+           params = sign_in params
+           UserMailer.welcome(user).deliver_now
+         end
+     end
+     redirect_to main_dashboards_path, :format => 'html', :flash => { :alert => "Welcome #{params['first_name']}."}
   end
 
   #SCRP: the method should be renamed as "edit"
-  def edituser
+  def edit
     if user_in_cookie?
+      logger.debug "--> Users:edit, user in cookie."
       @user = User.new
       logger.debug "==> Controller: users, Action: edit, Start edit"
       @orgs = list_organizations
@@ -108,7 +78,7 @@ class UsersController < ApplicationController
 
   #SCRP: this method should be renamed as "update"
   #      redo it with case, match.
-  def userupdate
+  def update
     if user_in_cookie?
       logger.debug "==> Controller: users, Action: update, Update user pw, api_key"
       @user = User.new
@@ -116,7 +86,7 @@ class UsersController < ApplicationController
       @user_fields_form_type = params[:user_fields_form_type]
       if @user_fields_form_type == 'api_key'
         logger.debug "User update For API key"
-        api_token = generate_api_token
+        api_token = api_keygen
         options = { :id => "", :email => current_user["email"], :api_key => api_token, :authority => "admin" }
         @res_body = CreateAccounts.perform(options)
         if !(@res_body.class == Megam::Error)
