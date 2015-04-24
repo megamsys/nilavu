@@ -74,8 +74,8 @@ class User
     hash = builder(options)
     result = true
     final_options = {:first_name => options["first_name"], :last_name => options["last_name"], 
-                    :email => options["email"], :api_token => api_token, :password => options["password"],
-                     :password_confirmation => options["password_confirmation"], :password_reset_token => "" }
+                    :email => options["email"], :api_token => api_token, :password => password_encrypt(options["password"]),
+                     :password_confirmation => password_encrypt(options["password_confirmation"]), :password_reset_token => "" }
     res_body = CreateProfile.perform(final_options, options[:email], api_token)
     if res_body.class == Megam::Error
     result = false

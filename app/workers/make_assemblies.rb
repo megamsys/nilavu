@@ -15,7 +15,6 @@
 ##
 class MakeAssemblies
   def self.perform(options, tmp_email, tmp_api_key)
- 
   inputs = []
   inputs << {"key" => "sshkey", "value" => options[:sshkeyname]}
   components = []
@@ -52,8 +51,7 @@ class MakeAssemblies
 
   def self.build_components(options, email, apikey)
     com = []
-    options[:combo].each do |c|   
-      type = get_type(c)
+    type = get_type(options[:type])
       if type == "APP"
         name = options[:appname]
         ttype = "tosca.app."
@@ -66,7 +64,7 @@ class MakeAssemblies
             related_components = "#{options[:assembly_name]}.#{options[:domain]}/#{options[:servicename]}"
           end
         end
-      end
+      
       if type == "SERVICE"
         name = options[:servicename]
         ttype = "tosca.service."
@@ -98,7 +96,7 @@ class MakeAssemblies
       if type == "INSTANCE"
         ttype = "tosca.instance."
       end
-      
+    
       others = []
       enable = "false"
       scm = ""
@@ -120,7 +118,7 @@ class MakeAssemblies
       
       value = {
         "name"=>"#{name}",
-        "tosca_type"=>"#{ttype}#{c}",
+        "tosca_type"=>"#{ttype}#{options[:type]}",
         "requirements"=> {
          ## "host"=>"#{options[:cloud]}",
           "host"=>"",
