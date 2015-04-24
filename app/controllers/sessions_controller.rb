@@ -23,6 +23,7 @@ class SessionsController < ApplicationController
     if social_identity.nil?
       @user = User.new
       user = @user.find_by_email(params[:email])
+      
       if user != nil && @user.password_decrypt(user["password"]) == params[:password]
         if params[:remember_me]
           cookies.permanent[:remember_token] = user["remember_token"]
@@ -67,6 +68,8 @@ class SessionsController < ApplicationController
     if social_identity.nil?
       @user = User.new
       user = @user.find_by_email(params[:email])
+      puts user.inspect
+      puts "-------------------"
       if user != nil && @user.password_decrypt(user["password"]) == params[:password]
         if params[:remember_me]
           cookies.permanent[:remember_token] = user["remember_token"]

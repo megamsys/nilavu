@@ -663,15 +663,18 @@ end
   ##
   def byoc_create
     assembly_name = params[:name]
-
     version = params[:version]
     domain = params[:domain]
     cloud = params[:cloud]
     #app_type = params[:byoc]
     source = params[:source]
     sshoption = params[:sshoption]
-
     type = params[:byoc].downcase
+    puts "=================="
+    puts params[:sshcreatename]
+    puts params[:sshuploadname]
+    puts params[:sshexistname]
+    puts "---------------------------------------------S"
 
     dbname = nil
     dbpassword = nil
@@ -779,6 +782,8 @@ end
     if sshoption == "EXIST"
       sshkeyname = params[:sshexistname]
     end
+   
+   options = {:app => true, :assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :sshkeyname => sshkeyname  }
 
     app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
     res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])

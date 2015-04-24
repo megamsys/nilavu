@@ -33,10 +33,7 @@
 <% else %>
 <% @deps_scm = @mkp_source %>
 <% end %>
-<% @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key]) %>
-<%  if @predef_cloud.class == Megam::Error %>
-<% redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }     %>
-<% end %>
+
 <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
 <%= hidden_field_tag 'source', nil, placeholder: "", :class =>"form-control", :value => @deps_scm  %>
 <%= hidden_field_tag 'byoc', nil, placeholder: "", :class =>"form-control", :value =>  @pro_name[3] %>
@@ -98,7 +95,8 @@
 			<div class="col-sm-7 app_left_name">
 				<span>Create or Import SSH keys</span>
 			</div>
-		</div>
+		</div>            
+
 		<div class="row">
 			<div class="col-sm-12 app_left_desc">
 				<div class="row">
@@ -116,7 +114,7 @@
 
 				<div class="row"  style="display:none;" id="sshkey_exist">
 					<% if @ssh_keys != nil %>
-
+    <% puts @ssh_keys %>
 					<div class="col-sm-3 app_left_name">
 						<span>Pick a sshkey</span>
 					</div>
@@ -216,7 +214,6 @@
 <% end %>
 
 
-
 <script>
     $(document).ready(function() {
         $("#scm_name").val("gogs");
@@ -291,7 +288,6 @@
                 $("#sshkey_upload").hide();
                 $(".sshoption").val("CREATE");
             }
-            console.log(value)
 
             if (this.value == "EXIST") {
                 $("#sshkey_create").hide();
