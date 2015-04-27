@@ -15,6 +15,7 @@
 ##
 class SessionsController < ApplicationController
 
+  include UsersHelper
 
   def new
   end
@@ -54,11 +55,11 @@ class SessionsController < ApplicationController
     logger.debug "==> Controller: sessions, Action: create, User signin"
     auth = social_identity
     if social_identity.nil?
-      @user = User.new
-      user = @user.find_by_email(params[:email])
-      if user != nil && @user.password_decrypt(user["password"]) == params[:password]
-        sign_in user
-        redirect_to main_dashboards_path, :notice => "Welcome #{user["first_name"]}."
+      @acc = Accounts.new
+      singleAcc = @acc.find_by_email(params[:email])
+      if singleAcc != nil && @acc.password_decrypt(singleAcc.password) == params[:password]
+        sign_in singleAcc
+        redirect_to main_dashboards_path, :notice => "Welcome #{singleAcc.first_name}."
       else
         flash[:error] = "Invalid username and password combination "
         render "new"

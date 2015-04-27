@@ -18,7 +18,7 @@ class VmsController < ApplicationController
   
   def index
     if user_in_cookie?
-      @user_id = current_user["email"]
+      @user_id = current_user.email
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
       @vm_counter = 0
       if @assemblies != nil

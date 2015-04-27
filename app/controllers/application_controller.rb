@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
         full_stacktrace =  filtered_trace.join("\n")
         Rails.logger.fatal "\n#{short_msg}"
         Rails.logger.fatal "#{full_stacktrace}"
-        UserMailer.error_email({:email => current_user["email"], :message =>"#{short_msg}", :stacktrace => "#{full_stacktrace}" }).deliver
+        UserMailer.error_email({:email => current_user.email, :message =>"#{short_msg}", :stacktrace => "#{full_stacktrace}" }).deliver
       end
     end
     respond_to do |format|

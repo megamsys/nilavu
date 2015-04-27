@@ -14,18 +14,23 @@
 ## limitations under the License.
 ##
 class UserMailer < ActionMailer::Base
-  default from: "support@megam.io"
+  default from: "dvader082@gmail.com"
 
-  def welcome(user)
+  def welcome(account)
     #@url  = "https://console.megam.io/verified_email.#{@random_token}"
     if "#{Rails.configuration.support_email}".chop!
       begin
-        mail(:to => user[:email], :subject => "Hey, Launch your first app")
+         @account = account
+        puts account.first_name
+        
+        mail(:to => account.email, :subject => "Hey, Launch your first app")
+       
+       
       rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
         logger.debug "Failed to send an email."
       end
     end
-    @user = user
+    @account 
   end
 
   def password_reset(user)

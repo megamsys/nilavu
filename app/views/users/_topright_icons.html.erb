@@ -23,7 +23,7 @@
 
 
 			<div class="cil-xs-6">
-			    <% url = "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user['email']}&api_key=#{current_user['api_token']}&callbackURL=https://www.megam.co/visualCallback" %>
+			    <% url = "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user.email}&api_key=#{current_user.api_key}&callbackURL=https://www.megam.co/visualCallback" %>
 				<a href="<%= url %>" target="_blank" class="pull-right" ><span class="pull-right" style="color:#8BB6DD">Visual Designer</span>
 				<i class="c_icon-grid-25 pull-right"></i></a>
 			</div>
