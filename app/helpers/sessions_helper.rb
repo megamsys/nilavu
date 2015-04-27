@@ -58,9 +58,9 @@ module SessionsHelper
      end
  end
 
- #a setter for the current user in the class variable currernt_user.
- def current_user=(profile)
-   @current_user = profile
+
+ def current_user=(user)
+   @current_user = user
  end
  
  

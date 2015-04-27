@@ -26,6 +26,7 @@ class SessionsController < ApplicationController
     if social_identity.nil?
       @user = User.new
       user = @user.find_by_email(params[:email])
+      
       if user != nil && @user.password_decrypt(user["password"]) == params[:password]
         sign_in user
         redirect_to main_dashboards_path, :notice => "Welcome #{user["first_name"]}."
@@ -60,6 +61,20 @@ class SessionsController < ApplicationController
       if singleAcc != nil && @acc.password_decrypt(singleAcc.password) == params[:password]
         sign_in singleAcc
         redirect_to main_dashboards_path, :notice => "Welcome #{singleAcc.first_name}."
+      @user = User.new
+      user = @user.find_by_email(params[:email])
+      if user != nil && @user.password_decrypt(user["password"]) == params[:password]
+        if params[:remember_me]
+          cookies.permanent[:remember_token] = user["remember_token"]
+          cookies.permanent[:email] = user["email"]
+        #cookies[:remember_token] = { :value => user.remember_token, :expires => 24.weeks.from_now }
+        else
+          cookies.permanent[:remember_token] = user["remember_token"]
+          cookies.permanent[:email] = user["email"]
+        end
+        sign_in user
+        redirect_to main_dashboards_path, :notice => "Welcome #{user["first_name"]}."
+
       else
         flash[:error] = "Invalid username and password combination "
         render "new"
@@ -130,4 +145,5 @@ class SessionsController < ApplicationController
     sign_out
     redirect_to signin_path
   end
+end
 end
