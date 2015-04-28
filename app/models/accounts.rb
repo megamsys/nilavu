@@ -13,27 +13,26 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-
-
 require 'bcrypt'
-
 require 'json'
 
 class Accounts < BaseFascade
-
-
   include BCrypt
-  
-  ADMIN   = 'admin'.freeze
-  
-  
-attr_reader :email
-attr_reader :remember_token
-attr_reader :first_name
-attr_reader :password
-
   include SessionsHelper
-  
+
+
+  attr_reader :email
+  attr_reader :password
+  attr_reader :api_key
+  attr_reader :first_name
+  attr_reader :phone
+  attr_reader :remember_token
+  attr_reader :created_at
+
+  ADMIN   = 'admin'.freeze
+  MEGAM_TOUR_EMAIL="tour@megam.io".freeze
+  MEGAM_TOUR_PASSWORD="faketour".freeze
+
   def initialize()
     @first_name = nil
     @last_name = nil
@@ -48,25 +47,54 @@ attr_reader :password
     @verified_email = false
     @verification_hash = nil
     @password_reset_token = nil
-    @password_reset_sent_at = nil
+    @created_at = nil
   end
 
-  def create(api_params,&block)
-   
-    final_options = {:first_name => api_params[:first_name], :last_name => api_params[:last_name],
-      :phone => api_params[:phone], :email => api_params[:email], :api_key => api_params[:api_key], :password => password_encrypt(api_params[:password]),
-      :authority => "", :password_reset_token => "" }
-    @res = api_request(final_options, ACCOUNT, CREATE)
-    
-    @remember_token = api_params[:remember_token]
-    @email = api_params[:email]  
-    
-    @first_name = api_params[:first_name]
- 
-    yield self if block_given?
+  #verifies if the email is a duplicate.
+  def dup?(email)
+   !find_by_email(email).email.nil?
+  end
+
+  #pulls the account object for an email
+  def find_by_email(email)
+    res = MegamRiak.fetch("accounts", email)
+    if res.class != Megam::Error && !res.content.data.nil?
+      @email = res.content.data["email"]
+      @password = res.content.data["password"]
+      @api_key = res.content.data["api_key"]
+      @first_name = res.content.data["first_name"]
+      @phone = res.content.data["phone"]
+      @created_at = res.content.data["create_at"]
+      end
     return self
   end
 
+  #performs a siginin check, to see if the passwords match.
+  def signin(api_params, &block)
+    raise   AuthenticationFailure, "Au oh!, The email or password you entered is incorrect." if find_by_email(api_params[:email]).nil?
+     unless password_decrypt(password) == api_params[:password]
+       raise   AuthenticationFailure, "Au oh!, The email or password you entered is incorrect."
+    end
+    yield self if block_given?
+    self
+  end
+
+  #creates a new account object.
+  def create(api_params,&block)
+    acct_parms = {:first_name => api_params[:first_name], :last_name => api_params[:last_name],
+                    :phone => api_params[:phone], :email => api_params[:email],
+                    :api_key => api_params[:api_key], :password => password_encrypt(api_params[:password]),
+                    :authority => ADMIN, :password_reset_token => "" }
+
+    api_request(acct_parms, ACCOUNT, CREATE)
+    @remember_token = api_params[:remember_token]
+    @email = api_params[:email]
+    @first_name = api_params[:first_name]
+    @phone = api_parms[:phone]
+
+    yield self if block_given?
+    return self
+  end
 
 
   def list(api_params, &block)
@@ -75,10 +103,6 @@ attr_reader :password
     return @res.data[:body]
   end
 
-  def dup?(email)
-   !find_by_email(email).email.nil?
-   
-  end
 
   def update(columns, email)
     result = true
@@ -95,18 +119,6 @@ attr_reader :password
     result
   end
 
-  def find_by_email(email)
-    result = nil
-    res = MegamRiak.fetch("accounts", email)
-    puts res.inspect
-    if res.class != Megam::Error && !res.content.data.nil?
-    result = res.content.data
-    @first_name = result["first_name"] 
-    @email = result["email"]
-    @password = result["password"]    
-    end
-    return self
-  end
 
   def find_by_password_reset_token(password_reset_token, email)
     result = nil
@@ -129,13 +141,19 @@ attr_reader :password
     end
   end
 
+  private
+
   def password_encrypt(password)
     Password.create(password)
   end
 
   def password_decrypt(pass)
-  
-    Password.new(pass)
+    begin
+      Password.new(pass)
+    rescue BCrypt::Errors::InvalidHash
+      Rails.logger.debug "--> Couldn't decrpt your password. Its possible that the saved account password in gateway was just text."
+      raise   AuthenticationFailure, "Au oh!, The password you entered is incorrect."
+    end
   end
 
 end

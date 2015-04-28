@@ -18,6 +18,8 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
 
+  before_action :require_signin
+
   #a catcher exists using rails globber for routes in config/application.rb to trap 404.
   unless Rails.application.config.consider_all_requests_local
     rescue_from Exception, with: :render_500
@@ -58,6 +60,14 @@ class ApplicationController < ActionController::Base
       format.html { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
       format.js { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
       format.all { render nothing: true, status: 500}
+    end
+  end
+
+  private
+
+  def require_signin
+    unless signed_in?
+      redirect_to signin_path, :flash => { :error => "You must be logged in to access this section"}
     end
   end
 end

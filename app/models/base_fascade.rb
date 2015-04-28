@@ -1,20 +1,21 @@
 class BaseFascade
   attr_reader :email
   attr_reader :api_key
+
   class MegamAPIError < StandardError; end
-
   class APIConnectFailure <  MegamAPIError; end
-
   class UnsupportedAPI < MegamAPIError; end
-
   class APIInvocationFailure < MegamAPIError; end
-
   class MissingAPIArgsError < MegamAPIError; end
+  class AuthenticationFailure < MegamAPIError; end
 
-  JLAZ_PREFIX = "Megam::".freeze
-  ACCOUNT    = 'Account'.freeze
+  JLAZ_PREFIX  = "Megam::".freeze
+  ACCOUNT      = 'Account'.freeze
+  ORGANIZATION = 'Organizations'.freeze
+
 
   CREATE      = 'create'.freeze
+  SHOW        = 'show'.freeze
   LIST        = 'list'.freeze
   UPDATE      = 'update'.freeze
 
@@ -33,14 +34,10 @@ class BaseFascade
   end
 
   def api_request(jparams, jlaz, jmethod, passthru = false)
-   
-    jlaz = JLAZ_PREFIX + jlaz
-    #jparams[:email]   = email
-    #jparams[:api_key] = api_key
-
+     jlaz = JLAZ_PREFIX + jlaz
     raise MissingAPIArgsError, ":email and :api_key required." unless good_to_invoke(jparams, passthru)
 
-    Rails.logger.debug "--------> Initiating #{jlaz} to #{jmethod}" 
+    Rails.logger.debug "--------> Initiating #{jlaz} to #{jmethod}"
     unless ping?
       begin
         Rails.logger.debug("---- Worker Request Params Data: ----")
@@ -49,15 +46,13 @@ class BaseFascade
         end
         Rails.logger.debug("---- End Worker Request Params Data ----")
         Rails.logger.debug("API #{jlaz} #{jmethod}")
-      
-       
+
         Rails.logger.debug("---- End API call ----")
          return run_now(jlaz, jmethod, jparams).data
-
       rescue ArgumentError => ae
         raise APIInvocationFailure, "Arguments missing. ! #{ae.message}"
       rescue Megam::API::Errors::ErrorWithResponse => ewr
-        raise APIInvocationFailure, "api.megam.io returned an error. !#{awr.message}"
+        raise APIInvocationFailure, "api.megam.io returned an error. !#{ewr.message}"
       rescue StandardError => se
         raise APIInvocationFailure, "I couldn't figure it. !#{se.message}"
       end
@@ -77,7 +72,6 @@ class BaseFascade
   end
 
   def run_now(raise_exception = false, jlaz, jmethod, jparams)
-    
     api_jlaz = jlaz.constantize
     unless api_jlaz.respond_to?(jmethod)
       logger.debug "You need to add a #{jmethod} to your #{jlaz} before you can use it."

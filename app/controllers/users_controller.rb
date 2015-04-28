@@ -15,6 +15,8 @@
 ##
 class UsersController < ApplicationController
   respond_to :html, :js
+  skip_before_action :require_signin, only: [:new, :create]
+
   include UsersHelper
   include SessionsHelper
 
@@ -38,41 +40,35 @@ class UsersController < ApplicationController
 =end
 
   #This method is used to create a new user.
-  #After a successful save : redirect to users dashboard.
-  #1. create a  new session, upon creating a profile, save the session and create an account.
-  #2.If the user already exists then redirect to signin.
+  #We create a Account for the user using /account call. A verification is done to check if the user is a dup.
+  #Upon creating a new account, a session is created for the user and redirect to dash.
   def create
     logger.debug "--> Users:create."
-    final_params = params.merge(new_session)
-    logger.debug "--> params \n #{final_params}"
+    all_params = params.merge(new_session)
+    logger.debug "-->  allparams \n #{all_params}"
 
     my_account = Accounts.new
-    redirect_to signin_path, :flash => { :warning => "Hey you!!, I know you already."} and return if my_account.dup?(final_params[:email])
+    redirect_to signin_path, :flash => { :error => "Hey you!, I know you already."} and return if my_account.dup?(all_params[:email])
 
-    #alert does not work - bug
-    my_account.create(final_params) do
+    my_account.create(all_params) do
       sign_in my_account
       UserMailer.welcome(my_account).deliver_now
-      redirect_to main_dashboards_path, :format => 'html', :flash => { :alert => "Welcome #{params[:first_name]}."}
+      redirect_to main_dashboards_path, :format => 'html', :flash => { :alert => "Welcome #{my_account.first_name}."}
      end
   end
 
+  #load the current user detail
+  #load the current org details and send it the edit.html.erb.
   def edit
     logger.debug "--> Users:edit."
-    if user_in_cookie?
-      logger.debug "--> Users:edit, user in cookie."
-      @user = User.new
-      @orgs = list_organizations
-      @userdata= @user.find_by_email(current_user.email)
-      @userdata
-    else
-      redirect_to signin_path
+    @account = current_user
+    Organizations.new.list(@account) do |my_org|
+      @orgs = my_org
     end
   end
 
   def update
     logger.debug "--> Users:update."
-    if user_in_cookie?
       @user = User.new
       @userdata = @user.find_by_email(current_user.email)
       @user_fields_form_type = params[:user_fields_form_type]
@@ -154,25 +150,7 @@ class UsersController < ApplicationController
           end
         end
       end
-    else
-      redirect_to signin_path
-    end
   end
 
-  def list_organizations
-    if user_in_cookie?
-      logger.debug "--> #{self.class} : list organizations entry"
-      org_collection = ListOrganizations.perform(force_api[:email], force_api[:api_key])
-      orgs = []
-      if org_collection.class != Megam::Error
-        org_collection.each do |one_org|
-          orgs << {:name => one_org.name, :created_at => one_org.created_at.to_time.to_formatted_s(:rfc822)}
-        end
-        orgs = orgs.sort_by {|vn| vn[:created_at]}
-      end
-    orgs
-    else
-      redirect_to signin_path
-    end
-  end
+
 end
