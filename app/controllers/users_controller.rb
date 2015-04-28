@@ -42,25 +42,26 @@ class UsersController < ApplicationController
   #1. create a  new session, upon creating a profile, save the session and create an account.
   #2.If the user already exists then redirect to signin.
   def create
-    logger.debug "--> Users:create."    
+    logger.debug "--> Users:create."
     final_params = params.merge(new_session)
     logger.debug "--> params \n #{final_params}"
 
-     prof = Accounts.new
-    redirect_to signin_path, :flash => { :warning => "Hey you!!, I know you already."} and return if prof.dup?(final_params[:email]) 
-    #alert does not work - bug    
-    prof.create(final_params) do
-      sign_in prof
-      UserMailer.welcome(prof).deliver_now
+    my_account = Accounts.new
+    redirect_to signin_path, :flash => { :warning => "Hey you!!, I know you already."} and return if my_account.dup?(final_params[:email])
+
+    #alert does not work - bug
+    my_account.create(final_params) do
+      sign_in my_account
+      UserMailer.welcome(my_account).deliver_now
       redirect_to main_dashboards_path, :format => 'html', :flash => { :alert => "Welcome #{params[:first_name]}."}
      end
   end
 
   def edit
+    logger.debug "--> Users:edit."
     if user_in_cookie?
       logger.debug "--> Users:edit, user in cookie."
       @user = User.new
-      logger.debug "==> Controller: users, Action: edit, Start edit"
       @orgs = list_organizations
       @userdata= @user.find_by_email(current_user.email)
       @userdata
@@ -70,8 +71,8 @@ class UsersController < ApplicationController
   end
 
   def update
+    logger.debug "--> Users:update."
     if user_in_cookie?
-      logger.debug "==> Controller: users, Action: update, Update user pw, api_key"
       @user = User.new
       @userdata = @user.find_by_email(current_user.email)
       @user_fields_form_type = params[:user_fields_form_type]
