@@ -19,7 +19,7 @@ class AddonsController < ApplicationController
     include MainDashboardsHelper
  def index
     if user_in_cookie?
-      @user_id = current_user["email"]
+      @user_id = current_user.email
 
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
       @service_counter = 0
@@ -62,37 +62,6 @@ class AddonsController < ApplicationController
     logger.debug "Cloud Store new  ==> "
   end
 
-=begin
-  def new_store
-    logger.debug "New Store init Params ==> "
-    logger.debug "#{params}"
-
-    @db_model = params[:db_model]
-    @dbms = params[:dbms]
-  #  @book =  current_user.apps.build
-    @predef_name = params[:dbms]
-    if"#{params[:deps_scm]}".strip.length != 0
-      @deps_scm = "#{params[:deps_scm]}"
-    elsif !"#{params[:scm]}".start_with?("select")
-      @deps_scm = "#{params[:scm]}"
-    end
-    predef_options = { :predef_name => @predef_name}
-    @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key])
-    if @predef_cloud.class == Megam::Error
-      redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-    else
-    #if @predef_cloud.some_msg[:msg_type] != "error"
-      pred = FindPredefsByName.perform(predef_options,force_api[:email],force_api[:api_key])
-      if pred.class == Megam::Error
-        redirect_to new_app_path, :gflash => { :warning => { :value => "#{pred.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-      else
-        @predef = pred.lookup(@predef_name)
-        @domain_name = ".megam.co"
-        @no_of_instances=params[:no_of_instances]
-      end
-    end
-  end
-=end
 
   def create
     logger.debug "Create Cloud store Params ==> "

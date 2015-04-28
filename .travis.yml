@@ -3,10 +3,10 @@ language: ruby
 notifications:
     email:
     recipients:
-      - nkishore@megam.co.in
+      - support@megam.io
 
 rvm:
-  - 2.0.0
+  - 2.2.2
 
 script: "bundle exec rake clean test cucumber"
 

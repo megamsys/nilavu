@@ -15,12 +15,22 @@
 ##
 module SessionsHelper
 
+
+  def new_session
+    session.delete(:auth)
+    session_params = {}
+    session_params[:remember_token] = rem_tokgen
+    session_params[:api_key] = api_keygen
+    session_params
+  end
+
   #a cache to store the sign details of an user in a cookie jar using keys
   #email and remember_token
-  def sign_in(user)
-    cookies.permanent[:email] = user["email"]
-    cookies.permanent[:remember_token] = user["remember_token"]
-    self.current_user = user
+  def sign_in(account)
+    new_token = rem_tokgen
+    cookies.permanent[:email] = account.email
+    cookies.permanent[:remember_token] = account.remember_token || new_token
+    self.current_user = account
   end
 
   #return if an user is signed in or not. ?
@@ -30,16 +40,16 @@ module SessionsHelper
 
   #return true if the user is in the cookie
   def user_in_cookie?
-    @user = User.new
-    res = @user.find_by_remember_token(cookies[:remember_token], cookies[:email]) if cookies[:remember_token] && cookies[:email]
+    @profile = Accounts.new
+    res = @profile.find_by_email(cookies[:email]) if cookies[:remember_token] && cookies[:email]
     res != nil
   end
 
  #return the current_user object by looking at the  remembertoken, email from cookie jar or
  #redirect to the sign page.
  def current_user
-   @user = User.new
-   res = @user.find_by_remember_token(cookies[:remember_token], cookies[:email]) if cookies[:remember_token] && cookies[:email]
+   profile = Accounts.new
+   res = profile.find_by_email(cookies[:email]) if cookies[:remember_token] && cookies[:email]
 
     if res != nil
       @current_user ||= res
@@ -48,11 +58,24 @@ module SessionsHelper
      end
  end
 
- #a setter for the current user in the class variable current_user.
+
  def current_user=(user)
    @current_user = user
  end
-
+ 
+ 
+ def force_api(email=nil, api_token=nil)
+  # dangerous. You are setting a global variable
+  Megam::Log.level(Rails.configuration.log_level)
+  email ||=current_user.email
+  api_token ||=current_user.api_key
+  logger.debug "--> force_api as email: #{email}, #{api_token}"
+  {:email => email, :api_key => api_token }
+  
+ end
+ 
+ 
+ 
  #signout the current user by nuking current_user value as nil
  #and delete the remembered cookies.
  def sign_out
@@ -60,39 +83,5 @@ module SessionsHelper
    cookies.delete(:remember_token)
    cookies.delete(:email)
  end
-
- #this method merely forces a setter for the api worker. Before calling the api worker, its
- #needed to call this force_api
- def force_api(email=nil, api_token=nil)
-  # dangerous. You are setting a global variable
-  Megam::Log.level(Rails.configuration.log_level)
-  email ||=current_user["email"]
-  api_token ||=current_user["api_token"]
-  logger.debug "--> force_api as email: #{email}, #{api_token}"
-  {:email => email, :api_key => api_token }
- end
-
-require 'open-uri'
-
-##we need to know if our gateway (api server) is running. this is a friendly ping.
-def api_ping?
-  begin
-    true if open("http://#{Rails.configuration.api_server_url}:9000")
-  rescue
-    false
-  end
-end
-
-#we need to know riak is working, for nilavu to work reliably. Just a ping check.
-#probably move it to a API call like status in the future.
-def riak_ping?
-  begin
-    true if open("http://#{Rails.configuration.storage_server_url}:8098")
-  rescue Exception => se
-    false
-  end
-end
-
-
 
 end

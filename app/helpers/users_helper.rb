@@ -14,9 +14,13 @@
 ## limitations under the License.
 ##
 module UsersHelper
-  
-  def generate_api_token
+
+  def api_keygen
     p SecureRandom.urlsafe_base64(nil, true)
   end
-   
+
+  def rem_tokgen
+    SecureRandom.urlsafe_base64
+  end
+
 end

@@ -43,14 +43,14 @@ class SshKeysController < ApplicationController
 
   def create
     if user_in_cookie?
-      #k = SSHKey.generate(:type => params[:key_type], :bits => params[:key_bit].to_i, :comment => current_user["email"])
+      #k = SSHKey.generate(:type => params[:key_type], :bits => params[:key_bit].to_i, :comment => current_user.email)
       k = SSHKey.generate
-      key_name = params[:key_name] || current_user["first_name"]
+      key_name = params[:key_name] || current_user.first_name
       @filename = key_name
       if Rails.configuration.storage_type == "s3"
-        sshpub_loc = vault_s3_url+"/"+current_user["email"]+"/"+key_name
+        sshpub_loc = vault_s3_url+"/"+current_user.email+"/"+key_name
       else
-        sshpub_loc = current_user["email"]+"_"+key_name     #Riak changes
+        sshpub_loc = current_user.email+"_"+key_name     #Riak changes
       end
       wparams = { :name => key_name, :path => sshpub_loc }
       @res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
@@ -64,7 +64,7 @@ class SshKeysController < ApplicationController
         end
       else
         @err_msg = nil
-        options ={:email => current_user["email"], :ssh_key_name => key_name, :ssh_private_key => k.private_key, :ssh_public_key => k.ssh_public_key }
+        options ={:email => current_user.email, :ssh_key_name => key_name, :ssh_private_key => k.private_key, :ssh_public_key => k.ssh_public_key }
         upload = SshKey.perform(options, ssh_files_bucket)
         if upload.class == Megam::Error
           @res_msg = nil
@@ -97,9 +97,9 @@ class SshKeysController < ApplicationController
       @filename = params[:key_name]
       key_name = params[:key_name]
       if Rails.configuration.storage_type == "s3"
-        sshpub_loc = vault_s3_url+"/"+current_user["email"]+"/"+key_name
+        sshpub_loc = vault_s3_url+"/"+current_user.email+"/"+key_name
       else
-        sshpub_loc = current_user["email"]+"_"+key_name     #Riak changes
+        sshpub_loc = current_user.email+"_"+key_name     #Riak changes
       end
       wparams = { :name => key_name, :path => sshpub_loc }
       @res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
@@ -113,7 +113,7 @@ class SshKeysController < ApplicationController
         end
       else
         @err_msg = nil
-        options ={:email => current_user["email"], :ssh_key_name => key_name, :ssh_private_key => params[:ssh_private_key], :ssh_public_key => params[:ssh_public_key] }
+        options ={:email => current_user.email, :ssh_key_name => key_name, :ssh_private_key => params[:ssh_private_key], :ssh_public_key => params[:ssh_public_key] }
         upload = SshKey.upload(options, ssh_files_bucket)
         if upload.class == Megam::Error
           @res_msg = nil
@@ -142,8 +142,8 @@ class SshKeysController < ApplicationController
   def download
     if user_in_cookie?
       @keyname = params[:filename]
-      @filename = current_user["email"]+"_"+"#{@keyname}"
-      options ={:email => current_user["email"], :download_location => "#{@filename}" }
+      @filename = current_user.email+"_"+"#{@keyname}"
+      options ={:email => current_user.email, :download_location => "#{@filename}" }
       downloaded_file = SshKey.download(options, ssh_files_bucket)
       if downloaded_file.class == Megam::Error
         @res_msg = nil

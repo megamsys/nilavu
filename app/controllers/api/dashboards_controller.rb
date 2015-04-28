@@ -23,7 +23,7 @@ module Api
     end
 
     def index
-      @user_id = current_user["email"]
+      @user_id = current_user.email
       #dashboards = current_user.apps
       respond_with @user_id
     end

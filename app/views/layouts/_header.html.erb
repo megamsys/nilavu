@@ -38,7 +38,7 @@
 									<li>
 										<ul class="dropdown-menu-list scroller">
 											<li>
-												<%= link_to edituser_path do %>
+												<%= link_to edit_user_path(current_user.email) do %>
 												<span class="label label-sm label-icon label-success"><i class="glyphicon glyphicon-user"></i></span>
 												Profile
 												<% end %>
@@ -70,7 +70,7 @@
 									</li>
 									<li>
 										<ul class="dropdown-menu-list scroller", id="events">
-											
+
 										</ul>
 									</li>
 									<!--<li class="external">
@@ -95,4 +95,3 @@
 	</div>
 </div>
 <!-- END HEADER -->
-
