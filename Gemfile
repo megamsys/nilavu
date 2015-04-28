@@ -20,7 +20,7 @@ gem 'remotipart', "~> 1.2.1"
 
 #fog
 gem 'fog', "~> 1.29.0"
-gem 'opennebula', "~> 4.12.0"
+gem 'opennebula', "~> 4.12.1"
 
 # security and oauth
 gem 'bcrypt', "~> 3.1.10"
@@ -41,7 +41,6 @@ gem 'riak-client', '~> 2.1.0'
 gem "github_api", "~>0.12.3"
 gem "randexp", "~> 0.1.7"
 gem "megam_api", "~> 0.38"
-gem "megam_api", "~> 0.37"
 gem 'google-analytics-rails', '~> 0.0.6'
 gem 'megam_gogs', "~> 0.7.0"
 
@@ -53,15 +52,15 @@ gem "faraday", "~> 0.9.1"
 gem "faraday_middleware", "~> 0.9.1"
 gem "nokogiri", "~> 1.6.6.2"
 
-gem 'unicorn', "~> 4.8.3",:group => :production
-gem "therubyracer","~> 0.12.1", :require => 'v8',:platforms => :ruby
+gem 'unicorn', "~> 4.9.0",:group => :production
+gem "therubyracer","~> 0.12.2", :require => 'v8',:platforms => :ruby
 
 #ssh key-gen
 gem "sshkey", "~> 1.6.1"
 
 # Gems used only for assets and not required
 # in production environments by default.
-gem "less-rails", "~> 2.6.0"
+gem "less-rails", "~> 2.7.0"
 gem 'sass-rails', "~> 5.0.3"
 gem 'coffee-rails', "~> 4.1.0"
 gem 'uglifier', "~> 2.7.1"

@@ -77,7 +77,6 @@ module Cloudauth
 
     if File.exist?("#{ENV['MEGAM_HOME']}/nilavu.yml")
       common = YAML.load_file("#{ENV['MEGAM_HOME']}/nilavu.yml")                  #COMMON YML
-      puts "=> Loaded #{ENV['MEGAM_HOME']}/nilavu.yml"
     else
       puts "=> Warning ! MEGAM_HOME environment variable not set."
       common={"api" => {}, "storage" => {}, "varai" => {}, "auth" => {}, "monitor" => {}}
