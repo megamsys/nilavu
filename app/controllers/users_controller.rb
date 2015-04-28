@@ -64,6 +64,12 @@ class UsersController < ApplicationController
       force_api(params["email"], api_token)
       options = { :id => "", :email => params["email"], :api_key => api_token, :authority => "admin" }
       res_body = CreateAccounts.perform(options)
+
+
+	puts "Create ACcount REsponce =================> "
+	puts res_body.inspect
+
+
       if @user.save(params, api_token) != false
         sign_in params
         logger.debug "==> Profile: Created"
@@ -71,7 +77,7 @@ class UsersController < ApplicationController
           logger.debug "==> Controller: users, Action: create, User onboarded successfully"
           if "#{Rails.configuration.support_email}".chop!
             begin
-              UserMailer.welcome(current_user).deliver
+              #UserMailer.welcome(current_user).deliver
               mail_res = "Email verification success"
             rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
               mail_res = "Email verification Failed"

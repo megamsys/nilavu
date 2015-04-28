@@ -76,10 +76,10 @@ class User
     final_options = {:first_name => options["first_name"], :last_name => options["last_name"], 
                     :email => options["email"], :api_token => api_token, :password => password_encrypt(options["password"]),
                      :password_confirmation => password_encrypt(options["password_confirmation"]), :password_reset_token => "" }
-    res_body = CreateProfile.perform(final_options, options[:email], api_token)
-    if res_body.class == Megam::Error
-    result = false
-    end
+    #res_body = CreateProfile.perform(final_options, options[:email], api_token)
+    #if res_body.class == Megam::Error
+    #result = false
+    #end
     result
   end
 
@@ -100,7 +100,7 @@ class User
 
   def find_by_remember_token(remember_token, email)
     result = nil
-    res = MegamRiak.fetch("profile", email)
+    res = MegamRiak.fetch("accounts", email)
     if res.class != Megam::Error
     result = res.content.data
     end
