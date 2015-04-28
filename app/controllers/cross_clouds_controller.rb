@@ -49,11 +49,11 @@ class CrossCloudsController < ApplicationController
   def create
     if user_in_cookie?
       if Rails.configuration.storage_type == "s3"
-        vault_loc = vault_base_url+"/"+current_user["email"]+"/"+params[:name]
-        sshpub_loc = vault_base_url+"/"+current_user["email"]+"/"+params[:id_rsa_public_key]
+        vault_loc = vault_base_url+"/"+current_user.email+"/"+params[:name]
+        sshpub_loc = vault_base_url+"/"+current_user.email+"/"+params[:id_rsa_public_key]
       else
-        vault_loc = current_user["email"]+"_"+params[:name]
-        sshpub_loc = current_user["email"]+"_"+params[:id_rsa_public_key]    #Riak changes
+        vault_loc = current_user.email+"_"+params[:name]
+        sshpub_loc = current_user.email+"_"+params[:id_rsa_public_key]    #Riak changes
       end
       if params[:provider] != "profitbricks"
         if params[:provider] == "Google Compute Engine"
@@ -84,21 +84,21 @@ class CrossCloudsController < ApplicationController
       else
         @err_msg = nil
         if params[:provider] == "Amazon EC2"
-          upload_options = {:email => current_user["email"], :name => params[:name], :private_key => params[:private_key], :aws_access_key => params[:aws_access_key], :aws_secret_key => params[:aws_secret_key], :type => cc_type(params[:provider])}
+          upload_options = {:email => current_user.email, :name => params[:name], :private_key => params[:private_key], :aws_access_key => params[:aws_access_key], :aws_secret_key => params[:aws_secret_key], :type => cc_type(params[:provider])}
           @upload = AmazonCloud.perform(upload_options, cross_cloud_bucket)
         end
         if params[:provider] == "hp cloud"
-          upload_options = {:email => current_user["email"], :name => params[:name], :private_key => params[:private_key], :hp_access_key => params[:hp_access_key], :hp_secret_key => params[:hp_secret_key], :type => cc_type(params[:provider])}
+          upload_options = {:email => current_user.email, :name => params[:name], :private_key => params[:private_key], :hp_access_key => params[:hp_access_key], :hp_secret_key => params[:hp_secret_key], :type => cc_type(params[:provider])}
           @upload = HpCloud.perform(upload_options, cross_cloud_bucket)
         end
 
         if params[:provider] == "profitbricks"
-          upload_options = {:email => current_user["email"], :name => params[:name], :private_key => params[:private_key], :profitbricks_username => params[:profitbricks_username], :profitbricks_password => params[:profitbricks_password], :type => cc_type(params[:provider]), :id_rsa_public_key => params[:id_rsa_public_key]}
+          upload_options = {:email => current_user.email, :name => params[:name], :private_key => params[:private_key], :profitbricks_username => params[:profitbricks_username], :profitbricks_password => params[:profitbricks_password], :type => cc_type(params[:provider]), :id_rsa_public_key => params[:id_rsa_public_key]}
           @upload = ProfitbricksCloud.perform(upload_options, cross_cloud_bucket)
         end
 
         if params[:provider] == "opennebula"
-          upload_options = {:email => current_user["email"], :name => params[:name], :private_key => params[:private_key], :opennebula_username => params[:opennebula_username], :opennebula_password => params[:opennebula_password], :type => cc_type(params[:provider])}
+          upload_options = {:email => current_user.email, :name => params[:name], :private_key => params[:private_key], :opennebula_username => params[:opennebula_username], :opennebula_password => params[:opennebula_password], :type => cc_type(params[:provider])}
           @upload = OpennebulaCloud.perform(upload_options, cross_cloud_bucket)
         end
 
@@ -106,12 +106,12 @@ class CrossCloudsController < ApplicationController
           if session[:info]['token'].length > 0
             @data = CreateGoogleJSON.perform(session[:info]['token'], session[:info]['refresh_token'], session[:info]['expires_at'], params[:project_name], params[:google_client_id], params[:google_secret_key])
           end
-          upload_options = {:email => current_user["email"], :name => params[:name], :provider_value => get_provider_value(params[:provider]), :type => cc_type(params[:provider]), :g_json => @data}
+          upload_options = {:email => current_user.email, :name => params[:name], :provider_value => get_provider_value(params[:provider]), :type => cc_type(params[:provider]), :g_json => @data}
           @upload = GoogleCloud.perform(upload_options, cross_cloud_bucket)
         end
 
         if params[:provider] == "GoGrid"
-          upload_options = {:email => current_user["email"], :name => params[:name], :api_key => params[:api_key], :shared_secret => params[:shared_secret], :type => cc_type(params[:provider]) }
+          upload_options = {:email => current_user.email, :name => params[:name], :api_key => params[:api_key], :shared_secret => params[:shared_secret], :type => cc_type(params[:provider]) }
           @upload = Gogrid.perform(upload_options, cross_cloud_bucket)
         end
 

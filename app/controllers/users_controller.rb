@@ -17,19 +17,16 @@ class UsersController < ApplicationController
   respond_to :html, :js
   include UsersHelper
   include SessionsHelper
-  #Should list all the users of an organization.
-  def index
-    @users = User.paginate(page: params[:page])
-  end
+
 
   def show
-    @user = User.find(params[:id])
-    current_user = @user
+    #@user = User.find(params[:id])
+    #current_user = @user
   end
-
+=begin
   def new
+    logger.debug "--> Users:new, creating new user with social identity."
     if session[:auth]
-      logger.debug "--> Users:new, creating new user with social identity."
       @user = User.new
       @social_uid = session[:auth][:uid]
       @email = session[:auth][:email]
@@ -38,88 +35,54 @@ class UsersController < ApplicationController
       @phone = session[:auth][:phone]
     end
   end
+=end
 
-  #This method is used to create a new user. The form parameters as entered during the
-  #signup, is used to create a new user.
+  #This method is used to create a new user.
   #After a successful save : redirect to users dashboard.
-  # failure with email already exists, then display a message with a link to forgot_password.
-  # any other errors , display a general message, with an option to contact support.
+  #1. create a  new session, upon creating a profile, save the session and create an account.
+  #2.If the user already exists then redirect to signin.
   def create
-    session.delete(:auth)
-    logger.debug "--> Users:create, update social identity for new social identity user"
-    @user = User.new
-    @user_fields_form_type = params[:user_fields_form_type]
+    logger.debug "--> Users:create."    
+    final_params = params.merge(new_session)
+    logger.debug "--> params \n #{final_params}"
 
-    params["remember_token"] = @user.generate_token
-    if !riak_ping?
-      redirect_to signin_path, :flash => { :error => "oops! there is some issue. Please contact support@megam.io" } and return
-    end
-    api_token = view_context.generate_api_token
-    if GetProfile.perform(params[:email], api_token).class == Megam::Error
-      #Reason for GetProfile worker - params can get over written in riak. hence hard to check if profile exists
-      #or not.
-
-      # fix for remember me: send the remember_me flag to sign_in method to decide if the user wishes to be remembered or not.
-      logger.debug "==> Controller: users, Action: create, User signed in after creation"
-      force_api(params["email"], api_token)
-      options = { :id => "", :email => params["email"], :api_key => api_token, :authority => "admin" }
-      res_body = CreateAccounts.perform(options)
-      if @user.save(params, api_token) != false
-        sign_in params
-        logger.debug "==> Profile: Created"
-        if !(res_body.class == Megam::Error)
-          logger.debug "==> Controller: users, Action: create, User onboarded successfully"
-          if "#{Rails.configuration.support_email}".chop!
-            begin
-              UserMailer.welcome(current_user).deliver
-              mail_res = "Email verification success"
-            rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
-              mail_res = "Email verification Failed"
-            end
-          end
-          redirect_to main_dashboards_path, :format => 'html', :flash => { :alert => "Welcome aboard #{params['first_name']}."}
-        else
-          logger.debug "==> Creating profile was not successful"
-          redirect_to signup_path, :flash => { :alert => "Could not create. Please contact support" }, :format => 'html'
-        end
-      else
-        logger.debug "==> Controller: users, Action: create, User onboard was not successful"
-        redirect_to main_dashboards_path, :alert => " Gateway Failure.", :format => 'html'
-      end
-    else
-
-      logger.debug "==> Controller: users, Action: create, Something went wrong! Profile already exist"
-      redirect_to signup_path
-
-    end
+     prof = Accounts.new
+    redirect_to signin_path, :flash => { :warning => "Hey you!!, I know you already."} and return if prof.dup?(final_params[:email]) 
+    #alert does not work - bug    
+    prof.create(final_params) do
+      sign_in prof
+      UserMailer.welcome(prof).deliver_now
+      redirect_to main_dashboards_path, :format => 'html', :flash => { :alert => "Welcome #{params[:first_name]}."}
+     end
   end
 
-  def edituser
+  def edit
     if user_in_cookie?
+      logger.debug "--> Users:edit, user in cookie."
       @user = User.new
       logger.debug "==> Controller: users, Action: edit, Start edit"
       @orgs = list_organizations
-      @userdata= @user.find_by_email(current_user["email"])
-    @userdata
+      @userdata= @user.find_by_email(current_user.email)
+      @userdata
     else
       redirect_to signin_path
     end
   end
 
-  def userupdate
+  def update
     if user_in_cookie?
       logger.debug "==> Controller: users, Action: update, Update user pw, api_key"
       @user = User.new
-      @userdata = @user.find_by_email(current_user["email"])
+      @userdata = @user.find_by_email(current_user.email)
       @user_fields_form_type = params[:user_fields_form_type]
       if @user_fields_form_type == 'api_key'
         logger.debug "User update For API key"
-        api_token = generate_api_token
-        options = { :id => "", :email => current_user["email"], :api_key => api_token, :authority => "admin" }
+        api_token = api_keygen
+        options = { :id => "", :email => current_user.email, :api_key => api_token, :authority => "admin" }
         @res_body = CreateAccounts.perform(options)
         if !(@res_body.class == Megam::Error)
           update_options = { "onboarded_api" => true, "api_token" => api_token, "updated_at" => Time.zone.now }
-          res_update = @user.update_columns(update_options, current_user["email"])
+          res_update = @user.update_columns(update_options, current_user.email)
           if res_update
             sign_in @userdata
             @res_msg = "API Key updated successfully"
@@ -134,12 +97,12 @@ class UsersController < ApplicationController
         end
         respond_to do |format|
           format.js {
-            respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user["api_token"], :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
+            respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user.api_key, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
           }
         end
       elsif @user_fields_form_type == 'profile'
         update_options = { "first_name" => params[:first_name], "phone" => params[:phone] }
-        res_update = @user.update_columns(update_options, current_user["email"])
+        res_update = @user.update_columns(update_options, current_user.email)
         if res_update
           sign_in @userdata
           @res_msg = "Profile updated successfully"
@@ -150,14 +113,14 @@ class UsersController < ApplicationController
         end
         respond_to do |format|
           format.js {
-            respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user["api_token"], :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
+            respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user.api_key, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
           }
         end
       elsif @user_fields_form_type == 'password'
         if @user.password_decrypt(@userdata["password"]) == params[:current_password]
           if params[:password] == params[:password_confirmation]
             update_options = { "password" => @user.password_encrypt(params[:password]), "password_confirmation" => @user.password_encrypt(params[:password_confirmation]) }
-            res_update = @user.update_columns(update_options, current_user["email"])
+            res_update = @user.update_columns(update_options, current_user.email)
             if res_update
               sign_in @userdata
               @res_msg = "Password updated successfully"
@@ -168,7 +131,7 @@ class UsersController < ApplicationController
             end
             respond_to do |format|
               format.js {
-                respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user["api_token"], :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
+                respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user.api_key, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
               }
             end
           else
@@ -176,7 +139,7 @@ class UsersController < ApplicationController
             @err_msg = "Password update: The password's are doesn't match. Please re-enter the correct password."
             respond_to do |format|
               format.js {
-                respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user["api_token"], :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
+                respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user.api_key, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
               }
             end
           end
@@ -185,7 +148,7 @@ class UsersController < ApplicationController
           @err_msg = "Password update: The current password is wrong. Please re-enter the correct password."
           respond_to do |format|
             format.js {
-              respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user["api_token"], :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
+              respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user.api_key, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
             }
           end
         end
@@ -212,4 +175,3 @@ class UsersController < ApplicationController
     end
   end
 end
-
