@@ -26,7 +26,7 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 			<div class="alert alert-info">
-				<strong></strong> Tip  Change your Account settings, Organization, API Key here
+				<strong></strong> Tip  Change your Account settings, Organization, API key here
 			</div>
 		</div>
 	</div>
@@ -41,7 +41,7 @@
 					<a href="#profile_2" data-toggle="tab"> Organization </a>
 				</li>
 				<li >
-					<a href="#profile_3" data-toggle="tab"> API Key </a>
+					<a href="#profile_3" data-toggle="tab"> API key </a>
 				</li>
 
 			</ul>
@@ -49,17 +49,17 @@
 				<div class="tab-pane active" id="profile_1">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-							<h4 class="bottom_border_grey">Basic information <span class="pull-right" > <%= current_user.email %></span></h4>
+							<h4 class="bottom_border_grey">Basic information <span class="pull-right" > <%= @account.email %></span></h4>
 						</div>
 
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
-							<%= form_tag userupdate_path, multipart: true, :id => "megamform", remote: true, method: 'put', data: { spinlock: "#saving_profilenam"}  do %>
+							<%= form_tag user_path, multipart: true, :id => "megamform", remote: true, method: 'put', data: { spinlock: "#saving_profilenam"}  do %>
 							<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
 							<input type="hidden" name="user_fields_form_type" value="profile">
 							<div class="form-group">
 								<label class="col-md-3 control-label label-profile">Profile name</label>
 								<div class="col-md-6 input-group margin-top-10">
-									<%= text_field_tag 'first_name', nil, :id => 'first_name', :class => 'form-control',:readonly => true, placeholder: "Enter text", :value => @userdata["first_name"] %>
+									<%= text_field_tag 'first_name', nil, :id => 'first_name', :class => 'form-control',:readonly => true, placeholder: "Enter text", :value => @account.first_name %>
 									<span class="input-group-addon" ><a id="change_profilename">Change ?</a></span>
 								</div>
 								<div class="col-md-3 pull-right c_cog_icon">
@@ -73,7 +73,7 @@
 							<div class="form-group">
 								<label class="col-md-3 control-label label-profile">Phone</label>
 								<div class="col-md-6 input-group margin-top-10">
-									<%= text_field_tag 'phone', nil, :class => 'form-control',:readonly => true, :id => 'phonenumber', placeholder: "Phone Number", :value => @userdata["phone"] %>
+									<%= text_field_tag 'phone', nil, :class => 'form-control',:readonly => true, :id => 'phonenumber', placeholder: "Phone Number", :value => @account.phone %>
 									<span class="input-group-addon" ><a id="change_phonenumber">Change ?</a></span>
 								</div>
 							</div>
@@ -92,7 +92,7 @@
 							<h4 class="bottom_border_grey">Change password</h4>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
-							<%= form_tag userupdate_path, multipart: true, :id => "megamform", remote: true, method: 'put', data: { spinlock: "#saving profile_password"}  do %>
+							<%= form_tag user_path, multipart: true, :id => "megamform", remote: true, method: 'put', data: { spinlock: "#saving profile_password"}  do %>
 							<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
 							<input type="hidden" name="user_fields_form_type" value="password">
 							<div class="form-group">
@@ -200,7 +200,7 @@
 										<tbody>
 											<tr>
 
-												<td><%= current_user.email %></td>
+												<td><%= @account.email %></td>
 											</tr>
 
 										</tbody>
@@ -231,14 +231,14 @@
 								<div class="col-xs-10 col-sm-9">
 									<h4 class="">Your API Key</h4>
 								</div>
-								<%= form_tag(userupdate_path, :method => "put", :remote => true) do %>
+								<%= form_tag(user_path, :method => "put", :remote => true) do %>
 								<input type="hidden" name="user_fields_form_type" value="api_key">
 								<%= submit_tag "Create", :class => "pull-right btn btn-success" %>
 								<% end %>
 							</div>
 						</div>
 					</div>
-					<%= form_tag userupdate_path, :remote => true  do %>
+					<%= form_tag user_path, :remote => true  do %>
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 						<table class="table tb_action_list">
 							<thead>
@@ -249,8 +249,8 @@
 							</thead>
 							<tbody>
 								<tr>
-									<td class="set_title" > <%= text_field_tag 'api_token', nil, :id => 'api_key_field', :disabled => 'disabled', :class=> 'form-control required', :value => @userdata["api_token"] %></td>
-									<td > <%= text_field_tag 'created_at', "#{@userdata["updated_at"]}", :readonly => true, :class=> 'form-control', :value => @userdata["updated_at"] %></td>
+									<td class="set_title" > <%= text_field_tag 'api_token', nil, :id => 'api_key_field', :disabled => 'disabled', :class=> 'form-control required', :value => @account.api_key %></td>
+									<td > <%= text_field_tag 'created_at', "#{@account.created_at}", :readonly => true, :class=> 'form-control', :value => @account.created_at %></td>
 
 								</tr>
 
@@ -288,7 +288,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<%= link_to "Ok", edit_user_path(current_user.email), :class => "btn btn-primary", :target => "_self" %>
+				<%= link_to "Ok", edit_user_path(1), :class => "btn btn-primary", :target => "_self" %>
 			</div>
 		</div>
 	</div>
@@ -296,4 +296,4 @@
 
 <% end %>
 
-<%= render :template => users_show_path %>
+<%= render :template => "users/show" %>

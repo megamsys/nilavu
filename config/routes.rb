@@ -2,7 +2,6 @@ Cloudauth::Application.routes.draw do
 
   root :to => 'main_dashboards#index'
   match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :post]	#Used in maindashboard_index.html.erb
-  #DenselyPacked app lifecycle
   match '/lifecycle', :to => 'main_dashboards#lifecycle', via: [:get]
   match '/deleteapp', :to => 'main_dashboards#deleteapp', via: [:get]
 
@@ -38,13 +37,10 @@ Cloudauth::Application.routes.draw do
     match '/data_sources', to: 'data_sources#index', via: [:get, :post]
   end
 
-# =======Dash
- get "users/show"
 
   # ======Users Controller
-  match '/signup', to: 'users#new', via: [:get, :post]
+  match '/signup', to: 'users#new', via: [:get]
   match '/forgot', to: 'users#forgot', via: [:get]
-  match '/update', to: 'users#update', via: [:get, :post, :patch]
   match '/signin', to: 'sessions#new', via: [:get]
   match '/tour', to: 'sessions#tour', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post,:delete]

@@ -18,6 +18,7 @@ class ListMarketPlaceApps
   def self.perform(tmp_email, tmp_api_key)
 
     begin
+      Rails.logger.debug "ListMarketPlaceApps...listing.."
       @excon_res = Megam::MarketPlace.list(tmp_email, tmp_api_key)
     rescue ArgumentError => ae
       hash = {"msg" => ae.message, "msg_type" => "error"}
