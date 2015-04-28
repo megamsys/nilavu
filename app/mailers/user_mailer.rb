@@ -16,11 +16,14 @@
 class UserMailer < ActionMailer::Base
   default from: "support@megam.io"
 
+  #an email gets formatted to be sent, the template needs email address hence we expose account.
   def welcome(account)
     #@url  = "https://console.megam.io/verified_email.#{@random_token}"
+    @account = account
     if "#{Rails.configuration.support_email}".chop!
       begin
          mail(:to => account.email, :subject => "Hey, Launch your first app")
+         @account
       rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
         logger.debug "--> Failed to send a welcome email for #{account.email}."
       end
