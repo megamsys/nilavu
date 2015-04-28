@@ -38,6 +38,9 @@ Cloudauth::Application.routes.draw do
     match '/data_sources', to: 'data_sources#index', via: [:get, :post]
   end
 
+# =======Dash
+ get "users/show" 
+
   # ======Users Controller
   match '/signup', to: 'users#new', via: [:get, :post]
   match '/forgot', to: 'users#forgot', via: [:get]
@@ -48,6 +51,10 @@ Cloudauth::Application.routes.draw do
   match '/auth/facebook/callback', :to => 'sessions#create', via: [:get, :post]
   match '/auth/google_oauth2/callback', :to => 'cross_clouds#gwindow', via: [:get, :post]
   match '/auth/assembla/callback', :to => 'apps#authorize_assembla', via: [:get, :post]
+  
+  # =======to be removed
+  match '/edituser' => 'users#edituser', via: [:get, :post]
+   match '/userupdate' => 'users#userupdate', via: [:put]
 
 
   #oneapp Overview

@@ -15,8 +15,10 @@
 ##
 module SessionsHelper
 
+
   def new_session
     session.delete(:auth)
+    session_params = {}
     session_params[:remember_token] = rem_tokgen
     session_params[:api_key] = api_keygen
     session_params
@@ -24,10 +26,11 @@ module SessionsHelper
 
   #a cache to store the sign details of an user in a cookie jar using keys
   #email and remember_token
-  def sign_in(profile)
-    cookies.permanent[:email] = profile.email
-    cookies.permanent[:remember_token] = profile.remember_token
-    self.current_user = profile
+  def sign_in(account)
+    new_token = rem_tokgen
+    cookies.permanent[:email] = account.email
+    cookies.permanent[:remember_token] = account.remember_token || new_token
+    self.current_user = account
   end
 
   #return if an user is signed in or not. ?
@@ -37,7 +40,7 @@ module SessionsHelper
 
   #return true if the user is in the cookie
   def user_in_cookie?
-    @profile = Profile.new
+    @profile = Accounts.new
     res = @profile.find_by_email(cookies[:email]) if cookies[:remember_token] && cookies[:email]
     res != nil
   end
@@ -45,7 +48,7 @@ module SessionsHelper
  #return the current_user object by looking at the  remembertoken, email from cookie jar or
  #redirect to the sign page.
  def current_user
-   profile = Profile.new
+   profile = Accounts.new
    res = profile.find_by_email(cookies[:email]) if cookies[:remember_token] && cookies[:email]
 
     if res != nil
@@ -55,11 +58,24 @@ module SessionsHelper
      end
  end
 
- #a setter for the current user in the class variable currernt_user.
- def current_user=(profile)
-   @current_user = profile
- end
 
+ def current_user=(user)
+   @current_user = user
+ end
+ 
+ 
+ def force_api(email=nil, api_token=nil)
+  # dangerous. You are setting a global variable
+  Megam::Log.level(Rails.configuration.log_level)
+  email ||=current_user.email
+  api_token ||=current_user.api_key
+  logger.debug "--> force_api as email: #{email}, #{api_token}"
+  {:email => email, :api_key => api_token }
+  
+ end
+ 
+ 
+ 
  #signout the current user by nuking current_user value as nil
  #and delete the remembered cookies.
  def sign_out

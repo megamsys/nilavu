@@ -33,10 +33,7 @@
 <% else %>
 <% @deps_scm = @mkp_source %>
 <% end %>
-<% @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key]) %>
-<%  if @predef_cloud.class == Megam::Error %>
-<% redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }     %>
-<% end %>
+
 <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
 <%= hidden_field_tag 'source', nil, placeholder: "", :class =>"form-control", :value => @deps_scm  %>
 <%= hidden_field_tag 'type', nil, placeholder: "", :class =>"form-control", :value =>  @pro_name[3] %>

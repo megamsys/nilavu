@@ -22,7 +22,7 @@ class MainDashboardsController < ApplicationController
 
     ##user_in_cookie? retuns true, if you want false then use !current_user
     if user_in_cookie?
-      @user_id = current_user["email"]
+      @user_id = current_user.email
       @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
       @service_counter = 0
       @app_counter = 0

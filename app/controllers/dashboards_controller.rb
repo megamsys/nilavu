@@ -21,7 +21,7 @@ class DashboardsController < ApplicationController
 
   def show
     @id = params[:id]
-    @user_id = current_user["email"]
+    @user_id = current_user.email
   end
 
 end
