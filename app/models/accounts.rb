@@ -90,7 +90,7 @@ class Accounts < BaseFascade
     @remember_token = api_params[:remember_token]
     @email = api_params[:email]
     @first_name = api_params[:first_name]
-    @phone = api_parms[:phone]
+    @phone = api_params[:phone]
 
     yield self if block_given?
     return self
