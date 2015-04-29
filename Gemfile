@@ -10,7 +10,7 @@ gem 'socket.io-rails', "~> 1.3.5"
 
 #jquery & ui
 gem 'jquery-rails', "~> 4.0.3"
-gem "font-awesome-rails", "3.2.1.3"
+gem "font-awesome-rails"
 gem 'turbolinks', "~> 2.5.3"
 gem 'jquery-turbolinks',"~> 2.1.0"
 gem 'remotipart', "~> 1.2.1"

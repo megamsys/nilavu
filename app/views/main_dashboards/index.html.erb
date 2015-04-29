@@ -54,49 +54,7 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 		</div>
 	</div>
 	<div class="margin_30 pad_t25">
-		<div class="row c_pading-b15">
-			<div class="portlet-body-head">
-				<div class="col-xs-12">
-					<i class="c_icon-grid"></i>Over all <span><%= @app_counter %> Apps &amp; <%= @service_counter %> services running</span>
-				</div>
-			</div>
-			<!-- <div class="pull-right">
-			<span class="icon-th-large"></span>
-			</div> -->
-		</div>
-		<div class="bottom-divider"></div>
-		<div class="row progressbar-cover">
-			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-				<h5>Containers</h5>
-				<div class="progress">
-					<div class="progress-bar progress-bar-success" style="width: 35%">
-						<span class="sr-only">35% Complete (success)</span>
-					</div>
-					<div class="progress-bar progress-bar-warning" style="width: 20%">
-						<span class="sr-only">20% Complete (warning)</span>
-					</div>
-					<div class="progress-bar progress-bar-danger" style="width: 10%">
-						<span class="sr-only">10% Complete (danger)</span>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-				<h5>App health</h5>
-				<div class="progress">
-					<div class="progress-bar progress-bar-success" style="width: 100%">
-						<span class="sr-only">100% Complete (success)</span>
-					</div>
-				</div>
-			</div>
-			<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-				<h5>Apps/Services used</h5>
-				<div class="progress">
-					<p align="center">
-						<span> <%= @app_counter %> Apps / <%= @service_counter %> Services </span>
-					</p>
-				</div>
-			</div>
-		</div>
+
 		<%= render :partial => "main_dashboards/vms", :locals => {:user => current_user, :assemblies => @assemblies} %>
 
 		<%= render :partial => "main_dashboards/apps", :locals => {:user => current_user, :assemblies => @assemblies} %>

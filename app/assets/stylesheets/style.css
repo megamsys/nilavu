@@ -216,7 +216,7 @@ hr {
     padding: 15px 10px 0px;
 }
 .header .navbar-nav > li.dropdown .dropdown-toggle > i {
-    font-size: 18px;
+    font-size: 26px; color:#d5d7e3;
 }
 .header .navbar-nav > li.dropdown .dropdown-menu > li > a > i {
     font-size: 14px;
@@ -343,6 +343,7 @@ hr {
     z-index: 100;
     background-color: #fff;
 }
+
 .page-sidebar ul > li > a > .arrow:before {
     content: "";
     display: inline;
@@ -636,7 +637,7 @@ hr {
     padding: 20px;
 }
 .ie8 .page-sidebar-fixed .page-content {
-    min-height: 600px;
+    min-height: 00px;
 }
 .ie8 .page-content.no-min-height {
 }
@@ -1408,7 +1409,7 @@ i.normal {
 }
 .table thead tr th {
     font-size: 14px;
-    font-weight: 600;
+    font-weight: bold;
 }
 .table-advance {
     margin-bottom: 10px !important;

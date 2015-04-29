@@ -12,11 +12,11 @@
  *= require bootstrap
  *= require uniform.default
  *= require custom
- *= require megam_enixel
  *= require style
  *= require style-elegant
  *= require font-awesome 
- *= require megam 
+ *= require megam
  *= require_tree .
  */
+
 

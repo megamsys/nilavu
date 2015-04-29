@@ -32,10 +32,14 @@ $(document).ready(function() {
         },
         messages : {
             check_req : "Just check the box"
-        }
+        },
+         tooltip_options: {
+            check_req : {placement:'right',html:true}
+         }
     });
 
 });
+
 
 //Notification alert
 $(document).ready(function() {
