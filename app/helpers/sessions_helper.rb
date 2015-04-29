@@ -15,7 +15,7 @@
 ##
 module SessionsHelper
 
-
+  #create a new session
   def new_session
     session.delete(:auth)
     session_params = {}
@@ -27,9 +27,8 @@ module SessionsHelper
   #a cache to store the sign details of an user in a cookie jar using keys
   #email and remember_token
   def sign_in(account)
-    new_token = rem_tokgen
     cookies.permanent[:email] = account.email
-    cookies.permanent[:remember_token] = account.remember_token || new_token
+    cookies.permanent[:remember_token] = account.remember_token || rem_tokgen
     self.current_user = account
   end
 
@@ -38,44 +37,44 @@ module SessionsHelper
     !current_user.nil?
   end
 
-  #return true if the user is in the cookie
+  #return true if the user is in the cookie, used by the pre handler in application controller
+  # require_signin
   def user_in_cookie?
-    @profile = Accounts.new
-    res = @profile.find_by_email(cookies[:email]) if cookies[:remember_token] && cookies[:email]
+    res = Accounts.new.find_by_email(cookies[:email]) if cookies[:remember_token] && cookies[:email]
+    if res!=nil
+      logger.debug "--> sessionHelper: user_in_cookie? ${(res !=nil)}"
+    end
     res != nil
   end
 
  #return the current_user object by looking at the  remembertoken, email from cookie jar or
  #redirect to the sign page.
  def current_user
-   profile = Accounts.new
-   res = profile.find_by_email(cookies[:email]) if cookies[:remember_token] && cookies[:email]
-
-    if res != nil
+   logger.debug "--> sessionHelper: current_user"
+   res = Accounts.new.find_by_email(cookies[:email]) if  cookies[:remember_token] && cookies[:email]
+   if res!=nil
       @current_user ||= res
-     else
-      redirect_to signin_path
-     end
+   else
+    redirect_to signin_path
+   end
  end
 
 
- def current_user=(user)
-   @current_user = user
+ def current_user=(account)
+   @current_user = account
  end
- 
- 
+
+
  def force_api(email=nil, api_token=nil)
-  # dangerous. You are setting a global variable
   Megam::Log.level(Rails.configuration.log_level)
+  Rails.logger.debug("--> sessionsHelper: force_api ")
   email ||=current_user.email
-  api_token ||=current_user.api_key
-  logger.debug "--> force_api as email: #{email}, #{api_token}"
-  {:email => email, :api_key => api_token }
-  
+  api_key ||=current_user.api_key
+  {:email => email, :api_key => api_key }
  end
- 
- 
- 
+
+
+
  #signout the current user by nuking current_user value as nil
  #and delete the remembered cookies.
  def sign_out

@@ -16,72 +16,67 @@
 class SessionsController < ApplicationController
   include UsersHelper
 
+  skip_before_action :require_signin, only: [:new, :tour, :create]
+
+
   def new
   end
 
-  def index
-    logger.debug "==> Controller: sessions, Action: create, User signin"
-    auth = social_identity
-    if social_identity.nil?
-      @user = User.new
-      user = @user.find_by_email(params[:email])
-
-      if user != nil && @user.password_decrypt(user["password"]) == params[:password]
-        sign_in user
-        redirect_to main_dashboards_path, :notice => "Welcome #{user["first_name"]}."
-      else
-        flash[:error] = "Invalid username and password combination "
-        render "new"
-      end
-    else
-      create_social_identity(auth)
-    end
-  end
-
-  #this is a tour user who can only touch anything.
+  #this is a tour user who can only touch some stuff.
   def tour
-      @user = User.new
-      user = @user.find_by_email(params[:email])
-      if user != nil && @user.password_decrypt(user["password"]) == params[:password]
-        sign_in user
-        redirect_to main_dashboards_path, :notice => "Welcome #{user["first_name"]}."
-      else
-        flash[:error] = 'Invalid demo username and password combination'
-        render 'new'
-      end
+     logger.debug "--> Sessions.tour"
+      params[:email] =  Accounts::MEGAM_TOUR_EMAIL
+      params[:password] =  Accounts::MEGAM_TOUR_PASSWORD
+      create_with_megam(params)
   end
 
+  #a regular user signin.
   def create
-    logger.debug "==> Controller: sessions, Action: create, User signin"
+    logger.debug "--> Sessions.create"
     auth = social_identity
     if social_identity.nil?
-      @acc = Accounts.new
-      singleAcc = @acc.find_by_email(params[:email])
-      if singleAcc != nil && @acc.password_decrypt(singleAcc.password) == params[:password]
-        sign_in singleAcc
-        redirect_to main_dashboards_path, :notice => "Welcome #{singleAcc.first_name}."
-      else
-        flash[:error] = "Invalid username and password combination "
-        render "new"
-      end
+       create_with_megam(params)
     else
       create_social_identity(auth)
     end
   end
 
-  def fb_auth
-    auth = request.env['omniauth.auth']
-    session[:auth] = { :uid => auth['uid'], :provider => auth['provider'], :email => auth['info']["email"], :first_name => auth['info']['name'], :phone => auth['info']['phone'], :last_name => auth['info']['last_name'] }
-    redirect_to :controller=>'sessions'
+  def destroy
+    sign_out
+    redirect_to signin_path
   end
+
+  def redirect_to_signup_with_fb
+    fb = {:email => social_identity[:email], :first_name => social_identity[:name], :phone => social_identity[:phone], :last_name => social_identity[:last_name], :uid => social_identity[:uid]}
+    redirect_to new_user_path
+  end
+
+  def redirect_to_dash(user)
+    sign_in user
+    redirect_to(main_dashboards_path, :gflash => { :success => { :value => "Welcome #{social_identity[:name]}. Your registered email is #{social_identity[:email]}, Thank you.", :sticky => false, :nodom_wrap => true } })
+  end
+
+
+private
 
   # verify if an omniauth.auth hash exists, if not consider it as a locally registered user.
   def social_identity
     auth = session[:auth]
   end
 
+  def create_with_megam(all_params)
+    my_account = Accounts.new
+    begin
+      my_account.signin(all_params) do
+        sign_in my_account
+        redirect_to main_dashboards_path, :notice => "Welcome #{my_account.first_name}."
+      end
+    rescue Accounts::AuthenticationFailure => ae
+        redirect_to signin_path, :flash => { :error => ae.message}
+    end
+  end
+
   def create_social_identity(auth)
-    @user = User.new
     @identity = Identity.new
     @iden = @identity.find_from_omniauth(auth)
     #Check for identity
@@ -114,21 +109,6 @@ class SessionsController < ApplicationController
     #Exception of all the above conditions
       redirect_to_signup_with_fb
     end
-  end
-
-  def redirect_to_signup_with_fb
-    fb = {:email => social_identity[:email], :first_name => social_identity[:name], :phone => social_identity[:phone], :last_name => social_identity[:last_name], :uid => social_identity[:uid]}
-    redirect_to new_user_path
-  end
-
-  def redirect_to_dash(user)
-    sign_in user
-    redirect_to(main_dashboards_path, :gflash => { :success => { :value => "Welcome #{social_identity[:name]}. Your registered email is #{social_identity[:email]}, Thank you.", :sticky => false, :nodom_wrap => true } })
-  end
-
-  def destroy
-    sign_out
-    redirect_to signin_path
   end
 
 end

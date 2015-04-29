@@ -25,8 +25,10 @@ class MarketplacesController < ApplicationController
   ## and show the items in order of category
   ##
   def index
+    logger.debug "--> Marketplaces: index."
     if user_in_cookie?
       mkp = get_marketplaces
+      logger.debug "--> Marketplaces: get_marketplaces successful."
 
       @mkp_collection = mkp[:mkp_collection]
       if @mkp_collection.class == Megam::Error
@@ -53,7 +55,7 @@ class MarketplacesController < ApplicationController
   def show
     if user_in_cookie?
       bill_collection = GetBalance.perform(force_api[:email], force_api[:api_key])
-      case 
+      case
       when bill_collection.class == Megam::Error
         logger.debug "--> #{self.class} : Get user balances got error"
         respond_to do |format|
@@ -80,7 +82,7 @@ class MarketplacesController < ApplicationController
             @deps_scm = get_deps_scm(@pro_name[3].downcase)
             @my_apps = []
 
-            @type = get_type(@pro_name[3].downcase)           
+            @type = get_type(@pro_name[3].downcase)
             @version_order=[]
             @version_order = @mkp.plans.map {|c| c["version"]}
             @version_order = @version_order.sort
@@ -160,26 +162,6 @@ class MarketplacesController < ApplicationController
     end
     apps
   end
-
-=begin
-def authorize_scm
-logger.debug "CloudBooks:authorize_scm, entry"
-auth_token = request.env['omniauth.auth']['credentials']['token']
-github = Github.new oauth_token: auth_token
-git_array = github.repos.all.collect { |repo| repo.clone_url }
-@repos = git_array
-render :template => "apps/new", :locals => {:repos => @repos}
-
-#session[:info] = request.env['omniauth.auth']['credentials']
-auth_token = request.env['omniauth.auth']['credentials']['token']
-github = Github.new oauth_token: auth_token
-git_array = github.repos.all.collect { |repo| repo.clone_url }
-@repos = git_array
-
-# @repos
-end
-
-=end
 
   ##
   ## after finish the github authentication the callback url comes this method
@@ -279,16 +261,14 @@ end
     end
   end
 
+  private
   ##
   ## this controller collect all registered marketplace items from megam storage
   ##
   def get_marketplaces
-    if user_in_cookie?
+     logger.debug "Marketplaces: get_marketplaces"
       mkp_collection = ListMarketPlaceApps.perform(force_api[:email], force_api[:api_key])
       {:mkp_collection => mkp_collection}
-    else
-      redirect_to signin_path
-    end
   end
 
   ##
@@ -782,7 +762,7 @@ end
     if sshoption == "EXIST"
       sshkeyname = params[:sshexistname]
     end
-   
+
    options = {:app => true, :assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :sshkeyname => sshkeyname  }
 
     app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])

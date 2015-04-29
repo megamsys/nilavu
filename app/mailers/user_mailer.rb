@@ -14,28 +14,30 @@
 ## limitations under the License.
 ##
 class UserMailer < ActionMailer::Base
-  default from: "dvader082@gmail.com"
+  default from: "support@megam.io"
 
+  #an email gets formatted to be sent, the template needs email address hence we expose account.
   def welcome(account)
     #@url  = "https://console.megam.io/verified_email.#{@random_token}"
+    @account = account
     if "#{Rails.configuration.support_email}".chop!
       begin
-         @account = account
-        puts account.first_name
-        
-        mail(:to => account.email, :subject => "Hey, Launch your first app")
-       
-       
+         mail(:to => account.email, :subject => "Hey, Launch your first app")
+         @account
       rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
-        logger.debug "Failed to send an email."
+        logger.debug "--> Failed to send a welcome email for #{account.email}."
       end
     end
-    @account 
   end
 
-  def password_reset(user)
-    @user = user
-    mail :to => user[:email], :subject => "Reset your password"
+  def password_reset(account)
+    if "#{Rails.configuration.support_email}".chop!
+      begin
+         mail :to => account.email, :subject => "You have fat fingers. No worries."
+      rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
+        logger.debug "--> Failed to send a password reset email for #{account.email}."
+      end
+    end
   end
 
 
