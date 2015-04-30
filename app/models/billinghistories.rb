@@ -19,11 +19,12 @@ class Billinghistories < BaseFascade
   
   def initialize()
      @bhistories = []
+     @@swallow_404 = true
   end
 
   def list(api_params, &block)
     raw = api_request(api_params, BILLINGHISTORIES, LIST)
-    @bhistories = raw
+    @bhistories = raw[:body].sort_by{|e| e.created_at}.reverse[0..9] unless raw == nil
     yield self  if block_given?
     return self
   end

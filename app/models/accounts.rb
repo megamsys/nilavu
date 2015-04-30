@@ -87,6 +87,7 @@ class Accounts < BaseFascade
   def create(api_params,&block)
     api_request(bld_acct(api_params), ACCOUNT, CREATE)
     @remember_token = api_params[:remember_token]
+    @api_key = api_params[:api_key]
     @email = api_params[:email]
     @first_name = api_params[:first_name]
     @phone = api_params[:phone]

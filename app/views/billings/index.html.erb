@@ -31,7 +31,7 @@
 					<div class="row">
 						<div class="form-group col-md-6 col-sm-6 ">
 							<h1>Total Balance</h1>
-							<h1 class="col-md-offset-6"><%= @bill.credit %>$</h1>
+							<h1 class="col-md-offset-6"><%= @bill.balance.credit %>$</h1>
 						</div>
 						<div class="form-group col-md-4 col-sm-6 ">
 							<label class="col-md-7 col-sm-12 col-xs-12 row" for="exampleInputName2">Promo Code :</label>
@@ -78,7 +78,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<% @billinghistories.each do |history| %>
+								<% @billingHistories.bhistories.each do |history| %>
 								<tr>
 									<td><%= history.assembly_id %></td>
 									<td><%= history.billing_amount %></td>

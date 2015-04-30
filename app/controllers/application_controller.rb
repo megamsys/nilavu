@@ -65,7 +65,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
   def require_signin
     unless signed_in?
       redirect_to signin_path, :flash => { :error => "You must be logged in to access this section"}
