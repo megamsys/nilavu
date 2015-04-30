@@ -25,56 +25,56 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="mplace mplace-head">
-			<div class="col-xs-6 col-md-3 mplace-left">
-				<h4>Billings</h4>
-			</div>
-			<div class="col-xs-12 col-md-6 mplace-middle hidden-xs hidden-sm"></div>
-			<div class="col-xs-6 col-md-3 mplace-right">
-				<span class="pull-right"><i class="c_icon-rocket"></i><a href="http://docs.megam.io/v1.0/docs/megam_cloudmanagement_intro" target="_blank">Take a Tour</a></span>
-			</div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="margintb_15 margin_30 ">
-			<div class="col-md-10 col-sm-12 card-details row">
+		<div class="margin_30 ">
+			<div class=" card-details ">
+				<form>
+					<div class="row">
+						<div class="form-group col-md-6 col-sm-6 ">
+							<h1>Total Balance</h1>
+							<h1 class="col-md-offset-6"><%= @bill.credit %>$</h1>
+						</div>
+						<div class="form-group col-md-4 col-sm-6 ">
+							<label class="col-md-7 col-sm-12 col-xs-12 row" for="exampleInputName2">Promo Code :</label>
+							<input type="text" placeholder="" id="exampleInputName2" class="form-control-card-details col-md-6 col-xs-12 col-sm-12">
+						</div>
+						<div class="form-group col-md-2 col-sm-6 ">
+							<a href="#">APPLY</a>
+						</div>
+					</div>
+				</form>
+				<div class="bottom-divider  settings_top"></div>
 
-				<div class="col-md-12 row">
-					<div class="form-group col-md-8 col-sm-6 row">
-						<label for="exampleInputName2"  class="col-md-6 col-sm-12 col-xs-12 row">Current Ballance :</label>
-						<input type="text" class="form-control-card-details col-md-6 col-xs-12 col-sm-12" id="exampleInputName2" value="<%= @bill.credit %>">
+				<div class="row ">
+					<div class="col-md-6  pay_via">
+						<h2><i class="fa fa-credit-card"></i>Pay Via</h2>
+						<%= render :partial => "billings/buttons" %>
 					</div>
-					<div class="form-group col-md-4 col-sm-6 row">
-						<a href="#">Invite User</a>
-					</div>
-				</div>
-				<div class="col-md-12 row">
-					<div class="form-group col-md-8 col-sm-6 row">
-						<label for="exampleInputName2"  class="col-md-6 col-sm-12 col-xs-12 row">Promo Code :</label>
-						<input type="text" class="form-control-card-details col-md-6 col-xs-12 col-sm-12" id="exampleInputName2" placeholder="Promo Code">
-					</div>
-				</div>
-				<div class="col-md-12 row">
-					<div class="form-group col-md-6 col-sm-6 row">
-						<%= render :partial => "billings/amount_form" %>
-					</div>
-					<div class="form-group col-md-6 col-sm-6 row">
-						<a href="#">Pay with Bit Coin</a>
+					<div class="col-md-5 col-md-offset-1 help_center_left_right">
+						<h2><i class="fa fa-plus-circle"></i>HELP CENTER</h2>
+						<p>
+							If you need assistance while placing
+							order, contact one of our below
+							Project Manager  by phone or email.
+						</p>
+						<h3><i class="fa fa-phone-square"></i> +91-9745544422 / <a href="mailto:help@megam.io"> <i class="fa fa-envelope-o"></i> help@megam.io</a></h3>
 					</div>
 				</div>
 
-				<div class="margin_30 bottom-divider"></div>
+				<div class="bottom-divider  settings_top"></div>
+				<%= render :partial => "billings/button_actions" %>
 				<div class="col-md-12 row">
-					<h2>Billing the History :</h2>
-					<div class="table-responsive">
-						<table class="table table-bordered">
+					<h2><i class="fa fa-history"></i> Billing History :</h2>
+				</div>
+				<div class="bottom-divider  settings_top"></div>
+				<div class="col-md-12 row">
+					<div class="table-responsive" id="bill_history">
+						<table class="table">
 							<thead>
 								<tr>
-
-									<th class="info">Application</th>
+									<th>Application</th>
 									<th>Amount</th>
-									<th class="danger">Currency</th>
-									<th class="success">Time show</th>
+									<th>Currency</th>
+									<th>Timestamp</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -90,11 +90,9 @@
 						</table>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
 </div>
-
 <% end %>
 <%= render :template => "users/show" %>
