@@ -97,7 +97,7 @@ Cloudauth::Application.routes.draw do
   #Market place
   match '/category_view', to: 'marketplaces#category_view', via: [:get, :post]
   #billings
-  match '/payment_execute', to: 'billings#payment_execute', via: [:get, :post]
+  match '/callback_url', to: 'billings#callback_url', via: [:get, :post]
   #gogs
   match '/gogs', to: 'marketplaces#gogs', via: [:get, :post]
   match '/gogs_return', to: 'marketplaces#gogs_return', via: [:get, :post]

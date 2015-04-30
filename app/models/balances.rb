@@ -13,36 +13,19 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-require 'bcrypt'
-require 'json'
-
-class Assembly < BaseFascade
-
-  attr_reader :assembly_collection
+class Balances < BaseFascade
+  
+  attr_reader :balance
+  
   def initialize()
-    @assembly_collection= nil
+     @balance = {}
   end
 
   def show(api_params, &block)
-    raw = api_request(api_params, ASSEMBLY, SHOW)
-    @assembly_collection = dig_components(raw[:body])
-    yield @assembly_collection  if block_given?
-    return @assembly_collection
-  end
-
-  private
-
-  def dig_components(assemblys)
-    tmp = assemblys.map do |asmbly|
-      asmbly.components.map do |one_comp|
-        if !one_comp.empty?
-          Components.show(one_comp).components
-        else
-          nil
-        end
-      end
-    end
-    tmp
+    raw = api_request(api_params, BALANCES, SHOW)
+    @balance = raw.lookup(api_params["email"])  
+    yield self  if block_given?
+    return self
   end
 
 end

@@ -49,7 +49,8 @@ class MarketplacesController < ApplicationController
   ## to show the selected marketplace item
   ##
   def show
-      bill_collection = GetBalance.perform(force_api[:email], force_api[:api_key])
+    if user_in_cookie?
+      bill_collection = GetBalance.getBalance(force_api[:email], force_api[:api_key])
       case
       when bill_collection.class == Megam::Error
         logger.debug "--> #{self.class} : Get user balances got error"

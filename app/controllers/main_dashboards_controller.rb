@@ -30,8 +30,8 @@ class MainDashboardsController < ApplicationController
     assem = Assemblies.new.list(params)
     assem.assemblies
     assem.apps_spun
-    assem_vms_spun
-    assem_services_spun
+    assem.vms_spun
+    assem.services_spun
   end
 
   def varai

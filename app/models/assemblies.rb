@@ -39,6 +39,7 @@ class Assemblies < BaseFascade
     @assemblies= nil
     @services
     @apps
+    @@swallow_404 = true
   end
 
   # The list returns a list of assemblies, apps, services.
@@ -57,8 +58,9 @@ class Assemblies < BaseFascade
   # an additional field in assembly indicates if its a plain VM (INSTANCE) or not.
 
   def list(api_params, &block)
-    raw = api_request(api_params, ASSEMBLIES, LIST)
-    @assemblies = dig_assembly(raw[:body])
+    raw = api_request(api_params, ASSEMBLIES, LIST)  
+    @assemblies = dig_assembly(raw[:body]) unless raw == nil
+    tmp = []
     tmp = @assemblies.each do |asm|
           asm.assemblies.each do |assembly|
             if assembly != nil
@@ -84,7 +86,7 @@ class Assemblies < BaseFascade
             end
           end
         end    if asm.class != Megam::Error
-      end if raw[:body] != nil
+      end if raw != nil
 
     @assemblies  = tmp
     yield self  if block_given?
