@@ -22,6 +22,7 @@
 //= require jquery.flot.time
 //= require jquery.flot.resize
 //= require jquery.flot.selection
+//= require jquery-1.10.2.min
 //= require angular
 //= require angular-route
 //= require angular-resource
