@@ -20,7 +20,7 @@ module SessionsHelper
     session.delete(:auth)
     session_params = {}
     session_params[:remember_token] = rem_tokgen
-    session_params[:api_key] = api_keygen
+    session_params[:api_key] = api_keygen 
     session_params
   end
 

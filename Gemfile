@@ -40,7 +40,7 @@ gem 'riak-client', '~> 2.1.0'
 #general
 gem "github_api", "~>0.12.3"
 gem "randexp", "~> 0.1.7"
-gem "megam_api", "~> 0.39"
+gem "megam_api", "~> 0.40"
 gem 'google-analytics-rails', '~> 0.0.6'
 gem 'megam_gogs', "~> 0.7.0"
 

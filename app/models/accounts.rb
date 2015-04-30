@@ -32,24 +32,28 @@ class Accounts < BaseFascade
   ADMIN   = 'admin'.freeze
   MEGAM_TOUR_EMAIL="tour@megam.io".freeze
   MEGAM_TOUR_PASSWORD="faketour".freeze
+  UPD_PROFILE         = 1.freeze
+  UPD_PASSWORD        = 2.freeze
+  UPD_API_KEY         = 3.freeze
 
-  def initialize()
-    @first_name = nil
-    @last_name = nil
-    @phone = nil
-    @email = nil
-    @api_key = nil
-    @password = nil
-    @password_confirmation = nil
-    @authorization = nil
-    @remember_token = nil
-    @authority = nil
-    @verified_email = false
-    @verification_hash = nil
-    @password_reset_token = nil
-    @created_at = nil
+
+  def initialize(account_parms={})
+    @first_name            = account_parms[:first_name] || nil
+    @last_name             = account_parms[:secon_name] || nil
+    @phone                 = account_parms[:phone] || nil
+    @email                 = account_parms[:email] || nil
+    @api_key               = account_parms[:api_key] || nil
+    @password              = account_parms[:password] || nil
+    @password_confirmation = account_parms[:pasword_confirmation] || nil
+    @authority             = nil
+    @remember_token        = nil
+    @verified_email        = false
+    @verification_hash     = nil
+    @password_reset_token  = nil
+    @created_at            = nil
   end
-
+  
+  
   #verifies if the email is a duplicate.
   def dup?(email)
    !find_by_email(email).email.nil?
@@ -75,7 +79,14 @@ class Accounts < BaseFascade
      unless password_decrypt(password) == api_params[:password]
        raise   AuthenticationFailure, "Au oh!, The email or password you entered is incorrect."
     end
-    yield self if block_given?
+    yield self if 
+  attr_reader :email
+  attr_reader :password
+  attr_reader :api_key
+  attr_reader :first_name
+  attr_reader :phone
+  attr_reader :remember_token
+  attr_reader :created_atblock_given?
     self
   end
 
@@ -104,19 +115,39 @@ class Accounts < BaseFascade
   end
 
 
-  def update(columns, email)
-    result = true
-    res = MegamRiak.fetch("profile", email)
-    res.content.data.map { |p|
-      if columns["#{p[0]}"].present?
-        res.content.data["#{p[0]}"] = columns["#{p[0]}"]
-      end
-    }
-    res_body = MegamRiak.upload("accounts", email, res.content.data.to_json, "application/json")
-    if res_body.class == Megam::Error
-    result = false
-    end
-    result
+  def update(api_params,&block)
+    puts "updating...................."
+    puts api_params
+    puts "-----------------------------"
+    puts bld_acct(api_params)
+   puts "----=-=-============"
+     api_request(bld_acct(api_params), ACCOUNT, UPDATE)
+    @remember_token = api_params[:remember_token] if api_params[:remember_token]
+    @email = api_params[:email] if api_params[:email]
+    @first_name = api_params[:first_name] if api_params[:first_name]
+    @phone = api_params[:phone] if api_params[:phone]
+    @api_key = api_params[:api_key] if api_params[:api_key]
+
+    yield self if block_given?
+    return self
+  end
+
+
+
+
+
+def bld_acct(api_params)
+    acct_parms = {
+     :id => api_params[:id],
+     :first_name => api_params[:first_name],
+     :last_name => api_params[:last_name],
+     :phone => api_params[:phone],
+     :email => "fe@we.com",
+     :api_key => "QzQ6PfREIpNhcn3-7qc1Rw==",
+     :password => password_encrypt(api_params[:password]),
+     :authority => ADMIN,
+     :password_reset_token => api_params[:password_reset_token],
+     :created_at => api_params[:created_at]}
   end
 
 
