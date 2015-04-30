@@ -54,7 +54,7 @@ class MarketplacesController < ApplicationController
   ##
   def show
     if user_in_cookie?
-      bill_collection = GetBalance.perform(force_api[:email], force_api[:api_key])
+      bill_collection = GetBalance.getBalance(force_api[:email], force_api[:api_key])
       case
       when bill_collection.class == Megam::Error
         logger.debug "--> #{self.class} : Get user balances got error"
