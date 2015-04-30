@@ -22,34 +22,12 @@ class BillingsController < ApplicationController
     logger.debug ">----- Billings index."
     logger.debug ">----- #{params}"
     @currencies = ["USD", "IN"]
-    bill = Balances.new.show(params)
-    puts "000000000000000000000000000000000000"
-    puts bill.inspect
+    @bill = Balances.new.show(params)
+    @bill.balance
     
-    billingHistories = Billinghistories.new.list(params)
-    puts "000000000000000000000000000000000000"
-    puts billingHistories.inspect
+    @billingHistories = Billinghistories.new.list(params)
+    @billingHistories.bhistories
     
-    
-     balance_collection = GetBalance.getBalance(force_api[:email], force_api[:api_key])
-      if balance_collection.class == Megam::Error
-         logger.info balance_collection.inspect
-         redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
-      else    
-        billinghistories_collection = ListBillingHistories.perform(force_api[:email], force_api[:api_key])
-        case billinghistories_collection
-        when Megam::Error   
-           case 
-           when billinghistories_collection.some_msg[:code] == 404
-                 @billinghistories = []  
-           else 
-             redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
-           end
-        else         
-             @billinghistories = billinghistories_collection.sort_by{|e| e.created_at}.reverse[0..9]            
-        end            
-        @bill = balance_collection.lookup(force_api[:email])         
-      end  
   end
 
   def callback_url
