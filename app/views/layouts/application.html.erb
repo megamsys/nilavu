@@ -14,9 +14,14 @@
 ** limitations under the License.
 -->
 <!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
 <html ng-app="Nilavu">
 	<head>
 		<base href="/">
+		<%= render 'layouts/header' %>
 		<%= favicon_link_tag 'favicon.png' %>
 		<title>Megam - PaaS | <%= yield(:title) %></title>
 		<%= stylesheet_link_tag "application", :media => "all" %>
@@ -37,7 +42,6 @@
 
 	</head>
 	<body>
-		<%= render 'layouts/header' %>
 		<!-- youtube like loadeing at the top -->	
 		<div class="la-anim-1"></div>
 		
