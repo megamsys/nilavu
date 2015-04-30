@@ -97,7 +97,7 @@ Cloudauth::Application.routes.draw do
   #Market place
   match '/category_view', to: 'marketplaces#category_view', via: [:get, :post]
   #billings
-  match '/payment_execute', to: 'billings#payment_execute', via: [:get, :post]
+  match '/callback_url', to: 'billings#callback_url', via: [:get, :post]
   #gogs
   match '/gogs', to: 'marketplaces#gogs', via: [:get, :post]
   match '/gogs_return', to: 'marketplaces#gogs_return', via: [:get, :post]
@@ -128,6 +128,6 @@ Cloudauth::Application.routes.draw do
   get "/404", :to => "errors#not_found"
   #get "/422", :to => "errors#unacceptable"
   get "/500", :to => "errors#internal_error"
-  match '/visualCallback', to: 'main_dashboards#visualCallback', via: [:get]
+  match '/varai', to: 'main_dashboards#varai', via: [:get]
 
 end

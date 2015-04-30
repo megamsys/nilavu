@@ -29,50 +29,31 @@ module SessionsHelper
   def sign_in(account)
     cookies.permanent[:email] = account.email
     cookies.permanent[:remember_token] = account.remember_token || rem_tokgen
+    session[:email] = account.email
+    session[:api_key] = account.api_key
     self.current_user = account
+    logger.debug ":-----> #{session}"
   end
 
   #return if an user is signed in or not. ?
   def signed_in?
-    !current_user.nil?
+    session[:email] && session[:api_key]
   end
 
-  #return true if the user is in the cookie, used by the pre handler in application controller
-  # require_signin
-  def user_in_cookie?
-    res = Accounts.new.find_by_email(cookies[:email]) if cookies[:remember_token] && cookies[:email]
-    if res!=nil
-      logger.debug "--> sessionHelper: user_in_cookie? ${(res !=nil)}"
-    end
-    res != nil
-  end
 
- #return the current_user object by looking at the  remembertoken, email from cookie jar or
- #redirect to the sign page.
+ #return an account object from session which has the email and api key.
  def current_user
-   logger.debug "--> sessionHelper: current_user"
-   res = Accounts.new.find_by_email(cookies[:email]) if  cookies[:remember_token] && cookies[:email]
-   if res!=nil
-      @current_user ||= res
-   else
-    redirect_to signin_path
-   end
+  logger.debug "--> SessionsHelper: current_user"
+  unless signed_in?
+    res = Accounts.new.find_by_email(cookies[:email])  if  cookies[:remember_token] && cookies[:email]
+  else
+    Accounts.new(session)
+  end
  end
-
 
  def current_user=(account)
    @current_user = account
  end
-
-
- def force_api(email=nil, api_token=nil)
-  Megam::Log.level(Rails.configuration.log_level)
-  Rails.logger.debug("--> sessionsHelper: force_api ")
-  email ||=current_user.email
-  api_key ||=current_user.api_key
-  {:email => email, :api_key => api_key }
- end
-
 
 
  #signout the current user by nuking current_user value as nil
@@ -81,6 +62,8 @@ module SessionsHelper
    current_user = nil
    cookies.delete(:remember_token)
    cookies.delete(:email)
+   session.delete(:email)
+   session.delete(:api_key)
  end
 
 end

@@ -17,16 +17,15 @@ class OnevmsController < ApplicationController
 
   respond_to :html, :js
   include Packable
-  include MainDashboardsHelper
   include MarketplaceHelper
-  
-  
+
+
   def show
-    
- end   
- 
- 
- 
+
+ end
+
+
+
   def overview
     if user_in_cookie?
       appid = params["appkey"]
@@ -37,8 +36,8 @@ class OnevmsController < ApplicationController
   end
 
 def logs
-  
-  
+
+
 end
 
 end

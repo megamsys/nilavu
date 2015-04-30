@@ -1,5 +1,7 @@
 class BaseFascade
 
+  attr_reader :swallow_404 
+  
   class MegamAPIError < StandardError; end
   class APIConnectFailure <  MegamAPIError; end
   class UnsupportedAPI < MegamAPIError; end
@@ -14,6 +16,9 @@ class BaseFascade
   ASSEMBLY     = 'Assembly'.freeze
   COMPONENTS   = 'Components'.freeze
 
+  BALANCES     = 'Balances'.freeze
+  BILLINGHISTORIES = "Billinghistories".freeze
+
 
   CREATE      = 'create'.freeze
   SHOW        = 'show'.freeze
@@ -21,6 +26,8 @@ class BaseFascade
   UPDATE      = 'update'.freeze
 
   def initialize
+
+   @@swallow_404 = false
   end
 
   # Returns true if the HTTP session has been started.
@@ -55,7 +62,8 @@ class BaseFascade
     rescue ArgumentError => ae
       raise APIInvocationFailure, "Arguments missing. ! \n#{ae.message}"
     rescue Megam::API::Errors::ErrorWithResponse => ewr
-      raise APIInvocationFailure, "Gateway error. !\n#{ewr.message}"
+
+      raise APIInvocationFailure, "Gateway error. !\n#{ewr.message}" unless !@swallow_404
     rescue StandardError => se
       raise APIInvocationFailure, "(o_o) Jee..I couldn't figure out.\n#{se.message}"
     end
@@ -65,8 +73,9 @@ class BaseFascade
 
 
   # a private helper that runs the actual method in the api by calling jlaz.jmethod  using ruby metaprogramming
-  def run_now(swallow_exception = false, jlaz, jmethod, jparams)
-    api_jlaz = jlaz.constantize
+
+  def run_now(swallow_exception = false, jlaz, jmethod, jparams)   
+    api_jlaz = jlaz.constantize  
     unless api_jlaz.respond_to?(jmethod)
       logger.debug "Unsupported api #{jlaz}.#{jmethod}, try adding before you can use it."
       raise  UnsupportedAPI, "#{jlaz}.#{jmethod}, try adding before you can use it."

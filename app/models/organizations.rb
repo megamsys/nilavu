@@ -17,21 +17,26 @@ require 'json'
 
 class Organizations < BaseFascade
 
-  def initialize()
+  attr_reader :orgs
+
+  def initialize
+    @orgs = []
   end
 
   #we call the api, and list all the organization name, create_at time in a hashmap.
   def list(account, &block)
     api_params = {:email => account.email, :api_key => account.api_key}
     res = api_request(api_params, ORGANIZATION, LIST)
-    orgs = []
+    puts "printing res-----------"
+    puts res.inspect
+    puts "authogn????"
     res[:body].each do |one_org|
-        orgs << {:name => one_org.name, :created_at => one_org.created_at.to_time.to_formatted_s(:rfc822)}
+        @orgs << {:name => one_org.name, :created_at => one_org.created_at.to_time.to_formatted_s(:rfc822)}
     end
-    orgs = orgs.sort_by {|vn| vn[:created_at]}
+    @orgs = @orgs.sort_by {|vn| vn[:created_at]}
     Rails.logger.debug "--> Organizations.list, sent "
-    yield (orgs) if block_given?
-    return orgs
+    yield self if block_given?
+    return self
   end
 
 end

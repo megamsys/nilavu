@@ -1,52 +1,52 @@
 #This file is needed for market_places
 drbd:
   name: drbd
-  predef_name: 
+  predef_name:
   no_of_instances: 1
   radios: scm_sample
-  deps_scm: 
+  deps_scm:
   db_model:
-  dbms: 
+  dbms:
   link:
   type: SERVICE
-  basic_combos: 
-  
+  basic_combos:
+
 jenkins:
   name: jenkins
-  predef_name: java 
+  predef_name: java
   no_of_instances: 1
   radios: scm_sample
   deps_scm: http://mirrors.jenkins-ci.org/war/latest/jenkins.war
   db_model:
-  dbms: 
+  dbms:
   link:
   type: SERVICE
   basic_combos:
-  
+
 scmmanager:
   name: scmmanager
-  predef_name: java 
+  predef_name: java
   no_of_instances: 1
   radios: scm_sample
   deps_scm: https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/scmmanager.war
   db_model:
-  dbms: 
+  dbms:
   link:
   type: SERVICE
   basic_combos:
-  
+
 ghost:
   name: ghost
-  predef_name: nodejs 
+  predef_name: nodejs
   no_of_instances: 1
   radios: scm_sample
   deps_scm: https://github.com/thomasalrin/ghost.git
   db_model:
-  dbms: 
+  dbms:
   link:
   type: SERVICE
   basic_combos:
-  
+
 wordPress:
   name: wordpress
   predef_name: wordpress
@@ -54,10 +54,10 @@ wordPress:
   radios: scm_sample
   deps_scm:
   db_model:
-  dbms:  
-  link:  
-  type: SERVICE 
-  basic_combos: 
+  dbms:
+  link:
+  type: SERVICE
+  basic_combos:
 
 riak:
   name: riak
@@ -70,7 +70,7 @@ riak:
   link: http://gomegam.com/docs/users/services/index.html
   type: SERVICE
   basic_combos: riak
-    
+
 postgresql:
   name: postgresql
   no_of_instances: 1
@@ -78,11 +78,11 @@ postgresql:
   dbms: postgresql
   predef_name:
   radios:
-  deps_scm:    
+  deps_scm:
   link: http://gomegam.com/docs/users/services/index.html
   type: SERVICE
   basic_combos: postgresql
-  
+
 sqlite:
   name: sqlite
   no_of_instances: 1
@@ -90,10 +90,10 @@ sqlite:
   dbms: sqlite
   predef_name:
   radios:
-  deps_scm:    
+  deps_scm:
   link: http://gomegam.com/docs/users/services/index.html
   type: SERVICE
-  basic_combos: sqlite  
+  basic_combos: sqlite
 
 redis:
   name: redis
@@ -106,7 +106,7 @@ redis:
   link: http://gomegam.com/docs/users/services/index.html
   type: SERVICE
   basic_combos: redis
-  
+
 rabbitmq:
   name: rabbitmq
   no_of_instances: 1
@@ -115,7 +115,7 @@ rabbitmq:
   predef_name:
   radios:
   deps_scm:
-  link: http://gomegam.com/docs/users/services/index.html 
+  link: http://gomegam.com/docs/users/services/index.html
   type: SERVICE
   basic_combos: rabbitmq
 
@@ -126,8 +126,8 @@ op5:
   deps_scm:
   db_model:
   dbms:
-  predef_name: op5  
-  link:   
+  predef_name: op5
+  link:
   type: SERVICE
   basic_combos:
 
@@ -138,92 +138,69 @@ zarafa:
   deps_scm:
   db_model:
   dbms:
-  predef_name: zarafa 
+  predef_name: zarafa
   link:
   type: SERVICE
   basic_combos:
-  
+
 docker:
   name: docker
   no-of-instances: 1
-  radios: 
+  radios:
   deps_scm:
   db_model:
   dbms:
-  predef_name: docker  
-  link: http://gomegam.com/docs/users/index.html  
+  predef_name: docker
+  link: http://gomegam.com/docs/users/index.html
   type: ADDON
-  basic_combos: docker  
-
-byoc:
-  name: byoc
-  no-of-instances: 1
-  radios: 
-  deps_scm:
-  db_model:
-  dbms:
-  predef_name: byoc
-  link: http://gomegam.com/docs/users/index.html  
-  type: BYOC
-  basic_combos: byoc  
+  basic_combos: docker
 
 
 java:
   name: java
-  predef_name: java 
+  predef_name: java
   no_of_instances: 1
   radios: scm_sample
   deps_scm: https://s3-ap-southeast-1.amazonaws.com/megampub/0.1/war/orion.war
   db_model:
-  dbms:   
+  dbms:
   link: http://gomegam.com/docs/users/apps/index.html
-  type: APP 
+  type: APP
   basic_combos: java+sqlite
-  
+
 rails:
   name: rails
-  predef_name: rails 
+  predef_name: rails
   no_of_instances: 1
   radios: scm_sample
   deps_scm: https://github.com/thomasalrin/aryabhata.git
   db_model:
-  dbms:  
+  dbms:
   link: http://gomegam.com/docs/users/apps/index.html
   type: APP
   basic_combos: rails+sqlite
-  
+
 play:
   name: play
-  predef_name: play 
+  predef_name: play
   no_of_instances: 1
   radios: scm_sample
   deps_scm: https://github.com/thomasalrin/megam_play.git
   db_model:
-  dbms:  
+  dbms:
   link: http://gomegam.com/docs/users/apps/index.html
   type: APP
   basic_combos: play+riak
-  
-akka:
-  name: akka
-  predef_name: akka 
-  no_of_instances: 1
-  radios: scm_sample
-  deps_scm: https://github.com/thomasalrin/megam_akka.git
-  db_model:
-  dbms:  
-  link: http://gomegam.com/docs/users/apps/index.html
-  type: APP
-  basic_combos: akka+rabbitmq
+
   
 nodejs:
   name: nodejs
-  predef_name: nodejs 
+  predef_name: nodejs
   no_of_instances: 1
   radios: scm_sample
   deps_scm: https://github.com/thomasalrin/ghost.git
   db_model:
-  dbms:  
+  dbms:
   link: http://gomegam.com/docs/users/apps/index.html
   type: APP
   basic_combos: nodejs+sqlite
@@ -231,8 +208,8 @@ nodejs:
 hadoop:
   name: hadoop
   no_of_instances: 1
-  db_model: 
-  dbms: 
+  db_model:
+  dbms:
   predef_name: hadoop
   radios:
   deps_scm:
@@ -243,47 +220,47 @@ hadoop:
 ubuntu:
   name: ubuntu
   no_of_instances: 1
-  db_model: 
-  dbms: 
+  db_model:
+  dbms:
   predef_name: ubuntu
   radios:
   deps_scm:
-  link: 
+  link:
   type: INSTANCE
   basic_combos: ubuntu
-  
+
 coreos:
   name: coreos
   no_of_instances: 1
-  db_model: 
-  dbms: 
+  db_model:
+  dbms:
   predef_name: coreos
   radios:
   deps_scm:
-  link: 
+  link:
   type: INSTANCE
   basic_combos: coreos
-  
+
 debian:
   name: debian
   no_of_instances: 1
-  db_model: 
-  dbms: 
+  db_model:
+  dbms:
   predef_name: debian
   radios:
   deps_scm:
-  link: 
+  link:
   type: INSTANCE
   basic_combos: debian
-  
+
 centos:
   name: centos
   no_of_instances: 1
-  db_model: 
-  dbms: 
+  db_model:
+  dbms:
   predef_name: centos
   radios:
   deps_scm:
-  link: 
+  link:
   type: INSTANCE
   basic_combos: centos

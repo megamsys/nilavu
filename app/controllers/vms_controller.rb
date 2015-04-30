@@ -15,30 +15,10 @@
 ##
 class VmsController < ApplicationController
   respond_to :html, :js
-  
+
   def index
-    if user_in_cookie?
-      @user_id = current_user.email
-      @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
-      @vm_counter = 0
-      if @assemblies != nil
-        @assemblies.each do |asm|
-          if asm.class != Megam:: Error
-            asm.assemblies.each do |assembly|
-              if assembly != nil
-                if assembly[0].class != Megam::Error
-                   if assembly[0].components.length == 0 
-                    @vm_counter = @vm_counter + 1
-                  end
-                end
-              end
-            end
-          end
-        end
-      end
-    else
-    redirect_to signin_path and return
+    assem = Assemblies.new.list(params)
+    assem_vms_spun
   end
-end
 
 end

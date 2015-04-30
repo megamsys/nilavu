@@ -15,17 +15,22 @@
 ##
 class UsersController < ApplicationController
   respond_to :html, :js
-  skip_before_action :require_signin, only: [:new, :create]
-
   include UsersHelper
   include SessionsHelper
 
+  #doesn't require a sign for new and create action, hence skip it.
+  skip_before_action :require_signin, only: [:new, :create]
+
+  #doesn't require to catch execption for show
+  skip_around_action :catch_exception, only: [:show]
+
+  #stick the api_keys before edit and update action
+  before_action :stick_keys, only: [:edit, :update]
 
 
   def show
-    #@user = User.find(params[:id])
-    #current_user = @user
   end
+
 =begin
   def new
     logger.debug "--> Users:new, creating new user with social identity."
@@ -63,16 +68,14 @@ class UsersController < ApplicationController
   def edit
     logger.debug "--> Users:edit."
     @account = current_user
-    Organizations.new.list(@account) do |my_org|
-      @orgs = my_org
-    end
+    @orgs = Organizations.new.list(@account).orgs 
+      
+   
   end
 
+  #update any profile information. Interms of passwor we verify if the current password matches with ours.
   def update
     logger.debug "--> Users:update."
-    puts "-----------"
-    puts params.inspect
-    puts "-----------"
     
     my_account = Accounts.new
     case params[:myprofile_type].to_i
@@ -87,6 +90,7 @@ class UsersController < ApplicationController
     (Accounts.new.update(params.merge(new_session)) do  |tmp_account|
         sign_in tmp_account
         @success = "#{params[:user_fields_form_type]} updated successfully."
+
         @error = nil
     end)   if @error.nil?
    respond_to do |format|

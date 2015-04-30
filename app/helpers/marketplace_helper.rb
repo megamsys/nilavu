@@ -14,15 +14,28 @@
 ## limitations under the License.
 ##
 module MarketplaceHelper
-  def mkp_config
-    YAML.load(File.open("#{Rails.root}/config/marketplace_addons.yml", 'r'))
-  end
+
+  TYPE         = "type".freeze
+  PREDEF_NAME  = "predef_name".freeze
+  DEPS_SCM     = "deps_scm".freeze
+  LINKS        = "links".freeze
+  BASIC_COMBOS = "basic_combos".freeze
+
+  def get_type(name)
+   @type = ""
+   YUMMY_MARKET.each do |mkp, addon|
+      if mkp == name
+        @type = addon[TYPE]
+      end
+    end
+    @type
+ end
 
   def get_predef_name(name)
     @p_name = ""
-    mkp_config.each do |mkp, addon|
+    YUMMY_MARKET.each do |mkp, addon|
       if mkp == name
-        @p_name = addon["predef_name"]
+        @p_name = addon[PREDEF_NAME]
       end
     end
     @p_name
@@ -30,9 +43,9 @@ module MarketplaceHelper
 
   def get_deps_scm(name)
     @scm = ""
-    mkp_config.each do |mkp, addon|
+    YUMMY_MARKET.each do |mkp, addon|
       if addon["name"] == name
-        @scm = addon["deps_scm"]
+        @scm = addon[DEPS_SCM]
       end
     end
     @scm
@@ -55,33 +68,25 @@ module MarketplaceHelper
 
  def get_doc_link(name)
    @link = ""
-    mkp_config.each do |mkp, addon|
+   YUMMY_MARKET.each do |mkp, addon|
       if mkp == name
-        @link = addon["link"]
+        @link = addon[LINK]
       end
     end
     @link
  end
- 
+
  def get_combos(name)
-   @combo = ""  
-    mkp_config.each do |mkp, addon|
+   @combo = ""
+   YUMMY_MARKET.each do |mkp, addon|
       if mkp == name
-        @combo = addon["basic_combos"]
+        @combo = addon[BASIC_COMBOS]
       end
-    end  
+    end
     @combo
  end
- 
-  def get_type(name)
-   @type = ""  
-    mkp_config.each do |mkp, addon|
-      if mkp == name
-        @type = addon["type"]
-      end
-    end  
-    @type
- end
- 
+
+
+
 
 end

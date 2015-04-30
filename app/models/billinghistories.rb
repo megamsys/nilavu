@@ -13,15 +13,19 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-module OneappsHelper
+class Billinghistories < BaseFascade
+  
+  attr_reader :bhistories
+  
+  def initialize()
+     @bhistories = []
+  end
 
-
-  def change_runtime(deps, runtime)
-    project_name = File.basename(deps).split(".").first
-    if /<projectname>/.match(runtime)
-      runtime["unicorn_<projectname>"] = "unicorn_" + project_name
-    end
-    runtime
-  end  
+  def list(api_params, &block)
+    raw = api_request(api_params, BILLINGHISTORIES, LIST)
+    @bhistories = raw
+    yield self  if block_given?
+    return self
+  end
 
 end

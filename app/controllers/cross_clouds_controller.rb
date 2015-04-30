@@ -37,7 +37,7 @@ class CrossCloudsController < ApplicationController
   end
 
   def gwindow
-    if user_in_cookie?
+    if user_in_session?
       session[:info] = request.env['omniauth.auth']['credentials']
     else
       auth = request.env['omniauth.auth']
@@ -47,7 +47,6 @@ class CrossCloudsController < ApplicationController
   end
 
   def create
-    if user_in_cookie?
       if Rails.configuration.storage_type == "s3"
         vault_loc = vault_base_url+"/"+current_user.email+"/"+params[:name]
         sshpub_loc = vault_base_url+"/"+current_user.email+"/"+params[:id_rsa_public_key]
@@ -132,9 +131,6 @@ class CrossCloudsController < ApplicationController
           end
         end
       end
-    else
-      redirect_to signin_path
-    end
   end
 
   def cloud_selector
@@ -197,10 +193,8 @@ class CrossCloudsController < ApplicationController
   end
 
   def list_sshkeys
-    if user_in_cookie?
       logger.debug ">----#{self.class}> index: list sshkeys entry"
       @ssh_keys_collection = ListSshKeys.perform(force_api[:email], force_api[:api_key])
-      logger.debug ">----#{self.class}> : listed sshkeys"
       if @ssh_keys_collection.class != Megam::Error
         @ssh_keys = []
         ssh_keys = []
@@ -209,9 +203,6 @@ class CrossCloudsController < ApplicationController
         end
         @ssh_keys = ssh_keys.sort_by {|vn| vn[:created_at]}
       end
-    else
-      redirect_to signin_path
-    end
   end
 
   def get_gogrid_ip(api_key, shared_secret, datacenter)
@@ -232,7 +223,6 @@ class CrossCloudsController < ApplicationController
   end
 
   def view_details
-    if user_in_cookie?
       input = params[:settingsname]
       @details = GetPredefCloud.perform(params[:settingsname], force_api[:email], force_api[:api_key])
       if @details.class == Megam::Error
@@ -248,10 +238,7 @@ class CrossCloudsController < ApplicationController
             respond_with(@details, :layout => !request.xhr? )
           }
         end
-      end
-    else
-      redirect_to signin_path
-    end
+      end    
   end
 
   def destroy

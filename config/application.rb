@@ -75,6 +75,12 @@ module Cloudauth
       app.routes.append{ match '*a', :to => 'application#render_404', via: [:get] } unless config.consider_all_requests_local
     end
 
+    if File.exist?("#{Rails.root}/config/yummy.yml")
+      YUMMY_MARKET = YAML.load_file("#{Rails.root}/config/yummy.yml")
+    else
+      puts "=> Warning ! marketplace_addons not loaded."
+    end
+
     if File.exist?("#{ENV['MEGAM_HOME']}/nilavu.yml")
       common = YAML.load_file("#{ENV['MEGAM_HOME']}/nilavu.yml")                  #COMMON YML
     else
@@ -82,9 +88,10 @@ module Cloudauth
       common={"api" => {}, "storage" => {}, "varai" => {}, "auth" => {}, "monitor" => {}}
     end
 
-    config.megam_logo_url   = "https://s3-ap-southeast-1.amazonaws.com/megampub/images/logo-megam160x43w.png"
 
-    config.server_url = "#{common['server']}"
+
+    config.megam_logo_url   = "https://s3-ap-southeast-1.amazonaws.com/megampub/images/logo-megam160x43w.png"
+    config.server_url       = "#{common['server']}"
 
     config.ganglia_web_url  = ENV['GANGLIA_WEB_URL']
     config.ganglia_host     = "#{common['monitor']['host']}" || ENV['GANGLIA_HOST']
@@ -155,7 +162,7 @@ module Cloudauth
     config.support_password = "#{common['support']['password']}" || ""
   else
     puts "=> Warning ! Disabled support email service. Missing [support] in nilavu.yml."
-     config.support_email = ""
+    config.support_email = ""
     config.support_password = ""
   end
 
@@ -163,11 +170,15 @@ module Cloudauth
   config.google_token_credential_uri = 'https://accounts.google.com/o/oauth2/token'
   config.google_scope = 'https://www.googleapis.com/auth/userinfo.email'
   config.google_redirect_uri = 'https://www.megam.co/auth/google_oauth2/callback'
+    puts """
+                  _..._
+                .::'   `.
+               :::       :    Nilavu
+               :::       :
+               `::.     .'
+                 `':..-'    
+  """
 
-  puts("""
-  ╔╗╔┬┬  ┌─┐┬  ┬┬ ┬
-  ║║║││  ├─┤└┐┌┘│ │
-  ╝╚╝┴┴─┘┴ ┴ └┘ └─┘
-      """)
+
   end
 end

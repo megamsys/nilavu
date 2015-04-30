@@ -18,7 +18,6 @@ class OneappsController < ApplicationController
   respond_to :html, :js
   include Packable
   include OneappsHelper
-  include MainDashboardsHelper
   include MarketplaceHelper
   def show
     #@app = Appscollection(params[:app_name])
@@ -77,72 +76,34 @@ class OneappsController < ApplicationController
   end
 
   def bind_service_list
-    if user_in_cookie?
       @bindapp = params[:bindapp]
-      @service = []
-      @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
-      @service_counter = 0
-      @app_counter = 0
-      if @assemblies != nil
-        @assemblies.each do |asm|
-          if asm.class != Megam:: Error
-            asm.assemblies.each do |assembly|
-              if assembly != nil
-                if assembly[0].class != Megam::Error
-                  assembly[0].components.each do |com|
-                    if com != nil
-                      com.each do |c|
-                        if c.related_components == ""
-                          com_type = c.tosca_type.split(".")
-                          ctype = get_type(com_type[2])
-                          if ctype == "SERVICE"
-                            @service << {"name" => assembly[0].name + "." + c.inputs[:domain] + "/" + c.name, "aid" => assembly[0].id, "cid" => c.id }
-                          # @service << assembly[0].name + "." + c.inputs[:domain] + "/" + c.name
-                          end
-                        end
-                      end
-                    end
-                  end
 
-                end
-              end
-            end
-          end
-        end
-      end
       respond_to do |format|
         format.js {
           respond_with(@bindapp, @service, :layout => !request.xhr? )
         }
       end
-    else
-      redirect_to signin_path
-    end
   end
 
   def bindService
-
- app_update  =  updatebinds(params[:bindapp], params[:bindservice])
-  service_update = updatebinds(params[:bindservice], params[:bindapp])
-  if app_update == true && service_update == true
-   respond_to do |format|
+    app_update  =  updatebinds(params[:bindapp], params[:bindservice])
+    service_update = updatebinds(params[:bindservice], params[:bindapp])
+    if app_update == true && service_update == true
+          respond_to do |format|
+            format.js {
+                respond_with( :layout => !request.xhr? )
+              }
+          end
+    else
+           respond_to do |format|
               format.js {
                 respond_with( :layout => !request.xhr? )
               }
             end
-  else
-  respond_to do |format|
-              format.js {
-                respond_with( :layout => !request.xhr? )
-              }
-            end
-   end
-
+    end
   end
 
   def updatebinds(data, bindData)
-
-    if user_in_cookie?
       if data != ""
         bindedAPP = data.split(":")
         get_assembly = GetAssemblyWithoutComponentCollection.perform(bindedAPP[0], force_api[:email], force_api[:api_key])
@@ -208,9 +169,6 @@ class OneappsController < ApplicationController
           end
         end
       end
-    else
-      redirect_to signin_path
-    end
   end
 
   def lcapp

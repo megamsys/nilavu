@@ -73,7 +73,7 @@
 						<div class="app_inner brad-3 jcorgFilterTextParent">
 							<a data-toggle="modal" href="#app-1">
 							<div class="stpack ">
-								<%= link_to marketplace_path(:id => mkp.name), :target => "_self", title: "Open", :remote => true, :class => "link_img" do %>
+								<%= link_to marketplace_path(:id => mkp.name), :target => "_self", :remote => true, :class => "link_img hint  hint--bottom", 'data-hint' => "Click Here ! #{mkp.name.split("-")[3]}" do %>
 								<%= image_tag mkp.appdetails[:logo], :alt => mkp.name %>
 								<% end %>
 							</div> </a>
@@ -95,54 +95,42 @@
 <script type="text/javascript">
 	// Secipt to show hide config menu
 	$(document).ready(function() {
-
-		$('.app_config').click(function(event) {
-
-			$('.config_menu').hide();
-			$('.app_config').removeClass('config_acive');
-			cls = this.id;
-			// $('.app_config').removeClass('config_acive');
-			event.stopPropagation();
-			$('.' + cls).toggle();
-			$(this).toggleClass('config_acive');
-		});
-
-		$(document).click(function() {
-			$('.config_menu').hide();
-			$('.app_config').removeClass('config_acive');
-		});
+	$('.app_config').click(function(event) {
+	$('.config_menu').hide();
+	$('.app_config').removeClass('config_acive');
+	cls=this.id;
+	// $('.app_config').removeClass('config_acive');
+	event.stopPropagation();
+	$('.'+cls).toggle();
+	$(this).toggleClass('config_acive');
 	});
-
+	$(document).click(function() {
+	$('.config_menu').hide();
+	$('.app_config').removeClass('config_acive');
+	});
+	});
 	// Remove alert message on clicking the close button
 	$(".c_remove").click(function() {
-		$('.c_remove_main').hide();
+	$('.c_remove_main').hide();
 	});
-
 	// filter textbox size change in marketplace page
 	$('#filter').focus(function() {
-		$(this).animate({
-			width : '+=50'
-		}, 'slow');
+	$(this).animate({
+	width:'+=50'
+	},'slow');
 	}).blur(function() {
-		$(this).animate({
-			width : '-=50'
-		}, 'slow');
-	}); 
+	$(this).animate({
+	width:'-=50'
+	},'slow');
+	});
 </script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		jQuery("#filter").jcOnPageFilter({
-			animateHideNShow : true,
-			focusOnLoad : true,
-			highlightColor : 'yellow',
-			textColorForHighlights : '#000000',
-			caseSensitive : false,
-			hideNegatives : true,
-			parentLookupClass : 'jcorgFilterTextParent',
-			childBlockClass : 'jcorgFilterTextChild'
-		});
-	}); 
+	jQuery("#filter").jcOnPageFilter({
+	animateHideNShow:true,focusOnLoad:true,highlightColor:'yellow',textColorForHighlights:'#000000',caseSensitive:false,hideNegatives:true,parentLookupClass:'jcorgFilterTextParent',childBlockClass:'jcorgFilterTextChild'
+	});
+	});
 </script>
 
 <!-- App1 modal starts here -->
@@ -303,7 +291,6 @@
 	</div>
 	<!-- /.modal-dialog -->
 </div>
-
 
 <div class="modal fade" id="instance_postfinish_popup" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">

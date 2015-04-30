@@ -47,7 +47,7 @@ class S3
     begin
       bucket = s3_bucket(bucket_name)
       object = bucket.objects[filename]
-      
+
       File.open(File.basename(filename), 'wb') do |file|
         object.read do |chunk|
           file.write(chunk)

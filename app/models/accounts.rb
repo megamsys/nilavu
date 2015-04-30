@@ -18,7 +18,6 @@ require 'json'
 
 class Accounts < BaseFascade
   include BCrypt
-  include SessionsHelper
 
 
   attr_reader :email
@@ -29,9 +28,9 @@ class Accounts < BaseFascade
   attr_reader :remember_token
   attr_reader :created_at
 
-  ADMIN   = 'admin'.freeze
-  MEGAM_TOUR_EMAIL="tour@megam.io".freeze
-  MEGAM_TOUR_PASSWORD="faketour".freeze
+  ADMIN               = 'admin'.freeze
+  MEGAM_TOUR_EMAIL    = 'tour@megam.io'.freeze
+  MEGAM_TOUR_PASSWORD = 'faketour'.freeze
   UPD_PROFILE         = 1.freeze
   UPD_PASSWORD        = 2.freeze
   UPD_API_KEY         = 3.freeze
@@ -62,46 +61,52 @@ class Accounts < BaseFascade
   #pulls the account object for an email
   def find_by_email(email)
     res = MegamRiak.fetch("accounts", email)
+
     if res.class != Megam::Error && !res.content.data.nil?
       @email = res.content.data["email"]
       @password = res.content.data["password"]
       @api_key = res.content.data["api_key"]
       @first_name = res.content.data["first_name"]
       @phone = res.content.data["phone"]
-      @created_at = res.content.data["create_at"]
-      end
-    return self
+      @created_at = res.content.data["created_at"]
+   end
+   return self
   end
 
   #performs a siginin check, to see if the passwords match.
   def signin(api_params, &block)
     raise   AuthenticationFailure, "Au oh!, The email or password you entered is incorrect." if find_by_email(api_params[:email]).nil?
-     unless password_decrypt(password) == api_params[:password]
+    Rails.logger.debug "-(‾ʖ̫‾) :<Accounts: find_by_email start [#{email}]."
+
+    unless password_decrypt(password) == api_params[:password]
        raise   AuthenticationFailure, "Au oh!, The email or password you entered is incorrect."
     end
     yield self if 
-  attr_reader :email
-  attr_reader :password
-  attr_reader :api_key
-  attr_reader :first_name
-  attr_reader :phone
-  attr_reader :remember_token
-  attr_reader :created_atblock_given?
+ 
     self
   end
 
-  #creates a new account object.
+  #creates a new account
   def create(api_params,&block)
-    acct_parms = {:first_name => api_params[:first_name], :last_name => api_params[:last_name],
-                    :phone => api_params[:phone], :email => api_params[:email],
-                    :api_key => api_params[:api_key], :password => password_encrypt(api_params[:password]),
-                    :authority => ADMIN, :password_reset_token => "" }
-
-    api_request(acct_parms, ACCOUNT, CREATE)
+    api_request(bld_acct(api_params), ACCOUNT, CREATE)
     @remember_token = api_params[:remember_token]
     @email = api_params[:email]
     @first_name = api_params[:first_name]
     @phone = api_params[:phone]
+    @api_key = api_params[:api_key]
+    
+    yield self if block_given?
+    return self
+  end
+
+  #updates an account based on the input parms sent.
+  def update(api_params,&block)
+    api_request(bld_acct(api_params), ACCOUNT, UPDATE)
+    @remember_token = api_params[:remember_token] if api_params[:remember_token]
+    @email = api_params[:email] if api_params[:email]
+    @first_name = api_params[:first_name] if api_params[:first_name]
+    @phone = api_params[:phone] if api_params[:phone]
+    @api_key = api_params[:api_key] if api_params[:api_key]
 
     yield self if block_given?
     return self
@@ -115,40 +120,7 @@ class Accounts < BaseFascade
   end
 
 
-  def update(api_params,&block)
-    puts "updating...................."
-    puts api_params
-    puts "-----------------------------"
-    puts bld_acct(api_params)
-   puts "----=-=-============"
-     api_request(bld_acct(api_params), ACCOUNT, UPDATE)
-    @remember_token = api_params[:remember_token] if api_params[:remember_token]
-    @email = api_params[:email] if api_params[:email]
-    @first_name = api_params[:first_name] if api_params[:first_name]
-    @phone = api_params[:phone] if api_params[:phone]
-    @api_key = api_params[:api_key] if api_params[:api_key]
 
-    yield self if block_given?
-    return self
-  end
-
-
-
-
-
-def bld_acct(api_params)
-    acct_parms = {
-     :id => api_params[:id],
-     :first_name => api_params[:first_name],
-     :last_name => api_params[:last_name],
-     :phone => api_params[:phone],
-     :email => "fe@we.com",
-     :api_key => "QzQ6PfREIpNhcn3-7qc1Rw==",
-     :password => password_encrypt(api_params[:password]),
-     :authority => ADMIN,
-     :password_reset_token => api_params[:password_reset_token],
-     :created_at => api_params[:created_at]}
-  end
 
 
   def find_by_password_reset_token(password_reset_token, email)
@@ -173,6 +145,24 @@ def bld_acct(api_params)
   end
 
   private
+
+  
+
+def bld_acct(api_params)
+    acct_parms = {
+     :id => api_params[:id],
+     :first_name => api_params[:first_name],
+     :last_name => api_params[:last_name],
+     :phone => api_params[:phone],
+     :email => "fe@we.com",
+     :api_key => "QzQ6PfREIpNhcn3-7qc1Rw==",
+     :password => password_encrypt(api_params[:password]),
+     :authority => ADMIN,
+     :password_reset_token => api_params[:password_reset_token],
+     :created_at => api_params[:created_at]}
+  end
+
+
 
   def password_encrypt(password)
     Password.create(password)
