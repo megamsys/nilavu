@@ -26,7 +26,6 @@ class MarketplacesController < ApplicationController
   ##
   def index
     logger.debug "--> Marketplaces: index."
-    if user_in_cookie?
       mkp = get_marketplaces
       logger.debug "--> Marketplaces: get_marketplaces successful."
 
@@ -44,9 +43,6 @@ class MarketplacesController < ApplicationController
         @categories = @categories.uniq
 
       end
-    else
-      redirect_to signin_path
-    end
   end
 
   ##
@@ -107,9 +103,6 @@ class MarketplacesController < ApplicationController
           end
         end
       end
-    else
-      redirect_to signin_path
-    end
   end
 
   ##
@@ -117,50 +110,8 @@ class MarketplacesController < ApplicationController
   ## list the applications in dashboard
   ##
   def get_apps
-    apps = []
-    if user_in_cookie?
-      @user_id = current_user.email
-      @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
-      @service_counter = 0
-      @app_counter = 0
-      if @assemblies != nil
-        @assemblies.each do |asm|
-          if asm.class != Megam:: Error
-            asm.assemblies.each do |assembly|
-              if assembly != nil
-                if assembly[0].class != Megam::Error
-                  assembly[0].components.each do |com|
-                    if com != nil
-                      com.each do |c|
-                        com_type = c.tosca_type.split(".")
-                        ctype = get_type(com_type[2])
-                        if ctype == "APP" && com[0].related_components == ""
-                          apps << {"name" => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain] + "/" + com[0].name, "aid" => assembly[0].id, "cid" => assembly[0].components[0][0].id }
-                        end
-                      end
-                    end
-                  end
-                  assembly[0].components.each do |com|
-                    if com != nil
-                      com.each do |c|
-                        com_type = c.tosca_type.split(".")
-                        ctype = get_type(com_type[2])
-                        if ctype == "APP"
-                          @app_counter = @app_counter + 1
-                        end
-                      end
-                    end
-                  end
-                end
-              end
-            end
-          end
-        end
-      end
-    else
-      redirect_to signin_path
-    end
-    apps
+   assem = Assemblies.new.list(params)
+   assem.apps
   end
 
   ##
@@ -275,7 +226,6 @@ class MarketplacesController < ApplicationController
   ## when change the version of marketplace item then this controller change the contents of that item
   ##
   def changeversion
-    if user_in_cookie?
       @pro_name = params[:id].split("-")
       @version = params[:version]
       @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])
@@ -290,9 +240,6 @@ class MarketplacesController < ApplicationController
           }
         end
       end
-    else
-      redirect_to signin_path
-    end
   end
 
   ##
@@ -300,7 +247,6 @@ class MarketplacesController < ApplicationController
   ## this performs three types of condition operations for launching instances using sshkeys
   ##
   def instances_create
-    if user_in_cookie?
       assembly_name = params[:name]
       version = params[:version]
       domain = params[:domain]
@@ -421,13 +367,11 @@ class MarketplacesController < ApplicationController
       end
       logger.debug "--> #{self.class} : Instance creation - Instance launched successfully..."
     end
-  end
 
   ##
   ## this controller launch the starters pack(megam provide these packages)
   ##
   def starter_packs_create
-    if user_in_cookie?
       assembly_name = params[:name]
       version = params[:version]
       domain = params[:domain]
@@ -473,9 +417,6 @@ class MarketplacesController < ApplicationController
           end
         end
       end
-    else
-      redirect_to signin_path
-    end
   end
 
   ##
@@ -483,7 +424,6 @@ class MarketplacesController < ApplicationController
   ## it checks service is bind any of the applications, the service is bind to application then add the application name to inputs
   ##
   def app_boilers_create
-    if user_in_cookie?
       assembly_name = params[:name]
       version = params[:version]
       domain = params[:domain]
@@ -593,16 +533,12 @@ class MarketplacesController < ApplicationController
       end
       res_msg = "success"
       err_msg = nil
-    else
-      redirect_to signin_path
-    end
   end
 
   ##
   ## this controller launch the addons
   ##
   def addons_create
-    if user_in_cookie?
       assembly_name = params[:name]
       version = params[:version]
       domain = params[:domain]
@@ -631,10 +567,7 @@ class MarketplacesController < ApplicationController
           }
         end
       end
-    else
-      redirect_to signin_path
-    end
-  end
+end
 
   ##
   ## byoc means bring your own code
@@ -650,11 +583,6 @@ class MarketplacesController < ApplicationController
     source = params[:source]
     sshoption = params[:sshoption]
     type = params[:byoc].downcase
-    puts "=================="
-    puts params[:sshcreatename]
-    puts params[:sshuploadname]
-    puts params[:sshexistname]
-    puts "---------------------------------------------S"
 
     dbname = nil
     dbpassword = nil

@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
 
   before_action :require_signin
+  around_action :catch_exceptions
 
   #a catcher exists using rails globber for routes in config/application.rb to trap 404.
   unless Rails.application.config.consider_all_requests_local
@@ -69,5 +70,27 @@ class ApplicationController < ActionController::Base
     unless signed_in?
       redirect_to signin_path, :flash => { :error => "You must be logged in to access this section"}
     end
+  end
+
+  def stick_keys(tmp={}, permitted_tmp={})
+    params[:email] = session[:email]
+    params[:api_key] = session[:api_key]
+    params
+  end
+
+  def catch_exceptions
+    yield
+  rescue Accounts::MegamAPIError  => mai
+    logger.debug "*-----------------------*"
+    logger.debug "|    (˘_˘) exception    :"
+    logger.debug "*-----------------------*"
+    logger.debug "#{mai.message}"
+    logger.debug ">>> caused by:"
+    #mai.backtrace.each { |line| logger.error line }
+    logger.debug "*-----------------------*"
+    #notify Megam ? - hipchat
+    #send an email to support@megam.io which creates a support ticket.
+    #redirect to the users last visited page.
+    redirect_to signin_path, :flash => { :error => "oops! there is some issue. ticket created - support.megam.io" } and return
   end
 end

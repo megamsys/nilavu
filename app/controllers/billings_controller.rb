@@ -15,10 +15,22 @@
 ##
 class BillingsController < ApplicationController
   respond_to :html, :js
-  include Packable
+
+  before_action :stick_keys, only: [:index]
   
   def index
+    logger.debug ">----- Billings index."
+    logger.debug ">----- #{params}"
     @currencies = ["USD", "IN"]
+    bill = Balances.new.show(params)
+    puts "000000000000000000000000000000000000"
+    puts bill.inspect
+    
+    billingHistories = Billinghistories.new.list(params)
+    puts "000000000000000000000000000000000000"
+    puts billingHistories.inspect
+    
+    
      balance_collection = GetBalance.getBalance(force_api[:email], force_api[:api_key])
       if balance_collection.class == Megam::Error
          logger.info balance_collection.inspect

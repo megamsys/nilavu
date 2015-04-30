@@ -18,11 +18,11 @@ class MakeAssemblies
   inputs = []
   inputs << {"key" => "sshkey", "value" => options[:sshkeyname]}
   components = []
-  
+
   if options[:instance]
     components = []
   else
-    components = build_components(options, tmp_email, tmp_api_key)  
+    components = build_components(options, tmp_email, tmp_api_key)
   end
 
     hash = {
@@ -64,7 +64,7 @@ class MakeAssemblies
             related_components = "#{options[:assembly_name]}.#{options[:domain]}/#{options[:servicename]}"
           end
         end
-      
+
       if type == "SERVICE"
         name = options[:servicename]
         ttype = "tosca.service."
@@ -78,7 +78,7 @@ class MakeAssemblies
           end
         end
       end
-      
+
       if type == "BYOC"
         name = options[:appname]
         ttype = "tosca.app."
@@ -92,30 +92,30 @@ class MakeAssemblies
           end
         end
       end
-      
+
       if type == "INSTANCE"
         ttype = "tosca.instance."
       end
-    
+
       others = []
       enable = "false"
       scm = ""
       scm_token = ""
       scm_owner = ""
-      
+
       if options.has_key?(:ci)
-        if options[:ci]          
-           enable = "true"        
-        end  
+        if options[:ci]
+           enable = "true"
+        end
         scm = "#{options[:scm_name]}"
         scm_token = "#{options[:scm_token]}"
-        scm_owner = "#{options[:scm_owner]}"    
+        scm_owner = "#{options[:scm_owner]}"
       end
-      
+
       if type == "ADDON"
         name = options[:appname]
       end
-      
+
       value = {
         "name"=>"#{name}",
         "tosca_type"=>"#{ttype}#{options[:type]}",
@@ -147,7 +147,7 @@ class MakeAssemblies
              "enable"=>enable,
              "token"=>scm_token,
              "owner"=>scm_owner,
-            } 
+            }
         },
         "external_management_resource"=>"",
         "artifacts"=>{
@@ -183,13 +183,10 @@ class MakeAssemblies
     com
   end
 
-  def self.mkp_config
-    YAML.load(File.open("#{Rails.root}/config/marketplace_addons.yml", 'r'))
-  end
 
   def self.get_type(name)
     @type = ""
-    mkp_config.each do |mkp, addon|
+    YUMMY_MARKET.each do |mkp, addon|
       if mkp == name
         @type = addon["type"]
       end

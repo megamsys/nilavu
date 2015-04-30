@@ -13,27 +13,36 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
+require 'bcrypt'
 require 'json'
 
-class Organizations < BaseFascade
+class Assembly < BaseFascade
 
-  attr_reader :orgs
-
-  def initialize
-    @orgs = nil
+  attr_reader :assembly_collection
+  def initialize()
+    @assembly_collection= nil
   end
 
-  #we call the api, and list all the organization name, create_at time in a hashmap.
-  def list(account, &block)
-    api_params = {:email => account.email, :api_key => account.api_key}
-    res = api_request(api_params, ORGANIZATION, LIST)
-    res[:body].each do |one_org|
-        @orgs << {:name => one_org.name, :created_at => one_org.created_at.to_time.to_formatted_s(:rfc822)}
+  def show(api_params, &block)
+    raw = api_request(api_params, ASSEMBLY, SHOW)
+    @assembly_collection = dig_components(raw[:body])
+    yield @assembly_collection  if block_given?
+    return @assembly_collection
+  end
+
+  private
+
+  def dig_components(assemblys)
+    tmp = assemblys.map do |asmbly|
+      asmbly.components.map do |one_comp|
+        if !one_comp.empty?
+          Components.show(one_comp).components
+        else
+          nil
+        end
+      end
     end
-    @orgs = @orgs.sort_by {|vn| vn[:created_at]}
-    Rails.logger.debug "--> Organizations.list, sent "
-    yield self if block_given?
-    return self
+    tmp
   end
 
 end

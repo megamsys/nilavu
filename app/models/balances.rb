@@ -13,20 +13,19 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-module MainDashboardsHelper
-def mkp_config
-    YAML.load(File.open("#{Rails.root}/config/marketplace_addons.yml", 'r'))
+class Balances < BaseFascade
+  
+  attr_reader :balance
+  
+  def initialize()
+     @balance = {}
   end
 
-def get_type(name)
-   @type = ""
-    mkp_config.each do |mkp, addon|
-      if mkp == name
-        @type = addon["type"]
-      end
-    end
-    @type
- end
- 
+  def show(api_params, &block)
+    raw = api_request(api_params, BALANCES, SHOW)
+    @balance = raw.lookup(api_params["email"])  
+    yield self  if block_given?
+    return self
+  end
 
 end
