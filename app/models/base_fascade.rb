@@ -1,6 +1,4 @@
 class BaseFascade
-  attr_reader :email
-  attr_reader :api_key
 
   class MegamAPIError < StandardError; end
   class APIConnectFailure <  MegamAPIError; end
@@ -12,6 +10,9 @@ class BaseFascade
   JLAZ_PREFIX  = "Megam::".freeze
   ACCOUNT      = 'Account'.freeze
   ORGANIZATION = 'Organizations'.freeze
+  ASSEMBLIES   = 'Assemblies'.freeze
+  ASSEMBLY     = 'Assembly'.freeze
+  COMPONENTS   = 'Components'.freeze
 
 
   CREATE      = 'create'.freeze
@@ -19,63 +20,56 @@ class BaseFascade
   LIST        = 'list'.freeze
   UPDATE      = 'update'.freeze
 
-  def initialize(email, api_key)
-    @pinged = true
-    @email = email
-    @api_key = api_key
+  def initialize
   end
 
   # Returns true if the HTTP session has been started.
+
+#This is a friendly ping to know gateway and riak is running
+#probably move it to an api call /ping in the future.
   def ping?
-    #@pinged = true
-    #@pinged
-    #raise APIConnectFailure, "api.megam.io is down. Eehaw !"
-    false
+    begin
+#      open("http://#{Rails.configuration.api_server_url}:9000")
+#      open("http://#{Rails.configuration.storage_server_url}:8098")
+    rescue Exception => se
+      raise se
+    end
   end
 
   def api_request(jparams, jlaz, jmethod, passthru = false)
-     jlaz = JLAZ_PREFIX + jlaz
-    raise MissingAPIArgsError, ":email and :api_key required." unless good_to_invoke(jparams, passthru)
+    jlaz = JLAZ_PREFIX + jlaz
 
-    Rails.logger.debug "--------> Initiating #{jlaz} to #{jmethod}"
-    unless ping?
-      begin
-        Rails.logger.debug("---- Worker Request Params Data: ----")
-        jparams.each do |name, value|
-          Rails.logger.debug("#{name}: #{value}")
-        end
-        Rails.logger.debug("---- End Worker Request Params Data ----")
-        Rails.logger.debug("API #{jlaz} #{jmethod}")
-
-        Rails.logger.debug("---- End API call ----")
-         return run_now(jlaz, jmethod, jparams).data
-      rescue ArgumentError => ae
-        raise APIInvocationFailure, "Arguments missing. ! #{ae.message}"
-      rescue Megam::API::Errors::ErrorWithResponse => ewr
-        raise APIInvocationFailure, "api.megam.io returned an error. !#{ewr.message}"
-      rescue StandardError => se
-        raise APIInvocationFailure, "I couldn't figure it. !#{se.message}"
-      end
-    else
-      raise APIConnectFailure, "api.megam.io can't be reached"
+    if !passthru
+      raise MissingAPIArgsError, ":email and :api_key required." unless jparams.has_key?(:email && :api_key)
     end
-    Rails.logger.debug("--------> End #{jlaz} to #{jmethod}")
+
+    Rails.logger.debug("START #{jlaz} to #{jmethod}")
+    begin
+      jparams.each do |name, value|
+        Rails.logger.debug("> #{name}: #{value}")
+      end
+      Rails.logger.debug("> RUN_NOW #{jlaz}.#{jmethod}")
+      return run_now(jlaz, jmethod, jparams).data
+    rescue APIConnectFailure => ace
+      raise APIInvocationFailure, "Gateway can't be reached. Eehaw !\n#{ace.message}"
+    rescue ArgumentError => ae
+      raise APIInvocationFailure, "Arguments missing. ! \n#{ae.message}"
+    rescue Megam::API::Errors::ErrorWithResponse => ewr
+      raise APIInvocationFailure, "Gateway error. !\n#{ewr.message}"
+    rescue StandardError => se
+      raise APIInvocationFailure, "(o_o) Jee..I couldn't figure out.\n#{se.message}"
+    end
   end
 
   private
 
-  def good_to_invoke(jparams, passthru)
-    unless passthru
-      return jparams[:email] && jparams[:api_key]
-    end
-    true
-  end
 
-  def run_now(raise_exception = false, jlaz, jmethod, jparams)
+  # a private helper that runs the actual method in the api by calling jlaz.jmethod  using ruby metaprogramming
+  def run_now(swallow_exception = false, jlaz, jmethod, jparams)
     api_jlaz = jlaz.constantize
     unless api_jlaz.respond_to?(jmethod)
-      logger.debug "You need to add a #{jmethod} to your #{jlaz} before you can use it."
-    raise  UnsupportedAPI
+      logger.debug "Unsupported api #{jlaz}.#{jmethod}, try adding before you can use it."
+      raise  UnsupportedAPI, "#{jlaz}.#{jmethod}, try adding before you can use it."
     end
     return api_jlaz.send(jmethod, jparams)
   end

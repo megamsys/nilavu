@@ -16,7 +16,7 @@
 <div class="row c_pading-b15">
 	<div class="portlet-body-head">
 		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-			<i class="c_icon-layer_lg"></i>Your Addons <span><%= @service_counter %> Addons running</span>
+			<i class="c_icon-layer_lg"></i>Your Addons <span><%= @services_spun %> Addons running</span>
 		</div>
 	</div>
 </div>
@@ -118,7 +118,7 @@
 						<i class="circle_green"></i>
 						<span><strong><%= assembly[0].status %></strong></span>
 						<% if asm.inputs[:id].length > 1 %>
-						<% url = "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user.email}&api_key=#{current_user.api_key}&callbackURL=https://www.megam.co/visualCallback&assembliesID=#{asm.id}" %>
+						<% url = "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user.email}&api_key=#{current_user.api_key}&callbackURL=https://www.megam.co/varai&assembliesID=#{asm.id}" %>
 						<a href="<%= url %>" target="_blank" ><i class="c_icon-window pull-right" style="color:blue"></i></a>
 						<% end %>
 						<i class="c_icon-star pull-right"></i>

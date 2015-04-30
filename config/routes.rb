@@ -128,6 +128,6 @@ Cloudauth::Application.routes.draw do
   get "/404", :to => "errors#not_found"
   #get "/422", :to => "errors#unacceptable"
   get "/500", :to => "errors#internal_error"
-  match '/visualCallback', to: 'main_dashboards#visualCallback', via: [:get]
+  match '/varai', to: 'main_dashboards#varai', via: [:get]
 
 end

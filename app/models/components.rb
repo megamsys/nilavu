@@ -13,20 +13,23 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-module MainDashboardsHelper
-def mkp_config
-    YAML.load(File.open("#{Rails.root}/config/marketplace_addons.yml", 'r'))
+require 'bcrypt'
+require 'json'
+
+class Components < BaseFascade
+
+  attr_reader :components
+
+
+  def initialize()
+    @components= nil
   end
 
-def get_type(name)
-   @type = ""
-    mkp_config.each do |mkp, addon|
-      if mkp == name
-        @type = addon["type"]
-      end
-    end
-    @type
- end
- 
+
+  def show(api_params, &block)
+    @components = api_request(api_params, COMPONENTS, SHOW)[:body]
+    yield @components if block_given?
+    return @components
+  end
 
 end

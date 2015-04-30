@@ -15,16 +15,21 @@
 ##
 class UsersController < ApplicationController
   respond_to :html, :js
-  skip_before_action :require_signin, only: [:new, :create]
-
   include UsersHelper
   include SessionsHelper
 
+  #doesn't require a sign for new and create action, hence skip it.
+  skip_before_action :require_signin, only: [:new, :create]
+
+  #doesn't require to catch execption for show
+  skip_around_action :catch_exception, only: [:show]
+
+  #stick the api_keys before edit and update action
+  before_action :stick_keys, only: [:edit, :update]
 
   def show
-    #@user = User.find(params[:id])
-    #current_user = @user
   end
+
 =begin
   def new
     logger.debug "--> Users:new, creating new user with social identity."
@@ -67,90 +72,28 @@ class UsersController < ApplicationController
     end
   end
 
+  #update any profile information. Interms of passwor we verify if the current password matches with ours.
   def update
     logger.debug "--> Users:update."
-      @user = User.new
-      @userdata = @user.find_by_email(current_user.email)
-      @user_fields_form_type = params[:user_fields_form_type]
-      if @user_fields_form_type == 'api_key'
-        logger.debug "User update For API key"
-        api_token = api_keygen
-        options = { :id => "", :email => current_user.email, :api_key => api_token, :authority => "admin" }
-        @res_body = CreateAccounts.perform(options)
-        if !(@res_body.class == Megam::Error)
-          update_options = { "onboarded_api" => true, "api_token" => api_token, "updated_at" => Time.zone.now }
-          res_update = @user.update_columns(update_options, current_user.email)
-          if res_update
-            sign_in @userdata
-            @res_msg = "API Key updated successfully"
-            @err_msg = nil
-          else
-            @res_msg = nil
-            @err_msg = "API Key update: Something went wrong! User not updated"
+    my_account = Accounts.new
+    case params[:myprofile_type].to_i
+    when Accounts::UPD_PASSWORD
+        begin
+          my_account.signin(params) do
           end
-        else
-          @res_msg = nil
-          @err_msg = "#{@res_body.some_msg[:msg]}"
+        rescue Accounts::AuthenticationFailure => ae
+            @error   = ae.message
         end
-        respond_to do |format|
-          format.js {
-            respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user.api_key, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
-          }
-        end
-      elsif @user_fields_form_type == 'profile'
-        update_options = { "first_name" => params[:first_name], "phone" => params[:phone] }
-        res_update = @user.update_columns(update_options, current_user.email)
-        if res_update
-          sign_in @userdata
-          @res_msg = "Profile updated successfully"
-          @err_msg = nil
-        else
-          @res_msg = nil
-          @err_msg = "Profile update: Something went wrong! User not updated"
-        end
-        respond_to do |format|
-          format.js {
-            respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user.api_key, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
-          }
-        end
-      elsif @user_fields_form_type == 'password'
-        if @user.password_decrypt(@userdata["password"]) == params[:current_password]
-          if params[:password] == params[:password_confirmation]
-            update_options = { "password" => @user.password_encrypt(params[:password]), "password_confirmation" => @user.password_encrypt(params[:password_confirmation]) }
-            res_update = @user.update_columns(update_options, current_user.email)
-            if res_update
-              sign_in @userdata
-              @res_msg = "Password updated successfully"
-              @err_msg = nil
-            else
-              @err_msg = "Password update: Something went wrong! User not updated"
-              @res_msg = nil
-            end
-            respond_to do |format|
-              format.js {
-                respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user.api_key, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
-              }
-            end
-          else
-            @res_msg = nil
-            @err_msg = "Password update: The password's are doesn't match. Please re-enter the correct password."
-            respond_to do |format|
-              format.js {
-                respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user.api_key, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
-              }
-            end
-          end
-        else
-          @res_msg = nil
-          @err_msg = "Password update: The current password is wrong. Please re-enter the correct password."
-          respond_to do |format|
-            format.js {
-              respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user.api_key, :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
-            }
-          end
-        end
-      end
+    end
+    (Accounts.new.update(params.merge(new_session)) do  |tmp_account|
+        sign_in tmp_account
+        @success = "#{params[:myprofile_type]} updated successfully."
+        @error = nil
+    end)   if @error.nil?
+   respond_to do |format|
+     format.js {
+       respond_with(@success, @errror, :account => current_user, :api_key => current_user.api_key, :myprofile_type => params[:myprofile_type], :layout => !request.xhr? )
+     }
+   end
   end
-
-
 end

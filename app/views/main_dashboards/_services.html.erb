@@ -16,7 +16,7 @@
 <div class="row c_pading-b15">
 	<div class="portlet-body-head">
 		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-			<i class="c_icon-layer_lg"></i>Your Services <span><%= @service_counter %> Services running</span>
+			<i class="c_icon-layer_lg"></i>Your Services <span><%= @services_spun %> Services running</span>
 		</div>
 	</div>
 </div>
@@ -43,7 +43,7 @@
 		<% sflag = false %>
 		<% if assembly != nil %>
 		<% if assembly[0].class != Megam::Error %>
-		
+
 		<% assembly[0].components.each do |com| %>
         <% if com != nil %>
         <% com.each do |c| %>
@@ -54,9 +54,9 @@
         <% end %>
         <% end %>
         <% end %>
-        <% end %>	
-		
-		
+        <% end %>
+
+
 		<% if sflag %>
 		<% if assembly[0].status != "Terminated" %>
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
@@ -84,7 +84,7 @@
 								<!--<li>
 									<a data-toggle="modal" href="#service_delete"><i class="glyphicon glyphicon-trash"></i>Delete Service</a>
 								</li> -->
-							</ul>					
+							</ul>
 						</div>
 						<div class="row app_icon">
 							<h5><%= assembly[0].name %></h5>
@@ -115,7 +115,7 @@
 						<i class="circle_green"></i>
 						<span><strong><%= assembly[0].status %></strong></span>
 						<% if asm.inputs[:id].length > 1 %>
-						<% url = "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user.email}&api_key=#{current_user.api_key}&callbackURL=https://www.megam.co/visualCallback&assembliesID=#{asm.id}" %>
+						<% url = "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user.email}&api_key=#{current_user.api_key}&callbackURL=https://www.megam.co/varai&assembliesID=#{asm.id}" %>
 						<a href="<%= url %>" target="_blank" ><i class="c_icon-window pull-right" style="color:blue"></i></a>
 						<% end %>
 						<i class="c_icon-star pull-right"></i>
@@ -133,16 +133,16 @@
 						<div class="config_menu config_menu_<%= assembly[0].name %>">
 							<ul>
 								<li>
-								    <i class="glyphicon glyphicon-play-circle"></i>Start App									
+								    <i class="glyphicon glyphicon-play-circle"></i>Start App
 								</li>
 								<li>
-								   <i class="glyphicon glyphicon-record"></i>Stop App	
+								   <i class="glyphicon glyphicon-record"></i>Stop App
 								</li>
 								<li>
 								    <i class="glyphicon glyphicon-refresh"></i>Restart App
 								</li>
 								<li>
-								    <i class="glyphicon glyphicon-trash"></i>Delete App						
+								    <i class="glyphicon glyphicon-trash"></i>Delete App
 								</li>
 							</ul>
 						</div>
@@ -166,7 +166,7 @@
 									<% end %>
 								</ul>
 							</div>
-						</div>						
+						</div>
 						<!-- <img class="center-block" src="assets/img/app2.png"> -->
 					</div>
 					<div class="app_footer">
