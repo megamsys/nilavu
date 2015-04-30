@@ -15,14 +15,11 @@
 ##
 class PasswordResetsController < ApplicationController
   skip_before_action :require_signin, only: [:edit, :create, :update]
-
-
   def create
-	   @user = User.new
-     user = @user.find_by_email(params[:email])
-     if user
-          @user.send_password_reset(params[:email])
-        end
+    @user = User.new
+    user = @user.find_by_email(params[:email])
+    if user
+      @user.send_password_reset(params[:email])
     else
       logger.debug "Email doesn't match with megam account"
       @error = "not_match"
@@ -30,18 +27,18 @@ class PasswordResetsController < ApplicationController
   end
 
   def edit
-	  user = User.new
+    user = User.new
     @user = user.find_by_password_reset_token(params[:id], params[:email])
-	  @user
+    @user
   end
 
   def update
-	  user_obj = User.new
+    user_obj = User.new
     @user = user_obj.find_by_password_reset_token(params[:id], params[:email])
     if @user["password_reset_sent_at"] < 2.hours.ago
       redirect_to signin_path, :alert => "Password reset has expired."
     elsif true
-	    update_options = { "password" => user_obj.password_encrypt(params[:password]), "password_confirmation" => user_obj.password_encrypt(params[:password_confirmation]) }
+      update_options = { "password" => user_obj.password_encrypt(params[:password]), "password_confirmation" => user_obj.password_encrypt(params[:password_confirmation]) }
       res_update = user_obj.update_columns(update_options, params[:email])
       redirect_to root_url, :notice => "Password has been reset!"
     else
