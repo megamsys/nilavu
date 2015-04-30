@@ -33,9 +33,7 @@ class BillingsController < ApplicationController
            else 
              redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
            end
-        else
-              
-             
+        else         
              @billinghistories = billinghistories_collection.sort_by{|e| e.created_at}.reverse[0..9]            
         end            
         @bill = balance_collection.lookup(force_api[:email])         
