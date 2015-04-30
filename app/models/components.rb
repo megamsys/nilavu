@@ -13,7 +13,23 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-require 'test_helper'
+require 'bcrypt'
+require 'json'
 
-class CustomizationsHelperTest < ActionView::TestCase
+class Components < BaseFascade
+
+  attr_reader :components
+
+
+  def initialize()
+    @components= nil
+  end
+
+
+  def show(api_params, &block)
+    @components = api_request(api_params, COMPONENTS, SHOW)[:body]
+    yield @components if block_given?
+    return @components
+  end
+
 end

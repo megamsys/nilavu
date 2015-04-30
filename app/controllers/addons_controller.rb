@@ -14,58 +14,19 @@
 ## limitations under the License.
 ##
 class AddonsController < ApplicationController
-
   respond_to :html, :js
-    include MainDashboardsHelper
+
  def index
-    if user_in_cookie?
-      @user_id = current_user.email
-
-      @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
-      @service_counter = 0
-      @app_counter = 0
-      if @assemblies != nil
-        @assemblies.each do |asm|
-          if asm.class != Megam::Error
-            asm.assemblies.each do |assembly|
-              if assembly != nil
-                if assembly[0].class != Megam::Error
-                  #@app_counter = assembly[0].components.count + @app_counter
-                  assembly[0].components.each do |com|
-                    if com != nil
-                      com.each do |c|
-                        com_type = c.tosca_type.split(".")
-                        ctype = get_type(com_type[2])
-                         if ctype == "ADDON"
-                           @service_counter = @service_counter + 1
-                        else
-                                @app_counter = @app_counter + 1
-                         end
-                      end
-                    end
-                  end
-                end
-              end
-            end
-          end
-        end
-      end
-
-    else
-      redirect_to signin_path
-    end
+   assem = Assemblies.new.list(params)
+   assem.assemblies, assem.apps_spun, assem_vms_spun, assem_services_spun
   end
 
 
-
   def new
-    logger.debug "Cloud Store new  ==> "
   end
 
 
   def create
-    logger.debug "Create Cloud store Params ==> "
-    logger.debug "#{params}"
   end
 
   def show

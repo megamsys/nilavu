@@ -16,7 +16,7 @@
 <div class="row c_pading-b15">
 	<div class="portlet-body-head">
 		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-			<i class="c_icon-grid"></i>Your Instances <span><%= @vm_counter %> Instances running</span>
+			<i class="c_icon-grid"></i>Your Instances <span><%= @vm_spun %> Instances running</span>
 		</div>
 	</div>
 </div>
@@ -44,8 +44,8 @@
 		<% asm.assemblies.each do |assembly| %>
 		<% sflag = true %>
 		<% if assembly != nil %>
-		<% if assembly[0].class != Megam::Error %>		
-         
+		<% if assembly[0].class != Megam::Error %>
+
         <% if assembly[0].components.length == 0 %>
 		<% if sflag %>
 		<% if assembly[0].status != "Terminated" %>
@@ -84,7 +84,7 @@
 							<%= link_to appkey, vmoverview_path(:appkey => assembly[0].id) %>
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 								<ul class="list-inline app_icon_bottom">
-									
+
 								</ul>
 							</div>
 						</div>
@@ -95,7 +95,7 @@
 						<i class="circle_green"></i>
 						<span><strong><%= assembly[0].status %></strong></span>
 						<% if asm.inputs[:id].length > 1 %>
-						<% url = "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user.email}&api_key=#{current_user.api_key}&callbackURL=https://www.megam.co/visualCallback&assembliesID=#{asm.id}" %>
+						<% url = "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user.email}&api_key=#{current_user.api_key}&callbackURL=https://www.megam.co/varai&assembliesID=#{asm.id}" %>
 						<a href="<%= url %>" target="_blank" ><i class="c_icon-window pull-right" style="color:blue"></i></a>
 						<% end %>
 						<i class="c_icon-star pull-right"></i>
@@ -132,7 +132,7 @@
 
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 								<ul class="list-inline app_icon_bottom">
-									
+
 								</ul>
 							</div>
 						</div>

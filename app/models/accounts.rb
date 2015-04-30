@@ -18,7 +18,6 @@ require 'json'
 
 class Accounts < BaseFascade
   include BCrypt
-  include SessionsHelper
 
 
   attr_reader :email
@@ -29,25 +28,27 @@ class Accounts < BaseFascade
   attr_reader :remember_token
   attr_reader :created_at
 
-  ADMIN   = 'admin'.freeze
-  MEGAM_TOUR_EMAIL="tour@megam.io".freeze
-  MEGAM_TOUR_PASSWORD="faketour".freeze
+  ADMIN               = 'admin'.freeze
+  MEGAM_TOUR_EMAIL    = 'tour@megam.io'.freeze
+  MEGAM_TOUR_PASSWORD = 'faketour'.freeze
+  UPD_PROFILE         = 1.freeze
+  UPD_PASSWORD        = 2.freeze
+  UPD_API_KEY         = 3.freeze
 
-  def initialize()
-    @first_name = nil
-    @last_name = nil
-    @phone = nil
-    @email = nil
-    @api_key = nil
-    @password = nil
-    @password_confirmation = nil
-    @authorization = nil
-    @remember_token = nil
-    @authority = nil
-    @verified_email = false
-    @verification_hash = nil
-    @password_reset_token = nil
-    @created_at = nil
+  def initialize(account_parms={})
+    @first_name            = account_parms[:first_name] || nil
+    @last_name             = account_parms[:secon_name] || nil
+    @phone                 = account_parms[:phone] || nil
+    @email                 = account_parms[:email] || nil
+    @api_key               = account_parms[:api_key] || nil
+    @password              = account_parms[:password] || nil
+    @password_confirmation = account_parms[:pasword_confirmation] || nil
+    @authority             = nil
+    @remember_token        = nil
+    @verified_email        = false
+    @verification_hash     = nil
+    @password_reset_token  = nil
+    @created_at            = nil
   end
 
   #verifies if the email is a duplicate.
@@ -58,39 +59,49 @@ class Accounts < BaseFascade
   #pulls the account object for an email
   def find_by_email(email)
     res = MegamRiak.fetch("accounts", email)
+
     if res.class != Megam::Error && !res.content.data.nil?
       @email = res.content.data["email"]
       @password = res.content.data["password"]
       @api_key = res.content.data["api_key"]
       @first_name = res.content.data["first_name"]
       @phone = res.content.data["phone"]
-      @created_at = res.content.data["create_at"]
-      end
-    return self
+      @created_at = res.content.data["created_at"]
+   end
+   return self
   end
 
   #performs a siginin check, to see if the passwords match.
   def signin(api_params, &block)
     raise   AuthenticationFailure, "Au oh!, The email or password you entered is incorrect." if find_by_email(api_params[:email]).nil?
-     unless password_decrypt(password) == api_params[:password]
+    Rails.logger.debug "-(‾ʖ̫‾) :<Accounts: find_by_email start [#{email}]."
+
+    unless password_decrypt(password) == api_params[:password]
        raise   AuthenticationFailure, "Au oh!, The email or password you entered is incorrect."
     end
     yield self if block_given?
     self
   end
 
-  #creates a new account object.
+  #creates a new account
   def create(api_params,&block)
-    acct_parms = {:first_name => api_params[:first_name], :last_name => api_params[:last_name],
-                    :phone => api_params[:phone], :email => api_params[:email],
-                    :api_key => api_params[:api_key], :password => password_encrypt(api_params[:password]),
-                    :authority => ADMIN, :password_reset_token => "" }
-
-    api_request(acct_parms, ACCOUNT, CREATE)
+    api_request(bld_acct(api_params), ACCOUNT, CREATE)
     @remember_token = api_params[:remember_token]
     @email = api_params[:email]
     @first_name = api_params[:first_name]
     @phone = api_params[:phone]
+    yield self if block_given?
+    return self
+  end
+
+  #updates an account based on the input parms sent.
+  def update(api_params,&block)
+    api_request(bld_acct(api_params), ACCOUNT, UPDATE)
+    @remember_token = api_params[:remember_token] if api_params[:remember_token]
+    @email = api_params[:email] if api_params[:email]
+    @first_name = api_params[:first_name] if api_params[:first_name]
+    @phone = api_params[:phone] if api_params[:phone]
+    @api_key = api_params[:api_key] if api_params[:api_key]
 
     yield self if block_given?
     return self
@@ -102,23 +113,6 @@ class Accounts < BaseFascade
     yield (@res.data[:body]) if block_given?
     return @res.data[:body]
   end
-
-
-  def update(columns, email)
-    result = true
-    res = MegamRiak.fetch("profile", email)
-    res.content.data.map { |p|
-      if columns["#{p[0]}"].present?
-        res.content.data["#{p[0]}"] = columns["#{p[0]}"]
-      end
-    }
-    res_body = MegamRiak.upload("accounts", email, res.content.data.to_json, "application/json")
-    if res_body.class == Megam::Error
-    result = false
-    end
-    result
-  end
-
 
   def find_by_password_reset_token(password_reset_token, email)
     result = nil
@@ -142,6 +136,18 @@ class Accounts < BaseFascade
   end
 
   private
+
+  def bld_acct(api_params)
+    acct_parms = {
+     :first_name => api_params[:first_name],
+     :last_name => api_params[:last_name],
+     :phone => api_params[:phone],
+     :email => api_params[:email],
+     :api_key => api_params[:api_key],
+     :password => password_encrypt(api_params[:password]),
+     :authority => ADMIN,
+     :password_reset_token => api_params[:password_reset_token]}
+  end
 
   def password_encrypt(password)
     Password.create(password)

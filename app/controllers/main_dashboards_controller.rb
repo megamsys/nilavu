@@ -15,57 +15,27 @@
 ##
 class MainDashboardsController < ApplicationController
   respond_to :html, :js
-  include MainDashboardsHelper
+
+  before_action :stick_keys, only: [:index]
+
+  #doesn't require a sign for new and create action, hence skip it.
+  skip_before_action :require_signin, only: [:varai]
+
+  #doesn't require to catch execption for show
+  skip_around_action :catch_exception, only: [:show]
 
   def index
-    logger.debug ">----main> index: entry"
-
-    ##user_in_cookie? retuns true, if you want false then use !current_user
-    if user_in_cookie?
-      @user_id = current_user.email
-      @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
-      @service_counter = 0
-      @app_counter = 0
-      @vm_counter = 0
-      if @assemblies != nil
-        @assemblies.each do |asm|
-          if asm.class != Megam:: Error
-            asm.assemblies.each do |assembly|
-              if assembly != nil
-                if assembly[0].class != Megam::Error
-                  if assembly[0].components.length == 0
-                    @vm_counter = @vm_counter + 1
-                  end
-                  assembly[0].components.each do |com|
-                    if com != nil
-                      com.each do |c|
-                        com_type = c.tosca_type.split(".")
-                        ctype = get_type(com_type[2])
-                        if ctype == "SERVICE"
-                          @service_counter = @service_counter + 1
-                        else
-                          @app_counter = @app_counter + 1
-                        end
-                      end
-                    end
-                  end
-                end
-              end
-            end
-          end
-        end
-      end
-    else
-      redirect_to signin_path and return
-    end
+    logger.debug ">----- index."
+    logger.debug ">----- #{params}"
+    assem = Assemblies.new.list(params)
+    assem.assemblies
+    assem.apps_spun
+    assem.vms_spun
+    assem.services_spun
   end
 
-  def visualCallback
-    if user_in_cookie?
+  def varai
       redirect_to main_dashboards_path, :gflash => { :error => { :value => "Invalid username and password combination, Please Enter your correct megam email", :sticky => false, :nodom_wrap => true } }
-    else
-      redirect_to signin_path, :gflash => { :error => { :value => "Invalid username and password combination, Please Enter your correct megam email", :sticky => false, :nodom_wrap => true } }
-    end
   end
 
   def show

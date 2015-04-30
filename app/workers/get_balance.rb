@@ -15,7 +15,7 @@
 ##
 class GetBalance 
 
-  def self.perform(tmp_email, tmp_api_key)
+  def self.getBalance(tmp_email, tmp_api_key)
     begin
       excon_res = Megam::Balances.show(tmp_email, tmp_email, tmp_api_key)
     rescue ArgumentError => ae
