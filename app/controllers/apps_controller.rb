@@ -17,46 +17,13 @@ class AppsController < ApplicationController
   respond_to :html, :js
   include Packable
   include AppsHelper
-  include MainDashboardsHelper
 
   def logs
   end
 
   def index
-    if user_in_cookie?
-      @user_id = current_user.email
-      @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
-      @service_counter = 0
-      @app_counter = 0
-      if @assemblies != nil
-        @assemblies.each do |asm|
-          if asm.class != Megam::Error
-            asm.assemblies.each do |assembly|
-              if assembly != nil
-                if assembly[0].class != Megam::Error
-                  assembly[0].components.each do |com|
-                    if com != nil
-                      com.each do |c|
-                        com_type = c.tosca_type.split(".")
-                        ctype = get_type(com_type[2])
-                        if ctype == "SERVICE"
-                          @service_counter = @service_counter + 1
-                        else
-                          @app_counter = @app_counter + 1
-                        end
-                      end
-                    end
-                  end
-                end
-              end
-            end
-          end
-        end
-      end
-
-    else
-      redirect_to signin_path
-    end
+    assem = Assemblies.new.list(params)
+    assem.assemblies, assem.apps_spun, assem_vms_spun, assem_services_spun
   end
 
   ###This method should be renamed or better yet refer SCRP.
@@ -77,7 +44,7 @@ class AppsController < ApplicationController
   ##SCRP: I think the methods should be a separate controller GitHubController in which this a "new method"
   def github_scm
     logger.debug ">----apps> callback github: entry"
-    if user_in_cookie?
+    if user_in_session?
       session[:info] = request.env['omniauth.auth']['credentials']
     else
       auth = request.env['omniauth.auth']

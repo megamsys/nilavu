@@ -19,7 +19,7 @@ class SshKeysController < ApplicationController
   def new
 
   end
-  
+
   ##
   ## get all sshkeys from storage and sort the keys for creating time based
   ##
@@ -42,7 +42,6 @@ class SshKeysController < ApplicationController
   end
 
   def create
-    if user_in_cookie?
       #k = SSHKey.generate(:type => params[:key_type], :bits => params[:key_bit].to_i, :comment => current_user.email)
       k = SSHKey.generate
       key_name = params[:key_name] || current_user.first_name
@@ -86,13 +85,9 @@ class SshKeysController < ApplicationController
           end
         end
       end
-    else
-      redirect_to signin_path
-    end
   end
 
   def sshkey_import
-    if user_in_cookie?
       # @filename = params[:ssh_private_key].original_filename
       @filename = params[:key_name]
       key_name = params[:key_name]
@@ -134,13 +129,9 @@ class SshKeysController < ApplicationController
           end
         end
       end
-    else
-      redirect_to signin_path
-    end
   end
 
   def download
-    if user_in_cookie?
       @keyname = params[:filename]
       @filename = current_user.email+"_"+"#{@keyname}"
       options ={:email => current_user.email, :download_location => "#{@filename}" }
@@ -159,9 +150,6 @@ class SshKeysController < ApplicationController
         @res_msg = "SSH key downloaded successfully"
         send_file Rails.root.join("#{@filename}"), :x_sendfile=>true
       end
-    else
-      redirect_to signin_path
     end
-  end
 
 end
