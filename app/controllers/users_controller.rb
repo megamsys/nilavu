@@ -59,6 +59,7 @@ class UsersController < ApplicationController
 
   #update any profile information. Interms of passwor we verify if the current password matches with ours.
   def update
+        logger.debug "--- updating #{Accounts.typenum_to_s(params[:myprofile_type])}"
     (Accounts.new.update(params.merge(new_session)) do  |tmp_account|
         sign_in tmp_account
         @success = "#{Accounts.typenum_to_s(params[:myprofile_type])} updated successfully."

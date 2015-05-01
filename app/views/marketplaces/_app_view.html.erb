@@ -43,8 +43,6 @@
 <%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
 
 <div class="row">
-	<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
-    </head>
 	<div class="col-sm-7 body_left">
 		<div class="row">
 			<div class="col-sm-7 app_left_name">
@@ -81,7 +79,6 @@
 		         	 <%= text_field_tag 'source_starterpacks', nil, placeholder: '', :class =>"form-control spacks", :value => @deps_scm %>
                   </div>
 		        </div>
-
 		</div>
 		</div>
 
@@ -114,7 +111,6 @@
 
 				<div class="row"  style="display:none;" id="sshkey_exist">
 					<% if @ssh_keys != nil %>
-    <% puts @ssh_keys %>
 					<div class="col-sm-3 app_left_name">
 						<span>Pick a sshkey</span>
 					</div>
@@ -215,102 +211,85 @@
 
 
 <script>
-    $(document).ready(function() {
-        $("#scm_name").val("gogs");
-        $("#gogs_connect").click(function() {
-            $.oauthpopup({
-                path : "/auth/gogs",
-                callback : function() {
-                    $.ajax({
-                        type : "POST",
-                        url : "/gogs_call",
-                        //dataType: 'json',
-                        success : function(data) {
-                            console.log("It worked!")
-                            console.log(dataString);
-                        },
-
-                        error : function(data) {
-                            console.log("ERROR CHECK PROPERLY!!");
-                            console.log(data);
-                        }
-                    });
-                    return false;
-                }
-            });
-        });
-
-        $("#byoc_connect").click(function() {
-            $("#scm_name").val("github");
-            $.oauthpopup({
-                path : "/auth/github",
-                callback : function() {
-                    $.get("/github_call", function(data) {
-                        console.log(data)
-                        console.log("----data----")
-
-                        var dataString = data
-                        console.log(dataString);
-
-                        $.ajax({
-                            type : "POST",
-                            url : "/github_ajax",
-                            //dataType: 'json',
-                            data : {
-                                id : dataString
-                            },
-                            success : function(data) {
-                                console.log("It worked!")
-                                console.log(dataString);
-                            },
-
-                            error : function(data) {
-                                console.log("ERROR CHECK PROPERLY!!");
-                                console.log(data);
-                            }
-                        });
-
-                    });
-                    return false;
-
-                }
-            });
-        });
-    });
+	$(document).ready(function() {
+	$("#scm_name").val("gogs");
+	$("#gogs_connect").click(function() {
+	$.oauthpopup({
+	path:"/auth/gogs",callback: function() {
+	$.ajax({
+	type:"POST",url:"/gogs_call",
+	//dataType: 'json',
+	success: function(data) {
+	console.log("It worked!")
+	console.log(dataString);
+	},error: function(data) {
+	console.log("ERROR CHECK PROPERLY!!");
+	console.log(data);
+	}
+	});
+	return false;
+	}
+	});
+	});
+	$("#byoc_connect").click(function() {
+	$("#scm_name").val("github");
+	$.oauthpopup({
+	path:"/auth/github",callback: function() {
+	$.get("/github_call", function(data) {
+	console.log(data)
+	console.log("----data----")
+	var dataString=data
+	console.log(dataString);
+	$.ajax({
+	type:"POST",url:"/github_ajax",
+	//dataType: 'json',
+	data: {
+	id:dataString
+	},success: function(data) {
+	console.log("It worked!")
+	console.log(dataString);
+	},error: function(data) {
+	console.log("ERROR CHECK PROPERLY!!");
+	console.log(data);
+	}
+	});
+	});
+	return false;
+	}
+	});
+	});
+	});
 </script>
 <script type="text/javascript">
-    // Script to show the ssh keys options
-    $(document).ready(function() {
-        $('#sshkeyoption').on('change', function() {
-            if (this.value == "CREATE") {
-                $("#sshkey_create").show();
-                $("#sshkey_exist").hide();
-                $("#sshkey_upload").hide();
-                $(".sshoption").val("CREATE");
-            }
-
-            if (this.value == "EXIST") {
-                $("#sshkey_create").hide();
-                $("#sshkey_exist").show();
-                $("#sshkey_upload").hide();
-                $(".sshoption").val("EXIST");
-            }
-            if (this.value == "UPLOAD") {
-                $("#sshkey_create").hide();
-                $("#sshkey_exist").hide();
-                $("#sshkey_upload").show();
-                $(".sshoption").val("UPLOAD");
-            }
-        });
-
-    });
+	// Script to show the ssh keys options
+	$(document).ready(function() {
+	$('#sshkeyoption').on('change', function() {
+	if(this.value=="CREATE") {
+	$("#sshkey_create").show();
+	$("#sshkey_exist").hide();
+	$("#sshkey_upload").hide();
+	$(".sshoption").val("CREATE");
+	}
+	if(this.value=="EXIST") {
+	$("#sshkey_create").hide();
+	$("#sshkey_exist").show();
+	$("#sshkey_upload").hide();
+	$(".sshoption").val("EXIST");
+	}
+	if(this.value=="UPLOAD") {
+	$("#sshkey_create").hide();
+	$("#sshkey_exist").hide();
+	$("#sshkey_upload").show();
+	$(".sshoption").val("UPLOAD");
+	}
+	});
+	});
 </script>
 
 <script>
-    	    $(document).ready(function() {
+    	    					$(document).ready(function() {
     $("input:radio[name=assigned_proposal_id]").click(function() {
     var value = $(this).val();
-console.log(value)
     if (value == 'STARTERPACK'){
     	$(".main_source").val($(".spacks").val());
     	console.log("now trying to disable")
@@ -321,8 +300,6 @@ console.log(value)
     document.getElementById("#starterpack").disabled = true;
     }
   });
-
-
 
 });
 

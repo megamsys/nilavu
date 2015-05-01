@@ -13,30 +13,28 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
+class Sshkeys < BaseFascade
 
-
-class Billings < BaseFascade
-  
+  attr_reader :ssh_keys
   def initialize()
-    
+    @ssh_keys = []
   end
-  
-  def create(params) 
-    res = case 
-    when params["commit"] == "Pay with Paypal"
-      Paypal.generate_url(params)
-    when params["commit"] == "Pay with Coinkite"
-      Coinkite.generate_url(params)
-    end  
-    res
+
+  def list(api_params, &block)
+    raw = api_request(api_params, SSHKEYS, LIST)
+    @ssh_keys = filterkeys(raw[:body]) unless raw == nil
+    yield self  if block_given?
+    return self
   end
-  
-  def execute(params)
-    res = case
-    when params["PayerID"]
-      Paypal.execute(params)
+
+  private
+
+  def filterkeys(ssh_keys_collection)
+    ssh_keys = []
+    ssh_keys_collection.each do |sshkey|
+      ssh_keys << {:name => sshkey.name, :created_at => sshkey.created_at.to_time.to_formatted_s(:rfc822)}
     end
-    res
+   ssh_keys.sort_by {|vn| vn[:created_at]}
   end
-  
+
 end

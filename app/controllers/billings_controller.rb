@@ -16,46 +16,46 @@
 class BillingsController < ApplicationController
   respond_to :html, :js
 
-  before_action :stick_keys, only: [:index]
-  
+  before_action :stick_keys, only: [:index, :callback_url]
   def index
     logger.debug ">----- Billings index."
     logger.debug ">----- #{params}"
     @currencies = ["USD", "IN"]
     @bill = Balances.new.show(params)
     @bill.balance
-    
+
     @billingHistories = Billinghistories.new.list(params)
     @billingHistories.bhistories
-    
+
   end
 
   def callback_url
     bill = Billings.new
     res = bill.execute(params)
-    if res == Megam::Error
-      redirect_to main_dashboards_path, :gflash => { :warning => { :value => "PayPal transaction got error. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
-    else 
-      if bill.updatebalance(res, force_api[:email], force_api[:api_key]) == Megam::Error
-         redirect_to main_dashboards_path, :gflash => { :warning => { :value => "Balance updation got error. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
-       else 
-         redirect_to billings_path
-      end      
-    end     
+    
+    redirect_to main_dashboards_path, :gflash => { :warning => { :value => "PayPal transaction got error. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } } unless res != Megam::Error
+   
+    sbalance = Balances.new.show(params)      
+    api_params = params.merge(sbalance.balance.to_hash)
+    api_params["credit"] = sbalance.balance.credit.to_i + res.to_i
+    Balances.new.update(api_params)
+    Credithistories.new.create(api_params, res)
+    
+    redirect_to billings_path
   end
 
-  def create    
+  def create
     res = Billings.new.create(params)
     if res.class == Megam::Error
-       respond_to do |format|
-          format.html {redirect_to billings_path}
-          format.js {render :js => "window.location.href='"+billings_path+"'"}
-       end       
-    else 
-       respond_to do |format|
-          format.html {redirect_to res}
-          format.js {render :js => "window.location.href='"+res+"'"}
-       end 
+      respond_to do |format|
+        format.html {redirect_to billings_path}
+        format.js {render :js => "window.location.href='"+billings_path+"'"}
+      end
+    else
+      respond_to do |format|
+        format.html {redirect_to res}
+        format.js {render :js => "window.location.href='"+res+"'"}
+      end
     end
   end
 

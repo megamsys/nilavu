@@ -81,9 +81,8 @@ class Accounts < BaseFascade
     unless password_decrypt(password) == api_params[:password]
        raise   AuthenticationFailure, "Au oh!, The email or password you entered is incorrect."
     end
-    yield self if
-
-    self
+    yield self if block_given?
+    return self
   end
 
   #creates a new account
@@ -144,9 +143,8 @@ class Accounts < BaseFascade
   end
 
 
-  private
-
   #a private helper function that builds the hash.
+  private
   def bld_acct(api_params)
     acct_parms = {
      :id => api_params[:id],

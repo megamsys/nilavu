@@ -18,7 +18,9 @@ class BaseFascade
 
   BALANCES     = 'Balances'.freeze
   BILLINGHISTORIES = "Billinghistories".freeze
-
+  CREDITHISTORIES = "Credithistories".freeze
+  MARKETPLACES = "MarketPlace".freeze
+  SSHKEYS = "SshKey".freeze
 
   CREATE      = 'create'.freeze
   SHOW        = 'show'.freeze
@@ -26,7 +28,6 @@ class BaseFascade
   UPDATE      = 'update'.freeze
 
   def initialize
-
    @@swallow_404 = false
   end
 

@@ -27,5 +27,17 @@ class Balances < BaseFascade
     yield self  if block_given?
     return self
   end
+  
+  def update(api_params, &block)  
+    api_request(api_params, BALANCES, UPDATE)
+    yield self if block_given?
+    return self
+  end
+  
+  def validate(credit)
+    tmp = false
+    tmp = true unless credit <= 0
+    tmp
+  end
 
 end

@@ -23,7 +23,7 @@ module MarketplaceHelper
 
   def get_type(name)
    @type = ""
-   YUMMY_MARKET.each do |mkp, addon|
+   Rails.configuration.YUMMY_MARKET.each do |mkp, addon|
       if mkp == name
         @type = addon[TYPE]
       end
@@ -33,7 +33,7 @@ module MarketplaceHelper
 
   def get_predef_name(name)
     @p_name = ""
-    YUMMY_MARKET.each do |mkp, addon|
+    Rails.configuration.YUMMY_MARKET.each do |mkp, addon|
       if mkp == name
         @p_name = addon[PREDEF_NAME]
       end
@@ -43,7 +43,7 @@ module MarketplaceHelper
 
   def get_deps_scm(name)
     @scm = ""
-    YUMMY_MARKET.each do |mkp, addon|
+    Rails.configuration.YUMMY_MARKET.each do |mkp, addon|
       if addon["name"] == name
         @scm = addon[DEPS_SCM]
       end
@@ -68,9 +68,9 @@ module MarketplaceHelper
 
  def get_doc_link(name)
    @link = ""
-   YUMMY_MARKET.each do |mkp, addon|
+   Rails.configuration.YUMMY_MARKET.each do |mkp, addon|
       if mkp == name
-        @link = addon[LINK]
+        @link = addon[LINKS]
       end
     end
     @link
@@ -78,7 +78,7 @@ module MarketplaceHelper
 
  def get_combos(name)
    @combo = ""
-   YUMMY_MARKET.each do |mkp, addon|
+   Rails.configuration.YUMMY_MARKET.each do |mkp, addon|
       if mkp == name
         @combo = addon[BASIC_COMBOS]
       end

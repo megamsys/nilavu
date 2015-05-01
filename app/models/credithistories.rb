@@ -13,30 +13,27 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
+class Credithistories < BaseFascade
 
-
-class Billings < BaseFascade
-  
+  attr_reader :bill_type
+  attr_reader :credit_amount
+  attr_reader :currency_type
   def initialize()
-    
+    @balance = {}
   end
-  
-  def create(params) 
-    res = case 
-    when params["commit"] == "Pay with Paypal"
-      Paypal.generate_url(params)
-    when params["commit"] == "Pay with Coinkite"
-      Coinkite.generate_url(params)
-    end  
-    res
+
+  def create(params, amount, &block)
+    api_request(params.merge(bld_chistories(amount)), CREDITHISTORIES, CREATE)
+    yield self if block_given?
+    return self
   end
-  
-  def execute(params)
-    res = case
-    when params["PayerID"]
-      Paypal.execute(params)
-    end
-    res
+
+  def bld_chistories(amount)
+    {
+      :bill_type => "paypal",
+      :credit_amount =>  amount,
+      :currency_type => "USD"
+    }
   end
-  
+
 end
