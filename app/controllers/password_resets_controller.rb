@@ -14,7 +14,9 @@
 ## limitations under the License.
 ##
 class PasswordResetsController < ApplicationController
+
   skip_before_action :require_signin, only: [:edit, :create, :update]
+
   def create
     @user = User.new
     user = @user.find_by_email(params[:email])

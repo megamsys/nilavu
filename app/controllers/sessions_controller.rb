@@ -24,7 +24,6 @@ class SessionsController < ApplicationController
 
   #this is a tour user who can only touch some stuff.
   def tour
-     logger.debug "--> Sessions.tour"
       params[:email] =  Accounts::MEGAM_TOUR_EMAIL
       params[:password] =  Accounts::MEGAM_TOUR_PASSWORD
       create_with_megam(params)
@@ -32,7 +31,6 @@ class SessionsController < ApplicationController
 
   #a regular user signin.
   def create
-    logger.debug "--> Sessions.create"
     auth = social_identity
     if social_identity.nil?
        create_with_megam(params)

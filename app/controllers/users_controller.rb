@@ -31,27 +31,13 @@ class UsersController < ApplicationController
   def show
   end
 
-=begin
-  def new
-    logger.debug "--> Users:new, creating new user with social identity."
-    if session[:auth]
-      @user = User.new
-      @social_uid = session[:auth][:uid]
-      @email = session[:auth][:email]
-      @firstname = session[:auth][:first_name]
-      @lastname = session[:auth][:last_name]
-      @phone = session[:auth][:phone]
-    end
-  end
-=end
 
   #This method is used to create a new user.
   #We create a Account for the user using /account call. A verification is done to check if the user is a dup.
   #Upon creating a new account, a session is created for the user and redirect to dash.
   def create
-    logger.debug "--> Users:create."
+    logger.debug "--> users:create."
     all_params = params.merge(new_session)
-    logger.debug "-->  allparams \n #{all_params}"
 
     my_account = Accounts.new
     redirect_to signin_path, :flash => { :error => "Hey you!, I know you already."} and return if my_account.dup?(all_params[:email])
@@ -68,35 +54,36 @@ class UsersController < ApplicationController
   def edit
     logger.debug "--> Users:edit."
     @account = current_user
-    @orgs = Organizations.new.list(@account).orgs 
-      
-   
+    @orgs = Organizations.new.list(@account).orgs
   end
 
   #update any profile information. Interms of passwor we verify if the current password matches with ours.
   def update
-    logger.debug "--> Users:update."
-    
-    my_account = Accounts.new
-    case params[:myprofile_type].to_i
-    when Accounts::UPD_PASSWORD
-        begin
-          my_account.signin(params) do
-          end
-        rescue Accounts::AuthenticationFailure => ae
-            @error   = ae.message
-        end
-    end
     (Accounts.new.update(params.merge(new_session)) do  |tmp_account|
         sign_in tmp_account
-        @success = "#{params[:user_fields_form_type]} updated successfully."
-
+        @success = "#{Accounts.typenum_to_s(params[:myprofile_type])} updated successfully."
         @error = nil
-    end)   if @error.nil?
+    end)   if current_password_ok?
    respond_to do |format|
      format.js {
        respond_with(@success, @errror, :account => current_user, :api_key => current_user.api_key, :myprofile_type => params[:myprofile_type], :layout => !request.xhr? )
      }
    end
   end
+
+  private
+
+  #this verifies if the current password matches with the one typed during update.
+  def current_password_ok?
+    @error = nil
+    case params[:myprofile_type].to_i
+    when Accounts::UPD_PASSWORD
+        begin
+          Accounts.new.signin(params)
+        rescue Accounts::AuthenticationFailure => ae
+            @error   = ae.message
+        end
+    end
+  end
+
 end

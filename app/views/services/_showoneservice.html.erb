@@ -26,7 +26,6 @@
 		<%= link_to "Restart", get_request_path(:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.boltdefnsid, :req_type => "restart"), :class => "btn btn-link", :remote => true, data: { spinner: '#lcrequest'} %>
 		<br/>
 	</div>
-	<%= spinner_tag 'lcrequest' %>
 	<div class="col-md-6" id="lc_form">
 								<div class="panel panel-primary">
 									<div class="panel-heading">
@@ -39,4 +38,3 @@
 	</div>
 
 </div>
-
