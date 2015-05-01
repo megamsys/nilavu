@@ -35,6 +35,7 @@ class Accounts < BaseFascade
   UPD_PASSWORD        = 2.freeze
   UPD_API_KEY         = 3.freeze
 
+
   def initialize(account_parms={})
     @first_name            = account_parms[:first_name] || nil
     @last_name             = account_parms[:secon_name] || nil
@@ -50,7 +51,8 @@ class Accounts < BaseFascade
     @password_reset_token  = nil
     @created_at            = nil
   end
-
+  
+  
   #verifies if the email is a duplicate.
   def dup?(email)
    !find_by_email(email).email.nil?
@@ -79,7 +81,8 @@ class Accounts < BaseFascade
     unless password_decrypt(password) == api_params[:password]
        raise   AuthenticationFailure, "Au oh!, The email or password you entered is incorrect."
     end
-    yield self if block_given?
+    yield self if 
+ 
     self
   end
 
@@ -91,6 +94,8 @@ class Accounts < BaseFascade
     @email = api_params[:email]
     @first_name = api_params[:first_name]
     @phone = api_params[:phone]
+    @api_key = api_params[:api_key]
+    
     yield self if block_given?
     return self
   end
@@ -115,6 +120,10 @@ class Accounts < BaseFascade
     return @res.data[:body]
   end
 
+
+
+
+
   def find_by_password_reset_token(password_reset_token, email)
     result = nil
     res = MegamRiak.fetch("accounts", email)
@@ -138,17 +147,23 @@ class Accounts < BaseFascade
 
   private
 
-  def bld_acct(api_params)
+  
+
+def bld_acct(api_params)
     acct_parms = {
+     :id => api_params[:id],
      :first_name => api_params[:first_name],
      :last_name => api_params[:last_name],
      :phone => api_params[:phone],
-     :email => api_params[:email],
-     :api_key => api_params[:api_key],
+     :email => "fe@we.com",
+     :api_key => "QzQ6PfREIpNhcn3-7qc1Rw==",
      :password => password_encrypt(api_params[:password]),
      :authority => ADMIN,
-     :password_reset_token => api_params[:password_reset_token]}
+     :password_reset_token => api_params[:password_reset_token],
+     :created_at => api_params[:created_at]}
   end
+
+
 
   def password_encrypt(password)
     Password.create(password)

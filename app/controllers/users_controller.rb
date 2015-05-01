@@ -27,6 +27,7 @@ class UsersController < ApplicationController
   #stick the api_keys before edit and update action
   before_action :stick_keys, only: [:edit, :update]
 
+
   def show
   end
 
@@ -57,7 +58,7 @@ class UsersController < ApplicationController
 
     my_account.create(all_params) do
       sign_in my_account
-      UserMailer.welcome(my_account).deliver_now
+      #UserMailer.welcome(my_account).deliver_now
       redirect_to main_dashboards_path, :format => 'html', :flash => { :alert => "Welcome #{my_account.first_name}."}
      end
   end
@@ -67,14 +68,15 @@ class UsersController < ApplicationController
   def edit
     logger.debug "--> Users:edit."
     @account = current_user
-    Organizations.new.list(@account) do |my_org|
-      @orgs = my_org
-    end
+    @orgs = Organizations.new.list(@account).orgs 
+      
+   
   end
 
   #update any profile information. Interms of passwor we verify if the current password matches with ours.
   def update
     logger.debug "--> Users:update."
+    
     my_account = Accounts.new
     case params[:myprofile_type].to_i
     when Accounts::UPD_PASSWORD
@@ -87,7 +89,8 @@ class UsersController < ApplicationController
     end
     (Accounts.new.update(params.merge(new_session)) do  |tmp_account|
         sign_in tmp_account
-        @success = "#{params[:myprofile_type]} updated successfully."
+        @success = "#{params[:user_fields_form_type]} updated successfully."
+
         @error = nil
     end)   if @error.nil?
    respond_to do |format|
