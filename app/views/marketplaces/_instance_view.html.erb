@@ -65,7 +65,7 @@
 					</div>
 				</div>
 				<div class="row"  style="display:none;" id="sshkey_exist">
-					<% if @ssh_keys != nil %>
+					<% if @ssh_keys != nil && @ssh_keys.length > 0 %>
 					<div class="col-sm-3 app_left_name">
 						<span>Pick a sshkey</span>
 					</div>
@@ -149,27 +149,27 @@
 <script type="text/javascript">
 	// Script to show the ssh keys options
 	$(document).ready(function() {
-		$('#sshkeyoption').on('change', function() {
-			if (this.value == "CREATE") {
-				$("#sshkey_create").show();
-				$("#sshkey_exist").hide();
-				$("#sshkey_upload").hide();
-				$(".sshoption").val("CREATE");
-			}
-			if (this.value == "EXIST") {
-				$("#sshkey_create").hide();
-				$("#sshkey_exist").show();
-				$("#sshkey_upload").hide();
-				$(".sshoption").val("EXIST");
-			}
-			if (this.value == "UPLOAD") {
-				$("#sshkey_create").hide();
-				$("#sshkey_exist").hide();
-				$("#sshkey_upload").show();
-				$(".sshoption").val("UPLOAD");
-			}
-		});
-	}); 
+	$('#sshkeyoption').on('change', function() {
+	if(this.value=="CREATE") {
+	$("#sshkey_create").show();
+	$("#sshkey_exist").hide();
+	$("#sshkey_upload").hide();
+	$(".sshoption").val("CREATE");
+	}
+	if(this.value=="EXIST") {
+	$("#sshkey_create").hide();
+	$("#sshkey_exist").show();
+	$("#sshkey_upload").hide();
+	$(".sshoption").val("EXIST");
+	}
+	if(this.value=="UPLOAD") {
+	$("#sshkey_create").hide();
+	$("#sshkey_exist").hide();
+	$("#sshkey_upload").show();
+	$(".sshoption").val("UPLOAD");
+	}
+	});
+	});
 </script>
 
 <% end %>

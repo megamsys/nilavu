@@ -1819,15 +1819,5 @@ input[type="radio"]:checked + label span.radioButtonGraph {
   background-position: 0 0;
 }
 
-input[type="submit"] {
-  border:none;
-  background:#6fde86;
-  color:#fff;
-  font-size:20px;
-  padding:10px 0;
-  border-radius:3px;
-  cursor:pointer;
-  width:100%;
-}
 input[type="submit"]:hover {opacity:.8;}
 input[type="submit"]:active {opacity:1;}

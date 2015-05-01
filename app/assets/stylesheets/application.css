@@ -10,12 +10,16 @@
  *
  *= require_self
  *= require bootstrap
- *= require uniform.default
+ *= require bootstrap-tour
+ *= require uniform.default.min
  *= require custom
  *= require style
  *= require style-elegant
- *= require font-awesome 
+ *= require style-non-responsive
+ *= require font-awesome.min 
  *= require megam
+ *= require faq_reset
+ *= require faq_style
  *= require_tree .
  */
 
