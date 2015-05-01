@@ -78,7 +78,7 @@ class ApplicationController < ActionController::Base
   end
 
   def catch_exceptions
-    yield
+    yield 
   rescue Accounts::MegamAPIError  => mai
     logger.debug "*-----------------------*"
     logger.debug "|    (˘_˘) exception    :"

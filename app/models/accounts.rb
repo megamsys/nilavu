@@ -146,10 +146,7 @@ class Accounts < BaseFascade
   end
 
   private
-
-  
-
-def bld_acct(api_params)
+  def bld_acct(api_params)
     acct_parms = {
      :id => api_params[:id],
      :first_name => api_params[:first_name],

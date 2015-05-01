@@ -637,7 +637,7 @@ hr {
     padding: 20px;
 }
 .ie8 .page-sidebar-fixed .page-content {
-    min-height: 00px;
+    min-height: 600px;
 }
 .ie8 .page-content.no-min-height {
 }

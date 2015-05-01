@@ -75,8 +75,9 @@ module Cloudauth
       app.routes.append{ match '*a', :to => 'application#render_404', via: [:get] } unless config.consider_all_requests_local
     end
 
+    config.YUMMY_MARKET = []
     if File.exist?("#{Rails.root}/config/yummy.yml")
-      YUMMY_MARKET = YAML.load_file("#{Rails.root}/config/yummy.yml")
+      config.YUMMY_MARKET = YAML.load_file("#{Rails.root}/config/yummy.yml")
     else
       puts "=> Warning ! marketplace_addons not loaded."
     end
