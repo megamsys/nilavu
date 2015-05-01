@@ -18,7 +18,10 @@ class AddonsController < ApplicationController
 
  def index
    assem = Assemblies.new.list(params)
-   assem.assemblies, assem.apps_spun, assem_vms_spun, assem_services_spun
+   assem.assemblies
+   assem.apps_spun
+   assem_vms_spun
+   assem_services_spun
   end
 
 

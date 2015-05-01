@@ -170,13 +170,17 @@ module Cloudauth
   config.google_token_credential_uri = 'https://accounts.google.com/o/oauth2/token'
   config.google_scope = 'https://www.googleapis.com/auth/userinfo.email'
   config.google_redirect_uri = 'https://www.megam.co/auth/google_oauth2/callback'
+  
+ #website link for banner text - http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Nilavu 
     puts """
-                  _..._
-                .::'   `.
-               :::       :    Nilavu
-               :::       :
-               `::.     .'
-                 `':..-'    
+                  _..._       ███╗   ██╗██╗██╗      █████╗ ██╗   ██╗██╗   ██╗   
+                .::'   `.     ████╗  ██║██║██║     ██╔══██╗██║   ██║██║   ██║
+               :::       :    ██╔██╗ ██║██║██║     ███████║██║   ██║██║   ██║
+               :::       :    ██║╚██╗██║██║██║     ██╔══██║╚██╗ ██╔╝██║   ██║
+               `::.     .'    ██║ ╚████║██║███████╗██║  ██║ ╚████╔╝ ╚██████╔╝ 
+                 `':..-'      ╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝  ╚═══╝   ╚═════╝    
+                                   
+ 
   """
 
 
