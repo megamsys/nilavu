@@ -16,6 +16,7 @@
 class Sshkeys < BaseFascade
 
   attr_reader :ssh_keys
+  
   def initialize()
     @ssh_keys = []
   end

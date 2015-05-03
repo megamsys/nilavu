@@ -55,11 +55,11 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 	</div>
 	<div class="margin_30 pad_t25">
 
-		<%= render :partial => "main_dashboards/vms", :locals => {:user => current_user, :assemblies => @assemblies} %>
+		<%= render :partial => "cockpits/dews", :locals => {:user => current_user, :assemblies => @assemblies} %>
 
-		<%= render :partial => "main_dashboards/apps", :locals => {:user => current_user, :assemblies => @assemblies} %>
+		<%= render :partial => "cockpits/apps", :locals => {:user => current_user, :assemblies => @assemblies} %>
 
-		<%= render :partial => "main_dashboards/services", :locals => {:user => current_user, :assemblies => @assemblies} %>
+		<%= render :partial => "cockpits/services", :locals => {:user => current_user, :assemblies => @assemblies} %>
 
 	</div>
 </div>
@@ -67,7 +67,7 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 <!-- APP START MODAL -->
 <div class="modal fade app_exist" id="app_start" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-		<%= form_tag app_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag controls_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -96,7 +96,7 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 <!-- APP STOP MODAL -->
 <div class="modal fade app_exist" id="app_stop" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-		<%= form_tag app_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag controls_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -125,7 +125,7 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 <!-- APP RESTART MODAL -->
 <div class="modal fade app_exist" id="app_restart" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-		<%= form_tag app_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag controls_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -153,7 +153,7 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 <!-- APP DELETE MODAL -->
 <div class="modal fade app_exist" id="app_delete" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-		<%= form_tag delete_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag controls_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -193,7 +193,7 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 				<div id="app_res_msg"></div>
 			</div>
 			<div class="modal-footer c_modal-footer">
-				<%= link_to  "Ok", main_dashboards_path, :class => "btn btn-success", :target => "_self" %>
+				<%= link_to  "Ok", cockpits_path, :class => "btn btn-success", :target => "_self" %>
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -214,7 +214,7 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 				<div id="app_err_msg"></div>
 			</div>
 			<div class="modal-footer c_modal-footer">
-				<%= link_to  "Ok", main_dashboards_path, :class => "btn btn-success", :target => "_self" %>
+				<%= link_to  "Ok", cockpits_path, :class => "btn btn-success", :target => "_self" %>
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -225,7 +225,7 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 <!-- SERVICE START MODAL -->
 <div class="modal fade app_exist" id="service_start" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-		<%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag controls_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -253,7 +253,7 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 <!-- SERVICE STOP MODAL -->
 <div class="modal fade app_exist" id="service_stop" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-		<%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag controls_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -281,7 +281,7 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 <!-- SERVICE RESTART MODAL -->
 <div class="modal fade app_exist" id="service_restart" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-		<%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag controls_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -335,7 +335,7 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 <!-- ADDON START MODAL -->
 <div class="modal fade app_exist" id="addon_start" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-		<%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag controls_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -364,7 +364,7 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 <!-- ADDON STOP MODAL -->
 <div class="modal fade app_exist" id="service_stop" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-		<%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag controls_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -392,7 +392,7 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 <!-- ADDON RESTART MODAL -->
 <div class="modal fade app_exist" id="service_restart" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
-		<%= form_tag service_request_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+		<%= form_tag controls_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -412,31 +412,6 @@ $("#events").prepend('<li><a href=""><span class="label label-sm label-icon labe
 			</div>
 		</div>
 		<% end %>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-<!--ADDON DELETE MODAL -->
-<div class="modal fade" id="service_delete" tabindex="-1" role="basic" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content c_modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">Delete Service</h4>
-			</div>
-			<div class="modal-body text-center">
-				Are you sure you want to delete the service ?
-			</div>
-			<div class="modal-footer c_modal-footer">
-				<button type="button" class="btn default" data-dismiss="modal">
-					Cancel
-				</button>
-				<button type="button" class="btn btn-danger">
-					Confirm
-				</button>
-			</div>
-		</div>
 		<!-- /.modal-content -->
 	</div>
 	<!-- /.modal-dialog -->

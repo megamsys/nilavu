@@ -23,7 +23,7 @@ module SessionsHelper
     session_params = {}
     session_params[:remember_token] = rem_tokgen
     session_params[:api_key] = api_keygen
-    logger.debug "----> 1.newsession #{session_params}"
+    logger.debug "> newsession #{session_params}"
     session_params
   end
 
@@ -32,12 +32,12 @@ module SessionsHelper
   def sign_in(account)
     cookies.permanent[:email] = account.email
     cookies.permanent[:remember_token] = account.remember_token || rem_tokgen
-    logger.debug "----> 2.signin session email #{session[:email]}"
-    logger.debug "----> 3.signin session api   #{session[:api_key]}"
+    logger.debug "> signin session email #{session[:email]}"
+    logger.debug "> signin session api   #{session[:api_key]}"
     session[:email] = account.email
     session[:api_key] = account.api_key
-    logger.debug "----> 4.signin session email #{session[:email]}"
-    logger.debug "----> 5.signin session api   #{session[:api_key]}"
+    logger.debug "> signin psession email #{session[:email]}"
+    logger.debug "> signin psession api   #{session[:api_key]}"
     self.current_user = account
   end
 
@@ -50,7 +50,7 @@ module SessionsHelper
  #return an account object from session which has the email and api key.
  def current_user
   unless signed_in?
-    logger.debug "--> Hmm. session Nada! I loaded current_user."
+    logger.debug "> Hmm. session Nada! I loaded current_user."
     res = Accounts.new.find_by_email(cookies[:email])  if  cookies[:remember_token] && cookies[:email]
   else
     Accounts.new(session)

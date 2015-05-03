@@ -16,7 +16,7 @@
 <div class="row c_pading-b15">
 	<div class="portlet-body-head">
 		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-			<i class="c_icon-grid"></i>Your Instances <span><%= @vm_spun %> Instances running</span>
+			<i class="c_icon-grid"></i>Your Dews <span><%= @dew_spun %> Dews running</span>
 		</div>
 	</div>
 </div>
@@ -32,7 +32,7 @@
 				<div class="app_new">
 					<span class="glyphicon glyphicon-plus"></span>
 					<p>
-						Create Instance
+						Create Dew
 					</p>
 				</div>
 			</div>
@@ -58,22 +58,22 @@
 							<ul>
 								<li>
 									<%= link_to lifecycle_path(:id => assembly[0].id, :name => assembly[0].name, :command => "start", :type => "vm"), :remote => true, :class => "link_img" do %>
-									<i class="glyphicon glyphicon-play-circle"></i>Start Instance
+									<i class="glyphicon glyphicon-play-circle"></i>Start Dew
 									<% end %>
 								</li>
 								<li>
 									<%= link_to lifecycle_path(:id => assembly[0].id, :name => assembly[0].name, :command => "stop", :type => "vm"), :remote => true, :class => "link_img" do %>
-									<i class="glyphicon glyphicon-record"></i>Stop Instance
+									<i class="glyphicon glyphicon-record"></i>Stop Dew
 									<% end %>
 								</li>
 								<li>
 									<%= link_to lifecycle_path(:id => assembly[0].id, :name => assembly[0].name, :command => "restart", :type => "vm"), :remote => true, :class => "link_img" do %>
-									<i class="glyphicon glyphicon-refresh"></i>Restart Instance
+									<i class="glyphicon glyphicon-refresh"></i>Restart Dew
 									<% end %>
 								</li>
 								<li>
 									<%= link_to deleteapp_path(:id => assembly[0].id, :name => assembly[0].name, :command => "delete", :type => "vm"), :remote => true, :class => "link_img" do %>
-									<i class="glyphicon glyphicon-trash"></i>Delete Instance
+									<i class="glyphicon glyphicon-trash"></i>Delete Dew
 									<% end %>
 								</li>
 							</ul>
@@ -113,16 +113,16 @@
 						<div class="config_menu config_menu_<%= assembly[0].name %>_app">
 							<ul>
 								<li>
-									<i class="glyphicon glyphicon-play-circle"></i>Start Instance
+									<i class="glyphicon glyphicon-play-circle"></i>Start Dew
 								</li>
 								<li>
-									<i class="glyphicon glyphicon-record"></i>Stop Instance
+									<i class="glyphicon glyphicon-record"></i>Stop Dew
 								</li>
 								<li>
-									<i class="glyphicon glyphicon-refresh"></i>Restart Instance
+									<i class="glyphicon glyphicon-refresh"></i>Restart Dew
 								</li>
 								<li>
-									<i class="glyphicon glyphicon-trash"></i>Delete Instance
+									<i class="glyphicon glyphicon-trash"></i>Delete Dew
 								</li>
 							</ul>
 						</div>

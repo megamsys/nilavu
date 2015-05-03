@@ -65,8 +65,9 @@ class ApplicationController < ActionController::Base
   end
 
   private
-  #if we come from the root (console.megam.io) then no message is shown
-  #if we come from a non root url like users/1/edit, then we show  message.
+
+  #if the request is from the root url (eg: console.megam.io) then no message is shown
+  #if the request is form a non root url like users/1/edit, then we show  message.
   def require_signin
     unless signed_in?
       if (request.fullpath.to_s == '/' || request.original_url.to_s == '/')
@@ -78,15 +79,15 @@ class ApplicationController < ActionController::Base
   end
 
   def stick_keys(tmp={}, permitted_tmp={})
-    puts params.inspect
-    logger.debug "-----> sticking key for #{params}"
+    logger.debug "> STICK #{params}"
     params[:email] = session[:email]
     params[:api_key] = session[:api_key]
+    logger.debug "> STICKD #{params}"
     params
   end
 
   def catch_exceptions
-    yield 
+    yield
   rescue Accounts::MegamAPIError  => mai
     logger.debug "*-----------------------*"
     logger.debug "|    (˘_˘) exception    :"

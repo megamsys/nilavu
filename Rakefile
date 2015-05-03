@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-Cloudauth::Application.load_tasks
+Nilavu::Application.load_tasks

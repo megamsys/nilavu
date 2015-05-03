@@ -27,14 +27,10 @@ class Organizations < BaseFascade
   def list(account, &block)
     api_params = {:email => account.email, :api_key => account.api_key}
     res = api_request(api_params, ORGANIZATION, LIST)
-    puts "printing res-----------"
-    puts res.inspect
-    puts "authogn????"
     res[:body].each do |one_org|
         @orgs << {:name => one_org.name, :created_at => one_org.created_at.to_time.to_formatted_s(:rfc822)}
     end
     @orgs = @orgs.sort_by {|vn| vn[:created_at]}
-    Rails.logger.debug "--> Organizations.list, sent "
     yield self if block_given?
     return self
   end

@@ -18,7 +18,7 @@ Bundler.require(*Rails.groups(:assets => %w(development test)))
 # Bundler.require(:default, :assets, Rails.env)
 end
 
-module Cloudauth
+module Nilavu
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -75,12 +75,6 @@ module Cloudauth
       app.routes.append{ match '*a', :to => 'application#render_404', via: [:get] } unless config.consider_all_requests_local
     end
 
-    config.YUMMY_MARKET = []
-    if File.exist?("#{Rails.root}/config/yummy.yml")
-      config.YUMMY_MARKET = YAML.load_file("#{Rails.root}/config/yummy.yml")
-    else
-      puts "=> Warning ! marketplace_addons not loaded."
-    end
 
     if File.exist?("#{ENV['MEGAM_HOME']}/nilavu.yml")
       common = YAML.load_file("#{ENV['MEGAM_HOME']}/nilavu.yml")                  #COMMON YML
@@ -88,7 +82,6 @@ module Cloudauth
       puts "=> Warning ! MEGAM_HOME environment variable not set."
       common={"api" => {}, "storage" => {}, "varai" => {}, "auth" => {}, "monitor" => {}}
     end
-
 
 
     config.megam_logo_url   = "https://s3-ap-southeast-1.amazonaws.com/megampub/images/logo-megam160x43w.png"
@@ -171,17 +164,17 @@ module Cloudauth
   config.google_token_credential_uri = 'https://accounts.google.com/o/oauth2/token'
   config.google_scope = 'https://www.googleapis.com/auth/userinfo.email'
   config.google_redirect_uri = 'https://www.megam.co/auth/google_oauth2/callback'
-  
- #website link for banner text - http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Nilavu 
+
+ #website link for banner text - http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Nilavu
     puts """
-                  _..._       ███╗   ██╗██╗██╗      █████╗ ██╗   ██╗██╗   ██╗   
+                  _..._       ███╗   ██╗██╗██╗      █████╗ ██╗   ██╗██╗   ██╗
                 .::'   `.     ████╗  ██║██║██║     ██╔══██╗██║   ██║██║   ██║
                :::       :    ██╔██╗ ██║██║██║     ███████║██║   ██║██║   ██║
                :::       :    ██║╚██╗██║██║██║     ██╔══██║╚██╗ ██╔╝██║   ██║
-               `::.     .'    ██║ ╚████║██║███████╗██║  ██║ ╚████╔╝ ╚██████╔╝ 
-                 `':..-'      ╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝  ╚═══╝   ╚═════╝    
-                                   
- 
+               `::.     .'    ██║ ╚████║██║███████╗██║  ██║ ╚████╔╝ ╚██████╔╝
+                 `':..-'      ╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝  ╚═══╝   ╚═════╝
+
+
   """
 
 

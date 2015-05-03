@@ -17,14 +17,13 @@ class PasswordResetsController < ApplicationController
 
   skip_before_action :require_signin, only: [:edit, :create, :update]
 
+  ##if the email doesn't exist in our system we ask to signup.
+  ##if not, we pull the info of the user and do an account update.
   def create
-    @user = User.new
-    user = @user.find_by_email(params[:email])
-    if user
-      @user.send_password_reset(params[:email])
-    else
-      logger.debug "Email doesn't match with megam account"
-      @error = "not_match"
+    my_account = Accounts.new
+    redirect_to signup_path, :flash => { :error => "Your email has gone fishing! Please sign up."} and return if !my_account.dup?(all_params[:email])
+   
+    myaccount.update do
     end
   end
 

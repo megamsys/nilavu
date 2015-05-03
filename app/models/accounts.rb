@@ -87,6 +87,7 @@ class Accounts < BaseFascade
 
   #creates a new account
   def create(api_params,&block)
+    Rails.logger.debug "> Accounts: create"
     api_request(bld_acct(api_params), ACCOUNT, CREATE)
     @remember_token = api_params[:remember_token]
     @api_key = api_params[:api_key]
@@ -94,7 +95,6 @@ class Accounts < BaseFascade
     @first_name = api_params[:first_name]
     @phone = api_params[:phone]
     @api_key = api_params[:api_key]
-
     yield self if block_given?
     return self
   end
@@ -168,7 +168,7 @@ class Accounts < BaseFascade
     begin
       Password.new(pass)
     rescue BCrypt::Errors::InvalidHash
-      Rails.logger.debug "--> Couldn't decrpt your password. Its possible that the saved account password in gateway was just text."
+      Rails.logger.debug "> Couldn't decrpt password. Its possible that the password in gateway was just text."
       raise   AuthenticationFailure, "Au oh!, The password you entered is incorrect."
     end
   end

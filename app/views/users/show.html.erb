@@ -26,15 +26,15 @@
 
 						<li></li>
 						<li class= "start active">
-							<%= link_to main_dashboards_path, :target => "_self" do %>
+							<%= link_to cockpits_path, :target => "_self" do %>
 							<i class="icon-dashboard pull-left"></i>
 							<span class="title pull-left">Dashboard</span>
-							<span class="hidden-xs <%= "selected" if controller_name == 'main_dashboards'%>"></span>
+							<span class="hidden-xs <%= "selected" if controller_name == 'cockpits'%>"></span>
 							<% end %>
 						</li>
 
 						<li class= "start active">
-							<%= link_to vms_path, :target => "_self" do %>
+							<%= link_to dews_path, :target => "_self" do %>
 							<i class="icon-bar-chart pull-left"></i>
 							<span class="title pull-left">Instances</span>
 							<span class="hidden-xs <%= "selected" if controller_name == "vms"%>"></span>

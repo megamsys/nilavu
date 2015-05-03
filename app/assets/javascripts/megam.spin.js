@@ -45,7 +45,7 @@ jQuery(document).ready(function() {
 			if (inProgress)
 				return false;
 
-			alert("Keep it on for testing.");
+			alert("keep it on for testing.");
 
 			inProgress = true;
 			NProgress.start();

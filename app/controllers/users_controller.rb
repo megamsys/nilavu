@@ -36,7 +36,7 @@ class UsersController < ApplicationController
   #We create a Account for the user using /account call. A verification is done to check if the user is a dup.
   #Upon creating a new account, a session is created for the user and redirect to dash.
   def create
-    logger.debug "--> users:create."
+    logger.debug "> Users: create."
     all_params = params.merge(new_session)
 
     my_account = Accounts.new
@@ -45,21 +45,23 @@ class UsersController < ApplicationController
     my_account.create(all_params) do
       sign_in my_account
       #UserMailer.welcome(my_account).deliver_now
-      redirect_to main_dashboards_path, :format => 'html', :flash => { :alert => "Welcome #{my_account.first_name}."}
+      redirect_to cockpits_path, :format => 'html', :flash => { :alert => "Welcome #{my_account.first_name}."}
      end
   end
 
   #load the current user detail
   #load the current org details and send it the edit.html.erb.
   def edit
-    logger.debug "--> Users:edit."
+    logger.debug "> Users: edit."
     @account = current_user
     @orgs = Organizations.new.list(@account).orgs
   end
 
-  #update any profile information. Interms of passwor we verify if the current password matches with ours.
+  #update any profile information. For we verify if the current password matches with ours.
+  #I don't know why we are creating a new_session here. This is a BUG.
   def update
-        logger.debug "--- updating #{Accounts.typenum_to_s(params[:myprofile_type])}"
+    logger.debug "> Users: update"
+    logger.debug "> TYPENUM #{Accounts.typenum_to_s(params[:myprofile_type])}"
     (Accounts.new.update(params.merge(new_session)) do  |tmp_account|
         sign_in tmp_account
         @success = "#{Accounts.typenum_to_s(params[:myprofile_type])} updated successfully."
