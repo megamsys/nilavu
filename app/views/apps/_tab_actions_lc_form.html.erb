@@ -27,7 +27,7 @@
 		<div class="input-group">
 			<input type="text" name="lc_apply" value="<%= @lc_apply %>" class="form-control">
 			<span class="input-group-addon"><%= link_to "#" do %> <i class="fa fa-question-circle"></i> <% end %></span>
-		</div>		
+		</div>
 		<div class="input-group">
 			<input type="text" name="lc_additional" value="<%= @lc_additional %>" class="form-control">
 			<span class="input-group-addon"><%= link_to "#" do %> <i class="fa fa-question-circle"></i> <% end %></span>
@@ -35,12 +35,11 @@
 		<div class="input-group">
 			<%= text_field_tag 'lc_when', nil, :id => "lc_when", :class=> 'form-control required', placeholder: 'Enter preconditions if any' %>
 			<span class="input-group-addon"><%= link_to "#" do %> <i class="fa fa-question-circle"></i> <% end %></span>
-		</div>			
+		</div>
 		<%= submit_tag @req_type.capitalize, :class => "btn btn-lg btn-success btn-block", :remote => true, data: { spinner: '#send_request_spinner'} %>
 	</div>
 	<div class="panel-footer">
-		<span class="label label-warning">Warning:</span>&nbsp; This is an advanced option.  
+		<span class="label label-warning">Warning:</span>&nbsp; This is an advanced option.
 	</div>
 </div>
 <% end %>
-<%= spinner_tag 'send_request_spinner' %>

@@ -16,34 +16,42 @@
 class Marketplaces < BaseFascade
   include MarketplaceHelper
 
-  attr_reader :order
-  attr_reader :categories
+  attr_reader :mkp_grouped
   attr_reader :mkp_collection
   attr_reader :mkp
-  
+
   def initialize()
-     @order = []
-     @categories = []
      @mkp_collection = []
+     @@mkp_grouped = {}
      @mkp = {}
   end
 
+  #Marketplace has a boquet of items.
+  # each item has a catalog with catalog type and lots of plans
+  #  -- :name         => 1-Ubuntu
+  #     :cattype      => defines the logical types of category shortly named as cattype.
+  #                      APP (an application)
+  #                      SERVICE (a service like db, queue, analytics)
+  #                      DEW (a plain vm)
+  #     :predef       => java, rails, play, nodejs, ubuntu, centos, coreos, debian
+  #     :catalog      => defines a logical grouping of the cattypes.
+  #                      :category => Dew
+  #                                   Starter Packs
+  #                                   App Boilers
+  #                                   Platform
+  #                                   Analytics
   def list(api_params, &block)
     raw = api_request(api_params, MARKETPLACES, LIST)
     @mkp_collection =  raw[:body] unless raw == nil
-    @order = raw[:body].map {|c|
-      c.name
-    } unless raw == nil
-     @order = @order.sort_by {|elt| ary = elt.split("-").map(&:to_i); ary[0] + ary[1]} unless raw == nil
-     @categories = raw[:body].map {|c| c.appdetails[:category]} unless raw == nil
-     @categories = @categories.uniq unless raw == nil
-    yield self  if block_given? 
+    @@mkp_grouped  = @mkp_collection.group_by  { |tmp| tmp.catalog.category }
+    yield self  if block_given?
     return self
   end
-  
+
+  # This shows a single marketplace item. eg: 1-Ubuntu (Refer Marketplaces::list for more info)
   def show(api_params, &block)
-     raw = api_request(api_params, MARKETPLACES, SHOW)  
-     @mkp = raw[:body].lookup(api_params["id"])  
+     raw = api_request(api_params, MARKETPLACES, SHOW)
+     @mkp = raw[:body].lookup(api_params["id"])
      yield self  if block_given?
      return self
   end

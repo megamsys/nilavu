@@ -13,21 +13,29 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-module Packable
-  extend ActiveSupport::Concern
+class Marketplaces < BaseFascade
+  include MarketplaceHelper
 
-  included do
-    attr_writer :packed, :packed_h
+  attr_reader :req_submitted
+
+  def initialize()
+    @req_submitted = []
   end
 
-  def packed(subpacker_class, validate=false, args)
-    instance = subpacker_class.constantize.new(args)
-    instance.meatball(validate)
+  #This just creates a Requests
+  def list(api_params, &block)
+    raw = api_request(api_params, REQUESTS, CREATE)
+    @req_submitted =  raw[:body]
+    yield self  if block_given?
+    return self
   end
 
-  def packed_h(subpacker_class, args)
-    instance = subpacker_class.constantize.new(args)
-    instance.meatball_h
+  # This creates a AppRequests
+  def show(api_params, &block)
+     raw = api_request(api_params, APPREQUESTS, CREATE)
+     @req_submitted =  raw[:body]
+     yield self  if block_given?
+     return self
   end
 
 end

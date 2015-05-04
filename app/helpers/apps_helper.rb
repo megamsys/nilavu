@@ -22,7 +22,7 @@ module AppsHelper
   def latest_book
     current_user.apps.last
   end
-  
+
   def apply_to_cloud
     !(current_user["user_type"] == "demo")
   end

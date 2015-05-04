@@ -31,6 +31,7 @@ class Accounts < BaseFascade
   ADMIN               = 'admin'.freeze
   MEGAM_TOUR_EMAIL    = 'tour@megam.io'.freeze
   MEGAM_TOUR_PASSWORD = 'faketour'.freeze
+
   UPD_PROFILE         = 1.freeze
   UPD_PASSWORD        = 2.freeze
   UPD_API_KEY         = 3.freeze
@@ -51,8 +52,8 @@ class Accounts < BaseFascade
     @password_reset_token  = nil
     @created_at            = nil
   end
-  
-  
+
+
   #verifies if the email is a duplicate.
   def dup?(email)
    !find_by_email(email).email.nil?
@@ -76,18 +77,17 @@ class Accounts < BaseFascade
   #performs a siginin check, to see if the passwords match.
   def signin(api_params, &block)
     raise   AuthenticationFailure, "Au oh!, The email or password you entered is incorrect." if find_by_email(api_params[:email]).nil?
-    Rails.logger.debug "-(‾ʖ̫‾) :<Accounts: find_by_email start [#{email}]."
 
     unless password_decrypt(password) == api_params[:password]
        raise   AuthenticationFailure, "Au oh!, The email or password you entered is incorrect."
     end
-    yield self if 
- 
-    self
+    yield self if block_given?
+    return self
   end
 
   #creates a new account
   def create(api_params,&block)
+    Rails.logger.debug "> Accounts: create"
     api_request(bld_acct(api_params), ACCOUNT, CREATE)
     @remember_token = api_params[:remember_token]
     @api_key = api_params[:api_key]
@@ -95,7 +95,6 @@ class Accounts < BaseFascade
     @first_name = api_params[:first_name]
     @phone = api_params[:phone]
     @api_key = api_params[:api_key]
-    
     yield self if block_given?
     return self
   end
@@ -122,8 +121,6 @@ class Accounts < BaseFascade
 
 
 
-
-
   def find_by_password_reset_token(password_reset_token, email)
     result = nil
     res = MegamRiak.fetch("accounts", email)
@@ -145,6 +142,8 @@ class Accounts < BaseFascade
     end
   end
 
+
+  #a private helper function that builds the hash.
   private
   def bld_acct(api_params)
     acct_parms = {
@@ -152,14 +151,13 @@ class Accounts < BaseFascade
      :first_name => api_params[:first_name],
      :last_name => api_params[:last_name],
      :phone => api_params[:phone],
-     :email => "fe@we.com",
-     :api_key => "QzQ6PfREIpNhcn3-7qc1Rw==",
+     :email => api_params[:email],
+     :api_key => api_params[:api_key],
      :password => password_encrypt(api_params[:password]),
      :authority => ADMIN,
      :password_reset_token => api_params[:password_reset_token],
      :created_at => api_params[:created_at]}
   end
-
 
 
   def password_encrypt(password)
@@ -170,9 +168,20 @@ class Accounts < BaseFascade
     begin
       Password.new(pass)
     rescue BCrypt::Errors::InvalidHash
-      Rails.logger.debug "--> Couldn't decrpt your password. Its possible that the saved account password in gateway was just text."
+      Rails.logger.debug "> Couldn't decrpt password. Its possible that the password in gateway was just text."
       raise   AuthenticationFailure, "Au oh!, The password you entered is incorrect."
     end
   end
+
+  def self.typenum_to_s (updtype)
+    case updtype
+    when UPD_PROFILE
+      return "Profile "
+    when UPD_PASSWORD
+      return "Password "
+    when UPD_API_KEY
+      return "API key "
+  end
+end
 
 end

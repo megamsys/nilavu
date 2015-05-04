@@ -59,22 +59,19 @@
 			</div> -->
 		</div>
 
-		<% categories.sort.each do |cat| %>
+		<% mkp_grouped.each do |ck, cmkp_collection| %>
 		<div class="bottom-divider"></div>
 		<div class="jcorgFilterTextRootParent">
-			<% c = cat.split("-") %>
-			<h4> <%= c[1] %> <small><i> <%= get_category_description(c[1]) %> <i></small></h4>
+			<h4> <%= ck %> <small><i> <%= category_description(ck) %> <i></small></h4>
 			<div class="col-xs-12">
 				<div class="row app_box ">
-					<% order.each do |name| %>
-					<% mkp_collection.each do |mkp| %>
-					<%if name == mkp.name && cat == mkp.appdetails[:category] %>
+					<% cmkp_collection.each do |mkp| %>
 					<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover ">
 						<div class="app_inner brad-3 jcorgFilterTextParent">
 							<a data-toggle="modal" href="#app-1">
 							<div class="stpack ">
-								<%= link_to marketplace_path(:id => mkp.name), :target => "_self", :remote => true, :class => "link_img hint  hint--bottom", 'data-hint' => "Click Here ! #{mkp.name.split("-")[3]}" do %>
-								<%= image_tag mkp.appdetails[:logo], :alt => mkp.name %>
+								<%= link_to marketplace_path(:id => mkp.name), :target => "_self", :remote => true, :class => "link_img hint  hint--bottom", 'data-hint' => "Launch ! #{mkp.name.split("-").last}" do %>
+								<%= image_tag mkp.catalog[:logo], :alt => mkp.name %>
 								<% end %>
 							</div> </a>
 							<div class="jcorgFilterTextChild" style="display:none">
@@ -82,8 +79,6 @@
 							</div>
 						</div>
 					</div>
-					<% end %>
-					<% end %>
 					<% end %>
 				</div>
 			</div>

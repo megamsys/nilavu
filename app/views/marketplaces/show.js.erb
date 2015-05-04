@@ -14,25 +14,22 @@
 ** limitations under the License.
 **/
 var selected_entity = '#version_view';
-<% if @type == "APP" %>
-var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/app_view', :locals => {:version => @version_order[0], :mkp => @mkp}) %>";
-<% elsif @type == "SERVICE" %>
-var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/app_boilers_view', :locals => {:version => @version_order[0], :mkp => @mkp}) %>";
-<% elsif @type == "BYOC" %>
-var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/byoc', :locals => {:version => @version_order[0],:type => @type, :mkp => @mkp}) %>";
-<% elsif @type == "ANALYTICS" %>
-var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/analytics_view', :locals => {:version => @version_order[0],:type => @type, :mkp => @mkp}) %>";
-<% elsif @type == "INSTANCE" %>
-var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/instance_view', :locals => {:version => @version_order[0],:type => @type, :mkp => @mkp, :ssh_keys => @ssh_keys}) %>";
+<% if @type == "<%= Assemblies::APP %>" %>
+var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/apps', :locals => {:version => @version_order[0], :mkp => @mkp}) %>";
+<% elsif @type == "<%= Assemblies::SERVICE %>" %>
+var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/services', :locals => {:version => @version_order[0], :mkp => @mkp}) %>";
+<% elsif @type == "<%= Assemblies::ANALYTICS %>" %>
+var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/analytics', :locals => {:version => @version_order[0],:type => @type, :mkp => @mkp}) %>";
+<% elsif @type == "<%= Assemblies::DEW %>" %>
+var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/dews', :locals => {:version => @version_order[0],:type => @type, :mkp => @mkp, :ssh_keys => @ssh_keys}) %>";
 <% else %>
-var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/docker_view', :locals => {:version => @version_order[0], :mkp => @mkp}) %>";
+var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/docker', :locals => {:version => @version_order[0], :mkp => @mkp}) %>";
 <% end %>
 insertAt(selected_entity, to_insert_content);
 
 $('#replace_image').empty();
-$('#replace_image').html('<img class="pull-left" src=<%= @mkp.appdetails[:logo] %>> <h4 class="pull-left app_header-title"><%= @mkp.appdetails[:description] %></h4>');
+$('#replace_image').html('<img class="pull-left" src=<%= @mkp.catalog[:logo] %>> <h4 class="pull-left app_header-title"><%= @mkp.catalog[:description] %></h4>');
 
 $('#replace_version_tag').empty();
 $('#replace_version_tag').html(' <%= escape_javascript(select_tag "version", options_for_select(@version_order, :selected=>@version_order[0]), :class =>"form-control input-sm", :data => { :remote => true, :url => changeversion_path(:id => @mkp.name ) }) %>');
 $("#app-1").modal({backdrop : false,keyboard: false,show : true});
-

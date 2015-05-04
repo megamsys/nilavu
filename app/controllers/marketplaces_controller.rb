@@ -27,57 +27,36 @@ class MarketplacesController < ApplicationController
   ## and show the items in order of category
   ##
   def index
-    logger.debug ">----- Marketplaces: index."
-    logger.debug ">----- #{params}"
-    mkp = Marketplaces.new.list(params)
-    @mkp_collection = mkp.mkp_collection
-    @order = mkp.order
-    @categories = mkp.categories
+    logger.debug "> Marketplaces: index."
+    Marketplaces.new.list(params).mkg_grouped
   end
 
   ##
-  ## to show the selected marketplace item
+  ## to show the selected marketplace catalog item, appears if there are credits in billing.
   ##
   def show
-    logger.debug  ">------ marketplace show."
-    bal = Balances.new
-    tbalance = bal.show(params)
+    logger.debug  "> Marketplaces: show."
+    Balances.new.show(params) do  |modb|
+     unless modb.balance.credit.to_i > 0
+        respond_to do |format|
+          format.html {redirect_to billings_path}
+          format.js {render :js => "window.location.href='"+billings_path+"'"}
+        end
+      else
+        @mkp = Marketplaces.new.show(params).mkp
+        @version_order=[]
+        @version_order = @mkp.plans.map {|c| c["version"]}.sort
+        @ssh_keys = Sshkeys.new.list(params).ssh_keys
 
-    if !bal.validate(tbalance.balance.credit.to_i)
-      respond_to do |format|
-        format.html {redirect_to billings_path}
-        format.js {render :js => "window.location.href='"+billings_path+"'"}
-      end
-    else
-      @pro_name = params[:id].split("-")
-      @mkp = Marketplaces.new.show(params).mkp
-      @predef_name = get_predef_name(@pro_name[3].downcase)
-      @deps_scm = get_deps_scm(@pro_name[3].downcase)
-      @my_apps = []
-
-      @type = get_type(@pro_name[3].downcase)
-      @version_order=[]
-      @version_order = @mkp.plans.map {|c| c["version"]}
-      @version_order = @version_order.sort
-
-      @ssh_keys = Sshkeys.new.list(params).ssh_keys
-
-      respond_to do |format|
-        format.js {
-          respond_with(@mkp, @version_order, @type, @ssh_keys, :layout => !request.xhr? )
-        }
+        respond_to do |format|
+          format.js {
+            respond_with(@mkp, @version_order, @ssh_keys, :layout => !request.xhr? )
+          }
+        end
       end
     end
   end
 
-  ##
-  ## get all assemblies(it means applications) for that user launched and
-  ## list the applications in dashboard
-  ##
-  def get_apps
-    assem = Assemblies.new.list(params)
-    assem.apps
-  end
 
   ##
   ## after finish the github authentication the callback url comes this method
@@ -155,38 +134,10 @@ class MarketplacesController < ApplicationController
     session[:gogs_repos] =  @repos_arr
   end
 
-  ##
-  ## user clicks the particular marketplace item then this controller collect the details of
-  ## that selected item and show the contents
-  ##
-  def category_view
-    mkp = get_marketplaces
-    @mkp_collection = mkp[:mkp_collection]
-    if @mkp_collection.class == Megam::Error
-      redirect_to cloud_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
-    else
-      @categories=[]
-      @categories = @mkp_collection.map {|c| c.appdetails[:category]}
-      @categories = @categories.uniq
-      @category = params[:category]
-      respond_to do |format|
-        format.js {
-          respond_with(@category, @mkp_collection, @categories, :layout => !request.xhr? )
-        }
-      end
-    end
-  end
+
 
   private
 
-  ##
-  ## this controller collect all registered marketplace items from megam storage
-  ##
-  def get_marketplaces
-    logger.debug "Marketplaces: get_marketplaces"
-    mkp_collection = ListMarketPlaceApps.perform(force_api[:email], force_api[:api_key])
-    {:mkp_collection => mkp_collection}
-  end
 
   ##
   ## when change the version of marketplace item then this controller change the contents of that item
@@ -196,7 +147,7 @@ class MarketplacesController < ApplicationController
     @version = params[:version]
     @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])
     if @mkp.class == Megam::Error
-      redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
+      redirect_to cockpits_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
     else
       @mkp = @mkp.lookup(params[:id])
       @type = get_type(@pro_name[3].downcase)

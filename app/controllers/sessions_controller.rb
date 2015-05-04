@@ -24,7 +24,6 @@ class SessionsController < ApplicationController
 
   #this is a tour user who can only touch some stuff.
   def tour
-     logger.debug "--> Sessions.tour"
       params[:email] =  Accounts::MEGAM_TOUR_EMAIL
       params[:password] =  Accounts::MEGAM_TOUR_PASSWORD
       create_with_megam(params)
@@ -32,7 +31,6 @@ class SessionsController < ApplicationController
 
   #a regular user signin.
   def create
-    logger.debug "--> Sessions.create"
     auth = social_identity
     if social_identity.nil?
        create_with_megam(params)
@@ -53,7 +51,7 @@ class SessionsController < ApplicationController
 
   def redirect_to_dash(user)
     sign_in user
-    redirect_to(main_dashboards_path, :gflash => { :success => { :value => "Welcome #{social_identity[:name]}. Your registered email is #{social_identity[:email]}, Thank you.", :sticky => false, :nodom_wrap => true } })
+    redirect_to(cockpits_path, :gflash => { :success => { :value => "Welcome #{social_identity[:name]}. Your registered email is #{social_identity[:email]}, Thank you.", :sticky => false, :nodom_wrap => true } })
   end
 
 
@@ -69,7 +67,7 @@ private
     begin
       my_account.signin(all_params) do
         sign_in my_account
-        redirect_to main_dashboards_path, :notice => "Welcome #{my_account.first_name}."
+        redirect_to cockpits_path, :notice => "Welcome #{my_account.first_name}."
       end
     rescue Accounts::AuthenticationFailure => ae
         redirect_to signin_path, :flash => { :error => ae.message}

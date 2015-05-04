@@ -39,7 +39,7 @@ class OneaddonsController < ApplicationController
         component = GetComponent.perform(@assembly.components[0],force_api[:email],force_api[:api_key])
         @assemblies = ListAssemblies.perform(force_api[:email],force_api[:api_key])
         if @assemblies.class == Megam::Error
-          redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
+          redirect_to cockpits_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
         else
           @container_counter = 0
           if @assemblies != nil
@@ -65,7 +65,7 @@ class OneaddonsController < ApplicationController
           end
         end
       else
-        redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
+        redirect_to cockpits_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
       end
     else
       redirect_to signin_path

@@ -122,23 +122,19 @@
 													<li>
 														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "build"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nbuild'} do %>
 														<i class="fa fa-building-o">&nbsp;Build&nbsp;</i> <% end %>
-														<%= mini_spinner_tag  'cloud_book_request_now_nbuild' %>
 													</li>
 													<li class="divider"></li>
 													<li>
 														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "start"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstart'} do %>
 														<i class="fa fa-play">&nbsp;Start&nbsp;</i> <% end %>
-														<%= mini_spinner_tag  'cloud_book_request_now_nstart' %>
 													</li>
 													<li>
 														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "stop"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstop'} do %>
 														<i class="fa fa-stop">&nbsp;Stop&nbsp;</i> <% end %>
-														<%= mini_spinner_tag  'cloud_book_request_now_nstop' %>
 													</li>
 													<li>
 														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.appdefnsid, :status => cloud_book.status, :req_type => "restart"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nrestart'} do %>
 														<i class="fa fa-refresh">&nbsp;Restart&nbsp;</i> <% end %>
-														<%= mini_spinner_tag  'cloud_book_request_now_nrestart' %>
 													</li>
 													<li class="divider"></li>
 													<li>
@@ -155,23 +151,19 @@
 													<li>
 														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.boltdefnsid, :status => cloud_book.status, :req_type => "build"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nbuild'} do %>
 														<i class="fa fa-building-o">&nbsp;Build&nbsp;</i> <% end %>
-														<%= mini_spinner_tag  'cloud_book_request_now_nbuild' %>
 													</li>
 													<li>
 														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.boltdefnsid, :status => cloud_book.status, :req_type => "start"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstart'} do %>
 														<i class="fa fa-play">&nbsp;Start&nbsp;</i> <% end %>
-														<%= mini_spinner_tag  'cloud_book_request_now_nstart' %>
 													</li>
 
 													<li>
 														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.boltdefnsid, :status => cloud_book.status, :req_type => "stop"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nstop'} do %>
 														<i class="fa fa-stop">&nbsp;Stop&nbsp;</i> <% end %>
-														<%= mini_spinner_tag  'cloud_book_request_now_nstop' %>
 													</li>
 													<li>
 														<%= link_to requests_path(:scm => cloud_book.predefs[:scm],:node_name => cloud_book.node_name, :book_type => cloud_book.node_type, :defns_id => cloud_book.boltdefnsid, :status => cloud_book.status, :req_type => "restart"), :remote => true,  data: { spinlock: '#cloud_book_request_now_nrestart'} do %>
 														<i class="fa fa-refresh">&nbsp;Restart&nbsp;</i> <% end %>
-														<%= mini_spinner_tag  'cloud_book_request_now_nrestart' %>
 													</li>
 													<li class="divider"></li>
 													<li>

@@ -21,25 +21,25 @@ class Assemblies < BaseFascade
 
 
   attr_reader :services_spun
-  attr_reader :vms_spun
+  attr_reader :dews_spun
   attr_reader :apps_spun
   attr_reader :assemblies
   attr_reader :services
   attr_reader :apps
 
-
-  SERVICE             = 'SERVICE'.freeze
+  DEW                 =  'DEW'.freeze
   APP                 =  'APP'.freeze
-  INSTANCE            =  'INSTANCE'.freeze
+  SERVICE             =  'SERVICE'.freeze
+
 
   def initialize()
     @apps_spun     = 0
     @services_spun = 0
-    @vms_spun      = 0
+    @dews_spun      = 0
     @assemblies= nil
     @services
     @apps
-    @@swallow_404 = true
+    super(true) #swallow 404 errors for assemblies.
   end
 
   # The list returns a list of assemblies, apps, services.
@@ -58,14 +58,14 @@ class Assemblies < BaseFascade
   # an additional field in assembly indicates if its a plain VM (INSTANCE) or not.
 
   def list(api_params, &block)
-    raw = api_request(api_params, ASSEMBLIES, LIST)  
+    raw = api_request(api_params, ASSEMBLIES, LIST)
     @assemblies = dig_assembly(raw[:body]) unless raw == nil
     tmp = []
     tmp = @assemblies.each do |asm|
           asm.assemblies.each do |assembly|
             if assembly != nil
               if assembly[0].class != Megam::Error
-                @vm_spun = @vm_spun + 1 if (assembly[0].components.length == 0)
+                @dews_spun = @dews_spun + 1 if (assembly[0].components.length == 0)
                 assembly[0].components.each do |com|
                   if com != nil
                     com.each do |c|

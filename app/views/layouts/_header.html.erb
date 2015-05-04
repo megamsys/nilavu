@@ -22,7 +22,7 @@
 			<div class="row">
 				<div class="col-lg-2 col-md-2 col-sm-3 col-xs-5">
 					<!-- BEGIN LOGO -->
-					<a class="navbar-brand" href="http://www.gomegam.com"> <%= image_tag "dash-logo.png", :alt => "logo", :class => "img-responsive" %> </a>
+					<a class="navbar-brand" href="https://www.megam.io"> <%= image_tag "dash-logo.png", :alt => "logo", :class => "img-responsive" %> </a>
 					<!-- END LOGO -->
 				</div>
 
@@ -38,7 +38,7 @@
 									<li>
 										<ul class="dropdown-menu-list scroller">
 											<li>
-												<%= link_to edit_user_path(1) do %>
+												<%= link_to edit_user_path(1), :id => "la-button", :data => {:anim => "la-anim-1"} do %>
 												<span class="label label-sm label-icon label-success"><i class="glyphicon glyphicon-user"></i></span>
 												Profile
 												<% end %>

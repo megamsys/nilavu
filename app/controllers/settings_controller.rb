@@ -25,7 +25,7 @@ class SettingsController < ApplicationController
       list_clouds
       list_sshkeys
       if @cross_clouds_collection.class == Megam::Error
-        redirect_to main_dashboards_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
+        redirect_to cockpits_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
       end
     else
       redirect_to signin_path

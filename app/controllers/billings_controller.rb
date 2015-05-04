@@ -18,9 +18,8 @@ class BillingsController < ApplicationController
 
   before_action :stick_keys, only: [:index, :callback_url]
   def index
-    logger.debug ">----- Billings index."
-    logger.debug ">----- #{params}"
-    @currencies = ["USD", "IN"]
+    logger.debug "> Billings index."
+    @currencies = Billings.currencies
     @bill = Balances.new.show(params)
     @bill.balance
 
@@ -32,15 +31,15 @@ class BillingsController < ApplicationController
   def callback_url
     bill = Billings.new
     res = bill.execute(params)
-    
-    redirect_to main_dashboards_path, :gflash => { :warning => { :value => "PayPal transaction got error. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } } unless res != Megam::Error
-   
-    sbalance = Balances.new.show(params)      
+
+    redirect_to cockpits_path, :gflash => { :warning => { :value => "PayPal transaction got error. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } } unless res != Megam::Error
+
+    sbalance = Balances.new.show(params)
     api_params = params.merge(sbalance.balance.to_hash)
     api_params["credit"] = sbalance.balance.credit.to_i + res.to_i
     Balances.new.update(api_params)
     Credithistories.new.create(api_params, res)
-    
+
     redirect_to billings_path
   end
 

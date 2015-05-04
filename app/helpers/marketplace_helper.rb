@@ -15,78 +15,21 @@
 ##
 module MarketplaceHelper
 
-  TYPE         = "type".freeze
-  PREDEF_NAME  = "predef_name".freeze
-  DEPS_SCM     = "deps_scm".freeze
-  LINKS        = "links".freeze
-  BASIC_COMBOS = "basic_combos".freeze
-
-  def get_type(name)
-   @type = ""
-   Rails.configuration.YUMMY_MARKET.each do |mkp, addon|
-      if mkp == name
-        @type = addon[TYPE]
-      end
-    end
-    @type
- end
-
-  def get_predef_name(name)
-    @p_name = ""
-    Rails.configuration.YUMMY_MARKET.each do |mkp, addon|
-      if mkp == name
-        @p_name = addon[PREDEF_NAME]
-      end
-    end
-    @p_name
-  end
-
-  def get_deps_scm(name)
-    @scm = ""
-    Rails.configuration.YUMMY_MARKET.each do |mkp, addon|
-      if addon["name"] == name
-        @scm = addon[DEPS_SCM]
-      end
-    end
-    @scm
-  end
-
-  def get_category_description(category)
+  def category_description(category)
     case category
+    when "Dew"
+      'Get started plain - VM'
     when "Starter packs"
       'Get started with a new app'
     when "Platform"
       'Enrich Megam with awesome addons'
     when "App Boilers"
       'Make your applications more hungry'
-    when "Runtime"
-      'Get started with a new app'
+    when "Analytics"
+      'Actionable insights in minutes'
     else
-    ''
+    '! Missing category !'
     end
   end
 
- def get_doc_link(name)
-   @link = ""
-   Rails.configuration.YUMMY_MARKET.each do |mkp, addon|
-      if mkp == name
-        @link = addon[LINKS]
-      end
-    end
-    @link
  end
-
- def get_combos(name)
-   @combo = ""
-   Rails.configuration.YUMMY_MARKET.each do |mkp, addon|
-      if mkp == name
-        @combo = addon[BASIC_COMBOS]
-      end
-    end
-    @combo
- end
-
-
-
-
-end

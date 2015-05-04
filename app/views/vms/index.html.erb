@@ -49,7 +49,7 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 	</div>
 	<div class="margin_30 pad_t25">
 
-		<%= render :partial => "main_dashboards/vms", :locals => {:user => current_user, :assemblies => @assemblies} %>
+		<%= render :partial => "cockpits/vms", :locals => {:user => current_user, :assemblies => @assemblies} %>
 
 	</div>
 </div>
@@ -177,7 +177,7 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 				<div id="vm_res_msg"></div>
 			</div>
 			<div class="modal-footer c_modal-footer">
-				<%= link_to  "Ok", main_dashboards_path, :class => "btn btn-success", :target => "_self" %>
+				<%= link_to  "Ok", cockpits_path, :class => "btn btn-success", :target => "_self" %>
 			</div>
 		</div>
 		<!-- /.modal-content -->
@@ -198,7 +198,7 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 				<div id="vm_err_msg"></div>
 			</div>
 			<div class="modal-footer c_modal-footer">
-				<%= link_to  "Ok", main_dashboards_path, :class => "btn btn-success", :target => "_self" %>
+				<%= link_to  "Ok", cockpits_path, :class => "btn btn-success", :target => "_self" %>
 			</div>
 		</div>
 		<!-- /.modal-content -->

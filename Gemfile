@@ -39,7 +39,7 @@ gem 'riak-client', '~> 2.1.0'
 #general
 gem "github_api", "~>0.12.3"
 gem "randexp", "~> 0.1.7"
-gem "megam_api", "~> 0.41"
+gem "megam_api", "~> 0.44"
 gem 'google-analytics-rails', '~> 0.0.6'
 gem 'megam_gogs', "~> 0.7.0"
 
@@ -56,6 +56,7 @@ gem "therubyracer","~> 0.12.2", :require => 'v8',:platforms => :ruby
 
 #ssh key-gen
 gem "sshkey", "~> 1.6.1"
+
 
 # Gems used only for assets and not required
 # in production environments by default.

@@ -65,26 +65,35 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  #if the request is from the root url (eg: console.megam.io) then no message is shown
+  #if the request is form a non root url like users/1/edit, then we show  message.
   def require_signin
     unless signed_in?
-      redirect_to signin_path, :flash => { :error => "You must be logged in to access this section"}
+      if (request.fullpath.to_s == '/' || request.original_url.to_s == '/')
+        redirect_to signin_path
+      else
+        redirect_to signin_path, :flash => { :error => "You must first sign in or sign up."}
+      end
     end
   end
 
   def stick_keys(tmp={}, permitted_tmp={})
+    logger.debug "> STICK #{params}"
     params[:email] = session[:email]
     params[:api_key] = session[:api_key]
+    logger.debug "> STICKD #{params}"
     params
   end
 
   def catch_exceptions
-    yield 
+    yield
   rescue Accounts::MegamAPIError  => mai
     logger.debug "*-----------------------*"
     logger.debug "|    (˘_˘) exception    :"
     logger.debug "*-----------------------*"
     logger.debug "#{mai.message}"
-    logger.debug ">>> caused by:"
+    logger.debug ">>>> caused by Nak man (‾ʖ̫‾) : "
     #mai.backtrace.each { |line| logger.error line }
     logger.debug "*-----------------------*"
     #notify Megam ? - hipchat

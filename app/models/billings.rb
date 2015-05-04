@@ -16,21 +16,26 @@
 
 
 class Billings < BaseFascade
-  
+
+  CURRENCY_USD = "USD".freeze
+  CURRENCY_INR = "IN".freeze
+
+  PAYMENT_PAYPAL   = "Pay with Paypal".freeze
+  PAYMENT_COINKITE = "Pay with Coinkite".freeze
+
   def initialize()
-    
   end
-  
-  def create(params) 
-    res = case 
-    when params["commit"] == "Pay with Paypal"
+
+  def create(params)
+    res = case
+    when params["commit"] == PAYMENT_PAYPAL
       Paypal.generate_url(params)
-    when params["commit"] == "Pay with Coinkite"
+    when params["commit"] == PAYMENT_COINKITE
       Coinkite.generate_url(params)
-    end  
+    end
     res
   end
-  
+
   def execute(params)
     res = case
     when params["PayerID"]
@@ -38,5 +43,9 @@ class Billings < BaseFascade
     end
     res
   end
-  
+
+  def self.currencies
+    [CURRENCY_USD,CURRENCY_INR]
+  end
+
 end
