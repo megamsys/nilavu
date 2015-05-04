@@ -28,7 +28,7 @@ class MarketplacesController < ApplicationController
   ##
   def index
     logger.debug "> Marketplaces: index."
-    Marketplaces.new.list(params).mkg_grouped
+    @mkp_grouped = Marketplaces.new.list(params).mkp_grouped
   end
 
   ##
@@ -37,26 +37,25 @@ class MarketplacesController < ApplicationController
   def show
     logger.debug  "> Marketplaces: show."
     Balances.new.show(params) do  |modb|
-     unless modb.balance.credit.to_i > 0
+      unless modb.balance.credit.to_i > 0
         respond_to do |format|
           format.html {redirect_to billings_path}
           format.js {render :js => "window.location.href='"+billings_path+"'"}
         end
       else
-        @mkp = Marketplaces.new.show(params).mkp
-        @version_order=[]
-        @version_order = @mkp.plans.map {|c| c["version"]}.sort
-        @ssh_keys = Sshkeys.new.list(params).ssh_keys
+        mkp = Marketplaces.new.show(params).mkp
+        version_order = []
+        version_order = mkp.plans.map {|c| c["version"]}.sort
+        ssh_keys = Sshkeys.new.list(params).ssh_keys
 
         respond_to do |format|
           format.js {
-            respond_with(@mkp, @version_order, @ssh_keys, :layout => !request.xhr? )
+            respond_with(mkp, version_order, ssh_keys, :layout => !request.xhr? )
           }
         end
       end
     end
   end
-
 
   ##
   ## after finish the github authentication the callback url comes this method
@@ -134,10 +133,7 @@ class MarketplacesController < ApplicationController
     session[:gogs_repos] =  @repos_arr
   end
 
-
-
   private
-
 
   ##
   ## when change the version of marketplace item then this controller change the contents of that item

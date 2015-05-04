@@ -19,7 +19,7 @@ class Billinghistories < BaseFascade
   
   def initialize()
      @bhistories = []
-     @@swallow_404 = true
+     super(true)
   end
 
   def list(api_params, &block)
