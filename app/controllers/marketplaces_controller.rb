@@ -28,7 +28,7 @@ class MarketplacesController < ApplicationController
   ##
   def index
     logger.debug "> Marketplaces: index."
-    @mkp_grouped = Marketplaces.new.list(params).mkp_grouped
+    @mkp_grouped = Marketplaces.new.list(params).mkp_grouped      
   end
 
   ##

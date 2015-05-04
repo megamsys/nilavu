@@ -27,9 +27,8 @@ module Api
     end
 
     def create
-      logger.debug ("-W-----create---- #{params}")
+      logger.debug ("> api.widgets: create")
       dashboard = Dashboard.find(params[:dashboard_id])
-      logger.debug ("-W-----create--B-- #{request.body.read.to_s}")
       input = JSON.parse(request.body.read.to_s)
       widget = dashboard.widgets.build(Widget.slice_attributes(input))
       if widget.save
@@ -40,7 +39,7 @@ module Api
     end
 
     def update
-      logger.debug ("-W-----update---- #{params}")
+      logger.debug ("> api.widgets: update")
       dashboard = Dashboard.find(params[:dashboard_id])
       widget = dashboard.widgets.find(params[:id])
       input = JSON.parse(request.body.read.to_s)

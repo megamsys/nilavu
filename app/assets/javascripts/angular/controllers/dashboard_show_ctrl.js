@@ -32,7 +32,7 @@ app.controller("DashboardShowCtrl", ["$scope", "$rootScope", "$routeParams", "$l
       $scope.sm = UpdateWidget.sm;
   });       
   
-  $scope.c_book_name = $routeParams.book;
+  $scope.c_launchgen = $routeParams.book;
   
   function replaceWidget(id, widget) {    
 	    var w = _.findWhere($scope.widgets, { id: widget.id });

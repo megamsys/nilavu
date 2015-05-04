@@ -16,8 +16,8 @@
 class OneaddonsController < ApplicationController
 
   respond_to :html, :js
-  include Packable
   include OneappsHelper
+  
   def show
     #@app = Appscollection(params[:app_name])
     #get the selected app
