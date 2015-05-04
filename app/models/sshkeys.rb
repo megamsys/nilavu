@@ -19,6 +19,7 @@ class Sshkeys < BaseFascade
   
   def initialize()
     @ssh_keys = []
+    super(true)
   end
 
   def list(api_params, &block)
