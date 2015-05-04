@@ -26,7 +26,7 @@ gem 'bcrypt', "~> 3.1.10"
 
 gem 'oauth2', "~> 1.0.0"
 gem 'oauth', "~> 0.4.7"
-gem 'omniauth-oauth2', "~> 1.2.0"
+gem 'omniauth-oauth2', "~> 1.3.0"
 gem 'omniauth-twitter', "~> 1.1.0"
 gem 'omniauth-facebook', "~> 2.0.1"
 gem "omniauth-google-oauth2", "~> 0.2.6"
@@ -39,7 +39,7 @@ gem 'riak-client', '~> 2.1.0'
 #general
 gem "github_api", "~>0.12.3"
 gem "randexp", "~> 0.1.7"
-gem "megam_api", "~> 0.44"
+gem "megam_api", "~> 0.47"
 gem 'google-analytics-rails', '~> 0.0.6'
 gem 'megam_gogs', "~> 0.7.0"
 
@@ -56,6 +56,8 @@ gem "therubyracer","~> 0.12.2", :require => 'v8',:platforms => :ruby
 
 #ssh key-gen
 gem "sshkey", "~> 1.6.1"
+#spinner youtube like
+gem 'nprogress-rails'
 
 
 # Gems used only for assets and not required

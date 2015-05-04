@@ -13,8 +13,20 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class IdentitiesController < ApplicationController
-  def new
-    @identity = env['omniauth.auth']
+class OnedewsController < ApplicationController
+  respond_to :html, :js
+  include MarketplaceHelper
+
+
+  def show
   end
+
+  def overview
+      appid = params["appkey"]
+      @assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
+  end
+
+  def logs
+  end
+
 end
