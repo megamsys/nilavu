@@ -30,6 +30,7 @@ class Assemblies < BaseFascade
   DEW                 =  'DEW'.freeze
   APP                 =  'APP'.freeze
   SERVICE             =  'SERVICE'.freeze
+  ADDON               =  'ADDON'.freeze
 
 
   def initialize()

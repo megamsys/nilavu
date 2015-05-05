@@ -13,16 +13,19 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class AddonsController < ApplicationController
+class CatalogsController < ApplicationController
   respond_to :html, :js
+  include Pilotable
 
- def index
-   assem = Assemblies.new.list(params)
-   assem.assemblies
-   assem.apps_spun
-   assem_vms_spun
-   assem_services_spun
+  before_action :stick_keys, only: [:index]
+
+  def index
+    @catname = params[:cattype].capitalize
+    assem = Assemblies.new.list(params)
+    assem.assemblies
+    assem.apps_spun
+    assem.dews_spun
+    assem.services_spun
   end
-
 
 end

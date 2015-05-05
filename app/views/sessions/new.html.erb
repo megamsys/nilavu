@@ -92,7 +92,7 @@
 
 								</div>
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right tour-btn">
-									<button type="submit" class="btn btn-success btn-plain-green">Login</button>
+									<button type="submit" class="btn btn-success btn-plain-green" data-remote="true">Login</button>
 								</div>
 							</div>
 						</div>
@@ -157,7 +157,7 @@
 								<%= text_field_tag :email, nil, :class => 'form-control', :required => true, placeholder: "Email" %>
 							</div>
 
-							<%= submit_tag "Reset Password", :class => "btn btn-success col-md-12 col-xs-12", :id => "la-button", :data => {:anim => "la-anim-1"} %>
+							<%= submit_tag "Reset Password", :class => "btn btn-success col-md-12 col-xs-12" %>
 							<% end %>
 						</div>
 					</div>
@@ -214,5 +214,3 @@
 	</div>
 	<!-- /.modal-dialog -->
 </div>
-
-

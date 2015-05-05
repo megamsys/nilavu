@@ -1,4 +1,0 @@
-class SourceCodesController < ApplicationController
-
-
-end

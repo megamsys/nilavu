@@ -185,7 +185,7 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
 	content:"\f008"
 }
 .fa-th-large:before {
-	content:"\f009"; 
+	content:"\f009";
 }
 .fa-th:before {
 	content:"\f00a"
@@ -252,7 +252,7 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
 }
 .fa-list-alt:before {
 	content:"\f022"; color: #6cabda;
-   
+
     font-size: 18px;
     padding-right: 5px;
     vertical-align: middle;
@@ -609,7 +609,7 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
 }
 .fa-credit-card:before {
 	content:"\f09d"; color: #6cabda;
-   
+
     font-size: 18px;
     padding-right: 5px;
     vertical-align: middle;
@@ -1464,7 +1464,7 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
 }
 .fa-history:before {
 	content:"\f1da";color: #6cabda;
-   
+
     font-size: 18px;
     padding-right: 5px;
     vertical-align: middle;
@@ -1637,7 +1637,7 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
 	content:"\f215"
 }
 .fa-skyatlas:before {
-	content:"\f216"
+	content:"\f216"; 
 }
 .fa-cart-plus:before {
 	content:"\f217"

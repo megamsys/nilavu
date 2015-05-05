@@ -15,7 +15,6 @@
 ##
 class CockpitsController < ApplicationController
   respond_to :html, :js
-  include CockpitControlable
 
   before_action :stick_keys, only: [:index]
 

@@ -13,18 +13,27 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-# This controller is invoked when the left link "Services is clicked"
-# Essentially a filtered list of apps from the cockpit.
-class ServicesController < ApplicationController
-  respond_to :html, :js
+# A mixin that can be used for controls operations like
+#  create:
+#          - CREATE an assembly which submits a /requests to the gateway
+#          - CREATE  lifecyle ops like START, STOP, RESTART, DELETE which submits /catrequests to gateway
+#  destroy:
+#          - DESTROY an assembly  or catalog.
+module Pilotable
+  extend ActiveSupport::Concern
 
-  def index
-    assem = Assemblies.new.list(params)
-    assem.assemblies
-    assem.apps_spun
-    assem_vms_spun
-    assem_services_spun
+  included do
+    attr_writer :create, :destroy
   end
 
-  
+  def create
+    puts "--- requests hack --"
+    puts "--- catrequests hack --"
+  end
+
+  #destroy
+  def destroy
+    puts "--- catrequests hack --"
+  end
+
 end
