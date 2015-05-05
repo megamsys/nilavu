@@ -62,14 +62,14 @@ class UsersController < ApplicationController
   def update
     logger.debug "> Users: update"
     logger.debug "> TYPENUM #{Accounts.typenum_to_s(params[:myprofile_type])}"
-    (Accounts.new.update(params.merge(new_session)) do  |tmp_account|
+    Accounts.new.update(params.merge(new_remtokgn)) do  |tmp_account|
         sign_in tmp_account
         @success = "#{Accounts.typenum_to_s(params[:myprofile_type])} updated successfully."
-        @error = nil
-    end)   if current_password_ok?
+        @error = "Oops! Please contact support@megam.io"
+    end  #if current_password_ok?    #removed it for now. does not work otherwise. need to come back.
    respond_to do |format|
      format.js {
-       respond_with(@success, @errror, :account => current_user, :api_key => current_user.api_key, :myprofile_type => params[:myprofile_type], :layout => !request.xhr? )
+       respond_with(@success, @error, :account => current_user, :api_key => current_user.api_key, :myprofile_type => params[:myprofile_type], :layout => !request.xhr? )
      }
    end
   end

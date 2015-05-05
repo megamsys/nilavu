@@ -61,7 +61,7 @@
 								<label class="col-md-3 control-label label-profile">Profile name</label>
 								<div class="col-md-6 input-group margin-top-10">
 									<%= text_field_tag 'first_name', nil, :id => 'first_name', :class => 'form-control',:readonly => true, placeholder: "Enter text", :value => @account.first_name %>
-									<span class="input-group-addon" ><a id="change_profilename">Change ?</a></span>
+									<span class="input-group-addon " ><a id="change_profilename" class="btn">Change ?</a></span>
 								</div>
 								<div class="col-md-3 pull-right c_cog_icon">
 									<span>View only</span>
@@ -73,7 +73,7 @@
 								<label class="col-md-3 control-label label-profile">Phone</label>
 								<div class="col-md-6 input-group margin-top-10">
 									<%= text_field_tag 'phone', nil, :class => 'form-control',:readonly => true, :id => 'phonenumber', placeholder: "Phone Number", :value => @account.phone %>
-									<span class="input-group-addon" ><a id="change_phonenumber">Change ?</a></span>
+									<span class="input-group-addon" ><a id="change_phonenumber" class="btn">Change ?</a></span>
 								</div>
 							</div>
 
@@ -100,7 +100,7 @@
 								<label class="col-md-3 control-label label-profile">Current</label>
 								<div class="col-md-6 input-group margin-top-10">
 									<%= password_field_tag 'current_password', nil, :class=> 'form-control', placeholder: "Current password" %>
-									<span class="input-group-addon" ><a id="change_password">Change ?</a></span>
+									<span class="input-group-addon" ><a id="change_password" class="btn">Change ?</a></span>
 								</div>
 							</div>
 							<div class="form-group">
@@ -225,7 +225,7 @@
 								</div>
 								<%= form_tag(user_path, :method => "put", :remote => true) do %>
 								<input type="hidden" name="myprofile_type" value="<%= Accounts::UPD_API_KEY %>">
-								<%= submit_tag "Create", :class => "pull-right btn btn-success", :id => "la-button", :data => {:anim => "la-anim-1"} %>
+								<%= submit_tag "Create", :class => "pull-right btn btn-success col-md-2 col-xs-0", :id => "la-button", :data => {:anim => "la-anim-1"} %>
 								<% end %>
 							</div>
 						</div>
