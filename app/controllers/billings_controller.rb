@@ -17,6 +17,7 @@ class BillingsController < ApplicationController
   respond_to :html, :js
 
   before_action :stick_keys, only: [:index, :callback_url]
+
   def index
     logger.debug "> Billings index."
     @currencies = Billings.currencies
@@ -25,7 +26,6 @@ class BillingsController < ApplicationController
 
     @billingHistories = Billinghistories.new.list(params)
     @billingHistories.bhistories
-
   end
 
   def callback_url

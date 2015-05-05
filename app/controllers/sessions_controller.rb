@@ -49,11 +49,6 @@ class SessionsController < ApplicationController
     redirect_to new_user_path
   end
 
-  def redirect_to_dash(user)
-    sign_in user
-    redirect_to(cockpits_path, :gflash => { :success => { :value => "Welcome #{social_identity[:name]}. Your registered email is #{social_identity[:email]}, Thank you.", :sticky => false, :nodom_wrap => true } })
-  end
-
 
 private
 

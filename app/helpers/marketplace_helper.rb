@@ -18,7 +18,7 @@ module MarketplaceHelper
   def category_description(category)
     case category
     when "Dew"
-      'Get started plain - VM'
+      'Get started with a VM'
     when "Starter packs"
       'Get started with a new app'
     when "Platform"

@@ -23,10 +23,9 @@
 
 					<!-- BEGIN SIDEBAR MENU -->
 					<ul class="page-sidebar-menu">
-
 						<li></li>
 						<li class= "start active">
-							<%= link_to cockpits_path, :target => "_self" do %>
+							<%= link_to cockpits_path, :data => { :remote => true}, :target => "_self" do %>
 							<i class="icon-dashboard pull-left"></i>
 							<span class="title pull-left">Dashboard</span>
 							<span class="hidden-xs <%= "selected" if controller_name == 'cockpits'%>"></span>
@@ -34,47 +33,47 @@
 						</li>
 
 						<li class= "start active">
-							<%= link_to dews_path, :target => "_self" do %>
+							<%= link_to catalogs_path(:cattype => Assemblies::DEW ), :data => { :remote => true},:target => "_self" do %>
 							<i class="icon-bar-chart pull-left"></i>
-							<span class="title pull-left">Instances</span>
-							<span class="hidden-xs <%= "selected" if controller_name == "vms"%>"></span>
+							<span class="title pull-left">Dews</span>
+							<span class="hidden-xs <%= "selected" if controller_name == "catalogs"%>"></span>
 							<% end %>
 						</li>
 
 						<li class= "start active">
-							<%= link_to apps_path, :target => "_self" do %>
+							<%= link_to catalogs_path(:cattype => Assemblies::APP), :data => { :remote => true}, :target => "_self" do %>
 							<i class="icon-credit-card pull-left"></i>
 							<span class="title pull-left">Apps</span>
-							<span class="hidden-xs <%= "selected" if controller_name == 'apps'%>"></span>
+							<span class="hidden-xs <%= "selected" if controller_name == "catalogs" %>"></span>
 							<% end %>
 						</li>
 
 						<li class= "start active">
-							<%= link_to services_path, :target => "_self" do %>
+							<%= link_to catalogs_path(:cattype => Assemblies::SERVICE),:data => { :remote => true},  :target => "_self" do %>
 							<i class="icon-tasks pull-left"></i>
 							<span class="title pull-left">Services</span>
-							<span class="hidden-xs <%= "selected" if controller_name == "services"%>"></span>
+							<span class="hidden-xs <%= "selected" if controller_name == "catalogs"%>"></span>
 							<% end %>
 						</li>
 
 						<li class= "start active">
-							<%= link_to addons_path, :target => "_self" do %>
+							<%= link_to catalogs_path(:cattype =>Assemblies::ADDON), :data => { :remote => true}, :target => "_self" do %>
 							<i class="icon-pushpin pull-left"></i>
 							<span class="title pull-left">Add ons</span>
-							<span class="hidden-xs <%= "selected" if controller_name == "addons"%>"></span>
+							<span class="hidden-xs <%= "selected" if controller_name == "catalogs"%>"></span>
 							<% end %>
 						</li>
 
 						<li class= "start active">
-							<%= link_to ssh_keys_path, :target => "_self" do %>
+							<%= link_to ssh_keys_path, :data => { :remote => true}, :target => "_self" do %>
 							<i class="icon-key pull-left"></i>
-							<span class="title pull-left">ssh keys</span>
+							<span class="title pull-left">SSH keys</span>
 							<span class="hidden-xs <%= "selected" if controller_name == "ssh_keys"%>"></span>
 							<% end %>
 						</li>
 
 						<li class= "start active">
-							<%= link_to billings_path, :target => "_self" do %>
+							<%= link_to billings_path, :data => { :remote => true}, :target => "_self" do %>
 							<i class="icon-money pull-left"></i>
 							<span class="title pull-left">Billings</span>
 							<span class="hidden-xs <%= "selected" if controller_name == "billings"%>"></span>

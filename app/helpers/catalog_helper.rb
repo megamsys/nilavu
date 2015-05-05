@@ -13,7 +13,13 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-require 'test_helper'
+module CatalogHelper
 
-class OrganizationsHelperTest < ActionView::TestCase
+#generates a random name work for the launch
+  # eg: awesome . megam.co
+  def launch_namegen
+    @launch_namegen = /\w+/.gen
+    @launch_namegen.downcase
+  end
+
 end
