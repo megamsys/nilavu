@@ -18,7 +18,7 @@ require 'json'
 class MarketplacesController < ApplicationController
   respond_to :js
   include MarketplaceHelper
-  include AppsHelper
+  include CatalogHelper
   include CrossCloudsHelper
 
   before_action :stick_keys, only: [:index, :show]
@@ -28,7 +28,7 @@ class MarketplacesController < ApplicationController
   ##
   def index
     logger.debug "> Marketplaces: index."
-    @mkp_grouped = Marketplaces.new.list(params).mkp_grouped      
+    @mkp_grouped = Marketplaces.new.list(params).mkp_grouped
   end
 
   ##

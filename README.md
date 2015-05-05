@@ -4,11 +4,11 @@ Megam CMP - UI [https://www.megam.io](https://www.megam.io)
 
 [![Build Status](https://travis-ci.org/indykish/nilavu.png?branch=0.8)](https://travis-ci.org/megamsys/nilavu)
 
-Nilavu is a [Rails 4.2.1](http://guides.rubyonrails.org/) browser based user interface for [Megam PaaS ](http://www.gomegam.com/docs).
+Nilavu is a [Rails 4.2.1](http://guides.rubyonrails.org/) browser based user interface for [Megam CMP](http://www.megam.io).
 
 ## Features:
 
-* The UI for the upcoming public launch of [https://console.megam.io](https://console.megam.io) launch on April 30,2015.
+* The UI for the upcoming public launch of [https://console.megam.io](https://console.megam.io) launch on May 8,2015.
 
 * Launch apps, services in cloud in seconds.
 
@@ -34,7 +34,7 @@ The UX/UI design was done by [enixel](http://enixel.com).
 
 ## Getting Started
 
-* Try our public service (launching on April 30, 2015)  [https://console.megam.io](https://console.megam.io)
+* Try our public service (launching on May 09, 2015)  [https://console.megam.io](https://console.megam.io)
 
 
 ### Documentation
@@ -49,7 +49,7 @@ We are glad to help if you have questions, or request for new features..
 
 
 
-	
+
 # License
 
 |                      |                                          |
@@ -72,4 +72,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
- 

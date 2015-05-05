@@ -31,6 +31,7 @@ class Assemblies < BaseFascade
   APP                 =  'APP'.freeze
   SERVICE             =  'SERVICE'.freeze
   ANALYTICS           =  'ANALYTICS'.freeze
+  ADDON               =  'ADDON'.freeze
 
   def initialize()
     @apps_spun     = 0

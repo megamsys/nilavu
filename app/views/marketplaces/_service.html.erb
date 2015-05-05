@@ -17,7 +17,7 @@
 <% @mkp.plans.each do |c| %>
 <% if c["version"] == version %>
 <% @mkp_price = c["price"] %>
-<% @appname = launchgen %>
+<% @appname = launch_namegen %>
 <% @mkp_plan = c["plantype"] %>
 <% @mkp_description = c["description"] %>
 <% @mkp_source = c["source"] %>
@@ -41,7 +41,7 @@
 <%= hidden_field_tag 'source', nil, placeholder: "", :class =>"form-control", :value => @deps_scm  %>
 <%= hidden_field_tag 'type', nil, placeholder: "", :class =>"form-control", :value =>  @pro_name[3] %>
 <%= hidden_field_tag 'combos', nil, placeholder: "", :class =>"form-control", :value =>  @combos %>
-<%= hidden_field_tag 'servicename', nil, placeholder: "", :class =>"form-control", :value =>  launchgen %>
+<%= hidden_field_tag 'servicename', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
 <div class="row">
 	<div class="col-sm-7 body_left">
 		<h4><%= @pro_name[3] %></h4>
