@@ -22,11 +22,8 @@
 </div>
 <div class="bottom-divider"></div>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-
 	<div class="row app_box">
-
 		<%= link_to marketplaces_path, :data => { :remote => true} do %>
-
 		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
 			<div class="app_inner">
 				<div class="app_new">
@@ -45,7 +42,6 @@
 		<% sflag = true %>
 		<% if assembly != nil %>
 		<% if assembly[0].class != Megam::Error %>
-
         <% if assembly[0].components.length == 0 %>
 		<% if sflag %>
 		<% if assembly[0].status != "Terminated" %>
@@ -129,10 +125,8 @@
 						<div class="row app_icon">
 							<h5><%= assembly[0].name %></h5>
 							<%= assembly[0].name + ".megam.io" %>
-
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 								<ul class="list-inline app_icon_bottom">
-
 								</ul>
 							</div>
 						</div>
@@ -146,7 +140,6 @@
 					</div>
 				</div>
 			</div>
-
 		</div>
 		<% end %>
 		<% end %>
@@ -157,6 +150,5 @@
 		<% end %>
 		<% end %>
 		<% end %>
-
 	</div>
 </div><!-- running apps ends here -->

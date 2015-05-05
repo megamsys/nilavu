@@ -15,7 +15,6 @@
 ##
 # A mixin that can be used for controls operations like
 #  create:
-#          - CREATE an assembly which submits a /requests to the gateway
 #          - CREATE  lifecyle ops like START, STOP, RESTART, DELETE which submits /catrequests to gateway
 #  destroy:
 #          - DESTROY an assembly  or catalog.
@@ -27,7 +26,6 @@ module Pilotable
   end
 
   def create
-    puts "--- requests hack --"
     puts "--- catrequests hack --"
   end
 
