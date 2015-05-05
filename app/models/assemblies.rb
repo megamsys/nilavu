@@ -30,7 +30,7 @@ class Assemblies < BaseFascade
   DEW                 =  'DEW'.freeze
   APP                 =  'APP'.freeze
   SERVICE             =  'SERVICE'.freeze
-
+  ANALYTICS           =  'ANALYTICS'.freeze
 
   def initialize()
     @apps_spun     = 0

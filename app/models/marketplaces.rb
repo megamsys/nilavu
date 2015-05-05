@@ -57,4 +57,9 @@ class Marketplaces < BaseFascade
      return self
   end
 
+  def create(api_params, &block)
+    yield self if block_given?
+    return self
+  end
+
 end

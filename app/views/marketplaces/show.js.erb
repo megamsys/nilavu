@@ -14,14 +14,14 @@
 ** limitations under the License.
 **/
 var selected_entity = '#version_view';
-<% if @type == "<%= Assemblies::APP %>" %>
+<% if @mkp.cattype == Assemblies::APP  %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/apps', :locals => {:version => @version_order[0], :mkp => @mkp}) %>";
-<% elsif @type == "<%= Assemblies::SERVICE %>" %>
-var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/services', :locals => {:version => @version_order[0], :mkp => @mkp}) %>";
-<% elsif @type == "<%= Assemblies::ANALYTICS %>" %>
+<% elsif @mkp.cattype == Assemblies::SERVICE  %>
+var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/service', :locals => {:version => @version_order[0], :mkp => @mkp}) %>";
+<% elsif @mkp.cattype== Assemblies::ANALYTICS %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/analytics', :locals => {:version => @version_order[0],:type => @type, :mkp => @mkp}) %>";
-<% elsif @type == "<%= Assemblies::DEW %>" %>
-var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/dews', :locals => {:version => @version_order[0],:type => @type, :mkp => @mkp, :ssh_keys => @ssh_keys}) %>";
+<% elsif @mkp.cattype == Assemblies::DEW %>
+var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/dew', :locals => {:version => @version_order[0],:type => @type, :mkp => @mkp, :ssh_keys => @ssh_keys}) %>";
 <% else %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/docker', :locals => {:version => @version_order[0], :mkp => @mkp}) %>";
 <% end %>
