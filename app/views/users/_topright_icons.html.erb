@@ -18,7 +18,7 @@
 		<div class="mplace-icons">
 			<% url = "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user.email}&api_key=#{current_user.api_key}&callbackURL=https://www.megam.co/varai" %>
       <ul>
-        <li class="two"><a href="/marketplaces"><i class="fa fa-cloud-upload" style="font-size: 20px;"></i>   Marketplace</a></li>
+        <li class="two"><a href="/marketplaces" data-remote="true"><i class="fa fa-cloud-upload" style="font-size: 20px;"></i>   Marketplace</a></li>
         <li><a href="<%= url %>" target="_blank"><i class="fa fa-newspaper-o" style="font-size: 20px;"></i>   Visual Designer</a></li>
       </ul>
 		</div>

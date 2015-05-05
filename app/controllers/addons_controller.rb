@@ -25,40 +25,4 @@ class AddonsController < ApplicationController
   end
 
 
-  def new
-  end
-
-
-  def create
-  end
-
-  def show
-    wparams = {:node => "#{params[:name]}" }
-    #look at storing in a local session, as we are redoing it.
-    # The node json is getting heavy as well
-    @node = FindNodeByName.perform(wparams,force_api[:email],force_api[:api_key])
-    logger.debug "--> CloudBooks:show, found node #{wparams[:node]}"
-    if @node.class == Megam::Error
-      @res_msg="We went into nirvana, finding node #{wparams[:node]}. Open up a support ticket. We'll investigate its disappearence #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
-      respond_to do |format|
-        format.js {
-          respond_with(@res_msg, :layout => !request.xhr? )
-        }
-      end
-    else
-      @requests = GetRequestsByNode.perform(wparams,force_api[:email], force_api[:api_key])  #no error checking for GetRequestsByNode ?
-      @book_requests =  GetDefnRequestsByNode.send(params[:book_type].downcase.to_sym, wparams,force_api[:email], force_api[:api_key])
-      if @book_requests.class == Megam::Error
-        @book_requests={"results" => {"req_type" => "", "create_at" => "", "lc_apply" => "", "lc_additional" => "", "lc_when" => ""}}
-      end
-      @cloud_book = @node.lookup("#{params[:name]}")
-      respond_to do |format|
-        format.js {
-          respond_with(@cloud_book, @requests, @book_requests, :layout => !request.xhr? )
-        }
-      end
-    end
-  end
-
-
 end

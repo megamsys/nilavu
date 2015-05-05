@@ -11,20 +11,20 @@ class BaseFascade
 
   JLAZ_PREFIX       = "Megam::".freeze
   ACCOUNT           = 'Account'.freeze
-  ORGANIZATION      = 'Organizations'.freeze
   ASSEMBLIES        = 'Assemblies'.freeze
   ASSEMBLY          = 'Assembly'.freeze
-  COMPONENTS        = 'Components'.freeze
-
   BALANCES          = 'Balances'.freeze
   BILLINGHISTORIES  = "Billinghistories".freeze
+  CATREQUESTS       = "AppRequests".freeze
+  COMPONENTS        = 'Components'.freeze
   CREDITHISTORIES   = "Credithistories".freeze
+  ORGANIZATION      = 'Organizations'.freeze
+
   MARKETPLACES      = "MarketPlace".freeze
+  REQUESTS          = "Requests".freeze
   SSHKEYS           = "SshKey".freeze
 
-  REQUESTS          = "Requests".freeze
-  APPREQUESTS       = "AppRequests".freeze
-   
+
   CREATE            = 'create'.freeze
   SHOW              = 'show'.freeze
   LIST              = 'list'.freeze

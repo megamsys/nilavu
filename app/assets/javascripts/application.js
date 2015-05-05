@@ -17,7 +17,6 @@
 //= require jquery_ujs
 //= require jquery.remotipart
 //= require jquery.turbolinks
-//= require spin.min
 //= require jquery.flot
 //= require jquery.flot.time
 //= require jquery.flot.resize
@@ -42,9 +41,10 @@
 //= require faq_modernizr
 //= require jquery.filter
 //= require socket.io
+//= require spin.min
 //= require jquery.spin
-//= require youtube.nprogress
 //= require megam.monitor
-//= require megam.spin
 //= require megam.support
+//= require nprogress
+//= require nprogress-ajax
 //= require_tree .

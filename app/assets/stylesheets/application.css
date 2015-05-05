@@ -16,11 +16,11 @@
  *= require style
  *= require style-elegant
  *= require style-non-responsive
- *= require font-awesome.min 
+ *= require font-awesome.min
  *= require megam
  *= require faq_reset
  *= require faq_style
+ *= require nprogress
+ *= require nprogress-bootstrap
  *= require_tree .
  */
-
-

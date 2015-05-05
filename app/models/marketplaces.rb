@@ -42,9 +42,10 @@ class Marketplaces < BaseFascade
   #                                   Analytics
   def list(api_params, &block)
     raw = api_request(api_params, MARKETPLACES, LIST)
-    @mkp_collection =  raw[:body] unless raw == nil      
+    @mkp_collection =  raw[:body] unless raw == nil
+
     @mkp_grouped = Hash[@mkp_collection.group_by{ |tmp| tmp.catalog[:category] }.map{|k,v| [k,v.map{|h|h}]}]
-   
+
     yield self  if block_given?
     return self
   end

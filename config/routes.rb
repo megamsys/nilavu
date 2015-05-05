@@ -1,5 +1,7 @@
 Nilavu::Application.routes.draw do
 
+  get 'delete/SCMs'
+
   root :to => 'cockpits#index'
 #core routes
   resources :users
@@ -47,9 +49,9 @@ Nilavu::Application.routes.draw do
   #billings
   match '/callback_url', to: 'billings#callback_url', via: [:get, :post]
 
-  #cockpit
+  #cockpit, controls [CREATE, DELETE] catcontrols [START, STOP ..RESTART of a catalog]
   match '/controls', to: 'cockpits#controls', via: [:post]
-  match '/appcontrols', to: 'cockpits#appcontrols', via: [:post]
+  match '/catcontrols', to: 'cockpits#catcontrols', via: [:post]
 
   # =======Error controller
   get "/404", :to => "errors#not_found"
