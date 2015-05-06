@@ -36,7 +36,7 @@
 							<%= link_to catalogs_path(:cattype => Assemblies::DEW ), :data => { :remote => true},:target => "_self" do %>
 							<i class="icon-bar-chart pull-left"></i>
 							<span class="title pull-left">Dews</span>
-							<span class="hidden-xs <%= "selected" if controller_name == "cockpits"%>"></span>
+							<span class="hidden-xs <%= "selected" if params["cattype"] == Assemblies::DEW %>"></span>
 							<% end %>
 						</li>
 

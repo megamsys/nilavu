@@ -13,7 +13,7 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class Marketplaces < BaseFascade
+class Requests < BaseFascade
   include MarketplaceHelper
 
   attr_reader :req_submitted
@@ -22,16 +22,18 @@ class Marketplaces < BaseFascade
     @req_submitted = []
   end
 
-  #This just creates a Requests
-  def list(api_params, &block)
+  #This  creates a /requests
+  # used during CREATION and DELETE
+  def reqs(api_params, &block)
     raw = api_request(api_params, REQUESTS, CREATE)
     @req_submitted =  raw[:body]
     yield self  if block_given?
     return self
   end
 
-  # This creates a AppRequests
-  def show(api_params, &block)
+  # This creates a /catrequests
+  # called during START, STOP, RESTART
+  def catreqs(api_params, &block)
      raw = api_request(api_params, CATREQUESTS, CREATE)
      @req_submitted =  raw[:body]
      yield self  if block_given?
