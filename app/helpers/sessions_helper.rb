@@ -27,14 +27,6 @@ module SessionsHelper
     session_params
   end
   
-  
-  def new_remtokgn
-    
-    
-    session_params = {}
-    session_params[:remember_token] = rem_tokgen
-    session_params
-  end
 
   #a cache to store the sign details of an user in a cookie jar using keys
   #email and remember_token

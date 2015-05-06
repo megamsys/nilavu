@@ -34,6 +34,6 @@
 		</div>
 	</div>
 	<div class="margin_30 pad_t25">
-		<%= render :partial => "cockpits/"+@catname.downcase.pluralize, :locals => {:user => current_user, :assemblies => @assemblies} %>
+		<%= render :partial => "cockpits/flyasm", :locals => {:catname => @catname.downcase.pluralize, :assemblies_grouped => @assemblies_grouped } %>
 	</div>
 </div>

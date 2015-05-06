@@ -16,22 +16,24 @@
 class Sshkeys < BaseFascade
 
   attr_reader :ssh_keys
-  
+
   def initialize()
     @ssh_keys = []
     super(true)
   end
 
+  #lists the ssh keys for an user and return a hash with name, timestamp.
   def list(api_params, &block)
     raw = api_request(api_params, SSHKEYS, LIST)
-    @ssh_keys = filterkeys(raw[:body]) unless raw == nil
+    @ssh_keys = to_hash(raw[:body]) unless raw == nil
     yield self  if block_given?
     return self
   end
 
   private
 
-  def filterkeys(ssh_keys_collection)
+  #a private method that take the sshkeys collection and returns a hash
+  def to_hash(ssh_keys_collection)
     ssh_keys = []
     ssh_keys_collection.each do |sshkey|
       ssh_keys << {:name => sshkey.name, :created_at => sshkey.created_at.to_time.to_formatted_s(:rfc822)}

@@ -32,15 +32,15 @@
 				<h4>Dashboard</h4>
 			</div>
 			<div class="col-xs-12 col-md-9 mplace-middle hidden-xs hidden-sm">
-				<!-- <span>The <span class="badge_blue">supported</span> addons are marked by a Click on the addon to select it.</span> -->
 				<span class="pull-right c_small">Not sure what to do next?<i class="c_icon-rocket"></i><a href="http://docs.megam.io/v1.0/docs/megam_cloudmanagement_intro" target="_blank">Take a Tour</a></span>
 			</div>
 		</div>
 	</div>
+	
 	<div class="margin_30 pad_t25">
-		<%= render :partial => "cockpits/dews", :locals => {:user => current_user, :assemblies => @assemblies} %>
-		<%= render :partial => "cockpits/apps", :locals => {:user => current_user, :assemblies => @assemblies} %>
-		<%= render :partial => "cockpits/services", :locals => {:user => current_user, :assemblies => @assemblies} %>
+		<%= render :partial => "cockpits/flyasm", :locals => {:catname => Assemblies::DEW.capitalize,    :assemblies_grouped => @assemblies_grouped} %>
+		<%= render :partial => "cockpits/flyasm", :locals => {:catname => Assemblies::APP.capitalize,    :assemblies_grouped => @assemblies_grouped} %>
+		<%= render :partial => "cockpits/flyasm", :locals => {:catname => Assemblies::SERVICE.capitalize,:assemblies_grouped => @assemblies_grouped} %>
 	</div>
 </div>
 <% end %>

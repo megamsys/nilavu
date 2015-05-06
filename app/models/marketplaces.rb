@@ -13,7 +13,12 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
+require 'singleton'
+
+#this is a singleton which means we only load the marketplace once.
+#the downside is if there is a change in marketplace then we need to restart nilavu.
 class Marketplaces < BaseFascade
+  include Singleton
   include MarketplaceHelper
 
   attr_reader :mkp_grouped
