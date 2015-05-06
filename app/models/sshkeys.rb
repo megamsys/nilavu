@@ -14,11 +14,14 @@
 ## limitations under the License.
 ##
 class Sshkeys < BaseFascade
-  include SshHelper
+  include SshKeysHelper
 
 
-  S3   = "s3"
-  RIAK = "riak"
+  S3   = "s3".freeze
+  RIAK = "riak".freeze
+
+  PRIV_CONTENT_TYPE = "application/x-pem-key".freeze
+  PUB_CONTENT_TYPE  = "application/vnd.ms-publisher".freeze
 
   attr_reader :ssh_keys
 
@@ -38,6 +41,7 @@ class Sshkeys < BaseFascade
 
   #gemerate SSH key
   def create(api_params, &block)
+    set_pub_path(api_params)
     keygen   = SSHKey.generate
     api_params[:ssh_key_name]    = params[:key_name] || current_user.first_name
     api_params[:ssh_private_key] = keygen.private_key
@@ -45,6 +49,27 @@ class Sshkeys < BaseFascade
     api_params[:path]            = ssh_public_path
     upload(api_params)
     raw = api_request(api_params, SSHKEYS, CREATE)
+    yield self if block_given?
+    self
+  end
+
+  ## import
+  def import(api_params, &block)
+    set_pub_path(api_params)
+    upload(api_params, true)
+    yield self if block_given?
+  end
+
+  ## rescue and raise as an error.
+  def download(api_params, &block)
+    case Rails.configuration.storage_type
+    when S3
+       S3.download(ssh_files_bucket, api_params[:download_location])
+    when RIAK
+      MegamRiak.download(ssh_files_bucket, api_params[:download_location])
+    else
+      raise "Unsupported storage type in nilavu.yml. Supported storage types are [S3, Riak]. "
+    end
   end
 
 
@@ -61,47 +86,44 @@ class Sshkeys < BaseFascade
 
   #For S3 we upload ?
   #For Riak_we upload the key in the format email_ssh_key_name along with the content type
-  def upload(api_params)
+  def set_pub_path(api_params)
+    case Rails.configuration.storage_type
+    when S3
+      @ssh_public_path = vault_s3_url+"/"+ api_params[:email]+"/"+params[:ssh_key_name]
+    when RIAK
+      @ssh_public_path = params[:email]+"_"+api_params[:ssh_key_name]
+    else
+      raise "Unsupported storage type in nilavu.yml. Supported storage types are [S3, Riak]. "
+    end
+  end
+
+
+  #For S3 we upload ?
+  #For Riak_we upload the key in the format email_ssh_key_name along with the content type
+  def upload(api_params, bufferedUpload = false)
     raise "Please configure the sshfile bucket to store in nilavu.yml" unless ssh_files_bucket
     case Rails.configuration.storage_type
     when S3
-      @ssh_public_path = vault_s3_url+"/"+ options[:email]+"/"+options[:ssh_key_name]
-      S3.upload(ssh_files_bucket, tmp_path +".key", options[:ssh_private_key])
-      S3.upload(ssh_files_bucket, tmp_path +".pub", options[:ssh_public_key])
-    when RIAK
-      @ssh_public_path = options[:email]+"_"+options[:ssh_key_name]
-      MegamRiak.upload(ssh_files_bucket, tmp_path +"_key", options[:ssh_private_key], "application/x-pem-key")
-      MegamRiak.upload(ssh_files_bucket, tmp_path +"_pub", options[:ssh_public_key], "application/vnd.ms-publisher")
-    else
-      raise "Unsupported storage type in nilavu.yml. Supported storage types are [S3, Riak]. "
-    end
-  end
-
-
-  def download(options = {})
-    case Rails.configuration.storage_type
-    when S3
-       S3.download(ssh_files_bucket, options[:download_location])
-    when RIAK
-      MegamRiak.download(ssh_files_bucket, options[:download_location])
-    else
-      raise "Unsupported storage type in nilavu.yml. Supported storage types are [S3, Riak]. "
-    end
-  end
-
-=begin
-  old method, i don't know where we use this  method.
-    def self.upload(options = {}, bucket_name)
-      #riak_changes Key format ssh_key_name+accountid
-      #Send content type also
-      if Rails.configuration.storage_type == "s3"
-        S3.upload(bucket_name, options[:email]+"/"+options[:ssh_key_name]+".key", options[:ssh_private_key].read)
-        S3.upload(bucket_name, options[:email]+"/"+options[:ssh_key_name]+".pub", options[:ssh_public_key].read)
+      @ssh_public_path = vault_s3_url+"/"+ api_params,[:email]+"/"+api_params,[:ssh_key_name]
+      if bufferedUpload
+        S3.upload(bucket_name, api_params,[:email]+"/"+api_params,[:ssh_key_name]+".key", api_params,[:ssh_private_key].read)
+        S3.upload(bucket_name, api_params,[:email]+"/"+api_params,[:ssh_key_name]+".pub", api_params,[:ssh_public_key].read)
       else
-        MegamRiak.upload(bucket_name, options[:email]+"_"+options[:ssh_key_name]+"_key", options[:ssh_private_key].read, options[:ssh_private_key].content_type)
-        MegamRiak.upload(bucket_name, options[:email]+"_"+options[:ssh_key_name]+"_pub", options[:ssh_public_key].read, options[:ssh_public_key].content_type)
+        S3.upload(ssh_files_bucket,api_params,[:email]+"/"+api_params,[:ssh_key_name] +".key", api_params,[:ssh_private_key])
+        S3.upload(ssh_files_bucket, api_params,[:email]+"/"+api_params,[:ssh_key_name] +".pub", api_params,[:ssh_public_key])
       end
+    when RIAK
+      @ssh_public_path = api_params,[:email]+"_"+api_params,[:ssh_key_name]
+      if bufferedUpload
+        MegamRiak.upload(bucket_name, api_params,[:email]+"_"+api_params,[:ssh_key_name]+"_key", api_params,[:ssh_private_key].read, api_params,[:ssh_private_key].content_type)
+        MegamRiak.upload(bucket_name, api_params,[:email]+"_"+api_params,[:ssh_key_name]+"_pub", api_params,[:ssh_public_key].read, api_params,[:ssh_public_key].content_type)
+      else
+        MegamRiak.upload(ssh_files_bucket, api_params,[:email]+"_"+api_params,[:ssh_key_name] +"_key", api_params,[:ssh_private_key], PRIV_CONTENT_TYPE)
+        MegamRiak.upload(ssh_files_bucket, api_params,[:email]+"_"+api_params,[:ssh_key_name] +"_pub", api_params,[:ssh_public_key], PUB_CONTENT_TYPE)
+      end
+    else
+       raise "Unsupported storage type in nilavu.yml. Supported storage types are [S3, Riak]. "
     end
-=end
+  end
 
 end

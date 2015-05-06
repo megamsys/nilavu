@@ -20,6 +20,7 @@ Nilavu::Application.routes.draw do
 # the routes used by the monitoring system
   resources :dashboards
   resources :widgets
+
   namespace :api do
     resources :dashboards do
       resources :widgets
@@ -37,9 +38,8 @@ Nilavu::Application.routes.draw do
   match '/signout', to: 'sessions#destroy', via: [:post,:delete]
   match '/auth/facebook/callback', :to => 'sessions#create', via: [:get, :post]
 
-# named rourte for billing, paid message callback from paypal or bitcoin
+# named route for billing, paid message callback from paypal or bitcoin
   match '/callback_url', to: 'billings#callback_url', via: [:get, :post]
-
 # Generically handle errors for 404, 500.
   get "/404", :to => "errors#not_found"
   #get "/422", :to => "errors#unacceptable"
