@@ -46,11 +46,12 @@ class Marketplaces < BaseFascade
   #                                   Platform
   #                                   Analytics
   def list(api_params, &block)
-    raw = api_request(api_params, MARKETPLACES, LIST)
-    @mkp_collection =  raw[:body] unless raw == nil
+    unless !@mkp_grouped.empty? #a patch to load mkp_grouped from cache, as this object is singleton. Maybe memcache can help us.
+      raw = api_request(api_params, MARKETPLACES, LIST)
+      @mkp_collection =  raw[:body] unless raw == nil
 
-    @mkp_grouped = Hash[@mkp_collection.group_by{ |tmp| tmp.catalog[:category] }.map{|k,v| [k,v.map{|h|h}]}]
-
+      @mkp_grouped = Hash[@mkp_collection.group_by{ |tmp| tmp.catalog[:category] }.map{|k,v| [k,v.map{|h|h}]}]
+    end
     yield self  if block_given?
     return self
   end
