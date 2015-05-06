@@ -21,9 +21,9 @@ class Sshkeys < BaseFascade
   RIAK = "riak"
 
   attr_reader :ssh_keys
-
   def initialize()
     @ssh_keys = []
+    @key_name = nil
     super(true)
   end
 
@@ -98,7 +98,44 @@ class Sshkeys < BaseFascade
     ssh_keys_collection.each do |sshkey|
       ssh_keys << {:name => sshkey.name, :created_at => sshkey.created_at.to_time.to_formatted_s(:rfc822)}
     end
-   ssh_keys.sort_by {|vn| vn[:created_at]}
+    ssh_keys.sort_by {|vn| vn[:created_at]}
+  end
+
+  def create(params, &block)
+    case params[:sshoption]
+    when "CREATE"
+      begin
+        k = SSHKey.generate
+        @key_name = params[:sshcreatename] + "_" + params[:name]
+        options ={:email => params[:email], :ssh_key_name => @key_name, :ssh_private_key => k.private_key, :ssh_public_key => k.ssh_public_key }
+        SshKey.perform(options, ssh_files_bucket)
+      rescue Sshkeys::SSHKeyUploadFailure => se
+        @error   = se.message
+      end
+    when "UPLOAD"
+      begin
+        @key_name = params[:sshuploadname] + "_" + params[:name]
+        options ={:email => params[:email], :ssh_key_name => key_name, :ssh_private_key => params[:ssh_private_key], :ssh_public_key => params[:ssh_public_key] }
+        upload = SshKey.upload(options, ssh_files_bucket)
+      rescue Sshkeys::SSHKeyUploadFailure => se
+        @error   = se.message
+      end
+    when "EXIST"
+      @key_name = params[:sshexistname]
+    end
+    yield self if block_given?
+    return self
+  end
+
+  def upload(api_params)
+    if Rails.configuration.storage_type == "s3"
+      sshpub_loc = vault_s3_url+"/"+current_user.email+"/"+@key_name
+    else
+      sshpub_loc = current_user.email+"_"+@key_name     #Riak changes
+    end
+    api_request(api_params.merge({:name => @key_name, :path => sshpub_loc }), SSHKEYS, CREATE)
+    yield self if block_given?
+    return self
   end
 
 end

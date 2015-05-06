@@ -25,14 +25,15 @@ class Assemblies < BaseFascade
   DEW                 =  'DEW'.freeze
   APP                 =  'APP'.freeze
   SERVICE             =  'SERVICE'.freeze
+  ANALYTICS           =  'ANALYTICS'.freeze
   ADDON               =  'ADDON'.freeze
+
 
   START               =  'start'.freeze
   STOP                =  'stop'.freeze
   RESTART             =  'restart'.freeze
   DELETE              =  'delete'.freeze
   TERMINATED          =  'Terminated'.freeze
-
 
   def initialize()
     @assemblies_collection = []
@@ -66,7 +67,7 @@ class Assemblies < BaseFascade
       end unless @assemblies_collection.nil?
     end
 
-    @assemblies_grouped = @assemblies_collection.group_by{abck| abck} unless @assemblies_collection.nil?
+    @assemblies_grouped = @assemblies_collection.group_by{|abck| abck} unless @assemblies_collection.nil?
 
     yield self  if block_given?
     return self
