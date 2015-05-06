@@ -158,6 +158,9 @@ class MarketplacesController < ApplicationController
   def create
     puts "+++++++++++++++++++++++++++++++++"
     puts params
+    if params[:sshoption] == "CREATE"
+      
+    end
   end
 
   ##
@@ -194,7 +197,7 @@ class MarketplacesController < ApplicationController
       k = SSHKey.generate
       key_name = params[:sshcreatename] + "_" + assembly_name || current_user.first_name
       sshkeyname = key_name
-      filename = key_name
+      #filename = key_name
       if Rails.configuration.storage_type == "s3"
         sshpub_loc = vault_s3_url+"/"+current_user.email+"/"+key_name
       else
@@ -230,7 +233,7 @@ class MarketplacesController < ApplicationController
     end
 
     if sshoption == "UPLOAD"
-      filename = params[:key_name]
+      #filename = params[:key_name]
       key_name = params[:sshuploadname] + "_" + assembly_name
       sshkeyname = key_name
       if Rails.configuration.storage_type == "s3"
