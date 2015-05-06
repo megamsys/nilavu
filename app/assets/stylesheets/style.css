@@ -52,20 +52,7 @@ a, a:focus, a:hover, a:active {
     background-image: none !important;
     border-color: #fafafa !important;
 }
-[class^="icon-"], [class*=" icon-"] {
-    display: inline-block;
-    font-size: 24px;
-    line-height: 14px;
-    margin-top: 1px;
-}
-li [class^="icon-"], li [class*=" icon-"] {
-    display: inline-block;
-    text-align: center;
-    width: 1.25em;
-}
-li .icon-large[class^="icon-"], li .icon-large[class*=" icon-"] {
-    width: 1.5625em;
-}
+
 .close {
     background-image: url("remove-icon-small.png") !important;
     background-repeat: no-repeat !important;
@@ -280,6 +267,9 @@ hr {
 .page-sidebar.navbar-collapse {
     padding: 0;
 }
+
+/* page-sidebar-menu code start*/
+
 .page-sidebar-menu {
     list-style: none outside none;
     margin: 0;
@@ -315,7 +305,10 @@ hr {
     padding: 10px 0px 15px 30px;
     position: absolute;
     text-decoration: none;
+    position: absolute;
+    !important;
 }
+
 .page-sidebar-fixed .page-sidebar-menu > li > a {
     transition: all 0.2s ease 0s;
 }
@@ -467,6 +460,42 @@ hr {
 .page-sidebar-menu > li > ul.sub-menu li > ul.sub-menu > li > a > i {
     font-size: 13px;
 }
+
+
+/*Sidebar icon-text problem is here */
+
+
+[class^="icon-"], [class*=" icon-"] {
+
+width: auto;
+height: auto;
+line-height: normal;
+vertical-align: baseline;
+background-image: none;
+background-position: 0% 0%;
+background-repeat: repeat;
+margin-top: 0;
+
+    display: inline-block;
+}
+
+
+/*Sidebar icon-text problem is here */
+
+
+li [class^="icon-"], li [class*=" icon-"] {
+    display: inline-block;
+    text-align: center;
+    width: 1.25em;
+}
+li .icon-large[class^="icon-"], li .icon-large[class*=" icon-"] {
+    width: 1.5625em;
+}
+
+
+
+/* page-sidebar-menu code end*/
+
 .page-sidebar .sidebar-search {
     margin: 0;
     padding: 0;

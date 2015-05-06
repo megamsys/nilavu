@@ -597,8 +597,7 @@ background-repeat: no-repeat;
 .header {
 	background-color: #f5f5f5;
 }
-.page-sidebar-menu a {
-}
+
 .rt-box {
 	padding-top: 80px;
 	min-height: 540px;
@@ -1324,11 +1323,7 @@ a.btn-success:hover {
  .title {
  padding-left: 15px;
 }
- .page-sidebar-menu > li > a {
- position: absolute;
-!important;
-}
- .label-profile {
+.label-profile {
  padding-top: 23px !important;
 }
 }

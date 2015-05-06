@@ -47,4 +47,8 @@ Nilavu::Application.routes.draw do
 # A visual designer route ? for what ?
   match '/varai', to: 'cockpit#varai', via: [:get]
 
+
+# named route for ssh_keys
+  match '/sshkey/import', to: 'ssh_keys#sshkey_import', via: [:get]
+
 end
