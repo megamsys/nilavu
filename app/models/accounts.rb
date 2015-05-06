@@ -99,7 +99,7 @@ class Accounts < BaseFascade
     return self
   end
 
-  #updates an account based on the input parms sent.
+  #updates an account based on the input params sent.
   def update(api_params,&block)
     api_request(bld_acct(api_params), ACCOUNT, UPDATE)
     @remember_token = api_params[:remember_token] if api_params[:remember_token]
@@ -147,7 +147,7 @@ class Accounts < BaseFascade
   private
   def bld_acct(api_params)
     acct_parms = {
-     :id => api_params[:id],
+     :id => nil,
      :first_name => api_params[:first_name],
      :last_name => api_params[:last_name],
      :phone => api_params[:phone],
@@ -158,6 +158,8 @@ class Accounts < BaseFascade
      :password_reset_token => api_params[:password_reset_token],
      :created_at => api_params[:created_at]}
   end
+  
+
 
 
   def password_encrypt(password)
