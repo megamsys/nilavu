@@ -1,0 +1,39 @@
+/* sample sidebar-menu code start*/
+
+
+/*a little bit of reset*/
+
+
+#services-list > li{
+    border: 0 none;
+    display: block;
+    margin: 0;
+    /*padding: 0;*/
+    padding-top: 5px;
+    padding-bottom: 10px;
+    /*padding-left: 15px;*/
+
+}
+
+#services-list > li [class^="icon-"], li [class*=" icon-"] {
+    display: inline-block;
+    text-align: center;
+    width: 1.25em;
+}
+
+#services-list > li > a {
+    border: 0 none;
+    display: block;
+    font-size: 14px;
+    font-weight: 300;
+    margin: 0;
+    padding: 10px 0px 15px 30px;
+    position: absolute;
+    text-decoration: none;
+    position: absolute;
+    !important;
+}
+
+
+
+/* sample sidebar-menu code end*/
