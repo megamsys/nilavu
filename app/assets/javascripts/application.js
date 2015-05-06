@@ -41,8 +41,6 @@
 //= require faq_modernizr
 //= require jquery.filter
 //= require socket.io
-//= require spin.min
-//= require jquery.spin
 //= require megam.monitor
 //= require megam.support
 //= require megam.enixel
