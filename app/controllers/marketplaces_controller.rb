@@ -159,7 +159,7 @@ class MarketplacesController < ApplicationController
     puts "+++++++++++++++++++++++++++++++++"
     puts params
     if params[:sshoption] == "CREATE"
-      
+
     end
   end
 

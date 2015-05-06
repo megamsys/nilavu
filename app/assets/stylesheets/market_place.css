@@ -163,4 +163,3 @@ input[type=checkbox] {
 .check_ci input[type=checkbox]:checked + label {
 	left: 43px;
 }
-
