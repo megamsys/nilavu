@@ -6,21 +6,22 @@ api:
   private_key: megamgateway.key
 
 storage:
+  #type :s3
+  #server_url: https://s3-ap-southeast-1.amazonaws.com
   type: riak
   server_url: localhost
   cloud_tool_bucket: cloudtools
   cloud_keys_bucket: cloudaccesskeys
   ssh_files_bucket: sshfiles
-  #type :s3
-  #server_url: https://s3-ap-southeast-1.amazonaws.com
+
 
 varai:
   host: localhost
   port: 1880
 
 support:
-  email: dvader082@gmail.com
-  password: 
+  email: support@megam.io
+  password:
 
 auth:
   fb_client_id:
@@ -51,4 +52,3 @@ opennebula:
  port: 2633
  username: username
  password: password
-

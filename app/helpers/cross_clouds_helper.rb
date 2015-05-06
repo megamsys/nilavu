@@ -14,6 +14,7 @@
 ## limitations under the License.
 ##
 module CrossCloudsHelper
+
   def cross_cloud
     cc_list = Array.new
     cc_config.each do |cc, cloud|
@@ -49,21 +50,10 @@ module CrossCloudsHelper
     Rails.configuration.storage_crosscloud
   end
 
-  def ssh_files_bucket
-    Rails.configuration.storage_sshfiles
-  end
-
-  def cloud_tool_setting_bucket
-    Rails.configuration.storage_cloudtool
-  end
 
   if Rails.configuration.storage_type == 's3'
     def vault_s3_url
       Rails.configuration.storage_server_url+"/"+cross_cloud_bucket
-    end
-
-    def cloudtool_base_url
-      Rails.configuration.storage_server_url+"/"+cloud_tool_setting_bucket
     end
   end
 
@@ -229,7 +219,7 @@ module CrossCloudsHelper
 
 
 
-  
+
 
   #=======================> Opennebula <========================
   def list_one_data(access_key, secret_key, region)
@@ -251,4 +241,3 @@ module CrossCloudsHelper
     return @one_flavors
   end
  end
-
