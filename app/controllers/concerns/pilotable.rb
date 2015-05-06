@@ -25,13 +25,30 @@ module Pilotable
     attr_writer :create, :destroy
   end
 
-  def create
-    puts "--- catrequests hack --"
+  #this action gets called prior to a start, stop, restart, delete operation
+  # a confirmation is got from the user to perform the same.
+  def precreate
+    @id = params[:id]
+    @name = params[:name]
+    @command = params[:command]
+    @type = params[:type]
+    respond_to do |format|
+      format.js {
+        respond_with(@id, @name, @command, @type, :layout => !request.xhr? )
+      }
+    end
   end
 
-  #destroy
+  #this action performs a start, stop, restart operation
+  def create
+    logger.debug "> Pilotable: create"
+    Requests.new.catreqs(params)
+  end
+
+  #this action perfroms a delete operation.
   def destroy
-    puts "--- catrequests hack --"
+    logger.debug "> Pilotable: destroy"
+    Requests.new.reqs(params)
   end
 
 end
