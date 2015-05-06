@@ -36,10 +36,11 @@
 			</div>
 		</div>
 	</div>
+	
 	<div class="margin_30 pad_t25">
-		<%= render :partial => "cockpits/dews", :locals => {:user => current_user, :assemblies => @assemblies} %>
-		<%= render :partial => "cockpits/apps", :locals => {:user => current_user, :assemblies => @assemblies} %>
-		<%= render :partial => "cockpits/services", :locals => {:user => current_user, :assemblies => @assemblies} %>
+		<%= render :partial => "cockpits/flyasm", :locals => {:catname => Assemblies::DEW.capitalize,    :assemblies_grouped => @assemblies_grouped} %>
+		<%= render :partial => "cockpits/flyasm", :locals => {:catname => Assemblies::APP.capitalize,    :assemblies_grouped => @assemblies_grouped} %>
+		<%= render :partial => "cockpits/flyasm", :locals => {:catname => Assemblies::SERVICE.capitalize,:assemblies_grouped => @assemblies_grouped} %>
 	</div>
 </div>
 <% end %>

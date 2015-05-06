@@ -61,8 +61,7 @@ class UsersController < ApplicationController
   #I don't know why we are creating a new_session here. This is a BUG.
   def update
     logger.debug "> Users: update"
-    logger.debug "> TYPENUM #{Accounts.typenum_to_s(params[:myprofile_type])}"
-    Accounts.new.update(params.merge(new_remtokgn)) do  |tmp_account|
+    Accounts.new.update(params.merge({:remember_token => rem_tokgen})) do  |tmp_account|
         sign_in tmp_account
         @success = "#{Accounts.typenum_to_s(params[:myprofile_type])} updated successfully."
         @error = "Oops! Please contact support@megam.io"

@@ -20,16 +20,18 @@ class Components < BaseFascade
 
   attr_reader :components
 
-
   def initialize()
     @components= nil
   end
-
 
   def show(api_params, &block)
     @components = api_request(api_params, COMPONENTS, SHOW)[:body]
     yield @components if block_given?
     return @components
+  end
+
+  def prune
+    components.take_while { |one_component| (one_component.nil? || one_component.is_a?(Megam::Error)) }
   end
 
 end

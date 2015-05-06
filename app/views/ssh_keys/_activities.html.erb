@@ -46,7 +46,6 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% if @ssh_keys_collection.class != Megam::Error %>
 				<% @ssh_keys.each do |sshkey| %>
 				<tr>
 					<td>
@@ -65,7 +64,6 @@
 					<td class="set_title"><%= sshkey[:name] %></td>
 					<td><i class="c_icon-calendar"></i> <%= sshkey[:created_at] %> </td>
 				</tr>
-				<% end %>
 				<% end %>
 			</tbody>
 		</table>
@@ -194,4 +192,3 @@
 	</div>
 	<!-- /.modal-dialog -->
 </div>
-

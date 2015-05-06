@@ -19,13 +19,12 @@ class CatalogsController < ApplicationController
 
   before_action :stick_keys, only: [:index]
 
+  #when you click Apps, Services, Addons from the left nav.
+  #This is essentially a filtered view of cattype [ADDON, APP, DEW,SERVICE] the cockpit.
   def index
     @catname = params[:cattype].capitalize
     assem = Assemblies.new.list(params)
-    assem.assemblies
-    assem.apps_spun
-    assem.dews_spun
-    assem.services_spun
+    @assemblies_grouped = assem.assemblies_grouped
   end
 
 end
