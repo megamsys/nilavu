@@ -8,6 +8,7 @@ class BaseFascade
   class APIInvocationFailure < MegamAPIError; end
   class MissingAPIArgsError < MegamAPIError; end
   class AuthenticationFailure < MegamAPIError; end
+  class SSHKeyUploadFailure < MegamAPIError; end
 
   JLAZ_PREFIX       = "Megam::".freeze
   ACCOUNT           = 'Account'.freeze

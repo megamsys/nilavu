@@ -13,7 +13,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<%= form_tag instances_launch_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+<%= form_tag marketplaces_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 <% @mkp.plans.each do |c| %>
 <% if c["version"] == version %>
 <% @mkp_price = c["price"] %>
