@@ -45,6 +45,7 @@
 //= require jquery.spin
 //= require megam.monitor
 //= require megam.support
+//= require megam.enixel
 //= require nprogress
 //= require nprogress-ajax
 //= require_tree .

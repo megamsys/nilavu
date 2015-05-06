@@ -1,7 +1,7 @@
 	/****************
  	Bootstrap changes
  	*****************/
- 	.container,
+
 	.navbar-inner .container {
 		max-width: none !important;
 		width: 1170px !important;
