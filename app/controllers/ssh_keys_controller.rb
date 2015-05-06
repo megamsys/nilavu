@@ -25,7 +25,11 @@ class SshKeysController < ApplicationController
 
   def create
 
-  
+    respond_to do |format|
+      format.js {
+        respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
+      }
+    end
   end
 
   def sshkey_import
@@ -73,24 +77,14 @@ class SshKeysController < ApplicationController
   end
 
   def download
-      @keyname = params[:filename]
-      @filename = current_user.email+"_"+"#{@keyname}"
-      options ={:email => current_user.email, :download_location => "#{@filename}" }
-      downloaded_file = SshKey.download(options, ssh_files_bucket)
-      if downloaded_file.class == Megam::Error
-        @res_msg = nil
-        @err_msg="Failed to Download SSH key."
-        @public_key = ""
-        respond_to do |format|
-          format.js {
-            respond_with(@res_msg, @err_msg, @keyname, :layout => !request.xhr? )
-          }
-        end
-      else
-        @err_msg = nil
-        @res_msg = "SSH key downloaded successfully"
-        send_file Rails.root.join("#{@filename}"), :x_sendfile=>true
-      end
-    end
+    @keyname = params[:filename]
+    @filename = current_user.email+"_"+"#{@keyname}"
+    options ={:email => current_user.email, :download_location => "#{@filename}" }
+    
+    downloaded_file = SshKey.download(options, ssh_files_bucket)
+    @err_msg = nil
+    @res_msg = "SSH key downloaded successfully"
+    send_file Rails.root.join("#{@filename}"), :x_sendfile=>true
+  end
 
 end

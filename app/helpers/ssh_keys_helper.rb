@@ -1,4 +1,4 @@
-module SshHelper
+module SshKeysHelper
 
 def ssh_files_bucket
   Rails.configuration.storage_sshfiles

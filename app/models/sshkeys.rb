@@ -16,11 +16,12 @@
 class Sshkeys < BaseFascade
   include SshHelper
 
-  
+
   S3   = "s3"
   RIAK = "riak"
 
   attr_reader :ssh_keys
+
   def initialize()
     @ssh_keys = []
     @key_name = nil
@@ -37,60 +38,17 @@ class Sshkeys < BaseFascade
 
   #gemerate SSH key
   def create(api_params, &block)
-
-    SSHKey.generate
-    key_name = params[:key_name] || current_user.first_name
-
-    @filename = key_name
-
-
-    wparams = { :name => key_name, :path => sshpub_loc }
-
-    @res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
-    if @res_body.class == Megam::Error
-      @res_msg = nil
-      @err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
-      respond_to do |format|
-        format.js {
-          respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
-        }
-      end
-    else
-      @err_msg = nil
-      options ={:email => current_user.email, :ssh_key_name => key_name, :ssh_private_key => k.private_key, :ssh_public_key => k.ssh_public_key }
-      upload = SshKey.perform(options, ssh_files_bucket)
-      if upload.class == Megam::Error
-        @res_msg = nil
-        @err_msg="SSH key #{key_name} creation failed."
-        @public_key = ""
-        respond_to do |format|
-          format.js {
-            respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
-          }
-        end
-      else
-        @err_msg = nil
-        @res_msg = "SSH key #{key_name} created successfully"
-        @public_key = k.public_key
-        respond_to do |format|
-          format.js {
-            respond_with(@res_msg, @err_msg, @filename, :layout => !request.xhr? )
-          }
-        end
-      end
+    keygen   = SSHKey.generate
+    api_params[:ssh_key_name]    = params[:key_name] || current_user.first_name
+    api_params[:ssh_private_key] = keygen.private_key
+    api_params[:ssh_public_key]  = keygen.ssh_public_key
+    api_params[:path]            = ssh_public_path
+    upload(api_params)
+    raw = api_request(api_params, SSHKEYS, CREATE)
   end
-  end
+
 
   private
-
-  #
-  def ssh_public_location
-    if Rails.configuration.storage_type == "s3"
-      sshpub_loc = vault_s3_url+"/"+current_user.email+"/"+key_name
-    else
-      sshpub_loc = current_user.email+"_"+key_name     #Riak changes
-    end
-  end
 
   #a private method that take the sshkeys collection and returns a hash
   def to_hash(ssh_keys_collection)
@@ -101,41 +59,49 @@ class Sshkeys < BaseFascade
     ssh_keys.sort_by {|vn| vn[:created_at]}
   end
 
-  def create(params, &block)
-    case params[:sshoption]
-    when "CREATE"
-      begin
-        k = SSHKey.generate
-        @key_name = params[:sshcreatename] + "_" + params[:name]
-        options ={:email => params[:email], :ssh_key_name => @key_name, :ssh_private_key => k.private_key, :ssh_public_key => k.ssh_public_key }
-        SshKey.perform(options, ssh_files_bucket)
-      rescue Sshkeys::SSHKeyUploadFailure => se
-        @error   = se.message
-      end
-    when "UPLOAD"
-      begin
-        @key_name = params[:sshuploadname] + "_" + params[:name]
-        options ={:email => params[:email], :ssh_key_name => key_name, :ssh_private_key => params[:ssh_private_key], :ssh_public_key => params[:ssh_public_key] }
-        upload = SshKey.upload(options, ssh_files_bucket)
-      rescue Sshkeys::SSHKeyUploadFailure => se
-        @error   = se.message
-      end
-    when "EXIST"
-      @key_name = params[:sshexistname]
+  #For S3 we upload ?
+  #For Riak_we upload the key in the format email_ssh_key_name along with the content type
+  def upload(api_params)
+    raise "Please configure the sshfile bucket to store in nilavu.yml" unless ssh_files_bucket
+    case Rails.configuration.storage_type
+    when S3
+      @ssh_public_path = vault_s3_url+"/"+ options[:email]+"/"+options[:ssh_key_name]
+      S3.upload(ssh_files_bucket, tmp_path +".key", options[:ssh_private_key])
+      S3.upload(ssh_files_bucket, tmp_path +".pub", options[:ssh_public_key])
+    when RIAK
+      @ssh_public_path = options[:email]+"_"+options[:ssh_key_name]
+      MegamRiak.upload(ssh_files_bucket, tmp_path +"_key", options[:ssh_private_key], "application/x-pem-key")
+      MegamRiak.upload(ssh_files_bucket, tmp_path +"_pub", options[:ssh_public_key], "application/vnd.ms-publisher")
+    else
+      raise "Unsupported storage type in nilavu.yml. Supported storage types are [S3, Riak]. "
     end
-    yield self if block_given?
-    return self
   end
 
-  def upload(api_params)
-    if Rails.configuration.storage_type == "s3"
-      sshpub_loc = vault_s3_url+"/"+current_user.email+"/"+@key_name
+
+  def download(options = {})
+    case Rails.configuration.storage_type
+    when S3
+       S3.download(ssh_files_bucket, options[:download_location])
+    when RIAK
+      MegamRiak.download(ssh_files_bucket, options[:download_location])
     else
-      sshpub_loc = current_user.email+"_"+@key_name     #Riak changes
+      raise "Unsupported storage type in nilavu.yml. Supported storage types are [S3, Riak]. "
     end
-    api_request(api_params.merge({:name => @key_name, :path => sshpub_loc }), SSHKEYS, CREATE)
-    yield self if block_given?
-    return self
   end
+
+=begin
+  old method, i don't know where we use this  method.
+    def self.upload(options = {}, bucket_name)
+      #riak_changes Key format ssh_key_name+accountid
+      #Send content type also
+      if Rails.configuration.storage_type == "s3"
+        S3.upload(bucket_name, options[:email]+"/"+options[:ssh_key_name]+".key", options[:ssh_private_key].read)
+        S3.upload(bucket_name, options[:email]+"/"+options[:ssh_key_name]+".pub", options[:ssh_public_key].read)
+      else
+        MegamRiak.upload(bucket_name, options[:email]+"_"+options[:ssh_key_name]+"_key", options[:ssh_private_key].read, options[:ssh_private_key].content_type)
+        MegamRiak.upload(bucket_name, options[:email]+"_"+options[:ssh_key_name]+"_pub", options[:ssh_public_key].read, options[:ssh_public_key].content_type)
+      end
+    end
+=end
 
 end
