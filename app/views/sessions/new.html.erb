@@ -36,7 +36,7 @@
 
 			<div class="cover col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
 				<!-- BEGIN LOGIN FORM -->
-				<%= form_tag sessions_path, multipart: true, :id => "megamform", role: "form", :novalidate => "novalidate", :method => "post", data: { spinlock: "#spin_cross_cloud"}  do %>
+				<%= form_tag sessions_path, multipart: true, :id => "megamform", :class => "sign-form", role: "form", :novalidate => "novalidate", :method => "post", data: { spinlock: "#spin_cross_cloud"}  do %>
 				<div class="c_inline">
 					<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
 					<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
@@ -58,16 +58,18 @@
 						</div>
 					</div>
 
-					<% if flash[:error] %>
+
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
+					<% if flash[:error] %>
 							<div class="alert alert-danger alert-dismissable">
 								<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
 								<strong>Warning!</strong> <%= flash[:error] %>
 							</div>
+					<% end %>
 						</div>
 					</div>
-					<% end %>
+
 
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
@@ -88,8 +90,7 @@
 							<div class="row">
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 tour-btn">
 
-									<%= link_to "Take a tour", tour_path,:class => "btn btn-success btn-plain", :id => "popover_demosignin" %>
-
+									<a href="/tour"><button class="btn btn-success btn-plain">Take a tour</button></a>
 								</div>
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right tour-btn">
 									<button type="submit" class="btn btn-success btn-plain-green" data-remote="true">Login</button>
