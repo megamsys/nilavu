@@ -19,6 +19,7 @@ require 'json'
 class Assembly < BaseFascade
 
   attr_reader :assembly_collection
+
   def initialize()
     @assembly_collection= nil
   end
@@ -30,19 +31,29 @@ class Assembly < BaseFascade
     return @assembly_collection
   end
 
+  #wade out the nils in the assemblys_collection.
+  #the error objects shouldn't be in here, but we swallow an exception for an assemblies.list.
+  #hence we prune errors as well.
+  def prune
+    assembly_collection.take_while do |one_assembly|
+      one_assembly.components.take_while do |one_component|
+        one_component.prune
+      end unless (one_component.nil? || one_component.is_a?(Megam::Error))
+    end unless (one_assembly.nil? || one_assembly.is_a?(Megam::Error))
+  end
+
   private
 
-  def dig_components(assemblys)
-    tmp = assemblys.map do |asmbly|
-      asmbly.components.map do |one_comp|
-        if !one_comp.empty?
-          Components.show(one_comp).components
+  def dig_components(tmp_assembly_collection)
+    tmp_assembly_collection.map do |one_assembly|
+      one_assembly.components.map do |one_component|
+        if !one_component.empty?
+          Components.show(one_component).components
         else
           nil
         end
       end
     end
-    tmp
   end
 
 end

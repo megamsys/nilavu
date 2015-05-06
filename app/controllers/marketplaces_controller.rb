@@ -28,7 +28,7 @@ class MarketplacesController < ApplicationController
   ##
   def index
     logger.debug "> Marketplaces: index."
-    @mkp_grouped = Marketplaces.new.list(params).mkp_grouped
+    @mkp_grouped = Marketplaces.instance.list(params).mkp_grouped
   end
 
   ##
@@ -43,10 +43,10 @@ class MarketplacesController < ApplicationController
           format.js {render :js => "window.location.href='"+billings_path+"'"}
         end
       else
-        @mkp = Marketplaces.new.show(params).mkp
-        @version_order = []
-        @version_order = @mkp.plans.map {|c| c["version"]}.sort
-        @ssh_keys = Sshkeys.new.list(params).ssh_keys
+        mkp = Marketplaces.instance.show(params).mkp
+        version_order = []
+        version_order = mkp.plans.map {|c| c["version"]}.sort
+        ssh_keys = Sshkeys.new.list(params).ssh_keys
 
         respond_to do |format|
           format.js {

@@ -14,6 +14,8 @@
 ## limitations under the License.
 ##
 class CockpitsController < ApplicationController
+  include Pilotable
+
   respond_to :html, :js
 
   before_action :stick_keys, only: [:index]
@@ -21,17 +23,14 @@ class CockpitsController < ApplicationController
   #doesn't require a sign for new and create action, hence skip it.
   skip_before_action :require_signin, only: [:varai]
 
-  #doesn't require to catch execption for show
+  #doesn't require to catch exception for show
   skip_around_action :catch_exception, only: [:show]
 
-  #RAJ, we may not use apps_spun, vm_spun i think
+  #Marketplaces has the type to cattype mapping, which is needed to display an assembly
+  #hence we load it as a singleton.
   def index
     logger.debug "> Cockpits: index."
-    assem = Assemblies.new.list(params)
-    assem.assemblies
-    assem.apps_spun
-    assem.dews_spun
-    assem.services_spun
+    @assemblies_grouped = Assemblies.new.list(params).assemblies_grouped
   end
 
   def show

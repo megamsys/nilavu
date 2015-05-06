@@ -20,12 +20,7 @@ class Assemblies < BaseFascade
   include MarketplaceHelper
 
 
-  attr_reader :services_spun
-  attr_reader :dews_spun
-  attr_reader :apps_spun
-  attr_reader :assemblies
-  attr_reader :services
-  attr_reader :apps
+  attr_reader :assemblies_grouped
 
   DEW                 =  'DEW'.freeze
   APP                 =  'APP'.freeze
@@ -33,13 +28,16 @@ class Assemblies < BaseFascade
   ANALYTICS           =  'ANALYTICS'.freeze
   ADDON               =  'ADDON'.freeze
 
+
+  START               =  'start'.freeze
+  STOP                =  'stop'.freeze
+  RESTART             =  'restart'.freeze
+  DELETE              =  'delete'.freeze
+  TERMINATED          =  'Terminated'.freeze
+
   def initialize()
-    @apps_spun     = 0
-    @services_spun = 0
-    @dews_spun      = 0
-    @assemblies= nil
-    @services
-    @apps
+    @assemblies_collection = []
+    @assemblies_grouped = []
     super(true) #swallow 404 errors for assemblies.
   end
 
@@ -60,36 +58,17 @@ class Assemblies < BaseFascade
 
   def list(api_params, &block)
     raw = api_request(api_params, ASSEMBLIES, LIST)
-    @assemblies = dig_assembly(raw[:body]) unless raw == nil
-    tmp = []
-    tmp = @assemblies.each do |asm|
-          asm.assemblies.each do |assembly|
-            if assembly != nil
-              if assembly[0].class != Megam::Error
-                @dews_spun = @dews_spun + 1 if (assembly[0].components.length == 0)
-                assembly[0].components.each do |com|
-                  if com != nil
-                    com.each do |c|
-                      com_type = c.tosca_type.split(".")
-                      ctype = get_type(com_type[2])
-                      case ctype
-                      when SERVICE
-                        @service << {"name" => assembly[0].name + "." + c.inputs[:domain] + "/" + c.name, "aid" => assembly[0].id, "cid" => c.id }
-                        @service_spun = @service_spun + 1
-                      when APP
-                        @app_spun = @app_spun + 1
-                      when APP && com[0].related_components == ""
-                        @apps << {"name" => assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain] + "/" + com[0].name, "aid" => assembly[0].id, "cid" => assembly[0].components[0][0].id }
-                      end
-                   end
-                end
-              end
-            end
-          end
-        end    if asm.class != Megam::Error
-      end if raw != nil
+    @assemblies_collection = dig_assembly(raw[:body]) unless raw == nil
 
-    @assemblies  = tmp
+    #only if the mkp is successful, we can figure out toscatype to cattype [APP, SERVICE, ADDON]
+    Marketplaces.instance.list(api_params) do |mkp|
+      prune.map do  |pruned_assembly_collection|
+        #stick the toscatype to cattype [APP, SERVICE, ADDON]
+      end unless @assemblies_collection.nil?
+    end
+
+    @assemblies_grouped = @assemblies_collection.group_by{|abck| abck} unless @assemblies_collection.nil?
+
     yield self  if block_given?
     return self
   end
@@ -97,11 +76,24 @@ class Assemblies < BaseFascade
 
 
   private
+
+    #wade out the nils in the assemblies_collection.
+    #the error objects shouldn't be in here, but we swallow an exception for an assemblies.list.
+    #hence we prune errors as well.
+    def prune
+      @assemblies_collection.take_while do |one_assemblies|
+        one_assemblies.assemblies.take_while do |one_assembly|
+          one_assembly.prune
+        end unless (one_assemblies.nil? || one_assembly.is_a?(Megam::Error))
+      end unless @assemblies_collectionassemblies.nil?
+      @assemblies_collection
+    end
+
     def dig_assembly(tmp_assemblies_collection)
-      tmp_assemblies_collection.map do |asmblies|
-          asmblies.assemblies.map  do  |one_asmblies|
-            if !one_asmblies.empty?
-              Assembly.show(one_asmblies).assembly_collection
+      tmp_assemblies_collection.map do |one_assemblies|
+          one_assemblies.assemblies.map  do  |one_assembly|
+            if !one_assembly.empty?
+              Assembly.show(one_assembly).assembly_collection
             else
               nil
             end
