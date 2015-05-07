@@ -21,7 +21,7 @@ class MarketplacesController < ApplicationController
   include CatalogHelper
   include CrossCloudsHelper
 
-  before_action :stick_keys, only: [:index, :show]
+  before_action :stick_keys, only: [:index, :show, :create]
   ##
   ## index page get all marketplace items from storage(we use riak) using megam_gateway
   ## and show the items in order of category
@@ -43,14 +43,18 @@ class MarketplacesController < ApplicationController
           format.js {render :js => "window.location.href='"+billings_path+"'"}
         end
       else
-        mkp = Marketplaces.instance.show(params).mkp
-        version_order = []
-        version_order = mkp.plans.map {|c| c["version"]}.sort
-        ssh_keys = Sshkeys.new.list(params).ssh_keys
-
+        @mkp = Marketplaces.instance.show(params).mkp
+        versions = []
+        versions = @mkp.plans.map {|c| c["version"]}.sort
+        @ssh_keys = Sshkeys.new.list(params).ssh_keys
+        @mkp = @mkp.to_hash
+        @mkp["sversion"] = versions[0]
+        @mkp["sversion"] = params["version"] if params.has_key?("version")
+        @mkp["versions"] = versions
+        puts @mkp.inspect
         respond_to do |format|
           format.js {
-            respond_with(@mkp, @version_order, @ssh_keys, :layout => !request.xhr? )
+            respond_with(@mkp, @ssh_keys, :layout => !request.xhr? )
           }
         end
       end
@@ -133,210 +137,24 @@ class MarketplacesController < ApplicationController
     session[:gogs_repos] =  @repos_arr
   end
 
-  private
-
-  ##
-  ## when change the version of marketplace item then this controller change the contents of that item
-  ##
-  def changeversion
-    @pro_name = params[:id].split("-")
-    @version = params[:version]
-    @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])
-    if @mkp.class == Megam::Error
-      redirect_to cockpits_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
-    else
-      @mkp = @mkp.lookup(params[:id])
-      @type = get_type(@pro_name[3].downcase)
-      respond_to do |format|
-        format.js {
-          respond_with(@mkp, @version, @type, :layout => !request.xhr? )
-        }
-      end
-    end
-  end
-
   def create
-    puts "+++++++++++++++++++++++++++++++++"
-    puts params
-    if params[:sshoption] == "CREATE"
-
-    end
-  end
-
-  ##
-  ## this controller launch the instances(which means virtual machines)
-  ## this performs three types of condition operations for launching instances using sshkeys
-  ##
-  def instances_create
-    assembly_name = params[:name]
-    version = params[:version]
-    domain = params[:domain]
-    cloud = params[:cloud]
-    source = params[:source]
-    type = params[:type].downcase
-    sshoption = params[:sshoption]
-
-    dbname = nil
-    dbpassword = nil
-
-    combos = params[:combos]
-    combo = combos.split("+")
-
-    ttype = "tosca.web."
-    appname = params[:appname]
-    servicename = nil
-    sshkeyname = nil
-    logger.debug "--> #{self.class} : Instance creation - I'm in..."
-    ## check the user chose what type of ssh option and then perform it
-    ## in this case we have three options
-    ## first  - create option then we create a new ssh key for user
-    ## second - user already have ssh keys and upload it
-    ## third  - user already create and upload sshkeys on megam storage
-    ## finally set the sshkeys and launch the instance
-    if sshoption == "CREATE"
-      k = SSHKey.generate
-      key_name = params[:sshcreatename] + "_" + assembly_name || current_user.first_name
-      sshkeyname = key_name
-      #filename = key_name
-      if Rails.configuration.storage_type == "s3"
-        sshpub_loc = vault_s3_url+"/"+current_user.email+"/"+key_name
-      else
-        sshpub_loc = current_user.email+"_"+key_name     #Riak changes
-      end
-      wparams = { :name => key_name, :path => sshpub_loc }
-      res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
-      if res_body.class == Megam::Error
-        res_msg = nil
-        err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
-        respond_to do |format|
-          format.js {
-            respond_with(res_msg, err_msg, filename, :layout => !request.xhr? )
-          }
-        end
-      else
-        logger.debug "--> #{self.class} : Instance creation - ssh key creating..."
-        err_msg = nil
-        options ={:email => current_user.email, :ssh_key_name => key_name, :ssh_private_key => k.private_key, :ssh_public_key => k.ssh_public_key }
-        upload = SshKey.perform(options, ssh_files_bucket)
-        if upload.class == Megam::Error
-          res_msg = nil
-          err_msg="SSH key #{key_name} creation failed."
-          public_key = ""
-          respond_to do |format|
-            format.js {
-              respond_with(res_msg, err_msg, filename, :layout => !request.xhr? )
-            }
-          end
-        end
-        logger.debug "--> #{self.class} : Instance creation - ssh key created..."
-      end
+    logger.debug  "> Marketplaces: create."
+    mkp = JSON.parse(params["mkp"])   
+    case params["sshoption"]
+    when Sshkeys::LAUNCH_CREATE
+      params[:ssh_key_name] = params["sshcreatename"] + "_" + params[:name]
+      Sshkeys.new.create(params)
+    when Sshkeys::LAUNCH_IMPORT
+      params[:ssh_key_name] = params[:sshuploadname] + "_" + params[:name]
+      Sshkeys.new.import(params)
+    when Sshkeys::LAUNCH_EXISTING
+      params[:ssh_key_name] = params[:sshexistname]
     end
 
-    if sshoption == "UPLOAD"
-      #filename = params[:key_name]
-      key_name = params[:sshuploadname] + "_" + assembly_name
-      sshkeyname = key_name
-      if Rails.configuration.storage_type == "s3"
-        sshpub_loc = vault_s3_url+"/"+current_user.email+"/"+key_name
-      else
-        sshpub_loc = current_user.email+"_"+key_name     #Riak changes
-      end
-      wparams = { :name => key_name, :path => sshpub_loc }
-      res_body = CreateSshKeys.perform(wparams, force_api[:email], force_api[:api_key])
-      if res_body.class == Megam::Error
-        res_msg = nil
-        err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
-        respond_to do |format|
-          format.js {
-            respond_with(res_msg, err_msg, filename, :layout => !request.xhr? )
-          }
-        end
-      else
-        logger.debug "--> #{self.class} : Instance creation - ssh key uploading..."
-        err_msg = nil
-        options ={:email => current_user.email, :ssh_key_name => key_name, :ssh_private_key => params[:ssh_private_key], :ssh_public_key => params[:ssh_public_key] }
-        upload = SshKey.upload(options, ssh_files_bucket)
-        if upload.class == Megam::Error
-          res_msg = nil
-          err_msg="Failed to Generate SSH keys. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
-          public_key = ""
-          respond_to do |format|
-            format.js {
-              respond_with(res_msg, err_msg, filename, :layout => !request.xhr? )
-            }
-          end
-        end
-        logger.debug "--> #{self.class} : Instance creation - sshkey uploaded..."
-      end
-    end
-
-    if sshoption == "EXIST"
-      sshkeyname = params[:sshexistname]
-    end
-
-    logger.debug "--> #{self.class} : Instance creation - Instance launching..."
-    options = {:instance => true, :assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword, :sshkeyname => sshkeyname  }
-    app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
-    res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
-    if res.class == Megam::Error
-      err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
-      respond_to do |format|
-        format.js {
-          respond_with(err_msg, :layout => !request.xhr? )
-        }
-      end
-    end
-    logger.debug "--> #{self.class} : Instance creation - Instance launched successfully..."
-  end
-
-  ##
-  ## this controller launch the starters pack(megam provide these packages)
-  ##
-  def starter_packs_create
-    assembly_name = params[:name]
-    version = params[:version]
-    domain = params[:domain]
-    cloud = params[:cloud]
-    source = params[:source]
-    type = params[:type].downcase
-
-    dbname = nil
-    dbpassword = nil
-
-    combos = params[:combos]
-
-    combo = combos.split("+")
-    puts combo.inspect
-
-    appname = params[:appname]
-    servicename = params[:servicename]
-
-    predef = GetPredefCloud.perform(params[:cloud], force_api[:email], force_api[:api_key])
-    if predef.class == Megam::Error
-      err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
-      respond_to do |format|
-        format.js {
-          respond_with(err_msg, :layout => !request.xhr? )
-        }
-      end
-    else
-    # if predef[0].spec[:type_name] == "docker"
-    # ttype = "tosca.docker."
-    # else
-      ttype = "tosca.web."
-      #end
-
-      options = {:instance => false, :assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword  }
-      app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
-      res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
-      if res.class == Megam::Error
-        err_msg="Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}."
-        respond_to do |format|
-          format.js {
-            respond_with(err_msg, :layout => !request.xhr? )
-          }
-        end
-      end
+    res = Assemblies.new.create(params)
+    respond_to do |format|
+      format.html {redirect_to marketplaces_path, format: 'js'}
+      format.js {render :js => "window.location.href='"+marketplaces_path+"'", :layout => !request.xhr?}
     end
   end
 
@@ -454,40 +272,6 @@ class MarketplacesController < ApplicationController
     end
     res_msg = "success"
     err_msg = nil
-  end
-
-  ##
-  ## this controller launch the addons
-  ##
-  def addons_create
-    assembly_name = params[:name]
-    version = params[:version]
-    domain = params[:domain]
-    cloud = params[:cloud]
-    source = params[:source]
-    type = params[:type].downcase
-    dbname = nil
-    dbpassword = nil
-
-    combos = params[:combos]
-    combo = combos.split("+")
-
-    ttype = "tosca.web."
-    appname = params[:appname]
-    servicename = nil
-
-    options = {:instance => false, :assembly_name => assembly_name, :appname => appname, :servicename => servicename, :component_version => version, :domain => domain, :cloud => cloud, :source => source, :ttype => ttype, :type => type, :combo => combo, :dbname => dbname, :dbpassword => dbpassword  }
-    app_hash=MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
-    res = CreateAssemblies.perform(app_hash,force_api[:email], force_api[:api_key])
-    if res.class == Megam::Error
-      profile = "http://support.megam.co/"
-      err_msg= ActionController::Base.helpers.link_to 'Contact support', profile
-      respond_to do |format|
-        format.js {
-          respond_with(err_msg, :layout => !request.xhr? )
-        }
-      end
-    end
   end
 
   ##

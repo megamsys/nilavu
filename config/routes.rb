@@ -47,5 +47,6 @@ Nilavu::Application.routes.draw do
 # A visual designer route ? for what ?
   match '/varai', to: 'cockpit#varai', via: [:get]
 
+  match '/changeversion', to: 'marketplaces#changeversion', via: [:get, :post]
 
 end

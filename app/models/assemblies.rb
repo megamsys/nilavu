@@ -27,8 +27,7 @@ class Assemblies < BaseFascade
   SERVICE             =  'SERVICE'.freeze
   ANALYTICS           =  'ANALYTICS'.freeze
   ADDON               =  'ADDON'.freeze
-
-
+  
   START               =  'start'.freeze
   STOP                =  'stop'.freeze
   RESTART             =  'restart'.freeze
@@ -37,7 +36,7 @@ class Assemblies < BaseFascade
 
   def initialize()
     @assemblies_collection = []
-    @assemblies_grouped = []
+    @assemblies_grouped = []     
     super(true) #swallow 404 errors for assemblies.
   end
 
@@ -74,8 +73,24 @@ class Assemblies < BaseFascade
   end
 
 
-
+ def create(api_params, &block)   
+    api_request(make_assemblies(api_params), ASSEMBLIES, CREATE)
+    yield self if block_given?
+    return self
+  end
+  
   private
+  
+  def make_assemblies(params)     
+    hash = {
+      "name"=>"",
+      "assemblies"=> Assembly.new.build(params),
+      "inputs"=>[],
+      :email => params["email"],
+      :api_key => params["api_key"]
+    }
+    hash
+  end   
 
     #wade out the nils in the assemblies_collection.
     #the error objects shouldn't be in here, but we swallow an exception for an assemblies.list.

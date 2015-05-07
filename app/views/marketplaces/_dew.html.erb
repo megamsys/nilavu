@@ -14,7 +14,7 @@
 ** limitations under the License.
 -->
 <%= form_tag marketplaces_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
-<% @mkp.plans.each do |c| %>
+<% @mkp["plans"].each do |c| %>
 <% if c["version"] == version %>
 <% @mkp_price = c["price"] %>
 <% @appname = launch_namegen %>
@@ -22,28 +22,17 @@
 <% @mkp_description = c["description"] %>
 <% @mkp_source = c["source"] %>
 <% @mkp_os = c["os"] %>
-<% @pro_name = (@mkp.name).split("-") %>
-<% @predef_name = get_predef_name(@pro_name[3].downcase) %>
-<% @combos = get_combos(@pro_name[3].downcase) %>
-<% @combo = @combos.split("+") %>
+<% @pro_name = (@mkp["name"]).split("-") %>
 <% end %>
-<% end %>
-<% if @mkp_source == "" %>
-<% @deps_scm = get_deps_scm(@pro_name[3].downcase) %>
-<% else %>
-<% @deps_scm = @mkp_source %>
 <% end %>
 
 <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
-<%= hidden_field_tag 'source', nil, placeholder: "", :class =>"form-control", :value => @deps_scm  %>
-<%= hidden_field_tag 'type', nil, placeholder: "", :class =>"form-control", :value =>  @pro_name[3] %>
-<%= hidden_field_tag 'combos', nil, placeholder: "", :class =>"form-control", :value =>  @combos %>
-<%= hidden_field_tag 'appname', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
-<%= hidden_field_tag 'servicename', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
 <%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
+<%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
+
 <div class="row">
 	<div class="col-sm-7 body_left">
-		<h5><%= @mkp_description %> <a href=<%= get_doc_link(@pro_name[3].downcase) %> target="_blank">View Docs</a></h5>
+		<h5><%= @mkp_description %> <a href="#" target="_blank">View Docs</a></h5>
 		<div class="bottom-divider"></div>
 		<div class="row">
 			<div class="col-sm-7 app_left_name">

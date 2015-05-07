@@ -14,7 +14,7 @@
 ** limitations under the License.
 -->
 <%= form_tag addons_launch_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
-<% @mkp.plans.each do |c| %>
+<% @mkp["plans"].each do |c| %>
 <% if c["version"] == version %>
 <% @mkp_price = c["price"] %>
 <% @appname = launch_namegen %>
@@ -22,26 +22,14 @@
 <% @mkp_description = c["description"] %>
 <% @mkp_source = c["source"] %>
 <% @mkp_os = c["os"] %>
-<% @pro_name = (@mkp.name).split("-") %>
-<% @predef_name = get_predef_name(@pro_name[3].downcase) %>
-<% @combos = get_combos(@pro_name[3].downcase) %>
-<% @combo = @combos.split("+") %>
+<% @pro_name = (@mkp["name"]).split("-") %>
 <% end %>
 <% end %>
-<% if @mkp_source == "" %>
-<% @deps_scm = get_deps_scm(@pro_name[3].downcase) %>
-<% else %>
-<% @deps_scm = @mkp_source %>
-<% end %>
-<%  @predef_cloud = ListPredefClouds.perform(force_api[:email], force_api[:api_key]) %>
-<%  if @predef_cloud.class == Megam::Error %>
-<%  redirect_to new_app_path, :gflash => { :warning => { :value => "#{@predef_cloud.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }     %>    
-<% end %>
+
 <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
 <%= hidden_field_tag 'source', nil, placeholder: "", :class =>"form-control", :value => @deps_scm  %>
-<%= hidden_field_tag 'type', nil, placeholder: "", :class =>"form-control", :value =>  @pro_name[3] %>
-<%= hidden_field_tag 'combos', nil, placeholder: "", :class =>"form-control", :value =>  @combos %>
 <%= hidden_field_tag 'appname', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
+<%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
 <div class="row">
 	<div class="col-sm-7 body_left">
 		<h4>Analytics-Hadoop</h4>
@@ -49,7 +37,7 @@
 			<div class="col-sm-5">
 				<div class="app_inner brad-3">
 					<div class="stpack">
-						<%= image_tag "combos/"+@pro_name[3].downcase+".png", :alt => "" %>
+						<%= image_tag "combos/"+@pro_name[1].downcase+".png", :alt => "" %>
 					</div>
 				</div>
 			</div>
@@ -61,26 +49,10 @@
 				<span>Description</span>
 			</div>
 			<div class="col-sm-9 app_left_desc">
-				<span> <%= @mkp_description %> <a href=<%= get_doc_link(@pro_name[3].downcase) %> target="_blank">View Docs</a> </span>
+				<span> <%= @mkp_description %> <a href="#" target="_blank">View Docs</a> </span>
 			</div>
 		</div>
-		<div class="bottom-divider"></div>
-
-		<div class="row">
-			<div class="col-sm-3 app_left_name">
-				<span>Pick a Cloud</span>
-			</div>
-			<div class="col-sm-9 app_left_desc">
-				<div class="row">
-					<div class="col-sm-6 col-xs-6">
-						<%= link_to settings_path, :class => "btn btn-success col-md-12 col-xs-12" do %>Create<%end%>
-					</div>
-					<div class="col-sm-6 col-xs-6">
-						<%= select_tag "cloud", options_for_select(@predef_cloud.map{ |c| [c.name] }, :selected=>@predef_cloud[0]), :class =>"form-control" %>	
-					</div>
-				</div>
-			</div>
-		</div>
+		<div class="bottom-divider"></div>		
 	</div>
 	<!-- body_left ends here -->
 

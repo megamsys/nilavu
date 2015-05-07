@@ -94,7 +94,7 @@ class ApplicationController < ActionController::Base
     logger.debug "*-----------------------*"
     logger.debug "#{mai.message}"
     logger.debug ">>>> caused by Nak man (‾ʖ̫‾) : "
-    #mai.backtrace.each { |line| logger.error line }
+   # mai.backtrace.each { |line| logger.error line }
     logger.debug "*-----------------------*"
     #notify Megam ? - hipchat
     #send an email to support@megam.io which creates a support ticket.
