@@ -19,6 +19,7 @@ require 'json'
 class Components < BaseFascade
 
   attr_reader :components
+
   def initialize()
     @components= nil
     @name = nil
@@ -30,8 +31,8 @@ class Components < BaseFascade
 
   def show(api_params, &block)
     @components = api_request(api_params, COMPONENTS, SHOW)[:body]
-    yield @components if block_given?
-    return @components
+    yield self if block_given?
+    return self
   end
 
   def prune
