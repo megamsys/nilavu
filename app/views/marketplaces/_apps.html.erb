@@ -20,19 +20,15 @@
 <% @appname = launch_namegen %>
 <% @mkp_plan = c["plantype"] %>
 <% @mkp_description = c["description"] %>
-<% @mkp_source = c["source"] %>
 <% @mkp_os = c["os"] %>
 <% @pro_name = (@mkp["name"]).split("-") %>
 <% end %>
 <% end %>
 
 <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
-<%= hidden_field_tag 'source', nil, placeholder: "", :class =>"form-control", :value => @mkp_source  %>
-<%= hidden_field_tag 'byoc', nil, placeholder: "", :class =>"form-control", :value =>  @pro_name[3] %>
 <%= hidden_field_tag 'appname', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
-<%= hidden_field_tag 'servicename', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
 <%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
-
+<%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
 <div class="row">
 	<div class="col-sm-7 body_left">
 		<div class="row">

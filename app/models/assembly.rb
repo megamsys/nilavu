@@ -19,9 +19,14 @@ require 'json'
 class Assembly < BaseFascade
 
   attr_reader :assembly_collection
+  
+   STATUS    =  'LAUNCHING'.freeze
 
   def initialize()
     @assembly_collection= nil
+    @DEFAULTTOSCATYPE    =  'ubuntu'  
+    @inputs = []
+    @requirements = []
   end
 
   def show(api_params, &block)
@@ -29,6 +34,58 @@ class Assembly < BaseFascade
     @assembly_collection = dig_components(raw[:body])
     yield @assembly_collection  if block_given?
     return @assembly_collection
+  end
+
+ def build(params)
+  mkp = JSON.parse(params["mkp"])  
+  
+  set_inputs(params)
+  set_requirements(params) 
+  
+  @DEFAULTTOSCATYPE = "#{mkp["predef"]}" unless mkp["cattype"] != Assemblies::DEW
+  
+  components = []  
+  components = Components.new.build(params) unless mkp["cattype"] == Assemblies::DEW
+  
+  hash = [{         
+          "name"=>"#{params[:name]}",
+          "tosca_type"=>"tosca.#{mkp["cattype"].downcase}.#{@DEFAULTTOSCATYPE}",
+          "components"=> components,
+          "requirements"=> @requirements,
+          "policies"=>build_policies(params),
+          "inputs"=> @inputs,
+          "outputs"=>[],
+          "operations"=>[],
+          "status"=>STATUS,
+        }]
+  hash
+ end
+ 
+ #In future lot of inputs add this method
+ def set_inputs(params)
+   @inputs << {"key" => "sshkey", "value" => params[:ssh_key_name]} if params[:ssh_key_name] 
+ end
+ 
+ #In future lot of requirements add this method
+ def set_requirements(params)
+   @requirements << {"key" => "host", "value" => params[:host]} if params.has_key?(:host)
+ end
+ 
+  def build_policies(options)
+    mkp = JSON.parse(options["mkp"])
+    com = []
+    if options[:appname] != nil && options[:servicename] != nil
+      value = {
+        :name=>"bind policy",
+        :ptype=>"colocated",
+        :members=>[
+          "#{options[:name]}.#{options[:domain]}/#{options[:appname]}",
+          "#{options[:name]}.#{options[:domain]}/#{options[:servicename]}"
+        ]
+      }
+    com << value
+    end unless mkp["cattype"] == Assemblies::DEW
+    com
   end
 
   #wade out the nils in the assemblys_collection.

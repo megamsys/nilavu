@@ -83,7 +83,7 @@ class BaseFascade
     Megam::Log.level(Rails.configuration.log_level)   
     api_jlaz = jlaz.constantize
     unless api_jlaz.respond_to?(jmethod)
-      logger.debug "Unsupported api #{jlaz}.#{jmethod}, try adding before you can use it."
+      Rails.logger.debug "Unsupported api #{jlaz}.#{jmethod}, try adding before you can use it."
       raise  UnsupportedAPI, "#{jlaz}.#{jmethod}, try adding before you can use it."
     end
     return api_jlaz.send(jmethod, jparams)

@@ -27,8 +27,7 @@ class Assemblies < BaseFascade
   SERVICE             =  'SERVICE'.freeze
   ANALYTICS           =  'ANALYTICS'.freeze
   ADDON               =  'ADDON'.freeze
-
-
+  
   START               =  'start'.freeze
   STOP                =  'stop'.freeze
   RESTART             =  'restart'.freeze
@@ -37,7 +36,7 @@ class Assemblies < BaseFascade
 
   def initialize()
     @assemblies_collection = []
-    @assemblies_grouped = []
+    @assemblies_grouped = []     
     super(true) #swallow 404 errors for assemblies.
   end
 
@@ -82,57 +81,16 @@ class Assemblies < BaseFascade
   
   private
   
-  def make_assemblies(params)    
-  mkp = JSON.parse(params["mkp"])
-  inputs = []
-  inputs << {"key" => "sshkey", "value" => params[:ssh_key_name]} if params[:ssh_key_name]  
-  components = []  
-  components = build_components(params) unless params["mkp"]["cattype"] == Assemblies::DEW
-  
+  def make_assemblies(params)     
     hash = {
       "name"=>"",
-      "assemblies"=>[
-        {         
-          "name"=>"#{params[:name]}",
-          "tosca_type"=>"tosca.#{mkp["cattype"].downcase}",
-          "components"=> components,
-          "requirements"=>[],
-          "policies"=>build_policies(params),
-          "inputs"=>inputs,
-          "outputs"=>[],
-          "operations"=>[],
-          "status"=>"Launching",
-        }
-      ],
+      "assemblies"=> Assembly.new.build(params),
       "inputs"=>[],
       :email => params["email"],
-      :api_key=> params["api_key"]
+      :api_key => params["api_key"]
     }
-    puts hash
     hash
-  end
-
-  def build_components(params)
-    com = []     
-  end
-
-  def build_policies(options)
-    mkp = JSON.parse(options["mkp"])
-    com = []
-    if options[:appname] != nil && options[:servicename] != nil
-      value = {
-        :name=>"bind policy",
-        :ptype=>"colocated",
-        :members=>[
-          "#{options[:name]}.#{options[:domain]}/#{options[:appname]}",
-          "#{options[:name]}.#{options[:domain]}/#{options[:servicename]}"
-        ]
-      }
-    com << value
-    end unless mkp["cattype"] == Assemblies::DEW
-    com
-  end
-
+  end   
 
     #wade out the nils in the assemblies_collection.
     #the error objects shouldn't be in here, but we swallow an exception for an assemblies.list.
