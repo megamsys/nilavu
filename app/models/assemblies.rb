@@ -74,9 +74,7 @@ class Assemblies < BaseFascade
   end
 
 
- def create(api_params, &block)
-    puts api_params["email"]
-    puts "----------------------------------"
+ def create(api_params, &block)   
     api_request(make_assemblies(api_params), ASSEMBLIES, CREATE)
     yield self if block_given?
     return self
@@ -85,6 +83,7 @@ class Assemblies < BaseFascade
   private
   
   def make_assemblies(params)    
+  mkp = JSON.parse(params["mkp"])
   inputs = []
   inputs << {"key" => "sshkey", "value" => params[:ssh_key_name]} if params[:ssh_key_name]  
   components = []  
@@ -95,10 +94,10 @@ class Assemblies < BaseFascade
       "assemblies"=>[
         {         
           "name"=>"#{params[:name]}",
-          "tosca_type"=>"",
+          "tosca_type"=>"tosca.#{mkp["cattype"].downcase}",
           "components"=> components,
           "requirements"=>[],
-          "policies"=>[],
+          "policies"=>build_policies(params),
           "inputs"=>inputs,
           "outputs"=>[],
           "operations"=>[],
@@ -115,6 +114,23 @@ class Assemblies < BaseFascade
 
   def build_components(params)
     com = []     
+  end
+
+  def build_policies(options)
+    mkp = JSON.parse(options["mkp"])
+    com = []
+    if options[:appname] != nil && options[:servicename] != nil
+      value = {
+        :name=>"bind policy",
+        :ptype=>"colocated",
+        :members=>[
+          "#{options[:name]}.#{options[:domain]}/#{options[:appname]}",
+          "#{options[:name]}.#{options[:domain]}/#{options[:servicename]}"
+        ]
+      }
+    com << value
+    end unless mkp["cattype"] == Assemblies::DEW
+    com
   end
 
 
