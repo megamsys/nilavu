@@ -74,8 +74,49 @@ class Assemblies < BaseFascade
   end
 
 
-
+ def create(api_params, &block)
+    puts api_params["email"]
+    puts "----------------------------------"
+    api_request(make_assemblies(api_params), ASSEMBLIES, CREATE)
+    yield self if block_given?
+    return self
+  end
+  
   private
+  
+  def make_assemblies(params)    
+  inputs = []
+  inputs << {"key" => "sshkey", "value" => params[:ssh_key_name]} if params[:ssh_key_name]  
+  components = []  
+  components = build_components(params) unless params["mkp"]["cattype"] == Assemblies::DEW
+  
+    hash = {
+      "name"=>"",
+      "assemblies"=>[
+        {         
+          "name"=>"#{params[:name]}",
+          "tosca_type"=>"",
+          "components"=> components,
+          "requirements"=>[],
+          "policies"=>[],
+          "inputs"=>inputs,
+          "outputs"=>[],
+          "operations"=>[],
+          "status"=>"Launching",
+        }
+      ],
+      "inputs"=>[],
+      :email => params["email"],
+      :api_key=> params["api_key"]
+    }
+    puts hash
+    hash
+  end
+
+  def build_components(params)
+    com = []     
+  end
+
 
     #wade out the nils in the assemblies_collection.
     #the error objects shouldn't be in here, but we swallow an exception for an assemblies.list.

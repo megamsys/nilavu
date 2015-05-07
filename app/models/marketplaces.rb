@@ -62,11 +62,7 @@ class Marketplaces < BaseFascade
      @mkp = raw[:body].lookup(api_params["id"])
      yield self  if block_given?
      return self
-  end
+  end 
 
-  def create(api_params, &block)
-    yield self if block_given?
-    return self
-  end
 
 end

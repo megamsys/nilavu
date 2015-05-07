@@ -21,7 +21,7 @@ class MarketplacesController < ApplicationController
   include CatalogHelper
   include CrossCloudsHelper
 
-  before_action :stick_keys, only: [:index, :show]
+  before_action :stick_keys, only: [:index, :show, :create]
   ##
   ## index page get all marketplace items from storage(we use riak) using megam_gateway
   ## and show the items in order of category
@@ -43,14 +43,18 @@ class MarketplacesController < ApplicationController
           format.js {render :js => "window.location.href='"+billings_path+"'"}
         end
       else
-        mkp = Marketplaces.instance.show(params).mkp
-        version_order = []
-        version_order = mkp.plans.map {|c| c["version"]}.sort
-        ssh_keys = Sshkeys.new.list(params).ssh_keys
-
+        @mkp = Marketplaces.instance.show(params).mkp
+        versions = []
+        versions = @mkp.plans.map {|c| c["version"]}.sort
+        @ssh_keys = Sshkeys.new.list(params).ssh_keys   
+        @mkp = @mkp.to_hash
+        @mkp["sversion"] = versions[0] 
+        @mkp["sversion"] = params["version"] if params.has_key?("version")
+        @mkp["versions"] = versions
+        puts @mkp.inspect
         respond_to do |format|
           format.js {
-            respond_with(@mkp, @version_order, @ssh_keys, :layout => !request.xhr? )
+            respond_with(@mkp, @ssh_keys, :layout => !request.xhr? )
           }
         end
       end
@@ -133,34 +137,23 @@ class MarketplacesController < ApplicationController
     session[:gogs_repos] =  @repos_arr
   end
 
-  private
-
-  ##
-  ## when change the version of marketplace item then this controller change the contents of that item
-  ##
-  def changeversion
-    @pro_name = params[:id].split("-")
-    @version = params[:version]
-    @mkp = GetMarketplaceApp.perform(force_api[:email], force_api[:api_key], params[:id])
-    if @mkp.class == Megam::Error
-      redirect_to cockpits_path, :gflash => { :warning => { :value => "API server may be down. Please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/", :target => "_blank"}.", :sticky => false, :nodom_wrap => true } }
-    else
-      @mkp = @mkp.lookup(params[:id])
-      @type = get_type(@pro_name[3].downcase)
-      respond_to do |format|
-        format.js {
-          respond_with(@mkp, @version, @type, :layout => !request.xhr? )
-        }
-      end
+  
+  def create    
+    mkp = JSON.parse(params["mkp"])
+=begin
+    case params["sshoption"]
+    when Sshkeys::CREATE
+      Sshkeys.new.create(params.merge({:ssh_key_name => params[:sshcreatename] + "_" + params[:name]}))
+    when Sshkeys::UPLOAD
+      Sshkeys.new.import(params.merge({:ssh_key_name => params[:sshuploadname] + "_" + params[:name]}))
+    when Sshkeys::EXIST
+      params[:ssh_key_name] = params[:sshexistname]
     end
-  end
-
-  def create
-    puts "+++++++++++++++++++++++++++++++++"
+=end   
     puts params
-    if params[:sshoption] == "CREATE"
-
-    end
+    params[:ssh_key_name] = ""
+    res = Assemblies.new.create(params)
+    
   end
 
   ##
