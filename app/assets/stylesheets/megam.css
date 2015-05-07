@@ -695,7 +695,7 @@ label {
 .form-control {
   /*padding-top: 28px;
   padding-bottom: 28px;*/
-  height: 50px; 
+  height: 40px; 
   font-size: 14px;
   font-weight: normal;
   /*font-family1: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
@@ -1286,7 +1286,7 @@ Modal header close button fix
 body.modal-open{
  
 }
-
+/* Megam change for byoc */
 .img-responsive_byoc {
   /*display: block; */
   height: 70px;
