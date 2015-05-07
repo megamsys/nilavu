@@ -9,19 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require z
- *= require bootstrap
  *= require bootstrap-tour
- *= require uniform.default.min
- *= require custom
- *= require style
- *= require style-elegant
- *= require style-non-responsive
- *= require font-awesome.min
- *= require megam
- *= require faq_reset
- *= require faq_style
- *= require nprogress
- *= require nprogress-bootstrap
  *= require_tree .
  */
