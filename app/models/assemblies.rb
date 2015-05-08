@@ -84,17 +84,27 @@ class Assemblies < BaseFascade
   #          assembly: :id => ASC0001
   #              component :id => CMP0001
   def dig_assembly(tmp_assemblies_collection, api_params)
-    tmp_assemblies_collection.map do |one_assemblies|
-         a0 = one_assemblies.assemblies.map  do  |one_assembly|
+    #First step A[A[H1], A[H2]] => A[H1, H2..Hn]
+    a2 = tmp_assemblies_collection.map do |one_assemblies|
+       a1=  one_assemblies.assemblies.map  do  |one_assembly|
           if !one_assembly.empty?
-            @assemblies_grouped = @assemblies_grouped.merge(Assembly.new.show(api_params.merge({"id" => one_assembly})).by_cattypes)
-          else
-            nil
+            Assembly.new.show(api_params.merge({"id" => one_assembly})).by_cattypes
+         else
+          nil
           end
         end
+        a1.reduce { |acc, h|  acc.merge(h||{})}
     end
-# we don't need an assemblies_collection, so leave it as is.
-    Rails.logger.debug "\033[36m>-- ASB'S: START\33[0m"
+    #A[H1, H2, ... Hn] => H[:CATTYPE => [H1, H2, ... Hn]]
+    a3 = a2.group_by {|j| j.keys.join }
+
+    #[:CATTYPE => [H1, H2, ... Hn]] => H[:CATTYPE => [A1, A2]]
+    a3.each do |k, v|
+      @assemblies_grouped[k] ||= []
+      @assemblies_grouped[k] << v.map {|u| u.map { |k1, v1| v1}}
+    end
+
+    Rails.logger.debug "\033[36m>-- ASB'S: #{@assemblies_grouped.class} START\33[0m"
     Rails.logger.debug "\033[1m#{@assemblies_grouped.to_yaml}\33[22m"
     Rails.logger.debug "\033[36m> ASB'S: END\033[0m"
   end
