@@ -29,8 +29,8 @@
   <div class="app_inner">
     <div class="app">
       <div class="app_head">
-        <span class="app_config" id="config_menu_<%= assembly.name %>_app"><i class="c_icon-config"></i></span>
-        <div class="config_menu config_menu_<%= assembly.name %>_app">
+        <span class="app_config" id="config_menu_<%= assembly.name %>_<%= catname.downcase %>"><i class="c_icon-config"></i></span>
+        <div class="config_menu config_menu_<%= assembly.name %>_<%= catname.downcase %>">
           <ul>
             <li>
               <%= link_to catalogs_path(:id => assembly.id, :name => assembly.name, :command => Assemblies::START, :type => Assemblies::DEW.downcase.pluralize), :remote => true do %>
@@ -56,10 +56,15 @@
         </div>
         <div class="row app_icon">
           <h5><%= assembly.name %></h5>
-        <!--  <% appkey = assembly.name + ".megam.io" %>
+          <%= appkey = assembly.name + ".megam.io" %>
+          <% case catname %>
+					<% when Assemblies::DEW %>
           <%= link_to appkey, onedews_path(:appkey => assembly.id), :data => {:remote => true} %>
-          <%= link_to appkey, oneaddons_path(:appkey => assembly.id) %>
-          <%= link_to appkey, oneapps_path(:appkey => assembly.id) %> -->
+					<% when Assemblies::APP %>
+					<%= link_to appkey, oneapps_path(:appkey => assembly.id) %> -->
+					<% when Assemblies::SERVICE %>
+					<%= link_to appkey, oneservicess_path(:appkey => assembly.id) %>
+					<% end %>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <ul class="list-inline app_icon_bottom">
                   <%  assembly.components.each do |one_component| %>
@@ -72,12 +77,10 @@
                 </ul>
               </div>
         </div>
-        <!-- <img class="center-block" src="assets/img/app2.png"> -->
       </div>
       <div class="app_footer">
-        <!-- <div class="circle_red"></div> -->
         <i class="circle_green"></i>
-        <span><strong><%= assembly.status %></strong></span>
+        <span><%= assembly.status.capitalize %></span>
         <% url = "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user.email}&api_key=#{current_user.api_key}&callbackURL=https://www.megam.co/varai&assembliesID=#{assembly.id}" %>
         <a href="<%= url %>" target="_blank" ><i class="c_icon-window pull-right" style="color:blue"></i></a>
         <i class="c_icon-star pull-right"></i>
@@ -126,7 +129,7 @@
       </div>
       <div class="app_footer">
         <i class="circle_red"></i>
-        <span><strong><%= assembly[0].status %></strong></span>
+        <span><%= assembly[0].status.capitalize %></span>
         <i class="c_icon-window pull-right" style="color:blue"></i>
         <i class="c_icon-star pull-right"></i>
       </div>
