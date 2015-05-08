@@ -13,7 +13,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<%= form_tag marketplaces_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+<%= form_tag marketplaces_path, multipart: true, :novalidate => 'novalidate', :id => "megamform",  :method => 'post', :remote => true  do %>
 <% @mkp["plans"].each do |c| %>
 <% if c["version"] == version %>
 <% @mkp_price = c["price"] %>
@@ -30,111 +30,94 @@
 <%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
 <%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
 
+
 <div class="row">
-	<div class="col-sm-7 body_left">
-		<h5><%= @mkp_description %> <a href="#" target="_blank">View Docs</a></h5>
-		<div class="bottom-divider"></div>
-		<div class="row">
-			<div class="col-sm-7 app_left_name">
-				<span>create/import sshkeys</span>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12 app_left_desc">
-				<div class="row">
-					<div class="col-xs-12" >
-						<div class="form-group">
+          <div class="col-md-12"> <span class="app_left_name">Description</span>
+            <P class="model-description"><%= @mkp_description %><a href="#" target="_blank">View Docs</a></P>
+            <div class="pad_tb25">
+                <h4>Name</h4>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="form-group">
+<%= text_field_tag 'name', nil, placeholder: 'Dew Name', :class =>"form-control", :value => @appname %>
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="form-group">
+					<%= text_field_tag 'domain', nil, placeholder: "megam.co", :class =>"form-control", :value => "megam.co", disabled: true %>
+					<%= hidden_field_tag 'domain', nil, placeholder: ".megam.co", :class =>"form-control", :value => "megam.co" %>
+                    </div>
+                  </div>
+                </div>
+
+               <div class="row">
+                  <div class="col-xs-6">
+                    <h4>SSH</h4>
+                    <div class="form-group">
 							<select class="form-control" id="sshkeyoption">
-								<option>Choose your sshkeys options</option>
 								<option value="CREATE">Create a new sshkey</option>
 								<option value="EXIST">Use your already uploaded keys </option>
 								<option value="UPLOAD">Upload your ssh keys</option>
 							</select>
-						</div>
-					</div>
-				</div>
-				<div class="row"  style="display:none;" id="sshkey_exist">
+
+
+                    </div>
+                  </div>
+                  <div class="col-xs-6" >
+		    <div id="sshkey_exist" style="display:none;">
+                    <h4>Choose your SSH</h4>
+                    <div class="form-group">
 					<% if @ssh_keys != nil && @ssh_keys.length > 0 %>
-					<div class="col-sm-3 app_left_name">
-						<span>Pick a sshkey</span>
-					</div>
-					<div class="col-sm-9 app_left_desc">
 						<%= select_tag "sshexistname", options_for_select(@ssh_keys.map{ |c| c[:name] }, :selected=>@ssh_keys[0]), :class =>"form-control" %>
-					</div>
+
 					<% else %>
-					<div class="app_left_name">
 						<span>You must have create or upload the sshkeys</span>
-					</div>
 					<% end %>
-				</div>
-				<div class="row"  style="display:none;" id="sshkey_create">
-					<div class="col-sm-3 app_left_name">
-						<span>Name</span>
-					</div>
-					<div class="col-sm-9 app_left_desc">
-						<%= text_field_tag 'sshcreatename', nil, placeholder: 'Type a key pair name to save', :class =>"form-control" %>
-					</div>
-				</div>
-				<div class="row" style="display:none;" id="sshkey_upload">
-					<div class="col-sm-12 col-xs-12" >
-						<div class="row margintb_15">
-							<div class="col-xs-6">
-								<label for="ssh-key_name">Private key</label>
+                    </div>
+		    </div>
 
+		    <div id="sshkey_create">
+                    <h4>SSH keypair name</h4>
+                    <div class="form-group">
+			<%= text_field_tag 'sshcreatename', nil, placeholder: 'Type a key pair name to save', :required => true, :class =>"form-control" %>
+                    </div>
+		    </div>
+
+                  </div>
+                </div>
+                   <div id="sshkey_upload" style="display:none; margin-top:10px;">
+                <div class="row">
+
+                      <div class="col-xs-6">
 								<div class="form-group">
-									<span class="btn green fileinput-button col-xs-11"> <i class="icon-plus"></i> <span>Add files...</span> <%= file_field_tag :ssh_private_key, placeholder: 'Upload private key' %> </span>
+									<span class="btn green fileinput-button  col-md-12  col-xs-7"> <i class="icon-plus"></i> <span>Add files...</span> <%= file_field_tag :ssh_private_key, placeholder: 'Upload private key' %> </span>
 								</div>
-							</div>
-							<div class="col-xs-6">
-								<div>
-									<label for="ssh-key_name">Public key</label>
+                        </div>
+                        <div class="col-xs-6">
 									<div class="form-group">
-										<span class="btn blue fileinput-button  col-xs-11"> <i class="icon-plus"></i> <span>Add files...</span> <%= file_field_tag :ssh_public_key, placeholder: 'Upload public key' %> </span>
+										<span class="btn blue fileinput-button  col-md-12  col-xs-7"> <i class="icon-plus"></i> <span>Add files...</span> <%= file_field_tag :ssh_public_key, placeholder: 'Upload public key' %> </span>
 									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-sm-5 app_left_name">
-								<span>Name</span>
-							</div>
-							<div class="col-sm-7 app_left_desc">
-								<%= text_field_tag 'sshuploadname', nil, placeholder: 'Type a key pair name to save', :class =>"form-control" %>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- body_left ends here -->
-
-	<div class="col-sm-5 body_right c_height_2">
-		<h4>Create Dew</h4>
-		<div class="row">
-			<div class="col-xs-6">
-				<div class="form-group">
-					<%= text_field_tag 'name', nil, placeholder: 'Dew Name', :class =>"form-control", :value => @appname %>
-				</div>
-			</div>
-			<div class="col-xs-6">
-				<div class="form-group">
-					<%= text_field_tag 'domain', nil, placeholder: "megam.co", :class =>"form-control", :value => "megam.co", disabled: true %>
-					<%= hidden_field_tag 'domain', nil, placeholder: ".megam.co", :class =>"form-control", :value => "megam.co" %>
-				</div>
-			</div>
-		</div>
-		<div class="bottom-divider"></div>
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="form-group">
-					<%= submit_tag "Create Dew", :class => "btn btn-success col-xs-12", :data => {:remote => true} %>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- body_right ends here -->
+                        </div>
+                      </div>
+                </div>
+<br/><br/>
+                <div class="row">
+                  <div class="col-md-offset-4 col-md-4">
+                    <div class="form-group">
+<%= submit_tag "Create Dew", :class => "btn btn-success col-xs-12", :data => {:remote => true} %>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="bottom-divider"></div>
+            <div class="bottom-divider"></div>
+          </div>
+          <!-- body_left ends here --> 
+          
+          <!-- body_right ends here --> 
+        </div>
 </div>
+
 <script type="text/javascript">
 	// Script to show the ssh keys options
 	$(document).ready(function() {
@@ -152,7 +135,7 @@
 	$(".sshoption").val("EXIST");
 	}
 	if(this.value=="UPLOAD") {
-	$("#sshkey_create").hide();
+	$("#sshkey_create").show();
 	$("#sshkey_exist").hide();
 	$("#sshkey_upload").show();
 	$(".sshoption").val("UPLOAD");
@@ -162,3 +145,4 @@
 </script>
 
 <% end %>
+

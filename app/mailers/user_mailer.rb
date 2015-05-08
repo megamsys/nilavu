@@ -31,6 +31,8 @@ class UserMailer < ActionMailer::Base
   end
 
   def password_reset(account)
+    @account = account
+    
     if "#{Rails.configuration.support_email}".chop!
       begin
          mail :to => account.email, :subject => "You have fat fingers. No worries."
