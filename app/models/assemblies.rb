@@ -106,9 +106,18 @@ class Assemblies < BaseFascade
 
     def dig_assembly(tmp_assemblies_collection)
       tmp_assemblies_collection.map do |one_assemblies|
+
+puts " ONE ASSEMBLies ======================> "
+puts one_assemblies.class
+puts one_assemblies.inspect
+
           one_assemblies.assemblies.map  do  |one_assembly|
+puts " ONE ASSEMBLY ======================> "
+puts one_assembly.class
+puts one_assembly.inspect
             if !one_assembly.empty?
-              Assembly.show(one_assembly).assembly_collection
+		assembly = Assembly.new
+              assembly.show(one_assembly).assembly_collection
             else
               nil
             end

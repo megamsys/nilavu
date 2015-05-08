@@ -51,7 +51,9 @@ class BaseFascade
   def api_request(jparams, jlaz, jmethod, passthru = false)
     jlaz = JLAZ_PREFIX + jlaz
     Rails.logger.debug "\033[01;35mFASCADE #{jlaz}#{jmethod} \33[0;34m"
-     
+     puts "API Request jparams =============> "
+	puts jparams.class
+	puts jparams.inspect
     if !passthru
       raise MissingAPIArgsError, ":email and :api_key required." unless jparams.has_key?(:email && :api_key)
     end
