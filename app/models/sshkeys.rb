@@ -72,7 +72,7 @@ class Sshkeys < BaseFascade
     when RIAK
       MegamRiak.download(ssh_files_bucket, api_params[:download_location])
     else
-      raise "Unsupported storage type in nilavu.yml. Supported storage types are [S3, Riak]. "
+      raise UnsupportedConfigError, "Unsupported storage type in nilavu.yml. Supported storage types are [S3, Riak]. "
     end
   end
 
@@ -97,7 +97,7 @@ class Sshkeys < BaseFascade
     when RIAK
       @ssh_public_path = api_params[:email]+"_"+api_params[:ssh_key_name]
     else
-      raise "Unsupported storage type in nilavu.yml. Supported storage types are [S3, Riak]. "
+      raise UnsupportedConfigError, "Unsupported storage type in nilavu.yml. Supported storage types are [S3, Riak]. "
     end
   end
 
@@ -105,7 +105,7 @@ class Sshkeys < BaseFascade
   #For S3 we upload ?
   #For Riak_we upload the key in the format email_ssh_key_name along with the content type
   def upload(api_params, bufferedUpload = false)
-    raise "Please configure the sshfile bucket to store in nilavu.yml" unless ssh_files_bucket
+    raise UnsupportedConfigError, "Please configure the sshfile bucket to store in nilavu.yml" unless ssh_files_bucket
     case Rails.configuration.storage_type
     when S3
       if bufferedUpload
@@ -124,7 +124,7 @@ class Sshkeys < BaseFascade
         MegamRiak.upload(ssh_files_bucket, api_params[:email]+"_"+api_params[:ssh_key_name] +"_pub", api_params[:ssh_public_key], PUB_CONTENT_TYPE)
       end
     else
-       raise "Unsupported storage type in nilavu.yml. Supported storage types are [S3, Riak]. "
+       raise UnsupportedConfigError, "Unsupported storage type in nilavu.yml. Supported storage types are [S3, Riak]. "
     end
   end
 

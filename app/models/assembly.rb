@@ -18,7 +18,6 @@ require 'json'
 
 class Assembly < BaseFascade
 
-  attr_reader :assembly_collection
   attr_reader :by_cattypes
   attr_reader :tosca_type
   attr_reader :components
@@ -29,7 +28,6 @@ class Assembly < BaseFascade
 
 
   def initialize()
-    @assembly_collection= nil
     @by_cattypes = {}
     @inputs = []
     @requirements = []
@@ -41,7 +39,7 @@ class Assembly < BaseFascade
 	puts api_params.class
 	puts api_params.inspect
     raw = api_request(api_params, ASSEMBLY, SHOW)
-    @assembly_collection =  dig_components(raw[:body])
+    dig_components(raw[:body])
     yield self  if block_given?
     return self
   end
@@ -111,17 +109,6 @@ def bld_policies(params)
     @inputs << {"key" => "sshkey", "value" => params[:ssh_key_name]} if params[:ssh_key_name]
   end
 
-  #wade out the nils in the assemblys_collection.
-  #the error objects shouldn't be in here, but we swallow an exception for an assemblies.list.
-  #hence we prune errors as well.
-  def prune
-    assembly_collection.take_while do |one_assembly|
-      one_assembly.components.take_while do |one_component|
-        one_component.prune
-      end unless (one_component.nil? || one_component.is_a?(Megam::Error))
-    end unless (one_assembly.nil? || one_assembly.is_a?(Megam::Error))
-  end
-
 
   def dig_components(tmp_assembly_collection)
     tmp_assembly_collection.map do |one_assembly|
@@ -133,12 +120,20 @@ def bld_policies(params)
         end
       end
       one_assembly.components.replace(a0)
-      @by_cattypes[Assemblies::CATTYPES.select {|catt|  catt if one_assembly.tosca_type.match(catt.downcase)}] = one_assembly
+      @by_cattypes = @by_cattypes.merge({ want_catkey(one_assembly.tosca_type) => one_assembly})
     end
     Rails.logger.debug ">-- ASC: START"
-    Rails.logger.debug "#{@by_cattypes.inspect}"
+    Rails.logger.debug "#{@by_cattypes}"
     Rails.logger.debug "> ASC: END"
-    tmp_assembly_collection
   end
+
+  #match the tosca type APP, SERVICE, ADDON, DEW from the string tosca.dew.ubuntu.
+  #if there is no match, then send out an error
+  def want_catkey(tmp_tosca_type)
+    c0 = Assemblies::CATTYPES.select {|cat|  cat if tmp_tosca_type.match(cat.downcase)}
+    raise UnsupportedConfigError, "Supported cat types are #{CATTYPES}." if c0.nil?
+    c0.join
+  end
+
 
 end
