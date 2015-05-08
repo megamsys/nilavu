@@ -19,9 +19,9 @@ class Sshkeys < BaseFascade
 
   S3   = "s3".freeze
   RIAK = "riak".freeze
-  
-  LAUNCH_IMPORT = "UPLOAD".freeze
-  LAUNCH_CREATE = "CREATE".freeze
+
+  LAUNCH_IMPORT   = "UPLOAD".freeze
+  LAUNCH_CREATE   = "CREATE".freeze
   LAUNCH_EXISTING = "EXIST".freeze
 
   PRIV_CONTENT_TYPE = "application/x-pem-key".freeze

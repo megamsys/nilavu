@@ -13,9 +13,8 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 **/
-var selected_entity = '#gogs_repos_list';
+var selected_entity = '#repos_list';
 
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/repo_dropdown', :locals => {:repos => @repos}) %>";
 
 insertAt(selected_entity, to_insert_content);
-    	 $(".main_source").val($(".scm_select").val());

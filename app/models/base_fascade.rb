@@ -36,6 +36,7 @@ class BaseFascade
    Rails.logger.debug "--> #{@swallow_404}"
   end
 
+
 # Returns true if the HTTP session has been started.
 #This is a friendly ping to know gateway and riak is running
 #probably move it to an api call /ping in the future.
