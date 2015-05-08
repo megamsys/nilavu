@@ -1,4 +1,4 @@
-/**
+<!--
 ** Copyright [2013-2015] [Megam Systems]
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,10 +12,11 @@
 ** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
-**/
-var selected_entity = '#gogs_repos_list';
+-->
 
-var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/repo_dropdown', :locals => {:repos => @repos}) %>";
-
-insertAt(selected_entity, to_insert_content);
-    	 $(".main_source").val($(".scm_select").val());
+<script>
+	$(document).ready(function() {
+		//window.print(@repos);
+		window.close();
+	}); 
+</script>

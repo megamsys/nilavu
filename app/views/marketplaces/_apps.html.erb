@@ -29,6 +29,7 @@
 <%= hidden_field_tag 'appname', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
 <%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
 <%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
+<%= hidden_field_tag 'scm_name', nil, placeholder: "", :class =>"form-control"%>
 
 <div class="row">
           <div class="col-md-12"> <span class="app_left_name">Description</span>
@@ -74,6 +75,10 @@
                     </div>
 		    </div>
 
+
+<%= hidden_field_tag 'source', nil, placeholder: '', :class =>"form-control main_source", :value => '' %>
+<%= hidden_field_tag 'check_ci', nil, placeholder: '', :class =>"form-control", :value => 'true' %>
+	
 		    <div id="app_megam_scm" style="display:none;">
                     <h4>Megam scm</h4>
                     <div class="form-group">
@@ -85,7 +90,6 @@
 					<% end %>
                     </div>
 		    </div>
-
 
 </div>
 </div>
@@ -161,103 +165,98 @@
 
 <script type="text/javascript">
 	// Script to show the scm
-$('input[type=radio]').change( function() {
-    var i, r = document.getElementsByName('radio_app_scm');
-    for (i = 0; i < r.length; i++) {
-        if (r[i].checked && r[i].value=="byoc_scm") 
-	{
-		alert("byoc show");
-		$("#app_byoc_scm").show();
-		$("#app_megam_scm").hide();
-	} else {
-		alert("megam show");
-		$("#app_byoc_scm").hide();
-		$("#app_megam_scm").show();
-	}
-    }
+	$('input[type=radio]').change(function() {
+		var i, r = document.getElementsByName('radio_app_scm');
+		for ( i = 0; i < r.length; i++) {
+			if (r[i].checked && r[i].value == "byoc_scm") {
+				alert("byoc show");
+				$("#app_byoc_scm").show();
+				$("#app_megam_scm").hide();
+			} else {
+				alert("megam show");
+				$("#app_byoc_scm").hide();
+				$("#app_megam_scm").show();
+			}
+		}
 	});
 </script>
 
 
 <script>
 	$(document).ready(function() {
-	$("#scm_name").val("gogs");
-	$("#gogs_connect").click(function() {
-	$.oauthpopup({
-	path:"/auth/gogs",callback: function() {
-	$.ajax({
-	type:"POST",url:"/gogs_call",
-	//dataType: 'json',
-	success: function(data) {
-	console.log("It worked!")
-	console.log(dataString);
-	},error: function(data) {
-	console.log("ERROR CHECK PROPERLY!!");
-	console.log(data);
-	}
-	});
-	return false;
-	}
-	});
-	});
-	$("#byoc_connect").click(function() {
-	$("#scm_name").val("github");
-	$.oauthpopup({
-	path:"/auth/github",callback: function() {
-	$.get("/github_call", function(data) {
-	console.log(data)
-	console.log("----data----")
-	var dataString=data
-	console.log(dataString);
-	$.ajax({
-	type:"POST",url:"/github_ajax",
-	//dataType: 'json',
-	data: {
-	id:dataString
-	},success: function(data) {
-	console.log("It worked!")
-	console.log(dataString);
-	},error: function(data) {
-	console.log("ERROR CHECK PROPERLY!!");
-	console.log(data);
-	}
-	});
-	});
-	return false;
-	}
-	});
-	});
+		$("#scm_name").val("gogs");
+		$("#gogs_connect").click(function() {
+			$.oauthpopup({
+				path : "/auth/gogs",
+				callback : function() {
+					$.ajax({
+						type : "POST",
+						url : "/publish_gogs",
+						success : function(data) {
+							console.log("It worked!")
+							console.log(dataString);
+						},
+						error : function(data) {
+							console.log("ERROR CHECK PROPERLY!!");
+							console.log(data);
+						}
+					});
+					return false;
+				}
+			});
+		});
+		$("#byoc_connect").click(function() {
+			$("#scm_name").val("github");
+			$.oauthpopup({
+				path : "/auth/github",
+				callback : function() {
+					$.ajax({
+						type : "POST",
+						url : "/publish_github",
+						success : function(data) {
+							console.log("It worked!")
+							console.log(dataString);
+						},
+						error : function(data) {
+							console.log("ERROR CHECK PROPERLY!!");
+							console.log(data);
+						}
+					});
+					return false;
+				}
+			});
+		});
 	});
 </script>
 <script type="text/javascript">
 	// Script to show the ssh keys options
 	$(document).ready(function() {
-	$('#sshkeyoption').on('change', function() {
-	if(this.value=="CREATE") {
-	$("#sshkey_create").show();
-	$("#sshkey_exist").hide();
-	$("#sshkey_upload").hide();
-	$(".sshoption").val("CREATE");
-	}
-	if(this.value=="EXIST") {
-	$("#sshkey_create").hide();
-	$("#sshkey_exist").show();
-	$("#sshkey_upload").hide();
-	$(".sshoption").val("EXIST");
-	}
-	if(this.value=="UPLOAD") {
-	$("#sshkey_create").show();
-	$("#sshkey_exist").hide();
-	$("#sshkey_upload").show();
-	$(".sshoption").val("UPLOAD");
-	}
-	});
+		$('#sshkeyoption').on('change', function() {
+			if (this.value == "CREATE") {
+				$("#sshkey_create").show();
+				$("#sshkey_exist").hide();
+				$("#sshkey_upload").hide();
+				$(".sshoption").val("CREATE");
+			}
+			if (this.value == "EXIST") {
+				$("#sshkey_create").hide();
+				$("#sshkey_exist").show();
+				$("#sshkey_upload").hide();
+				$(".sshoption").val("EXIST");
+			}
+			if (this.value == "UPLOAD") {
+				$("#sshkey_create").show();
+				$("#sshkey_exist").hide();
+				$("#sshkey_upload").show();
+				$(".sshoption").val("UPLOAD");
+			}
+		});
 	});
 </script>
 
 
 <script>
-    	    					$(document).ready(function() {
+    	    									$(document).ready(function() {
     $("input:radio[name=assigned_proposal_id]").click(function() {
     var value = $(this).val();
     if (value == 'STARTERPACK'){

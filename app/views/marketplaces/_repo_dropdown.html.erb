@@ -27,14 +27,12 @@
 </div>
 
 <script>
+	$(document).ready(function() {
 
-    $(document).ready(function() {
+		$(".scm_select").change(function() {
+			$(".main_source").val($(".scm_select").val());
 
-$( ".scm_select" ).change(function() {
-                           $(".main_source").val($(".scm_select").val());
-
- 
- });
-    });
+		});
+	});
 
 </script>

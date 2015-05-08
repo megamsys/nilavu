@@ -25,12 +25,12 @@ class Components < BaseFascade
     @name = nil
     @tosca_type = nil
     @inputs = []
-    @related_components = nil
+    @related_components = []
     @operations = []
   end
 
-  def show(api_params, &block)
-    @components = api_request(api_params, COMPONENTS, SHOW)[:body]
+  def show(api_params, &block)    
+    @components = api_request(api_params, COMPONENTS, SHOW)[:body]   
     yield self if block_given?
     return self
   end
@@ -47,6 +47,7 @@ class Components < BaseFascade
     set_service_params(params) if mkp["cattype"] == Assemblies::SERVICE
     set_addon_params(params) if mkp["cattype"] == Assemblies::ADDON
     set_common_inputs(params)
+    set_operations(params)
 
     hash = [{
       "name"              => @name,
@@ -60,7 +61,7 @@ class Components < BaseFascade
       },
       "related_components" => @related_components,
       "operations" =>  @operations,
-      "status" => Assembly::STATUS
+      "status" => Assemblies::LAUNCHING
     }]
     hash
   end
@@ -101,7 +102,24 @@ class Components < BaseFascade
 
   #set user operations for components like (continous integration)
   def set_operations(params)
-
+     set_ci_operation(params) if params["check_ci"] == "true"
+  end
+  
+  def set_ci_operation(params)    
+    @operations << {
+        "operation_type" => "CI",
+        "description" => "Continous Integration",
+        "operation_requirements" => bld_ci_requirements(params),
+    }
+  end
+  
+  def bld_ci_requirements(params)
+    op = []   
+    op <<  {"key" => "ci-scm", "value" => params["scm_name"]}
+    op <<  {"key" => "ci-enable","value" => "true"}
+    op <<  {"key" => "ci-token","value" => params["scmtoken"]}
+    op <<  {"key" => "ci-owner","value" => params["scmowner"]}
+    op
   end
 
 end

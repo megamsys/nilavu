@@ -13,12 +13,8 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 **/
-<% if @err_msg %>
-var selected_entity = '#addons_postfinish_popup_error';
-$("#err_msg").html('<%= @err_msg %>');
-$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
-<% else %>
-var selected_entity = '#addons_postfinish_popup';
-$("#res_msg").html('<%= @res_msg %>');
-$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
-<% end %>
+var selected_entity = '#repos_list';
+
+var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/repo_dropdown', :locals => {:repos => @repos}) %>";
+
+insertAt(selected_entity, to_insert_content);

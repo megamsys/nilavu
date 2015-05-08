@@ -66,7 +66,7 @@ class MarketplacesController < ApplicationController
   ## this function parse the request and get the github credentials
   ## and store that credentials to session
   ##
-  def github_scm
+  def store_github
     if current_user.nil?
       redirect_to :controller=>'sessions', :action=>'create'
     else
@@ -79,9 +79,9 @@ class MarketplacesController < ApplicationController
   ##
   ## this method collect all repositories for user using oauth token
   ##
-  def github_sessions
+  def publish_github
     auth_id = params['id']
-    github = Github.new oauth_token: auth_id
+    github = Github.new oauth_token: session[:github]
     git_array = github.repos.all.collect { |repo| repo.clone_url }
     @repos = git_array
     respond_to do |format|
@@ -89,29 +89,18 @@ class MarketplacesController < ApplicationController
         respond_with(@repos, :layout => !request.xhr? )
       }
     end
-  end
-
-  ##
-  ## get session data and sends to UI
-  ##
-  def github_sessions_data
-    @tokens_gh = session[:github]
-    render :text => @tokens_gh
-  end
-
-  def gogs
-  end
+  end  
 
   ##
   ## gogswindow html page method
   ##
-  def gogswindow
+  def start_gogs
   end
 
   ##
   ## get the repositories from session
   ## SCRP: What happens if gogs fails.
-  def gogs_sessions
+  def publish_gogs
     @repos = session[:gogs_repos]
     respond_to do |format|
       format.js {
@@ -124,14 +113,14 @@ class MarketplacesController < ApplicationController
   ## this function get the gogs token using username and password
   ## then list the repositories using oauth tokens.
   ## SCRP: There is no error trap here. What happens if gogs fails ?
-  def gogs_return
+  def store_gogs
     session[:gogs_owner] = params[:gogs_username]
     tokens = ListGogsTokens.perform(params[:gogs_username], params[:gogs_password])
     session[:gogs_token] = JSON.parse(tokens)[0]["sha1"]
     @gogs_repos = ListGogsRepo.perform(token)
     obj_repo = JSON.parse(@gogs_repos)
     @repos_arr = []
-    obj_repo.each do |one_repo|
+    obj_repo.each do |one_repo|     
       @repos_arr << one_repo["clone_url"]
     end
     session[:gogs_repos] =  @repos_arr
@@ -139,7 +128,7 @@ class MarketplacesController < ApplicationController
 
   def create
     logger.debug  "> Marketplaces: create."
-    mkp = JSON.parse(params["mkp"])   
+    mkp = JSON.parse(params["mkp"])
     case params["sshoption"]
     when Sshkeys::LAUNCH_CREATE
       params[:ssh_key_name] = params["sshcreatename"] + "_" + params[:name]
@@ -151,11 +140,16 @@ class MarketplacesController < ApplicationController
       params[:ssh_key_name] = params[:sshexistname]
     end
 
-    res = Assemblies.new.create(params)
-    respond_to do |format|
-      format.html {redirect_to marketplaces_path, format: 'js'}
-      format.js {render :js => "window.location.href='"+marketplaces_path+"'", :layout => !request.xhr?}
+    case params["scm_name"]
+    when Scm::GITHUB
+      params[:scmtoken] =  session[:github]
+      params[:scmowner] =  session[:git_owner]
+    when Scm::GOGS
+      params[:scmtoken] =  session[:gogs_token]
+      params[:scmowner] =  session[:gogs_owner]
     end
+
+    res = Assemblies.new.create(params)   
   end
 
   ##

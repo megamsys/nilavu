@@ -32,6 +32,7 @@ class Assembly < BaseFascade
     @inputs = []
     @requirements = []
     @components = []
+    @app_list = []
   end
 
   def show(api_params, &block)
@@ -39,7 +40,7 @@ class Assembly < BaseFascade
 	puts api_params.class
 	puts api_params.inspect
     raw = api_request(api_params, ASSEMBLY, SHOW)
-    dig_components(raw[:body])
+    dig_components(raw[:body], api_params)
     yield self  if block_given?
     return self
   end
@@ -110,11 +111,11 @@ def bld_policies(params)
   end
 
 
-  def dig_components(tmp_assembly_collection)
+  def dig_components(tmp_assembly_collection, api_params)
     tmp_assembly_collection.map do |one_assembly|
        a0 = one_assembly.components.map do |one_component|
         if !one_component.empty?
-          one_component = Components.new.show(api_params.merge({"id" => one_component})).components
+          one_component = Components.new.show(api_params.merge({"id" => one_component})).components        
         else
           nil
         end

@@ -13,22 +13,16 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class OnedewsController < ApplicationController
-  respond_to :html, :js
-  include MarketplaceHelper
+require 'json'
+
+class Scm < BaseFascade
   
-  before_action :stick_keys, only: [:show, :index]
-
-  def index
-    @assembly=Assembly.new.show(params.merge({"id" => params[:id]}))
-    puts @assembly
-  end
-
-  def show    
-     
-  end
-
-  def logs
-  end
-
+  GITHUB    =  "github".freeze
+  GOGS      =  "gogs".freeze
+  
+  def initialize()
+    
+  end 
+  
+  
 end
