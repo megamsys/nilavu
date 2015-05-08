@@ -1,4 +1,4 @@
-  // Instance the tour
+//Dashboard tour start
 var tour = new Tour({
   steps: [
   {
@@ -19,3 +19,6 @@ var tour = new Tour({
 tour.init();
 
 tour.start();
+//Dashboard tour end
+
+

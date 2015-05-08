@@ -35,6 +35,9 @@ class Assembly < BaseFascade
   end
 
   def show(api_params, &block)
+     puts "Assembly show api_params =============> "
+	puts api_params.class
+	puts api_params.inspect
     raw = api_request(api_params, ASSEMBLY, SHOW)
     dig_components(raw[:body])
     yield self  if block_given?

@@ -31,74 +31,109 @@
 <%= hidden_field_tag 'servicename', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
 <%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
 <div class="row">
-	<div class="col-sm-7 body_left">
-		<h4><%= @pro_name[1] %></h4>
-		<div class="row pad_tb25">
-			<div class="col-sm-5">
-				<div class="app_inner brad-3">
-					<div class="stpack">
-						<%= image_tag "combos/"+@pro_name[1].downcase+".png", :alt => "" %>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="bottom-divider"></div>
-		<div class="row">
-			<div class="col-sm-3 app_left_name">
-				<span>Description</span>
-			</div>
-			<div class="col-sm-9 app_left_desc">
-				<span> <%= @mkp_description %> <a href="#" target="_blank">View Docs</a> </span>
-			</div>
-		</div>
-		<div class="bottom-divider"></div>		
-	</div>
-	<!-- body_left ends here -->
-
-	<div class="col-sm-5 body_right c_height_2">
-		<h4>Name</h4>
-		<div class="row">
-			<div class="col-xs-6">
-				<div class="form-group">
-					<%= text_field_tag 'name', nil, placeholder: 'Service Name', :class =>"form-control", :value => @appname %>
-				</div>
-			</div>
-			<div class="col-xs-6">
-				<div class="form-group">
+          <div class="col-md-12"> <span class="app_left_name">Description</span>
+            <P class="model-description"><%= @mkp_description %><a href="#" target="_blank">View Docs</a></P>
+            <div class="pad_tb25">
+                <h4>Name</h4>
+                <div class="row">
+                  <div class="col-xs-6">
+                    <div class="form-group">
+<%= text_field_tag 'name', nil, placeholder: 'Service Name', :class =>"form-control", :value => @appname %>
+                    </div>
+                  </div>
+                  <div class="col-xs-6">
+                    <div class="form-group">
 					<%= text_field_tag 'domain', nil, placeholder: "megam.co", :class =>"form-control", :value => "megam.co", disabled: true %>
 					<%= hidden_field_tag 'domain', nil, placeholder: ".megam.co", :class =>"form-control", :value => "megam.co" %>
-				</div>
-			</div>
-		</div>
-		<div class="bottom-divider"></div>
-		<h4>App</h4>
-		<div class="row">
-			<div class="col-xs-12">
-				<div class="form-group">
+                    </div>
+                  </div>
+                </div>
+
+               <div class="row">
+                  <div class="col-xs-6">
+                    <h4>SSH</h4>
+                    <div class="form-group">
+							<select class="form-control" id="sshkeyoption">
+								<option value="CREATE">Create a new sshkey</option>
+								<option value="EXIST">Use your already uploaded keys </option>
+								<option value="UPLOAD">Upload your ssh keys</option>
+							</select>
+
+
+                    </div>
+                  </div>
+                  <div class="col-xs-6" >
+		    <div id="sshkey_exist" style="display:none;">
+                    <h4>Choose your SSH</h4>
+                    <div class="form-group">
+					<% if @ssh_keys != nil && @ssh_keys.length > 0 %>
+						<%= select_tag "sshexistname", options_for_select(@ssh_keys.map{ |c| c[:name] }, :selected=>@ssh_keys[0]), :class =>"form-control" %>
+
+					<% else %>
+						<span>You must have create or upload the sshkeys</span>
+					<% end %>
+                    </div>
+		    </div>
+
+		    <div id="sshkey_create">
+                    <h4>SSH keypair name</h4>
+                    <div class="form-group">
+			<%= text_field_tag 'sshcreatename', nil, placeholder: 'Type a key pair name to save', :required => true, :class =>"form-control" %>
+                    </div>
+		    </div>
+
+                  </div>
+                </div>
+                   <div id="sshkey_upload" style="display:none; margin-top:10px;">
+                <div class="row">
+
+                      <div class="col-xs-6">
+								<div class="form-group">
+									<span class="btn green fileinput-button  col-md-12  col-xs-7"> <i class="icon-plus"></i> <span>Add files...</span> <%= file_field_tag :ssh_private_key, placeholder: 'Upload private key' %> </span>
+								</div>
+                        </div>
+                        <div class="col-xs-6">
+									<div class="form-group">
+										<span class="btn blue fileinput-button  col-md-12  col-xs-7"> <i class="icon-plus"></i> <span>Add files...</span> <%= file_field_tag :ssh_public_key, placeholder: 'Upload public key' %> </span>
+									</div>
+                        </div>
+                      </div>
+<br/>
+                </div>
+<br/><br/>
+
+
+
+
+                <div class="row">
+
+                  <div class="col-md-6">
+                    <div class="form-group">
 					<% list = [] %>
 					<% @apps = [] %>
 					<% list << "select an APP" %>
 					<% @apps.map{ |c| list << [c["name"], c["name"]+":"+c["aid"]+":"+c["cid"], {onclick: "console.log('HI');"}] } %>
 					<%= select_tag "bindedAPP", options_for_select(list, :selected=>list[0]), :class =>"form-control", :id => "bindedApp" %>
-				</div>
-			</div>
+                    </div>
+                  </div>
 
-			<div class="col-xs-12">
-				<div class="form-group">
-					<%= submit_tag "Create", :class => "btn btn-success btn-plain-green col-xs-12" %>
-				</div>
-			</div>
-			<div class="col-xs-12">
-				<div class="form-group">
+                  <div class="col-md-6">
+                    <div class="form-group">
 
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- body_right ends here -->
+<%= submit_tag "Create Service", :class => "btn btn-success col-xs-12", :data => {:remote => true} %>
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div class="bottom-divider"></div>
+            <div class="bottom-divider"></div>
+          </div>
+          <!-- body_left ends here --> 
+          
+          <!-- body_right ends here --> 
+        </div>
 </div>
-</div> <!-- app_body ends here -->
-<script>
+<script type="text/javascript">
 	(function($) {
 		$('#bindedApp').on('change', function(e) {
 			var optionSelected = $("option:selected", this);
@@ -106,5 +141,31 @@
 			console.log(valueSelected);
 		});
 	})($); 
+
+
+	// Script to show the ssh keys options
+	$(document).ready(function() {
+	$('#sshkeyoption').on('change', function() {
+	if(this.value=="CREATE") {
+	$("#sshkey_create").show();
+	$("#sshkey_exist").hide();
+	$("#sshkey_upload").hide();
+	$(".sshoption").val("CREATE");
+	}
+	if(this.value=="EXIST") {
+	$("#sshkey_create").hide();
+	$("#sshkey_exist").show();
+	$("#sshkey_upload").hide();
+	$(".sshoption").val("EXIST");
+	}
+	if(this.value=="UPLOAD") {
+	$("#sshkey_create").show();
+	$("#sshkey_exist").hide();
+	$("#sshkey_upload").show();
+	$(".sshoption").val("UPLOAD");
+	}
+	});
+	});
+
 </script>
 <% end %>
