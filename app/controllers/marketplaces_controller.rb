@@ -149,11 +149,7 @@ class MarketplacesController < ApplicationController
       params[:scmowner] =  session[:gogs_owner]
     end
 
-    res = Assemblies.new.create(params)
-    respond_to do |format|
-      format.html {redirect_to marketplaces_path, format: 'js'}
-      format.js {render :js => "window.location.href='"+marketplaces_path+"'", :layout => !request.xhr?}
-    end
+    res = Assemblies.new.create(params)   
   end
 
   ##

@@ -8,7 +8,8 @@ class BaseFascade
   class APIInvocationFailure < MegamAPIError; end
   class MissingAPIArgsError < MegamAPIError; end
   class AuthenticationFailure < MegamAPIError; end
-  class SSHKeyUploadFailure < MegamAPIError; end
+  class UnsupportedConfigError < MegamAPIError; end
+  class SSHKeyProcessingFailure < MegamAPIError; end
 
   JLAZ_PREFIX       = "Megam::".freeze
   ACCOUNT           = 'Account'.freeze
@@ -52,7 +53,7 @@ class BaseFascade
   def api_request(jparams, jlaz, jmethod, passthru = false)
     jlaz = JLAZ_PREFIX + jlaz
     Rails.logger.debug "\033[01;35mFASCADE #{jlaz}#{jmethod} \33[0;34m"
-     
+
     if !passthru
       raise MissingAPIArgsError, ":email and :api_key required." unless jparams.has_key?(:email && :api_key)
     end
@@ -81,7 +82,7 @@ class BaseFascade
   # a private helper that runs the actual method in the api by calling jlaz.jmethod  using ruby metaprogramming
 
   def run_now(swallow_exception = false, jlaz, jmethod, jparams)
-    Megam::Log.level(Rails.configuration.log_level)   
+    Megam::Log.level(Rails.configuration.log_level)
     api_jlaz = jlaz.constantize
     unless api_jlaz.respond_to?(jmethod)
       Rails.logger.debug "Unsupported api #{jlaz}.#{jmethod}, try adding before you can use it."
