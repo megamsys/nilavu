@@ -27,16 +27,18 @@ class Assemblies < BaseFascade
   SERVICE             =  'SERVICE'.freeze
   ANALYTICS           =  'ANALYTICS'.freeze
   ADDON               =  'ADDON'.freeze
-  
+  CATTYPES            =  [APP, ADDON, DEW, ANALYTICS, SERVICE]
+
   START               =  'start'.freeze
   STOP                =  'stop'.freeze
   RESTART             =  'restart'.freeze
   DELETE              =  'delete'.freeze
   TERMINATED          =  'Terminated'.freeze
+  LAUNCHING           =  'LAUNCHING'.freeze
+
 
   def initialize()
-    @assemblies_collection = []
-    @assemblies_grouped = []     
+    @assemblies_grouped = {}
     super(true) #swallow 404 errors for assemblies.
   end
 
@@ -54,75 +56,47 @@ class Assemblies < BaseFascade
   #                   -- component2 : service
   # currently if there are no components then we consider it a plain VM.
   # an additional field in assembly indicates if its a plain VM (INSTANCE) or not.
-
   def list(api_params, &block)
     raw = api_request(api_params, ASSEMBLIES, LIST)
-    @assemblies_collection = dig_assembly(raw[:body]) unless raw == nil
-
-    #only if the mkp is successful, we can figure out toscatype to cattype [APP, SERVICE, ADDON]
-    Marketplaces.instance.list(api_params) do |mkp|
-      prune.map do  |pruned_assembly_collection|
-        #stick the toscatype to cattype [APP, SERVICE, ADDON]
-      end unless @assemblies_collection.nil?
-    end
-
-    @assemblies_grouped = @assemblies_collection.group_by{|abck| abck} unless @assemblies_collection.nil?
-
+    dig_assembly(raw[:body],api_params) unless raw == nil
     yield self  if block_given?
     return self
   end
 
 
- def create(api_params, &block)   
-    api_request(make_assemblies(api_params), ASSEMBLIES, CREATE)
+ def create(api_params, &block)
+    api_request(api_params.merge(mk(api_params)), ASSEMBLIES, CREATE)
     yield self if block_given?
     return self
   end
-  
+
   private
-  
-  def make_assemblies(params)     
-    hash = {
-      "name"=>"",
-      "assemblies"=> Assembly.new.build(params),
-      "inputs"=>[],
-      :email => params["email"],
-      :api_key => params["api_key"]
+
+  def mk(api_params)
+    { :name=>"",
+      :assemblies=> Assembly.new.build(api_params),
+      :inputs=>[]
     }
-    hash
-  end   
+  end
 
-    #wade out the nils in the assemblies_collection.
-    #the error objects shouldn't be in here, but we swallow an exception for an assemblies.list.
-    #hence we prune errors as well.
-    def prune
-      @assemblies_collection.take_while do |one_assemblies|
-        one_assemblies.assemblies.take_while do |one_assembly|
-          one_assembly.prune
-        end unless (one_assemblies.nil? || one_assembly.is_a?(Megam::Error))
-      end unless @assemblies_collectionassemblies.nil?
-      @assemblies_collection
-    end
-
-    def dig_assembly(tmp_assemblies_collection)
-      tmp_assemblies_collection.map do |one_assemblies|
-
-puts " ONE ASSEMBLies ======================> "
-puts one_assemblies.class
-puts one_assemblies.inspect
-
-          one_assemblies.assemblies.map  do  |one_assembly|
-puts " ONE ASSEMBLY ======================> "
-puts one_assembly.class
-puts one_assembly.inspect
-            if !one_assembly.empty?
-		assembly = Assembly.new
-              assembly.show(one_assembly).assembly_collection
-            else
-              nil
-            end
+  #The /assemblies just returns an id of assembly. dig recursively to get the full content of it.
+  #     assemblies : :id  => ASM0001
+  #          assembly: :id => ASC0001
+  #              component :id => CMP0001
+  def dig_assembly(tmp_assemblies_collection, api_params)
+    tmp_assemblies_collection.map do |one_assemblies|
+         a0 = one_assemblies.assemblies.map  do  |one_assembly|
+          if !one_assembly.empty?
+            @assemblies_grouped = @assemblies_grouped.merge(Assembly.new.show(api_params.merge({"id" => one_assembly})).by_cattypes)
+          else
+            nil
           end
-      end
+        end
     end
+# we don't need an assemblies_collection, so leave it as is.
+    Rails.logger.debug "\033[36m>-- ASB'S: START\33[0m"
+    Rails.logger.debug "\033[1m#{@assemblies_grouped.to_yaml}\33[22m"
+    Rails.logger.debug "\033[36m> ASB'S: END\033[0m"
+  end
 
 end

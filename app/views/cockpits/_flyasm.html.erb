@@ -23,49 +23,51 @@
   </div>
 </div>
 <% end %>
-
-<% @assemblies_grouped.each do |one_assemblies| %>
-<% one_assemblies.assemblies.each do |assembly| %>
-<% unless assembly[0].status == Assemblies::TERMINATED %>
+<% @assemblies_grouped.values.each do |assembly| %>
+<% unless assembly.status == Assemblies::TERMINATED %>
 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
   <div class="app_inner">
     <div class="app">
       <div class="app_head">
-        <span class="app_config" id="config_menu_<%= assembly[0].name %>_app"><i class="c_icon-config"></i></span>
-        <div class="config_menu config_menu_<%= assembly[0].name %>_app">
+        <span class="app_config" id="config_menu_<%= assembly.name %>_<%= catname.downcase %>"><i class="c_icon-config"></i></span>
+        <div class="config_menu config_menu_<%= assembly.name %>_<%= catname.downcase %>">
           <ul>
             <li>
-              <%= link_to catalogs_path(:id => assembly[0].id, :name => assembly[0].name, :command => Assemblies::START, :type => Assemblies::DEW.downcase.pluralize), :remote => true do %>
+              <%= link_to catalogs_path(:id => assembly.id, :name => assembly.name, :command => Assemblies::START, :type => Assemblies::DEW.downcase.pluralize), :remote => true do %>
               <i class="glyphicon glyphicon-play-circle"></i>Start <=% @catname %>
               <% end %>
             </li>
             <li>
-              <%= link_to catalogs_path(:id => assembly[0].id, :name => assembly[0].name, :command => Assemblies::STOP, :type => Assemblies::DEW.downcase.pluralize), :remote => true do %>
+              <%= link_to catalogs_path(:id => assembly.id, :name => assembly.name, :command => Assemblies::STOP, :type => Assemblies::DEW.downcase.pluralize), :remote => true do %>
               <i class="glyphicon glyphicon-record"></i>Stop <=% @catname %>
               <% end %>
             </li>
             <li>
-              <%= link_to catalogs_path(:id => assembly[0].id, :name => assembly[0].name, :command => Assemblies::RESTART, :type => Assemblies::DEW.downcase.pluralize), :remote => true do %>
+              <%= link_to catalogs_path(:id => assembly.id, :name => assembly.name, :command => Assemblies::RESTART, :type => Assemblies::DEW.downcase.pluralize), :remote => true do %>
               <i class="glyphicon glyphicon-refresh"></i>Restart <=% @catname %>
               <% end %>
             </li>
             <li>
-              <%= link_to catalogs_path(:id => assembly[0].id, :name => assembly[0].name, :command => Assemblies::DELETE, :type => Assemblies::DEW.downcase.pluralize), :remote => true do %>
+              <%= link_to catalogs_path(:id => assembly.id, :name => assembly.name, :command => Assemblies::DELETE, :type => Assemblies::DEW.downcase.pluralize), :remote => true do %>
               <i class="glyphicon glyphicon-trash"></i>Delete <=% @catname %>
               <% end %>
             </li>
           </ul>
         </div>
         <div class="row app_icon">
-          <h5><%= assembly[0].name %></h5>
-        <!--  <% appkey = assembly[0].name + ".megam.io" %>
-          <% appkey = assembly[0].name + "." + assembly[0].components[0][0].inputs[:domain] %>
-          <%= link_to appkey, dewsoverview_path(:appkey => assembly[0].id), :data => {:remote => true} %>
-          <%= link_to appkey, addonsoverview_path(:appkey => assembly[0].id) %>
-          <%= link_to appkey, appoverview_path(:appkey => assembly[0].id) %> -->
+          <h5><%= assembly.name %></h5>
+          <%= appkey = assembly.name + ".megam.io" %>
+          <% case catname %>
+					<% when Assemblies::DEW %>
+          <%= link_to appkey, onedews_path(:appkey => assembly.id), :data => {:remote => true} %>
+					<% when Assemblies::APP %>
+					<%= link_to appkey, oneapps_path(:appkey => assembly.id) %> -->
+					<% when Assemblies::SERVICE %>
+					<%= link_to appkey, oneservicess_path(:appkey => assembly.id) %>
+					<% end %>
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <ul class="list-inline app_icon_bottom">
-                  <%  assembly[0].components.each do |one_component| %>
+                  <%  assembly.components.each do |one_component| %>
                   <% one_component.each do |c| %>
                   <li>
                     <%= image_tag "logos/"+ one_component.tosca_type.downcase+".png", :alt => "" %>
@@ -75,16 +77,12 @@
                 </ul>
               </div>
         </div>
-        <!-- <img class="center-block" src="assets/img/app2.png"> -->
       </div>
       <div class="app_footer">
-        <!-- <div class="circle_red"></div> -->
         <i class="circle_green"></i>
-        <span><strong><%= assembly[0].status %></strong></span>
-        <% if asm.inputs[:id].length > 1 %>
-        <% url = "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user.email}&api_key=#{current_user.api_key}&callbackURL=https://www.megam.co/varai&assembliesID=#{asm.id}" %>
+        <span><%= assembly.status.capitalize %></span>
+        <% url = "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user.email}&api_key=#{current_user.api_key}&callbackURL=https://www.megam.co/varai&assembliesID=#{assembly.id}" %>
         <a href="<%= url %>" target="_blank" ><i class="c_icon-window pull-right" style="color:blue"></i></a>
-        <% end %>
         <i class="c_icon-star pull-right"></i>
       </div>
     </div>
@@ -131,14 +129,13 @@
       </div>
       <div class="app_footer">
         <i class="circle_red"></i>
-        <span><strong><%= assembly[0].status %></strong></span>
+        <span><%= assembly[0].status.capitalize %></span>
         <i class="c_icon-window pull-right" style="color:blue"></i>
         <i class="c_icon-star pull-right"></i>
       </div>
     </div>
   </div>
 </div>
-<% end %>
 <% end %>
 <% end %>
 </div>
