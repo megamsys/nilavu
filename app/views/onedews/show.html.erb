@@ -35,7 +35,7 @@
 						<% appkey = request.original_url.partition('=').last %>
 
 						<li class= "start active">
-							<%= link_to onedews_path(:appkey => appkey), :target => "_self" do %>
+							<%= link_to onedews_path(:id => appkey), :data => {:remote => true} do %>
 							<i class="c_icon c_icon-browser pull-left"></i>
 							<span class="title pull-left">Overview</span>
 							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'onedews', :action => 'index')%>"></span>
@@ -43,7 +43,7 @@
 						</li>
 
 						<li class= "start active">
-							<%= link_to dewlogs_path(:appkey => appkey), :target => "_self" do %>
+							<%= link_to dewlogs_path(:id => appkey), :target => "_self" do %>
 							<i class="c_icon c_icon-stack pull-left"></i>
 							<span class="title pull-left">Logs</span>
 							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'onedews', :action => 'logs')%>"></span>

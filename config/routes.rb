@@ -39,15 +39,13 @@ Nilavu::Application.routes.draw do
   match '/auth/facebook/callback', :to => 'sessions#create', via: [:get, :post]
 
   # named route for billing, paid message callback from paypal or bitcoin
-  match '/callback_url', to: 'billings#callback_url', via: [:get, :post]
+  match '/notify_payment', to: 'billings#notify_payment', via: [:get, :post]
   # Generically handle errors for 404, 500.
   get "/404", :to => "errors#not_found"
   #get "/422", :to => "errors#unacceptable"
   get "/500", :to => "errors#internal_error"
   # A visual designer route ? for what ?
   match '/varai', to: 'cockpit#varai', via: [:get]
-
-  match '/changeversion', to: 'marketplaces#changeversion', via: [:get, :post]
 
   #=====github
   match '/auth/github/callback', :to => 'marketplaces#store_github', via: [:get, :post]
@@ -57,8 +55,8 @@ Nilavu::Application.routes.draw do
   post 'store_gogs', :to => 'marketplaces#store_gogs', via: [:post]
   match '/auth/gogs', :to => 'marketplaces#start_gogs', via: [:get, :post]
   match '/publish_gogs', :to => 'marketplaces#publish_gogs', via: [:get, :post]
-  
-  #===one logs
-  match '/dewlogs', :to => 'onedews#logs', via: [:post]
+
+  #===one logs - good name :)
+  match '/dewlogs', :to => 'onedews#logs', via: [:get]
 
 end

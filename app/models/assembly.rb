@@ -36,9 +36,6 @@ class Assembly < BaseFascade
   end
 
   def show(api_params, &block)
-     puts "Assembly show api_params =============> "
-	puts api_params.class
-	puts api_params.inspect
     raw = api_request(api_params, ASSEMBLY, SHOW)
     dig_components(raw[:body], api_params)
     yield self  if block_given?
@@ -110,12 +107,12 @@ def bld_policies(params)
     @inputs << {"key" => "sshkey", "value" => params[:ssh_key_name]} if params[:ssh_key_name]
   end
 
-
+ #recursively dig assembly by populating components.
   def dig_components(tmp_assembly_collection, api_params)
     tmp_assembly_collection.map do |one_assembly|
        a0 = one_assembly.components.map do |one_component|
         if !one_component.empty?
-          one_component = Components.new.show(api_params.merge({"id" => one_component})).components        
+          one_component = Components.new.show(api_params.merge({"id" => one_component})).components
         else
           nil
         end

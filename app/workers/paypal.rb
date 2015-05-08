@@ -31,7 +31,7 @@ class Paypal
 
         # ###Redirect URLs
         :redirect_urls => {
-          :return_url => "https://#{Rails.configuration.server_url}/callback_url",
+          :return_url => "https://#{Rails.configuration.server_url}/notify_payment",
           :cancel_url => "https://#{Rails.configuration.server_url}" },
 
         # ###Transaction
@@ -46,12 +46,12 @@ class Paypal
               :currency =>  "USD"
             },
             :description =>  "This is the payment transaction description." }]})
-      
+
       # Create Payment and return status
       if payment.create
-        # Redirect the user to given approval url      
+        # Redirect the user to given approval url
         return payment.links.find{|v| v.method == "REDIRECT" }.href
-      else      
+      else
         hash = {"msg" => payment.error, "msg_type" => "error"}
         re = Megam::Error.from_hash(hash)
         @res = {"data" => {:body => re}}
@@ -64,12 +64,12 @@ class Paypal
       return @res["data"][:body]
     end
   end
-  
+
   def self.execute(params)
     begin
-     payment = Payment.find(params["paymentId"])    
+     payment = Payment.find(params["paymentId"])
     # PayerID is required to approve the payment.
-    if payment.execute( :payer_id => params["PayerID"] )  # return true or false      
+    if payment.execute( :payer_id => params["PayerID"] )  # return true or false
        return payment.transactions[0].amount.total.to_s
     else
         hash = {"msg" => payment.error, "msg_type" => "error"}

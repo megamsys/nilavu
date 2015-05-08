@@ -89,7 +89,7 @@ class MarketplacesController < ApplicationController
         respond_with(@repos, :layout => !request.xhr? )
       }
     end
-  end  
+  end
 
   ##
   ## gogswindow html page method
@@ -120,12 +120,14 @@ class MarketplacesController < ApplicationController
     @gogs_repos = ListGogsRepo.perform(token)
     obj_repo = JSON.parse(@gogs_repos)
     @repos_arr = []
-    obj_repo.each do |one_repo|     
+    obj_repo.each do |one_repo|
       @repos_arr << one_repo["clone_url"]
     end
     session[:gogs_repos] =  @repos_arr
   end
 
+  ## super cool create that is the main creator for all.
+  # performs ssh creation or using existing and creating an assembly at the end.
   def create
     logger.debug  "> Marketplaces: create."
     mkp = JSON.parse(params["mkp"])
@@ -149,7 +151,7 @@ class MarketplacesController < ApplicationController
       params[:scmowner] =  session[:gogs_owner]
     end
 
-    res = Assemblies.new.create(params)   
+    res = Assemblies.new.create(params)
   end
 
   ##
