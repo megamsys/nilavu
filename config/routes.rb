@@ -15,7 +15,7 @@ Nilavu::Application.routes.draw do
   resources :catalogs
   resources :onedews
   resources :oneapps
-  resources :oneservice
+  resources :oneservices
   resources :oneaddons
   # the routes used by the monitoring system
   resources :dashboards
@@ -57,5 +57,8 @@ Nilavu::Application.routes.draw do
   post 'store_gogs', :to => 'marketplaces#store_gogs', via: [:post]
   match '/auth/gogs', :to => 'marketplaces#start_gogs', via: [:get, :post]
   match '/publish_gogs', :to => 'marketplaces#publish_gogs', via: [:get, :post]
+  
+  #===one logs
+  match '/dewlogs', :to => 'onedews#logs', via: [:post]
 
 end

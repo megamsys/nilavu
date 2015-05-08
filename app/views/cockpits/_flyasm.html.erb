@@ -56,14 +56,14 @@
 						</div>
 						<div class="row app_icon">
 							<h5><%= assembly.name %></h5>
-							<%= appkey = assembly.name + ".megam.io" %>
+							<% appkey = assembly.name + ".megam.io" %>
 							<% case catname %>
 							<% when Assemblies::DEW %>
-							<%= link_to appkey, onedews_path(:appkey => assembly.id), :data => {:remote => true} %>
+							<%= link_to appkey, onedews_path(:id => assembly.id) %>
 							<% when Assemblies::APP %>
-							<%= link_to appkey, oneapps_path(:appkey => assembly.id) %> -->
+							<%= link_to appkey, oneapps_path(:id => assembly.id) %> 
 							<% when Assemblies::SERVICE %>
-							<%= link_to appkey, oneservicess_path(:appkey => assembly.id) %>
+							<%= link_to appkey, oneservices_path(:id => assembly.id) %>
 							<% end %>
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 								<ul class="list-inline app_icon_bottom">

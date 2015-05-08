@@ -16,14 +16,16 @@
 class OnedewsController < ApplicationController
   respond_to :html, :js
   include MarketplaceHelper
+  
+  before_action :stick_keys, only: [:show, :index]
 
-
-  def show
+  def index
+    @assembly=Assembly.new.show(params.merge({"id" => params[:id]}))
+    puts @assembly
   end
 
-  def overview
-      appid = params["appkey"]
-      @assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
+  def show    
+     
   end
 
   def logs

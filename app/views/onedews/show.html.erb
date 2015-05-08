@@ -12,9 +12,8 @@
 ** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
-
 -->
-		<%= render 'layouts/header' %>
+<%= render 'layouts/header' %>
 <div class="container main-cover">
 	<div class="row">
 		<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 c_bg_white cover">
@@ -36,21 +35,20 @@
 						<% appkey = request.original_url.partition('=').last %>
 
 						<li class= "start active">
-							<%= link_to vmoverview_path(:appkey => appkey), :target => "_self" do %>
+							<%= link_to onedews_path(:appkey => appkey), :target => "_self" do %>
 							<i class="c_icon c_icon-browser pull-left"></i>
 							<span class="title pull-left">Overview</span>
-							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'overview')%>"></span>
+							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'onedews', :action => 'index')%>"></span>
 							<% end %>
 						</li>
-						
+
 						<li class= "start active">
-							<%= link_to vmlogs_path(:appkey => appkey), :target => "_self" do %>
+							<%= link_to dewlogs_path(:appkey => appkey), :target => "_self" do %>
 							<i class="c_icon c_icon-stack pull-left"></i>
 							<span class="title pull-left">Logs</span>
-							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'oneapps', :action => 'logs')%>"></span>
+							<span class="hidden-xs <%= "selected" if current_page?(:controller => 'onedews', :action => 'logs')%>"></span>
 							<% end %>
-						</li>						
-										
+						</li>
 
 					</ul>
 					<!-- END SIDEBAR MENU -->
@@ -59,7 +57,7 @@
 		</div>
 
 		<div id="content">
-			<%= content_for?(:onevm_contents) ? yield(:onevm_contents) : yield %>
+			<%= content_for?(:onedew_contents) ? yield(:onedew_contents) : yield %>
 
 		</div>
 

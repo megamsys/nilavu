@@ -38,9 +38,9 @@
 	</div>
 
 	<div class="margin_30 pad_t25">
-		<%= render :partial => "cockpits/flyasm", :locals => {:catname => Assemblies::DEW.capitalize,    :assemblies_grouped => @assemblies_grouped[Assemblies::DEW]} %>
-		<%= render :partial => "cockpits/flyasm", :locals => {:catname => Assemblies::APP.capitalize,    :assemblies_grouped => @assemblies_grouped[Assemblies::APP]} %>
-		<%= render :partial => "cockpits/flyasm", :locals => {:catname => Assemblies::SERVICE.capitalize,:assemblies_grouped => @assemblies_grouped[Assemblies::SERVICE]} %>
+		<%= render :partial => "cockpits/flyasm", :locals => {:catname => Assemblies::DEW,     :assemblies_grouped => @assemblies_grouped[Assemblies::DEW]} %>
+		<%= render :partial => "cockpits/flyasm", :locals => {:catname => Assemblies::APP,     :assemblies_grouped => @assemblies_grouped[Assemblies::APP]} %>
+		<%= render :partial => "cockpits/flyasm", :locals => {:catname => Assemblies::SERVICE, :assemblies_grouped => @assemblies_grouped[Assemblies::SERVICE]} %>
 	</div>
 </div>
 <% end %>
