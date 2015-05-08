@@ -38,7 +38,6 @@ class Assemblies < BaseFascade
 
 
   def initialize()
-    @assemblies_collection = []
     @assemblies_grouped = {}
     super(true) #swallow 404 errors for assemblies.
   end
@@ -57,10 +56,9 @@ class Assemblies < BaseFascade
   #                   -- component2 : service
   # currently if there are no components then we consider it a plain VM.
   # an additional field in assembly indicates if its a plain VM (INSTANCE) or not.
-
   def list(api_params, &block)
     raw = api_request(api_params, ASSEMBLIES, LIST)
-    @assemblies_collection = dig_assembly(raw[:body],api_params) unless raw == nil
+    dig_assembly(raw[:body],api_params) unless raw == nil
     yield self  if block_given?
     return self
   end
@@ -81,35 +79,24 @@ class Assemblies < BaseFascade
     }
   end
 
-    #wade out the nils in the assemblies_collection.
-    #the error objects shouldn't be in here, but we swallow an exception for an assemblies.list.
-    #hence we prune errors as well.
-    def prune
-      @assemblies_collection.take_while do |one_assemblies|
-        one_assemblies.assemblies.take_while do |one_assembly|
-          one_assembly.prune
-        end unless (one_assemblies.nil? || one_assembly.is_a?(Megam::Error))
-      end unless @assemblies_collectionassemblies.nil?
-      @assemblies_collection
-    end
-
-    def dig_assembly(tmp_assemblies_collection, api_params)
-      tmp_assemblies_collection.map do |one_assemblies|
-           a0 = one_assemblies.assemblies.map  do  |one_assembly|
-            if !one_assembly.empty?
-              a1 = Assembly.new.show(api_params.merge({"id" => one_assembly}))
-              a1.assembly_collection
-              @assemblies_grouped = @assemblies_grouped.merge(a1.by_cattypes)
-            else
-              nil
-            end
+  #The /assemblies just returns an id of assembly. dig recursively to get the full content of it.
+  #     assemblies : :id  => ASM0001
+  #          assembly: :id => ASC0001
+  #              component :id => CMP0001
+  def dig_assembly(tmp_assemblies_collection, api_params)
+    tmp_assemblies_collection.map do |one_assemblies|
+         a0 = one_assemblies.assemblies.map  do  |one_assembly|
+          if !one_assembly.empty?
+            @assemblies_grouped = @assemblies_grouped.merge(Assembly.new.show(api_params.merge({"id" => one_assembly})).by_cattypes)
+          else
+            nil
           end
-          one_assemblies.assemblies.replace(a0)
-      end
-      Rails.logger.debug ">-- ASB'S: START"
-      Rails.logger.debug "#{@assemblies_grouped.inspect}"
-      Rails.logger.debug "> ASB'S: END"
-      tmp_assemblies_collection
+        end
     end
+# we don't need an assemblies_collection, so leave it as is.
+    Rails.logger.debug "\033[36m>-- ASB'S: START\33[0m"
+    Rails.logger.debug "\033[1m#{@assemblies_grouped.to_yaml}\33[22m"
+    Rails.logger.debug "\033[36m> ASB'S: END\033[0m"
+  end
 
 end
