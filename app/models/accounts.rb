@@ -26,6 +26,7 @@ class Accounts < BaseFascade
   attr_reader :first_name
   attr_reader :phone
   attr_reader :remember_token
+  attr_reader :password_reset_key
   attr_reader :created_at
 
   ADMIN               = 'admin'.freeze
@@ -107,7 +108,7 @@ class Accounts < BaseFascade
     @first_name = api_params[:first_name] if api_params[:first_name]
     @phone = api_params[:phone] if api_params[:phone]
     @api_key = api_params[:api_key] if api_params[:api_key]
-
+    @password_reset_key = api_params[:password_reset_key] if api_params[:password_reset_key]
     yield self if block_given?
     return self
   end
@@ -121,27 +122,35 @@ class Accounts < BaseFascade
 
 
 
-  def find_by_password_reset_token(password_reset_token, email)
+  def find_by_password_reset_key(password_reset_key, email)
     result = nil
     res = MegamRiak.fetch("accounts", email)
-    if (res.class != Megam::Error) && (res.content.data["password_reset_token"] == "#{password_reset_token}")
+    puts res
+    if (res.class != Megam::Error) && (res.content.data["password_reset_key"] == "#{password_reset_key}")
     result = res.content.data
     end
     result
   end
 
   def send_password_reset(email)
-    @user = User.new
-    update_options = { "password_reset_sent_at" => "#{Time.zone.now}", "password_reset_token" => generate_token }
-    res_update = @user.update_columns(update_options, email)
-    user = @user.find_by_email(email)
-    if res_update
-      UserMailer.password_reset(user).deliver_now
+    account = self.find_by_email(email)
+    update_options = {}
+    update_options[:email] = email
+    update_options[:password_reset_key] = generate_token
+    update_options[:password_reset_sent_at] = "#{Time.zone.now}"
+    update_options[:api_key] = account.api_key
+    update = self.update(update_options)
+    if update    puts "------------------------------------------------------------===="
+
+      UserMailer.password_reset(account).deliver_now
     else
       puts "API update: Something went wrong!"
     end
   end
 
+  def generate_token
+    SecureRandom.urlsafe_base64
+  end
 
   #a private helper function that builds the hash.
   private
@@ -155,7 +164,8 @@ class Accounts < BaseFascade
      :api_key => api_params[:api_key],
      :password => password_encrypt(api_params[:password]),
      :authority => ADMIN,
-     :password_reset_token => api_params[:password_reset_token],
+     :password_reset_key => api_params[:password_reset_key],
+     :password_reset_sent_at => api_params[:password_reset_sent_at],
      :created_at => api_params[:created_at]}
   end
   
