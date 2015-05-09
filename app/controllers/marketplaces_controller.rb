@@ -18,8 +18,6 @@ require 'json'
 class MarketplacesController < ApplicationController
   respond_to :js
   include MarketplaceHelper
-  include CatalogHelper
-  include CrossCloudsHelper
 
   before_action :stick_keys, only: [:index, :show, :create]
   ##
@@ -60,6 +58,38 @@ class MarketplacesController < ApplicationController
       end
     end
   end
+
+  ## super cool create that is omni creator for all.
+  # performs ssh creation or using existing and creating an assembly at the end.
+  def create
+    logger.debug  "> Marketplaces: create."
+    mkp = JSON.parse(params["mkp"])
+    case params["sshoption"]
+    when Sshkeys::LAUNCH_CREATE
+      params[:ssh_key_name] = params["sshcreatename"] + "_" + params[:name]
+      Sshkeys.new.create(params)
+    when Sshkeys::LAUNCH_IMPORT
+      params[:ssh_key_name] = params[:sshuploadname] + "_" + params[:name]
+      Sshkeys.new.import(params)
+    when Sshkeys::LAUNCH_EXISTING
+      params[:ssh_key_name] = params[:sshexistname]
+    end
+
+    case params["scm_name"]
+    when Scm::GITHUB
+      params[:scmtoken] =  session[:github]
+      params[:scmowner] =  session[:git_owner]
+    when Scm::GOGS
+      params[:scmtoken] =  session[:gogs_token]
+      params[:scmowner] =  session[:gogs_owner]
+    end
+
+    res = Assemblies.new.create(params) do
+      #this is a successful call 
+    end
+    @mkp_grouped = Marketplaces.instance.list(params).mkp_grouped
+  end
+
 
   ##
   ## after finish the github authentication the callback url comes this method
@@ -126,33 +156,6 @@ class MarketplacesController < ApplicationController
     session[:gogs_repos] =  @repos_arr
   end
 
-  ## super cool create that is the main creator for all.
-  # performs ssh creation or using existing and creating an assembly at the end.
-  def create
-    logger.debug  "> Marketplaces: create."
-    mkp = JSON.parse(params["mkp"])
-    case params["sshoption"]
-    when Sshkeys::LAUNCH_CREATE
-      params[:ssh_key_name] = params["sshcreatename"] + "_" + params[:name]
-      Sshkeys.new.create(params)
-    when Sshkeys::LAUNCH_IMPORT
-      params[:ssh_key_name] = params[:sshuploadname] + "_" + params[:name]
-      Sshkeys.new.import(params)
-    when Sshkeys::LAUNCH_EXISTING
-      params[:ssh_key_name] = params[:sshexistname]
-    end
-
-    case params["scm_name"]
-    when Scm::GITHUB
-      params[:scmtoken] =  session[:github]
-      params[:scmowner] =  session[:git_owner]
-    when Scm::GOGS
-      params[:scmtoken] =  session[:gogs_token]
-      params[:scmowner] =  session[:gogs_owner]
-    end
-
-    res = Assemblies.new.create(params)
-  end
 
   ##
   ## this controller launch the services

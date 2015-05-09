@@ -11,5 +11,7 @@
  *= require_self
  *= require nprogress
  *= require nprogress-bootstrap
+ *= require bootstrap
+ *= require bootstrap-tour
  *= require_tree .
  */

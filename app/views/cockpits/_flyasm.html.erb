@@ -57,20 +57,18 @@
 							<h5><%= assembly.name %></h5>
 							<% case catname.upcase %>
 							<% when Assemblies::DEW %>
-							<%= link_to assembly.name + ".megam.io", onedews_path(:id => assembly.id), :data => {:remote => true} %>
+							<%= link_to assembly.name + ".megam.io", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
 							<% when Assemblies::APP %>
 							<%= link_to assembly.name + ".megam.io", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
 							<% when Assemblies::SERVICE %>
-							<%= link_to assembly.name + ".megam.io", oneservicess_path(:id => assembly.id), :data => {:remote => true} %>
+							<%= link_to assembly.name + ".megam.io", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
 							<% end %>
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 								<ul class="list-inline app_icon_bottom">
-									<%  assembly.components.each do |one_component| %>
-									<% one_component.each do |c| %>
+									<%  sparkle_up(catname,assembly).each do |beautify_image| %>
 									<li>
-										<%= image_tag "logos/"+ one_component.tosca_type.downcase+".png", :alt => "" %>
+										<%= image_tag  beautify_image, :alt => "" %>
 									</li>
-									<% end %>
 									<% end %>
 								</ul>
 							</div>

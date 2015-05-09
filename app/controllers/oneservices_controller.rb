@@ -13,14 +13,20 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class OneserviceController < ApplicationController
+class OneservicesController < ApplicationController
   respond_to :html, :js
+  before_action :stick_keys, only: [:index]
+
+
   def show
   end
 
-  def overview
-    serviceid = params["servicekey"]
-    @assembly=GetAssembly.perform(serviceid,force_api[:email],force_api[:api_key])
+  def index
+    @assembly = Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Assemblies::DEW]
+    @assembly
+  end
+
+  def show
   end
 
   def metrics

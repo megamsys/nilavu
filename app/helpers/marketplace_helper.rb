@@ -15,6 +15,13 @@
 ##
 module MarketplaceHelper
 
+  #generates a random name work for the launch
+  # eg: awesome . megam.co
+  def launch_namegen
+    @launch_namegen = /\w+/.gen
+    @launch_namegen.downcase
+  end
+
   #the category comes like
   #  1-Dew
   #  2-BYOC

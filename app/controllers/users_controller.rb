@@ -54,7 +54,7 @@ class UsersController < ApplicationController
   def edit
     logger.debug "> Users: edit."
     @account = current_user
-    @orgs = Organizations.new.list(@account).orgs
+    @orgs = Organizations.new.list(params).orgs
   end
 
   #update any profile information. For we verify if the current password matches with ours.
