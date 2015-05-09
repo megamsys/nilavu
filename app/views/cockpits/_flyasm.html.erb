@@ -57,7 +57,7 @@
 							<h5><%= assembly.name %></h5>
 							<% case catname.upcase %>
 							<% when Assemblies::DEW %>
-							<%= link_to assembly.name + ".megam.io", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
+							<%= link_to assembly.name + ".megam.io", onedews_path(:id => assembly.id), :data => {:remote => true} %>
 							<% when Assemblies::APP %>
 							<%= link_to assembly.name + ".megam.io", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
 							<% when Assemblies::SERVICE %>
