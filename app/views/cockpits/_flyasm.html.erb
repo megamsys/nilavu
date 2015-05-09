@@ -32,37 +32,36 @@
 						<div class="config_menu config_menu_<%= assembly.name %>_<%= catname.downcase %>">
 							<ul>
 								<li>
-									<%= link_to catalogs_path(:id => assembly.id, :name => assembly.name, :command => Assemblies::START, :type => Assemblies::DEW.downcase.pluralize), :remote => true do %>
-									<i class="glyphicon glyphicon-play-circle"></i>Start <=% @catname %>
+									<%= link_to catalogs_path(:id => assembly.id, :name => assembly.name, :command => Assemblies::START, :cattype => catname), :date => {:remote => true } do %>
+									<i class="glyphicon glyphicon-play-circle"></i>Start <%= catname %>
 									<% end %>
 								</li>
 								<li>
-									<%= link_to catalogs_path(:id => assembly.id, :name => assembly.name, :command => Assemblies::STOP, :type => Assemblies::DEW.downcase.pluralize), :remote => true do %>
-									<i class="glyphicon glyphicon-record"></i>Stop <=% @catname %>
+									<%= link_to catalogs_path(:id => assembly.id, :name => assembly.name, :command => Assemblies::STOP, :cattype => catname), :date => {:remote => true } do %>
+									<i class="glyphicon glyphicon-record"></i>Stop <%= catname %>
 									<% end %>
 								</li>
 								<li>
-									<%= link_to catalogs_path(:id => assembly.id, :name => assembly.name, :command => Assemblies::RESTART, :type => Assemblies::DEW.downcase.pluralize), :remote => true do %>
-									<i class="glyphicon glyphicon-refresh"></i>Restart <=% @catname %>
+									<%= link_to catalogs_path(:id => assembly.id, :name => assembly.name, :command => Assemblies::RESTART, :cattype => catname), :date => {:remote => true } do %>
+									<i class="glyphicon glyphicon-refresh"></i>Restart <%= catname %>
 									<% end %>
 								</li>
 								<li>
-									<%= link_to catalogs_path(:id => assembly.id, :name => assembly.name, :command => Assemblies::DELETE, :type => Assemblies::DEW.downcase.pluralize), :remote => true do %>
-									<i class="glyphicon glyphicon-trash"></i>Delete <=% @catname %>
+									<%= link_to catalogs_path(:id => assembly.id, :name => assembly.name, :command => Assemblies::DELETE, :cattype => catname), :date => {:remote => true } do %>
+									<i class="glyphicon glyphicon-trash"></i>Delete <%= catname %>
 									<% end %>
 								</li>
 							</ul>
 						</div>
 						<div class="row app_icon">
 							<h5><%= assembly.name %></h5>
-							<%= appkey = assembly.name + ".megam.io" %>
-							<% case catname %>
+							<% case catname.upcase %>
 							<% when Assemblies::DEW %>
-							<%= link_to appkey, onedews_path(:appkey => assembly.id), :data => {:remote => true} %>
+							<%= link_to assembly.name + ".megam.io", onedews_path(:id => assembly.id), :data => {:remote => true} %>
 							<% when Assemblies::APP %>
-							<%= link_to appkey, oneapps_path(:appkey => assembly.id) %> -->
+							<%= link_to assembly.name + ".megam.io", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
 							<% when Assemblies::SERVICE %>
-							<%= link_to appkey, oneservicess_path(:appkey => assembly.id) %>
+							<%= link_to assembly.name + ".megam.io", oneservicess_path(:id => assembly.id), :data => {:remote => true} %>
 							<% end %>
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 								<ul class="list-inline app_icon_bottom">

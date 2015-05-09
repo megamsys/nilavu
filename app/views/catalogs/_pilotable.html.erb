@@ -1,5 +1,5 @@
 <!-- CATALOG START MODAL -->
-<div class="modal fade app_exist" id="<%=catname.downcase%>_start" tabindex="-1" role="basic" aria-hidden="true">
+<div class="modal fade app_exist" id="app_start" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
 		<%= form_tag catalogs_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
@@ -11,7 +11,7 @@
 				<span id="start_app_id"></span>
 				<span id="start_app_name"></span>
 				<%= hidden_field_tag 'command', nil, placeholder: "", :class =>"form-control", :value => Assemblies::START  %>
-				Are you sure you want to start the <%= catname.downcase %> ?
+				Are you sure you want to start the <% catname.downcase %> ?
 			</div>
 			<div class="modal-footer c_modal-footer">
 				<button type="button" class="btn default" data-dismiss="modal">
@@ -28,7 +28,7 @@
 <!-- /.modal -->
 
 <!-- CATALOG STOP MODAL -->
-<div class="modal fade app_exist" id="<%=catname.downcase%>_stop" tabindex="-1" role="basic" aria-hidden="true">
+<div class="modal fade app_exist" id="app_stop" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
 		<%= form_tag catalogs_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
@@ -57,7 +57,7 @@
 <!-- /.modal -->
 
 <!-- CATALOG RESTART MODAL -->
-<div class="modal fade app_exist" id="<%= catname.downcase %>_restart" tabindex="-1" role="basic" aria-hidden="true">
+<div class="modal fade app_exist" id="app_restart" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
 		<%= form_tag catalogs_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">
@@ -85,7 +85,7 @@
 </div>
 <!-- /.modal -->
 <!-- CATALOG DELETE MODAL -->
-<div class="modal fade app_exist" id="<%= catname.downcase %>_delete" tabindex="-1" role="basic" aria-hidden="true">
+<div class="modal fade app_exist" id="app_delete" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog">
 		<%= form_tag catalogs_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 		<div class="modal-content c_modal-content">

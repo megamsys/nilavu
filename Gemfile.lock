@@ -212,7 +212,7 @@ GEM
       railties (>= 3.1.0)
       turbolinks
     json (1.8.2)
-    jwt (1.4.1)
+    jwt (1.5.0)
     kgio (2.9.3)
     less (2.6.0)
       commonjs (~> 0.2.7)
@@ -226,7 +226,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    megam_api (0.49)
+    megam_api (0.50)
       excon (~> 0.45.3)
       highline (~> 1.7)
       mixlib-config (~> 2.1)
@@ -417,7 +417,7 @@ DEPENDENCIES
   jquery-turbolinks (~> 2.1.0)
   json (~> 1.8.2)
   less-rails (~> 2.7.0)
-  megam_api (~> 0.49)
+  megam_api (~> 0.50)
   megam_gogs (~> 0.7.0)
   meta_request
   nokogiri (~> 1.6.6.2)

@@ -22,11 +22,9 @@ class Marketplaces < BaseFascade
   include MarketplaceHelper
 
   attr_reader :mkp_grouped
-  attr_reader :mkp_collection
   attr_reader :mkp
 
   def initialize()
-     @mkp_collection = []
      @mkp_grouped = {}
      @mkp = {}
   end
@@ -48,9 +46,13 @@ class Marketplaces < BaseFascade
   def list(api_params, &block)
     unless !@mkp_grouped.empty? #a patch to load mkp_grouped from cache, as this object is singleton. Maybe memcache can help us.
       raw = api_request(api_params, MARKETPLACES, LIST)
-      @mkp_collection =  raw[:body] unless raw == nil
+      mkp_collection =  raw[:body] unless raw == nil
 
-      @mkp_grouped = Hash[@mkp_collection.group_by{ |tmp| tmp.catalog[:category] }.map{|k,v| [k,v.map{|h|h}]}]
+      @mkp_grouped = Hash[mkp_collection.group_by{ |tmp| tmp.catalog[:category] }.map{|k,v| [k,v.map{|h|h}]}].sort
+      Rails.logger.debug "\033[36m>-- MKP'S: START\33[0m"
+      Rails.logger.debug "\033[1m#{@mkp_grouped.to_yaml}\33[22m"
+      Rails.logger.debug "\033[36m>-- MKP'S: END\033[0m"
+
     end
     yield self  if block_given?
     return self
@@ -62,7 +64,7 @@ class Marketplaces < BaseFascade
      @mkp = raw[:body].lookup(api_params["id"])
      yield self  if block_given?
      return self
-  end 
+  end
 
 
 end

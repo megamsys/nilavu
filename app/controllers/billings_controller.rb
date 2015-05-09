@@ -16,7 +16,7 @@
 class BillingsController < ApplicationController
   respond_to :html, :js
 
-  before_action :stick_keys, only: [:index, :callback_url]
+  before_action :stick_keys, only: [:index, :notify_payment]
 
   def index
     logger.debug "> Billings index."
@@ -28,7 +28,7 @@ class BillingsController < ApplicationController
     @billingHistories.bhistories
   end
 
-  def callback_url
+  def notify_payment
     bill = Billings.new
     res = bill.execute(params)
 
