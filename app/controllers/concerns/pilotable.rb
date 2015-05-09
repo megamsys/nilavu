@@ -31,7 +31,7 @@ module Pilotable
     @id = params[:id]
     @name = params[:name]
     @command = params[:command]
-    @type = params[:type]
+    @cattype = params[:cattype]
     respond_to do |format|
       format.js {
         respond_with(@id, @name, @command, @type, :layout => !request.xhr? )

@@ -15,18 +15,28 @@
 ##
 module MarketplaceHelper
 
+  #the category comes like
+  #  1-Dew
+  #  2-BYOC
+  # strip the numeric and the dash(-)
+  def trim_category(ck)
+    /[a-zA-Z ]+/.match(ck)
+  end
+
   def category_description(category)
     case category
-    when "Dew"
+    when '1-Dew'
       'Get started with a VM'
-    when "Starter packs"
+    when '2-BYOC'
       'Get started with a new app'
-    when "Platform"
-      'Enrich Megam with awesome addons'
-    when "App Boilers"
+    when '3-App Boilers'
       'Make your applications more hungry'
-    when "Analytics"
+    when '4-Platform'
+      'Enrich Megam with awesome addons'
+    when '5-Analytics'
       'Actionable insights in minutes'
+    when '6-Unikernel'
+      'Just do one thing in an unikernel.'
     else
     '! Missing category !'
     end

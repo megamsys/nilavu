@@ -17,7 +17,7 @@ class CatalogsController < ApplicationController
   respond_to :html, :js
   include Pilotable
 
-  before_action :stick_keys, only: [:index]
+  before_action :stick_keys, only: [:index, :create, :destroy]
 
   #when you click Apps, Services, Addons from the left nav.
   #This is essentially a filtered view of cattype [ADDON, APP, DEW,SERVICE] the cockpit.

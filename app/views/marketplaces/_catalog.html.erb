@@ -63,7 +63,7 @@
 		<% mkp_grouped.each do |ck, cmkp_collection| %>
 		<div class="bottom-divider"></div>
 		<div class="jcorgFilterTextRootParent">
-			<h4> <%= ck %> <small><i> <%= category_description(ck) %> <i></small></h4>
+			<h4> <%= trim_category(ck)  %> <small><i> <%= category_description(ck) %> <i></small></h4>
 			<div class="col-xs-12">
 				<div class="row app_box ">
 					<% cmkp_collection.each do |mkp| %>
