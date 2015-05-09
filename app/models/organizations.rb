@@ -24,8 +24,7 @@ class Organizations < BaseFascade
   end
 
   #we call the api, and list all the organization name, create_at time in a hashmap.
-  def list(account, &block)
-    api_params = {:email => account.email, :api_key => account.api_key}
+  def list(api_params, &block)
     res = api_request(api_params, ORGANIZATION, LIST)
     res[:body].each do |one_org|
         @orgs << {:name => one_org.name, :created_at => one_org.created_at.to_time.to_formatted_s(:rfc822)}
@@ -33,6 +32,11 @@ class Organizations < BaseFascade
     @orgs = @orgs.sort_by {|vn| vn[:created_at]}
     yield self if block_given?
     return self
+  end
+
+  #domain isn't linked to any org/account, we need to hack this method later.
+  def showDomains(api_params, &block)
+
   end
 
 end

@@ -15,11 +15,23 @@
 ##
 module CatalogHelper
 
-#generates a random name work for the launch
-  # eg: awesome . megam.co
-  def launch_namegen
-    @launch_namegen = /\w+/.gen
-    @launch_namegen.downcase
+
+   #a tosca_type exists in both assembly and in all components
+   #in case of a dew, there is no component hence we pull the last word from assembly.tosca_type
+   #pull the last word from tosca.dew.debian
+  def sparkle_up(catname, assembly)
+    beautify_cockpit = []
+    case catname.upcase
+      when Assemblies::DEW
+        beautify_cockpit << ("logos/" + assembly.tosca_type.split('.').last.delete('.­!?,') + ".png")
+      else
+        assembly.components.each do |one_component|
+          one_component.each do |c|
+            beautify_cockpit << ("logos/"+ one_component.tosca_type.­split('.').last­.delete('.­!?,') + ".png")
+          end
+        end
+      end
+    beautify_cockpit
   end
 
 end

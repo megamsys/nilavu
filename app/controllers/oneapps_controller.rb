@@ -18,16 +18,15 @@ class OneappsController < ApplicationController
   respond_to :html, :js
   include OneappsHelper
   include MarketplaceHelper
-  
+
   before_action :stick_keys, only: [:index]
-  
-  def show
-   
-  end
 
   def index
-    @assembly=Assembly.new.show(params.merge({"id" => params[:id]})).assembly_collection[0]
-    
+    @assembly = Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Assemblies::DEW]
+    @assembly
+  end
+
+  def show
   end
 
   def logs
