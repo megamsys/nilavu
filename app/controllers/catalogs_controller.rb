@@ -13,18 +13,44 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
+##
+# A mixin that can be used for controls operations like
+#  create:
+#          - CREATE  lifecyle ops like START, STOP, RESTART, DELETE which submits /catrequests to gateway
+#  destroy:
+#          - DESTROY an assembly  or catalog.
+#            this action gets called prior to a start, stop, restart, delete operation
+#            a confirmation is got from the user to perform the same.
 class CatalogsController < ApplicationController
   respond_to :html, :js
-  include Pilotable
 
   before_action :stick_keys, only: [:index, :create, :destroy]
 
-  #This is essentially a filtered view of cattype [ADDON, APP, DEW,SERVICE] the cockpit.
-  #Invoked when you click Apps, Services, Addons from the left nav.
+  #A filtered view of cattype [ADDON, APP, DEW,SERVICE] the cockpit.
+  #This action is invoked when you click Apps, Services, Addons from the left nav.
   def index
-    @catname = params[:cattype].capitalize
+    logger.debug "> Pilotable: create"
+    @cattype = params[:cattype].capitalize
     assem = Assemblies.new.list(params)
     @assemblies_grouped = assem.assemblies_grouped
+  end
+
+
+  #this action performs a start, stop, restart operation
+  def create
+      logger.debug "> Pilotable: create"
+      Requests.new.catreqs(params)
+  end
+
+  #a confirmation question for a delete operation.
+  def kelvi
+    logger.debug "> Pilotable: kelvi"
+  end
+
+  #this action perfroms a delete operation.
+  def destroy
+    logger.debug "> Pilotable: destroy"
+    Requests.new.reqs(params)
   end
 
 end

@@ -19,9 +19,9 @@ module CatalogHelper
    #a tosca_type exists in both assembly and in all components
    #in case of a dew, there is no component hence we pull the last word from assembly.tosca_type
    #pull the last word from tosca.dew.debian
-  def sparkle_up(catname, assembly)
+  def sparkle_up(cattype, assembly)
     beautify_cockpit = []
-    case catname.upcase
+    case cattype.upcase
       when Assemblies::DEW
         beautify_cockpit << ("logos/" + assembly.tosca_type.split('.').last.delete('.­!?,') + ".png")
       else

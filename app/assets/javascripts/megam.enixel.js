@@ -10,7 +10,7 @@ var tour = new Tour({
     element: ".two",
     title: "<i class='fa fa-soundcloud'></i> Step 2",
     content: "Click to see all our apps and services !!"
-  }  
+  }
 ],
   backdrop: true,
   storage: false
@@ -18,7 +18,5 @@ var tour = new Tour({
 
 tour.init();
 
-tour.start();
+//tour.start();
 //Dashboard tour end
-
-

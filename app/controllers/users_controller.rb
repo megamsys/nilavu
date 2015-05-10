@@ -57,7 +57,7 @@ class UsersController < ApplicationController
     @orgs = Organizations.new.list(params).orgs
   end
 
-  #update any profile information. For we verify if the current password matches with ours.
+  #update any profile information. F9rst we verify if the current password matches with ours.
   #I don't know why we are creating a new_session here. This is a BUG.
   def update
     logger.debug "> Users: update"

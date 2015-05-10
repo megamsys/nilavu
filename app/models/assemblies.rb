@@ -13,7 +13,6 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-require 'bcrypt'
 require 'json'
 
 class Assemblies < BaseFascade
@@ -64,7 +63,7 @@ class Assemblies < BaseFascade
   end
 
 
- def create(api_params, &block) 
+ def create(api_params, &block)
     api_request(api_params.merge(mk(api_params)), ASSEMBLIES, CREATE)
     yield self if block_given?
     return self

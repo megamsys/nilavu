@@ -13,7 +13,6 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-require 'bcrypt'
 require 'json'
 
 class Components < BaseFascade
@@ -29,8 +28,8 @@ class Components < BaseFascade
     @operations = []
   end
 
-  def show(api_params, &block)    
-    @components = api_request(api_params, COMPONENTS, SHOW)[:body]   
+  def show(api_params, &block)
+    @components = api_request(api_params, COMPONENTS, SHOW)[:body]
     yield self if block_given?
     return self
   end
@@ -104,17 +103,17 @@ class Components < BaseFascade
   def set_operations(params)
      set_ci_operation(params) if params["check_ci"] == "true"
   end
-  
-  def set_ci_operation(params)    
+
+  def set_ci_operation(params)
     @operations << {
         "operation_type" => "CI",
         "description" => "Continous Integration",
         "operation_requirements" => bld_ci_requirements(params),
     }
   end
-  
+
   def bld_ci_requirements(params)
-    op = []   
+    op = []
     op <<  {"key" => "ci-scm", "value" => params["scm_name"]}
     op <<  {"key" => "ci-enable","value" => "true"}
     op <<  {"key" => "ci-token","value" => params["scmtoken"]}

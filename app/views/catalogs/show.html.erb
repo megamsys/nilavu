@@ -1,0 +1,65 @@
+<!--
+** Copyright [2013-2015] [Megam Systems]
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+** http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+-->
+<%= render 'layouts/header' %>
+<% asmid = request.original_url.partition('=').last %>
+<div class="container main-cover">
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 c_bg_white cover">
+      <div class="row">
+        <div class="page-sidebar navbar-collapse collapse">
+          <!-- BEGIN SIDEBAR MENU -->
+          <ul class="page-sidebar-menu">
+            <li></li>
+            <li class="start" >
+              <%= link_to cockpits_path , :data => {:remote => true} do %>
+                <i class="icon-chevron-sign-left pull-left"></i>
+                <span class="title pull-left">Back to Dashboard</span>
+                <span class="selected hidden-xs"></span>
+              <% end %>
+            </li>
+            <li class= "start active">
+              <%= link_to onedews_path(:id => asmid), :data => {:remote => true} do %>
+                <i class="icon-bar-chart pull-left"></i>
+                <span class="title pull-left">Overview</span>
+                <span class="hidden-xs <%= "selected" if current_page?(:controller => 'catalogs', :action => 'index')%>"></span>
+              <% end %>
+            </li>
+            <li class="start">
+               <%= link_to runtime_path(:id => asmid), :data => {:remote => true} do %>
+                 <i class="icon-cog pull-left"></i>
+                 <span class="title pull-left">Runtime</span>
+                 <span class="hidden-xs <%= "selected" if current_page?(:controller => 'catalogs', :action => 'logs')%>"></span>
+               <% end %>
+            </li>
+            <li class= "start">
+              <a href="logs?id=<%= asmid %>", data-remote="true" ng-init="sendmessage('<%= asmid %>')">
+                <i class="icon-list-ul pull-left"></i>
+                <span class="title pull-left">Logs</span>
+                <span class="hidden-xs <%= "selected " if current_page?(:controller => 'catalogs', :action => 'runtime') %>"></span>
+              </a>
+            </li>
+          </ul>
+          <!-- END SIDEBAR MENU -->
+        </div>
+      </div>
+    </div>
+    <div id="content">
+      <%= content_for?(:onecat_contents) ? yield(:onecat_contents) : yield %>
+      <%= render :partial => "cockpits/flymodal", :locals => {:cattype => cattype} %>
+    </div>
+  </div>
+</div>
+<%= render 'layouts/footer' %>

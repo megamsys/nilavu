@@ -13,7 +13,10 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 **/
-var selected_entity = '#sshkey_postfinish_popup';
-$("#success").html('<%= @success %>');
-$(selected_entity).modal({show : true});
-$('#create-ssh').modal('hide');
+$('#delete_asm_id').empty();
+$('#delete_asm_id').html('<input id="asm_id" name="asm_id" type="hidden" value="<%= @id %>" />');
+
+$('#delete_asmname').empty();
+$('#delete_asmname').html('<input id="asm_name" name="asm_name" type="hidden" value="<%= @name %>" />');
+
+$("#cat_delete").modal({backdrop : false,keyboard: false,show : true});

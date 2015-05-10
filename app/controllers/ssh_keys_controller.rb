@@ -31,9 +31,8 @@ class SshKeysController < ApplicationController
 
   ## this downloads a key
   def edit
-    params[:download_location] = current_user.email+"_"+"#{params[:filename]}"
-    Sshkeys.new.download(params)
-    downloaded_file = SshKey.download(options, ssh_files_bucket)
+    params[:download_location] = current_user.email+"_"+"#{params[:id]}"
+    downloaded_file = Sshkeys.new.download(params)
     send_file Rails.root.join("#{params[:download_location]}"), :x_sendfile=>true
   end
 
@@ -41,7 +40,5 @@ class SshKeysController < ApplicationController
   def update
     Sshkeys.new.import(params)
   end
-
-
 
 end

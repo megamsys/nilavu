@@ -22,7 +22,7 @@ class OneservicesController < ApplicationController
   end
 
   def index
-    @assembly = Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Assemblies::DEW]
+    @assembly = Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Assemblies::SERVICE]
     @assembly
   end
 

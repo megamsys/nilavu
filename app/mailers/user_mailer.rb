@@ -13,37 +13,41 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class UserMailer < ActionMailer::Base
-  default from: "support@megam.io"
+class UserMailer < ApplicationMailer
 
   #an email gets formatted to be sent, the template needs email address hence we expose account.
   def welcome(account)
-    #@url  = "https://console.megam.io/verified_email.#{@random_token}"
     @account = account
     if "#{Rails.configuration.support_email}".chop!
       begin
          mail(:to => account.email, :subject => "Hey, Launch your first app")
          @account
-      rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
+      rescue Net::SMTPError => e
         logger.debug "--> Failed to send a welcome email for #{account.email}."
       end
     end
   end
 
-  def password_reset(account)
+  def verify
+    #@url  = "https://console.megam.io/verified_email.#{@random_token}"
+  end
+
+  def reset(account)
     @account = account
-    
+
     if "#{Rails.configuration.support_email}".chop!
       begin
          mail :to => account.email, :subject => "You have fat fingers. No worries."
-      rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
+      rescue Net::SMTPError => e
         logger.debug "--> Failed to send a password reset email for #{account.email}."
       end
     end
   end
 
+  def balance
+  end
 
-  def error_email(error)
+  def error(error)
     @error = error
     mail(:from => error[:email], :to => "support@megam.io", :subject => "#{error[:email]} :console.megam.io, #{error[:message]}")
   end

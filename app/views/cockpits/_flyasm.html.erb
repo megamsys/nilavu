@@ -1,139 +1,101 @@
 <div class="row">
-	<div class="row c_pading-b15">
-		<div class="portlet-body-head">
-			<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-				<i class="c_icon-layer_lg"></i>Your <%= catname.capitalize.pluralize %> <span>0 <%= catname %> running </span>
-			</div>
-		</div>
-	</div>
+  <div class="row c_pading-b15">
+    <div class="portlet-body-head">
+      <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+        <i class="c_icon-layer_lg"></i>Your <%= cattype.capitalize.pluralize %> <span>0 <%= cattype %> running </span>
+      </div>
+    </div>
+  </div>
 </div>
 <div class="bottom-divider"></div>
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-	<div class="row app_box">
-		<%= link_to marketplaces_path, :data => { :remote => true} do %>
-		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover one">
-			<div class="app_inner">
-				<div class="app_new">
-					<span class="glyphicon glyphicon-plus"></span>
-					<p>
-						Create  <%= catname %>
-					</p>
-				</div>
-			</div>
-		</div>
-		<% end %>
-		<% @assemblies_grouped[catname.upcase].flatten.each do |assembly| %>
-		<% unless assembly.status == Assemblies::TERMINATED %>
-		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
-			<div class="app_inner">
-				<div class="app">
-					<div class="app_head">
-						<span class="app_config" id="config_menu_<%= assembly.name %>_<%= catname.downcase %>"><i class="c_icon-config"></i></span>
-						<div class="config_menu config_menu_<%= assembly.name %>_<%= catname.downcase %>">
-							<ul>
-								<li>
-									<%= link_to catalogs_path(:id => assembly.id, :name => assembly.name, :command => Assemblies::START, :cattype => catname), :date => {:remote => true } do %>
-									<i class="glyphicon glyphicon-play-circle"></i>Start <%= catname %>
-									<% end %>
-								</li>
-								<li>
-									<%= link_to catalogs_path(:id => assembly.id, :name => assembly.name, :command => Assemblies::STOP, :cattype => catname), :date => {:remote => true } do %>
-									<i class="glyphicon glyphicon-record"></i>Stop <%= catname %>
-									<% end %>
-								</li>
-								<li>
-									<%= link_to catalogs_path(:id => assembly.id, :name => assembly.name, :command => Assemblies::RESTART, :cattype => catname), :date => {:remote => true } do %>
-									<i class="glyphicon glyphicon-refresh"></i>Restart <%= catname %>
-									<% end %>
-								</li>
-								<li>
-									<%= link_to catalogs_path(:id => assembly.id, :name => assembly.name, :command => Assemblies::DELETE, :cattype => catname), :date => {:remote => true } do %>
-									<i class="glyphicon glyphicon-trash"></i>Delete <%= catname %>
-									<% end %>
-								</li>
-							</ul>
-						</div>
-						<div class="row app_icon">
-							<h5><%= assembly.name %></h5>
-							<% case catname.upcase %>
-							<% when Assemblies::DEW %>
-							<%= link_to assembly.name + ".megam.io", onedews_path(:id => assembly.id), :data => {:remote => true} %>
-							<% when Assemblies::APP %>
-							<%= link_to assembly.name + ".megam.io", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
-							<% when Assemblies::SERVICE %>
-							<%= link_to assembly.name + ".megam.io", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
-							<% end %>
-							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-								<ul class="list-inline app_icon_bottom">
-									<%  sparkle_up(catname,assembly).each do |beautify_image| %>
-									<li>
-										<%= image_tag  beautify_image, :alt => "" %>
-									</li>
-									<% end %>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="app_footer">
-						<i class="circle_green"></i>
-						<span><%= assembly.status.capitalize %></span>
-						<% url = "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user.email}&api_key=#{current_user.api_key}&callbackURL=https://www.megam.co/varai&assembliesID=#{assembly.id}" %>
-						<a href="<%= url %>" target="_blank" ><i class="c_icon-window pull-right" style="color:blue"></i></a>
-						<i class="c_icon-star pull-right"></i>
-					</div>
-				</div>
-			</div>
-
-		</div>
-		<% else %>
-		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
-			<div class="app_inner">
-				<div class="app">
-					<div class="app_head">
-						<span class="app_config" id="config_menu_<%= assembly[0].name %>_app"><i class="c_icon-config"></i></span>
-						<div class="config_menu config_menu_<%= assembly[0].name %>_app">
-							<ul>
-								<li>
-									<i class="glyphicon glyphicon-play-circle"></i>Start @catname
-								</li>
-								<li>
-									<i class="glyphicon glyphicon-record"></i>Stop @catname
-								</li>
-								<li>
-									<i class="glyphicon glyphicon-refresh"></i>Restart @catname
-								</li>
-								<li>
-									<i class="glyphicon glyphicon-trash"></i>Delete @catname
-								</li>
-							</ul>
-						</div>
-						<div class="row app_icon">
-							<h5><%= assembly[0].name %></h5>
-							<%= assembly[0].name + ".megam.io" %>
-							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-								<ul class="list-inline app_icon_bottom">
-									<%  assembly[0].components.each do |com| %>
-									<% com.each do |c| %>
-									<li>
-										<%= image_tag "logos/"+one_component.tosca_type.downcase+".png", :alt => "" %>
-									</li>
-									<% end %>
-									<% end %>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="app_footer">
-						<i class="circle_red"></i>
-						<span><%= assembly[0].status.capitalize %></span>
-						<i class="c_icon-window pull-right" style="color:blue"></i>
-						<i class="c_icon-star pull-right"></i>
-					</div>
-				</div>
-			</div>
-		</div>
-		<% end %>
-		<% end unless assemblies_grouped[catname.upcase].nil? %>
-	</div>
-</div><!-- services ends here -->
-<%= render :partial => "catalogs/pilotable", :locals => {:catname => catname} %>
+  <div class="row app_box">
+    <%= link_to marketplaces_path, :data => { :remote => true} do %>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover one">
+        <div class="app_inner">
+          <div class="app_new">
+            <span class="glyphicon glyphicon-plus"></span>
+            <p>
+              Create  <%= cattype %>
+            </p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% @assemblies_grouped[cattype.upcase].flatten.each do |assembly| %>
+      <% unless assembly.status == Assemblies::TERMINATED %>
+        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+          <div class="app_inner">
+            <div class="app">
+              <div class="app_head">
+                <span class="app_config" id="config_menu_<%= assembly.name %>_<%= cattype.downcase %>"><i class="c_icon-config"></i></span>
+                <div class="config_menu config_menu_<%= assembly.name %>_<%= cattype.downcase %>">
+                  <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id, :name => assembly.name, :cattype => cattype} %>
+                </div>
+                <div class="row app_icon">
+                  <h5><%= assembly.name %></h5>
+                  <% case cattype.upcase %>
+                  <% when Assemblies::DEW %>
+                  <%= link_to assembly.name + ".megam.io", onedews_path(:id => assembly.id), :data => {:remote => true} %>
+                  <% when Assemblies::APP %>
+                  <%= link_to assembly.name + ".megam.io", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
+                  <% when Assemblies::SERVICE %>
+                  <%= link_to assembly.name + ".megam.io", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
+                <% end %>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <ul class="list-inline app_icon_bottom">
+                    <%  sparkle_up(cattype,assembly).each do |cool_logo| %>
+                      <li>
+                        <%= image_tag  cool_logo, :alt => "" %>
+                      </li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="app_footer">
+              <i class="circle_green"></i>
+              <span><%= assembly.status.capitalize %></span>
+              <% url = "http://#{Rails.configuration.designer_host}:#{Rails.configuration.designer_port}/?email=#{current_user.email}&api_key=#{current_user.api_key}&callbackURL=https://www.megam.co/varai&assembliesID=#{assembly.id}" %>
+              <a href="<%= url %>" target="_blank" ><i class="c_icon-window pull-right" style="color:blue"></i></a>
+              <i class="c_icon-star pull-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+        <div class="app_inner">
+          <div class="app">
+            <div class="app_head">
+              <span class="app_config" id="config_menu_<%= assembly[0].name %>_app"><i class="c_icon-config"></i></span>
+              <div class="row app_icon">
+                <h5><%= assembly[0].name %></h5>
+                <%= assembly[0].name + ".megam.io" %>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <ul class="list-inline app_icon_bottom">
+                    <%  assembly[0].components.each do |com| %>
+                      <% com.each do |c| %>
+                        <li>
+                          <%= image_tag "logos/"+one_component.tosca_type.downcase+".png", :alt => "" %>
+                        </li>
+                      <% end %>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="app_footer">
+              <i class="circle_red"></i>
+              <span><%= assembly[0].status.capitalize %></span>
+              <i class="c_icon-window pull-right" style="color:blue"></i>
+              <i class="c_icon-star pull-right"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end unless assemblies_grouped[cattype.upcase].nil? %>
+</div>
+</div>
+<%= render :partial => "cockpits/flymodal", :locals => {:cattype => cattype} %>
