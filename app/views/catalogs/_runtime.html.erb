@@ -1,4 +1,4 @@
-/**
+<!--
 ** Copyright [2013-2015] [Megam Systems]
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,8 +12,23 @@
 ** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
-**/
-var selected_entity = '#sshkey_postfinish_popup';
-$("#success").html('<%= @success %>');
-$(selected_entity).modal({show : true});
-$('#create-ssh').modal('hide');
+-->
+<% provide(:title, 'Runtime') %>
+<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
+  <div class="row c_pading-b15 settings_top">
+    <div class="margin_15">
+      <div class="col-xs-9 col-sm-6 col-md-7">
+        <h3> Monitoring Console </h3>
+      </div>
+      <%= render :partial => "users/topright_icons" %>
+    </div>
+  </div>
+  <ng-view ng-show="resolved" ng-cloak></ng-view>
+</div>
+<script>
+  (function($) {
+  $.Sources = JSON.parse('<%= raw Sources.sources.to_json %> ');
+  $.AppName = "<%= @appname %>";
+  $.SocketURL = "<%= @socketURL %>";
+   })($);
+</script>

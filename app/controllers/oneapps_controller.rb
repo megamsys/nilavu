@@ -22,11 +22,8 @@ class OneappsController < ApplicationController
   before_action :stick_keys, only: [:index]
 
   def index
-    @assembly = Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Assemblies::DEW]
+    @assembly = Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Assemblies::APP]
     @assembly
-  end
-
-  def show
   end
 
   def logs
@@ -35,11 +32,8 @@ class OneappsController < ApplicationController
       @socketURL = Rails.configuration.socket_url
       appid = params["appkey"]
       assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
-      # if assembly.class != Megam::Error
       @appname = assembly.name + "." + assembly.components[0][0].inputs[:domain]
-      # else
-      #  @appname = nil
-      #end
+
       assembly.components.each do |com|
         if com != nil
           com.each do |c|

@@ -49,14 +49,20 @@ Nilavu::Application.routes.draw do
 
   #=====github
   match '/auth/github/callback', :to => 'marketplaces#store_github', via: [:get, :post]
-  match '/publish_github', :to => 'marketplaces#publish_github', via: [:get, :post]
+  match '/publish_github',       :to => 'marketplaces#publish_github', via: [:get, :post]
 
   #=====Gog
-  post 'store_gogs', :to => 'marketplaces#store_gogs', via: [:post]
-  match '/auth/gogs', :to => 'marketplaces#start_gogs', via: [:get, :post]
-  match '/publish_gogs', :to => 'marketplaces#publish_gogs', via: [:get, :post]
+  match 'store_gogs',       :to => 'marketplaces#store_gogs', via: [:post]
+  match '/auth/gogs',      :to => 'marketplaces#start_gogs', via: [:get, :post]
+  match '/publish_gogs',   :to => 'marketplaces#publish_gogs', via: [:get, :post]
 
-  #===one logs - good name :)
-  match '/dewlogs', :to => 'onedews#logs', via: [:get]
+  #===catalogs
+  # kelvi   : confirm delete for all flycontrols. all cattypes will use that.
+  # logs    : logs widget for all the cattypes
+  # runtime : runtime widget for all the cattypes (metering, metrics).
+  match '/kelvi', :to => 'catalogs#kelvi', via: [:get]
+  match '/logs', :to => 'catalogs#logs', via: [:get]
+  match '/runtime', :to => 'catalogs#runtime', via: [:get]
+
 
 end

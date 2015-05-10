@@ -25,7 +25,6 @@
 //= require angular-route
 //= require angular-resource
 //= require angular-sanitize
-//= require angular-spinner
 //= require underscore.min
 //= require jquery.oauthpopup
 //= require bootstrap.min

@@ -13,7 +13,6 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 **/
-var selected_entity = '#sshkey_postfinish_popup';
+var selected_entity = '#cat_postfinish_popup';
 $("#success").html('<%= @success %>');
-$(selected_entity).modal({show : true});
-$('#create-ssh').modal('hide');
+$(selected_entity).modal({backdrop : false,keyboard: false,show : true});

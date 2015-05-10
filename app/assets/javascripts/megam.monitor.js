@@ -1,4 +1,4 @@
-/* 
+/*
 ** Copyright [2013-2015] [Megam Systems]
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +13,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
-var app = angular.module('Nilavu', ["ngResource", "ngSanitize", "ngRoute", 'angularSpinner']);
+var app = angular.module('Nilavu', ["ngResource", "ngSanitize", "ngRoute"]);
 
 app.config(["$routeProvider", "$locationProvider",
 function($routeProvider, $locationProvider) {
@@ -52,4 +52,3 @@ _.templateSettings = {
 function BookCtrl($scope, $routeParams) {
     $scope.templateUrl = "angular/templates/widget/book_show.html.erb";
 }
-

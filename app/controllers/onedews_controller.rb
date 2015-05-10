@@ -7,7 +7,6 @@
 ##
 ## http://www.apache.org/licenses/LICENSE-2.0
 ##
-## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ## See the License for the specific language governing permissions and
@@ -16,19 +15,12 @@
 class OnedewsController < ApplicationController
   respond_to :html, :js
   include MarketplaceHelper
-  
+
   before_action :stick_keys, only: [:show, :index]
 
   def index
-    @assembly=Assembly.new.show(params.merge({"id" => params[:id]}))
-    puts @assembly
-  end
-
-  def show    
-     
-  end
-
-  def logs
+    @assembly=Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Assemblies::DEW]
+    @assembly
   end
 
 end

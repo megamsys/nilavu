@@ -13,34 +13,27 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<% content_for :content_settings do %>
-<% provide(:title, 'Dashboard') %>
-
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9 c_bg_white c_height_5">
 	<div class="row c_pading-b15 settings_top">
 		<div class="margin_15">
 			<div class="col-xs-9 col-sm-6 col-md-7">
-				<h3> Dashboard </h3>
+				<h3> <%= @cattype.pluralize %> </h3>
 			</div>
 			<%= render :partial => "users/topright_icons" %>
 		</div>
 	</div>
+
 	<div class="row">
 		<div class="mplace mplace-head">
 			<div class="col-xs-12 col-md-3 mplace-left">
-				<h4>Dashboard</h4>
+				<h4> <%= @cattype.pluralize %> </h4>
 			</div>
 			<div class="col-xs-12 col-md-9 mplace-middle hidden-xs hidden-sm">
-				<span class="pull-right c_small">Not sure what to do next?<i class="c_icon-rocket"></i><a href="http://docs.megam.io/v1.0/docs/megam_cloudmanagement_intro" target="_blank">Take a Tour</a></span>
+				<span class="pull-right c_small">Manage your <%= @cattype.downcase %><i class="c_icon-rocket"></i><a href="http://www.gomegam.com/docs/users/apps/apps.html">Take a Tour</a></span>
 			</div>
 		</div>
 	</div>
-
 	<div class="margin_30 pad_t25">
-		<%= render :partial => "cockpits/flyasm", :locals => {:cattype => Assemblies::DEW.capitalize,    :assemblies_grouped => @assemblies_grouped} %>
-		<%= render :partial => "cockpits/flyasm", :locals => {:cattype => Assemblies::APP.capitalize,    :assemblies_grouped => @assemblies_grouped} %>
-		<%= render :partial => "cockpits/flyasm", :locals => {:cattype => Assemblies::SERVICE.capitalize,:assemblies_grouped => @assemblies_grouped} %>
+		<%= render :partial => "cockpits/flyasm", :locals => {:cattype => @cattype, :assemblies_grouped => @assemblies_grouped } %>
 	</div>
 </div>
-<% end %>
-<%= render :template => "users/show" %>

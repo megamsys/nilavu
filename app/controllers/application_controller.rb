@@ -16,20 +16,20 @@
 class ApplicationController < ActionController::Base
   include SessionsHelper
 
-  protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format == 'application/json' }
+  protect_from_forgery with: :null_session, if: proc { |c| c.request.format == 'application/json' }
 
   before_action :require_signin
   around_action :catch_exceptions
 
-  #a catcher exists using rails globber for routes in config/application.rb to trap 404.
+  # a catcher exists using rails globber for routes in config/application.rb to trap 404.
+  rescue_from Exception, with: :render_500
   unless Rails.application.config.consider_all_requests_local
-    rescue_from Exception, with: :render_500
     rescue_from ActionController::RoutingError, with: :render_404
     rescue_from ActionController::UnknownController, with: :render_404
     rescue_from AbstractController::ActionNotFound, with: :render_404
     rescue_from ActiveRecord::RecordNotFound, with: :render_404
-    rescue_from Timeout::Error, :with => :render_500
-    rescue_from Errno::ECONNREFUSED, Errno::EHOSTUNREACH, :with => :render_500
+    rescue_from Timeout::Error, with: :render_500
+    rescue_from Errno::ECONNREFUSED, Errno::EHOSTUNREACH, with: :render_500
   end
 
   # renders 404 in an exception template.
@@ -47,38 +47,29 @@ class ApplicationController < ActionController::Base
   # A generic template exists in error which shows the error in a
   # usage way.
   def render_500(exception = nil)
-    if exception
-      short_msg = "(#{exception.message})"
-      filtered_trace = exception.backtrace.grep(/#{Regexp.escape("nilavu")}/)
-      if !filtered_trace.empty?
-        full_stacktrace =  filtered_trace.join("\n")
-        Rails.logger.fatal "\n#{short_msg}"
-        Rails.logger.fatal "#{full_stacktrace}"
-        UserMailer.error_email({:email => current_user.email, :message =>"#{short_msg}", :stacktrace => "#{full_stacktrace}" }).deliver
-      end
-    end
+    puts_stacktrace(exception) if exception
     respond_to do |format|
       format.html { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
       format.js { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
-      format.all { render nothing: true, status: 500}
+      format.all { render nothing: true, status: 500 }
     end
   end
 
   private
 
-  #if the request is from the root url (eg: console.megam.io) then no message is shown
-  #if the request is form a non root url like users/1/edit, then we show  message.
+  # if the request is from the root url (eg: console.megam.io) then no message is shown
+  # if the request is form a non root url like users/1/edit, then we show  message.
   def require_signin
     unless signed_in?
-      if (request.fullpath.to_s == '/' || request.original_url.to_s == '/')
+      if request.fullpath.to_s == '/' || request.original_url.to_s == '/'
         redirect_to signin_path
       else
-        redirect_to signin_path, :flash => { :error => "You must first sign in or sign up."}
+        redirect_to signin_path, flash: { error: 'You must first sign in or sign up.' }
       end
     end
   end
 
-  def stick_keys(tmp={}, permitted_tmp={})
+  def stick_keys(_tmp = {}, _permitted_tmp = {})
     logger.debug "> STICK #{params}"
     params[:email] = session[:email]
     params[:api_key] = session[:api_key]
@@ -89,16 +80,44 @@ class ApplicationController < ActionController::Base
   def catch_exceptions
     yield
   rescue Accounts::MegamAPIError  => mai
-    logger.debug "*-----------------------*"
-    logger.debug "|    (˘_˘) exception    :"
-    logger.debug "*-----------------------*"
-    logger.debug "#{mai.message}"
-    logger.debug ">>>> caused by Nak man (‾ʖ̫‾) : "
-   # mai.backtrace.each { |line| logger.error line }
-    logger.debug "*-----------------------*"
-    #notify Megam ? - hipchat
-    #send an email to support@megam.io which creates a support ticket.
-    #redirect to the users last visited page.
-    redirect_to signin_path, :flash => { :error => "oops! there is some issue. ticket created - support.megam.io" } and return
+    ascii_bomb
+    puts_stacktace(mai)
+    # notify  hipchat, send an email to support@megam.io which creates a support ticket.
+    # redirect to the users last visited page.
+    redirect_to(signin_path, flash: { error: 'oops! there is some issue. ticket created - support.megam.io' }) && return
+  rescue ApplicationMailer::MegamSnailError => mse
+    ascii_snail
+    puts_stacktrace(mse)
   end
+
+  def ascii_bomb
+    logger.debug ''"\033[31m
+       ,--.!,
+    __/   -*-
+  ,####.  '|`
+  ######
+  `####'                !\033[0m\033[1mWe flunked!\033[22m
+"''
+  end
+
+  def ascii_snail
+    logger.debug ''"\033[31m
+   .----.   @   @
+  / .-.-.`.  \v/
+  | | '\ \ \_/ )
+,-\ `-.' /.'  //
+'---`----'----'        !\033[0m\033[1mSnail race is on! to deliver your mail!\033[22m
+"''
+  end
+
+  def puts_stacktrace(exception)
+    logger.debug "\033[36m#{exception.message}\033[0m"
+    filtered_trace = exception.backtrace.grep(/#{Regexp.escape("nilavu")}/)
+    unless filtered_trace.empty?
+      full_stacktrace =  filtered_trace.join("\n")
+      logger.debug "\033[1m\033[32m#{full_stacktrace}\033[0m\033[22m"
+    end
+    logger.debug "\033[1m\033[35m..(*_*)...\033[0m\033[22m"
+  end
+
 end
