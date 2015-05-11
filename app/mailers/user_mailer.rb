@@ -15,6 +15,7 @@
 ##
 class UserMailer < ApplicationMailer
 
+
   #an email gets formatted to be sent, the template needs email address hence we expose account.
   def welcome(account)
     @account = account
@@ -31,18 +32,26 @@ class UserMailer < ApplicationMailer
   def verify
     #@url  = "https://console.megam.io/verified_email.#{@random_token}"
   end
-
+=begin
   def reset(account)
     @account = account
+     wrap_mail do
+         mail :to => account.email, :subject => "You have fat fingers. No worries."
+      end      
+  end
+=end
 
+ def reset(account)
+    @account = account
     if "#{Rails.configuration.support_email}".chop!
       begin
          mail :to => account.email, :subject => "You have fat fingers. No worries."
-      rescue Net::SMTPError => e
+      rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
         logger.debug "--> Failed to send a password reset email for #{account.email}."
       end
     end
   end
+
 
   def balance
   end
