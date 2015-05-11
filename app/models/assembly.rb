@@ -104,6 +104,7 @@ def bld_policies(params)
   #In future lot of inputs add this method
   def bld_inputs(params)
     @inputs << {"key" => "sshkey", "value" => params[:ssh_key_name]} if params[:ssh_key_name]
+    @inputs << {"key" => "domain", "value" => params[:domain]} if params.has_key?(:domain)
   end
 
  #recursively dig assembly by populating components.
