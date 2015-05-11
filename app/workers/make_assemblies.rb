@@ -53,7 +53,7 @@ class MakeAssemblies
     com = []
     type = get_type(options[:type])
       if type == "APP"
-        name = options[:appname]
+        name = options[:launch_name]
         ttype = "tosca.app."
         if options[:servicename] != nil
           if options.has_key?(:related_components)
@@ -68,19 +68,19 @@ class MakeAssemblies
       if type == "SERVICE"
         name = options[:servicename]
         ttype = "tosca.service."
-        if options[:appname] != nil
+        if options[:launch_name] != nil
           if options.has_key?(:related_components)
             if options[:related_components] != nil
               related_components = options[:related_components]
             end
           else
-            related_components = "#{options[:assembly_name]}.#{options[:domain]}/#{options[:appname]}"
+            related_components = "#{options[:assembly_name]}.#{options[:domain]}/#{options[:launch_name]}"
           end
         end
       end
 
       if type == "BYOC"
-        name = options[:appname]
+        name = options[:launch_name]
         ttype = "tosca.app."
         if options[:servicename] != nil
           if options.has_key?(:related_components)
@@ -113,7 +113,7 @@ class MakeAssemblies
       end
 
       if type == "ADDON"
-        name = options[:appname]
+        name = options[:launch_name]
       end
 
       value = {
@@ -169,12 +169,12 @@ class MakeAssemblies
 
   def self.build_policies(options)
     com = []
-    if options[:appname] != nil && options[:servicename] != nil
+    if options[:launch_name] != nil && options[:servicename] != nil
       value = {
         :name=>"bind policy",
         :ptype=>"colocated",
         :members=>[
-          "#{options[:assembly_name]}.#{options[:domain]}/#{options[:appname]}",
+          "#{options[:assembly_name]}.#{options[:domain]}/#{options[:launch_name]}",
           "#{options[:assembly_name]}.#{options[:domain]}/#{options[:servicename]}"
         ]
       }

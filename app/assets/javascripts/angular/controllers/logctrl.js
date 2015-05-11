@@ -21,7 +21,6 @@ function($scope, socket, $location,  $rootScope, LogStackLimit) {
     $scope.bookName = "";
     $scope.listOfOptions = $scope.books;
     $scope.sendmessage = function(data) {
-        alert ('loaded logctrl');
         $scope.logs = [];
         $scope.bookName = data;
         socket.emit('message', data);

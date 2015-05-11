@@ -20,9 +20,10 @@ class Sshkeys < BaseFascade
   S3   = "s3".freeze
   RIAK = "riak".freeze
 
-  LAUNCH_IMPORT   = "UPLOAD".freeze
-  LAUNCH_CREATE   = "CREATE".freeze
-  LAUNCH_EXISTING = "EXIST".freeze
+  IMPORT   = "SSH_IMPORT".freeze
+  NEW      = "SSH_NEW".freeze
+  USEOLD   = "SSH_USEOLD".freeze
+  SAAVI = "saavi".freeze
 
   PRIV_CONTENT_TYPE = "application/x-pem-key".freeze
   PUB_CONTENT_TYPE  = "application/vnd.ms-publisher".freeze
@@ -35,6 +36,16 @@ class Sshkeys < BaseFascade
     super(true)
   end
 
+  #a helper that creates or imports ssl keys.
+  #can be used during a launch or sshkey creation.
+  def create_or_import(api_params)
+    api_params[:name] ||= Sshkeys::SAAVI
+    api_params[:ssh_keypair_name] = api_params[:ssh_keypair_name] + '_' + api_params[:name] || Sshkeys::SAAVI
+    create(api_params) and return api_params if api_params[:sshoption] == Sshkeys::NEW
+    import(api_params) unless api_params[:sshoption] == Sshkeys::USEOLD
+    api_params
+  end
+
   #lists the ssh keys for an user and return a hash with name, timestamp.
   def list(api_params, &block)
     raw = api_request(api_params, SSHKEYS, LIST)
@@ -43,26 +54,6 @@ class Sshkeys < BaseFascade
     return self
   end
 
-  #gemerate SSH key
-  def create(api_params, &block)
-    set_pub_path(api_params)
-    keygen   = SSHKey.generate
-    api_params[:ssh_private_key] = keygen.private_key
-    api_params[:ssh_public_key]  = keygen.ssh_public_key
-    api_params[:path]            = @ssh_public_path
-    upload(api_params)
-    raw = api_request(api_params, SSHKEYS, CREATE)
-    yield self if block_given?
-    self
-  end
-
-  ## import
-  def import(api_params, &block)
-    set_pub_path(api_params)
-    api_params[:path]            = @ssh_public_path
-    upload(api_params, true)
-    yield self if block_given?
-  end
 
   ## rescue and raise as an error.
   def download(api_params, &block)
@@ -79,6 +70,28 @@ class Sshkeys < BaseFascade
 
   private
 
+  #gemerate SSH key, use create_or_import instead.
+  def create(api_params, &block)
+    set_pub_path(api_params)
+    keygen   = SSHKey.generate
+    api_params[:ssh_private_key] = keygen.private_key
+    api_params[:ssh_public_key]  = keygen.ssh_public_key
+    api_params[:path]            = @ssh_public_path
+    upload(api_params)
+    raw = api_request(api_params, SSHKEYS, CREATE)
+    yield self if block_given?
+    self
+  end
+
+  ## import - use create_or_import instead.
+  def import(api_params, &block)
+    set_pub_path(api_params)
+    api_params[:path]            = @ssh_public_path
+    upload(api_params, true)
+    yield self if block_given?
+  end
+
+
   #a private method that take the sshkeys collection and returns a hash
   def to_hash(ssh_keys_collection)
     ssh_keys = []
@@ -93,9 +106,9 @@ class Sshkeys < BaseFascade
   def set_pub_path(api_params)
     case Rails.configuration.storage_type
     when S3
-      @ssh_public_path = vault_s3_url+"/"+ api_params[:email]+"/"+params[:ssh_key_name]
+      @ssh_public_path = vault_s3_url+"/"+ api_params[:email]+"/"+params[:ssh_keypair_name]
     when RIAK
-      @ssh_public_path = api_params[:email]+"_"+api_params[:ssh_key_name]
+      @ssh_public_path = api_params[:email]+"_"+api_params[:ssh_keypair_name]
     else
       raise UnsupportedConfigError, "Unsupported storage type in nilavu.yml. Supported storage types are [S3, Riak]. "
     end
@@ -109,19 +122,19 @@ class Sshkeys < BaseFascade
     case Rails.configuration.storage_type
     when S3
       if bufferedUpload
-        S3.upload(bucket_name, api_params[:email]+"/"+api_params[:ssh_key_name]+".key", api_params[:ssh_private_key].read)
-        S3.upload(bucket_name, api_params[:email]+"/"+api_params[:ssh_key_name]+".pub", api_params[:ssh_public_key].read)
+        S3.upload(ssh_files_bucket, api_params[:email]+"/"+api_params[:ssh_keypair_name]+".key", api_params[:ssh_private_key].read)
+        S3.upload(ssh_files_bucket, api_params[:email]+"/"+api_params[:ssh_keypair_name]+".pub", api_params[:ssh_public_key].read)
       else
-        S3.upload(ssh_files_bucket, api_params[:email]+"/"+api_params[:ssh_key_name] +".key", api_params[:ssh_private_key])
-        S3.upload(ssh_files_bucket, api_params[:email]+"/"+api_params[:ssh_key_name] +".pub", api_params[:ssh_public_key])
+        S3.upload(ssh_files_bucket, api_params[:email]+"/"+api_params[:ssh_keypair_name] +".key", api_params[:ssh_private_key])
+        S3.upload(ssh_files_bucket, api_params[:email]+"/"+api_params[:ssh_keypair_name] +".pub", api_params[:ssh_public_key])
       end
     when RIAK
       if bufferedUpload
-        MegamRiak.upload(bucket_name, api_params[:email]+"_"+api_params[:ssh_key_name]+"_key", api_params[:ssh_private_key].read, api_params[:ssh_private_key].content_type)
-        MegamRiak.upload(bucket_name, api_params[:email]+"_"+api_params[:ssh_key_name]+"_pub", api_params[:ssh_public_key].read, api_params[:ssh_public_key].content_type)
+        MegamRiak.upload(ssh_files_bucket, api_params[:email]+"_"+api_params[:ssh_keypair_name]+"_key", api_params[:ssh_private_key].read, api_params[:ssh_private_key].content_type)
+        MegamRiak.upload(ssh_files_bucket, api_params[:email]+"_"+api_params[:ssh_keypair_name]+"_pub", api_params[:ssh_public_key].read, api_params[:ssh_public_key].content_type)
       else
-        MegamRiak.upload(ssh_files_bucket, api_params[:email]+"_"+api_params[:ssh_key_name] +"_key", api_params[:ssh_private_key], PRIV_CONTENT_TYPE)
-        MegamRiak.upload(ssh_files_bucket, api_params[:email]+"_"+api_params[:ssh_key_name] +"_pub", api_params[:ssh_public_key], PUB_CONTENT_TYPE)
+        MegamRiak.upload(ssh_files_bucket, api_params[:email]+"_"+api_params[:ssh_keypair_name] +"_key", api_params[:ssh_private_key], PRIV_CONTENT_TYPE)
+        MegamRiak.upload(ssh_files_bucket, api_params[:email]+"_"+api_params[:ssh_keypair_name] +"_pub", api_params[:ssh_public_key], PUB_CONTENT_TYPE)
       end
     else
        raise UnsupportedConfigError, "Unsupported storage type in nilavu.yml. Supported storage types are [S3, Riak]. "

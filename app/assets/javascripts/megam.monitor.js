@@ -15,18 +15,6 @@
 */
 var app = angular.module('Nilavu', ["ngResource", "ngSanitize", "ngRoute"]);
 
-app.controller('SpicyController', ['$scope', function($scope) {
-    $scope.spice = 'very';
-
-    $scope.chiliSpicy = function() {
-        $scope.spice = 'chili';
-    };
-
-    $scope.jalapenoSpicy = function() {
-        $scope.spice = 'jalapeño';
-    };
-}]);
-
 app.config(["$routeProvider", "$locationProvider",
 function($routeProvider, $locationProvider) {
     $locationProvider.html5Mode(true);
