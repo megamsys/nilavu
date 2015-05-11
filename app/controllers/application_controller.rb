@@ -86,7 +86,7 @@ class ApplicationController < ActionController::Base
     # redirect to the users last visited page.
     redirect_to(signin_path, flash: { error: 'oops! there is some issue. ticket created - support.megam.io' }) && return
   rescue ApplicationMailer::MegamSnailError => mse
-    ascii_snail
+    ascii_bomb
     puts_stacktrace(mse)
   end
 
@@ -101,13 +101,13 @@ class ApplicationController < ActionController::Base
   end
 
   def ascii_snail
-    logger.debug ''"\033[31m
+    logger.debug """\033[31m
    .----.   @   @
-  / .-.-.`.  \v/
-  | | '\ \ \_/ )
-,-\ `-.' /.'  //
+  / .-.-.`.  \\v/
+  | | '\\ \\ \\_/ )
+,-\\ `-.' /.'  /
 '---`----'----'        !\033[0m\033[1mSnail race is on! to deliver your mail!\033[22m
-"''
+"""
   end
 
   def puts_stacktrace(exception)
