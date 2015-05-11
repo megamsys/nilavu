@@ -152,8 +152,12 @@ module Nilavu
 
   if "#{common['support']}".chop!
     #Support Service
+    puts "_______________________________________________GOT SUPPORT EMAIL AND PASS __________________________________"
     config.support_email = "#{common['support']['email']}" || ""
     config.support_password = "#{common['support']['password']}" || ""
+    puts config.support_email
+    puts config.support_password
+    puts "=============================APP.RB=============================================="
   else
     puts "=> Warning ! Disabled support email service. Missing [support] in nilavu.yml."
     config.support_email = ""

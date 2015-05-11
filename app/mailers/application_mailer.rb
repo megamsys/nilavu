@@ -18,7 +18,6 @@ require 'net/smtp'
 class ApplicationMailer < ActionMailer::Base
   default from: '#{Rails.configuration.support_email}' || 'support@megam.io'
 
-  layout 'mailers'
 
   class MegamSnailError < StandardError; end
 
@@ -29,6 +28,7 @@ class ApplicationMailer < ActionMailer::Base
   def wrap_mail
     unless has_mail?
       begin
+        raise MegamSnailError, "oops I failed!!"
         yield
       rescue Net::SMTPError => sme
         raise MegamSnailError, sme.message

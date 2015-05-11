@@ -44,7 +44,7 @@ class UsersController < ApplicationController
 
     my_account.create(all_params) do
       sign_in my_account
-      #UserMailer.welcome(my_account).deliver_now
+      UserMailer.welcome(my_account).deliver_now
       redirect_to cockpits_path, :format => 'html', :flash => { :alert => "Welcome #{my_account.first_name}."}
      end
   end
