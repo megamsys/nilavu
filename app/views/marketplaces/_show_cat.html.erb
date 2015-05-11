@@ -1,0 +1,55 @@
+<!--
+** Copyright [2013-2015] [Megam Systems]
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+** http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+-->
+<% plan        = match_plan_for(mkp,version) %>
+<% launch_name = launch_namegen %>
+<%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
+<%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
+<%= hidden_field_tag 'launch_name', nil, placeholder: "", :class =>"form-control", :value =>  launch_name %>
+<%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
+  <div class="row">
+    <div class="col-md-12"> <span class="app_left_name">Description</span>
+      <P class="model-description"><%= plan['description'] %><a href="#" target="_blank">View Docs</a></P>
+      <div class="pad_tb25">
+        <h4>Name</h4>
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <%= text_field_tag 'name', nil, placeholder: 'Dew Name', :class =>"form-control", :value => launch_name %>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group">
+              <%= text_field_tag 'domain', nil, placeholder: "megambox.com", :class =>"form-control", :value => "megambox.com", disabled: true %>
+              <%= hidden_field_tag 'domain', nil, placeholder: "megambox.com", :class =>"form-control", :value => "megambox.com" %>
+            </div>
+          </div>
+        </div>
+        <%= render template="marketplaces/show_ssh", :locals => {:ssh_keys => @ssh_keys} %>
+        <br/>
+        <br/>
+        <div class="row">
+          <div class="col-md-offset-4 col-md-4">
+            <div class="form-group">
+              <%= submit_tag "Create #{cattype.capitalize}", :class => "btn btn-success col-xs-12", :data => {:remote => true} %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-divider"></div>
+      <div class="bottom-divider"></div>
+    </div>
+  </div>
+</div>

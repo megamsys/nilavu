@@ -14,14 +14,14 @@ storage:
   cloud_keys_bucket: cloudaccesskeys
   ssh_files_bucket: sshfiles
 
-
 varai:
   host: localhost
   port: 1880
 
 support:
   email: support@megam.io
-  password: "vaagai#8udhavu"
+  password:
+
 
 auth:
   fb_client_id:

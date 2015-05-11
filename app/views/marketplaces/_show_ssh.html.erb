@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col-xs-6">
+    <h4>SSH</h4>
+    <div class="form-group">
+      <select class="form-control" id="sshkeyoption">
+        <option value="<%= Sshkeys::NEW %>">Create a new sshkey</option>
+        <option value="<%= Sshkeys::USEOLD %>">Use your existing sshkey </option>
+        <option value="<%= Sshkeys::IMPORT %>">Import your sshkey</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-xs-6" >
+    <div id="<%= Sshkeys::USEOLD %>" style="display:none;">
+      <h4>Choose your SSH</h4>
+      <div class="form-group">
+        <% if @ssh_keys != nil && @ssh_keys.length > 0 %>
+          <%= select_tag "ssh_keypair_name", options_for_select(@ssh_keys.map{ |c| c[:name] }, :selected=>@ssh_keys[0]), :class =>"form-control" %>
+        <% else %>
+          <span>You must create or import your sshkeys</span>
+        <% end %>
+      </div>
+    </div>
+    <div id="<%= Sshkeys::NEW %>">
+      <h4>SSH keypair name</h4>
+      <div class="form-group">
+        <%= text_field_tag 'ssh_keypair_name', nil, placeholder: 'Type a key pair name to save', :required => true, :class =>"form-control" %>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="<%= Sshkeys::IMPORT %>" style="display:none; margin-top:10px;">
+  <div class="row">
+    <div class="col-xs-6">
+      <div class="form-group">
+        <span class="btn green fileinput-button  col-md-12  col-xs-7"> <i class="icon-plus"></i> <span>Add files...</span> <%= file_field_tag :ssh_private_key, placeholder: 'Import private key' %> </span>
+      </div>
+    </div>
+    <div class="col-xs-6">
+      <div class="form-group">
+        <span class="btn blue fileinput-button  col-md-12  col-xs-7"> <i class="icon-plus"></i> <span>Add files...</span> <%= file_field_tag :ssh_public_key, placeholder: 'Import public key' %> </span>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+      $('#sshkeyoption').on('change', function() {
+        if (this.value == "<%= Sshkeys::NEW %>") {
+          $("#<%= Sshkeys::NEW %>").show();
+          $("#<%= Sshkeys::USEOLD %>").hide();
+          $("#<%= Sshkeys::IMPORT %>").hide();
+          $(".sshoption").val("<%= Sshkeys::NEW %>");
+        }
+        if (this.value == "<%= Sshkeys::USEOLD %>") {
+          $("#<%= Sshkeys::NEW %>").hide();
+          $("#<%= Sshkeys::USEOLD %>").show();
+          $("#<%= Sshkeys::IMPORT %>").hide();
+          $(".sshoption").val("<%= Sshkeys::USEOLD %>");
+        }
+        if (this.value == "<%= Sshkeys::IMPORT %>") {
+          $("#<%= Sshkeys::NEW %>").show();
+          $("#<%= Sshkeys::USEOLD %>").hide();
+          $("#<%= Sshkeys::IMPORT %>").show();
+          $(".sshoption").val("<%= Sshkeys::IMPORT %>");
+        }
+      });
+    });
+</script>

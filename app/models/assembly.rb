@@ -87,12 +87,12 @@ class Assembly < BaseFascade
 def bld_policies(params)
     mkp = JSON.parse(params["mkp"])
     com = []
-    if params[:appname] != nil && params[:servicename] != nil
+    if params[:launch_name] != nil && params[:servicename] != nil
       value = {
         :name=>"bind policy",
         :ptype=>"colocated",
         :members=>[
-          "#{params[:name]}.#{params[:domain]}/#{params[:appname]}",
+          "#{params[:name]}.#{params[:domain]}/#{params[:launch_name]}",
           "#{params[:name]}.#{params[:domain]}/#{params[:servicename]}"
         ]
       }
@@ -103,7 +103,7 @@ def bld_policies(params)
 
   #In future lot of inputs add this method
   def bld_inputs(params)
-    @inputs << {"key" => "sshkey", "value" => params[:ssh_key_name]} if params[:ssh_key_name]
+    @inputs << {"key" => "sshkey", "value" => params[:ssh_keypair_name]} if params[:ssh_keypair_name]
   end
 
  #recursively dig assembly by populating components.
