@@ -81,12 +81,12 @@ class ApplicationController < ActionController::Base
     yield
   rescue Accounts::MegamAPIError  => mai
     ascii_bomb
-    puts_stacktace(mai)
+    puts_stacktrace(mai)
     # notify  hipchat, send an email to support@megam.io which creates a support ticket.
     # redirect to the users last visited page.
     redirect_to(signin_path, flash: { error: 'oops! there is some issue. ticket created - support.megam.io' }) && return
   rescue ApplicationMailer::MegamSnailError => mse
-    ascii_bomb
+    ascii_snail
     puts_stacktrace(mse)
   end
 

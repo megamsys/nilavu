@@ -14,36 +14,41 @@
 ** limitations under the License.
 -->
 <% provide(:title, 'Not Found') %>
-
-
 <div id="content">
-	<div class="container">
-		<div class='row'>
-			<div class='col-lg-10 colmd-10'>
-				<h2>Sorry, the page you&#39;re looking for couldn&#39;t be found</h2>
-				<p>
-					<a href='javascript:history.back();'>Go Back</a> to the previous page, return to the <a href='/'>home page or <a href="mailto:support@megam.io?subject=Help me">Email Us</a> about this problem.
+  <div class="container">
+    <div class='row'>
+      <div class='col-lg-10 colmd-10'>
+        <h2>Sorry, the page you&#39;re looking for couldn&#39;t be found</h2>
+        <p>
+          <a href='javascript:history.back();'>Go Back</a> to the previous page, return to the <a href='/'>home page or <a href="mailto:support@megam.io?subject=Help me">Email Us</a> about this problem.
 				</p>
-				<%= image_tag "specman.png", :alt => "error"%>
-				<br></br>
-				<div class="panel panel-success">
-					<div class="panel-heading">
-						<b>Site Links</b>
-					</div>
-					<div class="panel-content">
-						<h4>&nbsp;&nbsp;<%= link_to "    Documentation",  "http://www.gomegam.com/docs", { :target => '_blank'}  %></h4>
-
-						<h4>&nbsp;&nbsp;<%= link_to "    Gomegam.com",  "http://www.gomegam.com", { :target => '_blank'}  %></h4>
-
-						<h4>&nbsp;&nbsp;<%= link_to "    Blog",   "http://blog.megam.co", { :target => '_blank'} %></h4>
-
-						<h4>&nbsp;&nbsp;<%= link_to "    Code",  "https://github.com/indykish", { :target => '_blank'} %></h4>
-						<h4>&nbsp;&nbsp;<%= link_to"    Contact Support", "http://support.megam.co",:target => "_blank" %> </h4>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+          <br>
+        </br>
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <b>Site Links</b>
+          </div>
+          <div class="panel-content">
+            <ul class="list-group">
+              <li class="list-group-item">
+                We track errors automaticaly.
+							</li>
+              <li class="list-group-item">
+                Successfully sent a hip chat message to <a href="http://bit.ly/megamchat" target="_blank">http://bit.ly/megamchat</a>
+              </li>
+              <li class="list-group-item">
+                A support problem was <a href="http://support.megam.io" target="_blank">registered</a> via email.
+							</li>
+            </ul>
+          </div>
+          <h4>&nbsp;&nbsp;<%= link_to "    Documentation",  "http://docs.megam.io", { :target => '_blank'}  %></h4>
+          <h4>&nbsp;&nbsp;<%= link_to "    Megam.io",  "https://www.megam.io", { :target => '_blank'}  %></h4>
+          <h4>&nbsp;&nbsp;<%= link_to "    Code",  "https://github.com/indykish", { :target => '_blank'} %></h4>
+          <h4>&nbsp;&nbsp;<%= link_to "    Online Chat", "http://bit.ly/megamchat",:target => "_blank" %> </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 <%= render 'layouts/footer' %>
