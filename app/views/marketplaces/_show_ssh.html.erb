@@ -3,7 +3,7 @@
     <h4>SSH</h4>
     <div class="form-group">
       <select class="form-control" id="sshkeyoption">
-        <option value="<%= Sshkeys::NEW %>">Create a new sshkey</option>
+        <option value="<%= Sshkeys::NEW %>" selected="selected">Create a new sshkey</option>
         <option value="<%= Sshkeys::USEOLD %>">Use your existing sshkey </option>
         <option value="<%= Sshkeys::IMPORT %>">Import your sshkey</option>
       </select>
@@ -44,6 +44,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
+      $(".sshoption").val("<%= Sshkeys::NEW %>")
       $('#sshkeyoption').on('change', function() {
         if (this.value == "<%= Sshkeys::NEW %>") {
           $("#<%= Sshkeys::NEW %>").show();
