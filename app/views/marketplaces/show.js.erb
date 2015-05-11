@@ -13,16 +13,22 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 **/
+
 var selected_entity = '#version_view';
 <% if @mkp["cattype"] == Assemblies::APP  %>
+alert("<%= @mkp["cattype"] %>");
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/apps', :locals => {:version => @mkp["sversion"], :mkp => @mkp}) %>";
 <% elsif @mkp["cattype"] == Assemblies::SERVICE  %>
+alert("<%= @mkp["cattype"] %>");
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/service', :locals => {:version => @mkp["sversion"], :mkp => @mkp}) %>";
 <% elsif @mkp["cattype"] == Assemblies::ANALYTICS %>
+alert("<%= @mkp["cattype"] %>");
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/analytics', :locals => {:version => @mkp["sversion"], :mkp => @mkp}) %>";
 <% elsif @mkp["cattype"] == Assemblies::DEW %>
+alert("<%= @mkp["cattype"] %>");
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/dew', :locals => {:version => @mkp["sversion"], :mkp => @mkp, :ssh_keys => @ssh_keys}) %>";
 <% else %>
+alert("<%= @mkp["cattype"] %>");
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/docker', :locals => {:version => @mkp["sversion"], :mkp => @mkp}) %>";
 <% end %>
 insertAt(selected_entity, to_insert_content);
