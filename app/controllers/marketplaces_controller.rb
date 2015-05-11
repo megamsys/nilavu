@@ -62,27 +62,9 @@ class MarketplacesController < ApplicationController
   # performs ssh creation or using existing and creating an assembly at the end.
   def create
     logger.debug '> Marketplaces: create.'
-    mkp = JSON.parse(params['mkp'])
-    case params['sshoption']
-    when Sshkeys::LAUNCH_CREATE
-      params[:ssh_key_name] = params['sshcreatename'] + '_' + params[:name]
-      Sshkeys.new.create(params)
-    when Sshkeys::LAUNCH_IMPORT
-      params[:ssh_key_name] = params[:sshuploadname] + '_' + params[:name]
-      Sshkeys.new.import(params)
-    when Sshkeys::LAUNCH_EXISTING
-      params[:ssh_key_name] = params[:sshexistname]
-    end
-
-    case params['scm_name']
-    when Scm::GITHUB
-      params[:scmtoken] =  session[:github]
-      params[:scmowner] =  session[:git_owner]
-    when Scm::GOGS
-      params[:scmtoken] =  session[:gogs_token]
-      params[:scmowner] =  session[:gogs_owner]
-    end
-
+    mkp = JSON.parse(params[:mkp])
+    Sshkeys.new.create_or_import(params)
+    setup_scm(params)
     res = Assemblies.new.create(params) do
       # this is a successful call
     end
@@ -268,5 +250,20 @@ class MarketplacesController < ApplicationController
     end
     res_msg = 'success'
     err_msg = nil
-  end  
+  end
+
+  private
+
+  def setup_scm(params)
+    case params[:scm_name]
+    when Scm::GITHUB
+      params[:scmtoken] =  session[:github]
+      params[:scmowner] =  session[:git_owner]
+    when Scm::GOGS
+      params[:scmtoken] =  session[:gogs_token]
+      params[:scmowner] =  session[:gogs_owner]
+    else
+      #we ignore it.  
+    end
+  end
 end

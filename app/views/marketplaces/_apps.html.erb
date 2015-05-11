@@ -14,263 +14,110 @@
 ** limitations under the License.
 -->
 <%= form_tag marketplaces_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
-<% @mkp["plans"].each do |c| %>
-<% if c["version"] == version %>
-<% @mkp_price = c["price"] %>
-<% @appname = launch_namegen %>
-<% @mkp_plan = c["plantype"] %>
-<% @mkp_description = c["description"] %>
-<% @mkp_os = c["os"] %>
-<% @pro_name = (@mkp["name"]).split("-") %>
-<% end %>
-<% end %>
-
-<%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
-<%= hidden_field_tag 'appname', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
-<%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
-<%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
-<%= hidden_field_tag 'scm_name', nil, placeholder: "", :class =>"form-control"%>
-
-<div class="row">
-          <div class="col-md-12"> <span class="app_left_name">Description</span>
-            <P class="model-description"><%= @mkp_description %><a href="#" target="_blank">View Docs</a></P>
-            <div class="pad_tb25">
-                <h4>Name</h4>
-                <div class="row">
-                  <div class="col-xs-6">
-                    <div class="form-group">
-<%= text_field_tag 'name', nil, placeholder: 'Dew Name', :class =>"form-control", :value => @appname %>
-                    </div>
-                  </div>
-                  <div class="col-xs-6">
-                    <div class="form-group">
-					<%= text_field_tag 'domain', nil, placeholder: "megam.co", :class =>"form-control", :value => "megam.co", disabled: true %>
-					<%= hidden_field_tag 'domain', nil, placeholder: ".megam.co", :class =>"form-control", :value => "megam.co" %>
-                    </div>
-                  </div>
-                </div>
-
-               
-<div class="row">
-  <div class="col-xs-2">
-              <p class="radioP">
-                <input type="radio" name="radio_app_scm" id="r1"  value="byoc_scm" required />
-                <label for="r1"> <span class="radioButtonGraph"></span> BYOC </label>
-              </p>
-              <p class="radioP">
-                <input type="radio" name="radio_app_scm" id="r2" value="megam_scm" required />
-                <label for="r2"> <span class="radioButtonGraph"></span> Megam code  </label>
-              </p>
-</div>
-<div class="col-xs-10">
-		    <div id="app_byoc_scm" style="display:none;">
-                    <h4>Choose your SCM</h4>
-                    <div class="form-group">
-					<% if @ssh_keys != nil && @ssh_keys.length > 0 %>
-						<%= select_tag "sshexistname", options_for_select(@ssh_keys.map{ |c| c[:name] }, :selected=>@ssh_keys[0]), :class =>"form-control" %>
-
-					<% else %>
-						<span>You must have create or upload the sshkeys</span>
-					<% end %>
-                    </div>
-		    </div>
-
-
-<%= hidden_field_tag 'source', nil, placeholder: '', :class =>"form-control main_source", :value => '' %>
-<%= hidden_field_tag 'check_ci', nil, placeholder: '', :class =>"form-control", :value => 'true' %>
-	
-		    <div id="app_megam_scm" style="display:none;">
-                    <h4>Megam scm</h4>
-                    <div class="form-group">
-					<% if @ssh_keys != nil && @ssh_keys.length > 0 %>
-						<%= select_tag "sshexistname", options_for_select(@ssh_keys.map{ |c| c[:name] }, :selected=>@ssh_keys[0]), :class =>"form-control" %>
-
-					<% else %>
-						<span>You must have create or upload the sshkeys</span>
-					<% end %>
-                    </div>
-		    </div>
-
-</div>
-</div>
-
-               <div class="row">
-                  <div class="col-xs-6">
-                    <h4>SSH</h4>
-                    <div class="form-group">
-							<select class="form-control" id="sshkeyoption">
-								<option value="CREATE">Create a new sshkey</option>
-								<option value="EXIST">Use your already uploaded keys </option>
-								<option value="UPLOAD">Upload your ssh keys</option>
-							</select>
-
-
-                    </div>
-                  </div>
-                  <div class="col-xs-6" >
-		    <div id="sshkey_exist" style="display:none;">
-                    <h4>Choose your SSH</h4>
-                    <div class="form-group">
-					<% if @ssh_keys != nil && @ssh_keys.length > 0 %>
-						<%= select_tag "sshexistname", options_for_select(@ssh_keys.map{ |c| c[:name] }, :selected=>@ssh_keys[0]), :class =>"form-control" %>
-
-					<% else %>
-						<span>You must have create or upload the sshkeys</span>
-					<% end %>
-                    </div>
-		    </div>
-
-		    <div id="sshkey_create">
-                    <h4>SSH keypair name</h4>
-                    <div class="form-group">
-			<%= text_field_tag 'sshcreatename', nil, placeholder: 'Type a key pair name to save', :required => true, :class =>"form-control" %>
-                    </div>
-		    </div>
-
-                  </div>
-                </div>
-                   <div id="sshkey_upload" style="display:none; margin-top:10px;">
-                <div class="row">
-
-                      <div class="col-xs-6">
-								<div class="form-group">
-									<span class="btn green fileinput-button  col-md-12  col-xs-7"> <i class="icon-plus"></i> <span>Add files...</span> <%= file_field_tag :ssh_private_key, placeholder: 'Upload private key' %> </span>
-								</div>
-                        </div>
-                        <div class="col-xs-6">
-									<div class="form-group">
-										<span class="btn blue fileinput-button  col-md-12  col-xs-7"> <i class="icon-plus"></i> <span>Add files...</span> <%= file_field_tag :ssh_public_key, placeholder: 'Upload public key' %> </span>
-									</div>
-                        </div>
-                      </div>
-                </div>
-<br/><br/>
-                <div class="row">
-                  <div class="col-md-offset-4 col-md-4">
-                    <div class="form-group">
-<%= submit_tag "Create Dew", :class => "btn btn-success col-xs-12", :data => {:remote => true} %>
-                    </div>
-                  </div>
-                </div>
+  <% plan        = match_plan_for(@mkp,version) %>
+  <% launch_name = launch_namegen %>
+  <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
+  <%= hidden_field_tag 'launch_name', nil, placeholder: "", :class =>"form-control", :value =>  launch_name %>
+  <%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
+  <%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
+  <%= hidden_field_tag 'scm_name', nil, placeholder: "", :class =>"form-control"%>
+  <div class="row">
+    <div class="col-md-12"> <span class="app_left_name">Description</span>
+      <P class="model-description"><%= plan[:description] %><a href="http://docs.megam.io/v1.0/docs/megam_quick_launch" target="_blank">View Docs</a></P>
+      <div class="pad_tb25">
+        <h4>Name</h4>
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <%= text_field_tag 'name', nil, placeholder: 'Dew Name', :class =>"form-control", :value => launch_name %>
             </div>
-            <div class="bottom-divider"></div>
-            <div class="bottom-divider"></div>
           </div>
-          <!-- body_left ends here --> 
-          
-          <!-- body_right ends here --> 
+          <div class="col-xs-6">
+            <div class="form-group">
+              <%= text_field_tag 'domain', nil, placeholder: "megambox.com", :class =>"form-control", :value => "megambox.com", disabled: true %>
+              <%= hidden_field_tag 'domain', nil, placeholder: "megambox.com", :class =>"form-control", :value => "megambox.com" %>
+            </div>
+          </div>
         </div>
+        <!--- START SSH TEMPLATE -->
+        <%= render template="marketplaces/show_ssh", :locals => {:ssh_keys => @ssh_keys} %>
+        <!-- END SSH TEMPLATE -->
+        <br/>
+        <br/>
+        <div class="row">
+          <div class="col-md-offset-4 col-md-4">
+            <div class="form-group">
+              <%= submit_tag "Create App", :class => "btn btn-success col-xs-12", :data => {:remote => true} %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-divider"></div>
+      <div class="bottom-divider"></div>
+    </div>
+    <!-- body_left ends here -->
+    <!-- body_right ends here -->
+  </div>
 </div>
 <% end %>
-
 <script type="text/javascript">
-	// Script to show the scm
-	$('input[type=radio]').change(function() {
-		var i, r = document.getElementsByName('radio_app_scm');
-		for ( i = 0; i < r.length; i++) {
-			if (r[i].checked && r[i].value == "byoc_scm") {
-				alert("byoc show");
-				$("#app_byoc_scm").show();
-				$("#app_megam_scm").hide();
-			} else {
-				alert("megam show");
-				$("#app_byoc_scm").hide();
-				$("#app_megam_scm").show();
-			}
-		}
-	});
+  	// Script to show the scm
+  	$('input[type=radio]').change(function() {
+  		var i, r = document.getElementsByName('radio_app_scm');
+  		for ( i = 0; i < r.length; i++) {
+  			if (r[i].checked && r[i].value == "byoc_scm") {
+  				$("#app_byoc_scm").show();
+  				$("#app_megam_scm").hide();
+  			} else {
+  				$("#app_byoc_scm").hide();
+  				$("#app_megam_scm").show();
+  			}
+  		}
+  	});
 </script>
-
-
 <script>
-	$(document).ready(function() {
-		$("#scm_name").val("gogs");
-		$("#gogs_connect").click(function() {
-			$.oauthpopup({
-				path : "/auth/gogs",
-				callback : function() {
-					$.ajax({
-						type : "POST",
-						url : "/publish_gogs",
-						success : function(data) {
-							console.log("It worked!")
-							console.log(dataString);
-						},
-						error : function(data) {
-							console.log("ERROR CHECK PROPERLY!!");
-							console.log(data);
-						}
-					});
-					return false;
-				}
-			});
-		});
-		$("#byoc_connect").click(function() {
-			$("#scm_name").val("github");
-			$.oauthpopup({
-				path : "/auth/github",
-				callback : function() {
-					$.ajax({
-						type : "POST",
-						url : "/publish_github",
-						success : function(data) {
-							console.log("It worked!")
-							console.log(dataString);
-						},
-						error : function(data) {
-							console.log("ERROR CHECK PROPERLY!!");
-							console.log(data);
-						}
-					});
-					return false;
-				}
-			});
-		});
-	});
-</script>
-<script type="text/javascript">
-	// Script to show the ssh keys options
-	$(document).ready(function() {
-		$('#sshkeyoption').on('change', function() {
-			if (this.value == "CREATE") {
-				$("#sshkey_create").show();
-				$("#sshkey_exist").hide();
-				$("#sshkey_upload").hide();
-				$(".sshoption").val("CREATE");
-			}
-			if (this.value == "EXIST") {
-				$("#sshkey_create").hide();
-				$("#sshkey_exist").show();
-				$("#sshkey_upload").hide();
-				$(".sshoption").val("EXIST");
-			}
-			if (this.value == "UPLOAD") {
-				$("#sshkey_create").show();
-				$("#sshkey_exist").hide();
-				$("#sshkey_upload").show();
-				$(".sshoption").val("UPLOAD");
-			}
-		});
-	});
-</script>
-
-
-<script>
-    	    									$(document).ready(function() {
-    $("input:radio[name=assigned_proposal_id]").click(function() {
-    var value = $(this).val();
-    if (value == 'STARTERPACK'){
-    	$(".main_source").val($(".spacks").val());
-    	console.log("now trying to disable")
-   document.getElementById("#scm").disabled = true;
-    } else {
-    	 $(".main_source").val($(".scm_select").val());
-    	    $(".spacks").disabled = true;
-    document.getElementById("#starterpack").disabled = true;
-    }
-  });
-
-});
-
-
+  	$(document).ready(function() {
+  		$("#scm_name").val("gogs");
+  		$("#gogs_connect").click(function() {
+  			$.oauthpopup({
+  				path : "/auth/gogs",
+  				callback : function() {
+  					$.ajax({
+  						type : "POST",
+  						url : "/publish_gogs",
+  						success : function(data) {
+  							console.log("It worked!")
+  							console.log(dataString);
+  						},
+  						error : function(data) {
+  							console.log("ERROR CHECK PROPERLY!!");
+  							console.log(data);
+  						}
+  					});
+  					return false;
+  				}
+  			});
+  		});
+  		$("#byoc_connect").click(function() {
+  			$("#scm_name").val("github");
+  			$.oauthpopup({
+  				path : "/auth/github",
+  				callback : function() {
+  					$.ajax({
+  						type : "POST",
+  						url : "/publish_github",
+  						success : function(data) {
+  							console.log("It worked!")
+  							console.log(dataString);
+  						},
+  						error : function(data) {
+  							console.log("ERROR CHECK PROPERLY!!");
+  							console.log(data);
+  						}
+  					});
+  					return false;
+  				}
+  			});
+  		});
+  	});
 </script>

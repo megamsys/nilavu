@@ -26,7 +26,8 @@ class SshKeysController < ApplicationController
   end
 
   def create
-    Sshkeys.new.create(params)
+    params[:sshoption] = Sshkeys::NEW
+    Sshkeys.new.create_or_import(params)
   end
 
   ## this downloads a key
@@ -38,7 +39,8 @@ class SshKeysController < ApplicationController
 
   ## this imports the ssh keys.
   def update
-    Sshkeys.new.import(params)
+    params[:sshoption] = Sshkeys::IMPORT
+    Sshkeys.new.create_or_import(params)
   end
 
 end
