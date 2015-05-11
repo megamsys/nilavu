@@ -21,10 +21,10 @@
 	<div class="col-xs-6 col-sm-5 col-md-3 col-lg-3 col-xl-3">
 		<ul class="list-inline c_sett_inline">
 			<li>
-				<i class="c_icon-compose"></i><a data-toggle="modal" href="#create-ssh">Create</a>
+				<i class="c_icon-compose"></i><a data-toggle="modal" href="#create_ssh">Create</a>
 			</li>
 			<li class="pull-right">
-				<i class="c_icon-import pull"></i><a data-toggle="modal" href="#import-ssh">import</a>
+				<i class="c_icon-import pull"></i><a data-toggle="modal" href="#import_ssh">import</a>
 			</li>
 		</ul>
 	</div>
@@ -71,7 +71,7 @@
 </div>
 
 <!-- create SSH modal starts here -->
-<div id="create-ssh" class="modal fade" tabindex="-1" aria-hidden="true">
+<div id="create_ssh" class="modal fade" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog" style="max-width:400px">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -84,14 +84,14 @@
 							<div class="alert alert-success">
 								Generate a SSH RSA 2048 key pair. Read <a href="http://gomegam.com/docs/users/security/sshkeypairs.html" target="_blank"> <strong>here</strong></a> for more information.
 							</div>
-							<%= form_tag ssh_keys_path, multipart: true, :method => :post, :data => {:remote => true}  do %>
+							<%= form_tag ssh_keys_path, multipart: true, :method => :post, :remote => true do %>
 							<div class="form-group">
 								<label for="ssh-key_name">Name</label>
 								<%= text_field_tag 'ssh_key_name', nil, :class=> 'form-control', placeholder: 'Enter a key pair name to save', :required => true %>
 								<input type="hidden" name="key_type" value="RSA">
 								<input type="hidden" name="key_bit" value="2048">
 							</div>
-							<%= submit_tag "Create", :class => "btn btn-success col-md-12 col-xs-12" %>
+							<%= submit_tag "Create", :class => "btn btn-success col-md-12 col-xs-12" , :data => {:remote => true}%>
 							<% end %>
 						</div>
 					</div>
@@ -102,7 +102,7 @@
 </div>
 
 <!-- import SSH modal starts here -->
-<div id="import-ssh" class="modal fade" tabindex="-1" aria-hidden="true">
+<div id="import_ssh" class="modal fade" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog" style="max-width:400px">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -116,7 +116,7 @@
 							<div class="alert alert-success">
 								Import your SSH RSA 2048 key pair. Read <a href="http://gomegam.com/docs/users/security/sshkeypairs.html" target="_blank"> <strong>here</strong></a> for more information.
 							</div>
-							<%= form_tag ssh_keys_path, multipart: true, :id => "megamform", :method => 'post', :remote => true, data: { spinlock: '#importing_sshkeys'} do %>
+							<%= form_tag ssh_keys_path, multipart: true, :id => "megamform", :method => :post, :remote => true do %>
 
 							<div class="row margintb_15">
 								<div class="col-xs-6">
@@ -143,7 +143,7 @@
 								<label for="ssh-key_name">Name</label>
 								<%= text_field_tag 'key_name', nil, :class=> 'form-control', placeholder: 'Enter a key pair name to save', :required => true %>
 							</div>
-							<%= submit_tag "Import", :class => "btn btn-success col-md-12 col-xs-12" %>
+							<%= submit_tag "Import", :class => "btn btn-success col-md-12 col-xs-12", :data => {:remote => true} %>
 							<% end %>
 
 						</div>
@@ -166,7 +166,7 @@
 				<div id="success"></div>
 			</div>
 			<div class="modal-footer c_modal-footer">
-				<%= link_to  "Ok", ssh_keys_path, :class => "btn btn-success", :target => "_self" %>
+				<%= link_to  "Ok", ssh_keys_path, :class => "btn btn-success", :data => {:remote => true} %>
 			</div>
 		</div>
 		<!-- /.modal-content -->

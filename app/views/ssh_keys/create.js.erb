@@ -15,5 +15,5 @@
 **/
 var selected_entity = '#sshkey_postfinish_popup';
 $("#success").html('<%= @success %>');
+$("#create_ssh").modal({backdrop : false,keyboard: false,show : true});
 $(selected_entity).modal({show : true});
-$('#create-ssh').modal('hide');

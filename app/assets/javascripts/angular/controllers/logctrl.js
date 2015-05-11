@@ -14,20 +14,14 @@
 ** limitations under the License.
 */
 app.controller("LogCtrl", ["$scope", "socket", "$location", "$rootScope", "LogStackLimit",
-
 function($scope, socket, $location,  $rootScope, LogStackLimit) {
     $scope.logs = [];
     $scope.total = 0;
     $scope.l_total = 0;
     $scope.bookName = "";
-    $scope.spinneractive = true;
     $scope.listOfOptions = $scope.books;
-
-  $scope.selectedItemChanged = function(){
-    $scope.calculatedValue = 'You selected number ' + $scope.selectedItem;
-  };
-
     $scope.sendmessage = function(data) {
+        alert ('loaded logctrl');
         $scope.logs = [];
         $scope.bookName = data;
         socket.emit('message', data);

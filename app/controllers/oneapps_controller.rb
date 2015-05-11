@@ -14,10 +14,8 @@
 ## limitations under the License.
 ##
 class OneappsController < ApplicationController
-
   respond_to :html, :js
   include OneappsHelper
-  include MarketplaceHelper
 
   before_action :stick_keys, only: [:index]
 
@@ -26,41 +24,7 @@ class OneappsController < ApplicationController
     @assembly
   end
 
-  def logs
-    if user_in_cookie?
-      @com_books = []
-      @socketURL = Rails.configuration.socket_url
-      appid = params["appkey"]
-      assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
-      @appname = assembly.name + "." + assembly.components[0][0].inputs[:domain]
-
-      assembly.components.each do |com|
-        if com != nil
-          com.each do |c|
-            com_type = c.tosca_type.split(".")
-            @com_books << c.name + "-" + com_type[2]
-          end
-        end
-      end
-    else
-      redirect_to signin_path
-    end
-  end
-
-  def runtime
-    if user_in_cookie?
-      appid = params["appkey"]
-      assembly=GetAssembly.perform(appid,force_api[:email],force_api[:api_key])
-      if assembly.class != Megam::Error
-        @appname = assembly.name + "." + assembly.components[0][0].inputs[:domain]
-      else
-        @appname = nil
-      end
-    else
-      redirect_to signin_path
-    end
-  end
-
+=begin
   def services
     appid = params["appkey"]
   end
@@ -160,16 +124,5 @@ class OneappsController < ApplicationController
       end
     end
   end
-
-  def lcapp
-    @id = params[:id]
-    @name = params[:name]
-    @command = params[:command]
-    respond_to do |format|
-      format.js {
-        respond_with(@id, @name, @command, :layout => !request.xhr? )
-      }
-    end
-  end
-
+=end
 end

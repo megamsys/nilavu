@@ -34,21 +34,13 @@ class PasswordResetsController < ApplicationController
   end
 
   def update
-    acc_obj = Accounts.new
-    @acc = acc_obj.find_by_password_reset_key(params[:id], params[:email])
+    account = Accounts.new.find_by_password_reset_key(params[:id], params[:email])
+    redirect_to signin_path, :alert => "Password reset has expired." unless account['password_reset_sent_at'] < 2.hours.ago
 
-    if @acc['password_reset_sent_at'] < 2.hours.ago
-      redirect_to signin_path, :alert => "Password reset has expired."
-    elsif true
-      update_options = { "password" => acc_obj.password_encrypt(params[:password]), "password_confirmation" => user_obj.password_encrypt(params[:password_confirmation]) }
-      #res_update = acc_obj.update_columns(update_options, params[:email])
-      update = acc_obj.update(update_options, params[:email])
-
-      ######ALERT: YET TO BE TESTED -  SINCE MAIL FUNCTIONALITY WAS BROKEN!!!!#######
-
+    update_options = { "password" => account.password_encrypt(params[:password]), "password_confirmation" => user_obj.password_encrypt(params[:password_confirmation]) }
+    update = account.update(update_options, params[:email]) do
+       #email
       redirect_to root_url, :notice => "Password has been reset!"
-    else
-      render :edit
     end
   end
 end
