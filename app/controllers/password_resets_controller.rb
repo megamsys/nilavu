@@ -13,18 +13,25 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
+
+require 'bcrypt'
+
 class PasswordResetsController < ApplicationController
-
+ 
+ include BCrypt
+ 
   skip_before_action :require_signin, only: [:edit, :create, :update]
-
   ##if the email doesn't exist in our system we ask to signup.
   ##if not, we pull the info of the user and do an account update.
   def create
-    my_account = Accounts.new
-    #redirect_to signup_path, :flash => { :error => "Your email has gone fishing! Please sign up."} and return if !my_account.dup?(params[:email])
-    puts params[:email]
-    my_account.send_password_reset(params[:email]) do
+    account = Accounts.new.find_by_email(params[:email])
+    params[:password_reset_key] = SecureRandom.urlsafe_base64
+    params[:password_reset_sent_at] = "#{Time.zone.now}"
+    params[:api_key] = account.api_key
+    account.update(params) do
+      UserMailer.reset(account).deliver_now
     end
+
   end
 
   def edit
@@ -34,12 +41,14 @@ class PasswordResetsController < ApplicationController
   end
 
   def update
+    puts params[:id], params[:email]
     account = Accounts.new.find_by_password_reset_key(params[:id], params[:email])
+    puts account
     redirect_to signin_path, :alert => "Password reset has expired." unless account['password_reset_sent_at'] < 2.hours.ago
 
     update_options = { "password" => account.password_encrypt(params[:password]), "password_confirmation" => user_obj.password_encrypt(params[:password_confirmation]) }
     update = account.update(update_options, params[:email]) do
-       #email
+    #email
       redirect_to root_url, :notice => "Password has been reset!"
     end
   end

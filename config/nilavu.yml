@@ -6,14 +6,9 @@ api:
   private_key: megamgateway.key
 
 storage:
-  #type :s3
-  #server_url: https://s3-ap-southeast-1.amazonaws.com
   type: riak
   server_url: localhost
-  cloud_tool_bucket: cloudtools
-  cloud_keys_bucket: cloudaccesskeys
   ssh_files_bucket: sshfiles
-
 
 varai:
   host: localhost
@@ -21,7 +16,8 @@ varai:
 
 support:
   email: support@megam.io
-  password: 
+  password:
+
 
 auth:
   fb_client_id:

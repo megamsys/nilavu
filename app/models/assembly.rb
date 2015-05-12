@@ -40,6 +40,12 @@ class Assembly < BaseFascade
     yield self  if block_given?
     return self
   end
+  
+  def update(api_params, &block)
+    asm = empty_assembly
+    
+  end
+  
 
  def build(params)
   mkp = JSON.parse(params["mkp"])
@@ -66,6 +72,20 @@ class Assembly < BaseFascade
 
 
  private
+ 
+ def empty_assembly
+   {
+      "name"=>nil,
+      "tosca_type"=> nil,
+      "components"=> [],
+      "requirements"=> [],
+      "policies"=>[],
+      "inputs"=> [],
+      "outputs"=>[],
+      "operations"=>[],
+      "status" => nil,
+    }
+ end
 
  def bld_toscatype(mkp)
    tosca_suffix = DEFAULT_TOSCA_SUFFIX
@@ -87,12 +107,12 @@ class Assembly < BaseFascade
 def bld_policies(params)
     mkp = JSON.parse(params["mkp"])
     com = []
-    if params[:appname] != nil && params[:servicename] != nil
+    if params[:launch_name] != nil && params[:servicename] != nil
       value = {
         :name=>"bind policy",
         :ptype=>"colocated",
         :members=>[
-          "#{params[:name]}.#{params[:domain]}/#{params[:appname]}",
+          "#{params[:name]}.#{params[:domain]}/#{params[:launch_name]}",
           "#{params[:name]}.#{params[:domain]}/#{params[:servicename]}"
         ]
       }
@@ -103,8 +123,8 @@ def bld_policies(params)
 
   #In future lot of inputs add this method
   def bld_inputs(params)
-    @inputs << {"key" => "sshkey", "value" => params[:ssh_key_name]} if params[:ssh_key_name]
     @inputs << {"key" => "domain", "value" => params[:domain]} if params.has_key?(:domain)
+    @inputs << {"key" => "sshkey", "value" => params[:ssh_keypair_name]} if params[:ssh_keypair_name]
   end
 
  #recursively dig assembly by populating components.

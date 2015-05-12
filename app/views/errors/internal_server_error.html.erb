@@ -14,53 +14,43 @@
 ** limitations under the License.
 -->
 <% provide(:title, 'Internal Server Error') %>
-
 <div id="content">
-	<div class="container">
-		<div class='row'>
-			<div class='col-lg-10 colmd-10'>
-				<h2>We flunked.</h2>
-				<p>
-					<a href='javascript:history.back();'>Go Back</a> to the previous page, return to the <a href='/'>home page or <a href="mailto:support@megam.io?subject=Help me">Email Us</a> about this problem.
+  <div class="container">
+    <div class='row'>
+      <div class='col-lg-10 colmd-10'>
+        <h2>We flunked.</h2>
+        <p>
+          <a href='javascript:history.back();'>Go Back</a> to the previous page, return to the <a href='/'>home page or <a href="mailto:support@megam.io?subject=Help me">Email Us</a> about this problem.
 				</p>
-				<%= image_tag "specman.png", :alt => "error"%>
-				<br>
-				</br>
-				<div class="panel panel-success">
-					<div class="panel-heading">
-						<b>Site Links</b>
-					</div>
-					<div class="panel-content">
-						<div class="alert alert-warning">
-							<ul class="list-group">
-								<li class="list-group-item">
-									We track errors automaticallys.
+          <%= image_tag "https://www.filepicker.io/api/file/hgAYUB9NSgiJUnWpWZ65", :alt => "error"%>
+          <br>
+        </br>
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <b>Site Links</b>
+          </div>
+          <div class="panel-content">
+            <div class="alert alert-warning">
+              <ul class="list-group">
+                <li class="list-group-item">
+                  We track errors automaticaly.
 								</li>
-								<li class="list-group-item">
-									Successfully sent a twitter message to <a href="http://twitter.com/indykish" target="_blank">@indykish</a>
-
+                <li class="list-group-item">
+                  Successfully sent a hip chat message to <a href="http://twitter.com/indykish" target="_blank">@indykish</a>
+                </li>
+                <li class="list-group-item">
+                  A support problem was <a href="http://support.megam.io" target="_blank">registered</a> via email.
 								</li>
-								<li class="list-group-item">
-									<b>Note:</b>Twitter filters duplicate messages.
-								</li>
-								<li class="list-group-item">
-									A support problem was <a href="http://support.megam.co" target="_blank">registered</a> via email.
-								</li>
-							</ul>
-						</div>
-						<h4>&nbsp;&nbsp;<%= link_to "    Documentation",  "http://www.gomegam.com/docs", { :target => '_blank'}  %></h4>
-
-						<h4>&nbsp;&nbsp;<%= link_to "    Gomegam.com",  "http://www.gomegam.com", { :target => '_blank'}  %></h4>
-
-						<h4>&nbsp;&nbsp;<%= link_to "    Blog",   "http://blog.megam.co", { :target => '_blank'} %></h4>
-
-						<h4>&nbsp;&nbsp;<%= link_to "    Code",  "https://github.com/indykish", { :target => '_blank'} %></h4>
-						<h4>&nbsp;&nbsp;<%= link_to"    Contact Support", "http://support.megam.co",:target => "_blank" %> </h4>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+              </ul>
+            </div>
+            <h4>&nbsp;&nbsp;<%= link_to "    Documentation",  "http://docs.megam.io", { :target => '_blank'}  %></h4>
+            <h4>&nbsp;&nbsp;<%= link_to "    Megam.io",  "https://www.megam.io", { :target => '_blank'}  %></h4>
+            <h4>&nbsp;&nbsp;<%= link_to "    Code",  "https://github.com/indykish", { :target => '_blank'} %></h4>
+            <h4>&nbsp;&nbsp;<%= link_to "    Online Chat", "http://bit.ly/megamchat",:target => "_blank" %> </h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <%= render 'layouts/footer' %>

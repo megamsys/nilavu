@@ -63,7 +63,7 @@ class Accounts < BaseFascade
   #pulls the account object for an email
   def find_by_email(email)
     res = MegamRiak.fetch("accounts", email)
-
+    puts res
     if res.class != Megam::Error && !res.content.data.nil?
       @email = res.content.data["email"]
       @password = res.content.data["password"]
@@ -125,32 +125,14 @@ class Accounts < BaseFascade
   def find_by_password_reset_key(password_reset_key, email)
     result = nil
     res = MegamRiak.fetch("accounts", email)
-    puts res
     if (res.class != Megam::Error) && (res.content.data["password_reset_key"] == "#{password_reset_key}")
     result = res.content.data
+    puts result
     end
     result
   end
 
-  def send_password_reset(email)
-    account = self.find_by_email(email)
-    update_options = {}
-    update_options[:email] = email
-    update_options[:password_reset_key] = generate_token
-    update_options[:password_reset_sent_at] = "#{Time.zone.now}"
-    update_options[:api_key] = account.api_key
-    update = self.update(update_options)
-    if update    puts "------------------------------------------------------------===="
 
-      UserMailer.password_reset(account).deliver_now
-    else
-      puts "API update: Something went wrong!"
-    end
-  end
-
-  def generate_token
-    SecureRandom.urlsafe_base64
-  end
 
   #a private helper function that builds the hash.
   private

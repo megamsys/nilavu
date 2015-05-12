@@ -18,7 +18,7 @@ gem 'remotipart', "~> 1.2.1"
 #Added //= require jquery.remotipart in application.js
 
 #fog
-gem 'fog', "~> 1.29.0"
+gem 'fog', "~> 1.30.0"
 gem 'opennebula', "~> 4.12.1"
 
 # security and oauth

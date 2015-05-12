@@ -67,7 +67,7 @@ class Components < BaseFascade
 
   def set_app_params(params)
     mkp = JSON.parse(params["mkp"])
-    @name = params[:appname]
+    @name = params[:launch_name]
     @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["predef"]}"
   end
 
@@ -80,7 +80,7 @@ class Components < BaseFascade
 
   def set_addon_params(params)
     mkp = JSON.parse(params["mkp"])
-    @name = params[:appname]
+    @name = params[:launch_name]
     @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["predef"]}"
   end
 

@@ -87,7 +87,7 @@
 							<%= form_tag ssh_keys_path, multipart: true, :method => :post, :remote => true do %>
 							<div class="form-group">
 								<label for="ssh-key_name">Name</label>
-								<%= text_field_tag 'ssh_key_name', nil, :class=> 'form-control', placeholder: 'Enter a key pair name to save', :required => true %>
+								<%= text_field_tag 'ssh_keypair_name', nil, :class=> 'form-control', placeholder: 'Enter a key pair name to save', :required => true %>
 								<input type="hidden" name="key_type" value="RSA">
 								<input type="hidden" name="key_bit" value="2048">
 							</div>

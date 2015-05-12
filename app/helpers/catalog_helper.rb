@@ -27,8 +27,8 @@ module CatalogHelper
       else
         assembly.components.each do |one_component|
           one_component.each do |c|
-            beautify_cockpit << ("logos/"+ one_component.tosca_type.­split('.').last­.delete('.­!?,') + ".png")
-          end
+            beautify_cockpit << ("logos/"+ (c.tosca_type.clone.split('.').last.delete('.­!?,')) + ".png") unless c.nil?
+          end unless one_component.nil?
         end
       end
     beautify_cockpit

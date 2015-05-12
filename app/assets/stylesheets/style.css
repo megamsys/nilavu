@@ -2915,3 +2915,7 @@ input.placeholder, textarea.placeholder {
 .form-bordered .form-control {
     margin: 0;
 }
+
+#email .container{
+	background-color: red;
+}

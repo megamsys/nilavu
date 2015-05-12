@@ -14,42 +14,23 @@
 ## limitations under the License.
 ##
 class UserMailer < ApplicationMailer
-
-  #an email gets formatted to be sent, the template needs email address hence we expose account.
+  # an welcome email gets formatted to be sent
   def welcome(account)
-    @account = account
-    if "#{Rails.configuration.support_email}".chop!
-      begin
-         mail(:to => account.email, :subject => "Hey, Launch your first app")
-         @account
-      rescue Net::SMTPError => e
-        logger.debug "--> Failed to send a welcome email for #{account.email}."
-      end
+    wrap_mail({:account =>  account, :subject => 'Hey, Launch your first app' }) do
+      Rails.logger.debug "> Welcome email:[#{account.email}] delivered. "
+    end
+  end
+
+  def reset(account)
+    wrap_mail(:account => account, subject: 'You have fat fingers. No worries.') do
+      Rails.logger.debug "Reset email:[#{account.email}]."
     end
   end
 
   def verify
-    #@url  = "https://console.megam.io/verified_email.#{@random_token}"
-  end
-
-  def reset(account)
-    @account = account
-
-    if "#{Rails.configuration.support_email}".chop!
-      begin
-         mail :to => account.email, :subject => "You have fat fingers. No worries."
-      rescue Net::SMTPError => e
-        logger.debug "--> Failed to send a password reset email for #{account.email}."
-      end
-    end
+    # @url  = "https://console.megam.io/verified_email.#{@random_token}"
   end
 
   def balance
   end
-
-  def error(error)
-    @error = error
-    mail(:from => error[:email], :to => "support@megam.io", :subject => "#{error[:email]} :console.megam.io, #{error[:message]}")
-  end
-
 end

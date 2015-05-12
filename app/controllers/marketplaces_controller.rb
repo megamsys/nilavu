@@ -49,9 +49,23 @@ class MarketplacesController < ApplicationController
         @mkp['sversion'] = versions[0]
         @mkp['sversion'] = params['version'] if params.key?('version')
         @mkp['versions'] = versions
+        
+        assemblies_grouped = Assemblies.new.list(params).assemblies_grouped
+        @apps = []
+        assemblies_grouped["APP"].flatten.each do |one_assembly|
+          one_assembly.components.flatten.map do |u| 
+            if u!=nil 
+              u.each do |com| 
+                @apps << {"name" => "#{one_assembly.name}.#{parse_key_value_pair(com.inputs, 'domain')}/#{com.name}", "aid" => one_assembly.id, "cid" => com.id } 
+              end
+            end
+          end
+        end      
+      
+       
         respond_to do |format|
           format.js do
-            respond_with(@mkp, @ssh_keys, layout: !request.xhr?)
+            respond_with(@mkp, @ssh_keys, @apps, layout: !request.xhr?)
           end
         end
       end
@@ -62,30 +76,13 @@ class MarketplacesController < ApplicationController
   # performs ssh creation or using existing and creating an assembly at the end.
   def create
     logger.debug '> Marketplaces: create.'
-    mkp = JSON.parse(params['mkp'])
-    case params['sshoption']
-    when Sshkeys::LAUNCH_CREATE
-      params[:ssh_key_name] = params['sshcreatename'] + '_' + params[:name]
-      Sshkeys.new.create(params)
-    when Sshkeys::LAUNCH_IMPORT
-      params[:ssh_key_name] = params[:sshuploadname] + '_' + params[:name]
-      Sshkeys.new.import(params)
-    when Sshkeys::LAUNCH_EXISTING
-      params[:ssh_key_name] = params[:sshexistname]
-    end
-
-    case params['scm_name']
-    when Scm::GITHUB
-      params[:scmtoken] =  session[:github]
-      params[:scmowner] =  session[:git_owner]
-    when Scm::GOGS
-      params[:scmtoken] =  session[:gogs_token]
-      params[:scmowner] =  session[:gogs_owner]
-    end
-
+    mkp = JSON.parse(params[:mkp])
+    Sshkeys.new.create_or_import(params)
+    setup_scm(params)
     res = Assemblies.new.create(params) do
       # this is a successful call
     end
+    Assembly.new.update(params) if params.has_key?(:bindedAPP) 
     @mkp_grouped = Marketplaces.instance.list(params).mkp_grouped
   end
 
@@ -268,5 +265,20 @@ class MarketplacesController < ApplicationController
     end
     res_msg = 'success'
     err_msg = nil
-  end  
+  end
+
+  private
+
+  def setup_scm(params)
+    case params[:scm_name]
+    when Scm::GITHUB
+      params[:scmtoken] =  session[:github]
+      params[:scmowner] =  session[:git_owner]
+    when Scm::GOGS
+      params[:scmtoken] =  session[:gogs_token]
+      params[:scmowner] =  session[:gogs_owner]
+    else
+      #we ignore it.  
+    end
+  end
 end
