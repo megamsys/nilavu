@@ -20,6 +20,8 @@
   <%= hidden_field_tag 'source', nil, placeholder: "", :class =>"form-control", :value => @mkp_source  %>
   <%= hidden_field_tag 'servicename', nil, placeholder: "", :class =>"form-control", :value =>  launch_name %>
   <%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
+  <%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
+
   <div class="row">
     <div class="col-md-12"> <span class="app_left_name">Description</span>
       <P class="model-description"><%= plan['description'] %><a href="http://docs.megam.io/v1.0/docs/postgresql" target="_blank">View Docs</a></P>

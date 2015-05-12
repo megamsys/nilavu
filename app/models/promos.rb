@@ -13,29 +13,18 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class Balances < BaseFascade
+class Promos < BaseFascade
 
-  attr_reader :balance
+
 
   def initialize()
-     @balance = {}
   end
 
-  def show(api_params, &block)
-    raw = api_request(api_params, BALANCES, SHOW)
-    @balance = raw[:body].lookup(api_params["email"])
-    yield self  if block_given?
-    return self
-  end
-
-  def update(api_params, &block)
-    api_request(api_params, BALANCES, UPDATE)
-    yield self if block_given?
-    return self
-  end
-
-  def fetch_discount(api_params, &block)
-    promo = api_request(api_params, DISCOUNTS, GET)
+  def get(api_params, &block)
+    promo = api_request(api_params, PROMOS, GET)
+    puts "--------------PROMO DATA--------------------"
+    puts promo
+    puts "-------------------------------"
     yield self if block_given?
     return self
   end

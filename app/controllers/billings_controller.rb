@@ -57,5 +57,18 @@ class BillingsController < ApplicationController
       end
     end
   end
+  
+  def promo
+    puts "it entered here--->"
+    puts params[:code]
+    promo_amt = Promos.new.fetch_discount(params[:code])
+    puts "Priting the promo code data----------------------------------------->>"
+    puts promo_amt.amount
+    puts "-----------------------------------------------------------------------"
+     respond_to do |format|
+        format.html {redirect_to billings_path}
+        format.js {render :js => ""}
+     end
+  end
 
 end
