@@ -23,24 +23,33 @@
 			<%= render :partial => "users/topright_icons" %>
 		</div>
 	</div>
+
 	<div class="row">
 		<div class="margin_30 ">
 			<div class=" card-details ">
-				<form>
-					<div class="row">
-						<div class="form-group col-md-6 col-sm-6 ">
-							<h1>Total Balance</h1>
-							<h1 class="col-md-offset-6"><%= @bill.balance.credit %>$</h1>
-						</div>
-						<div class="form-group col-md-4 col-sm-6 ">
-							<label class="col-md-7 col-sm-12 col-xs-12 row" for="exampleInputName2">Promo Code :</label>
-							<input type="text" placeholder="" id="exampleInputName2" class="form-control-card-details col-md-6 col-xs-12 col-sm-12">
-						</div>
-						<div class="form-group col-md-2 col-sm-6 ">
-							<a href="#">APPLY</a>
-						</div>
+
+				<div class="row">
+					<div class="form-group col-md-6 col-sm-6 ">
+						<h1>Total Balance</h1>
+						<h1 class="col-md-offset-6"><%= @bill.balance.credit %>$</h1>
 					</div>
-				</form>
+
+					<%= form_tag billings_promo_path, multipart: true, :id => "megamform", :novalidate => "novalidate", :method => "post", :remote => true  do %>
+
+					<div class="form-group col-md-4 col-sm-6 ">
+						<label class="col-md-7 col-sm-12 col-xs-12 row" for="exampleInputName2">Promo Code :</label>
+						<!--	<input type="text" placeholder="" id="exampleInputName2" class="form-control-card-details col-md-6 col-xs-12 col-sm-12"> -->
+						<%= text_field_tag 'code', nil, :required => true, :id => 'code', :class => 'form-control-card-details col-md-6 col-xs-12 col-sm-12', placeholder: "", :data => {:placement=>"right"} %>
+
+					</div>
+
+					<div class="form-group col-md-2 col-sm-6 ">
+						<!-- <a href="#">APPLY</a> -->
+						<%= submit_tag "APPLY", :class => "btn btn-success col-md-10 col-xs-10 a_override" %>
+						<% end%>
+					</div>
+				</div>
+
 				<div class="bottom-divider  settings_top"></div>
 
 				<div class="row ">
@@ -55,7 +64,7 @@
 							order, contact one of our below
 							support staff  by phone or email.
 						</p>
-						<h3><i class="fa fa-phone-square"></i> +91-9840559300 / <a href="mailto:support@megam.io"> <i class="fa fa-envelope-o"></i> help@megam.io</a></h3>
+						<h3><i class="fa fa-phone-square"></i> +1-800-618-6813 / <a href="mailto:support@megam.io"> <i class="fa fa-envelope-o"></i> support@megam.io</a></h3>
 					</div>
 				</div>
 

@@ -46,6 +46,8 @@ Nilavu::Application.routes.draw do
   get "/500", :to => "errors#internal_error"
   # A visual designer route ? for what ?
   match '/varai', to: 'cockpit#varai', via: [:get]
+  
+  match '/billings_promo', to: 'billings#promo', via: [:get, :post]
 
   #=====github
   match '/auth/github/callback', :to => 'marketplaces#store_github', via: [:get, :post]

@@ -13,44 +13,63 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<% provide(:title, 'Internal Server Error') %>
-<div id="content">
-  <div class="container">
-    <div class='row'>
-      <div class='col-lg-10 colmd-10'>
-        <h2>We flunked.</h2>
-        <p>
-          <a href='javascript:history.back();'>Go Back</a> to the previous page, return to the <a href='/'>home page or <a href="mailto:support@megam.io?subject=Help me">Email Us</a> about this problem.
-				</p>
-          <%= image_tag "https://www.filepicker.io/api/file/hgAYUB9NSgiJUnWpWZ65", :alt => "error"%>
-          <br>
-        </br>
-        <div class="panel panel-success">
-          <div class="panel-heading">
-            <b>Site Links</b>
-          </div>
-          <div class="panel-content">
-            <div class="alert alert-warning">
-              <ul class="list-group">
-                <li class="list-group-item">
-                  We track errors automaticaly.
-								</li>
-                <li class="list-group-item">
-                  Successfully sent a hip chat message to <a href="http://twitter.com/indykish" target="_blank">@indykish</a>
-                </li>
-                <li class="list-group-item">
-                  A support problem was <a href="http://support.megam.io" target="_blank">registered</a> via email.
-								</li>
-              </ul>
+<!--
+** Copyright [2013-2015] [Megam Systems]
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+** http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+-->
+<%= render 'layouts/header' %>
+<div class="container main-cover">
+  <div class="row">
+      <div id="content">
+        <div class="container">
+          <div class='row'>
+            <div class='col-lg-10 colmd-10'>
+              <h2>We flunked.</h2>
+              <p>
+                <a href='javascript:history.back();'>Go Back</a> to the previous page, return to the <a href='/'>home page or <a href="mailto:support@megam.io?subject=Help me">Email Us</a> about this problem.
+      				</p>
+                <%= image_tag "https://www.filepicker.io/api/file/hgAYUB9NSgiJUnWpWZ65", :alt => "error"%>
+                <br>
+              </br>
+              <div class="panel panel-success">
+                <div class="panel-heading">
+                  <b>Site Links</b>
+                </div>
+                <div class="panel-content">
+                  <div class="alert alert-warning">
+                    <ul class="list-group">
+                      <li class="list-group-item">
+                        We track errors automaticaly.
+      								</li>
+                      <li class="list-group-item">
+                        Notified hipchat support room. <a href="http://bit.ly/megamchat" target="_blank">@indykish</a>
+                      </li>
+                      <li class="list-group-item">
+                        A support problem was <a href="http://support.megam.io" target="_blank">registered</a> via email.
+      								</li>
+                    </ul>
+                  </div>
+                  <h4>&nbsp;&nbsp;<%= link_to "    Documentation",  "http://docs.megam.io", { :target => '_blank'}  %></h4>
+                  <h4>&nbsp;&nbsp;<%= link_to "    Megam.io",  "https://www.megam.io", { :target => '_blank'}  %></h4>
+                  <h4>&nbsp;&nbsp;<%= link_to "    Code",  "https://github.com/indykish", { :target => '_blank'} %></h4>
+                  <h4>&nbsp;&nbsp;<%= link_to "    Online Chat", "http://bit.ly/megamchat",:target => "_blank" %> </h4>
+                </div>
+              </div>
             </div>
-            <h4>&nbsp;&nbsp;<%= link_to "    Documentation",  "http://docs.megam.io", { :target => '_blank'}  %></h4>
-            <h4>&nbsp;&nbsp;<%= link_to "    Megam.io",  "https://www.megam.io", { :target => '_blank'}  %></h4>
-            <h4>&nbsp;&nbsp;<%= link_to "    Code",  "https://github.com/indykish", { :target => '_blank'} %></h4>
-            <h4>&nbsp;&nbsp;<%= link_to "    Online Chat", "http://bit.ly/megamchat",:target => "_blank" %> </h4>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 <%= render 'layouts/footer' %>
