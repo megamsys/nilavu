@@ -29,8 +29,10 @@ var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/
 insertAt(selected_entity, to_insert_content);
 
 $('#replace_image').empty();
-$('#replace_image').html('<img class="pull-left" src=<%= @mkp["catalog"][:logo] %>> <h4 class="pull-left app_header-title"><%= @mkp["catalog"][:description] %></h4>');
+$('#replace_image').html('<img class="pull-left" src=<%= @mkp["catalog"][:logo] %>>');
 
 $('#replace_version_tag').empty();
 $('#replace_version_tag').html(' <%= escape_javascript(select_tag "version", options_for_select(@mkp["versions"], :selected=>@mkp["sversion"]), :class =>"form-control input-sm", :data => { :remote => true, :url => marketplace_path(:id => @mkp["name"] ) }) %>');
-$("#app-1").modal({backdrop : false,keyboard: false,show : true});
+$("#app-1").modal('show');
+
+
