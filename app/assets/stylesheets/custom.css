@@ -1073,7 +1073,7 @@ background-repeat: no-repeat;
 	margin-top: 30px;
 }
 .stpack {
-	
+
 	height: 100px;
 }
 .app_inner {
@@ -1176,7 +1176,7 @@ background-repeat: no-repeat;
 }
 .overview-git label {
 	/*float: right;*/
-	
+
 	color: #9496a8;
 }
 .overview-top span {
@@ -1306,11 +1306,11 @@ a.btn-success:hover {
 	margin-top: 30px;
 }
 
-/* Custom, iPhone Retina */ 
+/* Custom, iPhone Retina */
 @media only screen and (min-width : 320px) {
 }
 
-/* Extra Small Devices, Phones */ 
+/* Extra Small Devices, Phones */
 @media only screen and (min-width : 480px) {
 /*	.c_icon
 	{
@@ -1345,7 +1345,7 @@ position: absolute !important;
 
 
 /* custom validation for mobile*/
-/* Custom, iPhone Retina */ 
+/* Custom, iPhone Retina */
 @media only screen and (max-width : 480px) {
  .login .tooltip {
  left: auto !important;
@@ -1760,11 +1760,11 @@ position: absolute !important;
   position: relative;
   margin: 20px 0;
   padding-left:40px;
-  
+
   font-family:arial;
 }
 .radioP:first-child {
- margin:0 0 20px 0; 
+ margin:0 0 20px 0;
 }
 
 input[type="radio"] {
