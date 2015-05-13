@@ -71,7 +71,7 @@
 						<div class="app_inner brad-3 jcorgFilterTextParent">
 							<a data-toggle="modal" href="#app-1">
 							<div class="stpack ">
-								<%= link_to marketplace_path(:id => mkp.name), 'data-remote' => "true", :class => "link_img hint  hint--bottom", 'data-hint' => "Launch ! #{mkp.name.split("-").last}" do %>
+								<%= link_to marketplace_path(:id => mkp.name), 'data-remote' => "true", :class => "link_img hint  hint--bottom", 'data-hint' => "Launch  #{mkp.name.split("-").last}" do %>
 								<%= image_tag mkp.catalog[:logo], :alt => mkp.name %>
 								<% end %>
 							</div> </a>
@@ -131,9 +131,9 @@
 </script>
 
 <!-- App1 modal starts here -->
-<div id="app-1" class="modal fade" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="app-1" tabindex="-1" role="basic" aria-hidden="true">
 	<div class="modal-dialog modal-full" style="max-width:900px;">
-		<div class="modal-content">
+		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<div class="row">
 					<div class="col-sm-6 col-xs-12">
@@ -172,7 +172,7 @@
 				<h4 class="modal-title">Dew</h4>
 			</div>
 			<div class="modal-body text-center">
-				L launched successfully.
+				 launched successfully.
 			</div>
 			<div class="modal-footer c_modal-footer">
 				<%= link_to  "Ok", "#", :class => "btn btn-success", :target => "_self" %>
