@@ -33,6 +33,12 @@ class Components < BaseFascade
     yield self if block_given?
     return self
   end
+  
+  def update(api_params, &block)    
+    api_request(bld_update_params(api_params), COMPONENTS, UPDATE)
+    yield self if block_given?
+    return self
+  end
 
   def prune
     components.take_while { |one_component| (one_component.nil? || one_component.is_a?(Megam::Error)) }
@@ -64,23 +70,52 @@ class Components < BaseFascade
     }]
     hash
   end
+  
+  def bld_update_params(params)
+    com = empty_component    
+    com["related_components"] << "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}" if params.has_key?(:bindedAPP) 
+    com[:email] = params["email"]
+    com[:api_key] = params["api_key"]
+    com["id"] = "#{params[:bindedAPP].split(':')[2]}"
+    com
+  end
+
+private
+
+  def empty_component
+    {
+      "name"              => nil,
+      "tosca_type"        => nil,
+      "inputs"            => [],       # fields - domain, port, username, password, version, source, design_inputs { id, x, y, z, wires }, service_inputs: { dbname, dbpassword}
+      "outputs"           => [],
+      "artifacts" => {
+        "artifact_type" => "",
+        "content" => "",
+        "artifact_requirements" => []
+      },
+      "related_components" => [],
+      "operations" =>  [],
+      "status" => nil
+    }
+  end
 
   def set_app_params(params)
     mkp = JSON.parse(params["mkp"])
-    @name = params[:launch_name]
+    @name = params[:componentname]
     @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["predef"]}"
   end
 
   def set_service_params(params)
     mkp = JSON.parse(params["mkp"])
-    @name = params[:servicename]
+    @name = params[:componentname]
     @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["predef"]}"
     set_postgres_inputs(params) unless mkp["predef"] != "postgresql"
+    @related_components << "#{params[:bindedAPP].split(':')[0]}" if params.has_key?(:bindedAPP)
   end
 
   def set_addon_params(params)
     mkp = JSON.parse(params["mkp"])
-    @name = params[:launch_name]
+    @name = params[:componentname]
     @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["predef"]}"
   end
 
