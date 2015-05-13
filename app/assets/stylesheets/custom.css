@@ -712,7 +712,7 @@ background-repeat: no-repeat;
 	margin-right: 5px;
 	margin-left: 5px;
 }
-}
+
 .portlet-title {
 	border: 2px solid #70b1ee;
 }
@@ -1325,8 +1325,7 @@ a.btn-success:hover {
  padding-left: 15px;
 }
  .page-sidebar-menu > li > a {
- position: absolute;
-!important;
+position: absolute !important;
 }
 .label-profile {
  padding-top: 23px !important;
