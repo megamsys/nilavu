@@ -17,7 +17,7 @@
   <% plan        = match_plan_for(@mkp,version) %>
   <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
   <%= hidden_field_tag 'source', nil, placeholder: "", :class =>"form-control", :value => @mkp_source  %>
-  <%= hidden_field_tag 'servicename', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
+  <%= hidden_field_tag 'componentname', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
   <%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
   <%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
   <div class="row">
@@ -28,7 +28,7 @@
         <div class="row">
           <div class="col-xs-6">
             <div class="form-group">
-              <%= text_field_tag 'name', nil, placeholder: 'Service Name', :class =>"form-control", :value => launch_namegen %>
+              <%= text_field_tag 'assemblyname', nil, placeholder: 'Service Name', :class =>"form-control", :value => launch_namegen %>
             </div>
           </div>
           <div class="col-xs-6">

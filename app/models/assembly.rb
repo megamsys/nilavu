@@ -41,11 +41,21 @@ class Assembly < BaseFascade
     return self
   end
   
-  def update(api_params, &block)
-    asm = empty_assembly
-    
+  def update(api_params, &block)   
+    api_request(bld_update_params(api_params), ASSEMBLY, UPDATE)
+    yield self if block_given?
+    return self
   end
   
+  def bld_update_params(params)
+    asm = empty_assembly    
+    params = params.merge({"policymembers" => "#{params[:bindedAPP].split(':')[0]}"}) if params.has_key?(:bindedAPP) 
+    asm["policies"] = bld_policies(params) if params.has_key?(:bindedAPP) 
+    asm[:email] = params["email"]
+    asm[:api_key] = params["api_key"]
+    asm["id"] = "#{params[:bindedAPP].split(':')[1]}"
+    asm
+  end
 
  def build(params)
   mkp = JSON.parse(params["mkp"])
@@ -54,9 +64,11 @@ class Assembly < BaseFascade
   bld_components(params) unless mkp["cattype"] == Assemblies::DEW
   bld_requirements(params)
   bld_inputs(params)
+  
+  params = params.merge({"policymembers" => "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}"}) 
 
   [{
-      "name"=>"#{params[:name]}",
+      "name"=>"#{params[:assemblyname]}",
       "tosca_type"=> "#{tosca_type}",
       "components"=> components,
       "requirements"=> @requirements,
@@ -68,7 +80,6 @@ class Assembly < BaseFascade
         }]
 
  end
-
 
 
  private
@@ -105,19 +116,17 @@ class Assembly < BaseFascade
 
 
 def bld_policies(params)
-    mkp = JSON.parse(params["mkp"])
     com = []
-    if params[:launch_name] != nil && params[:servicename] != nil
+    if params.has_key?(:bindedAPP) 
       value = {
         :name=>"bind policy",
         :ptype=>"colocated",
         :members=>[
-          "#{params[:name]}.#{params[:domain]}/#{params[:launch_name]}",
-          "#{params[:name]}.#{params[:domain]}/#{params[:servicename]}"
+          params["policymembers"]
         ]
       }
     com << value
-    end unless mkp["cattype"] == Assemblies::DEW
+    end 
     com
   end
 

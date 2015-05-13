@@ -83,6 +83,7 @@ class MarketplacesController < ApplicationController
       # this is a successful call
     end
     Assembly.new.update(params) if params.has_key?(:bindedAPP) 
+    Components.new.update(params) if params.has_key?(:bindedAPP)
     @mkp_grouped = Marketplaces.instance.list(params).mkp_grouped
   end
 

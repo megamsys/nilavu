@@ -307,7 +307,7 @@ hr {
     width: 100%;
 }
 .page-sidebar-menu > li:last-child > a, .page-sidebar-menu > li.last > a {
-    border-bottom-color: transparent !important;
+   border-bottom-color: transparent !important;*
 }
 .page-sidebar-menu > li > a {
     border: 0 none;

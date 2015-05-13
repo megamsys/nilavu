@@ -22,8 +22,7 @@ a:hover {
 }
 .c_bg_white {
 	background-color: #fff;
-	border-right: 1px solid #e6e6e6;
-	border-bottom: 1px solid #e6e6e6;
+	
 }
 .c_height_5 {
 	min-height: 500px;
@@ -605,7 +604,14 @@ background-repeat: no-repeat;
 }
 .main-cover {
 	border: 1px solid #e6e6e6;
+	border-right: 1px solid #e6e6e6;
+	/*border-bottom: 1px solid #e6e6e6;*/  /* remove side content border-bottom line */
 }
+.c_bg_white_override{
+	border-right: 1px solid #e6e6e6;
+	border-bottom: 1px solid #e6e6e6;
+}
+
 .portlet-body-head {
 	font-size: 16px;
 	color: #a4a6b8;
