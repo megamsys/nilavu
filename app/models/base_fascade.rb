@@ -21,6 +21,8 @@ class BaseFascade
   COMPONENTS        = 'Components'.freeze
   CREDITHISTORIES   = "Credithistories".freeze
   ORGANIZATION      = 'Organizations'.freeze
+  PROMOS            = 'Promos'.freeze
+  DISCOUNTS         = "Discounts".freeze
 
   MARKETPLACES      = "MarketPlace".freeze
   REQUESTS          = "Requests".freeze
@@ -31,6 +33,7 @@ class BaseFascade
   SHOW              = 'show'.freeze
   LIST              = 'list'.freeze
   UPDATE            = 'update'.freeze
+                 
 
   def initialize(skip_gateway_error = false)
    @swallow_404 = skip_gateway_error
