@@ -59,12 +59,13 @@ class BillingsController < ApplicationController
   end
   
   def promo
-    puts "it entered here--->"
-    puts params[:code]
-    promo_amt = Promos.new.fetch_discount(params[:code])
-    puts "Priting the promo code data----------------------------------------->>"
+    params[:email] =  current_user.email
+    params[:api_key] = current_user.api_key
+    promo_amt = Promos.new.show(params)
     puts promo_amt.amount
-    puts "-----------------------------------------------------------------------"
+    params[:credit] = promo_amt.amount
+    bal = Balances.new.update(params)
+    #dis = Discounts.new.create(params)  ##NOTE YET TO WRITE DISCOUNTS CREATE###
      respond_to do |format|
         format.html {redirect_to billings_path}
         format.js {render :js => ""}

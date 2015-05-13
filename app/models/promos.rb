@@ -15,16 +15,16 @@
 ##
 class Promos < BaseFascade
 
-
+attr_reader :amount
 
   def initialize()
   end
 
-  def get(api_params, &block)
-    promo = api_request(api_params, PROMOS, GET)
-    puts "--------------PROMO DATA--------------------"
+  def show(api_params, &block)
+    puts api_params
+    promo = api_request(api_params, PROMOS, SHOW)
     puts promo
-    puts "-------------------------------"
+    @amount = promo[:body].amount
     yield self if block_given?
     return self
   end
