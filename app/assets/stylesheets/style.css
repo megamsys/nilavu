@@ -328,6 +328,15 @@ hr {
     margin-right: 5px;
     text-shadow: none;
 }
+
+.page-sidebar-menu > li > a:hover{
+    color: #4e9de6  !important;
+}
+
+.c_sett_inline > li > a:hover{
+    color: #4e9de6  !important;
+}
+
 .page-sidebar-menu > li.break {
     margin-bottom: 20px;
 }
