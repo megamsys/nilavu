@@ -31,10 +31,11 @@
 				<div class="row">
 					<div class="form-group col-md-6 col-sm-6 ">
 						<h1>Total Balance</h1>
-						<h1 class="col-md-offset-6"><%= @bill.balance.credit %>$</h1>
+						<h1 id="bal" class="col-md-offset-6">$<%= @bill.balance.credit %></h1>
 					</div>
 
 					<%= form_tag billings_promo_path, multipart: true, :id => "megamform", :novalidate => "novalidate", :method => "post", :remote => true  do %>
+					<%= hidden_field_tag 'balance', nil, placeholder: "", :class =>"form-control bals", :value => @bill.balance.credit  %>
 
 					<div class="form-group col-md-4 col-sm-6 ">
 						<label class="col-md-7 col-sm-12 col-xs-12 row" for="exampleInputName2">Promo Code :</label>
@@ -45,6 +46,7 @@
 
 					<div class="form-group col-md-2 col-sm-6 ">
 						<!-- <a href="#">APPLY</a> -->
+
 						<%= submit_tag "APPLY", :class => "btn btn-success col-md-10 col-xs-10 a_override" %>
 						<% end%>
 					</div>
