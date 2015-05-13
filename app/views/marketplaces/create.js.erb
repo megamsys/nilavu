@@ -1,6 +1,5 @@
 $("#app-1").hide();
 
-$('#cockpit').append("<%= escape_javascript render(:partial => 'catalogs/flymodal', :locals => @modal_msg_hash) %>");
+$('#cockpit').append("<%= escape_javascript render(:partial => 'catalogs/flymodal', :locals => @msg_hash) %>");
 
 $("#megam_flymodal").modal('show');
-

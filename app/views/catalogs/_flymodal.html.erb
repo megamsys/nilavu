@@ -4,13 +4,13 @@
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="text-center"> <%= flymodal_title %> </h4>
+				<h4 class="text-center"> <%= title %> </h4>
 			</div>
 			<div class="modal-body text-center">
-				<div class="alert alert-<%= flymodal_alert %>"> <%= flymodal_content %> </div>
+				<div class="alert alert-<%= flymodal_alert %>"> <%= content %> </div>
 			</div>
 			<div class="modal-footer c_modal-footer">
-				<%= link_to  "Ok", "#{flymodal_redirect}", :class => "btn btn-success", :target => "_self" %>
+				<%= link_to  "Ok", "#{redirect}", :class => "btn btn-success", :target => "_self" %>
 			</div>
 		</div>
 		<!-- /.modal-content -->

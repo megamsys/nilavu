@@ -14,7 +14,6 @@
 ## limitations under the License.
 ##
 class CockpitsController < ApplicationController
-  include Pilotable
   include CatalogHelper
 
   respond_to :html, :js
