@@ -485,7 +485,10 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
 	content:"\f071"
 }
 .fa-plane:before {
-	content:"\f072"
+	content:"\f072";
+ font-size: 25px;
+    padding-right: 10px;
+    vertical-align: middle;
 }
 .fa-calendar:before {
 	content:"\f073"
@@ -681,7 +684,10 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
 	content:"\f0c2"
 }
 .fa-flask:before {
-	content:"\f0c3"
+	content:"\f0c3";
+font-size: 21px;
+    padding-right: 10px;
+    vertical-align: middle;
 }
 .fa-cut:before, .fa-scissors:before {
 	content:"\f0c4"
@@ -717,7 +723,10 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
 	content:"\f0ce"
 }
 .fa-magic:before {
-	content:"\f0d0"
+	content:"\f0d0";
+font-size: 21px;
+    padding-right: 10px;
+    vertical-align: middle;
 }
 .fa-truck:before {
 	content:"\f0d1"
@@ -840,7 +849,10 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
 	content:"\f0fa"
 }
 .fa-fighter-jet:before {
-	content:"\f0fb"
+	content:"\f0fb";
+font-size: 21px;
+    padding-right: 10px;
+    vertical-align: middle;
 }
 .fa-beer:before {
 	content:"\f0fc"
@@ -876,7 +888,10 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
 	content:"\f107"
 }
 .fa-desktop:before {
-	content:"\f108"
+	content:"\f108";
+font-size: 21px;
+    padding-right: 10px;
+    vertical-align: middle;
 }
 .fa-laptop:before {
 	content:"\f109"
@@ -1335,7 +1350,10 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
 	content:"\f1ac"
 }
 .fa-building:before {
-	content:"\f1ad"
+	content:"\f1ad";
+font-size: 21px;
+    padding-right: 10px;
+    vertical-align: middle;
 }
 .fa-child:before {
 	content:"\f1ae"
@@ -1350,7 +1368,10 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
 	content:"\f1b2"
 }
 .fa-cubes:before {
-	content:"\f1b3"
+	content:"\f1b3";
+font-size: 21px;
+    padding-right: 10px;
+    vertical-align: middle;
 }
 .fa-behance:before {
 	content:"\f1b4"
@@ -1427,7 +1448,10 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
 	content:"\f1cc"
 }
 .fa-life-bouy:before, .fa-life-buoy:before, .fa-life-saver:before, .fa-support:before, .fa-life-ring:before {
-	content:"\f1cd"
+	content:"\f1cd";
+font-size: 21px;
+    padding-right: 10px;
+    vertical-align: middle;
 }
 .fa-circle-o-notch:before {
 	content:"\f1ce"
@@ -1457,10 +1481,16 @@ filter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1);
 	content:"\f1d7"
 }
 .fa-send:before, .fa-paper-plane:before {
-	content:"\f1d8"
+	content:"\f1d8";
+ font-size: 21px;
+    padding-right: 10px;
+    vertical-align: middle;
 }
 .fa-send-o:before, .fa-paper-plane-o:before {
-	content:"\f1d9"
+	content:"\f1d9";
+ font-size: 21px;
+    padding-right: 10px;
+    vertical-align: middle;
 }
 .fa-history:before {
 	content:"\f1da";color: #6cabda;

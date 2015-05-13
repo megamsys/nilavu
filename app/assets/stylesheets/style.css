@@ -307,7 +307,7 @@ hr {
     width: 100%;
 }
 .page-sidebar-menu > li:last-child > a, .page-sidebar-menu > li.last > a {
-    border-bottom-color: transparent !important;
+   border-bottom-color: transparent !important;*
 }
 .page-sidebar-menu > li > a {
     border: 0 none;
@@ -328,6 +328,15 @@ hr {
     margin-right: 5px;
     text-shadow: none;
 }
+
+.page-sidebar-menu > li > a:hover{
+    color: #4e9de6  !important;
+}
+
+.c_sett_inline > li > a:hover{
+    color: #4e9de6  !important;
+}
+
 .page-sidebar-menu > li.break {
     margin-bottom: 20px;
 }
