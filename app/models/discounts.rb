@@ -13,26 +13,35 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class Balances < BaseFascade
+class Discounts < BaseFascade
 
-  attr_reader :balance
 
   def initialize()
-     @balance = {}
   end
 
-  def show(api_params, &block)
-    raw = api_request(api_params, BALANCES, SHOW)
-    @balance = raw[:body].lookup(api_params["email"])
-    yield self  if block_given?
+  def create(api_params, &block)
+   Rails.logger.debug "> Discounts: create"
+    api_request(bld_discount(api_params), DISCOUNTS, CREATE)  
+      yield self  if block_given?
     return self
   end
 
   def update(api_params, &block)
-    api_request(api_params, BALANCES, UPDATE)
+    api_request(api_params, DISCOUNTS, UPDATE)
     yield self if block_given?
     return self
   end
 
+private
+def bld_discount(api_params)
+  disc_params = {
+    :accounts_id => api_params[:accounts_id],
+    :bill_type => api_params[:bill_type],
+    :code => api_params[:code],
+    :status => api_params[:status],
+    :email => api_params[:email],
+    :api_key => api_params[:api_key]           
+  }
+end
   
 end

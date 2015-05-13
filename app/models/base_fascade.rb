@@ -22,6 +22,7 @@ class BaseFascade
   CREDITHISTORIES   = "Credithistories".freeze
   ORGANIZATION      = 'Organizations'.freeze
   PROMOS            = 'Promos'.freeze
+  DISCOUNTS         = "Discounts".freeze
 
   MARKETPLACES      = "MarketPlace".freeze
   REQUESTS          = "Requests".freeze
