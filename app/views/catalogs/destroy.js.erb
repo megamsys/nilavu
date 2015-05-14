@@ -13,6 +13,8 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 **/
-var selected_entity = '#cat_postfinish_popup';
-$("#success").html('<%= @success %>');
-$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
+$("#<%= @msg[:disposal_id] %>").hide();
+
+$('#cockpit').append("<%= escape_javascript render(:partial => 'catalogs/flymodal', :locals => {:msg => @msg}) %>");
+
+$("#megam_flymodal").modal('show');
