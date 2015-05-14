@@ -163,3 +163,14 @@ input[type=checkbox] {
 .check_ci input[type=checkbox]:checked + label {
 	left: 43px;
 }
+
+/* For 'view docs' in marketplace description */
+p a:hover {
+color: grey;
+}
+
+/* Have scroll on all pages, so that we can remove screen shake in paypal click */
+html {
+  overflow-y: scroll;
+}
+
