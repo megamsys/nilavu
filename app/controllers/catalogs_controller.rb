@@ -40,11 +40,15 @@ class CatalogsController < ApplicationController
   def create
       logger.debug "> Pilotable: create"
       Requests.new.catreqs(params)
+#      @msg = { title: "#{mkp['cattype']}", message: "#{params['assemblyname']}.#{params['domain']} launched successfully. ", redirect: '/', disposal_id: 'app-1' }
+puts "---> #{params}"
   end
 
   #a confirmation question for a delete operation.
   def kelvi
     logger.debug "> Pilotable: kelvi"
+#    @msg = { title: "#{mkp['cattype']}", message: "#{params['assemblyname']}.#{params['domain']} launched successfully. ", redirect: '/', disposal_id: 'app-1' }
+puts "---> #{params}"
   end
 
   #this action perfroms a delete operation.

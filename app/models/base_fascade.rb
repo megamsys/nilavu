@@ -17,7 +17,7 @@ class BaseFascade
   ASSEMBLY          = 'Assembly'.freeze
   BALANCES          = 'Balances'.freeze
   BILLINGHISTORIES  = "Billinghistories".freeze
-  CATREQUESTS       = "AppRequests".freeze
+  CATREQUESTS       = "CatRequest".freeze
   COMPONENTS        = 'Components'.freeze
   CREDITHISTORIES   = "Credithistories".freeze
   ORGANIZATION      = 'Organizations'.freeze
@@ -33,7 +33,7 @@ class BaseFascade
   SHOW              = 'show'.freeze
   LIST              = 'list'.freeze
   UPDATE            = 'update'.freeze
-                 
+
 
   def initialize(skip_gateway_error = false)
    @swallow_404 = skip_gateway_error

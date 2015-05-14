@@ -1,6 +1,6 @@
 <ul>
   <li>
-    <%= link_to catalogs_path(:id => id, :name => name, :command => Assemblies::START, :cattype => cattype), :date => {:remote => true } do %>
+    <%= link_to catalogs_path(:id => id, :name => name, :command => Assemblies::START, :cattype => cattype), :date => {:remote => true }, :method => :post do %>
       <i class="glyphicon glyphicon-play-circle"></i>Start <%= cattype %>
     <% end %>
   </li>
