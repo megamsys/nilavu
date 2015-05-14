@@ -58,7 +58,6 @@
     </div>
     <div id="content">
       <%= content_for?(:onecat_contents) ? yield(:onecat_contents) : yield %>
-      <%= render :partial => "cockpits/flymodal", :locals => {:cattype => cattype} %>
     </div>
   </div>
 </div>

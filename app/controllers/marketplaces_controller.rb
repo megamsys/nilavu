@@ -41,31 +41,12 @@ class MarketplacesController < ApplicationController
           format.js { render js: "window.location.href='" + billings_path + "'" }
         end
       else
-        @mkp = Marketplaces.instance.show(params).mkp
-        versions = []
-        versions = @mkp.plans.map { |c| c['version'] }.sort
+        @mkp = pressurize_version(Marketplaces.instance.show(params).mkp, params['version'])
         @ssh_keys = Sshkeys.new.list(params).ssh_keys
-        @mkp = @mkp.to_hash
-        @mkp['sversion'] = versions[0]
-        @mkp['sversion'] = params['version'] if params.key?('version')
-        @mkp['versions'] = versions
-
-        assemblies_grouped = Assemblies.new.list(params).assemblies_grouped
-        @apps = []
-        assemblies_grouped["APP"].flatten.each do |one_assembly|
-          one_assembly.components.flatten.map do |u|
-            if u!=nil
-              u.each do |com|
-                @apps << {"name" => "#{one_assembly.name}.#{parse_key_value_pair(com.inputs, 'domain')}/#{com.name}", "aid" => one_assembly.id, "cid" => com.id }
-              end
-            end
-          end
-        end
-
-
+        @unbound_apps = unbound_apps(Assemblies.new.list(params.merge(:flying_apps=> "true")).apps) if @mkp['cattype'] == Assemblies::SERVICE
         respond_to do |format|
           format.js do
-            respond_with(@mkp, @ssh_keys, @apps, layout: !request.xhr?)
+            respond_with(@mkp, @ssh_keys, @unbound_apps, layout: !request.xhr?)
           end
         end
       end
@@ -79,14 +60,12 @@ class MarketplacesController < ApplicationController
     mkp = JSON.parse(params[:mkp])
     Sshkeys.new.create_or_import(params)
     setup_scm(params)
-    res = Assemblies.new.create(params) do
-      # this is a successful call
+    res = Assemblies.new.create(params)
+    binded_app?(params) do
+      Assembly.new.update(params)
+      Components.new.update(params)
     end
-      Assembly.new.update(params) if params.has_key?(:bindedAPP)
-      Components.new.update(params) if params.has_key?(:bindedAPP)
-      @msg = {:title => "#{mkp['cattype']} Creation",
-      :message => "#{mkp['cattype']} Created successfully with the name #{params['name']} . Content ==> #{mkp['predef']} #{mkp['sversion']}. You can browse #{params['name']}.#{params['domain']}. Thank you!",
-      :redirect => "/", :alert => "success", :disposal_id => "app-1"}
+    @msg = { title: "#{mkp['cattype']}", message: "#{params['assemblyname']}.#{params['domain']} launched successfully. ", redirect: '/', disposal_id: 'app-1' }
   end
 
   ##
@@ -154,123 +133,11 @@ class MarketplacesController < ApplicationController
     session[:gogs_repos] =  @repos_arr
   end
 
-  ##
-  ## this controller launch the services
-  ## it checks service is bind any of the applications, the service is bind to application then add the application name to inputs
-  ##
-  def app_boilers_create
-    assembly_name = params[:name]
-    version = params[:version]
-    domain = params[:domain]
-    cloud = params[:cloud]
-    source = params[:source]
-    type = params[:type].downcase
-    dbname = nil
-    dbpassword = nil
-
-    combos = params[:combos]
-    combo = combos.split('+')
-
-    servicename = params[:servicename]
-    if params[:bindedAPP] != '' && params[:bindedAPP] != 'select an APP'
-      bindedAPP = params[:bindedAPP].split(':')
-      appname = bindedAPP[0].split('/')[1]
-      related_components = bindedAPP[0]
-    else
-      appname = nil
-      related_components = nil
-    end
-
-    if type == 'postgresql'
-      dbname = current_user.email
-      dbpassword = ('0'..'z').to_a.sample(8).join
-    end
-
-    predef = GetPredefCloud.perform(params[:cloud], force_api[:email], force_api[:api_key])
-    if predef.class == Megam::Error
-      err_msg = "Please contact #{ActionController::Base.helpers.link_to 'support !.', 'http://support.megam.co/'}."
-      respond_to do |format|
-        format.js do
-          respond_with(err_msg, layout: !request.xhr?)
-        end
-      end
-    else
-      # if predef[0].spec[:type_name] == "docker"
-      #  ttype = "tosca.docker."
-      # else
-      ttype = 'tosca.web.'
-      # end
-
-      options = { instance: false, assembly_name: assembly_name, appname: appname, servicename: servicename, related_components: related_components, component_version: version, domain: domain, cloud: cloud, source: source, ttype: ttype, type: type, combo: combo, dbname: dbname, dbpassword: dbpassword  }
-      app_hash = MakeAssemblies.perform(options, force_api[:email], force_api[:api_key])
-      res = CreateAssemblies.perform(app_hash, force_api[:email], force_api[:api_key])
-      if res.class == Megam::Error
-        res_msg = nil
-        err_msg = "Please contact #{ActionController::Base.helpers.link_to 'support !.', 'http://support.megam.co/'}."
-        respond_to do |format|
-          format.js do
-            respond_with(res_msg, err_msg, layout: !request.xhr?)
-          end
-        end
-      else
-        if params[:bindedAPP] != '' && params[:bindedAPP] != 'select an APP'
-          bindedAPP = params[:bindedAPP].split(':')
-          get_assembly = GetAssemblyWithoutComponentCollection.perform(bindedAPP[1], force_api[:email], force_api[:api_key])
-          if get_assembly.class == Megam::Error
-            res_msg = nil
-            err_msg = "Please contact #{ActionController::Base.helpers.link_to 'support !.', 'http://support.megam.co/'}."
-            respond_to do |format|
-              format.js do
-                respond_with(res_msg, err_msg, layout: !request.xhr?)
-              end
-            end
-          else
-            get_component = GetComponent.perform(bindedAPP[2], force_api[:email], force_api[:api_key])
-            if get_component.class == Megam::Error
-              res_msg = nil
-              err_msg = "Please contact #{ActionController::Base.helpers.link_to 'support !.', 'http://support.megam.co/'}."
-              respond_to do |format|
-                format.js do
-                  respond_with(res_msg, err_msg, layout: !request.xhr?)
-                end
-              end
-            else
-              relatedcomponent = assembly_name + '.' + domain + '/' + servicename
-              update_component_json = UpdateComponentJson.perform(get_component, relatedcomponent)
-              update_component = UpdateComponent.perform(update_component_json, force_api[:email], force_api[:api_key])
-              if update_component.class == Megam::Error
-                res_msg = nil
-                err_msg = "Please contact #{ActionController::Base.helpers.link_to 'support !.', 'http://support.megam.co/'}."
-                respond_to do |format|
-                  format.js do
-                    respond_with(res_msg, err_msg, layout: !request.xhr?)
-                  end
-                end
-              else
-                update_json = UpdateAssemblyJson.perform(get_assembly, get_component)
-                update_assembly = UpdateAssembly.perform(update_json, force_api[:email], force_api[:api_key])
-                if update_assembly.class == Megam::Error
-                  res_msg = nil
-                  err_msg = "Please contact #{ActionController::Base.helpers.link_to 'support !.', 'http://support.megam.co/'}."
-                  respond_to do |format|
-                    format.js do
-                      respond_with(res_msg, err_msg, layout: !request.xhr?)
-                    end
-                  end
-                else
-                  err_msg = nil
-                end
-              end
-            end
-          end
-        end
-      end
-    end
-    res_msg = 'success'
-    err_msg = nil
-  end
-
   private
+
+  def binded_app?(params, &_block)
+    params[:bindedApp].match('Unbound service') { yield if block_given? } if params.key?(:bindedApp)
+  end
 
   def setup_scm(params)
     case params[:scm_name]
@@ -281,7 +148,7 @@ class MarketplacesController < ApplicationController
       params[:scmtoken] =  session[:gogs_token]
       params[:scmowner] =  session[:gogs_owner]
     else
-      #we ignore it.
+      # we ignore it.
     end
   end
 end
