@@ -84,8 +84,8 @@ class MarketplacesController < ApplicationController
     end
       Assembly.new.update(params) if params.has_key?(:bindedAPP)
       Components.new.update(params) if params.has_key?(:bindedAPP)
-      @msg_hash = {:title => "#{mkp['cattype']} Creation",
-      :msg => "#{mkp['cattype']} Created successfully with the name #{params['name']} . Content ==> #{mkp['predef']} #{mkp['sversion']}. You can browse #{params['name']}.#{params['domain']}. Thank you!",
+      @msg = {:title => "#{mkp['cattype']} Creation",
+      :message => "#{mkp['cattype']} Created successfully with the name #{params['name']} . Content ==> #{mkp['predef']} #{mkp['sversion']}. You can browse #{params['name']}.#{params['domain']}. Thank you!",
       :redirect => "/", :alert => "success", :disposal_id => "app-1"}
   end
 
