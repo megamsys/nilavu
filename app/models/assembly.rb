@@ -117,7 +117,7 @@ class Assembly < BaseFascade
 
 def bld_policies(params)
     com = []
-    if params.has_key?(:bindedAPP) 
+    if params.has_key?(:bindedAPP) && params[:bindedAPP] != "select an APP"
       value = {
         :name=>"bind policy",
         :ptype=>"colocated",
