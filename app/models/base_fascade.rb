@@ -17,7 +17,7 @@ class BaseFascade
   ASSEMBLY          = 'Assembly'.freeze
   BALANCES          = 'Balances'.freeze
   BILLINGHISTORIES  = "Billinghistories".freeze
-  CATREQUESTS       = "CatRequest".freeze
+  CATREQUESTS       = "CatRequests".freeze
   COMPONENTS        = 'Components'.freeze
   CREDITHISTORIES   = "Credithistories".freeze
   ORGANIZATION      = 'Organizations'.freeze

@@ -13,7 +13,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 **/
-$("#<%= @msg[:disposal_id] %>").hide();
+<% if @msg[:disposal_id] %> $("#<%= @msg[:disposal_id] %>").hide();  <% end %>
 
 $('#cockpit').append("<%= escape_javascript render(:partial => 'catalogs/flymodal', :locals => {:msg => @msg}) %>");
 
