@@ -20,6 +20,7 @@ class Assemblies < BaseFascade
 
 
   attr_reader :assemblies_grouped
+  attr_reader :apps
 
   DEW                 =  'DEW'.freeze
   APP                 =  'APP'.freeze
@@ -38,6 +39,7 @@ class Assemblies < BaseFascade
 
   def initialize()
     @assemblies_grouped = {}
+    @apps = []
     super(true) #swallow 404 errors for assemblies.
   end
 
@@ -58,6 +60,7 @@ class Assemblies < BaseFascade
   def list(api_params, &block)
     raw = api_request(api_params, ASSEMBLIES, LIST)
     dig_assembly(raw[:body],api_params) unless raw == nil
+    @apps = flying_apps unless api_params[:flying_apps].nil?
     yield self  if block_given?
     return self
   end
@@ -106,6 +109,21 @@ class Assemblies < BaseFascade
     Rails.logger.debug "\033[36m>-- ASB'S: #{@assemblies_grouped.class} START\33[0m"
     Rails.logger.debug "\033[1m#{@assemblies_grouped.to_yaml}\33[22m"
     Rails.logger.debug "\033[36m> ASB'S: END\033[0m"
+  end
+
+  #provides the flying apps which is used by the bind app screen.
+  def flying_apps
+    tmp_apps = []
+    @assemblies_grouped[Assemblies::APP].flatten.each do |one_assembly|
+      one_assembly.components.flatten.map do |u|
+        if u!=nil
+          u.each do |com|
+            tmp_apps << {:name => "#{one_assembly.name}.#{parse_key_value_pair(com.inputs, 'domain')}/#{com.name}", :aid => one_assembly.id, :cid => com.id }
+          end
+        end
+      end
+    end
+    tmp_apps
   end
 
 end

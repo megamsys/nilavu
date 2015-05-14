@@ -36,11 +36,11 @@
                   <h5><%= assembly.name %></h5>
                   <% case cattype.upcase %>
                   <% when Assemblies::DEW %>
-                  <%= link_to assembly.name + ".megam.io", onedews_path(:id => assembly.id), :data => {:remote => true} %>
+                  <%= link_to assembly.name + ".megambox.com", onedews_path(:id => assembly.id), :data => {:remote => true} %>
                   <% when Assemblies::APP %>
-                  <%= link_to assembly.name + ".megam.io", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
+                  <%= link_to assembly.name + ".megambox.com", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
                   <% when Assemblies::SERVICE %>
-                  <%= link_to assembly.name + ".megam.io", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
+                  <%= link_to assembly.name + ".megambox.com", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
                 <% end %>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                   <ul class="list-inline app_icon_bottom">
@@ -98,4 +98,3 @@
   <% end unless assemblies_grouped[cattype.upcase].nil? %>
 </div>
 </div>
-<%= render :partial => "cockpits/flymodal", :locals => {:cattype => cattype} %>
