@@ -60,7 +60,7 @@ class MarketplacesController < ApplicationController
               end
             end
           end
-        end      
+        end unless assemblies_grouped["APP"] == nil     
       
        
         respond_to do |format|
@@ -84,8 +84,8 @@ class MarketplacesController < ApplicationController
     res = Assemblies.new.create(params) do
       # this is a successful call
     end
-    Assembly.new.update(params) if params.has_key?(:bindedAPP) 
-    Components.new.update(params) if params.has_key?(:bindedAPP)
+    Assembly.new.update(params) if params.has_key?(:bindedAPP) && params[:bindedAPP] != "select an APP"
+    Components.new.update(params) if params.has_key?(:bindedAPP) && params[:bindedAPP] != "select an APP"
     @mkp_grouped = Marketplaces.instance.list(params).mkp_grouped
 #=====================> Params Hash dew<=========================
 #{"utf8"=>"✓", "version"=>"14.04", "sshoption"=>"SSH_USEOLD", "launch_name"=>"altercations", "mkp"=>"{\"json_claz\":\"Megam::MarketPlace\",\"id\":\"MKP1209437188870242304\",\"name\":\"1-Ubuntu\",\"catalog\":{\"logo\":\"https://s3-ap-southeast-1.amazonaws.com/megampub/images/marketplaces/ubuntu.png\",\"category\":\"1-Dew\",\"description\":\"Ubuntu\"},\"plans\":[{\"price\":\"5\",\"description\":\"Scale out with Ubuntu Server. The leading platform for scale-out computing, Ubuntu Server helps you make the most of your infrastructure.\",\"plantype\":\"sambar\",\"version\":\"14.04\",\"source\":\"http://ubuntu.com\",\"os\":\"ubuntu\"}],\"cattype\":\"DEW\",\"predef\":\"ubuntu\",\"status\":\"ACTIVE\",\"some_msg\":{},\"created_at\":\"2015-05-11 06:41:50 +0000\",\"sversion\":\"14.04\",\"versions\":[\"14.04\"]}", "name"=>"altercations", "domain"=>"megambox.com", "ssh_keypair_name"=>"", "commit"=>"Create Dew", "controller"=>"marketplaces", "action"=>"create", "email"=>"1@1.com", "api_key"=>"M1sj96D33gT9VYd_eMw6vw=="}

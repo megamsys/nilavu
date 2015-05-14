@@ -121,7 +121,7 @@ GEM
     fog-atmos (0.1.0)
       fog-core
       fog-xml
-    fog-aws (0.1.2)
+    fog-aws (0.2.2)
       fog-core (~> 1.27)
       fog-json (~> 1.0)
       fog-xml (~> 0.1)
@@ -231,7 +231,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    megam_api (0.52)
+    megam_api (0.53)
       excon (~> 0.45.3)
       highline (~> 1.7)
       mixlib-config (~> 2.1)
@@ -422,7 +422,7 @@ DEPENDENCIES
   jquery-turbolinks (~> 2.1.0)
   json (~> 1.8.2)
   less-rails (~> 2.7.0)
-  megam_api (~> 0.52)
+  megam_api (~> 0.53)
   megam_gogs (~> 0.7.0)
   meta_request
   nokogiri (~> 1.6.6.2)
