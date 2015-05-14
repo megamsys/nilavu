@@ -53,4 +53,11 @@ module MarketplaceHelper
   def match_plan_for(mkp, version)
    mkp['plans'].select  { |tmp| tmp['version'] == version }.reduce { :merge }
    end
+   
+  def parse_key_value_pair(array, search_key)
+    array.map do |pair|
+      return pair["value"] if pair["key"] == search_key
+    end
+  end
+   
  end

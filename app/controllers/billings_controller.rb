@@ -59,15 +59,20 @@ class BillingsController < ApplicationController
   end
   
   def promo
+    
     params[:email] =  current_user.email
     params[:api_key] = current_user.api_key
     promo_amt = Promos.new.show(params)
-    params[:credit] = promo_amt.amount
+    params[:credit] = (params[:balance].to_i + promo_amt.amount.to_i)
     bal = Balances.new.update(params)
+    @credit = params[:credit]
    #dis = Discounts.new.create(params)  ##YET TO BE TESTED##
      respond_to do |format|
         format.html {redirect_to billings_path}
-        format.js {render :js => ""}
+        format.js {
+                  respond_with(@credit, :layout => !request.xhr? )
+
+        }
      end
   end
 
