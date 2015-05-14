@@ -49,20 +49,20 @@ class MarketplacesController < ApplicationController
         @mkp['sversion'] = versions[0]
         @mkp['sversion'] = params['version'] if params.key?('version')
         @mkp['versions'] = versions
-        
+
         assemblies_grouped = Assemblies.new.list(params).assemblies_grouped
         @apps = []
         assemblies_grouped["APP"].flatten.each do |one_assembly|
-          one_assembly.components.flatten.map do |u| 
-            if u!=nil 
-              u.each do |com| 
-                @apps << {"name" => "#{one_assembly.name}.#{parse_key_value_pair(com.inputs, 'domain')}/#{com.name}", "aid" => one_assembly.id, "cid" => com.id } 
+          one_assembly.components.flatten.map do |u|
+            if u!=nil
+              u.each do |com|
+                @apps << {"name" => "#{one_assembly.name}.#{parse_key_value_pair(com.inputs, 'domain')}/#{com.name}", "aid" => one_assembly.id, "cid" => com.id }
               end
             end
           end
-        end      
-      
-       
+        end
+
+
         respond_to do |format|
           format.js do
             respond_with(@mkp, @ssh_keys, @apps, layout: !request.xhr?)
@@ -75,8 +75,6 @@ class MarketplacesController < ApplicationController
   ## super cool - omni creator for all.
   # performs ssh creation or using existing and creating an assembly at the end.
   def create
-	puts "=================> MP Create PArams =============>"
-	puts params.inspect
     logger.debug '> Marketplaces: create.'
     mkp = JSON.parse(params[:mkp])
     Sshkeys.new.create_or_import(params)
@@ -84,15 +82,11 @@ class MarketplacesController < ApplicationController
     res = Assemblies.new.create(params) do
       # this is a successful call
     end
-    Assembly.new.update(params) if params.has_key?(:bindedAPP) 
-    Components.new.update(params) if params.has_key?(:bindedAPP)
-    @mkp_grouped = Marketplaces.instance.list(params).mkp_grouped
-#=====================> Params Hash dew<=========================
-#{"utf8"=>"✓", "version"=>"14.04", "sshoption"=>"SSH_USEOLD", "launch_name"=>"altercations", "mkp"=>"{\"json_claz\":\"Megam::MarketPlace\",\"id\":\"MKP1209437188870242304\",\"name\":\"1-Ubuntu\",\"catalog\":{\"logo\":\"https://s3-ap-southeast-1.amazonaws.com/megampub/images/marketplaces/ubuntu.png\",\"category\":\"1-Dew\",\"description\":\"Ubuntu\"},\"plans\":[{\"price\":\"5\",\"description\":\"Scale out with Ubuntu Server. The leading platform for scale-out computing, Ubuntu Server helps you make the most of your infrastructure.\",\"plantype\":\"sambar\",\"version\":\"14.04\",\"source\":\"http://ubuntu.com\",\"os\":\"ubuntu\"}],\"cattype\":\"DEW\",\"predef\":\"ubuntu\",\"status\":\"ACTIVE\",\"some_msg\":{},\"created_at\":\"2015-05-11 06:41:50 +0000\",\"sversion\":\"14.04\",\"versions\":[\"14.04\"]}", "name"=>"altercations", "domain"=>"megambox.com", "ssh_keypair_name"=>"", "commit"=>"Create Dew", "controller"=>"marketplaces", "action"=>"create", "email"=>"1@1.com", "api_key"=>"M1sj96D33gT9VYd_eMw6vw=="}
-
-	@modal_msg_hash = {:flymodal_title => "#{mkp['cattype']} Creation", :flymodal_content => "#{mkp['cattype']} Created successfully with the name #{params['name']} . Content ==> #{mkp['predef']} #{mkp['sversion']}. You can browse #{params['name']}.#{params['domain']}. Thank you!", :flymodal_redirect => "/", :flymodal_alert => "success"}
-	#modal_msg(msg_hash)
-    #mkp_grouped = Marketplaces.instance.list(params).mkp_grouped
+      Assembly.new.update(params) if params.has_key?(:bindedAPP)
+      Components.new.update(params) if params.has_key?(:bindedAPP)
+      @msg = {:title => "#{mkp['cattype']} Creation",
+      :message => "#{mkp['cattype']} Created successfully with the name #{params['name']} . Content ==> #{mkp['predef']} #{mkp['sversion']}. You can browse #{params['name']}.#{params['domain']}. Thank you!",
+      :redirect => "/", :alert => "success", :disposal_id => "app-1"}
   end
 
   ##
@@ -287,7 +281,7 @@ class MarketplacesController < ApplicationController
       params[:scmtoken] =  session[:gogs_token]
       params[:scmowner] =  session[:gogs_owner]
     else
-      #we ignore it.  
+      #we ignore it.
     end
   end
 end
