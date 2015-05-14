@@ -46,10 +46,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <% list = [] %>             
-              <% list << "select an APP" %>
-              <% @apps.map{ |c| list << [c["name"], c["name"]+":"+c["aid"]+":"+c["cid"], {onclick: "console.log('HI');"}] } %>
-              <%= select_tag "bindedAPP", options_for_select(list, :selected=>list[0]), :class =>"form-control", :id => "bindedApp" %>
+              <%= select_tag "bindedAPP", options_for_select(unbound_apps, :selected=>unbound_apps[0]), :class =>"form-control", :id => "bindedApp" %>
             </div>
           </div>
           <div class="col-md-6">
@@ -71,7 +68,6 @@
   		$('#bindedApp').on('change', function(e) {
   			var optionSelected = $("option:selected", this);
   			var valueSelected = this.value;
-  			console.log(valueSelected);
   		});
   	})($);
 </script>

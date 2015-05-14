@@ -13,10 +13,8 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 **/
-$('#delete_asm_id').empty();
-$('#delete_asm_id').html('<input id="asm_id" name="asm_id" type="hidden" value="<%= @id %>" />');
+$("#<%= @msg[:disposal_id] %>").hide();
 
-$('#delete_asmname').empty();
-$('#delete_asmname').html('<input id="asm_name" name="asm_name" type="hidden" value="<%= @name %>" />');
+$('#cockpit').append("<%= escape_javascript render(:partial => 'catalogs/flymodal', :locals => {:msg => @msg}) %>");
 
-$("#cat_delete").modal({backdrop : false,keyboard: false,show : true});
+$("#megam_flykelvi").modal('show');

@@ -1,8 +1,9 @@
+<% asmgroups_flatten =  @assemblies_grouped[cattype.upcase].flatten %>
 <div class="row">
   <div class="row c_pading-b15">
     <div class="portlet-body-head">
       <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-        <i class="c_icon-layer_lg"></i>Your <%= cattype.capitalize.pluralize %> <span>0 <%= cattype %> running </span>
+        <i class="c_icon-layer_lg"></i>Your <%= cattype.capitalize.pluralize %> <span><%= asmgroups_flatten.size%> <%=  cattype.pluralize %> running </span>
       </div>
     </div>
   </div>
@@ -22,7 +23,7 @@
         </div>
       </div>
     <% end %>
-    <% @assemblies_grouped[cattype.upcase].flatten.each do |assembly| %>
+    <% asmgroups_flatten.each do |assembly| %>
       <% unless assembly.status == Assemblies::TERMINATED %>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
           <div class="app_inner">
@@ -36,11 +37,11 @@
                   <h5><%= assembly.name %></h5>
                   <% case cattype.upcase %>
                   <% when Assemblies::DEW %>
-                  <%= link_to assembly.name + ".megam.io", onedews_path(:id => assembly.id), :data => {:remote => true} %>
+                  <%= link_to assembly.name + ".megambox.com", onedews_path(:id => assembly.id), :data => {:remote => true} %>
                   <% when Assemblies::APP %>
-                  <%= link_to assembly.name + ".megam.io", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
+                  <%= link_to assembly.name + ".megambox.com", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
                   <% when Assemblies::SERVICE %>
-                  <%= link_to assembly.name + ".megam.io", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
+                  <%= link_to assembly.name + ".megambox.com", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
                 <% end %>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                   <ul class="list-inline app_icon_bottom">
@@ -98,4 +99,3 @@
   <% end unless assemblies_grouped[cattype.upcase].nil? %>
 </div>
 </div>
-<%= render :partial => "cockpits/flymodal", :locals => {:cattype => cattype} %>
