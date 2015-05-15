@@ -14,138 +14,169 @@
 ** limitations under the License.
 -->
 <% content_for :onecat_contents do %>
-  <% provide(:title, 'App Overview') %>
-  <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
-    <div class="row c_pading-b15 settings_top">
-      <div class="margin_15">
-        <div class="col-xs-9 col-sm-6 col-md-7">
-          <h3> Apps Overview </h3>
-        </div>
-        <%= render :partial => "users/topright_icons" %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="mplace mplace-head">
-        <div class="col-xs-6 col-md-3 mplace-left">
-          <h4> Apps Overview </h4>
-        </div>
-        <div class="col-xs-12 col-md-6 mplace-middle hidden-xs hidden-sm">
-          <span> Overview of the application.</span>
-        </div>
-        <div class="col-xs-6 col-md-3 mplace-right">
-          <span class="pull-right"><i class="c_icon-rocket"></i><a href="http://www.gomegam.com/docs/users/apps/apps.html" target="_blank">Take a Tour</a></span>
-        </div>
-      </div>
-    </div>
-    <!-- TITLE BOX ENDS HERE -->
-    <div class="row margin_15 overview margintb_15">
-      <div class="overview-top">
-        <div class="col-xs-12 col-sm-12 col-md-6 overview-route">
-          <span>URL: </span><a href="http://<%= assembly.name  %>" target="_blank"><%= assembly.name  %></a>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 overview-git">
-          <div class="row">
-            <div class="col-xs-3">
-              <label>GIT URL: </label>
-            </div>
-            <div class="col-xs-6">
-              <input type="text" class="overview-giturl form-control" value="<%=  %>" placeholder="Enter text">
-              <!-- <button class="btn green" type="button" data-toggle="dropdown">CODE</button> -->
-            </div>
-            <div class="col-xs-3 overview-submit">
-              <a href="<%=  %>" target="_blank" class="btn green">CODE</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="margin_30 bottom-divider"></div>
-    <div class="clearfix"></div>
-    <div class="row margin_30 overview margintb_15 running_app">
-      <div class="">
-        <div class="col-xs-12 col-sm-12 col-md-4 app_runtime">
-          App Runtime: <span> 0 </span>
-          <span class="app_config run_config" id="config_menu_3"><i class="c_icon-config"></i></span>
-          <div class="app_menu config_menu config_menu_3">
-            <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id, :name => assembly.name, :cattype => Assemblies::APP} %>
-          </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-4 app_library">
-          <div class="row">
-            <div class="col-xs-6 col-sm-6">
-              <%= image_tag "logos/ubuntu.png", :alt => "" %>
-            </div>
-            <div class="pad_0 col-xs-6 col-sm-6">
-              <div class="app_library-text">
-                Library for
-						</div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-4 app_instance">
-          <span>0</span> out of 1 app Instances
+<% provide(:title, 'App Overview') %>
+<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
+	<div class="row c_pading-b15 settings_top">
+		<div class="margin_15">
+			<div class="col-xs-9 col-sm-6 col-md-7">
+				<h3> Apps Overview </h3>
 			</div>
-      </div>
-    </div>
-    <div class="clearfix"></div>
-    <div class="row margin_30 c_pading-b15">
-      <div class="portlet-body-head">
-        <div class="col-xs-12 col-sm-12 col-md-6">
-          <i class="c_icon-layer_lg"></i>Your Services <span>0 Services running</span>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-6 create_bind">
-          <ul class="list-inline">
-            <li class=" col-sm-6 active">
-              <i class="icon-plus"></i> <%= link_to "Create a Service", marketplaces_path %>
-            </li>
-            <li class=" col-sm-6">
-              <i class="icon-plus"></i>
-              <!-- <%= link_to "Bind a Service", catalogs_path(:bindapp => @assembly.id + ":" + @assembly.name), :remote => true %>-->
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="margin_30 bottom-divider"></div>
-    <div class="row margintb_15 margin_30 ">
-      <%  @assembly.components.each do |com| %>
-        <% if com != nil %>
-          <% com.each do |c| %>
-            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
-              <div class="app_inner">
-                <div class="app">
-                  <div class="app_head">
-                    <span class="app_config" id="config_menu_1"><i class="c_icon-config"></i></span>
-                    <div class="config_menu config_menu_1">
-                      <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id, :name => assembly.name, :cattype => Assemblies::APP} %>
-                    </div>
-                    <div class="row app_icon">
-                      <h5><a href="#"><%= @assembly.name  %></a></h5>
-                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <ul class="list-inline app_icon_bottom">
-                          <%  sparkle_up(Assemblies::DEW,assembly).each do |cool_logo| %>
-                            <li>
-                              <%= image_tag  cool_logo, :alt => "" %>
-                            </li>
-                          <% end %>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="app_footer">
-                    <!-- <div class="circle_red"></div> -->
-                    <i class="circle_green"></i>
-                    <span>Launched</span>
-                    <i class="c_icon-window pull-right"></i>
-                    <i class="c_icon-star pull-right"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        <% end %>
-      <% end %>
-    </div>
-  </div>
+			<%= render :partial => "users/topright_icons" %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="mplace mplace-head">
+			<div class="col-xs-6 col-md-3 mplace-left">
+				<h4> Apps Overview </h4>
+			</div>
+			<div class="col-xs-12 col-md-6 mplace-middle hidden-xs hidden-sm">
+				<span> Overview of the application.</span>
+			</div>
+			<div class="col-xs-6 col-md-3 mplace-right">
+				<span class="pull-right"><i class="c_icon-rocket"></i><a href="http://www.gomegam.com/docs/users/apps/apps.html" target="_blank">Take a Tour</a></span>
+			</div>
+		</div>
+	</div>
+
+	<!-- ONEAPP Index===================================>
+	#<Megam::Assembly:0x007f6950ef2e08 @id="ASM1210244835534045184", @name="barer", @tosca_type="tosca.app.ubuntu", @components=[#<Megam::ComponentsCollection:0x0000000743eb60 @components=[#<Megam::Components:0x0000000743f830 @id="COM1210244835634708480", @name="barer", @tosca_type="tosca.app.nodejs", @inputs=[{"key"=>"domain", "value"=>"megambox.com"}, {"key"=>"version", "value"=>"0.8"}, {"key"=>"source", "value"=>""}], @outputs=[], @artifacts={:artifact_type=>"", :content=>"", :artifact_requirements=>[]}, @artifact_type=nil, @content=nil, @artifact_requirements=[], @related_components=[], @operations=[], @status="LAUNCHING", @created_at="2015-05-13 12:11:08 +0000", @email=nil, @api_key=nil>], @components_by_name={"barer"=>0}, @insert_after_idx=nil>, nil], @requirements=[], @policies=[], @inputs=[{"key"=>"sshkey", "value"=>"_barer"}], @operations=[], @outputs=[], @status="LAUNCHING", @created_at="2015-05-13 12:11:08 +0000", @email=nil, @api_key=nil>
+	-->
+	<!-- TITLE BOX ENDS HERE -->
+	<div class="row">
+		<div class="margin_15 overview margintb_15">
+			<div class="overview-top">
+				<div class="col-xs-12 col-sm-12 col-md-6 overview-route">
+					<span>URL: </span><a href="http://<%= assembly.name  %>.<%= assembly.components[0][0].components.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>" target="_blank"><%= assembly.name  %>.<%= assembly.components[0][0].components.inputs.select { |x| x["key"] == "domain" }[0]['value'] %></a>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-6 overview-git">
+					<div class="row">
+						<div class="col-xs-3">
+							<label>GIT URL: </label>
+						</div>
+						<div class="col-xs-6">
+							<input type="text" class="overview-giturl form-control" disabled placeholder="<%= assembly.components[0][0].components.inputs.select { |x| x['key'] == 'source' }[0]['value'] %>">
+							<!-- <button class="btn green" type="button" data-toggle="dropdown">CODE</button> -->
+						</div>
+						<div class="col-xs-3 overview-submit">
+							<a href="<%= assembly.components[0][0].components.inputs.select { |x| x['key'] == 'source' }[0]['value'] %>" target="_blank" class="btn green">CODE</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="margin_30 bottom-divider"></div>
+	</div>
+	<div class="clearfix"></div>
+	<div class=" overview margintb_15 vm-overview">
+		<div class="vm-bg">
+			<div class="overview-top ">
+				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+					<label class="col-md-6"><i class="fa fa-hdd-o"></i> Available RAM </label>
+					<span1>
+						768 MB
+					</span1>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+					<label class="col-md-6"><i class="fa fa-columns"></i> CPU Core </label>
+					<span1>
+						1 VCPU
+					</span1>
+				</div>
+			</div>
+			<div class="overview-top ">
+				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+					<label class="col-md-6"><i class="fa fa-puzzle-piece"></i> IP </label>
+					<span1>
+						IPADDRESS
+					</span1>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+					<label class="col-md-6"><i class="fa fa-building-o"></i> Architecture </label>
+					<span1>
+						AMD64
+					</span1>
+				</div>
+			</div>
+
+			<div class="overview-top">
+				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+					<label class="col-md-6"> <i class="fa fa-bullseye"></i> OS </label>
+					<span1 style="border-bottom:none;">
+						<%= image_tag  "logos/#{assembly.tosca_type.split('.').last}.png", :alt => "" %>
+					</span1>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+					<label class="col-md-6"><i class="fa fa-lock"></i> SSH Key </label>
+					<span1>
+						<%= assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value'] %>
+					</span1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br/>
+		<div class="margin_30 bottom-divider"></div> <br/>
+	<div class="row">
+		<div class="margin_30 c_pading-b15">
+			<div class="portlet-body-head">
+				<div class="col-xs-12 col-sm-12 col-md-6 row">
+					<i class="c_icon-layer_lg"></i>Your Services <span>0 Services running</span>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-6 create_bind row">
+					<ul class="list-inline">
+						<li class=" col-sm-6 active">
+							<i class="icon-plus"></i> <%= link_to "Create a Service", marketplaces_path %>
+						</li>
+						<li class=" col-sm-6">
+							<i class="icon-plus"></i>
+							 <%= link_to "Bind a Service", catalogs_path(:bindapp => @assembly.id + ":" + @assembly.name), :remote => true %>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+<br/>
+		<div class="margin_30 bottom-divider"></div>
+	<div class="row margintb_15 margin_30">
+			<%  @assembly.components.each do |com| %>
+			<% if com != nil %>
+			<% com.each do |c| %>
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover row">
+				<div class="app_inner">
+					<div class="app">
+						<div class="app_head">
+							<span class="app_config" id="config_menu_1"><i class="c_icon-config"></i></span>
+							<div class="config_menu config_menu_1">
+								<%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id, :name => assembly.name, :cattype => Assemblies::APP} %>
+							</div>
+							<div class="row app_icon">
+								<h5><a href="#"><%= assembly.name  %>.<%= assembly.components[0][0].components.inputs.select { |x| x["key"] == "domain" }[0]['value'] %></a></h5>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+									<ul class="list-inline app_icon_bottom">
+										<li>
+											<%= image_tag  "logos/#{assembly.components[0][0].components.tosca_type.split('.').last}.png", :alt => "" %>
+										</li>
+
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="app_footer">
+							<!-- <div class="circle_red"></div> -->
+							<i class="circle_green"></i>
+							<span>Launched</span>
+							<i class="c_icon-window pull-right"></i>
+							<i class="c_icon-star pull-right"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<% end %>
+			<% end %>
+			<% end %>
+		</div>
+
+</div>
 <% end %>
 <%= render :template => 'catalogs/show',:locals => {:cattype => Assemblies::APP} %>
