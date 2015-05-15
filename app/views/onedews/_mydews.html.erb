@@ -14,103 +14,108 @@
 ** limitations under the License.
 -->
 <% content_for :onecat_contents do %>
-  <% provide(:title, 'DEW Overview') %>
-  <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
-    <div class="row c_pading-b15 settings_top">
-      <div class="margin_15">
-        <div class="col-xs-12 col-sm-6 col-md-7">
-          <h3> <%= Assemblies::DEW %> Overview </h3>
-        </div>
-        <%= render :partial => "users/topright_icons" %>
-      </div>
-    </div>
-    <div class=" overview margintb_15 vm-overview">
-      <div class="vm-bg">
-        <div class="overview-top ">
-          <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-            <label class="col-md-6"><i class="fa fa-hdd-o"></i> Available RAM </label>
-            <span1>512 MB</span1>
-          </div>
-          <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-            <label class="col-md-6"><i class="fa fa-columns"></i> CPU Core  </label> <span1>1 VCPU</span1>
-          </div>
-        </div>
-        <div class="overview-top ">
-          <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-            <label class="col-md-6"><i class="fa fa-puzzle-piece"></i> IP </label> <span1>192.168.1.100</span1>
-          </div>
-          <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-            <label class="col-md-6"><i class="fa fa-building-o"></i> Architecture </label> <span1>AMD64</span1>
-          </div>
-        </div>
-        <div class="overview-top">
-          <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-            <label class="col-md-6"> <i class="fa fa-bullseye"></i> OS </label> <span1 style="border-bottom:none;"><img src="logos/ubuntu1.png"></span1>
-          </div>
-          <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-            <label class="col-md-6"><i class="fa fa-lock"></i> SSH Key </label> <span1>56frghbjf487358a9w4erfs</span1>
-          </div>
-        </div>
-      </div>
-      <div class="row c_pading-b15" style="padding-top:15px;">
-        <div class="portlet-body-head">
-          <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-            <i class="c_icon-grid"></i>Your Machines
+<% provide(:title, 'DEW Overview') %>
+<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
+	<div class="row c_pading-b15 settings_top">
+		<div class="margin_15">
+			<div class="col-xs-12 col-sm-6 col-md-7">
+				<h3> <%= Assemblies::DEW %> Overview </h3>
+			</div>
+			<%= render :partial => "users/topright_icons" %>
+		</div>
+	</div>
+	<div class=" overview margintb_15 vm-overview">
+		<div class="vm-bg">
+			<div class="overview-top ">
+				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+					<label class="col-md-6"><i class="fa fa-hdd-o"></i> Available RAM </label>
+					<span1>
+						512 MB
+					</span1>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+					<label class="col-md-6"><i class="fa fa-columns"></i> CPU Core </label>
+					<span1>
+						1 VCPU
+					</span1>
+				</div>
+			</div>
+			<div class="overview-top ">
+				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+					<label class="col-md-6"><i class="fa fa-puzzle-piece"></i> IP </label>
+					<span1>
+						IPADDRESS
+					</span1>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+					<label class="col-md-6"><i class="fa fa-building-o"></i> Architecture </label>
+					<span1>
+						AMD64
+					</span1>
+				</div>
+			</div>
+
+			<!-- Onedew index {"DEW"=>#<Megam::Assembly:0x00000005933b68 @id="ASM1209518690316451840", @name="sealant", @tosca_type="tosca.dew.coreos", @components=[], @requirements=[], @policies=[], @inputs=[{"key"=>"sshkey", "value"=>"test_sealant"}], @operations=[], @outputs=[], @status="LAUNCHING", @created_at="2015-05-11 12:05:41 +0000", @email=nil, @api_key=nil>}
+			-->
+			<div class="overview-top">
+				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+					<label class="col-md-6"> <i class="fa fa-bullseye"></i> OS </label>
+					<span1 style="border-bottom:none;">
+						<%= image_tag  "logos/#{assembly.tosca_type.split('.').last}.png", :alt => "" %>
+					</span1>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+					<label class="col-md-6"><i class="fa fa-lock"></i> SSH Key </label>
+					<span1>
+						<%= assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value'] %>
+					</span1>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br/>
+	<div class="row c_pading-b15" style="padding-top:15px;">
+		<div class="portlet-body-head">
+			<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+				<i class="c_icon-grid"></i>Your Machines
+			</div>
+		</div>
+	</div>
+	<div class="bottom-divider"></div>
+	<div class="row">
+		<div class="row margintb_15 margin_30 ">
+
+			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+				<div class="app_inner">
+					<div class="app">
+						<div class="app_head">
+							<span class="app_config" id="config_menu_1"><i class="c_icon-config"></i></span>
+							<div class="config_menu config_menu_1"></div>
+							<div class="row app_icon">
+								<h5><a href="#"><%= assembly.name %>.megambox.com</a></h5>
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+									<ul class="list-inline app_icon_bottom">
+										<li>
+											<%= image_tag  "logos/#{assembly.tosca_type.split('.').last}.png", :alt => "" %>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="app_footer">
+							<!-- <div class="circle_red"></div> -->
+							<i class="circle_green"></i>
+							<span>Launched</span>
+							<i class="c_icon-window pull-right"></i>
+							<i class="c_icon-star pull-right"></i>
+						</div>
 					</div>
-        </div>
-      </div>
-      <div class="bottom-divider"></div>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">
-        <div class="row app_box">
-          <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 app_cover">
-            <div class="app_inner">
-              <div class="app-vm">
-                <div class="app_head-vm">
-                  <div class="row app_head-vm_head">
-                    <h2><%= @assembly.name %></h2>
-                    <span class="app_config" id="config_menu_1"><i class="c_icon-config"></i></span>
-                    <div class="config_menu config_menu_1">
-                      <%= render :partial => "cockpits/flycontrols", :locals => {:id => @assembly.id, :name => @assembly.name, :cattype => Assemblies::DEW} %>
-                    </div>
-                  </div>
-                  <div class="app_icon-vm">
-                    <div class="app_center row">
-                      <div class="col-md-6">
-                        <p><i class="fa fa-hdd-o"></i> Available RAM </p>
-                        <p><i class="fa fa-columns"></i> CPU Core </p>
-                        <p><i class="fa fa-bullseye"></i> OS </p>
-                        <p><i class="fa fa-building-o"></i> Architecture </p>
-                        <p><i class="fa fa-puzzle-piece"></i> IP </p>
-                        <p><i class="fa fa-lock"></i> SSH Key</p>
-                      </div>
-                      <div class="col-md-6 vm-right ">
-                        <p>512 GB</p>
-                        <p>1 VCPU</p>
-                        <p><%= image_tag  "logos/ubuntu1.png", :alt => "" %></p>
-                        <p>64</p>
-                        <p>192.168.1.100</p>
-                        <p>56frghbjf487358a9w4erfs</p>
-                      </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                      <ul class="list-inline app_icon_bottom">
-                        <%  sparkle_up(Assemblies::DEW,@assembly).each do |cool_logo| %>
-                          <li>
-                            <%= image_tag  cool_logo, :alt => "" %>
-                          </li>
-                        <% end %>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div class="app_footer">
-                  <i class="circle_red"></i> <span>Down</span> <i class="c_icon-window pull-right"></i> <i class="c_icon-star pull-right"></i> </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>
 <% end %>
 <%= render :template => "catalogs/show", :locals => {:cattype => Assemblies::DEW} %>
