@@ -1,4 +1,5 @@
-<% asmgroups_flatten =  @assemblies_grouped[cattype.upcase].flatten %>
+<% tmp_asmgroups_flatten =  @assemblies_grouped[cattype.upcase] || {} %>
+<% asmgroups_flatten  = tmp_asmgroups_flatten.flatten %>
 <div class="row">
   <div class="row c_pading-b15">
     <div class="portlet-body-head">
