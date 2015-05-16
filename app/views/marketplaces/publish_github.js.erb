@@ -13,8 +13,8 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 **/
-var selected_entity = '#repos_list';
+var selected_entity = '#repos';
 
-var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/repo_dropdown', :locals => {:repos => @repos}) %>";
+var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/repos_dropdown', :locals => {:repos => @repos}) %>";
 
 insertAt(selected_entity, to_insert_content);

@@ -53,7 +53,7 @@ gem "faraday", "~> 0.9.1"
 gem "faraday_middleware", "~> 0.9.1"
 gem "nokogiri", "~> 1.6.6.2"
 
-gem 'unicorn', "~> 4.9.0",:group => :production
+gem 'passenger',:group => :production
 gem "therubyracer","~> 0.12.2", :require => 'v8',:platforms => :ruby
 
 #ssh key-gen
