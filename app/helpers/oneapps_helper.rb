@@ -14,14 +14,21 @@
 ## limitations under the License.
 ##
 module OneappsHelper
-
-
   def change_runtime(deps, runtime)
-    project_name = File.basename(deps).split(".").first
+    project_name = File.basename(deps).split('.').first
     if /<projectname>/.match(runtime)
-      runtime["unicorn_<projectname>"] = "unicorn_" + project_name
+      runtime['unicorn_<projectname>'] = 'unicorn_' + project_name
     end
     runtime
-  end  
+  end
 
+  #get all the components by cattype.
+  def by_cattype(components, cattype)
+    tmp_comp = components.map do |k|
+      k.map do |v|
+        v if (/((\w+).#{cattype.downcase}.(\w+))/).match(v.tosca_type)
+      end unless k.nil?
+    end.flatten.compact
+    tmp_comp
+  end
 end

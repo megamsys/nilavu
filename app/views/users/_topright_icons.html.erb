@@ -17,7 +17,11 @@
 	<div class="row">
 		<div class="mplace-icons">
 				<ul>
-					<li class="two"><a href="/marketplaces" data-remote="true"><i class="fa fa-life-saver"></i>Marketplace</a></li>
+					<li class="two">
+						<%= link_to marketplaces_path , :data => {:remote => true} do %>
+							<i class="fa fa-life-saver"></i>
+							<span class="pull-right">Marketplaces</span>
+						<% end %>
 				</ul>
 		</div>
 	</div>
