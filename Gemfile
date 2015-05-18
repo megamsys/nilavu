@@ -1,4 +1,5 @@
-source 'https://rubygems.org'
+source "https://rubygems.org"
+ruby "2.2.2"
 
 gem "rails",  "~> 4.2.1"
 # add these gems to help with the transition to Rails 4.2.x
