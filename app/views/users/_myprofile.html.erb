@@ -120,7 +120,7 @@
             <div class="col-xs-12 bottom_border_grey">
               <div class="row">
                 <div class="col-xs-7 col-sm-6">
-                  <h4 class="">Organisation Information</h4>
+                  <h4 class="">Organization Information</h4>
                 </div>
                 <% if @orgs.class != Megam::Error %>
                   <% if @orgs.length > 0 %>
@@ -130,7 +130,7 @@
                           <%= one_org[:name] %>
                           <span class="caret"></span>
                         </button>
-                        <ul class="dropdown-menu" name="orglist" role="menu" aria-labelledby="dropdownMenu1">
+                        <ul class="dropdown-menu"  role="menu" aria-labelledby="dropdownMenu1">
                           <%= select_tag(:orglist, options_for_select(@orgs)) %>
                         </ul>
                       </div>
