@@ -13,13 +13,9 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 **/
-<% if @success != nil %>
-$("#profile_success").show();
-$("#profile_error").hide();
-$("#success").append('<%= @success %>');
-<% else %>
-$("#profile_success").hide();
-$("#profile_error").show();
-$("#error").append('<%= @error %>');
-<% end %>
-$("#profile_postfinish_popup").modal({backdrop : false,keyboard: false,show : true});
+
+$("#<%= @msg[:disposal_id] %>").hide();
+
+$('#cockpit').append("<%= escape_javascript render(:partial => 'catalogs/flymodal', :locals => {:msg => @msg}) %>");
+
+$("#megam_flymodal").modal('show');

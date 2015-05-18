@@ -29,7 +29,7 @@ class CatalogsController < ApplicationController
   #A filtered view of cattype [ADDON, APP, DEW,SERVICE] the cockpit.
   #This action is invoked when you click Apps, Services, Addons from the left nav.
   def index
-    logger.debug "> Pilotable: create"
+    logger.debug "> Pilotable: Index"
     @cattype = params[:cattype].capitalize
     assem = Assemblies.new.list(params)
     @assemblies_grouped = assem.assemblies_grouped
