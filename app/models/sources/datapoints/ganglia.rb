@@ -46,7 +46,7 @@ module Sources
         Rails.configuration.ganglia_web_url.present? && Rails.configuration.ganglia_host.present?
       end
 
-      def get(options = {}, email, apikey)
+      def get(options = {})
         range = options[:range].to_s
        # host    = options[:appkey]
        host = "improvident.megam.co"

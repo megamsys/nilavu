@@ -22,9 +22,10 @@
 #            this action gets called prior to a start, stop, restart, delete operation
 #            a confirmation is got from the user to perform the same.
 class CatalogsController < ApplicationController
+  include CatalogHelper
   respond_to :html, :js
 
-  before_action :stick_keys, only: [:index, :create, :destroy]
+  before_action :stick_keys, only: [:index, :create, :destroy, :runtime]
 
   #A filtered view of cattype [ADDON, APP, DEW,SERVICE] the cockpit.
   #This action is invoked when you click Apps, Services, Addons from the left nav.
@@ -54,6 +55,13 @@ class CatalogsController < ApplicationController
     logger.debug "> Pilotable: destroy"
     Requests.new.reqs(params)
     @msg = { title: "#{params['command'].camelize} #{params['cattype'].downcase}", message: "#{params['command'].camelize} #{params['name']} submitted successfully. ", redirect: '/'}
+  end
+  
+  def runtime
+    logger.debug "> Pilotable: Runtime"
+    asm = Assembly.new.show(params).by_cattypes 
+    @socketURL = Rails.configuration.socket_url   
+    @appname = asm["#{params["cattype"]}"].name + "." + parse_key_value_json(asm["#{params["cattype"]}"].inputs, "domain")
   end
 
 end

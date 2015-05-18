@@ -16,49 +16,45 @@
 <%= render 'layouts/header' %>
 <% asmid = request.original_url.partition('=').last %>
 <div class="container main-cover">
-  <div class="row">
-    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 c_bg_white cover c_bg_white_override">
-      <div class="row">
-        <div class="page-sidebar navbar-collapse collapse">
-          <!-- BEGIN SIDEBAR MENU -->
-          <ul class="page-sidebar-menu">
-            <li></li>
-            <li class="start active" >
-              <%= link_to cockpits_path , :data => {:remote => true} do %>
-                <i class="icon-chevron-sign-left pull-left"></i>
-                <span class="title pull-left">Back to Dashboard</span>
-                <span class="hidden-xs selected" id="left_onedash"></span>
-              <% end %>
-            </li>
-            <li class= "start active">
-              <%= link_to "one#{cattype.downcase.pluralize}?id=#{asmid}", :data => {:remote => true},  :onclick => "$('#left_onedash, #left_oneindex, #left_onelog, #left_oneruntime').removeClass('hidden-xs selected'); $('#left_oneindex').addClass('selected');" do %>
-                <i class="icon-bar-chart pull-left"></i>
-                <span class="title pull-left">Overview</span>
-                <span class="hidden-xs" id="left_oneindex"></span>
-              <% end %>
-            </li>
-            <li class="start active">
-               <%= link_to runtime_path(:id => asmid), :data => {:remote => true} , :onclick => "$('#left_onedash, #left_oneindex, #left_onelog, #left_oneruntime').removeClass('hidden-xs selected'); $('#left_oneruntime').addClass('selected');" do %>
-                 <i class="icon-cog pull-left"></i>
-                 <span class="title pull-left">Runtime</span>
-                 <span class="hidden-xs" id="left_oneruntime"></span>
-               <% end %>
-            </li>
-            <li class= "start active">
-              <a href="logs?id=<%= asmid %>", data-remote="true" ng-init="sendmessage('<%= asmid %>')",  onclick = "$('#left_onedash, #left_onelog, #left_oneruntime').removeClass('hidden-xs selected'); $('#left_onelog').addClass('selected');" >
-                <i class="icon-list-ul pull-left"></i>
-                <span class="title pull-left">Logs</span>
-                <span class="hidden-xs" id="left_onelog"></span>
-              </a>
-            </li>
-          </ul>
-          <!-- END SIDEBAR MENU -->
-        </div>
-      </div>
-    </div>
-    <div id="content">
-      <%= content_for?(:onecat_contents) ? yield(:onecat_contents) : yield %>
-    </div>
-  </div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 c_bg_white cover c_bg_white_override">
+			<div class="row">
+				<div class="page-sidebar navbar-collapse collapse">
+					<!-- BEGIN SIDEBAR MENU -->
+					<ul class="page-sidebar-menu">
+						<li></li>
+						<li class="start active" >
+							<%= link_to cockpits_path , :data => {:remote => true} do %>
+							<i class="icon-chevron-sign-left pull-left"></i>
+							<span class="title pull-left">Back to Dashboard</span>
+							<span class="hidden-xs selected" id="left_onedash"></span>
+							<% end %>
+						</li>
+						<li class= "start active">
+							<%= link_to "one#{cattype.downcase.pluralize}?id=#{asmid}", :data => {:remote => true},  :onclick => "$('#left_onedash, #left_oneindex, #left_onelog, #left_oneruntime').removeClass('hidden-xs selected'); $('#left_oneindex').addClass('selected');" do %>
+							<i class="icon-bar-chart pull-left"></i>
+							<span class="title pull-left">Overview</span>
+							<span class="hidden-xs" id="left_oneindex"></span>
+							<% end %>
+						</li>
+						<li class="start active">
+							<%= link_to runtime_path(:id => asmid, :cattype => cattype), :data => {:remote => true} , :onclick => "$('#left_onedash, #left_oneindex, #left_onelog, #left_oneruntime').removeClass('hidden-xs selected'); $('#left_oneruntime').addClass('selected');" do %>
+							<i class="icon-cog pull-left"></i>
+							<span class="title pull-left">Runtime</span>
+							<span class="hidden-xs" id="left_oneruntime"></span>
+							<% end %>
+						</li>																						
+						<li class= "start active">
+							<a href="logs?id=<%= asmid %>", data-remote="true" ng-init="sendmessage('<%= asmid %>')",  onclick = "$('#left_onedash, #left_onelog, #left_oneruntime').removeClass('hidden-xs selected'); $('#left_onelog').addClass('selected');" > <i class="icon-list-ul pull-left"></i> <span class="title pull-left">Logs</span> <span class="hidden-xs" id="left_onelog"></span> </a>
+						</li>
+					</ul>
+					<!-- END SIDEBAR MENU -->
+				</div>
+			</div>
+		</div>
+		<div id="content">
+			<%= content_for?(:onecat_contents) ? yield(:onecat_contents) : yield %>
+		</div>
+	</div>
 </div>
 <%= render 'layouts/footer' %>
