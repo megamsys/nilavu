@@ -1,1 +1,10 @@
+var rootElement = angular.element(document);
+rootElement.ready(function(){
+rootElement.injector().invoke(function($compile){
+var $content = $('#content'),
+scope =  $content.scope();
 $("#content").html("<%= escape_javascript(render :partial => "catalogs/runtime") %>");
+$compile($content.contents())(scope);
+scope.$digest();
+});
+});

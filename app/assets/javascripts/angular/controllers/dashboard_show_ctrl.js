@@ -15,7 +15,7 @@
 */
 app.controller("DashboardShowCtrl", ["$scope", "$rootScope", "$routeParams", "$location", "$timeout", "$window", "Dashboard", "Widget", "UpdateWidget", "Sources", function($scope, $rootScope, $routeParams, $location, $timeout, $window, Dashboard, Widget, UpdateWidget, Sources) {
 	
-  
+  console.log("----------entry--");
   $scope.bookwidget = "widgetpernode";
   $rootScope.resolved = false;   
   $scope.dashboard_id = $routeParams.id; 

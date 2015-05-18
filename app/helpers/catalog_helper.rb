@@ -33,5 +33,11 @@ module CatalogHelper
       end
     beautify_cockpit
   end
+  
+   def parse_key_value_json(array, key)
+    array.each do |json|    
+      return json["value"] if key == json["key"]
+    end
+  end
 
 end
