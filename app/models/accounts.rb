@@ -51,7 +51,7 @@ class Accounts < BaseFascade
     @verified_email        = false
     @verification_hash     = nil
     @password_reset_token  = nil
-    @created_at            = nil
+    @created_at            = account_parms[:created_at] || nil
   end
 
 
@@ -63,7 +63,6 @@ class Accounts < BaseFascade
   #pulls the account object for an email
   def find_by_email(email)
     res = MegamRiak.fetch("accounts", email)
-    puts res
     if res.class != Megam::Error && !res.content.data.nil?
       @email = res.content.data["email"]
       @password = res.content.data["password"]
@@ -167,8 +166,8 @@ class Accounts < BaseFascade
     end
   end
 
-  def self.typenum_to_s (updtype)
-    case updtype
+  def self.typenum_to_s(updtype)
+    case updtype.to_i
     when UPD_PROFILE
       return "Profile "
     when UPD_PASSWORD

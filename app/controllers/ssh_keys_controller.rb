@@ -17,8 +17,6 @@ class SshKeysController < ApplicationController
   respond_to :html, :js
 
   before_action :stick_keys
-
-
   ## get all sshkeys from storage and sort the keys for creating time based
   def index
     logger.debug "> SSH: index"
@@ -26,8 +24,12 @@ class SshKeysController < ApplicationController
   end
 
   def create
+    logger.debug "> SSH: create"
+    puts params.inspect
     params[:sshoption] = Sshkeys::NEW
     Sshkeys.new.create_or_import(params)
+    @msg = { title: "SSH", message: "#{params[:ssh_keypair_name]} created successfully. ", redirect: '/ssh_keys', disposal_id: 'create_ssh' }
+
   end
 
   ## this downloads a key
@@ -39,8 +41,11 @@ class SshKeysController < ApplicationController
 
   ## this imports the ssh keys.
   def update
+    logger.debug "> SSH: update"
     params[:sshoption] = Sshkeys::IMPORT
     Sshkeys.new.create_or_import(params)
+    @msg = { title: "SSH", message: "#{params[:ssh_keypair_name]} imported successfully. ", redirect: '/ssh_keys', disposal_id: 'import_ssh' }
+
   end
 
 end

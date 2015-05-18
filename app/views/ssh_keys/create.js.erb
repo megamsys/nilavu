@@ -13,7 +13,8 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 **/
-var selected_entity = '#sshkey_postfinish_popup';
-$("#success").html('<%= @success %>');
-$("#create_ssh").modal({backdrop : false,keyboard: false,show : true});
-$(selected_entity).modal({show : true});
+$("#<%= @msg[:disposal_id] %>").hide();
+
+$('#cockpit').append("<%= escape_javascript render(:partial => 'catalogs/flymodal', :locals => {:msg => @msg}) %>");
+
+$("#megam_flymodal").modal('show');

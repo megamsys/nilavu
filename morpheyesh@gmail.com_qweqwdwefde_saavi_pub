@@ -1,0 +1,33 @@
+curl -XDELETE http://localhost:8098/riak/marketplaces/9-Docker
+curl -XDELETE http://localhost:8098/riak/marketplaces/11-Riak
+curl -XDELETE http://localhost:8098/riak/marketplaces/1-Megam-StarterPack-Ubuntu
+curl -XDELETE http://localhost:8098/riak/marketplaces/14-Megam-AppBoilers-Redis
+curl -XDELETE http://localhost:8098/riak/marketplaces/6-Megam-StarterPack-Rails
+curl -XDELETE http://localhost:8098/riak/marketplaces/10-PostgreSQL
+curl -XDELETE http://localhost:8098/riak/marketplaces/5-Java
+curl -XDELETE http://localhost:8098/riak/marketplaces/7-Play
+curl -XDELETE http://localhost:8098/riak/marketplaces/4-CentOS
+curl -XDELETE http://localhost:8098/riak/marketplaces/10-Megam-StarterPack-Byoc
+curl -XDELETE http://localhost:8098/riak/marketplaces/9-Megam-StarterPack-Nodejs
+curl -XDELETE http://localhost:8098/riak/marketplaces/6-Rails
+curl -XDELETE http://localhost:8098/riak/marketplaces/3-Megam-StarterPack-Debian
+curl -XDELETE http://localhost:8098/riak/marketplaces/2-Megam-StarterPack-CoreOS
+curl -XDELETE http://localhost:8098/riak/marketplaces/16-Megam-Analytics-Hadoop
+curl -XDELETE http://localhost:8098/riak/marketplaces/12-Redis
+curl -XDELETE http://localhost:8098/riak/marketplaces/5-Megam-StarterPack-Java
+curl -XDELETE http://localhost:8098/riak/marketplaces/2-CoreOS
+curl -XDELETE http://localhost:8098/riak/marketplaces/8-Nodejs
+curl -XDELETE http://localhost:8098/riak/marketplaces/8-Megam-StarterPack-Akka
+curl -XDELETE http://localhost:8098/riak/marketplaces/4-Megam-StarterPack-CentOS
+curl -XDELETE http://localhost:8098/riak/marketplaces/3-Debian
+curl -XDELETE http://localhost:8098/riak/marketplaces/13-Megam-AppBoilers-Riak
+curl -XDELETE http://localhost:8098/riak/marketplaces/11-Megam-platform-Docker
+curl -XDELETE http://localhost:8098/riak/marketplaces/12-Megam-AppBoilers-PostgreSQL
+curl -XDELETE http://localhost:8098/riak/marketplaces/1-Ubuntu
+curl -XDELETE http://localhost:8098/riak/marketplaces/15-Megam-AppBoilers-RabbitMQ
+curl -XDELETE http://localhost:8098/riak/marketplaces/7-Megam-StarterPack-Play
+curl -XDELETE http://localhost:8098/riak/marketplaces/13-RabbitMQ
+
+
+
+curl -XDELETE http://localhost:8098/riak/marketplaces/

@@ -44,7 +44,7 @@ module SessionsHelper
 
   #return if an user is signed in or not. ?
   def signed_in?
-    session[:email] && session[:api_key]
+    session[:email] && session[:api_key] 
   end
 
 
@@ -53,7 +53,7 @@ module SessionsHelper
   unless signed_in?
     logger.debug "> Hmm. session Nada! I loaded current_user."
     res = Accounts.new.find_by_email(cookies[:email])  if  cookies[:remember_token] && cookies[:email]
-  else
+  else   
     Accounts.new(session)
   end
  end

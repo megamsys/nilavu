@@ -1,0 +1,5 @@
+$("#<%= @msg[:disposal_id] %>").hide();
+
+$('#cockpit').append("<%= escape_javascript render(:partial => 'catalogs/flymodal', :locals => {:msg => @msg}) %>");
+
+$("#megam_flymodal").modal('show');

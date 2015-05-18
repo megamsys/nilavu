@@ -65,7 +65,7 @@ class MarketplacesController < ApplicationController
       Assembly.new.update(params)
       Components.new.update(params)
     end
-    @msg = { title: "#{mkp['cattype']}", message: "#{params['assemblyname']}.#{params['domain']} launched successfully. ", redirect: '/', disposal_id: 'app-1' }
+    @msg = { title: "#{mkp['cattype']}".downcase.camelize, message: "#{params['assemblyname']}.#{params['domain']} launched successfully. ", redirect: '/', disposal_id: 'app-1' }
   end
 
   ##
