@@ -47,14 +47,14 @@ class CatalogsController < ApplicationController
   #a confirmation question for a delete operation.
   def kelvi
     logger.debug "> Pilotable: kelvi"
-    @msg = { title: "#{params['command'].camelize} #{params['cattype'].downcase}", message: "you want to delete #{params['name']}"}
+    @msg = { title: "#{params['command'].camelize} #{params['cattype'].downcase}", message: "you want to delete #{params['name']}", redirect: catalog_path(:id => 1, :params => params)}
   end
 
   #this action perfroms a delete operation.
   def destroy
-    logger.debug "> Pilotable: destroy"
+    logger.debug "> Pilotable: destroy"   
     Requests.new.reqs(params)
-    @msg = { title: "#{params['command'].camelize} #{params['cattype'].downcase}", message: "#{params['command'].camelize} #{params['name']} submitted successfully. ", redirect: '/'}
+    @dmsg = { disposal_id: "megam_flykelvi", title: "#{params['command'].camelize} #{params['cattype'].downcase}", message: "#{params['command'].camelize} #{params['name']} submitted successfully. ", redirect: '/'}
   end
 
   def runtime

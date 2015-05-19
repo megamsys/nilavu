@@ -27,7 +27,7 @@ gem 'omniauth-github', "~> 1.1.2"
 gem 'json', "~> 1.8.2"
 gem 'riak-client', '~> 2.1.0'
 
-gem "megam_api", "~> 0.56"
+gem "megam_api", "~> 0.57"
 gem 'megam_gogs', "~> 0.8.0"
 
 #general

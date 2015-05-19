@@ -16,6 +16,7 @@
 class OneappsController < ApplicationController
   respond_to :html, :js
   include OneappsHelper
+  include CatalogHelper
 
   before_action :stick_keys, only: [:index]
 

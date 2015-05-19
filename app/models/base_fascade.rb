@@ -24,7 +24,7 @@ class BaseFascade
   DISCOUNTS         = "Discounts".freeze
 
   MARKETPLACES      = "MarketPlace".freeze
-  REQUESTS          = "Requests".freeze
+  REQUESTS          = "Request".freeze
   SSHKEYS           = "SshKey".freeze
 
 

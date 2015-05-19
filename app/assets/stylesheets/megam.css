@@ -1384,3 +1384,7 @@ Bootstrap Panel
      -moz-box-shadow: none !important;
           box-shadow: none !important;
 }
+
+.a_pad {
+	padding: 10px !important;
+}
