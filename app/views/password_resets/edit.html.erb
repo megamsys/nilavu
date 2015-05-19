@@ -15,77 +15,61 @@
 -->
 <% provide(:title, "Password reset") %>
 <div class="signin login">
-	<!-- BEGIN LOGO -->
-	<div class="container">
-		<div class="row">
-			<div class="logo">
-				<%= image_tag "megam-logo1.png" %>
-			</div>
-		</div>
-
-		<!-- END LOGO -->
-		<!-- BEGIN LOGIN -->
-		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer bg_white border_grey">
-			<div class="container">
-				<div class="row bottom-divider">
-					<div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
-						<h2>Reset password</h2>
-					</div>
-				</div>
-			</div>
-
-			<% if flash[:error] %>
-
-			<div class="alert alert-error">
-				<h4> <%= flash[:error] %></h4>
-			</div>
-
-			<% end %>
-
-			<div class="cover col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
-				<!-- BEGIN LOGIN FORM -->
-<%= form_tag password_reset_path(:email => params[:email]), multipart: true, :id => "megamform", :novalidate => "novalidate", :method => "put", data: { spinlock: "#spin_cross_cloud"}  do %>
-
-
-				<div class="c_inline">
-					<div class="form-group">
-						<div class="row">
-							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
-								<i class="c_ico-excla"></i>
-<%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: "New Password" %>
-
-							</div>
-						</div>
-					</div>
-
-					<div class="form-group">
-						<div class="row">
-							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
-								<i class="c_ico-excla"></i>
-<%= password_field_tag 'password_confirmation', nil, :required => true, :class=> 'form-control', placeholder: "Retype Password" %>
-							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<div class="row">
-								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right tour-btn">
-<%= submit_tag "Update Password", :class => "btn btn-success" %>
-								</div>
-							</div>
-						</div>
-					</div>
-					</div>
-
-				<% end %>
-				<!-- END REGISTRATION FORM -->
-			</div>
-
-		</div>
-
-	</div>
+  <!-- BEGIN LOGO -->
+  <div class="container">
+    <div class="row">
+      <div class="logo">
+        <%= image_tag "megam-logo1.png" %>
+      </div>
+    </div>
+    <!-- END LOGO -->
+    <!-- BEGIN LOGIN -->
+    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer bg_white border_grey">
+      <div class="container">
+        <div class="row bottom-divider">
+          <div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
+            <h2>Reset password</h2>
+          </div>
+        </div>
+      </div>
+      <% if flash[:error] %>
+        <div class="alert alert-error">
+          <h4> <%= flash[:error] %></h4>
+        </div>
+      <% end %>
+      <div class="cover col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
+        <!-- BEGIN LOGIN FORM -->
+        <%= form_tag password_reset_path(:email => params[:email]), multipart: true, :id => "megamform", :novalidate => "novalidate", :method => "put", data: { spinlock: "#spin_cross_cloud"}  do %>
+          <div class="c_inline">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
+                  <i class="c_ico-excla"></i>
+                  <%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: "New Password" %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
+                  <i class="c_ico-excla"></i>
+                  <%= password_field_tag 'password_confirmation', nil, :required => true, :class=> 'form-control', placeholder: "Retype Password" %>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                  <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right tour-btn">
+                    <%= submit_tag "Update Password", :class => "btn btn-success" %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        <!-- END REGISTRATION FORM -->
+      </div>
+    </div>
+  </div>
 </div>
-
-
-

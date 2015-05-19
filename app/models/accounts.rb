@@ -18,8 +18,6 @@ require 'json'
 
 class Accounts < BaseFascade
   include BCrypt
-
-
   attr_reader :email
   attr_reader :password
   attr_reader :api_key
@@ -29,6 +27,7 @@ class Accounts < BaseFascade
   attr_reader :password_reset_key
   attr_reader :created_at
 
+  ACCOUNTS_BUCKET     = "accounts".freeze
   ADMIN               = 'admin'.freeze
   MEGAM_TOUR_EMAIL    = 'tour@megam.io'.freeze
   MEGAM_TOUR_PASSWORD = 'faketour'.freeze
@@ -62,14 +61,15 @@ class Accounts < BaseFascade
 
   #pulls the account object for an email
   def find_by_email(email)
-    res = MegamRiak.fetch("accounts", email)
-    if res.class != Megam::Error && !res.content.data.nil?
-      @email = res.content.data["email"]
-      @password = res.content.data["password"]
-      @api_key = res.content.data["api_key"]
-      @first_name = res.content.data["first_name"]
-      @phone = res.content.data["phone"]
-      @created_at = res.content.data["created_at"]
+    storage = Storage.new(ACCOUNTS_BUCKET).fetch(email)
+    if !storage.content.data.nil?
+      @email = storage.content.data["email"]
+      @password = storage.content.data["password"]
+      @api_key = storage.content.data["api_key"]
+      @first_name = storage.content.data["first_name"]
+      @phone = storage.content.data["phone"]
+      @password_reset_key = storage.content.data["password_reset_key"]
+      @created_at = storage.content.data["created_at"]
    end
    return self
   end
@@ -119,19 +119,10 @@ class Accounts < BaseFascade
     return @res.data[:body]
   end
 
-
-
   def find_by_password_reset_key(password_reset_key, email)
-    result = nil
-    res = MegamRiak.fetch("accounts", email)
-    if (res.class != Megam::Error) && (res.content.data["password_reset_key"] == "#{password_reset_key}")
-    result = res.content.data
-    puts result
-    end
-    result
+    find_by_email
+    @password_reset_key == "#{password_reset_key}"
   end
-
-
 
   #a private helper function that builds the hash.
   private
@@ -149,7 +140,7 @@ class Accounts < BaseFascade
      :password_reset_sent_at => api_params[:password_reset_sent_at],
      :created_at => api_params[:created_at]}
   end
-  
+
 
 
 

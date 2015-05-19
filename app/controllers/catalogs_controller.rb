@@ -56,11 +56,10 @@ class CatalogsController < ApplicationController
     Requests.new.reqs(params)
     @msg = { title: "#{params['command'].camelize} #{params['cattype'].downcase}", message: "#{params['command'].camelize} #{params['name']} submitted successfully. ", redirect: '/'}
   end
-  
+
   def runtime
     logger.debug "> Pilotable: Runtime"
-    asm = Assembly.new.show(params).by_cattypes 
-    @socketURL = Rails.configuration.socket_url   
+    asm = Assembly.new.show(params).by_cattypes
     @appname = asm["#{params["cattype"]}"].name + "." + parse_key_value_json(asm["#{params["cattype"]}"].inputs, "domain")
   end
 
