@@ -25,6 +25,7 @@ class Accounts < BaseFascade
   attr_reader :phone
   attr_reader :remember_token
   attr_reader :password_reset_key
+  attr_reader :password_reset_sent_at
   attr_reader :created_at
 
   ACCOUNTS_BUCKET     = "accounts".freeze
@@ -69,6 +70,7 @@ class Accounts < BaseFascade
       @first_name = storage.content.data["first_name"]
       @phone = storage.content.data["phone"]
       @password_reset_key = storage.content.data["password_reset_key"]
+      @password_reset_sent_at = storage.content.data["password_reset_sent_at"]
       @created_at = storage.content.data["created_at"]
    end
    return self
@@ -120,8 +122,9 @@ class Accounts < BaseFascade
   end
 
   def find_by_password_reset_key(password_reset_key, email)
-    find_by_email
+    find_by_email(email)
     @password_reset_key == "#{password_reset_key}"
+    return self
   end
 
   #a private helper function that builds the hash.
@@ -140,9 +143,6 @@ class Accounts < BaseFascade
      :password_reset_sent_at => api_params[:password_reset_sent_at],
      :created_at => api_params[:created_at]}
   end
-
-
-
 
   def password_encrypt(password)
     Password.create(password)
