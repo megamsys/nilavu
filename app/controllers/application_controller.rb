@@ -73,6 +73,7 @@ class ApplicationController < ActionController::Base
     logger.debug "> STICK #{params}"
     params[:email] = session[:email]
     params[:api_key] = session[:api_key]
+    params[:host]    = Ind.http_api
     logger.debug "> STICKD #{params}"
     params
   end

@@ -33,8 +33,8 @@ class Components < BaseFascade
     yield self if block_given?
     return self
   end
-  
-  def update(api_params, &block)    
+
+  def update(api_params, &block)
     api_request(bld_update_params(api_params), COMPONENTS, UPDATE)
     yield self if block_given?
     return self
@@ -70,10 +70,10 @@ class Components < BaseFascade
     }]
     hash
   end
-  
+
   def bld_update_params(params)
-    com = empty_component    
-    com["related_components"] << "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}" if params.has_key?(:bindedAPP) 
+    com = empty_component
+    com["related_components"] << "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}" if params.has_key?(:bindedAPP)
     com[:email] = params["email"]
     com[:api_key] = params["api_key"]
     com["id"] = "#{params[:bindedAPP].split(':')[2]}"

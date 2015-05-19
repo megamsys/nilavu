@@ -56,14 +56,14 @@ class UsersController < ApplicationController
     @account = current_user
     @orgs = Organizations.new.list(params).orgs
     @acc = Accounts.new.find_by_email(session[:email])
-    
+
     @orgs
   end
 
   #update any profile information. First we verify if the current password matches with ours.
   #I don't know why we are creating a new_session here. This is a BUG.
   def update
-    logger.debug "> Users: update"    
+    logger.debug "> Users: update"
     Accounts.new.update(params.merge({:remember_token => rem_tokgen})) do  |tmp_account|
         sign_in tmp_account
         @success = "#{Accounts.typenum_to_s(params[:myprofile_type])} updated successfully."

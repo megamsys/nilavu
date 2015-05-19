@@ -16,12 +16,12 @@
 class GangliaUrlBuilder
 
   def initialize(base_url)
-    @base_url = Rails.configuration.ganglia_base_url   
+    @base_url = Ind.http_metrics
   end
 
   def datapoints_url(range, target, host)
     cluster, metric = parse_target(target)
-    url = "#{@base_url}/graph.php"    
+    url = "#{@base_url}/graph.php"
     params = { :c => cluster, :h => host, :json => 1, :m => metric }
     { :url => url, :params => params.merge(custom_range_params(range)) }
   end
@@ -32,16 +32,16 @@ class GangliaUrlBuilder
 
   def data_url(range, target, host)
     cluster, metric = parse_target(target)
-    url = "#{@base_url}/host_overview.php"    
+    url = "#{@base_url}/host_overview.php"
     params = { :c => cluster, :h => host, :json => 1, :m => metric }
     { :url => url, :params => params.merge(custom_range_params(range)) }
   end
 
   def parse_target(target)
-    #target =~ /(.*)@(.*)\((.*)\)/    
+    #target =~ /(.*)@(.*)\((.*)\)/
     #host = 'ip-10-142-85-146.ap-southeast-1.compute.internal'
     #host = 'gmond'
-    cluster = Rails.configuration.ganglia_cluster
+    cluster = Ind.stream_metrics_cluster
     metric  = target
         [cluster, metric]
   end

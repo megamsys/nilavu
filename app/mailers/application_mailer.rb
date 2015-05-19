@@ -16,7 +16,7 @@
 require 'net/smtp'
 
 class ApplicationMailer < ActionMailer::Base
-  default from: '#{Rails.configuration.support_email}' || 'support@megam.io'
+  default from: Ind.notification.email.id
 
   class MegamSnailError < StandardError; end
 
@@ -24,7 +24,7 @@ class ApplicationMailer < ActionMailer::Base
   # every mailer needs to send a block to process.
   # errors are handled automatically
   def wrap_mail(tmp_params, &_block)
-    if has_mail?
+    if Ind.notification.on_some_hap
       begin
         @account  = tmp_params[:account]
         mail(to: @account.email, subject: tmp_params[:subject])
@@ -35,7 +35,5 @@ class ApplicationMailer < ActionMailer::Base
     end
   end
 
-  def has_mail?
-    "#{Rails.configuration.support_email}".chop!
-  end
+
 end

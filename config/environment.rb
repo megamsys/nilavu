@@ -12,8 +12,8 @@ ActionMailer::Base.smtp_settings = {
   :address        => "smtp.googlemail.com",
   :port           => "587",
   :domain         => "megam.io",
-  :user_name      => Rails.configuration.support_email,
-  :password       => Rails.configuration.support_password,
+  :user_name      => Ind.notification.email.id,
+  :password       => Ind.notification.email.password,
   :authentication => :plain
 }
 
