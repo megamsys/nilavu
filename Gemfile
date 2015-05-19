@@ -46,6 +46,8 @@ gem "nokogiri", "~> 1.6.6.2"
 gem 'passenger',:group => :production
 
 gem 'sass-rails', "~> 5.0.3"
+gem 'uglifier', "~> 2.7.1"
+
 
 group :test do
   gem 'capybara'
