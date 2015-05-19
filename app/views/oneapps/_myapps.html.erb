@@ -14,121 +14,121 @@
 ** limitations under the License.
 -->
 <% content_for :onecat_contents do %>
-  <% provide(:title, 'App Overview') %>
-  <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
-    <div class="row c_pading-b15 settings_top">
-      <div class="margin_15">
-        <div class="col-xs-9 col-sm-6 col-md-7">
-          <h3> App Overview </h3>
-        </div>
-        <%= render :partial => "users/topright_icons" %>
-      </div>
-    </div>
-    <div class="row">
-      <div class="mplace mplace-head">
-        <div class="col-xs-6 col-md-3 mplace-left">
-          <h4> Apps Overview </h4>
-        </div>
-        <div class="col-xs-12 col-md-9 mplace-middle hidden-xs hidden-sm">
-          <span class="pull-right c_small">Overview of you app.<i class="c_icon-rocket"></i><a href="http://docs.megam.io/v1.0/docs/postgresql" target="_blank">Take a Tour</a></span>
-        </div>
-      </div>
-    </div>
-    <!-- TITLE BOX ENDS HERE -->
-    <div class="row">
-      <div class="margin_15 overview margintb_15">
-        <div class="overview-top">
-          <div class="col-xs-12 col-sm-12 col-md-6 overview-route">
-            <span>URL: </span><a href="http://<%= assembly.name  %>.<%= assembly.components[0][0].components.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>" target="_blank"><%= assembly.name  %>.<%= assembly.components[0][0].components.inputs.select { |x| x["key"] == "domain" }[0]['value'] %></a>
-          </div>
-          <div class="col-xs-12 col-sm-12 col-md-6 overview-git">
-            <div class="row">
-              <div class="col-xs-3">
-                <label>GIT URL: </label>
-              </div>
-              <div class="col-xs-6">
-                <input type="text" class="overview-giturl form-control" disabled placeholder="<%= assembly.components[0][0].components.inputs.select { |x| x['key'] == 'source' }[0]['value'] %>">
-              </div>
-              <div class="col-xs-3 overview-submit">
-                <a href="<%= assembly.components[0][0].components.inputs.select { |x| x['key'] == 'source' }[0]['value'] %>" target="_blank" class="btn green">CODE</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="margin_30 bottom-divider"></div>
-    </div>
-    <div class="clearfix"></div>
-    <div class=" overview margintb_15 vm-overview">
-      <div class="vm-bg">
-        <div class="overview-top ">
-          <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-            <label class="col-md-6"><i class="fa fa-hdd-o"></i> Available RAM </label>
-            <span1>
-              768 MB
+<% provide(:title, 'App Overview') %>
+<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
+	<div class="row c_pading-b15 settings_top">
+		<div class="margin_15">
+			<div class="col-xs-9 col-sm-6 col-md-7">
+				<h3> App Overview </h3>
+			</div>
+			<%= render :partial => "users/topright_icons" %>
+		</div>
+	</div>
+	<div class="row">
+		<div class="mplace mplace-head">
+			<div class="col-xs-6 col-md-3 mplace-left">
+				<h4> Apps Overview </h4>
+			</div>
+			<div class="col-xs-12 col-md-9 mplace-middle hidden-xs hidden-sm">
+				<span class="pull-right c_small">Overview of you app.<i class="c_icon-rocket"></i><a href="http://docs.megam.io/v1.0/docs/megam_quick_launch" target="_blank">Take a Tour</a></span>
+			</div>
+		</div>
+	</div>
+	<!-- TITLE BOX ENDS HERE -->
+	<div class="row">
+		<div class="margin_15 overview margintb_15">
+			<div class="overview-top">
+				<div class="col-xs-12 col-sm-12 col-md-6 overview-route">
+					<span>URL: </span><a href="http://<%= assembly.name  %>.<%= assembly.components[0][0].components.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>" target="_blank"><%= assembly.name  %>.<%= assembly.components[0][0].components.inputs.select { |x| x["key"] == "domain" }[0]['value'] %></a>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-6 overview-git">
+					<div class="row">
+						<div class="col-xs-3">
+							<label>GIT URL: </label>
+						</div>
+						<div class="col-xs-6">
+							<input type="text" class="overview-giturl form-control" disabled placeholder="<%= assembly.components[0][0].components.inputs.select { |x| x['key'] == 'source' }[0]['value'] %>">
+						</div>
+						<div class="col-xs-3 overview-submit">
+							<a href="<%= assembly.components[0][0].components.inputs.select { |x| x['key'] == 'source' }[0]['value'] %>" target="_blank" class="btn green">CODE</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="margin_30 bottom-divider"></div>
+	</div>
+	<div class="clearfix"></div>
+	<div class=" overview margintb_15 vm-overview">
+		<div class="vm-bg">
+			<div class="overview-top ">
+				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+					<label class="col-md-6"><i class="fa fa-hdd-o"></i> Available RAM </label>
+					<span1>
+						768 MB
 					</span1>
-          </div>
-          <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-            <label class="col-md-6"><i class="fa fa-columns"></i> CPU Core </label>
-            <span1>
-              1 VCPU
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+					<label class="col-md-6"><i class="fa fa-columns"></i> CPU Core </label>
+					<span1>
+						1 VCPU
 					</span1>
-          </div>
-        </div>
-        <div class="overview-top ">
-          <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-            <label class="col-md-6"><i class="fa fa-puzzle-piece"></i> IP </label>
-            <span1>
-              192.168.2.100
-            </span1>
-          </div>
-          <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-            <label class="col-md-6"><i class="fa fa-building-o"></i> Architecture </label>
-            <span1>
-              AMD64
+				</div>
+			</div>
+			<div class="overview-top ">
+				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+					<label class="col-md-6"><i class="fa fa-puzzle-piece"></i> IP </label>
+					<span1>
+						192.168.2.100
 					</span1>
-          </div>
-        </div>
-        <div class="overview-top">
-          <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-            <label class="col-md-6"> <i class="fa fa-bullseye"></i> OS </label>
-            <span1 style="border-bottom:none;">
-              <%= image_tag  "logos/#{assembly.tosca_type.split('.').last}.png", :alt => "" %>
-            </span1>
-          </div>
-          <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-            <label class="col-md-6"><i class="fa fa-lock"></i> SSH key </label>
-            <span1>
-              <%= assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value'] %>
-            </span1>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br/>
-    <div class="row">
-      <div class="margin_30 c_pading-b15">
-        <div class="portlet-body-head">
-          <div class="col-xs-12 col-sm-12 col-md-6 row">
-            <i class="c_icon-layer_lg"></i>Your Services <span>0 Services running</span>
-          </div>
-          <div class="col-xs-12 col-sm-12 col-md-6 create_bind row">
-            <ul class="list-inline">
-              <li class=" col-sm-6 active">
-                <i class="icon-plus"></i> <%= link_to "Create Service", marketplaces_path, :remote =>true %>
-              </li>
-              <li class=" col-sm-6">
-                <i class="icon-plus"></i>
-                <%= link_to "Bind a Service", catalogs_path(:bindapp => @assembly.id + ":" + @assembly.name), :remote => true %>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
-    <br/>
-    <div class="bottom-divider"></div>
-    <%= render :partial => 'catalogs/flysolo', :locals => {:components => @assembly.components, :filter_cattype => Assemblies::SERVICE} %>
-  </div>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+					<label class="col-md-6"><i class="fa fa-building-o"></i> Continious integration </label>
+					<span1>
+						
+					</span1>
+				</div>
+			</div>
+			<div class="overview-top">
+				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+					<label class="col-md-6"> <i class="fa fa-bullseye"></i> OS </label>
+					<span1 style="border-bottom:none;">
+						<%= image_tag  "logos/#{assembly.tosca_type.split('.').last}.png", :alt => "" %>
+					</span1>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+					<label class="col-md-6"><i class="fa fa-lock"></i> SSH key </label>
+					<span1>
+						<%= assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value'] %>
+					</span1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="margin_30 c_pading-b15">
+			<div class="portlet-body-head">
+				<div class="col-xs-12 col-sm-12 col-md-6 row">
+					<i class="c_icon-layer_lg"></i>Bound Services <span>0 Services running</span>
+				</div>
+				<div class="col-xs-12 col-sm-12 col-md-6 create_bind row">
+					<ul class="list-inline">
+						<li class=" col-sm-6 ">
+							<i class="icon-plus"></i> <%= link_to "Create Service", marketplaces_path, :remote =>true %>
+						</li>
+						<li class=" col-sm-6">
+							<i class="icon-plus"></i>
+							<%= link_to "Bind a Service", catalogs_path(:bindapp => @assembly.id + ":" + @assembly.name), :remote => true %>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br/>
+	<div class="bottom-divider"></div>
+	<%= render :partial => 'catalogs/flysolo', :locals => {:components => @assembly.components, :filter_cattype => Assemblies::SERVICE} %>
+</div>
 <% end %>
 <%= render :template => 'catalogs/show',:locals => {:cattype => Assemblies::APP} %>

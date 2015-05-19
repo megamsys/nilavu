@@ -17,9 +17,9 @@
 require 'bcrypt'
 
 class PasswordResetsController < ApplicationController
- 
+
  include BCrypt
- 
+
   skip_before_action :require_signin, only: [:edit, :create, :update]
   ##if the email doesn't exist in our system we ask to signup.
   ##if not, we pull the info of the user and do an account update.
@@ -31,19 +31,15 @@ class PasswordResetsController < ApplicationController
     account.update(params) do
       UserMailer.reset(account).deliver_now
     end
-
   end
 
   def edit
-    account = Accounts.new
-    @account = account.find_by_password_reset_key(params[:id], params[:email])
+    @account = Accounts.new.find_by_password_reset_key(params[:id], params[:email])
     @account
   end
 
   def update
-    puts params[:id], params[:email]
     account = Accounts.new.find_by_password_reset_key(params[:id], params[:email])
-    puts account
     redirect_to signin_path, :alert => "Password reset has expired." unless account['password_reset_sent_at'] < 2.hours.ago
 
     update_options = { "password" => account.password_encrypt(params[:password]), "password_confirmation" => user_obj.password_encrypt(params[:password_confirmation]) }

@@ -58,6 +58,8 @@ class MarketplacesController < ApplicationController
   def create
     logger.debug '> Marketplaces: create.'
     mkp = JSON.parse(params[:mkp])
+    params[:ssh_keypair_name] = params["#{params[:sshoption]}"+"_name"] if params[:sshoption] == Sshkeys::USEOLD
+    params[:ssh_keypair_name] = params["#{Sshkeys::NEW}_name"] unless params[:sshoption] == Sshkeys::USEOLD
     Sshkeys.new.create_or_import(params)
     setup_scm(params)
     res = Assemblies.new.create(params)

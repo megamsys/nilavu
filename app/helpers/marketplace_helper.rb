@@ -32,7 +32,7 @@ module MarketplaceHelper
   def category_description(category)
     case category
     when '1-Dew'
-      'Get started with a VM'
+      'Get your own compute power'
     when '2-BYOC'
       'Get started with a new app'
     when '3-App Boilers'

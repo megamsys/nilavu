@@ -40,17 +40,17 @@ class Assembly < BaseFascade
     yield self  if block_given?
     return self
   end
-  
-  def update(api_params, &block)   
+
+  def update(api_params, &block)
     api_request(bld_update_params(api_params), ASSEMBLY, UPDATE)
     yield self if block_given?
     return self
   end
-  
+
   def bld_update_params(params)
-    asm = empty_assembly    
-    params = params.merge({"policymembers" => "#{params[:bindedAPP].split(':')[0]}"}) if params.has_key?(:bindedAPP) 
-    asm["policies"] = bld_policies(params) if params.has_key?(:bindedAPP) 
+    asm = empty_assembly
+    params = params.merge({"policymembers" => "#{params[:bindedAPP].split(':')[0]}"}) if params.has_key?(:bindedAPP)
+    asm["policies"] = bld_policies(params) if params.has_key?(:bindedAPP)
     asm[:email] = params["email"]
     asm[:api_key] = params["api_key"]
     asm["id"] = "#{params[:bindedAPP].split(':')[1]}"
@@ -64,8 +64,8 @@ class Assembly < BaseFascade
   bld_components(params) unless mkp["cattype"] == Assemblies::DEW
   bld_requirements(params)
   bld_inputs(params)
-  
-  params = params.merge({"policymembers" => "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}"}) 
+
+  params = params.merge({"policymembers" => "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}"})
 
   [{
       "name"=>"#{params[:assemblyname]}",
@@ -83,7 +83,7 @@ class Assembly < BaseFascade
 
 
  private
- 
+
  def empty_assembly
    {
       "name"=>nil,
@@ -126,7 +126,7 @@ def bld_policies(params)
         ]
       }
     com << value
-    end 
+    end
     com
   end
 
@@ -158,7 +158,7 @@ def bld_policies(params)
   #if there is no match, then send out an error
   def want_catkey(tmp_tosca_type)
     c0 = Assemblies::CATTYPES.select {|cat|  cat if tmp_tosca_type.match(cat.downcase)}
-    raise UnsupportedConfigError, "Supported cat types are #{CATTYPES}." if c0.nil?
+    raise MissingAPIArgsError, "Supported cat types are #{CATTYPES}." if c0.nil?
     c0.join
   end
 

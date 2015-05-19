@@ -8,7 +8,6 @@ class BaseFascade
   class APIInvocationFailure < MegamAPIError; end
   class MissingAPIArgsError < MegamAPIError; end
   class AuthenticationFailure < MegamAPIError; end
-  class UnsupportedConfigError < MegamAPIError; end
   class SSHKeyProcessingFailure < MegamAPIError; end
 
   JLAZ_PREFIX       = "Megam::".freeze
@@ -25,7 +24,7 @@ class BaseFascade
   DISCOUNTS         = "Discounts".freeze
 
   MARKETPLACES      = "MarketPlace".freeze
-  REQUESTS          = "Requests".freeze
+  REQUESTS          = "Request".freeze
   SSHKEYS           = "SshKey".freeze
 
 
@@ -46,8 +45,8 @@ class BaseFascade
 #probably move it to an api call /ping in the future.
   def ping?
     begin
-#      open("http://#{Rails.configuration.api_server_url}:9000")
-#      open("http://#{Rails.configuration.storage_server_url}:8098")
+#      open("http://#{Ind.http_api}:9000")
+#      open("http://#{Ind.storage}:8098")
     rescue Exception => se
       raise se
     end

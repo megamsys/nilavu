@@ -1,4 +1,4 @@
-/**
+<!--
 ** Copyright [2013-2015] [Megam Systems]
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,14 +12,10 @@
 ** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
-**/
-<% unless @ssh_keys.nil? %>
-$("#tab_cloud").html('<%= escape_javascript(render :partial => "cross_clouds/select_cross_cloud" )%>');
-<% else %>
-$('#notification').removeClass('badge badge-success').addClass('badge badge-alert');
+-->
+<div id="content-header">
+	<h1> <%= head %> </h1>
+	<div class="btn-group">
 
-$("#events").prepend('<li style="background-color: white;"><p><span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> <%= @err_msg %> <span class="time">Just now</span></p></li>');
-
-$('#settings_tab a[href="#tab_sshkey"]').tab('show')
-<% end %>
-
+	</div>
+</div>

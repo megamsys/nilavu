@@ -12,22 +12,11 @@
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
-##
-class GoogleCloud
-  include CrossCloudsHelper
-  def self.perform(options = {}, bucket_name)
+## Ind is a settings key, value storage used by nilavu.
+require "settingslogic"
 
-if Rails.configuration.storage_type == "s3"
-
-    #Create and Upload type file ...
-    S3.upload(bucket_name, options[:email]+"/"+options[:name]+"/type", 'type='+options[:type])
-
-    #Create and Upload type file ...
-    S3.upload(bucket_name, options[:email]+"/"+options[:name]+"/"+options[:provider_value]+".json", options[:g_json])
-
-else
-        MegamRiak.upload(bucket_name, options[:email]+"_"+options[:name], options[:g_json], "application/json")
-end
-
-  end
+class Ind < Settingslogic
+  source "#{ENV['MEGAM_HOME']}/nilavu.yml"
+  namespace Rails.env
+  suppress_errors Rails.env.production?
 end

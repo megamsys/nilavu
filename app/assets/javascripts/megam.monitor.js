@@ -21,6 +21,9 @@ function($routeProvider, $locationProvider) {
 	$routeProvider.when("/", {
 		templateUrl : 'angular/templates/dashboards/show.html.erb',
 		controller : "DashboardShowCtrl"
+	}).when("/runtime", {
+		templateUrl : 'angular/templates/dashboards/show.html.erb',
+		controller : "DashboardShowCtrl"
 	}).when("/runtime/:id", {
 		templateUrl : 'angular/templates/dashboards/show.html.erb',
 		controller : "DashboardShowCtrl"

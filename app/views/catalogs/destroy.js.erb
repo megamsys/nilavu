@@ -13,8 +13,9 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 **/
-$("#<%= @msg[:disposal_id] %>").hide();
 
-$('#cockpit').append("<%= escape_javascript render(:partial => 'catalogs/flymodal', :locals => {:msg => @msg}) %>");
+$('#<%= @dmsg[:disposal_id] %>').modal('hide');
 
-$("#megam_flymodal").modal('show');
+$('#cockpit').append("<%= escape_javascript render(:partial => 'catalogs/flydeletemodal', :locals => {:dmsg => @dmsg}) %>");
+
+$("#megam_flydeletemodal").modal('show');

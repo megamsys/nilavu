@@ -1,50 +1,138 @@
-server: console.megam.io
-api:
-  host: localhost
-  scheme: http
-  pub_key: megamgateway_pub.crt
-  private_key: megamgateway.key
+# /var/lib/megam/nilavu.yml
+defaults: &defaults
+## Specifies the storage used for nilavu's key-value data
+##
+## Default: riak
+##
+## Acceptable values:
+##   - one of: riak
+  storage_backend: riak
+## connect.storage.db is a host that the nilavu will connect to
+## for saving key/value pairs in storage
+## Default: localhost
+##
+## Acceptable values:
+##   - text, e.g. localhost, console.megam.io
+  storage: localhost
+## Name of the nilavu server
+##
+## Default: console.megam.io
+##
+## Acceptable values:
+##   - text
+  nilavu: console.megam.io
+## connect.http.api is a host that the nilavu will connect to
+## for API  interaction
+## Default: api.megam.io
+##
+## Acceptable values:
+##   - text, e.g. localhost, api.megam.io
+  http_api: api.megam.io
+## Enable log streaming into nilavu
+##
+## Default: on
+##
+## Acceptable values:
+##   - on or off
+  stream_logs: on
+## connect.websocket.tap is a host that the nilavu will connect to
+## for real time log streaming
+## Default: console.megam.io
+##
+## Acceptable values:
+##   - text, e.g. localhost, api.megam.io
+  websocket_tap: console.megam.io:7000
+## Enable metrics streaming into nilavu
+## Requires package [megamanalytics] to be insalled.
+## Default: off
+##
+## Acceptable values:
+##   - on or off
+  stream_metrics: off
+# The metrics source to configure to.
+## Default: demo
+##
+## Acceptable values:
+##   - demo, ganglia
+  stream_metrics_source: demo
+# The metrics source to configure to.
+## Default: demo
+##
+## Acceptable values:
+##   - demo, ganglia
+  stream_metrics_cluster: megam
+## connect.http.metrics is a host that the nilavu will connect to
+## for real time metrics streaming
+## Default: console.megam.io
+##
+## Acceptable values:
+##   - text, e.g. localhost, api.megam.io
+  http_metrics: http://console.megam.io/monit
+## Enable private git gogs to be used by nilavu
+## Requires package [megamgogs] to be insalled.
+## Default: off
+##
+## Acceptable values:
+##   - on or off
+  private_git_gogs: off
+# http_gogs is a host that the nilavu will connect to
+## for pulling data from private repositories
+## Default: console.megam.io
+##
+## Acceptable values:
+##   - text, e.g. localhost, api.megam.io
+  http_gogs: console.megam.io:6001
+# http_varai is a host that the nilavu will redirect to
+## for launching an awesome visual desinger
+## Default: console.megam.io
+##
+## Acceptable values:
+##   - text, e.g. localhost, api.megam.io
+  http_varai: http://console.megam.io:1880
+# Enable billing with credits for testing.
+## consider_fuel_ready will be disabled for prod or as your wish in private.
+## Default: on
+##
+## Acceptable values:
+##   - text, e.g. on or off
+  consider_fuel_ready: on
+# notification section notifies the handlers based on_trigger conditions.
+## 1. on_error: When an error occurs then notify dev support via an email to support@megam.io and hipchat. A notification
+## via email happens if the configuration for [email:] exists.
+## 2. on_some_hap: Turn notification on for notifying when some happenings needs to be notified. (welcome, reset password, balance topup, low credits)
+## Default:
+##
+## Acceptable values:
+##   - text
+  notification:
+    on_errors: on
+    on_some_hap: on
+    email:
+      id: support@megam.io
+      password: <%= ENV["NIL_EMAIL_PASSWORD"] %>
+      hipchat:
+        api_key: <%= ENV["NIL_HIP_APIKEY"] %>
+        room: "Megam"
 
-storage:
-  type: riak
-  server_url: localhost
-  ssh_files_bucket: sshfiles
+## Specifies the oauth id/key for various social identities
+##
+## Default:
+##
+## Acceptable values:
+##   - one of: facebook, github, google
+  oauth:
+    facebook:
+      client_id: <%= ENV["NIL_FB_CLIENT_ID"] %>
+      secret_key: <%= ENV["NIL_FB_SECRET_KEY"] %>
+    github:
+      client_id: <%= ENV["NIL_GIT_CLIENT_ID"] %>
+      secret_key: <%= ENV["NIL_GIT_SECRET_KEY"] %>
+    google:
+      client_id: <%= ENV["NIL_GOO_CLIENT_ID"] %>
+      secret_key: <%= ENV["NIL_GOO_SECRET_KEY"] %>
 
-varai:
-  host: localhost
-  port: 1880
+development:
+  <<: *defaults
 
-support:
-  email: support@megam.io
-  password: "vaagai#8udhavu"
-
-
-auth:
-  fb_client_id:
-  fb_secret_key:
-  github_client_id: dc161ea567cf79adb11f
-  github_secret_key: 5b2b9de2f6e3d86116ed0c9f02f645fc70376887
-  assembla_client_id:
-  assembla_secret_key:
-  google_client_id: 747654586796-8aqmg4t037s1v2r1vaf1qmjlk121s4ji.apps.googleusercontent.com
-  google_secret_key: vWm0M_Eiyik9EeIhUeLE95bZ
-
-monitor:
-  metric_source: ganglia
-  host: ganglia_host
-  base_url: http://monitor.megam.co.in/ganglia
-  cluster: megampaas
-
-tap:
- host: localhost
- port: 7000
-
-gogs:
- host: localhost
- port: 6001
-
-opennebula:
- host: 192.168.1.100
- port: 2633
- username: username
- password: password
+production:
+  <<: *defaults
