@@ -62,11 +62,28 @@ class BillingsController < ApplicationController
     
     params[:email] =  current_user.email
     params[:api_key] = current_user.api_key
-    promo_amt = Promos.new.show(params)
-    params[:credit] = (params[:balance].to_i + promo_amt.amount.to_i)
-    bal = Balances.new.update(params)
-    @credit = params[:credit]
-   #dis = Discounts.new.create(params)  ##YET TO BE TESTED##
+    params[:accounts_id] = (Accounts.new.find_by_email(params[:email])).id
+    dis_s = Discounts.new.list(params)
+    @credit = params[:balance]
+   puts "=================================================="
+   puts dis_s.inspect
+   puts "==================================================="
+   puts dis_s.any?
+   puts "okokoothishtsre"
+   
+      @credit = apply_promo(params) if !dis_s.any?
+   
+      if code = dis_s.lookup(params[:code]) 
+        puts code[:code]
+        puts "-=-=-=-=-=-----------------grgrg"
+      @credit = apply_promo(params) if code[:code] == nil
+          
+      end if dis_s.any?
+     
+    
+     
+   
+    
      respond_to do |format|
         format.html {redirect_to billings_path}
         format.js {
@@ -75,5 +92,13 @@ class BillingsController < ApplicationController
         }
      end
   end
-
+   
+   def apply_promo(params) 
+     promo_amt = Promos.new.show(params)
+    params[:credit] = (params[:balance].to_i + promo_amt.amount.to_i)
+    bal = Balances.new.update(params)
+    credit = params[:credit]
+    dis = Discounts.new.create(params)  
+    return credit
+   end
 end

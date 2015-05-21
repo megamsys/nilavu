@@ -15,8 +15,11 @@
 ##
 class Discounts < BaseFascade
 
+attr_reader :discounts_collection
 
   def initialize()
+    @discounts_collection = []
+    super(true)
   end
 
   def create(api_params, &block)
@@ -32,6 +35,18 @@ class Discounts < BaseFascade
     return self
   end
 
+  def list(api_params, &block)
+    puts bld_discount(api_params)
+    Rails.logger.debug "> Discounts: List"
+    raw = api_request(bld_discount(api_params), DISCOUNTS, LIST)
+    puts "---------------------------------"
+    puts raw[:body]
+    puts "---------------------------------"
+    @discounts_collections = raw[:body] unless raw == nil
+    yield self if block_given?
+    return self
+  end
+  
 private
 def bld_discount(api_params)
   disc_params = {

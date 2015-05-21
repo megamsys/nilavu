@@ -47,7 +47,7 @@ gem 'passenger',:group => :production
 
 gem 'sass-rails', "~> 5.0.3"
 gem 'uglifier', "~> 2.7.1"
-
+gem "therubyracer","~> 0.12.2", :require => 'v8',:platforms => :ruby
 
 group :test do
   gem 'capybara'
