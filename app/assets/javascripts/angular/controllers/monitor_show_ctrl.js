@@ -13,7 +13,7 @@
  ** See the License for the specific language governing permissions and
  ** limitations under the License.
  */
-app.controller("DashboardShowCtrl", ["$scope", "$rootScope", "$routeParams", "$location", "$timeout", "$window", "Widget", "UpdateWidget", "Sources",
+app.controller("MonitorShowCtrl", ["$scope", "$rootScope", "$routeParams", "$location", "$timeout", "$window", "Widget", "UpdateWidget", "Sources",
 function($scope, $rootScope, $routeParams, $location, $timeout, $window, Widget, UpdateWidget, Sources) {
 
 	$scope.bookwidget = "widgetpernode";

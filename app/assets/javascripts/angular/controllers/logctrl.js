@@ -48,6 +48,15 @@ function($scope, socket, $location,  $rootScope, LogStackLimit) {
         predicate = 'timestamp';
 
     });
+    
+   // $scope.$on('$locationChangeStart', function (event, next, current) {
+    //                console.log(current);
+   //                 console.log(next);
+  //                  console.log(event);
+   //                 console.log($location.path());
+ //       console.log("++++++++++leave+++++++++++++++++++++");
+  //      socket.disconnect();
+  //  });
 
     $scope.book_json = 'http://mob.co/kibana/#/dashboard/.json';
 }]);
