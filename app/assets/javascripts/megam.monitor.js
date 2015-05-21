@@ -19,17 +19,17 @@ app.config(["$routeProvider", "$locationProvider",
 function($routeProvider, $locationProvider) {
 	$locationProvider.html5Mode(true);
 	$routeProvider.when("/", {
-		templateUrl : 'angular/templates/dashboards/show.html.erb',
-		controller : "DashboardShowCtrl"
+		templateUrl : 'angular/templates/monitor/show.html.erb',
+		controller : "MonitorShowCtrl"
 	}).when("/runtime", {
-		templateUrl : 'angular/templates/dashboards/show.html.erb',
-		controller : "DashboardShowCtrl"
-	}).when("/runtime/:id", {
-		templateUrl : 'angular/templates/dashboards/show.html.erb',
-		controller : "DashboardShowCtrl"
-	}).when("/dashboards/:id/:book", {
-		templateUrl : 'angular/templates/dashboards/show.html.erb',
-		controller : "DashboardShowCtrl"
+		templateUrl : 'angular/templates/monitor/show.html.erb',
+		controller : "MonitorShowCtrl"
+	}).when("/oneapps", {
+		templateUrl : 'angular/templates/monitor/show.html.erb',
+		controller : "MonitorShowCtrl"
+	}).when("/monitor/:id/:book", {
+		templateUrl : 'angular/templates/monitor/show.html.erb',
+		controller : "MonitorShowCtrl"
 	});
 }]);
 

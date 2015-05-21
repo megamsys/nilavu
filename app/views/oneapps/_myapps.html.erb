@@ -85,7 +85,7 @@
 				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
 					<label class="col-md-6"><i class="fa fa-building-o"></i> Continious integration </label>
 					<span1>
-						
+
 					</span1>
 				</div>
 			</div>
@@ -110,7 +110,7 @@
 		<div class="margin_30 c_pading-b15">
 			<div class="portlet-body-head">
 				<div class="col-xs-12 col-sm-12 col-md-6 row">
-					<i class="c_icon-layer_lg"></i>Bound Services <span>0 Services running</span>
+					<i class="c_icon-layer_lg"></i>Bound Services <span><%= @bound_services.size%> Services running</span>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-6 create_bind row">
 					<ul class="list-inline">
@@ -128,7 +128,7 @@
 	</div>
 	<br/>
 	<div class="bottom-divider"></div>
-	<%= render :partial => 'catalogs/flysolo', :locals => {:components => @assembly.components, :filter_cattype => Assemblies::SERVICE} %>
+	<%= render :partial => 'catalogs/flysolo', :locals => {:asmgroups_flatten => @bound_services, :filter_cattype => Assemblies::SERVICE} %>
 </div>
 <% end %>
 <%= render :template => 'catalogs/show',:locals => {:cattype => Assemblies::APP} %>

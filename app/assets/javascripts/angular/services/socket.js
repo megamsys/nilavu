@@ -16,7 +16,7 @@
 app.factory('socket', function($rootScope) {
     // var socket = io.connect('http://redis1.megam.co.in:7000/'), disconnecting = false;
     //  var socket = io.connect('http://megamd.megam.co.in:8000');
-    var socket = io.connect($.SocketURL);
+    var socket = io.connect($.SocketURL), disconnecting = false;
     
     return {
         on : function(eventName, callback) {
