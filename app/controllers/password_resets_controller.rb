@@ -17,12 +17,11 @@
 require 'bcrypt'
 
 class PasswordResetsController < ApplicationController
-
- include BCrypt
+  include BCrypt
 
   skip_before_action :require_signin, only: [:edit, :create, :update]
-  ##if the email doesn't exist in our system we ask to signup.
-  ##if not, we pull the info of the user and do an account update.
+  # #if the email doesn't exist in our system we ask to signup.
+  # #if not, we pull the info of the user and do an account update.
   def create
     account = Accounts.new.find_by_email(params[:email])
     params[:password_reset_key] = SecureRandom.urlsafe_base64
@@ -40,12 +39,10 @@ class PasswordResetsController < ApplicationController
 
   def update
     account = Accounts.new.find_by_password_reset_key(params[:id], params[:email])
-    redirect_to signin_path, :alert => "Password reset has expired." unless account['password_reset_sent_at'] < 2.hours.ago
-
-    update_options = { "password" => account.password_encrypt(params[:password]), "password_confirmation" => user_obj.password_encrypt(params[:password_confirmation]) }
-    update = account.update(update_options, params[:email]) do
-    #email
-      redirect_to root_url, :notice => "Password has been reset!"
+    redirect_to signin_path, alert: 'Password reset has expired.' unless account.password_reset_sent_at < 2.hours.ago
+    params[:api_key] = account.api_key #just hack, this is the only place we violate before_action: stick_keys
+    update = account.update(params) do
+      redirect_to root_url, notice: 'Password has been reset!' && return
     end
   end
 end
