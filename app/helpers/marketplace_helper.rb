@@ -76,5 +76,5 @@ module MarketplaceHelper
     apps.map{ |c| unbound_apps << [c[:name], c[:name]+":"+c[:aid]+":"+c[:cid]] }
     unbound_apps
   end
-
+  
  end

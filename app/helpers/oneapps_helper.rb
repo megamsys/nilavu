@@ -31,4 +31,24 @@ module OneappsHelper
     end.flatten.compact
     tmp_comp
   end
+  
+  def unbound_apps(apps)
+    unbound_apps  = []
+    unbound_apps << "Unbound service"
+    apps.map{ |c| unbound_apps << [c[:name], c[:name]+":"+c[:aid]+":"+c[:cid]] }
+    unbound_apps
+  end
+  
+  def bound_assemblies(assemblies, related_components)
+    bound_assemblies = []
+    related_components.map do |rc|      
+      assemblies[0].map do |s|       
+         if rc.split(".")[0] == s[0].name
+              bound_assemblies << s[0]
+          end
+       end
+   end    
+   bound_assemblies
+ end
+   
 end

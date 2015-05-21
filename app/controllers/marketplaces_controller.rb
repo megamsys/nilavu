@@ -66,7 +66,7 @@ class MarketplacesController < ApplicationController
     binded_app?(params) do
       Assembly.new.update(params)
       Components.new.update(params)
-    end
+    end if params.key?(:bindedAPP)
     @msg = { title: "#{mkp['cattype']}".downcase.camelize, message: "#{params['assemblyname']}.#{params['domain']} launched successfully. ", redirect: '/', disposal_id: 'app-1' }
   end
 
@@ -138,7 +138,7 @@ class MarketplacesController < ApplicationController
   private
 
   def binded_app?(params, &_block)
-    params[:bindedApp].match('Unbound service') { yield if block_given? } if params.key?(:bindedApp)
+     yield if block_given? if !params[:bindedAPP].eql?('Unbound service')
   end
 
   def setup_scm(params)
