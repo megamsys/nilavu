@@ -122,7 +122,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    megam_api (0.57)
+    megam_api (0.58)
       excon (~> 0.45.3)
       highline (~> 1.7)
       mixlib-config (~> 2.1)
