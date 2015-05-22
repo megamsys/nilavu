@@ -122,7 +122,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    megam_api (0.58)
+    megam_api (0.59)
       excon (~> 0.45.3)
       highline (~> 1.7)
       mixlib-config (~> 2.1)
@@ -288,7 +288,7 @@ DEPENDENCIES
   jquery-rails (~> 4.0.3)
   jquery-turbolinks (~> 2.1.0)
   json (~> 1.8.2)
-  megam_api (~> 0.57)
+  megam_api (~> 0.59)
   megam_gogs (~> 0.8.0)
   meta_request
   nokogiri (~> 1.6.6.2)
