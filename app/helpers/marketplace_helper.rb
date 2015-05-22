@@ -33,7 +33,7 @@ module MarketplaceHelper
     case category
     when '1-Dew'
       'Get your own compute power'
-    when '2-BYOC'
+    when '2-Bring Your Own Code'
       'Get started with a new app'
     when '3-App Boilers'
       'Make your applications more hungry'
