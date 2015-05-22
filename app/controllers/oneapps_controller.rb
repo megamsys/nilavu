@@ -22,6 +22,7 @@ class OneappsController < ApplicationController
 
   def index
     @assembly = Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Assemblies::APP]
+    @bound_services = bound_assemblies(Assemblies.new.list(params).assemblies_grouped[Assemblies::SERVICE], @assembly.components[0][0].components.related_components)
     @assembly
   end
 
