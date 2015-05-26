@@ -57,6 +57,8 @@ class MarketplacesController < ApplicationController
   # performs ssh creation or using existing and creating an assembly at the end.
   def create
     logger.debug '> Marketplaces: create.'
+    puts "========================================================="
+    puts params[:source]
     mkp = JSON.parse(params[:mkp])
     params[:ssh_keypair_name] = params["#{params[:sshoption]}"+"_name"] if params[:sshoption] == Sshkeys::USEOLD
     params[:ssh_keypair_name] = params["#{Sshkeys::NEW}_name"] unless params[:sshoption] == Sshkeys::USEOLD

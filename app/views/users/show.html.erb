@@ -38,35 +38,35 @@
               <% end %>
             </li>
             <li class= "start active">
-              <%= link_to catalogs_path(:cattype => Assemblies::APP), :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_app').addClass('selected');" do %>
+              <%= link_to catalogs_path(:cattype => Assemblies::APP), :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_app').addClass('selected');" do %>
                 <i class="icon-credit-card pull-left"></i>
                 <span class="title pull-left">Apps</span>
                 <span class="hidden-xs" id='left_app'></span>
               <% end %>
             </li>
             <li class= "start active">
-              <%= link_to catalogs_path(:cattype => Assemblies::SERVICE),:data => { :remote => true},   :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_service').addClass('selected');" do %>
+              <%= link_to catalogs_path(:cattype => Assemblies::SERVICE),:data => { :remote => true},   :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_service').addClass('selected');" do %>
                 <i class="icon-tasks pull-left"></i>
                 <span class="title pull-left">Services</span>
                 <span class="hidden-xs" id="left_service"></span>
               <% end %>
             </li>
             <li class= "start active">
-              <%= link_to catalogs_path(:cattype =>Assemblies::ADDON), :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_addon').addClass('selected');" do %>
+              <%= link_to catalogs_path(:cattype =>Assemblies::ADDON), :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_addon').addClass('selected');" do %>
                 <i class="icon-pushpin pull-left"></i>
                 <span class="title pull-left">Addons</span>
                 <span class="hidden-xs" id="left_addon"></span>
               <% end %>
             </li>
             <li class= "start active">
-              <%= link_to ssh_keys_path, :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_ssh').addClass('selected');" do %>
+              <%= link_to ssh_keys_path, :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_ssh').addClass('selected');" do %>
                 <i class="icon-key pull-left"></i>
                 <span class="title pull-left">SSH keys</span>
                 <span class="hidden-xs" id="left_ssh"></span>
               <% end %>
             </li>
             <li class= "start active">
-              <%= link_to billings_path, :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_billing').addClass('selected');" do %>
+              <%= link_to billings_path, :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_billing').addClass('selected');" do %>
                 <i class="icon-money pull-left"></i>
                 <span class="title pull-left">Billings</span>
                 <span class="hidden-xs" id="left_billing"></span>
