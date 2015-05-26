@@ -27,6 +27,7 @@ class Accounts < BaseFascade
   attr_reader :password_reset_key
   attr_reader :password_reset_sent_at
   attr_reader :created_at
+  attr_reader :id
 
   ACCOUNTS_BUCKET     = "accounts".freeze
   ADMIN               = 'admin'.freeze
@@ -64,6 +65,7 @@ class Accounts < BaseFascade
   def find_by_email(email)
     storage = Storage.new(ACCOUNTS_BUCKET).fetch(email)
     if !storage.content.data.nil?
+      @id = storage.content.data["id"]
       @email = storage.content.data["email"]
       @password = storage.content.data["password"]
       @api_key = storage.content.data["api_key"]
