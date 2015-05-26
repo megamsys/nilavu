@@ -15,7 +15,6 @@
 ##
 class SettingsController < ApplicationController
   respond_to :html, :js
-  include CrossCloudsHelper
 
   #TO-DO later: This will only have cloud and will get turned on, if somebody configures in nilavu.yml
   def new

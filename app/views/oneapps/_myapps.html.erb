@@ -79,13 +79,20 @@
 				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
 					<label class="col-md-6"><i class="fa fa-puzzle-piece"></i> IP </label>
 					<span1>
-						192.168.2.100
+						<% ip = parse_key_value_pair(assembly.outputs, "ip") %>
+						<%= ip if ip != "" %>
+						<%= "LAUNCHING..." if ip == "" %>
 					</span1>
 				</div>
 				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
 					<label class="col-md-6"><i class="fa fa-building-o"></i> Continious integration </label>
 					<span1>
-
+						<% pair = parse_operations(assembly.components[0][0].components.operations, "CI") %>
+						<% if pair.empty? %>
+						OFF
+						<% else %>
+						<%= "ON" if parse_key_value_pair(pair, "ci-enable") == "true" %>
+						<% end %>
 					</span1>
 				</div>
 			</div>
