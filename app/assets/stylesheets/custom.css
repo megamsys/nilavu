@@ -57,6 +57,11 @@ a:hover {
 .login {
 	background-color: #edeef5 !important;
 }
+.login_reset {
+		background-color: #FFFFFF !important;
+
+	
+}
 .login .outer {
 	/*margin-bottom: 200px;*/
 	/*background-color: #fff;*/
