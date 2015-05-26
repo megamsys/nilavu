@@ -58,6 +58,14 @@ module MarketplaceHelper
     array.map do |pair|
       return pair["value"] if pair["key"] == search_key
     end
+    return ""
+  end
+  
+  def parse_operations(array, search_key)
+    array.map do |pair|
+      return pair["operation_requirements"] if pair["operation_type"] == search_key
+    end
+    return []
   end
 
   # stick all the versions (debian 7, 8 and the first version 7 or the passed version 8)

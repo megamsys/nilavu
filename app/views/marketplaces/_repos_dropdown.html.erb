@@ -19,6 +19,7 @@
 </div>
 <script>
   	$(document).ready(function() {
+  		$("#source").val($("#repo_select").val());
   		$("#repo_select").change(function() {
   			$("#source").val($("#repo_select").val());
   		});
