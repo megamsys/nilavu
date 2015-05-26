@@ -55,7 +55,8 @@ a:hover {
 	padding-bottom: 25px !important;
 }
 .login {
-	background-color: #edeef5 !important;
+	/* background-color: #edeef5 !important; */
+       background-color: #FFFFFF !important;	
 }
 .login_reset {
 		background-color: #edeef5 !important;	
