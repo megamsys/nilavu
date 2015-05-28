@@ -66,7 +66,7 @@ class Sshkeys < BaseFascade
   def create(api_params, &_block)
     keygen = SSHKey.generate
     api_params[:ssh_private_key] = keygen.private_key
-    api_params[:ssh_public_key] = keygen.public_key
+    api_params[:ssh_public_key] = keygen.ssh_public_key
     upload(api_params)
     raw = api_request(api_params, SSHKEYS, CREATE)
     yield self if block_given?
