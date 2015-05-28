@@ -70,21 +70,21 @@ class BillingsController < ApplicationController
      @credit = apply_promo(params)
     else 
     @credit = apply_promo(params) unless dis_s.lookup(params[:code]).code == params[:code] 
-     end
+   end
        respond_to do |format|
         format.html {redirect_to billings_path}
         format.js { respond_with(@credit, :layout => !request.xhr?)}
      end
-   end
+  end
    
    
    def apply_promo(params) 
      promo_amt = Promos.new.show(params)
-    params[:credit] = (params[:balance].to_i + promo_amt.amount.to_i)
-    bal = Balances.new.update(params)
-    credit = params[:credit]
-    dis = Discounts.new.create(params)  
-    return credit
+     params[:credit] = (params[:balance].to_i + promo_amt.amount.to_i)
+     bal = Balances.new.update(params)
+     credit = params[:credit]
+     dis = Discounts.new.create(params)  
+     return credit
    end
 
 end

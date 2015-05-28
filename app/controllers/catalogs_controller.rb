@@ -25,7 +25,7 @@ class CatalogsController < ApplicationController
   include CatalogHelper
   respond_to :html, :js
 
-  before_action :stick_keys, only: [:index, :create, :destroy, :runtime]
+  before_action :stick_keys, only: [:index, :create, :destroy, :runtime, :logs]
 
   #A filtered view of cattype [ADDON, APP, DEW,SERVICE] the cockpit.
   #This action is invoked when you click Apps, Services, Addons from the left nav.
@@ -59,6 +59,12 @@ class CatalogsController < ApplicationController
 
   def runtime
     logger.debug "> Pilotable: Runtime"
+    asm = Assembly.new.show(params).by_cattypes   
+    @appname = asm["#{params["cattype"]}"].name + "." + parse_key_value_json(asm["#{params["cattype"]}"].inputs, "domain")
+  end
+  
+  def logs 
+    logger.debug "> Pilotable: Logs"
     asm = Assembly.new.show(params).by_cattypes   
     @appname = asm["#{params["cattype"]}"].name + "." + parse_key_value_json(asm["#{params["cattype"]}"].inputs, "domain")
   end

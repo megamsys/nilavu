@@ -17,7 +17,7 @@ module Api
   class WidgetsController < ApplicationController
     respond_to :json
     def index
-      wid = [{"Widget id" => 1, "name" => "graph", "kind" => "datapoints", "size" => nil, "source" => "demo", "targets" => ["cpu_system"], "range" => "hour", "dashboard_id" => 1, "widget_type" => "pernode", "created_at" => nil, "updated_at" => nil}]
+      wid = [{"Widget id" => 1, "name" => "graph", "kind" => "datapoints", "size" => nil, "source" => "ganglia", "targets" => ["cpu_system"], "range" => "hour", "dashboard_id" => 1, "widget_type" => "pernode", "created_at" => nil, "updated_at" => nil}]
       respond_with(wid)
     end
 

@@ -42,7 +42,7 @@ module Sources
 
       def get(options = {})
         range = options[:range].to_s
-        host = 'improvident.megam.co'
+        host = options[:appkey]
         result_json = {}
 
         uptime_metric  = "uptime" #Rails.configuration.ganglia_request_metric
