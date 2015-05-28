@@ -45,7 +45,11 @@
 							<% end %>
 						</li>																						
 						<li class= "start active">
-							<a href="logs?id=<%= asmid %>", data-remote="true" ng-init="sendmessage('<%= asmid %>')",  onclick = "$('#left_onedash, #left_onelog, #left_oneruntime').removeClass('hidden-xs selected'); $('#left_onelog').addClass('selected');" > <i class="icon-list-ul pull-left"></i> <span class="title pull-left">Logs</span> <span class="hidden-xs" id="left_onelog"></span> </a>
+							<%= link_to logs_path(:id => asmid, :cattype => cattype), :data => {:remote => true} , :onclick => "$('#left_onedash, #left_oneindex, #left_onelog, #left_oneruntime').removeClass('hidden-xs selected'); $('#left_onelog').addClass('selected');" do %>
+							<i class="icon-list-ul pull-left"></i>
+							<span class="title pull-left">Logs</span>
+							<span class="hidden-xs" id="left_onelog"></span>
+							<% end %>
 						</li>
 					</ul>
 					<!-- END SIDEBAR MENU -->

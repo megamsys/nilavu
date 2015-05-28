@@ -20,11 +20,19 @@ function($scope, socket, $location,  $rootScope, LogStackLimit) {
     $scope.l_total = 0;
     $scope.bookName = "";
     $scope.listOfOptions = $scope.books;
-    $scope.sendmessage = function(data) {
+    
+    $scope.setLoading = function(loading) {
+			$scope.isLoading = loading;
+		};
+    
+    $scope.sendmessage = function() {
+    	$scope.setLoading(true);
         $scope.logs = [];
-        $scope.bookName = data;
-        socket.emit('message', data);
-    };
+        $scope.bookName = $.AppName;      
+        console.log($.AppName);
+        socket.emit('message', $.AppName);
+    };   
+
 
     socket.on('connect', function(data) {
         console.log("connected successfully");
@@ -34,7 +42,8 @@ function($scope, socket, $location,  $rootScope, LogStackLimit) {
         socket.disconnect();
     });
 
-    socket.on('message', function(message) {
+    socket.on('message', function(message) {    
+    	$scope.setLoading(false);	
         $scope.total = $scope.total + 1;
         $scope.l_total = $scope.l_total + 1;
         var replaceChar = message.logs.replace(/\@/g, "");

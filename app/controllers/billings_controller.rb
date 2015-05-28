@@ -17,7 +17,6 @@ class BillingsController < ApplicationController
   respond_to :html, :js
 
   before_action :stick_keys, only: [:index, :notify_payment]
-
   def index
     logger.debug "> Billings index."
     @currencies = Billings.currencies
@@ -57,34 +56,34 @@ class BillingsController < ApplicationController
       end
     end
   end
-  
+
   def promo
-    
+
     params[:email] =  current_user.email
     params[:api_key] = current_user.api_key
     params[:accounts_id] = (Accounts.new.find_by_email(params[:email])).id
     dis_s = Discounts.new.list(params).discounts_collections
     @credit = params[:balance]
-   if dis_s.empty?
-     @credit = apply_promo(params)    
-   elsif dis_s.lookup_p(params[:code]).nil?
-           @credit = apply_promo(params)        
-   else
-          @credit = params[:balance]
-     end
-       respond_to do |format|
-        format.html {redirect_to billings_path}
-        format.js { respond_with(@credit, :layout => !request.xhr?)}
-     end
-   end
-     
-   def apply_promo(params) 
-     promo_amt = Promos.new.show(params)
+    if dis_s.empty?
+      @credit = apply_promo(params)
+    elsif dis_s.lookup_p(params[:code]).nil?
+      @credit = apply_promo(params)
+    else
+      @credit = params[:balance]
+    end
+    respond_to do |format|
+      format.html {redirect_to billings_path}
+      format.js { respond_with(@credit, :layout => !request.xhr?)}
+    end
+  end
+
+  def apply_promo(params)
+    promo_amt = Promos.new.show(params)
     params[:credit] = (params[:balance].to_i + promo_amt.amount.to_i)
     bal = Balances.new.update(params)
     credit = params[:credit]
-    dis = Discounts.new.create(params)  
+    dis = Discounts.new.create(params)
     return credit
-   end
+  end
 
 end
