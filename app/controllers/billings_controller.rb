@@ -16,7 +16,7 @@
 class BillingsController < ApplicationController
   respond_to :html, :js
 
-  before_action :stick_keys, only: [:index, :notify_payment]
+  before_action :stick_keys, only: [:index, :notify_payment, :promo]
   def index
     logger.debug "> Billings index."
     @currencies = Billings.currencies
@@ -58,9 +58,7 @@ class BillingsController < ApplicationController
   end
 
   def promo
-
-    params[:email] =  current_user.email
-    params[:api_key] = current_user.api_key
+    # we shouldn't do this. Why are we trying account_id here ? 
     params[:accounts_id] = (Accounts.new.find_by_email(params[:email])).id
     dis_s = Discounts.new.list(params).discounts_collections
     @credit = params[:balance]

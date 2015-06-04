@@ -43,7 +43,7 @@ class MarketplacesController < ApplicationController
       else
         @mkp = pressurize_version(Marketplaces.instance.show(params).mkp, params['version'])
         @ssh_keys = Sshkeys.new.list(params).ssh_keys
-        @unbound_apps = unbound_apps(Assemblies.new.list(params.merge(:flying_apps=> "true")).apps) if @mkp['cattype'] == Assemblies::SERVICE
+        @unbound_apps = unbound_apps(Assemblies.new.list(params.merge(flying_apps: 'true')).apps) if @mkp['cattype'] == Assemblies::SERVICE
         respond_to do |format|
           format.js do
             respond_with(@mkp, @ssh_keys, @unbound_apps, layout: !request.xhr?)
@@ -57,10 +57,10 @@ class MarketplacesController < ApplicationController
   # performs ssh creation or using existing and creating an assembly at the end.
   def create
     logger.debug '> Marketplaces: create.'
-    puts "========================================================="
+    puts '========================================================='
     puts params[:source]
     mkp = JSON.parse(params[:mkp])
-    params[:ssh_keypair_name] = params["#{params[:sshoption]}"+"_name"] if params[:sshoption] == Sshkeys::USEOLD
+    params[:ssh_keypair_name] = params["#{params[:sshoption]}" + '_name'] if params[:sshoption] == Sshkeys::USEOLD
     params[:ssh_keypair_name] = params["#{Sshkeys::NEW}_name"] unless params[:sshoption] == Sshkeys::USEOLD
     Sshkeys.new.create_or_import(params)
     setup_scm(params)
@@ -78,13 +78,9 @@ class MarketplacesController < ApplicationController
   ## and store that credentials to session
   ##
   def store_github
-    if current_user.nil?
-      redirect_to controller: 'sessions', action: 'create'
-    else
-      @auth_token = request.env['omniauth.auth']['credentials']['token']
-      session[:github] =  @auth_token
-      session[:git_owner] = request.env['omniauth.auth']['extra']['raw_info']['login']
-    end
+    @auth_token = request.env['omniauth.auth']['credentials']['token']
+    session[:github] =  @auth_token
+    session[:git_owner] = request.env['omniauth.auth']['extra']['raw_info']['login']
   end
 
   ##
@@ -140,7 +136,7 @@ class MarketplacesController < ApplicationController
   private
 
   def binded_app?(params, &_block)
-     yield if block_given? if !params[:bindedAPP].eql?('Unbound service')
+    yield if block_given? unless params[:bindedAPP].eql?('Unbound service')
   end
 
   def setup_scm(params)

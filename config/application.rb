@@ -83,7 +83,7 @@ module Nilavu
     config.google_redirect_uri = 'https://www.megam.co/auth/google_oauth2/callback'
 
     #generate banner text - http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Nilavu
-    puts """\033[1m\033[35m
+    puts """\033[1m\033[32m
                   _..._       ███╗   ██╗██╗██╗      █████╗ ██╗   ██╗██╗   ██╗
                 .::'   `.     ████╗  ██║██║██║     ██╔══██╗██║   ██║██║   ██║
                :::       :    ██╔██╗ ██║██║██║     ███████║██║   ██║██║   ██║
