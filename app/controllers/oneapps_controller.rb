@@ -38,6 +38,7 @@ params[:bind_app_flag]="true"
     binded_service?(params) do
       Assembly.new.update(params)
       Components.new.update(params)
+      Components.new.update_exist(params)
     end if params.key?(:bind_type)
 
  @msg = { title: "Bind Service".downcase.camelize, message: "Service bounded successfully. ", redirect: '/', disposal_id: 'bindservice' }

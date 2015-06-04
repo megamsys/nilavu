@@ -43,6 +43,7 @@ class Components < BaseFascade
 #FOR BIND APP
   def update_exist(api_params, &block)
     api_request(bld_exist_update_params(api_params), COMPONENTS, UPDATE)
+    api_request(bld_exist_alter_update_params(api_params), COMPONENTS, UPDATE)#FOR BIND APP
     yield self if block_given?
     return self
   end
@@ -92,7 +93,16 @@ class Components < BaseFascade
 
   def bld_exist_update_params(params)
     com = empty_component
-    com["related_components"] << "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}" if params.has_key?(:bind_type)
+    com["related_components"] << "#{params[:bind_type].split(':')[0]}" if params.has_key?(:bind_type)
+    com[:email] = params["email"]
+    com[:api_key] = params["api_key"]
+    com["id"] = "#{params[:bindapp].split(':')[2]}"
+    com
+  end
+
+  def bld_exist_alter_update_params(params)
+    com = empty_component
+    com["related_components"] << "#{params[:bindapp].split(':')[0]}" if params.has_key?(:bindapp)
     com[:email] = params["email"]
     com[:api_key] = params["api_key"]
     com["id"] = "#{params[:bind_type].split(':')[2]}"
