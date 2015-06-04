@@ -13,7 +13,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<%= form_tag marketplaces_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+<%= form_tag marketplaces_path, multipart: true, :novalidate => 'novalidate', :id => "megamform", :method => 'post', :remote => true  do %>
   <% plan        = match_plan_for(@mkp,version) %>
   <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
   <%= hidden_field_tag 'source', nil, placeholder: "", :class =>"form-control", :value => @mkp_source  %>
@@ -30,7 +30,7 @@
         <div class="row">
           <div class="col-xs-6">
             <div class="form-group">
-              <%= text_field_tag 'assemblyname', nil, placeholder: 'Service Name', :class =>"form-control", :value => launch_namegen %>
+              <%= text_field_tag 'assemblyname', nil, placeholder: 'Service Name', :class =>"form-control", :value => launch_namegen, :required => true %>
             </div>
           </div>
           <div class="col-xs-6">
@@ -46,7 +46,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
-              <%= select_tag "bindedAPP", options_for_select(unbound_apps, :selected=>unbound_apps[0]), :class =>"form-control", :id => "bindedApp" %>
+              <%= select_tag "bind_type", options_for_select(unbound_apps, :selected=>unbound_apps[0]), :class =>"form-control", :id => "bindedApp" %>
             </div>
           </div>
           <div class="col-md-6">

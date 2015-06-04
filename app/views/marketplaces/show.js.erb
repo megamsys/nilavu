@@ -34,3 +34,22 @@ $('#replace_image').html('<img src=<%= @mkp["catalog"][:logo] %>>');
 $('#replace_version_tag').empty();
 $('#replace_version_tag').html(' <%= escape_javascript(select_tag "version", options_for_select(@mkp["versions"], :selected=>@mkp["sversion"]), :class =>"form-control input-sm", :data => { :remote => true, :url => marketplace_path(:id => @mkp["name"] ) }) %>');
 $("#app-1").modal('show');
+
+
+$(document).ready(function() {
+    $("#megamform").validate({
+        rules : {
+            check_req : {
+                required : true
+            }
+        },
+        messages : {
+            check_req : "Just check the box"
+        },
+         tooltip_options: {
+            check_req : {placement:'right',html:true}
+         }
+    });
+
+});
+
