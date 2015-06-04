@@ -43,19 +43,31 @@ class Assembly < BaseFascade
 
   def update(api_params, &block)
     api_request(bld_update_params(api_params), ASSEMBLY, UPDATE)
+	api_request(bld_exist_update_params(api_params), ASSEMBLY, UPDATE) if api_params.has_key?(:bind_app_flag) #FOR BIND APP
     yield self if block_given?
     return self
   end
 
   def bld_update_params(params)
     asm = empty_assembly
-    params = params.merge({"policymembers" => "#{params[:bindedAPP].split(':')[0]}"}) if params.has_key?(:bindedAPP)
-    asm["policies"] = bld_policies(params) if params.has_key?(:bindedAPP)
+    params = params.merge({"policymembers" => "#{params[:bind_type].split(':')[0]}"}) if params.has_key?(:bind_type)
+    asm["policies"] = bld_policies(params) if params.has_key?(:bind_type)
     asm[:email] = params["email"]
     asm[:api_key] = params["api_key"]
-    asm["id"] = "#{params[:bindedAPP].split(':')[1]}"
+    asm["id"] = "#{params[:bind_type].split(':')[1]}"
     asm
   end
+#FOR BIND APP
+  def bld_exist_update_params(params)
+    asm = empty_assembly
+    params = params.merge({"policymembers" => "#{params[:bindapp].split(':')[0]}"}) if params.has_key?(:bindapp)
+    asm["policies"] = bld_exist_policies(params) if params.has_key?(:bindapp)
+    asm[:email] = params["email"]
+    asm[:api_key] = params["api_key"]
+    asm["id"] = "#{params[:bindapp].split(':')[1]}"
+    asm
+  end
+
 
  def build(params)
   mkp = JSON.parse(params["mkp"])
@@ -117,7 +129,7 @@ class Assembly < BaseFascade
 
 def bld_policies(params)
     com = []
-    if params.has_key?(:bindedAPP) && params[:bindedAPP] != "Unbound service"
+    if params.has_key?(:bind_type) && params[:bind_type] != "Unbound service"
       value = {
         :name=>"bind policy",
         :ptype=>"colocated",
@@ -129,6 +141,22 @@ def bld_policies(params)
     end
     com
   end
+#FOR BIND APP
+def bld_exist_policies(params)
+    com = []
+    if params.has_key?(:bindapp) && params[:bindapp] != "Unbound service"
+      value = {
+        :name=>"bind policy",
+        :ptype=>"colocated",
+        :members=>[
+          params["policymembers"]
+        ]
+      }
+    com << value
+    end
+    com
+  end
+
 
   #In future lot of inputs add this method
   def bld_inputs(params)

@@ -66,5 +66,9 @@ Nilavu::Application.routes.draw do
   match '/logs', :to => 'catalogs#logs', via: [:get]
   match '/runtime', :to => 'catalogs#runtime', via: [:get]
 
+  #===OneApps
+  match '/bind_service_list', :to => 'oneapps#bind_service_list', via: [:get, :post]
+  match '/bind_service', :to => 'oneapps#bind_service', via: [:get, :post]
+
 
 end

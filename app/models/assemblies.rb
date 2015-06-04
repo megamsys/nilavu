@@ -20,7 +20,7 @@ class Assemblies < BaseFascade
 
 
   attr_reader :assemblies_grouped
-  attr_reader :apps
+  attr_reader :apps, :services
 
   DEW                 =  'DEW'.freeze
   APP                 =  'APP'.freeze
@@ -40,6 +40,7 @@ class Assemblies < BaseFascade
   def initialize()
     @assemblies_grouped = {}
     @apps = []
+    @services = []
     super(true) #swallow 404 errors for assemblies.
   end
 
@@ -60,7 +61,8 @@ class Assemblies < BaseFascade
   def list(api_params, &block)
     raw = api_request(api_params, ASSEMBLIES, LIST)
     dig_assembly(raw[:body],api_params) unless raw == nil
-    @apps = flying_apps unless api_params[:flying_apps].nil?
+    @apps = flying_apps(APP) unless api_params[:flying_apps].nil?
+    @services = flying_apps(SERVICE) unless api_params[:flying_service].nil?
     yield self  if block_given?
     return self
   end
@@ -112,9 +114,10 @@ class Assemblies < BaseFascade
   end
 
   #provides the flying apps which is used by the bind app screen.
-  def flying_apps
+  def flying_apps(assembly_type)
     tmp_apps = []
-    @assemblies_grouped[Assemblies::APP].flatten.each do |one_assembly|
+	if !@assemblies_grouped.empty?
+    @assemblies_grouped[assembly_type].flatten.each do |one_assembly|
       one_assembly.components.flatten.map do |u|
         if u!=nil
           u.each do |com|
@@ -122,6 +125,7 @@ class Assemblies < BaseFascade
           end
         end
       end
+     end
     end
     tmp_apps
   end

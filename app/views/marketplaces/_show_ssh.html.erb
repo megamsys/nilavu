@@ -32,12 +32,12 @@
   <div class="row">
     <div class="col-xs-6">
       <div class="form-group">
-        <span class="btn btn-success fileinput-button  col-md-12  col-xs-7"> <i class="icon-plus filetag"></i> <span class="filetag">Add files...</span> <%= file_field_tag :ssh_private_key, placeholder: 'Import private key' %> </span>
+        <span class="btn btn-success fileinput-button  col-md-12  col-xs-7"> <i class="icon-plus filetag"></i> <span class="filetag">Import private key...</span> <%= file_field_tag :ssh_private_key, :required => true %> </span>
       </div>
     </div>
     <div class="col-xs-6">
       <div class="form-group">
-        <span class="btn  blue fileinput-button  col-md-12  col-xs-7"> <i class="icon-plus filetag"></i> <span class="filetag">Add files...</span> <%= file_field_tag :ssh_public_key, placeholder: 'Import public key' %> </span>
+        <span class="btn  blue fileinput-button  col-md-12  col-xs-7"> <i class="icon-plus filetag"></i> <span class="filetag">Import public key...</span> <%= file_field_tag :ssh_public_key, :required => true %> </span>
       </div>
     </div>
   </div>

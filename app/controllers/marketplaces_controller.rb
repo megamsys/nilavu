@@ -57,8 +57,6 @@ class MarketplacesController < ApplicationController
   # performs ssh creation or using existing and creating an assembly at the end.
   def create
     logger.debug '> Marketplaces: create.'
-    puts "========================================================="
-    puts params[:source]
     mkp = JSON.parse(params[:mkp])
     params[:ssh_keypair_name] = params["#{params[:sshoption]}"+"_name"] if params[:sshoption] == Sshkeys::USEOLD
     params[:ssh_keypair_name] = params["#{Sshkeys::NEW}_name"] unless params[:sshoption] == Sshkeys::USEOLD
@@ -68,7 +66,7 @@ class MarketplacesController < ApplicationController
     binded_app?(params) do
       Assembly.new.update(params)
       Components.new.update(params)
-    end if params.key?(:bindedAPP)
+    end if params.key?(:bind_type)
     @msg = { title: "#{mkp['cattype']}".downcase.camelize, message: "#{params['assemblyname']}.#{params['domain']} launched successfully. ", redirect: '/', disposal_id: 'app-1' }
   end
 
@@ -140,7 +138,7 @@ class MarketplacesController < ApplicationController
   private
 
   def binded_app?(params, &_block)
-     yield if block_given? if !params[:bindedAPP].eql?('Unbound service')
+     yield if block_given? if !params[:bind_type].eql?('Unbound service')
   end
 
   def setup_scm(params)

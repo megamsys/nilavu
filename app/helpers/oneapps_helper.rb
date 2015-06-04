@@ -34,7 +34,7 @@ module OneappsHelper
   
   def unbound_apps(apps)
     unbound_apps  = []
-    unbound_apps << "Unbound service"
+    unbound_apps << "Unbound app"
     apps.map{ |c| unbound_apps << [c[:name], c[:name]+":"+c[:aid]+":"+c[:cid]] }
     unbound_apps
   end
