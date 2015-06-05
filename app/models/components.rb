@@ -40,6 +40,15 @@ class Components < BaseFascade
     return self
   end
 
+#FOR BIND APP
+  def update_exist(api_params, &block)
+    api_request(bld_exist_update_params(api_params), COMPONENTS, UPDATE)
+    api_request(bld_exist_alter_update_params(api_params), COMPONENTS, UPDATE)#FOR BIND APP
+    yield self if block_given?
+    return self
+  end
+
+
   def prune
     components.take_while { |one_component| (one_component.nil? || one_component.is_a?(Megam::Error)) }
   end
@@ -73,10 +82,30 @@ class Components < BaseFascade
 
   def bld_update_params(params)
     com = empty_component
-    com["related_components"] << "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}" if params.has_key?(:bindedAPP)
+    com["related_components"] << "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}" if params.has_key?(:bind_type)
     com[:email] = params["email"]
     com[:api_key] = params["api_key"]
-    com["id"] = "#{params[:bindedAPP].split(':')[2]}"
+    com["id"] = "#{params[:bind_type].split(':')[2]}"
+    com
+  end
+#FOR BIND APP
+#{"utf8"=>"✓", "bind_type"=>"sensational.megambox.com/adverb:ASM1218262452991557632:COM1218262453004140544", "bindapp"=>"shinier.megambox.com/intoxicated:ASM1218262384012034048:COM1218262384024616960", "commit"=>"Bind", "controller"=>"oneapps", "action"=>"bind_service", "email"=>"4@4.com", "api_key"=>"Ovs1GukrrQC4Z8rgM0hu0g==", "host"=>"localhost"}
+
+  def bld_exist_update_params(params)
+    com = empty_component
+    com["related_components"] << "#{params[:bind_type].split(':')[0]}" if params.has_key?(:bind_type)
+    com[:email] = params["email"]
+    com[:api_key] = params["api_key"]
+    com["id"] = "#{params[:bindapp].split(':')[2]}"
+    com
+  end
+
+  def bld_exist_alter_update_params(params)
+    com = empty_component
+    com["related_components"] << "#{params[:bindapp].split(':')[0]}" if params.has_key?(:bindapp)
+    com[:email] = params["email"]
+    com[:api_key] = params["api_key"]
+    com["id"] = "#{params[:bind_type].split(':')[2]}"
     com
   end
 
@@ -110,7 +139,7 @@ private
     @name = params[:componentname]
     @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["predef"]}"
     set_postgres_inputs(params) unless mkp["predef"] != "postgresql"
-    @related_components << "#{params[:bindedAPP].split(':')[0]}" if params.has_key?(:bindedAPP)
+    @related_components << "#{params[:bind_type].split(':')[0]}" if params.has_key?(:bind_type)
   end
 
   def set_addon_params(params)

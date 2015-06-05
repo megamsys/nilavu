@@ -79,7 +79,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="alert alert-success">
-							Generate a SSH RSA 2048 key pair. Read <a href="http://gomegam.com/docs/users/security/sshkeypairs.html" target="_blank"> <strong>here</strong></a> for more information.
+							Generate a SSH RSA 2048 key pair. Read <a href="http://docs.megam.io/v1.0/docs/setting-up-cloud-profile" target="_blank"> <strong>here</strong></a> for more information.
 						</div>
 						<%= form_tag ssh_keys_path, multipart: true, :method => :post, :remote => true do %>
 						<div class="form-group">
@@ -110,7 +110,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="alert alert-success">
-								Import your SSH RSA 2048 key pair. Read <a href="http://gomegam.com/docs/users/security/sshkeypairs.html" target="_blank"> <strong>here</strong></a> for more information.
+								Import your SSH RSA 2048 key pair. Read <a href="http://docs.megam.io/v1.0/docs/setting-up-cloud-profile" target="_blank"> <strong>here</strong></a> for more information.
 							</div>
 							<%= form_tag ssh_key_path(1), multipart: true, :id => "megamform", :method => :put, :remote => true do %>
 							<div class="row margintb_15">
@@ -142,4 +142,3 @@
 		</div>
 	</div>
 </div>
-

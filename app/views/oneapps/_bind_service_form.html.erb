@@ -13,18 +13,18 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<%= form_tag bindService_path, multipart: true, :novalidate => 'novalidate',  :method => 'get', :remote => true  do %>
-<div class="modal-content c_modal-content">
+<%= form_tag bind_service_path, multipart: true, :novalidate => 'novalidate',  :method => 'get', :remote => true  do %>
+	<div class="modal-dialog" style="max-width:400px">
+<div class="modal-content">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
 		<h4 class="modal-title">Bind Service</h4>
 	</div>
-	<div class="modal-body text-center">
+	<div class="modal-body">
+
 		<% @str = "" %>
-		<% @service.each do |service| %>
-		<% @str << "<option value=#{service["aid"]}:#{service["cid"]}:#{service["name"]}>#{service["name"]}</option>" %>
-		<% end %>
-		<%= select_tag "bindservice", @str.html_safe, :class => "form-control input-sm" %>
+
+	        <%= select_tag "bind_type", options_for_select(@service, :selected=>@service[0]), :class =>"form-control" %>
 		<%= hidden_field_tag 'bindapp', nil, placeholder: "", :class =>"form-control", :value => @bindapp  %>
 	</div>
 	<div class="modal-footer c_modal-footer">
@@ -33,6 +33,7 @@
 		</button>
 		<%= submit_tag "Bind", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>
 	</div>
+</div>
 </div>
 <!-- /.modal-content -->
 

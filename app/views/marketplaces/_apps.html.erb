@@ -13,7 +13,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<%= form_tag marketplaces_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
+<%= form_tag marketplaces_path, multipart: true, :novalidate => 'novalidate', :id => "megamform", :method => 'post', :remote => true  do %>
   <% plan        = match_plan_for(@mkp,version) %>
   <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
   <%= hidden_field_tag 'componentname', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
@@ -32,7 +32,7 @@
         <div class="row">
           <div class="col-xs-6">
             <div class="form-group">
-              <%= text_field_tag 'assemblyname', nil, placeholder: 'Cat Name', :class =>"form-control", :value => launch_namegen %>
+              <%= text_field_tag 'assemblyname', nil, placeholder: 'Cat Name', :required => true, :class =>"form-control", :value => launch_namegen %>
             </div>
           </div>
           <div class="col-xs-6">
