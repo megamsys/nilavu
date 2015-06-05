@@ -31,7 +31,7 @@ module MarketplaceHelper
 
   def category_description(category)
     case category
-    when '1-Dew'
+    when '1-Torpedo'
       'Get your own compute power'
     when '2-Bring Your Own Code'
       'Get started with a new app'
@@ -60,7 +60,7 @@ module MarketplaceHelper
     end
     return ""
   end
-  
+
   def parse_operations(array, search_key)
     array.map do |pair|
       return pair["operation_requirements"] if pair["operation_type"] == search_key
@@ -84,5 +84,5 @@ module MarketplaceHelper
     apps.map{ |c| unbound_apps << [c[:name], c[:name]+":"+c[:aid]+":"+c[:cid]] }
     unbound_apps
   end
-  
+
  end
