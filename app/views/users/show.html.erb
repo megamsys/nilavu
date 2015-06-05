@@ -31,9 +31,9 @@
               <% end %>
             </li>
             <li class= "start active">
-              <%= link_to catalogs_path(:cattype => Assemblies::DEW ), :data => { :remote => true}, :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_dew').addClass('selected');" do %>
+              <%= link_to catalogs_path(:cattype => Assemblies::TORPEDO ), :data => { :remote => true}, :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_dew').addClass('selected');" do %>
                 <i class="icon-bar-chart pull-left"></i>
-                <span class="title pull-left">Dews</span>
+                <span class="title pull-left">Torpedo</span>
                 <span class="hidden-xs" id="left_dew"></span>
               <% end %>
             </li>

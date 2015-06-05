@@ -14,12 +14,12 @@
 ** limitations under the License.
 -->
 <% content_for :onecat_contents do %>
-<% provide(:title, 'DEW Overview') %>
+<% provide(:title, 'TORPEDO Overview') %>
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
 	<div class="row c_pading-b15 settings_top">
 		<div class="margin_15">
 			<div class="col-xs-12 col-sm-6 col-md-7">
-				<h3> <%= Assemblies::DEW %> Overview </h3>
+				<h3> <%= Assemblies::TORPEDO %> Overview </h3>
 			</div>
 			<%= render :partial => "users/topright_icons" %>
 		</div>
@@ -27,7 +27,7 @@
 	<div class="row">
 		<div class="mplace mplace-head">
 			<div class="col-xs-6 col-md-3 mplace-left">
-				<h4> <%= Assemblies::DEW %> Overview </h4>
+				<h4> <%= Assemblies::TORPEDO %> Overview </h4>
 			</div>
 			<div class="col-xs-12 col-md-9 mplace-middle hidden-xs hidden-sm">
 				<span class="pull-right c_small">Overview of you dew.<i class="c_icon-rocket"></i><a href="http://docs.megam.io/v1.0/docs/megam_cloudmanagement_intro" target="_blank">Take a Tour</a></span>
@@ -78,7 +78,7 @@
 				</div>
 			</div>
 
-			<!-- Onedew index {"DEW"=>#<Megam::Assembly:0x00000005933b68 @id="ASM1209518690316451840", @name="sealant", @tosca_type="tosca.dew.coreos", @components=[], @requirements=[], @policies=[], @inputs=[{"key"=>"sshkey", "value"=>"test_sealant"}], @operations=[], @outputs=[], @status="LAUNCHING", @created_at="2015-05-11 12:05:41 +0000", @email=nil, @api_key=nil>}
+			<!-- Onedew index {"TORPEDO"=>#<Megam::Assembly:0x00000005933b68 @id="ASM1209518690316451840", @name="sealant", @tosca_type="tosca.dew.coreos", @components=[], @requirements=[], @policies=[], @inputs=[{"key"=>"sshkey", "value"=>"test_sealant"}], @operations=[], @outputs=[], @status="LAUNCHING", @created_at="2015-05-11 12:05:41 +0000", @email=nil, @api_key=nil>}
 			-->
 			<div class="overview-top">
 				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
@@ -140,4 +140,4 @@
 	</div>
 </div>
 <% end %>
-<%= render :template => "catalogs/show", :locals => {:cattype => Assemblies::DEW} %>
+<%= render :template => "catalogs/show", :locals => {:cattype => Assemblies::TORPEDO} %>
