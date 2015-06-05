@@ -73,7 +73,7 @@ class Assembly < BaseFascade
   mkp = JSON.parse(params["mkp"])
 
   bld_toscatype(mkp)
-  bld_components(params) unless mkp["cattype"] == Assemblies::DEW
+  bld_components(params) unless mkp["cattype"] == Assemblies::TORPEDO
   bld_requirements(params)
   bld_inputs(params)
 
@@ -112,7 +112,7 @@ class Assembly < BaseFascade
 
  def bld_toscatype(mkp)
    tosca_suffix = DEFAULT_TOSCA_SUFFIX
-   tosca_suffix = "#{mkp["predef"]}" unless mkp["cattype"] != Assemblies::DEW
+   tosca_suffix = "#{mkp["predef"]}" unless mkp["cattype"] != Assemblies::TORPEDO
    @tosca_type = DEFAULT_TOSCA_PREFIX +  ".#{mkp["cattype"].downcase}.#{tosca_suffix}"
  end
 
@@ -182,7 +182,7 @@ def bld_exist_policies(params)
     Rails.logger.debug "> ASC: END"
   end
 
-  #match the tosca type APP, SERVICE, ADDON, DEW from the string tosca.dew.ubuntu.
+  #match the tosca type APP, SERVICE, ADDON, TORPEDO from the string tosca.dew.ubuntu.
   #if there is no match, then send out an error
   def want_catkey(tmp_tosca_type)
     c0 = Assemblies::CATTYPES.select {|cat|  cat if tmp_tosca_type.match(cat.downcase)}

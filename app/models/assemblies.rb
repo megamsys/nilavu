@@ -22,12 +22,12 @@ class Assemblies < BaseFascade
   attr_reader :assemblies_grouped
   attr_reader :apps, :services
 
-  DEW                 =  'DEW'.freeze
+  TORPEDO                 =  'TORPEDO'.freeze
   APP                 =  'APP'.freeze
   SERVICE             =  'SERVICE'.freeze
   ANALYTICS           =  'ANALYTICS'.freeze
   ADDON               =  'ADDON'.freeze
-  CATTYPES            =  [APP, ADDON, DEW, ANALYTICS, SERVICE]
+  CATTYPES            =  [APP, ADDON, TORPEDO, ANALYTICS, SERVICE]
 
   START               =  'start'.freeze
   STOP                =  'stop'.freeze

@@ -19,7 +19,7 @@ class OnedewsController < ApplicationController
   before_action :stick_keys, only: [:show, :index]
 
   def index
-    @assembly=Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Assemblies::DEW]
+    @assembly=Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Assemblies::TORPEDO]
     @assembly
   end
 

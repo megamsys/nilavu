@@ -21,7 +21,7 @@ var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/service', :locals => {:version => @mkp["sversion"], :mkp => @mkp, :unbound_apps => @unbound_apps}) %>";
 <% elsif @mkp["cattype"] == Assemblies::ANALYTICS %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/analytics', :locals => {:version => @mkp["sversion"], :mkp => @mkp}) %>";
-<% elsif @mkp["cattype"] == Assemblies::DEW %>
+<% elsif @mkp["cattype"] == Assemblies::TORPEDO %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/dew', :locals => {:version => @mkp["sversion"], :mkp => @mkp, :ssh_keys => @ssh_keys}) %>";
 <% else %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/docker', :locals => {:version => @mkp["sversion"], :mkp => @mkp}) %>";
