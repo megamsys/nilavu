@@ -27,7 +27,7 @@ class CatalogsController < ApplicationController
 
   before_action :stick_keys, only: [:index, :create, :destroy, :runtime, :logs]
 
-  #A filtered view of cattype [ADDON, APP, DEW,SERVICE] the cockpit.
+  #A filtered view of cattype [ADDON, APP, TORPEDO,SERVICE] the cockpit.
   #This action is invoked when you click Apps, Services, Addons from the left nav.
   def index
     logger.debug "> Pilotable: Index"
