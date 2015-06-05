@@ -35,7 +35,7 @@ class Marketplaces < BaseFascade
   #     :cattype      => defines the logical types of category shortly named as cattype.
   #                      APP (an application)
   #                      SERVICE (a service like db, queue, analytics)
-  #                      DEW (a plain vm)
+  #                      TORPEDO (a plain vm)
   #     :predef       => java, rails, play, nodejs, ubuntu, centos, coreos, debian
   #     :catalog      => defines a logical grouping of the cattypes.
   #                      :category => Dew

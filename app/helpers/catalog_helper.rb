@@ -22,7 +22,7 @@ module CatalogHelper
   def sparkle_up(cattype, assembly)
     beautify_cockpit = []
     case cattype.upcase
-      when Assemblies::DEW
+      when Assemblies::TORPEDO
         beautify_cockpit << ("logos/" + assembly.tosca_type.split('.').last.delete('.­!?,') + ".png")
       else
         assembly.components.each do |one_component|

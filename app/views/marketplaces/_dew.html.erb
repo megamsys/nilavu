@@ -14,5 +14,5 @@
 ** limitations under the License.
 -->
 <%= form_tag marketplaces_path, multipart: true, :novalidate => 'novalidate', :id => "megamform",  :method => 'post', :remote => true  do %>
-  <%= render :partial => "marketplaces/show_cat", :locals => {:mkp => mkp, :version => version, :cattype => Assemblies::DEW } %>
+  <%= render :partial => "marketplaces/show_cat", :locals => {:mkp => mkp, :version => version, :cattype => Assemblies::TORPEDO } %>
 <% end %>
