@@ -14,12 +14,12 @@
 ** limitations under the License.
 -->
 <% content_for :onecat_contents do %>
-<% provide(:title, 'TORPEDO Overview') %>
+<% provide(:title, 'Torpedo Overview') %>
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
 	<div class="row c_pading-b15 settings_top">
 		<div class="margin_15">
 			<div class="col-xs-12 col-sm-6 col-md-7">
-				<h3> <%= Assemblies::TORPEDO %> Overview </h3>
+				<h3> <%= Assemblies::TORPEDO.capitalize %> Overview </h3>
 			</div>
 			<%= render :partial => "users/topright_icons" %>
 		</div>
@@ -27,10 +27,10 @@
 	<div class="row">
 		<div class="mplace mplace-head">
 			<div class="col-xs-6 col-md-3 mplace-left">
-				<h4> <%= Assemblies::TORPEDO %> Overview </h4>
+				<h4> <%= Assemblies::TORPEDO.capitalize %> Overview </h4>
 			</div>
 			<div class="col-xs-12 col-md-9 mplace-middle hidden-xs hidden-sm">
-				<span class="pull-right c_small">Overview of you dew.<i class="c_icon-rocket"></i><a href="http://docs.megam.io/v1.0/docs/megam_cloudmanagement_intro" target="_blank">Take a Tour</a></span>
+				<span class="pull-right c_small">Overview of you <%= Assemblies::TORPEDO.downcase %>.<i class="c_icon-rocket"></i><a href="http://docs.megam.io/v1.0/docs/megam_cloudmanagement_intro" target="_blank">Take a Tour</a></span>
 			</div>
 		</div>
 	</div>
@@ -64,7 +64,7 @@
 			<div class="overview-top ">
 				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
 					<label class="col-md-6"><i class="fa fa-puzzle-piece"></i> IP </label>
-					<span1>						
+					<span1>
 						<% ip = parse_key_value_pair(assembly.outputs, "ip") %>
 						<%= ip if ip != "" %>
 						<%= "LAUNCHING..." if ip == "" %>

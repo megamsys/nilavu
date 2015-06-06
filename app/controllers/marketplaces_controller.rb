@@ -60,7 +60,8 @@ class MarketplacesController < ApplicationController
     mkp = JSON.parse(params[:mkp])
     params[:ssh_keypair_name] = params["#{params[:sshoption]}" + '_name'] if params[:sshoption] == Sshkeys::USEOLD
     params[:ssh_keypair_name] = params["#{Sshkeys::NEW}_name"] unless params[:sshoption] == Sshkeys::USEOLD
-    Sshkeys.new.create_or_import(params)
+    #the full keypair name is coined inside sshkeys.
+    params[:ssh_keypair_name] = Sshkeys.new.create_or_import(params)[:name]
     setup_scm(params)
     res = Assemblies.new.create(params)
     binded_app?(params) do
