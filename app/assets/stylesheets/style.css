@@ -2928,3 +2928,37 @@ input.placeholder, textarea.placeholder {
 #email .container{
 	background-color: red;
 }
+
+
+
+
+.error-page {
+	padding-top:10px;
+	padding-bottom:50px;
+	position: relative;
+	text-align:center;
+}
+.error-page h2 {
+	color: #66719b;
+    font-size: 11em;
+    line-height: 112px;
+    margin-bottom: 0;
+    margin-top: 35px;
+}
+.error-page h3 {
+	margin-top:0px;
+	margin-bottom:0px;
+	font-size:25px;
+	color:#66719b;
+}
+.error-page p {
+	color: #818181;
+	font-size: 2.5em;
+	font-weight: 400;
+	line-height: 1.6em;
+}
+.error-page img {
+	margin-left:auto;
+	margin-right:auto;
+	display:block;
+}
