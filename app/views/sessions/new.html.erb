@@ -154,7 +154,7 @@
 							<div class="form-group">
 								<%= form_tag password_resets_path, :method => :post, :remote => true, data: { spinlock: '#creating_sshkeys'}  do %>
 
-								<label for="ssh-key_name">Email</label>
+								<label for="ssh-key_name">Your registered email</label>
 								<%= text_field_tag :email, nil, :class => 'form-control', :required => true, placeholder: "Email" %>
 							</div>
 
