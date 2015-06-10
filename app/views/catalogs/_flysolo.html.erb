@@ -25,7 +25,7 @@
 						<h5><%= assembly.name %></h5>
 						<% case filter_cattype.upcase %>
 						<% when Assemblies::TORPEDO %>
-						<%= link_to assembly.name + ".megambox.com", onedews_path(:id => assembly.id), :data => {:remote => true} %>
+						<%= link_to assembly.name + ".megambox.com", onetorpedos_path(:id => assembly.id), :data => {:remote => true} %>
 						<% when Assemblies::APP %>
 						<%= link_to assembly.name + ".megambox.com", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
 						<% when Assemblies::SERVICE %>
