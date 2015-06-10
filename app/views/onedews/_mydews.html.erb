@@ -31,6 +31,7 @@
 			</div>
 			<div class="col-xs-12 col-md-9 mplace-middle hidden-xs hidden-sm">
 				<span class="pull-right c_small">Overview of you <%= Assemblies::TORPEDO.downcase %>.<i class="c_icon-rocket"></i><a href="http://docs.megam.io/v1.0/docs/megam_cloudmanagement_intro" target="_blank">Take a Tour</a></span>
+
 			</div>
 		</div>
 	</div>
@@ -39,7 +40,8 @@
 		<div class="margin_15 overview margintb_15">
 			<div class="overview-top">
 				<div class="col-xs-12 col-sm-12 col-md-6 overview-route">
-					<span>URL: </span><a href="http://<%= assembly.name  %>.<%= assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>" target="_blank"><%= assembly.name  %>.<%= assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %></a>
+					<span>URL: </span>
+					<a href="#" role="button" class="btn popovers" data-toggle="popover" title="SSH your Torpedo" data-content="$ ssh -i <%= assembly.inputs.select { |x| x['key'] == 'sshkey' }[0]['value'] %> root@<%= assembly.name  %>.<%= assembly.inputs.select { |x| x['key'] == 'domain' }[0]['value'] %>  <a href='http://docs.megam.io' target='_blank'>Read more</a>"><%= assembly.name  %>.<%= assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %></a>
 				</div>
 			</div>
 		</div>
@@ -78,8 +80,6 @@
 				</div>
 			</div>
 
-			<!-- Onedew index {"TORPEDO"=>#<Megam::Assembly:0x00000005933b68 @id="ASM1209518690316451840", @name="sealant", @tosca_type="tosca.dew.coreos", @components=[], @requirements=[], @policies=[], @inputs=[{"key"=>"sshkey", "value"=>"test_sealant"}], @operations=[], @outputs=[], @status="LAUNCHING", @created_at="2015-05-11 12:05:41 +0000", @email=nil, @api_key=nil>}
-			-->
 			<div class="overview-top">
 				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
 					<label class="col-md-6"> <i class="fa fa-bullseye"></i> OS </label>
@@ -90,8 +90,9 @@
 				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
 					<label class="col-md-6"><i class="fa fa-lock"></i> SSH Key </label>
 					<span1>
-						<%= assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value'] %>
+						<%= link_to "#{assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value']}", edit_ssh_key_path(:id => assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value']+"_key"), :class => "hint  hint--bottom", :target => "_self", 'data-hint' => "Click here to download private key" %>
 					</span1>
+
 				</div>
 			</div>
 		</div>
@@ -141,3 +142,9 @@
 </div>
 <% end %>
 <%= render :template => "catalogs/show", :locals => {:cattype => Assemblies::TORPEDO} %>
+
+<script>
+	$(document).ready(function() {
+		$('[data-toggle="popover"]').popover({'html': 'true'});
+	}); 
+</script>

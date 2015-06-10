@@ -20,7 +20,9 @@ class Storage
     object = @client.bucket(@bname).get_or_new(key)
     File.open(File.basename(key), 'wb') do |file|
       file.write(object.raw_data)
+	#file.chmod(0600)
     end
+	#File.chmod(600, File.basename(key))
   end
 
   def fetch(key)
