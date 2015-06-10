@@ -13,14 +13,20 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
+
+require 'bcrypt'
+
+
 class SessionsController < ApplicationController
   include UsersHelper
+  include BCrypt
 
   skip_before_action :require_signin, only: [:new, :tour, :create]
 
 
   def new
   end
+ 
 
   #this is a tour user who can only touch some stuff.
   def tour
@@ -31,23 +37,43 @@ class SessionsController < ApplicationController
 
   #a regular user signin.
   def create
-    auth = social_identity
-    if social_identity.nil?
+  auth = social_identity    
+      if social_identity.nil?
        create_with_megam(params)
-    else
-      create_social_identity(auth)
-    end
+     else
+      create_social_identity(auth)  
+   end
   end
-
+  
+ def callbacks #it wont even enter here...will be redirected from :require_signin
+   auth = request.env['omniauth.auth']
+    redirect_to :controller=>'sessions'
+  end
+  
   def destroy
     sign_out
     redirect_to signin_path
   end
 
-  def create_social_identity
-    fb = {:email => social_identity[:email], :first_name => social_identity[:name], :phone => social_identity[:phone], :last_name => social_identity[:last_name], :uid => social_identity[:uid]}
-    redirect_to new_user_path
+
+  def create_social_identity(social_identity)
+         
+   acct = Accounts.new
+   det = acct.find_by_email(social_identity[:email])   
+  if !det.email.nil?
+   #pass = password_decrypt(det.password)
+    params[:email] = det.email
+    params[:password] = det.password
+     
+      acct.signin_identity(params) do
+       sign_in acct
+        redirect_to cockpits_path, :notice => "Welcome #{acct.first_name}."
+       end
+    else
+      redirect_to new_user_path
+   end   
   end
+
 
 
 private
@@ -55,8 +81,19 @@ private
   # verify if an omniauth.auth hash exists, if not consider it as a locally registered user.
   def social_identity
     auth = session[:auth]
+   auth
   end
 
+
+ def password_decrypt(pass)
+    begin
+      Password.new(pass)
+    rescue BCrypt::Errors::InvalidHash
+      Rails.logger.debug "> Couldn't decrpt password. Its possible that the password in gateway was just text."
+      raise   AuthenticationFailure, "Au oh!, The password you entered is incorrect."
+    end
+  end
+  
   def create_with_megam(all_params)
     my_account = Accounts.new
     begin

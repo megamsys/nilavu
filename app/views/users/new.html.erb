@@ -68,7 +68,7 @@
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 							<% if session[:auth] %>
 							<%= text_field_tag 'email', nil, placeholder: "Email", :readonly => true, :class => 'form-control', :value => @email %>
-							<input type="hidden" name="social_uid" value="<%= @social_uid %>">
+							<input type="hidden" name="email" value="<%= @email %>">
 							<% else %>
 							<%= text_field_tag 'email', nil, placeholder: "Email", :required => true, :class => 'form-control' %>
 							<% end %>
