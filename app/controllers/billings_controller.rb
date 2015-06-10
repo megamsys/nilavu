@@ -58,9 +58,8 @@ class BillingsController < ApplicationController
   end
 
   def promo
-    # we shouldn't do this. Why are we trying account_id here ? 
-    params[:accounts_id] = (Accounts.new.find_by_email(params[:email])).id
     dis_s = Discounts.new.list(params).discounts_collections
+   
     @credit = params[:balance]
     if dis_s.empty?
       @credit = apply_promo(params)
