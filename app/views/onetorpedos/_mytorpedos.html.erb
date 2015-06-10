@@ -41,7 +41,7 @@
 			<div class="overview-top">
 				<div class="col-xs-12 col-sm-12 col-md-6 overview-route">
 					<span>URL: </span>
-					<a href="#" role="button" class="btn popovers" data-toggle="popover" title="SSH your Torpedo" data-content="$ ssh -i <%= assembly.inputs.select { |x| x['key'] == 'sshkey' }[0]['value'] %> root@<%= assembly.name  %>.<%= assembly.inputs.select { |x| x['key'] == 'domain' }[0]['value'] %>  <a href='http://docs.megam.io' target='_blank'>Read more</a>"><%= assembly.name  %>.<%= assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %></a>
+					<a href="#" role="button" class="btn popovers" data-toggle="popover" title="SSH your Torpedo" data-content="$ ssh -i <%= assembly.inputs.select { |x| x['key'] == 'sshkey' }[0]['value'] %> root@<%= assembly.name  %>.<%= assembly.inputs.select { |x| x['key'] == 'domain' }[0]['value'] %>  <a href='http://docs.megam.io/v1.0/docs/quickly-launch-a-torpedo' target='_blank'>Read more</a>"><%= assembly.name  %>.<%= assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %></a>
 				</div>
 			</div>
 		</div>
