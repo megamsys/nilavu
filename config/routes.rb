@@ -13,7 +13,7 @@ Nilavu::Application.routes.draw do
   resources :cross_clouds
   # the functional routes called by core
   resources :catalogs
-  resources :onedews
+  resources :onetorpedos
   resources :oneapps
   resources :oneservices
   resources :oneaddons

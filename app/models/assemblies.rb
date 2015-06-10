@@ -32,6 +32,7 @@ class Assemblies < BaseFascade
   START               =  'start'.freeze
   STOP                =  'stop'.freeze
   RESTART             =  'restart'.freeze
+  REBOOT              =  'reboot'.freeze
   DELETE              =  'delete'.freeze
   TERMINATED          =  'Terminated'.freeze
   LAUNCHING           =  'LAUNCHING'.freeze

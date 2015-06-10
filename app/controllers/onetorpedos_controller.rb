@@ -12,7 +12,7 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class OnedewsController < ApplicationController
+class OnetorpedosController < ApplicationController
   respond_to :html, :js
   include MarketplaceHelper
 

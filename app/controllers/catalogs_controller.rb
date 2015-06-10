@@ -40,6 +40,7 @@ class CatalogsController < ApplicationController
   #this action performs a start, stop, restart operation
   def create
       logger.debug "> Pilotable: create"
+      params[:action] = params[:command]
       Requests.new.catreqs(params)
       @msg = { title: "#{params['command'].camelize} #{params['cattype'].downcase}", message: "#{params['command'].camelize} #{params['name']} submitted successfully. ", redirect: '/'}
   end
@@ -52,7 +53,8 @@ class CatalogsController < ApplicationController
 
   #this action perfroms a delete operation.
   def destroy
-    logger.debug "> Pilotable: destroy"   
+    logger.debug "> Pilotable: destroy"  
+    params[:cattype] = params[:command] 
     Requests.new.reqs(params)
     @dmsg = { disposal_id: "megam_flykelvi", title: "#{params['command'].camelize} #{params['cattype'].downcase}", message: "#{params['command'].camelize} #{params['name']} submitted successfully. ", redirect: '/'}
   end
