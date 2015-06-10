@@ -20,6 +20,10 @@ class MarketplacesController < ApplicationController
   include MarketplaceHelper
 
   before_action :stick_keys, only: [:index, :show, :create]
+  
+  
+ 
+  
   ##
   ## index page get all marketplace items from storage(we use riak) using megam_gateway
   ## and show the items in order of category
@@ -32,6 +36,7 @@ class MarketplacesController < ApplicationController
   ##
   ## to show the selected marketplace catalog item, appears if there are credits in billing.
   ##
+  
   def show
     logger.debug '> Marketplaces: show.'
     Balances.new.show(params) do  |modb|
@@ -72,9 +77,9 @@ class MarketplacesController < ApplicationController
   end
 
   ##
-  ## after finish the github authentication the callback url comes this method
-  ## this function parse the request and get the github credentials
-  ## and store that credentials to session
+  ## after finish the github authentication the callback url comes to this method
+  ## this function parses the request and gets the github credentials
+  ## and stores that credentials to session.
   ##
   def store_github
     @auth_token = request.env['omniauth.auth']['credentials']['token']
@@ -86,6 +91,7 @@ class MarketplacesController < ApplicationController
   ## this method collect all repositories for user using oauth token
   ##
   def publish_github
+    
     auth_id = params['id']
     github = Github.new oauth_token: session[:github]
     git_array = github.repos.all.collect(&:clone_url)

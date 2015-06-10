@@ -60,13 +60,20 @@ class ApplicationController < ActionController::Base
   # if the request is from the root url (eg: console.megam.io) then no message is shown
   # if the request is form a non root url like users/1/edit, then we show  message.
   def require_signin
-    unless signed_in?
-      if request.fullpath.to_s == '/' || request.original_url.to_s == '/'
+    if signed_in?
+    else     
+       if request.fullpath.to_s == '/' || request.original_url.to_s == '/'      
         redirect_to signin_path
-      else
-        redirect_to signin_path, flash: { error: 'You must first sign in or sign up.' }
-      end
-    end
+      else        
+        if request.fullpath.to_s.match('auth')
+           auth = request.env['omniauth.auth']['extra']['raw_info']
+           session[:auth] = { :email => auth[:email], :first_name => auth[:first_name], :last_name => auth[:last_name] }
+             redirect_to social_create_path
+        else
+           redirect_to signin_path, flash: { error: 'You must first sign in or sign up.' }
+        end
+       end
+     end
   end
 
   def stick_keys(_tmp = {}, _permitted_tmp = {})

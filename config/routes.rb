@@ -36,7 +36,9 @@ Nilavu::Application.routes.draw do
   match '/signin', to: 'sessions#new', via: [:get]
   match '/tour', to: 'sessions#tour', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post,:delete]
-  match '/auth/facebook/callback', :to => 'sessions#create', via: [:get, :post]
+  match '/auth/facebook/callback', :to => 'sessions#callbacks', via: [:get, :post]
+  match '/auth/google_oauth2/callback', :to => 'sessions#callbacks', via: [:get, :post]
+
 
   # named route for billing, paid message callback from paypal or bitcoin
   match '/notify_payment', to: 'billings#notify_payment', via: [:get, :post]
@@ -51,6 +53,8 @@ Nilavu::Application.routes.draw do
 
   #=====github
   match '/auth/github/callback', :to => 'marketplaces#store_github', via: [:get, :post]
+  match '/social_create', :to => 'sessions#create', via: [:get, :post]
+
   match '/publish_github',       :to => 'marketplaces#publish_github', via: [:get, :post]
 
   #=====Gog

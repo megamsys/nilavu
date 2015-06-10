@@ -31,6 +31,15 @@ class UsersController < ApplicationController
   def show
   end
 
+  def new
+     if session[:auth]
+      @social_uid = session[:auth][:uid]
+      @email = session[:auth][:email]
+      @firstname = session[:auth][:first_name]
+      @lastname = session[:auth][:last_name]
+      @phone = session[:auth][:phone]
+      end
+  end
 
   #This method is used to create a new user.
   #We create a Account for the user using /account call. A verification is done to check if the user is a dup.

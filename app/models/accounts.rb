@@ -80,10 +80,22 @@ class Accounts < BaseFascade
 
   #performs a siginin check, to see if the passwords match.
   def signin(api_params, &block)
-    raise   AuthenticationFailure, "Au oh!, The email or password you entered is incorrect." if find_by_email(api_params[:email]).nil?
+    puts "singin---------------->"
+    puts api_params
+    raise AuthenticationFailure, "Au oh!, The email or password you entered is incorrect." if find_by_email(api_params[:email]).nil?
 
     unless password_decrypt(password) == api_params[:password]
-       raise   AuthenticationFailure, "Au oh!, The email or password you entered is incorrect."
+       raise AuthenticationFailure, "Au oh!, The email or password you entered is incorrect."
+    end
+    yield self if block_given?
+    return self
+  end
+  
+  def signin_identity(api_params, &block)
+    raise AuthenticationFailure, "Au oh!, The email or password you entered is incorrect." if find_by_email(api_params[:email]).nil?
+
+    unless password == api_params[:password]
+       raise AuthenticationFailure, "Au oh!, The email or password you entered is incorrect."
     end
     yield self if block_given?
     return self
