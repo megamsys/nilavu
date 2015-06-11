@@ -15,8 +15,9 @@ PIDF="/var/run/megam/megamnilavu.pid"
 
 export GEM_HOME="$nil_dir/vendor/bundle/ruby/2.2.0/gems"
 
-export PATH="$nil_dir/vendor/ruby-2.2.2/bin:$PATH"
+export PATH="$nil_dir/vendor/ruby-2.2.2/bin:/usr/share/megam/megamnilavu/vendor/bundle/ruby/2.2.0/bin/:$PATH"
 
-CMD="bundle exec passenger start -a $HOST -p 8080 -d -e production --log-file $LOGF --pid-file $PIDF"
+CMD="/usr/share/megam/megamnilavu/vendor/bundle/ruby/2.2.0/bin/bundle exec passenger start -a $HOST -p 8080 -d -e production --log-file $LOGF --pid-file $PIDF"
 
 $CMD
+
