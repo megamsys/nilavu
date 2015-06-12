@@ -14,8 +14,7 @@ Nilavu::Application.configure do
 
 # replace this with your tracker code
   GA.tracker = "UA-60777472-2"
-  GA.script_source = "('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js'"
-
+  
   # Disable Rails's static asset server (Apache or nginx will already do this)
   config.serve_static_files  = false
 
