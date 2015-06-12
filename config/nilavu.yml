@@ -20,7 +20,7 @@ defaults: &defaults
 ##
 ## Acceptable values:
 ##   - text
-  nilavu: console.megam.io
+  nilavu: https://console.megam.io
 ## connect.http.api is a host that the nilavu will connect to
 ## for API  interaction
 ## Default: api.megam.io
