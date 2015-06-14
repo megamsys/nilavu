@@ -174,23 +174,15 @@ html {
   overflow-y: scroll;
 }
 
-#veil {
-	position: absolute;
-	top: 0;
-	left: 0;
-	height:100%;
-	width:100%;
-	cursor: not-allowed;
+
+#loading {
+	position: fixed;
+	left: 0px;
+	top: 0px;
+	width: 100%;
+	height: 100%;
 	filter: alpha(opacity=60);
 	opacity: 0.6;
-	/*background: #000000 url(http://www.wingo.com/angular/AngularShieldLogo.png) no-repeat center;*/
-}
-#feedLoading {
-	position: absolute;
-	top:350px;
-	width:100%;
-	text-align: center;
-	font-size: 4em;
-	color:white;
-	text-shadow: 2px 2px 2px #021124;
+	z-index: 9999;
+	background: url(loader.gif) 50% 50% no-repeat rgb(249,249,249);
 }
