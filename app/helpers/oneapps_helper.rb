@@ -41,13 +41,15 @@ module OneappsHelper
   
   def bound_assemblies(assemblies, related_components)
     bound_assemblies = []
+if !assemblies.nil? && !assemblies.empty?
     related_components.map do |rc|      
       assemblies[0].map do |s|       
          if rc.split(".")[0] == s[0].name
               bound_assemblies << s[0]
           end
        end
-   end    
+   end  
+end  
    bound_assemblies
  end
    
