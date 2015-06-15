@@ -57,10 +57,15 @@ Nilavu::Application.routes.draw do
 
   match '/publish_github',       :to => 'marketplaces#publish_github', via: [:get, :post]
 
-  #=====Gog
+  #=====Gogs
   match 'store_gogs',       :to => 'marketplaces#store_gogs', via: [:post]
   match '/auth/gogs',      :to => 'marketplaces#start_gogs', via: [:get, :post]
   match '/publish_gogs',   :to => 'marketplaces#publish_gogs', via: [:get, :post]
+
+  #=====Gitlab
+  match 'store_gitlab',       :to => 'marketplaces#store_gitlab', via: [:post]
+  match '/auth/gitlab',      :to => 'marketplaces#start_gitlab', via: [:get, :post]
+  match '/publish_gitlab',   :to => 'marketplaces#publish_gitlab', via: [:get, :post]
 
   #===catalogs
   # kelvi   : confirm delete for all flycontrols. all cattypes will use that.
