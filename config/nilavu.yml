@@ -88,6 +88,13 @@ defaults: &defaults
 ##
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
+  http_gitlab: http://gitlab.megam.io/api/v3
+# http_varai is a host that the nilavu will redirect to
+## for launching an awesome visual desinger
+## Default: console.megam.io
+##
+## Acceptable values:
+##   - text, e.g. localhost, api.megam.io
   http_varai: http://console.megam.io:1880
 # Enable billing with credits for testing.
 ## consider_fuel_ready will be disabled for prod or as your wish in private.

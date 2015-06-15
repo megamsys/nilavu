@@ -1,0 +1,146 @@
+#!/bin/sh
+
+#This is a hack to make sure we pull and use stuff from the bundle we built
+
+nil_dir="/usr/share/megam/megamnilavu"
+
+HOST="127.0.0.1"
+PORT="8080"
+
+LOGF="/var/log/megam/megamnilavu/megamnilavu.log"
+
+PIDF="/var/run/megam/megamnilavu.pid"
+
+export GEM_HOME="/usr/local/rvm/gems/ruby-2.2.2/gems"
+
+export PATH="/usr/local/rvm/rubies/ruby-2.2.2/bin:$PATH"
+
+black='\033[30m'
+red='\033[31m'
+green='\033[32m'
+yellow='\033[33m'
+blue='\033[34m'
+magenta='\033[35m'
+cyan='\033[36m'
+white='\033[37m'
+
+alias Reset="tput sgr0"      #  Reset text attributes to normal
+# without clearing screen.
+
+#--------------------------------------------------------------------------
+#colored echo
+# Argument $1 = message
+# Argument $2 = color (
+#--------------------------------------------------------------------------
+cecho () {
+  local default_msg="No message passed."  # Doesn't really need to be a local variable.
+  message=${1:-$default_msg}              # Defaults to default message.
+  color=${2:-$black}                      # Defaults to black, if not specified.
+  echo "$color$message"
+  Reset                                   # Reset to normal.
+  return
+}
+
+
+#--------------------------------------------------------------------------
+#parse the input parameters.
+# Pattern in case statement is explained below.
+# a*)  The letter a followed by zero or more of any
+# *a)  The letter a preceded by zero or more of any
+#--------------------------------------------------------------------------
+parseParameters()   {
+  #integer index=0
+
+  if [ $# -lt 1 ]
+    then
+    help
+    exitScript 1
+  fi
+
+
+  for item in "$@"
+  do
+    case $item in
+      [hH][eE][lL][pP])
+      help
+      ;;
+      ('/?')
+      help
+      ;;
+      [iI][nN][sS][tT][aA][lL][lL])
+      install_ruby
+      ;;
+      [sS][tT][aA][rR][tT])
+      start_nilavu
+      ;;
+      [sS][tT][oO][pP])
+      stop_nilavu
+      ;;
+      *)
+      cecho "Unknown option : $item - refer help." $red
+      help
+      ;;
+    esac
+    #index=$(($index+1))
+  done
+}
+#--------------------------------------------------------------------------
+#prints the help to out file.
+#--------------------------------------------------------------------------
+help() {
+  cecho  "Usage    : nilavu [Options]" $green
+  cecho  "help     : prints the help message." $blue
+  cecho  "install  : setup rvm with ruby2.2" $blue
+  cecho  "start: start nilavu" $blue
+  cecho  "stop: stop nilavu" $blue
+}
+
+
+start_nilavu() {
+
+set -u
+set -e
+
+echo "---- starting ---"
+
+CMD="/usr/local/rvm/gems/ruby-2.2.2/bin/bundle exec passenger start -a $HOST -p $PORT -d -e production --log-file $LOGF --pid-file $PIDF"
+
+$CMD
+
+}
+
+stop_nilavu() {
+
+set -u
+set -e
+
+echo "---- Stoping ---"
+
+kill -9 $(lsof -i:$PORT -t)
+
+}
+
+install_ruby() {
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+curl -sSL https://get.rvm.io | bash -s stable
+source /usr/local/rvm/scripts/rvm
+rvm install ruby2.2
+gem install bundler
+bundle install
+}
+
+
+#--------------------------------------------------------------------------
+#This function will exit out of the script.
+#--------------------------------------------------------------------------
+exitScript(){
+  exit $@
+}
+
+#parse parameters
+parseParameters "$@"
+
+cecho "Good bye." $yellow
+exitScript 0
+
+

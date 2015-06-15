@@ -30,6 +30,8 @@ gem 'riak-client', '~> 2.1.0'
 gem "megam_api", "~> 0.61"
 gem 'megam_gogs', "~> 0.8.0"
 
+gem 'gitlab', '~> 3.4.0'
+
 #general
 gem "github_api", "~>0.12.3"
 gem "randexp", "~> 0.1.7"

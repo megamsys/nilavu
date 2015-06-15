@@ -117,7 +117,7 @@ class Assemblies < BaseFascade
   #provides the flying apps which is used by the bind app screen.
   def flying_apps(assembly_type)
     tmp_apps = []
-	if !@assemblies_grouped.empty?
+	if !@assemblies_grouped.empty? && !@assemblies_grouped[assembly_type].nil?
     @assemblies_grouped[assembly_type].flatten.each do |one_assembly|
       one_assembly.components.flatten.map do |u|
         if u!=nil
