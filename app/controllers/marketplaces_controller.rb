@@ -108,6 +108,9 @@ class MarketplacesController < ApplicationController
   ##
   def start_gogs
   end
+  
+  def start_gitlab
+  end
 
   ##
   ## get the repositories from session
@@ -136,6 +139,28 @@ class MarketplacesController < ApplicationController
       @repos_arr << one_repo['clone_url']
     end
     session[:gogs_repos] =  @repos_arr
+  end
+  
+  def store_gitlab
+    puts params[:gitlab_username]
+    puts params[:gitlab_password]
+    Gitlab.endpoint = Ind.http_gitlab
+    gitlab = Gitlab.session(params[:gitlab_username], params[:gitlab_password])
+    lab_client = Gitlab.client(endpoint: Ind.http_gitlab, private_token: gitlab.private_token)
+    hash = []
+    lab_client.projects.each do |url|
+    hash << url.http_url_to_repo
+    end
+    session[:gitlab_repos] = hash
+  end
+  
+  def publish_gitlab
+    @repos = session[:gitlab_repos]
+    respond_to do |format|
+      format.js do
+        respond_with(@repos, layout: !request.xhr?)
+      end
+    end
   end
 
   private

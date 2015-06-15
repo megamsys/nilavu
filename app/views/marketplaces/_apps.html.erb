@@ -68,11 +68,15 @@
           </div>
           <div class="col-md-6 text-center">
             <div class="col-md-offset-4 col-md-2">
-              <% if Ind.private_git_gogs %>
+      <!--        <% if Ind.private_git_gogs %>
               <a href="#" class="hint  hint--bottom" onclick="return gogs_oauth();" data-hint="Connect with your private gogs id"> <%= image_tag "gogsimg.png",:class=> "img-responsive_byoc "%> </a>
               <% else %>
               <a href="#" class="hint  hint--bottom" data-hint="Connect with your private git id. coming soon."> <%= image_tag "gogsimg.png",:class=> "img-responsive_byoc "%> </a>
-              <% end %>
+              <% end %> -->
+              
+        <a href="#" class="hint  hint--bottom" onclick="return gitlab_auth();" data-hint="Connect with your private Gitlab id"> <%= image_tag "gitlabimg.png",:class=> "img-responsive_byoc "%> </a>
+
+              
             </div>
           </div>
         </div>
@@ -170,6 +174,29 @@
   				$.ajax({
   					type : "POST",
   					url : "/publish_gogs",
+  					success : function(data) {
+  						console.log("It worked!")
+  						console.log(dataString);
+  					},
+  					error : function(data) {
+  						console.log("ERROR CHECK PROPERLY!!");
+  						console.log(data);
+  					}
+  				});
+  				return false;
+  			}
+  		});
+  	}
+  	
+  	
+  	function gitlab_auth() {
+  		$("#scm_name").val("gogs");
+  		$.oauthpopup({
+  			path : "/auth/gitlab",
+  			callback : function() {
+  				$.ajax({
+  					type : "POST",
+  					url : "/publish_gitlab",
   					success : function(data) {
   						console.log("It worked!")
   						console.log(dataString);
