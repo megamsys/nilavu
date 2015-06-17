@@ -142,18 +142,20 @@ class MarketplacesController < ApplicationController
   end
   
   def store_gitlab
-    puts params[:gitlab_username]
-    puts params[:gitlab_password]
-    Gitlab.endpoint = Ind.http_gitlab
+    
+    @gitlab_url = Ind.http_gitlab + Ind.gitlab_apiV
+
+    Gitlab.endpoint = @gitlab_url
     gitlab = Gitlab.session(params[:gitlab_username], params[:gitlab_password])
-    lab_client = Gitlab.client(endpoint: Ind.http_gitlab, private_token: gitlab.private_token)
+    session[:gitlab_key] = gitlab.private_token
+    @lab_client = Gitlab.client(endpoint: @gitlab_url, private_token: gitlab.private_token)
     hash = []
-    lab_client.projects.each do |url|
+    @lab_client.projects.each do |url|
     hash << url.http_url_to_repo
     end
     session[:gitlab_repos] = hash
   end
-  
+ 
   def publish_gitlab
     @repos = session[:gitlab_repos]
     respond_to do |format|
@@ -169,8 +171,18 @@ class MarketplacesController < ApplicationController
      yield if block_given? if !params[:bind_type].eql?('Unbound service')
 
   end
+  
+ def find_id(params)
+    @endpoint = Gitlab.endpoint = Ind.http_gitlab + Ind.gitlab_apiV
+  client = Gitlab.client(endpoint: @endpoint, private_token: session[:gitlab_key])
+  client.projects.each do |x|
+    if x.http_url_to_repo == params
+      return x.id
+    end
+  end
+end
 
-  def setup_scm(params)
+  def setup_scm(params)   
     case params[:scm_name]
     when Scm::GITHUB
       params[:scmtoken] =  session[:github]
@@ -178,6 +190,11 @@ class MarketplacesController < ApplicationController
     when Scm::GOGS
       params[:scmtoken] =  session[:gogs_token]
       params[:scmowner] =  session[:gogs_owner]
+    when Scm::GITLAB
+      params[:scmtoken] = session[:gitlab_key]
+      params[:scmowner] = find_id(params[:source])
+      params[:scm_url]  = Ind.http_gitlab
+      params[:scm_version] = Ind.gitlab_apiV
     else
       # we ignore it.
     end

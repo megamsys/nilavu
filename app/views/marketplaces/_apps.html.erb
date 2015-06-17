@@ -73,9 +73,11 @@
               <% else %>
               <a href="#" class="hint  hint--bottom" data-hint="Connect with your private git id. coming soon."> <%= image_tag "gogsimg.png",:class=> "img-responsive_byoc "%> </a>
               <% end %> -->
-              
+         <% if Ind.private_gitlab %>
         <a href="#" class="hint  hint--bottom" onclick="return gitlab_auth();" data-hint="Connect with your private Gitlab id"> <%= image_tag "gitlabimg.png",:class=> "img-responsive_byoc "%> </a>
-
+         <% else %>
+              <a href="#" class="hint  hint--bottom" data-hint="Connect with your private git id. coming soon."> <%= image_tag "gitlabimg.png",:class=> "img-responsive_byoc "%> </a>
+         <% end %>
               
             </div>
           </div>
@@ -190,7 +192,7 @@
   	
   	
   	function gitlab_auth() {
-  		$("#scm_name").val("gogs");
+  		$("#scm_name").val("gitlab");
   		$.oauthpopup({
   			path : "/auth/gitlab",
   			callback : function() {
