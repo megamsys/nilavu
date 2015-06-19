@@ -38,7 +38,7 @@
 									<li>
 										<ul class="dropdown-menu-list scroller">
 											<li>
-												<%= link_to edit_user_path(1), :data => {:remote => true} do %>
+												<%= link_to edit_user_path(1), :data => {:remote => true}, :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
 												<span class="label label-sm label-icon label-success"><i class="glyphicon glyphicon-user"></i></span>
 												Profile
 												<% end %>
@@ -98,4 +98,5 @@
 		<!-- END TOP NAVIGATION BAR -->
 	</div>
 </div>
+
 <!-- END HEADER -->
