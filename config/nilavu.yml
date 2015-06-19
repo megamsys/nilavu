@@ -81,6 +81,13 @@ defaults: &defaults
 ##
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
+private_gitlab: off
+# http_gogs is a host that the nilavu will connect to
+## for pulling data from private repositories
+## Default: console.megam.io
+##
+## Acceptable values:
+##   - text, e.g. localhost, api.megam.io
   http_gogs: console.megam.io:6001
 # http_varai is a host that the nilavu will redirect to
 ## for launching an awesome visual desinger
@@ -88,9 +95,16 @@ defaults: &defaults
 ##
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
-  http_gitlab: http://gitlab.megam.io/api/v3
-# http_varai is a host that the nilavu will redirect to
-## for launching an awesome visual desinger
+  http_gitlab: http://gitlab.megam.io
+# http_gitlab is a host that the nilavu will redirect to
+## for connecting with the gitlab server
+## Default: console.megam.io
+##
+## Acceptable values:
+##   - text, e.g. localhost, api.megam.io
+ gitlab_apiV: /api/v3
+# http_gitlab is a host that the nilavu will redirect to
+## for connecting with the gitlab server
 ## Default: console.megam.io
 ##
 ## Acceptable values:

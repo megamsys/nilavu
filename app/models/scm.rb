@@ -19,6 +19,7 @@ class Scm < BaseFascade
   
   GITHUB    =  "github".freeze
   GOGS      =  "gogs".freeze
+  GITLAB    =  "gitlab".freeze
   
   def initialize()
     

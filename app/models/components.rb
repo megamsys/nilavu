@@ -182,6 +182,8 @@ private
     op <<  {"key" => "ci-enable","value" => "true"}
     op <<  {"key" => "ci-token","value" => params["scmtoken"]}
     op <<  {"key" => "ci-owner","value" => params["scmowner"]}
+    op <<  {"key" => "ci-url", "value" => params["scm_url"]}
+    op <<  {"key" => "ci-apiversion", "value" => params["scm_version"]}
     op
   end
 
