@@ -24,6 +24,7 @@
         </div>
       </div>
     <% end %>
+
     <% asmgroups_flatten.each do |assembly| %>
       <% unless assembly.status == Assemblies::TERMINATED %>
         <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
@@ -143,4 +144,8 @@ tour.init();
 
 tour.start();
 <% end %>
+
+$(function () {
+  $('[data-toggle="popover"]').popover()
+})
 </script>
