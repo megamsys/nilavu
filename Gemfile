@@ -1,13 +1,13 @@
 source "https://rubygems.org"
 ruby "2.2.2"
 
-gem "rails",  "~> 4.2.1"
+gem "rails",  "~> 4.2.2"
 # add these gems to help with the transition to Rails 4.2.x
 gem 'protected_attributes', "~> 1.0.9"
 gem "responders", "~> 2.1.0"
 
 #jquery & ui
-gem 'jquery-rails', "~> 4.0.3"
+gem 'jquery-rails', "~> 4.0.4"
 gem 'turbolinks', "~> 2.5.3"
 gem 'jquery-turbolinks',"~> 2.1.0"
 gem 'remotipart', "~> 1.2.1" #ajax sfile uploads
@@ -24,8 +24,8 @@ gem 'omniauth-facebook', "~> 2.0.1"
 gem "omniauth-google-oauth2", "~> 0.2.6"
 gem 'omniauth-github', "~> 1.1.2"
 
-gem 'json', "~> 1.8.2"
-gem 'riak-client', '~> 2.1.0'
+gem 'json', "~> 1.8.3"
+gem 'riak-client', '~> 2.2.1'
 
 gem "megam_api", "~> 0.61"
 gem 'megam_gogs', "~> 0.8.0"
