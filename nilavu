@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 #This is a hack to make sure we pull and use stuff from the bundle we built
 
@@ -37,7 +37,7 @@ cecho () {
   message=${1:-$default_msg}              # Defaults to default message.
   color=${2:-$black}                      # Defaults to black, if not specified.
   echo "$color$message"
-  Reset                                   # Reset to normal.
+  #Reset                                   # Reset to normal.
   return
 }
 
@@ -124,9 +124,10 @@ install_ruby() {
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 curl -sSL https://get.rvm.io | bash -s stable
 source /usr/local/rvm/scripts/rvm
-rvm install ruby2.2
+rvm use gems
+rvm install ruby-2.2.2
+rvm use ruby-2.2.2 --default
 gem install bundler
-bundle install
 }
 
 
