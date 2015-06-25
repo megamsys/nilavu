@@ -135,6 +135,8 @@ gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB8
 curl -sSL https://get.rvm.io | bash -s stable
 sleep 1m
 source /usr/local/rvm/scripts/rvm
+echo "[[ -s \"/etc/profile.d/rvm.sh\" ]] && . \"/etc/profile.d/rvm.sh\"" >> ~/.bashrc
+source ~/.bashrc
 sleep 1m
 rvm install ruby-2.2.2
 source /usr/local/rvm/scripts/rvm
