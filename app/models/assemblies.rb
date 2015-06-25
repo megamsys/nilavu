@@ -22,11 +22,12 @@ class Assemblies < BaseFascade
   attr_reader :assemblies_grouped
   attr_reader :apps, :services
 
-  TORPEDO                 =  'TORPEDO'.freeze
+  TORPEDO             =  'TORPEDO'.freeze
   APP                 =  'APP'.freeze
   SERVICE             =  'SERVICE'.freeze
   ANALYTICS           =  'ANALYTICS'.freeze
   ADDON               =  'ADDON'.freeze
+  CONTAINERS          =  'CONTAINERS'.freeze
   CATTYPES            =  [APP, ADDON, TORPEDO, ANALYTICS, SERVICE]
 
   START               =  'start'.freeze

@@ -23,6 +23,10 @@ class Marketplaces < BaseFascade
 
   attr_reader :mkp_grouped
   attr_reader :mkp
+  
+  CHEF             =  'chef'.freeze
+  DOCKER           =  'docker'.freeze
+  BAREMETAL        =  'baremetal'.freeze
 
   def initialize()
      @mkp_grouped = {}

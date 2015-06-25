@@ -20,6 +20,7 @@
   <%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
   <%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
   <%= hidden_field_tag 'scm_name', nil, placeholder: "", :class =>"form-control"%>
+  <%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::CHEF %>
   <div class="row">
     <div class="col-md-12">
       <span class="app_left_name">Description</span>

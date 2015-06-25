@@ -162,6 +162,8 @@ def bld_exist_policies(params)
   def bld_inputs(params)
     @inputs << {"key" => "domain", "value" => params[:domain]} if params.has_key?(:domain)
     @inputs << {"key" => "sshkey", "value" => params[:ssh_keypair_name]} if params[:ssh_keypair_name]
+    @inputs << {"key" => "provider", "value" => params[:provider]} if params.has_key?(:provider)
+    @inputs << {"key" => "endpoint", "value" => params[:endpoint]} if params.has_key?(:endpoint)
   end
 
  #recursively dig assembly by populating components.
