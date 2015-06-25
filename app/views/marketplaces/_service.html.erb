@@ -20,7 +20,7 @@
   <%= hidden_field_tag 'componentname', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
   <%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
   <%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
-
+  <%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::CHEF %>
   <div class="row">
     <div class="col-md-12"> <span class="app_left_name">Description</span>
       <P class="model-description"><%= plan['description'] %> <a href="http://docs.megam.io/v1.0/docs/postgresql" target="_blank"> View Docs</a></P>
