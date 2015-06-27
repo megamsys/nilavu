@@ -160,10 +160,12 @@ def bld_exist_policies(params)
 
   #In future lot of inputs add this method
   def bld_inputs(params)
+    mkp = JSON.parse(params["mkp"])
     @inputs << {"key" => "domain", "value" => params[:domain]} if params.has_key?(:domain)
     @inputs << {"key" => "sshkey", "value" => params[:ssh_keypair_name]} if params[:ssh_keypair_name]
     @inputs << {"key" => "provider", "value" => params[:provider]} if params.has_key?(:provider)
     @inputs << {"key" => "endpoint", "value" => params[:endpoint]} if params.has_key?(:endpoint)
+    @inputs << {"key" => "version", "value" => params[:version]} if mkp["cattype"] == Assemblies::TORPEDO
   end
 
  #recursively dig assembly by populating components.
