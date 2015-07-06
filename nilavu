@@ -4,7 +4,17 @@
 
 nil_dir="/usr/share/megam/megamnilavu"
 
-HOST="127.0.0.1"
+	while read Iface Destination Gateway Flags RefCnt Use Metric Mask MTU Window IRTT; do
+		[ "$Mask" = "00000000" ] && \
+		interface="$Iface" && \
+		ipaddr=$(LC_ALL=C /sbin/ip -4 addr list dev "$interface" scope global) && \
+		ipaddr=${ipaddr#* inet } && \
+		ipaddr=${ipaddr%%/*} && \
+		break
+	done < /proc/net/route
+
+#HOST="127.0.0.1"
+HOST="$ipaddr"
 PORT="8080"
 
 LOGF="/var/log/megam/megamnilavu/megamnilavu.log"
@@ -123,11 +133,17 @@ kill -9 $(lsof -i:$PORT -t)
 install_ruby() {
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
 curl -sSL https://get.rvm.io | bash -s stable
+sleep 1m
 source /usr/local/rvm/scripts/rvm
-rvm use gems
+echo "[[ -s \"/etc/profile.d/rvm.sh\" ]] && . \"/etc/profile.d/rvm.sh\"" >> ~/.bashrc
+source ~/.bashrc
+sleep 1m
 rvm install ruby-2.2.2
+source /usr/local/rvm/scripts/rvm
 rvm use ruby-2.2.2 --default
 gem install bundler
+cd $nil_dir
+bundle install
 }
 
 
