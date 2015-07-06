@@ -21,10 +21,10 @@
 			<div class="row">
 				<div class="page-sidebar navbar-collapse collapse">
 					<!-- BEGIN SIDEBAR MENU -->
-					<ul class="page-sidebar-menu">
+					<ul class="page-sidebar-menu" id="one-show">
 						<li></li>
 						<li class="start active" >
-							<%= link_to cockpits_path , :data => {:remote => true} do %>
+							<%= link_to cockpits_path , :class => "app_config_testt", :data => {:remote => true} do %>
 							<i class="icon-chevron-sign-left pull-left"></i>
 							<span class="title pull-left">Back to Dashboard</span>
 							<span class="hidden-xs selected" id="left_onedash"></span>
@@ -62,3 +62,24 @@
 	</div>
 </div>
 <%= render 'layouts/footer' %>
+
+<script>
+//var lis = document.getElementById("one-show").getElementsByTagName("li");
+$(document).ready(function(){
+$('#one-show li').live('click',function()
+{
+    alert('You just clicked a paragraph!');
+});
+});
+
+</script>
+<script>
+$(document).ready(function() {
+    $('.app_config_testt').click(function(event) {
+//alert("APP CONFIG CLICKED");
+console.log("app_config_testt.............. CLICKED");
+    });
+});
+</script>
+
+

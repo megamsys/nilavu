@@ -36,6 +36,15 @@ function($scope, socket, $location,  $rootScope, LogStackLimit) {
 
     socket.on('connect', function(data) {
         console.log("connected successfully");
+
+$(document).ready(function() {
+    $('.app_config_testt').click(function(event) {
+//alert("APP CONFIG CLICKED");
+console.log("app_config_testt.............. CLICKED");
+socket.disconnect();
+    });
+});
+
     });
 
     socket.on('disconnect', function(event) {
@@ -58,14 +67,14 @@ function($scope, socket, $location,  $rootScope, LogStackLimit) {
 
     });
     
-    $scope.$on('$locationChangeStart', function (event, next, current) {
-                    console.log(current);
-                   console.log(next);
-                   console.log(event);
-                    console.log($location.path());
-      console.log("++++++++++leave+++++++++++++++++++++");
-       socket.disconnect();
-    });
+   // $scope.$on('$locationChangeStart', function (event, next, current) {
+   //                 console.log(current);
+   //                console.log(next);
+   //                console.log(event);
+    //                console.log($location.path());
+   //   console.log("++++++++++leave+++++++++++++++++++++");
+   //    socket.disconnect();
+  // });
 
     $scope.book_json = 'http://mob.co/kibana/#/dashboard/.json';
 }]);
