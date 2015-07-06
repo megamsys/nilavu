@@ -29,7 +29,7 @@ class Accounts < BaseFascade
   attr_reader :created_at
   attr_reader :id
 
-  ACCOUNTS_BUCKET     = "accounts".freeze
+  ACCOUNTS_BUCKET     = 'accounts'.freeze
   ADMIN               = 'admin'.freeze
   MEGAM_TOUR_EMAIL    = 'tour@megam.io'.freeze
   MEGAM_TOUR_PASSWORD = 'faketour'.freeze
@@ -38,8 +38,7 @@ class Accounts < BaseFascade
   UPD_PASSWORD        = 2.freeze
   UPD_API_KEY         = 3.freeze
 
-
-  def initialize(account_parms={})
+  def initialize(account_parms = {})
     @first_name            = account_parms[:first_name] || nil
     @last_name             = account_parms[:secon_name] || nil
     @phone                 = account_parms[:phone] || nil
@@ -55,55 +54,52 @@ class Accounts < BaseFascade
     @created_at            = account_parms[:created_at] || nil
   end
 
-
-  #verifies if the email is a duplicate.
+  # verifies if the email is a duplicate.
   def dup?(email)
-   !find_by_email(email).email.nil?
+    !find_by_email(email).email.nil?
   end
 
-  #pulls the account object for an email
+  # pulls the account object for an email
   def find_by_email(email)
     storage = Storage.new(ACCOUNTS_BUCKET).fetch(email)
-    if !storage.content.data.nil?
-      @id = storage.content.data["id"]
-      @email = storage.content.data["email"]
-      @password = storage.content.data["password"]
-      @api_key = storage.content.data["api_key"]
-      @first_name = storage.content.data["first_name"]
-      @phone = storage.content.data["phone"]
-      @password_reset_key = storage.content.data["password_reset_key"]
-      @password_reset_sent_at = storage.content.data["password_reset_sent_at"]
-      @created_at = storage.content.data["created_at"]
+    unless storage.content.data.nil?
+      @id = storage.content.data['id']
+      @email = storage.content.data['email']
+      @password = storage.content.data['password']
+      @api_key = storage.content.data['api_key']
+      @first_name = storage.content.data['first_name']
+      @phone = storage.content.data['phone']
+      @password_reset_key = storage.content.data['password_reset_key']
+      @password_reset_sent_at = storage.content.data['password_reset_sent_at']
+      @created_at = storage.content.data['created_at']
    end
-   return self
+    self
   end
 
-  #performs a siginin check, to see if the passwords match.
-  def signin(api_params, &block)
-    puts "singin---------------->"
-    puts api_params
-    raise AuthenticationFailure, "Au oh!, The email or password you entered is incorrect." if find_by_email(api_params[:email]).nil?
+  # performs a siginin check, to see if the passwords match.
+  def signin(api_params, &_block)
+    fail AuthenticationFailure, 'Au oh!, Hey you are new bloke, email isn''t in our system.' if find_by_email(api_params[:email]).nil?
 
     unless password_decrypt(password) == api_params[:password]
-       raise AuthenticationFailure, "Au oh!, The email or password you entered is incorrect."
+      fail AuthenticationFailure, 'Au oh!, The email or password you entered is incorrect.'
     end
     yield self if block_given?
-    return self
+    self
   end
-  
-  def signin_identity(api_params, &block)
-    raise AuthenticationFailure, "Au oh!, The email or password you entered is incorrect." if find_by_email(api_params[:email]).nil?
+
+  def signin_identity(api_params, &_block)
+    fail AuthenticationFailure, 'Au oh!, Hey you are a new bloke, email isn''t in our system.' if find_by_email(api_params[:email]).nil?
 
     unless password == api_params[:password]
-       raise AuthenticationFailure, "Au oh!, The email or password you entered is incorrect."
+      fail AuthenticationFailure, 'Au oh!, The email or password you entered is incorrect.'
     end
     yield self if block_given?
-    return self
+    self
   end
 
-  #creates a new account
-  def create(api_params,&block)
-    Rails.logger.debug "> Accounts: create"
+  # creates a new account
+  def create(api_params, &_block)
+    Rails.logger.debug '> Accounts: create'
     api_request(bld_acct(api_params), ACCOUNT, CREATE)
     @remember_token = api_params[:remember_token]
     @api_key = api_params[:api_key]
@@ -112,11 +108,11 @@ class Accounts < BaseFascade
     @phone = api_params[:phone]
     @api_key = api_params[:api_key]
     yield self if block_given?
-    return self
+    self
   end
 
-  #updates an account based on the input params sent.
-  def update(api_params,&block)
+  # updates an account based on the input params sent.
+  def update(api_params, &_block)
     api_request(bld_acct(api_params), ACCOUNT, UPDATE)
     @remember_token = api_params[:remember_token] if api_params[:remember_token]
     @email = api_params[:email] if api_params[:email]
@@ -125,37 +121,38 @@ class Accounts < BaseFascade
     @api_key = api_params[:api_key] if api_params[:api_key]
     @password_reset_key = api_params[:password_reset_key] if api_params[:password_reset_key]
     yield self if block_given?
-    return self
+    self
   end
 
-
-  def list(api_params, &block)
+  def list(api_params, &_block)
     @res = api_request(api_params, ACCOUNT, LIST)
     yield (@res.data[:body]) if block_given?
-    return @res.data[:body]
+    @res.data[:body]
   end
 
   def find_by_password_reset_key(password_reset_key, email)
     find_by_email(email)
     @password_reset_key == "#{password_reset_key}"
-    return self
+    self
   end
 
-  #a private helper function that builds the hash.
+  # a private helper function that builds the hash.
+
   private
+
   def bld_acct(api_params)
     acct_parms = {
-     :id => nil,
-     :first_name => api_params[:first_name],
-     :last_name => api_params[:last_name],
-     :phone => api_params[:phone],
-     :email => api_params[:email],
-     :api_key => api_params[:api_key],
-     :password => password_encrypt(api_params[:password]),
-     :authority => ADMIN,
-     :password_reset_key => api_params[:password_reset_key],
-     :password_reset_sent_at => api_params[:password_reset_sent_at],
-     :created_at => api_params[:created_at]}
+      id: nil,
+      first_name: api_params[:first_name],
+      last_name: api_params[:last_name],
+      phone: api_params[:phone],
+      email: api_params[:email],
+      api_key: api_params[:api_key],
+      password: password_encrypt(api_params[:password]),
+      authority: ADMIN,
+      password_reset_key: api_params[:password_reset_key],
+      password_reset_sent_at: api_params[:password_reset_sent_at],
+      created_at: api_params[:created_at] }
   end
 
   def password_encrypt(password)
@@ -163,23 +160,20 @@ class Accounts < BaseFascade
   end
 
   def password_decrypt(pass)
-    begin
-      Password.new(pass)
-    rescue BCrypt::Errors::InvalidHash
-      Rails.logger.debug "> Couldn't decrpt password. Its possible that the password in gateway was just text."
-      raise   AuthenticationFailure, "Au oh!, The password you entered is incorrect."
-    end
+    Password.new(pass)
+  rescue BCrypt::Errors::InvalidHash
+    Rails.logger.debug "> Couldn't decrpt password. Its possible that the password in gateway was just text."
+    raise AuthenticationFailure, 'Au oh!, The password you entered is incorrect.'
   end
 
   def self.typenum_to_s(updtype)
     case updtype.to_i
     when UPD_PROFILE
-      return "Profile "
+      return 'Profile '
     when UPD_PASSWORD
-      return "Password "
+      return 'Password '
     when UPD_API_KEY
-      return "API key "
+      return 'API key '
   end
 end
-
 end
