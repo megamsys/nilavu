@@ -38,9 +38,9 @@ function($scope, socket, $location,  $rootScope, LogStackLimit) {
         console.log("connected successfully");
 
 $(document).ready(function() {
-    $('.app_config_testt').click(function(event) {
+    $('.one_back_to_dash').click(function(event) {
 //alert("APP CONFIG CLICKED");
-console.log("app_config_testt.............. CLICKED");
+console.log("one_back_to_dash.............. CLICKED");
 socket.disconnect();
     });
 });
