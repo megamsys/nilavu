@@ -29,7 +29,6 @@ class SessionsController < ApplicationController
   def tour
     params[:email] =  Accounts::MEGAM_TOUR_EMAIL
     params[:password] =  Accounts::MEGAM_TOUR_PASSWORD
-    puts "----- #{params}"
     create_with_megam(params)
   end
 

@@ -114,11 +114,7 @@ GEM
       turbolinks
     json (1.8.3)
     jwt (1.5.1)
-<<<<<<< HEAD
     libv8 (3.16.14.11)
-=======
-    libv8 (3.16.14.9)
->>>>>>> origin/0.9
     loofah (2.0.2)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -309,3 +305,6 @@ DEPENDENCIES
   therubyracer (~> 0.12.2)
   turbolinks (~> 2.5.3)
   uglifier (~> 2.7.1)
+
+BUNDLED WITH
+   1.10.3
