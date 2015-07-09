@@ -1,9 +1,9 @@
 source "https://rubygems.org"
 #ruby "2.2.2"
 
-gem "rails",  "~> 4.2.2"
+gem "rails",  "~> 4.2.3"
 # add these gems to help with the transition to Rails 4.2.x
-gem 'protected_attributes', "~> 1.0.9"
+gem 'protected_attributes', "~> 1.1.0"
 gem "responders", "~> 2.1.0"
 
 #jquery & ui
@@ -19,7 +19,7 @@ gem 'bcrypt', "~> 3.1.10"
 
 gem 'oauth2', "~> 1.0.0"
 gem 'oauth', "~> 0.4.7"
-gem 'omniauth-oauth2', "~> 1.3.0"
+gem 'omniauth-oauth2', "~> 1.3.1"
 gem 'omniauth-facebook', "~> 2.0.1"
 gem "omniauth-google-oauth2", "~> 0.2.6"
 gem 'omniauth-github', "~> 1.1.2"
@@ -36,13 +36,13 @@ gem 'gitlab', '~> 3.4.0'
 gem "github_api", "~>0.12.3"
 gem "randexp", "~> 0.1.7"
 gem 'google-analytics-rails', '~> 0.0.6'
-gem "paypal-sdk-rest", "~>1.1.3" #billing
-gem "sshkey", "~> 1.6.1" #ssh key-gen
+gem "paypal-sdk-rest", "~>1.3.1" #billing
+gem "sshkey", "~> 1.7.0" #ssh key-gen
 gem "settingslogic" #singleton settings yaml manager
 
 # http request and responses, http_proxy
 gem "faraday", "~> 0.9.1"
-gem "faraday_middleware", "~> 0.9.1"
+gem "faraday_middleware", "~> 0.10.0"
 gem "nokogiri", "~> 1.6.6.2"
 
 gem 'passenger',:group => :production
@@ -51,6 +51,7 @@ gem 'sass-rails', "~> 5.0.3"
 gem 'uglifier', "~> 2.7.1"
 
 gem "therubyracer","~> 0.12.2", :require => 'v8',:platforms => :ruby
+gem "intercom-rails"
 
 group :test do
   gem 'capybara'
