@@ -13,8 +13,8 @@ nil_dir="/usr/share/megam/megamnilavu"
 		break
 	done < /proc/net/route
 
-#HOST="127.0.0.1"
-HOST="$ipaddr"
+HOST="127.0.0.1"
+#HOST="$ipaddr"
 PORT="8080"
 
 LOGF="/var/log/megam/megamnilavu/megamnilavu.log"
