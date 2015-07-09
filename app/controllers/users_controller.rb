@@ -53,7 +53,9 @@ class UsersController < ApplicationController
 
     my_account.create(all_params) do
       sign_in my_account
+	if "#{Ind.notification.email.password}" != ''
       UserMailer.welcome(my_account).deliver_now
+	end
       redirect_to cockpits_path, :format => 'html', :flash => { :alert => "Welcome #{my_account.first_name}."}
      end
   end
