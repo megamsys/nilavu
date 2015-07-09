@@ -13,8 +13,8 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
-app.controller("LogCtrl", ["$scope", "Socket", "$location", "$rootScope", "LogStackLimit",
-function($scope, Socket, $location,  $rootScope, LogStackLimit) {
+app.controller("LogCtrl", ["$scope", "socket", "$location", "$rootScope", "LogStackLimit",
+function($scope, socket, $location,  $rootScope, LogStackLimit) {
     $scope.logs = [];
     $scope.total = 0;
     $scope.l_total = 0;
@@ -24,20 +24,15 @@ function($scope, Socket, $location,  $rootScope, LogStackLimit) {
     $scope.setLoading = function(loading) {
 			$scope.isLoading = loading;
 		};
-
-
+    
     $scope.sendmessage = function() {
     	$scope.setLoading(true);
         $scope.logs = [];
         $scope.bookName = $.AppName;      
         console.log($.AppName);
-        //socket.emit('message', $.AppName);
-      this.namespace = $.AppName;
-     var channel = angular.extend (Socket.prototype, {});
-      channel.emit('message', $.AppName);
+        socket.emit('message', $.AppName);
     };   
 
-/*
 
     socket.on('connect', function(data) {
         console.log("connected successfully");
@@ -81,6 +76,5 @@ socket.disconnect();
    //    socket.disconnect();
   // });
 
-*/
     $scope.book_json = 'http://mob.co/kibana/#/dashboard/.json';
 }]);
