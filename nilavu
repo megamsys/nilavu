@@ -4,7 +4,17 @@
 
 nil_dir="/usr/share/megam/megamnilavu"
 
-HOST="127.0.0.1"
+	while read Iface Destination Gateway Flags RefCnt Use Metric Mask MTU Window IRTT; do
+		[ "$Mask" = "00000000" ] && \
+		interface="$Iface" && \
+		ipaddr=$(LC_ALL=C /sbin/ip -4 addr list dev "$interface" scope global) && \
+		ipaddr=${ipaddr#* inet } && \
+		ipaddr=${ipaddr%%/*} && \
+		break
+	done < /proc/net/route
+
+#HOST="127.0.0.1"
+HOST="$ipaddr"
 PORT="8080"
 
 LOGF="/var/log/megam/megamnilavu/megamnilavu.log"
