@@ -1,26 +1,30 @@
 =========================================================================
-Megam CMP - UI [https://www.megam.io](https://www.megam.io)
+Megam cloud platform [https://www.megam.io](https://www.megam.io)
 =========================================================================
 
 [![Build Status](https://travis-ci.org/indykish/nilavu.png?branch=0.8)](https://travis-ci.org/megamsys/nilavu)
 
-Nilavu is a [Rails 4.2.1](http://guides.rubyonrails.org/) browser based user interface for [Megam CMP](http://www.megam.io).
+Nilavu is a [Rails 4.2.3](http://guides.rubyonrails.org/) browser based user interface for [Megam cloud platform](https://www.megam.io).
 
 ## Features:
 
-* The UI for the upcoming public launch of [https://console.megam.io](https://console.megam.io) launch on May 8,2015.
+* Try our developer edition to get a feel of the code [https://console.megam.io](https://console.megam.io)
 
-* Launch apps, services in cloud in seconds.
+* Launch apps, services(db, queue, nosql..) in cloud in seconds with continious integration.
+
+* Predict using the  analytics service
 
 * Watch realtime logs of the launched apps in cloud
 
-* Bundled metering monitoring built using angularjs.
+* Built in metering monitoring
+
+* Launch a micro service (public or on premise)
 
 
 
 ## Requirements
 
-> [Ruby 2.2.x](http://ruby-lang.org)
+> [Ruby 2.0.x](http://ruby-lang.org)
 > [Riak](http://docs.basho.com)
 
 
@@ -28,18 +32,18 @@ Nilavu is a [Rails 4.2.1](http://guides.rubyonrails.org/) browser based user int
 
 The UX/UI design was done by [enixel](http://enixel.com).
 
-![Our Awesome Dashboard](https://github.com/megamsys/nilavu/blob/0.5/public/nilavu_dash.png)
+![A peek of our awesome Dashboard](https://github.com/megamsys/nilavu/blob/0.5/public/nilavu_dash.png)
 
 
 
 ## Getting Started
 
-* Try our public service (launching on May 09, 2015)  [https://console.megam.io](https://console.megam.io)
+* Try our developer edition [https://console.megam.io](https://console.megam.io)
 
 
 ### Documentation
 
-Refer [documentation] (http://docs.megam.io)
+Refer [documentation for onpremise enterprise edition] (http://docs.megam.io)
 
 
 
