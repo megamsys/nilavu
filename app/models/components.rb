@@ -157,11 +157,13 @@ private
   end
 
   def set_postgres_inputs(params)
+    mkp = JSON.parse(params["mkp"])    
     @inputs << {"key" => "username", "value" => params["email"]}
     @inputs << {"key" => "password", "value" => params["api_key"]}
-    @inputs << {"key" => "dbname", "value" => params["email"]}
+    @inputs << {"key" => "dbname", "value" => params["componentname"]}
     @inputs << {"key" => "dbpassword", "value" => ('0'..'z').to_a.shuffle.first(8).join }
-  end
+    @inputs << {"key" => "port", "value" => mkp["catalog"]["port"]}
+  end 
 
   #set user operations for components like (continous integration)
   def set_operations(params)
