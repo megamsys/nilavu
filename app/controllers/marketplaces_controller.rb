@@ -83,6 +83,8 @@ class MarketplacesController < ApplicationController
   ##
   def store_github
     @auth_token = request.env['omniauth.auth']['credentials']['token']
+    puts "-------------------------------------------"
+    puts request.env['omniauth.auth']
     session[:github] =  @auth_token
     session[:git_owner] = request.env['omniauth.auth']['extra']['raw_info']['login']
   end
@@ -91,7 +93,7 @@ class MarketplacesController < ApplicationController
   ## this method collect all repositories for user using oauth token
   ##
   def publish_github
-    
+
     auth_id = params['id']
     github = Github.new oauth_token: session[:github]
     git_array = github.repos.all.collect(&:clone_url)
