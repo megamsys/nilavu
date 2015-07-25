@@ -161,7 +161,7 @@ private
     @inputs << {"key" => "username", "value" => params["email"]}
     @inputs << {"key" => "password", "value" => params["api_key"]}
     @inputs << {"key" => "dbname", "value" => params["componentname"]}
-    @inputs << {"key" => "dbpassword", "value" => ('0'..'z').to_a.shuffle.first(8).join }
+    @inputs << {"key" => "dbpassword", "value" => ('a'..'z').to_a.shuffle.first(8).join }
     @inputs << {"key" => "port", "value" => mkp["catalog"]["port"]}
   end 
 
