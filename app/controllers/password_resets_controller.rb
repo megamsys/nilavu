@@ -24,13 +24,18 @@ class PasswordResetsController < ApplicationController
   # #if not, we pull the info of the user and do an account update.
   def create
     account = Accounts.new.find_by_email(params[:email])
+        if !account.email.nil?
     params[:password_reset_key] = SecureRandom.urlsafe_base64
     params[:password_reset_sent_at] = "#{Time.zone.now}"
     params[:api_key] = account.api_key
     account.update(params) do
       UserMailer.reset(account).deliver_now
     end
+        else
+                @error=""
+       end
   end
+
 
   def edit
     @account = Accounts.new.find_by_password_reset_key(params[:id], params[:email])

@@ -16,95 +16,83 @@
 
 require 'bcrypt'
 
-
 class SessionsController < ApplicationController
   include UsersHelper
   include BCrypt
 
   skip_before_action :require_signin, only: [:new, :tour, :create]
 
-
   def new
   end
- 
 
-  #this is a tour user who can only touch some stuff.
+  # this is a tour user who can only touch some stuff.
   def tour
-      params[:email] =  Accounts::MEGAM_TOUR_EMAIL
-      params[:password] =  Accounts::MEGAM_TOUR_PASSWORD
-      create_with_megam(params)
+    params[:email] =  Accounts::MEGAM_TOUR_EMAIL
+    params[:password] =  Accounts::MEGAM_TOUR_PASSWORD
+    create_with_megam(params)
   end
 
-  #a regular user signin.
+  # a regular user signin.
   def create
-  auth = social_identity    
-      if social_identity.nil?
-       create_with_megam(params)
-     else
-      create_social_identity(auth)  
+    auth = social_identity
+    if social_identity.nil?
+      create_with_megam(params)
+    else
+      create_social_identity(auth)
+     end
+  end
+
+  def callbacks # it wont even enter here...will be redirected from :require_signin
+    auth = request.env['omniauth.auth']
+    redirect_to controller: 'sessions'
    end
-  end
-  
- def callbacks #it wont even enter here...will be redirected from :require_signin
-   auth = request.env['omniauth.auth']
-    redirect_to :controller=>'sessions'
-  end
-  
+
   def destroy
     sign_out
     redirect_to signin_path
   end
 
-
   def create_social_identity(social_identity)
-         
-   acct = Accounts.new
-   det = acct.find_by_email(social_identity[:email])   
-  if !det.email.nil?
-   #pass = password_decrypt(det.password)
-    params[:email] = det.email
-    params[:password] = det.password
-     
+    acct = Accounts.new
+    det = acct.find_by_email(social_identity[:email])
+    if !det.email.nil?
+      # pass = password_decrypt(det.password)
+      params[:email] = det.email
+      params[:password] = det.password
+
       acct.signin_identity(params) do
-       sign_in acct
-        redirect_to cockpits_path, :notice => "Welcome #{acct.first_name}."
-       end
+        sign_in acct
+        redirect_to cockpits_path, notice: "Welcome #{acct.first_name}."
+      end
     else
       redirect_to new_user_path
-   end   
+     end
   end
 
-
-
-private
+  private
 
   # verify if an omniauth.auth hash exists, if not consider it as a locally registered user.
   def social_identity
     auth = session[:auth]
-   auth
+    auth
   end
 
+  def password_decrypt(pass)
+    Password.new(pass)
+  rescue BCrypt::Errors::InvalidHash
+    Rails.logger.debug "> Couldn't decrpt password. Its possible that the password in gateway was just text."
+    raise AuthenticationFailure, 'Au oh!, The password you entered is incorrect.'
+   end
 
- def password_decrypt(pass)
-    begin
-      Password.new(pass)
-    rescue BCrypt::Errors::InvalidHash
-      Rails.logger.debug "> Couldn't decrpt password. Its possible that the password in gateway was just text."
-      raise   AuthenticationFailure, "Au oh!, The password you entered is incorrect."
-    end
-  end
-  
   def create_with_megam(all_params)
     my_account = Accounts.new
     begin
       my_account.signin(all_params) do
         sign_in my_account
-        redirect_to cockpits_path, :notice => "Welcome #{my_account.first_name}."
+        redirect_to cockpits_path, notice: "Welcome #{my_account.first_name}."
       end
     rescue Accounts::AuthenticationFailure => ae
-        redirect_to signin_path, :flash => { :error => ae.message}
+      redirect_to signin_path, flash: { error: ae.message }
     end
   end
-
-
 end
