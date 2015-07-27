@@ -157,3 +157,10 @@ development:
 
 production:
   <<: *defaults
+
+#Auth for clouds
+cloud:
+  opennebula:
+    username: <%= ENV["OPENNEBULA_USERNAME"] %>
+    password: <%= ENV["OPENNEBULA_PASSWORD"] %>
+    endpoint: <%= ENV["OPENNEBULA_ENDPOINT"] %>
