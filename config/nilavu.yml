@@ -48,7 +48,7 @@ defaults: &defaults
 ##
 ## Acceptable values:
 ##   - on or off
-  stream_metrics: off
+  stream_metrics: on
 # The metrics source to configure to.
 ## Default: demo
 ##
@@ -67,30 +67,16 @@ defaults: &defaults
 ##
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
-  http_metrics: http://console.megam.io/monit
+  http_metrics: http://madai.megam.io/monit
 ## Enable private git gogs to be used by nilavu
 ## Requires package [megamgogs] to be insalled.
 ## Default: off
-##
-## Acceptable values:
-##   - on or off
-  private_git_gogs: off
-# http_gogs is a host that the nilavu will connect to
-## for pulling data from private repositories
-## Default: console.megam.io
 ##
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
   private_gitlab: off
 # http_gogs is a host that the nilavu will connect to
 ## for pulling data from private repositories
-## Default: console.megam.io
-##
-## Acceptable values:
-##   - text, e.g. localhost, api.megam.io
-  http_gogs: console.megam.io:6001
-# http_varai is a host that the nilavu will redirect to
-## for launching an awesome visual desinger
 ## Default: console.megam.io
 ##
 ## Acceptable values:
@@ -103,17 +89,6 @@ defaults: &defaults
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
   gitlab_apiV: /api/v3
-# http_gitlab is a host that the nilavu will redirect to
-## for connecting with the gitlab server
-## Default: console.megam.io
-##
-## Acceptable values:
-##   - text, e.g. localhost, api.megam.io
-  http_varai: http://console.megam.io:1880
-# Enable billing with credits for testing.
-## consider_fuel_ready will be disabled for prod or as your wish in private.
-## Default: on
-##
 ## Acceptable values:
 ##   - text, e.g. on or off
   consider_fuel_ready: on
