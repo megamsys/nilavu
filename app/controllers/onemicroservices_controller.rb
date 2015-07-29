@@ -13,13 +13,13 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class OneaddonsController < ApplicationController
+class OnemicroservicesController < ApplicationController
   respond_to :html, :js
 
   before_action :stick_keys, only: [:index]
 
   def index
-    @assembly = Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Assemblies::ADDON]
+    @assembly = Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Assemblies::MICROSERVICES]
     @assembly
   end
 

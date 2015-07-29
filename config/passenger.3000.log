@@ -25,3 +25,62 @@
 [ 2015-06-22 17:33:41.2779 5580/7f075e3a7700 Ser/Server.h:443 ]: [LoggerApiServer] Shutdown finished
 [ 2015-06-22 17:33:41.2783 5580/7f0760216780 age/Log/Main.cpp:424 ]: PassengerAgent logger shutdown finished
 [ 2015-06-22 17:33:41.2895 5572/7f5fd8c17780 age/Hel/Main.cpp:942 ]: PassengerAgent server shutdown finished
+[ 2015-07-28 13:48:30.7962 7780/7fd239198780 age/Wat/Main.cpp:1274 ]: Starting Passenger watchdog...
+[ 2015-07-28 13:48:30.7999 7784/7ff0f9bb0780 age/Cor/Main.cpp:957 ]: Starting Passenger core...
+[ 2015-07-28 13:48:30.8000 7784/7ff0f9bb0780 age/Cor/Main.cpp:234 ]: Passenger core running in multi-application mode.
+[ 2015-07-28 13:48:30.8017 7784/7ff0f9bb0780 age/Cor/Main.cpp:707 ]: Passenger core online, PID 7784
+[ 2015-07-28 13:48:30.8068 7791/7f31f8c63780 age/Ust/Main.cpp:430 ]: Starting Passenger UstRouter...
+[ 2015-07-28 13:48:30.8071 7791/7f31f8c63780 age/Ust/Main.cpp:311 ]: Passenger UstRouter online, PID 7791
+2015/07/28 13:48:33 [error] 7810#0: *4 "/home/yeshwanth/code/new_megam/nilavu/config/public/index.html" is not found (2: No such file or directory), client: 127.0.0.1, server: _, request: "HEAD / HTTP/1.1", host: "0.0.0.0"
+2015/07/28 14:18:33 [error] 7810#0: *35 open() "/home/yeshwanth/code/new_megam/nilavu/config/public/marketplaces" failed (2: No such file or directory), client: 127.0.0.1, server: _, request: "GET /marketplaces HTTP/1.1", host: "localhost:3000", referrer: "http://localhost:3000/"
+2015/07/28 14:18:35 [error] 7810#0: *35 open() "/home/yeshwanth/code/new_megam/nilavu/config/public/marketplaces" failed (2: No such file or directory), client: 127.0.0.1, server: _, request: "GET /marketplaces HTTP/1.1", host: "localhost:3000", referrer: "http://localhost:3000/"
+2015/07/28 14:18:36 [error] 7810#0: *35 open() "/home/yeshwanth/code/new_megam/nilavu/config/public/signout" failed (2: No such file or directory), client: 127.0.0.1, server: _, request: "POST /signout HTTP/1.1", host: "localhost:3000", referrer: "http://localhost:3000/"
+2015/07/28 14:18:40 [error] 7810#0: *35 "/home/yeshwanth/code/new_megam/nilavu/config/public/index.html" is not found (2: No such file or directory), client: 127.0.0.1, server: _, request: "GET / HTTP/1.1", host: "localhost:3000"
+2015/07/28 14:18:41 [error] 7810#0: *35 "/home/yeshwanth/code/new_megam/nilavu/config/public/index.html" is not found (2: No such file or directory), client: 127.0.0.1, server: _, request: "GET / HTTP/1.1", host: "localhost:3000"
+2015/07/28 14:18:42 [error] 7810#0: *35 "/home/yeshwanth/code/new_megam/nilavu/config/public/index.html" is not found (2: No such file or directory), client: 127.0.0.1, server: _, request: "GET / HTTP/1.1", host: "localhost:3000"
+
+[ 2015-07-28 14:18:45.9266 7784/7ff0f37fe700 age/Cor/Main.cpp:507 ]: Signal received. Gracefully shutting down... (send signal 2 more time(s) to force shutdown)
+[ 2015-07-28 14:18:45.9266 7784/7ff0f9bb0780 age/Cor/Main.cpp:876 ]: Received command to shutdown gracefully. Waiting until all clients have disconnected...
+
+[ 2015-07-28 14:18:45.9266 7791/7f31f6df5700 age/Ust/Main.cpp:337 ]: Signal received. Gracefully shutting down... (send signal 2 more time(s) to force shutdown)
+[ 2015-07-28 14:18:45.9267 7791/7f31f8c63780 age/Ust/Main.cpp:399 ]: Received command to shutdown gracefully. Waiting until all clients have disconnected...
+[ 2015-07-28 14:18:45.9267 7791/7f31f6df5700 Ser/Server.h:752 ]: [LoggerApiServer] Freed 0 spare client objects
+[ 2015-07-28 14:18:45.9267 7791/7f31f6df5700 Ser/Server.h:443 ]: [LoggerApiServer] Shutdown finished
+[ 2015-07-28 14:18:45.9268 7784/7ff0f2ffd700 Ser/Server.h:752 ]: [ServerThr.2] Freed 128 spare client objects
+[ 2015-07-28 14:18:45.9268 7784/7ff0f2ffd700 Ser/Server.h:443 ]: [ServerThr.2] Shutdown finished
+[ 2015-07-28 14:18:45.9268 7784/7ff0f27fc700 Ser/Server.h:752 ]: [ServerThr.3] Freed 128 spare client objects
+[ 2015-07-28 14:18:45.9269 7784/7ff0f27fc700 Ser/Server.h:443 ]: [ServerThr.3] Shutdown finished
+[ 2015-07-28 14:18:45.9270 7791/7f31f8c63780 age/Ust/Main.cpp:424 ]: Passenger UstRouter shutdown finished
+[ 2015-07-28 14:18:45.9270 7784/7ff0f1ffb700 Ser/Server.h:752 ]: [ServerThr.4] Freed 128 spare client objects
+[ 2015-07-28 14:18:45.9270 7784/7ff0f1ffb700 Ser/Server.h:443 ]: [ServerThr.4] Shutdown finished
+[ 2015-07-28 14:18:45.9270 7784/7ff0f37fe700 Ser/Server.h:752 ]: [ServerThr.1] Freed 128 spare client objects
+[ 2015-07-28 14:18:45.9271 7784/7ff0f37fe700 Ser/Server.h:443 ]: [ServerThr.1] Shutdown finished
+[ 2015-07-28 14:18:45.9271 7784/7ff0f17fa700 Ser/Server.h:752 ]: [ApiServer] Freed 0 spare client objects
+[ 2015-07-28 14:18:45.9271 7784/7ff0f17fa700 Ser/Server.h:443 ]: [ApiServer] Shutdown finished
+[ 2015-07-28 14:18:45.9384 7784/7ff0f9bb0780 age/Cor/Main.cpp:942 ]: Passenger core shutdown finished
+[ 2015-07-28 14:18:47.8009 11552/7f585de35780 age/Wat/Main.cpp:1274 ]: Starting Passenger watchdog...
+[ 2015-07-28 14:18:47.8045 11555/7fe7adce4780 age/Cor/Main.cpp:957 ]: Starting Passenger core...
+[ 2015-07-28 14:18:47.8046 11555/7fe7adce4780 age/Cor/Main.cpp:234 ]: Passenger core running in multi-application mode.
+[ 2015-07-28 14:18:47.8063 11555/7fe7adce4780 age/Cor/Main.cpp:707 ]: Passenger core online, PID 11555
+[ 2015-07-28 14:18:47.8107 11562/7fc07bd80780 age/Ust/Main.cpp:430 ]: Starting Passenger UstRouter...
+[ 2015-07-28 14:18:47.8110 11562/7fc07bd80780 age/Ust/Main.cpp:311 ]: Passenger UstRouter online, PID 11562
+
+
+[ 2015-07-28 14:18:49.9758 11562/7fc079f12700 age/Ust/Main.cpp:337 ]: Signal received. Gracefully shutting down... (send signal 2 more time(s) to force shutdown)
+[ 2015-07-28 14:18:49.9758 11555/7fe7a77fe700 age/Cor/Main.cpp:507 ]: Signal received. Gracefully shutting down... (send signal 2 more time(s) to force shutdown)
+[ 2015-07-28 14:18:49.9758 11562/7fc07bd80780 age/Ust/Main.cpp:399 ]: Received command to shutdown gracefully. Waiting until all clients have disconnected...
+[ 2015-07-28 14:18:49.9758 11555/7fe7adce4780 age/Cor/Main.cpp:876 ]: Received command to shutdown gracefully. Waiting until all clients have disconnected...
+[ 2015-07-28 14:18:49.9759 11562/7fc079f12700 Ser/Server.h:752 ]: [LoggerApiServer] Freed 0 spare client objects
+[ 2015-07-28 14:18:49.9759 11562/7fc079f12700 Ser/Server.h:443 ]: [LoggerApiServer] Shutdown finished
+[ 2015-07-28 14:18:49.9760 11555/7fe7a6ffd700 Ser/Server.h:752 ]: [ServerThr.2] Freed 128 spare client objects
+[ 2015-07-28 14:18:49.9760 11555/7fe7a6ffd700 Ser/Server.h:443 ]: [ServerThr.2] Shutdown finished
+[ 2015-07-28 14:18:49.9761 11562/7fc07bd80780 age/Ust/Main.cpp:424 ]: Passenger UstRouter shutdown finished
+[ 2015-07-28 14:18:49.9761 11555/7fe7a67fc700 Ser/Server.h:752 ]: [ServerThr.3] Freed 128 spare client objects
+[ 2015-07-28 14:18:49.9761 11555/7fe7a67fc700 Ser/Server.h:443 ]: [ServerThr.3] Shutdown finished
+[ 2015-07-28 14:18:49.9762 11555/7fe7a5ffb700 Ser/Server.h:752 ]: [ServerThr.4] Freed 128 spare client objects
+[ 2015-07-28 14:18:49.9763 11555/7fe7a5ffb700 Ser/Server.h:443 ]: [ServerThr.4] Shutdown finished
+[ 2015-07-28 14:18:49.9764 11555/7fe7a57fa700 Ser/Server.h:752 ]: [ApiServer] Freed 0 spare client objects
+[ 2015-07-28 14:18:49.9764 11555/7fe7a57fa700 Ser/Server.h:443 ]: [ApiServer] Shutdown finished
+[ 2015-07-28 14:18:49.9765 11555/7fe7a77fe700 Ser/Server.h:752 ]: [ServerThr.1] Freed 128 spare client objects
+[ 2015-07-28 14:18:49.9765 11555/7fe7a77fe700 Ser/Server.h:443 ]: [ServerThr.1] Shutdown finished
+[ 2015-07-28 14:18:49.9880 11555/7fe7adce4780 age/Cor/Main.cpp:942 ]: Passenger core shutdown finished

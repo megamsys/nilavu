@@ -16,7 +16,7 @@ Nilavu::Application.routes.draw do
   resources :onetorpedos
   resources :oneapps
   resources :oneservices
-  resources :oneaddons
+  resources :onemicroservices
   # the routes used by the monitoring system
   resources :dashboards
   resources :widgets
