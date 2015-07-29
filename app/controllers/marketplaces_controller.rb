@@ -14,7 +14,6 @@
 ## limitations under the License.
 ##
 require 'json'
-require 'fog'
 
 class MarketplacesController < ApplicationController
   respond_to :js

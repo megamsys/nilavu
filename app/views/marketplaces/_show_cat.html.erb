@@ -40,8 +40,7 @@
 					</div>
 				</div>
 			</div>
-
-			<% if mkp["name"].split("-")[1].upcase != Assemblies::CONTAINERS %>
+			<% if mkp["cattype"].upcase != Assemblies::MICROSERVICES %>
 		        <%= render template="marketplaces/show_template" %>
 			<%= render template="marketplaces/show_ssh", :locals => {:ssh_keys => @ssh_keys} %>
 			<%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
