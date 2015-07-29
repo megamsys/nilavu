@@ -14,12 +14,12 @@
 ** limitations under the License.
 -->
 <% content_for :onecat_contents do %>
-<% provide(:title, 'Addon overview') %>
+<% provide(:title, 'Microservices overview') %>
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
 	<div class="row c_pading-b15 settings_top">
 		<div class="margin_15">
 			<div class="col-xs-9 col-sm-6 col-md-7">
-				<h3> Addon Overview </h3>
+				<h3> Microservice Overview </h3>
 			</div>
 			<%= render :partial => "users/topright_icons" %>
 		</div>
@@ -27,10 +27,10 @@
 	<div class="row">
 		<div class="mplace mplace-head">
 			<div class="col-xs-6 col-md-3 mplace-left">
-				<h4> Addons Overview </h4>
+				<h4> Microservices Overview </h4>
 			</div>
 			<div class="col-xs-12 col-md-9 mplace-middle hidden-xs hidden-sm">
-				<span class="pull-right c_small">Overview of you addon.<i class="c_icon-rocket"></i><a href="http://docs.megam.io/v1.0/docs/megam_quick_launch" target="_blank">Take a Tour</a></span>
+				<span class="pull-right c_small">Overview of you Microservice.<i class="c_icon-rocket"></i><a href="http://docs.megam.io/v1.0/docs/megam_quick_launch" target="_blank">Take a Tour</a></span>
 			</div>
 		</div>
 	</div>
@@ -128,4 +128,4 @@
 
 
 <% end %>
-<%= render :template => 'catalogs/show',:locals => {:cattype => Assemblies::ADDON} %>
+<%= render :template => 'catalogs/show',:locals => {:cattype => Assemblies::MICROSERVICES} %>

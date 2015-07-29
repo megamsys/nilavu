@@ -52,9 +52,9 @@
               <% end %>
             </li>
             <li class= "start active">
-              <%= link_to catalogs_path(:cattype =>Assemblies::ADDON), :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_addon').addClass('selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+              <%= link_to catalogs_path(:cattype =>Assemblies::MICROSERVICES), :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_addon').addClass('selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
                 <i class="icon-pushpin pull-left"></i>
-                <span class="title pull-left">Addons</span>
+                <span class="title pull-left">Microservices</span>
                 <span class="hidden-xs" id="left_addon"></span>
               <% end %>
             </li>

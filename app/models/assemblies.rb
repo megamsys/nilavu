@@ -26,9 +26,9 @@ class Assemblies < BaseFascade
   APP                 =  'APP'.freeze
   SERVICE             =  'SERVICE'.freeze
   ANALYTICS           =  'ANALYTICS'.freeze
-  ADDON               =  'ADDON'.freeze
+  MICROSERVICES       =  'MICROSERVICES'.freeze
   CONTAINERS          =  'CONTAINERS'.freeze
-  CATTYPES            =  [APP, ADDON, TORPEDO, ANALYTICS, SERVICE]
+  CATTYPES            =  [APP, MICROSERVICES, TORPEDO, ANALYTICS, SERVICE]
 
   START               =  'start'.freeze
   STOP                =  'stop'.freeze
@@ -100,6 +100,9 @@ class Assemblies < BaseFascade
           nil
           end
         end
+        puts "=========================================================="
+        puts a1.inspect 
+        puts "=========================================================="
         a1.reduce { |acc, h|  acc.merge(h||{})}
     end
     #A[H1, H2, ... Hn] => H[:CATTYPE => [H1, H2, ... Hn]]
