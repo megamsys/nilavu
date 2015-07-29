@@ -59,7 +59,7 @@ class Components < BaseFascade
 
     set_app_params(params) if mkp["cattype"] == Assemblies::APP
     set_service_params(params) if mkp["cattype"] == Assemblies::SERVICE
-    set_addon_params(params) if mkp["cattype"] == Assemblies::ADDON
+    set_microservice_params(params) if mkp["cattype"] == Assemblies::MICROSERVICES
     set_common_inputs(params)
     set_operations(params)
 
@@ -142,13 +142,13 @@ private
     @related_components << "#{params[:bind_type].split(':')[0]}" if params.has_key?(:bind_type)
   end
 
-  def set_addon_params(params)
+  def set_microservice_params(params)
     mkp = JSON.parse(params["mkp"])
     @name = params[:componentname]
     @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["predef"]}"
   end
 
-  #the common inputs method set all components(apps, service, addons..)
+  #the common inputs method set all components(apps, service, microservices..)
   def set_common_inputs(params)
     @inputs << {"key" => "domain", "value" => params[:domain]} if params.has_key?(:domain)
     @inputs << {"key" => "port", "value" => params[:port]} if params.has_key?(:port)
@@ -157,11 +157,13 @@ private
   end
 
   def set_postgres_inputs(params)
+    mkp = JSON.parse(params["mkp"])    
     @inputs << {"key" => "username", "value" => params["email"]}
     @inputs << {"key" => "password", "value" => params["api_key"]}
-    @inputs << {"key" => "dbname", "value" => params["email"]}
-    @inputs << {"key" => "dbpassword", "value" => ('0'..'z').to_a.shuffle.first(8).join }
-  end
+    @inputs << {"key" => "dbname", "value" => params["componentname"]}
+    @inputs << {"key" => "dbpassword", "value" => ('a'..'z').to_a.shuffle.first(8).join }
+    @inputs << {"key" => "port", "value" => mkp["catalog"]["port"]}
+  end 
 
   #set user operations for components like (continous integration)
   def set_operations(params)

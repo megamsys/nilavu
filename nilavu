@@ -13,15 +13,13 @@ nil_dir="/usr/share/megam/megamnilavu"
 		break
 	done < /proc/net/route
 
-HOST="127.0.0.1"
-#HOST="$ipaddr"
+#HOST="127.0.0.1"
+HOST="$ipaddr"
 PORT="8080"
 
 LOGF="/var/log/megam/megamnilavu/megamnilavu.log"
 
-PIDF="/var/run/megam/megamnilavu.pid"
-
-export GEM_HOME="/usr/local/rvm/gems/ruby-2.2.2/gems"
+#PIDF="/var/run/megam/megamnilavu.pid"
 
 export PATH="/usr/local/rvm/rubies/ruby-2.2.2/bin:$PATH"
 
@@ -107,27 +105,19 @@ help() {
 
 
 start_nilavu() {
-
 set -u
 set -e
-
 echo "---- starting ---"
-
-CMD="/usr/local/rvm/gems/ruby-2.2.2/bin/bundle exec passenger start -a $HOST -p $PORT -d -e production --log-file $LOGF --pid-file $PIDF"
-
+#CMD="/usr/local/rvm/gems/ruby-2.2.2/bin/bundle exec passenger start -a $HOST -p $PORT -d -e production --log-file $LOGF --pid-file $PIDF"
+CMD="bundle exec passenger start -a $HOST -p $PORT  -d -e production --log-file $LOGF"
 $CMD
-
 }
 
 stop_nilavu() {
-
 set -u
 set -e
-
 echo "---- Stoping ---"
-
 kill -9 $(lsof -i:$PORT -t)
-
 }
 
 install_ruby() {
