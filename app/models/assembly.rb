@@ -24,8 +24,6 @@ class Assembly < BaseFascade
   DEFAULT_TOSCA_PREFIX = 'tosca'.freeze
   #this is a mutable string, if nothing exists then we use ubuntu
   DEFAULT_TOSCA_SUFFIX = 'ubuntu'.freeze
-
-
   def initialize()
     @by_cattypes = {}
     @inputs = []
@@ -43,7 +41,7 @@ class Assembly < BaseFascade
 
   def update(api_params, &block)
     api_request(bld_update_params(api_params), ASSEMBLY, UPDATE)
-	api_request(bld_exist_update_params(api_params), ASSEMBLY, UPDATE) if api_params.has_key?(:bind_app_flag) #FOR BIND APP
+    api_request(bld_exist_update_params(api_params), ASSEMBLY, UPDATE) if api_params.has_key?(:bind_app_flag) #FOR BIND APP
     yield self if block_given?
     return self
   end
@@ -57,7 +55,8 @@ class Assembly < BaseFascade
     asm["id"] = "#{params[:bind_type].split(':')[1]}"
     asm
   end
-#FOR BIND APP
+
+  #FOR BIND APP
   def bld_exist_update_params(params)
     asm = empty_assembly
     params = params.merge({"policymembers" => "#{params[:bindapp].split(':')[0]}"}) if params.has_key?(:bindapp)
@@ -68,36 +67,34 @@ class Assembly < BaseFascade
     asm
   end
 
+  def build(params)
+    mkp = JSON.parse(params["mkp"])
 
- def build(params)
-  mkp = JSON.parse(params["mkp"])
+    bld_toscatype(mkp)
+    bld_components(params) unless mkp["cattype"] == Assemblies::TORPEDO
+    bld_requirements(params)
+    bld_inputs(params)
 
-  bld_toscatype(mkp)
-  bld_components(params) unless mkp["cattype"] == Assemblies::TORPEDO
-  bld_requirements(params)
-  bld_inputs(params)
+    params = params.merge({"policymembers" => "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}"})
 
-  params = params.merge({"policymembers" => "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}"})
+    [{
+        "name"=>"#{params[:assemblyname]}",
+        "tosca_type"=> "#{tosca_type}",
+        "components"=> components,
+        "requirements"=> @requirements,
+        "policies"=>bld_policies(params),
+        "inputs"=> @inputs,
+        "outputs"=>[],
+        "operations"=>[],
+        "status"=> Assemblies::LAUNCHING,
+      }]
 
-  [{
-      "name"=>"#{params[:assemblyname]}",
-      "tosca_type"=> "#{tosca_type}",
-      "components"=> components,
-      "requirements"=> @requirements,
-      "policies"=>bld_policies(params),
-      "inputs"=> @inputs,
-      "outputs"=>[],
-      "operations"=>[],
-      "status"=> Assemblies::LAUNCHING,
-        }]
+  end
 
- end
+  private
 
-
- private
-
- def empty_assembly
-   {
+  def empty_assembly
+    {
       "name"=>nil,
       "tosca_type"=> nil,
       "components"=> [],
@@ -108,26 +105,25 @@ class Assembly < BaseFascade
       "operations"=>[],
       "status" => nil,
     }
- end
+  end
 
- def bld_toscatype(mkp)
-   tosca_suffix = DEFAULT_TOSCA_SUFFIX
-   tosca_suffix = "#{mkp["predef"]}" unless mkp["cattype"] != Assemblies::TORPEDO
-   @tosca_type = DEFAULT_TOSCA_PREFIX +  ".#{mkp["cattype"].downcase}.#{tosca_suffix}"
- end
+  def bld_toscatype(mkp)
+    tosca_suffix = DEFAULT_TOSCA_SUFFIX
+    tosca_suffix = "#{mkp["predef"]}" unless mkp["cattype"] != Assemblies::TORPEDO
+    @tosca_type = DEFAULT_TOSCA_PREFIX +  ".#{mkp["cattype"].downcase}.#{tosca_suffix}"
+  end
 
- ##For a vm, there is no component to start with, hence this is skipped.
- def bld_components(params)
-   @components = Components.new.build(params)
- end
+  ##For a vm, there is no component to start with, hence this is skipped.
+  def bld_components(params)
+    @components = Components.new.build(params)
+  end
 
- #In future lot of requirements add this method
- def bld_requirements(params)
-   @requirements << {"key" => "host", "value" => params[:host]} if params.has_key?(:host)
- end
+  #In future lot of requirements add this method
+  def bld_requirements(params)
+    @requirements << {"key" => "host", "value" => params[:host]} if params.has_key?(:host)
+  end
 
-
-def bld_policies(params)
+  def bld_policies(params)
     com = []
     if params.has_key?(:bind_type) && params[:bind_type] != "Unbound service"
       value = {
@@ -141,8 +137,9 @@ def bld_policies(params)
     end
     com
   end
-#FOR BIND APP
-def bld_exist_policies(params)
+
+  #FOR BIND APP
+  def bld_exist_policies(params)
     com = []
     if params.has_key?(:bindapp) && params[:bindapp] != "Unbound service"
       value = {
@@ -157,7 +154,6 @@ def bld_exist_policies(params)
     com
   end
 
-
   #In future lot of inputs add this method
   def bld_inputs(params)
     mkp = JSON.parse(params["mkp"])
@@ -170,10 +166,10 @@ def bld_exist_policies(params)
     @inputs << {"key" => "version", "value" => params[:version]} if mkp["cattype"] == Assemblies::TORPEDO
   end
 
- #recursively dig assembly by populating components.
+  #recursively dig assembly by populating components.
   def dig_components(tmp_assembly_collection, api_params)
     tmp_assembly_collection.map do |one_assembly|
-       a0 = one_assembly.components.map do |one_component|
+      a0 = one_assembly.components.map do |one_component|
         if !one_component.empty?
           one_component = Components.new.show(api_params.merge({"id" => one_component})).components
         else
@@ -188,13 +184,13 @@ def bld_exist_policies(params)
     Rails.logger.debug "> ASC: END"
   end
 
-  #match the tosca type APP, SERVICE, ADDON, TORPEDO from the string tosca.dew.ubuntu.
+  #match the tosca type APP, SERVICE, MICROSERVICES, TORPEDO from the string tosca.dew.ubuntu.
   #if there is no match, then send out an error
   def want_catkey(tmp_tosca_type)
-    c0 = Assemblies::CATTYPES.select {|cat|  cat if tmp_tosca_type.match(cat.downcase)}
+
+    c0 = Assemblies::CATTYPES.select {|cat|  cat unless cat.downcase != tmp_tosca_type.split(".")[1]}
     raise MissingAPIArgsError, "Supported cat types are #{CATTYPES}." if c0.nil?
     c0.join
   end
-
 
 end

@@ -27,7 +27,7 @@ class CatalogsController < ApplicationController
 
   before_action :stick_keys, only: [:index, :create, :destroy, :runtime, :logs]
 
-  #A filtered view of cattype [ADDON, APP, TORPEDO,SERVICE] the cockpit.
+  #A filtered view of cattype [MICROSERVICES, APP, TORPEDO,SERVICE] the cockpit.
   #This action is invoked when you click Apps, Services, Addons from the left nav.
   def index
     logger.debug "> Pilotable: Index"
@@ -51,7 +51,7 @@ class CatalogsController < ApplicationController
     @msg = { title: "#{params['command'].camelize} #{params['cattype'].downcase}", message: "you want to delete #{params['name']}", redirect: catalog_path(:id => 1, :params => params)}
   end
 
-  #this action perfroms a delete operation.
+  #this action performs a delete operation.
   def destroy
     logger.debug "> Pilotable: destroy"  
     params[:cattype] = params[:command] 
