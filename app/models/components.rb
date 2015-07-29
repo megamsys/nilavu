@@ -59,7 +59,7 @@ class Components < BaseFascade
 
     set_app_params(params) if mkp["cattype"] == Assemblies::APP
     set_service_params(params) if mkp["cattype"] == Assemblies::SERVICE
-    set_addon_params(params) if mkp["cattype"] == Assemblies::ADDON
+    set_microservice_params(params) if mkp["cattype"] == Assemblies::MICROSERVICES
     set_common_inputs(params)
     set_operations(params)
 
@@ -142,13 +142,13 @@ private
     @related_components << "#{params[:bind_type].split(':')[0]}" if params.has_key?(:bind_type)
   end
 
-  def set_addon_params(params)
+  def set_microservice_params(params)
     mkp = JSON.parse(params["mkp"])
     @name = params[:componentname]
     @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["predef"]}"
   end
 
-  #the common inputs method set all components(apps, service, addons..)
+  #the common inputs method set all components(apps, service, microservices..)
   def set_common_inputs(params)
     @inputs << {"key" => "domain", "value" => params[:domain]} if params.has_key?(:domain)
     @inputs << {"key" => "port", "value" => params[:port]} if params.has_key?(:port)
