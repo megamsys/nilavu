@@ -14,15 +14,13 @@
 ## limitations under the License.
 ##
 require 'json'
+require 'fog'
 
 class MarketplacesController < ApplicationController
   respond_to :js
   include MarketplaceHelper
 
   before_action :stick_keys, only: [:index, :show, :create]
-  
-  
- 
   
   ##
   ## index page get all marketplace items from storage(we use riak) using megam_gateway

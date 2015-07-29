@@ -165,6 +165,8 @@ def bld_exist_policies(params)
     @inputs << {"key" => "sshkey", "value" => params[:ssh_keypair_name]} if params[:ssh_keypair_name]
     @inputs << {"key" => "provider", "value" => params[:provider]} if params.has_key?(:provider)
     @inputs << {"key" => "endpoint", "value" => params[:endpoint]} if params.has_key?(:endpoint)
+    @inputs << {"key" => "cpu", "value" => params[:cpu]} if params.has_key?(:cpu)
+    @inputs << {"key" => "ram", "value" => params[:ram]} if params.has_key?(:ram)
     @inputs << {"key" => "version", "value" => params[:version]} if mkp["cattype"] == Assemblies::TORPEDO
   end
 

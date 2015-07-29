@@ -40,6 +40,8 @@
             </div>
           </div>
         </div>
+      <%= render template="marketplaces/show_template" %>
+
         <%= render template="marketplaces/show_ssh", :locals => {:ssh_keys => @ssh_keys} %>
         <br/>
         <br/>

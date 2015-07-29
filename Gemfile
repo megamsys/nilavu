@@ -14,9 +14,6 @@ gem 'remotipart', "~> 1.2.1" #ajax sfile uploads
 gem 'socket.io-rails', "~> 1.3.5" # streaming
 gem 'nprogress-rails' #spinner youtube like
 
-#To talk with cloud
-gem 'fog'
-
 # security and oauth
 gem 'bcrypt', "~> 3.1.10"
 
