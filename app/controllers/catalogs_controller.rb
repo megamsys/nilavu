@@ -61,9 +61,8 @@ class CatalogsController < ApplicationController
 
   def runtime
     logger.debug "> Pilotable: Runtime"
-    asm = Assembly.new.show(params).by_cattypes
-    puts "---------------------------------------------------"
-    puts asm   
+    asm = Assembly.new.show(params).by_cattypes   
+    @cattype = params["cattype"]   
     @appname = asm["#{params["cattype"]}"].name + "." + parse_key_value_json(asm["#{params["cattype"]}"].inputs, "domain")
   end
   

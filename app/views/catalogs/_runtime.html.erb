@@ -22,42 +22,15 @@
       </div>
       <%= render :partial => "users/topright_icons" %>
     </div>
-  </div>
-  
-  <div ng-controller="Ctrl">
-    <pie-chart data="chartData" title="{{chartTitle}}" width="{{chartWidth}}" height="{{chartHeight}}" select="selectRow(selectedRowIndex)"></pie-chart>
-    <p>Since this is a demo, lets add fields instead of connecting to db...</p>
-    <div class="left">
-         <h2>Chart Data</h2> 
-        <table>
-            <tr ng-repeat="row in chartData" ng-class="rowClass($index)">
-                <td>
-                    <input ng-model="row[0]">
-                    <input ng-model="row[1]">
-                    <button ng-click="deleteRow($index)">&times;</button>
-                </td>
-            </tr>
-        </table>
-        <button ng-click="addRow()">Add new row</button>
-    </div>
-    <div class="right">
-         <h2>Chart Info</h2> Title:
-        <input ng-model="chartTitle" class="title">
-        <br/>Width:
-        <input ng-model="chartWidth">
-        <br/>Height:
-        <input ng-model="chartHeight">
-        <br/>
-    </div>
-</div>
-  
-  <!-- <ng-view ng-show="resolved" ng-cloak></ng-view> -->
+  </div> 
+   <ng-view ng-show="resolved" ng-cloak></ng-view> 
 </div>
 
 <script>
   (function($) {
   $.Sources = JSON.parse('<%= raw Sources.sources.to_json %> ');
   $.AppName = "<%= @appname %>";
+  $.CatType = "<%= @cattype %>";
   $.SocketURL = "<%= Ind.websocket_tap %>";  
    })($);
 </script>
