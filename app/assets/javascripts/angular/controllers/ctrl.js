@@ -1,6 +1,9 @@
 app.controller('Ctrl', function ($scope) {
     // Initial chart data   
-   var data = google.visualization.arrayToDataTable([
+    
+    console.log("-----------------------------");
+    console.log($scope.widget.kind);
+  /* var data = google.visualization.arrayToDataTable([
         ['Year', 'Sales', 'Expenses', 'jfhvkjdf'],      
         [4,  11.7, 18.8, 10.5],
         [5,  11.9, 17.6, 10.4],
@@ -19,5 +22,5 @@ app.controller('Ctrl', function ($scope) {
       };
       var chart = new google.visualization.LineChart(document.getElementById('chartdiv'));
  
-      chart.draw(data, options);
+      chart.draw(data, options);*/
 });
