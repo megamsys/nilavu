@@ -18,13 +18,13 @@ module Sources
     class Cadvisor < Sources::Containers::Base
       def get(options = {})
 
-      url = URI.parse('http://192.168.1.100:8080/api/v1.3/docker/b79f9dee2f5d9d9ac3617f1b525444fd08697f652828d86abf11fbb83b9fbd12')
+      url = URI.parse('http://192.168.1.100:8080/api/v1.3/docker/159ed9b61d28abe86efd043384a5e556cbe2a0d4314c1d6336fa652ce5506429')
       req = Net::HTTP::Get.new(url.to_s)
       res = Net::HTTP.start(url.host, url.port) {|http|
           http.request(req)
         }
       json = JSON.parse(res.body)
-      json["/docker/b79f9dee2f5d9d9ac3617f1b525444fd08697f652828d86abf11fbb83b9fbd12"]
+      json["/docker/159ed9b61d28abe86efd043384a5e556cbe2a0d4314c1d6336fa652ce5506429"]
       end
 
     end
