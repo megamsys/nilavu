@@ -182,22 +182,15 @@ function($routeParams, ContainerModel, Sources) {
 
 		function onSuccess(data) {
 
-			//var options = {
-			//	title : 'Company Performance'
-			//};
-			//var chart = new google.visualization.LineChart(document.getElementById('chartdiv'));
-
-			//chart.draw(data, options);
-			console.log(data);
 			drawCpuTotalUsage('cpu-total-usage-chart', machineInfo, data);
 			drawCpuPerCoreUsage('cpu-per-core-usage-chart', machineInfo, data);
 			drawCpuUsageBreakdown('cpu-usage-breakdown-chart', machineInfo, data);
+			drawMemoryUsage('memory-usage-chart', machineInfo, data);
 		}
 
 		function update() {
 			scope.widgets.targets = "cpu_system";
 			return ContainerModel.getData(scope.widget, $.AppName).success(onSuccess);
-			//}
 		}
 
 
@@ -280,6 +273,44 @@ function($routeParams, ContainerModel, Sources) {
 			drawLineChart(titles, data, elementId, "Cores");
 		}
 
+		var oneMegabyte = 1024 * 1024;
+		var oneGigabyte = 1024 * oneMegabyte;
+
+		function drawMemoryUsage(elementId, machineInfo, containerInfo) {
+			if (containerInfo.spec.has_memory && !hasResource(containerInfo, "memory")) {
+				return;
+			}
+
+			var titles = ["Time", "Total", "Hot"];
+			var data = [];
+			for (var i = 0; i < containerInfo.stats.length; i++) {
+				var cur = containerInfo.stats[i];
+
+				var elements = [];
+				elements.push(cur.timestamp);
+				elements.push(cur.memory.usage / oneMegabyte);
+				elements.push(cur.memory.working_set / oneMegabyte);
+				data.push(elements);
+			}
+
+			// Get the memory limit, saturate to the machine size.
+			var memory_limit = machineInfo.memory_capacity;
+			if (containerInfo.spec.memory.limit && (containerInfo.spec.memory.limit < memory_limit)) {
+				memory_limit = containerInfo.spec.memory.limit;
+			}
+
+			// Updating the progress bar.
+			var cur = containerInfo.stats[containerInfo.stats.length - 1];
+			var hotMemory = Math.floor((cur.memory.working_set * 100.0) / memory_limit);
+			var totalMemory = Math.floor((cur.memory.usage * 100.0) / memory_limit);
+			var coldMemory = totalMemory - hotMemory;
+			$("#progress-hot-memory").width(hotMemory + "%");
+			$("#progress-cold-memory").width(coldMemory + "%");
+			$("#memory-text").text(humanizeIEC(cur.memory.usage) + " / " + humanizeIEC(memory_limit) + " (" + totalMemory + "%)");
+
+			drawLineChart(titles, data, elementId, "Megabytes");
+		}
+
 		// Draw a line chart.
 		function drawLineChart(seriesTitles, data, elementId, unit) {
 			var min = Infinity;
@@ -318,11 +349,6 @@ function($routeParams, ContainerModel, Sources) {
 				dataTable.addColumn('number', seriesTitles[i]);
 			}
 			dataTable.addRows(data);
-			
-			// Create and draw the visualization.
-			//if (!( elementId in window.charts)) {
-			//	window.charts[elementId] = new google.visualization.LineChart(document.getElementById(elementId));
-			//}
 
 			// TODO(vmarmol): Look into changing the view window to get a smoother animation.
 			var opts = {
@@ -347,12 +373,10 @@ function($routeParams, ContainerModel, Sources) {
 				opts.vAxis.viewWindow.max = 1.1 * max;
 				opts.vAxis.viewWindow.min = 0.9 * max;
 			}
-			
+
 			var chart = new google.visualization.LineChart(document.getElementById(elementId));
 
 			chart.draw(dataTable, opts);
-
-			//window.charts[elementId].draw(dataTable, opts);
 		}
 
 		// Checks if the specified stats include the specified resource.
@@ -367,6 +391,20 @@ function($routeParams, ContainerModel, Sources) {
 
 			// ms -> ns.
 			return (cur.getTime() - prev.getTime()) * 1000000;
+		}
+
+		function humanize(num, size, units) {
+			var unit;
+			for ( unit = units.pop(); units.length && num >= size; unit = units.pop()) {
+				num /= size;
+			}
+			return [num, unit];
+		}
+
+		// Following the IEC naming convention
+		function humanizeIEC(num) {
+			var ret = humanize(num, 1024, ["TiB", "GiB", "MiB", "KiB", "B"]);
+			return ret[0].toFixed(2) + " " + ret[1];
 		}
 
 	};
