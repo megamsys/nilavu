@@ -29,13 +29,16 @@ app.factory("ContainerModel", ["$http", "TimeSelector", "Sources", function($htt
 	  }	 
 
   function getData(config, appkey) {		  
-	  console.log("data source entry----->"+config);	
-	  console.log("TEST!-----------> 33333");
-
 	return $http.get("/api/data_sources/containers.json", { params: getParams(config, appkey) });
   }
+  
+  function getMachineInfo(config) {
+  	return $http.get("/api/data_sources/containers.json", { params: {kind: config.kind, name: "machines" }});
+  }
+  
   return {
-    getData: getData
+    getData: getData,
+    getMachineInfo: getMachineInfo
   };
   
 }]);

@@ -15,19 +15,8 @@
 ##
 module Sources
   module Containers
-    class Cadvisor < Sources::Containers::Base
+    class Machines < Sources::Containers::Base
       def get(options = {})
-      machineinfo = getMachineInfo()
-      url = URI.parse("http://192.168.1.100:8080/api/v1.3/docker/#{options[:appkey]}")
-      req = Net::HTTP::Get.new(url.to_s)
-      res = Net::HTTP.start(url.host, url.port) {|http|
-          http.request(req)
-        }
-      json = JSON.parse(res.body)
-      {"metric" => json["/docker/#{options[:appkey]}"], "machine" => machineinfo}
-      end
-      
-      def getMachineInfo()
         url = URI.parse("http://192.168.1.100:8080/api/v1.3/machine")
         req = Net::HTTP::Get.new(url.to_s)
         res = Net::HTTP.start(url.host, url.port) {|http|

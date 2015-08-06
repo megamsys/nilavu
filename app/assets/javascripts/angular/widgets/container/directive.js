@@ -18,6 +18,9 @@ function($routeParams, ContainerModel, Sources) {
 
 	var currentColors = [];
 
+var machineinfo = {};
+		var flag = false;
+
 	var machineInfo = {
 		"num_cores" : 8,
 		"cpu_frequency_khz" : 2331000,
@@ -178,19 +181,35 @@ function($routeParams, ContainerModel, Sources) {
 		}]
 	};
 
-	var linkFn = function(scope, element, attrs) {
+	var linkFn = function(scope, element, attrs) {		
 
 		function onSuccess(data) {
-
-			drawCpuTotalUsage('cpu-total-usage-chart', machineInfo, data);
-			drawCpuPerCoreUsage('cpu-per-core-usage-chart', machineInfo, data);
-			drawCpuUsageBreakdown('cpu-usage-breakdown-chart', machineInfo, data);
-			drawMemoryUsage('memory-usage-chart', machineInfo, data);
+			console.log("------------second-----------------------");
+			console.log(data.machine);
+			drawCpuTotalUsage('cpu-total-usage-chart', data.machine, data.metric);
+			drawCpuPerCoreUsage('cpu-per-core-usage-chart', data.machine, data.metric);
+			drawCpuUsageBreakdown('cpu-usage-breakdown-chart', data.machine, data.metric);
+			drawMemoryUsage('memory-usage-chart', data.machine, data.metric);
+		}
+		
+		function onMachine(data) {
+			scope.widget.machineinfo = data;
+			console.log("------------first-----------------------");
+			return ContainerModel.getData(scope.widget, $.AppName).success(onSuccess);
 		}
 
 		function update() {
 			scope.widgets.targets = "cpu_system";
 			return ContainerModel.getData(scope.widget, $.AppName).success(onSuccess);
+		/*	if (flag) {
+				console.log("=================true================================");
+				return ContainerModel.getData(scope.widget, $.AppName).success(onSuccess);
+			} else {
+				flag = true;
+				console.log("=================false================================");
+				return ContainerModel.getMachineInfo(scope.widget).success(onMachine);
+				return ContainerModel.getData(scope.widget, $.AppName).success(onSuccess);
+			}*/
 		}
 
 
@@ -403,6 +422,8 @@ function($routeParams, ContainerModel, Sources) {
 
 		// Following the IEC naming convention
 		function humanizeIEC(num) {
+			console.log("0000000000000000000000000000000");
+			console.log(num);
 			var ret = humanize(num, 1024, ["TiB", "GiB", "MiB", "KiB", "B"]);
 			return ret[0].toFixed(2) + " " + ret[1];
 		}
