@@ -69,7 +69,7 @@
 				</div>
 				<div class="col-xs-6">
 					<div class="form-group">
-						<%= submit_tag "Create #{cattype.downcase}", :class => "btn btn-success col-xs-12", :data => {:remote => true} %>
+						<%= submit_tag "Create #{cattype.downcase}", :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Please wait..."} %>
 					</div>
 				</div>
 			</div>
