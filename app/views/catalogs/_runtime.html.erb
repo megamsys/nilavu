@@ -31,6 +31,8 @@
   $.Sources = JSON.parse('<%= raw Sources.sources.to_json %> ');
   $.AppName = "<%= @appname %>";
   $.CatType = "<%= @cattype %>";
+  $.Host = "<%= @host %>";
+  $.Flag = false;
   $.SocketURL = "<%= Ind.websocket_tap %>";  
    })($);
 </script>
