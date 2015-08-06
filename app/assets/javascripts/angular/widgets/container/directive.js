@@ -18,198 +18,30 @@ function($routeParams, ContainerModel, Sources) {
 
 	var currentColors = [];
 
-var machineinfo = {};
-		var flag = false;
+	var machineinfo = {};
 
-	var machineInfo = {
-		"num_cores" : 8,
-		"cpu_frequency_khz" : 2331000,
-		"memory_capacity" : 12573564928,
-		"machine_id" : "feab7d6287a98f3a620a096f5534fbff",
-		"system_uuid" : "31DB7981-EACB-11DC-A452-0015176560B0",
-		"boot_id" : "63e12cb5-feb9-4331-afe4-9cc421593f67",
-		"filesystems" : [{
-			"device" : "/dev/disk/by-uuid/0037a4db-e54e-4380-902a-87161b5897e7",
-			"capacity" : 216511406080
-		}, {
-			"device" : "/dev/sdb1",
-			"capacity" : 245998551040
-		}],
-		"disk_map" : {
-			"8:0" : {
-				"name" : "sda",
-				"major" : 8,
-				"minor" : 0,
-				"size" : 250059350016,
-				"scheduler" : "deadline"
-			},
-			"8:16" : {
-				"name" : "sdb",
-				"major" : 8,
-				"minor" : 16,
-				"size" : 250059350016,
-				"scheduler" : "deadline"
-			}
-		},
-		"network_devices" : [{
-			"name" : "eth0",
-			"mac_address" : "00:15:17:65:60:b0",
-			"speed" : 1000,
-			"mtu" : 1500
-		}, {
-			"name" : "eth1",
-			"mac_address" : "00:15:17:65:60:b1",
-			"speed" : 1000,
-			"mtu" : 1500
-		}, {
-			"name" : "one",
-			"mac_address" : "00:15:17:65:60:b0",
-			"speed" : 0,
-			"mtu" : 1500
-		}, {
-			"name" : "ovs-system",
-			"mac_address" : "7a:8a:06:54:b3:d1",
-			"speed" : 0,
-			"mtu" : 1500
-		}],
-		"topology" : [{
-			"node_id" : 0,
-			"memory" : 12573564928,
-			"cores" : [{
-				"core_id" : 0,
-				"thread_ids" : [0],
-				"caches" : [{
-					"size" : 32768,
-					"type" : "Data",
-					"level" : 1
-				}, {
-					"size" : 32768,
-					"type" : "Instruction",
-					"level" : 1
-				}]
-			}, {
-				"core_id" : 2,
-				"thread_ids" : [1],
-				"caches" : [{
-					"size" : 32768,
-					"type" : "Data",
-					"level" : 1
-				}, {
-					"size" : 32768,
-					"type" : "Instruction",
-					"level" : 1
-				}]
-			}, {
-				"core_id" : 1,
-				"thread_ids" : [4],
-				"caches" : [{
-					"size" : 32768,
-					"type" : "Data",
-					"level" : 1
-				}, {
-					"size" : 32768,
-					"type" : "Instruction",
-					"level" : 1
-				}]
-			}, {
-				"core_id" : 3,
-				"thread_ids" : [5],
-				"caches" : [{
-					"size" : 32768,
-					"type" : "Data",
-					"level" : 1
-				}, {
-					"size" : 32768,
-					"type" : "Instruction",
-					"level" : 1
-				}]
-			}],
-			"caches" : null
-		}, {
-			"node_id" : 1,
-			"memory" : 0,
-			"cores" : [{
-				"core_id" : 0,
-				"thread_ids" : [2],
-				"caches" : [{
-					"size" : 32768,
-					"type" : "Data",
-					"level" : 1
-				}, {
-					"size" : 32768,
-					"type" : "Instruction",
-					"level" : 1
-				}]
-			}, {
-				"core_id" : 2,
-				"thread_ids" : [3],
-				"caches" : [{
-					"size" : 32768,
-					"type" : "Data",
-					"level" : 1
-				}, {
-					"size" : 32768,
-					"type" : "Instruction",
-					"level" : 1
-				}]
-			}, {
-				"core_id" : 1,
-				"thread_ids" : [6],
-				"caches" : [{
-					"size" : 32768,
-					"type" : "Data",
-					"level" : 1
-				}, {
-					"size" : 32768,
-					"type" : "Instruction",
-					"level" : 1
-				}]
-			}, {
-				"core_id" : 3,
-				"thread_ids" : [7],
-				"caches" : [{
-					"size" : 32768,
-					"type" : "Data",
-					"level" : 1
-				}, {
-					"size" : 32768,
-					"type" : "Instruction",
-					"level" : 1
-				}]
-			}],
-			"caches" : null
-		}]
-	};
-
-	var linkFn = function(scope, element, attrs) {		
+	var linkFn = function(scope, element, attrs) {
 
 		function onSuccess(data) {
-			console.log("------------second-----------------------");
-			console.log(data.machine);
-			drawCpuTotalUsage('cpu-total-usage-chart', data.machine, data.metric);
-			drawCpuPerCoreUsage('cpu-per-core-usage-chart', data.machine, data.metric);
-			drawCpuUsageBreakdown('cpu-usage-breakdown-chart', data.machine, data.metric);
-			drawMemoryUsage('memory-usage-chart', data.machine, data.metric);
+			drawCpuTotalUsage('cpu-total-usage-chart', machineinfo, data);
+			drawCpuPerCoreUsage('cpu-per-core-usage-chart', machineinfo, data);
+			drawCpuUsageBreakdown('cpu-usage-breakdown-chart', machineinfo, data);
+			drawMemoryUsage('memory-usage-chart', machineinfo, data);
 		}
-		
+
 		function onMachine(data) {
-			scope.widget.machineinfo = data;
-			console.log("------------first-----------------------");
-			return ContainerModel.getData(scope.widget, $.AppName).success(onSuccess);
+			machineinfo = JSON.parse(data);
+			return ContainerModel.getData(scope.widget, $.AppName, $.Host).success(onSuccess);
 		}
 
 		function update() {
 			scope.widgets.targets = "cpu_system";
-			return ContainerModel.getData(scope.widget, $.AppName).success(onSuccess);
-		/*	if (flag) {
-				console.log("=================true================================");
-				return ContainerModel.getData(scope.widget, $.AppName).success(onSuccess);
+			if ($.Flag) {
+				return ContainerModel.getData(scope.widget, $.AppName, $.Host).success(onSuccess);
 			} else {
-				flag = true;
-				console.log("=================false================================");
-				return ContainerModel.getMachineInfo(scope.widget).success(onMachine);
-				return ContainerModel.getData(scope.widget, $.AppName).success(onSuccess);
-			}*/
+				$.Flag = true;
+				return ContainerModel.getMachineInfo(scope.widget, $.Host).success(onMachine);
+			}
 		}
 
 
@@ -422,8 +254,6 @@ var machineinfo = {};
 
 		// Following the IEC naming convention
 		function humanizeIEC(num) {
-			console.log("0000000000000000000000000000000");
-			console.log(num);
 			var ret = humanize(num, 1024, ["TiB", "GiB", "MiB", "KiB", "B"]);
 			return ret[0].toFixed(2) + " " + ret[1];
 		}

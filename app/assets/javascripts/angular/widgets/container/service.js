@@ -15,7 +15,7 @@
 */
 app.factory("ContainerModel", ["$http", "TimeSelector", "Sources", function($http, TimeSelector, Sources) {
 
-	function getParams(config, appkey) {
+	function getParams(config, appkey, host) {
 	    return {	
 	    	widgetid: config.id,
 	    	 from: TimeSelector.getFrom(config.range),
@@ -24,16 +24,17 @@ app.factory("ContainerModel", ["$http", "TimeSelector", "Sources", function($htt
 	      kind: config.kind,
 	      name: config.source,	      
 	      target: config.targets,
-	      appkey: appkey
+	      appkey: appkey,
+	      host: host
 	    };
 	  }	 
 
-  function getData(config, appkey) {		  
-	return $http.get("/api/data_sources/containers.json", { params: getParams(config, appkey) });
+  function getData(config, appkey, host) {		  
+	return $http.get("/api/data_sources/containers.json", { params: getParams(config, appkey, host) });
   }
   
-  function getMachineInfo(config) {
-  	return $http.get("/api/data_sources/containers.json", { params: {kind: config.kind, name: "machines" }});
+  function getMachineInfo(config, host) {
+  	return $http.get("/api/data_sources/containers.json", { params: {kind: config.kind, name: "machines", host: host }});
   }
   
   return {
