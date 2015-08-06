@@ -16,8 +16,10 @@
 <!DOCTYPE html>
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!--> <html lang="en" class="no-js"> <!--<![endif]-->
-<!-- BEGIN HEAD -->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+	<!--<![endif]-->
+	<!-- BEGIN HEAD -->
 <html ng-app="Nilavu">
 	<head>
 		<base href="/">
@@ -38,10 +40,19 @@
 		<meta content="" name="description" />
 		<meta content="" name="author" />
 		<meta name="MobileOptimized" content="320">
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script type="text/javascript">
+			google.setOnLoadCallback(function() {
+				angular.bootstrap(document.body, ['app']);
+			});
+			google.load('visualization', '1', {
+				packages : ['corechart']
+			});
+		</script>
 	</head>
 	<body>
 		<div id="cockpit">
-		<%= yield %>
-	</div>
+			<%= yield %>
+		</div>
 	</body>
 </html>

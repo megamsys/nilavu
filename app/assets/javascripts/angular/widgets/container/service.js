@@ -13,27 +13,32 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
-app.factory("NetworksModel", ["$http", "TimeSelector", "Sources", function($http, TimeSelector, Sources) {
+app.factory("ContainerModel", ["$http", "TimeSelector", "Sources", function($http, TimeSelector, Sources) {
 
-	function getParams(config) {
-		//alert(config.targets);
+	function getParams(config, appkey) {
 	    return {	
 	    	widgetid: config.id,
-	    	 //from: TimeSelector.getFrom(config.range),
-	         //to: TimeSelector.getCurrent(config.range),
+	    	 from: TimeSelector.getFrom(config.range),
+	         to: TimeSelector.getCurrent(config.range),
 	    	range: config.range,
 	      kind: config.kind,
 	      name: config.source,	      
-	      target: config.targets
+	      target: config.targets,
+	      appkey: appkey
 	    };
 	  }	 
 
-  function getData(config) {		  
-	  console.log("data source entry----->"+config);	
-	return $http.get("/api/data_sources/networks_datapoints.json", { params: getParams(config) });
+  function getData(config, appkey) {		  
+	return $http.get("/api/data_sources/containers.json", { params: getParams(config, appkey) });
   }
+  
+  function getMachineInfo(config) {
+  	return $http.get("/api/data_sources/containers.json", { params: {kind: config.kind, name: "machines" }});
+  }
+  
   return {
-    getData: getData
+    getData: getData,
+    getMachineInfo: getMachineInfo
   };
   
 }]);

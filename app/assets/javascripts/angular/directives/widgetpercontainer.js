@@ -13,17 +13,15 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
-app.directive("widgetsummary", ["$compile", function($compile) {
+app.directive("widgetpercontainer", ["$compile", function($compile) {
 	
   var linkFn = function(scope, element, attrs) {
    console.log("scope widget"+scope.widget.kind);
-   if (scope.widget.widget_type == "summary") {
+   
     // TODO: cleanup, an attribute can't be created in the template with expression
     var elm = element.find(".widget_content");
-    //elm.append('<div ' + scope.widget.kind.replace("_", "-") + ' />');
-    elm.append('<div '+ scope.widget.name + ' />');
+    elm.append('<div container />');
     $compile(elm)(scope);
-   }
    
   };
 
