@@ -67,6 +67,7 @@
 		(function($) {
 			$.Sources = JSON.parse('<%= raw Sources.sources.to_json %> ');
   			$.AppName = "<%= @appname %>";
+  			$.SocketFlag = false;
     		$.SocketURL = "<%= Ind.websocket_tap %>";
      })($);
 	</script>
