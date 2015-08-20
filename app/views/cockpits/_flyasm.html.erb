@@ -122,8 +122,8 @@ $(document).ready(function() {
 });
 
   // Instance the tour
-
-<% if @assemblies_grouped["TORPEDO"].nil? && @assemblies_grouped["APP"].nil? && @assemblies_grouped["SERVICE"].nil? %>
+/*@assemblies_grouped["TORPEDO"].nil? && @assemblies_grouped["APP"].nil? && @assemblies_grouped["SERVICE"].nil? &&*/ 
+<% if session[:tour] %>
 var tour = new Tour({
   steps: [
   {
@@ -136,14 +136,15 @@ var tour = new Tour({
     title: "<i class='fa fa-soundcloud'></i> Step 2",
     content: "Click to see all our apps and services !!",
     placement: 'left'
-  }  
+  }
 ],
  // backdrop: true,
+
   storage: false
 });
 
 tour.init();
-
+<% session[:tour] = false %>
 tour.start();
 <% end %>
 

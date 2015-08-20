@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
 
   before_action :require_signin
   around_action :catch_exceptions
-
+  
   # a catcher exists using rails globber for routes in config/application.rb to trap 404.
   rescue_from Exception, with: :render_500
   unless Rails.application.config.consider_all_requests_local
