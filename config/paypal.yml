@@ -1,0 +1,13 @@
+test: &default
+  mode: sandbox
+  client_id: AQTBcLbGE42kQB11pyvam0dYneA7ic1fWHCz9ZhzC9xQey4yZ4NypDMJAsyPnmYDNeeXXfq8xaePFMgW
+  client_secret: EAFBFX4HpJmRnw1dGqcnv9sZEF3NXIuomn37CrB1IRKPxRMBWH4YfXwwhO7lDkbtUvcyXYnhyJRA1Vnu
+
+development:
+  <<: *default
+
+production:
+  mode: live
+  client_id: 
+  client_secret: 
+  # rest_endpoint: "https://api.paypal.com"

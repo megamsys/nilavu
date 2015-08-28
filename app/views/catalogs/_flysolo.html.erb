@@ -1,0 +1,89 @@
+<div class="row margintb_15 margin_30">
+	<%= link_to marketplaces_path, :data => { :remote => true} do %>
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover one">
+		<div class="app_inner">
+			<div class="app_new">
+				<span class="glyphicon glyphicon-plus"></span>
+				<p>
+					Create  <%= filter_cattype.downcase.camelize %>
+				</p>
+			</div>
+		</div>
+	</div>
+	<% end %>
+	<% asmgroups_flatten.each do |assembly| %>
+	<% unless assembly.status == Assemblies::TERMINATED %>
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+		<div class="app_inner">
+			<div class="app">
+				<div class="app_head">
+					<span class="app_config" id="config_menu_<%= assembly.name %>_<%= filter_cattype.downcase %>"><i class="c_icon-config"></i></span>
+					<div class="config_menu config_menu_<%= assembly.name %>_<%= filter_cattype.downcase %>">
+						<%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id, :name => assembly.name, :cattype => filter_cattype} %>
+					</div>
+					<div class="row app_icon">
+						<h5><%= assembly.name %></h5>
+						<% case filter_cattype.upcase %>
+						<% when Assemblies::TORPEDO %>
+						<%= link_to assembly.name + ".megambox.com", onetorpedos_path(:id => assembly.id), :data => {:remote => true} %>
+						<% when Assemblies::APP %>
+						<%= link_to assembly.name + ".megambox.com", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
+						<% when Assemblies::SERVICE %>
+						<%= link_to assembly.name + ".megambox.com", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
+						<% when Assemblies::MICROSERVICES %>
+						<%= link_to assembly.name + ".megambox.com", onemicroservices_path(:id => assembly.id), :data => {:remote => true} %>
+						<% end %>
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<ul class="list-inline app_icon_bottom">
+								<%  sparkle_up(filter_cattype,assembly).each do |cool_logo| %>
+								<li>
+									<%= image_tag  cool_logo, :alt => "" %>
+								</li>
+								<% end %>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="app_footer">
+					<i class="circle_green"></i>
+					<span><%= assembly.status.capitalize %></span>
+					<a href="http://docs.megam.io" target="_blank" ><i class="c_icon-window pull-right" style="color:blue"></i></a>
+					<i class="c_icon-star pull-right"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+	<% else %>
+	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+		<div class="app_inner">
+			<div class="app">
+				<div class="app_head">
+					<span class="app_config" id="config_menu_<%= assembly[0].name %>_app"><i class="c_icon-config"></i></span>
+					<div class="row app_icon">
+						<h5><%= assembly[0].name %></h5>
+						<%= assembly[0].name + ".megam.io" %>
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<ul class="list-inline app_icon_bottom">
+								<%  assembly[0].components.each do |com| %>
+								<% com.each do |c| %>
+								<li>
+									<%= image_tag "logos/"+one_component.tosca_type.downcase+".png", :alt => "" %>
+								</li>
+								<% end %>
+								<% end %>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="app_footer">
+					<i class="circle_red"></i>
+					<span><%= assembly[0].status.capitalize %></span>
+					<i class="c_icon-window pull-right" style="color:blue"></i>
+					<i class="c_icon-star pull-right"></i>
+				</div>
+			</div>
+		</div>
+	</div>
+	<% end %>
+	<% end %>
+</div>

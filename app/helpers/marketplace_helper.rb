@@ -1,72 +1,88 @@
+##
+## Copyright [2013-2015] [Megam Systems]
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+## http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+##
 module MarketplaceHelper
-  def mkp_config
-    YAML.load(File.open("#{Rails.root}/config/marketplace_addons.yml", 'r'))
+  # generates a random name work for the launch
+  # eg: awesome . megam.co
+  def launch_namegen
+    @launch_namegen = /\w+/.gen
+    @launch_namegen.downcase
   end
 
-  def get_predef_name(name)
-    @p_name = ""
-    mkp_config.each do |mkp, addon|
-      if mkp == name
-        @p_name = addon["predef_name"]
-      end
-    end
-    @p_name
+  # the category comes like
+  #  1-Dew
+  #  2-BYOC
+  # strip the numeric and the dash(-)
+  def trim_category(ck)
+    /[a-zA-Z ]+/.match(ck)
   end
 
-  def get_deps_scm(name)
-    @scm = ""
-    mkp_config.each do |mkp, addon|
-      if addon["name"] == name
-        @scm = addon["deps_scm"]
-      end
-    end
-    @scm
-  end
-
-  def get_category_description(category)
+  def category_description(category)
     case category
-    when "Starter packs"
+    when '1-Torpedo'
+      'Get your own compute power'
+    when '2-Bring Your Own Code'
       'Get started with a new app'
-    when "Platform"
-      'Enrich Megam with awesome addons'
-    when "App Boilers"
+    when '3-App Boilers'
       'Make your applications more hungry'
-    when "Runtime"
-      'Get started with a new app'
+    when '4-Platform'
+      'Enrich Megam with awesome addons'
+    when '5-Analytics'
+      'Actionable insights in minutes'
+    when '6-Unikernel'
+      'Just do one thing in an unikernel.'
     else
-    ''
+      '! Missing category !'
     end
   end
 
- def get_doc_link(name)
-   @link = ""
-    mkp_config.each do |mkp, addon|
-      if mkp == name
-        @link = addon["link"]
-      end
-    end
-    @link
- end
- 
- def get_combos(name)
-   @combo = ""  
-    mkp_config.each do |mkp, addon|
-      if mkp == name
-        @combo = addon["basic_combos"]
-      end
-    end  
-    @combo
- end
- 
-  def get_type(name)
-   @type = ""  
-    mkp_config.each do |mkp, addon|
-      if mkp == name
-        @type = addon["type"]
-      end
-    end  
-    @type
- end
- 
+  # from a bunch of plans, we match the plan for a version
+  # eg: debian jessie 7, 8
+  def match_plan_for(mkp, version)
+   mkp['plans'].select  { |tmp| tmp['version'] == version }.reduce { :merge }
+   end
 
-end
+  def parse_key_value_pair(array, search_key)
+    array.map do |pair|
+      return pair["value"] if pair["key"] == search_key
+    end
+    return ""
+  end
+
+  def parse_operations(array, search_key)
+    array.map do |pair|
+      return pair["operation_requirements"] if pair["operation_type"] == search_key
+    end
+    return []
+  end
+
+  # stick all the versions (debian 7, 8 and the first version 7 or the passed version 8)
+  def pressurize_version(mkp,version)
+    versions = []
+    versions = mkp.plans.map { |c| c['version'] }.sort
+    tmkp = mkp.to_hash
+    tmkp['versions'] = versions
+    tmkp['sversion'] = version || versions[0]
+    tmkp
+  end
+
+  def unbound_apps(apps)
+    unbound_apps  = []
+    unbound_apps << "Unbound service"
+    apps.map{ |c| unbound_apps << [c[:name], c[:name]+":"+c[:aid]+":"+c[:cid]] }
+    unbound_apps
+  end
+
+ end

@@ -6,6 +6,8 @@
 
 # Ignore bundler config
 /.bundle
+/.c9/
+/*_saavi*
 
 # Ignore the default SQLite database.
 /db/*.sqlite3

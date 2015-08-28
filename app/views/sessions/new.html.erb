@@ -1,10 +1,25 @@
+<!--
+** Copyright [2013-2015] [Megam Systems]
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+** http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+-->
 <% provide(:title, "Sign in") %>
 <div class="signin login">
 	<!-- BEGIN LOGO -->
 	<div class="container">
 		<div class="row">
 			<div class="logo">
-				<%= image_tag "logo.png" %>
+				<%= image_tag "megam-logo1.png" %>
 			</div>
 		</div>
 
@@ -21,7 +36,7 @@
 
 			<div class="cover col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
 				<!-- BEGIN LOGIN FORM -->
-				<%= form_tag sessions_path, multipart: true, :id => "megamform", role: "form", :novalidate => "novalidate", :method => "post", data: { spinlock: "#spin_cross_cloud"}  do %>
+				<%= form_tag sessions_path, multipart: true, :id => "megamform", :class => "sign-form", role: "form", :novalidate => "novalidate", :method => "post", data: { spinlock: "#spin_cross_cloud"}  do %>
 				<div class="c_inline">
 					<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
 					<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
@@ -43,25 +58,27 @@
 						</div>
 					</div>
 
-					<% if flash[:error] %>
+
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
+					<% if flash[:error] %>
 							<div class="alert alert-danger alert-dismissable">
 								<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
 								<strong>Warning!</strong> <%= flash[:error] %>
 							</div>
+					<% end %>
 						</div>
 					</div>
-					<% end %>
+
 
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
 							<div class="row">
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 tour-btn">
-									<span> <a href="signup"><u class="colr-bluegrey">Create new account ? </u></a> </span>
+									<span> <a href="signup" id="la-button"><u class="colr-bluegrey">Create new account ? </u></a> </span>
 								</div>
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right tour-btn">
-									<span> <a  data-toggle="modal" href="#forgot_password"  class="pull-right" href="#"><u class="colr-denimblue">Forgot password ?</u></a> </span>
+									<span> <a  data-toggle="modal" href="#forgot_password"  class="pull-right"><u class="colr-denimblue">Forgot password ?</u></a> </span>
 
 								</div>
 							</div>
@@ -72,10 +89,11 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<div class="row">
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 tour-btn">
-									<%= link_to "Take a tour", demo_path(:email =>"fake@mypaas.io",:password =>"fakemypaas#megam"),:class => "btn btn-success btn-plain", :id => "popover_demosignin" %>
+
+									<button class="btn btn-success btn-plain"><a href="/tour">Take a tour</a></button>
 								</div>
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right tour-btn">
-								    <%= submit_tag "Login", :class => "btn btn-success btn-plain-green" %>
+									<button type="submit" class="btn btn-success btn-plain-green" data-remote="true">Login</button>
 								</div>
 							</div>
 						</div>
@@ -113,7 +131,7 @@
 		<div  class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">
 			<div class="row">
 				<p>
-					<a href="http://enixel.com/" target="_blank">Powered by Enixel</a><span class="pull-right"><a href="https://www.megam.io" target="_blank">megam.io</a></span>
+					<a href="http://enixel.com/" target="_blank">Designed by Enixel</a><span class="pull-right"><a href="https://www.megam.io" target="_blank">megam.io</a></span>
 				</p>
 			</div>
 		</div>
@@ -136,7 +154,7 @@
 							<div class="form-group">
 								<%= form_tag password_resets_path, :method => :post, :remote => true, data: { spinlock: '#creating_sshkeys'}  do %>
 
-								<label for="ssh-key_name">Email</label>
+								<label for="ssh-key_name">Your registered email</label>
 								<%= text_field_tag :email, nil, :class => 'form-control', :required => true, placeholder: "Email" %>
 							</div>
 
@@ -185,7 +203,9 @@
 				<div>
 
 					<p>
-						You recently made a request for a lost password. Please Enter a valid megam account email address
+				<div class="alert alert-danger">
+    <strong>Sorry!</strong> Please type a valid email address or create account in megam.
+</div> 
 					</p>
 				</div>
 			</div>
@@ -197,4 +217,3 @@
 	</div>
 	<!-- /.modal-dialog -->
 </div>
-

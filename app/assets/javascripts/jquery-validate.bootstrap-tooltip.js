@@ -31,7 +31,7 @@
 					/* Using Twitter Bootstrap Defaults if no settings are given */ 
 					animation: $(element).data('animation')||true,
 					html: $(element).data('html')||false,
-					placement: $(element).data('placement')||'right',
+					placement: $(element).data('placement')||'top',
 					selector: $(element).data('animation')||true,
 					title: $(element).attr('title')||message,
 					trigger: $.trim('manual '+($(element).data('trigger')||'')),

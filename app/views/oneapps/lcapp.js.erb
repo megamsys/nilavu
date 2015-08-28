@@ -1,7 +1,0 @@
-$('#one_<%= @command %>_app_id').empty();
-$('#one_<%= @command %>_app_id').html(' <input id="app_id" name="app_id" type="hidden" value="<%= @id %>" />');
-
-$('#one_<%= @command %>_app_name').empty();
-$('#one_<%= @command %>_app_name').html(' <input id="app_name" name="app_name" type="hidden" value="<%= @name %>" />');
-
-$("#one_app_<%= @command %>").modal({backdrop : false,keyboard: false,show : true});

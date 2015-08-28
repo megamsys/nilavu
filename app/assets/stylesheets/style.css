@@ -216,7 +216,7 @@ hr {
     padding: 15px 10px 0px;
 }
 .header .navbar-nav > li.dropdown .dropdown-toggle > i {
-    font-size: 18px;
+    font-size: 26px; color:#d5d7e3;
 }
 .header .navbar-nav > li.dropdown .dropdown-menu > li > a > i {
     font-size: 14px;
@@ -280,6 +280,9 @@ hr {
 .page-sidebar.navbar-collapse {
     padding: 0;
 }
+
+/* page-sidebar-menu code start*/
+
 .page-sidebar-menu {
     list-style: none outside none;
     margin: 0;
@@ -304,7 +307,7 @@ hr {
     width: 100%;
 }
 .page-sidebar-menu > li:last-child > a, .page-sidebar-menu > li.last > a {
-    border-bottom-color: transparent !important;
+   border-bottom-color: transparent !important;
 }
 .page-sidebar-menu > li > a {
     border: 0 none;
@@ -313,9 +316,10 @@ hr {
     font-weight: 300;
     margin: 0;
     padding: 10px 0px 15px 30px;
-    position: absolute;
     text-decoration: none;
+    position: absolute;
 }
+
 .page-sidebar-fixed .page-sidebar-menu > li > a {
     transition: all 0.2s ease 0s;
 }
@@ -324,6 +328,15 @@ hr {
     margin-right: 5px;
     text-shadow: none;
 }
+
+.page-sidebar-menu > li > a:hover{
+    color: #4e9de6  !important;
+}
+
+.c_sett_inline > li > a:hover{
+    color: #4e9de6  !important;
+}
+
 .page-sidebar-menu > li.break {
     margin-bottom: 20px;
 }
@@ -343,6 +356,7 @@ hr {
     z-index: 100;
     background-color: #fff;
 }
+
 .page-sidebar ul > li > a > .arrow:before {
     content: "";
     display: inline;
@@ -466,6 +480,8 @@ hr {
 .page-sidebar-menu > li > ul.sub-menu li > ul.sub-menu > li > a > i {
     font-size: 13px;
 }
+/* page-sidebar-menu code end*/
+
 .page-sidebar .sidebar-search {
     margin: 0;
     padding: 0;
@@ -1408,7 +1424,7 @@ i.normal {
 }
 .table thead tr th {
     font-size: 14px;
-    font-weight: 600;
+    font-weight: bold;
 }
 .table-advance {
     margin-bottom: 10px !important;
@@ -2907,4 +2923,42 @@ input.placeholder, textarea.placeholder {
 }
 .form-bordered .form-control {
     margin: 0;
+}
+
+#email .container{
+	background-color: red;
+}
+
+
+
+
+.error-page {
+	padding-top:10px;
+	padding-bottom:50px;
+	position: relative;
+	text-align:center;
+}
+.error-page h2 {
+	color: #66719b;
+    font-size: 11em;
+    line-height: 112px;
+    margin-bottom: 0;
+    margin-top: 35px;
+}
+.error-page h3 {
+	margin-top:0px;
+	margin-bottom:0px;
+	font-size:25px;
+	color:#66719b;
+}
+.error-page p {
+	color: #818181;
+	font-size: 2.5em;
+	font-weight: 400;
+	line-height: 1.6em;
+}
+.error-page img {
+	margin-left:auto;
+	margin-right:auto;
+	display:block;
 }

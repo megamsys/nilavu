@@ -1,0 +1,30 @@
+<%= form_tag billings_path, multipart: true, :id => "megamform", :novalidate => "novalidate", :method => "post", :remote => true  do %>
+
+<div class="collapse" id="collapsePayPal">
+	<div class="well">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+				<%= text_field_tag 'amount', nil, :required => true, :id => 'amount', :class => 'form-control', placeholder: "Amount", :data => {:placement=>"right"} %>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+				<%= submit_tag "Pay with Paypal", :class => "btn btn-success col-md-12 col-xs-12" %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="collapse" id="collapseBitcoin">
+	<div class="well">
+		<!-- <div class="row">
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+				<%= text_field_tag 'amount', nil, :required => true, :id => 'amount', :class => 'form-control', placeholder: "Amount", :data => {:placement=>"right"} %>
+			</div>
+			<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+				<%= submit_tag "Pay with Paypal", :id => "la-button",  :class => "btn btn-success" %>
+			</div>
+		</div> -->
+		<p><h4>Coming soon - Pay using Coinkite, Xapo...</h4></p>
+	</div>
+</div>
+
+<% end %>

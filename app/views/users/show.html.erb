@@ -1,68 +1,85 @@
+<!--
+** Copyright [2013-2015] [Megam Systems]
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+** http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+
+-->
 <%= render 'layouts/header' %>
 <div class="container main-cover">
-	<div class="row">
-		<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 c_bg_white cover">
-			<div class="row">
-				<div class="page-sidebar navbar-collapse collapse">
-
-					<!-- BEGIN SIDEBAR MENU -->
-					<ul class="page-sidebar-menu">
-
-						<li></li>
-						
-
-						<li class= "start active">
-							<%= link_to main_dashboards_path, :target => "_self" do %>
-							<i class="icon-dashboard pull-left"></i>
-							<span class="title pull-left">Dashboard</span>
-							<span class="hidden-xs <%= "selected" if controller_name == 'main_dashboards'%>"></span>
-							<% end %>
-						</li>
-
-						<li class= "start active">
-							<%= link_to apps_path, :target => "_self" do %>
-							<i class="icon-credit-card pull-left"></i>
-							<span class="title pull-left">Apps</span>
-							<span class="hidden-xs <%= "selected" if controller_name == 'apps'%>"></span>
-							<% end %>
-						</li>
-
-						<li class= "start active">
-							<%= link_to services_path, :target => "_self" do %>
-							<i class="icon-tasks pull-left"></i>
-							<span class="title pull-left">Services</span>
-							<span class="hidden-xs <%= "selected" if controller_name == "services"%>"></span>
-							<% end %>
-						</li>
-
-						<li class= "start active">
-							<%= link_to addons_path, :target => "_self" do %>
-							<i class="icon-pushpin pull-left"></i>
-							<span class="title pull-left">Add ons</span>
-							<span class="hidden-xs <%= "selected" if controller_name == "addons"%>"></span>
-							<% end %>
-						</li>
-
-						<li class="start active">
-							<%= link_to settings_path, :target => "_self" do %>
-							<i class="icon-cog pull-left"></i>
-							<span class="title pull-left">Settings</span>
-							<span class="hidden-xs <%= "selected" if controller_name == "settings"%>"></span>
-							<% end %>
-						</li>
-
-					</ul>
-					<!-- END SIDEBAR MENU -->
-				</div>
-			</div>
-		</div>
-
-		<div id="content">
-			<%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
-
-		</div>
-
-	</div>
-
+  <div class="row">
+    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 c_bg_white cover c_bg_white_override">
+      <div class="row">
+        <div class="page-sidebar navbar-collapse collapse">
+          <!-- BEGIN SIDEBAR MENU -->
+          <ul class="page-sidebar-menu">
+            <li></li>
+            <li class= "start active">
+              <%= link_to cockpits_path, :data => { :remote => true}, :target => "_self" do %>
+                <i class="icon-dashboard pull-left"></i>
+                <span class="title pull-left">Dashboard</span>
+                <span class="hidden-xs selected" id="left_dash"></span>
+              <% end %>
+            </li>
+            <li class= "start active">
+              <%= link_to catalogs_path(:cattype => Assemblies::TORPEDO ), :data => { :remote => true}, :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_dew').addClass('selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                <i class="icon-bar-chart pull-left"></i>
+                <span class="title pull-left">Torpedo</span>
+                <span class="hidden-xs" id="left_dew"></span>
+              <% end %>
+            </li>
+            <li class= "start active">
+              <%= link_to catalogs_path(:cattype => Assemblies::APP), :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_app').addClass('selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                <i class="icon-credit-card pull-left"></i>
+                <span class="title pull-left">Apps</span>
+                <span class="hidden-xs" id='left_app'></span>
+              <% end %>
+            </li>
+            <li class= "start active">
+              <%= link_to catalogs_path(:cattype => Assemblies::SERVICE),:data => { :remote => true},   :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_service').addClass('selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                <i class="icon-tasks pull-left"></i>
+                <span class="title pull-left">Services</span>
+                <span class="hidden-xs" id="left_service"></span>
+              <% end %>
+            </li>
+            <li class= "start active">
+              <%= link_to catalogs_path(:cattype =>Assemblies::MICROSERVICES), :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_addon').addClass('selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                <i class="icon-pushpin pull-left"></i>
+                <span class="title pull-left">Microservices</span>
+                <span class="hidden-xs" id="left_addon"></span>
+              <% end %>
+            </li>
+            <li class= "start active">
+              <%= link_to ssh_keys_path, :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_ssh').addClass('selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                <i class="icon-key pull-left"></i>
+                <span class="title pull-left">SSH keys</span>
+                <span class="hidden-xs" id="left_ssh"></span>
+              <% end %>
+            </li>
+            <li class= "start active">
+              <%= link_to billings_path, :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_billing').addClass('selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                <i class="icon-money pull-left"></i>
+                <span class="title pull-left">Billings</span>
+                <span class="hidden-xs" id="left_billing"></span>
+              <% end %>
+            </li>
+          </ul>
+          <!-- END SIDEBAR MENU -->
+        </div>
+      </div>
+    </div>
+    <div id="content">
+      <%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
+    </div>
+  </div>
 </div>
 <%= render 'layouts/footer' %>

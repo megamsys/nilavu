@@ -507,18 +507,18 @@ h1,
 
 h2,
 .h2 {
-  font-size: 30px;
-}
+  color: #a4a6b8;
+    font-size: 16px;}
 
 h3,
 .h3 {
-  font-size: 24px;
-}
+  color: #a4a6b8;
+    font-size: 16px;}
 
 h4,
 .h4 {
-  font-size: 18px;
-}
+  color: #a4a6b8;
+    font-size: 16px; }
 
 h5,
 .h5 {
@@ -544,7 +544,7 @@ h3 small,
 .h3 small,
 h4 small,
 .h4 small {
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .page-header {
@@ -633,7 +633,7 @@ dd {
 abbr[title],
 abbr[data-original-title] {
   cursor: help;
-  border-bottom: 1px dotted #999999;
+  border-bottom: 1px dotted #70a5d5; color:#70a5d5;
 }
 
 abbr.initialism {
@@ -1418,7 +1418,7 @@ th {
   padding: 8px;
   line-height: 1.428571429;
   vertical-align: top;
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #dddddd; color: #a4a6b8;
 }
 
 .table thead > tr > th {
@@ -2215,8 +2215,8 @@ fieldset[disabled] .btn-danger.active {
 .btn-success.active,
 .open .dropdown-toggle.btn-success {
   color: #ffffff;
-  background-color: #47a447;
-  border-color: #398439;
+  background-color: #35aa47;
+ /* border-color: #398439;*/
 }
 
 .btn-success:active,
@@ -4074,7 +4074,7 @@ textarea.input-group-sm > .input-group-btn > .btn {
 }
 
 .navbar-collapse {
-  max-height: 340px;
+
   padding-right: 15px;
   padding-left: 15px;
   overflow-x: visible;
@@ -5671,7 +5671,7 @@ body.modal-open,
 
 .modal-header {
   min-height: 16.428571429px;
-  padding: 15px;
+  padding: 8px 15px;
   border-bottom: 1px solid #e5e5e5;
 }
 
@@ -5747,7 +5747,7 @@ body.modal-open,
   position: absolute;
   z-index: 1030;
   display: block;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.4;
   opacity: 0;
   filter: alpha(opacity=0);
@@ -5781,12 +5781,12 @@ body.modal-open,
 
 .tooltip-inner {
   max-width: 200px;
-  padding: 3px 8px;
+  padding:10px;
   color: #ffffff;
   text-align: center;
   text-decoration: none;
-  background-color: #000000;
-  border-radius: 4px;
+  background-color: #70a5d5;
+  border-radius: 3px; font-weight:bold;
 }
 
 .tooltip-arrow {
@@ -5801,21 +5801,21 @@ body.modal-open,
   bottom: 0;
   left: 50%;
   margin-left: -5px;
-  border-top-color: #000000;
+  border-top-color: #70a5d5;
   border-width: 5px 5px 0;
 }
 
 .tooltip.top-left .tooltip-arrow {
   bottom: 0;
   left: 5px;
-  border-top-color: #000000;
+  border-top-color: #70a5d5;
   border-width: 5px 5px 0;
 }
 
 .tooltip.top-right .tooltip-arrow {
   right: 5px;
   bottom: 0;
-  border-top-color: #000000;
+  border-top-color: #70a5d5;
   border-width: 5px 5px 0;
 }
 
@@ -5823,7 +5823,7 @@ body.modal-open,
   top: 50%;
   left: 0;
   margin-top: -5px;
-  border-right-color: #000000;
+  border-right-color: #70a5d5;
   border-width: 5px 5px 5px 0;
 }
 
@@ -5831,7 +5831,7 @@ body.modal-open,
   top: 50%;
   right: 0;
   margin-top: -5px;
-  border-left-color: #000000;
+  border-left-color: #70a5d5;
   border-width: 5px 0 5px 5px;
 }
 
@@ -5839,21 +5839,21 @@ body.modal-open,
   top: 0;
   left: 50%;
   margin-left: -5px;
-  border-bottom-color: #000000;
+  border-bottom-color: #70a5d5;
   border-width: 0 5px 5px;
 }
 
 .tooltip.bottom-left .tooltip-arrow {
   top: 0;
   left: 5px;
-  border-bottom-color: #000000;
+  border-bottom-color: #70a5d5;
   border-width: 0 5px 5px;
 }
 
 .tooltip.bottom-right .tooltip-arrow {
   top: 0;
   right: 5px;
-  border-bottom-color: #000000;
+  border-bottom-color: #70a5d5;
   border-width: 0 5px 5px;
 }
 

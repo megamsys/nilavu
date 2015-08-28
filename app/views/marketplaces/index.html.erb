@@ -1,7 +1,5 @@
 <% content_for :content_settings do %>
-<% provide(:title, 'Marketplace') %>
-
-			<%= render :partial => "marketplaces/category_view_form" , :locals => {:category => "All", :mkp_collection => @mkp_collection, :categories => @categories, :order => @order}%>
-	
+<% provide(:title, 'Marketplaces') %>
+<%= render :partial => "marketplaces/mycatalogs", :locals => {:mkp_grouped => @mkp_grouped} %>
 <% end %>
-<%= render :template => users_show_path %>
+<%= render :template => "users/show" %>

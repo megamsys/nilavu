@@ -1,0 +1,219 @@
+<!--
+** Copyright [2013-2015] [Megam Systems]
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+** http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+-->
+<%= form_tag marketplaces_path, multipart: true, :novalidate => 'novalidate', :id => "megamform", :method => 'post', :remote => true  do %>
+  <% plan        = match_plan_for(@mkp,version) %>
+  <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
+  <%= hidden_field_tag 'componentname', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
+  <%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
+  <%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
+  <%= hidden_field_tag 'scm_name', nil, placeholder: "", :class =>"form-control"%>
+  <%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::CHEF %>
+  <div class="row">
+    <div class="col-md-12">
+      <span class="app_left_name">Description</span>
+      <P class="model-description">
+        <%= plan['description'] %> <a href="http://docs.megam.io/v1.0/docs/megam_quick_launch" target="_blank"> View Docs</a>
+      </P>
+      <br/>
+      <div class="pad_tb25">
+        <h4>Name</h4>
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="form-group">
+              <%= text_field_tag 'assemblyname', nil, placeholder: 'Cat Name', :required => true, :class =>"form-control", :value => launch_namegen %>
+            </div>
+          </div>
+          <div class="col-xs-6">
+            <div class="form-group">
+              <%= text_field_tag 'domain', nil, placeholder: "megambox.com", :class =>"form-control", :value => "megambox.com", disabled: true %>
+              <%= hidden_field_tag 'domain', nil, placeholder: "megambox.com", :class =>"form-control", :value => "megambox.com" %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <%= render template="marketplaces/show_template" %>
+
+      <!-- START BYOC -->
+      <div class="row">
+        <div class="col-xs-6">
+          <p class="radioP">
+            <input type="radio" name="radio_app_scm" id="r1"  value="byoc_scm" onclick="scmOption(this);" required />
+            <label for="r1"> <span class="radioButtonGraph"></span> Bring Your Own Code </label>
+          </p>
+        </div>
+        <div class="col-xs-6">
+          <p class="radioP">
+            <input type="radio" name="radio_app_scm" id="r2" value="starter_pack" onclick="scmOption(this);" required />
+            <label for="r2"> <span class="radioButtonGraph"></span> Starterpack - Built in repositories </label>
+          </p>
+        </div>
+      </div>
+      <div id="app_byoc_scm" style="display:none;">
+        <h4>Choose your SCM</h4>
+        <div class="row">
+          <div class="col-md-6 text-center">
+            <div class="col-md-offset-4 col-md-2">
+              <a href="#" class="hint  hint--bottom" onclick="return github_oauth();" data-hint="Connect with your public github id"> <%= image_tag "gh.png",:class=> "img-responsive_byoc "%> </a>
+            </div>
+          </div>
+          <div class="col-md-6 text-center">
+            <div class="col-md-offset-4 col-md-2">
+      <!--        <% if Ind.private_git_gogs %>
+              <a href="#" class="hint  hint--bottom" onclick="return gogs_oauth();" data-hint="Connect with your private gogs id"> <%= image_tag "gogsimg.png",:class=> "img-responsive_byoc "%> </a>
+              <% else %>
+              <a href="#" class="hint  hint--bottom" data-hint="Connect with your private git id. coming soon."> <%= image_tag "gogsimg.png",:class=> "img-responsive_byoc "%> </a>
+              <% end %> -->
+         <% if Ind.private_gitlab %>
+        <a href="#" class="hint  hint--bottom" onclick="return gitlab_auth();" data-hint="Connect with your private Gitlab id"> <%= image_tag "gitlabimg.png",:class=> "img-responsive_byoc "%> </a>
+         <% else %>
+              <a href="#" class="hint  hint--bottom" data-hint="Connect with your private git id. coming soon."> <%= image_tag "gitlabimg.png",:class=> "img-responsive_byoc "%> </a>
+         <% end %>
+              
+            </div>
+          </div>
+        </div>
+        <br/>
+        <div class="row">
+          <div class="col-sm-12 col-xs-12">
+            <div id="repos"></div>
+          </div>
+        </div>
+      </div>
+      <%= hidden_field_tag 'source', nil, placeholder: '', :class =>"form-control", :value => '' %>
+      <%= hidden_field_tag 'check_ci', nil, placeholder: '', :class =>"form-control", :value => 'true' %>
+      <div id="app_starter_pack" style="display:none;">
+        <div class="row">
+          <div class="col-sm-12 col-xs-12">
+            <h4>Starterpack</h4>
+            <div class="form-group">
+              <%= text_field_tag 'starterpack_git', nil, placeholder: "https://github.com/megamsys/megamsys.git", :class =>"form-control", :value => plan['source'],:readonly => true %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END BYOC -->
+      <!--- START SSH TEMPLATE -->
+      <%= render template="marketplaces/show_ssh", :locals => {:ssh_keys => @ssh_keys} %>
+      <!-- END SSH TEMPLATE -->
+      <br/>
+      <br/>
+      <div class="row">
+        <div class="col-md-offset-4 col-md-4">
+          <div class="form-group">
+            <%= submit_tag "Create app", :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Please wait..." } %>
+          </div>
+        </div>
+      </div>
+      <div class="bottom-divider"></div>
+      <div class="bottom-divider"></div>
+    </div>
+  </div>
+</div>
+<!-- body_right ends here -->
+<% end %>
+<script type="text/javascript">
+    set_starter_pack();
+  	// Script to show the scm type (gogs or github)
+  	function scmOption(myRadio) {
+  		choose_megam_scm = myRadio.value;
+  		switch(choose_megam_scm) {
+  		case "byoc_scm":
+  			$("#app_byoc_scm").show();
+  			$("#app_starter_pack").hide();
+  			break;
+  		case "starter_pack":
+  			$("#app_byoc_scm").hide();
+  			$("#app_starter_pack").show();
+  			break;
+  		default:
+  			$("#app_byoc_scm").hide();
+  			$("#app_starter_pack").show();
+  		}
+  	}
+
+    function set_starter_pack(){
+			$("#source").val($("#starterpack_git").val());
+		}
+
+  	// Onclick events for gogs and github images
+  	function github_oauth() {
+  		$("#scm_name").val("github");
+  		$.oauthpopup({
+  			path : "/auth/github",
+  			callback : function() {
+  				$.ajax({
+  					type : "POST",
+  					url : "/publish_github",
+  					success : function(data) {
+  						console.log("It worked!")
+  						console.log(dataString);
+  					},
+  					error : function(data) {
+  						console.log("ERROR CHECK PROPERLY!!");
+  						console.log(data);
+  					}
+  				});
+  				return false;
+  			}
+  		});
+  	}
+
+  	function gogs_oauth() {
+  		$("#scm_name").val("gogs");
+  		$.oauthpopup({
+  			path : "/auth/gogs",
+  			callback : function() {
+  				$.ajax({
+  					type : "POST",
+  					url : "/publish_gogs",
+  					success : function(data) {
+  						console.log("It worked!")
+  						console.log(dataString);
+  					},
+  					error : function(data) {
+  						console.log("ERROR CHECK PROPERLY!!");
+  						console.log(data);
+  					}
+  				});
+  				return false;
+  			}
+  		});
+  	}
+  	
+  	
+  	function gitlab_auth() {
+  		$("#scm_name").val("gitlab");
+  		$.oauthpopup({
+  			path : "/auth/gitlab",
+  			callback : function() {
+  				$.ajax({
+  					type : "POST",
+  					url : "/publish_gitlab",
+  					success : function(data) {
+  						console.log("It worked!")
+  						console.log(dataString);
+  					},
+  					error : function(data) {
+  						console.log("ERROR CHECK PROPERLY!!");
+  						console.log(data);
+  					}
+  				});
+  				return false;
+  			}
+  		});
+  	}
+</script>

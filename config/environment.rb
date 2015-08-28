@@ -2,7 +2,7 @@
 require File.expand_path('../application', __FILE__)
 
 # Initialize the rails application
-Cloudauth::Application.initialize!
+Nilavu::Application.initialize!
 
 ActionMailer::Base.delivery_method = :smtp
 ActionMailer::Base.perform_deliveries = true
@@ -12,10 +12,10 @@ ActionMailer::Base.smtp_settings = {
   :address        => "smtp.googlemail.com",
   :port           => "587",
   :domain         => "megam.io",
-  :user_name      => Rails.configuration.support_email,
-  :password       => Rails.configuration.support_password,
+  :user_name      => Ind.notification.email.id,
+  :password       => Ind.notification.email.password,
   :authentication => :plain
 }
 
-#ActionMailer::Base.default_url_options[:host] = "https://www.megam.co"
-ActionMailer::Base.default_url_options[:host] = "localhost:3000"
+#ActionMailer::Base.default_url_options[:host] = "https://www.megam.io"
+ActionMailer::Base.default_url_options[:host] = "https://console.megam.io"

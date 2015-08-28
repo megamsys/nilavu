@@ -1,34 +1,41 @@
+<!--
+** Copyright [2013-2015] [Megam Systems]
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+** http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+-->
 <% provide(:title, 'Not Found') %>
-
-<%= render 'layouts/header' %>
 <div id="content">
-	<div class="container">
-		<div class='row'>
-			<div class='col-lg-10 colmd-10'>
-				<h2>Sorry, the page you&#39;re looking for couldn&#39;t be found</h2>
-				<p>
-					<a href='javascript:history.back();'>Go Back</a> to the previous page, return to the <a href='/'>home page or <a href="mailto:support@megam.co.in?subject=Help me">Email Us</a> about this problem.
+  <div class="container">
+    <div class='row'>
+      
+<div class=" container">
+<div class="col-md-12 row error-page">
+<h2>404</h2>
+<h3>Oops... Page Not Found !</h3>
+
+<P>You've hit our mars servers, No Access...</P>
+  <img src="https://s3-ap-southeast-1.amazonaws.com/megampub/images/404/mars.png" class="img-responsive"></div>
+</div>
+
+        <div class="panel panel-success">
+          <p>
+          <a href='javascript:history.back();'>Go Back</a> to the previous page, return to the <a href='/'>home page or <a href="mailto:support@megam.io?subject=Help me">Email Us</a> about this problem.
 				</p>
-				<%= image_tag "specman.png", :alt => "error"%>
-				<br></br>
-				<div class="panel panel-success">
-					<div class="panel-heading">
-						<b>Site Links</b>
-					</div>
-					<div class="panel-content">
-						<h4>&nbsp;&nbsp;<%= link_to "    Documentation",  "http://www.gomegam.com/docs", { :target => '_blank'}  %></h4>
-
-						<h4>&nbsp;&nbsp;<%= link_to "    Gomegam.com",  "http://www.gomegam.com", { :target => '_blank'}  %></h4>
-
-						<h4>&nbsp;&nbsp;<%= link_to "    Blog",   "http://blog.megam.co", { :target => '_blank'} %></h4>
-
-						<h4>&nbsp;&nbsp;<%= link_to "    Code",  "https://github.com/indykish", { :target => '_blank'} %></h4>
-						<h4>&nbsp;&nbsp;<%= link_to"    Contact Support", "http://support.megam.co",:target => "_blank" %> </h4>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 <%= render 'layouts/footer' %>

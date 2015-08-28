@@ -1,25 +1,55 @@
+/**
+** Copyright [2013-2015] [Megam Systems]
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+** http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+**/
+
 var selected_entity = '#version_view';
-<% if @type == "APP" %>
-var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/app_view', :locals => {:version => @version_order[0], :mkp => @mkp}) %>";
-<% elsif @type == "SERVICE" %>
-var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/app_boilers_view', :locals => {:version => @version_order[0], :mkp => @mkp}) %>";
-<% elsif @type == "BYOC" %>
-var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/byoc', :locals => {:version => @version_order[0],:type => @type, :mkp => @mkp}) %>";
-<% elsif @type == "ANALYTICS" %>
-var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/analytics_view', :locals => {:version => @version_order[0],:type => @type, :mkp => @mkp}) %>";
+<% if @mkp["cattype"] == Assemblies::APP  %>
+var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/apps', :locals => {:version => @mkp["sversion"], :mkp => @mkp}) %>";
+<% elsif @mkp["cattype"] == Assemblies::SERVICE  %>
+var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/service', :locals => {:version => @mkp["sversion"], :mkp => @mkp, :unbound_apps => @unbound_apps}) %>";
+<% elsif @mkp["cattype"] == Assemblies::ANALYTICS %>
+var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/analytics', :locals => {:version => @mkp["sversion"], :mkp => @mkp}) %>";
+<% elsif @mkp["cattype"] == Assemblies::TORPEDO %>
+var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/dew', :locals => {:version => @mkp["sversion"], :mkp => @mkp, :ssh_keys => @ssh_keys}) %>";
 <% else %>
-var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/docker_view', :locals => {:version => @version_order[0], :mkp => @mkp}) %>";
+var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/docker', :locals => {:version => @mkp["sversion"], :mkp => @mkp}) %>";
 <% end %>
 insertAt(selected_entity, to_insert_content);
 
 $('#replace_image').empty();
-$('#replace_image').html(' <img class="pull-left" src=<%= @mkp.appdetails[:logo] %>> <h4 class="pull-left app_header-title"><%= @mkp.appdetails[:description] %></h4>');
+$('#replace_image').html('<img src=<%= @mkp["catalog"][:logo] %>>');
 
 $('#replace_version_tag').empty();
-$('#replace_version_tag').html(' <%= escape_javascript(select_tag "version", options_for_select(@version_order, :selected=>@version_order[0]), :class =>"form-control input-sm", :data => { :remote => true, :url => changeversion_path(:id => @mkp.name ) }) %>');
-$("#app-1").modal({backdrop : false,keyboard: false,show : true});
+$('#replace_version_tag').html(' <%= escape_javascript(select_tag "version", options_for_select(@mkp["versions"], :selected=>@mkp["sversion"]), :class =>"form-control input-sm", :data => { :remote => true, :url => marketplace_path(:id => @mkp["name"] ) }) %>');
+$("#app-1").modal('show');
 
 
+$(document).ready(function() {
+    $("#megamform").validate({
+        rules : {
+            check_req : {
+                required : true
+            }
+        },
+        messages : {
+            check_req : "Just check the box"
+        },
+         tooltip_options: {
+            check_req : {placement:'right',html:true}
+         }
+    });
 
+});
 
- 

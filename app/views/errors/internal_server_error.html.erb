@@ -1,52 +1,78 @@
-<% provide(:title, 'Internal Server Error') %>
-
+<!--
+** Copyright [2013-2015] [Megam Systems]
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+** http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+-->
 <%= render 'layouts/header' %>
-<div id="content">
-	<div class="container">
-		<div class='row'>
-			<div class='col-lg-10 colmd-10'>
-				<h2>We flunked.</h2>
-				<p>
-					<a href='javascript:history.back();'>Go Back</a> to the previous page, return to the <a href='/'>home page or <a href="mailto:support@megam.co.in?subject=Help me">Email Us</a> about this problem.
-				</p>
-				<%= image_tag "specman.png", :alt => "error"%>
-				<br>
-				</br>
-				<div class="panel panel-success">
-					<div class="panel-heading">
-						<b>Site Links</b>
-					</div>
-					<div class="panel-content">
-						<div class="alert alert-warning">
-							<ul class="list-group">
-								<li class="list-group-item">
-									We track errors automaticallys.
-								</li>
-								<li class="list-group-item">
-									Successfully sent a twitter message to <a href="http://twitter.com/indykish" target="_blank">@indykish</a>
-
-								</li>
-								<li class="list-group-item">
-									<b>Note:</b>Twitter filters duplicate messages.
-								</li>
-								<li class="list-group-item">
-									A support problem was <a href="http://support.megam.co" target="_blank">registered</a> via email.
-								</li>
-							</ul>
-						</div>
-						<h4>&nbsp;&nbsp;<%= link_to "    Documentation",  "http://www.gomegam.com/docs", { :target => '_blank'}  %></h4>
-
-						<h4>&nbsp;&nbsp;<%= link_to "    Gomegam.com",  "http://www.gomegam.com", { :target => '_blank'}  %></h4>
-
-						<h4>&nbsp;&nbsp;<%= link_to "    Blog",   "http://blog.megam.co", { :target => '_blank'} %></h4>
-
-						<h4>&nbsp;&nbsp;<%= link_to "    Code",  "https://github.com/indykish", { :target => '_blank'} %></h4>
-						<h4>&nbsp;&nbsp;<%= link_to"    Contact Support", "http://support.megam.co",:target => "_blank" %> </h4>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<div class="container main-cover">
+  <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9 c_bg_white c_height_5">
+    <div class="row c_pading-b15">
+      <div class="margin_15">
+        <div class="col-xs-9 col-sm-6 col-md-7">
+          <h3> We flunked. </h3>
+        </div>
+      </div>
+    </div>
+    <div class="margin_30 pad_t25">
+      <div class="bottom-divider"></div>
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="row app_box">
+          <%= link_to "http://bit.ly/megamchat", { :target => '_blank'} do %>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+              <div class="app_inner">
+                <div class="app_new">
+                  <span class="glyphicon icon_chat"></span>
+                  <p>
+                    Chat now
+                </p>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <%= link_to "http://bit.ly/megamchat", { :target => '_blank'} do %>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+              <div class="app_inner">
+                <div class="app_new">
+                  <span class="glyphicon icon_book"></span>
+                  <p>Documentation</p>
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <%= link_to "http://support.megam.io", { :target => '_blank'} do %>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+              <div class="app_inner">
+                <div class="app_new">
+                  <span class="glyphicon icon-phone"></span>
+                  <p>US   1-800-618-6813</p>
+                  <p>Intl 91-98405-59300
+                </div>
+              </div>
+            </div>
+          <% end %>
+          <%= link_to "https://github.com/megamsys", { :target => '_blank'} do %>
+            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+              <div class="app_inner">
+                <div class="app_new">
+                  <span class="glyphicon icon-github"></span>
+                  <p>megamsys</p>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <%= render 'layouts/footer' %>

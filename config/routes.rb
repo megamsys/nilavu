@@ -1,37 +1,25 @@
-Cloudauth::Application.routes.draw do
-  #get 'data_recovery/drbd_config'
+Nilavu::Application.routes.draw do
 
-  #get 'oneapps/marketplaces'
-
-  #get 'oneapps/activities'
-
-  #get 'oneapps/settings'
-
-  #get 'oneapps/preclone'
-
-  #get 'oneapps/clone'
-
-
+  root :to => 'cockpits#index'
+  #core routes
   resources :users
+  resources :password_resets
   resources :sessions
-  #resources :identities
-  #resources :apps_histories
-  resources :apps #, via: [:get, :post, :destroy]
+  resources :cockpits
+  resources :marketplaces
+  resources :billings
+  resources :settings
+  resources :ssh_keys
   resources :cross_clouds
-  resources :services
+  # the functional routes called by core
+  resources :catalogs
+  resources :onetorpedos
+  resources :oneapps
+  resources :oneservices
+  resources :onemicroservices
+  # the routes used by the monitoring system
   resources :dashboards
   resources :widgets
-  resources :password_resets
-  resources :settings
-  resources :marketplaces
-  resources :main_dashboards
-  resources :ssh_keys
-  resources :addons
-  resources :oneaddons
-  resources :oneapps
-  resources :oneservice
-
-  root :to => 'main_dashboards#index'
 
   namespace :api do
     resources :dashboards do
@@ -39,140 +27,57 @@ Cloudauth::Application.routes.draw do
     end
     match "data_sources/:kind" => "data_sources#index", via: [:get, :post]
   end
-
   namespace :api do
     match '/data_sources', to: 'data_sources#index', via: [:get, :post]
   end
 
- match '/edituser' => 'users#edituser', via: [:get, :post]
- match '/userupdate' => 'users#userupdate', via: [:put]
- 
-#oneapp Overview
-  match '/appoverview', to: 'oneapps#overview', via: [:get, :post]
-  match '/appruntime', to: 'oneapps#runtime', via: [:get, :post]
-  match '/applogs', to: 'oneapps#logs', via: [:get, :post]
-  match '/oneapp_services', to: 'oneapps#services', via: [:get, :post]
-  
-  
-  #oneservice Overview
-  match '/serviceoverview', to: 'oneservice#overview', via: [:get, :post]
-  match '/serviceruntime', to: 'oneservice#runtime', via: [:get, :post]
-  match '/servicelogs', to: 'oneservice#logs', via: [:get, :post]
-  match '/oneservice_services', to: 'oneservice#services', via: [:get, :post]
-  
-  #oneaddons Overview
-  match '/addonsoverview', to: 'oneaddons#overview', via: [:get, :post]
-  match '/addonsruntime', to: 'oneaddons#runtime', via: [:get, :post]
-  match '/addonslogs', to: 'oneaddons#logs', via: [:get, :post]
-  match '/oneaddons_services', to: 'oneaddons#services', via: [:get, :post]
-  
-  #Cloud Books
-  match '/starter_packs_launch', to: 'marketplaces#starter_packs_create', via: [:get, :post]
-  match '/byoc_launch', to: 'marketplaces#byoc_create', via: [:get, :post]
-  match '/app_boilers_launch', to: 'marketplaces#app_boilers_create', via: [:get, :post]
-  match '/addons_launch', to: 'marketplaces#addons_create', via: [:get, :post]
-  #match '/get_request', to: 'apps#get_request', via: [:get, :post]
-  #match '/build_request', to: 'apps#build_request', via: [:get, :post]
-  #match '/requests', to: 'oneapps#requests', via: [:get, :post]
-  #match '/activities', to: 'oneapps#activities', via: [:get, :post]
-  
-  #match '/preclone', to: 'oneapps#preclone', via: [:get, :post]
-  #match '/clone', to: 'oneapps#clone', via: [:get, :post]
-# to-do: move it as a static page for pricing.
-  #get '/pricing' => 'billing#pricing'
-  # to-do: this is more like creating a new billing account
-  #get '/account' => 'billing#account'
-  # to-do: this is showing the index of billed_history (make it a separate controller)
-  #get '/history' => 'billing#history'
-  #get '/upgrade' => 'billing#upgrade'
-  # ...
-  #mount Sidekiq::Web, at: '/worker'
-
-
-  #services
-  #match '/new_store', to: 'services#new_store', via: [:get, :post]
-
-  # ======Users Controller
-  match '/signup', to: 'users#new', via: [:get, :post]
-  match '/forgot', to: 'users#forgot', via: [:get]
-  #match '/pass_email', to: 'users#pass_email', via: [:get, :post]
-  #match '/contact_us', to: 'users#contact', via: [:get, :post]
-  #to-do remove the users#edit named route.
-  match '/edit', to: 'users#edit',via: [:get]
-  #to-do remove the users#update named route.
-  match '/update', to: 'users#update', via: [:get, :post, :patch]
-  #match '/upgrade', to: 'users#upgrade', via: [:post]
-  #match '/email_verify', to: 'users#email_verify',via: [:get,:post]
-  #match '/verified_email', to: 'users#verified_email', via: [:get]
+  # named route for users, session
+  match '/signup', to: 'users#new', via: [:get]
   match '/signin', to: 'sessions#new', via: [:get]
-  match '/demo', to: 'sessions#demo', via: [:get]
+  match '/tour', to: 'sessions#tour', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post,:delete]
-  match '/auth/facebook/callback', :to => 'sessions#create', via: [:get, :post]
-  match '/auth/github/callback', :to => 'marketplaces#github_scm', via: [:get, :post]
-  match '/github_call', :to => 'marketplaces#github_sessions_data', via: [:get, :post]
-  match '/auth/google_oauth2/callback', :to => 'cross_clouds#gwindow', via: [:get, :post]
-  match '/auth/assembla/callback', :to => 'apps#authorize_assembla', via: [:get, :post]
-  match '/github_ajax', :to => 'marketplaces#github_sessions', via: [:get, :post]
- 
-  # ======Dashboard
-  get "users/show"		#Used for <%= render :template => users_show_path %>
-  get "oneapps/show"
-  get "oneservice/show"
-  get "oneaddons/show" 
+  match '/auth/facebook/callback', :to => 'sessions#callbacks', via: [:get, :post]
+  match '/auth/google_oauth2/callback', :to => 'sessions#callbacks', via: [:get, :post]
 
-match '/delete_request', :to => 'main_dashboards#delete_request', via: [:get, :post]	#Used in maindashboard_index.html.erb
 
- #DenselyPacked app lifecycle 
- match '/lifecycle', :to => 'main_dashboards#lifecycle', via: [:get] 
- match '/deleteapp', :to => 'main_dashboards#deleteapp', via: [:get]
- #match '/lifecycle_request', :to => 'main_dashboards#lifecycle_request', via: [:get, :post]
- 
- 
- #one app lifecycle 
- match '/lcapp', :to => 'oneapps#lcapp', via: [:get] 
- match '/app_request', :to => 'oneapps#app_request', via: [:get, :post] 
- match '/bind_service_list', :to => 'oneapps#bind_service_list', via: [:get]
- match '/bindService', :to => 'oneapps#bindService', via: [:get]
- 
- #one service lifecycle 
- match '/lcservice', :to => 'oneservice#lcservice', via: [:get] 
- match '/service_request', :to => 'oneservice#service_request', via: [:get, :post]
- 
- #one addon lifecycle
- match '/lcaddon', :to => 'oneaddons#lcaddon', via: [:get] 
- match '/addon_request', :to => 'oneaddons#addon_request', via: [:get, :post]
- 
-  # ==========Cloud settings
-  match '/cross_cloud_new', to: 'settings#cross_cloud_new', via: [:get, :post]
-  match '/cross_cloud_create', to: 'settings#cross_cloud_create', via: [:get, :post]
-  match '/sshkeys_download', to: 'ssh_keys#download', via: [:get, :post] 
-  match '/sshkey_create', to: 'settings#sshkey_create', via: [:get, :post] 
-  match '/sshkey_import', to: 'ssh_keys#sshkey_import', via: [:get, :post] 
-  match '/ssh_key_import', to: 'ssh_keys#ssh_key_import', via: [:get, :post]
-  match '/cloud_selector', to: 'cross_clouds#cloud_selector', via: [:get, :post]
-  match '/cloud_init', to: 'cross_clouds#cloud_init', via: [:get, :post]
-  match '/changeversion', to: 'marketplaces#changeversion', via: [:get, :post]
-  
-  #Market place
-  match '/category_view', to: 'marketplaces#category_view', via: [:get, :post]
-  #Disaster Recovery
-  #match '/drbd_config', to: 'disaster_recovery#drbd_config', via: [:get, :post]
-  #match '/drbd_submit', to: 'disaster_recovery#drbd_submit', via: [:get, :post]
-    match '/view_details', to: 'cross_clouds#view_details', via: [:get, :post] 
-    
-    #=====Gog
-    match '/gogs', to: 'marketplaces#gogs', via: [:get, :post]
-    match '/gogs_return', to: 'marketplaces#gogs_return', via: [:get, :post]
-    post 'trigger', :to => 'marketplaces#gogs_return', via: [:post]
-    match '/auth/gogs', :to => 'marketplaces#gogswindow', via: [:get, :post]
-    match '/gogs_call', :to => 'marketplaces#gogs_sessions', via: [:get, :post]
-  #root :to => 'marketplaces#gogswindow'
-  # =======Error controller
+  # named route for billing, paid message callback from paypal or bitcoin
+  match '/notify_payment', to: 'billings#notify_payment', via: [:get, :post]
+  # Generically handle errors for 404, 500.
   get "/404", :to => "errors#not_found"
   #get "/422", :to => "errors#unacceptable"
   get "/500", :to => "errors#internal_error"
-
- 
-  match '/visualCallback', to: 'main_dashboards#visualCallback', via: [:get]
+  # A visual designer route ? for what ?
+  match '/varai', to: 'cockpit#varai', via: [:get]
   
+  match '/billings_promo', to: 'billings#promo', via: [:get, :post]
+
+  #=====github
+  match '/auth/github/callback', :to => 'marketplaces#store_github', via: [:get, :post]
+  match '/social_create', :to => 'sessions#create', via: [:get, :post]
+
+  match '/publish_github',       :to => 'marketplaces#publish_github', via: [:get, :post]
+
+  #=====Gogs
+  match 'store_gogs',       :to => 'marketplaces#store_gogs', via: [:post]
+  match '/auth/gogs',      :to => 'marketplaces#start_gogs', via: [:get, :post]
+  match '/publish_gogs',   :to => 'marketplaces#publish_gogs', via: [:get, :post]
+
+  #=====Gitlab
+  match 'store_gitlab',       :to => 'marketplaces#store_gitlab', via: [:post]
+  match '/auth/gitlab',      :to => 'marketplaces#start_gitlab', via: [:get, :post]
+  match '/publish_gitlab',   :to => 'marketplaces#publish_gitlab', via: [:get, :post]
+
+  #===catalogs
+  # kelvi   : confirm delete for all flycontrols. all cattypes will use that.
+  # logs    : logs widget for all the cattypes
+  # runtime : runtime widget for all the cattypes (metering, metrics).
+  match '/kelvi', :to => 'catalogs#kelvi', via: [:post]
+  match '/logs', :to => 'catalogs#logs', via: [:get]
+  match '/runtime', :to => 'catalogs#runtime', via: [:get]
+
+  #===OneApps
+  match '/bind_service_list', :to => 'oneapps#bind_service_list', via: [:get, :post]
+  match '/bind_service', :to => 'oneapps#bind_service', via: [:get, :post]
+
+
 end

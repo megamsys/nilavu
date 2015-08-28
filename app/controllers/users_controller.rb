@@ -1,265 +1,108 @@
+##
+## Copyright [2013-2015] [Megam Systems]
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+## http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+##
 class UsersController < ApplicationController
   respond_to :html, :js
   include UsersHelper
   include SessionsHelper
-  #before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
-  #before_filter :correct_user, only: [:edit, :update]
-  #before_filter :admin_user, only: :destroy
-  def index
-    #Should list all the users of an organization.
-    @users = User.paginate(page: params[:page])
-  end
+
+  #doesn't require a sign for new and create action, hence skip it.
+  skip_before_action :require_signin, only: [:new, :create]
+
+  #doesn't require to catch execption for show
+  skip_around_action :catch_exception, only: [:show]
+
+  #stick the api_keys before edit and update action
+  before_action :stick_keys, only: [:edit, :update]
+
 
   def show
-	puts params
-    @user = User.find(params[:id])
-    current_user = @user
   end
-
+   
   def new
-    #  if params[:user_social_identity]
-    if session[:auth]
-      logger.debug "--> Users:new, creating new user with social identity."
-      # @user = User.new(:email => params[:user_social_identity][:email], :first_name => params[:user_social_identity][:first_name], :last_name => params[:user_social_identity][:last_name], :phone => params[:user_social_identity][:phone])
-      @user = User.new
+     if session[:auth]
       @social_uid = session[:auth][:uid]
       @email = session[:auth][:email]
       @firstname = session[:auth][:first_name]
       @lastname = session[:auth][:last_name]
       @phone = session[:auth][:phone]
-    #   session.delete(:auth)
-    end
+      end
   end
 
-
-  #This method is used to create a new user. The form parameters as entered during the
-  #signup, is used to create a new user.
-  #After a successful save : redirect to users dashboard.
-  # failure with email already exists, then display a message with a link to forgot_password.
-  # any other errors , display a general message, with an option to contact support.
+  #This method is used to create a new user.
+  #We create a Account for the user using /account call. A verification is done to check if the user is a dup.
+  #Upon creating a new account, a session is created for the user and redirect to dash.
   def create
-    session.delete(:auth)
-    logger.debug "--> Users:create, update social identity for new social identity user"
-    @user = User.new
-    @user_fields_form_type = params[:user_fields_form_type]
-    params["remember_token"] = @user.generate_token
- if !riak_ping?
-	redirect_to signin_path, :flash => { :error => "Problem in Riak! Check 'riak ping' in #{Rails.configuration.storage_server_url}." } and return
- end
-    if @user.save(params)
-      sign_in params
-      # fix for remember me: send the remember_me flag to sign_in method to decide if the user wishes to be remembered or not.
-      logger.debug "==> Controller: users, Action: create, User signed in after creation"
-      api_token = view_context.generate_api_token
-      force_api(params["email"], api_token)
-      options = { :id => "", :email => params["email"], :api_key => api_token, :authority => "admin" }
-      res_body = CreateAccounts.perform(options)
+    logger.debug "> Users: create."
+    all_params = params.merge(new_session)
 
-      if !(res_body.class == Megam::Error)
-        #update current user as onboard user(megam_api user)
-        logger.debug "==> Controller: users, Action: create, User onboarded successfully"
-        update_options = { "onboarded_api" => true, "api_token" => api_token }
-        res_update = @user.update_columns(update_options, params["email"])
-        if res_update
-          if "#{Rails.configuration.support_email}".chop!
-            begin
-              
-             @user.send_welcome_email(cookies)  #WELCOME EMAIL
-              mail_res = "Email verification success"
-            rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
-              mail_res = "Email verification Failed"
-            end
-          end
-          #  redirect_to main_dashboards_path, :gflash => { :success => { :value => "Hi #{params["first_name"]}, #{res_body.some_msg[:msg]}", :sticky => false, :nodom_wrap => true } }
-          redirect_to main_dashboards_path, :format => 'html', :flash => { :alert => "Welcome #{params['first_name']}. Your #{mail_res}"}
-        else
-          logger.debug "==> Controller: users, Action: create, User onboard was not successful"
-          #redirect_to main_dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onboard #{@user.email} into our API server. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}.", :sticky => false, :nodom_wrap => true } }
-          redirect_to main_dashboards_path, :alert => " Gateway Failure.", :format => 'html'
-        end
-      else
-        logger.debug "==> Controller: users, Action: create, User onboard was not successful"
-        #redirect_to main_dashboards_path, :gflash => { :warning => { :value => "Sorry. We couldn't onboard #{@user.email} into our API server. Try again by updating the api key by clicking profile. If the error still persists, please contact #{ActionController::Base.helpers.link_to 'support !.', "http://support.megam.co/"}.", :sticky => false, :nodom_wrap => true } }
-        redirect_to main_dashboards_path, :flash => { :alert => "Gateway Failure. Check gateway logs." }, :format => 'html'
-      end
+	session[:tour]=true
 
-    else
-      @user= User.find_by_email(params[:user][:email])
-      if(@user)
-        logger.debug "==> Controller: users, Action: create, User email duplicate"
-        redirect_to signin_path, :gflash => { :warning => { :value => "Hey #{@user.first_name}, I know you already. Your email id is : #{@user.email}.", :sticky => false, :nodom_wrap => true } }
-      else
-        logger.debug "==> Controller: users, Action: create, Something went wrong! User not saved"
-        redirect_to signup_path
-      end
+    my_account = Accounts.new
+    redirect_to signin_path, :flash => { :error => "Hey you!, I know you already."} and return if my_account.dup?(all_params[:email])
 
-    end
+    my_account.create(all_params) do
+      sign_in my_account
+	if "#{Ind.notification.email.password}" != ''
+      UserMailer.welcome(my_account).deliver_now
+	end
+      redirect_to cockpits_path, :format => 'html', :flash => { :alert => "Welcome #{my_account.first_name}."}
+     end
   end
 
-  def edituser
-    if current_user_verify
-      @user = User.new
-      logger.debug "==> Controller: users, Action: edit, Start edit"
-      @orgs = list_organizations
-      @userdata= @user.find_by_email(current_user["email"])
-      #@accounts= list_accounts
-    @userdata
-    else
-      redirect_to signin_path
-    end
+  #load the current user detail
+  #load the current org details and send it the edit.html.erb.
+  def edit
+    logger.debug "> Users: edit."
+    @account = current_user
+    @orgs = Organizations.new.list(params).orgs
+    @acc = Accounts.new.find_by_email(session[:email])
+
+    @orgs
   end
 
-=begin
-  def upgrade
-    logger.debug "==> Controller: users, Action: upgrade, Upgrade user from free to paid"
+  #update any profile information. First we verify if the current password matches with ours.
+  #I don't know why we are creating a new_session here. This is a BUG.
+  def update
+    logger.debug "> Users: update"
+    Accounts.new.update(params.merge({:remember_token => rem_tokgen})) do  |tmp_account|
+        sign_in tmp_account
+        @success = "#{Accounts.typenum_to_s(params[:myprofile_type])} updated successfully."
+        @error = "Oops! Please contact support@megam.io"
+    end  #if current_password_ok?    #removed it for now. does not work otherwise. need to come back.
+    @msg = { title: "Profiles", message: "#{Accounts.typenum_to_s(params[:myprofile_type])} updated successfully!." , redirect: '/', disposal_id: 'app-1' }
+   respond_to do |format|
+     format.js {
+       respond_with(@msg, @success, @error, :account => current_user, :api_key => current_user.api_key, :myprofile_type => params[:myprofile_type], :layout => !request.xhr? )
+     }
+   end
   end
-=end
-
-  def userupdate
-    if current_user_verify
-      logger.debug "==> Controller: users, Action: update, Update user pw, api_key"
-      @user = User.new
-      @userdata = @user.find_by_email(current_user["email"])
-      @user_fields_form_type = params[:user_fields_form_type]
-      if @user_fields_form_type == 'api_key'
-        logger.debug "User update For API key"
-        api_token = generate_api_token
-        options = { :id => "", :email => current_user["email"], :api_key => api_token, :authority => "admin" }
-        @res_body = CreateAccounts.perform(options)
-        if !(@res_body.class == Megam::Error)
-          update_options = { "onboarded_api" => true, "api_token" => api_token, "updated_at" => Time.zone.now }
-          res_update = @user.update_columns(update_options, current_user["email"])
-          if res_update
-            sign_in @userdata
-            @res_msg = "API Key updated successfully"
-            @err_msg = nil
-          else
-            @res_msg = nil
-            @err_msg = "API Key update: Something went wrong! User not updated"
-          end
-        else
-          @res_msg = nil
-          @err_msg = "#{@res_body.some_msg[:msg]}"
-        end
-        respond_to do |format|
-          format.js {
-            respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user["api_token"], :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
-          }
-        end
-      elsif @user_fields_form_type == 'profile'
-        update_options = { "first_name" => params[:first_name], "phone" => params[:phone] }
-        res_update = @user.update_columns(update_options, current_user["email"])
-        if res_update
-          sign_in @userdata
-          @res_msg = "Profile updated successfully"
-          @err_msg = nil
-        else
-          @res_msg = nil
-          @err_msg = "Profile update: Something went wrong! User not updated"
-        end
-        respond_to do |format|
-          format.js {
-            respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user["api_token"], :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
-          }
-        end
-      elsif @user_fields_form_type == 'password'
-        if @user.password_decrypt(@userdata["password"]) == params[:current_password]
-          if params[:password] == params[:password_confirmation]
-            update_options = { "password" => @user.password_encrypt(params[:password]), "password_confirmation" => @user.password_encrypt(params[:password_confirmation]) }
-            res_update = @user.update_columns(update_options, current_user["email"])
-            if res_update
-              sign_in @userdata
-              @res_msg = "Password updated successfully"
-              @err_msg = nil
-            else
-              @err_msg = "Password update: Something went wrong! User not updated"
-              @res_msg = nil
-            end
-            respond_to do |format|
-              format.js {
-                respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user["api_token"], :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
-              }
-            end
-          else
-            @res_msg = nil
-            @err_msg = "Password update: The password's are doesn't match. Please re-enter the correct password."
-            respond_to do |format|
-              format.js {
-                respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user["api_token"], :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
-              }
-            end
-          end
-        else
-          @res_msg = nil
-          @err_msg = "Password update: The current password is wrong. Please re-enter the correct password."
-          respond_to do |format|
-            format.js {
-              respond_with(@res_msg, @err_msg, :user => current_user, :api_token => current_user["api_token"], :user_fields_form_type => params[:user_fields_form_type], :layout => !request.xhr? )
-            }
-          end
-        end
-      end
-    # render 'edit'
-    else
-      redirect_to signin_path
-    end
-  end
-
 
   private
-=begin
-  def correct_user
-    if current_user_verify
-      @user = User.find_by_email(current_user["email"])
-      redirect_to(root_path) unless current_user?(@user)
-    else
-      redirect_to signin_path
-    end
-  end
 
-  def admin_user
-    if current_user_verify
-      redirect_to(root_path) if current_user["admin"]
-    else
-      redirect_to signin_path
-    end
-  end
-=end
-  def list_organizations
-    if current_user_verify
-      logger.debug "--> #{self.class} : list organizations entry"
-      org_collection = ListOrganizations.perform(force_api[:email], force_api[:api_key])
-      orgs = []
-
-      if org_collection.class != Megam::Error
-        org_collection.each do |one_org|
-          orgs << {:name => one_org.name, :created_at => one_org.created_at.to_time.to_formatted_s(:rfc822)}
+  #this verifies if the current password matches with the one typed during update.
+  def current_password_ok?
+    @error = nil
+    case params[:myprofile_type].to_i
+    when Accounts::UPD_PASSWORD
+        begin
+          Accounts.new.signin(params)
+        rescue Accounts::AuthenticationFailure => ae
+            @error   = ae.message
         end
-        orgs = orgs.sort_by {|vn| vn[:created_at]}
-      end
-    orgs
-    else
-      redirect_to signin_path
     end
   end
-=begin
-  def list_accounts
-    if current_user_verify
-      logger.debug "--> #{self.class} : list accounts entry"
-      acct_collection = ListAccounts.perform(force_api[:email], force_api[:api_key])
-      accts = []
 
-      if acct_collection.class != Megam::Error
-        acct_collection.each do |one_acct|
-          accts << {:name => one_acct.api_key, :created_at => one_acct.created_at.to_time.to_formatted_s(:rfc822)}
-        end
-        accts = accts.sort_by {|vn| vn[:created_at]}
-      end
-    accts
-    else
-      redirect_to signin_path
-    end
-  end
-=end
 end
-

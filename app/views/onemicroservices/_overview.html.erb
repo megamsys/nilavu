@@ -1,0 +1,105 @@
+<!--
+** Copyright [2013-2015] [Megam Systems]
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+** http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+-->
+<div class="row c_pading-b15">
+	<div class="portlet-body-head">
+		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+			<i class="c_icon-grid"></i>Your containers <span><%= @container_counter %> containers running</span>
+		</div>
+	</div>
+</div>
+<div class="bottom-divider"></div>
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+	<div class="row app_box">
+		<% if @assemblies != nil %>
+		<% @assemblies.each do |asm| %>
+		<% if asm.class != Megam:: Error %>
+		<% asm.assemblies.each do |assembly| %>
+		<% if assembly != nil %>
+		<% if assembly[0].class != Megam::Error %>
+		<% assembly[0].components.each do |com| %>
+		<% if com != nil %>
+		<% com.each do |c| %>
+		<% if c.requirements[:host] == dockerID %>
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+			<div class="app_inner">
+				<div class="app">
+					<div class="app_head">
+						<span class="app_config" id="config_menu_<%= c.name %>"><i class="c_icon-config"></i></span>
+						<div class="config_menu config_menu_<%= c.name %>">
+							<ul>
+								<li>
+									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :command => "start" ), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-play-circle"></i>Start App
+									<% end %>
+								</li>
+								<li>
+									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :command => "stop" ), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-record"></i>Stop App
+									<% end %>
+								</li>
+								<li>
+									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :command => "restart"), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-refresh"></i>Restart App
+									<% end %>
+								</li>
+								<li>
+									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :command => "delete"), :remote => true, :class => "link_img" do %>
+									<i class="glyphicon glyphicon-refresh"></i>Delete App
+									<% end %>
+								</li>
+							</ul>
+						</div>
+						<div class="row app_icon">
+							<h5><%= assembly[0].components[0][0].name %></h5>
+							<% appkey = assembly[0].components[0][0].name  %>
+							 <%= link_to appkey, appoverview_path(:appkey => assembly[0].components[0][0].id) %> 
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+								<ul class="list-inline app_icon_bottom">
+									<% com_type = c.tosca_type.split(".") %>
+									<% ctype = get_type(com_type[2]) %>
+									<li>
+										<%= image_tag "logos/"+com_type[2].downcase+".png", :alt => "" %>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<!-- <img class="center-block" src="assets/img/app2.png"> -->
+					</div>
+					<div class="app_footer">
+						<!-- <div class="circle_red"></div> -->
+						<i class="circle_green"></i>
+						<span>Launched</span>
+						<i class="c_icon-window pull-right"></i>
+						<i class="c_icon-star pull-right"></i>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<% end %>
+		<% end %>
+		<% end %>
+		<% end %>
+		<% end %>
+		<% end %>
+		<% end %>
+		<% end %>
+		<% end %>
+		<% end %>
+
+	</div>
+</div><!-- running apps ends here -->

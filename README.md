@@ -1,72 +1,68 @@
 =========================================================================
-Megam PaaS : Web [http://www.gomegam.com](http://www.gomegam.com)
+Megam cloud platform [https://www.megam.io](https://www.megam.io)
 =========================================================================
 
-[![Build Status](https://travis-ci.org/indykish/nilavu.png?branch=0.5)](https://travis-ci.org/megamsys/nilavu)
+[![Build Status](https://travis-ci.org/indykish/nilavu.png?branch=0.8)](https://travis-ci.org/megamsys/nilavu)
 
-Nilavu is a [Rails 4.2](http://guides.rubyonrails.org/) browser based user interface for [Megam PaaS ](http://www.gomegam.com/docs).
+Nilavu is a [Rails 4.2.3](http://guides.rubyonrails.org/) browser based user interface for [Megam cloud platform](https://www.megam.io).
 
 ## Features:
 
-* Launching Cloud Applications is a breeze in hybrid cloud (private - [OpenNebula] (http://opennebula.org), public - aws, gce, profitbricks, gogrid, hp) 
+* Try our developer edition to get a feel of the code [https://console.megam.io](https://console.megam.io)
 
-* Management of the launched apps/services  using [ruby api](https://github.com/megamsys/megam_api.git) which interfaces to
-  [api server](https://github.com/megamsys/megam_gateway.git)
+* Launch apps, services(db, queue, nosql..) in cloud in seconds with continious integration.
 
-* Watch realtime logs of the launched apps [streamer](https://github.com/megamsys/tap.git)
+* Predict using the  analytics service
 
-* Metering Monitoring using [angularjs](http://angularjs.org) based charts.
+* Watch realtime logs of the launched apps in cloud
 
-* Marketplace with cool addons
+* Built in metering monitoring
 
-* Support for launching Docker containers
+* Launch a micro service (public or on premise)
+
 
 
 ## Requirements
 
-> [SQlite]
 > [Ruby 2.0.x](http://ruby-lang.org)
-> [Rails 4.x](http://guides.rubyonrails.org/4_1_release_notes.html)
+> [Riak](http://docs.basho.com)
 
 
 ## Dashboard
 
 The UX/UI design was done by [enixel](http://enixel.com).
 
-![Our Awesome Dashboard](https://github.com/megamsys/nilavu/blob/0.5/public/nilavu_dash.png)
+![A peek of our awesome Dashboard](https://github.com/megamsys/nilavu/blob/0.5/public/nilavu_dash.png)
 
 
 
 ## Getting Started
 
-* Try our Public SaaS  [https://www.megam.co](https://www.megam.co)
-
-* Private Installation : [Download ISO](http://www.gomegam.com/cloudinabox)
-
+* Try our developer edition [https://console.megam.io](https://console.megam.io)
 
 
 ### Documentation
 
-Refer [documentation] (http://www.gomegam.com/docs)
+Refer [documentation for onpremise enterprise edition] (http://docs.megam.io)
 
 
 
 We are glad to help if you have questions, or request for new features..
 
-[twitter @megamsys](http://twitter.com/megamsys) [email support@megam.co.in](<support@megam.co.in>)
+[twitter @megamsys](http://twitter.com/megamsys) [email support@megam.io](<support@megam.io>)
 
 
 
-	
+
 # License
 
 |                      |                                          |
 |:---------------------|:-----------------------------------------|
-| **Author:**          | Rajthilak (<rajthilak@megam.co.in>)
-|                      | Thomas Alrin (<alrin@megam.co.in>)
-|		       	       | KishorekumarNeelamegam (<nkishore@megam.co.in>)
-|		       	       | Yeshwanth Kumar (<getyesh@megam.co.in>)
-| **Copyright:**       | Copyright (c) 2012-2014 Megam Systems.
+| **Author:**          | Rajthilak (<rajthilak@megam.io>)
+|                      | Thomas Alrin (<thomasalrin@megam.io>)
+|	    	       	       | KishorekumarNeelamegam (<nkishore@megam.io>)
+|		          	       | Yeshwanth Kumar (<getyesh@megam.io>)
+| **Copyright:**       | Copyright (c) 2013-2015 Megam Systems.
 | **License:**         | Apache License, Version 2.0
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -80,4 +76,3 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
- 
