@@ -3,3 +3,20 @@
 
 en:
   hello: "Hello world"
+  signup:
+    title: "Sign up"
+    title_disc: "It wont take morethan 1 minute, we promise"
+    footer_text: "Launch your applications seamlessly with less than"
+    cost: "$5"
+    first_name_tag: "First Name"
+    last_name_tag: "Last Name"
+    phonenumber_tag: "Phone Number"
+    email_tag: "Email"
+    password_tag: "Password"
+    confirm_password_tag: "Confirm Password"
+    create_acc: "Create Account"
+    existing_user: "Already have an account ?"
+    login_here: "Login here"
+    UI_design: "User Interface & Design by"
+    designed_by: "Enixel Creative Studio"
+    

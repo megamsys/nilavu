@@ -20,6 +20,14 @@ class ApplicationController < ActionController::Base
 
   before_action :require_signin
   around_action :catch_exceptions
+  before_filter :set_user_language
+
+  #for internationalization
+
+  def set_user_language
+    I18n.locale= 'en'
+
+  end
   
   # a catcher exists using rails globber for routes in config/application.rb to trap 404.
   rescue_from Exception, with: :render_500
@@ -116,7 +124,7 @@ class ApplicationController < ActionController::Base
 ,-\\ `-.' /.'  /
 '---`----'----'        !\033[0m\033[1mSnail race is on! to deliver your mail!\033[22m
 "''
-  end
+  end 
 
   def puts_stacktrace(exception)
     logger.debug "\033[36m#{exception.message}\033[0m"

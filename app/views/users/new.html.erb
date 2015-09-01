@@ -15,6 +15,7 @@
 -->
 
 <% provide(:title, 'Sign up') %> <!-- BEGIN LOGO -->
+
 <div class="login">
 	<div class="container">
 		<div class="row">
@@ -28,10 +29,10 @@
 		<div class="col-md-10 col-sm-12 col-md-offset-1   bg_white border_grey sign-up">
 			<div class="col-md-6 col-sm-6">
 				<%= image_tag "sign-up.png", :class => "img-responsive" %>
-				<h3>Launch your applications seamlessly with less than <span>$5</span></h3>
+				<h3><%= t('signup.footer_text') %> <span><%= t('signup.cost') %></span></h3>
 			</div>
 			<div class="col-md-6 col-sm-6">
-				<h2>Sign up<span class="sign_up_small"><i>It wont take morethan 1 minute, we promise</span></i></h2>
+				<h2><%= t('signup.title') %><span class="sign_up_small"><i><%= t('signup.title_disc') %></span></i></h2>
 				<%= form_tag users_path, multipart: true, :id => "megamform", :class => "signup-form", :novalidate => "novalidate", :method => "post", data: { spinlock: "#spin_cross_cloud"}  do %>
 				<div class="c_inline">
 					<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
@@ -39,16 +40,16 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
 							<% if session[:auth] %>
-							<%= text_field_tag 'first_name', nil, :required => true, :id => 'first_name', :class => 'form-control', placeholder: "First Name", :value => @firstname , :data => {:placement=>"right"} %>
+							<%= text_field_tag 'first_name', nil, :required => true, :id => 'first_name', :class => 'form-control', placeholder: t('signup.first_name_tag'), :value => @firstname , :data => {:placement=>"right"} %>
 							<% else %>
-							<%= text_field_tag 'first_name', nil, :required => true, :id => 'first_name', :class => 'form-control', placeholder: "First Name", :data => {:placement=>"right"} %>
+							<%= text_field_tag 'first_name', nil, :required => true, :id => 'first_name', :class => 'form-control', placeholder: t('signup.first_name_tag'), :data => {:placement=>"right"} %>
 							<% end %>
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 input-icon right">
 							<% if session[:auth] %>
-							<%= text_field_tag 'last_name', nil, :id => 'last_name', :class => 'form-control', placeholder: "Last Name", :value => @lastname %>
+							<%= text_field_tag 'last_name', nil, :id => 'last_name', :class => 'form-control', placeholder: t('signup.last_name_tag'), :value => @lastname %>
 							<% else %>
-							<%= text_field_tag 'last_name', nil, :id => 'last_name', :class => 'form-control', placeholder: "Last Name" %>
+							<%= text_field_tag 'last_name', nil, :id => 'last_name', :class => 'form-control', placeholder: t('signup.last_name_tag') %>
 							<% end %>
 						</div>
 					</div>
@@ -57,9 +58,9 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
 							<% if session[:auth] %>
-							<%= text_field_tag 'phone', nil, :class => 'form-control', placeholder: "Phone Number", :value => @phone %>
+							<%= text_field_tag 'phone', nil, :class => 'form-control', placeholder: t('signup.phonenumber_tag'), :value => @phone %>
 							<% else %>
-							<%= text_field_tag 'phone', nil, :class => 'form-control', placeholder: "Phone Number" %>
+							<%= text_field_tag 'phone', nil, :class => 'form-control', placeholder: t('signup.phonenumber_tag') %>
 							<% end %>
 						</div>
 					</div>
@@ -68,10 +69,10 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 							<% if session[:auth] %>
-							<%= text_field_tag 'email', nil, placeholder: "Email", :readonly => true, :class => 'form-control', :value => @email %>
+							<%= text_field_tag 'email', nil, placeholder: t('signup.email_tag'), :readonly => true, :class => 'form-control', :value => @email %>
 							<input type="hidden" name="email" value="<%= @email %>">
 							<% else %>
-							<%= text_field_tag 'email', nil, placeholder: "Email", :required => true, :class => 'form-control' %>
+							<%= text_field_tag 'email', nil, placeholder: t('signup.email_tag'), :required => true, :class => 'form-control' %>
 							<% end %>
 						</div>
 					</div>
@@ -84,10 +85,10 @@
 						<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
 						<div class="row">
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-								<%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: "Your Password" %>
+								<%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: t('signup.password_tag') %>
 							</div>
 							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-								<%= password_field_tag 'password_confirmation', nil, :required => true, :class=> 'form-control', placeholder: "Confirm Password" %>
+								<%= password_field_tag 'password_confirmation', nil, :required => true, :class=> 'form-control', placeholder: t('signup.confirm_password_tag') %>
 							</div>
 
 						</div>
@@ -108,12 +109,12 @@
 				<div class="row">
 					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
 						<button type="submit" class="btn btn-success" data-remote="true">
-							Create Account
+							<%= t('signup.create_acc') %>
 						</button>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
 						<p class="text-center">
-							<u class="colr-bluegrey">Already have an account ? </u>&nbsp;&nbsp; <a href="signin"><u class="colr-denimblue">Login here</u></a>
+							<u class="colr-bluegrey"><%= t('signup.existing_user') %></u>&nbsp;&nbsp; <a href="signin"><u class="colr-denimblue"><%= t('signup.login_here') %></u></a>
 						</p>
 					</div>
 
@@ -125,7 +126,7 @@
 		<div  class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">
 			<div class="row">
 				<p>
-					User Interface & Design by <a href="http://enixel.com/" target="_blank">Enixel Creative Studio</a>
+					<%= t('signup.UI_design') %> <a href="http://enixel.com/" target="_blank"><%= t('signup.designed_by') %></a>
 				</p>
 			</div>
 			<br/>

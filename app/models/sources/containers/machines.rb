@@ -17,7 +17,7 @@ module Sources
   module Containers
     class Machines < Sources::Containers::Base
       def get(options = {})
-        url = URI.parse("http://#{options[:host]}:8080/api/v1.3/machine")
+        url = URI.parse("http://#{options[:host]}:9001/api/v1.3/machine")
         req = Net::HTTP::Get.new(url.to_s)
         res = Net::HTTP.start(url.host, url.port) {|http|
           http.request(req)
