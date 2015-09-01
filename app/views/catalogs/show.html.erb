@@ -43,7 +43,7 @@
 							<span class="title pull-left">Runtime</span>
 							<span class="hidden-xs" id="left_oneruntime"></span>
 							<% end %>
-						</li>																						
+						</li>
 						<li class= "start active">
 							<%= link_to logs_path(:id => asmid, :cattype => cattype), :data => {:remote => true} , :onclick => "$('#left_onedash, #left_oneindex, #left_onelog, #left_oneruntime').removeClass('hidden-xs selected'); $('#left_onelog').addClass('selected');" do %>
 							<i class="icon-list-ul pull-left"></i>
@@ -62,4 +62,3 @@
 	</div>
 </div>
 <%= render 'layouts/footer' %>
-

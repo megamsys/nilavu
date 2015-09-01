@@ -70,6 +70,9 @@ module Nilavu
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    # to ignore the internationalization for English
+    config.i18n.available_locales = :en
+
     # 404 catcher
     config.after_initialize do |app|
       app.routes.append{ match '*a', :to => 'application#render_404', via: [:get] } unless config.consider_all_requests_local
