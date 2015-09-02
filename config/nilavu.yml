@@ -27,7 +27,7 @@ defaults: &defaults
 ##
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
-  http_api: api.megam.io
+  http_api: localhost
 ## Enable log streaming into nilavu
 ##
 ## Default: on
@@ -71,6 +71,13 @@ defaults: &defaults
 ## Enable private git gogs to be used by nilavu
 ## Requires package [megamgogs] to be insalled.
 ## Default: off
+##
+## Acceptable values:
+##   - text, e.g. localhost, api.megam.io
+  private_git_gogs: off
+# http_gogs is a host that the nilavu will connect to
+## for pulling data from private repositories
+## Default: console.megam.io
 ##
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
