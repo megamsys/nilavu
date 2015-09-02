@@ -4,7 +4,7 @@
   <div class="row c_pading-b15">
     <div class="portlet-body-head">
       <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-        <i class="c_icon-layer_lg"></i>Your <%= cattype.capitalize.pluralize %> <span><%= asmgroups_flatten.size%> <%=  cattype.pluralize %> running </span>
+        <i class="c_icon-layer_lg"></i><%= t('cockpits.your') %><%= cattype.capitalize.pluralize %> <span><%= asmgroups_flatten.size%> <%=  cattype.pluralize %><%= t('cockpits.running') %></span>
       </div>
     </div>
   </div>
@@ -18,7 +18,7 @@
           <div class="app_new">
             <span class="glyphicon glyphicon-plus"></span>
             <p>
-              Create  <%= cattype %>
+            <%= t('cockpits.create') %><%= cattype %>
             </p>
           </div>
         </div>
@@ -122,7 +122,7 @@ $(document).ready(function() {
 });
 
   // Instance the tour
-/*@assemblies_grouped["TORPEDO"].nil? && @assemblies_grouped["APP"].nil? && @assemblies_grouped["SERVICE"].nil? &&*/ 
+/*@assemblies_grouped["TORPEDO"].nil? && @assemblies_grouped["APP"].nil? && @assemblies_grouped["SERVICE"].nil? &&*/
 <% if session[:tour] %>
 var tour = new Tour({
   steps: [

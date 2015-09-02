@@ -92,6 +92,13 @@ class ApplicationController < ActionController::Base
     logger.debug "> STICKD #{params}"
     params
   end
+  
+  def stick_host(_tmp = {}, _permitted_tmp = {})
+    logger.debug "> STICK #{params}"   
+    params[:host]    = Ind.http_api
+    logger.debug "> STICKD #{params}"
+    params
+  end
 
   def catch_exceptions
     yield

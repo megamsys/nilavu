@@ -19,4 +19,67 @@ en:
     login_here: "Login here"
     UI_design: "User Interface & Design by"
     designed_by: "Enixel Creative Studio"
+
+  login:
+    title: "Login"
+    new_user: "Create new account ?"
+    forget_password: "Forgot password"
+    tour: "Take a tour"
+    media: "Login with social media"
+    design: "Designed by Enixel"
+    reg_mail: "Your registered email"
+    reset_password: "Reset Password"
+    reset_password_statement: "An email has been sent to your registered email address to reset your password"
+    sorry: "Sorry!"
+    valid_email: "Please type a valid email address or create account in megam."
+    megam_io: "megam.io"
+
+  cockpits:
+    info_tab: "Not sure what to do next?"
+    dashboard: "Dashboard"
+    your: " Your "
+    create: " Create "
+    running: " running "	
+    manage: " Manage your "
+  
+  footer:
+    docs: "Documentation"
+    blog: "Blog"
+    forum: "Fourmns"
+    support: "Support"
+    copywrite: "© 2013-2015 megam. All rights reserved."
+
+  header:
+    notification: "You have new notifications"
+    signout: "Sign Out"
+    profile: "Profile"
+
+  marketplace:
+    market: "Marketplace"
+
+  ssh_keys:
+    title: "SSH keys"
+    activity: "Activity"
+    import: "Import"
+    name: " Name "
+    action: " Actions "
+    created_at: " Created At "
+    private: "Private"
+    public: "Public"
+    create_title: "Create SSH Key Pair"
+    create_info: "Generate a SSH RSA 2048 key pair. Read" 
+    info_link: "here"
+    info_end: "for more information."
+    name: "Name"
+    temp_name: "Enter a key pair name to save"
+    create: "Create"
+    import_title: "Import SSH Key Pair"
+    import_info: "Import a SSH RSA 2048 key pair. Read"
+    private_key: "Private key"	
+    public_key: "Public key"
+    add_files: "Add files..."
+    
+    
+    
+
     

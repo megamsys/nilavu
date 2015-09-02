@@ -29,7 +29,7 @@
 			<div class="container">
 				<div class="row bottom-divider">
 					<div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
-						<h2>Login</h2>
+						<h2><%= t('login.title') %></h2>
 					</div>
 				</div>
 			</div>
@@ -75,10 +75,10 @@
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
 							<div class="row">
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 tour-btn">
-									<span> <a href="signup" id="la-button"><u class="colr-bluegrey">Create new account ? </u></a> </span>
+									<span> <a href="signup" id="la-button"><u class="colr-bluegrey"></u><%= t('login.new_user') %></a> </span>
 								</div>
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right tour-btn">
-									<span> <a  data-toggle="modal" href="#forgot_password"  class="pull-right"><u class="colr-denimblue">Forgot password ?</u></a> </span>
+									<span> <a  data-toggle="modal" href="#forgot_password"  class="pull-right"><u class="colr-denimblue"></u><%= t('login.forget_password') %> ?</a> </span>
 
 								</div>
 							</div>
@@ -90,10 +90,10 @@
 							<div class="row">
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 tour-btn">
 
-									<button class="btn btn-success btn-plain"><a href="/tour">Take a tour</a></button>
+									<button class="btn btn-success btn-plain"><a href="/tour"><%= t('login.tour') %></a></button>
 								</div>
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right tour-btn">
-									<button type="submit" class="btn btn-success btn-plain-green" data-remote="true">Login</button>
+									<button type="submit" class="btn btn-success btn-plain-green" data-remote="true"><%= t('login.title') %></button>
 								</div>
 							</div>
 						</div>
@@ -101,7 +101,7 @@
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 							<p class="text-center login-social">
-								Login with social media
+								<%= t('login.media') %>
 							</p>
 						</div>
 					</div>
@@ -131,7 +131,7 @@
 		<div  class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">
 			<div class="row">
 				<p>
-					<a href="http://enixel.com/" target="_blank">Designed by Enixel</a><span class="pull-right"><a href="https://www.megam.io" target="_blank">megam.io</a></span>
+					<a href="http://enixel.com/" target="_blank"><%= t('login.design') %></a><span class="pull-right"><a href="https://www.megam.io" target="_blank"><%= t('login.megam_io') %></a></span>
 				</p>
 			</div>
 		</div>
@@ -145,7 +145,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">Forgot password</h4>
+				<h4 class="modal-title"><%= t('login.forget_password') %></h4>
 			</div>
 			<div class="modal-body">
 				<div class="scroller" style="min-height:200px" data-always-visible="1" data-rail-visible1="1">
@@ -154,7 +154,7 @@
 							<div class="form-group">
 								<%= form_tag password_resets_path, :method => :post, :remote => true, data: { spinlock: '#creating_sshkeys'}  do %>
 
-								<label for="ssh-key_name">Your registered email</label>
+								<label for="ssh-key_name"><%= t('login.reg_mail') %></label>
 								<%= text_field_tag :email, nil, :class => 'form-control', :required => true, placeholder: "Email" %>
 							</div>
 
@@ -179,7 +179,7 @@
 				<div>
 
 					<p>
-						An email has been sent to your registered email address to reset your password
+						<%= t('login.reset_password_statement') %>
 					</p>
 				</div>
 			</div>
@@ -197,15 +197,15 @@
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">Reset Password</h4>
+				<h4 class="modal-title"><%= t('login.reset_password') %></h4>
 			</div>
 			<div class="modal-body text-center">
 				<div>
 
 					<p>
 				<div class="alert alert-danger">
-    <strong>Sorry!</strong> Please type a valid email address or create account in megam.
-</div> 
+    <strong><%= t('login.sorry') %></strong><%= t('login.valid_email') %>
+</div>
 					</p>
 				</div>
 			</div>
