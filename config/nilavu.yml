@@ -74,6 +74,13 @@ defaults: &defaults
 ##
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
+  private_git_gogs: off
+# http_gogs is a host that the nilavu will connect to
+## for pulling data from private repositories
+## Default: console.megam.io
+##
+## Acceptable values:
+##   - text, e.g. localhost, api.megam.io
   private_gitlab: off
 # http_gogs is a host that the nilavu will connect to
 ## for pulling data from private repositories

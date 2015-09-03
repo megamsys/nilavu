@@ -282,7 +282,7 @@ DEPENDENCIES
   jquery-rails (~> 4.0.4)
   jquery-turbolinks (~> 2.1.0)
   json (~> 1.8.3)
-  megam_api (~> 0.65)
+  megam_api (~> 0.66)
   megam_gogs (~> 0.8.0)
   nokogiri (~> 1.6.6.2)
   nprogress-rails
@@ -312,3 +312,4 @@ DEPENDENCIES
 
 BUNDLED WITH
    1.10.6
+
