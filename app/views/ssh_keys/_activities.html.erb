@@ -117,14 +117,14 @@
 								<div class="col-xs-6">
 									<label for="ssh-key_name"><%= t('ssh_keys.private_key') %></label>
 									<div class="form-group">
-										<span class="btn green fileinput-button col-xs-11"><i class="icon-plus filetag"></i> <span class="filetag"><%= t('ssh_keys.add_files') %></span> <%= file_field_tag :ssh_private_key, placeholder: 'Upload private key' %> </span>
+										<span class="btn green fileinput-button col-xs-11"><i class="icon-plus filetag"></i> <span class="filetag"><%= t('ssh_keys.add_files') %></span> <%= file_field_tag :ssh_private_key, placeholder: t('ssh_keys.upload_key') %> </span>
 									</div>
 								</div>
 								<div class="col-xs-6">
 									<div>
 										<label for="ssh-key_name"><%= t('ssh_keys.public_key') %></label>
 										<div class="form-group">
-											<span class="btn blue fileinput-button  col-xs-11"> <i class="icon-plus filetag"></i> <span class="filetag"><%= t('ssh_keys.add_files') %></span><%= file_field_tag :ssh_public_key, placeholder: 'Upload public key' %> </span>
+											<span class="btn blue fileinput-button  col-xs-11"> <i class="icon-plus filetag"></i> <span class="filetag"><%= t('ssh_keys.add_files') %></span><%= file_field_tag :ssh_public_key, placeholder: t('ssh_keys.upload_pub_key') %> </span>
 										</div>
 									</div>
 								</div>

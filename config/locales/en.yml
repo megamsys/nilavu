@@ -3,6 +3,23 @@
 
 en:
   hello: "Hello world"
+  ok: "OK"
+  name: "Name"
+  error: "We flunked. "
+  chat: "Chat now"
+  megamsys: "megamsys"
+  
+  not_found:
+    oops: "Oops... Page Not Found !"
+    no_access: "You've hit our mars servers, No Access..."
+    back: "Go Back"
+    page_info: "to the previous page, return to the"
+    home: "home page"
+    or: "or"
+    mail_us: "Email Us"
+    end_statement: "about this problem."
+
+
   signup:
     title: "Sign up"
     title_disc: "It wont take morethan 1 minute, we promise"
@@ -36,7 +53,7 @@ en:
 
   cockpits:
     info_tab: "Not sure what to do next?"
-    dashboard: "Dashboard"
+    title: "Dashboard"
     your: " Your "
     create: " Create "
     running: " running "	
@@ -54,14 +71,10 @@ en:
     signout: "Sign Out"
     profile: "Profile"
 
-  marketplace:
-    market: "Marketplace"
-
   ssh_keys:
     title: "SSH keys"
     activity: "Activity"
     import: "Import"
-    name: " Name "
     action: " Actions "
     created_at: " Created At "
     private: "Private"
@@ -78,7 +91,95 @@ en:
     private_key: "Private key"	
     public_key: "Public key"
     add_files: "Add files..."
+    upload_key: "Upload private key"
+    upload_pub_key: "Upload public key"
+
+
+  billings:
+    title: "Billings"
+    total_balance: "Total Balance"
+    promo_code: "Promo Code :"
+    apply: "APPLY"
+    pay_via: "Pay Via"
+    help_center: "HELP CENTER"
+    help_info: "If you need assistance while placing order, contact one of our below support staff  by phone or email."
+    support_mail: "support@megam.io"
+    billing_history: "Billing History :"
+    application: " Application"
+    amount: "Amount"
+    currency: "Currency"
+    timestamp: "Timestamp"
+    paypal: "Pay with Paypal"
+    bit_coin: "Coming soon - Pay using Coinkite, Xapo..."
+
+  marketplace:
+    title: "Marketplaces"
+    dew: "Dew"
+    dew_name: "Dew Name"
+    info_tab: "Click on a marketplace item to get started."
+    app_service: "Apps & Services"
+    temp_search: "Search"
+    choose_version: "Choose version:"
+    discription: "Description"
+    view_docs: "View Docs"
+    megambox: "megambox.com"
+    rails_button1: "Bring Your Own Code"
+    botton1_option: "Choose your SCM"
+    rails_button2: "Starterpack - Built in repositories"
+    starterpack: "Starterpack"
+    ssh_list_title: "SSH"
+    ssh_list_create: "Create a new sshkey"
+    ssh_list_exist: "Use your existing sshkey"
+    ssh_list_import: "Import your sshkey"
+    ssh_key_name_title: "SSH keypair name"
+    ssh_key_name_placeholder: "Type a key pair name to save"
+    ssh_exist_title: "Choose your SSH"
+    ssh_exist_content: "You must create or import your sshkeys"
+    ssh_import_privatekey: "Import private key..."
+    ssh_import_publickey: "Import public key..."
+    image_name: "Image Name"
+    image_name_placeholder	: "Docker hub image name"
+    launched: "launched successfully."
+    create_service: "Create Service"
+    create_app: "Create app"
+    ram: "RAM"
+    dockers_ram_placeholder: "Enter RAM size in bytes (minimum :5000000)"
+    cpu: "CPU"
+    dockers_cpu_placeholder: "Enter number of CPU (Eg :1)"
+
     
+  titles:
+    billing_title: "Billings"
+    app_overview: "App Overview"
+    service_overview: "Services Overview"
+
+
+  overviews:
+    available_ram: "Available RAM"
+    mb: "MB"
+    cpu_core: "CPU Core"
+    ip: "IP"
+    not_get_ip: "LAUNCHING..."
+    integration: "Continious integration"
+    port: "Port"
+    off: "OFF"
+    on: "ON"
+    os: "OS"
+    key: "SSH key"
+    bound_service: "Bound Services"
+    bound_app: "Bound Apps"
+    app_bound: "apps bound"
+    service_running: " Services running "
+    bind_service: "Bind a Service"
+    overview_app: "Overview of you app."
+    overview_service: "Overview of you service."
+    url: "URL :"
+    git_url: "GIT URL :"
+    code: "CODE"
+    
+
+  
+    temp: ""
     
     
 
