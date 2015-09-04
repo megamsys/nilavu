@@ -14,7 +14,7 @@
 ** limitations under the License.
 -->
 
-<% provide(:title, 'Sign up') %> <!-- BEGIN LOGO -->
+<% provide(:title, t('titles.signup_title')) %> <!-- BEGIN LOGO -->
 
 <div class="login">
 	<div class="container">
@@ -32,7 +32,7 @@
 				<h3><%= t('signup.footer_text') %> <span><%= t('signup.cost') %></span></h3>
 			</div>
 			<div class="col-md-6 col-sm-6">
-				<h2><%= t('signup.title') %><span class="sign_up_small"><i><%= t('signup.title_disc') %></span></i></h2>
+				<h2><%= t('titles.signup_title') %><span class="sign_up_small"><i><%= t('signup.megam_disc') %></span></i></h2>
 				<%= form_tag users_path, multipart: true, :id => "megamform", :class => "signup-form", :novalidate => "novalidate", :method => "post", data: { spinlock: "#spin_cross_cloud"}  do %>
 				<div class="c_inline">
 					<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">

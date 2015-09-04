@@ -39,7 +39,7 @@
 			<thead>
 				<tr>
 					<th><%= t('ssh_keys.action') %></th>
-					<th><%= t('ssh_keys.name') %></th>
+					<th><%= t('name') %></th>
 					<th><%= t('ssh_keys.created_at') %></th>
 				</tr>
 			</thead>
@@ -50,7 +50,7 @@
 					<div class="row">
 						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-public">
 							<%= link_to edit_ssh_key_path(:id => sshkey[:name]+"_pub"), :class => "btn btn-dark-blue" , :target => "_self" do %>
-							<i class="c_icon-in"></i><span>P<%= t('ssh_keys.public') %></span>
+							<i class="c_icon-in"></i><span><%= t('ssh_keys.public') %></span>
 							<% end %>
 						</div>
 						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-private">
@@ -84,7 +84,7 @@
 						<%= form_tag ssh_keys_path, multipart: true, :method => :post, :remote => true do %>
 						<div class="form-group">
 
-							<label for="ssh-key_name"><%= t('ssh_keys.name') %></label>
+							<label for="ssh-key_name"><%= t('name') %></label>
 							<%= text_field_tag 'ssh_keypair_name', nil, :class=> 'form-control', placeholder: t('ssh_keys.temp_name'), :required => true %>
 							<input type="hidden" name="key_type" value="RSA">
 							<input type="hidden" name="key_bit" value="2048">
@@ -130,7 +130,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="ssh-key_name"><%= t('ssh_keys.name') %></label>
+								<label for="ssh-key_name"><%= t('name') %></label>
 								<%= text_field_tag 'ssh_keypair_name', nil, :class=> 'form-control', placeholder: t('ssh_keys.temp_name'), :required => true %>
 							</div>
 							<%= submit_tag t('ssh_keys.import'), :class => "btn btn-success col-md-12 col-xs-12", :data => {:remote => true} %>

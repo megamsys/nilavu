@@ -29,7 +29,7 @@
 			<div class="container">
 				<div class="row bottom-divider">
 					<div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
-						<h2><%= t('login.title') %></h2>
+						<h2><%= t('titles.login_title') %></h2>
 					</div>
 				</div>
 			</div>
@@ -44,7 +44,7 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
 								<i class="c_ico-excla"></i>
-								<%= text_field_tag 'email', nil, :required => true, :class => 'form-control', placeholder: "Email" %>
+								<%= text_field_tag 'email', nil, :required => true, :class => 'form-control', placeholder: t('signup.email_tag') %>
 							</div>
 						</div>
 					</div>
@@ -53,7 +53,7 @@
 						<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
 								<i class="c_ico-excla"></i>
-								<%= password_field_tag 'password', nil, :required => true, :class => 'form-control', placeholder: "Password" %>
+								<%= password_field_tag 'password', nil, :required => true, :class => 'form-control', placeholder: t('signup.password_tag') %>
 							</div>
 						</div>
 					</div>
@@ -64,7 +64,7 @@
 					<% if flash[:error] %>
 							<div class="alert alert-danger alert-dismissable">
 								<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-								<strong>Warning!</strong> <%= flash[:error] %>
+								<strong><%= t('warning') %></strong> <%= flash[:error] %>
 							</div>
 					<% end %>
 						</div>
@@ -93,7 +93,7 @@
 									<button class="btn btn-success btn-plain"><a href="/tour"><%= t('login.tour') %></a></button>
 								</div>
 								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right tour-btn">
-									<button type="submit" class="btn btn-success btn-plain-green" data-remote="true"><%= t('login.title') %></button>
+									<button type="submit" class="btn btn-success btn-plain-green" data-remote="true"><%= t('titles.login_title') %></button>
 								</div>
 							</div>
 						</div>
@@ -155,10 +155,10 @@
 								<%= form_tag password_resets_path, :method => :post, :remote => true, data: { spinlock: '#creating_sshkeys'}  do %>
 
 								<label for="ssh-key_name"><%= t('login.reg_mail') %></label>
-								<%= text_field_tag :email, nil, :class => 'form-control', :required => true, placeholder: "Email" %>
+								<%= text_field_tag :email, nil, :class => 'form-control', :required => true, placeholder: t('signup.email_tag') %>
 							</div>
 
-							<%= submit_tag "Reset Password", :class => "btn btn-success col-md-12 col-xs-12" %>
+							<%= submit_tag t('login.reset_password') , :class => "btn btn-success col-md-12 col-xs-12" %>
 							<% end %>
 						</div>
 					</div>
@@ -173,7 +173,7 @@
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">Reset Password</h4>
+				<h4 class="modal-title"><%= t('login.reset_password') %></h4>
 			</div>
 			<div class="modal-body text-center">
 				<div>

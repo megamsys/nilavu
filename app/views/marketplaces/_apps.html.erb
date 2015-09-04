@@ -38,7 +38,7 @@
           </div>
           <div class="col-xs-6">
             <div class="form-group">
-              <%= text_field_tag 'domain', nil, placeholder: t('marketplace.megambox'), :class =>"form-control", :value => "megambox.com", disabled: true %>
+                <%= text_field_tag 'domain', nil, placeholder: t('marketplace.megambox'), :class =>"form-control", :value => "megambox.com", disabled: true %>
               <%= hidden_field_tag 'domain', nil, placeholder: "megambox.com", :class =>"form-control", :value => "megambox.com" %>
             </div>
           </div>
@@ -72,7 +72,7 @@
           </div>
           <div class="col-md-6 text-center">
             <div class="col-md-offset-4 col-md-2">
-    
+
          <% if Ind.private_gitlab %>
         <a href="#" class="hint  hint--bottom" onclick="return gitlab_auth();" data-hint="Connect with your private Gitlab id"> <%= image_tag "gitlabimg.png",:class=> "img-responsive_byoc "%> </a>
          <% else %>

@@ -39,7 +39,7 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 
                 <div class="margin_15">
 					<div class="col-xs-9 col-sm-6 col-md-7">
-				<h3> Settings </h3>
+				<h3> <%= t('setting') %> </h3>
 			</div>
 			<%= render :partial => "users/topright_icons" %>
 		</div>
@@ -48,7 +48,7 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 	<div class="row">
 		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 			<div class="alert c_remove_main alert-info">
-				<strong>Info!</strong> Create or Import SSH key pairs before registering your Cloud settings. 
+				<strong><%= t('info') %></strong> <%= t('info_content') %>
 			</div>
 		</div>
 	</div>
@@ -56,10 +56,10 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 		<div class="tabbable-custom nav-justified">
 			<ul class="nav nav-tabs nav-justified" id="settings_tab">
 				<li class="active">
-					<a href="#tab_sshkey" data-toggle="tab"> SSH Key Pairs </a>
+					<a href="#tab_sshkey" data-toggle="tab"> <%= t('key_pair') %> </a>
 				</li>
 				<li>
-					<a href="#tab_cloud" data-toggle="tab"> Clouds </a>
+					<a href="#tab_cloud" data-toggle="tab"> <%= t('cloud') %> </a>
 				</li>
 				<!-- <li><a href="#tab_1_1_3" data-toggle="tab"> Cloud Provisioners </a></li> -->
 			</ul>
@@ -67,11 +67,11 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 				<div class="tab-pane active" id="tab_sshkey">
 					<%= render :partial => "ssh_keys/sshkeys" %>
 				</div>
-				<!-- TAB -2 STARTS HERE --> 
+				<!-- TAB -2 STARTS HERE -->
 				<div class="tab-pane" id="tab_cloud">
 					<%= render :partial => "cross_clouds/crossclouds" %>
 				</div>
-                                             
+
 			</div>
 		</div>
 	</div>
@@ -90,16 +90,16 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">Cloud Details</h4>
+				<h4 class="modal-title"><%= t('cloud_details') %></h4>
 			</div>
 			<div class="modal-body text-center">
 			<div id="details2">
-			
-			
+
+
 			</div>
 
-							
-			 
+
+
 			</div>
 			<div class="modal-footer c_modal-footer">
 <%= link_to  "Ok", "", :class => "btn btn-success", :target => "_self", :data => { :dismiss => 'modal' } %>
@@ -115,12 +115,12 @@ $("#events").prepend('<li><a href="#"><span class="label label-sm label-icon lab
 	<div class="modal-dialog">
 		<div class="modal-content c_modal-content">
 			<div class="modal-header">
-				
+
 			<div class="modal-body text-center">
-				Error
+				<%= t('error') %>
 			</div>
 			<div class="modal-footer c_modal-footer">
-				<%= link_to  "Ok", "#", :class => "btn btn-success", :target => "_self" %>
+				<%= link_to  t('ok'), "#", :class => "btn btn-success", :target => "_self" %>
 			</div>
 		</div>
 		<!-- /.modal-content -->
