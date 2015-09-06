@@ -20,8 +20,14 @@ function($scope, $rootScope, $routeParams, $location, $timeout, $window, Widget,
 	$rootScope.resolved = false;
 	$scope.dashboard_id = $routeParams.id;
 
+    if ($.CatType != "MICROSERVICES") {
+		did = 1;
+	} else {
+		did = 2;
+	}
+
 	$scope.widgets = Widget.query({
-		dashboard_id : 1
+		dashboard_id : did
 	}, function() {
 		$rootScope.resolved = true;
 	});

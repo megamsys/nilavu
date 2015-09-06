@@ -1,17 +1,17 @@
 <ul>
 	<% if cattype == Assemblies::TORPEDO.capitalize %>
 	<li>
-		<%= link_to catalogs_path(:id => id, :cat_id => id, :name => name, :command => Assemblies::START, :cattype => cattype), :data => {:remote => true }, :method => :post do %>
+		<%= link_to catalogs_path(:id => id, :cat_id => id, :name => name, :command => Assemblies::START, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post do %>
 		<i class="glyphicon glyphicon-play-circle"></i>Start <%= cattype %>
 		<% end %>
 	</li>
 	<li>
-		<%= link_to catalogs_path(:id => id, :cat_id => id,:name => name, :command => Assemblies::STOP, :cattype => cattype), :data => {:remote => true }, :method => :post  do %>
+		<%= link_to catalogs_path(:id => id, :cat_id => id,:name => name, :command => Assemblies::STOP, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post  do %>
 		<i class="glyphicon glyphicon-record"></i>Stop <%= cattype %>
 		<% end %>
 	</li>
 	<li>
-		<%= link_to catalogs_path(:id => id,:cat_id => id, :name => name, :command => Assemblies::REBOOT, :cattype => cattype), :data => {:remote => true }, :method => :post  do %>
+		<%= link_to catalogs_path(:id => id,:cat_id => id, :name => name, :command => Assemblies::REBOOT, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post  do %>
 		<i class="glyphicon glyphicon-refresh"></i>Reboot <%= cattype %>
 		<% end %>
 	</li>
@@ -22,22 +22,22 @@
 	</li>
 	<% else %>
 	<li>
-		<%= link_to catalogs_path(:id => id, :cat_id => id, :name => name, :command => Assemblies::START, :cattype => cattype), :data => {:remote => true }, :method => :post do %>
+		<%= link_to catalogs_path(:id => id, :cat_id => id, :name => name, :command => Assemblies::START, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post do %>
 		<i class="glyphicon glyphicon-play-circle"></i>Start <%= cattype %>
 		<% end %>
 	</li>
 	<li>
-		<%= link_to catalogs_path(:id => id, :cat_id => id,:name => name, :command => Assemblies::STOP, :cattype => cattype), :data => {:remote => true }, :method => :post  do %>
+		<%= link_to catalogs_path(:id => id, :cat_id => id,:name => name, :command => Assemblies::STOP, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post  do %>
 		<i class="glyphicon glyphicon-record"></i>Stop <%= cattype %>
 		<% end %>
 	</li>
 	<li>
-		<%= link_to catalogs_path(:id => id,:cat_id => id, :name => name, :command => Assemblies::RESTART, :cattype => cattype), :data => {:remote => true }, :method => :post  do %>
+		<%= link_to catalogs_path(:id => id,:cat_id => id, :name => name, :command => Assemblies::RESTART, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post  do %>
 		<i class="glyphicon glyphicon-refresh"></i>Restart <%= cattype %>
 		<% end %>
 	</li>
 	<li>
-		<%= link_to kelvi_path(:id => id, :cat_id => id,:name => name, :command => Assemblies::DELETE, :cattype => cattype), :data => {:remote => true }, :method => :post do %>
+		<%= link_to kelvi_path(:id => id, :cat_id => id,:name => name, :command => Assemblies::DELETE, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post do %>
 		<i class="glyphicon glyphicon-trash"></i>Delete <%= cattype %>
 		<% end %>
 	</li>

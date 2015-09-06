@@ -61,8 +61,12 @@ class CatalogsController < ApplicationController
 
   def runtime
     logger.debug "> Pilotable: Runtime"
-    asm = Assembly.new.show(params).by_cattypes   
-    @appname = asm["#{params["cattype"]}"].name + "." + parse_key_value_json(asm["#{params["cattype"]}"].inputs, "domain")
+    asm = Assembly.new.show(params).by_cattypes     
+    @cattype = params["cattype"]   
+    @appname = parse_key_value_json(asm["#{params["cattype"]}"].components[0][0].outputs, "id") if params["cattype"] == Assemblies::MICROSERVICES
+    @host = parse_key_value_json(asm["#{params["cattype"]}"].components[0][0].outputs, "host") if params["cattype"] == Assemblies::MICROSERVICES
+    @host = "" unless params["cattype"] == Assemblies::MICROSERVICES
+    @appname = asm["#{params["cattype"]}"].name + "." + parse_key_value_json(asm["#{params["cattype"]}"].inputs, "domain") unless params["cattype"] == Assemblies::MICROSERVICES
   end
   
   def logs 

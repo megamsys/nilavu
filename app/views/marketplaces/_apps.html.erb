@@ -44,6 +44,9 @@
           </div>
         </div>
       </div>
+
+      <%= render template="marketplaces/show_template" %>
+
       <!-- START BYOC -->
       <div class="row">
         <div class="col-xs-6">
@@ -111,7 +114,7 @@
       <div class="row">
         <div class="col-md-offset-4 col-md-4">
           <div class="form-group">
-            <%= submit_tag "Create app", :class => "btn btn-success col-xs-12", :data => {:remote => true} %>
+            <%= submit_tag "Create app", :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Please wait..." } %>
           </div>
         </div>
       </div>

@@ -27,10 +27,12 @@ class UsersController < ApplicationController
   #stick the api_keys before edit and update action
   before_action :stick_keys, only: [:edit, :update]
 
+  #stick the host before create action
+  before_action :stick_host, only: [:create]
 
   def show
   end
-
+   
   def new
      if session[:auth]
       @social_uid = session[:auth][:uid]
@@ -47,6 +49,8 @@ class UsersController < ApplicationController
   def create
     logger.debug "> Users: create."
     all_params = params.merge(new_session)
+
+	session[:tour]=true
 
     my_account = Accounts.new
     redirect_to signin_path, :flash => { :error => "Hey you!, I know you already."} and return if my_account.dup?(all_params[:email])

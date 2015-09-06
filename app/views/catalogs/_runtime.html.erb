@@ -22,13 +22,17 @@
       </div>
       <%= render :partial => "users/topright_icons" %>
     </div>
-  </div>
-  <ng-view ng-show="resolved" ng-cloak></ng-view>
+  </div> 
+   <ng-view ng-show="resolved" ng-cloak></ng-view> 
 </div>
+
 <script>
   (function($) {
   $.Sources = JSON.parse('<%= raw Sources.sources.to_json %> ');
   $.AppName = "<%= @appname %>";
-  $.SocketURL = "<%= Ind.websocket_tap %>";
+  $.CatType = "<%= @cattype %>";
+  $.Host = "<%= @host %>";
+  $.Flag = false;
+  $.SocketURL = "<%= Ind.websocket_tap %>";  
    })($);
 </script>

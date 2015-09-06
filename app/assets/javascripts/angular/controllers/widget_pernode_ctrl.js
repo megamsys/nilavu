@@ -22,6 +22,7 @@ function($scope, UpdateWidget, Sources, MetricsHelper) {
 	}, {
 		value : 'http requests'
 	}];
+	
 	$scope.sources = Sources.availableSources($scope.widget.kind);
 	$scope.update_widget_range = function(updatetime, widget) {
 		widget.range = updatetime;

@@ -26,7 +26,7 @@ class Assemblies < BaseFascade
   APP                 =  'APP'.freeze
   SERVICE             =  'SERVICE'.freeze
   ANALYTICS           =  'ANALYTICS'.freeze
-  MICROSERVICES               =  'MICROSERVICES'.freeze
+  MICROSERVICES       =  'MICROSERVICES'.freeze
   CONTAINERS          =  'CONTAINERS'.freeze
   CATTYPES            =  [APP, MICROSERVICES, TORPEDO, ANALYTICS, SERVICE]
 

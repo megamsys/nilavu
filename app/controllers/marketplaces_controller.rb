@@ -21,9 +21,6 @@ class MarketplacesController < ApplicationController
 
   before_action :stick_keys, only: [:index, :show, :create]
   
-  
- 
-  
   ##
   ## index page get all marketplace items from storage(we use riak) using megam_gateway
   ## and show the items in order of category
