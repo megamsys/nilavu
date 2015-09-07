@@ -48,7 +48,7 @@ Nilavu::Application.routes.draw do
   get "/500", :to => "errors#internal_error"
   # A visual designer route ? for what ?
   match '/varai', to: 'cockpit#varai', via: [:get]
-  
+
   match '/billings_promo', to: 'billings#promo', via: [:get, :post]
 
   #=====github
@@ -74,6 +74,7 @@ Nilavu::Application.routes.draw do
   match '/kelvi', :to => 'catalogs#kelvi', via: [:post]
   match '/logs', :to => 'catalogs#logs', via: [:get]
   match '/runtime', :to => 'catalogs#runtime', via: [:get]
+  match '/index', :to => 'catalogs#index', via: [:get]
 
   #===OneApps
   match '/bind_service_list', :to => 'oneapps#bind_service_list', via: [:get, :post]

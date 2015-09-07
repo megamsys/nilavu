@@ -13,7 +13,7 @@ defaults: &defaults
 ##
 ## Acceptable values:
 ##   - text, e.g. localhost, console.megam.io
-  storage: localhost
+  storage: 103.56.92.13
 ## Name of the nilavu server
 ##
 ## Default: console.megam.io
@@ -27,7 +27,7 @@ defaults: &defaults
 ##
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
-  http_api: localhost
+  http_api: 103.56.92.11
 ## Enable log streaming into nilavu
 ##
 ## Default: on

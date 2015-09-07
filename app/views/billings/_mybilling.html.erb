@@ -18,7 +18,7 @@
 	<div class="row c_pading-b15 settings_top">
 		<div class="margin_15">
 			<div class="col-xs-9 col-sm-6 col-md-7">
-				<h3> Billings </h3>
+				<h3><%= t('titles.billing_title') %> </h3>
 			</div>
 			<%= render :partial => "users/topright_icons" %>
 		</div>
@@ -30,7 +30,7 @@
 
 				<div class="row">
 					<div class="form-group col-md-6 col-sm-6 ">
-						<h1>Total Balance</h1>
+						<h1><%= t('billings.total_balace') %></h1>
 						<h1 id="bal" class="col-md-offset-6">$<%= @bill.balance.credit %></h1>
 					</div>
 
@@ -38,7 +38,7 @@
 					<%= hidden_field_tag 'balance', nil, placeholder: "", :class =>"form-control bals", :value => @bill.balance.credit  %>
 
 					<div class="form-group col-md-4 col-sm-6 ">
-						<label class="col-md-7 col-sm-12 col-xs-12 row" for="exampleInputName2">Promo Code :</label>
+						<label class="col-md-7 col-sm-12 col-xs-12 row" for="exampleInputName2"><%= t('billings.promo_code') %> </label>
 						<!--	<input type="text" placeholder="" id="exampleInputName2" class="form-control-card-details col-md-6 col-xs-12 col-sm-12"> -->
 						<%= text_field_tag 'code', nil, :required => true, :id => 'code', :class => 'form-control-card-details col-md-6 col-xs-12 col-sm-12', placeholder: "", :data => {:placement=>"right"} %>
 
@@ -47,7 +47,7 @@
 					<div class="form-group col-md-2 col-sm-6 ">
 						<!-- <a href="#">APPLY</a> -->
 
-						<%= submit_tag "APPLY", :class => "btn btn-success col-md-10 col-xs-10 a_override" %>
+						<%= submit_tag t('billings.apply'), :class => "btn btn-success col-md-10 col-xs-10 a_override" %>
 						<% end%>
 					</div>
 				</div>
@@ -56,24 +56,22 @@
 
 				<div class="row ">
 					<div class="col-md-6  pay_via">
-						<h2><i class="fa fa-credit-card"></i>Pay Via</h2>
+						<h2><i class="fa fa-credit-card"></i><%= t('billings.apply') %></h2>
 						<%= render :partial => "billings/payment_merchants" %>
 					</div>
 					<div class="col-md-5 col-md-offset-1 help_center_left_right">
-						<h2><i class="fa fa-plus-circle"></i>HELP CENTER</h2>
+						<h2><i class="fa fa-plus-circle"></i><%= t('billings.help_center') %></h2>
 						<p>
-							If you need assistance while placing
-							order, contact one of our below
-							support staff  by phone or email.
+							<%= t('billings.help_info') %>
 						</p>
-						<h3><i class="fa fa-phone-square"></i> +1-800-618-6813 / <a href="mailto:support@megam.io"> <i class="fa fa-envelope-o"></i> support@megam.io</a></h3>
+						<h3><i class="fa fa-phone-square"></i> +1-800-618-6813 / <a href="mailto:support@megam.io"> <i class="fa fa-envelope-o"></i> <%= t('billings.support_mail') %></a></h3>
 					</div>
 				</div>
 
 				<div class="bottom-divider  settings_top"></div>
 				<%= render :partial => "billings/pay_now" %>
 				<div class="col-md-12 row">
-					<h2><i class="fa fa-history"></i> Billing History :</h2>
+					<h2><i class="fa fa-history"></i>  <%= t('billings.biling_history') %></h2>
 				</div>
 				<div class="bottom-divider  settings_top"></div>
 				<div class="col-md-12 row">
@@ -81,10 +79,10 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<th>Application</th>
-									<th>Amount</th>
-									<th>Currency</th>
-									<th>Timestamp</th>
+									<th><%= t('billings.application') %></th>
+									<th><%= t('billings.amount') %></th>
+									<th><%= t('billings.currency') %></th>
+									<th><%= t('billings.timestamp') %></th>
 								</tr>
 							</thead>
 							<tbody>
