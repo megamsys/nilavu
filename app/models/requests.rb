@@ -32,13 +32,5 @@ class Requests < BaseFascade
     return self
   end
 
-  # This creates a /catrequests
-  # called during START, STOP, RESTART
-  def catreqs(api_params, &block) 
-     raw = api_request(api_params, CATREQUESTS, CREATE)
-     @req_submitted =  raw[:body]
-     yield self  if block_given?
-     return self
-  end
 
 end
