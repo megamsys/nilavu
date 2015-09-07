@@ -57,7 +57,7 @@
 					</span1>
 				</div>
 				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-					<label class="col-md-6"><i class="fa fa-columns"></i> CPU Core </label>
+					<label class="col-md-6"><i class="fa fa-columns"></i> <%= t('overviews.cpu_core') %> </label>
 					<span1>
 						<%= assembly.inputs.select { |x| x["key"] == "cpu" }[0]['value'] %>
 					</span1>
