@@ -41,7 +41,7 @@ class CatalogsController < ApplicationController
   def create
       logger.debug "> Pilotable: create"
       params[:action] = params[:command]
-      Requests.new.catreqs(params)
+      Requests.new.reqs(params)
       @msg = { title: "#{params['command'].camelize} #{params['cattype'].downcase}", message: "#{params['command'].camelize} #{params['name']} submitted successfully. ", redirect: '/'}
   end
 
