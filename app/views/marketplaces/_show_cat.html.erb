@@ -19,23 +19,23 @@
 <% asmname = launch_namegen %>
 <div class="row">
 	<div class="col-md-12">
-		<span class="app_left_name">Description</span>
+		<span class="app_left_name"><%= t('marketplace.discription') %></span>
 		<P class="model-description">
-			<%= plan['description'] %> <a href="http://docs.megam.io/v1.0/docs/megam_quick_launch" target="_blank"> View Docs</a>
+			<%= plan['description'] %> <a href="http://docs.megam.io/v1.0/docs/megam_quick_launch" target="_blank"> <%= t('marketplace.view_docs') %></a>
 		</P>
 		<br/>
 
 		<div class="pad_tb25">
-			<h4>Name</h4>
+			<h4><%= t('name') %></h4>
 			<div class="row">
 				<div class="col-xs-6">
 					<div class="form-group">
-						<%= text_field_tag 'assemblyname', nil, placeholder: 'Dew Name', :class =>"form-control", :value => asmname, :required => true %>
+						<%= text_field_tag 'assemblyname', nil, placeholder: t('marketplace.dew_name'), :class =>"form-control", :value => asmname, :required => true %>
 					</div>
 				</div>
 				<div class="col-xs-6">
 					<div class="form-group">
-						<%= text_field_tag 'domain', nil, placeholder: "megambox.com", :class =>"form-control", :value => "megambox.com", disabled: true %>
+						<%= text_field_tag 'domain', nil, placeholder: t('marketplace.megambox'), :class =>"form-control", :value => "megambox.com", disabled: true %>
 						<%= hidden_field_tag 'domain', nil, placeholder: "megambox.com", :class =>"form-control", :value => "megambox.com" %>
 					</div>
 				</div>
@@ -60,11 +60,11 @@
 			<%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::DOCKER %>
 			<%= hidden_field_tag 'endpoint', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::BAREMETAL %>
 			<%= hidden_field_tag 'componentname', nil, placeholder: "", :class =>"form-control", :value =>  asmname %>
-			<h4>Image Name</h4>
+			<h4><%= t('marketplace.image_name') %></h4>
 			<div class="row">
-				<div class="col-xs-6">					
+				<div class="col-xs-6">
 					<div class="form-group">
-						<%= text_field_tag 'source', nil, placeholder: 'Docker hub image name', :class =>"form-control", :required => true %>
+						<%= text_field_tag 'source', nil, placeholder: t('marketplace.image_name_placeholder'), :class =>"form-control", :required => true %>
 					</div>
 				</div>
 				<div class="col-xs-6">
@@ -73,7 +73,7 @@
 					</div>
 				</div>
 			</div>
-			<% end %>			
+			<% end %>
 		</div>
 
 		<div class="bottom-divider"></div>
@@ -81,4 +81,3 @@
 	</div>
 </div>
 </div>
-

@@ -6,6 +6,9 @@ gem "rails",  "~> 4.2.3"
 gem 'protected_attributes', "~> 1.1.0"
 gem "responders", "~> 2.1.0"
 
+#for internationalization
+gem 'rails-i18n', '~> 4.0.4' # For 4.0.x
+
 #jquery & ui
 gem 'jquery-rails', "~> 4.0.4"
 gem 'turbolinks', "~> 2.5.3"

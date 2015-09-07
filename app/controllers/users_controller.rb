@@ -32,7 +32,7 @@ class UsersController < ApplicationController
 
   def show
   end
-   
+
   def new
      if session[:auth]
       @social_uid = session[:auth][:uid]
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
     all_params = params.merge(new_session)
 
 	session[:tour]=true
-
+  
     my_account = Accounts.new
     redirect_to signin_path, :flash => { :error => "Hey you!, I know you already."} and return if my_account.dup?(all_params[:email])
 

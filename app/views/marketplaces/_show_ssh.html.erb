@@ -1,29 +1,29 @@
 <div class="row">
   <div class="col-xs-6">
-    <h4>SSH</h4>
+    <h4><%= t('marketplace.ssh_list_title') %></h4>
     <div class="form-group">
       <select class="form-control" id="sshkeyoption">
-        <option value="<%= Sshkeys::NEW %>" selected="selected">Create a new sshkey</option>
-        <option value="<%= Sshkeys::USEOLD %>">Use your existing sshkey </option>
-        <option value="<%= Sshkeys::IMPORT %>">Import your sshkey</option>
+        <option value="<%= Sshkeys::NEW %>" selected="selected"><%= t('marketplace.ssh_list_create') %></option>
+        <option value="<%= Sshkeys::USEOLD %>"><%= t('marketplace.ssh_list_exist') %> </option>
+        <option value="<%= Sshkeys::IMPORT %>"><%= t('marketplace.ssh_list_import') %></option>
       </select>
     </div>
   </div>
   <div class="col-xs-6" >
     <div id="<%= Sshkeys::USEOLD %>" style="display:none;">
-      <h4>Choose your SSH</h4>
+      <h4><%= t('marketplace.ssh_exist_title') %></h4>
       <div class="form-group">
         <% if @ssh_keys != nil && @ssh_keys.length > 0 %>
           <%= select_tag "#{Sshkeys::USEOLD}_name", options_for_select(@ssh_keys.map{ |c| c[:name] }, :selected=>@ssh_keys[0]), :class =>"form-control" %>
         <% else %>
-          <span>You must create or import your sshkeys</span>
+          <span><%= t('marketplace.ssh_exist_content') %></span>
         <% end %>
       </div>
     </div>
     <div id="<%= Sshkeys::NEW %>">
-      <h4>SSH keypair name</h4>
+      <h4><%= t('marketplace.ssh_key_name_title') %></h4>
       <div class="form-group">
-        <%= text_field_tag "#{Sshkeys::NEW}_name", nil, placeholder: 'Type a key pair name to save', :required => true, :class =>"form-control" %>
+        <%= text_field_tag "#{Sshkeys::NEW}_name", nil, placeholder: t('marketplace.ssh_key_name_placeholder') , :required => true, :class =>"form-control" %>
       </div>
     </div>
   </div>
@@ -32,12 +32,12 @@
   <div class="row">
     <div class="col-xs-6">
       <div class="form-group">
-        <span class="btn btn-success fileinput-button  col-md-12  col-xs-7"> <i class="icon-plus filetag"></i> <span class="filetag">Import private key...</span> <%= file_field_tag :ssh_private_key, :required => true %> </span>
+        <span class="btn btn-success fileinput-button  col-md-12  col-xs-7"> <i class="icon-plus filetag"></i> <span class="filetag"><%= t('marketplace.ssh_import_privatekey') %></span> <%= file_field_tag :ssh_private_key, :required => true %> </span>
       </div>
     </div>
     <div class="col-xs-6">
       <div class="form-group">
-        <span class="btn  blue fileinput-button  col-md-12  col-xs-7"> <i class="icon-plus filetag"></i> <span class="filetag">Import public key...</span> <%= file_field_tag :ssh_public_key, :required => true %> </span>
+        <span class="btn  blue fileinput-button  col-md-12  col-xs-7"> <i class="icon-plus filetag"></i> <span class="filetag"><%= t('marketplace.ssh_import_publickey') %></span> <%= file_field_tag :ssh_public_key, :required => true %> </span>
       </div>
     </div>
   </div>

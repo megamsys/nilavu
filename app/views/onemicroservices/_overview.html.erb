@@ -16,7 +16,7 @@
 <div class="row c_pading-b15">
 	<div class="portlet-body-head">
 		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-			<i class="c_icon-grid"></i>Your containers <span><%= @container_counter %> containers running</span>
+			<i class="c_icon-grid"></i><%= t('overviews.your_containers') %> <span><%= @container_counter %> <%= t('overviews.containers_running') %></span>
 		</div>
 	</div>
 </div>
@@ -43,22 +43,22 @@
 							<ul>
 								<li>
 									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :command => "start" ), :remote => true, :class => "link_img" do %>
-									<i class="glyphicon glyphicon-play-circle"></i>Start App
+									<i class="glyphicon glyphicon-play-circle"></i><%= t('settings.start') %>
 									<% end %>
 								</li>
 								<li>
 									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :command => "stop" ), :remote => true, :class => "link_img" do %>
-									<i class="glyphicon glyphicon-record"></i>Stop App
+									<i class="glyphicon glyphicon-record"></i><%= t('settings.stop') %>
 									<% end %>
 								</li>
 								<li>
 									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :command => "restart"), :remote => true, :class => "link_img" do %>
-									<i class="glyphicon glyphicon-refresh"></i>Restart App
+									<i class="glyphicon glyphicon-refresh"></i><%= t('settings.restart') %>
 									<% end %>
 								</li>
 								<li>
 									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :command => "delete"), :remote => true, :class => "link_img" do %>
-									<i class="glyphicon glyphicon-refresh"></i>Delete App
+									<i class="glyphicon glyphicon-refresh"></i><%= t('settings.delete') %>
 									<% end %>
 								</li>
 							</ul>
@@ -66,7 +66,7 @@
 						<div class="row app_icon">
 							<h5><%= assembly[0].components[0][0].name %></h5>
 							<% appkey = assembly[0].components[0][0].name  %>
-							 <%= link_to appkey, appoverview_path(:appkey => assembly[0].components[0][0].id) %> 
+							 <%= link_to appkey, appoverview_path(:appkey => assembly[0].components[0][0].id) %>
 							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 								<ul class="list-inline app_icon_bottom">
 									<% com_type = c.tosca_type.split(".") %>
@@ -82,7 +82,7 @@
 					<div class="app_footer">
 						<!-- <div class="circle_red"></div> -->
 						<i class="circle_green"></i>
-						<span>Launched</span>
+						<span><%= t('marketplace.launch_status	') %></span>
 						<i class="c_icon-window pull-right"></i>
 						<i class="c_icon-star pull-right"></i>
 					</div>

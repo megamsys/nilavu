@@ -26,28 +26,28 @@
 						<li class="start active" >
 							<%= link_to cockpits_path , :class => "one_back_to_dash", :data => {:remote => true} do %>
 							<i class="icon-chevron-sign-left pull-left"></i>
-							<span class="title pull-left">Back to Dashboard</span>
+							<span class="title pull-left"><%= t('overviews.back_dashboard') %></span>
 							<span class="hidden-xs selected" id="left_onedash"></span>
 							<% end %>
 						</li>
 						<li class= "start active">
 							<%= link_to "one#{cattype.downcase.pluralize}?id=#{asmid}", :data => {:remote => true},  :onclick => "$('#left_onedash, #left_oneindex, #left_onelog, #left_oneruntime').removeClass('hidden-xs selected'); $('#left_oneindex').addClass('selected');" do %>
 							<i class="icon-bar-chart pull-left"></i>
-							<span class="title pull-left">Overview</span>
+							<span class="title pull-left"><%= t('overviews.overview') %></span>
 							<span class="hidden-xs" id="left_oneindex"></span>
 							<% end %>
 						</li>
 						<li class="start active">
 							<%= link_to runtime_path(:id => asmid, :cattype => cattype), :data => {:remote => true} , :onclick => "$('#left_onedash, #left_oneindex, #left_onelog, #left_oneruntime').removeClass('hidden-xs selected'); $('#left_oneruntime').addClass('selected');" do %>
 							<i class="icon-cog pull-left"></i>
-							<span class="title pull-left">Runtime</span>
+							<span class="title pull-left"><%= t('overviews.runtime') %></span>
 							<span class="hidden-xs" id="left_oneruntime"></span>
 							<% end %>
-						</li>																						
+						</li>
 						<li class= "start active">
 							<%= link_to logs_path(:id => asmid, :cattype => cattype), :data => {:remote => true} , :onclick => "$('#left_onedash, #left_oneindex, #left_onelog, #left_oneruntime').removeClass('hidden-xs selected'); $('#left_onelog').addClass('selected');" do %>
 							<i class="icon-list-ul pull-left"></i>
-							<span class="title pull-left">Logs</span>
+							<span class="title pull-left"><%= t('titles.logs_title') %></span>
 							<span class="hidden-xs" id="left_onelog"></span>
 							<% end %>
 						</li>
@@ -62,4 +62,3 @@
 	</div>
 </div>
 <%= render 'layouts/footer' %>
-
