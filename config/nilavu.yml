@@ -14,6 +14,8 @@ defaults: &defaults
 ## Acceptable values:
 ##   - text, e.g. localhost, console.megam.io
   storage: 103.56.92.13
+## enabling/disabling the billing
+  billings: on
 ## Name of the nilavu server
 ##
 ## Default: console.megam.io
