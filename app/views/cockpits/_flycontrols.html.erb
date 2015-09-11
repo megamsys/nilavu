@@ -1,44 +1,44 @@
 <ul>
 	<% if cattype == Assemblies::TORPEDO.capitalize %>
 	<li>
-		<%= link_to catalogs_path(:id => id, :cat_id => id, :name => name, :command => Assemblies::START, :cattype => cattype), :data => {:remote => true }, :method => :post do %>
-		<i class="glyphicon glyphicon-play-circle"></i>Start <%= cattype %>
+		<%= link_to catalogs_path(:id => id, :cat_id => id, :name => name, :command => Assemblies::START, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post do %>
+		<i class="glyphicon glyphicon-play-circle"></i><%= t('cockpits.start') %> <%= cattype %>
 		<% end %>
 	</li>
 	<li>
-		<%= link_to catalogs_path(:id => id, :cat_id => id,:name => name, :command => Assemblies::STOP, :cattype => cattype), :data => {:remote => true }, :method => :post  do %>
-		<i class="glyphicon glyphicon-record"></i>Stop <%= cattype %>
+		<%= link_to catalogs_path(:id => id, :cat_id => id,:name => name, :command => Assemblies::STOP, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post  do %>
+		<i class="glyphicon glyphicon-record"></i><%= t('cockpits.stop') %> <%= cattype %>
 		<% end %>
 	</li>
 	<li>
-		<%= link_to catalogs_path(:id => id,:cat_id => id, :name => name, :command => Assemblies::REBOOT, :cattype => cattype), :data => {:remote => true }, :method => :post  do %>
-		<i class="glyphicon glyphicon-refresh"></i>Reboot <%= cattype %>
+		<%= link_to catalogs_path(:id => id,:cat_id => id, :name => name, :command => Assemblies::REBOOT, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post  do %>
+		<i class="glyphicon glyphicon-refresh"></i><%= t('cockpits.reboot') %> <%= cattype %>
 		<% end %>
 	</li>
 	<li>
 		<%= link_to kelvi_path(:id => id, :cat_id => id,:name => name, :command => Assemblies::DELETE, :cattype => cattype), :data => {:remote => true }, :method => :post do %>
-		<i class="glyphicon glyphicon-trash"></i>Delete <%= cattype %>
+		<i class="glyphicon glyphicon-trash"></i><%= t('cockpits.delete') %> <%= cattype %>
 		<% end %>
 	</li>
 	<% else %>
 	<li>
-		<%= link_to catalogs_path(:id => id, :cat_id => id, :name => name, :command => Assemblies::START, :cattype => cattype), :data => {:remote => true }, :method => :post do %>
-		<i class="glyphicon glyphicon-play-circle"></i>Start <%= cattype %>
+		<%= link_to catalogs_path(:id => id, :cat_id => id, :name => name, :command => Assemblies::START, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post do %>
+		<i class="glyphicon glyphicon-play-circle"></i><%= t('cockpits.start') %> <%= cattype %>
 		<% end %>
 	</li>
 	<li>
-		<%= link_to catalogs_path(:id => id, :cat_id => id,:name => name, :command => Assemblies::STOP, :cattype => cattype), :data => {:remote => true }, :method => :post  do %>
-		<i class="glyphicon glyphicon-record"></i>Stop <%= cattype %>
+		<%= link_to catalogs_path(:id => id, :cat_id => id,:name => name, :command => Assemblies::STOP, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post  do %>
+		<i class="glyphicon glyphicon-record"></i><%= t('cockpits.stop') %> <%= cattype %>
 		<% end %>
 	</li>
 	<li>
-		<%= link_to catalogs_path(:id => id,:cat_id => id, :name => name, :command => Assemblies::RESTART, :cattype => cattype), :data => {:remote => true }, :method => :post  do %>
-		<i class="glyphicon glyphicon-refresh"></i>Restart <%= cattype %>
+		<%= link_to catalogs_path(:id => id,:cat_id => id, :name => name, :command => Assemblies::RESTART, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post  do %>
+		<i class="glyphicon glyphicon-refresh"></i><%= t('cockpits.restart') %> <%= cattype %>
 		<% end %>
 	</li>
 	<li>
-		<%= link_to kelvi_path(:id => id, :cat_id => id,:name => name, :command => Assemblies::DELETE, :cattype => cattype), :data => {:remote => true }, :method => :post do %>
-		<i class="glyphicon glyphicon-trash"></i>Delete <%= cattype %>
+		<%= link_to kelvi_path(:id => id, :cat_id => id,:name => name, :command => Assemblies::DELETE, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post do %>
+		<i class="glyphicon glyphicon-trash"></i><%= t('cockpits.delete') %> <%= cattype %>
 		<% end %>
 	</li>
 	<% end %>

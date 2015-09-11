@@ -1,5 +1,7 @@
 Nilavu::Application.routes.draw do
 
+  get 'storages/index'
+
   root :to => 'cockpits#index'
   #core routes
   resources :users
@@ -7,6 +9,7 @@ Nilavu::Application.routes.draw do
   resources :sessions
   resources :cockpits
   resources :marketplaces
+  resources :storages
   resources :billings
   resources :settings
   resources :ssh_keys
@@ -48,8 +51,10 @@ Nilavu::Application.routes.draw do
   get "/500", :to => "errors#internal_error"
   # A visual designer route ? for what ?
   match '/varai', to: 'cockpit#varai', via: [:get]
-  
+
   match '/billings_promo', to: 'billings#promo', via: [:get, :post]
+
+  match '/storages', to: 'storages#index', via: [:get, :post]
 
   #=====github
   match '/auth/github/callback', :to => 'marketplaces#store_github', via: [:get, :post]
@@ -74,6 +79,7 @@ Nilavu::Application.routes.draw do
   match '/kelvi', :to => 'catalogs#kelvi', via: [:post]
   match '/logs', :to => 'catalogs#logs', via: [:get]
   match '/runtime', :to => 'catalogs#runtime', via: [:get]
+  match '/index', :to => 'catalogs#index', via: [:get]
 
   #===OneApps
   match '/bind_service_list', :to => 'oneapps#bind_service_list', via: [:get, :post]

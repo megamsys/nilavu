@@ -19,7 +19,7 @@
 <div class="modal-content">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-		<h4 class="modal-title">Bind Service</h4>
+		<h4 class="modal-title"><%= t('overviews.bind_service_title') %></h4>
 	</div>
 <% if @service.length > 1 %>
 	<div class="modal-body">
@@ -31,19 +31,19 @@
 	<div class="modal-footer c_modal-footer">
 
 		<button type="button" class="btn default" data-dismiss="modal">
-			Cancel
+			<%= t('cancel') %>
 		</button>
-		<%= submit_tag "Bind", :class => "btn btn-success", data: { disable_with: "Please wait..." } %>
+		<%= submit_tag t('overviews.bind') , :class => "btn btn-success", data: { disable_with: "Please wait..." } %>
 	</div>
 
 <% else %>
 	<div class="modal-body">
-	Sorry! You don't have any services. Please Create new from marketplace.
+	<%= t('overviews.no_service') %>
 	</div>
 	<div class="modal-footer c_modal-footer">
 
 		<button type="button" class="btn default" data-dismiss="modal">
-			Ok
+			<%= t('ok') %>
 		</button>
 	</div>
 <% end %>
@@ -52,5 +52,3 @@
 </div>
 <!-- /.modal-content -->
 <% end %>
-
-

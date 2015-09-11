@@ -6,13 +6,17 @@ gem "rails",  "~> 4.2.3"
 gem 'protected_attributes', "~> 1.1.0"
 gem "responders", "~> 2.1.0"
 
+#for internationalization
+gem 'rails-i18n', '~> 4.0.4' # For 4.0.x
+
 #jquery & ui
 gem 'jquery-rails', "~> 4.0.4"
 gem 'turbolinks', "~> 2.5.3"
 gem 'jquery-turbolinks',"~> 2.1.0"
 gem 'remotipart', "~> 1.2.1" #ajax sfile uploads
-gem 'socket.io-rails', "~> 1.3.5" # streaming
+gem 'socket.io-rails', "~> 1.3.6" # streaming
 gem 'nprogress-rails' #spinner youtube like
+gem 'reactjs-rails', '~> 0.4.1'
 
 # security and oauth
 gem 'bcrypt', "~> 3.1.10"
@@ -27,13 +31,13 @@ gem 'omniauth-github', "~> 1.1.2"
 gem 'json', "~> 1.8.3"
 gem 'riak-client', '~> 2.2.1'
 
-gem "megam_api", "~> 0.62"
+gem "megam_api", "~> 0.67"
 gem 'megam_gogs', "~> 0.8.0"
 
 gem 'gitlab', '~> 3.4.0'
 
 #general
-gem "github_api", "~>0.12.3"
+gem "github_api", "~>0.12.4"
 gem "randexp", "~> 0.1.7"
 gem 'google-analytics-rails', '~> 0.0.6'
 gem "paypal-sdk-rest", "~>1.3.1" #billing
@@ -51,7 +55,6 @@ gem 'sass-rails', "~> 5.0.3"
 gem 'uglifier', "~> 2.7.1"
 
 gem "therubyracer","~> 0.12.2", :require => 'v8',:platforms => :ruby
-gem "intercom-rails"
 
 group :test do
   gem 'capybara'

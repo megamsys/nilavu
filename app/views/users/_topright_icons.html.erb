@@ -21,9 +21,15 @@
 					<%= link_to marketplaces_path , :data => {:remote => true}, :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
 					<i class="fa fa-life-saver"></i>
 					<p class="pull-right">Marketplaces</p>
-					<% end %>
+                               		<% end %>
+                                </li>
+                                <li class="two">
+					<%= link_to storages_path , :data => {:remote => true}, :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+					<i class="fa fa-life-saver"></i>
+					<p class="pull-right">Storages</p>
+                               		<% end %> 
+                                </li> 
 			</ul>
-		</div>		
+		</div>
 	</div>
 </div>
-

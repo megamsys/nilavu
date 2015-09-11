@@ -20,7 +20,15 @@ class ApplicationController < ActionController::Base
 
   before_action :require_signin
   around_action :catch_exceptions
+  before_filter :set_user_language
 
+  #for internationalization
+
+  def set_user_language
+    I18n.locale= 'en'
+
+  end
+  
   # a catcher exists using rails globber for routes in config/application.rb to trap 404.
   rescue_from Exception, with: :render_500
   unless Rails.application.config.consider_all_requests_local
@@ -61,17 +69,17 @@ class ApplicationController < ActionController::Base
   # if the request is form a non root url like users/1/edit, then we show  message.
   def require_signin
     if signed_in?
-    else     
-       if request.fullpath.to_s == '/' || request.original_url.to_s == '/'      
-        redirect_to signin_path
-      else        
-        if request.fullpath.to_s.match('auth')
+    else
+       if request.fullpath.to_s == '/' || request.original_url.to_s == '/'
+         redirect_to signin_path
+       else
+         if request.fullpath.to_s.match('auth')
            auth = request.env['omniauth.auth']['extra']['raw_info']
-           session[:auth] = { :email => auth[:email], :first_name => auth[:first_name], :last_name => auth[:last_name] }
-             redirect_to social_create_path
-        else
+           session[:auth] = { email: auth[:email], first_name: auth[:first_name], last_name: auth[:last_name] }
+           redirect_to social_create_path
+         else
            redirect_to signin_path, flash: { error: 'You must first sign in or sign up.' }
-        end
+         end
        end
      end
   end
@@ -84,10 +92,17 @@ class ApplicationController < ActionController::Base
     logger.debug "> STICKD #{params}"
     params
   end
+  
+  def stick_host(_tmp = {}, _permitted_tmp = {})
+    logger.debug "> STICK #{params}"   
+    params[:host]    = Ind.http_api
+    logger.debug "> STICKD #{params}"
+    params
+  end
 
   def catch_exceptions
     yield
-  rescue Accounts::MegamAPIError  => mai
+  rescue Accounts::MegamAPIError => mai
     ascii_bomb
     puts_stacktrace(mai)
     # notify  hipchat, send an email to support@megam.io which creates a support ticket.
@@ -109,23 +124,22 @@ class ApplicationController < ActionController::Base
   end
 
   def ascii_snail
-    logger.debug """\033[31m
+    logger.debug ''"\033[31m
    .----.   @   @
   / .-.-.`.  \\v/
   | | '\\ \\ \\_/ )
 ,-\\ `-.' /.'  /
 '---`----'----'        !\033[0m\033[1mSnail race is on! to deliver your mail!\033[22m
-"""
-  end
+"''
+  end 
 
   def puts_stacktrace(exception)
     logger.debug "\033[36m#{exception.message}\033[0m"
     filtered_trace = exception.backtrace.grep(/#{Regexp.escape("nilavu")}/)
     unless filtered_trace.empty?
-      full_stacktrace =  filtered_trace.join("\n")
+      full_stacktrace = filtered_trace.join("\n")
       logger.debug "\033[1m\033[32m#{full_stacktrace}\033[0m\033[22m"
     end
     logger.debug "\033[1m\033[35m..(*_*)...\033[0m\033[22m"
   end
-
 end

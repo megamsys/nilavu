@@ -14,12 +14,12 @@
 ** limitations under the License.
 -->
 <% content_for :onecat_contents do %>
-<% provide(:title, 'App Overview') %>
+<% provide(:title, t('titles.app_overview')) %>
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
 	<div class="row c_pading-b15 settings_top">
 		<div class="margin_15">
 			<div class="col-xs-9 col-sm-6 col-md-7">
-				<h3> App Overview </h3>
+				<h3> <%= t('titles.app_overview') %> </h3>
 			</div>
 			<%= render :partial => "users/topright_icons" %>
 		</div>
@@ -27,10 +27,10 @@
 	<div class="row">
 		<div class="mplace mplace-head">
 			<div class="col-xs-6 col-md-3 mplace-left">
-				<h4> Apps Overview </h4>
+				<h4><%= t('titles.app_overview') %></h4>
 			</div>
 			<div class="col-xs-12 col-md-9 mplace-middle hidden-xs hidden-sm">
-				<span class="pull-right c_small">Overview of you app.<i class="c_icon-rocket"></i><a href="http://docs.megam.io/v1.0/docs/megam_quick_launch" target="_blank">Take a Tour</a></span>
+				<span class="pull-right c_small"><%= t('overviews.overview_app') %><i class="c_icon-rocket"></i><a href="http://docs.megam.io/v1.0/docs/megam_quick_launch" target="_blank"><%= t('login.tour') %></a></span>
 			</div>
 		</div>
 	</div>
@@ -39,18 +39,18 @@
 		<div class="margin_15 overview margintb_15">
 			<div class="overview-top">
 				<div class="col-xs-12 col-sm-12 col-md-6 overview-route">
-					<span>URL: </span><a href="http://<%= assembly.name  %>.<%= assembly.components[0][0].components.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>" target="_blank"><%= assembly.name  %>.<%= assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %></a>
+					<span><%= t('overviews.url') %> </span><a href="http://<%= assembly.name  %>.<%= assembly.components[0][0].components.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>" target="_blank"><%= assembly.name  %>.<%= assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %></a>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-6 overview-git">
 					<div class="row">
 						<div class="col-xs-3">
-							<label>GIT URL: </label>
+							<label><%= t('overviews.git_url') %></label>
 						</div>
 						<div class="col-xs-6">
 							<input type="text" class="overview-giturl form-control" disabled placeholder="<%= assembly.components[0][0].components.inputs.select { |x| x['key'] == 'source' }[0]['value'] %>">
 						</div>
 						<div class="col-xs-3 overview-submit">
-							<a href="<%= assembly.components[0][0].components.inputs.select { |x| x['key'] == 'source' }[0]['value'] %>" target="_blank" class="btn green">CODE</a>
+							<a href="<%= assembly.components[0][0].components.inputs.select { |x| x['key'] == 'source' }[0]['value'] %>" target="_blank" class="btn green"><%= t('overviews.code') %></a>
 						</div>
 					</div>
 				</div>
@@ -63,13 +63,13 @@
 		<div class="vm-bg">
 			<div class="overview-top ">
 				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-					<label class="col-md-6"><i class="fa fa-hdd-o"></i> Available RAM </label>
+					<label class="col-md-6"><i class="fa fa-hdd-o"></i> <%= t('overviews.available_ram') %> </label>
 					<span1>
-						<%= assembly.inputs.select { |x| x["key"] == "ram" }[0]['value'] %> MB
+						<%= assembly.inputs.select { |x| x["key"] == "ram" }[0]['value'] %> <%= t('overviews.mb') %>
 					</span1>
 				</div>
 				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-					<label class="col-md-6"><i class="fa fa-columns"></i> CPU Core </label>
+					<label class="col-md-6"><i class="fa fa-columns"></i> <%= t('overviews.cpu_core') %> </label>
 					<span1>
 						<%= assembly.inputs.select { |x| x["key"] == "cpu" }[0]['value'] %>
 					</span1>
@@ -77,34 +77,34 @@
 			</div>
 			<div class="overview-top ">
 				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-					<label class="col-md-6"><i class="fa fa-puzzle-piece"></i> IP </label>
+					<label class="col-md-6"><i class="fa fa-puzzle-piece"></i> <%= t('overviews.ip') %> </label>
 					<span1>
 						<% ip = parse_key_value_pair(assembly.outputs, "ip") %>
 						<%= ip if ip != "" %>
-						<%= "LAUNCHING..." if ip == "" %>
+						<%= t('overviews.not_get_ip') if ip == "" %>
 					</span1>
 				</div>
 				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-					<label class="col-md-6"><i class="fa fa-building-o"></i> Continious integration </label>
+					<label class="col-md-6"><i class="fa fa-building-o"></i> <%= t('overviews.integration') %> </label>
 					<span1>
 						<% pair = parse_operations(assembly.components[0][0].components.operations, "CI") %>
 						<% if pair.empty? %>
-						OFF
+						<%= t('overviews.off') %>
 						<% else %>
-						<%= "ON" if parse_key_value_pair(pair, "ci-enable") == "true" %>
+						<%= t('overviews.on') if parse_key_value_pair(pair, "ci-enable") == "true" %>
 						<% end %>
 					</span1>
 				</div>
 			</div>
 			<div class="overview-top">
 				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-					<label class="col-md-6"> <i class="fa fa-bullseye"></i> OS </label>
+					<label class="col-md-6"> <i class="fa fa-bullseye"></i> <%= t('overviews.os') %> </label>
 					<span1 style="border-bottom:none;">
 						<%= image_tag  "logos/#{assembly.tosca_type.split('.').last}.png", :alt => "" %>
 					</span1>
 				</div>
 				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-					<label class="col-md-6"><i class="fa fa-lock"></i> SSH key </label>
+					<label class="col-md-6"><i class="fa fa-lock"></i> <%= t('overviews.key') %></label>
 					<span1>
 						<%= link_to "#{assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value']}", edit_ssh_key_path(:id => assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value']+"_key"), :class => "hint  hint--bottom", :target => "_self", 'data-hint' => "Click here to download private key" %>
 					</span1>
@@ -117,17 +117,17 @@
 		<div class="margin_30 c_pading-b15">
 			<div class="portlet-body-head">
 				<div class="col-xs-12 col-sm-12 col-md-6 row">
-					<i class="c_icon-layer_lg"></i>Bound Services <span><%= @bound_services.size%> Services running</span>
+						<i class="c_icon-layer_lg"></i><%= t('overviews.bound_service') %> <span><%= @bound_services.size%> <%= t('overviews.service_running') %></span>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-6 create_bind row">
 					<ul class="list-inline">
 						<li class=" col-sm-6 ">
-							<i class="icon-plus"></i> <%= link_to "Create Service", marketplaces_path, :remote =>true %>
+							<i class="icon-plus"></i> <%= link_to t('marketplace.create_service'), marketplaces_path, :remote =>true %>
 						</li>
 						<li class=" col-sm-6">
 							<i class="icon-plus"></i>
 							<!--<%= link_to "Bind a Service", bind_service_list_path(:bindapp => @assembly.id + ":" + @assembly.name), :remote => true %>-->
- <%= link_to "Bind a Service", bind_service_list_path(:bindapp => assembly.name + "." + assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] + "/" + assembly.components[0][0].components.name + ":" + assembly.id + ":" + assembly.components[0][0].components.id), :remote => true %> 
+ <%= link_to t('overviews.bind_service'), bind_service_list_path(:bindapp => assembly.name + "." + assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] + "/" + assembly.components[0][0].components.name + ":" + assembly.id + ":" + assembly.components[0][0].components.id), :remote => true %>
 						</li>
 					</ul>
 				</div>

@@ -23,13 +23,13 @@
   <%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::CHEF %>
   <div class="row">
     <div class="col-md-12">
-      <span class="app_left_name">Description</span>
+      <span class="app_left_name"><%= t('marketplace.discription') %></span>
       <P class="model-description">
-        <%= plan['description'] %> <a href="http://docs.megam.io/v1.0/docs/megam_quick_launch" target="_blank"> View Docs</a>
+        <%= plan['description'] %> <a href="http://docs.megam.io/v1.0/docs/megam_quick_launch" target="_blank"> <%= t('marketplace.view_docs') %></a>
       </P>
       <br/>
       <div class="pad_tb25">
-        <h4>Name</h4>
+        <h4><%= t('name') %></h4>
         <div class="row">
           <div class="col-xs-6">
             <div class="form-group">
@@ -38,7 +38,7 @@
           </div>
           <div class="col-xs-6">
             <div class="form-group">
-              <%= text_field_tag 'domain', nil, placeholder: "megambox.com", :class =>"form-control", :value => "megambox.com", disabled: true %>
+                <%= text_field_tag 'domain', nil, placeholder: t('marketplace.megambox'), :class =>"form-control", :value => "megambox.com", disabled: true %>
               <%= hidden_field_tag 'domain', nil, placeholder: "megambox.com", :class =>"form-control", :value => "megambox.com" %>
             </div>
           </div>
@@ -52,18 +52,18 @@
         <div class="col-xs-6">
           <p class="radioP">
             <input type="radio" name="radio_app_scm" id="r1"  value="byoc_scm" onclick="scmOption(this);" required />
-            <label for="r1"> <span class="radioButtonGraph"></span> Bring Your Own Code </label>
+            <label for="r1"> <span class="radioButtonGraph"></span> <%= t('marketplace.rails_button1') %></label>
           </p>
         </div>
         <div class="col-xs-6">
           <p class="radioP">
             <input type="radio" name="radio_app_scm" id="r2" value="starter_pack" onclick="scmOption(this);" required />
-            <label for="r2"> <span class="radioButtonGraph"></span> Starterpack - Built in repositories </label>
+            <label for="r2"> <span class="radioButtonGraph"></span> <%= t('marketplace.rails_button2') %></label>
           </p>
         </div>
       </div>
       <div id="app_byoc_scm" style="display:none;">
-        <h4>Choose your SCM</h4>
+        <h4><%= t('marketplace.button1_option') %></h4>
         <div class="row">
           <div class="col-md-6 text-center">
             <div class="col-md-offset-4 col-md-2">
@@ -72,17 +72,13 @@
           </div>
           <div class="col-md-6 text-center">
             <div class="col-md-offset-4 col-md-2">
-      <!--        <% if Ind.private_git_gogs %>
-              <a href="#" class="hint  hint--bottom" onclick="return gogs_oauth();" data-hint="Connect with your private gogs id"> <%= image_tag "gogsimg.png",:class=> "img-responsive_byoc "%> </a>
-              <% else %>
-              <a href="#" class="hint  hint--bottom" data-hint="Connect with your private git id. coming soon."> <%= image_tag "gogsimg.png",:class=> "img-responsive_byoc "%> </a>
-              <% end %> -->
+
          <% if Ind.private_gitlab %>
         <a href="#" class="hint  hint--bottom" onclick="return gitlab_auth();" data-hint="Connect with your private Gitlab id"> <%= image_tag "gitlabimg.png",:class=> "img-responsive_byoc "%> </a>
          <% else %>
               <a href="#" class="hint  hint--bottom" data-hint="Connect with your private git id. coming soon."> <%= image_tag "gitlabimg.png",:class=> "img-responsive_byoc "%> </a>
          <% end %>
-              
+
             </div>
           </div>
         </div>
@@ -98,7 +94,7 @@
       <div id="app_starter_pack" style="display:none;">
         <div class="row">
           <div class="col-sm-12 col-xs-12">
-            <h4>Starterpack</h4>
+            <h4><%= t('marketplace.starterpack') %></h4>
             <div class="form-group">
               <%= text_field_tag 'starterpack_git', nil, placeholder: "https://github.com/megamsys/megamsys.git", :class =>"form-control", :value => plan['source'],:readonly => true %>
             </div>
@@ -114,7 +110,7 @@
       <div class="row">
         <div class="col-md-offset-4 col-md-4">
           <div class="form-group">
-            <%= submit_tag "Create app", :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Please wait..." } %>
+            <%= submit_tag t('marketplace.create_app'), :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Please wait..." } %>
           </div>
         </div>
       </div>
@@ -193,8 +189,8 @@
   			}
   		});
   	}
-  	
-  	
+
+
   	function gitlab_auth() {
   		$("#scm_name").val("gitlab");
   		$.oauthpopup({
