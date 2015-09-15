@@ -1,5 +1,6 @@
 Nilavu::Application.routes.draw do
 
+  
   get 'storages/index'
 
   root :to => 'cockpits#index'
