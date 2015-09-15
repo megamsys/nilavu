@@ -59,7 +59,7 @@ class BillingsController < ApplicationController
 
   def promo
     dis_s = Discounts.new.list(params).discounts_collections
-   
+
     @credit = params[:balance]
     if dis_s.empty?
       @credit = apply_promo(params)
