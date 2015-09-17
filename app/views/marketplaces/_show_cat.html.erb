@@ -44,7 +44,7 @@
 		        <%= render template="marketplaces/show_template" %>
 			<%= render template="marketplaces/show_ssh", :locals => {:ssh_keys => @ssh_keys} %>
 			<%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
-			<%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::CHEF %>
+			<%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::ONE %>
 			<%= hidden_field_tag 'componentname', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
 			<br/>
 			<br/>
