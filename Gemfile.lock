@@ -104,7 +104,7 @@ GEM
       activesupport (>= 4.1.0)
     google-analytics-rails (0.0.6)
     hashie (3.4.2)
-    highline (1.7.5)
+    highline (1.7.6)
     httparty (0.13.5)
       json (~> 1.8)
       multi_xml (>= 0.5.2)

@@ -1,0 +1,15 @@
+<% content_for :content_settings do %>
+<% provide(:title, 'Storages') %>
+      <%= render :partial => "users/topright_icons" %>
+<% end %>
+
+<%= render :template => "users/show" %>
+
+
+   
+storages/_mystorages.html.erb
+ 
+ <script type="text/javascript">
+  console.log(<%=@buck_list.html_safe%>);
+</script>
+

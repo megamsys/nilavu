@@ -8,6 +8,7 @@ require "sprockets/railtie"
 require 'yaml'
 require 'active_record'
 
+
 #COMMON YML
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
@@ -73,13 +74,16 @@ module Nilavu
     # to ignore the internationalization for English
     config.i18n.available_locales = :en
 
+
     # To use bables transformers and customs plugins, and pass options
     config.react.jsx_transform_options = {
-  blacklist: ['spec.functionName', 'validation.react'], # default options
-  optional: ["transformerName"],  # pass extra babel options
-  whitelist: ["useStrict"] # even more options
-}
+ 	blacklist: ['spec.functionName','validation.react'], 
+ 	optional: ["transformerName"],
+	whitelist: ["useStrict"]
+   }
 
+   # For jsx transformer
+ # config.react.jsx_transformer_class = React::JSX::JSXTransformer
 
     # 404 catcher
     config.after_initialize do |app|
