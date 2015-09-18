@@ -23,8 +23,8 @@ class Marketplaces < BaseFascade
 
   attr_reader :mkp_grouped
   attr_reader :mkp
-  
-  CHEF             =  'chef'.freeze
+
+  ONE             =  'one'.freeze
   DOCKER           =  'docker'.freeze
   BAREMETAL        =  'baremetal'.freeze
 
