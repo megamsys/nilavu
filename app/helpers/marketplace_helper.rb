@@ -29,18 +29,20 @@ module MarketplaceHelper
     /[a-zA-Z ]+/.match(ck)
   end
 
-  def category_description(category)
-    case category
-    when '1-Torpedo'
+  def category_description(cattype)
+    case cattype
+    when 'TORPEDO'
       'Get your own compute power'
-    when '2-Bring Your Own Code'
+    when 'BYOC'
       'Get started with a new app'
-    when '3-App Boilers'
+    when 'SERVICE'
       'Make your applications more hungry'
-    when '4-Platform'
+    when 'MICROSERVICES'
       'Enrich Megam with awesome addons'
-    when '5-Analytics'
+    when 'ANALYTICS'
       'Actionable insights in minutes'
+    when 'COLLABORATION'
+      'Collaboration done in minutes'
     when '6-Unikernel'
       'Just do one thing in an unikernel.'
     else
