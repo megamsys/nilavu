@@ -63,6 +63,11 @@
 			</table>
 		</div>
 	</div>
+	<div>
+<%= react_component 'Log' %>
+<!-- becomes: -->
+<div data-react-class="HelloMessage" data-react-props="{&quot;name&quot;:&quot;John&quot;}"></div>
+	</div>
 	<script>
 		(function($) {
 			$.Sources = JSON.parse('<%= raw Sources.sources.to_json %> ');
