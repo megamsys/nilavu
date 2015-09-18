@@ -16,8 +16,8 @@ gem 'jquery-turbolinks',"~> 2.1.0"
 gem 'remotipart', "~> 1.2.1" #ajax sfile uploads
 gem 'socket.io-rails', "~> 1.3.6" # streaming
 gem 'nprogress-rails' #spinner youtube like
-gem 'reactjs-rails', '~> 0.4.1'
-gem 'react-rails', '~> 1.0.0'
+# gem 'reactjs-rails', '~> 0.4.1'
+gem 'react-rails', "~>1.3.0"
 
 # security and oauth
 gem 'bcrypt', "~> 3.1.10"

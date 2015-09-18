@@ -26,13 +26,18 @@
 		<%= favicon_link_tag 'favicon.png' %>
 		<title>Megam - PaaS | <%= yield(:title) %></title>
 		<%= stylesheet_link_tag "application", :media => "all" %>
+                <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 		<%= analytics_init if Rails.env.production? %>
 
 		<%= javascript_include_tag "application" %>
+		<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 		<%= script_tag_for_all_templates %>
+                <%= csrf_meta_tags %>
 
 		<meta name="description=" content="Megam is a platform as service. We offer launching app cross cloud bundled with
 		realtime logging, application monitoring.">
+
+                <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 		<meta charset="utf-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">

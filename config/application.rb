@@ -73,6 +73,14 @@ module Nilavu
     # to ignore the internationalization for English
     config.i18n.available_locales = :en
 
+    # To use bables transformers and customs plugins, and pass options
+    config.react.jsx_transform_options = {
+  blacklist: ['spec.functionName', 'validation.react'], # default options
+  optional: ["transformerName"],  # pass extra babel options
+  whitelist: ["useStrict"] # even more options
+}
+
+
     # 404 catcher
     config.after_initialize do |app|
       app.routes.append{ match '*a', :to => 'application#render_404', via: [:get] } unless config.consider_all_requests_local

@@ -19,6 +19,9 @@ Nilavu::Application.configure do
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
+  # Reactjs sample
+  config.react.variant = :development
+
 ## Commented for Rails 4.0 support
     # Log error messages when you accidentally call methods on nil.
 #  config.whiny_nils = true
