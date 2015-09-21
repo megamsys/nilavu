@@ -9,6 +9,9 @@ gem "responders", "~> 2.1.0"
 #for internationalization
 gem 'rails-i18n', '~> 4.0.4' # For 4.0.x
 
+#for reactjs
+gem 'react-rails', '~> 1.0'
+
 #jquery & ui
 gem 'jquery-rails', "~> 4.0.5"
 gem 'turbolinks', "~> 2.5.3"

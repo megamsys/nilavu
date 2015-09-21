@@ -13,7 +13,9 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
+<% content_for :content_settings do %>
 <% provide(:title, 'Logs') %>
+
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9" ng-controller="LogCtrl">
 	<div class="row c_pading-b15 settings_top" data-ng-init="sendmessage()">
 		<div class="margin_15">
@@ -62,6 +64,11 @@
 				</tbody>
 			</table>
 		</div>
+	</div>
+	<div>
+<%= react_component 'Log' %>
+<!-- becomes: -->
+<div data-react-class="HelloMessage" data-react-props="{&quot;name&quot;:&quot;John&quot;}"></div>
 	</div>
 	<script>
 		(function($) {
