@@ -110,7 +110,7 @@
             <%  if Ind.billings %>
               <%= link_to billings_path, :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_billing').addClass('selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
                 <i class="icon-money pull-left"></i>
-                <span class="title pull-left"><%= t('billings_title') %></span>
+                <span class="title pull-left"><%= t('titles.billing_title') %></span>
                 <span class="hidden-xs" id="left_billing"></span>
                 <% end %>
                 <% end %>

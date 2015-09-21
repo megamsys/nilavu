@@ -44,4 +44,7 @@
 //= require megam.support
 //= require nprogress
 //= require nprogress-ajax
+//= require react
+//= require react_ujs
+//= require components
 //= require_tree .

@@ -27,10 +27,9 @@
 			</br>
 			<%= password_field_tag 'gogs_password', nil, placeholder: 'Enter gogs password', :style => "width:350px; height:50px;", :required => true, :class =>"form-control" %>
 			</br>
-			<%= submit_tag "Login", :style => "width:350px; height:50px;", data: { disable_with: "Hold on! accessing gogs!" }, :class => "btn green col-xs-12", :id => "close_it" %>
+			<%= submit_tag t('titles.login_title'), :style => "width:350px; height:50px;", data: { disable_with: "Hold on! accessing gogs!" }, :class => "btn green col-xs-12", :id => "close_it" %>
 		</div>
 	</div>
 </div>
 
 <% end %>
-
