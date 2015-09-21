@@ -20,7 +20,7 @@ class MarketplacesController < ApplicationController
   include MarketplaceHelper
 
   before_action :stick_keys, only: [:index, :show, :create]
-  
+
   ##
   ## index page get all marketplace items from storage(we use riak) using megam_gateway
   ## and show the items in order of category
@@ -33,27 +33,35 @@ class MarketplacesController < ApplicationController
   ##
   ## to show the selected marketplace catalog item, appears if there are credits in billing.
   ##
-  
+
   def show
     logger.debug '> Marketplaces: show.'
-    Balances.new.show(params) do  |modb|
-      unless modb.balance.credit.to_i > 0
-        respond_to do |format|
-          format.html { redirect_to billings_path }
-          format.js { render js: "window.location.href='" + billings_path + "'" }
+    if Ind.billings
+        Balances.new.show(params) do  |modb|
+            unless modb.balance.credit.to_i > 0
+               respond_to do |format|
+                    format.html { redirect_to billings_path }
+                    format.js { render js: "window.location.href='" + billings_path + "'" }
+                end
+           else
+              bill(params)
+            end
         end
-      else
-        @mkp = pressurize_version(Marketplaces.instance.show(params).mkp, params['version'])
-        @ssh_keys = Sshkeys.new.list(params).ssh_keys
-        @unbound_apps = unbound_apps(Assemblies.new.list(params.merge(flying_apps: 'true')).apps) if @mkp['cattype'] == Assemblies::SERVICE
-        respond_to do |format|
-          format.js do
-            respond_with(@mkp, @ssh_keys, @unbound_apps, layout: !request.xhr?)
-          end
-        end
-      end
+    else
+        bill(params)
     end
   end
+
+def bill(params)
+  @mkp = pressurize_version(Marketplaces.instance.show(params).mkp, params['version'])
+  @ssh_keys = Sshkeys.new.list(params).ssh_keys
+  @unbound_apps = unbound_apps(Assemblies.new.list(params.merge(flying_apps: 'true')).apps) if @mkp['cattype'] == Assemblies::SERVICE
+  respond_to do |format|
+    format.js do
+      respond_with(@mkp, @ssh_keys, @unbound_apps, layout: !request.xhr?)
+    end
+  end
+end
 
   ## super cool - omni creator for all.
   # performs ssh creation or using existing and creating an assembly at the end.
@@ -107,7 +115,7 @@ class MarketplacesController < ApplicationController
   ##
   def start_gogs
   end
-  
+
   def start_gitlab
   end
 
@@ -139,9 +147,9 @@ class MarketplacesController < ApplicationController
     end
     session[:gogs_repos] =  @repos_arr
   end
-  
+
   def store_gitlab
-    
+
     @gitlab_url = Ind.http_gitlab + Ind.gitlab_apiV
 
     Gitlab.endpoint = @gitlab_url
@@ -154,7 +162,7 @@ class MarketplacesController < ApplicationController
     end
     session[:gitlab_repos] = hash
   end
- 
+
   def publish_gitlab
     @repos = session[:gitlab_repos]
     respond_to do |format|
@@ -170,7 +178,7 @@ class MarketplacesController < ApplicationController
      yield if block_given? if !params[:bind_type].eql?('Unbound service')
 
   end
-  
+
  def find_id(params)
     @endpoint = Gitlab.endpoint = Ind.http_gitlab + Ind.gitlab_apiV
   client = Gitlab.client(endpoint: @endpoint, private_token: session[:gitlab_key])
@@ -181,7 +189,7 @@ class MarketplacesController < ApplicationController
   end
 end
 
-  def setup_scm(params)   
+  def setup_scm(params)
     case params[:scm_name]
     when Scm::GITHUB
       params[:scmtoken] =  session[:github]

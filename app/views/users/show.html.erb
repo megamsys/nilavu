@@ -23,6 +23,47 @@
           <!-- BEGIN SIDEBAR MENU -->
           <ul class="page-sidebar-menu">
             <li></li>
+
+
+	<!-- BEGIN NOTIFICATION DROPDOWN -->
+    <li class="dropdown" id="header_notification_bar">
+       <a href="#" class="dropdown-toggle btn btn-success btn-menu-top" data-toggle="dropdown" data-hover="dropdown"
+          data-close-others="true"><span class="caret"></span>new
+       
+       </a>
+       <ul class="dropdown-menu extended notification left-dd-top">
+          <li>
+             <ul class="dropdown-menu-list scroller">
+                <li>  
+                   <a href="#">
+                   <span class="label label-sm label-icon label-success"><i class="glyphicon glyphicon-user"></i></span>
+                   Torpedo
+                   </a>
+                </li>
+                <li>  
+                   <a href="#">
+                   <span class="label label-sm label-icon label-success"><i class="glyphicon glyphicon-cog"></i></span>
+                   Apps
+                   </a>
+                </li>
+                <li>  
+                   <a href="#">
+                   <span class="label label-sm label-icon label-danger"><i class="glyphicon glyphicon-off"></i></span>
+                   Services
+                   </a>
+                </li>
+                <li>  
+                   <a href="#">
+                   <span class="label label-sm label-icon label-danger"><i class="glyphicon glyphicon-off"></i></span>
+                   Go to marketplace
+                   </a>
+                </li>
+             </ul>
+          </li>
+       </ul>
+    </li>
+
+
             <li class= "start active">
               <%= link_to cockpits_path, :data => { :remote => true}, :target => "_self" do %>
                 <i class="icon-dashboard pull-left"></i>
@@ -66,11 +107,13 @@
               <% end %>
             </li>
             <li class= "start active">
+            <%  if Ind.billings %>
               <%= link_to billings_path, :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_billing').addClass('selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
                 <i class="icon-money pull-left"></i>
                 <span class="title pull-left"><%= t('billings_title') %></span>
                 <span class="hidden-xs" id="left_billing"></span>
-              <% end %>
+                <% end %>
+                <% end %>
             </li>
           </ul>
           <!-- END SIDEBAR MENU -->

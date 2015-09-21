@@ -100,7 +100,7 @@ GEM
     google-analytics-rails (0.0.6)
     hashie (3.4.2)
     highline (1.7.6)
-    httparty (0.13.5)
+    httparty (0.13.6)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.7.0)
@@ -309,6 +309,3 @@ DEPENDENCIES
   therubyracer (~> 0.12.2)
   turbolinks (~> 2.5.3)
   uglifier (~> 2.7.1)
-
-BUNDLED WITH
-   1.10.6
