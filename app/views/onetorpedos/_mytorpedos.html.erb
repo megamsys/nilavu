@@ -21,7 +21,7 @@
 			<div class="col-xs-12 col-sm-6 col-md-7">
 				<h3> <%= Assemblies::TORPEDO.capitalize %> <%= t('overviews.overview') %> </h3>
 			</div>
-			<%= render :partial => "users/topright_icons" %>
+			<%= render :partial => "users/topright_icons", :locals => {:title_name => Assemblies::TORPEDO.capitalize} %>
 		</div>
 	</div>
 	<div class="row">
