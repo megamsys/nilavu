@@ -25,23 +25,47 @@ module MarketplaceHelper
   #  1-Dew
   #  2-BYOC
   # strip the numeric and the dash(-)
+
+  #def trim_category(ck)
+  #  /[a-zA-Z ]+/.match(ck)
+  #end
+
+
   def trim_category(ck)
-    /[a-zA-Z ]+/.match(ck)
+    case ck
+    when '1'
+      'TORPEDO'
+    when '2'
+      'BYOC'
+    when '3'
+      'SERVICE'
+    when '4'
+      'MICROSERVICES'
+    when '5'
+      'ANALYTICS'
+    when '6'
+      'COLLABORATION'
+    when '7'
+      'Just do one thing in an unikernel.'
+    else
+      '! Missing category !'
+    end
+
   end
 
-  def category_description(cattype)
-    case cattype
-    when 'TORPEDO'
+  def category_description(ck)
+    case ck
+    when '1'
       'Get your own compute power'
-    when 'BYOC'
+    when '2'
       'Get started with a new app'
-    when 'SERVICE'
+    when '3'
       'Make your applications more hungry'
-    when 'MICROSERVICES'
+    when '4'
       'Enrich Megam with awesome addons'
-    when 'ANALYTICS'
+    when '5'
       'Actionable insights in minutes'
-    when 'COLLABORATION'
+    when '6'
       'Collaboration done in minutes'
     when '6-Unikernel'
       'Just do one thing in an unikernel.'
