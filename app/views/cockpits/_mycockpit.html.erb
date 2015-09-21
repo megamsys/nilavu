@@ -25,17 +25,6 @@
 			<%= render :partial => "users/topright_icons" %>
 		</div>
 	</div>
-	<div class="row">
-		<div class="mplace mplace-head">
-			<div class="col-xs-12 col-md-3 mplace-left">
-				<h4><%= t('titles.dashboard_title') %></h4>
-			</div>
-			<div class="col-xs-12 col-md-9 mplace-middle hidden-xs hidden-sm">
-				<span class="pull-right c_small"><%= t('cockpits.info_tab') %><i class="c_icon-rocket"></i><a href="http://docs.megam.io/v1.0/docs/megam_cloudmanagement_intro" target="_blank"><%= t('login.tour') %></a></span>
-			</div>
-		</div>
-	</div>
-
 	<div class="margin_30 pad_t25">
 		<%= render :partial => "cockpits/flyasm", :locals => {:cattype => Assemblies::TORPEDO.capitalize,    :assemblies_grouped => @assemblies_grouped} %>
 		<%= render :partial => "cockpits/flyasm", :locals => {:cattype => Assemblies::APP.capitalize,    :assemblies_grouped => @assemblies_grouped} %>
