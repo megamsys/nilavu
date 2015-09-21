@@ -18,10 +18,7 @@
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
 	<div class="row c_pading-b15 settings_top">
 		<div class="margin_15">
-			<div class="col-xs-9 col-sm-6 col-md-7">
-					<h3> <%= t('titles.service_overview') %>  </h3>
-			</div>
-			<%= render :partial => "users/topright_icons" %>
+			<%= render :partial => "users/topright_icons", :locals => {:title_name => t('titles.service_overview')} %>
 		</div>
 	</div>
 	<div class="row">
