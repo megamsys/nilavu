@@ -15,9 +15,9 @@
 
 -->
 <%= render 'layouts/header' %>
-<div class="container main-cover">
+<div class="container-fluid main-cover">
   <div class="row">
-    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 c_bg_white cover c_bg_white_override">
+   <div class="col-xs-12 col-sm-3 col-md-2 c_bg_white cover">
       <div class="row">
         <div class="page-sidebar navbar-collapse collapse">
           <!-- BEGIN SIDEBAR MENU -->
@@ -31,32 +31,32 @@
           data-close-others="true"><span class="caret"></span>new
        
        </a>
-       <ul class="dropdown-menu extended notification left-dd-top">
+       <ul class="dropdown-menu extended notification left-dd-top" id="new-drop-down">
           <li>
              <ul class="dropdown-menu-list scroller">
                 <li>  
-                   <a href="#">
-                   <span class="label label-sm label-icon label-success"><i class="glyphicon glyphicon-user"></i></span>
-                   Torpedo
-                   </a>
+              <%= link_to catalogs_path(:cattype => Assemblies::TORPEDO), :data => { :remote => true} do %>
+                <span class="label label-sm label-icon label-success"><i class="glyphicon glyphicon-user"></i></span>
+                Torpedo
+              <% end %>
                 </li>
                 <li>  
-                   <a href="#">
-                   <span class="label label-sm label-icon label-success"><i class="glyphicon glyphicon-cog"></i></span>
-                   Apps
-                   </a>
+              <%= link_to catalogs_path(:cattype => Assemblies::APP), :data => { :remote => true} do %>
+                <span class="label label-sm label-icon label-success"><i class="glyphicon glyphicon-cog"></i></span>
+                Apps
+              <% end %>
                 </li>
                 <li>  
-                   <a href="#">
-                   <span class="label label-sm label-icon label-danger"><i class="glyphicon glyphicon-off"></i></span>
-                   Services
-                   </a>
-                </li>
+               <%= link_to catalogs_path(:cattype => Assemblies::SERVICE), :data => { :remote => true} do %>
+                <span class="label label-sm label-icon label-danger"><i class="glyphicon glyphicon-off"></i></span>
+                Services
+              <% end %>
+               </li>
                 <li>  
-                   <a href="#">
-                   <span class="label label-sm label-icon label-danger"><i class="glyphicon glyphicon-off"></i></span>
-                   Go to marketplace
-                   </a>
+               <%= link_to marketplaces_path, :data => { :remote => true} do %>
+                <span class="label label-sm label-icon label-danger"><i class="glyphicon glyphicon-off"></i></span>
+                 Go to marketplace
+              <% end %>
                 </li>
              </ul>
           </li>
