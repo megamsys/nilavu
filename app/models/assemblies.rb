@@ -24,11 +24,13 @@ class Assemblies < BaseFascade
 
   TORPEDO             =  'TORPEDO'.freeze
   APP                 =  'APP'.freeze
+  BYOC                =  'BYOC'.freeze
   SERVICE             =  'SERVICE'.freeze
   ANALYTICS           =  'ANALYTICS'.freeze
   MICROSERVICES       =  'MICROSERVICES'.freeze
   CONTAINERS          =  'CONTAINERS'.freeze
-  CATTYPES            =  [APP, MICROSERVICES, TORPEDO, ANALYTICS, SERVICE]
+  COLLABORATION       =  'COLLABORATION'.freeze
+  CATTYPES            =  [APP, MICROSERVICES, TORPEDO, ANALYTICS, SERVICE, COLLABORATION, BYOC]
 
   START               =  'start'.freeze
   STOP                =  'stop'.freeze

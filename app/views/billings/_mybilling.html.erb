@@ -13,16 +13,11 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
+
 <% provide(:title, 'Billings') %>
-<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9 c_bg_white c_height_5">
-	<div class="row c_pading-b15 settings_top">
-		<div class="margin_15">
-			<div class="col-xs-9 col-sm-6 col-md-7">
-				<h3><%= t('titles.billing_title') %> </h3>
-			</div>
-			<%= render :partial => "users/topright_icons" %>
-		</div>
-	</div>
+<div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
+			<%= render :partial => "users/topright_icons", :locals => {:title_name => t('titles.billing_title')} %>
+
 
 	<div class="row">
 		<div class="margin_30 ">
@@ -40,14 +35,14 @@
 					<div class="form-group col-md-4 col-sm-6 ">
 						<label class="col-md-7 col-sm-12 col-xs-12 row" for="exampleInputName2"><%= t('billings.promo_code') %> </label>
 						<!--	<input type="text" placeholder="" id="exampleInputName2" class="form-control-card-details col-md-6 col-xs-12 col-sm-12"> -->
-						<%= text_field_tag 'code', nil, :required => true, :id => 'code', :class => 'form-control-card-details col-md-6 col-xs-12 col-sm-12', placeholder: "", :data => {:placement=>"right"} %>
+						<%= text_field_tag 'code', nil, :required => true, :id => 'code', :class => 'form-control-card-details col-md-6 col-xs-12 col-sm-12', placeholder: "", :data => {:placement=>"right" } %>
 
 					</div>
 
 					<div class="form-group col-md-2 col-sm-6 ">
 						<!-- <a href="#">APPLY</a> -->
 
-						<%= submit_tag t('billings.apply'), :class => "btn btn-success col-md-10 col-xs-10 a_override" %>
+						<%= submit_tag t('billings.apply'), :class => "btn btn-success col-md-10 col-xs-10 a_override", %>
 						<% end%>
 					</div>
 				</div>
