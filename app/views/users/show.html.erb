@@ -79,7 +79,7 @@
               <% end %>
             </li>
             <li class= "start active">
-              <%= link_to catalogs_path(:cattype => Assemblies::APP), :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_app').addClass('selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+              <%= link_to catalogs_path(:cattype => Assemblies::APP), :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
                 <i class="icon-credit-card pull-left"></i>
                 <span class="title pull-left"><%= t('cockpits.apps_tab') %></span>
                 <span class="hidden-xs" id='left_app'></span>
