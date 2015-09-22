@@ -1176,12 +1176,13 @@ background-repeat: no-repeat;
 	font-weight: bold;
 }
 .mplace-selected {
-	color: #8BB6DD;
+	color: #8BB6DD !important;
 }
 .mplace-icons {
 	color: #d5d7e3;
 }
-.mplace-icons:hover {
+.mplace-icons div span:hover, .mplace-icons div i:hover
+{
 	color: #8BB6DD;
 }
 .mplace-icons span {
