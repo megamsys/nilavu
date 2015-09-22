@@ -47,3 +47,7 @@
 //= require react
 //= require react_ujs
 //= require components
+<<<<<<< HEAD
+=======
+//= require_tree .
+>>>>>>> origin/0.9

@@ -4,7 +4,7 @@
 en:
   hello: "Hello world"
 
-  signup:    
+  signup:
     megam_disc: "It wont take morethan 1 minute, we promise"
     footer_text: "Launch your applications seamlessly with less than"
     cost: "$5"
@@ -65,7 +65,7 @@ en:
     info_tab: "Not sure what to do next?"
     your: " Your "
     create: " Create "
-    running: " running "	
+    running: " running "
     manage: " Manage your "
     torpedo: "torpedo"
     torpedo_tab: "Torpedo"
@@ -97,7 +97,7 @@ en:
     signout: "Sign Out"
     profile: "Profile"
 
-  ssh_keys:    
+  ssh_keys:
     activity: "Activity"
     import: "Import"
     action: " Actions "
@@ -106,14 +106,14 @@ en:
     public: "Public"
     pub: "Pub"
     create_title: "Create SSH Key Pair"
-    create_info: "Generate a SSH RSA 2048 key pair. Read" 
+    create_info: "Generate a SSH RSA 2048 key pair. Read"
     info_link: "here"
     info_end: "for more information."
     temp_name: "Enter a key pair name to save"
     create: "Create"
     import_title: "Import SSH Key Pair"
     import_info: "Import a SSH RSA 2048 key pair. Read"
-    private_key: "Private key"	
+    private_key: "Private key"
     public_key: "Public key"
     add_files: "Add files..."
     upload_key: "Upload private key"
@@ -169,7 +169,7 @@ en:
     dockers_ram_placeholder: "Enter RAM size in bytes (minimum :5000000)"
     cpu: "CPU"
     dockers_cpu_placeholder: "Enter number of CPU (Eg :1)"
- 
+
   overviews:
     available_ram: "Available RAM"
     mb: "MB"
@@ -214,12 +214,12 @@ en:
     back_dashboard: "Back to Dashboard"
     runtime: "Runtime"
 
-  settings: 
+  settings:
     start: "Start App"
     stop: "Stop App"
     restart: "Restart App"
     delete: "Delete App"
-  
+
   my_profile:
     tip: "Tip:- Change your Account info, Organization, API key here."
     account: "My Account"
@@ -240,7 +240,7 @@ en:
     no_organization: "No Orgs Found"
     users: "Users"
     domains: "Domains"
-    your_api_ley: "Your API key"
+    your_api_ley: "Api Keys"
 
   organization:
     name: "Name:"
@@ -277,7 +277,3 @@ en:
   cloud_details: "Cloud Details"
   key_pair: "SSH Key Pairs"
   you_want_to: "Are you sure you want to"
-  
-    
-
-

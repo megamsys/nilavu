@@ -1,11 +1,12 @@
 	/****************
  	Bootstrap changes
  	*****************/
- 	.navbar-inner .container {
+ /*	.container,
+	.navbar-inner .container {
 		max-width: none !important;
 		width: 1170px !important;
 	}
-
+*/
 	/* Always float the navbar header */
 	.navbar-header {
 	  float: left;
@@ -75,12 +76,10 @@
  	Page sidebar
  	***/
 
-
-  	 .ie8 .page-sidebar {
+ 	.page-sidebar {
 		position: absolute;
  		width: 225px;
   	}
-
 
   	.page-sidebar.navbar-collapse {
   		max-height: none !important;

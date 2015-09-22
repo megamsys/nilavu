@@ -24,11 +24,13 @@ class Assemblies < BaseFascade
 
   TORPEDO             =  'TORPEDO'.freeze
   APP                 =  'APP'.freeze
+  BYOC                =  'BYOC'.freeze
   SERVICE             =  'SERVICE'.freeze
   ANALYTICS           =  'ANALYTICS'.freeze
   MICROSERVICES       =  'MICROSERVICES'.freeze
   CONTAINERS          =  'CONTAINERS'.freeze
-  CATTYPES            =  [APP, MICROSERVICES, TORPEDO, ANALYTICS, SERVICE]
+  COLLABORATION       =  'COLLABORATION'.freeze
+  CATTYPES            =  [APP, MICROSERVICES, TORPEDO, ANALYTICS, SERVICE, COLLABORATION, BYOC]
 
   START               =  'start'.freeze
   STOP                =  'stop'.freeze
@@ -71,7 +73,7 @@ class Assemblies < BaseFascade
 
 
  def create(api_params, &block)
-  
+
     api_request(api_params.merge(mk(api_params)), ASSEMBLIES, CREATE)
     yield self if block_given?
     return self
@@ -82,7 +84,8 @@ class Assemblies < BaseFascade
   def mk(api_params)
     { :name=>"",
       :assemblies=> Assembly.new.build(api_params),
-      :inputs=>[]
+      :inputs=>[],
+      :org_id=> api_params[:org_id] 
     }
   end
 
@@ -101,7 +104,7 @@ class Assemblies < BaseFascade
           end
         end
         puts "=========================================================="
-        puts a1.inspect 
+        puts a1.inspect
         puts "=========================================================="
         a1.reduce { |acc, h|  acc.merge(h||{})}
     end

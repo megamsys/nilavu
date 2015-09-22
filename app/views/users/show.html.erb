@@ -15,14 +15,55 @@
 
 -->
 <%= render 'layouts/header' %>
-<div class="container main-cover">
+<div class="container-fluid main-cover">
   <div class="row">
-    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 c_bg_white cover c_bg_white_override">
+   <div class="col-xs-12 col-sm-3 col-md-2 c_bg_white cover">
       <div class="row">
         <div class="page-sidebar navbar-collapse collapse">
           <!-- BEGIN SIDEBAR MENU -->
           <ul class="page-sidebar-menu">
             <li></li>
+
+
+	<!-- BEGIN NOTIFICATION DROPDOWN -->
+    <li class="dropdown" id="header_notification_bar">
+       <a href="#" class="dropdown-toggle btn btn-success btn-menu-top" data-toggle="dropdown" data-hover="dropdown"
+          data-close-others="true"><span class="caret"></span>new
+       
+       </a>
+       <ul class="dropdown-menu extended notification left-dd-top" id="new-drop-down">
+          <li>
+             <ul class="dropdown-menu-list scroller">
+                <li>  
+              <%= link_to catalogs_path(:cattype => Assemblies::TORPEDO), :data => { :remote => true} do %>
+                <span class="label label-sm label-icon label-success"><i class="glyphicon glyphicon-user"></i></span>
+                Torpedo
+              <% end %>
+                </li>
+                <li>  
+              <%= link_to catalogs_path(:cattype => Assemblies::APP), :data => { :remote => true} do %>
+                <span class="label label-sm label-icon label-success"><i class="glyphicon glyphicon-cog"></i></span>
+                Apps
+              <% end %>
+                </li>
+                <li>  
+               <%= link_to catalogs_path(:cattype => Assemblies::SERVICE), :data => { :remote => true} do %>
+                <span class="label label-sm label-icon label-danger"><i class="glyphicon glyphicon-off"></i></span>
+                Services
+              <% end %>
+               </li>
+                <li>  
+               <%= link_to marketplaces_path, :data => { :remote => true} do %>
+                <span class="label label-sm label-icon label-danger"><i class="glyphicon glyphicon-off"></i></span>
+                 Go to marketplace
+              <% end %>
+                </li>
+             </ul>
+          </li>
+       </ul>
+    </li>
+
+
             <li class= "start active">
               <%= link_to cockpits_path, :data => { :remote => true}, :target => "_self" do %>
                 <i class="icon-dashboard pull-left"></i>
@@ -38,7 +79,7 @@
               <% end %>
             </li>
             <li class= "start active">
-              <%= link_to catalogs_path(:cattype => Assemblies::APP), :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_app').addClass('selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+              <%= link_to catalogs_path(:cattype => Assemblies::APP), :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
                 <i class="icon-credit-card pull-left"></i>
                 <span class="title pull-left"><%= t('cockpits.apps_tab') %></span>
                 <span class="hidden-xs" id='left_app'></span>
@@ -69,7 +110,7 @@
             <%  if Ind.billings %>
               <%= link_to billings_path, :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_billing').addClass('selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
                 <i class="icon-money pull-left"></i>
-                <span class="title pull-left"><%= t('billings_title') %></span>
+                <span class="title pull-left"><%= t('titles.billing_title') %></span>
                 <span class="hidden-xs" id="left_billing"></span>
                 <% end %>
                 <% end %>

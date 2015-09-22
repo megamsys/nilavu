@@ -13,251 +13,252 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9 col-lg-9 col-xl-9 c_bg_white c_height_5">
-  <div class="row c_pading-b15 settings_top">
-    <div class="margin_15">
-      <div class="col-xs-9 col-sm-6 col-md-7">
-        <h3> <%= t('titles.myprofile_title') %></h3>
-      </div>
-      <%= render :partial => "users/topright_icons" %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-      <div class="alert alert-info">
-        <strong></strong> <%= t('my_profile.tip') %>
+<div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
+	<%= render :partial => "users/topright_icons", :locals => {:title_name => t('titles.myprofile_title')} %>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+			<div class="alert alert-info">
+				<strong></strong> <%= t('my_profile.tip') %>
 			</div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="tabbable-custom nav-justified">
-      <ul class="nav nav-tabs nav-justified">
-        <li class="active">
-          <a href="#profile_1" data-toggle="tab"> <%= t('my_profile.account') %> </a>
-        </li>
-        <li>
-          <a href="#profile_2" data-toggle="tab"> <%= t('my_profile.my_organization') %> </a>
-        </li>
-        <li >
-          <a href="#profile_3" data-toggle="tab"> <%= t('my_profile.api_key') %> </a>
-        </li>
-      </ul>
-      <div class="tab-content c_tab-content">
-        <div class="tab-pane active" id="profile_1">
-          <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-              <h4 class="bottom_border_grey"><%= t('my_profile.basic_info') %> <span class="pull-right" > <%= @account.email %></span></h4>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
-              <%= form_tag user_path, remote: true, :method => :put, :class => "form-horizontal", :id => "megamform"  do %>
-                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>"/>
-                <input type="hidden" name="myprofile_type" value="<%= Accounts::UPD_PROFILE %>"/>
-                <div class="form-group">
-                  <label class="col-md-3 control-label label-profile"><%= t('my_profile.profile_name') %></label>
-                  <div class="col-md-6 input-group margin-top-10">
-                    <%= text_field_tag 'first_name', nil, :id => 'first_name', :class => 'form-control',:readonly => true, placeholder: t('my_profile.name_placeholder') , :value => @acc.first_name %>
-                    <span class="input-group-addon " ><a id="change_profilename" class="btn"><%= t('my_profile.change') %></a></span>
-                  </div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="tabbable-custom nav-justified">
+			<ul class="nav nav-tabs nav-justified">
+				<li class="active">
+					<a href="#profile_1" data-toggle="tab"> <%= t('my_profile.account') %> </a>
+				</li>
+				<li>
+					<a href="#profile_2" data-toggle="tab"> <%= t('my_profile.my_organization') %> </a>
+				</li>
+				<li >
+					<a href="#profile_3" data-toggle="tab"> <%= t('my_profile.api_key') %> </a>
+				</li>
+			</ul>
+			<div class="tab-content c_tab-content">
+				<div class="tab-pane active" id="profile_1">
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<h4 class="bottom_border_grey"><%= t('my_profile.basic_info') %> <span class="pull-right" > <%= @account.email %></span></h4>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
+							<%= form_tag user_path, remote: true, :method => :put, :class => "form-horizontal", :id => "megamform"  do %>
+							<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>"/>
+							<input type="hidden" name="myprofile_type" value="<%= Accounts::UPD_PROFILE %>"/>
+							<div class="form-group">
+								<label class="col-md-3 control-label label-profile"><%= t('my_profile.profile_name') %></label>
+								<div class="col-md-6 input-group margin-top-10">
+									<%= text_field_tag 'first_name', nil, :id => 'first_name', :class => 'form-control',:readonly => true, placeholder: t('my_profile.name_placeholder') , :value => @acc.first_name %>
+									<span class="input-group-addon " ><a id="change_profilename" class="btn"><%= t('my_profile.change') %></a></span>
+								</div>
 
-                </div>
-                <div class="form-group">
-                  <label class="col-md-3 control-label label-profile"><%= t('my_profile.phone') %></label>
-                  <div class="col-md-6 input-group margin-top-10">
-                    <%= text_field_tag 'phone', nil, :class => 'form-control',:readonly => true, :id => 'phonenumber', placeholder: t('my_profile.number_placeholder'), :value => @acc.phone %>
-                    <span class="input-group-addon" ><a id="change_phonenumber" class="btn"><%= t('my_profile.change') %></a></span>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="col-md-6 col-md-offset-3 input-group margin-top-10 ">
-                    <%= submit_tag t('my_profile.update'), :class => "btn btn-success col-md-5 col-xs-12" %>
-                  </div>
-                </div>
-              <% end %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-              <h4 class="bottom_border_grey"><%= t('my_profile.change_password') %></h4>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
-              <%= form_tag user_path, remote: true, :method => :put, :class => "form-horizontal", :id => "megamform"  do %>
-                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>"></input>
-                <input type="hidden" name="myprofile_type" value="<%= Accounts::UPD_PASSWORD %>"></input>
-                <div class="form-group">
-                  <label class="col-md-3 control-label label-profile"><%= t('my_profile.current') %></label>
-                  <div class="col-md-6 input-group margin-top-10 pad_rt-5">
-                    <%= password_field_tag 'current_password', nil, :class=> 'form-control', placeholder: t('my_profile.current_password_placeholder') %>
-                 <span class="input-group-addon" ><a id="change_password" class="btn"><%= t('my_profile.change') %></a></span>
+							</div>
+							<div class="form-group">
+								<label class="col-md-3 control-label label-profile"><%= t('my_profile.phone') %></label>
+								<div class="col-md-6 input-group margin-top-10">
+									<%= text_field_tag 'phone', nil, :class => 'form-control',:readonly => true, :id => 'phonenumber', placeholder: t('my_profile.number_placeholder'), :value => @acc.phone %>
+									<span class="input-group-addon" ><a id="change_phonenumber" class="btn"><%= t('my_profile.change') %></a></span>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-6 col-md-offset-3 input-group margin-top-10 ">
+									<%= submit_tag t('my_profile.update'), :class => "btn btn-success col-md-5 col-xs-12" %>
+								</div>
+							</div>
+							<% end %>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+							<h4 class="bottom_border_grey"><%= t('my_profile.change_password') %></h4>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save">
+							<%= form_tag user_path, remote: true, :method => :put, :class => "form-horizontal", :id => "megamform"  do %>
+							<input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
+							</input>
+							<input type="hidden" name="myprofile_type" value="<%= Accounts::UPD_PASSWORD %>">
+							</input>
+							<div class="form-group">
+								<label class="col-md-3 control-label label-profile"><%= t('my_profile.current') %></label>
+								<div class="col-md-6 input-group margin-top-10 pad_rt-5">
+									<%= password_field_tag 'current_password', nil, :class=> 'form-control', placeholder: "Enter Current password" %>
+									<span class="input-group-addon" ><a id="change_password" class="btn"><%= t('my_profile.change') %></a></span>
 
-                  </div>
+								</div>
 
-                </div>
-                <div class="form-group">
-                  <label class="col-md-3 control-label label-profile"><%= t('general.new') %></label>
-                  <div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-5">
-                    <%= password_field_tag 'password', nil, :class=> 'form-control', :id => 'newpassword', :readonly => true, placeholder: t('signup.new_password_placeholder') %>
-                 <span class="input-group-addon" ><a id="change_password" class="btn"></a></span>
-                 <span class="input-group-addon pad_left-5" ><a id="change_password" class="btn"></a></span>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-3 control-label label-profile"><%= t('general.new') %></label>
+								<div class="col-md-6 input-group margin-top-10">
+								<%= password_field_tag 'password', nil, :class=> 'form-control', :id => 'newpassword', :readonly => true, placeholder: "Type New password" %>
+									<span class="input-group-addon" ><a id="change_password" class="btn"><% t('my_profile.change') %></a></span>
+
+								</div>
+
+							</div>
 
 
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-md-3 control-label label-profile"><%= t('my_profile.retype') %></label>
-                  <div class="col-xs-12 col-md-6 input-group margin-top-10 pad_rt-5">
-                    <%= password_field_tag 'password_confirmation', nil, :class=> 'form-control', :id => 'newpassword_confirmation', :readonly => true, placeholder: t('my_profile.confirm_newpassword_placeholder') %>
-                   <span class="input-group-addon" ><a id="change_password" class="btn"></a></span>
-                 <span class="input-group-addon pad_left-5" ><a id="change_password" class="btn"></a></span>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <div class="col-md-6 col-md-offset-3 input-group margin-top-10">
-                    <%= submit_tag t('my_profile.update'), :id => "save_password", :class => "btn btn-success col-md-5 col-xs-12", :id => "la-button" %>
-                  </div>
-                </div>
+							<div class="form-group">
+								<label class="col-md-3 control-label label-profile"><%= t('my_profile.retype') %></label>
+								<div class="col-md-6 input-group margin-top-10 pad_rt-5">
+									<%= password_field_tag 'password_confirmation', nil, :class=> 'form-control', :id => 'newpassword_confirmation', :readonly => true, placeholder: "Retype New password" %>
+									<span class="input-group-addon" ><a id="change_password" class="btn"></a></span>
 
-              <% end %>
-            </div>
-          </div>
-        </div>
-        <!-- PROFILE-1 tab ENDS HERE -->
-        <div class="tab-pane" id="profile_2">
-          <div class="row">
-            <div class="col-xs-12 bottom_border_grey">
-              <div class="row">
-                <div class="col-xs-7 col-sm-6">
-                  <h4 class=""><%= t('my_profile.organization_info') %></h4>
-                </div>
-                <% if @orgs.class != Megam::Error %>
-                  <% if @orgs.length > 0 %>
-                    <% @orgs.each do |one_org| %>
-                      <div class="dropdown">
-                        <button class="pull-right btn btn-default dropdown-toggle"  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                          <%= one_org[:name] %>
-                          <span class="caret"></span>
-                        </button>
-                          <%= select_tag(:orglist, options_for_select(@orgs.map{|org| org[:name]}), :class => "dropdown-menu pull-right btn btn-default dropdown-toggle") %>
-                        </ul>
-                      </div>
-                    <% end %>
-                  <% else %>
-                    <div class="dropdown">
-                      <button class="pull-right btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                        <%= t('my_profile.no_organization') %>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-md-6 col-md-offset-3 input-group margin-top-10">
+									<%= submit_tag t('my_profile.update'), :id => "save_password", :class => "btn btn-success col-md-5 col-xs-12", :id => "la-button" %>
+								</div>
+							</div>
+
+							<% end %>
+						</div>
+					</div>
+				</div>
+				<!-- PROFILE-1 tab ENDS HERE -->
+				<div class="tab-pane" id="profile_2">
+					<div class="row">
+						<div class="col-xs-12 bottom_border_grey">
+							<div class="row">
+								<div class="col-xs-7 col-sm-6">
+									<h4 class=""><%= t('my_profile.organization_info') %></h4>
+								</div>
+								<% if @orgs.class != Megam::Error %>
+								<% if @orgs.length > 0 %>
+								<% @orgs.each do |one_org| %>
+								<div class="dropdown">
+									<button class="pull-right btn btn-default dropdown-toggle"  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+										<%= one_org[:name] %>
 										<span class="caret"></span>
-                      </button>
-                    </div>
-                  <% end %>
-                <% else %>
-                  <div class="dropdown">
-                    <button class="pull-right btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                      <%= t('my_profile.no_organization') %>
+									</button>
+									<%= select_tag(:orglist, options_for_select(@orgs.map{|org| org[:name]}), :class => "dropdown-menu pull-right btn btn-default dropdown-toggle") %>
+									</ul>
+								</div>
+								<% end %>
+								<% else %>
+								<div class="dropdown">
+									<button class="pull-right btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+										<%= t('my_profile.no_organization') %>
 										<span class="caret"></span>
-                    </button>
-                  </div>
-                <% end %>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
-          </div>
-          <div class="row">
-            <div class="col-xs-12 margintb_15">
-              <ul  class="nav nav-pills c_nav_pills">
-                <li class="active">
-                  <a href="#tab_2_1" data-toggle="tab"><%= t('my_profile.users') %> <span style="margin-left:15px;">|</span></a>
-                </li>
-                <li class="">
-                  <a href="#tab_2_2" data-toggle="tab"><%= t('my_profile.domains') %></a>
-                </li>
-              </ul>
-              <div  class="tab-content">
-                <div class="tab-pane fade active in" id="tab_2_1">
-                  <table class="table tb_action_list">
-                    <thead>
-                      <tr>
-                        <th><%= t('my_profile.users') %></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td><%= @account.email %></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="tab-pane fade" id="tab_2_2">
-                  <table class="table tb_action_list">
-                    <tbody>
-                      <tr>
-                        <td><a href=""><%= t('marketplace.megambox') %></a></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="tab-pane" id="profile_3">
-          <div class="row">
-            <div class="col-xs-12 bottom_border_grey">
-              <div class="row">
-                <div class="col-xs-10 col-sm-9">
-                  <h4 class=""><%= t('my_profile.your_api_key') %></h4>
-                </div>
-                <%= form_tag(user_path, :method => "put", :remote => true) do %>
-                <%= puts Accounts::UPD_API_KEY%>
-                  <input type="hidden" name="myprofile_type" value="<%= Accounts::UPD_API_KEY %>">
-                  <%= submit_tag t('my_profile.update'), :class => "pull-right btn btn-success col-md-2 col-xs-0" %>
-                <% end %>
-              </div>
-            </div>
-          </div>
-          <%= form_tag user_path, :remote => true  do %>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-              <table class="table tb_action_list">
-                <thead>
-                  <tr>
-                    <th><%= t('name') %></th>
-                    <th><%= t('ssh_keys.created_at') %></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="set_title" > <%= text_field_tag 'api_key', nil, :id => 'api_key_field', :disabled => 'disabled', :class=> 'form-control required', :value => @acc.api_key %></td>
-                    <td > <%= text_field_tag 'created_at', "#{@account.created_at}", :readonly => true, :class=> 'form-control', :value => @acc.created_at %></td>
-                  </tr>
-                </tbody>
-              </table>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+									</button>
+								</div>
+								<% end %>
+								<% else %>
+								<div class="dropdown">
+									<button class="pull-right btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+										<%= t('my_profile.no_organization') %>
+										<span class="caret"></span>
+									</button>
+								</div>
+								<% end %>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12 margintb_15">
+							<ul  class="nav nav-pills c_nav_pills">
+								<li class="active">
+									<a href="#tab_2_1" data-toggle="tab"><%= t('my_profile.users') %> <span style="margin-left:15px;">|</span></a>
+								</li>
+								<li class="">
+									<a href="#tab_2_2" data-toggle="tab"><%= t('my_profile.domains') %></a>
+								</li>
+							</ul>
+							<div  class="tab-content">
+								<div class="tab-pane fade active in" id="tab_2_1">
+									<table class="table tb_action_list">
+										<thead>
+											<tr>
+												<th>Username </th>
+												<th>Email</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td><%= @account.first_name %></td>
+												<td><%= @account.email %></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="tab-pane fade" id="tab_2_2">
+									<table class="table tb_action_list">
+										<tbody>
+											<tr>
+												<td><a href=""><%= t('marketplace.megambox') %></a></td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane" id="profile_3">
+					<div class="row">
+						<div class="col-xs-12 bottom_border_grey">
+							<div class="row">
+								<div class="col-xs-10 col-sm-9">
+									<h4 class=""><%= t('my_profile.your_api_key') %></h4>
+								</div>
+								<%= form_tag(user_path, :method => "put", :remote => true) do %>
+								<%= puts Accounts::UPD_API_KEY%>
+								<input type="hidden" name="myprofile_type" value="<%= Accounts::UPD_API_KEY %>">
+								<%= submit_tag t('my_profile.update'), :class => "pull-right btn btn-success col-md-2 col-xs-0" %>
+								<% end %>
+							</div>
+						</div>
+					</div>
+					<%= form_tag user_path, :remote => true  do %>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+						<table class="table tb_action_list">
+							<thead>
+								<tr>
+									<th><%= t('keys') %></th>
+									<th><%= t('ssh_keys.created_at') %></th>
+									<th><%= t('actions') %></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="set_title" > <%= @acc.api_key %></td>
+									<td > <%= @acc.created_at %></td>
+									<td> <a data-toggle="modal" href="#app_delete" href=""><i class="icon-trash"></i>Delete</a></td>
+								</tr>
+							</tbody>
+						</table>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <div id="profile_postfinish_popup" class="modal fade" tabindex="-1" role="basic" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content c_modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-          ×
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					×
 				</button>
-        <h4><%= t('header.profile') %></h3>
-      </div>
-      <div class="modal-body text-center">
-        <div class="alert alert-success" style="display:none" id = "profile_success">
-          <div id="success"></div>
-        </div>
-        <div class="alert alert-danger" style="display:none" id = "profile_error">
-          <div id="error"></div>
-        </div>
-      </div>
-      <div class="modal-footer c_modal-footer">
-        <%= link_to "Ok", edit_user_path(1), :class => "btn btn-success", :target => "_self" %>
-      </div>
-    </div>
-  </div>
+				<h4><%= t('header.profile') %></h3>
+			</div>
+			<div class="modal-body text-center">
+				<div class="alert alert-success" style="display:none" id = "profile_success">
+					<div id="success"></div>
+				</div>
+				<div class="alert alert-danger" style="display:none" id = "profile_error">
+					<div id="error"></div>
+				</div>
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<%= link_to "Ok", edit_user_path(1), :class => "btn btn-success", :target => "_self" %>
+			</div>
+		</div>
+	</div>
 </div>
