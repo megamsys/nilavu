@@ -258,12 +258,12 @@ en:
     help: "Help"
     used: "Used"
     you_want_to: "Are you sure you want to"
-    confirm: "Confirm"
     message: "Message"
     tooltip_step2_content: "Click to see all our apps and services !!"
 
   ok: "OK"
   cancel: "Cancel"
+  confirm: "Confirm"
   name: "Name"
   flunked: "We flunked. "
   error: "Error"
