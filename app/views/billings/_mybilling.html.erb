@@ -74,30 +74,47 @@
 					<h2><i class="fa fa-history"></i>  <%= t('billings.biling_history') %></h2>
 				</div>
 				<div class="bottom-divider  settings_top"></div>
-				<div class="col-md-12 row">
-					<div class="table-responsive" id="bill_history">
-						<table class="table">
-							<thead>
-								<tr>
-									<th><%= t('billings.application') %></th>
-									<th><%= t('billings.amount') %></th>
-									<th><%= t('billings.currency') %></th>
-									<th><%= t('billings.timestamp') %></th>
-								</tr>
-							</thead>
-							<tbody>
-								<% @billingHistories.bhistories.each do |history| %>
-								<tr>
-									<td><%= history.assembly_id %></td>
-									<td><%= history.billing_amount %></td>
-									<td><%= history.currency_type %></td>
-									<td><%= history.created_at %></td>
-								</tr>
-								<% end %>
-							</tbody>
-						</table>
-					</div>
-				</div>
+				<!--<div class="col-md-12 row"> -->
+					<!--<div class="table-responsive" id="bill_history"> -->
+						<!--<table class="table"> -->
+							<!--<thead>-->
+								<!--<tr>-->
+									<!--<th><%= t('billings.date') %></th>-->
+									<!--<th><%= t('billings.description') %></th>-->
+									<!--<th><%= t('billings.amount') %></th>-->
+									<!--<th><%= t('billings.invoice') %></th>-->
+								<!--</tr>-->
+							<!--</thead>-->
+							<!--<tbody>-->
+								<!--<% @billingHistories.bhistories.each do |history| %>-->
+								<!--<tr>-->
+									<!--<td><%= history.assembly_id %></td>-->
+									<!--<td><%= history.billing_amount %></td>-->
+									<!--<td><%= history.currency_type %></td>-->
+									<!--<td><%= history.created_at %></td>-->
+								<!--</tr>-->
+								<!--<% end %>--> 
+<!--invoice = Payday::Invoice.new(:invoice_number => 12)-->
+<!--invoice.line_items << Payday::LineItem.new(:date => 12-july-15, :description => "july month invoice" , :amount => $20 )-->
+<!--invoice.line_items << Payday::LineItem.new(:date => 12-aug-15, :description => "August month invoice" , :amount => $25 )-->
+<!--invoice.line_items << Payday::LineItem.new(:date => 12-sep-15, :description => "september month invoice" , :amount => $30 )-->
+<!--invoice.render_pdf_to_file("/path/to_file.pdf")-->
+							<!--</tbody>-->
+						<!--</table>-->
+					<!--</div>--> 
+				<!--</div> -->
+		 <div class="row">
+			<div class="mplace-icons">
+			<ul>
+				<li class="two">
+					<%= link_to invoice_path , :data => {:remote => true}, :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+					<i class="fa fa-life-saver"></i>
+					<p class="pull-right">Invoices</p>
+                               		<% end %>
+                                </li>
+			</ul>
+			</div> 
+		</div>
 			</div>
 		</div>
 	</div>

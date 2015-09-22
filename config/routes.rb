@@ -56,6 +56,8 @@ Nilavu::Application.routes.draw do
 
   match '/billings_promo', to: 'billings#promo', via: [:get, :post]
 
+  match '/invoice', to:'billings#invoice', via: [:get, :post] 
+
   match '/storages', to: 'storages#index', via: [:get, :post]
 
   #=====github

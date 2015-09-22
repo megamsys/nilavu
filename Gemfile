@@ -19,6 +19,11 @@ gem 'nprogress-rails' #spinner youtube like
 # gem 'reactjs-rails', '~> 0.4.1'
 gem 'react-rails', "~> 1.3.0"
 
+# To generate invoice
+#  gem "payday"
+gem 'pdfkit'
+gem 'wkhtmltopdf-binary'
+
 # security and oauth
 gem 'bcrypt', "~> 3.1.10"
 

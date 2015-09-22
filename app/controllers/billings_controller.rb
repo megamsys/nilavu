@@ -83,4 +83,20 @@ class BillingsController < ApplicationController
     return credit
   end
 
+  def invoice
+ ## PDFKit.new takes the HTML and any options for wkhtmltopdf
+   pdfkit = PDFKit.new('<h1>Oh Hai</h1>')
+   kit = PDFKit.new('html', :page_size => 'Letter')
+ 
+## Get an inline PDF
+   pdf = kit.to_pdf
+
+## Save the PDF to a file
+   file = kit.to_file('/home/logesh/code/megam/workspace/nilavu/pdf1')
+
+## PDFKit.new can optionally accept a URL or a File.
+   kit = PDFKit.new('http://google.com')
+   kit = PDFKit.new(File.new('/home/logesh/code/megam/workspace/nilavu/html'))
+  end
+
 end
