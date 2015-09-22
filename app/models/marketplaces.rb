@@ -51,7 +51,8 @@ class Marketplaces < BaseFascade
     unless !@mkp_grouped.empty? #a patch to load mkp_grouped from cache, as this object is singleton. Maybe memcache can help us.
       raw = api_request(api_params, MARKETPLACES, LIST)
       mkp_collection =  raw[:body] unless raw == nil
-
+       puts "-----------------------------------------------"
+       puts mkp_collection
       @mkp_grouped = Hash[mkp_collection.group_by{ |tmp| tmp.order }.map{|k,v| [k,v.map{|h|h}]}].sort
       Rails.logger.debug "\033[36m>-- MKP'S: START\33[0m"
       Rails.logger.debug "\033[1m#{@mkp_grouped.to_yaml}\33[22m"
