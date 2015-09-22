@@ -21,12 +21,10 @@ attr_reader :amount
   end
 
   def show(api_params, &block)
-    puts api_params
     promo = api_request(api_params, PROMOS, SHOW)
-    puts promo
     @amount = promo[:body].amount
     yield self if block_given?
     return self
   end
-  
+
 end
