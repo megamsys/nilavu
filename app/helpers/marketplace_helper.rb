@@ -74,6 +74,30 @@ module MarketplaceHelper
     end
   end
 
+  #for the Assenbly type and enabled status
+
+  def set_repotype(cattype)
+    case cattype
+    when 'BYOC'
+      'git'
+    else
+      'image'
+    end
+  end
+
+  def enable_ci(cattype, radio_app_scm)
+    case cattype
+    when 'BYOC'
+      case radio_app_scm
+      when 'byoc_scm'
+        'true'
+      else
+        'false'
+      end
+    else
+      'false'
+    end
+  end
   # from a bunch of plans, we match the plan for a version
   # eg: debian jessie 7, 8
   def match_plan_for(mkp, version)

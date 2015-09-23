@@ -40,8 +40,8 @@
 					</div>
 				</div>
 			</div>
-			<% if mkp["cattype"].upcase != Assemblies::MICROSERVICES %>
-		        <%= render template="marketplaces/show_template" %>
+			<% if mkp["name"] != Assemblies::DOCKERCONTAINER %>
+		  <%= render template="marketplaces/show_template" %>
 			<%= render template="marketplaces/show_ssh", :locals => {:ssh_keys => @ssh_keys} %>
 			<%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
 			<%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::ONE %>
@@ -67,6 +67,7 @@
 						<%= text_field_tag 'source', nil, placeholder: t('marketplace.image_name_placeholder'), :class =>"form-control", :required => true %>
 					</div>
 				</div>
+						<%= hidden_field_tag 'scm_name', nil, placeholder: 'Docker GitHub', :class =>"form-control", :value => Scm::DOCKERHUB %>
 				<div class="col-xs-6">
 					<div class="form-group">
 						<%= submit_tag "Create #{cattype.downcase}", :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Please wait..."} %>
