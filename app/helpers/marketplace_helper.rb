@@ -74,6 +74,25 @@ module MarketplaceHelper
     end
   end
 
+  #for the Assenbly type and enabled status
+
+  def set_cattype(cattype)
+    case cattype
+    when 'BYOC'
+      'git'
+    else
+      'image'
+    end
+  end
+
+  def set_enabled(cattype)
+    case cattype
+    when 'BYOC'
+      'true'
+    else
+      'false'
+    end
+  end
   # from a bunch of plans, we match the plan for a version
   # eg: debian jessie 7, 8
   def match_plan_for(mkp, version)

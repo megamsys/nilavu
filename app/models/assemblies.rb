@@ -40,6 +40,12 @@ class Assemblies < BaseFascade
   TERMINATED          =  'Terminated'.freeze
   LAUNCHING           =  'LAUNCHING'.freeze
 
+  TORPEDOTYPE         =  'image'.freeze
+  BYOCTYPE            =  'git'.freeze
+  ENABLEDTRUE         =  'true'.freeze
+  ENABLEDFALSE        =  'false'.freeze
+
+
 
   def initialize()
     @assemblies_grouped = {}
