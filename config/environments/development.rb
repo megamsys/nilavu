@@ -44,5 +44,6 @@ Nilavu::Application.configure do
   # to ignore the javascript files loaded in public assets, this results in running post twice in JQuery
   config.serve_static_files = false
 
+  config.react.variant = :development
 
 end
