@@ -7,7 +7,8 @@ require "rails/test_unit/railtie"
 require "sprockets/railtie"
 require 'yaml'
 require 'active_record'
-require 'pdfkit'
+require "prawn"
+# require 'pdfkit'
 
 
 #COMMON YML
@@ -76,14 +77,16 @@ module Nilavu
     config.i18n.available_locales = :en
 
    # to generate pdf invoice
-   config.middleware.use PDFKit::Middleware, :print_media_type => true
-   # Payday::Config.default.invoice_logo = "/home/logesh/code/megam/workspace/nilavu/app/assets/images/megam-logo1.png"
-   # Payday::Config.default.company_name = "Megam Sys"
-   # Payday::Config.default.company_details = "Plot No.53, Door no.2/1075,\n2nd cross,Radha nagar,\nPerumbakkam,chennai\n1-800-618-6813       	\nconsole.megam.io"
+   ##config.middleware.use "PDFKit::Middleware"
+   ## config.middleware.use PDFKit::Middleware, :print_media_type => true
+   ## Payday::Config.default.invoice_logo = "/home/logesh/code/megam/workspace/nilavu/app/assets/images/megam-logo1.png"
+   ## Payday::Config.default.company_name = "Megam Sys"
+   ## Payday::Config.default.company_details = "Plot No.53, Door no.2/1075,\n2nd cross,Radha nagar,\nPerumbakkam,chennai\n1-800-618-6813       	\nconsole.megam.io"
   
   # With conditions to routes to be generated in pdf
   # conditions can be strings (either one or an array)
-  config.middleware.use PDFKit::Middleware, {}, :except => ['/secret']
+  ## config.middleware.use PDFKit::Middleware, {}, :only => ['/invoice', '/public']
+
 
     # To use bables transformers and customs plugins, and pass options
     #config.react.jsx_transform_options = {

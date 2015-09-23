@@ -10,22 +10,23 @@ gem "responders", "~> 2.1.0"
 gem 'rails-i18n', '~> 4.0.4' # For 4.0.x
 
 #for reactjs
-gem 'react-rails', '~> 1.0'
+#gem 'react-rails', '~> 1.0'
 
 #jquery & ui
+
 gem 'jquery-rails', "~> 4.0.5"
 gem 'turbolinks', "~> 2.5.3"
 gem 'jquery-turbolinks',"~> 2.1.0"
 gem 'remotipart', "~> 1.2.1" #ajax sfile uploads
 gem 'socket.io-rails', "~> 1.3.6" # streaming
 gem 'nprogress-rails' #spinner youtube like
-# gem 'reactjs-rails', '~> 0.4.1'
 gem 'react-rails', "~> 1.3.0"
 
 # To generate invoice
-#  gem "payday"
-gem 'pdfkit'
-gem 'wkhtmltopdf-binary'
+  gem 'prawn'
+# gem "payday"
+# gem 'pdfkit'
+# gem 'wkhtmltopdf-binary'
 
 # security and oauth
 gem 'bcrypt', "~> 3.1.10"
