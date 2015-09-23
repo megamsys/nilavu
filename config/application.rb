@@ -73,6 +73,11 @@ module Nilavu
     # to ignore the internationalization for English
     config.i18n.available_locales = :en
 
+
+
+
+
+
     # 404 catcher
     config.after_initialize do |app|
       app.routes.append{ match '*a', :to => 'application#render_404', via: [:get] } unless config.consider_all_requests_local
