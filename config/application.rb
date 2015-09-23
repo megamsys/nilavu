@@ -8,7 +8,7 @@ require "sprockets/railtie"
 require 'yaml'
 require 'active_record'
 require "prawn"
-# require 'pdfkit'
+
 
 
 #COMMON YML

@@ -20,13 +20,10 @@ gem 'jquery-turbolinks',"~> 2.1.0"
 gem 'remotipart', "~> 1.2.1" #ajax sfile uploads
 gem 'socket.io-rails', "~> 1.3.6" # streaming
 gem 'nprogress-rails' #spinner youtube like
-gem 'react-rails', "~> 1.3.0"
+#gem 'react-rails', "~> 1.3.0"
 
 # To generate invoice
   gem 'prawn'
-# gem "payday"
-# gem 'pdfkit'
-# gem 'wkhtmltopdf-binary'
 
 # security and oauth
 gem 'bcrypt', "~> 3.1.10"

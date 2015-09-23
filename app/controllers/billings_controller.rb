@@ -16,7 +16,7 @@
 class BillingsController < ApplicationController
   respond_to :html, :js
 
-  before_action :stick_keys, only: [:index, :notify_payment, :promo]
+  before_action :stick_keys, only: [:index, :notify_payment, :promo , :invoice]
   def index
     logger.debug "> Billings index."
     @currencies = Billings.currencies
@@ -84,22 +84,17 @@ class BillingsController < ApplicationController
   end
 
   def invoice
- ## client = Client.find(params[:id])
-    send_data generate_pdf(),
-              filename: "demo.pdf",
-              type: "application/pdf"
-   sbalance = Balances.new.show(params)
-   puts sbalance
+    sbalance = Balances.new.show(params)
+    send_data generate_pdf(sbalance),
+    filename: "invoice.pdf",
+    type: "application/pdf"
   end
 
-def generate_pdf()
+  def generate_pdf(sbalance)
     Prawn::Document.new do
- ##   text client.name, align: :center
-      text "Date: #{23-9-2015}"
-      text "Description: #{9}"
-      text "Amount (in Rs): #{2500}"
- ##   sbalance = Balances.new.show(params)
- ##   puts "show balance"
-    end.render
+    text "E-mail: #{sbalance.balance.name}"
+    text "Credit:#{sbalance.balance.credit}"
+    text "Updated at:#{sbalance.balance.updated_at}"
+   end.render    
   end
 end
