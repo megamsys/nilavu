@@ -27,9 +27,11 @@ class Organizations < BaseFascade
   def list(api_params, &block)
     res = api_request(api_params, ORGANIZATION, LIST)
     res[:body].each do |one_org|
-        @orgs << {:name => one_org.name, :created_at => one_org.created_at.to_time.to_formatted_s(:rfc822)}
+
+        @orgs << {:id => one_org.id, :name => one_org.name, :created_at => one_org.created_at.to_time.to_formatted_s(:rfc822)}
     end
     @orgs = @orgs.sort_by {|vn| vn[:created_at]}
+  
     yield self if block_given?
     return self
   end
@@ -38,5 +40,6 @@ class Organizations < BaseFascade
   def showDomains(api_params, &block)
 
   end
+
 
 end

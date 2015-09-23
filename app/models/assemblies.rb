@@ -90,7 +90,8 @@ class Assemblies < BaseFascade
   def mk(api_params)
     { :name=>"",
       :assemblies=> Assembly.new.build(api_params),
-      :inputs=>[]
+      :inputs=>[],
+      :org_id=> api_params[:org_id] 
     }
   end
 

@@ -34,6 +34,7 @@ class SessionsController < ApplicationController
 
   # a regular user signin.
   def create
+    set_orgid(params) 
     auth = social_identity
     if social_identity.nil?
       create_with_megam(params)
@@ -70,6 +71,14 @@ class SessionsController < ApplicationController
   end
 
   private
+
+
+def set_orgid(input)
+  input["host"] = Ind.http_api
+  input["api_key"] = Accounts.new.find_by_email(input["email"]).api_key
+  org_res = Organizations.new.list(input).orgs
+  session[:org_id] = org_res[0][:id]
+end
 
   # verify if an omniauth.auth hash exists, if not consider it as a locally registered user.
   def social_identity
