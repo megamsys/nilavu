@@ -27,6 +27,7 @@
 			  		<i class="c_icon-window-lg"></i>
 					<span class="mplace-selected hidden-xs hidden-sm pull-right"><%= t('titles.marketplace_title') %></span>
 					<% end %>
+<<<<<<< HEAD
 
 							  	</li>
 							  	<li>
@@ -37,8 +38,21 @@
 							  		<i class="c_icon-list" id="app-list-btn"></i>
 							  	</li>
 							  	<li>
+=======
+					</li>
+						<li>
+              <%= link_to storages_path , :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+							<i class="c_icon-grid-25"></i>
+							<span class="hidden-xs hidden-sm pull-right">Storage</span>
+              <% end %>
+						</li>
+							<li class="mar_l20">
+							  <i class="c_icon-list" id="app-list-btn"></i>
+							</li>
+						   <li>
+>>>>>>> origin/0.9
 									<i class="c_icon-grid lg-mar-r-15 " id="app-grid-btn"></i>
-							  	</li>
+							 </li>
 							</ul>
 						</div>
           </div>

@@ -38,6 +38,7 @@ en:
     myprofile_title: "My profile"
     logs_title: "Logs"
     monitoring_title: "Monitoring Console"
+    storage_title: "Storages"
 
   not_found:
     oops: "Oops... Page Not Found !"

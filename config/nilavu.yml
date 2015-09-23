@@ -29,7 +29,11 @@ defaults: &defaults
 ##
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
+<<<<<<< HEAD
   http_api: localhost:9000
+=======
+  http_api: 103.56.92.11
+>>>>>>> origin/0.9
 ## Enable log streaming into nilavu
 ##
 ## Default: on
