@@ -14,8 +14,6 @@ defaults: &defaults
 ## Acceptable values:
 ##   - text, e.g. localhost, console.megam.io
   storage: localhost
-## enabling/disabling the billing
-  billings: on
 ## Name of the nilavu server
 ##
 ## Default: console.megam.io
@@ -70,37 +68,18 @@ defaults: &defaults
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
   http_metrics: http://madai.megam.io/monit
-## Enable private git gogs to be used by nilavu
-## Requires package [megamgogs] to be insalled.
-## Default: off
-##
-## Acceptable values:
-##   - text, e.g. localhost, api.megam.io
-  private_git_gogs: off
-# http_gogs is a host that the nilavu will connect to
+# http_gitlabs is a host that the nilavu will connect to
 ## for pulling data from private repositories
-## Default: console.megam.io
 ##
 ## Acceptable values:
-##   - text, e.g. localhost, api.megam.io
-  private_gitlab: off
-# http_gogs is a host that the nilavu will connect to
-## for pulling data from private repositories
-## Default: console.megam.io
+##   - text, e.g. http://localhost, api.megam.io
+  http_gitlab: http://gitlab.megam.io/api/v3
+# billing is the flag to turn on billing/off
+## Default: on
 ##
 ## Acceptable values:
-##   - text, e.g. localhost, api.megam.io
-  http_gitlab: http://gitlab.megam.io
-# http_gitlab is a host that the nilavu will redirect to
-## for connecting with the gitlab server
-## Default: console.megam.io
-##
-## Acceptable values:
-##   - text, e.g. localhost, api.megam.io
-  gitlab_apiV: /api/v3
-## Acceptable values:
-##   - text, e.g. on or off
-  consider_fuel_ready: on
+##   - on or off
+  billings: on
 # notification section notifies the handlers based on_trigger conditions.
 ## 1. on_error: When an error occurs then notify dev support via an email to support@megam.io and hipchat. A notification
 ## via email happens if the configuration for [email:] exists.
@@ -111,7 +90,7 @@ defaults: &defaults
 ##   - text
   notification:
     on_errors: on
-    on_some_hap: on
+    on_info: on
     email:
       id: support@megam.io
       password: <%= ENV["NIL_EMAIL_PASSWORD"] %>
