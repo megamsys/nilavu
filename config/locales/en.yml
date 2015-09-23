@@ -31,6 +31,7 @@ en:
     billing_title: "Billings"
     ssh_title: "SSH keys"
     marketplace_title: "Marketplaces"
+    storage_title: "Storages"
     app_overview: "App Overview"
     service_overview: "Service Overview"
     micro_overview: "Microservice Overview"

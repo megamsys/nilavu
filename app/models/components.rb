@@ -178,12 +178,15 @@ private
   end
 
   def bld_ci_requirements(params)
-    mkp = JSON.parse(params["mkp"])
     puts "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-    puts mkp
+    temp = params["radio_app_scm"]
+    mkp = JSON.parse(params["mkp"])
+    #enale = mkp["cattye"].to_s + params["radio_app_scm"]
+    #enale1 = temp.to_s + mkp["cattye"]
+    #puts enable
     op = []
     op <<  {"key" => "type", "value" => set_cattype(mkp["cattype"]) }
-    op <<  {"key" => "enabled","value" => set_enabled(mkp["cattype"])}
+    op <<  {"key" => "enabled","value" => set_enabled(mkp["cattype"], params["radio_app_scm"])}
     op <<  {"key" => "source","value" => params["scm_url"] || " "}
     op <<  {"key" => "token","value" => params["scmtoken"] || " "}
     op <<  {"key" => "username", "value" => params["scmowner"] || " "}

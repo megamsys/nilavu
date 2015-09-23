@@ -85,10 +85,15 @@ module MarketplaceHelper
     end
   end
 
-  def set_enabled(cattype)
+  def set_enabled(cattype, radio_app_scm)
     case cattype
     when 'BYOC'
-      'true'
+      case radio_app_scm
+      when 'byoc_scm'
+        'true'
+      else
+        'false'
+      end
     else
       'false'
     end
