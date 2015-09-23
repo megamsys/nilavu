@@ -25,6 +25,7 @@ Nilavu::Application.routes.draw do
   # the routes used by the monitoring system
   resources :dashboards
   resources :widgets
+  resources :storages
 
   namespace :api do
     resources :dashboards do
@@ -88,6 +89,7 @@ Nilavu::Application.routes.draw do
   #===OneApps
   match '/bind_service_list', :to => 'oneapps#bind_service_list', via: [:get, :post]
   match '/bind_service', :to => 'oneapps#bind_service', via: [:get, :post]
-
+  #===Storage
+  #match '/storage', :to => 'storage#index', via: [:get, :post]
 
 end
