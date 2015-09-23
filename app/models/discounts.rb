@@ -24,7 +24,7 @@ attr_reader :discounts_collections
 
   def create(api_params, &block)
    Rails.logger.debug "> Discounts: create"
-    api_request(bld_discount(api_params), DISCOUNTS, CREATE)  
+    api_request(api_params, DISCOUNTS, CREATE)
       yield self  if block_given?
     return self
   end
@@ -36,24 +36,11 @@ attr_reader :discounts_collections
   end
 
   def list(api_params, &block)
-    puts bld_discount(api_params)
     Rails.logger.debug "> Discounts: List"
-   raw =  api_request(bld_discount(api_params), DISCOUNTS, LIST)
+   raw =  api_request(api_params, DISCOUNTS, LIST)
     @discounts_collections = raw[:body] unless raw == nil
     yield self if block_given?
     return self
   end
-  
-private
-def bld_discount(api_params)
-  disc_params = {
-    :accounts_id => api_params[:accounts_id],
-    :bill_type => api_params[:bill_type],
-    :code => api_params[:code],
-    :status => api_params[:status],
-    :email => api_params[:email],
-    :api_key => api_params[:api_key]           
-  }
-end
-  
+
 end

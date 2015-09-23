@@ -68,11 +68,14 @@ end
   def create
     logger.debug '> Marketplaces: create.'
     mkp = JSON.parse(params[:mkp])
+    #adding the default org of the user which is stored in the session
+    params[:org_id] = session[:org_id]
     params[:ssh_keypair_name] = params["#{params[:sshoption]}" + '_name'] if params[:sshoption] == Sshkeys::USEOLD
     params[:ssh_keypair_name] = params["#{Sshkeys::NEW}_name"] unless params[:sshoption] == Sshkeys::USEOLD
     #the full keypair name is coined inside sshkeys.
     params[:ssh_keypair_name] = Sshkeys.new.create_or_import(params)[:name]
     setup_scm(params)
+    #with email list all orgs, match with session[orgName], get orgid, update orgid
     res = Assemblies.new.create(params)
     binded_app?(params) do
       Assembly.new.update(params)
@@ -88,8 +91,6 @@ end
   ##
   def store_github
     @auth_token = request.env['omniauth.auth']['credentials']['token']
-    puts "-------------------------------------------"
-    puts request.env['omniauth.auth']
     session[:github] =  @auth_token
     session[:git_owner] = request.env['omniauth.auth']['extra']['raw_info']['login']
   end

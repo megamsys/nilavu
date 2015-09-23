@@ -33,7 +33,7 @@ gem 'omniauth-github', "~> 1.1.2"
 gem 'json', "~> 1.8.3"
 gem 'riak-client', '~> 2.2.1'
 
-gem "megam_api", "~> 0.68"
+gem "megam_api", "~> 0.71"
 gem 'megam_gogs', "~> 0.8.0"
 
 gem 'gitlab', '~> 3.4.0'

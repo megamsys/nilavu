@@ -241,7 +241,7 @@ en:
     no_organization: "No Orgs Found"
     users: "Users"
     domains: "Domains"
-    your_api_ley: "Your API key"
+    your_api_ley: "Api Keys"
 
   organization:
     name: "Name:"
