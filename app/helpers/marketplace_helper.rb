@@ -76,7 +76,7 @@ module MarketplaceHelper
 
   #for the Assenbly type and enabled status
 
-  def set_cattype(cattype)
+  def set_repotype(cattype)
     case cattype
     when 'BYOC'
       'git'
@@ -85,7 +85,7 @@ module MarketplaceHelper
     end
   end
 
-  def set_enabled(cattype, radio_app_scm)
+  def enable_ci(cattype, radio_app_scm)
     case cattype
     when 'BYOC'
       case radio_app_scm

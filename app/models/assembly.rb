@@ -17,6 +17,8 @@ require 'json'
 
 class Assembly < BaseFascade
 
+include MarketplaceHelper
+
   attr_reader :by_cattypes
   attr_reader :tosca_type
   attr_reader :components
@@ -27,9 +29,9 @@ class Assembly < BaseFascade
   def initialize()
     @by_cattypes = {}
     @inputs = []
-    @requirements = []
     @components = []
     @app_list = []
+    @operations = []
   end
 
   def show(api_params, &block)
@@ -72,8 +74,8 @@ class Assembly < BaseFascade
 
     bld_toscatype(mkp)
     bld_components(params) unless mkp["cattype"] == Assemblies::TORPEDO
-    bld_requirements(params)
     bld_inputs(params)
+    bld_operations(params)
 
     params = params.merge({"policymembers" => "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}"})
 
@@ -118,11 +120,6 @@ class Assembly < BaseFascade
     @components = Components.new.build(params)
   end
 
-  #In future lot of requirements add this method
-  def bld_requirements(params)
-    @requirements << {"key" => "host", "value" => params[:host]} if params.has_key?(:host)
-  end
-
   def bld_policies(params)
     com = []
     if params.has_key?(:bind_type) && params[:bind_type] != "Unbound service"
@@ -156,6 +153,7 @@ class Assembly < BaseFascade
 
   #In future lot of inputs add this method
   def bld_inputs(params)
+
     mkp = JSON.parse(params["mkp"])
     @inputs << {"key" => "domain", "value" => params[:domain]} if params.has_key?(:domain)
     @inputs << {"key" => "sshkey", "value" => params[:ssh_keypair_name]} if params[:ssh_keypair_name]
@@ -164,6 +162,27 @@ class Assembly < BaseFascade
     @inputs << {"key" => "cpu", "value" => params[:cpu]} if params.has_key?(:cpu)
     @inputs << {"key" => "ram", "value" => params[:ram]} if params.has_key?(:ram)
     @inputs << {"key" => "version", "value" => params[:version]} if mkp["cattype"] == Assemblies::TORPEDO
+  end
+
+  def bld_operations(params)
+    @operations << {
+        "operation_type" => "CI",
+        "description" => "Continous Integration",
+        "operation_requirements" => bld_ci_requirements(params),
+    }
+  end
+
+
+  def bld_ci_requirements(params)
+    mkp = JSON.parse(params["mkp"])
+    op = []
+    op <<  {"key" => "type", "value" => set_repotype(mkp["cattype"]) }
+    op <<  {"key" => "enabled","value" => enable_ci(mkp["cattype"], params["radio_app_scm"])}
+    op <<  {"key" => "source","value" => params["source"] || ""}
+    op <<  {"key" => "token","value" => params["scmtoken"] || ""}
+    op <<  {"key" => "username", "value" => params["scmowner"] || ""}
+    op <<  {"key" => "url", "value" => params["source"] || ""}
+    op
   end
 
   #recursively dig assembly by populating components.

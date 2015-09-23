@@ -40,11 +40,7 @@ class Assemblies < BaseFascade
   TERMINATED          =  'Terminated'.freeze
   LAUNCHING           =  'LAUNCHING'.freeze
 
-  TORPEDOTYPE         =  'image'.freeze
-  BYOCTYPE            =  'git'.freeze
-  ENABLEDTRUE         =  'true'.freeze
-  ENABLEDFALSE        =  'false'.freeze
-
+  DOCKERCONTAINER     =  'DockerContainer'.freeze
 
 
   def initialize()
@@ -91,7 +87,7 @@ class Assemblies < BaseFascade
     { :name=>"",
       :assemblies=> Assembly.new.build(api_params),
       :inputs=>[],
-      :org_id=> api_params[:org_id] 
+      :org_id=> api_params[:org_id]
     }
   end
 
