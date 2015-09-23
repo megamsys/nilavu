@@ -10,7 +10,7 @@ gem "responders", "~> 2.1.0"
 gem 'rails-i18n', '~> 4.0.4' # For 4.0.x
 
 #for reactjs
-gem 'react-rails', '~> 1.0'
+gem 'react-rails', '~> 1.3.1'
 
 #jquery & ui
 gem 'jquery-rails', "~> 4.0.5"
