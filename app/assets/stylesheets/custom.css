@@ -38,6 +38,7 @@ a:hover {
 	min-height: 200px;
 }
 .c_pading-b15 {
+  padding-top: 15px;
 	padding-bottom: 15px;
 }
 .colr-bluegrey {
@@ -983,7 +984,7 @@ background-repeat: no-repeat;
 	width: 100%;
 }
 .settings_grid {
-	padding-top: 15px;
+	padding-top: 6px;
 }
 .settings_top {
 	border-bottom: 1px solid #e5e6ef;
