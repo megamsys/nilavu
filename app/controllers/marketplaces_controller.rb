@@ -68,8 +68,6 @@ end
   def create
     logger.debug '> Marketplaces: create.'
     mkp = JSON.parse(params[:mkp])
-    puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-    puts params
     #adding the default org of the user which is stored in the session
     params[:org_id] = session[:org_id]
     params[:ssh_keypair_name] = params["#{params[:sshoption]}" + '_name'] if params[:sshoption] == Sshkeys::USEOLD
@@ -152,9 +150,7 @@ end
   end
 
   def store_gitlab
-
-    @gitlab_url = Ind.http_gitlab + Ind.gitlab_apiV
-
+    @gitlab_url = Ind.http_gitlab
     Gitlab.endpoint = @gitlab_url
     gitlab = Gitlab.session(params[:gitlab_username], params[:gitlab_password])
     session[:gitlab_key] = gitlab.private_token
@@ -183,7 +179,7 @@ end
   end
 
  def find_id(params)
-    @endpoint = Gitlab.endpoint = Ind.http_gitlab + Ind.gitlab_apiV
+    @endpoint = Gitlab.endpoint = Ind.http_gitlab
   client = Gitlab.client(endpoint: @endpoint, private_token: session[:gitlab_key])
   client.projects.each do |x|
     if x.http_url_to_repo == params
@@ -204,7 +200,6 @@ end
       params[:scmtoken] = session[:gitlab_key]
       params[:scmowner] = find_id(params[:source])
       params[:scm_url]  = Ind.http_gitlab
-      params[:scm_version] = Ind.gitlab_apiV
     else
       # we ignore it.
     end

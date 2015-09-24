@@ -29,30 +29,30 @@
     <li class="dropdown" id="header_notification_bar">
        <a href="#" class="dropdown-toggle btn btn-success btn-menu-top" data-toggle="dropdown" data-hover="dropdown"
           data-close-others="true"><span class="caret"></span>new
-       
+
        </a>
        <ul class="dropdown-menu extended notification left-dd-top" id="new-drop-down">
           <li>
              <ul class="dropdown-menu-list scroller">
-                <li>  
+                <li>
               <%= link_to catalogs_path(:cattype => Assemblies::TORPEDO), :data => { :remote => true} do %>
                 <span class="label label-sm label-icon label-success"><i class="glyphicon glyphicon-user"></i></span>
                 Torpedo
               <% end %>
                 </li>
-                <li>  
+                <li>
               <%= link_to catalogs_path(:cattype => Assemblies::APP), :data => { :remote => true} do %>
                 <span class="label label-sm label-icon label-success"><i class="glyphicon glyphicon-cog"></i></span>
                 Apps
               <% end %>
                 </li>
-                <li>  
+                <li>
                <%= link_to catalogs_path(:cattype => Assemblies::SERVICE), :data => { :remote => true} do %>
                 <span class="label label-sm label-icon label-danger"><i class="glyphicon glyphicon-off"></i></span>
                 Services
               <% end %>
                </li>
-                <li>  
+                <li>
                <%= link_to marketplaces_path, :data => { :remote => true} do %>
                 <span class="label label-sm label-icon label-danger"><i class="glyphicon glyphicon-off"></i></span>
                  Go to marketplace
@@ -72,7 +72,7 @@
             </li>
             <li class= "start active">
               <%= link_to catalogs_path(:cattype => Assemblies::TORPEDO ), :data => { :remote => true}, :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                <i class="c_icon c-iocn-window-lg pull-left"></i>
+                <i class="c_icon-addon pull-left"></i>
                 <span class="title pull-left"><%= t('cockpits.torpedo_tab') %></span>
               <% end %>
             </li>
@@ -103,7 +103,7 @@
             <li class= "start active">
             <%  if Ind.billings %>
               <%= link_to billings_path, :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                <i class="c_icon c-iocn-window-lg pull-left"></i>
+                <i class="c_icon-addon pull-left"></i>
                 <span class="title pull-left"><%= t('titles.billing_title') %></span>
                 <% end %>
                 <% end %>
