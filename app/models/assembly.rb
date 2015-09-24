@@ -28,6 +28,7 @@ class Assembly < BaseFascade
   def initialize
     @by_cattypes = {}
     @inputs = []
+    @requirements = []
     @components = []
     @app_list = []
     @operations = []
@@ -77,6 +78,7 @@ class Assembly < BaseFascade
     mkp = JSON.parse(params['mkp'])
     bld_toscatype(mkp)
     bld_components(params) unless mkp['cattype'] == Assemblies::TORPEDO
+    bld_requirements(params)
     bld_inputs(params)
     bld_operations(params)
 
@@ -85,7 +87,7 @@ class Assembly < BaseFascade
     [{
       'name' => "#{params[:assemblyname]}",
       'tosca_type' => "#{tosca_type}",
-      'components' => components,
+      'components' => @components,
       'requirements' => @requirements,
       'policies' => bld_policies(params),
       'inputs' => @inputs,
@@ -124,6 +126,11 @@ class Assembly < BaseFascade
   # #For a vm, there is no component to start with, hence this is skipped.
   def bld_components(params)
     @components = Components.new.build(params)
+  end
+
+  #In future lot of requirements add this method
+  def bld_requirements(params)
+    @requirements << {"key" => "host", "value" => params[:host]} if params.has_key?(:host)
   end
 
   def bld_policies(params)

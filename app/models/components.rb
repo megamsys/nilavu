@@ -56,7 +56,7 @@ class Components < BaseFascade
   def build(params)
     com = []
     mkp = JSON.parse(params["mkp"])
-    set_app_params(params) if mkp["cattype"] == Assemblies::APP
+    set_app_params(params) if mkp["cattype"] == Assemblies::BYOC
     set_service_params(params) if mkp["cattype"] == Assemblies::SERVICE
     set_microservice_params(params) if mkp["cattype"] == Assemblies::MICROSERVICES
     set_common_inputs(params)
@@ -130,13 +130,13 @@ private
   def set_app_params(params)
     mkp = JSON.parse(params["mkp"])
     @name = params[:componentname]
-    @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["predef"]}"
+    @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["name"].downcase}"
   end
 
   def set_service_params(params)
     mkp = JSON.parse(params["mkp"])
     @name = params[:componentname]
-    @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["predef"]}"
+    @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["name"].downcase}"
     set_postgres_inputs(params) unless mkp["predef"] != "postgresql"
     @related_components << "#{params[:bind_type].split(':')[0]}" if params.has_key?(:bind_type)
   end
@@ -144,7 +144,7 @@ private
   def set_microservice_params(params)
     mkp = JSON.parse(params["mkp"])
     @name = params[:componentname]
-    @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["predef"]}"
+    @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["name"].downcase}"
   end
 
   #the common inputs method set all components(apps, service, microservices..)
