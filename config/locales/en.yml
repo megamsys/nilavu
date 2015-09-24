@@ -82,6 +82,7 @@ en:
     restart: "Restart"
     delete: "Delete"
     select_repo: "Select your repo"
+    go_to_mkp: "Go to marketplace"
 
   contact:
     US: "US   1-800-618-6813"

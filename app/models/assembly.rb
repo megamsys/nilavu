@@ -119,8 +119,8 @@ class Assembly < BaseFascade
 
   def bld_toscatype(mkp)
     tosca_suffix = DEFAULT_TOSCA_SUFFIX
-    tosca_suffix = "#{mkp['predef']}" unless mkp['cattype'] != Assemblies::TORPEDO
-    @tosca_type = DEFAULT_TOSCA_PREFIX + ".#{mkp['cattype'].downcase}.#{tosca_suffix}"
+    tosca_suffix = "#{mkp['name']}" unless mkp['cattype'] != Assemblies::TORPEDO
+    @tosca_type = DEFAULT_TOSCA_PREFIX + ".#{mkp['cattype'].downcase}.#{mkp['name'].downcase}"
   end
 
   # #For a vm, there is no component to start with, hence this is skipped.
