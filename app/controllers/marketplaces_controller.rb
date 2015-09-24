@@ -68,8 +68,6 @@ end
   def create
     logger.debug '> Marketplaces: create.'
     mkp = JSON.parse(params[:mkp])
-    puts "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
-    puts params
     #adding the default org of the user which is stored in the session
     params[:org_id] = session[:org_id]
     params[:ssh_keypair_name] = params["#{params[:sshoption]}" + '_name'] if params[:sshoption] == Sshkeys::USEOLD

@@ -14,34 +14,36 @@
 ** limitations under the License.
 -->
 
-      <div class="">
-	<div class="row c_pading-b15 settings_top">
-          <div class="">
-						<div class="col-xs-12 col-sm-6 col-md-6">
-							<h3><b><%= title_name %></b></h3>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-6 settings_grid pull-right">
-							<ul class="list-inline pull-right rt-top-list">
-							  	<li class="two">
-					<%= link_to marketplaces_path , :data => {:remote => true}, :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-			  		<i class="c_icon-window-lg"></i>
-					<span class="mplace-selected hidden-xs hidden-sm pull-right"><%= t('titles.marketplace_title') %></span>
-					<% end %>
-					</li>
-						<li>
-              <%= link_to storages_path , :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-							<i class="c_icon-grid-25"></i>
-							<span class="hidden-xs hidden-sm pull-right"><%= t('titles.storage_title') %></span>
-              <% end %>
-						</li>
-							<li class="mar_l20">
-							  <i class="c_icon-list" id="app-list-btn"></i>
-							</li>
-						   <li>
-									<i class="c_icon-grid lg-mar-r-15 " id="app-grid-btn"></i>
-							 </li>
-							</ul>
-						</div>
-          </div>
-       </div>
-     </div>
+<div class="">
+  <div class="row c_pading-b15">
+    <div class="">
+      <div class="col-xs-12 col-sm-6 col-md-6">
+        <h3>
+          <b><%= title_name %></b>
+        </h3>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6 settings_grid pull-right">
+        <ul class="list-inline pull-right rt-top-list">
+          <li class="two">
+            <%= link_to marketplaces_path , :data => {:remote => true}, :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+            <i class="c_icon-window-lg"></i>
+            <span class="mplace-selected hidden-xs hidden-sm pull-right"><%= t('titles.marketplace_title') %></span>
+            <% end %>
+          </li>
+          <li>
+            <%= link_to storages_path , :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+            <i class="c_icon-grid-25"></i>
+            <span class="hidden-xs hidden-sm pull-right"><%= t('titles.storage_title') %></span>
+            <% end %>
+          </li>
+          <li class="mar_l20">
+            <i class="c_icon-list" id="app-list-btn"></i>
+          </li>
+          <li>
+            <i class="c_icon-grid lg-mar-r-15 " id="app-grid-btn"></i>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

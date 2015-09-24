@@ -49,28 +49,26 @@ a:hover {
 .pad_rt-9 {
 	padding-right: 95px;
 }
-.pad_left-5 {
-	padding-left: 30px;
-}
-.pad_0 {
+.pad_0
+{
 	padding: 0px;
 }
 .pad_t25 {
-	padding-top: 10px !important;
+	padding-top: 23px !important;
 }
 .pad_tb25 {
 	padding-top: 25px !important;
 	padding-bottom: 25px !important;
 }
 .login {
-	 background-color: #edeef5 !important; 
+	 background-color: #edeef5 !important;
 }
 .login_reset {
-		background-color: #edeef5 !important;	
+		background-color: #edeef5 !important;
 }
 
 .login_reset .outer {
-	 margin-bottom: 200px; 
+	 margin-bottom: 200px;
 	/*background-color: #fff;*/
 	padding-bottom: 20px;
 }
@@ -137,7 +135,10 @@ a:hover {
 @font-face {
  font-family: 'proxima_nova_rg';
  src: url('proximanova-regular-webfont.eot');
- src: url('proximanova-regular-webfont.eot?#iefix') format('embedded-opentype'),  url('proximanova-regular-webfont.woff') format('woff'),  url('proximanova-regular-webfont.ttf') format('truetype'),  url('proximanova-regular-webfont.svg#proxima_nova_rgregular') format('svg');
+ src: url('proximanova-regular-webfont.eot?#iefix') format('embedded-opentype'),
+url('proximanova-regular-webfont.woff') format('woff'),
+url('proximanova-regular-webfont.ttf') format('truetype'),
+url('proximanova-regular-webfont.svg#proxima_nova_rgregular') format('svg');
  font-weight: normal;
  font-style: normal;
 }
@@ -712,7 +713,7 @@ background-repeat: no-repeat;
 {
 	background-image:url(list-hover.png);
 
-}	
+}
 .c_icon-grid:hover
 {
 	background-image:url(grid-hover.png);
@@ -1206,7 +1207,7 @@ background-repeat: no-repeat;
 	border: 1px solid #6fde86;
 	border-radius: 3px;
 	display: block;
-	color: #FFF;		
+	color: #FFF;
 	padding: 13px;
 	font-size: 16px;
 	text-align: center;
@@ -1218,13 +1219,13 @@ background-repeat: no-repeat;
 	transition: all 1s ease 0s;
 	text-decoration: none;
 }
-.mplace-icons p {	
+.mplace-icons p {
     padding: 2px;                            /* don't change this order */
     -webkit-padding-after: 5px;
     -webkit-padding-before: 5px;
     -webkit-padding-start: 0px;
-    -webkit-padding-end: 5px;    
-   
+    -webkit-padding-end: 5px;
+
 }
 .mplace-head h2 {
 	color: #fff;
@@ -1242,6 +1243,10 @@ background-repeat: no-repeat;
 .mar_l10
 {
 	margin-left: 10px !important;
+}
+.mar_r10
+{
+	margin-right: 10px !important;
 }
 .mar_l20
 {
@@ -1473,7 +1478,7 @@ a.btn-success:hover {
 }
 
 .fileinput-button input {
-	position: absolute;	
+	position: absolute;
 	top: 0;
 	right: 0;
 	margin: 0;
@@ -1484,7 +1489,7 @@ a.btn-success:hover {
 	direction: ltr;
 	cursor: pointer;
 }
-.fileinput-button .filetag{	
+.fileinput-button .filetag{
 	padding-top:  6px;
 }
 .fileupload-buttonbar .btn, .fileupload-buttonbar .toggle {
@@ -1509,11 +1514,15 @@ a.btn-success:hover {
 
 /* Extra Small Devices, Phones */
 @media only screen and (min-width : 480px) {
+
 /*	.c_icon
 	{
 		height: 32px;
   		width: 32px;
   	}*/
+  	.lg-mar-r-15{
+  		margin-right: 15px;
+  	}
 }
 
 /* Small Devices, Tablets */
@@ -2077,7 +2086,7 @@ input[type="submit"]:active {opacity:1;}
 	background-image:url(icon-apps.png);
 	/*margin-left: 10px;*/
 	/*margin-right: 10px;*/
-	/*margin-top: -8px;*/
+	margin-top: -8px;
 }
 
 .c_icon-service
@@ -2171,4 +2180,3 @@ input[type="submit"]:active {opacity:1;}
 {
 	background-image:url(icon-settingshover.png);
 }*/
-
