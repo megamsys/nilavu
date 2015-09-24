@@ -22,28 +22,29 @@
           <b><%= title_name %></b>
         </h3>
       </div>
-      <div class="col-xs-12 col-sm-6 col-md-6 settings_grid pull-right">
+      <div class="col-xs-12 col-sm-6 col-md-6 settings_grid">
         <ul class="list-inline pull-right rt-top-list">
-          <li class="two">
+          <li id="mp">
             <%= link_to marketplaces_path , :data => {:remote => true}, :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-            <i class="c_icon-window-lg"></i>
-            <span class="mplace-selected hidden-xs hidden-sm pull-right"><%= t('titles.marketplace_title') %></span>
+            <i class="c_icon-window-lg pull-left"></i>
+            <span class="hidden-xs hidden-sm pull-left"><%= t('titles.marketplace_title') %></span>
             <% end %>
           </li>
-          <li>
+          <li id="stor">
             <%= link_to storages_path , :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-            <i class="c_icon-grid-25"></i>
+            <i class="c_icon-grid-25 pull-left"></i>
             <span class="hidden-xs hidden-sm pull-right"><%= t('titles.storage_title') %></span>
             <% end %>
           </li>
           <li class="mar_l20">
-            <i class="c_icon-list" id="app-list-btn"></i>
+            <i class="c_icon-list pull-right" id="app-list-btn"></i>
           </li>
           <li>
-            <i class="c_icon-grid lg-mar-r-15 " id="app-grid-btn"></i>
+            <i class="c_icon-grid pull-right lg-mar-r-15" id="app-grid-btn"></i>
           </li>
         </ul>
       </div>
     </div>
   </div>
 </div>
+<div class="bottom-divider"></div>
