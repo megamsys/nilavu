@@ -15,6 +15,7 @@
 //
 //= require jquery2
 //= require jquery_ujs
+//= require turbolinks
 //= require jquery.remotipart
 //= require jquery.turbolinks
 //= require jquery.flot

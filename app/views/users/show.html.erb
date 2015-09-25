@@ -28,34 +28,33 @@
 	<!-- BEGIN NOTIFICATION DROPDOWN -->
     <li class="dropdown" id="header_notification_bar">
        <a href="#" class="dropdown-toggle btn btn-success btn-menu-top" data-toggle="dropdown" data-hover="dropdown"
-          data-close-others="true"><span class="caret"></span>new
-       
+          data-close-others="true"><span class="caret"></span><%= t('general.new') %>
        </a>
        <ul class="dropdown-menu extended notification left-dd-top" id="new-drop-down">
           <li>
              <ul class="dropdown-menu-list scroller">
-                <li>  
+                <li>
               <%= link_to catalogs_path(:cattype => Assemblies::TORPEDO), :data => { :remote => true} do %>
-                <span class="label label-sm label-icon label-success"><i class="glyphicon glyphicon-user"></i></span>
-                Torpedo
+              <span class="label label-sm label-icon label-success"><i class="glyphicon glyphicon-user"></i></span>
+              <%= t('cockpits.torpedo_tab') %>
               <% end %>
                 </li>
-                <li>  
+                <li>
               <%= link_to catalogs_path(:cattype => Assemblies::APP), :data => { :remote => true} do %>
                 <span class="label label-sm label-icon label-success"><i class="glyphicon glyphicon-cog"></i></span>
-                Apps
+              <%= t('cockpits.apps_tab') %>
               <% end %>
                 </li>
-                <li>  
+                <li>
                <%= link_to catalogs_path(:cattype => Assemblies::SERVICE), :data => { :remote => true} do %>
                 <span class="label label-sm label-icon label-danger"><i class="glyphicon glyphicon-off"></i></span>
-                Services
+              <%= t('cockpits.services_tab') %>
               <% end %>
                </li>
-                <li>  
+                <li>
                <%= link_to marketplaces_path, :data => { :remote => true} do %>
                 <span class="label label-sm label-icon label-danger"><i class="glyphicon glyphicon-off"></i></span>
-                 Go to marketplace
+              <%= t('cockpits.go_to_mkp') %>
               <% end %>
                 </li>
              </ul>
@@ -66,52 +65,45 @@
 
             <li class= "start active">
               <%= link_to cockpits_path, :data => { :remote => true}, :target => "_self" do %>
-                <i class="icon-dashboard pull-left"></i>
+                <i class="c_icon-db pull-left"></i>
                 <span class="title pull-left"><%= t('titles.dashboard_title') %></span>
-                <span class="hidden-xs selected" id="left_dash"></span>
               <% end %>
             </li>
             <li class= "start active">
-              <%= link_to catalogs_path(:cattype => Assemblies::TORPEDO ), :data => { :remote => true}, :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_dew').addClass('selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                <i class="icon-bar-chart pull-left"></i>
+              <%= link_to catalogs_path(:cattype => Assemblies::TORPEDO ), :data => { :remote => true}, :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                <i class="c_icon-addon pull-left"></i>
                 <span class="title pull-left"><%= t('cockpits.torpedo_tab') %></span>
-                <span class="hidden-xs" id="left_dew"></span>
               <% end %>
             </li>
             <li class= "start active">
-              <%= link_to catalogs_path(:cattype => Assemblies::APP), :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                <i class="icon-credit-card pull-left"></i>
+              <%= link_to catalogs_path(:cattype => Assemblies::APP), :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                <i class="c_icon-apps pull-left"></i>
                 <span class="title pull-left"><%= t('cockpits.apps_tab') %></span>
-                <span class="hidden-xs" id='left_app'></span>
               <% end %>
             </li>
             <li class= "start active">
-              <%= link_to catalogs_path(:cattype => Assemblies::SERVICE),:data => { :remote => true},   :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_service').addClass('selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                <i class="icon-tasks pull-left"></i>
+              <%= link_to catalogs_path(:cattype => Assemblies::SERVICE),:data => { :remote => true},   :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                <i class="c_icon-service pull-left"></i>
                 <span class="title pull-left"><%= t('cockpits.services_tab') %></span>
-                <span class="hidden-xs" id="left_service"></span>
               <% end %>
             </li>
             <li class= "start active">
-              <%= link_to catalogs_path(:cattype =>Assemblies::MICROSERVICES), :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_addon').addClass('selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                <i class="icon-pushpin pull-left"></i>
+              <%= link_to catalogs_path(:cattype =>Assemblies::MICROSERVICES), :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                <i class="c_icon-addon pull-left"></i>
                 <span class="title pull-left"><%= t('cockpits.micro_services_tab') %></span>
-                <span class="hidden-xs" id="left_addon"></span>
               <% end %>
             </li>
             <li class= "start active">
-              <%= link_to ssh_keys_path, :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_ssh').addClass('selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                <i class="icon-key pull-left"></i>
+              <%= link_to ssh_keys_path, :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                <i class="c_icon-set pull-left"></i>
                 <span class="title pull-left"><%= t('titles.ssh_title') %></span>
-                <span class="hidden-xs" id="left_ssh"></span>
               <% end %>
             </li>
             <li class= "start active">
             <%  if Ind.billings %>
-              <%= link_to billings_path, :data => { :remote => true},  :onclick => "$('#left_dash, #left_dew, #left_app, #left_service, #left_addon, #left_ssh, #left_billing').removeClass('hidden-xs selected'); $('#left_billing').addClass('selected'); $('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                <i class="icon-money pull-left"></i>
+              <%= link_to billings_path, :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                <i class="c_icon-addon pull-left"></i>
                 <span class="title pull-left"><%= t('titles.billing_title') %></span>
-                <span class="hidden-xs" id="left_billing"></span>
                 <% end %>
                 <% end %>
             </li>

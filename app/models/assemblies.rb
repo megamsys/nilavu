@@ -40,6 +40,8 @@ class Assemblies < BaseFascade
   TERMINATED          =  'Terminated'.freeze
   LAUNCHING           =  'LAUNCHING'.freeze
 
+  DOCKERCONTAINER     =  'DockerContainer'.freeze
+
 
   def initialize()
     @assemblies_grouped = {}
@@ -85,7 +87,7 @@ class Assemblies < BaseFascade
     { :name=>"",
       :assemblies=> Assembly.new.build(api_params),
       :inputs=>[],
-      :org_id=> api_params[:org_id] 
+      :org_id=> api_params[:org_id]
     }
   end
 

@@ -16,7 +16,7 @@
 require 'json'
 
 class Components < BaseFascade
-
+  include MarketplaceHelper
   attr_reader :components
 
   def initialize()
@@ -56,8 +56,7 @@ class Components < BaseFascade
   def build(params)
     com = []
     mkp = JSON.parse(params["mkp"])
-
-    set_app_params(params) if mkp["cattype"] == Assemblies::APP
+    set_app_params(params) if mkp["cattype"] == Assemblies::BYOC
     set_service_params(params) if mkp["cattype"] == Assemblies::SERVICE
     set_microservice_params(params) if mkp["cattype"] == Assemblies::MICROSERVICES
     set_common_inputs(params)
@@ -131,13 +130,13 @@ private
   def set_app_params(params)
     mkp = JSON.parse(params["mkp"])
     @name = params[:componentname]
-    @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["predef"]}"
+    @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["name"].downcase}"
   end
 
   def set_service_params(params)
     mkp = JSON.parse(params["mkp"])
     @name = params[:componentname]
-    @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["predef"]}"
+    @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["name"].downcase}"
     set_postgres_inputs(params) unless mkp["predef"] != "postgresql"
     @related_components << "#{params[:bind_type].split(':')[0]}" if params.has_key?(:bind_type)
   end
@@ -145,7 +144,7 @@ private
   def set_microservice_params(params)
     mkp = JSON.parse(params["mkp"])
     @name = params[:componentname]
-    @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["predef"]}"
+    @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["name"].downcase}"
   end
 
   #the common inputs method set all components(apps, service, microservices..)
@@ -157,17 +156,17 @@ private
   end
 
   def set_postgres_inputs(params)
-    mkp = JSON.parse(params["mkp"])    
+    mkp = JSON.parse(params["mkp"])
     @inputs << {"key" => "username", "value" => params["email"]}
     @inputs << {"key" => "password", "value" => params["api_key"]}
     @inputs << {"key" => "dbname", "value" => params["componentname"]}
     @inputs << {"key" => "dbpassword", "value" => ('a'..'z').to_a.shuffle.first(8).join }
     @inputs << {"key" => "port", "value" => mkp["catalog"]["port"]}
-  end 
+  end
 
   #set user operations for components like (continous integration)
   def set_operations(params)
-     set_ci_operation(params) if params["check_ci"] == "true"
+      set_ci_operation(params)
   end
 
   def set_ci_operation(params)
@@ -179,13 +178,14 @@ private
   end
 
   def bld_ci_requirements(params)
+    mkp = JSON.parse(params["mkp"])
     op = []
-    op <<  {"key" => "ci-scm", "value" => params["scm_name"]}
-    op <<  {"key" => "ci-enable","value" => "true"}
-    op <<  {"key" => "ci-token","value" => params["scmtoken"]}
-    op <<  {"key" => "ci-owner","value" => params["scmowner"]}
-    op <<  {"key" => "ci-url", "value" => params["scm_url"]}
-    op <<  {"key" => "ci-apiversion", "value" => params["scm_version"]}
+    op <<  {"key" => "type", "value" => set_repotype(mkp["cattype"]) }
+    op <<  {"key" => "enabled","value" => enable_ci(mkp["cattype"], params["radio_app_scm"])}
+    op <<  {"key" => "source","value" => params["scm_name"] || ""}
+    op <<  {"key" => "token","value" => params["scmtoken"] || ""}
+    op <<  {"key" => "username", "value" => params["scmowner"] || ""}
+    op <<  {"key" => "url", "value" => params["source"] || ""}
     op
   end
 
