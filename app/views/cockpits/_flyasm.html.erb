@@ -1,6 +1,5 @@
 <% tmp_asmgroups_flatten =  @assemblies_grouped[cattype.upcase] || {} %>
 <% asmgroups_flatten  = tmp_asmgroups_flatten.flatten %>
-<div class="row">
   <div class="row c_pading-b15">
     <div class="portlet-body-head">
       <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
@@ -98,7 +97,6 @@
       </div>
     <% end %>
   <% end unless assemblies_grouped[cattype.upcase].nil? %>
-</div>
 </div>
 
 <script>

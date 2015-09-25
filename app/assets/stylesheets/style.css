@@ -328,21 +328,15 @@ hr {
     margin-right: 5px;
     text-shadow: none;
 }
-
-.page-sidebar-menu > li > a:hover{
-    color: #4e9de6  !important;
-}
-
-.c_sett_inline > li > a:hover{
-    color: #4e9de6  !important;
-}
-
 .page-sidebar-menu > li.break {
     margin-bottom: 20px;
 }
 .page-sidebar-menu > li.active > a {
     border-left: 5px solid #fff;
     text-shadow: none;
+}
+.page-sidebar-menu > li.active > a:hover {
+    border-color: blue;
 }
 .page-sidebar-menu > li.active > a .selected {
     background-image: url("sidebar-menu-arrow.png");
@@ -1037,12 +1031,12 @@ i.normal {
 }
 .portlet-title a {
     color: #5a97cf !important;
-}  
+}
 .portlet-title a:hover {
 
     text-decoration: underline;
     color: #5a97cf !important;
-}  
+}
 .portlet.box > .portlet-title > .tools {
     margin-top: 3px;
 }
@@ -2964,12 +2958,13 @@ input.placeholder, textarea.placeholder {
 }
 
 .rt-top-list span {
-    margin-right: 10px;
+    margin-left: 10px;
     font-size: 18px;
+    color: #a4a6b8;
 }
 .rt-top-list {
     margin-top: 15px !important;
- }   
+ }
 .title-2{
     color: #a4a6b8;
     /*font-weight: bold;*/
@@ -2977,7 +2972,7 @@ input.placeholder, textarea.placeholder {
     margin-left: 10px;
 }
 .title-3{
-    color: #a4a6b8;  
+    color: #a4a6b8;
     font-size: 18px;
 }
 .new-org {
