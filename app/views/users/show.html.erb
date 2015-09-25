@@ -26,42 +26,14 @@
 
 
 	<!-- BEGIN NOTIFICATION DROPDOWN -->
-    <li class="dropdown" id="header_notification_bar">
-       <a href="#" class="dropdown-toggle btn btn-success btn-menu-top" data-toggle="dropdown" data-hover="dropdown"
-          data-close-others="true"><span class="caret"></span><%= t('general.new') %>
-       </a>
-       <ul class="dropdown-menu extended notification left-dd-top" id="new-drop-down">
-          <li>
-             <ul class="dropdown-menu-list scroller">
-                <li>
-              <%= link_to catalogs_path(:cattype => Assemblies::TORPEDO), :data => { :remote => true} do %>
-              <span class="label label-sm label-icon label-success"><i class="glyphicon glyphicon-user"></i></span>
-              <%= t('cockpits.torpedo_tab') %>
-              <% end %>
-                </li>
-                <li>
-              <%= link_to catalogs_path(:cattype => Assemblies::APP), :data => { :remote => true} do %>
-                <span class="label label-sm label-icon label-success"><i class="glyphicon glyphicon-cog"></i></span>
-              <%= t('cockpits.apps_tab') %>
-              <% end %>
-                </li>
-                <li>
-               <%= link_to catalogs_path(:cattype => Assemblies::SERVICE), :data => { :remote => true} do %>
-                <span class="label label-sm label-icon label-danger"><i class="glyphicon glyphicon-off"></i></span>
-              <%= t('cockpits.services_tab') %>
-              <% end %>
-               </li>
-                <li>
-               <%= link_to marketplaces_path, :data => { :remote => true} do %>
-                <span class="label label-sm label-icon label-danger"><i class="glyphicon glyphicon-off"></i></span>
-              <%= t('cockpits.go_to_mkp') %>
-              <% end %>
-                </li>
-             </ul>
+      <li class="storage_left_add">
+          <a href="#" class="btn btn-success btn-menu-top" ><span class="caret"></span>new
+            </a>
+            <ul class="storage_left_add_inner">
+              <li><a href=""><i class="c_icon-apps-white pull-left"></i>New App</a></li>
+              <li><a href="#"><i class="c_icon-service-white pull-left"></i>New Service</a></li>
+            </ul>
           </li>
-       </ul>
-    </li>
-
 
             <li class= "start active">
               <%= link_to cockpits_path, :data => { :remote => true}, :target => "_self" do %>
@@ -118,3 +90,19 @@
   </div>
 </div>
 <%= render 'layouts/footer' %>
+
+
+<script type="text/javascript">
+$('.inner-menu').click(function(e) {
+    e.preventDefault();
+    $('.inner-child').toggle();
+});
+
+
+//stoarge left menu
+$('.storage_left_add_inner').hide();
+$('.storage_left_add a ').click( function(){
+    // e.preventDefault();
+     $('.storage_left_add_inner').slideToggle();
+});
+</script>

@@ -41,6 +41,9 @@ a:hover {
   padding-top: 15px;
 	padding-bottom: 15px;
 }
+.c_padding-grid {
+  padding-bottom: 15px;
+}
 .colr-bluegrey {
 	color: #a2a5b8;
 }
@@ -433,6 +436,15 @@ background-repeat: no-repeat;
 .c_icon-layer {
 	background-image:url(icon-layer.png);
 }
+.c_icon-layer_torpedo {
+	background-image:url(icon-addon.png);
+}
+.c_icon-layer_byoc {
+	background-image:url(icon-browser.png);
+}
+.c_icon-layer_service {
+	background-image:url(icon-service.png);
+}
 .c_icon-stack {
 	background-image:url(icon-stack_file.png);
 }
@@ -568,7 +580,7 @@ background-repeat: no-repeat;
 	vertical-align: middle;
 	background-image:url(icon_config.png);/*margin-left: 10px;*/
 	/*margin-right: 10px;*/
-} 
+}
 /*.c_icon-user
 {
 	color: transparent;
@@ -784,13 +796,13 @@ background-repeat: no-repeat;
 	cursor:pointer;
 }
 .app_new {
-	height: 190px;
+	height: 160px;
 	width: 100%;
 	vertical-align: middle;
 	text-align: center;
-	font-size: 16px;
+	font-size: 14px;
 	text-transform: capitalize;
-	padding-top: 60px;
+	padding-top: 40px;
 	background-color: #f5f5f5;
 }
 .app_new span {
@@ -809,6 +821,14 @@ background-repeat: no-repeat;
 	margin-left: -30px;
 	margin-top: 15px;
 	padding-bottom: 30px;
+}
+
+.app_box_grid
+{
+	/*margin-right: -30px;*/
+	margin-left: -30px;
+	margin-top: 15px;
+	padding-bottom: 50px;
 }
 .app {
 	height: 190px;
@@ -2020,7 +2040,7 @@ input[type="submit"]:active {opacity:1;}
 .sign-up h3 span{ color:#60cc5d;}
 
 .btn-menu-top{
-	width: 150px;
+	width: 180px;
     margin-left: 30px !important;
     text-transform: uppercase;
     text-align: inherit;
@@ -2149,7 +2169,7 @@ input[type="submit"]:active {opacity:1;}
 	color: transparent;
 	overflow: hidden;
 	display: inline-block;
-	height: 23px;
+	height: 25px;
 	width: 46px;
 	background-size: contain;
 	background-repeat: no-repeat;
@@ -2160,13 +2180,15 @@ input[type="submit"]:active {opacity:1;}
 	/*margin-left: 10px;*/
 	/*margin-right: 10px;*/
 	/*margin-top: -8px;*/
+  margin-bottom: 10px;
+
 }
 .c_icon-chat
 {
 	color: transparent;
 	overflow: hidden;
 	display: inline-block;
-	height: 23px;
+	height: 25px;
 	width: 46px;
 	background-size: contain;
 	background-repeat: no-repeat;
@@ -2181,3 +2203,59 @@ input[type="submit"]:active {opacity:1;}
 {
 	background-image:url(icon-settingshover.png);
 }*/
+
+
+.c_icon-service-white
+{
+	color: transparent;
+	overflow: hidden;
+	display: inline-block;
+	height: 32px;
+	width: 32px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	/* border-radius: 50%; */
+	vertical-align: middle;
+	background-image:url(../img/icon-service_w.png);
+	/*margin-left: 10px;*/
+	/*margin-right: 10px;*/
+	margin-top: -8px;
+}
+
+.c_icon-apps-white
+{
+	color: transparent;
+	overflow: hidden;
+	display: inline-block;
+	height: 32px;
+	width: 32px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	/* border-radius: 50%; */
+	vertical-align: middle;
+	background-image:url(icon-apps_w.png);
+	/*margin-left: 10px;*/
+	/*margin-right: 10px;*/
+	/*margin-top: -8px;*/
+}
+
+
+.c_icon-service-white
+{
+	color: transparent;
+	overflow: hidden;
+	display: inline-block;
+	height: 32px;
+	width: 32px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	/* border-radius: 50%; */
+	vertical-align: middle;
+	background-image:url(icon-service_w.png);
+	/*margin-left: 10px;*/
+	/*margin-right: 10px;*/
+	margin-top: -8px;
+}

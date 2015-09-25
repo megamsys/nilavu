@@ -3,16 +3,16 @@
   <div class="row c_pading-b15">
     <div class="portlet-body-head">
       <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-        <i class="c_icon-layer_lg"></i><%= t('cockpits.your') %><%= cattype.capitalize.pluralize %> <span><%= asmgroups_flatten.size%> <%=  cattype.pluralize %><%= t('cockpits.running') %></span>
+        <i class="c_icon-layer_<%= cattype.downcase %>"></i><%= t('cockpits.your') %><%= cattype.capitalize.pluralize %> <span><%= asmgroups_flatten.size%> <%=  cattype.pluralize %><%= t('cockpits.running') %></span>
       </div>
     </div>
   </div>
 <div class="bottom-divider"></div>
 
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-  <div class="row app_box">
+  <div class="row app_box app_storage">
     <%= link_to marketplaces_path, :data => { :remote => true} do %>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover one_<%= cattype %>">
+      <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover one_<%= cattype %>">
         <div class="app_inner">
           <div class="app_new">
             <span class="glyphicon glyphicon-plus"></span>
@@ -26,7 +26,7 @@
 
     <% asmgroups_flatten.each do |assembly| %>
       <% unless assembly.status == Assemblies::TERMINATED %>
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+        <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover">
           <div class="app_inner">
             <div class="app">
               <div class="app_head">
