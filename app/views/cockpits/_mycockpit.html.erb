@@ -18,6 +18,27 @@
 <div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
   <%= render :partial => "users/topright_icons", :locals => {:title_name => t('titles.dashboard_title')} %>
   <%= render :partial => "cockpits/flygrid", :locals => {:cattype => Assemblies::TORPEDO.capitalize,    :assemblies_grouped => @assemblies_grouped} %>
+  <%= render :partial => "cockpits/flylist", :locals => {:cattype => Assemblies::TORPEDO.capitalize,    :assemblies_grouped => @assemblies_grouped} %>
 </div>
 <% end %>
 <%= render :template => "users/show" %>
+
+
+<script type="text/javascript">
+$(document).ready( function(){
+
+$('#app-list-view').hide();
+
+$('#app-btn-list').click(function () {
+    $('#app-grid-view').hide();
+    $('#app-list-view').show();
+});
+
+$('#app-btn-grid').click(function () {
+    $('#app-grid-view').show();
+    $('#app-list-view').hide();
+});
+
+});
+
+</script>
