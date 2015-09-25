@@ -26,7 +26,7 @@ def get_buckets
 			count=count+1
 			size+=obj.size.to_i
 		end
-		bucket_array.push({:bucket_name => "#{bkt.name}", :size => size, :create_at => "22-May-2013" })
+		bucket_array.push({:bucket_name => "#{bkt.name}", :size => size, :noofobjects => count.to_s })
 	end
 	bucket_array
 end
