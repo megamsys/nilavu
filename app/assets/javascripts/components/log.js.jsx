@@ -8,6 +8,8 @@ var Log = React.createClass({
         <div>Published: KISHOREKUMAR</div>
         <div>Published By: NEELAMEGAM</div>
       </div>
+
+      
     );
   }
 });
