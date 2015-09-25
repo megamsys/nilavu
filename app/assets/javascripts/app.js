@@ -15,7 +15,7 @@ var App = function () {
         isIE8 = !! navigator.userAgent.match(/MSIE 8.0/);
         isIE9 = !! navigator.userAgent.match(/MSIE 9.0/);
         isIE10 = !! navigator.userAgent.match(/MSIE 10.0/);
-        
+
         if (isIE10) {
             jQuery('html').addClass('ie10'); // detect IE10 version
         }
@@ -71,16 +71,16 @@ var App = function () {
     }
 
 
-    function handleSearch() {    
-        $('.search-btn').click(function () {            
+    function handleSearch() {
+        $('.search-btn').click(function () {
             if($('.search-btn').hasClass('show-search-icon')){
                 $('.search-box').fadeOut(300);
                 $('.search-btn').removeClass('show-search-icon');
             } else {
                 $('.search-box').fadeIn(300);
                 $('.search-btn').addClass('show-search-icon');
-            } 
-        }); 
+            }
+        });
     }
 
     function handleUniform() {
@@ -103,7 +103,7 @@ var App = function () {
             return;
         }
 
-        if (jQuery(".fancybox-button").size() > 0) {            
+        if (jQuery(".fancybox-button").size() > 0) {
             jQuery(".fancybox-button").fancybox({
                 groupAttr: 'data-rel',
                 prevEffect: 'none',
@@ -121,7 +121,7 @@ var App = function () {
             });
         }
     }
-	
+
     var handleFixedHeader = function() {
 
             if (!window.addEventListener) {
@@ -175,9 +175,9 @@ var App = function () {
     }
 
     var handleTheme = function () {
-	
+
         var panel = $('.color-panel');
-	
+
         // handle theme colors
         var setColor = function (color) {
             $('#style_color').attr("href", "assets/css/themes/" + color + (isRTL ? '-rtl' : '') + ".css");
@@ -196,19 +196,20 @@ var App = function () {
             $('.icon-color-close').hide();
         });
 
+
         $('li', panel).click(function () {
             var color = $(this).attr("data-style");
             setColor(color);
             $('.inline li', panel).removeClass("current");
             $(this).addClass("current");
         });
-		
+
 		$('.header-option', panel).change(function(){
 			if($('.header-option').val() == 'fixed'){
 	            $("body").addClass("page-header-fixed");
                 $('.header').addClass("navbar-fixed-top").removeClass("navbar-static-top");
 				App.scrollTop();
-				
+
 			} else if($('.header-option').val() == 'default'){
 	            $("body").removeClass("page-header-fixed");
                 $('.header').addClass("navbar-static-top").removeClass("navbar-fixed-top");
@@ -217,9 +218,9 @@ var App = function () {
 				App.scrollTop();
 			}
 		});
-		
+
 	}
-	
+
     return {
         init: function () {
             handleInit();
@@ -256,7 +257,7 @@ var App = function () {
                 responsive: true,
             });
 
-            $('.bxslider1').show();            
+            $('.bxslider1').show();
             $('.bxslider1').bxSlider({
                 minSlides: 6,
                 maxSlides: 6,
@@ -264,7 +265,7 @@ var App = function () {
                 slideMargin: 2,
                 moveSlides: 1,
                 responsive: true,
-            });            
+            });
         },
 
         // wrapper function to scroll to an element
@@ -282,7 +283,7 @@ var App = function () {
         gridOption1: function () {
             $(function(){
                 $('.grid-v1').mixitup();
-            });    
+            });
         }
 
     };
