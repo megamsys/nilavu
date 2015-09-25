@@ -16,20 +16,27 @@
 require 'json'
 
 class StoragesController < ApplicationController
-  respond_to :js
+  respond_to :json, :js
   include MarketplaceHelper
 
   before_action :stick_keys, only: [:index ]
 
-  ##
+         ##
   ## index page get all marketplace items from storage(we use riak) using megam_gateway
   ## and show the items in order of category
   ##
   def index
     logger.debug '> Storages: index.'
-
-    #@mkp_grouped = Marketplaces.instance.list(params).mkp_grouped
+    @msg = { :b_name => "Comment.last",
+      :form => {
+        :size => "25",
+        :create_at => "28-Jun-1992"
+      }
+     }
+     @msg
+               #@mkp_grouped = Marketplaces.instance.list(params).mkp_grouped
   end
+
 
   ##
   ## to show the selected marketplace catalog item, appears if there are credits in billing.
@@ -37,5 +44,16 @@ class StoragesController < ApplicationController
   def show
 
   end
+##
+  def getmsg
+    logger.debug '>Controller getmsg called'
 
+    data = [{:bucket_name => "Bucket 1", :size => "1GB", :create_at => "28-Jun-2012"},
+    {:bucket_name => "Bucket 2", :size => "1GB", :create_at => "22-May-2013"},
+  #  {:bucket_name => "Bucket 3", :size => "1GB", :create_at => "05-Jun-2014"},
+  #  {:bucket_name => "Bucket 4", :size => "1GB", :create_at => "21-May-2015"},
+  #  {:bucket_name => "Bucket 5", :size => "1GB", :create_at => "16-Sep-2015"},
+]
+    respond_with(data)
+  end
 end
