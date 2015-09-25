@@ -21,13 +21,5 @@ module Api
       wid = [{"Widget id" => 1, "name" => "graph", "kind" => "containers", "size" => nil, "source" => "cadvisor", "targets" => ["cpu_system"], "range" => "hour", "dashboard_id" => 2, "widget_type" => "percontainer", "created_at" => nil, "updated_at" => nil}] if params["dashboard_id"] == "2"
       respond_with(wid)
     end
-    def getmsg
-      logger.debug '> @@@@@@@@@@@@@@@@@@@@@@@@ getmsg called'
-
-      data = [{author: "Pete Hunt", text: "This is one comment"},
-      {author: "Jordan Walke", text: "This is *another* comment"}
-         ]
-      respond_with(data)
-    end
   end
 end
