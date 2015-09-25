@@ -48,7 +48,7 @@ class StoragesController < ApplicationController
   def getmsg
     logger.debug '>Controller getmsg called'
 
-    data = Storage.new.get_buckets
+    data = Backup.new.get_buckets
 	#[{:bucket_name => "Bucket 1", :size => "1GB", :create_at => "28-Jun-2012"},
 #    {:bucket_name => "Bucket 2", :size => "1GB", :create_at => "22-May-2013"},
   #  {:bucket_name => "Bucket 3", :size => "1GB", :create_at => "05-Jun-2014"},
