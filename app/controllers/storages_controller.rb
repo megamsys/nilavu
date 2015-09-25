@@ -21,15 +21,22 @@ class StoragesController < ApplicationController
 
   before_action :stick_keys, only: [:index ]
 
-  ##
+         ##
   ## index page get all marketplace items from storage(we use riak) using megam_gateway
   ## and show the items in order of category
   ##
   def index
     logger.debug '> Storages: index.'
-
-    #@mkp_grouped = Marketplaces.instance.list(params).mkp_grouped
+    @msg = { :b_name => "Comment.last",
+      :form => {
+        :size => "25",
+        :create_at => "28-Jun-1992"
+      }
+     }
+     @msg
+               #@mkp_grouped = Marketplaces.instance.list(params).mkp_grouped
   end
+
 
   ##
   ## to show the selected marketplace catalog item, appears if there are credits in billing.
@@ -38,4 +45,21 @@ class StoragesController < ApplicationController
 
   end
 
+  def getmsg
+    logger.debug '> @@@@@@@@@@@@@@@@@@@@@@@@  %%%%%%%%%%%%%%%%%%%getmsg called'
+
+    @msg = {
+      :form1 => {
+        :b_name => "Comment.last",
+        :size => "25",
+        :create_at => "28-Jun-1992"
+      },
+      :form2 => {
+        :b_name => "Comment.last",
+        :size => "25",
+        :create_at => "28-Jun-1992"
+      }
+     }
+  @msg.to_json
+  end
 end
