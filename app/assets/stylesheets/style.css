@@ -2983,3 +2983,74 @@ input.placeholder, textarea.placeholder {
 h3{
     font-size: 22px !important;
 }
+
+.dash_top {
+  padding-top: 0px;
+}
+.storage_left_add_inner{
+
+    /*margin-top: -15px;
+    margin-left: -10px;
+    width: 220px;
+    margin-top: -26px;*/
+        margin-top: 45px;
+    margin-left: -10px;
+    width: 220px;
+}
+.storage_left_add_inner li{
+    line-height: 30px;
+    background-color: #4cae4c;
+    padding: 10px 10px;
+    border-bottom: 1px solid #6ad17f;
+    color: #fff;
+}
+.storage_left_add_inner li a{
+    color: #fff;
+}
+.storage_left_add_inner li a:hover{
+    color: #ccc !important;
+    text-decoration: none;
+}
+.storage_left_add a{
+    border-bottom-left-radius: 1px !important;
+    border-bottom-right-radius: 1px !important;
+}
+.storage_left_add_inner li i{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.app_storage{
+    margin-top: 30px;
+}
+.app_storage .app_head{
+    height: 130px;
+}
+.app_storage .app_head .app_icon{
+    /*padding-top: 25px !important;*/
+}
+.app_storage .app_footer{
+    height: 30px;
+    padding: 0px;
+}
+.app_storage .app_footer span{
+    line-height: 25px;
+    font-weight: bold;
+}
+.app_storage .app_footer span small{
+    color: #4e9de6;
+}
+
+.app_storage .app{
+    height: 160px;
+}
+.app_storage .app{
+    font-size: 12px;
+}
+.app_storage_list .td-left{
+    font-weight: normal !important;
+    font-size: 14px;
+
+}

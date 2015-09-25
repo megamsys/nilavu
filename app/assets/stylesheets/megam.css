@@ -12,9 +12,9 @@ Buttons & Dropdown Buttons
 
 .btn {
 	border-width: 0;
-	padding: 12px 40px; 
-  height: 45px;	
-  font-size: 16px;  
+	padding: 12px 40px;
+  height: 45px;
+  font-size: 16px;
 	outline: none !important;
   -webkit-box-shadow: none !important;
      -moz-box-shadow: none !important;
@@ -695,7 +695,7 @@ label {
 .form-control {
   /*padding-top: 28px;
   padding-bottom: 28px;*/
-  height: 50px; 
+  height: 50px;
   font-size: 14px;
   font-weight: normal;
   /*font-family1: "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;*/
@@ -963,7 +963,7 @@ h7 .label {
           border-radius: 12px !important;
   text-shadow:none !important;
   text-align: center;
-  vertical-align: middle; 
+  vertical-align: middle;
 }
 
 
@@ -1228,7 +1228,7 @@ wells
 
 
 /***
-Bootstrap modal 
+Bootstrap modal
 ***/
 
 .modal {
@@ -1273,7 +1273,7 @@ Modal header close button fix
   z-index: 10049 !important;
 }
 
-.modal-backdrop, 
+.modal-backdrop,
 .modal-backdrop.fade.in {
   background-color: #333 !important;
 }
@@ -1283,7 +1283,7 @@ Modal header close button fix
 }
 
 body.modal-open{
- 
+
 }
 /* Megam change for byoc */
 .img-responsive_byoc {
@@ -1306,7 +1306,7 @@ Image Carousel
   top:40%;
 }
 
-.carousel.image-carousel.image-carousel-hoverable .carousel-control i { 
+.carousel.image-carousel.image-carousel-hoverable .carousel-control i {
   display: none;
 }
 
@@ -1364,7 +1364,7 @@ Image Carousel
 .carousel.image-carousel .carousel-caption h3 a,
 .carousel.image-carousel .carousel-caption h4 a {
   color: #aaa;
-} 
+}
 
 .carousel.image-carousel .carousel-caption p {
   margin-bottom: 0;
@@ -1386,7 +1386,7 @@ Bootstrap Tables
 Bootstrap Panel
 ***/
 
-.panel {  
+.panel {
   -webkit-box-shadow: none !important;
      -moz-box-shadow: none !important;
           box-shadow: none !important;
