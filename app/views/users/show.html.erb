@@ -96,3 +96,15 @@
   </div>
 </div>
 <%= render 'layouts/footer' %>
+<script type="text/javascript">
+  $('.inner-menu').click(function (e) {
+    e.preventDefault();
+    $('.inner-child').toggle();
+  });
+  //stoarge left menu
+  $('.storage_left_add_inner').hide();
+  $('.storage_left_add a ').click(function () {
+  // e.preventDefault();
+    $('.storage_left_add_inner').slideToggle();
+  });
+</script>

@@ -3,11 +3,11 @@ source "https://rubygems.org"
 
 gem "rails",  "~> 4.2.4"
 # add these gems to help with the transition to Rails 4.2.x
-gem 'protected_attributes', "~> 1.1.0"
+gem 'protected_attributes', "~> 1.1.3"
 gem "responders", "~> 2.1.0"
 
 #for internationalization
-gem 'rails-i18n', '~> 4.0.4' # For 4.0.x
+gem 'rails-i18n', '~> 4.0.5' # For 4.0.x
 
 #for reactjs
 gem 'react-rails', '~> 1.3.1'
@@ -54,8 +54,8 @@ gem "nokogiri", "~> 1.6.6.2"
 
 gem 'passenger',:group => :production
 
-gem 'sass-rails', "~> 5.0.3"
-gem 'uglifier', "~> 2.7.1"
+gem 'sass-rails', "~> 5.0.4"
+gem 'uglifier', "~> 2.7.2"
 
 gem "therubyracer","~> 0.12.2", :require => 'v8',:platforms => :ruby
 
