@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 
-class Storage < BaseFascade
+class Backup < BaseFascade
 
 def get_buckets
 	bucket_array = []
