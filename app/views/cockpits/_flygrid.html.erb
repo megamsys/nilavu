@@ -1,5 +1,5 @@
-<div class="" id="app-grid">
-  <%= render :partial => "cockpits/flyasm", :locals => {:cattype => Assemblies::TORPEDO.capitalize,    :assemblies_grouped => @assemblies_grouped} %>
+<div class="" id="app-grid-view">
+  <%= render :partial => "cockpits/flyasm", :locals => {:cattype => Assemblies::TORPEDO.capitalize,:assemblies_grouped => @assemblies_grouped} %>
   <%= render :partial => "cockpits/flyasm", :locals => {:cattype => Assemblies::APP.capitalize,    :assemblies_grouped => @assemblies_grouped} %>
   <%= render :partial => "cockpits/flyasm", :locals => {:cattype => Assemblies::SERVICE.capitalize,:assemblies_grouped => @assemblies_grouped} %>
 </div>

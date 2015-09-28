@@ -61,7 +61,12 @@ var BucketBox = React.createClass({
          </div>
         </div>
          <div className="app_footer">
+<<<<<<< HEAD
           <span > Size: {comment.size}  {comment.create_at} </span>
+=======
+          <span > Size: {comment.size} </span>
+          <span > Objects count: {comment.noofobjects} </span>
+>>>>>>> origin/0.9
          </div>
        </div>
       </div>

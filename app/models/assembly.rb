@@ -168,7 +168,7 @@ class Assembly < BaseFascade
   def bld_inputs(params)
     mkp = JSON.parse(params['mkp'])
     @inputs << { 'key' => 'domain', 'value' => params[:domain] } if params.key?(:domain)
-    @inputs << { 'key' => 'sshkey', 'value' => params[:ssh_keypair_name] } if params[:ssh_keypair_name]
+    @inputs << { 'key' => 'sshkey', 'value' => "#{params[:email]}_#{params[:ssh_keypair_name]}" } if params[:ssh_keypair_name]
     @inputs << { 'key' => 'provider', 'value' => params[:provider] } if params.key?(:provider)
     @inputs << { 'key' => 'endpoint', 'value' => params[:endpoint] } if params.key?(:endpoint)
     @inputs << { 'key' => 'cpu', 'value' => params[:cpu] } if params.key?(:cpu)
