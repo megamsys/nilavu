@@ -15,7 +15,7 @@
 -->
 <%= render 'layouts/header' %>
 <% asmid = request.original_url.partition('=').last %>
-<div class="container main-cover">
+<div class="container-fluid main-cover">
 	<div class="row">
 		<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 c_bg_white cover c_bg_white_override">
 			<div class="row">
@@ -26,7 +26,7 @@
 						<li class="start active" >
 							<%= link_to cockpits_path , :class => "one_back_to_dash", :data => {:remote => true} do %>
 							<i class="icon-chevron-sign-left pull-left"></i>
-							<span class="title pull-left"><%= t('overviews.back_dashboard') %></span>
+							<span class="title pull-left"><%= t('titles.dashboard_title') %></span>
 							<span class="hidden-xs selected" id="left_onedash"></span>
 							<% end %>
 						</li>

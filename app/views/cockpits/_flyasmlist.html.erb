@@ -24,7 +24,7 @@
                           <% case cattype.upcase %>
                           <% when Assemblies::TORPEDO %>
                           <%= link_to assembly.name + ".megambox.com", onetorpedos_path(:id => assembly.id), :data => {:remote => true} %>
-                          <% when Assemblies::APP %>
+                          <% when Assemblies::BYOC %>
                           <%= link_to assembly.name + ".megambox.com", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
                           <% when Assemblies::SERVICE %>
                           <%= link_to assembly.name + ".megambox.com", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
@@ -40,7 +40,7 @@
                           <% end %>
                         </td>
                         <td>
-                        <i class="circle_green"></i>
+                        <i class="circle_greenlist"></i>
                         </td>
                         <td><span><%= assembly.status.capitalize %></span></td>
                         </td>
@@ -81,7 +81,7 @@
             <% end %>
           </td>
           <td>
-          <i class="circle_red"></i>
+          <i class="circle_redlist"></i>
           <span><%= assembly.status.capitalize %></span>
           </td>
           <td>
