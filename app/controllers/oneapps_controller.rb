@@ -21,14 +21,14 @@ class OneappsController < ApplicationController
   before_action :stick_keys, only: [:index, :bind_service_list, :bind_service]
 
   def index
-    @assembly = Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Assemblies::APP]
+    @assembly = Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Assemblies::BYOC ]
     @bound_services = bound_assemblies(Assemblies.new.list(params).assemblies_grouped[Assemblies::SERVICE], @assembly.components[0][0].components.related_components)
     @assembly
   end
 
   def bind_service_list
 	@bindapp = params[:bindapp]
-	@service = unbound_apps(Assemblies.new.list(params.merge(:flying_service=> "true")).services) 
+	@service = unbound_apps(Assemblies.new.list(params.merge(:flying_service=> "true")).services)
   end
 
   def bind_service
