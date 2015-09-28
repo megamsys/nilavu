@@ -27,14 +27,8 @@ class StoragesController < ApplicationController
   ##
   def index
     logger.debug '> Storages: index.'
-    @msg = { :b_name => "Comment.last",
-      :form => {
-        :size => "25",
-        :create_at => "28-Jun-1992"
-      }
-     }
-     @msg
-               #@mkp_grouped = Marketplaces.instance.list(params).mkp_grouped
+    @buckets = Backup.new.get_buckets
+    @buckets
   end
 
 

@@ -149,5 +149,3 @@ parseParameters "$@"
 
 cecho "Good bye." $yellow
 exitScript 0
-
-
