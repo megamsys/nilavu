@@ -214,7 +214,6 @@ en:
     code: "CODE"
     your_container: "Your containers"
     containers_running: "containers running"
-    back_dashboard: "Back to Dashboard"
     runtime: "Runtime"
 
   settings:

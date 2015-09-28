@@ -16,25 +16,9 @@
 <% content_for :onecat_contents do %>
 <% provide(:title, "Torpedo Overview") %>
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
-	<div class="row c_pading-b15 settings_top">
-		<div class="margin_15">
-			<div class="col-xs-12 col-sm-6 col-md-7">
-				<h3> <%= Assemblies::TORPEDO.capitalize %> <%= t('overviews.overview') %> </h3>
-			</div>
-			<%= render :partial => "users/topright_icons", :locals => {:title_name => Assemblies::TORPEDO.capitalize} %>
-		</div>
-	</div>
-	<div class="row">
-		<div class="mplace mplace-head">
-			<div class="col-xs-6 col-md-3 mplace-left">
-				<h4> <%= Assemblies::TORPEDO.capitalize %> <%= t('overviews.overview') %> </h4>
-			</div>
-			<div class="col-xs-12 col-md-9 mplace-middle hidden-xs hidden-sm">
-				<span class="pull-right c_small"><%= t('overviews.overview_of') %> <%= Assemblies::TORPEDO.downcase %>.<i class="c_icon-rocket"></i><a href="http://docs.megam.io/v1.0/docs/megam_cloudmanagement_intro" target="_blank"><%= t('login.tour') %></a></span>
-
-			</div>
-		</div>
-	</div>
+	<div class="">
+	<%= render :partial => "users/topright_icons", :locals => {:title_name => Assemblies::TORPEDO.capitalize} %>
+</div>
 	<!-- TITLE BOX ENDS HERE -->
 	<div class="row">
 		<div class="margin_15 overview margintb_15">
@@ -45,7 +29,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="margin_30 bottom-divider"></div>
+		<div class="margin_15 bottom-divider"></div>
 	</div>
 	<div class=" overview margintb_15 vm-overview">
 		<div class="vm-bg">
@@ -128,7 +112,7 @@
 						</div>
 						<div class="app_footer">
 							<!-- <div class="circle_red"></div> -->
-							<i class="circle_green"></i>
+							<i class="circle_greenlist"></i>
 							<span><%= t('marketplace.launch_status') %></span>
 							<i class="c_icon-window pull-right"></i>
 							<i class="c_icon-star pull-right"></i>

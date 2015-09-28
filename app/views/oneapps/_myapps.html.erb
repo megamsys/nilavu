@@ -15,33 +15,21 @@
 -->
 <% content_for :onecat_contents do %>
 <% provide(:title, 'Apps Overview') %>
-
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
-	<div class="row c_pading-b15 settings_top">
-		<div class="margin_15">
+		<div class="">
 			<%= render :partial => "users/topright_icons", :locals => {:title_name => t('titles.app_overview')} %>
 		</div>
-	</div>
-	<div class="row">
-		<div class="mplace mplace-head">
-			<div class="col-xs-6 col-md-3 mplace-left">
-				<h4><%= t('titles.app_overview') %></h4>
-			</div>
-			<div class="col-xs-12 col-md-9 mplace-middle hidden-xs hidden-sm">
-				<span class="pull-right c_small"><%= t('overviews.overview_app') %><i class="c_icon-rocket"></i><a href="http://docs.megam.io/v1.0/docs/megam_quick_launch" target="_blank"><%= t('login.tour') %></a></span>
-			</div>
-		</div>
-	</div>
 	<!-- TITLE BOX ENDS HERE -->
 	<div class="row">
 		<div class="margin_15 overview margintb_15">
 			<div class="overview-top">
-				<div class="col-xs-12 col-sm-12 col-md-6 overview-route">
+				<div class="col-xs-12 col-sm-12 col-md-6 overview-route-dynamic">
 					<span><%= t('overviews.url') %> </span><a href="http://<%= assembly.name  %>.<%= assembly.components[0][0].components.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>" target="_blank"><%= assembly.name  %>.<%= assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %></a>
 				</div>
 				<div class="col-xs-12 col-sm-12 col-md-6 overview-git">
 					<div class="row">
 						<div class="col-xs-3">
+							<div class="clearfix"></div>
 							<label><%= t('overviews.git_url') %></label>
 						</div>
 						<div class="col-xs-6">
