@@ -910,6 +910,12 @@ background-repeat: no-repeat;
 	/*margin-top: 5px;*/
 	border-top: 1px solid #e5e6ef;
 }
+.app_footerstrg {
+	height: 45px;
+	padding: 12px 5px;
+	/*margin-top: 5px;*/
+	border-top: 1px solid #e5e6ef;
+}
 .center-block {
 	display: block;
 	margin-left: auto;
@@ -2356,4 +2362,31 @@ input[type="submit"]:active {opacity:1;}
 	/*margin-left: 10px;*/
 	/*margin-right: 10px;*/
 	margin-top: -8px;
+}
+
+.c_icon-cloud-download
+{
+	color: transparent;
+	overflow: hidden;
+	display: inline-block;
+	height: 25px;
+	/*width: 20px;*/
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	vertical-align: middle;
+	background-image:url(icon-cloud-download.png);
+}
+.c_icon-cloud-del
+{
+	color: transparent;
+	overflow: hidden;
+	display: inline-block;
+	height: 25px;
+	/*width: 20px;*/
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	vertical-align: middle;
+	background-image:url(icon-cloud-del.png);
 }

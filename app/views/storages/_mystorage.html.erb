@@ -21,8 +21,92 @@
 
 	<%= render :partial => "users/topright_icons", :locals => {:title_name => t('titles.storage_title')} %>
 
-	<%= react_component('ShowBucket')  %>
+<!--	<%= react_component('Show')  %> -->
 
+
+      <div class="col-xs-12 col-sm-9 col-md-9 br_grey">
+       <div class="row app_box app_storage">
+        <div class="col-xs-12 col-sm-6 col-md-3  app_cover create_bucket_modal ">
+          <div class="app_inner">
+           <div class="app_new ">
+            <span class="glyphicon glyphicon-plus"></span>
+              <p>
+                Create Storage
+              </p>
+           </div>
+         </div>
+        </div>
+				<% @buckets.each do |bucket| %>
+			<div class="col-xs-12 col-sm-6 col-md-3  app_cover my_bucket_inner">
+				 <div class="app_inner">
+					<div class="app">
+					 <div class="app_head">
+						<div class="row app_icon">
+						 <h5> <%= bucket[:bucket_name] %> </h5>
+						 <h6> Size:  <%= bucket[:size] %> </h6>
+						</div>
+					 </div>
+						<div class="app_footer">
+						 <span > Objects count: <%= bucket[:noofobjects] %></span>
+						</div>
+					</div>
+				 </div>
+				</div>
+				<% end %>
+       </div>
+    </div>
+		<div class="col-sm-3 storage-rt-list">
+			  		<dl>
+				  		<h3>Usage</h3>
+						<dt>Total Stroage</dt>
+						<dd>250 GB</dd>
+						<dt class="margin-top-20"></dt>
+						<dt>Total Buckets</dt>
+						<dd>4</dd>
+
+						<h3>Billing</h3>
+						<dt>Last billed amount</dt>
+						<dd>2500/- INR </dd>
+						<dt class="margin-top-20"></dt>
+						<dt>Current due</dt>
+						<dd>0/- INR</dd>
+						<dt class="margin-top-20"></dt>
+						<dt>Region</dt>
+						<dd>  <%= image_tag "flag_IN.png", :alt => "flag" %> INDIA</dd>
+					</dl>
+			  	</div>
+</div>
+<div class="storage-popup" >
+	<ul class="list-unstyled">
+		<li><a href=""><i class="c_icon-cloud-download pull-left"></i>Download File</a></li>
+		<li><a href=""><i class="c_icon-cloud-download pull-left"></i>Download As</a></li>
+		<li><a href=""><i class="c_icon-cloud-del pull-left"></i>Delete Bucket</a></li>
+	</ul>
+</div>
+
+<div id="create_bucket" class="modal fade" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog" style="max-width:400px">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title"> Bucket </h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<%= form_tag storages_path, multipart: true, :method => :post, :remote => true do %>
+						<div class="form-group">
+
+							<label for="bucket_name"> Name :</label>
+							<%= text_field_tag 'bucket_name', nil, :class=> 'form-control', placeholder: "Bucket Name", :required => true %>
+						</div>
+						<%= submit_tag "create", :class => "btn btn-success col-md-12 col-xs-12" , :data => {:remote => true}%>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <% end %>
 <%= render :template => "users/show" %>

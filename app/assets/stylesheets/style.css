@@ -3054,3 +3054,44 @@ h3{
     font-size: 14px;
 
 }
+.my_bucket .app_head h5{
+    /*text-align: center;
+    vertical-align: middle;
+    display: inline-block;*/
+}
+.my_bucket .app_head{
+    /*text-align: -webkit-center;*/
+}
+.my_bucket .app_head .app_icon{
+    /*padding: '' !important;*/
+}
+
+.storage-popup{
+    width:200px;
+    /*height:200px; */
+    position:absolute;
+    background-color: #fff;
+    display: none;
+    border:1px solid #dadce8;
+    border-radius: 3px;
+}
+.storage-popup ul{
+    margin-bottom: -1px;
+}
+.storage-popup li{
+    /*height: 30px;*/
+
+    line-height: 25px;
+    padding: 10px 10px;
+    border-bottom: 1px solid #dadce8;
+    color: #fff;
+}
+
+.storage-popup li:hover{
+    background-color: #e9f3fc;
+}
+.storage-popup li i{
+    width: 20px;
+    margin-right: 5px;
+
+}
