@@ -32,7 +32,7 @@ gem 'omniauth-github', "~> 1.1.2"
 
 gem 'json', "~> 1.8.3"
 gem 'riak-client', '~> 2.2.1'
-gem 's3'
+gem 's3', git: 'https://github.com/thomasalrin/s3'
 
 gem "megam_api", "~> 0.71"
 gem 'megam_gogs', "~> 0.8.0"
