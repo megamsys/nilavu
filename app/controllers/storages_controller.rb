@@ -48,7 +48,7 @@ class StoragesController < ApplicationController
     backup = Backup.new(params[:accesskey], params[:secretkey])
     backup.objects_list(params["id"]).each do |bkt|
       obj = backup.object_get(params["id"], bkt.key)
-      @objects.push({:object_name => "#{obj.full_key}", :size => "#{obj.size}", :content_type => "#{obj.content_type}", :last_modified => "#{obj.last_modified}" })
+      @objects.push({:key => "#{obj.key}", :object_name => "#{obj.full_key}", :size => "#{obj.size}", :content_type => "#{obj.content_type}", :last_modified => "#{obj.last_modified}", :download_url => "#{obj.temporary_url}" })
     end
     @bucket_name = params["id"]
   end

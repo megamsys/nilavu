@@ -14,7 +14,8 @@
 					<th>Key</th>
 					<th>Size</th>
 					<th>Content Tyepe</th>
-					<th>Lats Modified</th>
+					<th>Last Modified</th>
+					<th>Download URL</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -24,6 +25,10 @@
 					<td><%= obj[:size] %></td>
 					<td><%= obj[:content_type] %></td>
 					<td><i class="c_icon-calendar"></i> <%= obj[:last_modified] %> </td>
+					<td>
+						<%= link_to obj[:download_url] do %>
+						<i class="c_icon-inBlue"></i><span><%= obj[:key] %></span>
+							<% end %></td>
 				</tr>
 				<% end %>
 			</tbody>
