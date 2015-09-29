@@ -65,11 +65,9 @@ class UsersController < ApplicationController
       redirect_to cockpits_path, :format => 'html', :flash => { :alert => "Welcome #{my_account.first_name}."}
      end
     storage_acc_res = Backup.account_create(params["email"])
-	#session[:storage_access_key] = storage_acc_res["access_key"]
-	#session[:storage_secret_key] = storage_acc_res["secret_key"]
-  session[:storage_access_key] = "5UM3I9DFCN0WG4KJPJ8O"
-  session[:storage_secret_key] = "h9NrW6K2GgcJN+Ww47pvOlJU22tA0C4G8GIiGd6H"
-  end
+	session[:storage_access_key] = storage_acc_res["access_key"]
+	session[:storage_secret_key] = storage_acc_res["secret_key"]
+end
 
   #load the current user detail
   #load the current org details and send it the edit.html.erb.
