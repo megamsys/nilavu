@@ -2390,3 +2390,9 @@ input[type="submit"]:active {opacity:1;}
 	vertical-align: middle;
 	background-image:url(icon-cloud-del.png);
 }
+.upload_link{
+    text-decoration:none;
+}
+.upload{
+    display:none
+}

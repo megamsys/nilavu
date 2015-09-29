@@ -13,6 +13,14 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
+<style type="text/css">
+#upload_link{
+    text-decoration:none;
+}
+#upload{
+    display:none
+}
+</style>
 <% content_for :content_settings do %>
 <% provide(:title, "Storages") %>
 
@@ -28,7 +36,7 @@
        <div class="row app_box app_storage">
         <div class="col-xs-12 col-sm-6 col-md-3  app_cover create_bucket_modal ">
           <div class="app_inner">
-           <div class="app_new ">
+           <div class="app_new">
             <span class="glyphicon glyphicon-plus"></span>
               <p>
                 Create Storage
@@ -78,7 +86,8 @@
 </div>
 <div class="storage-popup" >
 	<ul class="list-unstyled">
-		<li><a href=""><i class="c_icon-cloud-download pull-left"></i>Download File</a></li>
+		<input id="upload" type="file"/>
+		<li><a href="" id="upload_link"><i class="c_icon-cloud-download pull-left"></i>Upload File</a></li>
 		<li><a href=""><i class="c_icon-cloud-download pull-left"></i>Download As</a></li>
 		<li><a href=""><i class="c_icon-cloud-del pull-left"></i>Delete Bucket</a></li>
 	</ul>
@@ -110,3 +119,13 @@
 </div>
 <% end %>
 <%= render :template => "users/show" %>
+
+
+<script type="text/javascript">
+$(function(){
+$("#upload_link").on('click', function(e){
+e.preventDefault();
+$("#upload:hidden").trigger('click');
+});
+});
+</script>
