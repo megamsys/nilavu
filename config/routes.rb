@@ -82,5 +82,4 @@ Nilavu::Application.routes.draw do
   match '/bind_service', :to => 'oneapps#bind_service', via: [:get, :post]
   #===Storage
   match '/strgs', :to => 'storages#getmsg', via: [:get]
-
 end

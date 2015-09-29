@@ -19,6 +19,8 @@ class Backup < BaseFascade
   attr_reader :client # storage s3 client
 
   STORAGES_BUCKET  = 'storages'.freeze
+  
+  MEGABYTE = 1024.0 * 1024.0
 
   def initialize(access_key, secret_key)
     @client = S3::Service.new(:access_key_id => "#{access_key}", :secret_access_key => "#{secret_key}")
@@ -50,16 +52,20 @@ end
 
 def buckets_list
 	bucket_array = []
+	bkt_count = 0
+	tsize = 0
 	@client.buckets.each do |bkt|
 		count=0
 		size=0
+		bkt_count = bkt_count+1
 		bkt.objects.each do |obj|
 			count=count+1
 			size+=obj.size.to_i
 		end
-		bucket_array.push({:bucket_name => "#{bkt.name}", :size => size, :noofobjects => count.to_s })
+		bucket_array.push({:bucket_name => "#{bkt.name}", :size => size.to_s(:human_size) , :noofobjects => count.to_s })
+		tsize = tsize + size
 	end
-	bucket_array
+	{:total_buckets => bkt_count, :total_size => tsize.to_s(:human_size) , :bucket_array => bucket_array}
 end
 
 def object_create(bucket_name, new_object)
@@ -84,6 +90,7 @@ end
 def object_get(bucket_name, object_name)
   bucket = @client.buckets.find("#{bucket_name}")
   object = bucket.objects.find("#{object_name}")
+  object
 end
 
 def object_delete(bucket_name, object_name)
@@ -91,6 +98,5 @@ def object_delete(bucket_name, object_name)
   object = bucket.objects.find("#{object_name}")
   object.destroy
 end
-
 
 end
