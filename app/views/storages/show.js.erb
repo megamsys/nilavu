@@ -1,0 +1,1 @@
+$('#object_list').html("<%= escape_javascript render(:partial => 'storages/objects', :locals => {:bucket_name => @bucket_name, :objects => @objects}) %>");
