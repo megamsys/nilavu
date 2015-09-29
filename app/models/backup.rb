@@ -19,7 +19,7 @@ class Backup < BaseFascade
   attr_reader :client # storage s3 client
 
   STORAGES_BUCKET  = 'storages'.freeze
-  
+
   MEGABYTE = 1024.0 * 1024.0
 
   def initialize(access_key, secret_key)
@@ -69,8 +69,14 @@ def buckets_list
 end
 
 def object_create(bucket_name, new_object)
+  puts "+++++++++++++++++++++++++++++++++++++++++++++++++++"
+  puts "[#{bucket_name}]"
   bucket = @client.buckets.find("#{bucket_name}")
-  object = bucket.objects.build(new_object)
+  puts "=========================================================="
+    puts "[#{bucket_name}]"
+    puts bucket.inspect
+    puts bucket.key
+  object = bucket.objects.build("demo.rb")
   object.content = open(new_object)
   object.save
 end
@@ -83,6 +89,7 @@ end
 
 
 def objects_list(bucket_name)
+
 	bucket = @client.buckets.find("#{bucket_name}")
 	bucket.objects
 end

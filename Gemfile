@@ -59,6 +59,9 @@ gem 'uglifier', "~> 2.7.1"
 
 gem "therubyracer","~> 0.12.2", :require => 'v8',:platforms => :ruby
 
+#for uploading files
+gem "paperclip", "~> 2.3"
+
 group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
