@@ -27,7 +27,8 @@ class StoragesController < ApplicationController
   ##
   def index
     logger.debug '> Storages: index.'
-    @buckets = Backup.new.get_buckets
+    backup = Backup.new(session[:storage_access_key], session[:storage_secret_key])
+    @buckets = backup.buckets_list
     @buckets
   end
 
