@@ -84,6 +84,7 @@ end
 def object_get(bucket_name, object_name)
   bucket = @client.buckets.find("#{bucket_name}")
   object = bucket.objects.find("#{object_name}")
+
 end
 
 def object_delete(bucket_name, object_name)
@@ -92,5 +93,10 @@ def object_delete(bucket_name, object_name)
   object.destroy
 end
 
+def url(bucket_name, object_name)
+  bucket = @client.buckets.find("#{bucket_name}")
+  object = bucket.objects.find("#{object_name}")
+  puts object.temporary_url
+    end
 
 end

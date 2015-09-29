@@ -9,7 +9,7 @@
 ##
 ## Unless required by applicable law or agreed to in writing, software
 ## distributed under the License is distributed on an "AS IS" BASIS,
-## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## WITHOUT WARRANTIE  S OR CONDITIONS OF ANY KIND, either express or implied.
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
@@ -29,6 +29,7 @@ class StoragesController < ApplicationController
     logger.debug '> Storages: index.'
     backup = Backup.new(session[:storage_access_key], session[:storage_secret_key])
     @buckets = backup.buckets_list
+    puts backup.url("admin_bucket", "admin_key")
     @buckets
   end
 
@@ -46,4 +47,5 @@ class StoragesController < ApplicationController
 	data = new_backup.buckets_list
     respond_with(data)
   end
+
 end
