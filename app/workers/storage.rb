@@ -26,7 +26,7 @@ class Storage
   end
 
   def fetch(key)
-    object = @client.bucket(@bname).get_or_new(key)
+    object = @client.bucket(@bname).get_or_new(key)   
     object.content_type = 'application/json'
     object.fetch
   end

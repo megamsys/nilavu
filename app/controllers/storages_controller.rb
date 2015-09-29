@@ -20,30 +20,44 @@ class StoragesController < ApplicationController
   include MarketplaceHelper
 
   before_action :stick_keys, only: [:index ]
-
-         ##
+  before_action :stick_storage_keys, only: [:index, :create, :show]
+  ##
   ## index page get all marketplace items from storage(we use riak) using megam_gateway
   ## and show the items in order of category
   ##
   def index
     logger.debug '> Storages: index.'
-    backup = Backup.new(session[:storage_access_key], session[:storage_secret_key])
+    backup = Backup.new(params[:accesskey], params[:secretkey])
     @buckets = backup.buckets_list
     @buckets
   end
 
+  def create
+    logger.debug '> Storages: create.'
+    backup = Backup.new(params[:accesskey], params[:secretkey])
+    backup.bucket_create(params["bucket_name"])
+    @msg = { title: "Storage", message: "#{params["bucket_name"]} created successfully. ", redirect: '/storages', disposal_id: 'create_bucket' }
+  end
 
   ##
   ## to show the selected marketplace catalog item, appears if there are credits in billing.
   ##
   def show
-
+    logger.debug '> Storages: show.'
+    @objects = []
+    backup = Backup.new(params[:accesskey], params[:secretkey])
+    backup.objects_list(params["id"]).each do |bkt|
+      obj = backup.object_get(params["id"], bkt.key)
+      @objects.push({:object_name => "#{obj.full_key}", :size => "#{obj.size}", :content_type => "#{obj.content_type}", :last_modified => "#{obj.last_modified}" })
+    end
+    @bucket_name = params["id"]
   end
-##
+
+  ##
   def getmsg
     logger.debug '>Controller getmsg called'
     new_backup = Backup.new("#{session[:storage_access_key]}", "#{session[:storage_secret_key]}")
-	data = new_backup.buckets_list
+    data = new_backup.buckets_list
     respond_with(data)
   end
 end

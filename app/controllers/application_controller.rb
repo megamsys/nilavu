@@ -99,6 +99,14 @@ class ApplicationController < ActionController::Base
     logger.debug "> STICKD #{params}"
     params
   end
+  
+  def stick_storage_keys(_tmp = {}, _permitted_tmp = {})
+    logger.debug "> STICK #{params}"
+    params[:accesskey] = session[:storage_access_key]
+    params[:secretkey] = session[:storage_secret_key]
+    logger.debug "> STICKD #{params}"
+    params
+  end
 
   def catch_exceptions
     yield
