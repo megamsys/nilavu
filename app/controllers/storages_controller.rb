@@ -61,4 +61,12 @@ class StoragesController < ApplicationController
     respond_with(data)
   end
 
+  def upload
+    backup = Backup.new(params[:accesskey], params[:secretkey])
+    puts "[#{params[:bucket_name]}]"
+      temp = "#{params[:bucket_name].strip!}"
+      puts "#{params[:sobject]}"
+    backup.object_create(temp, params[:sobject].read)
+  end
+
 end
