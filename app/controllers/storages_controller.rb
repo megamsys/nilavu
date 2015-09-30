@@ -20,7 +20,7 @@ class StoragesController < ApplicationController
   include MarketplaceHelper
 
   before_action :stick_keys, only: [:index ]
-  before_action :stick_storage_keys, only: [:index, :create, :show]
+  before_action :stick_storage_keys, only: [:index, :create, :show, :upload]
   ##
   ## index page get all marketplace items from storage(we use riak) using megam_gateway
   ## and show the items in order of category
@@ -63,10 +63,15 @@ class StoragesController < ApplicationController
 
   def upload
     backup = Backup.new(params[:accesskey], params[:secretkey])
-    puts "[#{params[:bucket_name]}]"
-      temp = "#{params[:bucket_name].strip!}"
-      puts "#{params[:sobject]}"
-    backup.object_create(temp, params[:sobject].read)
+    puts "[#{params[:bucket_name]}]"   
+    backup.object_create("#{params[:bucket_name]}", params[:sobject])
+    @msg = { title: "Storage", message: "#{params[:sobject].original_filename} uploaded successfully. ", redirect: '/storages', disposal_id: 'supload' }
+  end
+    
+  def destroy
+    logger.debug "> Storages bucket: delete"    
+    backup = Backup.new(params[:accesskey], params[:secretkey])
+    backup.bucket_delete(bucket_name)
   end
 
 end

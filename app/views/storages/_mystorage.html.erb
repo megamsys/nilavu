@@ -177,7 +177,8 @@
 			<div class="modal-footer c_modal-footer">
 				<button type="button" class="btn default" data-dismiss="modal">
 					<%= t('cancel') %>
-				</button>
+				</button>				
+
 				<%= link_to  t('confirm'), storage_path(:id => "delete"), :class => "btn btn-success a_pad", :remote => true, :method => :delete, :target => "_self" %>
 			</div>
 		</div>
@@ -204,7 +205,6 @@
 			e.preventDefault();
 			$('.inner-child').toggle();
 		});
-
 		//storage left menu
 		$('.storage_left_add_inner').hide();
 		$('.storage_left_add a ').click(function() {
@@ -219,13 +219,12 @@
 				'top' : e.pageY,
 				'left' : e.pageX,
 			});
-			$('#bucketName').val($(event.currentTarget).attr('id'));
 
+			$('#bucketName').val($(event.currentTarget).attr('id'));
 			//$.session.set('bucketname', $(event.currentTarget).attr('id'));
 			$('.storage-popup').show();
 					return false;
 			});
-
 	// hide storage menu when clicked outside the div
 	$(document).on('click', function(e) {
 		if ($(e.target).closest(".my_bucket_inner").length === 0) {
@@ -239,4 +238,5 @@
 			$("#upload:hidden").trigger('click');
 		});
 	});
+
 </script>
