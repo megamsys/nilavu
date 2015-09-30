@@ -20,11 +20,11 @@
     <div class="col-xs-12 col-sm-3 col-md-2 c_bg_white cover">
       <div class="row">
         <div class="page-sidebar navbar-collapse collapse">
-<!-- BEGIN SIDEBAR MENU -->
+          <!-- BEGIN SIDEBAR MENU -->
           <ul class="page-sidebar-menu">
             <li></li>
 
-<!-- BEGIN NOTIFICATION DROPDOWN -->
+            <!-- BEGIN NOTIFICATION DROPDOWN -->
             <li class="storage_left_add">
               <a class="btn btn-success btn-menu-top" href="#">
                 <span class="caret"></span>new
@@ -53,10 +53,10 @@
               <span class="title pull-left"><%= t('cockpits.torpedo_tab') %></span>
               <% end %>
             </li>
-            <li class= "start active">
+            <li class="start active">
               <%= link_to catalogs_path(:cattype => Assemblies::BYOC), :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                <i class="c_icon-apps pull-left"></i>
-                <span class="title pull-left"><%= t('cockpits.apps_tab') %></span>
+              <i class="c_icon-apps pull-left"></i>
+              <span class="title pull-left"><%= t('cockpits.apps_tab') %></span>
               <% end %>
             </li>
             <li class="start active">
@@ -86,7 +86,7 @@
               <% end %>
             </li>
           </ul>
-<!-- END SIDEBAR MENU -->
+          <!-- END SIDEBAR MENU -->
         </div>
       </div>
     </div>
@@ -97,14 +97,16 @@
 </div>
 <%= render 'layouts/footer' %>
 <script type="text/javascript">
-  $('.inner-menu').click(function (e) {
-    e.preventDefault();
-    $('.inner-child').toggle();
-  });
+  $('.inner-menu')
+    .click(function (e) {
+      e.preventDefault();
+      $('.inner-child').toggle();
+    });
   //stoarge left menu
   $('.storage_left_add_inner').hide();
-  $('.storage_left_add a ').click(function () {
-  // e.preventDefault();
-    $('.storage_left_add_inner').slideToggle();
-  });
+  $('.storage_left_add a ')
+    .click(function () {
+      // e.preventDefault();
+      $('.storage_left_add_inner').slideToggle();
+    });
 </script>
