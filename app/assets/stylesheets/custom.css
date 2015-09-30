@@ -94,9 +94,9 @@ a:hover {
 	border-bottom: 1px solid #e5e6ef;
 	padding-bottom: 10px;
 }
-.bottom_border_grey_leftpad {
+.bottom_border_grey_btpad {
 	border-bottom: 1px solid #e5e6ef;
-	padding-bottom: 10px;
+	padding-bottom: 16px;
 }
 .border_grey {
 	border: 2px solid #e5e6ef;
@@ -1130,6 +1130,9 @@ background-repeat: no-repeat;
 	color: #989aab;
   padding-right: 10px;
 }
+.c_tab-content-top{
+  padding-top: 15px
+}
 .tb_action_list tbody tr {
 	height: 60px;
 }
@@ -1462,6 +1465,13 @@ background-repeat: no-repeat;
 	padding-top: 15px;
 	padding-bottom: 15px;
 	}
+.top_pad {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 50px;
+}
 .app_left_desc {
 	padding-top: 15px;
 	padding-bottom: 15px;

@@ -22,10 +22,10 @@
   <%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
   <%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::ONE %>
   <div class="row">
-    <div class="col-md-12"> <span class="app_left_name"><%= t('marketplace.discription') %></span>
+    <div class="col-md-12 pad_tb25"> <span class="app_left_name"><%= t('marketplace.discription') %></span>
       <P class="model-description"><%= plan['description'] %> <a href="http://docs.megam.io/v1.0/docs/postgresql" target="_blank"> <%= t('marketplace.view_docs') %></a></P>
 <br/>
-      <div class="pad_tb25">
+      <div class="">
         <h4><%= t('name') %></h4>
         <div class="row">
           <div class="col-xs-6">
