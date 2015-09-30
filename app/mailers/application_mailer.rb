@@ -26,8 +26,6 @@ class ApplicationMailer < ActionMailer::Base
   def wrap_mail(tmp_params, &_block)
     if Ind.notification.on_some_hap
       begin
-        puts "----------------------"
-        puts tmp_params
         @account  = tmp_params[:account]
         mail(to: @account.email, subject: tmp_params[:subject])
         yield if block_given?

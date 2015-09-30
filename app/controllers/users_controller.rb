@@ -116,18 +116,18 @@ end
 # update org
 def organization_invite
 
-params["host"] = Ind.http_api
-params["api_key"] = Accounts.new.find_by_email(params["email"]).api_key
+ params["host"] = Ind.http_api
+ params["api_key"] = Accounts.new.find_by_email(params["email"]).api_key
 
-org_res = Organizations.new.list(params).orgs
+  org_res = Organizations.new.list(params).orgs
 
-org_res[0][:related_orgs] << params["org_id"]
-org_res[0][:api_key] = params["api_key"]
-org_res[0][:email] = params["email"]
-org_res[0][:host] = Ind.http_api
+  org_res[0][:related_orgs] << params["org_id"]
+  org_res[0][:api_key] = params["api_key"]
+  org_res[0][:email] = params["email"]
+  org_res[0][:host] = Ind.http_api
 
-res = Organizations.new.update(org_res[0])
-redirect_to root_url
+ res = Organizations.new.update(org_res[0])
+ redirect_to root_url
 
 end
 
