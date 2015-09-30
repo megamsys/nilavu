@@ -1,6 +1,4 @@
-<% tmp_asmgroups_flatten =  @assemblies_grouped[cattype.upcase] || {} %>
-<% asmgroups_flatten  = tmp_asmgroups_flatten.flatten %>
-  <div class="row c_pading-b15">
+<div class="row c_pading-b15">
     <div class="portlet-body-head">
       <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
         <i class="c_icon-layer-<%= cattype.downcase %>_lg"></i><%= t('cockpits.your') %><%= cattype.capitalize.pluralize %> <span><%= asmgroups_flatten.size%> <%=  cattype.pluralize %><%= t('cockpits.running') %></span>
@@ -96,7 +94,7 @@
         </div>
       </div>
     <% end %>
-  <% end unless assemblies_grouped[cattype.upcase].nil? %>
+  <% end unless asmgroups_flatten.size <= 0 %>
 </div>
 </div>
 

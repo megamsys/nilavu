@@ -17,67 +17,73 @@
 <%= render 'layouts/header' %>
 <div class="container-fluid main-cover">
   <div class="row">
-   <div class="col-xs-12 col-sm-3 col-md-2 c_bg_white cover">
+    <div class="col-xs-12 col-sm-3 col-md-2 c_bg_white cover">
       <div class="row">
         <div class="page-sidebar navbar-collapse collapse">
           <!-- BEGIN SIDEBAR MENU -->
           <ul class="page-sidebar-menu">
             <li></li>
 
+            <!-- BEGIN NOTIFICATION DROPDOWN -->
+            <li class="storage_left_add">
+              <a class="btn btn-success btn-menu-top" href="#">
+                <span class="caret"></span>new
+              </a>
+              <ul class="storage_left_add_inner">
+                <li>
+                  <a href="">
+                    <i class="c_icon-apps-white pull-left"></i>New App</a>
+                </li>
+                <li>
+                  <a href="#">
+                    <i class="c_icon-service-white pull-left"></i>New Service</a>
+                </li>
+              </ul>
+            </li>
 
-	<!-- BEGIN NOTIFICATION DROPDOWN -->
-      <li class="storage_left_add">
-          <a href="#" class="btn btn-success btn-menu-top" ><span class="caret"></span>new
-            </a>
-            <ul class="storage_left_add_inner">
-              <li><a href="#"><i class="c_icon-apps-white pull-left"></i>New App</a></li>
-              <li><a href="#"><i class="c_icon-service-white pull-left"></i>New Service</a></li>
-            </ul>
-          </li>
-
-            <li class= "start active">
+            <li class="start active">
               <%= link_to cockpits_path, :data => { :remote => true}, :target => "_self" do %>
-                <i class="c_icon-db pull-left"></i>
-                <span class="title pull-left"><%= t('titles.dashboard_title') %></span>
+              <i class="c_icon-db pull-left"></i>
+              <span class="title pull-left"><%= t('titles.dashboard_title') %></span>
               <% end %>
             </li>
-            <li class= "start active">
+            <li class="start active">
               <%= link_to catalogs_path(:cattype => Assemblies::TORPEDO ), :data => { :remote => true}, :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                <i class="c_icon-addon pull-left"></i>
-                <span class="title pull-left"><%= t('cockpits.torpedo_tab') %></span>
+              <i class="c_icon-addon pull-left"></i>
+              <span class="title pull-left"><%= t('cockpits.torpedo_tab') %></span>
               <% end %>
             </li>
-            <li class= "start active">
+            <li class="start active">
               <%= link_to catalogs_path(:cattype => Assemblies::BYOC), :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                <i class="c_icon-apps pull-left"></i>
-                <span class="title pull-left"><%= t('cockpits.apps_tab') %></span>
+              <i class="c_icon-apps pull-left"></i>
+              <span class="title pull-left"><%= t('cockpits.apps_tab') %></span>
               <% end %>
             </li>
-            <li class= "start active">
+            <li class="start active">
               <%= link_to catalogs_path(:cattype => Assemblies::SERVICE),:data => { :remote => true},   :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                <i class="c_icon-service pull-left"></i>
-                <span class="title pull-left"><%= t('cockpits.services_tab') %></span>
+              <i class="c_icon-service pull-left"></i>
+              <span class="title pull-left"><%= t('cockpits.services_tab') %></span>
               <% end %>
             </li>
-            <li class= "start active">
+            <li class="start active">
               <%= link_to catalogs_path(:cattype =>Assemblies::MICROSERVICES), :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                <i class="c_icon-addon pull-left"></i>
-                <span class="title pull-left"><%= t('cockpits.micro_services_tab') %></span>
+              <i class="c_icon-addon pull-left"></i>
+              <span class="title pull-left"><%= t('cockpits.micro_services_tab') %></span>
               <% end %>
             </li>
-            <li class= "start active">
+            <li class="start active">
               <%= link_to ssh_keys_path, :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                <i class="c_icon-set pull-left"></i>
-                <span class="title pull-left"><%= t('titles.ssh_title') %></span>
+              <i class="c_icon-set pull-left"></i>
+              <span class="title pull-left"><%= t('titles.ssh_title') %></span>
               <% end %>
             </li>
-            <li class= "start active">
-            <%  if Ind.billings %>
+            <li class="start active">
+              <%  if Ind.billings %>
               <%= link_to billings_path, :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                <i class="c_icon-addon pull-left"></i>
-                <span class="title pull-left"><%= t('titles.billing_title') %></span>
-                <% end %>
-                <% end %>
+              <i class="c_icon-addon pull-left"></i>
+              <span class="title pull-left"><%= t('titles.billing_title') %></span>
+              <% end %>
+              <% end %>
             </li>
           </ul>
           <!-- END SIDEBAR MENU -->
@@ -90,19 +96,17 @@
   </div>
 </div>
 <%= render 'layouts/footer' %>
-
-
 <script type="text/javascript">
-$('.inner-menu').click(function(e) {
-    e.preventDefault();
-    $('.inner-child').toggle();
-});
-
-
-//stoarge left menu
-$('.storage_left_add_inner').hide();
-$('.storage_left_add a ').click( function(){
-    // e.preventDefault();
-     $('.storage_left_add_inner').slideToggle();
-});
+  $('.inner-menu')
+    .click(function (e) {
+      e.preventDefault();
+      $('.inner-child').toggle();
+    });
+  //stoarge left menu
+  $('.storage_left_add_inner').hide();
+  $('.storage_left_add a ')
+    .click(function () {
+      // e.preventDefault();
+      $('.storage_left_add_inner').slideToggle();
+    });
 </script>
