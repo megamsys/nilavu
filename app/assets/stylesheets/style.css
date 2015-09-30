@@ -1806,7 +1806,7 @@ i.normal {
 .tabbable-custom {
     margin-bottom: 15px;
     overflow: hidden;
-    padding: 0;
+    padding-left: 12px;
 }
 .tabbable-custom > .nav-tabs {
     border: medium none;
@@ -1816,7 +1816,8 @@ i.normal {
     background-color: #fff;
     border-top: 1px solid #ddd;
     border-radius: 0;
-    /*padding: 10px;*/
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .tabbable-custom.nav-justified .tab-content {
     margin-top: -1px;
@@ -3052,7 +3053,6 @@ h3{
 .app_storage_list .td-left{
     font-weight: normal !important;
     font-size: 14px;
-
 }
 .my_bucket .app_head h5{
     /*text-align: center;
@@ -3093,5 +3093,29 @@ h3{
 .storage-popup li i{
     width: 20px;
     margin-right: 5px;
+}
 
+.storage-rt-list{
+    /*border-left: 1px solid #c1c3cf;*/
+
+}
+.storage-rt-list h3{
+    font-weight: bold;
+    color: #a4a6b8;
+    line-height: 40px;
+}
+.storage-rt-list dt{
+    color: #408ed6;
+}
+.storage-rt-list dd{
+    color: #c1c3cf;
+}
+.verticalLine {
+    border-left: 1px solid #c8c8c8;
+}
+@media (min-width: 768px) {
+    .br_grey{
+        min-height: 800px;
+        border-right: 1px solid #e5e6ef;
+    }
 }

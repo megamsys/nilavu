@@ -5,9 +5,8 @@
     margin-left: auto;
 }
 
-h3 {
-	font-weight: normal;
-}
+h3 {font-weight: normal;}
+
 select.form-control {
 	border-radius:2px !important;
 }
@@ -64,6 +63,10 @@ a:hover {
 	padding-top: 25px !important;
 	padding-bottom: 25px !important;
 }
+.pad_tb20 {
+  padding-top: 20px !important;
+	padding-bottom: 0px !important;
+}
 .login {
 	 background-color: #edeef5 !important;
 }
@@ -93,6 +96,10 @@ a:hover {
 .bottom_border_grey {
 	border-bottom: 1px solid #e5e6ef;
 	padding-bottom: 10px;
+}
+.bottom_border_grey_btpad {
+	border-bottom: 1px solid #e5e6ef;
+	padding-bottom: 16px;
 }
 .border_grey {
 	border: 2px solid #e5e6ef;
@@ -547,17 +554,9 @@ background-repeat: no-repeat;
 }
 .c_icon-star {
 	color: transparent;
-	overflow: hidden;
-	display: inline-block;
 	height: 16px;
 	width: 16px;
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-position: center;
-	/* border-radius: 50%; */
-	vertical-align: middle;
-	background-image:url(icon-star.png);/*margin-left: 10px;*/
-	/*margin-right: 10px;*/
+	background-image:url(icon-star.png);
 }
 .c_icon-dashstar {
 	color: transparent;
@@ -590,18 +589,18 @@ background-repeat: no-repeat;
       margin-top: 6px;
   }
 .c_icon-window {
-	color: transparent;
-	overflow: hidden;
-	display: inline-block;
-	height: 16px;
-	width: 16px;
-	background-size: contain;
-	background-repeat: no-repeat;
-	background-position: center;
-	/* border-radius: 50%; */
-	vertical-align: middle;
-	background-image:url(icon-window.png);/*margin-left: 10px;*/
-	/*margin-right: 10px;*/
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* border-radius: 50%; */
+  vertical-align: middle;
+  background-image:url(icon-window.png);/*margin-left: 10px;*/
+  /*margin-right: 10px;*/
 }
 .c_icon-window-lg {
 	color: transparent;
@@ -1046,7 +1045,8 @@ background-repeat: no-repeat;
 .app_icon a {
 	color: #4f9de6;
 }
-.app_icon_bottom {
+.app_icon_bottom
+{
 	/*padding-top: 43px;*/
 	margin-top: 10px;
 }
@@ -1124,6 +1124,10 @@ background-repeat: no-repeat;
 .c_tab-content {
 	padding-top: 35px !important;
 	color: #989aab;
+  padding-right: 10px;
+}
+.c_tab-content-top{
+  padding-top: 15px
 }
 .tb_action_list tbody tr {
 	height: 60px;
@@ -1143,6 +1147,13 @@ background-repeat: no-repeat;
 	color: #529fe7;
 	text-decoration: underline;
 }
+.set_name {
+	font-family: proxima_nova_rg;
+	font-size: 16px;
+	/*font-weight: bold;*/
+	color: #529fe7;
+}
+
 .sett-public {
 	color: #6fde86;
 }
@@ -1457,6 +1468,13 @@ background-repeat: no-repeat;
 	padding-top: 15px;
 	padding-bottom: 15px;
 	}
+.top_pad {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 50px;
+}
 .app_left_desc {
 	padding-top: 15px;
 	padding-bottom: 15px;
