@@ -1806,7 +1806,7 @@ i.normal {
 .tabbable-custom {
     margin-bottom: 15px;
     overflow: hidden;
-    padding: 0;
+    padding-left: 12px;
 }
 .tabbable-custom > .nav-tabs {
     border: medium none;
@@ -1816,7 +1816,8 @@ i.normal {
     background-color: #fff;
     border-top: 1px solid #ddd;
     border-radius: 0;
-    /*padding: 10px;*/
+    padding-left: 10px;
+    padding-right: 10px;
 }
 .tabbable-custom.nav-justified .tab-content {
     margin-top: -1px;

@@ -779,6 +779,9 @@ pre code {
   margin-left: -15px;
 }
 
+.row_org {
+  padding-left: 5px;
+}
 .row:before,
 .row:after {
   display: table;
@@ -852,6 +855,12 @@ pre code {
   padding-right: 15px;
   padding-left: 15px;
 }
+.col-xs-13 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 20px;
+}
 
 .col-xs-1,
 .col-xs-2,
@@ -866,7 +875,6 @@ pre code {
 .col-xs-11 {
   float: left;
 }
-
 .col-xs-1 {
   width: 8.333333333333332%;
 }
@@ -913,6 +921,12 @@ pre code {
 
 .col-xs-12 {
   width: 100%;
+}
+.col-xs-13 {
+  width:98.555555555555555%;
+}
+.col-sm-pull-13 {
+  right: 1%;
 }
 
 @media (min-width: 768px) {
