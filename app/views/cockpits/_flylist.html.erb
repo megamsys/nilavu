@@ -1,5 +1,5 @@
 <div class="" id="app-list-view">
   <%= render :partial => "cockpits/flyasmlist", :locals => {:cattype => Assemblies::TORPEDO.capitalize,:asmgroups_flatten => flat_asmgroup([Assemblies::TORPEDO],@assemblies_grouped)} %>
-  <%= render :partial => "cockpits/flyasmlist", :locals => {:cattype => Assemblies::APP.capitalize,:asmgroups_flatten => flat_asmgroup([Assemblies::APP],@assemblies_grouped)} %>
+  <%= render :partial => "cockpits/flyasmlist", :locals => {:cattype => Assemblies::BYOC.capitalize,:asmgroups_flatten => flat_asmgroup([Assemblies::BYOC],@assemblies_grouped)} %>
   <%= render :partial => "cockpits/flyasmlist", :locals => {:cattype => Assemblies::SERVICE.capitalize,:asmgroups_flatten => flat_asmgroup([Assemblies::ANALYTICS, Assemblies::COLLABORATION, Assemblies::SERVICE],@assemblies_grouped)} %>
 </div>

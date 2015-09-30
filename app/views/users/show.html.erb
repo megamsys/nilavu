@@ -53,10 +53,10 @@
               <span class="title pull-left"><%= t('cockpits.torpedo_tab') %></span>
               <% end %>
             </li>
-            <li class="start active">
-              <%= link_to catalogs_path(:cattype => Assemblies::APP), :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-              <i class="c_icon-apps pull-left"></i>
-              <span class="title pull-left"><%= t('cockpits.apps_tab') %></span>
+            <li class= "start active">
+              <%= link_to catalogs_path(:cattype => Assemblies::BYOC), :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                <i class="c_icon-apps pull-left"></i>
+                <span class="title pull-left"><%= t('cockpits.apps_tab') %></span>
               <% end %>
             </li>
             <li class="start active">

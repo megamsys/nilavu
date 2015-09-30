@@ -1,7 +1,7 @@
 <div class="row c_pading-b15">
     <div class="portlet-body-head">
       <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-        <i class="c_icon-layer_<%= cattype.downcase %>"></i><%= t('cockpits.your') %><%= cattype.capitalize.pluralize %> <span><%= asmgroups_flatten.size%> <%=  cattype.pluralize %><%= t('cockpits.running') %></span>
+        <i class="c_icon-layer-<%= cattype.downcase %>_lg"></i><%= t('cockpits.your') %><%= cattype.capitalize.pluralize %> <span><%= asmgroups_flatten.size%> <%=  cattype.pluralize %><%= t('cockpits.running') %></span>
       </div>
     </div>
   </div>
@@ -37,7 +37,7 @@
                   <% case cattype.upcase %>
                   <% when Assemblies::TORPEDO %>
                   <%= link_to assembly.name + ".megambox.com", onetorpedos_path(:id => assembly.id), :data => {:remote => true} %>
-                  <% when Assemblies::APP %>
+                  <% when Assemblies::BYOC %>
                   <%= link_to assembly.name + ".megambox.com", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
                   <% when Assemblies::SERVICE %>
                   <%= link_to assembly.name + ".megambox.com", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
@@ -58,8 +58,8 @@
             <div class="app_footer">
               <i class="circle_green"></i>
               <span><%= assembly.status.capitalize %></span>
-              <a href="http://docs.megam.io" target="_blank" ><i class="c_icon-window pull-right" style="color:blue"></i></a>
-              <i class="c_icon-star pull-right"></i>
+              <a href="http://docs.megam.io" target="_blank" ><i class="c_icon-dashwindow pull-right" style="color:blue"></i></a>
+              <i class="c_icon-dashstar pull-right"></i>
             </div>
           </div>
         </div>
@@ -87,8 +87,8 @@
             <div class="app_footer">
               <i class="circle_red"></i>
               <span><%= assembly.status.capitalize %></span>
-              <i class="c_icon-window pull-right" style="color:blue"></i>
-              <i class="c_icon-star pull-right"></i>
+              <i class="c_icon-dashwindow pull-right" style="color:blue"></i>
+              <i class="c_icon-dashstar pull-right"></i>
             </div>
           </div>
         </div>

@@ -26,7 +26,7 @@
 		<%= favicon_link_tag 'favicon.png' %>
 		<title>Megam - PaaS | <%= yield(:title) %></title>
 		<%= stylesheet_link_tag "application", :media => "all" %>
-		
+
 		<%= analytics_init if Rails.env.production? %>
 		<%= javascript_include_tag "application" %>
 		<%= script_tag_for_all_templates %>
