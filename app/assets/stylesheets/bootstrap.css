@@ -578,8 +578,8 @@ ol ol {
 
 .list-inline > li {
   display: inline-block;
-  padding-right: 5px;
-  padding-left: 5px;
+  padding-right: 50px;
+  padding-left: 50px;
 }
 
 dl {
@@ -861,6 +861,15 @@ pre code {
   padding-right: 15px;
   padding-left: 15px;
 }
+.col-xs-14,
+.col-sm-14,
+.col-md-14,
+.col-lg-14 {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
 
 .col-xs-1,
 .col-xs-2,
@@ -924,6 +933,10 @@ pre code {
 }
 .col-xs-13 {
   width:98.555555555555555%;
+}
+
+.col-xs-14{
+  width: 100%;
 }
 .col-sm-pull-13 {
   right: 1%;
@@ -1298,6 +1311,9 @@ pre code {
   }
   .col-lg-12 {
     width: 100%;
+  }
+  .col-lg-14 {
+    width: 10%;
   }
   .col-lg-push-0 {
     left: auto;
