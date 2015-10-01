@@ -51,10 +51,8 @@ class UsersController < ApplicationController
     all_params = params.merge(new_session)
 
 	session[:tour]=true
-
     my_account = Accounts.new
     redirect_to signin_path, :flash => { :error => "Hey you!, I know you already."} and return if my_account.dup?(all_params[:email])
-
     my_account.create(all_params) do
       org_res = Organizations.new.list(all_params).orgs
       session[:org_id] = org_res[0][:id]
