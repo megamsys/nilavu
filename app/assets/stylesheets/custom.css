@@ -5,8 +5,9 @@
     margin-left: auto;
 }
 
-
-h3 {font-weight: normal;}
+h3 {
+font-weight: normal;
+}
 
 select.form-control {
 	border-radius:2px !important;
@@ -1404,7 +1405,7 @@ background-repeat: no-repeat;
 	/*text-align: center;*/
 	display: inline-flex;
 }
-
+}
 .app_inner {
 	text-align: -webkit-center;
 }
@@ -2408,10 +2409,4 @@ input[type="submit"]:active {opacity:1;}
 	background-position: center;
 	vertical-align: middle;
 	background-image:url(icon-cloud-del.png);
-}
-.upload_link{
-    text-decoration:none;
-}
-.upload{
-    display:none
 }
