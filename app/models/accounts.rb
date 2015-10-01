@@ -100,7 +100,7 @@ class Accounts < BaseFascade
 
   # creates a new account
   def create(api_params, &_block)
-    Rails.logger.debug '> Accounts: create'   
+    Rails.logger.debug '> Accounts: create'
     api_request(bld_acct(api_params), ACCOUNT, CREATE)
     @remember_token = api_params[:remember_token]
     @api_key = api_params[:api_key]
@@ -153,7 +153,7 @@ class Accounts < BaseFascade
       authority: ADMIN,
       password_reset_key: api_params[:password_reset_key],
       password_reset_sent_at: api_params[:password_reset_sent_at],
-      created_at: api_params[:created_at], 
+      created_at: api_params[:created_at],
       host: api_params[:host] }
   end
 

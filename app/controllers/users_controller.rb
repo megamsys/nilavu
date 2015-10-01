@@ -74,7 +74,6 @@ end
     @account = current_user
     @orgs = Organizations.new.list(params).orgs
     @acc = Accounts.new.find_by_email(session[:email])
-
     @orgs
   end
 
@@ -94,6 +93,42 @@ end
      }
    end
   end
+
+def invite
+   logger.debug "> Users: Organization invite"
+   if params[:email] != session[:email]
+   acct = Accounts.new.find_by_email(params[:email])
+   UserMailer.invite(acct, session[:org_id]).deliver_now
+   @msg = { title: "Organization Invite", message: "#{params["email"]} invited successfully. ", redirect: '/', disposal_id: 'invite_user' }
+
+ else
+   @msg = { title: "Organization Invite", message: "#{params["email"]} is your own email! You cannot invite yourself into your own organization" , redirect: '/', disposal_id: 'invite_user' }
+
+ end
+end
+
+
+# NOTE: get the invitees default org_id to add the params[org_id] into the invitee's default org bucket
+# as related organizations. U1 invited U2, so params contains U2 email and U1 orgId.
+# get org_id with email
+# update org
+def organization_invite
+
+ params["host"] = Ind.http_api
+ params["api_key"] = Accounts.new.find_by_email(params["email"]).api_key
+
+  org_res = Organizations.new.list(params).orgs
+
+  org_res[0][:related_orgs] << params["org_id"]
+  org_res[0][:api_key] = params["api_key"]
+  org_res[0][:email] = params["email"]
+  org_res[0][:host] = Ind.http_api
+
+ res = Organizations.new.update(org_res[0])
+ redirect_to root_url
+
+end
+
 
   private
 
