@@ -186,6 +186,7 @@ class Assembly < BaseFascade
 
   def bld_ci_requirements(params)
     mkp = JSON.parse(params['mkp'])
+        
     op = []
     op << { 'key' => 'type', 'value' => set_repotype(mkp['cattype']) }
     op << { 'key' => 'enabled', 'value' => enable_ci(mkp['cattype'], params['radio_app_scm']) }

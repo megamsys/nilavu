@@ -69,8 +69,8 @@ module MarketplaceHelper
   def set_repotype(cattype)
     case cattype
     when 'BYOC'
-      'git'
-    else
+         'git'
+       else
       'image'
     end
   end
@@ -79,7 +79,7 @@ module MarketplaceHelper
   # the constants should be moved to a super Assembly class.
   # The helper is getting bloated.
   def enable_ci(cattype, selected_scm)
-    if cattype == 'BYOC' && selected_scm == `byoc_scm`
+    if cattype == 'BYOC' && selected_scm == 'byoc_scm'
       'true'
     else
       'false'
