@@ -454,13 +454,11 @@ background-repeat: no-repeat;
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
-	/* border-radius: 50%; */
 	vertical-align: middle;
 	background-image:url(icon-addon.png);
-	/*margin-left: 10px;*/
 	margin-right: 10px;
 }
-.c_icon-layer-byoc_lg {
+.c_icon-layer-app_lg {
   color: transparent;
 	overflow: hidden;
 	display: inline-block;
@@ -469,10 +467,8 @@ background-repeat: no-repeat;
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
-	/* border-radius: 50%; */
 	vertical-align: middle;
 	background-image:url(icon-browser.png);
-	/*margin-left: 10px;*/
 	margin-right: 10px;
 }
 .c_icon-layer-service_lg {
@@ -484,10 +480,8 @@ background-repeat: no-repeat;
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
-	/* border-radius: 50%; */
 	vertical-align: middle;
 	background-image:url(icon-service.png);
-	/*margin-left: 10px;*/
 	margin-right: 10px;
 }
 .c_icon-stack {
@@ -505,7 +499,6 @@ background-repeat: no-repeat;
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
-	/* border-radius: 50%; */
 	vertical-align: middle;
 	background-image:url(icon-rocket.png);
 	margin-left: 10px;

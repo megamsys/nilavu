@@ -24,17 +24,17 @@ module MarketplaceHelper
   def trim_category(ck)
     case ck
     when '1'
-      'TORPEDO'
+      Assemblies::TORPEDO
     when '2'
-      'BYOC'
+      Assemblies::APP
     when '3'
-      'SERVICE'
+      Assemblies::SERVICE
     when '4'
-      'MICROSERVICES'
+      Assemblies::MICROSERVICES
     when '5'
-      'ANALYTICS'
+      Assemblies::ANALYTICS
     when '6'
-      'COLLABORATION'
+      Assemblies::COLLABORATION
     when '7'
       'Just do one thing in an unikernel.'
     else
@@ -68,7 +68,7 @@ module MarketplaceHelper
   # The helper is getting bloated.
   def set_repotype(cattype)
     case cattype
-    when 'BYOC'
+    when Assemblies::APP
          'git'
        else
       'image'
@@ -79,7 +79,7 @@ module MarketplaceHelper
   # the constants should be moved to a super Assembly class.
   # The helper is getting bloated.
   def enable_ci(cattype, selected_scm)
-    if cattype == 'BYOC' && selected_scm == 'byoc_scm'
+    if cattype == Assemblies::APP && selected_scm == 'byoc_scm'
       'true'
     else
       'false'

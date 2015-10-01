@@ -22,7 +22,7 @@
                           <% case cattype.upcase %>
                           <% when Assemblies::TORPEDO %>
                           <%= link_to assembly.name + ".megambox.com", onetorpedos_path(:id => assembly.id), :data => {:remote => true} %>
-                          <% when Assemblies::BYOC %>
+                          <% when Assemblies::APP %>
                           <%= link_to assembly.name + ".megambox.com", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
                           <% when Assemblies::SERVICE %>
                           <%= link_to assembly.name + ".megambox.com", oneservices_path(:id => assembly.id), :data => {:remote => true} %>

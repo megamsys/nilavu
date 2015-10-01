@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/thomasalrin/s3
-  revision: 1c48ff90545fcc05aa7ae7216ed5a2bee9f1d0f1
+  revision: f0ba5860cca63ff15ef4c99ea5a4b036e8459f26
   specs:
     s3 (0.3.23)
       proxies (~> 0.2.0)
@@ -153,6 +153,7 @@ GEM
     multi_test (0.1.2)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    net-ssh (3.0.1)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     nprogress-rails (0.1.6.7)
@@ -316,6 +317,7 @@ DEPENDENCIES
   json (~> 1.8.3)
   megam_api (~> 0.71)
   megam_gogs (~> 0.8.0)
+  net-ssh
   nokogiri (~> 1.6.6.2)
   nprogress-rails
   oauth (~> 0.4.7)

@@ -25,7 +25,6 @@ class SshKeysController < ApplicationController
 
   def create
     logger.debug "> SSH: create"
-    puts params.inspect
     params[:sshoption] = Sshkeys::NEW
     Sshkeys.new.create_or_import(params)
     @msg = { title: "SSH", message: "#{params[:ssh_keypair_name]} created successfully. ", redirect: '/ssh_keys', disposal_id: 'create_ssh' }
