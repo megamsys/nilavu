@@ -1,5 +1,3 @@
-<% tmp_asmgroups_flatten =  @assemblies_grouped[cattype.upcase] || {} %>
-<% asmgroups_flatten  = tmp_asmgroups_flatten.flatten %>
   <div class="row c_pading-b15">
     <div class="portlet-body-head">
       <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
@@ -32,7 +30,7 @@
                           <%= link_to assembly.name + ".megambox.com", onemicroservices_path(:id => assembly.id), :data => {:remote => true} %>
                           <% end %>
                         </td>
-                        <td>
+                        <td width="80px">
                           <%  sparkle_up(cattype,assembly).each do |cool_logo| %>
                           <li>
                             <%= image_tag  cool_logo, :alt => "" %>
@@ -41,22 +39,17 @@
                         </td>
                         <td>
                         <i class="circle_greenlist"></i>
-                        </td>
-                        <td><span><%= assembly.status.capitalize %></span></td>
-                        </td>
-                        <td>
-                        <ul class="list-inline app_icon_bottom">
-                          <li><a href="http://docs.megam.io" target="_blank" ><i class="c_icon-window pull-right" style="color:blue"></i></a></li>
-                          <li>
-                            <i class="c_icon-star pull-right"></i>
-                            <span class="app_config" id="config_menu_<%= assembly.name %>_<%= cattype.downcase %>"><i class="c_icon-config"></i></span>
-                          </li>
-                          <li>
+                        <td width="100px"><span><%= assembly.status.capitalize %></span></td>
+                      </td>
+                        <td width="300px">
+                          <ul>
+                            <li><span class="app_config c_icon-config pull-left" id="config_menu_<%= assembly.name %>_<%= cattype.downcase %>"></span>
                             <div class="config_menu config_menu_<%= assembly.name %>_<%= cattype.downcase %>">
-                            <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id, :name => assembly.name, :cattype => cattype} %>
+                              <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id, :name => assembly.name, :cattype => cattype} %>
                             </div>
-                          </li>
-                        </ul>
+                            <i class="c_icon-star center-block"></i></li>
+                            <li><a href="http://docs.megam.io" target="_blank" ><i class="c_icon-window pull-left" style="color:blue"></i></a></li>
+                          </ul>
                        </td>
                     </tr>
                 </tbody>
@@ -85,22 +78,20 @@
           <span><%= assembly.status.capitalize %></span>
           </td>
           <td>
-          <ul class="list-inline app_icon_bottom">
+           <ul class="list-inline app_icon_bottom">
+            <li><i class="app_config" id="config_menu_<%= assembly.name %>_<%= cattype.downcase %>"><i class="c_icon-config"></i></i></li>
+               <li>
+               <div class="config_menu config_menu_<%= assembly.name %>_<%= cattype.downcase %>">
+               <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id, :name => assembly.name, :cattype => cattype} %>
+               </div>
+               </li>
             <li><a href="http://docs.megam.io" target="_blank" ><i class="c_icon-window pull-right" style="color:blue"></i></a></li>
-            <li>
-              <i class="c_icon-star pull-right"></i>
-              <span class="app_config" id="config_menu_<%= assembly.name %>_<%= cattype.downcase %>"><i class="c_icon-config"></i></span>
-            </li>
-            <li>
-              <div class="config_menu config_menu_<%= assembly.name %>_<%= cattype.downcase %>">
-              <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id, :name => assembly.name, :cattype => cattype} %>
-              </div>
-              </li>
+            <li><i class="c_icon-star pull-right"></i>
              </ul>
             </td>
           </tr>
         </tbody>
       </table>
     <% end %>
-    <% end unless assemblies_grouped[cattype.upcase].nil? %>
+    <% end unless asmgroups_flatten.nil? %>
     </div>

@@ -48,4 +48,5 @@
 //= require react
 //= require react_ujs
 //= require components
+//= require megam.menu
 //= require_tree .

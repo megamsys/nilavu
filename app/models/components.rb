@@ -19,8 +19,8 @@ class Components < BaseFascade
   include MarketplaceHelper
   attr_reader :components
 
-  def initialize()
-    @components= nil
+  def initialize
+    @components = nil
     @name = nil
     @tosca_type = nil
     @inputs = []
@@ -28,26 +28,25 @@ class Components < BaseFascade
     @operations = []
   end
 
-  def show(api_params, &block)
+  def show(api_params, &_block)
     @components = api_request(api_params, COMPONENTS, SHOW)[:body]
     yield self if block_given?
-    return self
+    self
   end
 
-  def update(api_params, &block)
+  def update(api_params, &_block)
     api_request(bld_update_params(api_params), COMPONENTS, UPDATE)
     yield self if block_given?
-    return self
+    self
   end
 
-#FOR BIND APP
-  def update_exist(api_params, &block)
+  # FOR BIND APP
+  def update_exist(api_params, &_block)
     api_request(bld_exist_update_params(api_params), COMPONENTS, UPDATE)
-    api_request(bld_exist_alter_update_params(api_params), COMPONENTS, UPDATE)#FOR BIND APP
+    api_request(bld_exist_alter_update_params(api_params), COMPONENTS, UPDATE) # FOR BIND APP
     yield self if block_given?
-    return self
+    self
   end
-
 
   def prune
     components.take_while { |one_component| (one_component.nil? || one_component.is_a?(Megam::Error)) }
@@ -55,138 +54,138 @@ class Components < BaseFascade
 
   def build(params)
     com = []
-    mkp = JSON.parse(params["mkp"])
-    set_app_params(params) if mkp["cattype"] == Assemblies::BYOC
-    set_service_params(params) if mkp["cattype"] == Assemblies::SERVICE
-    set_microservice_params(params) if mkp["cattype"] == Assemblies::MICROSERVICES
+    mkp = JSON.parse(params['mkp'])
+    set_app_params(mkp, params) if mkp['cattype'] == Assemblies::BYOC
+    set_service_params(mkp, params) if is_service?(mkp['cattype'])
+    set_microservice_params(mkp, params) if mkp['cattype'] == Assemblies::MICROSERVICES
     set_common_inputs(params)
     set_operations(params)
 
     hash = [{
-      "name"              => @name,
-      "tosca_type"        => @tosca_type,
-      "inputs"            => @inputs,       # fields - domain, port, username, password, version, source, design_inputs { id, x, y, z, wires }, service_inputs: { dbname, dbpassword}
-      "outputs"           => [],
-      "artifacts" => {
-        "artifact_type" => "",
-        "content" => "",
-        "artifact_requirements" => []
+      'name'              => @name,
+      'tosca_type'        => @tosca_type,
+      'inputs'            => @inputs, # fields - domain, port, username, password, version, source, design_inputs { id, x, y, z, wires }, service_inputs: { dbname, dbpassword}
+      'outputs'           => [],
+      'artifacts' => {
+        'artifact_type' => '',
+        'content' => '',
+        'artifact_requirements' => []
       },
-      "related_components" => @related_components,
-      "operations" =>  @operations,
-      "status" => Assemblies::LAUNCHING
+      'related_components' => @related_components,
+      'operations' =>  @operations,
+      'status' => Assemblies::LAUNCHING
     }]
     hash
   end
 
   def bld_update_params(params)
     com = empty_component
-    com["related_components"] << "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}" if params.has_key?(:bind_type)
-    com[:email] = params["email"]
-    com[:api_key] = params["api_key"]
-    com["id"] = "#{params[:bind_type].split(':')[2]}"
+    com['related_components'] << "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}" if params.key?(:bind_type)
+    com[:email] = params['email']
+    com[:api_key] = params['api_key']
+    com['id'] = "#{params[:bind_type].split(':')[2]}"
     com
   end
-#FOR BIND APP
-#{"utf8"=>"✓", "bind_type"=>"sensational.megambox.com/adverb:ASM1218262452991557632:COM1218262453004140544", "bindapp"=>"shinier.megambox.com/intoxicated:ASM1218262384012034048:COM1218262384024616960", "commit"=>"Bind", "controller"=>"oneapps", "action"=>"bind_service", "email"=>"4@4.com", "api_key"=>"Ovs1GukrrQC4Z8rgM0hu0g==", "host"=>"localhost"}
 
   def bld_exist_update_params(params)
     com = empty_component
-    com["related_components"] << "#{params[:bind_type].split(':')[0]}" if params.has_key?(:bind_type)
-    com[:email] = params["email"]
-    com[:api_key] = params["api_key"]
-    com["id"] = "#{params[:bindapp].split(':')[2]}"
+    com['related_components'] << "#{params[:bind_type].split(':')[0]}" if params.key?(:bind_type)
+    com[:email] = params['email']
+    com[:api_key] = params['api_key']
+    com['id'] = "#{params[:bindapp].split(':')[2]}"
     com
   end
 
   def bld_exist_alter_update_params(params)
     com = empty_component
-    com["related_components"] << "#{params[:bindapp].split(':')[0]}" if params.has_key?(:bindapp)
-    com[:email] = params["email"]
-    com[:api_key] = params["api_key"]
-    com["id"] = "#{params[:bind_type].split(':')[2]}"
+    com['related_components'] << "#{params[:bindapp].split(':')[0]}" if params.key?(:bindapp)
+    com[:email] = params['email']
+    com[:api_key] = params['api_key']
+    com['id'] = "#{params[:bind_type].split(':')[2]}"
     com
   end
 
-private
+  private
 
   def empty_component
     {
-      "name"              => nil,
-      "tosca_type"        => nil,
-      "inputs"            => [],       # fields - domain, port, username, password, version, source, design_inputs { id, x, y, z, wires }, service_inputs: { dbname, dbpassword}
-      "outputs"           => [],
-      "artifacts" => {
-        "artifact_type" => "",
-        "content" => "",
-        "artifact_requirements" => []
+      'name'              => nil,
+      'tosca_type'        => nil,
+      'inputs'            => [], # fields - domain, port, username, password, version, source, design_inputs { id, x, y, z, wires }, service_inputs: { dbname, dbpassword}
+      'outputs'           => [],
+      'artifacts' => {
+        'artifact_type' => '',
+        'content' => '',
+        'artifact_requirements' => []
       },
-      "related_components" => [],
-      "operations" =>  [],
-      "status" => nil
+      'related_components' => [],
+      'operations' =>  [],
+      'status' => nil
     }
   end
 
-  def set_app_params(params)
-    mkp = JSON.parse(params["mkp"])
-    @name = params[:componentname]
-    @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["name"].downcase}"
-  end
-
-  def set_service_params(params)
-    mkp = JSON.parse(params["mkp"])
-    @name = params[:componentname]
-    @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["name"].downcase}"
-    set_postgres_inputs(params) unless mkp["predef"] != "postgresql"
-    @related_components << "#{params[:bind_type].split(':')[0]}" if params.has_key?(:bind_type)
-  end
-
-  def set_microservice_params(params)
-    mkp = JSON.parse(params["mkp"])
-    @name = params[:componentname]
-    @tosca_type = "tosca.#{mkp["cattype"].downcase}.#{mkp["name"].downcase}"
-  end
-
-  #the common inputs method set all components(apps, service, microservices..)
+  # the common inputs method set all components(apps, service, microservices..)
   def set_common_inputs(params)
-    @inputs << {"key" => "domain", "value" => params[:domain]} if params.has_key?(:domain)
-    @inputs << {"key" => "port", "value" => params[:port]} if params.has_key?(:port)
-    @inputs << {"key" => "version", "value" => params[:version]} if params.has_key?(:version)
-    @inputs << {"key" => "source", "value" => params[:source]} if params.has_key?(:source)
+    @inputs << { 'key' => 'domain', 'value' => params[:domain] } if params.key?(:domain)
+    @inputs << { 'key' => 'port', 'value' => params[:port] } if params.key?(:port)
+    @inputs << { 'key' => 'version', 'value' => params[:version] } if params.key?(:version)
+    @inputs << { 'key' => 'source', 'value' => params[:source] } if params.key?(:source)
+  end
+
+  def set_app_params(mkp, params)
+    @name = params[:componentname]
+    @tosca_type = "tosca.#{mkp['cattype'].downcase}.#{mkp['name'].downcase}"
+  end
+
+  def set_service_params(mkp, params)
+    @name = params[:componentname]
+    @tosca_type = "tosca.#{mkp['cattype'].downcase}.#{mkp['name'].downcase}"
+    set_postgres_inputs(params) unless mkp['predef'] != 'postgresql'
+    @related_components << "#{params[:bind_type].split(':')[0]}" if params.key?(:bind_type)
+  end
+
+  def set_microservice_params(mkp, params)
+    @name = params[:componentname]
+    @tosca_type = "tosca.#{mkp['cattype'].downcase}.#{mkp['name'].downcase}"
+  end
+
+  def is_service?(cattype)
+    (cattype == Assemblies::SERVICE)  ||
+    (cattype == Assemblies::COLLABORATION) ||
+    (cattype == Assemblies::ANALYTICS)
   end
 
   def set_postgres_inputs(params)
-    mkp = JSON.parse(params["mkp"])
-    @inputs << {"key" => "username", "value" => params["email"]}
-    @inputs << {"key" => "password", "value" => params["api_key"]}
-    @inputs << {"key" => "dbname", "value" => params["componentname"]}
-    @inputs << {"key" => "dbpassword", "value" => ('a'..'z').to_a.shuffle.first(8).join }
-    @inputs << {"key" => "port", "value" => mkp["catalog"]["port"]}
+    mkp = JSON.parse(params['mkp'])
+    @inputs << { 'key' => 'username', 'value' => params['email'] }
+    @inputs << { 'key' => 'password', 'value' => params['api_key'] }
+    @inputs << { 'key' => 'dbname', 'value' => params['componentname'] }
+    @inputs << { 'key' => 'dbpassword', 'value' => ('a'..'z').to_a.sample(8).join }
+    @inputs << { 'key' => 'port', 'value' => mkp['catalog']['port'] }
   end
 
-  #set user operations for components like (continous integration)
+  # set user operations for components like (continous integration)
   def set_operations(params)
-      set_ci_operation(params)
+    set_ci_operation(params)
   end
 
   def set_ci_operation(params)
     @operations << {
-        "operation_type" => "CI",
-        "description" => "Continous Integration",
-        "operation_requirements" => bld_ci_requirements(params),
+      'operation_type' => 'CI',
+      'description' => 'Continous Integration',
+      'operation_requirements' => bld_ci_requirements(params)
     }
   end
 
   def bld_ci_requirements(params)
-    mkp = JSON.parse(params["mkp"])
+    mkp = JSON.parse(params['mkp'])
     op = []
-    op <<  {"key" => "type", "value" => set_repotype(mkp["cattype"]) }
-    op <<  {"key" => "enabled","value" => enable_ci(mkp["cattype"], params["radio_app_scm"])}
-    op <<  {"key" => "source","value" => params["scm_name"] || ""}
-    op <<  {"key" => "token","value" => params["scmtoken"] || ""}
-    op <<  {"key" => "username", "value" => params["scmowner"] || ""}
-    op <<  {"key" => "url", "value" => params["source"] || ""}
+    op << { 'key' => 'type', 'value' => set_repotype(mkp['cattype']) }
+    op << { 'key' => 'enabled', 'value' => enable_ci(mkp['cattype'], params['radio_app_scm']) }
+    op << { 'key' => 'source', 'value' => params['scm_name'] || '' }
+    op << { 'key' => 'token', 'value' => params['scmtoken'] || '' }
+    op << { 'key' => 'username', 'value' => params['scmowner'] || '' }
+    op << { 'key' => 'url', 'value' => params['source'] || '' }
     op
   end
-
 end

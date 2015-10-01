@@ -1,4 +1,3 @@
-
 <!--
 ** Copyright [2013-2015] [Megam Systems]
 **
@@ -14,14 +13,6 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<style type="text/css">
-#upload_link{
-    text-decoration:none;
-}
-#upload{
-    display:none
-}
-</style>
 <% content_for :content_settings do %>
 <% provide(:title, "Storages") %>
 
@@ -44,13 +35,13 @@
 				</div>
 			</div>
 			<% @buckets[:bucket_array].each do |bucket| %>
-			<div class="col-xs-12 col-sm-6 col-md-3 app_cover my_bucket_inner">
+			<div class="col-xs-12 col-sm-6 col-md-3 app_cover my_bucket_inner" id="<%= bucket[:bucket_name] %>">
 				<%= link_to storage_path(:id => bucket[:bucket_name]), :target => "_self", :remote => true do %>
 				<div class="app_inner">
 					<div class="app">
 						<div class="app_head">
 							<div class="row app_icon">
-								<h5 id="bucketname"> <%= bucket[:bucket_name] %> </h5>
+								<h5><%= bucket[:bucket_name] %></h5>
 								<h6> Size:  <%= bucket[:size] %> </h6>
 							</div>
 						</div>
@@ -64,7 +55,7 @@
 			<% end %>
 		</div>
 	</div>
-	<div class="col-sm-3 storage-rt-list">
+	<div class="col-sm-3 storage-rt-list ">
 		<dl>
 			<h3>Usage</h3>
 			<dt>
@@ -118,7 +109,7 @@
 			<a href=""><i class="c_icon-cloud-download pull-left"></i>Download As</a>
 		</li>
 		<li>
-			<a href=""><i class="c_icon-cloud-del pull-left"></i>Delete Bucket</a>
+			<a data-toggle="modal" href="#megam_flykelvi"><i class="c_icon-cloud-del pull-left"></i>Delete Bucket</a>
 		</li>
 	</ul>
 </div>
@@ -148,7 +139,6 @@
 	</div>
 </div>
 
-
 <div id="supload" class="modal fade" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog" style="max-width:400px">
 		<div class="modal-content">
@@ -161,9 +151,9 @@
 					<div class="col-md-12">
 						<%= form_tag supload_path, multipart: true, :method => :post, :remote => true do %>
 						<div class="form-group">
-              <%= hidden_field_tag 'bucket_name', nil, :class=> 'form-control', :id => "bucketName", placeholder: "Bucket Name", :required => true %>
+							<%= hidden_field_tag 'bucket_name', nil, :class=> 'form-control', :id => "bucketName", placeholder: "Bucket Name", :required => true %>
 							<span class="btn blue fileinput-button col-xs-12"><i class="icon-plus filetag"></i> <span class="filetag"><%= t('ssh_keys.add_files') %></span> <%= file_field_tag :sobject %> </span>
-            </div>
+						</div>
 						<%= submit_tag "upload", :class => "btn btn-success col-md-12 col-xs-12" , :data => {:remote => true}%>
 						<% end %>
 					</div>
@@ -173,53 +163,80 @@
 	</div>
 </div>
 
+<!-- APP KELVI MODAL -->
+<div class="modal fade" id="megam_flykelvi" tabindex="-1" role="basic" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content c_modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+				<h4 class="modal-title">Delete Bucket</h4>
+			</div>
+			<div class="modal-body text-center">
+				<%= t('general.you_want_to') %> delete a bucket?
+			</div>
+			<div class="modal-footer c_modal-footer">
+				<button type="button" class="btn default" data-dismiss="modal">
+					<%= t('cancel') %>
+				</button>				
 
+				<%= link_to  t('confirm'), storage_path(:id => "delete"), :class => "btn btn-success a_pad", :remote => true, :method => :delete, :target => "_self" %>
+			</div>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-
-
-
+<style type="text/css">
+	#upload_link {
+		text-decoration: none;
+	}
+	#upload {
+		display: none
+	}
+</style>
 
 <script type="text/javascript">
 	$('.create_bucket_modal').click(function(e) {
 		$('#create_bucket').modal();
-	});
-	$('.inner-menu').click(function(e) {
-		e.preventDefault();
-		$('.inner-child').toggle();
-	});
-	//storage left menu
-	$('.storage_left_add_inner').hide();
-	$('.storage_left_add a ').click(function() {
+			});
+		$('.inner-menu').click(function(e) {
+			e.preventDefault();
+			$('.inner-child').toggle();
+		});
+		//storage left menu
+		$('.storage_left_add_inner').hide();
+		$('.storage_left_add a ').click(function() {
 		// e.preventDefault();
 		$('.storage_left_add_inner').slideToggle();
-	});
-	// $('.storage-popup').hide();
-	// storage overview pop up menu
-	$('.my_bucket_inner').click(function(e) {
-	});
-	$('.my_bucket_inner').bind('contextmenu', function(e) {
-		e.preventDefault();
-		$('.storage-popup').css({
-			'top' : e.pageY,
-			'left' : e.pageX,
 		});
-    $('#bucketName').val($('#bucketname').text());
-		$('.storage-popup').show();
-		return false;
-	});
+		// $('.storage-popup').hide();
+		// storage overview pop up menu
+		$('.my_bucket_inner').bind('contextmenu', function(e) {
+			e.preventDefault();
+			$('.storage-popup').css({
+				'top' : e.pageY,
+				'left' : e.pageX,
+			});
+
+			$('#bucketName').val($(event.currentTarget).attr('id'));
+			//$.session.set('bucketname', $(event.currentTarget).attr('id'));
+			$('.storage-popup').show();
+					return false;
+			});
 	// hide storage menu when clicked outside the div
 	$(document).on('click', function(e) {
 		if ($(e.target).closest(".my_bucket_inner").length === 0) {
 			$('.storage-popup').hide();
 		}
 	});
-// for upload
-
-$(function(){
-$("#upload_link").on('click', function(e){
-    e.preventDefault();
-    $("#upload:hidden").trigger('click');
-});
-});
+	// for upload
+	$(function() {
+		$("#upload_link").on('click', function(e) {
+			e.preventDefault();
+			$("#upload:hidden").trigger('click');
+		});
+	});
 
 </script>
