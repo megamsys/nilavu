@@ -234,6 +234,7 @@ en:
     name_placeholder: "Enter text"
     number_placeholder: "Phone Number"
     update: "Update"
+    invite: "Invite"
     change_password: "Change password"
     current: "Current"
     retype: "Retype"
