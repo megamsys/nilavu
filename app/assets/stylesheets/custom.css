@@ -5,7 +5,9 @@
     margin-left: auto;
 }
 
-h3 {font-weight: normal;}
+h3 {
+font-weight: normal;
+}
 
 select.form-control {
 	border-radius:2px !important;
@@ -1403,7 +1405,7 @@ background-repeat: no-repeat;
 	/*text-align: center;*/
 	display: inline-flex;
 }
-
+}
 .app_inner {
 	text-align: -webkit-center;
 }
