@@ -27,10 +27,19 @@ class UserMailer < ApplicationMailer
     end
   end
 
+
+  def invite(account, org_id)
+    @org_id = org_id
+    wrap_mail(:account => account, subject: 'You have been invited!!.') do
+      Rails.logger.debug "Invite email:[#{account.email}]."
+    end
+  end
+
   def verify
     # @url  = "https://console.megam.io/verified_email.#{@random_token}"
   end
 
   def balance
   end
+
 end

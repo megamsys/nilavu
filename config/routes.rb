@@ -77,6 +77,10 @@ Nilavu::Application.routes.draw do
   match '/runtime', :to => 'catalogs#runtime', via: [:get]
   match '/index', :to => 'catalogs#index', via: [:get]
 
+  #===Profiles
+  match '/org_invite',  :to => 'users#invite', via: [:post]
+  match '/org_accept', :to => 'users#organization_invite', via: [:get]
+
   #===OneApps
   match '/bind_service_list', :to => 'oneapps#bind_service_list', via: [:get, :post]
   match '/bind_service', :to => 'oneapps#bind_service', via: [:get, :post]
