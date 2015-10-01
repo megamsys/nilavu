@@ -15,14 +15,7 @@
 -->
 <div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
 	<%= render :partial => "users/topright_icons", :locals => {:title_name => t('titles.myprofile_title')} %>
-	<div class="row">
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-			<div class="alert alert-info">
-				<strong></strong> <%= t('my_profile.tip') %>
-			</div>
-		</div>
-	</div>
-	<div class="row">
+	<div class="row pad_tb25">
 		<div class="tabbable-custom nav-justified">
 			<ul class="nav nav-tabs nav-justified">
 				<li class="active">
@@ -38,7 +31,7 @@
 			<div class="tab-content c_tab-content">
 					<div class="tab-pane active" id="profile_1">
 					<div class="row">
-						<div class="col-xs-13 bottom_border_grey_btpad">
+						<div class="prof bottom_border_grey_btpad">
 							<h4 class=""><%= t('my_profile.basic_info') %> <span class="pull-right" > <%= @account.email %></span></h4>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save c_tab-content-top">
@@ -69,7 +62,7 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-xs-13 bottom_border_grey_btpad">
+						<div class="prof bottom_border_grey_btpad">
 							<h4 class=""><%= t('my_profile.change_password') %></h4>
 						</div>
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save c_tab-content-top">
@@ -120,7 +113,7 @@
 				<!-- PROFILE-1 tab ENDS HERE -->
 				<div class="tab-pane" id="profile_2">
 					<div class="row">
-						<div class="col-xs-13 bottom_border_grey">
+						<div class="prof bottom_border_grey">
 							<div class="row">
 								<div class="col-xs-5 col-sm-6">
 									<h4 class=""><%= t('my_profile.organization_info') %></h4>
@@ -201,7 +194,7 @@
 				</div>
 				<div class="tab-pane" id="profile_3">
 					<div class="row">
-						<div class="col-xs-13 bottom_border_grey">
+						<div class="prof bottom_border_grey">
 							<div class="row">
 								<div class="col-xs-10 col-sm-9">
 									<h4 class=""><%= t('my_profile.your_api_key') %></h4>
