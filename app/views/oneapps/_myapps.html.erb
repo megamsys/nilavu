@@ -113,7 +113,7 @@
 						<li class=" col-sm-6">
 							<i class="icon-plus"></i>
 							<!--<%= link_to "Bind a Service", bind_service_list_path(:bindapp => @assembly.id + ":" + @assembly.name), :remote => true %>-->
- <%= link_to t('overviews.bind_service'), bind_service_list_path(:bindapp => assembly.name + "." + assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] + "/" + assembly.components[0][0].components.name + ":" + assembly.id + ":" + assembly.components[0][0].components.id), :remote => true %>
+             <%= link_to t('overviews.bind_service'), bind_service_list_path(:bindapp => assembly.name + "." + assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] + "/" + assembly.components[0][0].components.name + ":" + assembly.id + ":" + assembly.components[0][0].components.id), :remote => true %>
 						</li>
 					</ul>
 				</div>
