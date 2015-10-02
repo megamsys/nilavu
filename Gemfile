@@ -35,7 +35,7 @@ gem 'riak-client', '~> 2.2.1'
 gem 's3', git: 'https://github.com/thomasalrin/s3'
 gem 'net-ssh'
 
-gem "megam_api", "~> 0.71"
+gem "megam_api", "~> 0.72"
 gem 'megam_gogs', "~> 0.8.0"
 
 gem 'gitlab', '~> 3.4.0'
@@ -66,9 +66,9 @@ gem "paperclip", "~> 2.3"
 group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
-  gem 'cucumber-rails', :require => false
 end
 
 group :development do
   gem "rspec-rails"
+  gem 'quiet_assets'
 end

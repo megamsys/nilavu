@@ -26,7 +26,6 @@ class Assemblies < BaseFascade
   SERVICE             =  'SERVICE'.freeze
   ANALYTICS           =  'ANALYTICS'.freeze
   MICROSERVICES       =  'MICROSERVICES'.freeze
-  CONTAINERS          =  'CONTAINERS'.freeze
   COLLABORATION       =  'COLLABORATION'.freeze
   CATTYPES            =  [TORPEDO, APP, SERVICE, MICROSERVICES, ANALYTICS, COLLABORATION]
 
@@ -34,7 +33,7 @@ class Assemblies < BaseFascade
   STOP                =  'stop'.freeze
   RESTART             =  'restart'.freeze
   REBOOT              =  'reboot'.freeze
-  DELETE              =  'delete'.freeze
+  DESTROY             =  'delete'.freeze
   TERMINATED          =  'Terminated'.freeze
   LAUNCHING           =  'LAUNCHING'.freeze
 
@@ -95,7 +94,7 @@ class Assemblies < BaseFascade
     a2 = tmp_assemblies_collection.map do |one_assemblies|
       a1 = one_assemblies.assemblies.map do |one_assembly|
         unless one_assembly.empty?
-          Assembly.new.show(api_params.merge('id' => one_assembly)).by_cattypes
+          Assembly.new.show(api_params.merge('id' => one_assembly, :asms_id => one_assemblies.id)).by_cattypes
         end
       end
       a1.reduce { |acc, h| acc.merge(h || {}) }
