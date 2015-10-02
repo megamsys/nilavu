@@ -205,7 +205,6 @@
 									<h4 class=""><%= t('my_profile.your_api_key') %></h4>
 								</div>
 								<%= form_tag(user_path, :method => "put", :remote => true) do %>
-								<%= puts Accounts::UPD_API_KEY%>
 								<input type="hidden" name="myprofile_type" value="<%= Accounts::UPD_API_KEY %>">
 								<%= submit_tag t('my_profile.update'), :class => "pull-right btn btn-success col-md-2 col-xs-0" %>
 								<% end %>

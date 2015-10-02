@@ -30,14 +30,14 @@
               <div class="app_head">
                 <span class="app_config" id="config_menu_<%= assembly.name %>_<%= cattype.downcase %>"><i class="c_icon-config"></i></span>
                 <div class="config_menu config_menu_<%= assembly.name %>_<%= cattype.downcase %>">
-                  <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id, :name => assembly.name, :cattype => cattype} %>
+                  <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id, :asms_id => assembly.asms_id, :name => assembly.name, :cattype => cattype} %>
                 </div>
                 <div class="row app_icon">
                   <h5><%= assembly.name %></h5>
                   <% case cattype.upcase %>
                   <% when Assemblies::TORPEDO %>
                   <%= link_to assembly.name + ".megambox.com", onetorpedos_path(:id => assembly.id), :data => {:remote => true} %>
-                  <% when Assemblies::BYOC %>
+                  <% when Assemblies::APP %>
                   <%= link_to assembly.name + ".megambox.com", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
                   <% when Assemblies::SERVICE %>
                   <%= link_to assembly.name + ".megambox.com", oneservices_path(:id => assembly.id), :data => {:remote => true} %>

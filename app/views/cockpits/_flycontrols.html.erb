@@ -16,7 +16,7 @@
 		<% end %>
 	</li>
 	<li>
-		<%= link_to kelvi_path(:id => id, :cat_id => id,:name => name, :command => Assemblies::DELETE, :cattype => cattype, :category => "state"), :data => {:remote => true }, :method => :post do %>
+		<%= link_to kelvi_path(:id => id, :cat_id => asms_id,:name => name, :command => Assemblies::DESTROY, :cattype => cattype, :category => "state"), :data => {:remote => true }, :method => :post do %>
 		<i class="glyphicon glyphicon-trash"></i><%= t('cockpits.delete') %>
 		<% end %>
 	</li>
@@ -37,7 +37,7 @@
 		<% end %>
 	</li>
 	<li>
-		<%= link_to kelvi_path(:id => id, :cat_id => id,:name => name, :command => Assemblies::DELETE, :cattype => cattype, :category => "state"), :data => {:remote => true }, :method => :post do %>
+		<%= link_to kelvi_path(:id => id, :cat_id => asms_id,:name => name, :command => Assemblies::DESTROY, :cattype => cattype, :category => "state"), :data => {:remote => true }, :method => :post do %>
 		<i class="glyphicon glyphicon-trash"></i><%= t('cockpits.delete') %>
 		<% end %>
 	</li>

@@ -15,7 +15,7 @@
 **/
 
 var selected_entity = '#version_view';
-<% if @mkp["cattype"] == Assemblies::BYOC  %>
+<% if @mkp["cattype"] == Assemblies::APP  %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/apps', :locals => {:version => @mkp["sversion"], :mkp => @mkp}) %>";
 <% elsif @mkp["cattype"] == Assemblies::SERVICE  %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/service', :locals => {:version => @mkp["sversion"], :mkp => @mkp, :unbound_apps => @unbound_apps}) %>";

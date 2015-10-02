@@ -55,7 +55,7 @@ class Components < BaseFascade
   def build(params)
     com = []
     mkp = JSON.parse(params['mkp'])
-    set_app_params(mkp, params) if mkp['cattype'] == Assemblies::BYOC
+    set_app_params(mkp, params) if mkp['cattype'] == Assemblies::APP
     set_service_params(mkp, params) if is_service?(mkp['cattype'])
     set_microservice_params(mkp, params) if mkp['cattype'] == Assemblies::MICROSERVICES
     set_common_inputs(params)
