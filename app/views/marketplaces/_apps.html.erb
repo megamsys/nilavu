@@ -47,7 +47,7 @@
 
       <%= render template="marketplaces/show_template" %>
 
-      <!-- START BYOC -->
+      <!-- START Assemblies::APP -->
       <div class="row">
         <div class="col-xs-6">
           <p class="radioP">
@@ -67,7 +67,7 @@
         <div class="row">
           <div class="col-md-6 text-center">
             <div class="col-md-offset-4 col-md-2">
-              <a href="#" class="hint  hint--bottom" name="image_type" vaue="github" onclick="return github_oauth();" data-hint="Connect with your public github id"> <%= image_tag "gh.png",:class=> "img-responsive_byoc "%> </a>
+              <a href="#" class="hint  hint--bottom" name="image_type" value="github" onclick="return github_oauth();" data-hint="Connect with your public github id"> <%= image_tag "gh.png",:class=> "img-responsive_byoc "%> </a>
             </div>
           </div>
           <div class="col-md-6 text-center">
@@ -95,7 +95,7 @@
           </div>
         </div>
       </div>
-      <!-- END BYOC -->
+      <!-- END Assemblies::APP -->
       <!--- START SSH TEMPLATE -->
       <%= render template="marketplaces/show_ssh", :locals => {:ssh_keys => @ssh_keys} %>
       <!-- END SSH TEMPLATE -->
@@ -140,7 +140,7 @@
 
   	// Onclick events for gogs and github images
   	function github_oauth() {
-  		$("#scm_name").val("github");
+      $("#scm_name").val("github");
   		$.oauthpopup({
   			path : "/auth/github",
   			callback : function() {
@@ -149,7 +149,7 @@
   					url : "/publish_github",
   					success : function(data) {
   						console.log("It worked!")
-  						console.log(dataString);
+              console.log(data);
   					},
   					error : function(data) {
   						console.log("ERROR CHECK PROPERLY!!");

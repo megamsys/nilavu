@@ -18,36 +18,32 @@ require 'json'
 class Assemblies < BaseFascade
   include MarketplaceHelper
 
-
   attr_reader :assemblies_grouped
   attr_reader :apps, :services
 
   TORPEDO             =  'TORPEDO'.freeze
   APP                 =  'APP'.freeze
-  BYOC                =  'BYOC'.freeze
   SERVICE             =  'SERVICE'.freeze
   ANALYTICS           =  'ANALYTICS'.freeze
   MICROSERVICES       =  'MICROSERVICES'.freeze
-  CONTAINERS          =  'CONTAINERS'.freeze
   COLLABORATION       =  'COLLABORATION'.freeze
-  CATTYPES            =  [APP, MICROSERVICES, TORPEDO, ANALYTICS, SERVICE, COLLABORATION, BYOC]
+  CATTYPES            =  [TORPEDO, APP, SERVICE, MICROSERVICES, ANALYTICS, COLLABORATION]
 
   START               =  'start'.freeze
   STOP                =  'stop'.freeze
   RESTART             =  'restart'.freeze
   REBOOT              =  'reboot'.freeze
-  DELETE              =  'delete'.freeze
+  DESTROY             =  'delete'.freeze
   TERMINATED          =  'Terminated'.freeze
   LAUNCHING           =  'LAUNCHING'.freeze
 
   DOCKERCONTAINER     =  'DockerContainer'.freeze
 
-
-  def initialize()
+  def initialize
     @assemblies_grouped = {}
     @apps = []
     @services = []
-    super(true) #swallow 404 errors for assemblies.
+    super(true) # swallow 404 errors for assemblies.
   end
 
   # The list returns a list of assemblies, apps, services.
@@ -64,59 +60,52 @@ class Assemblies < BaseFascade
   #                   -- component2 : service
   # currently if there are no components then we consider it a plain VM.
   # an additional field in assembly indicates if its a plain VM (INSTANCE) or not.
-  def list(api_params, &block)
+  def list(api_params, &_block)
     raw = api_request(api_params, ASSEMBLIES, LIST)
-    dig_assembly(raw[:body],api_params) unless raw == nil
+    dig_assembly(raw[:body], api_params) unless raw.nil?
     @apps = flying_apps(APP) unless api_params[:flying_apps].nil?
     @services = flying_apps(SERVICE) unless api_params[:flying_service].nil?
     yield self  if block_given?
-    return self
+    self
   end
 
-
- def create(api_params, &block)
-
+  def create(api_params, &_block)
     api_request(api_params.merge(mk(api_params)), ASSEMBLIES, CREATE)
     yield self if block_given?
-    return self
-  end
+    self
+   end
 
   private
 
   def mk(api_params)
-    { :name=>"",
-      :assemblies=> Assembly.new.build(api_params),
-      :inputs=>[],
-      :org_id=> api_params[:org_id]
+    { name: '',
+      assemblies: Assembly.new.build(api_params),
+      inputs: [],
+      org_id: api_params[:org_id]
     }
   end
 
-  #The /assemblies just returns an id of assembly. dig recursively to get the full content of it.
+  # The /assemblies just returns an id of assembly. dig recursively to get the full content of it.
   #     assemblies : :id  => ASM0001
   #          assembly: :id => ASC0001
   #              component :id => CMP0001
   def dig_assembly(tmp_assemblies_collection, api_params)
-    #First step A[A[H1], A[H2]] => A[H1, H2..Hn]
+    # First step A[A[H1], A[H2]] => A[H1, H2..Hn]
     a2 = tmp_assemblies_collection.map do |one_assemblies|
-       a1=  one_assemblies.assemblies.map  do  |one_assembly|
-          if !one_assembly.empty?
-            Assembly.new.show(api_params.merge({"id" => one_assembly})).by_cattypes
-         else
-          nil
-          end
+      a1 = one_assemblies.assemblies.map do |one_assembly|
+        unless one_assembly.empty?
+          Assembly.new.show(api_params.merge('id' => one_assembly, :asms_id => one_assemblies.id)).by_cattypes
         end
-        puts "=========================================================="
-        puts a1.inspect
-        puts "=========================================================="
-        a1.reduce { |acc, h|  acc.merge(h||{})}
+      end
+      a1.reduce { |acc, h| acc.merge(h || {}) }
     end
-    #A[H1, H2, ... Hn] => H[:CATTYPE => [H1, H2, ... Hn]]
-    a3 = a2.group_by {|j| j.keys.join }
+    # A[H1, H2, ... Hn] => H[:CATTYPE => [H1, H2, ... Hn]]
+    a3 = a2.group_by { |j| j.keys.join }
 
-    #[:CATTYPE => [H1, H2, ... Hn]] => H[:CATTYPE => [A1, A2]]
+    # [:CATTYPE => [H1, H2, ... Hn]] => H[:CATTYPE => [A1, A2]]
     a3.each do |k, v|
       @assemblies_grouped[k] ||= []
-      @assemblies_grouped[k] << v.map {|u| u.map { |k1, v1| v1}}
+      @assemblies_grouped[k] << v.map { |u| u.map { |_k1, v1| v1 } }
     end
 
     Rails.logger.debug "\033[36m>-- ASB'S: #{@assemblies_grouped.class} START\33[0m"
@@ -124,21 +113,20 @@ class Assemblies < BaseFascade
     Rails.logger.debug "\033[36m> ASB'S: END\033[0m"
   end
 
-  #provides the flying apps which is used by the bind app screen.
+  # provides the flying apps which is used by the bind app screen.
   def flying_apps(assembly_type)
     tmp_apps = []
-	if !@assemblies_grouped.empty? && !@assemblies_grouped[assembly_type].nil?
-    @assemblies_grouped[assembly_type].flatten.each do |one_assembly|
-      one_assembly.components.flatten.map do |u|
-        if u!=nil
-          u.each do |com|
-            tmp_apps << {:name => "#{one_assembly.name}.#{parse_key_value_pair(com.inputs, 'domain')}/#{com.name}", :aid => one_assembly.id, :cid => com.id }
+    if !@assemblies_grouped.empty? && !@assemblies_grouped[assembly_type].nil?
+      @assemblies_grouped[assembly_type].flatten.each do |one_assembly|
+        one_assembly.components.flatten.map do |u|
+          unless u.nil?
+            u.each do |com|
+              tmp_apps << { name: "#{one_assembly.name}.#{parse_key_value_pair(com.inputs, 'domain')}/#{com.name}", aid: one_assembly.id, cid: com.id }
+            end
           end
         end
       end
-     end
-    end
+      end
     tmp_apps
   end
-
 end

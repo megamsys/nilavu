@@ -15,8 +15,8 @@
 ##
 require 'singleton'
 
-#this is a singleton which means we only load the marketplace once.
-#the downside is if there is a change in marketplace then we need to restart nilavu.
+# this is a singleton which means we only load the marketplace once.
+# the downside is if there is a change in marketplace then we need to restart nilavu.
 class Marketplaces < BaseFascade
   include Singleton
   include MarketplaceHelper
@@ -24,16 +24,16 @@ class Marketplaces < BaseFascade
   attr_reader :mkp_grouped
   attr_reader :mkp
 
-  ONE             =  'one'.freeze
+  ONE = 'one'.freeze
   DOCKER           =  'docker'.freeze
   BAREMETAL        =  'baremetal'.freeze
 
-  def initialize()
-     @mkp_grouped = {}
-     @mkp = {}
+  def initialize
+    @mkp_grouped = {}
+    @mkp = {}
   end
 
-  #Marketplace has a boquet of items.
+  # Marketplace has a boquet of items.
   # each item has a catalog with catalog type and lots of plans
   #  -- :name         => 1-Ubuntu
   #     :cattype      => defines the logical types of category shortly named as cattype.
@@ -47,29 +47,25 @@ class Marketplaces < BaseFascade
   #                                   App Boilers
   #                                   Platform
   #                                   Analytics
-  def list(api_params, &block)
-    unless !@mkp_grouped.empty? #a patch to load mkp_grouped from cache, as this object is singleton. Maybe memcache can help us.
+  def list(api_params, &_block)
+    if @mkp_grouped.empty? # a patch to load mkp_grouped from cache, as this object is singleton. Maybe memcache can help us.
       raw = api_request(api_params, MARKETPLACES, LIST)
-      mkp_collection =  raw[:body] unless raw == nil
-       puts "-----------------------------------------------"
-       puts mkp_collection
-      @mkp_grouped = Hash[mkp_collection.group_by{ |tmp| tmp.order }.map{|k,v| [k,v.map{|h|h}]}].sort
+      mkp_collection = raw[:body] unless raw.nil?
+      @mkp_grouped = Hash[mkp_collection.group_by(&:order).map { |k, v| [k, v.map { |h| h }] }].sort
       Rails.logger.debug "\033[36m>-- MKP'S: START\33[0m"
       Rails.logger.debug "\033[1m#{@mkp_grouped.to_yaml}\33[22m"
       Rails.logger.debug "\033[36m>-- MKP'S: END\033[0m"
 
     end
-    yield self  if block_given?
-    return self
+    yield self if block_given?
+    self
   end
 
   # This shows a single marketplace item. eg: 1-Ubuntu (Refer Marketplaces::list for more info)
-  def show(api_params, &block)
-     raw = api_request(api_params, MARKETPLACES, SHOW)
-     @mkp = raw[:body].lookup(api_params["id"])
-     yield self  if block_given?
-     return self
+  def show(api_params, &_block)
+    raw = api_request(api_params, MARKETPLACES, SHOW)
+    @mkp = raw[:body].lookup(api_params['id'])
+    yield self if block_given?
+    self
   end
-
-
 end
