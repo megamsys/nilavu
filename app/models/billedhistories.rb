@@ -16,7 +16,7 @@
 class Billedhistories < BaseFascade
   
   attr_reader :bhistories
-  BILLEDHISTORIES = 'BILLEDHISTORIES'.freeze
+
   
   def initialize()
      @bhistories = []
