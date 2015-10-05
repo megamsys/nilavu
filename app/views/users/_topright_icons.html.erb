@@ -30,7 +30,8 @@
             <span class="hidden-xs hidden-sm pull-left"><%= t('titles.marketplace_title') %></span>
             <% end %>
           </li>
-          <li id="storage_top_right">
+
+          <li class="start active" id="storage_top_right">
             <%= link_to storages_path , :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
             <i class="c_icon-grid-25 pull-left"></i>
             <span class="hidden-xs hidden-sm pull-right"><%= t('titles.storage_title') %></span>
