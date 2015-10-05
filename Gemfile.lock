@@ -1,10 +1,3 @@
-GIT
-  remote: https://github.com/thomasalrin/s3
-  revision: f0ba5860cca63ff15ef4c99ea5a4b036e8459f26
-  specs:
-    s3 (0.3.23)
-      proxies (~> 0.2.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -186,6 +179,8 @@ GEM
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
+    radosgw-s3 (0.1)
+      proxies (~> 0.2.0)
     rails (4.2.4)
       actionmailer (= 4.2.4)
       actionpack (= 4.2.4)
@@ -317,6 +312,7 @@ DEPENDENCIES
   paypal-sdk-rest (~> 1.3.1)
   protected_attributes (~> 1.1.3)
   quiet_assets
+  radosgw-s3
   rails (~> 4.2.4)
   rails-i18n (~> 4.0.5)
   randexp (~> 0.1.7)
@@ -325,7 +321,6 @@ DEPENDENCIES
   responders (~> 2.1.0)
   riak-client (~> 2.2.1)
   rspec-rails
-  s3!
   sass-rails (~> 5.0.4)
   settingslogic
   socket.io-rails (~> 1.3.6)
