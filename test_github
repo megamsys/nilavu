@@ -10606,4 +10606,82 @@ Processing by StoragesController#index as HTML
 [1m[32m/home/megam/code/megam/workspace/nilavu/app/models/backup.rb:24:in `new'
 /home/megam/code/megam/workspace/nilavu/app/models/backup.rb:24:in `initialize'
 /home/megam/code/megam/workspace/nilavu/app/controllers/storages_controller.rb:30:in `new'
-/home/megam/code/megam/workspace/nilavu/app/
+/home/megam/code/megam/workspace/nilavu/app/controllers/storages_controller.rb:30:in `index'
+/home/megam/code/megam/workspace/nilavu/app/controllers/application_controller.rb:112:in `catch_exceptions'[0m[22m
+[1m[35m..(*_*)...[0m[22m
+  Rendered layouts/_header.html.erb (0.9ms)
+  Rendered layouts/_footer.html.erb (0.3ms)
+  Rendered errors/internal_server_error.html.erb within layouts/application (3.1ms)
+  Rendered app/assets/javascripts/angular/templates/monitor/book_show.html.erb (0.0ms)
+  Rendered app/assets/javascripts/angular/templates/monitor/show.html.erb (0.2ms)
+  Rendered app/assets/javascripts/angular/templates/widgets/percontainer/show.html.erb (0.0ms)
+  Rendered app/assets/javascripts/angular/templates/widgets/pernode/show.html.erb (0.0ms)
+  Rendered app/assets/javascripts/angular/templates/widget/book_show.html.erb (0.0ms)
+  Rendered app/assets/javascripts/angular/templates/widget/show.html.erb (0.0ms)
+Completed 500 Internal Server Error in 17ms (Views: 15.6ms)
+^CStopping web server... done
+]0;megam@megamwk: ~/code/megam/workspace/nilavumegam@megamwk:~/code/megam/workspace/nilavu$ git add .
+]0;megam@megamwk: ~/code/megam/workspace/nilavumegam@megamwk:~/code/megam/workspace/nilavu$ git coo[Kmmit .
+[?1049h[1;39r(B[m[4l[?7h[?12l[?25h[?1h=[?1h=[?1h=[39;49m[39;49m(B[m[H[2J(B[0;7m  GNU nano 2.2.6                   File: /home/megam/code/megam/workspace/nilavu/.git/COMMIT_EDITMSG                                            [4;1H(B[m# Please enter the commit message for your changes. Lines starting[5d# with '#' will be ignored, and an empty message aborts the commit.[6d# Explicit paths specified without -i or -o; assuming --only paths...[7d# On branch 0.9[8d# Changes to be committed:[9d#[9Gmodified:   app/controllers/sessions_controller.rb[10d#[9Gmodified:   app/controllers/users_controller.rb[11d#[9Gmodified:   app/views/layouts/application.html.erb[12d#[9Gmodified:   app/views/marketplaces/_apps.html.erb[13d#[9Gmodified:   app/views/users/_topright_icons.html.erb[14d#[9Gmodified:   config/nilavu.yml[15d#[9Gnew file:   test_github[16d#[37;64H(B[0;7m[ Read 14 lines ][38d^G(B[m Get Help[38;25H(B[0;7m^O(B[m WriteOut[38;49H(B[0;7m^R(B[m Read File[38;73H(B[0;7m^Y(B[m Prev Page[38;97H(B[0;7m^K(B[m Cut Text[38;121H(B[0;7m^C(B[m Cur Pos[39d(B[0;7m^X(B[m Exit[39;25H(B[0;7m^J(B[m Justify[39;49H(B[0;7m^W(B[m Where Is[39;73H(B[0;7m^V(B[m Next Page[39;97H(B[0;7m^U(B[m UnCut Text[39;121H(B[0;7m^T(B[m To Spell[3d[1;135H(B[0;7mModified[3d(B[mcommit eio   with b issu  [37d[K[3;15H   backup correctui  ion7[4;37r8[4dM[1;39r[4;1H[37d(B[0;7mSave modified buffer (ANSWERING "No" WILL DESTROY CHANGES) ?                                                                                    [38;1H Y(B[m Yes[K[39d(B[0;7m N(B[m No  [39;17H(B[0;7m^C(B[m Cancel[K[37;62H(B[0;7mFile Name to Write: /home/megam/code/megam/workspace/nilavu/.git/COMMIT_EDITMSG[38d^G(B[m Get Help[38;37H(B[0;7mM-D(B[m DOS Format[38;73H(B[0;7mM-A(B[m Append[38;109H(B[0;7mM-B(B[m Backup File[39d(B[0;7m^C(B[m Cancel[17G         [39;37H(B[0;7mM-M(B[m Mac Format[39;73H(B[0;7mM-P(B[m Prepend[37;80H(B[0;7m'(B[m(B[0;7m (B[m[38d[39;49m(B[m[J[1;135H(B[0;7m        [37;63H(B[m[1K (B[0;7m[ Wrote 15 lines ](B[m[K[39;144H[39;1H[?1049l[?1l>[0.9 15f01b6] commit with backup correction
+ 7 files changed, 10624 insertions(+), 22 deletions(-)
+ create mode 100644 test_github
+]0;megam@megamwk: ~/code/megam/workspace/nilavumegam@megamwk:~/code/megam/workspace/nilavu$ git push master [K 
+warning: push.default is unset; its implicit value has changed in
+Git 2.0 from 'matching' to 'simple'. To squelch this message
+and maintain the traditional behavior, use:
+
+  git config --global push.default matching
+
+To squelch this message and adopt the new behavior now, use:
+
+  git config --global push.default simple
+
+When push.default is set to 'matching', git will push local branches
+to the remote branches that already exist with the same name.
+
+Since Git 2.0, Git defaults to the more conservative 'simple'
+behavior, which only pushes the current branch to the corresponding
+remote branch that 'git pull' uses to update the current branch.
+
+See 'git help config' and search for 'push.default' for further information.
+(the 'simple' mode was introduced in Git 1.7.11. Use the similar mode
+'current' instead of 'simple' if you sometimes use older versions of Git)
+
+aruUsername for 'https://github.com': n  arunkumarsekar06
+Password for 'https://ararunkumarsekar06@github.com': 
+remote: Invalid username or password.
+fatal: Authentication failed for 'https://github.com/arunkumarsekar06/nilavu.git/'
+]0;megam@megamwk: ~/code/megam/workspace/nilavumegam@megamwk:~/code/megam/workspace/nilavu$ git push master 
+warning: push.default is unset; its implicit value has changed in
+Git 2.0 from 'matching' to 'simple'. To squelch this message
+and maintain the traditional behavior, use:
+
+  git config --global push.default matching
+
+To squelch this message and adopt the new behavior now, use:
+
+  git config --global push.default simple
+
+When push.default is set to 'matching', git will push local branches
+to the remote branches that already exist with the same name.
+
+Since Git 2.0, Git defaults to the more conservative 'simple'
+behavior, which only pushes the current branch to the corresponding
+remote branch that 'git pull' uses to update the current branch.
+
+See 'git help config' and search for 'push.default' for further information.
+(the 'simple' mode was introduced in Git 1.7.11. Use the similar mode
+'current' instead of 'simple' if you sometimes use older versions of Git)
+
+Username for 'https://github.com': arunkuar  marsekar06
+Password for 'https://arunkumarsekar06@github.com': 
+Counting objects: 17, done.
+Delta compression using up to 4 threads.
+Compressing objects:   5% (1/17)   Compressing objects:  11% (2/17)   Compressing objects:  17% (3/17)   Compressing objects:  23% (4/17)   Compressing objects:  29% (5/17)   Compressing objects:  35% (6/17)   Compressing objects:  41% (7/17)   Compressing objects:  47% (8/17)   Compressing objects:  52% (9/17)   Compressing objects:  58% (10/17)   Compressing objects:  64% (11/17)   Compressing objects:  70% (12/17)   Compressing objects:  76% (13/17)   Compressing objects:  82% (14/17)   Compressing objects:  88% (15/17)   Compressing objects:  94% (16/17)   Compressing objects: 100% (17/17)   Compressing objects: 100% (17/17), done.
+Writing objects:   5% (1/17)   Writing objects:  11% (2/17)   Writing objects:  17% (3/17)   Writing objects:  23% (4/17)   Writing objects:  29% (5/17)   Writing objects:  35% (6/17)   Writing objects:  41% (7/17)   Writing objects:  47% (8/17)   Writing objects:  52% (9/17)   Writing objects:  58% (10/17)   Writing objects:  64% (11/17)   Writing objects:  70% (12/17)   Writing objects:  76% (13/17)   Writing objects:  82% (14/17)   Writing objects:  88% (15/17)   Writing objects:  94% (16/17)   Writing objects: 100% (17/17)   Writing objects: 100% (17/17), 68.09 KiB | 0 bytes/s, done.
+Total 17 (delta 13), reused 0 (delta 0)
+To https://github.com/arunkumarsekar06/nilavu.git
+   cf687c5..15f01b6  0.9 -> 0.9
+]0;megam@megamwk: ~/code/megam/workspace/nilavumegam@megamwk:~/code/megam/workspace/nilavu$ exit
+
+Script done on Monday 05 October 2015 08:45:25 PM IST

@@ -23,8 +23,8 @@ class BillingsController < ApplicationController
     @bill = Balances.new.show(params)
     @bill.balance
 
-    @billingHistories = Billinghistories.new.list(params)
-    @billingHistories.bhistories
+    @billedHistories = Billedhistories.new.list(params)
+    @billedHistories.bhistories
   end
 
   def notify_payment

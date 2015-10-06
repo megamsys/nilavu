@@ -21,7 +21,7 @@ defaults: &defaults
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
 
-  http_api: 103.56.92.11
+  http_api: localhost
 
 ##http_api: localhost
 # Enable log streaming into nilavu
@@ -81,6 +81,7 @@ defaults: &defaults
     host: 192.168.1.105
     username: thomas
     password: team4megam
+
 # notification section notifies the handlers based on_trigger conditions.
 ## 1. on_error: When an error occurs then notify dev support via an email to support@megam.io and hipchat. A notification
 ## via email happens if the configuration for [email:] exists.
