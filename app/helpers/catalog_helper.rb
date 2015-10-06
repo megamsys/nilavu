@@ -44,6 +44,10 @@ module CatalogHelper
     cattypes.each do |cattype|
       tmp_asmgroups_flatten = assemblies_grouped[cattype.upcase] || {}
       asmgroups_flatten << tmp_asmgroups_flatten unless tmp_asmgroups_flatten.size <=0
+      puts "++++++++++++++++++++++++++++CatalogHelper+++++++++++++++++++++++++++++++++++++++++++++"
+      puts asmgroups_flatten.inspect
+      puts tmp_asmgroups_flatten
+      puts assemblies_grouped[cattype.upcase]
     end
     asmgroups_flatten.flatten
   end
