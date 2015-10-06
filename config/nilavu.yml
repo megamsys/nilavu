@@ -21,7 +21,7 @@ defaults: &defaults
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
 
-  http_api: localhost
+  http_api: 103.56.92.11
 
 ##http_api: localhost
 # Enable log streaming into nilavu
@@ -78,7 +78,8 @@ defaults: &defaults
   billings: off
 ## For Backup:
   backup:
-    host: 192.168.1.105
+    enable: off
+    host: 192.168.1.248
     username: thomas
     password: team4megam
 
@@ -117,6 +118,7 @@ defaults: &defaults
     google:
       client_id: <%= ENV["NIL_GOO_CLIENT_ID"] %>
       secret_key: <%= ENV["NIL_GOO_SECRET_KEY"] %>
+
 
 development:
   <<: *defaults

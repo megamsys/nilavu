@@ -35,9 +35,11 @@ class SessionsController < ApplicationController
   # a regular user signin.
   def create
     set_orgid(params)
-    #keys = Storage.new(Backup::STORAGES_BUCKET).fetch(params["email"])
-    #session[:storage_access_key] = keys.content.data["access_key"]
-    #session[:storage_secret_key] = keys.content.data["secret_key"]
+    if Ind.backup.enable
+    keys = Storage.new(Backup::STORAGES_BUCKET).fetch(params["email"])
+    session[:storage_access_key] = keys.content.data["access_key"]
+    session[:storage_secret_key] = keys.content.data["secret_key"]
+    end
     auth = social_identity
     if social_identity.nil?
       create_with_megam(params)

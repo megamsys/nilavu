@@ -20,19 +20,26 @@ class Backup < BaseFascade
 
   STORAGES_BUCKET  = 'storages'.freeze
 
-def initialize(access_key, secret_key)
-    @client = S3::Service.new(:access_key_id => "#{access_key}", :secret_access_key => "#{secret_key}")
+def initialize(access_key, secret_key, host)
+    @client = S3::Service.new(:access_key_id => "#{access_key}", :secret_access_key => "#{secret_key}", :host => "#{host}")
 end
 
 # creates a new account
-def self.account_create(email)
+def self.account_create(host, username, user_password, uid)
+
+
+radosgw = CEPH::Radosgw.new(:ipaddress => "#{host}",
+                          :username => "#{username}",
+                          :user_password => "#{user_password}",
+)
+
+user_hash = radosgw.user_create("#{uid}")
+
+
     Rails.logger.debug '> Backup: Account create'
-    ceph_user_json=`ssh thomas@192.168.1.248 'sudo radosgw-admin user create --uid="#{email}"  --display-name="megam demo user"'`
-    ceph_user_hash = JSON.parse(ceph_user_json)
-    user_hash = {"access_key" => "#{ceph_user_hash['keys'][0]['access_key']}", "secret_key" => "#{ceph_user_hash['keys'][0]['secret_key']}" }
     user_json = user_hash.to_json
     storage  = Storage.new(STORAGES_BUCKET)
-    storage.upload(email, user_json, "application/json")
+    storage.upload(uid, user_json, "application/json")
 	user_hash
 end
 
@@ -67,7 +74,7 @@ def buckets_list
 end
 
 def object_create(bucket_name, new_object)
-  bucket = @client.buckets.find("#{bucket_name}")  
+  bucket = @client.buckets.find("#{bucket_name}")
   object = bucket.objects.build(new_object.original_filename)
   object.content = open(new_object)
   object.save
