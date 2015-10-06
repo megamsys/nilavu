@@ -74,7 +74,7 @@ def buckets_list
 end
 
 def object_create(bucket_name, new_object)
-  bucket = @client.buckets.find("#{bucket_name}")  
+  bucket = @client.buckets.find("#{bucket_name}")
   object = bucket.objects.build(new_object.original_filename)
   object.content = open(new_object)
   object.save

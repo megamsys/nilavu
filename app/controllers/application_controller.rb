@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
     I18n.locale= 'en'
 
   end
-  
+
   # a catcher exists using rails globber for routes in config/application.rb to trap 404.
   rescue_from Exception, with: :render_500
   unless Rails.application.config.consider_all_requests_local
@@ -92,14 +92,14 @@ class ApplicationController < ActionController::Base
     logger.debug "> STICKD #{params}"
     params
   end
-  
+
   def stick_host(_tmp = {}, _permitted_tmp = {})
-    logger.debug "> STICK #{params}"   
+    logger.debug "> STICK #{params}"
     params[:host]    = Ind.http_api
     logger.debug "> STICKD #{params}"
     params
   end
-  
+
   def stick_storage_keys(_tmp = {}, _permitted_tmp = {})
     logger.debug "> STICK #{params}"
     params[:accesskey] = session[:storage_access_key]
@@ -139,7 +139,7 @@ class ApplicationController < ActionController::Base
 ,-\\ `-.' /.'  /
 '---`----'----'        !\033[0m\033[1mSnail race is on! to deliver your mail!\033[22m
 "''
-  end 
+  end
 
   def puts_stacktrace(exception)
     logger.debug "\033[36m#{exception.message}\033[0m"
