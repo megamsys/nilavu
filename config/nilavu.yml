@@ -125,6 +125,13 @@ defaults: &defaults
       client_id: <%= ENV["NIL_GOO_CLIENT_ID"] %>
       secret_key: <%= ENV["NIL_GOO_SECRET_KEY"] %>
 
+##   - one of: facebook, github, google
+  backup:
+    host: 192.168.1.248
+    username: thomas
+    password: team4megam
+
+
 development:
   <<: *defaults
 
