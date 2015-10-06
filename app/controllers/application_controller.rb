@@ -115,6 +115,7 @@ class ApplicationController < ActionController::Base
     puts_stacktrace(mai)
     # notify  hipchat, send an email to support@megam.io which creates a support ticket.
     # redirect to the users last visited page.
+    @errormsg = "oops! there is some issue. ticket created - support.megam.io"
     redirect_to(signin_path, flash: { error: 'oops! there is some issue. ticket created - support.megam.io' }) && return
   rescue ApplicationMailer::MegamSnailError => mse
     ascii_snail
