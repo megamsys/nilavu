@@ -93,6 +93,7 @@ GEM
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     google-analytics-rails (0.0.6)
+    gritter (1.2.0)
     hashie (3.4.2)
     highline (1.7.7)
     httparty (0.13.7)
@@ -294,6 +295,7 @@ DEPENDENCIES
   github_api (~> 0.12.4)
   gitlab (~> 3.4.0)
   google-analytics-rails (~> 0.0.6)
+  gritter
   jquery-rails (~> 4.0.5)
   jquery-turbolinks (~> 2.1.0)
   json (~> 1.8.3)

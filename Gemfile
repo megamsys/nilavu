@@ -35,6 +35,9 @@ gem 'riak-client', '~> 2.2.1'
 gem 'radosgw-s3'
 gem 'net-ssh'
 
+#FOR GROWL
+gem "gritter"
+
 gem "megam_api", "~> 0.72"
 gem 'megam_gogs', "~> 0.8.0"
 
