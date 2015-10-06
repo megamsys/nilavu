@@ -18,7 +18,7 @@
 	  <%= render :partial => "users/topright_icons", :locals => {:title_name => @cattype.pluralize} %>
 
 	<div class="">
-		<%= render :partial => "cockpits/flyasm", :locals => {:cattype => @cattype, :asmgroups_flatten => flat_asmgroup([Assemblies::TORPEDO],@assemblies_grouped)} %>
+		<%= render :partial => "cockpits/flyasm", :locals => {:cattype => @cattype, :asmgroups_flatten => flat_asmgroup([@cattype],@assemblies_grouped)} %>
 	</div>
 
 </div>

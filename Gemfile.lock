@@ -179,7 +179,7 @@ GEM
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
-    radosgw-s3 (0.2)
+    radosgw-s3 (0.3)
       net-ssh
       proxies (~> 0.2.0)
     rails (4.2.4)

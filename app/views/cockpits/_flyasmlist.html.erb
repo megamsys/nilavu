@@ -41,14 +41,19 @@
                         <i class="circle_greenlist"></i>
                         <td width="100px"><span><%= assembly.status.capitalize %></span></td>
                       </td>
-                        <td width="300px">
+                      <td width="100px">
+                        <a href="http://docs.megam.io" target="_blank" ><i class="c_icon-window center-block" style="color:blue"></i></a>
+                      </td>
+                      <td width="100px">
+                        <i class="c_icon-star center-block"></i>
+                      </td>
+                        <td width="50px">
                           <ul>
-                            <li><span class="app_config c_icon-config pull-left" id="config_menu_<%= assembly.name %>_<%= cattype.downcase %>"></span>
+                            <li><span class="app_config c_icon-config center-block" id="config_menu_<%= assembly.name %>_<%= cattype.downcase %>"></span>
                             <div class="config_menu config_menu_<%= assembly.name %>_<%= cattype.downcase %>">
                               <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id,:asms_id => assembly.asms_id, :name => assembly.name, :cattype => cattype} %>
                             </div>
-                            <i class="c_icon-star center-block"></i></li>
-                            <li><a href="http://docs.megam.io" target="_blank" ><i class="c_icon-window pull-left" style="color:blue"></i></a></li>
+                          </li>
                           </ul>
                        </td>
                     </tr>
