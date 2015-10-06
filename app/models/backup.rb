@@ -44,9 +44,9 @@ user_hash = radosgw.user_create("#{uid}")
 end
 
 def bucket_create(bucket_name)
-	bucket_array = []
+  bucket_array = []
 	new_bucket = @client.buckets.build(bucket_name)
-	new_bucket.save()
+  new_bucket.save()
 end
 
 def bucket_delete(bucket_name)
