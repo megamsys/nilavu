@@ -1,10 +1,3 @@
-GIT
-  remote: https://github.com/thomasalrin/s3
-  revision: f0ba5860cca63ff15ef4c99ea5a4b036e8459f26
-  specs:
-    s3 (0.3.23)
-      proxies (~> 0.2.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -121,10 +114,10 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    megam_api (0.72)
-      excon (~> 0.45.3)
+    megam_api (0.73)
+      excon (~> 0.45.4)
       highline (~> 1.7)
-      mixlib-config (~> 2.1)
+      mixlib-config (~> 2.2)
       mixlib-log (~> 1.6)
       yajl-ruby (~> 1.2)
     megam_gogs (0.8.0)
@@ -186,6 +179,9 @@ GEM
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
+    radosgw-s3 (0.3)
+      net-ssh
+      proxies (~> 0.2.0)
     rails (4.2.4)
       actionmailer (= 4.2.4)
       actionpack (= 4.2.4)
@@ -259,7 +255,7 @@ GEM
     settingslogic (2.0.9)
     socket.io-rails (1.3.7)
       railties (>= 3.1)
-    sprockets (3.3.5)
+    sprockets (3.4.0)
       rack (> 1, < 3)
     sprockets-rails (2.3.3)
       actionpack (>= 3.0)
@@ -317,6 +313,7 @@ DEPENDENCIES
   paypal-sdk-rest (~> 1.3.1)
   protected_attributes (~> 1.1.3)
   quiet_assets
+  radosgw-s3
   rails (~> 4.2.4)
   rails-i18n (~> 4.0.5)
   randexp (~> 0.1.7)
@@ -325,7 +322,6 @@ DEPENDENCIES
   responders (~> 2.1.0)
   riak-client (~> 2.2.1)
   rspec-rails
-  s3!
   sass-rails (~> 5.0.4)
   settingslogic
   socket.io-rails (~> 1.3.6)
