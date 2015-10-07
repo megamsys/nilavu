@@ -40,7 +40,6 @@
 //= require faq_main
 //= require faq_modernizr
 //= require jquery.filter
-//= require socket.io
 //= require megam.monitor
 //= require megam.support
 //= require nprogress
@@ -49,4 +48,7 @@
 //= require react_ujs
 //= require components
 //= require megam.menu
+
+
+
 //= require_tree .

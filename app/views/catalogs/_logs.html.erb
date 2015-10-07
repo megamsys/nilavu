@@ -13,11 +13,10 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<% content_for :content_settings do %>
 <% provide(:title, 'Logs') %>
 
-<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9" ng-controller="LogCtrl">
-	<div class="row c_pading-b15 settings_top" data-ng-init="sendmessage()">
+<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9" >
+	<div class="row c_pading-b15 settings_top" >
 		<div class="margin_15">
 			<%= render :partial => "users/topright_icons", :locals => {:title_name => t('titles.logs_title')} %>
 		</div>
@@ -35,38 +34,17 @@
         </div>
       </div>
     </div>
-	<div id="loading" ng-show="isLoading" class="row col-md-offset-4"/>
-	<div class="row" style="max-height:500px; overflow-y:scroll">
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" >
-			<table class="table tb_action_list">
-				<thead>
-					<tr>
-						<th><%= t('billings.timestamp') %></th>
-						<th><%= t('general.message') %></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="log in logs | orderBy:predicate:!reverse | slice:0:100">
-						<div>
-							<td>
-							<p>
-								<small> {{ log.Timestamp | date:'d MMM yy, hh:mm a Z' }}</small>
-							</p></td>
-							<td>
-							<p>
-								<small>{{log.Payload }}</small>
-							</p></td>
-						</div>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
-	<div>
-<%= react_component 'Log' %>
+
+
+
+
+
+<div id="example"></div>
+
+
+
+
 <!-- becomes: -->
-<div data-react-class="HelloMessage" data-react-props="{&quot;name&quot;:&quot;John&quot;}"></div>
-	</div>
 	<script>
 		(function($) {
 			$.Sources = JSON.parse('<%= raw Sources.sources.to_json %> ');
@@ -75,3 +53,22 @@
     		$.SocketURL = "<%= Ind.websocket_tap %>";
      })($);
 	</script>
+
+	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script>
+  var socket = io.connect('http://localhost:7000/');
+console.log(socket);
+ //   socket.on('connect', function() {
+//	console.log("---0-0------------------------------");
+//	socket.emit('message', "test");
+//});
+
+//socket.on('message', function(data) {
+//	console.log("reeiving msage--->>>");
+//   console.log(data);
+
+React.render(React.createElement(myDivElement, { name: socket }), document.getElementById('example'));
+
+//});
+
+</script>

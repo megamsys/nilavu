@@ -1,0 +1,92 @@
+
+
+var myDivElement = React.createClass({
+
+
+  getInitialState: function getInitialState() {
+		return {  messages: [] };
+	},
+
+    componentDidMount: function componentDidMount() {
+
+      var socket = this.props.name;
+      console.log("----------------------------=-=-=-=-=-=-=");
+       console.log(socket);
+       socket.on('connect', this._initialize);
+       socket.on('message', this._messageRecieve);
+
+    },
+
+
+    _initialize: function _initialize(data) {
+
+      var socket = this.props.name;
+      socket.emit('message', 'test');
+
+    },
+
+    _messageRecieve: function _messageRecieve(message) {
+      var messages = this.state.messages;
+      console.log(message)
+      messages.push(message);
+      this.setState({ messages: messages });
+    },
+
+
+
+
+
+    render: function render() {
+  		return React.createElement(
+  			'div',
+  			null,
+
+  			React.createElement(MessageList, {
+  				messages: this.state.messages
+  			})
+
+  		);
+  	}
+});
+
+
+
+var MessageList = React.createClass({
+	displayName: 'MessageList',
+
+	render: function render() {
+		return React.createElement(
+			'div',
+			{ className: 'messages' },
+			React.createElement(
+				'h2',
+				null,
+				' Conversation: '
+			),
+			this.props.messages.map(function (message, i) {
+				return React.createElement(Message, {
+					key: i,
+					text: message
+				});
+			})
+		);
+	}
+});
+
+
+var Message = React.createClass({
+	displayName: 'Message',
+
+	render: function render() {
+		return React.createElement(
+			'div',
+			{ className: 'message' },
+		
+			React.createElement(
+				'span',
+				null,
+				this.props.text
+			)
+		);
+	}
+});
