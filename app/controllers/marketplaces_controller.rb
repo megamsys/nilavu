@@ -28,7 +28,6 @@ class MarketplacesController < ApplicationController
   def index
     logger.debug '> Marketplaces: index.'
     @mkp_grouped = Marketplaces.instance.list(params).mkp_grouped
-    @vijay ="asdf"
   end
 
   ##

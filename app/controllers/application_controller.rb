@@ -115,8 +115,10 @@ class ApplicationController < ActionController::Base
     puts_stacktrace(mai)
     # notify  hipchat, send an email to support@megam.io which creates a support ticket.
     # redirect to the users last visited page.
-    @errormsg = "oops! there is some issue. ticket created - support.megam.io"
-    redirect_to(signin_path, flash: { error: 'oops! there is some issue. ticket created - support.megam.io' }) && return
+    logger.debug ''"*************************#{request.original_url} "''
+    logger.debug ''"*************************#{request.fullpath} "''
+    gflash :error => "#{mai}"
+    redirect_to(signin_path , flash: { api_error: 'api_error' }) && return
   rescue ApplicationMailer::MegamSnailError => mse
     ascii_snail
     puts_stacktrace(mse)
@@ -151,4 +153,5 @@ class ApplicationController < ActionController::Base
     end
     logger.debug "\033[1m\033[35m..(*_*)...\033[0m\033[22m"
   end
+
 end
