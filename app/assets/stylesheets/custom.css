@@ -88,7 +88,18 @@ a:hover {
   padding: 50px;
 	text-align: center;
 }
-
+.login .logo {
+	margin: 0 auto;
+	/*margin-top:60px;*/
+  padding: 50px;
+	text-align: center;
+}
+.login .megam_logo {
+	margin: 0 auto;
+	/*margin-top:60px;*/
+  padding: 15px;
+	text-align: center;
+}
 
 .login .outer {
 	/* margin-bottom: 200px; */
@@ -105,12 +116,6 @@ a:hover {
 }
 .border_grey {
 	border: 2px solid #e5e6ef;
-}
-.login .logo {
-	margin: 0 auto;
-	/*margin-top:60px;*/
-  padding: 50px;
-	text-align: center;
 }
 .btn-plain {
 	background-color: #fff;

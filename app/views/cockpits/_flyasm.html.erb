@@ -120,6 +120,7 @@ $(document).ready(function() {
   // Instance the tour
 /*@assemblies_grouped["TORPEDO"].nil? && @assemblies_grouped["APP"].nil? && @assemblies_grouped["SERVICE"].nil? &&*/
 <% if session[:tour] %>
+<% puts session[:tour] %>
 var tour = new Tour({
   steps: [
   {

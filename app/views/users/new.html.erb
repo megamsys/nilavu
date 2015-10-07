@@ -14,57 +14,28 @@
 ** limitations under the License.
 -->
 
-<% provide(:title, t('titles.signup_title')) %> <!-- BEGIN LOGO -->
-
-<div class="login">
+<% provide(:title, t('titles.signup_title')) %>
+<body style="background-color: #edeef5" class="signin-bg">
+	 <!-- BEGIN LOGO -->
+	<div class="container-fluid">
+	<div class="header-inner">
+		<div class="row">
+			<div class="col-md-2 col-sm-3 col-xs-5">
+			<div class="megam_logo img-responsive" alt="logo">
+				<%= image_tag "megam-new-logo.png" %>
+		 </div>
+		</div>
+	 </div>
+	</div>
+	</div>
+	<!-- END LOGO -->
 	<div class="container">
 		<div class="row">
-			<div class="logo">
-				<%= image_tag "megam-logo1.png" %>
-			</div>
-		</div>
-		<!-- END LOGO -->
-
 		<!-- BEGIN LOGIN -->
-		<div class="col-md-10 col-sm-12 col-md-offset-1   bg_white border_grey sign-up">
-			<div class="col-md-6 col-sm-6">
-				<%= image_tag "sign-up.png", :class => "img-responsive" %>
-				<h3><%= t('signup.footer_text') %> <span><%= t('signup.cost') %></span></h3>
-			</div>
-			<div class="col-md-6 col-sm-6">
-				<h2><%= t('titles.signup_title') %><span class="sign_up_small"><i><%= t('signup.megam_disc') %></span></i></h2>
-				<%= form_tag users_path, multipart: true, :id => "megamform", :class => "signup-form", :novalidate => "novalidate", :method => "post", data: { spinlock: "#spin_cross_cloud"}  do %>
-				<div class="c_inline">
-					<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-					<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
-					<div class="row">
-						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-							<% if session[:auth] %>
-							<%= text_field_tag 'first_name', nil, :required => true, :id => 'first_name', :class => 'form-control', placeholder: t('signup.first_name_tag'), :value => @firstname , :data => {:placement=>"right"} %>
-							<% else %>
-							<%= text_field_tag 'first_name', nil, :required => true, :id => 'first_name', :class => 'form-control', placeholder: t('signup.first_name_tag'), :data => {:placement=>"right"} %>
-							<% end %>
-						</div>
-						<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6 input-icon right">
-							<% if session[:auth] %>
-							<%= text_field_tag 'last_name', nil, :id => 'last_name', :class => 'form-control', placeholder: t('signup.last_name_tag'), :value => @lastname %>
-							<% else %>
-							<%= text_field_tag 'last_name', nil, :id => 'last_name', :class => 'form-control', placeholder: t('signup.last_name_tag') %>
-							<% end %>
-						</div>
-					</div>
-				</div>
-				<div class="form-group">
-					<div class="row">
-						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
-							<% if session[:auth] %>
-							<%= text_field_tag 'phone', nil, :class => 'form-control', placeholder: t('signup.phonenumber_tag'), :value => @phone %>
-							<% else %>
-							<%= text_field_tag 'phone', nil, :class => 'form-control', placeholder: t('signup.phonenumber_tag') %>
-							<% end %>
-						</div>
-					</div>
-				</div>
+			<div class="col-md-5 col-sm-5 signUp">
+				<div class="top"><h3><%= t('titles.signup_title') %><span class="sign_up_small pull-right"><%= t('signup.megam_disc') %></span></h3></div>
+				<%= form_tag users_path, multipart: true, :id => "megamform", :class => "signup-form", role: "form", :novalidate => "novalidate", :method => "post", data: { spinlock: "#spin_cross_cloud"}  do %>
+				<div class="middle">
 				<div class="form-group">
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -78,22 +49,18 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<!-- <input type="text" class="form-control" placeholder="Enter text"> -->
-
-					<div class="c_inline">
-						<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-						<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
 						<div class="row">
-							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+								<% if session[:auth] %>
+								<%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: t('signup.password_tag'), :value => @password %>
+								<input type="hidden" name="email" value="<%= @email %>">
+								<% else %>
 								<%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: t('signup.password_tag') %>
+								<% end %>
 							</div>
-							<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-								<%= password_field_tag 'password_confirmation', nil, :required => true, :class=> 'form-control', placeholder: t('signup.confirm_password_tag') %>
-							</div>
-
 						</div>
-					</div>
 				</div>
+			</div>
 
 				<% if flash[:error] %>
 				<div class="row">
@@ -105,31 +72,25 @@
 					</div>
 				</div>
 				<% end %>
-
 				<div class="row">
-					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-						<button type="submit" class="btn btn-success" data-remote="true">
-							<%= t('signup.create_acc') %>
+					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+						<button type="submit" class="btn btn-success col-lg-12" data-remote="true">
+							<%= t('cockpits.create') %>
 						</button>
 					</div>
-					<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-						<p class="text-center">
-							<u class="colr-bluegrey"><%= t('signup.existing_user') %></u>&nbsp;&nbsp; <a href="signin"><u class="colr-denimblue"><%= t('signup.login_here') %></u></a>
-						</p>
-					</div>
-
+				</div>
+				<div class="bottom">
+							<p class="colr-bluegrey"><%= t('signup.existing_user') %> &nbsp;&nbsp; <a href="signin"><span class="colr-denimblue"><%= t('signup.login_here') %></span></a></p>
 				</div>
 			<% end %>
-			</div>
-
 		</div>
-		<div  class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">
-			<div class="row">
-				<p>
-					<%= t('signup.UI_design') %> <a href="http://enixel.com/" target="_blank"><%= t('signup.designed_by') %></a>
-				</p>
-			</div>
-			<br/>
+
+		<div class="col-lg-7 col-md-8">
+			 <h1 class="text-banner">
+					<span>Simple Cloud.</span></br>
+					<span>Deploy a cloud server.</span>
+			 </h1>
 		</div>
 	</div>
 </div>
+</body>

@@ -23,6 +23,7 @@ en:
     UI_design: "User Interface & Design by"
     designed_by: "Enixel Creative Studio"
     update_password: "Update Password"
+    submit: Submit
 
   titles:
     signup_title: "Sign up"
