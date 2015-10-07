@@ -108,6 +108,17 @@ class ApplicationController < ActionController::Base
     params
   end
 
+  def visit_access_keys(_tmp = {}, _permitted_tmp = {})
+    logger.debug "> STORAGE_ACCESS #{params}"
+    params[:email] = session[:email]
+    params[:api_key] = session[:api_key]
+    params[:host]    = Ind.http_api
+    params[:accesskey] = session[:storage_access_key]
+    params[:secretkey] = session[:storage_secret_key]
+    logger.debug "> STORAGE_ACCESS_KEYS #{params}"
+    params
+  end
+
   def catch_exceptions
     yield
   rescue Accounts::MegamAPIError => mai
