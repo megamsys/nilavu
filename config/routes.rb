@@ -87,4 +87,6 @@ Nilavu::Application.routes.draw do
   #===Storage
   match '/strgs', :to => 'storages#getmsg', via: [:get]
   match '/supload', :to => 'storages#upload',via: [:post]
+
+  
 end

@@ -64,5 +64,4 @@ module SessionsHelper
    session.delete(:email)
    session.delete(:api_key)
  end
-
 end
