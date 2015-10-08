@@ -15,28 +15,8 @@
 -->
 <% provide(:title, 'Logs') %>
 
-<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9" >
-	<div class="row c_pading-b15 settings_top" >
-		<div class="margin_15">
-			<%= render :partial => "users/topright_icons", :locals => {:title_name => t('titles.logs_title')} %>
-		</div>
-	</div>
-	 <div class="row">
-      <div class="mplace mplace-head">
-        <div class="col-xs-6 col-md-3 mplace-left">
-          <h4> <%= t('titles.logs_title') %> </h4>
-        </div>
-        <div class="col-xs-6 col-md-4 mplace-left">
-          <h4><%= @appname %> </h4>
-        </div>
-        <div class="col-xs-12 col-md-5 mplace-middle hidden-xs hidden-sm">
-          <span class="pull-right c_small"><%= t('overviews.overview_logs') %><i class="c_icon-rocket"></i><a href="http://docs.megam.io/v1.0/docs/megam_cloudmanagement_intro" target="_blank"><%= t('login.tour') %></a></span>
-        </div>
-      </div>
-    </div>
 
-
-
+<div><h3> Logs </h3></div>
 
 
 <div id="logs"></div>
@@ -54,21 +34,21 @@
      })($);
 	</script>
 
-	<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+<script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
 <script>
-  var socket = io.connect('http://localhost:7000/');
-console.log(socket);
- //   socket.on('connect', function() {
-//	console.log("---0-0------------------------------");
-//	socket.emit('message', "test");
-//});
+  var socket = io.connect($.SocketURL);
+  console.log(socket);
 
-//socket.on('message', function(data) {
-//	console.log("reeiving msage--->>>");
-//   console.log(data);
+    $('.socket_disconnect').click(function(){
+         socket.disconnect();
+    });
 
+
+		socket.on("disconnect", function(){
+        console.log("client disconnected from server");
+    });
+
+//rendering the react components
 React.render(React.createElement(myDivElement, { socket: socket, name: $.AppName }), document.getElementById('logs'));
-
-//});
 
 </script>

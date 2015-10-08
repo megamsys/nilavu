@@ -10,21 +10,15 @@ var myDivElement = React.createClass({
     componentDidMount: function componentDidMount() {
 
       var socket = this.props.socket;
-      var name =  this.props.name;
-      console.log("----------------------------=-=-=-=-=-=-=");
-       console.log(socket);
-       console.log(name);
        socket.on('connect', this._initialize);
        socket.on('message', this._messageRecieve);
 
     },
-
-
     _initialize: function _initialize(data) {
 
-      var socket = this.props.name;
-      socket.emit('message', 'test');
-
+      var socket = this.props.socket;
+      var name = this.props.name;
+      socket.emit('message', "test");
     },
 
     _messageRecieve: function _messageRecieve(message) {
@@ -33,10 +27,6 @@ var myDivElement = React.createClass({
       messages.push(message);
       this.setState({ messages: messages });
     },
-
-
-
-
 
     render: function render() {
   		return React.createElement(
@@ -61,14 +51,12 @@ var MessageList = React.createClass({
 			'div',
 			{ className: 'messages' },
 			React.createElement(
-				'h2',
-				null,
-				' Conversation: '
+			'br'
 			),
 			this.props.messages.map(function (message, i) {
 				return React.createElement(Message, {
 					key: i,
-					text: message
+					text: message.logs
 				});
 			})
 		);

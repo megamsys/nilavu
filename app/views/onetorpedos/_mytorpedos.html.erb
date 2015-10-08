@@ -82,44 +82,11 @@
 		</div>
 	</div>
 	<br/>
-	<div class="row c_pading-b15" style="padding-top:15px;">
-		<div class="portlet-body-head">
-			<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-				<i class="c_icon-grid"></i><%= t('overviews.your_machines') %>
-			</div>
-		</div>
-	</div>
+
 	<div class="bottom-divider"></div>
 	<div class="row">
 		<div class="row margintb_15 margin_30 ">
-
-			<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
-				<div class="app_inner">
-					<div class="app">
-						<div class="app_head">
-							<span class="app_config" id="config_menu_1"><i class="c_icon-config"></i></span>
-							<div class="config_menu config_menu_1"></div>
-							<div class="row app_icon">
-								<h5><a href="#"><%= assembly.name %>.<%= t('marketplace.megambox') %></a></h5>
-								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-									<ul class="list-inline app_icon_bottom">
-										<li>
-											<%= image_tag  "logos/#{assembly.tosca_type.split('.').last}.png", :alt => "" %>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="app_footer">
-							<!-- <div class="circle_red"></div> -->
-							<i class="circle_greenlist"></i>
-							<span><%= t('marketplace.launch_status') %></span>
-							<i class="c_icon-window pull-right"></i>
-							<i class="c_icon-star pull-right"></i>
-						</div>
-					</div>
-				</div>
-			</div>
+      <%= render 'catalogs/logs' %>
 		</div>
 
 	</div>
