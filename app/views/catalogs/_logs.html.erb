@@ -39,7 +39,7 @@
 
 
 
-<div id="example"></div>
+<div id="logs"></div>
 
 
 
@@ -67,7 +67,7 @@ console.log(socket);
 //	console.log("reeiving msage--->>>");
 //   console.log(data);
 
-React.render(React.createElement(myDivElement, { name: socket }), document.getElementById('example'));
+React.render(React.createElement(myDivElement, { socket: socket, name: $.AppName }), document.getElementById('logs'));
 
 //});
 

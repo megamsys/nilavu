@@ -33,7 +33,7 @@ gem 'omniauth-github', "~> 1.1.2"
 
 gem 'json', "~> 1.8.3"
 gem 'riak-client', '~> 2.2.1'
-gem 's3', git: 'https://github.com/thomasalrin/s3'
+gem 'radosgw-s3'
 gem 'net-ssh'
 
 gem "megam_api", "~> 0.72"

@@ -1,12 +1,5 @@
 # /var/lib/megam/nilavu.yml
 defaults: &defaults
-## Specifies the storage used for nilavu's key-value data
-##
-## Default: riak
-##
-## Acceptable values:
-##   - one of: riak
-  storage_backend: riak
 ## connect.storage.db is a host that the nilavu will connect to
 ## for saving key/value pairs in storage
 ## Default: localhost
@@ -89,6 +82,13 @@ defaults: &defaults
 ## Acceptable values:
 ##   - on or off
   billings: off
+## For Backup:
+  backup:
+    enable: on
+    host: 192.168.1.248
+    username: thomas
+    password: team4megam
+
 # notification section notifies the handlers based on_trigger conditions.
 ## 1. on_error: When an error occurs then notify dev support via an email to support@megam.io and hipchat. A notification
 ## via email happens if the configuration for [email:] exists.
@@ -124,6 +124,7 @@ defaults: &defaults
     google:
       client_id: <%= ENV["NIL_GOO_CLIENT_ID"] %>
       secret_key: <%= ENV["NIL_GOO_SECRET_KEY"] %>
+
 
 development:
   <<: *defaults

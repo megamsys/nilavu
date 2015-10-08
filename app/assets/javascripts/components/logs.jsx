@@ -9,9 +9,11 @@ var myDivElement = React.createClass({
 
     componentDidMount: function componentDidMount() {
 
-      var socket = this.props.name;
+      var socket = this.props.socket;
+      var name =  this.props.name;
       console.log("----------------------------=-=-=-=-=-=-=");
        console.log(socket);
+       console.log(name);
        socket.on('connect', this._initialize);
        socket.on('message', this._messageRecieve);
 
@@ -81,7 +83,7 @@ var Message = React.createClass({
 		return React.createElement(
 			'div',
 			{ className: 'message' },
-		
+
 			React.createElement(
 				'span',
 				null,
