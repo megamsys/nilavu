@@ -18,7 +18,7 @@ require 'json'
 class StoragesController < ApplicationController
   respond_to :json, :js
   include MarketplaceHelper
-  include SessionsHelper
+
 
   before_action :visit_access_keys, only: [:index, :create, :show, :upload]
   ## before_action :stick_storage_keys, only: [:index, :create, :show, :upload]

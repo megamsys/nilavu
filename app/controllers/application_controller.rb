@@ -44,8 +44,6 @@ class ApplicationController < ActionController::Base
   # A generic template exists in error which shows the error in a
   # usage way.
   def render_404(exception = nil)
-    logger.debug ''"************render 404*************#{request.original_url} "''
-    logger.debug ''"*************************#{request.fullpath} "''
     @not_found_path = exception.message if exception
     if !signed_in?
      gflash :error => "#{exception}"
@@ -63,9 +61,7 @@ class ApplicationController < ActionController::Base
   # usage way.
   def render_500(exception = nil)
     puts_stacktrace(exception) if exception
-    logger.debug ''"************render 500*************#{request.original_url} "''
-    logger.debug ''"*************************#{request.fullpath} "''
-    if !signed_in?
+      if !signed_in?
      gflash :error => "#{exception}"
      redirect_to signin_path, flash: { error: 'You must first sign in or sign up.' }
     else
