@@ -48,7 +48,10 @@
 //= require react_ujs
 //= require components
 //= require megam.menu
+//= require chartist
+
 
 
 
 //= require_tree .
+//= require gritter

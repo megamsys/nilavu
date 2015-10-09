@@ -43,7 +43,7 @@ defaults: &defaults
 ##
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
-  websocket_tap: localhost:7000
+  http_logs: localhost:7000
 ## Enable metrics streaming into nilavu
 ## Requires package [megamanalytics] to be insalled.
 ## Default: off

@@ -11,7 +11,7 @@ gem 'rails-i18n', '~> 4.0.5' # For 4.0.x
 
 #for reactjs
 gem 'react-rails', '~> 1.3.1'
-
+gem 'chartist-rails'
 
 #jquery & ui
 gem 'jquery-rails', "~> 4.0.5"
@@ -73,3 +73,6 @@ group :development do
   gem "rspec-rails"
   gem 'quiet_assets'
 end
+
+#for growl
+gem "gritter", "1.2.0"

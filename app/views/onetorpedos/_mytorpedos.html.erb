@@ -44,6 +44,7 @@
 					<label class="col-md-6"><i class="fa fa-columns"></i> <%= t('overviews.cpu_core') %> </label>
 					<span1>
 						<%= assembly.inputs.select { |x| x["key"] == "cpu" }[0]['value'] %>
+
 					</span1>
 				</div>
 			</div>
@@ -86,6 +87,8 @@
 	<div class="bottom-divider"></div>
 	<div class="row">
 		<div class="row margintb_15 margin_30 ">
+			<% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
+			<% @logname = "#{assembly.name}.#{domain}" %>
       <%= render 'catalogs/logs' %>
 		</div>
 

@@ -52,6 +52,7 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     cert_validator (0.0.1)
+    chartist-rails (0.9.4)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.7)
@@ -75,7 +76,7 @@ GEM
     factory_girl_rails (4.5.0)
       factory_girl (~> 4.5.0)
       railties (>= 3.0.0)
-    faraday (0.9.1)
+    faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.10.0)
       faraday (>= 0.7.4, < 0.10)
@@ -93,6 +94,7 @@ GEM
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     google-analytics-rails (0.0.6)
+    gritter (1.2.0)
     hashie (3.4.2)
     highline (1.7.7)
     httparty (0.13.7)
@@ -179,7 +181,7 @@ GEM
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
-    radosgw-s3 (0.3)
+    radosgw-s3 (0.4)
       net-ssh
       proxies (~> 0.2.0)
     rails (4.2.4)
@@ -288,12 +290,14 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.10)
   capybara
+  chartist-rails
   factory_girl_rails
   faraday (~> 0.9.1)
   faraday_middleware (~> 0.10.0)
   github_api (~> 0.12.4)
   gitlab (~> 3.4.0)
   google-analytics-rails (~> 0.0.6)
+  gritter (= 1.2.0)
   jquery-rails (~> 4.0.5)
   jquery-turbolinks (~> 2.1.0)
   json (~> 1.8.3)

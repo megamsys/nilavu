@@ -125,6 +125,8 @@
 	<div class="row">
 	<%= render :partial => 'catalogs/flysolo', :locals => {:asmgroups_flatten => @bound_apps, :filter_cattype => Assemblies::APP} %>
 	</div>
+	<% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
+	<% @logname = "#{assembly.name}.#{domain}" %>
 	<%= render 'catalogs/logs' %>
 
 </div>
