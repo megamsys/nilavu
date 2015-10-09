@@ -75,3 +75,6 @@ group :development do
   gem "rspec-rails"
   gem 'quiet_assets'
 end
+
+#for growl
+gem "gritter", "1.2.0"

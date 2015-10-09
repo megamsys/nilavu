@@ -295,7 +295,7 @@ DEPENDENCIES
   github_api (~> 0.12.4)
   gitlab (~> 3.4.0)
   google-analytics-rails (~> 0.0.6)
-  gritter
+  gritter (= 1.2.0)
   jquery-rails (~> 4.0.5)
   jquery-turbolinks (~> 2.1.0)
   json (~> 1.8.3)
