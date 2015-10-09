@@ -44,7 +44,6 @@
 //= require megam.monitor
 //= require megam.support
 //= require nprogress
-//= require gritter
 //= require nprogress-ajax
 //= require react
 //= require react_ujs
