@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe CatalogController, type: :controller do
-
+RSpec.describe CatalogsController, type: :controller do
+  
 end

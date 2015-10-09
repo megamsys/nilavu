@@ -50,3 +50,4 @@
 //= require components
 //= require megam.menu
 //= require_tree .
+//= require gritter
