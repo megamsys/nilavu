@@ -7,6 +7,7 @@ require "rails/test_unit/railtie"
 require "sprockets/railtie"
 require 'yaml'
 require 'active_record'
+require 'prawn'
 
 #COMMON YML
 if defined?(Bundler)

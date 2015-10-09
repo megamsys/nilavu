@@ -23,9 +23,11 @@ class BillingsController < ApplicationController
     @bill = Balances.new.show(params)
     @bill.balance
 
-    @billedHistories = Billedhistories.new.list(params)
-    @billedHistories.bhistories
+    @invoices = Invoices.new.list(params)
+    @invoices.invoices
+
   end
+
 
   def notify_payment
     bill = Billings.new
@@ -74,6 +76,7 @@ class BillingsController < ApplicationController
     end
   end
 
+
   def apply_promo(params)
     promo_amt = Promos.new.show(params)
     params[:credit] = (params[:balance].to_i + promo_amt.amount.to_i)
@@ -81,6 +84,22 @@ class BillingsController < ApplicationController
     credit = params[:credit]
     dis = Discounts.new.create(params)
     return credit
+  end
+
+   def pdf
+    send_data generate_pdf(params),
+    filename: "billedHistories.pdf",
+    type: "application/pdf"
+  end
+
+  def generate_pdf(params)
+    Prawn::Document.new do
+    text "billing_amount:#{params["billing_amount"]}"
+    puts "%%%%%%%%%%%%%%%%%"
+    puts "#{params["billing_amount"]}"
+    text "currency_type:#{params["currency_type"]}"
+    text "created_at:#{params["created_at"]}"
+   end.render
   end
 
 end

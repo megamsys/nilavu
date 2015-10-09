@@ -16,6 +16,7 @@ class BaseFascade
   ASSEMBLY          = 'Assembly'.freeze
   BALANCES          = 'Balances'.freeze
   BILLEDHISTORIES  = "Billedhistories".freeze
+  INVOICES         =  'Invoices'.freeze
   COMPONENTS        = 'Components'.freeze
   CREDITHISTORIES   = "Credithistories".freeze
   ORGANIZATION      = 'Organizations'.freeze

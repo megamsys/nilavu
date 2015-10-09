@@ -59,6 +59,9 @@ gem 'sass-rails', "~> 5.0.4"
 gem 'uglifier', "~> 2.7.2"
 
 gem "therubyracer","~> 0.12.2", :require => 'v8',:platforms => :ruby
+ 
+#for pdf
+gem 'prawn', '~> 2.0.2'
 
 #for uploading files
 gem "paperclip", "~> 2.3"

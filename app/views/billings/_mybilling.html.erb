@@ -66,7 +66,7 @@
 				<div class="bottom-divider  settings_top"></div>
 				<%= render :partial => "billings/pay_now" %>
 				<div class="col-md-12 row">
-					<h2><i class="fa fa-history"></i>  <%= t('billings.biling_history') %></h2>
+					<h2><i class="fa fa-history"></i>  <%= t('billings.invoices') %></h2>
 				</div>
 				<div class="bottom-divider  settings_top"></div>
 				<div class="col-md-12 row">
@@ -74,19 +74,26 @@
 						<table class="table">
 							<thead>
 								<tr>
-									<th><%= t('billings.application') %></th>
+
+									<th><%= t('billings.fromDate') %></th>
+									<th><%= t('billings.toDate') %></th>
+									<th><%= t('billings.month') %></th>
 									<th><%= t('billings.amount') %></th>
 									<th><%= t('billings.currency') %></th>
 									<th><%= t('billings.timestamp') %></th>
+
 								</tr>
 							</thead>
 							<tbody>
-								<% @billedHistories.bhistories.each do |history| %>
+								<% @invoices.invoices.each do |history| %>
 								<tr>
-									<td><%= history.assembly_id %></td>
+									<td><%= history.from_date %></td>
+									<td><%= history.to_date %></td>
+									<td><%= history.month %></td>
 									<td><%= history.billing_amount %></td>
 									<td><%= history.currency_type %></td>
 									<td><%= history.created_at %></td>
+									<td>  <%= link_to "pdf" ,pdf_path(:From_date => history.from_date , :To_date => history.to_date , :month => histrory.month, :billing_amount => history.billing_amount, :currency_type => history.currency_type, :created_at => history.created_at), :data => {:remote => true} %></td>
 								</tr>
 								<% end %>
 							</tbody>
