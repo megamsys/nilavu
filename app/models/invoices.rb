@@ -13,26 +13,18 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class Balances < BaseFascade
+class Invoices < BaseFascade
+  attr_reader :invoices
 
-  attr_reader :balance
-
-  def initialize()
-     @balance = {}
+  def initialize
+    @invoices = []
+    super(true)
   end
 
-  def show(api_params, &block)
-    raw = api_request(api_params, BALANCES, SHOW)
-    @balance = raw[:body].lookup(api_params["email"])
+  def list(api_params, &_block)
+    raw = api_request(api_params, INVOICES, LIST)
+    @invoices = raw[:body].sort_by(&:created_at).reverse[0..9] unless raw.nil?
     yield self  if block_given?
-    return self
+    self
   end
-
-  def update(api_params, &block)
-    api_request(api_params, BALANCES, UPDATE)
-    yield self if block_given?
-    return self
-  end
-
-
 end

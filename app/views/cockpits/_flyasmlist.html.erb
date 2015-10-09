@@ -1,102 +1,118 @@
-  <div class="row c_pading-b15">
-    <div class="portlet-body-head">
-      <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-        <i class="c_icon-services"></i><%= t('cockpits.your') %><%= cattype.capitalize.pluralize %> <span><%= asmgroups_flatten.size%> <%=  cattype.pluralize %><%= t('cockpits.running') %></span>
-      </div>
+<div class="row c_pading-b15">
+  <div class="portlet-body-head">
+    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+      <i class="c_icon-services"></i><%= t('cockpits.your') %><%= cattype.capitalize.pluralize %>
+      <span><%= asmgroups_flatten.size%>
+        <%=  cattype.pluralize %><%= t('cockpits.running') %></span>
     </div>
   </div>
+</div>
 <div class="bottom-divider"></div>
 
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-<% asmgroups_flatten.each do |assembly| %>
-<% unless assembly.status == Assemblies::TERMINATED %>
-<div class="row">
+  <% asmgroups_flatten.each do |assembly| %>
+  <% unless assembly.status == Assemblies::TERMINATED %>
+  <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <table class="table tb_action_list">
-              <tbody>
-                  <tr>
-                      <td class="td-left" width="150px">
-                        <h5><%= assembly.name %></h5>
-                      </td>
-                        <td class="set_title" width="300px">
-                          <% case cattype.upcase %>
-                          <% when Assemblies::TORPEDO %>
-                          <%= link_to assembly.name + ".megambox.com", onetorpedos_path(:id => assembly.id), :data => {:remote => true} %>
-                          <% when Assemblies::APP %>
-                          <%= link_to assembly.name + ".megambox.com", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
-                          <% when Assemblies::SERVICE %>
-                          <%= link_to assembly.name + ".megambox.com", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
-                          <% when Assemblies::MICROSERVICES %>
-                          <%= link_to assembly.name + ".megambox.com", onemicroservices_path(:id => assembly.id), :data => {:remote => true} %>
-                          <% end %>
-                        </td>
-                        <td width="80px">
-                          <%  sparkle_up(cattype,assembly).each do |cool_logo| %>
-                          <li>
-                            <%= image_tag  cool_logo, :alt => "" %>
-                          </li>
-                          <% end %>
-                        </td>
-                        <td>
-                        <i class="circle_greenlist"></i>
-                        <td width="100px"><span><%= assembly.status.capitalize %></span></td>
-                      </td>
-                      <td width="100px">
-                        <a href="http://docs.megam.io" target="_blank" ><i class="c_icon-window center-block" style="color:blue"></i></a>
-                      </td>
-                      <td width="100px">
-                        <i class="c_icon-star center-block"></i>
-                      </td>
-                        <td width="50px">
-                          <ul>
-                            <li><span class="app_config c_icon-config center-block" id="config_menu_<%= assembly.name %>_<%= cattype.downcase %>"></span>
-                            <div class="config_menu config_menu_<%= assembly.name %>_<%= cattype.downcase %>">
-                              <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id,:asms_id => assembly.asms_id, :name => assembly.name, :cattype => cattype} %>
-                            </div>
-                          </li>
-                          </ul>
-                       </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-     </div>
- <% else %>
-    <table class="table tb_action_list">
-      <tbody>
-        <tr>
-          <td class="td-left">
-            <h5><%= assembly.name %></h5>
-          </td>
-          <td class="set_title">
-             <%= assembly.name + ".megam.io" %>
-          </td>
-          <td>
-            <%  sparkle_up(cattype,assembly).each do |cool_logo| %>
-             <li>
-               <%= image_tag  cool_logo, :alt => "" %>
-             </li>
+      <table class="table tb_action_list">
+        <tbody>
+          <tr>
+            <td class="td-left" width="150px">
+              <h5><%= assembly.name %></h5>
+            </td>
+            <td class="set_title" width="300px">
+              <% case cattype.upcase %>
+              <% when Assemblies::TORPEDO %>
+              <%= link_to assembly.name + ".megambox.com", onetorpedos_path(:id => assembly.id), :data => {:remote => true} %>
+              <% when Assemblies::APP %>
+              <%= link_to assembly.name + ".megambox.com", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
+              <% when Assemblies::SERVICE %>
+              <%= link_to assembly.name + ".megambox.com", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
+              <% when Assemblies::MICROSERVICES %>
+              <%= link_to assembly.name + ".megambox.com", onemicroservices_path(:id => assembly.id), :data => {:remote => true} %>
+              <% end %>
+            </td>
+            <td width="80px">
+              <%  sparkle_up(cattype,assembly).each do |cool_logo| %>
+            <li>
+              <%= image_tag  cool_logo, :alt => "" %>
+            </li>
             <% end %>
           </td>
           <td>
-          <i class="circle_redlist"></i>
-          <span><%= assembly.status.capitalize %></span>
-          </td>
-          <td>
-           <ul class="list-inline app_icon_bottom">
-            <li><i class="app_config" id="config_menu_<%= assembly.name %>_<%= cattype.downcase %>"><i class="c_icon-config"></i></i></li>
-               <li>
-               <div class="config_menu config_menu_<%= assembly.name %>_<%= cattype.downcase %>">
-               <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id,:asms_id => assembly.asms_id, :name => assembly.name, :cattype => cattype} %>
-               </div>
-               </li>
-            <li><a href="http://docs.megam.io" target="_blank" ><i class="c_icon-window pull-right" style="color:blue"></i></a></li>
-            <li><i class="c_icon-star pull-right"></i>
-             </ul>
+            <i class="circle_greenlist"></i>
+            <td width="100px">
+              <span><%= assembly.status.capitalize %></span>
             </td>
-          </tr>
-        </tbody>
-      </table>
-    <% end %>
-    <% end unless asmgroups_flatten.nil? %>
-    </div>
+          </td>
+          <td width="100px">
+            <a href="http://docs.megam.io" target="_blank">
+              <i class="c_icon-window center-block" style="color:blue"></i>
+            </a>
+          </td>
+          <td width="100px">
+            <i class="c_icon-star center-block"></i>
+          </td>
+          <td width="50px">
+            <ul>
+              <li>
+                <span class="app_config c_icon-config center-block" id="config_menu_<%= assembly.name %>_<%= cattype.downcase %>"></span>
+                <div class="config_menu config_menu_<%= assembly.name %>_<%= cattype.downcase %>">
+                  <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id,:asms_id => assembly.asms_id, :name => assembly.name, :cattype => cattype} %>
+                </div>
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<% else %>
+<table class="table tb_action_list">
+  <tbody>
+    <tr>
+      <td class="td-left">
+        <h5><%= assembly.name %></h5>
+      </td>
+      <td class="set_title">
+        <%= assembly.name + ".megam.io" %>
+      </td>
+      <td>
+        <%  sparkle_up(cattype,assembly).each do |cool_logo| %>
+      <li>
+        <%= image_tag  cool_logo, :alt => "" %>
+      </li>
+      <% end %>
+    </td>
+    <td>
+      <i class="circle_redlist"></i>
+      <span><%= assembly.status.capitalize %></span>
+    </td>
+    <td>
+      <ul class="list-inline app_icon_bottom">
+        <li>
+          <i class="app_config" id="config_menu_<%= assembly.name %>_<%= cattype.downcase %>">
+            <i class="c_icon-config"></i>
+          </i>
+        </li>
+        <li>
+          <div class="config_menu config_menu_<%= assembly.name %>_<%= cattype.downcase %>">
+            <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id,:asms_id => assembly.asms_id, :name => assembly.name, :cattype => cattype} %>
+          </div>
+        </li>
+        <li>
+          <a href="http://docs.megam.io" target="_blank">
+            <i class="c_icon-window pull-right" style="color:blue"></i>
+          </a>
+        </li>
+        <li>
+          <i class="c_icon-star pull-right"></i>
+      </ul>
+    </td>
+  </tr>
+</tbody>
+</table>
+<% end %>
+<% end unless asmgroups_flatten.nil? %>
+</div>
