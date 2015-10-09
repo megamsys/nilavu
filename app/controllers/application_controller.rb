@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
     I18n.locale= 'en'
 
   end
-  
+
   # a catcher exists using rails globber for routes in config/application.rb to trap 404.
   rescue_from Exception, with: :render_500
   unless Rails.application.config.consider_all_requests_local
@@ -45,10 +45,15 @@ class ApplicationController < ActionController::Base
   # usage way.
   def render_404(exception = nil)
     @not_found_path = exception.message if exception
-    respond_to do |format|
+    if !signed_in?
+     gflash :error => "#{exception}"
+     redirect_to signin_path, flash: { error: 'You must first sign in or sign up.' }
+    else
+     respond_to do |format|
       format.html { render template: 'errors/not_found', layout: 'application', status: 404 }
       format.all { render nothing: true, status: 404 }
     end
+  end
   end
 
   # renders 505 in an exception template.
@@ -56,10 +61,15 @@ class ApplicationController < ActionController::Base
   # usage way.
   def render_500(exception = nil)
     puts_stacktrace(exception) if exception
-    respond_to do |format|
-      format.html { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
-      format.js { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
-      format.all { render nothing: true, status: 500 }
+      if !signed_in?
+     gflash :error => "#{exception}"
+     redirect_to signin_path, flash: { error: 'You must first sign in or sign up.' }
+    else
+     respond_to do |format|
+       format.html { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
+       format.js { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
+       format.all { render nothing: true, status: 500 }
+     end
     end
   end
 
@@ -78,6 +88,7 @@ class ApplicationController < ActionController::Base
            session[:auth] = { email: auth[:email], first_name: auth[:first_name], last_name: auth[:last_name] }
            redirect_to social_create_path
          else
+           gflash :error => "You must first sign in or sign up."
            redirect_to signin_path, flash: { error: 'You must first sign in or sign up.' }
          end
        end
@@ -92,19 +103,30 @@ class ApplicationController < ActionController::Base
     logger.debug "> STICKD #{params}"
     params
   end
-  
+
   def stick_host(_tmp = {}, _permitted_tmp = {})
-    logger.debug "> STICK #{params}"   
+    logger.debug "> STICK #{params}"
     params[:host]    = Ind.http_api
     logger.debug "> STICKD #{params}"
     params
   end
-  
+
   def stick_storage_keys(_tmp = {}, _permitted_tmp = {})
     logger.debug "> STICK #{params}"
     params[:accesskey] = session[:storage_access_key]
     params[:secretkey] = session[:storage_secret_key]
     logger.debug "> STICKD #{params}"
+    params
+  end
+
+  def visit_access_keys(_tmp = {}, _permitted_tmp = {})
+    logger.debug "> STORAGE_ACCESS #{params}"
+    params[:email] = session[:email]
+    params[:api_key] = session[:api_key]
+    params[:host]    = Ind.http_api
+    params[:accesskey] = session[:storage_access_key]
+    params[:secretkey] = session[:storage_secret_key]
+    logger.debug "> STORAGE_ACCESS_KEYS #{params}"
     params
   end
 
@@ -115,7 +137,13 @@ class ApplicationController < ActionController::Base
     puts_stacktrace(mai)
     # notify  hipchat, send an email to support@megam.io which creates a support ticket.
     # redirect to the users last visited page.
-    redirect_to(signin_path, flash: { error: 'oops! there is some issue. ticket created - support.megam.io' }) && return
+    if !signed_in?
+    gflash :error => "#{mai}"
+    redirect_to(signin_path , flash: { api_error: 'api_error' }) && return
+    else
+      gflash :error => "#{mai}"
+      redirect_to(cockpits_path, flash: {api_error: 'api_error'} ) && return
+    end
   rescue ApplicationMailer::MegamSnailError => mse
     ascii_snail
     puts_stacktrace(mse)
@@ -139,7 +167,7 @@ class ApplicationController < ActionController::Base
 ,-\\ `-.' /.'  /
 '---`----'----'        !\033[0m\033[1mSnail race is on! to deliver your mail!\033[22m
 "''
-  end 
+  end
 
   def puts_stacktrace(exception)
     logger.debug "\033[36m#{exception.message}\033[0m"
@@ -150,4 +178,5 @@ class ApplicationController < ActionController::Base
     end
     logger.debug "\033[1m\033[35m..(*_*)...\033[0m\033[22m"
   end
+
 end
