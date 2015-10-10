@@ -34,11 +34,7 @@
 //= require jquery.uniform.min
 //= require validation.jquery
 //= require jquery-validate.bootstrap-tooltip
-//= require jquery.jcarousellite
-//= require jquery.bxslider.min
 //= require megam.form_validation
-//= require faq_main
-//= require faq_modernizr
 //= require jquery.filter
 //= require socket.io
 //= require megam.monitor
