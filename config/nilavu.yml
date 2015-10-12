@@ -121,9 +121,12 @@ defaults: &defaults
 
 test:
   <<: *defaults
-  
+
 development:
   <<: *defaults
 
 production:
   <<: *defaults
+
+test:
+    <<: *defaults
