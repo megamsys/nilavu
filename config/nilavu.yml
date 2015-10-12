@@ -119,6 +119,8 @@ defaults: &defaults
       client_id: <%= ENV["NIL_GOO_CLIENT_ID"] %>
       secret_key: <%= ENV["NIL_GOO_SECRET_KEY"] %>
 
+test:
+  <<: *defaults
 
 development:
   <<: *defaults

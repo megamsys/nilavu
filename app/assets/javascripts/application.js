@@ -9,9 +9,6 @@
 //
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
-
-// AJAX for file uploads
-// Added //= require jquery.remotipart in application.js
 //
 //= require jquery2
 //= require jquery_ujs
@@ -34,11 +31,7 @@
 //= require jquery.uniform.min
 //= require validation.jquery
 //= require jquery-validate.bootstrap-tooltip
-//= require jquery.jcarousellite
-//= require jquery.bxslider.min
 //= require megam.form_validation
-//= require faq_main
-//= require faq_modernizr
 //= require jquery.filter
 //= require socket.io
 //= require megam.monitor

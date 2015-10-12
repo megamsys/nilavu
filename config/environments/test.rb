@@ -10,7 +10,7 @@ Nilavu::Application.configure do
   config.cache_classes = true
 
   # Configure static asset server for tests with Cache-Control for performance
-  # config.serve_static_assets = false
+  config.serve_static_files = false
   config.static_cache_control = "public, max-age=3600"
 
   # Show full error reports and disable caching
@@ -37,8 +37,8 @@ Nilavu::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
   # to ignore the javascript files in dev, but load public assets in test, this results in running post twice in JQuery
+
  # config.assets.compile = false
- # config.serve_static_assets = true
- config.infer_spec_type_from_file_location = false
+ # config.serve_static_files = true
 
 end
