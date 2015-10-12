@@ -25,8 +25,6 @@ class Billedhistories < BaseFascade
 
   def list(api_params, &block)
     raw = api_request(api_params, BILLEDHISTORIES, LIST)
-    puts "................"
-    puts "lst"
     @bhistories = raw[:body].sort_by{|e| e.created_at}.reverse[0..9] unless raw == nil
     yield self  if block_given?
     return self

@@ -22,8 +22,6 @@ class SshKeysController < ApplicationController
     logger.debug "> SSH: index"
     @ssh_keys = Sshkeys.new.list(params).ssh_keys
   end
-  puts ".................."
-  puts index
 
   def create
     logger.debug "> SSH: create"
@@ -32,8 +30,7 @@ class SshKeysController < ApplicationController
     @msg = { title: "SSH", message: "#{params[:ssh_keypair_name]} created successfully. ", redirect: '/ssh_keys', disposal_id: 'create_ssh' }
 
   end
-  puts "7777777777777777"
-  puts create
+
 
   ## this downloads a key
   def edit
