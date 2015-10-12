@@ -125,3 +125,6 @@ development:
 
 production:
   <<: *defaults
+
+test:
+    <<: *defaults
