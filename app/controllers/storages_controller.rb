@@ -63,6 +63,10 @@ class StoragesController < ApplicationController
   end
 
   def upload
+    
+      puts "______________________________________"
+      puts params
+
     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
     backup.object_create("#{params[:bucket_name]}", params[:sobject])
     @msg = { title: "Storage", message: "#{params[:sobject].original_filename} uploaded successfully. ", redirect: '/storages', disposal_id: 'supload' }
