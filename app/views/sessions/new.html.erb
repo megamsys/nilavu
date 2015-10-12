@@ -61,12 +61,12 @@
 
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
-					<% if flash[:error] %>
-							<div class="alert alert-danger alert-dismissable">
-								<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-								<strong><%= t('warning') %></strong> <%= flash[:error] %>
-							</div>
-					<% end %>
+							<% if flash[:api_error] %>
+							    <%= gflash %>
+							<% end %>
+							<% if flash[:error] %>
+							   <%= gflash %>
+							<% end %>
 						</div>
 					</div>
 

@@ -35,7 +35,6 @@ class ApplicationController < ActionController::Base
     rescue_from ActionController::RoutingError, with: :render_404
     rescue_from ActionController::UnknownController, with: :render_404
     rescue_from AbstractController::ActionNotFound, with: :render_404
-    rescue_from ActiveRecord::RecordNotFound, with: :render_404
     rescue_from Timeout::Error, with: :render_500
     rescue_from Errno::ECONNREFUSED, Errno::EHOSTUNREACH, with: :render_500
   end
@@ -45,10 +44,15 @@ class ApplicationController < ActionController::Base
   # usage way.
   def render_404(exception = nil)
     @not_found_path = exception.message if exception
-    respond_to do |format|
+    if !signed_in?
+     gflash :error => "#{exception}"
+     redirect_to signin_path, flash: { error: 'You must first sign in or sign up.' }
+    else
+     respond_to do |format|
       format.html { render template: 'errors/not_found', layout: 'application', status: 404 }
       format.all { render nothing: true, status: 404 }
     end
+  end
   end
 
   # renders 505 in an exception template.
@@ -56,10 +60,15 @@ class ApplicationController < ActionController::Base
   # usage way.
   def render_500(exception = nil)
     puts_stacktrace(exception) if exception
-    respond_to do |format|
-      format.html { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
-      format.js { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
-      format.all { render nothing: true, status: 500 }
+      if !signed_in?
+     gflash :error => "#{exception}"
+     redirect_to signin_path, flash: { error: 'You must first sign in or sign up.' }
+    else
+     respond_to do |format|
+       format.html { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
+       format.js { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
+       format.all { render nothing: true, status: 500 }
+     end
     end
   end
 
@@ -78,6 +87,7 @@ class ApplicationController < ActionController::Base
            session[:auth] = { email: auth[:email], first_name: auth[:first_name], last_name: auth[:last_name] }
            redirect_to social_create_path
          else
+           gflash :error => "You must first sign in or sign up."
            redirect_to signin_path, flash: { error: 'You must first sign in or sign up.' }
          end
        end
@@ -126,7 +136,13 @@ class ApplicationController < ActionController::Base
     puts_stacktrace(mai)
     # notify  hipchat, send an email to support@megam.io which creates a support ticket.
     # redirect to the users last visited page.
-    redirect_to(signin_path, flash: { error: 'oops! there is some issue. ticket created - support.megam.io' }) && return
+    if !signed_in?
+    gflash :error => "#{mai}"
+    redirect_to(signin_path , flash: { api_error: 'api_error' }) && return
+    else
+      gflash :error => "#{mai}"
+      redirect_to(cockpits_path, flash: {api_error: 'api_error'} ) && return
+    end
   rescue ApplicationMailer::MegamSnailError => mse
     ascii_snail
     puts_stacktrace(mse)
@@ -161,4 +177,5 @@ class ApplicationController < ActionController::Base
     end
     logger.debug "\033[1m\033[35m..(*_*)...\033[0m\033[22m"
   end
+
 end
