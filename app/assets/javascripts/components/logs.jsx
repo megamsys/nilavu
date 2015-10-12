@@ -14,7 +14,6 @@ var Logs = React.createClass({
 
   },
   _initialize: function _initialize(data) {
-
     var socket = this.props.socket;
     var name = this.props.name;
     socket.emit('message', name);
