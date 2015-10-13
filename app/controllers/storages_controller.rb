@@ -37,7 +37,7 @@ class StoragesController < ApplicationController
     logger.debug '> Storages: create.'
     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
     backup.bucket_create(params["bucket_name"])
-    @msg = { title: "Storage", message: "#{params["bucket_name"]} created successfully. ", redirect: '/storages', disposal_id: 'create_bucket' }
+    @msg = { title: "Storage", message: "#{params["bucket_name"]} created successfully. ", redirect: '/', disposal_id: 'create_bucket' }
   end
 
   ##
@@ -63,13 +63,9 @@ class StoragesController < ApplicationController
   end
 
   def upload
-    
-      puts "______________________________________"
-      puts params
-
     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
     backup.object_create("#{params[:bucket_name]}", params[:sobject])
-    @msg = { title: "Storage", message: "#{params[:sobject].original_filename} uploaded successfully. ", redirect: '/storages', disposal_id: 'supload' }
+    @msg = { title: "Storage", message: "#{params[:sobject].original_filename} uploaded successfully. ", redirect: '/', disposal_id: 'supload' }
   end
 
   def destroy
@@ -78,4 +74,32 @@ class StoragesController < ApplicationController
     backup.bucket_delete(bucket_name)
   end
 
+# just in case you need to do anything after the document gets uploaded to amazon.
+ # but since we are sending our docs via a hidden iframe, we don't need to show the user a
+ # thank-you page.
+  def s3_confirm
+    head :ok
+  end
+
+  private
+
+  # generate the policy document that amazon is expecting.
+  def s3_upload_policy_document
+    return @policy if @policy
+    ret = {"expiration" => 5.minutes.from_now.utc.xmlschema,
+     "conditions" =>  [
+       {"bucket" =>  "abcd_1234"},
+       ["starts-with", "$key", @document.s3_key],
+       {"acl" => "private"},
+       {"success_action_status" => "200"},
+       ["content-length-range", 0, 1048576]
+     ]
+    }
+    @policy = Base64.encode64(ret.to_json).gsub(/\n/,'')
+  end
+
+ # sign our request by Base64 encoding the policy document.
+  def s3_upload_signature
+    signature = Base64.encode64(OpenSSL::HMAC.digest(OpenSSL::Digest::Digest.new('sha1'), YOUR_SECRET_KEY, s3_upload_policy_document)).gsub("\n","")
+  end
 end

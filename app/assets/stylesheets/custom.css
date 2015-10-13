@@ -1230,38 +1230,7 @@ background-repeat: no-repeat;
 .tb_cloud_activity li {
 	font-size: 14px !important;
 }
-.c_carousel {
-	margin-top: 30px;
-}
-.c_carousel .prev {
-	width:5%;
-	float:left;
-	padding-top:50px;
-	padding-bottom:50px;
-}
-.c_carousel .next {
-	width:5%;
-	float:right;
-	padding-top:50px;
-	padding-bottom:50px;
-}
-.c_carousel .next span {
-	float: right;
-}
-.c_carousel .jCarouselLite {
-	width:90% !important;
-	float:left;
-}
-.c_carousel .next:hover, .c_carousel .prev:hover {
-	cursor: pointer;
-}
-.c_jCarouselLite li {
-	border-top: 1px solid #f0f0f0;
-	border-left: 1px solid #f0f0f0;
-	border-right: 1px solid #f0f0f0;
-	border-bottom: 2px solid #dddddd;
-	margin: 14px;
-}
+
 .c_cog_icon {
 	margin-top: 22px;
 	/*float: right;*/
@@ -2426,4 +2395,14 @@ input[type="submit"]:active {opacity:1;}
 }
 .tb_upload .close{
 	color: red;
+}
+
+.fileupload-progress {
+	margin: 10px 0;
+}
+.fileupload-progress .progress-extended {
+	margin-top: 5px;
+}
+.error {
+  color: red;
 }

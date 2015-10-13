@@ -16,6 +16,7 @@
 
 class Backup < BaseFascade
 
+
   attr_reader :client # storage s3 client
 
   STORAGES_BUCKET  = 'storages'.freeze

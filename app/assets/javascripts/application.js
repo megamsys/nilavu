@@ -19,11 +19,6 @@
 //= require jquery.flot.time
 //= require jquery.flot.resize
 //= require jquery.flot.selection
-//= require angular
-//= require angular-route
-//= require angular-resource
-//= require angular-sanitize
-//= require underscore.min
 //= require jquery.oauthpopup
 //= require bootstrap.min
 //= require bootstrap2-typeahead.min
@@ -34,7 +29,6 @@
 //= require megam.form_validation
 //= require jquery.filter
 //= require socket.io
-//= require megam.monitor
 //= require megam.support
 //= require nprogress
 //= require nprogress-ajax
@@ -42,5 +36,7 @@
 //= require react_ujs
 //= require components
 //= require megam.menu
-//= require_tree .
 //= require gritter
+//= require megam.storage
+//= require jquery-fileupload/basic
+//= require_tree .

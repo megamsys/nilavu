@@ -16,6 +16,7 @@ gem 'react-rails', '~> 1.3.1'
 gem 'jquery-rails', "~> 4.0.5"
 gem 'turbolinks', "~> 2.5.3"
 gem 'jquery-turbolinks',"~> 2.1.0"
+gem 'jquery-fileupload-rails','~> 0.4.6' #fileupload
 gem 'remotipart', "~> 1.2.1" #ajax sfile uploads
 gem 'socket.io-rails', "~> 1.3.6" # streaming
 gem 'nprogress-rails' #spinner youtube like
@@ -47,6 +48,7 @@ gem 'google-analytics-rails', '~> 0.0.6'
 gem "paypal-sdk-rest", "~>1.3.1" #billing
 gem "sshkey", "~> 1.7.0" #ssh key-gen
 gem "settingslogic" #singleton settings yaml manager
+gem "gritter", "1.2.0" #for growl
 
 # http request and responses, http_proxy
 gem "faraday", "~> 0.9.1"
@@ -72,6 +74,3 @@ group :development do
   gem "rspec-rails"
   gem 'quiet_assets'
 end
-
-#for growl
-gem "gritter", "1.2.0"
