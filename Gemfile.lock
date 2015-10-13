@@ -95,7 +95,7 @@ GEM
     google-analytics-rails (0.0.6)
     gritter (1.2.0)
     hashie (3.4.2)
-    highline (1.7.7)
+    highline (1.7.8)
     httparty (0.13.7)
       json (~> 1.8)
       multi_xml (>= 0.5.2)
@@ -184,7 +184,10 @@ GEM
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
+
     radosgw-s3 (0.4)
+    radosgw-s3 (0.5)
+
       net-ssh
       proxies (~> 0.2.0)
     rails (4.2.4)
@@ -250,7 +253,7 @@ GEM
       rspec-mocks (~> 3.3.0)
       rspec-support (~> 3.3.0)
     rspec-support (3.3.0)
-    sass (3.4.18)
+    sass (3.4.19)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
       sass (~> 3.1)

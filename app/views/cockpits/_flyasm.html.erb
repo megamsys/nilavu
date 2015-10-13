@@ -129,10 +129,23 @@
     });
 
   // Instance the tour
+<<<<<<< HEAD
   /*@assemblies_grouped["TORPEDO"].nil? && @assemblies_grouped["APP"].nil? && @assemblies_grouped["SERVICE"].nil? &&*/
   <% if session[:tour] %>
   var tour = new Tour({
     steps: [
+=======
+/*@assemblies_grouped["TORPEDO"].nil? && @assemblies_grouped["APP"].nil? && @assemblies_grouped["SERVICE"].nil? &&*/
+<% if session[:tour] %>
+<% puts session[:tour] %>
+var tour = new Tour({
+  steps: [
+  {
+    element: ".one_Torpedo",
+    title: "<i class='fa fa-soundcloud'></i> Step 1",
+    content: "Click to see all our apps and services !!"
+  },
+>>>>>>> origin/0.9
       {
         element: ".one_Torpedo",
         title: "<i class='fa fa-soundcloud'></i> Step 1",
