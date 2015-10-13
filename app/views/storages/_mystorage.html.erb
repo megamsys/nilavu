@@ -108,8 +108,7 @@
 			</dd>
 		</dl>
 	</div>
-	<div class="col-xs-12 col-sm-9 col-md-10" id="object_list">
-
+	 <div class="col-xs-12 col-sm-9 col-md-10" id="object_list">
 	</div>
 </div>
 
@@ -152,28 +151,61 @@
 	</div>
 </div>
 
-<div id="supload" class="modal fade" tabindex="-1" aria-hidden="true">
-	<div class="modal-dialog" style="max-width:400px">
+<div id="supload" class="modal fade upldmodal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-full" style="max-width:600px;">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title"> Upload </h4>
+				<div class="row">
+					<div class="col-xs-12 ">
+				<h4 class="modal-title"> Uploading Files... </h4>
 			</div>
-			<div class="modal-body">
+		  </div>
+			<div class="modal-body app_body">
 				<div class="row">
 					<div class="col-md-12">
-						<%= form_tag supload_path, multipart: true, :method => :post, :remote => true do %>
-						<div class="form-group">
+						<table class="table borderless tb_upload">
+									<tr>
+											<td class="td-left"><i class="pop_icon c_icon-zip"></i> <b>code.zip </b><i>- 13 mb</i> </td>
+											<td class="td-left pull-right"><i class="close_red"></i></td>
+									</tr>
+									<tr>
+											<td class="td-left"><i class="pop_icon c_icon-text"></i> <b>code.doc </b><i>- 13 mb</i> </td>
+											<td class="td-left pull-right"><i class="close_red"></i></td>
+									</tr>
+									<tr>
+											<td class="td-left"><i class="pop_icon c_icon-svg"></i> <b>code.svg </b><i>- 13 mb</i> </td>
+											<td class="td-left pull-right"><i class="close_red"></i></td>
+									</tr>
+									<tr>
+											<td class="td-left"><i class="pop_icon c_icon-png"></i> <b>code.png </b><i>- 13 mb</i> </td>
+											<td class="td-left pull-right"><i class="close_red"></i></td>
+									</tr>
+									<tr>
+											<td class="td-left"><i class="pop_icon c_icon-jpg"></i> <b>code.jpg </b><i>- 13 mb</i> </td>
+											<td class="td-left pull-right"><i class="close_red"></i></td>
+									</tr>
+							 </tbody>
+					  </div>
+				  </div>
+				 </div>
+				<div class="modal-footer">
+					<div class="row">
+						<div class="col-xs-12">
+							<table width="500px">
+				      <%= form_tag supload_path, multipart: true, :method => :post, :remote => true do %>
+              <div class="form-group">
 							<%= hidden_field_tag 'bucket_name', nil, :class=> 'form-control', :id => "bucketName", placeholder: "Bucket Name", :required => true %>
-							<span class="btn blue fileinput-button col-xs-12"><i class="icon-plus filetag"></i> <span class="filetag"><%= t('ssh_keys.add_files') %></span> <%= file_field_tag :sobject %> </span>
-						</div>
-						<%= submit_tag "upload", :class => "btn btn-success col-md-12 col-xs-12" , :data => {:remote => true}%>
-						<% end %>
-					</div>
-				</div>
-			</div>
+					    <td> <span class="fileinput-button col-xs-12" multiple><%= file_field_tag :sobject %></span> <span class="filetag" ><h4>+<%= t('ssh_keys.add_files') %></h4></span></td>
+              </div>
+							<td><%= submit_tag "upload", :class => "btn btn-success center-block" , :data => {:remote => true} %></td>
+				      <% end %>
+				   </table>
+			  </div>
+		   </div>
+    	</div>
 		</div>
 	</div>
+</div>
 </div>
 
 <!-- APP KELVI MODAL -->
@@ -232,7 +264,6 @@
 				'top' : e.pageY,
 				'left' : e.pageX,
 			});
-
 			$('#bucketName').val($(event.currentTarget).attr('id'));
 			//$.session.set('bucketname', $(event.currentTarget).attr('id'));
 			$('.storage-popup').show();
@@ -251,5 +282,4 @@
 			$("#upload:hidden").trigger('click');
 		});
 	});
-
 </script>

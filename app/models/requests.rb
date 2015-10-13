@@ -25,7 +25,6 @@ class Requests < BaseFascade
   #This  creates a /requests
   # used during CREATION and DELETE
   def reqs(api_params, &block)
-   
     raw = api_request(api_params, REQUESTS, CREATE)
     @req_submitted =  raw[:body]
     yield self  if block_given?
