@@ -183,6 +183,7 @@ class Assembly < BaseFascade
           one_component = Components.new.show(api_params.merge('id' => one_component)).components
         end
       end
+
       one_assembly.asms_id(api_params[:asms_id]) # set the assemblies_id in assembly. we need it for destroy
       one_assembly.components.replace(a0)
       @by_cattypes = @by_cattypes.merge(want_catkey(one_assembly.tosca_type) => one_assembly)

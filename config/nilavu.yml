@@ -75,7 +75,7 @@ defaults: &defaults
 ##
 ## Acceptable values:
 ##   - on or off
-  billings: on
+  billings: off
 ## For Backup:
   backup:
     enable: on

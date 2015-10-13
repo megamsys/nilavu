@@ -73,7 +73,7 @@ class Components < BaseFascade
       },
       'related_components' => @related_components,
       'operations' =>  @operations,
-      'status' => Assemblies::LAUNCHING
+      'status' => Assemblies::LAUNCHING,
       'repo' => {
         'rtype' => '',
         'source' => '',
@@ -126,7 +126,7 @@ class Components < BaseFascade
       },
       'related_components' => [],
       'operations' =>  [],
-      'status' => nil
+      'status' => nil,
       'repo' => {
         'rtype' => '',
          'source' => '',
