@@ -58,12 +58,3 @@ $(document).ready(function() {
 $(".c_remove").click(function() {
     $('.c_remove_main').hide();
 });
-
-$(".default .jCarouselLite").jCarouselLite({
-    btnNext : ".default .next",
-    btnPrev : ".default .prev",
-    start : 2,
-    scroll : 3
-});
-
-// LOAD cloud-1 by default

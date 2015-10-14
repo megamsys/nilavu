@@ -20,8 +20,7 @@ class StoragesController < ApplicationController
   include MarketplaceHelper
 
 
-  before_action :visit_access_keys, only: [:index, :create, :show, :upload]
-  ## before_action :stick_storage_keys, only: [:index, :create, :show, :upload]
+  before_action :stick_access_keys, only: [:index, :create, :show, :upload]
   ##
   ## index page get all marketplace items from storage(we use riak) using megam_gateway
   ## and show the items in order of category

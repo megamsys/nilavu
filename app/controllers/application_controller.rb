@@ -97,34 +97,21 @@ class ApplicationController < ActionController::Base
     logger.debug "> STICK #{params}"
     params[:email] = session[:email]
     params[:api_key] = session[:api_key]
-    params[:host]    = Ind.http_api
+    stick_host
     logger.debug "> STICKD #{params}"
     params
   end
 
   def stick_host(_tmp = {}, _permitted_tmp = {})
-    logger.debug "> STICK #{params}"
     params[:host] = Ind.http_api
-    logger.debug "> STICKD #{params}"
     params
   end
 
   def stick_storage_keys(_tmp = {}, _permitted_tmp = {})
-    logger.debug "> STICK #{params}"
+    stick_keys
     params[:accesskey] = session[:storage_access_key]
     params[:secretkey] = session[:storage_secret_key]
     logger.debug "> STICKD #{params}"
-    params
-  end
-
-  def visit_access_keys(_tmp = {}, _permitted_tmp = {})
-    logger.debug "> STORAGE_ACCESS #{params}"
-    params[:email] = session[:email]
-    params[:api_key] = session[:api_key]
-    params[:host]    = Ind.http_api
-    params[:accesskey] = session[:storage_access_key]
-    params[:secretkey] = session[:storage_secret_key]
-    logger.debug "> STORAGE_ACCESS_KEYS #{params}"
     params
   end
 
