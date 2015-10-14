@@ -1,3 +1,142 @@
+
+var Cpu_total = React.createClass({
+
+  getInitialState: function getInitialState() {
+// this.setUpgoogcharts();
+    return {
+      JsonD: ''
+    };
+  },
+
+  componentDidMount: function() {
+    this.drawCharts();
+
+    //setInterval(this.updateData, 2000);
+//this.updateData();
+
+  },
+  componentDidUpdate: function() {
+
+    this.drawCharts();
+  },
+
+  updateData: function() {
+
+    $.get(this.props.host, function(data) {
+      this.setState({
+        JsonD: data
+      })
+    }.bind(this));
+
+  },
+
+  drawCharts: function() {
+    var stats = this.state.JsonD;
+
+//    if (stats.spec.has_cpu && !this.hasResource(stats, "cpu")) {
+//      return;
+//    }
+
+    var titles = [
+      "Time", "Total"
+    ];
+    var data = [];
+    for (var i = 1; i < stats.stats; i++) {
+
+      var cur = stats.stats[i];
+      var prev = stats.stats[i - 1];
+      var intervalInNs = this.getInterval(cur.timestamp, prev.timestamp);
+
+      var elements = [];
+      elements.push(cur.timestamp);
+      elements.push((cur.cpu.usage.total - prev.cpu.usage.total) / intervalInNs);
+      data.push(elements);
+    }
+
+    var min = Infinity;
+    var max = -Infinity;
+
+    for (var i = 0; i < data.length; i++) {
+      if (data[i] != null) {
+        data[i][0] = new Date(data[i][0]);
+      }
+
+      for (var j = 1; j < data[i].length; j++) {
+        var val = data[i][j];
+        if (val < min) {
+          min = val;
+        }
+        if (val > max) {
+          max = val;
+        }
+      }
+    }
+
+    var minWindow = min - (max - min) / 15;
+    if (minWindow < 0) {
+      minWindow = 0;
+    }
+
+    var dataTable = new google.visualization.DataTable();
+
+    dataTable.addColumn('datetime', titles[0]);
+    for (var i = 1; i < titles.length; i++) {
+      dataTable.addColumn('number', titles[i]);
+    }
+    dataTable.addRows(data);
+
+    var opts = {
+      curveType: 'function',
+      height: 300,
+      legend: {
+        position: "none"
+      },
+      focusTarget: "category",
+      vAxis: {
+        title: "Cores",
+        viewWindow: {
+          min: minWindow
+        }
+      },
+      legend: {
+        position: 'bottom'
+      }
+    };
+    if (min == max) {
+      opts.vAxis.viewWindow.max = 3.1 * max;
+      opts.vAxis.viewWindow.min = 0.9 * max;
+    }
+
+    var chart = new google.visualization.LineChart(document.getElementById("chart_1"));
+  //  var chart2 = new google.visualization.LineChart(document.getElementById("chart_2"));
+
+    chart.draw(dataTable, opts);
+  //  chart2.draw(dataTable, opts);
+
+  },
+
+  hasResource: function(stats, resource) {
+    return stats.stats.length > 0 && stats.stats[0][resource];
+  },
+
+  getInterval: function(current, previous) {
+    var cur = new Date(current);
+    var prev = new Date(previous);
+
+    return (cur.getTime() - prev.getTime()) * 1000000;
+  },
+
+  render: function() {
+    return (
+      <div>
+        <div id="chart_1"></div>
+      </div>
+
+    );
+  }
+});
+
+
 /*var memory = React.createClass({
 
   getInitialState: function getInitialState() {
@@ -135,302 +274,5 @@
       }
     });
   }
-});
-*/
-var Cpu_total = React.createClass({
-
-  getInitialState: function getInitialState() {
-// this.setUpgoogcharts();
-    return {
-      JsonD: ''
-    };
-  },
-
-  componentDidMount: function() {
-    setInterval(this.updateData, 2000);
-//this.updateData();
-    this.drawCharts();
-
-  },
-  componentDidUpdate: function() {
-
-    this.drawCharts();
-  },
-
-  updateData: function() {
-
-    $.get(this.props.host, function(data) {
-      this.setState({
-        JsonD: data
-      })
-    }.bind(this));
-
-  },
-
-  drawCharts: function() {
-    var stats = this.state.JsonD;
-
-    var options = {
-      title: 'megam',
-      'width': 100,
-      'height': 150
-    };
-
-    if (stats.spec.has_cpu && !this.hasResource(stats, "cpu")) {
-      return;
-    }
-
-    var titles = [
-      "Time", "Total"
-    ];
-    var data = [];
-    for (var i = 1; i < stats.stats.length; i++) {
-      console.log("===================");
-      console.log(stats.stats[i]);
-      console.log("===========aaaa");
-      var cur = stats.stats[i];
-      var prev = stats.stats[i - 1];
-      var intervalInNs = this.getInterval(cur.timestamp, prev.timestamp);
-
-      var elements = [];
-      elements.push(cur.timestamp);
-      elements.push((cur.cpu.usage.total - prev.cpu.usage.total) / intervalInNs);
-      data.push(elements);
-    }
-
-    var min = Infinity;
-    var max = -Infinity;
-
-    for (var i = 0; i < data.length; i++) {
-      if (data[i] != null) {
-        data[i][0] = new Date(data[i][0]);
-      }
-
-      for (var j = 1; j < data[i].length; j++) {
-        var val = data[i][j];
-        if (val < min) {
-          min = val;
-        }
-        if (val > max) {
-          max = val;
-        }
-      }
-    }
-
-    var minWindow = min - (max - min) / 15;
-    if (minWindow < 0) {
-      minWindow = 0;
-    }
-
-    var dataTable = new google.visualization.DataTable();
-
-    dataTable.addColumn('datetime', titles[0]);
-    for (var i = 1; i < titles.length; i++) {
-      dataTable.addColumn('number', titles[i]);
-    }
-    dataTable.addRows(data);
-
-    var opts = {
-      curveType: 'function',
-      height: 200,
-      legend: {
-        position: "none"
-      },
-      focusTarget: "category",
-      vAxis: {
-        title: "Cores",
-        viewWindow: {
-          min: minWindow
-        }
-      },
-      legend: {
-        position: 'bottom'
-      }
-    };
-    if (min == max) {
-      opts.vAxis.viewWindow.max = 1.1 * max;
-      opts.vAxis.viewWindow.min = 0.9 * max;
-    }
-
-    var chart = new google.visualization.LineChart(document.getElementById("chart_1"));
-    var chart2 = new google.visualization.LineChart(document.getElementById("chart_2"));
-
-    chart.draw(dataTable, opts);
-    chart2.draw(dataTable, opts);
-
-  },
-
-  hasResource: function(stats, resource) {
-    return stats.stats.length > 0 && stats.stats[0][resource];
-  },
-
-  getInterval: function(current, previous) {
-    var cur = new Date(current);
-    var prev = new Date(previous);
-
-// ms -> ns.
-    return (cur.getTime() - prev.getTime()) * 1000000;
-  },
-
-  render: function() {
-    return ( <div> <div id="chart_1"></div>
-    <div id="chart_2"></div></div>
-
-  );
-  }
-});
-
-/*
-var Memory = React.createClass({
-
-  getInitialState: function getInitialState() {
-    return {
-      JsonD: ''
-    };
-  },
-
-  componentDidMount: function() {
-  //  setInterval(this.updateData, 2000);
-    this.updateData();
-    this.drawCharts();
-
-  },
-  componentDidUpdate: function() {
-
-    this.drawCharts();
-  },
-
-  updateData: function() {
-
-    $.get(this.props.host, function(data) {
-      this.setState({
-        JsonD: data
-      })
-    }.bind(this));
-
-  },
-
-  drawCharts: function() {
-    var stats = this.state.JsonD;
-
-    var options = {
-      title: 'megam',
-      'width': 400,
-      'height': 300
-    };
-
-    if (stats.spec.has_cpu && !this.hasResource(stats, "cpu")) {
-      return;
-    }
-
-    var titles = [
-      "Time", "Total"
-    ];
-    var data = [];
-    console.log(data.length);
-    for (var i = 1; i < stats.stats.length; i++) {
-      console.log("===================tttttttt");
-      console.log(stats.stats[i]);
-      console.log("===========aaaatttttttttt");
-      var cur = stats.stats[i];
-      var prev = stats.stats[i - 1];
-      var intervalInNs = this.getInterval(cur.timestamp, prev.timestamp);
-
-      var elements = [];
-      elements.push(cur.timestamp);
-      elements.push((cur.cpu.usage.total - prev.cpu.usage.total) / intervalInNs);
-      data.push(elements);
-    }
-
-    var min = Infinity;
-    var max = -Infinity;
-
-    for (var i = 0; i < data.length; i++) {
-      if (data[i] != null) {
-        data[i][0] = new Date(data[i][0]);
-      }
-
-      for (var j = 1; j < data[i].length; j++) {
-        var val = data[i][j];
-        if (val < min) {
-          min = val;
-        }
-        if (val > max) {
-          max = val;
-        }
-      }
-    }
-
-    var minWindow = min - (max - min) / 10;
-    if (minWindow < 0) {
-      minWindow = 0;
-    }
-
-    var dataTable = new google.visualization.DataTable();
-
-    dataTable.addColumn('datetime', titles[0]);
-    for (var i = 1; i < titles.length; i++) {
-      dataTable.addColumn('number', titles[i]);
-    }
-    dataTable.addRows(data);
-
-    var opts = {
-      curveType: 'function',
-      height: 300,
-      legend: {
-        position: "none"
-      },
-      focusTarget: "category",
-      vAxis: {
-        title: "Cores",
-        viewWindow: {
-          min: minWindow
-        }
-      },
-      legend: {
-        position: 'bottom'
-      }
-    };
-    if (min == max) {
-      opts.vAxis.viewWindow.max = 1.1 * max;
-      opts.vAxis.viewWindow.min = 0.9 * max;
-    }
-
-    var chart2 = new google.visualization.LineChart(document.getElementById("chart_2"));
-
-    chart2.draw(dataTable, opts);
-
-  },
-
-  hasResource: function(stats, resource) {
-    return stats.stats.length > 0 && stats.stats[0][resource];
-  },
-
-  getInterval: function(current, previous) {
-    var cur = new Date(current);
-    var prev = new Date(previous);
-
-    return (cur.getTime() - prev.getTime()) * 1000000;
-  },
-
-  render: function() {
-    return <div id="chart_2"></div>;
-  }
-});
-
-*/
-
-/*
-var Main = React.createClass({
-  render: function() {
-
-    return (<div>
-        <Memory google={this.props.google} host={this.props.host} mhost={this.props.mhost} />;
-        <Cpu_total google={this.props.google} host={this.props.host}  />;
-
-    </div>
-  );
-  }
-
 });
 */

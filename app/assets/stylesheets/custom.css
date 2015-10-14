@@ -122,15 +122,18 @@
   font-family: Menlo;
   color:  #e6edf4;
 }
+.borderless td, .borderless th {
+    border: none !important;
+}
 
+.bg-logs {
+
+
+}
 .logs {
-        background-color:  #233137;
-        color:   #e6edf4;
+        background-color:  #989aab;
         font-family: Menlo, Consolas;
-        font-size: 10px;
-        white-space: pre-wrap;
-        -webkit-user-select: text;
-        padding: 1.2rem 1.2rem 5rem 1.2rem;
+        font-size: 20px;
         overflow: auto;
         height: 100%;
       }
