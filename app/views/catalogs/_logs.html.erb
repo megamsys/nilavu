@@ -19,18 +19,33 @@
   <link href="http://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css" rel="stylesheet" type="text/css" />
   <link href='http://fonts.googleapis.com/css?family=Oxygen:300' rel='stylesheet' type='text/css'>
 
-<div>
-  <h3>
-    Logs
-  </h3>
-</div>
-<%= @appname %>
 
-<div id="logs"></div>
 
-<div id="monitoring"></div>
+<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
 
-<div id="chart-ct"></div>
+	<div class="row logs" style="height:300px; overflow-y:scroll; table-layout: fixed">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12" >
+			<table class="table tb_action_list" >
+				<thead>
+					<tr>
+						<th><%= t('general.message') %></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<div>
+
+							<td>
+							<p>
+								<small id="logs"></small>
+							</p></td>
+						</div>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
 
 
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -68,14 +83,6 @@
     socket: socket,
     name: $.AppName
   }), document.getElementById('logs'));
-
-  console.log("calling monir");
-  React.render(React.createElement(Monitoring, { google: google, graphName: "LineChart",
-    host: "http://localhost:8080/api/v1.3/containers"
-  }), document.getElementById('monitoring'));
-
-
-
 
 
 </script>

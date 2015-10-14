@@ -39,8 +39,7 @@ var MessageList = React.createClass({
   displayName: 'MessageList',
 
   render: function render() {
-    return React.createElement('div', {
-      className: 'messages'
+    return React.createElement('div', { className: ''
     }, React.createElement('br'), this.props.messages.map(function(message, i) {
       return React.createElement(Message, {
         key: i,
@@ -55,7 +54,7 @@ var Message = React.createClass({
 
   render: function render() {
     return React.createElement('div', {
-      className: 'message'
+      className: 'Message'
     }, React.createElement('span', null, this.props.text));
   }
 });
