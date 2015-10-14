@@ -34,5 +34,5 @@ class Balances < BaseFascade
     return self
   end
 
-  
+
 end

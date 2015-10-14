@@ -69,11 +69,17 @@ class Components < BaseFascade
       'artifacts' => {
         'artifact_type' => '',
         'content' => '',
-        'artifact_requirements' => []
+        'requirements' => []
       },
       'related_components' => @related_components,
       'operations' =>  @operations,
-      'status' => Assemblies::LAUNCHING
+      'status' => Assemblies::LAUNCHING,
+      'repo' => {
+        'rtype' => '',
+        'source' => '',
+        'oneclick' => '',
+        'url' => ''
+      }
     }]
     hash
   end
@@ -120,7 +126,13 @@ class Components < BaseFascade
       },
       'related_components' => [],
       'operations' =>  [],
-      'status' => nil
+      'status' => nil,
+      'repo' => {
+        'rtype' => '',
+         'source' => '',
+         'oneclick' => '',
+         'url' => ''
+      }
     }
   end
 
@@ -173,7 +185,7 @@ class Components < BaseFascade
     @operations << {
       'operation_type' => 'CI',
       'description' => 'Continous Integration',
-      'operation_requirements' => bld_ci_requirements(params)
+      'properties' => bld_ci_requirements(params)
     }
   end
 

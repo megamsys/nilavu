@@ -35,7 +35,7 @@ gem 'riak-client', '~> 2.2.1'
 gem 'radosgw-s3'
 gem 'net-ssh'
 
-gem "megam_api", "~> 0.72"
+gem "megam_api", "~> 0.73"
 gem 'megam_gogs', "~> 0.8.0"
 
 gem 'gitlab', '~> 3.4.0'
@@ -59,6 +59,9 @@ gem 'sass-rails', "~> 5.0.4"
 gem 'uglifier', "~> 2.7.2"
 
 gem "therubyracer","~> 0.12.2", :require => 'v8',:platforms => :ruby
+ 
+#for pdf
+gem 'prawn', '~> 2.0.2'
 
 #for uploading files
 gem "paperclip", "~> 2.3"

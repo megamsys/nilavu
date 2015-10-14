@@ -94,7 +94,8 @@ class Assemblies < BaseFascade
     a2 = tmp_assemblies_collection.map do |one_assemblies|
       a1 = one_assemblies.assemblies.map do |one_assembly|
         unless one_assembly.empty?
-          Assembly.new.show(api_params.merge('id' => one_assembly, :asms_id => one_assemblies.id)).by_cattypes
+          Assembly.new.show(api_params.merge(id: one_assembly, asms_id: one_assemblies.id)).by_cattypes
+
         end
       end
       a1.reduce { |acc, h| acc.merge(h || {}) }
@@ -105,6 +106,7 @@ class Assemblies < BaseFascade
     # [:CATTYPE => [H1, H2, ... Hn]] => H[:CATTYPE => [A1, A2]]
     a3.each do |k, v|
       @assemblies_grouped[k] ||= []
+
       @assemblies_grouped[k] << v.map { |u| u.map { |_k1, v1| v1 } }
     end
 
