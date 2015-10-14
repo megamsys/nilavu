@@ -58,6 +58,3 @@ $(document).ready(function() {
 $(".c_remove").click(function() {
     $('.c_remove_main').hide();
 });
-
-
-// LOAD cloud-1 by default
