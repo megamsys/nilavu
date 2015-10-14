@@ -30,7 +30,8 @@ class StoragesController < ApplicationController
     logger.debug '> Storages: index.'
     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
     @buckets = backup.buckets_list
-    @buckets
+    backup_client = BackupUser.new(Ind.backup.host, Ind.backup.username, Ind.backup.password)
+    @backup_usage = backup_client.account_usage(session[:email])
   end
 
   def create

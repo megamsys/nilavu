@@ -62,7 +62,7 @@
 				Total Storage
 			</dt>
 			<dd>
-				<%= @buckets[:total_size] %>
+				<%= @backup_usage['total_bytes']%>
 			</dd>
 			<dt class="margin-top-20"></dt>
 			<dt>
@@ -71,7 +71,20 @@
 			<dd>
 				<%= @buckets[:total_buckets] %>
 			</dd>
-
+			<dt class="margin-top-20"></dt>
+			<dt>
+				Total Objects
+			</dt>
+			<dd>
+				<%= @backup_usage['total_objects'] %>
+			</dd>
+			<dt class="margin-top-20"></dt>
+			<dt>
+				Last Update
+			</dt>
+			<dd>
+				<%= @backup_usage['last_update'] %>
+			</dd>
 			<h3>Billing</h3>
 			<dt>
 				Last billed amount
