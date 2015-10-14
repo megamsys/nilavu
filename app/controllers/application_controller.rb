@@ -120,6 +120,7 @@ class ApplicationController < ActionController::Base
   rescue Accounts::MegamAPIError => mai
     ascii_bomb
     puts_stacktrace(mai)
+
     # notify  hipchat, send an email to support@megam.io which creates a support ticket.
     # redirect to the users last visited page.
     if !signed_in?

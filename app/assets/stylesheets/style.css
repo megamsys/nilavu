@@ -3128,3 +3128,42 @@ h3{
         border-right: 1px solid #e5e6ef;
     }
 }
+
+.signin-bg{
+    background-image: url("signin_bg.jpg") !important;
+    background-repeat: no-repeat !important;
+    padding: 15px 15px 15px 15px;
+}
+.signUp{
+    margin-top: 12%;
+    color: #fff !important;
+}
+.signUp h3, .signUp h3 small{
+    color: #fff !important;
+}
+.signUp h3 small{
+    line-height: 20px
+}
+
+.signUp input[type="text"], .signUp input[type="password"] {
+    border: 1px solid #fff;
+    background-color: transparent;
+    color: #fff !important;
+    font-size: 18px;
+    /* Other stuff: font-weight, font-size */
+}
+.signUp .bottom {
+    margin-top: 30px;
+    font-size: 18px;
+}
+.text-banner{
+    align-self: center;
+    font-size: 50px;
+    margin-top: 30%;
+    text-align: right;
+}
+.text-banner span{
+    /*background-color: rgba(255,255,255,0.6);*/
+    color: #fff;
+    line-height: 70px;
+}
