@@ -31,6 +31,7 @@ class SshKeysController < ApplicationController
 
   end
 
+
   ## this downloads a key
   def edit
     params[:download_location] = current_user.email+"_"+"#{params[:id]}"

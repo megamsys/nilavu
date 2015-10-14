@@ -13,17 +13,18 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-require 'test_helper'
+class Invoices < BaseFascade
+  attr_reader :invoices
 
-class UserTest < ActiveSupport::TestCase
-fixtures :users
-def test_users_true
-	#puts users(:alrin).inspect
-	#User.new(users(:alrin))
-	users :create, params: users(:alrin)
-	signup_path(users(:alrin).email)
-	puts "success"
-	#signin users(:alrin)
-	#assert true
-end
+  def initialize
+    @invoices = []
+    super(true)
+  end
+
+  def list(api_params, &_block)
+    raw = api_request(api_params, INVOICES, LIST)
+    @invoices = raw[:body].sort_by(&:created_at).reverse[0..9] unless raw.nil?
+    yield self  if block_given?
+    self
+  end
 end

@@ -1387,3 +1387,6 @@ Bootstrap Panel
 .a_pad {
 	padding: 10px !important;
 }
+h4 .label {
+  font-size: 75%;
+}

@@ -3,12 +3,12 @@ language: ruby
 notifications:
     email:
     recipients:
-      - support@megam.io
+      - mvijaykanth@megam.io
 
 rvm:
-  - 2.2.2
+  - 2.2.3
 
-script: "bundle exec rake clean test cucumber"
+script: "bundle exec rspec"
 
 gemfile:
   - gemfiles/Gemfile.rails-edge
