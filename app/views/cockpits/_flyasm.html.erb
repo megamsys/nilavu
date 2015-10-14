@@ -110,13 +110,11 @@ $(document).ready(function() {
         $('.' + cls).toggle();
         $(this).toggleClass('config_acive');
     });
-
     $(document).click(function() {
         //$('.config_menu').hide();
         $('.app_config').removeClass('config_acive');
     });
 });
-
   // Instance the tour
 /*@assemblies_grouped["TORPEDO"].nil? && @assemblies_grouped["APP"].nil? && @assemblies_grouped["SERVICE"].nil? &&*/
 <% if session[:tour] %>
@@ -136,19 +134,13 @@ var tour = new Tour({
   }
 ],
  // backdrop: true,
-
   storage: false
 });
-
 tour.init();
 <% session[:tour] = false %>
 tour.start();
 <% end %>
-
 $(function () {
   $('[data-toggle="popover"]').popover()
 })
 </script>
-
-
-<!--MKP1263062509699596288-->

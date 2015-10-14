@@ -64,11 +64,10 @@ class UsersController < ApplicationController
       end
       redirect_to cockpits_path, format: 'html', flash: { alert: "Welcome #{my_account.first_name}." }
     end
-    #storage_acc_res = Backup.account_create(params['email'])
-    #session[:storage_access_key] = storage_acc_res['access_key']
-    #session[:storage_secret_key] = storage_acc_res['secret_key']
+
     if Ind.backup.enable
-    storage_acc_res = Backup.account_create(Ind.backup.host, Ind.backup.username, Ind.backup.password, params['email'])
+	backup_client = BackupUser.new(Ind.backup.host, Ind.backup.username, Ind.backup.password)
+    storage_acc_res = backup_client.account_create(params['email'])
     session[:storage_access_key] = storage_acc_res['access_key']
     session[:storage_secret_key] = storage_acc_res['secret_key']
   end

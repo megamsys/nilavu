@@ -13,21 +13,18 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class Billedhistories < BaseFascade
+class Invoices < BaseFascade
+  attr_reader :invoices
 
-  attr_reader :bhistories
-
-
-  def initialize()
-     @bhistories = []
-     super(true)
+  def initialize
+    @invoices = []
+    super(true)
   end
 
-  def list(api_params, &block)
-    raw = api_request(api_params, BILLEDHISTORIES, LIST)
-    @bhistories = raw[:body].sort_by{|e| e.created_at}.reverse[0..9] unless raw == nil
+  def list(api_params, &_block)
+    raw = api_request(api_params, INVOICES, LIST)
+    @invoices = raw[:body].sort_by(&:created_at).reverse[0..9] unless raw.nil?
     yield self  if block_given?
-    return self
+    self
   end
-
 end

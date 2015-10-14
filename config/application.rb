@@ -1,18 +1,20 @@
 require File.expand_path('../boot', __FILE__)
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "rails/test_unit/railtie"
-require "sprockets/railtie"
+require 'action_controller/railtie'
+require 'action_mailer/railtie'
+require 'rails/test_unit/railtie'
+require 'sprockets/railtie'
 require 'yaml'
+require 'active_record'
+require 'prawn'
 
-#COMMON YML
+# COMMON YML
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
-#  Bundler.require(:default, Rails.env)
-# was used by Rails 3.2
-Bundler.require(*Rails.groups(:assets => %w(development test)))
-# If you want your assets lazily compiled in production, use this line
-# Bundler.require(:default, :assets, Rails.env)
+  #  Bundler.require(:default, Rails.env)
+  # was used by Rails 3.2
+  Bundler.require(*Rails.groups(assets: %w(development test)))
+  # If you want your assets lazily compiled in production, use this line
+  # Bundler.require(:default, :assets, Rails.env)
 end
 
 module Nilavu
@@ -42,7 +44,7 @@ module Nilavu
     # config.i18n.default_locale = :de
 
     # Configure the default encoding used in templates for Ruby 1.9.
-    config.encoding = "utf-8"
+    config.encoding = 'utf-8'
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
@@ -58,7 +60,7 @@ module Nilavu
     # parameters by using an attr_accessible or attr_protected declaration.
     # config.active_record.whitelist_attributes = true
 
-     #Enable the asset pipeline
+    # Enable the asset pipeline
     config.assets.enabled = true
 
     # Enable escaping HTML in JSON.
@@ -72,18 +74,18 @@ module Nilavu
 
     # 404 catcher
     config.after_initialize do |app|
-      app.routes.append{ match '*a', :to => 'application#render_404', via: [:get] } unless config.consider_all_requests_local
+      app.routes.append { match '*a', to: 'application#render_404', via: [:get] } unless config.consider_all_requests_local
     end
 
-    config.megam_logo_url   = "https://s3-ap-southeast-1.amazonaws.com/megampub/images/megam_01.png"
+    config.megam_logo_url = 'https://s3-ap-southeast-1.amazonaws.com/megampub/images/megam_01.png'
 
     config.google_authorization_uri = 'https://accounts.google.com/o/oauth2/auth'
     config.google_token_credential_uri = 'https://accounts.google.com/o/oauth2/token'
     config.google_scope = 'https://www.googleapis.com/auth/userinfo.email'
     config.google_redirect_uri = 'https://www.megam.co/auth/google_oauth2/callback'
 
-    #generate banner text - http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Nilavu
-    puts """\033[1m\033[32m
+    # generate banner text - http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Nilavu
+    puts ''"\033[1m\033[32m
                   _..._       ███╗   ██╗██╗██╗      █████╗ ██╗   ██╗██╗   ██╗
                 .::'   `.     ████╗  ██║██║██║     ██╔══██╗██║   ██║██║   ██║
                :::       :    ██╔██╗ ██║██║██║     ███████║██║   ██║██║   ██║
@@ -92,8 +94,6 @@ module Nilavu
                  `':..-'      ╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝  ╚═══╝   ╚═════╝
 
 
-  \033[0m"""
-
-
+  \033[0m"''
   end
 end
