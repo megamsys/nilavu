@@ -39,7 +39,7 @@ var Tab = React.createClass({
     return (
       <li className={this.props.isCurrent
         ? 'current'
-        : null}>
+        : null} >
         <a href={this.props.url} onClick={this.handleClick}>
           {this.props.name}
         </a>
@@ -55,7 +55,7 @@ var Tabs = React.createClass({
 
   render: function() {
     return (
-      <div className="tabbable-custom nav-justified margintb_15">
+      <div className="tab-content " >
         <ul className="nav nav-tabs nav-justified">
           {this.props.tabList.map(function (tab) {
             return (
@@ -91,7 +91,7 @@ var Overview = React.createClass({
       <div>
         <Tabs changeTab={this.changeTab} currentTab={this.state.currentTab} tabList={this.state.tabList}/>
         <Content JsonD={this.state.JsonD} currentTab={this.state.currentTab} google={this.props.google} host={this.props.host} mhost={this.props.mhost}/>
-        <div className="logBox">
+        <div className="borderless torpOverviewTb">
           LOGS
           <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <Logs name={this.props.name} socket={this.props.socket}/>
@@ -107,22 +107,22 @@ var Content = React.createClass({
 
   render: function() {
     return (
-      <div className="content">
+      <div className="tabbable-custom nav-justified margintb_15">
         {this.props.currentTab === 1
-          ? <div className="cpu">
+          ? <div className="demo-container demo-placeholder cpu" data-toggle="tab">
               <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"cpu"}/>
             </div>
           : null}
 
         {this.props.currentTab === 2
-          ? <div className="ram">
+          ? <div className="demo-container ram">
               <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"ram"}/>
 
             </div>
           : null}
 
         {this.props.currentTab === 3
-          ? <div className="network">
+          ? <div className="demo-container network">
               <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"network"}/>
 
             </div>
