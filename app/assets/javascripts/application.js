@@ -15,15 +15,6 @@
 //= require turbolinks
 //= require jquery.remotipart
 //= require jquery.turbolinks
-//= require jquery.flot
-//= require jquery.flot.time
-//= require jquery.flot.resize
-//= require jquery.flot.selection
-//= require angular
-//= require angular-route
-//= require angular-resource
-//= require angular-sanitize
-//= require underscore.min
 //= require jquery.oauthpopup
 //= require bootstrap.min
 //= require bootstrap2-typeahead.min
@@ -33,18 +24,14 @@
 //= require jquery-validate.bootstrap-tooltip
 //= require megam.form_validation
 //= require jquery.filter
-//= require megam.monitor
+//= require socket.io
 //= require megam.support
 //= require nprogress
 //= require nprogress-ajax
 //= require react
 //= require react_ujs
-//= require components
 //= require megam.menu
-//= require chartist
-
-
-
-
-//= require_tree .
 //= require gritter
+//= require jquery-fileupload/basic
+//= require components
+//= require_tree .

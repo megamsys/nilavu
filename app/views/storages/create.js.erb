@@ -1,6 +1,12 @@
 
 $('#<%= @msg[:disposal_id] %>').modal('toggle');
 
+<% if @model.new_record? %>
+alert("Failed to upload model: <%= j @model.errors.full_messages.join(', ').html_safe %>");
+  <% else %>
+$("#container").append("<%= j render(@model) %>");
+<% end %>
+
 $('#cockpit').append("<%= escape_javascript render(:partial => 'catalogs/flymodal', :locals => {:msg => @msg}) %>");
 
 $("#megam_flymodal").modal('show');

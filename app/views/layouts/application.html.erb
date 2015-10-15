@@ -20,7 +20,7 @@
 <html lang="en" class="no-js">
 	<!--<![endif]-->
 	<!-- BEGIN HEAD -->
-<html ng-app="Nilavu">
+<html>
 	<head>
 		<base href="#">
 		<%= favicon_link_tag 'favicon.png' %>
@@ -29,7 +29,6 @@
 
 		<%= analytics_init if Rails.env.production? %>
 		<%= javascript_include_tag "application" %>
-		<%= script_tag_for_all_templates %>
 
 		<meta name="description=" content="Megam is a platform as service. We offer launching app cross cloud bundled with
 		realtime logging, application monitoring.">
@@ -40,15 +39,6 @@
 		<meta content="" name="description" />
 		<meta content="" name="author" />
 		<meta name="MobileOptimized" content="320">
-		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
-		<script type="text/javascript">
-			google.setOnLoadCallback(function() {
-				angular.bootstrap(document.body, ['app']);
-			});
-			google.load('visualization', '1', {
-				packages : ['corechart']
-			});
-		</script>
 	</head>
 	<body>
 		<div id="cockpit">
