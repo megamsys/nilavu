@@ -188,8 +188,6 @@ class Components < BaseFascade
 
   # set user operations for components like (continous integration)
   def set_operations(params, mkp)
-    puts "**********************************************************************+++++++++++++++++++++++"
-    puts params
   if params["type"] == Assemblies::SOURCE && mkp["cattype"] == Assemblies::APP
     set_ci_operation(params)
   end
