@@ -109,10 +109,10 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    megam_api (0.73)
-      excon (~> 0.45.3)
+    megam_api (0.75)
+      excon (~> 0.45.4)
       highline (~> 1.7)
-      mixlib-config (~> 2.1)
+      mixlib-config (~> 2.2)
       mixlib-log (~> 1.6)
       yajl-ruby (~> 1.2)
     megam_gogs (0.8.0)
@@ -286,7 +286,7 @@ DEPENDENCIES
   jquery-rails (~> 4.0.5)
   jquery-turbolinks (~> 2.1.0)
   json (~> 1.8.3)
-  megam_api (~> 0.73)
+  megam_api (~> 0.75)
   megam_gogs (~> 0.8.0)
   net-ssh
   nprogress-rails
@@ -316,6 +316,3 @@ DEPENDENCIES
   therubyracer (~> 0.12.2)
   turbolinks (~> 2.5.3)
   uglifier (~> 2.7.2)
-
-BUNDLED WITH
-   1.10.6
