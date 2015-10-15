@@ -16,10 +16,11 @@
 <%= form_tag marketplaces_path, multipart: true, :novalidate => 'novalidate', :id => "megamform", :method => 'post', :remote => true  do %>
   <% plan        = match_plan_for(@mkp,version) %>
   <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
-  <%= hidden_field_tag 'source', nil, placeholder: "", :class =>"form-control", :value => @mkp_source  %>
+  
   <%= hidden_field_tag 'componentname', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
   <%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
   <%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
+    <%= hidden_field_tag 'type', nil, placeholder: "", :class => "form-control" %>
   <%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::ONE %>
   <div class="row">
     <div class="col-md-12 pad_tb25"> <span class="app_left_name"><%= t('marketplace.discription') %></span>
@@ -58,7 +59,7 @@
           </div>
         </div>
       </div>
-      
+
     </div>
     <!-- body_left ends here -->
     <!-- body_right ends here -->
@@ -66,6 +67,7 @@
 </div>
 <script type="text/javascript">
   	(function($) {
+      $("#type").val("image")
   		$('#bindedApp').on('change', function(e) {
   			var optionSelected = $("option:selected", this);
   			var valueSelected = this.value;
