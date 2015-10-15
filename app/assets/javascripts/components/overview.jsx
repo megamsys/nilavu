@@ -10,7 +10,9 @@
 //
 //////////////////////////////
 */
-
+var CPU = 'cpu';
+var Memory = 'memory';
+var Network = 'network';
 var tabList = [
   {
     'id': 1,
@@ -66,9 +68,12 @@ var Tabs = React.createClass({
   }
 });
 
-var Monitoring = React.createClass({
+var Overview = React.createClass({
   getInitialState: function() { //json data
     return {
+      cpu: CPU,
+      memory: Memory,
+      network: Network,
       tabList: tabList,
       currentTab: 1,
       JsonD: ''
@@ -86,33 +91,41 @@ var Monitoring = React.createClass({
       <div>
         <Tabs changeTab={this.changeTab} currentTab={this.state.currentTab} tabList={this.state.tabList}/>
         <Content JsonD={this.state.JsonD} currentTab={this.state.currentTab} google={this.props.google} host={this.props.host} mhost={this.props.mhost}/>
+        <div className="logBox">
+          LOGS
+          <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <Logs name={this.props.name} socket={this.props.socket}/>
+          </div>
+        </div>
+
       </div>
     );
   }
 });
 
 var Content = React.createClass({
+
   render: function() {
     return (
       <div className="content">
         {this.props.currentTab === 1
           ? <div className="cpu">
-              <Cpu_total google={this.props.google} host={this.props.host} mhost={this.props.mhost}/>
+              <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"cpu"}/>
             </div>
           : null}
 
         {this.props.currentTab === 2
           ? <div className="ram">
-              <Memory google={this.props.google} host={this.props.host} mhost={this.props.mhost}/>
+              <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"ram"}/>
 
             </div>
           : null}
 
         {this.props.currentTab === 3
           ? <div className="network">
-          <Network google={this.props.google} host={this.props.host} mhost={this.props.mhost}/>
+              <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"network"}/>
 
-          </div>
+            </div>
           : null}
 
       </div>
@@ -120,41 +133,49 @@ var Content = React.createClass({
   }
 });
 
-var Cpu_total = React.createClass({
+var Charts = React.createClass({
 
   getInitialState: function getInitialState() {
     return {
-      JsonD: ''
+      JsonD: '',
+      machineInfo: ''
     };
   },
 
   componentDidMount: function() {
- //this.drawCharts();
- this.updateData();
+this.updateData();
 
-     setInterval(this.updateData, 2000);
+setInterval(this.updateData, 2000);
 
   },
   componentDidUpdate: function() {
+    if (this.props.name == "cpu") {
+      this.drawCPU();
+    } else if (this.props.name == "ram") {
+      this.drawRAM();
+    } else {
+      this.drawNETWORK();
+    }
 
-    this.drawCharts();
   },
 
   updateData: function() {
-    console.log("yessss");
     $.get(this.props.host, function(data) {
-      console.log(data);
 
       this.setState({
         JsonD: data
       })
     }.bind(this));
+    $.get(this.props.mhost, function(mdata) {
+      this.setState({
+        machineInfo: mdata
+      })
+    }.bind(this));
 
   },
 
-  drawCharts: function() {
+  drawCPU: function() {
     var stats = this.state.JsonD;
-    console.log(stats);
     if (stats.spec.has_cpu && !this.hasResource(stats, "cpu")) {
       return;
     }
@@ -228,66 +249,15 @@ var Cpu_total = React.createClass({
       opts.vAxis.viewWindow.min = 0.9 * max;
     }
 
-    var chart = new this.props.google.visualization.LineChart(document.getElementById("chart_1"));
- //  var chart2 = new google.visualization.LineChart(document.getElementById("chart_2"));
+    var chart = new this.props.google.visualization.LineChart(document.getElementById("chart"));
 
     chart.draw(dataTable, opts);
- //  chart2.draw(dataTable, opts);
 
   },
 
-  hasResource: function(stats, resource) {
-    return stats.stats.length > 0 && stats.stats[0][resource];
-  },
-
-  getInterval: function(current, previous) {
-    var cur = new Date(current);
-    var prev = new Date(previous);
-
-    return (cur.getTime() - prev.getTime()) * 1000000;
-  },
-
-  render: function() {
-    return (
-      <div>
-        <div id="chart_1"></div>
-      </div>
-
-    );
-  }
-});
-
-var Memory = React.createClass({
-
-  getInitialState: function getInitialState() {
-    return {
-      JsonD: ''
-    };
-  },
-
-  componentDidMount: function() {
-   this.updateData();
-    setInterval(this.updateData, 1000);
-  //  this.drawCharts();
-  },
-  componentDidUpdate: function() {
-    this.drawCharts();
-  },
-  updateData: function() {
-    $.get(this.props.host, function(data) {
-      this.setState({
-        JsonD: data
-      })
-    }.bind(this));
-    $.get(this.props.mhost, function(mdata) {
-      console.log(mdata);
-      this.setState({
-        machineInfo: mdata
-      })
-    }.bind(this));
-  },
-  drawCharts: function() {
+  drawRAM: function() {
     var stats = this.state.JsonD;
+    var machineInfo = this.state.machineInfo;
     var options = {
       title: 'megam',
       'width': 400,
@@ -307,11 +277,10 @@ var Memory = React.createClass({
       elements.push(cur.memory.working_set / oneMegabyte);
       data.push(elements);
     }
- //  var memory_limit = this.state.machineInfo.memory_capacity;
- //  if (stats.spec.memory.limit && (stats.spec.memory.limit < memory_limit)) {
- //    memory_limit = stats.spec.memory.limit;
- //  }
-    var memory_limit = 1000000;
+    var memory_limit = this.state.machineInfo.memory_capacity;
+    if (stats.spec.memory.limit && (stats.spec.memory.limit < memory_limit)) {
+      memory_limit = stats.spec.memory.limit;
+    }
     var min = Infinity;
     var max = -Infinity;
     for (var i = 0; i < data.length; i++) {
@@ -359,57 +328,18 @@ var Memory = React.createClass({
       opts.vAxis.viewWindow.max = 1.1 * max;
       opts.vAxis.viewWindow.min = 0.9 * max;
     }
-    var chart = new google.visualization.LineChart(document.getElementById("chart_2"));
+    var chart = new google.visualization.LineChart(document.getElementById("chart"));
     chart.draw(dataTable, opts);
   },
-  render: function() {
-    return React.DOM.div({
-      id: "chart_2",
-      style: {
-        height: "500px"
-      }
-    });
-  }
-});
 
-var Network = React.createClass({
-
-   getInitialState: function getInitialState() {
-    return {
-      JsonD: ''
-    };
-   },
-
-   componentDidMount: function() {
-    this.updateData();
-    setInterval(this.updateData, 1000);
-    this.drawCharts();
-  },
-
-  componentDidUpdate: function() {
-    this.drawCharts();
-  },
-
-  updateData: function() {
-    console.log("yessss");
-    $.get(this.props.host, function(data) {
-      console.log(data);
-      console.log("got data-->");
-
-      this.setState({
-        JsonD: data
-      })
-    }.bind(this));
-
-  },
-  drawCharts: function() {
+  drawNETWORK: function() {
     var stats = this.state.JsonD;
     for (var i = 1; i < 10; i++) {
-     console.log(stats.stats[i].network.interfaces); }
-    //if (stats.spec.has_network && !this.hasResource(stats, "network")) {
-    //  return;
-    //}
-  // Get interface index.
+      console.log(stats.stats[i].network.interfaces);
+    }
+    if (stats.spec.has_network && !this.hasResource(stats, "network")) {
+    return;
+    }
     var interfaceIndex = -1;
     if (stats.stats.length > 0) {
       interfaceIndex = this.getNetworkInterfaceIndex("eth0", stats.stats[0].network.interfaces);
@@ -433,94 +363,90 @@ var Network = React.createClass({
       data.push(elements);
     }
 
-          var min = Infinity;
-          var max = -Infinity;
+    var min = Infinity;
+    var max = -Infinity;
 
-          for (var i = 0; i < data.length; i++) {
-            if (data[i] != null) {
-              data[i][0] = new Date(data[i][0]);
-            }
+    for (var i = 0; i < data.length; i++) {
+      if (data[i] != null) {
+        data[i][0] = new Date(data[i][0]);
+      }
 
-            for (var j = 1; j < data[i].length; j++) {
-              var val = data[i][j];
-              if (val < min) {
-                min = val;
-              }
-              if (val > max) {
-                max = val;
-              }
-            }
-          }
-
-          var minWindow = min - (max - min) / 15;
-          if (minWindow < 0) {
-            minWindow = 0;
-          }
-          var dataTable = new google.visualization.DataTable();
-
-          dataTable.addColumn('datetime', titles[0]);
-          for (var i = 1; i < titles.length; i++) {
-            dataTable.addColumn('number', titles[i]);
-          }
-          dataTable.addRows(data);
-
-          var opts = {
-            curveType: 'function',
-            height: 300,
-            legend: {
-              position: "none"
-            },
-            focusTarget: "category",
-            vAxis: {
-              title: "Cores",
-              viewWindow: {
-                min: minWindow
-              }
-            },
-            legend: {
-              position: 'bottom'
-            }
-          };
-          if (min == max) {
-            opts.vAxis.viewWindow.max = 3.1 * max;
-            opts.vAxis.viewWindow.min = 0.9 * max;
-          }
-
-          var chart = new this.props.google.visualization.LineChart(document.getElementById("chart_1"));
-       //  var chart2 = new google.visualization.LineChart(document.getElementById("chart_2"));
-
-          chart.draw(dataTable, opts);
-       //  chart2.draw(dataTable, opts);
-
-        },
-
-        hasResource: function(stats, resource) {
-          return stats.stats.length > 0 && stats.stats[0][resource];
-        },
-
-         getNetworkInterfaceIndex: function(interfaceName, interfaces) {
-        	for (var i = 0; i < interfaces.length; i++) {
-        		if (interfaces[i].name == interfaceName) {
-        			return i;
-        		}
-        	}
-        	return -1;
-        },
-
-        getInterval: function(current, previous) {
-          var cur = new Date(current);
-          var prev = new Date(previous);
-
-          return (cur.getTime() - prev.getTime()) * 1000000;
-        },
-
-        render: function() {
-          return (
-            <div>
-              <div id="chart_1"></div>
-            </div>
-
-          );
+      for (var j = 1; j < data[i].length; j++) {
+        var val = data[i][j];
+        if (val < min) {
+          min = val;
         }
+        if (val > max) {
+          max = val;
+        }
+      }
+    }
 
+    var minWindow = min - (max - min) / 15;
+    if (minWindow < 0) {
+      minWindow = 0;
+    }
+    var dataTable = new google.visualization.DataTable();
+
+    dataTable.addColumn('datetime', titles[0]);
+    for (var i = 1; i < titles.length; i++) {
+      dataTable.addColumn('number', titles[i]);
+    }
+    dataTable.addRows(data);
+
+    var opts = {
+      curveType: 'function',
+      height: 300,
+      legend: {
+        position: "none"
+      },
+      focusTarget: "category",
+      vAxis: {
+        title: "Cores",
+        viewWindow: {
+          min: minWindow
+        }
+      },
+      legend: {
+        position: 'bottom'
+      }
+    };
+    if (min == max) {
+      opts.vAxis.viewWindow.max = 3.1 * max;
+      opts.vAxis.viewWindow.min = 0.9 * max;
+    }
+
+    var chart = new this.props.google.visualization.LineChart(document.getElementById("chart"));
+    chart.draw(dataTable, opts);
+
+  },
+
+  hasResource: function(stats, resource) {
+    return stats.stats.length > 0 && stats.stats[0][resource];
+  },
+
+  getNetworkInterfaceIndex: function(interfaceName, interfaces) {
+    for (var i = 0; i < interfaces.length; i++) {
+      if (interfaces[i].name == interfaceName) {
+        return i;
+      }
+    }
+    return -1;
+  },
+
+  getInterval: function(current, previous) {
+    var cur = new Date(current);
+    var prev = new Date(previous);
+
+    return (cur.getTime() - prev.getTime()) * 1000000;
+  },
+
+  render: function() {
+    return (
+      <div>
+        <div id="chart"></div>
+      </div>
+
+    );
+  }
 });
