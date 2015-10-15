@@ -36,33 +36,29 @@ class MarketplacesController < ApplicationController
 
   def show
     logger.debug '> Marketplaces: show.'
+    bill_check = false
     if Ind.billings
       Balances.new.show(params) do |modb|
-        unless modb.balance.credit.to_i > 0
-          respond_to do |format|
-            format.html { redirect_to billings_path }
-            format.js { render js: "window.location.href='" + billings_path + "'" }
-          end
-        else
-          bill(params)
+          bill_check = true unless modb.balance.credit.to_i > 0       
+      end    
+    end
+    if !bill_check
+      @mkp = pressurize_version(Marketplaces.instance.show(params).mkp, params['version'])
+      @ssh_keys = Sshkeys.new.list(params).ssh_keys
+      @unbound_apps = unbound_apps(Assemblies.new.list(params.merge(flying_apps: 'true')).apps) if @mkp['cattype'] == Assemblies::SERVICE
+      respond_to do |format|
+        format.js do
+          respond_with(@mkp, @ssh_keys, @unbound_apps, layout: !request.xhr?)
         end
       end
     else
-      bill(params)
-    end
-  end
-
-  def bill(params)
-    @mkp = pressurize_version(Marketplaces.instance.show(params).mkp, params['version'])
-    @ssh_keys = Sshkeys.new.list(params).ssh_keys
-    @unbound_apps = unbound_apps(Assemblies.new.list(params.merge(flying_apps: 'true')).apps) if @mkp['cattype'] == Assemblies::SERVICE
-    respond_to do |format|
-      format.js do
-        respond_with(@mkp, @ssh_keys, @unbound_apps, layout: !request.xhr?)
+      respond_to do |format|
+         format.html { redirect_to billings_path }
+         format.js { render js: "window.location.href='" + billings_path + "'" }
       end
     end
   end
-
+  
   ## super cool - omni creator for all.
   # performs ssh creation or using existing and creating an assembly at the end.
   def create

@@ -15,6 +15,7 @@
 //= require turbolinks
 //= require jquery.remotipart
 //= require jquery.turbolinks
+//= require underscore.min
 //= require jquery.oauthpopup
 //= require bootstrap.min
 //= require bootstrap2-typeahead.min
@@ -32,6 +33,5 @@
 //= require react_ujs
 //= require megam.menu
 //= require gritter
-//= require jquery-fileupload/basic
 //= require components
 //= require_tree .
