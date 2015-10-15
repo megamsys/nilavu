@@ -20,8 +20,7 @@ class StoragesController < ApplicationController
   include MarketplaceHelper
 
 
-  before_action :visit_access_keys, only: [:index, :create, :show, :upload]
-  ## before_action :stick_storage_keys, only: [:index, :create, :show, :upload]
+  before_action :stick_storage_keys, only: [:index, :create, :show, :upload]
   ##
   ## index page get all marketplace items from storage(we use riak) using megam_gateway
   ## and show the items in order of category
@@ -30,14 +29,15 @@ class StoragesController < ApplicationController
     logger.debug '> Storages: index.'
     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
     @buckets = backup.buckets_list
-    @buckets
+    backup_client = BackupUser.new(Ind.backup.host, Ind.backup.username, Ind.backup.password)
+    @backup_usage = backup_client.account_usage(session[:email])
   end
 
   def create
     logger.debug '> Storages: create.'
     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
     backup.bucket_create(params["bucket_name"])
-    @msg = { title: "Storage", message: "#{params["bucket_name"]} created successfully. ", redirect: '/storages', disposal_id: 'create_bucket' }
+    @msg = { title: "Storage", message: "#{params["bucket_name"]} created successfully. ", redirect: '/', disposal_id: 'create_bucket' }
   end
 
   ##
@@ -63,19 +63,21 @@ class StoragesController < ApplicationController
   end
 
   def upload
-    
-      puts "______________________________________"
-      puts params
-
     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
     backup.object_create("#{params[:bucket_name]}", params[:sobject])
-    @msg = { title: "Storage", message: "#{params[:sobject].original_filename} uploaded successfully. ", redirect: '/storages', disposal_id: 'supload' }
+    @msg = { title: "Storage", message: "#{params[:sobject].original_filename} uploaded successfully. ", redirect: '/', disposal_id: 'supload' }
   end
 
   def destroy
     logger.debug "> Storages bucket: delete"
     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
     backup.bucket_delete(bucket_name)
+  end
+
+ # sign our request by Base64 encoding the policy document.
+  def upload_signature
+    request = S3::Service.service_request(:get)
+    signature = S3::Signature.generate(:host => Ind.backup.host, :request => request, :access_key_id => params[:accesskey], :secret_access_key => params[:secretkey])
   end
 
 end

@@ -28,17 +28,18 @@ class SessionsController < ApplicationController
   # this is a tour user who can only touch some stuff.
   def tour
     params[:email] =  Accounts::MEGAM_TOUR_EMAIL
-    params[:password] =  Accounts::MEGAM_TOUR_PASSWORD
+    params[:password] = Accounts::MEGAM_TOUR_PASSWORD
     create_with_megam(params)
   end
 
   # a regular user signin.
   def create
     set_orgid(params)
+
     if Ind.backup.enable
-    keys = Storage.new(Backup::STORAGES_BUCKET).fetch(params["email"])
-    session[:storage_access_key] = keys.content.data["access_key"]
-    session[:storage_secret_key] = keys.content.data["secret_key"]
+      keys = Storage.new(Backup::STORAGES_BUCKET).fetch(params['email'])
+      session[:storage_access_key] = keys.content.data['access_key']
+      session[:storage_secret_key] = keys.content.data['secret_key']
     end
     auth = social_identity
     if social_identity.nil?
@@ -62,7 +63,6 @@ class SessionsController < ApplicationController
     acct = Accounts.new
     det = acct.find_by_email(social_identity[:email])
     if !det.email.nil?
-      # pass = password_decrypt(det.password)
       params[:email] = det.email
       params[:password] = det.password
 
@@ -77,13 +77,12 @@ class SessionsController < ApplicationController
 
   private
 
-
-def set_orgid(input)
-  input["host"] = Ind.http_api
-  input["api_key"] = Accounts.new.find_by_email(input["email"]).api_key
-  org_res = Organizations.new.list(input).orgs
-  session[:org_id] = org_res[0][:id]
-end
+  def set_orgid(input)
+    input['host'] = Ind.http_api
+    input['api_key'] = Accounts.new.find_by_email(input['email']).api_key
+    org_res = Organizations.new.list(input).orgs
+    session[:org_id] = org_res[0][:id]
+  end
 
   # verify if an omniauth.auth hash exists, if not consider it as a locally registered user.
   def social_identity
@@ -93,9 +92,9 @@ end
 
   def password_decrypt(pass)
     Password.new(pass)
-  rescue BCrypt::Errors::InvalidHash
-    Rails.logger.debug "> Couldn't decrpt password. Its possible that the password in gateway was just text."
-    raise AuthenticationFailure, 'Au oh!, The password you entered is incorrect.'
+   rescue BCrypt::Errors::InvalidHash
+     Rails.logger.debug "> Couldn't decrpt password. Its possible that the password in gateway was just text."
+     raise AuthenticationFailure, 'Au oh!, The password you entered is incorrect.'
    end
 
   def create_with_megam(all_params)

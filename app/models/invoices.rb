@@ -13,27 +13,18 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-module ApplicationHelper
-  # Returns the full title on a per-page basis.
-  def full_title(page_title)
-    base_title = "Megam"
-    if page_title.empty?
-    base_title
-    else
-      "#{base_title} | #{page_title}"
-    end
+class Invoices < BaseFascade
+  attr_reader :invoices
+
+  def initialize
+    @invoices = []
+    super(true)
   end
 
-
-  def normalized_filename(file)
-    # file.to_s.gsub(".html", "").gsub(".erb", "")
-    # file.to_s.gsub(".html", "").gsub(".erb", "")
-    file.to_s
+  def list(api_params, &_block)
+    raw = api_request(api_params, INVOICES, LIST)
+    @invoices = raw[:body].sort_by(&:created_at).reverse[0..9] unless raw.nil?
+    yield self  if block_given?
+    self
   end
-
-  def normalize_template_name(name)
-    # normalized_filename(name.to_s).gsub("/", "-")
-    normalized_filename(name.to_s)#.gsub("/", "-")
-  end
-
 end

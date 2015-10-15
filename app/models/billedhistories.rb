@@ -14,10 +14,10 @@
 ## limitations under the License.
 ##
 class Billedhistories < BaseFascade
-  
+
   attr_reader :bhistories
 
-  
+
   def initialize()
      @bhistories = []
      super(true)

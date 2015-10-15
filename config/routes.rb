@@ -51,6 +51,7 @@ Nilavu::Application.routes.draw do
   match '/varai', to: 'cockpit#varai', via: [:get]
 
   match '/billings_promo', to: 'billings#promo', via: [:get, :post]
+  match '/invoice_pdf', to: 'billings#invoice_pdf', via: [:get, :post]
 
   #=====github
   match '/auth/github/callback', :to => 'marketplaces#store_github', via: [:get, :post]
@@ -86,7 +87,8 @@ Nilavu::Application.routes.draw do
   match '/bind_service', :to => 'oneapps#bind_service', via: [:get, :post]
   #===Storage
   match '/strgs', :to => 'storages#getmsg', via: [:get]
+  match '/sign_auth', :to => 'storages#upload_signature', via: [:get]
   match '/supload', :to => 'storages#upload',via: [:post]
 
-  
+
 end

@@ -28,10 +28,8 @@ class Assembly < BaseFascade
   def initialize
     @by_cattypes = {}
     @inputs = []
-    @requirements = []
     @components = []
     @app_list = []
-    @operations = []
   end
 
   def show(api_params, &_block)
@@ -47,7 +45,6 @@ class Assembly < BaseFascade
     yield self if block_given?
     self
   end
-
 
   ## i don't see a different between bld_update_params and bld_exist_update_parms except the symbolic key [:bind_type or :bindapp]
   def bld_update_params(params)
@@ -78,9 +75,7 @@ class Assembly < BaseFascade
     mkp = JSON.parse(params['mkp'])
     bld_toscatype(mkp)
     bld_components(params) unless mkp['cattype'] == Assemblies::TORPEDO
-    bld_requirements(params)
     bld_inputs(params)
-    bld_operations(params)
 
     params = params.merge('policymembers' => "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}")
 
@@ -88,11 +83,9 @@ class Assembly < BaseFascade
       'name' => "#{params[:assemblyname]}",
       'tosca_type' => "#{tosca_type}",
       'components' => @components,
-      'requirements' => @requirements,
       'policies' => bld_policies(params),
       'inputs' => @inputs,
       'outputs' => [],
-      'operations' => @operations,
       'status' => Assemblies::LAUNCHING
     }]
   end
@@ -108,11 +101,9 @@ class Assembly < BaseFascade
       'name' => nil,
       'tosca_type' => nil,
       'components' => [],
-      'requirements' => [],
       'policies' => [],
       'inputs' => [],
       'outputs' => [],
-      'operations' => [],
       'status' => nil
     }
   end
@@ -126,11 +117,6 @@ class Assembly < BaseFascade
   # #For a vm, there is no component to start with, hence this is skipped.
   def bld_components(params)
     @components = Components.new.build(params)
-  end
-
-  #In future lot of requirements add this method
-  def bld_requirements(params)
-    @requirements << {"key" => "host", "value" => params[:host]} if params.has_key?(:host)
   end
 
   def bld_policies(params)
@@ -176,14 +162,6 @@ class Assembly < BaseFascade
     @inputs << { 'key' => 'version', 'value' => params[:version] } if mkp['cattype'] == Assemblies::TORPEDO
   end
 
-  def bld_operations(params)
-    @operations << {
-      'operation_type' => 'CI',
-      'description' => 'Continous Integration',
-      'operation_requirements' => bld_ci_requirements(params)
-    }
-  end
-
   def bld_ci_requirements(params)
     mkp = JSON.parse(params['mkp'])
 
@@ -204,8 +182,8 @@ class Assembly < BaseFascade
         unless one_component.empty?
           one_component = Components.new.show(api_params.merge('id' => one_component)).components
         end
-      end   
-      one_assembly.asms_id(api_params[:asms_id]) #set the assemblies_id in assembly. we need it for destroy
+      end
+      one_assembly.asms_id(api_params[:asms_id]) # set the assemblies_id in assembly. we need it for destroy
       one_assembly.components.replace(a0)
       @by_cattypes = @by_cattypes.merge(want_catkey(one_assembly.tosca_type) => one_assembly)
     end

@@ -20,22 +20,16 @@
       <%= render :partial => "users/topright_icons", :locals => {:title_name => t('titles.monitoring_title')} %>
     </div>
   </div>
-   <ng-view ng-show="resolved" ng-cloak></ng-view>
+  <ng-view ng-cloak ng-show="resolved"></ng-view>
 </div>
 
 <script>
-  (function($) {
-  $.Sources = JSON.parse('<%= raw Sources.sources.to_json %> ');
-  $.AppName = "<%= @appname %>";
-  $.CatType = "<%= @cattype %>";
-  $.Host = "<%= @host %>";
-  $.Flag = false;
-  $.SocketURL = "<%= Ind.websocket_tap %>";
-
-   })($);
-
-
-
-
-
+  (function ($) {
+    $.Sources = JSON.parse('<%= raw Sources.sources.to_json %> ');
+    $.AppName = "<%= @appname %>";
+    $.CatType = "<%= @cattype %>";
+    $.Host = "<%= @host %>";
+    $.Flag = false;
+    $.SocketURL = "<%= Ind.websocket_tap %>";
+  })($);
 </script>

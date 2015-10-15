@@ -12,7 +12,6 @@
 ** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
-
 -->
 <%= render 'layouts/header' %>
 <div class="container-fluid main-cover">
@@ -90,6 +89,7 @@
     <div id="content">
       <%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
     </div>
+
   </div>
 </div>
 <%= render 'layouts/footer' %>
