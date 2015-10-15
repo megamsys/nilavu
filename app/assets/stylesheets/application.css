@@ -13,8 +13,6 @@
  *= require nprogress-bootstrap
  *= require bootstrap
  *= require bootstrap-tour
- *= require jquery.fileupload
- *= require jquery.fileupload-ui
  *= require gritter
  *= require_tree .
  */

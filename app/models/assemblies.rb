@@ -36,7 +36,7 @@ class Assemblies < BaseFascade
   DESTROY             =  'delete'.freeze
   TERMINATED          =  'Terminated'.freeze
   LAUNCHING           =  'LAUNCHING'.freeze
-
+  SOURCE               = 'source'.freeze
   DOCKERCONTAINER     =  'DockerContainer'.freeze
 
   def initialize

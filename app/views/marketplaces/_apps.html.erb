@@ -20,6 +20,7 @@
   <%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
   <%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
   <%= hidden_field_tag 'scm_name', nil, placeholder: "", :class =>"form-control"%>
+  <%= hidden_field_tag 'type', nil, placeholder: "", :class => "form-control" %>
   <%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::ONE %>
   <div class="row">
     <div class="col-md-12 pad_tb25">
@@ -84,7 +85,7 @@
         </div>
       </div>
       <%= hidden_field_tag 'source', nil, placeholder: '', :class =>"form-control", :value => '' %>
-      <%= hidden_field_tag 'check_ci', nil, placeholder: '', :class =>"form-control", :value => 'true' %>
+      <%= hidden_field_tag 'check_ci', nil, placeholder: '', :class =>"form-control", :value => 'false',:id => 'check_ci' %>
       <div id="app_starter_pack" style="display:none;">
         <div class="row">
           <div class="col-sm-12 col-xs-12">
@@ -134,11 +135,15 @@
 
     function set_starter_pack(){
 			$("#source").val($("#starterpack_git").val());
+        $("#type").val("source");
+        $("#check_ci").val("true");
+
 		}
 
   	// Onclick events for gogs and github images
   	function github_oauth() {
       $("#scm_name").val("github");
+      $("#type").val("source");
   		$.oauthpopup({
   			path : "/auth/github",
   			callback : function() {
@@ -161,6 +166,7 @@
 
   	function gogs_oauth() {
   		$("#scm_name").val("gogs");
+        $("#type").val("source");
   		$.oauthpopup({
   			path : "/auth/gogs",
   			callback : function() {
@@ -184,6 +190,7 @@
 
   	function gitlab_auth() {
   		$("#scm_name").val("gitlab");
+        $("#type").val("source");
   		$.oauthpopup({
   			path : "/auth/gitlab",
   			callback : function() {
