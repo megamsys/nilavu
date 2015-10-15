@@ -38,9 +38,9 @@ var Tab = React.createClass({
   render: function() {
     return (
       <li className={this.props.isCurrent
-        ? 'current'
+        ? 'current '
         : null} >
-        <a href={this.props.url} onClick={this.handleClick}>
+        <a href={this.props.url} onClick={this.handleClick} data-toggle="tab">
           {this.props.name}
         </a>
       </li>
@@ -55,15 +55,14 @@ var Tabs = React.createClass({
 
   render: function() {
     return (
-      <div className="tab-content " >
-        <ul className="nav nav-tabs nav-justified">
+        <ul className="nav nav-tabs">
           {this.props.tabList.map(function (tab) {
             return (
               <Tab handleClick={this.handleClick.bind(this, tab)} isCurrent={(this.props.currentTab === tab.id)} key={tab.id} name={tab.name} url={tab.url}/>
             );
           }.bind(this))}
         </ul>
-      </div>
+
     );
   }
 });
@@ -88,10 +87,10 @@ var Overview = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className="nav-justified margintb_15">
         <Tabs changeTab={this.changeTab} currentTab={this.state.currentTab} tabList={this.state.tabList}/>
         <Content JsonD={this.state.JsonD} currentTab={this.state.currentTab} google={this.props.google} host={this.props.host} mhost={this.props.mhost}/>
-        <div className="borderless torpOverviewTb">
+        <div className="logBox borderless torpOverviewTb">
           LOGS
           <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <Logs name={this.props.name} socket={this.props.socket}/>
@@ -107,24 +106,34 @@ var Content = React.createClass({
 
   render: function() {
     return (
-      <div className="tabbable-custom nav-justified margintb_15">
+      <div class="tab-content c_tab-content">
         {this.props.currentTab === 1
-          ? <div className="demo-container demo-placeholder cpu" data-toggle="tab">
+          ? <div className="tab-pane cpu" >
+          <div className="">
+             <div className="demo-container">
               <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"cpu"}/>
+             </div>
+             </div>
             </div>
           : null}
 
         {this.props.currentTab === 2
-          ? <div className="demo-container ram">
+          ? <div className="tab-pane ram" >
+             <div className="">
+             <div className="demo-container">
               <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"ram"}/>
-
+            </div>
+            </div>
             </div>
           : null}
 
         {this.props.currentTab === 3
-          ? <div className="demo-container network">
+          ? <div className="tab-pane cpu" >
+             <div className="">
+             <div className="demo-container">
               <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"network"}/>
-
+             </div>
+             </div>
             </div>
           : null}
 
