@@ -20,7 +20,7 @@ class StoragesController < ApplicationController
   include MarketplaceHelper
 
 
-  before_action :stick_access_keys, only: [:index, :create, :show, :upload]
+  before_action :stick_storage_keys, only: [:index, :create, :show, :upload]
   ##
   ## index page get all marketplace items from storage(we use riak) using megam_gateway
   ## and show the items in order of category
@@ -76,7 +76,8 @@ class StoragesController < ApplicationController
 
  # sign our request by Base64 encoding the policy document.
   def upload_signature
-    signature = S3::Signature.generate(:host => Ind.backup.host,:access_key_id => params[:accesskey], :secret_access_key => params[:secretkey])
+    request = S3::Service.service_request(:get)
+    signature = S3::Signature.generate(:host => Ind.backup.host, :request => request, :access_key_id => params[:accesskey], :secret_access_key => params[:secretkey])
   end
 
 end
