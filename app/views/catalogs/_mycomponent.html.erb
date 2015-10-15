@@ -1,0 +1,11 @@
+
+<div id="reactz"></div>
+<script type="text/javascript">
+
+  React.render(React.createElement(Monitoring, {
+    google: google,
+    graphName: "LineChart",
+    host: "http://localhost:8080/api/v1.3/containers",
+    mhost: "http://localhost:8080/api/v1.3/machine"
+  }), document.getElementById('reactz'));
+</script>

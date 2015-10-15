@@ -17,32 +17,40 @@
 <!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
-<html lang="en" class="no-js">
-	<!--<![endif]-->
-	<!-- BEGIN HEAD -->
-<html>
-	<head>
-		<base href="#">
-		<%= favicon_link_tag 'favicon.png' %>
-		<title>Megam - PaaS | <%= yield(:title) %></title>
-		<%= stylesheet_link_tag "application", :media => "all" %>
+<html class="no-js" lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+  <html>
+    <head>
+      <base href="#">
+      <%= favicon_link_tag 'favicon.png' %>
+      <title>Megam - PaaS |
+        <%= yield(:title) %></title>
+      <%= stylesheet_link_tag "application", :media => "all" %>
 
-		<%= analytics_init if Rails.env.production? %>
-		<%= javascript_include_tag "application" %>
+      <%= analytics_init if Rails.env.production? %>
+      <%= javascript_include_tag "application" %>
 
-		<meta name="description=" content="Megam is a platform as service. We offer launching app cross cloud bundled with
-		realtime logging, application monitoring.">
+      <meta content="Megam is a platform as service. We offer launching app cross cloud bundled with
+		realtime logging, application monitoring." name="description=">
 
-		<meta charset="utf-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-		<meta content="" name="description" />
-		<meta content="" name="author" />
-		<meta name="MobileOptimized" content="320">
-	</head>
-	<body>
-		<div id="cockpit">
-			<%= yield %>
-		</div>
-	</body>
-</html>
+      <meta charset="utf-8"/>
+      <meta content="IE=edge" http-equiv="X-UA-Compatible">
+      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+      <meta content="" name="description"/>
+      <meta content="" name="author"/>
+      <meta content="320" name="MobileOptimized">
+      <script src="https://www.google.com/jsapi" type="text/javascript"></script>
+      <script type="text/javascript">
+      
+        google.load('visualization', '1', {
+          packages: ['corechart']
+        });
+      </script>
+    </head>
+    <body>
+      <div id="cockpit">
+        <%= yield %>
+      </div>
+    </body>
+  </html>
