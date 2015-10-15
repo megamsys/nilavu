@@ -58,5 +58,4 @@ end
 group :development do
   gem 'rspec-rails'
   gem 'quiet_assets'
-  gem 'awesome_print', require: 'ap'
 end
