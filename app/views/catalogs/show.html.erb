@@ -46,7 +46,7 @@
             </li>
             <li class="start active">
               <%= link_to catalogs_path(:cattype => Assemblies::TORPEDO ), :data => { :remote => true}, :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-              <i class="c_icon-addon pull-left"></i>
+              <i class="c_icon-torpedo pull-left"></i>
               <span class="title pull-left"><%= t('cockpits.torpedo_tab') %></span>
               <% end %>
             </li>
@@ -77,7 +77,7 @@
             <li class="start active">
               <%  if Ind.billings %>
               <%= link_to billings_path, :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-              <i class="c_icon-addon pull-left"></i>
+              <i class="c_icon-billing pull-left"></i>
               <span class="title pull-left"><%= t('titles.billing_title') %></span>
               <% end %>
               <% end %>
