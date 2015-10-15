@@ -1,4 +1,4 @@
-/*var ShowBucket = React.createClass({
+var ShowBucket = React.createClass({
 
 getInitialState: function() {
         return { data : []}; //Here you could put initial data state
@@ -84,4 +84,4 @@ var BucketBox = React.createClass({
       </div>
     );
   }
-});*/
+});

@@ -113,8 +113,10 @@
 						<li class=" col-md-offset-6 col-sm-6">
 							<i class="icon-plus"></i> <%= link_to t('marketplace.create_app'), marketplaces_path, :remote => true %>
 						</li>
+
 					</ul>
 				</div>
+
 			</div>
 		</div>
 	</div>
@@ -123,6 +125,10 @@
 	<div class="row">
 	<%= render :partial => 'catalogs/flysolo', :locals => {:asmgroups_flatten => @bound_apps, :filter_cattype => Assemblies::APP} %>
 	</div>
+	<% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
+	<% @logname = "#{assembly.name}.#{domain}" %>
+	<%= render 'catalogs/logs' %>
+
 </div>
 <% end %>
 <%= render :template => 'catalogs/show',:locals => {:cattype => Assemblies::SERVICE} %>

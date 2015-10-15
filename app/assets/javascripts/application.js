@@ -33,7 +33,6 @@
 //= require jquery-validate.bootstrap-tooltip
 //= require megam.form_validation
 //= require jquery.filter
-//= require socket.io
 //= require megam.monitor
 //= require megam.support
 //= require nprogress
@@ -42,5 +41,10 @@
 //= require react_ujs
 //= require components
 //= require megam.menu
+//= require chartist
+
+
+
+
 //= require_tree .
 //= require gritter
