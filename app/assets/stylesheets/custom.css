@@ -2331,6 +2331,43 @@ input[type="submit"]:active {opacity:1;}
 	margin-top: -8px;
 }
 
+.c_icon-torpedo
+{
+	color: transparent;
+	overflow: hidden;
+	display: inline-block;
+	height: 32px;
+	width: 32px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	/* border-radius: 50%; */
+	vertical-align: middle;
+	background-image:url(icon-torpedo.png);
+	/*margin-left: 10px;*/
+	/*margin-right: 10px;*/
+	margin-top: -8px;
+}
+
+
+.c_icon-billing 
+{
+	color: transparent;
+	overflow: hidden;
+	display: inline-block;
+	height: 32px;
+	width: 32px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	/* border-radius: 50%; */
+	vertical-align: middle;
+	background-image:url(icon-billing.png);
+	/*margin-left: 10px;*/
+	/*margin-right: 10px;*/
+	margin-top: -8px;
+}
+
 .c_icon-set
 {
 	color: transparent;
