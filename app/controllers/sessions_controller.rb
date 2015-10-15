@@ -37,7 +37,7 @@ class SessionsController < ApplicationController
     set_orgid(params)
 
     if Ind.backup.enable
-      keys = Storage.new(Backup::STORAGES_BUCKET).fetch(params['email'])
+      keys = Storage.new(BackupUser::STORAGES_BUCKET).fetch(params['email'])
       session[:storage_access_key] = keys.content.data['access_key']
       session[:storage_secret_key] = keys.content.data['secret_key']
     end
