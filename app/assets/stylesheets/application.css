@@ -16,5 +16,5 @@
  *= require jquery.fileupload
  *= require jquery.fileupload-ui
  *= require gritter
- *= require_tree . 
+ *= require_tree .
  */

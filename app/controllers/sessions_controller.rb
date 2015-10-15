@@ -35,6 +35,7 @@ class SessionsController < ApplicationController
   # a regular user signin.
   def create
     set_orgid(params)
+
     if Ind.backup.enable
       keys = Storage.new(Backup::STORAGES_BUCKET).fetch(params['email'])
       session[:storage_access_key] = keys.content.data['access_key']

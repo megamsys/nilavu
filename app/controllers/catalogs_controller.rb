@@ -73,6 +73,8 @@ class CatalogsController < ApplicationController
     logger.debug "> Pilotable: Logs"
     asm = Assembly.new.show(params).by_cattypes
     @appname = asm["#{params["cattype"]}"].name + "." + parse_key_value_json(asm["#{params["cattype"]}"].inputs, "domain")
+    @appname
   end
+
 
 end

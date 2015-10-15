@@ -23,7 +23,6 @@ class ApplicationController < ActionController::Base
   before_filter :set_user_language
 
   # for internationalization
-
   def set_user_language
     I18n.locale = 'en'
   end
@@ -60,7 +59,7 @@ class ApplicationController < ActionController::Base
   def render_500(exception = nil)
     puts_stacktrace(exception) if exception
     if !signed_in?
-      gflash error: "#{exception}"
+      gflash error: "#{exception.message}"
       redirect_to signin_path, flash: { error: 'You must first sign in or sign up.' }
     else
       respond_to do |format|
@@ -124,10 +123,10 @@ class ApplicationController < ActionController::Base
     # notify  hipchat, send an email to support@megam.io which creates a support ticket.
     # redirect to the users last visited page.
     if !signed_in?
-      gflash error: "#{mai}"
+      gflash error: "#{mai.message}"
       redirect_to(signin_path, flash: { api_error: 'api_error' }) && return
     else
-      gflash error: "#{mai}"
+      gflash error: "#{mai.message}"
       redirect_to(cockpits_path, flash: { api_error: 'api_error' }) && return
     end
   rescue ApplicationMailer::MegamSnailError => mse

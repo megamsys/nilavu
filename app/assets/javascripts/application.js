@@ -15,10 +15,6 @@
 //= require turbolinks
 //= require jquery.remotipart
 //= require jquery.turbolinks
-//= require jquery.flot
-//= require jquery.flot.time
-//= require jquery.flot.resize
-//= require jquery.flot.selection
 //= require jquery.oauthpopup
 //= require bootstrap.min
 //= require bootstrap2-typeahead.min
@@ -34,9 +30,8 @@
 //= require nprogress-ajax
 //= require react
 //= require react_ujs
-//= require components
 //= require megam.menu
 //= require gritter
-//= require megam.storage
 //= require jquery-fileupload/basic
+//= require components
 //= require_tree .

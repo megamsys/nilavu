@@ -1,3 +1,143 @@
+
+.mini-logs {
+  .widget {
+    .widget-style();
+    .top-bar {
+      .widget-bar-style();
+      background-color: darken(@gray-darkest, 3%);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      .text {
+        color: white;
+      }
+    }
+    height: 100%;
+    .logs {
+      background-color: @gray-darkest;
+      color: @gray-lightest;
+      font-family: @font-code;
+      font-size: 10px;
+      white-space: pre-wrap;
+      -webkit-user-select: text;
+      padding: 1.2rem 1.2rem 5rem 1.2rem;
+      overflow: auto;
+      height: 100%;
+    }
+    p {
+      margin-bottom: 0px;
+    }
+    /*.mini-logs-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 100;
+      color: transparent;
+      transition: all 0.25s;
+      .icon {
+        margin-top: 25%;
+        display: block;
+        font-size: 60px;
+        text-align: center;
+      }
+      .text {
+        font-family: @font-regular;
+        font-size: 20px;
+        text-align: center;
+      }
+      &:hover {
+        color: white;
+        background-color: @gray-darkest;
+        opacity: 0.75;
+      }
+    }*/
+  }
+}
+
+
+
+/*---- custom ----*/
+
+.tabs-navigation {
+  padding: 0 20px;
+  max-height: 50px;
+  border-bottom: 1px solid #ddd;
+}
+.tabs-menu {
+  display: table;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.tabs-menu-item {
+  float: left;
+}
+.tabs-menu-item a {
+  display: block;
+  padding: 0 40px;
+  height: 50px;
+  line-height: 50px;
+  border-bottom: 0;
+  color: #a9a9a9;
+}
+.tabs-menu-item:not(.is-active) a:hover {
+  color: #3498db;
+}
+.tabs-menu-item.is-active a {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-top: 2px solid #3498db;
+  border-bottom: 0;
+  color: #333;
+}
+.tabs-panel {
+  display: none;
+  padding: 30px;
+}
+.tabs-panel.is-active {
+  display: block;
+}
+
+
+.details-panel.logs {
+  background-color: #233137;
+  -webkit-user-select: text;
+  font-family: Consolas;
+  font-size: 19px;
+  padding: 20px 18px;
+  color: #233137;
+  white-space: pre-wrap;
+}
+.details-panel.logs p {
+  margin-bottom: 0px;
+}
+
+
+.details-panel {
+  flex: 1 auto;
+  overflow: auto;
+}
+
+.log-font-color {
+  font-family: Menlo;
+  color:  #e6edf4;
+}
+.borderless td, .borderless th {
+    border: none !important;
+}
+
+.bg-logs {
+
+
+}
+.logs {
+        background-color:  #989aab;
+        font-family: Menlo, Consolas;
+        font-size: 20px;
+        overflow: auto;
+        height: 100%;
+      }
+
 .container-fluid {
     padding-right: 15px;
     padding-left: 15px;

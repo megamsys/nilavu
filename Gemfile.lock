@@ -52,6 +52,7 @@ GEM
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
     cert_validator (0.0.1)
+    chartist-rails (0.9.4)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cocaine (0.5.7)
@@ -188,7 +189,11 @@ GEM
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
+<<<<<<< HEAD
+    radosgw-s3 (0.4)
+=======
     radosgw-s3 (0.5)
+>>>>>>> origin/0.9
       net-ssh
       proxies (~> 0.2.0)
     rails (4.2.4)
@@ -298,6 +303,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt (~> 3.1.10)
   capybara
+  chartist-rails
   factory_girl_rails
   faraday (~> 0.9.1)
   faraday_middleware (~> 0.10.0)
