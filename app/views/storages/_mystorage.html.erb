@@ -242,7 +242,7 @@
 		}
 	});
 	// for upload
-	$(function() {
+	/*$(function() {
 	$('#file_upload').fileupload({
 	  forceIframeTransport: true,    // VERY IMPORTANT.  you will get 405 Method Not Allowed if you don't add this.
 	  autoUpload: true,
@@ -267,9 +267,7 @@
 	      		data: data.files[0],
 						//Ajax events
 	      		success:  completeHandler = function(data) {
-					/*
-					* workaround for crome browser // delete the fakepath
-					*/
+					
 						if(navigator.userAgent.indexOf('Chrome')) {
 								var catchFile = $(":file").val().replace(/C:\\fakepath\\/i, '');
 						}
@@ -293,5 +291,5 @@
 			});
 	  },
 	});
-});
+}); */
 </script>
