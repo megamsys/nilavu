@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe StoragesController, type: :controller do
  it "handles a missing project correctly" do
