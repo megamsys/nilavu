@@ -600,7 +600,7 @@ background-repeat: no-repeat;
 	background-repeat: no-repeat;
 	background-position: center;
 	vertical-align: middle;
-	background-image:url(icon-addon.png);
+	background-image:url(icon-torpedo.png);
 	margin-right: 10px;
 }
 .c_icon-layer-app_lg {
@@ -2396,7 +2396,7 @@ input[type="submit"]:active {opacity:1;}
 }
 
 
-.c_icon-billing 
+.c_icon-billing
 {
 	color: transparent;
 	overflow: hidden;
