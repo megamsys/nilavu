@@ -28,4 +28,4 @@
 
 # Ignore all files under metadata
 .metadata
-
+Gemfile.lock
