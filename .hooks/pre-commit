@@ -6,9 +6,10 @@ if [ $fmtcount -gt 0 ]; then
     exit 1
 fi
 
-asstcount=`rake assets:precompile RAILS_ENV=production | wc -l`
-if [ $asstcount -gt 0 ]; then
-    echo "Some files don't pass precompile, please run 'rake assets:precompile RAILS_ENV=production' to precompile successfully before committing"
-    exit 1
+asstcount=`rake assets:precompile RAILS_ENV=production`
+RETVAL=$?
+if [ $RETVAL -ne 0 ]; then
+  echo "Some files don't pass precompile, please run 'rake assets:precompile RAILS_ENV=production' to precompile successfully before committing"
+  exit 1
 fi
 exit 0
