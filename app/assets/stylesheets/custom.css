@@ -4,12 +4,18 @@
 
 .logBox {
 height:300px;
-width: 500px;
+width: 650px;
 overflow-y:scroll;
-table-layout: fixed
+table-layout: fixed;
+background-color: #DCDCDC;
+
 
 }
-
+.bleeh  {
+  border-top: 3px solid #4e9de6;
+  border-bottom: 4px solid transparent;
+  position: relative;
+}
 
 
 .tabs-navigation {
