@@ -36,11 +36,11 @@ class SessionsController < ApplicationController
   def create
     set_orgid(params)
 
-    if Ind.backup.enable
-      keys = Storage.new(BackupUser::STORAGES_BUCKET).fetch(params['email'])
-      session[:storage_access_key] = keys.content.data['access_key']
-      session[:storage_secret_key] = keys.content.data['secret_key']
-    end
+  #  if Ind.backup.enable
+#      keys = Storage.new(BackupUser::STORAGES_BUCKET).fetch(params['email'])
+      #session[:storage_access_key] = keys.content.data['access_key']
+      #session[:storage_secret_key] = keys.content.data['secret_key']
+  #  end
     auth = social_identity
    
     if social_identity.nil?

@@ -71,7 +71,7 @@ a:hover
     padding-bottom: 25px !important;
 }
 
-.login 
+.login
 {
   background-color: #edeef5 !important;
 }
@@ -79,7 +79,7 @@ a:hover
 {
     /*margin-bottom: 200px;*/
     /*background-color: #fff;*/
-    padding-bottom: 20px;           
+    padding-bottom: 20px;
 }
 .bottom_border_grey
 {
@@ -91,7 +91,7 @@ a:hover
     border: 2px solid #e5e6ef;
 }
 .login .logo {
-  margin: 0 auto;   
+  margin: 0 auto;
   /*margin-top:60px;*/
   padding: 50px;
   text-align: center;
@@ -348,7 +348,7 @@ background-color: white;
   /*Hide text*/
   color: transparent;
   overflow:hidden;
-  
+
   display:inline-block;
   height: 4em;
   width: 4em;
@@ -367,10 +367,10 @@ background-color: white;
               inset 0em 0em 0em rgba(0,0,0,0.25);
   opacity:1;
 }
-  
+
 .icon:active, .icon:target {
   transform: scale(0.9);
-  
+
   box-shadow: 0em 0em 0em rgba(0,0,0,0.25),
               inset 0.1em 0.1em 0.1em rgba(0,0,0,0.25);
 }
@@ -418,7 +418,7 @@ background-color: white;
 {
     color: transparent;
   overflow:hidden;
-  
+
   display:inline-block;
   height: 32px;
   width: 32px;
@@ -822,7 +822,7 @@ background-color: white;
 {
     background-image:url(list-hover.png);
 
-}   
+}
 .c_icon-grid:hover
 {
     background-image:url(grid-hover.png);
@@ -871,14 +871,15 @@ background-color: white;
     padding: 1px !important;
     background-color: #fff !important;
 }
-.portlet{color: #a4a6b8; }
+.portlet
+{
+    color: #a4a6b8;
+}
 .progressbar-cover
 {
     padding-bottom: 40px;
     padding-top: 40px;
 }
-
-
 .center-block {
     display: block;
     margin-left: auto;
@@ -887,8 +888,8 @@ background-color: white;
 .circle_red {
     width: 12px;
     height: 12px;
-    -moz-border-radius: 50%; 
-    -webkit-border-radius: 50%; 
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
     border-radius: 50%;
     background: #ff6e2e;
     float: left;
@@ -897,8 +898,8 @@ background-color: white;
 .circle_green {
     width: 12px;
     height: 12px;
-    -moz-border-radius: 50%; 
-    -webkit-border-radius: 50%; 
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
     border-radius: 50%;
     background: #6fde86;
     float: left;
@@ -908,7 +909,6 @@ background-color: white;
 {
     margin-right: 5px;
     margin-left: 5px;
-}
 }
 .portlet-title
 {
@@ -1008,7 +1008,7 @@ background-color: white;
     border-right: 1px solid #fff;
     position: absolute;
     right: 0;
-    
+
 }
 .config_menu
 {
@@ -1026,7 +1026,7 @@ background-color: white;
     /*padding: 5px 0px 0px 10px ;*/
     margin-bottom: 0px;
     padding: 0px;
-}   
+}
 .config_menu li
 {
     list-style: none;
@@ -1048,9 +1048,9 @@ background-color: white;
 .config_acive
 {
     background-color: #f4f4f5;
-    border-top:1px solid #e5e6ef; 
-    border-left:1px solid #e5e6ef; 
-    border-right:1px solid #e5e6ef; 
+    border-top:1px solid #e5e6ef;
+    border-left:1px solid #e5e6ef;
+    border-right:1px solid #e5e6ef;
 }
 .list-grid span
 {
@@ -1102,7 +1102,7 @@ background-color: white;
 {
     vertical-align: middle !important;
     padding-left: 0px !important;
-    
+
 }
 
 .c_tab-content
@@ -1212,7 +1212,7 @@ background-color: white;
     text-decoration: none;
     color: #468847 !important;
 }
-#create-ssh .modal-header 
+#create-ssh .modal-header
 {
     height: 70px;
 }
@@ -1447,7 +1447,7 @@ background-color: white;
 .app_left_name
 {
     font-size: 16px;
-    color: #70a5d5; 
+    color: #70a5d5;
     font-family: proxima_nova_rg;
     font-weight: bold;
     padding-top: 15px;
@@ -1655,12 +1655,12 @@ a.btn-success:hover
     margin-top: 30px;
 }
 
-/* Custom, iPhone Retina */ 
+/* Custom, iPhone Retina */
 @media only screen and (min-width : 320px) {
 
 }
 
-/* Extra Small Devices, Phones */ 
+/* Extra Small Devices, Phones */
 @media only screen and (min-width : 480px) {
 
 /*  .c_icon
@@ -1680,9 +1680,10 @@ a.btn-success:hover
     {
         padding-left: 15px;
     }
-    .page-sidebar-menu > li > a 
-    {      
-        position: absolute; !important;
+    .page-sidebar-menu > li > a
+    {
+
+        position: absolute !important;
     }
     .label-profile
     {
@@ -1704,13 +1705,13 @@ a.btn-success:hover
 
     .login .outer
     {
-        margin-left: 20.75%;                
+        margin-left: 20.75%;
     }
 }
 
 
 /* custom validation for mobile*/
-/* Custom, iPhone Retina */ 
+/* Custom, iPhone Retina */
 @media only screen and (max-width : 480px) {
 
     .login .tooltip
@@ -1749,7 +1750,7 @@ a.btn-success:hover
 {
 /*transform: translate(0, 20%) !important;
 -ms-transform: translate(0, 20%) !important; /* IE 9 */
-/*-webkit-transform: translate(0, 20%) !important; /* Safari and Chrome */*/
+/*-webkit-transform: translate(0, 20%) !important; /* Safari and Chrome */
 }
 .graph
 {
@@ -1919,7 +1920,7 @@ a.btn-success:hover
 
 .c_icon-service
 {
-    color: transparent; 
+    color: transparent;
     overflow: hidden;
     display: inline-block;
     height: 32px;
