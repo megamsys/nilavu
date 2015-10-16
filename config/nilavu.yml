@@ -1,21 +1,22 @@
 # /var/lib/megam/nilavu.yml
 defaults: &defaults
-## connect.storage.db is a host that the nilavu will connect to
-## for saving key/value pairs in storage
+## locale: default is english
+  locale: en
+## storage backedn is a host that the nilavu will connect to
+## for getting information about an account (needs to be removed)
 ## Default: localhost
 ##
 ## Acceptable values:
 ##   - text, e.g. localhost, console.megam.io
 
   storage: localhost
-
 ## Name of the nilavu server
 ##
 ## Default: console.megam.io
 ##
 ## Acceptable values:
 ##   - text
-  nilavu: https://console.megam.io
+  nilavu: console.megam.io
 ## connect.http.api is a host that the nilavu will connect to
 ## for API  interaction
 ## Default: api.megam.io
@@ -23,68 +24,31 @@ defaults: &defaults
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
 
-  http_api: localhost
-
-##http_api: localhost
-# Enable log streaming into nilavu
-##
-## Default: on
-##
-## Acceptable values:
-##   - on or off
-  stream_logs: on
-## connect.websocket.tap is a host that the nilavu will connect to
-## for real time log streaming
-## Default: console.megam.io
+  http_api: api.megam.io
+## http_logs is a host that the nilavu will connect to for real time log streaming
+## Default: console.megam.io:7000
 ##
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
-  http_logs: localhost:7000
-## Enable metrics streaming into nilavu
-## Requires package [megamanalytics] to be insalled.
-## Default: off
-##
-## Acceptable values:
-##   - on or off
-  stream_metrics: on
-# The metrics source to configure to.
-## Default: demo
-##
-## Acceptable values:
-##   - demo, ganglia
-  stream_metrics_source: demo
-# The metrics source to configure to.
-## Default: demo
-##
-## Acceptable values:
-##   - demo, ganglia
-  stream_metrics_cluster: megam
-## connect.http.metrics is a host that the nilavu will connect to
-## for real time metrics streaming
-## Default: console.megam.io
-##
-## Acceptable values:
-##   - text, e.g. localhost, api.megam.io
-  http_metrics: http://madai.megam.io/monit
-# http_gitlabs is a host that the nilavu will connect to
-## for pulling data from private repositories
-##
-## Acceptable values:
-##   - text, e.g. http://localhost, api.megam.io
-  http_gitlab: http://gitlab.megam.io/api/v3
-# billing is the flag to turn on billing/off
+  http_logs: console.megam.io:7000
+# Enable billing, turn it off for testing.
 ## Default: on
 ##
 ## Acceptable values:
-##   - on or off
+##   - text, e.g. on or off
   billings: off
-## For Backup:
+## Backup storage, host.
   backup:
     enable: off
     host: 192.168.1.248
     username: thomas
     password: team4megam
-
+# http_gitlab is a host that the nilavu will connect to
+## for pulling data from private repositories
+##
+## Acceptable values:
+##   - text, e.g. localhost, api.megam.io
+  http_gitlab: console.megam.io:6001
 # notification section notifies the handlers based on_trigger conditions.
 ## 1. on_error: When an error occurs then notify dev support via an email to support@megam.io and hipchat. A notification
 ## via email happens if the configuration for [email:] exists.
@@ -94,9 +58,8 @@ defaults: &defaults
 ## Acceptable values:
 ##   - text
   notification:
-    on_some_hap: on
     on_errors: on
-    on_info: on
+    on_some_hap: on
     email:
       id: support@megam.io
       password: <%= ENV["NIL_EMAIL_PASSWORD"] %>
@@ -129,6 +92,3 @@ development:
 
 production:
   <<: *defaults
-
-test:
-    <<: *defaults

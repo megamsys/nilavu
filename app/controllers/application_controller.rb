@@ -24,7 +24,7 @@ class ApplicationController < ActionController::Base
 
   # for internationalization
   def set_user_language
-    I18n.locale = 'en'
+    I18n.locale = Ind.locale
   end
 
   # a catcher exists using rails globber for routes in config/application.rb to trap 404.
@@ -155,12 +155,12 @@ class ApplicationController < ActionController::Base
   end
 
   def puts_stacktrace(exception)
-    logger.debug "\033[36m#{exception.message}\033[0m"
+    logger.debug "\033[1m\033[32m#{exception.message}\033[0m\033[22m"
     filtered_trace = exception.backtrace.grep(/#{Regexp.escape("nilavu")}/)
     unless filtered_trace.empty?
-      full_stacktrace = filtered_trace.join("\n")
-      logger.debug "\033[1m\033[32m#{full_stacktrace}\033[0m\033[22m"
+      full_stacktrace = (filtered_trace.map {|ft| ft.split("/").last}).join("\n")
+      logger.debug "\033[1m\033[36m#{full_stacktrace}\033[0m\033[22m"
     end
-    logger.debug "\033[1m\033[35m..(*_*)...\033[0m\033[22m"
+    logger.debug "\033[1m\033[32m..(*_*)...\033[0m"
   end
 end

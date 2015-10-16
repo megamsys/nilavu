@@ -74,9 +74,10 @@
 }
 
 .app_new {
-    height: 160px; important
-    font-size: 14px; important
-    padding-top: 40px; important
+
+    height: 160px !important ;
+    font-size: 14px !important ;
+    padding-top: 40px !important ;
 }
 /*---------__CUSTOM___---------*/
 
