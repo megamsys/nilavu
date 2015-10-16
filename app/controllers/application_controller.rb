@@ -24,6 +24,7 @@ class ApplicationController < ActionController::Base
 
   # for internationalization
   def set_user_language
+    puts "hellow there"
     I18n.locale = Ind.locale
   end
 
