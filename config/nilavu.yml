@@ -80,7 +80,7 @@ defaults: &defaults
   billings: off
 ## For Backup:
   backup:
-    enable: on
+    enable: off
     host: 192.168.1.248
     username: thomas
     password: team4megam

@@ -26,7 +26,7 @@ var Tab = React.createClass({
   render: function() {
     return (
       <li className={this.props.isCurrent
-        ? 'current bleeh'
+        ? 'current chart-tab'
         : null}>
         <a data-toggle="tab" href={this.props.url} onClick={this.handleClick}>
           {this.props.name}
@@ -80,7 +80,7 @@ var Overview = React.createClass({
       <div className=" nav-justified margintb_15">
           <Tabs changeTab={this.changeTab} currentTab={this.state.currentTab} tabList={this.state.tabList}/>
           <Content JsonD={this.state.JsonD} currentTab={this.state.currentTab} google={this.props.google} host={this.props.host} mhost={this.props.mhost}/>
-          <b>Logs</b>
+          <b className="logs-head">Logs</b>
           <div className="logBox borderless torpOverviewTb">
 
             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
@@ -227,7 +227,7 @@ var Charts = React.createClass({
 
     var opts = {
       curveType: 'function',
-      height: 300,
+      height: 200,
       legend: {
         position: "none"
       },
@@ -256,11 +256,7 @@ var Charts = React.createClass({
   drawRAM: function() {
     var stats = this.state.JsonD;
     var machineInfo = this.state.machineInfo;
-    var options = {
-      title: 'megam',
-      'width': 400,
-      'height': 300
-    };
+
     var titles = [
       "Time", "Total", "Hot"
     ];
@@ -307,7 +303,7 @@ var Charts = React.createClass({
     dataTable.addRows(data);
     var opts = {
       curveType: 'function',
-      height: 300,
+      height: 200,
       legend: {
         position: "none"
       },
@@ -394,7 +390,7 @@ var Charts = React.createClass({
 
     var opts = {
       curveType: 'function',
-      height: 300,
+      height: 200,
       legend: {
         position: "none"
       },
