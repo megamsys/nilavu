@@ -22,10 +22,8 @@
 *~
 *.save
 *.deb
-# Ignore all files which ends with lock
 *.lock
-*.deb
+*.pid
 
 # Ignore all files under metadata
 .metadata
-Gemfile.lock
