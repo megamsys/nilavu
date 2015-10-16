@@ -12,29 +12,32 @@
 ** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
-
 -->
 <%= render 'layouts/header' %>
 <div class="container-fluid main-cover">
   <div class="row">
-    <div class="col-xs-12 col-sm-3 col-md-2 c_bg_white cover">
+    <div class="col-xs-12 col-sm-3 col-md-2 col-xl-1 c_bg_white cover">
       <div class="row">
         <div class="page-sidebar navbar-collapse collapse">
           <!-- BEGIN SIDEBAR MENU -->
+
           <ul class="page-sidebar-menu">
             <li></li>
 
             <!-- BEGIN NOTIFICATION DROPDOWN -->
             <li class="storage_left_add">
               <a href="#" class="btn btn-success btn-menu-top">
-                <span class="caret"></span>new
+                <span class="caret"></span>
+                <b>new</b>
               </a>
               <ul class="storage_left_add_inner">
                 <li>
-                  <a href=""><i class="c_icon-apps-white pull-left"></i>New App</a>
+                  <a href="">
+                    <i class="c_icon-apps-white pull-left"></i>New App</a>
                 </li>
                 <li>
-                  <a href="#"><i class="c_icon-service-white pull-left"></i>New Service</a>
+                  <a href="#">
+                    <i class="c_icon-service-white pull-left"></i>New Service</a>
                 </li>
               </ul>
             </li>
@@ -46,7 +49,7 @@
             </li>
             <li class="start active">
               <%= link_to catalogs_path(:cattype => Assemblies::TORPEDO ), :data => { :remote => true}, :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-              <i class="c_icon-addon pull-left"></i>
+              <i class="c_icon-torpedo pull-left"></i>
               <span class="title pull-left"><%= t('cockpits.torpedo_tab') %></span>
               <% end %>
             </li>
@@ -77,7 +80,7 @@
             <li class="start active">
               <%  if Ind.billings %>
               <%= link_to billings_path, :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-              <i class="c_icon-addon pull-left"></i>
+              <i class="c_icon-billing pull-left"></i>
               <span class="title pull-left"><%= t('titles.billing_title') %></span>
               <% end %>
               <% end %>
@@ -87,23 +90,18 @@
         </div>
       </div>
     </div>
-    <div id="content">
+   <div id="content">
       <%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
     </div>
+
   </div>
+
 </div>
 <%= render 'layouts/footer' %>
 <script type="text/javascript">
-  $('.inner-menu')
-    .click(function (e) {
-      e.preventDefault();
-      $('.inner-child').toggle();
-    });
-  //stoarge left menu
   $('.storage_left_add_inner').hide();
-  $('.storage_left_add a ')
+  $('.storage_left_add a')
     .click(function () {
-      // e.preventDefault();
       $('.storage_left_add_inner').slideToggle();
     });
 </script>

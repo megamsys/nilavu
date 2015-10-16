@@ -27,20 +27,3 @@
 <%= render :template => "users/show" %>
 
 
-<script type="text/javascript">
-$(document).ready( function(){
-
-$('#app-list-view').hide();
-
-$('#app-btn-list').click(function () {
-    $('#app-grid-view').hide();
-    $('#app-list-view').show();
-});
-
-$('#app-btn-grid').click(function () {
-    $('#app-grid-view').show();
-    $('#app-list-view').hide();
-});
-
-});
-</script>

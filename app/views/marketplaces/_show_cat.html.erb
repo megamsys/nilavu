@@ -46,6 +46,7 @@
 			<%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
 			<%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::ONE %>
 			<%= hidden_field_tag 'componentname', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
+
 			<br/>
 			<br/>
 			<div class="row">
@@ -67,7 +68,8 @@
 						<%= text_field_tag 'source', nil, placeholder: t('marketplace.image_name_placeholder'), :class =>"form-control", :required => true %>
 					</div>
 				</div>
-						<%= hidden_field_tag 'scm_name', nil, placeholder: 'Docker GitHub', :class =>"form-control", :value => Scm::DOCKERHUB %>
+				<%= hidden_field_tag 'type', nil, placeholder: "Docker GitHub", :class =>"form-control", :value => "image" %>
+				<%= hidden_field_tag 'scm_name', nil, placeholder: 'Docker GitHub', :class =>"form-control", :value => Scm::DOCKERHUB %>
 				<div class="col-xs-6">
 					<div class="form-group">
 						<%= submit_tag "Create", :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Please wait..."} %>

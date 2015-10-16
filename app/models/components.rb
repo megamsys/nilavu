@@ -26,6 +26,8 @@ class Components < BaseFascade
     @inputs = []
     @related_components = []
     @operations = []
+
+
   end
 
   def show(api_params, &_block)
@@ -59,7 +61,7 @@ class Components < BaseFascade
     set_service_params(mkp, params) if is_service?(mkp['cattype'])
     set_microservice_params(mkp, params) if mkp['cattype'] == Assemblies::MICROSERVICES
     set_common_inputs(params)
-    set_operations(params)
+    set_operations(params,mkp)
 
     hash = [{
       'name'              => @name,
@@ -69,11 +71,13 @@ class Components < BaseFascade
       'artifacts' => {
         'artifact_type' => '',
         'content' => '',
-        'artifact_requirements' => []
+        'requirements' => []
       },
       'related_components' => @related_components,
       'operations' =>  @operations,
-      'status' => Assemblies::LAUNCHING
+      'status' => Assemblies::LAUNCHING,
+      'repo' => get_repo(params)
+
     }]
     hash
   end
@@ -116,11 +120,18 @@ class Components < BaseFascade
       'artifacts' => {
         'artifact_type' => '',
         'content' => '',
-        'artifact_requirements' => []
+        'requirements' => []
       },
       'related_components' => [],
       'operations' =>  [],
-      'status' => nil
+      'status' => nil,
+      'repo' => {
+        'rtype' => '',
+        'source' => '',
+        'oneclick' => '',
+        'url' =>  ''
+      }
+
     }
   end
 
@@ -129,7 +140,8 @@ class Components < BaseFascade
     @inputs << { 'key' => 'domain', 'value' => params[:domain] } if params.key?(:domain)
     @inputs << { 'key' => 'port', 'value' => params[:port] } if params.key?(:port)
     @inputs << { 'key' => 'version', 'value' => params[:version] } if params.key?(:version)
-    @inputs << { 'key' => 'source', 'value' => params[:source] } if params.key?(:source)
+
+
   end
 
   def set_app_params(mkp, params)
@@ -155,6 +167,16 @@ class Components < BaseFascade
     (cattype == Assemblies::ANALYTICS)
   end
 
+
+#=begin
+  def get_repo(params)
+     {
+    'rtype' =>  params['type'],
+    'source' => params['scm_name'],
+    'oneclick' => params['oneclick'],
+    'url' =>  params['source']}
+    end
+#=end
   def set_postgres_inputs(params)
     mkp = JSON.parse(params['mkp'])
     @inputs << { 'key' => 'username', 'value' => params['email'] }
@@ -165,27 +187,37 @@ class Components < BaseFascade
   end
 
   # set user operations for components like (continous integration)
-  def set_operations(params)
+  def set_operations(params, mkp)
+  if params["type"] == Assemblies::SOURCE && mkp["cattype"] == Assemblies::APP
     set_ci_operation(params)
   end
-
+end
   def set_ci_operation(params)
     @operations << {
       'operation_type' => 'CI',
       'description' => 'Continous Integration',
-      'operation_requirements' => bld_ci_requirements(params)
+      'properties' => bld_ci_requirements(params)
     }
   end
 
   def bld_ci_requirements(params)
+
     mkp = JSON.parse(params['mkp'])
     op = []
-    op << { 'key' => 'type', 'value' => set_repotype(mkp['cattype']) }
-    op << { 'key' => 'enabled', 'value' => enable_ci(mkp['cattype'], params['radio_app_scm']) }
-    op << { 'key' => 'source', 'value' => params['scm_name'] || '' }
+    op << { 'key' => 'type', 'value' => params['scm_name'] }
     op << { 'key' => 'token', 'value' => params['scmtoken'] || '' }
     op << { 'key' => 'username', 'value' => params['scmowner'] || '' }
-    op << { 'key' => 'url', 'value' => params['source'] || '' }
-    op
+      op
   end
+=begin
+   def repo(params)
+     mkp = JSON.parse(params['mkp'])
+     rp = {}
+     rp << { 'retype' => set_repotype(mkp['cattype']) }
+     rp << { 'source' => params['source']}
+     rp << { 'oneclick' => params['oneclick']}
+     rp << { 'url' => params['url']}
+     rp
+   end
+=end
 end

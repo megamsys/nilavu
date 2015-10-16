@@ -13,14 +13,18 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-module Api
-  class DataSourcesController  < ApplicationController
-    respond_to :json
-    def index
-      plugin = Sources.plugin_clazz(params[:kind], params[:name])
-      result = plugin.new.get(params)
-      respond_with result.to_json
-    end
+class Invoices < BaseFascade
+  attr_reader :invoices
 
+  def initialize
+    @invoices = []
+    super(true)
+  end
+
+  def list(api_params, &_block)
+    raw = api_request(api_params, INVOICES, LIST)
+    @invoices = raw[:body].sort_by(&:created_at).reverse[0..9] unless raw.nil?
+    yield self  if block_given?
+    self
   end
 end

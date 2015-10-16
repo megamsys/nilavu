@@ -17,20 +17,7 @@ Nilavu::Application.routes.draw do
   resources :oneapps
   resources :oneservices
   resources :onemicroservices
-  # the routes used by the monitoring system
-  resources :dashboards
-  resources :widgets
   resources :storages
-
-  namespace :api do
-    resources :dashboards do
-      resources :widgets
-    end
-    match "data_sources/:kind" => "data_sources#index", via: [:get, :post]
-  end
-  namespace :api do
-    match '/data_sources', to: 'data_sources#index', via: [:get, :post]
-  end
 
   # named route for users, session
   match '/signup', to: 'users#new', via: [:get]
@@ -47,10 +34,11 @@ Nilavu::Application.routes.draw do
   get "/404", :to => "errors#not_found"
   #get "/422", :to => "errors#unacceptable"
   get "/500", :to => "errors#internal_error"
-  # A visual designer route ? for what ?
+  # A visual designer route ?
   match '/varai', to: 'cockpit#varai', via: [:get]
 
   match '/billings_promo', to: 'billings#promo', via: [:get, :post]
+  match '/invoice_pdf', to: 'billings#invoice_pdf', via: [:get, :post]
 
   #=====github
   match '/auth/github/callback', :to => 'marketplaces#store_github', via: [:get, :post]
@@ -86,7 +74,8 @@ Nilavu::Application.routes.draw do
   match '/bind_service', :to => 'oneapps#bind_service', via: [:get, :post]
   #===Storage
   match '/strgs', :to => 'storages#getmsg', via: [:get]
+  match '/sign_auth', :to => 'storages#upload_signature', via: [:get]
   match '/supload', :to => 'storages#upload',via: [:post]
 
-  
+
 end
