@@ -1682,6 +1682,7 @@ a.btn-success:hover
     }
     .page-sidebar-menu > li > a
     {
+
         position: absolute !important;
     }
     .label-profile
