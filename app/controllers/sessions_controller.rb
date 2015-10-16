@@ -42,6 +42,7 @@ class SessionsController < ApplicationController
       session[:storage_secret_key] = keys.content.data['secret_key']
     end
     auth = social_identity
+   
     if social_identity.nil?
       create_with_megam(params)
     else
@@ -50,8 +51,7 @@ class SessionsController < ApplicationController
   end
 
   def callbacks # it wont even enter here...will be redirected from :require_signin
-    auth = request.env['omniauth.auth']
-    redirect_to controller: 'sessions'
+    
    end
 
   def destroy
@@ -60,7 +60,7 @@ class SessionsController < ApplicationController
   end
 
   def create_social_identity(social_identity)
-    acct = Accounts.new
+    acct = Accounts.new    
     det = acct.find_by_email(social_identity[:email])
     if !det.email.nil?
       params[:email] = det.email

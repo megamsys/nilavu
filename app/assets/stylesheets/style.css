@@ -75,6 +75,15 @@ li .icon-large[class^="icon-"], li .icon-large[class*=" icon-"] {
     margin-top: 0;
     width: 9px;
 }
+.close_red {
+    background-image: url("remove-icon-small-red.png") !important;
+    background-repeat: no-repeat !important;
+    display: inline-block;
+    height: 9px;
+    margin-right: 0;
+    margin-top: 15px;
+    width: 9px;
+}
 hr {
     -moz-border-bottom-colors: none;
     -moz-border-left-colors: none;
@@ -280,9 +289,6 @@ hr {
 .page-sidebar.navbar-collapse {
     padding: 0;
 }
-
-/* page-sidebar-menu code start*/
-
 .page-sidebar-menu {
     list-style: none outside none;
     margin: 20px 0px;
@@ -299,7 +305,7 @@ hr {
     /*padding: 0;*/
     padding-top: 5px;
     padding-bottom: 10px;
-    height: 75px;
+    min-height: 75px;
     /*padding-left: 15px;*/
 }
 .page-sidebar-menu > li.start > a {
@@ -307,7 +313,7 @@ hr {
     width: 100%;
 }
 .page-sidebar-menu > li:last-child > a, .page-sidebar-menu > li.last > a {
-   border-bottom-color: transparent !important;
+    border-bottom-color: transparent !important;
 }
 .page-sidebar-menu > li > a {
     border: 0 none;
@@ -316,10 +322,9 @@ hr {
     font-weight: 300;
     margin: 0;
     padding: 10px 0px 15px 30px;
-    text-decoration: none;
     position: absolute;
+    text-decoration: none;
 }
-
 .page-sidebar-fixed .page-sidebar-menu > li > a {
     transition: all 0.2s ease 0s;
 }
@@ -336,7 +341,7 @@ hr {
     text-shadow: none;
 }
 .page-sidebar-menu > li.active > a:hover {
-    border-color: blue;
+    border-color: #529fe3;
 }
 .page-sidebar-menu > li.active > a .selected {
     background-image: url("sidebar-menu-arrow.png");
@@ -350,7 +355,6 @@ hr {
     z-index: 100;
     background-color: #fff;
 }
-
 .page-sidebar ul > li > a > .arrow:before {
     content: "";
     display: inline;
@@ -474,8 +478,6 @@ hr {
 .page-sidebar-menu > li > ul.sub-menu li > ul.sub-menu > li > a > i {
     font-size: 13px;
 }
-/* page-sidebar-menu code end*/
-
 .page-sidebar .sidebar-search {
     margin: 0;
     padding: 0;
@@ -1031,12 +1033,12 @@ i.normal {
 }
 .portlet-title a {
     color: #5a97cf !important;
-}
+}  
 .portlet-title a:hover {
 
     text-decoration: underline;
     color: #5a97cf !important;
-}
+}  
 .portlet.box > .portlet-title > .tools {
     margin-top: 3px;
 }
@@ -1419,7 +1421,8 @@ i.normal {
 .table thead tr th {
     font-size: 14px;
     font-weight: 600;
-    padding-left: 0px;}
+    padding-left: 0px;
+}
 .table-advance {
     margin-bottom: 10px !important;
 }
@@ -1806,7 +1809,7 @@ i.normal {
 .tabbable-custom {
     margin-bottom: 15px;
     overflow: hidden;
-    padding-left: 12px;
+    padding: 0;
 }
 .tabbable-custom > .nav-tabs {
     border: medium none;
@@ -1816,8 +1819,7 @@ i.normal {
     background-color: #fff;
     border-top: 1px solid #ddd;
     border-radius: 0;
-    padding-left: 10px;
-    padding-right: 10px;
+    /*padding: 10px;*/
 }
 .tabbable-custom.nav-justified .tab-content {
     margin-top: -1px;
@@ -2919,53 +2921,14 @@ input.placeholder, textarea.placeholder {
 .form-bordered .form-control {
     margin: 0;
 }
-
-#email .container{
-	background-color: red;
-}
-
-
-
-
-.error-page {
-	padding-top:10px;
-	padding-bottom:50px;
-	position: relative;
-	text-align:center;
-}
-.error-page h2 {
-	color: #66719b;
-    font-size: 11em;
-    line-height: 112px;
-    margin-bottom: 0;
-    margin-top: 35px;
-}
-.error-page h3 {
-	margin-top:0px;
-	margin-bottom:0px;
-	font-size:25px;
-	color:#66719b;
-}
-.error-page p {
-	color: #818181;
-	font-size: 2.5em;
-	font-weight: 400;
-	line-height: 1.6em;
-}
-.error-page img {
-	margin-left:auto;
-	margin-right:auto;
-	display:block;
-}
-
 .rt-top-list span {
     margin-left: 10px;
     font-size: 18px;
     color: #a4a6b8;
 }
 .rt-top-list {
-    margin-top: 15px !important;
- }
+    margin-top: 10px !important;
+ }   
 .title-2{
     color: #a4a6b8;
     /*font-weight: bold;*/
@@ -2973,7 +2936,7 @@ input.placeholder, textarea.placeholder {
     margin-left: 10px;
 }
 .title-3{
-    color: #a4a6b8;
+    color: #a4a6b8;  
     font-size: 18px;
 }
 .new-org {
@@ -2984,7 +2947,93 @@ input.placeholder, textarea.placeholder {
 h3{
     font-size: 22px !important;
 }
+.signin-bg{
+    background-image: url("signin_bg.jpg") !important;
+    background-repeat: no-repeat !important;
+}
+.block-element{
+    height: 82%;
+    position: absolute;
+    display: inline-flex;
+}
+.text-banner{
+    align-self: center;
+    font-size: 50px;
+    margin-top: 30%;
+    text-align: right;
+}
+.text-banner span{
+    /*background-color: rgba(255,255,255,0.6);*/
+    color: #fff;
+    line-height: 70px;
+}
+.signUp{
+    margin-top: 12%;
+    color: #fff !important;
+}
+.signUp h3, .signUp h3 small{
+    color: #fff !important;
+}
+.signUp h3 small{
+    line-height: 20px
+}    
 
+.signUp input[type="text"], .signUp input[type="password"] {
+    border: 1px solid #fff;
+    background-color: transparent;
+    color: #fff !important;
+    font-size: 18px;
+    /* Other stuff: font-weight, font-size */
+} 
+.signUp .bottom {
+    margin-top: 30px;
+    font-size: 18px;
+}
+.app_storage{
+    margin-top: 30px;
+}
+.app_storage .app_head{
+    height: 130px;
+}
+.app_storage .app_head .app_icon{
+    /*padding-top: 25px !important;*/
+}
+.app_storage .app_footer{
+    height: 30px;
+    padding: 0px;
+}
+.app_storage .app_footer span{
+    line-height: 25px;
+    font-weight: bold;
+}
+.app_storage .app_footer span small{
+    color: #4e9de6;
+}
+
+.app_storage .app{
+    height: 160px;
+}
+.app_storage .app{
+    font-size: 12px;
+}
+.app_storage_list .td-left{
+    font-weight: normal !important;
+    font-size: 14px;
+
+}
+.storage_top small{
+    margin-left: 10px;
+}
+.title-storage-2{
+    background-color: #f5f5f5;
+    padding: 2px 10px;
+    margin-left: 10px;
+}
+
+.title-storage-1{
+    color: #4e9de6;
+    font-weight: bold;
+}
 .storage_left_add_inner{
 
     /*margin-top: -15px;
@@ -3019,38 +3068,11 @@ h3{
     margin-right: 10px;
     margin-top: 5px;
 }
-
-.app_storage{
-    margin-top: 30px;
-}
-.app_storage .app_head{
-    height: 130px;
-}
-.app_storage .app_head .app_icon{
-    /*padding-top: 25px !important;*/
-}
-.app_storage .app_footer{
-    height: 30px;
-    padding: 0px;
-}
-.app_storage .app_footer span{
-    line-height: 25px;
-    font-weight: bold;
-}
-.app_storage .app_footer span small{
-    color: #4e9de6;
+.overview-left-anchor-tag{
+    padding: 4px;
+    background-color: #f9f9fa;
 }
 
-.app_storage .app{
-    height: 160px;
-}
-.app_storage .app{
-    font-size: 12px;
-}
-.app_storage_list .td-left{
-    font-weight: normal !important;
-    font-size: 14px;
-}
 .my_bucket .app_head h5{
     /*text-align: center;
     vertical-align: middle;
@@ -3062,11 +3084,13 @@ h3{
 .my_bucket .app_head .app_icon{
     /*padding: '' !important;*/
 }
-
+.pad_t25{
+    padding-top: 25px !important;
+}
 .storage-popup{
     width:200px;
     /*height:200px; */
-    position:absolute;
+    position:absolute; 
     background-color: #fff;
     display: none;
     border:1px solid #dadce8;
@@ -3090,8 +3114,8 @@ h3{
 .storage-popup li i{
     width: 20px;
     margin-right: 5px;
-}
 
+}
 .storage-rt-list{
     /*border-left: 1px solid #c1c3cf;*/
 
@@ -3107,63 +3131,16 @@ h3{
 .storage-rt-list dd{
     color: #c1c3cf;
 }
-.verticalLine {
-    border-left: 1px solid #c8c8c8;
-}
-
-.prof {
-  position: relative;
-  min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
-  width:98.555555555555555%;
-}
-
-.prof-pull {
-  right: 1%;
-}
 @media (min-width: 768px) {
     .br_grey{
         min-height: 800px;
         border-right: 1px solid #e5e6ef;
     }
 }
-
-.signin-bg{
-    background-image: url("signin_bg.jpg") !important;
-    background-repeat: no-repeat !important;
-    padding: 15px 15px 15px 15px;
+.yfiles-tb tr {
+    border-bottom: 1px solid #F5F1F1;
+    /*border-top: none !important;*/
 }
-.signUp{
-    margin-top: 12%;
-    color: #fff !important;
-}
-.signUp h3, .signUp h3 small{
-    color: #fff !important;
-}
-.signUp h3 small{
-    line-height: 20px
-}
-
-.signUp input[type="text"], .signUp input[type="password"] {
-    border: 1px solid #fff;
-    background-color: transparent;
-    color: #fff !important;
-    font-size: 18px;
-    /* Other stuff: font-weight, font-size */
-}
-.signUp .bottom {
-    margin-top: 30px;
-    font-size: 18px;
-}
-.text-banner{
-    align-self: center;
-    font-size: 50px;
-    margin-top: 30%;
-    text-align: right;
-}
-.text-banner span{
-    /*background-color: rgba(255,255,255,0.6);*/
-    color: #fff;
-    line-height: 70px;
+.yfiles-tb tr > td {
+    border-top: none !important;
 }
