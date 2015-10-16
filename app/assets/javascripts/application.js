@@ -32,6 +32,7 @@
 //= require react
 //= require react_ujs
 //= require megam.menu
+//= require megam.form_validation
 //= require gritter
 //= require components
 //= require_tree .
