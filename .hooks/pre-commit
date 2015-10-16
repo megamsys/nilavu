@@ -11,5 +11,7 @@ RETVAL=$?
 if [ $RETVAL -ne 0 ]; then
   echo "Some files don't pass precompile, please run 'rake assets:precompile RAILS_ENV=production' to precompile successfully before committing"
   exit 1
+else
+  `rake assets:clobber`
 fi
 exit 0
