@@ -40,7 +40,7 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 							<% if session[:auth] %>
-							<%= text_field_tag 'email', nil, placeholder: t('signup.email_tag'), :readonly => true, :class => 'form-control', :value => @email %>
+							<%= text_field_tag 'email', nil, placeholder: t('signup.email_tag'), :class => 'form-control', :value => @email %>
 							<input type="hidden" name="email" value="<%= @email %>">
 							<% else %>
 							<%= text_field_tag 'email', nil, placeholder: t('signup.email_tag'), :required => true, :class => 'form-control' %>
