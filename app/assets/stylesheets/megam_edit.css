@@ -1,0 +1,80 @@
+.c_icon-torpedo {
+    color: transparent;
+    overflow: hidden;
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+    background-size: contain;
+    background-repeat: no-repeat; 
+    background-position: center;
+    /* border-radius: 50%; */
+    vertical-align: middle;
+    background-image: url(icon-torpedo.png);
+    /*margin-left: 10px;*/
+    /*margin-right: 10px;*/
+    margin-top: -8px;
+}
+.c_icon-layer-torpedo_lg {
+    color: transparent;
+    overflow: hidden;
+    display: inline-block;
+    height: 32px;
+    width: 33px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+    background-image: url(icon-torpedo.png);
+    margin-right: 10px;
+}
+.c_icon-layer-app_lg {
+    color: transparent;
+    overflow: hidden;
+    display: inline-block;
+    height: 32px;
+    width: 33px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+    background-image: url(icon-browser.png);
+    margin-right: 10px;
+}
+.c_icon-layer-service_lg {
+    color: transparent;
+    overflow: hidden;
+    display: inline-block;
+    height: 32px;
+    width: 33px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+    background-image: url(icon-service.png);
+    margin-right: 10px;
+}
+
+#marketplace_top_right {
+    font-size: 18px;
+    color: #a4a6b8;
+}
+
+#storage_top_right {
+    font-size: 18px;
+    color: #a4a6b8;
+}
+
+.header_title {
+    padding-top: 10px;
+    padding-bottom: 0px;
+}
+
+.cat_title {
+    padding-top: 10px;
+}
+
+.app_new {
+    height: 160px; important  
+    font-size: 14px; important
+    padding-top: 40px; important
+}
