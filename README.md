@@ -24,7 +24,7 @@ Nilavu is a [Rails 4.2.3](http://guides.rubyonrails.org/) browser based user int
 
 ## Requirements
 
-> [Ruby 2.0.x](http://ruby-lang.org)
+> [Ruby 2.2.x](http://ruby-lang.org)
 > [Riak](http://docs.basho.com)
 
 
@@ -51,8 +51,19 @@ We are glad to help if you have questions, or request for new features..
 
 [twitter @megamsys](http://twitter.com/megamsys) [email support@megam.io](<support@megam.io>)
 
+### Contributing
 
+Glad to see you contributing for us.
 
+```
+
+git clone https://github.com/megamsys/nilavu.git
+
+cd nilavu
+
+cp ./hooks ./git/.hooks
+
+```
 
 # License
 
