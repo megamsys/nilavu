@@ -25,7 +25,6 @@
 # Ignore all files which ends with lock
 *.lock
 *.deb
-Gemfile.lock
 
 # Ignore all files under metadata
 .metadata
