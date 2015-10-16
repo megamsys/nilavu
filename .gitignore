@@ -29,3 +29,6 @@
 # Ignore all files under metadata
 .metadata
 Gemfile.lock
+
+#assets file
+/public/assets
