@@ -1,0 +1,63 @@
+
++BRAKEMAN REPORT+
+
+Application path: /home/ram/code/megam/ruby/nilavu
+Rails version: 4.2.4
+Brakeman version: 3.1.1
+Started at 2015-10-18 10:41:15 +0530
+Duration: 3.11545439 seconds
+Checks run: BasicAuth, ContentTag, CreateWith, CrossSiteScripting, DefaultRoutes, Deserialize, DetailedExceptions, DigestDoS, EscapeFunction, Evaluation, Execute, FileAccess, FileDisclosure, FilterSkipping, ForgerySetting, HeaderDoS, I18nXSS, JRubyXML, JSONEncoding, JSONParsing, LinkTo, LinkToHref, MailTo, MassAssignment, ModelAttrAccessible, ModelAttributes, ModelSerialize, NestedAttributes, NumberToCurrency, QuoteTableName, Redirect, RegexDoS, Render, RenderDoS, RenderInline, ResponseSplitting, SQL, SQLCVEs, SSLVerify, SafeBufferManipulation, SanitizeMethods, SelectTag, SelectVulnerability, Send, SendFile, SessionManipulation, SessionSettings, SimpleFormat, SingleQuotes, SkipBeforeFilter, StripTags, SymbolDoSCVE, TranslateBug, UnsafeReflection, ValidationRegex, WithoutProtection, XMLDoS, YAMLParsing
+
+
++SUMMARY+
+
++-------------------+-------+
+| Scanned/Reported  | Total |
++-------------------+-------+
+| Controllers       | 17    |
+| Models            | 33    |
+| Templates         | 103   |
+| Errors            | 0     |
+| Security Warnings | 6 (2) |
++-------------------+-------+
+
++----------------------------+-------+
+| Warning Type               | Total |
++----------------------------+-------+
+| Cross Site Scripting       | 2     |
+| Cross-Site Request Forgery | 1     |
+| File Access                | 1     |
+| Session Setting            | 2     |
++----------------------------+-------+
+
+
++SECURITY WARNINGS+
+
++------------+-------------------+--------+-----------------+--------------------------------------------------------------------------------------->>
+| Confidence | Class             | Method | Warning Type    | Message                                                                               >>
++------------+-------------------+--------+-----------------+--------------------------------------------------------------------------------------->>
+| High       |                   |        | Session Setting | Session secret should not be included in version control near line 12                 >>
+| High       |                   |        | Session Setting | Session secret should not be included in version control near line 14                 >>
+| Weak       | SshKeysController | edit   | File Access     | Parameter value used in file name near line 39: send_file(Rails.root.join("#{((current>>
++------------+-------------------+--------+-----------------+--------------------------------------------------------------------------------------->>
+
+
+
+Controller Warnings:
+
++------------+-----------------------+----------------------------+--------------------------------------------------------------------------------->>
+| Confidence | Controller            | Warning Type               | Message                                                                         >>
++------------+-----------------------+----------------------------+--------------------------------------------------------------------------------->>
+| Medium     | ApplicationController | Cross-Site Request Forgery | protect_from_forgery should be configured with 'with: :exception' near line 19: >>
++------------+-----------------------+----------------------------+--------------------------------------------------------------------------------->>
+
+
+View Warnings:
+
++------------+--------------------------------------------+----------------------+------------------------------------------------------------------>>
+| Confidence | Template                                   | Warning Type         | Message                                                          >>
++------------+--------------------------------------------+----------------------+------------------------------------------------------------------>>
+| Medium     | catalogs/_flymodal (Template:users/invite) | Cross Site Scripting | Unsafe parameter value in link_to href near line 13: link_to(t("o>>
+| Medium     | catalogs/_flymodal (Template:users/invite) | Cross Site Scripting | Unsafe parameter value in link_to href near line 35: link_to(t("c>>
++------------+--------------------------------------------+----------------------+------------------------------------------------------------------>>
+

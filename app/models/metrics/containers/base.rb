@@ -13,14 +13,12 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-module Sources
-  module Datapoints
-
+module Metrics
+  module Containers
     class Error < StandardError; end
     class NotFoundError < Error; end
 
     class Base
-
       def available?
         true
       end
@@ -39,17 +37,17 @@ module Sources
 
       def default_fields
         [
-          { name: "targets", title: "Targets", mandatory: true }
+          { name: 'targets', title: 'Targets', mandatory: true }
         ]
       end
 
-      def get(options = {})
+      def get(_options = {})
       end
 
       protected
 
       def targetsArray(targets)
-        targets.split(";").map { |t| t.strip }
+        targets.split(';').map(&:strip)
       end
 
       @@cache = {}
@@ -60,13 +58,12 @@ module Sources
         time = Time.now.to_i
         if entry = @@cache[key]
           if entry[:time] > 5.minutes.ago.to_i
-            Rails.logger.info("Sources::Datapoints - CACHE HIT for #{key}")
             return entry[:value]
           end
         end
 
         value = yield
-        @@cache[key] = { :time => time, :value => value }
+        @@cache[key] = { time: time, value: value }
         value
       end
     end
