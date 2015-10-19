@@ -37,9 +37,7 @@ class UsersController < ApplicationController
     if session[:auth]
       @social_uid = session[:auth][:uid]
       @email = session[:auth][:email]
-      @firstname = session[:auth][:first_name]
-      @lastname = session[:auth][:last_name]
-      @phone = session[:auth][:phone]
+
      end
   end
 
