@@ -53,6 +53,22 @@
     background-image: url(icon-service.png);
     margin-right: 10px;
 }
+.c_icon-billing {
+    color: transparent;
+    overflow: hidden;
+    display: inline-block;
+    height: 32px;
+    width: 32px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* border-radius: 50%; */
+    vertical-align: middle;
+    background-image: url(icon-billing.png);
+    /*margin-left: 10px;*/
+    /*margin-right: 10px;*/
+    margin-top: -8px;
+}
 
 #marketplace_top_right {
     font-size: 16px;
@@ -74,13 +90,13 @@
 }
 
 .app_new {
-    height: 160px !important;  
+    height: 160px !important;
     font-size: 14px !important;
     padding-top: 40px !important;
 }
 
 .c_icon-grid-25
-{   
+{
     margin-left: 5px;
     margin-right: 5px;
 }
@@ -289,9 +305,9 @@ a:hover {
 .rt-top-list {
     margin-top: 10px !important;
  }
- 
+
 .label-profile {
-    font-size: 18px;   
+    font-size: 18px;
 }
 
 /*---------__CUSTOM___---------*/
@@ -320,4 +336,14 @@ margin-top: 15px;
   border-top: 3px solid #4e9de6;
   border-bottom: 4px solid transparent;
   position: relative;
+}
+
+.serv-sel-list {
+  border:1px solid #e5e6ef;
+  border-radius: 3px;
+  width: 70px;
+  height: 70px;
+  display:table-cell;
+  vertical-align:middle;
+  text-align:center
 }
