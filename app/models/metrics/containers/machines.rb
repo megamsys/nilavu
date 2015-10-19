@@ -13,18 +13,17 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-module Sources
+module Metrics
   module Containers
-    class Machines < Sources::Containers::Base
+    class Machines < Metrics::Containers::Base
       def get(options = {})
         url = URI.parse("http://#{options[:host]}:9001/api/v1.3/machine")
         req = Net::HTTP::Get.new(url.to_s)
-        res = Net::HTTP.start(url.host, url.port) {|http|
+        res = Net::HTTP.start(url.host, url.port) do|http|
           http.request(req)
-        }
+        end
         res.body
       end
-
     end
   end
 end
