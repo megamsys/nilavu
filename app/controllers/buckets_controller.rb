@@ -15,9 +15,8 @@
 ##
 require 'json'
 
-class StoragesController < ApplicationController
+class BucketsController < ApplicationController
   respond_to :json, :js
-  include MarketplaceHelper
 
 
   before_action :stick_storage_keys, only: [:index, :create, :show, :upload]
@@ -52,32 +51,6 @@ class StoragesController < ApplicationController
       @objects.push({:key => "#{obj.key}", :object_name => "#{obj.full_key}", :size => "#{obj.size}", :content_type => "#{obj.content_type}", :last_modified => "#{obj.last_modified}", :download_url => "#{obj.temporary_url}" })
     end
     @bucket_name = params["id"]
-  end
-
-  ##
-  def getmsg
-    logger.debug '>Controller getmsg called'
-    new_backup = Backup.new("#{session[:storage_access_key]}", "#{session[:storage_secret_key]}", Ind.backup.host)
-    data = new_backup.buckets_list
-    respond_with(data)
-  end
-
-  def upload
-    backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
-    backup.object_create("#{params[:bucket_name]}", params[:sobject])
-    @msg = { title: "Storage", message: "#{params[:sobject].original_filename} uploaded successfully. ", redirect: '/', disposal_id: 'supload' }
-  end
-
-  def destroy
-    logger.debug "> Storages bucket: delete"
-    backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
-    backup.bucket_delete(bucket_name)
-  end
-
- # sign our request by Base64 encoding the policy document.
-  def upload_signature
-    request = S3::Service.service_request(:get)
-    signature = S3::Signature.generate(:host => Ind.backup.host, :request => request, :access_key_id => params[:accesskey], :secret_access_key => params[:secretkey])
   end
 
 end
