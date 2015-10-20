@@ -9,18 +9,20 @@
     $.SocketURL = "<%= Ind.http_logs %>";
   })($);
 console.log($.SocketURL)
-  var socket = io.connect($.SocketURL);
+var serverSocket = new WebSocket("ws://0.0.0.0:7777/logs")
+console.log(serverSocket)
+/*  var socket = io.connect($.SocketURL);
   $('.socket_disconnect').click(function () {
     socket.disconnect();
   });
   socket.on("disconnect", function () {
     console.log("client disconnected from server");
-  });
+  }); */
 
   //replace host and mhost to $.MonitC and $.MonitM
   React.render(React.createElement(Overview, {
     google: google,
-    socket: socket,
+    socket: serverSocket,
     name: $.AppName,
     graphName: "LineChart",
     host: "http://localhost:8080/api/v1.3/containers",

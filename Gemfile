@@ -19,7 +19,7 @@ gem 'react-rails', '~> 1.3.2'
 gem 'sass-rails', '~> 5.0.4'
 gem 'remotipart', '~> 1.2.1' # ajax file uploads (sshkey)
 gem 'nprogress-rails' # youtube like spinner
-gem 'gritter', '~> 1.2.0'
+gem 'toastr_rails'
 gem 'uglifier', '~> 2.7.2'
 gem 'therubyracer', '~> 0.12.2', require: 'v8', platforms: :ruby
 
