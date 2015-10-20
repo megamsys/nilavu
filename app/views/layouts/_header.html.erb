@@ -30,7 +30,6 @@
                     <div class="row">
                         <!-- <div class="col-xs-4 col-sm-1"> -->
                         <ul class="nav navbar-nav pull-right">
-
                             <li id="marketplace_top_right">
                                 <%= link_to marketplaces_path , :data => {:remote => true}, :class => "socket_disconnect", :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
                                 <i class="c_icon-window-lg pull-left"></i>
@@ -40,14 +39,13 @@
 
                             <li id="storage_top_right">
                                 <%  if Ind.backup.enable %>
-                                <%= link_to storages_path ,:class => "socket_disconnect", :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-
+                                <%= link_to storages_path , :data => {:remote => true}, :class => "socket_disconnect", :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
                                 <i class="c_icon-grid-25 pull-left"></i>
                                 <span class="hidden-xs hidden-sm pull-right"><%= t('titles.storage_title') %></span>
                                 <% end %>
                                 <% end %>
                             </li>
-                           
+
                             <li class="dropdown" id="header_notification_bar">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> <i class="c_glob c_icon-chat"></i><span class="badge badge-success">6</span> </a>
                                 <ul class="dropdown-menu extended notification">

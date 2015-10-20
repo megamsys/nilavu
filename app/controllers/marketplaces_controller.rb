@@ -39,8 +39,8 @@ class MarketplacesController < ApplicationController
     bill_check = false
     if Ind.billings
       Balances.new.show(params) do |modb|
-          bill_check = true unless modb.balance.credit.to_i > 0       
-      end    
+          bill_check = true unless modb.balance.credit.to_i > 0
+      end
     end
     if !bill_check
       @mkp = pressurize_version(Marketplaces.instance.show(params).mkp, params['version'])
@@ -58,7 +58,7 @@ class MarketplacesController < ApplicationController
       end
     end
   end
-  
+
   ## super cool - omni creator for all.
   # performs ssh creation or using existing and creating an assembly at the end.
   def create
@@ -107,42 +107,8 @@ class MarketplacesController < ApplicationController
     end
   end
 
-  ##
-  ## gogswindow html page method
-  ##
-  def start_gogs
-  end
 
   def start_gitlab
-  end
-
-  ##
-  ## get the repositories from session
-  ## SCRP: What happens if gogs fails.
-  def publish_gogs
-    @repos = session[:gogs_repos]
-    respond_to do |format|
-      format.js do
-        respond_with(@repos, layout: !request.xhr?)
-      end
-    end
-  end
-
-  ##
-  ## this function get the gogs token using username and password
-  ## then list the repositories using oauth tokens.
-  ## SCRP: There is no error trap here. What happens if gogs fails ?
-  def store_gogs
-    session[:gogs_owner] = params[:gogs_username]
-    tokens = ListGogsTokens.perform(params[:gogs_username], params[:gogs_password])
-    session[:gogs_token] = JSON.parse(tokens)[0]['sha1']
-    @gogs_repos = ListGogsRepo.perform(token)
-    obj_repo = JSON.parse(@gogs_repos)
-    @repos_arr = []
-    obj_repo.each do |one_repo|
-      @repos_arr << one_repo['clone_url']
-    end
-    session[:gogs_repos] = @repos_arr
   end
 
   def store_gitlab
@@ -186,9 +152,6 @@ class MarketplacesController < ApplicationController
     when Scm::GITHUB
       params[:scmtoken] =  session[:github]
       params[:scmowner] =  session[:git_owner]
-    when Scm::GOGS
-      params[:scmtoken] =  session[:gogs_token]
-      params[:scmowner] =  session[:gogs_owner]
     when Scm::GITLAB
       params[:scmtoken] = session[:gitlab_key]
       params[:scmowner] = find_id(params[:source])

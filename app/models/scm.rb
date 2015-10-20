@@ -18,7 +18,6 @@ require 'json'
 class Scm < BaseFascade
 
   GITHUB    =  "github".freeze
-  GOGS      =  "gogs".freeze
   GITLAB    =  "gitlab".freeze
   DOCKERHUB =  "dockerhub".freeze
 

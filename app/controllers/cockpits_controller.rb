@@ -20,9 +20,6 @@ class CockpitsController < ApplicationController
 
   before_action :stick_keys, only: [:index]
 
-  # doesn't require a sign for new and create action, hence skip it.
-  skip_before_action :require_signin, only: [:varai]
-
   # doesn't require to catch exception for show
   skip_around_action :catch_exception, only: [:show]
 
@@ -35,9 +32,5 @@ class CockpitsController < ApplicationController
 
   def show
     redirect_to(cockpits_path) && return
-  end
-
-  def varai
-    redirect_to cockpits_path, gflash: { error: { value: 'Invalid username and password combination, Please Enter your correct megam email', sticky: false, nodom_wrap: true } }
   end
 end

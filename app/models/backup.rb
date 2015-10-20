@@ -15,86 +15,79 @@
 ##
 
 class Backup < BaseFascade
-
-
   attr_reader :client # storage s3 client
 
-def initialize(access_key, secret_key, host)
-    @client = S3::Service.new(:access_key_id => "#{access_key}", :secret_access_key => "#{secret_key}", :host => "#{host}")
-end
+  def initialize(access_key, secret_key, host)
+    @client = S3::Service.new(access_key_id: "#{access_key}", secret_access_key: "#{secret_key}", host: "#{host}")
+  end
 
-# creates a new account
-def self.account_create(host, username, user_password, uid)
+  # creates a new account
+  def self.account_create(host, username, user_password, uid)
+    radosgw = CEPH::Radosgw.new(ipaddress: "#{host}",
+                                username: "#{username}",
+                                user_password: "#{user_password}"
+                               )
 
-
-radosgw = CEPH::Radosgw.new(:ipaddress => "#{host}",
-                          :username => "#{username}",
-                          :user_password => "#{user_password}",
-)
-
-user_hash = radosgw.user_create("#{uid}")
-
+    user_hash = radosgw.user_create("#{uid}")
 
     Rails.logger.debug '> Backup: Account create'
     user_json = user_hash.to_json
-    storage  = Storage.new(STORAGES_BUCKET)
-    storage.upload(uid, user_json, "application/json")
-	user_hash
-end
+    storage = Storage.new(STORAGES_BUCKET)
+    storage.upload(uid, user_json, 'application/json')
+    user_hash
+  end
 
-def bucket_create(bucket_name)
-  bucket_array = []
-	new_bucket = @client.buckets.build(bucket_name)
-  new_bucket.save()
-end
+  def bucket_create(bucket_name)
+    bucket_array = []
+    new_bucket = @client.buckets.build(bucket_name)
+    new_bucket.save
+  end
 
-def bucket_delete(bucket_name)
-  bucket = @client.buckets.find("#{bucket_name}")
-  bucket.destroy
-end
+  def bucket_delete(bucket_name)
+    bucket = @client.buckets.find("#{bucket_name}")
+    bucket.destroy
+  end
 
+  def buckets_list
+    bucket_array = []
+    tsize = 0
+    @client.buckets.each do |bkt|
+      size = 0
+      bkt.objects.each do |obj|
+        size += obj.size.to_i
+      end
+      bucket_array.push(bucket_name: "#{bkt.name}", size: size.to_s(:human_size), noofobjects: bkt.objects.count)
+      tsize += size
+    end
+    { total_buckets: @client.buckets.count, bucket_array: bucket_array }
+  end
 
-def buckets_list
-	bucket_array = []
-	tsize = 0
-	@client.buckets.each do |bkt|
-		size=0
-		bkt.objects.each do |obj|
-			size+=obj.size.to_i
-		end
-		bucket_array.push({:bucket_name => "#{bkt.name}", :size => size.to_s(:human_size) , :noofobjects => bkt.objects.count })
-		tsize = tsize + size
-	end
-	{:total_buckets => @client.buckets.count, :bucket_array => bucket_array}
-end
+  def object_create(bucket_name, new_object)
+    bucket = @client.buckets.find("#{bucket_name}")
+    object = bucket.objects.build(new_object.original_filename)
+    object.content = open(new_object)
+    object.save
+  end
 
-def object_create(bucket_name, new_object)
-  bucket = @client.buckets.find("#{bucket_name}")
-  object = bucket.objects.build(new_object.original_filename)
-  object.content = open(new_object)
-  object.save
-end
+  def object_download(bucket_name, object_name)
+    bucket = @client.buckets.find("#{bucket_name}")
+    object = bucket.objects.find("#{object_name}")
+    object.content
+  end
 
-def object_download(bucket_name, object_name)
-  bucket = @client.buckets.find("#{bucket_name}")
-  object = bucket.objects.find("#{object_name}")
-  object.content
-end
+  def objects_list(bucket_name)
+    bucket = @client.buckets.find("#{bucket_name}")
+    bucket.objects
+  end
 
-def objects_list(bucket_name)
-	bucket = @client.buckets.find("#{bucket_name}")
-	bucket.objects
-end
+  def object_get(bucket_name, object_name)
+    bucket = @client.buckets.find("#{bucket_name}")
+    object = bucket.objects.find("#{object_name}")
+  end
 
-def object_get(bucket_name, object_name)
-  bucket = @client.buckets.find("#{bucket_name}")
-  object = bucket.objects.find("#{object_name}")
-end
-
-def object_delete(bucket_name, object_name)
-  bucket = @client.buckets.find("#{bucket_name}")
-  object = bucket.objects.find("#{object_name}")
-  object.destroy
-end
-
+  def object_delete(bucket_name, object_name)
+    bucket = @client.buckets.find("#{bucket_name}")
+    object = bucket.objects.find("#{object_name}")
+    object.destroy
+  end
 end
