@@ -39,8 +39,8 @@ class MarketplacesController < ApplicationController
     bill_check = false
     if Ind.billings
       Balances.new.show(params) do |modb|
-          bill_check = true unless modb.balance.credit.to_i > 0       
-      end    
+          bill_check = true unless modb.balance.credit.to_i > 0
+      end
     end
     if !bill_check
       @mkp = pressurize_version(Marketplaces.instance.show(params).mkp, params['version'])
@@ -58,10 +58,12 @@ class MarketplacesController < ApplicationController
       end
     end
   end
-  
+
   ## super cool - omni creator for all.
   # performs ssh creation or using existing and creating an assembly at the end.
   def create
+    puts "_+_+_+__+_+_+_+_+_ 1_Inside mkp/create_+_+_+_+_+_+_+_+_+_+_+_+_+_+"
+    puts params[:scm_name]
     logger.debug '> Marketplaces: create.'
     mkp = JSON.parse(params[:mkp])
     # adding the default org of the user which is stored in the session
@@ -71,6 +73,8 @@ class MarketplacesController < ApplicationController
     # the full keypair name is coined inside sshkeys.
     params[:ssh_keypair_name] = Sshkeys.new.create_or_import(params)[:name]
     setup_scm(params)
+    puts "_+_+_+__+_+_+_+_+_ 2_Inside mkp/create_+_+_+_+_+_+_+_+_+_+_+_+_+_+"
+    puts params
     # with email list all orgs, match with session[orgName], get orgid, update orgid
     res = Assemblies.new.create(params)
 

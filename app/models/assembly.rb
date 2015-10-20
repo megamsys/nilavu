@@ -162,19 +162,6 @@ class Assembly < BaseFascade
     @inputs << { 'key' => 'version', 'value' => params[:version] } if mkp['cattype'] == Assemblies::TORPEDO
   end
 
-  def bld_ci_requirements(params)
-    mkp = JSON.parse(params['mkp'])
-
-    op = []
-    op << { 'key' => 'type', 'value' => set_repotype(mkp['cattype']) }
-    op << { 'key' => 'enabled', 'value' => enable_ci(mkp['cattype'], params['radio_app_scm']) }
-    op << { 'key' => 'source', 'value' => params['source'] || '' }
-    op << { 'key' => 'token', 'value' => params['scmtoken'] || '' }
-    op << { 'key' => 'username', 'value' => params['scmowner'] || '' }
-    op << { 'key' => 'url', 'value' => params['source'] || '' }
-    op
-  end
-
   # recursively dig assembly by populating components.
   def dig_components(tmp_assembly_collection, api_params)
     tmp_assembly_collection.map do |one_assembly|
