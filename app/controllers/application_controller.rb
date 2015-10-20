@@ -17,9 +17,9 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   protect_from_forgery with: :null_session, if: proc { |c| c.request.format == 'application/json' }
-  ## protect_from_forgery with: :exception
 
-  ## skip_before_filter  :verify_authenticity_token
+  #protect_from_forgery with: :exception
+  #skip_before_filter  :verify_authenticity_token
 
   before_action :require_signin
   around_action :catch_exceptions
@@ -46,7 +46,7 @@ class ApplicationController < ActionController::Base
   def render_404(exception = nil)
     @not_found_path = exception.message if exception
     if !signed_in?
-      gflash error: "#{exception}"
+      #gflash error: "#{exception}"
       redirect_to signin_path, flash: { error: 'You must first sign in or sign up.' }
     else
       respond_to do |format|
@@ -62,7 +62,7 @@ class ApplicationController < ActionController::Base
   def render_500(exception = nil)
     puts_stacktrace(exception) if exception
     if !signed_in?
-      gflash error: "#{exception.message}"
+     # gflash error: "#{exception.message}"
       redirect_to signin_path, flash: { error: 'You must first sign in or sign up.' }
     else
       respond_to do |format|
@@ -88,7 +88,7 @@ class ApplicationController < ActionController::Base
            session[:auth] = { email: auth[:email], first_name: auth[:first_name], last_name: auth[:last_name] }
            redirect_to social_create_path
          else
-           gflash error: 'You must first sign in or sign up.'
+          # gflash error: 'You must first sign in or sign up.'
            redirect_to signup_path, flash: { error: 'You must first sign in or sign up.' }
          end
        end
@@ -126,10 +126,10 @@ class ApplicationController < ActionController::Base
     # notify  hipchat, send an email to support@megam.io which creates a support ticket.
     # redirect to the users last visited page.
     if !signed_in?
-      gflash error: "#{mai.message}"
+      #gflash error: "#{mai.message}"
       redirect_to(signin_path, flash: { api_error: 'api_error' }) && return
     else
-      gflash error: "#{mai.message}"
+     # gflash error: "#{mai.message}"
       redirect_to(cockpits_path, flash: { api_error: 'api_error' }) && return
     end
   end

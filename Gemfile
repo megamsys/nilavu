@@ -9,6 +9,7 @@ gem 'rails', '~> 4.2.4'
 gem 'rails-i18n', '~> 4.0.5' # For 4.0.x
 gem 'protected_attributes', '~> 1.1.3' # transition to rails 4.2.x
 gem 'responders', '~> 2.1.0' # transition to rails 4.2.x
+gem 'socket.io-rails', '~> 1.3.7' # websocket streaming
 
 # ui - (sass, react, growl, websocket)
 gem 'jquery-rails', '~> 4.0.5'
@@ -18,7 +19,7 @@ gem 'react-rails', '~> 1.3.2'
 gem 'sass-rails', '~> 5.0.4'
 gem 'remotipart', '~> 1.2.1' # ajax file uploads (sshkey)
 gem 'nprogress-rails' # youtube like spinner
-gem 'gritter', '~> 1.2.0'
+gem 'toastr_rails'
 gem 'uglifier', '~> 2.7.2'
 gem 'therubyracer', '~> 0.12.2', require: 'v8', platforms: :ruby
 

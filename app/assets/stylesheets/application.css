@@ -15,6 +15,6 @@
  *= require bootstrap-tour
  *= require jquery.fileupload
  *= require jquery.fileupload-ui
- *= require gritter
+ *= require toastr_rails
  *= require_tree .
  */
