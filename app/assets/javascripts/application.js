@@ -33,5 +33,6 @@
 //= require megam.menu
 //= require megam.form_validation
 //= require gritter
+//= require bootstrap-toastr.min
 //= require components
 //= require_tree .

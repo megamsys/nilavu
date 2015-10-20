@@ -13,6 +13,7 @@
  *= require nprogress-bootstrap
  *= require bootstrap
  *= require bootstrap-tour
+ *= require bootstrap-toastr.min
  *= require gritter
  *= require_tree .
  */
