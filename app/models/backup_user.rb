@@ -17,7 +17,7 @@
 class BackupUser < BaseFascade
   attr_reader :client # radosgw client
 
-  BUCKET = 'bucket'.freeze
+  STORAGES_BUCKET = 'storages'.freeze
 
   def initialize(host, username, user_password)
     @client = CEPH::Radosgw.new(ipaddress: "#{host}",
@@ -31,7 +31,7 @@ class BackupUser < BaseFascade
     user_hash = @client.user_create("#{uid}")
     Rails.logger.debug '> Radosgw: Account create'
     user_json = user_hash.to_json
-    storage = Storage.new(BUCKET)
+    storage = Storage.new(STORAGES_BUCKET)
     storage.upload(uid, user_json, 'application/json')
     user_hash
   end

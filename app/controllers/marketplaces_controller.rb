@@ -62,8 +62,6 @@ class MarketplacesController < ApplicationController
   ## super cool - omni creator for all.
   # performs ssh creation or using existing and creating an assembly at the end.
   def create
-    puts "_+_+_+__+_+_+_+_+_ 1_Inside mkp/create_+_+_+_+_+_+_+_+_+_+_+_+_+_+"
-    puts params[:scm_name]
     logger.debug '> Marketplaces: create.'
     mkp = JSON.parse(params[:mkp])
     # adding the default org of the user which is stored in the session
@@ -73,8 +71,6 @@ class MarketplacesController < ApplicationController
     # the full keypair name is coined inside sshkeys.
     params[:ssh_keypair_name] = Sshkeys.new.create_or_import(params)[:name]
     setup_scm(params)
-    puts "_+_+_+__+_+_+_+_+_ 2_Inside mkp/create_+_+_+_+_+_+_+_+_+_+_+_+_+_+"
-    puts params
     # with email list all orgs, match with session[orgName], get orgid, update orgid
     res = Assemblies.new.create(params)
 
