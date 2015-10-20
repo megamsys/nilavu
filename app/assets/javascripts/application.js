@@ -34,4 +34,5 @@
 //= require megam.form_validation
 //= require gritter
 //= require components
+//= require socket.io
 //= require_tree .
