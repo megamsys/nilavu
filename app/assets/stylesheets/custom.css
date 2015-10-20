@@ -1389,7 +1389,7 @@ background-color: white;
 
 .stpack {
     vertical-align: middle;
-    display: table-cell;
+    display: inline;
     text-align: center;
 }
 .stpack img {

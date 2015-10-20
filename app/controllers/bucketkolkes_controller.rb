@@ -27,6 +27,9 @@ class BucketkolkesController < ApplicationController
     respond_with(data)
   end
 
+  def Create
+  end
+
   def upload
     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
     backup.object_create("#{params[:bucket_name]}", params[:sobject])
@@ -41,7 +44,7 @@ class BucketkolkesController < ApplicationController
 
   # sign our request by Base64 encoding the policy document.
   def upload_signature
-    request = S3::Service.service_request(:put)
+    request = S3::Object.temporary_url(expiretemps_at = Time.now + 3600)
     signature = S3::Signature.generate(host: Ind.backup.host, request: request, access_key_id: params[:accesskey], secret_access_key: params[:secretkey])
   end
 end

@@ -34,4 +34,5 @@
 //= require megam.form_validation
 //= require gritter
 //= require components
+//= require jquery-fileupload/basic
 //= require_tree .
