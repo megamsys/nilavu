@@ -21,22 +21,6 @@ class Backup < BaseFascade
     @client = S3::Service.new(access_key_id: "#{access_key}", secret_access_key: "#{secret_key}", host: "#{host}")
   end
 
-  # creates a new account
-  def self.account_create(host, username, user_password, uid)
-    radosgw = CEPH::Radosgw.new(ipaddress: "#{host}",
-                                username: "#{username}",
-                                user_password: "#{user_password}"
-                               )
-
-    user_hash = radosgw.user_create("#{uid}")
-
-    Rails.logger.debug '> Backup: Account create'
-    user_json = user_hash.to_json
-    storage = Storage.new(STORAGES_BUCKET)
-    storage.upload(uid, user_json, 'application/json')
-    user_hash
-  end
-
   def bucket_create(bucket_name)
     bucket_array = []
     new_bucket = @client.buckets.build(bucket_name)

@@ -15,7 +15,7 @@
 ##
 require 'json'
 
-class BucketKolkesController < ApplicationController
+class BucketkolkesController < ApplicationController
   respond_to :json, :js
 
   before_action :stick_storage_keys, only: [:index, :create, :show, :upload]
@@ -34,14 +34,14 @@ class BucketKolkesController < ApplicationController
   end
 
   def destroy
-    logger.debug '> Storages bucket: delete'
+    logger.debug '> Bucketskolkes: delete'
     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
     backup.bucket_delete(bucket_name)
   end
 
   # sign our request by Base64 encoding the policy document.
   def upload_signature
-    request = S3::Service.service_request(:get)
+    request = S3::Service.service_request(:put)
     signature = S3::Signature.generate(host: Ind.backup.host, request: request, access_key_id: params[:accesskey], secret_access_key: params[:secretkey])
   end
 end
