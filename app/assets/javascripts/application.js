@@ -34,4 +34,5 @@
 //= require megam.menu
 //= require megam.form_validation
 //= require components
+//= require socket.io
 //= require_tree .
