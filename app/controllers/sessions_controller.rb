@@ -34,24 +34,12 @@ class SessionsController < ApplicationController
 
   # a regular user signin.
   def create
-    set_orgid(params)
-
-  #  if Ind.backup.enable
-#      keys = Storage.new(BackupUser::STORAGES_BUCKET).fetch(params['email'])
-      #session[:storage_access_key] = keys.content.data['access_key']
-      #session[:storage_secret_key] = keys.content.data['secret_key']
-  #  end
-    auth = social_identity
-   
-    if social_identity.nil?
       create_with_megam(params)
-    else
-      create_social_identity(auth)
-     end
+
   end
 
   def callbacks # it wont even enter here...will be redirected from :require_signin
-    
+
    end
 
   def destroy
@@ -59,8 +47,12 @@ class SessionsController < ApplicationController
     redirect_to signin_path
   end
 
+  def create_social
+  create_social_identity(params)
+end
+
   def create_social_identity(social_identity)
-    acct = Accounts.new    
+    acct = Accounts.new
     det = acct.find_by_email(social_identity[:email])
     if !det.email.nil?
       params[:email] = det.email
@@ -75,14 +67,7 @@ class SessionsController < ApplicationController
      end
   end
 
-  private
-
-  def set_orgid(input)
-    input['host'] = Ind.http_api
-    input['api_key'] = Accounts.new.find_by_email(input['email']).api_key
-    org_res = Organizations.new.list(input).orgs
-    session[:org_id] = org_res[0][:id]
-  end
+  
 
   # verify if an omniauth.auth hash exists, if not consider it as a locally registered user.
   def social_identity

@@ -13,20 +13,18 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-module Sources
+module Metrics
   module Containers
-    class Cadvisor < Sources::Containers::Base
+    class CAdvisor < Metrics::Containers::Base
       def get(options = {})
-
-      url = URI.parse("http://#{options[:host]}:9001/api/v1.3/docker/#{options[:appkey]}")
-      req = Net::HTTP::Get.new(url.to_s)
-      res = Net::HTTP.start(url.host, url.port) {|http|
+        url = URI.parse("http://#{options[:host]}:9001/api/v1.3/docker/#{options[:appkey]}")
+        req = Net::HTTP::Get.new(url.to_s)
+        res = Net::HTTP.start(url.host, url.port) do|http|
           http.request(req)
-        }
-      json = JSON.parse(res.body)
-      json["/docker/#{options[:appkey]}"]
+        end
+        json = JSON.parse(res.body)
+        json["/docker/#{options[:appkey]}"]
       end
-
     end
   end
 end

@@ -33,11 +33,21 @@ module SessionsHelper
   def sign_in(account)
     session[:email] = account.email
     session[:api_key] = account.api_key
+    session[:host] = Ind.http_api
+    set_orgid(params)
     logger.debug "> signin psession email #{session[:email]}"
     logger.debug "> signin psession api   #{session[:api_key]}"
     self.current_user = account
   end
 
+  def set_orgid(input)
+    input['host'] = Ind.http_api
+    input['api_key'] = Accounts.new.find_by_email(input['email']).api_key
+    org_res = Organizations.new.list(input).orgs
+    session[:org_id] = org_res[0][:id]
+    end
+
+  private
   #return if an user is signed in or not. ?
   def signed_in?
     session[:email] && session[:api_key]
@@ -63,5 +73,7 @@ module SessionsHelper
  def sign_out
    session.delete(:email)
    session.delete(:api_key)
+   session.delete(:host)
+   session.delete(:org_id)
  end
 end

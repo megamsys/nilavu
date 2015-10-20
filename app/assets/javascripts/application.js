@@ -25,7 +25,6 @@
 //= require jquery-validate.bootstrap-tooltip
 //= require megam.form_validation
 //= require jquery.filter
-//= require socket.io
 //= require megam.support
 //= require nprogress
 //= require nprogress-ajax

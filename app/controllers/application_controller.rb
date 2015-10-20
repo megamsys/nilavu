@@ -86,7 +86,7 @@ class ApplicationController < ActionController::Base
            redirect_to social_create_path
          else
            gflash error: 'You must first sign in or sign up.'
-           redirect_to signin_path, flash: { error: 'You must first sign in or sign up.' }
+           redirect_to signup_path, flash: { error: 'You must first sign in or sign up.' }
          end
        end
      end

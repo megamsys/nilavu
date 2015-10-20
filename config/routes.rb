@@ -42,7 +42,7 @@ Nilavu::Application.routes.draw do
 
   #=====github
   match '/auth/github/callback', :to => 'marketplaces#store_github', via: [:get, :post]
-  match '/social_create', :to => 'sessions#create', via: [:get, :post]
+  match '/social_create', :to => 'sessions#create_social', via: [:get, :post]
 
   match '/publish_github',       :to => 'marketplaces#publish_github', via: [:get, :post]
 
