@@ -51,7 +51,6 @@ class UsersController < ApplicationController
     session[:tour] = true
 
     my_account = Accounts.new
-	#flash[:toastr] = { :warning => "TEST WARNING MSG" }
     redirect_to(signin_path, flash: { toastr: 'Hey you!, I know you already. Please Signin.' }) && return if my_account.dup?(all_params[:email])
 
     my_account.create(all_params) do
