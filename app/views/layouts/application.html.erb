@@ -18,31 +18,27 @@
 <!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
 <!--[if !IE]><!-->
 <html class="no-js" lang="en">
-<!--<![endif]-->
-<!-- BEGIN HEAD -->
+  <!--<![endif]-->
+  <!-- BEGIN HEAD -->
   <html>
     <head>
       <base href="#">
       <%= favicon_link_tag 'favicon.png' %>
-      <title>Megam - PaaS |
+      <title>Megam
         <%= yield(:title) %></title>
       <%= stylesheet_link_tag "application", :media => "all" %>
 
       <%= analytics_init if Rails.env.production? %>
       <%= javascript_include_tag "application" %>
-
-      <meta content="Megam is a platform as service. We offer launching app cross cloud bundled with
-		realtime logging, application monitoring." name="description=">
-
+      <meta content="Megam cloud platform. Virtual office, backup analytics in a single click." name="description=">
       <meta charset="utf-8"/>
       <meta content="IE=edge" http-equiv="X-UA-Compatible">
       <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
       <meta content="" name="description"/>
       <meta content="" name="author"/>
       <meta content="320" name="MobileOptimized">
-      <script src="https://www.google.com/jsapi" type="text/javascript"></script>			
+      <script src="https://www.google.com/jsapi" type="text/javascript"></script>
       <script type="text/javascript">
-
         google.load('visualization', '1', {
           packages: ['corechart']
         });
