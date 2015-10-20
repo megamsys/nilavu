@@ -111,42 +111,8 @@ class MarketplacesController < ApplicationController
     end
   end
 
-  ##
-  ## gogswindow html page method
-  ##
-  def start_gogs
-  end
 
   def start_gitlab
-  end
-
-  ##
-  ## get the repositories from session
-  ## SCRP: What happens if gogs fails.
-  def publish_gogs
-    @repos = session[:gogs_repos]
-    respond_to do |format|
-      format.js do
-        respond_with(@repos, layout: !request.xhr?)
-      end
-    end
-  end
-
-  ##
-  ## this function get the gogs token using username and password
-  ## then list the repositories using oauth tokens.
-  ## SCRP: There is no error trap here. What happens if gogs fails ?
-  def store_gogs
-    session[:gogs_owner] = params[:gogs_username]
-    tokens = ListGogsTokens.perform(params[:gogs_username], params[:gogs_password])
-    session[:gogs_token] = JSON.parse(tokens)[0]['sha1']
-    @gogs_repos = ListGogsRepo.perform(token)
-    obj_repo = JSON.parse(@gogs_repos)
-    @repos_arr = []
-    obj_repo.each do |one_repo|
-      @repos_arr << one_repo['clone_url']
-    end
-    session[:gogs_repos] = @repos_arr
   end
 
   def store_gitlab
@@ -190,9 +156,6 @@ class MarketplacesController < ApplicationController
     when Scm::GITHUB
       params[:scmtoken] =  session[:github]
       params[:scmowner] =  session[:git_owner]
-    when Scm::GOGS
-      params[:scmtoken] =  session[:gogs_token]
-      params[:scmowner] =  session[:gogs_owner]
     when Scm::GITLAB
       params[:scmtoken] = session[:gitlab_key]
       params[:scmowner] = find_id(params[:source])

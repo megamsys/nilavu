@@ -14,12 +14,12 @@
 ** limitations under the License.
 -->
 
-<%= form_tag bind_service_path, multipart: true, :novalidate => 'novalidate',  :method => 'get', :remote => true  do %>
+<%= form_tag bindservice_path, multipart: true, :novalidate => 'novalidate',  :method => 'get', :remote => true  do %>
 	<div class="modal-dialog" style="max-width:400px">
 <div class="modal-content">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-		<h4 class="modal-title"><%= t('overviews.bind_service_title') %></h4>
+		<h4 class="modal-title"><%= t('overviews.bindservice_title') %></h4>
 	</div>
 <% if @service.length > 1 %>
 	<div class="modal-body">
