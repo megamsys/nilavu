@@ -62,11 +62,16 @@
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
 							<% if flash[:api_error] %>
-							    <%= gflash %>
 							<% end %>
-							<% if flash[:error] %>
-							   <%= gflash %>
-							<% end %>
+<% if flash[:toastr] %>
+  <script type="text/javascript">
+
+  (function ($) {
+    $.AppName = "<%= flash[:toastr] %>";
+  })($);
+      toastr.error($.AppName);
+  </script>
+<% end %>
 						</div>
 					</div>
 
@@ -217,3 +222,5 @@
 	</div>
 	<!-- /.modal-dialog -->
 </div>
+
+
