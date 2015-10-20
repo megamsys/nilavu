@@ -32,7 +32,7 @@ class Backup < BaseFascade
 
     Rails.logger.debug '> Backup: Account create'
     user_json = user_hash.to_json
-    storage = Storage.new(STORAGES_BUCKET)
+    storage = Storage.new(BUCKET)
     storage.upload(uid, user_json, 'application/json')
     user_hash
   end
@@ -49,16 +49,20 @@ class Backup < BaseFascade
   end
 
   def buckets_list
+    puts "-------------------->    0"
     bucket_array = []
     tsize = 0
     @client.buckets.each do |bkt|
+      puts "----------buckets---------->    1"
       size = 0
       bkt.objects.each do |obj|
+        puts "-------------------->    2"
         size += obj.size.to_i
       end
       bucket_array.push(bucket_name: "#{bkt.name}", size: size.to_s(:human_size), noofobjects: bkt.objects.count)
       tsize += size
     end
+    puts "----------buckets---------->   EMPTY "
     { total_buckets: @client.buckets.count, bucket_array: bucket_array }
   end
 

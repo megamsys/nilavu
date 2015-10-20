@@ -1,0 +1,2 @@
+module BucketkolkesHelper
+end
