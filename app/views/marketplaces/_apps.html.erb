@@ -14,200 +14,184 @@
 ** limitations under the License.
 -->
 <%= form_tag marketplaces_path, multipart: true, :novalidate => 'novalidate', :id => "megamform", :method => 'post', :remote => true  do %>
-  <% plan        = match_plan_for(@mkp,version) %>
-  <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
-  <%= hidden_field_tag 'componentname', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
-  <%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
-  <%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
-  <%= hidden_field_tag 'scm_name', nil, placeholder: "", :class =>"form-control"%>
-  <%= hidden_field_tag 'type', nil, placeholder: "", :class => "form-control" %>
-  <%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::ONE %>
-  <div class="row">
-    <div class="col-md-12 pad_tb25">
-      <span class="app_left_name"><%= t('marketplace.discription') %></span>
-      <P class="model-description">
-        <%= plan['description'] %> <a href="http://docs.megam.io/v1.0/docs/megam_quick_launch" target="_blank"> <%= t('marketplace.view_docs') %></a>
-      </P>
-      <br/>
-      <div class="">
-        <h4><%= t('name') %></h4>
-        <div class="row">
-          <div class="col-xs-6">
-            <div class="form-group">
-              <%= text_field_tag 'assemblyname', nil, placeholder: 'Cat Name', :required => true, :class =>"form-control", :value => launch_namegen %>
-            </div>
-          </div>
-          <div class="col-xs-6">
-            <div class="form-group">
-                <%= text_field_tag 'domain', nil, placeholder: t('marketplace.megambox'), :class =>"form-control", :value => "megambox.com", disabled: true %>
-              <%= hidden_field_tag 'domain', nil, placeholder: "megambox.com", :class =>"form-control", :value => "megambox.com" %>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <%= render template="marketplaces/show_template" %>
-
-      <!-- START Assemblies::APP -->
+<% plan        = match_plan_for(@mkp,version) %>
+<%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
+<%= hidden_field_tag 'componentname', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
+<%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
+<%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
+<%= hidden_field_tag 'scm_name', nil, placeholder: "", :class =>"form-control"%>
+<%= hidden_field_tag 'type', nil, placeholder: "", :class => "form-control" %>
+<%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::ONE %>
+<div class="row">
+  <div class="col-md-12 pad_tb25">
+    <span class="app_left_name"><%= t('marketplace.discription') %></span>
+    <P class="model-description">
+      <%= plan['description'] %>
+      <a href="http://docs.megam.io/v1.0/docs/megam_quick_launch" target="_blank">
+        <%= t('marketplace.view_docs') %></a>
+    </P>
+    <br/>
+    <div class="">
+      <h4><%= t('name') %></h4>
       <div class="row">
         <div class="col-xs-6">
-          <p class="radioP">
-            <input type="radio" name="radio_app_scm" id="r1"  value="byoc_scm" onclick="scmOption(this);" required />
-            <label for="r1"> <span class="radioButtonGraph"></span> <%= t('marketplace.rails_button1') %></label>
-          </p>
-        </div>
-        <div class="col-xs-6">
-          <p class="radioP">
-            <input type="radio" name="radio_app_scm" id="r2" value="starter_pack" onclick="scmOption(this);" required />
-            <label for="r2"> <span class="radioButtonGraph"></span> <%= t('marketplace.rails_button2') %></label>
-          </p>
-        </div>
-      </div>
-      <div id="app_byoc_scm" style="display:none;">
-        <h4> <%= t('marketplace.botton1_option') %> </h4>
-        <div class="row">
-          <div class="col-md-6 text-center">
-            <div class="col-md-offset-4 col-md-2">
-              <a href="#" class="hint  hint--bottom" name="image_type" value="github" onclick="return github_oauth();" data-hint="Connect with your public github id"> <%= image_tag "gh.png",:class=> "img-responsive_byoc "%> </a>
-            </div>
-          </div>
-          <div class="col-md-6 text-center">
-            <div class="col-md-offset-4 col-md-2">
-
-            </div>
-          </div>
-        </div>
-        <br/>
-        <div class="row">
-          <div class="col-sm-12 col-xs-12">
-            <div id="repos"></div>
-          </div>
-        </div>
-      </div>
-      <%= hidden_field_tag 'source', nil, placeholder: '', :class =>"form-control", :value => '' %>
-      <%= hidden_field_tag 'check_ci', nil, placeholder: '', :class =>"form-control", :value => 'false',:id => 'check_ci' %>
-      <div id="app_starter_pack" style="display:none;">
-        <div class="row">
-          <div class="col-sm-12 col-xs-12">
-            <h4><%= t('marketplace.starterpack') %></h4>
-            <div class="form-group">
-              <%= text_field_tag 'starterpack_git', nil, placeholder: "https://github.com/megamsys/megamsys.git", :class =>"form-control", :value => @mkp['url'], :readonly => true %>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- END Assemblies::APP -->
-      <!--- START SSH TEMPLATE -->
-      <%= render template="marketplaces/show_ssh", :locals => {:ssh_keys => @ssh_keys} %>
-      <!-- END SSH TEMPLATE -->
-      <br/>
-      <br/>
-      <div class="row">
-        <div class="col-md-offset-4 col-md-4">
           <div class="form-group">
-            <%= submit_tag t('cockpits.create'), :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Please wait..." } %>
+            <%= text_field_tag 'assemblyname', nil, placeholder: 'Cat Name', :required => true, :class =>"form-control", :value => launch_namegen %>
+          </div>
+        </div>
+        <div class="col-xs-6">
+          <div class="form-group">
+            <%= text_field_tag 'domain', nil, placeholder: t('marketplace.megambox'), :class =>"form-control", :value => "megambox.com", disabled: true %>
+            <%= hidden_field_tag 'domain', nil, placeholder: "megambox.com", :class =>"form-control", :value => "megambox.com" %>
           </div>
         </div>
       </div>
     </div>
+
+    <%= render template="marketplaces/show_template" %>
+
+    <!-- START Assemblies::APP -->
+    <div class="row">
+      <div class="col-xs-6">
+        <p class="radioP">
+          <input id="r1" name="radio_app_scm" onclick="scmOption(this);" required type="radio" value="byoc_scm"/>
+          <label for="r1">
+            <span class="radioButtonGraph"></span>
+            <%= t('marketplace.rails_button1') %></label>
+        </p>
+      </div>
+      <div class="col-xs-6">
+        <p class="radioP">
+          <input id="r2" name="radio_app_scm" onclick="scmOption(this);" required type="radio" value="starter_pack"/>
+          <label for="r2">
+            <span class="radioButtonGraph"></span>
+            <%= t('marketplace.rails_button2') %></label>
+        </p>
+      </div>
+    </div>
+    <div id="app_byoc_scm" style="display:none;">
+      <h4>
+        <%= t('marketplace.botton1_option') %>
+      </h4>
+      <div class="row">
+        <div class="col-md-6 text-center">
+          <div class="col-md-offset-4 col-md-2">
+            <a class="hint  hint--bottom" data-hint="Connect with your public github id" href="#" name="image_type" onclick="return github_oauth();" value="github">
+              <%= image_tag "gh.png",:class=> "img-responsive_byoc "%>
+            </a>
+          </div>
+        </div>
+        <div class="col-md-6 text-center">
+          <div class="col-md-offset-4 col-md-2"></div>
+        </div>
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-sm-12 col-xs-12">
+          <div id="repos"></div>
+        </div>
+      </div>
+    </div>
+    <%= hidden_field_tag 'source', nil, placeholder: '', :class =>"form-control", :value => '' %>
+    <%= hidden_field_tag 'check_ci', nil, placeholder: '', :class =>"form-control", :value => 'false',:id => 'check_ci' %>
+    <div id="app_starter_pack" style="display:none;">
+      <div class="row">
+        <div class="col-sm-12 col-xs-12">
+          <h4><%= t('marketplace.starterpack') %></h4>
+          <div class="form-group">
+            <%= text_field_tag 'starterpack_git', nil, placeholder: "https://github.com/megamsys/megamsys.git", :class =>"form-control", :value => @mkp['url'], :readonly => true %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END Assemblies::APP -->
+    <!--- START SSH TEMPLATE -->
+    <%= render template="marketplaces/show_ssh", :locals => {:ssh_keys => @ssh_keys} %>
+    <!-- END SSH TEMPLATE -->
+    <br/>
+    <br/>
+    <div class="row">
+      <div class="col-md-offset-4 col-md-4">
+        <div class="form-group">
+          <%= submit_tag t('cockpits.create'), :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Please wait..." } %>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 <!-- body_right ends here -->
 <% end %>
 <script type="text/javascript">
-    set_starter_pack();
-  	// Script to show the scm type (gogs or github)
-  	function scmOption(myRadio) {
-  		choose_megam_scm = myRadio.value;
-  		switch(choose_megam_scm) {
-  		case "byoc_scm":
-  			$("#app_byoc_scm").show();
-  			$("#app_starter_pack").hide();
-  			break;
-  		case "starter_pack":
-  			$("#app_byoc_scm").hide();
-  			$("#app_starter_pack").show();
-  			break;
-  		default:
-  			$("#app_byoc_scm").hide();
-  			$("#app_starter_pack").show();
-  		}
-  	}
+  set_starter_pack();
+  // Script to show the scm type (gitlab or github)
+  function scmOption(myRadio) {
+    choose_megam_scm = myRadio.value;
+    switch (choose_megam_scm) {
+    case "byoc_scm" :
+      $("#app_byoc_scm").show();
+      $("#app_starter_pack").hide();
+      break;
+    case "starter_pack" :
+      $("#app_byoc_scm").hide();
+      $("#app_starter_pack").show();
+      break;
+    default :
+      $("#app_byoc_scm").hide();
+      $("#app_starter_pack").show();
+    }
+  }
 
-    function set_starter_pack(){
-			$("#source").val($("#starterpack_git").val());
-        $("#type").val("source");
-        $("#check_ci").val("true");
+  function set_starter_pack() {
+    $("#source").val($("#starterpack_git").val());
+    $("#type").val("source");
+    $("#check_ci").val("true");
 
-		}
+  }
 
-  	// Onclick events for gogs and github images
-  	function github_oauth() {
-      $("#scm_name").val("github");
-      $("#type").val("source");
-  		$.oauthpopup({
-  			path : "/auth/github",
-  			callback : function() {
-  				$.ajax({
-  					type : "POST",
-  					url : "/publish_github",
-  					success : function(data) {
-  						console.log("It worked!")
-              console.log(data);
-  					},
-  					error : function(data) {
-  						console.log("ERROR CHECK PROPERLY!!");
-  						console.log(data);
-  					}
-  				});
-  				return false;
-  			}
-  		});
-  	}
+  // Onclick events for gitlab and github
+  function github_oauth() {
+    $("#scm_name").val("github");
+    $("#type").val("source");
+    $.oauthpopup({
+      path: "/auth/github",
+      callback: function () {
+        $.ajax({
+          type: "POST",
+          url: "/publish_github",
+          success: function (data) {
+            console.log("It worked!")
+            console.log(data);
+          },
+          error: function (data) {
+            console.log("ERROR CHECK PROPERLY!!");
+            console.log(data);
+          }
+        });
+        return false;
+      }
+    });
+  }
 
-  	function gogs_oauth() {
-  		$("#scm_name").val("gogs");
-        $("#type").val("source");
-  		$.oauthpopup({
-  			path : "/auth/gogs",
-  			callback : function() {
-  				$.ajax({
-  					type : "POST",
-  					url : "/publish_gogs",
-  					success : function(data) {
-  						console.log("It worked!")
-  						console.log(dataString);
-  					},
-  					error : function(data) {
-  						console.log("ERROR CHECK PROPERLY!!");
-  						console.log(data);
-  					}
-  				});
-  				return false;
-  			}
-  		});
-  	}
-
-
-  	function gitlab_auth() {
-  		$("#scm_name").val("gitlab");
-        $("#type").val("source");
-  		$.oauthpopup({
-  			path : "/auth/gitlab",
-  			callback : function() {
-  				$.ajax({
-  					type : "POST",
-  					url : "/publish_gitlab",
-  					success : function(data) {
-  						console.log("It worked!")
-  						console.log(data);
-  					},
-  					error : function(data) {
-  						console.log("ERROR CHECK PROPERLY!!");
-  						console.log(data);
-  					}
-  				});
-  				return false;
-  			}
-  		});
-  	}
+  function gitlab_auth() {
+    $("#scm_name").val("gitlab");
+    $("#type").val("source");
+    $.oauthpopup({
+      path: "/auth/gitlab",
+      callback: function () {
+        $.ajax({
+          type: "POST",
+          url: "/publish_gitlab",
+          success: function (data) {
+            console.log("It worked!")
+            console.log(data);
+          },
+          error: function (data) {
+            console.log("ERROR CHECK PROPERLY!!");
+            console.log(data);
+          }
+        });
+        return false;
+      }
+    });
+  }
 </script>

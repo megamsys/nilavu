@@ -15,33 +15,31 @@
 ##
 
 class BackupUser < BaseFascade
-
   attr_reader :client # radosgw client
 
-  STORAGES_BUCKET  = 'storages'.freeze
+  STORAGES_BUCKET = 'storages'.freeze
 
-def initialize(host, username, user_password)
-	@client = CEPH::Radosgw.new(:ipaddress => "#{host}",
-                          :username => "#{username}",
-                          :user_password => "#{user_password}",
-)
-end
+  def initialize(host, username, user_password)
+    @client = CEPH::Radosgw.new(ipaddress: "#{host}",
+                                username: "#{username}",
+                                user_password: "#{user_password}"
+                               )
+  end
 
-# creates a new account
-def account_create(uid)
+  # creates a new account
+  def account_create(uid)
     user_hash = @client.user_create("#{uid}")
     Rails.logger.debug '> Radosgw: Account create'
     user_json = user_hash.to_json
-    storage  = Storage.new(STORAGES_BUCKET)
-    storage.upload(uid, user_json, "application/json")
-	user_hash
-end
+    storage = Storage.new(STORAGES_BUCKET)
+    storage.upload(uid, user_json, 'application/json')
+    user_hash
+  end
 
-# usage of an account
-def account_usage(uid)
+  # usage of an account
+  def account_usage(uid)
     usage_hash = @client.user_usage("#{uid}")
     Rails.logger.debug '> Radosgw: Account usage'
-	usage_hash
-end
-
+    usage_hash
+  end
 end

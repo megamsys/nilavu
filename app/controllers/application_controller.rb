@@ -17,13 +17,14 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   protect_from_forgery with: :null_session, if: proc { |c| c.request.format == 'application/json' }
+  protect_from_forgery with: :exception
 
   before_action :require_signin
   around_action :catch_exceptions
-  before_filter :set_user_language
+  before_filter :set_locale
 
   # for internationalization
-  def set_user_language
+  def set_locale
     I18n.locale = Ind.locale
   end
 
@@ -50,7 +51,7 @@ class ApplicationController < ActionController::Base
         format.html { render template: 'errors/not_found', layout: 'application', status: 404 }
         format.all { render nothing: true, status: 404 }
       end
-  end
+   end
   end
 
   # renders 505 in an exception template.
@@ -67,7 +68,7 @@ class ApplicationController < ActionController::Base
         format.js { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
         format.all { render nothing: true, status: 500 }
       end
-  end
+   end
   end
 
   private
@@ -114,12 +115,12 @@ class ApplicationController < ActionController::Base
     params
   end
 
+  ## we will move this to our own lib
   def catch_exceptions
     yield
   rescue Accounts::MegamAPIError => mai
     ascii_bomb
     puts_stacktrace(mai)
-
     # notify  hipchat, send an email to support@megam.io which creates a support ticket.
     # redirect to the users last visited page.
     if !signed_in?
@@ -129,9 +130,6 @@ class ApplicationController < ActionController::Base
       gflash error: "#{mai.message}"
       redirect_to(cockpits_path, flash: { api_error: 'api_error' }) && return
     end
-  rescue ApplicationMailer::MegamSnailError => mse
-    ascii_snail
-    puts_stacktrace(mse)
   end
 
   def ascii_bomb
@@ -143,22 +141,12 @@ class ApplicationController < ActionController::Base
   `####'                !\033[0m\033[1mWe flunked!\033[22m
 "''
   end
-
-  def ascii_snail
-    logger.debug ''"\033[31m
-   .----.   @   @
-  / .-.-.`.  \\v/
-  | | '\\ \\ \\_/ )
-,-\\ `-.' /.'  /
-'---`----'----'        !\033[0m\033[1mSnail race is on! to deliver your mail!\033[22m
-"''
-  end
-
+  #just show our stuff .
   def puts_stacktrace(exception)
     logger.debug "\033[1m\033[32m#{exception.message}\033[0m\033[22m"
     filtered_trace = exception.backtrace.grep(/#{Regexp.escape("nilavu")}/)
     unless filtered_trace.empty?
-      full_stacktrace = (filtered_trace.map {|ft| ft.split("/").last}).join("\n")
+      full_stacktrace = (filtered_trace.map { |ft| ft.split('/').last }).join("\n")
       logger.debug "\033[1m\033[36m#{full_stacktrace}\033[0m\033[22m"
     end
     logger.debug "\033[1m\033[32m..(*_*)...\033[0m"
