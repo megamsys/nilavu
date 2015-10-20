@@ -71,6 +71,7 @@ module SessionsHelper
  #signout the current user by nuking current_user value as nil
  #and delete the remembered session.
  def sign_out
+   puts "************************** Signout"
    session.delete(:email)
    session.delete(:api_key)
    session.delete(:host)

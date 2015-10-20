@@ -14,7 +14,7 @@
 ** limitations under the License.
 -->
 <% content_for :content_settings do %>
-<% provide(:title, "Storages") %>
+<% provide(:title, "Buckets") %>
 
 <div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
 
@@ -36,7 +36,7 @@
 			</div>
 			<% @buckets[:bucket_array].each do |bucket| %>
 			<div class="col-xs-12 col-sm-6 col-md-3 app_cover my_bucket_inner" id="<%= bucket[:bucket_name] %>">
-				<%= link_to storage_path(:id => bucket[:bucket_name]), :target => "_self", :remote => true do %>
+				<%= link_to buckets_path(:id => bucket[:bucket_name]), :target => "_self", :remote => true do %>
 				<div class="app_inner">
 					<div class="app">
 						<div class="app_head">
@@ -103,7 +103,7 @@
 <div class="storage-popup" >
 	<ul class="list-unstyled">
 		<li>
-			<a data-toggle="modal" href="#supload"><i class="c_icon-cloud-download pull-left"></i>Upload File</a>
+			<a data-toggle="modal" href=" "><i class="c_icon-cloud-download pull-left"></i>Upload File</a>
 		</li>
 		<li>
 			<a href=""><i class="c_icon-cloud-download pull-left"></i>Download As</a>
@@ -126,7 +126,7 @@
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-md-12">
-						<%= form_tag storages_path, multipart: true, :method => :post, :remote => true do %>
+						<%= form_tag buckets_path, multipart: true, :method => :post, :remote => true do %>
 						<div class="form-group">
 							<%= text_field_tag 'bucket_name', nil, :class=> 'form-control', placeholder: "Bucket Name", :required => true %>
 						</div>
@@ -149,7 +149,7 @@
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-md-12">
-						<%= form_tag supload_path, :method => :post, :remote => true, :multipart => true do %>
+						<%= form_tag bucketkolkes_path, :method => :post, :remote => true, :multipart => true do %>
   					<input name="<%= :key %>" type="<%= :hidden %>"></input>
   					<input name="AWSAccessKeyId" type="<%= :hidden %>" value="YOUR_ACCESS_KEY"></input>
   					<input name="<%= :acl %>" type="<%= :hidden %>" value="<%= :private %>"></input>
@@ -190,7 +190,7 @@
 					<%= t('cancel') %>
 				</button>
 
-				<%= link_to  t('confirm'), storage_path(:id => "delete"), :class => "btn btn-success a_pad", :remote => true, :method => :delete, :target => "_self" %>
+				<%= link_to  t('confirm'), buckets_path(:id => "delete"), :class => "btn btn-success a_pad", :remote => true, :method => :delete, :target => "_self" %>
 			</div>
 		</div>
 		<!-- /.modal-content -->
