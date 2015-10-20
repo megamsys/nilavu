@@ -17,7 +17,6 @@ gem 'jquery-turbolinks', '~> 2.1.0'
 gem 'react-rails', '~> 1.3.2'
 gem 'sass-rails', '~> 5.0.4'
 gem 'remotipart', '~> 1.2.1' # ajax file uploads (sshkey)
-gem 'socket.io-rails', '~> 1.3.7' # websocket streaming
 gem 'nprogress-rails' # youtube like spinner
 gem 'gritter', '~> 1.2.0'
 gem 'uglifier', '~> 2.7.2'
@@ -34,7 +33,6 @@ gem 'omniauth-github', '~> 1.1.2'
 
 # 3rd party system api's
 gem 'megam_api', '~> 0.75'
-gem 'megam_gogs', '~> 0.8.0'
 gem 'github_api', '~>0.12.4'
 gem 'gitlab', '~> 3.4.0'
 gem 'riak-client', '~> 2.2.1'
@@ -59,4 +57,5 @@ end
 group :development do
   gem 'rspec-rails'
   gem 'quiet_assets'
+  gem 'rubocop', require: false
 end

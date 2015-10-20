@@ -25,13 +25,13 @@
 //= require jquery-validate.bootstrap-tooltip
 //= require megam.form_validation
 //= require jquery.filter
-//= require socket.io
 //= require megam.support
 //= require nprogress
 //= require nprogress-ajax
 //= require react
 //= require react_ujs
 //= require megam.menu
+//= require megam.form_validation
 //= require gritter
 //= require components
 //= require_tree .

@@ -1,15 +1,3 @@
-/*////////////////////////////////
-//1. overview component
-//   a. Monitoring component (contains the tab structure)
-//      1. Tab1
-//      2. Tab2
-//      3. Tab3
-//   b. Logs component
-//      1. MessageList
-//      2. Message
-//
-//////////////////////////////
-*/
 var CPU = 'cpu';
 var Memory = 'memory';
 var Network = 'network';
@@ -38,9 +26,9 @@ var Tab = React.createClass({
   render: function() {
     return (
       <li className={this.props.isCurrent
-        ? 'current'
-        : null} >
-        <a href={this.props.url} onClick={this.handleClick}>
+        ? 'current chart-tab'
+        : null}>
+        <a data-toggle="tab" href={this.props.url} onClick={this.handleClick}>
           {this.props.name}
         </a>
       </li>
@@ -55,14 +43,15 @@ var Tabs = React.createClass({
 
   render: function() {
     return (
-      <div className="tab-content " >
-        <ul className="nav nav-tabs nav-justified">
-          {this.props.tabList.map(function (tab) {
-            return (
-              <Tab handleClick={this.handleClick.bind(this, tab)} isCurrent={(this.props.currentTab === tab.id)} key={tab.id} name={tab.name} url={tab.url}/>
-            );
-          }.bind(this))}
-        </ul>
+      <div className="nav-justified margintb_15">
+
+      <ul className="nav nav-tabs nav-justified">
+        {this.props.tabList.map(function (tab) {
+          return (
+            <Tab handleClick={this.handleClick.bind(this, tab)} isCurrent={(this.props.currentTab === tab.id)} key={tab.id} name={tab.name} url={tab.url}/>
+          );
+        }.bind(this))}
+      </ul>
       </div>
     );
   }
@@ -88,17 +77,18 @@ var Overview = React.createClass({
 
   render: function() {
     return (
-      <div>
-        <Tabs changeTab={this.changeTab} currentTab={this.state.currentTab} tabList={this.state.tabList}/>
-        <Content JsonD={this.state.JsonD} currentTab={this.state.currentTab} google={this.props.google} host={this.props.host} mhost={this.props.mhost}/>
-        <div className="borderless torpOverviewTb">
-          LOGS
-          <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <Logs name={this.props.name} socket={this.props.socket}/>
-          </div>
-        </div>
+      <div className=" nav-justified margintb_15">
+          <Tabs changeTab={this.changeTab} currentTab={this.state.currentTab} tabList={this.state.tabList}/>
+          <Content JsonD={this.state.JsonD} currentTab={this.state.currentTab} google={this.props.google} host={this.props.host} mhost={this.props.mhost}/>
+          <b className="logs-head">Logs</b>
+          <div className="logBox borderless torpOverviewTb">
 
-      </div>
+            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+              <Logs name={this.props.name} socket={this.props.socket}/>
+            </div>
+          </div>
+          </div>
+
     );
   }
 });
@@ -107,24 +97,32 @@ var Content = React.createClass({
 
   render: function() {
     return (
-      <div className="tabbable-custom nav-justified margintb_15">
+      <div class="tab-content c_tab-content">
         {this.props.currentTab === 1
-          ? <div className="demo-container demo-placeholder cpu" data-toggle="tab">
-              <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"cpu"}/>
+          ? <div className="tab-pane cpu">
+                <div className="demo-container">
+                  <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"cpu"}/>
+              </div>
             </div>
           : null}
 
         {this.props.currentTab === 2
-          ? <div className="demo-container ram">
-              <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"ram"}/>
-
+          ? <div className="tab-pane ram">
+              <div className="">
+                <div className="demo-container">
+                  <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"ram"}/>
+                </div>
+              </div>
             </div>
           : null}
 
         {this.props.currentTab === 3
-          ? <div className="demo-container network">
-              <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"network"}/>
-
+          ? <div className="tab-pane cpu">
+              <div className="">
+                <div className="demo-container">
+                  <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"network"}/>
+                </div>
+              </div>
             </div>
           : null}
 
@@ -143,9 +141,9 @@ var Charts = React.createClass({
   },
 
   componentDidMount: function() {
-this.updateData();
+    this.updateData();
 
-setInterval(this.updateData, 2000);
+    setInterval(this.updateData, 2000);
 
   },
   componentDidUpdate: function() {
@@ -229,7 +227,7 @@ setInterval(this.updateData, 2000);
 
     var opts = {
       curveType: 'function',
-      height: 300,
+      height: 200,
       legend: {
         position: "none"
       },
@@ -258,11 +256,7 @@ setInterval(this.updateData, 2000);
   drawRAM: function() {
     var stats = this.state.JsonD;
     var machineInfo = this.state.machineInfo;
-    var options = {
-      title: 'megam',
-      'width': 400,
-      'height': 300
-    };
+
     var titles = [
       "Time", "Total", "Hot"
     ];
@@ -309,7 +303,7 @@ setInterval(this.updateData, 2000);
     dataTable.addRows(data);
     var opts = {
       curveType: 'function',
-      height: 300,
+      height: 200,
       legend: {
         position: "none"
       },
@@ -338,7 +332,7 @@ setInterval(this.updateData, 2000);
       console.log(stats.stats[i].network.interfaces);
     }
     if (stats.spec.has_network && !this.hasResource(stats, "network")) {
-    return;
+      return;
     }
     var interfaceIndex = -1;
     if (stats.stats.length > 0) {
@@ -396,7 +390,7 @@ setInterval(this.updateData, 2000);
 
     var opts = {
       curveType: 'function',
-      height: 300,
+      height: 200,
       legend: {
         position: "none"
       },

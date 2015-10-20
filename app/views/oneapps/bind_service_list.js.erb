@@ -14,9 +14,7 @@
 ** limitations under the License.
 **/
 var selected_entity = '#replace_bind_form';
-var to_insert_content = "<%= escape_javascript(render :partial => 'oneapps/bind_service_form', :locals => {:service => @service, :bindapp => @bindapp}) %>";
+var to_insert_content = "<%= escape_javascript(render :partial => 'oneapps/bindservice_form', :locals => {:service => @service, :bindapp => @bindapp}) %>";
 insertAt(selected_entity, to_insert_content);
 
 $("#bindservice").modal('show');
-
-
