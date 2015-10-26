@@ -2,14 +2,14 @@
 defaults: &defaults
 ## locale: default is english
   locale: en
-## storage backedn is a host that the nilavu will connect to
+## storage backend is a host that the nilavu will connect to
 ## for getting information about an account (needs to be removed)
 ## Default: localhost
 ##
 ## Acceptable values:
 ##   - text, e.g. localhost, console.megam.io
 
-  storage: 192.168.1.105
+  storage: 192.168.0.106
 ## Name of the nilavu server
 ##
 ## Default: console.megam.io
@@ -24,13 +24,13 @@ defaults: &defaults
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
 
-  http_api: 192.168.1.105
+  http_api: 192.168.0.106
 ## http_logs is a host that the nilavu will connect to for real time log streaming
 ## Default: console.megam.io:7000
 ##
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
-  http_logs: console.megam.io:7000
+  http_logs: localhost:7777
 # Enable billing, turn it off for testing.
 ## Default: on
 ##

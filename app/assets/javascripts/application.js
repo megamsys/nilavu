@@ -11,6 +11,7 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery2
+//= require toastr_rails
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery.remotipart
@@ -32,6 +33,6 @@
 //= require react_ujs
 //= require megam.menu
 //= require megam.form_validation
-//= require gritter
 //= require components
+//= require socket.io
 //= require_tree .
