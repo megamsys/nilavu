@@ -141,9 +141,9 @@ var Charts = React.createClass({
   },
 
   componentDidMount: function() {
-    this.updateData();
+  //  this.updateData();
 
-    setInterval(this.updateData, 2000);
+  //  setInterval(this.updateData, 2000);
 
   },
   componentDidUpdate: function() {

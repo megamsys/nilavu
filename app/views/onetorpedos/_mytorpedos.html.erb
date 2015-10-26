@@ -41,6 +41,7 @@
       <% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
       <% @logname = "#{assembly.name}.#{domain}" %>
         <%= render 'catalogs/mycomponent' %>
+
   </div>
 
     <div class="col-sm-3 storage-rt-list">
