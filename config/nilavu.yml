@@ -40,9 +40,9 @@ defaults: &defaults
 ## Backup storage, host.
   backup:
     enable: on
-    host: 192.168.1.248
-    username: thomas
-    password: team4megam
+    host: 192.168.1.102
+    username: megdc
+    password: tuwubU6RArA
 # http_gitlab is a host that the nilavu will connect to
 ## for pulling data from private repositories
 ##
