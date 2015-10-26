@@ -67,7 +67,7 @@ end
      end
   end
 
-  
+
 
   # verify if an omniauth.auth hash exists, if not consider it as a locally registered user.
   def social_identity

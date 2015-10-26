@@ -16,8 +16,8 @@
 require 'json'
 
 class BucketsController < ApplicationController
-  respond_to :json, :js
 
+  respond_to :json, :js
 
   before_action :stick_storage_keys, only: [:index, :create, :show, :upload]
   ##
@@ -25,7 +25,7 @@ class BucketsController < ApplicationController
   ## and show the items in order of category
   ##
   def index
-    logger.debug '> Storages: index.'
+    logger.debug '> Buckets: index.'
     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
     @buckets = backup.buckets_list
     backup_client = BackupUser.new(Ind.backup.host, Ind.backup.username, Ind.backup.password)
@@ -33,7 +33,7 @@ class BucketsController < ApplicationController
   end
 
   def create
-    logger.debug '> Storages: create.'
+    logger.debug '> Buckets: create.'
     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
     backup.bucket_create(params["bucket_name"])
     @msg = { title: "Storage", message: "#{params["bucket_name"]} created successfully. ", redirect: '/', disposal_id: 'create_bucket' }
@@ -43,7 +43,7 @@ class BucketsController < ApplicationController
   ## to show the selected marketplace catalog item, appears if there are credits in billing.
   ##
   def show
-    logger.debug '> Storages: show.'
+    logger.debug '> Buckets: show.'
     @objects = []
     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
     backup.objects_list(params["id"]).each do |bkt|
