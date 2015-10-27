@@ -141,9 +141,9 @@ var Charts = React.createClass({
   },
 
   componentDidMount: function() {
-  //  this.updateData();
+    this.updateData();
 
-  //  setInterval(this.updateData, 2000);
+    setInterval(this.updateData, 2000);
 
   },
   componentDidUpdate: function() {
@@ -158,8 +158,7 @@ var Charts = React.createClass({
   },
 
   updateData: function() {
-    $.get(this.props.host, function(data) {
-
+    $.get(this.props.host,  function(data) {
       this.setState({
         JsonD: data
       })

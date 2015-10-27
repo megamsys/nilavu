@@ -26,6 +26,7 @@ class MarketplacesController < ApplicationController
   ## and show the items in order of category
   ##
   def index
+
     logger.debug '> Marketplaces: index.'
     @mkp_grouped = Marketplaces.instance.list(params).mkp_grouped
   end
@@ -35,6 +36,7 @@ class MarketplacesController < ApplicationController
   ##
 
   def show
+  
     logger.debug '> Marketplaces: show.'
     bill_check = false
     if Ind.billings

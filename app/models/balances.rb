@@ -22,6 +22,7 @@ class Balances < BaseFascade
   end
 
   def show(api_params, &block)
+  
     raw = api_request(api_params, BALANCES, SHOW)
     @balance = raw[:body].lookup(api_params["email"])
     yield self  if block_given?

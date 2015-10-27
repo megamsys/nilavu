@@ -28,7 +28,6 @@
 //= require jquery.filter
 //= require megam.support
 //= require nprogress
-//= require nprogress-ajax
 //= require react
 //= require react_ujs
 //= require megam.menu

@@ -1,3 +1,4 @@
+
 ##
 ## Copyright [2013-2015] [Megam Systems]
 ##
@@ -14,26 +15,17 @@
 ## limitations under the License.
 ##
 require 'json'
+class SensorsController < ApplicationController
+  respond_to :json
 
-class Sensors < BaseFascade
-  attr_reader :sensors
+  before_action :stick_keys, only: [:index]
 
-  def initialize
-    @sensors = []
-  end
+  def index
+    @sensor = Sensors.new.list(params).sensors
 
-  def list(api_params, &_block)
-    raw = api_request(api_params, SENSORS, LIST)
-    @sensors = to_hash(raw[:body])
-    yield self if block_given?
-    self
-  end
-
-  def to_hash(sensors_collection)
-    sensors = []
-    sensors_collection.each do |sensor|
-      sensors << { sensor_type: sensor.sensor_type, payload: sensor.payload, created_at: sensor.created_at.to_time.to_formatted_s(:rfc822) }
+    if @sensor[0][:sensor_type] = 'compute.instance.launch'
+      state = @sensor[0][:payload]['state']
     end
-    sensors.sort_by { |vn| vn[:created_at] }
+    respond_with state.to_json
   end
 end
