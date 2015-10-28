@@ -18,7 +18,7 @@ require 'json'
 class BucketkolkesController < ApplicationController
   respond_to :json, :js
 
-  before_action :stick_storage_keys, only: [:index, :create, :show, :upload, :upload_signature]
+  before_action :stick_storage_keys, only: [:index, :create, :show, :upload]
 
   def index
     logger.debug '>Controller index called'
@@ -28,14 +28,12 @@ class BucketkolkesController < ApplicationController
   end
 
   def create
-    backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
-    backup.object_create("#{params[:bucket_name]}", params[:sobject])
-    @msg = { title: 'Storage', message: "#{params[:sobject].original_filename} uploaded successfully. ", redirect: '/', disposal_id: 'supload' }
-
   end
 
   def upload
-
+    backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
+    backup.object_create("#{params[:bucket_name]}", params[:sobject])
+    @msg = { title: 'Storage', message: "#{params[:sobject].original_filename} uploaded successfully. ", redirect: '/', disposal_id: 'supload' }
   end
 
   def destroy
