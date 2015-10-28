@@ -13,8 +13,10 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
+module Nilavu
 class Paypal
   include PayPal::SDK::REST
+
   def self.generate_url(params)
     payment = Payment.new(intent: 'sale',
 
@@ -45,34 +47,17 @@ class Paypal
     if payment.create
       # Redirect the user to given approval url
       return payment.links.find { |v| v.method == 'REDIRECT' }.href
-    else
-      hash = { 'msg' => payment.error, 'msg_type' => 'error' }
-      re = Megam::Error.from_hash(hash)
-      @res = { 'data' => { body: re } }
-      return @res['data'][:body]
     end
   rescue StandardError => se
-    hash = { 'msg' => se.message, 'msg_type' => 'error' }
-    re = Megam::Error.from_hash(hash)
-    @res = { 'data' => { body: re } }
-    return @res['data'][:body]
   end
 
   def self.execute(params)
     payment = Payment.find(params['paymentId'])
     # PayerID is required to approve the payment.
-    if payment.execute(payer_id: params['PayerID'])  # return true or false
+    if payment.execute(payer_id: params['PayerID']) # return true or false
       return payment.transactions[0].amount.total.to_s
-    else
-      hash = { 'msg' => payment.error, 'msg_type' => 'error' }
-      re = Megam::Error.from_hash(hash)
-      @res = { 'data' => { body: re } }
-      return @res['data'][:body]
     end
   rescue StandardError => se
-    hash = { 'msg' => se.message, 'msg_type' => 'error' }
-    re = Megam::Error.from_hash(hash)
-    @res = { 'data' => { body: re } }
-    return @res['data'][:body]
   end
+end
 end

@@ -1,12 +1,11 @@
 source 'https://rubygems.org'
 # ruby "2.2.2"
 
-# ruby
 gem 'json', '~> 1.8.3'
 gem 'net-ssh'
 
 gem 'rails', '~> 4.2.4'
-gem 'rails-i18n', '~> 4.0.5' # For 4.0.x
+gem 'rails-i18n', '~> 4.0.6' # For 4.0.x
 gem 'protected_attributes', '~> 1.1.3' # transition to rails 4.2.x
 gem 'responders', '~> 2.1.0' # transition to rails 4.2.x
 gem 'socket.io-rails', '~> 1.3.7' # websocket streaming
@@ -15,7 +14,7 @@ gem 'socket.io-rails', '~> 1.3.7' # websocket streaming
 gem 'jquery-rails', '~> 4.0.5'
 gem 'turbolinks', '~> 2.5.3'
 gem 'jquery-turbolinks', '~> 2.1.0'
-gem 'react-rails', '~> 1.3.2'
+gem 'react-rails', '~> 1.3.3'
 gem 'sass-rails', '~> 5.0.4'
 gem 'remotipart', '~> 1.2.1' # ajax file uploads (sshkey)
 gem 'nprogress-rails' # youtube like spinner
@@ -44,7 +43,7 @@ gem 'paypal-sdk-rest', '~>1.3.1' # billing
 
 # general misc helper
 gem 'randexp', '~> 0.1.7'
-gem 'sshkey', '~> 1.7.0' # ssh key-gen
+gem 'sshkey',  '~> 1.7.0' # ssh key-gen
 gem 'settingslogic' # singleton settings yaml manager
 
 # passenger server
@@ -59,4 +58,5 @@ group :development do
   gem 'rspec-rails'
   gem 'quiet_assets'
   gem 'rubocop', require: false
+  gem 'ruby-beautify'
 end

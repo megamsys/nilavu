@@ -13,21 +13,21 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class Billedhistories < BaseFascade
+module Api
+  class Requests < APIDispatch
+    attr_reader :req_submitted
 
-  attr_reader :bhistories
+    def initialize()
+      @req_submitted = []
+    end
 
-
-  def initialize()
-     @bhistories = []
-     super(true)
+    #This  creates a /requests
+    # used during CREATION and DELETE
+    def reqs(api_params, &block)
+      raw = api_request(REQUESTS, CREATE,api_params)
+      @req_submitted = raw[:body]
+      yield self if block_given?
+      return self
+    end
   end
-
-  def list(api_params, &block)
-    raw = api_request(api_params, BILLEDHISTORIES, LIST)
-    @bhistories = raw[:body].sort_by{|e| e.created_at}.reverse[0..9] unless raw == nil
-    yield self  if block_given?
-    return self
-  end
-
 end

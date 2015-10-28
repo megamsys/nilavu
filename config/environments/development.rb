@@ -45,5 +45,4 @@ Nilavu::Application.configure do
   config.serve_static_files = false
 
   config.react.variant = :development
-
 end

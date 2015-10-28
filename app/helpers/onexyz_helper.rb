@@ -13,7 +13,7 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-module OneappsHelper
+module OnexyzHelper
   def change_runtime(deps, runtime)
     project_name = File.basename(deps).split('.').first
     if /<projectname>/.match(runtime)
@@ -31,26 +31,25 @@ module OneappsHelper
     end.flatten.compact
     tmp_comp
   end
-  
+
   def unbound_apps(apps)
-    unbound_apps  = []
+    unbound_apps = []
     unbound_apps << "Unbound app"
     apps.map{ |c| unbound_apps << [c[:name], c[:name]+":"+c[:aid]+":"+c[:cid]] }
     unbound_apps
   end
-  
+
   def bound_assemblies(assemblies, related_components)
     bound_assemblies = []
-if !assemblies.nil? && !assemblies.empty?
-    related_components.map do |rc|      
-      assemblies[0].map do |s|       
-         if rc.split(".")[0] == s[0].name
-              bound_assemblies << s[0]
+    if !assemblies.nil? && !assemblies.empty?
+      related_components.map do |rc|
+        assemblies[0].map do |s|
+          if rc.split(".")[0] == s[0].name
+            bound_assemblies << s[0]
           end
-       end
-   end  
-end  
-   bound_assemblies
- end
-   
+        end
+      end
+    end
+    bound_assemblies
+  end
 end

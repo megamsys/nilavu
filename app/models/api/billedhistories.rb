@@ -13,39 +13,20 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
+module Api
+  class Billedhistories < APIDispatch
+    attr_reader :bhistories
 
-
-class Billings < BaseFascade
-
-  CURRENCY_USD = "USD".freeze
-  CURRENCY_INR = "IN".freeze
-
-  PAYMENT_PAYPAL   = "Pay with Paypal".freeze
-  PAYMENT_COINKITE = "Pay with Coinkite".freeze
-
-  def initialize()
-  end
-
-  def create(params)
-    res = case
-    when params["commit"] == PAYMENT_PAYPAL
-      Paypal.generate_url(params)
-    when params["commit"] == PAYMENT_COINKITE
-      Coinkite.generate_url(params)
+    def initialize()
+      @bhistories = []
+      super(true)
     end
-    res
-  end
 
-  def execute(params)
-    res = case
-    when params["PayerID"]
-      Paypal.execute(params)
+    def list(api_params, &block)
+      raw = api_request(BILLEDHISTORIES, LIST, api_params)
+      @bhistories = raw[:body].sort_by{|e| e.created_at}.reverse[0..9] unless raw == nil
+      yield self  if block_given?
+      return self
     end
-    res
   end
-
-  def self.currencies
-    [CURRENCY_USD,CURRENCY_INR]
-  end
-
 end

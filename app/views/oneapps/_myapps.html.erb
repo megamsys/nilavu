@@ -122,7 +122,7 @@
 	<br/>
 	<div class="bottom-divider"></div>
 	<div class="row">
-	<%= render :partial => 'catalogs/flysolo', :locals => {:asmgroups_flatten => @bound_services, :filter_cattype => Assemblies::SERVICE} %>
+	<%= render :partial => 'catalogs/flysolo', :locals => {:asmgroups_flatten => @bound_services, :filter_cattype => Api::Assemblies::SERVICE} %>
 	</div>
 	<%= render 'catalogs/logs' %>
 
@@ -133,4 +133,4 @@
 	<div id="replace_bind_form"> </div>
 </div>
 <% end %>
-<%= render :template => 'catalogs/show',:locals => {:cattype => Assemblies::APP} %>
+<%= render :template => 'catalogs/show',:locals => {:cattype => Api::Assemblies::APP} %>

@@ -13,17 +13,20 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-require 'json'
+module Api
+  class Invoices < APIDispatch
+    attr_reader :invoices
 
-class Scm < BaseFascade
+    def initialize
+      @invoices = []
+      super(true)
+    end
 
-  GITHUB    =  "github".freeze
-  GITLAB    =  "gitlab".freeze
-  DOCKERHUB =  "dockerhub".freeze
-
-  def initialize()
-
+    def list(api_params, &_block)
+      raw = api_request(INVOICES, LIST,api_params)
+      @invoices = raw[:body].sort_by(&:created_at).reverse[0..9] unless raw.nil?
+      yield self  if block_given?
+      self
+    end
   end
-
-
 end

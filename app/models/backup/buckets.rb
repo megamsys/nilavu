@@ -13,21 +13,29 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class Billedhistories < BaseFascade
-  
-  attr_reader :bhistories
-  BILLEDHISTORIES = 'BILLEDHISTORIES'.freeze
-  
-  def initialize()
-     @bhistories = []
-     super(true)
+
+class Buckets < BackupFascade
+  def initialize(params)
+    super(params)
   end
 
-  def list(api_params, &block)
-    raw = api_request(api_params, BILLEDHISTORIES, LIST)
-    @bhistories = raw[:body].sort_by{|e| e.created_at}.reverse[0..9] unless raw == nil
-    yield self  if block_given?
-    return self
+  def list
+    bkts = cephs3.buckets
+    buckets = []
+    bkts.each do |bkt|
+      size = bkt.objects.inject { |lsize, n| lsize + n.size.to_i}
+      buckets.push(bucket_name: "#{bkt.name}", size: size.to_s(:human_size), noofobjects: bkt.objects.count)
+    end
+    { total_buckets: bkts.count, bucket_array: buckets }
   end
 
+  def create(name)
+    bucket = cephs3.buckets.build(name)
+    bucket.save
+  end
+
+  def delete(name)
+    bucket = cephs3.buckets.find("#{name}")
+    bucket.destroy
+  end
 end

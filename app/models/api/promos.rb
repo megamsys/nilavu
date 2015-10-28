@@ -13,23 +13,18 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class Requests < BaseFascade
-  include MarketplaceHelper
+module Api
+  class Promos < APIDispatch
+    attr_reader :amount
 
-  attr_reader :req_submitted
+    def initialize()
+    end
 
-  def initialize()
-    @req_submitted = []
+    def show(api_params, &block)
+      promo = api_request(PROMOS, SHOW,api_params)
+      @amount = promo[:body].amount
+      yield self if block_given?
+      return self
+    end
   end
-
-  #This  creates a /requests
-  # used during CREATION and DELETE
-  def reqs(api_params, &block)
-    raw = api_request(api_params, REQUESTS, CREATE)
-    @req_submitted =  raw[:body]
-    yield self  if block_given?
-    return self
-  end
-
-
 end

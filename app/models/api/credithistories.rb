@@ -13,18 +13,28 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class Invoices < BaseFascade
-  attr_reader :invoices
+module Api
+  class Credithistories < APIDispatch
+    attr_reader :bill_type
+    attr_reader :credit_amount
+    attr_reader :currency_type
+    
+    def initialize()
+      @balance = {}
+    end
 
-  def initialize
-    @invoices = []
-    super(true)
-  end
+    def create(params, amount, &block)
+      api_request(CREDITHISTORIES, CREATE, params.merge(bld_chistories(amount)))
+      yield self if block_given?
+      return self
+    end
 
-  def list(api_params, &_block)
-    raw = api_request(api_params, INVOICES, LIST)
-    @invoices = raw[:body].sort_by(&:created_at).reverse[0..9] unless raw.nil?
-    yield self  if block_given?
-    self
+    def bld_chistories(amount)
+      {
+        :bill_type => "paypal",
+        :credit_amount =>  amount,
+        :currency_type => "USD"
+      }
+    end
   end
 end

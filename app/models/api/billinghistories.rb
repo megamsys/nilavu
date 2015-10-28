@@ -13,18 +13,22 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class Promos < BaseFascade
+module Api
+  class Billedhistories < APIDispatch
+    attr_reader :bhistories
 
-attr_reader :amount
+    BILLEDHISTORIES = 'BILLEDHISTORIES'.freeze
 
-  def initialize()
+    def initialize()
+      @bhistories = []
+      super(true)
+    end
+
+    def list(api_params, &block)
+      raw = api_request(BILLEDHISTORIES, LIST, api_params)
+      @bhistories = raw[:body].sort_by{|e| e.created_at}.reverse[0..9] unless raw == nil
+      yield self  if block_given?
+      return self
+    end
   end
-
-  def show(api_params, &block)
-    promo = api_request(api_params, PROMOS, SHOW)
-    @amount = promo[:body].amount
-    yield self if block_given?
-    return self
-  end
-
 end

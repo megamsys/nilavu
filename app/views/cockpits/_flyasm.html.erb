@@ -34,13 +34,13 @@
                 <div class="row app_icon">
                   <h5><%= assembly.name %></h5>
                   <% case cattype.upcase %>
-                  <% when Assemblies::TORPEDO %>
+                  <% when Api::Assemblies::TORPEDO %>
                   <%= link_to assembly.name + ".megambox.com", onetorpedos_path(:id => assembly.id), :data => {:remote => true} %>
-                  <% when Assemblies::APP %>
+                  <% when Api::Assemblies::APP %>
                   <%= link_to assembly.name + ".megambox.com", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
-                  <% when Assemblies::SERVICE %>
+                  <% when Api::Assemblies::SERVICE %>
                   <%= link_to assembly.name + ".megambox.com", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
-                   <% when Assemblies::MICROSERVICES %>
+                   <% when Api::Assemblies::MICROSERVICES %>
                   <%= link_to assembly.name + ".megambox.com", onemicroservices_path(:id => assembly.id), :data => {:remote => true} %>
                 <% end %>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">

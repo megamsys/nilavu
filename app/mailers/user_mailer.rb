@@ -14,32 +14,31 @@
 ## limitations under the License.
 ##
 class UserMailer < ApplicationMailer
-  # an welcome email gets formatted to be sent
-  def welcome(account)
-    wrap_mail({:account =>  account, :subject => 'Hey, Launch your first app' }) do
-      Rails.logger.debug "> Welcome email:[#{account.email}] delivered. "
-    end
-  end
+	# an welcome email gets formatted to be sent
+	def welcome(account)
+		wrap_mail({:account =>  account, :subject => 'Hey, Launch your first app' }) do
+			Rails.logger.debug "> Welcome email:[#{account.email}] delivered. "
+		end
+	end
 
-  def reset(account)
-    wrap_mail(:account => account, subject: 'You have fat fingers. No worries.') do
-      Rails.logger.debug "Reset email:[#{account.email}]."
-    end
-  end
+	def reset(account)
+		wrap_mail(:account => account, subject: 'You have fat fingers. No worries.') do
+			Rails.logger.debug "Reset email:[#{account.email}]."
+		end
+	end
 
 
-  def invite(account, org_id)
-    @org_id = org_id
-    wrap_mail(:account => account, subject: 'You have been invited!!.') do
-      Rails.logger.debug "Invite email:[#{account.email}]."
-    end
-  end
+	def invite(account, org_id)
+		@org_id = org_id
+		wrap_mail(:account => account, subject: 'You have been invited!!.') do
+			Rails.logger.debug "Invite email:[#{account.email}]."
+		end
+	end
 
-  def verify
-    # @url  = "https://console.megam.io/verified_email.#{@random_token}"
-  end
+	def verify
+		# @url  = "https://console.megam.io/verified_email.#{@random_token}"
+	end
 
-  def balance
-  end
-
+	def balance
+	end
 end
