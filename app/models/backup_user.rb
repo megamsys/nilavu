@@ -27,8 +27,8 @@ class BackupUser < BaseFascade
   end
 
   # creates a new account
-  def account_create(uid)
-    user_hash = @client.user_create("#{uid}")
+  def account_create(uid,display_name)
+    user_hash = @client.user_create("#{uid}","#{display_name}")
     Rails.logger.debug '> Radosgw: Account create'
     user_json = user_hash.to_json
     storage = Storage.new(STORAGES_BUCKET)

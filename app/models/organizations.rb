@@ -25,6 +25,9 @@ class Organizations < BaseFascade
 
   #we call the api, and list all the organization name, create_at time in a hashmap.
   def list(api_params, &block)
+puts "--------------------------------------------------------------------------"
+puts "#{api_params}"    
+ 
     res = api_request(api_params, ORGANIZATION, LIST)
     res[:body].each do |one_org|
 
