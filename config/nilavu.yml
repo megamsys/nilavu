@@ -30,7 +30,7 @@ defaults: &defaults
 ##
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
-  http_logs: localhost:7777
+  http_logs: localhost:7777/logs
 # Enable billing, turn it off for testing.
 ## Default: on
 ##

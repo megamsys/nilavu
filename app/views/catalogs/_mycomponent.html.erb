@@ -5,11 +5,11 @@
     $.AppName = "<%= @logname %>";
     $.MonitC = "http://" + $.AppName + ":8080/api/v1.3/containers";
     $.MonitM = "http://" + $.AppName + ":8080/api/v1.3/machine";
-    $.SocketURL = "<%= Ind.http_logs %>";
+    $.SocketURL = "ws://<%= Ind.http_logs %>";
   })($);
 
 
-  var serverSocket = new WebSocket("ws://localhost:7777/logs")
+  var serverSocket = new WebSocket($.SocketURL)
 
   $('.socket_disconnect').click(function () {
     serverSocket.close();
