@@ -10,6 +10,7 @@ defaults: &defaults
 ##   - text, e.g. localhost, console.megam.io
 
   storage: api.megam.io
+
 ## Name of the nilavu server
 ##
 ## Default: console.megam.io
@@ -25,6 +26,7 @@ defaults: &defaults
 ##   - text, e.g. localhost, api.megam.io
 
   http_api: api.megam.io
+
 ## http_logs is a host that the nilavu will connect to for real time log streaming
 ## Default: console.megam.io:7000
 ##
@@ -39,10 +41,10 @@ defaults: &defaults
   billings: off
 ## Backup storage, host.
   backup:
-    enable: on
-    host: 192.168.1.248
-    username: thomas
-    password: team4megam
+    enable: off
+    host: 192.168.1.102
+    username: megdc
+    password: tuwubU6RArA
 # http_gitlab is a host that the nilavu will connect to
 ## for pulling data from private repositories
 ##

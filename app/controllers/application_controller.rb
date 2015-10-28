@@ -118,7 +118,7 @@ class ApplicationController < ActionController::Base
 
   ## we will move this to our own lib
   def catch_exceptions
-    yield
+   yield
   rescue Accounts::MegamAPIError => mai
     ascii_bomb
     puts_stacktrace(mai)
