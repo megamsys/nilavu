@@ -1334,6 +1334,7 @@ background-color: white;
     margin-right: 5px;
     font-size: 14px !important;
 }
+
 .margin_15
 {
     margin-left: 15px;
@@ -2124,3 +2125,66 @@ a.btn-success:hover
 .pagination > li > a, .pagination > li > span{
     padding: 2px 10px;
 }
+.radioP {
+  display: block;
+  position: relative;
+  margin: 20px 0;
+  padding-left:40px;
+
+  font-family:arial;
+}
+.radioP:first-child {
+ margin:0 0 20px 0;
+}
+
+input[type="radio"] {
+  display: block;
+  position: absolute;
+  top:0;
+  left:0;
+  z-index: 0;
+}
+
+/* For IE 7-8-9
+input[type="radio"] {
+  display: inline-block;
+}
+input[type="radio"] + label span.radioButtonGraph {
+  display: none;
+}
+*/
+
+input[type="radio"] + label span.radioButtonGraph {
+  appearance: none;
+
+  z-index: 20;
+  position: absolute;
+  top:-3px;
+  left:0;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+  vertical-align: middle;
+  box-shadow: hsla(0,0%,100%,.15) 0 1px 1px, inset hsla(0,0%,0%,.5) 0 0 0 1px;
+
+  background: #efefef;
+  background-image: radial-gradient(ellipse at center,  #6fde86 0%,#6fde86 40%,#efefef 45%);
+  background-repeat: no-repeat;
+
+  transition: background-position .15s cubic-bezier(.8, 0, 1, 1);
+}
+input[type="radio"]:checked + label span.radioButtonGraph {
+  transition: background-position .2s .15s cubic-bezier(0, 0, .2, 1);
+}
+
+input[type="radio"] + label span.radioButtonGraph {
+  background-position: -24px 0;
+}
+input[type="radio"]:checked + label span.radioButtonGraph {
+  background-position: 0 0;
+}
+
+input[type="submit"]:hover {opacity:.8;}
+input[type="submit"]:active {opacity:1;}
