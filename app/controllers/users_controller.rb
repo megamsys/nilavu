@@ -54,8 +54,9 @@ class UsersController < ApplicationController
     redirect_to(signin_path, flash: { toastr: 'Hey you!, I know you already. Please Signin.' }) && return if my_account.dup?(all_params[:email])
 
     my_account.create(all_params) do
-      org_res = Organizations.new.list(all_params).orgs
-      session[:org_id] = org_res[0][:id]
+     org_res = Organizations.new.list(all_params).orgs
+    session[:org_id] = org_res[0][:id]
+
       sign_in my_account
       if "#{Ind.notification.email.password}" != ''
         UserMailer.welcome(my_account).deliver_now
@@ -65,7 +66,7 @@ class UsersController < ApplicationController
 
     if Ind.backup.enable
 	backup_client = BackupUser.new(Ind.backup.host, Ind.backup.username, Ind.backup.password)
-    storage_acc_res = backup_client.account_create(params['email'])
+    storage_acc_res = backup_client.account_create(params['email'],'displayname_accountid')
     session[:storage_access_key] = storage_acc_res['access_key']
     session[:storage_secret_key] = storage_acc_res['secret_key']
   end
