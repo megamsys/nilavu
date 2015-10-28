@@ -20,7 +20,7 @@ class BackupUser < BaseFascade
   STORAGES_BUCKET = 'storages'.freeze
 
   def initialize(host, username, user_password)
-    @client = CEPH::Radosgw.new(ipaddress: "#{host}",
+    @client = CEPH::User.new(ipaddress: "#{host}",
                                 username: "#{username}",
                                 user_password: "#{user_password}"
                                )
@@ -28,7 +28,7 @@ class BackupUser < BaseFascade
 
   # creates a new account
   def account_create(uid,display_name)
-    user_hash = @client.user_create("#{uid}","#{display_name}")
+    user_hash = @client.create("#{uid}","#{display_name}")
     Rails.logger.debug '> Radosgw: Account create'
     user_json = user_hash.to_json
     storage = Storage.new(STORAGES_BUCKET)
@@ -38,7 +38,7 @@ class BackupUser < BaseFascade
 
   # usage of an account
   def account_usage(uid)
-    usage_hash = @client.user_usage("#{uid}")
+    usage_hash = @client.usage("#{uid}")
     Rails.logger.debug '> Radosgw: Account usage'
     usage_hash
   end
