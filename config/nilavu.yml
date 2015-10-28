@@ -20,9 +20,23 @@ defaults: &defaults
 ## connect.http.api is a host that the nilavu will connect to
 ## for API  interaction
 ## Default: api.megam.io
+  private_gitlab: off
+# http_gogs is a host that the nilavu will connect to
+## for pulling data from private repositories
+## Default: console.megam.io
 ##
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
+  http_gitlab: http://gitlab.megam.io
+# http_gitlab is a host that the nilavu will redirect to
+## for connecting with the gitlab server
+## Default: console.megam.io
+##
+## Acceptable values:
+##   - text, e.g. localhost, api.megam.io
+  gitlab_apiV: /api/v3
+## Acceptable values:
+##   - text, e.g. on or off
 
   http_api: 192.168.1.105
 ## http_logs is a host that the nilavu will connect to for real time log streaming

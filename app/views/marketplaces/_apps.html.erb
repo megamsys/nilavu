@@ -82,9 +82,17 @@
           </div>
         </div>
         <div class="col-md-6 text-center">
-          <div class="col-md-offset-4 col-md-2"></div>
+          <div class="col-md-offset-4 col-md-2">
+
+            <% if Ind.private_gitlab %>
+          <a href="#" class="hint  hint--bottom" onclick="return gitlab_auth();" data-hint="Connect with your private Gitlab id"> <%= image_tag "gitlabimg.png",:class=> "img-responsive_byoc "%> </a>
+           <% else %>
+                <a href="#" class="hint  hint--bottom" data-hint="Connect with your private git id. coming soon."> <%= image_tag "gitlabimg.png",:class=> "img-responsive_byoc "%> </a>
+           <% end %>
+
         </div>
       </div>
+    </div>
       <br/>
       <div class="row">
         <div class="col-sm-12 col-xs-12">
