@@ -65,7 +65,5 @@ Nilavu::Application.routes.draw do
   #===OneApps
   match '/bindservices', to: 'oneapps#bindservices', via: [:get, :post]
   match '/bindservice', to: 'oneapps#bindservice', via: [:get, :post]
-
-  #===Upload
-  match '/sign_auth', to: 'bucketkolkes#upload_signature', via: [:get]
+  
 end

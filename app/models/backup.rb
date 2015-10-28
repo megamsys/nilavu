@@ -20,7 +20,9 @@ class Backup < BaseFascade
   def initialize(access_key, secret_key, host)
     @client = S3::Service.new(access_key_id: "#{access_key}", secret_access_key: "#{secret_key}", host: "#{host}")
   end
-
+  def auth_sign
+    @client.auth_sign
+  end
   def bucket_create(bucket_name)
     bucket_array = []
     new_bucket = @client.buckets.build(bucket_name)

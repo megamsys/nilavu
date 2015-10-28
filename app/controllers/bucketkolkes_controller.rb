@@ -18,7 +18,7 @@ require 'json'
 class BucketkolkesController < ApplicationController
   respond_to :json, :js
 
-  before_action :stick_storage_keys, only: [:index, :create, :show, :upload]
+  before_action :stick_storage_keys, only: [:index, :create, :show, :upload, :upload_signature]
 
   def index
     logger.debug '>Controller index called'
@@ -27,13 +27,15 @@ class BucketkolkesController < ApplicationController
     respond_with(data)
   end
 
-  def Create
-  end
-
-  def upload
+  def create
     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
     backup.object_create("#{params[:bucket_name]}", params[:sobject])
     @msg = { title: 'Storage', message: "#{params[:sobject].original_filename} uploaded successfully. ", redirect: '/', disposal_id: 'supload' }
+
+  end
+
+  def upload
+
   end
 
   def destroy
@@ -44,7 +46,9 @@ class BucketkolkesController < ApplicationController
 
   # sign our request by Base64 encoding the policy document.
   def upload_signature
-    request = S3::Object.temporary_url(expiretemps_at = Time.now + 3600)
-    signature = S3::Signature.generate(host: Ind.backup.host, request: request, access_key_id: params[:accesskey], secret_access_key: params[:secretkey])
+    backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host).auth_sign
+    temp_sign = backup['Authorization'].split(":").last
+    #respond_with({"signedUrl" => "?AWSAccessKeyId=#{params[:accesskey]}&Expires=#{(Time.now + 3600).to_i}&Signature=#{temp_sign}"})
+    respond_with({"Authorization" => backup['Authorization'].split(":").last, "Expires" => (Time.now + 3600).to_i})
   end
 end

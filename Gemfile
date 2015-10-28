@@ -23,6 +23,10 @@ gem 'toastr_rails'
 gem 'uglifier', '~> 2.7.2'
 gem 'therubyracer', '~> 0.12.2', require: 'v8', platforms: :ruby
 
+group :development do
+  gem 'http-dump', require: ENV['HTTP_DUMP_ENABLE'] ? 'http-dump/enable' : 'http-dump'
+end
+
 # security
 gem 'bcrypt', '~> 3.1.10'
 gem 'oauth2', '~> 1.0.0'

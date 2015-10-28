@@ -115,7 +115,8 @@
 </div>
 <% end %>
 <%= render :template => "users/show" %>
-
+<div id="s3">
+</div>
 <div id="create_bucket" class="modal fade" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog" style="max-width:400px">
 		<div class="modal-content">
@@ -162,7 +163,7 @@
   					<div class="form-group">
     				<label class="fileinput-button">
 						<%= hidden_field_tag 'bucket_name', nil, :class=> 'form-control', :id => "bucketName", placeholder: "Bucket Name", :required => true %>
-      			<span class="col-xs-12"><i class="filetag" ></i> <span class="filetag"><%= t('ssh_keys.add_files') %></span> <%= file_field_tag :sobject, :id => "file_upload", multiple: true %> </span>
+      			<span class="col-xs-12"><i class="filetag" ></i> <span class="filetag"><%= t('ssh_keys.add_files') %></span> <%= file_field_tag :sobject, multiple: true %> </span>
     				</label>
   					</div>
 						<%= submit_tag "upload", :class => "btn btn-success col-md-12 col-xs-12" , :data => {:remote => true}%>
@@ -245,6 +246,7 @@
 
 	// for upload
 	$(function() {
+
 	$('#file_upload').fileupload({
 		forceIframeTransport: true,    // VERY IMPORTANT.  you will get 405 Method Not Allowed if you don't add this.
 		autoUpload: true,
@@ -252,39 +254,11 @@
 			//Ajax-1 started
 			$.ajax({
 				type: 'GET',
+				dataType: 'json',
 				url: '/sign_auth',
 				success:  completeHandler = function(data) {
-				//Ajax-2 started
-					$.ajax({
-						url: "http://192.168.1.248/arun_accet/"+ data.files[0].name +"?AWSAccessKeyId=Y71TT566EPWU9AIV8CE8&Expires=1444810624&Signature=%2BCJQRBGxkRi0R8wXkmmpTKKESO8%3D",  //server script to process data
-						type: 'PUT',
-						beforeSend: function (request)
-						{
-								request.setRequestHeader("x_amz_acl", "private");
-								request.setRequestHeader("x_amz_storage_class", "STANDARD");
-								request.setRequestHeader("content_type", "application/octet-stream");
-								request.setRequestHeader("content_length", "12345");
-						},
-						processData: false,
-						data: data.files[0],
-						//Ajax events
-						success:  completeHandler = function(data) {
-
-						if(navigator.userAgent.indexOf('Chrome')) {
-								var catchFile = $(":file").val().replace(/C:\\fakepath\\/i, '');
-						}
-						else {
-							var catchFile = $(":file").val();
-						}
-						var writeFile = $(":file");
-						writeFile.html(writer(catchFile));
-						$("*setIdOfImageInHiddenInput*").val(data.logo_id);
-						},
-						error: errorHandler = function() {
-							alert("Inner ajax failed");
-						},
-				//ajax-2
-				});
+					var test = 	S3Upload(data);
+					console.log(test)
 				},
 				error: errorHandler = function() {
 					alert("Outer ajax failed");
@@ -294,37 +268,8 @@
 		},
 	});
 });
+
+React.render(React.createElement(ReactS3Uploader, {
+}), document.getElementById('s3'));
+
 </script>
-<!--
-$.ajax({
-	url: "http://192.168.1.248/arun_accet/"+ data.files[0].name +"?AWSAccessKeyId=Y71TT566EPWU9AIV8CE8&Expires=1444810624&Signature=%2BCJQRBGxkRi0R8wXkmmpTKKESO8%3D",  //server script to process data
-	type: 'PUT',
-	beforeSend: function (request)
-	{
-			request.setRequestHeader("x_amz_acl", "private");
-			request.setRequestHeader("x_amz_storage_class", "STANDARD");
-			request.setRequestHeader("content_type", "application/octet-stream");
-			request.setRequestHeader("content_length", "12345");
-	},
-	processData: false,
-	data: data.files[0],
-	//Ajax events
-	success:  completeHandler = function(data) {
-/*
-* workaround for crome browser // delete the fakepath
-*/
-	if(navigator.userAgent.indexOf('Chrome')) {
-			var catchFile = $(":file").val().replace(/C:\\fakepath\\/i, '');
-	}
-	else {
-		var catchFile = $(":file").val();
-	}
-	var writeFile = $(":file");
-	writeFile.html(writer(catchFile));
-	$("*setIdOfImageInHiddenInput*").val(data.logo_id);
-	},
-	error: errorHandler = function() {
-		alert("Inner ajax failed");
-	},
-//ajax-2
-});-->
