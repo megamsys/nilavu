@@ -15,6 +15,11 @@ class BackupService
 	end
 
 
+	def self.sign(parms)
+		S3::Signature.generate(request: S3::Service.service_request(:put), access_key_id: params[:access_key],
+		secret_access_key: params[:secret_key])
+	end
+
 	protected
 
 	def cephs3

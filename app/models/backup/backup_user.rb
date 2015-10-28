@@ -35,7 +35,7 @@ class BackupUser
 
   # usage of an account
   def usage(email)
-    radosgw.user_usage("#{email}")
+    radosgw.user_create("#{email}")
   end
 
   private

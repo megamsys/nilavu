@@ -34,7 +34,6 @@ class APIDispatch
     end
   end
   class InvalidResourceSpecification < ArgumentError; end
-  class InvalidAssemblyID < ArgumentError; end
 
   #swallow 404 errors
   def initialize(ignore_404 = false)

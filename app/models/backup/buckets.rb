@@ -13,8 +13,7 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-
-class Buckets < BackupFascade
+class Buckets < BackupService
   def initialize(params)
     super(params)
   end

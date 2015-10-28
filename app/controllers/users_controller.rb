@@ -41,9 +41,8 @@ class UsersController < NilavuController
     logger.debug '> Users: create.'
     Api::Accounts.new.create(params) do |acct|
       store_credentials acct
-
       if "#{Ind.notification.email.password}" != ''
-        #UserMailer.welcome(acct).deliver_now
+        UserMailer.welcome(acct).deliver_now
       end
       toast_success(cockpits_path, "To get started, click marketplace.")
     end
