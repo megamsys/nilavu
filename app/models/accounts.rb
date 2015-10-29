@@ -62,7 +62,6 @@ class Accounts < BaseFascade
   # pulls the account object for an email
   def find_by_email(email)
     storage = Storage.new(ACCOUNTS_BUCKET).fetch(email)
-    puts storage
     unless storage.content.data.nil?
       @id = storage.content.data['id']
       @email = storage.content.data['email']

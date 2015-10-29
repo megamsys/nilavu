@@ -29,7 +29,7 @@ class BucketsController < ApplicationController
     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
     @buckets = backup.buckets_list
     backup_client = BackupUser.new(Ind.backup.host, Ind.backup.username, Ind.backup.password)
-    @backup_usage = backup_client.account_usage(session[:email])
+    @backup_usage = backup_client.usage(session[:email])
   end
 
   def create
@@ -51,6 +51,10 @@ class BucketsController < ApplicationController
       @objects.push({:key => "#{obj.key}", :object_name => "#{obj.full_key}", :size => "#{obj.size}", :content_type => "#{obj.content_type}", :last_modified => "#{obj.last_modified}", :download_url => "#{obj.temporary_url}" })
     end
     @bucket_name = params["id"]
+  end
+
+  def destroy
+    puts "Megam Systems"
   end
 
 end

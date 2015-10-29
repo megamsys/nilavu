@@ -66,7 +66,7 @@ class UsersController < ApplicationController
 
     if Ind.backup.enable
 	backup_client = BackupUser.new(Ind.backup.host, Ind.backup.username, Ind.backup.password)
-    storage_acc_res = backup_client.account_create(params['email'],'displayname_accountid')
+    storage_acc_res = backup_client.create(params['email'],'displayname_accountid')
     session[:storage_access_key] = storage_acc_res['access_key']
     session[:storage_secret_key] = storage_acc_res['secret_key']
   end
