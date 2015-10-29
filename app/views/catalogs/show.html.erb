@@ -45,25 +45,25 @@
               <% end %>
             </li>
             <li class="start active">
-              <%= link_to catalogs_path(:cattype => Assemblies::TORPEDO ), :data => { :remote => true}, :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+              <%= link_to catalogs_path(:cattype => Api::Assemblies::TORPEDO ), :data => { :remote => true}, :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
               <i class="c_icon-torpedo pull-left"></i>
               <span class="title pull-left"><%= t('cockpits.torpedo_tab') %></span>
               <% end %>
             </li>
             <li class="start active">
-              <%= link_to catalogs_path(:cattype => Assemblies::APP), :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+              <%= link_to catalogs_path(:cattype => Api::Assemblies::APP), :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
               <i class="c_icon-apps pull-left"></i>
               <span class="title pull-left"><%= t('cockpits.apps_tab') %></span>
               <% end %>
             </li>
             <li class="start active">
-              <%= link_to catalogs_path(:cattype => Assemblies::SERVICE),:data => { :remote => true},   :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+              <%= link_to catalogs_path(:cattype => Api::Assemblies::SERVICE),:data => { :remote => true},   :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
               <i class="c_icon-service pull-left"></i>
               <span class="title pull-left"><%= t('cockpits.services_tab') %></span>
               <% end %>
             </li>
             <li class="start active">
-              <%= link_to catalogs_path(:cattype =>Assemblies::MICROSERVICES), :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+              <%= link_to catalogs_path(:cattype =>Api::Assemblies::MICROSERVICES), :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
               <i class="c_icon-addon pull-left"></i>
               <span class="title pull-left"><%= t('cockpits.micro_services_tab') %></span>
               <% end %>

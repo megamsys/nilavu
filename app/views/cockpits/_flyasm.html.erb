@@ -35,15 +35,15 @@
                   <h5><%= assembly.name %></h5>
                   <% assembly_name = if assembly.name.size > 10 then assembly.name.slice(0,5) + "..." else assembly.name end %>
                   <% case cattype.upcase %>
-                  <% when Assemblies::TORPEDO %>
-                  <%= link_to assembly_name + ".megambox.com", onetorpedos_path(:id => assembly.id), :data => {:remote => true} %>
-                  <% when Assemblies::APP %>
-                  <%= link_to assembly_name + ".megambox.com", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
-                  <% when Assemblies::SERVICE %>
-                  <%= link_to assembly_name + ".megambox.com", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
-                   <% when Assemblies::MICROSERVICES %>
-                  <%= link_to assembly_name + ".megambox.com", onemicroservices_path(:id => assembly.id), :data => {:remote => true} %>
-                <% end %>
+                  <% when Api::Assemblies::TORPEDO %>
+                  <%= link_to assembly.name + ".megambox.com", onetorpedos_path(:id => assembly.id), :data => {:remote => true} %>
+                  <% when Api::Assemblies::APP %>
+                  <%= link_to assembly.name + ".megambox.com", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
+                  <% when Api::Assemblies::SERVICE %>
+                  <%= link_to assembly.name + ".megambox.com", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
+                   <% when Api::Assemblies::MICROSERVICES %>
+                  <%= link_to assembly.name + ".megambox.com", onemicroservices_path(:id => assembly.id), :data => {:remote => true} %>
+              <% end %>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                   <ul class="list-inline app_icon_bottom">
                     <%  sparkle_up(cattype,assembly).each do |cool_logo| %>
@@ -101,23 +101,17 @@
 <script>
 $(document).ready(function() {
     $('.app_config').click(function(event) {
-//alert("APP CONFIG CLICKED");
-//console.log("APP CONFIG CLICKED");
-       // $('.config_menu').hide();
         $('.app_config').removeClass('config_acive');
         cls = this.id;
-        // $('.app_config').removeClass('config_acive');
         event.stopPropagation();
         $('.' + cls).toggle();
         $(this).toggleClass('config_acive');
     });
     $(document).click(function() {
-        //$('.config_menu').hide();
         $('.app_config').removeClass('config_acive');
     });
 });
   // Instance the tour
-/*@assemblies_grouped["TORPEDO"].nil? && @assemblies_grouped["APP"].nil? && @assemblies_grouped["SERVICE"].nil? &&*/
 <% if session[:tour] %>
 var tour = new Tour({
   steps: [

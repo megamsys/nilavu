@@ -12,15 +12,14 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class OnetorpedosController < ApplicationController
-  respond_to :html, :js
-  include MarketplaceHelper
+class OnetorpedosController < NilavuController
+	respond_to :html, :js
+	include MarketplaceHelper
 
-  before_action :stick_keys, only: [:show, :index]
+	before_action :stick_keys, only: [:show, :index]
 
-  def index
-    @assembly=Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Assemblies::TORPEDO]
-    @assembly
-  end
-
+	def index
+		@assembly=Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Api::Assemblies::TORPEDO]
+		@assembly
+	end
 end

@@ -13,39 +13,36 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class SshKeysController < ApplicationController
-  respond_to :html, :js
+class SshKeysController < NilavuController
+	respond_to :html, :js
 
-  before_action :stick_keys
-  ## get all sshkeys from storage and sort the keys for creating time based
-  def index
-    logger.debug "> SSH: index"
-    @ssh_keys = Sshkeys.new.list(params).ssh_keys
-  end
+	before_action :stick_keys
+	## get all sshkeys from storage and sort the keys for creating time based
+	def index
+		logger.debug "> SSH: index"
+		@ssh_keys = Api::Sshkeys.new.list(params).ssh_keys
+	end
 
-  def create
-    logger.debug "> SSH: create"
-    params[:sshoption] = Sshkeys::NEW
-    Sshkeys.new.create_or_import(params)
-    @msg = { title: "SSH", message: "#{params[:ssh_keypair_name]} created successfully. ", redirect: '/ssh_keys', disposal_id: 'create_ssh' }
+	def create
+		logger.debug "> SSH: create"
+		params[:sshoption] = Api::Sshkeys::NEW
+		Api::Sshkeys.new.create_or_import(params)
+		@msg = { title: "SSH", message: "#{params[:ssh_keypair_name]} created successfully. ", redirect: '/ssh_keys', disposal_id: 'create_ssh' }
+	end
 
-  end
 
+	## this downloads a key
+	def edit
+		params = params.merge(:download_location => current_user.email+"_"+"#{params[:id]}")
+		Api::Sshkeys.new.download(params)
+		send_file Rails.root.join("#{params[:download_location]}"), :x_sendfile=>true
+	end
 
-  ## this downloads a key
-  def edit
-    params[:download_location] = current_user.email+"_"+"#{params[:id]}"
-    downloaded_file = Sshkeys.new.download(params)
-    send_file Rails.root.join("#{params[:download_location]}"), :x_sendfile=>true
-  end
-
-  ## this imports the ssh keys.
-  def update
-    logger.debug "> SSH: update"
-    params[:sshoption] = Sshkeys::IMPORT
-    Sshkeys.new.create_or_import(params)
-    @msg = { title: "SSH", message: "#{params[:ssh_keypair_name]} imported successfully. ", redirect: '/ssh_keys', disposal_id: 'import_ssh' }
-
-  end
-
+	## this imports the ssh keys.
+	def update
+		logger.debug "> SSH: update"
+		params[:sshoption] = Api::Sshkeys::IMPORT
+		Api::Sshkeys.new.create_or_import(params)
+		@msg = { title: "SSH", message: "#{params[:ssh_keypair_name]} imported successfully. ", redirect: '/ssh_keys', disposal_id: 'import_ssh' }
+	end
 end

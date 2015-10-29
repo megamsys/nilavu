@@ -16,8 +16,7 @@ Nilavu::Application.configure do
   GA.tracker = "UA-60777472-2"
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_files  = false
-
+  config.serve_static_files = false
   #config.assets.js_compressor = :uglifier
   #To load angular
   config.assets.js_compressor = Uglifier.new(:mangle => false)
@@ -81,5 +80,4 @@ Nilavu::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   # Configure logger to log warn and above
-
 end
