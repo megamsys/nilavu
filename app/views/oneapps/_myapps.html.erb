@@ -14,123 +14,58 @@
 ** limitations under the License.
 -->
 <% content_for :onecat_contents do %>
-<% provide(:title, 'Apps Overview') %>
+<% provide(:title, "Apps Overview") %>
+
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
-		<div class="">
-			<%= render :partial => "users/topright_icons", :locals => {:title_name => t('titles.app_overview')} %>
-		</div>
-	<!-- TITLE BOX ENDS HERE -->
-	<div class="row">
-		<div class="margin_15 overview margintb_15">
-			<div class="overview-top">
-				<div class="col-xs-12 col-sm-12 col-md-6 overview-route-dynamic">
-					<span><%= t('overviews.url') %> </span><a href="http://<%= assembly.name  %>.<%= assembly.components[0][0].components.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>" target="_blank"><%= assembly.name  %>.<%= assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %></a>
-				</div>
-				<div class="col-xs-12 col-sm-12 col-md-6 overview-git">
-					<div class="row">
-						<div class="col-xs-3">
-							<div class="clearfix"></div>
-							<label><%= t('overviews.git_url') %></label>
-						</div>
-						<div class="col-xs-6">
-							<input type="text" class="overview-giturl form-control" disabled placeholder="<%= assembly.components[0][0].components.inputs.select { |x| x['key'] == 'source' }[0]['value'] %>">
-						</div>
-						<div class="col-xs-3 overview-submit">
-							<a href="<%= assembly.components[0][0].components.inputs.select { |x| x['key'] == 'source' }[0]['value'] %>" target="_blank" class="btn green"><%= t('overviews.code') %></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="margin_30 bottom-divider"></div>
-	</div>
-	<div class="clearfix"></div>
-	<div class=" overview margintb_15 vm-overview">
-		<div class="vm-bg">
-			<div class="overview-top ">
-				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-					<label class="col-md-6"><i class="fa fa-hdd-o"></i> <%= t('overviews.available_ram') %> </label>
-					<span1>
-						<%= assembly.inputs.select { |x| x["key"] == "ram" }[0]['value'] %> <%= t('overviews.mb') %>
-					</span1>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-					<label class="col-md-6"><i class="fa fa-columns"></i> <%= t('overviews.cpu_core') %> </label>
-					<span1>
-						<%= assembly.inputs.select { |x| x["key"] == "cpu" }[0]['value'] %>
-					</span1>
-				</div>
-			</div>
-			<div class="overview-top ">
-				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-					<label class="col-md-6"><i class="fa fa-puzzle-piece"></i> <%= t('overviews.ip') %> </label>
-					<span1>
-						<% ip = parse_key_value_pair(assembly.outputs, "ip") %>
-						<%= ip if ip != "" %>
-						<%= t('overviews.not_get_ip') if ip == "" %>
-					</span1>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-					<label class="col-md-6"><i class="fa fa-building-o"></i> <%= t('overviews.integration') %> </label>
-					<span1>
-						<% pair = parse_operations(assembly.components[0][0].components.operations, "CI") %>
-						<% if pair.empty? %>
-						<%= t('overviews.off') %>
-						<% else %>
-						<%= t('overviews.on') if parse_key_value_pair(pair, "ci-enable") == "true" %>
-						<% end %>
-					</span1>
-				</div>
-			</div>
-			<div class="overview-top">
-				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-					<label class="col-md-6"> <i class="fa fa-bullseye"></i> <%= t('overviews.os') %> </label>
-					<span1 style="border-bottom:none;">
-						<%= image_tag  "logos/#{assembly.tosca_type.split('.').last}.png", :alt => "" %>
-					</span1>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-					<label class="col-md-6"><i class="fa fa-lock"></i> <%= t('overviews.key') %></label>
-					<span1>
-						<%= link_to "#{assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value']}", edit_ssh_key_path(:id => assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value']+"_key"), :class => "hint  hint--bottom", :target => "_self", 'data-hint' => "Click here to download private key" %>
-					</span1>
-				</div>
-			</div>
-		</div>
-	</div>
-	<br/>
-	<div class="row">
-		<div class="margin_30 c_pading-b15">
-			<div class="portlet-body-head">
-				<div class="col-xs-12 col-sm-12 col-md-6 row">
-						<i class="c_icon-layer_lg"></i><%= t('overviews.bound_service') %> <span><%= @bound_services.size%> <%= t('overviews.service_running') %></span>
-				</div>
-				<div class="col-xs-12 col-sm-12 col-md-6 create_bind row">
-					<ul class="list-inline">
-						<li class=" col-sm-6 ">
-							<i class="icon-plus"></i> <%= link_to t('marketplace.create_service'), marketplaces_path, :remote =>true %>
-						</li>
-						<li class=" col-sm-6">
-							<i class="icon-plus"></i>
-						 <%= link_to t('overviews.bindservice'), bindservices_path(:bindapp => assembly.name + "." + assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] + "/" + assembly.components[0][0].components.name + ":" + assembly.id + ":" + assembly.components[0][0].components.id), :remote => true %>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-	<br/>
-	<div class="bottom-divider"></div>
-	<div class="row">
-	<%= render :partial => 'catalogs/flysolo', :locals => {:asmgroups_flatten => @bound_services, :filter_cattype => Assemblies::SERVICE} %>
-	</div>
-	<%= render 'catalogs/logs' %>
+  <div class="">
+    <div class="row c_pading-b15">
+      <div class="storage_top">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <h3>
+            <b>
+              Apps Overview
+            </b>
+          </h3>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 settings_grid yf-upload-cover">
+          <a class="btn blue col-xs-12 col-sm-6 pull-right" data-toggle="modal" href="#app-1">Bind a service</a>
+        </div>
 
-</div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-divider"></div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 br_grey">
 
+      <% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
+      <% @logname = "#{assembly.name}.#{domain}" %>
+        <%= render 'catalogs/mycomponent' %>
 
-<div id="bindservice" class="modal fade" tabindex="-1" aria-hidden="true">
-	<div id="replace_bind_form"> </div>
-</div>
-<% end %>
-<%= render :template => 'catalogs/show',:locals => {:cattype => Assemblies::APP} %>
+  </div>
+
+    <div class="col-sm-3 storage-rt-list">
+      <dl>
+        <h3>Usage</h3>
+        <dt><%= t('overviews.available_ram') %></dt>
+        <dd><%= assembly.inputs.select { |x| x["key"] == "ram" }[0]['value'] %>
+          <%= t('overviews.mb') %></dd>
+        <dt class="margin-top-20"></dt>
+        <dt><%= t('overviews.cpu_core') %></dt>
+        <dd><%= assembly.inputs.select { |x| x["key"] == "cpu" }[0]['value'] %></dd>
+        <dt>
+          <%= t('overviews.ip') %></dt>
+        <dd><% ip = parse_key_value_pair(assembly.outputs, "ip") %>
+          <%= ip if ip != "" %>
+          <%= t('overviews.not_get_ip') if ip == "" %></dd>
+        <dt class="margin-top-20"></dt>
+        <dt>Region</dt>
+        <dd><img src="assets/images/flag_IN.png">
+          INDIA</dd>
+      </dl>
+    </div>
+  </div>
+  </div>
+
+  <% end %>
+  <%= render :template => "catalogs/show", :locals => {:cattype => Assemblies::APP} %>

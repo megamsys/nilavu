@@ -44,8 +44,4 @@ class Organizations < BaseFascade
   def showDomains(api_params, &block)
 
   end
-
-
-
-
 end

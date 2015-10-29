@@ -18,6 +18,8 @@ Nilavu::Application.routes.draw do
   resources :onemicroservices
   resources :buckets
   resources :bucketkolkes
+  # Internal AJAX API
+  resources :events
 
   # named route for users, session
   match '/signup', to: 'users#new', via: [:get]
@@ -65,5 +67,8 @@ Nilavu::Application.routes.draw do
   #===OneApps
   match '/bindservices', to: 'oneapps#bindservices', via: [:get, :post]
   match '/bindservice', to: 'oneapps#bindservice', via: [:get, :post]
-  
+
+  #===Events
+  match '/sensors', to: 'sensors#index' , via: [:get, :post]
+
 end

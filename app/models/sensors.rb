@@ -13,27 +13,27 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class Balances < BaseFascade
+require 'json'
 
-  attr_reader :balance
+class Sensors < BaseFascade
+  attr_reader :sensors
 
-  def initialize()
-     @balance = {}
+  def initialize
+    @sensors = []
   end
 
-  def show(api_params, &block)
-  
-    raw = api_request(api_params, BALANCES, SHOW)
-    @balance = raw[:body].lookup(api_params["email"])
-    yield self  if block_given?
-    return self
-  end
-
-  def update(api_params, &block)
-    api_request(api_params, BALANCES, UPDATE)
+  def list(api_params, &_block)
+    raw = api_request(api_params, SENSORS, LIST)
+    @sensors = to_hash(raw[:body])
     yield self if block_given?
-    return self
+    self
   end
 
-
+  def to_hash(sensors_collection)
+    sensors = []
+    sensors_collection.each do |sensor|
+      sensors << { sensor_type: sensor.sensor_type, payload: sensor.payload, created_at: sensor.created_at.to_time.to_formatted_s(:rfc822) }
+    end
+    sensors.sort_by { |vn| vn[:created_at] }
+  end
 end
