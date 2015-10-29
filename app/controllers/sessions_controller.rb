@@ -46,6 +46,5 @@ class SessionsController < NilavuController
     toast_error(signin_path, ae.message)
   rescue Api::Accounts::AccountFound => ae
     toast_error(signin_path,ae.message)
-    # for other errors do we have to aise error  back or it gets handled automatically by applicable_controller
   end
 end
