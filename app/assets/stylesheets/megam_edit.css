@@ -329,8 +329,6 @@ overflow-y:scroll;
 table-layout: fixed;
 background-color: #DCDCDC;
 margin-top: 15px;
-
-
 }
 .chart-tab  {
   border-top: 3px solid #4e9de6;
@@ -346,4 +344,58 @@ margin-top: 15px;
   display:table-cell;
   vertical-align:middle;
   text-align:center
+}
+.c_icon-text
+{
+	color: transparent;
+	overflow: hidden;
+	display: inline-block;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	vertical-align: middle;
+	background-image:url(icon_text.png);
+}
+.tb_upload .pop_icon{
+	width: 33px;
+	height: 39px;
+}
+div.checker {
+  margin-right: 5px;
+}
+.c_icon-trash
+{
+	color: transparent;
+	overflow: hidden;
+	display: inline-block;
+	height: 24px;
+	width: 16px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	/* border-radius: 50%; */
+	vertical-align: middle;
+	background-image:url(c_icon-trash.png);
+}
+.margin_15
+{
+	margin-left: 15px;
+	margin-right: 15px;
+}
+.c_icon-d
+{
+	color: transparent;
+	overflow: hidden;
+	display: inline-block;
+	height: 16px;
+	width: 16px;
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	/* border-radius: 50%; */
+	vertical-align: middle;
+	background-image:url(c_icon-d.png);
+}
+.del-up-cover:hover .del-up,{
+	opacity: 1;
 }

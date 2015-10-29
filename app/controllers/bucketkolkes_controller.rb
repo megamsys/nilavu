@@ -16,27 +16,22 @@
 require 'json'
 
 class BucketkolkesController < NilavuController
-	respond_to :json, :js
+  respond_to :json, :js
 
-	before_action :stick_ceph_keys, only: [:index, :upload, :destroy]
+  before_action :stick_ceph_keys, only: [:index, :upload, :destroy]
 
-	def index
-		bucketobj = BucketObjects.new(parms)
-		respond_with(bucketobj.list)
-	end
+  def index
+    bucketobj = BucketObjects.new(parms)
+    respond_with(bucketobj.list)
+  end
 
-	def upload
-		bucketobjs = BucketObjects.new(parms)
-		baucketobjs.create(params[:sobject])
-		@msg = { title: 'Storage', message: "#{params[:sobject].original_filename} uploaded successfully. ", redirect: '/', disposal_id: 'supload' }
-	end
+  def upload
+    bucketobjs = BucketObjects.new(parms)
+    baucketobjs.create(params[:sobject])
+    @msg = { title: 'Storage', message: "#{params[:sobject].original_filename} uploaded successfully. ", redirect: '/', disposal_id: 'supload' }
+  end
 
-	def destroy
-		BucketObjects.new(params).delete(bucket_name)
-	end
-
-	# sign our request by Base64 encoding the policy document.
-	def gen_sign
-		BackupFascade.sign(params)
-	end
+  def destroy
+    BucketObjects.new(params).delete(bucket_name)
+  end
 end

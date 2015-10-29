@@ -36,4 +36,8 @@ class BucketsController < NilavuController
     @objects = BucketObjects.new(params).list_detail
     @bucket_name = params["id"]
   end
+
+  def destroy
+    puts "Megam Systems"
+  end
 end

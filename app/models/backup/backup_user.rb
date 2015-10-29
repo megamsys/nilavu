@@ -21,27 +21,26 @@ class BackupUser
 
   def initialize(params)
     @radowgw = CEPH::Radosgw.new(username: radosadmin,
-                                 user_password: radosadmin_password,
-                                ipaddress: endpoint)
+      user_password: radosadmin_password,
+    ipaddress: endpoint)
   end
 
   # creates a new account
   def create(uid)
-    radosuser = radosgw.user_create("#{uid}")
+    radosuser = radosgw.create("#{uid}","#{display_name}")
     ## we will have to move this thing out of this code.
     Riak.new(STORAGES_BUCKET).upload(uid, radosuser.to_json, 'application/json')
     radosuser
   end
 
   # usage of an account
-  def usage(email)
-    radosgw.user_create("#{email}")
+  def usage(uid)
+    radosgw.usage("#{uid}")
   end
 
   private
-
   def radosgw
-     @radosgw
+    @radosgw
   end
 
   def endpoint
