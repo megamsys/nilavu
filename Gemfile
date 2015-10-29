@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'json', '~> 1.8.3'
 gem 'net-ssh'
 
+gem 'jquery-fileupload-rails','~> 0.4.6' #fileupload
 gem 'rails', '~> 4.2.4'
 gem 'rails-i18n', '~> 4.0.5' # For 4.0.x
 gem 'protected_attributes', '~> 1.1.3' # transition to rails 4.2.x
@@ -38,7 +39,6 @@ gem 'github_api', '~>0.12.4'
 gem 'gitlab', '~> 3.4.0'
 gem 'riak-client', '~> 2.2.1'
 gem 'radosgw-s3'
-gem 'jquery-fileupload-rails','~> 0.4.6' #fileupload
 
 gem 'google-analytics-rails', '~> 0.0.6'
 gem 'paypal-sdk-rest', '~>1.3.1' # billing

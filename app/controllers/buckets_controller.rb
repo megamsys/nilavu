@@ -53,4 +53,8 @@ class BucketsController < ApplicationController
     @bucket_name = params["id"]
   end
 
+  def destroy
+    puts "Megam Systems"
+  end
+
 end

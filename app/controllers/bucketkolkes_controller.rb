@@ -45,9 +45,7 @@ class BucketkolkesController < ApplicationController
     @bucket_name = params["id"]
   end
   def upload
-    #backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
-    #backup.object_create("#{params[:bucket_name]}", params[:sobject])
-    #@msg = { title: 'Storage', message: "#{params[:sobject].original_filename} uploaded successfully. ", redirect: '/', disposal_id: 'supload' }
+
   end
 
   def destroy
@@ -56,11 +54,4 @@ class BucketkolkesController < ApplicationController
     backup.bucket_delete(bucket_name)
   end
 
-  # sign our request by Base64 encoding the policy document.
-  def upload_signature
-    backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host).auth_sign
-    temp_sign = backup['Authorization'].split(":").last
-    #respond_with({"signedUrl" => "?AWSAccessKeyId=#{params[:accesskey]}&Expires=#{(Time.now + 3600).to_i}&Signature=#{temp_sign}"})
-    respond_with({"Authorization" => backup['Authorization'].split(":").last, "Expires" => (Time.now + 3600).to_i})
-  end
 end
