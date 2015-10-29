@@ -42,8 +42,9 @@
           <div class="form-group col-md-2 col-sm-6 ">
             <!-- <a href="#">APPLY</a> -->
 
-            <%= submit_tag t('billings.apply'), :class => "btn btn-success col-md-10 col-xs-10 a_override" %>
+            <%= submit_tag t('billings.apply'), :id => 'sid', :class => "btn btn-success col-md-10 col-xs-10 a_override"%>
             <% end%>
+
           </div>
         </div>
 
@@ -103,7 +104,7 @@
                   <td><%= history.billing_amount %></td>
                   <td><%= history.currency_type %></td>
                   <td><%= history.created_at %></td>
-                <!--  <td>
+                  <!--  <td>
                     <%= link_to "pdf" ,pdf_path(:From_date => history.from_date , :To_date => history.to_date , :month => history.month, :billing_amount => history.billing_amount, :currency_type => history.currency_type, :created_at => history.created_at), :data => {:remote => true} %></td>-->
                 </tr>
                 <% end %>
