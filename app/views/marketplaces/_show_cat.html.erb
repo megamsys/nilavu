@@ -16,6 +16,7 @@
 <% plan        = match_plan_for(mkp,version) %>
 <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
 <%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
+<%= hidden_field_tag 'mkp_name', nil, placeholder: "", :class =>"form-control", :value => @mkp['name'] %>
 <% asmname = launch_namegen %>
 <div class="row">
 	<div class="col-md-12 pad_tb25">
