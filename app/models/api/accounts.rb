@@ -36,7 +36,7 @@ module Api
     end
 
     def create(parms, &_block)
-      current_config(parms, false)
+      current_config(parms, true)
       @auth_config = Nilavu::Auth::Configuration.from_hash(parms.merge({:api_key =>
       Nilavu::Auth::SignVerifier.hmackey}))
       api_request(ACCOUNT, CREATE,@auth_config.to_hash)

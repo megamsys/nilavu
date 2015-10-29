@@ -39,27 +39,14 @@ class MarketplacesController < NilavuController
   ##
 
   def show
-  
     logger.debug '> Marketplaces: show.'
-    bill_check = false
-    if Ind.billings
-      Balances.new.show(params) do |modb|
-        bill_check = true unless modb.balance.credit.to_i > 0
-      end
-    end
-    if !bill_check
-      @mkp = pressurize_version(Api::Marketplaces.instance.show(params).mkp, params['version'])
-      @ssh_keys = Api::Sshkeys.new.list(params).ssh_keys
-      @unbound_apps = unbound_apps(Api::Assemblies.new.list(params.merge(flying_apps: 'true')).apps) if @mkp['cattype'] == Api::Assemblies::SERVICE
-      respond_to do |format|
-        format.js do
-          respond_with(@mkp, @ssh_keys, @unbound_apps, layout: !request.xhr?)
-        end
-      end
-    end
+    @mkp = pressurize_version(Api::Marketplaces.instance.show(params).mkp, params['version'])
+    @ssh_keys = Api::Sshkeys.new.list(params).ssh_keys
+    @unbound_apps = unbound_apps(Api::Assemblies.new.list(params.merge(flying_apps: 'true')).apps) if @mkp['cattype'] == Api::Assemblies::SERVICE
     respond_to do |format|
-      format.html { redirect_to billings_path }
-      format.js { render js: "window.location.href='" + billings_path + "'" }
+      format.js do
+        respond_with(@mkp, @ssh_keys, @unbound_apps, layout: !request.xhr?)
+      end
     end
   end
 
