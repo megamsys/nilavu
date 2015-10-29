@@ -16,12 +16,12 @@
 <%= form_tag marketplaces_path, multipart: true, :novalidate => 'novalidate', :id => "megamform", :method => 'post', :remote => true  do %>
   <% plan        = match_plan_for(@mkp,version) %>
   <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
-  
+
   <%= hidden_field_tag 'componentname', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
   <%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
   <%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
     <%= hidden_field_tag 'type', nil, placeholder: "", :class => "form-control" %>
-  <%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::ONE %>
+  <%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Api::Marketplaces::ONE %>
   <div class="row">
     <div class="col-md-12 pad_tb25"> <span class="app_left_name"><%= t('marketplace.discription') %></span>
       <P class="model-description"><%= plan['description'] %> <a href="http://docs.megam.io/v1.0/docs/postgresql" target="_blank"> <%= t('marketplace.view_docs') %></a></P>

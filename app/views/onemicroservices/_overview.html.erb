@@ -42,22 +42,22 @@
 						<div class="config_menu config_menu_<%= c.name %>">
 							<ul>
 								<li>
-									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :command => "start" ), :remote => true, :class => "link_img" do %>
+									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :action => "start" ), :remote => true, :class => "link_img" do %>
 									<i class="glyphicon glyphicon-play-circle"></i><%= t('settings.start') %>
 									<% end %>
 								</li>
 								<li>
-									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :command => "stop" ), :remote => true, :class => "link_img" do %>
+									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :action => "stop" ), :remote => true, :class => "link_img" do %>
 									<i class="glyphicon glyphicon-record"></i><%= t('settings.stop') %>
 									<% end %>
 								</li>
 								<li>
-									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :command => "restart"), :remote => true, :class => "link_img" do %>
+									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :action => "restart"), :remote => true, :class => "link_img" do %>
 									<i class="glyphicon glyphicon-refresh"></i><%= t('settings.restart') %>
 									<% end %>
 								</li>
 								<li>
-									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :command => "delete"), :remote => true, :class => "link_img" do %>
+									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :action => "delete"), :remote => true, :class => "link_img" do %>
 									<i class="glyphicon glyphicon-refresh"></i><%= t('settings.delete') %>
 									<% end %>
 								</li>

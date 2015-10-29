@@ -13,39 +13,38 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class OneappsController < ApplicationController
-  respond_to :html, :js
-  include OneappsHelper
-  include CatalogHelper
+class OneappsController < NilavuController
+	respond_to :html, :js
+	include OnexyzHelper
+	include CatalogHelper
 
-  before_action :stick_keys, only: [:index, :bindservices, :bindservice]
+	before_action :stick_keys, only: [:index, :bindservices, :bindservice]
 
-  def index
-    @assembly = Assembly.new.show(params.merge('id' => params[:id])).by_cattypes[Assemblies::APP]
-    @bound_services = bound_assemblies(Assemblies.new.list(params).assemblies_grouped[Assemblies::SERVICE], @assembly.components[0][0].components.related_components)
-    @assembly
-  end
+	def index
+		@assembly = Assembly.new.show(params.merge('id' => params[:id])).by_cattypes[Api::Assemblies::APP]
+		@bound_services = bound_assemblies(Api::Assemblies.new.list(params).assemblies_grouped[Api::Assemblies::SERVICE], @assembly.components[0][0].components.related_components)
+	end
 
-  def bindservices
-    @bindapp = params[:bindapp]
-    @service = unbound_apps(Assemblies.new.list(params.merge(flying_service: 'true')).services)
-  end
+	def bindservices
+		@bindapp = params[:bindapp]
+		@service = unbound_apps(Api::Assemblies.new.list(params.merge(flying_service: 'true')).services)
+	end
 
-  def bindservice
-    params[:bind_app_flag] = 'true'
+	def bindservice
+		params[:bind_app_flag] = 'true'
 
-    binded_service?(params) do
-      Assembly.new.update(params)
-      Components.new.update(params)
-      Components.new.update_exist(params)
-    end if params.key?(:bind_type)
+		binded_service?(params) do
+			Assembly.new.update(params)
+			Components.new.update(params)
+			Components.new.update_exist(params)
+		end if params.key?(:bind_type)
 
-    @msg = { title: 'Bind Service'.downcase.camelize, message: 'Service bounded successfully. ', redirect: '/', disposal_id: 'bindservice' }
-  end
+		@msg = { title: 'Bind Service'.downcase.camelize, message: 'Service bounded successfully. ', redirect: '/', disposal_id: 'bindservice' }
+	end
 
-  private
+	private
 
-  def binded_service?(params, &_block)
-    yield if block_given? unless params[:bind_type].eql?('Unbound app')
-  end
+	def binded_service?(params, &_block)
+		yield if block_given? unless params[:bind_type].eql?('Unbound app')
+	end
 end

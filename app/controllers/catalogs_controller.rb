@@ -21,7 +21,7 @@
 #          - DESTROY an assembly  or catalog.
 #            this action gets called prior to a start, stop, restart, delete operation
 #            a confirmation is got from the user to perform the same.
-class CatalogsController < ApplicationController
+class CatalogsController < NilavuController
   include CatalogHelper
   respond_to :html, :js
 
@@ -32,17 +32,16 @@ class CatalogsController < ApplicationController
   def index
     logger.debug "> Pilotable: Index"
     @cattype = params[:cattype].capitalize
-    assem = Assemblies.new.list(params)
+    assem = Api::Assemblies.new.list(params)
     @assemblies_grouped = assem.assemblies_grouped
   end
 
 
   #this action performs a start, stop, restart operation
   def create
-      logger.debug "> Pilotable: create"
-      params[:action] = params[:command]
-      Requests.new.reqs(params)
-      @msg = { title: "#{params['command'].camelize} #{params['cattype'].downcase}", message: "#{params['command'].camelize} #{params['name']} submitted successfully. ", redirect: '/'}
+    logger.debug "> Pilotable: create"
+    Requests.new.reqs(params)
+    toast_success(root_url, "#{params['acion'].camelize} #{params['name']} submitted successfully. ")
   end
 
   #a confirmation question for a delete operation.
@@ -54,27 +53,24 @@ class CatalogsController < ApplicationController
   #this action performs a delete operation.
   def destroy
     logger.debug "> Pilotable: destroy"
-    params[:cattype] = params[:command]
-    Requests.new.reqs(params)
-    @dmsg = { disposal_id: "megam_flykelvi", title: "#{params['command'].camelize} #{params['cattype'].downcase}", message: "#{params['command'].camelize} #{params['name']} submitted successfully. ", redirect: '/'}
+    Requests.new.reqs(params.merge({:cattype => params[:action]}))
+    toast_success(root_url, "#{params['action'].camelize} #{params['name']} submitted successfully. ")
   end
 
   def runtime
     logger.debug "> Pilotable: Runtime"
     asm = Assembly.new.show(params).by_cattypes
     @cattype = params["cattype"]
-    @appname = parse_key_value_json(asm["#{params["cattype"]}"].components[0][0].outputs, "id") if params["cattype"] == Assemblies::MICROSERVICES
-    @host = parse_key_value_json(asm["#{params["cattype"]}"].components[0][0].outputs, "host") if params["cattype"] == Assemblies::MICROSERVICES
-    @host = "" unless params["cattype"] == Assemblies::MICROSERVICES
-    @appname = asm["#{params["cattype"]}"].name + "." + parse_key_value_json(asm["#{params["cattype"]}"].inputs, "domain") unless params["cattype"] == Assemblies::MICROSERVICES
+    @appname = parse_key_value_json(asm['#{params["cattype"]}'].components[0][0].outputs, "id") if params["cattype"] == Api::Assemblies::MICROSERVICES
+    @host = parse_key_value_json(asm['#{params["cattype"]}'].components[0][0].outputs, "host") if params["cattype"] == Api::Assemblies::MICROSERVICES
+    @host = "" unless params["cattype"] == Api::Assemblies::MICROSERVICES
+    @appname = asm['"#{params["cattype"]}'].name + "." + parse_key_value_json(asm['#{params["cattype"]}'].inputs, "domain") unless params["cattype"] == Api::Assemblies::MICROSERVICES
   end
 
   def logs
     logger.debug "> Pilotable: Logs"
     asm = Assembly.new.show(params).by_cattypes
-    @appname = asm["#{params["cattype"]}"].name + "." + parse_key_value_json(asm["#{params["cattype"]}"].inputs, "domain")
+    @appname = asm["#{params['cattype']}"].name + "." + parse_key_value_json(asm["#{params['cattype']}"].inputs, "domain")
     @appname
   end
-
-
 end
