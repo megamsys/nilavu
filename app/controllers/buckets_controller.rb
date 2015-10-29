@@ -29,7 +29,7 @@ class BucketsController < ApplicationController
     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
     @buckets = backup.buckets_list
     backup_client = BackupUser.new(Ind.backup.host, Ind.backup.username, Ind.backup.password)
-    @backup_usage = backup_client.account_usage(session[:email])
+    @backup_usage = backup_client.usage(session[:email])
   end
 
   def create

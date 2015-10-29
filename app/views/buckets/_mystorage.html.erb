@@ -230,32 +230,4 @@
 		}
 	});
 
-
-	// for upload
-	$(function() {
-
-	$('#file_upload').fileupload({
-		forceIframeTransport: true,    // VERY IMPORTANT.  you will get 405 Method Not Allowed if you don't add this.
-		autoUpload: true,
-		add: function (event, data) {
-			//Ajax-1 started
-			$.ajax({
-				type: 'GET',
-				dataType: 'json',
-				url: '/sign_auth',
-				success:  completeHandler = function(data) {
-					var test = 	S3Upload(data);
-				},
-				error: errorHandler = function() {
-					alert("Outer ajax failed");
-				},
-			//ajax-1
-			});
-		},
-	});
-});
-
-/*React.render(React.createElement(ReactS3Uploader, {
-}), document.getElementById('s3'));*/
-
 </script>

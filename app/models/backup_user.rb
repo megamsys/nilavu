@@ -27,7 +27,7 @@ class BackupUser < BaseFascade
   end
 
   # creates a new account
-  def account_create(uid,display_name)
+  def create(uid,display_name)
     user_hash = @client.create("#{uid}","#{display_name}")
     Rails.logger.debug '> Radosgw: Account create'
     user_json = user_hash.to_json
@@ -37,7 +37,7 @@ class BackupUser < BaseFascade
   end
 
   # usage of an account
-  def account_usage(uid)
+  def usage(uid)
     usage_hash = @client.usage("#{uid}")
     Rails.logger.debug '> Radosgw: Account usage'
     usage_hash
