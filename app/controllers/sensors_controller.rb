@@ -1,3 +1,4 @@
+
 ##
 ## Copyright [2013-2015] [Megam Systems]
 ##
@@ -13,27 +14,18 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class Balances < BaseFascade
+require 'json'
+class SensorsController < ApplicationController
+  respond_to :json
 
-  attr_reader :balance
+  before_action :stick_keys, only: [:index]
 
-  def initialize()
-     @balance = {}
+  def index
+    @sensor = Sensors.new.list(params).sensors
+
+    if @sensor[0][:sensor_type] = 'compute.instance.launch'
+      state = @sensor[0][:payload]['state']
+    end
+    respond_with state.to_json
   end
-
-  def show(api_params, &block)
-  
-    raw = api_request(api_params, BALANCES, SHOW)
-    @balance = raw[:body].lookup(api_params["email"])
-    yield self  if block_given?
-    return self
-  end
-
-  def update(api_params, &block)
-    api_request(api_params, BALANCES, UPDATE)
-    yield self if block_given?
-    return self
-  end
-
-
 end

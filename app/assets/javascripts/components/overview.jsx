@@ -158,8 +158,7 @@ var Charts = React.createClass({
   },
 
   updateData: function() {
-    $.get(this.props.host, function(data) {
-
+    $.get(this.props.host,  function(data) {
       this.setState({
         JsonD: data
       })
