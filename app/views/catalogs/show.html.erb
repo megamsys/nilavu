@@ -94,3 +94,17 @@
 	</div>
 </div>
 <%= render 'layouts/footer' %>
+
+<script type="text/javascript">
+$(document).ready(function () {
+  $('[data-toggle="popover"]').popover({
+    'html': 'true'
+  });
+});
+
+  $('.storage_left_add_inner').hide();
+  $('.storage_left_add a')
+    .click(function () {
+      $('.storage_left_add_inner').slideToggle();
+    });
+</script>

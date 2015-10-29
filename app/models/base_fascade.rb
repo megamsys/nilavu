@@ -22,6 +22,7 @@ class BaseFascade
   ORGANIZATION      = 'Organizations'.freeze
   PROMOS            = 'Promos'.freeze
   DISCOUNTS         = 'Discounts'.freeze
+  SENSORS           = 'Sensors'.freeze
 
   MARKETPLACES      = 'MarketPlace'.freeze
   REQUESTS          = 'Request'.freeze
