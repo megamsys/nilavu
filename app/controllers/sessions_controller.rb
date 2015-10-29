@@ -38,14 +38,13 @@ class SessionsController < NilavuController
   def authenticate(params)
     Api::Accounts.new.authenticate(params) do |acct|
       store_credentials acct
-      puts "--------------------------"
       toast_success(cockpits_path, "Get started. marketplace awaits..")
     end
   rescue Api::Accounts::AccountNotFound => an
     toast_error(signup_path, an.message)
   rescue Nilavu::Auth::SignVerifier::PasswordMissmatchFailure => ae
     toast_error(signin_path, ae.message)
-  rescue Api::Accounts::IKnowYou => ae
+  rescue Api::Accounts::AccountFound => ae
     toast_error(signin_path,ae.message)
     # for other errors do we have to aise error  back or it gets handled automatically by applicable_controller
   end

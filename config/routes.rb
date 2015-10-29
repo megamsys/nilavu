@@ -1,6 +1,4 @@
 Nilavu::Application.routes.draw do
-  get 'remove/settings'
-
 	root to: 'cockpits#index'
 	get '/404', to: 'errors#not_found'
 	# get "/422", :to => "errors#unacceptable"
@@ -11,7 +9,6 @@ Nilavu::Application.routes.draw do
 	resources :cockpits
 	resources :catalogs
 	resources :marketplaces
-	resources :settings
 	resources :ssh_keys
 	resources :buckets
 	resources :bucketkolkes
@@ -21,6 +18,8 @@ Nilavu::Application.routes.draw do
 	resources :oneapps
 	resources :oneservices
 	resources :onemicroservices
+  # Internal AJAX API
+  resources :events
 
 	# named route for users, session
 	match '/signup', to: 'users#new', via: [:get]
@@ -61,4 +60,7 @@ Nilavu::Application.routes.draw do
 	#===One Overviews
 	match '/bindservices', to: 'oneapps#bindservices', via: [:get, :post]
 	match '/bindservice', to: 'oneapps#bindservice', via: [:get, :post]
+
+  #===Events
+  match '/sensors', to: 'sensors#index' , via: [:get, :post]
 end

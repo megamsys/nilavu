@@ -14,27 +14,26 @@
 ## limitations under the License.
 ##
 module Api
-  class Billedhistories < APIDispatch
-    attr_reader :balance
+  class Sensors < APIDispatch
+    attr_reader :sensors
 
-    BILLEDHISTORIES = 'BILLEDHISTORIES'.freeze
-
-    def initialize()
-      @balance = {}
+    def initialize
+      @sensors = []
     end
 
-    def show(api_params, &block)
-      raw = api_request(BALANCES, SHOW,api_params)
-      @balance = raw[:body].lookup(api_params["email"])
-      yield self  if block_given?
-      return self
+    def list(api_params, &_block)
+      raw = api_request(api_params, SENSORS, LIST)
+      @sensors = to_hash(raw[:body])
+      yield self if block_given?
+      self
     end
 
-    def list(api_params, &block)
-      raw = api_request(BILLEDHISTORIES, LIST, api_params)
-      @bhistories = raw[:body].sort_by{|e| e.created_at}.reverse[0..9] unless raw == nil
-      yield self  if block_given?
-      return self
+    def to_hash(sensors_collection)
+      sensors = []
+      sensors_collection.each do |sensor|
+        sensors << { sensor_type: sensor.sensor_type, payload: sensor.payload, created_at: sensor.created_at.to_time.to_formatted_s(:rfc822) }
+      end
+      sensors.sort_by { |vn| vn[:created_at] }
     end
   end
 end

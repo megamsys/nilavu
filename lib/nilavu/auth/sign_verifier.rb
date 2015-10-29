@@ -6,19 +6,17 @@ module Nilavu
       class InvalidPasswordFailure < StandardError; end
 
       ## SignatureVerifier delegate (Forwardable)
-      def authenticate(password, &_block)
-        unless decrypt(password) == params[:password]
+      def authenticate(auth_config, entered_password)
+        unless decrypt(auth_config.password) == entered_password
           fail PasswordMissmatchFailure, 'Au oh!, The email or password you entered is incorrect.'
         end
-        yield tmp if block_given?
-        tmp
       end
 
-      def encrypt(password)
+      def self.encrypt(password)
         BCrypt::Password.create(password)
       end
 
-      def hmackey
+      def self.hmackey
         p SecureRandom.urlsafe_base64(nil, true)
       end
 

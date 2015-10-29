@@ -23,7 +23,7 @@ module SessionsHelper
   # Finds the User with the email, api_key stored in the session with the key
   # :cemail, :api_key This is a common way to handle user login in
   def current_user
-    @_current_user ||= (session[:email] && session[:api_key]) &&  Api::Accounts.load(session[:email])
+    @_current_user ||= (session[:email] && session[:api_key]) &&  Nilavu::Auth::Configuration.load(session[:email])
   end
 
   def cleanup_session

@@ -58,5 +58,4 @@ group :development do
   gem 'rspec-rails'
   gem 'quiet_assets'
   gem 'rubocop', require: false
-  gem 'ruby-beautify'
 end

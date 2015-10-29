@@ -16,91 +16,148 @@
 <!-- BEGIN HEADER -->
 
 <div class="header navbar navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- BEGIN TOP NAVIGATION BAR -->
-        <div class="header-inner">
-            <div class="row">
-                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
-                    <!-- BEGIN LOGO -->
-                    <a class="navbar-brand" href="https://www.megam.io"> <%= image_tag "megam-logo.png", :alt => "logo", :class => "img-responsive" %> </a>
-                    <!-- END LOGO -->
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 col-lg-offset-6 col-md-offset-6 col-sm-offset-6">
-                    <div class="row">
-                        <!-- <div class="col-xs-4 col-sm-1"> -->
-                        <ul class="nav navbar-nav pull-right">
-                            <li id="marketplace_top_right">
-                                <%= link_to marketplaces_path , :data => {:remote => true}, :class => "socket_disconnect", :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                                <i class="c_icon-window-lg pull-left"></i>
-                                <span class="hidden-xs hidden-sm pull-left"><%= t('titles.marketplace_title') %></span>
-                                <% end %>
-                            </li>
-
-                            <li id="storage_top_right">
-                                <%  if Ind.backup.enable %>
-                                <%= link_to buckets_path , :data => {:remote => true}, :class => "socket_disconnect", :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                                <i class="c_icon-grid-25 pull-left"></i>
-                                <span class="hidden-xs hidden-sm pull-right"><%= t('titles.storage_title') %></span>
-                                <% end %>
-                                <% end %>
-                            </li>
-
-                            <li class="dropdown" id="header_notification_bar">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"> <i class="c_glob c_icon-chat"></i><span class="badge badge-success">6</span> </a>
-                                <ul class="dropdown-menu extended notification">
-                                    <li>
-                                        <p>
-                                            You have 14 new notifications
-                                        </p>
-                                    </li>
-                                    <li>
-                                        <ul class="dropdown-menu-list scroller">
-                                            <li>
-                                                <a href="#"> <span class="label label-sm label-icon label-success"><i class="icon-plus"></i></span> New user registered. <span class="time">Just now</span> </a>
-                                            </li>
-                                            <li>
-                                                <a href="#"> <span class="label label-sm label-icon label-danger"><i class="icon-bolt"></i></span> Server #12 overloaded. <span class="time">15 mins</span> </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="external">
-                                        <a href="#">See all notifications <i class="m-icon-swapright"></i></a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="dropdown" id="header_notification_bar">
-                                <a class="dropdown-toggle" data-close-others="true" data-hover="dropdown" data-toggle="dropdown" href="#"> <i class="c_glob c_icon-profile"></i> <!-- <span class="badge badge-success">6</span> --> </a>
-                                <ul class="dropdown-menu extended notification">
-                                    <li>
-                                        <ul class="dropdown-menu-list scroller">
-                                            <li>
-                                                <%= link_to edit_user_path(1), :data => {:remote => true}, :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                                                <span class="label label-sm label-icon label-success"> <i class="glyphicon glyphicon-user"></i> </span>
-                                                <%= t('header.profile') %>
-                                                <% end %>
-                                            </li>
-                                            <li>
-                                                <%= link_to signout_path, method: "delete" do %>
-                                                <span class="label label-sm label-icon label-danger"> <i class="glyphicon glyphicon-off"></i> </span>
-                                                <%= t('header.signout') %>
-                                                <% end %>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-                        <a class="navbar-toggle collapsed pull-right" data-target=".navbar-collapse" data-toggle="collapse" href="javascript:;"> <%= image_tag "menu-toggler.png", :alt => "" %></a>
-                        <!-- END RESPONSIVE MENU TOGGLER -->
-                    </div>
-                </div>
-
-            </div>
+  <div class="container-fluid">
+<!-- BEGIN TOP NAVIGATION BAR -->
+    <div class="header-inner">
+      <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+<!-- BEGIN LOGO -->
+          <a class="navbar-brand" href="https://www.megam.io">
+            <%= image_tag "megam-logo.png", :alt => "logo", :class => "img-responsive" %>
+          </a>
+<!-- END LOGO -->
         </div>
-        <!-- END TOP NAVIGATION BAR -->
+
+        <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 col-lg-offset-6 col-md-offset-6 col-sm-offset-6">
+          <div class="row">
+<!-- <div class="col-xs-4 col-sm-1"> -->
+            <ul class="nav navbar-nav pull-right">
+              <li id="marketplace_top_right">
+                <%= link_to marketplaces_path , :data => {:remote => true}, :class => "socket_disconnect", :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                <i class="c_icon-window-lg pull-left"></i>
+                <span class="hidden-xs hidden-sm pull-left"><%= t('titles.marketplace_title') %></span>
+                <% end %>
+              </li>
+
+              <li id="storage_top_right">
+                <%  if Ind.backup.enable %>
+                <%= link_to buckets_path , :data => {:remote => true}, :class => "socket_disconnect", :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                <i class="c_icon-grid-25 pull-left"></i>
+                <span class="hidden-xs hidden-sm pull-right"><%= t('titles.storage_title') %></span>
+                <% end %>
+                <% end %>
+              </li>
+
+              <%= render 'layouts/notifications' %>
+              
+              <li class="dropdown" id="header_notification_bar">
+                <a class="dropdown-toggle" data-close-others="true" data-hover="dropdown" data-toggle="dropdown" href="#">
+                  <i class="c_glob c_icon-profile"></i>
+<!-- <span class="badge badge-success">6</span> -->
+                </a>
+                <ul class="dropdown-menu extended notification">
+                  <li>
+                    <ul class="dropdown-menu-list scroller">
+                      <li>
+                        <%= link_to edit_user_path(1), :data => {:remote => true}, :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                        <span class="label label-sm label-icon label-success">
+                          <i class="glyphicon glyphicon-user"></i>
+                        </span>
+                        <%= t('header.profile') %>
+                        <% end %>
+                      </li>
+                      <li>
+                        <%= link_to signout_path, method: "delete" do %>
+                        <span class="label label-sm label-icon label-danger">
+                          <i class="glyphicon glyphicon-off"></i>
+                        </span>
+                        <%= t('header.signout') %>
+                        <% end %>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+<!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <a class="navbar-toggle collapsed pull-right" data-target=".navbar-collapse" data-toggle="collapse" href="javascript:;">
+              <%= image_tag "menu-toggler.png", :alt => "" %></a>
+<!-- END RESPONSIVE MENU TOGGLER -->
+          </div>
+        </div>
+
+      </div>
     </div>
+<!-- END TOP NAVIGATION BAR -->
+  </div>
 </div>
 
 <!-- END HEADER -->
+
+
+
+
+
+<script type="text/jsx">
+  /*			var Dropdown = React.createClass({
+				getInitialState: function() {
+					return {
+						listVisible: false,
+						display: ""
+					};
+				},
+
+				select: function(item) {
+					this.props.selected = item;
+				},
+
+				show: function() {
+					this.setState({ listVisible: true });
+					document.addEventListener("click", this.hide);
+				},
+
+				hide: function() {
+					this.setState({ listVisible: false });
+					document.removeEventListener("click", this.hide);
+				},
+
+				render: function() {
+					return <div className={"dropdown-container" + (this.state.listVisible ? " show" : "")}>
+						<div className={"dropdown-display" + (this.state.listVisible ? " clicked": "")} onClick={this.show}>
+							<span style={{ color: this.props.selected.hex }}>{this.props.selected.name}</span>
+							<i className="fa fa-angle-down"></i>
+						</div>
+						<div className="dropdown-list">
+							<div>
+								{this.renderListItems()}
+							</div>
+						</div>
+					</div>;
+				},
+
+				renderListItems: function() {
+					var items = [];
+					for (var i = 0; i < this.props.list.length; i++) {
+						var item = this.props.list[i];
+						items.push(<div onClick={this.select.bind(null, item)}>
+							<span style={{ color: item.hex }}>{item.name}</span>
+							<i className="fa fa-check"></i>
+						</div>);
+					}
+					return items;
+				}
+			});
+
+			var colours = [{
+				name: "Red",
+				hex: "#F21B1B"
+			}, {
+				name: "Blue",
+				hex: "#1B66F2"
+			}, {
+				name: "Green",
+				hex: "#07BA16"
+			}];
+			React.render(<Dropdown list={colours} selected={colours[0]} />, document.getElementById("noti"));
+		*/
+</script>

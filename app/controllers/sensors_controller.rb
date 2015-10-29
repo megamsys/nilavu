@@ -1,3 +1,4 @@
+
 ##
 ## Copyright [2013-2015] [Megam Systems]
 ##
@@ -13,28 +14,18 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-module Api
-  class Billedhistories < APIDispatch
-    attr_reader :balance
+require 'json'
+class SensorsController < ApplicationController
+  respond_to :json
 
-    BILLEDHISTORIES = 'BILLEDHISTORIES'.freeze
+  before_action :stick_keys, only: [:index]
 
-    def initialize()
-      @balance = {}
+  def index
+    @sensor = Sensors.new.list(params).sensors
+
+    if @sensor[0][:sensor_type] = 'compute.instance.launch'
+      state = @sensor[0][:payload]['state']
     end
-
-    def show(api_params, &block)
-      raw = api_request(BALANCES, SHOW,api_params)
-      @balance = raw[:body].lookup(api_params["email"])
-      yield self  if block_given?
-      return self
-    end
-
-    def list(api_params, &block)
-      raw = api_request(BILLEDHISTORIES, LIST, api_params)
-      @bhistories = raw[:body].sort_by{|e| e.created_at}.reverse[0..9] unless raw == nil
-      yield self  if block_given?
-      return self
-    end
+    respond_with state.to_json
   end
 end

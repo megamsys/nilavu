@@ -14,104 +14,54 @@
 ** limitations under the License.
 -->
 <% content_for :onecat_contents do %>
-<% provide(:title, 'Microservices overview') %>
+<% provide(:title, "Microservices Overview") %>
+
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
-		<div class="">
-			<%= render :partial => "users/topright_icons", :locals => {:title_name => t('titles.micro_overview')} %>
-		</div>
-	<!-- TITLE BOX ENDS HERE -->
-	<div class="row">
-		<div class="margin_15 overview margintb_15">
-			<div class="overview-top">
-				<div class="col-xs-12 col-sm-12 col-md-6 overview-route-dynamic">
-					<span><%= t('overviews.url') %> </span><a href="http://<%= assembly.name  %>.<%= assembly.components[0][0].components.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>" target="_blank"><%= assembly.name  %>.<%= assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %></a>
-				</div>
-				<div class="col-xs-12 col-sm-12 col-md-6 overview-git">
-					<div class="row">
-						<div class="col-xs-3">
-							<label><%= t('overviews.hub_url') %> </label>
-						</div>
-						<div class="col-xs-6">
-							<input type="text" class="overview-giturl form-control" disabled placeholder="<%= assembly.components[0][0].components.inputs.select { |x| x['key'] == 'source' }[0]['value'] %>">
-						</div>
-						<div class="col-xs-3 overview-submit">
-							<a href="<%= assembly.components[0][0].components.inputs.select { |x| x['key'] == 'source' }[0]['value'] %>" target="_blank" class="btn green"><%= t('overviews.image_button') %></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="margin_15 bottom-divider"></div>
-	</div>
-	<div class=" overview margintb_15 vm-overview">
-		<div class="vm-bg">
-			<div class="overview-top ">
-				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-					<label class="col-md-6"><i class="fa fa-hdd-o"></i> <%= t('overviews.available_ram') %></label>
-					<span1>
-						<%= t('overviews.micro_mb') %>
-					</span1>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-					<label class="col-md-6"><i class="fa fa-columns"></i> <%= t('overviews.cpu_core') %></label>
-					<span1>
-						<%= t('overviews.micro_cpu') %>
-					</span1>
-				</div>
-			</div>
-			<div class="overview-top ">
-				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-					<label class="col-md-6"> <i class="fa fa-bullseye"></i> <%= t('overviews.container_id') %> </label>
-					<span1 style="border-bottom:none;">
-                       <% id = parse_key_value_pair(assembly.components[0][0].components.outputs, "id") %>
-                       <%= id.slice!(0,11) if id != "" %>
-                       <%= t('overviews.not_get_id') if id == "" %>
-					</span1>
-				</div>
+  <div class="">
+    <div class="row c_pading-b15">
+      <div class="storage_top">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <h3>
+            <b>
+              Microservices Overview
+            </b>
+          </h3>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 settings_grid yf-upload-cover">
+          <a class="btn blue col-xs-12 col-sm-6 pull-right" data-toggle="modal" href="#app-1">Bind a service</a>
+        </div>
 
-				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-					<label class="col-md-6"> <i class="fa fa-file-image-o"></i> <%= t('overviews.image') %></label>
-					<span1 style="border-bottom:none;">
-                       <%= assembly.components[0][0].components.inputs.select { |x| x['key'] == 'source' }[0]['value'] %>
-					</span1>
-				</div>
-
-			</div>
-			<div class="overview-top ">
-				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-					<label class="col-md-6"><i class="fa fa-puzzle-piece"></i> <%= t('overviews.ip') %> </label>
-					<span1>
-						<% ip = parse_key_value_pair(assembly.components[0][0].components.outputs, "ip") %>
-						<%= ip if ip != "" %>
-						<%= t('overviews.not_get_ip') if ip == "" %>
-					</span1>
-				</div>
-				<div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-					<label class="col-md-6"> <i class="fa fa-bullseye"></i> <%= t('overviews.port') %> </label>
-					<span1 style="border-bottom:none;">
-                       <% id = parse_key_value_pair(assembly.components[0][0].components.outputs, "port") %>
-                       <%= id if id != "" %>
-                       <%= t('overviews.not_get_ip') if id == "" %>
-					</span1>
-				</div>
-			</div>
-
-		</div>
-	</div>
-	<br/>
-	<div class="row">
-		<div class="margin_30 c_pading-b15">
-			<% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
-			<% @logname = "#{assembly.name}.#{domain}" %>
-			<%= render 'catalogs/logs' %>
-
-		</div>
-	</div>
-	<br/>
-
+      </div>
+    </div>
+  </div>
+  <div class="bottom-divider"></div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 br_grey">
+      <% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
+      <% @logname = "#{assembly.name}.#{domain}" %>
+      <%= render 'catalogs/mycomponent' %>
+    </div>
+    <div class="col-sm-3 storage-rt-list">
+      <dl>
+        <h3>Usage</h3>
+        <dt><%= t('overviews.available_ram') %></dt>
+        <dd><%= assembly.inputs.select { |x| x["key"] == "ram" }[0]['value'] %>
+          <%= t('overviews.mb') %></dd>
+        <dt class="margin-top-20"></dt>
+        <dt><%= t('overviews.cpu_core') %></dt>
+        <dd><%= assembly.inputs.select { |x| x["key"] == "cpu" }[0]['value'] %></dd>
+        <dt>
+          <%= t('overviews.ip') %></dt>
+        <dd><% ip = parse_key_value_pair(assembly.outputs, "ip") %>
+          <%= ip if ip != "" %>
+          <%= t('overviews.not_get_ip') if ip == "" %></dd>
+        <dt class="margin-top-20"></dt>
+        <dt>Region</dt>
+        <dd><img src="assets/images/flag_IN.png">
+          INDIA</dd>
+      </dl>
+    </div>
+  </div>
 </div>
-
-
-
 <% end %>
 <%= render :template => 'catalogs/show',:locals => {:cattype => Api::Assemblies::MICROSERVICES} %>

@@ -29,6 +29,7 @@ class MarketplacesController < NilavuController
   ## and show the items in order of category
   ##
   def index
+
     logger.debug '> Marketplaces: index.'
     @mkp_grouped = Api::Marketplaces.instance.list(params).mkp_grouped
   end
@@ -38,6 +39,7 @@ class MarketplacesController < NilavuController
   ##
 
   def show
+  
     logger.debug '> Marketplaces: show.'
     bill_check = false
     if Ind.billings
