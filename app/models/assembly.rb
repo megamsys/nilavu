@@ -72,9 +72,9 @@ class Assembly < BaseFascade
   ## we need to return what we built from the local stack and not have class variable.
   ## eg: bld_operations returns nothing, whereas its stored in @operations.
   def build(params)
-    mkp = JSON.parse(params['mkp'])
+    #mkp = JSON.parse(params['mkp'])
     bld_toscatype(mkp)
-    bld_components(params) unless mkp['cattype'] == Assemblies::TORPEDO
+    bld_components(params) unless params['cattype'] == Assemblies::TORPEDO
     bld_inputs(params)
 
     params = params.merge('policymembers' => "#{params[:assemblyname]}.#{params[:domain]}/#{params[:componentname]}")

@@ -65,7 +65,7 @@ class MarketplacesController < ApplicationController
   # performs ssh creation or using existing and creating an assembly at the end.
   def create
     logger.debug '> Marketplaces: create.'
-    mkp = JSON.parse(params[:mkp])
+    #mkp = JSON.parse(params[:mkp])
     # adding the default org of the user which is stored in the session
     params[:org_id] = session[:org_id]
     params[:ssh_keypair_name] = params["#{params[:sshoption]}" + '_name'] if params[:sshoption] == Sshkeys::USEOLD
@@ -80,7 +80,7 @@ class MarketplacesController < ApplicationController
       Assembly.new.update(params)
       Components.new.update(params)
     end if params.key?(:bind_type)
-    @msg = { title: "#{mkp['cattype']}".downcase.camelize, message: "#{params['assemblyname']}.#{params['domain']} launched successfully. ", redirect: '/', disposal_id: 'app-1' }
+    @msg = { title: "#{params['cattype']}".downcase.camelize, message: "#{params['assemblyname']}.#{params['domain']} launched successfully. ", redirect: '/', disposal_id: 'app-1' }
   end
 
   ##
