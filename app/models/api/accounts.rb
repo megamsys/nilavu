@@ -13,37 +13,40 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-require 'bcrypt'
-
 module Api
   class Accounts < APIDispatch
+    extend Forwardable
     include BCrypt
+
+    def_delegator :@sign_verifier, :encrypt, :authenticate
+    def_delegator :@sign_verifier, :hmackey
+
+
+    class  AccountNotFound < Nilavu::MegamGWError; end
+    class  IKnowYou < Nilavu::MegamGWError; end
+
+    ATTR= %w(:email :api_key :first_name :last_name
+             :password :phone :authority :password_reset_key
+             :password_reset_sent_at :verified)
 
     BUCKET              = 'accounts'.freeze
     ADMIN               = 'admin'.freeze
-    MEGAM_TOUR_EMAIL    = 'tour@megam.io'.freeze
-    MEGAM_TOUR_PASSWORD = 'faketour'.freeze
     UPD_PROFILE         = 1
     UPD_PASSWORD        = 2
     UPD_API_KEY         = 3
 
-    class  AccountNotFound < Nilavu::MegamGWError; end
-    class  PasswordMissmatchFailure < Nilavu::MegamGWError; end
-    class  InvalidPasswordFailure < Nilavu::MegamGWError; end
-    class  IKnowYou < Nilavu::MegamGWError; end
-
-
     def initialize(parms = {})
+      @sign_verifier = Nilavu::Auth::SignVerifier.new
       email parms[:email]
       api_key parms[:api_key]
       first_name parms[:first_name]
       last_name parms[:last_name]
-      password parms[:password]
-      phone parms[:phone]
+      password parms[:phone]
       authority parms[:authority]
+      verified parms[:verified]
       password_reset_key parms[:password_reset_key]
       password_reset_sent_at parms[:password_reset_sent_at]
-      verified parms[:verified]
+      created_at parms[:created_at]
     end
 
     def email(arg=nil)
@@ -136,19 +139,10 @@ module Api
 
     def create(parms, &_block)
       fail Api::Accounts::IKnowYou, 'Au oh!, You are registered. Please signin.' unless Api::Accounts.load(parms[:email]).nil?
-      act = Api::Accounts.from_hash(parms.merge({:api_key => api_keygen}))
+      act = Api::Accounts.from_hash(parms.merge({:api_key => @sign_verifier.hmackey}))
       api_request(ACCOUNT, CREATE,act.to_hash)
       yield act if block_given?
       self
-    end
-
-    def authenticate(params, &_block)
-      tmp = account_for(params)
-      unless password_decrypt(account_for(params).password) == params[:password]
-        fail Api::Accounts::PasswordMissmatchFailure, 'Au oh!, The email or password you entered is incorrect.'
-      end
-      yield tmp if block_given?
-      tmp
     end
 
     def list(params, &_block)
@@ -164,7 +158,7 @@ module Api
     end
 
     def reset(params, &block)
-      update(account_for(params).to_hash.merge({:password_reset_key => api_keygen,
+      update(account_for(params).to_hash.merge({:password_reset_key => @sign_verifier.hmackey,
       :password_reset_sent_at => time_now }))
     end
 
@@ -174,25 +168,26 @@ module Api
       act
     end
 
-    def self.from_hash(act_hash)
-      act_hash = Hash[act_hash.map{|(k,v)| [k.to_sym,v]}]
-      act = Api::Accounts.new(act_hash)
-      act
-    end
 
     def to_hash
       { :email => @email,
         :api_key => @api_key,
-        :password => password_encrypt(@password),
+        :password => @sign_verifier.encrypt(@password),
         :first_name => @first_name,
         :last_name => @last_name,
         :phone => @phone,
         :authority => ADMIN,
         :password_reset_key => @password_reset_key,
         :password_reset_sent_at => @password_reset_sent_at,
-        :created_at => @created_at,
-      :verified => @verified  }
+      :created_at => @created_at, :verified => @verified }
     end
+
+    def self.from_hash(act_hash)
+      act_hash = Hash[act_hash.map{|(k,v)| [k.to_sym,v]}]
+      act = Api::Accounts.new(act_hash)
+      act
+    end
+
 
     def self.load(email)
       riak = Nilavu::DB::GSRiak.new(BUCKET).fetch(email)
@@ -204,20 +199,6 @@ module Api
     private
     def time_now
       "#{Time.zone.now}"
-    end
-
-    def api_keygen
-      p SecureRandom.urlsafe_base64(nil, true)
-    end
-
-    def password_encrypt(password)
-      Password.create(password)
-    end
-
-    def password_decrypt(pass)
-      Password.new(pass)
-    rescue BCrypt::Errors::InvalidHash
-      raise Api::Accounts::InvalidPasswordFailure, 'Au oh!, The password you entered is incorrect.'
     end
 
     def account_for(params)

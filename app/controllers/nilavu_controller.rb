@@ -34,8 +34,7 @@ class NilavuController < ApplicationController
   def require_registration
     unless signed_in?
       if request.fullpath.to_s.match('auth')
-        auth = request.env['omniauth.auth']['extra']['raw_info']
-        session[:auth] = { email: auth[:email], first_name: auth[:first_name], last_name: auth[:last_name] }
+        stick_auth_keys
         redirect_to signup_path
       end
     end
@@ -52,6 +51,10 @@ class NilavuController < ApplicationController
     params.merge!(Hash[%w(access_key secret_key).map {|x| [x, session[x.to_sym]]}])
   end
 
+  def stick_auth_keys()
+    auth = request.env['omniauth.auth']['extra']['raw_info']
+    session[:auth] = { email: auth[:email], first_name: auth[:first_name], last_name: auth[:last_name] }
+  end
   #############################################################################
   # Enviroment setting needed for an user (org, backup)
   #############################################################################

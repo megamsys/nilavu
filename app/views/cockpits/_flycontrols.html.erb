@@ -1,43 +1,43 @@
 <ul>
   <% if cattype == Api::Assemblies::TORPEDO.capitalize %>
   <li>
-    <%= link_to catalogs_path(:id => id, :cat_id => id, :name => name, :command => Assemblies::START, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post do %>
+    <%= link_to catalogs_path(:id => id, :cat_id => id, :name => name, :action => Assemblies::START, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post do %>
     <i class="glyphicon glyphicon-play-circle"></i><%= t('cockpits.start') %>
     <% end %>
   </li>
   <li>
-    <%= link_to catalogs_path(:id => id, :cat_id => id,:name => name, :command => Assemblies::STOP, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post  do %>
+    <%= link_to catalogs_path(:id => id, :cat_id => id,:name => name, :action => Assemblies::STOP, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post  do %>
     <i class="glyphicon glyphicon-record"></i><%= t('cockpits.stop') %>
     <% end %>
   </li>
   <li>
-    <%= link_to catalogs_path(:id => id,:cat_id => id, :name => name, :command => Assemblies::REBOOT, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post  do %>
+    <%= link_to catalogs_path(:id => id,:cat_id => id, :name => name, :action => Assemblies::REBOOT, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post  do %>
     <i class="glyphicon glyphicon-refresh"></i><%= t('cockpits.reboot') %>
     <% end %>
   </li>
   <li>
-    <%= link_to kelvi_path(:id => id, :cat_id => asms_id,:name => name, :command => Assemblies::DESTROY, :cattype => cattype, :category => "state"), :data => {:remote => true }, :method => :post do %>
+    <%= link_to kelvi_path(:id => id, :cat_id => asms_id,:name => name, :action => Assemblies::DESTROY, :cattype => cattype, :category => "state"), :data => {:remote => true }, :method => :post do %>
     <i class="glyphicon glyphicon-trash"></i><%= t('cockpits.delete') %>
     <% end %>
   </li>
   <% else %>
   <li>
-    <%= link_to catalogs_path(:id => id, :cat_id => id, :name => name, :command => Assemblies::START, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post do %>
+    <%= link_to catalogs_path(:id => id, :cat_id => id, :name => name, :action => Assemblies::START, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post do %>
     <i class="glyphicon glyphicon-play-circle"></i><%= t('cockpits.start') %>
     <% end %>
   </li>
   <li>
-    <%= link_to catalogs_path(:id => id, :cat_id => id,:name => name, :command => Assemblies::STOP, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post  do %>
+    <%= link_to catalogs_path(:id => id, :cat_id => id,:name => name, :action => Assemblies::STOP, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post  do %>
     <i class="glyphicon glyphicon-record"></i><%= t('cockpits.stop') %>
     <% end %>
   </li>
   <li>
-    <%= link_to catalogs_path(:id => id,:cat_id => id, :name => name, :command => Assemblies::RESTART, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post  do %>
+    <%= link_to catalogs_path(:id => id,:cat_id => id, :name => name, :action => Assemblies::RESTART, :cattype => cattype, :category => "control"), :data => {:remote => true }, :method => :post  do %>
     <i class="glyphicon glyphicon-refresh"></i><%= t('cockpits.restart') %>
     <% end %>
   </li>
   <li>
-    <%= link_to kelvi_path(:id => id, :cat_id => asms_id,:name => name, :command => Assemblies::DESTROY, :cattype => cattype, :category => "state"), :data => {:remote => true }, :method => :post do %>
+    <%= link_to kelvi_path(:id => id, :cat_id => asms_id,:name => name, :action => Assemblies::DESTROY, :cattype => cattype, :category => "state"), :data => {:remote => true }, :method => :post do %>
     <i class="glyphicon glyphicon-trash"></i><%= t('cockpits.delete') %>
     <% end %>
   </li>

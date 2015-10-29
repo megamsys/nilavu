@@ -19,10 +19,12 @@ class MarketplacesController < NilavuController
   respond_to :js
   include MarketplaceHelper
 
-	before_action :require_signin, only: [:index, :show, :create]
+  before_action :require_signin, only: [:index, :show, :create]
+  before_action :visit_paisa, only: [:show]
+
   before_action :require_registration, only: [:store_github]
   before_action :stick_keys, only: [:index, :show, :create]
-    ##
+  ##
   ## index page get all marketplace items from storage(we use riak) using megam_gateway
   ## and show the items in order of category
   ##
@@ -84,20 +86,17 @@ class MarketplacesController < NilavuController
   ##
   def store_github
     @auth_token = request.env['omniauth.auth']['credentials']['token']
-    session[:github] =  @auth_token
+    session[:github] = @auth_token
     session[:github_owner] = request.env['omniauth.auth']['extra']['raw_info']['login']
   end
 
-  ##
-  ## this method collect all repositories for user using oauth token
-  ##
   def publish_github
-    github = Github.new oauth_token: session[:github]
-    git_array = github.repos.all.collect(&:clone_url)
-    @repos = git_array
-    respond_to do |format|
-      format.js do
-        respond_with(@repos, layout: !request.xhr?)
+    Nilavu::Repos::Github.new(session[:github]).tap do |gh|
+      @repos = gh.repos
+      respond_to do |format|
+        format.js do
+          respond_with(@repos, layout: !request.xhr?)
+        end
       end
     end
   end
@@ -107,16 +106,12 @@ class MarketplacesController < NilavuController
   end
 
   def store_gitlab
-    glr = []
-    Gitlab.endpoint = Ind.http_gitlab
-    gitlab = Gitlab.session(params[:gitlab_username], params[:gitlab_password])
-    Gitlab.client(endpoint: Ind.http_gitlab,
-    private_token: gitlab.private_token).projects.each do |url|
-      glr << url.http_url_to_repo
+    Nilavu::Repos::Gitlab.new(params[:gitlab_username], params[:gitlab_password]).tap do |gl|
+      session[:gitlab_repos] = gl.repos
+      session[:gitlab_key] = gl.token.private_token
     end
-    session[:gitlab_repos] = glr
-    session[:gitlab_key] = gitlab.private_token
   end
+
 
   def publish_gitlab
     @repos = session[:gitlab_repos]
@@ -128,6 +123,14 @@ class MarketplacesController < NilavuController
   end
 
   private
+  def visit_paisa
+    Balances.new.show(params) do |modb|
+      respond_to do |format|
+        format.html { redirect_to billings_path }
+        format.js { render js: "window.location.href='" + billings_path + "'" }
+      end  unless modb.balance.credit.to_i > 0
+    end if Ind.billings
+  end
 
   def binded_app?(params, &_block)
     yield if block_given? unless params[:bind_type].eql?('Unbound service')

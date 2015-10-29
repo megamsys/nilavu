@@ -50,12 +50,9 @@ module Api
     #                                   Analytics
     def list(api_params, &_block)
       Rails.logger.debug "\033[36m>-- MKP'S: START\33[0m"
-      raw = load(api_params)
-      unless raw.nil?
-        @mkp_grouped = Hash[raw.group_by(&:order).map { |k, v| [k, v.map { |h| h }] }].sort
-      end
+      @mkp_grouped = group(load_api_params)
       Rails.logger.debug "\033[1m#{@mkp_grouped.to_yaml}\33[22m"
-            Rails.logger.debug "\033[36m>-- MKP'S: END\033[0m"
+      Rails.logger.debug "\033[36m>-- MKP'S: END\033[0m"
       yield self if block_given?
       self
     end
@@ -71,6 +68,9 @@ module Api
     private
     def load(api_params)
       api_request(MARKETPLACES, LIST,api_params)[:body] if @mkp_grouped.empty?
+    end
+    def group(raw)
+      @mkp_grouped = Hash[raw.group_by(&:order).map { |k, v| [k, v.map { |h| h }] }].sort unless raw.nil?
     end
   end
 end

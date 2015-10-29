@@ -124,8 +124,8 @@ class ApplicationController < ActionController::Base
     redirect_to(path, flash: { toastr: msg, type: 'notice' })
   end
 
-  def toast_error(path=redirect_where, msg)
-    redirect_to(path, flash: { toastr: msg, type: 'alert' })
+  def toast_error(path, msg)
+    redirect_to(path||=redirect_where, flash: { toastr: msg, type: 'alert' })
   end
 
   def toast_warn(path, msg)

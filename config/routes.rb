@@ -1,4 +1,6 @@
 Nilavu::Application.routes.draw do
+  get 'remove/settings'
+
 	root to: 'cockpits#index'
 	get '/404', to: 'errors#not_found'
 	# get "/422", :to => "errors#unacceptable"

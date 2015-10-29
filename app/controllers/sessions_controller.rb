@@ -25,8 +25,8 @@ class SessionsController < NilavuController
 
   # this is a fake tour user who can only touch some stuff.
   def tour
-    authenticate({:email => Api::Accounts::MEGAM_TOUR_EMAIL,
-    :password => Api::Accounts::MEGAM_TOUR_PASSWORD })
+    authenticate({:email => Nilavu::Constants::MEGAM_TOUR_EMAIL,
+    :password => Nilavu::Constants::MEGAM_TOUR_PASSWORD })
   end
 
   def destroy
@@ -38,11 +38,12 @@ class SessionsController < NilavuController
   def authenticate(params)
     Api::Accounts.new.authenticate(params) do |acct|
       store_credentials acct
+      puts "--------------------------"
       toast_success(cockpits_path, "Get started. marketplace awaits..")
     end
   rescue Api::Accounts::AccountNotFound => an
     toast_error(signup_path, an.message)
-  rescue Api::Accounts::PasswordMissmatchFailure => ae
+  rescue Nilavu::Auth::SignVerifier::PasswordMissmatchFailure => ae
     toast_error(signin_path, ae.message)
   rescue Api::Accounts::IKnowYou => ae
     toast_error(signin_path,ae.message)

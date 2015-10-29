@@ -33,8 +33,8 @@ class SshKeysController < NilavuController
 
 	## this downloads a key
 	def edit
-		params[:download_location] = current_user.email+"_"+"#{params[:id]}"
-		downloaded_file = Api::Sshkeys.new.download(params)
+		params = params.merge(:download_location => current_user.email+"_"+"#{params[:id]}")
+		Api::Sshkeys.new.download(params)
 		send_file Rails.root.join("#{params[:download_location]}"), :x_sendfile=>true
 	end
 
