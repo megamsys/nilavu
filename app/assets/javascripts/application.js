@@ -35,4 +35,6 @@
 //= require megam.form_validation
 //= require components
 //= require socket.io
+//= require zeroclipboard
 //= require_tree .
+

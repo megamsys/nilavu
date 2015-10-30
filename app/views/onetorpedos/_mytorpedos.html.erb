@@ -44,19 +44,46 @@
   </div>
 
     <div class="col-sm-3 storage-rt-list">
-      <dl>
-        <h3>Usage</h3>
+      <dl><h3>Usage</h3>
+         <dt><%= t('overviews.name') %></dt>
+         <dd><%= assembly.name %>
+           <%= t('marketplace.megambox') %></dd>
+        <dt class="margin-top-20"></dt>
         <dt><%= t('overviews.available_ram') %></dt>
         <dd><%= assembly.inputs.select { |x| x["key"] == "ram" }[0]['value'] %>
           <%= t('overviews.mb') %></dd>
         <dt class="margin-top-20"></dt>
         <dt><%= t('overviews.cpu_core') %></dt>
         <dd><%= assembly.inputs.select { |x| x["key"] == "cpu" }[0]['value'] %></dd>
+        <dt class="margin-top-20"></dt>
+        <dt><%= t('overviews.os') %></dt>
+        <dd><%= image_tag  "logos/#{assembly.tosca_type.split('.').last}.png", :alt => "" %>
+        <dt class="margin-top-20"></dt>
         <dt>
           <%= t('overviews.ip') %></dt>
         <dd><% ip = parse_key_value_pair(assembly.outputs, "ip") %>
           <%= ip if ip != "" %>
           <%= t('overviews.not_get_ip') if ip == "" %></dd>
+          <dt class="margin-top-20"></dt>
+                                <dt>URL</dt>
+                                <dd>megam.com <i class="c_icon-form"></i>
+                                  <div class='demo-area'>
+  <button class='my_clip_button' data-clipboard-target='fe_text' data-clipboard-text='Default clipboard text from attribute' id='d_clip_button' title='Click me to copy to clipboard.'>
+    <b>Copy To Clipboard...</b>
+  </button>
+  <h4>
+    <label for='fe_text'>Change Copy Text Here</label>
+  </h4>
+  <textarea cols='50' id='fe_text' rows='3'>Copy me!</textarea>
+  <h4>
+    <label for='testarea'>Paste Text Here</label>
+  </h4>
+  <textarea cols='50' id='testarea' rows='3'></textarea>
+  <p>
+    <button id='clear-test'>Clear Test Area</button>
+  </p>
+</div>
+                                </dd>
         <dt class="margin-top-20"></dt>
         <dt>Region</dt>
         <dd><img src="assets/images/flag_IN.png">
@@ -110,6 +137,19 @@
   			$('.storage-popup').hide();
   		}
   	});
+
+
+
+    <script>
+  $(document).ready(function() {
+    var clip = new ZeroClipboard($("#d_clip_button"))
+  });
+
+  $("#clear-test").on("click", function(){
+    $("#fe_text").val("Copy me!");
+    $("#testarea").val("");
+  });
+</script>
   	// for upload
   	/*$(function() {
   	$('#file_upload').fileupload({

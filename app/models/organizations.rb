@@ -26,8 +26,11 @@ class Organizations < BaseFascade
   #we call the api, and list all the organization name, create_at time in a hashmap.
   def list(api_params, &block)
     res = api_request(api_params, ORGANIZATION, LIST)
-    res[:body].each do |one_org|
+    
 
+res[:body].each do |one_org|
+
+     
         @orgs << {:id => one_org.id, :name => one_org.name, :created_at => one_org.created_at.to_time.to_formatted_s(:rfc822), :related_orgs => one_org.related_orgs}
     end
     @orgs = @orgs.sort_by {|vn| vn[:created_at]}
