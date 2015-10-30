@@ -19,7 +19,7 @@ class BucketsController < ApplicationController
 
   respond_to :json, :js
 
-  before_action :stick_storage_keys, only: [:index, :create, :show, :upload]
+  before_action :stick_storage_keys, only: [:index, :create, :show, :destroy]
   ##
   ## index page get all marketplace items from storage(we use riak) using megam_gateway
   ## and show the items in order of category
@@ -53,8 +53,10 @@ class BucketsController < ApplicationController
     @bucket_name = params["id"]
   end
 
-  def destroy
-    puts "Megam Systems"
-  end
+   def destroy
+     logger.debug '> Bucketskolkes: delete'
+     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
+     backup.bucket_delete(bucket_name)
+   end
 
 end
