@@ -42,7 +42,7 @@
                   <% end %>
               </td>
               <td style="padding-top:15px">
-                <%= link_to do %>
+                <%= link_to bucketkolke_path( :id => obj[:object_name] ), method: :DELETE, :target => "_self", :remote => true do %>
                 <i class="c_icon-trash margin_15 pull-right"></i>
                 <% end %>
               </td>

@@ -18,7 +18,7 @@ require 'json'
 class BucketkolkesController < ApplicationController
   respond_to :json, :js
 
-  before_action :stick_storage_keys, only: [:index, :create, :show, :upload]
+  before_action :stick_storage_keys, only: [:index, :create, :show, :upload, :destroy]
 
   def index
     logger.debug '>Controller index called'
@@ -44,6 +44,7 @@ class BucketkolkesController < ApplicationController
     end
     @bucket_name = params["id"]
   end
+
   def upload
 
   end
@@ -51,7 +52,15 @@ class BucketkolkesController < ApplicationController
   def destroy
     logger.debug '> Bucketskolkes: delete'
     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
-    backup.bucket_delete(bucket_name)
-  end
+    object_name = params[:id].split("/").last
+    bucket_name = params[:id].split("/").first
+    backup.object_delete(bucket_name, object_name, params[:format])
+    #@del = {title: "Object", message: "#{object_name} deleted successfully. ", redirect: '/', disposal_id: '' }
 
+   ##respond_to do |format|
+     ## format.js do
+       ## respond_with(@objects, layout: !request.xhr?)
+      ##end
+   ## end
+  end
 end
