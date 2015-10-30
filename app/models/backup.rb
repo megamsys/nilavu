@@ -43,7 +43,7 @@ class Backup < BaseFascade
       bucket_array.push(bucket_name: "#{bkt.name}", size: size.to_s(:human_size), noofobjects: bkt.objects.count)
       tsize += size
     end
-    { total_buckets: @client.buckets.count, bucket_array: bucket_array }
+    { total_buckets: @client.buckets.count, bucket_array: bucket_array, total_size: tsize }
   end
 
   def object_create(bucket_name, new_object)

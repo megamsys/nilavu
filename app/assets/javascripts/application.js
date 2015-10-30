@@ -11,7 +11,6 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery2
-//= require toastr_rails
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery.remotipart
@@ -29,10 +28,11 @@
 //= require megam.support
 //= require nprogress
 //= require nprogress-ajax
+//= require nprogress-turbolinks
 //= require react
 //= require react_ujs
 //= require megam.menu
 //= require megam.form_validation
+//= require jquery-fileupload/basic
 //= require components
-//= require socket.io
 //= require_tree .

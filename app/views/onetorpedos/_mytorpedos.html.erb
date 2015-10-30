@@ -15,7 +15,6 @@
 -->
 <% content_for :onecat_contents do %>
 <% provide(:title, "Torpedo Overview") %>
-
 <div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
   <div class="">
     <div class="row c_pading-b15">
@@ -27,10 +26,6 @@
             </b>
           </h3>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 settings_grid yf-upload-cover">
-          <a class="btn blue col-xs-12 col-sm-6 pull-right" data-toggle="modal" href="#app-1">Bind a service</a>
-        </div>
-
       </div>
     </div>
   </div>
@@ -40,8 +35,9 @@
 
       <% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
       <% @logname = "#{assembly.name}.#{domain}" %>
-        <%= render 'catalogs/mycomponent' %>
-  </div>
+      <%= render 'catalogs/mycomponent' %>
+
+    </div>
 
     <div class="col-sm-3 storage-rt-list">
       <dl>
@@ -64,100 +60,7 @@
       </dl>
     </div>
   </div>
-  </div>
+</div>
 
-  <% end %>
-  <%= render :template => "catalogs/show", :locals => {:cattype => Assemblies::TORPEDO} %>
-
-
-  <script type="text/javascript">
-  $(document).ready(function () {
-    $('[data-toggle="popover"]').popover({
-      'html': 'true'
-    });
-  });
-
-
-  	$('.create_bucket_modal').click(function(e) {
-  		$('#create_bucket').modal();
-  			});
-  		$('.inner-menu').click(function(e) {
-  			e.preventDefault();
-  			$('.inner-child').toggle();
-  		});
-  		//storage left menu
-  		$('.storage_left_add_inner').hide();
-  		$('.storage_left_add a ').click(function() {
-  		// e.preventDefault();
-  		$('.storage_left_add_inner').slideToggle();
-  		});
-  		// $('.storage-popup').hide();
-  		// storage overview pop up menu
-  		$('.my_bucket_inner').bind('contextmenu', function(e) {
-  			e.preventDefault();
-  			$('.storage-popup').css({
-  				'top' : e.pageY,
-  				'left' : e.pageX,
-  			});
-  			$('#bucketName').val($(event.currentTarget).attr('id'));
-  			//$.session.set('bucketname', $(event.currentTarget).attr('id'));
-  			$('.storage-popup').show();
-  					return false;
-  			});
-  	// hide storage menu when clicked outside the div
-  	$(document).on('click', function(e) {
-  		if ($(e.target).closest(".my_bucket_inner").length === 0) {
-  			$('.storage-popup').hide();
-  		}
-  	});
-  	// for upload
-  	/*$(function() {
-  	$('#file_upload').fileupload({
-  	  forceIframeTransport: true,    // VERY IMPORTANT.  you will get 405 Method Not Allowed if you don't add this.
-  	  autoUpload: true,
-  	  add: function (event, data) {
-  			//Ajax-1 started
-  			$.ajax({
-  				type: 'GET',
-  				url: '/sign_auth',
-  				success:  completeHandler = function(data) {
-          //Ajax-2 started
-  					$.ajax({
-  						url: "http://192.168.1.248/arun_accet/"+ data.files[0].name +"?AWSAccessKeyId=Y71TT566EPWU9AIV8CE8&Expires=1444810624&Signature=%2BCJQRBGxkRi0R8wXkmmpTKKESO8%3D",  //server script to process data
-  	      		type: 'PUT',
-  						beforeSend: function (request)
-              {
-                  request.setRequestHeader("x_amz_acl", "private");
-  								request.setRequestHeader("x_amz_storage_class", "STANDARD");
-  								request.setRequestHeader("content_type", "application/octet-stream");
-  								request.setRequestHeader("content_length", "12345");
-              },
-  						processData: false,
-  	      		data: data.files[0],
-  						//Ajax events
-  	      		success:  completeHandler = function(data) {
-
-  						if(navigator.userAgent.indexOf('Chrome')) {
-  								var catchFile = $(":file").val().replace(/C:\\fakepath\\/i, '');
-  						}
-  						else {
-  							var catchFile = $(":file").val();
-  						}
-  						var writeFile = $(":file");
-  						writeFile.html(writer(catchFile));
-  						$("*setIdOfImageInHiddenInput*").val(data.logo_id);
-  	      		},
-  						error: errorHandler = function() {
-  							alert("Inner ajax failed");
-  						},
-         	//ajax-2
-  	    	});
-  				},
-  				error: errorHandler = function() {
-  					alert("Outer ajax failed");
-  				},
-  			//ajax-1
-  			});
-  	  },
-  	});
-  }); */
+<% end %>
+<%= render :template => "catalogs/show", :locals => {:cattype => Assemblies::TORPEDO} %>
