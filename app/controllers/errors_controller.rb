@@ -13,14 +13,12 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class ErrorsController < ApplicationController
-
+class ErrorsController < NilavuController
   def not_found
     render_404
   end
-    
+
   def internal_error
     render_500
   end
-
 end

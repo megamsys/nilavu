@@ -15,17 +15,17 @@
 **/
 
 var selected_entity = '#version_view';
-<% if @mkp["cattype"] == Assemblies::APP  %>
+<% if @mkp["cattype"] == Api::Assemblies::APP  %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/apps', :locals => {:version => @mkp["sversion"], :mkp => @mkp}) %>";
-<% elsif @mkp["cattype"] == Assemblies::SERVICE  %>
+<% elsif @mkp["cattype"] == Api::Assemblies::SERVICE  %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/service', :locals => {:version => @mkp["sversion"], :mkp => @mkp, :unbound_apps => @unbound_apps}) %>";
-<% elsif @mkp["cattype"] == Assemblies::ANALYTICS %>
+<% elsif @mkp["cattype"] == Api::Assemblies::ANALYTICS %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/analytics', :locals => {:version => @mkp["sversion"], :mkp => @mkp}) %>";
-<% elsif @mkp["cattype"] == Assemblies::TORPEDO %>
+<% elsif @mkp["cattype"] == Api::Assemblies::TORPEDO %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/dew', :locals => {:version => @mkp["sversion"], :mkp => @mkp, :ssh_keys => @ssh_keys}) %>";
-<% elsif @mkp["cattype"] == Assemblies::COLLABORATION %>
+<% elsif @mkp["cattype"] == Api::Assemblies::COLLABORATION %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/collaboration', :locals => {:version => @mkp["sversion"], :mkp => @mkp, :ssh_keys => @ssh_keys}) %>";
-<% elsif @mkp["cattype"] == Assemblies::MICROSERVICES %>
+<% elsif @mkp["cattype"] == Api::Assemblies::MICROSERVICES %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/docker', :locals => {:version => @mkp["sversion"], :mkp => @mkp, :ssh_keys => @ssh_keys}) %>";
 <% else %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/docker', :locals => {:version => @mkp["sversion"], :mkp => @mkp}) %>";

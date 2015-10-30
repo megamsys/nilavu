@@ -3,7 +3,7 @@ language: ruby
 notifications:
     email:
     recipients:
-      - mvijaykanth@megam.io
+      - thomasalrin@megam.io
 
 rvm:
   - 2.2.3

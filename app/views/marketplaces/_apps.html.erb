@@ -21,7 +21,7 @@
 <%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
 <%= hidden_field_tag 'scm_name', nil, placeholder: "", :class =>"form-control"%>
 <%= hidden_field_tag 'type', nil, placeholder: "", :class => "form-control" %>
-<%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::ONE %>
+<%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Api::Marketplaces::ONE %>
 <div class="row">
   <div class="col-md-12 pad_tb25">
     <span class="app_left_name"><%= t('marketplace.discription') %></span>
@@ -50,7 +50,7 @@
 
     <%= render template="marketplaces/show_template" %>
 
-    <!-- START Assemblies::APP -->
+    <!-- START Api::Assemblies::APP -->
     <div class="row">
       <div class="col-xs-6">
         <p class="radioP">
@@ -112,7 +112,7 @@
         </div>
       </div>
     </div>
-    <!-- END Assemblies::APP -->
+    <!-- END Api::Assemblies::APP -->
     <!--- START SSH TEMPLATE -->
     <%= render template="marketplaces/show_ssh", :locals => {:ssh_keys => @ssh_keys} %>
     <!-- END SSH TEMPLATE -->
@@ -168,12 +168,8 @@
           type: "POST",
           url: "/publish_github",
           success: function (data) {
-            console.log("It worked!")
-            console.log(data);
           },
           error: function (data) {
-            console.log("ERROR CHECK PROPERLY!!");
-            console.log(data);
           }
         });
         return false;
@@ -191,12 +187,8 @@
           type: "POST",
           url: "/publish_gitlab",
           success: function (data) {
-            console.log("It worked!")
-            console.log(data);
           },
           error: function (data) {
-            console.log("ERROR CHECK PROPERLY!!");
-            console.log(data);
           }
         });
         return false;

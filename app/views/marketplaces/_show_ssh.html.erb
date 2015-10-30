@@ -3,32 +3,32 @@
     <h4><%= t('marketplace.ssh_list_title') %></h4>
     <div class="form-group">
       <select class="form-control" id="sshkeyoption">
-        <option value="<%= Sshkeys::NEW %>" selected="selected"><%= t('marketplace.ssh_list_create') %></option>
-        <option value="<%= Sshkeys::USEOLD %>"><%= t('marketplace.ssh_list_exist') %> </option>
-        <option value="<%= Sshkeys::IMPORT %>"><%= t('marketplace.ssh_list_import') %></option>
+        <option value="<%= Api::Sshkeys::NEW %>" selected="selected"><%= t('marketplace.ssh_list_create') %></option>
+        <option value="<%= Api::Sshkeys::USEOLD %>"><%= t('marketplace.ssh_list_exist') %> </option>
+        <option value="<%= Api::Sshkeys::IMPORT %>"><%= t('marketplace.ssh_list_import') %></option>
       </select>
     </div>
   </div>
   <div class="col-xs-6" >
-    <div id="<%= Sshkeys::USEOLD %>" style="display:none;">
+    <div id="<%= Api::Sshkeys::USEOLD %>" style="display:none;">
       <h4><%= t('marketplace.ssh_exist_title') %></h4>
       <div class="form-group">
         <% if @ssh_keys != nil && @ssh_keys.length > 0 %>
-          <%= select_tag "#{Sshkeys::USEOLD}_name", options_for_select(@ssh_keys.map{ |c| c[:name] }, :selected=>@ssh_keys[0]), :class =>"form-control" %>
+          <%= select_tag "#{Api::Sshkeys::USEOLD}_name", options_for_select(@ssh_keys.map{ |c| c[:name] }, :selected=>@ssh_keys[0]), :class =>"form-control" %>
         <% else %>
           <span><%= t('marketplace.ssh_exist_content') %></span>
         <% end %>
       </div>
     </div>
-    <div id="<%= Sshkeys::NEW %>">
+    <div id="<%= Api::Sshkeys::NEW %>">
       <h4><%= t('marketplace.ssh_key_name_title') %></h4>
       <div class="form-group">
-        <%= text_field_tag "#{Sshkeys::NEW}_name", nil, placeholder: t('marketplace.ssh_key_name_placeholder') , :required => true, :class =>"form-control" %>
+        <%= text_field_tag "#{Api::Sshkeys::NEW}_name", nil, placeholder: t('marketplace.ssh_key_name_placeholder') , :required => true, :class =>"form-control" %>
       </div>
     </div>
   </div>
 </div>
-<div id="<%= Sshkeys::IMPORT %>" style="display:none; margin-top:10px;">
+<div id="<%= Api::Sshkeys::IMPORT %>" style="display:none; margin-top:10px;">
   <div class="row">
     <div class="col-xs-6">
       <div class="form-group">
@@ -44,25 +44,25 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
-      $(".sshoption").val("<%= Sshkeys::NEW %>")
+      $(".sshoption").val("<%= Api::Sshkeys::NEW %>")
       $('#sshkeyoption').on('change', function() {
-        if (this.value == "<%= Sshkeys::NEW %>") {
-          $("#<%= Sshkeys::NEW %>").show();
-          $("#<%= Sshkeys::USEOLD %>").hide();
-          $("#<%= Sshkeys::IMPORT %>").hide();
-          $(".sshoption").val("<%= Sshkeys::NEW %>");
+        if (this.value == "<%= Api::Sshkeys::NEW %>") {
+          $("#<%= Api::Sshkeys::NEW %>").show();
+          $("#<%= Api::Sshkeys::USEOLD %>").hide();
+          $("#<%= Api::Sshkeys::IMPORT %>").hide();
+          $(".sshoption").val("<%= Api::Sshkeys::NEW %>");
         }
-        if (this.value == "<%= Sshkeys::USEOLD %>") {
-          $("#<%= Sshkeys::NEW %>").hide();
-          $("#<%= Sshkeys::USEOLD %>").show();
-          $("#<%= Sshkeys::IMPORT %>").hide();
-          $(".sshoption").val("<%= Sshkeys::USEOLD %>");
+        if (this.value == "<%= Api::Sshkeys::USEOLD %>") {
+          $("#<%= Api::Sshkeys::NEW %>").hide();
+          $("#<%= Api::Sshkeys::USEOLD %>").show();
+          $("#<%= Api::Sshkeys::IMPORT %>").hide();
+          $(".sshoption").val("<%= Api::Sshkeys::USEOLD %>");
         }
-        if (this.value == "<%= Sshkeys::IMPORT %>") {
-          $("#<%= Sshkeys::NEW %>").show();
-          $("#<%= Sshkeys::USEOLD %>").hide();
-          $("#<%= Sshkeys::IMPORT %>").show();
-          $(".sshoption").val("<%= Sshkeys::IMPORT %>");
+        if (this.value == "<%= Api::Sshkeys::IMPORT %>") {
+          $("#<%= Api::Sshkeys::NEW %>").show();
+          $("#<%= Api::Sshkeys::USEOLD %>").hide();
+          $("#<%= Api::Sshkeys::IMPORT %>").show();
+          $(".sshoption").val("<%= Api::Sshkeys::IMPORT %>");
         }
       });
     });

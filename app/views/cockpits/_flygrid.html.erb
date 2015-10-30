@@ -1,5 +1,5 @@
 <div class="" id="app-grid-view">
-  <%= render :partial => "cockpits/flyasm", :locals => {:cattype => Assemblies::TORPEDO.capitalize,:asmgroups_flatten => flat_asmgroup([Assemblies::TORPEDO],@assemblies_grouped)} %>
-  <%= render :partial => "cockpits/flyasm", :locals => {:cattype => Assemblies::APP.capitalize,:asmgroups_flatten => flat_asmgroup([Assemblies::APP],@assemblies_grouped)} %>
-  <%= render :partial => "cockpits/flyasm", :locals => {:cattype => Assemblies::SERVICE.capitalize,:asmgroups_flatten => flat_asmgroup([Assemblies::ANALYTICS, Assemblies::COLLABORATION, Assemblies::SERVICE],@assemblies_grouped)} %>
+  <%= render :partial => "cockpits/flyasm", :locals => {:cattype => Api::Assemblies::TORPEDO.capitalize,:asmgroups_flatten => flat_asmgroup([Api::Assemblies::TORPEDO],@assemblies_grouped)} %>
+  <%= render :partial => "cockpits/flyasm", :locals => {:cattype => Api::Assemblies::APP.capitalize,:asmgroups_flatten => flat_asmgroup([Api::Assemblies::APP],@assemblies_grouped)} %>
+  <%= render :partial => "cockpits/flyasm", :locals => {:cattype => Api::Assemblies::SERVICE.capitalize,:asmgroups_flatten => flat_asmgroup([Api::Assemblies::ANALYTICS, Api::Assemblies::COLLABORATION, Api::Assemblies::SERVICE],@assemblies_grouped)} %>
 </div>

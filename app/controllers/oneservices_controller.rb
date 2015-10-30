@@ -13,19 +13,16 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class OneservicesController < ApplicationController
+class OneservicesController < NilavuController
+  include OnexyzHelper
   respond_to :html, :js
   before_action :stick_keys, only: [:index]
-  include OneappsHelper
 
   def show
   end
 
   def index
-    @assembly = Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Assemblies::SERVICE]
-    @bound_apps = bound_assemblies(Assemblies.new.list(params).assemblies_grouped[Assemblies::APP], @assembly.components[0][0].components.related_components)
-    @assembly
+    @assembly = Api::Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Api::Assemblies::SERVICE]
+    @bound_apps = bound_assemblies(Api::Assemblies.new.list(params).assemblies_grouped[Api::Assemblies::APP], @assembly.components[0][0].components.related_components)
   end
-
-  
 end

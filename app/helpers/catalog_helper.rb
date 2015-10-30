@@ -19,8 +19,7 @@ module CatalogHelper
   # pull the last word from tosca.dew.debian
   def sparkle_up(cattype, assembly)
     beautify_cockpit = []
-    case cattype.upcase
-    when Assemblies::TORPEDO
+    if cattype.upcase == Api::Assemblies::TORPEDO
       beautify_cockpit << ('logos/' + assembly.tosca_type.split('.').last.delete('.­!?,') + '.png')
     else
       assembly.components.each do |one_component|
@@ -28,7 +27,7 @@ module CatalogHelper
           beautify_cockpit << ('logos/' + (c.tosca_type.clone.split('.').last.delete('.­!?,')) + '.png') unless c.nil?
         end unless one_component.nil?
       end
-      end
+    end
     beautify_cockpit
   end
 
@@ -36,7 +35,7 @@ module CatalogHelper
     array.each do |json|
       return json['value'] if key == json['key']
     end
- end
+  end
 
   #a quick hack to pass in a list of cattypes and show them under services.
   def flat_asmgroup(cattypes, assemblies_grouped)

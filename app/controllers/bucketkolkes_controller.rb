@@ -15,52 +15,35 @@
 ##
 require 'json'
 
-class BucketkolkesController < ApplicationController
+class BucketkolkesController < NilavuController
   respond_to :json, :js
 
-  before_action :stick_storage_keys, only: [:index, :create, :show, :upload, :destroy]
+  before_action :stick_ceph_keys, only: [:index, :create, :show, :upload, :destroy]
 
   def index
-    logger.debug '>Controller index called'
-    @buncketkolkes = Backup.new("#{session[:storage_access_key]}", "#{session[:storage_secret_key]}", Ind.backup.host)
-    data = @buncketkolkes.buckets_list
-    respond_with(data)
+    bucketobj = Backup::BucketObjects.new(params)
+    respond_with(bucketobj.list)
   end
 
   def create
-    backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
-    backup.object_create("#{params[:bucket_name]}", params[:sobject])
+    bucketobjs = Backup::BucketObjects.new(params)
+    bucketobjs.create(params[:sobject])
     @msg = { title: 'Storage', message: "#{params[:sobject].original_filename} uploaded successfully. ", redirect: '/', disposal_id: 'supload' }
   end
 
   def show
-    logger.debug '> Bucketskolkes: show.'
-    @objects = []
-    backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
-    @buckets = backup.buckets_list
-    backup.objects_list(params["id"]).each do |bkt|
-      obj = backup.object_get(params["id"], bkt.key)
-      @objects.push({:key => "#{obj.key}", :object_name => "#{obj.full_key}", :size => "#{obj.size}", :content_type => "#{obj.content_type}", :last_modified => "#{obj.last_modified}", :download_url => "#{obj.temporary_url}" })
-    end
-    @bucket_name = params["id"]
+    @objects = Backup::BucketObjects.new(params).list_detail
+    respond_with(@objects)
   end
-
-  def upload
-
-  end
-
   def destroy
-    logger.debug '> Bucketskolkes: delete'
-    backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
-    object_name = params[:id].split("/").last
-    bucket_name = params[:id].split("/").first
-    backup.object_delete(bucket_name, object_name, params[:format])
-    #@del = {title: "Object", message: "#{object_name} deleted successfully. ", redirect: '/', disposal_id: '' }
+    #object_name = params[:id].split("/").last
+    #bucket_name = params[:id].split("/").first
+    BucketObjects.new(params).delete(bucket_name)
+    @bobjs = []
+    respond_to do |format|
+      format.js do
+        respond_with(@bobjs, layout: !request.xhr?)
+      end
+    end
   end
-   ##respond_to do |format|
-     ## format.js do
-       ## respond_with(@objects, layout: !request.xhr?)
-      ##end
-   ## end
-
 end

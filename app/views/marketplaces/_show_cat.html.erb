@@ -15,8 +15,10 @@
 -->
 <% plan        = match_plan_for(mkp,version) %>
 <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
-<%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
+<%= hidden_field_tag 'mkp_name', nil, placeholder: "", :class =>"form-control", :value => @mkp['name'] %>
+<%= hidden_field_tag 'cattype', nil, placeholder: "", :class =>"form-control", :value => @mkp['cattype'] %>
 <% asmname = launch_namegen %>
+
 <div class="row">
 	<div class="col-md-12 pad_tb25">
 		<span class="app_left_name"><%= t('marketplace.discription') %></span>
@@ -40,11 +42,11 @@
 					</div>
 				</div>
 			</div>
-			<% if mkp["name"] != Assemblies::DOCKERCONTAINER %>
+			<% if mkp["name"] != Api::Assemblies::DOCKERCONTAINER %>
 		  <%= render template="marketplaces/show_template" %>
 			<%= render template="marketplaces/show_ssh", :locals => {:ssh_keys => @ssh_keys} %>
 			<%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
-			<%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::ONE %>
+			<%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Api::Marketplaces::ONE %>
 			<%= hidden_field_tag 'componentname', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
 
 			<br/>
@@ -58,8 +60,8 @@
 			</div>
 			<% else %>
   			<%= render template="marketplaces/show_template_edit" %>
-			<%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::DOCKER %>
-			<%= hidden_field_tag 'endpoint', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::BAREMETAL %>
+			<%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Api::Marketplaces::DOCKER %>
+			<%= hidden_field_tag 'endpoint', nil, placeholder: "", :class =>"form-control", :value => Api::Marketplaces::BAREMETAL %>
 			<%= hidden_field_tag 'componentname', nil, placeholder: "", :class =>"form-control", :value =>  asmname %>
 			<h4><%= t('marketplace.image_name') %></h4>
 			<div class="row">
@@ -69,7 +71,7 @@
 					</div>
 				</div>
 				<%= hidden_field_tag 'type', nil, placeholder: "Docker GitHub", :class =>"form-control", :value => "image" %>
-				<%= hidden_field_tag 'scm_name', nil, placeholder: 'Docker GitHub', :class =>"form-control", :value => Scm::DOCKERHUB %>
+				<%= hidden_field_tag 'scm_name', nil, placeholder: 'Docker GitHub', :class =>"form-control", :value => Nilavu::Constants::DOCKERHUB %>
 				<div class="col-xs-6">
 					<div class="form-group">
 						<%= submit_tag "Create", :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Please wait..."} %>

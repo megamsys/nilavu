@@ -1,13 +1,12 @@
 source 'https://rubygems.org'
 # ruby "2.2.2"
 
-# ruby
 gem 'json', '~> 1.8.3'
 gem 'net-ssh'
 
 gem 'jquery-fileupload-rails','~> 0.4.6' #fileupload
 gem 'rails', '~> 4.2.4'
-gem 'rails-i18n', '~> 4.0.5' # For 4.0.x
+gem 'rails-i18n', '~> 4.0.6' # For 4.0.x
 gem 'protected_attributes', '~> 1.1.3' # transition to rails 4.2.x
 gem 'responders', '~> 2.1.0' # transition to rails 4.2.x
 gem 'socket.io-rails', '~> 1.3.7' # websocket streaming
@@ -16,7 +15,7 @@ gem 'socket.io-rails', '~> 1.3.7' # websocket streaming
 gem 'jquery-rails', '~> 4.0.5'
 gem 'turbolinks', '~> 2.5.3'
 gem 'jquery-turbolinks', '~> 2.1.0'
-gem 'react-rails', '~> 1.3.2'
+gem 'react-rails', '~> 1.3.3'
 gem 'sass-rails', '~> 5.0.4'
 gem 'remotipart', '~> 1.2.1' # ajax file uploads (sshkey)
 gem 'nprogress-rails' # youtube like spinner
@@ -35,7 +34,7 @@ gem 'omniauth-google-oauth2', '~> 0.2.8'
 gem 'omniauth-github', '~> 1.1.2'
 
 # 3rd party system api's
-gem 'megam_api', '~> 0.77'
+gem 'megam_api', '~> 0.78'
 gem 'github_api', '~>0.12.4'
 gem 'gitlab', '~> 3.4.0'
 gem 'riak-client', '~> 2.2.1'
@@ -48,7 +47,7 @@ gem 'zeroclipboard-rails'   #copytoclipboard
 
 # general misc helper
 gem 'randexp', '~> 0.1.7'
-gem 'sshkey', '~> 1.7.0' # ssh key-gen
+gem 'sshkey',  '~> 1.7.0' # ssh key-gen
 gem 'settingslogic' # singleton settings yaml manager
 
 # passenger server

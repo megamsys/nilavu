@@ -15,14 +15,10 @@
 -->
 <% content_for :content_settings do %>
 <% provide(:title, "Dashboard") %>
-
-<% if flash[:error] %>
-     <%= flash %>
-  <% end %>
 <div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
   <%= render :partial => "users/topright_icons", :locals => {:title_name => t('titles.dashboard_title')} %>
-  <%= render :partial => "cockpits/flygrid", :locals => {:cattype => Assemblies::TORPEDO.capitalize,    :assemblies_grouped => @assemblies_grouped} %>
-  <%= render :partial => "cockpits/flylist", :locals => {:cattype => Assemblies::TORPEDO.capitalize,    :assemblies_grouped => @assemblies_grouped} %>
+  <%= render :partial => "cockpits/flygrid", :locals => {:cattype => Api::Assemblies::TORPEDO.capitalize,    :assemblies_grouped => @assemblies_grouped} %>
+  <%= render :partial => "cockpits/flylist", :locals => {:cattype => Api::Assemblies::TORPEDO.capitalize,    :assemblies_grouped => @assemblies_grouped} %>
 </div>
 <% end %>
 <%= render :template => "users/show" %>
