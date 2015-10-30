@@ -101,7 +101,7 @@ class Accounts < BaseFascade
   # creates a new account
   def create(api_params, &_block)
     Rails.logger.debug '> Accounts: create'
-    x = api_request(bld_acct(api_params), ACCOUNT, CREATE)
+    api_request(bld_acct(api_params), ACCOUNT, CREATE)
     @remember_token = api_params[:remember_token]
     @api_key = api_params[:api_key]
     @email = api_params[:email]
