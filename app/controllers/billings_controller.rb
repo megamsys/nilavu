@@ -25,6 +25,8 @@ class BillingsController < ApplicationController
 
     @invoices = Invoices.new.list(params)
     @invoices.invoices
+  
+
   end
 
   def notify_payment

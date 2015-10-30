@@ -34,7 +34,7 @@ gem 'omniauth-google-oauth2', '~> 0.2.8'
 gem 'omniauth-github', '~> 1.1.2'
 
 # 3rd party system api's
-gem 'megam_api', '~> 0.75'
+gem 'megam_api', '~> 0.77'
 gem 'github_api', '~>0.12.4'
 gem 'gitlab', '~> 3.4.0'
 gem 'riak-client', '~> 2.2.1'
@@ -50,6 +50,8 @@ gem 'settingslogic' # singleton settings yaml manager
 
 # passenger server
 gem 'passenger', group: :production
+
+
 
 group :test do
   gem 'capybara'
