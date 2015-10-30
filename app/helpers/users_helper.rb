@@ -16,7 +16,7 @@
 module UsersHelper
 
   def api_keygen
-    p SecureRandom.urlsafe_base64(nil, true)
+     SecureRandom.urlsafe_base64(nil, true)
   end
 
   def rem_tokgen

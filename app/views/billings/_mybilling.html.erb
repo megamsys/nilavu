@@ -35,15 +35,16 @@
             <label class="col-md-7 col-sm-12 col-xs-12 row" for="exampleInputName2"><%= t('billings.promo_code') %>
             </label>
             <!--	<input type="text" placeholder="" id="exampleInputName2" class="form-control-card-details col-md-6 col-xs-12 col-sm-12"> -->
-            <%= text_field_tag 'code', nil, :required => true, :id => 'code', :class => 'form-control-card-details col-md-6 col-xs-12 col-sm-12', placeholder: "", :data => {:placement=>"right" } %>
+            <%= text_field_tag 'code', nil, :required => true, :id => 'promos_code', :class => 'form-control-card-details col-md-6 col-xs-12 col-sm-12', placeholder: "", :data => {:placement=>"right" } %>
 
           </div>
 
           <div class="form-group col-md-2 col-sm-6 ">
             <!-- <a href="#">APPLY</a> -->
 
-            <%= submit_tag t('billings.apply'), :class => "btn btn-success col-md-10 col-xs-10 a_override" %>
+            <%= submit_tag t('billings.apply'), :class => "btn btn-success col-md-10 col-xs-10 a_override"%>
             <% end%>
+
           </div>
         </div>
 
@@ -103,8 +104,6 @@
                   <td><%= history.billing_amount %></td>
                   <td><%= history.currency_type %></td>
                   <td><%= history.created_at %></td>
-                <!--  <td>
-                    <%= link_to "pdf" ,pdf_path(:From_date => history.from_date , :To_date => history.to_date , :month => history.month, :billing_amount => history.billing_amount, :currency_type => history.currency_type, :created_at => history.created_at), :data => {:remote => true} %></td>-->
                 </tr>
                 <% end %>
               </tbody>

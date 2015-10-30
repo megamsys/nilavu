@@ -47,8 +47,4 @@ res[:body].each do |one_org|
   def showDomains(api_params, &block)
 
   end
-
-
-
-
 end

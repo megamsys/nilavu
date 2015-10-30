@@ -1,3 +1,4 @@
+
 ##
 ## Copyright [2013-2015] [Megam Systems]
 ##
@@ -13,14 +14,18 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class ErrorsController < ApplicationController
+require 'json'
+class SensorsController < ApplicationController
+  respond_to :json
 
-  def not_found
-    render_404
-  end
-    
-  def internal_error
-    render_500
-  end
+  before_action :stick_keys, only: [:index]
 
+  def index
+    @sensor = Sensors.new.list(params).sensors
+
+    if @sensor[0][:sensor_type] = 'compute.instance.launch'
+      state = @sensor[0][:payload]['state']
+    end
+    respond_with state.to_json
+  end
 end

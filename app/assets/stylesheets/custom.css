@@ -1,3 +1,18 @@
+
+.current a {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-top: 2px solid #3498db;
+  border-bottom: 0;
+  color: #333;
+
+}
+
+.bdown {
+
+  padding-top: 15px;
+}
+
 .container-fluid {
     padding-right: 15px;
     padding-left: 15px;
@@ -1390,7 +1405,7 @@ background-color: white;
 
 .stpack {
     vertical-align: middle;
-    display: table-cell;
+    display: inline;
     text-align: center;
 }
 .stpack img {

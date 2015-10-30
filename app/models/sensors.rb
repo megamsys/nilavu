@@ -13,14 +13,27 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class ErrorsController < ApplicationController
+require 'json'
 
-  def not_found
-    render_404
-  end
-    
-  def internal_error
-    render_500
+class Sensors < BaseFascade
+  attr_reader :sensors
+
+  def initialize
+    @sensors = []
   end
 
+  def list(api_params, &_block)
+    raw = api_request(api_params, SENSORS, LIST)
+    @sensors = to_hash(raw[:body])
+    yield self if block_given?
+    self
+  end
+
+  def to_hash(sensors_collection)
+    sensors = []
+    sensors_collection.each do |sensor|
+      sensors << { sensor_type: sensor.sensor_type, payload: sensor.payload, created_at: sensor.created_at.to_time.to_formatted_s(:rfc822) }
+    end
+    sensors.sort_by { |vn| vn[:created_at] }
+  end
 end

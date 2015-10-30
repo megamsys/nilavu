@@ -33,15 +33,16 @@
                 </div>
                 <div class="row app_icon">
                   <h5><%= assembly.name %></h5>
+                  <% assembly_name = if assembly.name.size > 10 then assembly.name.slice(0,5) + "..." else assembly.name end %>
                   <% case cattype.upcase %>
                   <% when Assemblies::TORPEDO %>
-                  <%= link_to assembly.name + ".megambox.com", onetorpedos_path(:id => assembly.id), :data => {:remote => true} %>
+                  <%= link_to assembly_name + ".megambox.com", onetorpedos_path(:id => assembly.id), :data => {:remote => true} %>
                   <% when Assemblies::APP %>
-                  <%= link_to assembly.name + ".megambox.com", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
+                  <%= link_to assembly_name + ".megambox.com", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
                   <% when Assemblies::SERVICE %>
-                  <%= link_to assembly.name + ".megambox.com", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
+                  <%= link_to assembly_name + ".megambox.com", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
                    <% when Assemblies::MICROSERVICES %>
-                  <%= link_to assembly.name + ".megambox.com", onemicroservices_path(:id => assembly.id), :data => {:remote => true} %>
+                  <%= link_to assembly_name + ".megambox.com", onemicroservices_path(:id => assembly.id), :data => {:remote => true} %>
                 <% end %>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                   <ul class="list-inline app_icon_bottom">
@@ -118,7 +119,6 @@ $(document).ready(function() {
   // Instance the tour
 /*@assemblies_grouped["TORPEDO"].nil? && @assemblies_grouped["APP"].nil? && @assemblies_grouped["SERVICE"].nil? &&*/
 <% if session[:tour] %>
-<% puts session[:tour] %>
 var tour = new Tour({
   steps: [
   {

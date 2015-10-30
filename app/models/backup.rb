@@ -43,7 +43,7 @@ class Backup < BaseFascade
       bucket_array.push(bucket_name: "#{bkt.name}", size: size.to_s(:human_size), noofobjects: bkt.objects.count)
       tsize += size
     end
-    { total_buckets: @client.buckets.count, bucket_array: bucket_array }
+    { total_buckets: @client.buckets.count, bucket_array: bucket_array, total_size: tsize }
   end
 
   def object_create(bucket_name, new_object)
@@ -69,9 +69,13 @@ class Backup < BaseFascade
     object = bucket.objects.find("#{object_name}")
   end
 
-  def object_delete(bucket_name, object_name)
+  def object_delete(bucket_name, object_name, formt)
     bucket = @client.buckets.find("#{bucket_name}")
-    object = bucket.objects.find("#{object_name}")
+    if formt.nil?
+      object = bucket.objects.find("#{object_name}")
+    else
+      object = bucket.objects.find("#{object_name}.#{formt}")
+    end
     object.destroy
   end
 end

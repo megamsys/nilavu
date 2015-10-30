@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 
   protect_from_forgery with: :null_session, if: proc { |c| c.request.format == 'application/json' }
+
   #protect_from_forgery with: :exception
   #skip_before_filter  :verify_authenticity_token
 
@@ -47,6 +48,7 @@ class ApplicationController < ActionController::Base
     if !signed_in?
       #gflash error: "#{exception}"
       redirect_to signin_path, flash: { error: 'You must first sign in or sign up.' }
+
     else
       respond_to do |format|
         format.html { render template: 'errors/not_found', layout: 'application', status: 404 }
@@ -129,7 +131,9 @@ class ApplicationController < ActionController::Base
       redirect_to(signin_path, flash: { api_error: 'api_error' }) && return
     else
      # gflash error: "#{mai.message}"
-      redirect_to(cockpits_path, flash: { api_error: 'api_error' }) && return
+     redirect_to(cockpits_path, flash: { api_error: 'api_error' }) && return
+    #  redirect_to cockpits_path, notice: "welcome"
+
     end
   end
 

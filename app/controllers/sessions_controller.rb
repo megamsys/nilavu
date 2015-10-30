@@ -84,8 +84,10 @@ end
 
   def create_with_megam(all_params)
     my_account = Accounts.new
+
     begin
       my_account.signin(all_params) do
+        puts my_account.inspect
         sign_in my_account
         redirect_to cockpits_path, notice: "Welcome #{my_account.first_name}."
       end
