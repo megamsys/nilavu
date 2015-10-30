@@ -18,37 +18,24 @@ require 'json'
 class BucketkolkesController < NilavuController
   respond_to :json, :js
 
+
   before_action :stick_ceph_keys, only: [:index, :create, :show, :upload, :destroy]
 
   def index
-    bucketobj = BucketObjects.new(parms)
+    bucketobj = Backup::BucketObjects.new(params)
     respond_with(bucketobj.list)
   end
 
   def create
-    backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
-    backup.object_create("#{params[:bucket_name]}", params[:sobject])
+    bucketobjs = Backup::BucketObjects.new(params)
+    bucketobjs.create(params[:sobject])
     @msg = { title: 'Storage', message: "#{params[:sobject].original_filename} uploaded successfully. ", redirect: '/', disposal_id: 'supload' }
   end
 
   def show
-    logger.debug '> Bucketskolkes: show.'
-    @objects = []
-    backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
-    @buckets = backup.buckets_list
-    backup.objects_list(params["id"]).each do |bkt|
-      obj = backup.object_get(params["id"], bkt.key)
-      @objects.push({:key => "#{obj.key}", :object_name => "#{obj.full_key}", :size => "#{obj.size}", :content_type => "#{obj.content_type}", :last_modified => "#{obj.last_modified}", :download_url => "#{obj.temporary_url}" })
-    end
-    @bucket_name = params["id"]
+    @objects = Backup::BucketObjects.new(params).list_detail
+    respond_with(@objects)
   end
-
-  def upload
-    bucketobjs = BucketObjects.new(parms)
-    baucketobjs.create(params[:sobject])
-    @msg = { title: 'Storage', message: "#{params[:sobject].original_filename} uploaded successfully. ", redirect: '/', disposal_id: 'supload' }
-  end
-
   def destroy
     #object_name = params[:id].split("/").last
     #bucket_name = params[:id].split("/").first

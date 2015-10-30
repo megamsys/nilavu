@@ -1,19 +1,21 @@
+module Backup
 class BucketObjects < BackupService
-  attr_reader :bucket
+  attr_reader :bucket, :name
 
   def initialize(params)
-    @bucket = find(params[:bucket_name])
     super(params)
+    @name = params[:bucket_name]
+    @bucket = find(@name)
   end
 
-  def list(name)
+  def list
     bucket.objects
   end
 
-  def list_detail(name)
+  def list_detail
     formatted_objc = []
-    list(name).each do |objs_in_bucket|
-        formatted_objc << format_obj(bucket.get(name, bucket.key))
+    list.each do |objs_in_bucket|
+        formatted_objc << format_obj(get(@name))
     end
     formatted_objc
   end
@@ -58,4 +60,5 @@ class BucketObjects < BackupService
       :download_url => "#{obj.temporary_url}"
     }
   end
+end
 end

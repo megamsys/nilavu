@@ -21,12 +21,12 @@ class BucketsController < NilavuController
   before_action :stick_ceph_keys, only: [:index, :create, :show, :upload, :destroy]
 
   def index
-    @bucket = Buckets.new(params).list
-    @usage  = BackupUser.new(params).usage(currrent_user.email)
+    @bucket ||= Backup::Buckets.new(params).list
+    @usage  ||= Backup::BackupUser.new(Ind.backup.username, Ind.backup.password).usage(current_user.email)
   end
 
   def create
-    bucket = Buckets.new(params)
+    bucket = Backup::Buckets.new(params)
     bucket.create(params[:bucket_name])
     @msg = { title: "Storage", message: '#{params["bucket_name"]} created successfully.', redirect: '/', disposal_id: 'create_bucket' }
   end
@@ -38,9 +38,6 @@ class BucketsController < NilavuController
   end
 
 
-   def destroy
-     logger.debug '> Bucketskolkes: delete'
-     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
-     backup.bucket_delete(bucket_name)
-   end
+  def destroy    
+  end
 end

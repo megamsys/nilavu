@@ -13,6 +13,7 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
+module Backup
 class Buckets < BackupService
   def initialize(params)
     super(params)
@@ -21,11 +22,16 @@ class Buckets < BackupService
   def list
     bkts = cephs3.buckets
     buckets = []
+    tsize =0
+    size =0
     bkts.each do |bkt|
-      size = bkt.objects.inject { |lsize, n| lsize + n.size.to_i}
+      bkt.objects.each do |obj|
+        size += obj.size.to_i
+      end
       buckets.push(bucket_name: "#{bkt.name}", size: size.to_s(:human_size), noofobjects: bkt.objects.count)
+      tsize += size
     end
-    { total_buckets: bkts.count, bucket_array: buckets }
+    { total_buckets: bkts.count, bucket_array: buckets, total_size: size }
   end
 
   def create(name)
@@ -37,4 +43,5 @@ class Buckets < BackupService
     bucket = cephs3.buckets.find("#{name}")
     bucket.destroy
   end
+end
 end

@@ -1,1 +1,1 @@
-$("#content").html("<%= escape_javascript(render :partial => "bucketkolkes/objects", :locals => {:bucket_name => @bucket_name, :objects => @objects, :buckets => @buckets}) %>");
+$("#content").html("<%= escape_javascript(render :partial => "bucketkolkes/objects", :locals => { :objects => @objects}) %>");

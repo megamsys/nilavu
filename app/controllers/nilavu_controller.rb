@@ -48,7 +48,7 @@ class NilavuController < ApplicationController
 
   def stick_ceph_keys(_tmp = {}, _permitted_tmp = {})
     logger.debug "> STICKC"
-    params.merge!(Hash[%w(access_key secret_key).map {|x| [x, session[x.to_sym]]}])
+    params.merge!(Hash[%w(ceph_access_key ceph_secret_key).map {|x| [x, session[x.to_sym]]}])
   end
 
   def stick_auth_keys()
@@ -68,8 +68,8 @@ class NilavuController < ApplicationController
   end
 
   def load_ceph(current_user)
-    client = BackupUser.new(Ind.backup.username, Ind.backup.password)
-    res = client.account_create(current_user.email)
+    client = Backup::BackupUser.new(Ind.backup.username, Ind.backup.password)
+    res = client.create(current_user.email, "display_name")
     store_ceph_credentials(res)
   end
 end
