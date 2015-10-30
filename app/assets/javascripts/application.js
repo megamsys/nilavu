@@ -34,4 +34,7 @@
 //= require megam.form_validation
 //= require jquery-fileupload/basic
 //= require components
+//= require socket.io
+//= require zeroclipboard
 //= require_tree .
+

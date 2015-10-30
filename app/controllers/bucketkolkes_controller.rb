@@ -18,7 +18,6 @@ require 'json'
 class BucketkolkesController < NilavuController
   respond_to :json, :js
 
-
   before_action :stick_ceph_keys, only: [:index, :create, :show, :upload, :destroy]
 
   def index

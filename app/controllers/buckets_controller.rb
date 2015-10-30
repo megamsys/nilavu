@@ -38,6 +38,7 @@ class BucketsController < NilavuController
   end
 
 
+
   def destroy    
   end
 end
