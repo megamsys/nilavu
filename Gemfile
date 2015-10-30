@@ -24,6 +24,7 @@ gem 'toastr_rails'
 gem 'uglifier', '~> 2.7.2'
 gem 'therubyracer', '~> 0.12.2', require: 'v8', platforms: :ruby
 
+
 # security
 gem 'bcrypt', '~> 3.1.10'
 gem 'oauth2', '~> 1.0.0'
@@ -42,6 +43,8 @@ gem 'radosgw-s3'
 
 gem 'google-analytics-rails', '~> 0.0.6'
 gem 'paypal-sdk-rest', '~>1.3.1' # billing
+gem 'zeroclipboard-rails'   #copytoclipboard
+
 
 # general misc helper
 gem 'randexp', '~> 0.1.7'

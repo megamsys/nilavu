@@ -40,24 +40,33 @@
     </div>
 
     <div class="col-sm-3 storage-rt-list">
-      <dl>
-        <h3>Specifications</h3>
+
+      <dl><h3>Usage</h3>
+         <dt><%= t('overviews.name') %></dt>
+         <dd><%= assembly.name %>
+           <%= t('marketplace.megambox') %></dd>
+        <dt class="margin-top-20"></dt>
+
         <dt><%= t('overviews.available_ram') %></dt>
         <dd><%= assembly.inputs.select { |x| x["key"] == "ram" }[0]['value'] %>
           <%= t('overviews.mb') %></dd>
         <dt class="margin-top-20"></dt>
         <dt><%= t('overviews.cpu_core') %></dt>
         <dd><%= assembly.inputs.select { |x| x["key"] == "cpu" }[0]['value'] %></dd>
+        <dt class="margin-top-20"></dt>
+        <dt><%= t('overviews.os') %></dt>
+        <dd><%= image_tag  "logos/#{assembly.tosca_type.split('.').last}.png", :alt => "" %>
+        <dt class="margin-top-20"></dt>
         <dt>
           <%= t('overviews.ip') %></dt>
         <dd><% ip = parse_key_value_pair(assembly.outputs, "ip") %>
           <%= ip if ip != "" %>
           <%= t('overviews.not_get_ip') if ip == "" %></dd>
-        <dt class="margin-top-20"></dt>
-        <dt>URL</dt>
-        <dd>megam.com
-          <i class="c_icon-form"></i>
-        </dd>
+          <dt class="margin-top-20"></dt>
+          <dt>URL</dt>
+                            <dd>megam.com <i class="c_icon-form"></i></dd>
+	                        
+        
         <dt class="margin-top-20"></dt>
         <dt>Region</dt>
         <dd><img src="assets/images/search-icon.png">
@@ -66,7 +75,11 @@
       </dl>
     </div>
   </div>
-</div>
 
-<% end %>
-<%= render :template => "catalogs/show", :locals => {:cattype => Assemblies::TORPEDO} %>
+  </div>
+
+  <% end %>
+  <%= render :template => "catalogs/show", :locals => {:cattype => Assemblies::TORPEDO} %>
+
+  
+  

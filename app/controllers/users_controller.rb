@@ -56,14 +56,17 @@ class UsersController < ApplicationController
     my_account.create(all_params) do
      org_res = Organizations.new.list(all_params).orgs
     session[:org_id] = org_res[0][:id]
-
+  
+  
       sign_in my_account
       if "#{Ind.notification.email.password}" != ''
         UserMailer.welcome(my_account).deliver_now
       end
+    
+    
       redirect_to cockpits_path, format: 'html', flash: { alert: "Welcome #{my_account.first_name}." }
     end
-
+  
     if Ind.backup.enable
 	backup_client = BackupUser.new(Ind.backup.host, Ind.backup.username, Ind.backup.password)
     storage_acc_res = backup_client.create(params['email'],'displayname_accountid')
