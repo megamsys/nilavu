@@ -69,7 +69,7 @@ class NilavuController < ApplicationController
 
   def load_ceph(current_user)
     client = Backup::BackupUser.new(Ind.backup.username, Ind.backup.password)
-    res = client.create(current_user.email)
+    res = client.create(current_user.email, "display_name")
     store_ceph_credentials(res)
   end
 end
