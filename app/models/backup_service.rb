@@ -11,9 +11,8 @@ class BackupService
 
 
 	def initialize(parms)
-		@cephs3 = S3::Service.new(access_key_id: parms[:access_key], secret_access_key: parms[:secret_key], host: endpoint)
+		@cephs3 = S3::Service.new(access_key_id: parms[:ceph_access_key], secret_access_key: parms[:ceph_secret_key], host: endpoint)
 	end
-
 
 	def self.sign(parms)
 		S3::Signature.generate(request: S3::Service.service_request(:put), access_key_id: params[:access_key],
