@@ -28,7 +28,6 @@
 //= require megam.support
 //= require nprogress
 //= require nprogress-ajax
-//= require nprogress-turbolinks
 //= require react
 //= require react_ujs
 //= require megam.menu

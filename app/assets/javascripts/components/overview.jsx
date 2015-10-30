@@ -68,10 +68,6 @@ var Overview = React.createClass({
       JsonD: ''
     };
   },
-  componentDidMount: function() {
-  //NProgress.configure({ showSpinner: false });
-  //NProgress.set(0.0);
-  },
   changeTab: function(tab) {
     this.setState({
       currentTab: tab.id
