@@ -18,7 +18,7 @@ require 'json'
 class BucketsController < NilavuController
   respond_to :json, :js
 
-  before_action :stick_ceph_keys, only: [:index, :create, :show, :upload]
+  before_action :stick_ceph_keys, only: [:index, :create, :show, :upload, :destroy]
 
   def index
     @bucket = Buckets.new(params).list
@@ -37,7 +37,10 @@ class BucketsController < NilavuController
     @bucket_name = params["id"]
   end
 
-  def destroy
-    puts "Megam Systems"
-  end
+
+   def destroy
+     logger.debug '> Bucketskolkes: delete'
+     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
+     backup.bucket_delete(bucket_name)
+   end
 end
