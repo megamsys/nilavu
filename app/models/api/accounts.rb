@@ -36,7 +36,7 @@ module Api
     end
 
     def create(parms, &_block)
-      current_config(parms, false)
+      verify_if_duplicate?(current_config(parms))
       @auth_config = Nilavu::Auth::Configuration.from_hash(parms.merge({:api_key =>
       Nilavu::Auth::SignVerifier.hmackey}))
       api_request(ACCOUNT, CREATE,@auth_config.to_hash)
@@ -45,7 +45,8 @@ module Api
     end
 
     def authenticate(parms, &_block)
-      @auth_config = current_config({:email => parms[:email]}, false)
+      @auth_config = current_config({:email => parms[:email]})
+      verify_if_notfound?
       @sign_verifier.authenticate(@auth_config, parms[:password])
       yield self if block_given?
       self
@@ -80,11 +81,16 @@ module Api
       "#{Time.zone.now}"
     end
 
-    def current_config(params, skip_duplicate = true)
-      auth_config = Nilavu::Auth::Configuration.load(params[:email])
-      fail Api::Accounts::AccountNotFound, 'Au oh!, Hey you are new bloke, signup.' if auth_config.nil? && skip_duplicate
-      fail Api::Accounts::AccountFound, 'Au oh!, You are registered. Please signin.' if auth_config && skip_duplicate
-      auth_config
+    def current_config(params)
+         Nilavu::Auth::Configuration.load(params[:email])
+    end
+
+    def verify_if_notfound?
+      fail Api::Accounts::AccountNotFound, 'Au oh!, Hey you are new bloke, signup.' if @auth_config.nil?
+    end
+
+    def verify_if_duplicate?(copyof_auth_config)
+      fail Api::Accounts::AccountFound, 'Au oh!, You are registered. Please signin.' if copyof_auth_config
     end
 
     def self.typenum_to_s(updtype)
