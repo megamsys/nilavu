@@ -54,15 +54,14 @@ class MarketplacesController < NilavuController
   # performs ssh creation or using existing and creating an assembly at the end.
   def create
     logger.debug '> Marketplaces: create.'
-    #mkp = JSON.parse(params[:mkp])
+	 params[:org_id] = session[:org]
     # adding the default org of the user which is stored in the session
-    params[:ssh_keypair_name] = params["#{params[:sshoption]}" + '_name'] if params[:sshoption] == Sshkeys::USEOLD
-    params[:ssh_keypair_name] = params["#{Sshkeys::NEW}_name"] unless params[:sshoption] == Sshkeys::USEOLD
+    params[:ssh_keypair_name] = params["#{params[:sshoption]}" + '_name'] if params[:sshoption] == Api::Sshkeys::USEOLD
+    params[:ssh_keypair_name] = params["#{Api::Sshkeys::NEW}_name"] unless params[:sshoption] == Api::Sshkeys::USEOLD
     # the full keypair name is coined inside sshkeys.
-    params[:ssh_keypair_name] = Sshkeys.new.create_or_import(params)[:name]
+    params[:ssh_keypair_name] = Api::Sshkeys.new.create_or_import(params)[:name]
     setup_scm(params)
     res = Api::Assemblies.new.create(params)
-
     binded_app?(params) do
       Assembly.new.update(params)
       Components.new.update(params)
@@ -137,10 +136,10 @@ class MarketplacesController < NilavuController
 
   def setup_scm(params)
     case params[:scm_name]
-    when Scm::GITHUB
+    when Nilavu::Constants::GITHUB
       params[:scmtoken] =  session[:github]
       params[:scmowner] =  session[:github_owner]
-    when Scm::GITLAB
+    when Nilavu::Constants::GITLAB
       params[:scmtoken] = session[:gitlab_key]
       params[:scmowner] = find_id(params[:source])
       params[:scm_url]  = Ind.http_gitlab

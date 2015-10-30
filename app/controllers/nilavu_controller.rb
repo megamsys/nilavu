@@ -42,7 +42,7 @@ class NilavuController < ApplicationController
 
   def stick_keys(_tmp = {}, _permitted_tmp = {})
     logger.debug "> STICKM"
-    params.merge!(Hash[%w(email api_key).map {|x| [x, session[x.to_sym]]}])
+    params.merge!(Hash[%w(email api_key org).map {|x| [x, session[x.to_sym]]}])
   end
 
 

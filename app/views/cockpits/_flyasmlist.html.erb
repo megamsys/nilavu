@@ -11,7 +11,7 @@
 
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
   <% asmgroups_flatten.each do |assembly| %>
-  <% unless assembly.status == Assemblies::TERMINATED %>
+  <% unless assembly.status == Api::Assemblies::TERMINATED %>
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
       <table class="table tb_action_list">

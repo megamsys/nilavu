@@ -69,11 +69,20 @@ module Api
     end
 
     def create(api_params, &_block)
-      api_request(ASSEMBLIES, CREATE,Assemblies.Deployable.new(api_params))
+      #api_request(ASSEMBLIES, CREATE,Assemblies.new(api_params))
+	bld_data = build_data(api_params)
+	api_request(ASSEMBLIES, CREATE, api_params.merge(bld_data))
       yield self if block_given?
       self
     end
 
+   def build_data(api_params)
+    { name: '',
+      assemblies: [Megam::Mixins::Assemblies.new(api_params).to_hash],
+      inputs: [],
+      org_id: api_params[:org_id]
+    }
+   end
     private
     # The /assemblies just returns an id of assembly. dig recursively to get the full content of it.
     #     assemblies : :id  => ASM0001
