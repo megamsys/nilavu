@@ -18,7 +18,7 @@ require 'json'
 class BucketkolkesController < NilavuController
   respond_to :json, :js
 
-  before_action :stick_ceph_keys, only: [:index, :create, :destroy, :show]
+  before_action :stick_ceph_keys, only: [:index, :create, :show, :upload, :destroy]
 
   def index
     bucketobj = Backup::BucketObjects.new(params)
@@ -36,6 +36,14 @@ class BucketkolkesController < NilavuController
     respond_with(@objects)
   end
   def destroy
+    #object_name = params[:id].split("/").last
+    #bucket_name = params[:id].split("/").first
     BucketObjects.new(params).delete(bucket_name)
+    @bobjs = []
+    respond_to do |format|
+      format.js do
+        respond_with(@bobjs, layout: !request.xhr?)
+      end
+    end
   end
 end

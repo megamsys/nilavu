@@ -21,8 +21,7 @@ class SensorsController < ApplicationController
   before_action :stick_keys, only: [:index]
 
   def index
-    @sensor = Sensors.new.list(params).sensors
-
+    @sensor = Api::Sensors.new.list(params).sensors
     if @sensor[0][:sensor_type] = 'compute.instance.launch'
       state = @sensor[0][:payload]['state']
     end
