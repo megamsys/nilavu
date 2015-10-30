@@ -13,6 +13,7 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
+
 module Api
   class Sshkeys < APIDispatch
     SSH_FILES_BUCKET = 'sshfiles'.freeze
@@ -57,7 +58,7 @@ module Api
 
     ## rescue and raise as an error.
     def download(api_params, &_block)
-      Riak.new(SSH_FILES_BUCKET).download(api_params[:download_location])
+      Nilavu::DB::GSRiak.new(SSH_FILES_BUCKET).download(api_params[:download_location])
     end
 
     private
@@ -90,15 +91,15 @@ module Api
     end
 
     # For Riak_we upload the key in the format email_ssh_key_name along with the content type
-    def upload_on_creation(api_params)
-      riak = Riak.new(SSH_FILES_BUCKET)
+    def upload_on_import(api_params)
+      riak = Nilavu::DB::GSRiak.new(SSH_FILES_BUCKET)
       riak.upload(keypub(api_params),api_params[:ssh_private_key].read, api_params[:ssh_private_key].content_type)
       riak.upload(keypriv(api_params),api_params[:ssh_public_key].read, api_params[:ssh_public_key].content_type)
     end
 
     # For Riak_we import the key in the format email_ssh_key_name along with the static content type
-    def upload_on_import(api_params)
-      riak = Riak.new(SSH_FILES_BUCKET)
+    def upload_on_creation(api_params)
+      riak = Nilavu::DB::GSRiak.new(SSH_FILES_BUCKET)
       riak.upload(keypub(api_params), api_params[:ssh_private_key], PRIV_CONTENT_TYPE)
       riak.upload(keypriv(api_params), api_params[:ssh_public_key], PUB_CONTENT_TYPE)
     end
