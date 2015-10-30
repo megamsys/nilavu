@@ -158,18 +158,18 @@ var Charts = React.createClass({
   },
 
   updateData: function() {
-    $.get(this.props.host, function(data) {
+  $.ajax({
+  url: this.props.host,
+  dataType: 'json',
+  data: $("#form").serialize(),
+  success: function(data) {
+  this.setState({  JsonD: data  });
+    }.bind(this),
+  error: function(xhr, status, err) {
+  console.error(this.props.url,status, err.toString());
+  }.bind(this)
 
-      this.setState({
-        JsonD: data
-      })
-    }.bind(this));
-    $.get(this.props.mhost, function(mdata) {
-      this.setState({
-        machineInfo: mdata
-      })
-    }.bind(this));
-
+  });
   },
 
   drawCPU: function() {
