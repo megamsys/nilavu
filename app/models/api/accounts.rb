@@ -37,7 +37,6 @@ module Api
 
     def create(parms, &_block)
       verify_if_duplicate?(current_config(parms))
-
       @auth_config = Nilavu::Auth::Configuration.from_hash(parms.merge({:api_key =>
       Nilavu::Auth::SignVerifier.hmackey}))
       api_request(ACCOUNT, CREATE,@auth_config.to_hash)
