@@ -51,6 +51,8 @@ gem 'settingslogic' # singleton settings yaml manager
 # passenger server
 gem 'passenger', group: :production
 
+
+
 group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
