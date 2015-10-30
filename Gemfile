@@ -42,7 +42,8 @@ gem 'radosgw-s3'
 
 gem 'google-analytics-rails', '~> 0.0.6'
 gem 'paypal-sdk-rest', '~>1.3.1' # billing
-gem 'zeroclipboard-rails' #copytoclipboard
+gem 'zeroclipboard-rails'   #copytoclipboard
+
 
 # general misc helper
 gem 'randexp', '~> 0.1.7'
