@@ -99,7 +99,6 @@ var Overview = React.createClass({
       JsonD: ''
     };
   },
-
   changeTab: function(tab) {
     this.setState({
       currentTab: tab.id
@@ -108,6 +107,7 @@ var Overview = React.createClass({
 
   render: function() {
     return (
+
       <div >
         <Tabs changeTab={this.changeTab} currentTab={this.state.currentTab} tabList={this.state.tabList}/>
         <Content JsonD={this.state.JsonD} currentTab={this.state.currentTab} google={this.props.google} host={this.props.host} mhost={this.props.mhost}/>
@@ -173,11 +173,13 @@ var Charts = React.createClass({
 
   componentDidMount: function() {
     this.updateData();
-
+    $('.bar').hide();
+    $('.spinner').hide();
     setInterval(this.updateData, 2000);
-
   },
   componentDidUpdate: function() {
+  $('.bar').hide();
+  $('.spinner').hide();
     if (this.props.name == "cpu") {
       this.drawCPU();
     } else if (this.props.name == "ram") {
@@ -189,20 +191,36 @@ var Charts = React.createClass({
   },
 
   updateData: function() {
-    $.get(this.props.host, function(data) {
-      this.setState({
-        JsonD: data
-      })
-    }.bind(this));
-    $.get(this.props.mhost, function(mdata) {
-      this.setState({
-        machineInfo: mdata
-      })
-    }.bind(this));
+  $.ajax({
+  url: this.props.host,
+  success: function(data) {
+  this.setState({  JsonD: data  });
+  $('.bar').hide();
+  $('.spinner').hide();
+     }.bind(this),
+  error: function(xhr, status, err) {
+    $('.bar').hide();
+    $('.spinner').hide();
+  }.bind(this)
 
+  });
+
+  $.ajax({
+  url: this.props.mhost,
+  success: function(mdata) {
+  this.setState({  machineInfo: mdata  });
+  $('.bar').hide();
+  $('.spinner').hide();
+     }.bind(this),
+  error: function(xhr, status, err) {
+    $('.bar').hide();
+    $('.spinner').hide();
+  }.bind(this)
+
+  });
   },
 
-  drawCPU: function() {
+   drawCPU: function() {
     var stats = this.state.JsonD;
     if (stats.spec.has_cpu && !this.hasResource(stats, "cpu")) {
       return;
