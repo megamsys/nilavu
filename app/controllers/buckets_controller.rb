@@ -34,7 +34,6 @@ class BucketsController < ApplicationController
 
   def create
     logger.debug '> Buckets: create.'
-    puts "----------------create---------"
     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
     backup.bucket_create(params["bucket_name"])
     @msg = { title: "Storage", message: "#{params["bucket_name"]} created successfully. ", redirect: '/', disposal_id: 'create_bucket' }
@@ -54,10 +53,10 @@ class BucketsController < ApplicationController
     @bucket_name = params["id"]
   end
 
-  ## def destroy
-    ## logger.debug '> Bucketskolkes: delete'
-    ## backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
-    ## backup.bucket_delete(bucket_name)
-  ## end
+   def destroy
+     logger.debug '> Bucketskolkes: delete'
+     backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
+     backup.bucket_delete(bucket_name)
+   end
 
 end

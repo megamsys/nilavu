@@ -71,6 +71,4 @@ Nilavu::Application.routes.draw do
   #===Events
   match '/sensors', to: 'sensors#index' , via: [:get, :post]
 
-  #===deleteObject
-  match '/object_delete', to: 'bucketkolkes#destroy' , via: [:get, :post]
 end

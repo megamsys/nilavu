@@ -56,11 +56,11 @@ class BucketkolkesController < ApplicationController
     bucket_name = params[:id].split("/").first
     backup.object_delete(bucket_name, object_name, params[:format])
     #@del = {title: "Object", message: "#{object_name} deleted successfully. ", redirect: '/', disposal_id: '' }
-
+  end
    ##respond_to do |format|
      ## format.js do
        ## respond_with(@objects, layout: !request.xhr?)
       ##end
    ## end
-  end
+
 end
