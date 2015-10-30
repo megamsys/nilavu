@@ -18,19 +18,23 @@ require 'json'
 class BucketkolkesController < NilavuController
   respond_to :json, :js
 
-  before_action :stick_ceph_keys, only: [:index, :upload, :destroy]
+  before_action :stick_ceph_keys, only: [:index, :create, :destroy, :show]
 
   def index
-    bucketobj = BucketObjects.new(parms)
+    bucketobj = Backup::BucketObjects.new(params)
     respond_with(bucketobj.list)
   end
 
-  def upload
-    bucketobjs = BucketObjects.new(parms)
-    baucketobjs.create(params[:sobject])
+  def create
+    bucketobjs = Backup::BucketObjects.new(params)
+    bucketobjs.create(params[:sobject])
     @msg = { title: 'Storage', message: "#{params[:sobject].original_filename} uploaded successfully. ", redirect: '/', disposal_id: 'supload' }
   end
 
+  def show
+    @objects = Backup::BucketObjects.new(params).list_detail
+    respond_with(@objects)
+  end
   def destroy
     BucketObjects.new(params).delete(bucket_name)
   end

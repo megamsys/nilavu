@@ -34,7 +34,7 @@
 					</div>
 				</div>
 			</div>
-			<% @buckets[:bucket_array].each do |bucket| %>
+			<% @bucket[:bucket_array].each do |bucket| %>
 			<div class="col-xs-12 col-sm-6 col-md-3 app_cover my_bucket_inner" id="<%= bucket[:bucket_name] %>">
 				<%= link_to bucketkolke_path(:id => bucket[:bucket_name]), :target => "_self", :remote => true do %>
 				<div class="app_inner">
@@ -55,49 +55,7 @@
 			<% end %>
 		</div>
 	</div>
-	<div class="col-sm-3 storage-rt-list ">
-		<dl>
-			<h3>Usage</h3>
-			<dt>
-				Total Storage
-			</dt>
-			<dd>
-				<%= @buckets[:total_size] %>
-			</dd>
-			<dt class="margin-top-20"></dt>
-			<dt>
-				Total Buckets
-			</dt>
-			<dd>
-				<%= @buckets[:total_buckets] %>
-			</dd>
-
-			<h3>Billing</h3>
-			<dt>
-				Last billed amount
-			</dt>
-			<dd>
-				2500/- INR
-			</dd>
-			<dt class="margin-top-20"></dt>
-			<dt>
-				Current due
-			</dt>
-			<dd>
-				0/- INR
-			</dd>
-			<dt class="margin-top-20"></dt>
-			<dt>
-				Region
-			</dt>
-			<dd>
-				<%= image_tag "flag_IN.png", :alt => "flag" %> INDIA
-			</dd>
-		</dl>
-	</div>
-	<div class="col-xs-12 col-sm-9 col-md-10" id="object_list">
-
-	</div>
+  <%= render :partial => "bucketkolkes/usage", :locals => {:bucket => @bucket} %>
 </div>
 
 <div class="storage-popup" >

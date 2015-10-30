@@ -13,29 +13,28 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-
+module Backup
 class BackupUser
   attr_reader :radosgw # radosgw client
 
   STORAGES_BUCKET = 'storages'.freeze
 
-  def initialize(params)
-    @radowgw = CEPH::Radosgw.new(username: radosadmin,
-      user_password: radosadmin_password,
-    ipaddress: endpoint)
+  def initialize(radosadmin, radosadmin_password)
+    @radosgw = CEPH::User.new(username: radosadmin, user_password: radosadmin_password, ipaddress: endpoint)
   end
 
   # creates a new account
   def create(uid)
-    radosuser = radosgw.create("#{uid}","#{display_name}")
+    radosuser = @radosgw.create("#{uid}"," ")
     ## we will have to move this thing out of this code.
-    Riak.new(STORAGES_BUCKET).upload(uid, radosuser.to_json, 'application/json')
+    Nilavu::DB::GSRiak.new(STORAGES_BUCKET).upload(uid, radosuser.to_json, 'application/json')
     radosuser
   end
 
   # usage of an account
   def usage(uid)
-    radosgw.usage("#{uid}")
+    radosusage = @radosgw.usage("#{uid}")
+    radosusage
   end
 
   private
@@ -54,4 +53,5 @@ class BackupUser
   def radosadmin_password
     Ind.backup.password
   end
+end
 end
