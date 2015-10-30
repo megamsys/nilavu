@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'json', '~> 1.8.3'
 gem 'net-ssh'
 
+gem 'jquery-fileupload-rails','~> 0.4.6' #fileupload
 gem 'rails', '~> 4.2.4'
 gem 'rails-i18n', '~> 4.0.5' # For 4.0.x
 gem 'protected_attributes', '~> 1.1.3' # transition to rails 4.2.x

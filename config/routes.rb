@@ -70,4 +70,5 @@ Nilavu::Application.routes.draw do
 
   #===Events
   match '/sensors', to: 'sensors#index' , via: [:get, :post]
+
 end
