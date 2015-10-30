@@ -24,11 +24,29 @@ var Tab = React.createClass({
   },
 
   render: function() {
+    var style = {
+      float: 'left'
+    };
+    var istyle = {
+      display: 'block',
+      color: '#a9a9a9',
+      height: '50px',
+      lineHeight: '50px',
+      padding: '0 40px'
+    };
+    var current = {
+      background: '#fff',
+      border: '1px solid #ddd',
+      borderTop: '2px solid #3498db',
+      borderBottom: '0',
+      color: '#333'
+
+    };
     return (
       <li className={this.props.isCurrent
-        ? 'current chart-tab'
-        : null}>
-        <a data-toggle="tab" href={this.props.url} onClick={this.handleClick}>
+        ? 'current'
+        : null} style={style}>
+        <a data-toggle="tab" href={this.props.url} onClick={this.handleClick} style={istyle}>
           {this.props.name}
         </a>
       </li>
@@ -42,16 +60,29 @@ var Tabs = React.createClass({
   },
 
   render: function() {
-    return (
-      <div className="nav-justified margintb_15">
+    var tabsnav = {
+      padding: '0 20px',
+      marginTop: '15px',
+      maxheight: '50px',
+      borderBottom: '1px solid #ddd'
+    };
+    var tabsmenu = {
+      display: 'table',
+      listStyle: 'none',
+      padding: '0',
+      margin: '0'
 
-      <ul className="nav nav-tabs nav-justified">
-        {this.props.tabList.map(function (tab) {
-          return (
-            <Tab handleClick={this.handleClick.bind(this, tab)} isCurrent={(this.props.currentTab === tab.id)} key={tab.id} name={tab.name} url={tab.url}/>
-          );
-        }.bind(this))}
-      </ul>
+    };
+    return (
+      <div style={tabsnav}>
+
+        <ul style={tabsmenu}>
+          {this.props.tabList.map(function (tab) {
+            return (
+              <Tab handleClick={this.handleClick.bind(this, tab)} isCurrent={(this.props.currentTab === tab.id)} key={tab.id} name={tab.name} url={tab.url}/>
+            );
+          }.bind(this))}
+        </ul>
       </div>
     );
   }
@@ -68,7 +99,6 @@ var Overview = React.createClass({
       JsonD: ''
     };
   },
-
   changeTab: function(tab) {
     this.setState({
       currentTab: tab.id
@@ -77,17 +107,18 @@ var Overview = React.createClass({
 
   render: function() {
     return (
-      <div className=" nav-justified margintb_15">
-          <Tabs changeTab={this.changeTab} currentTab={this.state.currentTab} tabList={this.state.tabList}/>
-          <Content JsonD={this.state.JsonD} currentTab={this.state.currentTab} google={this.props.google} host={this.props.host} mhost={this.props.mhost}/>
-          <b className="logs-head">Logs</b>
-          <div className="logBox borderless torpOverviewTb">
 
-            <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-              <Logs name={this.props.name} socket={this.props.socket}/>
-            </div>
+      <div >
+        <Tabs changeTab={this.changeTab} currentTab={this.state.currentTab} tabList={this.state.tabList}/>
+        <Content JsonD={this.state.JsonD} currentTab={this.state.currentTab} google={this.props.google} host={this.props.host} mhost={this.props.mhost}/>
+        <b className="logs-head">Logs</b>
+        <div className="logBox borderless torpOverviewTb">
+
+          <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <Logs name={this.props.name} socket={this.props.socket}/>
           </div>
-          </div>
+        </div>
+      </div>
 
     );
   }
@@ -100,8 +131,8 @@ var Content = React.createClass({
       <div class="tab-content c_tab-content">
         {this.props.currentTab === 1
           ? <div className="tab-pane cpu">
-                <div className="demo-container">
-                  <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"cpu"}/>
+              <div className="demo-container">
+                <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"cpu"}/>
               </div>
             </div>
           : null}
@@ -142,11 +173,13 @@ var Charts = React.createClass({
 
   componentDidMount: function() {
     this.updateData();
-
+    $('.bar').hide();
+    $('.spinner').hide();
     setInterval(this.updateData, 2000);
-
   },
   componentDidUpdate: function() {
+  $('.bar').hide();
+  $('.spinner').hide();
     if (this.props.name == "cpu") {
       this.drawCPU();
     } else if (this.props.name == "ram") {
@@ -158,20 +191,36 @@ var Charts = React.createClass({
   },
 
   updateData: function() {
-    $.get(this.props.host,  function(data) {
-      this.setState({
-        JsonD: data
-      })
-    }.bind(this));
-    $.get(this.props.mhost, function(mdata) {
-      this.setState({
-        machineInfo: mdata
-      })
-    }.bind(this));
+  $.ajax({
+  url: this.props.host,
+  success: function(data) {
+  this.setState({  JsonD: data  });
+  $('.bar').hide();
+  $('.spinner').hide();
+     }.bind(this),
+  error: function(xhr, status, err) {
+    $('.bar').hide();
+    $('.spinner').hide();
+  }.bind(this)
 
+  });
+
+  $.ajax({
+  url: this.props.mhost,
+  success: function(mdata) {
+  this.setState({  machineInfo: mdata  });
+  $('.bar').hide();
+  $('.spinner').hide();
+     }.bind(this),
+  error: function(xhr, status, err) {
+    $('.bar').hide();
+    $('.spinner').hide();
+  }.bind(this)
+
+  });
   },
 
-  drawCPU: function() {
+   drawCPU: function() {
     var stats = this.state.JsonD;
     if (stats.spec.has_cpu && !this.hasResource(stats, "cpu")) {
       return;

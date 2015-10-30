@@ -25,8 +25,9 @@ var Logs = React.createClass({
 
   _messageRecieve: function _messageRecieve(message) {
     var messages = this.state.messages;
-    console.log(message.data);
-    messages.push(message.data);
+    var jsonData = JSON.parse(message.data);
+    var log = jsonData.Timestamp + ":" + jsonData.Message;
+    messages.push(log);
     this.setState({
       messages: messages
     });
@@ -44,7 +45,7 @@ var MessageList = React.createClass({
 
   render: function render() {
     return React.createElement('div', { className: ''
-    }, React.createElement('br'), this.props.messages.map(function(message, i) {
+  }, React.createElement('br'), this.props.messages.map(function(message,i) {
       return React.createElement(Message, {
         key: i,
         text: message
