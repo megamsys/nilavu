@@ -54,7 +54,6 @@ class MarketplacesController < NilavuController
   # performs ssh creation or using existing and creating an assembly at the end.
   def create
     logger.debug '> Marketplaces: create.'
-	 params[:org_id] = session[:org]
     # adding the default org of the user which is stored in the session
     params[:ssh_keypair_name] = params["#{params[:sshoption]}" + '_name'] if params[:sshoption] == Api::Sshkeys::USEOLD
     params[:ssh_keypair_name] = params["#{Api::Sshkeys::NEW}_name"] unless params[:sshoption] == Api::Sshkeys::USEOLD

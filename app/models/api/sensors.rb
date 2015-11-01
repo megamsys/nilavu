@@ -22,18 +22,17 @@ module Api
     end
 
     def list(api_params, &_block)
-      raw = api_request(api_params, SENSORS, LIST)
-      @sensors = to_hash(raw[:body])
+      to_hash(api_request(api_params, SENSORS, LIST)[:body])
       yield self if block_given?
       self
     end
 
-    def to_hash(sensors_collection)
-      sensors = []
-      sensors_collection.each do |sensor|
-        sensors << { sensor_type: sensor.sensor_type, payload: sensor.payload, created_at: sensor.created_at.to_time.to_formatted_s(:rfc822) }
-      end
-      sensors.sort_by { |vn| vn[:created_at] }
-    end
-  end
+   private
+   def to_hash(sensors_collection)
+     sensors_collection.each do |sensor|
+       @sensors << { sensor_type: sensor.sensor_type, payload: sensor.payload, created_at: sensor.created_at.to_time.to_formatted_s(:rfc822) }
+     end
+     @sensors.sort_by { |vn| vn[:created_at] }
+   end
+ end
 end

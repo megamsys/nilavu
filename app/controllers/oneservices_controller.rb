@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 class OneservicesController < NilavuController
-  include OnexyzHelper
+  include OneoverHelper
   respond_to :html, :js
   before_action :stick_keys, only: [:index]
 

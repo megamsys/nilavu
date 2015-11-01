@@ -66,7 +66,7 @@ class UsersController < NilavuController
 
   def invite
     logger.debug '> Users: Organization invite'
-    UserMailer.invite(current_user, session[:org]).deliver_now
+    UserMailer.invite(current_user, session[:org_id]).deliver_now
     toast_success(root_url, "#{params['email']} invited successfully. ")
   end
 

@@ -42,9 +42,8 @@ class NilavuController < ApplicationController
 
   def stick_keys(_tmp = {}, _permitted_tmp = {})
     logger.debug "> STICKM"
-    params.merge!(Hash[%w(email api_key org).map {|x| [x, session[x.to_sym]]}])
+    params.merge!(Hash[%w(email api_key org_id).map {|x| [x, session[x.to_sym]]}])
   end
-
 
   def stick_ceph_keys(_tmp = {}, _permitted_tmp = {})
     logger.debug "> STICKC"
@@ -64,12 +63,11 @@ class NilavuController < ApplicationController
   end
 
   def load_organizations(current_user)
-    session[:org] = Api::Organizations.new.list(current_user.to_hash).first
+    session[:org_id] = Api::Organizations.new.list(current_user.to_hash).first
   end
 
   def load_ceph(current_user)
-    client = Backup::BackupUser.new(Ind.backup.username, Ind.backup.password)
-    res = client.create(current_user.email, "display_name")
+    res = Backup::BackupUser.new.create(current_user.email, current_user.id)
     store_ceph_credentials(res)
   end
 end

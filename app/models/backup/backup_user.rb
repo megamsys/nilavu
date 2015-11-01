@@ -14,44 +14,45 @@
 ## limitations under the License.
 ##
 module Backup
-class BackupUser
-  attr_reader :radosgw # radosgw client
+  class BackupUser
+    attr_reader :radosgw # radosgw client
 
-  STORAGES_BUCKET = 'storages'.freeze
+    STORAGES_BUCKET = 'storages'.freeze
 
-  def initialize(radosadmin, radosadmin_password)
-    @radosgw = CEPH::User.new(username: radosadmin, user_password: radosadmin_password, ipaddress: endpoint)
+    def initialize
+      @radosgw = CEPH::User.new(username: radosadmin,
+        user_password: radosadmin_password,
+      ipaddress: endpoint)
+    end
+
+    # creates a new account
+    def create(uid, display_name)
+      radosuser = @radosgw.create("#{uid}","#{display_name}")
+      ## we will have to move this thing out of this code.
+      Nilavu::DB::GSRiak.new(STORAGES_BUCKET).upload(uid, radosuser.to_json, 'application/json')
+      radosuser
+    end
+
+    # usage of an account
+    def usage(uid)
+      @radosgw.usage("#{uid}")
+    end
+
+    private
+    def radosgw
+      @radosgw
+    end
+
+    def endpoint
+      Ind.backup.host
+    end
+
+    def radosadmin
+      Ind.backup.user
+    end
+
+    def radosadmin_password
+      Ind.backup.password
+    end
   end
-
-  # creates a new account
-  def create(uid, display_name)
-    radosuser = @radosgw.create("#{uid}","#{display_name}")
-    ## we will have to move this thing out of this code.
-    Nilavu::DB::GSRiak.new(STORAGES_BUCKET).upload(uid, radosuser.to_json, 'application/json')
-    radosuser
-  end
-
-  # usage of an account
-  def usage(uid)
-    radosusage = @radosgw.usage("#{uid}")
-    radosusage
-  end
-
-  private
-  def radosgw
-    @radosgw
-  end
-
-  def endpoint
-    Ind.backup.host
-  end
-
-  def radosadmin
-    Ind.backup.user
-  end
-
-  def radosadmin_password
-    Ind.backup.password
-  end
-end
 end

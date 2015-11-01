@@ -1,48 +1,49 @@
 source 'https://rubygems.org'
 # ruby "2.2.2"
 
+#core ruby
 gem 'json', '~> 1.8.3'
 gem 'net-ssh'
 
-gem 'jquery-fileupload-rails','~> 0.4.6' #fileupload
-gem 'rails', '~> 4.2.4'
+#rails
+gem 'rails', '~> 4.2.5.rc1'
 gem 'rails-i18n', '~> 4.0.6' # For 4.0.x
 gem 'protected_attributes', '~> 1.1.3' # transition to rails 4.2.x
 gem 'responders', '~> 2.1.0' # transition to rails 4.2.x
-gem 'socket.io-rails', '~> 1.3.7' # websocket streaming
+
 
 # ui - (sass, react, growl, websocket)
 gem 'jquery-rails', '~> 4.0.5'
 gem 'turbolinks', '~> 2.5.3'
 gem 'jquery-turbolinks', '~> 2.1.0'
-gem 'react-rails', '~> 1.3.3'
+gem 'react-rails', '~> 1.4.1'
 gem 'sass-rails', '~> 5.0.4'
 gem 'remotipart', '~> 1.2.1' # ajax file uploads (sshkey)
+gem 'socket.io-rails', '~> 1.3.7' # websocket streaming
 gem 'nprogress-rails' # youtube like spinner
 gem 'toastr_rails'
+gem 'zeroclipboard-rails', '~> 0.1.1'
 gem 'uglifier', '~> 2.7.2'
 gem 'therubyracer', '~> 0.12.2', require: 'v8', platforms: :ruby
-
 
 # security
 gem 'bcrypt', '~> 3.1.10'
 gem 'oauth2', '~> 1.0.0'
 gem 'oauth', '~> 0.4.7'
 gem 'omniauth-oauth2', '~> 1.3.1'
-gem 'omniauth-facebook', '~> 2.0.1'
-gem 'omniauth-google-oauth2', '~> 0.2.8'
+gem 'omniauth-facebook', '~> 3.0.0'
+gem 'omniauth-google-oauth2', '~> 0.2.9'
 gem 'omniauth-github', '~> 1.1.2'
 
 # 3rd party system api's
-gem 'megam_api', '~> 0.78'
+gem 'megam_api', '~> 0.79'
 gem 'github_api', '~>0.12.4'
 gem 'gitlab', '~> 3.4.0'
 gem 'riak-client', '~> 2.2.1'
 gem 'radosgw-s3'
 
 gem 'google-analytics-rails', '~> 0.0.6'
-gem 'paypal-sdk-rest', '~>1.3.1' # billing
-gem 'zeroclipboard-rails'   #copytoclipboard
+gem 'paypal-sdk-rest', '~>1.3.3' # billing
 
 
 # general misc helper
@@ -53,11 +54,10 @@ gem 'settingslogic' # singleton settings yaml manager
 # passenger server
 gem 'passenger', group: :production
 
-
-
 group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
+  gem 'fakes3'
 end
 
 group :development do

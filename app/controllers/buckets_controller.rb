@@ -22,13 +22,12 @@ class BucketsController < NilavuController
 
   def index
     @bucket ||= Backup::Buckets.new(params).list
-    @usage  ||= Backup::BackupUser.new(Ind.backup.username, Ind.backup.password).usage(current_user.email)
+    @usage  ||= Backup::BackupUser.new(params).usage(current_user.email)
   end
 
   def create
-    bucket = Backup::Buckets.new(params)
-    bucket.create(params[:bucket_name])
-    @msg = { title: "Storage", message: '#{params["bucket_name"]} created successfully.', redirect: '/', disposal_id: 'create_bucket' }
+    Backup::Buckets.new(params).create(params[:bucket_name])
+    toast_success(root_url, '#{params["bucket_name"]} created successfully.')
   end
 
   def show
@@ -37,8 +36,6 @@ class BucketsController < NilavuController
     @bucket_name = params["id"]
   end
 
-
-
-  def destroy    
+  def destroy
   end
 end
