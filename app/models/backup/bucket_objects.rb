@@ -1,64 +1,63 @@
 module Backup
-class BucketObjects < BackupService
-  attr_reader :bucket, :name
+  class BucketObjects < BackupService
+    attr_reader  :bucket, :bucketobjects
 
-  def initialize(params)
-    super(params)
-    @name = params[:bucket_name]
-    @bucket = find(@name)
-  end
-
-  def list
-    bucket.objects
-  end
-
-  def list_detail
-    formatted_objc = []
-    list.each do |objs_in_bucket|
-        formatted_objc << format_obj(get(@name))
+    def initialize(params)
+      super(params)
+      @bucket = find_bucket(params[:id])
+      @bucketobjects = list
     end
-    formatted_objc
-  end
 
-  def create(new_object)
-    object = bucket.objects.build(new_object.original_filename)
-    object.content = open(new_object)
-    object.save
-  end
+    def list
+      bucket.objects
+    end
+    
+   #i don't know where this is used.
+    def detail
+      bucketobjects.map { |bobject| parse(find_object(bobject))}
+    end
 
-  def get(name)
-    object = bucket.objects.find("#{name}")
-  end
-
-  def delete(name)
-    object = bucket.objects.find("#{name}")
-    object.destroy
-  end
-
-  def download(name)
-    object = bucket.objects.find("#{name}")
-    object.content
-  end
-
-  private
-  def bucket
-    @bucket
-  end
-
-  # we have trap BucketsNotFound
-  def find(tmp_bucket)
-    cephs3.buckets.find("#{tmp_bucket}")
-  end
+    def create(data)
+      bobject = bucketobjects.build(data.original_filename)
+      bobject.content = open(data) # return file not found.
+      bobject.save
+    end
 
 
-  def format_obj(obj)
-    {:key => "#{obj.key}",
-      :object_name => "#{obj.full_key}",
-      :size => "#{obj.size}",
-      :content_type => "#{obj.content_type}",
-      :last_modified => "#{obj.last_modified}",
-      :download_url => "#{obj.temporary_url}"
-    }
+    def delete(name)
+      find_object("#{name}").destroy
+    end
+
+    def download(name)
+      find_object("#{name}").content
+    end
+
+    private
+    # we have trap BucketsNotFound
+    def find_bucket(name)
+      buckets.find("#{name}")
+    end
+
+    def bucket
+      @bucket
+    end
+
+    def bucketobjects
+      @bucketobjects
+    end
+
+    def find_object(bobjname)
+      bucketobjects.find("#{bobjname}")
+    end
+
+    def parse(bobject)
+      {:key => "#{bobject.key}",
+        :object_name => "#{bobject.full_key}",
+        :size => "#{bobject.size}",
+        :content_type => "#{bobject.content_type}",
+        :last_modified => "#{bobject.last_modified}",
+        :download_url => "#{bobject.temporary_url}"
+      }
+    end
   end
-end
 end

@@ -17,7 +17,7 @@ module Api
   class Accounts < APIDispatch
     extend Forwardable
 
-    def_delegators :@auth_config, :email, :password
+    def_delegators :@auth_config, :id, :email, :password
     def_delegators :@auth_config, :api_key, :first_name
     def_delegators :@auth_config, :last_name, :verified
     def_delegators :@auth_config, :password_reset_key, :password_reset_sent_at, :created_at
@@ -82,7 +82,7 @@ module Api
     end
 
     def current_config(params)
-         Nilavu::Auth::Configuration.load(params[:email])
+      Nilavu::Auth::Configuration.load(params[:email])
     end
 
     def verify_if_notfound?

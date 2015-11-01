@@ -14,34 +14,40 @@
 ## limitations under the License.
 ##
 module Backup
-class Buckets < BackupService
-  def initialize(params)
-    super(params)
-  end
+  class Buckets < BackupService
+    attr_reader :saved_size
 
-  def list
-    bkts = cephs3.buckets
-    buckets = []
-    tsize =0
-    size =0
-    bkts.each do |bkt|
-      bkt.objects.each do |obj|
-        size += obj.size.to_i
-      end
-      buckets.push(bucket_name: "#{bkt.name}", size: size.to_s(:human_size), noofobjects: bkt.objects.count)
-      tsize += size
+    def initialize(params)
+      super(params)
     end
-    { total_buckets: bkts.count, bucket_array: buckets, total_size: size }
-  end
 
-  def create(name)
-    bucket = cephs3.buckets.build(name)
-    bucket.save
-  end
+    def create(name)
+      buckets.build(name).save
+    end
 
-  def delete(name)
-    bucket = cephs3.buckets.find("#{name}")
-    bucket.destroy
+    def delete(name)
+      buckets.find("#{name}").destroy
+    end
+
+    def list
+      result ||= buckets.map { |abucket|
+        { name: "#{abucket.name}", size: size(abucket).to_s(:human_size),
+        count: count(abucket)}}
+        { count: buckets.count, buckets: result, size: total}
+      end
+
+      private
+      def size(abucket)
+        size ||= abucket.objects.inject { |bobject, n|  n + boject.size.to_i }
+        @saved_size << size
+      end
+
+      def count(abucket)
+        abucket.objects.count
+      end
+
+      def total
+        @saved_size.reduce(:+)
+      end
+    end
   end
-end
-end

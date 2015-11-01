@@ -23,11 +23,11 @@ module SessionsHelper
   # Finds the User with the email, api_key stored in the session with the key
   # :cemail, :api_key This is a common way to handle user login in
   def current_user
-    @_current_user ||= (session[:email] && session[:api_key]) &&  Nilavu::Auth::Configuration.load(session[:email])
+    @_current_user ||= (session[:email] && session[:api_key]) && Nilavu::Auth::Configuration.load(session[:email])
   end
 
   def cleanup_session
-    [:email, :api_key, :org, :environment, :return_to].each { |n| session.delete(n) }
+    [:email, :api_key, :org_id, :ceph_access_key, :ceph_secret_key, :return_to].each { |n| session.delete(n) }
     @_current_user = session[:email] = nil
   end
 
@@ -59,12 +59,6 @@ module SessionsHelper
   end
 
   def loaded_environments?
-   session[:org]
-  end
-
-  private
-
-  def save_oauth(oauth)
-    session[:auth] = { :email => oauth[:email], :first_name => oauth[:first_name], :last_name => oauth[:last_name] }
+    session[:org_id]
   end
 end

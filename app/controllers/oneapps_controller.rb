@@ -15,7 +15,7 @@
 ##
 class OneappsController < NilavuController
 	respond_to :html, :js
-	include OnexyzHelper
+	include OneoverHelper
 	include CatalogHelper
 
 	before_action :stick_keys, only: [:index, :bindservices, :bindservice]

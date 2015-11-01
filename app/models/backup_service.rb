@@ -1,31 +1,31 @@
 class BackupService
-	attr_reader :cephs3
+  attr_reader :cephs3, :buckets
 
-	class MegamBackupError < StandardError; end
+  class MegamBackupError < StandardError; end
 
-	class CephConnectFailure < MegamBackupError; end
+  class CephConnectFailure < MegamBackupError; end
 
-	class BucketsNotFound < MegamBackupError; end
+  class BucketsNotFound < MegamBackupError; end
 
-	class DuplicateBucketError < MegamBackupError; end
+  class DuplicateBucketError < MegamBackupError; end
 
 
-	def initialize(parms)
-		@cephs3 = S3::Service.new(access_key_id: parms[:ceph_access_key], secret_access_key: parms[:ceph_secret_key], host: endpoint)
-	end
+  def initialize(parms)
+    @cephs3 = S3::Service.new(access_key_id: parms[:ceph_access_key],
+    secret_access_key: parms[:ceph_secret_key], host: endpoint)
+    @buckets = cephs3.buckets
+  end
 
-	def self.sign(parms)
-		S3::Signature.generate(request: S3::Service.service_request(:put), access_key_id: params[:access_key],
-		secret_access_key: params[:secret_key])
-	end
+  protected
+  def cephs3
+    @cephs3
+  end
 
-	protected
+  def buckets
+    @buckets
+  end
 
-	def cephs3
-		@cephs3
-	end
-
-	def endpoint
-		Ind.backup.host
-	end
+  def endpoint
+    Ind.backup.host
+  end
 end

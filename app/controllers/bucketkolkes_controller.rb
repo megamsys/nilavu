@@ -21,20 +21,18 @@ class BucketkolkesController < NilavuController
   before_action :stick_ceph_keys, only: [:index, :create, :show, :upload, :destroy]
 
   def index
-    bucketobj = Backup::BucketObjects.new(params)
-    respond_with(bucketobj.list)
+    respond_with(Backup::BucketObjects.new(params).list)
   end
 
   def create
-    bucketobjs = Backup::BucketObjects.new(params)
-    bucketobjs.create(params[:sobject])
-    @msg = { title: 'Storage', message: "#{params[:sobject].original_filename} uploaded successfully. ", redirect: '/', disposal_id: 'supload' }
+    Backup::BucketObjects.new(params).create(params[:sobject])
+    @msg = { message: "#{params[:sobject].original_filename} uploaded successfully. ", disposal_id: 'onebucket_upload' }
   end
 
   def show
-    @objects = Backup::BucketObjects.new(params).list_detail
-    respond_with(@objects)
+    respond_with(Backup::BucketObjects.new(params).list_detail)
   end
+
   def destroy
     #object_name = params[:id].split("/").last
     #bucket_name = params[:id].split("/").first

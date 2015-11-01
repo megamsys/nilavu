@@ -22,8 +22,7 @@ module Api
     end
 
     def show(api_params, &block)
-      raw = api_request(BALANCES, SHOW,api_params)
-      @balance = raw[:body].lookup(api_params["email"])
+      @balance = api_request(BALANCES, SHOW,api_params)[:body].lookup(api_params["email"])
       yield self if block_given?
       return self
     end

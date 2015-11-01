@@ -1,12 +1,13 @@
 module Nilavu
   module Auth
     class Configuration
-      attr_accessor :email, :password, :api_key, :first_name, :last_name, :authority, :verified, :password_reset_key, :password_reset_sent_at
+      attr_accessor :id, :email, :password, :api_key, :first_name, :last_name, :authority, :verified, :password_reset_key, :password_reset_sent_at
 
       BUCKET              = 'accounts'.freeze
       ADMIN               = 'admin'.freeze
 
       def initialize(parms ={})
+        id parms[:id]
         email parms[:email]
         password parms[:password]
         api_key parms[:api_key]
@@ -24,6 +25,14 @@ module Nilavu
         riak = Nilavu::DB::GSRiak.new(BUCKET).fetch(email)
         unless riak.content.data.nil?
           return self.from_hash(riak.content.data)
+        end
+      end
+
+      def id(arg=nil)
+        if arg != nil
+          @id = arg
+        else
+          @id
         end
       end
 
@@ -128,7 +137,7 @@ module Nilavu
         :created_at => @created_at, :verified => @verified }
       end
 
-      def  self.from_hash(hld_hash)
+      def self.from_hash(hld_hash)
         Configuration.new(Hash[hld_hash.map{|(k,v)| [k.to_sym,v]}])
       end
     end

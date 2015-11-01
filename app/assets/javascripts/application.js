@@ -32,9 +32,8 @@
 //= require react_ujs
 //= require megam.menu
 //= require megam.form_validation
-//= require jquery-fileupload/basic
 //= require components
 //= require socket.io
 //= require zeroclipboard
+//= require toastr_rails
 //= require_tree .
-
