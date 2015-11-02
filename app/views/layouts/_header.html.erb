@@ -41,9 +41,9 @@
 
               <li id="storage_top_right">
                 <%  if Ind.backup.enable %>
-                <%= link_to buckets_path , :data => {:remote => true}, :class => "socket_disconnect", :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                <i class="c_icon-grid-25 pull-left"></i>
-                <span class="hidden-xs hidden-sm pull-right"><%= t('titles.storage_title') %></span>
+                <!-- <%= link_to buckets_path , :data => {:remote => true}, :class => "socket_disconnect", :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %> -->
+                <a data-toggle="modal" href="#obj_upload"><i class="c_icon-grid-25 pull-left"></i>
+                <span class="hidden-xs hidden-sm pull-right"><%= t('titles.storage_title') %></span></a>
                 <% end %>
                 <% end %>
               </li>
@@ -85,11 +85,43 @@
 <!-- END RESPONSIVE MENU TOGGLER -->
           </div>
         </div>
-
+        </div>
       </div>
     </div>
+  </div>
+  <div class="modal fade" id="obj_upload" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" style="max-width:900px">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+          <h4 class="modal-title"> Upload </h4>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12">
+              <%= form_tag bucketkolkes_path, :method => :post, :remote => true, :multipart => true do %>
+              <div class="row">
+                  <%= hidden_field_tag 'bucket_name', nil, :class=> 'form-control', :id => "bucketName", placeholder: "Bucket Name", :required => true %>
+	            </div>
+              <div class="form-group">
+              <div class="row">
+              <div class="col-xs-12" style="max-width:900px">
+              <label class="fileinput-button">
+              <span class="col-xs-12 center-block"><i class="filetag" ></i> <span class="filetag"><h4 class="glyphicon-plus pull-left">Add more files..</h4></span> <%= file_field_tag :sobject, multiple: true %> </span>
+              </label>
+              <%= submit_tag "upload", :class => "btn btn-success col-xs-6 pull-right" , :data => {:remote => true}%>
+              </div>
+              </div>
+              <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 <!-- END TOP NAVIGATION BAR -->
   </div>
-</div>
+
 
 <!-- END HEADER -->
