@@ -20,11 +20,9 @@ class OnetorpedosController < NilavuController
 
 	def index
 		@assembly=Api::Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Api::Assemblies::TORPEDO]
-		puts "**************************************"
-		puts @assembly
 		@assembly
 	end
 	def show
 	end
-	
+
 end
