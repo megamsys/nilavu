@@ -27,7 +27,7 @@ class BucketsController < NilavuController
 
   def create
     Backup::Buckets.new(params).create(params[:id])
-    toast_success(root_url, '#{params[:id]} created successfully.')
+    @msg = { title: "Storage", message: '#{params["id"]} created successfully.', redirect: '/', disposal_id: 'create_bucket' }
   end
 
   def show
