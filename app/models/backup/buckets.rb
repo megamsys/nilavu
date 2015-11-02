@@ -19,10 +19,11 @@ module Backup
 
     def initialize(params)
       super(params)
+      @saved_size = 0
     end
 
     def create(name)
-      buckets.build(name).save
+      @cephs3.buckets.build(name).save
     end
 
     def delete(name)
@@ -30,16 +31,17 @@ module Backup
     end
 
     def list
-      result ||= buckets.map { |abucket|
+      result ||= buckets.map do |abucket|
         { name: "#{abucket.name}", size: size(abucket).to_s(:human_size),
-        count: count(abucket)}}
-        { count: buckets.count, buckets: result, size: total}
+        count: count(abucket)}
+      end
+        { total_buckets: buckets.count, buckets: result||{}, total_size: total}
       end
 
       private
       def size(abucket)
-        size ||= abucket.objects.inject { |bobject, n|  n + boject.size.to_i }
-        @saved_size << size
+        size ||= abucket.objects.inject { |n, bobject| n + boject.size.to_i }
+        @saved_size ||= size
       end
 
       def count(abucket)
@@ -47,7 +49,7 @@ module Backup
       end
 
       def total
-        @saved_size.reduce(:+)
+        @saved_size ||= @saved_size.reduce(:+)
       end
     end
   end
