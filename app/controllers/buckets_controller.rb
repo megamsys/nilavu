@@ -22,12 +22,12 @@ class BucketsController < NilavuController
 
   def index
     @bucket ||= Backup::Buckets.new(params).list
-    @usage  ||= Backup::BackupUser.new(params).usage(current_user.email)
+    @usage  ||= Backup::BackupUser.new.usage(current_user.email)
   end
 
   def create
-    Backup::Buckets.new(params).create(params[:bucket_name])
-    toast_success(root_url, '#{params["bucket_name"]} created successfully.')
+    Backup::Buckets.new(params).create(params[:id])
+    toast_success(root_url, '#{params[:id]} created successfully.')
   end
 
   def show
