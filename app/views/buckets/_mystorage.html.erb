@@ -13,15 +13,12 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<% content_for :content_settings do %>
-<% provide(:title, "Buckets") %>
-
 <div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
 
   <%= render :partial => "users/topright_icons", :locals => {:title_name => t('titles.storage_title')} %>
   <div class="col-xs-12 col-sm-9 col-md-9 br_grey">
     <div class="row app_box app_storage">
-      <div class="col-xs-12 col-sm-6 col-md-3  app_cover create_bucket_modal ">
+      <div class="col-xs-12 col-sm-6 col-md-3  app_cover create_bucket_modal">
         <div class="app_inner">
           <div class="app_new ">
             <span class="glyphicon glyphicon-plus"></span>
@@ -72,8 +69,7 @@
     </li>
   </ul>
 </div>
-<% end %>
-<%= render :template => "users/show" %>
+
 
 <div aria-hidden="true" class="modal fade" id="create_bucket" tabindex="-1">
   <div class="modal-dialog" style="max-width:400px">
@@ -161,69 +157,4 @@
 </div>
 <!-- /.modal -->
 
-<style type="text/css">
-  #upload_link {
-    text-decoration: none;
-  }
-  #upload {
-    display: none;
-  }
-</style>
-
-<script type="text/javascript">
-  $('.create_bucket_modal')
-    .click(function (e) {
-      $('#create_bucket').modal();
-    });
-  $('.inner-menu').click(function (e) {
-    e.preventDefault();
-    $('.inner-child').toggle();
-  });
-  //storage left menu
-  $('.storage_left_add_inner').hide();
-  $('.storage_left_add a ').click(function () {
-    // e.preventDefault();
-    $('.storage_left_add_inner').slideToggle();
-  });
-  // $('.storage-popup').hide();
-  // storage overview pop up menu
-  $('.my_bucket_inner').bind('contextmenu', function (e) {
-    e.preventDefault();
-    $('.storage-popup').css({
-      'top': e.pageY,
-      'left': e.pageX
-    });
-    $('#bucketName').val($(event.currentTarget).attr('id'));
-    //$.session.set('bucketname', $(event.currentTarget).attr('id'));
-    $('.storage-popup').show();
-    return false;
-  });
-  // hide storage menu when clicked outside the div
-  $(document).on('click', function (e) {
-    if ($(e.target).closest(".my_bucket_inner").length === 0) {
-      $('.storage-popup').hide();
-    }
-  });
-
-
-$('#file_upload').fileupload({
-  $("#ulList").empty();
-   var fp = $("#fileElementId");
-   var lg = fp[0].files.length; // get length
-   var items = fp[0].files;
-   var fragment = "";
-
-   if (lg > 0) {
-       for (var i = 0; i < lg; i++) {
-           var fileName = items[i].name; // get file name
-           var fileSize = items[i].size; // get file size
-           var fileType = items[i].type; // get file type
-
-           // append li to UL tag to display File info
-           fragment += "<li><b>" + fileName + "</b>&nbsp&nbsp&nbsp<b>" + fileSize + "</b> bytes &nbsp Type :" + fileType + "</li>";
-       }
-
-       $("#ulList").append(fragment);
-   }
-});
-</script>
+<script src="assets/megam.storages.js" />
