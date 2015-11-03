@@ -1,6 +1,4 @@
 
 $('#<%= @msg[:disposal_id] %>').modal('toggle');
 
-$('#cockpit').append("<%= escape_javascript render(:partial => 'catalogs/flymodal', :locals => {:msg => @msg}) %>");
-
-$("#megam_flymodal").modal('show');
+$('#cockpit').append("<%= escape_javascript   toast_success(root_url, '@msg[:message]')");

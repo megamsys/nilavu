@@ -19,7 +19,8 @@ class OnetorpedosController < NilavuController
 	before_action :stick_keys, only: [:show, :index]
 
 	def index
-		@assembly=Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Api::Assemblies::TORPEDO]
+		@assembly=Api::Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Api::Assemblies::TORPEDO]
 		@assembly
 	end
+	
 end
