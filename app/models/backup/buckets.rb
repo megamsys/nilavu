@@ -36,20 +36,20 @@ module Backup
         count: count(abucket)}
       end
         { total_buckets: buckets.count, buckets: result||{}, total_size: total}
-      end
+    end
 
-      private
-      def size(abucket)
+    private
+    def size(abucket)
         size ||= abucket.objects.inject { |n, bobject| n + boject.size.to_i }
         @saved_size ||= size
-      end
+    end
 
-      def count(abucket)
-        abucket.objects.count
-      end
+    def count(abucket)
+      abucket.objects.count
+    end
 
-      def total
-        @saved_size ||= @saved_size.reduce(:+)
-      end
+    def total
+      @saved_size ||= @saved_size.reduce(:+)
     end
   end
+end
