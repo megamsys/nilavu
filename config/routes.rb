@@ -1,4 +1,7 @@
 Nilavu::Application.routes.draw do
+  resources :source_files, :only => [:index, :create, :destroy], :controller => 's3_uploads' do
+    get :generate_key, :on => :collection
+  end
 	root to: 'cockpits#index'
 	get '/404', to: 'errors#not_found'
 	# get "/422", :to => "errors#unacceptable"
