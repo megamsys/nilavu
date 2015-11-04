@@ -13,24 +13,24 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class CockpitsController < ApplicationController
-  include CatalogHelper
+class CockpitsController < NilavuController
+	include CatalogHelper
 
-  respond_to :html, :js
+	respond_to :html, :js
 
-  before_action :stick_keys, only: [:index]
+	before_action :stick_keys, only: [:index]
 
-  # doesn't require to catch exception for show
-  skip_around_action :catch_exception, only: [:show]
+	# doesn't require to catch exception for show
+	skip_around_action :catch_exception, only: [:show]
 
-  # Marketplaces has the type to cattype mapping, which is needed to display an assembly
-  # hence we load it as a singleton.
-  def index
-    logger.debug '> Cockpits: index.'
-    @assemblies_grouped = Assemblies.new.list(params).assemblies_grouped
-  end
+	# Marketplaces has the type to cattype mapping, which is needed to display an assembly
+	# hence we load it as a singleton.
+	def index
+		logger.debug '> Cockpits: index.'
+		@assemblies_grouped = Api::Assemblies.new.list(params).assemblies_grouped
+	end
 
-  def show
-    redirect_to(cockpits_path) && return
-  end
+	def show
+		redirect_to(cockpits_path) && return
+	end
 end

@@ -15,19 +15,23 @@
 ##
 require 'json'
 
-class MarketplacesController < ApplicationController
+class MarketplacesController < NilavuController
   respond_to :js
   include MarketplaceHelper
 
-  before_action :stick_keys, only: [:index, :show, :create]
+  before_action :require_signin, only: [:index, :show, :create]
+  before_action :visit_paisa, only: [:show]
 
+  before_action :require_registration, only: [:store_github]
+  before_action :stick_keys, only: [:index, :show, :create]
   ##
   ## index page get all marketplace items from storage(we use riak) using megam_gateway
   ## and show the items in order of category
   ##
   def index
+
     logger.debug '> Marketplaces: index.'
-    @mkp_grouped = Marketplaces.instance.list(params).mkp_grouped
+    @mkp_grouped = Api::Marketplaces.instance.list(params).mkp_grouped
   end
 
   ##
@@ -36,25 +40,12 @@ class MarketplacesController < ApplicationController
 
   def show
     logger.debug '> Marketplaces: show.'
-    bill_check = false
-    if Ind.billings
-      Balances.new.show(params) do |modb|
-          bill_check = true unless modb.balance.credit.to_i > 0
-      end
-    end
-    if !bill_check
-      @mkp = pressurize_version(Marketplaces.instance.show(params).mkp, params['version'])
-      @ssh_keys = Sshkeys.new.list(params).ssh_keys
-      @unbound_apps = unbound_apps(Assemblies.new.list(params.merge(flying_apps: 'true')).apps) if @mkp['cattype'] == Assemblies::SERVICE
-      respond_to do |format|
-        format.js do
-          respond_with(@mkp, @ssh_keys, @unbound_apps, layout: !request.xhr?)
-        end
-      end
-    else
-      respond_to do |format|
-         format.html { redirect_to billings_path }
-         format.js { render js: "window.location.href='" + billings_path + "'" }
+    @mkp = pressurize_version(Api::Marketplaces.instance.show(params).mkp, params['version'])
+    @ssh_keys = Api::Sshkeys.new.list(params).ssh_keys
+    @unbound_apps = unbound_apps(Api::Assemblies.new.list(params.merge(flying_apps: 'true')).apps) if @mkp['cattype'] == Api::Assemblies::SERVICE
+    respond_to do |format|
+      format.js do
+        respond_with(@mkp, @ssh_keys, @unbound_apps, layout: !request.xhr?)
       end
     end
   end
@@ -63,22 +54,18 @@ class MarketplacesController < ApplicationController
   # performs ssh creation or using existing and creating an assembly at the end.
   def create
     logger.debug '> Marketplaces: create.'
-    mkp = JSON.parse(params[:mkp])
     # adding the default org of the user which is stored in the session
-    params[:org_id] = session[:org_id]
-    params[:ssh_keypair_name] = params["#{params[:sshoption]}" + '_name'] if params[:sshoption] == Sshkeys::USEOLD
-    params[:ssh_keypair_name] = params["#{Sshkeys::NEW}_name"] unless params[:sshoption] == Sshkeys::USEOLD
+    params[:ssh_keypair_name] = params["#{params[:sshoption]}" + '_name'] if params[:sshoption] == Api::Sshkeys::USEOLD
+    params[:ssh_keypair_name] = params["#{Api::Sshkeys::NEW}_name"] unless params[:sshoption] == Api::Sshkeys::USEOLD
     # the full keypair name is coined inside sshkeys.
-    params[:ssh_keypair_name] = Sshkeys.new.create_or_import(params)[:name]
+    params[:ssh_keypair_name] = Api::Sshkeys.new.create_or_import(params)[:name]
     setup_scm(params)
-    # with email list all orgs, match with session[orgName], get orgid, update orgid
-    res = Assemblies.new.create(params)
-
+    res = Api::Assemblies.new.create(params)
     binded_app?(params) do
       Assembly.new.update(params)
       Components.new.update(params)
     end if params.key?(:bind_type)
-    @msg = { title: "#{mkp['cattype']}".downcase.camelize, message: "#{params['assemblyname']}.#{params['domain']} launched successfully. ", redirect: '/', disposal_id: 'app-1' }
+    @msg = { title: "#{params['cattype']}".downcase.camelize, message: "#{params['assemblyname']}.#{params['domain']} launched successfully. ", redirect: '/', disposal_id: 'app-1' }
   end
 
   ##
@@ -88,21 +75,17 @@ class MarketplacesController < ApplicationController
   ##
   def store_github
     @auth_token = request.env['omniauth.auth']['credentials']['token']
-    session[:github] =  @auth_token
-    session[:git_owner] = request.env['omniauth.auth']['extra']['raw_info']['login']
+    session[:github] = @auth_token
+    session[:github_owner] = request.env['omniauth.auth']['extra']['raw_info']['login']
   end
 
-  ##
-  ## this method collect all repositories for user using oauth token
-  ##
   def publish_github
-    auth_id = params['id']
-    github = Github.new oauth_token: session[:github]
-    git_array = github.repos.all.collect(&:clone_url)
-    @repos = git_array
-    respond_to do |format|
-      format.js do
-        respond_with(@repos, layout: !request.xhr?)
+    Nilavu::Repos::Github.new(session[:github]).tap do |gh|
+      @repos = gh.repos
+      respond_to do |format|
+        format.js do
+          respond_with(@repos, layout: !request.xhr?)
+        end
       end
     end
   end
@@ -112,17 +95,12 @@ class MarketplacesController < ApplicationController
   end
 
   def store_gitlab
-    @gitlab_url = Ind.http_gitlab
-    Gitlab.endpoint = @gitlab_url
-    gitlab = Gitlab.session(params[:gitlab_username], params[:gitlab_password])
-    session[:gitlab_key] = gitlab.private_token
-    @lab_client = Gitlab.client(endpoint: @gitlab_url, private_token: gitlab.private_token)
-    hash = []
-    @lab_client.projects.each do |url|
-      hash << url.http_url_to_repo
+    Nilavu::Repos::Gitlab.new(params[:gitlab_username], params[:gitlab_password]).tap do |gl|
+      session[:gitlab_repos] = gl.repos
+      session[:gitlab_key] = gl.token.private_token
     end
-    session[:gitlab_repos] = hash
   end
+
 
   def publish_gitlab
     @repos = session[:gitlab_repos]
@@ -134,6 +112,14 @@ class MarketplacesController < ApplicationController
   end
 
   private
+  def visit_paisa
+    Balances.new.show(params) do |modb|
+      respond_to do |format|
+        format.html { redirect_to billings_path }
+        format.js { render js: "window.location.href='" + billings_path + "'" }
+      end  unless modb.balance.credit.to_i > 0
+    end if Ind.billings
+  end
 
   def binded_app?(params, &_block)
     yield if block_given? unless params[:bind_type].eql?('Unbound service')
@@ -145,14 +131,14 @@ class MarketplacesController < ApplicationController
     client.projects.each do |x|
       return x.id if x.http_url_to_repo == params
     end
- end
+  end
 
   def setup_scm(params)
     case params[:scm_name]
-    when Scm::GITHUB
+    when Nilavu::Constants::GITHUB
       params[:scmtoken] =  session[:github]
-      params[:scmowner] =  session[:git_owner]
-    when Scm::GITLAB
+      params[:scmowner] =  session[:github_owner]
+    when Nilavu::Constants::GITLAB
       params[:scmtoken] = session[:gitlab_key]
       params[:scmowner] = find_id(params[:source])
       params[:scm_url]  = Ind.http_gitlab

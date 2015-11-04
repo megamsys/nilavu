@@ -15,33 +15,33 @@
 ##
 require 'json'
 
-class BucketkolkesController < ApplicationController
+class BucketkolkesController < NilavuController
   respond_to :json, :js
 
-  before_action :stick_storage_keys, only: [:index, :create, :show, :upload]
+  before_action :stick_ceph_keys, only: [:index, :create, :show, :upload, :destroy]
 
   def index
-    logger.debug '>Controller index called'
-    new_backup = Backup.new("#{session[:storage_access_key]}", "#{session[:storage_secret_key]}", Ind.backup.host)
-    data = new_backup.buckets_list
-    respond_with(data)
+    respond_with(Backup::BucketObjects.new(params).list)
   end
 
-  def upload
-    backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
-    backup.object_create("#{params[:bucket_name]}", params[:sobject])
-    @msg = { title: 'Storage', message: "#{params[:sobject].original_filename} uploaded successfully. ", redirect: '/', disposal_id: 'supload' }
+  def create
+    Backup::BucketObjects.new(params).create(params[:sobject])
+    @msg = { message: "#{params[:sobject].original_filename} uploaded successfully. ", disposal_id: 'onebucket_upload' }
+  end
+
+  def show
+    respond_with(Backup::BucketObjects.new(params).list_detail)
   end
 
   def destroy
-    logger.debug '> Bucketskolkes: delete'
-    backup = Backup.new(params[:accesskey], params[:secretkey], Ind.backup.host)
-    backup.bucket_delete(bucket_name)
-  end
-
-  # sign our request by Base64 encoding the policy document.
-  def upload_signature
-    request = S3::Service.service_request(:put)
-    signature = S3::Signature.generate(host: Ind.backup.host, request: request, access_key_id: params[:accesskey], secret_access_key: params[:secretkey])
+    #object_name = params[:id].split("/").last
+    #bucket_name = params[:id].split("/").first
+    BucketObjects.new(params).delete(bucket_name)
+    @bobjs = []
+    respond_to do |format|
+      format.js do
+        respond_with(@bobjs, layout: !request.xhr?)
+      end
+    end
   end
 end

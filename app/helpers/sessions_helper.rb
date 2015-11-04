@@ -12,69 +12,54 @@
 ## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
-##
 module SessionsHelper
-
-  #create a new session
-  def new_session
-    session.delete(:auth)
-    session.delete(:email)
-    session.delete(:api_key)
-    session_params = {}
-    session_params[:remember_token] = rem_tokgen
-    session_params[:api_key] = api_keygen
-    logger.debug "> newsession #{session_params}"
-    session_params
-  end
-
-
-  #a cache to store the sign details of an user in a cookie jar using keys
-  #email and remember_token
-  def sign_in(account)
-    session[:email] = account.email
-    session[:api_key] = account.api_key
-    session[:host] = Ind.http_api
-    set_orgid(params)
-    logger.debug "> signin psession email #{session[:email]}"
-    logger.debug "> signin psession api   #{session[:api_key]}"
-    self.current_user = account
-  end
-
-  def set_orgid(input)
-    input['host'] = Ind.http_api
-    input['api_key'] = Accounts.new.find_by_email(input['email']).api_key
-    org_res = Organizations.new.list(input).orgs
-    session[:org_id] = org_res[0][:id]
-    end
-
-  private
-  #return if an user is signed in or not. ?
+  # The signed_in? method simply returns true if the user is logged
+  # in and false otherwise. It does this by "booleanizing" the
+  # current_user method we created previously using a double ! operator.
   def signed_in?
-    session[:email] && session[:api_key]
+    !!current_user
   end
 
-
- #return an account object from session which has the email and api key.
- def current_user
-  unless signed_in?
-    logger.debug "> Hmm. session Nada! I loaded current_user."
-    res = Accounts.new.find_by_email(session[:email])  if  session[:email]
-  else
-    Accounts.new(session)
+  # Finds the User with the email, api_key stored in the session with the key
+  # :cemail, :api_key This is a common way to handle user login in
+  def current_user
+    @_current_user ||= (session[:email] && session[:api_key]) && Nilavu::Auth::Configuration.load(session[:email])
   end
- end
 
- def current_user=(account)
-   @current_user = account
- end
+  def cleanup_session
+    [:email, :api_key, :org_id, :ceph_access_key, :ceph_secret_key, :return_to].each { |n| session.delete(n) }
+    @_current_user = session[:email] = nil
+  end
 
- #signout the current user by nuking current_user value as nil
- #and delete the remembered session.
- def sign_out
-   puts "************************** Signout"
-   session.delete(:email)
-   session.delete(:api_key)
-   session.delete(:host)
-   session.delete(:org_id)
- end
+  # Store the URI of the current request in the session.
+  #
+  # We can return to this location by calling #redirect_back_or_default.
+  def store_location
+    session[:return_to] = request.url
+  end
+
+  # Store the email and api_key of the current user in the session.
+  def store_credentials(acct)
+    session[:email] = acct.email
+    session[:api_key] = acct.api_key
+  end
+
+  # Store the cephgw storage access_key and secret_key
+  def store_ceph_credentials(ceph)
+    puts "------------ #{ceph}"
+    session[:ceph_access_key] = ceph['access_key']
+    session[:ceph_secret_key] = ceph['secret_key']
+  end
+
+  # Redirect to the URI stored by the most recent store_location call or
+  # to the passed default.
+  def redirect_back_or_default(default)
+    loc = session[:return_to] || default
+    session[:return_to] = nil
+    redirect_to loc
+  end
+
+  def loaded_environments?
+    session[:org_id]
+  end
 end

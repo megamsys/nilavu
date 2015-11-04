@@ -65,9 +65,10 @@
                             <% if flash[:toastr] %>
                             <script type="text/javascript">
 								(function ($) {
-                                     $.AppName = "<%= flash[:toastr] %>	";
-	                               })($);
-	                            toastr.error($.AppName);
+$.AppName = "<%= flash[:toastr] %>
+	";
+	})($);
+	toastr.error($.AppName);
                             </script>
                             <% end %>
                         </div>

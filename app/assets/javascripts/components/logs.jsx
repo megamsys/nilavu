@@ -9,20 +9,25 @@ var Logs = React.createClass({
   componentDidMount: function componentDidMount() {
 
     var socket = this.props.socket;
-    socket.on('connect', this._initialize);
-    socket.on('message', this._messageRecieve);
+    socket.onopen = this._initialize
+    socket.onmessage = this._messageRecieve
 
   },
   _initialize: function _initialize(data) {
     var socket = this.props.socket;
     var name = this.props.name;
-    socket.emit('message', name);
+    //socket.emit('message', name);
+    var connJson = JSON.stringify({
+      "Name": name
+    })
+    socket.send(connJson);
   },
 
   _messageRecieve: function _messageRecieve(message) {
     var messages = this.state.messages;
-    console.log(message)
-    messages.push(message);
+    var jsonData = JSON.parse(message.data);
+    var log = jsonData.Timestamp + ":" + jsonData.Message;
+    messages.push(log);
     this.setState({
       messages: messages
     });
@@ -40,10 +45,10 @@ var MessageList = React.createClass({
 
   render: function render() {
     return React.createElement('div', { className: ''
-    }, React.createElement('br'), this.props.messages.map(function(message, i) {
+  }, React.createElement('br'), this.props.messages.map(function(message,i) {
       return React.createElement(Message, {
         key: i,
-        text: message.logs
+        text: message
       });
     }));
   }

@@ -18,228 +18,351 @@
 
 <div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
 
-	<%= render :partial => "users/topright_icons", :locals => {:title_name => t('titles.storage_title')} %>
-
-	<!--	<%= react_component('Show' )  %> -->
-
-	<div class="col-xs-12 col-sm-9 col-md-9 br_grey">
-		<div class="row app_box app_storage">
-			<div class="col-xs-12 col-sm-6 col-md-3  app_cover create_bucket_modal ">
-				<div class="app_inner">
-					<div class="app_new ">
-						<span class="glyphicon glyphicon-plus"></span>
-						<p>
-							Create Storage
-						</p>
-					</div>
-				</div>
-			</div>
-			<% @buckets[:bucket_array].each do |bucket| %>
-			<div class="col-xs-12 col-sm-6 col-md-3 app_cover my_bucket_inner" id="<%= bucket[:bucket_name] %>">
-				<%= link_to buckets_path(:id => bucket[:bucket_name]), :target => "_self", :remote => true do %>
-				<div class="app_inner">
-					<div class="app">
-						<div class="app_head">
-							<div class="row app_icon">
-								<h5><%= bucket[:bucket_name] %></h5>
-								<h6> Size:  <%= bucket[:size] %> </h6>
-							</div>
-						</div>
-						<div class="app_footer">
-							<span > Objects count: <%= bucket[:noofobjects] %></span>
-						</div>
-					</div>
-				</div>
-				<% end %>
-			</div>
-			<% end %>
-		</div>
-	</div>
-	<div class="col-sm-3 storage-rt-list ">
-		<dl>
-			<h3>Usage</h3>
-			<dt>
-				Total Storage
-			</dt>
-			<dd>
-				<%= @buckets[:total_size] %>
-			</dd>
-			<dt class="margin-top-20"></dt>
-			<dt>
-				Total Buckets
-			</dt>
-			<dd>
-				<%= @buckets[:total_buckets] %>
-			</dd>
-
-			<h3>Billing</h3>
-			<dt>
-				Last billed amount
-			</dt>
-			<dd>
-				2500/- INR
-			</dd>
-			<dt class="margin-top-20"></dt>
-			<dt>
-				Current due
-			</dt>
-			<dd>
-				0/- INR
-			</dd>
-			<dt class="margin-top-20"></dt>
-			<dt>
-				Region
-			</dt>
-			<dd>
-				<%= image_tag "flag_IN.png", :alt => "flag" %> INDIA
-			</dd>
-		</dl>
-	</div>
-	<div class="col-xs-12 col-sm-9 col-md-10" id="object_list">
-
-	</div>
+    <%= render :partial => "users/topright_icons", :locals => {:title_name => t('titles.storage_title')} %>
+    <div class="col-xs-12 col-sm-9 col-md-9 br_grey">
+        <div class="row app_box app_storage">
+            <div class="col-xs-12 col-sm-6 col-md-3  app_cover create_bucket_modal ">
+                <div class="app_inner">
+                    <div class="app_new ">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        <p>
+                            Create Storage
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <% @bucket[:buckets].each do |bucket| %>
+            <div class="col-xs-12 col-sm-6 col-md-3 app_cover my_bucket_inner" id="<%= bucket[:name] %>">
+                <%= link_to bucketkolke_path(:id => bucket[:name]), :target => "_self", :remote => true do %>
+                <div class="app_inner">
+                    <div class="app">
+                        <div class="app_head">
+                            <div class="row app_icon">
+                                <h5><%= bucket[:name] %></h5>
+                                <h6> Size:
+                                <%= bucket[:size] %> </h6>
+                            </div>
+                        </div>
+                        <div class="app_footer">
+                            <span > Objects count:
+                                <%= bucket[:count] %></span>
+                        </div>
+                    </div>
+                </div>
+                <% end %>
+            </div>
+            <% end %>
+        </div>
+    </div>
+    <%= render :partial => "bucketkolkes/usage", :locals => {:bucket => @bucket} %>
 </div>
 
-<div class="storage-popup" >
-	<ul class="list-unstyled">
-		<li>
-			<a data-toggle="modal" href=" "><i class="c_icon-cloud-download pull-left"></i>Upload File</a>
-		</li>
-		<li>
-			<a href=""><i class="c_icon-cloud-download pull-left"></i>Download As</a>
-		</li>
-		<li>
-			<a data-toggle="modal" href="#megam_flykelvi"><i class="c_icon-cloud-del pull-left"></i>Delete Bucket</a>
-		</li>
-	</ul>
+<div class="storage-popup">
+    <ul class="list-unstyled">
+        <li>
+            <a data-toggle="modal" href="#supload"> <i class="c_icon-cloud-download pull-left"></i>Upload File</a>
+        </li>
+        <li>
+            <a data-toggle="modal" href="#megam_flykelvi"> <i class="c_icon-cloud-del pull-left"></i>Delete Bucket</a>
+        </li>
+    </ul>
 </div>
 <% end %>
 <%= render :template => "users/show" %>
 
-<div id="create_bucket" class="modal fade" tabindex="-1" aria-hidden="true">
-	<div class="modal-dialog" style="max-width:400px">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title"> Bucket </h4>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-md-12">
-						<%= form_tag buckets_path, multipart: true, :method => :post, :remote => true do %>
-						<div class="form-group">
-							<%= text_field_tag 'bucket_name', nil, :class=> 'form-control', placeholder: "Bucket Name", :required => true %>
-						</div>
-						<%= submit_tag "create", :class => "btn btn-success col-md-12 col-xs-12" , :data => {:remote => true}%>
-						<% end %>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<div aria-hidden="true" class="modal fade" id="create_bucket" tabindex="-1">
+    <div class="modal-dialog" style="max-width:400px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" class="close" data-dismiss="modal" type="button"></button>
+                <h4 class="modal-title"> Bucket </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <%= form_tag buckets_path, multipart: true, :method => :post, :remote => true do %>
+                        <div class="form-group">
+                            <%= text_field_tag :id, nil, :class=> 'form-control', placeholder: "Bucket Name", :required => true %>
+                        </div>
+                        <%= submit_tag "create", :class => "btn btn-success col-md-12 col-xs-12" , :data => {:remote => true}%>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div id="supload" class="modal fade" tabindex="-1" aria-hidden="true">
-	<div class="modal-dialog" style="max-width:400px">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title"> Upload </h4>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-md-12">
-						<%= form_tag bucketkolkes_path, :method => :post, :remote => true, :multipart => true do %>
-  					<input name="<%= :key %>" type="<%= :hidden %>"></input>
-  					<input name="AWSAccessKeyId" type="<%= :hidden %>" value="YOUR_ACCESS_KEY"></input>
-  					<input name="<%= :acl %>" type="<%= :hidden %>" value="<%= :private %>"></input>
-  					<input name="<%= :success_action_status %>" type="<%= :hidden %>" value="200"></input>
-  					<input name="<%= :policy %>" type="<%= :hidden %>"></input>
-  					<input name="<%= :signature %>" type="<%= :hidden %>"></input>
-  					<div class="fileupload-content">
-    				<div class="fileupload-progress"></div>
-  					</div>
-  					<div class="form-group">
-    				<label class="fileinput-button">
-						<%= hidden_field_tag 'bucket_name', nil, :class=> 'form-control', :id => "bucketName", placeholder: "Bucket Name", :required => true %>
-      			<span class="col-xs-12"><i class="filetag" ></i> <span class="filetag"><%= t('ssh_keys.add_files') %></span> <%= file_field_tag :sobject, multiple: true %> </span>
-    				</label>
-  					</div>
-						<%= submit_tag "upload", :class => "btn btn-success col-md-12 col-xs-12" , :data => {:remote => true}%>
-						<% end %>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+<!-- App1 modal starts here -->
+<div aria-hidden="true" class="modal fade" id="supload" tabindex="-1">
+    <div class="modal-dialog modal-full" style="max-width:900px;">
+        <div class="modal-content">
+            <div class="modal-header y-files-m-header">                
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Uploading Files .... 36.7%</h4>
+            </div>
+            <div class="modal-body app_body">
+                <div class="row">
+                    <div class="col-xs-12" >
+                        <table class="table borderless tb_upload">
+                            <tbody>
+                                <tr>
+                                    <td class="td-left"><i class="pop_icon c_icon-zip"></i><b>code.zip </b><i>- 13 mb</i></td>
+                                    <td class="td-left pull-right"><i class="close_red"></i></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-left"><i class="pop_icon c_icon-text"></i><b>code.doc </b><i>- 13 mb</i></td>
+                                    <td class="td-left pull-right"><i class="close_red"></i></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-left"><i class="pop_icon c_icon-svg"></i><b>code.svg </b><i>- 13 mb</i></td>
+                                    <td class="td-left pull-right"><i class="close_red"></i></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-left"><i class="pop_icon c_icon-png"></i><b>code.png </b><i>- 13 mb</i></td>
+                                    <td class="td-left pull-right"><i class="close_red"></i></td>
+                                </tr>
+                                <tr>
+                                    <td class="td-left"><i class="pop_icon c_icon-jpg"></i><b>code.jpg </b><i>- 13 mb</i></td>
+                                    <td class="td-left pull-right"><i class="close_red"></i></td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- app_body ends here -->
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <%= form_tag bucketkolkes_path, :id => "gupload", :method => :post, :remote => true, :multipart => true do %>
+                            <a><h4 class="pull-left">+ Add More Files</h4></a>
+                            <%= file_field_tag :sobject, :id => 'objectfile', multiple: true %>
+                        </div>
+
+                        <ul>
+                            <!-- The file uploads will be shown here -->
+                        </ul>
+
+                        <% end %>
+                        
+                        <span class="btn btn-success">Uploading..</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- App1 ends here -->
+
+<div aria-hidden="true" class="modal fade" id="supload12" tabindex="-1">
+    <div class="modal-dialog" style="max-width:400px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" class="close" data-dismiss="modal" type="button"></button>
+                <h4 class="modal-title"> Upload </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <%= form_tag bucketkolkes_path, :method => :post, :remote => true, :multipart => true do %>
+                        <div class="form-group">
+                            <label class="fileinput-button"> <%= hidden_field_tag 'bucket_name', nil, :class=> 'form-control', :id => "bucketName", placeholder: "Bucket Name", :required => true %> <span class="col-xs-12"> <i class="filetag"></i> <span class="filetag"><%= t('ssh_keys.add_files') %></span> <%= file_field_tag :sobject, multiple: true %> </span> </label>
+                        </div>
+                        <%= submit_tag "upload", :class => "btn btn-success col-md-12 col-xs-12" , :data => {:remote => true}%>
+                        <% end %>
+
+                        <%= form_tag bucketkolkes_path, :id => "gupload", :method => :post, :remote => true, :multipart => true do %>
+                        <div id="drop">
+                            Drop Here
+
+                            <a id="brow">Browse</a>
+                            <%= file_field_tag :sobject, :id => 'objectfile', multiple: true %>
+                            <input type="file" name="upl" multiple />
+                        </div>
+
+                        <ul>
+                            <!-- The file uploads will be shown here -->
+                        </ul>
+
+                        <% end %>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- APP KELVI MODAL -->
-<div class="modal fade" id="megam_flykelvi" tabindex="-1" role="basic" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content c_modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title">Delete Bucket</h4>
-			</div>
-			<div class="modal-body text-center">
-				<%= t('general.you_want_to') %> delete a bucket?
-			</div>
-			<div class="modal-footer c_modal-footer">
-				<button type="button" class="btn default" data-dismiss="modal">
-					<%= t('cancel') %>
-				</button>
+<div aria-hidden="true" class="modal fade" id="megam_flykelvi" role="basic" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content c_modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" class="close" data-dismiss="modal" type="button"></button>
+                <h4 class="modal-title">Delete Bucket</h4>
+            </div>
+            <div class="modal-body text-center">
+                <%= t('general.you_want_to') %>
+                delete a bucket?
+            </div>
+            <div class="modal-footer c_modal-footer">
+                <button class="btn default" data-dismiss="modal" type="button">
+                    <%= t('cancel') %>
+                </button>
 
-				<%= link_to  t('confirm'), buckets_path(:id => "delete"), :class => "btn btn-success a_pad", :remote => true, :method => :delete, :target => "_self" %>
-			</div>
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
+                <%= link_to  t('confirm'), bucket_path(:id => "delete"), :class => "btn btn-success a_pad", :remote => true, :method => :delete, :target => "_self" %>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
 
 <style type="text/css">
-	#upload_link {
-		text-decoration: none;
-	}
-	#upload {
-		display: none
-	}
+    #upload_link {
+        text-decoration: none;
+    }
+    #upload {
+        display: none;
+    }
 </style>
 
 <script type="text/javascript">
 	$('.create_bucket_modal').click(function(e) {
 		$('#create_bucket').modal();
-			});
-		$('.inner-menu').click(function(e) {
-			e.preventDefault();
-			$('.inner-child').toggle();
-		});
-		//storage left menu
-		$('.storage_left_add_inner').hide();
-		$('.storage_left_add a ').click(function() {
+	});
+	$('.inner-menu').click(function(e) {
+		e.preventDefault();
+		$('.inner-child').toggle();
+	});
+	//storage left menu
+	$('.storage_left_add_inner').hide();
+	$('.storage_left_add a ').click(function() {
 		// e.preventDefault();
 		$('.storage_left_add_inner').slideToggle();
+	});
+	// $('.storage-popup').hide();
+	// storage overview pop up menu
+	$('.my_bucket_inner').bind('contextmenu', function(e) {
+		e.preventDefault();
+		$('.storage-popup').css({
+			'top' : e.pageY,
+			'left' : e.pageX
 		});
-		// $('.storage-popup').hide();
-		// storage overview pop up menu
-		$('.my_bucket_inner').bind('contextmenu', function(e) {
-			e.preventDefault();
-			$('.storage-popup').css({
-				'top' : e.pageY,
-				'left' : e.pageX,
-			});
-			$('#bucketName').val($(event.currentTarget).attr('id'));
-			//$.session.set('bucketname', $(event.currentTarget).attr('id'));
-			$('.storage-popup').show();
-					return false;
-			});
+		$('#bucketName').val($(event.currentTarget).attr('id'));
+		//$.session.set('bucketname', $(event.currentTarget).attr('id'));
+		$('.storage-popup').show();
+		return false;
+	});
 	// hide storage menu when clicked outside the div
 	$(document).on('click', function(e) {
 		if ($(e.target).closest(".my_bucket_inner").length === 0) {
 			$('.storage-popup').hide();
 		}
+	});
+
+	$(document).ready(function() {
+
+		var ul = $('#gupload ul');
+		$('#brow').click(function() {
+			// Simulate a click on the file input button
+			// to show the file browser dialog
+			//$(this).parent().find('input').click();
+			$('#objectfile').trigger('click');
+		});
+
+		// Initialize the jQuery FilebUpload plugin
+		$('#gupload').fileupload({
+
+			// This element will accept file drag/drop uploading
+			dropZone : $('#drop'),
+
+			// This function is called when a file is added to the queue;
+			// either via the browse button, or via drag/drop:
+			add : function(e, data) {
+
+				var tpl = $('<li class="working"><input type="text" value="0" data-width="48" data-height="48"' + ' data-fgColor="#0788a5" data-readOnly="1" data-bgColor="#3e4043" /><p></p><div id="spin"></div><span></span></li>');
+
+				// Append the file name and file size
+				tpl.find('p').text(data.files[0].name).append('<i>' + formatFileSize(data.files[0].size) + '</i>');
+
+				// Add the HTML to the UL element
+				data.context = tpl.appendTo(ul);
+
+				// Initialize the knob plugin
+				tpl.find('input').knob();
+
+				tpl.find('#spin').html('<img src="assets/loader.gif" alt="Wait" />');
+
+				// Listen for clicks on the cancel icon
+				tpl.find('span').click(function() {
+
+					if (tpl.hasClass('working')) {
+						jqXHR.abort();
+					}
+
+					tpl.fadeOut(function() {
+						tpl.remove();
+					});
+
+				});
+
+				// Automatically upload the file once it is added to the queue
+				var jqXHR = data.submit();
+			},
+
+			progress : function(e, data) {
+
+				// Calculate the completion percentage of the upload
+				var progress = parseInt(data.loaded / data.total * 100, 10);
+
+				// Update the hidden input field and trigger a change
+				// so that the jQuery knob plugin knows to update the dial
+				data.context.find('input').val(progress).change();
+
+				if (progress == 100) {
+					data.context.removeClass('working');
+				}
+			},
+
+			success : function(data) {
+				$("#spin").hide();
+
+			},
+
+			fail : function(e, data) {
+				// Something has gone wrong!
+				data.context.addClass('error');
+				$("#spin").hide();
+			}
+		});
+
+		// Prevent the default action when a file is dropped on the window
+		$(document).on('drop dragover', function(e) {
+			e.preventDefault();
+		});
+
+		// Helper function that formats the file sizes
+		function formatFileSize(bytes) {
+			if ( typeof bytes !== 'number') {
+				return '';
+			}
+
+			if (bytes >= 1000000000) {
+				return (bytes / 1000000000).toFixed(2) + ' GB';
+			}
+
+			if (bytes >= 1000000) {
+				return (bytes / 1000000).toFixed(2) + ' MB';
+			}
+
+			return (bytes / 1000).toFixed(2) + ' KB';
+		}
+
 	});
 
 </script>

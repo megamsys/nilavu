@@ -21,7 +21,7 @@
 <%= hidden_field_tag 'mkp', nil, placeholder: "", :class =>"form-control", :value => @mkp.to_json %>
 <%= hidden_field_tag 'scm_name', nil, placeholder: "", :class =>"form-control"%>
 <%= hidden_field_tag 'type', nil, placeholder: "", :class => "form-control" %>
-<%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Marketplaces::ONE %>
+<%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Api::Marketplaces::ONE %>
 <div class="row">
   <div class="col-md-12 pad_tb25">
     <span class="app_left_name"><%= t('marketplace.discription') %></span>
@@ -50,7 +50,7 @@
 
     <%= render template="marketplaces/show_template" %>
 
-    <!-- START Assemblies::APP -->
+    <!-- START Api::Assemblies::APP -->
     <div class="row">
       <div class="col-xs-6">
         <p class="radioP">
@@ -82,9 +82,17 @@
           </div>
         </div>
         <div class="col-md-6 text-center">
-          <div class="col-md-offset-4 col-md-2"></div>
+          <div class="col-md-offset-4 col-md-2">
+
+            <% if Ind.private_gitlab %>
+          <a href="#" class="hint  hint--bottom" onclick="return gitlab_auth();" data-hint="Connect with your private Gitlab id"> <%= image_tag "gitlabimg.png",:class=> "img-responsive_byoc "%> </a>
+           <% else %>
+                <a href="#" class="hint  hint--bottom" data-hint="Connect with your private git id. coming soon."> <%= image_tag "gitlabimg.png",:class=> "img-responsive_byoc "%> </a>
+           <% end %>
+
         </div>
       </div>
+    </div>
       <br/>
       <div class="row">
         <div class="col-sm-12 col-xs-12">
@@ -104,7 +112,7 @@
         </div>
       </div>
     </div>
-    <!-- END Assemblies::APP -->
+    <!-- END Api::Assemblies::APP -->
     <!--- START SSH TEMPLATE -->
     <%= render template="marketplaces/show_ssh", :locals => {:ssh_keys => @ssh_keys} %>
     <!-- END SSH TEMPLATE -->
@@ -114,6 +122,7 @@
       <div class="col-md-offset-4 col-md-4">
         <div class="form-group">
           <%= submit_tag t('cockpits.create'), :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Please wait..." } %>
+
         </div>
       </div>
     </div>
@@ -159,12 +168,8 @@
           type: "POST",
           url: "/publish_github",
           success: function (data) {
-            console.log("It worked!")
-            console.log(data);
           },
           error: function (data) {
-            console.log("ERROR CHECK PROPERLY!!");
-            console.log(data);
           }
         });
         return false;
@@ -182,12 +187,8 @@
           type: "POST",
           url: "/publish_gitlab",
           success: function (data) {
-            console.log("It worked!")
-            console.log(data);
           },
           error: function (data) {
-            console.log("ERROR CHECK PROPERLY!!");
-            console.log(data);
           }
         });
         return false;

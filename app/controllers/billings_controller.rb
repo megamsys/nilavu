@@ -13,90 +13,90 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class BillingsController < ApplicationController
-  respond_to :html, :js
+class BillingsController < NilavuController
+	respond_to :html, :js
 
-  before_action :stick_keys, only: [:index, :notify_payment, :promo]
-  def index
-    logger.debug '> Billings index.'
-    @currencies = Billings.currencies
-    @bill = Balances.new.show(params)
-    @bill.balance
+	before_action :stick_keys, only: [:index, :notify_payment, :promo]
+	def index
+		logger.debug '> Billings index.'
+		@currencies = Billings.currencies
+		@bill = Balances.new.show(params)
+		@bill.balance
 
-    @invoices = Invoices.new.list(params)
-    @invoices.invoices
-  end
+		@invoices = Invoices.new.list(params)
+		@invoices.invoices
+	end
 
-  def notify_payment
-    bill = Billings.new
-    res = bill.execute(params)
+	def notify_payment
+		bill = Billings.new
+		res = bill.execute(params)
 
-    redirect_to cockpits_path, gflash: { warning: { value: "PayPal transaction got error. Please contact #{ActionController::Base.helpers.link_to 'support !.', 'http://support.megam.co/', target: '_blank'}.", sticky: false, nodom_wrap: true } } unless res != Megam::Error
+		redirect_to cockpits_path, gflash: { warning: { value: "PayPal transaction got error. Please contact #{ActionController::Base.helpers.link_to 'support !.', 'http://support.megam.co/', target: '_blank'}.", sticky: false, nodom_wrap: true } } unless res != Megam::Error
 
-    sbalance = Balances.new.show(params)
-    api_params = params.merge(sbalance.balance.to_hash)
-    api_params['credit'] = sbalance.balance.credit.to_i + res.to_i
-    Balances.new.update(api_params)
-    Credithistories.new.create(api_params, res)
+		sbalance = Balances.new.show(params)
+		api_params = params.merge(sbalance.balance.to_hash)
+		api_params['credit'] = sbalance.balance.credit.to_i + res.to_i
+		Balances.new.update(api_params)
+		Credithistories.new.create(api_params, res)
 
-    redirect_to billings_path
-  end
+		redirect_to billings_path
+	end
 
-  def create
-    res = Billings.new.create(params)
-    if res.class == Megam::Error
-      respond_to do |format|
-        format.html { redirect_to billings_path }
-        format.js { render js: "window.location.href='" + billings_path + "'" }
-      end
-    else
-      respond_to do |format|
-        format.html { redirect_to res }
-        format.js { render js: "window.location.href='" + res + "'" }
-      end
-    end
-  end
+	def create
+		res = Billings.new.create(params)
+		if res.class == Megam::Error
+			respond_to do |format|
+				format.html { redirect_to billings_path }
+				format.js { render js: "window.location.href='" + billings_path + "'" }
+			end
+		else
+			respond_to do |format|
+				format.html { redirect_to res }
+				format.js { render js: "window.location.href='" + res + "'" }
+			end
+		end
+	end
 
-  def promo
-    dis_s = Discounts.new.list(params).discounts_collections
+	def promo
+		dis_s = Discounts.new.list(params).discounts_collections
 
-    @credit = params[:balance]
-    if dis_s.empty?
-      @credit = apply_promo(params)
-    elsif dis_s.lookup_p(params[:code]).nil?
-      @credit = apply_promo(params)
-    else
-      @credit = params[:balance]
-    end
-    respond_to do |format|
-      format.html { redirect_to billings_path }
-      format.js { respond_with(@credit, layout: !request.xhr?) }
-    end
-  end
+		@credit = params[:balance]
+		if dis_s.empty?
+			@credit = apply_promo(params)
+		elsif dis_s.lookup_p(params[:code]).nil?
+			@credit = apply_promo(params)
+		else
+			@credit = params[:balance]
+		end
+		respond_to do |format|
+			format.html { redirect_to billings_path }
+			format.js { respond_with(@credit, layout: !request.xhr?) }
+		end
+	end
 
-  def apply_promo(params)
-    promo_amt = Promos.new.show(params)
-    params[:credit] = (params[:balance].to_i + promo_amt.amount.to_i)
-    bal = Balances.new.update(params)
-    credit = params[:credit]
-    dis = Discounts.new.create(params)
-    credit
-  end
+	def apply_promo(params)
+		promo_amt = Promos.new.show(params)
+		params[:credit] = (params[:balance].to_i + promo_amt.amount.to_i)
+		bal = Balances.new.update(params)
+		credit = params[:credit]
+		dis = Discounts.new.create(params)
+		credit
+	end
 
-  def pdf
-    send_data generate_pdf(params),
-              filename: 'invoices.pdf',
-              type: 'application/pdf'
- end
+	def pdf
+		send_data generate_pdf(params),
+		filename: 'invoices.pdf',
+		type: 'application/pdf'
+	end
 
-  def generate_pdf(params)
-    Prawn::Document.new do
-      text "from_date:#{params['from_date']}"
-      text "to_date:#{params['to_date']}"
-      text "month:#{params['month']}"
-      text "billing_amount:#{params['billing_amount']}"
-      text "currency_type:#{params['currency_type']}"
-      text "created_at:#{params['created_at']}"
-    end.render
-  end
+	def generate_pdf(params)
+		Prawn::Document.new do
+			text "from_date:#{params['from_date']}"
+			text "to_date:#{params['to_date']}"
+			text "month:#{params['month']}"
+			text "billing_amount:#{params['billing_amount']}"
+			text "currency_type:#{params['currency_type']}"
+			text "created_at:#{params['created_at']}"
+		end.render
+	end
 end
