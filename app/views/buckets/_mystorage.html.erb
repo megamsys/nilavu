@@ -13,15 +13,12 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<% content_for :content_settings do %>
-<% provide(:title, "Buckets") %>
-
 <div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
 
   <%= render :partial => "users/topright_icons", :locals => {:title_name => t('titles.storage_title')} %>
   <div class="col-xs-12 col-sm-9 col-md-9 br_grey">
     <div class="row app_box app_storage">
-      <div class="col-xs-12 col-sm-6 col-md-3  app_cover create_bucket_modal ">
+      <div class="col-xs-12 col-sm-6 col-md-3  app_cover create_bucket_modal">
         <div class="app_inner">
           <div class="app_new ">
             <span class="glyphicon glyphicon-plus"></span>
@@ -72,8 +69,7 @@
     </li>
   </ul>
 </div>
-<% end %>
-<%= render :template => "users/show" %>
+
 
 <div aria-hidden="true" class="modal fade" id="create_bucket" tabindex="-1">
   <div class="modal-dialog" style="max-width:400px">
@@ -101,30 +97,33 @@
 </div>
 
 <div aria-hidden="true" class="modal fade" id="supload" tabindex="-1">
-  <div class="modal-dialog" style="max-width:400px">
+  <div class="modal-dialog" style="max-width:900px">
     <div class="modal-content">
       <div class="modal-header">
-        <button aria-hidden="true" class="close" data-dismiss="modal" type="button"></button>
-        <h4 class="modal-title">
-          Upload
-        </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title"> Upload </h4>
       </div>
       <div class="modal-body">
         <div class="row">
           <div class="col-md-12">
             <%= form_tag bucketkolkes_path, :method => :post, :remote => true, :multipart => true do %>
-            <div class="form-group">
-              <label class="fileinput-button">
+            <div class="row">
                 <%= hidden_field_tag 'bucket_name', nil, :class=> 'form-control', :id => "bucketName", placeholder: "Bucket Name", :required => true %>
-                <span class="col-xs-12">
-                  <i class="filetag"></i>
-                  <span class="filetag"><%= t('ssh_keys.add_files') %></span>
-                  <%= file_field_tag :sobject, multiple: true %>
-                </span>
-              </label>
+                <ul id="ulList">
+                </ul>
             </div>
-            <%= submit_tag "upload", :class => "btn btn-success col-md-12 col-xs-12" , :data => {:remote => true}%>
+            <div class="form-group">
+            <div class="row">
+            <div class="col-xs-12" style="max-width:900px">
+            <label class="fileinput-button">
+            <span class="col-xs-12 center-block"><i class="filetag" ></i> <span class="filetag"><h4 class="glyphicon-plus pull-left">Add more files..</h4></span> <%= file_field_tag :sobject, :id => "file_upload", multiple: true %> </span>
+            </label>
+            <%= submit_tag "upload", :class => "btn btn-success col-xs-6 pull-right" , :data => {:remote => true}%>
+            </div>
+            </div>
+            <input id="btnShow" type="button" value="Show" />
             <% end %>
+            </div>
           </div>
         </div>
       </div>
@@ -158,47 +157,4 @@
 </div>
 <!-- /.modal -->
 
-<style type="text/css">
-  #upload_link {
-    text-decoration: none;
-  }
-  #upload {
-    display: none;
-  }
-</style>
-
-<script type="text/javascript">
-  $('.create_bucket_modal')
-    .click(function (e) {
-      $('#create_bucket').modal();
-    });
-  $('.inner-menu').click(function (e) {
-    e.preventDefault();
-    $('.inner-child').toggle();
-  });
-  //storage left menu
-  $('.storage_left_add_inner').hide();
-  $('.storage_left_add a ').click(function () {
-    // e.preventDefault();
-    $('.storage_left_add_inner').slideToggle();
-  });
-  // $('.storage-popup').hide();
-  // storage overview pop up menu
-  $('.my_bucket_inner').bind('contextmenu', function (e) {
-    e.preventDefault();
-    $('.storage-popup').css({
-      'top': e.pageY,
-      'left': e.pageX
-    });
-    $('#bucketName').val($(event.currentTarget).attr('id'));
-    //$.session.set('bucketname', $(event.currentTarget).attr('id'));
-    $('.storage-popup').show();
-    return false;
-  });
-  // hide storage menu when clicked outside the div
-  $(document).on('click', function (e) {
-    if ($(e.target).closest(".my_bucket_inner").length === 0) {
-      $('.storage-popup').hide();
-    }
-  });
-</script>
+<script src="assets/megam.storages.js" />
