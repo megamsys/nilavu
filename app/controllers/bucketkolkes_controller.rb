@@ -30,7 +30,7 @@ class BucketkolkesController < NilavuController
   end
 
   def show
-    respond_with(Backup::BucketObjects.new(params).list_detail)
+    @objects = Backup::BucketObjects.new(params).detail
   end
 
   def destroy

@@ -11,13 +11,11 @@ RSpec.feature "List Marketplaces" do
     expect(page).to have_content "Dashboard"
   end
 
-  scenario "Option" do
-  click_link "Marketplaces"
-  click_link "Launch! Php"
-  fill_in "SSH keypair name", :with => "megam"
-  click_button "Create"
+  scenario "view" do
+    visit "/cockpits"
 
-  expect(page).to have_content "Byoc"
+    click_link "Marketplaces"
+
+    expect(page).to have_content "Marketplaces"
   end
-
 end
