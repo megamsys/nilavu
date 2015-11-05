@@ -15,192 +15,197 @@
 -->
 <% provide(:title, "Sign in") %>
 <div class="signin login">
-	<!-- BEGIN LOGO -->
-	<div class="container">
-		<div class="row">
-			<div class="logo">
-				<%= image_tag "megam-logo-signin.png" %>
-			</div>
-		</div>
+    <!-- BEGIN LOGO -->
+    <div class="container">
+        <div class="row">
+            <div class="logo">
+                <%= image_tag "megam-logo-signin.png" %>
+            </div>
+        </div>
 
-		<!-- END LOGO -->
-		<!-- BEGIN LOGIN -->
-		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer bg_white border_grey">
-			<div class="container">
-				<div class="row bottom-divider">
-					<div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
-						<h2><%= t('titles.login_title') %></h2>
-					</div>
-				</div>
-			</div>
+        <!-- END LOGO -->
+        <!-- BEGIN LOGIN -->
+        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer bg_white border_grey">
+            <div class="container">
+                <div class="row bottom-divider">
+                    <div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
+                        <h2><%= t('titles.login_title') %></h2>
+                    </div>
+                </div>
+            </div>
 
-			<div class="cover col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
-				<!-- BEGIN LOGIN FORM -->
-				<%= form_tag sessions_path, multipart: true, :id => "megamform", :class => "sign-form", role: "form", :novalidate => "novalidate", :method => "post", data: { spinlock: "#spin_cross_cloud"}  do %>
-				<div class="c_inline">
-					<!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-					<input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
-					<div class="form-group">
-						<div class="row">
-							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
-								<i class="c_ico-excla"></i>
-								<%= text_field_tag 'email', nil, :required => true, :class => 'form-control', placeholder: t('signup.email_tag') %>
-							</div>
-						</div>
-					</div>
+            <div class="cover col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
+                <!-- BEGIN LOGIN FORM -->
+                <%= form_tag sessions_path, multipart: true, :id => "megamform", :class => "sign-form", role: "form", :novalidate => "novalidate", :method => "post", data: { spinlock: "#spin_cross_cloud"}  do %>
+                <div class="c_inline">
+                    <!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
+                                <i class="c_ico-excla"></i>
+                                <%= text_field_tag 'email', nil, :required => true, :class => 'form-control', placeholder: t('signup.email_tag') %>
+                            </div>
+                        </div>
+                    </div>
 
-					<div class="form-group">
-						<div class="row">
-							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
-								<i class="c_ico-excla"></i>
-								<%= password_field_tag 'password', nil, :required => true, :class => 'form-control', placeholder: t('signup.password_tag') %>
-							</div>
-						</div>
-					</div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
+                                <i class="c_ico-excla"></i>
+                                <%= password_field_tag 'password', nil, :required => true, :class => 'form-control', placeholder: t('signup.password_tag') %>
+                            </div>
+                        </div>
+                    </div>
 
-					<div class="row">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
-							<div class="row">
-								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 tour-btn">
-									<span> <a href="signup" id="la-button"><u class="colr-bluegrey"></u><%= t('login.new_user') %></a> </span>
-								</div>
-								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right tour-btn">
-									<span> <a  data-toggle="modal" href="#forgot_password"  class="pull-right"><u class="colr-denimblue"></u><%= t('login.forget_password') %> ?</a> </span>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
+                            <div class="row">
+                                <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 tour-btn">
+                                    <span> <a href="signup" id="la-button"><u class="colr-bluegrey"></u><%= t('login.new_user') %></a> </span>
+                                </div>
+                                <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right tour-btn">
+                                    <span> <a  data-toggle="modal" href="#forgot_password"  class="pull-right"><u class="colr-denimblue"></u><%= t('login.forget_password') %> ?</a> </span>
 
-								</div>
-							</div>
-						</div>
-					</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-					<div class="row">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<div class="row">
-								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 tour-btn">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="row">
+                                <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 tour-btn">
 
-									<button class="btn btn-success btn-plain"><a href="/tour"><%= t('login.tour') %></a></button>
-								</div>
-								<div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right tour-btn">
-									<button type="submit" class="btn btn-success btn-plain-green" data-remote="true"><%= t('titles.login_title') %></button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-							<p class="text-center login-social">
-								<%= t('login.media') %>
-							</p>
-						</div>
-					</div>
+                                    <button class="btn btn-success btn-plain">
+                                        <a href="/tour"><%= t('login.tour') %></a>
+                                    </button>
+                                </div>
+                                <div  class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right tour-btn">
+                                    <button type="submit" class="btn btn-success btn-plain-green" data-remote="true">
+                                        <%= t('titles.login_title') %>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <p class="text-center login-social">
+                                <%= t('login.media') %>
+                            </p>
+                        </div>
+                    </div>
 
-					<div class="row">
-						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 social">
-							<ul class="list-inline text-center">
-								<li>
-									<a href="/auth/github" class="github icon" ></a>
-								</li>
-								<li>
-									<a href="/auth/facebook" class="facebook icon"></a>
-								</li>
-								<li>
-									<a href="/auth/google_oauth2" class="google icon"></a>
-								</li>
-							</ul>
-						</div>
-					</div>
-				</div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 social">
+                            <ul class="list-inline text-center">
+                                <li>
+                                    <a href="/auth/github" class="github icon" ></a>
+                                </li>
+                                <li>
+                                    <a href="/auth/facebook" class="facebook icon"></a>
+                                </li>
+                                <li>
+                                    <a href="/auth/google_oauth2" class="google icon"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-				<% end %>
-				<!-- END REGISTRATION FORM -->
-			</div>
+                <% end %>
+                <!-- END REGISTRATION FORM -->
+            </div>
 
-		</div>
-		<div  class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">
-			<div class="row">
-				<p>
-					<a href="http://enixel.com/" target="_blank"><%= t('login.design') %></a><span class="pull-right"><a href="https://www.megam.io" target="_blank"><%= t('login.megam_io') %></a></span>
-				</p>
-			</div>
-		</div>
-		<!-- END LOGIN -->
-	</div>
+        </div>
+        <div  class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">
+            <div class="row">
+                <p>
+                    <a href="http://enixel.com/" target="_blank"><%= t('login.design') %></a><span class="pull-right"><a href="https://www.megam.io" target="_blank"><%= t('login.megam_io') %></a></span>
+                </p>
+            </div>
+        </div>
+        <!-- END LOGIN -->
+    </div>
 </div>
 
 <!-- Forgot password form modal -->
 <div class="modal fade" id="forgot_password" tabindex="-1" role="basic" aria-hidden="true">
-	<div class="modal-dialog" style="max-width:400px">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title"><%= t('login.forget_password') %></h4>
-			</div>
-			<div class="modal-body">
-				<div class="scroller" style="min-height:200px" data-always-visible="1" data-rail-visible1="1">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="form-group">
-								<%= form_tag password_resets_path, :method => :post, :remote => true, data: { spinlock: '#creating_sshkeys'}  do %>
+    <div class="modal-dialog" style="max-width:400px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"><%= t('login.forget_password') %></h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="min-height:200px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <%= form_tag password_resets_path, :method => :post, :remote => true, data: { spinlock: '#creating_sshkeys'}  do %>
 
-								<label for="ssh-key_name"><%= t('login.reg_mail') %></label>
-								<%= text_field_tag :email, nil, :class => 'form-control', :required => true, placeholder: t('signup.email_tag') %>
-							</div>
+                                <label for="ssh-key_name"><%= t('login.reg_mail') %></label>
+                                <%= text_field_tag :email, nil, :class => 'form-control', :required => true, placeholder: t('signup.email_tag') %>
+                            </div>
 
-							<%= submit_tag t('login.reset_password') , :class => "btn btn-success col-md-12 col-xs-12" %>
-							<% end %>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                            <%= submit_tag t('login.reset_password') , :class => "btn btn-success col-md-12 col-xs-12" %>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="postfinish_reset_password" tabindex="-1" role="basic" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content c_modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title"><%= t('login.reset_password') %></h4>
-			</div>
-			<div class="modal-body text-center">
-				<div>
+    <div class="modal-dialog">
+        <div class="modal-content c_modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"><%= t('login.reset_password') %></h4>
+            </div>
+            <div class="modal-body text-center">
+                <div>
 
-					<p>
-						<%= t('login.reset_password_statement') %>
-					</p>
-				</div>
-			</div>
-			<div class="modal-footer c_modal-footer">
-				<%= link_to  t('ok'), root_path, :class => "btn btn-success", :target => "_self" %>
-			</div>
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
+                    <p>
+                        <%= t('login.reset_password_statement') %>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer c_modal-footer">
+                <%= link_to  t('ok'), root_path, :class => "btn btn-success", :target => "_self" %>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
 
 <div class="modal fade" id="postfinish_reset_password_error" tabindex="-1" role="basic" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content c_modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-				<h4 class="modal-title"><%= t('login.reset_password') %></h4>
-			</div>
-			<div class="modal-body text-center">
-				<div>
+    <div class="modal-dialog">
+        <div class="modal-content c_modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"><%= t('login.reset_password') %></h4>
+            </div>
+            <div class="modal-body text-center">
+                <div>
 
-					<p>
-				<div class="alert alert-danger">
-    <strong><%= t('login.sorry') %></strong><%= t('login.valid_email') %>
+                    <p>
+                        <div class="alert alert-danger">
+                            <strong><%= t('login.sorry') %></strong><%= t('login.valid_email') %>
+                        </div>
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer c_modal-footer">
+                <%= link_to  "Ok", root_path, :class => "btn btn-success", :target => "_self" %>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
 </div>
-					</p>
-				</div>
-			</div>
-			<div class="modal-footer c_modal-footer">
-				<%= link_to  "Ok", root_path, :class => "btn btn-success", :target => "_self" %>
-			</div>
-		</div>
-		<!-- /.modal-content -->
-	</div>
-	<!-- /.modal-dialog -->
-</div>
+

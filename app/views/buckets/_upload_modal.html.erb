@@ -1,0 +1,35 @@
+<!-- App1 modal starts here -->
+<div aria-hidden="true" class="modal fade" id="supload" tabindex="-1">
+    <div class="modal-dialog modal-full" style="max-width:900px;">
+        <div class="modal-content">
+            <div class="modal-header y-files-m-header">                
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Select files</h4>
+            </div>
+            <div class="modal-body app_body upload_app_body">
+                <div class="row">
+                    <div class="col-xs-12" >
+                        <table class="table borderless tb_upload">
+                            <tbody class="tr_upload_list" >                                                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- app_body ends here -->
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <%= form_tag bucketkolkes_path, :id => "gupload", :method => :post, :remote => true, :multipart => true do %>
+                            <a id="brow"><h4 class="pull-left">+ Add More Files</h4></a>
+                            <%= file_field_tag :sobject, :id => 'objectfile', multiple: true %>
+                            <%= hidden_field_tag 'bucket_name', nil, :class=> 'form-control', :id => "bucketName", placeholder: "Bucket Name", :required => true, :value => @bucket_name %>
+                        <% end %>                        
+                        <span class="btn btn-success" data-dismiss="modal" aria-hidden="true">Done</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- App1 ends here -->

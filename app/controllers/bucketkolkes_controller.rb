@@ -25,12 +25,14 @@ class BucketkolkesController < NilavuController
   end
 
   def create
+    params[:id] = params[:bucket_name]
     Backup::BucketObjects.new(params).create(params[:sobject])
     @msg = { message: "#{params[:sobject].original_filename} uploaded successfully. ", disposal_id: 'onebucket_upload' }
   end
 
   def show
     @objects = Backup::BucketObjects.new(params).detail
+    @bucket_name = params[:id]
     respond_with(@objects)
   end
 
