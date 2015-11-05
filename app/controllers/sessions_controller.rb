@@ -36,8 +36,6 @@ class SessionsController < NilavuController
 
   private
   def authenticate(params)
-    puts "___________________________________PARAMS_____________________________________"
-    puts params.inspect
     Api::Accounts.new.authenticate(params) do |acct|
       store_credentials acct
       toast_success(cockpits_path, "Get started. marketplace awaits..")
