@@ -1,0 +1,40 @@
+<div class="col-sm-3 storage-rt-list ">
+  <dl>
+    <h3>Usage</h3>
+    <dt>
+      Total Storage
+    </dt>
+    <dd>
+    <%= @bucket[:total_size] %>
+    </dd>
+    <dt class="margin-top-20"></dt>
+    <dt>
+      Total Buckets
+    </dt>
+    <dd>
+      <%= @bucket[:total_buckets] %>
+    </dd>
+
+    <h3>Billing</h3>
+    <dt>
+      Last billed amount
+    </dt>
+    <dd>
+      2500/- INR
+    </dd>
+    <dt class="margin-top-20"></dt>
+    <dt>
+      Current due
+    </dt>
+    <dd>
+      0/- INR
+    </dd>
+    <dt class="margin-top-20"></dt>
+    <dt>
+      Region
+    </dt>
+    <dd>
+      <%= image_tag "flag_IN.png", :alt => "flag" %> INDIA
+    </dd>
+  </dl>
+</div>

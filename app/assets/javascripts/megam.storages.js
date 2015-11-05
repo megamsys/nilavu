@@ -13,6 +13,7 @@ $(document).ready(function() {
 		$('.storage_left_add_inner').slideToggle();
 	});
 	// $('.storage-popup').hide();
+
 	// storage overview pop up menu
 	$('.my_bucket_inner').bind('contextmenu', function(e) {
 		e.preventDefault();
@@ -59,10 +60,13 @@ $(document).ready(function() {
 
 			//var tpl = $('<li class="working"><input type="text" value="0" data-width="48" data-height="48"' + ' data-fgColor="#0788a5" data-readOnly="1" data-bgColor="#3e4043" /><p></p><div id="spin"></div><span></span></li>');
 
-			var tpl = $('<tr class="working"><td class="td-left"><i class="pop_icon c_icon-png"></i><b></b><i id="filesize"></i></td><td class="td-left pull-right m_icons"><i class="close_red"></i></td><td class="td-left pull-right"><i id="spin"></i></td></tr>');
+			var tpl = $('<tr class="working"><td class="td-left"><i id="format_icons" class="pop_icon"></i><b></b><i id="filesize"></i></td><td class="td-left pull-right m_icons"><i class="close_red"></i></td><td class="td-left pull-right"><i id="spin"></i></td></tr>');
 
 			// Append the file name and file size
-			tpl.find('b').text(data.files[0].name)
+			tpl.find('b').text(data.files[0].name);
+			var nameSplit = data.files[0].name.split('.');
+			tpl.find("#format_icons").addClass(formatFileIcons(nameSplit[nameSplit.length - 1]));
+
 			tpl.find('#filesize').text(' - ' + formatFileSize(data.files[0].size));
 
 			// Add the HTML to the UL element
@@ -116,6 +120,19 @@ $(document).ready(function() {
 		}
 	});
 
+	/*$('.objectPageList .objectListTd').load('.objectListTd', function() {
+		var $this = $(this);
+		var nameSplit = $this.attr('id').split('.');
+		$this.find('#objectFormat').addClass(formatFileIcons(nameSplit[nameSplit.length - 1]));
+	});
+	
+	
+	//set objects page format icons
+	function setObjectListFormat(name) {
+		var nameSplit = name.split('.');
+		$("#objectFormat_" + name).addClass(formatFileIcons(nameSplit[nameSplit.length - 1]));
+	}*/
+
 	// Helper function that formats the file sizes
 	function formatFileSize(bytes) {
 		if ( typeof bytes !== 'number') {
@@ -132,5 +149,21 @@ $(document).ready(function() {
 
 		return (bytes / 1000).toFixed(2) + ' KB';
 	};
+
+	function formatFileIcons(name) {
+		if (name == '7z' || name == 'cbz' || name == 'cpio' || name == 'exe' || name == 'war' || name == 'iso' || name == 'ar' || name == 'tar.gz' || name == 'tar.Z' || name == 'tar.bz2' || name == 'tar.7z' || name == 'tar.lz' || name == 'tar.xz' || name == 'tar' || name == 'zip' || name == 'tgz' || name == 'rar' || name == 'jar' || name == 'gzip' || name == 'gz' || name == 'bz2') {
+			return 'c_icon-zip'
+		} else if (name == 'csv' || name == 'doc' || name == 'docx' || name == 'eml' || name == 'eps' || name == 'html' || name == 'html4' || name == 'html5' || name == 'key' || name == 'odp' || name == 'ods' || name == 'odt' || name == 'pdf' || name == 'ppt' || name == 'pst' || name == 'txt' || name == 'xml' || name == 'xps') {
+			return 'c_icon-text'
+		} else if (name == 'arw' || name == 'bmp' || name == 'cdr' || name == 'cr2' || name == 'crw' || name == 'dng' || name == 'erf' || name == 'gif' || name == 'ico' || name == 'jpg' || name == 'mdi' || name == 'mef' || name == 'mrw' || name == 'nef' || name == 'odg' || name == 'orf' || name == 'pcx' || name == 'pef' || name == 'ppm' || name == 'psd' || name == 'raf' || name == 'raw' || name == 'sr2' || name == 'tga' || name == 'thumbnail' || name == 'tiff' || name == 'wbmp' || name == 'webp' || name == 'wmf' || name == 'x3f' || name == 'xcf') {
+			return 'c_icon-jpg'
+		} else if (name == 'png') {
+			return 'c_icon-png'
+		} else if (name == 'svg') {
+			return 'c_icon-svg'
+		} else {
+			return 'c_icon-text'
+		}
+	}
 
 });
