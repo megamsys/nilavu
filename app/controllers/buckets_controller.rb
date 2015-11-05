@@ -32,8 +32,8 @@ class BucketsController < NilavuController
 
   def show
     logger.debug '> Buckets: show.'
-    @objects = BucketObjects.new(params).list_detail
-    @bucket_name = params["id"]
+    #@objects = BucketObjects.new(params).list_detail
+    #@bucket_name = params["id"]
   end
 
   def destroy
