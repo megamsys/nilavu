@@ -4,8 +4,8 @@ module Backup
 
     def initialize(params)
       super(params)
+      @bucket = find_bucket(params[:bucket_name])
       #@bucket = find_bucket(params[:id])
-      @bucket = find_bucket("u_ajax")
       @bucketobjects = list
     end
 

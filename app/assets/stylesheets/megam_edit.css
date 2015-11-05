@@ -390,6 +390,18 @@
     background-color:#0986a3;
 }
 
+.m_icons{   
+    cursor:pointer;   
+}
+
+.app_body {
+  display: block !important;
+  overflow: auto !important;
+  width: 100% !important;
+  height: 300px !important;
+  overflow-y: scroll !important;
+    overflow-x: hidden !important;
+}
 
 
 /*

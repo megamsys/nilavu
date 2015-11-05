@@ -46,7 +46,6 @@ module SessionsHelper
 
   # Store the cephgw storage access_key and secret_key
   def store_ceph_credentials(ceph)
-    puts "------------ #{ceph}"
     session[:ceph_access_key] = ceph['access_key']
     session[:ceph_secret_key] = ceph['secret_key']
   end
