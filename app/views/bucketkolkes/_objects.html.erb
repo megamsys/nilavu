@@ -13,8 +13,6 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<% content_for :content_settings do %>
-<% provide(:title, "Buckets") %>
 
 <div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
 
@@ -23,9 +21,6 @@
 	<!--	<%= react_component('Show' )  %> -->
   <div class="col-xs-12 col-sm-9 col-md-9 br_grey">
   <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-      <div class="bottom-divider"></div>
-    </div>
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
       <table class="table yfiles-tb tb_upload">
         <tbody>
@@ -53,6 +48,5 @@
     </div>
   </div>
 </div>
+<%= render :partial => "bucketkolkes/usage", :locals => {:bucket => @bucket} %>
 </div>
-<% end %>
-<%= render :template => "users/show" %>

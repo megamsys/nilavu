@@ -69,6 +69,7 @@ module Api
     def load(api_params)
       api_request(MARKETPLACES, LIST,api_params)[:body] if @mkp_grouped.empty?
     end
+
     def group(raw)
       @mkp_grouped = Hash[raw.group_by(&:order).map { |k, v| [k, v.map { |h| h }] }].sort unless raw.nil?
     end

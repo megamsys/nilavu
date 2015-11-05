@@ -41,9 +41,9 @@
 
               <li id="storage_top_right">
                 <%  if Ind.backup.enable %>
-                <%= link_to buckets_path , :data => {:remote => true}, :class => "socket_disconnect", :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
-                <i class="c_icon-grid-25 pull-left"></i>
-                <span class="hidden-xs hidden-sm pull-right"><%= t('titles.storage_title') %></span>
+                 <%= link_to buckets_path , :data => {:remote => true}, :class => "socket_disconnect", :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                <!--<a data-toggle="modal" href="#obj_upload"><i class="c_icon-grid-25 pull-left"></i>-->
+                <span class="hidden-xs hidden-sm pull-right"><%= t('titles.storage_title') %></span></a>
                 <% end %>
                 <% end %>
               </li>
@@ -85,11 +85,11 @@
 <!-- END RESPONSIVE MENU TOGGLER -->
           </div>
         </div>
-
+        </div>
       </div>
     </div>
 <!-- END TOP NAVIGATION BAR -->
   </div>
-</div>
+
 
 <!-- END HEADER -->

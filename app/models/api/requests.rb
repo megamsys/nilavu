@@ -24,7 +24,7 @@ module Api
     #This  creates a /requests
     # used during CREATION and DELETE
     def reqs(api_params, &block)
-      raw = api_request(REQUESTS, CREATE,api_params)
+      raw = api_request(REQUESTS, CREATE, api_params)
       @req_submitted = raw[:body]
       yield self if block_given?
       return self

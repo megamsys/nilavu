@@ -11,7 +11,7 @@ module Backup
     def list
       bucket.objects
     end
-    
+
    #i don't know where this is used.
     def detail
       bucketobjects.map { |bobject| parse(find_object(bobject))}

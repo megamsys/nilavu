@@ -16,6 +16,4 @@
 
 $('#<%= @dmsg[:disposal_id] %>').modal('hide');
 
-$('#cockpit').append("<%= escape_javascript render(:partial => 'catalogs/flydeletemodal', :locals => {:dmsg => @dmsg}) %>");
-
-$("#megam_flydeletemodal").modal('show');
+("<%= toast_success(root_url, "#{params['action'].camelize} #{params['name']} submitted successfully. ")  %>");
