@@ -1033,12 +1033,12 @@ i.normal {
 }
 .portlet-title a {
     color: #5a97cf !important;
-}  
+}
 .portlet-title a:hover {
 
     text-decoration: underline;
     color: #5a97cf !important;
-}  
+}
 .portlet.box > .portlet-title > .tools {
     margin-top: 3px;
 }
@@ -2928,7 +2928,7 @@ input.placeholder, textarea.placeholder {
 }
 .rt-top-list {
     margin-top: 10px !important;
- }   
+ }
 .title-2{
     color: #a4a6b8;
     /*font-weight: bold;*/
@@ -2936,7 +2936,7 @@ input.placeholder, textarea.placeholder {
     margin-left: 10px;
 }
 .title-3{
-    color: #a4a6b8;  
+    color: #a4a6b8;
     font-size: 18px;
 }
 .new-org {
@@ -2976,7 +2976,7 @@ h3{
 }
 .signUp h3 small{
     line-height: 20px
-}    
+}
 
 .signUp input[type="text"], .signUp input[type="password"] {
     border: 1px solid #fff;
@@ -2984,7 +2984,7 @@ h3{
     color: #fff !important;
     font-size: 18px;
     /* Other stuff: font-weight, font-size */
-} 
+}
 .signUp .bottom {
     margin-top: 30px;
     font-size: 18px;
@@ -3090,7 +3090,7 @@ h3{
 .storage-popup{
     width:200px;
     /*height:200px; */
-    position:absolute; 
+    position:absolute;
     background-color: #fff;
     display: none;
     border:1px solid #dadce8;
