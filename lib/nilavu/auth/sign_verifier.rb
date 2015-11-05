@@ -22,6 +22,7 @@ module Nilavu
 
       private
       def decrypt(password)
+        @password = BCrypt::Password.create(password)
         BCrypt::Password.new(password)
       rescue BCrypt::Errors::InvalidHash
         raise InvalidPasswordFailure, 'Au oh!, The password you entered is incorrect.'

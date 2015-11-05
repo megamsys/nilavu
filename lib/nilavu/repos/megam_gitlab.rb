@@ -1,6 +1,6 @@
 module Nilavu
   module Repos
-    class Github < Repository
+    class MegamGitlub < Repository
       attr_reader :username, :password
 
       def initialize(username, password)

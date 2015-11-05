@@ -79,7 +79,7 @@ class MarketplacesController < NilavuController
   end
 
   def publish_github
-    Nilavu::Repos::Github.new(session[:github]).tap do |gh|
+    Nilavu::Repos::MegamGithub.new(session[:github]).tap do |gh|
       @repos = gh.repos
       respond_to do |format|
         format.js do
@@ -94,7 +94,7 @@ class MarketplacesController < NilavuController
   end
 
   def store_gitlab
-    Nilavu::Repos::Gitlab.new(params[:gitlab_username], params[:gitlab_password]).tap do |gl|
+    Nilavu::Repos::MegamGitlab.new(params[:gitlab_username], params[:gitlab_password]).tap do |gl|
       session[:gitlab_repos] = gl.repos
       session[:gitlab_key] = gl.token.private_token
     end
