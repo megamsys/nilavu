@@ -32,8 +32,8 @@ $(document).ready(function() {
 		}
 	});
 
-   //jquery file upload with loader.gif
-    $('#gupload #objectfile').hide();
+	//jquery file upload with loader.gif
+	$('#gupload #objectfile').hide();
 	var ul = $('.tr_upload_list');
 	$('#brow').click(function() {
 		// Simulate a click on the file input button
@@ -45,6 +45,11 @@ $(document).ready(function() {
 	// Initialize the jQuery FilebUpload plugin
 	$('#gupload').fileupload({
 
+		//set timeout
+		//timeout: 150000000,
+
+		//maxChunkSize: 10000000000,
+
 		// This element will accept file drag/drop uploading
 		dropZone : $('#drop'),
 
@@ -53,15 +58,15 @@ $(document).ready(function() {
 		add : function(e, data) {
 
 			//var tpl = $('<li class="working"><input type="text" value="0" data-width="48" data-height="48"' + ' data-fgColor="#0788a5" data-readOnly="1" data-bgColor="#3e4043" /><p></p><div id="spin"></div><span></span></li>');
-            
-            var tpl = $('<tr class="working"><td class="td-left"><i class="pop_icon c_icon-png"></i><b></b><i id="filesize"></i></td><td class="td-left pull-right m_icons"><i class="close_red"></i></td><td class="td-left pull-right"><i id="spin"></i></td></tr>');
-			
+
+			var tpl = $('<tr class="working"><td class="td-left"><i class="pop_icon c_icon-png"></i><b></b><i id="filesize"></i></td><td class="td-left pull-right m_icons"><i class="close_red"></i></td><td class="td-left pull-right"><i id="spin"></i></td></tr>');
+
 			// Append the file name and file size
 			tpl.find('b').text(data.files[0].name)
-			tpl.find('#filesize').text(' - '+formatFileSize(data.files[0].size));
+			tpl.find('#filesize').text(' - ' + formatFileSize(data.files[0].size));
 
 			// Add the HTML to the UL element
-			data.context = tpl.appendTo(ul);			
+			data.context = tpl.appendTo(ul);
 
 			tpl.find('#spin').html('<img src="assets/loader.gif" alt="Wait" />');
 
@@ -109,7 +114,7 @@ $(document).ready(function() {
 			data.context.addClass('error');
 			data.context.find("#spin").hide();
 		}
-	});	
+	});
 
 	// Helper function that formats the file sizes
 	function formatFileSize(bytes) {
@@ -127,6 +132,5 @@ $(document).ready(function() {
 
 		return (bytes / 1000).toFixed(2) + ' KB';
 	};
-	
 
 });
