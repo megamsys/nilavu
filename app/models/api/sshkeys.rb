@@ -38,7 +38,7 @@ module Api
     # can be used during a launch or sshkey creation.
     def create_or_import(api_params)
       api_params[:name] = api_params[:ssh_keypair_name] ||= Api::Sshkeys::SAAVI
-      api_params[:path] = api_params[:email] + '_' + api_params[:name]
+      api_params[:sshkey] = api_params[:email] + '_' + api_params[:name]
       case api_params[:sshoption]
       when NEW
         create(api_params)
