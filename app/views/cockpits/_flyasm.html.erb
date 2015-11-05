@@ -33,16 +33,17 @@
                 </div>
                 <div class="row app_icon">
                   <h5><%= assembly.name %></h5>
-                  <% assembly_name = if assembly.name.size > 10 then assembly.name.slice(0,5) + "..." else assembly.name end %>
+                  <% assembly_name = assembly.name + ".megambox.com" %>
+                  <% assembly_name = if assembly_name.size > 10 then assembly_name.slice(0,15) + "..." else assembly_name end %>
                   <% case cattype.upcase %>
                   <% when Api::Assemblies::TORPEDO %>
-                  <%= link_to assembly.name + ".megambox.com", onetorpedos_path(:id => assembly.id), :data => {:remote => true} %>
+                  <%= link_to assembly_name, onetorpedos_path(:id => assembly.id), :data => {:remote => true} %>
                   <% when Api::Assemblies::APP %>
-                  <%= link_to assembly.name + ".megambox.com", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
+                  <%= link_to assembly_name, oneapps_path(:id => assembly.id), :data => {:remote => true} %>
                   <% when Api::Assemblies::SERVICE %>
-                  <%= link_to assembly.name + ".megambox.com", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
+                  <%= link_to assembly_name, oneservices_path(:id => assembly.id), :data => {:remote => true} %>
                    <% when Api::Assemblies::MICROSERVICES %>
-                  <%= link_to assembly.name + ".megambox.com", onemicroservices_path(:id => assembly.id), :data => {:remote => true} %>
+                  <%= link_to assembly_name, onemicroservices_path(:id => assembly.id), :data => {:remote => true} %>
               <% end %>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                   <ul class="list-inline app_icon_bottom">
@@ -55,17 +56,17 @@
                 </div>
               </div>
             </div>
-            <div class="app_footer">
+            <div class="app_footer_padding">
               <i class="circle_green"></i>
               <span><%= assembly.status.capitalize %></span>
-              <a href="http://docs.megam.io" target="_blank" ><i class="c_icon-dashwindow pull-right" style="color:blue"></i></a>
-              <i class="c_icon-dashstar pull-right"></i>
+              <a href="http://docs.megam.io" target="_blank" ><i class="c_icon-window pull-right" style="padding-top:20px"></i></a>
+              <i class="c_icon-star pull-right" style="padding-right:30px"></i>
             </div>
           </div>
         </div>
       </div>
     <% else %>
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover">
+      <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover">
         <div class="app_inner">
           <div class="app">
             <div class="app_head">
@@ -84,11 +85,11 @@
                 </div>
               </div>
             </div>
-            <div class="app_footer">
+            <div class="app_footer_padding">
               <i class="circle_red"></i>
               <span><%= assembly.status.capitalize %></span>
-              <i class="c_icon-dashwindow pull-right" style="color:blue"></i>
-              <i class="c_icon-dashstar pull-right"></i>
+              <a href="http://docs.megam.io" target="_blank" ><i class="c_icon-window pull-right" style="padding-top:20px"></i></a>
+              <i class="c_icon-star pull-right" style="padding-right:30px"></i>
             </div>
           </div>
         </div>

@@ -26,7 +26,7 @@ class SessionsController < NilavuController
   # this is a fake tour user who can only touch some stuff.
   def tour
     authenticate({:email => Nilavu::Constants::MEGAM_TOUR_EMAIL,
-    :password => Nilavu::Constants::MEGAM_TOUR_PASSWORD })
+    :password => Nilavu::Constants::MEGAM_TOUR_PASSWORD})
   end
 
   def destroy
@@ -36,6 +36,8 @@ class SessionsController < NilavuController
 
   private
   def authenticate(params)
+    puts "___________________________________PARAMS_____________________________________"
+    puts params.inspect
     Api::Accounts.new.authenticate(params) do |acct|
       store_credentials acct
       toast_success(cockpits_path, "Get started. marketplace awaits..")
