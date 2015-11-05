@@ -50,7 +50,7 @@ module Api
     #                                   Analytics
     def list(api_params, &_block)
       Rails.logger.debug "\033[36m>-- MKP'S: START\33[0m"
-      @mkp_grouped = group(load(api_params))
+      @mkp = group(load(api_params))
       Rails.logger.debug "\033[1m#{@mkp_grouped.to_yaml}\33[22m"
       Rails.logger.debug "\033[36m>-- MKP'S: END\033[0m"
       yield self if block_given?
