@@ -1,10 +1,10 @@
 module Nilavu
   module Repos
-    class Github < Repository
+    class MegamGithub < Repository
       attr_reader :client, :token
       def initialize(tok)
-        token tok
-        @client = Github.new oauth_token: token
+        #token(tok)
+        @client = Github.new oauth_token: tok
       end
 
       ##
