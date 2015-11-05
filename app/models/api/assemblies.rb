@@ -33,7 +33,7 @@ module Api
     RESTART             =  'restart'.freeze
     REBOOT              =  'reboot'.freeze
     DESTROY             =  'delete'.freeze
-    TERMINATED          =  'Terminated'.freeze
+    TERMINATED          =  'destroying'.freeze
     LAUNCHING           =  'LAUNCHING'.freeze
     SOURCE              = 'source'.freeze
     DOCKERCONTAINER     = 'DockerContainer'.freeze
@@ -93,7 +93,6 @@ module Api
         a1 = one_assemblies.assemblies.map do |one_assembly|
           unless one_assembly.empty?
             Api::Assembly.new.show(api_params.merge(id: one_assembly, asms_id: one_assemblies.id)).by_cattypes
-
           end
         end
         a1.reduce { |acc, h| acc.merge(h || {}) }

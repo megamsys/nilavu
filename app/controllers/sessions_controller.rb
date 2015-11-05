@@ -26,7 +26,7 @@ class SessionsController < NilavuController
   # this is a fake tour user who can only touch some stuff.
   def tour
     authenticate({:email => Nilavu::Constants::MEGAM_TOUR_EMAIL,
-    :password => Nilavu::Constants::MEGAM_TOUR_PASSWORD })
+    :password => Nilavu::Constants::MEGAM_TOUR_PASSWORD})
   end
 
   def destroy
