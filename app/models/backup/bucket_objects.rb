@@ -61,10 +61,10 @@ module Backup
         :download_url => "#{bobject.temporary_url}"
       }
     end
-    
+
     def total
       @saved_object_size ||= @saved_object_size.reduce(:+)
     end
-    
+
   end
 end
