@@ -44,6 +44,18 @@
       </script>
     </head>
     <body>
+
+<% if flash[:toastr] %>
+  <script type="text/javascript">
+  (function ($) {
+    $.msg = "<%= flash[:toastr] %>";
+  })($);
+//Working positions toast-bottom-full-width, toast-top-left, toast-top-center, toast-top-right 
+//Default toastr.options.positionClass = "toast-top-right";
+      toastr.<%= flash[:type] %>($.msg);
+  </script>
+<% end %>
+
       <%= render 'toastr_rails/flash' %>
       <div id="cockpit">
         <%= yield %>
