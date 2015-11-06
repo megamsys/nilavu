@@ -4,34 +4,26 @@ defaults: &defaults
   locale: en
 ## Name of the nilavu server
 ##
-## Default: console.megam.io
+## Default: localhost
 ##
 ## Acceptable values:
 ##   - text
-  nilavu: console.megam.io
+  nilavu: localhost
 ## database backend is a host that the nilavu will connect to
 ## for getting information about an account (:will be removed in 1.x)
 ##
 ## Acceptable values:
-##   - text, e.g. localhost, console.megam.io. ipaddress
-  riak: 103.56.92.28
+##   - text, e.g. localhost
+  riak: localhost
 ## The gateway - API server nilavu connects to.
 ## Acceptable values:
 ##    - text, e.g. localhost, api.megam.io, ipaddress
-  http_api: 103.56.92.41
+  http_api: localhost
 ## http_logs is a host that the nilavu will connect to for real time log streaming
 ##
 ## Acceptable values:
 ##   - text, e.g. localhost, api.megam.io
   http_logs: localhost:7777/logs
-## private.gitlab is a boolean flag that indicates if gitlab is configured or not.
-## Default: off
-  private_gitlab: off
-# http_gitlabs is a host that the nilavu will connect to for pulling data from gitlab  repositories
-##
-## Acceptable values: http://url
-#   - text, e.g. http://localhost, http:/api.megam.io
-  http_gitlab: http://gitlab.megam.io/api/v3
 # Enable billing, turn it off for testing.
 ## Acceptable values:
 ##   - text, e.g. on or off
@@ -39,9 +31,17 @@ defaults: &defaults
 ## Backup ceph storage, host, adminuser, admin password.
   backup:
     enable: off
-    host: 192.168.1.102
+    host: localhost
     username: megdc
     password: randompw
+## private.gitlab is a boolean flag that indicates if gitlab is configured or not.
+## Default: off
+  private_gitlab: off
+# http_gitlabs is a host that the nilavu will connect to for pulling data from gitlab  repositories
+##
+## Acceptable values: http://url
+#   - text, e.g. http://localhost, http:/api.megam.io
+  http_gitlab: http://localhost/api/v3
 # notification section notifies the handlers based on_trigger conditions.
 ## 1. on_error: When an error occurs then notify dev support via an email to support@megam.io and hipchat. A notification
 ## via email happens if the configuration for [email:] exists.
