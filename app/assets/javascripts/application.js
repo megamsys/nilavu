@@ -36,6 +36,8 @@
 //= require jquery.ui.widget
 //= require jquery.fileupload
 //= require socket.io
+//= require jquery.ui.widget
+//= require jquery.fileupload
 //= require zeroclipboard
 //= require toastr_rails
 //= require_tree .
