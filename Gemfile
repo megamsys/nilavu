@@ -6,7 +6,7 @@ gem 'json', '~> 1.8.3'
 gem 'net-ssh'
 
 #rails
-gem 'rails', '~> 4.2.5.rc1'
+gem 'rails', '~> 4.2.5.rc2'
 gem 'rails-i18n', '~> 4.0.6' # For 4.0.x
 gem 'protected_attributes', '~> 1.1.3' # transition to rails 4.2.x
 gem 'responders', '~> 2.1.0' # transition to rails 4.2.x
@@ -16,7 +16,7 @@ gem 'responders', '~> 2.1.0' # transition to rails 4.2.x
 gem 'jquery-rails', '~> 4.0.5'
 gem 'turbolinks', '~> 2.5.3'
 gem 'jquery-turbolinks', '~> 2.1.0'
-gem 'react-rails', '~> 1.4.1'
+gem 'react-rails', '~> 1.4.2'
 gem 'sass-rails', '~> 5.0.4'
 gem 'remotipart', '~> 1.2.1' # ajax file uploads (sshkey)
 gem 'socket.io-rails', '~> 1.3.7' # websocket streaming
@@ -32,7 +32,7 @@ gem 'oauth2', '~> 1.0.0'
 gem 'oauth', '~> 0.4.7'
 gem 'omniauth-oauth2', '~> 1.3.1'
 gem 'omniauth-facebook', '~> 3.0.0'
-gem 'omniauth-google-oauth2', '~> 0.2.9'
+gem 'omniauth-google-oauth2', '~> 0.2.10'
 gem 'omniauth-github', '~> 1.1.2'
 
 # 3rd party system api's
