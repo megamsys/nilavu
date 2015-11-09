@@ -11,8 +11,6 @@ class BackupService
 
 
   def initialize(parms)
-    puts "-- backup parms #{parms}"
-
     @cephs3 = S3::Service.new(access_key_id: parms[:ceph_access_key],
     secret_access_key: parms[:ceph_secret_key], host: endpoint)
     @buckets = cephs3.buckets
