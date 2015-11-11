@@ -44,7 +44,7 @@
               </ul>
             </li>
             <li class="start active">
-              <%= link_to cockpits_path, :data => { :remote => true}, :target => "_self" do %>
+              <%= link_to cockpits_path, id: "side-dash-link", :data => { :remote => true}, :target => "_self" do %>
               <i class="c_icon-db pull-left"></i>
               <span class="title pull-left"><%= t('titles.dashboard_title') %></span>
               <% end %>
@@ -106,5 +106,10 @@ $(document).ready(function () {
     'html': 'true'
   });
 });
+
+    $('#side-dash-link').click(function(e) {
+        e.stopPropagation();
+    });
+
 
 </script>
