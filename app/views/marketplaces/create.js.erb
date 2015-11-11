@@ -1,7 +1,0 @@
-$('#<%= @msg[:disposal_id] %>').modal('toggle');
-
-$('#cockpit').append("<%= escape_javascript render(:partial => 'catalogs/flymodal', :locals => {:msg => @msg}) %>");
-$("#megam_flymodal").modal('show');
-
-
-//toastr.success('Launch sequence initiated')

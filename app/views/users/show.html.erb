@@ -32,12 +32,14 @@
               </a>
               <ul class="storage_left_add_inner">
                 <li>
-                  <a href="">
-                    <i class="c_icon-apps-white pull-left"></i>New App</a>
+              <%= link_to marketplaces_path, :data => { :remote => true} do %>
+              <i class="c_icon-apps-white pull-left"></i>New App
+              <% end %>
                 </li>
                 <li>
-                  <a href="#">
-                    <i class="c_icon-service-white pull-left"></i>New Service</a>
+              <%= link_to marketplaces_path, :data => { :remote => true} do %>
+              <i class="c_icon-service-white pull-left"></i>New Service
+              <% end %>
                 </li>
               </ul>
             </li>
@@ -105,9 +107,4 @@ $(document).ready(function () {
   });
 });
 
-  $('.storage_left_add_inner').hide();
-  $('.storage_left_add a')
-    .click(function () {
-      $('.storage_left_add_inner').slideToggle();
-    });
 </script>

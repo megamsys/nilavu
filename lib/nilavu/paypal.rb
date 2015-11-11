@@ -27,8 +27,8 @@ class Paypal
       payment_method: 'paypal' },
       # ###Redirect URLs
       redirect_urls: {
-        return_url: "https://#{Ind.nilavu}/notify_payment",
-        cancel_url: "https://#{Ind.nilavu}" },
+        return_url: "#{Ind.nilavu}/notify_payment",
+        cancel_url: "#{Ind.nilavu}" },
 
       # ###Transaction
       # A transaction defines the contract of a

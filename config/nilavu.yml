@@ -8,7 +8,8 @@ defaults: &defaults
 ##
 ## Acceptable values:
 ##   - text
-  nilavu: localhost
+## Welcome email contails this url
+  nilavu: https://console.megam.io
 ## database backend is a host that the nilavu will connect to
 ## for getting information about an account (:will be removed in 1.x)
 ##
