@@ -144,7 +144,7 @@
                                 <%= form_tag password_resets_path, :method => :post, :remote => true, data: { spinlock: '#creating_sshkeys'}  do %>
 
                                 <label for="ssh-key_name"><%= t('login.reg_mail') %></label>
-                                <%= text_field_tag :reset_email, nil, :class => 'form-control', :required => true, placeholder: t('signup.email_tag') %>
+                                <%= text_field_tag :email, nil, :class => 'form-control', :required => true, placeholder: t('signup.email_tag') %>
                             </div>
 
                             <%= submit_tag t('login.reset_password') , :class => "btn btn-success col-md-12 col-xs-12" %>
