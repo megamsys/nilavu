@@ -38,13 +38,11 @@
                 <!-- BEGIN LOGIN FORM -->
                 <%= form_tag sessions_path, multipart: true, :id => "megamform", :class => "sign-form", role: "form", :novalidate => "novalidate", :method => "post", data: { spinlock: "#spin_cross_cloud"}  do %>
                 <div class="c_inline">
-                    <!-- <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email"> -->
                     <div class="form-group">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
                                 <i class="c_ico-excla"></i>
-                                <%= text_field_tag 'email', nil, :required => true, :class => 'form-control', placeholder: t('signup.email_tag') %>
+                                <%= text_field_tag :email, nil, :required => true, :class => 'form-control', placeholder: t('signup.email_tag') %>
                             </div>
                         </div>
                     </div>
@@ -146,7 +144,7 @@
                                 <%= form_tag password_resets_path, :method => :post, :remote => true, data: { spinlock: '#creating_sshkeys'}  do %>
 
                                 <label for="ssh-key_name"><%= t('login.reg_mail') %></label>
-                                <%= text_field_tag :email, nil, :class => 'form-control', :required => true, placeholder: t('signup.email_tag') %>
+                                <%= text_field_tag :reset_email, nil, :class => 'form-control', :required => true, placeholder: t('signup.email_tag') %>
                             </div>
 
                             <%= submit_tag t('login.reset_password') , :class => "btn btn-success col-md-12 col-xs-12" %>
@@ -208,4 +206,3 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-
