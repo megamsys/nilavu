@@ -24,11 +24,7 @@ module Api
     #This  creates a /requests
     # used during CREATION and DELETE
     def reqs(api_params, &block)
-      puts "--------------REQ----------------"
-      puts api_params.inspect
       raw = api_request(REQUESTS, CREATE, api_params)
-      puts "--------------REQUEST----------"
-      puts raw.inspect
       @req_submitted = raw[:body]
       yield self if block_given?
       return self
