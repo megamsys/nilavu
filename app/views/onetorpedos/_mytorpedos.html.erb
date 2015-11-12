@@ -64,17 +64,14 @@
           <%= t('overviews.not_get_ip') if ip == "" %></dd>
           <dt class="margin-top-20"></dt>
           <dt>URL</dt>
-                            <dd>megam.com <i class="c_icon-form"></i></dd>
-
-
         <dt class="margin-top-20"></dt>
         <dt>Region</dt>
         <dd><img src="assets/flag_IN.png">
           INDIA</dd>
-
       </dl>
     </div>
   </div>
   </div>
+
   <% end %>
   <%= render :template => "catalogs/show", :locals => {:cattype => Api::Assemblies::TORPEDO} %>
