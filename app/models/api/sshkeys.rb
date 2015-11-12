@@ -93,15 +93,15 @@ module Api
     # For Riak_we upload the key in the format email_ssh_key_name along with the content type
     def upload_on_import(api_params)
       riak = Nilavu::DB::GSRiak.new(SSH_FILES_BUCKET)
-      riak.upload(keypub(api_params),api_params[:ssh_private_key].read, api_params[:ssh_private_key].content_type)
-      riak.upload(keypriv(api_params),api_params[:ssh_public_key].read, api_params[:ssh_public_key].content_type)
+      riak.upload(keypub(api_params),api_params[:ssh_public_key].read, api_params[:ssh_public_key].content_type)
+      riak.upload(keypriv(api_params),api_params[:ssh_private_key].read, api_params[:ssh_private_key].content_type)
     end
 
     # For Riak_we import the key in the format email_ssh_key_name along with the static content type
     def upload_on_creation(api_params)
       riak = Nilavu::DB::GSRiak.new(SSH_FILES_BUCKET)
-      riak.upload(keypub(api_params), api_params[:ssh_private_key], PRIV_CONTENT_TYPE)
-      riak.upload(keypriv(api_params), api_params[:ssh_public_key], PUB_CONTENT_TYPE)
+      riak.upload(keypub(api_params), api_params[:ssh_public_key], PRIV_CONTENT_TYPE)
+      riak.upload(keypriv(api_params), api_params[:ssh_private_key], PUB_CONTENT_TYPE)
     end
 
     def keypub(api_params)
