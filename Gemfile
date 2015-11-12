@@ -11,7 +11,6 @@ gem 'rails-i18n', '~> 4.0.6' # For 4.0.x
 gem 'protected_attributes', '~> 1.1.3' # transition to rails 4.2.x
 gem 'responders', '~> 2.1.0' # transition to rails 4.2.x
 
-
 # ui - (sass, react, growl, websocket)
 gem 'jquery-rails', '~> 4.0.5'
 gem 'turbolinks', '~> 2.5.3'
