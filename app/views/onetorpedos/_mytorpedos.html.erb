@@ -59,22 +59,43 @@
         <dt class="margin-top-20"></dt>
         <dt>
           <%= t('overviews.ip') %></dt>
-        <dd><% ip = parse_key_value_pair(assembly.outputs, "ip") %>
+          <dd><% ip = parse_key_value_pair(assembly.outputs, "ip") %>
           <%= ip if ip != "" %>
           <%= t('overviews.not_get_ip') if ip == "" %></dd>
           <dt class="margin-top-20"></dt>
           <dt>URL</dt>
-                            <dd>megam.com <i class="c_icon-form"></i></dd>
-
-
+          <textarea cols='25' id='torpedo_link'>megam.com</textarea><dd><i class="my_clip c_icon-form" data-clipboard-target='torpedo_link' title='Click me to copy to clipboard.'></i></dd>
         <dt class="margin-top-20"></dt>
         <dt>Region</dt>
         <dd><img src="assets/flag_IN.png">
           INDIA</dd>
-
       </dl>
     </div>
   </div>
   </div>
+  <div class='demo-area'>
+<button class='my_clip_button' data-clipboard-target='fe_text' data-clipboard-text='Default clipboard text from attribute' id='d_clip_button' title='Click me to copy to clipboard.'>
+<b>Copy To Clipboard...</b>
+</button>
+<textarea cols='50' id='fe_text'>Copy me!</textarea>
+<h4>
+<label for='testarea'>Paste Text Here</label>
+</h4>
+<textarea cols='50' id='testarea' rows='3'></textarea>
+<p>
+<button id='clear-test'>Clear Test Area</button>
+</p>
+</div>
   <% end %>
   <%= render :template => "catalogs/show", :locals => {:cattype => Api::Assemblies::TORPEDO} %>
+
+  <script type="text/javascript">
+  $(document).ready(function() {
+  var clip = new ZeroClipboard($("#d_clip_button"))
+});
+
+$("#clear-test").on("click", function(){
+  $("#fe_text").val("Copy me!");
+  $("#testarea").val("");
+});
+  </script>
