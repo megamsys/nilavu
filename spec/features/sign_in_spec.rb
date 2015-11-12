@@ -1,11 +1,12 @@
 require "rails_helper"
 
-RSpec.feature "Users can signin" do
-  let!(:Test) { FactoryGirl.create(:Test) }
+RSpec.feature "Users can signin", :type => :feature do
+  #let!(:user) { FactoryGirl.create(:user) }
+  user = FactoryGirl.create(:user)
 
   scenario "with valid attributes" do
     visit "/signin"
-    fill_in "Email", :with => Test.email
+    fill_in "Email", :with => user.email
     fill_in "password", :with => "speed"
     click_button "Login"
 
