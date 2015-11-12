@@ -39,8 +39,6 @@ class BucketkolkesController < NilavuController
   def destroy
     #object_name = params[:id].split("/").last
     #bucket_name = params[:id].split("/").first
-    puts "------------------destroy-----------"
-    puts params.inspect
     Backup::BucketObjects.new(params).delete(bucket_name)
     @bobjs = []
     respond_to do |format|
