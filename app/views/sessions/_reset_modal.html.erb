@@ -1,0 +1,28 @@
+<!-- Forgot password form modal -->
+<div class="modal fade" id="forgot_password" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog" style="max-width:400px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"><%= t('login.forget_password') %></h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="min-height:200px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <%= form_tag password_resets_path, :method => :post, :remote => true, data: { spinlock: '#creating_sshkeys'}  do %>
+
+                                <label for="ssh-key_name"><%= t('login.reg_mail') %></label>
+                                <%= text_field_tag :email, nil, :class => 'form-control', :required => true, placeholder: t('signup.email_tag') %>
+                            </div>
+
+                            <%= submit_tag t('login.reset_password') , :class => "btn btn-success col-md-12 col-xs-12" %>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
