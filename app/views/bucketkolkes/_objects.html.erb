@@ -34,7 +34,7 @@
                             </div></td>-->
                             <td class="td-left objectListTd" id="<%= obj[:object_name] %>"><i id="objectFormat" class="pop_icon"></i><b><%= obj[:object_name].split("/").last %></b><i> - <%= obj[:size] %></i></td>
                             <td style="padding-top:17px"> <%= link_to obj[:download_url] do %> <i class="c_icon-d margin_15  pull-right"></i> <% end %> </td>
-                            <td style="padding-top:15px"> <%= link_to bucketkolke_path( :id => obj[:object_name] ), method: :DELETE, :target => "_self", :remote => true do %> <i class="c_icon-trash margin_15 pull-right"></i> <% end %> </td>
+                            <td style="padding-top:15px"> <%= link_to bucketkolke_path( :id => obj[:object_name] ), method: :DELETE, :remote => true do %> <i class="c_icon-trash margin_15 pull-right"></i> <% end %> </td>
                         </tr>
                         <% end %>
                     </tbody>
@@ -46,4 +46,3 @@
 </div>
 <%= render :partial => "buckets/upload_modal", :locals => {:bucket_name => @bucket_name} %>
 <script src="assets/megam.storages.js" />
-

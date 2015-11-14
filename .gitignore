@@ -21,6 +21,10 @@
 *.lock
 *.pid
 
+#ignore all ssh_keys
+*_key
+*_pub
+
 # Ignore all files under metadata
 .metadata
 Gemfile.lock

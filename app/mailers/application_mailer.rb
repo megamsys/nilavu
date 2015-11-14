@@ -29,7 +29,8 @@ class ApplicationMailer < ActionMailer::Base
 				@account = tmp_params[:account]
 				mail(to: @account.email, subject: tmp_params[:subject])
 				yield if block_given?
-			rescue Net::SMTPError => sme
+			#rescue Net::SMTPError => sme
+      rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => sme
 				raise MegamSnailError, sme.message
 			end
 		end

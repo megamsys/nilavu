@@ -43,8 +43,7 @@
 
       <dl><h3>Usage</h3>
          <dt><%= t('overviews.name') %></dt>
-         <dd><%= assembly.name %>
-           <%= t('marketplace.megambox') %></dd>
+         <dd><%= assembly.name %>.<%= t('marketplace.megambox') %></dd>
         <dt class="margin-top-20"></dt>
 
         <dt><%= t('overviews.available_ram') %></dt>
@@ -59,22 +58,20 @@
         <dt class="margin-top-20"></dt>
         <dt>
           <%= t('overviews.ip') %></dt>
-        <dd><% ip = parse_key_value_pair(assembly.outputs, "ip") %>
+        <dd><% ip = parse_key_value_pair(assembly.outputs, "publicip") %>
           <%= ip if ip != "" %>
           <%= t('overviews.not_get_ip') if ip == "" %></dd>
           <dt class="margin-top-20"></dt>
           <dt>URL</dt>
-                            <dd>megam.com <i class="c_icon-form"></i></dd>
-
-
+          <dd><%= assembly.name %>.<%= t('marketplace.megambox') %><i class="c_icon-form" title='Click me to copy to clipboard.'></i></dd>
         <dt class="margin-top-20"></dt>
         <dt>Region</dt>
         <dd><img src="assets/flag_IN.png">
           INDIA</dd>
-
       </dl>
     </div>
   </div>
   </div>
+
   <% end %>
   <%= render :template => "catalogs/show", :locals => {:cattype => Api::Assemblies::TORPEDO} %>

@@ -11,7 +11,6 @@ gem 'rails-i18n', '~> 4.0.6' # For 4.0.x
 gem 'protected_attributes', '~> 1.1.3' # transition to rails 4.2.x
 gem 'responders', '~> 2.1.0' # transition to rails 4.2.x
 
-
 # ui - (sass, react, growl, websocket)
 gem 'jquery-rails', '~> 4.0.5'
 gem 'turbolinks', '~> 2.5.3'
@@ -36,7 +35,7 @@ gem 'omniauth-google-oauth2', '~> 0.2.10'
 gem 'omniauth-github', '~> 1.1.2'
 
 # 3rd party system api's
-gem 'megam_api', '~> 0.82'
+gem 'megam_api', '~> 0.83'
 gem 'github_api', '~>0.12.4'
 gem 'gitlab', '~> 3.4.0'
 gem 'riak-client', '~> 2.2.1'

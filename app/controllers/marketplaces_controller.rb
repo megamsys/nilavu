@@ -64,7 +64,8 @@ class MarketplacesController < NilavuController
       Assembly.new.update(params)
       Components.new.update(params)
     end if params.key?(:bind_type)
-    @msg = { title: "#{params['cattype']}".downcase.camelize, message: "#{params['assemblyname']}.#{params['domain']} launched successfully. ", redirect: '/', disposal_id: 'app-1' }
+	toast_success(cockpits_path, "#{params['action'].camelize} #{params['assemblyname']}.#{params['domain']} submitted successfully. ")
+   # @msg = { title: "#{params['cattype']}".downcase.camelize, message: "#{params['assemblyname']}.#{params['domain']} launched successfully. ", redirect: '/', disposal_id: 'app-1' }
   end
 
   ##
