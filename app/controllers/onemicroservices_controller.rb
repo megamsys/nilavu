@@ -19,7 +19,7 @@ class OnemicroservicesController < NilavuController
 	before_action :stick_keys, only: [:index]
 
 	def index
-		@assembly = Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Api::Assemblies::MICROSERVICES]
+		@assembly = Api::Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Api::Assemblies::MICROSERVICES]
 		@assembly
 	end
 end

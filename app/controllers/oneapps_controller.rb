@@ -21,7 +21,7 @@ class OneappsController < NilavuController
 	before_action :stick_keys, only: [:index, :bindservices, :bindservice]
 
 	def index
-		@assembly = Assembly.new.show(params.merge('id' => params[:id])).by_cattypes[Api::Assemblies::APP]
+		@assembly = Api::Assembly.new.show(params.merge('id' => params[:id])).by_cattypes[Api::Assemblies::APP]
 		@bound_services = bound_assemblies(Api::Assemblies.new.list(params).assemblies_grouped[Api::Assemblies::SERVICE], @assembly.components[0][0].components.related_components)
 	end
 

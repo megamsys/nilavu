@@ -37,6 +37,10 @@ module CatalogHelper
     end
   end
 
+ def domain(inputs)
+   parse_key_value_json(inputs,"domain")
+ end
+
   #a quick hack to pass in a list of cattypes and show them under services.
   def flat_asmgroup(cattypes, assemblies_grouped)
     asmgroups_flatten = []
