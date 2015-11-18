@@ -6,7 +6,7 @@ gem 'json', '~> 1.8.3'
 gem 'net-ssh'
 
 #rails
-gem 'rails', '~> 4.2.5.rc2'
+gem 'rails', '~> 4.2.5'
 gem 'rails-i18n', '~> 4.0.6' # For 4.0.x
 gem 'protected_attributes', '~> 1.1.3' # transition to rails 4.2.x
 gem 'responders', '~> 2.1.0' # transition to rails 4.2.x
@@ -42,7 +42,7 @@ gem 'riak-client', '~> 2.2.1'
 gem 'radosgw-s3'
 
 gem 'google-analytics-rails', '~> 0.0.6'
-gem 'paypal-sdk-rest', '~>1.3.3' # billing
+gem 'paypal-sdk-rest', '~>1.3.4' # billing
 
 
 # general misc helper
