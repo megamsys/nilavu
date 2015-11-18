@@ -29,11 +29,11 @@
               <div class="app_head">
                 <span class="app_config" id="config_menu_<%= assembly.name %>_<%= cattype.downcase %>"><i class="c_icon-config"></i></span>
                 <div class="config_menu config_menu_<%= assembly.name %>_<%= cattype.downcase %>">
-                  <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id, :asms_id => assembly.asms_id, :name => assembly.name, :cattype => cattype} %>
+                  <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id, :asms_id => assembly.asms_id, :name => assembly.name+"."+domain(assembly.inputs), :cattype => cattype} %>
                 </div>
                 <div class="row app_icon">
                   <h5><%= assembly.name %></h5>
-                  <% assembly_name = assembly.name + ".megambox.com" %>
+                  <% assembly_name = assembly.name + "." +domain(assembly.inputs) %>
                   <% assembly_name = if assembly_name.size > 10 then assembly_name.slice(0,15) + "..." else assembly_name end %>
                   <% case cattype.upcase %>
                   <% when Api::Assemblies::TORPEDO %>
