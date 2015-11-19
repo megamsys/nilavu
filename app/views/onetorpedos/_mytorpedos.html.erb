@@ -63,7 +63,7 @@
           <%= t('overviews.not_get_ip') if ip == "" %></dd>
           <dt class="margin-top-20"></dt>
           <dt>URL</dt>
-          <dd><%= assembly.name %>.<%= t('marketplace.megambox') %><i class="c_icon-form" title='Click me to copy to clipboard.'></i></dd>
+          <dd>ssh -i id root@<%= assembly.name %>.<%= t('marketplace.megambox') %></dd>
         <dt class="margin-top-20"></dt>
         <dt>Region</dt>
         <dd><img src="assets/flag_IN.png">

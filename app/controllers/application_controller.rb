@@ -116,19 +116,20 @@ class ApplicationController < ActionController::Base
     signin_path
   end
 
+  
   def toast_info(path, msg)
-    redirect_to(path, flash: { toastr: msg, type: 'info' })
+      redirect_to(path, :flash => { :info => msg})
   end
 
   def toast_success(path, msg)
-    redirect_to(path, flash: { toastr: msg, type: 'success' })
+    redirect_to(path, :flash => { :notice => msg})
   end
 
   def toast_error(path, msg)
-    redirect_to(path||=redirect_where, flash: { toastr: msg, type: 'error' })
+    redirect_to(path||=redirect_where,:flash => {:alert => msg })
   end
 
   def toast_warn(path, msg)
-    redirect_to(path, flash: { toastr: msg, type: 'warning' })
+    redirect_to(path, :flash => {:warning => msg})
   end
 end

@@ -24,12 +24,11 @@ module ApplicationHelper
 		end
 	end
 
-
 	def normalized_filename(file)
 		file.to_s
 	end
 
 	def normalize_template_name(name)
 		normalized_filename(name.to_s)
-	end
+	end	
 end

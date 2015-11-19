@@ -1,5 +1,4 @@
 var Noti = React.createClass({
-
   getInitialState: function getInitialState() {
     return {
       events: [],
@@ -16,7 +15,6 @@ var Noti = React.createClass({
 
   componentDidMount: function() {
     this.getEvent()
-
     setInterval(this.getEvent, 8000);
   },
 
