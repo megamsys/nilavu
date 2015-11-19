@@ -5,7 +5,7 @@ RSpec.feature "Users can signup" do
     visit "/signin"
 
     click_link "Create new account ?"
-    fill_in "Email", :with => "mega1@nilavu.com"
+    fill_in "Email", :with => "test@four.com"
     fill_in  "Password", :with => "megam"
     click_button "Create"
 
@@ -27,7 +27,7 @@ RSpec.feature "Users can signup" do
     visit "/signin"
 
     click_link "Create new account ?"
-    fill_in "Email", :with => "megam8@nilavu.com"
+    fill_in "Email", :with => "test@four.com"
     fill_in  "Password", :with => "megam"
     click_button "Create"
 
