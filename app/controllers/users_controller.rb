@@ -44,7 +44,7 @@ class UsersController < NilavuController
       if "#{Ind.notification.email.password}" != ''
         UserMailer.welcome(acct).deliver_now
       end
-      toast_success(cockpits_path, "To get started, click marketplace.")
+      toast_success(cockpits_path, "click marketplaces to get started")
     end
   end
 

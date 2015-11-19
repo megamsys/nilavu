@@ -41,7 +41,7 @@ class CatalogsController < NilavuController
   def create
     logger.debug "> Pilotable: create"
     Api::Requests.new.reqs(params.merge({:action => params[:req_action]}))
-    toast_success(cockpits_path, "#{params['req_action'].camelize} #{params['name']} submitted successfully. ")
+    toast_success(cockpits_path, "#{params['req_action'].downcase}: #{params['name']} submitted successfully. ")
   end
 
   #a confirmation question for a delete operation.
@@ -55,7 +55,7 @@ class CatalogsController < NilavuController
     logger.debug "> Pilotable: destroy"
     Api::Requests.new.reqs(params)
     root_url
-    toast_success(root_url, "#{params['action'].camelize} #{params['name']} submitted successfully. ")
+    toast_success(root_url, "#{params['action'].downcase}: #{params['name']} submitted successfully. ")
   end
 
   def runtime
