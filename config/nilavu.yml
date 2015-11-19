@@ -1,33 +1,6 @@
 # /var/lib/megam/nilavu.yml
 defaults: &defaults
-## locale: default is english
-  locale: en
-## Name of the nilavu server
-##
-## Default: localhost
-##
-## Acceptable values:
-##   - text
-## Welcome email contails this url
-  nilavu: https://console.megam.io
-## database backend is a host that the nilavu will connect to
-## for getting information about an account (:will be removed in 1.x)
-##
-## Acceptable values:
-##   - text, e.g. localhost
-  riak: localhost
-## The gateway - API server nilavu connects to.
-## Acceptable values:
-##    - text, e.g. localhost, api.megam.io, ipaddress
-  http_api: localhost
-## http_logs is a host that the nilavu will connect to for real time log streaming
-##
-## Acceptable values:
-##   - text, e.g. localhost, api.megam.io
-  http_logs: localhost:7777/logs
 # Enable billing, turn it off for testing.
-## Acceptable values:
-##   - text, e.g. on or off
   billings: off
 ## Backup ceph storage, host, adminuser, admin password.
   backup:
@@ -35,22 +8,21 @@ defaults: &defaults
     host: localhost
     username: megdc
     password: randompw
+## locale: default is english
+  locale: en
+## Name of the nilavu server, welcome email uses this url
+  nilavu: https://console.megam.io
+## A database backend for nilavu
+  riak: localhost
+## An api server for nilavu
+  http_api: localhost
+## http_logs is a host that the nilavu will connect to for real time log streaming
+  http_logs: localhost:7777/logs
 ## private.gitlab is a boolean flag that indicates if gitlab is configured or not.
-## Default: off
   private_gitlab: off
 # http_gitlabs is a host that the nilavu will connect to for pulling data from gitlab  repositories
-##
-## Acceptable values: http://url
-#   - text, e.g. http://localhost, http:/api.megam.io
   http_gitlab: http://localhost/api/v3
 # notification section notifies the handlers based on_trigger conditions.
-## 1. on_error: When an error occurs then notify dev support via an email to support@megam.io and hipchat. A notification
-## via email happens if the configuration for [email:] exists.
-## 2. on_some_hap: Turn notification on for notifying when some happenings needs to be notified. (welcome, reset password, balance topup, low credits)
-## Default:
-##
-## Acceptable values:
-##   - text
   notification:
     on_errors: on
     on_some_hap: on
@@ -62,11 +34,6 @@ defaults: &defaults
         room: "Megam"
 
 ## Specifies the oauth id/key for various social identities
-##
-## Default:
-##
-## Acceptable values:
-##   - one of: facebook, github, google
   oauth:
     facebook:
       client_id: <%= ENV["NIL_FB_CLIENT_ID"] %>
