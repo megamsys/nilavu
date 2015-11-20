@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.feature "List Marketplaces" do
+RSpec.feature "Launch torpedo" do
   before do
     login(:account)
   end
