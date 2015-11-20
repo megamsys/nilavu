@@ -1,18 +1,18 @@
 require "rails_helper"
 
-RSpec.feature "Users can signup" do
-  scenario "with valid attributes" do
+RSpec.feature "Users can signin" do
+  scenario "when providing valid credentials" do
     visit "/signin"
 
     click_link "Create new account ?"
     fill_in "Email", :with => "test@four.com"
-    fill_in  "Password", :with => "megam"
+    fill_in "Password", :with => "megam"
     click_button "Create"
 
     expect(page).to have_content "Dashboard"
   end
 
-  scenario "with invalid attributes" do
+  scenario "when email and password is missing." do
     visit "/signin"
 
     click_link "Create new account ?"
@@ -23,12 +23,12 @@ RSpec.feature "Users can signup" do
     expect(page).to have_content "Sorry!Please type a valid email address"
   end
 
-  scenario "with existing attributes" do
+  scenario "when providing duplicate email - via signin" do
     visit "/signin"
 
     click_link "Create new account ?"
     fill_in "Email", :with => "test@four.com"
-    fill_in  "Password", :with => "megam"
+    fill_in "Password", :with => "megam"
     click_button "Create"
 
     expect(page).to have_content "Login"
