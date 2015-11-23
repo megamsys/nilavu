@@ -13,25 +13,23 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-require 'net/smtp'
+require 'net/smtp' if Ind.notification.use =="smtp"
+require 'mailgunner' if Ind.notification.use =="mailgun"
 
 class ApplicationMailer < ActionMailer::Base
-	default from: Ind.notification.email.id
+	default from: Ind.notification.smtp.email
 
-	class MegamSnailError < StandardError; end
+	class MegamNotifiError < StandardError; end
 
 	# a common method that gets called by all the mailers.
-	# every mailer needs to send a block to process.
-	# errors are handled automatically
 	def wrap_mail(tmp_params, &_block)
-		if Ind.notification.on_some_hap
+		if Ind.notification.enable
 			begin
 				@account = tmp_params[:account]
 				mail(to: @account.email, subject: tmp_params[:subject])
 				yield if block_given?
-			#rescue Net::SMTPError => sme
-      rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => sme
-				raise MegamSnailError, sme.message
+      rescue StandardError => sme
+				raise MegamNotifiError, sme.message
 			end
 		end
 	end
