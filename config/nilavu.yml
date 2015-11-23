@@ -2,12 +2,12 @@
 defaults: &defaults
 # Enable billing, turn it off for testing.
   billings: off
-## Backup ceph storage, host, adminuser, admin password.
+## Backup cephgw, host, adminuser, admin password.
   backup:
     enable: off
     host: localhost
     username: megdc
-    password: randompw
+    password: megdc
 ## locale: default is english
   locale: en
 ## Name of the nilavu server, welcome email uses this url
@@ -15,23 +15,25 @@ defaults: &defaults
 ## A database backend for nilavu
   riak: localhost
 ## An api server for nilavu
-  http_api: localhost
-## http_logs is a host that the nilavu will connect to for real time log streaming
-  http_logs: localhost:7777/logs
-## private.gitlab is a boolean flag that indicates if gitlab is configured or not.
-  private_gitlab: off
-# http_gitlabs is a host that the nilavu will connect to for pulling data from gitlab  repositories
-  http_gitlab: http://localhost/api/v3
+  api: localhost
+## logs is a host that the nilavu will connect to for real time log streaming
+  logs: localhost:7777/logs
 # notification section notifies the handlers based on_trigger conditions.
   notification:
-    on_errors: on
-    on_some_hap: on
-    email:
+    enable: off
+    use: mailgun
+    mailgun:
+      api_key: <%= ENV["NIL_MAILGUN_APIKEY"] %>
+      domain: ojamail.megambox.com
+    smtp:
+      address: smtp.googlemail.com
+      port: 587
+      domain: megam.io
       id: support@megam.io
       password: <%= ENV["NIL_EMAIL_PASSWORD"] %>
-      hipchat:
-        api_key: <%= ENV["NIL_HIP_APIKEY"] %>
-        room: "Megam"
+    hipchat:
+      api_key: <%= ENV["NIL_HIP_APIKEY"] %>
+      room: "MegamOja"
 
 ## Specifies the oauth id/key for various social identities
   oauth:

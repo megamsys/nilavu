@@ -40,10 +40,10 @@ gem 'github_api', '~>0.12.4'
 gem 'gitlab', '~> 3.4.0'
 gem 'riak-client', '~> 2.2.1'
 gem 'radosgw-s3'
+gem  'mailgunner'
 
 gem 'google-analytics-rails', '~> 0.0.6'
 gem 'paypal-sdk-rest', '~>1.3.4' # billing
-
 
 # general misc helper
 gem 'randexp', '~> 0.1.7'
