@@ -17,6 +17,7 @@
 <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
 <%= hidden_field_tag 'mkp_name', nil, placeholder: "", :class =>"form-control", :value => @mkp['name'] %>
 <%= hidden_field_tag 'cattype', nil, placeholder: "", :class =>"form-control", :value => @mkp['cattype'] %>
+<%= hidden_field_tag 'envs', nil, placeholder: "", :class =>"form-control", :value => @mkp['envs'] %>
 <% asmname = launch_namegen %>
 
 <div class="row">
