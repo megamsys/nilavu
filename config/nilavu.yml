@@ -20,7 +20,7 @@ defaults: &defaults
   logs: localhost:7777/logs
 # notification section notifies the handlers based on_trigger conditions.
   notification:
-    enable: off
+    enable: on
     use: mailgun
     mailgun:
       api_key: <%= ENV["NIL_MAILGUN_APIKEY"] %>
@@ -29,11 +29,11 @@ defaults: &defaults
       address: smtp.googlemail.com
       port: 587
       domain: megam.io
-      id: support@megam.io
+      email: support@megam.io
       password: <%= ENV["NIL_EMAIL_PASSWORD"] %>
     hipchat:
       api_key: <%= ENV["NIL_HIP_APIKEY"] %>
-      room: "MegamOja"
+      room: "Megam"
 
 ## Specifies the oauth id/key for various social identities
   oauth:
