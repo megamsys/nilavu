@@ -40,7 +40,7 @@ class CatalogsController < NilavuController
   #this action performs a start, stop, restart operation
   def create
     logger.debug "> Pilotable: create"
-    Api::Requests.new.reqs(params.merge({:cattype => params[:req_action]}))
+    Api::Requests.new.reqs(params)
     toast_success(cockpits_path, "#{params['req_action'].camelize} #{params['name']} submitted successfully. ")
   end
 
