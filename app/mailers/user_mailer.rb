@@ -16,9 +16,13 @@
 class UserMailer < ApplicationMailer
 	# an welcome email gets formatted to be sent
 	def welcome(account)
-		wrap_mail({:account =>  account, :subject => 'Hey, Launch your first app' }) do
-			Rails.logger.debug "> Welcome email:[#{account.email}] delivered. "
+		status = wrap_mail({:account =>  account, :subject => 'Hey, Launch your first app' })
+		if status
+		  Rails.logger.debug "> Welcome email:[#{account.email}] delivered. "
+		else
+			Rails.logger.debug "> Welcome email:[#{account.email}] not delivered. "
 		end
+		status
 	end
 
 	def reset(account)

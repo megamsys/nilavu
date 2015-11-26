@@ -42,8 +42,6 @@ class APIDispatch
 
   def api_request(jlaz, jmethod, jparams, passthru=false)
     begin
-      puts "---------------List-------2----"
-      puts jparams.inspect
       set_attributes(jlaz, jmethod, jparams, passthru)
       Rails.logger.debug "\033[01;35mFASCADE #{megfunc}#{megact} \33[0;34m"
       if up && satisfied_args?(jparams, passthru)
