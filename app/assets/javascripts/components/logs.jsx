@@ -2,7 +2,9 @@ var Logs = React.createClass({
 
   getInitialState: function getInitialState() {
     return {
-      messages: []
+      messages: [],
+      wait_text: "Waiting for logs",
+      loading: false,
     };
   },
 
@@ -36,7 +38,8 @@ var Logs = React.createClass({
   render: function render() {
     return React.createElement('div', null, React.createElement(MessageList, {
       messages: this.state.messages
-    }));
+    }
+    ));
   }
 });
 
@@ -44,14 +47,22 @@ var MessageList = React.createClass({
   displayName: 'MessageList',
 
   render: function render() {
-    return React.createElement('div', { className: ''
-  }, React.createElement('br'), this.props.messages.map(function(message,i) {
-      return React.createElement(Message, {
-        key: i,
-        text: message
-      });
-    }));
-  }
+  	var mapData = this.props.messages.map((message, i) => {
+                      return (
+                          <Message
+                              key={i}
+                              text={message}
+                          />
+                      );
+                  });
+                  
+  	return (
+  		<div>  			
+            {mapData}
+            <LogLoader isActive={this.props.isLoading} />
+        </div>
+  	) 	
+   } 
 });
 
 var Message = React.createClass({
@@ -63,3 +74,10 @@ var Message = React.createClass({
     }, React.createElement('span', null, this.props.text));
   }
 });
+
+var LogLoader = React.createClass({
+	 render: function render() {
+    return (
+    	<div>Loading.....<img src="assets/input-spinner.gif" alt="Wait" /></div>
+    )}
+})

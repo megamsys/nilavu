@@ -48,7 +48,7 @@ module Backup
     end
 
     def radosadmin
-      Ind.backup.user
+      Ind.backup.username
     end
 
     def radosadmin_password
