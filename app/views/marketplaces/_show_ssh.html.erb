@@ -4,7 +4,11 @@
     <div class="form-group">
       <select class="form-control" id="sshkeyoption">
         <option value="<%= Api::Sshkeys::NEW %>" selected="selected"><%= t('marketplace.ssh_list_create') %></option>
+<% if @ssh_keys != nil && @ssh_keys.length > 0 %>
         <option value="<%= Api::Sshkeys::USEOLD %>"><%= t('marketplace.ssh_list_exist') %> </option>
+<% else %>
+	<option disabled="disabled" value="<%= Api::Sshkeys::USEOLD %>"><%= t('marketplace.ssh_list_exist') %> </option>
+<% end %>
         <option value="<%= Api::Sshkeys::IMPORT %>"><%= t('marketplace.ssh_list_import') %></option>
       </select>
     </div>
@@ -44,7 +48,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function() {
-      $(".sshoption").val("<%= Api::Sshkeys::NEW %>")
+     $(".sshoption").val("<%= Api::Sshkeys::NEW %>")
       $('#sshkeyoption').on('change', function() {
         if (this.value == "<%= Api::Sshkeys::NEW %>") {
           $("#<%= Api::Sshkeys::NEW %>").show();
