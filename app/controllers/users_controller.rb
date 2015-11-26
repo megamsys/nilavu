@@ -42,10 +42,14 @@ class UsersController < NilavuController
     Api::Accounts.new.create(params) do |acct|
       store_credentials acct
     #if "#{Ind.notification.smtp.password}" != ''
-        UserMailer.welcome(acct).deliver_now
+      mail_status = UserMailer.welcome(acct).deliver_now
     #  end
-      toast_success(cockpits_path, "click marketplaces to get started")
-    end
+     if mail_status
+      toast_success(cockpits_path, "click marketplaces to get started, email verified successfully")
+     else
+      toast_warn(cockpits_path, "click marketplaces to get started, email verified unsuccessfully ")
+     end
+   end
   end
 
   # load the current org details and send it the edit.html.erb.
