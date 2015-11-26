@@ -116,7 +116,7 @@ class ApplicationController < ActionController::Base
     signin_path
   end
 
-  
+
   def toast_info(path, msg)
       redirect_to(path, :flash => { :info => msg})
   end
