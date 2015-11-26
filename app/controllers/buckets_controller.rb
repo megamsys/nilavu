@@ -22,7 +22,7 @@ class BucketsController < NilavuController
 
   def index
     @bucket ||= Backup::Buckets.new(params).list
-    @usage  ||= Backup::BackupUser.new.usage(current_user.email)    
+    @usage  ||= Backup::BackupUser.new.usage(current_user.email)
   end
 
   def create
@@ -38,6 +38,6 @@ class BucketsController < NilavuController
   end
 
   def destroy
-  end  
-  
+  end
+
 end
