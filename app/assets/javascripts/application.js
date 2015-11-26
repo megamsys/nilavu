@@ -33,8 +33,6 @@
 //= require megam.menu
 //= require megam.form_validation
 //= require components
-//= require jquery.ui.widget
-//= require jquery.fileupload
 //= require socket.io
 //= require jquery.ui.widget
 //= require jquery.fileupload

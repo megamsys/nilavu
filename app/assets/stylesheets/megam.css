@@ -1390,3 +1390,5 @@ Bootstrap Panel
 h4 .label {
   font-size: 75%;
 }
+
+/** override nprogress color to #6fde86 **/

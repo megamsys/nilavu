@@ -109,7 +109,7 @@ class APIDispatch
   end
 
   def endpoint
-    Ind.http_api
+    Ind.api
   end
 
   def debug_print(jparams)

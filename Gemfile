@@ -6,7 +6,7 @@ gem 'json', '~> 1.8.3'
 gem 'net-ssh'
 
 #rails
-gem 'rails', '~> 4.2.5.rc2'
+gem 'rails', '~> 4.2.5'
 gem 'rails-i18n', '~> 4.0.6' # For 4.0.x
 gem 'protected_attributes', '~> 1.1.3' # transition to rails 4.2.x
 gem 'responders', '~> 2.1.0' # transition to rails 4.2.x
@@ -35,15 +35,15 @@ gem 'omniauth-google-oauth2', '~> 0.2.10'
 gem 'omniauth-github', '~> 1.1.2'
 
 # 3rd party system api's
-gem 'megam_api', '~> 0.83'
+gem 'megam_api', '~>0.86'
 gem 'github_api', '~>0.12.4'
 gem 'gitlab', '~> 3.4.0'
 gem 'riak-client', '~> 2.2.1'
 gem 'radosgw-s3'
+gem  'mailgunner'
 
 gem 'google-analytics-rails', '~> 0.0.6'
-gem 'paypal-sdk-rest', '~>1.3.3' # billing
-
+gem 'paypal-sdk-rest', '~>1.3.4' # billing
 
 # general misc helper
 gem 'randexp', '~> 0.1.7'

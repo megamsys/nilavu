@@ -21,7 +21,7 @@ module Nilavu
       end
 
       def endpoint
-        Ind.http_gitlab
+        Ind.gitlab
       end
     end
   end
