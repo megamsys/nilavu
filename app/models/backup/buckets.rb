@@ -16,8 +16,10 @@
 module Backup
   class Buckets < BackupService
     attr_reader :saved_size
+   puts "+++++++++++++++++++++++++++++++++++++++"
 
     def initialize(params)
+      puts params
       super(params)
       @saved_size = 0
     end
