@@ -71,13 +71,10 @@
             INDIA</dd>
           <dt class="margin-top-20"></dt>
           <dt><%= t('overviews.key') %></dt>
-
           <dd>
-    <%ssh=assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value'].split('_').last%>
-
-
-<%= link_to "#{assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value'].split('_').last}",
-edit_ssh_key_path(:id => ssh+"_key"), :class => "hint  hint--bottom", :target => "_self", 'data-hint' => "Click here to download private key" %>
+            <%ssh=assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value'].split('_').last%>
+            <%= link_to "#{assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value'].split('_').last}",
+      edit_ssh_key_path(:id => ssh+"_key"), :class => "hint  hint--bottom", :target => "_self", 'data-hint' => "Click here to download private key" %>
 
           </dd>
 
