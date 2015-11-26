@@ -22,5 +22,5 @@ class OnetorpedosController < NilavuController
 		@assembly=Api::Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Api::Assemblies::TORPEDO]
 		@assembly
 	end
-	
+
 end
