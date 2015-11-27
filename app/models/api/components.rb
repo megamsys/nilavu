@@ -15,9 +15,12 @@
 ##
 module Api
   class Components < APIDispatch
+
     attr_reader :components
 
     def initialize
+      @components = []
+      super(true)
     end
 
     def show(api_params, &_block)
@@ -27,9 +30,15 @@ module Api
     end
 
     def update(api_params, &_block)
-      api_request(COMPONENTS, UPDATE, bld_update_params(api_params))
+      api_request(COMPONENTS, UPDATE,api_params.merge(bld_update_params(api_params)))
       yield self if block_given?
       self
+    end
+
+    def bld_update_params(api_params)
+      { id: api_params[:id],
+        components: [Megam::Mixins::Components.new(api_params).to_hash],
+      }
     end
 
     def update_exist(api_params, &_block)

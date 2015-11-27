@@ -26,19 +26,18 @@ class OneappsController < NilavuController
 	end
 
 	def show
+		@components = params[:components]
 		@bindapp = params[:id]
 		@service = unbound_apps(Api::Assemblies.new.list(params.merge(flying_service: 'true')).services)
 		respond_to do |format|
-			format.js { respond_with(@bindapp, @service, layout: !request.xhr?) }
+			format.js { respond_with(@bindapp, @service,@components, layout: !request.xhr?) }
 		end
 	end
 
 	def create
-		puts "*******************"
-		puts params
 		params[:bind_app_flag] = 'true'
 		binded_service?(params) do
-			Api::Assembly.new.update(params)
+		#	Api::Assembly.new.update(params)
 			Api::Components.new.update(params)
 			Api::Components.new.update_exist(params)
 		end if params.key?(:bind_type)

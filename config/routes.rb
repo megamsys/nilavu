@@ -49,11 +49,7 @@ Nilavu::Application.routes.draw do
 
 	#===catalogs
 	# kelvi   : confirm delete for all flycontrols. all cattypes will use that.
-	# logs    : logs widget for all the cattypes
-	# runtime : runtime widget for all the cattypes (metering, metrics).
 	match '/kelvi', to: 'catalogs#kelvi', via: [:post]
-	match '/logs', to: 'catalogs#logs', via: [:get]
-	match '/runtime', to: 'catalogs#runtime', via: [:get]
 	match '/index', to: 'catalogs#index', via: [:get]
 
 	#===Profiles
@@ -61,8 +57,7 @@ Nilavu::Application.routes.draw do
 	match '/accept_invite', to: 'users#accept_invite', via: [:get]
 
 	#===One Overviews
-#	match '/bindservices', to: 'oneapps#show', via: [:get, :post]
-	match '/bindservice', to: 'oneapps#show', via: [:get, :post]
+	match '/bindservice', to: 'oneapps#show', via: [:get]
 
   #===Events
   match '/sensors', to: 'sensors#index' , via: [:get, :post]

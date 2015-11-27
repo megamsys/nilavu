@@ -39,7 +39,7 @@ module Api
     end
 
     def update(api_params, &_block)
-      api_request(ASSEMBLY, UPDATE,api_params)
+      api_request(ASSEMBLY, UPDATE, api_params)
       api_request(ASSEMBLY, UPDATE, api_params) if api_params.key?(:bind_app_flag) # FOR BIND APP
       yield self if block_given?
       self

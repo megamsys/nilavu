@@ -93,7 +93,6 @@ class APIDispatch
     parameters(parms)
     passthru?(passthru)
   end
-
   def satisfied_args?(parms,passthru)
     unless passthru
       fail CannotAuthenticateError, 'Your credentials are missing. Sign up please.' unless parms.key?(:email) && parms.key?(:api_key)

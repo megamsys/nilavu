@@ -51,7 +51,6 @@
 </div>
 <% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
 <% @logname = "#{assembly.name}.#{domain}" %>
-<%= render 'catalogs/logs' %>
 
 </div>
 <% end %>

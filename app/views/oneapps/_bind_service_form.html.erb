@@ -19,7 +19,9 @@
 <% @str = "" %>
 
 			<%= select_tag "bind_type", options_for_select(@service, :selected=>@service[0]), :class =>"form-control" %>
-<%= hidden_field_tag 'bindapp', nil, placeholder: "", :class =>"form-control", :value => @bindapp  %>
+<%= hidden_field_tag 'id', nil, placeholder: "", :class =>"form-control", :value => @bindapp  %>
+<%= hidden_field_tag 'assembly', nil, placeholder: "", :class =>"form-control", :value =>@components %>
+<div class="modal-footer  c_modal-footer">
 <button type="button" class="btn default" data-dismiss="modal">
 	<%= t('cancel') %>
 </button>
@@ -27,7 +29,7 @@
 
 <% else %>
 <%= t('overviews.no_service') %>
-<div class="modal-footer  c_modal-footer">
+
 <button type="button" class="btn default" data-dismiss="modal">
 	<%= t('ok') %>
 </button>
