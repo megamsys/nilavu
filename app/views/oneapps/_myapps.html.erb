@@ -45,7 +45,7 @@
       <% @logname = "#{assembly.name}.#{domain}" %>
       <%= render 'catalogs/mycomponent' %>
     </div>
-    <div class="col-sm-3 storage-rt-list">
+    <div class="col-sm-2 storage-rt-list">
       <dl>
         <h3>Usage</h3>
         <dt><%= t('overviews.available_ram') %></dt>
@@ -61,7 +61,7 @@
           <%= t('overviews.not_get_ip') if ip == "" %></dd>
         <dt class="margin-top-20"></dt>
         <dt>Region</dt>
-        <dd><img src="assets/images/flag_IN.png">
+        <dd><%= image_tag "flag_IN.png" %>
           INDIA</dd>
       </dl>
     </div>

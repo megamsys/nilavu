@@ -48,7 +48,7 @@ class NilavuController < ApplicationController
   def stick_ceph_keys(_tmp = {}, _permitted_tmp = {})
     logger.debug "> STICKC"
     params.merge!(Hash[%w(ceph_access_key ceph_secret_key).map {|x| [x, session[x.to_sym]]}])
-  end
+    end
 
   def stick_auth_keys()
     auth = request.env['omniauth.auth']['extra']['raw_info']

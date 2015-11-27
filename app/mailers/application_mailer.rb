@@ -15,7 +15,6 @@
 ##
 require 'net/smtp' if Ind.notification.use =="smtp"
 require 'mailgunner' if Ind.notification.use =="mailgun"
-
 class ApplicationMailer < ActionMailer::Base
 	default from: Ind.notification.smtp.email
 
@@ -26,11 +25,13 @@ class ApplicationMailer < ActionMailer::Base
 		if Ind.notification.enable
 			begin
 				@account = tmp_params[:account]
-				mail(to: @account.email, subject: tmp_params[:subject])
-				yield if block_given?
-      rescue StandardError => sme
+				status = mail(to: @account.email, subject: tmp_params[:subject])
+				#raise MegamNotifiError, "Welcome, conformation email was not delivered" if !(status.delivery_status_report?)
+      rescue Exception => sme
 				raise MegamNotifiError, sme.message
 			end
 		end
+		yield if block_given?
+		status.delivery_status_report?
 	end
 end

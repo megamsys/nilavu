@@ -10,6 +10,8 @@ defaults: &defaults
     password: megdc
 ## locale: default is english
   locale: en
+## log_level: default is debug
+  log_level: :info
 ## Name of the nilavu server, welcome email uses this url
   nilavu: https://console.megam.io
 ## A database backend for nilavu
@@ -20,7 +22,7 @@ defaults: &defaults
   logs: localhost:7777/logs
 # notification section notifies the handlers based on_trigger conditions.
   notification:
-    enable: off
+    enable: on
     use: mailgun
     mailgun:
       api_key: <%= ENV["NIL_MAILGUN_APIKEY"] %>
@@ -29,11 +31,11 @@ defaults: &defaults
       address: smtp.googlemail.com
       port: 587
       domain: megam.io
-      id: support@megam.io
+      email: support@megam.io
       password: <%= ENV["NIL_EMAIL_PASSWORD"] %>
     hipchat:
       api_key: <%= ENV["NIL_HIP_APIKEY"] %>
-      room: "MegamOja"
+      room: "Megam"
 
 ## Specifies the oauth id/key for various social identities
   oauth:

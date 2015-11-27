@@ -14,7 +14,8 @@ Nilavu::Application.configure do
   config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -40,7 +41,8 @@ Nilavu::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = false
   # Log level to debug
-  config.log_level = :debug
+  #config.log_level = :debug
+   config.log_level = Ind.log_level
   # to ignore the javascript files loaded in public assets, this results in running post twice in JQuery
   config.serve_static_files = false
 
