@@ -41,8 +41,11 @@ class OneappsController < NilavuController
 			Api::Components.new.update(params)
 			Api::Components.new.update_exist(params)
 		end if params.key?(:bind_type)
-		toast_success(cockpits_path, "#{params['action'].camelize} #{params['assemblyname']}.#{params['domain']} submitted successfully. ")
+    @asmid = params[:id]
 		@msg = { title: 'Bind Service'.downcase.camelize, message: 'Service bounded successfully. ', redirect: '/', disposal_id: 'bindservice' }
+		respond_to do |format|
+			format.js { respond_with(@asmid,layout: !request.xhr?) }
+		end
 	end
 
 	private
