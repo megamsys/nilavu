@@ -1,0 +1,5 @@
+
+var selected_entity = '#bind_view';
+var to_insert_content = "<%= escape_javascript(render :partial => "oneapps/bind_service_form", :locals => {:service => @service}) %>";
+insertAt(selected_entity, to_insert_content);
+$("#app-bind").modal('show');

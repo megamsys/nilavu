@@ -61,8 +61,8 @@ Nilavu::Application.routes.draw do
 	match '/accept_invite', to: 'users#accept_invite', via: [:get]
 
 	#===One Overviews
-	match '/bindservices', to: 'oneapps#bindservices', via: [:get, :post]
-	match '/bindservice', to: 'oneapps#bindservice', via: [:get, :post]
+#	match '/bindservices', to: 'oneapps#show', via: [:get, :post]
+	match '/bindservice', to: 'oneapps#show', via: [:get, :post]
 
   #===Events
   match '/sensors', to: 'sensors#index' , via: [:get, :post]

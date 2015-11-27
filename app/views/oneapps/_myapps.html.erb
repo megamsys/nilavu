@@ -28,7 +28,11 @@
           </h3>
         </div>
         <div class="col-xs-12 col-sm-6 col-md-6 settings_grid yf-upload-cover">
-          <a class="btn blue col-xs-12 col-sm-6 pull-right" data-toggle="modal" href="#app-1">Bind a service</a>
+            <%= link_to bindservice_path, 'data-remote' => "true"  do %>
+            Bind Service
+            <% end %>
+
+
         </div>
 
       </div>
@@ -65,3 +69,18 @@
 </div>
 <% end %>
 <%= render :template => "catalogs/show", :locals => {:cattype => Api::Assemblies::APP} %>
+
+
+<div id="app-bind" class="modal fade" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog" style="max-width:400px">
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+    <h4 class="modal-title"><%= t('overviews.bindservice_title') %></h4>
+  </div>
+
+      <div class="modal-body" id="bind_view">
+      </div>
+ </div>
+</div>
+</div>

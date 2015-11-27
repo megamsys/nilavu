@@ -14,41 +14,24 @@
 ** limitations under the License.
 -->
 
-<%= form_tag bindservice_path, multipart: true, :novalidate => 'novalidate',  :method => 'get', :remote => true  do %>
-	<div class="modal-dialog" style="max-width:400px">
-<div class="modal-content">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-		<h4 class="modal-title"><%= t('overviews.bindservice_title') %></h4>
-	</div>
+<%= form_tag oneapps_path, multipart: true, :novalidate => 'novalidate',  :method => 'post', :remote => true  do %>
 <% if @service.length > 1 %>
-	<div class="modal-body">
-		<% @str = "" %>
+<% @str = "" %>
 
-	        <%= select_tag "bind_type", options_for_select(@service, :selected=>@service[0]), :class =>"form-control" %>
-		<%= hidden_field_tag 'bindapp', nil, placeholder: "", :class =>"form-control", :value => @bindapp  %>
-	</div>
-	<div class="modal-footer c_modal-footer">
-
-		<button type="button" class="btn default" data-dismiss="modal">
-			<%= t('cancel') %>
-		</button>
-		<%= submit_tag t('overviews.bind') , :class => "btn btn-success", data: { disable_with: "Please wait..." } %>
-	</div>
+			<%= select_tag "bind_type", options_for_select(@service, :selected=>@service[0]), :class =>"form-control" %>
+<%= hidden_field_tag 'bindapp', nil, placeholder: "", :class =>"form-control", :value => @bindapp  %>
+<button type="button" class="btn default" data-dismiss="modal">
+	<%= t('cancel') %>
+</button>
+<%= submit_tag t('overviews.bind') , :class => "btn btn-success", data: {:remote => true,  disable_with: "Please wait..." } %>
 
 <% else %>
-	<div class="modal-body">
-	<%= t('overviews.no_service') %>
-	</div>
-	<div class="modal-footer c_modal-footer">
-
-		<button type="button" class="btn default" data-dismiss="modal">
-			<%= t('ok') %>
-		</button>
-	</div>
+<%= t('overviews.no_service') %>
+<div class="modal-footer  c_modal-footer">
+<button type="button" class="btn default" data-dismiss="modal">
+	<%= t('ok') %>
+</button>
+</div>
 <% end %>
-
-</div>
-</div>
 <!-- /.modal-content -->
 <% end %>
