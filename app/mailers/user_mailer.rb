@@ -16,27 +16,17 @@
 class UserMailer < ApplicationMailer
 	# an welcome email gets formatted to be sent
 	def welcome(account)
-		status = wrap_mail({:account =>  account, :subject => 'Hey, Launch your first app' })
-		if status
-		  Rails.logger.debug "> Welcome email:[#{account.email}] delivered. "
-		else
-			Rails.logger.debug "> Welcome email:[#{account.email}] not delivered. "
-		end
-		status
+		wrap_mail({:account =>  account, :subject => 'You are all set in Megam Oja.' })
 	end
 
 	def reset(account)
-		wrap_mail(:account => account, subject: 'You have fat fingers. No worries.') do
-			Rails.logger.debug "Reset email:[#{account.email}]."
-		end
+		wrap_mail(:account => account, subject: 'You have fat fingers. No worries.')
 	end
 
 
 	def invite(account, org_id)
 		@org_id = org_id
-		wrap_mail(:account => account, subject: 'You have been invited!!.') do
-			Rails.logger.debug "Invite email:[#{account.email}]."
-		end
+		wrap_mail(:account => account, subject: 'You have been invited!!.')
 	end
 
 	def verify
