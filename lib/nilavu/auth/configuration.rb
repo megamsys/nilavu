@@ -13,7 +13,7 @@ module Nilavu
         api_key parms[:api_key]
         first_name parms[:first_name]
         last_name parms[:last_name]
-        password parms[:phone]
+        phone parms[:phone]
         authority parms[:authority]
         verified parms[:verified]
         password_reset_key parms[:password_reset_key]

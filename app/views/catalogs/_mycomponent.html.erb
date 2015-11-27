@@ -7,7 +7,7 @@
         $.MonitM = "http://" + $.AppName + ":8080/api/v1.3/machine";
 	    //$.MonitC = "http://127.0.0.1:8080/api/v1.3/containers";
 	    //$.MonitM = "http://127.0.0.1:8080/api/v1.3/machine";
-	    $.SocketURL = "ws://<%= Ind.logs %>	";
+	    $.SocketURL = "wss://<%= Ind.logs %>	";
 	})($);
 
 	var serverSocket = new WebSocket($.SocketURL)
@@ -17,7 +17,7 @@
 	});
 
 	//replace host and mhost to $.MonitC and $.MonitM
-	React.render(React.createElement(NewOverview, {
+	ReactDOM.render(React.createElement(NewOverview, {
 	google: google,
 	socket: serverSocket,
 	name: $.AppName,
