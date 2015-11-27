@@ -3,7 +3,7 @@ var NewOverview = React.createClass({
     return {
       JsonD: ''
     };
-  },  
+  },   
 
   render: function() {
     return (
@@ -43,7 +43,8 @@ var OverviewTab = React.createClass({
     this.updateData();
     $('.bar').hide();
     $('.spinner').hide();
-    setInterval(this.updateData, 2000);
+    //setInterval(this.updateData, 2000);
+    this.interval  = setInterval(this.updateData, 2000);
   },
   componentDidUpdate: function() {
   	$('.bar').hide();
@@ -51,6 +52,10 @@ var OverviewTab = React.createClass({
     this.drawCPU();
     this.drawRAM();
     this.drawNETWORK();    
+  },
+  
+  componentWillUnmount: function(){
+    clearInterval(this.interval);
   },
 
   updateData: function() {
@@ -60,6 +65,7 @@ var OverviewTab = React.createClass({
   					this.setState({  JsonD: data  });
   					$('.bar').hide();
   					$('.spinner').hide();
+  					$('.metricLoader').hide();
      			}.bind(this),
   		error: function(xhr, status, err) {
     				$('.bar').hide();
@@ -72,8 +78,8 @@ var OverviewTab = React.createClass({
   		success: function(mdata) {
   					this.setState({  machineInfo: mdata, isLoading: false  });
   					$('.bar').hide();
-  					$('.spinner').hide();
-  					$('.metricLoader').hide();
+  					$('.spinner').hide();  		
+  					$('.metricLoader').hide();			
      			}.bind(this),
   		error: function(xhr, status, err) {
     				$('.bar').hide();
@@ -137,7 +143,12 @@ var OverviewTab = React.createClass({
 
     var opts = {
       curveType: 'function',
-      height: 200,
+      height: 300,
+      width: 800,    
+      chartArea:{
+      	left:110,
+      	top:5,      	
+      	},
       legend: {
         position: "none"
       },
@@ -200,6 +211,7 @@ var OverviewTab = React.createClass({
         }
       }
     }
+    console.log(data);
     var minWindow = min - (max - min) / 10;
     if (minWindow < 0) {
       minWindow = 0;
@@ -212,7 +224,12 @@ var OverviewTab = React.createClass({
     dataTable.addRows(data);
     var opts = {
       curveType: 'function',
-      height: 200,
+      height: 300,
+      width: 800,    
+      chartArea:{
+      	left:110,
+      	top:5,      	
+      	},
       legend: {
         position: "none"
       },
@@ -298,8 +315,13 @@ var OverviewTab = React.createClass({
     dataTable.addRows(data);
 
     var opts = {
-      curveType: 'function',
-      height: 200,
+      curveType: 'function',  
+      height: 300,
+      width: 800,    
+      chartArea:{
+      	left:110,
+      	top:5,      	
+      	},
       legend: {
         position: "none"
       },
