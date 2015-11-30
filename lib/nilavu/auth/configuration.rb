@@ -125,7 +125,8 @@ module Nilavu
       end
 
       def to_hash
-        { :email => @email,
+        { :id => @id,
+          :email => @email,
           :api_key => @api_key,
           :password => SignVerifier.encrypt(@password),
           :first_name => @first_name,
