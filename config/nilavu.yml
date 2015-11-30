@@ -1,5 +1,7 @@
-# /var/lib/megam/nilavu.yml
+# /var/lib/megam/nilavu.yml  
 defaults: &defaults
+# Automatically edited during builds
+  build: build.date
 # Enable billing, turn it off for testing.
   billings: off
 ## Backup cephgw, host, adminuser, admin password.
