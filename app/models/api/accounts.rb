@@ -65,8 +65,11 @@ module Api
     end
 
     def reset(params, &block)
-      update(current_config(params).to_hash.merge({:password_reset_key => Nilavu::Auth::SignVerifier.hmackey,
+      @auth_config = current_config(params)
+      update(@auth_config.to_hash.merge({:password_reset_key => Nilavu::Auth::SignVerifier.hmackey,
       :password_reset_sent_at => time_now }))
+      yield self if block_given?
+      self
     end
 
     def find_by_password_reset_key(password_reset_key, email)

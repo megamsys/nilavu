@@ -13,11 +13,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 **/
-<% if !@error %>
+$('#<%= @msg[:disposal_id] %>').modal('toggle');
+
 var selected_entity = '#postfinish_reset_password';
 $(selected_entity).modal({show : true});
-<% else %>
-var selected_entity = '#postfinish_reset_password_error';
-$(selected_entity).modal({show : true});
-<% end %>
-$("#forgot_password").modal('hide');
