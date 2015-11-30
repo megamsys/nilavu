@@ -16,7 +16,7 @@
 class UserMailer < ApplicationMailer
 	# an welcome email gets formatted to be sent
 	def welcome(account)
-		wrap_mail({:account =>  account, :subject => 'You are all set in Megam Oja.' })
+		wrap_mail({:account =>  account, :subject => 'Get going, launch now.' })
 	end
 
 	def reset(account)
