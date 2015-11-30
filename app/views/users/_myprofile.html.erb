@@ -55,7 +55,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-3 input-group margin-top-10 ">
-                                    <%= submit_tag t('my_profile.update'), :class => "btn btn-success col-md-5 col-xs-12" %>
+                                    <%= submit_tag t('my_profile.update'), :class => "btn-disabled disabled btn btn-success col-md-5 col-xs-12" %>
                                 </div>
                             </div>
                             <% end %>
@@ -101,7 +101,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-3 input-group margin-top-10">
-                                    <%= submit_tag t('my_profile.update'), :class => "btn btn-success col-md-5 col-xs-12", :id => "la-button" %>
+                                    <%= submit_tag t('my_profile.update'), :class => "btn-disabled disabled btn btn-success col-md-5 col-xs-12", :id => "la-button" %>
                                 </div>
                             </div>
 
@@ -207,7 +207,7 @@
                                 </div>
                                 <%= form_tag(user_path, :method => "put", :remote => true) do %>
                                 <input type="hidden" name="myprofile_type" value="<%= Api::Accounts::UPD_API_KEY %>">
-                                <%= submit_tag t('my_profile.update'), :class => "pull-right btn btn-success col-md-2 col-xs-0" %>
+                                <%= submit_tag t('my_profile.update'), :class => "pull-right btn-disabled disabled btn btn-success col-md-2 col-xs-0" %>
                                 <% end %>
                             </div>
                         </div>
@@ -226,7 +226,7 @@
                                 <tr>
                                     <td class="set_title" > <%= @account.api_key %></td>
                                     <td > <%= @account.created_at %></td>
-                                    <td><a data-toggle="modal" href="#app_delete" href=""><i class="icon-trash"></i>Delete</a></td>
+                                    <td><i class="icon-trash"></i>Delete</td>
                                 </tr>
                             </tbody>
                         </table>
