@@ -69,6 +69,9 @@ module Api
     end
 
     def create(api_params, &_block)
+      puts "****************ASSEMBLIES**************"
+      puts api_params.inspect
+      puts "-----------------------------------------"
       bld_data = build_data(api_params)
 	    api_request(ASSEMBLIES, CREATE, api_params.merge(bld_data))
       yield self if block_given?
