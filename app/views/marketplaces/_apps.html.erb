@@ -48,28 +48,8 @@
         </div>
       </div>
     </div>
-
     <%= render template="marketplaces/show_template" %>
-
     <!-- START Api::Assemblies::APP -->
-    <div class="row">
-      <div class="col-xs-6">
-        <p class="radioP">
-          <input id="r1" name="radio_app_scm" onclick="scmOption(this);" required type="radio" value="byoc_scm"/>
-          <label for="r1">
-            <span class="radioButtonGraph"></span>
-            <%= t('marketplace.rails_button1') %></label>
-        </p>
-      </div>
-      <div class="col-xs-6">
-        <p class="radioP">
-          <input id="r2" name="radio_app_scm" onclick="scmOption(this);" required type="radio" value="starter_pack"/>
-          <label for="r2">
-            <span class="radioButtonGraph"></span>
-            <%= t('marketplace.rails_button2') %></label>
-        </p>
-      </div>
-    </div>
     <div id="app_byoc_scm" style="display:none;">
       <h4>
         <%= t('marketplace.botton1_option') %>
@@ -84,7 +64,7 @@
         </div>
         <div class="col-md-6 text-center">
           <div class="col-md-offset-4 col-md-2">
-
+            
           <% if Ind.respond_to? :gitlab %>
           <a href="#" class="hint  hint--bottom" onclick="return gitlab_auth();" data-hint="Connect with your private Gitlab id"> <%= image_tag "gitlabimg.png",:class=> "img-responsive_byoc "%> </a>
            <% else %>
@@ -133,12 +113,13 @@
 <% end %>
 <script type="text/javascript">
   set_starter_pack();
+  $("#app_byoc_scm").show();
   // Script to show the scm type (gitlab or github)
   function scmOption(myRadio) {
     choose_megam_scm = myRadio.value;
     switch (choose_megam_scm) {
     case "byoc_scm" :
-      $("#app_byoc_scm").show();
+      //$("#app_byoc_scm").show();
       $("#app_starter_pack").hide();
       break;
     case "starter_pack" :

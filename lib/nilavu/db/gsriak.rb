@@ -7,16 +7,16 @@ module Nilavu
       class RiakError < StandardError; end
 
       def initialize(bname)
-        @bname = bname
-        require 'ind'
-        @client = Riak::Client.new(nodes: [{ host: "#{Ind.riak}" }])
+          @bname = bname
+          require 'ind'
+          @client = Riak::Client.new(nodes: [{ host: "#{Ind.riak}" }])
       end
 
       def upload(key, data, content_type)
-        object = @client.bucket(@bname).get_or_new(key)
-        object.raw_data = data
-        object.content_type = content_type
-        object.store
+          object = @client.bucket(@bname).get_or_new(key)
+          object.raw_data = data
+          object.content_type = content_type
+          object.store
       end
 
       def download(key)

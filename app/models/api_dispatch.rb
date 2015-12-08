@@ -101,7 +101,7 @@ class APIDispatch
   end
 
   def up
-    #Nilavu::Healthcheck
+    #Nilavu::Healthcheck.check()
     true
   end
 
