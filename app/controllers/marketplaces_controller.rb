@@ -53,9 +53,6 @@ class MarketplacesController < NilavuController
   # performs ssh creation or using existing and creating an assembly at the end.
   def create
     logger.debug '> Marketplaces: create.'
-    puts "******************************Marketplaces create***************************"
-    puts params.inspect
-    puts "------------------------------------------------------"
     params[:envs]= JSON.parse(params[:envs]) if params[:envs] != nil
     # adding the default org of the user which is stored in the session
     params[:ssh_keypair_name] = params["#{params[:sshoption]}" + '_name'] if params[:sshoption] == Api::Sshkeys::USEOLD
@@ -99,9 +96,6 @@ class MarketplacesController < NilavuController
   end
 
   def store_gitlab
-    puts "*************************************store_gitlab*******************************"
-    puts params.inspect
-    puts "-----------------------------------------------------------------------"
     Nilavu::Repos::MegamGitlab.new(params[:gitlab_username], params[:gitlab_password]).tap do |gl|
       session[:gitlab_repos] = gl.repos
       session[:gitlab_key] = gl.token.private_token
