@@ -1,4 +1,4 @@
-# /var/lib/megam/nilavu.yml  
+# /var/lib/megam/nilavu.yml
 defaults: &defaults
 # Automatically edited during builds
   build: build.date
@@ -22,6 +22,7 @@ defaults: &defaults
   api: localhost
 ## logs is a host that the nilavu will connect to for real time log streaming
   logs: localhost:7777/logs
+  m_port: 9999
 # notification section notifies the handlers based on_trigger conditions.
   notification:
     enable: on
