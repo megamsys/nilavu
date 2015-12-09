@@ -16,39 +16,70 @@
 <% content_for :onecat_contents do %>
 <% provide(:title, "Services Overview") %>
 
-<div class="rt-box col-xs-12 col-sm-8 col-md-9 col-lg-9 col-xl-9">
-  <div class="">
-    <div class="row c_pading-b15">
-      <div class="storage_top">
-        <div class="col-xs-12 col-sm-6 col-md-6">
-          <h3>
-            <b>
-              Services Overview
-            </b>
-          </h3>
-        </div>
-        <div class="col-xs-12 col-sm-6 col-md-6 settings_grid yf-upload-cover">
-          <a class="btn blue col-xs-12 col-sm-6 pull-right" data-toggle="modal" href="#app-1">Bind a service</a>
-        </div>
+<div class="rt-box col-xs-12 col-sm-9 col-md-10 col-xl-11 c_bg_white c_height_5">
+    <div class="">
+        <div class="row c_pading-b15">
+            <div class="storage_top">
+                <div class="col-xs-12 col-sm-6 col-md-6">
+                    <h3><b> Services Overview </b></h3>
+                </div>
+                <!--<div class="col-xs-12 col-sm-6 col-md-6 settings_grid yf-upload-cover">
+                <a class="btn blue col-xs-12 col-sm-6 pull-right" data-toggle="modal" href="#app-1">Bind a service</a>
+                </div>-->
 
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="bottom-divider"></div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-9 col-md-9 br_grey">
-      <% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
-      <% @logname = "#{assembly.name}.#{domain}" %>
-      <%= render 'catalogs/mycomponent' %>
+    <div class="bottom-divider"></div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-9 col-md-9 br_grey">
+            <% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
+            <% @logname = "#{assembly.name}.#{domain}" %>
+            <%= render 'catalogs/mycomponent' %>
+        </div>
+        <div class="col-sm-2 storage-rt-list">
+            <dl>
+                <h3>Usage</h3>
+                <dt>
+                    <%= t('overviews.available_ram') %>
+                </dt>
+                <dd>
+                    <%= assembly.inputs.select { |x| x["key"] == "ram" }[0]['value'] %>
+                    <%= t('overviews.mb') %>
+                </dd>
+                <dt class="margin-top-20"></dt>
+                <dt>
+                    <%= t('overviews.cpu_core') %>
+                </dt>
+                <dd>
+                    <%= assembly.inputs.select { |x| x["key"] == "cpu" }[0]['value'] %>
+                </dd>
+                <dt class="margin-top-20"></dt>
+                <dt>
+                    <%= t('overviews.ip') %>
+                </dt>
+                <dd>
+                    <% ip = parse_key_value_pair(assembly.outputs, "ip") %>
+                    <%= ip if ip != "" %>
+                    <%= t('overviews.not_get_ip') if ip == "" %>
+                </dd>
+                <dt class="margin-top-20"></dt>
+                <dt>
+                    Region
+                </dt>
+                <dd>
+                    <%= image_tag "flag_IN.png" %>
+                    INDIA
+                </dd>
+            </dl>
+        </div>
     </div>
-  </div>
-</div>
 </div>
 <br/>
-<div class="margin_30 bottom-divider"></div>
+<!--<div class="margin_30 bottom-divider"></div>
 <div class="row">
-<%= render :partial => 'catalogs/flysolo', :locals => {:asmgroups_flatten => @bound_apps, :filter_cattype => Api::Assemblies::APP} %>
-</div>
+    <%= render :partial => 'catalogs/flysolo', :locals => {:asmgroups_flatten => @bound_apps, :filter_cattype => Api::Assemblies::APP} %>
+</div> -->
 <% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
 <% @logname = "#{assembly.name}.#{domain}" %>
 
