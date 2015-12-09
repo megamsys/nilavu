@@ -75,7 +75,7 @@ class ApplicationController < ActionController::Base
     log_exception(mew)
     toast_error(redirect_where, mew.message) && return
   rescue ApplicationMailer::MegamNotifiError => mn
-    toast_warn(cockpits_path,mn.message) 
+    toast_warn(cockpits_path,mn.message)
   end
 
   def log_exception(exception)
