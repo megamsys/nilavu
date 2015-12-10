@@ -5,7 +5,7 @@ en:
   hello: "Hello world"
 
   signup:
-    megam_disc: "It wont take morethan 1 minute, we promise"
+    megam_disc: "It wont take more than 1 minute, we promise"
     footer_text: "Launch your applications seamlessly with less than"
     cost: "$5"
     first_name_tag: "First Name"
@@ -61,7 +61,7 @@ en:
     reset_password_statement: "An email has been sent to your registered email address to reset your password"
     sorry: "Sorry!"
     valid_email: "Please type a valid email address or create account in megam."
-    megam_io: "megam.io"
+    megam_io: "Megam.io"
 
   cockpits:
     info_tab: "Not sure what to do next?"
@@ -91,7 +91,8 @@ en:
   footer:
     docs: "Documentation"
     blog: "Blog"
-    forum: "Fourmns"
+    devcenter: "Dev center"
+    forum: "Forum"
     support: "Support"
     copywrite: "© 2013-2015 megam. All rights reserved."
 
@@ -136,7 +137,7 @@ en:
     currency: "Currency"
     timestamp: "Timestamp"
     paypal: "Pay with Paypal"
-    bit_coin: "Coming soon - Pay using Coinkite, Xapo..."
+    bit_coin: "Pay using Coinkite, Xapo."
 
   marketplace:
     dew: "Dew"
@@ -200,13 +201,13 @@ en:
     app_bound: "apps bound"
     service_running: " Services running "
     bindservice: "Bind a Service"
-    no_service: "Sorry! You don't have any services. Please Create new from marketplace."
+    no_service: "Sorry! You don't have any services. Please create from marketplace."
     overview: "Overview"
-    overview_of: "Overview of you"
-    overview_app: "Overview of you app."
-    overview_service: "Overview of you service."
-    overview_micro_service: "Overview of you Microservice."
-    overview_logs: "Overview of you logs."
+    overview_of: "Overview of your"
+    overview_app: "Overview of your app."
+    overview_service: "Overview of your service."
+    overview_micro_service: "Overview of your Microservice."
+    overview_logs: "Overview of your logs."
     url: "URL :"
     git_url: "GIT URL :"
     hub_url: "HUB URL :"
