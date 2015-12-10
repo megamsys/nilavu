@@ -14,8 +14,8 @@ var Noti = React.createClass({
   },
 
   componentDidMount: function() {
-    this.getEvent()
-    setInterval(this.getEvent, 8000);
+    //this.getEvent()
+    //setInterval(this.getEvent, 8000);
   },
 
   componentDidUpdate: function() {
@@ -53,13 +53,7 @@ var Noti = React.createClass({
           </p>
         </li>
         <li>
-          <ul className="dropdown-menu-list scroller">
-            {this.state.events.map(function (oneEvent) {
-              return (
-                <Single data={oneEvent} icon={this.state.icon}/>
-              );
-            }.bind(this))}
-          </ul>
+         
         </li>
         <li className="external">
           <a href="#">See all notifications
@@ -121,3 +115,13 @@ var Single = React.createClass({
     );
   }
 });
+
+
+
+ //<ul className="dropdown-menu-list scroller">
+           // {this.state.events.map(function (oneEvent) {
+            //  return (
+            //    <Single data={oneEvent} icon={this.state.icon}/>
+            //  );
+           // }.bind(this))}
+          //</ul>
