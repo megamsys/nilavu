@@ -26,16 +26,16 @@ class OneappsController < NilavuController
 	end
 
 	def show
-		@components = params[:components]
-		@bindapp = params[:id]
+		@components = params[:components]		
+		@bindapp = params[:assemblyID]
+		@assemblyname = params[:assemblyname]
 		@service = unbound_apps(Api::Assemblies.new.list(params.merge(flying_service: 'true')).services)
 		respond_to do |format|
-			format.js { respond_with(@bindapp, @service,@components, layout: !request.xhr?) }
+			format.js { respond_with(@bindapp, @service, @components, @assemblyname, layout: !request.xhr?) }
 		end
 	end
 
-	def create
-		params[:bind_app_flag] = 'true'
+	def create			
 		binded_service?(params) do
 		#	Api::Assembly.new.update(params)
 			Api::Components.new.update(params)
@@ -44,7 +44,7 @@ class OneappsController < NilavuController
     @asmid = params[:id]
 		@msg = { title: 'Bind Service'.downcase.camelize, message: 'Service bounded successfully. ', redirect: '/', disposal_id: 'bindservice' }
 		respond_to do |format|
-			format.js { respond_with(@asmid,layout: !request.xhr?) }
+			format.js { respond_with(@asmid, layout: !request.xhr?) }
 		end
 	end
 
