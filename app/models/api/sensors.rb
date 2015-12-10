@@ -19,10 +19,12 @@ module Api
 
     def initialize
       @sensors = []
+      super(true)
     end
 
     def list(api_params, &_block)
-      to_hash(api_request(api_params, SENSORS, LIST)[:body])
+      raw = api_request(SENSORS, LIST, api_params)
+      to_hash(raw[:body]) unless raw.nil?
       yield self if block_given?
       self
     end

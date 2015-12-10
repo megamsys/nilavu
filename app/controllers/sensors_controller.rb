@@ -15,7 +15,7 @@
 ## limitations under the License.
 ##
 require 'json'
-class SensorsController < ApplicationController
+class SensorsController < NilavuController
   respond_to :json
 
   before_action :stick_keys, only: [:index]

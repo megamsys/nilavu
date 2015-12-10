@@ -19,6 +19,7 @@ class APIDispatch
   MARKETPLACES      = 'MarketPlace'.freeze
   REQUESTS          = 'Request'.freeze
   SSHKEYS           = 'SshKey'.freeze
+  SENSORS           = 'Sensors'.freeze
 
   CREATE            = 'create'.freeze
   SHOW              = 'show'.freeze

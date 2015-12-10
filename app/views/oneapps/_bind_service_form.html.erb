@@ -18,21 +18,22 @@
 <% if @service.length > 1 %>
 <% @str = "" %>
 
-			<%= select_tag "bind_type", options_for_select(@service, :selected=>@service[0]), :class =>"form-control" %>
-<%= hidden_field_tag 'id', nil, placeholder: "", :class =>"form-control", :value => @bindapp  %>
-<%= hidden_field_tag 'assembly', nil, placeholder: "", :class =>"form-control", :value =>@components %>
+<%= select_tag "bind_type", options_for_select(@service, :selected=>@service[0]), :class =>"form-control" %>
+<%= hidden_field_tag 'assemblyID', nil, placeholder: "", :class =>"form-control", :value => @bindapp  %>
+<%= hidden_field_tag 'assemblyname', nil, placeholder: "", :class =>"form-control", :value => @assemblyname  %>
+<%= hidden_field_tag 'component', nil, placeholder: "", :class =>"form-control", :value =>@components %>
 <div class="modal-footer  c_modal-footer">
-<button type="button" class="btn default" data-dismiss="modal">
-	<%= t('cancel') %>
-</button>
-<%= submit_tag t('overviews.bind') , :class => "btn btn-success", data: {:remote => true,  disable_with: "Please wait..." } %>
+    <button type="button" class="btn default" data-dismiss="modal">
+        <%= t('cancel') %>
+    </button>
+    <%= submit_tag t('overviews.bind') , :class => "btn btn-success", data: {:remote => true,  disable_with: "Please wait..." } %>
 
-<% else %>
-<%= t('overviews.no_service') %>
+    <% else %>
+    <%= t('overviews.no_service') %>
 
-<button type="button" class="btn default" data-dismiss="modal">
-	<%= t('ok') %>
-</button>
+    <button type="button" class="btn default" data-dismiss="modal">
+        <%= t('ok') %>
+    </button>
 </div>
 <% end %>
 <!-- /.modal-content -->
