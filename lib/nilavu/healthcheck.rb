@@ -13,8 +13,8 @@ module Nilavu
     def initialize
       @status = OK
       @riak = { status: REACHABLE }
-      @megamgw= { status: REACHABLE }
-      @megamceph = { status: REACHABLE }
+      @megamgw = { :status => REACHABLE }
+      @megamceph = { :status => REACHABLE }
     end
 
     # Do a general health check.
@@ -34,7 +34,7 @@ module Nilavu
 
     def riak_health
       @riak[:status] = REACHABLE
-    rescue RiakError
+      rescue RiakError
       @riak[:status] = UNREACHABLE
     end
 

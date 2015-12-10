@@ -3,8 +3,8 @@
 <script type="text/javascript">
 	(function ($) {
         $.AppName = "<%= @logname %>";
-        $.MonitC = "http://" + $.AppName + ":8080/api/v1.3/containers";
-        $.MonitM = "http://" + $.AppName + ":8080/api/v1.3/machine";
+        $.MonitC = "http://" + $.AppName + ":9999/api/v1.3/containers";
+        $.MonitM = "http://" + $.AppName + ":9999/api/v1.3/machine";
 	    //$.MonitC = "http://127.0.0.1:8080/api/v1.3/containers";
 	    //$.MonitM = "http://127.0.0.1:8080/api/v1.3/machine";
 	    $.SocketURL = "wss://<%= Ind.logs %>	";
