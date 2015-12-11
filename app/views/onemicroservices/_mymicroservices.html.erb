@@ -37,8 +37,7 @@
   <div class="bottom-divider"></div>
   <div class="row">
     <div class="col-xs-12 col-sm-9 col-md-9 br_grey">
-      <% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
-      <% @logname = "#{assembly.name}.#{domain}" %>
+      <% @logname = "#{parse_key_value_pair(assembly.outputs, 'publicip')}" %>
       <%= render 'catalogs/mycomponent' %>
     </div>
     <div class="col-sm-3 storage-rt-list">
