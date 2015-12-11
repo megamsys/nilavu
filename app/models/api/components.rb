@@ -24,7 +24,7 @@ module Api
     end
 
     def show(api_params, &_block)
-      @components = api_request(COMPONENTS, SHOW,api_params)[:body]
+      @components = api_request(COMPONENTS, SHOW, api_params)[:body]
       yield self if block_given?
       self
     end

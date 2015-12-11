@@ -39,14 +39,22 @@ module Api
     end
 
     def update(api_params, &_block)
-      api_request(ASSEMBLY, UPDATE, api_params)
       api_request(ASSEMBLY, UPDATE, api_params) if api_params.key?(:bind_app_flag) # FOR BIND APP
       yield self if block_given?
       self
     end
-
+    
+    def upgrade(api_params, &_block)   
+      api_request(ASSEMBLY, UPGRADE, api_params.merge(bld_upgrade_params(api_params)))
+      yield self if block_given?
+      self   
+    end
 
     private
+    
+    def bld_upgrade_params(api_params)      
+        Megam::Mixins::Assembly.new(api_params).to_hash      
+    end
 
         # recursively dig assembly by populating components.
     def dig_components(tmp_assembly_collection, api_params)
