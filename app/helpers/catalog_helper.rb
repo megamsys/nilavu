@@ -55,9 +55,5 @@ module CatalogHelper
     c0 = Api::Assemblies::CATTYPES.select { |cat| cat unless cat.downcase != tmp_tosca_type.split('.')[1] }
     fail MissingAPIArgsError, "Supported cat types are #{CATTYPES}." if c0.nil?
     c0.join
-  end
-  def envs(assembly)
-    env=assembly.components[0][0].envs.reduce(:merge)
-    env.map {|k,v| [k.to_sym,v] }
-    end
+  end  
 end

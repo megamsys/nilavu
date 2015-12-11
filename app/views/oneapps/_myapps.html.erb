@@ -33,7 +33,7 @@
     </div>
     <div class="bottom-divider"></div>
     <div class="row">
-        <div class="col-xs-12 col-sm-9 col-md-9 br_grey">            
+        <div class="col-xs-12 col-sm-9 col-md-9 br_grey">
       <% @logname = "#{parse_key_value_pair(assembly.outputs, 'publicip')}" %>
       <%= render 'catalogs/mycomponent' %>
         </div>
@@ -59,6 +59,11 @@
           <dt class="margin-top-20"></dt>
           <dt>URL</dt>
           <dd>ssh -i id root@<%= assembly.name %>.<%= t('marketplace.megambox') %></dd>
+          <dt class="margin-top-20"></dt>
+          <dt>ENVS</dt>
+          <% envs(assembly).each do |k, v| %>
+          <dd><%= k +":" + v %></dd>
+          <% end %>
           <dt class="margin-top-20"></dt>
           <dt>Region</dt>
           <dd><img src="assets/flag_IN.png">

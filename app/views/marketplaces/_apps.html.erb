@@ -23,6 +23,8 @@
 <%= hidden_field_tag 'scm_name', nil, placeholder: "", :class =>"form-control"%>
 <%= hidden_field_tag 'type', nil, placeholder: "", :class => "form-control" %>
 <%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Api::Marketplaces::ONE %>
+<%= hidden_field_tag 'envs', nil, placeholder: "", :class =>"form-control", :value => @mkp['envs'].to_json %>
+
 <div class="row">
   <div class="col-md-12 pad_tb25">
     <span class="app_left_name"><%= t('marketplace.discription') %></span>
