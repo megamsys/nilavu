@@ -45,7 +45,7 @@
               <% when Api::Assemblies::APP %>
               <%= link_to assembly_name, oneapps_path(:id => assembly.id), :data => {:remote => true} %>
               <% when Api::Assemblies::SERVICE || Api::Assemblies::COLLABORATION || Api::Assemblies::ANALYTICS%>
-              <%= link_to assembly_name + ".megambox.com", oneservices_path(:id => assembly.id, :cattype => want_catkey(assembly.tosca_type)), :data => {:remote => true} %>
+              <%= link_to assembly_name, oneservices_path(:id => assembly.id, :cattype => want_catkey(assembly.tosca_type)), :data => {:remote => true} %>
               <% when Api::Assemblies::MICROSERVICES %>
               <%= link_to assembly_name, onemicroservices_path(:id => assembly.id), :data => {:remote => true} %>
               <% end %>
@@ -81,7 +81,7 @@
             </span>
             <div class="row app_icon">
               <h5><%= assembly.name %></h5>
-              <%= assembly.name + ".megam.io" %>
+              <%= assembly.name  %>
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <ul class="list-inline app_icon_bottom">
                   <% sparkle_up(cattype,assembly).each do |cool_logo| %>
