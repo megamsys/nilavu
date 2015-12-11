@@ -14,6 +14,14 @@
 ## limitations under the License.
 ##
 module OneoverHelper
+  def envs(assembly)
+    h = {}
+    env = assembly.components[0][0].envs.each do |k|
+      h[k["key"]] = k["value"]
+    end
+    h
+  end
+
   def change_runtime(deps, runtime)
     project_name = File.basename(deps).split('.').first
     if /<projectname>/.match(runtime)

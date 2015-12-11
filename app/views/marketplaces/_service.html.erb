@@ -14,65 +14,72 @@
 ** limitations under the License.
 -->
 <%= form_tag marketplaces_path, multipart: true, :novalidate => 'novalidate', :id => "megamform", :method => 'post'  do %>
-  <% plan        = match_plan_for(@mkp,version) %>
-  <%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
+<% plan        = match_plan_for(@mkp,version) %>
+<%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value => version  %>
 
-  <%= hidden_field_tag 'componentname', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
+<%= hidden_field_tag 'componentname', nil, placeholder: "", :class =>"form-control", :value =>  launch_namegen %>
 <%= hidden_field_tag 'mkp_name', nil, placeholder: "", :class =>"form-control", :value => @mkp['name'] %>
 <%= hidden_field_tag 'cattype', nil, placeholder: "", :class =>"form-control", :value => @mkp['cattype'] %>
-  <%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
-    <%= hidden_field_tag 'type', nil, placeholder: "", :class => "form-control" %>
-  <%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Api::Marketplaces::ONE %>
-  <div class="row">
-    <div class="col-md-12 pad_tb25"> <span class="app_left_name"><%= t('marketplace.discription') %></span>
-      <P class="model-description"><%= plan['description'] %> <a href="http://docs.megam.io/docs/megam_oja_gettingstarted" target="_blank"> <%= t('marketplace.view_docs') %></a></P>
-<br/>
-      <div class="">
-        <h4><%= t('name') %></h4>
-        <div class="row">
-          <div class="col-xs-6">
-            <div class="form-group">
-              <%= text_field_tag 'assemblyname', nil, :class =>"form-control", :value => launch_namegen, :required => true %>
-            </div>
-          </div>
-          <div class="col-xs-6">
-            <div class="form-group">
-              <%= text_field_tag 'domain', nil, placeholder: t('marketplace.megambox'), :class =>"form-control", :value => "megambox.com", disabled: true %>
-              <%= hidden_field_tag 'domain', nil, placeholder: ".megambox.com", :class =>"form-control", :value => "megambox.com" %>
-            </div>
+<%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
+<%= hidden_field_tag 'type', nil, placeholder: "", :class => "form-control" %>
+<%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Api::Marketplaces::ONE %>
+<%= hidden_field_tag 'envs', nil, placeholder: "", :class =>"form-control", :value => @mkp['envs'].to_json %>
+
+<div class="row">
+  <div class="col-md-12 pad_tb25">
+    <span class="app_left_name"><%= t('marketplace.discription') %></span>
+    <P class="model-description"><%= plan['description'] %>
+      <a href="http://docs.megam.io/docs/megam_oja_gettingstarted" target="_blank">
+        <%= t('marketplace.view_docs') %></a>
+    </P>
+    <br/>
+    <div class="">
+      <h4><%= t('name') %></h4>
+      <div class="row">
+        <div class="col-xs-6">
+          <div class="form-group">
+            <%= text_field_tag 'assemblyname', nil, :class =>"form-control", :value => launch_namegen, :required => true %>
           </div>
         </div>
+        <div class="col-xs-6">
+          <div class="form-group">
+            <%= text_field_tag 'domain', nil, placeholder: t('marketplace.megambox'), :class =>"form-control", :value => "megambox.com", disabled: true %>
+            <%= hidden_field_tag 'domain', nil, placeholder: ".megambox.com", :class =>"form-control", :value => "megambox.com" %>
+          </div>
+        </div>
+      </div>
       <%= render template="marketplaces/show_template" %>
 
-        <%= render template="marketplaces/show_ssh", :locals => {:ssh_keys => @ssh_keys} %>
-        <br/>
-        <br/>
-        <div class="row">
-          <!--<div class="col-md-6">
+      <%= render template="marketplaces/show_ssh", :locals => {:ssh_keys => @ssh_keys} %>
+      <br/>
+      <br/>
+      <div class="row">
+        <!--<div class="col-md-6">
             <div class="form-group">
               <%= select_tag "bind_type", options_for_select(unbound_apps, :selected=>unbound_apps[0]), :class =>"form-control", :id => "bindedApp" %>
             </div>
           </div> -->
-          <div class="col-md-offset-4 col-md-4">
-            <div class="form-group">
-              <%= submit_tag t('cockpits.create'), :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Please wait..."} %>
-            </div>
+        <div class="col-md-offset-4 col-md-4">
+          <div class="form-group">
+            <%= submit_tag t('cockpits.create'), :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Please wait..."} %>
           </div>
         </div>
       </div>
-
     </div>
-    <!-- body_left ends here -->
-    <!-- body_right ends here -->
+
   </div>
+  <!-- body_left ends here -->
+  <!-- body_right ends here -->
+</div>
 </div>
 <script type="text/javascript">
-  	(function($) {
-      $("#type").val("image")
-  		$('#bindedApp').on('change', function(e) {
-  			var optionSelected = $("option:selected", this);
-  			var valueSelected = this.value;
-  		});
-  	})($);
+(function ($) {
+  $("#type").val("image")
+  $('#bindedApp').on('change', function (e) {
+    var optionSelected = $("option:selected", this);
+    var valueSelected = this.value;
+  });
+})
+($);
 </script>
 <% end %>
