@@ -56,4 +56,8 @@ module CatalogHelper
     fail MissingAPIArgsError, "Supported cat types are #{CATTYPES}." if c0.nil?
     c0.join
   end
+  def envs(assembly)
+    env=assembly.components[0][0].envs.reduce(:merge)
+    env.map {|k,v| [k.to_sym,v] }
+    end
 end
