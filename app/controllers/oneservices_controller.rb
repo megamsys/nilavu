@@ -22,7 +22,7 @@ class OneservicesController < NilavuController
   end
 
   def index
-    @assembly = Api::Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Api::Assemblies::SERVICE]
+    @assembly = Api::Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[params[:cattype]]
     @bound_apps = bound_assemblies(Api::Assemblies.new.list(params).assemblies_grouped[Api::Assemblies::APP], @assembly.components[0][0].components.related_components)
   end
 end

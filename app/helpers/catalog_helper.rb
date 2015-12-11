@@ -50,4 +50,10 @@ module CatalogHelper
     end
     asmgroups_flatten.flatten
   end
+  #redundant method in assembly.rb
+  def want_catkey(tmp_tosca_type)
+    c0 = Api::Assemblies::CATTYPES.select { |cat| cat unless cat.downcase != tmp_tosca_type.split('.')[1] }
+    fail MissingAPIArgsError, "Supported cat types are #{CATTYPES}." if c0.nil?
+    c0.join
+  end
 end

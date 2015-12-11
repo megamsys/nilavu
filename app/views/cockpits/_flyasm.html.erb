@@ -1,141 +1,153 @@
 <div class="row c_pading-b15">
-    <div class="portlet-body-head">
-      <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
-        <i class="c_icon-layer-<%= cattype.downcase %>_lg"></i><%= t('cockpits.your') %><%= cattype.capitalize.pluralize %> <span><%= asmgroups_flatten.size%> <%=  cattype.pluralize %><%= t('cockpits.running') %></span>
-      </div>
+  <div class="portlet-body-head">
+    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
+      <i class="c_icon-layer-<%= cattype.downcase %>_lg"></i><%= t('cockpits.your') %><%= cattype.capitalize.pluralize %>
+      <span><%= asmgroups_flatten.size%>
+        <%=  cattype.pluralize %><%= t('cockpits.running') %></span>
     </div>
   </div>
+</div>
 <div class="bottom-divider"></div>
 
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
   <div class="row app_box app_storage">
     <%= link_to marketplaces_path, :data => { :remote => true} do %>
-      <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover one_<%= cattype %>">
-        <div class="app_inner">
-          <div class="app_new">
-            <span class="glyphicon glyphicon-plus"></span>
-            <p>
-               <%= t('cockpits.create') %><%= cattype %>
-            </p>
-          </div>
+    <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover one_<%= cattype %>">
+      <div class="app_inner">
+        <div class="app_new">
+          <span class="glyphicon glyphicon-plus"></span>
+          <p>
+            <%= t('cockpits.create') %><%= cattype %>
+          </p>
         </div>
       </div>
+    </div>
     <% end %>
     <% asmgroups_flatten.each do |assembly| %>
-      <% unless assembly.status == Api::Assemblies::TERMINATED %>
-        <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover">
-          <div class="app_inner">
-            <div class="app">
-              <div class="app_head">
-                <span class="app_config" id="config_menu_<%= assembly.name %>_<%= cattype.downcase %>"><i class="c_icon-config"></i></span>
-                <div class="config_menu config_menu_<%= assembly.name %>_<%= cattype.downcase %>">
-                  <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id, :asms_id => assembly.asms_id, :name => assembly.name+"."+domain(assembly.inputs), :cattype => cattype} %>
-                </div>
-                <div class="row app_icon">
-                  <h5><%= assembly.name %></h5>
-                  <% assembly_name = assembly.name + "." +domain(assembly.inputs) %>
-                  <% assembly_name = if assembly_name.size > 10 then assembly_name.slice(0,15) + "..." else assembly_name end %>
-                  <% case cattype.upcase %>
-                  <% when Api::Assemblies::TORPEDO %>
-                  <%= link_to assembly_name, onetorpedos_path(:id => assembly.id), :data => {:remote => true} %>
-                  <% when Api::Assemblies::APP %>
-                  <%= link_to assembly_name, oneapps_path(:id => assembly.id), :data => {:remote => true} %>
-                  <% when Api::Assemblies::SERVICE %>
-                  <%= link_to assembly_name, oneservices_path(:id => assembly.id), :data => {:remote => true} %>
-                   <% when Api::Assemblies::MICROSERVICES %>
-                  <%= link_to assembly_name, onemicroservices_path(:id => assembly.id), :data => {:remote => true} %>
+    <% unless assembly.status == Api::Assemblies::TERMINATED %>
+    <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover">
+      <div class="app_inner">
+        <div class="app">
+          <div class="app_head">
+            <span class="app_config" id="config_menu_<%= assembly.name %>_<%= cattype.downcase %>">
+              <i class="c_icon-config"></i>
+            </span>
+            <div class="config_menu config_menu_<%= assembly.name %>_<%= cattype.downcase %>">
+              <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id, :asms_id => assembly.asms_id, :name => assembly.name+"."+domain(assembly.inputs), :cattype => cattype} %>
+            </div>
+            <div class="row app_icon">
+              <h5><%= assembly.name %></h5>
+              <% assembly_name = assembly.name + "." +domain(assembly.inputs) %>
+              <% assembly_name = if assembly_name.size > 10 then assembly_name.slice(0,15) + "..." else assembly_name end %>
+              <% case cattype.upcase %>
+              <% when Api::Assemblies::TORPEDO %>
+              <%= link_to assembly_name, onetorpedos_path(:id => assembly.id), :data => {:remote => true} %>
+              <% when Api::Assemblies::APP %>
+              <%= link_to assembly_name, oneapps_path(:id => assembly.id), :data => {:remote => true} %>
+              <% when Api::Assemblies::SERVICE || Api::Assemblies::COLLABORATION || Api::Assemblies::ANALYTICS%>
+              <%= link_to assembly_name + ".megambox.com", oneservices_path(:id => assembly.id, :cattype => want_catkey(assembly.tosca_type)), :data => {:remote => true} %>
+              <% when Api::Assemblies::MICROSERVICES %>
+              <%= link_to assembly_name, onemicroservices_path(:id => assembly.id), :data => {:remote => true} %>
               <% end %>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                  <ul class="list-inline app_icon_bottom">
-                    <%  sparkle_up(cattype,assembly).each do |cool_logo| %>
-                      <li>
-                        <%= image_tag  cool_logo, :alt => "" %>
-                      </li>
-                    <% end %>
-                  </ul>
-                </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <ul class="list-inline app_icon_bottom">
+                  <%  sparkle_up(cattype,assembly).each do |cool_logo| %>
+                  <li>
+                    <%= image_tag  cool_logo, :alt => "" %>
+                  </li>
+                  <% end %>
+                </ul>
               </div>
             </div>
-            <div class="app_footer_padding">
-              <i class="circle_green"></i>
-              <span><%= assembly.status.capitalize %></span>
-              <a href="http://docs.megam.io" target="_blank" ><i class="c_icon-window pull-right" style="padding-top:20px"></i></a>
-              <i class="c_icon-star pull-right" style="padding-right:30px"></i>
-            </div>
+          </div>
+          <div class="app_footer_padding">
+            <i class="circle_green"></i>
+            <span><%= assembly.status.capitalize %></span>
+            <a href="http://docs.megam.io" target="_blank">
+              <i class="c_icon-window pull-right" style="padding-top:20px"></i>
+            </a>
+            <i class="c_icon-star pull-right" style="padding-right:30px"></i>
           </div>
         </div>
       </div>
+    </div>
     <% else %>
-      <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover">
-        <div class="app_inner">
-          <div class="app">
-            <div class="app_head">
-              <span class="app_config" id="config_menu_<%= assembly.name %>_app"><i class="c_icon-config"></i></span>
-              <div class="row app_icon">
-                <h5><%= assembly.name %></h5>
-                <%= assembly.name + ".megam.io" %>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                  <ul class="list-inline app_icon_bottom">
-                     <% sparkle_up(cattype,assembly).each do |cool_logo| %>
-                      <li>
-                        <%= image_tag  cool_logo, :alt => "" %>
-                      </li>
-                    <% end %>
-                  </ul>
-                </div>
+    <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover">
+      <div class="app_inner">
+        <div class="app">
+          <div class="app_head">
+            <span class="app_config" id="config_menu_<%= assembly.name %>_app">
+              <i class="c_icon-config"></i>
+            </span>
+            <div class="row app_icon">
+              <h5><%= assembly.name %></h5>
+              <%= assembly.name + ".megam.io" %>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <ul class="list-inline app_icon_bottom">
+                  <% sparkle_up(cattype,assembly).each do |cool_logo| %>
+                  <li>
+                    <%= image_tag  cool_logo, :alt => "" %>
+                  </li>
+                  <% end %>
+                </ul>
               </div>
             </div>
-            <div class="app_footer_padding">
-              <i class="circle_red"></i>
-              <span><%= assembly.status.capitalize %></span>
-              <a href="http://docs.megam.io" target="_blank" ><i class="c_icon-window pull-right" style="padding-top:20px"></i></a>
-              <i class="c_icon-star pull-right" style="padding-right:30px"></i>
-            </div>
+          </div>
+          <div class="app_footer_padding">
+            <i class="circle_red"></i>
+            <span><%= assembly.status.capitalize %></span>
+            <a href="http://docs.megam.io" target="_blank">
+              <i class="c_icon-window pull-right" style="padding-top:20px"></i>
+            </a>
+            <i class="c_icon-star pull-right" style="padding-right:30px"></i>
           </div>
         </div>
       </div>
+    </div>
     <% end %>
-  <% end unless asmgroups_flatten.size <= 0 %>
-</div>
+    <% end unless asmgroups_flatten.size <= 0 %>
+  </div>
 </div>
 
 <script>
-$(document).ready(function() {
-    $('.app_config').click(function(event) {
-        $('.app_config').removeClass('config_acive');
-        cls = this.id;
-        event.stopPropagation();
-        $('.' + cls).toggle();
-        $(this).toggleClass('config_acive');
+  $(document)
+    .ready(function () {
+      $('.app_config')
+        .click(function (event) {
+          $('.app_config').removeClass('config_acive');
+          cls = this.id;
+          event.stopPropagation();
+          $('.' + cls).toggle();
+          $(this).toggleClass('config_acive');
+        });
+      $(document)
+        .click(function () {
+          $('.app_config').removeClass('config_acive');
+        });
     });
-    $(document).click(function() {
-        $('.app_config').removeClass('config_acive');
-    });
-});
   // Instance the tour
-<% if session[:tour] %>
-var tour = new Tour({
-  steps: [
-  {
-    element: ".one_Torpedo",
-    title: "<i class='fa fa-soundcloud'></i> Step 1",
-    content: "Click to see all our apps and services !!"
-  },
+  <% if session[:tour] %>
+  var tour = new Tour({
+    steps: [
       {
-    element: ".two",
-    title: "<i class='fa fa-soundcloud'></i> Step 2",
-    content: "Click to see all our apps and services !!",
-    placement: 'left'
-  }
-],
- // backdrop: true,
-  storage: false
-});
-tour.init();
-<% session[:tour] = false %>
-tour.start();
-<% end %>
-$(function () {
-  $('[data-toggle="popover"]').popover()
-})
+        element: ".one_Torpedo",
+        title: "<i class='fa fa-soundcloud'></i> Step 1",
+        content: "Click to see all our apps and services !!"
+      }, {
+        element: ".two",
+        title: "<i class='fa fa-soundcloud'></i> Step 2",
+        content: "Click to see all our apps and services !!",
+        placement: 'left'
+      }
+    ],
+    // backdrop: true,
+    storage: false
+  });
+  tour.init();
+  <% session[:tour] = false %>
+  tour.start();
+  <% end %>
+  $(function () {
+    $('[data-toggle="popover"]').popover()
+  })
 </script>

@@ -28,7 +28,7 @@
     <span class="app_left_name"><%= t('marketplace.discription') %></span>
     <P class="model-description">
       <%= plan['description'] %>
-      <a href="http://docs.megam.io/v1.0/docs/megam_quick_launch" target="_blank">
+      <a href="http://docs.megam.io/docs/megam_oja_gettingstarted" target="_blank">
         <%= t('marketplace.view_docs') %></a>
     </P>
     <br/>
@@ -64,7 +64,7 @@
         </div>
         <div class="col-md-6 text-center">
           <div class="col-md-offset-4 col-md-2">
-            
+
           <% if Ind.respond_to? :gitlab %>
           <a href="#" class="hint  hint--bottom" onclick="return gitlab_auth();" data-hint="Connect with your private Gitlab id"> <%= image_tag "gitlabimg.png",:class=> "img-responsive_byoc "%> </a>
            <% else %>

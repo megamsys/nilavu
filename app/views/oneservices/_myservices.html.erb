@@ -38,40 +38,41 @@
             <%= render 'catalogs/mycomponent' %>
         </div>
         <div class="col-sm-2 storage-rt-list">
-            <dl>
-                <h3>Usage</h3>
-                <dt>
-                    <%= t('overviews.available_ram') %>
-                </dt>
-                <dd>
-                    <%= assembly.inputs.select { |x| x["key"] == "ram" }[0]['value'] %>
-                    <%= t('overviews.mb') %>
-                </dd>
-                <dt class="margin-top-20"></dt>
-                <dt>
-                    <%= t('overviews.cpu_core') %>
-                </dt>
-                <dd>
-                    <%= assembly.inputs.select { |x| x["key"] == "cpu" }[0]['value'] %>
-                </dd>
-                <dt class="margin-top-20"></dt>
-                <dt>
-                    <%= t('overviews.ip') %>
-                </dt>
-                <dd>
-                    <% ip = parse_key_value_pair(assembly.outputs, "ip") %>
-                    <%= ip if ip != "" %>
-                    <%= t('overviews.not_get_ip') if ip == "" %>
-                </dd>
-                <dt class="margin-top-20"></dt>
-                <dt>
-                    Region
-                </dt>
-                <dd>
-                    <%= image_tag "flag_IN.png" %>
-                    INDIA
-                </dd>
-            </dl>
+                  <dl>
+        <h3>Usage</h3>
+        <dt><%= t('overviews.name') %></dt>
+        <dd><%= assembly.name %>.<%= t('marketplace.megambox') %></dd>
+        <dt class="margin-top-20"></dt>
+
+        <dt><%= t('overviews.available_ram') %></dt>
+        <dd><%= assembly.inputs.select { |x| x["key"] == "ram" }[0]['value'] %>
+          <%= t('overviews.mb') %></dd>
+        <dt class="margin-top-20"></dt>
+        <dt><%= t('overviews.cpu_core') %></dt>
+        <dd><%= assembly.inputs.select { |x| x["key"] == "cpu" }[0]['value'] %></dd>
+        <dt class="margin-top-20"></dt>
+        <dt>
+            <%= t('overviews.ip') %></dt>
+          <dd><% ip = parse_key_value_pair(assembly.outputs, "publicip") %>
+            <%= ip if ip != "" %>
+            <%= t('overviews.not_get_ip') if ip == "" %></dd>
+          <dt class="margin-top-20"></dt>
+          <dt>URL</dt>
+          <dd>ssh -i id root@<%= assembly.name %>.<%= t('marketplace.megambox') %></dd>
+          <dt class="margin-top-20"></dt>
+          <dt>Region</dt>
+          <dd><img src="assets/flag_IN.png">
+            INDIA</dd>
+          <dt class="margin-top-20"></dt>
+          <dt><%= t('overviews.key') %></dt>
+          <dd>
+            <%ssh=assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value'].split('_').last%>
+            <%= link_to "#{assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value'].split('_').last}",
+      edit_ssh_key_path(:id => ssh+"_key"), :class => "hint  hint--bottom", :target => "_self", 'data-hint' => "Click here to download private key" %>
+
+          </dd>
+
+        </dl>
         </div>
     </div>
 </div>
