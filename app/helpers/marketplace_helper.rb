@@ -102,7 +102,7 @@ module MarketplaceHelper
 		array.map do |pair|
 			return pair['operation_requirements'] if pair['operation_type'] == search_key
 		end
-		[]
+		
 	end
 
 	# stick all the versions (debian 7, 8 and the first version 7 or the passed version 8)
