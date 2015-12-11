@@ -25,8 +25,9 @@
               <%= link_to assembly.name + ".megambox.com", onetorpedos_path(:id => assembly.id), :data => {:remote => true} %>
               <% when Api::Assemblies::APP %>
               <%= link_to assembly.name + ".megambox.com", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
-              <% when Api::Assemblies::SERVICE %>
-              <%= link_to assembly.name + ".megambox.com", oneservices_path(:id => assembly.id), :data => {:remote => true} %>
+              <% when Api::Assemblies::SERVICE || Api::Assemblies::COLLABORATION || Api::Assemblies::ANALYTICS%>
+              <%= link_to assembly.name + ".megambox.com", oneservices_path(:id => assembly.id, :cattype => want_catkey(assembly.tosca_type)), :data => {:remote => true} %>
+
               <% when Api::Assemblies::MICROSERVICES %>
               <%= link_to assembly.name + ".megambox.com", onemicroservices_path(:id => assembly.id), :data => {:remote => true} %>
               <% end %>
