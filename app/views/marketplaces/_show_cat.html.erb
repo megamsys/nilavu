@@ -74,7 +74,7 @@
 				<%= hidden_field_tag 'scm_name', nil, placeholder: 'Docker GitHub', :class =>"form-control", :value => Nilavu::Constants::DOCKERHUB %>
 				<div class="col-xs-6">
 					<div class="form-group">
-						<%= submit_tag "Create", :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Please wait..."} %>
+						<%= submit_tag t('cockpits.create'), :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Please wait..."} %>
 					</div>
 				</div>
 			</div>

@@ -21,7 +21,7 @@ defaults: &defaults
 ## An api server for nilavu
   api: localhost
 ## logs is a host that the nilavu will connect to for real time log streaming
-  logs: madai.megam.io/logs
+  logs: wss://madai.megam.io/logs
 # notification section notifies the handlers based on_trigger conditions.
   notification:
     enable: on
