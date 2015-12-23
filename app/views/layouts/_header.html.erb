@@ -34,6 +34,7 @@
             <ul class="nav navbar-nav pull-right">
               <li id="marketplace_top_right">
                 <%= link_to marketplaces_path , :data => {:remote => true}, :class => "socket_disconnect", :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+		<i class="c_icon-window-lg pull-left"></i>
 		<span class="hidden-xs hidden-sm pull-left"><%= t('titles.marketplace_title') %></span>
                 <% end %>
               </li>
