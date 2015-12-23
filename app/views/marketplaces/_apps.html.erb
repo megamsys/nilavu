@@ -24,7 +24,6 @@
 <%= hidden_field_tag 'type', nil, placeholder: "", :class => "form-control" %>
 <%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => Api::Marketplaces::ONE %>
 <%= hidden_field_tag 'envs', nil, placeholder: "", :class =>"form-control", :value => @mkp['envs'].to_json %>
-
 <div class="row">
   <div class="col-md-12 pad_tb25">
     <span class="app_left_name"><%= t('marketplace.discription') %></span>
@@ -52,6 +51,24 @@
     </div>
     <%= render template="marketplaces/show_template" %>
     <!-- START Api::Assemblies::APP -->
+    <div class="row">
+      <div class="col-xs-6">
+        <p class="radioP">
+          <input id="r1" name="radio_app_scm" onclick="scmOption(this);" required type="radio" value="core_scm"/>
+          <label for="r1">
+            <span class="radioButtonGraph"></span>
+            <%= "Software only" %></label>
+        </p>
+      </div>
+      <div class="col-xs-6">
+        <p class="radioP">
+          <input id="r2" name="radio_app_scm" onclick="scmOption(this);" required type="radio" value="byoc_scm"/>
+          <label for="r2">
+            <span class="radioButtonGraph"></span>
+            <%= "Bring Your Own Code" %></label>
+        </p>
+      </div>
+    </div>
     <div id="app_byoc_scm" style="display:none;">
       <h4>
         <%= t('marketplace.botton1_option') %>
@@ -79,22 +96,14 @@
       <br/>
       <div class="row">
         <div class="col-sm-12 col-xs-12">
-          <div id="repos"></div>
+          <div id="repos">
+  <%= select_tag "repo_select", options_for_select([ ]), include_blank: "Please Click on the above icon to list your repos" , :class =>"form-control", :required => true %>
+	  </div>
         </div>
       </div>
     </div>
     <%= hidden_field_tag 'source', nil, placeholder: '', :class =>"form-control", :value => '' %>
     <%= hidden_field_tag 'check_ci', nil, placeholder: '', :class =>"form-control", :value => 'false',:id => 'check_ci' %>
-    <div id="app_starter_pack" style="display:none;">
-      <div class="row">
-        <div class="col-sm-12 col-xs-12">
-          <h4><%= t('marketplace.starterpack') %></h4>
-          <div class="form-group">
-            <%= text_field_tag 'starterpack_git', nil, placeholder: "https://github.com/megamsys/megamsys.git", :class =>"form-control", :value => @mkp['url'], :readonly => true %>
-          </div>
-        </div>
-      </div>
-    </div>
     <!-- END Api::Assemblies::APP -->
     <!--- START SSH TEMPLATE -->
     <%= render template="marketplaces/show_ssh", :locals => {:ssh_keys => @ssh_keys} %>
@@ -114,32 +123,21 @@
 <!-- body_right ends here -->
 <% end %>
 <script type="text/javascript">
-  set_starter_pack();
-  $("#app_byoc_scm").show();
   // Script to show the scm type (gitlab or github)
   function scmOption(myRadio) {
     choose_megam_scm = myRadio.value;
     switch (choose_megam_scm) {
     case "byoc_scm" :
-      //$("#app_byoc_scm").show();
-      $("#app_starter_pack").hide();
+      $("#app_byoc_scm").show();
       break;
-    case "starter_pack" :
+    case "core_scm" :
       $("#app_byoc_scm").hide();
-      $("#app_starter_pack").show();
       break;
     default :
       $("#app_byoc_scm").hide();
-      $("#app_starter_pack").show();
     }
   }
 
-  function set_starter_pack() {
-    $("#source").val($("#starterpack_git").val());
-    $("#type").val("source");
-    $("#check_ci").val("true");
-
-  }
 
   // Onclick events for gitlab and github
   function github_oauth() {

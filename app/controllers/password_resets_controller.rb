@@ -18,9 +18,10 @@ class PasswordResetsController < NilavuController
 
   def create
     Api::Accounts.new.reset(params) do |account|
-      status = UserMailer.reset(account).deliver_now
+      UserMailer.reset(account).deliver_now
       @msg = { title: 'Reset', message: 'An email was sent to #{account.email}. ', redirect: '/', disposal_id: 'forgot_password' }
     end
+    toast_success(signin_path, "An email was sent to #{params['email']}. Follow the link in that mail. ")
   end
 
   def edit
@@ -28,10 +29,12 @@ class PasswordResetsController < NilavuController
   end
 
   def update
-    Api::Accounts.new.find_by_password_reset_key(params[:id], params[:email]) do |account|
-      toast_success(root_url,'Password has been reset!')
-    end if !reset_key_expired?
-    redirect_to signin_path, alert: 'Password reset has expired.'
+    user = Api::Accounts.new.find_by_password_reset_key(params[:id], params[:email]) 
+	if !reset_key_expired?(user)
+	    toast_success(root_url,'Password has been reset!')
+  	else
+  	    toast_success(root_url,'Password reset has expired!')
+	end
   end
 
   private
