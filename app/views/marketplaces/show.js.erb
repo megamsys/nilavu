@@ -22,7 +22,7 @@ var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/
 <% elsif @mkp["cattype"] == Api::Assemblies::ANALYTICS %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/analytics', :locals => {:version => @mkp["sversion"], :mkp => @mkp}) %>";
 <% elsif @mkp["cattype"] == Api::Assemblies::TORPEDO %>
-var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/dew', :locals => {:version => @mkp["sversion"], :mkp => @mkp, :ssh_keys => @ssh_keys}) %>";
+var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/torpedo', :locals => {:version => @mkp["sversion"], :mkp => @mkp, :ssh_keys => @ssh_keys}) %>";
 <% elsif @mkp["cattype"] == Api::Assemblies::COLLABORATION %>
 var to_insert_content = "<%= escape_javascript(render :partial => 'marketplaces/collaboration', :locals => {:version => @mkp["sversion"], :mkp => @mkp, :ssh_keys => @ssh_keys}) %>";
 <% elsif @mkp["cattype"] == Api::Assemblies::MICROSERVICES %>
