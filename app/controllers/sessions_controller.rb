@@ -38,7 +38,7 @@ class SessionsController < NilavuController
   def authenticate(params)
     Api::Accounts.new.authenticate(params) do |acct|
       store_credentials acct
-      toast_success(cockpits_path, "click marketplaces to get started.")
+      toast_success(cockpits_path, "Click <b>marketplaces</b> to get started.")
     end
   rescue Api::Accounts::AccountNotFound => an
     toast_error(signup_path, an.message)

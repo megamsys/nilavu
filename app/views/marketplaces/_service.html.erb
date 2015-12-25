@@ -54,14 +54,9 @@
       <br/>
       <br/>
       <div class="row">
-        <!--<div class="col-md-6">
-            <div class="form-group">
-              <%= select_tag "bind_type", options_for_select(unbound_apps, :selected=>unbound_apps[0]), :class =>"form-control", :id => "bindedApp" %>
-            </div>
-          </div> -->
         <div class="col-md-offset-4 col-md-4">
           <div class="form-group">
-            <%= submit_tag t('cockpits.create'), :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Please wait..."} %>
+            <%= submit_tag t('cockpits.create'), :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Creating new service..."} %>
           </div>
         </div>
       </div>
