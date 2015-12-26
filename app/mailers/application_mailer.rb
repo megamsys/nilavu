@@ -28,7 +28,7 @@ class ApplicationMailer < ActionMailer::Base
 			begin
 				@account = tmp_params[:account]
 				@delivery_status = mail(to: @account.email, subject: tmp_params[:subject]).delivery_status_report?
-				Rails.logger.debug "> #{account.email}] => #{tmp_params[:subject]} delivered. " 
+				Rails.logger.debug "> #{account.email}] => #{tmp_params[:subject]} delivered. "
 			rescue Exception => sme
 				raise MegamNotifiError, sme.message
 			end
