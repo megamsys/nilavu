@@ -3,7 +3,7 @@ var NewOverview = React.createClass({
     return {
       JsonD: ''
     };
-  },   
+  },
 
   render: function() {
     return (
@@ -23,12 +23,19 @@ var NewOverview = React.createClass({
 });
 
 var MetricLoader = React.createClass({
-	 render: function render() {
+  render: function render() {
     return (
-    	<div className="metricLoader"><img src="assets/spin_loader.GIF" alt="Wait" /></div>
-    )}
+      <div className="metricLoader">
+        <p>
+          <b>Feed me charts</b>
+          <br></br>
+          Charts appear when the instance is fully up.
+          <img src="assets/pacman_big.gif" alt="Wait"/>
+        </p>
+      </div>
+    )
+  }
 })
-
 
 var OverviewTab = React.createClass({
   getInitialState: function() { //json data
@@ -37,58 +44,63 @@ var OverviewTab = React.createClass({
       JsonD: '',
       machineInfo: ''
     };
-  },  
-  
-  componentDidMount: function() {  	
+  },
+
+  componentDidMount: function() {
     this.updateData();
     $('.bar').hide();
     $('.spinner').hide();
     //setInterval(this.updateData, 2000);
-    this.interval  = setInterval(this.updateData, 2000);
+    this.interval = setInterval(this.updateData, 2000);
   },
   componentDidUpdate: function() {
-  	$('.bar').hide();
-  	$('.spinner').hide();
+    $('.bar').hide();
+    $('.spinner').hide();
     this.drawCPU();
     this.drawRAM();
-    this.drawNETWORK();    
+    this.drawNETWORK();
   },
-  
-  componentWillUnmount: function(){
+
+  componentWillUnmount: function() {
     clearInterval(this.interval);
   },
 
   updateData: function() {
-  	$.ajax({
-  		url: this.props.host,
-  		success: function(data) {
-  					this.setState({  JsonD: data  });
-  					$('.bar').hide();
-  					$('.spinner').hide();
-  					$('.metricLoader').hide();
-     			}.bind(this),
-  		error: function(xhr, status, err) {
-    				$('.bar').hide();
-    				$('.spinner').hide();
-  				}.bind(this)
-  	});
+    $.ajax({
+      url: this.props.host,
+      success: function(data) {
+        this.setState({
+          JsonD: data
+        });
+        $('.bar').hide();
+        $('.spinner').hide();
+        $('.metricLoader').hide();
+      }.bind(this),
+      error: function(xhr, status, err) {
+        $('.bar').hide();
+        $('.spinner').hide();
+      }.bind(this)
+    });
 
-  	$.ajax({
-  		url: this.props.mhost,
-  		success: function(mdata) {
-  					this.setState({  machineInfo: mdata, isLoading: false  });
-  					$('.bar').hide();
-  					$('.spinner').hide();  		
-  					$('.metricLoader').hide();			
-     			}.bind(this),
-  		error: function(xhr, status, err) {
-    				$('.bar').hide();
-    				$('.spinner').hide();
-  				}.bind(this)
-  	});
+    $.ajax({
+      url: this.props.mhost,
+      success: function(mdata) {
+        this.setState({
+          machineInfo: mdata,
+          isLoading: false
+        });
+        $('.bar').hide();
+        $('.spinner').hide();
+        $('.metricLoader').hide();
+      }.bind(this),
+      error: function(xhr, status, err) {
+        $('.bar').hide();
+        $('.spinner').hide();
+      }.bind(this)
+    });
   },
 
-   drawCPU: function() {
+  drawCPU: function() {
     var stats = this.state.JsonD;
     if (stats.spec.has_cpu && !this.hasResource(stats, "cpu")) {
       return;
@@ -106,7 +118,8 @@ var OverviewTab = React.createClass({
 
       var elements = [];
       elements.push(cur.timestamp);
-      elements.push((cur.cpu.usage.total - prev.cpu.usage.total) / intervalInNs);
+      elements.push((
+      cur.cpu.usage.total - prev.cpu.usage.total) / intervalInNs);
       data.push(elements);
     }
 
@@ -133,7 +146,8 @@ var OverviewTab = React.createClass({
     if (minWindow < 0) {
       minWindow = 0;
     }
-    var dataTable = new google.visualization.DataTable();
+    var dataTable = new google.visualization
+      .DataTable();
 
     dataTable.addColumn('datetime', titles[0]);
     for (var i = 1; i < titles.length; i++) {
@@ -144,11 +158,11 @@ var OverviewTab = React.createClass({
     var opts = {
       curveType: 'function',
       height: 300,
-      width: 800,    
-      chartArea:{
-      	left:110,
-      	top:5,      	
-      	},
+      width: 800,
+      chartArea: {
+        left: 110,
+        top: 5
+      },
       legend: {
         position: "none"
       },
@@ -167,7 +181,10 @@ var OverviewTab = React.createClass({
       opts.vAxis.viewWindow.max = 3.1 * max;
       opts.vAxis.viewWindow.min = 0.9 * max;
     }
-    var chart = new this.props.google.visualization.LineChart(document.getElementById("cpu_chart"));
+    var chart = new this.props
+      .google
+      .visualization
+      .LineChart(document.getElementById("cpu_chart"));
 
     chart.draw(dataTable, opts);
 
@@ -216,7 +233,8 @@ var OverviewTab = React.createClass({
     if (minWindow < 0) {
       minWindow = 0;
     }
-    var dataTable = new google.visualization.DataTable();
+    var dataTable = new google.visualization
+      .DataTable();
     dataTable.addColumn('datetime', titles[0]);
     for (var i = 1; i < titles.length; i++) {
       dataTable.addColumn('number', titles[i]);
@@ -225,11 +243,11 @@ var OverviewTab = React.createClass({
     var opts = {
       curveType: 'function',
       height: 300,
-      width: 800,    
-      chartArea:{
-      	left:110,
-      	top:5,      	
-      	},
+      width: 800,
+      chartArea: {
+        left: 110,
+        top: 5
+      },
       legend: {
         position: "none"
       },
@@ -248,7 +266,8 @@ var OverviewTab = React.createClass({
       opts.vAxis.viewWindow.max = 1.1 * max;
       opts.vAxis.viewWindow.min = 0.9 * max;
     }
-    var chart = new google.visualization.LineChart(document.getElementById("ram_chart"));
+    var chart = new google.visualization
+      .LineChart(document.getElementById("ram_chart"));
     chart.draw(dataTable, opts);
   },
 
@@ -278,8 +297,10 @@ var OverviewTab = React.createClass({
       var intervalInSec = this.getInterval(cur.timestamp, prev.timestamp) / 1000000000;
       var elements = [];
       elements.push(cur.timestamp);
-      elements.push((cur.network.interfaces[interfaceIndex].tx_bytes - prev.network.interfaces[interfaceIndex].tx_bytes) / intervalInSec);
-      elements.push((cur.network.interfaces[interfaceIndex].rx_bytes - prev.network.interfaces[interfaceIndex].rx_bytes) / intervalInSec);
+      elements.push((
+      cur.network.interfaces[interfaceIndex].tx_bytes - prev.network.interfaces[interfaceIndex].tx_bytes) / intervalInSec);
+      elements.push((
+      cur.network.interfaces[interfaceIndex].rx_bytes - prev.network.interfaces[interfaceIndex].rx_bytes) / intervalInSec);
       data.push(elements);
     }
 
@@ -306,7 +327,8 @@ var OverviewTab = React.createClass({
     if (minWindow < 0) {
       minWindow = 0;
     }
-    var dataTable = new google.visualization.DataTable();
+    var dataTable = new google.visualization
+      .DataTable();
 
     dataTable.addColumn('datetime', titles[0]);
     for (var i = 1; i < titles.length; i++) {
@@ -315,13 +337,13 @@ var OverviewTab = React.createClass({
     dataTable.addRows(data);
 
     var opts = {
-      curveType: 'function',  
+      curveType: 'function',
       height: 300,
-      width: 800,    
-      chartArea:{
-      	left:110,
-      	top:5,      	
-      	},
+      width: 800,
+      chartArea: {
+        left: 110,
+        top: 5
+      },
       legend: {
         position: "none"
       },
@@ -341,7 +363,10 @@ var OverviewTab = React.createClass({
       opts.vAxis.viewWindow.min = 0.9 * max;
     }
 
-    var chart = new this.props.google.visualization.LineChart(document.getElementById("network_chart"));
+    var chart = new this.props
+      .google
+      .visualization
+      .LineChart(document.getElementById("network_chart"));
     chart.draw(dataTable, opts);
 
   },
@@ -366,46 +391,51 @@ var OverviewTab = React.createClass({
     return (cur.getTime() - prev.getTime()) * 1000000;
   },
 
-
   render: function() {
     return (
 
       <div className="tabbable-custom nav-justified margintb_15">
-    <ul className="nav nav-tabs nav-justified">
-        <li className="active">
-            <a href="#cpu_tab" data-toggle="tab"> CPU </a>
-        </li>
-        <li>
-            <a href="#ram_tab" data-toggle="tab"> RAM </a>
-        </li>
-        <li>
-            <a href="#network_tab" data-toggle="tab"> Network </a>
-        </li>
-    </ul>
-    <div className="tab-content c_tab-content">
+        <ul className="nav nav-tabs nav-justified">
+          <li className="active">
+            <a href="#cpu_tab" data-toggle="tab">
+              CPU
+            </a>
+          </li>
+          <li>
+            <a href="#ram_tab" data-toggle="tab">
+              RAM
+            </a>
+          </li>
+          <li>
+            <a href="#network_tab" data-toggle="tab">
+              Network
+            </a>
+          </li>
+        </ul>
+        <div className="tab-content c_tab-content">
 
-        <div className="tab-pane active" id="cpu_tab">
+          <div className="tab-pane active" id="cpu_tab">
             <div className="">
-                <div className="demo-container">                    
-                    <MetricLoader isActive={this.state.isLoading} />
-                    <div id="cpu_chart" className="demo-placeholder" ></div>
-                </div>                
+              <div className="demo-container">
+                <MetricLoader isActive={this.state.isLoading}/>
+                <div id="cpu_chart" className="demo-placeholder"></div>
+              </div>
             </div>
-        </div>
-        <div className="tab-pane" id="ram_tab">
+          </div>
+          <div className="tab-pane" id="ram_tab">
             <div className="demo-container">
-                <MetricLoader isActive={this.state.isLoading} />
-                <div id="ram_chart" className="demo-placeholder" ></div>
+              <MetricLoader isActive={this.state.isLoading}/>
+              <div id="ram_chart" className="demo-placeholder"></div>
             </div>
+          </div>
+          <div className="tab-pane" id="network_tab">
+            <div className="demo-container">
+              <MetricLoader isActive={this.state.isLoading}/>
+              <div id="network_chart" className="demo-placeholder"></div>
+            </div>
+          </div>
         </div>
-        <div className="tab-pane" id="network_tab">
-        	<div className="demo-container">
-        	    <MetricLoader isActive={this.state.isLoading} />
-                <div id="network_chart" className="demo-placeholder" ></div>
-            </div>           
-        </div>
-    </div>
-</div>
+      </div>
 
     );
   }
