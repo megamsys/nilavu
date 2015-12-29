@@ -26,8 +26,7 @@
     <button type="button" class="btn default" data-dismiss="modal">
         <%= t('cancel') %>
     </button>
-    <%= submit_tag t('overviews.bind') , :class => "btn btn-success", data: {:remote => true,  disable_with: "Please wait..." } %>
-
+    <%= submit_tag t('overviews.bind') , :class => "btn btn-success", data: {:remote => true,  disable_with: "Binding service..." } %>
     <% else %>
     <%= t('overviews.no_service') %>
 

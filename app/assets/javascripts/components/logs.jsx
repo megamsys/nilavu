@@ -3,7 +3,7 @@ var Logs = React.createClass({
   getInitialState: function getInitialState() {
     return {
       messages: [],
-      wait_text: "Waiting for logs",
+      wait_text: "gobbling logs",
       loading: false,
     };
   },
@@ -28,7 +28,7 @@ var Logs = React.createClass({
   _messageRecieve: function _messageRecieve(message) {
     var messages = this.state.messages;
     var jsonData = JSON.parse(message.data);
-    var log = jsonData.Timestamp + ":" + jsonData.Message;
+    var log = jsonData.Timestamp + " " + jsonData.Message;
     messages.push(log);
     this.setState({
       messages: messages
@@ -55,14 +55,14 @@ var MessageList = React.createClass({
                           />
                       );
                   });
-                  
+
   	return (
-  		<div>  			
+  		<div>
             {mapData}
             <LogLoader isActive={this.props.isLoading} />
         </div>
-  	) 	
-   } 
+  	)
+   }
 });
 
 var Message = React.createClass({
@@ -78,6 +78,7 @@ var Message = React.createClass({
 var LogLoader = React.createClass({
 	 render: function render() {
     return (
-    	<div>Loading.....<img src="assets/input-spinner.gif" alt="Wait" /></div>
+    	<div>
+      <img src="assets/pacman_small.gif" alt="gobbling logs"/><b> gobbling</b> logs...</div>
     )}
 })

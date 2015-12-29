@@ -1,12 +1,12 @@
 <ul>
   <% if cattype == Api::Assemblies::TORPEDO.capitalize %>
   <li>
-    <%= link_to catalogs_path(:id => id, :cat_id => id, :name => name, :req_action => Api::Assemblies::START, :cattype => cattype, :category => "control"), :method => :post do %>
+    <%= link_to catalogs_path(:id => id, :cat_id => id, :name => name, :req_action => Api::Assemblies::START, :cattype => cattype, :category => "control"), :data => {:remote => true } , :method => :post do %>
     <i class="glyphicon glyphicon-play-circle"></i><%= t('cockpits.start') %>
     <% end %>
   </li>
   <li>
-    <%= link_to catalogs_path(:id => id, :cat_id => id,:name => name, :req_action => Api::Assemblies::STOP, :cattype => cattype, :category => "control"),  :method => :post  do %>
+    <%= link_to catalogs_path(:id => id, :cat_id => id,:name => name, :req_action => Api::Assemblies::STOP, :cattype => cattype, :category => "control"),  :data => {:remote => true } ,:method => :post  do %>
     <i class="glyphicon glyphicon-record"></i><%= t('cockpits.stop') %>
     <% end %>
   </li>

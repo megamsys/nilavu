@@ -43,9 +43,9 @@ class UsersController < NilavuController
       store_credentials acct
       mail_status = UserMailer.welcome(acct).deliver_now
      if mail_status
-      toast_success(cockpits_path, "click marketplaces to get started")
+      toast_success(cockpits_path, "Click <b>marketplaces</b> to get started")
      else
-      toast_warn(cockpits_path, "click marketplaces to get started")
+      toast_warn(cockpits_path, "Click <b>marketplaces<b> to get started")
      end
    end
   end
