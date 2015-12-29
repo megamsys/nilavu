@@ -57,7 +57,7 @@
           <input id="r1" name="radio_app_scm" onclick="scmOption(this);" required type="radio" value="core_scm"/>
           <label for="r1">
             <span class="radioButtonGraph"></span>
-            <%= "Software only" %></label>
+            <%= "Plain java, node.js, scala" %></label>
         </p>
       </div>
       <div class="col-xs-6">
@@ -113,7 +113,7 @@
     <div class="row">
       <div class="col-md-offset-4 col-md-4">
         <div class="form-group">
-          <%= submit_tag t('cockpits.create'), :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Please wait..." } %>
+          <%= submit_tag t('cockpits.create'), :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Creating new app..." } %>
         </div>
       </div>
     </div>

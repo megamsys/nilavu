@@ -41,21 +41,21 @@ class CatalogsController < NilavuController
   def create
     logger.debug "> Pilotable: create"
     Api::Requests.new.reqs(params.merge({:action => params[:req_action]}))
-    toast_success(cockpits_path, "#{params['req_action'].downcase}: #{params['name']} submitted successfully. ")
+    @msg = { message: "submitted, in progress.",
+       title: "#{params['req_action'].camelize}ing #{params['name']}."}
   end
 
   #a confirmation question for a delete operation.
   def kelvi
     logger.debug "> Pilotable: kelvi"
-    @msg = { title: "#{params['name'].camelize} #{params['cattype'].downcase}", message: "you want to delete #{params['name']}", redirect: catalog_path(:id => 1, :params => params)}
+    @msg = { title: "#{params['name'].camelize} #{params['cattype'].downcase}", message: "Do you want to delete #{params['name']} ", redirect: catalog_path(:id => 1, :params => params)}
   end
 
   #this action performs a delete operation.
   def destroy
     logger.debug "> Pilotable: destroy"
     Api::Requests.new.reqs(params)
-    root_url
-    toast_success(root_url, "#{params['action'].downcase}: #{params['name']} submitted successfully. ")
+    toast_success(root_url, "#{params['action'].camelize}ing <b>#{params['name']}</b>. submitted, in progress.")
   end
 
   def runtime
