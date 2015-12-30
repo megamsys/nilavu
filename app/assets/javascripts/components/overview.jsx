@@ -1,116 +1,14 @@
-var CPU = 'cpu';
-var Memory = 'memory';
-var Network = 'network';
-var tabList = [
-  {
-    'id': 1,
-    'name': 'CPU',
-    'url': '/cpu'
-  }, {
-    'id': 2,
-    'name': 'RAM',
-    'url': '/ram'
-  }, {
-    'id': 3,
-    'name': 'NETWORK',
-    'url': '/network'
-  }
-];
-
-var Tab = React.createClass({
-  handleClick: function(e) {
-    e.preventDefault();
-    this.props.handleClick();
-  },
-
-  render: function() {
-    var style = {
-      float: 'left'
-    };
-    var istyle = {
-      display: 'block',
-      color: '#a9a9a9',
-      height: '50px',
-      lineHeight: '50px',
-      padding: '0 40px'
-    };
-    var current = {
-      background: '#fff',
-      border: '1px solid #ddd',
-      borderTop: '2px solid #3498db',
-      borderBottom: '0',
-      color: '#333'
-
-    };
-    return (
-      <li className={this.props.isCurrent
-        ? 'current'
-        : null} style={style}>
-        <a data-toggle="tab" href={this.props.url} onClick={this.handleClick} style={istyle}>
-          {this.props.name}
-        </a>
-      </li>
-    );
-  }
-});
-
-var Tabs = React.createClass({
-  handleClick: function(tab) {
-    this.props.changeTab(tab);
-  },
-
-  render: function() {
-    var tabsnav = {
-      padding: '0 20px',
-      marginTop: '15px',
-      maxheight: '50px',
-      borderBottom: '1px solid #ddd'
-    };
-    var tabsmenu = {
-      display: 'table',
-      listStyle: 'none',
-      padding: '0',
-      margin: '0'
-
-    };
-    return (
-      <div style={tabsnav}>
-
-        <ul style={tabsmenu}>
-          {this.props.tabList.map(function (tab) {
-            return (
-              <Tab handleClick={this.handleClick.bind(this, tab)} isCurrent={(this.props.currentTab === tab.id)} key={tab.id} name={tab.name} url={tab.url}/>
-            );
-          }.bind(this))}
-        </ul>
-      </div>
-    );
-  }
-});
-
 var Overview = React.createClass({
   getInitialState: function() { //json data
     return {
-      cpu: CPU,
-      memory: Memory,
-      network: Network,
-      tabList: tabList,
-      currentTab: 1,
       JsonD: ''
     };
-  },
-  changeTab: function(tab) {
-    this.setState({
-      currentTab: tab.id
-    });
   },
 
   render: function() {
     return (
-
       <div >
-        <Tabs changeTab={this.changeTab} currentTab={this.state.currentTab} tabList={this.state.tabList}/>
-        <Content JsonD={this.state.JsonD} currentTab={this.state.currentTab} google={this.props.google} host={this.props.host} mhost={this.props.mhost}/>
+        <OverviewTab google={this.props.google} host={this.props.host} mhost={this.props.mhost}/>
         <b className="logs-head">Logs</b>
         <div className="logBox borderless torpOverviewTb">
 
@@ -124,48 +22,18 @@ var Overview = React.createClass({
   }
 });
 
-var Content = React.createClass({
-
-  render: function() {
+var MetricLoader = React.createClass({
+	 render: function render() {
     return (
-      <div class="tab-content c_tab-content">
-        {this.props.currentTab === 1
-          ? <div className="tab-pane cpu">
-              <div className="demo-container">
-                <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"cpu"}/>
-              </div>
-            </div>
-          : null}
+    	<div className="metricLoader"><img src="assets/spin_loader.GIF" alt="Wait" /></div>
+    )}
+})
 
-        {this.props.currentTab === 2
-          ? <div className="tab-pane ram">
-              <div className="">
-                <div className="demo-container">
-                  <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"ram"}/>
-                </div>
-              </div>
-            </div>
-          : null}
 
-        {this.props.currentTab === 3
-          ? <div className="tab-pane cpu">
-              <div className="">
-                <div className="demo-container">
-                  <Charts google={this.props.google} host={this.props.host} mhost={this.props.mhost} name={"network"}/>
-                </div>
-              </div>
-            </div>
-          : null}
-
-      </div>
-    );
-  }
-});
-
-var Charts = React.createClass({
-
-  getInitialState: function getInitialState() {
+var OverviewTab = React.createClass({
+  getInitialState: function() { //json data
     return {
+      isLoading: true,
       JsonD: '',
       machineInfo: ''
     };
@@ -175,54 +43,55 @@ var Charts = React.createClass({
     this.updateData();
     $('.bar').hide();
     $('.spinner').hide();
-    setInterval(this.updateData, 2000);
+    //setInterval(this.updateData, 2000);
+    this.interval  = setInterval(this.updateData, 2000);
   },
   componentDidUpdate: function() {
-  $('.bar').hide();
-  $('.spinner').hide();
-    if (this.props.name == "cpu") {
-      this.drawCPU();
-    } else if (this.props.name == "ram") {
-      this.drawRAM();
-    } else {
-      this.drawNETWORK();
-    }
-
+  	$('.bar').hide();
+  	$('.spinner').hide();
+    this.drawCPU();
+    this.drawRAM();
+    this.drawNETWORK();
   },
 
+    componentWillUnmount: function() {
+      clearInterval(this.interval);
+   },
+
   updateData: function() {
-  $.ajax({
-  url: this.props.host,
-  success: function(data) {
-  this.setState({  JsonD: data  });
-  $('.bar').hide();
-  $('.spinner').hide();
-     }.bind(this),
-  error: function(xhr, status, err) {
-    $('.bar').hide();
-    $('.spinner').hide();
-  }.bind(this)
+  	$.ajax({
+  		url: this.props.host,
+  		success: function(data) {
+  					this.setState({  JsonD: data  });
+  					$('.bar').hide();
+  					$('.spinner').hide();
+  					$('.metricLoader').hide();
+     			}.bind(this),
+  		error: function(xhr, status, err) {
+    				$('.bar').hide();
+    				$('.spinner').hide();
+  				}.bind(this)
+  	});
 
-  });
+  	$.ajax({
+  		url: this.props.mhost,
+  		success: function(mdata) {
+  					this.setState({  machineInfo: mdata, isLoading: false  });
+  					$('.bar').hide();
+  					$('.spinner').hide();
+  					$('.metricLoader').hide();
+     			}.bind(this),
+  		error: function(xhr, status, err) {
+    				$('.bar').hide();
+    				$('.spinner').hide();
+  				}.bind(this)
+  	});
 
-  $.ajax({
-  url: this.props.mhost,
-  success: function(mdata) {
-  this.setState({  machineInfo: mdata  });
-  $('.bar').hide();
-  $('.spinner').hide();
-     }.bind(this),
-  error: function(xhr, status, err) {
-    $('.bar').hide();
-    $('.spinner').hide();
-  }.bind(this)
-
-  });
   },
 
    drawCPU: function() {
     var stats = this.state.JsonD;
-    if (stats.spec.has_cpu && !this.hasResource(stats, "cpu")) {
+    if (!this.hasResource(stats, "cpu")) {
       return;
     }
 
@@ -275,7 +144,12 @@ var Charts = React.createClass({
 
     var opts = {
       curveType: 'function',
-      height: 200,
+      height: 300,
+      width: 800,
+      chartArea:{
+      	left:110,
+      	top:5,
+      	},
       legend: {
         position: "none"
       },
@@ -294,8 +168,7 @@ var Charts = React.createClass({
       opts.vAxis.viewWindow.max = 3.1 * max;
       opts.vAxis.viewWindow.min = 0.9 * max;
     }
-
-    var chart = new this.props.google.visualization.LineChart(document.getElementById("chart"));
+    var chart = new this.props.google.visualization.LineChart(document.getElementById("cpu_chart"));
 
     chart.draw(dataTable, opts);
 
@@ -339,6 +212,7 @@ var Charts = React.createClass({
         }
       }
     }
+    console.log(data);
     var minWindow = min - (max - min) / 10;
     if (minWindow < 0) {
       minWindow = 0;
@@ -351,7 +225,12 @@ var Charts = React.createClass({
     dataTable.addRows(data);
     var opts = {
       curveType: 'function',
-      height: 200,
+      height: 300,
+      width: 800,
+      chartArea:{
+      	left:110,
+      	top:5,
+      	},
       legend: {
         position: "none"
       },
@@ -370,7 +249,7 @@ var Charts = React.createClass({
       opts.vAxis.viewWindow.max = 1.1 * max;
       opts.vAxis.viewWindow.min = 0.9 * max;
     }
-    var chart = new google.visualization.LineChart(document.getElementById("chart"));
+    var chart = new google.visualization.LineChart(document.getElementById("ram_chart"));
     chart.draw(dataTable, opts);
   },
 
@@ -438,7 +317,12 @@ var Charts = React.createClass({
 
     var opts = {
       curveType: 'function',
-      height: 200,
+      height: 300,
+      width: 800,
+      chartArea:{
+      	left:110,
+      	top:5,
+      	},
       legend: {
         position: "none"
       },
@@ -458,7 +342,7 @@ var Charts = React.createClass({
       opts.vAxis.viewWindow.min = 0.9 * max;
     }
 
-    var chart = new this.props.google.visualization.LineChart(document.getElementById("chart"));
+    var chart = new this.props.google.visualization.LineChart(document.getElementById("network_chart"));
     chart.draw(dataTable, opts);
 
   },
@@ -483,11 +367,46 @@ var Charts = React.createClass({
     return (cur.getTime() - prev.getTime()) * 1000000;
   },
 
+
   render: function() {
     return (
-      <div>
-        <div id="chart"></div>
-      </div>
+
+      <div className="tabbable-custom nav-justified margintb_15">
+    <ul className="nav nav-tabs nav-justified">
+        <li className="active">
+            <a href="#cpu_tab" data-toggle="tab"> CPU </a>
+        </li>
+        <li>
+            <a href="#ram_tab" data-toggle="tab"> RAM </a>
+        </li>
+        <li>
+            <a href="#network_tab" data-toggle="tab"> Network </a>
+        </li>
+    </ul>
+    <div className="tab-content c_tab-content">
+
+        <div className="tab-pane active" id="cpu_tab">
+            <div className="">
+                <div className="demo-container">
+                    <MetricLoader isActive={this.state.isLoading} />
+                    <div id="cpu_chart" className="demo-placeholder" ></div>
+                </div>
+            </div>
+        </div>
+        <div className="tab-pane" id="ram_tab">
+            <div className="demo-container">
+                <MetricLoader isActive={this.state.isLoading} />
+                <div id="ram_chart" className="demo-placeholder" ></div>
+            </div>
+        </div>
+        <div className="tab-pane" id="network_tab">
+        	<div className="demo-container">
+        	    <MetricLoader isActive={this.state.isLoading} />
+                <div id="network_chart" className="demo-placeholder" ></div>
+            </div>
+        </div>
+    </div>
+</div>
 
     );
   }
