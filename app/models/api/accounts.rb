@@ -13,6 +13,7 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
+require 'digest/sha1'
 module Api
   class Accounts < APIDispatch
     extend Forwardable
@@ -59,6 +60,7 @@ module Api
     end
 
     def update(params, &_block)
+	params["password"] = BCrypt::Password.create(params["password"]) if params["password"]
       api_request(ACCOUNT, UPDATE, params)
       yield self if block_given?
       self
@@ -68,6 +70,7 @@ module Api
       @auth_config = current_config(params)
       update(@auth_config.to_hash.merge({:password_reset_key => Nilavu::Auth::SignVerifier.hmackey,
       :password_reset_sent_at => time_now }))
+      @auth_config = current_config({:email => parms[:email]})
       yield self if block_given?
       self
     end

@@ -29,9 +29,12 @@ class PasswordResetsController < NilavuController
   end
 
   def update
-    user = Api::Accounts.new.find_by_password_reset_key(params[:id], params[:email]) 
+    user = Api::Accounts.new.find_by_password_reset_key(params[:id], params[:email])
+		store_credentials user
 	if !reset_key_expired?(user)
-	    toast_success(root_url,'Password has been reset!')
+	    Api::Accounts.new.update(params) do |acct|
+	      toast_success(root_url,"Password has been reset!")
+	    end
   	else
   	    toast_success(root_url,'Password reset has expired!')
 	end

@@ -23,7 +23,7 @@
         <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
 <!-- BEGIN LOGO -->
           <a class="navbar-brand" href="https://www.megam.io">
-            <%= image_tag "megam-logo.png", :alt => "logo", :class => "img-responsive" %>
+            <%= image_tag "vertice-logo.png", :alt => "logo", :class => "img-responsive" %>
           </a>
 <!-- END LOGO -->
         </div>
@@ -55,7 +55,6 @@
 <!-- <span class="badge badge-success">6</span> -->
                 </a>
                 <ul class="dropdown-menu extended notification">
-                  <li>
                     <ul class="dropdown-menu-list scroller">
                       <li>
                         <%= link_to edit_user_path(1), :data => {:remote => true}, :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
@@ -74,7 +73,6 @@
                         <% end %>
                       </li>
                     </ul>
-                  </li>
                 </ul>
               </li>
             </ul>
@@ -92,3 +90,10 @@
 
 
 <!-- END HEADER -->
+
+<script>
+    //hide it on click
+    $('.dropdown-menu ul li').click(function () {
+	$('li[class="dropdown open"]').removeClass('open');
+    })
+</script>
