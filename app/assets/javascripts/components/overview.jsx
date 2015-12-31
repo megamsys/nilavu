@@ -25,7 +25,14 @@ var Overview = React.createClass({
 var MetricLoader = React.createClass({
 	 render: function render() {
     return (
-    	<div className="metricLoader"><img src="assets/spin_loader.GIF" alt="Wait" /></div>
+    	 <div className="metricLoader">
+        <p>
+          <b>Feed me charts</b>
+          <br></br>
+          Charts appear when the instance is fully up.
+          <img src="assets/pacman_big.gif" alt="Wait"/>
+        </p>
+      </div>
     )}
 })
 
