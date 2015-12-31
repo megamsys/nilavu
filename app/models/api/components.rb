@@ -62,15 +62,6 @@ module Api
         :bind_type => bindtype,
         :id => id,
       })
-    end
-
-  #    def set_postgres_inputs(params)
-  #    mkp = JSON.parse(params['mkp'])
-  #    @inputs << { 'key' => 'username', 'value' => params['email'] }
-  #    @inputs << { 'key' => 'password', 'value' => params['api_key'] }
-  #    @inputs << { 'key' => 'dbname', 'value' => params['componentname'] }
-  #    @inputs << { 'key' => 'dbpassword', 'value' => ('a'..'z').to_a.sample(8).join }
-  #    @inputs << { 'key' => 'port', 'value' => mkp['catalog']['port'] }
-  #    end
+    end 
   end
 end
