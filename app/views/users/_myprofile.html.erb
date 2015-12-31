@@ -35,27 +35,26 @@
                             <h4 class=""><%= t('my_profile.basic_info') %> <span class="pull-right" > <%= @account.email %></span></h4>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save c_tab-content-top">
-                            <%= form_tag user_path, remote: true, :method => :put, :class => "form-horizontal", :id => "megamform"  do %>
+                            <%= form_tag user_path({:id => @account.id, :email => @account.email}), :method => :put, :class => "form-horizontal", :id => "megamform"  do %>
                             <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>"/>
                             <input type="hidden" name="myprofile_type" value="<%= Api::Accounts::UPD_PROFILE %>"/>
                             <div class="form-group">
                                 <label class="col-md-3 control-label label-profile"><%= t('my_profile.profile_name') %></label>
-                                <div class="col-md-6 input-group margin-top-10">
-                                    <%= text_field_tag 'first_name', nil, :id => 'first_name', :class => 'form-control',:readonly => true, placeholder: t('my_profile.name_placeholder') , :value => @account.first_name %>
-                                    <span class="input-group-addon " ><a onClick="change_name();" id="change_profilename" class="btn"><%= t('my_profile.change') %></a></span>
+                                <div class="col-md-5 input-group margin-top-10">
+                                    <%= text_field_tag 'first_name', nil, :id => 'first_name', :required => true, :class => 'form-control',:readonly => true, placeholder: t('my_profile.name_placeholder') , :value => @account.first_name %>
                                 </div>
+<span class="input-group-addon " ><a onClick="change_name();" id="change_profilename" class="pull-left btn"><%= t('my_profile.change') %></a></span>
 
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 control-label label-profile"><%= t('my_profile.phone') %></label>
-                                <div class="col-md-6 input-group margin-top-10">
-                                    <%= text_field_tag 'phone', nil, :class => 'form-control',:readonly => true, :id => 'phonenumber', placeholder: t('my_profile.number_placeholder'), :value => @account.phone %>
-                                    <span class="input-group-addon" ><a onClick="change_phone();" id="change_phonenumber" class="btn"><%= t('my_profile.change') %></a></span>
+                                <div class="col-md-5 input-group margin-top-10">
+                                    <%= text_field_tag 'phone', nil, :class => 'form-control', :required => true,:readonly => true, :id => 'phonenumber', placeholder: t('my_profile.number_placeholder'), :value => @account.phone %>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-3 input-group margin-top-10 ">
-                                    <%= submit_tag t('my_profile.update'), :class => "btn-disabled disabled btn btn-success col-md-5 col-xs-12" %>
+                                    <%= submit_tag t('my_profile.update'), :id => "profile_submit", :class => "btn disabled btn-success col-md-5 col-xs-12" %>
                                 </div>
                             </div>
                             <% end %>
@@ -66,42 +65,36 @@
                             <h4 class=""><%= t('my_profile.change_password') %></h4>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save c_tab-content-top">
-                            <%= form_tag user_path, remote: true, :method => :put, :class => "form-horizontal", :id => "megamform"  do %>
+                            <%= form_tag user_path({:id => @account.id, :email => @account.email}), :method => :put, :class => "form-horizontal", :id => "megamform"  do %>
                             <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
                             </input>
                             <input type="hidden" name="myprofile_type" value="<%= Api::Accounts::UPD_PASSWORD %>">
                             </input>
                             <div class="form-group">
                                 <label class="col-md-3 control-label label-profile"><%= t('my_profile.current') %></label>
-                                <div class="col-md-6 input-group margin-top-10 pad_rt-5">
-                                    <%= password_field_tag 'current_password', nil, :class=> 'form-control', placeholder: "Enter Current password" %>
-                                    <span class="input-group-addon" ><a onClick="change_current_password();" id="change_password" class="btn"><%= t('my_profile.change') %></a></span>
-
+                                <div class="col-md-5 input-group margin-top-10 pad_rt-5">
+                                    <%= password_field_tag 'current_password', nil, :class=> 'form-control', :required => true, placeholder: "Enter Current password" %>
                                 </div>
-
+                                    <span class="input-group-addon" ><a onClick="change_current_password();" id="change_password" class="pull-left btn"><%= t('my_profile.change') %></a></span>
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-3 control-label label-profile"><%= t('general.new') %></label>
-                                <div class="col-md-6 input-group margin-top-10">
-                                    <%= password_field_tag 'password', nil, :class=> 'form-control', :id => 'newpassword', :readonly => true, placeholder: "Type New password" %>
-                                    <span class="input-group-addon" ><a id="change_password" class="btn"><% t('my_profile.change') %></a></span>
-
+                                <div class="col-md-5 input-group margin-top-10 pad_rt-5">
+                                    <%= password_field_tag 'password', nil, :class=> 'form-control', :required => true, :id => 'newpassword', :readonly => true, placeholder: "Type New password" %>
                                 </div>
 
                             </div>
 
                             <div class="form-group">
                                 <label class="col-md-3 control-label label-profile"><%= t('my_profile.retype') %></label>
-                                <div class="col-md-6 input-group margin-top-10 pad_rt-5">
-                                    <%= password_field_tag 'password_confirmation', nil, :class=> 'form-control', :id => 'newpassword_confirmation', :readonly => true, placeholder: "Retype New password" %>
-                                    <span class="input-group-addon" ><a id="change_password" class="btn"></a></span>
-
+                                <div class="col-md-5 input-group margin-top-10 pad_rt-5">
+                                    <%= password_field_tag 'password_confirmation', nil, :required => true, :class=> 'form-control', :id => 'newpassword_confirmation', :readonly => true, placeholder: "Retype New password" %>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-3 input-group margin-top-10">
-                                    <%= submit_tag t('my_profile.update'), :class => "btn-disabled disabled btn btn-success col-md-5 col-xs-12", :id => "la-button" %>
+                                    <%= submit_tag t('my_profile.update'), :id => "password_submit", :class => "btn disabled btn-success col-md-5 col-xs-12" %>
                                 </div>
                             </div>
 
@@ -233,29 +226,6 @@
                         <% end %>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="profile_postfinish_popup" class="modal fade" tabindex="-1" role="basic" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content c_modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                    ×
-                </button>
-                <h4><%= t('header.profile') %></h3>
-            </div>
-            <div class="modal-body text-center">
-                <div class="alert alert-success" style="display:none" id = "profile_success">
-                    <div id="success"></div>
-                </div>
-                <div class="alert alert-danger" style="display:none" id = "profile_error">
-                    <div id="error"></div>
-                </div>
-            </div>
-            <div class="modal-footer c_modal-footer">
-                <%= link_to "Ok", edit_user_path(1), :class => "btn btn-success", :target => "_self" %>
             </div>
         </div>
     </div>

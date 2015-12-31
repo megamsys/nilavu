@@ -61,7 +61,7 @@ class UsersController < NilavuController
   def update
     logger.debug '> Users: update'
     Api::Accounts.new.update(params) do |acct|
-      toast_success("","#{Api::Accounts.typenum_to_s(params[:myprofile_type])} updated successfully.")
+      toast_success(cockpits_path,"#{Api::Accounts.typenum_to_s(params[:myprofile_type])} updated successfully.")
     end
   end
 

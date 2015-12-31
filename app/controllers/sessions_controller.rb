@@ -44,6 +44,8 @@ class SessionsController < NilavuController
     toast_error(signup_path, an.message)
   rescue Nilavu::Auth::SignVerifier::PasswordMissmatchFailure => ae
     toast_error(signin_path, ae.message)
+  rescue Nilavu::Auth::SignVerifier::InvalidPasswordFailure => ip
+    toast_error(signin_path, ip.message)
   rescue Api::Accounts::AccountFound => ae
     toast_error(signin_path,ae.message)
   end

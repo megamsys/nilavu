@@ -2,6 +2,12 @@
 defaults: &defaults
 # Automatically edited during builds
   build: build.date
+## locale: default is english
+  locale: en
+##Logo for header, signup and signin pages
+  logo_header: megam_vertice_logo.png
+  logo_white: megam_vertice_logo_signup.png
+  logo_black: megam_vertice_logo_signin.png
 # Enable billing, turn it off for testing.
   billings: off
 ## Backup cephgw, host, adminuser, admin password.
@@ -10,8 +16,6 @@ defaults: &defaults
     host: localhost
     username: megdc
     password: megdc
-## locale: default is english
-  locale: en
 ## log_level: default is debug
   log_level: :info
 ## Name of the nilavu server, welcome email uses this url
@@ -25,6 +29,7 @@ defaults: &defaults
 # notification section notifies the handlers based on_trigger conditions.
   notification:
     enable: on
+    logo: https://s3-ap-southeast-1.amazonaws.com/megampub/images/mailers/megam_vertice.png
     use: mailgun
     mailgun:
       api_key: <%= ENV["NIL_MAILGUN_APIKEY"] %>
