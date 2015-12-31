@@ -25,6 +25,7 @@ class APIDispatch
   SHOW              = 'show'.freeze
   LIST              = 'list'.freeze
   UPDATE            = 'update'.freeze
+  UPGRADE           = 'upgrade'.freeze
 
   class  ConnectFailure < Nilavu::MegamGWError; end
   class  CannotAuthenticateError < Nilavu::MegamGWError; end

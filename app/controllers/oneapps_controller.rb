@@ -37,9 +37,9 @@ class OneappsController < NilavuController
 
 	def create			
 		binded_service?(params) do
-		#	Api::Assembly.new.update(params)
 			Api::Components.new.update(params)
 			Api::Components.new.update_exist(params)
+			Api::Assembly.new.upgrade(params)
 		end if params.key?(:bind_type)
     @asmid = params[:id]
 		@msg = { title: 'Bind Service'.downcase.camelize, message: 'Service bounded successfully. ', redirect: '/', disposal_id: 'bindservice' }
