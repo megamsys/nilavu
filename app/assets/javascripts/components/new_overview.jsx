@@ -61,9 +61,9 @@ var OverviewTab = React.createClass({
     this.drawNETWORK();
   },
 
-  componentWillUnmount: function() {
-    clearInterval(this.interval);
-  },
+  //componentWillUnmount: function() {
+   // clearInterval(this.interval);
+  //},
 
   updateData: function() {
     $.ajax({

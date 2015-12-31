@@ -17,7 +17,6 @@ module Api
   class Components < APIDispatch
 
     attr_reader :components
-
     def initialize
       @components = []
       super(true)
@@ -29,27 +28,34 @@ module Api
       self
     end
 
-    def update(api_params, &_block)    
+    def update(api_params, &_block)
       api_params["component"] = JSON.parse(api_params["component"])
       bind_type = api_params[:bind_type] if api_params.key?(:bind_type)
       id = api_params["component"]["id"]
-      api_request(COMPONENTS, UPDATE, api_params.merge(bld_update_params(bld_params(api_params["component"], bind_type, id))))
+      param = bld_update_params(bld_params(api_params["component"], bind_type, id))
+      apiparam = api_params.merge(param)
+      apiparam[:component][:envs] = []
+      apiparam[:envs] = []    
+      api_request(COMPONENTS, UPDATE, apiparam)
       yield self if block_given?
       self
     end
 
-    def bld_update_params(api_params)      
-        Megam::Mixins::Components.new(api_params).to_hash      
+    def bld_update_params(api_params)
+      Megam::Mixins::Components.new(api_params).to_hash
     end
 
     def update_exist(api_params, &_block)
-      bind_type = "#{api_params[:assemblyname]}/#{api_params[:component][:name]}:#{api_params[:assemblyID]}:#{api_params[:component][:id]}"                 
+      bind_type = "#{api_params[:assemblyname]}/#{api_params[:component][:name]}:#{api_params[:assemblyID]}:#{api_params[:component][:id]}"
       id = api_params[:bind_type].split(":").last
-      api_request(COMPONENTS, UPDATE, api_params.merge(bld_update_params(bld_params({}, bind_type, id))))
+      param = bld_update_params(bld_params({}, bind_type, id))
+      apiparam = api_params.merge(param)
+      apiparam[:component][:envs] = []
+      api_request(COMPONENTS, UPDATE, apiparam)
       yield self if block_given?
       self
-    end    
-    
+    end
+
     def bld_params(hash, bindtype, id)
       hash.merge({
         :bind_app_flag => 'true',
@@ -57,14 +63,14 @@ module Api
         :id => id,
       })
     end
-    
-    #    def set_postgres_inputs(params)
-    #    mkp = JSON.parse(params['mkp'])
-    #    @inputs << { 'key' => 'username', 'value' => params['email'] }
-    #    @inputs << { 'key' => 'password', 'value' => params['api_key'] }
-    #    @inputs << { 'key' => 'dbname', 'value' => params['componentname'] }
-    #    @inputs << { 'key' => 'dbpassword', 'value' => ('a'..'z').to_a.sample(8).join }
-    #    @inputs << { 'key' => 'port', 'value' => mkp['catalog']['port'] }
-    #    end
+
+  #    def set_postgres_inputs(params)
+  #    mkp = JSON.parse(params['mkp'])
+  #    @inputs << { 'key' => 'username', 'value' => params['email'] }
+  #    @inputs << { 'key' => 'password', 'value' => params['api_key'] }
+  #    @inputs << { 'key' => 'dbname', 'value' => params['componentname'] }
+  #    @inputs << { 'key' => 'dbpassword', 'value' => ('a'..'z').to_a.sample(8).join }
+  #    @inputs << { 'key' => 'port', 'value' => mkp['catalog']['port'] }
+  #    end
   end
 end
