@@ -43,7 +43,6 @@ var OverviewTab = React.createClass({
     this.updateData();
     $('.bar').hide();
     $('.spinner').hide();
-    //setInterval(this.updateData, 2000);
     this.interval  = setInterval(this.updateData, 2000);
   },
   componentDidUpdate: function() {
@@ -212,7 +211,6 @@ var OverviewTab = React.createClass({
         }
       }
     }
-    console.log(data);
     var minWindow = min - (max - min) / 10;
     if (minWindow < 0) {
       minWindow = 0;
