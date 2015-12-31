@@ -25,8 +25,8 @@ $(document).ready(function() {
 		$('#marketplace_top_right span').toggleClass('mplace-selected');
 	});
 	$('#storage_top_right').hover(function() {
-		$('#storage_top_right i').toggleClass('c_icon-grid-hover');
-		$('#storage_top_right i').toggleClass('c_icon-grid-25');
+		$('#storage_top_right i').toggleClass('c_icon-storage-lg');
+		$('#storage_top_right i').toggleClass('c_icon-storage-lg-sel');
 		// $('#stor i').toggleClass('c_icon-grid');
 		$('#storage_top_right span').toggleClass('mplace-selected');
 	});

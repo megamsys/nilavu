@@ -20,7 +20,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="logo">
-				<%= image_tag "vertice-logo-signin.png" %>
+				<%= image_tag "#{Ind.logo_black}" %>
 			</div>
 		</div>
 		<!-- END LOGO -->
@@ -40,7 +40,8 @@
 			<% end %>
 			<div class="cover col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
 				<!-- BEGIN LOGIN FORM -->
-				<%= form_tag password_reset_path(:email => params[:email]), multipart: true, :id => "megamform", :novalidate => "novalidate", :method => "put", data: { spinlock: "#spin_cross_cloud"}  do %>
+				<%= form_tag password_reset_path(:email => params[:email]), :id => "megamform", :class => "form-horizontal", :method => "put"  do %>
+                            <input type="hidden" name="myprofile_type" value="<%= Api::Accounts::UPD_PASSWORD %>"> </input>
 				<div class="c_inline">
 					<div class="form-group">
 						<div class="row">
@@ -58,9 +59,7 @@
 					</div>
 					<div class="row">
 						<div  class="col-lg-6 col-md-4 col-md-offset-3 col-sm-4 col-xs-12 tour-btn">
-                                    <button type="submit" class="btn btn-success btn-plain-green" data-remote="true">
-                                        <%= t('signup.update_password') %>
-                                    </button>
+ <%= submit_tag t('signup.update_password'), :class => "btn btn-success btn-plain-green" %>
 						</div>
 					</div>
 				</div>

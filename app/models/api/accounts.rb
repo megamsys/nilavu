@@ -60,7 +60,7 @@ module Api
     end
 
     def update(params, &_block)
-	params["password"] = BCrypt::Password.create(params["password"]) if params["password"]
+	params["password"] = Nilavu::Auth::SignVerifier.encrypt(params["password"]) if params["password"]
       api_request(ACCOUNT, UPDATE, params)
       yield self if block_given?
       self
