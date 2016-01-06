@@ -41,6 +41,7 @@ gem 'gitlab', '~> 3.6.1'
 gem 'riak-client', '~> 2.3.0'
 gem 'radosgw-s3'
 gem  'mailgunner'
+gem 'http'
 
 gem 'google-analytics-rails', '~> 0.0.6'
 gem 'paypal-sdk-rest', '~>1.3.4' # billing

@@ -1,4 +1,5 @@
 Nilavu::Application.routes.draw do
+
   resources :source_files, :only => [:index, :create, :destroy], :controller => 's3_uploads' do
     get :generate_key, :on => :collection
   end
@@ -21,6 +22,7 @@ Nilavu::Application.routes.draw do
 	resources :oneapps
 	resources :oneservices
 	resources :onemicroservices
+	resources :phones
   # Internal AJAX API
   resources :events
 
