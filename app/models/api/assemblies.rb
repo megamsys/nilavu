@@ -27,11 +27,11 @@ module Api
     MICROSERVICES       =  'MICROSERVICES'.freeze
     COLLABORATION       =  'COLLABORATION'.freeze
     CATTYPES            =  [TORPEDO, APP, SERVICE, MICROSERVICES, ANALYTICS, COLLABORATION]
-
+  
     START               =  'start'.freeze
     STOP                =  'stop'.freeze
     RESTART             =  'restart'.freeze
-    REBOOT              =  'reboot'.freeze
+    REBOOT              =  'restart'.freeze
     DESTROY             =  'delete'.freeze
     TERMINATED          =  'destroying'.freeze
     LAUNCHING           =  'LAUNCHING'.freeze
