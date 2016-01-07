@@ -63,13 +63,13 @@
 				<div class="form-group">
 						<div class="row">
 							<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-								<%= text_field_tag 'phone', nil, :required => true,  :class=> 'form-control phone_popover', placeholder: "mobile number with country code", rel: "popover", :"data-content"=>"Please verify your mobile number (Eg: +919876543210)" %>
-
+								<input type="tel" id="phone" class="form-control phone_popover" placeholder="Enter mobile number" data-toggle="popover" data-content="Please verify your mobile number" size="100%" required >
 							</div>
 							<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
 								<%= link_to "Verify", { :controller => :phones, :action => :new}, { class: "btn btn-success col-md-12 col-xs-12",  :id=>'phone_verify_link', data: { disable_with: 'sending...' }} %>
 							</div>
 						</div>
+
 				</div>
 <% end %>
 			</div>
@@ -111,7 +111,9 @@
 <%= render :partial => "phones/pin_verify_modal" %>
 </body>
 
+
 <script>
+  $("#phone").intlTelInput();
 //On each time signup page load, trigger popover to verify phone number
 $(window).load(function(){
   $(".phone_popover").popover({'placement':'top'}).popover('show');
@@ -126,8 +128,8 @@ if($("#phone").val() ==  "")
 	// start with '+91' or '0'
 	// 10 digit number can start with 9 or 8 or 7 
 $('#phone').keyup(function(){
-var number_format = /^(((\+?\(91\))|0|((00|\+)?91))-?)?[7-9]\d{9}$/;
-//var number_format = /^\d{10}$/;
+//var number_format = /^(((\+?\(91\))|0|((00|\+)?91))-?)?[7-9]\d{9}$/;
+var number_format = /^\d{10}$/;
   if(number_format.test($("#phone").val())) 
            $('#phone_verify_link').attr('disabled', false);    
   else
@@ -146,3 +148,4 @@ var number_format = /^(((\+?\(91\))|0|((00|\+)?91))-?)?[7-9]\d{9}$/;
     });
 
 </script>
+
