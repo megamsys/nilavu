@@ -59,34 +59,39 @@
 							</div>
 						</div>
 				</div>
-
+<% if Ind.notification.has_key?("infobip") %>
 				<div class="form-group">
 						<div class="row">
 							<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-								<%= text_field_tag 'phone', nil, :required => true,  :class=> 'form-control', placeholder: "mobile number with country code" %>
+								<%= text_field_tag 'phone', nil, :required => true,  :class=> 'form-control phone_popover', placeholder: "mobile number with country code", rel: "popover", :"data-content"=>"Please verify your mobile number (Eg: +919876543210)" %>
+
 							</div>
 							<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
 								<%= link_to "Verify", { :controller => :phones, :action => :new}, { class: "btn btn-success col-md-12 col-xs-12",  :id=>'phone_verify_link', data: { disable_with: 'sending...' }} %>
 							</div>
 						</div>
 				</div>
-
+<% end %>
 			</div>
+
 				<% if flash[:error] %>
-				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
-						<div class="alert alert-danger alert-dismissable">
-							<button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-							<strong><%= t('warning') %></strong> <%= flash[:error] %>
-						</div>
-					</div>
-				</div>
+	<div id="toast_js" style="display: none;"><%= flash[:error] %> </div>
+
+  <script type="text/javascript">
+	toastr.error($('#toast_js').text(), { "timeOut": "0"});
+  </script>
 				<% end %>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-						<button type="submit" class="btn btn-success col-lg-12" data-remote="true" data-disable-with="Creating new account...">
-								<%= t('cockpits.create') %>
+<% if Ind.notification.has_key?("infobip") %>
+						<button type="submit" class="btn btn-success col-lg-12" data-remote="true" data-disable-with="Creating new account..." disabled="disabled" id="create_user" >
+								Create User
 						</button>
+<% else %>
+						<button type="submit" class="btn btn-success col-lg-12" data-remote="true" data-disable-with="Creating new account..." >
+								Create User
+						</button>
+<% end %>
 					</div>
 				</div>
 				<div class="bottom">
@@ -107,11 +112,33 @@
 </body>
 
 <script>
-    // Add click event binding to `Save search` link
+//On each time signup page load, trigger popover to verify phone number
+$(window).load(function(){
+  $(".phone_popover").popover({'placement':'top'}).popover('show');
+});
+
+//Disable verify button, when phone number is empty
+if($("#phone").val() ==  "") 
+   $('#phone_verify_link').attr('disabled', true);
+
+//Disable verify button, when phone number is not in +919876543210 format
+//Phone number should 
+	// start with '+91' or '0'
+	// 10 digit number can start with 9 or 8 or 7 
+$('#phone').keyup(function(){
+var number_format = /^(((\+?\(91\))|0|((00|\+)?91))-?)?[7-9]\d{9}$/;
+//var number_format = /^\d{10}$/;
+  if(number_format.test($("#phone").val())) 
+           $('#phone_verify_link').attr('disabled', false);    
+  else
+     $('#phone_verify_link').attr('disabled', true);   
+});
+
+// Pass mobile number to controller on clicking verify button
     $("#phone_verify_link").on("click", function(event) {
         // get the value inside the text field
         var phone = $("#phone").val();
-        $.get('/phones/new', { mobile_number: phone, format: 'js' }, function(data) {
+       $.get('/phones/new', { mobile_number: phone, format: 'js' }, function(data) {
             // log the result from the server, or whatever...
             console.log(data);
         });
