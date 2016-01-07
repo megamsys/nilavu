@@ -59,8 +59,19 @@
 							</div>
 						</div>
 				</div>
-			</div>
 
+				<div class="form-group">
+						<div class="row">
+							<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+								<%= text_field_tag 'phone', nil, :required => true,  :class=> 'form-control', placeholder: "mobile number with country code" %>
+							</div>
+							<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+								<%= link_to "Verify", { :controller => :phones, :action => :new}, { class: "btn btn-success col-md-12 col-xs-12",  :id=>'phone_verify_link', data: { disable_with: 'sending...' }} %>
+							</div>
+						</div>
+				</div>
+
+			</div>
 				<% if flash[:error] %>
 				<div class="row">
 					<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer">
@@ -92,4 +103,19 @@
 		</div>
 	</div>
 </div>
+<%= render :partial => "phones/pin_verify_modal" %>
 </body>
+
+<script>
+    // Add click event binding to `Save search` link
+    $("#phone_verify_link").on("click", function(event) {
+        // get the value inside the text field
+        var phone = $("#phone").val();
+        $.get('/phones/new', { mobile_number: phone, format: 'js' }, function(data) {
+            // log the result from the server, or whatever...
+            console.log(data);
+        });
+	event.preventDefault(); // don't trigger default
+    });
+
+</script>

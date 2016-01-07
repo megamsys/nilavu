@@ -43,6 +43,12 @@ defaults: &defaults
     hipchat:
       api_key: <%= ENV["NIL_HIP_APIKEY"] %>
       room: "Megam"
+    infobip:
+      username: <%= ENV["NIL_INFOBIP_USERNAME"] %>
+      password: <%= ENV["NIL_INFOBIP_PASSWORD"] %>
+      api_key: <%= ENV["NIL_INFOBIP_APIKEY"] %>
+      application_id: <%= ENV["NIL_INFOBIP_APPLICATION_ID"] %>
+      message_id: <%= ENV["NIL_INFOBIP_MESSAGE_ID"] %>
 
 ## Specifies the oauth id/key for various social identities
   oauth:
