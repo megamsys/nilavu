@@ -29,13 +29,23 @@ module Nilavu
 	res_hash["smsStatus"] == "MESSAGE_SENT" ? "#{res_hash['pinId']}" : "Message sending failed"
     end
 
-    # usage of an account
+    # Verify pin
     def verify_pin(pin_id, pin)
 	verify_res = @infobip.post("/2fa/1/pin/#{pin_id}/verify", :json => {
 	  "pin":"#{pin}"
 	})
 	res_hash = JSON.parse("#{verify_res.body}")
 	res_hash["verified"] ? true : false
+    end
+
+    # Send confirmation message
+    def send_confirm(mobile_number, email)
+	verify_res = @infobip.post("/sms/1/text/single", :json => {  
+ 		"from":"MegamVO",
+   		"to":"#{mobile_number}",
+		"text":"Hi #{email}, Thank you for signing in to megam. All transaction details will be sent to this number."
+	})
+    true
     end
 
     private

@@ -12,10 +12,11 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="ssh-key_name">Pin sent to your mobile</label>
-                                <%= text_field_tag :pin, nil, :class => 'form-control', :required => true, placeholder: 'Enter Your PIN' %>
+                                <%= text_field_tag :pin, nil, :class => 'form-control', :required => true, placeholder: 'Enter Your 4 digit PIN' %>
                             </div>
-
-                            <%= submit_tag "Verify" , :class => "btn btn-success col-md-12 col-xs-12", :data => {:remote => true, disable_with: 'Verifying...'} %>
+						<button type="submit" class="btn btn-success col-md-12 col-xs-12" data-remote="true" data-disable-with="Verifying pin..." id="pin_verify_submit" >
+								Verify
+						</button>
                             <% end %>
                         </div>
                     </div>
@@ -25,3 +26,19 @@
     </div>
 </div>
 
+<script>
+//Disable verify button, when pin number is empty
+if($("#pin").val() ==  "") 
+   $('#pin_verify_submit').attr('disabled', true);
+
+//Disable verify button, when pin number is not in 4-digit format
+$('#pin').keyup(function(){
+var number_format = /^\d{4}$/;
+
+  if(number_format.test($("#pin").val())) 
+           $('#pin_verify_submit').attr('disabled', false);    
+  else
+     $('#pin_verify_submit').attr('disabled', true);   
+});
+
+</script>

@@ -12,6 +12,8 @@
 //
 //= require jquery2
 //= require jquery_ujs
+//= require intlTelInput.min
+//= require utils
 //= require turbolinks
 //= require jquery.remotipart
 //= require jquery.turbolinks
