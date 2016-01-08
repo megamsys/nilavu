@@ -42,6 +42,7 @@ class UsersController < NilavuController
     Api::Accounts.new.create(params) do |acct|
       store_credentials acct
       mail_status = UserMailer.welcome(acct).deliver_now
+	Nilavu::OTP::Infobip.new.send_confirm("#{params['phone']}", "#{params['email']}")
      if mail_status
       toast_success(cockpits_path, "Click <b>marketplaces</b> to get started")
      else

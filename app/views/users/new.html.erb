@@ -63,7 +63,7 @@
 				<div class="form-group">
 						<div class="row">
 							<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-								<input type="tel" id="phone" class="form-control phone_popover" placeholder="Enter mobile number" data-toggle="popover" data-content="Please verify your mobile number" size="100%" required >
+								<input name="phone" type="tel" id="phone" class="form-control phone_popover" placeholder="Enter mobile number" data-toggle="popover" data-content="Please verify your mobile number" size="100%" style="background-color: transparent; color: #C0C0C0;" required >
 							</div>
 							<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
 								<%= link_to "Verify", { :controller => :phones, :action => :new}, { class: "btn btn-success col-md-12 col-xs-12",  :id=>'phone_verify_link', data: { disable_with: 'sending...' }} %>
@@ -113,39 +113,29 @@
 
 
 <script>
-  $("#phone").intlTelInput();
+  $("#phone").intlTelInput({preferredCountries: ["IN", "TZ"]});
 //On each time signup page load, trigger popover to verify phone number
 $(window).load(function(){
   $(".phone_popover").popover({'placement':'top'}).popover('show');
 });
 
-//Disable verify button, when phone number is empty
-if($("#phone").val() ==  "") 
-   $('#phone_verify_link').attr('disabled', true);
-
-//Disable verify button, when phone number is not in +919876543210 format
-//Phone number should 
-	// start with '+91' or '0'
-	// 10 digit number can start with 9 or 8 or 7 
-$('#phone').keyup(function(){
-//var number_format = /^(((\+?\(91\))|0|((00|\+)?91))-?)?[7-9]\d{9}$/;
-var number_format = /^\d{10}$/;
-  if(number_format.test($("#phone").val())) 
-           $('#phone_verify_link').attr('disabled', false);    
-  else
-     $('#phone_verify_link').attr('disabled', true);   
-});
-
 // Pass mobile number to controller on clicking verify button
     $("#phone_verify_link").on("click", function(event) {
         // get the value inside the text field
-        var phone = $("#phone").val();
-       $.get('/phones/new', { mobile_number: phone, format: 'js' }, function(data) {
-            // log the result from the server, or whatever...
-            console.log(data);
-        });
-	event.preventDefault(); // don't trigger default
+	if ($("#phone").intlTelInput("isValidNumber")){
+        	var phone = $("#phone").intlTelInput("getNumber");
+	       $.get('/phones/new', { mobile_number: phone, format: 'js' }, function(data) {
+        	    // log the result from the server, or whatever...
+	            console.log(data);
+	        });
+		event.preventDefault(); // don't trigger default
+	}else{
+		toastr.error("Enter valid number");
+		return false;
+	}
     });
-
+    $("#create_user").on("click", function(event) {
+	$("#phone").val($("#phone").intlTelInput("getNumber"));
+    });
 </script>
 
