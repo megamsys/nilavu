@@ -100,25 +100,3 @@
         <% end unless asmgroups_flatten.size <= 0 %>
     </div>
 </div>
-
-<script>// Instance the tour<% if session[:tour] %>
-	var tour = new Tour({
-		steps : [{
-			element : ".one_Torpedo",
-			title : "<i class='fa fa-soundcloud'></i> Step 1",
-			content : "Click to see all our apps and services !!"
-		}, {
-			element : ".two",
-			title : "<i class='fa fa-soundcloud'></i> Step 2",
-			content : "Click to see all our apps and services !!",
-			placement : 'left'
-		}],
-		// backdrop: true,
-		storage : false
-	});
-	tour.init(); 
-<% session[:tour] = false %>tour.start();<% end %>
-	$(function() {
-		$('[data-toggle="popover"]').popover()
-	})
-</script>

@@ -59,7 +59,7 @@ class NilavuController < ApplicationController
   #############################################################################
   def load_environments
     load_organizations(current_user)
-    load_ceph(current_user) if Ind.backup.enable
+    load_ceph(current_user) if Ind.has_key?("backup")
   end
 
   def load_organizations(current_user)
@@ -67,7 +67,7 @@ class NilavuController < ApplicationController
   end
 
   def load_ceph(current_user)
-    res = Backup::BackupUser.new.create(current_user.email, current_user.id)  
+    res = Backup::BackupUser.new.create(current_user.email, current_user.id)
     store_ceph_credentials(res)
   end
 end

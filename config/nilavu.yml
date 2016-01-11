@@ -12,7 +12,6 @@ defaults: &defaults
   billings: off
 ## Backup cephgw, host, adminuser, admin password.
   backup:
-    enable: off
     host: localhost
     username: megdc
     password: megdc

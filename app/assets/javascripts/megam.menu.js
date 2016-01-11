@@ -40,7 +40,6 @@ $(document).ready(function() {
 	$('#storage_top_right').hover(function() {
 		$('#storage_top_right i').toggleClass('c_icon-storage-lg');
 		$('#storage_top_right i').toggleClass('c_icon-storage-lg-sel');
-		// $('#stor i').toggleClass('c_icon-grid');
 		$('#storage_top_right span').toggleClass('mplace-selected');
 	});
 
