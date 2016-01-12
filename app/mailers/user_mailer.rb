@@ -14,25 +14,25 @@
 ## limitations under the License.
 ##
 class UserMailer < ApplicationMailer
-	# an welcome email gets formatted to be sent
-	def welcome(account)
-		wrap_mail({:account =>  account, :subject => 'You are registered. Launch apps.' })
-	end
+  # an welcome email gets formatted to be sent
+  def welcome(account)
+    wrap_mail({:account =>  account, :subject => 'You are registered. Launch apps.' })
+  end
 
-	def reset(account)
-		wrap_mail(:account => account, subject: 'You have fat fingers. No worries.')
-	end
+  def reset(account)
+    wrap_mail(:account => account, subject: 'You have fat fingers. No worries.')
+  end
 
 
-	def invite(account, org_id)
-		@org_id = org_id
-		wrap_mail(:account => account, subject: 'You have been invited!.')
-	end
+  def invite(account, org_id)
+    @org_id = org_id
+    wrap_mail(:account => account, subject: 'You have been invited!.')
+  end
 
-	def verify
-		# @url  = "https://console.megam.io/verified_email.#{@random_token}"
-	end
+  def verify
+    # @url  = "https://console.megam.io/verified_email.#{@random_token}"
+  end
 
-	def balance
-	end
+  def balance
+  end
 end

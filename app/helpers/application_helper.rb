@@ -14,21 +14,21 @@
 ## limitations under the License.
 ##
 module ApplicationHelper
-	# Returns the full title on a per-page basis.
-	def full_title(page_title)
-		base_title = "Megam"
-		if page_title.empty?
-			base_title
-		else
-			"#{base_title} | #{page_title}"
-		end
-	end
+  # Returns the full title on a per-page basis.
+  def full_title(page_title)
+    base_title = "Megam"
+    if page_title.empty?
+      base_title
+    else
+      "#{base_title} | #{page_title}"
+    end
+  end
 
-	def normalized_filename(file)
-		file.to_s
-	end
+  def normalized_filename(file)
+    file.to_s
+  end
 
-	def normalize_template_name(name)
-		normalized_filename(name.to_s)
-	end	
+  def normalize_template_name(name)
+    normalized_filename(name.to_s)
+  end
 end

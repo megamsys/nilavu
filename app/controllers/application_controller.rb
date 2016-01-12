@@ -120,7 +120,7 @@ class ApplicationController < ActionController::Base
 
 
   def toast_info(path, msg)
-      redirect_to(path, :flash => { :info => msg})
+    redirect_to(path, :flash => { :info => msg})
   end
 
   def toast_success(path, msg)

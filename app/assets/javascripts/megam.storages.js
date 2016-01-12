@@ -80,7 +80,6 @@ $(document).ready(function() {
 				tpl.fadeOut(function() {
 					tpl.remove();
 				});
-
 			});
 
 			// Automatically upload the file once it is added to the queue
@@ -106,7 +105,8 @@ $(document).ready(function() {
 			data.context.find('.m_icons i').removeClass('close_red');
 			data.context.find('.m_icons i').addClass('c_ico-tick');
 			data.context.find("#spin").hide();
-
+			$("#modal").remove();
+			$('.modal-backdrop').remove();
 		},
 
 		fail : function(e, data) {

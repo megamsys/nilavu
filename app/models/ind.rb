@@ -16,7 +16,7 @@
 require "settingslogic"
 
 class Ind < Settingslogic
-	source "#{ENV['MEGAM_HOME']}/nilavu.yml"
-	namespace Rails.env
-	suppress_errors Rails.env.production?
+  source "#{ENV['MEGAM_HOME']}/nilavu.yml"
+  namespace Rails.env
+  suppress_errors Rails.env.production?
 end

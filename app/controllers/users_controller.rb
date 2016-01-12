@@ -42,13 +42,13 @@ class UsersController < NilavuController
     Api::Accounts.new.create(params) do |acct|
       store_credentials acct
       mail_status = UserMailer.welcome(acct).deliver_now
-	    Nilavu::OTP::Infobip.new.send_confirm("#{params['phone']}", "#{params['email']}") if Ind.notification.has_key?("infobip")
-     if mail_status
-      toast_success(cockpits_path, "Click <b>marketplaces</b> to get started")
-     else
-      toast_warn(cockpits_path, "Click <b>marketplaces<b> to get started")
-     end
-   end
+      Nilavu::OTP::Infobip.new.send_confirm("#{params['phone']}", "#{params['email']}") if Ind.notification.has_key?("infobip")
+      if mail_status
+        toast_success(cockpits_path, "Click <b>marketplaces</b> to get started")
+      else
+        toast_warn(cockpits_path, "Click <b>marketplaces<b> to get started")
+      end
+    end
   end
 
   # load the current org details and send it the edit.html.erb.

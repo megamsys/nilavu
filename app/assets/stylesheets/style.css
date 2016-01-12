@@ -3053,6 +3053,7 @@ h3{
 }
 .storage_left_add_inner li a{
     color: #fff;
+    display: block;
 }
 .storage_left_add_inner li a:hover{
     color: #ccc !important;
@@ -3061,6 +3062,7 @@ h3{
 .storage_left_add a{
     border-bottom-left-radius: 1px !important;
     border-bottom-right-radius: 1px !important;
+    display: inline-block;
 }
 .storage_left_add_inner li i{
     width: 20px;
@@ -3164,8 +3166,8 @@ h3{
   border-radius: 3px;
   width: 70px;
   height: 70px;
-  display:table-cell; 
-  vertical-align:middle; 
+  display:table-cell;
+  vertical-align:middle;
   text-align:center
 }
 .b-service{
@@ -3183,8 +3185,8 @@ h3{
 }
 .copy-clip .input-group-addon {
     padding: 5px 12px !important;
-}  
+}
 .copy-clip .input-group-addon:hover{
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
-}  
+}

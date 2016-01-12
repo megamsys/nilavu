@@ -42,7 +42,7 @@ class CatalogsController < NilavuController
     logger.debug "> Pilotable: create"
     Api::Requests.new.reqs(params.merge({:action => params[:req_action]}))
     @msg = { message: "submitted, in progress.",
-       title: "#{params['req_action'].camelize}ing #{params['name']}."}
+    title: "#{params['req_action'].camelize}ing #{params['name']}."}
   end
 
   #a confirmation question for a delete operation.

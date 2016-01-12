@@ -58,6 +58,8 @@
   <%= render :partial => "buckets/usage", :locals => {:bucket => @bucket} %>
 </div>
 
+  <%= render :partial => "layouts/toastr_message" %>
+
 <div class="storage-popup">
   <ul class="list-unstyled">
     <li>
@@ -70,7 +72,7 @@
     </li>
   </ul>
 </div>
-
+<!-- To load toastr message  -->
 <%= render :partial => "buckets/upload_modal" %>
 
 <div aria-hidden="true" class="modal fade" id="create_bucket" tabindex="-1">
@@ -89,7 +91,7 @@
             <div class="form-group">
               <%= text_field_tag :id, nil, :class=> 'form-control', placeholder: "Bucket Name", :required => true %>
             </div>
-            <%= submit_tag "create", :class => "btn btn-success col-md-12 col-xs-12" , :data => {:remote => true}%>
+            <%= submit_tag "create", :class => "btn btn-success col-md-12 col-xs-12 bucket_create_submit" , :data => {:remote => true}%>
             <% end %>
           </div>
         </div>
@@ -125,3 +127,8 @@
 <!-- /.modal -->
 
 <script src="assets/megam.storages.js" />
+<script>
+    $(".bucket_create_submit").on("click", function(event) {
+	$('#create_bucket').modal('hide');
+});
+</script>

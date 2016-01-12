@@ -18,8 +18,7 @@ module Api
     attr_reader :bill_type
     attr_reader :credit_amount
     attr_reader :currency_type
-    
-    def initialize()
+        def initialize()
       @balance = {}
     end
 

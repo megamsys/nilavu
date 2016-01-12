@@ -29,12 +29,12 @@ module Api
       self
     end
 
-   private
-   def to_hash(sensors_collection)
-     sensors_collection.each do |sensor|
-       @sensors << { sensor_type: sensor.sensor_type, payload: sensor.payload, created_at: sensor.created_at.to_time.to_formatted_s(:rfc822) }
-     end
-     @sensors.sort_by { |vn| vn[:created_at] }
-   end
- end
+    private
+    def to_hash(sensors_collection)
+      sensors_collection.each do |sensor|
+        @sensors << { sensor_type: sensor.sensor_type, payload: sensor.payload, created_at: sensor.created_at.to_time.to_formatted_s(:rfc822) }
+      end
+      @sensors.sort_by { |vn| vn[:created_at] }
+    end
+  end
 end

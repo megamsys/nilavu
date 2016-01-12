@@ -56,7 +56,6 @@
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <% if session[:auth] %>
                 <%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: t('signup.password_tag'), :value => @password %>
-
               <% else %>
                 <%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: t('signup.password_tag') %>
                 <% end %>
@@ -87,13 +86,8 @@
           </div>
           <% end %>
         </div>
-        <% if flash[:error] %>
-        <div id="toast_js" style="display: none;"><%= flash[:error] %>
-        </div>
-        <script type="text/javascript">
-          toastr.error($('#toast_js').text(), {"timeOut": "0"});
-        </script>
-        <% end %>
+        <!-- To load toastr message  -->
+        <%= render :partial => "layouts/toastr_message" %>
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
             <% if Ind.notification.has_key?("infobip") %>
@@ -117,7 +111,6 @@
         </div>
         <% end %>
       </div>
-
       <div class="col-lg-7 col-md-8">
         <h1 class="text-banner">
           <span>Simple Cloud.</span>

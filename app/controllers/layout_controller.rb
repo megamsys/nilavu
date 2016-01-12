@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 class LayoutController < NilavuController
-	def index
-		render :text => "", :layout => "application"
-	end
+  def index
+    render :text => "", :layout => "application"
+  end
 end
