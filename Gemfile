@@ -35,7 +35,7 @@ gem 'omniauth-google-oauth2', '~> 0.2.10'
 gem 'omniauth-github', '~> 1.1.2'
 
 # 3rd party system api's
-gem 'megam_api', '~>0.91'
+gem 'megam_api', '~>0.92'
 gem 'github_api', '~>0.13.1'
 gem 'gitlab', '~> 3.6.1'
 gem 'riak-client', '~> 2.3.0'

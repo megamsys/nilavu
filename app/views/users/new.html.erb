@@ -73,14 +73,9 @@
 				</div>
 <% end %>
 			</div>
+<!-- To load toastr message  -->
+  <%= render :partial => "layouts/toastr_message" %>
 
-				<% if flash[:error] %>
-	<div id="toast_js" style="display: none;"><%= flash[:error] %> </div>
-
-  <script type="text/javascript">
-	toastr.error($('#toast_js').text(), { "timeOut": "0"});
-  </script>
-				<% end %>
 				<div class="row">
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
 <% if Ind.notification.has_key?("infobip") %>

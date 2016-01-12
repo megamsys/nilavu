@@ -1,0 +1,18 @@
+<!-- To load toastr message  -->
+<% if flash[:error] %>
+	<div id="toast_js" style="display: none;"><%= flash[:error] %> </div>
+
+  <script type="text/javascript">
+	toastr.error($('#toast_js').text(), { "timeOut": "0"});
+  </script>
+<% end %>
+
+<% if flash[:success] %>
+	<div id="toast_js" style="display: none;"><%= flash[:success] %> </div>
+
+  <script type="text/javascript">
+	toastr.success($('#toast_js').text(), { "timeOut": "0"});
+  </script>
+<% end %>
+
+

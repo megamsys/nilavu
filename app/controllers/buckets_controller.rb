@@ -21,21 +21,24 @@ class BucketsController < NilavuController
   before_action :stick_ceph_keys, only: [:index, :create, :show, :upload, :destroy]
 
   def index
-   if Backup::BackupUser.new.exists?(current_user.email)
+   if !session[:ceph_access_key].nil? && Backup::BackupUser.new.exists?(current_user.email)
     @bucket ||= Backup::Buckets.new(params).list
-    @usage  ||= Backup::BackupUser.new.usage(current_user.email)
    else
-    toast_warn(cockpits_path, "Storage account is not created. Ask support")
+    load_ceph(current_user)
+	stick_ceph_keys
+	redirect_to buckets_path if session[:ceph_access_key].nil?
+    @bucket ||= Backup::Buckets.new(params).list
    end
+    @usage  ||= Backup::BackupUser.new.usage(current_user.email)
   end
 
   def create
 	begin
     Backup::Buckets.new(params).create(params[:id])
     @bucket ||= Backup::Buckets.new(params).list
-    @msg = { message: "#{params['id']} created successfully.", bucket: @bucket, disposal_id: 'create_bucket', status: true }
-	rescue Exception => e
-    		@msg = { message: 'Bucket creation failed! Try different bucket name(more than 2 characters).', disposal_id: 'create_bucket', status: false }
+	redirect_to(buckets_path, :flash => { :success => "#{params['id']} created successfully."}, format: 'js')
+     rescue Exception => e
+	redirect_to(buckets_path, :flash => { :error => "Bucket name not available! Try different bucket name!"}, format: 'js')
 	end
   end
 
