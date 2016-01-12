@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright [2013-2016] [Megam Systems]
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 require "settingslogic"
 
 class Ind < Settingslogic
-	source "#{ENV['MEGAM_HOME']}/nilavu.yml"
-	namespace Rails.env
-	suppress_errors Rails.env.production?
+  source "#{ENV['MEGAM_HOME']}/nilavu.yml"
+  namespace Rails.env
+  suppress_errors Rails.env.production?
 end

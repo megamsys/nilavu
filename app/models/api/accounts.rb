@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright [2013-2016] [Megam Systems]
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -60,7 +60,7 @@ module Api
     end
 
     def update(params, &_block)
-	params["password"] = Nilavu::Auth::SignVerifier.encrypt(params["password"]) if params["password"]
+      params["password"] = Nilavu::Auth::SignVerifier.encrypt(params["password"]) if params["password"]
       api_request(ACCOUNT, UPDATE, params)
       yield self if block_given?
       self

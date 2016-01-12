@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright [2013-2016] [Megam Systems]
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -13,14 +13,14 @@
 ## limitations under the License.
 ##
 class OnetorpedosController < NilavuController
-	respond_to :html, :js
-	include MarketplaceHelper
+  respond_to :html, :js
+  include MarketplaceHelper
 
-	before_action :stick_keys, only: [:show, :index]
+  before_action :stick_keys, only: [:show, :index]
 
-	def index
-		@assembly=Api::Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Api::Assemblies::TORPEDO]
-		@assembly
-	end
+  def index
+    @assembly=Api::Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Api::Assemblies::TORPEDO]
+    @assembly
+  end
 
 end

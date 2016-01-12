@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright [2013-2016] [Megam Systems]
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -37,9 +37,9 @@ module CatalogHelper
     end
   end
 
- def domain(inputs)
-   parse_key_value_json(inputs,"domain")
- end
+  def domain(inputs)
+    parse_key_value_json(inputs,"domain")
+  end
 
   #a quick hack to pass in a list of cattypes and show them under services.
   def flat_asmgroup(cattypes, assemblies_grouped)
@@ -55,5 +55,5 @@ module CatalogHelper
     c0 = Api::Assemblies::CATTYPES.select { |cat| cat unless cat.downcase != tmp_tosca_type.split('.')[1] }
     fail MissingAPIArgsError, "Supported cat types are #{CATTYPES}." if c0.nil?
     c0.join
-  end  
+  end
 end

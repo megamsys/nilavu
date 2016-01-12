@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright [2013-2016] [Megam Systems]
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -118,7 +118,7 @@ class MarketplacesController < NilavuController
         format.html { redirect_to billings_path }
         format.js { render js: "window.location.href='" + billings_path + "'" }
       end  unless modb.balance.credit.to_i > 0
-    end if Ind.billings
+    end if Ind.has_key?("billings")
   end
 
   def binded_app?(params, &_block)

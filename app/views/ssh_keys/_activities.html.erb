@@ -1,5 +1,5 @@
 <!--
-** Copyright [2013-2015] [Megam Systems]
+** Copyright [2013-2016] [Megam Systems]
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -81,7 +81,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="alert alert-success">
-							<%= t('ssh_keys.create_info') %> <a href="http://docs.megam.io/v1.0/docs/setting-up-cloud-profile" target="_blank"> <strong><%= t('ssh_keys.info_link') %></strong></a> <%= t('ssh_keys.info_end') %>
+							<%= t('ssh_keys.create_info') %> <a href="http://docs.megam.io/docs/debian" target="_blank"> <strong><%= t('ssh_keys.info_link') %></strong></a> <%= t('ssh_keys.info_end') %>
 						</div>
 						<%= form_tag ssh_keys_path, multipart: true, :method => :post, :remote => true do %>
 						<div class="form-group">
@@ -112,7 +112,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="alert alert-success">
-								<%= t('ssh_keys.import_info') %><a href="http://docs.megam.io/v1.0/docs/setting-up-cloud-profile" target="_blank"> <strong><%= t('ssh_keys.info_link') %></strong></a> <%= t('ssh_keys.info_end') %>
+								<%= t('ssh_keys.import_info') %><a href="http://docs.megam.io/docs/debian" target="_blank"> <strong><%= t('ssh_keys.info_link') %></strong></a> <%= t('ssh_keys.info_end') %>
 							</div>
 							<%= form_tag ssh_key_path(1), multipart: true, :id => "megamform", :method => :put, :remote => true do %>
 							<div class="row margintb_15">

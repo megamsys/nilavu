@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright [2013-2016] [Megam Systems]
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -29,15 +29,15 @@ class PasswordResetsController < NilavuController
   end
 
   def update
-  account = Api::Accounts.new.find_by_password_reset_key(params[:id], params[:email])
-	if !reset_key_expired?(account)
-		params[:api_key] = account.api_key
-		params[:id] = account.id
-	        Api::Accounts.new.update(params) 
-	        toast_success(root_url,"Password has been reset!")
-  	else
-  	    toast_warn(root_url,'Password reset has expired!')
-	end
+    account = Api::Accounts.new.find_by_password_reset_key(params[:id], params[:email])
+    if !reset_key_expired?(account)
+      params[:api_key] = account.api_key
+      params[:id] = account.id
+      Api::Accounts.new.update(params)
+      toast_success(root_url,"Password has been reset!")
+    else
+      toast_warn(root_url,'Password reset has expired!')
+    end
   end
 
   private

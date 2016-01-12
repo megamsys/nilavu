@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright [2013-2016] [Megam Systems]
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -14,12 +14,12 @@
 ## limitations under the License.
 ##
 class OnemicroservicesController < NilavuController
-	respond_to :html, :js
+  respond_to :html, :js
 
-	before_action :stick_keys, only: [:index]
+  before_action :stick_keys, only: [:index]
 
-	def index
-		@assembly = Api::Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Api::Assemblies::MICROSERVICES]
-		@assembly
-	end
+  def index
+    @assembly = Api::Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Api::Assemblies::MICROSERVICES]
+    @assembly
+  end
 end

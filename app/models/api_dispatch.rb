@@ -35,6 +35,7 @@ class APIDispatch
       super "Cannot find a resource for #{short_name} "
     end
   end
+
   class InvalidResourceSpecification < ArgumentError; end
 
   #swallow 404 errors
@@ -49,8 +50,12 @@ class APIDispatch
       if up && satisfied_args?(jparams, passthru)
         invoke_submit
       end
+    rescue ConnectFailure => cfe
+      raise cfe
     rescue Megam::API::Errors::ErrorWithResponse => ewr
-      raise StandardError, "Gateway error. !\n#{ewr.message}" unless swallow_404
+      raise StandardError, "Whew!\n#{ewr.message}" unless swallow_404
+    rescue Errno::ECONNREFUSED => ere
+      raise ConnectFailure, "Api server <b>@#{Ind.api}<b> is down.</br>✓ Fix: `start megamgateway` (or) contact your administrator."
     end
   end
 
@@ -95,15 +100,23 @@ class APIDispatch
     parameters(parms)
     passthru?(passthru)
   end
+
   def satisfied_args?(parms,passthru)
     unless passthru
-      fail CannotAuthenticateError, 'Your credentials are missing. Sign up please.' unless parms.key?(:email) && parms.key?(:api_key)
+      fail CannotAuthenticateError, 'Your credentials are missing. Did you signup with us ?' unless parms.key?(:email) && parms.key?(:api_key)
     end
     true
   end
 
+  #this works but has other issues like a stored session loops etc.
   def up
-    #Nilavu::Healthcheck.check()
+    #hc = Nilavu::HealthCheck.new.tap do |h|
+    #  h.check
+    #end
+
+    #hok = hc.ok?
+    #fail ConnectFailure, "Api server <b>@#{Ind.api}<b> is down.</br>✓ Fix: `start megamgateway` (or) contact your administrator." unless hok
+    #hok
     true
   end
 

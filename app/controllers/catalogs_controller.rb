@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright [2013-2016] [Megam Systems]
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ class CatalogsController < NilavuController
     logger.debug "> Pilotable: create"
     Api::Requests.new.reqs(params.merge({:action => params[:req_action]}))
     @msg = { message: "submitted, in progress.",
-       title: "#{params['req_action'].camelize}ing #{params['name']}."}
+    title: "#{params['req_action'].camelize}ing #{params['name']}."}
   end
 
   #a confirmation question for a delete operation.
