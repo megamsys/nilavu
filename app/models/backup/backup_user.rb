@@ -25,6 +25,11 @@ module Backup
       ipaddress: endpoint)
     end
 
+    # Check the account's existance
+    def exists?(uid)
+      @radosgw.exists("#{uid}")
+    end
+
     # creates a new account
     def create(uid, display_name)
       radosuser = @radosgw.create("#{uid}","#{display_name}")

@@ -1,6 +1,7 @@
 
-$('#<%= @msg[:disposal_id] %>').modal('toggle');
-
-//$('#content').html("<%= escape_javascript render(:partial => 'buckets/mystorage', :locals => {:bucket => @bucket}) %>");
-
-$('#cockpit').append("<%= escape_javascript   toast_success(root_url, '@msg[:message]') %>");
+$('#<%= @msg[:disposal_id] %>').modal('hide');
+<% if @msg[:status] %>
+toastr.success('/buckets','<%= @msg[:message] %>');
+<% else %>
+toastr.error('','<%= @msg[:message] %>');
+<% end %>

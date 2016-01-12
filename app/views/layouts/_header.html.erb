@@ -33,20 +33,19 @@
 <!-- <div class="col-xs-4 col-sm-1"> -->
             <ul class="nav navbar-nav pull-right">
               <li id="marketplace_top_right">
-                <%= link_to marketplaces_path , :data => {:remote => true}, :class => "socket_disconnect unmount_component", :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                <%= link_to marketplaces_path , :data => {:remote => true}, :class => "socket_disconnect unmount_component" do %>
 		<i class="c_icon-window-lg pull-left"></i>
 		<span class="hidden-xs hidden-sm pull-left"><%= t('titles.marketplace_title') %></span>
                 <% end %>
               </li>
+		<% if Ind.has_key?("backup") %>
               <li id="storage_top_right">
-                <%  if Ind.backup.enable %>
-                 <%= link_to buckets_path , :data => {:remote => true}, :class => "socket_disconnect unmount_component", :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                 <%= link_to buckets_path , :data => {:remote => true}, :class => "socket_disconnect unmount_component" do %>
                 <i class="c_icon-storage-lg pull-left"></i>
                 <span class="hidden-xs hidden-sm pull-right"><%= t('titles.storage_title') %></span></a>
                 <% end %>
-                <% end %>
               </li>
-
+                <% end %>
               <%= render 'layouts/notifications' %>
 
               <li class="dropdown" id="header_notification_bar">
@@ -57,7 +56,7 @@
                 <ul class="dropdown-menu extended notification">
                     <ul class="dropdown-menu-list scroller">
                       <li>
-                        <%= link_to edit_user_path(1), :data => {:remote => true}, :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                        <%= link_to edit_user_path(1), :data => {:remote => true} do %>
                         <span class="label label-sm label-icon label-success">
                           <i class="glyphicon glyphicon-user"></i>
                         </span>

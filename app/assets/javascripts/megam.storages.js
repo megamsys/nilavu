@@ -8,11 +8,7 @@ $(document).ready(function() {
 	});
 	//storage left menu
 	$('.storage_left_add_inner').hide();
-	$('.storage_left_add a ').click(function() {
-		// e.preventDefault();
-		$('.storage_left_add_inner').slideToggle();
-	});
-	// $('.storage-popup').hide();
+
 
 	// storage overview pop up menu
 	$('.my_bucket_inner').bind('contextmenu', function(e) {
@@ -125,8 +121,8 @@ $(document).ready(function() {
 		var nameSplit = $this.attr('id').split('.');
 		$this.find('#objectFormat').addClass(formatFileIcons(nameSplit[nameSplit.length - 1]));
 	});
-	
-	
+
+
 	//set objects page format icons
 	function setObjectListFormat(name) {
 		var nameSplit = name.split('.');
