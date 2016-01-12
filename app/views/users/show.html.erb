@@ -33,11 +33,13 @@
                                     <i class="c_icon-apps-white pull-left"></i>App
                                     <% end %>
                                 </li>
+<% if Ind.has_key?("backup") %>
                                 <li>
                                     <%= link_to buckets_path, :data => { :remote => true} do %>
                                     <i class="c_icon-service-white pull-left"></i>Storage
                                     <% end %>
                                 </li>
+<% end %>
                             </ul>
                         </li>
                         <li class="start active">
@@ -99,18 +101,17 @@
 <%= render 'layouts/footer' %>
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('[data-toggle="popover"]').popover({
-			'html' : 'true'
-		});
-
 		$('.storage_left_add_inner').hide();
 		$('.storage_left_add a').click(function() {
 			$('.storage_left_add_inner').slideToggle();
 		});
-
-		$('#side-dash-link').click(function(e) {
-			e.stopPropagation();
-		});
 	}); 
+	$(document).on("click", function(event){
+        var $trigger = $(".storage_left_add");
+        if($trigger !== event.target && !$trigger.has(event.target).length){
+            $(".storage_left_add_inner").slideUp("fast");
+        }            
+    });
+
 </script>
 
