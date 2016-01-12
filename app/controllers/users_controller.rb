@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright [2013-2016] [Megam Systems]
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ class UsersController < NilavuController
     Api::Accounts.new.create(params) do |acct|
       store_credentials acct
       mail_status = UserMailer.welcome(acct).deliver_now
-	Nilavu::OTP::Infobip.new.send_confirm("#{params['phone']}", "#{params['email']}") if Ind.notification.has_key?("infobip")
+	    Nilavu::OTP::Infobip.new.send_confirm("#{params['phone']}", "#{params['email']}") if Ind.notification.has_key?("infobip")
      if mail_status
       toast_success(cockpits_path, "Click <b>marketplaces</b> to get started")
      else

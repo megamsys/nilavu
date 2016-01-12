@@ -1,9 +1,8 @@
 class PhonesController < ApplicationController
-
   def new
    	pin_send = Nilavu::OTP::Infobip.new.send_pin("#{params['mobile_number']}")
 	if pin_send == "Message sending failed"
-		flash[:error] = 'Sorry! OTP-PIN sending Failed!'
+		flash[:error] = "Sorry! Your pin wasn't sent!"
 		render js: "window.location = '#{signup_path}'"
 	else
 		session[:otp_pin_id] = pin_send
@@ -17,5 +16,4 @@ class PhonesController < ApplicationController
 		render js: "window.location = '#{signup_path}'"
 	end
   end
-
 end

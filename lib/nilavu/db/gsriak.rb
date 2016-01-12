@@ -10,6 +10,13 @@ module Nilavu
           @bname = bname
           require 'ind'
           @client = Riak::Client.new(nodes: [{ host: "#{Ind.riak}" }])
+          #ping
+      end
+
+      def ping
+        png = Net::Ping::HTTP.new.ping("#{Ind.riak}:8098")
+        fail APIDispatch::ConnectFailure, "Riak server <b>@#{Ind.riak}<b> is down.</br>✓ Fix: `start riak` (or) contact your administrator."  unless png
+        png
       end
 
       def upload(key, data, content_type)
