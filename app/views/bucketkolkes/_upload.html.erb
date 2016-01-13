@@ -1,4 +1,4 @@
-<div id="storage_upload_modal" class="modal-dialog" style="max-width:400px">
+<div class="modal-dialog" style="max-width:400px">
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
@@ -14,7 +14,7 @@
           <span class="col-xs-12"><i class="filetag" ></i> <span class="filetag"><%= t('ssh_keys.add_files') %></span> <%= file_field_tag :sobject, multiple: true %> </span>
           </label>
           </div>
-          <%= submit_tag "upload", :class => "btn btn-success col-md-12 col-xs-12 storage_upload_submit" , :data => {:remote => true}%>
+          <%= submit_tag "upload", :class => "btn btn-success col-md-12 col-xs-12" , :data => {:remote => true}%>
           <% end %>
         </div>
       </div>

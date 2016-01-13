@@ -27,7 +27,6 @@ class BucketkolkesController < NilavuController
   def create
     params[:id] = params[:bucket_name]
     Backup::BucketObjects.new(params).create(params[:sobject])
-    #@msg = { message: "#{params[:sobject].original_filename} uploaded successfully. ", disposal_id: 'onebucket_upload' }
 	redirect_to(buckets_path, :flash => { :success => "uploaded successfully!"}, format: 'js')
   end
 
