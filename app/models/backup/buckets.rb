@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright [2013-2016] [Megam Systems]
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -35,14 +35,14 @@ module Backup
         { name: "#{abucket.name}", size: size(abucket).to_s(:human_size),
         count: count(abucket)}
       end
-        { total_buckets: buckets.count, buckets: result||{}, total_size: total.to_s(:human_size)}
+      { total_buckets: buckets.count, buckets: result||{}, total_size: total.to_s(:human_size)}
     end
 
     private
     def size(abucket)
-        size ||= abucket.objects.inject(0) { |n, bobject| n + bobject.size.to_i }
-        @saved_size += size
-        size
+      size ||= abucket.objects.inject(0) { |n, bobject| n + bobject.size.to_i }
+      @saved_size += size
+      size
     end
 
     def count(abucket)

@@ -73,7 +73,7 @@ cp ./hooks ./git/.hooks
 |                      | Thomas Alrin (<thomasalrin@megam.io>)
 |	    	       	       | KishorekumarNeelamegam (<nkishore@megam.io>)
 |		          	       | Yeshwanth Kumar (<getyesh@megam.io>)
-| **Copyright:**       | Copyright (c) 2013-2015 Megam Systems.
+| **Copyright:**       | Copyright (c) 2013-2016 Megam Systems.
 | **License:**         | Apache License, Version 2.0
 
 Licensed under the Apache License, Version 2.0 (the "License");
