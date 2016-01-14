@@ -61,6 +61,14 @@ class UsersController < NilavuController
   # update any profile information.
   def update
     logger.debug '> Users: update'
+	puts params
+	if params["current_password"].present?
+		auth = authenticate(params)
+		toast_error(cockpits_path,"Your current password is incorrect.") unless auth
+		return unless auth
+	end
+	puts "========================="
+	puts params
     Api::Accounts.new.update(params) do |acct|
       toast_success(cockpits_path,"#{Api::Accounts.typenum_to_s(params[:myprofile_type])} updated successfully.")
     end
@@ -81,5 +89,14 @@ class UsersController < NilavuController
     org_res[0][:related_orgs] << params[:org_id]
     res = Api::Organizations.new.update(org_res[0])
     toast_success(root_url, "Invitation accepted.")
+  end
+
+  private
+  def authenticate(params)
+	params["password"] = params["current_password"]
+    Api::Accounts.new.authenticate(params) 
+	true
+  rescue Nilavu::Auth::SignVerifier::PasswordMissmatchFailure => ae
+    false
   end
 end

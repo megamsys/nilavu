@@ -62,29 +62,19 @@
               </div>
             </div>
           </div>
-          <% if Ind.notification.has_key?("infobip") %>
-          <div class="form-group">
-            <div class="row">
-              <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-                <input
-                  name="phone"
-                  type="tel"
-                  id="phone"
-                  class="form-control phone_popover"
-                  placeholder="Enter mobile number"
-                  data-toggle="popover"
-                  data-content="Please verify your mobile number"
-                  size="100%"
-                  style="background-color: transparent; color: #C0C0C0;"
-                  required>
-              </div>
-              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                <%= link_to "Verify", { :controller => :phones, :action => :new}, { class: "btn btn-success col-md-12 col-xs-12",  :id=>'phone_verify_link', data: { disable_with: 'sending...' }} %>
-              </div>
-            </div>
+<% if Ind.notification.has_key?("infobip") %>
+				<div class="form-group">
+						<div class="row">
+							<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+								<input name="phone" type="tel" id="phone" class="form-control phone_popover" placeholder="Enter mobile number" data-toggle="popover" data-content="Please verify your mobile number" size="100%" style="background-color: transparent; color: #C0C0C0;" required >
+							</div>
+							<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+								<%= link_to "Verify", { :controller => :phones, :action => :new}, { class: "btn btn-success col-md-12 col-xs-12",  :id=>'phone_verify_link', data: { disable_with: 'sending...' }} %>
+							</div>
+						</div>
 
-          </div>
-          <% end %>
+				</div>
+<% end %>
         </div>
         <!-- To load toastr message  -->
         <%= render :partial => "layouts/toastr_message" %>
@@ -120,7 +110,32 @@
     </div>
   </div>
 </div>
-<%= render :partial => "phones/pin_verify_modal" %>
+<!-- To load pin verification modal  -->
+<%= render :partial => "phones/pin_verify_modal", :locals => {:redirect => "/signup"} %>
 </body>
 
 <script>
+  $("#phone").intlTelInput({preferredCountries: ["IN", "TZ"]});
+//On each time signup page load, trigger popover to verify phone number
+$(window).load(function(){
+  $(".phone_popover").popover({'placement':'top'}).popover('show');
+});
+// Pass mobile number to controller on clicking verify button
+    $("#phone_verify_link").on("click", function(event) {
+        // get the value inside the text field
+	if ($("#phone").intlTelInput("isValidNumber")){
+        	var phone = $("#phone").intlTelInput("getNumber");
+	       $.get('/phones/new', { mobile_number: phone, redirect: '/signup', format: 'js' }, function(data) {
+        	    // log the result from the server, or whatever...
+	            console.log(data);
+	        });
+		event.preventDefault(); // don't trigger default
+	}else{
+		toastr.error("Enter valid number");
+		return false;
+	}
+    });
+    $("#create_user").on("click", function(event) {
+	$("#phone").val($("#phone").intlTelInput("getNumber"));
+    });
+</script>

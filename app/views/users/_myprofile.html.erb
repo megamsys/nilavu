@@ -41,17 +41,35 @@
                             <div class="form-group">
                                 <label class="col-md-3 control-label label-profile"><%= t('my_profile.profile_name') %></label>
                                 <div class="col-md-5 input-group margin-top-10">
-                                    <%= text_field_tag 'first_name', nil, :id => 'first_name', :required => true, :class => 'form-control',:readonly => true, placeholder: t('my_profile.name_placeholder') , :value => @account.first_name %>
+                                    <%= text_field_tag 'first_name', nil, :id => 'first_name', :class => 'form-control',:readonly => true, placeholder: t('my_profile.name_placeholder') , :value => @account.first_name %>
                                 </div>
-<span class="input-group-addon " ><a onClick="change_name();" id="change_profilename" class="pull-left btn"><%= t('my_profile.change') %></a></span>
+<span class="input-group-addon " ><a onClick="change_name();" class="pull-left btn"><%= t('my_profile.change') %></a></span>
 
                             </div>
-                            <div class="form-group">
+
+
+<% if Ind.notification.has_key?("infobip") %>
+
+                            <div class="form-group" id="phone_show">
                                 <label class="col-md-3 control-label label-profile"><%= t('my_profile.phone') %></label>
                                 <div class="col-md-5 input-group margin-top-10">
-                                    <%= text_field_tag 'phone', nil, :class => 'form-control', :required => true,:readonly => true, :id => 'phonenumber', placeholder: t('my_profile.number_placeholder'), :value => @account.phone %>
+                                    <%= text_field_tag 'phone', nil, :class => 'form-control',:readonly => true, :id => 'phonenumber', placeholder: t('my_profile.number_placeholder'), :value => @account.phone %>
                                 </div>
+<span class="input-group-addon " ><a onClick="change_phone();" class="pull-left btn"><%= t('my_profile.change') %></a></span>
                             </div>
+
+
+				<div class="form-group"  id="phone_edit"  style="display:none;">
+                                <label class="col-md-3 control-label label-profile"><%= t('my_profile.phone') %></label>
+                                <div class="col-md-5 input-group margin-top-10">
+								<input name="phone" type="tel" id="phone" class="form-control" placeholder="Enter mobile number" size="100%" style="background-color: transparent; color: #C0C0C0;" required >
+							</div>
+							<div class="">
+								<%= link_to "Verify", { :controller => :phones, :action => :new}, { class: "btn btn-success col-md-offset-1 col-md-2 pull-left ",  :id=>'phone_verify_link', data: { disable_with: 'sending...' }} %>
+							</div>
+				</div>
+<% end %>
+
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-3 input-group margin-top-10 ">
                                     <%= submit_tag t('my_profile.update'), :id => "profile_submit", :class => "btn disabled btn-success col-md-5 col-xs-12" %>
@@ -253,9 +271,43 @@
         </div>
     </div>
 </div>
+<!-- To load toastr message  -->
+<%= render :partial => "layouts/toastr_message" %>
+<!-- To load pin verification modal  -->
+<%= render :partial => "phones/pin_verify_modal", :locals => {:redirect => "/users/1/edit"} %>
 
 <script type="text/javascript">
 	$('.invite_user_modal').click(function(e) {
 		$('#invite_user').modal();
 	});
+    $("#password_submit").on("click", function(event) {
+	var match = $('#newpassword').val() == $('#newpassword_confirmation').val();
+    if (!match) {
+        toastr.error("New password mismatch error", { "timeOut": "0"});
+        return false;
+    }
+    });
 </script>
+
+<script>
+  $("#phone").intlTelInput({preferredCountries: ["IN", "TZ"]});
+// Pass mobile number to controller on clicking verify button
+    $("#phone_verify_link").on("click", function(event) {
+        // get the value inside the text field
+	if ($("#phone").intlTelInput("isValidNumber")){
+        	var phone = $("#phone").intlTelInput("getNumber");
+	       $.get('/phones/new', { mobile_number: phone, redirect: '/users/1/edit', format: 'js' }, function(data) {
+        	    // log the result from the server, or whatever...
+	            console.log(data);
+	        });
+		event.preventDefault(); // don't trigger default
+	}else{
+		toastr.error("Enter valid number");
+		return false;
+	}
+    });
+    $("#create_user").on("click", function(event) {
+	$("#phone").val($("#phone").intlTelInput("getNumber"));
+    });
+</script>
+

@@ -1,5 +1,12 @@
 $('#mobile_verify_modal').modal('hide');
+<% if @path == "/signup" %>
 $('#phone_verify_link').text('Verified');
 $('#phone_verify_link').attr("disabled", "disabled");
 $('#create_user').prop('disabled', false);
-
+<% else %>
+alert(<%= session[:mobile_number] %>);
+	$('#phone_edit').hide();
+	$('#phonenumber').val(<%= session[:mobile_number] %>);
+	$('#phone_show').show();
+	$("#profile_submit").removeClass("disabled");
+<% end %>

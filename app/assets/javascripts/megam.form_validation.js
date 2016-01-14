@@ -1,7 +1,16 @@
 function change_name() {
 	$('#first_name').prop('readonly', false);
-	$('#phonenumber').prop('readonly', false);
+	$('#first_name').prop('required', true);
 	$("#profile_submit").removeClass("disabled");
+}
+
+function change_phone() {
+	//$('#phonenumber').prop('readonly', false);
+	//$('#phonenumber').prop('required', true);
+	//$("#profile_submit").removeClass("disabled");
+	$('#phone_show').hide();
+	$('#phone_edit').show();
+	$("#profile_submit").addClass("disabled");
 }
 
 function change_current_password() {

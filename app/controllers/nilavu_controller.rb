@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 class NilavuController < ApplicationController
-  before_action :require_signin
+  before_action :require_signin, :require_up
 
   # load environments if we are signed in
   before_filter {|controller| load_environments if signed_in? && !loaded_environments?}
@@ -38,6 +38,18 @@ class NilavuController < ApplicationController
         redirect_to signup_path
       end
     end
+  end
+
+  #this works but has other issues like a stored session loops etc.
+  def require_up
+    hc = Nilavu::HealthCheck.new.tap do |h|
+      h.check
+    end
+
+    hok = hc.ok?
+    fail ConnectFailure, "Api server <b>@#{Ind.api}<b> is down.</br>✓ Fix: `start megamgateway` (or) contact your administrator." unless hok
+    hok
+    true
   end
 
   def stick_keys(_tmp = {}, _permitted_tmp = {})

@@ -13,6 +13,7 @@
                             <div class="form-group">
                                 <label for="ssh-key_name">Pin sent to your mobile</label>
                                 <%= text_field_tag :pin, nil, :class => 'form-control', :required => true, placeholder: 'Enter Your 4 digit PIN' %>
+	<input type="hidden" name="redirect" value="<%= redirect %>"/>
                             </div>
 						<button type="submit" class="btn btn-success col-md-12 col-xs-12" data-remote="true" data-disable-with="Verifying pin..." id="pin_verify_submit" >
 								Verify
