@@ -61,7 +61,6 @@ class UsersController < NilavuController
   # update any profile information.
   def update
     logger.debug '> Users: update'
-	puts params
 	if params["current_password"].present?
 		auth = authenticate(params)
 		toast_error(cockpits_path,"Your current password is incorrect.") unless auth
