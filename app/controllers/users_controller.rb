@@ -67,8 +67,6 @@ class UsersController < NilavuController
 		toast_error(cockpits_path,"Your current password is incorrect.") unless auth
 		return unless auth
 	end
-	puts "========================="
-	puts params
     Api::Accounts.new.update(params) do |acct|
       toast_success(cockpits_path,"#{Api::Accounts.typenum_to_s(params[:myprofile_type])} updated successfully.")
     end
