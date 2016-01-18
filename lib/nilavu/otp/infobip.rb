@@ -18,12 +18,12 @@ module Nilavu
     class Infobip
       def initialize
         infobip_url = HTTP.persistent "https://api.infobip.com"
-        @infobip = infobip_url.basic_auth(:user => "#{username}", :pass => "#{password}").headers(:json => {"Authorization": "App #{api_key}"})
+        @infobip = infobip_url.basic_auth(:user => "#{username}", :pass => "#{password}").headers(:json => {"Authorization" => "App #{api_key}"})
       end
 
       # Send pin to mibile
       def send_pin(mobile_number)
-        pin_res = @infobip.post("/2fa/1/pin?ncNeeded=true", :json => {"applicationId": "#{application_id}","messageId": "#{message_id}","to": "#{mobile_number}"})
+        pin_res = @infobip.post("/2fa/1/pin?ncNeeded=true", :json => {"applicationId" => "#{application_id}","messageId" => "#{message_id}","to" => "#{mobile_number}"})
         res_hash = JSON.parse("#{pin_res.body}")
         res_hash["smsStatus"] == "MESSAGE_SENT" ? "#{res_hash['pinId']}" : "Message sending failed"
       end

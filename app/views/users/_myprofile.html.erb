@@ -35,7 +35,7 @@
                             <h4 class=""><%= t('my_profile.basic_info') %> <span class="pull-right" > <%= @account.email %></span></h4>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save c_tab-content-top">
-                            <%= form_tag user_path({:id => @account.id, :email => @account.email}), :method => :put, :class => "form-horizontal", :id => "megamform"  do %>
+                            <%= form_tag user_path({:id => @account.id, :email => @account.email}), :method => :put, :class => "form-horizontal", :novalidate => "novalidate", :id => "megamform"  do %>
                             <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>"/>
                             <input type="hidden" name="myprofile_type" value="<%= Api::Accounts::UPD_PROFILE %>"/>
                             <div class="form-group">
@@ -83,7 +83,7 @@
                             <h4 class=""><%= t('my_profile.change_password') %></h4>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save c_tab-content-top">
-                            <%= form_tag user_path({:id => @account.id, :email => @account.email}), :method => :put, :class => "form-horizontal", :id => "megamform"  do %>
+                            <%= form_tag user_path({:id => @account.id, :email => @account.email}), :method => :put, :class => "form-horizontal", :novalidate => "novalidate", :id => "megamform"  do %>
                             <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
                             </input>
                             <input type="hidden" name="myprofile_type" value="<%= Api::Accounts::UPD_PASSWORD %>">
@@ -277,6 +277,7 @@
 <%= render :partial => "phones/pin_verify_modal", :locals => {:redirect => "/users/1/edit"} %>
 
 <script type="text/javascript">
+$(document).ready(function() {
 	$('.invite_user_modal').click(function(e) {
 		$('#invite_user').modal();
 	});
@@ -287,9 +288,6 @@
         return false;
     }
     });
-</script>
-
-<script>
   $("#phone").intlTelInput({preferredCountries: ["IN", "TZ"]});
 // Pass mobile number to controller on clicking verify button
     $("#phone_verify_link").on("click", function(event) {
@@ -306,8 +304,9 @@
 		return false;
 	}
     });
-    $("#create_user").on("click", function(event) {
+    $("#profile_submit").on("click", function(event) {
 	$("#phone").val($("#phone").intlTelInput("getNumber"));
     });
+});
 </script>
 

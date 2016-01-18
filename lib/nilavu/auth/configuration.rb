@@ -138,6 +138,21 @@ module Nilavu
         :created_at => @created_at, :verified => @verified }
       end
 
+#Account update doesn't need password encription
+      def update_hash
+        { :id => @id,
+          :email => @email,
+          :api_key => @api_key,
+          :password => @password,
+          :first_name => @first_name,
+          :last_name => @last_name,
+          :phone => @phone,
+          :authority => ADMIN,
+          :password_reset_key => @password_reset_key,
+          :password_reset_sent_at => @password_reset_sent_at,
+        :created_at => @created_at, :verified => @verified }
+      end
+
       def self.from_hash(hld_hash)
         Configuration.new(Hash[hld_hash.map{|(k,v)| [k.to_sym,v]}])
       end
