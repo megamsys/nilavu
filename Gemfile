@@ -8,7 +8,7 @@ gem 'net-ping'
 
 #rails
 gem 'rails', '~> 4.2.5'
-gem 'rails-i18n', '~> 4.0.8' 
+gem 'rails-i18n', '~> 4.0.8'
 gem 'protected_attributes', '~> 1.1.3' # transition to rails 4.2.x
 gem 'responders', '~> 2.1.1' # transition to rails 4.2.x
 
@@ -39,7 +39,7 @@ gem 'omniauth-github', '~> 1.1.2'
 gem 'megam_api', '~>0.92'
 gem 'github_api', '~>0.13.1'
 gem 'gitlab', '~> 3.6.1'
-gem 'riak-client', '~> 2.3.0'
+gem 'riak-client', '~> 2.3.2'
 gem 'radosgw-s3'
 gem 'mailgunner'
 gem 'http'
