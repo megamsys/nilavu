@@ -79,6 +79,6 @@ var LogLoader = React.createClass({
 	 render: function render() {
     return (
     	<div>
-      <img src="assets/pacman_small.gif" alt="gobbling logs"/><b> gobbling</b> logs...</div>
+      <img src="assets/pacman.gif" alt="gobbling logs"/><b> gobbling</b> logs...</div>
     )}
 })

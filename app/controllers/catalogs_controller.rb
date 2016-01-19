@@ -32,8 +32,7 @@ class CatalogsController < NilavuController
   def index
     logger.debug "> Pilotable: Index"
     @cattype = params[:cattype].capitalize
-    assem = Api::Assemblies.new.list(params)
-    @assemblies_grouped = assem.assemblies_grouped
+    @assemblies_grouped = Api::Assemblies.new.list(params).assemblies_grouped
   end
 
 

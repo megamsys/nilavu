@@ -65,7 +65,7 @@ class MarketplacesController < NilavuController
       Assembly.new.update(params)
       Components.new.update(params)
     end if params.key?(:bind_type)
-    toast_success(cockpits_path, "Launching <b>#{params["assemblyname"]}.#{params["domain"]}</b>. submitted, in progress.")
+    toast_success(cockpits_path, "Launching <b>#{params['assemblyname']}.#{params['domain']}</b>. submitted, in progress.")
   end
 
   ##

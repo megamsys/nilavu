@@ -1,6 +1,6 @@
 module Backup
   class BucketObjects < BackupService
-    attr_reader  :bucket, :bucketobjects
+    attr_reader :bucket, :bucketobjects
     def initialize(params)
       super(params)
       @bucket = find_bucket(params[:id])
@@ -65,6 +65,5 @@ module Backup
     def total
       @saved_object_size ||= @saved_object_size.reduce(:+)
     end
-
   end
 end
