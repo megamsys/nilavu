@@ -18,12 +18,12 @@ module Nilavu
     class Infobip
       def initialize
         infobip_url = HTTP.persistent "https://api.infobip.com"
-        @infobip = infobip_url.basic_auth(:user => "#{username}", :pass => "#{password}").headers(:json => {"Authorization": "App #{api_key}"})
+        @infobip = infobip_url.basic_auth(:user => "#{username}", :pass => "#{password}").headers(:json => {"Authorization" => "App #{api_key}"})
       end
 
       # Send pin to mibile
       def send_pin(mobile_number)
-        pin_res = @infobip.post("/2fa/1/pin?ncNeeded=true", :json => {"applicationId": "#{application_id}","messageId": "#{message_id}","to": "#{mobile_number}"})
+        pin_res = @infobip.post("/2fa/1/pin?ncNeeded=true", :json => {"applicationId" => "#{application_id}","messageId" => "#{message_id}","to" => "#{mobile_number}"})
         res_hash = JSON.parse("#{pin_res.body}")
         res_hash["smsStatus"] == "MESSAGE_SENT" ? "#{res_hash['pinId']}" : "Message sending failed"
       end
@@ -31,7 +31,7 @@ module Nilavu
       # Verify pin
       def verify_pin(pin_id, pin)
         verify_res = @infobip.post("/2fa/1/pin/#{pin_id}/verify", :json => {
-        "pin":"#{pin}"})
+        "pin" => "#{pin}"})
         res_hash = JSON.parse("#{verify_res.body}")
         res_hash["verified"] ? true : false
       end
@@ -39,9 +39,9 @@ module Nilavu
       # Send confirmation message
       def send_confirm(mobile_number, email)
         verify_res = @infobip.post("/sms/1/text/single", :json => {
-          "from":"MegamAfrica",
-          "to":"#{mobile_number}",
-          "text":"Hi #{email}, Thank you for signing up. All transaction details will be sent to this number."
+          "from" => "MegamAfrica",
+          "to" => "#{mobile_number}",
+          "text" => "Hi #{email}, Thank you for signing up. All transaction details will be sent to this number."
         })
         true
       end
