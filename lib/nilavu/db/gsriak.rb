@@ -7,32 +7,32 @@ module Nilavu
       class RiakError < StandardError; end
 
       def initialize(bname)
-          @bname = bname
-          require 'ind'
-          @client = Riak::Client.new(nodes: [{ host: "#{Ind.riak}" }])
-          #ping
+        @bname = bname
+        require 'ind'
+        @client = Riak::Client.new(nodes: [{ host: "#{Ind.riak}" }])
+        #ping
       end
 
       def ping
         png = Net::Ping::HTTP.new.ping("#{Ind.riak}:8098")
-        fail APIDispatch::ConnectFailure, "Riak server <b>@#{Ind.riak}<b> is down.</br>✓ Fix: `start riak` (or) contact your administrator."  unless png
+        fail APIDispatch::ConnectFailure, "Riak server <b>@#{Ind.riak}<b> is down.</br>✓ Fix: `start riak` (or) contact your administrator." unless png
         png
       end
 
       def upload(key, data, content_type)
-          object = @client.bucket(@bname).get_or_new(key)
-          object.raw_data = data
-          object.content_type = content_type
-          object.store
+        object = @client.bucket(@bname).get_or_new(key)
+        object.raw_data = data
+        object.content_type = content_type
+        object.store
       end
 
       def download(key)
         object = @client.bucket(@bname).get_or_new(key)
         File.open(File.basename(key), 'wb') do |file|
           file.write(object.raw_data)
-	         #file.chmod(0600)
-         end
-	        #File.chmod(600, File.basename(key))
+          #file.chmod(0600)
+        end
+        #File.chmod(600, File.basename(key))
       end
 
       def fetch(key)

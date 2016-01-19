@@ -30,7 +30,7 @@ var MetricLoader = React.createClass({
           <b>Feed me charts</b>
           <br></br>
           Charts appear when the instance is fully up.
-          <img src="assets/pacman_big.gif" alt="Wait"/>
+          <img src="assets/loader.gif" alt="Wait"/>
         </p>
       </div>
     )}
