@@ -29,7 +29,7 @@ class BucketsController < NilavuController
       redirect_to buckets_path if session[:ceph_access_key].nil?
       @bucket ||= Backup::Buckets.new(params).list
     end
-    @usage  ||= Backup::BackupUser.new.usage(current_user.email)
+    @usage ||= Backup::BackupUser.new.usage(current_user.email)
   end
 
   def create
@@ -50,5 +50,4 @@ class BucketsController < NilavuController
 
   def destroy
   end
-
 end
