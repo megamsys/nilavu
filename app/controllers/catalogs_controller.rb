@@ -40,8 +40,8 @@ class CatalogsController < NilavuController
   def create
     logger.debug "> Pilotable: create"
     Api::Requests.new.reqs(params.merge({:action => params[:req_action]}))
-    @msg = { message: "submitted, in progress.",
-    title: "#{params['req_action'].camelize}ing #{params['name']}."}
+    @msg = { message: "Your #{params['cattype'].downcase} #{params['name']} is firing up",
+    title: "Create #{params['cattype'].downcase}"}
   end
 
   #a confirmation question for a delete operation.
