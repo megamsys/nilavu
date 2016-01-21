@@ -59,7 +59,7 @@
           <dt class="margin-top-20"></dt>
           <dt>
             <%= t('overviews.ip') %></dt>
-          <dd><% ip = parse_key_value_pair(assembly.outputs, "publicip") %>
+          <dd><% ip = parse_key_value_pair(assembly.outputs, "publicipv4") %>
             <%= ip if ip != "" %>
             <%= t('overviews.not_get_ip') if ip == "" %></dd>
           <dt class="margin-top-20"></dt>
