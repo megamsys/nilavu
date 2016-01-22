@@ -30,17 +30,6 @@ $(document).ready(function() {
 			$('#app-list').hide();
 			$('#app-grid').show();
 		};
-	});
-
-	$('#marketplace_top_right').hover(function() {
-		$('#marketplace_top_right i').toggleClass('c_icon-window-lg');
-		$('#marketplace_top_right i').toggleClass('c_icon-window-lg-sel');
-		$('#marketplace_top_right span').toggleClass('mplace-selected');
-	});
-	$('#storage_top_right').hover(function() {
-		$('#storage_top_right i').toggleClass('c_icon-storage-lg');
-		$('#storage_top_right i').toggleClass('c_icon-storage-lg-sel');
-		$('#storage_top_right span').toggleClass('mplace-selected');
-	});
+	});	
 
 });
