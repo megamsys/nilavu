@@ -16,112 +16,91 @@
 <% content_for :onecat_contents do %>
 <% provide(:title, "Apps Overview") %>
 <div class="rt-box col-xs-12 col-sm-9 col-md-10 col-xl-11 c_bg_white c_height_5">
-    <div class="">
-        <% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
-        <% asmname = "#{assembly.name}.#{domain}" %>
-        <div class="row c_pading-b15">
-            <div class="storage_top">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <h3><b> Apps Overview </b></h3>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6 settings_grid yf-upload-cover">
-                    <%= link_to bindservice_path( :components => @assembly.components[0][0].to_json,  :assemblyID => params[:id], :assemblyname => asmname ), :class => "btn blue col-xs-12 col-sm-6 pull-right", 'data-remote' => "true"  do %>Bind a Service<% end %>
-                </div>
-                <div id="bind-toast"></div>
-            </div>
+  <div class="">
+    <% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
+    <% asmname = "#{assembly.name}.#{domain}" %>
+    <div class="row c_pading-b15">
+      <div class="storage_top">
+        <div class="col-xs-12 col-sm-6 col-md-6">
+          <h3>
+            <b>
+              Apps Overview
+            </b>
+          </h3>
         </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 settings_grid yf-upload-cover">
+          <%= link_to bindservice_path( :components => @assembly.components[0][0].to_json,  :assemblyID => params[:id], :assemblyname => asmname ), :class => "btn blue col-xs-12 col-sm-6 pull-right", 'data-remote' => "true"  do %>Bind a Service<% end %>
+        </div>
+        <div id="bind-toast"></div>
+      </div>
     </div>
-    <div class="bottom-divider"></div>
-    <div class="row">
-        <div class="col-xs-12 col-sm-9 col-md-9 br_grey">
-            <% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
-            <% @logname = "#{assembly.name}.#{domain}" %>
-            <%= render 'catalogs/mycomponent' %>
-        </div>
-        <div class="col-sm-2 storage-rt-list">
-            <dl>
-                <h3>Usage</h3>
-                <dt>
-                    <%= t('overviews.name') %>
-                </dt>
-                <dd>
-                    <%= assembly.name %>.<%= t('marketplace.megambox') %>
-                </dd>
-                <dt class="margin-top-20"></dt>
+  </div>
+  <div class="bottom-divider"></div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-9 col-md-9 br_grey">
+      <% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
+      <% @logname = "#{assembly.name}.#{domain}" %>
+      <% @ip = parse_key_value_pair(assembly.outputs, "publicipv4") %>
 
-                <dt>
-                    <%= t('overviews.available_ram') %>
-                </dt>
-                <dd>
-                    <%= assembly.inputs.select { |x| x["key"] == "ram" }[0]['value'] %>
-                    <%= t('overviews.mb') %>
-                </dd>
-                <dt class="margin-top-20"></dt>
-                <dt>
-                    <%= t('overviews.cpu_core') %>
-                </dt>
-                <dd>
-                    <%= assembly.inputs.select { |x| x["key"] == "cpu" }[0]['value'] %>
-                </dd>
-                <dt class="margin-top-20"></dt>
-                <dt>
-                    <%= t('overviews.ip') %>
-                </dt>
-                <dd>
-                    <% ip = parse_key_value_pair(assembly.outputs, "publicipv4") %>
-                    <%= ip if ip != "" %>
-                    <%= t('overviews.not_get_ip') if ip == "" %>
-                </dd>
-                <dt class="margin-top-20"></dt>
-                <dt>
-                    URL
-                </dt>
-                <dd>
-                    ssh -i id root@<%= assembly.name %>.<%= t('marketplace.megambox') %>
-                </dd>
-                <dt class="margin-top-20"></dt>
-                <dt>
-                    ENVS
-                </dt>
-                <% envs(assembly).each do |k, v| %>
-                <dd>
-                    <%= k +":" + v %>
-                </dd>
-                <% end %>
-                <dt class="margin-top-20"></dt>
-                <dt>
-                    Region
-                </dt>
-                <dd><img src="assets/flag_IN.png">
-                    INDIA
-                </dd>
-                <dt class="margin-top-20"></dt>
-                <dt>
-                    <%= t('overviews.key') %>
-                </dt>
-                <dd>
-                    <% ssh=assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value'].split('_').last%>
-                    <%= link_to "#{assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value'].split('_').last}",
-                    edit_ssh_key_path(:id => ssh+"_key"), :class => "hint  hint--bottom", :target => "_self", 'data-hint' => "Click here to download private key" %>
-
-                </dd>
-
-            </dl>
-        </div>
+      <%= render 'catalogs/mycomponent' %>
     </div>
+    <div class="col-sm-2 storage-rt-list">
+      <dl>
+        <h3>Usage</h3>
+        <dt><%= t('overviews.name') %></dt>
+        <dd><%= assembly.name %>.<%= t('marketplace.megambox') %></dd>
+        <dt class="margin-top-20"></dt>
+
+        <dt><%= t('overviews.available_ram') %></dt>
+        <dd><%= assembly.inputs.select { |x| x["key"] == "ram" }[0]['value'] %>
+          <%= t('overviews.mb') %></dd>
+        <dt class="margin-top-20"></dt>
+        <dt><%= t('overviews.cpu_core') %></dt>
+        <dd><%= assembly.inputs.select { |x| x["key"] == "cpu" }[0]['value'] %></dd>
+        <dt class="margin-top-20"></dt>
+        <dt>
+          <%= t('overviews.ip') %></dt>
+        <dd><% ip = parse_key_value_pair(assembly.outputs, "publicipv4") %>
+          <%= ip if ip != "" %>
+          <%= t('overviews.not_get_ip') if ip == "" %></dd>
+        <dt class="margin-top-20"></dt>
+        <dt>URL</dt>
+        <dd>ssh -i id root@<%= assembly.name %>.<%= t('marketplace.megambox') %></dd>
+        <dt class="margin-top-20"></dt>
+        <dt>ENVS</dt>
+        <% envs(assembly).each do |k, v| %>
+        <dd><%= k +":" + v %></dd>
+        <% end %>
+        <dt class="margin-top-20"></dt>
+        <dt>Region</dt>
+        <dd><img src="assets/flag_IN.png">
+          INDIA</dd>
+        <dt class="margin-top-20"></dt>
+        <dt><%= t('overviews.key') %></dt>
+        <dd>
+          <%ssh=assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value'].split('_').last%>
+          <%= link_to "#{assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value'].split('_').last}",
+      edit_ssh_key_path(:id => ssh+"_key"), :class => "hint  hint--bottom", :target => "_self", 'data-hint' => "Click here to download private key" %>
+
+        </dd>
+
+      </dl>
+
+    </div>
+  </div>
 </div>
 <% end %>
 <%= render :template => "catalogs/show", :locals => {:cattype => Api::Assemblies::APP} %>
 
-<div id="app-bind" class="modal fade" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog" style="max-width:400px">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                <h4 class="modal-title"><%= t('overviews.bindservice_title') %></h4>
-            </div>
+<div aria-hidden="true" class="modal fade" id="app-bind" tabindex="-1">
+  <div class="modal-dialog" style="max-width:400px">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" class="close" data-dismiss="modal" type="button"></button>
+        <h4 class="modal-title"><%= t('overviews.bindservice_title') %></h4>
+      </div>
 
-            <div class="modal-body" id="bind_view"></div>
-        </div>
+      <div class="modal-body" id="bind_view"></div>
     </div>
+  </div>
 </div>

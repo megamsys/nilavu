@@ -23,19 +23,19 @@ var Overview = React.createClass({
 });
 
 var MetricLoader = React.createClass({
-	 render: function render() {
+  render: function render() {
     return (
-    	 <div className="metricLoader">
+      <div className="metricLoader">
         <p>
           <b>Feed me charts</b>
           <br></br>
           Charts appear when the instance is fully up.
-          <img src="assets/loader.gif" alt="Wait"/>
+          <img alt="Wait" src="assets/loader.gif"/>
         </p>
       </div>
-    )}
+    )
+  }
 })
-
 
 var OverviewTab = React.createClass({
   getInitialState: function() { //json data
@@ -50,52 +50,57 @@ var OverviewTab = React.createClass({
     this.updateData();
     $('.bar').hide();
     $('.spinner').hide();
-    this.interval  = setInterval(this.updateData, 2000);
+    this.interval = setInterval(this.updateData, 2000);
   },
   componentDidUpdate: function() {
-  	$('.bar').hide();
-  	$('.spinner').hide();
+    $('.bar').hide();
+    $('.spinner').hide();
     this.drawCPU();
     this.drawRAM();
     this.drawNETWORK();
   },
 
-    componentWillUnmount: function() {
-      clearInterval(this.interval);
-   },
-
-  updateData: function() {
-  	$.ajax({
-  		url: this.props.host,
-  		success: function(data) {
-  					this.setState({  JsonD: data  });
-  					$('.bar').hide();
-  					$('.spinner').hide();
-  					$('.metricLoader').hide();
-     			}.bind(this),
-  		error: function(xhr, status, err) {
-    				$('.bar').hide();
-    				$('.spinner').hide();
-  				}.bind(this)
-  	});
-
-  	$.ajax({
-  		url: this.props.mhost,
-  		success: function(mdata) {
-  					this.setState({  machineInfo: mdata, isLoading: false  });
-  					$('.bar').hide();
-  					$('.spinner').hide();
-  					$('.metricLoader').hide();
-     			}.bind(this),
-  		error: function(xhr, status, err) {
-    				$('.bar').hide();
-    				$('.spinner').hide();
-  				}.bind(this)
-  	});
-
+  componentWillUnmount: function() {
+    clearInterval(this.interval);
   },
 
-   drawCPU: function() {
+  updateData: function() {
+
+        $.ajax({
+          url: this.props.host,
+          success: function(data) {
+            this.setState({
+              JsonD: data
+            });
+            $('.bar').hide();
+            $('.spinner').hide();
+            $('.metricLoader').hide();
+          }.bind(this),
+          error: function(xhr, status, err) {
+            $('.bar').hide();
+            $('.spinner').hide();
+          }.bind(this)
+        });
+
+        $.ajax({
+          url: this.props.mhost,
+          success: function(mdata) {
+            this.setState({
+              machineInfo: mdata,
+              isLoading: false
+            });
+            $('.bar').hide();
+            $('.spinner').hide();
+            $('.metricLoader').hide();
+          }.bind(this),
+          error: function(xhr, status, err) {
+            $('.bar').hide();
+            $('.spinner').hide();
+          }.bind(this)
+        });
+    },
+
+  drawCPU: function() {
     var stats = this.state.JsonD;
     if (!this.hasResource(stats, "cpu")) {
       return;
@@ -152,10 +157,10 @@ var OverviewTab = React.createClass({
       curveType: 'function',
       height: 300,
       width: 800,
-      chartArea:{
-      	left:110,
-      	top:5,
-      	},
+      chartArea: {
+        left: 110,
+        top: 5
+      },
       legend: {
         position: "none"
       },
@@ -232,10 +237,10 @@ var OverviewTab = React.createClass({
       curveType: 'function',
       height: 300,
       width: 800,
-      chartArea:{
-      	left:110,
-      	top:5,
-      	},
+      chartArea: {
+        left: 110,
+        top: 5
+      },
       legend: {
         position: "none"
       },
@@ -324,10 +329,10 @@ var OverviewTab = React.createClass({
       curveType: 'function',
       height: 300,
       width: 800,
-      chartArea:{
-      	left:110,
-      	top:5,
-      	},
+      chartArea: {
+        left: 110,
+        top: 5
+      },
       legend: {
         position: "none"
       },
@@ -372,46 +377,51 @@ var OverviewTab = React.createClass({
     return (cur.getTime() - prev.getTime()) * 1000000;
   },
 
-
   render: function() {
     return (
 
       <div className="tabbable-custom nav-justified margintb_15">
-    <ul className="nav nav-tabs nav-justified">
-        <li className="active">
-            <a href="#cpu_tab" data-toggle="tab"> CPU </a>
-        </li>
-        <li>
-            <a href="#ram_tab" data-toggle="tab"> RAM </a>
-        </li>
-        <li>
-            <a href="#network_tab" data-toggle="tab"> Network </a>
-        </li>
-    </ul>
-    <div className="tab-content c_tab-content">
+        <ul className="nav nav-tabs nav-justified">
+          <li className="active">
+            <a data-toggle="tab" href="#cpu_tab">
+              CPU
+            </a>
+          </li>
+          <li>
+            <a data-toggle="tab" href="#ram_tab">
+              RAM
+            </a>
+          </li>
+          <li>
+            <a data-toggle="tab" href="#network_tab">
+              Network
+            </a>
+          </li>
+        </ul>
+        <div className="tab-content c_tab-content">
 
-        <div className="tab-pane active" id="cpu_tab">
+          <div className="tab-pane active" id="cpu_tab">
             <div className="">
-                <div className="demo-container">
-                    <MetricLoader isActive={this.state.isLoading} />
-                    <div id="cpu_chart" className="demo-placeholder" ></div>
-                </div>
+              <div className="demo-container">
+                <MetricLoader isActive={this.state.isLoading}/>
+                <div className="demo-placeholder" id="cpu_chart"></div>
+              </div>
             </div>
-        </div>
-        <div className="tab-pane" id="ram_tab">
+          </div>
+          <div className="tab-pane" id="ram_tab">
             <div className="demo-container">
-                <MetricLoader isActive={this.state.isLoading} />
-                <div id="ram_chart" className="demo-placeholder" ></div>
+              <MetricLoader isActive={this.state.isLoading}/>
+              <div className="demo-placeholder" id="ram_chart"></div>
             </div>
-        </div>
-        <div className="tab-pane" id="network_tab">
-        	<div className="demo-container">
-        	    <MetricLoader isActive={this.state.isLoading} />
-                <div id="network_chart" className="demo-placeholder" ></div>
+          </div>
+          <div className="tab-pane" id="network_tab">
+            <div className="demo-container">
+              <MetricLoader isActive={this.state.isLoading}/>
+              <div className="demo-placeholder" id="network_chart"></div>
             </div>
+          </div>
         </div>
-    </div>
-</div>
+      </div>
 
     );
   }
