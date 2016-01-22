@@ -54,9 +54,9 @@
         <dd><%= assembly.inputs.select { |x| x["key"] == "cpu" }[0]['value'] %></dd>
         <dt>
           <%= t('overviews.ip') %></dt>
-        <dd><% ip = parse_key_value_pair(assembly.outputs, "publicipv4") %>
-          <%= ip if ip != "" %>
-          <%= t('overviews.not_get_ip') if ip == "" %></dd>
+        <dd>
+          <%= @ip if @ip != "" %>
+          <%= t('overviews.not_get_ip') if @ip == "" %></dd>
         <dt class="margin-top-20"></dt>
         <dt>Region</dt>
         <dd><img src="assets/images/flag_IN.png">
