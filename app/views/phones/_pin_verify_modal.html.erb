@@ -1,0 +1,45 @@
+<%= form_tag phones_path, :method => :post, :remote => true, :multipart => true do %>
+<div class="modal fade" id="mobile_verify_modal" tabindex="-1" role="basic" aria-hidden="true">
+    <div class="modal-dialog" style="max-width:400px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title"> Enter your OTP pin</h4>
+            </div>
+            <div class="modal-body">
+                <div class="scroller" style="min-height:200px" data-always-visible="1" data-rail-visible1="1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="ssh-key_name">Pin sent to your mobile</label>
+                                <%= text_field_tag :pin, nil, :class => 'form-control', :required => true, placeholder: 'Enter Your 4 digit PIN' %>
+	<input type="hidden" name="redirect" value="<%= redirect %>"/>
+                            </div>
+						<button type="submit" class="btn btn-success col-md-12 col-xs-12" data-remote="true" data-disable-with="Verifying pin..." id="pin_verify_submit" >
+								Verify
+						</button>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+//Disable verify button, when pin number is empty
+if($("#pin").val() ==  "") 
+   $('#pin_verify_submit').attr('disabled', true);
+
+//Disable verify button, when pin number is not in 4-digit format
+$('#pin').keyup(function(){
+var number_format = /^\d{4}$/;
+
+  if(number_format.test($("#pin").val())) 
+           $('#pin_verify_submit').attr('disabled', false);    
+  else
+     $('#pin_verify_submit').attr('disabled', true);   
+});
+
+</script>

@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright [2013-2016] [Megam Systems]
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 class NilavuController < ApplicationController
-  before_action :require_signin
+  before_action :require_signin, :require_up
 
   # load environments if we are signed in
   before_filter {|controller| load_environments if signed_in? && !loaded_environments?}
@@ -40,6 +40,18 @@ class NilavuController < ApplicationController
     end
   end
 
+  #this works but has other issues like a stored session loops etc.
+  def require_up
+    hc = Nilavu::HealthCheck.new.tap do |h|
+      h.check
+    end
+
+    hok = hc.ok?
+    fail ConnectFailure, "Api server <b>@#{Ind.api}<b> is down.</br>✓ Fix: `start megamgateway` (or) contact your administrator." unless hok
+    hok
+    true
+  end
+
   def stick_keys(_tmp = {}, _permitted_tmp = {})
     logger.debug "> STICKM"
     params.merge!(Hash[%w(email api_key org_id).map {|x| [x, session[x.to_sym]]}])
@@ -48,7 +60,7 @@ class NilavuController < ApplicationController
   def stick_ceph_keys(_tmp = {}, _permitted_tmp = {})
     logger.debug "> STICKC"
     params.merge!(Hash[%w(ceph_access_key ceph_secret_key).map {|x| [x, session[x.to_sym]]}])
-    end
+  end
 
   def stick_auth_keys()
     auth = request.env['omniauth.auth']['extra']['raw_info']
@@ -59,7 +71,7 @@ class NilavuController < ApplicationController
   #############################################################################
   def load_environments
     load_organizations(current_user)
-    load_ceph(current_user) if Ind.backup.enable
+    load_ceph(current_user) if Ind.has_key?("backup")
   end
 
   def load_organizations(current_user)
@@ -67,7 +79,7 @@ class NilavuController < ApplicationController
   end
 
   def load_ceph(current_user)
-    res = Backup::BackupUser.new.create(current_user.email, current_user.id)  
+    res = Backup::BackupUser.new.create(current_user.email, current_user.id)
     store_ceph_credentials(res)
   end
 end

@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright [2013-2016] [Megam Systems]
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -32,8 +32,7 @@ class CatalogsController < NilavuController
   def index
     logger.debug "> Pilotable: Index"
     @cattype = params[:cattype].capitalize
-    assem = Api::Assemblies.new.list(params)
-    @assemblies_grouped = assem.assemblies_grouped
+    @assemblies_grouped = Api::Assemblies.new.list(params).assemblies_grouped
   end
 
 
@@ -41,8 +40,8 @@ class CatalogsController < NilavuController
   def create
     logger.debug "> Pilotable: create"
     Api::Requests.new.reqs(params.merge({:action => params[:req_action]}))
-    @msg = { message: "submitted, in progress.",
-       title: "#{params['req_action'].camelize}ing #{params['name']}."}
+    @msg = { message: "Your #{params['cattype'].downcase} #{params['name']} is firing up",
+    title: "Create #{params['cattype'].downcase}"}
   end
 
   #a confirmation question for a delete operation.

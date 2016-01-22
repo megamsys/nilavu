@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright [2013-2016] [Megam Systems]
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -27,7 +27,7 @@ class BucketkolkesController < NilavuController
   def create
     params[:id] = params[:bucket_name]
     Backup::BucketObjects.new(params).create(params[:sobject])
-    @msg = { message: "#{params[:sobject].original_filename} uploaded successfully. ", disposal_id: 'onebucket_upload' }
+    redirect_to(buckets_path, :flash => { :success => "uploaded successfully!"}, format: 'js')
   end
 
   def show
@@ -37,8 +37,6 @@ class BucketkolkesController < NilavuController
   end
 
   def destroy
-    #object_name = params[:id].split("/").last
-    #bucket_name = params[:id].split("/").first
     Backup::BucketObjects.new(params).delete(bucket_name)
     @bobjs = []
     respond_to do |format|

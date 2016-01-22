@@ -1,29 +1,22 @@
-$(document).ready(function() {
-	$("#change_profilename").click(function() {
-		$('#first_name').prop('readonly', false);
-	});
-
-	$('#change_phonenumber').click(function(e) {
-		$('#phonenumber').prop('readonly', false);
-	});
-
-	$("#change_password").click(function() {
-		$('#newpassword').prop('readonly', false);
-		$('#newpassword_confirmation').prop('readonly', false);
-	});
-});
-
-function change_phone() {
-	$('#phonenumber').prop('readonly', false);
-}
-
 function change_name() {
 	$('#first_name').prop('readonly', false);
+	$('#first_name').prop('required', true);
+	$("#profile_submit").removeClass("disabled");
+}
+
+function change_phone() {
+	//$('#phonenumber').prop('readonly', false);
+	//$('#phonenumber').prop('required', true);
+	//$("#profile_submit").removeClass("disabled");
+	$('#phone_show').hide();
+	$('#phone_edit').show();
+	$("#profile_submit").addClass("disabled");
 }
 
 function change_current_password() {
 	$('#newpassword').prop('readonly', false);
 	$('#newpassword_confirmation').prop('readonly', false);
+	$("#password_submit").removeClass("disabled");
 }
 
 

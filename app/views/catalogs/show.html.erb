@@ -1,5 +1,5 @@
 <!--
-** Copyright [2013-2015] [Megam Systems]
+** Copyright [2013-2016] [Megam Systems]
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -37,44 +37,44 @@
                             </ul>
                         </li>
                         <li class="start active unmount_component">
-                            <%= link_to cockpits_path, id: "side-dash-link", :data => { :remote => true}, :target => "_self", :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                            <%= link_to cockpits_path, id: "side-dash-link", :data => { :remote => true}, :target => "_self" do %>
                             <i class="c_icon-db pull-left"></i>
                             <span class="title pull-left"><%= t('titles.dashboard_title') %></span>
                             <% end %>
                         </li>
                         <li class="start active unmount_component">
-                            <%= link_to catalogs_path(:cattype => Api::Assemblies::TORPEDO ), :data => { :remote => true}, :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                            <%= link_to catalogs_path(:cattype => Api::Assemblies::TORPEDO ), :data => { :remote => true} do %>
                             <i class="c_icon-torpedo pull-left"></i>
                             <span class="title pull-left"><%= t('cockpits.torpedo_tab') %></span>
                             <% end %>
                         </li>
                         <li class="start active unmount_component">
-                            <%= link_to catalogs_path(:cattype => Api::Assemblies::APP), :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                            <%= link_to catalogs_path(:cattype => Api::Assemblies::APP), :data => { :remote => true} do %>
                             <i class="c_icon-apps pull-left"></i>
                             <span class="title pull-left"><%= t('cockpits.apps_tab') %></span>
                             <% end %>
                         </li>
                         <li class="start active unmount_component">
-                            <%= link_to catalogs_path(:cattype => Api::Assemblies::SERVICE),:data => { :remote => true},   :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                            <%= link_to catalogs_path(:cattype => Api::Assemblies::SERVICE),:data => { :remote => true} do %>
                             <i class="c_icon-service pull-left"></i>
                             <span class="title pull-left"><%= t('cockpits.services_tab') %></span>
                             <% end %>
                         </li>
                         <li class="start active unmount_component">
-                            <%= link_to catalogs_path(:cattype =>Api::Assemblies::MICROSERVICES), :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                            <%= link_to catalogs_path(:cattype =>Api::Assemblies::MICROSERVICES), :data => { :remote => true} do %>
                             <i class="c_icon-addon pull-left"></i>
                             <span class="title pull-left"><%= t('cockpits.micro_services_tab') %></span>
                             <% end %>
                         </li>
                         <li class="start active unmount_component">
-                            <%= link_to ssh_keys_path, :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                            <%= link_to ssh_keys_path, :data => { :remote => true} do %>
                             <i class="c_icon-set pull-left"></i>
                             <span class="title pull-left"><%= t('titles.ssh_title') %></span>
                             <% end %>
                         </li>
                         <li class="start active unmount_component">
-                            <%  if Ind.billings %>
-                            <%= link_to billings_path, :data => { :remote => true},  :onclick => "$('#step-0').fadeOut(); $('#step-1').fadeOut();" do %>
+                            <%  if Ind.has_key?("billings") %>
+                            <%= link_to billings_path, :data => { :remote => true} do %>
                             <i class="c_icon-billing pull-left"></i>
                             <span class="title pull-left"><%= t('titles.billing_title') %></span>
                             <% end %>
@@ -107,5 +107,5 @@
 		$('#side-dash-link').click(function(e) {
 			e.stopPropagation();
 		});
-	}); 
+	});
 </script>

@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright [2013-2016] [Megam Systems]
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -18,8 +18,7 @@ module Api
     attr_reader :bill_type
     attr_reader :credit_amount
     attr_reader :currency_type
-    
-    def initialize()
+        def initialize()
       @balance = {}
     end
 

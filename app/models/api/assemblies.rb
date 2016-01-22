@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright [2013-2016] [Megam Systems]
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -27,11 +27,10 @@ module Api
     MICROSERVICES       =  'MICROSERVICES'.freeze
     COLLABORATION       =  'COLLABORATION'.freeze
     CATTYPES            =  [TORPEDO, APP, SERVICE, MICROSERVICES, ANALYTICS, COLLABORATION]
-
-    START               =  'start'.freeze
+        START               =  'start'.freeze
     STOP                =  'stop'.freeze
     RESTART             =  'restart'.freeze
-    REBOOT              =  'reboot'.freeze
+    REBOOT              =  'restart'.freeze
     DESTROY             =  'delete'.freeze
     TERMINATED          =  'destroying'.freeze
     LAUNCHING           =  'LAUNCHING'.freeze
@@ -70,18 +69,18 @@ module Api
 
     def create(api_params, &_block)
       bld_data = build_data(api_params)
-	    api_request(ASSEMBLIES, CREATE, api_params.merge(bld_data))
+      api_request(ASSEMBLIES, CREATE, api_params.merge(bld_data))
       yield self if block_given?
       self
     end
 
-   def build_data(api_params)
-    { name: '',
-      assemblies: [Megam::Mixins::Assemblies.new(api_params).to_hash],
-      inputs: [],
-      org_id: api_params[:org_id]
-    }
-   end
+    def build_data(api_params)
+      { name: '',
+        assemblies: [Megam::Mixins::Assemblies.new(api_params).to_hash],
+        inputs: [],
+        org_id: api_params[:org_id]
+      }
+    end
     private
     # The /assemblies just returns an id of assembly. dig recursively to get the full content of it.
     #     assemblies : :id  => ASM0001

@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright [2013-2016] [Megam Systems]
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -21,14 +21,25 @@ class BucketsController < NilavuController
   before_action :stick_ceph_keys, only: [:index, :create, :show, :upload, :destroy]
 
   def index
-    @bucket ||= Backup::Buckets.new(params).list
-    @usage  ||= Backup::BackupUser.new.usage(current_user.email)
+    if !session[:ceph_access_key].nil? && Backup::BackupUser.new.exists?(current_user.email)
+      @bucket ||= Backup::Buckets.new(params).list
+    else
+      load_ceph(current_user)
+      stick_ceph_keys
+      redirect_to buckets_path if session[:ceph_access_key].nil?
+      @bucket ||= Backup::Buckets.new(params).list
+    end
+    @usage ||= Backup::BackupUser.new.usage(current_user.email)
   end
 
   def create
-    Backup::Buckets.new(params).create(params[:id])
-    @bucket ||= Backup::Buckets.new(params).list
-    @msg = { title: "Storage", message: '#{params["id"]} created successfully.', redirect: '/', bucket: @bucket, disposal_id: 'create_bucket' }
+    begin
+      Backup::Buckets.new(params).create(params[:id])
+      @bucket ||= Backup::Buckets.new(params).list
+      redirect_to(buckets_path, :flash => { :success => "#{params['id']} created successfully."}, format: 'js')
+    rescue Exception => e
+      redirect_to(buckets_path, :flash => { :error => "Bucket name not available! Try different bucket name!"}, format: 'js')
+    end
   end
 
   def show
@@ -39,5 +50,4 @@ class BucketsController < NilavuController
 
   def destroy
   end
-
 end

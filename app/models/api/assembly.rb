@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright [2013-2016] [Megam Systems]
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -43,20 +43,18 @@ module Api
       yield self if block_given?
       self
     end
-    
-    def upgrade(api_params, &_block)   
+        def upgrade(api_params, &_block)
       api_request(ASSEMBLY, UPGRADE, api_params.merge(bld_upgrade_params(api_params)))
       yield self if block_given?
-      self   
+      self
     end
 
     private
-    
-    def bld_upgrade_params(api_params)      
-        Megam::Mixins::Assembly.new(api_params).to_hash      
+        def bld_upgrade_params(api_params)
+      Megam::Mixins::Assembly.new(api_params).to_hash
     end
 
-        # recursively dig assembly by populating components.
+    # recursively dig assembly by populating components.
     def dig_components(tmp_assembly_collection, api_params)
       tmp_assembly_collection.map do |one_assembly|
         a0 = one_assembly.components.map do |one_component|

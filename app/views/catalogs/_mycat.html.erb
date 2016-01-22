@@ -1,5 +1,5 @@
 <!--
-** Copyright [2013-2015] [Megam Systems]
+** Copyright [2013-2016] [Megam Systems]
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -15,10 +15,13 @@
 -->
 <div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
 
-  <%= render :partial => "users/topright_icons", :locals => {:title_name => @cattype.pluralize} %>
+  <%= render :partial => "users/topright_icons", :locals => {:title_name => @cattype.pluralize, :grid_list => true} %>
 
-  <div class="">
+  <div class="" id="app-grid-view">
     <%= render :partial => "cockpits/flyasm", :locals => {:cattype => @cattype, :asmgroups_flatten => flat_asmgroup([@cattype],@assemblies_grouped)} %>
+  </div>
+  <div class="" id="app-list-view">
+    <%= render :partial => "cockpits/flyasmlist", :locals => {:cattype => @cattype, :asmgroups_flatten => flat_asmgroup([@cattype],@assemblies_grouped)} %>
   </div>
 
 </div>

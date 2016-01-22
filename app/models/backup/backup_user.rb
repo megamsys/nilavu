@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright [2013-2016] [Megam Systems]
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -23,6 +23,11 @@ module Backup
       @radosgw = CEPH::User.new(username: radosadmin,
         user_password: radosadmin_password,
       ipaddress: endpoint)
+    end
+
+    # Check the account's existance
+    def exists?(uid)
+      @radosgw.exists("#{uid}")
     end
 
     # creates a new account

@@ -1,5 +1,5 @@
 <!--
-** Copyright [2013-2015] [Megam Systems]
+** Copyright [2013-2016] [Megam Systems]
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
 ** you may not use this file except in compliance with the License.
@@ -68,7 +68,7 @@
                     <%= t('overviews.ip') %>
                 </dt>
                 <dd>
-                    <% ip = parse_key_value_pair(assembly.outputs, "publicip") %>
+                    <% ip = parse_key_value_pair(assembly.outputs, "publicipv4") %>
                     <%= ip if ip != "" %>
                     <%= t('overviews.not_get_ip') if ip == "" %>
                 </dd>
@@ -125,5 +125,3 @@
         </div>
     </div>
 </div>
-
-

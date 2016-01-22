@@ -1,3 +1,6 @@
+require 'net/ping'
+require 'ind'
+
 module Nilavu
   class HealthCheck
     OK = 'ok'.freeze
@@ -20,8 +23,8 @@ module Nilavu
     # Do a general health check.
     def check
       megamgw_health
-      #  megamceph_health
       riak_health
+      #megamceph_health
       overall
     end
 
@@ -33,22 +36,19 @@ module Nilavu
     private
 
     def riak_health
-      @riak[:status] = REACHABLE
-      rescue RiakError
-      @riak[:status] = UNREACHABLE
+      @riak[:status] = ERRORING if !Nilavu::DB::GSRiak.new("test")
     end
 
     # Try to ping gw as an indicator of general health
     def megamgw_health
       megamgw_health_metric do
-        #    output = api_fascade.get 'testing'
-        #    @gwmegam[:status] = ERRORING if output['status'] != 'something'
+        @megamgw[:status] = ERRORING if !Net::Ping::HTTP.new.ping(Ind.api+":9000")
       end
     end
 
     # What is the overall system status
     def overall
-      if @riak[:status] != REACHABLE || @megamgw[:status] != REACHABLE || @megamceph[:status] != REACHABLE
+      if @riak[:status] != REACHABLE || @megamgw[:status] != REACHABLE #|| @megamceph[:status] != REACHABLE
         @status = NOT_OK
       end
     end

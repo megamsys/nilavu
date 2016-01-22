@@ -75,8 +75,6 @@ module Nilavu
       app.routes.append { match '*a', to: 'application#render_404', via: [:get] } unless config.consider_all_requests_local
     end
 
-    config.megam_logo_url = 'https://s3-ap-southeast-1.amazonaws.com/megampub/images/megam_01.png'
-
     config.google_authorization_uri = 'https://accounts.google.com/o/oauth2/auth'
     config.google_token_credential_uri = 'https://accounts.google.com/o/oauth2/token'
     config.google_scope = 'https://www.googleapis.com/auth/userinfo.email'

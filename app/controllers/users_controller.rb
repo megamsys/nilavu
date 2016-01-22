@@ -1,5 +1,5 @@
 ##
-## Copyright [2013-2015] [Megam Systems]
+## Copyright [2013-2016] [Megam Systems]
 ##
 ## Licensed under the Apache License, Version 2.0 (the "License");
 ## you may not use this file except in compliance with the License.
@@ -42,12 +42,13 @@ class UsersController < NilavuController
     Api::Accounts.new.create(params) do |acct|
       store_credentials acct
       mail_status = UserMailer.welcome(acct).deliver_now
-     if mail_status
-      toast_success(cockpits_path, "Click <b>marketplaces</b> to get started")
-     else
-      toast_warn(cockpits_path, "Click <b>marketplaces<b> to get started")
-     end
-   end
+      Nilavu::OTP::Infobip.new.send_confirm("#{params['phone']}", "#{params['email']}") if Ind.notification.has_key?("infobip")
+      if mail_status
+        toast_success(cockpits_path, "Click <b>marketplaces</b> to get started")
+      else
+        toast_warn(cockpits_path, "Click <b>marketplaces<b> to get started")
+      end
+    end
   end
 
   # load the current org details and send it the edit.html.erb.
@@ -60,8 +61,13 @@ class UsersController < NilavuController
   # update any profile information.
   def update
     logger.debug '> Users: update'
+	if params["current_password"].present?
+		auth = authenticate(params)
+		toast_error(cockpits_path,"Your current password is incorrect.") unless auth
+		return unless auth
+	end
     Api::Accounts.new.update(params) do |acct|
-      toast_success("","#{Api::Accounts.typenum_to_s(params[:myprofile_type])} updated successfully.")
+      toast_success(cockpits_path,"#{Api::Accounts.typenum_to_s(params[:myprofile_type])} updated successfully.")
     end
   end
 
@@ -80,5 +86,14 @@ class UsersController < NilavuController
     org_res[0][:related_orgs] << params[:org_id]
     res = Api::Organizations.new.update(org_res[0])
     toast_success(root_url, "Invitation accepted.")
+  end
+
+  private
+  def authenticate(params)
+	params["password"] = params["current_password"]
+    Api::Accounts.new.authenticate(params) 
+	true
+  rescue Nilavu::Auth::SignVerifier::PasswordMissmatchFailure => ae
+    false
   end
 end
