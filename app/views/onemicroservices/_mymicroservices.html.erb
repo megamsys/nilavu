@@ -37,8 +37,10 @@
   <div class="bottom-divider"></div>
   <div class="row">
     <div class="col-xs-12 col-sm-9 col-md-9 br_grey">
-<% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>	
-<% @logname = "#{assembly.name}.#{domain}" %>
+      <% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
+      <% @logname = "#{assembly.name}.#{domain}" %>
+      <% @ip = parse_key_value_pair(assembly.outputs, "publicipv4") %>
+
       <%= render 'catalogs/mycomponent' %>
     </div>
     <div class="col-sm-3 storage-rt-list">
@@ -52,9 +54,9 @@
         <dd><%= assembly.inputs.select { |x| x["key"] == "cpu" }[0]['value'] %></dd>
         <dt>
           <%= t('overviews.ip') %></dt>
-        <dd><% ip = parse_key_value_pair(assembly.outputs, "publicipv4") %>
-          <%= ip if ip != "" %>
-          <%= t('overviews.not_get_ip') if ip == "" %></dd>
+        <dd>
+          <%= @ip if @ip != "" %>
+          <%= t('overviews.not_get_ip') if @ip == "" %></dd>
         <dt class="margin-top-20"></dt>
         <dt>Region</dt>
         <dd><img src="assets/images/flag_IN.png">
