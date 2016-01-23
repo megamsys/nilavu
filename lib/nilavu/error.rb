@@ -49,6 +49,8 @@ module Nilavu
   class MegamGWError < Nilavu::Error; end
   class CephError < Nilavu::Error; end
   class RiakError < Nilavu::Error; end
+  class VerticeHealthCheckError < Nilavu::Error; end
+
   class ResourceError < Nilavu::Error; end
 
   # An error class for when I don't know what happened.  Automatically
