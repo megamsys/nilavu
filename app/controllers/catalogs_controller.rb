@@ -47,7 +47,7 @@ class CatalogsController < NilavuController
   #a confirmation question for a delete operation.
   def kelvi
     logger.debug "> Pilotable: kelvi"
-    @msg = { title: "#{params['name'].camelize} #{params['cattype'].downcase}", message: "Do you want to delete #{params['name']} ", redirect: catalog_path(:id => 1, :params => params)}
+    @msg = { title: "Delete #{params['cattype'].downcase}", message: "Do you want to delete #{params['name']} ", redirect: catalog_path(:id => 1, :params => params)}
   end
 
   #this action performs a delete operation.
