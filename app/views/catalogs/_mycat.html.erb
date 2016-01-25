@@ -15,13 +15,13 @@
 -->
 <div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
 
-  <%= render :partial => "users/topright_icons", :locals => {:title_name => @cattype.pluralize, :grid_list => true} %>
+    <%= render :partial => "users/topright_icons", :locals => {:title_name => @cattype.pluralize, :grid_list => true} %>
 
-  <div class="" id="app-grid-view">
-    <%= render :partial => "cockpits/flyasm", :locals => {:cattype => @cattype, :asmgroups_flatten => flat_asmgroup([@cattype],@assemblies_grouped)} %>
-  </div>
-  <div class="" id="app-list-view">
-    <%= render :partial => "cockpits/flyasmlist", :locals => {:cattype => @cattype, :asmgroups_flatten => flat_asmgroup([@cattype],@assemblies_grouped)} %>
-  </div>
+    <div class="" id="app-grid-view">
+        <%= render :partial => "cockpits/flyasm", :locals => {:cattype => @cattype, :asmgroups_flatten => flat_asmgroup([@cattype],@assemblies_grouped)} %>
+    </div>
+    <div class="" id="app-list-view">
+        <%= render :partial => "cockpits/flyasmlist", :locals => {:cattype => @cattype, :asmgroups_flatten => flat_asmgroup([@cattype],@assemblies_grouped)} %>
+    </div>
 
 </div>
