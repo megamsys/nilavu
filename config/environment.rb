@@ -25,4 +25,4 @@ if Ind.notification.use == "mailgun"
 		domain: Ind.notification.mailgun.domain }
 end
 
-ActionMailer::Base.default_url_options[:host] = "http://localhost:3000"
+#ActionMailer::Base.default_url_options[:host] = "http://localhost:3000"

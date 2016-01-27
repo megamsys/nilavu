@@ -1,8 +1,8 @@
 <!-- App1 modal starts here -->
-<div aria-hidden="true" class="modal fade" id="supload" tabindex="-1">
+<div aria-hidden="true" class="modal fade" data-backdrop="static" id="supload" tabindex="-1">
     <div class="modal-dialog modal-full" style="max-width:900px;">
         <div class="modal-content">
-            <div class="modal-header y-files-m-header">                
+            <div class="modal-header y-files-m-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
                 <h4 class="modal-title">Select files</h4>
             </div>
@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-xs-12" >
                         <table class="table borderless tb_upload">
-                            <tbody class="tr_upload_list" >                                                                
+                            <tbody class="tr_upload_list" >
                             </tbody>
                         </table>
                     </div>
@@ -24,7 +24,7 @@
                             <a id="brow"><h4 class="pull-left">+ Add More Files</h4></a>
                             <%= file_field_tag :sobject, :id => 'objectfile', multiple: true %>
                             <%= hidden_field_tag 'bucket_name', nil, :class=> 'form-control', :id => "bucketName", placeholder: "Bucket Name", :required => true, :value => @bucket_name %>
-                        <% end %>                        
+                        <% end %>
                         <span class="btn btn-success" data-dismiss="modal" aria-hidden="true">Done</span>
                     </div>
                 </div>

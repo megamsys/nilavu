@@ -1,5 +1,5 @@
 <%= form_tag phones_path, :method => :post, :remote => true, :multipart => true do %>
-<div class="modal fade" id="mobile_verify_modal" tabindex="-1" role="basic" aria-hidden="true">
+<div class="modal fade" id="mobile_verify_modal" data-backdrop="static" tabindex="-1" role="basic" aria-hidden="true">
     <div class="modal-dialog" style="max-width:400px">
         <div class="modal-content">
             <div class="modal-header">
@@ -29,17 +29,17 @@
 
 <script>
 //Disable verify button, when pin number is empty
-if($("#pin").val() ==  "") 
+if($("#pin").val() ==  "")
    $('#pin_verify_submit').attr('disabled', true);
 
 //Disable verify button, when pin number is not in 4-digit format
 $('#pin').keyup(function(){
 var number_format = /^\d{4}$/;
 
-  if(number_format.test($("#pin").val())) 
-           $('#pin_verify_submit').attr('disabled', false);    
+  if(number_format.test($("#pin").val()))
+           $('#pin_verify_submit').attr('disabled', false);
   else
-     $('#pin_verify_submit').attr('disabled', true);   
+     $('#pin_verify_submit').attr('disabled', true);
 });
 
 </script>

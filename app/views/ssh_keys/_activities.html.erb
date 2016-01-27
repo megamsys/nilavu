@@ -70,7 +70,7 @@
 	</div>
 </div>
 <!-- create SSH modal starts here -->
-<div id="create_ssh" class="modal fade" tabindex="-1" aria-hidden="true">
+<div id="create_ssh" class="modal fade" data-backdrop="static" data-backdrop="static" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog" style="max-width:400px">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -91,7 +91,7 @@
 							<input type="hidden" name="key_type" value="RSA">
 							<input type="hidden" name="key_bit" value="2048">
 						</div>
-						<%= submit_tag t('ssh_keys.create'), :class => "btn btn-success col-md-12 col-xs-12" , :data => {:remote => true}%>
+						<%= submit_tag t('ssh_keys.create'), :class => "btn btn-success col-md-12 col-xs-12" , :id => "sshkey_create_submit", :data => {:remote => true}%>
 						<% end %>
 					</div>
 				</div>
@@ -100,7 +100,7 @@
 	</div>
 </div>
 <!-- import SSH modal starts here -->
-<div id="import_ssh" class="modal fade" tabindex="-1" aria-hidden="true">
+<div id="import_ssh" class="modal fade" data-backdrop="static" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog" style="max-width:400px">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -135,7 +135,7 @@
 								<label for="ssh-key_name"><%= t('name') %></label>
 								<%= text_field_tag 'ssh_keypair_name', nil, :class=> 'form-control', placeholder: t('ssh_keys.temp_name'), :required => true %>
 							</div>
-							<%= submit_tag t('ssh_keys.import'), :class => "btn btn-success col-md-12 col-xs-12", :data => {:remote => true} %>
+							<%= submit_tag t('ssh_keys.import'), :class => "btn btn-success col-md-12 col-xs-12", :id => "sshkey_import_submit", :data => {:remote => true} %>
 							<% end %>
 						</div>
 					</div>
@@ -144,3 +144,13 @@
 		</div>
 	</div>
 </div>
+<!-- To load toastr message  -->
+  <%= render :partial => "layouts/toastr_message" %>
+<script>
+    $("#sshkey_create_submit").on("click", function(event) {
+	$('#create_ssh').modal('hide');
+});
+    $("#sshkey_import_submit").on("click", function(event) {
+	$('#import_ssh').modal('hide');
+});
+</script>

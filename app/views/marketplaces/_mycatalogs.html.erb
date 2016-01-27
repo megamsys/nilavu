@@ -111,7 +111,7 @@
 	});
 </script>
 <!-- App1 modal starts here -->
-<div id="app-1" class="modal fade" tabindex="-1" aria-hidden="true">
+<div id="app-1" class="modal fade" data-backdrop="static" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-full" style="max-width:900px;">
         <div class="modal-content">
             <div class="modal-header">
@@ -128,6 +128,7 @@
                         <% end %>
                     </div>
                 </div>
+                <button aria-hidden="true" class="close" data-dismiss="modal" type="button"></button>
             </div>
             <div class="modal-body app_body" id="version_view"></div>
             <!-- app_body ends here -->

@@ -43,8 +43,8 @@
         </div>
         <div class="col-xs-6">
           <div class="form-group">
-            <%= text_field_tag 'domain', nil, placeholder: t('marketplace.megambox'), :class =>"form-control", :value => "megambox.com", disabled: true %>
-            <%= hidden_field_tag 'domain', nil, placeholder: ".megambox.com", :class =>"form-control", :value => "megambox.com" %>
+            <%= text_field_tag 'domain', nil, :class =>"form-control", :value => Ind.domain, disabled: true %>
+            <%= hidden_field_tag 'domain', nil, :class =>"form-control", :value => Ind.domain %>
           </div>
         </div>
       </div>
