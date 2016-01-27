@@ -43,6 +43,8 @@
       </script>
     </head>
     <body>
+<!-- To set base url for mailer-->
+<% UserMailer.default_url_options[:host] = request.base_url %>
       <%= render 'toastr_rails/flash' %>
      <div id="cockpit">
         <%= yield %>

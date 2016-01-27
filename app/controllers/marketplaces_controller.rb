@@ -65,7 +65,7 @@ class MarketplacesController < NilavuController
       Assembly.new.update(params)
       Components.new.update(params)
     end if params.key?(:bind_type)
-    toast_success(cockpits_path, "Your #{params['cattype'].downcase} <b>#{params['name']}</b> is firing up")
+    toast_success(cockpits_path, "Your #{params['cattype'].downcase} <b>#{params['assemblyname']}.#{params['domain']}</b> is firing up")
   end
 
   ##

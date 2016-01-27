@@ -23,6 +23,8 @@ defaults: &defaults
   riak: localhost
 ## An api server for nilavu
   api: localhost
+## Domain name for VMs
+  domain: megambox.com
 ## logs is a host that the nilavu will connect to for real time log streaming
   logs: wss://madai.megam.io/logs
 # notification section notifies the handlers based on_trigger conditions.
