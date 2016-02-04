@@ -13,6 +13,7 @@ var Logs = React.createClass({
     var socket = this.props.socket;
     socket.onopen = this._initialize
     socket.onmessage = this._messageRecieve
+    
 
   },
   _initialize: function _initialize(data) {

@@ -9,14 +9,7 @@ var Overview = React.createClass({
     return (
       <div >
         <OverviewTab google={this.props.google} host={this.props.host} mhost={this.props.mhost}/>
-        <b className="logs-head">Logs</b>
-        <div className="logBox borderless torpOverviewTb">
-
-          <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <Logs name={this.props.name} socket={this.props.socket}/>
-          </div>
-        </div>
-      </div>
+       </div>
 
     );
   }
