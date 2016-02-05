@@ -17,8 +17,6 @@ defaults: &defaults
     password: megdc
 ## log_level: default is debug
   log_level: :info
-## Name of the nilavu server, welcome email uses this url
-  nilavu: https://console.megam.io
 ## A database backend for nilavu
   riak: localhost
 ## An api server for nilavu
