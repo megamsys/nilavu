@@ -30,20 +30,6 @@ defaults: &defaults
 # notification section notifies the handlers based on_trigger conditions.
   notification:
     enable: on
-    logo: https://s3-ap-southeast-1.amazonaws.com/megampub/images/mailers/megam_vertice.png
-    use: mailgun
-    mailgun:
-      api_key: <%= ENV["NIL_MAILGUN_APIKEY"] %>
-      domain: ojamail.megambox.com
-    smtp:
-      address: smtp.googlemail.com
-      port: 587
-      domain: megam.io
-      email: support@megam.io
-      password: <%= ENV["NIL_EMAIL_PASSWORD"] %>
-    hipchat:
-      api_key: <%= ENV["NIL_HIP_APIKEY"] %>
-      room: "Megam"
     infobip:
       username: <%= ENV["NIL_INFOBIP_USERNAME"] %>
       password: <%= ENV["NIL_INFOBIP_PASSWORD"] %>
