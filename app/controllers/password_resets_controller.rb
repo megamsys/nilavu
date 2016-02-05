@@ -18,7 +18,6 @@ class PasswordResetsController < NilavuController
 
   def create
     Api::Accounts.new.reset(params) do |account|
-      UserMailer.reset(account).deliver_now
       @msg = { title: 'Reset', message: 'An email was sent to #{account.email}. ', redirect: '/', disposal_id: 'forgot_password' }
     end
     toast_success(signin_path, "An email was sent to #{params['email']}. Follow the link in that mail. ")

@@ -60,15 +60,15 @@ module Api
     end
 
     def update(params, &_block)
-	#Convert hash keys from symbol to string
+      #Convert hash keys from symbol to string
       @auth_config = current_config(params).update_hash.stringify_keys
-	#remove empty values from both the hases(params and auth_conf)
-	param = params.reject{|_, v| v. nil? || v.empty?}
-	@auth_config = @auth_config.reject{|_, v| v.blank?}
-	#merge params and account data
-	auth_hash = @auth_config.merge(param)
-	#ACCOUNT UPDATE accepts only params data. So i do merge again auth_hash with params
-	param = param.merge(auth_hash)
+      #remove empty values from both the hases(params and auth_conf)
+      param = params.reject{|_, v| v. nil? || v.empty?}
+      @auth_config = @auth_config.reject{|_, v| v.blank?}
+      #merge params and account data
+      auth_hash = @auth_config.merge(param)
+      #ACCOUNT UPDATE accepts only params data. So i do merge again auth_hash with params
+      param = param.merge(auth_hash)
       param["password"] = Nilavu::Auth::SignVerifier.encrypt(params["password_confirmation"]) if params["password"]
       api_request(ACCOUNT, UPDATE, param)
       yield self if block_given?

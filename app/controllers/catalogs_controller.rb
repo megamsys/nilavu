@@ -35,26 +35,25 @@ class CatalogsController < NilavuController
     @assemblies_grouped = Api::Assemblies.new.list(params).assemblies_grouped
   end
 
-
   #this action performs a start, stop, restart operation
   def create
     logger.debug "> Pilotable: create"
     Api::Requests.new.reqs(params.merge({:action => params[:req_action]}))
-    @msg = { message: "Your #{params['cattype'].downcase} #{params['name']} is firing up",
-    title: "Create #{params['cattype'].downcase}"}
+    @msg = { message: "#{params['name']}",
+    title: "#{params['req_action'].camelize}ing #{params['cattype'].downcase}"}
   end
 
   #a confirmation question for a delete operation.
   def kelvi
     logger.debug "> Pilotable: kelvi"
-    @msg = { title: "Delete #{params['cattype'].downcase}", message: "Do you want to delete #{params['name']} ", redirect: catalog_path(:id => 1, :params => params)}
+    @msg = { title: "Destroy #{params['cattype'].downcase}", message: "Do you want to destroy #{params['name']} ", redirect: catalog_path(:id => 1, :params => params)}
   end
 
   #this action performs a delete operation.
   def destroy
     logger.debug "> Pilotable: destroy"
     Api::Requests.new.reqs(params)
-    toast_success(root_url, "#{params['action'].camelize}ing <b>#{params['name']}</b>. submitted, in progress.")
+    toast_success(root_url, "Your  #{params['cattype'].downcase} #{params['name']} is getting nuked")
   end
 
   def runtime

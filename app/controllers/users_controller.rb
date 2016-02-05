@@ -41,13 +41,8 @@ class UsersController < NilavuController
     logger.debug '> Users: create.'
     Api::Accounts.new.create(params) do |acct|
       store_credentials acct
-      mail_status = UserMailer.welcome(acct).deliver_now
       Nilavu::OTP::Infobip.new.send_confirm("#{params['phone']}", "#{params['email']}") if Ind.notification.has_key?("infobip")
-      if mail_status
-        toast_success(cockpits_path, "Click <b>marketplaces</b> to get started")
-      else
-        toast_warn(cockpits_path, "Click <b>marketplaces<b> to get started")
-      end
+      toast_success(cockpits_path, "Click <b>marketplaces</b> to get started")
     end
   end
 
@@ -61,11 +56,11 @@ class UsersController < NilavuController
   # update any profile information.
   def update
     logger.debug '> Users: update'
-	if params["current_password"].present?
-		auth = authenticate(params)
-		toast_error(cockpits_path,"Your current password is incorrect.") unless auth
-		return unless auth
-	end
+    if params["current_password"].present?
+      auth = authenticate(params)
+      toast_error(cockpits_path,"Your current password is incorrect.") unless auth
+      return unless auth
+    end
     Api::Accounts.new.update(params) do |acct|
       toast_success(cockpits_path,"#{Api::Accounts.typenum_to_s(params[:myprofile_type])} updated successfully.")
     end
@@ -73,7 +68,7 @@ class UsersController < NilavuController
 
   def invite
     logger.debug '> Users: Organization invite'
-    UserMailer.invite(current_user, session[:org_id]).deliver_now
+    #send an email from megamd.
     toast_success(root_url, "#{params['email']} invited successfully. ")
   end
 
@@ -90,9 +85,9 @@ class UsersController < NilavuController
 
   private
   def authenticate(params)
-	params["password"] = params["current_password"]
-    Api::Accounts.new.authenticate(params) 
-	true
+    params["password"] = params["current_password"]
+    Api::Accounts.new.authenticate(params)
+    true
   rescue Nilavu::Auth::SignVerifier::PasswordMissmatchFailure => ae
     false
   end
