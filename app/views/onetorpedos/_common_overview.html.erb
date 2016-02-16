@@ -1,0 +1,45 @@
+            <%ssh=@assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value'].split('_').last%>
+
+<h3>Usage</h3>
+        <dt><%= t('overviews.name') %></dt>
+        <dd><%= @assembly.name %>.<%= t('marketplace.megambox') %></dd>
+        <dt class="margin-top-20"></dt>
+
+        <dt><%= t('overviews.available_ram') %></dt>
+        <dd><%= @assembly.inputs.select { |x| x["key"] == "ram" }[0]['value'] %>
+          <%= t('overviews.mb') %></dd>
+        <dt class="margin-top-20"></dt>
+        <dt><%= t('overviews.cpu_core') %></dt>
+        <dd><%= @assembly.inputs.select { |x| x["key"] == "cpu" }[0]['value'] %></dd>
+        <dt class="margin-top-20"></dt>
+        <dt><%= t('overviews.os') %></dt>
+        <dd><%= image_tag  "logos/#{@assembly.tosca_type.split('.').last}.png", :alt => "" %>
+          <dt class="margin-top-20"></dt>
+          <dt>
+            <%= t('overviews.ip') %></dt>
+          <dd>
+            <%= @ip if @ip != "" %>
+            <%= t('overviews.not_get_ip') if @ip == "" %></dd>
+
+          <dt class="margin-top-20"></dt>
+          <dt>VNC URL</dt>
+          <dd>
+	    <% if @ip != "" %>
+            <%= link_to "#{@ip}:4200", "http://#{@ip}:4200", :target => '_blank' %>
+		<% end %>
+</dd>
+
+          <dt class="margin-top-20"></dt>
+          <dt>SSH URL</dt>
+          <dd>ssh -i <%= ssh %> root@<%= @assembly.name %>.<%= t('marketplace.megambox') %></dd>
+          <dt class="margin-top-20"></dt>
+          <dt>Region</dt>
+          <dd><img src="assets/flag_IN.png">
+            INDIA</dd>
+          <dt class="margin-top-20"></dt>
+          <dt><%= t('overviews.key') %></dt>
+          <dd>
+            <%= link_to "#{@assembly.inputs.select { |x| x["key"] == "sshkey" }[0]['value'].split('_').last}",
+      edit_ssh_key_path(:id => ssh+"_key"), :class => "hint  hint--bottom", :target => "_self", 'data-hint' => "Click here to download private key" %>
+
+          </dd>

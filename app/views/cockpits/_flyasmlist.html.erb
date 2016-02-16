@@ -41,10 +41,17 @@
               <i class="circle_green pull-left"></i>
               <span class="pull-right"><%= assembly.status.capitalize %></span>
           </td>
+      <% @ip = parse_key_value_pair(assembly.outputs, "publicipv4") %>
           <td width="70px">
-            <a href="http://docs.megam.io" target="_blank">
+	   <% if @ip != "" %>
+            <a href="http://<%=@ip %>:4200" title="VNC" target="_blank">
               <i class="c_icon-window center-block" style="color:blue"></i>
             </a>
+	   <% else %>
+		<a href="http://<%=@ip %>:4200" class="disabled" title="VNC disabled">
+              <i class="c_icon-window center-block" style="color:blue"></i>
+            </a>
+	   <% end %>
           </td>
           <td width="70px">
             <i class="c_icon-star center-block"></i>
