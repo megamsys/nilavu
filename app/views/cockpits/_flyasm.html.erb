@@ -61,7 +61,14 @@
                     <div class="app_footer_padding">
                         <i class="circle_green"></i>
                         <span><%= assembly.status.capitalize %></span>
-                        <a href="http://docs.megam.io" target="_blank"> <i class="c_icon-window pull-right" style="padding-top:20px"></i> </a>
+      <% @ip = parse_key_value_pair(assembly.outputs, "publicipv4") %>
+	    <% if @ip != "" %>
+		  <a href="http://<%=@ip %>:4200" title="VNC" target="_blank"> <i class="c_icon-window pull-right" style="padding-top:20px"></i> </a>
+	    <% else %>
+		  <a href="http://<%=@ip %>:4200" title="VNC disabled" class="disabled"> <i class="c_icon-window pull-right" style="padding-top:20px"></i> </a>
+	    <% end %>
+
+
                         <i class="c_icon-star pull-right" style="padding-right:30px"></i>
                     </div>
                 </div>
