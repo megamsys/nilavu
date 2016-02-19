@@ -1,4 +1,5 @@
-require 'bcrypt'
+require "base64"
+require "bcrypt"
 module Nilavu
   module Auth
     class SignVerifier
@@ -13,7 +14,8 @@ module Nilavu
       end
 
       def self.encrypt(password)
-        BCrypt::Password.create(password)
+         BCrypt::Password.create(password)
+        #Base64.encode64(password)
       end
 
       def self.hmackey
@@ -22,10 +24,11 @@ module Nilavu
 
       private
       def decrypt(password)
-        @password = BCrypt::Password.create(password)
+      #   Base64.decode64(password)
+      @password =   BCrypt::Password.create(password)
         BCrypt::Password.new(password)
-      rescue BCrypt::Errors::InvalidHash
-        raise InvalidPasswordFailure, 'Au oh!, The password you entered is incorrect.'
+        rescue BCrypt::Errors::InvalidHash
+       raise InvalidPasswordFailure, 'Au oh!, The password you entered is incorrect.'
       end
     end
   end

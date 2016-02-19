@@ -65,7 +65,6 @@ module Api
 
     # generate SSH key, use create_or_import instead.
     def create(api_params, &_block)
-      keygen = SSHKey.generate
       api_params[:ssh_private_key] = keygen.private_key
       api_params[:ssh_public_key] = keygen.ssh_public_key
       upload_on_creation(api_params)

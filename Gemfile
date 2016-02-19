@@ -36,7 +36,7 @@ gem 'omniauth-google-oauth2', '~> 0.2.10'
 gem 'omniauth-github', '~> 1.1.2'
 
 # 3rd party system api's
-gem 'megam_api', '~>0.92'
+gem 'megam_api', '~>0.93'
 gem 'github_api', '~>0.13.1'
 gem 'gitlab', '~> 3.6.1'
 gem 'riak-client', '~> 2.3.2'
@@ -51,6 +51,7 @@ gem 'paypal-sdk-rest', '~>1.3.4' # billing
 gem 'randexp', '~> 0.1.7'
 gem 'sshkey',  '~> 1.8.0' # ssh key-gen
 gem 'settingslogic' # singleton settings yaml manager
+gem 'rubysl-base64', '~> 2.0'
 
 # passenger server
 gem 'passenger', group: :production

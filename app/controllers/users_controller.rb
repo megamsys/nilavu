@@ -88,7 +88,7 @@ class UsersController < NilavuController
     params["password"] = params["current_password"]
     Api::Accounts.new.authenticate(params)
     true
-  rescue Nilavu::Auth::SignVerifier::PasswordMissmatchFailure => ae
+    rescue Nilavu::Auth::SignVerifier::PasswordMissmatchFailure => ae
     false
   end
 end
