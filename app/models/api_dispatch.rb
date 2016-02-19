@@ -1,7 +1,7 @@
 class APIDispatch
   include Nilavu::MegamResource
 
-  attr_accessor :megfunc, :megact, :parms, :passthru, :swallow_404
+  attr_accessor :megfunc, :megact, :parms, :passthru, :swallow_404, :verify
 
   JLAZ_PREFIX       = 'Megam::'.freeze
   ACCOUNT           = 'Account'.freeze
@@ -43,7 +43,7 @@ class APIDispatch
     @swallow_404 = ignore_404
   end
 
-  def api_request(jlaz, jmethod, jparams, passthru=false)
+  def api_request(jlaz, jmethod, jparams, sign='', passthru=false )
     begin
       set_attributes(jlaz, jmethod, jparams, passthru)
       Rails.logger.debug "\033[01;35mFASCADE #{megfunc}#{megact} \33[0;34m"
@@ -53,7 +53,15 @@ class APIDispatch
     rescue ConnectFailure => cfe
       raise cfe
     rescue Megam::API::Errors::ErrorWithResponse => ewr
-      raise StandardError, "Whew!\n#{ewr.message}" unless swallow_404
+        if ewr.response.status == 404 && sign == "verify" then
+          return
+        elsif ewr.response.status == 401 && sign == "verify"
+          @verify = true
+          return
+          #raise StandardError, "You are registered cantidate so Please singin!!!"
+        else
+          raise StandardError, "Whew!\n#{ewr.message} \n " unless swallow_404
+        end
     rescue Errno::ECONNREFUSED => ere
       raise ConnectFailure, "Api server <b>@#{Ind.api}<b> is down.</br>✓ Fix: `start megamgateway` (or) contact your administrator."
     end

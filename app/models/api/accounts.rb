@@ -37,16 +37,21 @@ module Api
     end
 
     def create(parms, &_block)
-      verify_if_duplicate?(current_config(parms))
+      #verify_if_duplicate?(current_config(parms))
+      @verify = false
       @auth_config = Nilavu::Auth::Configuration.from_hash(parms.merge({:api_key =>
       Nilavu::Auth::SignVerifier.hmackey}))
-      api_request(ACCOUNT, CREATE,@auth_config.to_hash)
+      api_request(ACCOUNT,SHOW,@auth_config.to_hash,"verify")
+      verify_if_duplicate?(@verify)
+      api_request(ACCOUNT, CREATE,@auth_config.to_hash,"create-new")
       yield self if block_given?
       self
     end
 
     def authenticate(parms, &_block)
       @auth_config = current_config({:email => parms[:email]})
+      #@auth_config = Nilavu::Auth::Configuration.from_hash(parms.merge({:email => parms[:email], :password => parms[:password]}))
+      #@response = api_request(ACCOUNT,SHOW,@auth_config.to_hash)
       verify_if_notfound?
       @sign_verifier.authenticate(@auth_config, parms[:password])
       yield self if block_given?

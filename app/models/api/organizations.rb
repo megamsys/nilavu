@@ -29,7 +29,6 @@ module Api
       res[:body].each do |one_org|
         @orgs << {:id => one_org.id, :name => one_org.name, :created_at => one_org.created_at.to_time.to_formatted_s(:rfc822), :related_orgs => one_org.related_orgs}
       end
-
       yield self if block_given?
       return self
     end
