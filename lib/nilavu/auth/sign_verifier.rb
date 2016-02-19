@@ -24,7 +24,7 @@ module Nilavu
 
       private
       def decrypt(password)
-      #   Base64.decode64(password)
+      #@password =    Base64.decode64(password)
       @password =   BCrypt::Password.create(password)
         BCrypt::Password.new(password)
         rescue BCrypt::Errors::InvalidHash
