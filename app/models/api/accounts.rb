@@ -43,19 +43,37 @@ module Api
       Nilavu::Auth::SignVerifier.hmackey}))
       api_request(ACCOUNT,SHOW,@auth_config.to_hash,"verify")
       verify_if_duplicate?(@verify)
-      api_request(ACCOUNT, CREATE,@auth_config.to_hash,"create-new")
+      api_request(ACCOUNT, CREATE,@auth_config.to_hash)
       yield self if block_given?
       self
     end
 
     def authenticate(parms, &_block)
-      @auth_config = current_config({:email => parms[:email]})
-      #@auth_config = Nilavu::Auth::Configuration.from_hash(parms.merge({:email => parms[:email], :password => parms[:password]}))
-      #@response = api_request(ACCOUNT,SHOW,@auth_config.to_hash)
+      #@auth_config = current_config({:email => parms[:email]})
+      @auth_config = Nilavu::Auth::Configuration.from_hash(parms.merge({:email => parms[:email], :password => parms[:password]}))
+      @auth_config = api_request(ACCOUNT,SHOW,@auth_config.to_hash, "verify")
       verify_if_notfound?
-      @sign_verifier.authenticate(@auth_config, parms[:password])
+      @sign_verifier.authenticate(@auth_config[:body], parms[:password])
       yield self if block_given?
       self
+    end
+
+    def to_hash
+      {
+      :id =>  @id,
+      :email =>  @email,
+      :api_key =>  @api_key,
+      :first_name =>  @first_name,
+      :last_name =>  @last_name,
+      :phone =>  @phone,
+      :password =>  @password,
+      :authority =>  @authority,
+      :password_reset_key =>  @password_reset_key,
+      :password_reset_sent_at =>  @password_reset_sent_at,
+      :created_at =>  @created_at,
+      :some_msg =>  @some_msg,
+      :host =>  @host
+      }
     end
 
     def list(params, &_block)

@@ -16,6 +16,7 @@ module SessionsHelper
   # The signed_in? method simply returns true if the user is logged
   # in and false otherwise. It does this by "booleanizing" the
   # current_user method we created previously using a double ! operator.
+
   def signed_in?
     !!current_user
   end
