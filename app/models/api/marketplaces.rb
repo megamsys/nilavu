@@ -59,7 +59,7 @@ module Api
 
     # This shows a single marketplace item. eg: 1-Ubuntu (Refer Marketplaces::list for more info)
     def show(api_params, &_block)
-      raw = api_request(MARKETPLACES, SHOW,api_params)
+      raw = api_request(MARKETPLACES, SHOW,api_params)     
       @mkp = raw[:body].lookup(api_params['id'])
       yield self if block_given?
       self
@@ -71,7 +71,7 @@ module Api
     end
 
     def group(raw)
-      @mkp_grouped = Hash[raw.group_by(&:order).map { |k, v| [k, v.map { |h| h }] }].sort unless raw.nil?
+      @mkp_grouped = Hash[raw.group_by(&:catorder).map { |k, v| [k, v.map { |h| h }] }].sort unless raw.nil?
     end
   end
 end

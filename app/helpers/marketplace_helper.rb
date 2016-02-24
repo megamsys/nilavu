@@ -88,7 +88,7 @@ module MarketplaceHelper
   # from a bunch of plans, we match the plan for a version
   # eg: debian jessie 7, 8
   def match_plan_for(mkp, version)
-    mkp['plans'].select { |tmp| tmp['version'] == version }.reduce { :merge }
+    mkp['plans'].select { |v, d| v == version }.reduce { :merge }
   end
 
   def parse_key_value_pair(array, search_key)
@@ -107,7 +107,7 @@ module MarketplaceHelper
   # stick all the versions (debian 7, 8 and the first version 7 or the passed version 8)
   def pressurize_version(mkp, version)
     versions = []
-    versions = mkp.plans.map { |c| c['version'] }.sort
+    versions = mkp.plans.map { |v, d| v }.sort
     tmkp = mkp.to_hash
     tmkp['versions'] = versions
     tmkp['sversion'] = version || versions[0]
