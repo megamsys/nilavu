@@ -68,7 +68,7 @@ module Api
       keygen = SSHKey.generate
       api_params[:ssh_private_key] = keygen.private_key
       api_params[:ssh_public_key] = keygen.ssh_public_key
-      upload_on_creation(api_params)
+      #upload_on_creation(api_params)
       raw = api_request(SSHKEYS, CREATE,api_params)
       yield self if block_given?
       self
