@@ -27,7 +27,6 @@ gem 'uglifier', '~> 2.7.2'
 gem 'therubyracer', '~> 0.12.2', require: 'v8', platforms: :ruby
 
 # security
-gem 'bcrypt', '~> 3.1.10'
 gem 'oauth2', '~> 1.0.0'
 gem 'oauth', '~> 0.4.7'
 gem 'omniauth-oauth2', '~> 1.3.1'
