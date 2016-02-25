@@ -81,6 +81,12 @@ module Api
       yield (@res.data[:body]) if block_given?
       @res.data[:body]
     end
+    
+    def show(params, &_block)
+      raw = api_request(ACCOUNT, SHOW, params)
+      yield (raw[:body]) if block_given?
+      raw[:body]
+    end
 
     def update(params, &_block)
       #Convert hash keys from symbol to string

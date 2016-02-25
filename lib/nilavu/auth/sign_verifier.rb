@@ -7,8 +7,10 @@ module Nilavu
 
       ## SignatureVerifier delegate (Forwardable)
       def authenticate(auth_config, entered_password)
-        unless decrypt(auth_config.password) == entered_password
+        if decrypt(auth_config.password) != entered_password
           fail PasswordMissmatchFailure, 'Au oh!, The email or password you entered is incorrect.'
+        else
+          auth_config
         end
       end
 

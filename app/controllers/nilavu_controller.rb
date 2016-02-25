@@ -67,13 +67,14 @@ class NilavuController < ApplicationController
   #############################################################################
   # Enviroment setting needed for an user (org, backup)
   #############################################################################
-  def load_environments
+  def load_environments   
     load_organizations(current_user)
     load_ceph(current_user) if Ind.has_key?("backup")
   end
 
-  def load_organizations(current_user)
-    session[:org_id] = Api::Organizations.new.list(current_user.to_hash).first
+  def load_organizations(current_user)    
+    session[:org_id] = "ORG123"
+    #session[:org_id] = Api::Organizations.new.list(current_user.to_hash).first
   end
 
   def load_ceph(current_user)

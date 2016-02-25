@@ -22,9 +22,19 @@ module Nilavu
       end
 
       def self.load(email)
+        Api::Accounts.new.show(params)
         riak = Nilavu::DB::GSRiak.new(BUCKET).fetch(email)
         unless riak.content.data.nil?
           return self.from_hash(riak.content.data)
+        end
+      end
+      
+      def self.loadapi(params)
+        data = Api::Accounts.new.show(params)
+        #riak = Nilavu::DB::GSRiak.new(BUCKET).fetch(email)
+        unless data.nil?
+          #return self.from_hash(data)
+          return data
         end
       end
 

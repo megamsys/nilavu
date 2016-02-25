@@ -71,7 +71,7 @@ module Api
       bld_data = build_data(api_params)
       api_request(ASSEMBLIES, CREATE, api_params.merge(bld_data))
       yield self if block_given?
-      self
+     # self
     end
 
     def build_data(api_params)
