@@ -58,7 +58,9 @@ module Api
 
     ## rescue and raise as an error.
     def download(api_params, &_block)
-      Nilavu::DB::GSRiak.new(SSH_FILES_BUCKET).download(api_params[:download_location])
+      File.open(File.basename(api_params[:download_location]), 'wb') do |file|
+          file.write(api_params["data"])
+      end
     end
 
     private
@@ -66,9 +68,8 @@ module Api
     # generate SSH key, use create_or_import instead.
     def create(api_params, &_block)
       keygen = SSHKey.generate
-      api_params[:ssh_private_key] = keygen.private_key
-      api_params[:ssh_public_key] = keygen.ssh_public_key
-      #upload_on_creation(api_params)
+      api_params[:privatekey] = keygen.private_key
+      api_params[:publickey] = keygen.ssh_public_key
       raw = api_request(SSHKEYS, CREATE,api_params)
       yield self if block_given?
       self
@@ -76,34 +77,22 @@ module Api
 
     ## import - use create_or_import instead.
     def import(api_params, &_block)
-      upload_on_import(api_params)
+      api_params[:privatekey] = api_params[:ssh_private_key].read
+      api_params[:publickey] = api_params[:ssh_public_key].read
       raw = api_request(SSHKEYS, CREATE,api_params)
       yield self if block_given?
+      self
     end
 
     # a private method that take the sshkeys collection and returns a hash
     def to_hash(ssh_keys_collection)
       ssh_keys = []
       ssh_keys_collection.each do |sshkey|
-        ssh_keys << { name: sshkey.name, created_at: sshkey.created_at.to_time.to_formatted_s(:rfc822) }
+        ssh_keys << { name: sshkey.name, privatekey: sshkey.privatekey, publickey: sshkey.publickey, created_at: sshkey.created_at.to_time.to_formatted_s(:rfc822) }
       end
       ssh_keys.sort_by { |vn| vn[:created_at] }
     end
-
-    # For Riak_we upload the key in the format email_ssh_key_name along with the content type
-    def upload_on_import(api_params)
-      riak = Nilavu::DB::GSRiak.new(SSH_FILES_BUCKET)
-      riak.upload(keypub(api_params),api_params[:ssh_public_key].read, api_params[:ssh_public_key].content_type)
-      riak.upload(keypriv(api_params),api_params[:ssh_private_key].read, api_params[:ssh_private_key].content_type)
-    end
-
-    # For Riak_we import the key in the format email_ssh_key_name along with the static content type
-    def upload_on_creation(api_params)
-      riak = Nilavu::DB::GSRiak.new(SSH_FILES_BUCKET)
-      riak.upload(keypub(api_params), api_params[:ssh_public_key], PRIV_CONTENT_TYPE)
-      riak.upload(keypriv(api_params), api_params[:ssh_private_key], PUB_CONTENT_TYPE)
-    end
-
+    
     def keypub(api_params)
       api_params[:email] + '_' + api_params[:name] + '_pub'
     end

@@ -41,7 +41,7 @@ module SessionsHelper
   end
 
   # Store the email and api_key of the current user in the session.
-  def store_credentials(acct)
+  def store_credentials(acct)  
     session[:email] = acct.email
     session[:api_key] = acct.api_key
   end
