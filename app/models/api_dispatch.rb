@@ -35,15 +35,15 @@ class APIDispatch
 
   def api_request(jlaz, jmethod, jparams, passthru=false )
     set_attributes(jlaz, jmethod, jparams, passthru)
+    begin
+      Rails.logger.debug "\033[01;35mFASCADE #{megfunc}#{megact} \33[0;34m"
 
-    Rails.logger.debug "\033[01;35mFASCADE #{megfunc}#{megact} \33[0;34m"
+      raise Nilavu::InvalidParameters if !satisfied_args?(passthru, jparams)
 
-    raise Nilavu::InvalidParameters if !satisfied_args?(passthru)
-
-    invoke_submit
-    #Megam::API::Errors::ErrorWithResponse => ewr
-    #"Whew!\n#{ewr.message} \n " unless swallow_404
-    #"Api server <b>@#{Ind.api}<b> is down.</br>✓ Fix: `start megamgateway` (or) contact your administrator."
+      invoke_submit
+    rescue Megam::API::Errors::ErrorWithResponse => ma
+      "Whew!\n#{ma.message} \n " unless swallow_404
+    end
   end
 
 
@@ -81,6 +81,7 @@ class APIDispatch
   end
 
   private
+
   def set_attributes(jlaz, jmethod, parms, passthru)
     meg_function(jlaz)
     meg_action(jmethod)
@@ -88,9 +89,9 @@ class APIDispatch
     passthru?(passthru)
   end
 
-  def satisfied_args?(passthru)
+  def satisfied_args?(passthru, params={})
     unless passthru
-      return !current_user.email.blank? && !current_user.api_key.blank?
+      return params[:email] && params[:api_key]
     end
   end
 

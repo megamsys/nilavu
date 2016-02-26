@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   before_filter :disable_customization
   before_filter :redirect_to_login_if_required
-#  before_filter :add_authkeys_for_api
+  #  before_filter :add_authkeys_for_api
   before_filter :set_current_user_with_org
   around_action :catch_exceptions
 
@@ -82,8 +82,11 @@ class ApplicationController < ActionController::Base
 
 
   def set_current_user_with_org
-    if current_user
-
+    if current_user && current_user.org_id.blank?
+      org_id = Api::Organizations.new.list(AuthBag.vertice(current_user)).first
+      unless org_id.blank?
+        current_user.org_id = org_id
+      end
     end
   end
 
@@ -94,7 +97,7 @@ class ApplicationController < ActionController::Base
 
   def add_authkeys_for_api
     logger.debug "> STICKM"
-    params.merge!(AuthBag.vertice)
+    params.merge!(AuthBag.vertice(current_user))
   end
 
   def current_homepage
