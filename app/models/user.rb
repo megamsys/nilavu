@@ -47,7 +47,7 @@ class User
     Api::Accounts.where(to_hash)
   end
 
-  alias_method :find_by_email, :authenticate, :email_available?
+  alias_method :authenticate, :find_by_email
 
   def save
     ensure_password_is_hashed
@@ -91,7 +91,7 @@ class User
 
   def hash_password(password)
     raise "password is too long" if password.size > User.max_password_length
-    Base64.encode64(password)
+    Base64.strict_encode64(password)
   end
 
   def to_hash
