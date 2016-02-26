@@ -13,123 +13,155 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-require 'nilavu'
-require 'nilavu/error'
+
+require 'current_user'
+require_dependency 'nilavu'
+require_dependency 'global_exceptions'
 
 class ApplicationController < ActionController::Base
-  include SessionsHelper
+  include CurrentUser
+  include GlobalPath
+  include GlobalExceptions
 
-  protect_from_forgery with: :null_session, if: proc { |c| c.request.format == 'application/json' }
+  protect_from_forgery
 
-  around_action :catch_exceptions
   before_filter :set_locale
+  before_filter :disable_customization
+  before_filter :redirect_to_login_if_required
+#  before_filter :add_authkeys_for_api
+  before_filter :set_current_user_with_org
+  around_action :catch_exceptions
 
-  # for internationalization
+
+
+  # Some exceptions
+  class RenderEmpty < StandardError; end
+
+  # Render nothing
+  rescue_from RenderEmpty do
+    render 'default/empty'
+  end
+
+  rescue_from Nilavu::NotLoggedIn do |e|
+    raise e if Rails.env.test?
+    if (request.format && request.format.json?) || request.xhr? || !request.get?
+      rescue_nilavu_actions(:not_logged_in, 403, true)
+    else
+      rescue_nilavu_actions(:not_found, 404)
+    end
+  end
+
+  rescue_from Nilavu::NotFound do
+    rescue_nilavu_actions(:not_found, 404)
+  end
+
+  #rescue_from Nilavu::InvalidAccess do
+  #  rescue_nilavu_actions(:invalid_access, 403, true)
+  #end
+
+  def rescue_nilavu_actions(type, status_code, include_ember=false)
+    if (request.format && request.format.json?) || (request.xhr?)
+      render_json_error I18n.t(type), type: type, status: status_code
+    else
+      render text: build_not_found_page(status_code)
+    end
+  end
+
   def set_locale
-    I18n.locale = Ind.locale
+    I18n.locale = 'en'
+    #I18n.locale = SiteSetting.default_locale
+    #I18n.ensure_all_loaded!
   end
 
 
-  #############################################################################
-  # Exception Handling (We will have to move this to a separate handler)
-  #############################################################################
-
-  # a catcher exists using rails globber for routes in config/application.rb to trap 404.
-  rescue_from Exception, with: :render_500
-  unless Rails.application.config.consider_all_requests_local
-    rescue_from ActionController::RoutingError, with: :render_404
-    rescue_from ActionController::UnknownController, with: :render_404
-    rescue_from AbstractController::ActionNotFound, with: :render_404
-    rescue_from Timeout::Error, with: :render_500
-    rescue_from Errno::ECONNREFUSED, Errno::EHOSTUNREACH, with: :render_500
+  def redirect_to_login_if_required
+    return if current_user
+    session[:destination_url] = destination_url
+    redirect_to path('/signin')
   end
 
-  # renders 404 in an exception template.
-  # A generic template exists in error which shows the error in a
-  # usage way.
-  def render_404(exception = nil)
-    @not_found_path = exception.message if exception
-    respond_to do |format|
-      format.html { render template: 'errors/not_found', layout: 'application', status: 404 }
-      format.all { render nothing: true, status: 404 }
+
+  def set_current_user_with_org
+    if current_user
+
     end
   end
 
-  # renders 505 in an exception template.
-  # A generic template exists in error which shows the error in a
-  # usage way.
-  def render_500(exception = nil)
-    log_exception(exception)
-    respond_to do |format|
-      format.html { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
-      format.js { render template: 'errors/internal_server_error', layout: 'application', status: 500 }
-      format.all { render nothing: true, status: 500 }
-    end
+
+  def disable_customization
+    session[:disable_customization] = params[:customization] == "0" if params.has_key?(:customization)
+  end
+
+  def add_authkeys_for_api
+    logger.debug "> STICKM"
+    params.merge!(AuthBag.vertice)
+  end
+
+  def current_homepage
+    current_user ? SiteSetting.homepage : SiteSetting.anonymous_homepage
   end
 
   private
-  ## we will move this to our own lib
-  def catch_exceptions
-    yield
-  rescue Nilavu::MegamGWError => mew
-    log_exception(mew)
-    toast_error(redirect_where, mew.message) && return
+  #def custom_html_json
+  #  target = view_context.mobile_view? ? :mobile : :desktop
+  #  data = {
+  #    top: SiteCustomization.custom_top(session[:preview_style], target),
+  #    footer: SiteCustomization.custom_footer(session[:preview_style], target)
+  #  }
+  #
+  # if NilavuPluginRegistry.custom_html
+  #    data.merge! NilavuPluginRegistry.custom_html
+  #  end
+
+  #  MultiJson.dump(data)
+  #end
+
+  def self.banner_json_cache
+    @banner_json_cache ||= DistributedCache.new("banner_json")
   end
 
-  def log_exception(exception)
-    trace = filter_exception(exception) if exception
-    unless trace.empty?
-      log_trace(trace)
-      ascii_bomb
+  def check_xhr
+    # bypass xhr check on PUT / POST / DELETE provided api key is there, otherwise calling api is annoying
+    return if !request.get? && api_key_valid?
+    raise RenderEmpty.new unless ((request.format && request.format.json?) || request.xhr?)
+  end
+
+  def ensure_logged_in
+    raise Nilavu::NotLoggedIn.new unless current_user.present?
+  end
+
+  def destination_url
+    #    request.original_url unless request.original_url =~ /uploads/
+    request.original_url
+  end
+
+  def build_not_found_page(status=404)
+    render_to_string status: status, formats: [:html], template: '/errors/not_found'
+  end
+
+  protected
+
+  # returns an array of integers given a param key
+  # returns nil if key is not found
+  def param_to_integer_list(key, delimiter = ',')
+    if params[key]
+      params[key].split(delimiter).map(&:to_i)
     end
   end
 
-  #just show our stuff .
-  def filter_exception(exception, by='nilavu')
-    logger.debug "\033[1m\033[32m#{exception.message}\033[0m\033[22m"
-    exception.backtrace.grep(/#{Regexp.escape("#{by}")}/)
+  def redirect_wtih_info(path, key, msg={})
+    redirect_to(path,:flash => {:info => I18n.t(key,errors: "#{msg.map{|k,v| "#{k}: #{v}"}.join("\n")}")})
   end
 
-  def log_trace(trace)
-    trace = (trace.map { |ft| ft.split('/').last }).join("\n")
-    logger.debug "\033[1m\033[36m#{trace}\033[0m\033[22m"
+  def redirect_with_success(path, key,  msg={})
+    redirect_to(path,:flash => {:notice => I18n.t(key,errors: "#{msg.map{|k,v| "#{k}: #{v}"}.join("\n")}")})
   end
 
-  def ascii_bomb
-    logger.debug ''"\033[31m
-
-       ,--.!,
-    __/   -*-
-	,####.  '|`
-	######
-	`####'                !\033[0m\033[1mWe flunked!\033[22m
-"''
+  def redirect_with_failure(path, key, msg={})
+    redirect_to(path,:flash => {:alert => I18n.t(key,errors: "#{msg.map{|k,v| "#{k}: #{v}"}.join("\n")}")})
   end
 
-  #############################################################################
-  # Toastr - growl messages
-  #############################################################################
-  def redirect_where
-    if signed_in?
-      cockpits_path
-    end
-    signin_path
-  end
-
-
-  def toast_info(path, msg)
-    redirect_to(path, :flash => { :info => msg})
-  end
-
-  def toast_success(path, msg)
-    redirect_to(path, :flash => { :notice => msg})
-  end
-
-  def toast_error(path, msg)
-    redirect_to(path||=redirect_where,:flash => {:alert => msg })
-  end
-
-  def toast_warn(path, msg)
-    redirect_to(path, :flash => {:warning => msg})
+  def redirect_with_warning(path, key, msg={})
+    redirect_to(path,:flash => {:warning => I18n.t(key,errors: "#{msg.map{|k,v| "#{k}: #{v}"}.join("\n")}")})
   end
 end

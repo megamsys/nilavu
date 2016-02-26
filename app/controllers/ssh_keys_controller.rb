@@ -13,11 +13,9 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class SshKeysController < NilavuController
+class SshKeysController < ApplicationController
   respond_to :html, :js
 
-  before_action :stick_keys
-  ## get all sshkeys from storage and sort the keys for creating time based
   def index
     logger.debug "> SSH: index"
     @ssh_keys = Api::Sshkeys.new.list(params).ssh_keys

@@ -20,10 +20,8 @@
       <div class="row">
         <div class="page-sidebar navbar-collapse collapse">
           <!-- BEGIN SIDEBAR MENU -->
-
           <ul class="page-sidebar-menu">
             <li></li>
-
             <!-- BEGIN NOTIFICATION DROPDOWN -->
             <li class="storage_left_add">
               <a href="#" class="btn btn-success btn-menu-top">
@@ -33,60 +31,60 @@
               <ul class="storage_left_add_inner">
                 <li>
                   <%= link_to marketplaces_path, :data => { :remote => true} do %>
-                  <i class="c_icon-apps-white pull-left"></i>App
+                    <i class="c_icon-apps-white pull-left"></i>App
                   <% end %>
                 </li>
                 <% if Ind.has_key?("backup") %>
-                <li>
-                  <%= link_to buckets_path, :data => { :remote => true} do %>
-                  <i class="c_icon-service-white pull-left"></i>Storage
+                  <li>
+                    <%= link_to buckets_path, :data => { :remote => true} do %>
+                      <i class="c_icon-service-white pull-left"></i>Storage
                   <% end %>
-                </li>
+                  </li>
                 <% end %>
               </ul>
             </li>
             <li class="start active">
               <%= link_to cockpits_path, id: "side-dash-link", :data => { :remote => true}, :target => "_self" do %>
-              <i class="c_icon-db pull-left"></i>
-              <span class="title pull-left"><%= t('titles.dashboard_title') %></span>
+                <i class="c_icon-db pull-left"></i>
+                <span class="title pull-left"><%= t('titles.dashboard_title') %></span>
               <% end %>
             </li>
             <li class="start active">
               <%= link_to catalogs_path(:cattype => Api::Assemblies::TORPEDO ), :data => { :remote => true} do %>
-              <i class="c_icon-torpedo pull-left"></i>
-              <span class="title pull-left"><%= t('cockpits.torpedo_tab') %></span>
+                <i class="c_icon-torpedo pull-left"></i>
+                <span class="title pull-left"><%= t('cockpits.torpedo_tab') %></span>
               <% end %>
             </li>
             <li class="start active">
               <%= link_to catalogs_path(:cattype => Api::Assemblies::APP), :data => { :remote => true} do %>
-              <i class="c_icon-apps pull-left"></i>
-              <span class="title pull-left"><%= t('cockpits.apps_tab') %></span>
+                <i class="c_icon-apps pull-left"></i>
+                <span class="title pull-left"><%= t('cockpits.apps_tab') %></span>
               <% end %>
             </li>
             <li class="start active">
               <%= link_to catalogs_path(:cattype => Api::Assemblies::SERVICE),:data => { :remote => true} do %>
-              <i class="c_icon-service pull-left"></i>
-              <span class="title pull-left"><%= t('cockpits.services_tab') %></span>
+                <i class="c_icon-service pull-left"></i>
+                <span class="title pull-left"><%= t('cockpits.services_tab') %></span>
               <% end %>
             </li>
             <li class="start active">
               <%= link_to catalogs_path(:cattype =>Api::Assemblies::MICROSERVICES), :data => { :remote => true} do %>
-              <i class="c_icon-addon pull-left"></i>
-              <span class="title pull-left"><%= t('cockpits.micro_services_tab') %></span>
+                <i class="c_icon-addon pull-left"></i>
+                <span class="title pull-left"><%= t('cockpits.micro_services_tab') %></span>
               <% end %>
             </li>
             <li class="start active">
               <%= link_to ssh_keys_path, :data => { :remote => true} do %>
-              <i class="c_icon-set pull-left"></i>
-              <span class="title pull-left"><%= t('titles.ssh_title') %></span>
+                <i class="c_icon-set pull-left"></i>
+                <span class="title pull-left"><%= t('titles.ssh_title') %></span>
               <% end %>
             </li>
             <li class="start active">
               <%  if Ind.has_key?("billings") %>
-              <%= link_to billings_path, :data => { :remote => true} do %>
-              <i class="c_icon-billing pull-left"></i>
-              <span class="title pull-left"><%= t('titles.billing_title') %></span>
-              <% end %>
+                <%= link_to billings_path, :data => { :remote => true} do %>
+                  <i class="c_icon-billing pull-left"></i>
+                  <span class="title pull-left"><%= t('titles.billing_title') %></span>
+                <% end %>
               <% end %>
             </li>
           </ul>
@@ -97,22 +95,20 @@
     <div id="content">
       <%= content_for?(:content_settings) ? yield(:content_settings) : yield %>
     </div>
-
   </div>
-
 </div>
 <%= render 'layouts/footer' %>
 <script type="text/javascript">
   $(document).ready(function () {
-    $('.storage_left_add_inner').hide();
-    $('.storage_left_add a').click(function () {
-      $('.storage_left_add_inner').slideToggle();
+      $('.storage_left_add_inner').hide();
+      $('.storage_left_add a').click(function () {
+        $('.storage_left_add_inner').slideToggle();
+      });
     });
-  });
-  $(document).on("click", function (event) {
-    var $trigger = $(".storage_left_add");
-    if ($trigger !== event.target && !$trigger.has(event.target).length) {
-      $(".storage_left_add_inner").slideUp("fast");
-    }
-  });
+    $(document).on("click", function (event) {
+      var $trigger = $(".storage_left_add");
+      if ($trigger !== event.target && !$trigger.has(event.target).length) {
+        $(".storage_left_add_inner").slideUp("fast");
+      }
+    });
 </script>

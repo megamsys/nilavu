@@ -15,10 +15,9 @@
 ## limitations under the License.
 ##
 require 'json'
-class SensorsController < NilavuController
+class SensorsController < ApplicationController
   respond_to :json
 
-  before_action :stick_keys, only: [:index]
 
   def index
     @sensor = Api::Sensors.new.list(params).sensors

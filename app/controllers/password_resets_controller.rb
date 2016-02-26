@@ -13,7 +13,7 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class PasswordResetsController < NilavuController
+class PasswordResetsController < ApplicationController
   skip_before_action :require_signin, only: [:edit, :create, :update]
 
   def create

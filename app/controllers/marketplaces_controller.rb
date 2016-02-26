@@ -15,21 +15,17 @@
 ##
 require 'json'
 
-class MarketplacesController < NilavuController
+class MarketplacesController < ApplicationController
   respond_to :js
   include MarketplaceHelper
 
-  before_action :require_signin, only: [:index, :show, :create]
-  before_action :visit_paisa, only: [:show]
+  before_action :add_authkeys_for_api, only: [:edit, :update]
 
-  before_action :require_registration, only: [:store_github]
-  before_action :stick_keys, only: [:index, :show, :create]
   ##
   ## index page get all marketplace items from storage(we use riak) using megam_gateway
   ## and show the items in order of category
   ##
   def index
-    logger.debug '> Marketplaces: index.'
     @mkp_grouped = Api::Marketplaces.instance.list(params).mkp_grouped
   end
 
