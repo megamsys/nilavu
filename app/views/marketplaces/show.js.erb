@@ -36,7 +36,7 @@ $('#replace_image').empty();
 $('#replace_image').html('<img src=<%= "assets/mlogos/#{@mkp["image"]}" %>>');
 
 $('#replace_version_tag').empty();
-$('#replace_version_tag').html(' <%= escape_javascript(select_tag "version", options_for_select(@mkp["versions"], :selected=>@mkp["sversion"]), :class =>"form-control input-sm", :data => { :remote => true, :url => marketplace_path(:id => @mkp["name"] ) }) %>');
+$('#replace_version_tag').html(' <%= escape_javascript(select_tag "version", options_for_select(@mkp["versions"], :selected=>@mkp["sversion"]), :class =>"form-control input-sm", :data => { :remote => true, :url => marketplace_path(:id => @mkp["flavor"] ) }) %>');
 $("#app-1").modal('show');
 
 

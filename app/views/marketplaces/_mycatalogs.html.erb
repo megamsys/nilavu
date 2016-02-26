@@ -47,12 +47,12 @@
                             <div class="app_inner brad-3 jcorgFilterTextParent">
                                 <a data-toggle="modal" href="#app-1">
                                 <div class="stpack">
-                                    <%= link_to marketplace_path(:id => mkp.name), 'data-remote' => "true", :class => "link_img hint  hint--bottom", 'data-hint' => "Launch ! #{mkp.name.split("-").last}" do %>
-                                    <%= image_tag "mlogos/#{mkp.image}", :alt => mkp.name %>
+                                    <%= link_to marketplace_path(:id => mkp.flavor), 'data-remote' => "true", :class => "link_img hint  hint--bottom", 'data-hint' => "Launch ! #{mkp.flavor.split("-").last}" do %>
+                                    <%= image_tag "mlogos/#{mkp.image}", :alt => mkp.flavor %>
                                     <% end %>
                                 </div> </a>
                                 <div class="jcorgFilterTextChild" style="display:none">
-                                    <%= mkp.name.split('-').last %>
+                                    <%= mkp.flavor.split('-').last %>
                                 </div>
                             </div>
                         </div>

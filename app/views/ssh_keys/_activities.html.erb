@@ -51,12 +51,13 @@
 					<td>
 					<div class="row">
 						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-public">
-							<%= link_to edit_ssh_key_path(:id => sshkey[:name]+"_pub"), :class => "btn btn-dark-blue" , :target => "_self" do %>
+						    
+							<%= link_to edit_ssh_key_path(:id => sshkey[:name]+"_pub", :data => sshkey[:publickey]), :class => "btn btn-dark-blue" , :target => "_self" do %>
 							<i class="c_icon-in"></i><span><%= t('ssh_keys.public') %></span>
 							<% end %>
 						</div>
 						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-private">
-							<%= link_to edit_ssh_key_path(:id => sshkey[:name]+"_key"), :class => "btn btn-dark-red", :target => "_self" do %>
+							<%= link_to edit_ssh_key_path(:id => sshkey[:name]+"_key", :data => sshkey[:privatekey]), :class => "btn btn-dark-red", :target => "_self" do %>
 							<i class="c_icon-inBlue"></i><span><%= t('ssh_keys.private') %></span>
 							<% end %>
 						</div>

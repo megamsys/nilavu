@@ -36,7 +36,6 @@ gem 'omniauth-github'
 
 # this provides a very efficient lru cache
 gem 'lru_redux'
-
 # 3rd party system api's
 gem 'megam_api'
 gem 'github_api'

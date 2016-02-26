@@ -25,7 +25,6 @@ class SshKeysController < ApplicationController
     logger.debug "> SSH: create"
     params[:sshoption] = Api::Sshkeys::NEW
     Api::Sshkeys.new.create_or_import(params)
-    #@msg = { title: "SSH", message: "#{params[:ssh_keypair_name]} created successfully. ", redirect: '/ssh_keys', disposal_id: 'create_ssh' }
     redirect_to(ssh_keys_path, :flash => { :success => "#{params[:ssh_keypair_name]} created successfully."}, format: 'js')
   end
 
@@ -42,7 +41,6 @@ class SshKeysController < ApplicationController
     logger.debug "> SSH: update"
     params[:sshoption] = Api::Sshkeys::IMPORT
     Api::Sshkeys.new.create_or_import(params)
-    #@msg = { title: "SSH", message: "#{params[:ssh_keypair_name]} imported successfully. ", redirect: '/ssh_keys', disposal_id: 'import_ssh' }
     redirect_to(ssh_keys_path, :flash => { :success => "#{params[:ssh_keypair_name]} imported successfully."}, format: 'js')
   end
 end
