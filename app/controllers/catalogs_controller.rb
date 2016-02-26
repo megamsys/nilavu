@@ -21,11 +21,11 @@
 #          - DESTROY an assembly  or catalog.
 #            this action gets called prior to a start, stop, restart, delete operation
 #            a confirmation is got from the user to perform the same.
-class CatalogsController < NilavuController
+class CatalogsController < ApplicationController
   include CatalogHelper
   respond_to :html, :js
 
-  before_action :stick_keys, only: [:index, :create, :destroy, :runtime, :logs]
+  before_action :add_authkeys_for_api, only: [:index]
 
   #A filtered view of cattype [MICROSERVICES, APP, TORPEDO,SERVICE] the cockpit.
   #This action is invoked when you click Apps, Services, Addons from the left nav.

@@ -13,12 +13,13 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class ErrorsController < NilavuController
+class ErrorsController < ApplicationController
   def not_found
-    render_404
+    # centralize all rendering of 404 into app controller
+    raise Nilavu::NotFound
   end
 
-  def internal_error
-    render_500
-  end
+#  def internal_error
+#    render_500
+#  end
 end

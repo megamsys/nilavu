@@ -15,7 +15,7 @@
 ##
 require 'json'
 
-class BucketsController < NilavuController
+class BucketsController < ApplicationController
   respond_to :json, :js
 
   before_action :stick_ceph_keys, only: [:index, :create, :show, :upload, :destroy]

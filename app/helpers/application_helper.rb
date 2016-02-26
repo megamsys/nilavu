@@ -13,22 +13,60 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
+require 'current_user'
+
 module ApplicationHelper
-  # Returns the full title on a per-page basis.
-  def full_title(page_title)
-    base_title = "Megam"
-    if page_title.empty?
-      base_title
+  include CurrentUser
+
+  def ga_universal_json
+    cookie_domain = SiteSetting.ga_universal_domain_name.gsub(/^http(s)?:\/\//, '')
+    result = {cookieDomain: cookie_domain}
+    if current_user.present?
+      result[:userId] = current_user.id
+    end
+    result.to_json.html_safe
+  end
+
+  def escape_unicode(javascript)
+    if javascript
+      javascript = javascript.scrub
+      javascript.gsub!(/\342\200\250/u, '&#x2028;')
+      javascript.gsub!(/(<\/)/u, '\u003C/')
+      javascript.html_safe
     else
-      "#{base_title} | #{page_title}"
+      ''
     end
   end
 
-  def normalized_filename(file)
-    file.to_s
+  def application_logo_url
+    @application_logo_url ||=  SiteSetting.logo_url
   end
 
-  def normalize_template_name(name)
-    normalized_filename(name.to_s)
+  def login_path
+    "#{Nilavu::base_uri}/login"
   end
+
+  def customization_disabled?
+    session[:disable_customization]
+  end
+
+
+  def self.all_whitelable_fillers #change this to /var/lib/megam
+    @all_fillets = Dir.glob("/var/lib/megam/*/app/views/fillets/**/*.html.erb")
+  end
+
+  def white_label_fillet(name)
+
+    # Don't evaluate fillets in test
+    return "" if Rails.env.test?
+
+    matcher = Regexp.new("/fillets/#{name}/.*\.html\.erb$")
+    erbs = ApplicationHelper.all_fillets.select {|c| c =~ matcher }
+    return "" if erbs.blank?
+
+    result = ""
+    erbs.each {|erb| result << render(file: erb) }
+    result.html_safe
+  end
+
 end

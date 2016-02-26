@@ -1,5 +1,6 @@
+
 class APIDispatch
-  include Nilavu::MegamResource
+  include VerticeResource
 
   attr_accessor :megfunc, :megact, :parms, :passthru, :swallow_404, :verify
 
@@ -27,44 +28,22 @@ class APIDispatch
   UPDATE            = 'update'.freeze
   UPGRADE           = 'upgrade'.freeze
 
-  class  ConnectFailure < Nilavu::MegamGWError; end
-  class  CannotAuthenticateError < Nilavu::MegamGWError; end
 
-  class NoSuchResourceType < NameError
-    def initialize(short_name, node)
-      super "Cannot find a resource for #{short_name} "
-    end
-  end
-
-  class InvalidResourceSpecification < ArgumentError; end
-
-  #swallow 404 errors
   def initialize(ignore_404 = false)
     @swallow_404 = ignore_404
   end
 
-  def api_request(jlaz, jmethod, jparams, sign='', passthru=false )
-    begin
-      set_attributes(jlaz, jmethod, jparams, passthru)
-      Rails.logger.debug "\033[01;35mFASCADE #{megfunc}#{megact} \33[0;34m"
-      if up && satisfied_args?(jparams, passthru)
-        invoke_submit
-      end
-    rescue ConnectFailure => cfe
-      raise cfe
-    rescue Megam::API::Errors::ErrorWithResponse => ewr
-        if ewr.response.status == 404 && sign == "verify" then
-          return
-        elsif ewr.response.status == 401 && sign == "verify"
-          @verify = true
-          return
-          #raise StandardError, "You are registered cantidate so Please singin!!!"
-        else
-          raise StandardError, "Whew!\n#{ewr.message} \n " unless swallow_404
-        end
-    rescue Errno::ECONNREFUSED => ere
-      raise ConnectFailure, "Api server <b>@#{Ind.api}<b> is down.</br>✓ Fix: `start megamgateway` (or) contact your administrator."
-    end
+  def api_request(jlaz, jmethod, jparams, passthru=false )
+    set_attributes(jlaz, jmethod, jparams, passthru)
+
+    Rails.logger.debug "\033[01;35mFASCADE #{megfunc}#{megact} \33[0;34m"
+
+    raise Nilavu::InvalidParameters if !satisfied_args?(passthru)
+
+    invoke_submit
+    #Megam::API::Errors::ErrorWithResponse => ewr
+    #"Whew!\n#{ewr.message} \n " unless swallow_404
+    #"Api server <b>@#{Ind.api}<b> is down.</br>✓ Fix: `start megamgateway` (or) contact your administrator."
   end
 
 
@@ -109,23 +88,10 @@ class APIDispatch
     passthru?(passthru)
   end
 
-  def satisfied_args?(parms,passthru)    
+  def satisfied_args?(passthru)
     unless passthru
-      fail CannotAuthenticateError, 'Your credentials are missing. Did you signup with us ?' unless parms.key?(:email) || parms.key?("email") && parms.key?(:api_key) || parms.key?("api_key")
+      return !current_user.email.blank? && !current_user.api_key.blank?
     end
-    true
-  end
-
-  #this works but has other issues like a stored session loops etc.
-  def up
-    #hc = Nilavu::HealthCheck.new.tap do |h|
-    #  h.check
-    #end
-
-    #hok = hc.ok?
-    #fail ConnectFailure, "Api server <b>@#{Ind.api}<b> is down.</br>✓ Fix: `start megamgateway` (or) contact your administrator." unless hok
-    #hok
-    true
   end
 
   def endpoint

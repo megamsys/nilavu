@@ -17,8 +17,6 @@ defaults: &defaults
     password: megdc
 ## log_level: default is debug
   log_level: :info
-## A database backend for nilavu
-  riak: localhost
 ## An api server for nilavu
   api: localhost
 ## Domain name for VMs

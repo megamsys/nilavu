@@ -13,10 +13,10 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class BillingsController < NilavuController
+class BillingsController < ApplicationController
   respond_to :html, :js
 
-  before_action :stick_keys, only: [:index, :notify_payment, :promo]
+  
   def index
     logger.debug '> Billings index.'
     @currencies = Billings.currencies

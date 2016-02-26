@@ -13,10 +13,9 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class OnemicroservicesController < NilavuController
+class OnemicroservicesController < ApplicationController
   respond_to :html, :js
 
-  before_action :stick_keys, only: [:index]
 
   def index
     @assembly = Api::Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Api::Assemblies::MICROSERVICES]

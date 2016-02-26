@@ -5,64 +5,77 @@ source 'https://rubygems.org'
 gem 'json', '~> 1.8.3'
 gem 'net-ssh'
 gem 'net-ping'
+gem 'http'
 
 #rails
-gem 'rails', '~> 4.2.5'
-gem 'rails-i18n', '~> 4.0.8'
-gem 'protected_attributes', '~> 1.1.3' # transition to rails 4.2.x
-gem 'responders', '~> 2.1.1' # transition to rails 4.2.x
+gem 'rails', '~> 4.2.5.1'
+gem 'protected_attributes' # transition to rails 4.2.x
+gem 'responders' # transition to rails 4.2.x
 
 # ui - (sass, react, growl, websocket)
-gem 'jquery-rails', '~> 4.0.5'
-gem 'turbolinks', '~> 2.5.3'
-gem 'jquery-turbolinks', '~> 2.1.0'
-gem 'react-rails', '~> 1.5.0'
-gem 'sass-rails', '~> 5.0.4'
-gem 'remotipart', '~> 1.2.1' # ajax file uploads (sshkey)
-gem 'socket.io-rails', '~> 1.4.4' # websocket streaming
+gem 'jquery-rails'
+gem 'turbolinks'
+gem 'jquery-turbolinks'
+gem 'react-rails'
+gem 'sass-rails'
+gem 'remotipart' # ajax file uploads (sshkey)
+gem 'socket.io-rails' # websocket streaming
 gem 'nprogress-rails' # youtube like spinner
 gem 'toastr_rails'
-gem 'zeroclipboard-rails', '~> 0.1.1'
-gem 'uglifier', '~> 2.7.2'
+gem 'zeroclipboard-rails'
+gem 'uglifier'
 gem 'therubyracer', '~> 0.12.2', require: 'v8', platforms: :ruby
 
 # security
-gem 'oauth2', '~> 1.0.0'
-gem 'oauth', '~> 0.4.7'
-gem 'omniauth-oauth2', '~> 1.3.1'
-gem 'omniauth-facebook', '~> 3.0.0'
-gem 'omniauth-google-oauth2', '~> 0.2.10'
-gem 'omniauth-github', '~> 1.1.2'
+gem 'rack-protection'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-oauth2', require: false
+gem 'omniauth-google-oauth2'
+gem 'omniauth-github'
 
+# this provides a very efficient lru cache
+gem 'lru_redux'
 # 3rd party system api's
-gem 'megam_api', '~>0.93'
-gem 'github_api', '~>0.13.1'
-gem 'gitlab', '~> 3.6.1'
-gem 'riak-client', '~> 2.3.2'
+gem 'megam_api'
+gem 'github_api'
+gem 'gitlab'
 gem 'radosgw-s3'
-gem 'mailgunner'
-gem 'http'
 
-gem 'google-analytics-rails', '~> 0.0.6'
-gem 'paypal-sdk-rest', '~>1.3.4' # billing
+gem 'paypal-sdk-rest' # billing
 
 # general misc helper
-gem 'randexp', '~> 0.1.7'
-gem 'sshkey',  '~> 1.8.0' # ssh key-gen
+gem 'randexp'
+gem 'sshkey' # ssh key-gen
 gem 'settingslogic' # singleton settings yaml manager
-gem 'rubysl-base64', '~> 2.0'
 
 # passenger server
 gem 'passenger', group: :production
 
-group :test do
-  gem 'capybara'
-  gem 'factory_girl_rails'
-  gem 'fakes3'
+group :test, :development do
+  gem 'rspec', '~> 3.2.0'
+  gem 'listen', '0.7.3', require: false
+  gem 'certified', require: false
+  # later appears to break Fabricate(:topic, category: category)
+  gem 'fabrication', '2.9.8', require: false
+  gem 'discourse-qunit-rails', require: 'qunit-rails'
+  gem 'mocha', require: false
+  gem 'rspec-rails', require: false
+  gem 'shoulda', require: false
+  gem 'simplecov', require: false
+  gem 'timecop'
+  gem 'rspec-given'
+  gem 'rspec-html-matchers'
+  gem 'spork-rails'
+  gem 'pry-nav'
+  gem 'byebug', require: ENV['RM_INFO'].nil?
 end
 
+
 group :development do
-  gem 'rspec-rails'
+  gem 'better_errors'
   gem 'quiet_assets'
-  gem 'rubocop', require: false
+  gem 'binding_of_caller'
+  gem 'librarian', '>= 0.0.25', require: false
+  gem 'annotate'
 end

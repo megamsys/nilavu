@@ -13,10 +13,9 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class OneservicesController < NilavuController
+class OneservicesController < ApplicationController
   include OneoverHelper
   respond_to :html, :js
-  before_action :stick_keys, only: [:index]
 
   def show
   end
