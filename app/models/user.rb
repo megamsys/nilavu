@@ -20,11 +20,15 @@ class User
 
   def self.new_from_params(params)
     user = User.new
-    user.name = params[:name]
+    params.symbolize_keys!
     user.email = params[:email]
     user.org_id = params[:org_id]
     user.api_key = params[:api_key]
+    user.first_name = params[:first_name]
+    user.last_name = params[:last_name]
     user.password = params[:password]
+    user.password_reset_key = params[:password_reset_key]
+    user.password_reset_sent_at = params[:password_reset_sent_at]
     user
   end
 
@@ -33,21 +37,12 @@ class User
     email[/\A[^@]+/].tr(".", " ").titleize
   end
 
-  def email_available?
-
-  end
-
   def find_by_email
+    ensure_password_is_hashed
     if to_hash[:email].include?('@')
-      find_by(to_hash)
+      find_by_password
     end
   end
-
-  def find_by_email
-    Api::Accounts.where(to_hash)
-  end
-
-  alias_method :authenticate, :find_by_email
 
   def save
     ensure_password_is_hashed
@@ -73,14 +68,13 @@ class User
     password_hash.present?
   end
 
-  ###Raj can you fix it up here.
   def confirm_password?(password)
-    return false unless password_hash && salt
-    self.password_hash == hash_password(password, salt)
+    return false unless password && @raw_password
+    password == password_hash(@raw_password)
   end
 
-  def visit_record_for(date)
-    user_visits.find_by(visited_at: date)
+  def email_confirmed?
+    true
   end
 
   def ensure_password_is_hashed
@@ -94,6 +88,10 @@ class User
     Base64.strict_encode64(password)
   end
 
+  def password_hash(password)
+    Base64.strict_decode64(password)
+  end
+
   def to_hash
     {:email => @email,
       :api_key => @api_key,
@@ -101,5 +99,22 @@ class User
       :first_name => suggest_firstname(@email),
       :last_name => @last_name
     }
+  end
+
+  private
+
+  def parms_using_password
+    {:email =>@email, :password => @raw_password }
+  end
+
+  def find_by_password
+    user = Api::Accounts.new.where(parms_using_password)
+    if user
+      return User.new_from_params(user.to_hash)
+    end
+  end
+
+  def visit_record_for(date)
+    #events.last_seen_at(visited_at: date)
   end
 end

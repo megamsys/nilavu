@@ -25,6 +25,8 @@ gem 'toastr_rails'
 gem 'zeroclipboard-rails'
 gem 'uglifier'
 gem 'therubyracer', '~> 0.12.2', require: 'v8', platforms: :ruby
+gem 'multi_json'
+gem 'oj'
 
 # security
 gem 'rack-protection'
@@ -47,10 +49,14 @@ gem 'paypal-sdk-rest' # billing
 # general misc helper
 gem 'randexp'
 gem 'sshkey' # ssh key-gen
-gem 'settingslogic' # singleton settings yaml manager
 
 # passenger server
 gem 'passenger', group: :production
+
+group :test do
+  gem 'fakeweb', '~> 1.3.0', require: false
+  gem 'minitest', require: false
+end
 
 group :test, :development do
   gem 'rspec', '~> 3.2.0'
@@ -60,6 +66,8 @@ group :test, :development do
   gem 'fabrication', '2.9.8', require: false
   gem 'discourse-qunit-rails', require: 'qunit-rails'
   gem 'mocha', require: false
+  gem 'rb-fsevent', require: RUBY_PLATFORM =~ /darwin/i ? 'rb-fsevent' : false
+  gem 'rb-inotify', '~> 0.9', require: RUBY_PLATFORM =~ /linux/i ? 'rb-inotify' : false
   gem 'rspec-rails', require: false
   gem 'shoulda', require: false
   gem 'simplecov', require: false
@@ -79,3 +87,5 @@ group :development do
   gem 'librarian', '>= 0.0.25', require: false
   gem 'annotate'
 end
+
+gem 'rbtrace', require: false, platform: :mri

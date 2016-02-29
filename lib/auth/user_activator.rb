@@ -37,7 +37,7 @@ class MobileActivator < UserActivator
   def activate
     email_token = user.email_tokens.unconfirmed.active.first
     #email_token = user.email_tokens.create(email: user.email) if email_token.nil?
-    #Nilavu::OTP::Infobip.new.send_confirm("#{params['phone']}", "#{params['email']}") if Ind.notification.has_key?("infobip")
+    #Nilavu::OTP::Infobip.new.send_confirm("#{params['phone']}", "#{params['email']}") if SiteSetting.allow_otp_verifications
     #Jobs.enqueue(:user_email,
     #    type: :signup,
     #   user_id: user.id,

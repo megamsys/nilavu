@@ -16,7 +16,9 @@
 
 require 'current_user'
 require_dependency 'nilavu'
+require_dependency 'global_path'
 require_dependency 'global_exceptions'
+
 
 class ApplicationController < ActionController::Base
   include CurrentUser
@@ -28,7 +30,6 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   before_filter :disable_customization
   before_filter :redirect_to_login_if_required
-  #  before_filter :add_authkeys_for_api
   before_filter :set_current_user_with_org
   around_action :catch_exceptions
 
@@ -55,11 +56,11 @@ class ApplicationController < ActionController::Base
     rescue_nilavu_actions(:not_found, 404)
   end
 
-  #rescue_from Nilavu::InvalidAccess do
-  #  rescue_nilavu_actions(:invalid_access, 403, true)
-  #end
+  rescue_from Nilavu::InvalidAccess do
+    rescue_nilavu_actions(:invalid_access, 403, true)
+  end
 
-  def rescue_nilavu_actions(type, status_code, include_ember=false)
+  def rescue_nilavu_actions(type, status_code)
     if (request.format && request.format.json?) || (request.xhr?)
       render_json_error I18n.t(type), type: type, status: status_code
     else
@@ -68,9 +69,8 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    I18n.locale = 'en'
-    #I18n.locale = SiteSetting.default_locale
-    #I18n.ensure_all_loaded!
+    I18n.locale = SiteSetting.default_locale
+    I18n.ensure_all_loaded!
   end
 
 
@@ -101,27 +101,21 @@ class ApplicationController < ActionController::Base
   end
 
   def current_homepage
-    current_user ? SiteSetting.homepage : SiteSetting.anonymous_homepage
+    current_user ? SiteSetting.homepage : SiteSetting.anonymous_homepag
   end
 
   private
-  #def custom_html_json
-  #  target = view_context.mobile_view? ? :mobile : :desktop
+  #def custom_html
   #  data = {
-  #    top: SiteCustomization.custom_top(session[:preview_style], target),
-  #    footer: SiteCustomization.custom_footer(session[:preview_style], target)
+  #    top: SiteCustomization.custom_top(session[:preview_style]),
+  #    footer: SiteCustomization.custom_footer(session[:preview_style])
   #  }
   #
   # if NilavuPluginRegistry.custom_html
   #    data.merge! NilavuPluginRegistry.custom_html
   #  end
 
-  #  MultiJson.dump(data)
   #end
-
-  def self.banner_json_cache
-    @banner_json_cache ||= DistributedCache.new("banner_json")
-  end
 
   def check_xhr
     # bypass xhr check on PUT / POST / DELETE provided api key is there, otherwise calling api is annoying

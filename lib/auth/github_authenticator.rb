@@ -19,20 +19,20 @@ class Auth::GithubAuthenticator < Auth::Authenticator
       github_screen_name: screen_name,
     }
 
-    user_info = GithubUserInfo.find_by(github_user_id: github_user_id)
+  #  user_info = GithubUserInfo.find_by(github_user_id: github_user_id)
     result.email_valid = !!data["email_verified"]
 
-    if user_info
-      user = user_info.user
-    elsif result.email_valid && (user = User.find_by_email(email))
-      user_info = GithubUserInfo.create(
-          user_id: user.id,
-          screen_name: screen_name,
-          github_user_id: github_user_id
-      )
-    end
+  #  if user_info
+  #    user = user_info.user
+  #  elsif result.email_valid && (user = User.find_by_email(email))
+  #    user_info = GithubUserInfo.create(
+  #        user_id: user.id,
+  #        screen_name: screen_name,
+  #        github_user_id: github_user_id
+  #    )
+  #  end
 
-    result.user = user
+  #  result.user = user
 
     result
   end
@@ -46,7 +46,7 @@ class Auth::GithubAuthenticator < Auth::Authenticator
     )
   end
 
-
+  
   def register_middleware(omniauth)
     omniauth.provider :github,
            :setup => lambda { |env|
@@ -54,6 +54,6 @@ class Auth::GithubAuthenticator < Auth::Authenticator
               strategy.options[:client_id] = SiteSetting.github_client_id
               strategy.options[:client_secret] = SiteSetting.github_client_secret
            },
-           :scope => "user:email"
+           :scope => "user:email, #repo:email, admin:repo_hook"
   end
 end

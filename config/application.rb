@@ -1,13 +1,12 @@
 require File.expand_path('../boot', __FILE__)
 require 'action_controller/railtie'
+require 'active_support/dependencies'
 require 'rails/test_unit/railtie'
 require 'sprockets/railtie'
-require 'yaml'
-require 'settingslogic'
-
 
 # Global config
-require_relative '../app/models/ind'
+require_relative '../app/models/global_setting'
+
 
 # COMMON YML
 if defined?(Bundler)
@@ -98,7 +97,20 @@ module Nilavu
     # our setup does not use rack cache and instead defers to nginx
     config.action_dispatch.rack_cache =  nil
 
+    require 'auth'
     # generate banner text - http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Nilavu
+    # generate banner text - http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Nilavu
+    puts ''"\033[1m\033[32m
+                  _..._       ███╗   ██╗██╗██╗      █████╗ ██╗   ██╗██╗   ██╗
+                .::'   `.     ████╗  ██║██║██║     ██╔══██╗██║   ██║██║   ██║
+               :::       :    ██╔██╗ ██║██║██║     ███████║██║   ██║██║   ██║
+               :::       :    ██║╚██╗██║██║██║     ██╔══██║╚██╗ ██╔╝██║   ██║
+               `::.     .'    ██║ ╚████║██║███████╗██║  ██║ ╚████╔╝ ╚██████╔╝
+                 `':..-'      ╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝  ╚═══╝   ╚═════╝
+  \033[0m"''
+  if ENV['RBTRACE'] == "1"
+    require 'rbtrace'
+  end
 
   end
 end

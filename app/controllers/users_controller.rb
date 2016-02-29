@@ -17,6 +17,7 @@
 class UsersController < ApplicationController
 
   skip_before_filter :redirect_to_login_if_required, only: [:new, :create]
+
   before_action :add_authkeys_for_api, only: [:edit, :update]
 
 
@@ -39,7 +40,6 @@ class UsersController < ApplicationController
 
     user_params.each { |k, v| user.send("#{k}=", v) }
 
-    user.password = SecureRandom.hex if user.password.blank?
     user.api_key = SecureRandom.hex(20) if user.api_key.blank?
 
     activation = UserActivator.new(user, request, session, cookies)
@@ -54,7 +54,6 @@ class UsersController < ApplicationController
       session["account_created_message"] = activation.message
       redirect_with_failure(cockpits_path, "login.errors", account.errors.full_messages.join("\n"))
     end
-    # rescue ActiveRecord::StatementInvalid
     #render json: {
     #  success: false,
     #  message: I18n.t("login.something_already_taken")

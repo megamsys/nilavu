@@ -1,6 +1,5 @@
 require 'rails_helper'
-require 'i18n/backend/discourse_i18n'
-require 'translation_override'
+require 'i18n/backend/nilavu_i18n'
 
 describe I18n::Backend::NilavuI18n do
 
@@ -72,96 +71,5 @@ describe I18n::Backend::NilavuI18n do
     end
   end
 
-  describe 'with overrides' do
-    it 'returns the overriden key' do
-      TranslationOverride.upsert!('en', 'foo', 'Overwritten foo')
-      expect(I18n.translate('foo')).to eq('Overwritten foo')
-
-      TranslationOverride.upsert!('en', 'foo', 'new value')
-      I18n.reload!
-      expect(I18n.translate('foo')).to eq('new value')
-    end
-
-    it "can be searched" do
-      TranslationOverride.upsert!('en', 'wat', 'Overwritten value')
-      expect(I18n.search('wat', backend: backend)).to eq({'wat' => 'Overwritten value'})
-      expect(I18n.search('Overwritten', backend: backend)).to eq({'wat' => 'Overwritten value'})
-      expect(I18n.search('Hello', backend: backend)).to eq({})
-    end
-
-    it 'supports disabling' do
-      orig_title = I18n.t('title')
-      TranslationOverride.upsert!('en', 'title', 'overridden title')
-
-      I18n.overrides_disabled do
-        expect(I18n.translate('title')).to eq(orig_title)
-      end
-      expect(I18n.translate('title')).to eq('overridden title')
-    end
-
-    it 'supports interpolation' do
-      TranslationOverride.upsert!('en', 'foo', 'hello %{world}')
-      I18n.backend.store_translations(:en, foo: 'bar')
-      expect(I18n.translate('foo', world: 'foo')).to eq('hello foo')
-    end
-
-    it 'supports interpolation named count' do
-      TranslationOverride.upsert!('en', 'wat', 'goodbye %{count}')
-      I18n.backend.store_translations(:en, wat: 'bar')
-      expect(I18n.translate('wat', count: 123)).to eq('goodbye 123')
-    end
-
-    it 'ignores interpolation named count if it is not applicable' do
-      TranslationOverride.upsert!('en', 'test', 'goodbye')
-      I18n.backend.store_translations(:en, test: 'foo')
-      I18n.backend.store_translations(:en, wat: 'bar')
-      expect(I18n.translate('wat', count: 1)).to eq('bar')
-    end
-
-    it 'supports one and other' do
-      TranslationOverride.upsert!('en', 'items.one', 'one fish')
-      TranslationOverride.upsert!('en', 'items.other', '%{count} fishies')
-      I18n.backend.store_translations(:en, items: { one: 'one item', other: "%{count} items" })
-      expect(I18n.translate('items', count: 13)).to eq('13 fishies')
-      expect(I18n.translate('items', count: 1)).to eq('one fish')
-    end
-
-    it 'supports one and other when only a single pluralization key is overridden' do
-      TranslationOverride.upsert!('en', 'keys.magic.other', "no magic keys")
-      I18n.backend.store_translations(:en, keys: { magic: { one: 'one magic key', other: "%{count} magic keys" } })
-      expect(I18n.translate('keys.magic', count: 1)).to eq("one magic key")
-      expect(I18n.translate('keys.magic', count: 2)).to eq("no magic keys")
-    end
-
-    it 'supports ActiveModel::Naming#human' do
-      Fish = Class.new(ActiveRecord::Base)
-
-      TranslationOverride.upsert!('en', 'fish', "fake fish")
-      I18n.backend.store_translations(:en, fish: "original fish")
-
-      expect(Fish.model_name.human).to eq('Fish')
-    end
-
-    describe "client json" do
-      it "is empty by default" do
-        expect(I18n.client_overrides_json('en')).to eq("{}")
-      end
-
-      it "doesn't return server overrides" do
-        TranslationOverride.upsert!('en', 'foo', 'bar')
-        expect(I18n.client_overrides_json('en')).to eq("{}")
-      end
-
-      it "returns client overrides" do
-        TranslationOverride.upsert!('en', 'js.foo', 'bar')
-        TranslationOverride.upsert!('en', 'admin_js.beep', 'boop')
-        json = ::JSON.parse(I18n.client_overrides_json('en'))
-
-        expect(json).to be_present
-        expect(json['js.foo']).to eq('bar')
-        expect(json['admin_js.beep']).to eq('boop')
-      end
-    end
-  end
 
 end

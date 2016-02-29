@@ -47,6 +47,7 @@ class Auth::FacebookAuthenticator < Auth::Authenticator
               strategy.options[:client_secret] = SiteSetting.facebook_app_secret
            },
            :scope => "email"
+           #:display => 'popup'
   end
 
   protected

@@ -31,17 +31,12 @@ Spork.prefork do
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
   Dir[Rails.root.join("spec/fabricators/*.rb")].each {|f| require f}
 
-  # let's not run seed_fu every test
-  SeedFu.quiet = true if SeedFu.respond_to? :quiet
 
-  SiteSetting.automatically_download_gravatars = false
-
-  SeedFu.seed
+  #SiteSetting.automatically_download_gravatars = false
 
   RSpec.configure do |config|
     config.fail_fast = ENV['RSPEC_FAIL_FAST'] == "1"
     config.include Helpers
-    config.include MessageBus
     config.include RSpecHtmlMatchers
     config.mock_framework = :mocha
     config.order = 'random'
@@ -59,37 +54,25 @@ Spork.prefork do
 
     config.before(:suite) do
 
-      Sidekiq.error_handlers.clear
-
       # Ugly, but needed until we have a user creator
-      User.skip_callback(:create, :after, :ensure_in_trust_level_group)
+      #User.skip_callback(:create, :after, :ensure_in_trust_level_group)
 
-      NilavuPluginRegistry.clear if ENV['LOAD_PLUGINS'] != "1"
+      #NilavuPluginRegistry.clear if ENV['LOAD_PLUGINS'] != "1"
       Nilavu.current_user_provider = TestCurrentUserProvider
 
-      SiteSetting.refresh!
+      #SiteSetting.refresh!
 
       # Rebase defaults
       #
       # We nuke the DB storage provider from site settings, so need to yank out the existing settings
       #  and pretend they are default.
       # There are a bunch of settings that are seeded, they must be loaded as defaults
-      SiteSetting.current.each do |k,v|
-        SiteSetting.defaults[k] = v
-      end
+      #SiteSetting.current.each do |k,v|
+      #  SiteSetting.defaults[k] = v
+      #end
 
-      require_dependency 'site_settings/local_process_provider'
-      SiteSetting.provider = SiteSettings::LocalProcessProvider.new
-    end
-
-    class NilavuMockRedis < MockRedis
-      def without_namespace
-        self
-      end
-
-      def delete_prefixed(prefix)
-        keys("#{prefix}*").each { |k| del(k) }
-      end
+      #require_dependency 'site_settings/local_process_provider'
+      #SiteSetting.provider = SiteSettings::LocalProcessProvider.new
     end
 
     config.before :each do |x|
@@ -101,20 +84,9 @@ Spork.prefork do
       #
       #   perf benefit seems low (shaves 20 secs off a 4 minute test suite)
       #
-      # $redis = NilavuMockRedis.new
       #
-      # disable all observers, enable as needed during specs
-      #
-      ActiveRecord::Base.observers.disable :all
-      SiteSetting.provider.all.each do |setting|
-        SiteSetting.remove_override!(setting.name)
-      end
-
       # very expensive IO operations
-      SiteSetting.automatically_download_gravatars = false
-
-      Nilavu.clear_readonly!
-
+      
       I18n.locale = :en
     end
 

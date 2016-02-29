@@ -49,15 +49,15 @@ module Backup
     end
 
     def endpoint
-      Ind.backup.host
+      SiteSetting.ceph_gateway
     end
 
     def radosadmin
-      Ind.backup.username
+      SiteSetting.ceph_username
     end
 
     def radosadmin_password
-      Ind.backup.password
+      SiteSetting.ceph_password
     end
   end
 end

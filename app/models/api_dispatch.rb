@@ -91,12 +91,12 @@ class APIDispatch
 
   def satisfied_args?(passthru, params={})
     unless passthru
-      return params[:email] && params[:api_key]
+      return params[:email] && (params[:api_key].present? || params[:password].present?)
     end
   end
 
   def endpoint
-    Ind.api
+    GlobalSetting.http_api
   end
 
   def debug_print(jparams)

@@ -7,7 +7,7 @@ class GlobalSetting
   end
 
   def self.load_defaults
-    default_provider = FileProvider.from(File.expand_path('../../../config/nilavu_defaults.conf', __FILE__))
+    default_provider = FileProvider.from(File.expand_path('nilavu.conf', ENV["MEGAM_HOME"]))
     default_provider.keys.concat(@provider.keys).uniq.each do |key|
       default = default_provider.lookup(key, nil)
       define_singleton_method(key) do
@@ -107,9 +107,10 @@ class GlobalSetting
     @provider = BlankProvider.new
   else
     @provider =
-      FileProvider.from(File.expand_path('../../../config/nilavu.yaml', __FILE__)) ||
-      EnvProvider.new
+    FileProvider.from(File.expand_path('nilavu.conf', ENV["MEGAM_HOME"])) ||
+    EnvProvider.new
   end
 
+  
   load_defaults
 end
