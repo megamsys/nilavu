@@ -2,12 +2,10 @@
 # See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
 
   signup:
     megam_disc: "It wont take more than 1 minute, we promise"
     footer_text: "Launch your applications seamlessly with less than"
-    cost: "$5"
     first_name_tag: "First Name"
     last_name_tag: "Last Name"
     phonenumber_tag: "Phone Number"
@@ -61,7 +59,13 @@ en:
     reset_password_statement: "An email has been sent to your registered email address to reset your password"
     sorry: "Sorry!"
     valid_email: "Please type a valid email address or create account in megam."
-    megam_io: "Megam.io"
+    success: "Click <b>marketplaces</b> to get started"
+    incorrect_username_email_or_password: "Incorrect username, email or password"
+    not_activated: "You can't log in yet. We sent an activation email to you. Please follow the instructions in the email to activate your account."
+    wait_approval: "Thanks for signing up. We will notify you when your account has been approved."
+    active: "Your account is activated and ready to use."
+    activate_email: "<p>You're almost done! We sent an activation mail to <b>%{email}</b>. Please follow the instructions in the email to activate your account.</p><p>If it doesn't arrive, check your spam folder, or try to log in again to send another activation mail.</p>"
+    Megam_io: "megam.io"
 
   cockpits:
     info_tab: "Not sure what to do next?"
@@ -83,10 +87,6 @@ en:
     delete: "Delete"
     select_repo: "Select your repo"
     go_to_mkp: "Go to marketplace"
-
-  contact:
-    US: "US   1-800-618-6813"
-    intl: "Intl 91-98405-59300"
 
   footer:
     docs: "Documentation"

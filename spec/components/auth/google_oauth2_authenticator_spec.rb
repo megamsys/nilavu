@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 # For autospec:
-Auth.send(:remove_const, :GoogleOAuth2Authenticator)
+#Auth.send(:remove_const, :GoogleOAuth2Authenticator)
 load 'auth/google_oauth2_authenticator.rb'
 
 describe Auth::GoogleOAuth2Authenticator do

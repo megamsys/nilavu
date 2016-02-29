@@ -31,6 +31,10 @@ class Auth::GoogleOAuth2Authenticator < Auth::Authenticator
     GoogleUserInfo.create({user_id: user.id}.merge(data))
   end
 
+  #  config.google_authorization_uri = 'https://accounts.google.com/o/oauth2/auth'
+  #  config.google_token_credential_uri = 'https://accounts.google.com/o/oauth2/token'
+  #  config.google_scope = 'https://www.googleapis.com/auth/userinfo.email'
+  #  config.google_redirect_uri = 'https://www.megam.co/auth/google_oauth2/callback'
   def register_middleware(omniauth)
     # jwt encoding is causing auth to fail in quite a few conditions
     # skipping
@@ -39,11 +43,8 @@ class Auth::GoogleOAuth2Authenticator < Auth::Authenticator
               strategy = env["omniauth.strategy"]
               strategy.options[:client_id] = SiteSetting.google_oauth2_client_id
               strategy.options[:client_secret] = SiteSetting.google_oauth2_client_secret
-              #  config.google_authorization_uri = 'https://accounts.google.com/o/oauth2/auth'
-              #  config.google_token_credential_uri = 'https://accounts.google.com/o/oauth2/token'
-              #  config.google_scope = 'https://www.googleapis.com/auth/userinfo.email'
-              #  config.google_redirect_uri = 'https://www.megam.co/auth/google_oauth2/callback'
-           },
+             },
+           :scope => "user:email",
            skip_jwt: true
   end
 

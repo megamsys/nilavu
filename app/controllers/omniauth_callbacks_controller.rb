@@ -21,7 +21,6 @@ class OmniauthCallbacksController < ApplicationController
   def complete
     auth = request.env["omniauth.auth"]
     auth[:session] = session
-
     authenticator = self.class.find_authenticator(params[:provider])
     provider = Nilavu.auth_providers && Nilavu.auth_providers.find{|p| p.name == params[:provider]}
 
@@ -45,7 +44,6 @@ class OmniauthCallbacksController < ApplicationController
     else
       @auth_result.authenticator_name = authenticator.name
       complete_response_data
-
       if provider && provider.full_screen_login
         cookies['_bypass_cache'] = true
         flash[:authentication_data] = @auth_result.to_client_hash.to_json
@@ -85,8 +83,6 @@ class OmniauthCallbacksController < ApplicationController
   def complete_response_data
     if @auth_result.user
       user_found(@auth_result.user)
-    elsif SiteSetting.invite_only?
-      @auth_result.requires_invite = true
     else
       session[:authentication] = @auth_result.session_data
     end

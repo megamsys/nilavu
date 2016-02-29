@@ -1,10 +1,9 @@
 require 'rails_helper'
-require 'discourse'
+require 'nilavu'
 
 describe Nilavu do
 
   before do
-    RailsMultisite::ConnectionManagement.stubs(:current_hostname).returns('foo.com')
   end
 
   context 'current_hostname' do
@@ -122,21 +121,6 @@ describe Nilavu do
   end
 
   context "#handle_exception" do
-
-    class TempSidekiqLogger < Sidekiq::ExceptionHandler::Logger
-      attr_accessor :exception, :context
-      def call(ex, ctx)
-        self.exception = ex
-        self.context = ctx
-      end
-    end
-
-    let!(:logger) { TempSidekiqLogger.new }
-
-    before do
-      Sidekiq.error_handlers.clear
-      Sidekiq.error_handlers << logger
-    end
 
     it "should not fail when called" do
       exception = StandardError.new

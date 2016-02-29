@@ -19,7 +19,7 @@ class MarketplacesController < ApplicationController
   respond_to :js
   include MarketplaceHelper
 
-  before_action :add_authkeys_for_api, only: [:edit, :update]
+  before_action :add_authkeys_for_api, only: [:index, :show, :create]
 
   ##
   ## index page get all marketplace items from storage(we use riak) using megam_gateway
@@ -114,7 +114,7 @@ class MarketplacesController < ApplicationController
         format.html { redirect_to billings_path }
         format.js { render js: "window.location.href='" + billings_path + "'" }
       end  unless modb.balance.credit.to_i > 0
-    end if Ind.has_key?("billings")
+    end if SiteSetting.allow_default_billings
   end
 
   def binded_app?(params, &_block)

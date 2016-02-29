@@ -13,7 +13,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<%= render 'layouts/header' %>
+<%= render partial: 'layouts/header' %>
 <div class="container-fluid main-cover">
   <div class="row">
     <div class="col-xs-12 col-sm-3 col-md-2 col-xl-1 c_bg_white cover">
@@ -34,7 +34,7 @@
                     <i class="c_icon-apps-white pull-left"></i>App
                   <% end %>
                 </li>
-                <% if Ind.has_key?("backup") %>
+                <% if SiteSetting.enable_ceph_logins %>
                   <li>
                     <%= link_to buckets_path, :data => { :remote => true} do %>
                       <i class="c_icon-service-white pull-left"></i>Storage
@@ -80,7 +80,7 @@
               <% end %>
             </li>
             <li class="start active">
-              <%  if Ind.has_key?("billings") %>
+              <%  if SiteSetting.allow_default_billings %>
                 <%= link_to billings_path, :data => { :remote => true} do %>
                   <i class="c_icon-billing pull-left"></i>
                   <span class="title pull-left"><%= t('titles.billing_title') %></span>

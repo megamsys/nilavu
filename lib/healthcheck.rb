@@ -42,7 +42,7 @@ module Nilavu
     # Try to ping gw as an indicator of general health
     def megamgw_health
       megamgw_health_metric do
-        @megamgw[:status] = ERRORING if !Net::Ping::HTTP.new.ping(Ind.api+":9000")
+        @megamgw[:status] = ERRORING if !Net::Ping::HTTP.new.ping(GlobalSetting.http_api+":9000")
       end
     end
 

@@ -21,7 +21,7 @@
       <div class="row">
         <div class="col-md-2 col-sm-3 col-xs-5">
           <div class="megam_logo img-responsive" alt="logo" style="padding-top: 15px">
-            <%= image_tag "#{Ind.logo_white}" %>
+            <%= image_tag "#{SiteSetting.logo_reverse_url}" %>
           </div>
         </div>
       </div>
@@ -61,7 +61,7 @@
                 </div>
               </div>
             </div>
-            <% if Ind.notification.has_key?("infobip") %>
+            <%- if SiteSetting.allow_otp_verifications.present? %>
               <div class="form-group">
                 <div class="row">
                   <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
@@ -78,14 +78,14 @@
           <%= render :partial => "layouts/toastr_message" %>
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-              <% if Ind.notification.has_key?("infobip") %>
+              <%- if SiteSetting.allow_otp_verifications.present? %>
                 <button type="submit" class="btn btn-success col-lg-12" data-remote="true" data-disable-with="Creating new account..." disabled="disabled" id="create_user">
                   Create Account
-            </button>
+                </button>
               <% else %>
                 <button type="submit" class="btn btn-success col-lg-12" data-remote="true" data-disable-with="Creating new account...">
                   Create Account
-            </button>
+                </button>
               <% end %>
             </div>
           </div>
@@ -113,28 +113,28 @@
 </body>
 <script>
   $(document).ready(function() {
-    $("#phone").intlTelInput({preferredCountries: ["IN", "TZ"]});
-  //On each time signup page load, trigger popover to verify phone number
-  $(window).load(function(){
-    $(".phone_popover").popover({'placement':'top'}).popover('show');
-  });
-  // Pass mobile number to controller on clicking verify button
-      $("#phone_verify_link").on("click", function(event) {
-          // get the value inside the text field
-  	if ($("#phone").intlTelInput("isValidNumber")){
-          	var phone = $("#phone").intlTelInput("getNumber");
-  	       $.get('/phones/new', { mobile_number: phone, redirect: '/signup', format: 'js' }, function(data) {
-          	    // log the result from the server, or whatever...
-  	            console.log(data);
-  	        });
-  		event.preventDefault(); // don't trigger default
-  	}else{
-  		toastr.error("Enter valid number");
-  		return false;
-  	}
+        $("#phone").intlTelInput({preferredCountries: ["IN", "TZ"]});
+      //On each time signup page load, trigger popover to verify phone number
+      $(window).load(function(){
+        $(".phone_popover").popover({'placement':'top'}).popover('show');
       });
-      $("#create_user").on("click", function(event) {
-  	$("#phone").val($("#phone").intlTelInput("getNumber"));
+      // Pass mobile number to controller on clicking verify button
+          $("#phone_verify_link").on("click", function(event) {
+              // get the value inside the text field
+      	if ($("#phone").intlTelInput("isValidNumber")){
+              	var phone = $("#phone").intlTelInput("getNumber");
+      	       $.get('/phones/new', { mobile_number: phone, redirect: '/signup', format: 'js' }, function(data) {
+              	    // log the result from the server, or whatever...
+      	            console.log(data);
+      	        });
+      		event.preventDefault(); // don't trigger default
+      	}else{
+      		toastr.error("Enter valid number");
+      		return false;
+      	}
+          });
+          $("#create_user").on("click", function(event) {
+      	$("#phone").val($("#phone").intlTelInput("getNumber"));
+          });
       });
-  });
 </script>

@@ -45,7 +45,7 @@
                   </div>
                   <span class="input-group-addon " ><a onClick="change_name();" class="pull-left btn"><%= t('my_profile.change') %></a></span>
                 </div>
-                <% if Ind.notification.has_key?("infobip") %>
+                <% if SiteSetting.allow_otp_verifications %>
                   <div class="form-group" id="phone_show">
                     <label class="col-md-3 control-label label-profile"><%= t('my_profile.phone') %></label>
                     <div class="col-md-5 input-group margin-top-10">

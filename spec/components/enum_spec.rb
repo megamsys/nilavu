@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'email'
 
 describe Enum do
   let(:array_enum) { Enum.new(:jake, :finn, :princess_bubblegum, :peppermint_butler) }

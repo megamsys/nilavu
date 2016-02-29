@@ -6,11 +6,11 @@ if [ $fmtcount -gt 0 ]; then
     exit 1
 fi
 
-putscount=`grep --exclude-dir={config,.git,bin,log,spec,tmp,.hooks,public,*.md} -rnw './' -e "puts" | wc -l`
+putscount=`grep --exclude-dir={config,.git,bin,log,spec,tmp,.hooks,public,*.md,lib} -rnw './' -e "puts" | wc -l`
 if [ $putscount -gt 0 ]; then
-  echo "Some files have puts, please run 'grep --exclude-dir={config,.hooks,log,bin,spec,tmp,public,.git} -rnw './' -e "puts"'"
+  echo "Some files have puts, please run 'grep --exclude-dir={config,.git,bin,log,spec,tmp,.hooks,public,*.md,lib} -rnw './' -e "puts"'"
   exit 1
-fi  
+fi
 
 asstcount=`rake assets:precompile RAILS_ENV=production`
 RETVAL=$?

@@ -456,9 +456,9 @@ describe User do
     end
 
     it 'blacklist should not reject developer emails' do
-      Rails.configuration.stubs(:developer_emails).returns('developer@discourse.org')
-      SiteSetting.stubs(:email_domains_blacklist).returns('discourse.org')
-      expect(Fabricate.build(:user, email: 'developer@discourse.org')).to be_valid
+      Rails.configuration.stubs(:developer_emails).returns('developer@megam.io.org')
+      SiteSetting.stubs(:email_domains_blacklist).returns('megam.io')
+      expect(Fabricate.build(:user, email: 'developer@megam.io')).to be_valid
     end
 
     it 'should not interpret a period as a wildcard' do
@@ -499,9 +499,9 @@ describe User do
     end
 
     it 'whitelist should accept developer emails' do
-      Rails.configuration.stubs(:developer_emails).returns('developer@discourse.org')
+      Rails.configuration.stubs(:developer_emails).returns('developer@megam.io')
       SiteSetting.stubs(:email_domains_whitelist).returns('awesome.org')
-      expect(Fabricate.build(:user, email: 'developer@discourse.org')).to be_valid
+      expect(Fabricate.build(:user, email: 'developer@megam.io')).to be_valid
     end
 
     it 'email whitelist should not be used to validate existing records' do
@@ -687,8 +687,8 @@ describe User do
   describe "flag_linked_posts_as_spam" do
     let(:user) { Fabricate(:user) }
     let!(:admin) { Fabricate(:admin) }
-    let!(:post) { PostCreator.new(user, title: "this topic contains spam", raw: "this post has a link: http://discourse.org").create }
-    let!(:another_post) { PostCreator.new(user, title: "this topic also contains spam", raw: "this post has a link: http://discourse.org/asdfa").create }
+    let!(:post) { PostCreator.new(user, title: "this topic contains spam", raw: "this post has a link: http://megam.io").create }
+    let!(:another_post) { PostCreator.new(user, title: "this topic also contains spam", raw: "this post has a link: http://megam.io/asdfa").create }
     let!(:post_without_link) { PostCreator.new(user, title: "this topic shouldn't be spam", raw: "this post has no links in it.").create }
 
     it "has flagged all the user's posts as spam" do

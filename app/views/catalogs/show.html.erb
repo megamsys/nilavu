@@ -73,7 +73,7 @@
                             <% end %>
                         </li>
                         <li class="start active unmount_component">
-                            <%  if Ind.has_key?("billings") %>
+                            <%  if SiteSetting.allow_default_billings %>
                             <%= link_to billings_path, :data => { :remote => true} do %>
                             <i class="c_icon-billing pull-left"></i>
                             <span class="title pull-left"><%= t('titles.billing_title') %></span>

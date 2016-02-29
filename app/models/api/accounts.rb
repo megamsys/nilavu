@@ -17,7 +17,8 @@ module Api
   class Accounts < APIDispatch
 
     def where(params)
-      api_request(ACCOUNT,SHOW, params)
+      result = api_request(ACCOUNT,SHOW, params)
+      result[:body] if result && result.is_a?(Hash)
     end
 
     def save(params)

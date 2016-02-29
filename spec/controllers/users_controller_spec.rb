@@ -697,17 +697,17 @@ describe UsersController do
     end
 
     context 'when an Exception is raised' do
-      [ ActiveRecord::StatementInvalid,
-        RestClient::Forbidden ].each do |exception|
-        before { User.any_instance.stubs(:save).raises(exception) }
+    #  [ ActiveRecord::StatementInvalid,
+    #    RestClient::Forbidden ].each do |exception|
+    #    before { User.any_instance.stubs(:save).raises(exception) }
 
-        let(:create_params) {
-          { name: @user.name, username: @user.username,
-            password: "strongpassword", email: @user.email}
-        }
+    #    let(:create_params) {
+    #      { name: @user.name, username: @user.username,
+    #        password: "strongpassword", email: @user.email}
+    #    }
 
-        include_examples 'failed signup'
-      end
+    #    include_examples 'failed signup'
+    #  end
     end
 
     context "with custom fields" do

@@ -1,13 +1,13 @@
 
 <div class="tabs" id="overview">
-     
+
 </div>
 <b class="logs-head">Logs</b>
 <div class="logBox borderless torpOverviewTb">
   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
     <div class="Message" id="logsbox">
-    </div>  
-    <img src="assets/pacman.gif" alt="gobbling logs"/><b> gobbling</b> logs...</div>  
+    </div>
+    <img src="assets/pacman.gif" alt="gobbling logs"/><b> gobbling</b> logs...</div>
 </div>
 
 <script type="text/javascript">
@@ -16,7 +16,7 @@
     $.AppIp = "<%= @ip %>";
     $.MonitC = "http://" + $.AppIp + ":9999/api/v1.3/containers";
     $.MonitM = "http://" + $.AppIp + ":9999/api/v1.3/machine";
-    $.SocketURL = "<%= Ind.logs %>";
+    $.SocketURL = "<%= GlobalSettings.logs %>";
     $.Socket = null;
     $.SocketReconnect = true;
     start();
@@ -24,14 +24,14 @@
 
   //var serverSocket = new WebSocket($.SocketURL)
    var serverSocket = null;
-  
+
   function start(){
     $.Socket = new WebSocket($.SocketURL);
     $.Socket.onopen = function(){
       console.log('connected!');
        var connJson = JSON.stringify({
         "Name": $.AppName
-        });       
+        });
         $.Socket.send(connJson);
     };
     $.Socket.onmessage = function(e){
@@ -47,17 +47,17 @@
           check();
       }
     };
-    
+
     $('.socket_disconnect').click(function () {
         $.SocketReconnect = false;
         $.Socket.close();
-    });  
+    });
 
   }
 
   function check(){
     if(!$.Socket || $.Socket.readyState == 3) start();
-  } 
+  }
 
   $('.unmount_component').click(function () {
     ReactDOM.unmountComponentAtNode(document.getElementById('overview'));

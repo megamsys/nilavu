@@ -32,17 +32,16 @@ Nilavu::Application.routes.draw do
   match '/signin', to: 'sessions#new', via: [:get]
   match '/tour', to: 'sessions#tour', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post, :delete]
-  match "/auth/:provider/callback", to: "users/omniauth_callbacks#complete", via: [:get, :post]
+
+  match "/auth/:provider/callback", to: "omniauth_callbacks#complete", via: [:get, :post]
   match "/auth/failure", to: "users/omniauth_callbacks#failure", via: [:get, :post]
 
   post "login" => "static#enter"
   get "login" => "static#show", id: "login"
   get "password-reset" => "static#show", id: "password_reset"
 
-  get "users/account-created/" => "users#account_created"
   get "users/password-reset/:token" => "users#password_reset"
   get "users/confirm-email-token/:token" => "users#confirm_email_token", constraints: { format: 'json' }
-  put "users/password-reset/:token" => "users#password_reset"
   get "users/activate-account/:token" => "users#activate_account"
   put "users/activate-account/:token" => "users#perform_account_activation", as: 'perform_activate_account'
   get "users/authorize-email/:token" => "users#authorize_email"
@@ -54,7 +53,6 @@ Nilavu::Application.routes.draw do
 
 
   #=====github
-  match '/auth/github/callback', to: 'marketplaces#store_github', via: [:get, :post]
   match '/publish_github', to: 'marketplaces#publish_github', via: [:get, :post]
 
   #=====Gitlab

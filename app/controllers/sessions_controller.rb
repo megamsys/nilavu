@@ -15,8 +15,8 @@
 ##
 class SessionsController < ApplicationController
 
-  skip_before_filter :redirect_to_login_if_required,  only: [:new, :tour, :create]
-  
+  skip_before_filter :redirect_to_login_if_required
+
 
   def new
   end
@@ -30,8 +30,7 @@ class SessionsController < ApplicationController
 
     user = User.new
     user_params.each { |k, v| user.send("#{k}=", v) }
-
-    if user.find_by_email
+    if user = user.find_by_email
       unless user.confirm_password?(params[:password])
         invalid_credentials
         return
@@ -40,8 +39,7 @@ class SessionsController < ApplicationController
       invalid_credentials
       return
     end
-
-    user.email_confirmed? ? login(user) : login_not_found(user)
+    user.email_confirmed? ? login(user) : not_activated(user)
   end
 
   def destroy
@@ -61,13 +59,11 @@ class SessionsController < ApplicationController
     redirect_with_success(cockpits_path, "login.success")
   end
 
-
   def invalid_credentials
-    redirect_with_errror(signin_path, "login.incorrect_email_or_password")
+    redirect_with_failure(signin_path, "login.incorrect_email_or_password")
   end
 
-  def login_not_found
-    redirect_with_error(signup_path, "login.not_approved")
+  def not_activated(user)
+    redirect_with_failure(signup_path, "login.not_activated")
   end
-
 end

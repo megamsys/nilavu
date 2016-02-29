@@ -29,6 +29,8 @@ class Auth::DefaultCurrentUserProvider
   def log_off_user(session, cookies)
     cookies = nil
     session.delete(CURRENT_USER_KEY)
+    session = nil
+    #    cookies[TOKEN_COOKIE] = nil
   end
 
 

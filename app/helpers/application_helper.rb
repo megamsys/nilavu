@@ -14,11 +14,13 @@
 ## limitations under the License.
 ##
 require 'current_user'
+require_dependency 'global_path'
 
 module ApplicationHelper
   include CurrentUser
+  include GlobalPath
 
-  def ga_universal_json
+def ga_universal_json
     cookie_domain = SiteSetting.ga_universal_domain_name.gsub(/^http(s)?:\/\//, '')
     result = {cookieDomain: cookie_domain}
     if current_user.present?

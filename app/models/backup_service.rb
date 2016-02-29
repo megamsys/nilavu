@@ -17,7 +17,8 @@ class BackupService
   end
 
   private
+
   def endpoint
-    Ind.backup.host
+    SiteSetting.ceph_gateway
   end
 end

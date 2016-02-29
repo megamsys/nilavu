@@ -47,24 +47,25 @@ module Nilavu
       end
 
       private
+
       def username
-        Ind.notification.infobip.username
+        SiteSetting.infobip.username
       end
 
       def password
-        Ind.notification.infobip.password
+        SiteSetting.infobip.password
       end
 
       def api_key
-        Ind.notification.infobip.api_key
+        SiteSetting.infobip.api_key
       end
 
       def application_id
-        Ind.notification.infobip.application_id
+        SiteSetting.infobip.application_id
       end
 
       def message_id
-        Ind.notification.infobip.message_id
+        SiteSetting.infobip.message_id
       end
     end
   end

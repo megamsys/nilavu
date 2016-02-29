@@ -15,11 +15,10 @@
 ##
 class ErrorsController < ApplicationController
   def not_found
-    # centralize all rendering of 404 into app controller
     raise Nilavu::NotFound
   end
 
-#  def internal_error
-#    render_500
-#  end
+  #def internal_error
+  #  render_500
+  #end
 end
