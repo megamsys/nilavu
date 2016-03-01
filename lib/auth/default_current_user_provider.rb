@@ -24,13 +24,13 @@ class Auth::DefaultCurrentUserProvider
   def log_on_user(user, session, cookies)
     @env[CURRENT_USER_KEY] = user
     session[CURRENT_USER_KEY] = user
+    cookies[APIKEY_COOKIE] = user
   end
 
   def log_off_user(session, cookies)
-    cookies = nil
     session.delete(CURRENT_USER_KEY)
     session = nil
-    #    cookies[TOKEN_COOKIE] = nil
+    cookies[APIKEY_COOKIE] = nil
   end
 
 
@@ -38,6 +38,5 @@ class Auth::DefaultCurrentUserProvider
     cookie = @request.session[CURRENT_USER_KEY]
     !cookie.nil? && cookie.length == 20
   end
-
 
 end

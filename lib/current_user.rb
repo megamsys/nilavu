@@ -15,9 +15,6 @@ module CurrentUser
   end
 
   def log_on_user(user)
-    puts " testing ...... "
-    puts user.inspect
-    puts " testing .... done ....."
     current_user_provider.log_on_user(user,session,cookies)
   end
 

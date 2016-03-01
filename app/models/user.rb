@@ -4,7 +4,7 @@ class User
   attr_accessor :email
   attr_accessor :password
   attr_accessor :api_key
-  attr_accessor :org_id
+  attr_accessor :team
   attr_accessor :first_name
   attr_accessor :last_name
   attr_accessor :authority
@@ -22,7 +22,7 @@ class User
     user = User.new
     params.symbolize_keys!
     user.email = params[:email]
-    user.org_id = params[:org_id]
+    user.team  = params[:team]
     user.api_key = params[:api_key]
     user.first_name = params[:first_name]
     user.last_name = params[:last_name]
@@ -90,6 +90,10 @@ class User
 
   def password_hash(password)
     Base64.strict_decode64(password)
+  end
+
+  def org_id
+    team.id if team
   end
 
   def to_hash
