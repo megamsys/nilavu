@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
   before_filter :disable_customization
   before_filter :redirect_to_login_if_required
-  before_filter :set_current_user_with_org
+  before_filter :set_current_user_with_team
   around_action :catch_exceptions
 
 
@@ -81,11 +81,11 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def set_current_user_with_org
-    if current_user && current_user.org_id.blank?
-      org_id = Api::Organizations.new.list(AuthBag.vertice(current_user)).first
-      unless org_id.blank?
-        current_user.org_id = org_id
+  def set_current_user_with_team
+    if current_user && !current_user.team
+      Teams.new.tap do |teams|
+        teams.find_all(AuthBag.vertice(current_user))
+        current_user.team = teams.last_used if teams
       end
     end
   end

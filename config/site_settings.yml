@@ -134,6 +134,7 @@ users:
   redirect_users_to_top_page: true
   show_email_on_profile:
     default: true
+  allow_default_billings: false
 
 security:
   use_https: false

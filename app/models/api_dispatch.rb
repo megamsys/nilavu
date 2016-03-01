@@ -14,6 +14,7 @@ class APIDispatch
   COMPONENTS        = 'Components'.freeze
   CREDITHISTORIES   = 'Credithistories'.freeze
   ORGANIZATION      = 'Organizations'.freeze
+  DOMAIN            = 'Domains'.freeze
   PROMOS            = 'Promos'.freeze
   DISCOUNTS         = 'Discounts'.freeze
 

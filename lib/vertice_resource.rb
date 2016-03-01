@@ -23,8 +23,8 @@ module VerticeResource
     Megam::Log.level(Rails.configuration.log_level)
     api_jlaz = jlaz.constantize
     unless api_jlaz.respond_to?(jmethod)
-      Rails.logger.debug "Mismatched api #{jlaz}.#{jmethod} version"
-      fail MismatchedAPIVersion, "Mismatched api #{jlaz}.#{jmethod} version"
+      Rails.logger.debug "No api #{jlaz}.#{jmethod} found."
+      fail Nilavu::NotFound
     end
     api_jlaz.send(jmethod, jparams)
   end
