@@ -37,13 +37,8 @@ class Auth::GithubAuthenticator < Auth::Authenticator
     result
   end
 
-  def after_create_account(user, auth)
-    data = auth[:extra_data]
-    GithubUserInfo.create(
-      user_id: user.id,
-      screen_name: data[:github_screen_name],
-      github_user_id: data[:github_user_id]
-    )
+  def after_create_account(result)
+    #data = auth[:extra_data]   
   end
 
   
