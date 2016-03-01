@@ -122,7 +122,7 @@ class MarketplacesController < ApplicationController
   end
 
   def find_id(params)
-    @endpoint = Gitlab.endpoint = Ind.gitlab
+    @endpoint = Gitlab.endpoint = SiteSetting.gitlab_host
     client = Gitlab.client(endpoint: @endpoint, private_token: session[:gitlab_key])
     client.projects.each do |x|
       return x.id if x.http_url_to_repo == params
@@ -137,7 +137,8 @@ class MarketplacesController < ApplicationController
     when Nilavu::Constants::GITLAB
       params[:scmtoken] = session[:gitlab_key]
       params[:scmowner] = find_id(params[:source])
-      params[:scm_url]  = Ind.gitlab
+      params[:scm_url]  = SiteSetting.gitlab_host
+
     end
   end
 end

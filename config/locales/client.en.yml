@@ -141,8 +141,7 @@ en:
     bit_coin: "Pay using Coinkite, Xapo."
 
   marketplace:
-    dew: "Dew"
-    dew_name: "Dew Name"
+    torpedo: "Tropedo Name"
     info_tab: "Click on a marketplace item to get started."
     app_service: "Apps & Services"
     temp_search: "Search"
@@ -282,3 +281,9 @@ en:
   cloud_details: "Cloud Details"
   key_pair: "SSH Key Pairs"
   you_want_to: "Are you sure you want to"
+
+  errors:
+   invalid_email: "Invalid email address."
+   regex_mismatch: "Value doesn't match the required format."
+   must_include_flavors: "Marketplaces launcher must include the 'flavours'."
+   invalid_string: "Invalid value."

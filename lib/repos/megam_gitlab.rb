@@ -21,7 +21,7 @@ module Nilavu
       end
 
       def endpoint
-        Ind.gitlab
+        SiteSetting.gitlab_host
       end
     end
   end

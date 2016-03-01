@@ -43,8 +43,8 @@
         </div>
         <div class="col-xs-6">
           <div class="form-group">
-            <%= text_field_tag 'domain', nil, :class =>"form-control", :value => Ind.domain, disabled: true %>
-            <%= hidden_field_tag 'domain', nil, :class =>"form-control", :value => Ind.domain %>
+            <%= text_field_tag 'domain', nil, :class =>"form-control", :value => SiteSettings.domain_name, disabled: true %>
+            <%= hidden_field_tag 'domain', nil, :class =>"form-control", :value => SiteSettings.domain_name %>
           </div>
         </div>
       </div>
