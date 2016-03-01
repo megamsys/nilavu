@@ -45,7 +45,7 @@ class SessionsController < ApplicationController
   def destroy
     reset_session
     log_off_user
-    render nothing: true
+    bye
   end
 
   private
@@ -65,5 +65,9 @@ class SessionsController < ApplicationController
 
   def not_activated(user)
     redirect_with_failure(signup_path, "login.not_activated")
+  end
+
+  def bye
+    redirect_with_failure(signin_path, "login.tata")
   end
 end

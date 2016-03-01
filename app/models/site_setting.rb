@@ -5,7 +5,7 @@ class SiteSetting
   extend SiteSettingExtension
 
   #def self.after_save do |site_setting|
-  #  DiscourseEvent.trigger(:site_setting_saved, site_setting)
+  #  NilavuEvent.trigger(:site_setting_saved, site_setting)
   #  true
   #end
 
