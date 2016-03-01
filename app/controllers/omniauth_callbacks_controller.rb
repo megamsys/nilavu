@@ -21,11 +21,9 @@ class OmniauthCallbacksController < ApplicationController
   def complete
     auth = request.env["omniauth.auth"]
     auth[:session] = session
-    authenticator = self.class.find_authenticator(params[:provider])
+    authenticator = self.class.find_authenticator(params[:provider])   
     provider = Nilavu.auth_providers && Nilavu.auth_providers.find{|p| p.name == params[:provider]}
-
     @auth_result = authenticator.after_authenticate(auth)
-
     origin = request.env['omniauth.origin']
     if origin.present?
       parsed = URI.parse(@origin) rescue nil
@@ -49,10 +47,11 @@ class OmniauthCallbacksController < ApplicationController
         flash[:authentication_data] = @auth_result.to_client_hash.to_json
         redirect_to @origin
       else
-        respond_to do |format|
-          format.html
-          format.json { render json: @auth_result.to_client_hash }
-        end
+        after_create_account(@auth_result.to_client_hash)
+        #respond_to do |format|
+          #format.html
+          #format.json { render json: @auth_result.to_client_hash }
+        #end
       end
     end
   end
@@ -79,6 +78,26 @@ class OmniauthCallbacksController < ApplicationController
   end
 
   protected
+  
+  def after_create_account(result)
+    user = User.new
+    user.email = result[:email]
+    user.first_name = result[:username] || result[:name]
+    user.api_key = SecureRandom.hex(20) if user.api_key.blank?
+    activation = UserActivator.new(user, request, session, cookies)
+    activation.start
+
+    if user.save
+      activation.finish
+
+      session["account_created_message"] = activation.message
+      redirect_with_success(cockpits_path, "account_created_message")
+    else
+      session["account_created_message"] = activation.message
+      redirect_with_failure(cockpits_path, "login.errors", account.errors.full_messages.join("\n"))
+    end
+  end
+
 
   def complete_response_data
     if @auth_result.user
