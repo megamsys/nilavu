@@ -13,7 +13,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<% provide(:title, t('titles.signup_title')) %>
+<% provide(:title, t('signup.title')) %>
 <body style="background-color: #edeef5" class="signin-bg">
   <!-- BEGIN LOGO -->
   <div class="container-fluid">
@@ -33,8 +33,8 @@
       <!-- BEGIN LOGIN -->
       <div class="col-md-5 col-sm-5 signUp">
         <div class="top">
-          <h3><%= t('titles.signup_title') %>
-            <span class="sign_up_small pull-right"><%= t('signup.megam_disc') %></span>
+          <h3><%= t('signup.title') %>
+            <span class="sign_up_small pull-right"><%= t('signup.description') %></span>
           </h3>
         </div>
         <%= form_tag users_path, multipart: true, :id => "megamform", :class => "signup-form", role: "form", :novalidate => "novalidate", :method => "post", data: { spinlock: "#spin_cross_cloud"}  do %>
@@ -43,9 +43,9 @@
               <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                   <% if session[:auth] || @email.to_s.empty? %>
-                    <%= text_field_tag 'email', nil, placeholder: t('signup.email_tag'), :class => 'form-control', :value => @email %>
+                    <%= text_field_tag 'email', nil, placeholder: t('signup.email'), :class => 'form-control', :value => @email %>
                   <% else %>
-                    <%= text_field_tag 'email', nil, placeholder: t('signup.email_tag'), :required => true, :class => 'form-control' %>
+                    <%= text_field_tag 'email', nil, placeholder: t('signup.email'), :required => true, :class => 'form-control' %>
                   <% end %>
                 </div>
               </div>
@@ -54,9 +54,9 @@
               <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                   <% if session[:auth] %>
-                    <%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: t('signup.password_tag'), :value => @password %>
+                    <%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: t('signup.email'), :value => @password %>
                   <% else %>
-                    <%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: t('signup.password_tag') %>
+                    <%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: t('signup.email') %>
                   <% end %>
                 </div>
               </div>
@@ -79,12 +79,12 @@
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
               <%- if SiteSetting.allow_otp_verifications.present? %>
-                <button type="submit" class="btn btn-success col-lg-12" data-remote="true" data-disable-with="Creating new account..." disabled="disabled" id="create_user">
-                  Create Account
+                <button type="submit" class="btn btn-success col-lg-12" data-remote="true" data-disable-with=t('signup.creating_accout') disabled="disabled" id="create_user">
+                  <%= t('signup.create_account') %>
                 </button>
               <% else %>
-                <button type="submit" class="btn btn-success col-lg-12" data-remote="true" data-disable-with="Creating new account...">
-                  Create Account
+                <button type="submit" class="btn btn-success col-lg-12" data-remote="true" data-disable-with=t('signup.creating_accout')>
+                  <%= t('signup.create_account') %>
                 </button>
               <% end %>
             </div>
@@ -101,9 +101,9 @@
       </div>
       <div class="col-lg-7 col-md-8">
         <h1 class="text-banner">
-          <span>Simple Cloud.</span>
+          <span><%= t('signup.blip_title') %></span>
         </br>
-        <span>Deploy a cloud server.</span>
+        <span><%= t('signup.blip_sub_heading') %></span>
       </h1>
     </div>
   </div>

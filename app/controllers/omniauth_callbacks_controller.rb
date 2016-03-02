@@ -21,7 +21,7 @@ class OmniauthCallbacksController < ApplicationController
   def complete
     auth = request.env["omniauth.auth"]
     auth[:session] = session
-    authenticator = self.class.find_authenticator(params[:provider])   
+    authenticator = self.class.find_authenticator(params[:provider])
     provider = Nilavu.auth_providers && Nilavu.auth_providers.find{|p| p.name == params[:provider]}
     @auth_result = authenticator.after_authenticate(auth)
     origin = request.env['omniauth.origin']
@@ -78,7 +78,7 @@ class OmniauthCallbacksController < ApplicationController
   end
 
   protected
-  
+
   def after_create_account(result)
     user = User.new
     user.email = result[:email]
@@ -90,10 +90,10 @@ class OmniauthCallbacksController < ApplicationController
     if user.save
       activation.finish
 
-      session["account_created_message"] = activation.message
-      redirect_with_success(cockpits_path, "account_created_message")
+      session["signup.created_message"] = activation.message
+      redirect_with_success(cockpits_path, "signup.created_message")
     else
-      session["account_created_message"] = activation.message
+      session["signup.create_failure"] = activation.message
       redirect_with_failure(cockpits_path, "login.errors", account.errors.full_messages.join("\n"))
     end
   end

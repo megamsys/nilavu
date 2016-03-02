@@ -48,10 +48,10 @@ class UsersController < ApplicationController
     if user.save
       activation.finish
 
-      session["account_created_message"] = activation.message
-      redirect_with_success(cockpits_path, "account_created_message")
+      session["signup.created_message"] = activation.message
+      redirect_with_success(cockpits_path, "signup.created_message")
     else
-      session["account_created_message"] = activation.message
+      session["signup.create_failure"] = activation.message
       redirect_with_failure(cockpits_path, "login.errors", account.errors.full_messages.join("\n"))
     end
     #render json: {

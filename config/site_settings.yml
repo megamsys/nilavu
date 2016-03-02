@@ -41,6 +41,8 @@ required:
     new_version_emails: false
   global_notice:
       default: ""
+  free_wheeling:
+      default: false
 
 basic:
   default_locale:
@@ -53,9 +55,11 @@ basic:
   ga_universal_domain_name:
     default: 'auto'
   ga_tracking_code:
-    default: ''
+    default: 'UA-60777472-2'
   ga_domain_name:
-    default: ''
+    default: 'console.megam.io'
+  nudgespot_realtimechat_code:
+    default: '425d0d6f052a5ce5ae21931efa800675'  
   top_menu:
     refresh: true
     type: list
@@ -68,14 +72,16 @@ basic:
      - profile
   left_menu:
     type: list
-    default: 'torpedo|app|service|sshkeys'
+    default: 'sshkeys'
     choices:
-     - torpedo
-     - app
-     - service
-     - microservice
      - sshkeys
      - billing
+  default_categories:
+     type: list
+     default: 'torpedo|app|service|microservice|collaboration|analytics'
+  default_categories_muted:
+     type: list
+     default: 'app|service|microservice|collaboration|analytics'
 
 login:
   must_approve_users:

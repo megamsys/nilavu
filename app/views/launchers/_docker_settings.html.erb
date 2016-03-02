@@ -2,7 +2,7 @@
   <div class="col-xs-6">
     <h4><%= t('marketplace.ram') %></h4>
     <div class="form-group">
-      <%= select_tag "ram", options_for_select(["896","1024"]), :class =>"form-control" %>
+      <%= select_tag "ram", options_for_select(SiteSetting.favourize_for_vm_items), :class =>"form-control" %>
     </div>
   </div>
 <div class="col-xs-6">

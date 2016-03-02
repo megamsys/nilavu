@@ -37,14 +37,14 @@
               <li id="marketplace_top_right">
                 <%= link_to marketplaces_path , :data => {:remote => true}, :class => "socket_disconnect unmount_component" do %>
                   <i class="c_icon-window-lg pull-left"></i>
-                  <span class="hidden-xs hidden-sm pull-left"><%= t('titles.marketplace_title') %></span>
+                  <span class="hidden-xs hidden-sm pull-left"><%= t('marketplace.title') %></span>
                 <% end %>
               </li>
               <% if SiteSetting.enable_ceph_logins %>
                 <li id="storage_top_right">
                   <%= link_to buckets_path , :data => {:remote => true}, :class => "socket_disconnect unmount_component" do %>
                     <i class="c_icon-storage-lg pull-left"></i>
-                    <span class="hidden-xs hidden-sm pull-right"><%= t('titles.storage_title') %></span>
+                    <span class="hidden-xs hidden-sm pull-right"><%= t('title.storages') %></span>
                   </a>
                 <% end %>
               </li>
@@ -57,13 +57,13 @@
                   <li>
                     <%= link_to edit_user_path(1), :data => {:remote => true} do %>
                       <span class="label label-sm label-icon label-success"> <i class="glyphicon glyphicon-user"></i> </span>
-                      <%= t('header.profile') %>
+                      <%= t('top_toolbar.profile') %>
                     <% end %>
                   </li>
                   <li>
                     <%= link_to signout_path, method: "delete" do %>
                       <span class="label label-sm label-icon label-danger"> <i class="glyphicon glyphicon-off"></i> </span>
-                      <%= t('header.signout') %>
+                      <%= t('top_toolbar.signout') %>
                     <% end %>
                   </li>
                 </ul>

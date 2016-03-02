@@ -18,7 +18,6 @@ $(document).ready(function() {
 			'left' : e.pageX
 		});
 		$('#bucketName').val($(event.currentTarget).attr('id'));
-		//$.session.set('bucketname', $(event.currentTarget).attr('id'));
 		$('.storage-popup').show();
 		return false;
 	});

@@ -1,4 +1,5 @@
 require 'site_setting_extension'
+require 'flavor/favour_item'
 require_dependency 'site_settings/yaml_loader'
 
 class SiteSetting
@@ -34,7 +35,8 @@ class SiteSetting
   end
 
   def self.domain_name
-    current_user.team.last_used_domain
+    #current_user.team.last_used_domain
+    "megambox.com"
   end
 
 
@@ -43,11 +45,11 @@ class SiteSetting
   end
 
   def self.favourize_for_vm_items
-    flavours.split('|').map { |favorize_item| FavourizeItem.new(favorize_item) }
+    flavors.split('|').map { |favorize_item| FavourizeItem.new(favorize_item) }
   end
 
-  def self.favourize_for_container_items
-    flavours_cs.split('|').map { |favorize_item| FavourizeItem.new(favorize_item) }
+  def self.favourize_for_cs_items
+    flavors_cs.split('|').map { |favorize_item| FavourizeItem.new(favorize_item) }
   end
 
 
@@ -55,16 +57,6 @@ class SiteSetting
     top_menu_items[0].name
   end
 
-
-  def self.should_download_images?(src)
-    setting = disabled_image_download_domains
-    return true unless setting.present?
-
-    host = URI.parse(src).host
-    return !(setting.split('|').include?(host))
-  rescue URI::InvalidURIError
-    return true
-  end
 
   def self.scheme
     use_https? ? "https" : "http"

@@ -3,58 +3,81 @@
 
 en:
 
+  site_settings:
+    torpedo:
+      one: Torpedo
+      other: Torpedos
+    app:
+      one: App
+      other: Apps
+    service:
+      one: Service
+      other: Services
+    microservice:
+      one: Microservice
+      other: Microservices
+    analytics:
+      one: Analytics
+      other: Analytics
+    collaboration:
+      one: Collaboration
+      other: Collaborations
+    oneclick:
+      one: Oneclick
+      other: Oneclicks
+    torpedo_description: 'Get your own compute power'
+    app_description:  'Get started with a new app'
+    service_description: 'Make your applications more hungry'
+    microservice_description: 'Your app in a container in seconds'
+    analytics_description: 'Actionable insights in minutes'
+    collaboration_description: 'Collaboration done in minutes'
+    oneclick_description:  'Just do one thing in a click'
+
+  top_toolbar:
+    signout: "Sign Out"
+    profile: "Profile"
+
+  footer:
+    docs: "Documentation"
+    blog: "Blog"
+    devcenter: "Dev center"
+    forum: "Forum"
+    support: "Support"
+    copyright: "© 2013-2016 megam. All rights reserved."
+
   signup:
-    megam_disc: "It wont take more than 1 minute, we promise"
-    footer_text: "Launch your applications seamlessly with less than"
-    first_name_tag: "First Name"
-    last_name_tag: "Last Name"
-    phonenumber_tag: "Phone Number"
-    email_tag: "Email"
-    password_tag: "password"
+    title: "Sign up"
+    blip_title: "Simple Cloud."
+    blip_sub_heading: "Deploy a cloud server."
+    description: "It wont take more than 1 minute, we promise"
+    first_name: "First Name"
+    last_name: "Last Name"
+    phone_number: "Phone Number"
+    email: "Email"
+    password: "password"
     password_placeholder: "New Password"
-    confirm_password_tag: "Confirm Password"
+    confirm_password: "Confirm Password"
     confirm_password_placeholder: "Retype Password"
     password_confirmation: "password_confirmation"
-    create_acc: "Create Account"
+    create_account: "Create Account"
+    creating_account: "Creating new account..."
     existing_user: "Already have an account ?"
     login_here: "Login here"
-    UI_design: "User Interface & Design by"
-    designed_by: "Enixel Creative Studio"
     update_password: "Update Password"
+    created_account: "Your account is activated and ready to use."
     submit: Submit
 
-  titles:
-    signup_title: "Sign up"
-    login_title: "Login"
-    dashboard_title: "Dashboard"
-    billing_title: "Billings"
-    ssh_title: "SSH keys"
-    marketplace_title: "Marketplaces"
-    storage_title: "Storages"
-    app_overview: "App Overview"
-    service_overview: "Service Overview"
-    micro_overview: "Microservice Overview"
-    myprofile_title: "My profile"
-    logs_title: "Logs"
-    monitoring_title: "Monitoring Console"
-
-  not_found:
-    oops: "Oops... Page Not Found !"
-    no_access: "You've hit our mars servers, No Access..."
-    back: "Go Back"
-    page_info: "to the previous page, return to the"
-    home: "home page"
-    or: "or"
-    mail_us: "Email Us"
-    end_statement: "about this problem."
+  storages:
+    title: "Storages"
 
   login:
+    title: "Login"
     new_user: "Create new account ?"
     forget_password: "Forgot password"
     tour: "Take a tour"
     media: "Login with social media"
-    design: "Designed by Enixel"
-    reg_mail: "Your registered email"
+    ui_design_credits: "Designed by Enixel"
+    your_registered_email: "Your registered email"
     reset_password: "Reset Password"
     reset_password_statement: "An email has been sent to your registered email address to reset your password"
     sorry: "Sorry!"
@@ -69,40 +92,50 @@ en:
     Megam_io: "megam.io"
 
   cockpits:
-    info_tab: "Not sure what to do next?"
+    title: "Dashboard"
     your: " Your "
     create: " Create "
     running: " running "
     manage: " Manage your "
-    torpedo: "torpedo"
-    torpedo_tab: "Torpedo"
-    apps_tab: "Apps"
-    services_tab: "Services"
-    micro_services_tab: "Microservices"
-    app: "app"
-    service: "service"
     start: "Start"
     stop: "Stop"
     reboot: "Reboot"
     restart: "Restart"
     delete: "Delete"
     select_repo: "Select your repo"
-    go_to_mkp: "Go to marketplace"
+    go_to_marketplaces: "Go to marketplace"
 
-  footer:
-    docs: "Documentation"
-    blog: "Blog"
-    devcenter: "Dev center"
-    forum: "Forum"
-    support: "Support"
-    copywrite: "© 2013-2016 megam. All rights reserved."
+  marketplace:
+    title: "Marketplaces"
+    honeypot_title: "{{apps}} & {{services}}"
+    temp_search: "Search"
+    choose_version: "Choose version:"
+    discription: "Description"
+    view_docs: "View Docs"
+    bring_your_own_code: "Bring Your Own Code"
+    choose_your_scm: "Choose your SCM"
+    ssh_list_title: "SSH"
+    ssh_list_create: "Create a new sshkey"
+    ssh_list_exist: "Use your existing sshkey"
+    ssh_list_import: "Import your sshkey"
+    ssh_key_name_title: "SSH keypair name"
+    ssh_key_name_placeholder: "Type a key pair name to save"
+    ssh_exist_title: "Choose your SSH"
+    ssh_exist_content: "You must create or import your sshkeys"
+    ssh_import_privatekey: "Import private key..."
+    ssh_import_publickey: "Import public key..."
+    image_name: "Image Name"
+    image_name_placeholder: "Docker hub image name"
+    launched: "launched successfully."
+    launch_status: "Launched"
+    ram: "RAM"
+    dockers_ram_placeholder: "Enter RAM size in bytes (minimum :5000000)"
+    cpu: "CPU"
+    dockers_cpu_placeholder: "Enter number of CPU (Eg :1)"
 
-  header:
-    notification: "You have new notifications"
-    signout: "Sign Out"
-    profile: "Profile"
 
   ssh_keys:
+    title: "SSH keys"
     activity: "Activity"
     import: "Import"
     action: " Actions "
@@ -125,6 +158,7 @@ en:
     upload_pub_key: "Upload public key"
 
   billings:
+    title: "Billings"
     total_balance: "Total Balance"
     promo_code: "Promo Code :"
     apply: "APPLY"
@@ -140,93 +174,24 @@ en:
     paypal: "Pay with Paypal"
     bit_coin: "Pay using Coinkite, Xapo."
 
-  marketplace:
-    torpedo: "Tropedo Name"
-    info_tab: "Click on a marketplace item to get started."
-    app_service: "Apps & Services"
-    temp_search: "Search"
-    choose_version: "Choose version:"
-    discription: "Description"
-    view_docs: "View Docs"
-    megambox: "megambox.com"
-    rails_button1: "Bring Your Own Code"
-    botton1_option: "Choose your SCM"
-    rails_button2: "Starterpack - Built in repositories"
-    starterpack: "Starterpack"
-    ssh_list_title: "SSH"
-    ssh_list_create: "Create a new sshkey"
-    ssh_list_exist: "Use your existing sshkey"
-    ssh_list_import: "Import your sshkey"
-    ssh_key_name_title: "SSH keypair name"
-    ssh_key_name_placeholder: "Type a key pair name to save"
-    ssh_exist_title: "Choose your SSH"
-    ssh_exist_content: "You must create or import your sshkeys"
-    ssh_import_privatekey: "Import private key..."
-    ssh_import_publickey: "Import public key..."
-    image_name: "Image Name"
-    image_name_placeholder: "Docker hub image name"
-    launched: "launched successfully."
-    launch_status: "Launched"
-    create_service: "Create Service"
-    create_app: "Create app"
-    ram: "RAM"
-    dockers_ram_placeholder: "Enter RAM size in bytes (minimum :5000000)"
-    cpu: "CPU"
-    dockers_cpu_placeholder: "Enter number of CPU (Eg :1)"
-
   overviews:
+    operating_system: "OS"
     available_ram: "Available RAM"
     mb: "MB"
-    micro_mb: "768 MB"
-    cpu_core: "CPU Core"
-    micro_cpu: "1 VCPU"
     ip: "IP"
-    not_get_ip: "LAUNCHING..."
-    container_id: "Container ID"
-    not_get_id: "FETCHING..."
-    architecture: "Architecture"
-    arch_value: "AMD64"
-    image: "Image"
-    integration: "Continious integration"
-    port: "Port"
-    off: "OFF"
-    on: "ON"
-    os: "OS"
-    key: "SSH key"
+    still_launching: "LAUNCHING..."
+    current_sshkey: "SSH key"
     bind: "Bind"
     bindservice_title: "Bind Service"
-    your_machines: " Your Machines"
-    bound_service: "Bound Services"
-    bound_app: "Bound Apps"
-    app_bound: "apps bound"
-    service_running: " Services running "
-    bindservice: "Bind a Service"
-    no_service: "Sorry! You don't have any services. Please create from marketplace."
-    overview: "Overview"
-    overview_of: "Overview of your"
-    overview_app: "Overview of your app."
-    overview_service: "Overview of your service."
-    overview_micro_service: "Overview of your Microservice."
-    overview_logs: "Overview of your logs."
     url: "URL :"
-    git_url: "GIT URL :"
-    hub_url: "HUB URL :"
-    image_button: "IMAGE"
-    code: "CODE"
     your_container: "Your containers"
     containers_running: "containers running"
     runtime: "Runtime"
 
-  settings:
-    start: "Start App"
-    stop: "Stop App"
-    restart: "Restart App"
-    delete: "Delete App"
-
-  my_profile:
-    tip: "Tip:- Change your Account info, Organization, API key here."
+  myprofile:
+    title: "My profile"
     account: "My Account"
-    my_organization: "Organization"
+    organization: "Organization"
     api_key: "API key"
     basic_info: "Basic information"
     profile_name: "Profile name"
@@ -240,30 +205,26 @@ en:
     current: "Current"
     retype: "Retype"
     confirm_newpassword_placeholder: "Confirm new password"
+    new_passsword: "New"
     organization_info: "Organization Information"
-    no_organization: "No Orgs Found"
     users: "Users"
     domains: "Domains"
     your_api_ley: "Api Keys"
 
   organization:
     name: "Name:"
-    acc_name: "Account Name:"
+    account_name: "Account Name:"
     all_organization: "All Organizations"
 
-  general:
-    key_activity: "SSH Keys Activity"
-    new: "New"
-    or: "(or)"
-    no_key: "No SSH Keypairs. Click"
-    create_key: "Create a New SSH Key pair"
-    create_key_placeholder: "Generates a new SSH Keypair (RSA)..."
-    key_usage: "SSH Keypairs usage"
-    help: "Help"
-    used: "Used"
-    you_want_to: "Are you sure you want to"
-    message: "Message"
-    tooltip_step2_content: "Click to see all our apps and services !!"
+  errors:
+    invalid_email: "Invalid email address."
+    regex_mismatch: "Value doesn't match the required format."
+    must_include_flavors: "Marketplaces launcher must include the 'flavours'."
+    invalid_string: "Invalid value."
+    oops: "Oops... Page Not Found !"
+    no_access: "You've hit our mars servers, No Access..."
+    no_services_found: "Sorry! You don't have any services. Please create from marketplace."
+    no_organizations_found: "No Orgs Found"
 
   ok: "OK"
   cancel: "Cancel"
@@ -272,18 +233,13 @@ en:
   flunked: "We flunked. "
   error: "Error"
   info: "Info!"
-  info_content: "Create or Import SSH key pairs before registering your Cloud settings."
-  setting: "Settings"
+  home: "home page"
+  or: "or"
+  email_us: "Email Us"
   chat: "Chat now"
   megamsys: "megamsys"
   warning: "Warning!"
-  cloud: "Cloud"
-  cloud_details: "Cloud Details"
-  key_pair: "SSH Key Pairs"
-  you_want_to: "Are you sure you want to"
-
-  errors:
-   invalid_email: "Invalid email address."
-   regex_mismatch: "Value doesn't match the required format."
-   must_include_flavors: "Marketplaces launcher must include the 'flavours'."
-   invalid_string: "Invalid value."
+  are_you_sure: "Are you sure you want to"
+  back: "Go Back"
+  previous_page: "to the previous page, return to the"
+  report_this_problem: "about this problem."

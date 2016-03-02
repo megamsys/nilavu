@@ -16,9 +16,9 @@ class FavourizeItem
     @hdd.include? 'sata'
   end
 
-  #def specific_category
-  #  name.split('/')[1]
-  #end
+  def to_s
+   @ram + "   --   " + @core + "   --    " + @hdd  
+  end
 
   private
 

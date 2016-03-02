@@ -4,14 +4,20 @@
 Nilavu.git_version
 #
 reload_settings = lambda {
-    begin
-      SiteSetting.refresh!
-      puts SiteSetting.settings_hash.to_yaml
-    rescue => e
-      STDERR.puts e.backtrace
-      STDERR.puts "URGENT: #{e} Failed to initialize site"
-      # the show must go on, don't stop startup if multisite fails
+  begin
+    SiteSetting.refresh!
+    Rails.logger.debug ''"\033[1m\033[36msite_settings.yml loaded.\033[0m"''
+    if Rails.env.development?
+      Rails.logger.debug ''"\033[1m\033[33m
+     #{SiteSetting.settings_hash.to_yaml}\033[0m"''
     end
+  rescue => e
+    if Rails.env.development?
+      STDERR.puts e.backtrace
+    end
+    STDERR.puts "URGENT: #{e} Failed to initialize site_settings.yml"
+    # the show must go on, don't stop startup if site load fails
+  end
 }
 
 if Rails.configuration.cache_classes
