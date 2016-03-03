@@ -1,16 +1,9 @@
 <div class="row">
-  <div class="col-xs-6">
-    <h4><%= t('marketplace.ram') %></h4>
+  <div class="col-xs-12">
+    <h4><%= t('launch.compute_setting') %></h4>
     <div class="form-group">
-      <%= select_tag "ram", options_for_select(SiteSetting.favourize_for_vm_items), :class =>"form-control" %>
-    </div>
-  </div>
-<div class="col-xs-6">
-    <h4><%= t('marketplace.cpu') %></h4>
-    <div class="form-group">
-      <%= select_tag "cpu", options_for_select(["0.5","1"]), :class =>"form-control" %>
+      <%= select_tag "compute_setting", options_for_select(SiteSetting.favourize_for_cs_items), :class =>"form-control" %>
     </div>
   </div>
 </div>
-
 <br/>

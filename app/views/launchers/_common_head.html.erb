@@ -1,0 +1,17 @@
+<div class="modal-header">
+  <div class="row">
+    <div id="prelaunch_image" class="col-md-7 pull-left">
+      <img src=<%= "assets/mlogos/#{@launch_item.logo}" %>>
+    </div>
+    <div class="col-md-2" style="margin: 50px 0 0 0;">
+      <label style="font-weight: bold;"><%= t('marketplace.choose_version') %></label>
+    </div>
+    <div class="col-md-2" style="margin: 43px 0 0 0;">
+      <%= select_tag :version, options_for_select(@launch_item.versions, :selected => @launch_item.selected_version), :class =>"form-control input-sm" %>
+    </div>
+    <div class="col-md-1 pull-right">
+      <%= button_tag(:name => 'create', class: "close", :data => {:dismiss => "modal", :hidden => "true"}) do %>
+      <% end %>
+    </div>
+  </div>
+</div>

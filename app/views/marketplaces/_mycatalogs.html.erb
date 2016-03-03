@@ -107,27 +107,3 @@
     		});
     	});
   </script>
-  <!-- App1 modal starts here -->
-  <div id="common_launcher" class="modal fade" data-backdrop="static" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-full" style="max-width:900px;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <div class="row">
-            <div id="prelaunch_item_logo" class="col-md-7 pull-left"></div>
-            <div class="col-md-2" style="margin: 50px 0 0 0;">
-              <label style="font-weight: bold;"><%= t('marketplace.choose_version') %></label>
-            </div>
-            <div class="col-md-2" style="margin: 43px 0 0 0;">
-              <span id="prelaunch_item_version"></span>
-            </div>
-            <div class="col-md-1 pull-right">
-              <%= button_tag(:name => 'destroy', class: "close", :data => {:dismiss => "modal", :hidden => "true"}) do %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-        <div class="modal-body app_body" id="prelaunch_modal_body"></div>
-        <!-- app_body ends here -->
-      </div>
-    </div>
-  </div>

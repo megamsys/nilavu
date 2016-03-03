@@ -1,4 +1,4 @@
-class ReadyLaunch
+class LaunchableItem
 
   attr_accessor :versions, :existing_sshkeys, :marketplace_item
 
@@ -14,8 +14,12 @@ class ReadyLaunch
     find_sshkeys(params) if should_pull_sshkey?
   end
 
+  def self.reload_cached_item!(params)
+     HoneyPot.cached_marketplace_by_item(params)
+  end
+
   def type
-    "torpedo"
+    Nilavu.default_categories.select { |i| i == @marketplace_item.cattype.downcase }.first
   end
 
   #flag abused words ?
@@ -41,8 +45,12 @@ class ReadyLaunch
     end
   end
 
-  def envvars
+  def envvars_json
     Oj.dump(@marketplace_item.envs)
+  end
+
+  def envvars_json
+    @marketplace_item.envs
   end
 
   def has_docker?

@@ -225,6 +225,11 @@ en:
     no_access: "You've hit our mars servers, No Access..."
     no_services_found: "Sorry! You don't have any services. Please create from marketplace."
     no_organizations_found: "No Orgs Found"
+    launch_error: "Your {{stuff}} <b>{{name}} launch failure."
+
+  launch:
+    success: "Your {{stuff}} <b>{{name}}</b> is firing up"
+    compute_setting: "CPU, transfer, storage, and RAM bundled into one simple block"
 
   ok: "OK"
   cancel: "Cancel"

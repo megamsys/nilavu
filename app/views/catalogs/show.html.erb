@@ -25,9 +25,9 @@
                         <li></li>
 
                         <!-- BEGIN NOTIFICATION DROPDOWN -->
-                        <li class="storage_left_add">
+                        <li class="toponeclick_left_add">
                             <a href="#" class="btn btn-success btn-menu-top"> <span class="caret"></span>new </a>
-                            <ul class="storage_left_add_inner">
+                            <ul class="toponeclick_left_add_inner">
                                 <li>
                                     <a href=""><i class="c_icon-apps-white pull-left"></i>New App</a>
                                 </li>
@@ -39,7 +39,7 @@
                         <li class="start active unmount_component">
                             <%= link_to cockpits_path, id: "side-dash-link", :data => { :remote => true}, :target => "_self" do %>
                             <i class="c_icon-db pull-left"></i>
-                            <span class="title pull-left"><%= t('cockpit.title') %></span>
+                            <span class="title pull-left"><%= t('cockpits.title') %></span>
                             <% end %>
                         </li>
                         <li class="start active unmount_component">
@@ -87,25 +87,8 @@
         </div>
         <div id="content">
             <%= content_for?(:onecat_contents) ? yield(:onecat_contents) : yield %>
-
         </div>
     </div>
 </div>
+<%= render 'common/toponeclick' %>
 <%= render 'layouts/footer' %>
-
-<script type="text/javascript">
-	$(document).ready(function() {
-		$('[data-toggle="popover"]').popover({
-			'html' : 'true'
-		});
-
-		$('.storage_left_add_inner').hide();
-		$('.storage_left_add a').click(function() {
-			$('.storage_left_add_inner').slideToggle();
-		});
-
-		$('#side-dash-link').click(function(e) {
-			e.stopPropagation();
-		});
-	});
-</script>

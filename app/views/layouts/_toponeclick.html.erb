@@ -1,0 +1,20 @@
+<li class="toponeclick_left_add">
+  <a href="#" class="btn btn-success btn-menu-top">
+    <span class="caret"></span>
+    <b>new</b>
+  </a>
+  <ul class="toponeclick_left_add_inner">
+    <li>
+      <%= link_to marketplaces_path, :data => { :remote => true} do %>
+        <i class="c_icon-app-white pull-left"></i><%= t('site_setting.torpedo',:count => 0)%>
+      <% end %>
+    </li>
+    <% if SiteSetting.enable_ceph_logins %>
+      <li>
+        <%= link_to buckets_path, :data => { :remote => true} do %>
+          <i class="c_icon-service-white pull-left"></i>Storage
+      <% end %>
+      </li>
+    <% end %>
+  </ul>
+</li>

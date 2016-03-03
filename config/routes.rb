@@ -48,7 +48,7 @@ Nilavu::Application.routes.draw do
 
   #Nilavu.launchers.each do |launcher|
   get  "launchers/:id" => "launchers#launch"
-  post "launchers" => "launchers##perform_launch"
+  post "launchers" => "launchers#perform_launch"
   #end
 
   # named route for billing, paid message callback from paypal or bitcoin

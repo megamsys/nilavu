@@ -2,11 +2,11 @@ class FavourizeItem
   def initialize(value)
     parts = value.split(',')
     @ram =  initialize_flavs(parts[0])
-    @core = initialize_flavs(parts[1])
+    @cpu = initialize_flavs(parts[1])
     @hdd =  initialize_hdd(parts[2])
   end
 
-  attr_reader :ram, :core, :hdd
+  attr_reader :ram, :cpu, :hdd
 
   def has_ssd?
     @hdd.include? 'ssd'
@@ -16,8 +16,12 @@ class FavourizeItem
     @hdd.include? 'sata'
   end
 
+  def to_hash
+    {:ram => @ram.strip, :cpu =>@cpu.strip, :hdd => @hdd.strip}
+  end
+
   def to_s
-   @ram + "   --   " + @core + "   --    " + @hdd  
+    @ram + "   ,   " + @cpu + "   ,    " + @hdd
   end
 
   private

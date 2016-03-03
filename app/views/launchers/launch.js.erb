@@ -14,19 +14,12 @@
 ** limitations under the License.
 **/
 
-var selected_entity = '#prelaunch_modal_body';
 
-var to_insert_content = '<%= escape_javascript(render :partial => "launchers/#{@launch_item.type}", :locals => {:launch_item => @launch_item}) %>';
-
-insertAt(selected_entity, to_insert_content);
-
-$('#prelaunch_item_logo').empty();
-$('#prelaunch_item_logo').html('<img src=<%= "assets/mlogos/#{@launch_item.logo}" %>>');
-
-$('#prelaunch_item_version').empty();
-$('#prelaunch_item_version').html('<%= escape_javascript(select_tag "version", options_for_select(@launch_item.versions, :selected=> @launch_item.selected_version), :class =>"form-control input-sm") %>');
-$("#common_launcher").modal('show');
-
+$(document).ready(function(){
+  removeAt('#prelaunch_modal');
+  $('#cockpit').append('<%= escape_javascript(render :partial => "launchers/prelaunch_modal", :locals => {:launch_item => @launch_item}) %>');
+  $("#prelaunch_modal").modal('show');
+});
 
 $(document).ready(function() {
     $("#megamform").validate({

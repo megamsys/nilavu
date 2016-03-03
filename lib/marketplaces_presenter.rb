@@ -1,19 +1,19 @@
 class MarketplacesPresenter
 
   def self.presentable_types
-    @presentable_types ||= Enum.new(Nilavu.default_category_types.to_a)
+    @@types ||= Enum.new(*Nilavu.default_categories.map(&:to_sym))
   end
 
   def self.presentable_types_muted
-    @presentable_types ||= Enum.new(Nilavu.default_category_types_muted.to_a)
+    @@muted_types ||= Enum.new(*Nilavu.default_categories_muted.map(&:to_sym))
   end
 
-  def self.name_for(presentable)
-    return  I18n.t('site_setting.#{presentable}')
+  def self.name_for(presentable, plural=1)
+    return  I18n.t("site_settings.#{ps(presentable)}",:count => plural)
   end
 
   def self.description_of(presentable)
-    return   I18n.t('site_setting.#{presentable}_description')
+    return   I18n.t("site_settings.#{ps(presentable)}_description")
   end
 
   # We don't observe freewheeling in dev mode
@@ -25,6 +25,10 @@ class MarketplacesPresenter
 
   def self.enabled(presentable)
     presentable_types.include?(presentable) && !presentable_types_muted.include?(presentable)
+  end
+
+  def self.ps(i)
+    presentable_types[i.to_i]
   end
 
   def is_under_freewheeling?

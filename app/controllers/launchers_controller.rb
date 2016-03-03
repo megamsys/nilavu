@@ -18,7 +18,7 @@ require 'json'
 class LaunchersController < ApplicationController
   respond_to :js
 
-  before_action :add_authkeys_for_api, only: [:launch]
+  before_action :add_authkeys_for_api, only: [:launch, :perform_launch]
 
   def launch
     @launch_item = HoneyPot.cached_marketplace_by_item(params)
@@ -34,35 +34,21 @@ class LaunchersController < ApplicationController
   end
 
   def perform_launch
-=begin
-    position = category_params.delete(:position)
+    params.require(:version)
+    params.require(:assemblyname)
+    params.require(:componentname)
+    params.require(:sshoption)
 
-    @category = Category.create(category_params.merge(user: current_user))
+    vertice = VerticeLauncher.new(LaunchableItem.reload_cached_item!(params))
 
-    if @category.save
-      @category.move_to(position.to_i) if position
-
-      Scheduler::Defer.later "Log staff action create category" do
-        @staff_action_logger.log_category_creation(@category)
-      end
-
-      render_serialized(@category, CategorySerializer)
+    if vertice.launch(params)
+      #  Scheduler::Defer.later "Log launch action for" do
+      #    @nilavu_event_logger.log_launched(@launched)
+      #  end
+      redirect_with_success(cockpits_path, "launch.success")
     else
-      return render_json_error(@category) unless @category.save
+      redirect_with_failure(marketplaces_path, "errors.launch_failure")
     end
-    #### -----
-    @environment_vars = EnvironmentVars.build(params[:envs]) #params[:envs]= JSON.parse(params[:envs]) if params[:envs] != nil
-
-    # adding the default org of the user which is stored in the session
-    params[:ssh_keypair_name] = params["#{params[:sshoption]}" + '_name'] if params[:sshoption] == Api::Sshkeys::USEOLD
-    params[:ssh_keypair_name] = params["#{Api::Sshkeys::NEW}_name"] unless params[:sshoption] == Api::Sshkeys::USEOLD
-    # the full keypair name is coined inside sshkeys.
-    params[:ssh_keypair_name] = Api::Sshkeys.new.create_or_import(params)[:name]
-    setup_scm(params)
-
-    res = Api::Assemblies.new.create(params)
-    toast_success(cockpits_path, "Your #{params['cattype'].downcase} <b>#{params['assemblyname']}.#{params['domain']}</b> is firing up")
-=end
   end
 
 end

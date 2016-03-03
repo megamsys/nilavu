@@ -29,10 +29,6 @@ module Nilavu
     end
   end
 
-  def self.top_menu_items
-    @top_menu_items ||= Nilavu.default_categories
-  end
-
   def self.authenticators
     OmniauthCallbacksController::BUILTIN_AUTH + auth_providers.map(&:authenticator)
   end
@@ -49,8 +45,18 @@ module Nilavu
   end
 
   def self.plugins
-      @plugins ||= []
+    @plugins ||= []
   end
+
+  def self.display_categories
+    set = Set.new
+
+    SiteSetting.left_menu.split("|").map(&:to_s).each do |category|
+      set << category 
+    end
+    set
+  end
+
 
   def self.default_categories
     set = Set.new

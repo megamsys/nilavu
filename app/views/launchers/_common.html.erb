@@ -13,13 +13,10 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<%= hidden_field_tag 'version', nil, placeholder: "", :class =>"form-control", :value =>  @launch_item.selected_version  %>
-<%= hidden_field_tag 'mkp_name', nil, placeholder: "", :class =>"form-control", :value => @launch_item.name %>
-<%= hidden_field_tag 'cattype', nil, placeholder: "", :class =>"form-control", :value => @launch_item.type %>
-<%= hidden_field_tag 'envs', nil, placeholder: "", :class =>"form-control", :value => @launch_item.envvars%>
+<%= hidden_field_tag :id, @launch_item.name %>
 <div class="row">
   <div class="col-md-12 pad_tb25">
-    <span class="app_left_name"><%= t('marketplace.discription') %></span>
+    <span class="app_left_name"><%= t('marketplace.launch_description') %></span>
     <P class="model-description">
       <%= @launch_item.description %>
       <a href="http://docs.megam.io/docs/megam_oja_gettingstarted" target="_blank">
@@ -45,7 +42,6 @@
         <%= render template="launchers/torpedo_settings" %>
         <%= render template="launchers/choose_sshkey", :locals => {:ssh_keys => @launch_item.existing_sshkeys} %>
         <%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
-        <%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => ReadyLaunch::ONE %>
         <%= hidden_field_tag 'componentname', nil, placeholder: "", :class =>"form-control", :value =>  @launch_item.generate_random_name %>
         <br/>
         <br/>
@@ -58,8 +54,6 @@
         </div>
       <% else %>
         <%= render template="marketplaces/docker_compute" %>
-        <%= hidden_field_tag 'provider', nil, placeholder: "", :class =>"form-control", :value => ReadyLaunch::DOCKER %>
-        <%= hidden_field_tag 'endpoint', nil, placeholder: "", :class =>"form-control", :value => ReadyLaunch::BAREMETAL %>
         <%= hidden_field_tag 'componentname', nil, placeholder: "", :class =>"form-control", :value =>  @launch_item.generate_random_name %>
         <h4><%= t('marketplace.image_name') %></h4>
         <div class="row">

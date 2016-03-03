@@ -7,7 +7,7 @@ $(document).ready(function() {
 		$('.inner-child').toggle();
 	});
 	//storage left menu
-	$('.storage_left_add_inner').hide();
+	$('.toponeclick_left_add_inner').hide();
 
 
 	// storage overview pop up menu

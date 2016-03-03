@@ -34,7 +34,7 @@ module Backup
     def create(uid, display_name)
       radosuser = @radosgw.create("#{uid}","#{display_name}")
       ## we will have to move this thing out of this code.
-      Nilavu::DB::GSRiak.new(STORAGES_BUCKET).upload(uid, radosuser.to_json, 'application/json')
+#      Nilavu::DB::GSRiak.new(STORAGES_BUCKET).upload(uid, radosuser.to_json, 'application/json')
       radosuser
     end
 

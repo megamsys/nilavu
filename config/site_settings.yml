@@ -59,7 +59,7 @@ basic:
   ga_domain_name:
     default: 'console.megam.io'
   nudgespot_realtimechat_code:
-    default: '425d0d6f052a5ce5ae21931efa800675'  
+    default: '425d0d6f052a5ce5ae21931efa800675'
   top_menu:
     refresh: true
     type: list
@@ -72,16 +72,13 @@ basic:
      - profile
   left_menu:
     type: list
-    default: 'sshkeys'
-    choices:
-     - sshkeys
-     - billing
+    default: 'torpedo|app|service|microservice'
   default_categories:
      type: list
-     default: 'torpedo|app|service|microservice|collaboration|analytics'
+     default: 'torpedo|app|service|microservice|analytics|collaboration'
   default_categories_muted:
      type: list
-     default: 'app|service|microservice|collaboration|analytics'
+     default: 'app|service|collaboration|analytics'
 
 login:
   must_approve_users:
