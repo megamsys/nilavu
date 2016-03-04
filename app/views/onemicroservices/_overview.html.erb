@@ -43,22 +43,22 @@
 							<ul>
 								<li>
 									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :action => "start" ), :remote => true, :class => "link_img" do %>
-									<i class="glyphicon glyphicon-play-circle"></i><%= t('settings.start') %>
+									<i class="glyphicon glyphicon-play-circle"></i><%= t('cockpit.start') %>
 									<% end %>
 								</li>
 								<li>
 									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :action => "stop" ), :remote => true, :class => "link_img" do %>
-									<i class="glyphicon glyphicon-record"></i><%= t('settings.stop') %>
+									<i class="glyphicon glyphicon-record"></i><%= t('cockpit.stop') %>
 									<% end %>
 								</li>
 								<li>
 									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :action => "restart"), :remote => true, :class => "link_img" do %>
-									<i class="glyphicon glyphicon-refresh"></i><%= t('settings.restart') %>
+									<i class="glyphicon glyphicon-refresh"></i><%= t('cockpit.restart') %>
 									<% end %>
 								</li>
 								<li>
 									<%= link_to lcaddon_path(:id => c.id, :name => @cluster, :action => "delete"), :remote => true, :class => "link_img" do %>
-									<i class="glyphicon glyphicon-refresh"></i><%= t('settings.delete') %>
+									<i class="glyphicon glyphicon-refresh"></i><%= t('cockpit.delete') %>
 									<% end %>
 								</li>
 							</ul>

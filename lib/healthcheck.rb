@@ -11,11 +11,10 @@ module Nilavu
     ERRORING = 'erroring'.freeze
     AUTHERROR = 'authentication error'.freeze
 
-    attr_reader :status, :megamgw, :riak, :megamceph
+    attr_reader :status, :megamgw, :megamceph
 
     def initialize
       @status = OK
-      @riak = { status: REACHABLE }
       @megamgw = { :status => REACHABLE }
       @megamceph = { :status => REACHABLE }
     end
@@ -23,7 +22,6 @@ module Nilavu
     # Do a general health check.
     def check
       megamgw_health
-      riak_health
       #megamceph_health
       overall
     end
@@ -35,10 +33,6 @@ module Nilavu
 
     private
 
-    def riak_health
-      @riak[:status] = ERRORING if !Nilavu::DB::GSRiak.new("test")
-    end
-
     # Try to ping gw as an indicator of general health
     def megamgw_health
       megamgw_health_metric do
@@ -48,7 +42,7 @@ module Nilavu
 
     # What is the overall system status
     def overall
-      if @riak[:status] != REACHABLE || @megamgw[:status] != REACHABLE #|| @megamceph[:status] != REACHABLE
+      if @megamgw[:status] != REACHABLE #|| @megamceph[:status] != REACHABLE
         @status = NOT_OK
       end
     end

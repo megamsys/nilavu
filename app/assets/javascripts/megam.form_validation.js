@@ -5,9 +5,6 @@ function change_name() {
 }
 
 function change_phone() {
-	//$('#phonenumber').prop('readonly', false);
-	//$('#phonenumber').prop('required', true);
-	//$("#profile_submit").removeClass("disabled");
 	$('#phone_show').hide();
 	$('#phone_edit').show();
 	$("#profile_submit").addClass("disabled");

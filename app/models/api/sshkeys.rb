@@ -16,18 +16,13 @@
 
 module Api
   class Sshkeys < APIDispatch
-    SSH_FILES_BUCKET = 'sshfiles'.freeze
-    RIAK = 'riak'.freeze
 
     IMPORT   = 'SSH_IMPORT'.freeze
     NEW      = 'SSH_NEW'.freeze
     USEOLD   = 'SSH_USEOLD'.freeze
     SAAVI = 'saavi'.freeze
 
-    PRIV_CONTENT_TYPE = 'application/x-pem-key'.freeze
-    PUB_CONTENT_TYPE  = 'application/vnd.ms-publisher'.freeze
-
-    attr_reader :ssh_keys
+    attr_accessor :ssh_keys
 
     def initialize
       @ssh_keys = []
@@ -49,15 +44,13 @@ module Api
     end
 
     # lists the ssh keys for an user and return a hash with name, timestamp.
-    def list(api_params, &_block)
+    def list(api_params)
       raw = api_request(SSHKEYS, LIST,api_params)
       @ssh_keys = to_hash(raw[:body]) unless raw.nil?
-      yield self  if block_given?
-      self
     end
 
     ## rescue and raise as an error.
-    def download(api_params, &_block)
+    def download(api_params)
       File.open(File.basename(api_params[:download_location]), 'wb') do |file|
           file.write(api_params["data"])
       end
@@ -66,21 +59,19 @@ module Api
     private
 
     # generate SSH key, use create_or_import instead.
-    def create(api_params, &_block)
+    def create(api_params)
       keygen = SSHKey.generate
       api_params[:privatekey] = keygen.private_key
       api_params[:publickey] = keygen.ssh_public_key
       raw = api_request(SSHKEYS, CREATE,api_params)
-      yield self if block_given?
       self
     end
 
     ## import - use create_or_import instead.
-    def import(api_params, &_block)
+    def import(api_params)
       api_params[:privatekey] = api_params[:ssh_private_key].read
       api_params[:publickey] = api_params[:ssh_public_key].read
       raw = api_request(SSHKEYS, CREATE,api_params)
-      yield self if block_given?
       self
     end
 
@@ -92,7 +83,7 @@ module Api
       end
       ssh_keys.sort_by { |vn| vn[:created_at] }
     end
-    
+
     def keypub(api_params)
       api_params[:email] + '_' + api_params[:name] + '_pub'
     end

@@ -3034,7 +3034,7 @@ h3{
     color: #4e9de6;
     font-weight: bold;
 }
-.storage_left_add_inner{
+.toponeclick_left_add_inner{
 
     /*margin-top: -15px;
     margin-left: -10px;
@@ -3044,27 +3044,27 @@ h3{
     margin-left: -10px;
     width: 220px;
 }
-.storage_left_add_inner li{
+.toponeclick_left_add_inner li{
     line-height: 30px;
     background-color: #4cae4c;
     padding: 10px 10px;
     border-bottom: 1px solid #6ad17f;
     color: #fff;
 }
-.storage_left_add_inner li a{
+.toponeclick_left_add_inner li a{
     color: #fff;
     display: block;
 }
-.storage_left_add_inner li a:hover{
+.toponeclick_left_add_inner li a:hover{
     color: #ccc !important;
     text-decoration: none;
 }
-.storage_left_add a{
+.toponeclick_left_add a{
     border-bottom-left-radius: 1px !important;
     border-bottom-right-radius: 1px !important;
     display: inline-block;
 }
-.storage_left_add_inner li i{
+.toponeclick_left_add_inner li i{
     width: 20px;
     height: 20px;
     margin-right: 10px;

@@ -5,9 +5,8 @@ require 'site_setting_validations'
 module SiteSettingExtension
   include SiteSettingValidations
 
-  # For plugins, so they can tell if a feature is supported
   def supported_types
-    [:email, :username, :list, :enum]
+    [:email, :list, :enum]
   end
 
   def provider=(val)
@@ -21,17 +20,17 @@ module SiteSettingExtension
 
   def types
     @types ||= Enum.new(string: 1,
-                        time: 2,
-                        fixnum: 3,
-                        float: 4,
-                        bool: 5,
-                        null: 6,
-                        enum: 7,
-                        list: 8,
-                        url_list: 9,
-                        host_list: 10,
-                        category_list: 11,
-                        value_list: 12)
+      time: 2,
+      fixnum: 3,
+      float: 4,
+      bool: 5,
+      null: 6,
+      enum: 7,
+      list: 8,
+      url_list: 9,
+      host_list: 10,
+      category_list: 11,
+    value_list: 12)
   end
 
   def mutex
@@ -104,8 +103,8 @@ module SiteSettingExtension
         new_choices = eval(new_choices) if new_choices.is_a?(String)
 
         choices.has_key?(name) ?
-          choices[name].concat(new_choices) :
-          choices[name] = new_choices
+        choices[name].concat(new_choices) :
+        choices[name] = new_choices
       end
 
       if type = opts[:type]
@@ -174,29 +173,29 @@ module SiteSettingExtension
   # Retrieve all settings
   def all_settings(include_hidden=false)
     @defaults
-      .reject{|s, _| hidden_settings.include?(s) && !include_hidden}
-      .map do |s, v|
-        value = send(s)
-        type = types[get_data_type(s, value)]
-        opts = {
-          setting: s,
-          description: description(s),
-          default: v.to_s,
-          type: type.to_s,
-          value: value.to_s,
-          category: categories[s],
-          preview: previews[s]
-        }
+    .reject{|s, _| hidden_settings.include?(s) && !include_hidden}
+    .map do |s, v|
+      value = send(s)
+      type = types[get_data_type(s, value)]
+      opts = {
+        setting: s,
+        description: description(s),
+        default: v.to_s,
+        type: type.to_s,
+        value: value.to_s,
+        category: categories[s],
+        preview: previews[s]
+      }
 
-        if type == :enum && enum_class(s)
-          opts.merge!({valid_values: enum_class(s).values, translate_names: enum_class(s).translate_names?})
-        elsif type == :enum
-          opts.merge!({valid_values: choices[s].map{|c| {name: c, value: c}}, translate_names: false})
-        end
-
-        opts[:choices] = choices[s] if choices.has_key? s
-        opts
+      if type == :enum && enum_class(s)
+        opts.merge!({valid_values: enum_class(s).values, translate_names: enum_class(s).translate_names?})
+      elsif type == :enum
+        opts.merge!({valid_values: choices[s].map{|c| {name: c, value: c}}, translate_names: false})
       end
+
+      opts[:choices] = choices[s] if choices.has_key? s
+      opts
+    end
   end
 
   def description(setting)
@@ -204,9 +203,6 @@ module SiteSettingExtension
   end
 
   def self.client_settings_cache_key
-    # NOTE: we use the git version in the key to ensure
-    # that we don't end up caching the incorrect version
-    # in cases where we are cycling unicorns
     "client_settings_json_#{Nilavu.git_version}"
   end
 
@@ -296,11 +292,7 @@ module SiteSettingExtension
   end
 
   def notify_changed!
-    MessageBus.publish('/site_settings', {process: process_id})
-  end
-
-  def notify_clients!(name)
-    MessageBus.publish('/client_settings', {name: name, value: self.send(name)})
+    #Message
   end
 
   def has_setting?(name)

@@ -27,7 +27,7 @@
 
 <div class="row">
   <div class="col-md-12 pad_tb25">
-    <span class="app_left_name"><%= t('marketplace.discription') %></span>
+    <span class="app_left_name"><%= t('marketplace.launch_description') %></span>
     <P class="model-description"><%= plan[1] %>
       <a href="http://docs.megam.io/docs/megam_oja_gettingstarted" target="_blank">
         <%= t('marketplace.view_docs') %></a>
@@ -43,8 +43,8 @@
         </div>
         <div class="col-xs-6">
           <div class="form-group">
-            <%= text_field_tag 'domain', nil, :class =>"form-control", :value => Ind.domain, disabled: true %>
-            <%= hidden_field_tag 'domain', nil, :class =>"form-control", :value => Ind.domain %>
+            <%= text_field_tag 'domain', nil, :class =>"form-control", :value => SiteSetting.domain_name, disabled: true %>
+            <%= hidden_field_tag 'domain', nil, :class =>"form-control", :value => SiteSetting.domain_name %>
           </div>
         </div>
       </div>

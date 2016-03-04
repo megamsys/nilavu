@@ -48,10 +48,10 @@ class UsersController < ApplicationController
     if user.save
       activation.finish
 
-      session["account_created_message"] = activation.message
-      redirect_with_success(cockpits_path, "account_created_message")
+      session["signup.created_account"] = activation.message
+      redirect_with_success(cockpits_path, "signup.created_account")
     else
-      session["account_created_message"] = activation.message
+      session["signup.create_failure"] = activation.message
       redirect_with_failure(cockpits_path, "login.errors", account.errors.full_messages.join("\n"))
     end
     #render json: {
@@ -69,6 +69,10 @@ class UsersController < ApplicationController
   #  email = params[:email]
   #  render json: checker.check_email(email)
   #end
+
+  # load the current org details and send it the edit.html.erb.
+  def edit
+  end
 
 
   def fail_with(key)

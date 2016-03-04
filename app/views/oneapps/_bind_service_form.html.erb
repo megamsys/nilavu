@@ -28,7 +28,7 @@
     </button>
     <%= submit_tag t('overviews.bind') , :class => "btn btn-success", data: {:remote => true,  disable_with: "Binding service..." } %>
     <% else %>
-    <%= t('overviews.no_service') %>
+    <%= t('errors.no_services_found') %>
 
     <button type="button" class="btn default" data-dismiss="modal">
         <%= t('ok') %>

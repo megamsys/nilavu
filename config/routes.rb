@@ -41,10 +41,15 @@ Nilavu::Application.routes.draw do
   get "password-reset" => "static#show", id: "password_reset"
 
   get "users/password-reset/:token" => "users#password_reset"
-  get "users/confirm-email-token/:token" => "users#confirm_email_token", constraints: { format: 'json' }
-  get "users/activate-account/:token" => "users#activate_account"
-  put "users/activate-account/:token" => "users#perform_account_activation", as: 'perform_activate_account'
-  get "users/authorize-email/:token" => "users#authorize_email"
+  get "users/confirm_email_token/:token" => "users#confirm_email_token", constraints: { format: 'json' }
+  get "users/activate_account/:token" => "users#activate_account"
+  put "users/activate_account/:token" => "users#perform_account_activation", as: 'perform_activate_account'
+  get "users/authorize_email/:token" => "users#authorize_email"
+
+  #Nilavu.launchers.each do |launcher|
+  get  "launchers/:id" => "launchers#launch"
+  post "launchers" => "launchers#perform_launch"
+  #end
 
   # named route for billing, paid message callback from paypal or bitcoin
   match '/billings_promo', to: 'billings#promo', via: [:get, :post]
@@ -72,6 +77,9 @@ Nilavu::Application.routes.draw do
   #===One Overviews
   match '/bindservice', to: 'oneapps#show', via: [:get]
 
-  #===Events
+  #=== Notifications
   match '/sensors', to: 'sensors#index' , via: [:get, :post]
+  #get 'notifications' => 'notifications#index'
+  #put 'notifications/mark-read' => 'notifications#mark_read'
+
 end
