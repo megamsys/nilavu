@@ -15,7 +15,7 @@ class LaunchableItem
   end
 
   def self.reload_cached_item!(params)
-     HoneyPot.cached_marketplace_by_item(params)
+    HoneyPot.cached_marketplace_by_item(params)
   end
 
   def type
@@ -29,6 +29,10 @@ class LaunchableItem
 
   def name
     @marketplace_item.flavor
+  end
+
+  def cattype
+    @marketplace_item.cattype
   end
 
   def logo
@@ -49,7 +53,7 @@ class LaunchableItem
     Oj.dump(@marketplace_item.envs)
   end
 
-  def envvars_json
+  def envs
     @marketplace_item.envs
   end
 
@@ -61,6 +65,14 @@ class LaunchableItem
   # eg: debian jessie 7, 8
   def find_plan_for(version)
     @marketplace_item.plans.select { |v, d| v == version }.reduce { :merge }
+  end
+
+  def has_sshkeys?
+    return sshkeys_strip && sshkeys_strip.length > 0
+  end
+
+  def sshkeys_strip
+    @existing_sshkeys.map {|ssh| ssh[:name] }
   end
 
 
@@ -75,6 +87,10 @@ class LaunchableItem
   end
 
   def find_sshkeys(params)
-    @existing_sshkeys ||= Api::Sshkeys.new.list(params).ssh_keys
+    @existing_sshkeys ||= load_sshkeys(params)
+  end
+
+  def load_sshkeys(params)
+    Api::Sshkeys.new.list(params)
   end
 end

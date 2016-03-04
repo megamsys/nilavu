@@ -148,7 +148,7 @@
           <div class="invite_user_modal">
             <button class="pull-right btn btn-sucess">
               Invite
-                                    </button>
+            </button>
           </div>
         </div>
       </div>
@@ -263,34 +263,34 @@
 <%= render :partial => "phones/pin_verify_modal", :locals => {:redirect => "/users/1/edit"} %>
 <script type="text/javascript">
   $(document).ready(function() {
-  	$('.invite_user_modal').click(function(e) {
-  		$('#invite_user').modal();
-  	});
-      $("#password_submit").on("click", function(event) {
-  	var match = $('#newpassword').val() == $('#newpassword_confirmation').val();
-      if (!match) {
-          toastr.error("New password mismatch error", { "timeOut": "0"});
-          return false;
-      }
-      });
-    $("#phone").intlTelInput({preferredCountries: ["IN", "TZ"]});
-  // Pass mobile number to controller on clicking verify button
-      $("#phone_verify_link").on("click", function(event) {
-          // get the value inside the text field
-  	if ($("#phone").intlTelInput("isValidNumber")){
-          	var phone = $("#phone").intlTelInput("getNumber");
-  	       $.get('/phones/new', { mobile_number: phone, redirect: '/users/1/edit', format: 'js' }, function(data) {
-          	    // log the result from the server, or whatever...
-  	            console.log(data);
-  	        });
-  		event.preventDefault(); // don't trigger default
-  	}else{
-  		toastr.error("Enter valid number");
-  		return false;
-  	}
-      });
-      $("#profile_submit").on("click", function(event) {
-  	$("#phone").val($("#phone").intlTelInput("getNumber"));
-      });
-  });
+    	$('.invite_user_modal').click(function(e) {
+    		$('#invite_user').modal();
+    	});
+        $("#password_submit").on("click", function(event) {
+    	var match = $('#newpassword').val() == $('#newpassword_confirmation').val();
+        if (!match) {
+            toastr.error("New password mismatch error", { "timeOut": "0"});
+            return false;
+        }
+        });
+      $("#phone").intlTelInput({preferredCountries: ["IN", "TZ"]});
+    // Pass mobile number to controller on clicking verify button
+        $("#phone_verify_link").on("click", function(event) {
+            // get the value inside the text field
+    	if ($("#phone").intlTelInput("isValidNumber")){
+            	var phone = $("#phone").intlTelInput("getNumber");
+    	       $.get('/phones/new', { mobile_number: phone, redirect: '/users/1/edit', format: 'js' }, function(data) {
+            	    // log the result from the server, or whatever...
+    	            console.log(data);
+    	        });
+    		event.preventDefault(); // don't trigger default
+    	}else{
+    		toastr.error("Enter valid number");
+    		return false;
+    	}
+        });
+        $("#profile_submit").on("click", function(event) {
+    	$("#phone").val($("#phone").intlTelInput("getNumber"));
+        });
+    });
 </script>

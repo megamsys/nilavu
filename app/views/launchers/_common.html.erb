@@ -40,7 +40,7 @@
       </div>
       <% unless @launch_item.has_docker?  %>
         <%= render template="launchers/torpedo_settings" %>
-        <%= render template="launchers/choose_sshkey", :locals => {:ssh_keys => @launch_item.existing_sshkeys} %>
+        <%= render template="launchers/choose_sshkey", :locals => {:launch_item => @launch_item} %>
         <%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
         <%= hidden_field_tag 'componentname', nil, placeholder: "", :class =>"form-control", :value =>  @launch_item.generate_random_name %>
         <br/>

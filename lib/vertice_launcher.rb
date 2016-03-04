@@ -19,27 +19,22 @@ class VerticeLauncher
 
   def launch(params)
     @params ||= params
-
     raise Nilavu::NotFound  unless set_sshkey
 
-    set_compute
+    launch_parms = build_launch_parameters
 
-    puts "------------- before check launch"
-    puts @params.inspect
-    puts "--------------------------------"
+    ensure_settings_are_ok(launch_parms)
 
-    ensure_settings_are_ok
-
-    puts "------------- after check launch"
-    puts @params.inspect
-    puts "--------------------------------"
-
-    Api::Assemblies.new.create(@params.merge!(more_params))
+    Api::Assemblies.new.create(launch_parms)
   end
 
-  def ensure_settings_are_ok
-    [:cpu, :ram, :hdd, :assemblyname, :componentname, :provider, :ssh_key_name].each do |setting|
-      raise Nilavu::InvalidParameters unless @params[setting]
+  def build_launch_parameters
+    @params.merge(more_parms)
+  end
+
+  def ensure_settings_are_ok(launch_parms)
+    [:cpu, :ram, :hdd, :assemblyname, :componentname, :provider, :ssh_keypair_name, :version, :cattype].each do |setting|
+        raise Nilavu::InvalidParameters unless launch_parms[setting]
     end
   end
 
@@ -47,12 +42,14 @@ class VerticeLauncher
 
   def more_parms
     params ||={}
-    [:version, :cattype, :envs].each do |action|
-      params[k] = @launch_item.send("#{k}")
+    [:cattype, :envs].each do |launch_data|
+      params[launch_data] = @launch_item.send("#{launch_data}")
     end
     set_where_to(params)
+
     set_name(params)
-    params
+
+    params.merge!(FavourizeItem.new(@params[:compute_setting]).to_hash)
   end
 
   def set_where_to(params)
@@ -60,11 +57,7 @@ class VerticeLauncher
   end
 
   def set_name(params)
-    parms[:mkp_name] = @launch_item.name
-  end
-
-  def set_compute
-    @params.merge!(FavourizeItem.new(@params[:compute_setting]).to_hash)
+    params[:mkp_name] = @launch_item.name
   end
 
   #    set_scmname(params)

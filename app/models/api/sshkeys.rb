@@ -47,7 +47,6 @@ module Api
     def list(api_params)
       raw = api_request(SSHKEYS, LIST,api_params)
       @ssh_keys = to_hash(raw[:body]) unless raw.nil?
-      self
     end
 
     ## rescue and raise as an error.

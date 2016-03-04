@@ -47,7 +47,7 @@ class LaunchersController < ApplicationController
       #  end
       redirect_with_success(cockpits_path, "launch.success")
     else
-      redirect_with_failure(marketplaces_path, "errors.launch_failure")
+      redirect_with_failure(cockpits_path, "errors.launch_error")
     end
   end
 

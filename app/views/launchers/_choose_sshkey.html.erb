@@ -1,11 +1,10 @@
-<%= @ssh_keys.to_yaml %>
 <div class="row">
   <div class="col-xs-6">
     <h4><%= t('marketplace.ssh_list_title') %></h4>
     <div class="form-group">
       <select class="form-control" id="sshkeyoption">
         <option value="<%= Api::Sshkeys::NEW %>" selected="selected"><%= t('marketplace.ssh_list_create') %></option>
-        <% if @ssh_keys != nil && @ssh_keys.length > 0 %>
+        <% if @launch_item.has_sshkeys? %>
           <option value="<%= Api::Sshkeys::USEOLD %>"><%= t('marketplace.ssh_list_exist') %> </option>
         <% else %>
           <option disabled="disabled" value="<%= Api::Sshkeys::USEOLD %>"><%= t('marketplace.ssh_list_exist') %> </option>
@@ -18,8 +17,8 @@
     <div id="<%= Api::Sshkeys::USEOLD %>" style="display:none;">
       <h4><%= t('marketplace.ssh_exist_title') %></h4>
       <div class="form-group">
-        <% if @ssh_keys != nil && @ssh_keys.length > 0 %>
-          <%= select_tag "#{Api::Sshkeys::USEOLD}_name", options_for_select(@ssh_keys.map{ |c| c[:name] }, :selected=>@ssh_keys[0]), :class =>"form-control" %>
+        <% if @launch_item.has_sshkeys? %>
+          <%= select_tag "#{Api::Sshkeys::USEOLD}_name", options_for_select(@launch_item.sshkeys_strip), :class =>"form-control" %>
         <% else %>
           <span><%= t('marketplace.ssh_exist_content') %></span>
         <% end %>

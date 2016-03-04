@@ -22,7 +22,7 @@ class SSHKeysCreator
   def save
     @params[:ssh_keypair_name]  =  keypair_name
 
-    return if has_old_keypair?
+    return keypair_name if has_old_keypair?
 
     if ssh = Api::Sshkeys.new.create_or_import(@params)
       @name = ssh[:name]
