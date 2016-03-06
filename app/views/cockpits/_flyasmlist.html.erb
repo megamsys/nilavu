@@ -91,7 +91,7 @@
             <span class="pull-right"><%= assembly.status.capitalize %></span>
           </td>
           <td width="70px">
-            <a href="http://docs.megam.io" target="_blank">
+            <a href="<%= SiteSetting.faq_url %>"target="_blank">
               <i class="c_icon-window center-block" style="color:blue"></i>
             </a>
           </td>
@@ -114,5 +114,3 @@
 <% end %>
 <% end unless asmgroups_flatten.nil? %>
 </div>
-
-

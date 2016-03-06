@@ -1,0 +1,18 @@
+<% if SiteSetting.allow_otp_verifications %>
+  <div class="form-group" id="phone_show">
+    <label class="col-md-3 control-label label-profile"><%= t('myprofile.phone') %></label>
+    <div class="col-md-5 input-group margin-top-10">
+      <%= text_field_tag 'phone', nil, :class => 'form-control',:readonly => true, :id => 'phonenumber', placeholder: t('myprofile.number_placeholder'), :value => current_user.phone %>
+    </div>
+    <span class="input-group-addon " ><a onClick="change_phone();" class="pull-left btn"><%= t('myprofile.change') %></a></span>
+  </div>
+  <div class="form-group"  id="phone_edit"  style="display:none;">
+    <label class="col-md-3 control-label label-profile"><%= t('myprofile.phone') %></label>
+    <div class="col-md-5 input-group margin-top-10">
+      <input name="phone" type="tel" id="phone" class="form-control" placeholder="Enter mobile number" size="100%" style="background-color: transparent; color: #C0C0C0;" required >
+    </div>
+    <div class="">
+      <%= link_to "Verify", { :controller => :phones, :action => :new}, { class: "btn btn-success col-md-offset-1 col-md-2 pull-left ",  :id=>'phone_verify_link', data: { disable_with: 'sending...' }} %>
+    </div>
+  </div>
+<% end %>

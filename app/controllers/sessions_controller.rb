@@ -42,10 +42,11 @@ class SessionsController < ApplicationController
     user.email_confirmed? ? login(user) : not_activated(user)
   end
 
+
   def destroy
     reset_session
     log_off_user
-    bye
+    SiteSettings.logout_redirect ? redirect_to SiteSettings.logout_redirect : bye
   end
 
   private
@@ -68,6 +69,6 @@ class SessionsController < ApplicationController
   end
 
   def bye
-    redirect_with_failure(signin_path, "login.tata")
+    redirect_with_success(signin_path, "login.tata")
   end
 end

@@ -8,9 +8,10 @@ gem 'net-ping'
 gem 'http'
 
 #rails
-gem 'rails', '~> 4.2.5.1'
+gem 'rails', '~> 4.2.5.2'
 gem 'protected_attributes' # transition to rails 4.2.x
 gem 'responders' # transition to rails 4.2.x
+gem 'http_accept_language', '~>2.0.5', require: false
 
 # ui - (sass, react, growl, websocket)
 gem 'jquery-rails'
@@ -47,6 +48,7 @@ gem 'radosgw-s3'
 gem 'paypal-sdk-rest' # billing
 
 # general misc helper
+gem 'mail'
 gem 'randexp'
 gem 'sshkey' # ssh key-gen
 

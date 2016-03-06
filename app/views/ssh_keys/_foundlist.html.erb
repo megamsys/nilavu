@@ -45,25 +45,25 @@
 			</thead>
 			<tbody>
 
-				<% @ssh_keys.each do |sshkey| %>
+				<% @foundkeys.each do |ssh| %>
 
 				<tr>
 					<td>
 					<div class="row">
 						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-public">
-						    
-							<%= link_to edit_ssh_key_path(:id => sshkey[:name]+"_pub", :data => sshkey[:publickey]), :class => "btn btn-dark-blue" , :target => "_self" do %>
+
+							<%= link_to edit_ssh_key_path(:id => ssh[:name]+"_pub", :data => ssh[:publickey]), :class => "btn btn-dark-blue" , :target => "_self" do %>
 							<i class="c_icon-in"></i><span><%= t('ssh_keys.public') %></span>
 							<% end %>
 						</div>
 						<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-private">
-							<%= link_to edit_ssh_key_path(:id => sshkey[:name]+"_key", :data => sshkey[:privatekey]), :class => "btn btn-dark-red", :target => "_self" do %>
+							<%= link_to edit_ssh_key_path(:id => ssh[:name]+"_key", :data => ssh[:privatekey]), :class => "btn btn-dark-red", :target => "_self" do %>
 							<i class="c_icon-inBlue"></i><span><%= t('ssh_keys.private') %></span>
 							<% end %>
 						</div>
 					</div></td>
-					<td class="set_title"><%= sshkey[:name] %></td>
-					<td><i class="c_icon-calendar"></i> <%= sshkey[:created_at] %> </td>
+					<td class="set_title"><%= ssh[:name] %></td>
+					<td><i class="c_icon-calendar"></i> <%= ssh[:created_at] %> </td>
 				</tr>
 				<% end %>
 			</tbody>
@@ -82,7 +82,8 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="alert alert-success">
-							<%= t('ssh_keys.create_info') %> <a href="http://docs.megam.io/docs/debian" target="_blank"> <strong><%= t('ssh_keys.info_link') %></strong></a> <%= t('ssh_keys.info_end') %>
+							<%= t('ssh_keys.create_info') %>
+							<a href="<%= SiteSetting.faq_url %>" target="_blank"> <strong><%= t('ssh_keys.info_link') %></strong></a> <%= t('ssh_keys.info_end') %>
 						</div>
 						<%= form_tag ssh_keys_path, multipart: true, :method => :post, :remote => true do %>
 						<div class="form-group">
@@ -113,7 +114,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<div class="alert alert-success">
-								<%= t('ssh_keys.import_info') %><a href="http://docs.megam.io/docs/debian" target="_blank"> <strong><%= t('ssh_keys.info_link') %></strong></a> <%= t('ssh_keys.info_end') %>
+								<%= t('ssh_keys.import_info') %><a href="<%= SiteSetting.faq_url %>" target="_blank"> <strong><%= t('ssh_keys.info_link') %></strong></a> <%= t('ssh_keys.info_end') %>
 							</div>
 							<%= form_tag ssh_key_path(1), multipart: true, :id => "megamform", :method => :put, :remote => true do %>
 							<div class="row margintb_15">

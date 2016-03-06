@@ -17,21 +17,17 @@
 <div id="content">
   <div class="container">
     <div class='row'>
-
-<div class=" container">
-<div class="col-md-12 row error-page">
-<h2>404</h2>
-<h3><%= t('errors.oops') %></h3>
-
-<P><%= t('errors.noaccess') %></P>
-  <img src="https://s3-ap-southeast-1.amazonaws.com/megampub/images/404/mars.png" class="img-responsive"></div>
-</div>
-
-        <div class="panel panel-success">
-          <p>
-          <a href='javascript:history.back();'><%= t('back') %></a> <%= t('previous_page') %> <a href='/'><%= t('home') %> <%= t('or') %> <a href="mailto:support@megam.io?subject=Help me"><%= t('email_us') %></a> <%= t('report_this_problem') %>
-				</p>
-
+      <div class=" container">
+        <div class="col-md-12 row error-page">
+          <h2>404</h2>
+          <h3><%= t('errors.oops') %></h3>
+          <P><%= t('errors.noaccess') %></P>
+          <img src="https://s3-ap-southeast-1.amazonaws.com/megampub/images/404/mars.png" class="img-responsive"></div>
+      </div>
+      <div class="panel panel-success">
+        <p>
+          <a href='javascript:history.back();'><%= t('back') %></a> <%= t('previous_page') %> <a href='/'><%= t('home') %> <%= t('or') %> <a href="<%= SiteSetting.support_url %>"><%= t('email_us') %></a> <%= t('report_this_problem') %>
+          </p>
         </div>
       </div>
     </div>

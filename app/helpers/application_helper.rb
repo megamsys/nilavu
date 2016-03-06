@@ -20,7 +20,7 @@ module ApplicationHelper
   include CurrentUser
   include GlobalPath
 
-def ga_universal_json
+  def ga_universal_json
     cookie_domain = SiteSetting.ga_universal_domain_name.gsub(/^http(s)?:\/\//, '')
     result = {cookieDomain: cookie_domain}
     if current_user.present?
@@ -44,26 +44,36 @@ def ga_universal_json
     @application_logo_url ||=  SiteSetting.logo_url
   end
 
-  def login_path
-    "#{Nilavu::base_uri}/login"
-  end
 
   def customization_disabled?
-    session[:disable_customization]
+    session[:disable_customization] || SiteSetting.disable_customization
   end
 
-
-  def self.all_whitelable_fillers #change this to /var/lib/megam
-    @all_fillets = Dir.glob("/var/lib/megam/*/app/views/fillets/**/*.html.erb")
+  def render_customized_header_or_not
+    unless customization_disabled?
+      return SiteCustomization.custom_header
+    end
+    render partial: 'layouts/header'
   end
 
-  def white_label_fillet(name)
+  def render_customized_footer_or_not
+    unless customization_disabled?
+      return SiteCustomization.custom_footer
+    end
+    render partial: 'layouts/footer'
+  end
 
-    # Don't evaluate fillets in test
+  def self.all_customtags
+     Dir.glob("site/*.html.erb")
+  end
+
+  def self.customtags_for_site(name)
+
+    # Don't evaluate plugins in test
     return "" if Rails.env.test?
 
-    matcher = Regexp.new("/fillets/#{name}/.*\.html\.erb$")
-    erbs = ApplicationHelper.all_fillets.select {|c| c =~ matcher }
+    matcher = Regexp.new("/site/.*\#{name}.html\.erb$")
+    erbs = all_customtags.select {|c| c =~ matcher }
     return "" if erbs.blank?
 
     result = ""

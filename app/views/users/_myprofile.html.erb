@@ -30,210 +30,18 @@
       </ul>
       <div class="tab-content c_tab-content">
         <div class="tab-pane active" id="profile_1">
-          <div class="row">
-            <div class="prof bottom_border_grey_btpad">
-              <h4 class=""><%= t('myprofile.basic_info') %> <span class="pull-right" > <%= @account.email %></span></h4>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save c_tab-content-top">
-              <%= form_tag user_path({:id => @account.id, :email => @account.email}), :method => :put, :class => "form-horizontal", :novalidate => "novalidate", :id => "megamform"  do %>
-                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>"/>
-                <input type="hidden" name="myprofile_type" value="<%= Api::Accounts::UPD_PROFILE %>"/>
-                <div class="form-group">
-                  <label class="col-md-3 control-label label-profile"><%= t('myprofile.profile_name') %></label>
-                  <div class="col-md-5 input-group margin-top-10">
-                    <%= text_field_tag 'first_name', nil, :id => 'first_name', :class => 'form-control',:readonly => true, placeholder: t('myprofile.name_placeholder') , :value => @account.first_name %>
-                  </div>
-                  <span class="input-group-addon " ><a onClick="change_name();" class="pull-left btn"><%= t('myprofile.change') %></a></span>
-                </div>
-                <% if SiteSetting.allow_otp_verifications %>
-                  <div class="form-group" id="phone_show">
-                    <label class="col-md-3 control-label label-profile"><%= t('myprofile.phone') %></label>
-                    <div class="col-md-5 input-group margin-top-10">
-                      <%= text_field_tag 'phone', nil, :class => 'form-control',:readonly => true, :id => 'phonenumber', placeholder: t('myprofile.number_placeholder'), :value => @account.phone %>
-                    </div>
-                    <span class="input-group-addon " ><a onClick="change_phone();" class="pull-left btn"><%= t('myprofile.change') %></a></span>
-                  </div>
-                  <div class="form-group"  id="phone_edit"  style="display:none;">
-                    <label class="col-md-3 control-label label-profile"><%= t('myprofile.phone') %></label>
-                    <div class="col-md-5 input-group margin-top-10">
-                      <input name="phone" type="tel" id="phone" class="form-control" placeholder="Enter mobile number" size="100%" style="background-color: transparent; color: #C0C0C0;" required >
-                    </div>
-                    <div class="">
-                      <%= link_to "Verify", { :controller => :phones, :action => :new}, { class: "btn btn-success col-md-offset-1 col-md-2 pull-left ",  :id=>'phone_verify_link', data: { disable_with: 'sending...' }} %>
-                    </div>
-                  </div>
-                <% end %>
-                <div class="form-group">
-                  <div class="col-md-6 col-md-offset-3 input-group margin-top-10 ">
-                    <%= submit_tag t('myprofile.update'), :id => "profile_submit", :class => "btn disabled btn-success col-md-5 col-xs-12" %>
-                  </div>
-                </div>
-              <% end %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="prof bottom_border_grey_btpad">
-              <h4 class=""><%= t('myprofile.change_password') %></h4>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save c_tab-content-top">
-              <%= form_tag user_path({:id => @account.id, :email => @account.email}), :method => :put, :class => "form-horizontal", :novalidate => "novalidate", :id => "megamform"  do %>
-                <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
-              </input>
-              <input type="hidden" name="myprofile_type" value="<%= Api::Accounts::UPD_PASSWORD %>">
-            </input>
-            <div class="form-group">
-              <label class="col-md-3 control-label label-profile"><%= t('myprofile.current') %></label>
-              <div class="col-md-5 input-group margin-top-10 pad_rt-5">
-                <%= password_field_tag 'current_password', nil, :class=> 'form-control', :required => true, placeholder: "Enter Current password" %>
-              </div>
-              <span class="input-group-addon" ><a onClick="change_current_password();" id="change_password" class="pull-left btn"><%= t('myprofile.change') %></a></span>
-            </div>
-            <div class="form-group">
-              <label class="col-md-3 control-label label-profile"><%= t('myprofile.new_password') %></label>
-              <div class="col-md-5 input-group margin-top-10 pad_rt-5">
-                <%= password_field_tag 'password', nil, :class=> 'form-control', :required => true, :id => 'newpassword', :readonly => true, placeholder: "Type New password" %>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="col-md-3 control-label label-profile"><%= t('myprofile.retype') %></label>
-              <div class="col-md-5 input-group margin-top-10 pad_rt-5">
-                <%= password_field_tag 'password_confirmation', nil, :required => true, :class=> 'form-control', :id => 'newpassword_confirmation', :readonly => true, placeholder: "Retype New password" %>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="col-md-6 col-md-offset-3 input-group margin-top-10">
-                <%= submit_tag t('myprofile.update'), :id => "password_submit", :class => "btn disabled btn-success col-md-5 col-xs-12" %>
-              </div>
-            </div>
-          <% end %>
+          <%= render :partial => 'users/change_basicinfo' %>
+          <%= render :partial => 'users/change_password' %>
         </div>
-      </div>
-    </div>
-    <!-- PROFILE-1 tab ENDS HERE -->
-    <div class="tab-pane" id="profile_2">
-      <div class="row">
-        <div class="prof bottom_border_grey">
-          <div class="row">
-            <div class="col-xs-5 col-sm-6">
-              <h4 class=""><%= t('myprofile.organization_info') %></h4>
-            </div>
-            <% if @orgs.class != Megam::Error %>
-              <% if @orgs.length > 0 %>
-                <% @orgs.each do |one_org| %>
-                  <div class="dropdown">
-                    <button class="pull-right btn btn-default dropdown-toggle"  id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                      <%= one_org[:name] %>
-                      <span class="caret"></span>
-                    </button>
-                    <%= select_tag(:orglist, options_for_select(@orgs.map{|org| org[:name]}), :class => "dropdown-menu pull-right btn btn-default dropdown-toggle") %>
-                  </ul>
-                </div>
-              <% end %>
-            <% else %>
-              <div class="dropdown">
-                <button class="pull-right btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                  <%= t('errors.no_organizations_found') %>
-                  <span class="caret"></span>
-                </button>
-              </div>
-            <% end %>
-          <% else %>
-            <div class="dropdown">
-              <button class="pull-right btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                <%= t('errors.no_organizations_found') %>
-                <span class="caret"></span>
-              </button>
-            </div>
-          <% end %>
-          <div class="invite_user_modal">
-            <button class="pull-right btn btn-sucess">
-              Invite
-            </button>
-          </div>
+        <div class="tab-pane" id="profile_2">
+          <%= render :partial => 'users/myorganization', :locals => {:orgs => @orgs} %>
         </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12 margintb_15">
-        <ul  class="nav nav-pills c_nav_pills">
-          <li class="active">
-            <a href="#tab_2_1" data-toggle="tab"><%= t('myprofile.users') %> <span style="margin-left:15px;">|</span></a>
-          </li>
-          <li class="">
-            <a href="#tab_2_2" data-toggle="tab"><%= t('myprofile.domains') %></a>
-          </li>
-        </ul>
-        <div  class="tab-content">
-          <div class="tab-pane fade active in" id="tab_2_1">
-            <table class="table tb_action_list">
-              <thead>
-                <tr>
-                  <th>Username </th>
-                  <th>Email</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td class="set_name"><%= @account.first_name %></td>
-                  <td class="set_title"><%= @account.email %></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="tab-pane fade" id="tab_2_2">
-            <table class="table tb_action_list">
-              <tbody>
-                <tr>
-                  <td><a href=""><%= t('marketplace.megambox') %></a></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+        <div class="tab-pane" id="profile_3">
+          <%= render :partial => 'users/change_apikey' %>
         </div>
       </div>
     </div>
   </div>
-  <div class="tab-pane" id="profile_3">
-    <div class="row">
-      <div class="prof bottom_border_grey">
-        <div class="row">
-          <div class="col-xs-10 col-sm-9">
-            <h4 class=""><%= t('myprofile.your_api_key') %></h4>
-          </div>
-          <%= form_tag(user_path, :method => "put", :remote => true) do %>
-            <input type="hidden" name="myprofile_type" value="<%= Api::Accounts::UPD_API_KEY %>">
-            <%= submit_tag t('myprofile.update'), :class => "pull-right btn-disabled disabled btn btn-success col-md-2 col-xs-0" %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-    <%= form_tag user_path, :remote => true  do %>
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <table class="table tb_action_list">
-          <thead>
-            <tr>
-              <th><%= t('keys') %></th>
-              <th><%= t('ssh_keys.created_at') %></th>
-              <th><%= t('actions') %></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="set_title" > <%= @account.api_key %></td>
-              <td > <%= @account.created_at %></td>
-              <td><i class="icon-trash"></i>Delete</td>
-            </tr>
-          </tbody>
-        </table>
-      <% end %>
-    </div>
-  </div>
-</div>
-</div>
-</div>
 </div>
 <div id="invite_user" class="modal fade" data-backdrop="static" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" style="max-width:400px">
@@ -259,38 +67,36 @@
 </div>
 <!-- To load toastr message  -->
 <%= render :partial => "layouts/toastr_message" %>
-<!-- To load pin verification modal  -->
-<%= render :partial => "phones/pin_verify_modal", :locals => {:redirect => "/users/1/edit"} %>
+<%= render :partial => "phones/authorize_mobile", :locals => {:redirect => "/users/1/edit"} %>
 <script type="text/javascript">
   $(document).ready(function() {
-    	$('.invite_user_modal').click(function(e) {
-    		$('#invite_user').modal();
-    	});
-        $("#password_submit").on("click", function(event) {
-    	var match = $('#newpassword').val() == $('#newpassword_confirmation').val();
-        if (!match) {
-            toastr.error("New password mismatch error", { "timeOut": "0"});
-            return false;
-        }
+        	$('.invite_user_modal').click(function(e) {
+        		$('#invite_user').modal();
+        	});
+            $("#password_submit").on("click", function(event) {
+        	var match = $('#newpassword').val() == $('#newpassword_confirmation').val();
+            if (!match) {
+                toastr.error("New password mismatch error", { "timeOut": "0"});
+                return false;
+            }
+            });
+          $("#phone").intlTelInput({preferredCountries: ["IN", "TZ"]});
+            // Pass mobile number to controller on clicking verify button
+            $("#phone_verify_link").on("click", function(event) {
+                // get the value inside the text field
+        	if ($("#phone").intlTelInput("isValidNumber")){
+                	var phone = $("#phone").intlTelInput("getNumber");
+        	       $.get('/phones/new', { mobile_number: phone, redirect: '/users/1/edit', format: 'js' }, function(data) {
+                	            console.log(data);
+        	        });
+        		event.preventDefault(); // don't trigger default
+        	}else{
+        		toastr.error("Enter valid number");
+        		return false;
+        	}
+            });
+            $("#profile_submit").on("click", function(event) {
+        	     $("#phone").val($("#phone").intlTelInput("getNumber"));
+            });
         });
-      $("#phone").intlTelInput({preferredCountries: ["IN", "TZ"]});
-    // Pass mobile number to controller on clicking verify button
-        $("#phone_verify_link").on("click", function(event) {
-            // get the value inside the text field
-    	if ($("#phone").intlTelInput("isValidNumber")){
-            	var phone = $("#phone").intlTelInput("getNumber");
-    	       $.get('/phones/new', { mobile_number: phone, redirect: '/users/1/edit', format: 'js' }, function(data) {
-            	    // log the result from the server, or whatever...
-    	            console.log(data);
-    	        });
-    		event.preventDefault(); // don't trigger default
-    	}else{
-    		toastr.error("Enter valid number");
-    		return false;
-    	}
-        });
-        $("#profile_submit").on("click", function(event) {
-    	$("#phone").val($("#phone").intlTelInput("getNumber"));
-        });
-    });
 </script>

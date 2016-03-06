@@ -1,9 +1,12 @@
 require 'site_setting_extension'
-require 'flavor/favour_item'
 require_dependency 'site_settings/yaml_loader'
+require 'current_user'
+require 'flavor/favour_item'
+
 
 class SiteSetting
   extend SiteSettingExtension
+  include CurrentUser
 
   #def self.after_save do |site_setting|
   #  NilavuEvent.trigger(:site_setting_saved, site_setting)
@@ -35,8 +38,7 @@ class SiteSetting
   end
 
   def self.domain_name
-    #current_user.team.last_used_domain
-    "megambox.com"
+    current_user.team.last_used_domain
   end
 
 

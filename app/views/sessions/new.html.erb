@@ -120,7 +120,7 @@
         <div  class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">
             <div class="row">
                 <p>
-                    <a href="http://enixel.com/" target="_blank"><%= t('login.ui_design_credits') %></a><span class="pull-right"><a href="https://www.megam.io" target="_blank"><%= t('login.megam_io') %></a></span>
+                    <a href="http://enixel.com/" target="_blank"><%= t('login.ui_design_credits') %></a><span class="pull-right"><a href="#{UrlHelper.public_suffix(SiteSetting.contact_url)}" target="_blank"><%= UrlHelper.public_suffix(SiteSetting.contact_url) %></a></span>
                 </p>
             </div>
         </div>

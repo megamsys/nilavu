@@ -11,6 +11,8 @@ class User
   attr_accessor :verified
   attr_accessor :password_reset_key
   attr_accessor :password_reset_sent_at
+  attr_accessor :created_at
+  attr_accessor :errors
 
   ADMIN = 'admin'.freeze
 
@@ -29,6 +31,7 @@ class User
     user.password = params[:password]
     user.password_reset_key = params[:password_reset_key]
     user.password_reset_sent_at = params[:password_reset_sent_at]
+    user.created_at = params[:created_at]
     user
   end
 
@@ -47,6 +50,12 @@ class User
   def save
     ensure_password_is_hashed
     Api::Accounts.new.save(to_hash)
+  end
+
+  def email_available?
+    find_by_email
+  rescue Nilavu::NotFound => e
+    false
   end
 
   def password=(password)

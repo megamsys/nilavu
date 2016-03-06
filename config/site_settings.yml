@@ -27,6 +27,8 @@ required:
   notification_email:
     default: 'noreply@unconfigured.megam.io.io'
     type: email
+  disable_customization:
+    default: true
   logo_url:
     default: '/images/logo_vertice.png'
   logo_small_url:
@@ -35,7 +37,6 @@ required:
     default: '/images/logo_vertice_reverse.png'
   favicon_url:
     default: '/images/default_favicon.png'
-  footer: '/assets/footer.html.erb'
   version_checks:
     default: false
     new_version_emails: false
@@ -119,6 +120,12 @@ login:
   ceph_gateway: ''
   ceph_username: megdc
   ceph_password: megdc
+  email_domains_blacklist:
+    default: 'mailinator.com'
+    type: list
+  email_domains_whitelist:
+    default: ''
+    type: list
 
 users:
   min_password_length:
@@ -130,14 +137,11 @@ users:
     default: ''
   full_name_required:
     default: false
-  enable_names:
-    default: true
   invite_expiry_days: 30
-  invite_passthrough_hours: 0
-  redirect_users_to_top_page: true
-  show_email_on_profile:
-    default: true
   allow_default_billings: false
+  reserved_emails:
+    type: list
+    default: "tour@megam.io|test@megam.io|support@megam.io|admin@megam.io"
 
 security:
   use_https: false
@@ -177,4 +181,6 @@ legal:
   privacy_policy_url:
     default: ''
   faq_url:
-    default: ''
+    default: 'http://docs.megam.io/docs/megam_oja_gettingstarted'
+  support_url:
+    default: 'http://support.megam.io'

@@ -1,6 +1,8 @@
+require_dependency 'sshkeys_finder'
+
 class LaunchableItem
 
-  attr_accessor :versions, :existing_sshkeys, :marketplace_item
+  attr_accessor :versions, :sshfinder, :marketplace_item
 
   ONE              =  'one'.freeze
   DOCKER           =  'docker'.freeze
@@ -11,7 +13,7 @@ class LaunchableItem
 
     ensure_version_is_flattened
 
-    find_sshkeys(params) if should_pull_sshkey?
+    find_sshkeys(params)
   end
 
   def self.reload_cached_item!(params)
@@ -67,14 +69,6 @@ class LaunchableItem
     @marketplace_item.plans.select { |v, d| v == version }.reduce { :merge }
   end
 
-  def has_sshkeys?
-    return sshkeys_strip && sshkeys_strip.length > 0
-  end
-
-  def sshkeys_strip
-    @existing_sshkeys.map {|ssh| ssh[:name] }
-  end
-
 
   private
 
@@ -82,15 +76,8 @@ class LaunchableItem
     @versions = @marketplace_item.plans.map { |v, d| v }.sort
   end
 
-  def should_pull_sshkey?
-    true
-  end
-
   def find_sshkeys(params)
-    @existing_sshkeys ||= load_sshkeys(params)
+    @sshfinder ||= SSHKeysFinder.new(params)
   end
 
-  def load_sshkeys(params)
-    Api::Sshkeys.new.list(params)
-  end
 end

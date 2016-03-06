@@ -36,4 +36,10 @@ Nilavu::Application.configure do
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+  # a comma delimited list of emails your devs have
+  # developers have god like rights and may impersonate anyone in the system
+  if emails = GlobalSetting.developer_emails
+    config.developer_emails = emails.split(",").map(&:strip)
+  end
 end
