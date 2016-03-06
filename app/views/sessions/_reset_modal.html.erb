@@ -11,8 +11,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <%= form_tag password_resets_path, :id => 'reset_form', :method => :post, data: { spinlock: '#creating_sshkeys'}  do %>
-
+                                <%= form_tag 'password_reset', :id => 'reset_form', :method => :post, data: { spinlock: '#creating_sshkeys'}  do %>
                                 <label for="ssh-key_name"><%= t('login.your_registered_email') %></label>
                                 <%= text_field_tag :email, nil, :class => 'form-control', :required => true, placeholder: 'Enter Your Email' %>
                             </div>

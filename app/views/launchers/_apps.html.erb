@@ -23,7 +23,7 @@
         <br/>
         <div class="">
           <%= render 'launch/name' :locals => {:launch_item => @launch_item} %>
-          <%= render 'launchers/step1_choose_favourized' %>
+          <%= render 'launchers/step1_choose_favourize' %>
           <%= render 'launchers/step3_choose_git', :locals => {:launch_item => @launch_item} %>
           <%= render 'launchers/step2_choose_sshkey', :locals => {:launch_item => @launch_item} %>
           <br/>
@@ -40,3 +40,58 @@
     </div>
   </div>
 <% end %>
+<script type="text/javascript">
+  // Script to show the scm type (gitlab or github)
+      function scmOption(myRadio) {
+        choose_megam_scm = myRadio.value;
+        switch (choose_megam_scm) {
+        case "byoc_scm" :
+          $("#app_byoc_scm").show();
+          break;
+        case "core_scm" :
+          $("#app_byoc_scm").hide();
+          break;
+        default :
+          $("#app_byoc_scm").hide();
+        }
+      }
+
+      // Onclick events for gitlab and github
+      function github_oauth() {
+        $("#scm_name").val("github");
+        $("#type").val("source");
+        $.oauthpopup({
+          path: "/auth/github",
+          callback: function () {
+            $.ajax({
+              type: "POST",
+              url: "/publish_github",
+              success: function (data) {
+              },
+              error: function (data) {
+              }
+            });
+            return false;
+          }
+        });
+      }
+
+      function gitlab_auth() {
+        $("#scm_name").val("gitlab");
+        $("#type").val("source");
+        $.oauthpopup({
+          path: "/auth/gitlab",
+          callback: function () {
+            $.ajax({
+              type: "POST",
+              url: "/publish_gitlab",
+              success: function (data) {
+              },
+              error: function (data) {
+              }
+            });
+            return false;
+          }
+        });
+      }
+</script>

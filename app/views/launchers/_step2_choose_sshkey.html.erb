@@ -1,4 +1,5 @@
 <%= finder = @launch_item.sshfinder %>
+<%= hidden_field_tag 'sshoption', nil, placeholder: "", :class =>"form-control sshoption"%>
 <div class="row">
   <div class="col-xs-6">
     <h4><%= t('marketplace.ssh_list_title') %></h4>

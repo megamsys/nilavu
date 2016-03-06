@@ -1,0 +1,55 @@
+<!-- START Api::Assemblies::APP -->
+<%= hidden_field_tag 'scm_name', nil, placeholder: "", :class =>"form-control"%>
+<%= hidden_field_tag 'type', nil, placeholder: "", :class => "form-control" %>
+<div class="row">
+  <div class="col-xs-6">
+    <p class="radioP">
+      <input id="r1" name="radio_app_scm" onclick="scmOption(this);" required type="radio" value="core_scm"/>
+      <label for="r1">
+        <span class="radioButtonGraph"></span>
+        <%= "Plain java, node.js, scala" %></label>
+    </p>
+  </div>
+  <div class="col-xs-6">
+    <p class="radioP">
+      <input id="r2" name="radio_app_scm" onclick="scmOption(this);" required type="radio" value="byoc_scm"/>
+      <label for="r2">
+        <span class="radioButtonGraph"></span>
+        <%= "Bring Your Own Code" %></label>
+    </p>
+  </div>
+</div>
+<div id="app_byoc_scm" style="display:none;">
+  <h4>
+    <%= t('marketplace.choose_your_scm') %>
+  </h4>
+  <div class="row">
+    <div class="col-md-6 text-center">
+      <div class="col-md-offset-4 col-md-2">
+        <a class="hint  hint--bottom" data-hint="Connect with your public github id" href="#" name="image_type" onclick="return github_oauth();" value="github">
+          <%= image_tag "gh.png",:class=> "img-responsive_byoc "%>
+        </a>
+      </div>
+    </div>
+    <div class="col-md-6 text-center">
+      <div class="col-md-offset-4 col-md-2">
+        <% if SiteSetting.enable_gitlab_source %>
+          <a href="#" class="hint  hint--bottom" onclick="return gitlab_auth();" data-hint="Connect with your private Gitlab id"> <%= image_tag "gitlabimg.png",:class=> "img-responsive_byoc "%> </a>
+        <% else %>
+          <a href="#" class="hint  hint--bottom" data-hint="Gitlab disabled."> <%= image_tag "gitlabimg.png",:class=> "img-responsive_byoc "%> </a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-sm-12 col-xs-12">
+      <div id="repos">
+        <%= select_tag "repo_select", options_for_select([ ]), include_blank: "Please Click on the above icon to list your repos" , :class =>"form-control", :required => true %>
+      </div>
+    </div>
+  </div>
+</div>
+<%= hidden_field_tag 'source', nil, placeholder: '', :class =>"form-control", :value => '' %>
+<%= hidden_field_tag 'check_ci', nil, placeholder: '', :class =>"form-control", :value => 'false',:id => 'check_ci' %>
+<!-- END Api::Assemblies::APP -->

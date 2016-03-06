@@ -117,7 +117,7 @@ class ApplicationController < ActionController::Base
       require 'http_accept_language' unless defined? HttpAcceptLanguage
       available_locales = I18n.available_locales.map { |locale| locale.to_s.gsub(/_/, '-') }
       parser = HttpAcceptLanguage::Parser.new(request.env["HTTP_ACCEPT_LANGUAGE"])
-      parser.language_region_compatible_from(available_locales).gsub(/-/, '_')
+      c = parser.language_region_compatible_from(available_locales).gsub(/-/, '_')
       logger.debug "---------- HTTP Accept-Language "
       logger.debug request.env["HTTP_ACCEPT_LANGUAGE"].inspect
       logger.debug parser.user_preferred_languages.inspect

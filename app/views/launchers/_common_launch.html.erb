@@ -23,9 +23,8 @@
         <br/>
         <div class="">
           <%= render 'launch/name' :locals => {:launch_item => @launch_item} %>
-          <%= render 'launchers/step1_choose_favourized' %>
-          <%= render 'launchers/step3_choose_git', :locals => {:launch_item => @launch_item} %>
-          <%= render 'launchers/step2_choose_sshkey', :locals => {:launch_item => @launch_item} %>
+          <%= render template="launchers/choose_1_favourizet" %>
+          <%= render template="launchers/choose_2_sshkey", :locals => {:launch_item => @launch_item} %>
           <br/>
           <br/>
           <div class="row">

@@ -50,6 +50,8 @@ basic:
     default: 'en'
     enum: 'LocaleSiteSetting'
     refresh: true
+  allow_user_locale:
+    default: false  
   ga_universal_tracking_code:
     default: ''
     regex: "^UA-\\d+-\\d+$"

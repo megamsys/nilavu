@@ -46,7 +46,7 @@ class SessionsController < ApplicationController
   def destroy
     reset_session
     log_off_user
-    SiteSettings.logout_redirect ? redirect_to SiteSettings.logout_redirect : bye
+    SiteSettings.logout_redirect ? (redirect_to SiteSettings.logout_redirect) : bye
   end
 
   private
