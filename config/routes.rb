@@ -17,39 +17,30 @@ Nilavu::Application.routes.draw do
   resources :ssh_keys
   resources :buckets
   resources :bucketkolkes
-  resources :password_resets
   resources :billings
   resources :onetorpedos
   resources :oneapps
   resources :oneservices
   resources :onemicroservices
   resources :phones
-  # Internal AJAX API
-  resources :events
+  resources :events   # Internal AJAX API
 
   # named route for users, session
   match '/signup', to: 'users#new', via: [:get]
   match '/signin', to: 'sessions#new', via: [:get]
   match '/tour', to: 'sessions#tour', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post, :delete]
+  post "forgot_password" => "session#forgot_password"
+  get "password-reset/:token" => "users#password_reset"
+  put "password-reset/:token" => "users#password_reset"
 
   match "/auth/:provider/callback", to: "omniauth_callbacks#complete", via: [:get, :post]
   match "/auth/failure", to: "users/omniauth_callbacks#failure", via: [:get, :post]
 
-  post "login" => "static#enter"
-  get "login" => "static#show", id: "login"
-  get "password-reset" => "static#show", id: "password_reset"
-
-  get "users/password-reset/:token" => "users#password_reset"
-  get "users/confirm_email_token/:token" => "users#confirm_email_token", constraints: { format: 'json' }
-  get "users/activate_account/:token" => "users#activate_account"
-  put "users/activate_account/:token" => "users#perform_account_activation", as: 'perform_activate_account'
-  get "users/authorize_email/:token" => "users#authorize_email"
-
-  #Nilavu.launchers.each do |launcher|
   get  "launchers/:id" => "launchers#launch"
   post "launchers" => "launchers#perform_launch"
-  #end
+
+  get "robots.txt" => "robots_txt#index"
 
   # named route for billing, paid message callback from paypal or bitcoin
   match '/billings_promo', to: 'billings#promo', via: [:get, :post]

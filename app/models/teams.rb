@@ -5,6 +5,10 @@ class Teams
   def initialize()
   end
 
+  def has_team?
+    !teams.blank?
+  end
+
   def find_all(params)
     @teams = Api::Organizations.new.list(params)
     @teams_by_id = {}
@@ -26,7 +30,8 @@ class Teams
     @teams_by_id.values[last_seen] if @teams_by_id
   end
 
-  def update_team
+  def domains_for(team)
+    @teams_by_id[team.id].domain
   end
 
 end

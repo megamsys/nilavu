@@ -26,5 +26,8 @@ Nilavu::Application.configure do
   config.react.variant = :development
 
   require 'rbtrace'
-
+  
+  if emails = GlobalSetting.developer_emails
+    config.developer_emails = emails.split(",").map(&:strip)
+  end
 end

@@ -68,11 +68,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
   def set_locale
-    I18n.locale = SiteSetting.default_locale
+    if SiteSetting.allow_user_locale
+      I18n.locale = locale_from_header
+    else
+      I18n.locale = SiteSetting.default_locale
+    end
     I18n.ensure_all_loaded!
   end
-
 
   def redirect_to_login_if_required
     return if current_user
@@ -101,10 +105,33 @@ class ApplicationController < ActionController::Base
   end
 
   def current_homepage
-    current_user ? SiteSetting.homepage : SiteSetting.anonymous_homepag
+    current_user ? SiteSetting.homepage : SiteSetting.anonymous_homepage
   end
 
   private
+
+  def locale_from_header
+    begin
+      # Rails I18n uses underscores between the locale and the region; the request
+      # headers use hyphens.
+      require 'http_accept_language' unless defined? HttpAcceptLanguage
+      available_locales = I18n.available_locales.map { |locale| locale.to_s.gsub(/_/, '-') }
+      parser = HttpAcceptLanguage::Parser.new(request.env["HTTP_ACCEPT_LANGUAGE"])
+      c = parser.language_region_compatible_from(available_locales).gsub(/-/, '_')
+      logger.debug "---------- HTTP Accept-Language "
+      logger.debug request.env["HTTP_ACCEPT_LANGUAGE"].inspect
+      logger.debug parser.user_preferred_languages.inspect
+      logger.debug c.inspect
+      logger.debug "---------- HTTP Accept-Language <end>"
+      c
+    rescue
+      # If Accept-Language headers are not set.
+      I18n.default_locale
+    end
+  end
+
+
+
   #def custom_html
   #  data = {
   #    top: SiteCustomization.custom_top(session[:preview_style]),

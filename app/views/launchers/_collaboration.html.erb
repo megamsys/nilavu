@@ -13,6 +13,4 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-<%= form_tag collaboration_creating_path, multipart: true, :novalidate => 'novalidate', :id => "megamform",  :method => 'post'  do %>
-  <%= render :partial => "launchers/common_launch", :locals => {:going_to_launch => @going_to_launch } %>
-<% end %>
+<%= render :partial => "launchers/common_launch", :locals => {:launch_item => @launch_item } %>

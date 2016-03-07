@@ -78,12 +78,13 @@
           <%= render :partial => "layouts/toastr_message" %>
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-              <%- if SiteSetting.allow_otp_verifications.present? %>
-                <button type="submit" class="btn btn-success col-lg-12" data-remote="true" data-disable-with=t('signup.creating_accout') disabled="disabled" id="create_user">
+              <% if SiteSetting.allow_otp_verifications.present? %>
+
+                <button type="submit" class="btn btn-success col-lg-12" data-remote="true" data-disable-with=<%= t('signup.creating_account') %> disabled="disabled" id="create_user">
                   <%= t('signup.create_account') %>
                 </button>
               <% else %>
-                <button type="submit" class="btn btn-success col-lg-12" data-remote="true" data-disable-with=t('signup.creating_accout')>
+              <button type="submit" class="btn btn-success col-lg-12" data-remote="true" data-disable-with=<%= t('signup.creating_account') %>>
                   <%= t('signup.create_account') %>
                 </button>
               <% end %>
@@ -108,8 +109,8 @@
     </div>
   </div>
 </div>
-<!-- To load pin verification modal  -->
-<%= render :partial => "phones/pin_verify_modal", :locals => {:redirect => "/signup"} %>
+<!-- authorize mobile device by allowing user to type a  pin  -->
+<%= render :partial => "phones/authorize_mobile", :locals => {:redirect => "/signup"} %>
 </body>
 <script>
   $(document).ready(function() {
@@ -129,7 +130,7 @@
       	        });
       		event.preventDefault(); // don't trigger default
       	}else{
-      		toastr.error("Enter valid number");
+      		toastr.error("Enter a valid mobile number");
       		return false;
       	}
           });

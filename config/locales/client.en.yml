@@ -67,6 +67,18 @@ en:
     created_account: "Your account is activated and ready to use."
     submit: Submit
 
+  forgot_password:
+    success: "(email sent)"
+    errors: "Sorry, email not sent, Select the 'Forgot my password' to get a new link."
+
+  password_reset:
+    no_token: "Sorry, that password change link is too old. Select the 'Forgot my password' to get a new link."
+    success: "You successfully changed your password and are now logged in."
+  user:
+    email:
+      not_allowed: "is not allowed from that email provider. Please use another email address."
+      blocked: "is not allowed."
+
   storages:
     title: "Storages"
 

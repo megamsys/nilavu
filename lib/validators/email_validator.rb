@@ -9,10 +9,7 @@ class EmailValidator < ActiveModel::EachValidator
       if email_in_restriction_setting?(setting, value) && !is_developer?(value)
         record.errors.add(attribute, I18n.t(:'user.email.not_allowed'))
       end
-    end
-    if record.errors[attribute].blank? && value && ScreenedEmail.should_block?(value)
-      record.errors.add(attribute, I18n.t(:'user.email.blocked'))
-    end
+    end    
   end
 
   def email_in_restriction_setting?(setting, value)

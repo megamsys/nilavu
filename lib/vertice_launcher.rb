@@ -45,15 +45,15 @@ class VerticeLauncher
     [:cattype, :envs].each do |launch_data|
       params[launch_data] = @launch_item.send("#{launch_data}")
     end
-    set_where_to(params)
+    set_provider(params)
 
     set_name(params)
 
     params.merge!(FavourizeItem.new(@params[:compute_setting]).to_hash)
   end
 
-  def set_where_to(params)
-    params[:provider] = where_to
+  def set_provider(params)
+    params[:provider] = provider
   end
 
   def set_name(params)
@@ -62,13 +62,13 @@ class VerticeLauncher
 
   #    set_scmname(params)
 
-  def ensure_where_to
+  def ensure_provider
     where_to ||= DOCKER
   end
 
-  def where_to
+  def provider
     return ONE if !@launch_item.has_docker?
-    ensure_where_to
+    ensure_provider
   end
 
 end
