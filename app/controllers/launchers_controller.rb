@@ -13,9 +13,9 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-require 'json'
 
 class LaunchersController < ApplicationController
+
   respond_to :js
 
   before_action :add_authkeys_for_api, only: [:launch, :perform_launch]

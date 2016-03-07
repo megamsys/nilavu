@@ -4,10 +4,6 @@ class LaunchableItem
 
   attr_accessor :versions, :sshfinder, :marketplace_item
 
-  ONE              =  'one'.freeze
-  DOCKER           =  'docker'.freeze
-  BAREMETAL        =  'baremetal'.freeze
-
   def initialize(params, marketplace_item)
     @marketplace_item = marketplace_item
 

@@ -38,7 +38,9 @@ class SiteSetting
   end
 
   def self.domain_name
-    current_user.team.last_used_domain
+# current_user doesn't get pulled up in LaunchController    
+#    current_user.team.last_used_domain
+'megambox.com'
   end
 
 
