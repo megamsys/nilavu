@@ -15,6 +15,8 @@
 class OnetorpedosController < ApplicationController
   respond_to :html, :js
   include MarketplaceHelper
+  
+  before_action :add_authkeys_for_api, only: [:index]
 
   def index
     @assembly=Api::Assembly.new.show(params.merge({"id" => params[:id]})).by_cattypes[Api::Assemblies::TORPEDO]
