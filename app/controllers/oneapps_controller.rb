@@ -18,6 +18,7 @@ class OneappsController < ApplicationController
   include OneoverHelper
   include CatalogHelper
 
+  before_action :add_authkeys_for_api, only: [:show]
 
   def index
     @assembly = Api::Assembly.new.show(params.merge('id' => params[:id])).by_cattypes[Api::Assemblies::APP]
