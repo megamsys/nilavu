@@ -17,7 +17,7 @@ class LaunchableItem
   end
 
   def type
-    Nilavu.default_categories.select { |i| i == @marketplace_item.cattype.downcase }.first
+     Nilavu.default_categories.select { |i| i == @marketplace_item.cattype.downcase }.first
   end
 
   #flag abused words ?

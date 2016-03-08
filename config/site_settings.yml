@@ -51,7 +51,7 @@ basic:
     enum: 'LocaleSiteSetting'
     refresh: true
   allow_user_locale:
-    default: false  
+    default: false
   ga_universal_tracking_code:
     default: ''
     regex: "^UA-\\d+-\\d+$"
@@ -75,10 +75,10 @@ basic:
      - profile
   left_menu:
     type: list
-    default: 'torpedo|app|service|microservice'
+    default: 'torpedo|app|service|microservices'
   default_categories:
      type: list
-     default: 'torpedo|app|service|microservice|analytics|collaboration'
+     default: 'torpedo|app|service|microservices|analytics|collaboration'
   default_categories_muted:
      type: list
      default: 'app|service|collaboration|analytics'

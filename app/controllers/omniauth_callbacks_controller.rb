@@ -1,9 +1,24 @@
+##
+## Copyright [2013-2016] [Megam Systems]
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+## http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+##
+
 # -*- encoding : utf-8 -*-
-#require_dependency 'email'
 require_dependency 'enum'
-#require_dependency 'user_name_suggester'
 
 class OmniauthCallbacksController < ApplicationController
+
   BUILTIN_AUTH = [
     Auth::FacebookAuthenticator.new,
     Auth::GoogleOAuth2Authenticator.new,
@@ -24,9 +39,10 @@ class OmniauthCallbacksController < ApplicationController
     authenticator = self.class.find_authenticator(params[:provider])
     provider = Nilavu.auth_providers && Nilavu.auth_providers.find{|p| p.name == params[:provider]}
     @auth_result = authenticator.after_authenticate(auth)
+
     origin = request.env['omniauth.origin']
     if origin.present?
-      parsed = URI.parse(@origin) rescue nil
+      parsed = URI.parse(origin) rescue nil
       if parsed
         @origin = parsed.path
       end
@@ -36,31 +52,32 @@ class OmniauthCallbacksController < ApplicationController
       @origin = Nilavu.base_uri("/")
     end
 
+    @auth_result.redirect = origin
+
     if @auth_result.failed?
       flash[:error] = @auth_result.failed_reason.html_safe
-      return render('failure')
+      return failure
     else
       @auth_result.authenticator_name = authenticator.name
       complete_response_data
+
       if provider && provider.full_screen_login
         cookies['_bypass_cache'] = true
         flash[:authentication_data] = @auth_result.to_client_hash.to_json
-        redirect_to @origin
+        redirect_to origin
       else
+        return redirect_to_where_it_came(@auth_result.to_client_hash)
+
         after_create_account(@auth_result.to_client_hash)
-        #respond_to do |format|
-          #format.html
-          #format.json { render json: @auth_result.to_client_hash }
-        #end
+
       end
     end
   end
 
   def failure
     flash[:error] = I18n.t("login.omniauth_error")
-    render layout: 'no_ember'
+    render layout: 'failure'
   end
-
 
   def self.find_authenticator(name)
     BUILTIN_AUTH.each do |authenticator|
@@ -79,10 +96,14 @@ class OmniauthCallbacksController < ApplicationController
 
   protected
 
+  def complete_response_data
+    session[:authentication] = @auth_result.session_data
+  end
+
+  #this code is redundant, make it a new class
+  #(Onboard and use in both user#create and here)
   def after_create_account(result)
-    user = User.new
-    user.email = result[:email]
-    user.first_name = result[:username] || result[:name]
+    user = User.new_from_params(result)
     user.api_key = SecureRandom.hex(20) if user.api_key.blank?
     activation = UserActivator.new(user, request, session, cookies)
     activation.start
@@ -90,45 +111,17 @@ class OmniauthCallbacksController < ApplicationController
     if user.save
       activation.finish
 
-      session["signup.created_message"] = activation.message
-      redirect_with_success(cockpits_path, "signup.created_message")
+      session["signup.created_account"] = activation.message
+      redirect_with_success(cockpits_path, "signup.created_account")
     else
       session["signup.create_failure"] = activation.message
-      redirect_with_failure(cockpits_path, "login.errors", account.errors.full_messages.join("\n"))
+      redirect_with_failure(signin_path, "login.errors", user.errors.full_messages.join("\n"))
     end
   end
 
+  private
 
-  def complete_response_data
-    if @auth_result.user
-      user_found(@auth_result.user)
-    else
-      session[:authentication] = @auth_result.session_data
-    end
+  def redirect_to_where_it_came(result_hash)
+    return if !@origin.include? 'signin'
   end
-
-  def user_found(user)
-    # automatically activate any account if a provider marked the email valid
-    if !user.active && @auth_result.email_valid
-      user.toggle(:active).save
-    end
-
-    if ScreenedIpAddress.should_block?(request.remote_ip)
-      @auth_result.not_allowed_from_ip_address = true
-    elsif ScreenedIpAddress.block_admin_login?(user, request.remote_ip)
-      @auth_result.admin_not_allowed_from_ip_address = true
-    elsif Guardian.new(user).can_access_forum? && user.active # log on any account that is active with forum access
-      log_on_user(user)
-      Invite.invalidate_for_email(user.email) # invite link can't be used to log in anymore
-      session[:authentication] = nil # don't carry around old auth info, perhaps move elsewhere
-      @auth_result.authenticated = true
-    else
-      if SiteSetting.must_approve_users? && !user.approved?
-        @auth_result.awaiting_approval = true
-      else
-        @auth_result.awaiting_activation = true
-      end
-    end
-  end
-
 end

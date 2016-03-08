@@ -1,0 +1,4 @@
+<%= javascript_tag do %>
+  window.opener.location = '<%= @origin %>#';
+  window.close();
+<% end %>
