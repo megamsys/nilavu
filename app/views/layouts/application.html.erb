@@ -15,29 +15,29 @@
 -->
 <!DOCTYPE html>
 <html>
-    <head>
-      <base href="#">
-      <meta charset="utf-8"/>
-      <title><%= content_for?(:title) ? yield(:title) + ' - ' + SiteSetting.title : SiteSetting.title %></title>
-      <%= stylesheet_link_tag "application", :media => "all" %>
-      <%= javascript_include_tag "application" %>
-      <meta name="description" content="<%= SiteSetting.site_description %>">
-      <%= render partial: "layouts/head" %>
+  <head>
+    <base href="#">
+    <meta charset="utf-8"/>
+    <title><%= content_for?(:title) ? yield(:title) + ' - ' + SiteSetting.title : SiteSetting.title %></title>
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <meta name="description" content="<%= SiteSetting.site_description %>">
+    <%= render partial: "layouts/head" %>
+    <%= nilavu_csrf_tags %>
 
-      <%= render_google_universal_analytics_code %>
-      <%= render_nudgespot_realtimechat_code %>
-
-      <script src="https://www.google.com/jsapi" type="text/javascript"></script>
-      <script type="text/javascript">
-        google.load('visualization', '1', {
-          packages: ['corechart']
-        });
-      </script>
-    </head>
-    <body>
-      <%= render 'toastr_rails/flash' %>
-     <div id="cockpit">
-        <%= yield %>
-      </div>
-    </body>
-  </html>
+    <%= render_google_universal_analytics_code %>
+    <%= render_nudgespot_realtimechat_code %>
+    <script src="https://www.google.com/jsapi" type="text/javascript"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1', {
+                packages: ['corechart']
+              });
+    </script>
+  </head>
+  <body>
+    <%= render 'toastr_rails/flash' %>
+    <div id="cockpit">
+      <%= yield %>
+    </div>
+  </body>
+</html>

@@ -18,10 +18,12 @@ require 'current_user'
 require_dependency 'nilavu'
 require_dependency 'global_path'
 require_dependency 'global_exceptions'
+require_dependency 'json_error'
 
 
 class ApplicationController < ActionController::Base
   include CurrentUser
+  include JsonError
   include GlobalPath
   include GlobalExceptions
 
@@ -105,8 +107,90 @@ class ApplicationController < ActionController::Base
   end
 
   def current_homepage
-    current_user ? SiteSetting.homepage : SiteSetting.anonymous_homepage
+    current_user ? SiteSetting.homepage : "/signin"
   end
+
+###START json changes for 2.0 ember based.
+  def serialize_data(obj, serializer, opts=nil)
+    # If it's an array, apply the serializer as an each_serializer to the elements
+    serializer_opts = opts || {}
+    if obj.respond_to?(:to_ary)
+      serializer_opts[:each_serializer] = serializer
+      ActiveModel::ArraySerializer.new(obj.to_ary, serializer_opts).as_json
+    else
+      serializer.new(obj, serializer_opts).as_json
+    end
+  end
+
+  # This is odd, but it seems that in Rails `render json: obj` is about
+  # 20% slower than calling MultiJSON.dump ourselves. Rails doesn't call
+  # MultiJson.dump when you pass it json: obj but it seems we don't need
+  # whatever Rails is doing.
+  def render_serialized(obj, serializer, opts=nil)
+    render_json_dump(serialize_data(obj, serializer, opts), opts)
+  end
+
+  def render_json_dump(obj, opts=nil)
+    opts ||= {}
+    if opts[:rest_serializer]
+      obj['__rest_serializer'] = "1"
+      opts.each do |k, v|
+        obj[k] = v if k.to_s.start_with?("refresh_")
+      end
+
+      obj['extras'] = opts[:extras] if opts[:extras]
+    end
+
+    render json: MultiJson.dump(obj), status: opts[:status] || 200
+  end
+
+  # Render action for a JSON error.
+  #
+  # obj      - a translated string, an ActiveRecord model, or an array of translated strings
+  # opts:
+  #   type   - a machine-readable description of the error
+  #   status - HTTP status code to return
+  def render_json_error(obj, opts={})
+    opts = { status: opts } if opts.is_a?(Fixnum)
+    render json: MultiJson.dump(create_errors_json(obj, opts[:type])), status: opts[:status] || 422
+  end
+
+  def success_json
+    { success: 'OK' }
+  end
+
+  def failed_json
+    { failed: 'FAILED' }
+  end
+
+  def json_result(obj, opts={})
+    if yield(obj)
+      json = success_json
+
+      # If we were given a serializer, add the class to the json that comes back
+      if opts[:serializer].present?
+        json[obj.class.name.underscore] = opts[:serializer].new(obj, scope: guardian).serializable_hash
+      end
+
+      render json: MultiJson.dump(json)
+    else
+      error_obj = nil
+      if opts[:additional_errors]
+        error_target = opts[:additional_errors].find do |o|
+          target = obj.send(o)
+          target && target.errors.present?
+        end
+        error_obj = obj.send(error_target) if error_target
+      end
+      render_json_error(error_obj || obj)
+    end
+  end
+
+  def can_cache_content?
+    current_user.blank? && flash[:authentication_data].blank?
+  end
+
+### END. the json methods are for 2.0 ember changes.
 
   private
 
@@ -117,13 +201,7 @@ class ApplicationController < ActionController::Base
       require 'http_accept_language' unless defined? HttpAcceptLanguage
       available_locales = I18n.available_locales.map { |locale| locale.to_s.gsub(/_/, '-') }
       parser = HttpAcceptLanguage::Parser.new(request.env["HTTP_ACCEPT_LANGUAGE"])
-      c = parser.language_region_compatible_from(available_locales).gsub(/-/, '_')
-      logger.debug "---------- HTTP Accept-Language "
-      logger.debug request.env["HTTP_ACCEPT_LANGUAGE"].inspect
-      logger.debug parser.user_preferred_languages.inspect
-      logger.debug c.inspect
-      logger.debug "---------- HTTP Accept-Language <end>"
-      c
+      parser.language_region_compatible_from(available_locales).gsub(/-/, '_')
     rescue
       # If Accept-Language headers are not set.
       I18n.default_locale

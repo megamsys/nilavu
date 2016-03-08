@@ -1,3 +1,3 @@
-#require 'rack/protection'
+require 'rack/protection'
 
-#Rails.configuration.middleware.use Rack::Protection::FrameOptions
+Rails.configuration.middleware.use Rack::Protection::FrameOptions

@@ -1,9 +1,12 @@
 class SiteCustomization
+  attr_writer :body_tag, :body_tag_baked, :head_tag, :head_tag_baked, :header, :header_baked
+  attr_writer :mobile_header,  :mobile_header_baked, :top, :top_baked, :mobile_header,  :mobile_header_baked
+  attr_writer :footer, :footer_baked, :mobile_footer, :mobile_footer_baked
 
   @cache = Rails.cache
 
   def self.html_fields
-    %w(body_tag head_tag header mobile_header footer mobile_footer)
+    %w(body_tag head_tag header top mobile_header footer mobile_footer)
   end
 
   SiteCustomization.html_fields.each do |html_attr|
@@ -11,7 +14,6 @@ class SiteCustomization
       self.send("#{html_attr}=", erb)
     end
   end
-
 
   SiteCustomization.html_fields.each do |html_attr|
     if self.send("#{html_attr}")

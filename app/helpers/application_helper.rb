@@ -44,6 +44,12 @@ module ApplicationHelper
     @application_logo_url ||=  SiteSetting.logo_url
   end
 
+  def nilavu_csrf_tags
+    if current_user
+      csrf_meta_tags
+    end
+  end
+
 
   def customization_disabled?
     session[:disable_customization] || SiteSetting.disable_customization
@@ -67,7 +73,7 @@ module ApplicationHelper
      Dir.glob("site/*.html.erb")
   end
 
-  def self.customtags_for_site(name)
+  def self.customtag_for_site(name)
 
     # Don't evaluate plugins in test
     return "" if Rails.env.test?

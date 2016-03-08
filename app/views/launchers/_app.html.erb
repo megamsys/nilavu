@@ -31,7 +31,7 @@
           <div class="row">
             <div class="col-md-offset-4 col-md-4">
               <div class="form-group">
-                <%= submit_tag t('cockpits.create'), :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: "Creating..." } %>
+                <%= submit_tag t('cockpits.create'), :class => "btn btn-success col-xs-12", :data => {:remote => true, disable_with: t('launch.creating') } %>
               </div>
             </div>
           </div>
@@ -40,58 +40,74 @@
     </div>
   </div>
 <% end %>
+
 <script type="text/javascript">
-  // Script to show the scm type (gitlab or github)
-      function scmOption(myRadio) {
-        choose_megam_scm = myRadio.value;
-        switch (choose_megam_scm) {
-        case "byoc_scm" :
-          $("#app_byoc_scm").show();
-          break;
-        case "core_scm" :
-          $("#app_byoc_scm").hide();
-          break;
-        default :
-          $("#app_byoc_scm").hide();
-        }
-      }
-
-      // Onclick events for gitlab and github
-      function github_oauth() {
-        $("#scm_name").val("github");
-        $("#type").val("source");
-        $.oauthpopup({
-          path: "/auth/github",
-          callback: function () {
-            $.ajax({
-              type: "POST",
-              url: "/publish_github",
-              success: function (data) {
-              },
-              error: function (data) {
+//  $(document).ready(function() {
+    function chooseGit(gitChoice) {
+        selected = gitChoice.value;
+            switch (selected) {
+            case "git" :
+              $("#appgit").show();
+                break;
+              case "nogit" :
+                $("#appgit").hide();
+                break;
+              default :
+                $("#appgit").hide();
               }
-            });
-            return false;
-          }
-        });
-      }
+            }
 
-      function gitlab_auth() {
-        $("#scm_name").val("gitlab");
-        $("#type").val("source");
-        $.oauthpopup({
-          path: "/auth/gitlab",
-          callback: function () {
-            $.ajax({
-              type: "POST",
-              url: "/publish_gitlab",
-              success: function (data) {
-              },
-              error: function (data) {
-              }
-            });
-            return false;
-          }
-        });
-      }
+            function github_repos() {
+              $("#scm_name").val("github");
+              $("#type").val("source");
+              $.oauthpopup({
+                path: "/auth/github",
+                callback: function () {
+                  $.ajax({
+                    type: "GET",
+                    url: "/github/repos",
+                    success: function (data) {
+                    toastr.success("Repos refreshed.");
+                    $.each(data, function (i, item) {
+                      $('#repo_select').append($('<option>', {
+                        value: item,
+                        text : item
+                      }));
+                    });
+                    },
+                    error: function (data) {
+                      toastr.error("Repos refresh failure");
+                    }
+                  });
+                  return false;
+                }
+              });
+            }
+
+            function gitlab_repos() {
+              $("#scm_name").val("gitlab");
+              $("#type").val("source");
+              $.oauthpopup({
+                path: "/auth/gitlab",
+                callback: function () {
+                  $.ajax({
+                    type: "GET",
+                    url: "/gitlab/repos",
+                    success: function (data) {
+                    },
+                    error: function (data) {
+                      toastr.error("Gitlab oauth failure");
+                    }
+                  });
+                  return false;
+                }
+              });
+            }
+
+
+    		$("#source").val($("#repo_select").val());
+    		$("#repo_select").change(function() {
+    			$("#source").val($("#repo_select").val());
+    		});
+    //	});
 </script>

@@ -84,7 +84,6 @@ module Nilavu
     config.after_initialize do |app|
       app.routes.append { match '*a', to: 'application#render_404', via: [:get] } unless config.consider_all_requests_local
     end
-
     # rack lock is nothing but trouble, get rid of it
     # for some reason still seeing it in Rails 4
     config.middleware.delete Rack::Lock
@@ -97,6 +96,8 @@ module Nilavu
     # our setup does not use rack cache and instead defers to nginx
     config.action_dispatch.rack_cache =  nil
 
+    puts "=> MEGAM_HOME env: #{ENV['MEGAM_HOME']}."
+
     require 'auth'
     # generate banner text - http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Nilavu
     # generate banner text - http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Nilavu
@@ -108,9 +109,9 @@ module Nilavu
                `::.     .'    ██║ ╚████║██║███████╗██║  ██║ ╚████╔╝ ╚██████╔╝
                  `':..-'      ╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝  ╚═══╝   ╚═════╝
   \033[0m"''
-  if ENV['RBTRACE'] == "1"
-    require 'rbtrace'
-  end
+    if ENV['RBTRACE'] == "1"
+      require 'rbtrace'
+    end
 
   end
 end

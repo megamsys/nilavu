@@ -24,23 +24,26 @@ Nilavu::Application.routes.draw do
   resources :onemicroservices
   resources :phones
   resources :events   # Internal AJAX API
-
+    
   # named route for users, session
   match '/signup', to: 'users#new', via: [:get]
   match '/signin', to: 'sessions#new', via: [:get]
   match '/tour', to: 'sessions#tour', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post, :delete]
-  post "forgot_password" => "session#forgot_password"
+  post 'forgot_password' => "session#forgot_password"
   get "password-reset/:token" => "users#password_reset"
   put "password-reset/:token" => "users#password_reset"
 
   match "/auth/:provider/callback", to: "omniauth_callbacks#complete", via: [:get, :post]
-  match "/auth/failure", to: "users/omniauth_callbacks#failure", via: [:get, :post]
+  get "auth/gitlab" => "gitlab#show", constraints: { format: /(json|html)/}
+  match "/auth/failure", to: "omniauth_callbacks#failure", via: [:get, :post]
+
 
   get  "launchers/:id" => "launchers#launch"
   post "launchers" => "launchers#perform_launch"
 
   get "robots.txt" => "robots_txt#index"
+
 
   # named route for billing, paid message callback from paypal or bitcoin
   match '/billings_promo', to: 'billings#promo', via: [:get, :post]
@@ -48,13 +51,9 @@ Nilavu::Application.routes.draw do
   match '/notify_payment', to: 'billings#notify_payment', via: [:get, :post]
 
 
-  #=====github
-  match '/publish_github', to: 'marketplaces#publish_github', via: [:get, :post]
-
-  #=====Gitlab
-  match 'store_gitlab', to: 'marketplaces#store_gitlab', via: [:post]
-  match '/auth/gitlab',      to: 'marketplaces#start_gitlab', via: [:get, :post]
-  match '/publish_gitlab',   to: 'marketplaces#publish_gitlab', via: [:get, :post]
+  #===== git
+  get "github/repos" => "github#list", constraints: { format: /(json|html)/}
+  get "gitlab/repos" => "gitlab#list", constraints: { format: /(json|html)/}
 
   #===catalogs
   # kelvi   : confirm delete for all flycontrols. all cattypes will use that.

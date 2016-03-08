@@ -1,0 +1,2 @@
+class GitlabController < ApplicationController
+end

@@ -51,7 +51,7 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
                                 <i class="c_ico-excla"></i>
-                                <%= password_field_tag 'password', nil, :required => true, :class => 'form-control', placeholder: t('signup.email') %>
+                                <%= password_field_tag 'password', nil, :required => true, :class => 'form-control', placeholder: t('signup.password') %>
                             </div>
                         </div>
                     </div>
@@ -94,22 +94,7 @@
                             </p>
                         </div>
                     </div>
-
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 social">
-                            <ul class="list-inline text-center">
-                                <li>
-                                    <a href="/auth/github" class="github icon" ></a>
-                                </li>
-                                <li>
-                                    <a href="/auth/facebook" class="facebook icon"></a>
-                                </li>
-                                <li>
-                                    <a href="/auth/google_oauth2" class="google icon"></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <%= render :partial => 'authenticators.html.erb' %>
                 </div>
 
                 <% end %>
