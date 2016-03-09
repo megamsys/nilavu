@@ -56,7 +56,7 @@
                   <% if session[:auth] %>
                     <%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: t('signup.email'), :value => @password %>
                   <% else %>
-                    <%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: t('signup.email') %>
+                    <%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: t('signup.password') %>
                   <% end %>
                 </div>
               </div>

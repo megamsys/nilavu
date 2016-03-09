@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe CockpitsController do
+describe ApplicationController do
 
   describe 'set_locale' do
     it 'sets the one the user prefers' do
