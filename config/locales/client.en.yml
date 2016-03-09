@@ -65,7 +65,7 @@ en:
     login_here: "Login here"
     update_password: "Update Password"
     created_account: "Your account is activated and ready to use."
-    otp_verified: "Hi {{email}}, Thank you for signing up. All transaction details will be sent to this number."
+    otp_verified: "Hi %{email}, Thank you for signing up. All transaction details will be sent to this number."
     otp_failure: "Failed. try again."
     submit: Submit
 
@@ -121,7 +121,7 @@ en:
 
   marketplace:
     title: "Marketplaces"
-    honeypot_title: "{{apps}} & {{services}}"
+    honeypot_title: "%{apps} & %{services}"
     temp_search: "Search"
     choose_version: "Choose version:"
     discription: "Description"
@@ -239,10 +239,10 @@ en:
     no_access: "You've hit our mars servers, No Access..."
     no_services_found: "Sorry! You don't have any services. Please create from marketplace."
     no_organizations_found: "No Orgs Found"
-    launch_error: "Your {{stuff}} <b>{{name}} launch failure."
+    launch_error: "Your %{stuff} <b>%{name} launch failure."
 
   launch:
-    success: "Your {{stuff}} <b>{{name}}</b> is firing up"
+    success: "Your %{stuff} <b>%{name}</b> is firing up"
     compute_setting: "CPU, transfer, storage, and RAM bundled into one simple block"
     creating: "Creating..."
 
