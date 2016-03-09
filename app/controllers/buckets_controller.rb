@@ -18,17 +18,8 @@ require 'json'
 class BucketsController < ApplicationController
   respond_to :json, :js
 
-  before_action :stick_ceph_keys, only: [:index, :create, :show, :upload, :destroy]
-
   def index
-    if !session[:ceph_access_key].nil? && Backup::BackupUser.new.exists?(current_user.email)
-      @bucket ||= Backup::Buckets.new(params).list
-    else
-      load_ceph(current_user)
-      stick_ceph_keys
-      redirect_to buckets_path if session[:ceph_access_key].nil?
-      @bucket ||= Backup::Buckets.new(params).list
-    end
+    @bucket ||= Backup::Buckets.new(params).list
     @usage ||= Backup::BackupUser.new.usage(current_user.email)
   end
 
@@ -43,9 +34,6 @@ class BucketsController < ApplicationController
   end
 
   def show
-    logger.debug '> Buckets: show.'
-    #@objects = BucketObjects.new(params).list_detail
-    #@bucket_name = params["id"]
   end
 
   def destroy
