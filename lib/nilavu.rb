@@ -52,7 +52,7 @@ module Nilavu
     set = Set.new
 
     SiteSetting.left_menu.split("|").map(&:to_s).each do |category|
-      set << category 
+      set << category
     end
     set
   end
@@ -142,7 +142,7 @@ module Nilavu
   # after fork, otherwise Nilavu will be in a bad state
   def self.after_fork
     SiteSetting.after_fork
-    Rails.cache.reconnect
+    #Rails.cache.reconnect
     nil
   end
 end
