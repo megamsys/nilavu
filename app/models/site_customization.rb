@@ -1,15 +1,30 @@
 class SiteCustomization
 
+  def self.html_fields
+    %w(body_tag head_tag header top mobile_header footer mobile_footer)
+  end
+
   class << self
     attr_accessor :body_tag, :body_tag_baked, :head_tag, :head_tag_baked, :header, :header_baked
     attr_accessor :mobile_header,  :mobile_header_baked, :top, :top_baked, :mobile_header,  :mobile_header_baked
     attr_accessor :footer, :footer_baked, :mobile_footer, :mobile_footer_baked
-  end
 
-  @cache = Rails.cache
 
-  def self.html_fields
-    %w(body_tag head_tag header top mobile_header footer mobile_footer)
+    def process_html(html)
+      Rails.cache.fetch("sitecustomization_#{html}", expires_in: 1.day) do
+        doc = Nokogiri::HTML.fragment(html)
+        doc.to_s
+      end
+    end
+
+
+    def ensure_baked!(field)
+      unless self.send("#{field}_baked")
+        if val = self.send(field)
+          val = process_html(val) rescue ""
+        end
+      end
+    end
   end
 
   SiteCustomization.html_fields.each do |html_attr|
@@ -21,13 +36,6 @@ class SiteCustomization
   SiteCustomization.html_fields.each do |html_attr|
     if self.send("#{html_attr}")
       self.send("#{html_attr}_baked=", process_html(self.send(html_attr)))
-    end
-  end
-
-  def process_html(html)
-    Rails.cache.fetch("sitecustomization_#{html}", expires_in: 1.day) do
-      doc = Nokogiri::HTML.fragment(html)
-      doc.to_s
     end
   end
 
@@ -62,15 +70,7 @@ class SiteCustomization
 
     cache_key = key + target.to_s + field.to_s;
 
-    lookup = @cache[cache_key]
+    lookup = Rails.cache[cache_key]
     return lookup.html_safe if lookup
-  end
-
-  def ensure_baked!(field)
-    unless self.send("#{field}_baked")
-      if val = self.send(field)
-        val = process_html(val) rescue ""
-      end
-    end
   end
 end
