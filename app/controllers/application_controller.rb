@@ -36,7 +36,6 @@ class ApplicationController < ActionController::Base
   around_action :catch_exceptions
 
 
-
   # Some exceptions
   class RenderEmpty < StandardError; end
 
