@@ -45,9 +45,9 @@ class LaunchersController < ApplicationController
       #  Scheduler::Defer.later "Log launch action for" do
       #    @nilavu_event_logger.log_launched(@launched)
       #  end
-      redirect_with_success(cockpits_path, "launch.success")
+      redirect_with_success(cockpits_path, "launch.success",vertice.launched_message)
     else
-      redirect_with_failure(cockpits_path, "errors.launch_error")
+      redirect_with_failure(cockpits_path, "errors.launch_error",vertice.launched_message)
     end
   end
 

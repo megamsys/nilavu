@@ -68,42 +68,6 @@ describe Nilavu do
 
   end
 
-  context "#store" do
-
-    it "returns LocalStore by default" do
-      expect(Nilavu.store).to be_a(FileStore::LocalStore)
-    end
-
-    it "returns S3Store when S3 is enabled" do
-      SiteSetting.stubs(:enable_s3_uploads?).returns(true)
-      SiteSetting.stubs(:s3_upload_bucket).returns("s3_bucket")
-      SiteSetting.stubs(:s3_access_key_id).returns("s3_access_key_id")
-      SiteSetting.stubs(:s3_secret_access_key).returns("s3_secret_access_key")
-      expect(Nilavu.store).to be_a(FileStore::S3Store)
-    end
-
-  end
-
-  context "#enable_readonly_mode" do
-
-    it "adds a key in redis and publish a message through the message bus" do
-      $redis.expects(:set).with(Nilavu.readonly_mode_key, 1)
-      MessageBus.expects(:publish).with(Nilavu.readonly_channel, true)
-      Nilavu.enable_readonly_mode
-    end
-
-  end
-
-  context "#disable_readonly_mode" do
-
-    it "removes a key from redis and publish a message through the message bus" do
-      $redis.expects(:del).with(Nilavu.readonly_mode_key)
-      MessageBus.expects(:publish).with(Nilavu.readonly_channel, false)
-      Nilavu.disable_readonly_mode
-    end
-
-  end
-
   context "#readonly_mode?" do
     it "is false by default" do
       expect(Nilavu.readonly_mode?).to eq(false)

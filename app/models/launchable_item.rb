@@ -17,7 +17,7 @@ class LaunchableItem
   end
 
   def type
-     Nilavu.default_categories.select { |i| i == @marketplace_item.cattype.downcase }.first
+    Nilavu.default_categories.select { |i| i == @marketplace_item.cattype.downcase }.first
   end
 
   #flag abused words ?
@@ -47,9 +47,12 @@ class LaunchableItem
     end
   end
 
-  def envvars_json
-    Oj.dump(@marketplace_item.envs)
+
+  def token
+    session[:authentication][:token]
   end
+
+  alias has_token? token
 
   def envs
     @marketplace_item.envs
