@@ -4,24 +4,7 @@ describe UsersController do
 
   describe '.show' do
 
-    context "anon" do
-
-      let(:user) { Nilavu.system_user }
-
-      it "returns success" do
-        xhr :get, :show, username: user.username, format: :json
-        expect(response).to be_success
-      end
-
-      it "raises an error for anon when profiles are hidden" do
-        SiteSetting.stubs(:hide_user_profiles_from_public).returns(true)
-        xhr :get, :show, username: user.username, format: :json
-        expect(response).not_to be_success
-      end
-
-    end
-
-    context "logged in" do
+      context "logged in" do
 
       let(:user) { log_in }
 
