@@ -1,7 +1,10 @@
 class SiteCustomization
-  attr_writer :body_tag, :body_tag_baked, :head_tag, :head_tag_baked, :header, :header_baked
-  attr_writer :mobile_header,  :mobile_header_baked, :top, :top_baked, :mobile_header,  :mobile_header_baked
-  attr_writer :footer, :footer_baked, :mobile_footer, :mobile_footer_baked
+
+  class << self
+    attr_accessor :body_tag, :body_tag_baked, :head_tag, :head_tag_baked, :header, :header_baked
+    attr_accessor :mobile_header,  :mobile_header_baked, :top, :top_baked, :mobile_header,  :mobile_header_baked
+    attr_accessor :footer, :footer_baked, :mobile_footer, :mobile_footer_baked
+  end
 
   @cache = Rails.cache
 

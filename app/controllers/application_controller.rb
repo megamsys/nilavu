@@ -251,19 +251,19 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def redirect_wtih_info(path, key, msg={})
-    redirect_to(path,:flash => {:info => I18n.t(key,errors: "#{msg.map{|k,v| "#{k}: #{v}"}.join("\n")}")})
+  def redirect_with_info(path, key, parms={})
+    redirect_to(path,:flash => {:info => I18n.t(key, parms)})
   end
 
-  def redirect_with_success(path, key,  msg={})
-    redirect_to(path,:flash => {:notice => I18n.t(key,errors: "#{msg.map{|k,v| "#{k}: #{v}"}.join("\n")}")})
+  def redirect_with_success(path, key,  parms={})
+    redirect_to(path,:flash => {:notice => I18n.t(key, parms)})
   end
 
-  def redirect_with_failure(path, key, msg={})
-    redirect_to(path,:flash => {:alert => I18n.t(key,errors: "#{msg.map{|k,v| "#{k}: #{v}"}.join("\n")}")})
+  def redirect_with_failure(path, key, parms={})
+    redirect_to(path,:flash => {:alert => I18n.t(key, parms)})
   end
 
-  def redirect_with_warning(path, key, msg={})
-    redirect_to(path,:flash => {:warning => I18n.t(key,errors: "#{msg.map{|k,v| "#{k}: #{v}"}.join("\n")}")})
+  def redirect_with_warning(path, key, parms={})
+    redirect_to(path,:flash => {:warning => I18n.t(key, parms)})
   end
 end

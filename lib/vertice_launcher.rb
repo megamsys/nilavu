@@ -6,7 +6,7 @@ class VerticeLauncher
   attr_reader :params
 
   ONE              = 'one'.freeze
-  DOCKER           =  'docker'.freeze
+  DOCKER           = 'docker'.freeze
 
 
   def initialize(launch_item)
@@ -34,8 +34,12 @@ class VerticeLauncher
 
   def ensure_settings_are_ok(launch_parms)
     [:cpu, :ram, :hdd, :assemblyname, :componentname, :provider, :ssh_keypair_name, :version, :cattype].each do |setting|
-        raise Nilavu::InvalidParameters unless launch_parms[setting]
+      raise Nilavu::InvalidParameters unless launch_parms[setting]
     end
+  end
+
+  def launched_message
+    {name: @launch_item.name, stuff: @launch_item.type, provider: @provider}
   end
 
   private
@@ -60,7 +64,11 @@ class VerticeLauncher
     params[:mkp_name] = @launch_item.name
   end
 
-  #    set_scmname(params)
+  def set_token(params)
+    if @launch_item.has_token?
+      params[:scm_token] = @launch_item.token 
+    end
+  end
 
   def ensure_provider
     where_to ||= DOCKER

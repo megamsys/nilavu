@@ -31,7 +31,7 @@ class Infobip
     client = ensure_client_is_available
 
     response = client.post("/2fa/1/pin/#{pin_id}/verify", :json => {"pin" => pin})
-  
+
     Results.new(response.body)
   end
 
@@ -42,7 +42,7 @@ class Infobip
     response = client.post("/sms/1/text/single", :json => MultiJson.dump(
       :from => UrlHelper.public_suffix(SiteSetting.contact_url),
       :to => mobile_number,
-      :text => t('signup.otp_verified')))
+      :text => t('signup.otp_verified', email: email)))
 
     Results.new(response.body)
   end
