@@ -1,5 +1,9 @@
 class MarketplacesPresenter
 
+  #TO-DO change later
+  def self.title
+    I18n.t('marketplace.honeypot_title', {:apps => 'Apps', :services => 'Services'})
+  end
   def self.presentable_types
     @@types ||= Enum.new(*Nilavu.default_categories.map(&:to_sym))
   end
