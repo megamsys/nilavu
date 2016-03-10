@@ -15,7 +15,8 @@
 ##
 
 class UsersController < ApplicationController
-
+  respond_to :html, :js
+  
   skip_before_filter :redirect_to_login_if_required, only: [:new, :create,
   :forgot_password, :password_reset]
 
@@ -81,19 +82,26 @@ class UsersController < ApplicationController
 
   def update
     user = fetch_user_from_params
-
     updater = UserUpdater.new(user)
-    updater.update(params)
+    if updater.update(params)
+      activation = UserActivator.new(user, request, session, cookies)
+      activation.start
+      activation.finish      
+      redirect_with_success(edit_user_path(1), "signup.updated_profile")
+    else
+      redirect_with_failure(edit_user_path(1), "login.errors", "errors.profile_error")
+    end   
+    
   end
 
   def forgot_password
     params.permit(:email)
-    user = fetch_user_from_params
 
-    user.password_reset_key = EmailToken.generate_token
-    user.password_reset_key_sent_at = Time.now
-
-    if user.save
+   # user.password_reset_key = EmailToken.generate_token
+   # user.password_reset_sent_at = Time.now
+   user = User.new
+   user.email = params[:email]
+    if user.reset
       redirect_with_success(signin_path, "forgot_password.success")
     else
       fail_with("forgot_password.errors")
@@ -167,7 +175,7 @@ class UsersController < ApplicationController
   private
 
   def fetch_user_from_params
-    User.new(params)
+    User.new
   end
 
 end

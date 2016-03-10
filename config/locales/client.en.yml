@@ -64,6 +64,7 @@ en:
     existing_user: "Already have an account ?"
     login_here: "Login here"
     update_password: "Update Password"
+    updated_profile: "Your profile was updated."
     created_account: "Your account is activated and ready to use."
     submit: Submit
 
@@ -238,6 +239,7 @@ en:
     no_services_found: "Sorry! You don't have any services. Please create from marketplace."
     no_organizations_found: "No Orgs Found"
     launch_error: "Your {{stuff}} <b>{{name}} launch failure."
+    profile_error: "Your profile update failure."
 
   launch:
     success: "Your {{stuff}} <b>{{name}}</b> is firing up"

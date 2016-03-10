@@ -28,5 +28,10 @@ module Api
     def update(params)
       api_request(ACCOUNT, UPDATE, params)
     end
+    
+    def reset(params)
+      api_request(ACCOUNT, RESET, params, true)
+    end
+    
   end
 end

@@ -28,6 +28,7 @@ class APIDispatch
   LIST              = 'list'.freeze
   UPDATE            = 'update'.freeze
   UPGRADE           = 'upgrade'.freeze
+  RESET             = 'reset'.freeze
 
 
   def initialize(ignore_404 = false)
@@ -94,6 +95,7 @@ class APIDispatch
     unless passthru
       return params[:email] && (params[:api_key].present? || params[:password].present?)
     end
+    return true
   end
 
   def endpoint
