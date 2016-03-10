@@ -20,19 +20,17 @@ class Infobip
   # Send pin to mibile
   def self.send_pin_to(mobile_number)
     client = ensure_client_is_available
-
     response = client.post("/2fa/1/pin?ncNeeded=true", :json => for_message_id(mobile_number))
-
     Results.new(response, mobile_number)
   end
 
   # Verify pin
-  def self.verify_pin(pin_id, pin)
+  def self.verify_pin(pin_id, pin, mobile_number)
     client = ensure_client_is_available
 
-    response = client.post("/2fa/1/pin/#{pin_id}/verify", :json => {"pin" => pin})
+    response = client.post("/2fa/1/pin/#{pin_id}/verify", :json => {"pin" => "#{pin}"})
 
-    Results.new(response.body)
+    Results.new(response, mobile_number)
   end
 
   # Send confirmation message
@@ -62,7 +60,7 @@ class Infobip
   end
 
   def self.for_message_id(mobile_number)
-    MultiJson.dump({:applicationId => application_id,:messageId => message_id, :to => mobile_number})
+    {"applicationId" => application_id, "messageId" => message_id, "to" => mobile_number}
   end
 
   def self.username
