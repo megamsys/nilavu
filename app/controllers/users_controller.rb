@@ -81,7 +81,11 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = fetch_user_from_params
+    user = fetch_user_from_params    
+    if !(check_password(user, params))
+      redirect_with_failure(edit_user_path(1), "login.incorrect_password")
+      return 
+    end
     updater = UserUpdater.new(user)
     if updater.update(params)
       activation = UserActivator.new(user, request, session, cookies)
@@ -113,12 +117,25 @@ class UsersController < ApplicationController
      user.password_reset_key = params[:token]
      user.password = params[:password]
      if user.repassword
-      redirect_with_success(signin_path, "forgot_password.success")
+      redirect_with_success(signin_path, "password_reset.success")
     else
-      fail_with("forgot_password.errors")
+      fail_with("password_reset.no_token")
     end
    end   
    
+  end 
+  
+  def check_password(user, params)
+    params.require(:email)   
+    user_params.each { |k, v| user.send("#{k}=", v) } 
+    if params.has_key?("current_password")  
+      user.password = params[:current_password]
+      if user.find_by_email
+        return true
+      else
+        return false
+      end 
+    end
   end
 
   # Ha ! Ha !, a hack for accounts.show but a fancy name.

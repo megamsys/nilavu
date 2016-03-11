@@ -89,7 +89,7 @@ class User
     password_hash.present?
   end
 
-  def confirm_password?(password)
+  def confirm_password?(password)  
     return false unless password && @raw_password
     password == password_hash(@raw_password)
   end

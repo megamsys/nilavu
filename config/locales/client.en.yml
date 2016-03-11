@@ -71,7 +71,7 @@ en:
     submit: Submit
 
   forgot_password:
-    success: "(email sent)"
+    success: "An email has been sent to your registered email address to reset your password"
     errors: "Sorry, email not sent, Select the 'Forgot my password' to get a new link."
 
   password_reset:
@@ -99,6 +99,7 @@ en:
     valid_email: "Please type a valid email address or create account in megam."
     success: "Click <b>marketplaces</b> to get started"
     incorrect_email_or_password: "Incorrect email or password"
+    incorrect_password: "Incorrect current password"
     tata: "Tata."
     not_activated: "You can't log in yet. We sent an activation email to you. Please follow the instructions in the email to activate your account."
     wait_approval: "Thanks for signing up. We will notify you when your account has been approved."
