@@ -66,6 +66,8 @@ en:
     update_password: "Update Password"
     updated_profile: "Your profile was updated."
     created_account: "Your account is activated and ready to use."
+    otp_verified: "Hi %{email}, Thank you for signing up. All transaction details will be sent to this number."
+    otp_failure: "Failed. try again."
     submit: Submit
 
   forgot_password:
@@ -97,12 +99,12 @@ en:
     valid_email: "Please type a valid email address or create account in megam."
     success: "Click <b>marketplaces</b> to get started"
     incorrect_email_or_password: "Incorrect email or password"
-    bye: "Tata."
+    tata: "Tata."
     not_activated: "You can't log in yet. We sent an activation email to you. Please follow the instructions in the email to activate your account."
     wait_approval: "Thanks for signing up. We will notify you when your account has been approved."
     active: "Your account is activated and ready to use."
     activate_email: "<p>You're almost done! We sent an activation mail to <b>%{email}</b>. Please follow the instructions in the email to activate your account.</p><p>If it doesn't arrive, check your spam folder, or try to log in again to send another activation mail.</p>"
-    Megam_io: "megam.io"
+    otpsending: "Sending..."
 
   cockpits:
     title: "Dashboard"
@@ -120,7 +122,7 @@ en:
 
   marketplace:
     title: "Marketplaces"
-    honeypot_title: "{{apps}} & {{services}}"
+    honeypot_title: "%{apps} & %{services}"
     temp_search: "Search"
     choose_version: "Choose version:"
     discription: "Description"
@@ -242,8 +244,9 @@ en:
     profile_error: "Your profile update failure."
 
   launch:
-    success: "Your {{stuff}} <b>{{name}}</b> is firing up"
+    success: "Your %{stuff} <b>%{name}</b> is firing up"
     compute_setting: "CPU, transfer, storage, and RAM bundled into one simple block"
+    creating: "Creating..."
 
   ok: "OK"
   cancel: "Cancel"

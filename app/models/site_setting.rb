@@ -1,6 +1,7 @@
 require 'site_setting_extension'
 require_dependency 'site_settings/yaml_loader'
-require 'current_user'
+
+require_dependency 'current_user'
 require 'flavor/favour_item'
 
 
@@ -23,26 +24,13 @@ class SiteSetting
     end
   end
 
-  load_settings(File.join(Rails.root, 'config', 'site_settings.yml'))
-
-  unless Rails.env.test? && ENV['LOAD_PLUGINS'] != "1"
-    Dir[File.join(Rails.root, "plugins", "*", "config", "settings.yml")].each do |file|
-      load_settings(file)
-    end
-  end
+  load_settings(File.join(ENV['MEGAM_HOME'], 'site_settings.yml'))
 
   client_settings << :available_locales
 
   def self.available_locales
     LocaleSiteSetting.values.map{ |e| e[:value] }.join('|')
   end
-
-  def self.domain_name
-# current_user doesn't get pulled up in LaunchController    
-#    current_user.team.last_used_domain
-'megambox.com'
-  end
-
 
   def self.top_menu_items
     top_menu.split('|').map { |menu_item| TopMenuItem.new(menu_item) }

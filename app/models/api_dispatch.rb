@@ -29,6 +29,7 @@ class APIDispatch
   UPDATE            = 'update'.freeze
   UPGRADE           = 'upgrade'.freeze
   RESET             = 'reset'.freeze
+  REPASSWORD        = 'repassword'.freeze
 
 
   def initialize(ignore_404 = false)

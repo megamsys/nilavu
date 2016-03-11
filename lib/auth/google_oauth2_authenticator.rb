@@ -12,23 +12,14 @@ class Auth::GoogleOAuth2Authenticator < Auth::Authenticator
     result = Auth::Result.new
     result.email = session_info[:email]
     result.email_valid = session_info[:email_valid]
-    result.name = session_info[:name]
+    result.first_name = google_hash[:first_name]
 
     result.extra_data = google_hash
-
-    user_info = GoogleUserInfo.find_by(google_user_id: google_hash[:google_user_id])
-    result.user = user_info.try(:user)
-
-    if !result.user && !result.email.blank? && result.user = User.find_by_email(result.email)
-      GoogleUserInfo.create({user_id: result.user.id}.merge(google_hash))
-    end
-
     result
   end
 
   def after_create_account(user, auth)
     data = auth[:extra_data]
-    GoogleUserInfo.create({user_id: user.id}.merge(data))
   end
 
   #  config.google_authorization_uri = 'https://accounts.google.com/o/oauth2/auth'
@@ -45,7 +36,7 @@ class Auth::GoogleOAuth2Authenticator < Auth::Authenticator
               strategy.options[:client_secret] = SiteSetting.google_oauth2_client_secret
              },
            :scope => "user:email",
-           skip_jwt: true
+           skip_jwt:  true
   end
 
   protected

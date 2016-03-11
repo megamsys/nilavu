@@ -33,7 +33,7 @@ module Api
     # can be used during a launch or sshkey creation.
     def create_or_import(api_params)
       api_params[:name] = api_params[:ssh_keypair_name] ||= Api::Sshkeys::SAAVI
-      api_params[:sshkey] = api_params[:email] + '_' + api_params[:name]
+      api_params[:sshkey] = api_params[:name]
       case api_params[:sshoption]
       when NEW
         create(api_params)
@@ -82,14 +82,6 @@ module Api
         ssh_keys << { name: sshkey.name, privatekey: sshkey.privatekey, publickey: sshkey.publickey, created_at: sshkey.created_at.to_time.to_formatted_s(:rfc822) }
       end
       ssh_keys.sort_by { |vn| vn[:created_at] }
-    end
-
-    def keypub(api_params)
-      api_params[:email] + '_' + api_params[:name] + '_pub'
-    end
-
-    def keypriv(api_params)
-      api_params[:email] + '_' + api_params[:name] + '_key'
     end
   end
 end

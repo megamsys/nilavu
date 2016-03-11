@@ -1,12 +1,11 @@
 class Auth::Result
-  attr_accessor :user, :name, :username, :email, :user,
-                :email_valid, :extra_data, :awaiting_activation,
-                :awaiting_approval, :authenticated, :authenticator_name,
-                :requires_invite, :not_allowed_from_ip_address,
-                :admin_not_allowed_from_ip_address, :omit_username
+  attr_accessor :origin, :first_name, :email, :token,
+  :email_valid, :extra_data, :awaiting_activation,
+  :awaiting_approval, :authenticated, :authenticator_name,
+  :requires_invite, :redirect
 
   attr_accessor :failed,
-                :failed_reason
+  :failed_reason
 
   def initialize
     @failed = false
@@ -18,46 +17,24 @@ class Auth::Result
 
   def session_data
     { email: email,
-      username: username,
+      token: token,
+      first_name: first_name,
       email_valid: email_valid,
-      omit_username: omit_username,
-      name: name,
+      origin: origin,
       authenticator_name: authenticator_name,
-      extra_data: extra_data }
+    extra_data: extra_data }
   end
 
   def to_client_hash
     if requires_invite
       { requires_invite: true }
-    elsif user
-      if user.suspended?
-        {
-          suspended: true,
-          suspended_message: I18n.t( user.suspend_reason ? "login.suspended_with_reason" : "login.suspended",
-                                     {date: I18n.l(user.suspended_till, format: :date_only), reason: user.suspend_reason} )
-        }
-      else
-        {
-          authenticated: !!authenticated,
-          awaiting_activation: !!awaiting_activation,
-          awaiting_approval: !!awaiting_approval,
-          not_allowed_from_ip_address: !!not_allowed_from_ip_address,
-          admin_not_allowed_from_ip_address: !!admin_not_allowed_from_ip_address
-        }
-      end
     else
       result = { email: email,
-                 #username: UserNameSuggester.suggest(username || name || email),
-                 username: username || name || email,
-                 # this feels a tad wrong
-                 auth_provider: authenticator_name.capitalize,
-                 email_valid: !!email_valid,
-                 omit_username: !!omit_username }
-
-      if SiteSetting.enable_names?
-        #result[:name] = User.suggest_name(name || username || email)
-        result[:name] = name || username || email
-      end
+        first_name: User.suggest_firstname(first_name || email),
+        auth_provider: authenticator_name.capitalize,
+        email_valid: !!email_valid,
+        origin: origin,
+      redirect: redirect}
 
       result
     end

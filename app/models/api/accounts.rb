@@ -33,5 +33,9 @@ module Api
       api_request(ACCOUNT, RESET, params, true)
     end
     
+     def repassword(params)
+      api_request(ACCOUNT, REPASSWORD, params, true)
+    end
+    
   end
 end

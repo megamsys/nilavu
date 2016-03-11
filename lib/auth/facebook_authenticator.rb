@@ -13,30 +13,15 @@ class Auth::FacebookAuthenticator < Auth::Authenticator
 
     result.email = email = session_info[:email]
     result.email_valid = !email.blank?
-    result.name = facebook_hash[:name]
+    result.first_name = facebook_hash[:first_name]
 
     result.extra_data = facebook_hash
-
-    user_info = FacebookUserInfo.find_by(facebook_user_id: facebook_hash[:facebook_user_id])
-    result.user = user_info.try(:user)
-
-    if !result.user && !email.blank? && result.user = User.find_by_email(email)
-      FacebookUserInfo.create({user_id: result.user.id}.merge(facebook_hash))
-    end
-
-    if email.blank?
-      UserHistory.create(
-        action: UserHistory.actions[:facebook_no_email],
-        details: "name: #{facebook_hash[:name]}, facebook_user_id: #{facebook_hash[:facebook_user_id]}"
-      )
-    end
 
     result
   end
 
   def after_create_account(user, auth)
     data = auth[:extra_data]
-    FacebookUserInfo.create({user_id: user.id}.merge(data))
   end
 
   def register_middleware(omniauth)
@@ -46,8 +31,8 @@ class Auth::FacebookAuthenticator < Auth::Authenticator
               strategy.options[:client_id] = SiteSetting.facebook_app_id
               strategy.options[:client_secret] = SiteSetting.facebook_app_secret
            },
-           :scope => "email"
-           #:display => 'popup'
+           :scope => "email",
+           :display => 'popup'
   end
 
   protected

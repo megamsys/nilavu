@@ -12,7 +12,7 @@
       <input name="phone" type="tel" id="phone" class="form-control" placeholder="Enter mobile number" size="100%" style="background-color: transparent; color: #C0C0C0;" required >
     </div>
     <div class="">
-      <%= link_to "Verify", { :controller => :phones, :action => :new}, { class: "btn btn-success col-md-offset-1 col-md-2 pull-left ",  :id=>'phone_verify_link', data: { disable_with: 'sending...' }} %>
+      <%= link_to "Verify", { :controller => :phones, :action => :new}, { class: "btn btn-success col-md-offset-1 col-md-2 pull-left ",  :id=>'phone_verify_link', data: { disable_with: t('login.otpsending') }} %>
     </div>
   </div>
 <% end %>

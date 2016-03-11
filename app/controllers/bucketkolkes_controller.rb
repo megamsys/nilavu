@@ -18,8 +18,6 @@ require 'json'
 class BucketkolkesController < ApplicationController
   respond_to :json, :js
 
-  before_action :stick_ceph_keys, only: [:index, :create, :show, :upload, :destroy]
-
   def index
     respond_with(Backup::BucketObjects.new(params).list)
   end

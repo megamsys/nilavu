@@ -13,60 +13,75 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-module Nilavu
-  module OTP
-    class Infobip
-      def initialize
-        infobip_url = HTTP.persistent "https://api.infobip.com"
-        @infobip = infobip_url.basic_auth(:user => "#{username}", :pass => "#{password}").headers(:json => {"Authorization" => "App #{api_key}"})
-      end
+class Infobip
 
-      # Send pin to mibile
-      def send_pin(mobile_number)
-        pin_res = @infobip.post("/2fa/1/pin?ncNeeded=true", :json => {"applicationId" => "#{application_id}","messageId" => "#{message_id}","to" => "#{mobile_number}"})
-        res_hash = JSON.parse("#{pin_res.body}")
-        res_hash["smsStatus"] == "MESSAGE_SENT" ? "#{res_hash['pinId']}" : "Message sending failed"
-      end
+  API = 'https://api.infobip.com'
 
-      # Verify pin
-      def verify_pin(pin_id, pin)
-        verify_res = @infobip.post("/2fa/1/pin/#{pin_id}/verify", :json => {
-        "pin" => "#{pin}"})
-        res_hash = JSON.parse("#{verify_res.body}")
-        res_hash["verified"] ? true : false
-      end
+  # Send pin to mibile
+  def self.send_pin_to(mobile_number)
+    client = ensure_client_is_available
 
-      # Send confirmation message
-      def send_confirm(mobile_number, email)
-        verify_res = @infobip.post("/sms/1/text/single", :json => {
-          "from" => "MegamAfrica",
-          "to" => "#{mobile_number}",
-          "text" => "Hi #{email}, Thank you for signing up. All transaction details will be sent to this number."
-        })
-        true
-      end
+    response = client.post("/2fa/1/pin?ncNeeded=true", :json => for_message_id(mobile_number))
 
-      private
+    Results.new(response, mobile_number)
+  end
 
-      def username
-        SiteSetting.infobip.username
-      end
+  # Verify pin
+  def self.verify_pin(pin_id, pin)
+    client = ensure_client_is_available
 
-      def password
-        SiteSetting.infobip.password
-      end
+    response = client.post("/2fa/1/pin/#{pin_id}/verify", :json => {"pin" => pin})
 
-      def api_key
-        SiteSetting.infobip.api_key
-      end
+    Results.new(response.body)
+  end
 
-      def application_id
-        SiteSetting.infobip.application_id
-      end
+  # Send confirmation message
+  def self.confirmation_message(mobile_number, email)
+    client = ensure_client_is_available
 
-      def message_id
-        SiteSetting.infobip.message_id
-      end
-    end
+    response = client.post("/sms/1/text/single", :json => MultiJson.dump(
+      :from => UrlHelper.public_suffix(SiteSetting.contact_url),
+      :to => mobile_number,
+      :text => t('signup.otp_verified', email: email)))
+
+    Results.new(response.body)
+  end
+
+  private
+
+  def self.ensure_client_is_available
+    return client if client
+
+    raise Nilavu::NotFound
+  end
+
+  def self.client
+    h = HTTP.persistent API
+
+    h.basic_auth(:user => "#{username}", :pass => "#{password}").headers(:json => {"Authorization" => "App #{api_key}"})
+  end
+
+  def self.for_message_id(mobile_number)
+    MultiJson.dump({:applicationId => application_id,:messageId => message_id, :to => mobile_number})
+  end
+
+  def self.username
+    SiteSetting.infobip_username
+  end
+
+  def self.password
+    SiteSetting.infobip_password
+  end
+
+  def self.api_key
+    SiteSetting.infobip_api_key
+  end
+
+  def self.application_id
+    SiteSetting.infobip_application_id
+  end
+
+  def self.message_id
+    SiteSetting.infobip_message_id
   end
 end

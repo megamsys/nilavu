@@ -56,7 +56,7 @@
                   <% if session[:auth] %>
                     <%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: t('signup.email'), :value => @password %>
                   <% else %>
-                    <%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: t('signup.email') %>
+                    <%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: t('signup.password') %>
                   <% end %>
                 </div>
               </div>
@@ -68,7 +68,7 @@
                     <input name="phone" type="tel" id="phone" class="form-control phone_popover" placeholder="Enter mobile number" data-toggle="popover" data-content="Please verify your mobile number" size="100%" style="background-color: transparent; color: #C0C0C0;" required >
                   </div>
                   <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                    <%= link_to "Verify", { :controller => :phones, :action => :new}, { class: "btn btn-success col-md-12 col-xs-12",  :id=>'phone_verify_link', data: { disable_with: 'sending...' }} %>
+                    <%= link_to "Verify", { :controller => :phones, :action => :new}, { class: "btn btn-success col-md-12 col-xs-12",  :id=>'phone_verify_link', data: { disable_with: t('login.otpsending')}} %>
                   </div>
                 </div>
               </div>
@@ -79,7 +79,6 @@
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
               <% if SiteSetting.allow_otp_verifications.present? %>
-
                 <button type="submit" class="btn btn-success col-lg-12" data-remote="true" data-disable-with=<%= t('signup.creating_account') %> disabled="disabled" id="create_user">
                   <%= t('signup.create_account') %>
                 </button>
@@ -112,29 +111,27 @@
 <!-- authorize mobile device by allowing user to type a  pin  -->
 <%= render :partial => "phones/authorize_mobile", :locals => {:redirect => "/signup"} %>
 </body>
+<%= render_intlmobile_otp %>
 <script>
-  $(document).ready(function() {
-        $("#phone").intlTelInput({preferredCountries: ["IN", "TZ"]});
       //On each time signup page load, trigger popover to verify phone number
       $(window).load(function(){
         $(".phone_popover").popover({'placement':'top'}).popover('show');
       });
       // Pass mobile number to controller on clicking verify button
-          $("#phone_verify_link").on("click", function(event) {
+      $("#phone_verify_link").on("click", function(event) {
               // get the value inside the text field
-      	if ($("#phone").intlTelInput("isValidNumber")){
-              	var phone = $("#phone").intlTelInput("getNumber");
-      	       $.get('/phones/new', { mobile_number: phone, redirect: '/signup', format: 'js' }, function(data) {
-              	    // log the result from the server, or whatever...
-      	            console.log(data);
-      	        });
-      		event.preventDefault(); // don't trigger default
-      	}else{
-      		toastr.error("Enter a valid mobile number");
-      		return false;
-      	}
+    	if ($("#phone").intlTelInput("isValidNumber")){
+        	var phone = $("#phone").intlTelInput("getNumber");
+           $.get('/phones/new', { mobile_number: phone, redirect: '/signup', format: 'js' }, function(data) {
+                console.log(data);
           });
-          $("#create_user").on("click", function(event) {
+    		event.preventDefault(); // don't trigger default
+    	}else{
+    	toastr.error("Enter a valid mobile number");
+    	return false;
+    	}
+      });
+      $("#create_user").on("click", function(event) {
       	$("#phone").val($("#phone").intlTelInput("getNumber"));
           });
       });

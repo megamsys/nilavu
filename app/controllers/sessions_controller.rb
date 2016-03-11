@@ -22,7 +22,6 @@ class SessionsController < ApplicationController
   end
 
   def create
-
     params.require(:email)
     params.require(:password)
 
@@ -42,11 +41,15 @@ class SessionsController < ApplicationController
     user.email_confirmed? ? login(user) : not_activated(user)
   end
 
+  def tour
+    params.merge!({:email => 'tour@megam.io', :password => 'faketour'})
+    create
+  end
 
   def destroy
     reset_session
     log_off_user
-    SiteSettings.logout_redirect ? (redirect_to SiteSettings.logout_redirect) : bye
+    bye
   end
 
   private

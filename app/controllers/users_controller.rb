@@ -66,7 +66,7 @@ class UsersController < ApplicationController
       redirect_with_success(cockpits_path, "signup.created_account")
     else
       session["signup.create_failure"] = activation.message
-      redirect_with_failure(cockpits_path, "login.errors", account.errors.full_messages.join("\n"))
+      redirect_with_failure(signin_path, "login.errors", user.errors.full_messages.join("\n"))
     end
     #TO-DO rescure connection errors that come out.
     #rescue RestClient::Forbidden
@@ -95,10 +95,7 @@ class UsersController < ApplicationController
   end
 
   def forgot_password
-    params.permit(:email)
-
-   # user.password_reset_key = EmailToken.generate_token
-   # user.password_reset_sent_at = Time.now
+   params.permit(:email) 
    user = User.new
    user.email = params[:email]
     if user.reset
@@ -110,34 +107,18 @@ class UsersController < ApplicationController
 
   #user clicks the link and it comes to password_reset (both get/put)
   def password_reset
-    expires_now
-
-    if EmailToken.valid_token_format?(params[:token])
-      if !request.put?
-        email_token = EmailToken.confirmable(params[:token]) #accounts/confirmemail_token/:token
-        @user = email_token.try(:user)
-      end
+   if request.env["REQUEST_METHOD"] == PUT
+     user = User.new
+     user.email = params[:email]
+     user.password_reset_key = params[:token]
+     user.password = params[:password]
+     if user.repassword
+      redirect_with_success(signin_path, "forgot_password.success")
     else
-      @invalid_token = true
+      fail_with("forgot_password.errors")
     end
-
-    if !@user || @invalid_token
-      @error = 'password_reset.no_token'
-    elsif request.put?
-      @invalid_password = params[:password].blank? || params[:password].length > User.max_password_length
-
-      if @invalid_password
-        @error = 'login.incorrect_email_or_password'
-      else
-        @user.password = params[:password]
-        @user.password_required!
-        if @user.save
-          logon_after_password_reset
-        end
-      end
-    end
-
-    fail_with(@error) if @error
+   end   
+   
   end
 
   # Ha ! Ha !, a hack for accounts.show but a fancy name.

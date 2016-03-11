@@ -44,40 +44,45 @@ module ApplicationHelper
     @application_logo_url ||=  SiteSetting.logo_url
   end
 
+  def nilavu_csrf_tags
+    if current_user
+      csrf_meta_tags
+    end
+  end
+
 
   def customization_disabled?
     session[:disable_customization] || SiteSetting.disable_customization
   end
 
   def render_customized_header_or_not
-    unless customization_disabled?
+    if !customization_disabled?  && SiteCustomization.custom_header.present?
       return SiteCustomization.custom_header
     end
     render partial: 'layouts/header'
   end
 
   def render_customized_footer_or_not
-    unless customization_disabled?
+    if !customization_disabled? && SiteCustomization.custom_footer.present?
       return SiteCustomization.custom_footer
     end
     render partial: 'layouts/footer'
   end
 
   def self.all_customtags
-     Dir.glob("site/*.html.erb")
+    Dir.glob(File.join(ENV['MEGAM_HOME'], 'site/*.html.erb'))
   end
 
-  def self.customtags_for_site(name)
+  def self.customtag_for_site(name)
 
     # Don't evaluate plugins in test
     return "" if Rails.env.test?
 
-    matcher = Regexp.new("/site/.*\#{name}.html\.erb$")
-    erbs = all_customtags.select {|c| c =~ matcher }
+    erbs = all_customtags.select {|c| c.include? name }
     return "" if erbs.blank?
 
     result = ""
-    erbs.each {|erb| result << render(file: erb) }
+    erbs.each {|erb| result << ERB.new(File.read(erb)).result }
     result.html_safe
   end
 

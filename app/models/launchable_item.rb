@@ -47,9 +47,12 @@ class LaunchableItem
     end
   end
 
-  def envvars_json
-    Oj.dump(@marketplace_item.envs)
+
+  def token
+    session[:authentication][:token]
   end
+
+  alias has_token? token
 
   def envs
     @marketplace_item.envs

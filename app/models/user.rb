@@ -35,7 +35,7 @@ class User
     user
   end
 
-  def suggest_firstname(email)
+  def self.suggest_firstname(email)
     return "" if email.blank?
     email[/\A[^@]+/].tr(".", " ").titleize
   end
@@ -58,6 +58,10 @@ class User
   
   def reset
     Api::Accounts.new.reset(to_hash)
+  end
+  
+  def repassword
+    Api::Accounts.new.repassword(update_hash)
   end
 
   def email_available?
@@ -117,7 +121,7 @@ class User
     {:email => @email,
       :api_key => @api_key,
       :password => @raw_password,
-      :first_name => suggest_firstname(@email),
+      :first_name => User.suggest_firstname(@email),
       :last_name => @last_name
     }
   end
@@ -128,6 +132,7 @@ class User
       :password => ensure_password_is_hashed,
       :first_name => @first_name,
       :last_name => @last_name,
+      :password_reset_key => @password_reset_key,
     }
   end 
 
