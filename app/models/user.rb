@@ -51,6 +51,18 @@ class User
     ensure_password_is_hashed
     Api::Accounts.new.save(to_hash)
   end
+  
+  def update
+    Api::Accounts.new.update(update_hash)
+  end
+  
+  def reset
+    Api::Accounts.new.reset(to_hash)
+  end
+  
+  def repassword
+    Api::Accounts.new.repassword(update_hash)
+  end
 
   def email_available?
     find_by_email
@@ -77,7 +89,7 @@ class User
     password_hash.present?
   end
 
-  def confirm_password?(password)
+  def confirm_password?(password)  
     return false unless password && @raw_password
     password == password_hash(@raw_password)
   end
@@ -113,6 +125,16 @@ class User
       :last_name => @last_name
     }
   end
+  
+  def update_hash
+    {:email => @email,
+      :api_key => @api_key,
+      :password => ensure_password_is_hashed,
+      :first_name => @first_name,
+      :last_name => @last_name,
+      :password_reset_key => @password_reset_key,
+    }
+  end 
 
   private
 

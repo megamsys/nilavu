@@ -15,7 +15,8 @@
 ##
 
 class UsersController < ApplicationController
-
+  respond_to :html, :js
+  
   skip_before_filter :redirect_to_login_if_required, only: [:new, :create,
   :forgot_password, :password_reset]
 
@@ -80,20 +81,28 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = fetch_user_from_params
-
+    user = fetch_user_from_params    
+    if !(check_password(user, params))
+      redirect_with_failure(edit_user_path(1), "login.incorrect_password")
+      return 
+    end
     updater = UserUpdater.new(user)
-    updater.update(params)
+    if updater.update(params)
+      activation = UserActivator.new(user, request, session, cookies)
+      activation.start
+      activation.finish      
+      redirect_with_success(edit_user_path(1), "signup.updated_profile")
+    else
+      redirect_with_failure(edit_user_path(1), "login.errors", "errors.profile_error")
+    end   
+    
   end
 
   def forgot_password
-    params.permit(:email)
-    user = fetch_user_from_params
-
-    user.password_reset_key = EmailToken.generate_token
-    user.password_reset_key_sent_at = Time.now
-
-    if user.save
+   params.permit(:email) 
+   user = User.new
+   user.email = params[:email]
+    if user.reset
       redirect_with_success(signin_path, "forgot_password.success")
     else
       fail_with("forgot_password.errors")
@@ -102,34 +111,31 @@ class UsersController < ApplicationController
 
   #user clicks the link and it comes to password_reset (both get/put)
   def password_reset
-    expires_now
-
-    if EmailToken.valid_token_format?(params[:token])
-      if !request.put?
-        email_token = EmailToken.confirmable(params[:token]) #accounts/confirmemail_token/:token
-        @user = email_token.try(:user)
-      end
+   if request.env["REQUEST_METHOD"] == PUT
+     user = User.new
+     user.email = params[:email]
+     user.password_reset_key = params[:token]
+     user.password = params[:password]
+     if user.repassword
+      redirect_with_success(signin_path, "password_reset.success")
     else
-      @invalid_token = true
+      fail_with("password_reset.no_token")
     end
-
-    if !@user || @invalid_token
-      @error = 'password_reset.no_token'
-    elsif request.put?
-      @invalid_password = params[:password].blank? || params[:password].length > User.max_password_length
-
-      if @invalid_password
-        @error = 'login.incorrect_email_or_password'
+   end   
+   
+  end 
+  
+  def check_password(user, params)
+    params.require(:email)   
+    user_params.each { |k, v| user.send("#{k}=", v) } 
+    if params.has_key?("current_password")  
+      user.password = params[:current_password]
+      if user.find_by_email
+        return true
       else
-        @user.password = params[:password]
-        @user.password_required!
-        if @user.save
-          logon_after_password_reset
-        end
-      end
+        return false
+      end 
     end
-
-    fail_with(@error) if @error
   end
 
   # Ha ! Ha !, a hack for accounts.show but a fancy name.
@@ -167,7 +173,7 @@ class UsersController < ApplicationController
   private
 
   def fetch_user_from_params
-    User.new(params)
+    User.new
   end
 
 end

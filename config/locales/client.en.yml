@@ -64,6 +64,7 @@ en:
     existing_user: "Already have an account ?"
     login_here: "Login here"
     update_password: "Update Password"
+    updated_profile: "Your profile was updated."
     created_account: "Your account is activated and ready to use."
     otp_verified: "Hi %{email}, Thank you for signing up. All transaction details will be sent to this number."
     created_cephaccount: "Your storage account is activated and ready to use."
@@ -71,7 +72,7 @@ en:
     submit: Submit
 
   forgot_password:
-    success: "(email sent)"
+    success: "An email has been sent to your registered email address to reset your password"
     errors: "Sorry, email not sent, Select the 'Forgot my password' to get a new link."
 
   password_reset:
@@ -100,6 +101,7 @@ en:
     valid_email: "Please type a valid email address or create account in megam."
     success: "Click <b>marketplaces</b> to get started"
     incorrect_email_or_password: "Incorrect email or password"
+    incorrect_password: "Incorrect current password"
     tata: "Tata."
     not_activated: "You can't log in yet. We sent an activation email to you. Please follow the instructions in the email to activate your account."
     wait_approval: "Thanks for signing up. We will notify you when your account has been approved."
@@ -260,7 +262,8 @@ en:
     no_access: "You've hit our mars servers, No Access..."
     no_services_found: "Sorry! You don't have any services. Please create from marketplace."
     no_organizations_found: "No Orgs Found"
-    launch_error: "Your %{stuff} <b>%{name} launch failure."
+    launch_error: "Your {{stuff}} <b>{{name}} launch failure."
+    profile_error: "Your profile update failure."
 
   launch:
     success: "Your %{stuff} <b>%{name}</b> is firing up"
