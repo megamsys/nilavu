@@ -37,9 +37,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_current_user_with_team
   around_action :catch_exceptions
 
-  PUT = "PUT".freeze
-  GET = "GET".freeze
-
+  
   # Some exceptions
   class RenderEmpty < StandardError; end
 

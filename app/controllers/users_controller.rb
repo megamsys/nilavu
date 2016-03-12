@@ -16,7 +16,7 @@
 
 class UsersController < ApplicationController
   respond_to :html, :js
-  
+
   skip_before_filter :redirect_to_login_if_required, only: [:new, :create,
   :forgot_password, :password_reset]
 
@@ -81,25 +81,25 @@ class UsersController < ApplicationController
   end
 
   def update
-    user = fetch_user_from_params    
+    user = fetch_user_from_params
     if !(check_password(user, params))
       redirect_with_failure(edit_user_path(1), "login.incorrect_password")
-      return 
+      return
     end
+
     updater = UserUpdater.new(user)
     if updater.update(params)
       activation = UserActivator.new(user, request, session, cookies)
       activation.start
-      activation.finish      
+      activation.finish
       redirect_with_success(edit_user_path(1), "signup.updated_profile")
     else
       redirect_with_failure(edit_user_path(1), "login.errors", "errors.profile_error")
-    end   
-    
+    end
   end
 
   def forgot_password
-   params.permit(:email) 
+   params.permit(:email)
    user = User.new
    user.email = params[:email]
     if user.reset
@@ -109,33 +109,26 @@ class UsersController < ApplicationController
     end
   end
 
-  #user clicks the link and it comes to password_reset (both get/put)
   def password_reset
-   if request.env["REQUEST_METHOD"] == PUT
+   if request.put?
      user = User.new
      user.email = params[:email]
      user.password_reset_key = params[:token]
      user.password = params[:password]
+
      if user.repassword
       redirect_with_success(signin_path, "password_reset.success")
     else
       fail_with("password_reset.no_token")
     end
-   end   
-   
-  end 
-  
+   end
+  end
+
   def check_password(user, params)
-    params.require(:email)   
-    user_params.each { |k, v| user.send("#{k}=", v) } 
-    if params.has_key?("current_password")  
-      user.password = params[:current_password]
-      if user.find_by_email
-        return true
-      else
-        return false
-      end 
-    end
+    params.require(:email)
+    user_params.each { |k, v| user.send("#{k}=", v) }
+
+    PasswordValidator.new(user, params).validate
   end
 
   # Ha ! Ha !, a hack for accounts.show but a fancy name.
