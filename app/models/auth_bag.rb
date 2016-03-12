@@ -1,4 +1,5 @@
 require "current_user"
+require "current_cephuser"
 
 class AuthBag
 
@@ -9,9 +10,9 @@ class AuthBag
     end
   end
 
-  def self.ceph(user)
-    if  user
-      Hash[%w(ceph_access_key ceph_secret_key).map {|x| [x.to_sym, user.send(x.to_sym)]}]
+  def self.ceph(ceph_user)
+    if  ceph_user
+      Hash[%w(access_key_id secret_access_key).map {|x| [x.to_sym, ceph_user.send(x.to_sym)]}]
     end
   end
 

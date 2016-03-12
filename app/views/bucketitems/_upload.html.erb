@@ -7,7 +7,7 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-md-12">
-          <%= form_tag bucketkolkes_path, :method => :post, :remote => true, :multipart => true do %>
+          <%= form_tag bucketfiles_path, :method => :post, :remote => true, :multipart => true do %>
           <div class="form-group">
           <label class="fileinput-button">
           <%= hidden_field_tag 'bucket_name', nil, :class=> 'form-control', :id => "bucketName", placeholder: "Bucket Name", :required => true %>
@@ -21,4 +21,3 @@
     </div>
   </div>
 </div>
-

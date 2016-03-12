@@ -66,6 +66,7 @@ en:
     update_password: "Update Password"
     created_account: "Your account is activated and ready to use."
     otp_verified: "Hi %{email}, Thank you for signing up. All transaction details will be sent to this number."
+    created_cephaccount: "Your storage account is activated and ready to use."
     otp_failure: "Failed. try again."
     submit: Submit
 
@@ -89,6 +90,7 @@ en:
     new_user: "Create new account ?"
     forget_password: "Forgot password"
     tour: "Take a tour"
+    error: "Unknown error"
     media: "Login with social media"
     ui_design_credits: "Designed by Enixel"
     your_registered_email: "Your registered email"
@@ -104,6 +106,25 @@ en:
     active: "Your account is activated and ready to use."
     activate_email: "<p>You're almost done! We sent an activation mail to <b>%{email}</b>. Please follow the instructions in the email to activate your account.</p><p>If it doesn't arrive, check your spam folder, or try to log in again to send another activation mail.</p>"
     otpsending: "Sending..."
+
+  cephlogin:
+    success: "Click <b>buckets</b> to get started"
+    incorrect_email_or_password: "Incorrect access key or secret key"
+    not_activated: "You can't log in yet. We sent an activation email to you. Please follow the instructions in the email to activate your account."
+    active: "Your account is activated and ready to use."
+    activate_email: "<p>You're almost done! We sent an activation mail to <b>%{email}</b>. Please follow the instructions in the email to activate your account.</p><p>If it doesn't arrive, check your spam folder, or try to log in again to send another activation mail.</p>"
+    otpsending: "Sending..."
+
+  cephbuckets:
+    created: "Bucket %{name} created"
+    unable_to_list_buckets: "Your buckets listing failed. Storage is running ?"
+    unable_to_list_bucketfiles: "Your bucket items listing failed. Storage is running ?"
+    bucketfiles_none: "Nothing inside, Try uploading new files."
+    unable_to_create_bucket: "Whoa! couldn't create bucket"
+    destroyed: "Bucket %{name} deleted"
+    unable_to_destroy_bucket: "Whoa! couldn't delete bucket"
+    uploaded: "Uploaded"
+    upload_failure: "Upload failure"
 
   cockpits:
     title: "Dashboard"

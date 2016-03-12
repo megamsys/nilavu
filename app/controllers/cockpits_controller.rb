@@ -35,13 +35,13 @@ class CockpitsController < ApplicationController
   before_filter :ensure_logged_in, except: [
     :topics_by,
     # anonymous filters
-    Discourse.anonymous_filters,
-    Discourse.anonymous_filters.map { |f| "#{f}_feed" },
+    Nilavu.anonymous_filters,
+    Nilavu.anonymous_filters.map { |f| "#{f}_feed" },
     # anonymous categorized filters
-    Discourse.anonymous_filters.map { |f| :"category_#{f}" },
-    Discourse.anonymous_filters.map { |f| :"category_none_#{f}" },
-    Discourse.anonymous_filters.map { |f| :"parent_category_category_#{f}" },
-    Discourse.anonymous_filters.map { |f| :"parent_category_category_none_#{f}" },
+    Nilavu.anonymous_filters.map { |f| :"category_#{f}" },
+    Nilavu.anonymous_filters.map { |f| :"category_none_#{f}" },
+    Nilavu.anonymous_filters.map { |f| :"parent_category_category_#{f}" },
+    Nilavu.anonymous_filters.map { |f| :"parent_category_category_none_#{f}" },
     # category feeds
     :category_feed,
     # top summaries
@@ -57,7 +57,7 @@ class CockpitsController < ApplicationController
   ].flatten
 
   # Create our filters
-  Discourse.filters.each do |filter|
+  Nilavu.filters.each do |filter|
     define_method(filter) do |options = nil|
       list_opts = build_topic_list_options
       list_opts.merge!(options) if options
@@ -76,7 +76,7 @@ class CockpitsController < ApplicationController
 
       list.more_topics_url = construct_url_with(:next, list_opts)
       list.prev_topics_url = construct_url_with(:prev, list_opts)
-      if Discourse.anonymous_filters.include?(filter)
+      if Nilavu.anonymous_filters.include?(filter)
         @description = SiteSetting.site_description
         @rss = filter
 
@@ -95,7 +95,7 @@ class CockpitsController < ApplicationController
     end
 
     define_method("category_#{filter}") do
-      canonical_url "#{Discourse.base_url_no_prefix}#{@category.url}"
+      canonical_url "#{Nilavu.base_url_no_prefix}#{@category.url}"
       self.send(filter, category: @category.id)
     end
 
@@ -104,7 +104,7 @@ class CockpitsController < ApplicationController
     end
 
     define_method("parent_category_category_#{filter}") do
-      canonical_url "#{Discourse.base_url_no_prefix}#{@category.url}"
+      canonical_url "#{Nilavu.base_url_no_prefix}#{@category.url}"
       self.send(filter, category: @category.id)
     end
 

@@ -1,5 +1,5 @@
 ## TO-DO need to think harder and rewrite ssh in 1.5
-## The code is messy.
+## The code is a bit messy.
 class SSHKeysCreator
 
   attr_reader :keypair_name

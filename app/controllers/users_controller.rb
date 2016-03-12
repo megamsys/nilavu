@@ -65,7 +65,7 @@ class UsersController < ApplicationController
       redirect_with_success(cockpits_path, "signup.created_account")
     else
       session["signup.create_failure"] = activation.message
-      redirect_with_failure(signin_path, "login.errors", user.errors.full_messages.join("\n"))
+      redirect_with_failure(signin_path, "login.error", user.errors.full_messages.join("\n"))
     end
     #TO-DO rescure connection errors that come out.
     #rescue RestClient::Forbidden

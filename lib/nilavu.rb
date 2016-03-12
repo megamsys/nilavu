@@ -138,6 +138,14 @@ module Nilavu
     @current_user_provider = val
   end
 
+  def self.current_cephuser_provider
+    @current_cephuser_provider || Auth::DefaultCurrentCephUserProvider
+  end
+
+  def self.current_cephuser_provider=(val)
+    @current_cephuser_provider = val
+  end
+
   # all forking servers must call this
   # after fork, otherwise Nilavu will be in a bad state
   def self.after_fork
