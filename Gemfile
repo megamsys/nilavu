@@ -8,7 +8,7 @@ gem 'net-ping'
 gem 'http'
 
 #rails
-gem 'rails', '~> 4.2.5.2'
+gem 'rails', '~> 4.2.6'
 gem 'protected_attributes' # transition to rails 4.2.x
 gem 'responders' # transition to rails 4.2.x
 gem 'http_accept_language', '~>2.0.5', require: false

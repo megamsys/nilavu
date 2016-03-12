@@ -5,14 +5,14 @@
       Total Storage
     </dt>
     <dd>
-    <%= @objects[:total_size] %>
+    <%= @listed_buckets[:spaced].buckets_count %>
     </dd>
     <dt class="margin-top-20"></dt>
     <dt>
       Total Objects
     </dt>
     <dd>
-      <%= @objects[:total_objects] %>
-    </dd>    
+      <%= @listed_buckets[:spaced].buckets_size_humanized %>
+    </dd>
   </dl>
 </div>

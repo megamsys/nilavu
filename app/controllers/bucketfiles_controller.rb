@@ -13,16 +13,28 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
+require 'bucketfiles_lister'
+require 'bucketfile_destroyer'
 
-class BucketsController < ApplicationController
+class BucketFilesController < ApplicationController
   respond_to :json, :js
 
-  before_action :redirect_to_cephlogin_if_required, only: [:index, :create]
-  before_action :add_cephauthkeys_for_api, only: [:index, :create]
+  before_filter :redirect_to_cephlogin_if_required
+  before_action :add_cephauthkeys_for_api
 
 
-  def index
-    @lister = BucketsLister.new(params)
+  def create
+    if uploaded_url = CephStore.new(params, params[:bucket_name]).store_upload(params[:sobject])
+      redirect_to(buckets_path, :flash => { :success => I18n.t('cephbuckets.uploaded', :url => uploaded_url)}, format: 'js')
+    else
+      not_uploaded
+    end
+  end
+
+  def show
+    params.require(:id)
+
+    @lister = BucketsFilesLister.new(params)
 
     if lister_has_calcuated?
       @listed_buckets =  @lister.listed(current_cephuser.email)
@@ -35,28 +47,17 @@ class BucketsController < ApplicationController
     not_listed
   end
 
-  def create
-    if BucketCreator.new(params).perform
-      redirect_to(buckets_path, :flash => { :success => I18n.t('cephbuckets.created', :name => params[:id])}, format: 'js')
-    else
-      not_created
-    end
-  rescue Nilavu::InvalidParameters
-    not_created
-  end
-
-  def show
-  end
 
   def destroy
-    if BucketDestroyer.new(params).perform
-      redirect_to(buckets_path, :flash => { :success => I18n.t('cephbuckets.destroyed', :name => params[:id])}, format: 'js')
+    if destroyed = BucketFileDestroyer.new(params).perform
+      redirect_to(buckets_path, status: 303,  :flash => { :success => I18n.t('cephbuckets.destroyed', :name => params[:bucket_name])}, format: 'js')
     else
       not_destroyed
     end
   rescue Nilavu::InvalidParameters
     not_destroyed
   end
+
 
   private
 
@@ -68,12 +69,20 @@ class BucketsController < ApplicationController
     end
   end
 
-  def not_listed
+  def show_listed_if_present
+    @listed ||= @lister.listed
+    if @listed.present?
+      respond_with(@listed)
+    end
+  end
+
+
+  def  not_listed
     fail_with('cephbuckets.unable_to_list_buckets')
   end
 
-  def  not_created
-    fail_with('cephbuckets.unable_to_create_bucket')
+  def  not_uploaded
+    fail_with('cephbuckets.upload_failure')
   end
 
   def  not_destroyed
@@ -83,4 +92,5 @@ class BucketsController < ApplicationController
   def fail_with(key)
     render_with_error(key)
   end
+
 end
