@@ -30,9 +30,10 @@ Nilavu::Application.routes.draw do
   match '/signin', to: 'sessions#new', via: [:get]
   match '/tour', to: 'sessions#tour', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post, :delete]
-  post 'forgot_password' => "session#forgot_password"
-  get "password-reset/:token" => "users#password_reset"
-  put "password-reset/:token" => "users#password_reset"
+  post "password_reset" => "users#forgot_password"
+  get "/reset" => "users#password_reset"
+  put "/reset" => "users#password_reset"
+
 
   match "/auth/:provider/callback", to: "omniauth_callbacks#complete", via: [:get, :post]
   get "auth/gitlab" => "gitlab#show", constraints: { format: /(json|html)/}
