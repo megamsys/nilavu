@@ -1,10 +1,11 @@
 # destroy bucket file using ceph helper
 class BucketFileDestroyer
-
+  attr_reader :bucket_name
+  attr_reader :bucket_file
 
   def initialize(ceph_access)
     @ceph  = CephHelper.new(ceph_access)
-    
+
     @bucket_name = ceph_access[:bucket_name]
     @bucketfile_name = ceph_access[:key]
 

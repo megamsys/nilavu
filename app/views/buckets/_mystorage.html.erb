@@ -29,7 +29,7 @@
       </div>
       <% @listed_buckets[:usage].each do |bucket| %>
         <div class="col-xs-12 col-sm-6 col-md-3 app_cover my_bucket_inner" id="<%= bucket.name %>">
-          <%= link_to bucketitem_path(:id => bucket.name), :target => "_self", :remote => true do %>
+          <%= link_to bucketfile_path(:id => bucket.name), :target => "_self", :remote => true do %>
             <div class="app_inner">
               <div class="app">
                 <div class="app_head">
@@ -37,7 +37,7 @@
                     <h5><%= bucket.name %></h5>
                     <h6>
                       Size:
-                      <%= bucket.size %>
+                      <%= bucket.size_humanized %>
                     </h6>
                   </div>
                 </div>

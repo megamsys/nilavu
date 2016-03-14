@@ -27,14 +27,12 @@ class CephUser
   def self.new_from_params(params)
     user = CephUser.new
     params.symbolize_keys!
-#    user.email = params[:user_id]
+    user.email = params[:user_id]
 
-#    user.name = params[:name]
+    user.name = params[:name]
     user.access_key_id = params[:access_key]
     user.secret_access_key = params[:secret_key]
-#    user.created_at = params[:created_at]
-user.access_key_id = "08Q9RUCEGDNTMIMP8NA7"
-user.secret_access_key = "lNf4kTGjaoSokxa6I1qbctDUDLiHrq4o7U9VDDPS"
+    user.created_at = params[:created_at]
     user
   end
 
@@ -45,7 +43,7 @@ user.secret_access_key = "lNf4kTGjaoSokxa6I1qbctDUDLiHrq4o7U9VDDPS"
 
   def find_by_email
     if to_hash[:email].include?('@')
-#      find
+      find
     end
   end
 

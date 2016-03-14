@@ -1,9 +1,10 @@
 class BucketUsage
-  attr_reader :name, :size, :count
+  attr_reader :name, :size, :size_humanized, :count
 
   def initialize(bucket)
     @name = bucket.name
-    @size = size_all_objects(bucket).to_s(:human_size)
+    @size = size_all_objects(bucket)
+    @size_humanized = @size.to_s(:humanized)
     @count = count_all_objects(bucket)
   end
 

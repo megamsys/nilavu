@@ -13,9 +13,7 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-require 'backup_restore/bucketfile_usage'
-
-class BucketFilesCalculator
+class BucketfilesCalculator
   attr_reader :counted
   attr_reader :spaced
 
@@ -27,22 +25,24 @@ class BucketFilesCalculator
   end
 
   def listed(email)
-    {:usage => @counted, :spaced => spaced(email), :bucket_name => @bucket_name}
+    aggregate_space(email)
+    {:usage => @counted, :spaced => @spaced, :bucket_name => @bucket_name}
   end
 
   ## This is stupid, we reiterate the buckets a lot. Its because the buckets.objects
   ## just return the object name.
   def usage
     @counted ||= @all_bucketfiles.map do |bucketfile|
-      BucketFileUsage.new(bucketfile)
+      BucketfileUsage.new(bucketfile)
     end
   end
 
-  def spaced(email)
+  def aggregate_space(email)
     if @counted.present?
-      @space = StorageSpace.new(@counted)
-      @space.calculate()
+      @spaced =  StorageSpace.new(@counted)
+      @spaced.calculate
     end
+    @spaced
   end
 
   def has_bucketfiles?

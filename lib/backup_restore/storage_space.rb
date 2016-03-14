@@ -6,40 +6,41 @@ class StorageSpace
 
   def initialize(weightings=nil)
     @weightings = weightings
-  end
+end
 
   # Calculate the storage for all buckets or bucket_items
   def calculate(min_count=0)
-    update_buckets_size
+    update_buckets_size(min_count)
 
-    update_buckets_count
+    update_buckets_count(min_count)
   end
 
 
   private
 
-  def update_buckets_size(min_size)
-    @weightings.size || min_size
+
+  def update_buckets_count(min_size)
+    @buckets_count = @weightings.count || min_size
   end
 
-  def update_buckets_count(min_count)
+  def update_buckets_size(min_count)
     raise Nilavu::NotFound unless @weightings
 
     weighed = @weightings.collect {|count| count.respond_to?(:size) ? count.size : "0"}
 
     @buckets_size = weighed.reduce(:+)
 
-    @buckets_size_humanized = @bucket_size.to_s(:human_size)
+    @buckets_size_humanized = @buckets_size.to_s(:human_size)
   end
 
 
-  def consolidated_totalsummary(email)
-    summary = consolidated_totalsummary(email)
+  #def consolidated_totalsummary(email)
+  #  summary = consolidated_totalsummary(email)
 
-    return unless summary.present?
+  #  return unless summary.present?
 
-    summary.symbolize_keys!
+  #  summary.symbolize_keys!
 
-    GWUser.usage(email)
-  end
+  #  GWUser.usage(email)
+  #end
 end

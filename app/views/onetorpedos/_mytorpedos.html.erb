@@ -14,37 +14,31 @@
 ** limitations under the License.
 -->
 <% content_for :content_settings do %>
-<% provide(:title, "Torpedo Overview") %>
-<div class="rt-box col-xs-12 col-sm-9 col-md-10 col-xl-11 c_bg_white c_height_5">
+  <% provide(:title, "Torpedo Overview") %>
+  <div class="rt-box col-xs-12 col-sm-9 col-md-10 col-xl-11 c_bg_white c_height_5">
     <div class="">
-        <div class="row c_pading-b15">
-            <div class="storage_top">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <h3><b> Torpedo Overview </b></h3>
-                </div>
-            </div>
+      <div class="row c_pading-b15">
+        <div class="storage_top">
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <h3><b> Torpedo Overview </b></h3>
+          </div>
         </div>
+      </div>
     </div>
     <div class="bottom-divider"></div>
     <div class="row">
-        <div class="col-xs-12 col-sm-9 col-md-9 br_grey" id="tabs">
-
-            <% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
-            <% @logname = "#{assembly.name}.#{domain}" %>
-            <% @ip = parse_key_value_pair(assembly.outputs, "publicipv4") %>
-            <%= render 'catalogs/mycomponent' %>
-
-        </div>
-
-        <div class="col-sm-3 storage-rt-list">
-
-            <dl>
-                <%= render 'onetorpedos/common_overview', :locals => {:assembly => @assembly} %>
-
-            </dl>
-        </div>
+      <div class="col-xs-12 col-sm-9 col-md-9 br_grey" id="tabs">
+        <% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
+        <% @logname = "#{assembly.name}.#{domain}" %>
+        <% @ip = parse_key_value_pair(assembly.outputs, "publicipv4") %>
+        <%= render 'catalogs/mycomponent' %>
+      </div>
+      <div class="col-sm-3 storage-rt-list">
+        <dl>
+          <%= render 'onetorpedos/common_overview', :locals => {:assembly => @assembly} %>
+        </dl>
+      </div>
     </div>
-</div>
-
+  </div>
 <% end %>
 <%= render :template => "users/show", :locals => {:cattype => Api::Assemblies::TORPEDO} %>

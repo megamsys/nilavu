@@ -82,7 +82,8 @@ class UsersController < ApplicationController
 
   def update
     user = fetch_user_from_params
-    if !(check_password(user, params))
+
+    unless check_password(user, params)
       redirect_with_failure(edit_user_path(1), "login.incorrect_password")
       return
     end
@@ -92,6 +93,7 @@ class UsersController < ApplicationController
       activation = UserActivator.new(user, request, session, cookies)
       activation.start
       activation.finish
+
       redirect_with_success(edit_user_path(1), "signup.updated_profile")
     else
       redirect_with_failure(edit_user_path(1), "login.errors", "errors.profile_error")
@@ -99,9 +101,9 @@ class UsersController < ApplicationController
   end
 
   def forgot_password
-   params.permit(:email)
-   user = User.new
-   user.email = params[:email]
+    params.permit(:email)
+    user = User.new
+    user.email = params[:email]
     if user.reset
       redirect_with_success(signin_path, "forgot_password.success")
     else
@@ -110,25 +112,33 @@ class UsersController < ApplicationController
   end
 
   def password_reset
-   if request.put?
-     user = User.new
-     user.email = params[:email]
-     user.password_reset_key = params[:token]
-     user.password = params[:password]
+    if request.put?
+      user = User.new
+      user.email = params[:email]
+      user.password_reset_key = params[:token]
+      user.password = params[:password]
 
-     if user.repassword
-      redirect_with_success(signin_path, "password_reset.success")
-    else
-      fail_with("password_reset.no_token")
+      if user.repassword
+        redirect_with_success(signin_path, "password_reset.success")
+      else
+        fail_with("password_reset.no_token")
+      end
     end
-   end
   end
 
+  ## we will have to check this out later.
   def check_password(user, params)
     params.require(:email)
     user_params.each { |k, v| user.send("#{k}=", v) }
 
-    PasswordValidator.new(user, params).validate
+    if params.has_key?("current_password")
+      user.password = params[:current_password]
+      if user.find_by_email
+        return true
+      else
+        return false
+      end
+    end
   end
 
   # Ha ! Ha !, a hack for accounts.show but a fancy name.

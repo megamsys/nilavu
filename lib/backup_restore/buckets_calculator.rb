@@ -25,7 +25,8 @@ class BucketsCalculator
   end
 
   def listed(email)
-    {:usage => @counted, :spaced => spaced(email)}
+    aggregate_space(email)
+    {:usage => @counted, :spaced => @spaced}
   end
 
   def usage
@@ -34,11 +35,12 @@ class BucketsCalculator
     end
   end
 
-  def spaced(email)
+  def aggregate_space(email)
     if @counted.present?
-      @space = StorageSpace.new(@counted)
-      @space.calculate()
+      @spaced =  StorageSpace.new(@counted)
+      @spaced.calculate
     end
+    @spaced
   end
 
   def has_buckets?

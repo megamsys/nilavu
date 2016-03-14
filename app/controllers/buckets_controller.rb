@@ -62,7 +62,7 @@ class BucketsController < ApplicationController
 
   def lister_has_calcuated?
     if @lister
-      return @lister.listed if @lister.listed.present?
+      return @lister.listed(current_cephuser.email) if @lister.listed(current_cephuser.email).present?
     else
       false
     end
