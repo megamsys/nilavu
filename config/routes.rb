@@ -16,11 +16,8 @@ Nilavu::Application.routes.draw do
   resources :ssh_keys
   resources :buckets
   resources :bucketfiles
-  resources :onetorpedos
-  resources :oneapps
-  resources :oneservices
-  resources :onemicroservices
   resources :phones
+  resources :deploys
 
   # named route for users, session
   match '/signup', to: 'users#new', via: [:get]

@@ -1,4 +1,4 @@
-/**
+<!--
 ** Copyright [2013-2016] [Megam Systems]
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,15 +12,5 @@
 ** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
-**/
-<% if @err_msg %>
-$('.app_exist').modal('hide');
-var selected_entity = '#app_postfinish_popup_error';
-$("#app_err_msg").html('<%= @err_msg %>');
-$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
-<% else %>
-$('.app_exist').modal('hide');
-var selected_entity = '#app_postfinish_popup';
-$("#app_res_msg").html('<%= @res_msg %>');
-$(selected_entity).modal({backdrop : false,keyboard: false,show : true});
-<% end %>
+-->
+<%= render :partial => 'deploys/common', :locals => {:deployed => @deployed } %>

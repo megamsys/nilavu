@@ -98,7 +98,7 @@ en:
     reset_password: "Reset Password"
     reset_password_statement: "An email has been sent to your registered email address to reset your password"
     sorry: "Sorry!"
-    valid_email: "Please type a valid email address or create account in megam."
+    valid_email: "Please type a valid email address or create account."
     success: "Click <b>marketplaces</b> to get started"
     incorrect_email_or_password: "Incorrect email or password"
     incorrect_password: "Incorrect current password"
@@ -163,6 +163,7 @@ en:
     ssh_import_publickey: "Import public key..."
     image_name: "Image Name"
     image_name_placeholder: "Docker hub image name"
+    launch_item_load_failure: 'Launch item that you clicked failed to load.'
     launched: "launched successfully."
     launch_status: "Launched"
     ram: "RAM"
@@ -214,6 +215,7 @@ en:
   overviews:
     operating_system: "OS"
     available_ram: "Available RAM"
+    available_hdd: "Disk"
     mb: "MB"
     ip: "IP"
     still_launching: "LAUNCHING..."
