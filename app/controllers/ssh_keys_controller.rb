@@ -18,7 +18,7 @@ require 'sshkeys_finder'
 class SshKeysController < ApplicationController
   respond_to :html, :js
 
-  before_action :add_authkeys_for_api, only: [:index]
+  before_action :add_authkeys_for_api, only: [:index, :create, :edit, :update]
 
   def index
     @foundkeys ||= SSHKeysFinder.new(params).foundkeys

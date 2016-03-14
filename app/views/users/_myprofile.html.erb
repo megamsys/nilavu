@@ -43,28 +43,6 @@
     </div>
   </div>
 </div>
-<div id="invite_user" class="modal fade" data-backdrop="static" tabindex="-1" aria-hidden="true">
-  <div class="modal-dialog" style="max-width:400px">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-        <h4 class="modal-title"> Organization Invite </h4>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-12">
-            <%= form_tag invite_path, multipart: true, :method => :post, :remote => true do %>
-              <div class="form-group">
-                <%= text_field_tag 'email', nil, :class=> 'form-control', placeholder: "Email", :required => true %>
-              </div>
-              <%= submit_tag "Invite", :class => "btn btn-success col-md-12 col-xs-12" , :data => {:remote => true}%>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 <!-- To load toastr message  -->
 <%= render :partial => "layouts/toastr_message" %>
 <%= render :partial => "phones/authorize_mobile", :locals => {:redirect => "/users/1/edit"} %>

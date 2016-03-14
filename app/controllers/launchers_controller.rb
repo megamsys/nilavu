@@ -23,7 +23,7 @@ class LaunchersController < ApplicationController
   def launch
     @launch_item = HoneyPot.cached_marketplace_by_item(params)
     unless @launch_item
-      return flash[:error] = 'Launch item that you clicked failed to load.'
+      render_with_error('marketplace.launch_item_load_failure')
     end
 
     respond_to do |format|

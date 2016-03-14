@@ -1,6 +1,5 @@
 
 <div class="tabs" id="overview">
-
 </div>
 <b class="logs-head">Logs</b>
 <div class="logBox borderless torpOverviewTb">
@@ -12,18 +11,17 @@
 
 <script type="text/javascript">
   (function ($) {
-    $.AppName = "<%= @logname %>";
-    $.AppIp = "<%= @ip %>";
-    $.MonitC = "http://" + $.AppIp + ":9999/api/v1.3/containers";
-    $.MonitM = "http://" + $.AppIp + ":9999/api/v1.3/machine";
+    $.AppName = "<%= @deployed.name %>";
+    $.AppIp = "<%= @deployed.publicip %>";
+    $.MonitC = "<%= @deployed.monitored_container_url %>";
+    $.MonitM = "<%= @deployed.monitored_machine_url %>";
     $.SocketURL = "<%= GlobalSetting.logs %>";
     $.Socket = null;
     $.SocketReconnect = true;
     start();
   })($);
 
-  //var serverSocket = new WebSocket($.SocketURL)
-   var serverSocket = null;
+ var serverSocket = null;
 
   function start(){
     $.Socket = new WebSocket($.SocketURL);
@@ -42,7 +40,6 @@
     };
     $.Socket.onclose = function(){
       console.log('closed!');
-      //reconnect now
       if($.SocketReconnect) {
           check();
       }

@@ -1,4 +1,4 @@
-/**
+<!--
 ** Copyright [2013-2016] [Megam Systems]
 **
 ** Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,9 +12,5 @@
 ** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
-**/
-var selected_entity = '#replace_bind_form';
-var to_insert_content = "<%= escape_javascript(render :partial => 'oneapps/bindservice_form', :locals => {:service => @service, :bindapp => @bindapp}) %>";
-insertAt(selected_entity, to_insert_content);
-
-$("#bindservice").modal('show');
+-->
+<%= render :partial => 'deploys/common', :locals => {:deployed => @deployed } %>
