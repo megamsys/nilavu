@@ -5,14 +5,14 @@
       Total Storage
     </dt>
     <dd>
-      <%=  @listed_buckets[:spaced].buckets_count %>
+      <%= @listed_buckets[:spaced].buckets_size_humanized %>
     </dd>
     <dt class="margin-top-20"></dt>
     <dt>
       Total Buckets
     </dt>
     <dd>
-      <%= @listed_buckets[:spaced].buckets_size_humanized %>
+      <%=  @listed_buckets[:spaced].buckets_count %>
     </dd>
     <dt class="margin-top-20"></dt>
     <dt>

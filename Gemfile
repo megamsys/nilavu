@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 # ruby "2.3.0"
 
 #core ruby
-gem 'json', '~> 1.8.3'
 gem 'net-ssh'
 gem 'net-ping'
 gem 'http'

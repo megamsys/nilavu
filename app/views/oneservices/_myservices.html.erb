@@ -14,49 +14,44 @@
 ** limitations under the License.
 -->
 <% content_for :onecat_contents do %>
-<% provide(:title, "Services Overview") %>
-
-<div class="rt-box col-xs-12 col-sm-9 col-md-10 col-xl-11 c_bg_white c_height_5">
-  <div class="">
-    <div class="row c_pading-b15">
-      <div class="storage_top">
-        <div class="col-xs-12 col-sm-6 col-md-6">
-          <h3>
-            <b>
-              Services Overview
+  <% provide(:title, "Services Overview") %>
+  <div class="rt-box col-xs-12 col-sm-9 col-md-10 col-xl-11 c_bg_white c_height_5">
+    <div class="">
+      <div class="row c_pading-b15">
+        <div class="storage_top">
+          <div class="col-xs-12 col-sm-6 col-md-6">
+            <h3>
+              <b>
+                Services Overview
             </b>
-          </h3>
+            </h3>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="bottom-divider"></div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-9 col-md-9 br_grey">
-      <% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
-      <% @logname = "#{assembly.name}.#{domain}" %>
-      <% @ip = parse_key_value_pair(assembly.outputs, "publicipv4") %>
-
-      <%= render 'catalogs/mycomponent' %>
-    </div>
-    <div class="col-sm-2 storage-rt-list">
-      <dl>
-                <%= render 'onetorpedos/common_overview', :locals => {:assembly => @assembly} %>
-
-        <dt class="margin-top-20"></dt>
-        <dt>ENVS</dt>
-        <% envs(assembly).each do |k, v| %>
-        <dd><%= k +":" + v %></dd>
-        <% end %>
-    
-      </dl>
+    <div class="bottom-divider"></div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-9 col-md-9 br_grey">
+        <% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
+        <% @logname = "#{assembly.name}.#{domain}" %>
+        <% @ip = parse_key_value_pair(assembly.outputs, "publicipv4") %>
+        <%= render 'catalogs/mycomponent' %>
+      </div>
+      <div class="col-sm-2 storage-rt-list">
+        <dl>
+          <%= render 'onetorpedos/common_overview', :locals => {:assembly => @assembly} %>
+          <dt class="margin-top-20"></dt>
+          <dt>ENVS</dt>
+          <% envs(assembly).each do |k, v| %>
+            <dd><%= k +":" + v %></dd>
+          <% end %>
+        </dl>
+      </div>
     </div>
   </div>
-</div>
-<br/>
-<% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
-<% @logname = "#{assembly.name}.#{domain}" %>
-
+  <br/>
+  <% domain = assembly.inputs.select { |x| x["key"] == "domain" }[0]['value'] %>
+  <% @logname = "#{assembly.name}.#{domain}" %>
 </div>
 <% end %>
 <%= render :template => 'catalogs/show',:locals => {:cattype => Api::Assemblies::SERVICE} %>

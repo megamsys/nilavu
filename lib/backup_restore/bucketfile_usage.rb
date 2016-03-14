@@ -1,4 +1,4 @@
-class BucketObjectUsage
+class BucketfileUsage
 
   attr_reader :key
   attr_reader :name

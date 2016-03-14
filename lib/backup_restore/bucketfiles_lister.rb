@@ -13,29 +13,29 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-require 'bucketobjects_counter'
 
 class BucketFilesLister
 
   def initialize(ceph_parms)
     @ceph_helper = CephHelper.new(ceph_parms)
-    @name = ceph_params[:bucket_name]
+    @name = ceph_parms[:id]
   end
 
   def bucket_files
-    @ceph_helper.ceph_bucket(@bucket_name).objects
+    @ceph_helper.ceph_bucket(@name).objects
   end
 
-  def listed
-    calculate.listed
+  def listed(email)
+    calculate.listed(email)
   end
 
   private
 
   def calculate
-    return @calculated = BucketFilesCalculator.new(bucket_files, @name) if @calculated.present?
+    @calculated = BucketfilesCalculator.new(bucket_files, @name)
+    return @calculated if @calculated.present?
 
-    raise Nilavu::NotFound unless @calculated
+    raise Nilavu::NotFound
   end
 
 end

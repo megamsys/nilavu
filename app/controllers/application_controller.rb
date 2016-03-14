@@ -37,7 +37,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_current_user_with_team
   around_action :catch_exceptions
 
-  
+
   # Some exceptions
   class RenderEmpty < StandardError; end
 

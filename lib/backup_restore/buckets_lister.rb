@@ -23,15 +23,17 @@ class BucketsLister
     @ceph_helper.ceph_buckets
   end
 
-  def listed
-    calculate.listed
+  def listed(email)
+    calculate.listed(email)
   end
 
   private
 
   def calculate
-    return @calculated = BucketsCalculator.new(buckets) if @calculated.present?
+     @calculated = BucketsCalculator.new(buckets)
 
+    return @calculated if @calculated.present?
+    
     raise Nilavu::NotFound
   end
 

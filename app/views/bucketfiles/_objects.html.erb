@@ -24,7 +24,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <table class="table yfiles-tb tb_upload objectPageList">
                     <tbody>
-                        <% @listed_bucketfiles[:usage].each do |bucketfile| %>
+                        <% @listed_buckets[:usage].each do |bucketfile| %>
                         <tr class="del-up-cover">
                             <!--<td width="5%">
                             <div class="checker">
@@ -34,7 +34,7 @@
                             </div></td>-->
                             <td class="td-left objectListTd" id="<%= bucketfile.name %>"><i id="objectFormat" class="pop_icon"></i><b><%= bucketfile.name.split("/").last %></b><i> - <%= bucketfile.size_with_units %></i></td>
                           <!--  <td style="padding-top:17px"> <%= link_to bucketfile.name do %> <i class="c_icon-d margin_15  pull-right"></i> <% end %> </td> -->
-                            <td style="padding-top:15px"> <%= link_to bucketfile_path( :id => "dummy", :key => bucketfile.key,  :bucket_name => @listed_bucketfiles[:bucket_name] ), method: :DELETE, :remote => true do %> <i class="c_icon-trash margin_15 pull-right"></i> <% end %> </td>
+                            <td style="padding-top:15px"> <%= link_to bucketfile_path( :id => "dummy", :key => bucketfile.key,  :bucket_name => @listed_buckets[:bucket_name] ), method: :DELETE, :remote => true do %> <i class="c_icon-trash margin_15 pull-right"></i> <% end %> </td>
                         </tr>
                         <% end %>
                     </tbody>
@@ -42,9 +42,9 @@
             </div>
         </div>
     </div>
-    <%= render :partial => "bucketfiles/usage", :locals => {:objects => @listed_bucketfiles, :page => 'show'} %>
+    <%= render :partial => "bucketfiles/usage", :locals => {:objects => @listed_buckets, :page => 'show'} %>
 </div>
 
-<%= @bucket_name = @listed_bucketfiles[:bucket_name] %>
+<%= @bucket_name = @listed_buckets[:bucket_name] %>
 <%= render :partial => "buckets/upload_modal", :locals => {:bucket_name => @bucket_name} %>
 <script src="assets/megam.storages.js" />
