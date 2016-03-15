@@ -20,10 +20,9 @@
 		<div class="col-sm-6 body_center">
 			</br>
 			<%= image_tag "gitlabimg.png",:class=> "img-responsive center-block",:size => "90x90", :id => "slider-image"%>
+ <%= form_tag gitlab_repos_path , method: 'get' do %>
 
-			<%= form_tag('/store_gitlab', method: 'post') do %>
-			</br>
-			<%= email_field_tag 'gitlab_username', nil, placeholder: 'Enter Gitlab Username', :style => "width:350px; height:50px;" ,:required => true, :class =>"form-control" %>
+     <%= text_field_tag 'gitlab_username', nil, placeholder: 'Enter Gitlab Username', :style => "width:350px; height:50px;" ,:required => true, :class =>"form-control" %>
 			</br>
 			<%= password_field_tag 'gitlab_password', nil, placeholder: 'Enter Gitlab Password', :style => "width:350px; height:50px;", :required => true, :class =>"form-control" %>
 			</br>

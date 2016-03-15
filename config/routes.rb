@@ -24,20 +24,21 @@ Nilavu::Application.routes.draw do
   resources :onemicroservices
   resources :phones
   resources :events   # Internal AJAX API
-    
+
   # named route for users, session
   match '/signup', to: 'users#new', via: [:get]
   match '/signin', to: 'sessions#new', via: [:get]
   match '/tour', to: 'sessions#tour', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post, :delete]
+
   post 'forgot_password' => "session#forgot_password"
   get "password-reset/:token" => "users#password_reset"
   put "password-reset/:token" => "users#password_reset"
 
   match "/auth/:provider/callback", to: "omniauth_callbacks#complete", via: [:get, :post]
   get "auth/gitlab" => "gitlab#show", constraints: { format: /(json|html)/}
-  match "/auth/failure", to: "omniauth_callbacks#failure", via: [:get, :post]
 
+  match "/auth/failure", to: "omniauth_callbacks#failure", via: [:get, :post]
 
   get  "launchers/:id" => "launchers#launch"
   post "launchers" => "launchers#perform_launch"
@@ -53,7 +54,7 @@ Nilavu::Application.routes.draw do
 
   #===== git
   get "github/repos" => "github#list", constraints: { format: /(json|html)/}
-  get "gitlab/repos" => "gitlab#list", constraints: { format: /(json|html)/}
+  get "gitlab_repos" => "gitlab#list", constraints: { format: /(json|html)/}
 
   #===catalogs
   # kelvi   : confirm delete for all flycontrols. all cattypes will use that.
@@ -71,5 +72,8 @@ Nilavu::Application.routes.draw do
   match '/sensors', to: 'sensors#index' , via: [:get, :post]
   #get 'notifications' => 'notifications#index'
   #put 'notifications/mark-read' => 'notifications#mark_read'
+
+
+
 
 end
