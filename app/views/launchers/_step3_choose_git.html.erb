@@ -33,11 +33,8 @@
     </div>
     <div class="col-md-6 text-center">
       <div class="col-md-offset-4 col-md-2">
-        <% if SiteSetting.enable_gitlab_source %>
-          <a href="#" class="hint  hint--bottom" onclick="return gitlab_repos();" data-hint="Connect with your private Gitlab id"> <%= image_tag "gitlabimg.png",:class=> "img-responsive_byoc "%> </a>
-        <% else %>
-          <a href="#" class="hint  hint--bottom" data-hint="Gitlab disabled."> <%= image_tag "gitlabimg.png",:class=> "img-responsive_byoc "%> </a>
-        <% end %>
+        <a href="#" class="hint  hint--bottom" onclick="return gitlab_repos();" data-hint="Connect with your private Gitlab id"> <%= image_tag "gitlabimg.png",:class=> "img-responsive_byoc "%> </a>
+
       </div>
     </div>
   </div>
