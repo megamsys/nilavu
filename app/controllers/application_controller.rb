@@ -15,6 +15,7 @@
 ##
 
 require 'current_user'
+require 'current_cephuser'
 require_dependency 'nilavu'
 require_dependency 'global_path'
 require_dependency 'global_exceptions'
@@ -23,6 +24,7 @@ require_dependency 'json_error'
 
 class ApplicationController < ActionController::Base
   include CurrentUser
+  include CurrentCephUser
   include JsonError
   include GlobalPath
   include GlobalExceptions
@@ -85,6 +87,12 @@ class ApplicationController < ActionController::Base
     redirect_to path('/signin')
   end
 
+  def redirect_to_cephlogin_if_required
+    return if current_cephuser
+    session[:destination_url] = destination_url
+    redirect_to path('/cephsignin')
+  end
+
 
   def set_current_user_with_team
     if current_user && !current_user.team
@@ -105,11 +113,16 @@ class ApplicationController < ActionController::Base
     params.merge!(AuthBag.vertice(current_user))
   end
 
+  def add_cephauthkeys_for_api
+    logger.debug "> STICKC"
+    params.merge!(AuthBag.ceph(current_cephuser))
+  end
+
   def current_homepage
     current_user ? SiteSetting.homepage : "/signin"
   end
 
-###START json changes for 2.0 ember based.
+  ###START json changes for 2.0 ember based.
   def serialize_data(obj, serializer, opts=nil)
     # If it's an array, apply the serializer as an each_serializer to the elements
     serializer_opts = opts || {}
@@ -189,7 +202,7 @@ class ApplicationController < ActionController::Base
     current_user.blank? && flash[:authentication_data].blank?
   end
 
-### END. the json methods are for 2.0 ember changes.
+  ### END. the json methods are for 2.0 ember changes.
 
   private
 
@@ -207,19 +220,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
-
-  #def custom_html
-  #  data = {
-  #    top: SiteCustomization.custom_top(session[:preview_style]),
-  #    footer: SiteCustomization.custom_footer(session[:preview_style])
-  #  }
-  #
-  # if NilavuPluginRegistry.custom_html
-  #    data.merge! NilavuPluginRegistry.custom_html
-  #  end
-
-  #end
+  ##
+  ## For ember 2.0 changes
+  def custom_html
+    data = {
+      top: SiteCustomization.custom_top,
+      footer: SiteCustomization.custom_footer
+    }
+  end
 
   def check_xhr
     # bypass xhr check on PUT / POST / DELETE provided api key is there, otherwise calling api is annoying
@@ -232,7 +240,6 @@ class ApplicationController < ActionController::Base
   end
 
   def destination_url
-    #    request.original_url unless request.original_url =~ /uploads/
     request.original_url
   end
 
@@ -248,6 +255,18 @@ class ApplicationController < ActionController::Base
     if params[key]
       params[key].split(delimiter).map(&:to_i)
     end
+  end
+
+  def render_with_error(key)
+    render js: "toastr.error('#{I18n.t(key)}');"
+  end
+
+  def render_with_warning(key)
+    render js: "toastr.warning('#{I18n.t(key)}');"
+  end
+
+  def render_with_success(key)
+    render js: "toastr.success('#{I18n.t(key)}');"
   end
 
   def redirect_with_info(path, key, parms={})

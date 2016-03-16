@@ -13,41 +13,74 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-require 'json'
 
 class BucketsController < ApplicationController
   respond_to :json, :js
 
-  before_action :stick_ceph_keys, only: [:index, :create, :show, :upload, :destroy]
+  before_action :redirect_to_cephlogin_if_required, only: [:index, :create]
+  before_action :add_cephauthkeys_for_api, only: [:index, :create]
+
 
   def index
-    if !session[:ceph_access_key].nil? && Backup::BackupUser.new.exists?(current_user.email)
-      @bucket ||= Backup::Buckets.new(params).list
-    else
-      load_ceph(current_user)
-      stick_ceph_keys
-      redirect_to buckets_path if session[:ceph_access_key].nil?
-      @bucket ||= Backup::Buckets.new(params).list
+    @lister = BucketsLister.new(params)
+
+    if lister_has_calcuated?
+      @listed_buckets =  @lister.listed(current_cephuser.email)
+
+      return @listed_buckets if @listed_buckets.present?
     end
-    @usage ||= Backup::BackupUser.new.usage(current_user.email)
+
+    not_listed
+  rescue Nilavu::NotFound
+    not_listed
   end
 
   def create
-    begin
-      Backup::Buckets.new(params).create(params[:id])
-      @bucket ||= Backup::Buckets.new(params).list
-      redirect_to(buckets_path, :flash => { :success => "#{params['id']} created successfully."}, format: 'js')
-    rescue Exception => e
-      redirect_to(buckets_path, :flash => { :error => "Bucket name not available! Try different bucket name!"}, format: 'js')
+    if BucketCreator.new(params).perform
+      redirect_to(buckets_path, :flash => { :success => I18n.t('cephbuckets.created', :name => params[:id])}, format: 'js')
+    else
+      not_created
     end
+  rescue Nilavu::InvalidParameters
+    not_created
   end
 
   def show
-    logger.debug '> Buckets: show.'
-    #@objects = BucketObjects.new(params).list_detail
-    #@bucket_name = params["id"]
   end
 
   def destroy
+    if BucketDestroyer.new(params).perform
+      redirect_to(buckets_path, :flash => { :success => I18n.t('cephbuckets.destroyed', :name => params[:id])}, format: 'js')
+    else
+      not_destroyed
+    end
+  rescue Nilavu::InvalidParameters
+    not_destroyed
+  end
+
+  private
+
+  def lister_has_calcuated?
+    if @lister
+      return @lister.listed(current_cephuser.email) if @lister.listed(current_cephuser.email).present?
+    else
+      false
+    end
+  end
+
+  def not_listed
+    fail_with('cephbuckets.unable_to_list_buckets')
+  end
+
+  def  not_created
+    fail_with('cephbuckets.unable_to_create_bucket')
+  end
+
+  def  not_destroyed
+    fail_with('cephbuckets.unable_to_destroy_bucket')
+  end
+
+  def fail_with(key)
+    render_with_error(key)
   end
 end

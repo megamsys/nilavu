@@ -12,7 +12,8 @@ class EmailToken
   end
 
   def self.valid_token_format?(token)
-    return token.present? && token =~ /[a-f0-9]{#{token.length/2}}/i
+    #return token.present? && token =~ /[a-f0-9]{#{token.length/2}}/i
+    return true
   end
 
   def self.confirmable(token)

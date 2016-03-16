@@ -119,6 +119,8 @@ login:
     regex: "^[a-f0-9]+$"
   enable_ceph_logins:
      default: false
+  ceph_gateway_timeout:
+      default: 30
   ceph_gateway: ''
   ceph_username: megdc
   ceph_password: megdc

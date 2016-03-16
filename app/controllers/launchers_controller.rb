@@ -23,7 +23,7 @@ class LaunchersController < ApplicationController
   def launch
     @launch_item = HoneyPot.cached_marketplace_by_item(params)
     unless @launch_item
-      return flash[:error] = 'Launch item that you clicked failed to load.'
+      render_with_error('marketplace.launch_item_load_failure')
     end
 
     respond_to do |format|
@@ -45,7 +45,7 @@ class LaunchersController < ApplicationController
       #  Scheduler::Defer.later "Log launch action for" do
       #    @nilavu_event_logger.log_launched(@launched)
       #  end
-      redirect_with_success(cockpits_path, "launch.success",vertice.launched_message)
+      redirect_with_success(cockpits_path, "launch.success", vertice.launched_message)
     else
       redirect_with_failure(cockpits_path, "errors.launch_error",vertice.launched_message)
     end
