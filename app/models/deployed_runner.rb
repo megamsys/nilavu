@@ -5,9 +5,7 @@ class DeployedRunner
   def self.perform_run(params)
     @type = params[:type]
     @params = params
-
     assembly_item = find_by(params)
-
     if assembly_item
       return  Deployed.new(assembly_item)
     end
