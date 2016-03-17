@@ -6,10 +6,11 @@ class DeployedRunner
     @type = params[:type]
     @params = params
     assembly_item = find_by(params)
+    
     if assembly_item
       return  Deployed.new(assembly_item)
     end
-puts "---- raise nilavu"
+
     raise Nilavu::NotFound
   end
 

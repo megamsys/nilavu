@@ -30,10 +30,10 @@ class BucketsLister
   private
 
   def calculate
-     @calculated = BucketsCalculator.new(buckets)
+     @calculated ||= BucketsCalculator.new(buckets)
 
     return @calculated if @calculated.present?
-    
+
     raise Nilavu::NotFound
   end
 

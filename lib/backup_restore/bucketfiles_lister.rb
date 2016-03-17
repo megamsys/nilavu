@@ -32,14 +32,14 @@ class BucketFilesLister
   private
 
   def calculate
-    @calculated = BucketfilesCalculator.new(bucket_files, @name)
+    @calculated ||= BucketfilesCalculator.new(bucket_files, @name)
+
     return @calculated if @calculated.present?
 
     raise Nilavu::NotFound
   end
 
 end
-
 
 #def download
 #    find_object.content
