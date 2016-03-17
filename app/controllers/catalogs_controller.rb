@@ -25,7 +25,7 @@ class CatalogsController < ApplicationController
   include CatalogHelper
   respond_to :html, :js
 
-  before_action :add_authkeys_for_api, only: [:index,:create,:destory]
+  before_action :add_authkeys_for_api, only: [:index, :create, :kelvi, :destroy]
 
   #A filtered view of cattype [MICROSERVICES, APP, TORPEDO,SERVICE] the cockpit.
   #This action is invoked when you click Apps, Services, Addons from the left nav.
@@ -38,7 +38,7 @@ class CatalogsController < ApplicationController
   #this action performs a start, stop, restart operation
   def create
     logger.debug "> Pilotable: create"
-    Api::Requests.new.reqs(params.merge({:action => params[:req_action]}))
+      Api::Requests.new.reqs(params.merge({:action => params[:req_action]}))
     @msg = { message: "#{params['name']}",
     title: "#{params['req_action'].camelize}ing #{params['cattype'].downcase}"}
   end

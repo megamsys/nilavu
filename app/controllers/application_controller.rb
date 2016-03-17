@@ -93,7 +93,6 @@ class ApplicationController < ActionController::Base
     redirect_to path('/cephsignin')
   end
 
-
   def set_current_user_with_team
     if current_user && !current_user.team
       Teams.new.tap do |teams|
@@ -115,7 +114,7 @@ class ApplicationController < ActionController::Base
 
   def add_cephauthkeys_for_api
     logger.debug "> STICKC"
-    params.merge!(AuthBag.ceph(current_cephuser))
+    puts params.merge!(AuthBag.ceph(current_cephuser))
   end
 
   def current_homepage
