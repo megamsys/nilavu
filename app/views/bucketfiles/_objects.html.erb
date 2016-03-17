@@ -33,7 +33,7 @@
                                 </span>
                             </div></td>-->
                             <td class="td-left objectListTd" id="<%= bucketfile.name %>"><i id="objectFormat" class="pop_icon"></i><b><%= bucketfile.name.split("/").last %></b><i> - <%= bucketfile.size_with_units %></i></td>
-                          <!--  <td style="padding-top:17px"> <%= link_to bucketfile.name do %> <i class="c_icon-d margin_15  pull-right"></i> <% end %> </td> -->
+                            <td style="padding-top:17px"> <%= link_to bucketfile.download_url do %> <i class="c_icon-d margin_15  pull-right"></i> <% end %> </td>
                             <td style="padding-top:15px"> <%= link_to bucketfile_path( :id => "dummy", :key => bucketfile.key,  :bucket_name => @listed_buckets[:bucket_name] ), method: :DELETE, :remote => true do %> <i class="c_icon-trash margin_15 pull-right"></i> <% end %> </td>
                         </tr>
                         <% end %>
