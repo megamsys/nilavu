@@ -25,8 +25,10 @@ class BucketfilesCalculator
   end
 
   def listed(email)
-    aggregate_space(email)
-    {:usage => @counted, :spaced => @spaced, :bucket_name => @bucket_name}
+    @spaced ||= aggregate_space(email)
+    @spaced.calculate
+
+    {:usage => @counted || [], :spaced => @spaced, :bucket_name => @bucket_name}
   end
 
   ## This is stupid, we reiterate the buckets a lot. Its because the buckets.objects
@@ -38,11 +40,7 @@ class BucketfilesCalculator
   end
 
   def aggregate_space(email)
-    if @counted.present?
-      @spaced =  StorageSpace.new(@counted)
-      @spaced.calculate
-    end
-    @spaced
+    StorageSpace.new(@counted)
   end
 
   def has_bucketfiles?

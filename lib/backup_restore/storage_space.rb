@@ -10,9 +10,11 @@ end
 
   # Calculate the storage for all buckets or bucket_items
   def calculate(min_count=0)
-    update_buckets_size(min_count)
+    @buckets_count = update_buckets_size(min_count)
 
-    update_buckets_count(min_count)
+    @buckets_size = update_buckets_count(min_count)
+
+    @buckets_size_humanized = @buckets_size.to_s(:human_size)    
   end
 
 
@@ -20,17 +22,17 @@ end
 
 
   def update_buckets_count(min_size)
-    @buckets_count = @weightings.count || min_size
+    return min_size unless @weightings.present?
+
+    @weightings.count
   end
 
   def update_buckets_size(min_count)
-    raise Nilavu::NotFound unless @weightings
+    return min_count unless @weightings.present?
 
     weighed = @weightings.collect {|count| count.respond_to?(:size) ? count.size : "0"}
 
     @buckets_size = weighed.reduce(:+)
-
-    @buckets_size_humanized = @buckets_size.to_s(:human_size)
   end
 
 

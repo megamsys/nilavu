@@ -61,7 +61,7 @@ class CephHelper
     ceph_parms.each {|cp| opts[cp] = send("#{cp}")}
     if  SiteSetting.ceph_gateway
       opts[:host]    = SiteSetting.ceph_gateway
-      #opts[:port]    = 
+      #opts[:port]    =
       opts[:timeout] = SiteSetting.ceph_gateway_timeout
     end
 

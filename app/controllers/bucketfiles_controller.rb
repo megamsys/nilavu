@@ -35,6 +35,7 @@ class BucketfilesController < ApplicationController
     params.require(:id)
 
     @lister = BucketFilesLister.new(params)
+
     if lister_has_calcuated?
 
       @listed_buckets =  @lister.listed(current_cephuser.email)
@@ -64,7 +65,7 @@ class BucketfilesController < ApplicationController
 
   def lister_has_calcuated?
     if @lister
-      return @lister.listed(current_cephuser.email) if @lister.listed(current_cephuser.email).present?
+      return @lister.listed(current_cephuser.email)
     else
       false
     end
