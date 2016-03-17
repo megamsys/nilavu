@@ -54,7 +54,7 @@ class CatalogsController < ApplicationController
     logger.debug "> Pilotable: destroy"
     Api::Requests.new.reqs(params)
     @msg = { message: "Your  #{params['cattype'].downcase} #{params['name']} is getting nuked",
-    title: "#{params['req_action'].camelize}ing #{params['cattype'].downcase}"}
+    title: "#{params['req_action']}ing #{params['cattype'].downcase}"}
   end
 
   def runtime
