@@ -53,8 +53,7 @@ class CatalogsController < ApplicationController
   def destroy
     logger.debug "> Pilotable: destroy"
     Api::Requests.new.reqs(params)
-    @msg = { message: "Your  #{params['cattype'].downcase} #{params['name']} is getting nuked",
-    title: "#{params['req_action']}ing #{params['cattype'].downcase}"}
+    redirect_to(cockpits_path, :flash => { :success => I18n.t('"Your  #{params['cattype'].downcase} #{params['name']} is getting nuked"', :title => "#{params['req_action']}ing #{params['cattype'].downcase}")}, format: 'js')
   end
 
   def runtime
