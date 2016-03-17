@@ -25,7 +25,7 @@ class CatalogsController < ApplicationController
   include CatalogHelper
   respond_to :html, :js
 
-  before_action :add_authkeys_for_api, only: [:index,:create,:destory]
+  before_action :add_authkeys_for_api, only: [:index,:create,:destory,:kelvi]
 
   #A filtered view of cattype [MICROSERVICES, APP, TORPEDO,SERVICE] the cockpit.
   #This action is invoked when you click Apps, Services, Addons from the left nav.
@@ -53,7 +53,8 @@ class CatalogsController < ApplicationController
   def destroy
     logger.debug "> Pilotable: destroy"
     Api::Requests.new.reqs(params)
-    toast_success(root_url, "Your  #{params['cattype'].downcase} #{params['name']} is getting nuked")
+    @msg = { message: "Your  #{params['cattype'].downcase} #{params['name']} is getting nuked",
+    title: "#{params['req_action']}ing #{params['cattype'].downcase}"}
   end
 
   def runtime
