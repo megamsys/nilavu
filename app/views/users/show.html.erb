@@ -25,7 +25,7 @@
             <li></li>
             <%= render :partial => "layouts/toponeclick" %>
             <li class='start active'>
-              <%= link_to cockpits_path, id: 'side-dash-link', :data => { :remote => true}, :target => '_self' do %>
+              <%= link_to cockpits_path, id: 'side-dash-link', :data => { :remote => true}, :target => '_self', :class => "unmount_component" do %>
                 <i class='c_icon-db pull-left'></i>
                 <span class='title pull-left'><%= t('cockpits.title') %></span>
               <% end %>

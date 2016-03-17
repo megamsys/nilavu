@@ -1,4 +1,4 @@
-<%= javascript_tag do %>
-  window.opener.location = '<%= @origin %>#';
-  window.close();
-<% end %>
+<script type="text/javascript">
+window.opener.location = '<%= @origin %>#'
+window.close()
+</script>
