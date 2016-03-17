@@ -66,10 +66,9 @@ class OmniauthCallbacksController < ApplicationController
         flash[:authentication_data] = @auth_result.to_client_hash.to_json
         redirect_to origin
       else
-        return redirect_to_where_it_came(@auth_result.to_client_hash)
+        redirect_to_where_it_came(@auth_result.to_client_hash)
 
         after_create_account(@auth_result.to_client_hash)
-
       end
     end
   end
@@ -104,7 +103,9 @@ class OmniauthCallbacksController < ApplicationController
   #(Onboard and use in both user#create and here)
   def after_create_account(result)
     user = User.new_from_params(result)
+    user.password = SiteSetting.oauth_stub_password
     user.api_key = SecureRandom.hex(20) if user.api_key.blank?
+    
     activation = UserActivator.new(user, request, session, cookies)
     activation.start
 
