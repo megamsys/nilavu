@@ -1,8 +1,8 @@
 module Gitlabber
 
-  def self.repos
+  def self.repos(username,password)
     glr = []
-    Gitlab.client(endpoint: endpoint, private_token: token).projects.each do |url|
+    Gitlab.client(endpoint:endpoint, private_token:token(username,password)).projects.each do |url|
       glr << url.http_url_to_repo
     end
     glr
@@ -10,12 +10,12 @@ module Gitlabber
 
   def self.endpoint
     SiteSetting.gitlab_host
-  end
+ end
 
   private
-
-  def self.token(username, password)
-    Gitlab.session(username, password).private_token
+   def self.token(username,password)
+    Gitlab.endpoint =endpoint
+    Gitlab.session(username,password).private_token
   end
 
   #      def find_id(params)

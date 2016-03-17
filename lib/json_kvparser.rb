@@ -8,10 +8,8 @@ module JsonKVParser
 
   def select_with_pattern(where, pattern)
     raise Nilavu::InvalidParameters unless where
-
-    return unless where.grep(/pattern/).any?
-
-    where.select{ |i| i[/\pattern.*$/] }
+    return if (where.select{ |k,v|  k[:key].include?(pattern) }).empty?
+    where.select{ |k,v|  k[:key].include?(pattern) }
   end
 
   def ensure_symbolized(where)

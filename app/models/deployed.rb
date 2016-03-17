@@ -11,7 +11,6 @@ class Deployed
     @assembly = assembly
 
     ensure_symbolized_of
-
     set_launched_name
     what_are_my_ips
   end
@@ -39,7 +38,7 @@ class Deployed
   end
 
   def someip
-    return @ips && (@ips.publicip || @ips.privateip)
+    return @ips && (@ips.privateip || @ips.publicip)
   end
 
   def publicip
@@ -133,8 +132,8 @@ class Deployed
   end
 
   def  what_are_my_ips
-    if ips_output = select_with_pattern(@output, "ip")
-      @ips = DeployedIps.new(ips_output)
+    if ips_array = select_with_pattern(@output, "ip")
+      @ips = DeployedIps.new(ips_array)
     end
   end
 

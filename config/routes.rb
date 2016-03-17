@@ -39,7 +39,7 @@ Nilavu::Application.routes.draw do
   #git
   get "github/repos" => "github#list", constraints: { format: /(json|html)/}
   get "auth/gitlab" => "gitlab#show", constraints: { format: /(json|html)/}
-  get "gitlab/repos" => "gitlab#list", constraints: { format: /(json|html)/}
+  get "gitlab_repos" => "gitlab#list", constraints: { format: /(json|html)/}
 
   #catalogs
   match '/kelvi', to: 'catalogs#kelvi', via: [:post]
