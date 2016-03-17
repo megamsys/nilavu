@@ -117,6 +117,7 @@ login:
   github_client_secret:
     default: '3d27d07be2fd36f994b0f0a9c699f315d694cae6'
     regex: "^[a-f0-9]+$"
+  oauth_stub_password: "detio"
   enable_ceph_logins:
      default: false
   ceph_gateway_timeout:
@@ -135,7 +136,7 @@ users:
   min_password_length:
     default: 8
     min: 1
-  block_common_passwords: true
+  block_common_passwords: false
   email_editable: false
   logout_redirect:
     default: ''
