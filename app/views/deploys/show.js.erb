@@ -14,6 +14,5 @@
 ** limitations under the License.
 **/
 $(document).ready(function(){
-  $("#overview").remove();
   $('#cockpit').html('<%= escape_javascript(render :partial => "deploys/#{@deployed.type}", :locals => {:deployed => @deployed}) %>');
 });
