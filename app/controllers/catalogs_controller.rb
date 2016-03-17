@@ -43,17 +43,13 @@ class CatalogsController < ApplicationController
     title: "#{params['req_action'].camelize}ing #{params['cattype'].downcase}"}
   end
 
-  #a confirmation question for a delete operation.
-  def kelvi
-    logger.debug "> Pilotable: kelvi"
-    @msg = { title: "Destroy #{params['cattype'].downcase}", message: "Do you want to destroy #{params['name']} ", redirect: catalog_path(:id => 1, :params => params)}
+    def kelvi
+      @msg = { title: "Destroy #{params['cattype'].downcase}", message: "Do you want to destroy #{params['name']} ", redirect: catalog_path(:id => 1, :params => params)}
   end
 
-  #this action performs a delete operation.
   def destroy
-    logger.debug "> Pilotable: destroy"
     Api::Requests.new.reqs(params)
-    redirect_to(cockpits_path, :flash => { :success => I18n.t('"Your  #{params['cattype'].downcase} #{params['name']} is getting nuked"', :title => "#{params['req_action']}ing #{params['cattype'].downcase}")}, format: 'js')
+    @msg = { message: "Your  #{params['cattype'].downcase} #{params['name']} is getting nuked"}
   end
 
   def runtime
@@ -71,5 +67,8 @@ class CatalogsController < ApplicationController
     asm = Assembly.new.show(params).by_cattypes
     @appname = asm["#{params['cattype']}"].name + "." + parse_key_value_json(asm["#{params['cattype']}"].inputs, "domain")
     @appname
+=======
+    @msg = { message: "Your  #{params['cattype'].downcase} #{params['name']} is getting nuked"}
+>>>>>>> origin/1.0
   end
 end
