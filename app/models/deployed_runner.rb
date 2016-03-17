@@ -9,7 +9,7 @@ class DeployedRunner
     if assembly_item
       return  Deployed.new(assembly_item)
     end
-
+puts "---- raise nilavu"
     raise Nilavu::NotFound
   end
 
@@ -28,7 +28,7 @@ class DeployedRunner
 
     return Nilavu::NotFound unless got_assembly
 
-    got_assembly.by_cattypes[@type.upcase]
+    got_assembly.by_cattypes.values.first
   end
 
   def self.run_assembly
