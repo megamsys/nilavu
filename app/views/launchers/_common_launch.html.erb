@@ -17,6 +17,9 @@
   <%= render :partial => "launchers/common_head", :locals => {:launch_item => @launch_item } %>
   <div class="modal-body app_body">
     <%= hidden_field_tag :id, @launch_item.name %>
+    <% if @launch_item.options.any? %>
+    <%= hidden_field_tag 'oneclick', nil, placeholder: '', :class =>"form-control", :value => @launch_item.oneclick %>
+    <% end %>
     <div class="row">
       <div class="col-md-12 pad_tb25">
         <%= render template="launchers/common_banner", :locals => {:launch_item => @launch_item} %>

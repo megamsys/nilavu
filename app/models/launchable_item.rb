@@ -3,6 +3,8 @@ require_dependency 'sshkeys_finder'
 class LaunchableItem
 
   attr_accessor :versions, :sshfinder, :marketplace_item
+  
+  ONECLICK = "oneclick".freeze
 
   def initialize(params, marketplace_item)
     @marketplace_item = marketplace_item
@@ -45,6 +47,14 @@ class LaunchableItem
     if plan = find_plan_for(selected_version)
       return plan[1]
     end
+  end
+  
+  def options
+    @marketplace_item.options
+  end
+  
+  def oneclick
+    @marketplace_item.options.collect { |k| k['value'] if k['key'] == ONECLICK }
   end
 
 
