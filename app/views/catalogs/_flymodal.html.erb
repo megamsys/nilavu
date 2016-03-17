@@ -1,5 +1,4 @@
 <!-- APP INFO MODAL -->
-<
 <div aria-hidden="true" class="modal fade" data-backdrop="static" id="megam_flymodal" role="basic" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content c_modal-content">
@@ -32,7 +31,7 @@
       </div>
       <div class="modal-footer c_modal-footer">
         <button class="btn default" data-dismiss="modal" type="button"><%= t('cancel') %></button>
-        <%= link_to  t('confirm'), "#{@msg[:redirect]}", :class => "btn btn-success a_pad", :method => :delete, :target => "_self" %>
+        <%= link_to  t('confirm'), "#{@msg[:redirect]}", :class => "btn btn-success a_pad", :method => :delete, :target => "_self", data: {remote: true} %>
       </div>
     </div>
     <!-- /.modal-content -->
