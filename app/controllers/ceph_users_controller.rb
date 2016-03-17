@@ -14,7 +14,11 @@ class CephUsersController < ApplicationController
     user = CephUser.new
     user_params.each { |k, v| user.send("#{k}=", v) }
 
+<<<<<<< HEAD
     puts activation = CephUserActivator.new(user, request, session, cookies)
+=======
+    activation = CephUserActivator.new(user, request, session, cookies)
+>>>>>>> origin/1.0
     activation.start
 
     if user.save

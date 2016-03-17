@@ -18,7 +18,7 @@ class BucketCreator
 
   private
 
-  def ensure_bucket_to_create
+  def ensure_bucket_to_create?
     raise Nilavu::InvalidParameters unless @bucket_name
   end
 

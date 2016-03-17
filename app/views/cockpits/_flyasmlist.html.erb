@@ -21,7 +21,7 @@
                 <td class="set_title" width="300px">
                   <% assembly_name = assembly.name + "." +domain(assembly.inputs) %>
                   <% assembly_name = if assembly_name.size > 10 then assembly_name.slice(0,15) + "..." else assembly_name end %>
-                  <%= link_to assembly_name, deploy_path(:id => assembly.id, :type => cattype.upcase), :data => {:remote => true} %>
+                  <%= link_to assembly_name, deploy_path(:id => assembly.id, :type => cattype.upcase), :data => { :remote => true} %>
                 </td>
                 <td width="80px">
                   <%  sparkle_up(cattype,assembly).each do |cool_logo| %>

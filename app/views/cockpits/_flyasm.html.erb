@@ -35,7 +35,7 @@
                   <h5><%= assembly.name %></h5>
                   <% assembly_name = assembly.name + "." +domain(assembly.inputs) %>
                   <% assembly_name = if assembly_name.size > 10 then assembly_name.slice(0,15) + "..." else assembly_name end %>
-                  <%= link_to assembly_name, deploy_path(:id => assembly.id, :type => cattype.upcase), :data => {:remote => true} %>
+                  <%= link_to assembly_name, deploy_path(:id => assembly.id, :type => cattype.upcase), :data => { :remote => true}%>
                   <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                   <ul class="list-inline app_icon_bottom">
                     <%  sparkle_up(cattype,assembly).each do |cool_logo| %>

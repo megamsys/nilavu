@@ -8,11 +8,11 @@ class DeploysController < ApplicationController
     unless @deployed
       render_with_error('Deployed item that you clicked failed to load.')
     end
-    
+
     respond_to do |format|
       format.js do
-        respond_with(@deployed, layout: !request.xhr?)
-      end
-    end
+      respond_with(@deployed, layout: !request.xhr?)
+     end
+   end
   end
 end

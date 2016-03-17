@@ -17,8 +17,8 @@
 class BucketsController < ApplicationController
   respond_to :json, :js
 
-  before_action :redirect_to_cephlogin_if_required, only: [:index, :create]
-  before_action :add_cephauthkeys_for_api, only: [:index, :create]
+  before_action :redirect_to_cephlogin_if_required, only: [:index, :create, :destroy]
+  before_action :add_cephauthkeys_for_api, only: [:index, :create, :destroy]
 
 
   def index
@@ -60,7 +60,7 @@ class BucketsController < ApplicationController
 
   def lister_has_calcuated?
     if @lister
-      return @lister.listed(current_cephuser.email) if @lister.listed(current_cephuser.email).present?
+      return @lister.listed(current_cephuser.email)
     else
       false
     end
