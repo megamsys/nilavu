@@ -70,7 +70,6 @@ en:
     created_cephaccount: "Your storage account is activated and ready to use."
     otp_failure: "Failed. try again."
     submit: "Submit"
-    created_cephaccount: "success"
 
   forgot_password:
     success: "An email has been sent to your registered email address to reset your password"

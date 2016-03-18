@@ -114,7 +114,7 @@ class ApplicationController < ActionController::Base
 
   def add_cephauthkeys_for_api
     logger.debug "> STICKC"
-    puts params.merge!(AuthBag.ceph(current_cephuser))
+    params.merge!(AuthBag.ceph(current_cephuser))
   end
 
   def current_homepage

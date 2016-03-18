@@ -6,7 +6,6 @@ class CephsController < ApplicationController
     params.require(:email)
     user = CephUser.new
     user_params.each { |k, v| user.send("#{k}=", v) }
-
     unless user = user.find_by_email
     signup
     end

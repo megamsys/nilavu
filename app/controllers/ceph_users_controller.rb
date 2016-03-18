@@ -11,18 +11,17 @@ class CephUsersController < ApplicationController
       return fail_with("login.reserved_email")
     end
 
-    user = CephUser.new
-    user_params.each { |k, v| user.send("#{k}=", v) }
+   user = CephUser.new
 
-<<<<<<< HEAD
-    puts activation = CephUserActivator.new(user, request, session, cookies)
-=======
-    activation = CephUserActivator.new(user, request, session, cookies)
->>>>>>> origin/1.0
-    activation.start
+     user_params.each { |k, v| user.send("#{k}=", v) }
 
-    if user.save
-      activation.finish
+  activation = CephUserActivator.new(user, request, session, cookies)
+
+   activation.start
+
+     if user.save
+
+     activation.finish
 
       session["signup.created_cephaccount"] = activation.message
       redirect_with_success(buckets_path, "signup.created_cephaccount")
@@ -40,6 +39,6 @@ class CephUsersController < ApplicationController
   end
 
   def user_params
-    params.permit(:email, :first_name, :last_name)
+    params.permit(:email, :first_name, :last_name )
   end
 end

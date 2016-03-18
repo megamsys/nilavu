@@ -25,11 +25,10 @@ class CatalogsController < ApplicationController
   include CatalogHelper
   respond_to :html, :js
 
-<<<<<<< HEAD
+
   before_action :add_authkeys_for_api, only: [:index, :create, :kelvi, :destroy]
-=======
+
   before_action :add_authkeys_for_api, only: [:index,:create,:destory,:kelvi]
->>>>>>> origin/1.0
 
   #A filtered view of cattype [MICROSERVICES, APP, TORPEDO,SERVICE] the cockpit.
   #This action is invoked when you click Apps, Services, Addons from the left nav.
