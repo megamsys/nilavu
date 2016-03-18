@@ -120,6 +120,7 @@ class OmniauthCallbacksController < ApplicationController
     end
   end
 
+
   private
 
   def redirect_to_where_it_came(result_hash)

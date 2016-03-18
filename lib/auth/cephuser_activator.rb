@@ -16,10 +16,12 @@ class CephUserActivator
     @message = activator.activate
   end
 
+
   private
 
   def activator
-    factory.new(user, request, session, cookies)
+factory.new(user, request, session, cookies)
+
   end
 
   def factory
@@ -27,8 +29,6 @@ class CephUserActivator
   end
 
 end
-
-
 
 class CephLoginActivator < UserActivator
   include CurrentCephUser

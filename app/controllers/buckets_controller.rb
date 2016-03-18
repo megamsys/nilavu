@@ -22,12 +22,10 @@ class BucketsController < ApplicationController
 
 
   def index
-    @lister = BucketsLister.new(params)
-
+     @lister = BucketsLister.new(params)
     if lister_has_calcuated?
-      @listed_buckets =  @lister.listed(current_cephuser.email)
-
-      return @listed_buckets if @listed_buckets.present?
+     @listed_buckets =  @lister.listed(current_cephuser.email)
+    return @listed_buckets if @listed_buckets.present?
     end
 
     not_listed

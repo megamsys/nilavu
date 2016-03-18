@@ -25,6 +25,9 @@ class CatalogsController < ApplicationController
   include CatalogHelper
   respond_to :html, :js
 
+
+  before_action :add_authkeys_for_api, only: [:index, :create, :kelvi, :destroy]
+
   before_action :add_authkeys_for_api, only: [:index,:create,:destory,:kelvi]
 
   #A filtered view of cattype [MICROSERVICES, APP, TORPEDO,SERVICE] the cockpit.
@@ -38,7 +41,7 @@ class CatalogsController < ApplicationController
   #this action performs a start, stop, restart operation
   def create
     logger.debug "> Pilotable: create"
-    Api::Requests.new.reqs(params.merge({:action => params[:req_action]}))
+      Api::Requests.new.reqs(params.merge({:action => params[:req_action]}))
     @msg = { message: "#{params['name']}",
     title: "#{params['req_action'].camelize}ing #{params['cattype'].downcase}"}
   end

@@ -53,7 +53,8 @@ class UsersController < ApplicationController
     authentication.start
 
     activation = UserActivator.new(user, request, session, cookies)
-    activation.start
+     activation.start
+
 
     # just assign a password if we have an authenticator and no password, this is the case for oauth maybe
     user.password = SecureRandom.hex if user.password.blank? && authentication.has_authenticator?

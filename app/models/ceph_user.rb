@@ -15,6 +15,7 @@
 ##
 
 class CephUser
+  include GWUser
 
   attr_accessor :id
   attr_accessor :email
@@ -48,8 +49,10 @@ class CephUser
   end
 
   def save
-    GWUser.save(@email, CephUser.suggest_name(@email))
-  end
+
+ GWUser.save(@email, CephUser.suggest_name(email))
+
+end
 
   def email_available?
     GWUser.exists?(@email)

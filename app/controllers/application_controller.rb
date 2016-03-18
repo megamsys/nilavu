@@ -93,7 +93,6 @@ class ApplicationController < ActionController::Base
     redirect_to path('/cephsignin')
   end
 
-
   def set_current_user_with_team
     if current_user && !current_user.team
       Teams.new.tap do |teams|
