@@ -10,11 +10,11 @@ end
 
   # Calculate the storage for all buckets or bucket_items
   def calculate(min_count=0)
-    @buckets_count = update_buckets_size(min_count)
+     @buckets_size = update_buckets_size(min_count)
 
-    @buckets_size = update_buckets_count(min_count)
+    @buckets_count = update_buckets_count(min_count)
 
-    @buckets_size_humanized = @buckets_size.to_s(:human_size)    
+    @buckets_size_humanized = @buckets_size.to_s(:human_size)
   end
 
 
