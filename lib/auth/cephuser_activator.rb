@@ -20,8 +20,7 @@ class CephUserActivator
   private
 
   def activator
-factory.new(user, request, session, cookies)
-
+    factory.new(user, request, session, cookies)
   end
 
   def factory
@@ -30,7 +29,7 @@ factory.new(user, request, session, cookies)
 
 end
 
-class CephLoginActivator < UserActivator
+class CephLoginActivator < CephUserActivator
   include CurrentCephUser
 
   def activate
