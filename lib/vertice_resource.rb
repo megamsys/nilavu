@@ -19,7 +19,7 @@ module VerticeResource
   end
 
   private
-  def submit(jlaz, jmethod, jparams, passthru=false)
+  def submit(jlaz, jmethod, jparams)
     Megam::Log.level(Rails.configuration.log_level)
     api_jlaz = jlaz.constantize
     unless api_jlaz.respond_to?(jmethod)
