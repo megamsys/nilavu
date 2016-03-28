@@ -40,8 +40,30 @@ module ApplicationHelper
     end
   end
 
+  def guardian
+    @guardian ||= Guardian.new(current_user)
+  end
+
+  def mini_profiler_enabled?
+    defined?(Rack::MiniProfiler) && admin?
+  end
+
+  def admin?
+    current_user.try(:admin?)
+  end
+
+  def staff?
+    current_user.try(:staff?)
+  end
+
+
   def application_logo_url
     @application_logo_url ||=  SiteSetting.logo_url
+  end
+
+
+  def script(*args)
+    javascript_include_tag(*args)
   end
 
   def nilavu_csrf_tags
@@ -50,6 +72,9 @@ module ApplicationHelper
     end
   end
 
+  def mobile_view?
+    false
+  end
 
   def customization_disabled?
     session[:disable_customization] || SiteSetting.disable_customization

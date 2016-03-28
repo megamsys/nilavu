@@ -1,6 +1,7 @@
 # Available options:
 #
 # default   - The default value of the setting.
+# client    - Set to true if the javascript should have access to this setting's value.
 # refresh   - Set to true if clients should refresh when the setting is changed.
 # min       - For a string setting, the minimum length. For an integer setting, the minimum value.
 # max       - For a string setting, the maximum length. For an integer setting, the maximum value.
@@ -16,13 +17,16 @@
 #
 required:
   title:
+    client: true
     default: 'Vertice'
   site_description:
     default: 'One click cloud in 60 seconds'
   contact_email:
+    client: true
     default: 'support@megam.io'
     type: email
   contact_url:
+    client: true
     default: 'https://www.megam.io'
   notification_email:
     default: 'noreply@unconfigured.megam.io.io'
@@ -30,12 +34,16 @@ required:
   disable_customization:
     default: true
   logo_url:
+    client: true
     default: '/images/logo_vertice.png'
   logo_small_url:
+    client: true
     default: '/images/logo_vertice_small.png'
   logo_reverse_url:
+    client: true
     default: '/images/logo_vertice_reverse.png'
   favicon_url:
+    client: true
     default: '/images/default_favicon.png'
   version_checks:
     default: false
@@ -43,6 +51,7 @@ required:
   global_notice:
       default: ""
   free_wheeling:
+      client: true
       default: false
 
 basic:
@@ -52,56 +61,61 @@ basic:
     refresh: true
   allow_user_locale:
     default: false
+    client: true
   ga_universal_tracking_code:
+    client: true
     default: ''
     regex: "^UA-\\d+-\\d+$"
   ga_universal_domain_name:
+    client: true
     default: 'auto'
   ga_tracking_code:
+    client: true
     default: 'UA-60777472-2'
   ga_domain_name:
+    client: true
     default: 'console.megam.io'
   nudgespot_realtimechat_code:
+    client: true
     default: '425d0d6f052a5ce5ae21931efa800675'
-  top_menu:
-    refresh: true
-    type: list
-    default: "marketplaces|storages|profile"
-    regex: "marketplaces"
-    regex_error: "site_settings.errors.must_include_marketplaces"
-    choices:
-     - marketplaces
-     - storages
-     - profile
   left_menu:
+    client: true
     type: list
     default: 'torpedo|app|service|microservices'
   default_categories:
-     type: list
-     default: 'torpedo|app|service|microservices|analytics|collaboration'
+    client: true
+    type: list
+    default: 'torpedo|app|service|microservices|analytics|collaboration'
   default_categories_muted:
-     type: list
-     default: 'app|service|collaboration|analytics'
+    client: true
+    type: list
+    default: 'app|service|collaboration|analytics'
 
 login:
   must_approve_users:
-      default: false
+    client: true
+    default: false
   enable_local_logins:
-      default: true
+    client: true
+    default: true
   allow_new_registrations:
-      default: true
+    client: true
+    default: true
   allow_otp_verifications:
-     default: false
+    client: true
+    default: false
   infobip_username: ''
   infobip_password: ''
   infobip_api_key: ''
   infobip_application_id: ''
   infobip_message_id: ''
   enable_google_oauth2_logins:
+    client: true
     default: false
   google_oauth2_client_id: ''
   google_oauth2_client_secret: ''
   enable_facebook_logins:
+    client: true
     default: false
   facebook_app_id:
     default: ''
@@ -110,6 +124,7 @@ login:
     default: ''
     regex: "^[a-f0-9]+$"
   enable_github_logins:
+    client: true
     default: true
   github_client_id:
     default: 'e9a41a2be1f3abee2fea'
@@ -117,10 +132,25 @@ login:
   github_client_secret:
     default: '3d27d07be2fd36f994b0f0a9c699f315d694cae6'
     regex: "^[a-f0-9]+$"
+  enable_sso:
+    client: true
+    default: false
+  enable_sso_provider: false
+  sso_url: ''
+  sso_secret: ''
+  sso_overrides_email: false
+  sso_overrides_username: false
+  sso_overrides_name: false
+  sso_overrides_avatar:
+    default: false
+    client: true
+  sso_not_approved_url: ''
   enable_ceph_logins:
-     default: false
+    client: true
+    default: false
   ceph_gateway_timeout:
-      default: 30
+    client: true
+    default: 30
   ceph_gateway: ''
   ceph_username: megdc
   ceph_password: megdc
@@ -133,16 +163,21 @@ login:
 
 users:
   min_password_length:
+    client: true
     default: 8
     min: 1
   block_common_passwords: true
   email_editable: false
   logout_redirect:
+    client: true
     default: ''
   full_name_required:
+    client: true
     default: false
   invite_expiry_days: 30
-  allow_default_billings: false
+  allow_default_billings:
+    client: true
+    default: false
   reserved_emails:
     type: list
     default: "tour@megam.io|test@megam.io|support@megam.io|admin@megam.io"
@@ -155,10 +190,14 @@ security:
     type: list
 
 marketplaces:
-  enable_gitlab_source: false
+  enable_gitlab_source:
+    client: true
+    default: false
   gitlab_host:
+    client: true
     default: 'localhost'
   flavors:
+    client: true
     type: list
     default: "[1 GB,1 Core,24 GB SSD]|[2 GB,2 Cores,48 GB SSD]|[4 GB,4 Cores,96 GB SSD]|[8 GB,6 Cores,192 GB SSD]"
     regex: '\\[([^\\]])+\\]'
@@ -169,6 +208,7 @@ marketplaces:
      - [4 GB,4 Cores,96 GB SSD]
      - [8 GB,6 Cores,192 GB SSD]
   flavors_cs:
+    client: true
     type: list
     default: "[1 GB,1 Core,24 GB SSD]|[2 GB,2 Cores,48 GB SSD]|[4 GB,4 Cores,96 GB SSD]|[8 GB,6 Cores,192 GB SSD]"
     regex: "\\[([^\\]])+\\]"

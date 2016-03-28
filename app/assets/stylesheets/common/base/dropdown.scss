@@ -1,0 +1,130 @@
+/*Fixing dropdown issue on mobile devices in Bootstrap 3.2.2*/
+
+.dropdown-backdrop {
+ position: static;
+}
+
+.dropdown:hover .caret,
+.open.dropdown .caret {
+ opacity: 1;
+ filter: alpha(opacity=100);
+}
+
+
+.dropdown.open .dropdown-toggle {
+ color: #08c;
+ background: #f4f4f5;
+ border-color: #ddd;
+}
+
+/***
+Dropdown Menu
+***/
+
+.dropdown-menu {
+ position: absolute;
+ top: 100%;
+ left: 0;
+ z-index: 1000;
+ display: none;
+ float: left;
+ list-style: none;
+ text-shadow: none;
+ padding: 0px;
+ margin:0px;
+ background-color: #ffffff;
+ /*-webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);*/
+ /*-moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);*/
+ /*box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);  */
+ font-size: 14px;
+ /*font-family: "Segoe UI",Helvetica, Arial, sans-serif;*/
+ border: 1px solid #ddd;
+}
+
+.dropdown.inline .dropdown-menu {
+ display: inline-block;
+ position: relative;
+}
+
+.dropdown-menu.bottom-up {
+ top: auto;
+ bottom: 100%;
+ margin-bottom: 2px;
+}
+
+.dropdown-menu li > a {
+ padding: 6px 0 6px 13px;
+ color: #333;
+ text-decoration: none;
+ display: block;
+ clear: both;
+ font-weight: normal;
+ line-height: 18px;
+ white-space: nowrap;
+}
+
+.dropdown-menu li > a:hover,
+.dropdown-menu .active > a,
+.dropdown-menu .active > a:hover {
+ text-decoration: none;
+ background-image: none;
+ background-color: #eee;
+ color: #333;
+ filter:none;
+}
+
+/* dropdown sub menu support for Bootsrap 3 */
+
+.dropdown-submenu > .dropdown-menu {
+ top: 0;
+ left: 100%;
+ margin-top: -6px;
+ margin-left: -1px;
+}
+
+.dropdown-submenu:hover > .dropdown-menu {
+ display: block;
+}
+
+.dropup .dropdown-submenu > .dropdown-menu {
+ top: auto;
+ bottom: 0;
+ margin-top: 0;
+ margin-bottom: -2px;
+}
+
+.dropdown-submenu > a:after {
+ position: absolute;
+ display: inline-block;
+ font-size: 14px;
+ right: 7px;
+ top: 9px;
+ font-family: FontAwesome;
+ height: auto;
+ content: "\f105";
+ font-weight: 300;
+}
+
+/* hack for chrome and safari */
+@media all and (-webkit-min-device-pixel-ratio:0) {
+  .dropdown-submenu > a:after {
+    top: 7px;
+  }
+}
+
+.ie1 .dropdown-submenu > a:after {
+  margin-top: 2px;
+}
+
+.dropdown-submenu:hover > a:after {
+  border-left-color: #ffffff;
+}
+
+.dropdown-submenu.pull-left {
+  float: none;
+}
+
+.dropdown-submenu.pull-left > .dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+}

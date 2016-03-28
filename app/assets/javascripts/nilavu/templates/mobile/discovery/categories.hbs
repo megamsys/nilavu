@@ -1,0 +1,69 @@
+{{#each model.categories as |c|}}
+  <div class='category-list-item category' style="border-color: #{{unbound c.color}}">
+    <table class='topic-list'>
+      <tr>
+        <th class="main-link">
+          {{category-title-link category=c}}
+        </th>
+      </tr>
+
+      {{#if c.description_excerpt}}
+        <tr class="category-description">
+          <td colspan="3">
+            {{{c.description_excerpt}}}
+          </td>
+        </tr>
+      {{/if}}
+
+      {{#each t in c.topics}}
+        <tr {{bind-attr class="t.archived :category-topic-link"}}>
+          <td class='main-link'>
+            <div class='topic-inset'>
+              {{topic-status topic=t}}
+              {{topic-link t}}
+              {{#if t.unseen}}
+                <span class="badge-notification new-topic"></span>
+              {{/if}}
+              <span class="{{cold-age-class t.last_posted_at}}" title='{{raw-date t.last_posted_at}}'>{{{format-age t.last_posted_at}}}</span>
+              {{#if t.hasExcerpt}}
+                <div class="topic-excerpt">
+                  {{{t.excerpt}}}
+                  {{#if t.excerptTruncated}}
+                    {{#unless t.canClearPin}}<a href="{{unbound t.url}}">{{i18n 'read_more'}}</a>{{/unless}}
+                  {{/if}}
+                  {{#if t.canClearPin}}
+                    <a href {{action "clearPin" t}} title="{{unbound i18n topic.clear_pin.help}}">{{i18n 'topic.clear_pin.title'}}</a>
+                  {{/if}}
+                </div>
+              {{/if}}
+            </div>
+          </td>
+          <td class='num posts'>{{raw "list/post-count-or-badges" topic=t postBadgesEnabled="true"}}</td>
+        </tr>
+
+      {{/each}}
+      {{#if c.subcategories}}
+        <tr class="subcategories-list">
+          <td>
+            <div class='subcategories'>
+              {{#each subcategory in c.subcategories}}
+                {{category-link subcategory}}
+              {{/each}}
+            </div>
+          </td>
+        </tr>
+      {{/if}}
+
+    </table>
+    <footer class="clearfix">
+      <figure title="{{i18n 'year_desc'}}">{{number c.topics_year}} <figcaption>{{i18n 'category.this_year'}}</figcaption></figure>
+      <figure title="{{i18n 'month_desc'}}">{{number c.topics_month}} <figcaption>{{i18n 'month'}}</figcaption></figure>
+      <figure title="{{i18n 'week_desc'}}">{{number c.topics_week}} <figcaption>{{i18n 'week'}}</figcaption></figure>
+
+      {{#if controller.canEdit}}
+        <a href {{action "editCategory" c}} class='btn btn-small'>{{i18n 'category.edit'}}</a>
+      {{/if}}
+
+    </footer>
+  </div>
+{{/each}}

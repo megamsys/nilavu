@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="full-width">
+
+      <ul class="nav nav-pills">
+        {{nav-item route='admin.dashboard' label='admin.dashboard.title'}}
+        {{#if currentUser.admin}}
+          {{nav-item route='adminSiteSettings' label='admin.site_settings.title'}}
+        {{/if}}
+        {{nav-item route='adminUsersList' label='admin.users.title'}}
+        {{#if showBadges}}
+          {{nav-item route='adminBadges' label='admin.badges.title'}}
+        {{/if}}
+        {{#if currentUser.admin}}
+          {{nav-item route='adminGroups' label='admin.groups.title'}}
+          {{nav-item route='adminEmail' label='admin.email.title'}}
+        {{/if}}
+        {{nav-item route='adminFlags' label='admin.flags.title'}}
+        {{nav-item route='adminLogs' label='admin.logs.title'}}
+        {{#if currentUser.admin}}
+          {{nav-item route='adminCustomize' label='admin.customize.title'}}
+          {{nav-item route='admin.api' label='admin.api.title'}}
+          {{nav-item route='admin.backups' label='admin.backups.title'}}
+        {{/if}}
+        {{nav-item route='adminPlugins' label='admin.plugins.title'}}
+        {{plugin-outlet "admin-menu" tagName="li"}}
+      </ul>
+
+      <div class='boxed white admin-content'>
+        <div class='admin-contents'>
+          {{outlet}}
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

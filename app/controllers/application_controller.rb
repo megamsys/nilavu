@@ -33,8 +33,11 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_locale
   before_filter :disable_customization
+  before_filter :authorize_mini_profiler
+  before_filter :preload_json
   before_filter :redirect_to_login_if_required
   before_filter :set_current_user_with_team
+  before_filter :check_xhr
   around_action :catch_exceptions
 
 
@@ -71,7 +74,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-
   def set_locale
     if SiteSetting.allow_user_locale
       I18n.locale = locale_from_header
@@ -81,48 +83,34 @@ class ApplicationController < ActionController::Base
     I18n.ensure_all_loaded!
   end
 
-  def redirect_to_login_if_required
-    return if current_user
-    session[:destination_url] = destination_url
-    redirect_to path('/signin')
+  def store_preloaded(key, json)
+    @preloaded ||= {}
+    @preloaded[key] = json.gsub("</", "<\\/")
   end
 
-  def redirect_to_cephlogin_if_required
-    return if current_cephuser
-    session[:destination_url] = destination_url
-    redirect_to path('/cephsignin')
-  end
+  # If we are rendering HTML, preload the session data
+  def preload_json
+    # We don't preload JSON on xhr or JSON request
+    return if request.xhr? || request.format.json?
 
+    # if we are posting in makes no sense to preload
+    return if request.method != "GET"
 
-  def set_current_user_with_team
-    if current_user && !current_user.team
-      Teams.new.tap do |teams|
-        teams.find_all(AuthBag.vertice(current_user))
-        current_user.team = teams.last_used if teams
-      end
+    preload_anonymous_data
+
+    if current_user
+      # preload_current_user_data
     end
   end
-
 
   def disable_customization
     session[:disable_customization] = params[:customization] == "0" if params.has_key?(:customization)
   end
 
-  def add_authkeys_for_api
-    logger.debug "> STICKM"
-    params.merge!(AuthBag.vertice(current_user))
+  def guardian
+    @guardian ||= Guardian.new(current_user)
   end
 
-  def add_cephauthkeys_for_api
-    logger.debug "> STICKC"
-    params.merge!(AuthBag.ceph(current_cephuser))
-  end
-
-  def current_homepage
-    current_user ? SiteSetting.homepage : "/signin"
-  end
-
-  ###START json changes for 2.0 ember based.
   def serialize_data(obj, serializer, opts=nil)
     # If it's an array, apply the serializer as an each_serializer to the elements
     serializer_opts = opts || {}
@@ -155,6 +143,57 @@ class ApplicationController < ActionController::Base
 
     render json: MultiJson.dump(obj), status: opts[:status] || 200
   end
+
+  def can_cache_content?
+    current_user.blank? && flash[:authentication_data].blank?
+  end
+
+
+  def no_cookies
+    # do your best to ensure response has no cookies
+    headers.delete 'Set-Cookie'
+    request.session_options[:skip] = true
+  end
+
+  private
+
+  def locale_from_header
+    begin
+      # Rails I18n uses underscores between the locale and the region; the request
+      # headers use hyphens.
+      require 'http_accept_language' unless defined? HttpAcceptLanguage
+      available_locales = I18n.available_locales.map { |locale| locale.to_s.gsub(/_/, '-') }
+      parser = HttpAcceptLanguage::Parser.new(request.env["HTTP_ACCEPT_LANGUAGE"])
+      parser.language_region_compatible_from(available_locales).gsub(/-/, '_')
+    rescue
+      # If Accept-Language headers are not set.
+      I18n.default_locale
+    end
+  end
+
+  def preload_anonymous_data
+    store_preloaded("site",   { periods: [:latest_period], filters: Nilavu.default_categories.map(&:to_s)}.to_json)
+    store_preloaded("siteSettings", SiteSetting.client_settings_json)
+    store_preloaded("customHTML", custom_html_json)
+  end
+
+  #def preload_current_user_data
+  #  store_preloaded("currentUser", MultiJson.dump(CurrentUserSerializer.new(current_user, scope: guardian, root: false)))
+  #end
+
+  def custom_html_json
+    #target = view_context.mobile_view? ? :mobile : :desktop
+
+    MultiJson.dump(custom_html)
+  end
+
+  def custom_html
+    data = {
+      top: SiteCustomization.custom_top,
+      footer: SiteCustomization.custom_footer
+    }
+  end
+
 
   # Render action for a JSON error.
   #
@@ -198,35 +237,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def can_cache_content?
-    current_user.blank? && flash[:authentication_data].blank?
+  def mini_profiler_enabled?
+    defined?(Rack::MiniProfiler) && guardian.is_developer?
   end
 
-  ### END. the json methods are for 2.0 ember changes.
-
-  private
-
-  def locale_from_header
-    begin
-      # Rails I18n uses underscores between the locale and the region; the request
-      # headers use hyphens.
-      require 'http_accept_language' unless defined? HttpAcceptLanguage
-      available_locales = I18n.available_locales.map { |locale| locale.to_s.gsub(/_/, '-') }
-      parser = HttpAcceptLanguage::Parser.new(request.env["HTTP_ACCEPT_LANGUAGE"])
-      parser.language_region_compatible_from(available_locales).gsub(/-/, '_')
-    rescue
-      # If Accept-Language headers are not set.
-      I18n.default_locale
-    end
-  end
-
-  ##
-  ## For ember 2.0 changes
-  def custom_html
-    data = {
-      top: SiteCustomization.custom_top,
-      footer: SiteCustomization.custom_footer
-    }
+  def authorize_mini_profiler
+    return unless mini_profiler_enabled?
+    Rack::MiniProfiler.authorize_request
   end
 
   def check_xhr
@@ -235,19 +252,56 @@ class ApplicationController < ActionController::Base
     raise RenderEmpty.new unless ((request.format && request.format.json?) || request.xhr?)
   end
 
+    def destination_url
+    request.original_url unless request.original_url =~ /uploads/
+  end
+
   def ensure_logged_in
     raise Nilavu::NotLoggedIn.new unless current_user.present?
   end
 
-  def destination_url
-    request.original_url
+
+  def redirect_to_login_if_required
+    return if current_user
+    session[:destination_url] = destination_url
+    #    redirect_to path('/signin')
   end
+
+  def set_current_user_with_team
+    if current_user && !current_user.team
+      Teams.new.tap do |teams|
+        teams.find_all(AuthBag.vertice(current_user))
+        current_user.team = teams.last_used if teams
+      end
+    end
+  end
+
+  def redirect_to_cephlogin_if_required
+    return if current_cephuser
+    session[:destination_url] = destination_url
+    redirect_to path('/cephsignin')
+  end
+
+  def add_authkeys_for_api
+    logger.debug "> STICKM"
+    params.merge!(AuthBag.vertice(current_user))
+  end
+
+  def add_cephauthkeys_for_api
+    logger.debug "> STICKC"
+    params.merge!(AuthBag.ceph(current_cephuser))
+  end
+
 
   def build_not_found_page(status=404)
     render_to_string status: status, formats: [:html], template: '/errors/not_found'
   end
 
   protected
+
+  def api_key_valid?
+    current_user
+  end
 
   # returns an array of integers given a param key
   # returns nil if key is not found

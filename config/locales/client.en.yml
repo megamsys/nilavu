@@ -1,291 +1,525 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+# encoding: utf-8
+#
+# This file contains content for the client portion of Nilavu, sent out
+# to the Javascript app.
+#
+# To validate this YAML file after you change it, please paste it into http://yamllint.com/
 
 en:
+  js:
+    number:
+      format:
+        separator: "."
+        delimiter: ","
+      human:
+        storage_units:
+          format: '%n %u'
+          units:
+            byte:
+              one: Byte
+              other: Bytes
+            gb: GB
+            kb: KB
+            mb: MB
+            tb: TB
+      short:
+        thousands: "{{number}}k"
+        millions: "{{number}}M"
+    dates:
+      time: "h:mm a"
+      long_no_year: "MMM D h:mm a"
+      long_no_year_no_time: "MMM D"
+      full_no_year_no_time: "MMMM Do"
+      long_with_year: "MMM D, YYYY h:mm a"
+      long_with_year_no_time: "MMM D, YYYY"
+      full_with_year_no_time: "MMMM Do, YYYY"
+      long_date_with_year: "MMM D, 'YY LT"
+      long_date_without_year: "MMM D, LT"
+      long_date_with_year_without_time: "MMM D, 'YY"
+      long_date_without_year_with_linebreak: "MMM D <br/>LT"
+      long_date_with_year_with_linebreak: "MMM D, 'YY <br/>LT"
+      tiny:
+        half_a_minute: "< 1m"
+        less_than_x_seconds:
+          one:   "< 1s"
+          other: "< %{count}s"
+        x_seconds:
+          one:   "1s"
+          other: "%{count}s"
+        less_than_x_minutes:
+          one:   "< 1m"
+          other: "< %{count}m"
+        x_minutes:
+          one:   "1m"
+          other: "%{count}m"
+        about_x_hours:
+          one:   "1h"
+          other: "%{count}h"
+        x_days:
+          one:   "1d"
+          other: "%{count}d"
+        about_x_years:
+          one:   "1y"
+          other: "%{count}y"
+        over_x_years:
+          one:   "> 1y"
+          other: "> %{count}y"
+        almost_x_years:
+          one:   "1y"
+          other: "%{count}y"
+        date_month: "MMM D"
+        date_year: "MMM 'YY"
+      medium:
+        x_minutes:
+          one: "1 min"
+          other: "%{count} mins"
+        x_hours:
+          one: "1 hour"
+          other: "%{count} hours"
+        x_days:
+          one: "1 day"
+          other: "%{count} days"
+        date_year: "MMM D, 'YY"
+      medium_with_ago:
+        x_minutes:
+          one: "1 min ago"
+          other: "%{count} mins ago"
+        x_hours:
+          one: "1 hour ago"
+          other: "%{count} hours ago"
+        x_days:
+          one: "1 day ago"
+          other: "%{count} days ago"
+      later:
+        x_days:
+          one: "1 day later"
+          other: "%{count} days later"
+        x_months:
+          one: "1 month later"
+          other: "%{count} months later"
+        x_years:
+          one: "1 year later"
+          other: "%{count} years later"
+      previous_month: 'Previous Month'
+      next_month: 'Next Month'
+##### merging client_old
+    site_settings:
+      torpedo:
+        one: Torpedo
+        other: Torpedos
+      app:
+        one: App
+        other: Apps
+      service:
+        one: Service
+        other: Services
+      microservice:
+        one: Microservice
+        other: Microservices
+      analytics:
+        one: Analytics
+        other: Analytics
+      collaboration:
+        one: Collaboration
+        other: Collaborations
+      oneclick:
+        one: Oneclick
+        other: Oneclicks
+      torpedo_description: 'Get your own compute power'
+      app_description:  'Get started with a new app'
+      service_description: 'Make your applications more hungry'
+      microservice_description: 'Your app in a container in seconds'
+      analytics_description: 'Actionable insights in minutes'
+      collaboration_description: 'Collaboration done in minutes'
+      oneclick_description:  'Just do one thing in a click'
 
-  site_settings:
-    torpedo:
-      one: Torpedo
-      other: Torpedos
-    app:
-      one: App
-      other: Apps
-    service:
-      one: Service
-      other: Services
-    microservice:
-      one: Microservice
-      other: Microservices
-    analytics:
-      one: Analytics
-      other: Analytics
-    collaboration:
-      one: Collaboration
-      other: Collaborations
-    oneclick:
-      one: Oneclick
-      other: Oneclicks
-    torpedo_description: 'Get your own compute power'
-    app_description:  'Get started with a new app'
-    service_description: 'Make your applications more hungry'
-    microservice_description: 'Your app in a container in seconds'
-    analytics_description: 'Actionable insights in minutes'
-    collaboration_description: 'Collaboration done in minutes'
-    oneclick_description:  'Just do one thing in a click'
-
-  top_toolbar:
+    top_toolbar:
     signout: "Sign Out"
     profile: "Profile"
 
-  footer:
-    docs: "Documentation"
-    blog: "Blog"
-    devcenter: "Dev center"
-    forum: "Forum"
-    support: "Support"
-    copyright: "© 2013-2016 megam. All rights reserved."
+    footer:
+      docs: "Documentation"
+      blog: "Blog"
+      devcenter: "Dev center"
+      forum: "Forum"
+      support: "Support"
+      copyright: "© 2013-2016 megam. All rights reserved."
 
-  signup:
-    title: "Sign up"
-    blip_title: "Simple Cloud."
-    blip_sub_heading: "Deploy a cloud server."
-    description: "It wont take more than 1 minute, we promise"
-    first_name: "First Name"
-    last_name: "Last Name"
-    phone_number: "Phone Number"
-    email: "Email"
-    password: "password"
-    password_placeholder: "New Password"
-    confirm_password: "Confirm Password"
-    confirm_password_placeholder: "Retype Password"
-    password_confirmation: "password_confirmation"
-    create_account: "Create Account"
-    creating_account: "Creating new account..."
-    existing_user: "Already have an account ?"
-    login_here: "Login here"
-    update_password: "Update Password"
-    updated_profile: "Your profile was updated."
-    created_account: "Your account is activated and ready to use."
-    otp_verified: "Hi %{email}, Thank you for signing up. All transaction details will be sent to this number."
-    created_cephaccount: "Your storage account is activated and ready to use."
-    otp_failure: "Failed. try again."
-    submit: Submit
+    signup:
+      title: "Sign up"
+      blip_title: "Simple Cloud."
+      blip_sub_heading: "Deploy a cloud server."
+      description: "It wont take more than 1 minute, we promise"
+      first_name: "First Name"
+      last_name: "Last Name"
+      phone_number: "Phone Number"
+      email: "Email"
+      password: "password"
+      password_placeholder: "New Password"
+      confirm_password: "Confirm Password"
+      confirm_password_placeholder: "Retype Password"
+      password_confirmation: "password_confirmation"
+      create_account: "Create Account"
+      creating_account: "Creating new account..."
+      existing_user: "Already have an account ?"
+      login_here: "Login here"
+      update_password: "Update Password"
+      updated_profile: "Your profile was updated."
+      created_account: "Your account is activated and ready to use."
+      otp_verified: "Hi %{email}, Thank you for signing up. All transaction details will be sent to this number."
+      created_cephaccount: "Your storage account is activated and ready to use."
+      otp_failure: "Failed. try again."
+      submit: Submit
 
-  forgot_password:
-    success: "An email has been sent to your registered email address to reset your password"
-    errors: "Sorry, email not sent, Select the 'Forgot my password' to get a new link."
+    user:
+      email:
+        not_allowed: "is not allowed from that email provider. Please use another email address."
+        blocked: "is not allowed."
 
-  password_reset:
-    no_token: "Sorry, that password change link is too old. Select the 'Forgot my password' to get a new link."
-    success: "You successfully changed your password and are now logged in."
-  user:
-    email:
-      not_allowed: "is not allowed from that email provider. Please use another email address."
-      blocked: "is not allowed."
+    storages:
+      title: "Storages"
 
-  storages:
-    title: "Storages"
+    forgot_password:
+      title: "Password Reset"
+      action: "I forgot my password"
+      invite: "Enter your username or email address, and we'll send you a password reset email."
+      reset: "Reset Password"
+      complete_email: "If an account matches <b>%{email}</b>, you should receive an email with instructions on how to reset your password shortly."
+      complete_email_found: "We found an account that matches <b>%{email}</b>, you should receive an email with instructions on how to reset your password shortly."
+      complete_email_not_found: "No account matches <b>%{email}</b>"
 
-  login:
-    title: "Login"
-    new_user: "Create new account ?"
-    forget_password: "Forgot password"
-    tour: "Take a tour"
-    error: "Unknown error"
-    media: "Login with social media"
-    ui_design_credits: "Designed by Enixel"
-    your_registered_email: "Your registered email"
-    reset_password: "Reset Password"
-    reset_password_statement: "An email has been sent to your registered email address to reset your password"
-    sorry: "Sorry!"
-    valid_email: "Please type a valid email address or create account."
-    success: "Click <b>marketplaces</b> to get started"
-    incorrect_email_or_password: "Incorrect email or password"
-    incorrect_password: "Incorrect current password"
-    tata: "Tata."
-    not_activated: "You can't log in yet. We sent an activation email to you. Please follow the instructions in the email to activate your account."
-    wait_approval: "Thanks for signing up. We will notify you when your account has been approved."
-    active: "Your account is activated and ready to use."
-    activate_email: "<p>You're almost done! We sent an activation mail to <b>%{email}</b>. Please follow the instructions in the email to activate your account.</p><p>If it doesn't arrive, check your spam folder, or try to log in again to send another activation mail.</p>"
-    otpsending: "Sending..."
+    login:
+      title: "Login"
+      password: "Password"
+      create_account: "Create new account ?"
+      take_a_tour: "Take a tour"
+      media: "Login with social media"
+      email_placeholder: "email or username"
+      caps_lock_warning: "Caps Lock is on"
+      error: "Unknown error"
+      blank_email_or_password: "Please enter your email or username, and password."
+      reset_password: 'Reset Password'
+      logging_in: "Signing In..."
+      or: "Or"
+      authenticating: "Authenticating..."
+      awaiting_confirmation: "Your account is awaiting activation, use the forgot password link to issue another activation email."
+      awaiting_approval: "Your account has not been approved by a staff member yet. You will be sent an email when it is approved."
+      not_activated: "You can't log in yet. We previously sent an activation email to you at <b>{{sentTo}}</b>. Please follow the instructions in that email to activate your account."
+      resend_activation_email: "Click here to send the activation email again."
+      sent_activation_email_again: "We sent another activation email to you at <b>{{currentEmail}}</b>. It might take a few minutes for it to arrive; be sure to check your spam folder."
+      to_continue: "Please Log In"
+      forgot: "I don't recall my account details"
+      your_registered_email: "Your registered email"
+      reset_password: "Reset Password"
+      forgot_password: "Forgot password"
 
-  cephlogin:
-    success: "Click <b>buckets</b> to get started"
-    incorrect_email_or_password: "Incorrect access key or secret key"
-    not_activated: "You can't log in yet. We sent an activation email to you. Please follow the instructions in the email to activate your account."
-    active: "Your account is activated and ready to use."
-    activate_email: "<p>You're almost done! We sent an activation mail to <b>%{email}</b>. Please follow the instructions in the email to activate your account.</p><p>If it doesn't arrive, check your spam folder, or try to log in again to send another activation mail.</p>"
-    otpsending: "Sending..."
+    cephlogin:
+      success: "Click <b>buckets</b> to get started"
+      incorrect_email_or_password: "Incorrect access key or secret key"
+      not_activated: "You can't log in yet. We sent an activation email to you. Please follow the instructions in the email to activate your account."
+      active: "Your account is activated and ready to use."
+      activate_email: "<p>You're almost done! We sent an activation mail to <b>%{email}</b>. Please follow the instructions in the email to activate your account.</p><p>If it doesn't arrive, check your spam folder, or try to log in again to send another activation mail.</p>"
+      otpsending: "Sending..."
 
-  cephbuckets:
-    created: "Bucket %{name} created"
-    unable_to_list_buckets: "Your buckets listing failed. Storage is running ?"
-    unable_to_list_bucketfiles: "Your bucket items listing failed. Storage is running ?"
-    bucketfiles_none: "Nothing inside, Try uploading new files."
-    unable_to_create_bucket: "Whoa! couldn't create bucket"
-    destroyed: "Bucket %{name} deleted"
-    unable_to_destroy_bucket: "Whoa! couldn't delete bucket"
-    uploaded: "Uploaded"
-    upload_failure: "Upload failure"
+    cephbuckets:
+      created: "Bucket %{name} created"
+      unable_to_list_buckets: "Your buckets listing failed. Storage is running ?"
+      unable_to_list_bucketfiles: "Your bucket items listing failed. Storage is running ?"
+      bucketfiles_none: "Nothing inside, Try uploading new files."
+      unable_to_create_bucket: "Whoa! couldn't create bucket"
+      destroyed: "Bucket %{name} deleted"
+      unable_to_destroy_bucket: "Whoa! couldn't delete bucket"
+      uploaded: "Uploaded"
+      upload_failure: "Upload failure"
 
-  cockpits:
-    title: "Dashboard"
-    your: " Your "
-    create: " Create "
-    running: " running "
-    manage: " Manage your "
-    start: "Start"
-    stop: "Stop"
-    reboot: "Reboot"
-    restart: "Restart"
-    delete: "Delete"
-    select_repo: "Select your repo"
-    go_to_marketplaces: "Go to marketplace"
+    cockpits:
+      title: "Dashboard"
+      your: " Your "
+      create: " Create "
+      running: " running "
+      manage: " Manage your "
+      start: "Start"
+      stop: "Stop"
+      reboot: "Reboot"
+      restart: "Restart"
+      delete: "Delete"
+      select_repo: "Select your repo"
+      go_to_marketplaces: "Go to marketplace"
 
-  marketplace:
-    title: "Marketplaces"
-    honeypot_title: "%{apps} & %{services}"
-    temp_search: "Search"
-    choose_version: "Choose version:"
-    discription: "Description"
-    view_docs: "View Docs"
-    bring_your_own_code: "Bring Your Own Code"
-    choose_your_scm: "Choose your SCM"
-    ssh_list_title: "SSH"
-    ssh_list_create: "Create a new sshkey"
-    ssh_list_exist: "Use your existing sshkey"
-    ssh_list_import: "Import your sshkey"
-    ssh_key_name_title: "SSH keypair name"
-    ssh_key_name_placeholder: "Type a key pair name to save"
-    ssh_exist_title: "Choose your SSH"
-    ssh_exist_content: "You must create or import your sshkeys"
-    ssh_import_privatekey: "Import private key..."
-    ssh_import_publickey: "Import public key..."
-    image_name: "Image Name"
-    image_name_placeholder: "Docker hub image name"
-    launch_item_load_failure: 'Launch item that you clicked failed to load.'
-    launched: "launched successfully."
-    launch_status: "Launched"
-    ram: "RAM"
-    dockers_ram_placeholder: "Enter RAM size in bytes (minimum :5000000)"
-    cpu: "CPU"
-    dockers_cpu_placeholder: "Enter number of CPU (Eg :1)"
+    marketplace:
+      title: "Marketplaces"
+      honeypot_title: "%{apps} & %{services}"
+      temp_search: "Search"
+      choose_version: "Choose version:"
+      discription: "Description"
+      view_docs: "View Docs"
+      bring_your_own_code: "Bring Your Own Code"
+      choose_your_scm: "Choose your SCM"
+      ssh_list_title: "SSH"
+      ssh_list_create: "Create a new sshkey"
+      ssh_list_exist: "Use your existing sshkey"
+      ssh_list_import: "Import your sshkey"
+      ssh_key_name_title: "SSH keypair name"
+      ssh_key_name_placeholder: "Type a key pair name to save"
+      ssh_exist_title: "Choose your SSH"
+      ssh_exist_content: "You must create or import your sshkeys"
+      ssh_import_privatekey: "Import private key..."
+      ssh_import_publickey: "Import public key..."
+      image_name: "Image Name"
+      image_name_placeholder: "Docker hub image name"
+      launch_item_load_failure: 'Launch item that you clicked failed to load.'
+      launched: "launched successfully."
+      launch_status: "Launched"
+      ram: "RAM"
+      dockers_ram_placeholder: "Enter RAM size in bytes (minimum :5000000)"
+      cpu: "CPU"
+      dockers_cpu_placeholder: "Enter number of CPU (Eg :1)"
 
 
-  ssh_keys:
-    title: "SSH keys"
-    activity: "Activity"
-    import: "Import"
-    action: " Actions "
-    created_at: " Created At "
-    private: "Private"
-    public: "Public"
-    pub: "Pub"
-    create_title: "Create SSH Key Pair"
-    create_info: "Generate a SSH RSA 2048 key pair. Read"
-    info_link: "here"
-    info_end: "for more information."
-    temp_name: "Enter a key pair name to save"
-    create: "Create"
-    import_title: "Import SSH Key Pair"
-    import_info: "Import a SSH RSA 2048 key pair. Read"
-    private_key: "Private key"
-    public_key: "Public key"
-    add_files: "Add files..."
-    upload_key: "Upload private key"
-    upload_pub_key: "Upload public key"
+    ssh_keys:
+      title: "SSH keys"
+      activity: "Activity"
+      import: "Import"
+      action: " Actions "
+      created_at: " Created At "
+      private: "Private"
+      public: "Public"
+      pub: "Pub"
+      create_title: "Create SSH Key Pair"
+      create_info: "Generate a SSH RSA 2048 key pair. Read"
+      info_link: "here"
+      info_end: "for more information."
+      temp_name: "Enter a key pair name to save"
+      create: "Create"
+      import_title: "Import SSH Key Pair"
+      import_info: "Import a SSH RSA 2048 key pair. Read"
+      private_key: "Private key"
+      public_key: "Public key"
+      add_files: "Add files..."
+      upload_key: "Upload private key"
+      upload_pub_key: "Upload public key"
 
-  billings:
-    title: "Billings"
-    total_balance: "Total Balance"
-    promo_code: "Promo Code :"
-    apply: "APPLY"
-    pay_via: "Pay Via"
-    help_center: "HELP CENTER"
-    help_info: "If you need assistance while placing order, contact one of our below support staff  by phone or email."
-    support_mail: "support@megam.io"
-    billing_history: "Billing History :"
-    application: " Application"
-    amount: "Amount"
-    currency: "Currency"
-    timestamp: "Timestamp"
-    paypal: "Pay with Paypal"
-    bit_coin: "Pay using Coinkite, Xapo."
+    billings:
+      title: "Billings"
+      total_balance: "Total Balance"
+      promo_code: "Promo Code :"
+      apply: "APPLY"
+      pay_via: "Pay Via"
+      help_center: "HELP CENTER"
+      help_info: "If you need assistance while placing order, contact one of our below support staff  by phone or email."
+      support_mail: "support@megam.io"
+      billing_history: "Billing History :"
+      application: " Application"
+      amount: "Amount"
+      currency: "Currency"
+      timestamp: "Timestamp"
+      paypal: "Pay with Paypal"
+      bit_coin: "Pay using Coinkite, Xapo."
 
-  overviews:
-    operating_system: "OS"
-    available_ram: "Available RAM"
-    available_hdd: "Disk"
-    mb: "MB"
-    ip: "IP"
-    still_launching: "LAUNCHING..."
-    current_sshkey: "SSH key"
-    bind: "Bind"
-    bindservice_title: "Bind Service"
-    url: "URL :"
-    your_container: "Your containers"
-    containers_running: "containers running"
-    runtime: "Runtime"
+    overviews:
+      operating_system: "OS"
+      available_ram: "Available RAM"
+      available_hdd: "Disk"
+      mb: "MB"
+      ip: "IP"
+      still_launching: "LAUNCHING..."
+      current_sshkey: "SSH key"
+      bind: "Bind"
+      bindservice_title: "Bind Service"
+      url: "URL :"
+      your_container: "Your containers"
+      containers_running: "containers running"
+      runtime: "Runtime"
 
-  myprofile:
-    title: "My profile"
-    account: "My Account"
-    organization: "Organization"
-    api_key: "API key"
-    basic_info: "Basic information"
-    profile_name: "Profile name"
-    phone: "Phone"
-    change: "Change ?"
-    name_placeholder: "Enter text"
-    number_placeholder: "Phone Number"
-    update: "Update"
-    invite: "Invite"
-    change_password: "Change password"
-    current: "Current"
-    retype: "Retype"
-    confirm_newpassword_placeholder: "Confirm new password"
-    new_passsword: "New"
-    organization_info: "Organization Information"
-    users: "Users"
-    domains: "Domains"
-    your_api_ley: "Api Keys"
+    myprofile:
+      title: "My profile"
+      account: "My Account"
+      organization: "Organization"
+      api_key: "API key"
+      basic_info: "Basic information"
+      profile_name: "Profile name"
+      phone: "Phone"
+      change: "Change ?"
+      name_placeholder: "Enter text"
+      number_placeholder: "Phone Number"
+      update: "Update"
+      invite: "Invite"
+      change_password: "Change password"
+      current: "Current"
+      retype: "Retype"
+      confirm_newpassword_placeholder: "Confirm new password"
+      new_passsword: "New"
+      organization_info: "Organization Information"
+      users: "Users"
+      domains: "Domains"
+      your_api_ley: "Api Keys"
 
-  organization:
-    name: "Name:"
-    account_name: "Account Name:"
-    all_organization: "All Organizations"
+    organization:
+      name: "Name:"
+      account_name: "Account Name:"
+      all_organization: "All Organizations"
 
-  errors:
-    invalid_email: "Invalid email address."
-    regex_mismatch: "Value doesn't match the required format."
-    must_include_flavors: "Marketplaces launcher must include the 'flavours'."
-    invalid_string: "Invalid value."
-    oops: "Oops... Page Not Found !"
-    no_access: "You've hit our mars servers, No Access..."
-    no_services_found: "Sorry! You don't have any services. Please create from marketplace."
-    no_organizations_found: "No Orgs Found"
-    launch_error: "Your {{stuff}} <b>{{name}} launch failure."
-    profile_error: "Your profile update failure."
+    errors:
+      invalid_email: "Invalid email address."
+      regex_mismatch: "Value doesn't match the required format."
+      must_include_flavors: "Marketplaces launcher must include the 'flavours'."
+      invalid_string: "Invalid value."
+      oops: "Oops... Page Not Found !"
+      no_access: "You've hit our mars servers, No Access..."
+      no_services_found: "Sorry! You don't have any services. Please create from marketplace."
+      no_organizations_found: "No Orgs Found"
+      launch_error: "Your {{stuff}} <b>{{name}} launch failure."
+      profile_error: "Your profile update failure."
 
-  launch:
-    success: "Your %{stuff} <b>%{name}</b> is firing up"
-    compute_setting: "CPU, transfer, storage, and RAM bundled into one simple block"
-    creating: "Creating..."
+    launch:
+      success: "Your %{stuff} <b>%{name}</b> is firing up"
+      compute_setting: "CPU, transfer, storage, and RAM bundled into one simple block"
+      creating: "Creating..."
 
-  ok: "OK"
-  cancel: "Cancel"
-  confirm: "Confirm"
-  name: "Name"
-  flunked: "We flunked. "
-  error: "Error"
-  info: "Info!"
-  home: "home page"
-  or: "or"
-  email_us: "Email Us"
-  chat: "Chat now"
-  megamsys: "megamsys"
-  warning: "Warning!"
-  are_you_sure: "Are you sure you want to"
-  back: "Go Back"
-  previous_page: "to the previous page, return to the"
-  report_this_problem: "about this problem."
+    ok: "OK"
+    cancel: "Cancel"
+    confirm: "Confirm"
+    name: "Name"
+    flunked: "We flunked. "
+    error: "Error"
+    info: "Info!"
+    home: "home page"
+    or: "or"
+    email_us: "Email Us"
+    chat: "Chat now"
+    megamsys: "megamsys"
+    warning: "Warning!"
+    are_you_sure: "Are you sure you want to"
+    back: "Go Back"
+    previous_page: "to the previous page, return to the"
+    report_this_problem: "about this problem."
+
+
+##### merged
+
+    action_codes:
+      split_topic: "split this topic %{when}"
+      invited_user: "invited %{who} %{when}"
+      removed_user: "removed %{who} %{when}"
+      autoclosed:
+        enabled: 'closed %{when}'
+        disabled: 'opened %{when}'
+      closed:
+        enabled: 'closed %{when}'
+        disabled: 'opened %{when}'
+      archived:
+        enabled: 'archived %{when}'
+        disabled: 'unarchived %{when}'
+      pinned:
+        enabled: 'pinned %{when}'
+        disabled: 'unpinned %{when}'
+      pinned_globally:
+        enabled: 'pinned globally %{when}'
+        disabled: 'unpinned %{when}'
+      visible:
+        enabled: 'listed %{when}'
+        disabled: 'unlisted %{when}'
+
+    faq: "FAQ"
+    guidelines: "Guidelines"
+    privacy_policy: "Privacy Policy"
+    privacy: "Privacy"
+    terms_of_service: "Terms of Service"
+    you: "You"
+    or: "or"
+    now: "just now"
+    read_more: 'read more'
+    more: "More"
+    less: "Less"
+    never: "never"
+    every_30_minutes: "every 30 minutes"
+
+    save: "Save Changes"
+    saving: "Saving..."
+    saved: "Saved!"
+
+    upload: "Upload"
+    uploading: "Uploading..."
+    uploading_filename: "Uploading {{filename}}..."
+    uploaded: "Uploaded!"
+
+    enable: "Enable"
+    disable: "Disable"
+    undo: "Undo"
+    revert: "Revert"
+    failed: "Failed"
+
+    loading: "Loading..."
+    errors:
+      prev_page: "while trying to load"
+      reasons:
+        network: "Network Error"
+        server: "Server Error"
+        forbidden: "Access Denied"
+        unknown: "Error"
+        not_found: "Page Not Found"
+      desc:
+        network: "Please check your connection."
+        network_fixed: "Looks like it's back."
+        server: "Error code: {{status}}"
+        forbidden: "You're not allowed to view that."
+        not_found: "Oops, the application tried to load a URL that doesn't exist."
+        unknown: "Something went wrong."
+      buttons:
+        back: "Go Back"
+        again: "Try Again"
+        fixed: "Load Page"
+
+    hamburger_menu: "go to another topic list or category"
+    new_item: "new"
+    go_back: 'go back'
+    not_logged_in_user: 'user page with summary of current activity and preferences'
+    current_user: 'go to your user page'
+
+    topics:
+      bulk:
+        unlist_topics: "Unlist Topics"
+        reset_read: "Reset Read"
+        delete: "Delete Topics"
+        dismiss: "Dismiss"
+        dismiss_read: "Dismiss all unread"
+        dismiss_button: "Dismiss…"
+        dismiss_tooltip: "Dismiss just new posts or stop tracking topics"
+        also_dismiss_topics: "Stop tracking these topics so they never show up as unread for me again"
+        dismiss_new: "Dismiss New"
+        toggle: "toggle bulk selection of topics"
+        actions: "Bulk Actions"
+        change_category: "Change Category"
+        close_topics: "Close Topics"
+        archive_topics: "Archive Topics"
+        notification_level: "Change Notification Level"
+        choose_new_category: "Choose the new category for the topics:"
+        selected:
+          one: "You have selected <b>1</b> topic."
+          other: "You have selected <b>{{count}}</b> topics."
+
+      none:
+        unread: "You have no unread topics."
+        new: "You have no new topics."
+        read: "You haven't read any topics yet."
+        posted: "You haven't posted in any topics yet."
+        latest: "There are no latest topics. That's sad."
+        hot: "There are no hot topics."
+        bookmarks: "You have no bookmarked topics yet."
+        category: "There are no {{category}} topics."
+        top: "There are no top topics."
+        search: "There are no search results."
+        educate:
+          new: '<p>Your new topics appear here.</p><p>By default, topics are considered new and will show a <span class="badge new-topic badge-notification" style="vertical-align:middle;line-height:inherit;">new</span> indicator if they were created in the last 2 days.</p><p>Visit your <a href="%{userPrefsUrl}">preferences</a> to change this.</p>'
+          unread: '<p>Your unread topics appear here.</p><p>By default, topics are considered unread and will show unread counts <span class="badge new-posts badge-notification">1</span> if you:</p><ul><li>Created the topic</li><li>Replied to the topic</li><li>Read the topic for more than 4 minutes</li></ul><p>Or if you have explicitly set the topic to Tracked or Watched via the notification control at the bottom of each topic.</p><p>Visit your <a href="%{userPrefsUrl}">preferences</a> to change this.</p>'
+      bottom:
+        latest: "There are no more latest topics."
+        hot: "There are no more hot topics."
+        posted: "There are no more posted topics."
+        read: "There are no more read topics."
+        new: "There are no more new topics."
+        unread: "There are no more unread topics."
+        category: "There are no more {{category}} topics."
+        top: "There are no more top topics."
+        bookmarks: "There are no more bookmarked topics."
+        search: "There are no more search results."

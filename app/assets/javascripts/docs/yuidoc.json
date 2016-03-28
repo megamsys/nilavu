@@ -1,0 +1,9 @@
+{
+  "name": "Nilavu Client",
+  "description": "This is the EmberJS client to access a Nilavu Server",
+  "url": "http://www.megam.io/",
+  "options": {
+    "exclude": "development,production,defer",
+    "outdir":   "./build"
+  }
+}

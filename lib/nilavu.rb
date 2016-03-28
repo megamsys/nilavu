@@ -29,6 +29,14 @@ module Nilavu
     end
   end
 
+  def self.assets_digest
+    @assets_digest ||= begin
+      digest = Digest::MD5.hexdigest(ActionView::Base.assets_manifest.assets.values.sort.join)
+  
+      digest
+    end
+  end
+
   def self.authenticators
     OmniauthCallbacksController::BUILTIN_AUTH + auth_providers.map(&:authenticator)
   end

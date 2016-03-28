@@ -1,7 +1,7 @@
 <% Nilavu.display_categories.each do |category| %>
   <li class='start active'>
   <%= link_to catalogs_path(:cattype => "#{category}"), :data => { :remote => true} do %>
-    <i class='c_icon-<%= "#{category}" %> pull-left'></i>
+    <i class='leftnav_<%= "#{category}" %> pull-left'></i>
     <span class=title pull-left><%= t("site_settings.#{category}", :count => 1) %></span>
   <% end %>
   </li>

@@ -1,0 +1,24 @@
+<div class='user-fields'>
+  <h2>{{i18n 'admin.user_fields.title'}}</h2>
+
+  <p class="desc">{{i18n 'admin.user_fields.help'}}</p>
+
+  {{#if model}}
+    {{#each arrangedContent as |uf|}}
+      {{admin-user-field-item userField=uf
+                              fieldTypes=fieldTypes
+                              firstField=arrangedContent.firstObject
+                              lastField=arrangedContent.lastObject
+                              destroyAction="destroy"
+                              moveUpAction="moveUp"
+                              moveDownAction="moveDown"}}
+    {{/each}}
+  {{/if}}
+
+  {{d-button disabled=createDisabled
+             class="btn-primary"
+             action="createField"
+             label="admin.user_fields.create"
+             icon="plus"}}
+
+</div>

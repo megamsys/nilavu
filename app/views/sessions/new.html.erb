@@ -34,14 +34,14 @@
                 </div>
             </div>
 <br/>
-            <div class="cover col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
+            <div class="col-lg-offset-1 col-md-offset-1 col-lg-10 col-md-10">
                 <!-- BEGIN LOGIN FORM -->
                 <%= form_tag sessions_path, multipart: true, :id => "megamform", :class => "sign-form", role: "form", :novalidate => "novalidate", :method => "post", data: { spinlock: "#spin_cross_cloud"}  do %>
                 <div class="c_inline">
                     <div class="form-group">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
-                                <i class="c_ico-excla"></i>
+                                <i class="tickdot"></i>
                                 <%= text_field_tag :email, nil, :required => true, :class => 'form-control', placeholder: t('signup.email') %>
                             </div>
                         </div>
@@ -50,7 +50,7 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
-                                <i class="c_ico-excla"></i>
+                                <i class="tickdot"></i>
                                 <%= password_field_tag 'password', nil, :required => true, :class => 'form-control', placeholder: t('signup.password') %>
                             </div>
                         </div>

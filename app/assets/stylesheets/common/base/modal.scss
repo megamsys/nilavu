@@ -1,0 +1,85 @@
+/***
+Bootstrap modal
+***/
+body.modal-open{
+/*
+
+.modal-open {
+  .dropdown-menu {
+     z-index: 2050;
+  }
+  .popover {
+    z-index: 2060;
+  }
+  .tooltip {
+    z-index: 2070;
+  }
+
+}
+*/
+}
+
+.modal-backdrop {
+  border: 0 !important;
+  outline: none !important;
+  z-index: 10049 !important;
+}
+
+.modal-backdrop,
+.modal-backdrop.fade.in {
+  background-color: #333 !important;
+}
+
+.a_pad {
+	padding: 10px !important;
+}
+
+.modal {
+  z-index: 10050 !important;
+  outline: none !important;
+}
+
+.modal-header {
+  border-bottom: 1px solid #EFEFEF;
+}
+
+.modal-header h3{
+  font-weight: 300;
+}
+
+.modal-wide {
+  width: 60% !important;
+}
+
+.modal-full {
+  width: 100% !important;
+}
+
+/***
+Modal header close button fix
+***/
+.modal-header .close {
+  margin-top: 14px;
+}
+
+.modal > .loading {
+  position: absolute;
+  top: 50%;
+  left:50%;
+  margin-top: -22px;
+  margin-left: -22px;
+}
+
+
+.modal-open .header .container-fluid {
+  padding-right: 37px;
+}
+
+
+.c_modal-footer {
+  border: none;
+  text-align: center;
+}
+.c_modal-content {
+  font-size: 18px;
+}

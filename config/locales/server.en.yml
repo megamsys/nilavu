@@ -1,0 +1,356 @@
+# encoding: utf-8
+# This file contains content for the server portion of Nilavu used by Ruby
+#
+# To work with us on translations, see:
+#
+# To validate this YAML file after you change it, please paste it into
+# http://yamllint.com/
+
+en:
+  dates:
+    short_date_no_year: "D MMM"
+    short_date: "D MMM, YYYY"
+    long_date: "MMMM D, YYYY h:mma"
+
+  datetime_formats: &datetime_formats
+    formats:
+      # Format directives: http://ruby-doc.org/core-2.2.0/Time.html#method-i-strftime
+      short: "%m-%d-%Y"
+      # Format directives: http://ruby-doc.org/core-2.2.0/Time.html#method-i-strftime
+      short_no_year: "%B %-d"
+      # Format directives: http://ruby-doc.org/core-2.2.0/Time.html#method-i-strftime
+      date_only: "%B %-d, %Y"
+  date:
+    # Do not remove the brackets and commas and do not translate the first month name. It should be "null".
+    month_names:
+      [~, January, February, March, April, May, June, July, August, September, October, November, December]
+    <<: *datetime_formats
+  time:
+    <<: *datetime_formats
+
+  title: "Discourse"
+  topics: "Topics"
+  posts: "posts"
+  loading: "Loading"
+  powered_by_html: 'Powered by <a href="http://www.discourse.org">Discourse</a>, best viewed with JavaScript enabled'
+  log_in: "Log In"
+
+  purge_reason: "Automatically deleted as abandoned, unactivated account"
+  disable_remote_images_download_reason: "Remote images download was disabled because there wasn't enough disk space available."
+  anonymous: "Anonymous"
+
+  emails:
+    incoming:
+      default_subject: "Incoming email from %{email}"
+      show_trimmed_content: "Show trimmed content"
+      errors:
+        empty_email_error: "Happens when the raw mail we received was blank."
+        no_message_id_error: "Happens when the mail has no 'Message-Id' header."
+        auto_generated_email_error: "Happens when the 'precedence' header is set to: list, junk, bulk or auto_reply, or when any other header contains: auto-submitted, auto-replied or auto-generated."
+        no_body_detected_error: "Happens when we couldn't extract a body and there was no attachments."
+        inactive_user_error: "Happens when the sender is not active."
+        blocked_user_error: "Happens when the sender has been blocked."
+        bad_destination_address: "Happens when none of the email addresses in To/Cc/Bcc fields matched a configured incoming email address."
+        strangers_not_allowed_error: "Happens when a user tried to create a new topic in a category they're not a member of."
+        insufficient_trust_level_error: "Happens when a user tried to create a new topic in a category they don't have the required trust level for."
+        reply_user_not_matching_error: "Happens when a reply came in from a different email address the notification was sent to."
+        topic_not_found_error: "Happens when a reply came in but the related topic has been deleted."
+        topic_closed_error: "Happens when a reply came in but the related topic has been closed."
+
+  errors: &errors
+    format: ! '%{attribute} %{message}'
+    messages:
+      too_long_validation: "is limited to %{max} characters; you entered %{length}."
+      invalid_boolean: "Invalid boolean."
+      taken: "has already been taken"
+      accepted: must be accepted
+      blank: can't be blank
+      present: must be blank
+      confirmation: ! "doesn't match %{attribute}"
+      empty: can't be empty
+      equal_to: must be equal to %{count}
+      even: must be even
+      exclusion: is reserved
+      greater_than: must be greater than %{count}
+      greater_than_or_equal_to: must be greater than or equal to %{count}
+      has_already_been_used: "has already been used"
+      inclusion: is not included in the list
+      invalid: is invalid
+      is_invalid: "is invalid; try to be a little more descriptive"
+      less_than: must be less than %{count}
+      less_than_or_equal_to: must be less than or equal to %{count}
+      not_a_number: is not a number
+      not_an_integer: must be an integer
+      odd: must be odd
+      record_invalid: ! 'Validation failed: %{errors}'
+      restrict_dependent_destroy:
+        one: "Cannot delete record because a dependent %{record} exists"
+        many: "Cannot delete record because dependent %{record} exist"
+      too_long:
+        one: is too long (maximum is 1 character)
+        other: is too long (maximum is %{count} characters)
+      too_short:
+        one: is too short (minimum is 1 character)
+        other: is too short (minimum is %{count} characters)
+      wrong_length:
+        one: is the wrong length (should be 1 character)
+        other: is the wrong length (should be %{count} characters)
+      other_than: "must be other than %{count}"
+    template:
+      body: ! 'There were problems with the following fields:'
+      header:
+        one: 1 error prohibited this %{model} from being saved
+        other: ! '%{count} errors prohibited this %{model} from being saved'
+    embed:
+      load_from_remote: "There was an error loading that post."
+    site_settings:
+      min_username_length_exists: "You cannot set the minimum username length above the shortest username."
+      min_username_length_range: "You cannot set the minimum above the maximum."
+      max_username_length_exists: "You cannot set the maximum username length below the longest username."
+      max_username_length_range: "You cannot set the maximum below the minimum."
+      default_categories_already_selected: "You cannot select a category used in another list."
+      s3_upload_bucket_is_required: "You cannot enable uploads to S3 unless you've provided the 's3_upload_bucket'."
+
+  backup:
+    operation_already_running: "An operation is currently running. Can't start a new job right now."
+    backup_file_should_be_tar_gz: "The backup file should be a .tar.gz archive."
+    not_enough_space_on_disk: "There is not enough space on disk to upload this backup."
+
+  not_logged_in: "You need to be logged in to do that."
+  not_found: "The requested URL or resource could not be found."
+  invalid_access: "You are not permitted to view the requested resource."
+  read_only_mode_enabled: "The site is in read only mode. Interactions are disabled."
+
+  lounge_welcome:
+    title: "Welcome to the Lounge"
+    body: |
+
+      Congratulations! :confetti_ball:
+
+      If you can see this topic, you were recently promoted to **regular** (trust level 3).
+
+      You can now &hellip;
+
+      * Edit the title of any topic
+      * Change the category of any topic
+      * Have all your links followed ([automatic nofollow](http://en.wikipedia.org/wiki/Nofollow) is removed)
+      * Access a private Lounge category only visible to users at trust level 3 and higher
+      * Hide spam with a single flag
+
+      Here's the [current list of fellow regulars](/badges/3/regular). Be sure to say hi.
+
+      Thanks for being an important part of this community!
+
+      (For more information on trust levels, [see this topic][trust]. Please note that only members who continue to meet the requirements over time will remain regulars.)
+
+      [trust]: https://meta.discourse.org/t/what-do-user-trust-levels-do/4924
+
+
+  category:
+    topic_prefix: "About the %{category} category"
+    replace_paragraph: "(Replace this first paragraph with a brief description of your new category. This guidance will appear in the category selection area, so try to keep it below 200 characters. **Until you edit this description or create topics, this category won't appear on the categories page.**)"
+    post_template: "%{replace_paragraph}\n\nUse the following paragraphs for a longer description, or to establish category guidelines or rules:\n\n- Why should people use this category? What is it for?\n\n- How exactly is this different than the other categories we already have?\n\n- What should topics in this category generally contain?\n\n- Do we need this category? Can we merge with another category, or subcategory?\n"
+    errors:
+      uncategorized_parent: "Uncategorized can't have a parent category"
+      self_parent: "A subcategory's parent cannot be itself"
+      depth: "You can't nest a subcategory under another"
+      invalid_email_in: "'%{email}' is not a valid email address."
+      email_already_used_in_group: "'%{email}' is already used by the group '%{group_name}'."
+      email_already_used_in_category: "'%{email}' is already used by the category '%{category_name}'."
+    cannot_delete:
+      uncategorized: "Can't delete Uncategorized"
+      has_subcategories: "Can't delete this category because it has sub-categories."
+      topic_exists:
+        one: "Can't delete this category because is has 1 topic. Oldest topic is %{topic_link}."
+        other: "Can't delete this category because it has %{count} topics. Oldest topic is %{topic_link}."
+      topic_exists_no_oldest: "Can't delete this category because topic count is %{count}."
+    uncategorized_description: "Topics that don't need a category, or don't fit into any other existing category."
+
+    hours:
+      one: "1 hour"
+      other: "%{count} hours"
+    minutes:
+      one: "1 minute"
+      other: "%{count} minutes"
+    seconds:
+      one: "1 second"
+      other: "%{count} seconds"
+
+  datetime:
+    distance_in_words:
+      half_a_minute: "< 1m"
+      less_than_x_seconds:
+        one:   "< 1s"
+        other: "< %{count}s"
+      x_seconds:
+        one:   "1s"
+        other: "%{count}s"
+      less_than_x_minutes:
+        one:   "< 1m"
+        other: "< %{count}m"
+      x_minutes:
+        one:   "1m"
+        other: "%{count}m"
+      about_x_hours:
+        one:   "1h"
+        other: "%{count}h"
+      x_days:
+        one:   "1d"
+        other: "%{count}d"
+      about_x_months:
+        one:   "1mon"
+        other: "%{count}mon"
+      x_months:
+        one:   "1mon"
+        other: "%{count}mon"
+      about_x_years:
+        one:   "1y"
+        other: "%{count}y"
+      over_x_years:
+        one:   "> 1y"
+        other: "> %{count}y"
+      almost_x_years:
+        one:   "1y"
+        other: "%{count}y"
+
+    distance_in_words_verbose:
+      half_a_minute: "just now"
+      less_than_x_seconds:
+        one:   "just now"
+        other: "just now"
+      x_seconds:
+        one:   "1 second ago"
+        other: "%{count} seconds ago"
+      less_than_x_minutes:
+        one:   "less than 1 minute ago"
+        other: "less than %{count} minutes ago"
+      x_minutes:
+        one:   "1 minute ago"
+        other: "%{count} minutes ago"
+      about_x_hours:
+        one:   "1 hour ago"
+        other: "%{count} hours ago"
+      x_days:
+        one:   "1 day ago"
+        other: "%{count} days ago"
+      about_x_months:
+        one:   "about 1 month ago"
+        other: "about %{count} months ago"
+      x_months:
+        one:   "1 month ago"
+        other: "%{count} months ago"
+      about_x_years:
+        one:   "about 1 year ago"
+        other: "about %{count} years ago"
+      over_x_years:
+        one:   "over 1 year ago"
+        other: "over %{count} years ago"
+      almost_x_years:
+        one:   "almost 1 year ago"
+        other: "almost %{count} years ago"
+
+  password_reset:
+    no_token: "Sorry, that password change link is too old. Select the Log In button and use 'I forgot my password' to get a new link."
+    choose_new: "Please choose a new password"
+    choose: "Please choose a password"
+    update: 'Update Password'
+    save: 'Set Password'
+    title: 'Reset Password'
+    success: "You successfully changed your password and are now logged in."
+    success_unapproved: "You successfully changed your password."
+    continue: "Continue to %{site_name}"
+
+  change_email:
+    confirmed: "Your email has been updated."
+    please_continue: "Continue to %{site_name}"
+    error: "There was an error changing your email address. Perhaps the address is already in use?"
+    already_done: "Sorry, this confirmation link is no longer valid. Perhaps your email was already changed?"
+    authorizing_old:
+      title: "Thanks for confirming your current email address"
+      description: "We're now emailing your new address for confirmation."
+
+  dashboard:
+    rails_env_warning: "Your server is running in %{env} mode."
+    ruby_version_warning: "You are running a version of Ruby 2.0.0 that is known to have problems. Upgrade to patch level 247 or later."
+    host_names_warning: "Your config/database.yml file is using the default localhost hostname. Update it to use your site's hostname."
+    gc_warning: 'Your server is using default ruby garbage collection parameters, which will not give you the best performance. Read this topic on performance tuning: <a href="http://meta.discourse.org/t/tuning-ruby-and-rails-for-discourse/4126" target="_blank">Tuning Ruby and Rails for Discourse</a>.'
+    memory_warning: 'Your server is running with less than 1 GB of total memory. At least 1 GB of memory is recommended.'
+    google_oauth2_config_warning: 'The server is configured to allow signup and log in with Google OAuth2 (enable_google_oauth2_logins), but the client id and client secret values are not set. Go to <a href="/admin/site_settings">the Site Settings</a> and update the settings. <a href="https://meta.discourse.org/t/configuring-google-login-for-discourse/15858" target="_blank">See this guide to learn more</a>.'
+    facebook_config_warning: 'The server is configured to allow signup and log in with Facebook (enable_facebook_logins), but the app id and app secret values are not set. Go to <a href="/admin/site_settings">the Site Settings</a> and update the settings. <a href="https://meta.discourse.org/t/configuring-facebook-login-for-discourse/13394" target="_blank">See this guide to learn more</a>.'
+    twitter_config_warning: 'The server is configured to allow signup and log in with Twitter (enable_twitter_logins), but the key and secret values are not set. Go to <a href="/admin/site_settings">the Site Settings</a> and update the settings. <a href="https://meta.discourse.org/t/configuring-twitter-login-for-discourse/13395" target="_blank">See this guide to learn more</a>.'
+    github_config_warning: 'The server is configured to allow signup and log in with GitHub (enable_github_logins), but the client id and secret values are not set. Go to <a href="/admin/site_settings">the Site Settings</a> and update the settings. <a href="https://meta.discourse.org/t/configuring-github-login-for-discourse/13745" target="_blank">See this guide to learn more</a>.'
+    ceph_config_warning: 'The server is configured to upload files to s3, but at least one the following setting is not set: s3_access_key_id, s3_secret_access_key or s3_upload_bucket. Go to <a href="/admin/site_settings">the Site Settings</a> and update the settings. <a href="http://meta.discourse.org/t/how-to-set-up-image-uploads-to-s3/7229" target="_blank">See "How to set up image uploads to S3?" to learn more</a>.'
+    ceph_backup_config_warning: 'The server is configured to upload backups to s3, but at least one the following setting is not set: s3_access_key_id, s3_secret_access_key or s3_backup_bucket. Go to <a href="/admin/site_settings">the Site Settings</a> and update the settings. <a href="http://meta.discourse.org/t/how-to-set-up-image-uploads-to-s3/7229" target="_blank">See "How to set up image uploads to S3?" to learn more</a>.'
+    failing_emails_warning: 'There are %{num_failed_jobs} email jobs that failed. Check your app.yml and ensure that the mail server settings are correct. <a href="/sidekiq/retries" target="_blank">See the failed jobs in Sidekiq</a>.'
+    default_logo_warning: "Set the graphic logos for your site. Update logo_url, logo_small_url, and favicon_url in <a href='/admin/site_settings'>Site Settings</a>."
+    contact_email_missing: "Enter a site contact email address so you can be reached for urgent matters regarding your site. Update it in <a href='/admin/site_settings'>Site Settings</a>."
+    contact_email_invalid: "The site contact email is invalid. Update it in <a href='/admin/site_settings'>Site Settings</a>."
+    title_nag: "Enter the name of your site. Update title in <a href='/admin/site_settings'>Site Settings</a>."
+    site_description_missing: "Enter a one sentence description of your site that will appear in search results. Update site_description in <a href='/admin/site_settings'>Site Settings</a>."
+    consumer_email_warning: "Your site is configured to use Gmail (or another consumer email service) to send email. <a href='http://support.google.com/a/bin/answer.py?hl=en&answer=166852' target='_blank'>Gmail limits how many emails you can send</a>. Consider using an email service provider like mandrill.com to ensure email deliverability."
+    site_contact_username_warning: "Enter the name of a friendly staff user account to send important automated messages from. Update site_contact_username in <a href='/admin/site_settings'>Site Settings</a>."
+    notification_email_warning: "Notification emails are not being sent from a valid email address on your domain; email delivery will be erratic and unreliable. Please set notification_email to a valid local email address in <a href='/admin/site_settings'>Site Settings</a>."
+    subfolder_ends_in_slash: "Your subfolder setup is incorrect; the DISCOURSE_RELATIVE_URL_ROOT ends in a slash."
+    email_polling_errored_recently:
+      one: "Email polling has generated an error in the past 24 hours. Look at <a href='/logs' target='_blank'>the logs</a> for more details."
+      other: "Email polling has generated %{count} errors in the past 24 hours. Look at <a href='/logs' target='_blank'>the logs</a> for more details."
+
+  site_settings:
+    censored_words: "Words that will be automatically replaced with &#9632;&#9632;&#9632;&#9632;"
+    allow_user_locale: "Allow users to choose their own language interface preference"
+    title: "The name of this site, as used in the title tag."
+    site_description: "Describe this site in one sentence, as used in the meta description tag."
+    contact_email: "Email address of key contact responsible for this site. Used for critical notifications such as unhandled flags, as well as on the /about contact form for urgent matters."
+    contact_url: "Contact URL for this site. Used on the /about contact form for urgent matters."
+
+    logo_url: "The logo image at the top left of your site, should be a wide rectangle shape. If left blank site title text will be shown."
+    digest_logo_url: "The alternate logo image used at the top of your site's email digest. Should be a wide rectangle shape. If left blank `logo_url` will be used."
+    logo_small_url: "The small logo image at the top left of your site, should be a square shape, seen when scrolling down. If left blank a home glyph will be shown."
+    favicon_url: "A favicon for your site, see http://en.wikipedia.org/wiki/Favicon, to work correctly over a CDN it must be a png"
+    mobile_logo_url: "The fixed position logo image used at the top left of your mobile site. Should be a square shape. If left blank, `logo_url` will be used. eg: http://example.com/uploads/default/logo.png"
+    apple_touch_icon_url: "Icon used for Apple touch devices. Recommended size is 144px by 144px."
+
+    ga_tracking_code: "Google analytics (ga.js) tracking code code, eg: UA-12345678-9; see http://google.com/analytics"
+    ga_domain_name: "Google analytics (ga.js) domain name, eg: mysite.com; see http://google.com/analytics"
+    ga_universal_tracking_code: "Google Universal Analytics (analytics.js) tracking code code, eg: UA-12345678-9; see http://google.com/analytics"
+    ga_universal_domain_name: "Google Universal Analytics (analytics.js) domain name, eg: mysite.com; see http://google.com/analytics"
+
+    enable_google_oauth2_logins: "Enable Google Oauth2 authentication. This is the method of authentication that Google currently supports. Requires key and secret."
+    google_oauth2_client_id: "Client ID of your Google application."
+    google_oauth2_client_secret: "Client secret of your Google application."
+
+    enable_twitter_logins: "Enable Twitter authentication, requires twitter_consumer_key and twitter_consumer_secret"
+    twitter_consumer_key: "Consumer key for Twitter authentication, registered at http://dev.twitter.com"
+    twitter_consumer_secret: "Consumer secret for Twitter authentication, registered at http://dev.twitter.com"
+
+    enable_facebook_logins: "Enable Facebook authentication, requires facebook_app_id and facebook_app_secret"
+    facebook_app_id: "App id for Facebook authentication, registered at https://developers.facebook.com/apps"
+    facebook_app_secret: "App secret for Facebook authentication, registered at https://developers.facebook.com/apps"
+
+    enable_github_logins: "Enable Github authentication, requires github_client_id and github_client_secret"
+    github_client_id: "Client id for Github authentication, registered at https://github.com/settings/applications"
+    github_client_secret: "Client secret for Github authentication, registered at https://github.com/settings/applications"
+
+  login:
+    not_approved: "Your account hasn't been approved yet. You will be notified by email when you are ready to log in."
+    incorrect_username_email_or_password: "Incorrect username, email or password"
+    wait_approval: "Thanks for signing up. We will notify you when your account has been approved."
+    active: "Your account is activated and ready to use."
+    activate_email: "<p>You're almost done! We sent an activation mail to <b>%{email}</b>. Please follow the instructions in the email to activate your account.</p><p>If it doesn't arrive, check your spam folder, or try to log in again to send another activation mail.</p>"
+    not_activated: "You can't log in yet. We sent an activation email to you. Please follow the instructions in the email to activate your account."
+    not_allowed_from_ip_address: "You can't log in as %{username} from that IP address."
+    admin_not_allowed_from_ip_address: "You can't log in as admin from that IP address."
+    suspended: "You can't log in until %{date}."
+    suspended_with_reason: "Account suspended until %{date}: %{reason}"
+    errors: "%{errors}"
+    not_available: "Not available. Try %{suggestion}?"
+    something_already_taken: "Something went wrong, perhaps the username or email is already registered. Try the forgot password link."
+    omniauth_error: "Sorry, there was an error authorizing your account. Perhaps you did not approve authorization?"
+    omniauth_error_unknown: "Something went wrong processing your log in, please try again."
+    new_registrations_disabled: "New account registrations are not allowed at this time."
+    password_too_long: "Passwords are limited to 200 characters."
+    email_too_long: "The email you provided is too long. Mailbox names must be no more than 254 characters, and domain names must be no more than 253 characters."
+    reserved_username: "That username is not allowed."
+    missing_user_field: "You have not completed all the user fields"
+    close_window: "Authentication is complete. Close this window to continue."
+    already_logged_in: "Oops, looks like you are attempting to accept an invitation for another user. If you are not %{current_user}, please log out and try again."

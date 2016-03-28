@@ -17,7 +17,7 @@
 <% asmid = request.original_url.partition('=').last %>
 <div class="container-fluid main-cover">
   <div class="row">
-    <div class="col-xs-12 col-sm-3 col-md-2 col-xl-1 c_bg_white cover">
+    <div class="col-xs-12 col-sm-3 col-md-2 col-xl-1 c_bg_white">
       <div class="row">
         <div class="page-sidebar navbar-collapse collapse">
           <!-- BEGIN SIDEBAR MENU -->
@@ -26,7 +26,7 @@
             <%= render :partial => "layouts/toponeclick" %>
             <li class='start active'>
               <%= link_to cockpits_path, id: 'side-dash-link', :data => { :remote => true}, :target => '_self' do %>
-                <i class='c_icon-db pull-left'></i>
+                <i class='leftnav_dashboard pull-left'></i>
                 <span class='title pull-left'><%= t('cockpits.title') %></span>
               <% end %>
             </li>

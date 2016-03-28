@@ -16,28 +16,50 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <base href="#">
     <meta charset="utf-8"/>
     <title><%= content_for?(:title) ? yield(:title) + ' - ' + SiteSetting.title : SiteSetting.title %></title>
-    <%= stylesheet_link_tag "application", :media => "all" %>
-    <%= javascript_include_tag "application" %>
     <meta name="description" content="<%= SiteSetting.site_description %>">
     <%= render partial: "layouts/head" %>
+    <%= render partial: "common/nilavu_stylesheet" %>
+    <%= render partial: "common/special_font_face" %>
     <%= nilavu_csrf_tags %>
+    <script>
+      window.EmberENV = window.EmberENV || {};
+      window.EmberENV['FORCE_JQUERY'] = true;
+    </script>
+    <%= script "preload_store" %>
+    <%= script "locales/#{I18n.locale}" %>
+    <%= script "ember_jquery" %>
+    <%= script "vendor" %>
+    <%= script "application" %>
+
+    <%- if staff? %>
+      <%= script "admin"%>
+    <%- end %>
 
     <%= render_google_universal_analytics_code %>
     <%= render_nudgespot_realtimechat_code %>
-    <script src="https://www.google.com/jsapi" type="text/javascript"></script>
-    <script type="text/javascript">
-      google.load('visualization', '1', {
-                packages: ['corechart']
-              });
-    </script>
+    <%= yield :head %>
   </head>
   <body>
-    <%= render 'toastr_rails/flash' %>
-    <div id="cockpit">
-      <%= yield %>
+
+    <!-- used as rootElement by ember -->
+    <section id='main'>
+    </section>
+
+    <div id='offscreen-content'>
     </div>
+
+    <%- if @preloaded.present? %>
+      <script>
+      <%- @preloaded.each do |key, json| %>
+        PreloadStore.store("<%= key %>",<%= escape_unicode(json) %>);
+      <% end %>
+      </script>
+    <%- end %>
+
+    <%= yield :data %>
+    <%= render :partial => "common/nilavu_javascript" %>
+    <%= render_google_analytics_code %>
   </body>
 </html>

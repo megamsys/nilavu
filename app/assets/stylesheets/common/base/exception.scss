@@ -1,0 +1,158 @@
+
+
+/*
+// not ours error
+.error-page {
+  text-align: center;
+  padding-top: 2em;
+
+  .face {
+    font-size: 60px;
+    height: 60px;
+  }
+  .reason {
+    font-size: 1.714em;
+    height: 24px;
+  }
+  .url {
+    font-style: italic;
+    font-size: 11px;
+  }
+  .desc {
+    margin-top: 16px;
+    .fa-check-circle {
+      color: $success;
+    }
+  }
+  .buttons {
+    margin-top: 15px;
+
+    button {
+      margin: 0 20px;
+    }
+  }
+}
+// end
+
+//our old error
+.error-page {
+  padding-top: 10px;
+  padding-bottom: 50px;
+  position: relative;
+  text-align: center;
+}
+
+.error-page h2 {
+  color: #66719b;
+  font-size: 11em;
+  line-height: 112px;
+  margin-bottom: 0;
+  margin-top: 35px;
+}
+
+.error-page h3 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 25px;
+  color: #66719b;
+}
+
+.error-page p {
+  color: #818181;
+  font-size: 2.5em;
+  font-weight: 400;
+  line-height: 1.6em;
+}
+
+.error-page img {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+*/
+
+.help-block {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.help-inline {
+    color: #737373;
+    display: inline-block;
+    font-size: 13px;
+    padding: 5px;
+}
+/***
+Error States
+***/
+
+.has-warning .help-inline,
+.has-warning .help-block,
+.has-warning .control-label {
+  color: #c09853;
+}
+
+
+.has-warning .input-group-addon {
+  color: #c09853;
+  background-color: #fcf8e3;
+  border-color: #c09853;
+}
+
+.has-error .help-inline,
+.has-error .help-block,
+.has-error .control-label {
+  color: #b94a48;
+}
+
+.has-error .input-group-addon {
+  color: #b94a48;
+  background-color: #f2dede;
+  border-color: #b94a48;
+}
+
+.has-success .help-inline,
+.has-success .help-block,
+.has-success .control-label {
+  color: #468847;
+}
+
+.has-success .input-group-addon {
+  color: #468847;
+  background-color: #dff0d8;
+  border-color: #468847;
+}
+
+.input-icon {
+    position: relative;
+}
+.input-icon input {
+    padding-left: 33px !important;
+}
+.input-icon i {
+    color: #ccc;
+    display: block;
+    font-size: 16px;
+    height: 16px;
+    margin: 20px 24px 4px 10px;
+    position: absolute;
+    text-align: center;
+    width: 16px;
+}
+.input-icon.right input {
+    padding-left: 12px !important;
+    padding-right: 33px !important;
+}
+.input-icon.right i {
+    float: right;
+    right: 8px;
+}
+.has-success .input-icon > i {
+    color: #468847;
+}
+.has-warning .input-icon > i {
+    color: #c09853;
+}
+.has-error .input-icon > i {
+    color: #b94a48;
+}

@@ -4,7 +4,9 @@ Nilavu::Application.routes.draw do
   resources :source_files, :only => [:index, :create, :destroy], :controller => 's3_uploads' do
     get :generate_key, :on => :collection
   end
-  root to: 'cockpits#index'
+
+  root to: 'cockpits#entrance'
+
   get '/404', to: 'errors#not_found'
   get '/500', to: 'errors#internal_error'
 
@@ -19,7 +21,16 @@ Nilavu::Application.routes.draw do
   resources :phones
   resources :deploys
 
+  get "stylesheets/:name.css" => "stylesheets#show", constraints: { name: /[a-z0-9_]+/ }
+
   # named route for users, session
+  resources :static
+  post "login" => "static#enter"
+  get "login" => "static#show", id: "login"
+  get "password-reset" => "static#show", id: "password_reset"
+  get "signup" => "static#show", id: "signup"
+
+  # ....
   match '/signup', to: 'users#new', via: [:get]
   match '/signin', to: 'sessions#new', via: [:get]
   match '/tour', to: 'sessions#tour', via: [:get]

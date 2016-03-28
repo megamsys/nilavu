@@ -17,6 +17,9 @@ class SessionsController < ApplicationController
 
   skip_before_filter :redirect_to_login_if_required
 
+  def csrf
+    render json: {csrf: form_authenticity_token }
+  end
 
   def new
   end
@@ -38,6 +41,7 @@ class SessionsController < ApplicationController
       invalid_credentials
       return
     end
+  
     user.email_confirmed? ? login(user) : not_activated(user)
   end
 
