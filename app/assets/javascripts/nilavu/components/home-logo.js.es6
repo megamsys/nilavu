@@ -21,8 +21,14 @@ export default Ember.Component.extend({
     return this.site.mobileView && !Ember.isBlank(this.get('mobileBigLogoUrl'));
   }.property(),
 
+  showReverseLogo: function() {
+    alert(" showing reverseurl" + reverseLogoUrl);
+    return !Ember.isBlank(this.get('reverseLogoUrl'));
+  }.property(),
+
   smallLogoUrl: setting('logo_small_url'),
   bigLogoUrl: setting('logo_url'),
+  reverseLogoUrl: setting('logo_reverse_url'),
   mobileBigLogoUrl: setting('mobile_logo_url'),
   title: setting('title'),
 

@@ -185,7 +185,7 @@ const ApplicationRoute = Nilavu.Route.extend(OpenComposer, {
     if (!this.siteSettings.enable_local_logins && methods.length === 1) {
       this.controllerFor('login').send('externalLogin', methods[0]);
     } else {
-      this.render('login')
+      this.render(modal);
   //    if (notAuto) { notAuto(); }
     }
   },

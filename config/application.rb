@@ -19,10 +19,20 @@ module Nilavu
     require 'js_locale_helper'
 
     # Custom directories with classes and modules you want to be autoloadable.
+    config.autoload_paths += Dir["#{config.root}/app/serializers"]
     config.autoload_paths += Dir["#{config.root}/lib"]
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
-    config.autoload_paths += Dir["#{Rails.root}/lib"]
+    config.autoload_paths += Dir["#{Rails.root}/lib/validators"]
+    config.autoload_paths += Dir["#{config.root}/app"]
 
+    # Only load the plugins named here, in the order given (default is alphabetical).
+    # :all can be used as a placeholder for all plugins not explicitly named.
+    # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
+
+    config.assets.paths += %W(#{config.root}/config/locales #{config.root}/public/javascripts)
+
+    # Allows us to skip minifincation on some files
+    config.assets.skip_minification = []
 
     # explicitly precompile any images ( /assets/images ) path
     config.assets.precompile += [lambda do |filename, path|

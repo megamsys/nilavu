@@ -5,7 +5,7 @@ Nilavu::Application.routes.draw do
     get :generate_key, :on => :collection
   end
 
-  root to: 'cockpits#entrance'
+  root to: 'cockpits#entrance', as: "entrance"
 
   get '/404', to: 'errors#not_found'
   get '/500', to: 'errors#internal_error'

@@ -40,21 +40,18 @@ body {
   vertical-align: middle;
 }
 
-
-.twitter {
-  background-image: url(twitter.png);
-  background-color: #00ACED;
-}
 .facebook {
-  background-image: url(facebook.png);
+  background-image: url(../assets/social/facebook.png);
   background-color: #3B579D;
 }
+
 .google_oauth2 {
-  background-image: url(gplus.png);
+  background-image: url(../assets/social/google_oauth2.png);
   background-color: #DF4A32;
 }
+
 .github {
-  background-image: url(gh.png);
+  background-image: url(../assets/social/github.png);
   background-color: white;
 }
 
@@ -346,7 +343,7 @@ body {
   #create-ssh .modal-header {
     height: 70px;
   }
-  
+
   #create-ssh .modal-header .modal-title {
     padding: 7px !important;
     color: #8d8f99 !important;

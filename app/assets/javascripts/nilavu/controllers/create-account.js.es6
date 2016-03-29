@@ -323,10 +323,11 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
   @on('init')
   fetchConfirmationValue() {
-    return Nilavu.ajax('/users/hp.json').then(json => {
+  /*  return Nilavu.ajax('/users/hp.json').then(json => {
       this.set('accountPasswordConfirm', json.value);
       this.set('accountChallenge', json.challenge.split("").reverse().join(""));
-    });
+    }); */
+    return;
   },
 
   actions: {
@@ -335,6 +336,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
     },
 
     createAccount() {
+      alert("-- call createAccount");
       const self = this,
           attrs = this.getProperties('accountName', 'accountEmail', 'accountPassword', 'accountUsername', 'accountPasswordConfirm', 'accountChallenge'),
           userFields = this.get('userFields');

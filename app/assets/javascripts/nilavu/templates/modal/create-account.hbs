@@ -1,105 +1,78 @@
 {{#unless complete}}
-  <div class="modal-body">
-    {{#unless hasAuthOptions}}
-      {{login-buttons action="externalLogin"}}
-    {{/unless}}
-
-    {{#if showCreateForm}}
-      <div>
+  <div class="container-fluid">
+    <div class="header-inner">
+    {{home-logo minified=showReverse}}
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <!-- BEGIN LOGIN -->
+      <div class="col-md-5 col-sm-5 signUp">
+        <div class="top">
+          <h3>{{i18n 'user.signup.title'}}
+            <span class="sign_up_small pull-right">
+            {{i18n 'user.signup.description'}}</span>
+          </h3>
+        </div>
         <form>
-        <table>
-
-        <tr class="input">
-              <td class="label"><label for='new-account-email'>{{i18n 'user.email.title'}}</label></td>
-              <td>
-              {{input type="email" value=accountEmail id="new-account-email" disabled=emailValidated name="email" autofocus="autofocus"}}
-              &nbsp;{{input-tip validation=emailValidation}}
-              </td>
-        </tr>
-        <tr class="instructions">
-          <td></td>
-          <td><label>{{i18n 'user.email.instructions'}}</label></td>
-        </tr>
-
-        {{#if usernameRequired}}
-          <tr class="input">
-                <td class="label"><label for='new-account-username'>{{i18n 'user.username.title'}}</label></td>
-                <td>
-                {{input value=accountUsername id="new-account-username" name="username" maxlength=maxUsernameLength}}
-                &nbsp;{{input-tip validation=usernameValidation id="username-validation"}}
-                </td>
-          </tr>
-          <tr class="instructions">
-            <td></td>
-            <td><label>{{i18n 'user.username.instructions'}}</label></td>
-          </tr>
-        {{/if}}
-
-        {{#if siteSettings.enable_names}}
-          <tr class="input">
-            <td style="width:80px" class="label">
-              <label for='new-account-name'>{{i18n 'user.name.title'}}</label>
-            </td>
-            <td style="width:496px">
-              {{text-field value=accountName id="new-account-name"}}&nbsp;{{input-tip validation=nameValidation}}
-            </td>
-          </tr>
-          <tr class="instructions">
-            <td></td>
-            <td><label>{{nameInstructions}}</label></td>
-          </tr>
-        {{/if}}
-
-        {{plugin-outlet "create-account-before-password"}}
-
-        {{#if passwordRequired}}
-          <tr class="input">
-              <td class="label"><label for='new-account-password'>{{i18n 'user.password.title'}}</label></td>
-              <td>
-              {{password-field value=accountPassword type="password" id="new-account-password" capsLockOn=capsLockOn}}
-              &nbsp;{{input-tip validation=passwordValidation}}
-              </td>
-          </tr>
-          <tr class="instructions">
-            <td></td>
-            <td>
-              <label>{{passwordInstructions}}</label>
-              <div {{bind-attr class=":caps-lock-warning capsLockOn::invisible"}}><i class="fa fa-exclamation-triangle"></i> {{i18n 'login.caps_lock_warning'}}</div>
-            </td>
-          </tr>
-        {{/if}}
-
-        <tr class="password-confirmation">
-          <td><label for='new-account-password-confirmation'>{{i18n 'user.password_confirmation.title'}}</label></td>
-          <td>
-            {{input type="password" value=accountPasswordConfirm id="new-account-confirmation"}}
-            {{input value=accountChallenge id="new-account-challenge"}}
-          </td>
-        </tr>
-
-        </table>
-
-        {{#if userFields}}
-          <div class='user-fields'>
-            {{#each f in userFields}}
-              {{user-field field=f.field value=f.value}}
-            {{/each}}
+          <div class="middle">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                {{text-field type="email" value=accountEmail placeholderKey="user.email.title"
+                class ="form-control" id="new-accoount-email" disabled=emailValidated
+                name="email" autofocus="autofocus"}}{{input-tip validation=emailValidation}}
+                  </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                {{password-field value=accountPassword type="password" placeholderKey="user.password.title" class="form-control"
+                id="new-account-password" capsLockOn=capsLockOn}}{{input-tip validation=passwordValidation}}
+                 </div>
+              </div>
+            </div>
+            {{#if siteSettings.allow_otp_verifications}}
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                  <input name="phone" type="tel" id="phone" class="form-control phone_popover" placeholder="Enter mobile number" data-toggle="popover" data-content="Please verify your mobile number" size="100%" style="background-color: transparent; color: #C0C0C0;" required >
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                  <a href="otp_verify"  class="btn btn-success col-md-12 col-xs-12" id="phone_verify_link">Verify</a>
+                </div>
+              </div>
+            </div>
+            {{/if}}
           </div>
-        {{/if}}
 
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            {{#if showCreateForm}}
+                <button class='btn btn-success col-lg-12' {{bind-attr disabled="submitDisabled"}} {{action "createAccount"}}>{{i18n 'create_account.title'}}</button>
+                {{#conditional-loading-spinner condition=formSubmitted size="small"}}
+                {{/conditional-loading-spinner}}
+            {{/if}}
+            </div>
+          </div>
+          <div class="bottom">
+            <p class="colr-bluegrey">{{ i18n 'user.have_an_account' }}
+              &nbsp;&nbsp;
+              <a href="login" {{action "showLogin"}}>
+                <span class="colr-denimblue">{{i18n 'user.login_here'}}</span>
+              </a>
+            </p>
+          </div>
         </form>
       </div>
-    {{/if}}
-  </div>
-
-  {{#if showCreateForm}}
-    <div class="modal-footer">
-      <button class='btn btn-large btn-primary' {{bind-attr disabled="submitDisabled"}} {{action "createAccount"}}>{{i18n 'create_account.title'}}</button>
-      {{#conditional-loading-spinner condition=formSubmitted size="small"}}
-        <button class="btn btn-large" id="login-link" {{action "showLogin"}}>
-          {{i18n 'log_in'}}
-        </button>
-      {{/conditional-loading-spinner}}
+      <div class="col-lg-7 col-md-8">
+        <h1 class="text-banner">
+          <span>{{i18n 'user.signup.blip_title'}}</span>
+          <br />
+        <span>{{ i18n 'user.signup.blip_description'}}</span>
+      </h1>
     </div>
-  {{/if}}
+  </div>
+</div>
 {{/unless}}

@@ -3,40 +3,7 @@
 }
 
 .login .outer {
-}
-
-.login form
-{
-    padding-top: 20px;
-}
-.c_inline input, .form-group
-{
-    margin-bottom: 25px;
-}
-
-.signin .c_inline input, .signin .form-group {
-  margin-bottom: 15px;
-}
-
-.signin-bg{
-    background-image: url("signup_banner.jpg") !important;
-    background-repeat: no-repeat !important;
-}
-
-.signin .footer {
-  padding-bottom: 30px;
-  padding-top: 0px;
-}
-
-.signin .footer {
-  margin-top: 0px;
-}
-
-
-.login h2 {
-  padding-top: 20px;
   padding-bottom: 20px;
-  color: #8d8f99;
 }
 
 .login .logo {
@@ -51,18 +18,28 @@
   padding: 25px;
 }
 
-.social li {
-  padding: 5px;
+.login h2 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #8d8f99;
+}
+.login .outer
+{
+    /*float: none;
+    margin: auto;*/
+    /*padding: 20px;*/
 }
 
-.login .cover, .cover {
+.login .cover, .cover
+{
+    /*padding-left: 70px;
+    padding-right: 70px;*/
+    /*margin-top: 70px;*/
 }
-
-.login .c_inline {
-}
-
-.cover {
-
+.login .c_inline
+{
+    /*margin-top: 0px;
+    margin-bottom: 0px;*/
 }
 
 .login .footer {
@@ -74,8 +51,8 @@
 .login .footer p a {
   padding-right: 20px;
 }
+
 .login .tooltip-arrow {
-  /*min-width: 200px;*/
   border-right-color: #ed8f8f !important;
 }
 .login .tooltip-inner {
@@ -97,13 +74,46 @@
   color: #a2a5b8;
 }
 
+.login form
+{
+    padding-top: 20px;
+}
+
 .login input {
   border-radius: 3px;
   font-size: 16px;
 }
 
+
+.signin .c_inline input, .signin .form-group {
+  margin-bottom: 15px;
+}
+
+.signin .footer {
+  padding-bottom: 30px;
+  padding-top: 0px;
+  margin-top: 0px;
+}
+
+.c_inline input, .form-group
+{
+    margin-bottom: 25px;
+}
+
+.signup_background{
+    background-image: url(../images/signup_banner.jpg) !important;
+    background-repeat: repeat-y !important;
+}
+
+.social li {
+  padding: 5px;
+}
+
+.cover {
+}
+
 .tickdot {
-  background-image: url(/images/tickdot.png);
+  background-image: url(../images/icons/tickdot.png);
   padding: 14px;
   height: 16px;
   clear: both;

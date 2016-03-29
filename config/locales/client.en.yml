@@ -102,7 +102,7 @@ en:
           other: "%{count} years later"
       previous_month: 'Previous Month'
       next_month: 'Next Month'
-##### merging client_old
+
     site_settings:
       torpedo:
         one: Torpedo
@@ -145,36 +145,82 @@ en:
       support: "Support"
       copyright: "© 2013-2016 megam. All rights reserved."
 
-    signup:
-      title: "Sign up"
-      blip_title: "Simple Cloud."
-      blip_sub_heading: "Deploy a cloud server."
-      description: "It wont take more than 1 minute, we promise"
-      first_name: "First Name"
-      last_name: "Last Name"
-      phone_number: "Phone Number"
-      email: "Email"
-      password: "password"
-      password_placeholder: "New Password"
-      confirm_password: "Confirm Password"
-      confirm_password_placeholder: "Retype Password"
-      password_confirmation: "password_confirmation"
-      create_account: "Create Account"
-      creating_account: "Creating new account..."
-      existing_user: "Already have an account ?"
-      login_here: "Login here"
-      update_password: "Update Password"
-      updated_profile: "Your profile was updated."
-      created_account: "Your account is activated and ready to use."
+
       otp_verified: "Hi %{email}, Thank you for signing up. All transaction details will be sent to this number."
       created_cephaccount: "Your storage account is activated and ready to use."
       otp_failure: "Failed. try again."
       submit: Submit
 
     user:
+      said: "{{username}}:"
+      profile: "Profile"
+      mute: "Mute"
+      bio: "About me"
+      have_an_account: "Already have an account ?"
+      login_here: "Login here"
+      desktop_notifications:
+        label: "Desktop Notifications"
+        not_supported: "Notifications are not supported on this browser. Sorry."
+        perm_default: "Turn On Notifications"
+        disable: "Disable Notifications"
+        currently_enabled: ""
+        enable: "Enable Notifications"
+        currently_disabled: ""
+        each_browser_note: "Note: You have to change this setting on every browser you use."
+      dismiss_notifications: "Mark all as Read"
+      dismiss_notifications_tooltip: "Mark all unread notifications as read"
+      change: "change"
+      github_profile: "Github"
+      muted_categories: "Muted"
+
+      signup:
+        title: "Sign up"
+        description: "It wont take more than 1 minute, we promise"
+        blip_title: "Simple Cloud."
+        blip_description: "Deploy a cloud server."
+
+      change_password:
+        success: "(email sent)"
+        in_progress: "(sending email)"
+        error: "(error)"
+        action: "Send Password Reset Email"
+        set_password: "Set Password"
+
+      change_name:
+        title: "Change ame"
+        error: "There was an error changing your name."
+        invalid: "That name is invalid. It must only include numbers and letters"
+
+      change_email:
+        title: "Change Email"
+        taken: "Sorry, that email is not available."
+        error: "There was an error changing your email. Perhaps that address is already in use?"
+        success: "We've sent an email to that address. Please follow the confirmation instructions."
+
       email:
-        not_allowed: "is not allowed from that email provider. Please use another email address."
-        blocked: "is not allowed."
+        title: "Email"
+        instructions: "Never shown to the public"
+        ok: "We will email you to confirm"
+        invalid: "Please enter a valid email address"
+        authenticated: "Your email has been authenticated by {{provider}}"
+
+      name:
+        title: "Name"
+        instructions: "Your full name (optional)"
+        instructions_required: "Your full name"
+        too_short: "Your name is too short"
+        ok: "Your name looks good"
+
+
+      log_out: "Log Out"
+
+      password:
+        title: "Password"
+        too_short: "Your password is too short."
+        common: "That password is too common."
+        same_as_email: "Your password is the same as your email."
+        ok: "Your password looks good."
+        instructions: "At least %{count} characters."
 
     storages:
       title: "Storages"
@@ -188,13 +234,18 @@ en:
       complete_email_found: "We found an account that matches <b>%{email}</b>, you should receive an email with instructions on how to reset your password shortly."
       complete_email_not_found: "No account matches <b>%{email}</b>"
 
+    create_account:
+      title: "Create New Account"
+      failed: "Something went wrong, perhaps this email is already registered, try the forgot password link"
+
     login:
       title: "Login"
       password: "Password"
       create_account: "Create new account ?"
       take_a_tour: "Take a tour"
       media: "Login with social media"
-      email_placeholder: "email or username"
+      email_placeholder: "email"
+      password_placeholder: "password"
       caps_lock_warning: "Caps Lock is on"
       error: "Unknown error"
       blank_email_or_password: "Please enter your email or username, and password."
@@ -212,6 +263,12 @@ en:
       your_registered_email: "Your registered email"
       reset_password: "Reset Password"
       forgot_password: "Forgot password"
+      google_oauth2:
+        title: "with Google"
+        message: "Authenticating with Google (make sure pop up blockers are not enabled)"
+      facebook:
+         title: "with Facebook"
+         message: "Authenticating with Facebook (make sure pop up blockers are not enabled)"
 
     cephlogin:
       success: "Click <b>buckets</b> to get started"
@@ -248,7 +305,7 @@ en:
 
     marketplace:
       title: "Marketplaces"
-      honeypot_title: "%{apps} & %{services}"
+      honeypot_title: "{{apps}} & {{services}}"
       temp_search: "Search"
       choose_version: "Choose version:"
       discription: "Description"

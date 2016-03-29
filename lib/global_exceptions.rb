@@ -7,12 +7,11 @@ module GlobalExceptions
   end
 
   def log_exception(exception)
-  #  trace = filter_exception(exception) if exception
-  trace = exception 
-  #  unless trace.empty?
+    trace = filter_exception(exception) if exception
+    unless trace.empty?
       log_trace(trace)
       ascii_bomb
-  #  end
+    end
   end
 
   #just show our stuff .
