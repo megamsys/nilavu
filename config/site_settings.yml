@@ -145,6 +145,7 @@ login:
     default: false
     client: true
   sso_not_approved_url: ''
+  oauth_stub_password: "detio"
   enable_ceph_logins:
     client: true
     default: false
@@ -166,7 +167,7 @@ users:
     client: true
     default: 8
     min: 1
-  block_common_passwords: true
+  block_common_passwords: false
   email_editable: false
   logout_redirect:
     client: true

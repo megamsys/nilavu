@@ -31,10 +31,8 @@ module GWUser
   # creates a new account
   def self.save(email, name)
     ensure_gw_is_available?
-
-    radosgw.create(email, name)
+   radosgw.create(email, name)
   end
-
   # usage of an account
   def self.usage(email)
     ensure_gw_is_available?

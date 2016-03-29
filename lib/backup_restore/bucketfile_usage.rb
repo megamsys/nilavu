@@ -14,7 +14,7 @@ class BucketfileUsage
     @size = bucketobj.size.to_i
     @content_type = bucketobj.content_type
     @last_modified = bucketobj.last_modified
-    #  @download_url = bucketobj.download_url # this isn't there in the S3 object.
+    @download_url = bucketobj.temporary_url # this isn't there in the S3 object.
   end
 
   def size_with_units

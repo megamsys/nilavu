@@ -20,13 +20,9 @@ module Nilavu
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += Dir["#{config.root}/lib"]
-    config.autoload_paths += Dir["#{config.root}/lib/validators/"]
-    config.autoload_paths += Dir["#{config.root}/app"]
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    config.autoload_paths += Dir["#{Rails.root}/lib"]
 
-    config.assets.paths += %W(#{config.root}/config/locales #{config.root}/public/javascripts)
-
-    # Allows us to skip minifincation on some files
-    config.assets.skip_minification = []
 
     # explicitly precompile any images ( /assets/images ) path
     config.assets.precompile += [lambda do |filename, path|

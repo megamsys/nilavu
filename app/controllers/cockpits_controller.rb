@@ -35,4 +35,5 @@ class CockpitsController < ApplicationController
   def show
     redirect_to(cockpits_path) && return
   end
+
 end

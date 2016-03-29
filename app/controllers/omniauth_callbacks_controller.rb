@@ -44,15 +44,11 @@ class OmniauthCallbacksController < ApplicationController
     if origin.present?
       parsed = URI.parse(origin) rescue nil
       if parsed
-        @origin = parsed.path
+        @origin = origin
       end
     end
 
-    unless @origin.present?
-      @origin = Nilavu.base_uri("/")
-    end
-
-    @auth_result.redirect = origin
+    @auth_result.redirect = @origin
 
     if @auth_result.failed?
       flash[:error] = @auth_result.failed_reason.html_safe
@@ -66,9 +62,12 @@ class OmniauthCallbacksController < ApplicationController
         flash[:authentication_data] = @auth_result.to_client_hash.to_json
         redirect_to origin
       else
-        return redirect_to_where_it_came(@auth_result.to_client_hash)
 
+        if redirect_to_where_it_came(@auth_result.to_client_hash)
+          return
+        else
         after_create_account(@auth_result.to_client_hash)
+      end
 
       end
     end
@@ -104,7 +103,9 @@ class OmniauthCallbacksController < ApplicationController
   #(Onboard and use in both user#create and here)
   def after_create_account(result)
     user = User.new_from_params(result)
+    user.password = SiteSetting.oauth_stub_password
     user.api_key = SecureRandom.hex(20) if user.api_key.blank?
+
     activation = UserActivator.new(user, request, session, cookies)
     activation.start
 
@@ -119,9 +120,10 @@ class OmniauthCallbacksController < ApplicationController
     end
   end
 
+
   private
 
   def redirect_to_where_it_came(result_hash)
-    return if !@origin.include? 'signin'
+    return (!@origin.include? 'signin')
   end
 end

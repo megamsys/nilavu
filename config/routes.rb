@@ -50,7 +50,7 @@ Nilavu::Application.routes.draw do
   #git
   get "github/repos" => "github#list", constraints: { format: /(json|html)/}
   get "auth/gitlab" => "gitlab#show", constraints: { format: /(json|html)/}
-  get "gitlab/repos" => "gitlab#list", constraints: { format: /(json|html)/}
+  get "gitlab_repos" => "gitlab#list", constraints: { format: /(json|html)/}
 
   #catalogs
   match '/kelvi', to: 'catalogs#kelvi', via: [:post]
@@ -61,4 +61,5 @@ Nilavu::Application.routes.draw do
   post  '/cephsignin', to: 'cephs#create', constraints: HomePageConstraint.new
   get   '/cephsignup', to: 'ceph_users#create', constraints: HomePageConstraint.new
   post  '/cephsignup', to: 'ceph_users#create', constraints: HomePageConstraint.new
+
 end

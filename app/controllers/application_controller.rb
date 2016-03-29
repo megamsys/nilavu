@@ -93,6 +93,7 @@ class ApplicationController < ActionController::Base
     # We don't preload JSON on xhr or JSON request
     return if request.xhr? || request.format.json?
 
+<<<<<<< HEAD
     # if we are posting in makes no sense to preload
     return if request.method != "GET"
 
@@ -100,6 +101,14 @@ class ApplicationController < ActionController::Base
 
     if current_user
       # preload_current_user_data
+=======
+  def set_current_user_with_team
+    if current_user && !current_user.team
+      Teams.new.tap do |teams|
+        teams.find_all(AuthBag.vertice(current_user))
+        current_user.team = teams.last_used if teams
+      end
+>>>>>>> origin/1.5
     end
   end
 

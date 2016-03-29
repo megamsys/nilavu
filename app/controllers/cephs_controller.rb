@@ -4,13 +4,11 @@ class CephsController < ApplicationController
 
   def create
     params.require(:email)
-
     user = CephUser.new
     user_params.each { |k, v| user.send("#{k}=", v) }
 
     unless user = user.find_by_email
-      invalid_credentials
-      return
+      return not_signedup
     end
 
     user.email_confirmed? ? login(user) : not_activated(user)
@@ -38,4 +36,9 @@ class CephsController < ApplicationController
   def not_activated(user)
     render_with_error('cephlogin.not_activated')
   end
+
+  def not_signedup
+    redirect_to path('/cephsignup') and return
+  end
+
 end

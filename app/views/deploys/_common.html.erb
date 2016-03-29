@@ -16,7 +16,7 @@
 <% content_for :content_settings do %>
   <% provide(:title, t("site_settings.#{@deployed.type}", count: 0)) %>
   <div class="rt-box col-xs-12 col-sm-9 col-md-10 col-xl-11 c_bg_white c_height_5">
-    <%= render :partial => 'deploys/banner' %>
+  <%= render :partial => 'deploys/banner' %>
     <div class="bottom-divider"></div>
     <div class="row">
       <%= render :partial => 'deploys/logs_metrics', :locals => {:deployed => @deployed } %>

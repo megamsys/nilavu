@@ -15,6 +15,7 @@
 ##
 
 class CephUser
+  include GWUser
 
   attr_accessor :id
   attr_accessor :email
@@ -23,6 +24,9 @@ class CephUser
   attr_accessor :name
   attr_accessor :created_at
   attr_accessor :errors
+
+  alias :access_key= :access_key_id=
+  alias :secret_key= :secret_access_key=
 
   def self.new_from_params(params)
     user = CephUser.new
@@ -48,7 +52,10 @@ class CephUser
   end
 
   def save
-    GWUser.save(@email, CephUser.suggest_name(@email))
+    if saved = GWUser.save(@email, CephUser.suggest_name(email))
+      saved.each { |k, v| send("#{k}=", v) }
+      saved
+    end
   end
 
   def email_available?

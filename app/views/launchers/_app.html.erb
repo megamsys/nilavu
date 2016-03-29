@@ -94,8 +94,10 @@
                     type: "GET",
                     url: "/gitlab/repos",
                     success: function (data) {
+                      //console.log("xx");
                     },
                     error: function (data) {
+                      //console.log("error");
                       toastr.error("Gitlab oauth failure");
                     }
                   });

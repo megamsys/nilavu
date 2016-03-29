@@ -1,4 +1,4 @@
-require 'lib/json_kvparser'
+require 'json_kvparser'
 
 class DeployedIps
   include JsonKVParser
@@ -8,14 +8,13 @@ class DeployedIps
   end
 
   def publicip
-    first_public = @ips_array.select_with_pattern('public').first
+    first_public = select_with_pattern(@ips_array,'public').first
 
     return first_public[:value] if first_public
   end
 
-
   def privateip
-    first_private = @ips_array.select_with_pattern('private')
+    first_private = select_with_pattern(@ips_array,'private')
 
     return first_private[:value] if first_private
   end

@@ -11,8 +11,8 @@ class DeploysController < ApplicationController
 
     respond_to do |format|
       format.js do
-        respond_with(@deployed, layout: !request.xhr?)
-      end
-    end
+      respond_with(@deployed, layout: !request.xhr?)
+     end
+   end
   end
 end
