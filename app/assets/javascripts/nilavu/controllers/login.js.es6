@@ -1,5 +1,3 @@
-import ModalFunctionality from 'nilavu/mixins/modal-functionality';
-import showModal from 'nilavu/lib/show-modal';
 import { setting } from 'nilavu/lib/computed';
 
 // This is happening outside of the app via popup
@@ -7,7 +5,7 @@ const AuthErrors =
   ['requires_invite', 'awaiting_approval', 'awaiting_confirmation', 'admin_not_allowed_from_ip_address',
    'not_allowed_from_ip_address'];
 
-export default Ember.Controller.extend(ModalFunctionality, {
+export default Ember.Controller.extend({
   needs: ['modal', 'createAccount', 'forgotPassword', 'application'],
   showTop: false,
   showFooter: false,
@@ -187,7 +185,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
     const self = this;
     function loginError(errorMsg, className) {
-      showModal('login');
+  //    showModal('login');
       Ember.run.next(function() {
         self.flash(errorMsg, className || 'success');
         self.set('authenticate', null);
@@ -231,7 +229,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
       accountName: options.name,
       authOptions: Ember.Object.create(options)
     });
-    showModal('createAccount');
+  //  showModal('createAccount');
   }
 
 });

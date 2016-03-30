@@ -14,7 +14,6 @@ export default Ember.Component.extend({
       20 * 1000);
     },
     showCreateAccount() {
-      alert("showCreateAccount: showCreateAccount");
       this.sendAction();
     }
   },

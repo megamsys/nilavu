@@ -167,7 +167,6 @@ const ApplicationRoute = Nilavu.Route.extend(OpenComposer, {
   },
 
   handleShowLogin() {
-    console.log("handleShowLogin");
     this._autoLogin('login', 'login-modal', () => this.controllerFor('login').resetForm());
   },
 
@@ -181,12 +180,13 @@ const ApplicationRoute = Nilavu.Route.extend(OpenComposer, {
   },
 
   _autoLogin(modal, modalClass, notAuto) {
+
     const methods = Em.get('Nilavu.LoginMethod.all');
     if (!this.siteSettings.enable_local_logins && methods.length === 1) {
       this.controllerFor('login').send('externalLogin', methods[0]);
     } else {
-      this.render(modal);
-  //    if (notAuto) { notAuto(); }
+      this.render(modal, { into: 'application' });
+      if (notAuto) { notAuto(); }
     }
   },
 

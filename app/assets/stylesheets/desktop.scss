@@ -1,6 +1,11 @@
 @import "common";
 
+/* @import "desktop/*"; TODO: get this working again */
+
+@import "desktop/alert";
 @import "desktop/nilavu";
-@import "desktop/style_elegant";
 @import "desktop/catalog";
 @import "desktop/footer";
+@import "desktop/modal";
+@import "desktop/style_elegant";
+@import "desktop/menu-panel";

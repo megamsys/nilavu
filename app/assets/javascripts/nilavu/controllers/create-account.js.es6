@@ -1,9 +1,8 @@
 import debounce from 'nilavu/lib/debounce';
-import ModalFunctionality from 'nilavu/mixins/modal-functionality';
 import { setting } from 'nilavu/lib/computed';
 import { on } from 'ember-addons/ember-computed-decorators';
 
-export default Ember.Controller.extend(ModalFunctionality, {
+export default Ember.Controller.extend({
   needs: ['login'],
 
   uniqueUsernameValidation: null,
@@ -336,7 +335,6 @@ export default Ember.Controller.extend(ModalFunctionality, {
     },
 
     createAccount() {
-      alert("-- call createAccount");
       const self = this,
           attrs = this.getProperties('accountName', 'accountEmail', 'accountPassword', 'accountUsername', 'accountPasswordConfirm', 'accountChallenge'),
           userFields = this.get('userFields');

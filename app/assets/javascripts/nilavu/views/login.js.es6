@@ -1,6 +1,5 @@
-import ModalBodyView from "nilavu/views/modal-body";
 
-export default ModalBodyView.extend({
+export default Ember.View.extend({
   templateName: 'login',
   title: I18n.t('login.title'),
   classNames: ['login-modal'],
@@ -12,7 +11,7 @@ export default ModalBodyView.extend({
 
   _setup: function() {
     const loginController = this.get('controller');
-    /*
+
     // Get username and password from the browser's password manager,
     // if it filled the hidden static login form:
     var prefillUsername = $('#hidden-login-form input[name=username]').val();
@@ -29,6 +28,6 @@ export default ModalBodyView.extend({
           loginController.send('login');
         }
       });
-    });*/
+    });
   }.on('didInsertElement')
 });

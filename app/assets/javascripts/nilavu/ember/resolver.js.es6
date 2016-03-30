@@ -27,6 +27,8 @@ function parseName(fullName) {
         name = fullNameWithoutType,
         namespace = get(this, 'namespace'),
         root = namespace;
+  console.log("----------- Resolver parseName");
+  console.log(type + "," + name + "," + namespace+ ","+ root);
   return {
     fullName: fullName,
     type: type,
@@ -44,6 +46,7 @@ export default Ember.DefaultResolver.extend({
   normalize(fullName) {
     var split = fullName.split(':');
     if (split.length > 1) {
+      console.log("DefaultResolver fullName="+fullName);
 
       var nilavuBase = 'nilavu/' + split[0] + 's/';
       var adminBase = 'admin/' + split[0] + 's/';
@@ -116,6 +119,8 @@ export default Ember.DefaultResolver.extend({
   },
 
   resolveTemplate(parsedName) {
+    console.log("DefaultResolver parsedName=" +parsedName);
+
     return this.findPluginTemplate(parsedName) ||
            this.findMobileTemplate(parsedName) ||
            this.findTemplate(parsedName) ||
@@ -152,6 +157,7 @@ export default Ember.DefaultResolver.extend({
           slashedType = withoutType.replace(/\./g, '/'),
           decamelized = withoutType.decamelize(),
           templates = Ember.TEMPLATES;
+  console.log("DefaultResolver findTemplate parsedName="+ parsedName);
 
     return this._super(parsedName) ||
            templates[slashedType] ||
@@ -169,7 +175,7 @@ export default Ember.DefaultResolver.extend({
   },
 
   // Try to find a template within a special admin namespace, e.g. adminEmail => admin/templates/email
-  // (similar to how discourse lays out templates)
+  // (similar to how nilavu lays out templates)
   findAdminTemplate(parsedName) {
     var decamelized = parsedName.fullNameWithoutType.decamelize();
 

@@ -3,6 +3,13 @@
   background-color: #f5f5f5;
 }
 
+.bootbox.modal {
+    .modal-footer {
+      a.btn-primary {
+        color: $secondary;
+      }
+    }
+  }
 
 i.icon, a.icon {
     color: #999;

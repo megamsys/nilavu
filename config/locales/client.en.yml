@@ -228,7 +228,7 @@ en:
     forgot_password:
       title: "Password Reset"
       action: "I forgot my password"
-      invite: "Enter your username or email address, and we'll send you a password reset email."
+      invite: "Enter your email address, and we'll send you a password reset email."
       reset: "Reset Password"
       complete_email: "If an account matches <b>%{email}</b>, you should receive an email with instructions on how to reset your password shortly."
       complete_email_found: "We found an account that matches <b>%{email}</b>, you should receive an email with instructions on how to reset your password shortly."

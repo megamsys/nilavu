@@ -1,10 +1,7 @@
-import ModalBodyView from "nilavu/views/modal-body";
-
-export default ModalBodyView.extend({
+export default Ember.View.extend({
   templateName: 'modal/create-account',
   title: I18n.t('create_account.title'),
   classNames: ['create-account'],
-
 
 
   _setup: function() {

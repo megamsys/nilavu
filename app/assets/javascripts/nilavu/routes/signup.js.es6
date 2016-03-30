@@ -5,7 +5,6 @@ const SignupRoute = buildStaticRoute('signup');
 SignupRoute.reopen({
   beforeModel() {
     var canSignUp = this.controllerFor("application").get('canSignUp');
-    alert("--- signup");
     if (!this.siteSettings.login_required) {
       this.replaceWith('discovery.latest').then(e => {
         if (canSignUp) {
@@ -15,7 +14,6 @@ SignupRoute.reopen({
     } else {
       this.replaceWith('login').then(e => {
         if (canSignUp) {
-          alert("--- signup now");
           Ember.run.next(() => e.send('showCreateAccount'));
         }
       });

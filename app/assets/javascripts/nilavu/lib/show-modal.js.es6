@@ -11,6 +11,7 @@ export default function(name, opts) {
 
   const viewClass = container.lookupFactory('view:' + name);
   const controller = container.lookup('controller:' + name);
+
   if (viewClass) {
     route.render(name, { into: 'modal', outlet: 'modalBody' });
   } else {
