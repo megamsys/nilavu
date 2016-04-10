@@ -14,8 +14,8 @@ export default Ember.Controller.extend({
 
   @computed
   loginRequired() {
-    console.log("ApplicationController.loginRequired");
     //return Nilavu.SiteSettings.login_required && !Nilavu.User.current();
+    console.log(">  application.controller loginRequired="+!Nilavu.User.current());
     return !Nilavu.User.current();
   },
 });

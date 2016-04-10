@@ -15,7 +15,7 @@
 ##
 
 module Api
-  class Billings < APIDispatch
+  class Billings < ApiDispatcher
     CURRENCY_USD = "USD".freeze
     CURRENCY_INR = "IN".freeze
 

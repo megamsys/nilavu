@@ -21,9 +21,6 @@ class SessionsController < ApplicationController
     render json: {csrf: form_authenticity_token }
   end
 
-  def new
-  end
-
   def create
     params.require(:email)
     params.require(:password)
@@ -41,10 +38,25 @@ class SessionsController < ApplicationController
       invalid_credentials
       return
     end
-  
+
     user.email_confirmed? ? login(user) : not_activated(user)
   end
 
+
+  def forgot_password
+    params.permit(:login)
+
+    user = User.new
+    user.email = params[:login]
+
+    if user.reset
+      render json: success_json
+    else
+      render_json_error(I18n.t("password_reset.no_token"))
+    end
+  end
+
+  ## this should be moved to an anonymous user, with anonymous_homepage handled using Guardian
   def tour
     params.merge!({:email => 'tour@megam.io', :password => 'faketour'})
     create
@@ -53,8 +65,17 @@ class SessionsController < ApplicationController
   def destroy
     reset_session
     log_off_user
-    bye
+    render nothing: true
   end
+
+  def current
+    if current_user.present?
+      render_serialized(current_user, CurrentUserSerializer)
+    else
+      render nothing: true, status: 404
+    end
+  end
+
 
   private
 
@@ -62,20 +83,22 @@ class SessionsController < ApplicationController
     params.permit(:email, :password, :status)
   end
 
-  def login(user)
-    log_on_user(user)
-    redirect_with_success(cockpits_path, "login.success")
-  end
-
   def invalid_credentials
-    redirect_with_failure(signin_path, "login.incorrect_email_or_password")
+    render json: {error: I18n.t("login.incorrect_email_or_password")}
   end
 
   def not_activated(user)
-    redirect_with_failure(signup_path, "login.not_activated")
+    render json: {
+      error: I18n.t("login.not_activated"),
+      reason: 'not_activated',
+      sent_to_email: user.email,
+      current_email: user.email
+    }
   end
 
-  def bye
-    redirect_with_success(signin_path, "login.tata")
+  def login(user)
+    log_on_user(user)
+    #TO-DO    render_serialized(user, UserSerializer)
+    render json: success_json
   end
 end

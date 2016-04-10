@@ -5,6 +5,7 @@ export default Ember.Component.extend(StringBuffer, {
   tagName: 'li',
   classNameBindings: ['active', 'content.hasIcon:has-icon'],
   attributeBindings: ['title'],
+  hasIcon: true,
   hidden: Em.computed.not('content.visible'),
   rerenderTriggers: ['content.count'],
 
@@ -29,10 +30,9 @@ export default Ember.Component.extend(StringBuffer, {
   renderString(buffer) {
     const content = this.get('content');
     buffer.push("<a href='" + content.get('href') + "'>");
-    if (content.get('hasIcon')) {
-      buffer.push("<span class='" + content.get('name') + "'></span>");
-    }
-    buffer.push(this.get('content.displayName'));
+    buffer.push("<i class='leftnav_" + content.get('name') + " pull-left'></i>");
+    buffer.push("<span class='title' pull-left>"  + this.get('content.displayName'));
+    buffer.push("</span>");
     buffer.push("</a>");
   }
 });

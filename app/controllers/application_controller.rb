@@ -23,6 +23,7 @@ require_dependency 'json_error'
 
 
 class ApplicationController < ActionController::Base
+  include ApplicationHelper
   include CurrentUser
   include CurrentCephUser
   include JsonError
@@ -38,6 +39,8 @@ class ApplicationController < ActionController::Base
   before_filter :redirect_to_login_if_required
   before_filter :set_current_user_with_team
   before_filter :check_xhr
+
+  ## we'll have to remove this, and turn on the other rescue
   around_action :catch_exceptions
 
 
@@ -49,13 +52,9 @@ class ApplicationController < ActionController::Base
     render 'default/empty'
   end
 
-  rescue_from Nilavu::NotLoggedIn do |e|
-    raise e if Rails.env.test?
-    if (request.format && request.format.json?) || request.xhr? || !request.get?
-      rescue_nilavu_actions(:not_logged_in, 403, true)
-    else
-      rescue_nilavu_actions(:not_found, 404)
-    end
+
+  rescue_from Nilavu::InvalidParameters do |e|
+    render json_error e.message, type: :invalid_params, status: 422
   end
 
   rescue_from Nilavu::NotFound do
@@ -64,6 +63,15 @@ class ApplicationController < ActionController::Base
 
   rescue_from Nilavu::InvalidAccess do
     rescue_nilavu_actions(:invalid_access, 403, true)
+  end
+
+  rescue_from Nilavu::NotLoggedIn do |e|
+    raise e if Rails.env.test?
+    if (request.format && request.format.json?) || request.xhr? || !request.get?
+      rescue_nilavu_actions(:not_logged_in, 403, true)
+    else
+      rescue_nilavu_actions(:not_found, 404)
+    end
   end
 
   def rescue_nilavu_actions(type, status_code)
@@ -99,7 +107,8 @@ class ApplicationController < ActionController::Base
     preload_anonymous_data
 
     if current_user
-      # preload_current_user_data
+      puts "============= loaded current_user data"
+      preload_current_user_data
     end
   end
 
@@ -172,14 +181,14 @@ class ApplicationController < ActionController::Base
   end
 
   def preload_anonymous_data
-    store_preloaded("site",   { periods: [:latest_period], filters: Nilavu.default_categories.map(&:to_s)}.to_json)
+    store_preloaded("site",   { filters: Nilavu.default_categories.map(&:to_s),  categories_muted:  Nilavu.default_categories_muted.map(&:to_s)}.to_json)
     store_preloaded("siteSettings", SiteSetting.client_settings_json)
     store_preloaded("customHTML", custom_html_json)
   end
 
-  #def preload_current_user_data
-  #  store_preloaded("currentUser", MultiJson.dump(CurrentUserSerializer.new(current_user, scope: guardian, root: false)))
-  #end
+  def preload_current_user_data
+    store_preloaded("currentUser", MultiJson.dump(current_user))
+  end
 
   def custom_html_json
     #target = view_context.mobile_view? ? :mobile : :desktop
@@ -189,8 +198,8 @@ class ApplicationController < ActionController::Base
 
   def custom_html
     data = {
-      top: SiteCustomization.custom_top,
-      footer: SiteCustomization.custom_footer
+      top: render_customized_header_or_not,
+      footer: render_customized_footer_or_not
     }
   end
 
@@ -252,7 +261,7 @@ class ApplicationController < ActionController::Base
     raise RenderEmpty.new unless ((request.format && request.format.json?) || request.xhr?)
   end
 
-    def destination_url
+  def destination_url
     request.original_url unless request.original_url =~ /uploads/
   end
 

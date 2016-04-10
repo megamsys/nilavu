@@ -2,10 +2,6 @@
   background-color: #edeef5 !important;
 }
 
-.login .outer {
-  padding-bottom: 20px;
-}
-
 .login .logo {
   margin: 0 auto;
   padding: 50px;
@@ -23,19 +19,7 @@
   padding-bottom: 20px;
   color: #8d8f99;
 }
-.login .outer
-{
-    /*float: none;
-    margin: auto;*/
-    /*padding: 20px;*/
-}
 
-.login .cover, .cover
-{
-    /*padding-left: 70px;
-    padding-right: 70px;*/
-    /*margin-top: 70px;*/
-}
 .login .c_inline
 {
     /*margin-top: 0px;
@@ -84,6 +68,10 @@
   font-size: 16px;
 }
 
+.c_inline input, .form-group
+{
+    margin-bottom: 25px;
+}
 
 .signin .c_inline input, .signin .form-group {
   margin-bottom: 15px;
@@ -95,10 +83,6 @@
   margin-top: 0px;
 }
 
-.c_inline input, .form-group
-{
-    margin-bottom: 25px;
-}
 
 .signup_background{
     background-image: url(../images/signup_banner.jpg) !important;

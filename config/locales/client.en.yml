@@ -103,35 +103,43 @@ en:
       previous_month: 'Previous Month'
       next_month: 'Next Month'
 
-    site_settings:
+    filters:
       torpedo:
-        one: Torpedo
-        other: Torpedos
+        title:
+          one: Virtual Machine
+          other: Virtual Machines
       app:
-        one: App
-        other: Apps
+        title:
+          one: App
+          other: Apps
       service:
-        one: Service
-        other: Services
-      microservice:
-        one: Microservice
-        other: Microservices
+        title:
+          one: Service
+          other: Services
+      microservices:
+        title:
+          one: Microservice
+          other: Microservices
       analytics:
-        one: Analytics
-        other: Analytics
+        title:
+          one: Analytics
+          other: Analytics
       collaboration:
-        one: Collaboration
-        other: Collaborations
-      oneclick:
-        one: Oneclick
-        other: Oneclicks
+        title:
+          one: Collaboration
+          other: Collaborations
+      bitnami:
+        title:
+          one: Bitnami
+          other: Bitnamis
       torpedo_description: 'Get your own compute power'
       app_description:  'Get started with a new app'
       service_description: 'Make your applications more hungry'
       microservice_description: 'Your app in a container in seconds'
       analytics_description: 'Actionable insights in minutes'
-      collaboration_description: 'Collaboration done in minutes'
-      oneclick_description:  'Just do one thing in a click'
+      collaboration_description: 'Your buddies are near by'
+      bitnami_description:  'Apps on steroids'
+      unikernel_descripiton: 'Just do one thing in a click'
 
     top_toolbar:
     signout: "Sign Out"
@@ -158,6 +166,9 @@ en:
       bio: "About me"
       have_an_account: "Already have an account ?"
       login_here: "Login here"
+      loading: "Loading"
+      new: "new"
+      new_torpedo_app: "VM / App"
       desktop_notifications:
         label: "Desktop Notifications"
         not_supported: "Notifications are not supported on this browser. Sorry."
@@ -172,6 +183,7 @@ en:
       change: "change"
       github_profile: "Github"
       muted_categories: "Muted"
+
 
       signup:
         title: "Sign up"
@@ -199,6 +211,7 @@ en:
 
       email:
         title: "Email"
+        checking: "Checking email availability..."
         instructions: "Never shown to the public"
         ok: "We will email you to confirm"
         invalid: "Please enter a valid email address"

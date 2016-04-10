@@ -5,16 +5,14 @@ export default Ember.Controller.extend({
 
   @computed()
   categories() {
-    console.log("Nav.Default controller: lets show the categories");
     return Nilavu.Category.list();
   },
 
   @computed("filterMode")
   navItems(filterMode) {
-    console.log("Nav.Default controller lets show the filterMode");
-
-    // we don't want to show the period in the navigation bar since it's in a dropdown
+    console.log(">  navItems: "+filterMode);
     if (filterMode.indexOf("top/") === 0) { filterMode = filterMode.replace("top/", ""); }
+    console.log("   navItems: "+ Nilavu.NavItem.buildList(null, {filterMode}));
     return Nilavu.NavItem.buildList(null, { filterMode });
   }
 

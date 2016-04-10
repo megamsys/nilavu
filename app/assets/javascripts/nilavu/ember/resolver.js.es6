@@ -3,23 +3,6 @@
 var classify = Ember.String.classify;
 var get = Ember.get;
 
-var LOADING_WHITELIST = ['badges', 'userActivity', 'userPrivateMessages', 'admin', 'adminFlags',
-                         'user', 'preferences', 'adminEmail', 'adminUsersList'];
-var _dummyRoute;
-var _loadingView;
-
-function loadingResolver(cb) {
-  return function(parsedName) {
-    var fullNameWithoutType = parsedName.fullNameWithoutType;
-
-    if (fullNameWithoutType.indexOf('Loading') >= 0) {
-      fullNameWithoutType = fullNameWithoutType.replace('Loading', '');
-      if (LOADING_WHITELIST.indexOf(fullNameWithoutType) !== -1) {
-        return cb(fullNameWithoutType);
-      }
-    }
-  };
-}
 
 function parseName(fullName) {
   const nameParts = fullName.split(":"),
@@ -27,8 +10,7 @@ function parseName(fullName) {
         name = fullNameWithoutType,
         namespace = get(this, 'namespace'),
         root = namespace;
-  console.log("----------- Resolver parseName");
-  console.log(type + "," + name + "," + namespace+ ","+ root);
+
   return {
     fullName: fullName,
     type: type,
@@ -46,7 +28,6 @@ export default Ember.DefaultResolver.extend({
   normalize(fullName) {
     var split = fullName.split(':');
     if (split.length > 1) {
-      console.log("DefaultResolver fullName="+fullName);
 
       var nilavuBase = 'nilavu/' + split[0] + 's/';
       var adminBase = 'admin/' + split[0] + 's/';
@@ -99,7 +80,8 @@ export default Ember.DefaultResolver.extend({
   },
 
   resolveView(parsedName) {
-    return this.findLoadingView(parsedName) || this.customResolve(parsedName) || this._super(parsedName);
+  //  return this.findLoadingView(parsedName) || this.customResolve(parsedName) || this._super(parsedName);
+   return this.customResolve(parsedName) || this._super(parsedName);
   },
 
   resolveHelper(parsedName) {
@@ -115,30 +97,17 @@ export default Ember.DefaultResolver.extend({
   },
 
   resolveRoute(parsedName) {
-    return this.findLoadingRoute(parsedName) || this.customResolve(parsedName) || this._super(parsedName);
+    //return this.findLoadingRoute(parsedName) || this.customResolve(parsedName) || this._super(parsedName);
+    return this.customResolve(parsedName) || this._super(parsedName);
   },
 
   resolveTemplate(parsedName) {
-    console.log("DefaultResolver parsedName=" +parsedName);
 
     return this.findPluginTemplate(parsedName) ||
            this.findMobileTemplate(parsedName) ||
            this.findTemplate(parsedName) ||
            Ember.TEMPLATES.not_found;
   },
-
-  findLoadingRoute: loadingResolver(function() {
-    _dummyRoute = _dummyRoute || Ember.Route.extend();
-    return _dummyRoute;
-  }),
-
-  findLoadingView: loadingResolver(function() {
-    if (!_loadingView) {
-      _loadingView = require('nilavu/views/loading', null, null, true /* force sync */);
-      if (_loadingView && _loadingView['default']) { _loadingView = _loadingView['default']; }
-    }
-    return _loadingView;
-  }),
 
   findPluginTemplate(parsedName) {
     var pluginParsedName = this.parseName(parsedName.fullName.replace("template:", "template:javascripts/"));
@@ -157,7 +126,6 @@ export default Ember.DefaultResolver.extend({
           slashedType = withoutType.replace(/\./g, '/'),
           decamelized = withoutType.decamelize(),
           templates = Ember.TEMPLATES;
-  console.log("DefaultResolver findTemplate parsedName="+ parsedName);
 
     return this._super(parsedName) ||
            templates[slashedType] ||

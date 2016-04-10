@@ -37,7 +37,9 @@
     require('nilavu/routes/application').default.reopen({
       actions: {
         didTransition: function() {
+          alert("_nilavu javascript:  complete authentication ")
           Em.run.next(function(){
+            alert("_nilavu javascript:  complete authentication ")
             Nilavu.authenticationComplete(<%=flash[:authentication_data].html_safe%>);
           });
           return this._super();
@@ -49,9 +51,6 @@
   Nilavu.BaseUri = '<%= Nilavu::base_uri %>';
   Nilavu.Environment = '<%= Rails.env %>';
   Nilavu.SiteSettings = PreloadStore.get('siteSettings');
-  console.log("--- site settings ");
-  console.log(Nilavu.SiteSettings);
-  console.log("=====================================");
   I18n.defaultLocale = '<%= SiteSetting.default_locale %>';
   Nilavu.start();
   Nilavu.set('assetVersion','<%= Nilavu.assets_digest %>');

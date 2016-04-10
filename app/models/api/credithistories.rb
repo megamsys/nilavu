@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Api
-  class Credithistories < APIDispatch
+  class Credithistories < ApiDispatcher
     attr_reader :bill_type
     attr_reader :credit_amount
     attr_reader :currency_type

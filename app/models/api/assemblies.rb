@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Api
-  class Assemblies < APIDispatch
+  class Assemblies < ApiDispatcher
     include MarketplaceHelper
 
     attr_reader :assemblies_grouped

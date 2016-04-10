@@ -127,23 +127,7 @@
     label { margin-bottom: 0; }
   }
 
-  .searching {
-    position: absolute;
-
-    top: -3px;
-    right: 0.75em;
-    .drop-down-visible & {
-      top: 0.2em;
-      right: 1.2em;
-    }
-    .spinner {
-      width: 10px;
-      height: 10px;
-      border-width: 2px;
-      margin: 20px 0 0 0;
-    }
-  }
-  // I am ghetto using this to display "Show More".. be warned
+    // I am ghetto using this to display "Show More".. be warned
   .no-results {
     padding: 5px;
     text-align: center;

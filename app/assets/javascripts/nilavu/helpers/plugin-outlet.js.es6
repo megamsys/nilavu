@@ -45,7 +45,7 @@
    If a plugin returns a disabled status, the outlets will not be wired up for it.
    The list of disabled plugins is returned via the `Site` singleton.
 
-**/
+*/
 
 // TODO: Add all plugin-outlet names dynamically
 const rewireableOutlets = [

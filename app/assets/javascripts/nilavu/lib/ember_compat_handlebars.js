@@ -111,8 +111,6 @@
     };
 
     RawHandlebars.compile = function(string) {
-      console.log("EmberCompatHandlebars compiling");
-
       var ast = Handlebars.parse(string);
       replaceGet(ast);
 

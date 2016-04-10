@@ -1,7 +1,7 @@
 import StringBuffer from 'nilavu/mixins/string-buffer';
 
 export default Ember.Component.extend(StringBuffer, {
-  classNameBindings: [':btn-group', 'hidden'],
+  classNameBindings: ['hidden'],
   rerenderTriggers: ['text', 'longDescription'],
 
   _bindClick: function() {
@@ -13,11 +13,14 @@ export default Ember.Component.extend(StringBuffer, {
         if ($(e.currentTarget).data('id') !== self.get('activeItem')) {
           self.clicked($(e.currentTarget).data('id'));
         }
+        alert("--- clicked drop");
         self.$('.dropdown-toggle').dropdown('toggle');
         return false;
       });
     }
   }.on('didInsertElement'),
+
+
 
   _unbindClick: function() {
     this.$().off('click.dropdown-button', 'ul li');
@@ -25,12 +28,12 @@ export default Ember.Component.extend(StringBuffer, {
 
   renderString(buffer) {
     const title = this.get('title');
-    if (title) {
-      buffer.push("<h4 class='title'>" + title + "</h4>");
-    }
+    buffer.push(`<a href='#' class='btn btn-success dropdown-toggle ${this.get('buttonExtraClasses')}'>`);
+    buffer.push("<span class='caret'></span>");
+    buffer.push(`<b>${this.get('text')}</b>`);
+    buffer.push("</a>");
 
-    buffer.push(`<button class='btn standard dropdown-toggle ${this.get('buttonExtraClasses')}' data-toggle='dropdown'>${this.get('text')}</button>`);
-    buffer.push("<ul class='dropdown-menu'>");
+    buffer.push("<ul class='toponeclick_left_add_inner'>");
 
     const contents = this.get('dropDownContent');
     if (contents) {
@@ -40,20 +43,14 @@ export default Ember.Component.extend(StringBuffer, {
               className = (self.get('activeItem') === id ? 'disabled': '');
 
         buffer.push("<li data-id=\"" + id + "\" class=\"" + className + "\"><a href>");
-        buffer.push("<span class='icon " + row.styleClasses + "'></span>");
-        buffer.push("<div><span class='title'>" + row.title + "</span>");
-        buffer.push("<span>" + row.description + "</span></div>");
+        buffer.push("<i class='" + row.styleClasses + "'></i>");
+        buffer.push(row.title);
         buffer.push("</a></li>");
       });
     }
 
+
     buffer.push("</ul>");
 
-    const desc = this.get('longDescription');
-    if (desc) {
-      buffer.push("<p>");
-      buffer.push(desc);
-      buffer.push("</p>");
-    }
   }
 });

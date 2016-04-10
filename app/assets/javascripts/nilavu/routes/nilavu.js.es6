@@ -49,11 +49,9 @@ const NilavuRoute = Ember.Route.extend({
 
   redirectIfLoginRequired() {
     const app = this.controllerFor('application');
-    console.log("Nilavu redirectIfLoginRequired app="+app + app.get('loginRequired'));
     if (app.get('loginRequired')) {
-      console.log("redirecting to top.....");
       this.replaceWith('login');
-    }    
+    }
   },
 
   openTopicDraft(model){

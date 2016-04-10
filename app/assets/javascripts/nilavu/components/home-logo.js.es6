@@ -22,7 +22,7 @@ export default Ember.Component.extend({
   }.property(),
 
   showReverseLogo: function() {
-    alert(" showing reverseurl" + reverseLogoUrl);
+    console.log(">  home-log showReverseLogo=" + reverseLogoUrl);
     return !Ember.isBlank(this.get('reverseLogoUrl'));
   }.property(),
 

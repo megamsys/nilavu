@@ -10,7 +10,6 @@ function flushMap() {
 
 function storeMap(type, id, obj) {
   if (!id) { return; }
-console.log("Store.storeMap type="+type +",id="+id);
   _identityMap[type] = _identityMap[type] || {};
   _identityMap[type][id] = obj;
 }
@@ -57,11 +56,8 @@ export default Ember.Object.extend({
 
   // Mostly for legacy, things like TopicList without ResultSets
   findFiltered(type, findArgs) {
-    console.log("Store.findFiltered adapterFor =" + type);
-
     const self = this;
     return this.adapterFor(type).find(this, type, findArgs).then(function(result) {
-      console.log("Store.findFiltered adapterFor returning =" + type + ", result="+result);
       return self._build(type, result);
     });
   },
@@ -203,13 +199,11 @@ export default Ember.Object.extend({
 
     const klass = this.container.lookupFactory('model:' + type) || RestModel;
     const model = klass.create(obj);
-    console.log("Store._build type="+type +",id="+obj.id +",model claz="+ model);
     storeMap(type, obj.id, model);
     return model;
   },
 
   adapterFor(type) {
-    console.log("Store.adapterFor type="+type + ","+this.container.lookup('adapter:'+type));
     return this.container.lookup('adapter:' + type) || this.container.lookup('adapter:rest');
   },
 

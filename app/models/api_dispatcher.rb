@@ -1,6 +1,28 @@
 
-class APIDispatch
+class ApiDispatcher
   include VerticeResource
+
+  class ApiDispatcher::NotReached < StandardError; end
+
+  class ApiDispatcher::Flunked  < StandardError
+    include HttpErrors
+
+    def initialize(response)
+        @response = response
+    end
+
+    def h401?
+      return is_http_401?(@response)
+    end
+
+    def h403?
+      return is_http_403?(@response)
+    end
+
+    def h404?
+      return is_http_404?(@response)
+    end
+  end
 
   attr_accessor :megfunc, :megact, :parms, :passthru, :swallow_404, :verify
 
@@ -44,8 +66,10 @@ class APIDispatch
       raise Nilavu::InvalidParameters if !satisfied_args?(passthru, jparams)
 
       invoke_submit
-    rescue Megam::API::Errors::ErrorWithResponse => ma
-      "Whew!\n#{ma.message} \n " unless swallow_404
+    rescue Megam::API::Errors::ErrorWithResponse => m
+       raise_api_errors(ApiDispatcher::Flunked.new(m))
+    rescue StandardError => se
+      raise ApiDispatcher::NotReached
     end
   end
 
@@ -107,5 +131,11 @@ class APIDispatch
     jparams.each do |name, value|
       Rails.logger.debug("> #{name}: #{value}")
     end
+  end
+
+  def raise_api_errors(e)
+    return if (e.h404? && swallow_404)
+
+    raise e
   end
 end

@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Api
-  class Discounts < APIDispatch
+  class Discounts < ApiDispatcher
     attr_reader :discounts_collections
 
     def initialize()

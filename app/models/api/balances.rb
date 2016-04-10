@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Api
-  class Balances < APIDispatch
+  class Balances < ApiDispatcher
     attr_reader :balance
 
     def initialize()

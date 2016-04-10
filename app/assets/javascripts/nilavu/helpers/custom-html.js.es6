@@ -1,5 +1,5 @@
 const _customizations = {};
-
+    
 export function getCustomHTML(key) {
   const c = _customizations[key];
   if (c) {

@@ -3,7 +3,6 @@ import NilavuRoute from 'nilavu/routes/nilavu';
 export default function(pageName) {
   const route = {
     model() {
-      console.log("static route pagename is " + pageName);
       return Nilavu.StaticPage.find(pageName);
     },
 

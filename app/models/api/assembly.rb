@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Api
-  class Assembly < APIDispatch
+  class Assembly < ApiDispatcher
     include MarketplaceHelper
 
     attr_reader :by_cattypes

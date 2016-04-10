@@ -84,14 +84,12 @@ module ApplicationHelper
     if !customization_disabled?  && SiteCustomization.custom_header.present?
       return SiteCustomization.custom_header
     end
-    render partial: 'layouts/header'
   end
 
   def render_customized_footer_or_not
     if !customization_disabled? && SiteCustomization.custom_footer.present?
       return SiteCustomization.custom_footer
     end
-    render partial: 'layouts/footer'
   end
 
   def self.all_customtags

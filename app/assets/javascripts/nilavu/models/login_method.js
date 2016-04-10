@@ -34,7 +34,6 @@ Nilavu.LoginMethod.reopenClass({
 
     [ "google_oauth2",
       "facebook",
-      "cas",
       "github"
     ].forEach(function(name){
       if (Nilavu.SiteSettings["enable_" + name + "_logins"]) {

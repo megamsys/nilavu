@@ -229,6 +229,7 @@ export default Ember.Controller.extend({
       accountName: options.name,
       authOptions: Ember.Object.create(options)
     });
+    alert(options);
   //  showModal('createAccount');
   }
 

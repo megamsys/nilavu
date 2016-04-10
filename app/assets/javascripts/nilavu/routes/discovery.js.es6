@@ -1,20 +1,18 @@
-/**
-  The parent route for all discovery routes.
-  Handles the logic for showing the loading spinners.
-**/
+
+//  The parent route for all discovery routes.
+//  Handles the logic for showing the loading spinners.
 import OpenComposer from "nilavu/mixins/open-composer";
 import { scrollTop } from "nilavu/mixins/scroll-top";
 
 export default Nilavu.Route.extend(OpenComposer, {
 
   redirect() {
-    console.log("Discovery redirect check.");
+    console.log(">  discovery, redirectIfLoginRequired...");
     return this.redirectIfLoginRequired();
   },
 
   beforeModel(transition) {
-    console.log("Discovery beforeModel");
-    console.log("Discovery beforeModel url="+ transition.intent.url + "targetName ="+transition.targetName + ","  + Nilavu.User.currentProp("should_be_redirected_to_top"));
+    console.log("   discovery beforeModel url="+ transition.intent.url + "targetName ="+transition.targetName + ","  + Nilavu.User.currentProp("should_be_redirected_to_top"));
     if (transition.intent.url === "/" &&
         transition.targetName.indexOf("discovery.top") === -1 &&
         Nilavu.User.currentProp("should_be_redirected_to_top")) {

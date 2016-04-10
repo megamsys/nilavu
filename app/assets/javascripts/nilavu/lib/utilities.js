@@ -317,8 +317,7 @@ Nilavu.Utilities = {
   },
 
   defaultHomepage: function() {
-    // the homepage is the first item of the 'top_menu' site setting
-    return Nilavu.SiteSettings.top_menu.split("|")[0].split(",")[0];
+    return "torpedo";
   }
 
 };

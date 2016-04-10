@@ -40,11 +40,9 @@ const controllerOpts = {
     },
 
     refresh() {
-      console.log("Discovery.topic controller, refresh")
       const filter = this.get('model.filter');
 
       this.setProperties({ order: "default", ascending: false });
-      console.log("Topics:refreshing");
       // Don't refresh if we're still loading
       if (this.get('controllers.discovery.loading')) { return; }
 
@@ -63,14 +61,12 @@ const controllerOpts = {
         if (this.topicTrackingState) {
           this.topicTrackingState.sync(list, filter);
         }
-        console.log("Discovery.topic controller, refresh loading complte")
 
         this.send('loadingComplete');
       });
     },
 
     resetNew() {
-      console.log("Discovery.topics cntrlr resetNew");
       this.topicTrackingState.resetNew();
       Nilavu.Topic.resetNew().then(() => this.send('refresh'));
     },
@@ -90,7 +86,6 @@ const controllerOpts = {
   }.property('model.filter', 'model.topics.length'),
 
   showResetNew: function() {
-    console.log("Discovery.topiccontroller showResetNew");
     return this.get('model.filter') === 'new' && this.get('model.topics.length') > 0;
   }.property('model.filter', 'model.topics.length'),
 

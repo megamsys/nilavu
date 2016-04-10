@@ -7,11 +7,13 @@ class EmailCheckerService
   end
 
   def check_email_availability(email)
-    if User.new({:email => email.downcase}).email_available?
+    if User.new_from_params({:email => email.downcase, :password => "drgruisback"}).email_available?
       { available: true, is_developer: is_developer?(email) }
-    else
-      { available: false }
     end
+  rescue ApiDispatcher::NotReached
+    { available: false }
+  rescue ApiDispatcher::Flunked => f
+    { available: !f.h401?, is_developer: is_developer?(email) }
   end
 
   def is_developer?(value)

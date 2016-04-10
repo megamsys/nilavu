@@ -101,8 +101,9 @@ export default {
           /*bus.subscribe("/notification-alert/" + user.get('id'), function(data){
             onNotification(data, user);
           });
-          */
+
           initDesktopNotifications(bus);
+          */
         }
       }
     }

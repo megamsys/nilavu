@@ -1,50 +1,14 @@
-
-<H4> [s]I am a Jack Sparrow</h4>
-<div class="container">
-  {{discourse-banner user=currentUser banner=site.banner}}
-</div>
-<H4> [s] Jack Sparrow 2</h4>
-
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right tour-btn">
-  <span>
-    <a id="forgot-password-link" {{action "showLogin"}} class="pull-right">
-    <u class="colr-denimblue"></u>{{i18n 'forgot_password.action'}}
-  </a>
-  </span>
-</div>
-
-<div class="list-controls">
-  <div class="container">
-    <h1> start nav bar </h1>
-    {{outlet "navigation-bar"}}
-    <h2> end nav bar </h2>
-  </div>
-</div>
-<H4> [e] Jack Sparrow 2</h4>
-
-{{conditional-loading-spinner condition=loading}}
-
-<div class="container list-container {{if loading "hidden"}}">
+<div class="container-fluid main-cover">
   <div class="row">
-    <div class="full-width">
-      <div id="header-list-area">
-        {{outlet "header-list-container"}}
+    <div class="col-xs-12 col-sm-3 col-md-2 col-xl-1 c_bg_white">
+      <div class="row">
+        <div class="page-sidebar navbar-collapse collapse">
+          {{outlet "navigation-bar"}}
+        </div>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="full-width">
-      <div id="list-area">
-
-        {{plugin-outlet "discovery-list-container-top"}}
-        <H2> [s]I am a Jack Sparrow 2c</h2>
-
-        {{outlet "list-container"}}
-        <H2> [e]I am a Jack Sparrow 2c</h2>
-
-      </div>
+    <div id="content">
+      {{outlet "content"}}
     </div>
   </div>
 </div>
-
-{{plugin-outlet "discovery-below"}}

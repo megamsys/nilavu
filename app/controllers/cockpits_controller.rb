@@ -16,6 +16,7 @@
 
 class CockpitsController < ApplicationController
   include CatalogHelper
+  include CockpitListResponder
 
   respond_to :html, :js
 
@@ -24,16 +25,11 @@ class CockpitsController < ApplicationController
   before_action :add_authkeys_for_api, only: [:index]
 
   def entrance
-    store_preloaded('cockpits.entrance_key', MultiJson.dump({:testing => "success"}))
     render 'cockpits/entrance'
   end
 
   def index
-    @assemblies_grouped = Api::Assemblies.new.list(params).assemblies_grouped
+    #@assemblies_grouped = Api::Assemblies.new.list(params).assemblies_grouped
+    render json: success_json
   end
-
-  def show
-    redirect_to(cockpits_path) && return
-  end
-
 end

@@ -10,16 +10,17 @@ class UserUpdater
     :password_reset_sent_at
   ]
 
-  def initialize(user)  
+  def initialize(user)
     @user = user
   end
 
-  def update(attributes = {})   
+  def update(attributes = {})
     @user.email = attributes.fetch(:email) { @user.email }
     @user.password = attributes.fetch(:password) { @user.password }
-    @user.api_key = attributes.fetch(:api_key) { @user.api_key }     
+    @user.api_key = attributes.fetch(:api_key) { @user.api_key }
+
     OPTION_ATTR.each do |attribute|
-      if attributes.key?(attribute)       
+      if attributes.key?(attribute)
         user.send("#{attribute}=", attributes[attribute])
       end
     end

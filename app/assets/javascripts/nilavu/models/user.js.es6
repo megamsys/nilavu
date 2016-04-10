@@ -432,7 +432,10 @@ User.reopenClass(Singleton, {
   // TODO: Use app.register and junk Singleton
   createCurrent() {
     const userJson = PreloadStore.get('currentUser');
+    console.log(">  user createCurrent =" + userJson);
+
     if (userJson) {
+
       const store = Nilavu.__container__.lookup('store:main');
       return store.createRecord('user', userJson);
     }
@@ -440,7 +443,7 @@ User.reopenClass(Singleton, {
   },
 
   checkUsername(username, email, for_user_id) {
-    return Nilavu.ajax('/users/check_username', {
+    return Nilavu.ajax('/users/check_email', {
       data: { username, email, for_user_id }
     });
   },

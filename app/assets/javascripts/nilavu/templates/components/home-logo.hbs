@@ -1,7 +1,7 @@
 <a href="{{unbound linkUrl}}" data-auto-route="true">
   {{#if showSmallLogo}}
     {{#if smallLogoUrl}}
-      <img class="logo-small" src="{{unbound smallLogoUrl}}" width="33" height="33">
+      <img class="logo-small" src="{{unbound smallLogoUrl}}">
     {{else}}
       <i class="fa fa-home"></i>
     {{/if}}
@@ -12,7 +12,7 @@
       {{#if bigLogoUrl}}
         <img id="site-logo" class="logo-big" src="{{unbound bigLogoUrl}}" alt="{{unbound title}}">
       {{else}}
-        <h2 id="site-text-logo" class="text-logo">{{unbound title}}</h2>
+        <img id="site-logo" class="logo" src="{{unbound reverseLogoUrl}}" alt="{{unbound title}}">
       {{/if}}
     {{/if}}
   {{/if}}

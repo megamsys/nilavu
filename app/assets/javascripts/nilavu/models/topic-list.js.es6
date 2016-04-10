@@ -2,14 +2,12 @@ import RestModel from 'nilavu/models/rest';
 import Model from 'nilavu/models/model';
 
 function topicsFrom(result, store) {
-  console.log("TopicList.topicsFrom result=" + result);
   if (!result) { return; }
-
-  // Stitch together our side loaded data
+  return;
+  /*Stitch together our side loaded data
   const categories = Nilavu.Category.list(),
         users = Model.extractByKey(result.users, Nilavu.User);
 
-  console.log("TopicList.topicsFrom categories=" + categories);
 
   return result.topic_list.topics.map(function (t) {
     t.category = categories.findBy('id', t.category_id);
@@ -22,7 +20,7 @@ function topicsFrom(result, store) {
       });
     }
     return store.createRecord('topic', t);
-  });
+  }); */
 }
 
 const TopicList = RestModel.extend({
@@ -101,7 +99,6 @@ const TopicList = RestModel.extend({
 
     const url = `${Nilavu.getURL("/")}${this.get('filter')}?topic_ids=${topic_ids.join(",")}`;
     const store = this.store;
-    console.log("TopicList loadBefore url="+url);
 
     return Nilavu.ajax({ url }).then(result => {
       let i = 0;
@@ -120,7 +117,7 @@ TopicList.reopenClass({
 
   munge(json, store) {
     json.inserted = json.inserted || [];
-    json.can_create_topic = json.topic_list.can_create_topic;
+  /*  json.can_create_topic = json.topic_list.can_create_topic;
     json.more_topics_url = json.topic_list.more_topics_url;
     json.draft_key = json.topic_list.draft_key;
     json.draft_sequence = json.topic_list.draft_sequence;
@@ -128,14 +125,13 @@ TopicList.reopenClass({
     json.for_period = json.topic_list.for_period;
     json.loaded = true;
     json.per_page = json.topic_list.per_page;
+    */
     json.topics = topicsFrom(json, store);
 
     return json;
   },
 
   find(filter, params) {
-    console.log("TopicList find filter="+filter);
-
     const store = Nilavu.__container__.lookup('store:main');
     return store.findFiltered('topicList', {filter, params});
   },

@@ -81,15 +81,15 @@ basic:
   left_menu:
     client: true
     type: list
-    default: 'torpedo|app|service|microservices'
+    default: 'torpedo|app|service|microservice'
   default_categories:
     client: true
     type: list
-    default: 'torpedo|app|service|microservices|analytics|collaboration'
+    default: 'torpedo|app|service|microservice|analytics|collaboration'
   default_categories_muted:
     client: true
     type: list
-    default: 'app|service|collaboration|analytics'
+    default: 'app|service|microservice|collaboration|analytics'
 
 login:
   must_approve_users:

@@ -7,8 +7,6 @@ const NavItem = Nilavu.Model.extend({
         name = this.get('name'),
         count = this.get('count') || 0;
 
-    console.log("NavItem.model display ="+ categoryName);
-
     if (name === 'latest' && !Nilavu.Site.currentProp('mobileView')) {
       count = 0;
     }
@@ -21,12 +19,10 @@ const NavItem = Nilavu.Model.extend({
       extra.categoryName = toTitleCase(categoryName);
     }
 
-    console.log("NavItem.model display I18N =" + I18n.t("filters." + name.replace("/", ".") + titleKey, extra));
     return I18n.t("filters." + name.replace("/", ".") + titleKey, extra);
   }.property('categoryName', 'name', 'count'),
 
   categoryName: function() {
-    console.log("NavItem.model categoryName ="  + this.get('name'));
     var split = this.get('name').split('/');
     return split[0] === 'category' ? split[1] : null;
   }.property('name'),
@@ -91,9 +87,11 @@ NavItem.reopenClass({
         testName = name.split("/")[0],
         anonymous = !Nilavu.User.current();
 
-    if (anonymous && !Nilavu.Site.currentProp('anonymous_top_menu_items').contains(testName)) return null;
-    if (!Nilavu.Category.list() && testName === "categories") return null;
-    if (!Nilavu.Site.currentProp('top_menu_items').contains(testName)) return null;
+    //if (anonymous && !Nilavu.Site.currentProp('anonymous_top_menu_items').contains(testName)) return null;
+    //if (!Nilavu.Category.list() && testName === "categories") return null;
+
+
+    //if (!Nilavu.Site.currentProp('top_menu_items').contains(testName)) return null;
 
     var args = { name: name, hasIcon: name === "unread" }, extra = null, self = this;
     if (opts.category) { args.category = opts.category; }
@@ -112,7 +110,7 @@ NavItem.reopenClass({
 
     if (category) { args.category = category; }
 
-    let items = Nilavu.SiteSettings.top_menu.split("|");
+    let items = Nilavu.SiteSettings.left_menu.split("|");
 
     if (args.filterMode && !_.some(items, i => i.indexOf(args.filterMode) !== -1)) {
       items.push(args.filterMode);

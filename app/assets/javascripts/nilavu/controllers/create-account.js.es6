@@ -1,20 +1,21 @@
 import debounce from 'nilavu/lib/debounce';
-import { setting } from 'nilavu/lib/computed';
-import { on } from 'ember-addons/ember-computed-decorators';
+import {
+  setting
+} from 'nilavu/lib/computed';
+import {
+  on
+} from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Controller.extend({
   needs: ['login'],
 
-  uniqueUsernameValidation: null,
-  globalNicknameExists: false,
   complete: false,
   accountPasswordConfirm: 0,
   accountChallenge: 0,
+  uniqueEmailValidation: null,
   formSubmitted: false,
   rejectedEmails: Em.A([]),
   rejectedPasswords: Em.A([]),
-  prefilledUsername: null,
-  userFields: null,
   isDeveloper: false,
 
   hasAuthOptions: Em.computed.notEmpty('authOptions'),
@@ -28,40 +29,24 @@ export default Ember.Controller.extend({
     this.setProperties({
       accountName: '',
       accountEmail: '',
-      accountUsername: '',
       accountPassword: '',
       authOptions: null,
-      globalNicknameExists: false,
       complete: false,
       formSubmitted: false,
       rejectedEmails: [],
       rejectedPasswords: [],
-      prefilledUsername: null,
       isDeveloper: false
     });
-    this._createUserFields();
   },
 
   submitDisabled: function() {
-    if (!this.get('emailValidation.failed') && !this.get('passwordRequired')) return false; // 3rd party auth
     if (this.get('formSubmitted')) return true;
     if (this.get('nameValidation.failed')) return true;
     if (this.get('emailValidation.failed')) return true;
-    if (this.get('usernameValidation.failed')) return true;
     if (this.get('passwordValidation.failed')) return true;
 
-    // Validate required fields
-    let userFields = this.get('userFields');
-    if (userFields) { userFields = userFields.filterProperty('field.required'); }
-    if (!Ember.isEmpty(userFields)) {
-      const anyEmpty = userFields.any(function(uf) {
-        const val = uf.get('value');
-        return !val || Ember.isEmpty(val);
-      });
-      if (anyEmpty) { return true; }
-    }
     return false;
-  }.property('passwordRequired', 'nameValidation.failed', 'emailValidation.failed', 'usernameValidation.failed', 'passwordValidation.failed', 'formSubmitted', 'userFields.@each.value'),
+  }.property('passwordRequired', 'nameValidation.failed', 'emailValidation.failed', 'passwordValidation.failed', 'formSubmitted'),
 
 
   usernameRequired: Ember.computed.not('authOptions.omit_username'),
@@ -71,7 +56,11 @@ export default Ember.Controller.extend({
   }.property('authOptions.auth_provider'),
 
   passwordInstructions: function() {
-    return this.get('isDeveloper') ? I18n.t('user.password.instructions', {count: Nilavu.SiteSettings.min_admin_password_length}) : I18n.t('user.password.instructions', {count: Nilavu.SiteSettings.min_password_length});
+    return this.get('isDeveloper') ? I18n.t('user.password.instructions', {
+      count: Nilavu.SiteSettings.min_admin_password_length
+    }) : I18n.t('user.password.instructions', {
+      count: Nilavu.SiteSettings.min_password_length
+    });
   }.property('isDeveloper'),
 
   nameInstructions: function() {
@@ -81,206 +70,39 @@ export default Ember.Controller.extend({
   // Validate the name.
   nameValidation: function() {
     if (Nilavu.SiteSettings.full_name_required && Ember.isEmpty(this.get('accountName'))) {
-      return Nilavu.InputValidation.create({ failed: true });
+      return Nilavu.InputValidation.create({
+        failed: true
+      });
     }
 
-    return Nilavu.InputValidation.create({ok: true});
+    return Nilavu.InputValidation.create({
+      ok: true
+    });
   }.property('accountName'),
 
-  // Check the email address
-  emailValidation: function() {
-    // If blank, fail without a reason
-    let email;
-    if (Ember.isEmpty(this.get('accountEmail'))) {
-      return Nilavu.InputValidation.create({
-        failed: true
-      });
-    }
-
-    email = this.get("accountEmail");
-
-    if (this.get('rejectedEmails').contains(email)) {
-      return Nilavu.InputValidation.create({
-        failed: true,
-        reason: I18n.t('user.email.invalid')
-      });
-    }
-
-    if ((this.get('authOptions.email') === email) && this.get('authOptions.email_valid')) {
-      return Nilavu.InputValidation.create({
-        ok: true,
-        reason: I18n.t('user.email.authenticated', {
-          provider: this.get('authOptions.auth_provider')
-        })
-      });
-    }
-
-    if (Nilavu.Utilities.emailValid(email)) {
-      return Nilavu.InputValidation.create({
-        ok: true,
-        reason: I18n.t('user.email.ok')
-      });
-    }
-
-    return Nilavu.InputValidation.create({
-      failed: true,
-      reason: I18n.t('user.email.invalid')
-    });
-  }.property('accountEmail', 'rejectedEmails.@each'),
-
-  emailValidated: function() {
-    return this.get('authOptions.email') === this.get("accountEmail") && this.get('authOptions.email_valid');
-  }.property('accountEmail', 'authOptions.email', 'authOptions.email_valid'),
-
-  prefillUsername: function() {
-    if (this.get('prefilledUsername')) {
-      // If username field has been filled automatically, and email field just changed,
-      // then remove the username.
-      if (this.get('accountUsername') === this.get('prefilledUsername')) {
-        this.set('accountUsername', '');
-      }
-      this.set('prefilledUsername', null);
-    }
-    if (this.get('emailValidation.ok') && (Ember.isEmpty(this.get('accountUsername')) || this.get('authOptions.email'))) {
-      // If email is valid and username has not been entered yet,
-      // or email and username were filled automatically by 3rd parth auth,
-      // then look for a registered username that matches the email.
-      this.fetchExistingUsername();
-    }
-  }.observes('emailValidation', 'accountEmail'),
-
-  fetchExistingUsername: debounce(function() {
-    const self = this;
-    Nilavu.User.checkUsername(null, this.get('accountEmail')).then(function(result) {
-      if (result.suggestion && (Ember.isEmpty(self.get('accountUsername')) || self.get('accountUsername') === self.get('authOptions.username'))) {
-        self.set('accountUsername', result.suggestion);
-        self.set('prefilledUsername', result.suggestion);
-      }
-    });
-  }, 500),
-
-  usernameMatch: function() {
-    if (this.usernameNeedsToBeValidatedWithEmail()) {
-      if (this.get('emailValidation.failed')) {
-        if (this.shouldCheckUsernameMatch()) {
-          return this.set('uniqueUsernameValidation', Nilavu.InputValidation.create({
-            failed: true,
-            reason: I18n.t('user.username.enter_email')
-          }));
-        } else {
-          return this.set('uniqueUsernameValidation', Nilavu.InputValidation.create({ failed: true }));
-        }
-      } else if (this.shouldCheckUsernameMatch()) {
-        this.set('uniqueUsernameValidation', Nilavu.InputValidation.create({
-          failed: true,
-          reason: I18n.t('user.username.checking')
-        }));
-        return this.checkUsernameAvailability();
-      }
-    }
-  }.observes('accountEmail'),
-
-  basicUsernameValidation: function() {
-    this.set('uniqueUsernameValidation', null);
-
-    if (this.get('accountUsername') === this.get('prefilledUsername')) {
-      return Nilavu.InputValidation.create({
-        ok: true,
-        reason: I18n.t('user.username.prefilled')
-      });
-    }
-
-    // If blank, fail without a reason
-    if (Ember.isEmpty(this.get('accountUsername'))) {
-      return Nilavu.InputValidation.create({
-        failed: true
-      });
-    }
-
-    // If too short
-    if (this.get('accountUsername').length < Nilavu.SiteSettings.min_username_length) {
-      return Nilavu.InputValidation.create({
-        failed: true,
-        reason: I18n.t('user.username.too_short')
-      });
-    }
-
-    // If too long
-    if (this.get('accountUsername').length > this.get('maxUsernameLength')) {
-      return Nilavu.InputValidation.create({
-        failed: true,
-        reason: I18n.t('user.username.too_long')
-      });
-    }
-
-    this.checkUsernameAvailability();
-    // Let's check it out asynchronously
-    return Nilavu.InputValidation.create({
-      failed: true,
-      reason: I18n.t('user.username.checking')
-    });
-  }.property('accountUsername'),
-
-  shouldCheckUsernameMatch: function() {
-    return !Ember.isEmpty(this.get('accountUsername')) && this.get('accountUsername').length >= this.get('minUsernameLength');
-  },
-
-  checkUsernameAvailability: debounce(function() {
-    const _this = this;
-    if (this.shouldCheckUsernameMatch()) {
-      return Nilavu.User.checkUsername(this.get('accountUsername'), this.get('accountEmail')).then(function(result) {
-        _this.set('isDeveloper', false);
-        if (result.available) {
-          if (result.is_developer) {
-            _this.set('isDeveloper', true);
-          }
-          return _this.set('uniqueUsernameValidation', Nilavu.InputValidation.create({
-            ok: true,
-            reason: I18n.t('user.username.available')
-          }));
-        } else {
-          if (result.suggestion) {
-            return _this.set('uniqueUsernameValidation', Nilavu.InputValidation.create({
-              failed: true,
-              reason: I18n.t('user.username.not_available', result)
-            }));
-          } else if (result.errors) {
-            return _this.set('uniqueUsernameValidation', Nilavu.InputValidation.create({
-              failed: true,
-              reason: result.errors.join(' ')
-            }));
-          } else {
-            return _this.set('uniqueUsernameValidation', Nilavu.InputValidation.create({
-              failed: true,
-              reason: I18n.t('user.username.enter_email')
-            }));
-          }
-        }
-      });
-    }
-  }, 500),
 
   // Actually wait for the async name check before we're 100% sure we're good to go
-  usernameValidation: function() {
-    const basicValidation = this.get('basicUsernameValidation');
-    const uniqueUsername = this.get('uniqueUsernameValidation');
-    return uniqueUsername ? uniqueUsername : basicValidation;
-  }.property('uniqueUsernameValidation', 'basicUsernameValidation'),
+  emailValidation: function() {
+    const basicValidation = this.get('basicEmailValidation');
+    const uniqueEmail = this.get('uniqueEmailValidation');
+    return uniqueEmail ? uniqueEmail : basicValidation;
+  }.property('uniqueEmailValidation', 'basicEmailValidation'),
 
-  usernameNeedsToBeValidatedWithEmail() {
-    return( this.get('globalNicknameExists') || false );
-  },
 
   // Validate the password
   passwordValidation: function() {
     if (!this.get('passwordRequired')) {
-      return Nilavu.InputValidation.create({ ok: true });
+      return Nilavu.InputValidation.create({
+        ok: true
+      });
     }
 
     // If blank, fail without a reason
     const password = this.get("accountPassword");
     if (Ember.isEmpty(this.get('accountPassword'))) {
-      return Nilavu.InputValidation.create({ failed: true });
+      return Nilavu.InputValidation.create({
+        failed: true
+      });
     }
 
     // If too short
@@ -299,13 +121,6 @@ export default Ember.Controller.extend({
       });
     }
 
-    if (!Ember.isEmpty(this.get('accountUsername')) && this.get('accountPassword') === this.get('accountUsername')) {
-      return Nilavu.InputValidation.create({
-        failed: true,
-        reason: I18n.t('user.password.same_as_username')
-      });
-    }
-
     if (!Ember.isEmpty(this.get('accountEmail')) && this.get('accountPassword') === this.get('accountEmail')) {
       return Nilavu.InputValidation.create({
         failed: true,
@@ -318,16 +133,74 @@ export default Ember.Controller.extend({
       ok: true,
       reason: I18n.t('user.password.ok')
     });
-  }.property('accountPassword', 'rejectedPasswords.@each', 'accountUsername', 'accountEmail', 'isDeveloper'),
+  }.property('accountPassword', 'rejectedPasswords.@each', 'accountEmail', 'isDeveloper'),
 
-  @on('init')
-  fetchConfirmationValue() {
-  /*  return Nilavu.ajax('/users/hp.json').then(json => {
-      this.set('accountPasswordConfirm', json.value);
-      this.set('accountChallenge', json.challenge.split("").reverse().join(""));
-    }); */
-    return;
+
+  // Check the email address
+  basicEmailValidation: function() {
+    this.set('uniqueEmailValidation', null);
+
+    // If blank, fail without a reason
+    let email;
+    if (Ember.isEmpty(this.get('accountEmail'))) {
+      return Nilavu.InputValidation.create({
+        failed: true
+      });
+    }
+
+    email = this.get("accountEmail");
+
+    if (this.get('rejectedEmails').contains(email)) {
+      return Nilavu.InputValidation.create({
+        failed: true,
+        reason: I18n.t('user.email.invalid')
+      });
+    }
+
+    if (!Nilavu.Utilities.emailValid(email)) {
+      return Nilavu.InputValidation.create({
+        failed: true,
+        reason: I18n.t('user.email.invalid')
+      });
+    }
+
+
+    this.checkEmailAvailability();
+    // Let's check it out asynchronously
+    return Nilavu.InputValidation.create({
+      failed: false,
+      reason: I18n.t('user.email.checking')
+    });
+
+  }.property('accountEmail', 'rejectedEmails.@each'),
+
+
+  shouldCheckEmailAvailability: function() {
+    return !Ember.isEmpty(this.get('accountEmail'));
   },
+
+  checkEmailAvailability: debounce(function() {
+    const _this = this;
+
+    if (this.shouldCheckEmailAvailability) {
+      Nilavu.User.checkUsername(null, this.get('accountEmail')).then(function(result) {
+        _this.set('isDeveloper', false);
+        if (result.errors) {
+          self.set('errorMessage', result.errors.join(' '));
+        } else if (result.available) {
+          return _this.set('uniqueEmailValidation', Nilavu.InputValidation.create({
+            ok: true,
+            reason: I18n.t('user.email.ok')
+          }));
+        } else {
+          return _this.set('uniqueEmailValidation', Nilavu.InputValidation.create({
+            failed: true,
+            reason: I18n.t('user.change_email.taken')
+          }));
+        }
+      });
+    }
+  }, 500),
 
   actions: {
     externalLogin(provider) {
@@ -336,18 +209,10 @@ export default Ember.Controller.extend({
 
     createAccount() {
       const self = this,
-          attrs = this.getProperties('accountName', 'accountEmail', 'accountPassword', 'accountUsername', 'accountPasswordConfirm', 'accountChallenge'),
-          userFields = this.get('userFields');
-
-      // Add the userfields to the data
-      if (!Ember.isEmpty(userFields)) {
-        attrs.userFields = {};
-        userFields.forEach(function(f) {
-          attrs.userFields[f.get('field.id')] = f.get('value');
-        });
-      }
+        attrs = this.getProperties('accountName', 'accountEmail', 'accountPassword');
 
       this.set('formSubmitted', true);
+
       return Nilavu.User.createAccount(attrs).then(function(result) {
         self.set('isDeveloper', false);
         if (result.success) {
@@ -370,7 +235,7 @@ export default Ember.Controller.extend({
           }
           self.set('formSubmitted', false);
         }
-        if (result.active && !Nilavu.SiteSettings.must_approve_users) {
+        if (result.active) {
           return window.location.reload();
         }
       }, function() {
@@ -379,17 +244,5 @@ export default Ember.Controller.extend({
       });
     }
   },
-
-  _createUserFields: function() {
-    if (!this.site) { return; }
-
-    let userFields = this.site.get('user_fields');
-    if (userFields) {
-      userFields = _.sortBy(userFields, 'position').map(function(f) {
-        return Ember.Object.create({ value: null, field: f });
-      });
-    }
-    this.set('userFields', userFields);
-  }.on('init')
 
 });

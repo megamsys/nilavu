@@ -17,7 +17,7 @@
   background-repeat: no-repeat;
   background-position: center;
   vertical-align: middle;
-  background-image: url(dashboard.png);
+  background-image: url(../images/icons/dashboard.png);
   margin-top: -8px;
 }
 
@@ -31,7 +31,7 @@
   background-repeat: no-repeat;
   background-position: center;
   vertical-align: middle;
-  background-image: url(app.png);
+  background-image: url(../images/icons/app.png);
 }
 
 .leftnav_app_reverse {
@@ -44,7 +44,7 @@
   background-repeat: no-repeat;
   background-position: center;
   vertical-align: middle;
-  background-image: url(app_reverse.png);
+  background-image: url(../images/icons/app_reverse.png);
 }
 
 .leftnav_torpedo {
@@ -57,7 +57,7 @@
   background-repeat: no-repeat;
   background-position: center;
   vertical-align: middle;
-  background-image: url(torpedo.png);
+  background-image: url(../images/icons/torpedo.png);
   margin-top: -8px;
 }
 
@@ -71,7 +71,7 @@
   background-repeat: no-repeat;
   background-position: center;
   vertical-align: middle;
-  background-image: url(service.png);
+  background-image: url(../images/icons/service.png);
   margin-top: -8px;
 }
 
@@ -85,11 +85,11 @@
   background-repeat: no-repeat;
   background-position: center;
   vertical-align: middle;
-  background-image: url(service_reverse.png);
+  background-image: url(../images/icons/service_reverse.png);
   margin-top: -8px;
 }
 
-.leftnav_microservice {
+.leftnav_microservices {
   color: transparent;
   overflow: hidden;
   display: inline-block;
@@ -99,7 +99,7 @@
   background-repeat: no-repeat;
   background-position: center;
   vertical-align: middle;
-  background-image: url(microservice.png);
+  background-image: url(../images/icons/microservice.png);
   margin-top: -8px;
 }
 
@@ -113,7 +113,7 @@
   background-repeat: no-repeat;
   background-position: center;
   vertical-align: middle;
-  background-image: url(settings.png);
+  background-image: url(../images/icons/settings.png);
   margin-top: -8px;
 }
 
@@ -128,6 +128,6 @@
   background-repeat: no-repeat;
   background-position: center;
   vertical-align: middle;
-  background-image: url(billing.png);
+  background-image: url(../images/icons/billing.png);
   margin-top: -8px;
 }

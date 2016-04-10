@@ -3,7 +3,7 @@ import NilavuURL from 'nilavu/lib/url';
 
 export default Ember.Component.extend({
   tagName: 'ul',
-  classNameBindings: [':nav', ':nav-pills'],
+  classNameBindings: [':page-sidebar-menu'],
   id: 'navigation-bar',
 
   @computed("filterMode", "navItems")

@@ -60,12 +60,12 @@ Nilavu.Ajax = Em.Mixin.create({
       }
 
       args.success = function(data, textStatus, xhr) {
-        if (xhr.getResponseHeader('Nilavu-Readonly')) {
+    /*    if (xhr.getResponseHeader('Nilavu-Readonly')) {
           Ember.run(function() {
             Nilavu.Site.currentProp('isReadOnly', true);
           });
         }
-
+     */
         if (args.returnXHR) {
           data = { result: data, xhr: xhr };
         }
