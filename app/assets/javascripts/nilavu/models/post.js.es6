@@ -1,6 +1,5 @@
 import RestModel from 'nilavu/models/rest';
 import { popupAjaxError } from 'nilavu/lib/ajax-error';
-import ActionSummary from 'nilavu/models/action-summary';
 import { url, propertyEqual } from 'nilavu/lib/computed';
 import Quote from 'nilavu/lib/quote';
 import computed from 'ember-addons/ember-computed-decorators';
@@ -289,13 +288,15 @@ Post.reopenClass({
       json.actions_summary = json.actions_summary.map(function(a) {
         a.actionType = Nilavu.Site.current().postActionTypeById(a.id);
         a.count = a.count || 0;
-        const actionSummary = ActionSummary.create(a);
+        /*const actionSummary = ActionSummary.create(a);
         lookup[a.actionType.name_key] = actionSummary;
 
         if (a.actionType.name_key === "like") {
           json.likeAction = actionSummary;
         }
         return actionSummary;
+        */
+        return "ACTIONSUMMRY";
       });
 
       json.actionByName = lookup;

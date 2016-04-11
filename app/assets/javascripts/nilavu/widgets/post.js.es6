@@ -1,7 +1,6 @@
 import PostCooked from 'nilavu/widgets/post-cooked';
 import { createWidget, applyDecorators } from 'nilavu/widgets/widget';
 import { iconNode } from 'nilavu/helpers/fa-icon';
-import { transformBasicPost } from 'nilavu/lib/transform-post';
 import { h } from 'virtual-dom';
 import NilavuURL from 'nilavu/lib/url';
 import { dateNode } from 'nilavu/helpers/node';
@@ -288,7 +287,8 @@ createWidget('post-contents', {
     return this.store.find('post-reply', { postId: this.attrs.id }).then(posts => {
       this.state.repliesBelow = posts.map(p => {
         p.shareUrl = `${topicUrl}/${p.post_number}`;
-        return transformBasicPost(p);
+        //return transformBasicPost(p);
+        return "TRANFORMD";
       });
     });
   },
@@ -373,7 +373,8 @@ createWidget('post-article', {
       return this.store.find('post-reply-history', { postId: this.attrs.id }).then(posts => {
         this.state.repliesAbove = posts.map((p) => {
           p.shareUrl = `${topicUrl}/${p.post_number}`;
-          return transformBasicPost(p);
+        //  return transformBasicPost(p);
+        return "TRANFORMD";
         });
       });
     }

@@ -2,7 +2,6 @@ import RestModel from 'nilavu/models/rest';
 import { url } from 'nilavu/lib/computed';
 import { on } from 'ember-addons/ember-computed-decorators';
 import computed from 'ember-addons/ember-computed-decorators';
-import UserActionGroup from 'nilavu/models/user-action-group';
 
 const UserActionTypes = {
   likes_given: 1,
@@ -112,10 +111,10 @@ const UserAction = RestModel.extend({
     let groups = this.get("childGroups");
     if (!groups) {
       groups = {
-        likes: UserActionGroup.create({ icon: "fa fa-heart" }),
+      /*  likes: UserActionGroup.create({ icon: "fa fa-heart" }),
         stars: UserActionGroup.create({ icon: "fa fa-star" }),
         edits: UserActionGroup.create({ icon: "fa fa-pencil" }),
-        bookmarks: UserActionGroup.create({ icon: "fa fa-bookmark" })
+        bookmarks: UserActionGroup.create({ icon: "fa fa-bookmark" })*/
       };
     }
     this.set("childGroups", groups);

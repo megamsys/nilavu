@@ -1,5 +1,4 @@
 import { createWidget } from 'nilavu/widgets/widget';
-import { avatarAtts } from 'nilavu/widgets/actions-summary';
 import { h } from 'virtual-dom';
 
 const LIKE_ACTION = 2;
@@ -349,8 +348,9 @@ export default createWidget('post-menu', {
   getWhoLiked() {
     const { attrs, state } = this;
 
-    return this.store.find('post-action-user', { id: attrs.id, post_action_type_id: LIKE_ACTION }).then(users => {
-      state.likedUsers = users.map(avatarAtts);
+    return this.store.find('post-action-user', { id: attrs.id,
+      post_action_type_id: LIKE_ACTION }).then(users => {
+      state.likedUsers = ""; //users.map(avatarAtts);
     });
   },
 

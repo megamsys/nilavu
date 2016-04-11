@@ -1,5 +1,4 @@
 import { createWidget } from 'nilavu/widgets/widget';
-import transformPost from 'nilavu/lib/transform-post';
 import { Placeholder } from 'nilavu/lib/posts-with-placeholders';
 import { addWidgetCleanCallback } from 'nilavu/components/mount-widget';
 
@@ -55,7 +54,8 @@ export default createWidget('post-stream', {
 
       const nextPost = (i < postArray.length - 1) ? postArray[i+1] : null;
 
-      const transformed = transformPost(this.currentUser, this.site, post, prevPost, nextPost);
+      //const transformed = transformPost(this.currentUser, this.site, post, prevPost, nextPost);
+      const transformed = "TRANSFORMD";
       transformed.canCreatePost = attrs.canCreatePost;
       transformed.mobileView = mobileView;
 

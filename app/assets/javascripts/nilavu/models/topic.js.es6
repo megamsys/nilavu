@@ -3,7 +3,6 @@ import RestModel from 'nilavu/models/rest';
 import { propertyEqual } from 'nilavu/lib/computed';
 import { longDate } from 'nilavu/lib/formatter';
 import computed from 'ember-addons/ember-computed-decorators';
-import ActionSummary from 'nilavu/models/action-summary';
 
 export function loadTopicView(topic, args) {
   const topicId = topic.get('id');
@@ -445,9 +444,10 @@ Topic.reopenClass({
       result.actions_summary = result.actions_summary.map(function(a) {
         a.post = result;
         a.actionType = Nilavu.Site.current().postActionTypeById(a.id);
-        const actionSummary = ActionSummary.create(a);
+        /*const actionSummary = ActionSummary.create(a);
         lookup.set(a.actionType.get('name_key'), actionSummary);
-        return actionSummary;
+        return actionSummary;*/
+        return "ACTIONSUMMRY";
       });
       result.set('actionByName', lookup);
     }

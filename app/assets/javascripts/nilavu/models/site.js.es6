@@ -1,6 +1,4 @@
 import computed from "ember-addons/ember-computed-decorators";
-import Archetype from 'nilavu/models/archetype';
-import PostActionType from 'nilavu/models/post-action-type';
 import Singleton from 'nilavu/mixins/singleton';
 import RestModel from 'nilavu/models/rest';
 
@@ -118,7 +116,7 @@ Site.reopenClass(Singleton, {
       delete result.trust_levels;
     }
 
-    if (result.post_action_types) {
+    /*if (result.post_action_types) {
       result.postActionByIdLookup = Em.Object.create();
       result.post_action_types = _.map(result.post_action_types, p => {
         const actionType = PostActionType.create(p);
@@ -145,7 +143,7 @@ Site.reopenClass(Singleton, {
 
     if (result.user_fields) {
       result.user_fields = result.user_fields.map(uf => Ember.Object.create(uf));
-    }
+    }*/
 
     return result;
   }

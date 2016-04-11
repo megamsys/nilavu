@@ -6,7 +6,6 @@ define('ember', ['exports'], function(__exports__) {
   __exports__.default = Ember;
 });
 
-var _pluginCallbacks = [];
 
 window.Nilavu = Ember.Application.createWithMixins(Nilavu.Ajax, {
   LOG_ACTIVE_GENERATION: true,
@@ -138,18 +137,6 @@ window.Nilavu = Ember.Application.createWithMixins(Nilavu.Ajax, {
       }
     });
 
-    // Plugins that are registered via `<script>` tags.
-    var withPluginApi = require('nilavu/lib/plugin-api').withPluginApi;
-    var initCount = 0;
-    _pluginCallbacks.forEach(function(cb) {
-      Nilavu.instanceInitializer({
-        name: "_discourse_plugin_" + (++initCount),
-        after: 'inject-objects',
-        initialize: function() {
-          withPluginApi(cb.version, cb.code);
-        }
-      });
-    });
   },
 
   requiresRefresh: function(){
@@ -157,9 +144,6 @@ window.Nilavu = Ember.Application.createWithMixins(Nilavu.Ajax, {
     return desired && Nilavu.get("currentAssetVersion") !== desired;
   }.property("currentAssetVersion", "desiredAssetVersion"),
 
-  _registerPluginCode: function(version, code) {
-    _pluginCallbacks.push({ version: version, code: code });
-  },
 
   assetVersion: Ember.computed({
     get: function() {
@@ -190,7 +174,3 @@ function methodMissing() {
 Nilavu.RemovedObject = RemovedObject;
 
 ['reopen', 'registerButton', 'on', 'off'].forEach(function(m) { RemovedObject.prototype[m] = methodMissing; });
-
-['nilavu/views/post', 'nilavu/components/post-menu'].forEach(function(moduleName) {
-  define(moduleName, [], function() { return new RemovedObject(moduleName); });
-});

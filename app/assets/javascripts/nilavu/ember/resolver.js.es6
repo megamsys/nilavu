@@ -80,7 +80,6 @@ export default Ember.DefaultResolver.extend({
   },
 
   resolveView(parsedName) {
-  //  return this.findLoadingView(parsedName) || this.customResolve(parsedName) || this._super(parsedName);
    return this.customResolve(parsedName) || this._super(parsedName);
   },
 
@@ -97,7 +96,6 @@ export default Ember.DefaultResolver.extend({
   },
 
   resolveRoute(parsedName) {
-    //return this.findLoadingRoute(parsedName) || this.customResolve(parsedName) || this._super(parsedName);
     return this.customResolve(parsedName) || this._super(parsedName);
   },
 

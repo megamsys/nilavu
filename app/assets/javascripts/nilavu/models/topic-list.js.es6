@@ -3,6 +3,8 @@ import Model from 'nilavu/models/model';
 
 function topicsFrom(result, store) {
   if (!result) { return; }
+  alert("topic List");
+  alert("topicsFrom="+ JSON.stringify(result));
   return;
   /*Stitch together our side loaded data
   const categories = Nilavu.Category.list(),
@@ -24,6 +26,7 @@ function topicsFrom(result, store) {
 }
 
 const TopicList = RestModel.extend({
+
   canLoadMore: Em.computed.notEmpty("more_topics_url"),
 
   forEachNew(topics, callback) {
@@ -53,6 +56,8 @@ const TopicList = RestModel.extend({
   },
 
   loadMore() {
+    alert("topic-list:loadMore ");
+
     if (this.get('loadingMore')) { return Ember.RSVP.resolve(); }
 
     const moreUrl = this.get('more_topics_url');
@@ -68,6 +73,8 @@ const TopicList = RestModel.extend({
           // the new topics loaded from the server
           const newTopics = topicsFrom(result, store),
               topics = self.get("topics");
+
+            alert("newTopics =" +newTopics);
 
           self.forEachNew(newTopics, function(t) {
             t.set('highlight', topicsAdded++ === 0);
@@ -85,6 +92,8 @@ const TopicList = RestModel.extend({
       });
     } else {
       // Return a promise indicating no more results
+      alert("topic-list: Ember.RSVP ");
+
       return Ember.RSVP.resolve();
     }
   },
@@ -95,6 +104,7 @@ const TopicList = RestModel.extend({
     const topicList = this,
           topics = this.get('topics');
     // refresh dupes
+    alert("topic-list loadBefore");
     topics.removeObjects(topics.filter(topic => topic_ids.indexOf(topic.get('id')) >= 0));
 
     const url = `${Nilavu.getURL("/")}${this.get('filter')}?topic_ids=${topic_ids.join(",")}`;
@@ -126,6 +136,7 @@ TopicList.reopenClass({
     json.loaded = true;
     json.per_page = json.topic_list.per_page;
     */
+    alert("TopicList:munge ="+ JSON.stringify(json));
     json.topics = topicsFrom(json, store);
 
     return json;
@@ -133,6 +144,8 @@ TopicList.reopenClass({
 
   find(filter, params) {
     const store = Nilavu.__container__.lookup('store:main');
+    alert("topic-list: find ="+filter +",params ="+params);
+
     return store.findFiltered('topicList', {filter, params});
   },
 

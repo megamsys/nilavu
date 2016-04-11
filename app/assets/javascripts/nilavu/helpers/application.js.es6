@@ -3,22 +3,6 @@ import { longDate, autoUpdatingRelativeAge, number } from 'nilavu/lib/formatter'
 
 const safe = Handlebars.SafeString;
 
-Em.Handlebars.helper('bound-avatar', (user, size) => {
-  if (Em.isEmpty(user)) {
-    return new safe("<div class='avatar-placeholder'></div>");
-  }
-
-  const avatar = Em.get(user, 'avatar_template');
-  return new safe(Nilavu.Utilities.avatarImg({ size: size, avatarTemplate: avatar }));
-}, 'username', 'avatar_template');
-
-/*
- * Used when we only have a template
- */
-Em.Handlebars.helper('bound-avatar-template', (at, size) => {
-  return new safe(Nilavu.Utilities.avatarImg({ size: size, avatarTemplate: at }));
-});
-
 registerUnbound('raw-date', dt => longDate(new Date(dt)));
 
 registerUnbound('age-with-tooltip', dt => new safe(autoUpdatingRelativeAge(new Date(dt), {title: true})));

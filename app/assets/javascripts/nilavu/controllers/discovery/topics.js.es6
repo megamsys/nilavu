@@ -52,6 +52,7 @@ const controllerOpts = {
       this.set('controllers.discovery.loading', true);
 
       this.store.findFiltered('topicList', {filter}).then(list => {
+        alert("-- find topic list topics controller");
         const TopicList = require('nilavu/models/topic-list').default;
         TopicList.hideUniformCategory(list, this.get('category'));
 

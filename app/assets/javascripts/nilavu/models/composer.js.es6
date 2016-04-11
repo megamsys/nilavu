@@ -2,7 +2,6 @@ import RestModel from 'nilavu/models/rest';
 import Topic from 'nilavu/models/topic';
 import { throwAjaxError } from 'nilavu/lib/ajax-error';
 import Quote from 'nilavu/lib/quote';
-import Draft from 'nilavu/models/draft';
 import computed from 'ember-addons/ember-computed-decorators';
 
 const CLOSED = 'closed',
@@ -702,13 +701,14 @@ const Composer = RestModel.extend({
       this._clearingStatus = null;
     }
 
-    // try to save the draft
+    /* try to save the draft
     return Draft.save(this.get('draftKey'), this.get('draftSequence'), data)
       .then(function() {
         composer.set('draftStatus', I18n.t('composer.saved_draft_tip'));
       }).catch(function() {
         composer.set('draftStatus', I18n.t('composer.drafts_offline'));
-      });
+      });*/
+      return "DRAFTSVD";
   },
 
   dataChanged: function(){

@@ -17,17 +17,21 @@ function filterQueryParams(params, defaultParams) {
 
 function findTopicList(store, tracking, filter, filterParams, extras) {
   console.log(">  build-topic-route findTopicList =" + filter);
+  alert("Topiclist extras -" + JSON.stringify(extras));
   extras = extras || {};
   return new Ember.RSVP.Promise(function(resolve) {
     const session = Nilavu.Session.current();
 
     if (extras.cached) {
+      alert("cachedList 0= "+cachedList);
+
       const cachedList = session.get('topicList');
 
       // Try to use the cached version if it exists and is greater than the topics per page
       if (cachedList && (cachedList.get('filter') === filter) &&
         (cachedList.get('topics.length') || 0) > cachedList.get('per_page') &&
         _.isEqual(cachedList.get('listParams'), filterParams)) {
+        alert("cachedList 1= "+cachedList);
         cachedList.set('loaded', true);
 
         if (tracking) {

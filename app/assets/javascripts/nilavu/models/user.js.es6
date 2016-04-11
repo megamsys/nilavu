@@ -1,15 +1,8 @@
 import { url } from 'nilavu/lib/computed';
 import RestModel from 'nilavu/models/rest';
-import UserStream from 'nilavu/models/user-stream';
-import UserPostsStream from 'nilavu/models/user-posts-stream';
 import Singleton from 'nilavu/mixins/singleton';
 import { longDate } from 'nilavu/lib/formatter';
 import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
-import Badge from 'nilavu/models/badge';
-import UserBadge from 'nilavu/models/user-badge';
-import UserActionStat from 'nilavu/models/user-action-stat';
-import UserAction from 'nilavu/models/user-action';
-import Group from 'nilavu/models/group';
 import Topic from 'nilavu/models/topic';
 
 const User = RestModel.extend({
@@ -27,12 +20,14 @@ const User = RestModel.extend({
 
   @computed()
   stream() {
-    return UserStream.create({ user: this });
+  //  return UserStream.create({ user: this });
+  return "";
   },
 
   @computed()
   postsStream() {
-    return UserPostsStream.create({ user: this });
+  //  return UserPostsStream.create({ user: this });
+  return "";
   },
 
   staff: Em.computed.or('admin', 'moderator'),
@@ -207,7 +202,7 @@ const User = RestModel.extend({
     });
   },
 
-  loadUserAction(id) {
+  /*loadUserAction(id) {
     const stream = this.get('stream');
     return Nilavu.ajax(`/user_actions/${id}.json`, { cache: 'false' }).then(result => {
       if (result && result.user_action) {
@@ -236,7 +231,7 @@ const User = RestModel.extend({
       return !group.automatic || group.name === "moderators";
     });
     return filtered.length === 0 ? null : filtered;
-  },
+  },*/
 
   // The user's stat count, excluding PMs.
   @computed("statsExcludingPms.@each.count")
@@ -265,7 +260,7 @@ const User = RestModel.extend({
       return Nilavu.ajax(`/users/${user.get('username')}.json`, { data: options });
     }).then(json => {
 
-      if (!Em.isEmpty(json.user.stats)) {
+      /*if (!Em.isEmpty(json.user.stats)) {
         json.user.stats = Nilavu.User.groupStats(_.map(json.user.stats, s => {
           if (s.count) s.count = parseInt(s.count, 10);
           return UserActionStat.create(s);
@@ -274,13 +269,13 @@ const User = RestModel.extend({
 
       if (!Em.isEmpty(json.user.groups)) {
         json.user.groups = json.user.groups.map(g => Group.create(g));
-      }
+      }*/
 
       if (json.user.invited_by) {
         json.user.invited_by = Nilavu.User.create(json.user.invited_by);
       }
 
-      if (!Em.isEmpty(json.user.featured_user_badge_ids)) {
+      /*if (!Em.isEmpty(json.user.featured_user_badge_ids)) {
         const userBadgesMap = {};
         UserBadge.createFromJson(json).forEach(userBadge => {
           userBadgesMap[ userBadge.get('id') ] = userBadge;
@@ -290,7 +285,7 @@ const User = RestModel.extend({
 
       if (json.user.card_badge) {
         json.user.card_badge = Badge.create(json.user.card_badge);
-      }
+      }*/
 
       user.setProperties(json.user);
       return user;
@@ -396,10 +391,11 @@ const User = RestModel.extend({
                 topicMap[t.id] = Topic.create(t);
               });
 
-              const badgeMap = {};
+              /*const badgeMap = {};
               Badge.createFromJson(json).forEach(b => {
                 badgeMap[b.id] = b;
-              });
+              }); */
+
               const summary = json["user_summary"];
 
               summary.replies.forEach(r => {
@@ -449,14 +445,14 @@ User.reopenClass(Singleton, {
   },
 
   groupStats(stats) {
-    const responses = UserActionStat.create({
+    /*const responses = UserActionStat.create({
       count: 0,
       action_type: UserAction.TYPES.replies
     });
 
     stats.filterProperty('isResponse').forEach(stat => {
       responses.set('count', responses.get('count') + stat.get('count'));
-    });
+    }); */
 
     const result = Em.A();
     result.pushObjects(stats.rejectProperty('isResponse'));

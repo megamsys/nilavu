@@ -89,7 +89,6 @@
       <label class="control-label">{{i18n 'user.avatar.title'}}</label>
       <div class="controls">
         {{! we want the "huge" version even though we're downsizing it to "large" in CSS }}
-        {{bound-avatar model "huge"}}
         {{#unless siteSettings.sso_overrides_avatar}}
           {{d-button action="showAvatarSelector" class="pad-left" icon="pencil"}}
         {{/unless}}
