@@ -1,0 +1,68 @@
+@blue-color: #549dd6;
+@green-color: #27ae60;
+@dark-blue: #35495e;
+
+@boldWeight: 500;
+@normalWeight: 400;
+@lightWeight: 300;
+@thinWeight: 100;
+
+
+@theGoodThings: ~"input#vm, input#app";
+
+.roboto {
+	font-family: 'Roboto', sans-serif;
+}
+.montserrat {
+	font-family: 'Montserrat', sans-serif;
+}
+@{theGoodThings} {
+  display: none;
+}
+.type {
+	list-style-type:none;
+	margin:30px 0 0 0;
+	padding: 0;
+}
+.btnSelect {
+	.roboto();
+	font-weight: @normalWeight;
+	text-align: center;
+	width: 200px;
+	height: 150px;
+	padding-top: 40px;
+	margin-top: 30px;
+	background-color: #c9dded;
+	color: @dark-blue;
+	font-size: 18px;
+}
+.btnSelectr {
+	.btnSelect();
+	float:right;
+}
+.selectBg {
+	/* Blue background behind 'VM'/'Application' */
+	background-color: @blue-color;
+	min-height: 200px;
+}
+
+.head {
+	/*White area behind 'Let's Get Started' */
+	padding-top: 13px;
+	padding-bottom: 13px;
+}
+.head h1 {
+	text-align: center;
+}
+.head h2 {
+	text-align: center;
+}
+.body {
+	/* Margin auto to center, and make it around the size of 60%? */
+}
+
+.box {
+	width: 600px;
+	margin: 50px auto;
+	border: 1px solid;
+}
