@@ -1,0 +1,23 @@
+
+.select-type {
+	/* Blue background behind 'VM'/'Application' */
+}
+
+.head {
+	/*White area behind 'Let's Get Started' */
+	padding-top: 13px;
+	padding-bottom: 13px;
+}
+.head h1 {
+	text-align: center;
+}
+
+.body {
+	/* Margin auto to center, and make it around the size of 60%? */
+}
+
+.box {
+	width: 522px;
+	margin: 50px auto;
+	border: 1px solid;
+}

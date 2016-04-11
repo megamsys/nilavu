@@ -1,0 +1,300 @@
+@import 'tabs';
+@import 'slider';
+
+$blue-color: #549dd6;
+$green-color: #27ae60;
+$dark-blue: #35495e;
+
+$boldWeight: 500;
+$normalWeight: 400;
+$lightWeight: 300;
+$thinWeight: 100;
+
+
+$hiddenContent: "input#vm, input#app, .hideme, .hideme2, .hideme3, .hideme-custom";
+
+@mixin roboto {
+	font-family: 'Roboto', sans-serif;
+}
+@mixin montserrat {
+	font-family: 'Montserrat', sans-serif;
+}
+a {
+	@include roboto; 
+}
+#{$hiddenContent} {
+  display: none;
+}
+.type {
+	list-style-type:none;
+	margin:30px 0 0 0;
+	padding: 0;
+}
+.steps {
+	padding-top: 30px;
+	padding-bottom: 30px;
+	width: 90%;
+	margin: auto;
+}
+.stepTabs {
+	width: 80%;
+	margin: auto;
+}
+h2 {
+	@include roboto;
+	font-weight: $lightWeight;
+}
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+@mixin btnSelected {
+	background-color: white;
+	color: $dark-blue;
+    box-shadow: 0 0 0 5pt $dark-blue;
+}
+@mixin btnSelect {
+	@include roboto;
+	@include border-radius(10px);
+	transition: all 0.5s ease;
+	font-weight: $normalWeight;
+	text-align: center;
+	width: 200px;
+	height: 150px;
+	padding-top: 10px;
+	margin-top: 30px;
+	background-color: #c9dded;
+	color: $dark-blue;
+	font-size: 18px;
+	&:hover {
+		@include btnSelected;
+	}
+	&.active {
+		@include btnSelected;
+	}
+}
+#component-create .btnSelect {
+	@include btnSelect;
+}
+#component-create .right {
+	float:right;
+}
+.selectBg {
+	/* Blue background behind 'VM'/'Application' */
+	background-color: $blue-color;
+	min-height: 200px;
+}
+img.inSelect {
+	width: 60%;
+}
+
+.head {
+	/*White area behind 'Let's Get Started' */
+	padding-top: 13px;
+	padding-bottom: 13px;
+}
+.head h1 {
+	text-align: center;
+	margin-bottom: 3px;
+}
+.head h2 {
+	text-align: center;
+	margin-top: 0px;
+}
+.body {
+	/* Margin auto to center, and make it around the size of 60%? */
+}
+
+.box {
+	width: 700px;
+	margin: 50px auto;
+	border: 1px solid;
+}
+
+.divider {
+  height: 1px;
+  width:75%;
+  display:block; /* for use on default inline elements like span */
+  margin: 9px auto 15px;
+  overflow: hidden;
+  background-color: $dark-blue;
+}
+
+
+.content-current {
+	.roundText {
+		font-weight: $lightWeight;
+		@include border-radius(5px);
+		box-shadow: 0 0 0 2pt $blue-color;
+		width: 150px;
+		margin-right: 5px;
+		border: 0;
+		text-align: center;
+		&::-webkit-input-placeholder {
+			color: $dark-blue;
+		}
+	}
+}
+
+/* LOCATIONS / RESOURCES*/
+.locations, .resources {
+	margin-bottom: 15px;
+}
+.lCover, .rCover {
+	width: 100%;
+	margin: auto;
+}
+.lInner, .rInner {
+	text-align: -webkit-center;
+    color: #c4c6d9;
+	width: 190px;
+	margin-right: 14px;
+	&.middle {
+		margin: auto;	
+	}
+}
+.lBox, .rBox {
+	height: 190px;
+	width: 190px;
+	&.shorter {
+		height: 160px;
+	}
+}
+.lHead {
+	height: 160px;
+	border: 1px solid #e5e6ef;
+}
+.rHead {
+	height: 130px;
+	border: 1px solid #e5e6ef;
+}
+.rTitle {
+	height: 30px;
+    border-bottom-color: rgb(229, 230, 239);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+	padding-top: 5px;
+	span {
+		@include roboto;
+		font-size: 14px;
+		color: $blue-color;
+		font-weight: 400;
+	}
+}
+.rContent {
+	@include roboto;
+	padding-top: 10px;
+	span {
+		font-weight: 600;
+	}
+}
+.lIcon {
+	padding-top: 50px;
+	text-align: center;
+	h3 {
+		@include roboto;
+		font-size: 22px;
+		color: $dark-blue;
+	}
+	img {
+		width: 100px;
+	}
+}
+.lFooter, .rFooter {
+	height: 30px;
+	width: 100%;
+	.btn-block {
+		@include roboto;
+		font-weight: $lightWeight;
+		color: white;
+		padding: 0;
+		font-size: 21px;
+		transition: all 0.5s ease;
+		border-radius: 0px;
+		border: 0;
+		height: 100%;
+		background-color: $green-color;
+		&:hover {
+			background-color: $blue-color;
+		}
+		&.active {
+			background-color: $blue-color;
+		}
+	}
+}
+
+.advanced {
+	width: 100%;
+	border: 1px solid #e5e6ef;
+	margin-top: 10px;
+	.aHead {
+		background-color: $blue-color;
+		color: white;
+		text-align: center;
+		@include roboto;
+		height: 25px;
+		cursor: pointer;
+		width: 100%;
+	}
+	.aContent {
+		display: none;
+		padding: 5px;
+		.minified-margin {
+			margin-bottom: 0px;
+		}
+	}
+}
+
+.footer {
+	border-top: 1px solid #e5e6ef;
+	@include roboto;
+	height: 50px;
+	width: 100%;
+	padding-left: 15px;
+	h4 {
+		margin: 0;
+	}
+	h3 {
+		margin: 0;
+	}
+	.btnFooter {
+		height: 100%;
+		background-color: $blue-color;
+		font-size: 24px;
+		border: 0;
+		color: white;
+	}
+	.smaller {
+		font-size: 16px;	
+	}
+}
+.no-padding {
+	padding:0;
+}
+.btn-storage-container {
+	width: 250px;
+	margin: auto;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	padding: 0;
+	.btn-storage {
+		@include roboto;
+		transition: all 0.5s ease;
+		font-weight: $thinWeight;
+		padding-top: 1px;
+		padding-bottom: 1px;
+		border-radius: 0;
+		margin: 0;
+		margin-bottom: 10px;
+		width: 125px;
+		background-color: lightgray;
+		color: white;
+		font-size: 21px;
+		&.active {
+			background-color: $blue-color;
+		}
+		
+	}
+}
