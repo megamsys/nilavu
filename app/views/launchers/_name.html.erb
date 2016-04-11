@@ -1,0 +1,15 @@
+<%= hidden_field_tag 'componentname', nil, placeholder: "", :class =>"form-control", :value =>  @launch_item.generate_random_name %>
+<h4><%= t('name') %></h4>
+<div class="row">
+  <div class="col-xs-6">
+    <div class="form-group">
+      <%= text_field_tag 'assemblyname', nil, placeholder: "marketplace.torpedo", :class =>"form-control", :value => @launch_item.generate_random_name, :required => true %>
+    </div>
+  </div>
+  <div class="col-xs-6">
+    <div class="form-group">
+      <%= text_field_tag 'domain', nil, :class =>"form-control", :value => current_user.team.last_used_domain.name, disabled: true %>
+      <%= hidden_field_tag 'domain', nil, :class =>"form-control", :value =>  current_user.team.last_used_domain.name %>
+    </div>
+  </div>
+</div>

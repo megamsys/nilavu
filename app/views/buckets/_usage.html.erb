@@ -5,36 +5,41 @@
       Total Storage
     </dt>
     <dd>
-    <%= @bucket[:total_size] %>
+      <%= @listed_buckets[:spaced].buckets_size_humanized %>
     </dd>
     <dt class="margin-top-20"></dt>
     <dt>
       Total Buckets
     </dt>
     <dd>
-      <%= @bucket[:total_buckets] %>
+      <%=  @listed_buckets[:spaced].buckets_count %>
     </dd>
-
+    <dt class="margin-top-20"></dt>
+    <dt>
+      Last updated
+    </dt>
+    <dd>
+    </dd>
     <h3>Billing</h3>
     <dt>
       Last billed amount
     </dt>
     <dd>
-      2500/- INR
+      0
     </dd>
     <dt class="margin-top-20"></dt>
     <dt>
       Current due
     </dt>
     <dd>
-      0/- INR
+      0
     </dd>
     <dt class="margin-top-20"></dt>
     <dt>
       Region
     </dt>
     <dd>
-      <%= image_tag "flag_IN.png", :alt => "flag" %> INDIA
+<!--      <%= image_tag "flag_IN.png", :alt => "flag" %> INDIA -->
     </dd>
   </dl>
 </div>

@@ -16,31 +16,18 @@ Nilavu::Application.configure do
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
-## Commented for Rails 4.0 support
-    # Log error messages when you accidentally call methods on nil.
-#  config.whiny_nils = true
-
-
-  # Only use best-standards-support built into browsers
-#  config.action_dispatch.best_standards_support = :builtin
-
-  # Raise exception on mass assignment protection for Active Record models
-#  config.active_record.mass_assignment_sanitizer = :strict
-
-  # Log the query plan for queries taking more than this (works
-  # with SQLite, MySQL, and PostgreSQL)
-#  config.active_record.auto_explain_threshold_in_seconds = 0.5
-
-  # Do not compress assets
-#  config.assets.compress = false
-
   # Expands the lines which load the assets
   config.assets.debug = false
   # Log level to debug
-  #config.log_level = :debug
-   config.log_level = Ind.log_level
+  config.log_level = :debug
   # to ignore the javascript files loaded in public assets, this results in running post twice in JQuery
   config.serve_static_files = false
 
   config.react.variant = :development
+
+  require 'rbtrace'
+  
+  if emails = GlobalSetting.developer_emails
+    config.developer_emails = emails.split(",").map(&:strip)
+  end
 end

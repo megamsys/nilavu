@@ -1,17 +1,16 @@
 require File.expand_path('../boot', __FILE__)
 require 'action_controller/railtie'
+require 'active_support/dependencies'
 require 'rails/test_unit/railtie'
 require 'sprockets/railtie'
-require 'yaml'
+
+# Global config
+require_relative '../app/models/global_setting'
+
 
 # COMMON YML
 if defined?(Bundler)
-  # If you precompile assets before deploying to production, use this line
-  #  Bundler.require(:default, Rails.env)
-  # was used by Rails 3.2
   Bundler.require(*Rails.groups(assets: %w(development test)))
-  # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
 end
 
 module Nilavu
@@ -19,11 +18,17 @@ module Nilavu
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    require 'nilavu'
+
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
     # Autoload lib/ folder including all subdirectories
-    config.autoload_paths += Dir["#{config.root}/lib", "#{config.root}/lib/**/", "#{Rails.root}/lib", "#{Rails.root}/lib/**/"]
+    config.autoload_paths += Dir["#{config.root}/lib"]
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    config.autoload_paths += Dir["#{Rails.root}/lib"]
+    config.autoload_paths += Dir["#{Rails.root}/lib/**/"]
+    config.autoload_paths += %W(#{config.root}/lib/gitlab.rb)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -44,7 +49,14 @@ module Nilavu
     config.encoding = 'utf-8'
 
     # Configure sensitive parameters which will be filtered from the log file.
-    config.filter_parameters += [:password]
+    config.filter_parameters += [
+      :password,
+      :pop3_polling_password,
+      :s3_secret_access_key,
+      :twitter_consumer_secret,
+      :facebook_app_secret,
+      :github_client_secret
+    ]
 
     # Use SQL instead of Active Record's schema dumper when creating the database.
     # This is necessary if your schema can't be completely dumped by the schema dumper,
@@ -73,12 +85,22 @@ module Nilavu
     config.after_initialize do |app|
       app.routes.append { match '*a', to: 'application#render_404', via: [:get] } unless config.consider_all_requests_local
     end
+    # rack lock is nothing but trouble, get rid of it
+    # for some reason still seeing it in Rails 4
+    config.middleware.delete Rack::Lock
 
-    config.google_authorization_uri = 'https://accounts.google.com/o/oauth2/auth'
-    config.google_token_credential_uri = 'https://accounts.google.com/o/oauth2/token'
-    config.google_scope = 'https://www.googleapis.com/auth/userinfo.email'
-    config.google_redirect_uri = 'https://www.megam.co/auth/google_oauth2/callback'
+    # ETags are pointless, we are dynamically compressing
+    # so nginx strips etags, may revisit when mainline nginx
+    # supports etags (post 1.7)
+    config.middleware.delete Rack::ETag
+    # we configure rack cache on demand in an initializer
+    # our setup does not use rack cache and instead defers to nginx
+    config.action_dispatch.rack_cache =  nil
 
+    puts "=> MEGAM_HOME env: #{ENV['MEGAM_HOME']}."
+
+    require 'auth'
+    # generate banner text - http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Nilavu
     # generate banner text - http://patorjk.com/software/taag/#p=display&f=ANSI%20Shadow&t=Nilavu
     puts ''"\033[1m\033[32m
                   _..._       ███╗   ██╗██╗██╗      █████╗ ██╗   ██╗██╗   ██╗
@@ -87,8 +109,10 @@ module Nilavu
                :::       :    ██║╚██╗██║██║██║     ██╔══██║╚██╗ ██╔╝██║   ██║
                `::.     .'    ██║ ╚████║██║███████╗██║  ██║ ╚████╔╝ ╚██████╔╝
                  `':..-'      ╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝  ╚═══╝   ╚═════╝
-
-
   \033[0m"''
+    if ENV['RBTRACE'] == "1"
+      require 'rbtrace'
+    end
+
   end
 end

@@ -1,10 +1,11 @@
+require_dependency "homepage_constraint"
+
 Nilavu::Application.routes.draw do
   resources :source_files, :only => [:index, :create, :destroy], :controller => 's3_uploads' do
     get :generate_key, :on => :collection
   end
   root to: 'cockpits#index'
   get '/404', to: 'errors#not_found'
-  # get "/422", :to => "errors#unacceptable"
   get '/500', to: 'errors#internal_error'
 
   resources :users
@@ -14,52 +15,40 @@ Nilavu::Application.routes.draw do
   resources :marketplaces
   resources :ssh_keys
   resources :buckets
-  resources :bucketkolkes
-  resources :password_resets
-  resources :billings
-  resources :onetorpedos
-  resources :oneapps
-  resources :oneservices
-  resources :onemicroservices
+  resources :bucketfiles
   resources :phones
-  # Internal AJAX API
-  resources :events
+  resources :deploys
 
   # named route for users, session
   match '/signup', to: 'users#new', via: [:get]
   match '/signin', to: 'sessions#new', via: [:get]
   match '/tour', to: 'sessions#tour', via: [:get]
   match '/signout', to: 'sessions#destroy', via: [:post, :delete]
-  match '/auth/facebook/callback', to: 'sessions#create', via: [:get, :post]
-  match '/auth/google_oauth2/callback', to: 'sessions#create', via: [:get, :post]
 
-  # named route for billing, paid message callback from paypal or bitcoin
-  match '/billings_promo', to: 'billings#promo', via: [:get, :post]
-  match '/invoice_pdf', to: 'billings#invoice_pdf', via: [:get, :post]
-  match '/notify_payment', to: 'billings#notify_payment', via: [:get, :post]
+  post "password_reset" => "users#forgot_password"
+  get "/reset" => "users#password_reset"
+  put "/reset" => "users#password_reset"
 
+  match "/auth/:provider/callback", to: "omniauth_callbacks#complete", via: [:get, :post]
+  match "/auth/failure", to: "omniauth_callbacks#failure", via: [:get, :post]
 
-  #=====github
-  match '/auth/github/callback', to: 'marketplaces#store_github', via: [:get, :post]
-  match '/publish_github', to: 'marketplaces#publish_github', via: [:get, :post]
+  get  "launchers/:id" => "launchers#launch"
+  post "launchers" => "launchers#perform_launch"
 
-  #=====Gitlab
-  match 'store_gitlab', to: 'marketplaces#store_gitlab', via: [:post]
-  match '/auth/gitlab',      to: 'marketplaces#start_gitlab', via: [:get, :post]
-  match '/publish_gitlab',   to: 'marketplaces#publish_gitlab', via: [:get, :post]
+  get "robots.txt" => "robots_txt#index"
+  #git
+  get "github/repos" => "github#list", constraints: { format: /(json|html)/}
+  get "auth/gitlab" => "gitlab#show", constraints: { format: /(json|html)/}
+  get "gitlab_repos" => "gitlab#list", constraints: { format: /(json|html)/}
 
-  #===catalogs
-  # kelvi   : confirm delete for all flycontrols. all cattypes will use that.
+  #catalogs
   match '/kelvi', to: 'catalogs#kelvi', via: [:post]
   match '/index', to: 'catalogs#index', via: [:get]
 
-  #===Profiles
-  match '/invite', to: 'users#invite', via: [:post]
-  match '/accept_invite', to: 'users#accept_invite', via: [:get]
+  #ceph
+  get   '/cephsignin', to: 'cephs#create', constraints: HomePageConstraint.new
+  post  '/cephsignin', to: 'cephs#create', constraints: HomePageConstraint.new
+  get   '/cephsignup', to: 'ceph_users#create', constraints: HomePageConstraint.new
+  post  '/cephsignup', to: 'ceph_users#create', constraints: HomePageConstraint.new
 
-  #===One Overviews
-  match '/bindservice', to: 'oneapps#show', via: [:get]
-
-  #===Events
-  match '/sensors', to: 'sensors#index' , via: [:get, :post]
 end

@@ -14,86 +14,86 @@
 ** limitations under the License.
 -->
 <!-- BEGIN HEADER -->
-
 <div class="header navbar navbar-fixed-top">
-    <div class="container-fluid">
-        <!-- BEGIN TOP NAVIGATION BAR -->
-        <div class="header-inner">
-            <div class="row">
-                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
-                    <!-- BEGIN LOGO -->
-                    <a class="navbar-brand" href="https://www.megam.io"> <%= image_tag "#{Ind.logo_header}", :alt => "logo", :class => "img-responsive" %> </a>
-                    <!-- END LOGO -->
-                </div>
-
-                <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 col-lg-offset-6 col-md-offset-6 col-sm-offset-6">
-                    <div class="row">
-                        <!-- <div class="col-xs-4 col-sm-1"> -->
-                        <ul class="nav navbar-nav pull-right">
-                            <li id="marketplace_top_right">
-                                <%= link_to marketplaces_path , :data => {:remote => true}, :class => "socket_disconnect unmount_component" do %>
-                                <i class="c_icon-window-lg pull-left"></i>
-                                <span class="hidden-xs hidden-sm pull-left"><%= t('titles.marketplace_title') %></span>
-                                <% end %>
-                            </li>
-                            <% if Ind.has_key?("backup") %>
-                            <li id="storage_top_right">
-                                <%= link_to buckets_path , :data => {:remote => true}, :class => "socket_disconnect unmount_component" do %>
-                                <i class="c_icon-storage-lg pull-left"></i>
-                                <span class="hidden-xs hidden-sm pull-right"><%= t('titles.storage_title') %></span>
-                                </a>
-                                <% end %>
-                            </li>
-                            <% end %>
-                            <%= render 'layouts/notifications' %>
-                            <li class="dropdown" id="header_notification_bar">
-                                <a class="dropdown-toggle" data-close-others="true" data-hover="dropdown" data-toggle="dropdown" href="#"> <i class="c_glob c_icon-profile"></i> </a>
-                                <ul class="dropdown-menu extended notification">
-                                    <ul class="dropdown-menu-list scroller">
-                                        <li>
-                                            <%= link_to edit_user_path(1), :data => {:remote => true} do %>
-                                            <span class="label label-sm label-icon label-success"> <i class="glyphicon glyphicon-user"></i> </span>
-                                            <%= t('header.profile') %>
-                                            <% end %>
-                                        </li>
-                                        <li>
-                                            <%= link_to signout_path, method: "delete" do %>
-                                            <span class="label label-sm label-icon label-danger"> <i class="glyphicon glyphicon-off"></i> </span>
-                                            <%= t('header.signout') %>
-                                            <% end %>
-                                        </li>
-                                    </ul>
-                                </ul>
-                            </li>
-                        </ul>
-                        <!-- BEGIN RESPONSIVE MENU TOGGLER -->
-                        <a class="navbar-toggle collapsed pull-right" data-target=".navbar-collapse" data-toggle="collapse" href="javascript:;"> <%= image_tag "menu-toggler.png", :alt => "" %></a>
-                        <!-- END RESPONSIVE MENU TOGGLER -->
-                    </div>
-                </div>
-            </div>
+  <div class="container-fluid">
+    <!-- BEGIN TOP NAVIGATION BAR -->
+    <div class="header-inner">
+      <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-3 col-xs-6">
+          <!-- BEGIN LOGO -->
+          <a class="navbar-brand" href='/'>
+            <%- if application_logo_url.present? %>
+              <img src="<%= application_logo_url %>" alt="<%= SiteSetting.title %>" id="site-logo" class="img-responsive">
+            <%- else %>
+              <h2 id='site-text-logo'><%= SiteSetting.title %></h2>
+            <%- end %>
+            <!-- END LOGO -->
+          </a>
         </div>
+        <div class="col-lg-4 col-md-6 col-sm-4 col-xs-6 col-lg-offset-6 col-md-offset-6 col-sm-offset-6">
+          <div class="row">
+            <!-- <div class="col-xs-4 col-sm-1"> -->
+            <ul class="nav navbar-nav pull-right">
+              <li id="marketplace_top_right">
+                <%= link_to marketplaces_path , :data => {:remote => true}, :class => "socket_disconnect unmount_component" do %>
+                  <i class="c_icon-window-lg pull-left"></i>
+                  <span class="hidden-xs hidden-sm pull-left"><%= t('marketplace.title') %></span>
+                <% end %>
+              </li>
+              <% if SiteSetting.enable_ceph_logins %>
+                <li id="storage_top_right">
+                  <%= link_to buckets_path , :data => {:remote => true}, :class => "socket_disconnect unmount_component" do %>
+                    <i class="c_icon-storage-lg pull-left"></i>
+                    <span class="hidden-xs hidden-sm pull-right"><%= t('storages.title') %></span>
+                  </a>
+                <% end %>
+              </li>
+            <% end %>
+            <%= render 'layouts/notifications' %>
+            <li class="dropdown" id="header_notification_bar">
+              <a class="dropdown-toggle" data-close-others="true" data-hover="dropdown" data-toggle="dropdown" href="#"> <i class="c_glob c_icon-profile"></i> </a>
+              <ul class="dropdown-menu extended notification">
+                <ul class="dropdown-menu-list scroller">
+                  <li>
+                    <%= link_to edit_user_path(1), :data => {:remote => true} do %>
+                      <span class="label label-sm label-icon label-success"> <i class="glyphicon glyphicon-user"></i> </span>
+                      <%= t('top_toolbar.profile') %>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to signout_path, method: "delete" do %>
+                      <span class="label label-sm label-icon label-danger"> <i class="glyphicon glyphicon-off"></i> </span>
+                      <%= t('top_toolbar.signout') %>
+                    <% end %>
+                  </li>
+                </ul>
+              </ul>
+            </li>
+          </ul>
+          <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+          <a class="navbar-toggle collapsed pull-right" data-target=".navbar-collapse" data-toggle="collapse" href="javascript:;"> <%= image_tag "menu-toggler.png", :alt => "" %></a>
+          <!-- END RESPONSIVE MENU TOGGLER -->
+        </div>
+      </div>
     </div>
-    <!-- END TOP NAVIGATION BAR -->
+  </div>
 </div>
-
+<!-- END TOP NAVIGATION BAR -->
+</div>
 <!-- END HEADER -->
-
 <script>
-	//hide it on click
-	$('.dropdown-menu ul li').click(function() {
-		$('li[class="dropdown open"]').removeClass('open');
-	})
+  	$('.dropdown-menu ul li').click(function() {
+  		$('li[class="dropdown open"]').removeClass('open');
+  	})
 
-	$('#marketplace_top_right').hover(function() {
-		$('#marketplace_top_right i').toggleClass('c_icon-window-lg');
-		$('#marketplace_top_right i').toggleClass('c_icon-window-lg-sel');
-		$('#marketplace_top_right span').toggleClass('mplace-selected');
-	});
-	$('#storage_top_right').hover(function() {
-		$('#storage_top_right i').toggleClass('c_icon-storage-lg');
-		$('#storage_top_right i').toggleClass('c_icon-storage-lg-sel');
-		$('#storage_top_right span').toggleClass('mplace-selected');
-	});
-
+  	$('#marketplace_top_right').hover(function() {
+  		$('#marketplace_top_right i').toggleClass('c_icon-window-lg');
+  		$('#marketplace_top_right i').toggleClass('c_icon-window-lg-sel');
+  		$('#marketplace_top_right span').toggleClass('mplace-selected');
+  	});
+  	$('#storage_top_right').hover(function() {
+  		$('#storage_top_right i').toggleClass('c_icon-storage-lg');
+  		$('#storage_top_right i').toggleClass('c_icon-storage-lg-sel');
+  		$('#storage_top_right span').toggleClass('mplace-selected');
+  	});
 </script>

@@ -15,6 +15,6 @@
 -->
 <% content_for :content_settings do %>
 <%= provide(:title, 'Edit user') %>
-<%= render :partial => "users/myprofile", :locals => {:account => @account, :orgs => @orgs} %>
+<%= render :partial => "users/myprofile", :locals => {:teams => @teams} %>
 <% end %>
 <%= render :template => "users/show" %>

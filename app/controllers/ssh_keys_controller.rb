@@ -13,21 +13,20 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class SshKeysController < NilavuController
+require 'sshkeys_finder'
+
+class SshKeysController < ApplicationController
   respond_to :html, :js
 
-  before_action :stick_keys
-  ## get all sshkeys from storage and sort the keys for creating time based
+  before_action :add_authkeys_for_api, only: [:index, :create, :edit, :update]
+
   def index
-    logger.debug "> SSH: index"
-    @ssh_keys = Api::Sshkeys.new.list(params).ssh_keys
+    @foundkeys ||= SSHKeysFinder.new(params).foundkeys
   end
 
   def create
-    logger.debug "> SSH: create"
     params[:sshoption] = Api::Sshkeys::NEW
     Api::Sshkeys.new.create_or_import(params)
-    #@msg = { title: "SSH", message: "#{params[:ssh_keypair_name]} created successfully. ", redirect: '/ssh_keys', disposal_id: 'create_ssh' }
     redirect_to(ssh_keys_path, :flash => { :success => "#{params[:ssh_keypair_name]} created successfully."}, format: 'js')
   end
 
@@ -41,10 +40,8 @@ class SshKeysController < NilavuController
 
   ## this imports the ssh keys.
   def update
-    logger.debug "> SSH: update"
     params[:sshoption] = Api::Sshkeys::IMPORT
     Api::Sshkeys.new.create_or_import(params)
-    #@msg = { title: "SSH", message: "#{params[:ssh_keypair_name]} imported successfully. ", redirect: '/ssh_keys', disposal_id: 'import_ssh' }
     redirect_to(ssh_keys_path, :flash => { :success => "#{params[:ssh_keypair_name]} imported successfully."}, format: 'js')
   end
 end

@@ -14,38 +14,30 @@
 ** limitations under the License.
 -->
 <!DOCTYPE html>
-<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
-<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
-<!--[if !IE]><!-->
-<html class="no-js" lang="en">
-  <!--<![endif]-->
-  <!-- BEGIN HEAD -->
-  <html>
-    <head>
-      <base href="#">
-      <%= favicon_link_tag 'megam_vertice_fav.png' %>
-      <title>Vertice <%= yield(:title) %></title>
-      <%= stylesheet_link_tag "application", :media => "all" %>
-      <%= analytics_init if Rails.env.production? %>
-      <%= javascript_include_tag "application" %>
-      <meta content="Megam vertice - one stop shop for cloud." name="description=">
-      <meta charset="utf-8"/>
-      <meta content="IE=edge" http-equiv="X-UA-Compatible">
-      <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-      <meta content="" name="description"/>
-      <meta content="" name="author"/>
-      <meta content="320" name="MobileOptimized">
-      <script src="https://www.google.com/jsapi" type="text/javascript"></script>
-      <script type="text/javascript">
-        google.load('visualization', '1', {
-          packages: ['corechart']
-        });
-      </script>
-    </head>
-    <body>
-      <%= render 'toastr_rails/flash' %>
-     <div id="cockpit">
-        <%= yield %>
-      </div>
-    </body>
-  </html>
+<html>
+  <head>
+    <base href="#">
+    <meta charset="utf-8"/>
+    <title><%= content_for?(:title) ? yield(:title) + ' - ' + SiteSetting.title : SiteSetting.title %></title>
+    <%= stylesheet_link_tag "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <meta name="description" content="<%= SiteSetting.site_description %>">
+    <%= render partial: "layouts/head" %>
+    <%= nilavu_csrf_tags %>
+
+    <%= render_google_universal_analytics_code %>
+    <%= render_nudgespot_realtimechat_code %>
+    <script src="https://www.google.com/jsapi" type="text/javascript"></script>
+    <script type="text/javascript">
+      google.load('visualization', '1', {
+                packages: ['corechart']
+              });
+    </script>
+  </head>
+  <body>
+    <%= render 'toastr_rails/flash' %>
+    <div id="cockpit">
+      <%= yield %>
+    </div>
+  </body>
+</html>

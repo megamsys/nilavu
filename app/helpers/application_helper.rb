@@ -13,22 +13,77 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
+require 'current_user'
+require_dependency 'global_path'
+
 module ApplicationHelper
-  # Returns the full title on a per-page basis.
-  def full_title(page_title)
-    base_title = "Megam"
-    if page_title.empty?
-      base_title
+  include CurrentUser
+  include GlobalPath
+
+  def ga_universal_json
+    cookie_domain = SiteSetting.ga_universal_domain_name.gsub(/^http(s)?:\/\//, '')
+    result = {cookieDomain: cookie_domain}
+    if current_user.present?
+      result[:userId] = current_user.id
+    end
+    result.to_json.html_safe
+  end
+
+  def escape_unicode(javascript)
+    if javascript
+      javascript = javascript.scrub
+      javascript.gsub!(/\342\200\250/u, '&#x2028;')
+      javascript.gsub!(/(<\/)/u, '\u003C/')
+      javascript.html_safe
     else
-      "#{base_title} | #{page_title}"
+      ''
     end
   end
 
-  def normalized_filename(file)
-    file.to_s
+  def application_logo_url
+    @application_logo_url ||=  SiteSetting.logo_url
   end
 
-  def normalize_template_name(name)
-    normalized_filename(name.to_s)
+  def nilavu_csrf_tags
+    if current_user
+      csrf_meta_tags
+    end
   end
+
+
+  def customization_disabled?
+    session[:disable_customization] || SiteSetting.disable_customization
+  end
+
+  def render_customized_header_or_not
+    if !customization_disabled?  && SiteCustomization.custom_header.present?
+      return SiteCustomization.custom_header
+    end
+    render partial: 'layouts/header'
+  end
+
+  def render_customized_footer_or_not
+    if !customization_disabled? && SiteCustomization.custom_footer.present?
+      return SiteCustomization.custom_footer
+    end
+    render partial: 'layouts/footer'
+  end
+
+  def self.all_customtags
+    Dir.glob(File.join(ENV['MEGAM_HOME'], 'site/*.html.erb'))
+  end
+
+  def self.customtag_for_site(name)
+
+    # Don't evaluate plugins in test
+    return "" if Rails.env.test?
+
+    erbs = all_customtags.select {|c| c.include? name }
+    return "" if erbs.blank?
+
+    result = ""
+    erbs.each {|erb| result << ERB.new(File.read(erb)).result }
+    result.html_safe
+  end
+
 end

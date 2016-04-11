@@ -7,7 +7,7 @@ $(document).ready(function() {
 		$('.inner-child').toggle();
 	});
 	//storage left menu
-	$('.storage_left_add_inner').hide();
+	$('.toponeclick_left_add_inner').hide();
 
 
 	// storage overview pop up menu
@@ -18,7 +18,6 @@ $(document).ready(function() {
 			'left' : e.pageX
 		});
 		$('#bucketName').val($(event.currentTarget).attr('id'));
-		//$.session.set('bucketname', $(event.currentTarget).attr('id'));
 		$('.storage-popup').show();
 		return false;
 	});

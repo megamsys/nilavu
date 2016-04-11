@@ -7,105 +7,101 @@
     </div>
   </div>
 </div>
-
 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
   <% asmgroups_flatten.each do |assembly| %>
-  <% unless assembly.status == Api::Assemblies::TERMINATED %>
-  <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-      <table class="table tb_action_list">
-        <tbody>
-          <tr>
-            <td class="td-left" width="150px">
-              <h5><%= assembly.name %></h5>
-            </td>
-            <td class="set_title" width="300px">
-              <% case cattype.upcase %>
-              <% when Api::Assemblies::TORPEDO %>
-              <%= link_to assembly.name + ".megambox.com", onetorpedos_path(:id => assembly.id), :data => {:remote => true} %>
-              <% when Api::Assemblies::APP %>
-              <%= link_to assembly.name + ".megambox.com", oneapps_path(:id => assembly.id), :data => {:remote => true} %>
-              <% when Api::Assemblies::SERVICE || Api::Assemblies::COLLABORATION || Api::Assemblies::ANALYTICS%>
-              <%= link_to assembly.name + ".megambox.com", oneservices_path(:id => assembly.id, :cattype => want_catkey(assembly.tosca_type)), :data => {:remote => true} %>
-
-              <% when Api::Assemblies::MICROSERVICES %>
-              <%= link_to assembly.name + ".megambox.com", onemicroservices_path(:id => assembly.id), :data => {:remote => true} %>
-              <% end %>
-            </td>
-            <td width="80px">
-              <%  sparkle_up(cattype,assembly).each do |cool_logo| %>
-              <%= image_tag  cool_logo, :alt => "" %>
-              <% end %>
-          </td>
-          <td width="100px">
-              <i class="circle_green pull-left"></i>
-              <span class="pull-right"><%= assembly.status.capitalize %></span>
-          </td>
-          <td width="70px">
-            <a href="http://docs.megam.io" target="_blank">
-              <i class="c_icon-window center-block" style="color:blue"></i>
-            </a>
-          </td>
-          <td width="70px">
-            <i class="c_icon-star center-block"></i>
-          </td>
-          <td width="50px">
-            <ul>
-                <span class="app_config c_icon-config center-block" id="config_menu_<%= assembly.name %>_<%= cattype.downcase %>"></span>
-                <div class="config_menu config_menu_<%= assembly.name %>_<%= cattype.downcase %>">
-                  <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id,:asms_id => assembly.asms_id, :name => assembly.name, :cattype => cattype} %>
-                </div>
-            </ul>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
-<% else %>
-<div class="row">
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-    <table class="table tb_action_list">
-      <tbody>
-        <tr>
-          <td class="td-left" width="150px">
-            <h5><%= assembly.name %></h5>
-          </td>
-          <td class="set_title" width="300px">
-            <%= assembly.name + ".megam.io" %>
-          </td>
-          <td width="80px">
-            <% sparkle_up(cattype,assembly).each do |cool_logo| %>
-            <%= image_tag  cool_logo, :alt => "" %>
-            <% end %>
-          </td>
-          <td width="100px">
-            <i class="circle_red"></i>
-            <span class="pull-right"><%= assembly.status.capitalize %></span>
-          </td>
-          <td width="70px">
-            <a href="http://docs.megam.io" target="_blank">
-              <i class="c_icon-window center-block" style="color:blue"></i>
-            </a>
-          </td>
-          <td width="70px">
-            <i class="c_icon-star center-block"></i>
-          </td>
-          <td width="50px">
-            <ul>
-              <span class="app_config c_icon-config center-block" id="config_menu_<%= assembly.name %>_<%= cattype.downcase %>"></span>
-              <div class="config_menu config_menu_<%= assembly.name %>_<%= cattype.downcase %>">
-              </div>
-            </ul>
-          </td>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-</div>
-<% end %>
+    <% unless assembly.status == Api::Assemblies::TERMINATED %>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <table class="table tb_action_list">
+            <tbody>
+              <tr>
+                <td class="td-left" width="150px">
+                  <h5><%= assembly.name %></h5>
+                </td>
+                <td class="set_title" width="300px">
+                  <% assembly_name = assembly.name + "." +domain(assembly.inputs) %>
+                  <% assembly_name = if assembly_name.size > 10 then assembly_name.slice(0,15) + "..." else assembly_name end %>
+                  <%= link_to assembly_name, deploy_path(:id => assembly.id, :type => cattype.upcase), :data => { :remote => true} %>
+                </td>
+                <td width="80px">
+                  <%  sparkle_up(cattype,assembly).each do |cool_logo| %>
+                    <%= image_tag  cool_logo, :alt => "" %>
+                  <% end %>
+                </td>
+                <td width="100px">
+                  <i class="circle_green pull-left"></i>
+                  <span class="pull-right"><%= assembly.status.capitalize %></span>
+                </td>
+                <% @ip = parse_key_value_pair(assembly.outputs, "publicipv4") %>
+                <td width="70px">
+                  <% if @ip != "" %>
+                    <a href="http://<%=@ip %>:4200" title="VNC" target="_blank">
+                      <i class="c_icon-window center-block" style="color:blue"></i>
+                    </a>
+                  <% else %>
+                    <a href="http://<%=@ip %>:4200" class="disabled" title="VNC disabled">
+                      <i class="c_icon-window center-block" style="color:blue"></i>
+                    </a>
+                  <% end %>
+                </td>
+                <td width="70px">
+                  <i class="c_icon-star center-block"></i>
+                </td>
+                <td width="50px">
+                  <ul>
+                    <span class="app_config c_icon-config center-block" id="config_menu_<%= assembly.name %>_<%= cattype.downcase %>"></span>
+                    <div class="config_menu config_menu_<%= assembly.name %>_<%= cattype.downcase %>">
+                      <%= render :partial => "cockpits/flycontrols", :locals => {:id => assembly.id,:asms_id => assembly.asms_id, :name => assembly.name, :cattype => cattype} %>
+                    </div>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% else %>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <table class="table tb_action_list">
+            <tbody>
+              <tr>
+                <td class="td-left" width="150px">
+                  <h5><%= assembly.name %></h5>
+                </td>
+                <td class="set_title" width="300px">
+                  <%= assembly.name + ".megam.io" %>
+                </td>
+                <td width="80px">
+                  <% sparkle_up(cattype,assembly).each do |cool_logo| %>
+                    <%= image_tag  cool_logo, :alt => "" %>
+                  <% end %>
+                </td>
+                <td width="100px">
+                  <i class="circle_red"></i>
+                  <span class="pull-right"><%= assembly.status.capitalize %></span>
+                </td>
+                <td width="70px">
+                  <a href="<%= SiteSetting.faq_url %>"target="_blank">
+                    <i class="c_icon-window center-block" style="color:blue"></i>
+                  </a>
+                </td>
+                <td width="70px">
+                  <i class="c_icon-star center-block"></i>
+                </td>
+                <td width="50px">
+                  <ul>
+                    <span class="app_config c_icon-config center-block" id="config_menu_<%= assembly.name %>_<%= cattype.downcase %>"></span>
+                    <div class="config_menu config_menu_<%= assembly.name %>_<%= cattype.downcase %>">
+                    </div>
+                  </ul>
+                </td>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
 <% end unless asmgroups_flatten.nil? %>
 </div>
-
-

@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="prof bottom_border_grey">
+        <div class="row">
+            <div class="col-xs-5 col-sm-6">
+                <h4 class=""><%= t('myprofile.organization_info') %></h4>
+            </div>
+            <% if @orgs.has_team? %>
+            <div class="pull-right col-xs-3">
+                <div class="dropdown">
+                    <div class="form-group">
+                        <select class=" form-control dropdown-toggle">
+                            <% @orgs.teams.each do |team| %>
+                            <option><%= team.name %></option>
+                            <% end %>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <% else %>
+            <div class="pull-right col-xs-3">
+                <div class="dropdown">
+                    <div class="form-group">
+                        <select class=" form-control dropdown-toggle">
+                            <option><%= t('errors.no_organizations_found') %></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <% end %>
+            <!--<div class="invite_user_modal">
+            <button class="pull-right btn btn-sucess">
+            Invite
+            </button>
+            </div>-->
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"></div>
+</div>
+<div class="row">
+    <div class="col-xs-12 margintb_15">
+        <ul  class="nav nav-pills c_nav_pills">
+            <li class="active">
+                <a href="#tab_2_1" data-toggle="tab"><%= t('myprofile.users') %> <span style="margin-left:15px;">|</span></a>
+            </li>
+            <li class="">
+                <a href="#tab_2_2" data-toggle="tab"><%= t('myprofile.domains') %></a>
+            </li>
+        </ul>
+        <div  class="tab-content">
+            <div class="tab-pane fade active in" id="tab_2_1">
+                <table class="table tb_action_list">
+                    <thead>
+                        <tr>
+                            <th>Username </th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="set_name"><%= current_user.first_name %></td>
+                            <td class="set_title"><%= current_user.email %></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="tab_2_2">
+                <table class="table tb_action_list">
+                    <tbody>
+                        <tr>
+                            <td><a href=""><%= current_user.team.domain.map{|d| d.name} %></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

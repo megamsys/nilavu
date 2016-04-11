@@ -13,8 +13,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 -->
-
-<% provide(:title, t('titles.signup_title')) %>
+<% provide(:title, t('signup.title')) %>
 <body style="background-color: #edeef5" class="signin-bg">
   <!-- BEGIN LOGO -->
   <div class="container-fluid">
@@ -22,7 +21,7 @@
       <div class="row">
         <div class="col-md-2 col-sm-3 col-xs-5">
           <div class="megam_logo img-responsive" alt="logo" style="padding-top: 15px">
-            <%= image_tag "#{Ind.logo_white}" %>
+            <%= image_tag "#{SiteSetting.logo_reverse_url}" %>
           </div>
         </div>
       </div>
@@ -34,110 +33,105 @@
       <!-- BEGIN LOGIN -->
       <div class="col-md-5 col-sm-5 signUp">
         <div class="top">
-          <h3><%= t('titles.signup_title') %>
-            <span class="sign_up_small pull-right"><%= t('signup.megam_disc') %></span>
+          <h3><%= t('signup.title') %>
+            <span class="sign_up_small pull-right"><%= t('signup.description') %></span>
           </h3>
         </div>
         <%= form_tag users_path, multipart: true, :id => "megamform", :class => "signup-form", role: "form", :novalidate => "novalidate", :method => "post", data: { spinlock: "#spin_cross_cloud"}  do %>
-        <div class="middle">
-          <div class="form-group">
-            <div class="row">
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <% if session[:auth] || @email.to_s.empty? %>
-                <%= text_field_tag 'email', nil, placeholder: t('signup.email_tag'), :class => 'form-control', :value => @email %>
-              <% else %>
-                <%= text_field_tag 'email', nil, placeholder: t('signup.email_tag'), :required => true, :class => 'form-control' %>
-                <% end %>
+          <div class="middle">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <% if session[:auth] || @email.to_s.empty? %>
+                    <%= text_field_tag 'email', nil, placeholder: t('signup.email'), :class => 'form-control', :value => @email %>
+                  <% else %>
+                    <%= text_field_tag 'email', nil, placeholder: t('signup.email'), :required => true, :class => 'form-control' %>
+                  <% end %>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="form-group">
-            <div class="row">
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                <% if session[:auth] %>
-                <%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: t('signup.password_tag'), :value => @password %>
-              <% else %>
-                <%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: t('signup.password_tag') %>
-                <% end %>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  <% if session[:auth] %>
+                    <%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: t('signup.email'), :value => @password %>
+                  <% else %>
+                    <%= password_field_tag 'password', nil, :required => true, :class=> 'form-control', placeholder: t('signup.password') %>
+                  <% end %>
+                </div>
               </div>
             </div>
-          </div>
-<% if Ind.notification.has_key?("infobip") %>
-				<div class="form-group">
-						<div class="row">
-							<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
-								<input name="phone" type="tel" id="phone" class="form-control phone_popover" placeholder="Enter mobile number" data-toggle="popover" data-content="Please verify your mobile number" size="100%" style="background-color: transparent; color: #C0C0C0;" required >
-							</div>
-							<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
-								<%= link_to "Verify", { :controller => :phones, :action => :new}, { class: "btn btn-success col-md-12 col-xs-12",  :id=>'phone_verify_link', data: { disable_with: 'sending...' }} %>
-							</div>
-						</div>
-
-				</div>
-<% end %>
-        </div>
-        <!-- To load toastr message  -->
-        <%= render :partial => "layouts/toastr_message" %>
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <% if Ind.notification.has_key?("infobip") %>
-            <button type="submit" class="btn btn-success col-lg-12" data-remote="true" data-disable-with="Creating new account..." disabled="disabled" id="create_user">
-              Create Account
-            </button>
-          <% else %>
-            <button type="submit" class="btn btn-success col-lg-12" data-remote="true" data-disable-with="Creating new account...">
-              Create Account
-            </button>
+            <%- if SiteSetting.allow_otp_verifications.present? %>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                    <input name="phone" type="tel" id="phone" class="form-control phone_popover" placeholder="Enter mobile number" data-toggle="popover" data-content="Please verify your mobile number" size="100%" style="background-color: transparent; color: #C0C0C0;" required >
+                  </div>
+                  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                    <%= link_to "Verify", { :controller => :phones, :action => :new}, { class: "btn btn-success col-md-12 col-xs-12",  :id=>'phone_verify_link', data: { disable_with: t('login.otpsending')}} %>
+                  </div>
+                </div>
+              </div>
             <% end %>
           </div>
-        </div>
-        <div class="bottom">
-          <p class="colr-bluegrey"><%= t('signup.existing_user') %>
-            &nbsp;&nbsp;
+          <!-- To load toastr message  -->
+          <%= render :partial => "layouts/toastr_message" %>
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+              <% if SiteSetting.allow_otp_verifications.present? %>
+                <button type="submit" class="btn btn-success col-lg-12" data-remote="true" data-disable-with=<%= t('signup.creating_account') %> disabled="disabled" id="create_user">
+                  <%= t('signup.create_account') %>
+                </button>
+              <% else %>
+              <button type="submit" class="btn btn-success col-lg-12" data-remote="true" data-disable-with=<%= t('signup.creating_account') %>>
+                  <%= t('signup.create_account') %>
+                </button>
+              <% end %>
+            </div>
+          </div>
+          <div class="bottom">
+            <p class="colr-bluegrey"><%= t('signup.existing_user') %>
+              &nbsp;&nbsp;
             <a href="signin">
-              <span class="colr-denimblue"><%= t('signup.login_here') %></span>
-            </a>
-          </p>
-        </div>
+                <span class="colr-denimblue"><%= t('signup.login_here') %></span>
+              </a>
+            </p>
+          </div>
         <% end %>
       </div>
       <div class="col-lg-7 col-md-8">
         <h1 class="text-banner">
-          <span>Simple Cloud.</span>
+          <span><%= t('signup.blip_title') %></span>
         </br>
-        <span>Deploy a cloud server.</span>
+        <span><%= t('signup.blip_sub_heading') %></span>
       </h1>
     </div>
   </div>
 </div>
-<!-- To load pin verification modal  -->
-<%= render :partial => "phones/pin_verify_modal", :locals => {:redirect => "/signup"} %>
+<!-- authorize mobile device by allowing user to type a  pin  -->
+<%= render :partial => "phones/authorize_mobile", :locals => {:redirect => "/signup"} %>
 </body>
-
+<%= render_intlmobile_otp %>
 <script>
-$(document).ready(function() {
-  $("#phone").intlTelInput({preferredCountries: ["IN", "TZ"]});
-//On each time signup page load, trigger popover to verify phone number
-$(window).load(function(){
-  $(".phone_popover").popover({'placement':'top'}).popover('show');
-});
-// Pass mobile number to controller on clicking verify button
-    $("#phone_verify_link").on("click", function(event) {
-        // get the value inside the text field
-	if ($("#phone").intlTelInput("isValidNumber")){
+      //On each time signup page load, trigger popover to verify phone number
+      $(window).load(function(){
+        $(".phone_popover").popover({'placement':'top'}).popover('show');
+      });
+      // Pass mobile number to controller on clicking verify button
+      $("#phone_verify_link").on("click", function(event) {
+              // get the value inside the text field
+    	if ($("#phone").intlTelInput("isValidNumber")){
         	var phone = $("#phone").intlTelInput("getNumber");
-	       $.get('/phones/new', { mobile_number: phone, redirect: '/signup', format: 'js' }, function(data) {
-        	    // log the result from the server, or whatever...
-	            console.log(data);
-	        });
-		event.preventDefault(); // don't trigger default
-	}else{
-		toastr.error("Enter valid number");
-		return false;
-	}
-    });
-    $("#create_user").on("click", function(event) {
-	$("#phone").val($("#phone").intlTelInput("getNumber"));
-    });
-});
+           $.get('/phones/new', { mobile_number: phone, redirect: '/signup', format: 'js' }, function(data) {
+                console.log(data);
+          });
+    		event.preventDefault(); // don't trigger default
+    	}else{
+    	toastr.error("Enter a valid mobile number");
+    	return false;
+    	}
+      });
+      $("#create_user").on("click", function(event) {
+      	$("#phone").val($("#phone").intlTelInput("getNumber"));
+      });
 </script>

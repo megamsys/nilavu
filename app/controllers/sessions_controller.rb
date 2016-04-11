@@ -13,40 +13,65 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
-class SessionsController < NilavuController
-  skip_before_action :require_signin, only: [:new, :tour, :create]
+class SessionsController < ApplicationController
+
+  skip_before_filter :redirect_to_login_if_required
+
 
   def new
   end
 
   def create
-    authenticate(params)
+    params.require(:email)
+    params.require(:password)
+
+    return invalid_credentials if params[:password].length > User.max_password_length
+
+    user = User.new
+    user_params.each { |k, v| user.send("#{k}=", v) }
+    if user = user.find_by_email
+      unless user.confirm_password?(params[:password])
+        invalid_credentials
+        return
+      end
+    else
+      invalid_credentials
+      return
+    end
+    user.email_confirmed? ? login(user) : not_activated(user)
   end
 
-  # this is a fake tour user who can only touch some stuff.
   def tour
-    authenticate({:email => Nilavu::Constants::MEGAM_TOUR_EMAIL,
-    :password => Nilavu::Constants::MEGAM_TOUR_PASSWORD})
+    params.merge!({:email => 'tour@megam.io', :password => 'faketour'})
+    create
   end
 
   def destroy
-    cleanup_session
-    toast_info(signin_path, "Have fun.")
+    reset_session
+    log_off_user
+    bye
   end
 
   private
-  def authenticate(params)
-    Api::Accounts.new.authenticate(params) do |acct|
-      store_credentials acct
-      toast_success(cockpits_path, "Click <b>marketplaces</b> to get started.")
-    end
-  rescue Api::Accounts::AccountNotFound => an
-    toast_error(signup_path, an.message)
-  rescue Nilavu::Auth::SignVerifier::PasswordMissmatchFailure => ae
-    toast_error(signin_path, ae.message)
-  rescue Nilavu::Auth::SignVerifier::InvalidPasswordFailure => ip
-    toast_error(signin_path, ip.message)
-  rescue Api::Accounts::AccountFound => ae
-    toast_error(signin_path,ae.message)
+
+  def user_params
+    params.permit(:email, :password, :status)
+  end
+
+  def login(user)
+    log_on_user(user)
+    redirect_with_success(cockpits_path, "login.success")
+  end
+
+  def invalid_credentials
+    redirect_with_failure(signin_path, "login.incorrect_email_or_password")
+  end
+
+  def not_activated(user)
+    redirect_with_failure(signup_path, "login.not_activated")
+  end
+
+  def bye
+    redirect_with_success(signin_path, "login.tata")
   end
 end

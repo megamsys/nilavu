@@ -1,7 +1,8 @@
-class APIDispatch
-  include Nilavu::MegamResource
 
-  attr_accessor :megfunc, :megact, :parms, :passthru, :swallow_404
+class APIDispatch
+  include VerticeResource
+
+  attr_accessor :megfunc, :megact, :parms, :passthru, :swallow_404, :verify
 
   JLAZ_PREFIX       = 'Megam::'.freeze
   ACCOUNT           = 'Account'.freeze
@@ -13,6 +14,7 @@ class APIDispatch
   COMPONENTS        = 'Components'.freeze
   CREDITHISTORIES   = 'Credithistories'.freeze
   ORGANIZATION      = 'Organizations'.freeze
+  DOMAIN            = 'Domains'.freeze
   PROMOS            = 'Promos'.freeze
   DISCOUNTS         = 'Discounts'.freeze
 
@@ -26,36 +28,24 @@ class APIDispatch
   LIST              = 'list'.freeze
   UPDATE            = 'update'.freeze
   UPGRADE           = 'upgrade'.freeze
+  RESET             = 'reset'.freeze
+  REPASSWORD        = 'repassword'.freeze
 
-  class  ConnectFailure < Nilavu::MegamGWError; end
-  class  CannotAuthenticateError < Nilavu::MegamGWError; end
 
-  class NoSuchResourceType < NameError
-    def initialize(short_name, node)
-      super "Cannot find a resource for #{short_name} "
-    end
-  end
-
-  class InvalidResourceSpecification < ArgumentError; end
-
-  #swallow 404 errors
   def initialize(ignore_404 = false)
     @swallow_404 = ignore_404
   end
 
-  def api_request(jlaz, jmethod, jparams, passthru=false)
+  def api_request(jlaz, jmethod, jparams, passthru=false )
+    set_attributes(jlaz, jmethod, jparams, passthru)
     begin
-      set_attributes(jlaz, jmethod, jparams, passthru)
       Rails.logger.debug "\033[01;35mFASCADE #{megfunc}#{megact} \33[0;34m"
-      if up && satisfied_args?(jparams, passthru)
-        invoke_submit
-      end
-    rescue ConnectFailure => cfe
-      raise cfe
-    rescue Megam::API::Errors::ErrorWithResponse => ewr
-      raise StandardError, "Whew!\n#{ewr.message}" unless swallow_404
-    rescue Errno::ECONNREFUSED => ere
-      raise ConnectFailure, "Api server <b>@#{Ind.api}<b> is down.</br>✓ Fix: `start megamgateway` (or) contact your administrator."
+
+      raise Nilavu::InvalidParameters if !satisfied_args?(passthru, jparams)
+
+      invoke_submit
+    rescue Megam::API::Errors::ErrorWithResponse => ma
+      "Whew!\n#{ma.message} \n " unless swallow_404
     end
   end
 
@@ -94,6 +84,7 @@ class APIDispatch
   end
 
   private
+
   def set_attributes(jlaz, jmethod, parms, passthru)
     meg_function(jlaz)
     meg_action(jmethod)
@@ -101,27 +92,15 @@ class APIDispatch
     passthru?(passthru)
   end
 
-  def satisfied_args?(parms,passthru)
+  def satisfied_args?(passthru, params={})
     unless passthru
-      fail CannotAuthenticateError, 'Your credentials are missing. Did you signup with us ?' unless parms.key?(:email) && parms.key?(:api_key)
+      return params[:email] && (params[:api_key].present? || params[:password].present?)
     end
-    true
-  end
-
-  #this works but has other issues like a stored session loops etc.
-  def up
-    #hc = Nilavu::HealthCheck.new.tap do |h|
-    #  h.check
-    #end
-
-    #hok = hc.ok?
-    #fail ConnectFailure, "Api server <b>@#{Ind.api}<b> is down.</br>✓ Fix: `start megamgateway` (or) contact your administrator." unless hok
-    #hok
-    true
+    return true
   end
 
   def endpoint
-    Ind.api
+    GlobalSetting.http_api
   end
 
   def debug_print(jparams)

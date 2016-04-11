@@ -1,0 +1,191 @@
+# Available options:
+#
+# default   - The default value of the setting.
+# refresh   - Set to true if clients should refresh when the setting is changed.
+# min       - For a string setting, the minimum length. For an integer setting, the minimum value.
+# max       - For a string setting, the maximum length. For an integer setting, the maximum value.
+# regex     - A regex that the value must match.
+# validator - The name of the class that will be use to validate the value of the setting.
+# enum      - The setting has a fixed set of allowed values, and only one can be chosen.
+#             Set to the class name that defines the set.
+# type: email    - Must be a valid email address.
+# type: list     - A list of values, chosen from a set of valid values defined in the choices option.
+# type: enum     - A single value, chosen from a set of valid values in the choices option.
+#
+# A type:list setting with the word 'colors' in its name will make color values have a bold line of the corresponding color
+#
+required:
+  title:
+    default: 'Vertice'
+  site_description:
+    default: 'One click cloud in 60 seconds'
+  contact_email:
+    default: 'support@megam.io'
+    type: email
+  contact_url:
+    default: 'https://www.megam.io'
+  notification_email:
+    default: 'noreply@unconfigured.megam.io.io'
+    type: email
+  disable_customization:
+    default: true
+  logo_url:
+    default: '/images/logo_vertice.png'
+  logo_small_url:
+    default: '/images/logo_vertice_small.png'
+  logo_reverse_url:
+    default: '/images/logo_vertice_reverse.png'
+  favicon_url:
+    default: '/images/default_favicon.png'
+  version_checks:
+    default: false
+    new_version_emails: false
+  global_notice:
+      default: ""
+  free_wheeling:
+      default: false
+
+basic:
+  default_locale:
+    default: 'en'
+    enum: 'LocaleSiteSetting'
+    refresh: true
+  allow_user_locale:
+    default: false
+  ga_universal_tracking_code:
+    default: ''
+    regex: "^UA-\\d+-\\d+$"
+  ga_universal_domain_name:
+    default: 'auto'
+  ga_tracking_code:
+    default: 'UA-60777472-2'
+  ga_domain_name:
+    default: 'console.megam.io'
+  nudgespot_realtimechat_code:
+    default: '425d0d6f052a5ce5ae21931efa800675'
+  top_menu:
+    refresh: true
+    type: list
+    default: "marketplaces|storages|profile"
+    regex: "marketplaces"
+    regex_error: "site_settings.errors.must_include_marketplaces"
+    choices:
+     - marketplaces
+     - storages
+     - profile
+  left_menu:
+    type: list
+    default: 'torpedo|app|service|microservices'
+  default_categories:
+     type: list
+     default: 'torpedo|app|service|microservices|analytics|collaboration'
+  default_categories_muted:
+     type: list
+     default: 'app|service|collaboration|analytics'
+
+login:
+  must_approve_users:
+      default: false
+  enable_local_logins:
+      default: true
+  allow_new_registrations:
+      default: true
+  allow_otp_verifications:
+     default: false
+  infobip_username: ''
+  infobip_password: ''
+  infobip_api_key: ''
+  infobip_application_id: ''
+  infobip_message_id: ''
+  enable_google_oauth2_logins:
+    default: false
+  google_oauth2_client_id: ''
+  google_oauth2_client_secret: ''
+  enable_facebook_logins:
+    default: false
+  facebook_app_id:
+    default: ''
+    regex: "^\\d+$"
+  facebook_app_secret:
+    default: ''
+    regex: "^[a-f0-9]+$"
+  enable_github_logins:
+    default: true
+  github_client_id:
+    default: 'e9a41a2be1f3abee2fea'
+    regex: "^[a-f0-9]+$"
+  github_client_secret:
+    default: '3d27d07be2fd36f994b0f0a9c699f315d694cae6'
+    regex: "^[a-f0-9]+$"
+  oauth_stub_password: "detio"
+  enable_ceph_logins:
+     default: false
+  ceph_gateway_timeout:
+      default: 30
+  ceph_gateway: ''
+  ceph_username: megdc
+  ceph_password: megdc
+  email_domains_blacklist:
+    default: 'mailinator.com'
+    type: list
+  email_domains_whitelist:
+    default: ''
+    type: list
+
+users:
+  min_password_length:
+    default: 8
+    min: 1
+  block_common_passwords: false
+  email_editable: false
+  logout_redirect:
+    default: ''
+  full_name_required:
+    default: false
+  invite_expiry_days: 30
+  allow_default_billings: false
+  reserved_emails:
+    type: list
+    default: "tour@megam.io|test@megam.io|support@megam.io|admin@megam.io"
+
+security:
+  use_https: false
+  allow_index_in_robots_txt: true
+  cors_origins:
+    default: ''
+    type: list
+
+marketplaces:
+  enable_gitlab_source: false
+  gitlab_host:
+    default: 'localhost'
+  flavors:
+    type: list
+    default: "[1 GB,1 Core,24 GB SSD]|[2 GB,2 Cores,48 GB SSD]|[4 GB,4 Cores,96 GB SSD]|[8 GB,6 Cores,192 GB SSD]"
+    regex: '\\[([^\\]])+\\]'
+    regex_error: "site_settings.errors.must_include_flavors"
+    choices:
+     - [1 GB,1 Core,24 GB SSD]
+     - [2 GB,2 Cores,48 GB SSD]
+     - [4 GB,4 Cores,96 GB SSD]
+     - [8 GB,6 Cores,192 GB SSD]
+  flavors_cs:
+    type: list
+    default: "[1 GB,1 Core,24 GB SSD]|[2 GB,2 Cores,48 GB SSD]|[4 GB,4 Cores,96 GB SSD]|[8 GB,6 Cores,192 GB SSD]"
+    regex: "\\[([^\\]])+\\]"
+    regex_error: "site_settings.errors.must_include_cs_flavors"
+    choices:
+      - [1 GB,1 Core,24 GB SSD]
+      - [2 GB,2 Cores,48 GB SSD]
+      - [4 GB,4 Cores,96 GB SSD]
+      - [8 GB,6 Cores,192 GB SSD]
+
+legal:
+  tos_url:
+    default: ''
+  privacy_policy_url:
+    default: ''
+  faq_url:
+    default: 'http://docs.megam.io/docs/megam_oja_gettingstarted'
+  support_url:
+    default: 'http://support.megam.io'

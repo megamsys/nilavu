@@ -26,16 +26,19 @@ module Api
     ANALYTICS           =  'ANALYTICS'.freeze
     MICROSERVICES       =  'MICROSERVICES'.freeze
     COLLABORATION       =  'COLLABORATION'.freeze
+    DOCKERCONTAINER     = 'DockerContainer'.freeze
+
     CATTYPES            =  [TORPEDO, APP, SERVICE, MICROSERVICES, ANALYTICS, COLLABORATION]
-        START               =  'start'.freeze
+
+    START               =  'start'.freeze
     STOP                =  'stop'.freeze
     RESTART             =  'restart'.freeze
     REBOOT              =  'restart'.freeze
     DESTROY             =  'delete'.freeze
     TERMINATED          =  'destroying'.freeze
     LAUNCHING           =  'LAUNCHING'.freeze
-    SOURCE              = 'source'.freeze
-    DOCKERCONTAINER     = 'DockerContainer'.freeze
+    SOURCE              =  'source'.freeze
+
 
     def initialize
       @assemblies_grouped = {}
@@ -67,10 +70,9 @@ module Api
       self
     end
 
-    def create(api_params, &_block)
+    def create(api_params)
       bld_data = build_data(api_params)
       api_request(ASSEMBLIES, CREATE, api_params.merge(bld_data))
-      yield self if block_given?
       self
     end
 

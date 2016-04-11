@@ -1,0 +1,7 @@
+<div id="prelaunch_modal" class="modal fade" data-backdrop="static" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-full" style="max-width:900px;">
+    <div class="modal-content">
+      <%= render :partial => "launchers/#{@launch_item.type}", :locals => {:launch_item => @launch_item} %>
+    </div>
+  </div>
+</div>

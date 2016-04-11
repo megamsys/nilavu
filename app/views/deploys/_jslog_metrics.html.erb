@@ -1,0 +1,71 @@
+
+<div class="tabs" id="overview">
+</div>
+<b class="logs-head">Logs</b>
+<div class="logBox borderless torpOverviewTb">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+    <div class="Message" id="logsbox">
+    </div>
+    <img src="assets/pacman.gif" alt="gobbling logs"/><b> gobbling</b> logs...</div>
+</div>
+
+<script type="text/javascript">
+  (function ($) {
+    $.AppName = "<%= @deployed.name %>";
+    $.AppIp = "<%= @deployed.publicip %>";
+    $.MonitC = "<%= @deployed.monitored_container_url %>";
+    $.MonitM = "<%= @deployed.monitored_machine_url %>";
+    $.SocketURL = "<%= GlobalSetting.logs %>";
+    $.Socket = null;
+    $.SocketReconnect = true;
+    start();
+  })($);
+
+ var serverSocket = null;
+
+  function start(){
+    $.Socket = new WebSocket($.SocketURL);
+    $.Socket.onopen = function(){
+      console.log('connected!');
+       var connJson = JSON.stringify({
+        "Name": $.AppName
+        });
+        $.Socket.send(connJson);
+    };
+    $.Socket.onmessage = function(e){
+      var jsonData = JSON.parse(e.data);
+      var log = jsonData.Timestamp + " " + jsonData.Message;
+      var text = "<br/><span>"+log+"</span>";
+      $('#logsbox').append(text);
+    };
+    $.Socket.onclose = function(){
+      console.log('closed!');
+      if($.SocketReconnect) {
+          check();
+      }
+    };
+
+    $('.socket_disconnect').click(function () {
+        $.SocketReconnect = false;
+        $.Socket.close();
+    });
+
+  }
+
+  function check(){
+    if(!$.Socket || $.Socket.readyState == 3) start();
+  }
+
+  $('.unmount_component').click(function () {
+    ReactDOM.unmountComponentAtNode(document.getElementById('overview'));
+  });
+
+  ReactDOM.render(React.createElement(Overview, {
+    google: google,
+    socket: serverSocket,
+    name: $.AppName,
+    graphName: "LineChart",
+    host: $.MonitC,
+    mhost: $.MonitM
+  }), document.getElementById('overview'));
+</script>

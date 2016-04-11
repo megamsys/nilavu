@@ -1,0 +1,23 @@
+<div class="row">
+  <div class="prof bottom_border_grey_btpad">
+    <h4 class=""><%= t('myprofile.basic_info') %> <span class="pull-right" > <%= current_user.email %></span></h4>
+  </div>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save c_tab-content-top">
+    <%= form_tag user_path({:id => current_user.email, :email => current_user.email}), :method => :put, :remote => true, :class => "form-horizontal", :novalidate => "novalidate", :id => "megamform"  do %>
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>"/>
+        <div class="form-group">
+        <label class="col-md-3 control-label label-profile"><%= t('myprofile.profile_name') %></label>
+        <div class="col-md-5 input-group margin-top-10">
+          <%= text_field_tag 'first_name', nil, :id => 'first_name', :class => 'form-control',:readonly => true, placeholder: t('myprofile.name_placeholder') , :value => current_user.first_name %>
+        </div>
+        <span class="input-group-addon " ><a onClick="change_name();" class="pull-left btn"><%= t('myprofile.change') %></a></span>
+      </div>
+      <%= render :partial => 'users/change_phone' %>
+      <div class="form-group">
+        <div class="col-md-6 col-md-offset-3 input-group margin-top-10 ">
+          <%= submit_tag t('myprofile.update'), :id => "profile_submit", :class => "btn disabled btn-success col-md-5 col-xs-12" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

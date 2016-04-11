@@ -20,18 +20,12 @@ require 'singleton'
 module Api
   class Marketplaces < APIDispatch
     include Singleton
-    include MarketplaceHelper
 
-    attr_reader :mkp_grouped
-    attr_reader :mkp
+    attr_accessor :marketplace_groups
+    attr_accessor :item
 
-    ONE = 'one'.freeze
-    DOCKER           =  'docker'.freeze
-    BAREMETAL        =  'baremetal'.freeze
 
     def initialize
-      @mkp_grouped = {}
-      @mkp = {}
     end
 
     # Marketplace has a boquet of items.
@@ -43,35 +37,34 @@ module Api
     #                      TORPEDO (a plain vm)
     #     :predef       => java, rails, play, nodejs, ubuntu, centos, coreos, debian
     #     :catalog      => defines a logical grouping of the cattypes.
-    #                      :category => Dew
-    #                                   Starter Packs
-    #                                   App Boilers
-    #                                   Platform
+    #                      :category => Torpedo
+    #                                   App
+    #                                   Service
+    #                                   Collaboration
     #                                   Analytics
-    def list(api_params, &_block)
-      Rails.logger.debug "\033[36m>-- MKP'S: START\33[0m"
-      @mkp = group(load(api_params))
-      Rails.logger.debug "\033[1m#{@mkp_grouped.to_yaml}\33[22m"
-      Rails.logger.debug "\033[36m>-- MKP'S: END\033[0m"
-      yield self if block_given?
+    def list(api_params)
+      Rails.logger.debug "\033[36m>-- CACHE MKP'S: START\33[0m"
+      group(load(api_params))
+      Rails.logger.debug "\033[1m#{@marketplace_groups.to_yaml}\33[22m"
+      Rails.logger.debug "\033[36m>-- CACHE MKP'S: END\033[0m"
       self
     end
 
     # This shows a single marketplace item. eg: 1-Ubuntu (Refer Marketplaces::list for more info)
-    def show(api_params, &_block)
+    def show(api_params)
       raw = api_request(MARKETPLACES, SHOW,api_params)
-      @mkp = raw[:body].lookup(api_params['id'])
-      yield self if block_given?
+      @item = raw[:body].lookup(api_params['id'])
       self
     end
 
     private
+
     def load(api_params)
-      api_request(MARKETPLACES, LIST,api_params)[:body] if @mkp_grouped.empty?
+      api_request(MARKETPLACES, LIST,api_params)[:body] unless @marketplace_groups
     end
 
     def group(raw)
-      @mkp_grouped = Hash[raw.group_by(&:order).map { |k, v| [k, v.map { |h| h }] }].sort unless raw.nil?
+      @marketplace_groups = Hash[raw.group_by(&:catorder).map { |k, v| [k, v.map { |h| h }] }].sort unless raw.nil?
     end
   end
 end
