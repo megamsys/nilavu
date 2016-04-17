@@ -13,7 +13,6 @@ export default Ember.Component.extend(StringBuffer, {
         if ($(e.currentTarget).data('id') !== self.get('activeItem')) {
           self.clicked($(e.currentTarget).data('id'));
         }
-        alert("--- clicked drop");
         self.$('.dropdown-toggle').dropdown('toggle');
         return false;
       });

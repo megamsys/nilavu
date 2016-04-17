@@ -15,21 +15,23 @@
 ##
 
 class CockpitsController < ApplicationController
-  include CatalogHelper
-  include CockpitListResponder
+    include CatalogHelper
+    include CockpitListResponder
 
-  respond_to :html, :js
+    respond_to :html, :js
 
-  skip_before_filter :check_xhr
+    skip_before_filter :check_xhr
 
-  before_action :add_authkeys_for_api, only: [:index]
+    before_action :add_authkeys_for_api, only: [:index]
 
-  def entrance
-    render 'cockpits/entrance'
-  end
+    def entrance
+        render 'cockpits/entrance'
+    end
 
-  def index
-    #@assemblies_grouped = Api::Assemblies.new.list(params).assemblies_grouped
-    render json: success_json
-  end
+    def index
+        asi = Api::Assemblies.new.list(params).baked.to_json
+        puts asi.inspect
+        render json: asi
+        #  render json: success_json
+    end
 end

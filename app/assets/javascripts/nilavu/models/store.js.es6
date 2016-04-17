@@ -193,6 +193,7 @@ export default Ember.Object.extend({
     obj.__type = type;
     obj.__state = obj.id ? "created" : "new";
 
+
     // TODO: Have injections be automatic
     obj.topicTrackingState = this.container.lookup('topic-tracking-state:main');
     obj.keyValueStore = this.container.lookup('key-value-store:main');
@@ -276,7 +277,9 @@ export default Ember.Object.extend({
       this._hydrateEmbedded(type, obj, root);
     }
 
+
     const existing = fromMap(type, obj.id);
+
     if (existing === obj) { return existing; }
 
     if (existing) {

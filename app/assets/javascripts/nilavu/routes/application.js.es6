@@ -28,6 +28,9 @@ const ApplicationRoute = Nilavu.Route.extend(OpenComposer, {
   },
 
   actions: {
+    topNotificationChange(count) {
+        this.set('topNotificationCount', count);
+    },
 
     logout: unlessReadOnly('_handleLogout', I18n.t("read_only_mode.logout_disabled")),
 

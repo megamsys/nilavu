@@ -42,7 +42,7 @@ gem 'omniauth-oauth2', require: false
 gem 'omniauth-google-oauth2'
 
 # 3rd party system api's
-gem 'megam_api'
+gem 'megam_api',  '1.5.beta2'
 gem 'github_api'
 gem 'gitlab'
 gem 'radosgw-s3'

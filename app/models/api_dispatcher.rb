@@ -27,12 +27,12 @@ class ApiDispatcher
   attr_accessor :megfunc, :megact, :parms, :passthru, :swallow_404, :verify
 
   JLAZ_PREFIX       = 'Megam::'.freeze
+
   ACCOUNT           = 'Account'.freeze
   ASSEMBLIES        = 'Assemblies'.freeze
   ASSEMBLY          = 'Assembly'.freeze
   BALANCES          = 'Balances'.freeze
   BILLEDHISTORIES   = 'Billedhistories'.freeze
-  INVOICES          = 'Invoices'.freeze
   COMPONENTS        = 'Components'.freeze
   CREDITHISTORIES   = 'Credithistories'.freeze
   ORGANIZATION      = 'Organizations'.freeze
@@ -44,6 +44,10 @@ class ApiDispatcher
   REQUESTS          = 'Request'.freeze
   SSHKEYS           = 'SshKey'.freeze
   SENSORS           = 'Sensors'.freeze
+
+  ENDPOINTS_AS_JSON = [JLAZ_PREFIX + ASSEMBLIES,
+                       JLAZ_PREFIX + ASSEMBLY,
+                       JLAZ_PREFIX + COMPONENTS]
 
   CREATE            = 'create'.freeze
   SHOW              = 'show'.freeze
@@ -60,6 +64,7 @@ class ApiDispatcher
 
   def api_request(jlaz, jmethod, jparams, passthru=false )
     set_attributes(jlaz, jmethod, jparams, passthru)
+
     begin
       Rails.logger.debug "\033[01;35mFASCADE #{megfunc}#{megact} \33[0;34m"
 
@@ -113,6 +118,7 @@ class ApiDispatcher
     meg_function(jlaz)
     meg_action(jmethod)
     parameters(parms)
+    prepare_ottai_endpoints
     passthru?(passthru)
   end
 
@@ -121,6 +127,17 @@ class ApiDispatcher
       return params[:email] && (params[:api_key].present? || params[:password].present?)
     end
     return true
+  end
+
+  def prepare_ottai_endpoints
+    if @parms && has_ottai
+      @parms[:headers]  =  {Megam::API::X_Megam_OTTAI => true}
+    end
+  end
+
+  def has_ottai
+  #  ENDPOINTS_AS_JSON.include?(meg_function)
+  false
   end
 
   def endpoint

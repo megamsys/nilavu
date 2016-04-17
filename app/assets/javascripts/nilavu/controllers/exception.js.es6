@@ -1,5 +1,5 @@
 var ButtonBackBright = {
-      classes: "btn-primary",
+      classes: "btn btn-success small",
       action: "back",
       key: "errors.buttons.back"
     },
@@ -9,7 +9,7 @@ var ButtonBackBright = {
       key: "errors.buttons.back"
     },
     ButtonTryAgain = {
-      classes: "btn-primary",
+      classes: "btn-primary btn-small",
       action: "tryLoading",
       key: "errors.buttons.again"
     },

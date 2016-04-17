@@ -302,7 +302,6 @@ export default Ember.Controller.extend(SelectedPostsCount, BufferedContent, {
 
     toggleBookmark(post) {
       if (!this.currentUser) {
-        alert(I18n.t("bookmarks.not_bookmarked"));
         return;
       }
       if (post) {

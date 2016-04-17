@@ -1,14 +1,14 @@
 {{#if showTop}}
     {{render "header"}}
 {{/if}}
-
-<div id="main-outlet">
+<div id="main-outlet gh-viewport">
     <div class="container">
         {{global-notice}}
     </div>
     {{outlet}}
     {{outlet "loading"}}
 </div>
+{{notification-container notifications=notificationMessages position="bottom-right"}}
 
 {{#if showFooter}}
     {{custom-html "footer"}}

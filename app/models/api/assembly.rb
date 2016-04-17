@@ -17,7 +17,7 @@ module Api
   class Assembly < ApiDispatcher
     include MarketplaceHelper
 
-    attr_reader :by_cattypes
+    attr_reader :baked
     attr_reader :tosca_type
     attr_reader :components
 
@@ -25,7 +25,7 @@ module Api
     # this is a mutable string, if nothing exists then we use ubuntu
     DEFAULT_TOSCA_SUFFIX = 'ubuntu'.freeze
     def initialize
-      @by_cattypes = {}
+      @baked = []
       @inputs = []
       @components = []
       @app_list = []
@@ -50,7 +50,8 @@ module Api
     end
 
     private
-        def bld_upgrade_params(api_params)
+
+    def bld_upgrade_params(api_params)
       Megam::Mixins::Assembly.new(api_params).to_hash
     end
 
@@ -65,19 +66,11 @@ module Api
         one_assembly.asms_id(api_params[:asms_id])
         # set the_id in assembly. we need it for destroy
         one_assembly.components.replace(a0)
-        @by_cattypes = @by_cattypes.merge(want_catkey(one_assembly.tosca_type) => one_assembly)
+        @baked << one_assembly
       end
       Rails.logger.debug '>-- ASC: START'
-      Rails.logger.debug "#{@by_cattypes}"
+      Rails.logger.debug "#{@baked}"
       Rails.logger.debug '> ASC: END'
-    end
-
-    # match the tosca type APP, SERVICE, MICROSERVICES, TORPEDO from the string tosca.dew.ubuntu.
-    # if there is no match, then send out an error
-    def want_catkey(tmp_tosca_type)
-      c0 = Api::Assemblies::CATTYPES.select { |cat| cat unless cat.downcase != tmp_tosca_type.split('.')[1] }
-      fail MissingAPIArgsError, "Supported cat types are #{CATTYPES}." if c0.nil?
-      c0.join
     end
   end
 end

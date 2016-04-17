@@ -1,9 +1,9 @@
 import { setting } from 'nilavu/lib/computed';
-
 // This is happening outside of the app via popup
 const AuthErrors =
   ['requires_invite', 'awaiting_approval', 'awaiting_confirmation', 'admin_not_allowed_from_ip_address',
    'not_allowed_from_ip_address'];
+
 
 export default Ember.Controller.extend({
   needs: ['modal', 'createAccount', 'forgotPassword', 'application'],
@@ -50,14 +50,14 @@ export default Ember.Controller.extend({
       const self = this;
 
       if(Ember.isEmpty(this.get('loginName')) || Ember.isEmpty(this.get('loginPassword'))){
-        self.flash(I18n.t('login.blank_username_or_password'), 'error');
+        this.notificationMessages.error(I18n.t('login.blank_email_or_password'));
         return;
       }
 
       this.set('loggingIn', true);
 
-      Nilavu.ajax("/session", {
-        data: { login: this.get('loginName'), password: this.get('loginPassword') },
+      Nilavu.ajax("/sessions", {
+        data: { email: this.get('loginName'), password: this.get('loginPassword') },
         type: 'POST'
       }).then(function (result) {
         // Successful login
@@ -69,11 +69,8 @@ export default Ember.Controller.extend({
               sentTo: result.sent_to_email,
               currentEmail: result.current_email
             });
-          } else if (result.reason === 'suspended' ) {
-            self.send("closeModal");
-            bootbox.alert(result.error);
           } else {
-            self.flash(result.error, 'error');
+            this.notificationMessages.error(result.error);
           }
         } else {
           self.set('loggedIn', true);
@@ -85,11 +82,7 @@ export default Ember.Controller.extend({
           $hidden_login_form.find('input[name=username]').val(self.get('loginName'));
           $hidden_login_form.find('input[name=password]').val(self.get('loginPassword'));
 
-          if (ssoDestinationUrl) {
-            $.cookie('sso_destination_url', null);
-            window.location.assign(ssoDestinationUrl);
-            return;
-          } else if (destinationUrl) {
+          if (destinationUrl) {
             // redirect client to the original URL
             $.cookie('destination_url', null);
             $hidden_login_form.find('input[name=redirect]').val(destinationUrl);
@@ -106,15 +99,15 @@ export default Ember.Controller.extend({
           } else {
             $hidden_login_form.submit();
           }
+
           return;
         }
 
       }, function(e) {
-        // Failed to login
         if (e.jqXHR && e.jqXHR.status === 429) {
-          self.flash(I18n.t('login.rate_limit'), 'error');
+          this.notificationMessages.error(I18n.t('login.rate_limit'));
         } else {
-          self.flash(I18n.t('login.error'), 'error');
+          this.notificationMessages.error(I18n.t('login.error'));
         }
         self.set('loggingIn', false);
       });
@@ -187,7 +180,7 @@ export default Ember.Controller.extend({
     function loginError(errorMsg, className) {
   //    showModal('login');
       Ember.run.next(function() {
-        self.flash(errorMsg, className || 'success');
+        this.notificationMessages.success(errorMsg);
         self.set('authenticate', null);
       });
     }
@@ -197,10 +190,6 @@ export default Ember.Controller.extend({
       if (options[cond]) {
         return loginError(I18n.t("login." + cond));
       }
-    }
-
-    if (options.suspended) {
-      return loginError(options.suspended_message, 'error');
     }
 
     // Reload the page if we're authenticated
@@ -229,8 +218,6 @@ export default Ember.Controller.extend({
       accountName: options.name,
       authOptions: Ember.Object.create(options)
     });
-    alert(options);
-  //  showModal('createAccount');
   }
 
 });

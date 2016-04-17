@@ -8,7 +8,9 @@ export default {
 
   initialize(container, app) {
     console.log("> dynamic_route_builder initializing");
-/*    app.DiscoveryCategoryController = DiscoverySortableController.extend();
+
+    /*
+    app.DiscoveryCategoryController = DiscoverySortableController.extend();
     app.DiscoveryParentCategoryController = DiscoverySortableController.extend();
     app.DiscoveryCategoryNoneController = DiscoverySortableController.extend();
     app.DiscoveryCategoryWithIDController = DiscoverySortableController.extend();
@@ -16,7 +18,8 @@ export default {
     app.DiscoveryCategoryRoute = buildCategoryRoute('latest');
     app.DiscoveryParentCategoryRoute = buildCategoryRoute('latest');
     app.DiscoveryCategoryNoneRoute = buildCategoryRoute('latest', {no_subcategories: true});
-   */
+    */
+
     const site = Nilavu.Site.current();
     site.get('filters').forEach(filter => {
       const filterCapitalized = filter.capitalize();

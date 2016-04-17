@@ -37,7 +37,6 @@
     require('nilavu/routes/application').default.reopen({
       actions: {
         didTransition: function() {
-          alert("_nilavu javascript:  complete authentication ")
           Em.run.next(function(){
             alert("_nilavu javascript:  complete authentication ")
             Nilavu.authenticationComplete(<%=flash[:authentication_data].html_safe%>);

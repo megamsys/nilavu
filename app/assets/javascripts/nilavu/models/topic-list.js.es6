@@ -3,16 +3,10 @@ import Model from 'nilavu/models/model';
 
 function topicsFrom(result, store) {
   if (!result) { return; }
-  alert("topic List");
-  alert("topicsFrom="+ JSON.stringify(result));
-  return;
-  /*Stitch together our side loaded data
-  const categories = Nilavu.Category.list(),
-        users = Model.extractByKey(result.users, Nilavu.User);
 
-
+  //Stitch together our side loaded data
   return result.topic_list.topics.map(function (t) {
-    t.category = categories.findBy('id', t.category_id);
+  /*t.category = categories.findBy('id', t.category_id);
     t.posters.forEach(function(p) {
       p.user = users[p.user_id];
     });
@@ -20,9 +14,9 @@ function topicsFrom(result, store) {
       t.participants.forEach(function(p) {
         p.user = users[p.user_id];
       });
-    }
+    }*/
     return store.createRecord('topic', t);
-  }); */
+  });
 }
 
 const TopicList = RestModel.extend({
@@ -56,7 +50,6 @@ const TopicList = RestModel.extend({
   },
 
   loadMore() {
-    alert("topic-list:loadMore ");
 
     if (this.get('loadingMore')) { return Ember.RSVP.resolve(); }
 
@@ -74,8 +67,6 @@ const TopicList = RestModel.extend({
           const newTopics = topicsFrom(result, store),
               topics = self.get("topics");
 
-            alert("newTopics =" +newTopics);
-
           self.forEachNew(newTopics, function(t) {
             t.set('highlight', topicsAdded++ === 0);
             topics.pushObject(t);
@@ -92,8 +83,6 @@ const TopicList = RestModel.extend({
       });
     } else {
       // Return a promise indicating no more results
-      alert("topic-list: Ember.RSVP ");
-
       return Ember.RSVP.resolve();
     }
   },
@@ -104,7 +93,6 @@ const TopicList = RestModel.extend({
     const topicList = this,
           topics = this.get('topics');
     // refresh dupes
-    alert("topic-list loadBefore");
     topics.removeObjects(topics.filter(topic => topic_ids.indexOf(topic.get('id')) >= 0));
 
     const url = `${Nilavu.getURL("/")}${this.get('filter')}?topic_ids=${topic_ids.join(",")}`;
@@ -127,24 +115,17 @@ TopicList.reopenClass({
 
   munge(json, store) {
     json.inserted = json.inserted || [];
-  /*  json.can_create_topic = json.topic_list.can_create_topic;
+    /*
+    json.can_create_topic = json.topic_list.can_create_topic;
     json.more_topics_url = json.topic_list.more_topics_url;
-    json.draft_key = json.topic_list.draft_key;
-    json.draft_sequence = json.topic_list.draft_sequence;
-    json.draft = json.topic_list.draft;
-    json.for_period = json.topic_list.for_period;
-    json.loaded = true;
-    json.per_page = json.topic_list.per_page;
     */
-    alert("TopicList:munge ="+ JSON.stringify(json));
+    json.loaded = true;
     json.topics = topicsFrom(json, store);
-
     return json;
   },
 
   find(filter, params) {
     const store = Nilavu.__container__.lookup('store:main');
-    alert("topic-list: find ="+filter +",params ="+params);
 
     return store.findFiltered('topicList', {filter, params});
   },

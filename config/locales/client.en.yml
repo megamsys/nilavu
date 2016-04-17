@@ -216,6 +216,9 @@ en:
         ok: "We will email you to confirm"
         invalid: "Please enter a valid email address"
         authenticated: "Your email has been authenticated by {{provider}}"
+        invalid_email: "Invalid email address."
+        regex_mismatch: "Value doesn't match the required format."
+        invalid_string: "Invalid value."
 
       name:
         title: "Name"
@@ -234,6 +237,29 @@ en:
         same_as_email: "Your password is the same as your email."
         ok: "Your password looks good."
         instructions: "At least %{count} characters."
+
+    errors:
+      prev_page: "while trying to load"
+      reasons:
+        network: "Network Error"
+        server: "Server Error"
+        forbidden: "Access Denied"
+        unknown: "Error"
+        not_found: "Page Not Found"
+      desc:
+        network: "Please check your connection."
+        network_fixed: "Looks like it's back."
+        server: "Error code: {{status}}"
+        forbidden: "You're not allowed to view that."
+        not_found: "Oops, the application tried to load a URL that doesn't exist."
+        unknown: "Something went wrong."
+      buttons:
+        back: "Go Back"
+        again: "Try Again"
+        fixed: "Load Page"
+    close: "Close"
+    logout: "You were logged out."
+    refresh: "Refresh"
 
     storages:
       title: "Storages"
@@ -261,7 +287,7 @@ en:
       password_placeholder: "password"
       caps_lock_warning: "Caps Lock is on"
       error: "Unknown error"
-      blank_email_or_password: "Please enter your email or username, and password."
+      blank_email_or_password: "Please enter your email and password."
       reset_password: 'Reset Password'
       logging_in: "Signing In..."
       or: "Or"
@@ -429,17 +455,6 @@ en:
       account_name: "Account Name:"
       all_organization: "All Organizations"
 
-    errors:
-      invalid_email: "Invalid email address."
-      regex_mismatch: "Value doesn't match the required format."
-      must_include_flavors: "Marketplaces launcher must include the 'flavours'."
-      invalid_string: "Invalid value."
-      oops: "Oops... Page Not Found !"
-      no_access: "You've hit our mars servers, No Access..."
-      no_services_found: "Sorry! You don't have any services. Please create from marketplace."
-      no_organizations_found: "No Orgs Found"
-      launch_error: "Your {{stuff}} <b>{{name}} launch failure."
-      profile_error: "Your profile update failure."
 
     launch:
       success: "Your %{stuff} <b>%{name}</b> is firing up"
@@ -460,6 +475,5 @@ en:
     megamsys: "megamsys"
     warning: "Warning!"
     are_you_sure: "Are you sure you want to"
-    back: "Go Back"
-    previous_page: "to the previous page, return to the"
-    report_this_problem: "about this problem."
+    oops: "Oops... Page Not Found !"
+    no_access: "You've hit our mars servers, No Access..."
