@@ -1,0 +1,24 @@
+.logs-head {
+  margin-left: 20px;
+  font-size: 19px;
+  color: #6e7181;
+  margin-bottom: 660px;
+  margin-top: 30px;
+}
+.logBox {
+  height: 300px;
+  width: 650px;
+  margin-left: 17px;
+  overflow-y: scroll;
+  table-layout: fixed;
+  background-color: #DCDCDC;
+  margin-top: 15px;
+}
+
+
+.torpOverviewTb {
+    background-color: #fafafa;
+}
+.torpOverviewTb tbody > tr > td {
+    padding: 0px !important;
+}

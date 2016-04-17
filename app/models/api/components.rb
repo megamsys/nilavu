@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Api
-  class Components < APIDispatch
+  class Components < ApiDispatcher
 
     attr_reader :components
     def initialize

@@ -29,6 +29,14 @@ module Nilavu
     end
   end
 
+  def self.assets_digest
+    @assets_digest ||= begin
+      digest = Digest::MD5.hexdigest(ActionView::Base.assets_manifest.assets.values.sort.join)
+
+      digest
+    end
+  end
+
   def self.authenticators
     OmniauthCallbacksController::BUILTIN_AUTH + auth_providers.map(&:authenticator)
   end
@@ -79,11 +87,11 @@ module Nilavu
 
   # Get the current base URL for the current site
   def self.current_hostname
-    if SiteSetting.force_hostname.present?
-      SiteSetting.force_hostname
-    else
+    #if SiteSetting.force_hostname.present?
+    #  SiteSetting.force_hostname
+    #else
       'localhost'
-    end
+    #end
   end
 
   def self.base_uri(default_value = "")
@@ -105,8 +113,8 @@ module Nilavu
 
     result = "#{protocol}://#{current_hostname}"
 
-    port = SiteSetting.port.present? && SiteSetting.port.to_i > 0 ? SiteSetting.port.to_i : default_port
-
+  #  port = SiteSetting.port.present? && SiteSetting.port.to_i > 0 ? SiteSetting.port.to_i : default_port
+  port  = default_port
     result << ":#{SiteSetting.port}" if port != default_port
     result
   end

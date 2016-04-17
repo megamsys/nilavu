@@ -1,17 +1,15 @@
 Nilavu::Application.configure do
+
   # Settings specified here will take precedence over those in config/application.rb
 
-  config.eager_load = false
-
   # The test environment is used exclusively to run your application's
-  # test suite. You never need to work with it otherwise. Remember that
+  # test suite.  You never need to work with it otherwise.  Remember that
   # your test database is "scratch space" for the test suite and is wiped
-  # and recreated between test runs. Don't rely on the data there!
+  # and recreated between test runs.  Don't rely on the data there!
   config.cache_classes = true
 
   # Configure static asset server for tests with Cache-Control for performance
-  config.serve_static_files = false
-  config.static_cache_control = "public, max-age=3600"
+  config.serve_static_files = true
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
@@ -23,15 +21,15 @@ Nilavu::Application.configure do
   # Disable request forgery protection in test environment
   config.action_controller.allow_forgery_protection = false
   # Log error messages when you accidentally call methods on nil
-#  config.whiny_nils = true
-
-  # Raise exception on mass assignment protection for Active Record models
-#  config.active_record.mass_assignment_sanitizer = :strict
-
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
-  # to ignore the javascript files in dev, but load public assets in test, this results in running post twice in JQuery
 
- # config.assets.compile = false
- # config.serve_static_files = true
+  # lower iteration count for test
+  config.pbkdf2_iterations = 10
+  config.ember.variant = :development
+
+  config.assets.compile = true
+  config.assets.digest = false
+
+  config.eager_load = false
 end

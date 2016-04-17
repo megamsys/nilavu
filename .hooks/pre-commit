@@ -6,18 +6,18 @@ if [ $fmtcount -gt 0 ]; then
     exit 1
 fi
 
-putscount=`grep --exclude-dir={config,.git,bin,log,spec,tmp,.hooks,public,*.md,lib} -rnw './' -e "puts" | wc -l`
-if [ $putscount -gt 0 ]; then
-  echo "Some files have puts, please run 'grep --exclude-dir={config,.git,bin,log,spec,tmp,.hooks,public,*.md,lib} -rnw './' -e "puts"'"
-  exit 1
-fi
+#putscount=`grep --exclude-dir={config,.git,bin,log,spec,tmp,.hooks,public,*.md,lib,Gemfile} -rnw './' -e "puts" | wc -l`
+#if [ $putscount -gt 0 ]; then
+#  echo "Some files have puts, please run 'grep --exclude-dir={config,.git,bin,log,spec,tmp,.hooks,public,*.md,lib} -rnw './' -e "puts"'"
+#  exit 1
+#fi
 
-asstcount=`rake assets:precompile RAILS_ENV=production`
-RETVAL=$?
-if [ $RETVAL -ne 0 ]; then
-  echo "Some files don't pass precompile, please run 'rake assets:precompile RAILS_ENV=production' to precompile successfully before committing"
-  exit 1
-else
-  asc=`rake assets:clobber`
-fi
+#asstcount=`rake assets:precompile RAILS_ENV=production`
+#RETVAL=$?
+#if [ $RETVAL -ne 0 ]; then
+#  echo "Some files don't pass precompile, please run 'rake assets:precompile RAILS_ENV=production' to precompile successfully before committing"
+#  exit 1
+#else
+#  asc=`rake assets:clobber`
+#fi
 exit 0

@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Api
-  class Billedhistories < APIDispatch
+  class Billedhistories < ApiDispatcher
     attr_reader :bhistories
 
     def initialize()

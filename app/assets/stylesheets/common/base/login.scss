@@ -1,0 +1,168 @@
+.login {
+  background-color: #edeef5 !important;
+}
+
+.login .logo {
+  margin: 0 auto;
+  padding: 50px;
+  text-align: center;
+}
+
+.login-social {
+  font-size: 18px;
+  color: #a2a5b8;
+  padding: 25px;
+}
+
+.login h2 {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #8d8f99;
+}
+
+.login .c_inline
+{
+    /*margin-top: 0px;
+    margin-bottom: 0px;*/
+}
+
+.login .footer {
+  margin-top: 30px;
+}
+.login .footer p, .signin .footer span {
+  font-size: 16px;
+}
+.login .footer p a {
+  padding-right: 20px;
+}
+
+.login .tooltip-arrow {
+  border-right-color: #ed8f8f !important;
+}
+.login .tooltip-inner {
+  background-color: #ffb8b8;
+  min-width: 200px;
+  border: 2px solid #ed8f8f;
+  color: #f56b6b;
+  font-size: 14px;
+  background-image: url(ico-triangle-warning.png);
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  padding: 14px;
+}
+.login .footer-bottom {
+  padding-top: 20px;
+}
+.login .footer-bottom p {
+  font-size: 12px;
+  color: #a2a5b8;
+}
+
+.login form
+{
+    padding-top: 20px;
+}
+
+.login input {
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+.c_inline input, .form-group
+{
+    margin-bottom: 25px;
+}
+
+.signin .c_inline input, .signin .form-group {
+  margin-bottom: 15px;
+}
+
+.signin .footer {
+  padding-bottom: 30px;
+  padding-top: 0px;
+  margin-top: 0px;
+}
+
+
+.signup_background{
+    background-image: url(../images/signup_banner.jpg) !important;
+    background-repeat: repeat-y !important;
+}
+
+.social li {
+  padding: 5px;
+}
+
+.cover {
+}
+
+.tickdot {
+  background-image: url(../images/icons/tickdot.png);
+  padding: 14px;
+  height: 16px;
+  clear: both;
+  background-repeat: no-repeat;
+  position: absolute;
+  right: 0px;
+  margin: 20px;
+}
+
+.form-control:-moz-placeholder {
+  color: #999999;
+}
+.form-control::-moz-placeholder {
+  color: #999999;
+}
+.form-control:-ms-input-placeholder {
+  color: #999999;
+}
+.form-control::-webkit-input-placeholder {
+  color: #999999;
+}
+.form-control {
+  height: 50px;
+  font-size: 14px;
+  font-weight: normal;
+  color: #333333;
+  background-color: #ffffff;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.form-control:focus {
+  border-color: #70b1ee;
+  outline: 0;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+}
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+  cursor: not-allowed;
+  background-color: #eeeeee;
+}
+
+/*.caps-lock-warning {
+  color: $danger;
+  font-size: 0.857em;
+  font-weight: bold;
+}*/
+
+/*TO-DO Medium Devices, Desktops
+We need to move this outside
+*/
+@media only screen and (min-width : 992px) {
+
+}
+
+/* Large Devices, Wide Screens */
+@media only screen and (min-width : 1200px) {
+
+    .login .outer
+    {
+        margin-left: 20.75%;
+    }
+}

@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Api
-  class EmailToken < APIDispatch
+  class EmailToken < ApiDispatcher
 
     def where(params)
       result = api_request(ACCOUNT, CONFIRM_EMAIL, params)

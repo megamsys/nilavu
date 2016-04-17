@@ -1,0 +1,133 @@
+#app-list td {
+  border: none !important;
+}
+
+#app-list .td-left {
+  font-weight: bold;
+  color: #a4a6b8;
+}
+
+.leftnav_dashboard {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/dashboard.png);
+  margin-top: -8px;
+}
+
+.leftnav_app {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/app.png);
+}
+
+.leftnav_app_reverse {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/app_reverse.png);
+}
+
+.leftnav_torpedo {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/torpedo.png);
+  margin-top: -8px;
+}
+
+.leftnav_service {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/service.png);
+  margin-top: -8px;
+}
+
+.leftnav_service_reverse {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/service_reverse.png);
+  margin-top: -8px;
+}
+
+.leftnav_microservices {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/microservice.png);
+  margin-top: -8px;
+}
+
+.leftnav_settings {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/settings.png);
+  margin-top: -8px;
+}
+
+
+.leftnav_billing {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/billing.png);
+  margin-top: -8px;
+}

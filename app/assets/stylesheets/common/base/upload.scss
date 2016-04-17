@@ -1,0 +1,66 @@
+#gupload a{
+    cursor:pointer;
+}
+
+#gupload a:hover{
+    background-color:#0986a3;
+}
+
+.upload_selected {
+    cursor:pointer;
+}
+
+.upload_selected_remove {
+    background-image: url("upload_selected_remove.png") !important;
+    background-repeat: no-repeat !important;
+    display: inline-block;
+    height: 9px;
+    margin-right: 0;
+    margin-top: 0;
+    width: 9px;
+}
+
+.upload_selected_remove_red {
+    background-image: url("upload_selected_remove_red.png") !important;
+    background-repeat: no-repeat !important;
+    display: inline-block;
+    height: 9px;
+    margin-right: 0;
+    margin-top: 15px;
+    width: 9px;
+}
+
+.upload_app_body {
+  display: block !important;
+  overflow: auto !important;
+  width: 100% !important;
+  height: 300px !important;
+  overflow-y: scroll !important;
+    overflow-x: hidden !important;
+}
+
+.tb_upload .pop_icon {
+  width: 33px;
+  height: 39px;
+}
+.tb_upload .close {
+  color: red;
+}
+.borderless td, .borderless th {
+  border: none !important;
+}
+.upldmodal .modal-header .row, .upldmodal .modal-footer .row {
+  margin-left: 45px;
+  margin-right: 45px;
+}
+.upldmodal .modal-body .row {
+  margin-left: 30px;
+  margin-right: 30px;
+}
+.del-up {
+  opacity: 0;
+  margin-top: 8px;
+}
+.del-up-cover:hover .del-up, {
+  opacity: 1;
+}

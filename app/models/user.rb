@@ -113,6 +113,17 @@ class User
     Base64.strict_decode64(password)
   end
 
+  def admin?
+    if authority
+      return authority.include?("admin")
+    end
+    false
+  end
+
+  def staff?
+    admin? && Rails.env.development?
+  end
+
   def org_id
     team.id if team
   end
@@ -150,6 +161,9 @@ class User
   end
 
   def visit_record_for(date)
+    #Schedule.defer "send an audit event login or logoff, date" do
+    #pump using a time expirable key
     #events.last_seen_at(visited_at: date)
+    #end
   end
 end

@@ -1,0 +1,97 @@
+/***
+Buttons & Dropdown Buttons
+***/
+
+.btn {
+	border-width: 0;
+	padding: 12px 40px;
+  height: 45px;
+  font-size: 16px;
+	outline: none !important;
+  -webkit-box-shadow: none !important;
+     -moz-box-shadow: none !important;
+          box-shadow: none !important;
+  -webkit-border-radius: 3 !important;
+     -moz-border-radius: 3 !important;
+          border-radius: 3 !important;
+
+  -webkit-text-shadow: none;
+     -moz-text-shadow: none;
+          text-shadow: none;
+}
+
+
+.btn-plain {
+  background-color: #fff;
+  border: 2px solid #4e9de6 !important;
+  color: #c6c8d4;
+  width: 100%;
+}
+.btn-plain:hover {
+  background-color: #4e9de6 !important;
+  color: #fff;
+}
+.btn-plain-green {
+  background-color: #fff;
+  border: 2px solid #6fde86 !important;
+  color: #8ddc9d;
+  width: 100%;
+}
+.btn-plain-green:hover {
+  background-color: #6fde86;
+  color: #fff;
+}
+.tour-btn {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
+
+.btn-lg {
+  padding: 18px 30px;
+  font-size: 18px;
+  line-height: 1.33;
+  vertical-align: middle;
+  border-radius: 2px !important;
+}
+
+.btn-lg > i {
+  font-size: 18px;
+}
+
+.btn:hover
+{
+  -webkit-transition-property: background-color;
+  -webkit-transition-duration: 1000ms;
+  -moz-transition-property: background-color;
+  -moz-transition-duration: 1000ms;
+  transition-property: background-color;
+  transition-duration: 1000ms;
+}
+.btn > i {
+  font-size: 14px;
+}
+
+.btn-sm,
+.btn-xs {
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.btn-sm > i,
+.btn-xs > i {
+  font-size: 13px;
+}
+
+.btn-xs {
+  padding: 1px 5px;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}

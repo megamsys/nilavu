@@ -1,0 +1,34 @@
+.footer {
+    font-size: 12px;
+    padding: 8px 20px 5px;
+}
+.footer:after, .footer:before {
+    content: "";
+    display: table;
+    line-height: 0;
+}
+.footer:after {
+    clear: both;
+}
+.footer .footer-inner {
+    display: inline-block;
+    float: left;
+}
+.footer .footer-tools {
+    display: inline-block;
+    float: right;
+}
+.footer .footer-tools .go-top {
+    cursor: pointer;
+    display: block;
+    font-size: 16px;
+    margin-bottom: 0;
+    margin-right: 0;
+    margin-top: -2px;
+    padding: 0 6px;
+    text-decoration: none;
+}
+.footer .footer-tools .go-top i {
+    font-size: 22px;
+    margin-bottom: 5px;
+}

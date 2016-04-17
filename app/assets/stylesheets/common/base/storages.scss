@@ -1,0 +1,237 @@
+.upload_to_storage {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 25px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(upload_to_storage.png);
+}
+
+.destroy_bucket {
+    color: transparent;
+    overflow: hidden;
+    display: inline-block;
+    height: 25px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+    background-image: url(destroy_bucket.png);
+}
+
+.file_extn_txt {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(file_extn_txt.png);
+}
+
+.file_extn_zip {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(file_extn_zip.png);
+}
+.file_extn_jpg {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(file_extn_jpg.png);
+}
+
+.file_extn_png {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(file_extn_png.png);
+}
+
+.file_extn_svg {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(file_extn_svg.png);
+}
+
+.c_icon-storage {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(icon-storage.png);
+}
+
+.c_icon-storage-lg-sel {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(icon-storage-lg.png);
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.c_icon-storage-lg {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* border-radius: 50%; */
+  vertical-align: middle;
+  background-image: url(icon-storage-lg-sel.png);
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.app_storage{
+    margin-top: 30px;
+}
+.app_storage .app_head{
+    height: 130px;
+}
+.app_storage .app_head .app_icon{
+}
+.app_storage .app_footer{
+    height: 30px;
+    padding: 0px;
+}
+.app_storage .app_footer span{
+    line-height: 25px;
+    font-weight: bold;
+}
+.app_storage .app_footer span small{
+    color: #4e9de6;
+}
+
+.app_storage .app{
+    height: 160px;
+}
+.app_storage .app{
+    font-size: 12px;
+}
+.app_storage_list .td-left{
+    font-weight: normal !important;
+    font-size: 14px;
+
+}
+.storage_top small{
+    margin-left: 10px;
+}
+.title-storage-2{
+    background-color: #f5f5f5;
+    padding: 2px 10px;
+    margin-left: 10px;
+}
+
+.title-storage-1{
+    color: #4e9de6;
+    font-weight: bold;
+}
+
+.my_bucket .app_head h5{
+}
+
+.my_bucket .app_head{
+}
+
+.my_bucket .app_head .app_icon{
+}
+
+.pad_t25{
+    padding-top: 25px !important;
+}
+
+.storage-popup{
+    width:200px;
+    position:absolute;
+    background-color: #fff;
+    display: none;
+    border:1px solid #dadce8;
+    border-radius: 3px;
+}
+.storage-popup ul{
+    margin-bottom: -1px;
+}
+.storage-popup li{
+    line-height: 25px;
+    padding: 10px 10px;
+    border-bottom: 1px solid #dadce8;
+    color: #fff;
+}
+
+.storage-popup li:hover{
+    background-color: #e9f3fc;
+}
+.storage-popup li i{
+    width: 20px;
+    margin-right: 5px;
+
+}
+.storage-rt-list{
+}
+.storage-rt-list h3{
+    font-weight: bold;
+    color: #a4a6b8;
+    line-height: 40px;
+}
+.storage-rt-list dt{
+    color: #408ed6;
+}
+.storage-rt-list dd{
+    color: #c1c3cf;
+}
+@media (min-width: 768px) {
+    .br_grey{
+        min-height: 800px;
+        border-right: 1px solid #e5e6ef;
+    }
+}
+.yfiles-tb tr {
+    border-bottom: 1px solid #F5F1F1;
+}
+.yfiles-tb tr > td {
+    border-top: none !important;
+}
+.yfiles-tb .checker{
+    margin:10px -10px;
+}
+#yf-selectall:hover, #yf-selectnone:hover{
+    cursor: pointer;
+}

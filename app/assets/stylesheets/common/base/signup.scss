@@ -1,0 +1,60 @@
+.sign_up_small {
+  font-size: 14px;
+  float: right;
+  padding-top: 10px;
+}
+
+input.placeholder, textarea.placeholder {
+    color: #aaa !important;
+}
+
+.control-label {
+    margin-top: 2px;
+}
+
+.control-label .required {
+    color: #e02222;
+    font-size: 12px;
+    padding-left: 2px;
+}
+
+.form {
+    padding: 0 !important;
+}
+
+.form-group .checkbox {
+    padding-left: 0;
+}
+
+.text-banner{
+    align-self: center;
+    font-size: 50px;
+    margin-top: 30%;
+    text-align: right;
+}
+.text-banner span{
+    color: #fff;
+    line-height: 70px;
+}
+
+.signUp{
+    margin-top: 12%;
+    color: #fff !important;
+}
+.signUp h3, .signUp h3 small{
+    color: #fff !important;
+}
+.signUp h3 small{
+    line-height: 20px
+}
+
+.signUp input[type="text"], .signUp input[type="password"] {
+    border: 1px solid #fff;
+    background-color: transparent;
+    color: #fff !important;
+    font-size: 18px;
+}
+.signUp .bottom {
+    margin-top: 30px;
+    font-size: 18px;
+}

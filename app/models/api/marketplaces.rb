@@ -18,7 +18,7 @@ require 'singleton'
 # this is a singleton which means we only load the marketplace once.
 # the downside is if there is a change in marketplace then we need to restart nilavu.
 module Api
-  class Marketplaces < APIDispatch
+  class Marketplaces < ApiDispatcher
     include Singleton
 
     attr_accessor :marketplace_groups

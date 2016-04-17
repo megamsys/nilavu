@@ -18,6 +18,12 @@ class ErrorsController < ApplicationController
     raise Nilavu::NotFound
   end
 
+  # Give us an endpoint to use for 404 content in the ember app
+  def not_found_body
+
+    render text: build_not_found_page(200, false)
+  end
+
   #def internal_error
   #  render_500
   #end

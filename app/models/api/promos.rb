@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Api
-  class Promos < APIDispatch
+  class Promos < ApiDispatcher
     attr_reader :amount
 
     def initialize()
