@@ -1,6 +1,5 @@
 
 export default Ember.Component.extend({
-  tagName: 'table',
   classNames: ['topic-list'],
   showTopicPostBadges: true,
 

@@ -428,7 +428,6 @@ User.reopenClass(Singleton, {
   // TODO: Use app.register and junk Singleton
   createCurrent() {
     const userJson = PreloadStore.get('currentUser');
-    console.log(">  user createCurrent =" + userJson);
 
     if (userJson) {
 

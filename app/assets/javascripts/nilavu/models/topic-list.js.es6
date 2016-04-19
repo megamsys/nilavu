@@ -3,18 +3,8 @@ import Model from 'nilavu/models/model';
 
 function topicsFrom(result, store) {
   if (!result) { return; }
-
   //Stitch together our side loaded data
   return result.topic_list.topics.map(function (t) {
-  /*t.category = categories.findBy('id', t.category_id);
-    t.posters.forEach(function(p) {
-      p.user = users[p.user_id];
-    });
-    if (t.participants) {
-      t.participants.forEach(function(p) {
-        p.user = users[p.user_id];
-      });
-    }*/
     return store.createRecord('topic', t);
   });
 }
@@ -50,7 +40,6 @@ const TopicList = RestModel.extend({
   },
 
   loadMore() {
-
     if (this.get('loadingMore')) { return Ember.RSVP.resolve(); }
 
     const moreUrl = this.get('more_topics_url');
@@ -126,7 +115,6 @@ TopicList.reopenClass({
 
   find(filter, params) {
     const store = Nilavu.__container__.lookup('store:main');
-
     return store.findFiltered('topicList', {filter, params});
   },
 

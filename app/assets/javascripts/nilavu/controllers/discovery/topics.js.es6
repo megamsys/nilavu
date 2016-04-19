@@ -40,7 +40,6 @@ const controllerOpts = {
     },
 
     refresh() {
-      alert("topics");
       const filter = this.get('model.filter');
 
       this.setProperties({ order: "default", ascending: false });
@@ -96,7 +95,14 @@ const controllerOpts = {
            this.get('model.topics.length') >= 30;
   }.property('model.filter', 'model.topics.length'),
 
-  hasTopics: Em.computed.gt('model.topics.length', 0),
+  hasTopics: function() {
+    return this.get('model.topics.length') > 0
+  }.property('model.topics.length'),
+
+  inkTopicsModel: function() {
+    return this.get('model.topics');
+  }.property('model.topics'),
+
   allLoaded: Em.computed.empty('model.more_topics_url'),
   latest: endWith('model.filter', 'latest'),
   new: endWith('model.filter', 'new'),

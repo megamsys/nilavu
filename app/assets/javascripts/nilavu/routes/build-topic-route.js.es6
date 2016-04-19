@@ -16,7 +16,6 @@ function filterQueryParams(params, defaultParams) {
 }
 
 function findTopicList(store, tracking, filter, filterParams, extras) {
-  console.log(">  build-topic-route findTopicList =" + filter);
   extras = extras || {};
   return new Ember.RSVP.Promise(function(resolve) {
     const session = Nilavu.Session.current();
@@ -53,7 +52,6 @@ function findTopicList(store, tracking, filter, filterParams, extras) {
         filterParams[k] = undefined;
       }
     });
-    console.log("   build-topic-route.findTopicList, resolve(store) =" + filter);
     return resolve(store.findFiltered('topicList', {
       filter,
       params: filterParams || {}
@@ -70,13 +68,11 @@ function findTopicList(store, tracking, filter, filterParams, extras) {
 }
 
 export default function(filter, extras) {
-  console.log(">  build-topic-route default.filter =" + filter);
   extras = extras || {};
   return Nilavu.Route.extend({
     queryParams,
 
     beforeModel() {
-      console.log("   build-topic-route: beforeModel");
       this.controllerFor('navigation/default').set('filterMode', filter);
     },
 
@@ -88,8 +84,7 @@ export default function(filter, extras) {
         findExtras = {
           cached: this.isPoppedState(transition)
         };
-      console.log("   build-topic-routee model filter=" + filter);
-      return findTopicList(this.store, this.topicTrackingState, filter, findOpts, findExtras);
+      return  findTopicList(this.store, this.topicTrackingState, filter, findOpts, findExtras);
     },
 
     titleToken() {
@@ -106,10 +101,10 @@ export default function(filter, extras) {
     setupController(controller, model) {
       const topicOpts = {
         model,
-        category: null,
-        period: model.get('for_period') || (filter.indexOf('/') > 0 ? filter.split('/')[1] : ''),
-        selected: [],
-        expandGloballyPinned: true
+        //category: null,
+      //  period: model.get('for_period') || (filter.indexOf('/') > 0 ? filter.split('/')[1] : ''),
+        selected: []
+    //    expandGloballyPinned: true
       };
 
       const params = model.get('params');
@@ -122,10 +117,8 @@ export default function(filter, extras) {
         }
       }
       this.controllerFor('discovery/topics').setProperties(topicOpts);
-      console.log("   build-topic-route setupController, ends");
-
-  //    this.openTopicDraft(model);
-  //      this.controllerFor('navigation/default').set('canCreateTopic', model.get('can_create_topic'));
+      //this.openTopicDraft(model);
+      this.controllerFor('navigation/default').set('canCreateTopic', model.get('can_create_topic'));
     },
 
     resetController(controller, isExiting) {
@@ -138,7 +131,6 @@ export default function(filter, extras) {
     },
 
     renderTemplate() {
-      console.log("   build-topic-route: rendertemplate");
       this.render('navigation/default', {
         outlet: 'navigation-bar'
       });

@@ -32,6 +32,21 @@
   background-position: center;
   vertical-align: middle;
   background-image: url(../images/icons/app.png);
+  margin-top: -8px;
+}
+
+.topics_header_app {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 32px;
+  width: 33px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/app.png);
+  margin-top: 10px;
 }
 
 .leftnav_app_reverse {
@@ -61,6 +76,20 @@
   margin-top: -8px;
 }
 
+.topics_header_torpedo {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 32px;
+  width: 33px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/torpedo.png);
+  margin-right: 10px;
+}
+
 .leftnav_service {
   color: transparent;
   overflow: hidden;
@@ -73,6 +102,20 @@
   vertical-align: middle;
   background-image: url(../images/icons/service.png);
   margin-top: -8px;
+}
+
+.topics_header_service {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 32px;
+  width: 33px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/service.png);
+  margin-top: 10px;
 }
 
 .leftnav_service_reverse {
@@ -101,6 +144,20 @@
   vertical-align: middle;
   background-image: url(../images/icons/microservice.png);
   margin-top: -8px;
+}
+
+.topics_header_microservices {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 32px;
+  width: 33px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/microservice.png);
+  margin-top: 10px;
 }
 
 .leftnav_settings {

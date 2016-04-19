@@ -109,8 +109,8 @@ window.Nilavu = Ember.Application.createWithMixins(Nilavu.Ajax, {
     @method start
   **/
   start: function() {
-    console.log(">  Nilevu START");
-    console.log("  " + Ember.keys(Ember.TEMPLATES));
+    console.log("--- Nilevu ...");
+    console.log(Ember.keys(Ember.TEMPLATES));
 
     $('noscript').remove();
 

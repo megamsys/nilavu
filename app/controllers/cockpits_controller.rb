@@ -15,7 +15,6 @@
 ##
 
 class CockpitsController < ApplicationController
-    include CatalogHelper
     include CockpitListResponder
 
     respond_to :html, :js
@@ -29,9 +28,6 @@ class CockpitsController < ApplicationController
     end
 
     def index
-        asi = Api::Assemblies.new.list(params).baked.to_json
-        puts asi.inspect
-        render json: asi
-        #  render json: success_json
+        respond_with_list(Api::Assemblies.new.list(params).baked.flatten)
     end
 end

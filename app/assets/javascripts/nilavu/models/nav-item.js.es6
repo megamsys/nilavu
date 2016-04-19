@@ -19,6 +19,7 @@ const NavItem = Nilavu.Model.extend({
       extra.categoryName = toTitleCase(categoryName);
     }
 
+    console.log("[NavItem.Model] display I18N =" + I18n.t("filters." + name.replace("/", ".") + titleKey, extra));
     return I18n.t("filters." + name.replace("/", ".") + titleKey, extra);
   }.property('categoryName', 'name', 'count'),
 

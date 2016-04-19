@@ -7,12 +7,10 @@ import { scrollTop } from "nilavu/mixins/scroll-top";
 export default Nilavu.Route.extend(OpenComposer, {
 
   redirect() {
-    console.log(">  discovery, redirectIfLoginRequired...");
     return this.redirectIfLoginRequired();
   },
 
   beforeModel(transition) {
-    console.log("   discovery beforeModel url="+ transition.intent.url + "targetName ="+transition.targetName + ","  + Nilavu.User.currentProp("should_be_redirected_to_top"));
     if (transition.intent.url === "/" &&
         transition.targetName.indexOf("discovery.top") === -1 &&
         Nilavu.User.currentProp("should_be_redirected_to_top")) {

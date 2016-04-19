@@ -18,11 +18,15 @@
   background-repeat: no-repeat;
   background-position: center;
   vertical-align: middle;
-  background-image: url(grid.png);
+  background-image: url(../images/icons/masc_displaygrid.png);
   margin-right: 10px;
 }
 
-.c_icon-grid-hover {
+.c_icon-grid:hover {
+  background-image: url(../images/icons/masc_displaygrid_hover.png);
+}
+
+.c_icon-list {
   color: transparent;
   overflow: hidden;
   display: inline-block;
@@ -32,11 +36,11 @@
   background-repeat: no-repeat;
   background-position: center;
   vertical-align: middle;
-  background-image: url(grid_hover.png);
+  background-image: url(../images/icons/masc_displaylist.png);
 }
 
-.c_icon-grid:hover {
-  background-image: url(grid_hover.png);
+.c_icon-list:hover {
+  background-image: url(../images/icons/masc_displaylist_hover.png);
 }
 
 .header_user_profile {

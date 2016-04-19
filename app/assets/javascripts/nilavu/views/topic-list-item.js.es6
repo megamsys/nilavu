@@ -3,7 +3,6 @@ import StringBuffer from 'nilavu/mixins/string-buffer';
 export default Ember.View.extend(StringBuffer, {
   topic: Em.computed.alias("content"),
   rerenderTriggers: ['controller.bulkSelectEnabled', 'topic.pinned'],
-  tagName: 'tr',
   rawTemplate: 'list/topic-list-item.raw',
   classNameBindings: ['controller.checked',
                       ':topic-list-item',
@@ -24,6 +23,23 @@ export default Ember.View.extend(StringBuffer, {
       });
     }
   },
+
+ showBrandImage: function() {
+   const fullBrandUrl = this.get('topic.tosca_type');
+
+   if (Em.isNone(fullBrandUrl)) {
+      return  `<img src="../images/brands/dummy.png" />`.htmlSafe();
+   }
+
+   const split = fullBrandUrl.split('.');
+
+   if (split.length >= 2) {
+     var brandImageUrl =  split[2];
+     return  `<img src="../images/brands/${brandImageUrl}.png" />`.htmlSafe();
+   }
+
+   return  `<img src="../images/brands/ubuntu.png" />`.htmlSafe();
+ }.property('topic.tosca_type'),
 
   selected: function() {
     return this.get('controller.selectedRow')===this;
