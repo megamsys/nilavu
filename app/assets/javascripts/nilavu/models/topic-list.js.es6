@@ -5,15 +5,6 @@ function topicsFrom(result, store) {
   if (!result) { return; }
   //Stitch together our side loaded data
   return result.topic_list.topics.map(function (t) {
-  /*t.category = categories.findBy('id', t.category_id);
-    t.posters.forEach(function(p) {
-      p.user = users[p.user_id];
-    });
-    if (t.participants) {
-      t.participants.forEach(function(p) {
-        p.user = users[p.user_id];
-      });
-    }*/
     return store.createRecord('topic', t);
   });
 }
@@ -35,7 +26,6 @@ const TopicList = RestModel.extend({
   },
 
   refreshSort(order, ascending) {
-    alert("refreshsort");
     let params = this.get('params') || {};
 
     if (params.q) {
@@ -89,7 +79,6 @@ const TopicList = RestModel.extend({
 
   // loads topics with these ids "before" the current topics
   loadBefore(topic_ids) {
-    alert("loadbefore");
     const topicList = this,
           topics = this.get('topics');
     // refresh dupes

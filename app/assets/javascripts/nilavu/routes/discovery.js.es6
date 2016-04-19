@@ -34,7 +34,6 @@ export default Nilavu.Route.extend(OpenComposer, {
     },
 
     didTransition() {
-
       this.controllerFor("discovery")._showFooter();
       this.send("loadingComplete");
       return true;

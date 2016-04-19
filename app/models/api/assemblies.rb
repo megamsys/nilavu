@@ -93,8 +93,6 @@ module Api
                 end
                 a1
             end
-
-
             Rails.logger.debug "\033[36m>-- ASB'S: #{@baked.class} START\33[0m"
             Rails.logger.debug "\033[1m#{@baked.to_yaml}\33[22m"
             Rails.logger.debug "\033[36m> ASB'S: END\033[0m"

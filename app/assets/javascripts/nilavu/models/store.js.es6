@@ -192,7 +192,6 @@ export default Ember.Object.extend({
     obj.store = this;
     obj.__type = type;
     obj.__state = obj.id ? "created" : "new";
-
     // TODO: Have injections be automatic
     obj.topicTrackingState = this.container.lookup('topic-tracking-state:main');
     obj.keyValueStore = this.container.lookup('key-value-store:main');

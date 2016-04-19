@@ -7,9 +7,6 @@ const NavItem = Nilavu.Model.extend({
         name = this.get('name'),
         count = this.get('count') || 0;
 
-    console.log("[NavItem.Model] display ="+ categoryName);
-
-
     if (name === 'latest' && !Nilavu.Site.currentProp('mobileView')) {
       count = 0;
     }
@@ -23,7 +20,6 @@ const NavItem = Nilavu.Model.extend({
     }
 
     console.log("[NavItem.Model] display I18N =" + I18n.t("filters." + name.replace("/", ".") + titleKey, extra));
-
     return I18n.t("filters." + name.replace("/", ".") + titleKey, extra);
   }.property('categoryName', 'name', 'count'),
 

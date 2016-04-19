@@ -5,7 +5,6 @@ import { longDate } from 'nilavu/lib/formatter';
 import computed from 'ember-addons/ember-computed-decorators';
 
 export function loadTopicView(topic, args) {
-  alert("loading topic view " + topic);
   const topicId = topic.get('id');
   const data = _.merge({}, args);
   const url = Nilavu.getURL("/t/") + topicId;
@@ -492,7 +491,6 @@ Topic.reopenClass({
 
   // Load a topic, but accepts a set of filters
   find(topicId, opts) {
-    alert("finding topic " + topicId);
     let url = Nilavu.getURL("/t/") + topicId;
     if (opts.nearPost) {
       url += "/" + opts.nearPost;

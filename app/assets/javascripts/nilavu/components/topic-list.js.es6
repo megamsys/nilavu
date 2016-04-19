@@ -34,7 +34,6 @@ export default Ember.Component.extend({
     var on = function(sel, callback){
       var target = $(e.target).closest(sel);
 
-
       if(target.length === 1){
         callback.apply(self, [target]);
       }

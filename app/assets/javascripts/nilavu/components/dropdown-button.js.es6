@@ -28,8 +28,8 @@ export default Ember.Component.extend(StringBuffer, {
   renderString(buffer) {
     const title = this.get('title');
     buffer.push(`<a href='#' class='btn btn-success dropdown-toggle ${this.get('buttonExtraClasses')}'>`);
-    buffer.push(`<b>${this.get('text')}</b>`);
     buffer.push("<span class='caret'></span>");
+    buffer.push(`<b>${this.get('text')}</b>`);
     buffer.push("</a>");
 
     buffer.push("<ul class='toponeclick_left_add_inner'>");

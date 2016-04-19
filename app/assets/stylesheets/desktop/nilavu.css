@@ -246,7 +246,6 @@ body {
   }
 
 
-
   .c_icon-trash {
     color: transparent;
     overflow: hidden;
@@ -273,8 +272,6 @@ body {
     vertical-align: middle;
     background-image: url(c_icon-d.png);
   }
-
-
 
   .settings_top {
     border-bottom: 1px solid #e5e6ef;

@@ -112,7 +112,6 @@ window.Nilavu = Ember.Application.createWithMixins(Nilavu.Ajax, {
     console.log("--- Nilevu ...");
     console.log(Ember.keys(Ember.TEMPLATES));
 
-
     $('noscript').remove();
 
     Ember.keys(requirejs._eak_seen).forEach(function(key) {

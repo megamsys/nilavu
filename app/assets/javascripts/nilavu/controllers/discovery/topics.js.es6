@@ -52,7 +52,6 @@ const controllerOpts = {
       this.set('controllers.discovery.loading', true);
 
       this.store.findFiltered('topicList', {filter}).then(list => {
-        alert("filtering list");
         const TopicList = require('nilavu/models/topic-list').default;
         TopicList.hideUniformCategory(list, this.get('category'));
 
@@ -77,7 +76,6 @@ const controllerOpts = {
     }
   },
 
-
   isFilterPage: function(filter, filterType) {
     if (!filter) { return false; }
     return filter.match(new RegExp(filterType + '$', 'gi')) ? true : false;
@@ -92,7 +90,7 @@ const controllerOpts = {
   }.property('model.filter', 'model.topics.length'),
 
   showDismissAtTop: function() {
-    (this.isFilterPage(this.get('model.filter'), 'new') ||
+    return (this.isFilterPage(this.get('model.filter'), 'new') ||
            this.isFilterPage(this.get('model.filter'), 'unread')) &&
            this.get('model.topics.length') >= 30;
   }.property('model.filter', 'model.topics.length'),

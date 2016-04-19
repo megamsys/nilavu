@@ -119,7 +119,6 @@ export default Ember.View.extend(StringBuffer, {
       }
     }
 
-
     if (target.closest('a.topic-status').length === 1) {
       this.get('topic').togglePinnedForUser();
       return false;
