@@ -1,5 +1,26 @@
 // Support for app launches
 
+.circle_red {
+    width: 12px;
+    height: 12px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    background: #ff6e2e;
+    float: left;
+    margin-top: 4px;
+}
+.circle_green {
+    width: 12px;
+    height: 12px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    background: #6fde86;
+    float: left;
+    margin-top: 4px;
+}
+
 .app {
   height: 190px;
   width: 100%;

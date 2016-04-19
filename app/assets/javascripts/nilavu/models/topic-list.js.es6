@@ -3,7 +3,6 @@ import Model from 'nilavu/models/model';
 
 function topicsFrom(result, store) {
   if (!result) { return; }
-
   //Stitch together our side loaded data
   return result.topic_list.topics.map(function (t) {
   /*t.category = categories.findBy('id', t.category_id);
@@ -36,6 +35,7 @@ const TopicList = RestModel.extend({
   },
 
   refreshSort(order, ascending) {
+    alert("refreshsort");
     let params = this.get('params') || {};
 
     if (params.q) {
@@ -50,7 +50,6 @@ const TopicList = RestModel.extend({
   },
 
   loadMore() {
-
     if (this.get('loadingMore')) { return Ember.RSVP.resolve(); }
 
     const moreUrl = this.get('more_topics_url');
@@ -90,6 +89,7 @@ const TopicList = RestModel.extend({
 
   // loads topics with these ids "before" the current topics
   loadBefore(topic_ids) {
+    alert("loadbefore");
     const topicList = this,
           topics = this.get('topics');
     // refresh dupes
@@ -126,7 +126,6 @@ TopicList.reopenClass({
 
   find(filter, params) {
     const store = Nilavu.__container__.lookup('store:main');
-
     return store.findFiltered('topicList', {filter, params});
   },
 

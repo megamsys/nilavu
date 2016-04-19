@@ -6,7 +6,7 @@ export default function() {
 
   this.resource('about', { path: '/about' });
 
- /*
+
   // Topic routes
   this.resource('topic', { path: '/t/:slug/:id' }, function() {
     this.route('fromParams', { path: '/' });
@@ -14,7 +14,7 @@ export default function() {
   });
   this.resource('topicBySlug', { path: '/t/:slug' });
   this.route('topicUnsubscribe', { path: '/t/:slug/:id/unsubscribe' });
- */
+
 
   this.resource('discovery', { path: '/' }, function() {
   // top
@@ -40,7 +40,6 @@ export default function() {
 
   });
 
-/*
 
   // User routes
   this.resource('users');
@@ -77,15 +76,14 @@ export default function() {
     });
 
   });
-*/
   this.route('signup', {path: '/signup'});
 
   this.route('login', {path: '/login'});
 
-//  this.route('login-preferences');
+  this.route('login-preferences');
   this.route('forgot-password', {path: '/password-reset'});
 
-  /*this.route('new-topic', {path: '/new-topic'});
+  this.route('new-topic', {path: '/new-topic'});
   this.route('new-message', {path: '/new-message'});
-  */
+
 }

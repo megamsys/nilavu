@@ -1,6 +1,5 @@
 
 export default Ember.Component.extend({
-  tagName: 'table',
   classNames: ['topic-list'],
   showTopicPostBadges: true,
 
@@ -34,6 +33,7 @@ export default Ember.Component.extend({
     var self = this;
     var on = function(sel, callback){
       var target = $(e.target).closest(sel);
+
 
       if(target.length === 1){
         callback.apply(self, [target]);
