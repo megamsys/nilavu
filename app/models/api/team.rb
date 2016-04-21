@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Api
-  class Team < APIDispatch
+  class Team < ApiDispatcher
 
     attr_accessor   :id, :name, :created_at, :shared, :domain
 

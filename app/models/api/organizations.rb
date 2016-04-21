@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Api
-  class Organizations < APIDispatch
+  class Organizations < ApiDispatcher
 
     def list(params)
       result = api_request(ORGANIZATION, LIST, params)

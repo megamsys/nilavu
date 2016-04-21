@@ -1,0 +1,98 @@
+{{#unless complete}}
+  <div class="container-fluid">
+    <div class="header-inner">
+      {{home-logo minified=showReverse}}
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <!-- BEGIN LOGIN -->
+      <div class="col-md-5 col-sm-5 signUp">
+        <div class="top">
+          <h3>{{i18n 'user.signup.title'}}
+            <span class="sign_up_small pull-right">
+            {{i18n 'user.signup.description'}}</span>
+          </h3>
+        </div>
+        <form>
+          <div class="middle">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  {{text-field type="email" value=accountEmail placeholderKey="user.email.title" class ="form-control" id="new-account-email" disabled=emailValidated name="email" autofocus="autofocus"}}
+                  <div class="row">
+                    <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">
+                      {{i18n 'user.email.instructions'}}
+                    </div>
+                    <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+                    <div class="pull-right">
+                      {{input-tip validation=emailValidation}}
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                  {{#if passwordRequired}}
+                    {{password-field value=accountPassword type="password" placeholderKey="user.password.title" class="form-control" id="new-account-password" capsLockOn=capsLockOn}}
+                  {{/if}}
+                  <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                      {{passwordInstructions}}
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                    <div class="pull-right">
+                      {{input-tip validation=passwordValidation}}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            {{#if siteSettings.allow_otp_verifications}}
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                    <input name="phone" type="tel" id="phone" class="form-control phone_popover" placeholder="Enter mobile number" data-toggle="popover" data-content="Please verify your mobile number" size="100%" style="background-color: transparent; color: #C0C0C0;" required>
+                  </div>
+                  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+                    <a href="otp_verify" class="btn btn-success col-md-12 col-xs-12" id="phone_verify_link">Verify</a>
+                  </div>
+                </div>
+              </div>
+            {{/if}}
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+              {{#if showCreateForm}}
+                <button class='btn btn-success col-lg-12' {{bind-attr disabled="submitDisabled"}} {{action "createAccount"}}>{{i18n 'create_account.title'}}</button>
+                {{#conditional-loading-spinner condition=formSubmitted size="small" }}
+                {{/conditional-loading-spinner}}
+              {{/if}}
+            </div>
+          </div>
+          <div class="bottom">
+            <p class="colr-bluegrey">{{ i18n 'user.have_an_account' }} &nbsp;&nbsp;
+              <a href="login" {{action "showLogin"}}>
+                <span class="colr-denimblue">{{i18n 'user.login_here'}}</span>
+              </a>
+            </p>
+          </div>
+        </form>
+      </div>
+      <div class="col-lg-7 col-md-8">
+        <h1 class="text-banner">
+          <span>{{i18n 'user.signup.blip_title'}}</span>
+          <br />
+        <span>{{ i18n 'user.signup.blip_description'}}</span>
+      </h1>
+      </div>
+    </div>
+  </div>
+{{/unless}}

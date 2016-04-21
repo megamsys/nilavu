@@ -1,0 +1,19 @@
+<a href="{{unbound linkUrl}}" data-auto-route="true">
+  {{#if showSmallLogo}}
+    {{#if smallLogoUrl}}
+      <img class="logo-small" src="{{unbound smallLogoUrl}}">
+    {{else}}
+      <i class="fa fa-home"></i>
+    {{/if}}
+  {{else}}
+    {{#if showMobileLogo}}
+      <img id="site-logo" class="logo-big" src="{{unbound mobileBigLogoUrl}}" alt="{{unbound title}}">
+    {{else}}
+      {{#if bigLogoUrl}}
+        <img id="site-logo" class="logo-big" src="{{unbound bigLogoUrl}}" alt="{{unbound title}}">
+      {{else}}
+        <img id="site-logo" class="logo" src="{{unbound reverseLogoUrl}}" alt="{{unbound title}}">
+      {{/if}}
+    {{/if}}
+  {{/if}}
+</a>

@@ -1,0 +1,617 @@
+body {
+  font-family: proxima_nova_light !important;
+}
+
+.c_inline input, .form-group {
+  margin-bottom: 25px;
+}
+
+.icon {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 4em;
+  width: 4em;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #eeeeee;
+  transition: all .25s ease-in-out;
+}
+.icon:hover, .icon:focus {
+  transform: scale(1.1);
+  box-shadow: 0.1em 0.1em 0.1em rgba(0, 0, 0, 0.25), inset 0em 0em 0em rgba(0, 0, 0, 0.25);
+  opacity: 1;
+}
+.icon:active, .icon:target {
+  transform: scale(0.9);
+  box-shadow: 0em 0em 0em rgba(0, 0, 0, 0.25), inset 0.1em 0.1em 0.1em rgba(0, 0, 0, 0.25);
+}
+
+.c_icon {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 32px;
+  width: 32px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+}
+
+.facebook {
+  background-image: url(../assets/social/facebook.png);
+  background-color: #3B579D;
+}
+
+.google_oauth2 {
+  background-image: url(../assets/social/google_oauth2.png);
+  background-color: #DF4A32;
+}
+
+.github {
+  background-image: url(../assets/social/github.png);
+  background-color: white;
+}
+
+.c_icon-browser {
+  background-image: url(icon-browser.png);
+}
+
+.c_icon-layer {
+  background-image: url(icon-layer.png);
+}
+.c_icon-stack {
+  background-image: url(icon-stack_file.png);
+}
+
+.c_icon-rocket {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 21px;
+  width: 21px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(icon-rocket.png);
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.c_icon-plus {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 35px;
+  width: 33px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(icon-plus.png);
+}
+
+.c_icon-star {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 17px;
+  width: 18px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/masc_star.png);
+}
+
+.c_icon-window {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/masc_vnc.png);
+}
+
+.c_icon-form {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(icon-form.png);
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.c_icon-layer_lg {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 32px;
+  width: 33px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* border-radius: 50%; */
+  vertical-align: middle;
+  background-image: url(icon-layer.png);
+  /*margin-left: 10px;*/
+  margin-right: 10px;
+}
+
+.c_icon-config {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/masc_gear.png);
+}
+
+.icon-user {
+  font-size: 26px !important;
+  color: #d5d7e3;
+  padding-top: 16px;
+}
+
+.c_icon-compose {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* border-radius: 50%; */
+  vertical-align: middle;
+  background-image: url(icon-compose.png);
+  margin-bottom: 3px !important;
+  margin-right: 5px;
+}
+.c_icon-import {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* border-radius: 50%; */
+  vertical-align: middle;
+  background-image: url(icon-import.png);
+  margin-bottom: 3px !important;
+  margin-right: 5px;
+}
+
+  .c_icon-sett {
+    color: transparent;
+    overflow: hidden;
+    display: inline-block;
+    height: 19px;
+    width: 19px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+    background-image: url(icon-sett.png);
+    margin-bottom: 3px !important;
+    margin-right: 5px;
+  }
+
+  .c_icon-in {
+    color: transparent;
+    overflow: hidden;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+    background-image: url(icon-in.png);
+    margin-bottom: 3px !important;
+    margin-right: 5px;
+  }
+  .c_icon-inBlue {
+    color: transparent;
+    overflow: hidden;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+    background-image: url(icon-in-blue.png);
+    margin-bottom: 3px !important;
+    margin-right: 5px;
+  }
+
+
+  .c_icon-trash {
+    color: transparent;
+    overflow: hidden;
+    display: inline-block;
+    height: 24px;
+    width: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* border-radius: 50%; */
+    vertical-align: middle;
+    background-image: url(c_icon-trash.png);
+  }
+  .c_icon-d {
+    color: transparent;
+    overflow: hidden;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* border-radius: 50%; */
+    vertical-align: middle;
+    background-image: url(c_icon-d.png);
+  }
+
+  .settings_top {
+    border-bottom: 1px solid #e5e6ef;
+    margin-bottom: 20px;
+  }
+
+  .tb_action_list tbody tr {
+    height: 60px;
+  }
+  .tb_action_list thead th {
+    height: 40px;
+  }
+
+  .set_title {
+    font-family: proxima_nova_rg;
+    font-size: 16px;
+    /*font-weight: bold;*/
+    color: #529fe7;
+    text-decoration: underline;
+  }
+  .sett-public {
+    color: #6fde86;
+  }
+  .sett-private {
+    color: #7ab6ef;
+  }
+  .settings_lt_arrow {
+    margin-right: 10px;
+    color: #dddfe8;
+  }
+  .c_back {
+    padding-top: 10px;
+  }
+  .c_sett_inline {
+    padding-top: 7px;
+  }
+  .c_btn_gplus {
+    border: 3px solid #f46767 !important;
+    font-size: 14px;
+  }
+  .c_btn_gplus:hover {
+    background-color: #f46767;
+    color: #fff;
+  }
+
+
+  #create-ssh strong a {
+    font-weight: bolder;
+    text-decoration: none;
+    color: #468847 !important;
+  }
+  #create-ssh .modal-header {
+    height: 70px;
+  }
+
+  #create-ssh .modal-header .modal-title {
+    padding: 7px !important;
+    color: #8d8f99 !important;
+  }
+
+
+  /* Margins of different sizes */
+
+  .margin_15 {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  .margin_30 {
+    margin-right: 30px;
+    margin-left: 30px;
+  }
+  .margintb_15 {
+    margin-bottom: 15px;
+    margin-top: 15px;
+  }
+  .margintb_30 {
+    margin-bottom: 30px;
+    margin-top: 30px;
+  }
+
+  .overview-top {
+    min-height: 50px;
+  }
+  .overview-route {
+    margin-top: 15px;
+  }
+  .overview-route a {
+    color: #4e9de6;
+  }
+
+  .overview-git {
+    margin-top: 10px;
+  }
+  .overview-git label {
+    margin-top: 5px;
+    color: #9496a8;
+    font-weight: bold;
+  }
+  .overview-top span {
+    margin-top: 5px;
+    color: #9496a8;
+    font-weight: bold;
+  }
+  .overview-giturl {
+    height: 25px !important;
+    float: right;
+    margin-left: 5px;
+  }
+  .overview-submit .btn {
+    height: 25px !important;
+    padding: 4px 14px !important;
+  }
+  .overview-git input {
+    background-color: #ededed;
+  }
+
+  .app_library img {
+    margin-top: 10px;
+    float: right;
+  }
+
+  .app_instance {
+    padding-top: 30px;
+    text-align: center;
+  }
+  .app_library-text {
+    padding-top: 30px;
+  }
+  .running_app span {
+    color: #4e9de6;
+  }
+  .run_config {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin-right: 0px !important;
+    border-right: none !important;
+    border-top: none !important;
+  }
+  .app_menu {
+    right: 0px !important;
+    font-size: 14px !important;
+  }
+  .app_menu li {
+    text-align: left;
+  }
+  .app_menu li a:hover {
+    color: #4e9de6;
+  }
+  .create_bind {
+    font-size: 14px;
+    margin-top: 8px;
+  }
+  .create_bind li {
+    text-align: right;
+  }
+  .create_bind .active {
+    color: #4e9de6;
+  }
+
+  a.btn-success:hover {
+    color: #fff !important;
+  }
+  .sett-public span, .sett-private span {
+    border-bottom: 1px dashed;
+    cursor: pointer;
+  }
+  .fileinput-button {
+    position: relative;
+    overflow: hidden;
+  }
+  .fileinput-button input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    transform: translate(-300px, 0) scale(4);
+    font-size: 23px;
+    direction: ltr;
+    cursor: pointer;
+  }
+  .fileupload-buttonbar .btn, .fileupload-buttonbar .toggle {
+    margin-bottom: 5px;
+  }
+  .skey-menu {
+    top: 43px !important;
+  }
+  .skey .app_config {
+    margin-top: -7px;
+  }
+  .skey-text {
+    margin-right: 31px;
+  }
+
+  .footer-menu {
+    margin-top: 30px;
+  }
+  /* Custom, iPhone Retina */
+  @media only screen and (min-width: 320px) {}
+  /* Extra Small Devices, Phones */
+  @media only screen and (min-width: 480px) {
+    /*  .c_icon
+    {
+        height: 32px;
+        width: 32px;
+    }*/
+    .lg-mar-r-15 {
+      margin-right: 15px;
+    }
+  }
+  /* Small Devices, Tablets */
+  @media only screen and (min-width: 768px) {
+    .title {
+      padding-left: 15px;
+    }
+    .page-sidebar-menu > li > a {
+      position: absolute !important;
+    }
+    .label-profile {
+      padding-top: 23px !important;
+    }
+    #mp, #stor {
+      padding-top: 8px;
+      margin-right: 10px;
+    }
+  }
+
+  /* Medium Devices, Desktops */
+  @media only screen and (min-width: 992px) {
+
+  }
+  /* Large Devices, Wide Screens */
+
+  @media only screen and (min-width: 1200px) {
+    .login .outer {
+      margin-left: 20.75%;
+    }
+  }
+
+  /* custom validation for mobile*/
+  /* Custom, iPhone Retina */
+  @media only screen and (max-width: 480px) {
+    .login .tooltip {
+      left: auto !important;
+      right: -30px !important;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .m10 {
+      margin: 10px;
+    }
+    .header .navbar-brand {
+      margin-top: 15px !important;
+    }
+    .navbar-brand img {
+      width: 100px;
+      margin-left: 0px !important;
+    }
+  }
+
+  .c_nav_pills a {
+    background-color: #fff !important;
+    color: #000 !important;
+    padding: 10px 20px 10px 0px !important;
+  }
+  .c_nav-pills > li.active > a, .c_nav-pills > li.active > a:hover, .c_nav-pills > li.active > a:focus .c_nav_pills li:hover, .c_nav_pills li:active, .c_nav_pills li a:focus, .c_nav_pills .active a {
+    color: #8BB6DD !important;
+  }
+
+  .pagination li>a {
+    margin-right: 10px;
+  }
+  .pagination > li > a, .pagination > li > span {
+    border-color: #fff;
+    font-weight: bold;
+  }
+  .pagination > li > a:hover, .pagination > li > span:hover, .pagination > li > a:focus, .pagination > li > span:focus {
+    border: 1px solid #eeeeee;
+    background-color: #fff;
+    color: #4f9de6;
+  }
+  .pagination > li:first-child > a, .pagination > li:first-child > span, .pagination > li:last-child > a, .pagination > li:last-child > span {
+    border-radius: 0px;
+  }
+  .pagination > li > a, .pagination > li > span {
+    padding: 2px 10px;
+  }
+
+  .radioP {
+    display: block;
+    position: relative;
+    margin: 20px 0;
+    padding-left: 40px;
+    font-family: arial;
+  }
+  .radioP:first-child {
+    margin: 0 0 20px 0;
+  }
+  input[type="radio"] {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+  }
+
+  input[type="radio"] + label span.radioButtonGraph {
+    appearance: none;
+    z-index: 20;
+    position: absolute;
+    top: -3px;
+    left: 0;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    vertical-align: middle;
+    box-shadow: hsla(0, 0%, 100%, .15) 0 1px 1px, inset hsla(0, 0%, 0%, .5) 0 0 0 1px;
+    background: #efefef;
+    background-image: radial-gradient(ellipse at center, #6fde86 0%, #6fde86 40%, #efefef 45%);
+    background-repeat: no-repeat;
+    transition: background-position .15s cubic-bezier(.8, 0, 1, 1);
+  }
+  input[type="radio"]:checked + label span.radioButtonGraph {
+    transition: background-position .2s .15s cubic-bezier(0, 0, .2, 1);
+  }
+  input[type="radio"] + label span.radioButtonGraph {
+    background-position: -24px 0;
+  }
+  input[type="radio"]:checked + label span.radioButtonGraph {
+    background-position: 0 0;
+  }
+  input[type="submit"]:hover {
+    opacity: .8;
+  }
+  input[type="submit"]:active {
+    opacity: 1;
+  }

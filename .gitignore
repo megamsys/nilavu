@@ -5,14 +5,18 @@
 #   git config --global core.excludesfile ~/.gitignore_global
 
 # Ignore bundler config
+/bin
 /.bundle
-
-# Ignore the default SQLite database.
-/db/*.sqlite3
+/.vagrant
+/.vagrantfile
+/cache
+/coverage/*
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+/logfile
+log/
 
 # Ignore all files which ends with ~
 *~
@@ -29,5 +33,18 @@
 .metadata
 Gemfile.lock
 
+
+# Ignore Eclipse .project file
+/.project
+
+# Ignore Eclipse .buildpath file
+/.buildpath
+
 #assets file
-/public/assets
+/public/assets/*
+/public/uploads
+/public/backups
+/public/stylesheet-cache/*
+/public/tombstone/*
+/bundle/*
+.sass-cache/*

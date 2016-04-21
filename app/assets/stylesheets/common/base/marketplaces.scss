@@ -1,0 +1,62 @@
+.c_icon-window-lg {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/marketplace.png);
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.c_icon-window-lg-sel {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/marketplace_selected.png);
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.mplace-selected {
+  color: #8BB6DD !important;
+}
+.mplace-icons {
+  color: #d5d7e3;
+}
+
+.mplace-icons div span:hover, .mplace-icons div i:hover {
+  color: #8BB6DD;
+}
+.mplace-icons span {
+  margin-left: 5px;
+  margin-right: 5px;
+  font-size: 14px !important;
+}
+
+.stpack {
+  height: 100px;
+  width: 100%;
+  vertical-align: middle;
+  display: inline;
+  text-align: center;
+}
+
+.stpack img {
+  margin: auto;
+  display: block;
+}
+
+.brad-3 {
+  border-radius: 3px;
+}

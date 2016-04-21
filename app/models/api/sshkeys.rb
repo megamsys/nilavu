@@ -15,7 +15,7 @@
 ##
 
 module Api
-  class Sshkeys < APIDispatch
+  class Sshkeys < ApiDispatcher
 
     IMPORT   = 'SSH_IMPORT'.freeze
     NEW      = 'SSH_NEW'.freeze

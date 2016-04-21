@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Api
-  class Sensors < APIDispatch
+  class Sensors < ApiDispatcher
     attr_reader :sensors
 
     def initialize

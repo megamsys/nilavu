@@ -1,0 +1,38 @@
+<div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
+  {{#unless skipHeader}}
+      {{raw "topic-list-header" currentUser=currentUser
+                                canBulkSelect=canBulkSelect
+                                toggleInTitle=toggleInTitle
+                                hideCategory=hideCategory
+                                showPosters=showPosters
+                                showLikes=showLikes
+                                showOpLikes=showOpLikes
+                                showParticipants=showParticipants
+                                order=order
+                                ascending=ascending
+                                sortable=sortable
+                                bulkSelectEnabled=bulkSelectEnabled}}
+  {{/unless}}
+  <div class="" id="app-grid-view">
+      <div class='contents'>
+        {{#if hasTopics}}
+
+         {{topic-list
+          showTopicPostBadges=showTopicPostBadges
+          showPosters=true
+          currentUser=currentUser
+          canBulkSelect=canBulkSelect
+          changeSort="changeSort"
+          toggleBulkSelect="toggleBulkSelect"
+          hideCategory=model.hideCategory
+          order=order
+          ascending=ascending
+          bulkSelectEnabled=bulkSelectEnabled
+          selected=selected
+          expandGloballyPinned=expandGloballyPinned
+          expandAllPinned=expandAllPinned
+          topics=inkTopicsModel}}
+          {{/if}}
+        </div>
+    </div>
+</div>

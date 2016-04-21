@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Api
-  class Invoices < APIDispatch
+  class Invoices < ApiDispatcher
     attr_reader :invoices
 
     def initialize

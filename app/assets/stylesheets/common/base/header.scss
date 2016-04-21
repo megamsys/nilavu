@@ -1,0 +1,288 @@
+.rt-top-list {
+  margin-top: 10px !important;
+}
+
+.rt-top-list span {
+    margin-left: 10px;
+    font-size: 18px;
+    color: #a4a6b8;
+}
+
+.c_icon-grid {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/masc_displaygrid.png);
+  margin-right: 10px;
+}
+
+.c_icon-grid:hover {
+  background-image: url(../images/icons/masc_displaygrid_hover.png);
+}
+
+.c_icon-list {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/masc_displaylist.png);
+}
+
+.c_icon-list:hover {
+  background-image: url(../images/icons/masc_displaylist_hover.png);
+}
+
+.header_user_profile {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 23px;
+  width: 46px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/user_profile.png);
+}
+
+.header_events {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 23px;
+  width: 46px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/events.png);
+  margin-right: 5px;
+}
+
+.mar_l20 {
+  margin-left: 20px !important;
+}
+
+.toponeclick_left_add_inner{
+    margin-left: -10px;
+    width: 220px;
+}
+.toponeclick_left_add_inner li{
+    line-height: 30px;
+    background-color: #4cae4c;
+    padding: 10px 10px;
+    border-bottom: 1px solid #6ad17f;
+    color: #fff;
+}
+.toponeclick_left_add_inner li a{
+    color: #fff;
+    display: block;
+}
+.toponeclick_left_add_inner li a:hover{
+    color: #ccc !important;
+    text-decoration: none;
+}
+.toponeclick_left_add a{
+    border-bottom-left-radius: 1px !important;
+    border-bottom-right-radius: 1px !important;
+    display: inline-block;
+}
+.toponeclick_left_add_inner li i{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.btn-menu-top {
+  width: 180px;
+  margin-left: 30px !important;
+  text-transform: uppercase;
+  text-align: inherit;
+  padding-left: 45px;
+  line-height: 25px;
+  color: #fff !important;
+}
+
+.btn-menu-top span {
+  float: right;
+  margin-right: 30px;
+  margin-top: 10px;
+}
+
+.settings_grid {
+  padding-top: 15px;
+}
+
+
+#marketplace_top_right {
+  font-size: 16px;
+  color: #a4a6b8;
+}
+
+#storage_top_right {
+  font-size: 16px;
+  color: #a4a6b8;
+}
+
+.header_title {
+  padding-top: 10px;
+  padding-bottom: 0px;
+}
+
+.cat_title {
+  padding-top: 10px;
+}
+
+.app_new {
+  height: 160px !important;
+  font-size: 14px !important;
+  padding-top: 40px !important;
+}
+
+.header {
+    border: 0 none;
+    box-shadow: none;
+    /*height: 42px;*/
+    margin: 0;
+    min-height: 42px;
+    padding: 10px 0px 10px 0px;
+    width: 100%;
+    border-bottom: 1px solid #e5e6ef;
+
+}
+.header.navbar-fixed-top {
+    z-index: 9995 !important;
+}
+.header .navbar-brand {
+    display: inline-block;
+    margin-right: 0;
+    margin-top: -1px;
+    /*padding-left: 0;
+    padding-right: 0;*/
+    padding: 0px;
+    /*width: 225px;*/
+}
+.header .navbar-brand img {
+    margin-left: 20px;
+}
+.header .navbar-toggle {
+    background-image: none;
+    border: 0 none;
+    box-shadow: none;
+    color: #fff;
+    filter: none;
+    margin: 25px 6px 4px;
+    padding: 2px 0 6px;
+}
+.header .navbar-toggle:hover {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    text-decoration: none;
+}
+.header .navbar-nav {
+    display: block;
+    /*margin-right: 20px;*/
+}
+.header .navbar-nav > li {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+.header .navbar-nav > li.dropdown, .header .navbar-nav > li.dropdown > a {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+.header .navbar-nav > li.dropdown > a:last-child {
+    padding-right: 0;
+}
+.header .navbar-nav > li.dropdown:last-child {
+    padding-right: 2px;
+}
+.header .navbar-nav > li.dropdown .dropdown-toggle {
+    margin: 0;
+    padding: 15px 10px 0px;
+}
+.header .navbar-nav > li.dropdown .dropdown-toggle > i {
+    font-size: 18px;
+}
+.header .navbar-nav > li.dropdown .dropdown-menu > li > a > i {
+    font-size: 14px;
+}
+.header .navbar-nav > li.dropdown.user .dropdown-toggle {
+    padding: 7px 4px 6px 9px;
+}
+.header .navbar-nav > li.dropdown.user .dropdown-toggle:hover {
+    text-decoration: none;
+}
+.header .navbar-nav > li.dropdown.user .dropdown-toggle .username {
+    color: #ddd;
+}
+.header .navbar-nav li.dropdown.user .dropdown-toggle i {
+    display: inline-block;
+    font-size: 16px;
+    margin: 0;
+}
+.header .navbar-nav > li.dropdown.user .dropdown-menu i {
+    display: inline-block;
+    width: 15px;
+}
+.header .navbar-nav > li.dropdown .dropdown-toggle .badge {
+    position: absolute;
+    right: 20px;
+    top: 8px;
+}
+.header .navbar-nav > li.dropdown.language {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+.header .navbar-nav > li.dropdown.language > a {
+    color: #ddd;
+    font-size: 13px;
+    padding: 10px 1px 12px 5px;
+}
+.header .navbar-nav > li.dropdown.language > a > img {
+    margin-bottom: 2px;
+}
+.header .navbar-nav > li.dropdown.language > a > i {
+    font-size: 16px;
+}
+.header .navbar-nav > li.dropdown.language > .dropdown-menu > li > a > img {
+    margin-bottom: 2px;
+}
+.header .navbar-nav .dropdown-menu {
+    margin-top: 3px;
+}
+
+
+.header .nav > li > .dropdown-menu:before {
+    border-bottom: 7px solid rgba(0, 0, 0, 0.2);
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    content: "";
+    display: inline-block !important;
+    position: absolute;
+    right: 9px;
+    top: -7px;
+}
+.header .nav > li > .dropdown-menu:after {
+    border-bottom: 6px solid #fff;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    content: "";
+    display: inline-block !important;
+    position: absolute;
+    right: 10px;
+    top: -6px;
+}

@@ -17,19 +17,27 @@
 class UsersController < ApplicationController
   respond_to :html, :js
 
-  skip_before_filter :redirect_to_login_if_required, only: [:new, :create,
-  :forgot_password, :password_reset]
+  skip_before_filter :check_xhr, only: [:show, :password_reset, :update, :account_created]
+
+  # we need to allow account creation with bad CSRF tokens, if people are caching, the CSRF token on the
+  #  page is going to be empty, this means that server will see an invalid CSRF and blow the session
+  #  once that happens you can't log in with social
+  skip_before_filter :verify_authenticity_token, only: [:create]
+  skip_before_filter :redirect_to_login_if_required, only: [:check_email,
+    :create,
+    :account_created,
+    :password_reset,
+  :confirm_email_token]
 
   before_action :add_authkeys_for_api, only: [:edit,:update]
 
 
-  def new
-  end
-
-  def show
-  end
-
   def create
+
+    if params[:password] && params[:password].length > User.max_password_length
+      return fail_with("login.password_too_long")
+    end
+
     if params[:email] && params[:email].length > 254 + 1 + 253
       return fail_with("login.email_too_long")
     end
@@ -63,71 +71,118 @@ class UsersController < ApplicationController
       authentication.finish
       activation.finish
 
-      session["signup.created_account"] = activation.message
-      redirect_with_success(cockpits_path, "signup.created_account")
+      # save user email in session, to show on account-created page
+      session["user_created_message"] = activation.message
+
+      render json: {
+        success: true,
+        #        active: user.active?,
+        message: activation.message,
+        user_id: user.id
+      }
     else
-      session["signup.create_failure"] = activation.message
-      redirect_with_failure(signin_path, "login.error", user.errors.full_messages.join("\n"))
+      render json: {
+        success: false,
+        message: I18n.t(
+          'login.errors',
+          errors: user.errors.full_messages.join("\n")
+        ),
+        errors: user.errors.to_hash,
+        values: user.to_hash.slice('name', 'email')
+      }
     end
-    #TO-DO rescure connection errors that come out.
-    #rescue RestClient::Forbidden
-    #redirect_with_failure(cockpits_path, ""nilavu.access_token_problem")
+  rescue ApiDispatcher::NotReachable
+    render json: {
+      success: false,
+      message: I18n.t("login.something_already_taken")
+    }
   end
 
-  # load the current org details and send it the edit.html.erb.
+  def account_created
+    @message = session['user_created_message'] || I18n.t('activation.missing_session')
+    expires_now
+    redirect_to "/"
+  end
+
+  ## Need a json serializer
   def edit
     @orgs = Teams.new.tap do |teams|
       teams.find_all(params)
     end
   end
 
+
   def update
     user = fetch_user_from_params
 
     unless check_password(user, params)
-      redirect_with_failure(edit_user_path(1), "login.incorrect_password")
-      return
+      return render_json_error(I18n.t("login.incorrect_password"))
     end
 
-    updater = UserUpdater.new(user)
-    if updater.update(params)
+    json_result(user, serializer: UserSerializer, additional_errors: [:user_profile]) do |u|
+      updater = UserUpdater.new(user)
+      updater.update(params)
+
       activation = UserActivator.new(user, request, session, cookies)
       activation.start
       activation.finish
-
-      redirect_with_success(edit_user_path(1), "signup.updated_profile")
-    else
-      redirect_with_failure(edit_user_path(1), "login.errors", "errors.profile_error")
-    end
-  end
-
-  def forgot_password
-    params.permit(:email)
-    user = User.new
-    user.email = params[:email]
-    if user.reset
-      redirect_with_success(signin_path, "forgot_password.success")
-    else
-      fail_with("forgot_password.errors")
     end
   end
 
   def password_reset
+    ## for PUT only
     if request.put?
-      user = User.new
-      user.email = params[:email]
-      user.password_reset_key = params[:token]
-      user.password = params[:password]
+      @invalid_password = params[:password].blank? || params[:password].length > User.max_password_length
 
-      if user.repassword
-        redirect_with_success(signin_path, "password_reset.success")
+      if @invalid_password
+        @user.errors.add(:password, :invalid)
       else
-        fail_with("password_reset.no_token")
+        user.email = params[:email]
+        user.password_reset_key = params[:token]
+        user.password = params[:password]
+
+        if user.repassword
+          logon_after_password_reset
+        else
+          fail_with("password_reset.no_token")
+        end
       end
     end
+    ## GET: We render the paswords_reset template
+    render layout: 'no_ember'
   end
 
-  ## we will have to check this out later.
+
+  # A hack for accounts.show but a fancy name., called from ember
+  def check_email
+    params.require(:email)
+    lower_email = Email.downcase(params[:email]).strip
+    checker = EmailCheckerService.new
+    render json: checker.check_email(lower_email)
+  end
+
+
+  def logon_after_password_reset
+    log_on_user(@user)
+    @success = I18n.t('password_reset.success')
+  end
+
+  def fail_with(key)
+    render json: { success: false, message: I18n.t(key) }
+  end
+
+
+  def user_params
+    params.permit(:email, :password, :first_name, :last_name, :status)
+  end
+
+  private
+
+  def fetch_user_from_params
+    User.new
+  end
+
+  ## we will have to refactor this later.
   def check_password(user, params)
     params.require(:email)
     user_params.each { |k, v| user.send("#{k}=", v) }
@@ -141,43 +196,4 @@ class UsersController < ApplicationController
       end
     end
   end
-
-  # Ha ! Ha !, a hack for accounts.show but a fancy name.
-  # AJAX.
-  def check_email
-    params.require(:email)
-    lower_email = Email.downcase(params[:email]).strip
-    user = User.new
-
-    EmailValidator.new(attributes: :email).validate_each(User.new, :email, lower_email)
-
-    return redirect_with_failure(signup_path,'',user.errors.full_messages) if user.errors[:email].present?
-
-    checker = EmailCheckerService.new
-    email = params[:email]
-
-    render json: checker.check_email(email)
-  end
-
-
-  # Log in the user
-  def logon_after_password_reset
-    log_on_user(@user)
-    redirect_with_success(cockpits_path, 'password_reset.success')
-  end
-
-  def fail_with(key)
-    redirect_with_failure(signin_path, key)
-  end
-
-  def user_params
-    params.permit(:email, :password, :first_name, :last_name, :status)
-  end
-
-  private
-
-  def fetch_user_from_params
-    User.new
-  end
-
 end

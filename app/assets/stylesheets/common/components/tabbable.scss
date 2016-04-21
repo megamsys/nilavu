@@ -1,0 +1,103 @@
+.tabbable-custom {
+  padding-left: 12px !important;
+}
+
+.tabbable-custom .nav-tabs > li {
+  width: 25%;
+}
+
+.tabbable-custom {
+    margin-bottom: 15px;
+    overflow: hidden;
+    padding: 0;
+}
+.tabbable-custom > .nav-tabs {
+    border: medium none;
+    margin: 0;
+}
+.tabbable-custom > .tab-content {
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    border-radius: 0;
+    /*padding: 10px;*/
+}
+.tabbable-custom.nav-justified .tab-content {
+    margin-top: -1px;
+}
+.tabs-below.tabbable-custom.nav-justified .tab-content {
+    margin-bottom: -2px;
+    margin-top: 0;
+}
+.tabbable-custom.boxless > .tab-content {
+    border-bottom: medium none;
+    border-left: medium none;
+    border-right: medium none;
+    padding: 15px 0;
+}
+.tabbable-custom .nav-tabs > li {
+    border-top: 2px solid transparent;
+    margin-right: 2px;
+}
+.tabbable-custom .nav-tabs > li > a {
+    margin-right: 0;
+}
+.tabbable-custom .nav-tabs > li > a:hover {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-color: transparent;
+}
+.tabbable-custom .nav-tabs > li.active {
+    border-top: 3px solid #4e9de6;
+    margin-top: 0;
+    position: relative;
+}
+.tabbable-custom .nav-tabs > li.active > a {
+    border-top: medium none;
+    font-weight: 400;
+}
+.tabbable-custom .nav-tabs > li.active > a:hover {
+    background: none repeat scroll 0 0 #fff;
+    border-color: #d4d4d4 #d4d4d4 transparent;
+    border-top: medium none #d4d4d4;
+}
+.tabbable-custom .nav-tabs > li {
+    border-top: 2px solid transparent;
+    margin-right: 2px;
+}
+.tabs-below.tabbable-custom .nav-tabs > li > a {
+    border-bottom: 2px solid transparent;
+    border-top: medium none;
+    margin-top: -1px;
+}
+.tabs-below.tabbable-custom .nav-tabs > li.active {
+    border-bottom: 3px solid #d12610;
+    border-top: medium none;
+    margin-bottom: 0;
+    position: relative;
+}
+.tabs-below.tabbable-custom .nav-tabs > li.active > a {
+    border-bottom: medium none;
+}
+.tabs-below.tabbable-custom .nav-tabs > li.active > a:hover {
+    background: none repeat scroll 0 0 #fff;
+    border-color: #d4d4d4 #d4d4d4 transparent;
+}
+.tabbable-custom.tabbable-full-width > .tab-content {
+    border-bottom: medium none;
+    border-left: medium none;
+    border-right: medium none;
+    padding: 15px 0;
+}
+.tabbable-custom.tabbable-full-width .nav-tabs > li > a {
+    color: #424242;
+    font-size: 15px;
+    padding: 9px 15px;
+}
+
+.tabbable-custom > .tab-content {
+  padding-left: 10px !important;
+  padding-right: 50px !important;
+}
+
+.tabbable-custom ul {
+  font-size: 16px;
+}

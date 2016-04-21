@@ -1,0 +1,42 @@
+.upload-selector {
+  label {
+    display: inline-block;
+    padding-left: 10px;
+  }
+  .radios {
+    height: 60px;
+    .inputs {
+      float: right;
+      width: 75%;
+      input {
+        width: 90%;
+        margin: 0 0 5px 0;
+      }
+      input[type="file"] {
+        font-size: 1em;
+        line-height: 18px;
+      }
+      .description, .hint {
+        color: dark-light-choose(scale-color($primary, $lightness: 50%), scale-color($secondary, $lightness: 50%));
+      }
+      .hint {
+        font-style: italic;
+        margin: 5px 0 0 0;
+      }
+    }
+  }
+  .radios:last-child {
+    height: 20px;
+  }
+}
+
+.uploaded-image-preview {
+  height: 270px;
+}
+
+.image-upload-controls {
+  padding: 10px;
+  label.btn {
+    padding: 6px 10px;
+  }
+}

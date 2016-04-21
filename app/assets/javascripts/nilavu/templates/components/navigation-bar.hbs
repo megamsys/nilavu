@@ -1,0 +1,32 @@
+    <li></li>
+
+    {{dash-tap class='page-sidebar-menu_dash_top'}}
+    <li class='start active'>
+        {{#link-to 'dummy'}}
+            <i class='leftnav_dashboard pull-left'></i>
+            <span class='title pull-left'>{{i18n 'cockpits.title'}}</span>
+        {{/link-to}}
+    </li>
+
+    {{#each navItem in navItems}}
+        {{navigation-item content=navItem  filterMode=filterMode}}
+    {{/each}}
+
+    <li class='start active'>
+        {{#link-to 'dummy'}}
+            <i class='c_icon-set pull-left'></i>
+            <i class='leftnav_settings pull-left'></i>
+            <span class='title pull-left'>{{i18n 'ssh_keys.title'}}</span>
+        {{/link-to}}
+    </li>
+
+    <li class='start active'>
+        {{#if siteSettings.allow_default_billings}}
+            {{#link-to 'dummy'}}
+                <i class='leftnav_billing pull-left'></i>
+                <span class='title pull-left'>{{i18n 'billing.title'}}</span>
+            {{/link-to}}
+        {{/if}}
+    </li>
+
+    {{custom-html "extraNavItem"}}

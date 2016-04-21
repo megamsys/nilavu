@@ -1,0 +1,183 @@
+// Styles used when we show the events.
+// we only use m-icon-swapright
+
+[class^="m-icon-"] {
+  display: inline-block;
+  width: 14px;
+  height: 14px;;
+  margin-top: 3px;
+  line-height: 14px;
+  vertical-align: top;
+  background-image: url(events_arrows.png);
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
+
+[class^="m-icon-big-"] {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin: 6px;
+  vertical-align: middle;
+  background-image: url(events_arrows.png);
+  background-position: 0 0px;
+  background-repeat: no-repeat;
+}
+
+/* large icons */
+.btn.m-icon-big {
+  padding: 9px 16px 8px 16px;
+}
+
+.btn.m-icon-big.m-icon-only{
+  padding: 9px 8px 8px 0px;
+}
+
+.btn.m-icon-big [class^="m-icon-big-"] {
+  margin: 0 0 0 10px;
+}
+
+.btn.m-icon-ony > i {
+  margin-left: 0px;
+}
+
+/* default icons */
+.btn.m-icon {
+  padding: 7px 14px 7px 14px;
+}
+
+.btn.m-icon [class^="m-icon-"] {
+  margin: 4px 0 0 5px;
+}
+
+.btn.m-icon.m-icon-only {
+  padding: 7px 10px 7px 6px;
+}
+
+/* white icon */
+.m-icon-white {
+  background-image: url(events_arrows_reverse.png);
+}
+
+/*  Misc */
+.m-icon-swapright {
+  background-position: -27px -10px;
+}
+.m-icon-swapdown {
+  background-position: -68px -10px;
+}
+.m-icon-swapleft {
+  background-position: -8px -10px;
+}
+.m-icon-swapup {
+  background-position: -46px -10px;
+}
+.m-icon-big-swapright{
+  background-position: -42px -28px;
+}
+.m-icon-big-swapdown{
+  background-position: -115px -28px;
+}
+.m-icon-big-swapleft{
+  background-position: -6px -28px;
+}
+.m-icon-big-swapup{
+  background-position: -78px -28px;
+}
+
+.dropdown-menu > li > a > .badge {
+   position: absolute;
+   margin-top: 1px;
+   right: 3px;
+   display: inline;
+   font-size: 11px;
+   font-weight: 300;
+   text-shadow:none;
+    height: 18px;
+    padding: 3px 6px 3px 6px;
+    text-align: center;
+    vertical-align: middle;
+   -webkit-border-radius: 12px !important;
+      -moz-border-radius: 12px !important;
+           border-radius: 12px !important;
+}
+
+.dropdown-menu > li > a > .badge.badge-roundless {
+   -webkit-border-radius: 0 !important;
+      -moz-border-radius: 0 !important;
+           border-radius: 0 !important;
+}
+
+.dropdown-menu.extended {
+    background-color: #ffffff !important;
+    max-width: 300px !important;
+    min-width: 160px !important;
+    width: 233px;
+}
+.dropdown-menu.extended:before, .dropdown-menu.extended:after {
+    border-bottom-color: #ddd !important;
+}
+.dropdown-menu.extended li a {
+    clear: both;
+    display: block;
+    font-weight: normal;
+    line-height: 20px;
+    padding: 5px 10px !important;
+    white-space: normal !important;
+}
+.dropdown-menu.extended li i {
+    margin-right: 3px;
+}
+.dropdown-menu.extended li a {
+    background-color: #ffffff;
+    font-size: 13px;
+    padding: 10px !important;
+}
+.dropdown-menu.extended li a:hover {
+    background-color: #f5f5f5;
+    background-image: none;
+    color: #000;
+    filter: none;
+}
+.dropdown-menu.extended li p {
+    background-color: #eee;
+    color: #000;
+    font-size: 14px;
+    font-weight: 300;
+    margin: 0;
+    padding: 10px;
+}
+.dropdown-menu.extended li a {
+    border-bottom: 1px solid #f4f4f4 !important;
+    font-size: 14px;
+    list-style: none outside none;
+    padding: 7px 0 5px;
+    text-shadow: none;
+}
+.dropdown-menu.extended li:first-child a {
+    border-bottom: 1px solid #f4f4f4 !important;
+    border-top: medium none;
+}
+.dropdown-menu.extended li:last-child a {
+    border-bottom: 1px solid #f4f4f4 !important;
+    border-top: 1px solid white !important;
+}
+.dropdown-menu.extended li.external > a {
+    font-size: 13px;
+    font-weight: 400;
+}
+.dropdown-menu.extended li.external > a > i {
+    float: right;
+    margin-top: 3px;
+}
+.dropdown-menu .dropdown-menu-list.scroller {
+    list-style: none outside none;
+    padding-left: 0;
+    padding-right: 0 !important;
+}
+.dropdown-menu.notification li > a .time {
+    font-size: 12px;
+    font-style: italic;
+    font-weight: 600;
+    text-align: right;
+}

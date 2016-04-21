@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Api
-  class Requests < APIDispatch
+  class Requests < ApiDispatcher
     attr_reader :req_submitted
 
     def initialize()

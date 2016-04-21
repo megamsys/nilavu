@@ -12,33 +12,34 @@ Nilavu::Application.configure do
   config.action_controller.perform_caching = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this)
-  config.serve_static_files = false
-  #config.assets.js_compressor = :uglifier
-  #To load angular
-  config.assets.js_compressor = Uglifier.new(:mangle => false)
+  config.serve_static_files = GlobalSetting.serve_static_assets
 
-  # Compress JavaScripts and CSS
-  config.assets.compress = true
+  config.assets.js_compressor = :uglifier
+  #config.assets.js_compressor = Uglifier.new(:mangle => false)
 
-  # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = true
+  config.assets.css_compressor = :sass
+
+  # stuff should be pre-compiled
+  config.assets.compile = false
 
   # Generate digests for assets URLs
   config.assets.digest = true
 
-  config.assets.enabled = true
+  config.log_level = :info
 
-  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
-  # the I18n.default_locale when a translation can not be found)
-  config.i18n.fallbacks = true
-
-   config.assets.version = '1.0'
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
+  # this will cause all handlebars templates to be pre-compiles, making your page faster
+  config.handlebars.precompile = true
+
+  # allows developers to use mini profiler
+  config.load_mini_profiler = GlobalSetting.load_mini_profiler
+
   # a comma delimited list of emails your devs have
   # developers have god like rights and may impersonate anyone in the system
+  # normal admins may only impersonate other moderators (not admins)
   if emails = GlobalSetting.developer_emails
     config.developer_emails = emails.split(",").map(&:strip)
   end

@@ -15,18 +15,19 @@
 ##
 
 class CockpitsController < ApplicationController
-  include CatalogHelper
+    include CockpitListResponder
 
-  respond_to :html, :js
+    respond_to :html, :js
 
-  before_action :add_authkeys_for_api, only: [:index]
+    skip_before_filter :check_xhr
 
-  def index
-    @assemblies_grouped = Api::Assemblies.new.list(params).assemblies_grouped
-  end
+    before_action :add_authkeys_for_api, only: [:index]
 
-  def show
-    redirect_to(cockpits_path) && return
-  end
+    def entrance
+        render 'cockpits/entrance'
+    end
 
+    def index
+        respond_with_list(Api::Assemblies.new.list(params).baked.flatten)
+    end
 end

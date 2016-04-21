@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 module Api
-  class Accounts < APIDispatch
+  class Accounts < ApiDispatcher
 
     def where(params)
       result = api_request(ACCOUNT,SHOW, params)
