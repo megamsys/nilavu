@@ -15,14 +15,34 @@ $( document ).ready(function() {
 	});
 
 	var isOpen1 = false;
+	var isVM = false;
+	var isAPP = false;
+
 	
-	$(document).on("click", "#slideDown", function (ev) {
-		console.log("slideDown click registered");
+	$(document).on("click", "#slideDownVm", function (ev) {
+		if (isVM == false) {
+			isVM = true;
+			isAPP = false;
+			console.log("APP = " + isAPP + " VM = " + isVM);
+		}
 		if (isOpen1 == false) {
 			$(".hideme").slideToggle(250);
 			isOpen1 = true;
 		}
-	})
+	});
+				   
+	$(document).on("click", "#slideDownApp", function (ev) {
+		if (isAPP == false) {
+			isVM = false;
+			isAPP = true;
+			console.log("APP = " + isAPP + " VM = " + isVM);
+		}
+		if (isOpen1 == false) {
+			$(".hideme").slideToggle(250);
+			isOpen1 = true;
+		}
+	});
+	
 	var isOpen2 = false;
 	
 	$(document).on("click", "#slideDown2", function (ev) {
@@ -30,7 +50,7 @@ $( document ).ready(function() {
 			$(".hideme2").slideToggle(250);
 			isOpen2 = true;
 		}
-	})
+	});
 	var isOpen3 = false;
 	
 	$(document).on("click", "#slideDown3", function (ev) {
@@ -42,7 +62,7 @@ $( document ).ready(function() {
 			$(".hideme-custom").slideToggle(250);
 			isOpenCustom = false;
 		}
-	})
+	});
 	var isOpenCustom = false;
 	
 	$(document).on("click", "#slideDown-Custom", function (ev) {
@@ -55,7 +75,7 @@ $( document ).ready(function() {
 			isOpenCustom = true;
 			$(".aContent").slideToggle(250);
 		}
-	})
+	});
 	$(".aHead").click(function () {
 		$header = $(this);
 		//getting the next element
@@ -63,5 +83,16 @@ $( document ).ready(function() {
 		//open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
 		$content.slideToggle(250);
 		
+	});
+	
+	$('#firstNext').on( 'click', function() { 
+		if (isVM) {
+			$('.app-step2:visible').toggle();
+			$('.vm-step2:hidden').toggle();
+		}
+		if (isAPP) {
+			$('.vm-step2:visible').toggle();
+			$('.app-step2:hidden').toggle();
+		}
 	});
 });
