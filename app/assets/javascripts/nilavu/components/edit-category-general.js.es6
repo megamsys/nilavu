@@ -9,9 +9,10 @@ export default buildCategoryPanel('general', {
 
   // background colors are available as a pipe-separated string
   backgroundColors: function() {
-    const categories = Nilavu.Category.list();
+  /*  const categories = Nilavu.Category.list();
     return this.siteSettings.category_colors.split("|").map(function(i) { return i.toUpperCase(); }).concat(
-                categories.map(function(c) { return c.color.toUpperCase(); }) ).uniq();
+                categories.map(function(c) { return c.color.toUpperCase(); }) ).uniq(); */
+  return ['green'];              
   }.property(),
 
   usedBackgroundColors: function() {

@@ -1,38 +1,36 @@
 <div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
-  {{#unless skipHeader}}
-      {{raw "topic-list-header" currentUser=currentUser
-                                canBulkSelect=canBulkSelect
-                                toggleInTitle=toggleInTitle
-                                hideCategory=hideCategory
-                                showPosters=showPosters
-                                showLikes=showLikes
-                                showOpLikes=showOpLikes
-                                showParticipants=showParticipants
-                                order=order
-                                ascending=ascending
-                                sortable=sortable
-                                bulkSelectEnabled=bulkSelectEnabled}}
-  {{/unless}}
-  <div class="" id="app-grid-view">
-      <div class='contents'>
-        {{#if hasTopics}}
-
-         {{topic-list
-          showTopicPostBadges=showTopicPostBadges
-          showPosters=true
-          currentUser=currentUser
-          canBulkSelect=canBulkSelect
-          changeSort="changeSort"
-          toggleBulkSelect="toggleBulkSelect"
-          hideCategory=model.hideCategory
-          order=order
-          ascending=ascending
-          bulkSelectEnabled=bulkSelectEnabled
-          selected=selected
-          expandGloballyPinned=expandGloballyPinned
-          expandAllPinned=expandAllPinned
-          topics=inkTopicsModel}}
-          {{/if}}
+    {{raw "topic-list-header" currentUser=currentUser canBulkSelect=canBulkSelect toggleInTitle=toggleInTitle hideCategory=hideCategory showPosters=showPosters showLikes=showLikes showOpLikes=showOpLikes showParticipants=showParticipants order=order ascending=ascending
+    sortable=sortable bulkSelectEnabled=bulkSelectEnabled}}
+    <div class="" id="app-grid-view">
+        <div class='contents'>
+            {{#if hasTopics}}
+                <div class="row c_pading-b15">
+                    <div class="portlet-body-head">
+                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
+                            <i class="topics_header_torpedo"></i> Your Torpedos
+                            <span>1 torpedo running</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-divider"></div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="row app_box app_storage">
+                        <a href {{action "createTopic"}}>
+                      <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover one_<%= cattype %>">
+                        <div class="app_inner">
+                            <div class="app_new">
+                                <span class="glyphicon glyphicon-plus"></span>
+                                <p>
+                                  Create {{i18n 'topic.suggest_create_topic'}}
+                                </p>
+                              </div>
+                          </div>
+                    </div>
+                </a> {{topic-list showTopicPostBadges=showTopicPostBadges showPosters=true currentUser=currentUser canBulkSelect=canBulkSelect changeSort="changeSort" toggleBulkSelect="toggleBulkSelect" hideCategory=model.hideCategory
+                        order=order ascending=ascending bulkSelectEnabled=bulkSelectEnabled selected=selected expandGloballyPinned=expandGloballyPinned expandAllPinned=expandAllPinned topics=inkTopicsModel}}
+                    </div>
+                </div>
+            {{/if}}
         </div>
     </div>
 </div>

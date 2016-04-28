@@ -190,6 +190,7 @@ security:
     default: ''
     type: list
 
+
 marketplaces:
   enable_gitlab_source:
     client: true
@@ -197,28 +198,6 @@ marketplaces:
   gitlab_host:
     client: true
     default: 'localhost'
-  flavors:
-    client: true
-    type: list
-    default: "[1 GB,1 Core,24 GB SSD]|[2 GB,2 Cores,48 GB SSD]|[4 GB,4 Cores,96 GB SSD]|[8 GB,6 Cores,192 GB SSD]"
-    regex: '\\[([^\\]])+\\]'
-    regex_error: "site_settings.errors.must_include_flavors"
-    choices:
-     - [1 GB,1 Core,24 GB SSD]
-     - [2 GB,2 Cores,48 GB SSD]
-     - [4 GB,4 Cores,96 GB SSD]
-     - [8 GB,6 Cores,192 GB SSD]
-  flavors_cs:
-    client: true
-    type: list
-    default: "[1 GB,1 Core,24 GB SSD]|[2 GB,2 Cores,48 GB SSD]|[4 GB,4 Cores,96 GB SSD]|[8 GB,6 Cores,192 GB SSD]"
-    regex: "\\[([^\\]])+\\]"
-    regex_error: "site_settings.errors.must_include_cs_flavors"
-    choices:
-      - [1 GB,1 Core,24 GB SSD]
-      - [2 GB,2 Cores,48 GB SSD]
-      - [4 GB,4 Cores,96 GB SSD]
-      - [8 GB,6 Cores,192 GB SSD]
 
 legal:
   tos_url:

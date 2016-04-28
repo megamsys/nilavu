@@ -1,45 +1,31 @@
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-    <div class="row app_box app_storage">
-        <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover one_<%= cattype %>">
-            <div class="app_inner">
-                <div class="app_new">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    <p>
-                        Create machine
-                    </p>
+<div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover">
+    <div class="app_inner">
+        <div class="app">
+            <div class="app_head">
+                <span class="app_config" id="config_menu"> <i class="c_icon-config"></i> </span>
+                <div class="config_menu">
                 </div>
-            </div>
-        </div>
-        <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover">
-            <div class="app_inner">
-                <div class="app">
-                    <div class="app_head">
-                        <span class="app_config" id="config_menu"> <i class="c_icon-config"></i> </span>
-                        <div class="config_menu">
-                        </div>
-                        <div class="row app_icon">
-                          <h5>
+                <div class="row app_icon">
+                    <h5>
                           <a href="dummy">{{topic.name}}</a>
                             </h5>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                <ul class="list-inline app_icon_bottom">
-                                  <li>
-                                    {{showBrandImage}}
-                                  </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="app_footer_padding">
-                        <i class="circle_green"></i>
-                        <span>{{topic.status}}</span>
-                        <a href="vncs">
-                        <i class="c_icon-window pull-right" style="padding-top:20px">
-                        </i>
-                        </a>
-                        <i class="c_icon-star pull-right" style="padding-right:30px"></i>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <ul class="list-inline app_icon_bottom">
+                            <li>
+                                {{showBrandImage}}
+                            </li>
+                        </ul>
                     </div>
                 </div>
+            </div>
+            <div class="app_footer_padding">
+                <i class="circle_green"></i>
+                <span>{{topic.status}}</span>
+                <a href="vncs">
+                    <i class="c_icon-window pull-right" style="padding-top:20px">
+                        </i>
+                </a>
+                <i class="c_icon-star pull-right" style="padding-right:30px"></i>
             </div>
         </div>
     </div>

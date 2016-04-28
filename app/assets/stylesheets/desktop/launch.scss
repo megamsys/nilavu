@@ -1,0 +1,624 @@
+$blue-color: #549dd6;
+$green-color: #27ae60;
+$dark-blue: #35495e;
+
+$boldWeight: 500;
+$normalWeight: 400;
+$lightWeight: 300;
+$thinWeight: 100;
+
+
+$hiddenContent: "input#vm, input#app, .hideme, .hideme2, .hideme3, .hideme-custom";
+
+#{$hiddenContent} {
+  display: none;
+}
+.type {
+	list-style-type:none;
+	margin:30px 0 0 0;
+	padding: 0;
+}
+.steps {
+	padding-top: 30px;
+	padding-bottom: 30px;
+	width: 90%;
+	margin: auto;
+}
+.stepTabs {
+	width: 80%;
+	margin: auto;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+@mixin btnSelected {
+	background-color: white;
+	color: $dark-blue;
+    box-shadow: 0 0 0 5pt $dark-blue;
+}
+@mixin btnSelect {
+	@include border-radius(10px);
+	transition: all 0.5s ease;
+	font-weight: $normalWeight;
+	text-align: center;
+	width: 200px;
+	height: 150px;
+	padding-top: 10px;
+	margin-top: 30px;
+	background-color: #c9dded;
+	color: $dark-blue;
+	font-size: 18px;
+	&:hover {
+		@include btnSelected;
+	}
+	&.active {
+		@include btnSelected;
+	}
+}
+
+#component-create .btnSelect {
+	@include btnSelect;
+}
+#component-create .right {
+	float:right;
+}
+.selectBg {
+	/* Blue background behind 'VM'/'Application' */
+	background-color: $blue-color;
+	min-height: 200px;
+}
+img.inSelect {
+	width: 60%;
+}
+
+.head {
+	/*White area behind 'Let's Get Started' */
+	padding-top: 13px;
+	padding-bottom: 13px;
+}
+.head h1 {
+	text-align: center;
+	margin-bottom: 3px;
+}
+.head h2 {
+	text-align: center;
+	margin-top: 0px;
+}
+.body {
+	/* Margin auto to center, and make it around the size of 60%? */
+}
+
+.box {
+	width: 700px;
+	margin: 50px auto;
+	border: 1px solid;
+}
+
+.divider {
+  height: 1px;
+  width:75%;
+  display:block; /* for use on default inline elements like span */
+  margin: 9px auto 15px;
+  overflow: hidden;
+  background-color: $dark-blue;
+}
+
+
+.content-current {
+	.roundText {
+		font-weight: $lightWeight;
+		@include border-radius(5px);
+		box-shadow: 0 0 0 2pt $blue-color;
+		width: 150px;
+		margin-right: 5px;
+		border: 0;
+		text-align: center;
+		&::-webkit-input-placeholder {
+			color: $dark-blue;
+		}
+	}
+}
+
+/* LOCATIONS / RESOURCES*/
+.locations, .resources {
+	margin-bottom: 15px;
+}
+.lCover, .rCover {
+	width: 100%;
+	margin: auto;
+}
+.lInner, .rInner {
+	text-align: -webkit-center;
+    color: #c4c6d9;
+	width: 190px;
+	margin-right: 14px;
+	&.middle {
+		margin: auto;
+	}
+}
+.lBox, .rBox {
+	height: 190px;
+	width: 190px;
+	&.shorter {
+		height: 160px;
+	}
+}
+.lHead {
+	height: 160px;
+	border: 1px solid #e5e6ef;
+}
+.rHead {
+	height: 130px;
+	border: 1px solid #e5e6ef;
+}
+.rTitle {
+	height: 30px;
+    border-bottom-color: rgb(229, 230, 239);
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+	padding-top: 5px;
+	span {
+		font-size: 14px;
+		color: $blue-color;
+		font-weight: 400;
+	}
+}
+.rContent {
+	padding-top: 10px;
+	span {
+		font-weight: 600;
+	}
+}
+.lIcon {
+	padding-top: 50px;
+	text-align: center;
+	h3 {
+		font-size: 22px;
+		color: $dark-blue;
+	}
+	img {
+		width: 100px;
+	}
+}
+.lFooter, .rFooter {
+	height: 30px;
+	width: 100%;
+	.btn-block {
+		font-weight: $lightWeight;
+		color: white;
+		padding: 0;
+		font-size: 21px;
+		transition: all 0.5s ease;
+		border-radius: 0px;
+		border: 0;
+		height: 100%;
+		background-color: $green-color;
+		&:hover {
+			background-color: $blue-color;
+		}
+		&.active {
+			background-color: $blue-color;
+		}
+	}
+}
+
+.advanced {
+	width: 100%;
+	border: 1px solid #e5e6ef;
+	margin-top: 10px;
+	.aHead {
+		background-color: $blue-color;
+		color: white;
+		text-align: center;
+		height: 25px;
+		cursor: pointer;
+		width: 100%;
+	}
+	.aContent {
+		display: none;
+		padding: 5px;
+		.minified-margin {
+			margin-bottom: 0px;
+		}
+	}
+}
+
+.footer {
+	border-top: 1px solid #e5e6ef;
+	height: 50px;
+	width: 100%;
+	padding-left: 15px;
+	h4 {
+		margin: 0;
+	}
+	h3 {
+		margin: 0;
+	}
+	.btnFooter {
+		height: 100%;
+		background-color: $blue-color;
+		font-size: 24px;
+		border: 0;
+		color: white;
+	}
+	.smaller {
+		font-size: 16px;
+	}
+}
+.no-padding {
+	padding:0;
+	height: 100%;
+}
+.btn-storage-container {
+	width: 250px;
+	height: 34px;
+	margin: auto;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	padding: 0;
+	.btn-storage {
+		transition: all 0.5s ease;
+		font-weight: $thinWeight;
+		padding-top: 1px;
+		padding-bottom: 1px;
+		border-radius: 0;
+		margin: 0;
+		margin-bottom: 10px;
+		width: 125px;
+		background-color: lightgray;
+		color: white;
+		font-size: 21px;
+		&.active {
+			background-color: $blue-color;
+		}
+
+	}
+}
+
+.btn-storage-container.bigger {
+	width: 400px;
+	.btn-storage {
+		width: 200px;
+	}
+}
+/* Start migrate from CSS to SASS */
+
+
+.tabsos {
+    -moz-border-radius-topleft: 5px;
+    -webkit-border-top-left-radius: 5px;
+    border-top-left-radius: 5px;
+    -moz-border-radius-topright: 5px;
+    -webkit-border-top-right-radius: 5px;
+    border-top-right-radius: 5px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 10;
+    background-color: transparent;
+}
+
+.tabsos li {
+    list-style-image: none;
+    list-style-type: none;
+    margin-left: 0;
+    white-space: nowrap;
+    display: inline;
+    float: left;
+    padding-left: 4px;
+    padding-right: 4px;
+    border: 1px solid #dcdcdc;
+    margin-left: -0.18%;
+    margin-top: 30px;
+    background-color: #E9E7E7;
+    width: 98px;
+}
+
+.tabsos li:first-child {
+    margin-left: 0px;
+}
+
+.tabsos a{
+    display: -moz-inline-stack;
+    display: inline-block;
+    vertical-align: middle;
+    zoom: 1;
+    color: #666;
+    font-size: 17px;
+    padding: 0px;
+}
+
+.tabsos li.active {
+    background-color: #fff;
+    color: #333;
+    font-weight: 800;
+    margin-top: 0px;
+    height: 117px;
+    width: 123px;
+    border-bottom: 0px;
+    margin-bottom: -28px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    padding-right: 0px;
+}
+
+.tabsos li.active a {
+    padding: 0px;
+    width: 100%;
+    color: #549DD6;
+    font-size: 20px;
+    padding-top: 5px;
+}
+
+.tabsos li.active .distro span {
+    display: block !important;
+}
+
+.tabsos li.active .icon {
+    height: 72px;
+    margin: 10px auto;
+    width: 72px;
+    margin-top: 20px;
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+.tabs2 li.active {
+	height: 50px;
+}
+.tabs2 li {
+	margin-top: 15px;
+}
+.tabs2 li a {
+	width: 100%;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.distro {
+    display: inline;
+    float: left;
+    text-align: center;
+    color: #c2c2c2;
+    width: 100%;
+}
+
+.distro span{
+    display: none;
+    color: #549DD6;
+}
+
+.distro .icon {
+    -webkit-border-radius: 51%;
+    -moz-border-radius: 51%;
+    border-radius: 51%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 50px;
+    margin: 10px auto;
+    width: 53px;
+    margin-top: 12px;
+    margin-bottom: 10px;
+}
+
+.distro .icon{
+    background-image:url(../images/osimages1.png);
+}
+
+.tabsos li.active .ubuntu .icon {
+    background-position: 6px -221px;
+}
+
+.tabsos li.active .fedora .icon {
+    background-position: 6px -144px;
+}
+
+.tabsos li.active .centos .icon {
+    background-position: 8px 9px;
+}
+
+.tabsos li.active .debian .icon {
+    background-position: 8px -62px;
+}
+
+.tabsos li.active .windows .icon {
+    background-position: 3px -297px;
+}
+
+.ubuntu .icon {
+    background-position: -94px -224px;
+}
+
+.fedora .icon {
+    background-position: -92px -150px;
+}
+
+.centos .icon {
+    background-position: -99px -9px;
+}
+
+.debian .icon {
+    background-position: -95px -77px;
+}
+
+.windows .icon {
+    background-position: -93px -308px;
+}
+
+.opensuse .icon {
+    background-image: url(../images/opensuse1.png);
+    background-size: 94%;
+}
+
+.tabsos li.active .opensuse .icon {
+    background-image: url(../images/opensuse.png);
+    background-size: 90%;
+}
+
+.coreos .icon {
+    background-image: url(../images/CoreOS1.png);
+    background-size: 94%;
+}
+
+.tabsos li.active .coreos .icon {
+    background-image: url(../images/CoreOS.png);
+    background-size: 90%;
+}
+
+.applications .icon,.apps .icon {
+    background-image: url(../images/app2.png);
+    background-size: 74%;
+}
+
+.tabsos li.active .applications .icon , .tabsos li.active .apps .icon{
+    background-image: url(../images/app3.png);
+    background-size: 70%;
+}
+
+.oscontainer {
+    margin-top: -37px;
+    padding-top: 56px;
+    margin-right: 0px;
+    border: 1px solid #dcdcdc;
+    border-top: 0px;
+    background-color: #f5f5f5;
+    margin-bottom: 25px;
+}
+.oscontainer {
+  margin-top: -36px;
+  padding: 10px;
+  padding-top: 38px;
+  margin-right: 0px;
+  border: 1px solid #dcdcdc;
+  border-top: 0px;
+  background-color: #f5f5f5;
+  margin-bottom: 25px;
+  padding-bottom: 2px;
+  width: 99.9%;
+ }
+
+a {
+    text-decoration: none;
+    color: #398bce;
+}
+
+.tabsos  a:hover {
+    text-decoration: none !important;
+    color: #666;
+}
+
+.tabs li:first-child, .tabs li.first {
+    padding-left: 0;
+}
+
+.tabs .active a {
+    color: #333;
+    font-weight: 500;
+}
+
+.version {
+    width: 195px;
+    float: left;
+    height: 150px;
+    padding: 12px;
+    border: 2px solid #4196E4;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+}
+
+.selectlinux {
+    width: 100%;
+    height: 190px;
+}
+
+.version_select , .wind {
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    border-radius: 4px;
+    display: -moz-inline-stack;
+    display: inline-block;
+    vertical-align: middle;
+    zoom: 1;
+    background-color: #E9E7E7;
+    color: #666;
+    padding: 10px 0;
+    width: 205px;
+    text-align: center;
+    margin: 0 10px 20px;
+    line-height: 24px;
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.version_select.apps{
+	width:148px;
+	height:148px;
+	border-radius: 0px;
+	border: 1px solid #e7e7e7;
+	background-color: #fff;
+	padding-top:0px;
+
+}
+
+.apps .appsicon{
+  width: 100%;
+  height: 110px;
+  background-color: #fff;
+  margin-bottom: 5px;
+  background-repeat: no-repeat;
+background-position: center;
+}
+
+
+.na{
+    cursor: not-allowed;
+}
+
+.version_select.versionactive {
+    background-color: #549DD6;
+    color: #fff;
+}
+
+.version_select.apps.versionactive {
+	border: 1px solid #549DD6;
+}
+
+.version_select input[type='radio'] {
+    display: none;
+}
+
+.regionContainer input[type='radio'] {
+    display: none;
+}
+
+.tabsos li.active {
+	width: 18%;
+}
+
+.tabsos li{
+	width: 11.877142857142857%;
+}
+.tabsos.tabs2 li{
+	width: 50%;
+}
+.input-error{
+	border: 1px solid #FB2C0B !important;
+}
+.input-search {
+	margin: 0 auto;
+	width: 50%;
+	margin-bottom: 15px;
+}
+.form-control.flat {
+	border-radius: 0;
+}

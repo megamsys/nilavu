@@ -3,7 +3,8 @@ export default Nilavu.Route.extend({
     const self = this;
     if (Nilavu.User.current()) {
       // User is logged in
-      self.replaceWith('discovery.latest').then(function(e) {
+      self.replaceWith('discovery.torpedo').then(function(e) {
+
         if (self.controllerFor('navigation/default').get('canCreateTopic')) {
           // User can create topic
           Ember.run.next(function() {

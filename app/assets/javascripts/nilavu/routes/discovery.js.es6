@@ -1,6 +1,8 @@
 
 //  The parent route for all discovery routes.
 //  Handles the logic for showing the loading spinners.
+import showModal from 'nilavu/lib/show-modal';
+
 import OpenComposer from "nilavu/mixins/open-composer";
 import { scrollTop } from "nilavu/mixins/scroll-top";
 
@@ -46,6 +48,8 @@ export default Nilavu.Route.extend(OpenComposer, {
 
     createTopic() {
       this.openComposer(this.controllerFor("discovery/topics"));
+      const model = this.get('model', 'composer');
+      showModal('editCategory', { model });
     },
 
     dismissReadTopics(dismissTopics) {
