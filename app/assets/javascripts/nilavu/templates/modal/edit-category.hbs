@@ -1,33 +1,50 @@
-<div>
-  <ul class="nav nav-pills">
-    {{edit-category-tab panels=panels selectedTab=selectedTab tab="general"}}
-    {{#unless model.isUncategorizedCategory}}
-      {{edit-category-tab panels=panels selectedTab=selectedTab tab="security"}}
-    {{/unless}}
-    {{edit-category-tab panels=panels selectedTab=selectedTab tab="settings"}}
-    {{edit-category-tab panels=panels selectedTab=selectedTab tab="images"}}
-    {{edit-category-tab panels=panels selectedTab=selectedTab tab="topic-template"}}
-  </ul>
+<div id="component-create" class="container">
+    <div class="box">
 
-  <div class="modal-body">
-    {{#each panels as |tab|}}
-      {{component tab selectedTab=selectedTab category=model}}
-    {{/each}}
-  </div>
+        {{edit-category-title launchable=launchOption}}
 
-  <div class="modal-footer">
-    {{d-button id="save-category" class="btn-primary" disabled=disabled action="saveCategory" label=saveLabel}}
+        <div class="steps">
+            <section>
+                <div class="tabbable-custom nav-justified">
+                    <ul class="nav nav-tabs nav-justified">
+                        {{edit-category-tab panels=panels selectedTab=selectedTab tab="general"}}
+                        {{#if isVirtualMachine}}
+                            {{edit-category-tab panels=panels selectedTab=selectedTab tab="virtualmachine"}}
+                        {{else}}
+                            {{edit-category-tab panels=panels selectedTab=selectedTab tab="application"}}
+                        {{/if}}
+                        {{edit-category-tab panels=panels selectedTab=selectedTab tab="summary"}}
+                    </ul>
 
-    {{#if model.can_delete}}
-      {{d-button class="btn-danger pull-right"
-                 disabled=deleteDisabled
-                 action="deleteCategory"
-                 icon="trash-o"
-                 label="category.delete"}}
-    {{else}}
-      <div class="cannot_delete_reason">
-        {{{model.cannot_delete_reason}}}
-      </div>
-    {{/if}}
-  </div>
+                    <div class="modal-body">
+                        {{#each panels as |tab|}}
+                            {{component tab selectedTab=selectedTab category=model}}
+                        {{/each}}
+                    </div>
+
+                    <div class="modal-footer">
+                        <div class="footer">
+                            {{#if model.can_delete}}
+                                {{d-button class="btn-danger pull-right" disabled=deleteDisabled action="deleteCategory" icon="trash-o" label="category.delete"}}
+                            {{else}}
+                                <div class="cannot_delete_reason">
+                                    {{{model.cannot_delete_reason}}}
+                                </div>
+                            {{/if}}
+
+                            <div class="col-sm-9">
+                                <h4>Cost Summary:</h4>
+                                <h3><span>$36.00</span>/mo <span class="smaller">($0.054/hr)</span></h3>
+                            </div>
+                            <div class="col-sm-3 no-padding">
+                                <button class="btn-block btnFooter" id="firstNext">next</button>
+                            </div>
+                            {{conditional-loading-spinner size="small" condition=loading}}
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
 </div>

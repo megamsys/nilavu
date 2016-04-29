@@ -1,0 +1,13 @@
+<div data-toggle="buttons">
+    <div class="resources">
+        <div class="rCover row">
+          {{#if resources}}
+              {{#each resources as |r|}}
+                  {{launching-resource resource=r hideParent="true"}}
+              {{/each}}
+          {{else}}
+              <label>{{i18n 'launcher.resources_not_found'}}</label>
+          {{/if}}
+        </div>
+    </div>
+</div>

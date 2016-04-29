@@ -456,7 +456,11 @@ en:
       all_organization: "All Organizations"
 
 
-    launch:
+    launcher:
+      general: "Step 1"
+      virtualmachine: "Step 2"
+      application: "Step 2"
+      summary: "Step 3"
       success: "Your %{stuff} <b>%{name}</b> is firing up"
       compute_setting: "CPU, transfer, storage, and RAM bundled into one simple block"
       creating: "Creating..."

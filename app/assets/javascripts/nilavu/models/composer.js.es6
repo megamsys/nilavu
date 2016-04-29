@@ -112,7 +112,8 @@ const Composer = RestModel.extend({
   }.property().volatile(),
 
   archetype: function() {
-    return this.get('archetypes').findProperty('id', this.get('archetypeId'));
+    //return this.get('archetypes').findProperty('id', this.get('archetypeId'));
+    return "test";
   }.property('archetypeId'),
 
   archetypeChanged: function() {
@@ -394,6 +395,8 @@ const Composer = RestModel.extend({
     const composer = this;
     if (!replyBlank &&
         ((opts.reply || opts.action === EDIT) && this.get('replyDirty'))) {
+
+
       return;
     }
 
@@ -412,6 +415,7 @@ const Composer = RestModel.extend({
       typingTime: opts.typingTime
     });
 
+
     if (opts.post) {
       this.set('post', opts.post);
 
@@ -423,11 +427,13 @@ const Composer = RestModel.extend({
       this.set('post', null);
     }
 
+
     this.setProperties({
       archetypeId: opts.archetypeId || this.site.get('default_archetype'),
       metaData: opts.metaData ? Em.Object.create(opts.metaData) : null,
       reply: opts.reply || this.get("reply") || ""
     });
+
 
     // We set the category id separately for topic templates on opening of composer
     this.set('categoryId', opts.categoryId || this.get('topic.category.id'));
@@ -446,6 +452,7 @@ const Composer = RestModel.extend({
         composer.set('loading', false);
       });
     }
+
 
     // If we are editing a post, load it.
     if (opts.action === EDIT && opts.post) {
@@ -468,6 +475,7 @@ const Composer = RestModel.extend({
         originalText: opts.quote
       });
     }
+
     if (opts.title) { this.set('title', opts.title); }
     this.set('originalText', opts.draft ? '' : this.get('reply'));
 

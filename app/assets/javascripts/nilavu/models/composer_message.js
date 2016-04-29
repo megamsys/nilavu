@@ -24,11 +24,11 @@ Nilavu.ComposerMessage.reopenClass({
 
     if (topicId) { data.topic_id = topicId; }
     if (postId)  { data.post_id = postId; }
-
-    return Nilavu.ajax('/composer-messages', { data: data }).then(function (messages) {
-      return messages.map(function (message) {
-        return Nilavu.ComposerMessage.create(message);
-      });
+    alert('find ');
+    return Nilavu.ajax('/launchables.json', { data: data }).then(function (messages) {
+      //return messages.regions.map(function (message) {
+        return Nilavu.ComposerMessage.create(messages);
+    //  });
     });
   }
 

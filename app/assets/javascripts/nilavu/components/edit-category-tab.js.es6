@@ -11,7 +11,7 @@ export default Em.Component.extend({
   active: propertyEqual('selectedTab', 'tab'),
 
   title: function() {
-    return I18n.t('category.' + this.get('tab').replace('-', '_'));
+    return I18n.t('launcher.' + this.get('tab').replace('-', '_'));
   }.property('tab'),
 
   _addToCollection: function() {

@@ -1,19 +1,22 @@
-<div class="modal-outer-container">
-  <div class="modal-middle-container">
-    <div class="modal-inner-container">
-      <div class="modal-header">
-        <a class="close" {{action "closeModal"}}>{{fa-icon "times"}}</a>
-        <h3>{{title}}</h3>
-        <div class="clearfix"></div>
-      </div>
-      <div id='modal-alert'></div>
-      {{outlet "modalBody"}}
-      {{#each error in errors}}
-        <div class="alert alert-error">
-          <button class="close" data-dismiss="alert">×</button>
-          {{error}}
+<div class="modal-dialog">
+    <div class="modal-content c_modal-content">
+        <div class="modal-header">
+            <div class="row">
+               <div class="col-xs-11 col-sm-11 col-md-11 col-lg-11 col-xl-11">
+                  <h4 class="modal-title">{{title}}</h4>
+                </div>
+                 <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 col-xl-1">
+                    <a {{action "closeModal"}}>{{fa-icon "remove"}}</a>
+                </div>
+            </div>
         </div>
-      {{/each}}
+        <div id='modal-alert'></div>
+        {{outlet "modalBody"}}
+        {{#each error in errors}}
+            <div class="alert alert-error">
+                <button class="close" data-dismiss="alert">×</button>
+                {{error}}
+            </div>
+        {{/each}}
     </div>
-  </div>
 </div>

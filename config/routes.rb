@@ -15,6 +15,7 @@ Nilavu::Application.routes.draw do
   get "signup" => "static#show", id: "signup"
   get "torpedo.json" => 'cockpits#index', defaults: {format: 'json'}
 
+
     #session related
   resources :sessions
   get "session/csrf" => "sessions#csrf"
@@ -37,6 +38,7 @@ Nilavu::Application.routes.draw do
 
   get "stylesheets/:name.css" => "stylesheets#show", constraints: { name: /[a-z0-9_]+/ }
 
+  get "launchables.json" => 'launchables#assemble', defaults: {format: 'json'}
 
   ##
   get  "launchers/:id" => "launchers#launch"
