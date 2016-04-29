@@ -6,7 +6,6 @@ import {
 
 // Modal for editing / creating a category
 export default Ember.Controller.extend(ModalFunctionality, {
-    selectedLaunchable: null,
     selectedTab: null,
     saving: false,
     deleting: false,
@@ -19,7 +18,6 @@ export default Ember.Controller.extend(ModalFunctionality, {
     onShow() {
         this.changeSize();
         this.titleChanged();
-        this.launchOptionChanged();
     },
 
     changeSize: function() {
@@ -36,6 +34,17 @@ export default Ember.Controller.extend(ModalFunctionality, {
         }
         return I18n.t("category.create") + (this.get('model.name') ? (" : " + this.get('model.name')) : '');
     }.property('model.id', 'model.name'),
+
+    launchOption: function() {
+        const option = this.get('model.launchoption') || "";
+        return option.trim().length > 0 ? option : I18n.t("launchoption.default");
+    }.property('model.launchoption'),
+
+    isVirtualMachine: function() {
+      const launchable = this.get('selectedLaunchable') || "";
+
+      return (launchable.trim.length > 0 ? && launchable == I18n.t("virtualmachine"))
+    },
 
     titleChanged: function() {
         this.set('controllers.modal.title', this.get('title'));
@@ -57,22 +66,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
         return name.trim().length > 0 ? name : I18n.t("preview");
     }.property('name'),
 
-    launchOption: function() {
-        if (this.get('launchoption.virtualmachine')) {
-            return I18n.t("category.edit_long") + " : " + this.get('model.name');
-        }
-        return I18n.t("category.create") + (this.get('model.name') ? (" : " + this.get('model.name')) : '');
-    }.property('launchoption.virtualmachine', 'launchoption.application'),
 
-    launchOptionChanged: function() {
-        alert("option changed to " + this.get('launchOption'));
-        this.set("launchption.virtualmachine", true);
-        return;
-    }.observes('launchOption'),
-
-    launchVirtualMachine: function() {
-        return this.get('launchoption.virtualmachine');
-    },
 
     saveLabel: function() {
         if (this.get('saving')) return "saving";
