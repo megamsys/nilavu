@@ -12,7 +12,6 @@ export default buildCategoryPanel('general', {
   /*  const categories = Nilavu.Category.list();
     return this.siteSettings.category_colors.split("|").map(function(i) { return i.toUpperCase(); }).concat(
                 categories.map(function(c) { return c.color.toUpperCase(); }) ).uniq(); */
-  return ['green'];              
   }.property(),
 
   usedBackgroundColors: function() {
@@ -44,11 +43,11 @@ export default buildCategoryPanel('general', {
   }.property('category.parent_category_id', 'category.categoryName', 'category.color', 'category.text_color'),
 
 
-  // We can change the parent if there are no children
-  subCategories: function() {
-    if (Ember.isEmpty(this.get('category.id'))) { return null; }
-    return Category.list().filterBy('parent_category_id', this.get('category.id'));
-  }.property('category.id'),
+  // We need to get the regions from the Draft model
+  subRegions: function() {
+    if (Ember.isEmpty(this.get('category.regions'))) { return null; }
+    return this.get('category.regions');
+  }.property('category.regions'),
 
   showDescription: function() {
     return !this.get('category.isUncategorizedCategory') && this.get('category.id');

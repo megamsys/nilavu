@@ -1,33 +1,19 @@
 import { on, observes } from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Component.extend({
-  classNames: ['combobox'],
-  valueAttribute: 'id',
-  nameProperty: 'name',
-  launchableName: ' ',
+  classNameBindings: ['isActive:active'],
+  launchableName: this.get("name"),
 
-  showLaunchableImage: '',
+  showLaunchableImage: this.get('launchableName') + ".png",
+
+  isActive: function() {
+    const launchable = this.get('launchable') || "";
+    return launchable.trim().length > 0;
+  }.property("launchable"),
 
   @observes('value')
   valueChanged() {
-    const $combo = this.$(),
-          val = this.get('value');
-
-    if (val !== undefined && val !== null) {
-      $combo.select2('val', val.toString());
-    } else {
-      $combo.select2('val', null);
-    }
-  },
-
-  @on('didInsertElement')
-  _initializeCombo() {
-
-  },
-
-  @on('willDestroyElement')
-  _destroyDropdown() {
-    this.$().select2('destroy');
+    this.set('selectedLaunchable',this.get('value'))
   }
 
 });
