@@ -18,15 +18,16 @@ export default Ember.Controller.extend(ModalFunctionality, {
     onShow() {
         this.changeSize();
         this.titleChanged();
-
     },
 
     changeSize: function() {
+      alert("chang4");
         if (!Ember.isEmpty(this.get('model.description'))) {
             this.set('controllers.modal.modalClass', 'edit-category-modal full');
         } else {
             this.set('controllers.modal.modalClass', 'edit-category-modal small');
         }
+        alert("change5");
     }.observes('model.description'),
 
     title: function() {
@@ -37,7 +38,9 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.property('model.id', 'model.name'),
 
     launchOption: function() {
+        alert("launchopts " + JSON.stringify(this.get('model')));
         const option = this.get('model.launchoption') || "";
+        alert("--- ");
         return option.trim().length > 0 ? option : I18n.t("launchoption.default");
     }.property('model.launchoption'),
 
@@ -48,6 +51,8 @@ export default Ember.Controller.extend(ModalFunctionality, {
     },
 
     titleChanged: function() {
+      alert("change6");
+
         this.set('controllers.modal.title', this.get('title'));
     }.observes('title'),
 

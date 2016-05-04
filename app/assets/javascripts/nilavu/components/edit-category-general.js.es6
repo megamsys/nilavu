@@ -12,6 +12,7 @@ export default buildCategoryPanel('general', {
   /*  const categories = Nilavu.Category.list();
     return this.siteSettings.category_colors.split("|").map(function(i) { return i.toUpperCase(); }).concat(
                 categories.map(function(c) { return c.color.toUpperCase(); }) ).uniq(); */
+  return ['green'];
   }.property(),
 
   usedBackgroundColors: function() {
@@ -48,6 +49,7 @@ export default buildCategoryPanel('general', {
     if (Ember.isEmpty(this.get('category.regions'))) { return null; }
     return this.get('category.regions');
   }.property('category.regions'),
+
 
   showDescription: function() {
     return !this.get('category.isUncategorizedCategory') && this.get('category.id');

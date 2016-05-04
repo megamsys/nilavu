@@ -4,42 +4,6 @@ import Draft from 'nilavu/models/draft';
 import Composer from 'nilavu/models/composer';
 import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
 
-function loadDraft(store, opts) {
-  opts = opts || {};
-
-  let draft = opts.draft;
-  const draftKey = opts.draftKey;
-  const draftSequence = opts.draftSequence;
-
-  try {
-    if (draft && typeof draft === 'string') {
-      draft = JSON.parse(draft);
-    }
-  } catch (error) {
-    draft = null;
-    Draft.clear(draftKey, draftSequence);
-  }
-  if (draft && ((draft.title && draft.title !== '') || (draft.reply && draft.reply !== ''))) {
-    const composer = store.createRecord('composer');
-    composer.open({
-      draftKey,
-      draftSequence,
-      action: draft.action,
-      title: draft.title,
-      categoryId: draft.categoryId || opts.categoryId,
-      postId: draft.postId,
-      archetypeId: draft.archetypeId,
-      reply: draft.reply,
-      metaData: draft.metaData,
-      usernames: draft.usernames,
-      draft: true,
-      composerState: Composer.DRAFT,
-      composerTime: draft.composerTime,
-      typingTime: draft.typingTime
-    });
-    return composer;
-  }
-}
 
 export default Ember.Controller.extend({
   needs: ['modal', 'topic', 'composer-messages', 'application'],
@@ -418,17 +382,6 @@ export default Ember.Controller.extend({
   open(opts) {
     opts = opts || {};
 
-    /*if (!opts.draftKey) {
-      alert("composer was opened without a draft key");
-      throw "composer opened without a proper draft key";
-    }*/
-
-    // If we show the subcategory list, scope the categories drop down to
-    // the category we opened the composer with.
-    if (this.siteSettings.show_subcategory_list && opts.draftKey !== 'reply_as_new_topic') {
-      this.set('scopedCategoryId', opts.categoryId);
-    }
-
     const composerMessages = this.get('controllers.composer-messages'),
     self = this;
 
@@ -437,13 +390,6 @@ export default Ember.Controller.extend({
     this.setProperties({ showEditReason: false, editReason: null });
     composerMessages.reset();
 
-    /* If we want a different draft than the current composer, close it and clear our model.
-    if (composerModel &&
-        opts.draftKey !== composerModel.draftKey &&
-        composerModel.composeState === Composer.DRAFT) {
-      this.close();
-      composerModel = null;
-    }*/
     return new Ember.RSVP.Promise(function(resolve, reject) {
       if (composerModel && composerModel.get('replyDirty')) {
 
@@ -466,22 +412,17 @@ export default Ember.Controller.extend({
         }).then(resolve, reject);
       }
 
-      //opts.draftSequence = "DEF0001";
-
-
       // we need a draft sequence for the composer to work
       if (opts.draftSequence === undefined) {
         return Draft.get(opts.draftKey).then(function(data) {
           console.log("assembled =>"+ JSON.stringify(data));
           opts.draftSequence =  data.random_name;
-          //data.draft_sequence;
+          opts.metaData =  data;
           opts.draftKey = data.domain;
-          //data.draft;
+
           self._setModel(composerModel, opts);
         }).then(resolve, reject);
       }
-
-      self._setModel(composerModel, opts);
 
       resolve();
     });
@@ -489,49 +430,17 @@ export default Ember.Controller.extend({
 
   // Given a potential instance and options, set the model for this composer.
   _setModel(composerModel, opts) {
-    /*if (opts.draft) {
+    composerModel = composerModel || this.store.createRecord('composer');
+    opts.draftKey = "new-topic";
 
-      composerModel = loadDraft(this.store, opts);
-      if (composerModel) {
-        composerModel.set('topic', opts.topic);
-      }
-    } else {
-*/
-      composerModel = composerModel || this.store.createRecord('composer');
-      opts.draftKey = "new-topic";
-      composerModel.open(opts);
-  //  }
+
+    composerModel.open(opts);
+
     this.set('model', composerModel);
 
     composerModel.set('composeState', Composer.OPEN);
     composerModel.set('isWarning', false);
 
-    if (opts.topicTitle && opts.topicTitle.length <= this.siteSettings.max_topic_title_length) {
-      this.set('model.title', opts.topicTitle);
-    }
-    if (opts.topicCategoryId) {
-      this.set('model.categoryId', opts.topicCategoryId);
-    } else if (opts.topicCategory) {
-      const splitCategory = opts.topicCategory.split("/");
-      let category;
-
-      if (!splitCategory[1]) {
-        category = this.site.get('categories').findProperty('nameLower', splitCategory[0].toLowerCase());
-      } else {
-        const categories = Nilavu.Category.list();
-        const mainCategory = categories.findProperty('nameLower', splitCategory[0].toLowerCase());
-        category = categories.find(function(item) {
-          return item && item.get('nameLower') === splitCategory[1].toLowerCase() && item.get('parent_category_id') === mainCategory.id;
-        });
-      }
-      if (category) {
-        this.set('model.categoryId', category.get('id'));
-      }
-    }
-
-    if (opts.topicBody) {
-      this.set('model.reply', opts.topicBody);
-    }
 //    this.get('controllers.composer-messages').queryFor(composerModel);
   },
 

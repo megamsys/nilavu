@@ -20,11 +20,11 @@ gem 'mail'
 gem 'http_accept_language', '~>2.0.5', require: false
 
 ### Don't change the versions. henceforth just do a bundle install
-gem 'ember-rails' , '0.18.2'
+gem 'ember-rails' , '0.18.5'
 gem 'ember-source' , '1.12.2'
 gem 'ember-data-source', "1.0.0.beta.16.1"
-gem "ember-handlebars-template", '0.1.5'
-gem 'barber', '0.9.0'
+gem "ember-handlebars-template", '0.7.3'
+gem 'barber', '0.11.1'
 gem 'babel-transpiler', '0.7.0'
 
 gem 'fast_xs'
@@ -65,7 +65,7 @@ gem 'rack-protection' # security
 # in production environments by default.
 # allow everywhere for now cause we are allowing asset debugging in prd
 group :assets do
-  gem 'sass-rails', '~> 4.0.5'
+  gem 'sass-rails', '~> 5.0.4'
   gem 'uglifier'
   gem 'rtlit', require: false # for css rtling
 end
