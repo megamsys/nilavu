@@ -38,7 +38,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.property('model.id', 'model.name'),
 
     launchOption: function() {
-      alert("launchopts " + JSON.stringify(this.get('model')));
+        alert("launchopts " + JSON.stringify(this.get('model')));
         const option = this.get('model.launchoption') || "";
         alert("--- ");
         return option.trim().length > 0 ? option : I18n.t("launchoption.default");
@@ -47,7 +47,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
     isVirtualMachine: function() {
       const launchable = this.get('selectedLaunchable') || "";
 
-      return (launchable.trim.length > 0 && launchable == I18n.t("virtualmachine"))
+      return (launchable.trim.length > 0 ? && launchable == I18n.t("virtualmachine"))
     },
 
     titleChanged: function() {
@@ -71,8 +71,6 @@ export default Ember.Controller.extend(ModalFunctionality, {
         const name = this.get('name') || "";
         return name.trim().length > 0 ? name : I18n.t("preview");
     }.property('name'),
-
-
 
     saveLabel: function() {
         if (this.get('saving')) return "saving";
