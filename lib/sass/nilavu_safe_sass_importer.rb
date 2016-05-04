@@ -3,7 +3,7 @@ require_dependency 'sass/nilavu_sass_importer'
 # This custom importer is used to import stylesheets but excludes plugins and theming.
 # It's used as a fallback when compilation of stylesheets fails.
 
-class NilavuSafeSassImporter < NilavuSassImporter
+class  NilavuSafeSassImporter < NilavuSassImporter
   def special_imports
     super.merge({
       "plugins" => [],
@@ -20,7 +20,7 @@ class NilavuSafeSassImporter < NilavuSassImporter
       special_imports[name].each do |css_file|
         contents << File.read(css_file)
       end
-      Sass::Engine.new(contents, options.merge(
+      ::Sass::Engine.new(contents, options.merge(
         filename: "#{name}.scss",
         importer: self,
         syntax: :scss

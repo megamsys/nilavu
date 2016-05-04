@@ -100,6 +100,7 @@ module Nilavu
 
     # Our templates shouldn't start with 'nilavu/templates'
     config.handlebars.templates_root = 'nilavu/templates'
+    config.handlebars.raw_template_namespace = "Ember.TEMPLATES"
 
     # we configure rack cache on demand in an initializer
     # our setup does not use rack cache and instead defers to nginx

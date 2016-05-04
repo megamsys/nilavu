@@ -1,11 +1,21 @@
-class NilavuIIFE < Sprockets::Processor
+class NilavuIIFE
+  def initialize(options = {}, &block)
+  end
+
+  def self.instance
+    @instance ||= new
+  end
+
+  def self.call(input)
+    instance.call(input)
+  end
 
   # Add a IIFE around our javascript
-  def evaluate(context, locals)
+  def call(input)
+    path = input[:environment].context_class.new(input).pathname.to_s
+    data = input[:data]
 
-    path = context.pathname.to_s
-
-    # Only nilavu or admin paths
+    # Only discourse or admin paths
     return data unless (path =~ /\/javascripts\/nilavu/ || path =~ /\/javascripts\/admin/ || path =~ /\/test\/javascripts/)
 
     # Ignore the js helpers

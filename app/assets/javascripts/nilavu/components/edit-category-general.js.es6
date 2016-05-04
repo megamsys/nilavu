@@ -49,6 +49,7 @@ export default buildCategoryPanel('general', {
     if (Ember.isEmpty(this.get('category.regions'))) { return null; }
     return this.get('category.regions');
   }.property('category.regions'),
+  
 
   showDescription: function() {
     return !this.get('category.isUncategorizedCategory') && this.get('category.id');

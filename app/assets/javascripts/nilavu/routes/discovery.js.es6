@@ -49,6 +49,7 @@ export default Nilavu.Route.extend(OpenComposer, {
     createTopic() {
       this.openComposer(this.controllerFor("discovery/topics"));
       const model = this.get('model', 'composer');
+
       showModal('editCategory', { model });
     },
 
