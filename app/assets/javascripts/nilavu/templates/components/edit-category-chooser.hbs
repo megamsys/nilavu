@@ -1,9 +1,8 @@
 <div class="col-sm-6">
-    <label class="btn btn-primary btnSelect right {{selectedConfig}}">
-        <img class="inSelect" src="../images/launch/virtualmachines.png">
-        {{showLaunchableImage}}
+    <label class="btn btn-primary btnSelect {{alignRight}}">
+        <img class="inSelect" src='../images/launch/{{showLaunchableImage}}'>
         <br>
-    <input autocomplete="off" id="option1" name="options" style="display:none;" type="radio">
-    {{launchableName}}
-  </label>
+        <input autocomplete="off" id={{launchableName}} name={{launchableName}} style="display:none;" type="radio">
+        {{launchableName}}
+    </label>
 </div>

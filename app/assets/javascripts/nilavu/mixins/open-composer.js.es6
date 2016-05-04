@@ -4,7 +4,7 @@ import Composer from 'nilavu/models/composer';
 export default Ember.Mixin.create({
 
   openComposer(controller) {
-    this.controllerFor('composer').open({
+    return this.controllerFor('composer').open({
       categoryId: controller.get('category.id'),
       action: Composer.CREATE_TOPIC,
       draftKey: controller.get('model.draft_key'),
