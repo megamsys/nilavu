@@ -68,7 +68,9 @@ class Deployed
 
 
   def fullsshkey
+    return "0" unless sshkey
     sshkey + "_key"
+
   end
 
   def favourized
@@ -80,6 +82,7 @@ class Deployed
   end
 
   def ssh
+    return unless fullsshkey
     "ssh -i " + fullsshkey + " root@"+ name
   end
 
