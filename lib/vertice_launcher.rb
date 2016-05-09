@@ -20,8 +20,8 @@ class VerticeLauncher
   def launch(params)
     @params ||= params
     raise Nilavu::NotFound  unless set_sshkey
-        
-    launch_parms = build_launch_parameters  
+
+    launch_parms = build_launch_parameters
 
     ensure_settings_are_ok(launch_parms)
 
@@ -33,9 +33,9 @@ class VerticeLauncher
   end
 
   def ensure_settings_are_ok(launch_parms)
-    [:cpu, :ram, :hdd, :assemblyname, :componentname, :provider, :ssh_keypair_name, :version, :cattype].each do |setting|
-      raise Nilavu::InvalidParameters unless launch_parms[setting]
-    end
+      [:cpu, :ram, :hdd, :assemblyname, :componentname, :provider, :version, :cattype].each do |setting|
+        raise Nilavu::InvalidParameters unless launch_parms[setting]
+      end
   end
 
   def launched_message
@@ -52,8 +52,8 @@ class VerticeLauncher
     set_provider(params)
 
     set_name(params)
-    
-    set_oneclick(params) 
+
+    set_oneclick(params)
 
     params.merge!(FavourizeItem.new(@params[:compute_setting]).to_hash)
   end
@@ -65,16 +65,16 @@ class VerticeLauncher
   def set_name(params)
     params[:mkp_name] = @launch_item.name
   end
-  
+
   def set_oneclick(params)
-    if @launch_item.options.any? 
+    if @launch_item.options.any?
      params[:oneclick] = @launch_item.oneclick.first
     end
   end
-  
+
   def set_token(params)
     if @launch_item.has_token?
-      params[:scm_token] = @launch_item.token 
+      params[:scm_token] = @launch_item.token
     end
   end
 

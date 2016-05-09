@@ -14,6 +14,7 @@ class SSHKeysCreator
 
 
   def save
+    return  :sshoption unless @option 
     @params[:ssh_keypair_name]  =  keypair_name
 
     return autoset_sshkey if has_old_keypair?
