@@ -6,6 +6,7 @@ import Category from 'nilavu/models/category';
 export default buildCategoryPanel('general', {
   foregroundColors: ['FFFFFF', '000000'],
   canSelectParentCategory: Em.computed.not('category.isUncategorizedCategory'),
+  regions: Em.computed.alias('category.regions'),
 
   // background colors are available as a pipe-separated string
   backgroundColors: function() {
@@ -45,15 +46,49 @@ export default buildCategoryPanel('general', {
 
 
   // We need to get the regions from the Draft model
-  subRegions: function() {
-    if (Ember.isEmpty(this.get('category.regions'))) { return null; }
+  showSubRegions: function() {
+    if (Ember.isEmpty(this.get('category.regions'))) {
+      return null;
+    }
     return this.get('category.regions');
   }.property('category.regions'),
 
+  // We need to get the regions from the Draft model
+  regionOption: function() {
+    alert(this.get('category.regionoption'));
+    /*if (Ember.isEmpty(this.get('category.regions')) && this.get('model.regionOption').trim().length >0) {
+      return null;
+    }
+    return this.get('category.regions');*/
+    return null;
+  }.property('category.regionoption'),
 
-  showDescription: function() {
-    return !this.get('category.isUncategorizedCategory') && this.get('category.id');
-  }.property('category.isUncategorizedCategory', 'category.id'),
+  // We need to get the regions from the Draft model
+  showSubResources: function() {
+    /*if (Ember.isEmpty(this.get('category.regions')) && this.get('model.regionOption').trim().length >0) {
+      return null;
+    }
+    return this.get('category.regions');*/
+    return false;
+  }.property('category.regionoption'),
+
+  //TO-DO togglePropert("subDomainValid"), if not don't allow to launch
+  subDomain: function() {
+    const subdomain  = this.get('category.random_name');
+    return subdomain.trim().length > 0  ? subdomain : "launch.domain_name";
+  }.property('category.random_name'),
+
+  domain: function() {
+    const domain  = this.get('category.domain');
+    return domain.trim().length > 0 ? domain : "launch.domain";
+  }.property('category.domain'),
+
+  regionChanged: function() {
+    alert("regionChanged " + this.get('regionOption'));
+    this.set('category.regionoption', this.get('regionOption'));
+    alert("this.get model "  + this.get('category.regionoption'));
+  }.observes('regionOption'),
+
 
   actions: {
     showCategoryTopic() {

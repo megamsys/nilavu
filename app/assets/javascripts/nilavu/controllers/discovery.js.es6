@@ -2,7 +2,9 @@ import NilavuURL from 'nilavu/lib/url';
 
 export default Ember.Controller.extend({
   needs: ['navigation/category', 'discovery/topics', 'application'],
-  loading: true,
+  showTop: true,
+  showFooter: true,
+  loading: false,
 
   category: Em.computed.alias('controllers.navigation/category.category'),
   noSubcategories: Em.computed.alias('controllers.navigation/category.noSubcategories'),

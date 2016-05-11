@@ -388,45 +388,22 @@ export default Ember.Controller.extend({
     let composerModel = this.get('model');
 
     this.setProperties({ showEditReason: false, editReason: null });
+
     composerMessages.reset();
 
     return new Ember.RSVP.Promise(function(resolve, reject) {
-      if (composerModel && composerModel.get('replyDirty')) {
+       Draft.get(opts.draftKey).then(function(data) {
 
-        // If we're already open, we don't have to do anything
-        if (composerModel.get('composeState') === Composer.OPEN &&
-            composerModel.get('draftKey') === opts.draftKey && !opts.action) {
-          return resolve();
-        }
-
-        // If it's the same draft, just open it up again.
-        if (composerModel.get('composeState') === Composer.DRAFT &&
-            composerModel.get('draftKey') === opts.draftKey) {
-          composerModel.set('composeState', Composer.OPEN);
-          if (!opts.action) return resolve();
-        }
-
-        // If it's a different draft, cancel it and try opening again.
-        return self.cancelComposer().then(function() {
-          return self.open(opts);
-        }).then(resolve, reject);
-      }
-
-      // we need a draft sequence for the composer to work
-      if (opts.draftSequence === undefined) {
-        return Draft.get(opts.draftKey).then(function(data) {
-          console.log("assembled =>"+ JSON.stringify(data));
           opts.draftSequence =  data.random_name;
           opts.metaData =  data;
           opts.draftKey = data.domain;
 
           self._setModel(composerModel, opts);
-        }).then(resolve, reject);
-      }
-
-      resolve();
+          resolve(self.get('model'));
+        });
     });
   },
+
 
   // Given a potential instance and options, set the model for this composer.
   _setModel(composerModel, opts) {
@@ -440,7 +417,6 @@ export default Ember.Controller.extend({
 
     composerModel.set('composeState', Composer.OPEN);
     composerModel.set('isWarning', false);
-
 //    this.get('controllers.composer-messages').queryFor(composerModel);
   },
 

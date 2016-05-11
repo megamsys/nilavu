@@ -6,6 +6,8 @@ import showModal from 'nilavu/lib/show-modal';
 
 const controllerOpts = {
   needs: ['discovery'],
+  showTop: true,
+  showFooter: true,
   period: null,
 
   canStar: Em.computed.alias('controllers.discovery/topics.currentUser.id'),

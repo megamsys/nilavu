@@ -2,7 +2,7 @@ import { propertyEqual } from 'nilavu/lib/computed';
 
 export default Em.Component.extend({
   tagName: 'li',
-  classNameBindings: ['active', 'tabClassName'],
+  classNameBindings: ['active', 'tabClassName', ':tabDisabled'],
 
   tabClassName: function() {
     return 'edit-category-' + this.get('tab');

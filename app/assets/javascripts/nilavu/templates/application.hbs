@@ -1,6 +1,12 @@
-{{#if showTop}}
-    {{render "header"}}
-{{/if}}
+{{site-header canSignUp=canSignUp
+              showCreateAccount="showCreateAccount"
+              showLogin="showLogin"
+              showKeyboard="showKeyboardShortcutsHelp"
+              toggleMobileView="toggleMobileView"
+              toggleAnonymous="toggleAnonymous"
+              logout="logout"
+              showSearchHelp="showSearchHelp"}}
+              
 <div id="main-outlet">
     <div class="container">
         {{global-notice}}

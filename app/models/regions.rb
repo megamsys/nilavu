@@ -5,11 +5,11 @@ class Regions
 
     # category = regions, name = chennai, opts = has hash.
     def self.load_settings(file)
-        loaded_regions = Hash.new
+        loaded_regions = []
         SiteSettings::YamlLoader.new(file).load do |category, name, default, opts|
-            loaded_regions[name] = opts
+            opts[:name] = name
+            loaded_regions << opts
         end
-
         loaded_regions
     end
 

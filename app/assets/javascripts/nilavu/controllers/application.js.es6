@@ -1,8 +1,8 @@
 import computed from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Controller.extend({
-  showTop: false,
-  showFooter: false,
+  showTop: true,
+  showFooter: true,
   styleCategory: null,
 
   @computed

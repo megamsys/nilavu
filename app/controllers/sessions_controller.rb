@@ -38,8 +38,9 @@ class SessionsController < ApplicationController
       invalid_credentials
       return
     end
-
     user.email_confirmed? ? login(user) : not_activated(user)
+  rescue ApiDispatcher::Flunked
+    invalid_credentials
   end
 
 

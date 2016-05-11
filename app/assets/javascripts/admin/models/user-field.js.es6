@@ -1,5 +1,5 @@
-import RestModel from 'discourse/models/rest';
-import { i18n } from 'discourse/lib/computed';
+import RestModel from 'nilavu/models/rest';
+import { i18n } from 'nilavu/lib/computed';
 
 const UserField = RestModel.extend();
 
