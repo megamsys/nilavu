@@ -57,7 +57,7 @@
 //= require ./nilavu/components/notifications-button
 //= require ./nilavu/components/topic-notifications-button
 //= require ./nilavu/lib/link-mentions
-//= require ./nilavu/views/header
+//= require ./nilavu/components/site-header
 //= require ./nilavu/lib/utilities
 //= require ./nilavu/lib/show-modal
 //= require ./nilavu/lib/screen-track

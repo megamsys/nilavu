@@ -1,31 +1,30 @@
-import { on, observes } from 'ember-addons/ember-computed-decorators';
+import {
+    on,
+    observes
+} from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Component.extend({
-  classNameBindings: ['isActive:active'],
+    tagName: 'label',
+    classNameBindings: [':btn', ':btn-primary', ':btnSelect', 'alignRight', 'isActive:active'],
 
-  launchableName: Ember.computed.alias('name'),
+    alignRight: function() {
+        const posRight = this.get('position') || "";
+        return posRight.trim();
+    }.property('position'),
 
-  alignRight: function() {
-    const posRight  = this.get('position') || "";
-    return posRight.trim();
-  }.property('position'),
+    launchableName: Ember.computed.alias('name'),
 
-  showLaunchableImage: function() {
-    return this.get('launchableName') + '.png';
-  }.property('launchableName'),
+    isActive: function() {
+        const launchable = this.get('launchable') || "";
+        this.set('launchOption', launchable);
+        return launchable.trim().length > 0 && launchable.trim() == this.get('launchableName');
+    }.property("launchable"),
 
-  isActive: function() {
-    alert("isActive: "+ "," + this.get('launchableName'));
-    const launchable = this.get('launchable') || "";
-    alert("isAction: " + ", l ="+ this.get('launchable'));
+    myStyle: Ember.computed('display', function() {
+        return Ember.String.htmlSafe("display:none");
+    }),
 
-    return launchable.trim().length > 0;
-  }.property("launchable"),
-
-  @observes('value')
-  valueChanged() {
-    alert("value changed");
-    this.set('selectedLaunchable',this.get('value'))
-  }
-
+    showLaunchableImage: function() {
+        return this.get('launchableName') + '.png';
+    }.property('launchableName')
 });

@@ -1,23 +1,20 @@
 <section class="step1" id="section-topline-1">
-    <h3>Domain & Name</h3>
-    <div class="bottom-divider"></div>
-    {{text-field type="email" value=accountEmail placeholderKey="user.email.title" class ="form-control" id="new-launch" disabled=true name="name" autofocus="autofocus"}}
+    <div class="row">
+        <h3>{{i18n 'launcher.domain_name'}}</h3>
+        <div class="bottom-divider"></div>
+    </div>
 
-    <span class="domain-tag">.app.det.io</span>
+    <div class="row pad_t25">
+        {{text-field type="domain" value=subDomain placeholderKey="launcher.subdomain" class="roundText" id="new-launch" disabled=false name="sub_domain" autofocus="autofocus"}}
+        <span class="domain-tag">.{{domain}}</span>
+    </div>
 
-    {{#if subRegions}}
-        {{launching-regions regions=regions}}
-    {{else}}
-        <label>{{i18n 'launcher.regions_not_found'}}</label>
+    {{#if showSubRegions}}
+        {{launching-regions regions=regions regionable=regionOption}}
     {{/if}}
 
-    <h3>Resources</h3>
-    <div class="bottom-divider"></div>
-    {{launching-resources-chooser}}
-
-    {{#if subResources}}
-      {{launching-resources resources=resources}}
-    {{else}}
-        <label>{{i18n 'launcher.resources_not_found'}}</label>
+    {{#if showSubResources}}
+        {{launching-resources resources=resources resourceable=resourceOption}}
     {{/if}}
+
 </section>

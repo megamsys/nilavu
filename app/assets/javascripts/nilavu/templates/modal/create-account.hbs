@@ -71,9 +71,12 @@
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
               {{#if showCreateForm}}
-                <button class='btn btn-success col-lg-12' {{bind-attr disabled="submitDisabled"}} {{action "createAccount"}}>{{i18n 'create_account.title'}}</button>
-                {{#conditional-loading-spinner condition=formSubmitted size="small" }}
-                {{/conditional-loading-spinner}}
+                  <button class='btn btn-success col-lg-12' id="login-link" {{bind-attr disabled="submitDisabled"}} {{action "createAccount"}}>
+                    {{i18n 'create_account.title'}}
+                    <span class="pull-right">
+                      {{conditional-loading-spinner condition=formSubmitted size="large"}}
+                    </span>
+                  </button>
               {{/if}}
             </div>
           </div>

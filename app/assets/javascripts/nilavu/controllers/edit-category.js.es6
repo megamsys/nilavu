@@ -11,6 +11,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
     deleting: false,
     panels: null,
 
+
     _initPanels: function() {
         this.set('panels', []);
     }.on('init'),
@@ -32,7 +33,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
         if (this.get('model.id')) {
             return I18n.t("category.edit_long") + " : " + this.get('model.name');
         }
-        return I18n.t("category.create") + (this.get('model.name') ? (" : " + this.get('model.name')) : '');
+        return I18n.t("launcher.title");
     }.property('model.id', 'model.name'),
 
     launchOption: function() {
@@ -40,11 +41,16 @@ export default Ember.Controller.extend(ModalFunctionality, {
         return option.trim().length > 0 ? option : I18n.t("launchoption.default");
     }.property('model.launchoption'),
 
-    isVirtualMachine: function() {
-      const launchable = this.get('selectedLaunchable') || "";
 
+    launchableChanged: function() {
+      this.set('model.launchoption', this.get('launchOption'));
+      this.set('selectedTab', 'general');
+    }.observes('launchOption'),
+
+    isVirtualMachine: function() {
+      const launchable = this.get('launchOption') || "";
       return (launchable.trim.length > 0  && launchable == I18n.t("virtualmachine"))
-    },
+    }.property('launchOption'),
 
     titleChanged: function() {
         this.set('controllers.modal.title', this.get('title'));

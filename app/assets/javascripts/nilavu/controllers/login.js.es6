@@ -61,7 +61,7 @@ export default Ember.Controller.extend({
         type: 'POST'
       }).then(function (result) {
         // Successful login
-        if (result.error) {
+      if (result.error) {
           self.set('loggingIn', false);
           if( result.reason === 'not_activated' ) {
             self.send('showNotActivated', {
@@ -70,8 +70,9 @@ export default Ember.Controller.extend({
               currentEmail: result.current_email
             });
           } else {
-            this.notificationMessages.error(result.error);
+            self.notificationMessages.error(result.error);
           }
+          return
         } else {
           self.set('loggedIn', true);
           // Trigger the browser's password manager using the hidden static login form:

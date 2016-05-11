@@ -3,7 +3,7 @@ import NilavuURL from 'nilavu/lib/url';
 const HeaderController = Ember.Controller.extend({
   topic: null,
   showExtraInfo: null,
-  hamburgerVisible: false,
+  hamburgerVisible: true,
   searchVisible: false,
   userMenuVisible: false,
   needs: ['application'],

@@ -9,8 +9,12 @@
     <div class="selectBg">
         <div class="row">
             <div data-toggle="buttons">
-                {{edit-category-chooser name="virtualmachines" position="right"}}
-                {{edit-category-chooser name="applications" }}
+                <div class="col-sm-6">
+                    {{edit-category-chooser name="virtualmachines" launchable=launchable position="right"}}
+                </div>
+                <div class="col-sm-6">
+                    {{edit-category-chooser name="applications" launchable=launchable }}
+                </div>
             </div>
         </div>
     </div>

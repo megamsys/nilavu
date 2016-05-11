@@ -48,15 +48,10 @@ export default Nilavu.Route.extend(OpenComposer, {
 
     createTopic() {
       const self = this;
-
       const promise =  this.openComposer(this.controllerFor("discovery/topics")).then(function(result) {
-        showModal('editCategory', { model: result });
+        showModal('editCategory', {model: result});
       }).catch(function(e) {
-        if (e.jqXHR.responseJSON && e.jqXHR.responseJSON.errors) {
-          self.set('validationMessage', e.jqXHR.responseJSON.errors[0]);
-        } else {
-          self.set('validationMessage', I18n.t('generic_error'));
-        }
+
       });
     },
 

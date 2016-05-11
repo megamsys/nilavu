@@ -1,8 +1,8 @@
-<div class="col-sm-6">
-    <label class="btn btn-primary btnSelect {{alignRight}}">
-        <img class="inSelect" src='../images/launch/{{showLaunchableImage}}'>
-        <br>
-        <input autocomplete="off" id={{launchableName}} name={{launchableName}} style="display:none;" type="radio">
-        {{launchableName}}
-    </label>
-</div>
+<img class="inSelect" src='../images/launch/{{showLaunchableImage}}'>
+<br>
+{{radio-button
+  value=launchableName
+  name="launch_option"
+  selection=launchable
+  style=myStyle}}
+  {{launchableName}}

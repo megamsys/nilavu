@@ -1,15 +1,13 @@
-<h3>Select Location</h3>
-<div class="bottom-divider"></div>
-<div data-toggle="buttons">
-    <div class="locations">
-        <div class="lCover row">
-          {{#if regions}}
-              {{#each regions as |r|}}
-                  {{launching-region region=r hideParent="true"}}
-              {{/each}}
-          {{else}}
-              <label>{{i18n 'launcher.regions_not_found'}}</label>
-          {{/if}}
-        </div>
-    </div>
+<div class="row">
+    <h3>{{i18n 'launcher.select_location'}}</h3>
+    <div class="bottom-divider"></div>
+</div>
+<div class="row pad_t25">
+    {{#if regions}}
+        {{#each regions as |r|}}
+            {{launching-region region=r regionable=regionable}}
+        {{/each}}
+    {{else}}
+        <label>{{i18n 'launcher.regions_not_found'}}</label>
+    {{/if}}
 </div>
