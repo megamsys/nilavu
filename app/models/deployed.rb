@@ -43,7 +43,7 @@ return  @ips && @ips.hostip
 end
 end
   def someip
-    return @ips && (@ips.privateip || @ips.publicip || @ips.hostip)
+    return @ips && (@ips.privateip || @ips.publicip)
   end
 
   def publicip
