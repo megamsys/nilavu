@@ -13,8 +13,10 @@
         {{launching-regions regions=regions regionable=regionOption}}
     {{/if}}
 
-    {{#if showSubResources}}
-        {{launching-resources resources=resources resourceable=resourceOption}}
-    {{/if}}
+    <div class="hideme2">
+        {{#if regionOption}}
+            {{launching-resources resources=resources resourceable=resourceOption}}
+        {{/if}}
+    </div>
 
 </section>

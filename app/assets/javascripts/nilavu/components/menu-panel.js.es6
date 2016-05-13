@@ -1,12 +1,12 @@
 import { default as computed, on, observes } from 'ember-addons/ember-computed-decorators';
-import { headerHeight } from 'nilavu/views/header';
 
 const PANEL_BODY_MARGIN = 30;
 const mutationSupport = !Ember.testing && !!window['MutationObserver'];
 
 export default Ember.Component.extend({
-  classNameBindings: [':menu-panel', 'visible::hidden', 'viewMode'],
+  classNameBindings: ['visible::hidden', 'viewMode'],
   _lastVisible: false,
+  headerHeight: 50,
 
   showClose: Ember.computed.equal('viewMode', 'slide-in'),
 

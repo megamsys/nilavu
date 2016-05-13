@@ -92,6 +92,13 @@ body.modal-open,
   line-height: 1.428571429;
 }
 
+// used in the new launcher modal title 
+.modal-title h1 {
+  text-align: center;
+  margin-bottom: 3px;
+}
+
+
 .modal-body {
   position: relative;
   padding: 20px;

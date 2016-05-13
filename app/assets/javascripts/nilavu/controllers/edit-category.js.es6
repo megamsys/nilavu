@@ -45,11 +45,12 @@ export default Ember.Controller.extend(ModalFunctionality, {
     launchableChanged: function() {
       this.set('model.launchoption', this.get('launchOption'));
       this.set('selectedTab', 'general');
+      $(".hideme").slideToggle(250);
     }.observes('launchOption'),
 
     isVirtualMachine: function() {
       const launchable = this.get('launchOption') || "";
-      return (launchable.trim.length > 0  && launchable == I18n.t("virtualmachine"))
+      return (launchable.trim.length > 0  && Ember.isEqual(launchable.trim(),I18n.t('virtualmachines')));
     }.property('launchOption'),
 
     titleChanged: function() {

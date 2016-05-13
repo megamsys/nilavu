@@ -101,6 +101,13 @@ img.inSelect {
         color: $dark-blue;
     }
 }
+
+.roundFlag {
+    font-weight: $lightWeight;
+    @include border-radius(10px);
+    border: 0;
+}
+
 /* LOCATIONS / RESOURCES*/
 .locations,
 .resources {
@@ -553,8 +560,36 @@ a {
 }
 .form-control.flat {
     border-radius: 0;
+<<<<<<< HEAD
+=======
+}
+.tabDisabled a:hover {
+    cursor: not-allowed;
+    text-decoration: none;
+>>>>>>> origin/1.5
 }
 .tabDisabled a:hover {
     cursor: not-allowed;
     text-decoration: none;
 }
+
+
+/* Content */
+.content-wrap {
+  position: relative; }
+
+.content-wrap section {
+  display: none;
+  margin: 0 auto;
+  max-width: 1200px;
+  text-align: center; }
+
+.content-wrap section.content-current {
+  display: block; }
+
+.content-wrap section p {
+  margin: 0;
+  padding: 0.75em 0;
+  color: #35495e;
+  font-weight: 400;
+  font-size: 13px; }
