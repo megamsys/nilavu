@@ -107,6 +107,7 @@ img.inSelect {
     @include border-radius(10px);
     border: 0;
 }
+
 /* LOCATIONS / RESOURCES*/
 .locations,
 .resources {
@@ -559,6 +560,13 @@ a {
 }
 .form-control.flat {
     border-radius: 0;
+<<<<<<< HEAD
+=======
+}
+.tabDisabled a:hover {
+    cursor: not-allowed;
+    text-decoration: none;
+>>>>>>> origin/1.5
 }
 .tabDisabled a:hover {
     cursor: not-allowed;
