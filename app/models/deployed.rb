@@ -37,6 +37,11 @@ class Deployed
     end
   end
 
+def dockerhostip
+if @assembly.tosca_type == "tosca.microservices.dockercontainer"
+return  @ips && @ips.hostip
+end
+end
   def someip
     return @ips && (@ips.privateip || @ips.publicip)
   end
@@ -87,7 +92,7 @@ class Deployed
   end
 
   def monitored_container_url
-    "http://#{someip}:9999/api/v1.3/containers"
+    "http://#{dockerhostip}:9999/api/v1.3/containers"
   end
 
 
