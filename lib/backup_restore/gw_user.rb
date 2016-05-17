@@ -48,6 +48,7 @@ module GWUser
 
   def self.radosgw
     raise Nilavu::InvalidParameters if !SiteSetting.ceph_username || !SiteSetting.ceph_password || !SiteSetting.ceph_gateway
+
     CEPH::User.new(username: SiteSetting.ceph_username,
       user_password: SiteSetting.ceph_password,
     ipaddress:   SiteSetting.ceph_gateway)
