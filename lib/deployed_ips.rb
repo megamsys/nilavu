@@ -9,17 +9,14 @@ class DeployedIps
 
   def publicip
     first_public = select_with_pattern(@ips_array,'public').first
+
     return first_public[:value] if first_public
   end
 
   def privateip
     first_private = select_with_pattern(@ips_array,'private')
-    return first_private[:value] if first_private
-  end
 
-def hostip
-    first_host = select_with_pattern(@ips_array,'host').first
-  return first_host[:value] if first_host
+    return first_private[:value] if first_private
   end
 
   def all
