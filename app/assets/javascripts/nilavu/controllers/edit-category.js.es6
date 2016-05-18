@@ -10,15 +10,27 @@ export default Ember.Controller.extend(ModalFunctionality, {
     saving: false,
     deleting: false,
     panels: null,
+    editLaunching: false,
 
 
     _initPanels: function() {
         this.set('panels', []);
+        this.editLaunching = false;
     }.on('init'),
+
+
+  /*  _changeInitialState:function() {
+      alert('tearing');
+      this.editLaunching = false;
+      alert(this.get('model.launchoption'));
+      alert(this.get('launchOption'));
+    }.on('willDestroyElement'),
+*/
 
     onShow() {
         this.changeSize();
         this.titleChanged();
+  //      this._changeInitialState();
     },
 
     changeSize: function() {
@@ -45,11 +57,12 @@ export default Ember.Controller.extend(ModalFunctionality, {
     launchableChanged: function() {
       this.set('model.launchoption', this.get('launchOption'));
       this.set('selectedTab', 'general');
-      $(".hideme").slideToggle(250);
+      if (!this.editLaunching) {    $(".hideme").slideToggle(250); this.toggleProperty('editLaunching'); }
     }.observes('launchOption'),
 
     isVirtualMachine: function() {
       const launchable = this.get('launchOption') || "";
+      alert(launchable.trim() + "," +I18n.t('virtualmachines'));
       return (launchable.trim.length > 0  && Ember.isEqual(launchable.trim(),I18n.t('virtualmachines')));
     }.property('launchOption'),
 
@@ -58,9 +71,9 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.observes('title'),
 
     disabled: function() {
-        if (this.get('saving') || this.get('deleting')) return true;
-        if (!this.get('model.name')) return true;
-        if (!this.get('model.color')) return true;
+        //if (this.get('saving') || this.get('deleting')) return true;
+      //  if (!this.get('model.name')) return true;
+    //    if (!this.get('model.color')) return true;
         return false;
     }.property('saving', 'model.name', 'model.color', 'deleting'),
 
@@ -80,7 +93,11 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.property('saving', 'model.id'),
 
     actions: {
-        saveCategory() {
+          nextCategory() {
+            alert(JSON.stringify(this.get('model.metaData')));
+          },
+
+          saveCategory() {
             const self = this,
                 model = this.get('model'),
                 parentCategory = Nilavu.Category.list().findBy('id', parseInt(model.get('parent_category_id'), 10));

@@ -1,5 +1,5 @@
-{{#if flavors}}
-    {{#each flavors as |flavor|}}
-        {{launching-flavor flavor=flavor flavourable=flavourable}}
+{{#if unittedFlavors}}
+    {{#each unittedFlavors as |unit_flavor|}}
+        {{launching-flavor category=category flavor=unit_flavor flavourable=resourceable}}
     {{/each}}
 {{/if}}

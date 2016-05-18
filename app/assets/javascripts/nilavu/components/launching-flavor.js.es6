@@ -1,53 +1,40 @@
-import {  on, observes, computed } from 'ember-addons/ember-computed-decorators';
+import {
+    on,
+    observes,
+    computed
+} from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Component.extend({
-    classNameBindings: ['isActive:active'],
 
-    flavorName: Em.computed.alias('flavor.name'),
+    unitFlav: function() {
+        return this.get('flavor');
+    }.property('flavor'),
 
-    fullFavor: Em.computed.alias('flavor.value'),
+    flavorName: Em.computed.alias('unitFlav.flavor.key'),
 
-    favorSplitter: function() {
-      const ffavor = this.get('fullFavor');
-      if(!Ember.isEmpty(ffavor)) {
-          return ffavor.split(',')
-      }
-      return [];
-    }.property('fullFavor'),
+    fcpu: function() {
+        return this.get('unitFlav').cpu();
+    }.property('unitFlav.cpu'),
 
-    _splitAt: function(idx) {
-      const splitFavor = this.get('favorSplitter');
-      return splitFavor.length  > 0  ? splitFavor[idx] : "";
+    fmemory: function() {
+        return this.get('unitFlav').memory();
+    }.property('unitFlav.memory'),
+
+    fstorage: function() {
+        return this.get('unitFlav').storage();
+    }.property('unitFlav.storage'),
+
+    unitChanged: function() {
+      this.set('category.unitoption', this.get('unitFlav'));
     },
 
+    change: function() {      
+      Ember.run.once(this, 'unitChanged');
+    },
 
-    cpu: function() {
-        return this._splitAt(0);
-    }.property(),
-
-    memory: function() {
-        return this._splitAt(1);
-    }.property(),
-
-    storage: function() {
-        return this._splitAt(2);
-    }.property(),
-
-
-    isActive: function() {
-      const resource = this.get('resourceSelected') || "";
-        return resource.trim().length > 0 && resource.trim() == this.get('resourceName');
-    }.property("resourceSelected"),
-
-
-    myStyle: Ember.computed('display', function() {
-        return Ember.String.htmlSafe("display:none");
-    }),
-
-    actions: {
-        showBill: function() {
-            //    alert("selected " + this.get('resourceSelected'));
-        }
+    @observes('flavor.@each')
+    _rerenderOnChange() {
+      this.rerender();
     }
 
 });
