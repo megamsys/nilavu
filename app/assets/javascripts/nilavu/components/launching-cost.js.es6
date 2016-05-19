@@ -18,12 +18,12 @@ export default Ember.Component.extend({
     unitPerHour: function() {
         const uf = this.get('unitFlav');
         return uf ? uf.unitCostPerHour() : 0;
-    }.property('unitFlav'),
+    }.property('category.unitoption', 'unitFlav'),
 
     unitPerMonth: function() {
         const uf = this.get('unitFlav');
         return uf ? uf.unitCostPerMonth() : 0;
-    }.property('unitFlav')
+    }.property('category.unitoption','unitFlav')
 
 
 });

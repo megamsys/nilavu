@@ -51,6 +51,8 @@ export default buildCategoryPanel('general', {
             this.$(".hideme2").slideToggle(150);
             this.toggleProperty('editingResource');
         }
+        this.toggleProperty('editingCost');
+        $(".hideme3").slideToggle(250);
         this.set('category.regionoption', this.get('regionOption'));
     }.observes('regionOption'),
 
@@ -70,7 +72,10 @@ export default buildCategoryPanel('general', {
 
     resourceChanged: function() {
         this.set('category.resourceoption', this.get('resourceOption'));
-        if (!this.editingCost) {    $(".hideme3").slideToggle(250); this.toggleProperty('editingCost'); }
+        if (!this.editingCost) {
+            $(".hideme3").slideToggle(250);
+            this.toggleProperty('editingCost');
+        }
     }.observes('resourceOption'),
 
     //TO-DO nove the StorageOption to a model StorageType like PermissionType

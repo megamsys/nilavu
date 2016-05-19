@@ -23,8 +23,11 @@
         <div class="footer hideme3 no-padding">
             {{launching-cost saveLabel=saveLabel category=model.metaData}}
             <div class="col-sm-3 no-padding">
-                {{d-button id="save-category" class="btn btn-block btn-primary" disabled=disabled action="nextCategory" label=saveLabel}}
-                {{conditional-loading-spinner size="small" condition=loading}}
+              {{#d-button id="save-category" class="btn btn-block btn-primary" disabled=disabled action="nextCategory" label=saveLabel}}
+                <span class="pull-right">
+                  {{conditional-loading-spinner size="large" condition=loading}}
+                </span>
+              {{/d-button}}  
             </div>
         </div>
     </div>
