@@ -25,7 +25,7 @@ class LaunchersController < ApplicationController
     unless @launch_item
       render_with_error('marketplace.launch_item_load_failure')
     end
-  
+
     respond_to do |format|
       format.js do
         respond_with(@launch_item, layout: !request.xhr?)
@@ -37,7 +37,7 @@ class LaunchersController < ApplicationController
     params.require(:version)
     params.require(:assemblyname)
     params.require(:componentname)
-    params.require(:sshoption)
+    #params.require(:sshoption)
 
     vertice = VerticeLauncher.new(LaunchableItem.reload_cached_item!(params))
 
