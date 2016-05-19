@@ -10,15 +10,27 @@ export default Ember.Controller.extend(ModalFunctionality, {
     saving: false,
     deleting: false,
     panels: null,
+    editLaunching: false,
 
 
     _initPanels: function() {
         this.set('panels', []);
+        this.editLaunching = false;
     }.on('init'),
+
+
+    /*  _changeInitialState:function() {
+      alert('tearing');
+      this.editLaunching = false;
+      alert(this.get('model.launchoption'));
+      alert(this.get('launchOption'));
+    }.on('willDestroyElement'),
+*/
 
     onShow() {
         this.changeSize();
         this.titleChanged();
+        //      this._changeInitialState();
     },
 
     changeSize: function() {
@@ -43,14 +55,18 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
 
     launchableChanged: function() {
-      this.set('model.launchoption', this.get('launchOption'));
-      this.set('selectedTab', 'general');
-      $(".hideme").slideToggle(250);
+        this.set('model.launchoption', this.get('launchOption'));
+        this.set('selectedTab', 'general');
+        if (!this.editLaunching) {
+            $(".hideme").slideToggle(250);
+            this.toggleProperty('editLaunching');
+        }
     }.observes('launchOption'),
 
     isVirtualMachine: function() {
-      const launchable = this.get('launchOption') || "";
-      return (launchable.trim.length > 0  && Ember.isEqual(launchable.trim(),I18n.t('virtualmachines')));
+        const launchable = this.get('launchOption') || "";
+        alert(launchable.trim() + "," + I18n.t('virtualmachines'));
+        return (launchable.trim.length > 0 && Ember.isEqual(launchable.trim(), I18n.t('virtualmachines')));
     }.property('launchOption'),
 
     titleChanged: function() {
@@ -58,11 +74,15 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.observes('title'),
 
     disabled: function() {
+        alert(JSON.stringify(this.get('model.metaData.unitoption')));
         if (this.get('saving') || this.get('deleting')) return true;
-        if (!this.get('model.name')) return true;
-        if (!this.get('model.color')) return true;
+        if (!this.get('model.metaData.unitoption')) return true;
+        /*  if (!this.get('model.color')) return true;
+          if (!this.get('model.color')) return true;
+          */
         return false;
-    }.property('saving', 'model.name', 'model.color', 'deleting'),
+    }.property('saving', 'model.metaData.unitoption', 'model.color', 'deleting'),
+
 
     deleteDisabled: function() {
         return (this.get('deleting') || this.get('saving') || false);
@@ -80,6 +100,11 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.property('saving', 'model.id'),
 
     actions: {
+        nextCategory() {
+            this.set('loading', true);
+            alert(JSON.stringify(this.get('model.metaData')));
+        },
+
         saveCategory() {
             const self = this,
                 model = this.get('model'),

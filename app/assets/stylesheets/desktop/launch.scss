@@ -243,20 +243,18 @@ img.inSelect {
 }
 .btn-storage-container {
     width: 250px;
-    height: 34px;
-    margin: 15px auto;
+    margin: 0px auto;
     padding: 0;
     .btn-storage {
         transition: all 0.5s ease;
-        font-weight: $thinWeight;
-        padding-top: 1px;
-        padding-bottom: 1px;
+        line-height: 45px !important;
+        padding-top: 0px;
+        padding-bottom: 0px;
         border-radius: 0;
-        margin: 0 0 10px;
+        margin: 0 0 0px;
         width: 125px;
         background-color: lightgray;
         color: white;
-        font-size: 21px;
         &.active {
             background-color: $blue-color;
         }
@@ -560,13 +558,10 @@ a {
 }
 .form-control.flat {
     border-radius: 0;
-<<<<<<< HEAD
-=======
 }
 .tabDisabled a:hover {
     cursor: not-allowed;
     text-decoration: none;
->>>>>>> origin/1.5
 }
 .tabDisabled a:hover {
     cursor: not-allowed;

@@ -9,7 +9,6 @@ export default Ember.Component.extend({
     } else { return false; }
   },
 
-
   change: function () {
     this.set('selection', this.get('value'));
     Ember.run.once(this, 'checked'); //manual observer

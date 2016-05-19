@@ -6,21 +6,17 @@
             </div>
             <div class="rContent">
                 <p>
-                    <span>{{cpu}}</span> CPU
+                    <span>{{fcpu}}</span> CPU
                     <br>
-                    <span>{{memory}}</span> Memory
+                    <span>{{fmemory}}</span> Memory
                     <br>
-                    <span>{{storage}}</span> Storage
+                    <span>{{fstorage}}</span> Storage
                     <br>
                 </p>
             </div>
         </div>
         <div class="rFooter">
-          {{launching-flavor-chooser}}
-
-            <label class="btn btn-block" id="slideDown3">
-                <input autocomplete="off" id="loc1" name="options" style="display:none;" type="radio"> select
-            </label>
+          {{launching-flavor-chooser name=flavorName flavourable=flavourable}}
         </div>
     </div>
 </div>

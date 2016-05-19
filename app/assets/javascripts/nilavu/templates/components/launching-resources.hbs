@@ -3,12 +3,18 @@
     <div class="bottom-divider"></div>
 </div>
 
-{{launching-storage-chooser}}
+<div class="row pad_t25">
+  <div class="btn-storage-container">
+    {{launching-storage-chooser name='HDD' storageable=storageable style="float: left"}}
+    {{launching-storage-chooser name='SSD' storageable=storageable style="float: right"}}
+</div>
+</div>
+
 
 <div class="row pad_t25">
     {{#if resources}}
-        {{#each resources as |r|}}
-            {{launching-resource  resource=r flavor=r resourceable=resourceable}}
+        {{#each resources as |resource|}}
+            {{launching-resource category=category resource=resource resourceable=resourceable}}
         {{/each}}
     {{else}}
         <label>{{i18n 'launcher.resources_not_found'}}</label>
