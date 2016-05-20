@@ -530,7 +530,7 @@ body {
     .header .navbar-brand {
       margin-top: 15px !important;
     }
-    .navbar-brand img {
+    .navbar-brand  img {
       width: 100px;
       margin-left: 0px !important;
     }
