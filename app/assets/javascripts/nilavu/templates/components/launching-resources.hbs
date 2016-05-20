@@ -1,13 +1,22 @@
-<div data-toggle="buttons">
-    <div class="resources">
-        <div class="rCover row">
-          {{#if resources}}
-              {{#each resources as |r|}}
-                  {{launching-resource resource=r hideParent="true"}}
-              {{/each}}
-          {{else}}
-              <label>{{i18n 'launcher.resources_not_found'}}</label>
-          {{/if}}
-        </div>
-    </div>
+<div class="row">
+    <h3>{{i18n 'launcher.resources'}}</h3>
+    <div class="bottom-divider"></div>
+</div>
+
+<div class="row pad_t25">
+  <div class="btn-storage-container">
+    {{launching-storage-chooser name='HDD' storageable=storageable style="float: left"}}
+    {{launching-storage-chooser name='SSD' storageable=storageable style="float: right"}}
+</div>
+</div>
+
+
+<div class="row pad_t25">
+    {{#if resources}}
+        {{#each resources as |resource|}}
+            {{launching-resource category=category resource=resource resourceable=resourceable}}
+        {{/each}}
+    {{else}}
+        <label>{{i18n 'launcher.resources_not_found'}}</label>
+    {{/if}}
 </div>

@@ -73,14 +73,19 @@
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 tour-btn">
                                         <button class="btn btn-success btn-plain" id="take-a-tour" {{action "takeTour"}}>
                                             <a>
-                      {{i18n 'login.take_a_tour'}}
-                      </a>
+                                              {{i18n 'login.take_a_tour'}}
+                                            </a>
                                         </button>
                                     </div>
+
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 pull-right tour-btn">
                                         <button class="btn btn-success btn-plain-green" {{bind-attr disabled="loginDisabled"}} {{action "login"}}>
                                             {{loginButtonText}}
+                                            <span class="pull-right">
+                                              {{conditional-loading-spinner condition=showSpinner size="large"}}
+                                            </span>
                                         </button>
+
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +100,6 @@
                         {{login-buttons action="externalLogin"}}
                     </div>
                 </form>
-                {{conditional-loading-spinner condition=showSpinner size="small"}}
             </div>
         </div>
         <div class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">

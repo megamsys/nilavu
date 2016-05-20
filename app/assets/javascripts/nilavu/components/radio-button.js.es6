@@ -1,11 +1,16 @@
 export default Ember.Component.extend({
-  tagName : "input",
-  type : "radio",
-  attributeBindings : [ "name", "type", "value", "checked:checked" ],
-  click : function() {
-    this.set("selection", this.$().val());
+  tagName: 'input',
+  type: 'radio',
+  attributeBindings: [ 'checked:checked', 'name', 'type', 'value', 'style' ],
+
+  checked: function () {
+    if (this.get('value') === this.get('selection')) {
+      return true;
+    } else { return false; }
   },
-  checked : function() {
-    return this.get("value") === this.get("selection");
-  }.property('selection'),
+
+  change: function () {
+    this.set('selection', this.get('value'));
+    Ember.run.once(this, 'checked'); //manual observer
+  }
 });

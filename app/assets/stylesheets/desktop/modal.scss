@@ -71,3 +71,34 @@ Modal header close button fix
 
 body.modal-open {
 }
+
+.edit-category-modal {
+  .modal-body {
+    position: relative;
+    height: 800px;
+    padding-bottom: 0;
+  }
+  .secure-category-options {
+    margin: 10px 0 0 16px;
+    .badge-list {
+      margin: 10px 0;
+      li {
+        margin: 0 4px 8px 0;
+        a {
+          color: dark-light-choose(scale-color($primary, $lightness: 50%), scale-color($secondary, $lightness: 50%));
+          cursor: pointer;
+        }
+        a:hover {
+          color: dark-light-choose(scale-color($primary, $lightness: 40%), scale-color($secondary, $lightness: 60%));
+        }
+      }
+    }
+  }
+
+  .cannot_delete_reason {
+    float: right;
+    text-align: right;
+    max-width: 380px;
+    color: dark-light-choose(scale-color($primary, $lightness: 60%), scale-color($secondary, $lightness: 40%));
+  }
+}

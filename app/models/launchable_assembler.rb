@@ -16,9 +16,12 @@ module LaunchableAssembler
         current_user.team.last_used_domain.name
     end
 
+    #default currency is dollar, used as the last resort.
+    # 1. currency for the region from regions.yml file
+    # 2. currency from site_settings
+    # 3. default currency ($)
     def currency_denoted
-        #    SiteSetting.currency
-        '\u20B9'
+        '&#36;'
     end
 
     def assembled

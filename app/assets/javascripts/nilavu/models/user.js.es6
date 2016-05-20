@@ -91,7 +91,8 @@ const User = RestModel.extend({
 
   @computed("username")
   username_lower(username) {
-    return username.toLowerCase();
+    return "";
+    //return username.toLowerCase();
   },
 
   @computed("trust_level")

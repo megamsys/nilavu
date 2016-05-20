@@ -116,7 +116,7 @@ en:
         title:
           one: Service
           other: Services
-      microservices:
+      microservice:
         title:
           one: Microservice
           other: Microservices
@@ -457,13 +457,19 @@ en:
 
 
     launcher:
+      create: "Virtual Machine"
+      title: "Let's Get Started"
       general: "Step 1"
       virtualmachine: "Step 2"
       application: "Step 2"
       summary: "Step 3"
-      success: "Your %{stuff} <b>%{name}</b> is firing up"
-      compute_setting: "CPU, transfer, storage, and RAM bundled into one simple block"
-      creating: "Creating..."
+      subdomain: "subdomain"
+      domain_name: "Domain & Name"
+      select_location: "Select Location"
+      locations_not_found: "Ooops location missing, where do i launch"
+      resources: "Resources"
+      resources_not_found: "Ooops resource missing, hungry kya."
+
 
     ok: "OK"
     cancel: "Cancel"

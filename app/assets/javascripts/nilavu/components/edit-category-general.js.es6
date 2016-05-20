@@ -1,64 +1,103 @@
 import NilavuURL from 'nilavu/lib/url';
-import { buildCategoryPanel } from 'nilavu/components/edit-category-panel';
-import { categoryBadgeHTML } from 'nilavu/helpers/category-link';
-import Category from 'nilavu/models/category';
+import {
+    buildCategoryPanel
+} from 'nilavu/components/edit-category-panel';
+import computed from 'ember-addons/ember-computed-decorators';
+
 
 export default buildCategoryPanel('general', {
-  foregroundColors: ['FFFFFF', '000000'],
-  canSelectParentCategory: Em.computed.not('category.isUncategorizedCategory'),
 
-  // background colors are available as a pipe-separated string
-  backgroundColors: function() {
-  /*  const categories = Nilavu.Category.list();
-    return this.siteSettings.category_colors.split("|").map(function(i) { return i.toUpperCase(); }).concat(
-                categories.map(function(c) { return c.color.toUpperCase(); }) ).uniq(); */
-  return ['green'];
-  }.property(),
+    editingResource: false,
+    editingCost: false,
 
-  usedBackgroundColors: function() {
-    const categories = Nilavu.Category.list();
-    const category = this.get('category');
+    category: function() {
+        return this.get('category')
+    }.property("category"),
 
-    // If editing a category, don't include its color:
-    return categories.map(function(c) {
-      return (category.get('id') && category.get('color').toUpperCase() === c.color.toUpperCase()) ? null : c.color.toUpperCase();
-    }, this).compact();
-  }.property('category.id', 'category.color'),
+    //TO-DO togglePropert("subDomainValid"), if not don't allow to launch
+    subDomain: function() {
+        const subdomain = this.get('category.random_name');
+        return subdomain.trim().length > 0 ? subdomain : "launch.domain_name";
+    }.property('category.random_name'),
 
-  parentCategories: function() {
-    return Nilavu.Category.list().filter(function (c) {
-      return !c.get('parentCategory');
-    });
-  }.property(),
+    domain: function() {
+        const domain = this.get('category.domain');
+        return domain.trim().length > 0 ? domain : "launch.domain";
+    }.property('category.domain'),
 
-  categoryBadgePreview: function() {
-    const category = this.get('category');
-    const c = Category.create({
-      name: category.get('categoryName'),
-      color: category.get('color'),
-      text_color: category.get('text_color'),
-      parent_category_id: parseInt(category.get('parent_category_id'),10),
-      read_restricted: category.get('read_restricted')
-    });
-    return categoryBadgeHTML(c, {link: false});
-  }.property('category.parent_category_id', 'category.categoryName', 'category.color', 'category.text_color'),
+    regions: Em.computed.alias('category.regions'),
 
+    // We need to get the regions from the Draft model
+    showSubRegions: function() {
+        if (Ember.isEmpty(this.get('category.regions'))) {
+            return null;
+        }
+        return this.get('category.regions');
+    }.property('category.regions'),
 
-  // We need to get the regions from the Draft model
-  subRegions: function() {
-    if (Ember.isEmpty(this.get('category.regions'))) { return null; }
-    return this.get('category.regions');
-  }.property('category.regions'),
+    resources: function() {
+        const _regionOption = this.get('regionOption');
+        const fullFlavor = this.get('regions').filter(function(c) {
+            if (c.name == _regionOption) {
+                return c;
+            }
+        });
+        return fullFlavor;
+    }.property('category.regionoption', 'regionOption'),
 
 
-  showDescription: function() {
-    return !this.get('category.isUncategorizedCategory') && this.get('category.id');
-  }.property('category.isUncategorizedCategory', 'category.id'),
+    regionChanged: function() {
+        if (!this.editingResource) {
+            this.$(".hideme2").slideToggle(150);
+            this.toggleProperty('editingResource');
+        }
+        this.toggleProperty('editingCost');
+        $(".hideme3").slideToggle(250);
+        this.set('category.regionoption', this.get('regionOption'));
+    }.observes('regionOption'),
 
-  actions: {
-    showCategoryTopic() {
-      NilavuURL.routeTo(this.get('category.topic_url'));
-      return false;
+    regionOption: function() {
+        if (Ember.isEmpty(this.get('category.regions')) && this.get('category.regionoption').trim().length > 0) {
+            return true;
+        }
+        return false;
+    }.property('category.regions', 'category.regionoption'),
+
+    resourceOption: function() {
+        if (Ember.isEmpty(this.get('category.regions')) && this.get('category.resourceoption').trim().length > 0) {
+            return true;
+        }
+        return false;
+    }.property('category.regions', 'category.resourceoption'),
+
+    resourceChanged: function() {
+        this.set('category.resourceoption', this.get('resourceOption'));
+        if (!this.editingCost) {
+            $(".hideme3").slideToggle(250);
+            this.toggleProperty('editingCost');
+        }
+    }.observes('resourceOption'),
+
+    //TO-DO nove the StorageOption to a model StorageType like PermissionType
+    storageOption: function() {
+        //let HDD = 'HDD';
+
+        if (Ember.isEmpty(this.get('category.regions')) &&
+            this.get('category.resourceoption').trim().length > 0) {
+            return true;
+        }
+        //return HDD;
+        return false;
+    }.property('category.storageOption'),
+
+    storageChanged: function() {
+        this.set('category.storageoption', this.get('storageOption'));
+    }.observes('storageOption'),
+
+    actions: {
+        showCategoryTopic() {
+            NilavuURL.routeTo(this.get('category.topic_url'));
+            return false;
+        }
     }
-  }
 });

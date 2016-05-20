@@ -3,7 +3,7 @@ require "auth/current_user_provider"
 class Auth::DefaultCurrentUserProvider
 
   CURRENT_USER_KEY ||= "_NILAVU_CURRENT_USER".freeze
-  APIKEY_COOKIE ||= "_t".freeze
+  TOKEN_COOKIE ||= "_t".freeze
   PATH_INFO ||= "PATH_INFO".freeze
 
   # do all current user initialization here
@@ -24,13 +24,13 @@ class Auth::DefaultCurrentUserProvider
   def log_on_user(user, session, cookies)
     @env[CURRENT_USER_KEY] = user
     session[CURRENT_USER_KEY] = user
-    cookies[APIKEY_COOKIE] = user
+    cookies[TOKEN_COOKIE] = user
   end
 
   def log_off_user(session, cookies)
     session.delete(CURRENT_USER_KEY)
     session = nil
-    cookies[APIKEY_COOKIE] = nil
+    cookies[TOKEN_COOKIE] = nil
   end
 
 

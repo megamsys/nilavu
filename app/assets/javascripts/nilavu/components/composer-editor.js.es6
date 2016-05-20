@@ -162,11 +162,11 @@ export default Ember.Component.extend({
     const csrf = this.session.get('csrfToken');
     const uploadPlaceholder = this.get('uploadPlaceholder');
 
-    $element.fileupload({
+  /*  $element.fileupload({
       url: Nilavu.getURL(`/uploads.json?client_id=${this.messageBus.clientId}&authenticity_token=${encodeURIComponent(csrf)}`),
       dataType: "json",
       pasteZone: $element,
-    });
+    });*/
 
     $element.on('fileuploadsubmit', (e, data) => {
       const isUploading = Nilavu.Utilities.validateUploadedFiles(data.files);
@@ -202,7 +202,7 @@ export default Ember.Component.extend({
       }
     });
 
-    this.messageBus.subscribe("/uploads/composer", upload => {
+  /*  this.messageBus.subscribe("/uploads/composer", upload => {
       // replace upload placeholder
       if (upload && upload.url) {
         if (!this._xhr || !this._xhr._userCancelled) {
@@ -216,7 +216,7 @@ export default Ember.Component.extend({
         this._resetUpload(true);
         Nilavu.Utilities.displayErrorForUpload(upload);
       }
-    });
+    });*/
 
     if (this.site.mobileView) {
       this.$(".mobile-file-upload").on("click.uploader", function () {
@@ -315,7 +315,7 @@ export default Ember.Component.extend({
   _unbindUploadTarget() {
     this._validUploads = 0;
     this.$(".mobile-file-upload").off("click.uploader");
-    this.messageBus.unsubscribe("/uploads/composer");
+    //this.messageBus.unsubscribe("/uploads/composer");
     const $uploadTarget = this.$();
     try { $uploadTarget.fileupload("destroy"); }
     catch (e) { /* wasn't initialized yet */ }

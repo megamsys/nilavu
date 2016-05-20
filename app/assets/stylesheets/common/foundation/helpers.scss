@@ -28,9 +28,19 @@
 .pad_rt-9 {
   padding-right: 95px;
 }
+
+.pad_rt-90 {
+  padding-right: 15px;
+}
+
 .pad_0 {
   padding: 0px;
 }
+
+.pad_5 {
+  padding: 5px;
+}
+
 .pad_t25 {
   padding-top: 23px !important;
 }
@@ -49,4 +59,14 @@
 
 .bottom-divider {
   border-bottom: 1px solid #e5e6ef;
+}
+
+.divider {
+    height: 1px;
+    width: 75%;
+    display: block;
+    /* for use on default inline elements like span */
+    margin: 9px auto 15px;
+    overflow: hidden;
+    background-color: #e5e6ef;
 }

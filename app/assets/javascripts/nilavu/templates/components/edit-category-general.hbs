@@ -1,22 +1,22 @@
 <section class="step1" id="section-topline-1">
-    <h3>Domain & Name</h3>
-    <div class="bottom-divider"></div>
-    <input class="roundText" name="name" placeholder="name" type="text">
-    <span class="domain-tag">.app.det.io</span>
+    <div class="row">
+        <h3>{{i18n 'launcher.domain_name'}}</h3>
+        <div class="bottom-divider"></div>
+    </div>
 
-    {{#if subRegions}}
-        {{launching-regions regions=regions}}
-    {{else}}
-        <label>{{i18n 'launcher.regions_not_found'}}</label>
+    <div class="row pad_t25">
+        {{text-field type="domain" value=subDomain placeholderKey="launcher.subdomain" class="roundText" id="new-launch" disabled=false name="sub_domain" autofocus="autofocus"}}
+        <span class="domain-tag">.{{domain}}</span>
+    </div>
+
+    {{#if showSubRegions}}
+        {{launching-regions regions=regions regionable=regionOption}}
     {{/if}}
 
-    <h3>Resources</h3>
-    <div class="bottom-divider"></div>
-    {{launching-resources-chooser}}
+    <div class="hideme2">
+        {{#if regionOption}}
+            {{launching-resources category=category resources=resources resourceable=resourceOption storageable=storageOption}}
+        {{/if}}
+    </div>
 
-    {{#if subResources}}
-      {{launching-resources resources=resources}}
-    {{else}}
-        <label>{{i18n 'launcher.resources_not_found'}}</label>
-    {{/if}}
 </section>
