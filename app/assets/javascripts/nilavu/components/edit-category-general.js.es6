@@ -51,8 +51,10 @@ export default buildCategoryPanel('general', {
             this.$(".hideme2").slideToggle(150);
             this.toggleProperty('editingResource');
         }
-        this.toggleProperty('editingCost');
-        $(".hideme3").slideToggle(250);
+        if (this.editingCost) {
+            this.toggleProperty('editingCost');
+            $(".hideme3").slideToggle(250);
+        }
         this.set('category.regionoption', this.get('regionOption'));
     }.observes('regionOption'),
 

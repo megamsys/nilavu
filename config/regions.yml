@@ -1,10 +1,10 @@
 regions:
   sydney:
-    flag: 'images/regions/au.png'
+    flag: 'au'
     currency: '&#128;'
-    cpu_cost_per_hour: '0.1'
-    ram_cost_per_hour: '0.2'
-    storage_cost_per_hour: '0.1'
+    cpu_cost_per_hour: '0.01'
+    ram_cost_per_hour: '0.02'
+    storage_cost_per_hour: '0.01'
     max_cpu: '10'
     max_ram: '256 GB'
     max_storage: '500 GB'
@@ -14,11 +14,11 @@ regions:
       s1.medium: '3 GB,4 Cores,96 GB'
 
   chennai:
-    flag: 'images/regions/in.png'
+    flag: 'in'
     currency: '&#8377;'
-    cpu_cost_per_hour: '0.15'
-    ram_cost_per_hour: '0.22'
-    storage_cost_per_hour: '0.22'
+    cpu_cost_per_hour: '0.009'
+    ram_cost_per_hour: '0.019'
+    storage_cost_per_hour: '0.019'
     max_cpu: '10'
     max_ram: '128 GB'
     max_storage: '256 GB'
@@ -28,11 +28,11 @@ regions:
       c1.large: '3 GB,3 Cores,48 GB'
 
   dar_e_salaam:
-    flag: 'images/regions/tz.png'
-    currency: 'TZh'
-    cpu_cost_per_hour: '0.14'
-    ram_cost_per_hour: '0.21'
-    storage_cost_per_hour: '0.18'
+    flag: 'tz'
+    currency: 'TZS'
+    cpu_cost_per_hour: '0.008'
+    ram_cost_per_hour: '0.021'
+    storage_cost_per_hour: '0.018'
     max_cpu: '5'
     max_ram: '100 GB'
     max_storage: '1024 GB'

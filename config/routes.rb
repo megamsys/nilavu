@@ -7,6 +7,8 @@ Nilavu::Application.routes.draw do
   get "/404-body" => "exceptions#not_found_body"
   get '/500', to: 'errors#internal_error'
 
+  GROUPNAME_ROUTE_FORMAT = /[\w.\-]+/ unless defined? GROUPNAME_ROUTE_FORMAT
+
   # named route for users, session
   resources :static
   post "login" => "static#enter"
@@ -39,6 +41,9 @@ Nilavu::Application.routes.draw do
   get "stylesheets/:name.css" => "stylesheets#show", constraints: { name: /[a-z0-9_]+/ }
 
   get "launchables.json" => 'launchables#assemble', defaults: {format: 'json'}
+  get "launchables/marketplace-pools-group/:group_name.json" => "launchables#prepare", as: "launchables_private_messages_group", constraints: {
+    group_name: GROUPNAME_ROUTE_FORMAT
+  }
 
   ##
   get  "launchers/:id" => "launchers#launch"

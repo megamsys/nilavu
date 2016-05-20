@@ -1,30 +1,9 @@
-require_dependency 'sshkeys_finder'
-
 class LaunchableItem
 
-  attr_accessor :versions, :sshfinder, :marketplace_item
-  
-  ONECLICK = "oneclick".freeze
+  attr_accessor :versions,  :marketplace_item
 
-  def initialize(params, marketplace_item)
-    @marketplace_item = marketplace_item
-
+  def initialize(marketplace_item)
     ensure_version_is_flattened
-
-    find_sshkeys(params)
-  end
-
-  def self.reload_cached_item!(params)
-    HoneyPot.cached_marketplace_by_item(params)
-  end
-
-  def type
-    Nilavu.default_categories.select { |i| i == @marketplace_item.cattype.downcase }.first
-  end
-
-  #flag abused words ?
-  def generate_random_name
-    random_name = /\w+/.gen.downcase
   end
 
   def name
@@ -33,6 +12,10 @@ class LaunchableItem
 
   def cattype
     @marketplace_item.cattype
+  end
+
+  def category
+    Nilavu.default_categories.select { |i| i == @marketplace_item.cattype.downcase }.first
   end
 
   def logo
@@ -48,28 +31,17 @@ class LaunchableItem
       return plan[1]
     end
   end
-  
+
   def options
     @marketplace_item.options
   end
-  
-  def oneclick
-    @marketplace_item.options.collect { |k| k['value'] if k['key'] == ONECLICK }
-  end
-
-
-  def token
-    session[:authentication][:token]
-  end
-
-  alias has_token? token
 
   def envs
     @marketplace_item.envs
   end
 
-  def has_docker?
-    name.include? Api::Assemblies::DOCKERCONTAINER
+  def oneclick
+    @marketplace_item.options.collect { |k| k['value'] if k['key'] == PrepackagedScrubber::ONECLICK }
   end
 
   # from a bunch of plans, we match the plan for a version
@@ -78,15 +50,21 @@ class LaunchableItem
     @marketplace_item.plans.select { |v, d| v == version }.reduce { :merge }
   end
 
+  
+  def has_docker?
+    name.include? Api::Assemblies::DOCKERCONTAINER
+  end
+
+  def token
+    session[:authentication][:token]
+  end
+
+  alias has_token? token
 
   private
 
   def ensure_version_is_flattened
     @versions = @marketplace_item.plans.map { |v, d| v }.sort
-  end
-
-  def find_sshkeys(params)
-    @sshfinder ||= SSHKeysFinder.new(params)
   end
 
 end
