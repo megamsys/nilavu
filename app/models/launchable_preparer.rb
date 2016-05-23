@@ -1,33 +1,33 @@
 module LaunchablePreparer
   include MarketplacePoolGroups
 
-    def virtualmachines
-        find_by_group(:virtualmachines)
+    def virtualmachines(params)
+        find_by_group(params,:virtualmachines)
     end
 
-    def prepackaged
-        find_by_group(:prepackaged)
+    def prepackaged(params)
+        find_by_group(params,:prepackaged)
     end
 
-    def containers
-        find_by_group(:containers)
+    def containers(params)
+        find_by_group(params,:containers)
     end
 
-    def customapps
-        find_by_group(:customapps)
+    def customapps(params)
+        find_by_group(params, :customapps)
     end
 
-    def snapshots
+    def snapshots(params)
         return Hash[]
     end
 
-    def prepared
+    def prepared(params)
         {
-            virtualmachines: virtualmachines,
-            prepackaged: prepackaged,
-            containers: containers,
-            customapps: customapps,
-            snapshots: snapshots
+            virtualmachines: virtualmachines(params),
+            prepackaged: prepackaged(params),
+            containers: containers(params),
+            customapps: customapps(params),
+            snapshots: snapshots(params)
         }
     end
 end

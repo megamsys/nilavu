@@ -1,6 +1,5 @@
 import { createWidget } from 'nilavu/widgets/widget';
 import { iconNode } from 'nilavu/helpers/fa-icon';
-import { avatarImg } from 'nilavu/widgets/post';
 import NilavuURL from 'nilavu/lib/url';
 import { wantsNewWindow } from 'nilavu/lib/intercept-click';
 
@@ -24,9 +23,9 @@ createWidget('header-notifications', {
   html(attrs) {
     const { currentUser } = this;
 
-    const contents = [ avatarImg('medium', { template: currentUser.get('avatar_template'),
+  /*  const contents = [ avatarImg('medium', { template: currentUser.get('avatar_template'),
                                              username: currentUser.get('username') }) ];
-
+*/
     const unreadNotifications = currentUser.get('unread_notifications');
     if (!!unreadNotifications) {
       contents.push(this.attach('link', { action: attrs.action,

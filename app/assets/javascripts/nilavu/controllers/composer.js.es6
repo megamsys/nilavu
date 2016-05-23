@@ -259,7 +259,7 @@ export default Ember.Controller.extend({
 
     const promise = composer.save({ imageSizes, editReason: this.get("editReason")}).then(function(result) {
       if (result.responseJson.action === "enqueued") {
-        self.send('postWasEnqueued', result.responseJson);
+        //self.send('postWasEnqueued', result.responseJson);
         self.destroyDraft();
         self.close();
         self.appEvents.trigger('post-stream:refresh');

@@ -3,6 +3,8 @@ class LaunchableItem
   attr_accessor :versions,  :marketplace_item
 
   def initialize(marketplace_item)
+    @marketplace_item = marketplace_item
+
     ensure_version_is_flattened
   end
 
@@ -50,7 +52,7 @@ class LaunchableItem
     @marketplace_item.plans.select { |v, d| v == version }.reduce { :merge }
   end
 
-  
+
   def has_docker?
     name.include? Api::Assemblies::DOCKERCONTAINER
   end
@@ -65,6 +67,18 @@ class LaunchableItem
 
   def ensure_version_is_flattened
     @versions = @marketplace_item.plans.map { |v, d| v }.sort
+  end
+
+  def to_h
+    {
+      name: name,
+      category: category,
+      cattype: cattype,
+      logo: logo,
+      versions: @versions,
+      options: options,
+      envs: envs
+    }
   end
 
 end

@@ -50,19 +50,8 @@ const TopicRoute = Nilavu.Route.extend({
       this.controllerFor('flag').setProperties({ selected: null, flagTopic: true });
     },
 
-    showAutoClose() {
-      showModal('edit-topic-auto-close', { model: this.modelFor('topic') });
-      this.controllerFor('modal').set('modalClass', 'edit-auto-close-modal');
-    },
-
     showChangeTimestamp() {
       showModal('change-timestamp', { model: this.modelFor('topic'), title: 'topic.change_timestamp.title' });
-    },
-
-    showFeatureTopic() {
-      showModal('featureTopic', { model: this.modelFor('topic'), title: 'topic.feature_topic.title' });
-      this.controllerFor('modal').set('modalClass', 'feature-topic-modal');
-      this.controllerFor('feature_topic').reset();
     },
 
     showInvite() {
@@ -85,11 +74,7 @@ const TopicRoute = Nilavu.Route.extend({
     mergeTopic() {
       showModal('merge-topic', { model: this.modelFor('topic'), title: 'topic.merge_topic.title' });
     },
-
-    splitTopic() {
-      showModal('split-topic', { model: this.modelFor('topic') });
-    },
-
+    
     changeOwner() {
       showModal('change-owner', { model: this.modelFor('topic'), title: 'topic.change_owner.title' });
     },

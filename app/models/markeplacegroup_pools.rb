@@ -17,23 +17,25 @@ class MarketplacePoolGroups
     end
 
     def self.find_by_group(params, choice)
-        the_group = find_by(params,choice)
+        the_group = find_by(choice, params)
+
+        the_group.scrubbed                       #parse
 
         if the_group
-            return  the_group.after_create_output
+            return  the_group.after_scrubbed     # build hash
         end
     end
 
     private
 
-    def self.find_by(params, by_scrubber)
-        filter(HoneyPot.cached_marketplace_groups(params), by_scrubber)
+    def self.find_by(scrubber_name, params)
+        filter(HoneyPot.cached_marketplace_groups(params), scrubber_name)
     end
 
-    def self.filter(data,by_scrubber)
-        Nilavu.scrubbers.select do |scrubber|
-            if scrubber.name == by_scrubber
-                scrubber.register(data)
+    def self.filter(honeypot_data,scrubber_name)
+        BUILTIN_SCRUB.select do |scrubber|
+            if scrubber.name.to_sym == scrubber_name
+                scrubber.register_honeypot(honeypot_data)
             end
         end
     end

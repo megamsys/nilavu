@@ -1,20 +1,20 @@
 class Scrubber
 
-  def after_scrubbed(auth_options)
+  attr_accessor :data
+
+  def after_scrubbed
     raise NotImplementedError
   end
 
-  # can be used to hook in after the authentication process
-  #  to ensure records exist for the provider in the db
+  # can be used to hook in after registering honeypot
   #  this MUST be implemented for authenticators that do not
   #  trust email
-  def after_create_output(user, auth)
-    # not required
+  def scrubbed
   end
 
-  # hook used for registering omniauth middleware,
-  #  without this we can not authenticate
-  def register_middleware(omniauth)
+  # hook used for registering data,
+  #  without this we can not do scurbbing
+  def register_honeypot(data)
     raise NotImplementedError
   end
 end
