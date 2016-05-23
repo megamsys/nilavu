@@ -20,6 +20,16 @@ const HeaderController = Ember.Controller.extend({
 
 
   actions: {
+
+    createSocket() {
+      const socket = this.SocketIOService.socketFor('http://localhost:8090/');
+      socket.emit('init', {
+      host: "136.243.49.217",
+      port: 6227,
+      password: ""
+    });
+    },
+
     toggleSearch() {
       this.toggleProperty('searchVisible');
     },
