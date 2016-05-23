@@ -24,7 +24,6 @@ Nilavu.ComposerMessage.reopenClass({
 
     if (topicId) { data.topic_id = topicId; }
     if (postId)  { data.post_id = postId; }
-    alert('find ');
     return Nilavu.ajax('/launchables.json', { data: data }).then(function (messages) {
       //return messages.regions.map(function (message) {
         return Nilavu.ComposerMessage.create(messages);

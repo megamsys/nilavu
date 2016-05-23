@@ -71,10 +71,6 @@ const controllerOpts = {
     resetNew() {
       this.topicTrackingState.resetNew();
       Nilavu.Topic.resetNew().then(() => this.send('refresh'));
-    },
-
-    dismissReadPosts() {
-      showModal('dismiss-read', { title: 'topics.bulk.dismiss_read' });
     }
   },
 
