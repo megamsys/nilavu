@@ -65,16 +65,12 @@
 //= require ./nilavu/routes/nilavu
 //= require ./nilavu/routes/build-topic-route
 //= require ./nilavu/routes/restricted-user
-//= require ./nilavu/routes/user-topic-list
-//= require ./nilavu/routes/topic-from-params
 //= require ./nilavu/components/text-field
 //= require ./nilavu/components/visible
 //= require ./nilavu/components/conditional-loading-spinner
-//= require ./nilavu/helpers/user-avatar
 //= require ./nilavu/helpers/cold-age-class
 //= require ./nilavu/helpers/capitalize
 //= require ./nilavu/helpers/loading-spinner
-//= require ./nilavu/helpers/category-link
 //= require ./nilavu/lib/export-result
 //= require_tree ./nilavu/lib
 //= require ./nilavu/router

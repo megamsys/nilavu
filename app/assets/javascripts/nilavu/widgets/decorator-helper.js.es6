@@ -1,6 +1,5 @@
 import Connector from 'nilavu/widgets/connector';
 import { h } from 'virtual-dom';
-import PostCooked from 'nilavu/widgets/post-cooked';
 import RawHtml from 'nilavu/widgets/raw-html';
 
 class DecoratorHelper {
@@ -68,20 +67,6 @@ class DecoratorHelper {
     return new RawHtml({ html });
   }
 
-  /**
-   * Renders `cooked` content using all the helpers and decorators that
-   * are attached to that. This is useful if you want to render a post's
-   * content or a different version of it.
-   *
-   * Example:
-   *
-   * ```
-   * return helper.cooked(`<p>Cook me</p>`);
-   * ```
-   **/
-  cooked(cookedText) {
-    return new PostCooked({ cookedText });
-  }
 
   /**
    * You can use this bridge to mount an Ember View inside the virtual

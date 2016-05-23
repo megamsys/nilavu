@@ -50,11 +50,6 @@ const ApplicationRoute = Nilavu.Route.extend(OpenComposer, {
       this.controllerFor('topic-entrance').send('show', data);
     },
 
-    postWasEnqueued(details) {
-      const title = details.reason ? 'queue_reason.' + details.reason + '.title' : 'queue.approval.title';
-      showModal('post-enqueued', {model: details, title });
-    },
-
     composePrivateMessage(user, post) {
 
       const recipient = user ? user.get('username') : '',
@@ -147,13 +142,6 @@ const ApplicationRoute = Nilavu.Route.extend(OpenComposer, {
 
     checkEmail(user) {
       user.checkEmail();
-    },
-
-    changeBulkTemplate(w) {
-      const controllerName = w.replace('modal/', ''),
-            factory = this.container.lookupFactory('controller:' + controllerName);
-
-      this.render(w, {into: 'modal/topic-bulk-actions', outlet: 'bulkOutlet', controller: factory ? controllerName : 'topic-bulk-actions'});
     },
 
     createNewTopicViaParams(title, body, category_id, category) {

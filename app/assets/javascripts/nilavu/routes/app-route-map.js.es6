@@ -19,25 +19,9 @@ export default function() {
   this.resource('discovery', { path: '/' }, function() {
   // top
   this.route('top');
-  //filters
-  Nilavu.Site.currentProp('filters').forEach(filter => {
-    this.route(filter, { path: '/' + filter });
-    this.route(filter + 'ParentCategory', { path: '/c/:slug/l/' + filter });
-    this.route(filter + 'CategoryNone', { path: '/c/:slug/none/l/' + filter });
-    this.route(filter + 'Category', { path: '/c/:parentSlug/:slug/l/' + filter });
-   });
 
-    this.route('categories');
-
-    // default filter for a category
-    this.route('parentCategory', { path: '/c/:slug' });
-    this.route('categoryNone', { path: '/c/:slug/none' });
-    this.route('category', { path: '/c/:parentSlug/:slug' });
-    this.route('categoryWithID', { path: '/c/:parentSlug/:slug/:id' });
-
-    // homepage
-    this.route(Nilavu.Utilities.defaultHomepage(), { path: '/' });
-
+  // homepage
+  this.route(Nilavu.Utilities.defaultHomepage(), { path: '/' });
   });
 
 
@@ -70,9 +54,6 @@ export default function() {
     this.resource('preferences', function() {
       this.route('username');
       this.route('email');
-      this.route('about', { path: '/about-me' });
-      this.route('badgeTitle', { path: '/badge_title' });
-      this.route('card-badge', { path: '/card-badge' });
     });
 
   });

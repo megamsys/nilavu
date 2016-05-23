@@ -1,6 +1,5 @@
 import { createWidget } from 'nilavu/widgets/widget';
 import { h } from 'virtual-dom';
-import { avatarImg, avatarFor } from 'nilavu/widgets/post';
 import { dateNode, numberNode } from 'nilavu/helpers/node';
 
 const LINKS_SHOWN = 5;
@@ -27,7 +26,8 @@ createWidget('topic-map-show-links', {
 
 createWidget('topic-participant', {
   html(attrs, state) {
-    const linkContents = [avatarImg('medium', { username: attrs.username, template: attrs.avatar_template })];
+    const linkContents = [];
+     //  avatarImg('medium', { username: attrs.username, template: attrs.avatar_template })
 
     if (attrs.post_count > 2) {
       linkContents.push(h('span.post-count', attrs.post_count.toString()));
@@ -55,14 +55,14 @@ createWidget('topic-map-summary', {
     contents.push(h('li',
       [
         h('h4', I18n.t('created_lowercase')),
-        avatarFor('tiny', { username: attrs.createdByUsername, template: attrs.createdByAvatarTemplate }),
+        //avatarFor('tiny', { username: attrs.createdByUsername, template: attrs.createdByAvatarTemplate }),
         dateNode(attrs.topicCreatedAt)
       ]
     ));
     contents.push(h('li',
       h('a', { attributes: { href: attrs.lastPostUrl } }, [
         h('h4', I18n.t('last_reply_lowercase')),
-        avatarFor('tiny', { username: attrs.lastPostUsername, template: attrs.lastPostAvatarTemplate }),
+        //avatarFor('tiny', { username: attrs.lastPostUsername, template: attrs.lastPostAvatarTemplate }),
         dateNode(attrs.lastPostAt)
       ])
     ));

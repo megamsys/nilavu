@@ -30,7 +30,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
     onShow() {
         this.changeSize();
         this.titleChanged();
-        //      this._changeInitialState();
+        //this._changeInitialState();
     },
 
     changeSize: function() {
@@ -65,7 +65,6 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
     isVirtualMachine: function() {
         const launchable = this.get('launchOption') || "";
-        alert(launchable.trim() + "," + I18n.t('virtualmachines'));
         return (launchable.trim.length > 0 && Ember.isEqual(launchable.trim(), I18n.t('virtualmachines')));
     }.property('launchOption'),
 
@@ -74,7 +73,6 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.observes('title'),
 
     disabled: function() {
-        alert(JSON.stringify(this.get('model.metaData.unitoption')));
         if (this.get('saving') || this.get('deleting')) return true;
         if (!this.get('model.metaData.unitoption')) return true;
         /*  if (!this.get('model.color')) return true;

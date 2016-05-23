@@ -213,18 +213,6 @@
       {{/if}}
     </li>
 
-    {{#unless model.isPrivateMessage}}
-      {{#if model.visible}}
-        <li class="topic-admin-pin">
-          {{#if isFeatured}}
-            {{d-button action="showFeatureTopic" icon="thumb-tack" label="topic.actions.unpin"}}
-          {{else}}
-            {{d-button action="showFeatureTopic" icon="thumb-tack" label="topic.actions.pin"}}
-          {{/if}}
-        </li>
-      {{/if}}
-    {{/unless}}
-
     <li class="topic-admin-change-timestamp">
       {{d-button action="showChangeTimestamp" icon="calendar" label="topic.change_timestamp.title"}}
     </li>

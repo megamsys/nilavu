@@ -15,10 +15,12 @@ class LaunchablesController < ApplicationController
         render json: assembled
     end
 
-    # STEP2: prepare  the launchable.
-    # - prepare launch type (vm, app), and the exact launch item (bitnami app or custom app, ubuntu)
+    # STEP2: prepare  the launchable
+    # - Get the list from the marketplace_pools_grooups
+    #   The groups are
+    #       virtualmachines, applications, containers, customapps, prepackaged
     def prepare
-      #  render json: prepare(params)
+       render json: prepare(params)
     end
 
     # STEP3: identity  the launchable.
