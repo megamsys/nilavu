@@ -13,7 +13,7 @@ en:
     service:
       one: Service
       other: Services
-    microservice:
+    microservices:
       one: Microservice
       other: Microservices
     analytics:
@@ -28,7 +28,7 @@ en:
     torpedo_description: 'Get your own compute power'
     app_description:  'Get started with a new app'
     service_description: 'Make your applications more hungry'
-    microservice_description: 'Your app in a container in seconds'
+    microservices_description: 'Your app in a container in seconds'
     analytics_description: 'Actionable insights in minutes'
     collaboration_description: 'Collaboration done in minutes'
     oneclick_description:  'Just do one thing in a click'

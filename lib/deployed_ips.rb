@@ -18,8 +18,8 @@ class DeployedIps
   end
 
 def hostip
-    first_host = select_with_pattern(@ips_array,'host').first
-  return first_host[:value] if first_host
+    first_hostip = select_with_pattern(@ips_array,'hostip').first
+  return first_hostip[:value] if first_hostip
   end
 
   def all
