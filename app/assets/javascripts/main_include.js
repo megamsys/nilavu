@@ -6,7 +6,6 @@
 //= require ./ember-addons/decorator-alias
 //= require ./ember-addons/macro-alias
 //= require ./ember-addons/ember-computed-decorators
-//= require ./nilavu/services/websockets
 //= require ./nilavu/lib/hash
 //= require ./nilavu/lib/load-script
 //= require ./nilavu/lib/notification-levels
