@@ -12,7 +12,7 @@
             <div class="oscontainer">
                 <div class="tab-content">
                     {{#each imagepanels as |tab|}}
-                        {{component tab selectedTab=selectedTab category=category active=active}}
+                        {{component tab tab=tab selectedTab=selectedTab category=category}}
                     {{/each}}
                 </div>
             </div>

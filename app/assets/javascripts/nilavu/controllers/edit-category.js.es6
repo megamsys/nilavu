@@ -103,11 +103,15 @@ export default Ember.Controller.extend(ModalFunctionality, {
     actions: {
         nextCategory() {
             this.set('loading', true);
+            const model = this.get('model');
             return Nilavu.ajax("/launchables/pools/" + this.get('model.launchoption') + ".json").then(result => {
-                this.setProperties({
+                model.metaData.setProperties({
                     cooking: result
                 });
+
+                this.set('cooking', true);
             });
+
         },
 
         saveCategory() {

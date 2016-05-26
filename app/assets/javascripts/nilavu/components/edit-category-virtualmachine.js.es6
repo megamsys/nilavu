@@ -13,14 +13,6 @@ export default Ember.Component.extend({
         this.editLaunching = false;
     }.on('init'),
 
-    active: function() {
-        if (this.selectedTab == this.get("selectedTab")) {
-            return 'active';
-        }
-        return "";
-    }.property('selectedTab'),
-
-
    launchOption: function() {
         const option = this.get('model.launchoption') || "";
         return option.trim().length > 0 ? option : I18n.t("launchoption.default");
