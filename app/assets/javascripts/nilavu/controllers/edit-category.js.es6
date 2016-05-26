@@ -63,10 +63,13 @@ export default Ember.Controller.extend(ModalFunctionality, {
         }
     }.observes('launchOption'),
 
-    isVirtualMachine: function() {
+    cookingChanged: function() {
         const launchable = this.get('launchOption') || "";
-        return (launchable.trim.length > 0 && Ember.isEqual(launchable.trim(), I18n.t('virtualmachines')));
-    }.property('launchOption'),
+        if (launchable.trim().length > 0) {
+            this.set('selectedTab', 'selection');
+            $('.firstStep').slideToggle('fast');
+        }
+    }.observes('cooking'),
 
     titleChanged: function() {
         this.set('controllers.modal.title', this.get('title'));
@@ -100,7 +103,11 @@ export default Ember.Controller.extend(ModalFunctionality, {
     actions: {
         nextCategory() {
             this.set('loading', true);
-            alert(JSON.stringify(this.get('model.metaData')));
+            return Nilavu.ajax("/launchables/pools/" + this.get('model.launchoption') + ".json").then(result => {
+                this.setProperties({
+                    cooking: result
+                });
+            });
         },
 
         saveCategory() {

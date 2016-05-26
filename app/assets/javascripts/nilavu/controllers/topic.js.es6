@@ -1,5 +1,4 @@
 import BufferedContent from 'nilavu/mixins/buffered-content';
-import SelectedPostsCount from 'nilavu/mixins/selected-posts-count';
 import { spinnerHTML } from 'nilavu/helpers/loading-spinner';
 import Topic from 'nilavu/models/topic';
 import Quote from 'nilavu/lib/quote';
@@ -8,12 +7,11 @@ import computed from 'ember-addons/ember-computed-decorators';
 import Composer from 'nilavu/models/composer';
 import NilavuURL from 'nilavu/lib/url';
 
-export default Ember.Controller.extend(SelectedPostsCount, BufferedContent, {
+export default Ember.Controller.extend(BufferedContent, {
   needs: ['header', 'modal', 'composer', 'quote-button', 'topic-progress', 'application'],
   multiSelect: false,
   allPostsSelected: false,
   editingTopic: false,
-  selectedPosts: null,
   selectedReplies: null,
   queryParams: ['filter', 'username_filters', 'show_deleted'],
   loadedAllPosts: Em.computed.or('model.postStream.loadedAllPosts', 'model.postStream.loadingLastPost'),

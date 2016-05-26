@@ -11,7 +11,7 @@ export function mapRoutes() {
   const resources = {};
   const paths = {};
 
-  // If a module is defined as `route-map` in discourse or a plugin, its routes
+  // If a module is defined as `route-map` in nilavu or a plugin, its routes
   // will be built automatically. You can supply a `resource` property to
   // automatically put it in that resource, such as `admin`. That way plugins
   // can define admin routes.

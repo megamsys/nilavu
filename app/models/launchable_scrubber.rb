@@ -1,27 +1,27 @@
-module LaunchablePreparer
-  include MarketplacePoolGroups
+module LaunchableScrubber
+   include MarketplaceGroups
 
     def virtualmachines(params)
-        find_by_group(params,:virtualmachines)
+        MarketplaceGroups.find_by_group(params,:virtualmachines)
     end
 
     def prepackaged(params)
-        find_by_group(params,:prepackaged)
+        MarketplaceGroups.find_by_group(params,:prepackaged)
     end
 
     def containers(params)
-        find_by_group(params,:containers)
+        MarketplaceGroups.find_by_group(params,:containers)
     end
 
     def customapps(params)
-        find_by_group(params, :customapps)
+        MarketplaceGroups.find_by_group(params, :customapps)
     end
 
     def snapshots(params)
         return Hash[]
     end
 
-    def prepared(params)
+    def scrub(params)
         {
             virtualmachines: virtualmachines(params),
             prepackaged: prepackaged(params),
