@@ -5,11 +5,7 @@
             <div class="tabbable-custom nav-justified">
                 <ul class="nav nav-tabs nav-justified">
                     {{edit-category-tab panels=panels selectedTab=selectedTab tab="general"}}
-                    {{#if isVirtualMachine}}
-                        {{edit-category-tab panels=panels selectedTab=selectedTab tab="virtualmachine"}}
-                    {{else}}
-                        {{edit-category-tab panels=panels selectedTab=selectedTab tab="application"}}
-                    {{/if}}
+                    {{edit-category-tab panels=panels selectedTab=selectedTab tab="selection"}}
                     {{edit-category-tab panels=panels selectedTab=selectedTab tab="summary"}}
                 </ul>
 
@@ -27,7 +23,7 @@
                 <span class="pull-right">
                   {{conditional-loading-spinner size="large" condition=loading}}
                 </span>
-              {{/d-button}}  
+              {{/d-button}}
             </div>
         </div>
     </div>

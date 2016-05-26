@@ -1,10 +1,16 @@
 import { buildCategoryPanel } from 'nilavu/components/edit-category-panel';
 import PermissionType from 'nilavu/models/permission-type';
 
-export default buildCategoryPanel('application', {
+export default buildCategoryPanel('selection', {
   editingPermissions: false,
   selectedGroup: null,
   selectedPermission: null,
+
+
+  isVirtualMachine: function() {
+      const launchable = this.get('launchOption') || "";
+      return (launchable.trim.length > 0 && Ember.isEqual(launchable.trim(), I18n.t('launcher.virtualmachines')));
+  }.observes('category.launchoption'),
 
   actions: {
     editPermissions() {

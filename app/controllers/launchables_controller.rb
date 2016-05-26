@@ -1,13 +1,13 @@
 class LaunchablesController < ApplicationController
   include LaunchableAssembler
-  include LaunchablePreparer
+  include LaunchableScrubber
   include LaunchableIdentifier
 
     respond_to :html, :js
 
     skip_before_filter :check_xhr
 
-    before_action :add_authkeys_for_api, only: [:index]
+    before_action :add_authkeys_for_api, only: [:prepare, :identify]
 
     # STEP1: assemble the launchable.
     # - prepare billing, region and compute size to launch
@@ -18,9 +18,9 @@ class LaunchablesController < ApplicationController
     # STEP2: prepare  the launchable
     # - Get the list from the marketplace_pools_grooups
     #   The groups are
-    #       virtualmachines, applications, containers, customapps, prepackaged
+    #       virtualmachines, applications[containers, customapps, prepackaged]
     def prepare
-       render json: prepare(params)
+       render json: scrub(params)
     end
 
     # STEP3: identity  the launchable.

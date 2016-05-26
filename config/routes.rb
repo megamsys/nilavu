@@ -41,7 +41,7 @@ Nilavu::Application.routes.draw do
   get "stylesheets/:name.css" => "stylesheets#show", constraints: { name: /[a-z0-9_]+/ }
 
   get "launchables.json" => 'launchables#assemble', defaults: {format: 'json'}
-  get "launchables/pools-group/:group_name.json" => "launchables#prepare", as: "launchables_pools_group", constraints: {
+  get "launchables/pools/:group_name.json" => "launchables#prepare", as: "launchables_pools_group", constraints: {
     group_name: GROUPNAME_ROUTE_FORMAT
   }
 

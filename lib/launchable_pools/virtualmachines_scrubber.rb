@@ -1,8 +1,9 @@
 class VirtualMachinesScrubber < Scrubber
 
-    TORPEDO             =  'TORPEDO'.freeze
+    TORPEDO             =  '1'.freeze
 
     CATTYPES            =  [TORPEDO]
+
 
     def name
         "virtualmachines"
@@ -11,10 +12,20 @@ class VirtualMachinesScrubber < Scrubber
 
     def scrubbed
         convert_launchable_items
+
+        h2 = @data.map do |k, v|
+            v.map do  |m|
+                LaunchableItem.new(m)
+            end
+        end
+
+      @data = h2
     end
 
     def after_scrubbed
-        data.map{|l| l.to_h}
+        @data.flatten.map do |launchable_item|
+            launchable_item.to_h
+        end
     end
 
     def register_honeypot(data)
@@ -24,8 +35,8 @@ class VirtualMachinesScrubber < Scrubber
     protected
 
     def convert_launchable_items
-        CATTYPES.each  do |cattype|
-            @data[cattype].map { |m| LaunchableItem.new(m)}
+        @data.select! do |key, marketplace_collection|
+            CATTYPES.include?(key)
         end
     end
 end
