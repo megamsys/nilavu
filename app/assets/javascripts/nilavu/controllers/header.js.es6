@@ -1,4 +1,5 @@
 import NilavuURL from 'nilavu/lib/url';
+import showModal from 'nilavu/lib/show-modal';
 
 const HeaderController = Ember.Controller.extend({
   topic: null,
@@ -22,14 +23,7 @@ const HeaderController = Ember.Controller.extend({
   actions: {
 
     createSocket() {
-    //  const socket = this.socketIO.socketFor('http://localhost:8090', { path: "/vnc"});
-      const socket = this.socketIO.socketFor('http://localhost:8090', { path: ""});
-
-      socket.emit('init', {
-      host: "136.243.49.217",
-      port: 6312,
-      password: ""
-      });
+      showModal('vnc');
     },
 
     toggleSearch() {
