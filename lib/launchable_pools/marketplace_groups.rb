@@ -1,10 +1,15 @@
-class MarketplacePoolGroups
+require 'virtualmachines_scrubber'
+require 'containers_scrubber'
+require 'prepackaged_scrubber'
+require 'customapps_scrubber'
+
+module MarketplaceGroups
 
     BUILTIN_SCRUB = [
-        Auth::VirtualMachinesScrubber.new,
-        Auth::ContainersScrubber.new,
-        Auth::PrepackagedScrubber.new,
-        Auth::CustomAppsScrubber.new
+        VirtualMachinesScrubber.new
+  #      ContainersScrubber.new,
+  #      PrepackagedScrubber.new,
+  #      CustomAppsScrubber.new
     ]
 
 
@@ -19,10 +24,11 @@ class MarketplacePoolGroups
     def self.find_by_group(params, choice)
         the_group = find_by(choice, params)
 
-        the_group.scrubbed                       #parse
+        the_scrubber ||= the_group.first                       #parse
 
-        if the_group
-            return  the_group.after_scrubbed     # build hash
+        if the_scrubber
+            the_scrubber.scrubbed
+            return  the_scrubber.after_scrubbed     # build hash
         end
     end
 

@@ -107,7 +107,6 @@ class ApplicationController < ActionController::Base
     preload_anonymous_data
 
     if current_user
-      puts "============= loaded current_user data"
       preload_current_user_data
     end
   end
