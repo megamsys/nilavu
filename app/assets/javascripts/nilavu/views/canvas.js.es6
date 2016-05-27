@@ -1,11 +1,15 @@
+import { on } from "ember-addons/ember-computed-decorators";
 
 export default Ember.View.extend({
   tagName: "canvas",
-    attributeBindings: ['height', 'width'],
-    height: 400,
-    width: 600,
-    scaleFactor: 1,
-    keyMap: {
+  attributeBindings: ['height', 'width'],
+  height: 400,
+  width: 600,
+  scaleFactor: 1,
+  socket: null,
+  canvas: null,
+  ctx: null,
+  keyMap: {
     8: [
       65288,
       65288
@@ -372,89 +376,105 @@ export default Ember.View.extend({
     ]
   },
 
-    didInsertElement: function(){
-      this.drawItem();
-    },
+  @on('init')
+  openSocket() {
+    this.set('socket', this.socketIO.socketFor('http://localhost:8090', { path: ""}));
 
-    drawItem: function(){
-        var canvas = Ember.get(this, 'element');
-        var ctx = canvas.getContext("2d");
-
-        const socket = this.socketIO.socketFor('http://localhost:8090', { path: ""});
-
-        socket.emit('init', {
-          host: "136.243.49.217",
-          port: 6312,
-          password: ""
-        });
-
-        socket.on('init', function (config) {
-          //var canvas = self._screen.getCanvas();
-          canvas.width = config.width;
-          canvas.height = config.height;
-          this.scaleScreen(config, canvas);
-          this.initEventListeners(socket, canvas);
-          //resolve();
-          //clearTimeout(timeout);
-        });
-        socket.on('frame', function (rect) {
-          console.log(rect);
-          var img = new Image();
-          img.width = rect.width;
-          img.height = rect.height;
-          img.src = 'data:image/png;base64,' + rect.image;
-          img.onload = function () {
-            ctx.drawImage(this, rect.x, rect.y, rect.width, rect.height);
-          };
-        });
-    },
-
-    scaleScreen: function (config, canvas) {
-      var sw = (screen.availWidth * 0.7) / config.width;
-      var sh = (screen.availHeight * 0.7) / config.height;
-      var s = Math.min(sw, sh);
-      scaleFactor = s;
-      //var canvas = this._screen.getCanvas();
-      var transform = 'scale(' + s + ')';
-      canvas.style.mozTransform = transform;
-      canvas.style.webkitTransform = transform;
-      canvas.style.transform = transform;
-    },
-
-    initEventListeners: function (socket, canvas) {
-      var self = this;
-      addMouseHandler(canvas, function (x, y, button) {
-        socket.emit('mouse', {
-          x: x / scaleFactor,
-          y: y / scaleFactor,
-          button: button
-        });
-      });
-      addKeyboardHandlers(canvas, function (code, shift, isDown) {
-        var rfbKey = toRfbKeyCode(code, shift, isDown);
-        if (rfbKey) {
-          socket.emit('keyboard', {
-            keyCode: rfbKey,
-            isDown: isDown
-          });
-        }
-      });
-    },
-
-  toRfbKeyCode: function (code, shift) {
-    code = code.toString();
-    var keys = keyMap[code];
-    if (keys) {
-      return keys[shift ? 1 : 0];
-    }
-    return null;
+    this.get('socket').emit('init', {
+      host: "136.243.49.217",
+      port: 6312,
+      password: ""
+    });
   },
 
-  addMouseHandler: function (canvas, cb) {
+  didInsertElement: function(){
+    this.set('canvas', Ember.get(this, 'element'));
+    this.set('ctx', this.get('canvas').getContext("2d"));
+    this.drawItem();
+  },
+
+  willDestroy: function() {
+    var socket = this.get('socket');
+    var canvas = this.get('canvas');  
+    socket.close();
+    document.removeEventListener('keydown', this._onkeydown);
+    document.removeEventListener('keyup', this._onkeyup);
+    canvas.removeEventListener('mouseup', this._onmouseup);
+    canvas.removeEventListener('mousedown', this._onmousedown);
+    canvas.removeEventListener('mousemove', this._onmousemove);
+  },
+
+  drawItem: function(){
+      var socket = this.get('socket');
+      socket.on('init', this.scaleScreen, this);
+      socket.on('frame', this.drawRect, this);
+  },
+
+  drawRect: function(rect){
+      var ctx = this.get('ctx');
+      var img = new Image();
+      img.width = rect.width;
+      img.height = rect.height;
+      img.src = 'data:image/png;base64,' + rect.image;
+      img.onload = function () {
+        ctx.drawImage(this, rect.x, rect.y, rect.width, rect.height);
+      };
+    },
+
+  scaleScreen: function(config) {
+    var canvas = this.get('canvas');
+    canvas.width = config.width;
+    canvas.height = config.height;
+    this._initEventListeners();
+  },
+
+  _initEventListeners: function() {
+    var self = this;
+    var canvas = this.get('canvas');
+    var socket = this.get('socket');
+    var scaleFactor = this.get('scaleFactor');
+    var keymap = this.get('keyMap');
+
+    this._addMouseHandler(function (x, y, button) {
+       socket.emit('mouse', {
+         x: x / scaleFactor,
+         y: y / scaleFactor,
+         button: button
+       });
+     });
+
+    this._addKeyboardHandlers(function (code, shift, isDown) {
+      var rfbKey = null;
+      code = code.toString();
+      var keys = keymap[code];
+      if (keys) {
+        rfbKey = keys[shift ? 1 : 0];
+      }
+      if (rfbKey) {
+        socket.emit('keyboard', {
+          keyCode: rfbKey,
+          isDown: isDown
+        });
+      }
+    });
+  },
+
+_addKeyboardHandlers: function (cb) {
+  document.addEventListener('keydown', this._onkeydown = function (e) {
+    cb.call(null, e.keyCode, e.shiftKey, 1);
+    e.preventDefault();
+  }, false);
+  document.addEventListener('keyup', this._onkeyup = function (e) {
+    cb.call(null, e.keyCode, e.shiftKey, 0);
+    e.preventDefault();
+  }, false);
+},
+
+_addMouseHandler: function (cb) {
     var state = 0;
+    var canvas = this.get('canvas');
     canvas.addEventListener('mousedown', this._onmousedown = function (e) {
       state = 1;
-      console.log("-----------------mousedown--------------");
       cb.call(null, e.pageX, e.pageY, state);
       e.preventDefault();
     }, false);
@@ -467,27 +487,6 @@ export default Ember.View.extend({
       cb.call(null, e.pageX, e.pageY, state);
       e.preventDefault();
     });
-  },
-
-  addKeyboardHandlers: function (canvas, cb) {
-    console.log("-----------------keydownreg--------------");
-    document.addEventListener('keydown', this._onkeydown = function (e) {
-      cb.call(null, e.keyCode, e.shiftKey, 1);
-      console.log("----------------keydown--------------");
-      e.preventDefault();
-    }, false);
-    document.addEventListener('keyup', this._onkeyup = function (e) {
-      cb.call(null, e.keyCode, e.shiftKey, 0);
-      e.preventDefault();
-    }, false);
-  },
-
-  removeHandlers: function () {
-    document.removeEventListener('keydown', this._onkeydown);
-    document.removeEventListener('keyup', this._onkeyup);
-    this._canvas.removeEventListener('mouseup', this._onmouseup);
-    this._canvas.removeEventListener('mousedown', this._onmousedown);
-    this._canvas.removeEventListener('mousemove', this._onmousemove);
   },
 
 });
