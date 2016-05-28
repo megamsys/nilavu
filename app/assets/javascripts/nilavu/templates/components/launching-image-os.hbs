@@ -1,10 +1,6 @@
 {{#if versions}}
     {{#each versions as |v|}}
-    <div class="version_select" content="">
-{{! versionactive}}
-        {{!launching-region region=r regionable=regionable}}
-        {{v}}
-    </div>
+        {{launching-image-version category=category version=v versionable=versionable}}
     {{/each}}
 {{else}}
     <label>{{i18n 'launcher.versions_not_found'}}</label>

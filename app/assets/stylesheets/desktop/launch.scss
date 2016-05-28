@@ -353,18 +353,17 @@ img.inSelect {
     padding-top: 5px;
     padding-bottom: 5px;
 }
+
 .distro {
-    display: inline;
-    float: left;
-    text-align: center;
-    color: #c2c2c2;
-    width: 100%;
-}
-.distro span {
+  display: inline;
+  float: left;
+  text-align: center;
+  color: #c2c2c2;
+  width: 100%; }
+  .distro span {
     display: none;
-    color: #549DD6;
-}
-.distro .icon {
+    color: #549DD6; }
+  .distro .icon {
     -webkit-border-radius: 51%;
     -moz-border-radius: 51%;
     border-radius: 51%;
@@ -375,66 +374,61 @@ img.inSelect {
     width: 53px;
     margin-top: 12px;
     margin-bottom: 10px;
-}
-.distro .icon {
-    background-image: url("../images/osimages1.png");
-}
+    background-image: url(../images/osimages1.png); }
+
 .tabsos li.active .ubuntu .icon {
-    background-position: 6px -221px;
-}
+  background-position: 6px -221px; }
 .tabsos li.active .fedora .icon {
-    background-position: 6px -144px;
-}
+  background-position: 6px -144px; }
 .tabsos li.active .centos .icon {
-    background-position: 8px 9px;
-}
+  background-position: 8px 9px; }
 .tabsos li.active .debian .icon {
-    background-position: 8px -62px;
-}
+  background-position: 8px -62px; }
 .tabsos li.active .windows .icon {
-    background-position: 3px -297px;
-}
+  background-position: 3px -297px; }
+
 .ubuntu .icon {
-    background-position: -94px -224px;
-}
+  background-position: -94px -224px; }
+
 .fedora .icon {
-    background-position: -92px -150px;
-}
+  background-position: -92px -150px; }
+
 .centos .icon {
-    background-position: -99px -9px;
-}
+  background-position: -99px -9px; }
+
 .debian .icon {
-    background-position: -95px -77px;
-}
+  background-position: -95px -77px; }
+
 .windows .icon {
-    background-position: -93px -308px;
-}
+  background-position: -93px -308px; }
+
 .opensuse .icon {
-    background-image: url("../images/opensuse1.png");
-    background-size: 94%;
-}
+  background-image: url(../images/opensuse1.png);
+  background-size: 94%; }
+
 .tabsos li.active .opensuse .icon {
-    background-image: url("../images/opensuse.png");
-    background-size: 90%;
-}
+  background-image: url(../images/opensuse.png);
+  background-size: 90%; }
+
 .coreos .icon {
-    background-image: url("../images/CoreOS1.png");
-    background-size: 94%;
-}
+  background-image: url(../images/icons/coreos1.png);
+  background-size: 94%; }
+
 .tabsos li.active .coreos .icon {
-    background-image: url("../images/CoreOS.png");
-    background-size: 90%;
-}
-.applications .icon,
-.apps .icon {
-    background-image: url("../images/app2.png");
-    background-size: 74%;
-}
-.tabsos li.active .applications .icon,
-.tabsos li.active .apps .icon {
-    background-image: url("../images/app3.png");
-    background-size: 70%;
-}
+  background-image: url(../images/icons/coreos.png);
+  background-size: 90%; }
+
+.applications .icon, .snapshots .icon {
+  background-image: url(../images/icons/snapshots1.png);
+  background-size: 74%; }
+
+.tabsos li.active .snapshots .icon, .tabsos li.active .snapshots .icon {
+  background-image: url(../images/icons/snapshots.png);
+  background-size: 70%; }
+
+
+
+
 .oscontainer {
   margin-top: -37px;
   padding-top: 56px;

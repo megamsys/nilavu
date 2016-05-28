@@ -7,6 +7,8 @@ export default Ember.Component.extend({
 
   virtualmachines: Ember.computed.alias('category.cooking.virtualmachines'),
 
+  versionable: null,
+
   launchableName: function() {
       return this.get('name').split('-').pop()
   }.property('name'),
@@ -37,6 +39,7 @@ export default Ember.Component.extend({
 
   isActive: function() {
     const ln = this.get('launchableName');
+    this.set('category.versionoption',"");
     return ln.trim().length > 0 && ln.trim() == this.get('selectedTab');
   }.property('selectedTab')
 

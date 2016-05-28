@@ -1,8 +1,6 @@
 import ModalFunctionality from 'nilavu/mixins/modal-functionality';
 import NilavuURL from 'nilavu/lib/url';
-import {
-    extractError
-} from 'nilavu/lib/ajax-error';
+import {  extractError } from 'nilavu/lib/ajax-error';
 
 // Modal for editing / creating a category
 export default Ember.Controller.extend(ModalFunctionality, {
@@ -76,18 +74,14 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.observes('title'),
 
     disabled: function() {
-        if (this.get('saving') || this.get('deleting')) return true;
+        if (this.get('saving') || this.get('selecting')) return true;
+
         if (!this.get('model.metaData.unitoption')) return true;
-        /*  if (!this.get('model.color')) return true;
-          if (!this.get('model.color')) return true;
-          */
+
+      //  if (!this.get('model.metaData.versionoption')) return true;
+
         return false;
-    }.property('saving', 'model.metaData.unitoption', 'model.color', 'deleting'),
-
-
-    deleteDisabled: function() {
-        return (this.get('deleting') || this.get('saving') || false);
-    }.property('disabled', 'saving', 'deleting'),
+    }.property('saving', 'selecting', 'model.metaData.unitoption', 'model.metaData.versionoption'),
 
     categoryName: function() {
         const name = this.get('name') || "";
@@ -96,13 +90,13 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
     saveLabel: function() {
         if (this.get('saving')) return "saving";
-        if (this.get('model.isUncategorizedCategory')) return "save";
         return this.get('model.id') ? "category.save" : "category.create";
     }.property('saving', 'model.id'),
 
     actions: {
         nextCategory() {
             this.set('loading', true);
+            alert('looading');
             const model = this.get('model');
             return Nilavu.ajax("/launchables/pools/" + this.get('model.launchoption') + ".json").then(result => {
                 model.metaData.setProperties({
@@ -133,30 +127,6 @@ export default Ember.Controller.extend(ModalFunctionality, {
             }).catch(function(error) {
                 self.flash(extractError(error), 'error');
                 self.set('saving', false);
-            });
-        },
-
-        deleteCategory() {
-            const self = this;
-            this.set('deleting', true);
-
-            this.send('hideModal');
-            bootbox.confirm(I18n.t("category.delete_confirm"), I18n.t("no_value"), I18n.t("yes_value"), function(result) {
-                if (result) {
-                    self.get('model').destroy().then(function() {
-                        // success
-                        self.send('closeModal');
-                        NilavuURL.redirectTo("/categories");
-                    }, function(error) {
-                        self.flash(extractError(error), 'error');
-                        self.send('reopenModal');
-                        self.displayErrors([I18n.t("category.delete_error")]);
-                        self.set('deleting', false);
-                    });
-                } else {
-                    self.send('reopenModal');
-                    self.set('deleting', false);
-                }
             });
         }
     }
