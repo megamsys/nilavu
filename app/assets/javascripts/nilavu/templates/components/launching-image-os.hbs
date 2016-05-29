@@ -1,0 +1,7 @@
+{{#if versions}}
+    {{#each versions as |v|}}
+        {{launching-image-version category=category version=v versionable=versionable}}
+    {{/each}}
+{{else}}
+    <label>{{i18n 'launcher.versions_not_found'}}</label>
+{{/if}}
