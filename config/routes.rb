@@ -45,6 +45,8 @@ Nilavu::Application.routes.draw do
     group_name: GROUPNAME_ROUTE_FORMAT
   }
 
+  get "launchables/summary.json" => "launchables#summarize", as: "launchables_summarize"
+
   ##
   get  "launchers/:id" => "launchers#launch"
   post "launchers" => "launchers#perform_launch"

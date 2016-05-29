@@ -1,38 +1,39 @@
 import ModalFunctionality from 'nilavu/mixins/modal-functionality';
 import NilavuURL from 'nilavu/lib/url';
 import {  extractError } from 'nilavu/lib/ajax-error';
+import { propertyEqual } from 'nilavu/lib/computed';
+
 
 // Modal for editing / creating a category
 export default Ember.Controller.extend(ModalFunctionality, {
     selectedTab: null,
     saving: false,
-    deleting: false,
     panels: null,
     editLaunching: false,
 
-
     _initPanels: function() {
         this.set('panels', []);
-        this.editLaunching = false;
     }.on('init'),
 
+    generalSelected: function() {
+      return this.selectedTab == 'general';
+    }.property('selectedTab'),
 
-    /*  _changeInitialState:function() {
-      alert('tearing');
-      this.editLaunching = false;
-      alert(this.get('model.launchoption'));
-      alert(this.get('launchOption'));
-    }.on('willDestroyElement'),
-*/
+    selectionSelected: function() {
+      return this.selectedTab == 'selection';
+    }.property('selectedTab'),
+
+    summarySelected: function() {
+      return this.selectedTab == 'summary';
+    }.property('selectedTab'),
 
     onShow() {
         this.changeSize();
         this.titleChanged();
-        //this._changeInitialState();
     },
 
     changeSize: function() {
-        if (!Ember.isEmpty(this.get('model.description'))) {
+      if (!Ember.isEmpty(this.get('model.description'))) {
             this.set('controllers.modal.modalClass', 'edit-category-modal full');
         } else {
             this.set('controllers.modal.modalClass', 'edit-category-modal small');
@@ -69,6 +70,19 @@ export default Ember.Controller.extend(ModalFunctionality, {
         }
     }.observes('cooking'),
 
+    summarizingChanged: function() {
+          alert(JSON.stringify(this.get('model.metaData')));
+          this.set('selectedTab', 'summary');
+    }.observes('summarizing'),
+
+    versionChanged: function() {
+        const versionable = this.get('model.metaData.versionoption') || "";
+        let versionEntered = (versionable.trim().length > 0);
+        if(!(this.get('selecting') == undefined)) {
+          this.set('selecting', !versionEntered);
+        }
+    }.observes('model.metaData.versionoption'),
+
     titleChanged: function() {
         this.set('controllers.modal.title', this.get('title'));
     }.observes('title'),
@@ -79,7 +93,6 @@ export default Ember.Controller.extend(ModalFunctionality, {
         if (!this.get('model.metaData.unitoption')) return true;
 
       //  if (!this.get('model.metaData.versionoption')) return true;
-
         return false;
     }.property('saving', 'selecting', 'model.metaData.unitoption', 'model.metaData.versionoption'),
 
@@ -89,14 +102,16 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.property('name'),
 
     saveLabel: function() {
-        if (this.get('saving')) return "saving";
-        return this.get('model.id') ? "category.save" : "category.create";
-    }.property('saving', 'model.id'),
+        if (this.get('saving')) return "launcher.saving";
+
+        if (this.generalSelected || this.selectionSelected) return 'launcher.selecting'
+
+        return "launcher.launch";
+    }.property('saving', 'generalSelected', 'selectionSelected'),
 
     actions: {
         nextCategory() {
             this.set('loading', true);
-            alert('looading');
             const model = this.get('model');
             return Nilavu.ajax("/launchables/pools/" + this.get('model.launchoption') + ".json").then(result => {
                 model.metaData.setProperties({
@@ -104,8 +119,20 @@ export default Ember.Controller.extend(ModalFunctionality, {
                 });
 
                 this.set('cooking', true);
+                this.set('selecting', true);
             });
+        },
 
+        nextSummarize() {
+          this.set('loading', true);
+          const model = this.get('model');
+          return Nilavu.ajax("/launchables/summary.json").then(result => {
+              model.metaData.setProperties({
+                  summarizing: result
+              });
+              this.set('summarizing', true);
+              this.set('selecting', true);
+          });
         },
 
         saveCategory() {
