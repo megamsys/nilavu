@@ -1,4 +1,5 @@
 import NilavuURL from 'nilavu/lib/url';
+import showModal from 'nilavu/lib/show-modal';
 
 const HeaderController = Ember.Controller.extend({
   topic: null,
@@ -20,6 +21,11 @@ const HeaderController = Ember.Controller.extend({
 
 
   actions: {
+
+    createSocket() {
+      showModal('vnc');
+    },
+
     toggleSearch() {
       this.toggleProperty('searchVisible');
     },
