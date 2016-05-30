@@ -1,7 +1,11 @@
 import ModalFunctionality from 'nilavu/mixins/modal-functionality';
 import NilavuURL from 'nilavu/lib/url';
-import {  extractError } from 'nilavu/lib/ajax-error';
-import { propertyEqual } from 'nilavu/lib/computed';
+import {
+    extractError
+} from 'nilavu/lib/ajax-error';
+import {
+    propertyEqual
+} from 'nilavu/lib/computed';
 
 
 // Modal for editing / creating a category
@@ -16,15 +20,15 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.on('init'),
 
     generalSelected: function() {
-      return this.selectedTab == 'general';
+        return this.selectedTab == 'general';
     }.property('selectedTab'),
 
     selectionSelected: function() {
-      return this.selectedTab == 'selection';
+        return this.selectedTab == 'selection';
     }.property('selectedTab'),
 
     summarySelected: function() {
-      return this.selectedTab == 'summary';
+        return this.selectedTab == 'summary';
     }.property('selectedTab'),
 
     onShow() {
@@ -33,12 +37,12 @@ export default Ember.Controller.extend(ModalFunctionality, {
     },
 
     changeSize: function() {
-      if (!Ember.isEmpty(this.get('model.description'))) {
-            this.set('controllers.modal.modalClass', 'edit-category-modal full');
-        } else {
+        if (this.get('selectionSelected')) {
             this.set('controllers.modal.modalClass', 'edit-category-modal small');
+        } else {
+            this.set('controllers.modal.modalClass', 'edit-category-modal full');
         }
-    }.observes('model.description'),
+    }.observes('generalSelected', 'selectionSelected', 'summarySelected'),
 
     title: function() {
         if (this.get('model.id')) {
@@ -71,15 +75,15 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.observes('cooking'),
 
     summarizingChanged: function() {
-          alert(JSON.stringify(this.get('model.metaData')));
-          this.set('selectedTab', 'summary');
+        alert(JSON.stringify(this.get('model.metaData')));
+        this.set('selectedTab', 'summary');
     }.observes('summarizing'),
 
     versionChanged: function() {
         const versionable = this.get('model.metaData.versionoption') || "";
         let versionEntered = (versionable.trim().length > 0);
-        if(!(this.get('selecting') == undefined)) {
-          this.set('selecting', !versionEntered);
+        if (!(this.get('selecting') == undefined)) {
+            this.set('selecting', !versionEntered);
         }
     }.observes('model.metaData.versionoption'),
 
@@ -92,7 +96,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
         if (!this.get('model.metaData.unitoption')) return true;
 
-      //  if (!this.get('model.metaData.versionoption')) return true;
+        //  if (!this.get('model.metaData.versionoption')) return true;
         return false;
     }.property('saving', 'selecting', 'model.metaData.unitoption', 'model.metaData.versionoption'),
 
@@ -124,15 +128,15 @@ export default Ember.Controller.extend(ModalFunctionality, {
         },
 
         nextSummarize() {
-          this.set('loading', true);
-          const model = this.get('model');
-          return Nilavu.ajax("/launchables/summary.json").then(result => {
-              model.metaData.setProperties({
-                  summarizing: result
-              });
-              this.set('summarizing', true);
-              this.set('selecting', true);
-          });
+            this.set('loading', true);
+            const model = this.get('model');
+            return Nilavu.ajax("/launchables/summary.json").then(result => {
+                model.metaData.setProperties({
+                    summarizing: result
+                });
+                this.set('summarizing', true);
+                this.set('selecting', true);
+            });
         },
 
         saveCategory() {
