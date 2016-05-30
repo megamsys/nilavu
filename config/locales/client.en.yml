@@ -103,45 +103,37 @@ en:
       previous_month: 'Previous Month'
       next_month: 'Next Month'
 
-    filters:
-      torpedo:
-        title:
-          one: Virtual Machine
-          other: Virtual Machines
-      app:
-        title:
-          one: App
-          other: Apps
-      service:
-        title:
-          one: Service
-          other: Services
-      microservice:
-        title:
-          one: Microservice
-          other: Microservices
-      analytics:
-        title:
-          one: Analytics
-          other: Analytics
-      collaboration:
-        title:
-          one: Collaboration
-          other: Collaborations
-      bitnami:
-        title:
-          one: Bitnami
-          other: Bitnamis
-      torpedo_description: 'Get your own compute power'
-      app_description:  'Get started with a new app'
-      service_description: 'Make your applications more hungry'
-      microservice_description: 'Your app in a container in seconds'
-      analytics_description: 'Actionable insights in minutes'
-      collaboration_description: 'Your buddies are near by'
-      bitnami_description:  'Apps on steroids'
-      unikernel_descripiton: 'Just do one thing in a click'
+  site_settings:
+    torpedo:
+      one: Torpedo
+      other: Torpedos
+    app:
+      one: App
+      other: Apps
+    service:
+      one: Service
+      other: Services
+    microservices:
+      one: Microservice
+      other: Microservices
+    analytics:
+      one: Analytics
+      other: Analytics
+    collaboration:
+      one: Collaboration
+      other: Collaborations
+    oneclick:
+      one: Oneclick
+      other: Oneclicks
+    torpedo_description: 'Get your own compute power'
+    app_description:  'Get started with a new app'
+    service_description: 'Make your applications more hungry'
+    microservices_description: 'Your app in a container in seconds'
+    analytics_description: 'Actionable insights in minutes'
+    collaboration_description: 'Collaboration done in minutes'
+    oneclick_description:  'Just do one thing in a click'
 
-    top_toolbar:
+  top_toolbar:
     signout: "Sign Out"
     profile: "Profile"
 

@@ -55,7 +55,14 @@ Nilavu::Application.routes.draw do
   get "robots.txt" => "robots_txt#index"
   get "manifest.json" => "manifest_json#index", :as => :manifest
 
-  root to: 'cockpits#entrance', :as => "entrance"
+  #ceph
+  get   '/cephsignin', to: 'cephs#create', constraints: HomePageConstraint.new
+  post  '/cephsignin', to: 'cephs#create', constraints: HomePageConstraint.new
+  get   '/cephsignup', to: 'ceph_users#create', constraints: HomePageConstraint.new
+  post  '/cephsignup', to: 'ceph_users#create', constraints: HomePageConstraint.new
+#Metrics
+ get '/metrics/:type' => 'metrics#get'
+
 
   get "*url", to: 'permalinks#show', constraints: PermalinkConstraint.new
 end
