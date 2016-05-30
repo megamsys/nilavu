@@ -35,7 +35,11 @@ export default Ember.Controller.extend({
       formSubmitted: false,
       rejectedEmails: [],
       rejectedPasswords: [],
-      isDeveloper: false
+      isDeveloper: false,
+      firstname:'',
+      lastname:'',
+      confirmpassword:'',
+      phonenumber:''
     });
   },
 
@@ -209,7 +213,7 @@ export default Ember.Controller.extend({
 
     createAccount() {
       const self = this,
-        attrs = this.getProperties('accountName', 'accountEmail', 'accountPassword');
+        attrs = this.getProperties('accountName', 'accountEmail', 'accountPassword','firstname','lastname','phonenumber');
 
       this.set('formSubmitted', true);
 

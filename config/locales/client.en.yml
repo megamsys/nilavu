@@ -219,6 +219,9 @@ en:
         invalid_email: "Invalid email address."
         regex_mismatch: "Value doesn't match the required format."
         invalid_string: "Invalid value."
+        firstname: "firstname"
+        lastname: "lastname"
+        phonenumber: "phonenumber"
 
       name:
         title: "Name"
@@ -232,6 +235,7 @@ en:
 
       password:
         title: "Password"
+        title1: "confirm password"
         too_short: "Your password is too short."
         common: "That password is too common."
         same_as_email: "Your password is the same as your email."
