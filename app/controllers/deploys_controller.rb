@@ -4,7 +4,7 @@ class DeploysController < ApplicationController
   before_action :add_authkeys_for_api, only: [:show]
 
   def show
-    @deployed = DeployedRunner.perform_run(params)
+    @deployed = DeployedRunner.perform_run(params)  
     unless @deployed
       render_with_error('Deployed item that you clicked failed to load.')
     end

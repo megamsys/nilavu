@@ -15,6 +15,13 @@
           <div class="row">
             <ul class="nav navbar-nav pull-right">
               <li>
+                <span>
+                  <a href="#create_socket" id="new-account-link" {{action "createSocket"}}><u class="colr-bluegrey"></u>
+                    socket
+                  </a>
+                </span>
+              </li>
+              <li>
                 {{#link-to 'dummy'}}
                   <i class="c_icon-window-lg pull-left"></i>
                       <span class="hidden-xs hidden-sm pull-left">{{i18n 'marketplace.title'}}</span>
@@ -48,7 +55,7 @@
                 </ul>
               </ul>
             </li>
-          </ul>          
+          </ul>
         </div>
       </div>
     </div>
