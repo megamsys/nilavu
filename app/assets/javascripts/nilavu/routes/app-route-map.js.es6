@@ -1,16 +1,23 @@
 export default function() {
-    //Fake route
-    this.route('dummy');
-    // Error page
-    this.route('exception', {
-        path: '/exception'
-    });
-    this.route('billing'), {
-        path: '/billing'
-    });
-this.resource('about', {
-    path: '/about'
-});
+
+  //Fake route
+  this.route('dummy');
+  // Error page
+  this.route('exception', { path: '/exception' });
+
+  this.resource('about', { path: '/about' });
+
+
+  // Topic routes
+  this.route('topic', { path: '/topic/:id' });
+  /*this.resource('topic', { path: '/t/:slug/:id' }, function() {
+    this.route('fromParams', { path: '/' });
+    this.route('fromParamsNear', { path: '/:nearPost' });
+  });*/
+  this.resource('topicBySlug', { path: '/t/:slug' });
+  this.route('topicUnsubscribe', { path: '/t/:slug/:id/unsubscribe' });
+
+
 
 
 // Topic routes
