@@ -8,7 +8,7 @@ import Composer from 'nilavu/models/composer';
 import NilavuURL from 'nilavu/lib/url';
 
 export default Ember.Controller.extend(BufferedContent, {
-  needs: ['header', 'modal', 'composer', 'quote-button', 'topic-progress', 'application'],
+  needs: ['header', 'modal', 'composer', 'topic-progress', 'application'],
   multiSelect: false,
   allPostsSelected: false,
   editingTopic: false,
@@ -85,6 +85,7 @@ export default Ember.Controller.extend(BufferedContent, {
   _clearSelected: function() {
     this.set('selectedPosts', []);
     this.set('selectedReplies', []);
+    alert("--------");
   }.on('init'),
 
   showCategoryChooser: Ember.computed.not("model.isPrivateMessage"),
@@ -184,7 +185,7 @@ export default Ember.Controller.extend(BufferedContent, {
     // Post related methods
     replyToPost(post) {
       const composerController = this.get('controllers.composer'),
-          quoteController = this.get('controllers.quote-button'),
+          //quoteController = this.get('controllers.quote-button'),
           quotedText = Quote.build(quoteController.get('post'), quoteController.get('buffer')),
           topic = post ? post.get('topic') : this.get('model');
 
@@ -486,7 +487,7 @@ export default Ember.Controller.extend(BufferedContent, {
 
     replyAsNewTopic(post) {
       const composerController = this.get('controllers.composer'),
-            quoteController = this.get('controllers.quote-button'),
+            //quoteController = this.get('controllers.quote-button'),
             quotedText = Quote.build(quoteController.get('post'), quoteController.get('buffer')),
             self = this;
 

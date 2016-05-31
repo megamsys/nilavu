@@ -19,20 +19,17 @@ gem 'mail'
 
 gem 'http_accept_language', '~>2.0.5', require: false
 
-gem 'rest-client'
-# ui - (sass, react, growl, websocket)
-gem 'jquery-rails'
-gem 'turbolinks'
-gem 'jquery-turbolinks'
-gem 'react-rails'
-gem 'sass-rails'
-gem 'remotipart' # ajax file uploads (sshkey)
-gem 'socket.io-rails' # websocket streaming
-gem 'nprogress-rails' # youtube like spinner
-gem 'toastr_rails'
-gem 'zeroclipboard-rails'
-gem 'uglifier'
-gem 'therubyracer', '~> 0.12.2', require: 'v8', platforms: :ruby
+### Don't change the versions. henceforth just do a bundle install
+gem 'ember-rails' , '0.18.5'
+gem 'ember-source' , '1.12.2'
+gem 'ember-data-source', "1.0.0.beta.16.1"
+gem "ember-handlebars-template", '0.7.3'
+gem 'barber', '0.11.1'
+gem 'babel-transpiler', '0.7.0'
+
+gem 'fast_xs'
+
+gem 'fast_xor'
 
 gem 'multi_json'
 gem 'mustache'
@@ -47,7 +44,6 @@ gem 'omniauth-google-oauth2'
 # 3rd party system api's
 
 gem 'megam_api', '1.5.beta2'
-
 gem 'github_api'
 gem 'gitlab'
 gem 'radosgw-s3'

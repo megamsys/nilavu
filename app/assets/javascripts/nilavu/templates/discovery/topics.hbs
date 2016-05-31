@@ -3,7 +3,6 @@
     sortable=sortable bulkSelectEnabled=bulkSelectEnabled}}
     <div class="" id="app-grid-view">
         <div class='contents'>
-            {{#if hasTopics}}
                 <div class="row c_pading-b15">
                     <div class="portlet-body-head">
                         <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
@@ -22,16 +21,19 @@
                                 <span class="glyphicon glyphicon-plus"></span>
                                 <p>
                                   Create {{i18n 'launcher.create'}}
-                                  {{conditional-loading-spinner condition=loading size="large"}}                                  
+                                  {{conditional-loading-spinner condition=loading size="large"}}
                                 </p>
                               </div>
                           </div>
                     </div>
-                </a> {{topic-list showTopicPostBadges=showTopicPostBadges showPosters=true currentUser=currentUser canBulkSelect=canBulkSelect changeSort="changeSort" toggleBulkSelect="toggleBulkSelect" hideCategory=model.hideCategory
-                        order=order ascending=ascending bulkSelectEnabled=bulkSelectEnabled selected=selected expandGloballyPinned=expandGloballyPinned expandAllPinned=expandAllPinned topics=inkTopicsModel}}
-                    </div>
+                </a>
+                {{#if hasTopics}}
+                  {{topic-list showTopicPostBadges=showTopicPostBadges showPosters=true currentUser=currentUser canBulkSelect=canBulkSelect changeSort="changeSort" toggleBulkSelect="toggleBulkSelect" hideCategory=model.hideCategory
+                          order=order ascending=ascending bulkSelectEnabled=bulkSelectEnabled selected=selected expandGloballyPinned=expandGloballyPinned expandAllPinned=expandAllPinned topics=inkTopicsModel}}
+                  {{/if}}
+              </div>
                 </div>
-            {{/if}}
+
         </div>
     </div>
 </div>
