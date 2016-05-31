@@ -1,0 +1,28 @@
+<div class="row">
+    <h3>{{i18n 'launcher.select_security'}}</h3>
+    <div class="bottom-divider"></div>
+</div>
+<div class="row">
+  <div class="col-xs-6">
+    <h4>{{i18n 'launcher.select_sshkey'}}</h4>
+    <div class="form-group">
+      <select class="form-control" id="sshkeyoption">
+        <option value="New" selected="selected">{{i18n 'launcher.select_sshkey'}}</option>
+        </select>
+    </div>
+  </div>
+  <div class="col-xs-6" >
+    <div id="sshkeys_old>" style="display:none;">
+      <h4>{{i18n 'launcher.select_sshkey'}}</h4>
+      <div class="form-group">
+          <span>no keys</span>
+        </div>
+    </div>
+    <div id="newkey">
+      <h4>{{i18n 'launcher.select_sshkey'}}</h4>
+      <div class="form-group">
+        {{text-field type="email" value=accountEmail placeholderKey="launcher.email.title" class ="form-control" id="new-account-email" disabled=emailValidated name="email" autofocus="autofocus"}}
+      </div>
+    </div>
+  </div>
+</div>

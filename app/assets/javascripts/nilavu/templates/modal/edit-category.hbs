@@ -19,11 +19,25 @@
         <div class="footer hideme3 no-padding">
             {{launching-cost saveLabel=saveLabel category=model.metaData}}
             <div class="col-sm-3 no-padding">
-              {{#d-button id="save-category" class="btn btn-block btn-primary" disabled=disabled action="nextCategory" label=saveLabel}}
-                <span class="pull-right">
-                  {{conditional-loading-spinner size="large" condition=loading}}
-                </span>
-              {{/d-button}}
+              {{#if generalSelected}}
+                  {{#d-button id="next-category" class="btn btn-block btn-primary" disabled=disabled action="nextCategory" label=saveLabel}}
+                      <span class="pull-right">
+                        {{conditional-loading-spinner size="large" condition=selecting}}
+                      </span>
+                  {{/d-button}}
+              {{else if selectionSelected}}
+                  {{#d-button id="next-identity" class="btn btn-block btn-primary" disabled=disabled action="nextSummarize" label=saveLabel}}
+                      <span class="pull-right">
+                          {{conditional-loading-spinner size="large" condition=selecting}}
+                      </span>
+                  {{/d-button}}
+              {{else if summarySelected}}
+                  {{#d-button id="save-category" class="btn btn-block btn-primary" disabled=disabled action="saveCategory" label=saveLabel}}
+                      <span class="pull-right">
+                              {{conditional-loading-spinner size="large" condition=saving}}
+                          </span>
+                  {{/d-button}}
+              {{/if}}
             </div>
         </div>
     </div>

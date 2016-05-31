@@ -6,6 +6,8 @@ import NilavuURL from 'nilavu/lib/url';
 import NilavuLocation from 'nilavu/lib/nilavu-location';
 import SearchService from 'nilavu/services/search';
 import NotificationMessagesService from 'nilavu/services/notification-messages';
+import SocketIOService from 'nilavu/services/socket-io';
+import WebsocketsService from 'nilavu/services/websockets';
 import { startTracking, default as TopicTrackingState } from 'nilavu/models/topic-tracking-state';
 import ScreenTrack from 'nilavu/lib/screen-track';
 
@@ -55,6 +57,12 @@ export default {
 
     app.register('notification-messages:main', NotificationMessagesService);
     injectAll(app, 'notificationMessages');
+
+    app.register('socket-io:main', SocketIOService);
+    injectAll(app, 'socketIO');
+
+    app.register('websockets:main', WebsocketsService);
+    injectAll(app, 'websockets');
 
     const session = Session.current();
     app.register('session:main', session, { instantiate: false });

@@ -86,12 +86,23 @@
 
 
                     <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                            <button type="submit" class="btn btn-success">Create Account</button>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                            <p> <a href=""><u class="colr-bluegrey">Already have an account ? </u></a> <a href=""><u class="colr-denimblue">Login here</u></a> </p>
-                        </div>
+                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                             {{#if showCreateForm}}
+                                 <button class='btn btn-success col-lg-12' id="login-link" {{bind-attr disabled="submitDisabled"}} {{action "createAccount"}}>
+                                     {{i18n 'create_account.title'}}
+                                     <span class="pull-right">
+                       {{conditional-loading-spinner condition=formSubmitted size="large"}}
+                     </span>
+                                 </button>
+                             {{/if}}
+                         </div>
+                     </div>
+                     <div class="bottom">
+                        <p class="colr-bluegrey">{{ i18n 'user.have_an_account' }} &nbsp;&nbsp;
+                            <a href="login" {{action "showLogin"}}>
+                                <span class="colr-denimblue">{{i18n 'user.login_here'}}</span>
+                            </a>
+                        </p>
                     </div>
 
 

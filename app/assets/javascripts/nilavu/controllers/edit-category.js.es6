@@ -1,40 +1,39 @@
 import ModalFunctionality from 'nilavu/mixins/modal-functionality';
 import NilavuURL from 'nilavu/lib/url';
-import {
-    extractError
-} from 'nilavu/lib/ajax-error';
+import {  extractError } from 'nilavu/lib/ajax-error';
+import { propertyEqual } from 'nilavu/lib/computed';
+
 
 // Modal for editing / creating a category
 export default Ember.Controller.extend(ModalFunctionality, {
     selectedTab: null,
     saving: false,
-    deleting: false,
     panels: null,
     editLaunching: false,
 
-
     _initPanels: function() {
         this.set('panels', []);
-        this.editLaunching = false;
     }.on('init'),
 
+    generalSelected: function() {
+      return this.selectedTab == 'general';
+    }.property('selectedTab'),
 
-    /*  _changeInitialState:function() {
-      alert('tearing');
-      this.editLaunching = false;
-      alert(this.get('model.launchoption'));
-      alert(this.get('launchOption'));
-    }.on('willDestroyElement'),
-*/
+    selectionSelected: function() {
+      return this.selectedTab == 'selection';
+    }.property('selectedTab'),
+
+    summarySelected: function() {
+      return this.selectedTab == 'summary';
+    }.property('selectedTab'),
 
     onShow() {
         this.changeSize();
         this.titleChanged();
-        //this._changeInitialState();
     },
 
     changeSize: function() {
-        if (!Ember.isEmpty(this.get('model.description'))) {
+      if (!Ember.isEmpty(this.get('model.description'))) {
             this.set('controllers.modal.modalClass', 'edit-category-modal full');
         } else {
             this.set('controllers.modal.modalClass', 'edit-category-modal small');
@@ -71,23 +70,31 @@ export default Ember.Controller.extend(ModalFunctionality, {
         }
     }.observes('cooking'),
 
+    summarizingChanged: function() {
+          alert(JSON.stringify(this.get('model.metaData')));
+          this.set('selectedTab', 'summary');
+    }.observes('summarizing'),
+
+    versionChanged: function() {
+        const versionable = this.get('model.metaData.versionoption') || "";
+        let versionEntered = (versionable.trim().length > 0);
+        if(!(this.get('selecting') == undefined)) {
+          this.set('selecting', !versionEntered);
+        }
+    }.observes('model.metaData.versionoption'),
+
     titleChanged: function() {
         this.set('controllers.modal.title', this.get('title'));
     }.observes('title'),
 
     disabled: function() {
-        if (this.get('saving') || this.get('deleting')) return true;
+        if (this.get('saving') || this.get('selecting')) return true;
+
         if (!this.get('model.metaData.unitoption')) return true;
-        /*  if (!this.get('model.color')) return true;
-          if (!this.get('model.color')) return true;
-          */
+
+      //  if (!this.get('model.metaData.versionoption')) return true;
         return false;
-    }.property('saving', 'model.metaData.unitoption', 'model.color', 'deleting'),
-
-
-    deleteDisabled: function() {
-        return (this.get('deleting') || this.get('saving') || false);
-    }.property('disabled', 'saving', 'deleting'),
+    }.property('saving', 'selecting', 'model.metaData.unitoption', 'model.metaData.versionoption'),
 
     categoryName: function() {
         const name = this.get('name') || "";
@@ -95,19 +102,37 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.property('name'),
 
     saveLabel: function() {
-        if (this.get('saving')) return "saving";
-        if (this.get('model.isUncategorizedCategory')) return "save";
-        return this.get('model.id') ? "category.save" : "category.create";
-    }.property('saving', 'model.id'),
+        if (this.get('saving')) return "launcher.saving";
+
+        if (this.generalSelected || this.selectionSelected) return 'launcher.selecting'
+
+        return "launcher.launch";
+    }.property('saving', 'generalSelected', 'selectionSelected'),
 
     actions: {
         nextCategory() {
             this.set('loading', true);
+            const model = this.get('model');
             return Nilavu.ajax("/launchables/pools/" + this.get('model.launchoption') + ".json").then(result => {
-                this.setProperties({
+                model.metaData.setProperties({
                     cooking: result
                 });
+
+                this.set('cooking', true);
+                this.set('selecting', true);
             });
+        },
+
+        nextSummarize() {
+          this.set('loading', true);
+          const model = this.get('model');
+          return Nilavu.ajax("/launchables/summary.json").then(result => {
+              model.metaData.setProperties({
+                  summarizing: result
+              });
+              this.set('summarizing', true);
+              this.set('selecting', true);
+          });
         },
 
         saveCategory() {
@@ -129,30 +154,6 @@ export default Ember.Controller.extend(ModalFunctionality, {
             }).catch(function(error) {
                 self.flash(extractError(error), 'error');
                 self.set('saving', false);
-            });
-        },
-
-        deleteCategory() {
-            const self = this;
-            this.set('deleting', true);
-
-            this.send('hideModal');
-            bootbox.confirm(I18n.t("category.delete_confirm"), I18n.t("no_value"), I18n.t("yes_value"), function(result) {
-                if (result) {
-                    self.get('model').destroy().then(function() {
-                        // success
-                        self.send('closeModal');
-                        NilavuURL.redirectTo("/categories");
-                    }, function(error) {
-                        self.flash(extractError(error), 'error');
-                        self.send('reopenModal');
-                        self.displayErrors([I18n.t("category.delete_error")]);
-                        self.set('deleting', false);
-                    });
-                } else {
-                    self.send('reopenModal');
-                    self.set('deleting', false);
-                }
             });
         }
     }
