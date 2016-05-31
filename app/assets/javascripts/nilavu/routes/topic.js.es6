@@ -11,6 +11,7 @@ import showModal from 'nilavu/lib/show-modal';
 const TopicRoute = Nilavu.Route.extend({
   redirect() { return this.redirectIfLoginRequired(); },
 
+
   queryParams: {
     filter: { replace: true },
     username_filters: { replace: true },
@@ -36,7 +37,7 @@ const TopicRoute = Nilavu.Route.extend({
       }
       return result;
     }
-  },
+  },  
 
   actions: {
 
@@ -74,7 +75,7 @@ const TopicRoute = Nilavu.Route.extend({
     mergeTopic() {
       showModal('merge-topic', { model: this.modelFor('topic'), title: 'topic.merge_topic.title' });
     },
-    
+
     changeOwner() {
       showModal('change-owner', { model: this.modelFor('topic'), title: 'topic.change_owner.title' });
     },
@@ -102,7 +103,7 @@ const TopicRoute = Nilavu.Route.extend({
 
     willTransition() {
       this._super();
-      this.controllerFor("quote-button").deselectText();
+    //  this.controllerFor("quote-button").deselectText();
       Em.run.cancel(scheduledReplace);
       isTransitioning = true;
       return true;
@@ -139,14 +140,15 @@ const TopicRoute = Nilavu.Route.extend({
 
   model(params, transition) {
     const queryParams = transition.queryParams;
-
+    console.log("-----------------------------");
+    console.log(params.id);
     let topic = this.modelFor('topic');
     if (topic && (topic.get('id') === parseInt(params.id, 10))) {
-      this.setupParams(topic, queryParams);
+    //  this.setupParams(topic, queryParams);
       return topic;
     } else {
       topic = this.store.createRecord('topic', _.omit(params, 'username_filters', 'filter'));
-      return this.setupParams(topic, queryParams);
+    //  return this.setupParams(topic, queryParams);
     }
   },
 
@@ -155,7 +157,7 @@ const TopicRoute = Nilavu.Route.extend({
     isTransitioning = false;
 
     const topic = this.modelFor('topic');
-    this.session.set('lastTopicIdViewed', parseInt(topic.get('id'), 10));
+    //this.session.set('lastTopicIdViewed', parseInt(topic.get('id'), 10));
   },
 
   deactivate() {
@@ -191,7 +193,7 @@ const TopicRoute = Nilavu.Route.extend({
 
     TopicRoute.trigger('setupTopicController', this);
 
-    this.controllerFor('header').setProperties({ topic: model, showExtraInfo: false });
+    /*this.controllerFor('header').setProperties({ topic: model, showExtraInfo: false });
     this.searchService.set('searchContext', model.get('searchContext'));
 
     this.controllerFor('composer').set('topic', model);
@@ -200,7 +202,7 @@ const TopicRoute = Nilavu.Route.extend({
     this.controllerFor('topic-progress').set('model', model);
 
     // We reset screen tracking every time a topic is entered
-    this.screenTrack.start(model.get('id'), controller);
+    this.screenTrack.start(model.get('id'), controller);*/
   }
 
 });
