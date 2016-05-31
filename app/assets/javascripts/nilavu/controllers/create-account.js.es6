@@ -38,7 +38,7 @@ export default Ember.Controller.extend({
       isDeveloper: false,
       firstname:'',
       lastname:'',
-      confirmpassword:'',
+      confirmpassword: null,
       phonenumber:''
     });
   },

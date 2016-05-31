@@ -1,17 +1,21 @@
 <div class="signin login">
+    <!-- BEGIN LOGO -->
     <div class="container">
-      {{login-logo minimized=showExtraInfo}}
-        <!-- BEGIN LOGIN -->
-        <div class="col-md-10 col-sm-12 col-md-offset-1   bg_white border_grey sign-up">
-
+        <div class="row">
+            {{login-logo minimized=showExtraInfo}}
+          </div>
+        <!-- END LOGO -->
+        <div class="col-md-10 col-sm-10 col-md-offset-1   bg_white border_grey sign-up">
+            <!--start login-->
             <div class="col-md-6 col-sm-6">
-                <img src="images/launch/sign-up.png" alt="" class="img-responsive" />
+                <img src="images/launch/sign-up.png" alt="" class="img-responsive"/>
                 <h3>Launch your applications seamlessly with less than <span>$5</span></h3>
             </div>
 
             <div class="col-md-6 col-sm-6">
-                <h2>Sign up <span class="sign_up_small">It wont take morethan 1 minute, we promise</span></h2>
-                <form role="form" id="theform" name="theform" class="signup-form">
+                <h2>Sign up <span class="sign_up_small"><i>It wont take morethan 1 minute, we promise</i></span></h2>
+
+
                     <div class="form-group">
                         <div class="c-inline">
                             <div class="row">
@@ -25,6 +29,8 @@
                         </div>
                     </div>
 
+
+
                     <div class="form-group">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
@@ -37,22 +43,47 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                 {{text-field type="email" value=accountEmail placeholderKey="user.email.title" class ="form-control" id="new-account-email" disabled=emailValidated name="email" autofocus="autofocus"}}
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                        {{i18n 'user.email.instructions'}}
+                                    </div>
+
+                                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                                        <div class="pull-right">
+                                            {{input-tip validation=emailValidation}}
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
+
                     <div class="form-group">
                         <div class="c_inline">
                             <div class="row">
-                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                    {{password-field value=accountPassword type="password" placeholderKey="user.password.title" class="form-control" id="new-account-password" capsLockOn=capsLockOn}}
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg6 col-xl-6">
+                                    {{#if passwordRequired}}
+                                        {{password-field value=accountPassword type="password" placeholderKey="user.password.title" class="form-control" id="new-account-password" capsLockOn=capsLockOn}}
+                                    {{/if}}
+                                    <div class="row">
+                                        <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 col-xl-7">
+                                            {{passwordInstructions}}
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                            <div class="pull-right">
+                                                {{input-tip validation=passwordValidation}}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                    {{password-field value=accountPassword type="password" placeholderKey="user.password.title1" class="form-control" id="new-account-password1" capsLockOn=capsLockOn}}
+                                    {{password-field value=confirmpassword type="password" placeholderKey="user.password.title1" class="form-control" id="new-account-password1" capsLockOn=capsLockOn}}
                                 </div>
                             </div>
                         </div>
                     </div>
+
 
                     <div class="row">
                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
@@ -63,16 +94,15 @@
                         </div>
                     </div>
 
-                </form>
+
+
             </div>
         </div>
-
-
         <div class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">
             <div class="row">
                 <p>User Interface & Design by <a href="http://enixel.com/" target="_blank">Enixel Creative Studio</a></p>
             </div>
         </div>
         <!--End login-->
-    </div>
+</div>
 </div>
