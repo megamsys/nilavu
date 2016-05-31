@@ -6,6 +6,9 @@ export default buildCategoryPanel('summary', {
   selectedGroup: null,
   selectedPermission: null,
 
+  sshFrequencies: [{ name: I18n.t('launcher.ssh_key_is_new'), value: 1 },
+                      { name: I18n.t('launcher.ssh_key_use_old'), value: 2 }],
+
   actions: {
     editPermissions() {
       if (!this.get('category.is_special')) {

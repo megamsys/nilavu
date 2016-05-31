@@ -1,14 +1,8 @@
 import ModalFunctionality from 'nilavu/mixins/modal-functionality';
 import NilavuURL from 'nilavu/lib/url';
-import {
-    extractError
-} from 'nilavu/lib/ajax-error';
-import {
-    propertyEqual
-} from 'nilavu/lib/computed';
+import {     extractError } from 'nilavu/lib/ajax-error';
 
 
-// Modal for editing / creating a category
 export default Ember.Controller.extend(ModalFunctionality, {
     selectedTab: null,
     saving: false,
@@ -45,11 +39,13 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.observes('generalSelected', 'selectionSelected', 'summarySelected'),
 
     title: function() {
-        if (this.get('model.id')) {
-            return I18n.t("category.edit_long") + " : " + this.get('model.name');
+        if (this.get('selectionSelected')){
+          return I18n.t("launcher.selection_title");
+        } else if (this.get('summarySelected')){
+          return I18n.t("launcher.summary_title");
         }
         return I18n.t("launcher.title");
-    }.property('model.id', 'model.name'),
+    }.property('selectionSelected', 'summarySelected'),
 
     launchOption: function() {
         const option = this.get('model.launchoption') || "";
@@ -96,7 +92,6 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
         if (!this.get('model.metaData.unitoption')) return true;
 
-        //  if (!this.get('model.metaData.versionoption')) return true;
         return false;
     }.property('saving', 'selecting', 'model.metaData.unitoption', 'model.metaData.versionoption'),
 

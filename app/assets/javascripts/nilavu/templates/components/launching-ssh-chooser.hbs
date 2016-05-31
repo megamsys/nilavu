@@ -3,12 +3,10 @@
     <div class="bottom-divider"></div>
 </div>
 <div class="row">
-  <div class="col-xs-6">
+  <div class="col-xs-6 pad_0">
     <h4>{{i18n 'launcher.select_sshkey'}}</h4>
     <div class="form-group">
-      <select class="form-control" id="sshkeyoption">
-        <option value="New" selected="selected">{{i18n 'launcher.select_sshkey'}}</option>
-        </select>
+      {{combo-box valueAttribute="value" content=sshFrequencies value=2}}
     </div>
   </div>
   <div class="col-xs-6" >

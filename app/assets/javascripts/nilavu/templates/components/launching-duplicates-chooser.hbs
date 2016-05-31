@@ -4,11 +4,10 @@
 </div>
 
 <div class="row pad_t25">
-    <div class="col-md-4 col-md-offset-4">
-            <div style="border-radius: 4px; border: 1px solid rgb(220, 222, 224); border-image: none; line-height: 34px; display: flex;">
-                <button class="instanceCountButton" >U</button>
-                <span id="instanceCount" style="width: auto; text-align: center; color: rgb(30, 136, 229); font-weight: bold; display: block;">1 {{category.versionoption}}</span>
-                <button class="instanceCountButton">D</button>
-            </div>
-        </div>
+    <div class="col-md-12 pad_0">
+        Deploy multiple machines with the same configuration
+    </div>
+</div>
+<div class="row pad_t25">
+  {{super-number id="loop" loop=true min=1 max=9}}
 </div>
