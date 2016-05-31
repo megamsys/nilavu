@@ -28,9 +28,7 @@ export default Ember.Controller.extend({
     changePeriod(p) {
       NilavuURL.routeTo(this.showMoreUrl(p));
     },
-    selectTopic(id) {
-      alert(id);
-    }
+
   }
 
 });

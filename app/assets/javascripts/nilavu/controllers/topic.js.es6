@@ -22,6 +22,42 @@ export default Ember.Controller.extend(BufferedContent, {
   showRecover: Em.computed.and('model.deleted', 'model.details.can_recover'),
   isFeatured: Em.computed.or("model.pinned_at", "model.isBanner"),
 
+  selectedTab: null,
+  panels: null,
+
+  _initPanels: function() {
+      this.set('panels', []);
+      this.set('selectedTab', 'info');
+  }.on('init'),
+
+  infoSelected: function() {
+    return this.selectedTab == 'info';
+  }.property('selectedTab'),
+
+  storageSelected: function() {
+    return this.selectedTab == 'storage';
+  }.property('selectedTab'),
+
+  networkSelected: function() {
+    return this.selectedTab == 'network';
+  }.property('selectedTab'),
+
+  cpuSelected: function() {
+    return this.selectedTab == 'cpu';
+  }.property('selectedTab'),
+
+  ramSelected: function() {
+    return this.selectedTab == 'ram';
+  }.property('selectedTab'),
+
+  hddSelected: function() {
+    return this.selectedTab == 'hdd';
+  }.property('selectedTab'),
+
+  logsSelected: function() {
+    return this.selectedTab == 'logs';
+  }.property('selectedTab'),
+
   _titleChanged: function() {
     const title = this.get('model.title');
     if (!Ember.isEmpty(title)) {
@@ -85,7 +121,6 @@ export default Ember.Controller.extend(BufferedContent, {
   _clearSelected: function() {
     this.set('selectedPosts', []);
     this.set('selectedReplies', []);
-    alert("--------");
   }.on('init'),
 
   showCategoryChooser: Ember.computed.not("model.isPrivateMessage"),

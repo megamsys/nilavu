@@ -62,6 +62,11 @@ const Topic = RestModel.extend({
            I18n.t('last_post') + ": " + longDate(this.get('bumpedAt'));
   }.property('bumpedAt'),
 
+  asmsid: function() {
+    alert("---------------------em");
+    return this.get('asms_id');
+  }.property('asms_id'),
+
   createdAt: function() {
     return new Date(this.get('created_at'));
   }.property('created_at'),

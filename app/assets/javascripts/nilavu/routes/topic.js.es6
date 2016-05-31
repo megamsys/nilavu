@@ -37,7 +37,7 @@ const TopicRoute = Nilavu.Route.extend({
       }
       return result;
     }
-  },  
+  },
 
   actions: {
 
@@ -140,8 +140,6 @@ const TopicRoute = Nilavu.Route.extend({
 
   model(params, transition) {
     const queryParams = transition.queryParams;
-    console.log("-----------------------------");
-    console.log(params.id);
     let topic = this.modelFor('topic');
     if (topic && (topic.get('id') === parseInt(params.id, 10))) {
     //  this.setupParams(topic, queryParams);

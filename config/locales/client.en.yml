@@ -399,7 +399,7 @@ en:
       upload_key: "Upload private key"
       upload_pub_key: "Upload public key"
 
-    billings:
+    billing:
       title: "Billings"
       total_balance: "Total Balance"
       promo_code: "Promo Code :"
@@ -459,6 +459,14 @@ en:
       account_name: "Account Name:"
       all_organization: "All Organizations"
 
+    vm_management:
+      info: "info"
+      storage: "storage"
+      network: "network"
+      cpu: "cpu"
+      ram: "ram"
+      hdd: "hdd"
+      logs: "logs"
 
     launcher:
       create: "Virtual Machine"

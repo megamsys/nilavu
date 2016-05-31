@@ -71,7 +71,6 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.observes('cooking'),
 
     summarizingChanged: function() {
-          alert(JSON.stringify(this.get('model.metaData')));
           this.set('selectedTab', 'summary');
     }.observes('summarizing'),
 

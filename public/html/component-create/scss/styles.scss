@@ -21,7 +21,7 @@ $hiddenContent: "input#vm, input#app, .hideme, .hideme2, .hideme3, .hideme-custo
 	font-family: 'Montserrat', sans-serif;
 }
 a {
-	@include roboto; 
+	@include roboto;
 }
 #{$hiddenContent} {
   display: none;
@@ -156,7 +156,7 @@ img.inSelect {
 	width: 190px;
 	margin-right: 14px;
 	&.middle {
-		margin: auto;	
+		margin: auto;
 	}
 }
 .lBox, .rBox {
@@ -271,7 +271,7 @@ img.inSelect {
 		color: white;
 	}
 	.smaller {
-		font-size: 16px;	
+		font-size: 16px;
 	}
 }
 .no-padding {
@@ -301,7 +301,7 @@ img.inSelect {
 		&.active {
 			background-color: $blue-color;
 		}
-		
+
 	}
 }
 
@@ -639,4 +639,3 @@ a {
 .form-control.flat {
   border-radius: 0;
 }
-
