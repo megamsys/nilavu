@@ -2,7 +2,7 @@ import AddCategoryClass from 'nilavu/mixins/add-category-class';
 import AddArchetypeClass from 'nilavu/mixins/add-archetype-class';
 import ClickTrack from 'nilavu/lib/click-track';
 import { listenForViewEvent } from 'nilavu/lib/app-events';
-import { categoryBadgeHTML } from 'nilavu/helpers/category-link';
+//import { categoryBadgeHTML } from 'nilavu/helpers/category-link';
 import Scrolling from 'nilavu/mixins/scrolling';
 
 const TopicView = Ember.View.extend(AddCategoryClass, AddArchetypeClass, Scrolling, {
@@ -138,7 +138,7 @@ const TopicView = Ember.View.extend(AddCategoryClass, AddArchetypeClass, Scrolli
     }
 
     if (category) {
-      opts.catLink = categoryBadgeHTML(category);
+      //opts.catLink = categoryBadgeHTML(category);
     } else {
       opts.catLink = "<a href=\"" + Nilavu.getURL("/categories") + "\">" + I18n.t("topic.browse_all_categories") + "</a>";
     }

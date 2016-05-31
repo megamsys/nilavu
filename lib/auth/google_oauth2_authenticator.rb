@@ -35,7 +35,7 @@ class Auth::GoogleOAuth2Authenticator < Auth::Authenticator
               strategy.options[:client_id] = SiteSetting.google_oauth2_client_id
               strategy.options[:client_secret] = SiteSetting.google_oauth2_client_secret
              },
-           :scope => "user:email",
+           :scope => "email",
            skip_jwt:  true
   end
 

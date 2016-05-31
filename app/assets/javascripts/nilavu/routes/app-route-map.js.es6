@@ -8,10 +8,11 @@ export default function() {
 
 
   // Topic routes
-  this.resource('topic', { path: '/t/:slug/:id' }, function() {
+  this.route('topic', { path: '/topic/:id' });
+  /*this.resource('topic', { path: '/t/:slug/:id' }, function() {
     this.route('fromParams', { path: '/' });
     this.route('fromParamsNear', { path: '/:nearPost' });
-  });
+  });*/
   this.resource('topicBySlug', { path: '/t/:slug' });
   this.route('topicUnsubscribe', { path: '/t/:slug/:id/unsubscribe' });
 
