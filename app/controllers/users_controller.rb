@@ -50,6 +50,7 @@ class UsersController < ApplicationController
 
     user_params.each { |k, v| user.send("#{k}=", v) }
 
+
     user.api_key = SecureRandom.hex(20) if user.api_key.blank?
 
     authentication = UserAuthenticator.new(user, session)
@@ -173,7 +174,7 @@ class UsersController < ApplicationController
 
 
   def user_params
-    params.permit(:email, :password, :first_name, :last_name, :status)
+    params.permit(:email, :password, :firstname, :lastname, :phone, :status)
   end
 
   private
