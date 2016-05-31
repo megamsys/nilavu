@@ -399,7 +399,7 @@ en:
       upload_key: "Upload private key"
       upload_pub_key: "Upload public key"
 
-    billings:
+    billing:
       title: "Billings"
       total_balance: "Total Balance"
       promo_code: "Promo Code :"
