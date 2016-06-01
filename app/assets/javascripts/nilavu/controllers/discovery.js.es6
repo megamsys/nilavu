@@ -29,6 +29,10 @@ export default Ember.Controller.extend({
       NilavuURL.routeTo(this.showMoreUrl(p));
     },
 
+    selectVM: function(topic){
+      this.transitionToRoute('topic', topic);
+    }
+
   }
 
 });

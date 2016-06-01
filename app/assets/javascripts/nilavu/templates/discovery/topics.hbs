@@ -28,7 +28,7 @@
                     </div>
                 </a>
                 {{#if hasTopics}}
-                  {{topic-list showTopicPostBadges=showTopicPostBadges showPosters=true currentUser=currentUser canBulkSelect=canBulkSelect changeSort="changeSort" toggleBulkSelect="toggleBulkSelect" hideCategory=model.hideCategory
+                  {{topic-list action="openVMPage" showTopicPostBadges=showTopicPostBadges showPosters=true currentUser=currentUser canBulkSelect=canBulkSelect changeSort="changeSort" toggleBulkSelect="toggleBulkSelect" hideCategory=model.hideCategory
                           order=order ascending=ascending bulkSelectEnabled=bulkSelectEnabled selected=selected expandGloballyPinned=expandGloballyPinned expandAllPinned=expandAllPinned topics=inkTopicsModel}}
                   {{/if}}
               </div>

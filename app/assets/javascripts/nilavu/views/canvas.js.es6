@@ -382,7 +382,7 @@ export default Ember.View.extend({
 
     this.get('socket').emit('init', {
       host: "136.243.49.217",
-      port: 6312,
+      port: 6533,
       password: ""
     });
   },
@@ -395,7 +395,7 @@ export default Ember.View.extend({
 
   willDestroy: function() {
     var socket = this.get('socket');
-    var canvas = this.get('canvas');  
+    var canvas = this.get('canvas');
     socket.close();
     document.removeEventListener('keydown', this._onkeydown);
     document.removeEventListener('keyup', this._onkeyup);

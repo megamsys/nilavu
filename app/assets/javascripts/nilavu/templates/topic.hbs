@@ -1,4 +1,4 @@
-<div class="container-fluid main-cover">
+<div class="container-fluid main-cover vm">
   <div class="row">
     <div class="col-xs-12 col-sm-3 col-md-2 col-xl-1 c_bg_white">
       <div class="row">
@@ -13,12 +13,17 @@
          <div class="row c_pading-b15">
            <div class="storage_top">
              <div class="col-xs-12 col-sm-6 col-md-6">
-               <h3><b> VM </b></h3>
+               <h3>VM <small><b>{{model.fullName}}</b></small> <small><b>{{model.status}}</b></small></h3>
              </div>
            </div>
          </div>
        </div>
        <div class="bottom-divider"></div>
+       <div class="">
+       <div class="row c_pading-b25">
+         <b><i class="glyphicon glyphicon-refresh"></i> </b>
+       </div>
+     </div>
             <section>
               <div class="tabbable-custom nav-justified margintb_15">
                     <ul class="nav nav-tabs nav-justified">
@@ -31,7 +36,7 @@
                         {{vm-management-tab panels=panels selectedTab=selectedTab tab="logs"}}
                     </ul>
 
-                    <div class="modal-body">
+                    <div class="vm-modal-body">
                         {{#each panels as |tab|}}
                             {{component tab selectedTab=selectedTab category=model.metaData}}
                         {{/each}}

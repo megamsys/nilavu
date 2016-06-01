@@ -48,5 +48,11 @@ export default Ember.Component.extend({
       this.sendAction('changeSort', e2.data('sort-order'));
       this.rerender();
     });
+  },
+
+  actions: {
+    openVMPage: function(topic) {    
+      this.sendAction('action', topic);
+    },
   }
 });

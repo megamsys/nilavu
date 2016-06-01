@@ -47,7 +47,7 @@ const ApplicationRoute = Nilavu.Route.extend(OpenComposer, {
     },
 
     showTopicEntrance(data) {
-      this.controllerFor('topic-entrance').send('show', data);
+      this.controllerFor('topic').send('show', data);
     },
 
     composePrivateMessage(user, post) {

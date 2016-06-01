@@ -18,6 +18,7 @@ export default Ember.Controller.extend(BufferedContent, {
   enteredAt: null,
   retrying: false,
   adminMenuVisible: false,
+  //topic: null,
 
   showRecover: Em.computed.and('model.deleted', 'model.details.can_recover'),
   isFeatured: Em.computed.or("model.pinned_at", "model.isBanner"),
@@ -105,7 +106,7 @@ export default Ember.Controller.extend(BufferedContent, {
     }
   },
 
-  @computed('model.postStream.streamFilters.username_filters')
+  /*@computed('model.postStream.streamFilters.username_filters')
   username_filters: {
     set(value) {
       const postStream = this.get('model.postStream');
@@ -116,7 +117,7 @@ export default Ember.Controller.extend(BufferedContent, {
     get() {
       return this.get('postStream.streamFilters.username_filters');
     }
-  },
+  },*/
 
   _clearSelected: function() {
     this.set('selectedPosts', []);
@@ -138,6 +139,13 @@ export default Ember.Controller.extend(BufferedContent, {
   }.property(),
 
   actions: {
+
+    show(data) {
+      // Show the chooser but only if the model changes
+      if (this.get('model') !== data.topic) {
+        this.set('model', data.topic);
+      }
+    },
 
     fillGapBefore(args) {
       return this.get('model.postStream').fillGapBefore(args.post, args.gap);

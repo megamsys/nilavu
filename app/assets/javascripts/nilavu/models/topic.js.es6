@@ -62,8 +62,17 @@ const Topic = RestModel.extend({
            I18n.t('last_post') + ": " + longDate(this.get('bumpedAt'));
   }.property('bumpedAt'),
 
+  fullName: function() {
+    console.log(JSON.stringify(this));
+    var js = this._filterInputs("domain");
+    return this.get('name')+"."+js;
+  }.property(),
+
+  _filterInputs(key) {
+    return this.get('inputs').filterBy('key', key)[0].value;
+  },
+
   asmsid: function() {
-    alert("---------------------em");
     return this.get('asms_id');
   }.property('asms_id'),
 
@@ -71,9 +80,9 @@ const Topic = RestModel.extend({
     return new Date(this.get('created_at'));
   }.property('created_at'),
 
-  postStream: function() {
-    return this.store.createRecord('postStream', {id: this.get('id'), topic: this});
-  }.property(),
+  status: function() {
+    return this.get('status');
+  }.property('status'),
 
   replyCount: function() {
     return this.get('posts_count') - 1;
