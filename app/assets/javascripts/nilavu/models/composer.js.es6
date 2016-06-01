@@ -487,6 +487,7 @@ const Composer = RestModel.extend({
     if (!this.get('cantSubmitPost')) {
       return this.get('editingPost') ? this.editPost(opts) : this.createPost(opts);
     }
+    alert("saved");
   },
 
   /**
