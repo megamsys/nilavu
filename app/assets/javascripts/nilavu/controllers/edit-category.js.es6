@@ -71,7 +71,6 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.observes('cooking'),
 
     summarizingChanged: function() {
-        alert(JSON.stringify(this.get('model.metaData')));
         this.set('selectedTab', 'summary');
     }.observes('summarizing'),
 
@@ -79,9 +78,18 @@ export default Ember.Controller.extend(ModalFunctionality, {
         const versionable = this.get('model.metaData.versionoption') || "";
         let versionEntered = (versionable.trim().length > 0);
         if (!(this.get('selecting') == undefined)) {
-            this.set('selecting', !versionEntered);
+          this.set('selecting', !versionEntered);
         }
     }.observes('model.metaData.versionoption'),
+
+    summarizingChanging: function() {
+      if (this.get('summarizing')) {
+        if (this.get('model.metaData.keypairoption') &&
+            this.get('model.metaData.keypairnameoption')) {
+              this.set('selecting', false);
+           }
+          }
+    }.observes('model.metaData.keypairoption', 'model.metaData.keypairnameoption'),
 
     titleChanged: function() {
         this.set('controllers.modal.title', this.get('title'));
@@ -93,7 +101,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
         if (!this.get('model.metaData.unitoption')) return true;
 
         return false;
-    }.property('saving', 'selecting', 'model.metaData.unitoption', 'model.metaData.versionoption'),
+    }.property('saving', 'selecting', 'model.metaData.unitoption', 'model.metaData.keypairoption'),
 
     categoryName: function() {
         const name = this.get('name') || "";
@@ -103,10 +111,12 @@ export default Ember.Controller.extend(ModalFunctionality, {
     saveLabel: function() {
         if (this.get('saving')) return "launcher.saving";
 
-        if (this.generalSelected || this.selectionSelected) return 'launcher.selecting'
+        if (this.get('summarySelected')) return 'launcher.launch'
+
+        if (this.get('generalSelected') || this.get('selectionSelected')) return 'launcher.selecting'
 
         return "launcher.launch";
-    }.property('saving', 'generalSelected', 'selectionSelected'),
+    }.property('saving', 'generalSelected', 'selectionSelected', 'summarySelected'),
 
     actions: {
         nextCategory() {
@@ -130,18 +140,16 @@ export default Ember.Controller.extend(ModalFunctionality, {
                     summarizing: result
                 });
                 this.set('summarizing', true);
-                this.set('selecting', true);
             });
         },
 
         saveCategory() {
             const self = this,
-                model = this.get('model'),
-                parentCategory = Nilavu.Category.list().findBy('id', parseInt(model.get('parent_category_id'), 10));
+                model = this.get('model');
 
             this.set('saving', true);
-            model.set('parentCategory', parentCategory);
-
+alert('saving category');
+alert(JSON.stringify(this.get('model')));
             this.get('model').save().then(function(result) {
                 self.set('saving', false);
                 self.send('closeModal');
@@ -149,7 +157,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
                     slug: result.category.slug,
                     id: result.category.id
                 });
-                NilavuURL.redirectTo("/c/" + Nilavu.Category.slugFor(model));
+        //        NilavuURL.redirectTo("/c/" + Nilavu.Category.slugFor(model));
             }).catch(function(error) {
                 self.flash(extractError(error), 'error');
                 self.set('saving', false);
