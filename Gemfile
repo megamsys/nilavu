@@ -61,15 +61,12 @@ gem 'sass'
 gem 'therubyracer'
 gem 'rack-protection' # security
 
+# keep it like this, or else rake asset:precompile will fail
+gem 'sass'
+gem 'sass-rails', '~> 5.0.4'
+gem 'uglifier'
+gem 'rtlit', require: false # for css rtling
 
-# Gems used only for assets and not required
-# in production environments by default.
-# allow everywhere for now cause we are allowing asset debugging in prd
-group :assets do
-  gem 'sass-rails', '~> 5.0.4'
-  gem 'uglifier'
-  gem 'rtlit', require: false # for css rtling
-end
 
 group :test do
   gem 'fakeweb', '~> 1.3.0', require: false
