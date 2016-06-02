@@ -22,8 +22,13 @@ export default Ember.Component.extend({
 
     unitPerMonth: function() {
         const uf = this.get('unitFlav');
-        return uf ? uf.unitCostPerMonth() : 0;
-    }.property('category.unitoption','unitFlav')
 
+        return uf ? uf.unitCostPerMonth() * this.get('number_of_units') : 0;
+    }.property('number_of_units','category.unitoption','unitFlav'),
+
+    unitsChanged: function() {
+      this.set('number_of_units', this.get('category.duplicateoption'));
+      this.rerender();
+    }.observes('category.duplicateoption')
 
 });

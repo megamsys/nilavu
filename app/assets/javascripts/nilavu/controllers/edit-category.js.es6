@@ -1,10 +1,8 @@
 import ModalFunctionality from 'nilavu/mixins/modal-functionality';
 import NilavuURL from 'nilavu/lib/url';
-import {  extractError } from 'nilavu/lib/ajax-error';
-import { propertyEqual } from 'nilavu/lib/computed';
+import {     extractError } from 'nilavu/lib/ajax-error';
 
 
-// Modal for editing / creating a category
 export default Ember.Controller.extend(ModalFunctionality, {
     selectedTab: null,
     saving: false,
@@ -16,15 +14,15 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.on('init'),
 
     generalSelected: function() {
-      return this.selectedTab == 'general';
+        return this.selectedTab == 'general';
     }.property('selectedTab'),
 
     selectionSelected: function() {
-      return this.selectedTab == 'selection';
+        return this.selectedTab == 'selection';
     }.property('selectedTab'),
 
     summarySelected: function() {
-      return this.selectedTab == 'summary';
+        return this.selectedTab == 'summary';
     }.property('selectedTab'),
 
     onShow() {
@@ -33,19 +31,21 @@ export default Ember.Controller.extend(ModalFunctionality, {
     },
 
     changeSize: function() {
-      if (!Ember.isEmpty(this.get('model.description'))) {
-            this.set('controllers.modal.modalClass', 'edit-category-modal full');
-        } else {
+        if (this.get('selectionSelected')) {
             this.set('controllers.modal.modalClass', 'edit-category-modal small');
+        } else {
+            this.set('controllers.modal.modalClass', 'edit-category-modal full');
         }
-    }.observes('model.description'),
+    }.observes('generalSelected', 'selectionSelected', 'summarySelected'),
 
     title: function() {
-        if (this.get('model.id')) {
-            return I18n.t("category.edit_long") + " : " + this.get('model.name');
+        if (this.get('selectionSelected')){
+          return I18n.t("launcher.selection_title");
+        } else if (this.get('summarySelected')){
+          return I18n.t("launcher.summary_title");
         }
         return I18n.t("launcher.title");
-    }.property('model.id', 'model.name'),
+    }.property('selectionSelected', 'summarySelected'),
 
     launchOption: function() {
         const option = this.get('model.launchoption') || "";
@@ -71,16 +71,25 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.observes('cooking'),
 
     summarizingChanged: function() {
-          this.set('selectedTab', 'summary');
+        this.set('selectedTab', 'summary');
     }.observes('summarizing'),
 
     versionChanged: function() {
         const versionable = this.get('model.metaData.versionoption') || "";
         let versionEntered = (versionable.trim().length > 0);
-        if(!(this.get('selecting') == undefined)) {
+        if (!(this.get('selecting') == undefined)) {
           this.set('selecting', !versionEntered);
         }
     }.observes('model.metaData.versionoption'),
+
+    summarizingChanging: function() {
+      if (this.get('summarizing')) {
+        if (this.get('model.metaData.keypairoption') &&
+            this.get('model.metaData.keypairnameoption')) {
+              this.set('selecting', false);
+           }
+          }
+    }.observes('model.metaData.keypairoption', 'model.metaData.keypairnameoption'),
 
     titleChanged: function() {
         this.set('controllers.modal.title', this.get('title'));
@@ -91,9 +100,8 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
         if (!this.get('model.metaData.unitoption')) return true;
 
-      //  if (!this.get('model.metaData.versionoption')) return true;
         return false;
-    }.property('saving', 'selecting', 'model.metaData.unitoption', 'model.metaData.versionoption'),
+    }.property('saving', 'selecting', 'model.metaData.unitoption', 'model.metaData.keypairoption'),
 
     categoryName: function() {
         const name = this.get('name') || "";
@@ -103,10 +111,12 @@ export default Ember.Controller.extend(ModalFunctionality, {
     saveLabel: function() {
         if (this.get('saving')) return "launcher.saving";
 
-        if (this.generalSelected || this.selectionSelected) return 'launcher.selecting'
+        if (this.get('summarySelected')) return 'launcher.launch'
+
+        if (this.get('generalSelected') || this.get('selectionSelected')) return 'launcher.selecting'
 
         return "launcher.launch";
-    }.property('saving', 'generalSelected', 'selectionSelected'),
+    }.property('saving', 'generalSelected', 'selectionSelected', 'summarySelected'),
 
     actions: {
         nextCategory() {
@@ -123,25 +133,23 @@ export default Ember.Controller.extend(ModalFunctionality, {
         },
 
         nextSummarize() {
-          this.set('loading', true);
-          const model = this.get('model');
-          return Nilavu.ajax("/launchables/summary.json").then(result => {
-              model.metaData.setProperties({
-                  summarizing: result
-              });
-              this.set('summarizing', true);
-              this.set('selecting', true);
-          });
+            this.set('loading', true);
+            const model = this.get('model');
+            return Nilavu.ajax("/launchables/summary.json").then(result => {
+                model.metaData.setProperties({
+                    summarizing: result
+                });
+                this.set('summarizing', true);
+            });
         },
 
         saveCategory() {
             const self = this,
-                model = this.get('model'),
-                parentCategory = Nilavu.Category.list().findBy('id', parseInt(model.get('parent_category_id'), 10));
+                model = this.get('model');
 
             this.set('saving', true);
-            model.set('parentCategory', parentCategory);
-
+alert('saving category');
+alert(JSON.stringify(this.get('model')));
             this.get('model').save().then(function(result) {
                 self.set('saving', false);
                 self.send('closeModal');
@@ -149,7 +157,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
                     slug: result.category.slug,
                     id: result.category.id
                 });
-                NilavuURL.redirectTo("/c/" + Nilavu.Category.slugFor(model));
+        //        NilavuURL.redirectTo("/c/" + Nilavu.Category.slugFor(model));
             }).catch(function(error) {
                 self.flash(extractError(error), 'error');
                 self.set('saving', false);

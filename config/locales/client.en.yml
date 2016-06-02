@@ -460,19 +460,29 @@ en:
       all_organization: "All Organizations"
 
     vm_management:
-      info: "info"
-      storage: "storage"
-      network: "network"
-      cpu: "cpu"
-      ram: "ram"
-      hdd: "hdd"
-      logs: "logs"
+      info:
+        tab_title: "info"
+        content_title: "Information"
+      storage:
+        tab_title: "storage"
+      network:
+        tab_title: "network"
+      cpu:
+        tab_title: "cpu"
+      ram:
+        tab_title: "ram"
+      hdd:
+        tab_title: "hdd"
+      logs:
+        tab_title: "logs"
 
     launcher:
       create: "Virtual Machine"
       virtualmachines: "virtualmachines"
       applications: "applications"
       title: "Let's Get Started"
+      selection_title: "Choose VM (or) App"
+      summary_title: "Your Launch Summary"
       general:     "Step 1    "
       selection:   "Step 2    "
       summary:     "Step 3    "
@@ -489,12 +499,15 @@ en:
       fedora: "Fedora"
       windows: "Windows"
       snapshots: "Snapshots"
-      selecting: "Next"
-      saving: "Saving"
+      selecting: "next"
+      launch: "launch"
+      saving: "launching"
       launching: "Save"
       select_networking: "Networking"
       select_security: "Security"
       select_sshkey: "SSH"
+      select_sshkey_pair: "SSH keypair name"
+      sshoption_create_title: "Type a keypair name to save"
       summarize_basics: "Basics"
       summarize_hostname: "Host Name"
       summarize_location: "Location"
@@ -505,7 +518,8 @@ en:
       enable_ipv6:  "Enable IPv6"
       enable_private_networking: "Enable Private Networking"
       select_duplicate: "Duplicate"
-
+      sshoption_create: "Create a new sshkeypair"
+      sshoption_old: "Use your existing ssh keypair"
 
     ok: "OK"
     cancel: "Cancel"

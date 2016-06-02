@@ -4,4 +4,8 @@ import computed from 'ember-addons/ember-computed-decorators';
 
 export default buildCategoryPanel('info', {
 
+  title: function() {
+    return I18n.t("vm_management.info.content_title");
+  }.property(),
+
 });

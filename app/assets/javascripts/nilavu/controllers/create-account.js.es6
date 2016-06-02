@@ -23,6 +23,8 @@ export default Ember.Controller.extend({
   showCreateForm: Em.computed.or('hasAuthOptions', 'canCreateLocal'),
   maxUsernameLength: setting('max_username_length'),
   minUsernameLength: setting('min_username_length'),
+  ctaEye: Nilavu.SiteSettings.logo_signup_cta,
+  ctaEyeTitle: Ember.String.htmlSafe(Nilavu.SiteSettings.signup_cta),
 
   resetForm() {
     // We wrap the fields in a structure so we can assign a value

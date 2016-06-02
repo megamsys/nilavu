@@ -11,7 +11,7 @@ export default Em.Component.extend({
   active: propertyEqual('selectedTab', 'tab'),
 
   title: function() {
-    return I18n.t('vm_management.' + this.get('tab').replace('-', '_'));
+    return I18n.t('vm_management.' + this.get('tab') + ".tab_title");
   }.property('tab'),
 
   _addToCollection: function() {

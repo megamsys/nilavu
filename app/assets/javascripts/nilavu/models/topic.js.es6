@@ -63,13 +63,25 @@ const Topic = RestModel.extend({
   }.property('bumpedAt'),
 
   fullName: function() {
-    console.log(JSON.stringify(this));
     var js = this._filterInputs("domain");
     return this.get('name')+"."+js;
   }.property(),
 
+  domain: function() {
+    return this._filterInputs("domain");
+  }.property(),
+
+  host: function() {
+    //return this._filterOutputs("host");
+    return "";
+  }.property(),
+
   _filterInputs(key) {
     return this.get('inputs').filterBy('key', key)[0].value;
+  },
+
+  _filterOutputs(key) {
+    return this.get('outputs').filterBy('key', key)[0].value;
   },
 
   asmsid: function() {

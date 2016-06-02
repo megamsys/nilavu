@@ -57,16 +57,16 @@ export default buildCategoryPanel('general', {
 
     regionOption: function() {
         if (Ember.isEmpty(this.get('category.regions')) && this.get('category.regionoption').trim().length > 0) {
-            return true;
+            return this.get('category.regionoption');
         }
-        return false;
+        return null;
     }.property('category.regions', 'category.regionoption'),
 
     resourceOption: function() {
         if (Ember.isEmpty(this.get('category.regions')) && this.get('category.resourceoption').trim().length > 0) {
-            return true;
+            return this.get('category.resourceoption');
         }
-        return false;
+        return null;
     }.property('category.regions', 'category.resourceoption'),
 
     resourceChanged: function() {
