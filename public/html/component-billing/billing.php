@@ -4,10 +4,10 @@
   <div class="row">
     <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 col-xl-3 c_bg_white cover">
       <div class="row">
-        <div class="page-sidebar navbar-collapse collapse"> 
+        <div class="page-sidebar navbar-collapse collapse">
           <!-- BEGIN SIDEBAR MENU -->
           <?php include('includes/menu.php') ?>
-          <!-- END SIDEBAR MENU --> 
+          <!-- END SIDEBAR MENU -->
         </div>
       </div>
     </div>
@@ -19,7 +19,7 @@
           </div>
         </div>
       </div>
-      
+
      <div>
       <div class="row c_pading-b15">
         <div class="portlet-body-head">
@@ -29,11 +29,11 @@
       <div class="bottom-divider  settings_top"></div>
       <div class="row c_pading-b15">
         <div class="col-md-4 help_center_left">
-          
+
              <div class="balance">
              	<h2>Current balance:</h2>
              	<span class="green">$15.00</span>
-				
+
              	<h2>Current usage:</h2>
              	<span class="blue">$10.00</span><br>
 				<span>/month</span>
@@ -41,6 +41,7 @@
             -->
              </div>
         </div>
+
         <div class="col-md-8 help_center_left_right usg">
 		<div class="center title">Usage Estimator:</div>
 		<div class="center sub-title">Resources</div>
@@ -83,6 +84,7 @@
             </table>
           </div>
         </div>
+
 		<div class="row">
 			<div class="col-md-8 col-md-offset-4">
 				<div class="col-md-4 col-md-offset-1">
@@ -102,16 +104,18 @@
 				</div>
 			</div>
 		</div>
+
       </div>
+
       <div class="bottom-divider  settings_top"></div>
       </div>
-      
+
       <div class="row">
         <div class="margin_30 ">
           <div class=" card-details ">
 
-             <div class="row "> 
-            <div class="col-md-6  pay_via"> 
+             <div class="row ">
+            <div class="col-md-6  pay_via">
             <h2><i class="fa fa-credit-card"></i>Proceed to payment</h2>
             <div class="bottom-divider  settings_top"></div>
 <!--            One click login into WHMCS page: 'add funds'.
@@ -125,12 +129,12 @@
                       <div class="bottom-divider  settings_top"></div>
 
           <p>If you need assistance while placing
-            order, contact one of our below 
+            order, contact one of our below
             Project Manager  by phone or email.</p>
           <h3><i class="fa fa-phone-square"></i> +91-9745544422 / <a href="mailto:help@megam.io"> <i class="fa fa-envelope-o"></i> help@megam.io</a></h3>
         </div>
               </div>
-              
+
             <div class="bottom-divider  settings_top"></div>
             <div class="col-md-12 row">
               <h2><i class="fa fa-history"></i> Billing History :</h2>
@@ -189,9 +193,9 @@
                 </table>
               </div>
             </div>
-            
+
       </div>
-			
+
 <!--			Let's also place a monthly usage graph here, which displays the users previous months usages only when they have been an active subscriber for a minimum of 30 days. So it will show each months usage for upto a whole year. Once that occurs, then a new graph is placed on top for 'yearly' usage which logs that years spending. -->
           </div>
         </div>

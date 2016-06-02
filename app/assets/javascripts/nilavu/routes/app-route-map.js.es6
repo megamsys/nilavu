@@ -7,7 +7,7 @@ export default function() {
 
   this.resource('about', { path: '/about' });
 
-
+this.route('billing', { path: '/billing' });
   // Topic routes
   this.route('topic', { path: '/topic/:id' });
   /*this.resource('topic', { path: '/t/:slug/:id' }, function() {

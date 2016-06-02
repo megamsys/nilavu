@@ -1021,12 +1021,12 @@ i.normal {
 }
 .portlet-title a {
     color: #5a97cf !important;
-}  
+}
 .portlet-title a:hover {
 
     text-decoration: underline;
     color: #5a97cf !important;
-}  
+}
 .portlet.box > .portlet-title > .tools {
     margin-top: 3px;
 }
@@ -2952,28 +2952,7 @@ td.bottom-b {
    border-bottom: 1px solid #dddddd;
 
 }
-.hour {
-	width: 100%;
-	padding: 20px;
-	border: 1px solid #dddddd;
-	border-top: none;
-	text-align: center;
-	font-size: 22px;
-}
-.mod {
-	text-align: center;
-	font-size: 18px;
-	color: #7cb4dd;
-	margin-top: 10px;
-	font-weight: 900;
-}
-.mod img {
-	border: 1px solid #7cb4dd;
-    border-radius: 220px;
-    padding: 2px;
-    padding-top: 2.2px;
-    padding-left: 2.2px;
-}
+
 .center {
 	display:flex;
 	justify-content:center;
@@ -2994,12 +2973,12 @@ td.bottom-b {
 }
 .btn-payment {
 	width: 100%;
-	border-radius: 0px;	
+	border-radius: 0px;
 	height: 60px;
 	font-size: 22px;
 }
 .center-btn {
 	width: 80%;
 	margin:auto;
-	
+
 }
