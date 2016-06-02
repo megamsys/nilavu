@@ -459,21 +459,7 @@ export default Ember.Controller.extend({
   },
 
   shrink() {
-    if (this.get('model.replyDirty')) {
-      this.collapse();
-    } else {
-      this.close();
-    }
-  },
-
-  _saveDraft() {
-    const model = this.get('model');
-    if (model) { model.saveDraft(); };
-  },
-
-  @observes('model.reply', 'model.title')
-  _shouldSaveDraft() {
-    Ember.run.debounce(this, this._saveDraft, 2000);
+      this.close();  
   },
 
   @computed('model.categoryId', 'lastValidatedAt')
@@ -481,11 +467,6 @@ export default Ember.Controller.extend({
     if( !this.siteSettings.allow_uncategorized_topics && !categoryId) {
       return Nilavu.InputValidation.create({ failed: true, reason: I18n.t('composer.error.category_missing'), lastShownAt: lastValidatedAt });
     }
-  },
-
-  collapse() {
-    this._saveDraft();
-    this.set('model.composeState', Composer.DRAFT);
   },
 
   close() {

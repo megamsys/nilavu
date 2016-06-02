@@ -62,7 +62,6 @@ const Category = RestModel.extend({
   }.property('topic_count'),
 
   save: function() {
-    alert('saving...');
     var url = "/categories";
     if (this.get('id')) {
       url = "/categories/" + this.get('id');

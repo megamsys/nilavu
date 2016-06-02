@@ -25,6 +25,7 @@ export default Ember.Controller.extend({
   },
 
   actions: {
+  
     changePeriod(p) {
       NilavuURL.routeTo(this.showMoreUrl(p));
     },

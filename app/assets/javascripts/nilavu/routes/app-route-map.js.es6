@@ -65,7 +65,4 @@ export default function() {
   this.route('login-preferences');
   this.route('forgot-password', {path: '/password-reset'});
 
-  this.route('new-topic', {path: '/new-topic'});
-  this.route('new-message', {path: '/new-message'});
-
 }

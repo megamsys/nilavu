@@ -1,12 +1,8 @@
-
 //  The parent route for all discovery routes.
 //  Handles the logic for showing the loading spinners.
-import showModal from 'nilavu/lib/show-modal';
-
-import OpenComposer from "nilavu/mixins/open-composer";
 import { scrollTop } from "nilavu/mixins/scroll-top";
 
-export default Nilavu.Route.extend(OpenComposer, {
+export default Nilavu.Route.extend({
 
   redirect() {
     return this.redirectIfLoginRequired();
@@ -46,13 +42,6 @@ export default Nilavu.Route.extend(OpenComposer, {
       topic.clearPin();
     },
 
-    createTopic() {
-      const self = this;
-      const promise =  this.openComposer(this.controllerFor("discovery/topics")).then(function(result) {
-        showModal('editCategory', {model: result});
-      }).catch(function(e) {
-      });
-    },
 
     dismissReadTopics(dismissTopics) {
       var operationType = dismissTopics ? "topics" : "posts";

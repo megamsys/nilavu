@@ -1,7 +1,6 @@
 import RestModel from 'nilavu/models/rest';
 import Topic from 'nilavu/models/topic';
 import { throwAjaxError } from 'nilavu/lib/ajax-error';
-import Quote from 'nilavu/lib/quote';
 import computed from 'ember-addons/ember-computed-decorators';
 
 const CLOSED = 'closed',
@@ -36,46 +35,10 @@ const CLOSED = 'closed',
       };
 
 const Composer = RestModel.extend({
-  _categoryId: null,
-
-  archetypes: function() {
-    return this.site.get('archetypes');
-  }.property(),
-
-
-  @computed
-  categoryId: {
-    get() { return this._categoryId; },
-
-    // We wrap categoryId this way so we can fire `applyTopicTemplate` with
-    // the previous value as well as the new value
-    set(categoryId) {
-      const oldCategoryId = this._categoryId;
-
-      if (Ember.isEmpty(categoryId)) { categoryId = null; }
-      this._categoryId = categoryId;
-
-      if (oldCategoryId !== categoryId) {
-        this.applyTopicTemplate(oldCategoryId, categoryId);
-      }
-      return categoryId;
-    }
-  },
 
   creatingTopic: Em.computed.equal('action', CREATE_TOPIC),
   creatingPrivateMessage: Em.computed.equal('action', PRIVATE_MESSAGE),
   notCreatingPrivateMessage: Em.computed.not('creatingPrivateMessage'),
-
-  @computed("privateMessage", "archetype.hasOptions")
-  showCategoryChooser(isPrivateMessage, hasOptions) {
-    const manyCategories = Nilavu.Category.list().length > 1;
-    return !isPrivateMessage && (hasOptions || manyCategories);
-  },
-
-  @computed("creatingPrivateMessage", "topic")
-  privateMessage(creatingPrivateMessage, topic) {
-    return creatingPrivateMessage || (topic && topic.get('archetype') === 'private_message');
-  },
 
   topicFirstPost: Em.computed.or('creatingTopic', 'editingFirstPost'),
 
@@ -99,26 +62,6 @@ const Composer = RestModel.extend({
       this.set('composerOpened', null);
     }
   }.observes('composeState'),
-
-  composerTime: function() {
-    var total = this.get('composerTotalOpened') || 0;
-
-    var oldOpen = this.get('composerOpened');
-    if (oldOpen) {
-      total += (new Date() - oldOpen);
-    }
-
-    return total;
-  }.property().volatile(),
-
-  archetype: function() {
-    //return this.get('archetypes').findProperty('id', this.get('archetypeId'));
-    return "test";
-  }.property('archetypeId'),
-
-  archetypeChanged: function() {
-    return this.set('metaData', Em.Object.create());
-  }.observes('archetype'),
 
   // view detected user is typing
   typing: _.throttle(function(){
@@ -295,87 +238,8 @@ const Composer = RestModel.extend({
     return title.replace(/\s+/img, " ").trim().length;
   }.property('title'),
 
-  /**
-    Computes the length of the reply minus the quote(s) and non-significant whitespaces
-
-    @property replyLength
-  **/
-  replyLength: function() {
-    let reply = this.get('reply') || "";
-    while (Quote.REGEXP.test(reply)) { reply = reply.replace(Quote.REGEXP, ""); }
-    return reply.replace(/\s+/img, " ").trim().length;
-  }.property('reply'),
-
   _setupComposer: function() {
-    this.set('archetypeId', this.site.get('default_archetype'));
   }.on('init'),
-
-  /**
-    Append text to the current reply
-
-    @method appendText
-    @param {String} text the text to append
-  **/
-  appendText(text,position,opts) {
-    const reply = (this.get('reply') || '');
-    position = typeof(position) === "number" ? position : reply.length;
-
-    let before = reply.slice(0, position) || '';
-    let after = reply.slice(position) || '';
-
-    let stripped, i;
-    if (opts && opts.block){
-      if (before.trim() !== ""){
-        stripped = before.replace(/\r/g, "");
-        for(i=0; i<2; i++){
-          if(stripped[stripped.length - 1 - i] !== "\n"){
-            before += "\n";
-            position++;
-          }
-        }
-      }
-      if(after.trim() !== ""){
-        stripped = after.replace(/\r/g, "");
-        for(i=0; i<2; i++){
-          if(stripped[i] !== "\n"){
-            after = "\n" + after;
-          }
-        }
-      }
-    }
-
-    if(opts && opts.space){
-      if(before.length > 0 && !before[before.length-1].match(/\s/)){
-        before = before + " ";
-      }
-      if(after.length > 0 && !after[0].match(/\s/)){
-        after = " " + after;
-      }
-    }
-
-    this.set('reply', before + text + after);
-
-    return before.length + text.length;
-  },
-
-  applyTopicTemplate(oldCategoryId, categoryId) {
-    if (this.get('action') !== CREATE_TOPIC) { return; }
-    let reply = this.get('reply');
-
-    // If the user didn't change the template, clear it
-    if (oldCategoryId) {
-      const oldCat = this.site.categories.findProperty('id', oldCategoryId);
-      if (oldCat && (oldCat.get('topic_template') === reply)) {
-        reply = "";
-      }
-    }
-
-    if (!Ember.isEmpty(reply)) { return; }
-    const category = this.site.categories.findProperty('id', categoryId);
-    if (category) {
-      this.set('reply', category.get('topic_template') || "");
-    }
-  },
 
   /*
      Open a composer
@@ -384,21 +248,13 @@ const Composer = RestModel.extend({
        action   - The action we're performing: edit, reply or createTopic
        post     - The post we're replying to, if present
        topic    - The topic we're replying to, if present
-       quote    - If we're opening a reply from a quote, the quote we're making
-  */
+*/
   open(opts) {
+
     if (!opts) opts = {};
     this.set('loading', false);
 
-    const replyBlank = Em.isEmpty(this.get("reply"));
-
     const composer = this;
-    if (!replyBlank &&
-        ((opts.reply || opts.action === EDIT) && this.get('replyDirty'))) {
-
-
-      return;
-    }
 
     if (opts.action === REPLY && this.get('action') === EDIT) this.set('reply', '');
     if (!opts.draftKey) throw 'draft key is required';
@@ -416,24 +272,10 @@ const Composer = RestModel.extend({
     });
 
 
-    if (opts.post) {
-      this.set('post', opts.post);
-
-      this.set('whisper', opts.post.get('post_type') === this.site.get('post_types.whisper'));
-      if (!this.get('topic')) {
-        this.set('topic', opts.post.get('topic'));
-      }
-    } else {
-      this.set('post', null);
-    }
-
 
     this.setProperties({
-      archetypeId: opts.archetypeId || this.site.get('default_archetype'),
-      metaData: opts.metaData ? Em.Object.create(opts.metaData) : null,
-      reply: opts.reply || this.get("reply") || ""
+      metaData: opts.metaData ? Em.Object.create(opts.metaData) : null
     });
-
 
     // We set the category id separately for topic templates on opening of composer
     this.set('categoryId', opts.categoryId || this.get('topic.category.id'));
@@ -445,49 +287,14 @@ const Composer = RestModel.extend({
       }
     }
 
-    if (opts.postId) {
-      this.set('loading', true);
-      this.store.find('post', opts.postId).then(function(post) {
-        composer.set('post', post);
-        composer.set('loading', false);
-      });
-    }
-
-
-    // If we are editing a post, load it.
-    if (opts.action === EDIT && opts.post) {
-
-      const topicProps = this.serialize(_edit_topic_serializer);
-      topicProps.loading = true;
-
-      this.setProperties(topicProps);
-
-      this.store.find('post', opts.post.get('id')).then(function(post) {
-        composer.setProperties({
-          reply: post.get('raw'),
-          originalText: post.get('raw'),
-          loading: false
-        });
-      });
-    } else if (opts.action === REPLY && opts.quote) {
-      this.setProperties({
-        reply: opts.quote,
-        originalText: opts.quote
-      });
-    }
-
-    if (opts.title) { this.set('title', opts.title); }
-    this.set('originalText', opts.draft ? '' : this.get('reply'));
-
     return false;
   },
 
+
   save(opts) {
-    alert("saving...");
     if (!this.get('cantSubmitPost')) {
-      return this.get('editingPost') ? this.editPost(opts) : this.createPost(opts);
+      return  this.createTopic(opts);
     }
-    alert("saved");
   },
 
   /**
@@ -509,50 +316,6 @@ const Composer = RestModel.extend({
     });
   },
 
-  // When you edit a post
-  editPost(opts) {
-    const post = this.get('post'),
-          oldCooked = post.get('cooked'),
-          self = this;
-
-    let promise;
-
-    // Update the title if we've changed it, otherwise consider it a
-    // successful resolved promise
-    if (this.get('title') &&
-        post.get('post_number') === 1 &&
-        this.get('topic.details.can_edit')) {
-      const topicProps = this.getProperties(Object.keys(_edit_topic_serializer));
-
-       promise = Topic.update(this.get('topic'), topicProps);
-    } else {
-      promise = Ember.RSVP.resolve();
-    }
-
-    const props = {
-      raw: this.get('reply'),
-      edit_reason: opts.editReason,
-      image_sizes: opts.imageSizes,
-      cooked: this.getCookedHtml()
-    };
-
-    this.set('composeState', CLOSED);
-
-    var rollback = throwAjaxError(function(){
-      post.set('cooked', oldCooked);
-      self.set('composeState', OPEN);
-    });
-
-    return promise.then(function() {
-      return post.save(props).then(function(result) {
-        self.clearState();
-        return result;
-      }).catch(function(error) {
-        throw error;
-      });
-    }).catch(rollback);
-  },
-
   serialize(serializer, dest) {
     dest = dest || {};
     Object.keys(serializer).forEach(f => {
@@ -564,82 +327,56 @@ const Composer = RestModel.extend({
     return dest;
   },
 
-  // Create a new Post
-  createPost(opts) {
-    const post = this.get('post'),
-          topic = this.get('topic'),
-          user = this.user,
-          postStream = this.get('topic.postStream');
+  // Create a new topic. What the heck is a topic ?
+  // Lets just pay tribute to discourse friends.
+  createTopic(opts) {
+    const  topic = this.get('topic');
+    //   user = this.user,
+    //   postStream = this.get('topic.regions');
 
     let addedToStream = false;
 
-    const postTypes = this.site.get('post_types');
-    const postType = this.get('whisper') ? postTypes.whisper : postTypes.regular;
-
-    // Build the post object
-    const createdPost = this.store.createRecord('post', {
-      imageSizes: opts.imageSizes,
-      cooked: this.getCookedHtml(),
-      reply_count: 0,
-      name: user.get('name'),
-      display_username: user.get('name'),
-      username: user.get('username'),
-      user_id: user.get('id'),
-      user_title: user.get('title'),
-      avatar_template: user.get('avatar_template'),
-      user_custom_fields: user.get('custom_fields'),
-      post_type: postType,
-      actions_summary: [],
-      moderator: user.get('moderator'),
-      admin: user.get('admin'),
-      yours: true,
-      read: true,
-      wiki: false,
-      typingTime: this.get('typingTime'),
-      composerTime: this.get('composerTime')
+    // Build the topic object
+    const createdTopic = this.store.createRecord('topic', {
+      name: opts.random_name,
+      domain: opts.domain,
+      //hostname: (opt.random_name + "." + opts.domain),
+      region: opts.regionoption,
+      resource: opts.resourceoption,
+      number_of_units: opts.duplicateoption,
+      cpu: 0,
+      ram: 0,
+      storage: 0,
+      storagetype: opts.storagetypeoption,
+      selectionoption: opts.selectionoption,
+      keypairoption: "OLD",
+      keypairname: "kkfirst",
+      enable_ipv6: false,
+      enable_privnetwork: true
     });
 
-    this.serialize(_create_serializer, createdPost);
+    this.serialize(_create_serializer, createdTopic);
 
-    if (post) {
-      createdPost.setProperties({
+    if (inputs) {
+      /*createdTopic.setProperties({
         reply_to_post_number: post.get('post_number'),
         reply_to_user: {
           username: post.get('username'),
           avatar_template: post.get('avatar_template')
         }
-      });
-    }
-
-    let state = null;
-
-    // If we're in a topic, we can append the post instantly.
-    if (postStream) {
-      // If it's in reply to another post, increase the reply count
-      if (post) {
-        post.set('reply_count', (post.get('reply_count') || 0) + 1);
-        post.set('replies', []);
-      }
-
-      // We do not stage posts in mobile view, we do not have the "cooked"
-      // Furthermore calculating cooked is very complicated, especially since
-      // we would need to handle oneboxes and other bits that are not even in the
-      // engine, staging will just cause a blank post to render
-      if (!_.isEmpty(createdPost.get('cooked'))) {
-        state = postStream.stagePost(createdPost, user);
-        if (state === "alreadyStaging") { return; }
-      }
+      });*/
     }
 
     const composer = this;
     composer.set('composeState', SAVING);
-    composer.set("stagedPost", state === "staged" && createdPost);
+    composer.set("stagedPost", state === "staged" && createdTopic);
 
-    return createdPost.save().then(function(result) {
+    return createdTopic.save().then(function(result) {
       let saving = true;
 
       if (result.responseJson.action === "enqueued") {
-        if (postStream) { postStream.undoPost(createdPost); }
+        if (postStream) {
+           postStream.undoPost(createdPost); }
         return result;
       }
 
@@ -675,65 +412,7 @@ const Composer = RestModel.extend({
       }
       Ember.run.next(() => composer.set('composeState', OPEN));
     }));
-  },
-
-  getCookedHtml() {
-    return $('#reply-control .d-editor-preview').html().replace(/<span class="marker"><\/span>/g, '');
-  },
-
-  saveDraft() {
-    // Do not save when drafts are disabled
-    if (this.get('disableDrafts')) return;
-    // Do not save when there is no reply
-    if (!this.get('reply')) return;
-    // Do not save when the reply's length is too small
-    if (this.get('replyLength') < this.siteSettings.min_post_length) return;
-
-    const data = {
-      reply: this.get('reply'),
-      action: this.get('action'),
-      title: this.get('title'),
-      categoryId: this.get('categoryId'),
-      postId: this.get('post.id'),
-      archetypeId: this.get('archetypeId'),
-      metaData: this.get('metaData'),
-      usernames: this.get('targetUsernames'),
-      composerTime: this.get('composerTime'),
-      typingTime: this.get('typingTime')
-    };
-
-    this.set('draftStatus', I18n.t('composer.saving_draft_tip'));
-
-    const composer = this;
-
-    if (this._clearingStatus) {
-      Em.run.cancel(this._clearingStatus);
-      this._clearingStatus = null;
-    }
-
-    /* try to save the draft
-    return Draft.save(this.get('draftKey'), this.get('draftSequence'), data)
-      .then(function() {
-        composer.set('draftStatus', I18n.t('composer.saved_draft_tip'));
-      }).catch(function() {
-        composer.set('draftStatus', I18n.t('composer.drafts_offline'));
-      });*/
-      return "DRAFTSVD";
-  },
-
-  dataChanged: function(){
-    const draftStatus = this.get('draftStatus');
-    const self = this;
-
-    if (draftStatus && !this._clearingStatus) {
-
-      this._clearingStatus = Em.run.later(this, function(){
-        self.set('draftStatus', null);
-        self._clearingStatus = null;
-      }, 1000);
-    }
-  }.observes('title','reply')
-
+  }
 });
 
 Composer.reopenClass({
