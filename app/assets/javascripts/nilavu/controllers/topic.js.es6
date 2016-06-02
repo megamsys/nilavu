@@ -6,6 +6,7 @@ import { popupAjaxError } from 'nilavu/lib/ajax-error';
 import computed from 'ember-addons/ember-computed-decorators';
 import Composer from 'nilavu/models/composer';
 import NilavuURL from 'nilavu/lib/url';
+import showModal from 'nilavu/lib/show-modal';
 
 export default Ember.Controller.extend(BufferedContent, {
   needs: ['header', 'modal', 'composer', 'topic-progress', 'application'],
@@ -29,6 +30,8 @@ export default Ember.Controller.extend(BufferedContent, {
   _initPanels: function() {
       this.set('panels', []);
       this.set('selectedTab', 'info');
+      this.get('model.privatekey_generate_url');
+      this.get('model.publickey_generate_url');
   }.on('init'),
 
   infoSelected: function() {
@@ -145,6 +148,10 @@ export default Ember.Controller.extend(BufferedContent, {
       if (this.get('model') !== data.topic) {
         this.set('model', data.topic);
       }
+    },
+
+    openVNC() {
+      showModal('vnc');
     },
 
     fillGapBefore(args) {

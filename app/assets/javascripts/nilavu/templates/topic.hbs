@@ -10,13 +10,13 @@
         <div id="list-container">
             <div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
                 <div class="">
-                    <div class="row c_pading-b15">
-                        <div class="storage_top">
-                            <div class="col-xs-12 col-sm-6 col-md-6">
-                                <h3>VM <small><b>{{model.fullName}}</b></small> <small><b>{{model.status}}</b></small></h3>
-                            </div>
-                        </div>
+                  <div class="row c_pading-b15">
+                    <div class="">
+                      <div class="col-xs-12 col-sm-6 col-md-6 header_title">
+                        <h3>VM <small><b>{{model.fullName}}</b></small> <small><b>{{model.status}}</b></small></h3>
+                      </div>
                     </div>
+                  </div>
                 </div>
                 <div class="bottom-divider"></div>
                 <div class="">
@@ -27,7 +27,7 @@
                         <button type="button" class="btn btn-default pull-right">
                           <span class="glyphicon glyphicon-trash"></span>
                         </button>
-                        <button type="button" class="btn btn-default pull-right">
+                        <button type="button" class="btn btn-default pull-right" {{action "openVNC"}}>
                           <span class="glyphicon glyphicon-blackboard"></span> VNC
                         </button>
                         <button type="button" class="btn btn-default pull-right">

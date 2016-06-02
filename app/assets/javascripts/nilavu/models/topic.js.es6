@@ -25,6 +25,8 @@ export function loadTopicView(topic, args) {
 const Topic = RestModel.extend({
   message: null,
   errorLoading: false,
+  privatekey_url: null,
+  publickey_url: null,
 
   @computed('posters.firstObject')
   creator(poster){
@@ -76,6 +78,23 @@ const Topic = RestModel.extend({
     return "";
   }.property(),
 
+  region: function() {
+    //return this._filterOutputs("region");
+    return "";
+  }.property(),
+
+  sshkey_name: function() {
+    return this._filterInputs("sshkey");
+  }.property(),
+
+  private_sshkey: function() {
+    return this._filterInputs("sshkey") + "_key";
+  }.property(),
+
+  public_sshkey: function() {
+    return this._filterInputs("sshkey") + "_pub";
+  }.property(),
+
   _filterInputs(key) {
     return this.get('inputs').filterBy('key', key)[0].value;
   },
@@ -96,13 +115,37 @@ const Topic = RestModel.extend({
     return this.get('status');
   }.property('status'),
 
-  replyCount: function() {
-    return this.get('posts_count') - 1;
-  }.property('posts_count'),
+  /*privatekey_generate_url() {
+    const self = this;
+    return Nilavu.ajax("/sshkeys/'+this.private_sshkey+'/edit",  { type: 'GET' })
+                  .then(function (url) { self.set('privatekey_download_url', 'url'); });
+  },*/
 
-  details: function() {
-    return this.store.createRecord('topicDetails', {id: this.get('id'), topic: this});
-  }.property(),
+  privatekey_download() {
+    this.privatekey_generate_url().then(function(url) {
+        Em.run.next(() => { NilavuURL.routeTo(url); });
+      }).catch(function() {
+        //self.flash(I18n.t('topic.change_timestamp.error'), 'alert-error');
+        //self.set('saving', false);
+        alert("error");
+      });
+  },
+
+  privatekey_generate_url() {
+    const promise = Nilavu.ajax("/sshkeys/'+this.private_sshkey+'/edit", {
+      type: 'GET',
+    }).then(function(result) {
+      if (result.success) return result;
+      promise.reject(new Error("error generating privatekey download url"));
+    });
+    return promise;
+  },
+
+  publickey_generate_url() {
+    const self = this;
+    return Nilavu.ajax("/sshkeys/'+this.public_sshkey+'/edit",  { type: 'GET' })
+                  .then(function (url) { self.set('publickey_download_url', 'url'); });
+  },
 
   invisible: Em.computed.not('visible'),
   deleted: Em.computed.notEmpty('deleted_at'),
