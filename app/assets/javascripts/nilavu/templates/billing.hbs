@@ -48,7 +48,7 @@
                             <tbody>
                                 <tr>
                                     <!--Any span.blue text is supposed to be editable by the user. with the numbers (eg. 1024) -> it turns into a textbox that only accepts numbers. If MB/SSD is clicked then you will be able to see 'MB/GB/TB' for MB & SSD/HDD for SSD in a dropdown. Once the user enters the new number then the Usage estimator is updated. Also with CORES - the way it works is it's bundled with RAM. This is to avoid heavy CPU abuse. It's a preset of something like 1 vCPU per 2048MB ram, anything under 2048 gets 1vCPU.  -->
-                                    <td><span class="blue">{{billing-quotas content=ram}}</span><select class="billing-combo-box pull-right"><option value="GB" >GB</option> <option value="MB">MB</option></select></td>
+                                    <td><span class="blue">{{billing-quotas content=ram}}</span><select class="billing-combo-box pull-right"><option value="GB"ss>GB</option> <option value="MB">MB</option></select></td>
 
                                     <td>RAM</td>
                                     <td class="left-b">$7.00/mo</td>
@@ -91,7 +91,7 @@
                         </div>
                         <div class="col-md-2">
                             <div class="mod">
-                                <img src="images/dot.png"> - click to modify
+                                <img src="images/billing/dot.png"> - click to modify
                             </div>
                         </div>
                         <div class="col-md-4">
