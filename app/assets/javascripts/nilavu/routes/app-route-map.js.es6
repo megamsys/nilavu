@@ -15,9 +15,7 @@ export default function() {
         path: '/billing'
     });
     // Topic routes
-    this.route('topic', {
-        path: '/topic/:id'
-    });
+    this.route('topic', { path: '/topic' });
     /*this.resource('topic', { path: '/t/:slug/:id' }, function() {
       this.route('fromParams', { path: '/' });
       this.route('fromParamsNear', { path: '/:nearPost' });
@@ -29,20 +27,6 @@ export default function() {
         path: '/t/:slug/:id/unsubscribe'
     });
 
-
-
-
-    // Topic routes
-    this.resource('topic', {
-        path: '/t/:slug/:id'
-    }, function() {
-        this.route('fromParams', {
-            path: '/'
-        });
-        this.route('fromParamsNear', {
-            path: '/:nearPost'
-        });
-    });
     this.resource('topicBySlug', {
         path: '/t/:slug'
     });

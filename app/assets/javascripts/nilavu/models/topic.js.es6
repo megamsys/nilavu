@@ -25,6 +25,8 @@ export function loadTopicView(topic, args) {
 const Topic = RestModel.extend({
   message: null,
   errorLoading: false,
+  privatekey_url: null,
+  publickey_url: null,
 
   @computed('posters.firstObject')
   creator(poster){
@@ -62,21 +64,113 @@ const Topic = RestModel.extend({
            I18n.t('last_post') + ": " + longDate(this.get('bumpedAt'));
   }.property('bumpedAt'),
 
+  fullName: function() {
+    var js = this._filterInputs("domain");
+    return this.get('name')+"."+js;
+  }.property(),
+
+  domain: function() {
+    return this._filterInputs("domain");
+  }.property(),
+
+  cpu_cores: function() {
+    return this._filterInputs("cpu");
+  }.property(),
+
+  ram: function() {
+    return this._filterInputs("ram");
+  }.property(),
+
+  hdd: function() {
+    return "";
+    //return this._filterInputs("hdd");
+  }.property(),
+
+  host: function() {
+    //return this._filterOutputs("host");
+    return "";
+  }.property(),
+
+  region: function() {
+    //return this._filterOutputs("region");
+    return "";
+  }.property(),
+
+  sshkey_name: function() {
+    return this._filterInputs("sshkey");
+  }.property(),
+
+  privateIP: function() {
+    return "192.168.0.1"
+    //return this._filterInputs("privateipv4");
+  }.property(),
+
+  publicIP: function() {
+    return "103.56.92.1"
+    //return this._filterInputs("publicipv4");
+  }.property(),
+
+  privatekey: function() {
+    return this._filterInputs("sshkey") + "_key";
+  }.property(),
+
+  public_sshkey: function() {
+    return this._filterInputs("sshkey") + "_pub";
+  }.property(),
+
+  _filterInputs(key) {
+    return this.get('inputs').filterBy('key', key)[0].value;
+  },
+
+  _filterOutputs(key) {
+    return this.get('outputs').filterBy('key', key)[0].value;
+  },
+
+  asmsid: function() {
+    return this.get('asms_id');
+  }.property('asms_id'),
+
   createdAt: function() {
     return new Date(this.get('created_at'));
   }.property('created_at'),
 
-  postStream: function() {
-    return this.store.createRecord('postStream', {id: this.get('id'), topic: this});
-  }.property(),
+  status: function() {
+    return this.get('status');
+  }.property('status'),
 
-  replyCount: function() {
-    return this.get('posts_count') - 1;
-  }.property('posts_count'),
+  /*privatekey_generate_url() {
+    const self = this;
+    return Nilavu.ajax("/sshkeys/'+this.private_sshkey+'/edit",  { type: 'GET' })
+                  .then(function (url) { self.set('privatekey_download_url', 'url'); });
+  },*/
 
-  details: function() {
-    return this.store.createRecord('topicDetails', {id: this.get('id'), topic: this});
-  }.property(),
+  privatekey_download(key) {
+    alert(key);
+    this.privatekey_generate_url(key).then(function(url) {
+      alert(url);
+        //Em.run.next(() => { NilavuURL.routeTo(url); });
+      }).catch(function() {
+        //self.flash(I18n.t('topic.change_timestamp.error'), 'alert-error');
+        //self.set('saving', false);
+        alert("error");
+      });
+  },
+
+  privatekey_generate_url(key) {
+    const promise = Nilavu.ajax("/ssh_keys/edit/"+key, {
+      type: 'GET',
+    }).then(function(result) {
+      if (result.success) return result;
+      promise.reject(new Error("error generating privatekey download url"));
+    });
+    return promise;
+  },
+
+  publickey_generate_url() {
+    const self = this;
+    return Nilavu.ajax("/sshkeys/'+this.public_sshkey+'/edit",  { type: 'GET' })
+                  .then(function (url) { self.set('publickey_download_url', 'url'); });
+  },
 
   invisible: Em.computed.not('visible'),
   deleted: Em.computed.notEmpty('deleted_at'),

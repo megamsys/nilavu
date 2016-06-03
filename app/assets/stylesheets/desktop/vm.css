@@ -1,0 +1,69 @@
+.vm-modal-body {
+  position: relative;
+  height: 800px;
+}
+
+.vm .c_pading-b25 {
+  padding: 25px;
+}
+
+
+.vm .tabs {
+    float: none;
+    list-style: none;
+    border-bottom: 1px solid #ccc;
+    padding: 0;
+}
+.vm .tabs:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.vm .tabs a {
+    display: block;
+    float: left;
+    color: #ccc;
+    padding: 10px 25px 10px 25px;
+    font-size: 20px;
+    font-weight: normal;
+    text-decoration: none;
+    text-align: center;
+    text-transform: capitalize;
+    line-height: 2;
+    cursor: pointer;
+    -webkit-transition: all 0.5s; /* Safari 3.1 to 6.0 */
+    transition: all 0.5s;
+}
+
+.vm .tabs a:hover {
+    color: #3498db;
+    border-bottom: 3px solid #3498db;
+}
+
+.vm .tabs > li.active a{
+    border-bottom: 3px solid #3498db;
+}
+
+.info {
+  margin-left: -15px;
+}
+
+.info .bottomborder {
+  border-bottom: 1px solid #ccc;
+}
+
+.info table td {
+  padding-right: 30px;
+  padding-bottom: 10px;
+}
+
+.info table {
+  margin-top: 15px;
+}
+
+.button {
+  font-weight: bold;
+  margin-right: 0.2rem;
+  box-shadow: 0 2px 5px 1px rgba(0,0,0,0.1);
+}

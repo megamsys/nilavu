@@ -33,7 +33,11 @@ class SshKeysController < ApplicationController
 
   ## this downloads a key
   def edit
-    params.merge!({:download_location => current_user.email+"_"+"#{params[:id]}"})
+    if params[:format]
+    params.merge!({:download_location => "#{params[:name]}.#{params[:format]}"})
+  else
+    params.merge!({:download_location => "#{params[:name]}"})
+  end  
     Api::Sshkeys.new.download(params)
     send_file Rails.root.join("#{params[:download_location]}"), :x_sendfile=>true
   end

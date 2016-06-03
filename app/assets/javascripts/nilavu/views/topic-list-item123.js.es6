@@ -16,6 +16,10 @@ export default Ember.View.extend(StringBuffer, {
       this.set('controller.selectedRow', this);
     },
 
+    selectVM() {
+      alert("haii");
+    },
+
     toggleBookmark() {
       const self = this;
       this.get('topic').toggleBookmark().finally(function() {
@@ -23,6 +27,13 @@ export default Ember.View.extend(StringBuffer, {
       });
     }
   },
+
+  topicLink: function() {
+    var topicId = this.get('topic.id');
+    var topicName = this.get('topic.name');
+    var str = `<a href {{action "selectVM"}}>${topicName}</a>`;
+    return new Handlebars.SafeString(str);
+  }.property('topic.name'),
 
  showBrandImage: function() {
    const fullBrandUrl = this.get('topic.tosca_type');
@@ -102,6 +113,7 @@ export default Ember.View.extend(StringBuffer, {
 
     if (target.hasClass('posts-map')) {
       if (target.prop('tagName') !== 'A') {
+        alert("a");
         target = target.find('a');
       }
       this.container.lookup('controller:application').send("showTopicEntrance", {topic: this.get('topic'), position: target.offset()});

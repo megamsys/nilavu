@@ -6,6 +6,7 @@ import { popupAjaxError } from 'nilavu/lib/ajax-error';
 import computed from 'ember-addons/ember-computed-decorators';
 import Composer from 'nilavu/models/composer';
 import NilavuURL from 'nilavu/lib/url';
+import showModal from 'nilavu/lib/show-modal';
 
 export default Ember.Controller.extend(BufferedContent, {
   needs: ['header', 'modal', 'composer', 'topic-progress', 'application'],
@@ -18,9 +19,46 @@ export default Ember.Controller.extend(BufferedContent, {
   enteredAt: null,
   retrying: false,
   adminMenuVisible: false,
+  //topic: null,
 
   showRecover: Em.computed.and('model.deleted', 'model.details.can_recover'),
   isFeatured: Em.computed.or("model.pinned_at", "model.isBanner"),
+
+  selectedTab: null,
+  panels: null,
+
+  _initPanels: function() {
+      this.set('panels', []);
+      this.set('selectedTab', 'info');    
+  }.on('init'),
+
+  infoSelected: function() {
+    return this.selectedTab == 'info';
+  }.property('selectedTab'),
+
+  storageSelected: function() {
+    return this.selectedTab == 'storage';
+  }.property('selectedTab'),
+
+  networkSelected: function() {
+    return this.selectedTab == 'network';
+  }.property('selectedTab'),
+
+  cpuSelected: function() {
+    return this.selectedTab == 'cpu';
+  }.property('selectedTab'),
+
+  ramSelected: function() {
+    return this.selectedTab == 'ram';
+  }.property('selectedTab'),
+
+  hddSelected: function() {
+    return this.selectedTab == 'hdd';
+  }.property('selectedTab'),
+
+  logsSelected: function() {
+    return this.selectedTab == 'logs';
+  }.property('selectedTab'),
 
   _titleChanged: function() {
     const title = this.get('model.title');
@@ -69,7 +107,7 @@ export default Ember.Controller.extend(BufferedContent, {
     }
   },
 
-  @computed('model.postStream.streamFilters.username_filters')
+  /*@computed('model.postStream.streamFilters.username_filters')
   username_filters: {
     set(value) {
       const postStream = this.get('model.postStream');
@@ -80,12 +118,11 @@ export default Ember.Controller.extend(BufferedContent, {
     get() {
       return this.get('postStream.streamFilters.username_filters');
     }
-  },
+  },*/
 
   _clearSelected: function() {
     this.set('selectedPosts', []);
     this.set('selectedReplies', []);
-    alert("--------");
   }.on('init'),
 
   showCategoryChooser: Ember.computed.not("model.isPrivateMessage"),
@@ -103,6 +140,17 @@ export default Ember.Controller.extend(BufferedContent, {
   }.property(),
 
   actions: {
+
+    show(data) {
+      // Show the chooser but only if the model changes
+      if (this.get('model') !== data.topic) {
+        this.set('model', data.topic);
+      }
+    },
+
+    openVNC() {
+      showModal('vnc');
+    },
 
     fillGapBefore(args) {
       return this.get('model.postStream').fillGapBefore(args.post, args.gap);

@@ -7,6 +7,7 @@ Nilavu::Application.routes.draw do
   get "/404-body" => "exceptions#not_found_body"
   get '/500', to: 'errors#internal_error'
 
+
   GROUPNAME_ROUTE_FORMAT = /[\w.\-]+/ unless defined? GROUPNAME_ROUTE_FORMAT
 
   # named route for users, session
@@ -50,6 +51,8 @@ Nilavu::Application.routes.draw do
   ##
   get  "launchers/:id" => "launchers#launch"
   post "launchers" => "launchers#perform_launch"
+
+  get "/ssh_keys/edit/:name", to: "ssh_keys#edit"
 
   ##
   get "robots.txt" => "robots_txt#index"

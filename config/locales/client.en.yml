@@ -459,6 +459,39 @@ en:
       account_name: "Account Name:"
       all_organization: "All Organizations"
 
+    vm_management:
+      info:
+        tab_title: "info"
+        content_title: "Information"
+        content_id: "Id"
+        content_name: "Name"
+        content_domain: "Domain"
+        content_state: "State"
+        content_host: "Host"
+        content_region: "Region"
+        content_start_time: "Start Time"
+        keys_title: "SshKeys"
+        content_private_sshkey: "Private Key"
+        content_public_sshkey: "Public Key"
+      storage:
+        tab_title: "storage"
+      network:
+        tab_title: "network"
+        content_dns_provider: "DNS Provider"
+        content_public_ip: "Public IP"
+        content_private_ip: "Private IP"
+        content_reattach_ip: "Reattach IP"
+      cpu:
+        tab_title: "cpu"
+        content_cpu_cores: "Cores"
+      ram:
+        tab_title: "ram"
+        content_ram_size: "Size"
+      hdd:
+        tab_title: "hdd"
+        content_hdd_size: "Size"
+      logs:
+        tab_title: "logs"
 
     launcher:
       create: "Virtual Machine"

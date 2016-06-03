@@ -37,7 +37,7 @@ const TopicRoute = Nilavu.Route.extend({
       }
       return result;
     }
-  },  
+  },
 
   actions: {
 
@@ -138,18 +138,18 @@ const TopicRoute = Nilavu.Route.extend({
     return topic;
   },
 
-  model(params, transition) {
-    const queryParams = transition.queryParams;
-    console.log("-----------------------------");
-    console.log(params.id);
-    let topic = this.modelFor('topic');
+  model() {
+    const topicController = this.controllerFor('topic');
+    return topicController.get('model');
+    //const queryParams = transition.queryParams;
+    /*let topic = this.modelFor('topic');
     if (topic && (topic.get('id') === parseInt(params.id, 10))) {
     //  this.setupParams(topic, queryParams);
       return topic;
     } else {
       topic = this.store.createRecord('topic', _.omit(params, 'username_filters', 'filter'));
     //  return this.setupParams(topic, queryParams);
-    }
+  }*/
   },
 
   activate() {
