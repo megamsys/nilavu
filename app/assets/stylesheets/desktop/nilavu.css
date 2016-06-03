@@ -273,10 +273,73 @@ body {
     background-image: url(c_icon-d.png);
   }
 
-  .settings_top {
-    border-bottom: 1px solid #e5e6ef;
-    margin-bottom: 20px;
+
+  .balance {
+  	text-align: center;
+  	height: 223px;
   }
+  .balance span {
+  	font-size: 20px;
+  	margin-top: 0px;
+  	color: #a4a6af;
+  	text-align: center;
+  }
+  .balance h2 {
+  	font-size: 22px;
+  	color: #a4a6af;
+  }
+  .balance .green {
+  	color: #7be090;
+  	font-weight: bold;
+  }
+  .balance .blue, span.blue {
+  	color: #7cb4dd;
+  	font-weight: bold;
+  }
+
+
+  .usg {
+  	font-size: 22px;
+  	color: #a5a6af;
+  	padding-left: 0;
+  }
+  .center {
+  	display:flex;
+  	justify-content:center;
+  	align-items:center;
+  }
+
+  .table thead tr th {
+      font-size: 14px;
+      font-weight: bold;
+  }
+
+
+  .hour {
+  	width: 100%;
+  	padding: 20px;
+  	border: 1px solid #dddddd;
+  	border-top: none;
+  	text-align: center;
+  	font-size: 22px;
+  }
+
+  .mod {
+  	text-align: center;
+  	font-size: 18px;
+  	color: #7cb4dd;
+  	margin-top: 10px;
+  	font-weight: 900;
+  }
+  .mod img {
+  	border: 1px solid #7cb4dd;
+      border-radius: 220px;
+      padding: 2px;
+      padding-top: 2.2px;
+      padding-left: 2.2px;
+  }
+
+
 
   .tb_action_list tbody tr {
     height: 60px;
