@@ -49,8 +49,8 @@ Nilavu::Application.routes.draw do
   get "launchables/summary.json" => "launchables#summarize", as: "launchables_summarize"
 
   ##
-  get  "launchers/:id" => "launchers#launch"
-  post "launchers" => "launchers#perform_launch"
+  get  "launchers/:id.json" => "launchers#launch"
+  post "launchers.json" => "launchers#perform_launch"
 
   get "/ssh_keys/edit/:name", to: "ssh_keys#edit"
 

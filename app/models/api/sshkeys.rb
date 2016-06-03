@@ -17,10 +17,10 @@
 module Api
   class Sshkeys < ApiDispatcher
 
-    IMPORT   = 'SSH_IMPORT'.freeze
-    NEW      = 'SSH_NEW'.freeze
-    USEOLD   = 'SSH_USEOLD'.freeze
-    SAAVI = 'saavi'.freeze
+    IMPORT   = 'IMPORT'.freeze
+    NEW      = 'NEW'.freeze
+    OLD      = 'OLD'.freeze
+    PWD      = 'PWD'.freeze
 
     attr_accessor :ssh_keys
 
@@ -32,15 +32,15 @@ module Api
     # a helper that creates or imports ssl keys.
     # can be used during a launch or sshkey creation.
     def create_or_import(api_params)
-      api_params[:name] = api_params[:ssh_keypair_name] ||= Api::Sshkeys::SAAVI
-      api_params[:sshkey] = api_params[:name]
-      case api_params[:sshoption]
-      when NEW
-        create(api_params)
-      when IMPORT
-        import(api_params)
-      end
-      api_params
+        api_params[:name] = api_params[:keypairname]
+
+        case api_params[:keypairoption]
+        when NEW
+            create(api_params)
+        when IMPORT
+            import(api_params)
+        end
+        api_params
     end
 
     # lists the ssh keys for an user and return a hash with name, timestamp.

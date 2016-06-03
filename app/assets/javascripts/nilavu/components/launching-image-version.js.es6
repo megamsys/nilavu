@@ -16,6 +16,7 @@ export default Ember.Component.extend({
 
     click: function() {
         this.set('category.versionoption', this.get('versionableName'));
+        this.set('category.versiondetail', this.get('versionDetail'));
     }
 
 });
