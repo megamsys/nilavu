@@ -192,7 +192,7 @@ Width: 60px;
 	font-size:15px;
 	padding-right: 5px;
 }
-.a-tag
+.a-tag a
 {
 	background:none;
 	border: none;
@@ -200,4 +200,9 @@ Width: 60px;
 	font-size: 15px;
 	color: #0d638f;
 	display: inline;
+}
+.a-tag a:hover {
+	border: none;
+	background: none;
+	color: #0d638f;
 }
