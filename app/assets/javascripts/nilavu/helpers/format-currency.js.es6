@@ -6,7 +6,6 @@ import registerUnbound from 'nilavu/helpers/register-unbound';
 **/
 registerUnbound('format-currency', function(val, params) {
     let currency = Ember.isEmpty(params.currency) ? Nilavu.SiteSetting.currency : params.currency;
-    console.log("*******************");
 
     if (val) {
         return new Handlebars.SafeString(currency + val);

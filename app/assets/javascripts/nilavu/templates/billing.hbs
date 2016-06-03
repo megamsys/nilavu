@@ -26,7 +26,7 @@
 
             <div class="row c_pading-b15">
                 <div class="portlet-body-head">
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9"><i class="glyphicon glyphicon-briefcase icon-color"></i>Your Funds</div>
+                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9"><i class="glyphicon glyphicon-briefcase billing-icon-color"></i>Your Funds</div>
                 </div>
             </div>
             <div class="bottom-divider  settings_top"></div>
@@ -34,7 +34,7 @@
                 {{billing-usage currentUsage=currentUsage currentBalance=currentBalance}}
 
                 <div class="col-md-8 help_center_left_right usg">
-                    <div class="center title1">Usage Estimator:</div>
+                    <div class="center billing-title">Usage Estimator:</div>
                     <div class="center sub-title">Resources</div>
                     <div style="text-align: center;" class="table-condensed">
                         <table class="table usg_table">
@@ -48,7 +48,7 @@
                             <tbody>
                                 <tr>
                                     <!--Any span.blue text is supposed to be editable by the user. with the numbers (eg. 1024) -> it turns into a textbox that only accepts numbers. If MB/SSD is clicked then you will be able to see 'MB/GB/TB' for MB & SSD/HDD for SSD in a dropdown. Once the user enters the new number then the Usage estimator is updated. Also with CORES - the way it works is it's bundled with RAM. This is to avoid heavy CPU abuse. It's a preset of something like 1 vCPU per 2048MB ram, anything under 2048 gets 1vCPU.  -->
-                                    <td><span class="blue">{{billing-quotas content=ram}}</span><select class="drop-box pull-right"><option value="GB" >GB</option> <option value="MB">MB</option></select></td>
+                                    <td><span class="blue">{{billing-quotas content=ram}}</span><select class="billing-combo-box pull-right"><option value="GB" >GB</option> <option value="MB">MB</option></select></td>
 
                                     <td>RAM</td>
                                     <td class="left-b">$7.00/mo</td>
@@ -59,7 +59,7 @@
                                     <td class="left-b">included</td>
                                 </tr>
                                 <tr>
-                                    <td><span class="blue">{{billing-quotas content=ssd}}</span><select class="drop-box pull-right"><option value="GB" >GB</option> <option value="MB">MB</option></select> </td>
+                                    <td><span class="blue">{{billing-quotas content=ssd}}</span><select class="billing-combo-box pull-right"><option value="GB" >GB</option> <option value="MB">MB</option></select> </td>
                                     <td><span><select>
                                               <option value="SSD">SSD</option>
                                               <option value="HSD">HSD</option>
@@ -67,7 +67,7 @@
                                     <td class="left-b">$2.50/mo</td>
                                 </tr>
                                 <tr>
-                                    <td><span class="blue">{{billing-quotas content=bandwidth}}</span><select class="drop-box pull-right"><option value="GB" >GB</option> <option value="MB">MB</option></select></td>
+                                    <td><span class="blue">{{billing-quotas content=bandwidth}}</span><select class="billing-combo-box pull-right"><option value="GB" >GB</option> <option value="MB">MB</option></select></td>
                                     <td>BANDWIDTH</td>
                                     <td class="left-b">included</td>
                                 </tr>
@@ -117,7 +117,7 @@
 
                         <div class="row ">
                             <div class="col-md-6  pay_via">
-                                <h2><i class="glyphicon glyphicon-credit-card icon-color"></i>Proceed to payment</h2>
+                                <h2><i class="glyphicon glyphicon-credit-card billing-icon-color"></i>Proceed to payment</h2>
                                 <div class="bottom-divider  settings_top"></div>
 
                                 <!--            One click login into WHMCS page: 'add funds'.
@@ -127,17 +127,17 @@
                                 </div>
                             </div>
                             <div class="col-md-5 col-md-offset-1 help_center_left_right">
-                                <h2><i class="glyphicon glyphicon-plus-sign icon-color"></i><b>HELP CENTER</b></h2>
+                                <h2><i class="glyphicon glyphicon-plus-sign billing-icon-color"></i><b>HELP CENTER</b></h2>
                                 <div class="bottom-divider  settings_top"></div>
                                 <p>If you need assistance while placing order, contact one of our below Project Manager by phone or email.</p>
-                                <h4><i class="glyphicon glyphicon-earphone"></i> +91-9745544422 / <a href="mailto:help@megam.io"> <i class="glyphicon glyphicon-envelope a-tag"></i> help@megam.io</a></h4>
+                                <!--<h4><i class="glyphicon glyphicon-earphone"></i> +91-9745544422 / <a href="mailto:help@megam.io"> <i class="glyphicon glyphicon-envelope a-tag"></i> help@megam.io</a></h4>-->
                             </div>
                         </div>
                         <div class="bottom-divider settings_top"></div>
 
 
                         <div class="col-md-12 row">
-                            <h2><i class="glyphicon glyphicon-refresh icon-color"></i> Billing History :</h2>
+                            <h2><i class="glyphicon glyphicon-refresh billing-icon-color"></i> Billing History :</h2>
                         </div>
                         <!--HERE Let's use the new Logs we are using for Torpedo. With two forms of alerts: 'Usage' &  'Credit'. Whenever a user adds credit, it should be logged here. And for every service the ueser has there is a log of 'Usage'. The usage will store things such as 'Torpedo ID', 'Torpedo IP', 'Name', 'Cost per hour', 'Running for' x (hours/days/months), State (active or 'complete' which is what a deleted vm becomes). 'Total Cost'. When aligning the data, active VM's must always prioritize over 'Completed' VM's in the log. That means, whenever a VM becomes complete - it goes under the active VM's.-->
                         <div class="bottom-divider  settings_top"></div>

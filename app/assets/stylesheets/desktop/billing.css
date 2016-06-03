@@ -112,10 +112,7 @@ td.bottom-b {
 	transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 	vertical-align: middle;
 }
-.center-btn {
-  width: 80%;
-  margin:auto;
-  }
+
 
   .btn-payment {
   	width: 100%;
@@ -127,20 +124,12 @@ td.bottom-b {
 	height:150px;
 	overflow:auto;
 }
-/*.table .m-btn {
-    margin-left: 0;
-    margin-right: 5px;
-    margin-top: 0;
-}
-.table thead tr th {
-    font-size: 14px;
-    font-weight: bold;
-}*/
+
 .settings_top {
   border-bottom: 1px solid #e5e6ef;
   margin-bottom: 20px;
 }
-.title1 {
+.billing-title {
 	font-size:24px;
 	font-weight: bold;
 }
@@ -150,59 +139,28 @@ td.bottom-b {
   margin-top: 10px;
   margin-bottom: 5px;
 }
-.center {
-	display:flex;
-	justify-content:center;
-	align-items:center;
-}
-.fa-envelope-o:before {
-  content: "\f003";
-}
-.fa-plus-circle:before {
-  content: "\f055";
-    font-size: 20px;
-    padding-right: 7px; color:#6cabda;
-    vertical-align: text-top;
-}
-.fa-plus-circle:before {
-  content: "\f055";
-    font-size: 20px;
-    padding-right: 7px; color:#6cabda;
-    vertical-align: middle;
-}
 
-.fa-phone-square:before {
-  content: "\f098";
-}
+
 .filter-text{
 	border:0px;
  text-align:center;
  Height: 30px;
 Width: 60px;
 }
-.drop-box
+.billing-combo-box
 {
 	width:60px;
 	height:30px;
 	margin-top: -30px;
 }
-.icon-color
+.billing-icon-color
 {
 	color: #7cb4dd;
 	font-size:15px;
 	padding-right: 5px;
 }
-.a-tag a
-{
-	background:none;
-	border: none;
-	padding: 0;
-	font-size: 15px;
-	color: #0d638f;
-	display: inline;
-}
-.a-tag a:hover {
-	border: none;
-	background: none;
-	color: #0d638f;
+.center-btn {
+	width: 80%;
+	margin:auto;
+
 }
