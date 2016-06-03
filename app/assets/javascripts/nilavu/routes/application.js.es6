@@ -2,7 +2,6 @@ import { setting } from 'nilavu/lib/computed';
 import logout from 'nilavu/lib/logout';
 import showModal from 'nilavu/lib/show-modal';
 import OpenComposer from "nilavu/mixins/open-composer";
-import Category from 'nilavu/models/category';
 
 function unlessReadOnly(method, message) {
   return function() {
@@ -125,16 +124,6 @@ const ApplicationRoute = Nilavu.Route.extend(OpenComposer, {
       $('#discourse-modal').modal('show');
     },
 
-    editCategory(category) {
-      Category.reloadById(category.get('id')).then((atts) => {
-        const model = this.store.createRecord('category', atts.category);
-        model.setupGroupsAndPermissions();
-        this.site.updateCategory(model);
-        showModal('editCategory', { model });
-        this.controllerFor('editCategory').set('selectedTab', 'general');
-      });
-    },
-
     deleteSpammer(user) {
       this.send('closeModal');
       user.deleteAsSpammer(function() { window.location.reload(); });
@@ -142,14 +131,6 @@ const ApplicationRoute = Nilavu.Route.extend(OpenComposer, {
 
     checkEmail(user) {
       user.checkEmail();
-    },
-
-    createNewTopicViaParams(title, body, category_id, category) {
-      this.openComposerWithTopicParams(this.controllerFor('discovery/topics'), title, body, category_id, category);
-    },
-
-    createNewMessageViaParams(username, title, body) {
-      this.openComposerWithMessageParams(username, title, body);
     }
   },
 

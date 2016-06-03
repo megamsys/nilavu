@@ -6,6 +6,7 @@ export default Ember.Component.extend({
   }.property('size'),
 
   render: function(buffer) {
+
     if (this.get('condition')) {
       buffer.push('<div class="spin ' + this.get('size') + '"}}></div>');
     } else {

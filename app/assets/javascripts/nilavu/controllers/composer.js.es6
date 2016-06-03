@@ -1,5 +1,4 @@
 import NilavuURL from 'nilavu/lib/url';
-import Quote from 'nilavu/lib/quote';
 import Draft from 'nilavu/models/draft';
 import Composer from 'nilavu/models/composer';
 import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
@@ -92,38 +91,6 @@ export default Ember.Controller.extend({
       this.get('model').togglePreview();
     },
 
-    // Import a quote from the post
-    importQuote(toolbarEvent) {
-      const postStream = this.get('topic.postStream');
-      let postId = this.get('model.post.id');
-
-      // If there is no current post, use the first post id from the stream
-      if (!postId && postStream) {
-        postId = postStream.get('stream.firstObject');
-      }
-
-      // If we're editing a post, fetch the reply when importing a quote
-      if (this.get('model.editingPost')) {
-        const replyToPostNumber = this.get('model.post.reply_to_post_number');
-        if (replyToPostNumber) {
-          const replyPost = postStream.get('posts').findBy('post_number', replyToPostNumber);
-          if (replyPost) {
-            postId = replyPost.get('id');
-          }
-        }
-      }
-
-      if (postId) {
-        this.set('model.loading', true);
-        const composer = this;
-
-        return this.store.find('post', postId).then(function(post) {
-          const quote = Quote.build(post, post.get("raw"), {raw: true, full: true});
-          toolbarEvent.addText(quote);
-          composer.set('model.loading', false);
-        });
-      }
-    },
 
     cancel() {
       this.cancelComposer();
@@ -131,10 +98,6 @@ export default Ember.Controller.extend({
 
     save() {
       this.save();
-    },
-
-    displayEditReason() {
-      this.set("showEditReason", true);
     },
 
     hitEsc() {
@@ -260,16 +223,11 @@ export default Ember.Controller.extend({
     const promise = composer.save({ imageSizes, editReason: this.get("editReason")}).then(function(result) {
       if (result.responseJson.action === "enqueued") {
         //self.send('postWasEnqueued', result.responseJson);
-        self.destroyDraft();
         self.close();
         self.appEvents.trigger('post-stream:refresh');
         return result;
       }
 
-      // If user "created a new topic/post" or "replied as a new topic" successfully, remove the draft.
-      if (result.responseJson.action === "create_post" || self.get('replyAsNewTopicDraft')) {
-        self.destroyDraft();
-      }
       if (self.get('model.action') === 'edit') {
         self.appEvents.trigger('post-stream:refresh', { id: parseInt(result.responseJson.id) });
       } else {
@@ -427,13 +385,6 @@ export default Ember.Controller.extend({
     return false;
   },
 
-  destroyDraft() {
-    const key = this.get('model.draftKey');
-    if (key) {
-      Draft.clear(key, this.get('model.draftSequence'));
-    }
-  },
-
   cancelComposer() {
     const self = this;
 
@@ -442,15 +393,12 @@ export default Ember.Controller.extend({
         bootbox.confirm(I18n.t("post.abandon.confirm"), I18n.t("post.abandon.no_value"),
             I18n.t("post.abandon.yes_value"), function(result) {
           if (result) {
-            self.destroyDraft();
             self.get('model').clearState();
             self.close();
             resolve();
           }
         });
       } else {
-        // it is possible there is some sort of crazy draft with no body ... just give up on it
-        self.destroyDraft();
         self.get('model').clearState();
         self.close();
         resolve();
@@ -459,21 +407,7 @@ export default Ember.Controller.extend({
   },
 
   shrink() {
-    if (this.get('model.replyDirty')) {
-      this.collapse();
-    } else {
       this.close();
-    }
-  },
-
-  _saveDraft() {
-    const model = this.get('model');
-    if (model) { model.saveDraft(); };
-  },
-
-  @observes('model.reply', 'model.title')
-  _shouldSaveDraft() {
-    Ember.run.debounce(this, this._saveDraft, 2000);
   },
 
   @computed('model.categoryId', 'lastValidatedAt')
@@ -481,11 +415,6 @@ export default Ember.Controller.extend({
     if( !this.siteSettings.allow_uncategorized_topics && !categoryId) {
       return Nilavu.InputValidation.create({ failed: true, reason: I18n.t('composer.error.category_missing'), lastShownAt: lastValidatedAt });
     }
-  },
-
-  collapse() {
-    this._saveDraft();
-    this.set('model.composeState', Composer.DRAFT);
   },
 
   close() {

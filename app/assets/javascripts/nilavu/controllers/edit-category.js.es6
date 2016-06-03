@@ -7,6 +7,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
     selectedTab: null,
     saving: false,
     panels: null,
+    loading: false,
     editLaunching: false,
 
     _initPanels: function() {
@@ -109,13 +110,13 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.property('name'),
 
     saveLabel: function() {
-        if (this.get('saving')) return "launcher.saving";
+         if (this.get('saving')) return I18n.t("launcher.saving");
 
-        if (this.get('summarySelected')) return 'launcher.launch'
+        if (this.get('summarySelected')) return I18n.t("launcher.launch")
 
-        if (this.get('generalSelected') || this.get('selectionSelected')) return 'launcher.selecting'
+        if (this.get('generalSelected') || this.get('selectionSelected')) return I18n.t("launcher.selecting")
 
-        return "launcher.launch";
+        return I18n.t("launcher.launch");
     }.property('saving', 'generalSelected', 'selectionSelected', 'summarySelected'),
 
     actions: {
@@ -126,9 +127,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
                 model.metaData.setProperties({
                     cooking: result
                 });
-
-                this.set('cooking', true);
-                this.set('selecting', true);
+                this.setProperties({ cooking: true, selecting: true, loading: false });
             });
         },
 
@@ -139,17 +138,15 @@ export default Ember.Controller.extend(ModalFunctionality, {
                 model.metaData.setProperties({
                     summarizing: result
                 });
-                this.set('summarizing', true);
-            });
+                    this.setProperties({ summarizing: true, loading: false });
+              });
         },
 
         saveCategory() {
             const self = this,
                 model = this.get('model');
-
-            this.set('saving', true);
-alert('saving category');
-alert(JSON.stringify(this.get('model')));
+alert(JSON.stringify(model));
+            self.set('saving', true);
             this.get('model').save().then(function(result) {
                 self.set('saving', false);
                 self.send('closeModal');
@@ -157,8 +154,10 @@ alert(JSON.stringify(this.get('model')));
                     slug: result.category.slug,
                     id: result.category.id
                 });
-        //        NilavuURL.redirectTo("/c/" + Nilavu.Category.slugFor(model));
-            }).catch(function(error) {
+
+              //NilavuURL.redirectTo("/c/" + Nilavu.Category.slugFor(model));
+              }).catch(function(error) {
+                alert("error is ="+ error);
                 self.flash(extractError(error), 'error');
                 self.set('saving', false);
             });
