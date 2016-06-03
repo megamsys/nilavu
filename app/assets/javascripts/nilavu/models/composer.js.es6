@@ -27,11 +27,6 @@ const CLOSED = 'closed',
         target_usernames: 'targetUsernames',
         typing_duration_msecs: 'typingTime',
         composer_open_duration_msecs: 'composerTime'
-      },
-
-      _edit_topic_serializer = {
-        title: 'topic.title',
-        categoryId: 'topic.category.id'
       };
 
 const Composer = RestModel.extend({
@@ -63,15 +58,6 @@ const Composer = RestModel.extend({
     }
   }.observes('composeState'),
 
-  // view detected user is typing
-  typing: _.throttle(function(){
-    var typingTime = this.get("typingTime") || 0;
-    this.set("typingTime", typingTime + 100);
-  }, 100, {leading: false, trailing: true}),
-
-  editingFirstPost: Em.computed.and('editingPost', 'post.firstPost'),
-  canEditTitle: Em.computed.or('creatingTopic', 'creatingPrivateMessage', 'editingFirstPost'),
-  canCategorize: Em.computed.and('canEditTitle', 'notCreatingPrivateMessage'),
 
   // Determine the appropriate title for this action
   actionTitle: function() {
@@ -118,57 +104,18 @@ const Composer = RestModel.extend({
   }.property('action', 'post', 'topic', 'topic.title'),
 
 
-  // whether to disable the post button
-  cantSubmitPost: function() {
+  // whether to submit the topic if there is balance or not
+  cantSubmitTopic: function() {
 
     // can't submit while loading
     if (this.get('loading')) return true;
 
-    // title is required when
-    //  - creating a new topic/private message
-    //  - editing the 1st post
-    if (this.get('canEditTitle') && !this.get('titleLengthValid')) return true;
+      // reply is always required
+    if (this.get('missingBalanceInKitty') > 0) return true;
 
-    // reply is always required
-    if (this.get('missingReplyCharacters') > 0) return true;
+    return false;
+  }.property('loading', 'missingBalanceInKitty'),
 
-    if (this.get("privateMessage")) {
-      // need at least one user when sending a PM
-      return this.get('targetUsernames') && (this.get('targetUsernames').trim() + ',').indexOf(',') === 0;
-    } else {
-      // has a category? (when needed)
-      return this.get('canCategorize') &&
-            !this.siteSettings.allow_uncategorized_topics &&
-            !this.get('categoryId') &&
-            !this.user.get('admin');
-    }
-  }.property('loading', 'canEditTitle', 'titleLength', 'targetUsernames', 'replyLength', 'categoryId', 'missingReplyCharacters'),
-
-  titleLengthValid: function() {
-    if (this.user.get('admin') && this.get('post.static_doc') && this.get('titleLength') > 0) return true;
-    if (this.get('titleLength') < this.get('minimumTitleLength')) return false;
-    return (this.get('titleLength') <= this.siteSettings.max_topic_title_length);
-  }.property('minimumTitleLength', 'titleLength', 'post.static_doc'),
-
-  // The icon for the save button
-  saveIcon: function () {
-    switch (this.get('action')) {
-      case EDIT: return '<i class="fa fa-pencil"></i>';
-      case REPLY: return '<i class="fa fa-reply"></i>';
-      case CREATE_TOPIC: return '<i class="fa fa-plus"></i>';
-      case PRIVATE_MESSAGE: return '<i class="fa fa-envelope"></i>';
-    }
-  }.property('action'),
-
-  // The text for the save button
-  saveText: function() {
-    switch (this.get('action')) {
-      case EDIT: return I18n.t('composer.save_edit');
-      case REPLY: return I18n.t('composer.reply');
-      case CREATE_TOPIC: return I18n.t('composer.create_topic');
-      case PRIVATE_MESSAGE: return I18n.t('composer.create_pm');
-    }
-  }.property('action'),
 
   hasMetaData: function() {
     const metaData = this.get('metaData');
@@ -184,60 +131,6 @@ const Composer = RestModel.extend({
     return this.get('reply') !== this.get('originalText');
   }.property('reply', 'originalText'),
 
-  /**
-    Number of missing characters in the title until valid.
-
-    @property missingTitleCharacters
-  **/
-  missingTitleCharacters: function() {
-    return this.get('minimumTitleLength') - this.get('titleLength');
-  }.property('minimumTitleLength', 'titleLength'),
-
-  /**
-    Minimum number of characters for a title to be valid.
-
-    @property minimumTitleLength
-  **/
-  minimumTitleLength: function() {
-    if (this.get('privateMessage')) {
-      return this.siteSettings.min_private_message_title_length;
-    } else {
-      return this.siteSettings.min_topic_title_length;
-    }
-  }.property('privateMessage'),
-
-  missingReplyCharacters: function() {
-    const postType = this.get('post.post_type');
-    if (postType === this.site.get('post_types.small_action')) { return 0; }
-    return this.get('minimumPostLength') - this.get('replyLength');
-  }.property('minimumPostLength', 'replyLength'),
-
-  /**
-    Minimum number of characters for a post body to be valid.
-
-    @property minimumPostLength
-  **/
-  minimumPostLength: function() {
-    if( this.get('privateMessage') ) {
-      return this.siteSettings.min_private_message_post_length;
-    } else if (this.get('topicFirstPost')) {
-      // first post (topic body)
-      return this.siteSettings.min_first_post_length;
-    } else {
-      return this.siteSettings.min_post_length;
-    }
-  }.property('privateMessage', 'topicFirstPost'),
-
-  /**
-    Computes the length of the title minus non-significant whitespaces
-
-    @property titleLength
-  **/
-  titleLength: function() {
-    const title = this.get('title') || "";
-    return title.replace(/\s+/img, " ").trim().length;
-  }.property('title'),
-
   _setupComposer: function() {
   }.on('init'),
 
@@ -246,7 +139,6 @@ const Composer = RestModel.extend({
 
      opts:
        action   - The action we're performing: edit, reply or createTopic
-       post     - The post we're replying to, if present
        topic    - The topic we're replying to, if present
 */
   open(opts) {
@@ -257,42 +149,24 @@ const Composer = RestModel.extend({
     const composer = this;
 
     if (opts.action === REPLY && this.get('action') === EDIT) this.set('reply', '');
-    if (!opts.draftKey) throw 'draft key is required';
-    if (opts.draftSequence === null) throw 'draft sequence is required';
 
     this.setProperties({
-      draftKey: opts.draftKey,
-      draftSequence: opts.draftSequence,
       composeState: opts.composerState || OPEN,
       action: opts.action,
-      topic: opts.topic,
-      targetUsernames: opts.usernames,
-      composerTotalOpened: opts.composerTime,
-      typingTime: opts.typingTime
+      topic: opts.topic
     });
-
 
 
     this.setProperties({
       metaData: opts.metaData ? Em.Object.create(opts.metaData) : null
     });
 
-    // We set the category id separately for topic templates on opening of composer
-    this.set('categoryId', opts.categoryId || this.get('topic.category.id'));
-
-    if (!this.get('categoryId') && this.get('creatingTopic')) {
-      const categories = Nilavu.Category.list();
-      if (categories.length === 1) {
-        this.set('categoryId', categories[0].get('id'));
-      }
-    }
-
     return false;
   },
 
 
   save(opts) {
-    if (!this.get('cantSubmitPost')) {
+    if (!this.get('cantSubmitTopic')) {
       return  this.createTopic(opts);
     }
   },
@@ -330,7 +204,10 @@ const Composer = RestModel.extend({
   // Create a new topic. What the heck is a topic ?
   // Lets just pay tribute to discourse friends.
   createTopic(opts) {
+    alert(JSON.stringify(opts));
+    alert(JSON.stringify(this.get('model')));
     const  topic = this.get('topic');
+
     //   user = this.user,
     //   postStream = this.get('topic.regions');
 
@@ -355,8 +232,6 @@ const Composer = RestModel.extend({
       enable_privnetwork: true
     });
 
-    this.serialize(_create_serializer, createdTopic);
-
     if (inputs) {
       /*createdTopic.setProperties({
         reply_to_post_number: post.get('post_number'),
@@ -370,6 +245,42 @@ const Composer = RestModel.extend({
     const composer = this;
     composer.set('composeState', SAVING);
     composer.set("stagedPost", state === "staged" && createdTopic);
+
+
+/////////////////////////////
+
+/*save: function() {
+    var url = "/categories";
+    if (this.get('id')) {
+      url = "/categories/" + this.get('id');
+    }
+
+    return Nilavu.ajax(url, {
+      data: {
+        name: this.get('name'),
+        slug: this.get('slug'),
+        color: this.get('color'),
+        text_color: this.get('text_color'),
+        secure: this.get('secure'),
+        permissions: this.get('permissionsForUpdate'),
+        auto_close_hours: this.get('auto_close_hours'),
+        auto_close_based_on_last_post: this.get("auto_close_based_on_last_post"),
+        position: this.get('position'),
+        email_in: this.get('email_in'),
+        email_in_allow_strangers: this.get('email_in_allow_strangers'),
+        parent_category_id: this.get('parent_category_id'),
+        logo_url: this.get('logo_url'),
+        background_url: this.get('background_url'),
+        allow_badges: this.get('allow_badges'),
+        custom_fields: this.get('custom_fields'),
+        topic_template: this.get('topic_template'),
+        suppress_from_homepage: this.get('suppress_from_homepage')
+      },
+      type: this.get('id') ? 'PUT' : 'POST'
+    });
+  },
+  */
+///////////////////////////////////////////////////////////
 
     return createdTopic.save().then(function(result) {
       let saving = true;
@@ -426,15 +337,6 @@ Composer.reopenClass({
     return this._super(args);
   },
 
-  serializeToTopic(fieldName, property) {
-    if (!property) { property = fieldName; }
-    _edit_topic_serializer[fieldName] = property;
-  },
-
-  serializeOnCreate(fieldName, property) {
-    if (!property) { property = fieldName; }
-    _create_serializer[fieldName] = property;
-  },
 
   serializedFieldsForCreate() {
     return Object.keys(_create_serializer);

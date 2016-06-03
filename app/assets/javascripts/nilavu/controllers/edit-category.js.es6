@@ -145,7 +145,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
         saveCategory() {
             const self = this,
                 model = this.get('model');
-
+alert(JSON.stringify(model));
             self.set('saving', true);
             this.get('model').save().then(function(result) {
                 self.set('saving', false);
