@@ -1,6 +1,6 @@
 regions:
   sydney:
-    flag: 'au'
+    flag: 'images/regions/au.png'
     currency: '&#128;'
     cpu_cost_per_hour: '0.01'
     ram_cost_per_hour: '0.02'
@@ -14,7 +14,7 @@ regions:
       s1.medium: '3 GB,4 Cores,96 GB'
 
   chennai:
-    flag: 'in'
+    flag: 'images/regions/in.png'
     currency: '&#8377;'
     cpu_cost_per_hour: '0.009'
     ram_cost_per_hour: '0.019'
@@ -28,7 +28,7 @@ regions:
       c1.large: '3 GB,3 Cores,48 GB'
 
   dar_e_salaam:
-    flag: 'tz'
+    flag: 'images/regions/tz.png'
     currency: 'TZS'
     cpu_cost_per_hour: '0.008'
     ram_cost_per_hour: '0.021'
