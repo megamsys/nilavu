@@ -29,9 +29,7 @@ export default Ember.Controller.extend(BufferedContent, {
 
   _initPanels: function() {
       this.set('panels', []);
-      this.set('selectedTab', 'info');
-      this.get('model.privatekey_generate_url');
-      this.get('model.publickey_generate_url');
+      this.set('selectedTab', 'info');    
   }.on('init'),
 
   infoSelected: function() {

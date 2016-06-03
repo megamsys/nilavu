@@ -50,7 +50,7 @@ module Api
     end
 
     ## rescue and raise as an error.
-    def download(api_params)
+    def download(api_params)    
       File.open(File.basename(api_params[:download_location]), 'wb') do |file|
           file.write(api_params["data"])
       end

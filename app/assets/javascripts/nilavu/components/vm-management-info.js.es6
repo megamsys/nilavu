@@ -52,5 +52,13 @@ export default buildCategoryPanel('info', {
     return I18n.t("vm_management.info.content_public_sshkey");
   }.property(),
 
+  actions: {
+
+    privatekey_download(key) {
+      this.get('model').privatekey_download(key);
+    }
+
+  }
+
 
 });

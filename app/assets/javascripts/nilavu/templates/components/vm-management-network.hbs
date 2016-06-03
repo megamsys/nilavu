@@ -1,5 +1,26 @@
-<section class="network">
-    <div class="row">
-<h1>network</h1>
+<div class="col-md-6 info">
+    <table>
+      <tr>
+        <td><h5><b>{{content_dns_provider}}</b></h5></td>
+        <td>{{model.dns}}</td>
+      </tr>
+      <tr>
+        <td><h5><b>{{content_public_ip}}</b></h5></td>
+        <td>{{model.publicIP}}</td>
+        <td>
+          <a href="#" class="btn btn-info">
+            <span class="glyphicon glyphicon-save"></span> {{content_reattach_ip}}
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td><h5><b>{{content_private_ip}}</b></h5></td>
+        <td>{{model.privateIP}}</td>
+        <td>
+          <a href="#" class="btn btn-info">
+            <span class="glyphicon glyphicon-save"></span> {{content_reattach_ip}}
+          </a>
+        </td>
+      </tr>
+    </table>
 </div>
-</section>

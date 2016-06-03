@@ -73,6 +73,19 @@ const Topic = RestModel.extend({
     return this._filterInputs("domain");
   }.property(),
 
+  cpu_cores: function() {
+    return this._filterInputs("cpu");
+  }.property(),
+
+  ram: function() {
+    return this._filterInputs("ram");
+  }.property(),
+
+  hdd: function() {
+    return "";
+    //return this._filterInputs("hdd");
+  }.property(),
+
   host: function() {
     //return this._filterOutputs("host");
     return "";
@@ -87,7 +100,17 @@ const Topic = RestModel.extend({
     return this._filterInputs("sshkey");
   }.property(),
 
-  private_sshkey: function() {
+  privateIP: function() {
+    return "192.168.0.1"
+    //return this._filterInputs("privateipv4");
+  }.property(),
+
+  publicIP: function() {
+    return "103.56.92.1"
+    //return this._filterInputs("publicipv4");
+  }.property(),
+
+  privatekey: function() {
     return this._filterInputs("sshkey") + "_key";
   }.property(),
 
@@ -121,9 +144,11 @@ const Topic = RestModel.extend({
                   .then(function (url) { self.set('privatekey_download_url', 'url'); });
   },*/
 
-  privatekey_download() {
-    this.privatekey_generate_url().then(function(url) {
-        Em.run.next(() => { NilavuURL.routeTo(url); });
+  privatekey_download(key) {
+    alert(key);
+    this.privatekey_generate_url(key).then(function(url) {
+      alert(url);
+        //Em.run.next(() => { NilavuURL.routeTo(url); });
       }).catch(function() {
         //self.flash(I18n.t('topic.change_timestamp.error'), 'alert-error');
         //self.set('saving', false);
@@ -131,8 +156,8 @@ const Topic = RestModel.extend({
       });
   },
 
-  privatekey_generate_url() {
-    const promise = Nilavu.ajax("/sshkeys/'+this.private_sshkey+'/edit", {
+  privatekey_generate_url(key) {
+    const promise = Nilavu.ajax("/ssh_keys/edit/"+key, {
       type: 'GET',
     }).then(function(result) {
       if (result.success) return result;

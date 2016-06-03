@@ -477,12 +477,19 @@ en:
         tab_title: "storage"
       network:
         tab_title: "network"
+        content_dns_provider: "DNS Provider"
+        content_public_ip: "Public IP"
+        content_private_ip: "Private IP"
+        content_reattach_ip: "Reattach IP"
       cpu:
         tab_title: "cpu"
+        content_cpu_cores: "Cores"
       ram:
         tab_title: "ram"
+        content_ram_size: "Size"
       hdd:
         tab_title: "hdd"
+        content_hdd_size: "Size"
       logs:
         tab_title: "logs"
 
