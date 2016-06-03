@@ -35,20 +35,28 @@ class LaunchersController < ApplicationController
 
   def perform_launch
     params.require(:version)
+    params.require(:mkp_name)
     params.require(:assemblyname)
-    params.require(:componentname)
-    #params.require(:sshoption)
+    puts "----------"
+    puts params.inspect
+    ll = LaunchingItem.new(params)
 
-    vertice = VerticeLauncher.new(LaunchableItem.reload_cached_item!(params))
+    puts " launcahble item"
+    puts ll.inspect
+    puts "------------------"
 
-    if vertice.launch(params)
+    #vertice = VerticeLauncher.new(LaunchableItem.new(params))
+
+    #if vertice.launch(params)
       #  Scheduler::Defer.later "Log launch action for" do
       #    @nilavu_event_logger.log_launched(@launched)
       #  end
-      redirect_with_success(cockpits_path, "launch.success", vertice.launched_message)
-    else
-      redirect_with_failure(cockpits_path, "errors.launch_error",vertice.launched_message)
-    end
+    #  redirect_with_success(cockpits_path, "launch.success", vertice.launched_message)
+    # render json:
+    #else
+    #  redirect_with_failure(cockpits_path, "errors.launch_error",vertice.launched_message)
+    # render json:
+    #end
   end
 
 end

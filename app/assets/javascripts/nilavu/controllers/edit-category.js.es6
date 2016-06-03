@@ -145,15 +145,10 @@ export default Ember.Controller.extend(ModalFunctionality, {
         saveCategory() {
             const self = this,
                 model = this.get('model');
-alert(JSON.stringify(model));
-            self.set('saving', true);
-            this.get('model').save().then(function(result) {
-                self.set('saving', false);
-                self.send('closeModal');
-                model.setProperties({
-                    slug: result.category.slug,
-                    id: result.category.id
-                });
+                self.set('saving', true);
+                this.get('model').save().then(function(result) {
+                  self.set('saving', false);
+                  self.send('closeModal');
 
               //NilavuURL.redirectTo("/c/" + Nilavu.Category.slugFor(model));
               }).catch(function(error) {
