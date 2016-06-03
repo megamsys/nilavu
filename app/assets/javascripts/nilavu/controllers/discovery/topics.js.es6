@@ -1,8 +1,10 @@
 import DiscoveryController from 'nilavu/controllers/discovery';
 import { queryParams } from 'nilavu/controllers/discovery-sortable';
-import BulkTopicSelection from 'nilavu/mixins/bulk-topic-selection';
+
 import { endWith } from 'nilavu/lib/computed';
 import showModal from 'nilavu/lib/show-modal';
+
+import OpenComposer from "nilavu/mixins/open-composer";
 
 const controllerOpts = {
   needs: ['discovery'],
@@ -21,6 +23,22 @@ const controllerOpts = {
   expandAllPinned: false,
 
   actions: {
+
+
+    createTopic() {
+      const self = this;
+      // Don't show  if we're still loading, may be show a growl.
+      if (self.get('loading')) { return; }
+
+      self.set('loading', true);
+
+      const promise =  this.openComposer(this.controllerFor("discovery/topics")).then(function(result) {
+        self.set('loading', false);
+        showModal('editCategory', {model: result});
+      }).catch(function(e) {
+          self.set('loading', false);
+      });
+    },
 
     changeSort(sortBy) {
       if (sortBy === this.get('order')) {
@@ -155,4 +173,4 @@ Ember.keys(queryParams).forEach(function(p) {
   }
 });
 
-export default DiscoveryController.extend(controllerOpts, BulkTopicSelection);
+export default DiscoveryController.extend(controllerOpts, OpenComposer);
