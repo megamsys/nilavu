@@ -3,16 +3,17 @@
   'use strict';
   var client;
 
-$("#vncid").on('click', function() {
-    vncopen();
+$("#vncid").on('click', function(evt) {
+  var href = $(this).attr('href');
+    vncopen(href);
   });
 
 
-  function vncopen() {
+function vncopen(vncurl) {
 var form = document.createElement("form");
 document.body.appendChild(form);
 form.method = "POST";
-form.action = "http://192.168.0.106:8090/vnc";
+form.action =  "http://"+vncurl+":8090/vnc "  ;
 form.target = "_blank";
 var element1 = document.createElement("INPUT");
 element1.name="host"
