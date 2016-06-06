@@ -96,7 +96,7 @@ end
   end
 
   def vnc
-    "http://136.243.49.217:6533"
+    "http://#{someip}:4200"
   end
 
   def ssh
