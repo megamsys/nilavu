@@ -24,7 +24,7 @@ export function iconNode(icon, params) {
   params = params ||  {};
 
   const properties = {
-    className: iconClasses(icon, params),
+    className: params.hclasz ? icon + ' ' + params.class : iconClasses(icon, params),
     attributes: { "aria-hidden": true }
   };
 
@@ -35,6 +35,7 @@ export function iconNode(icon, params) {
   } else {
     return h('i', properties);
   }
+
 }
 
 

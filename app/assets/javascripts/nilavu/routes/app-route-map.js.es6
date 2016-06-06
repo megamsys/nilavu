@@ -14,6 +14,14 @@ export default function() {
     this.route('billing', {
         path: '/billing'
     });
+
+    this.route('marketplaces', {
+        path: '/marketplaces'
+    });
+
+    this.route('storages', {
+        path: '/storages'
+    });
     // Topic routes
     this.route('topic', { path: '/topic' });
     /*this.resource('topic', { path: '/t/:slug/:id' }, function() {

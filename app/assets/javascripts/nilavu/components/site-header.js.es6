@@ -14,7 +14,7 @@ const SiteHeaderComponent = MountWidget.extend({
   dockedHeader: null,
   _topic: null,
 
-  // profileWidget: true,
+  profileWidget: true,
   // classNameBindings: ['editingTopic'],
 
   @observes('currentUser.unread_notifications', 'currentUser.unread_private_messages')
