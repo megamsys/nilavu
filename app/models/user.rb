@@ -14,6 +14,8 @@ class User
   attr_accessor :created_at
   attr_accessor :errors
   attr_accessor :phone
+  attr_accessor :unread_notifications
+  attr_accessor :unread_total_notifications
 
   ADMIN = 'admin'.freeze
 
@@ -149,6 +151,17 @@ class User
       :password_reset_key => @password_reset_key,
       :phone => @phone
     }
+  end
+
+  def reload
+    @unread_notifications = nil
+    @unread_total_notifications = nil
+#    super
+  end
+
+  def publish_notifications_state
+    # publish last notification json with the message so we
+    # can apply an update
   end
 
   private

@@ -60,11 +60,11 @@ export default createWidget('user-notifications', {
 
     const result = [];
     if (state.loading) {
-      result.push(h('div.spinner-container', h('div.spinner')));
+        result.push(h('div.spin.large'));
     } else if (state.notifications.length) {
 
       const notificationItems = state.notifications.map(n => this.attach('notification-item', n));
-      const href = `${attrs.path}/notifications`;
+      const href = `${attrs.path}notifications`;
 
       result.push(h('hr'));
       result.push(h('ul', [

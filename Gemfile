@@ -8,6 +8,22 @@ if rails_master?
   gem 'arel', git: 'https://github.com/rails/arel.git'
   gem 'rails', git: 'https://github.com/rails/rails.git'
 else
+  # Rails 5 is going to ship with Action Cable, we have no use for it as
+  # we are API driven, AC introduces dependencies on Event Machine,
+  # Celluloid and Faye Web Sockets.
+  #
+  # Note this means upgrading Rails is more annoying, to do so, comment out the
+  # explicit dependencies, and add gem 'rails', bundle update rails and then
+  # comment back the explicit dependencies. Leaving this in a comment till we
+  # upgrade to Rails 5
+  #
+  # gem 'activesupport'
+  # gem 'actionpack'
+  # gem 'activerecord'
+  # gem 'actionmailer'
+  # gem 'activejob'
+  # gem 'railties'
+  # gem 'sprockets-rails'
   gem 'rails', '~> 4.2'
 end
 
@@ -58,7 +74,6 @@ gem 'rake'
 
 gem 'rinku'
 gem 'sanitize'
-gem 'sass'
 
 gem 'therubyracer'
 gem 'rack-protection' # security
