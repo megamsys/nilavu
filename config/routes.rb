@@ -18,8 +18,7 @@ Nilavu::Application.routes.draw do
   get "signup" => "static#show", id: "signup"
   get "torpedo.json" => 'cockpits#index', defaults: {format: 'json'}
 
-
-    #session related
+  #session related
   resources :sessions
   get "session/csrf" => "sessions#csrf"
   post "forgot_password" => "sessions#forgot_password"
@@ -53,6 +52,9 @@ Nilavu::Application.routes.draw do
   post "launchers.json" => "launchers#perform_launch"
 
   get "/ssh_keys/edit/:name", to: "ssh_keys#edit"
+
+  get 'notifications' => 'notifications#index'
+  put 'notifications/mark-read' => 'notifications#mark_read'
 
   ##
   get "robots.txt" => "robots_txt#index"

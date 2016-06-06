@@ -141,24 +141,6 @@ en:
       bitnami_description:  'Apps on steroids'
       unikernel_descripiton: 'Just do one thing in a click'
 
-    top_toolbar:
-    signout: "Sign Out"
-    profile: "Profile"
-
-    footer:
-      docs: "Documentation"
-      blog: "Blog"
-      devcenter: "Dev center"
-      forum: "Forum"
-      support: "Support"
-      copyright: "© 2013-2016 megam. All rights reserved."
-
-
-      otp_verified: "Hi %{email}, Thank you for signing up. All transaction details will be sent to this number."
-      created_cephaccount: "Your storage account is activated and ready to use."
-      otp_failure: "Failed. try again."
-      submit: Submit
-
     user:
       said: "{{username}}:"
       profile: "Profile"
@@ -265,9 +247,6 @@ en:
     logout: "You were logged out."
     refresh: "Refresh"
 
-    storages:
-      title: "Storages"
-
     forgot_password:
       title: "Password Reset"
       action: "I forgot my password"
@@ -312,186 +291,6 @@ en:
       facebook:
          title: "with Facebook"
          message: "Authenticating with Facebook (make sure pop up blockers are not enabled)"
-
-    cephlogin:
-      success: "Click <b>buckets</b> to get started"
-      incorrect_email_or_password: "Incorrect access key or secret key"
-      not_activated: "You can't log in yet. We sent an activation email to you. Please follow the instructions in the email to activate your account."
-      active: "Your account is activated and ready to use."
-      activate_email: "<p>You're almost done! We sent an activation mail to <b>%{email}</b>. Please follow the instructions in the email to activate your account.</p><p>If it doesn't arrive, check your spam folder, or try to log in again to send another activation mail.</p>"
-      otpsending: "Sending..."
-
-    cephbuckets:
-      created: "Bucket %{name} created"
-      unable_to_list_buckets: "Your buckets listing failed. Storage is running ?"
-      unable_to_list_bucketfiles: "Your bucket items listing failed. Storage is running ?"
-      bucketfiles_none: "Nothing inside, Try uploading new files."
-      unable_to_create_bucket: "Whoa! couldn't create bucket"
-      destroyed: "Bucket %{name} deleted"
-      unable_to_destroy_bucket: "Whoa! couldn't delete bucket"
-      uploaded: "Uploaded"
-      upload_failure: "Upload failure"
-
-    cockpits:
-      title: "Dashboard"
-      your: " Your "
-      create: " Create "
-      running: " running "
-      manage: " Manage your "
-      start: "Start"
-      stop: "Stop"
-      reboot: "Reboot"
-      restart: "Restart"
-      delete: "Delete"
-      select_repo: "Select your repo"
-      go_to_marketplaces: "Go to marketplace"
-
-    marketplace:
-      title: "Marketplaces"
-      honeypot_title: "{{apps}} & {{services}}"
-      temp_search: "Search"
-      choose_version: "Choose version:"
-      discription: "Description"
-      view_docs: "View Docs"
-      bring_your_own_code: "Bring Your Own Code"
-      choose_your_scm: "Choose your SCM"
-      ssh_list_title: "SSH"
-      ssh_list_create: "Create a new sshkey"
-      ssh_list_exist: "Use your existing sshkey"
-      ssh_list_import: "Import your sshkey"
-      ssh_key_name_title: "SSH keypair name"
-      ssh_key_name_placeholder: "Type a key pair name to save"
-      ssh_exist_title: "Choose your SSH"
-      ssh_exist_content: "You must create or import your sshkeys"
-      ssh_import_privatekey: "Import private key..."
-      ssh_import_publickey: "Import public key..."
-      image_name: "Image Name"
-      image_name_placeholder: "Docker hub image name"
-      launch_item_load_failure: 'Launch item that you clicked failed to load.'
-      launched: "launched successfully."
-      launch_status: "Launched"
-      ram: "RAM"
-      dockers_ram_placeholder: "Enter RAM size in bytes (minimum :5000000)"
-      cpu: "CPU"
-      dockers_cpu_placeholder: "Enter number of CPU (Eg :1)"
-
-
-    ssh_keys:
-      title: "SSH keys"
-      activity: "Activity"
-      import: "Import"
-      action: " Actions "
-      created_at: " Created At "
-      private: "Private"
-      public: "Public"
-      pub: "Pub"
-      create_title: "Create SSH Key Pair"
-      create_info: "Generate a SSH RSA 2048 key pair. Read"
-      info_link: "here"
-      info_end: "for more information."
-      temp_name: "Enter a key pair name to save"
-      create: "Create"
-      import_title: "Import SSH Key Pair"
-      import_info: "Import a SSH RSA 2048 key pair. Read"
-      private_key: "Private key"
-      public_key: "Public key"
-      add_files: "Add files..."
-      upload_key: "Upload private key"
-      upload_pub_key: "Upload public key"
-
-    billing:
-      title: "Billings"
-      total_balance: "Total Balance"
-      promo_code: "Promo Code :"
-      apply: "APPLY"
-      pay_via: "Pay Via"
-      help_center: "HELP CENTER"
-      help_info: "If you need assistance while placing order, contact one of our below support staff  by phone or email."
-      support_mail: "support@megam.io"
-      billing_history: "Billing History :"
-      application: " Application"
-      amount: "Amount"
-      currency: "Currency"
-      timestamp: "Timestamp"
-      paypal: "Pay with Paypal"
-      bit_coin: "Pay using Coinkite, Xapo."
-
-    overviews:
-      operating_system: "OS"
-      available_ram: "Available RAM"
-      available_hdd: "Disk"
-      mb: "MB"
-      ip: "IP"
-      still_launching: "LAUNCHING..."
-      current_sshkey: "SSH key"
-      bind: "Bind"
-      bindservice_title: "Bind Service"
-      url: "URL :"
-      your_container: "Your containers"
-      containers_running: "containers running"
-      runtime: "Runtime"
-
-    myprofile:
-      title: "My profile"
-      account: "My Account"
-      organization: "Organization"
-      api_key: "API key"
-      basic_info: "Basic information"
-      profile_name: "Profile name"
-      phone: "Phone"
-      change: "Change ?"
-      name_placeholder: "Enter text"
-      number_placeholder: "Phone Number"
-      update: "Update"
-      invite: "Invite"
-      change_password: "Change password"
-      current: "Current"
-      retype: "Retype"
-      confirm_newpassword_placeholder: "Confirm new password"
-      new_passsword: "New"
-      organization_info: "Organization Information"
-      users: "Users"
-      domains: "Domains"
-      your_api_ley: "Api Keys"
-
-    organization:
-      name: "Name:"
-      account_name: "Account Name:"
-      all_organization: "All Organizations"
-
-    vm_management:
-      info:
-        tab_title: "info"
-        content_title: "Information"
-        content_id: "Id"
-        content_name: "Name"
-        content_domain: "Domain"
-        content_state: "State"
-        content_host: "Host"
-        content_region: "Region"
-        content_start_time: "Start Time"
-        keys_title: "SshKeys"
-        content_private_sshkey: "Private Key"
-        content_public_sshkey: "Public Key"
-      storage:
-        tab_title: "storage"
-      network:
-        tab_title: "network"
-        content_dns_provider: "DNS Provider"
-        content_public_ip: "Public IP"
-        content_private_ip: "Private IP"
-        content_reattach_ip: "Reattach IP"
-      cpu:
-        tab_title: "cpu"
-        content_cpu_cores: "Cores"
-      ram:
-        tab_title: "ram"
-        content_ram_size: "Size"
-      hdd:
-        tab_title: "hdd"
-        content_hdd_size: "Size"
-      logs:
-        tab_title: "logs"
 
     launcher:
       create: "Virtual Machine"
@@ -538,19 +337,72 @@ en:
       sshoption_create: "Create a new sshkeypair"
       sshoption_old: "Use your existing ssh keypair"
 
-    ok: "OK"
-    cancel: "Cancel"
-    confirm: "Confirm"
-    name: "Name"
+    dashboards:
+      title: "Dashboard"
+
+    marketplaces:
+      title: "Marketplaces"
+
+    ssh_keys:
+      title: "SSH keys"
+
+    storages:
+      title: "Storages"
+
+    billing:
+      title: "Billings"
+      total_balance: "Total Balance"
+      promo_code: "Promo Code :"
+      apply: "APPLY"
+      pay_via: "Pay Via"
+      help_center: "HELP CENTER"
+      help_info: "If you need assistance while placing order, contact one of our below support staff  by phone or email."
+      support_mail: "support@megam.io"
+      billing_history: "Billing History :"
+      application: " Application"
+      amount: "Amount"
+      currency: "Currency"
+      timestamp: "Timestamp"
+      paypal: "Pay with Paypal"
+
+    vm_management:
+      info:
+        tab_title: "info"
+        content_title: "Information"
+        content_id: "Id"
+        content_name: "Name"
+        content_domain: "Domain"
+        content_state: "State"
+        content_host: "Host"
+        content_region: "Region"
+        content_start_time: "Start Time"
+        keys_title: "SshKeys"
+        content_private_sshkey: "Private Key"
+        content_public_sshkey: "Public Key"
+      storage:
+        tab_title: "storage"
+      network:
+        tab_title: "network"
+        content_dns_provider: "DNS Provider"
+        content_public_ip: "Public IP"
+        content_private_ip: "Private IP"
+        content_reattach_ip: "Reattach IP"
+      cpu:
+        tab_title: "cpu"
+        content_cpu_cores: "Cores"
+      ram:
+        tab_title: "ram"
+        content_ram_size: "Size"
+      hdd:
+        tab_title: "hdd"
+        content_hdd_size: "Size"
+      logs:
+        tab_title: "logs"
+
+    notifications:
+      none: "Unable to load notifications at this time."
+      more: "view older notifications"
+
     flunked: "We flunked. "
-    error: "Error"
-    info: "Info!"
-    home: "home page"
-    or: "or"
-    email_us: "Email Us"
-    chat: "Chat now"
-    megamsys: "megamsys"
-    warning: "Warning!"
-    are_you_sure: "Are you sure you want to"
     oops: "Oops... Page Not Found !"
     no_access: "You've hit our mars servers, No Access..."

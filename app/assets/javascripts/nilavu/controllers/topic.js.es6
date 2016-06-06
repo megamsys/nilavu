@@ -29,7 +29,7 @@ export default Ember.Controller.extend(BufferedContent, {
 
   _initPanels: function() {
       this.set('panels', []);
-      this.set('selectedTab', 'info');    
+      this.set('selectedTab', 'info');
   }.on('init'),
 
   infoSelected: function() {

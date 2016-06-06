@@ -8,7 +8,8 @@ import OpenComposer from "nilavu/mixins/open-composer";
 
 const controllerOpts = {
   needs: ['discovery'],
-  showTop: true,
+
+  showTop:true,
   showFooter: true,
   period: null,
 
@@ -23,7 +24,6 @@ const controllerOpts = {
   expandAllPinned: false,
 
   actions: {
-
 
     createTopic() {
       const self = this;
@@ -91,7 +91,7 @@ const controllerOpts = {
       Nilavu.Topic.resetNew().then(() => this.send('refresh'));
     },
 
-    openVMPage: function(topic) {      
+    openVMPage: function(topic) {
       this.container.lookup('controller:application').send("showTopicEntrance", {topic: topic});
       this.transitionToRoute('topic');
     }
