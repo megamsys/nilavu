@@ -29,7 +29,10 @@ var Logs = React.createClass({
   _messageRecieve: function _messageRecieve(message) {
     var messages = this.state.messages;
     var jsonData = JSON.parse(message.data);
-    var log = jsonData.Timestamp + " " + jsonData.Message;
+    var jsonMsg = jsonData.Message
+    var stripData = jsonMsg.slice(0, jsonMsg.length);
+    var obj = JSON.parse(stripData)
+    var log = jsonData.Timestamp + " " + obj.Message;
     messages.push(log);
     this.setState({
       messages: messages
