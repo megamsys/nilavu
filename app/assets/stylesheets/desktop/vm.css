@@ -49,6 +49,10 @@
   margin-left: -15px;
 }
 
+.info-center {
+  margin: auto;
+}
+
 .info .bottomborder {
   border-bottom: 1px solid #ccc;
 }
@@ -59,6 +63,19 @@
 }
 
 .info table {
+  margin-top: 15px;
+}
+
+.info-center {
+  padding-bottom: 50px;
+}
+
+.info-center table td {
+  padding-right: 30px;
+  padding-bottom: 10px;
+}
+
+.info-center table {
   margin-top: 15px;
 }
 

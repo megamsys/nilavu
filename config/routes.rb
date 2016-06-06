@@ -60,5 +60,8 @@ Nilavu::Application.routes.draw do
 
   root to: 'cockpits#entrance', :as => "entrance"
 
+  #Metrics
+  match '/metrics/:type', to: "metrics#get", via: [:get]
+
   get "*url", to: 'permalinks#show', constraints: PermalinkConstraint.new
 end

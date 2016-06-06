@@ -35,6 +35,8 @@ gem 'multi_json'
 gem 'mustache'
 gem 'nokogiri'
 
+gem 'rest-client'
+
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-github'

@@ -1,8 +1,16 @@
-<div class="col-md-6 info">
-    <table>
-      <tr>
-        <td><h5><b>{{content_cpu_cores}}</b></h5></td>
-        <td>{{model.cpu_cores}}</td>
-      </tr>
-    </table>
+<div class="row">
+    <div class="col-md-6 info-center">
+        <table>
+            <tr>
+                <td>
+                    <h5><b>{{content_cpu_cores}}</b></h5></td>
+                <td>{{model.cpu_cores}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 info">
+        {{chart-cpu ip=model.publicIP}}
+    </div>
 </div>
