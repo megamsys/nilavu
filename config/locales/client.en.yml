@@ -220,6 +220,7 @@ en:
     ip: "IP"
     still_launching: "LAUNCHING..."
     current_sshkey: "SSH key"
+    vnc: "VNC"
     bind: "Bind"
     bindservice_title: "Bind Service"
     url: "URL :"

@@ -1,4 +1,7 @@
 <div class="col-sm-3 storage-rt-list">
+  <input  type="hidden" id="vncHost"  name="host" value="<%= @deployed.get_vnchost %>">
+  <input type="hidden"  id="vncPort" name="port" value="<%= @deployed.get_vncport %>">
+
   <dl>
     <h3>Usage</h3>
     <dt>
@@ -43,10 +46,11 @@
       </dd>
       <dt class="margin-top-20"></dt>
       <dt>
-        VNC URL
+      VNC URL
       </dt>
       <dd>
-        <%= link_to "#{@deployed.vnc}", "#{@deployed.vnc}", :target => '_blank' %>
+         <a  data-toggle="modal" href="<%= GlobalSetting.vnc_server %>"  id="vncid" class="pull-left"><u class="colr-denimblue"><%= t('overviews.vnc') %></u></a>
+         <br>
       </dd>
       <dt class="margin-top-20"></dt>
       <dt>
@@ -81,3 +85,6 @@
       </dd>
     </dl>
   </div>
+<!--<%= render :partial => "deploys/vnc_modal" %>-->
+<script src="assets/vncapp.js" />
+<script type="text/javascript">

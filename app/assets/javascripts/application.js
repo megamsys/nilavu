@@ -40,4 +40,7 @@
 //= require jquery.fileupload
 //= require zeroclipboard
 //= require toastr_rails
+//= require vncapp
+//= require Screen
+//= require Client
 //= require_tree .

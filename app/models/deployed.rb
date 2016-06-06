@@ -37,6 +37,18 @@ class Deployed
     end
   end
 
+  def get_vnchost
+    if domain_input = select_from(@output, :vnchost)
+      domain_input.first[:value] if domain_input.first
+    end
+  end
+
+  def get_vncport
+    if domain_input = select_from(@output, :vncport)
+      domain_input.first[:value] if domain_input.first
+    end
+  end
+
 def dockerhostip
 if @assembly.tosca_type == "tosca.microservices.dockercontainer"
  return  @ips && @ips.hostip
