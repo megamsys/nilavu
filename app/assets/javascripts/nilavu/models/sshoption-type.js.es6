@@ -9,6 +9,9 @@ const SSHOptionType = Nilavu.Model.extend({
         key = "create";
         break;
       case 3:
+        key = "pwd";
+        break;
+      case 4:
         key = "import";
         break;
     }
@@ -18,6 +21,7 @@ const SSHOptionType = Nilavu.Model.extend({
 
 SSHOptionType.OLD = 1;
 SSHOptionType.CREATE = 2;
-SSHOptionType.IMPORT = 3;
+SSHOptionType.PWD = 3;
+SSHOptionType.IMPORT = 4;
 
 export default SSHOptionType;

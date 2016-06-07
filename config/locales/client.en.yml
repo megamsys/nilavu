@@ -315,6 +315,7 @@ en:
       fedora: "Fedora"
       windows: "Windows"
       snapshots: "Snapshots"
+      version_not_found: "None"
       selecting: "next"
       launch: "launch"
       saving: "launching"
