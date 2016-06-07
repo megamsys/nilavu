@@ -106,7 +106,7 @@ const Topic = RestModel.extend({
   }.property(),
 
   publicIP: function() {
-    return "138.201.78.194"
+    return "138.201.98.30"
     //return this._filterInputs("publicipv4");
   }.property(),
 

@@ -1,11 +1,12 @@
 import {
     popupAjaxError
 } from 'nilavu/lib/ajax-error';
+import { on, observes } from 'ember-addons/ember-computed-decorators';
 export default Ember.Component.extend({
 
     didInsertElement: function() {
-        this.getMachineInfo();
-        this.startRefreshing();
+        //this.getMachineInfo();
+        //this.startRefreshing();
     },
 
     willDestroyElement: function() {
@@ -17,10 +18,18 @@ export default Ember.Component.extend({
         Em.run.later(this, this.refresh, 300);
     },
 
+    @observes('selectedTab')
+    tabChanged() {    
+      if (Ember.isEqual(this.get('selectedTab'), "ram")) {
+        this.getMachineInfo();
+        this.startRefreshing();
+      };
+    },
+
     refresh: function() {
-        if (!this.get('refreshing'))
+        if (!Ember.isEqual(this.get('selectedTab'), "ram"))
             return;
-        this.getMetrics()
+        this.getMetrics();
         Em.run.later(this, this.refresh, 300);
     },
 

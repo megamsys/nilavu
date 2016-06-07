@@ -1,14 +1,21 @@
 import {
     popupAjaxError
 } from 'nilavu/lib/ajax-error';
+import { on, observes } from 'ember-addons/ember-computed-decorators';
 export default Ember.Component.extend({
 
     didInsertElement: function() {
+        //this.startRefreshing();
+    },
+
+    @observes('selectedTab')
+    tabChanged() {    
+      if (Ember.isEqual(this.get('selectedTab'), "network")) {
         this.startRefreshing();
+      };
     },
 
     willDestroyElement: function() {
-        alert("move");
         this.set('refreshing', false);
     },
 
@@ -18,9 +25,9 @@ export default Ember.Component.extend({
     },
 
     refresh: function() {
-        if (!this.get('refreshing'))
+        if (!Ember.isEqual(this.get('selectedTab'), "network"))
             return;
-        this.getMetrics()
+        this.getMetrics();
         Em.run.later(this, this.refresh, 300);
     },
 

@@ -370,6 +370,9 @@ en:
       info:
         tab_title: "info"
         content_title: "Information"
+        content_hdd_title: "HDD"
+        content_cpu_title: "Cpu"
+        content_ram_title: "RAM"
         content_id: "Id"
         content_name: "Name"
         content_domain: "Domain"
@@ -377,9 +380,7 @@ en:
         content_host: "Host"
         content_region: "Region"
         content_start_time: "Start Time"
-        keys_title: "SshKeys"
-        content_private_sshkey: "Private Key"
-        content_public_sshkey: "Public Key"
+        content_hdd_size: "Size"
       storage:
         tab_title: "storage"
       network:
@@ -394,11 +395,24 @@ en:
       ram:
         tab_title: "ram"
         content_ram_size: "Size"
-      hdd:
-        tab_title: "hdd"
-        content_hdd_size: "Size"
+      keys:
+        tab_title: "keys"
+        content_name: "Name"
+        keys_title: "SshKeys"
+        content_private_sshkey: "Private Key"
+        content_public_sshkey: "Public Key"
       logs:
         tab_title: "logs"
+
+    logs:
+      all:
+        tab_title: "all"
+      actions:
+        tab_title: "actions"
+      warnings:
+        tab_title: "warnings"
+      errors:
+        tab_title: "errors"
 
     notifications:
       none: "Unable to load notifications at this time."

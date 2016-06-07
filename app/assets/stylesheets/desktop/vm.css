@@ -84,3 +84,9 @@
   margin-right: 0.2rem;
   box-shadow: 0 2px 5px 1px rgba(0,0,0,0.1);
 }
+
+.link-icons {
+  font-family: proxima_nova_light, proxima_nova_rg,"Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #6e7181;
+  font-style: normal;
+}

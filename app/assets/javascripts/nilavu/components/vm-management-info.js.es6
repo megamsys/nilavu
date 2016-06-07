@@ -8,8 +8,16 @@ export default buildCategoryPanel('info', {
     return I18n.t("vm_management.info.content_title");
   }.property(),
 
-  keys_title: function() {
-    return I18n.t("vm_management.info.keys_title");
+  hdd_title: function() {
+    return I18n.t("vm_management.info.content_hdd_title");
+  }.property(),
+
+  cpu_title: function() {
+    return I18n.t("vm_management.info.content_cpu_title");
+  }.property(),
+
+  ram_title: function() {
+    return I18n.t("vm_management.info.content_ram_title");
   }.property(),
 
   content_id: function() {
@@ -40,25 +48,17 @@ export default buildCategoryPanel('info', {
     return I18n.t("vm_management.info.content_start_time");
   }.property(),
 
-  content_sshkey_name: function() {
-    return I18n.t("vm_management.info.content_name");
+  content_hdd_size: function() {
+    return I18n.t("vm_management.info.content_hdd_size");
   }.property(),
 
-  content_private_sshkey: function() {
-    return I18n.t("vm_management.info.content_private_sshkey");
+  content_cpu_cores: function() {
+    return I18n.t("vm_management.cpu.content_cpu_cores");
   }.property(),
 
-  content_public_sshkey: function() {
-    return I18n.t("vm_management.info.content_public_sshkey");
+  content_ram_size: function() {
+    return I18n.t("vm_management.ram.content_ram_size");
   }.property(),
-
-  actions: {
-
-    privatekey_download(key) {
-      this.get('model').privatekey_download(key);
-    }
-
-  }
 
 
 });
