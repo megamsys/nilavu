@@ -59,6 +59,7 @@ const controllerOpts = {
       return false;
     },
 
+    // Awesome, don't know where this is called but used after we launch.
     refresh() {
       const filter = this.get('model.filter');
 
@@ -76,7 +77,6 @@ const controllerOpts = {
         TopicList.hideUniformCategory(list, this.get('category'));
 
         this.setProperties({ model: list });
-        this.resetSelected();
 
         if (this.topicTrackingState) {
           this.topicTrackingState.sync(list, filter);

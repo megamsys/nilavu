@@ -150,6 +150,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
                   self.set('saving', false);
                   self.send('closeModal');
 
+                NilavuURL.routeTo('/');
               //NilavuURL.redirectTo("/c/" + Nilavu.Category.slugFor(model));
               }).catch(function(error) {
                 alert("error is ="+ error);
