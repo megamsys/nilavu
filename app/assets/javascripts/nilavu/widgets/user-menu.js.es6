@@ -5,62 +5,36 @@ createWidget('user-menu-links', {
   tagName: 'div.menu-links-header',
 
   html(attrs) {
-    const { currentUser, siteSettings } = this;
-
-    const isAnon = currentUser.is_anonymous;
-    const allowAnon = siteSettings.allow_anonymous_posting &&
-                      currentUser.trust_level >= siteSettings.anonymous_posting_min_trust_level ||
-                      isAnon;
+    const { currentUser } = this;
 
     const path = attrs.path;
-    const glyphs = [{ label: 'user.bookmarks',
-                      className: 'user-bookmarks-link',
-                      icon: 'bookmark',
-                      href: `${path}/activity/bookmarks` }];
-
-    if (siteSettings.enable_private_messages) {
-      glyphs.push({ label: 'user.private_messages',
-                    className: 'user-pms-link',
-                    icon: 'envelope',
-                    href: `${path}/messages` });
-    }
 
     const profileLink = {
       route: 'user',
       model: currentUser,
-      className: 'user-activity-link',
+      className: 'user-profile-link',
       icon: 'user',
-      rawLabel: currentUser.username
+      rawLabel: I18n.t('user.profile')
     };
 
-    if (currentUser.is_anonymous) {
-      profileLink.label = 'user.profile';
-      profileLink.rawLabel = null;
-    }
-
     const links = [profileLink];
-    if (allowAnon) {
-      if (!isAnon) {
-        glyphs.push({ action: 'toggleAnonymous',
-                      label: 'switch_to_anon',
-                      className: 'enable-anonymous',
-                      icon: 'user-secret' });
-      } else {
-        links.push({ className: 'disable-anonymous',
-                     action: 'toggleAnonymous',
-                     label: 'switch_from_anon' });
-      }
-    }
+
+    const glyphs = [];
+    
+    /*const glyphs = [{ label: 'user.bookmarks',
+                      className: 'user-bookmarks-link',
+                      icon: 'bookmark',
+                      href: `${path}bookmarks`}];
 
     // preferences always goes last
-    glyphs.push({ label: 'user.preferences',
-                  className: 'user-preferences-link',
-                  icon: 'gear',
-                  href: `${path}/preferences` });
-
+    glyphs.push({ label: 'user.settings',
+                  className: 'user-settings-link',
+                  icon: 'cog',
+                  href: `${path}settings`});
+    */
     return h('ul.menu-links-row', [
              links.map(l => h('li', this.attach('link', l))),
-             h('li.glyphs', glyphs.map(l => this.attach('link', $.extend(l, { hideLabel: true })))),
+             h('li.glyphs.disabled', glyphs.map(l => this.attach('link', $.extend(l, { hideLabel: true })))),
             ]);
   }
 });

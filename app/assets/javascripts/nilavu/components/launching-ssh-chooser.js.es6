@@ -24,9 +24,9 @@ export default Ember.Component.extend({
     },
 
     showOldPairs: function() {
-        if (this.selectedSSHOption == SSHOptionType.CREATE) return false;
+        if (this.selectedSSHOption == SSHOptionType.OLD) return true;
 
-        return true;
+        return false;
     }.property('category.summarizing.sshs', 'category.keypairoption'),
 
     oldPairs: function() {

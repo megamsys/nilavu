@@ -16,47 +16,38 @@
 
 class LaunchersController < ApplicationController
 
-  respond_to :js
+    respond_to :js
 
-  before_action :add_authkeys_for_api, only: [:launch, :perform_launch]
+    before_action :add_authkeys_for_api, only: [:launch, :perform_launch]
 
-  def launch
-    @launch_item = HoneyPot.cached_marketplace_by_item(params)
-    unless @launch_item
-      render_with_error('marketplace.launch_item_load_failure')
+    def launch
+        @launch_item = HoneyPot.cached_marketplace_by_item(params)
+        unless @launch_item
+            render_with_error('marketplace.launch_item_load_failure')
+        end
+
+        respond_to do |format|
+            format.js do
+                respond_with(@launch_item, layout: !request.xhr?)
+            end
+        end
     end
 
-    respond_to do |format|
-      format.js do
-        respond_with(@launch_item, layout: !request.xhr?)
-      end
+    def perform_launch
+        params.require(:version)
+        params.require(:mkp_name)
+        params.require(:assemblyname)
+
+        vertice = VerticeLauncher.new(LaunchingItem.new(params))
+
+        if vertice.launch
+            #  Scheduler::Defer.later "Log launch action for" do
+            #    @nilavu_event_logger.log_launched(@launched)
+            #  end
+            render json: vertice.launched
+        else
+            render_json_error(vertice.launched)
+        end
     end
-  end
-
-  def perform_launch
-    params.require(:version)
-    params.require(:mkp_name)
-    params.require(:assemblyname)
-    puts "----------"
-    puts params.inspect
-    ll = LaunchingItem.new(params)
-
-    puts " launcahble item"
-    puts ll.inspect
-    puts "------------------"
-
-    #vertice = VerticeLauncher.new(LaunchableItem.new(params))
-
-    #if vertice.launch(params)
-      #  Scheduler::Defer.later "Log launch action for" do
-      #    @nilavu_event_logger.log_launched(@launched)
-      #  end
-    #  redirect_with_success(cockpits_path, "launch.success", vertice.launched_message)
-    # render json:
-    #else
-    #  redirect_with_failure(cockpits_path, "errors.launch_error",vertice.launched_message)
-    # render json:
-    #end
-  end
 
 end

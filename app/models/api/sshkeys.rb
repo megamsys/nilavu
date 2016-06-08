@@ -17,10 +17,10 @@
 module Api
   class Sshkeys < ApiDispatcher
 
-    IMPORT   = 'IMPORT'.freeze
-    NEW      = 'NEW'.freeze
-    OLD      = 'OLD'.freeze
-    PWD      = 'PWD'.freeze
+    OLD      = '1'.freeze
+    CREATE   = '2'.freeze
+    PWD      = '3'.freeze
+    IMPORT   = '4'.freeze
 
     attr_accessor :ssh_keys
 
@@ -50,7 +50,7 @@ module Api
     end
 
     ## rescue and raise as an error.
-    def download(api_params)    
+    def download(api_params)
       File.open(File.basename(api_params[:download_location]), 'wb') do |file|
           file.write(api_params["data"])
       end

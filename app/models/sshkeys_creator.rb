@@ -24,7 +24,7 @@ class SSHKeysCreator
   private
 
   def skip_new_keypair?
-    @keypairoption.include?(Api::Sshkeys::USEOLD || Api::Sshkeys::PWD)
+    @keypairoption.include?(Api::Sshkeys::OLD || Api::Sshkeys::PWD)
   end
 
   def keypairname

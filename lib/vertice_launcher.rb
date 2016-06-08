@@ -1,7 +1,7 @@
 require 'sshkeys_creator'
 class VerticeLauncher
 
-  attr_reader :launch_params, :ssh_params
+  attr_accessor :launch_params, :ssh_params
 
   def initialize(launch_item)
     @launch_params = launch_item.to_h
@@ -9,30 +9,27 @@ class VerticeLauncher
   end
 
   def set_sshkey
-    SSHKeysCreator.new(ssh_params).save
-    launch_params[:sshkey] = ssh_params[:sshkey]
+    SSHKeysCreator.new(@ssh_params).save
+    @launch_params[:sshkey] = @ssh_params[:sshkey]
   end
 
   def launch
     raise Nilavu::NotFound  unless set_sshkey
 
-    ensure_settings_are_ok(launch_parms)
+    ensure_settings_are_ok(@launch_params)
 
-    Api::Assemblies.new.create(launch_parms)
+    Api::Assemblies.new.create(@launch_params)
   end
 
-  def ensure_settings_are_ok(launch_parms)
-    puts "----------- launching settings ===="
-    puts launch_params.inspect
-    puts "======================================="
+  def ensure_settings_are_ok(lp)
       [:mkp_name, :version, :cattype, :assemblyname, :componentname, :region, :resource,
        :sshkey, :keypairoption, :provider, :cpu, :ram, :hdd].each do |setting|
-        raise Nilavu::InvalidParameters unless launch_parms[setting]
+        raise Nilavu::InvalidParameters unless lp[setting]
       end
   end
 
   def launched
-    {name: launch_params[:mkp_name], stuff: launch_params[:cattype], provider: launch_params[:provider]}
+    {name: @launch_params[:mkp_name], stuff: @launch_params[:cattype], provider: @launch_params[:provider]}
   end
 
 end

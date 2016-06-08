@@ -10,6 +10,12 @@ export default {
 
     this.resource('adminReports', { path: '/reports/:type' });
 
+
+    this.resource('adminFlags', { path: '/flags' }, function() {
+      this.route('list', { path: '/:filter' });
+    });
+
+
     this.resource('adminUsers', { path: '/users' }, function() {
       this.resource('adminUser', { path: '/:user_id/:username' }, function() {
         this.route('badges');

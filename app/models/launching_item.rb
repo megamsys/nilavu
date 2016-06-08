@@ -11,18 +11,22 @@ class LaunchingItem
     attr_accessor :resource, :resourceunit, :storagetype
     attr_accessor :oneclick, :options, :envs
     attr_accessor :ipv6, :privnetwork
+    attr_accessor :scm_name, :scmtoken, :scmowner #historical keys, not changing them.
+
 
     ONE              = 'one'.freeze
     DOCKER           = 'docker'.freeze
 
     def initialize(launching_params)
         [:email, :api_key, :org_id, :mkp_name, :version, :cattype,
-         :assemblyname, :domain, :keypairname, :keypairoption,
-         :region, :resource, :resourceunit, :storagetype,
-         :oneclick, :ipv6, :privnetwork].each do |setting|
+            :assemblyname, :domain, :keypairname, :keypairoption,
+            :region, :resource, :resourceunit, :storagetype,
+        :oneclick, :ipv6, :privnetwork].each do |setting|
             raise Nilavu::InvalidParameters unless launching_params[setting]
             self.send("#{setting}=",launching_params[setting])
         end
+
+        optionals(launching_params)
 
         ensure_unit_is_flavourized
     end
@@ -31,18 +35,8 @@ class LaunchingItem
         @componentname ||= /\w+/.gen.downcase
     end
 
-    def token
-        session[:authentication][:token]
-    end
-
-    alias has_token? token
-
     def has_docker?
         ## this has to be based on cattype.
-        puts "------------ hasDocker ? "
-        puts cattype.inspect
-        puts Api::Assemblies::DOCKERCONTAINER.inspect
-        puts "--------------------------------------"
         cattype.include? Api::Assemblies::DOCKERCONTAINER
     end
 
@@ -76,11 +70,9 @@ class LaunchingItem
             envs: envs,
             provider: provider
         }
-        puts "----------------- launching item"
-        puts res.inspect
-        puts "--------------------------------------"
         # i am not sure if this needed, since the data will come from ember
-        set_token(res)
+        set_git(res)
+        res
     end
 
 
@@ -90,25 +82,30 @@ class LaunchingItem
 
     private
 
+    def optionals(launching_params)
+        [:scm_name, :scmtoken, :scmowner].each do |setting|
+            self.send("#{setting}=",launching_params[setting]) unless launching_params[setting]
+        end
+    end
+
     def ensure_unit_is_flavourized
         # return NOBlahError if !@resourceunit
 
         @flavor ||= FavourizeItem.new(@resourceunit)
     end
 
-
     def ensure_provider
         where_to ||= DOCKER
     end
 
     def provider
-        return ONE if !@launch_item.has_docker?
+        return ONE if !has_docker?
         ensure_provider
     end
 
-    def set_token(params)
-        if has_token?
-            params[:scm_token] = @launch_item.token
-        end
+    def set_git(params)
+        params[:scm_name] = scm_name if scm_name
+        params[:scmtoken] = scmtoken if scmtoken
+        params[:scmowner] = scmowner if scmowner
     end
 end
