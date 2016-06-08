@@ -6,8 +6,11 @@ import computed from 'ember-addons/ember-computed-decorators';
 
 export function loadTopicView(topic, args) {
   const topicId = topic.get('id');
+
   const data = _.merge({}, args);
+
   const url = Nilavu.getURL("/t/") + topicId;
+
   const jsonUrl = (data.nearPost ? `${url}/${data.nearPost}` : url) + '.json';
 
   delete data.nearPost;
@@ -15,7 +18,7 @@ export function loadTopicView(topic, args) {
   delete data.store;
 
   return PreloadStore.getAndRemove(`topic_${topicId}`, () => {
-    return Nilavu.ajax(jsonUrl, {data});
+      return Nilavu.ajax(jsonUrl, {data});
   }).then(json => {
     topic.updateFromJson(json);
     return json;
@@ -28,28 +31,15 @@ const Topic = RestModel.extend({
   privatekey_url: null,
   publickey_url: null,
 
-  @computed('posters.firstObject')
-  creator(poster){
-    return poster && poster.user;
-  },
-
-  @computed('posters.@each')
-  lastPoster(posters) {
-    var user;
-    if (posters && posters.length > 0) {
-      const latest = posters.filter(p => p.extras && p.extras.indexOf("latest") >= 0)[0];
-      user = latest && latest.user;
+  url: function() {
+    let slug = this.get('slug') || '';
+    if (slug.trim().length === 0) {
+      slug = "topic";
     }
-    return user || this.get("creator");
-  },
+    return Nilavu.getURL("/t/")  + (this.get('id'));
+  }.property('id', 'slug'),
 
-  @computed('fancy_title')
-  fancyTitle(title) {
-    title = title || "";
-    return Nilavu.CensoredWords.censor(title);
-  },
-
-  // returns createdAt if there's no bumped date
+    // returns createdAt if there's no bumped date
   bumpedAt: function() {
     const bumpedAt = this.get('bumped_at');
     if (bumpedAt) {
@@ -433,6 +423,7 @@ const Topic = RestModel.extend({
   },
 
   reload() {
+    alert("Reload topic");
     const self = this;
     return Nilavu.ajax('/t/' + this.get('id'), { type: 'GET' }).then(function(topic_json) {
       self.updateFromJson(topic_json);

@@ -12,7 +12,6 @@ export default {
     site.get('filters').forEach(filter => {
       const filterCapitalized = filter.capitalize();
       app[`Discovery${filterCapitalized}Controller`] = DiscoverySortableController.extend();
-
       app[`Discovery${filterCapitalized}Route`] = buildTopicRoute(filter);
 
     });

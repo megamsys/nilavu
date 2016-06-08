@@ -123,7 +123,7 @@ const TopicRoute = Nilavu.Route.extend({
   },
 
   setupParams(topic, params) {
-    const postStream = topic.get('postStream');
+    /*const postStream = topic.get('postStream');
     postStream.set('summary', Em.get(params, 'filter') === 'summary');
     postStream.set('show_deleted', !!Em.get(params, 'show_deleted'));
 
@@ -133,23 +133,21 @@ const TopicRoute = Nilavu.Route.extend({
     userFilters.clear();
     if (!Em.isEmpty(usernames) && usernames !== 'undefined') {
       userFilters.addObjects(usernames.split(','));
-    }
-
+    }*/
     return topic;
   },
 
-  model() {
-    const topicController = this.controllerFor('topic');
-    return topicController.get('model');
-    //const queryParams = transition.queryParams;
-    /*let topic = this.modelFor('topic');
+  model(params, transition) {
+    const queryParams = transition.queryParams;
+    let topic = this.modelFor('topic');
     if (topic && (topic.get('id') === parseInt(params.id, 10))) {
-    //  this.setupParams(topic, queryParams);
+      this.setupParams(topic, queryParams);
       return topic;
     } else {
       topic = this.store.createRecord('topic', _.omit(params, 'username_filters', 'filter'));
-    //  return this.setupParams(topic, queryParams);
-  }*/
+      return this.setupParams(topic, queryParams);
+    }
+
   },
 
   activate() {

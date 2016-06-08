@@ -27,9 +27,6 @@ module VerticeResource
       Rails.logger.debug "No api #{jlaz}.#{jmethod} found."
       fail Nilavu::NotFound
     end
-    puts "--------- jpaarams"
-    puts jparams.inspect
-    puts "----------------------------  "
     api_jlaz.send(jmethod, jparams)
   end
 

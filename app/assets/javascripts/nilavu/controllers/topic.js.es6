@@ -28,6 +28,7 @@ export default Ember.Controller.extend(BufferedContent, {
   panels: null,
 
   _initPanels: function() {
+      alert("Initializing TOPIC CONTROLLER");
       this.set('panels', []);
       this.set('selectedTab', 'info');
   }.on('init'),

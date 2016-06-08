@@ -44,7 +44,6 @@ Nilavu::Application.routes.draw do
   get "launchables/pools/:group_name.json" => "launchables#prepare", as: "launchables_pools_group", constraints: {
     group_name: GROUPNAME_ROUTE_FORMAT
   }
-
   get "launchables/summary.json" => "launchables#summarize", as: "launchables_summarize"
 
   ##
@@ -53,8 +52,14 @@ Nilavu::Application.routes.draw do
 
   get "/ssh_keys/edit/:name", to: "ssh_keys#edit"
 
+  # Topics resource
+  get "t/:id" => "topics#show"
+  put "t/:id" => "topics#update"
+  delete "t/:id" => "topics#destroy"
+
   get 'notifications' => 'notifications#index'
   put 'notifications/mark-read' => 'notifications#mark_read'
+
 
   ##
   get "robots.txt" => "robots_txt#index"

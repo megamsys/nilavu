@@ -337,6 +337,8 @@ en:
       select_duplicate: "Duplicate"
       sshoption_create: "Create a new sshkeypair"
       sshoption_old: "Use your existing ssh keypair"
+      launched: "Launched "
+      not_launched: "Not launched"
 
     dashboards:
       title: "Dashboard"

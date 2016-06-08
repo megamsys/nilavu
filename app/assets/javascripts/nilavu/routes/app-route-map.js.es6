@@ -22,30 +22,14 @@ export default function() {
     this.route('storages', {
         path: '/storages'
     });
+
     // Topic routes
-    this.route('topic', { path: '/topic' });
-    /*this.resource('topic', { path: '/t/:slug/:id' }, function() {
+    this.resource('topic', { path: '/t/:id' }, function() {
       this.route('fromParams', { path: '/' });
       this.route('fromParamsNear', { path: '/:nearPost' });
-    });*/
-    this.resource('topicBySlug', {
-        path: '/t/:slug'
-    });
-    this.route('topicUnsubscribe', {
-        path: '/t/:slug/:id/unsubscribe'
     });
 
-    this.resource('topicBySlug', {
-        path: '/t/:slug'
-    });
-    this.route('topicUnsubscribe', {
-        path: '/t/:slug/:id/unsubscribe'
-    });
-
-
-    this.resource('discovery', {
-        path: '/'
-    }, function() {
+    this.resource('discovery', {  path: '/' }, function() {
         // top
         this.route('top');
 
@@ -53,6 +37,12 @@ export default function() {
         this.route(Nilavu.Utilities.defaultHomepage(), {
             path: '/'
         });
+
+        // filters
+        Nilavu.Site.currentProp('filters').forEach(filter => {
+          this.route(filter, { path: '/' + filter });
+        });
+
     });
 
 

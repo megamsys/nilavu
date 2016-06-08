@@ -74,8 +74,6 @@ class ApiDispatcher
     rescue Megam::API::Errors::ErrorWithResponse => m
        raise_api_errors(ApiDispatcher::Flunked.new(m))
     rescue StandardError => se
-      puts se.inspect
-      puts "-----------------------"
       raise ApiDispatcher::NotReached
     end
   end
