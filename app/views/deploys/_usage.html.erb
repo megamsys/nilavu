@@ -81,7 +81,7 @@
       </dt>
       <dd>
         <%= link_to @deployed.sshkey,
-      edit_ssh_key_path(:id => @deployed.fullsshkey), :class => "hint  hint--bottom", :target => "_self", 'data-hint' => "Click here to download private key" %>
+      ssh_key_path(:name => @deployed.sshkey), :class => "hint  hint--bottom", :target => "_self", 'data-hint' => "Click here to download private key" %>
       </dd>
     </dl>
   </div>

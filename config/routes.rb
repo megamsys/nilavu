@@ -53,6 +53,4 @@ Nilavu::Application.routes.draw do
 #Metrics
  get '/metrics/:type' => 'metrics#get'
 
-
-
 end

@@ -49,6 +49,16 @@ module Api
       @ssh_keys = to_hash(raw[:body]) unless raw.nil?
     end
 
+    def show(api_params)
+      raw = api_request(SSHKEYS, SHOW,api_params)
+      ssh = to_hash(raw[:body]) unless raw.nil?
+   end
+
+   def send_data(data, options = {}) #:doc:
+     send_file_headers! options
+     render options.slice(:status, :content_type).merge(:text => data)
+   end
+
     ## rescue and raise as an error.
     def download(api_params)
       File.open(File.basename(api_params[:download_location]), 'wb') do |file|
