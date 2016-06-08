@@ -31,7 +31,10 @@ class SshKeysController < ApplicationController
   end
 
  def show
-  Api::Sshkeys.new.show(params)
+  ssh = Api::Sshkeys.new.show(params)
+  if ssh
+     send_data ssh.first[:privatekey]
+  end
  end
 
   ## this downloads a key
