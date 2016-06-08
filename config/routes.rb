@@ -53,6 +53,7 @@ Nilavu::Application.routes.draw do
 #Metrics
  get '/metrics/:type' => 'metrics#get'
 
-
+ #get 'ssh_keys/:name' => 'ssh_keys#get'
+  # match '/sshkeys/:name', to: "sshkeys#get", via: [:get]
 
 end
