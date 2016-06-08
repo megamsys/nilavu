@@ -7,18 +7,19 @@
                 <div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset">
                     <input id="log-filter" placeholder="Filter..." type="text">
                 </div>
-                <fieldset class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all">
+                <div class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all">
                       <ul class="tabs">
                         {{log-tab logPanels=logPanels logSelectedTab=logSelectedTab logTab="all"}}
                         {{log-tab logPanels=logPanels logSelectedTab=logSelectedTab logTab="actions"}}
                         {{log-tab logPanels=logPanels logSelectedTab=logSelectedTab logTab="warnings"}}
                         {{log-tab logPanels=logPanels logSelectedTab=logSelectedTab logTab="errors"}}
                     </ul>
-                </fieldset>
+                </div>
+                <div class="logs-datas">
                 {{#each logPanels as |logTab|}}
                     {{component logTab logSelectedTab=logSelectedTab}}
                 {{/each}}
-
+              </div>
                 <div class="no-logs"></div>
             </div>
         </div>

@@ -29,7 +29,6 @@
     font-weight: normal;
     text-decoration: none;
     text-align: center;
-    text-transform: capitalize;
     line-height: 2;
     cursor: pointer;
     -webkit-transition: all 0.5s; /* Safari 3.1 to 6.0 */

@@ -1,112 +1,98 @@
-<ul class="ui-listview">
+<ul class="ui-listview" id="accordion" role="tablist" aria-multiselectable="true">
     <li style="display: block;">
+      {{#accordion-panel data-toggle="collapse" data-parent="#accordion" data-href="#collapseOne" data-aria-expanded="true" data-aria-controls="collapseOne"}}
         <a class="ui-btn error">
             <div class="ui-grid-b">
-                <span class=""></span>
                 <div class="ui-block-a">
-                    <span class=""></span>
-                    <div>
-                        <span class="">Restart
-									<!----></span>
-                    </div><span class=""></span>
+                    <span class="">Restart</span>
                 </div>
                 <div class="ui-block-b">
-                    <span class=""></span>
                     <div class="tag tag-request">
                         <span class="">request</span>
                     </div>
-                    <!---->
                 </div>
                 <div class="ui-block-c">
-                    <span class=""></span>
                     <div class="time">
                         <span class="">36 secs ago</span>
                     </div>
                 </div>
             </div>
         </a>
+        {{/accordion-panel}}
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <p>Restart panel</p>
+        </div>
     </li>
-
     <li style="display: block;">
-        <a class="ui-btn">
+      {{#accordion-panel data-toggle="collapse" data-parent="#accordion" data-href="#collapseTwo" data-aria-expanded="true" data-aria-controls="collapseTwo"}}
+        <a class="ui-btn error">
             <div class="ui-grid-b">
-                <span class=""></span>
                 <div class="ui-block-a">
-                    <span class=""><!----></span>
-                    <div>
-                        <span class="">Snapshot Server<!----></span>
-                    </div><span class=""></span>
+                    <span class="">Restart</span>
                 </div>
                 <div class="ui-block-b">
-                    <span class=""></span>
-                    <div class="tag tag-session">
-                        <span class="">session</span>
+                    <div class="tag tag-request">
+                        <span class="">request</span>
                     </div>
-                    <!---->
                 </div>
                 <div class="ui-block-c">
-                    <span class=""></span>
+                    <div class="time">
+                        <span class="">36 secs ago</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+        {{/accordion-panel}}
+        <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <p>Restart Panel</p>
+        </div>
+    </li>
+    <li style="display: block;">
+      {{#accordion-panel data-toggle="collapse" data-parent="#accordion" data-href="#collapseThree" data-aria-expanded="true" data-aria-controls="collapseThree"}}
+        <a class="ui-btn error">
+            <div class="ui-grid-b">
+                <div class="ui-block-a">
+                    <span class="">Snapshot Server</span>
+                </div>
+                <div class="ui-block-b">
+                    <div class="tag tag-request">
+                        <span class="">session</span>
+                    </div>
+                </div>
+                <div class="ui-block-c">
                     <div class="time">
                         <span class="">1 min ago</span>
                     </div>
                 </div>
             </div>
         </a>
-        <!---->
+        {{/accordion-panel}}
+        <div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <p>Snapshot Server Panel</p>
+        </div>
     </li>
-
-
     <li style="display: block;">
-        <a class="ui-btn">
+      {{#accordion-panel data-toggle="collapse" data-parent="#accordion" data-href="#collapseFour" data-aria-expanded="true" data-aria-controls="collapseFour"}}
+        <a class="ui-btn error">
             <div class="ui-grid-b">
-                <span class=""></span>
                 <div class="ui-block-a">
-                    <span class=""><!----></span>
-                    <div>
-                        <span class="">Install Monitoring Agent<!----></span>
-                    </div><span class=""></span>
+                    <span class="">Install Monitoring Agent</span>
                 </div>
                 <div class="ui-block-b">
-                    <span class=""></span>
                     <div class="tag tag-request">
                         <span class="">request</span>
                     </div>
-                    <!---->
                 </div>
                 <div class="ui-block-c">
-                    <span class=""></span>
                     <div class="time">
                         <span class="">Mar 25</span>
                     </div>
                 </div>
             </div>
         </a>
-    </li>
-    <li style="display: block;">
-        <a class="ui-btn">
-            <div class="ui-grid-b">
-                <span class=""></span>
-                <div class="ui-block-a">
-                    <span class=""><!----></span>
-                    <div>
-                        <span class="">Deploy server<!----></span>
-                    </div><span class=""></span>
-                </div>
-                <div class="ui-block-b">
-                    <span class=""></span>
-                    <div class="tag tag-request">
-                        <span class="">request</span>
-                    </div>
-                    <!---->
-                </div>
-                <div class="ui-block-c">
-                    <span class=""></span>
-                    <div class="time">
-                        <span class="">Mar 24</span>
-                    </div>
-                </div>
-            </div>
-        </a>
-        <!---->
+        {{/accordion-panel}}
+        <div id="collapseFour" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <p>Install Monitoring Agent Panel</p>
+        </div>
     </li>
 </ul>
