@@ -30,12 +30,12 @@ class SshKeysController < ApplicationController
         redirect_to(ssh_keys_path, :flash => { :success => "#{params[:ssh_keypair_name]} created successfully."}, format: 'js')
     end
 
-    def show
-        ssh = Api::Sshkeys.new.show(params)
-        if ssh
-          send_data ssh.private_key
-        end
-    end
+ def show
+  ssh = Api::Sshkeys.new.show(params)
+  if ssh
+     send_data ssh.first[:privatekey]
+  end
+ end
 
     ## this downloads a key
     def edit
