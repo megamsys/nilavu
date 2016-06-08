@@ -57,6 +57,7 @@ Nilavu::Application.routes.draw do
   put 'notifications/mark-read' => 'notifications#mark_read'
 
   ##
+  get "billings.json" => "billings#edit", defaults: {format: 'json'}
   get "robots.txt" => "robots_txt#index"
   get "manifest.json" => "manifest_json#index", :as => :manifest
 
