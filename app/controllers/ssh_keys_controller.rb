@@ -33,7 +33,7 @@ class SshKeysController < ApplicationController
     def show
         ssh = Api::Sshkeys.new.show(params)
         if ssh
-          ssh.private_key
+          send_data ssh.private_key
         end
     end
 
