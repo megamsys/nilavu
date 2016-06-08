@@ -226,10 +226,11 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     vertical-align: middle;
-    background-image: url(icon-in.png);
+    background-image: url(../images/icons/icon-in.png);
     margin-bottom: 3px !important;
     margin-right: 5px;
   }
+
   .c_icon-inBlue {
     color: transparent;
     overflow: hidden;
@@ -240,7 +241,7 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     vertical-align: middle;
-    background-image: url(icon-in-blue.png);
+    background-image: url(../images/icons/icon-in-blue.png);
     margin-bottom: 3px !important;
     margin-right: 5px;
   }
@@ -250,14 +251,14 @@ body {
     color: transparent;
     overflow: hidden;
     display: inline-block;
-    height: 24px;
-    width: 16px;
+    height: 34px;
+    width: 24px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     /* border-radius: 50%; */
     vertical-align: middle;
-    background-image: url(c_icon-trash.png);
+    background-image: url(../images/icons/destroy_bucket.png);
   }
   .c_icon-d {
     color: transparent;
@@ -355,12 +356,20 @@ body {
     color: #529fe7;
     text-decoration: underline;
   }
-  .sett-public {
+  .sett-public a{
     color: #6fde86;
   }
-  .sett-private {
+  .sett-private a{
     color: #7ab6ef;
   }
+
+  .sett-public a:hover{
+    color: #7ab6ef;
+  }
+  .sett-private a:hover{
+    color: #6fde86;
+  }
+
   .settings_lt_arrow {
     margin-right: 10px;
     color: #dddfe8;

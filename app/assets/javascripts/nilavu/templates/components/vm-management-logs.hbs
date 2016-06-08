@@ -1,5 +1,27 @@
-<section class="logs">
-    <div class="row">
-<h1>logs</h1>
+<div class="container">
+    <div class="logs ui-shadow ui-collapsible ui-collapsible-inset ui-corner-all ui-collapsible-themed-content" data-collapsed="false" data-role="collapsible">
+        <h4 class="ui-collapsible-heading"><a class="ui-collapsible-heading-toggle ui-btn ui-btn-inherit" href="#">Activity log <span class="ui-collapsible-heading-status">click
+    	    to collapse contents</span></a></h4>
+        <div aria-hidden="false" class="ui-collapsible-content ui-body-inherit">
+            <div class="log-list">
+                <div class="ui-input-text ui-body-inherit ui-corner-all ui-shadow-inset">
+                    <input id="log-filter" placeholder="Filter..." type="text">
+                </div>
+                <div class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all">
+                      <ul class="tabs">
+                        {{log-tab logPanels=logPanels logSelectedTab=logSelectedTab logTab="all"}}
+                        {{log-tab logPanels=logPanels logSelectedTab=logSelectedTab logTab="actions"}}
+                        {{log-tab logPanels=logPanels logSelectedTab=logSelectedTab logTab="warnings"}}
+                        {{log-tab logPanels=logPanels logSelectedTab=logSelectedTab logTab="errors"}}
+                    </ul>
+                </div>
+                <div class="logs-datas">
+                {{#each logPanels as |logTab|}}
+                    {{component logTab logSelectedTab=logSelectedTab}}
+                {{/each}}
+              </div>
+                <div class="no-logs"></div>
+            </div>
+        </div>
+    </div>
 </div>
-</section>

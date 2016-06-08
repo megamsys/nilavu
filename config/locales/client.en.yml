@@ -368,8 +368,11 @@ en:
 
     vm_management:
       info:
-        tab_title: "info"
+        tab_title: "Info"
         content_title: "Information"
+        content_hdd_title: "HDD"
+        content_cpu_title: "CPU"
+        content_ram_title: "RAM"
         content_id: "Id"
         content_name: "Name"
         content_domain: "Domain"
@@ -377,28 +380,39 @@ en:
         content_host: "Host"
         content_region: "Region"
         content_start_time: "Start Time"
-        keys_title: "SshKeys"
-        content_private_sshkey: "Private Key"
-        content_public_sshkey: "Public Key"
+        content_hdd_size: "Size"
       storage:
-        tab_title: "storage"
+        tab_title: "Storage"
       network:
-        tab_title: "network"
+        tab_title: "Network"
         content_dns_provider: "DNS Provider"
         content_public_ip: "Public IP"
         content_private_ip: "Private IP"
         content_reattach_ip: "Reattach IP"
       cpu:
-        tab_title: "cpu"
+        tab_title: "CPU"
         content_cpu_cores: "Cores"
       ram:
-        tab_title: "ram"
+        tab_title: "RAM"
         content_ram_size: "Size"
-      hdd:
-        tab_title: "hdd"
-        content_hdd_size: "Size"
+      keys:
+        tab_title: "Security"
+        content_name: "Name"
+        keys_title: "SshKeys"
+        content_private_sshkey: "Private Key"
+        content_public_sshkey: "Public Key"
       logs:
-        tab_title: "logs"
+        tab_title: "Logs"
+
+    logs:
+      all:
+        tab_title: "all"
+      actions:
+        tab_title: "actions"
+      warnings:
+        tab_title: "warnings"
+      errors:
+        tab_title: "errors"
 
     notifications:
       none: "Unable to load notifications at this time."

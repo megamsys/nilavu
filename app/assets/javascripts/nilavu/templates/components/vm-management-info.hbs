@@ -2,61 +2,69 @@
     <h3><b>{{title}}</b></h3>
     <div class="bottom-divider"></div>
     <table>
-      <tr>
-        <td><h5><b>{{content_id}}</b></h5></td>
-        <td>{{model.id}}</td>
-      </tr>
-      <tr>
-        <td><h5><b>{{content_name}}</b></h5></td>
-        <td>{{model.name}}</td>
-      </tr>
-      <tr>
-        <td><h5><b>{{content_domain}}</b></h5></td>
-        <td>{{model.domain}}</td>
-      </tr>
-      <tr>
-        <td><h5><b>{{content_state}}</b></h5></td>
-        <td>{{model.status}}</td>
-      </tr>
-      <tr>
-        <td><h5><b>{{content_host}}</b></h5></td>
-        <td>{{model.host}}</td>
-      </tr>
-      <tr>
-        <td><h5><b>{{content_region}}</b></h5></td>
-        <td>{{model.region}}</td>
-      </tr>
-      <tr>
-        <td><h5><b>{{content_start_time}}</b></h5></td>
-        <td>{{model.createdAt}}</td>
-      </tr>
+        <tr>
+            <td>
+                <h5><b>{{content_id}}</b></h5></td>
+            <td>{{model.id}}</td>
+        </tr>
+        <tr>
+            <td>
+                <h5><b>{{content_name}}</b></h5></td>
+            <td>{{model.name}}</td>
+        </tr>
+        <tr>
+            <td>
+                <h5><b>{{content_domain}}</b></h5></td>
+            <td>{{model.domain}}</td>
+        </tr>
+        <tr>
+            <td>
+                <h5><b>{{content_state}}</b></h5></td>
+            <td>{{model.status}}</td>
+        </tr>
+        <tr>
+            <td>
+                <h5><b>{{content_host}}</b></h5></td>
+            <td>{{model.host}}</td>
+        </tr>
+        <tr>
+            <td>
+                <h5><b>{{content_region}}</b></h5></td>
+            <td>{{model.region}}</td>
+        </tr>
+        <tr>
+            <td>
+                <h5><b>{{content_start_time}}</b></h5></td>
+            <td>{{model.createdAt}}</td>
+        </tr>
     </table>
 </div>
 <div class="col-md-6 info">
-  <h3><b>{{keys_title}}</b></h3>
-  <div class="bottom-divider"></div>
-  <table>
-    <tr>
-      <td><h5><b>{{content_sshkey_name}}</b></h5></td>
-      <td>{{model.sshkey_name}}</td>
-    </tr>
-    <tr>
-      <td><h5><b>{{content_private_sshkey}}</b></h5></td>
-      <td>{{model.privatekey}}</td>
-      <td>
-        <a href {{action "privatekey_download" model.privatekey}} class="btn btn-info">
-          <span class="glyphicon glyphicon-save"></span> Download
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td><h5><b>{{content_public_sshkey}}</b></h5></td>
-      <td>{{model.public_sshkey}}</td>
-      <td>
-        <a href="{{model.publickey_download}}" class="btn btn-info ">
-          <span class="glyphicon glyphicon-save"></span> Download
-        </a>
-      </td>
-    </tr>
-  </table>
+    <h3><b>{{hdd_title}}</b></h3>
+    <div class="bottom-divider"></div>
+    <table>
+        <tr>
+            <td>
+                <h5><b>{{content_hdd_size}}</b></h5></td>
+            <td>{{model.hdd}}</td>
+        </tr>
+    </table>
+    <h3><b>{{cpu_title}}</b></h3>
+    <div class="bottom-divider"></div>
+    <table>
+        <tr>
+            <td>
+                <h5><b>{{content_cpu_cores}}</b></h5></td>
+            <td>{{model.cpu_cores}}</td>
+        </tr>
+    </table>
+    <h3><b>{{ram_title}}</b></h3>
+    <div class="bottom-divider"></div>
+    <table>
+        <tr>
+            <td>
+                <h5><b>{{content_ram_size}}</b></h5></td>
+            <td>{{model.ram}}</td>
+        </tr>
+    </table>
 </div>
