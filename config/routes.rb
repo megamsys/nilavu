@@ -55,6 +55,7 @@ Nilavu::Application.routes.draw do
   get "/ssh_keys/edit/:name", to: "ssh_keys#edit"
 
   ##
+  get "billings.json" => "billings#edit", defaults: {format: 'json'}
   get "robots.txt" => "robots_txt#index"
   get "manifest.json" => "manifest_json#index", :as => :manifest
 

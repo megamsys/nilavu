@@ -9,10 +9,10 @@
 
                 <div class="modal-body">
                     {{#each panels as |tab|}}
-                        {{component tab selectedTab=selectedTab category=model.metaData}}
+                      {{component tab selectedTab=selectedTab category=model.metaData}}
                     {{/each}}
                 </div>
-            </div>
+            </div>.
         </section>
         <div class="footer hideme3 no-padding">
             {{launching-cost saveLabel=saveLabel category=model.metaData}}
