@@ -16,19 +16,19 @@
 require 'sshkeys_finder'
 
 class SshKeysController < ApplicationController
-  respond_to :html, :js
+    respond_to :html, :js
 
-  before_action :add_authkeys_for_api, only: [:index, :create, :edit, :update, :show]
+    before_action :add_authkeys_for_api, only: [:index, :create, :edit, :update, :show]
 
-  def index
-    @foundkeys ||= SSHKeysFinder.new(params).foundkeys
-  end
+    def index
+        @foundkeys ||= SSHKeysFinder.new(params).foundkeys
+    end
 
-  def create
-    params[:sshoption] = Api::Sshkeys::NEW
-    Api::Sshkeys.new.create_or_import(params)
-    redirect_to(ssh_keys_path, :flash => { :success => "#{params[:ssh_keypair_name]} created successfully."}, format: 'js')
-  end
+    def create
+        params[:sshoption] = Api::Sshkeys::NEW
+        Api::Sshkeys.new.create_or_import(params)
+        redirect_to(ssh_keys_path, :flash => { :success => "#{params[:ssh_keypair_name]} created successfully."}, format: 'js')
+    end
 
  def show
   ssh = Api::Sshkeys.new.show(params)
@@ -37,17 +37,17 @@ class SshKeysController < ApplicationController
   end
  end
 
-  ## this downloads a key
-  def edit
-    params.merge!({:download_location => current_user.email+"_"+"#{params[:id]}"})
-    Api::Sshkeys.new.download(params)
-    send_file Rails.root.join("#{params[:download_location]}"), :x_sendfile=>true
-  end
+    ## this downloads a key
+    def edit
+        params.merge!({:download_location => current_user.email+"_"+"#{params[:id]}"})
+        Api::Sshkeys.new.download(params)
+        send_file Rails.root.join("#{params[:download_location]}"), :x_sendfile=>true
+    end
 
-  ## this imports the ssh keys.
-  def update
-    params[:sshoption] = Api::Sshkeys::IMPORT
-    Api::Sshkeys.new.create_or_import(params)
-    redirect_to(ssh_keys_path, :flash => { :success => "#{params[:ssh_keypair_name]} imported successfully."}, format: 'js')
-  end
+    ## this imports the ssh keys.
+    def update
+        params[:sshoption] = Api::Sshkeys::IMPORT
+        Api::Sshkeys.new.create_or_import(params)
+        redirect_to(ssh_keys_path, :flash => { :success => "#{params[:ssh_keypair_name]} imported successfully."}, format: 'js')
+    end
 end
