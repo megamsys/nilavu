@@ -53,8 +53,8 @@ export default Ember.Controller.extend(BufferedContent, {
     return this.selectedTab == 'ram';
   }.property('selectedTab'),
 
-  hddSelected: function() {
-    return this.selectedTab == 'hdd';
+  keysSelected: function() {
+    return this.selectedTab == 'keys';
   }.property('selectedTab'),
 
   logsSelected: function() {

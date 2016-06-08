@@ -62,10 +62,14 @@ Nilavu::Application.routes.draw do
 
 
   ##
+  get "billings.json" => "billings#edit", defaults: {format: 'json'}
   get "robots.txt" => "robots_txt#index"
   get "manifest.json" => "manifest_json#index", :as => :manifest
 
   root to: 'cockpits#entrance', :as => "entrance"
+
+  #Metrics
+  match '/metrics/:type', to: "metrics#get", via: [:get]
 
   get "*url", to: 'permalinks#show', constraints: PermalinkConstraint.new
 end

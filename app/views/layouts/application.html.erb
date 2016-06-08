@@ -33,6 +33,9 @@
     <%= script "vendor" %>
     <%= script "application" %>
 
+    <script src="http://www.google.com/jsapi?ext.js"></script>
+    <script>google.load("visualization", "1", {packages:["corechart"]});</script>
+
     <%- if staff? %>
       <%= script "admin"%>
     <%- end %>

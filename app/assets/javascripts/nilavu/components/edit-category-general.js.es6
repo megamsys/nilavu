@@ -1,5 +1,7 @@
 import NilavuURL from 'nilavu/lib/url';
-import {    buildCategoryPanel } from 'nilavu/components/edit-category-panel';
+import {
+    buildCategoryPanel
+} from 'nilavu/components/edit-category-panel';
 import computed from 'ember-addons/ember-computed-decorators';
 
 export default buildCategoryPanel('general', {
@@ -29,7 +31,9 @@ export default buildCategoryPanel('general', {
         if (Ember.isEmpty(this.get('category.regions'))) {
             return null;
         }
-        return this.get('category.regions');
+
+      return this.get('category.regions');
+
     }.property('category.regions'),
 
     resources: function() {

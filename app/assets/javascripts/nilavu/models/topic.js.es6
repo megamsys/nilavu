@@ -72,18 +72,15 @@ const Topic = RestModel.extend({
   }.property(),
 
   hdd: function() {
-    return "";
-    //return this._filterInputs("hdd");
+    return this._filterInputs("hdd");
   }.property(),
 
   host: function() {
-    //return this._filterOutputs("host");
-    return "";
+    return this._filterOutputs("host");
   }.property(),
 
   region: function() {
-    //return this._filterOutputs("region");
-    return "";
+    return this._filterOutputs("region");
   }.property(),
 
   sshkey_name: function() {
@@ -91,13 +88,11 @@ const Topic = RestModel.extend({
   }.property(),
 
   privateIP: function() {
-    return "192.168.0.1"
-    //return this._filterInputs("privateipv4");
+    return this._filterInputs("privateipv4");
   }.property(),
 
   publicIP: function() {
-    return "103.56.92.1"
-    //return this._filterInputs("publicipv4");
+    return this._filterInputs("publicipv4");
   }.property(),
 
   privatekey: function() {
