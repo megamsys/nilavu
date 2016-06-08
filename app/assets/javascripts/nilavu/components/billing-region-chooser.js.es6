@@ -3,7 +3,6 @@ import {
     observes
 } from 'ember-addons/ember-computed-decorators';
 export default Ember.Component.extend({
-
     /*regions: Em.computed.alias('model.regions'),
 
     regionName: Ember.computed.alias('region.name'),

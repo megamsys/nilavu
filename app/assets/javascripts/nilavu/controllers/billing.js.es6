@@ -20,6 +20,7 @@ export default Ember.Controller.extend({
     ipv4: "1",
 
     ram_cost_per_hour: "0.02",
+    ramcosthour:null,
     billingRegionoption: function() {
         console.log("111111111");
         return "chennai";
