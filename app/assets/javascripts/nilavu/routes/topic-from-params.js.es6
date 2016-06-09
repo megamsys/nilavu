@@ -14,7 +14,7 @@ export default Nilavu.Route.extend({
 
     params.forceLoad = true;
     topic.reload();
-    alert(JSON.stringify(topic.details));
+    alert(JSON.stringify(topic));
     topicController.setProperties({ model: topic });
 
   }
