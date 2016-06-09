@@ -18,7 +18,9 @@ class VerticeLauncher
 
     ensure_settings_are_ok(@launch_params)
 
-    Api::Assemblies.new.create(@launch_params)
+    raw = Api::Assemblies.new.create(@launch_params)
+
+    parse_msg(raw[:body].some_msg) unless !raw
   end
 
   def ensure_settings_are_ok(lp)
@@ -29,7 +31,14 @@ class VerticeLauncher
   end
 
   def launched
-    {name: @launch_params[:mkp_name], stuff: @launch_params[:cattype], provider: @launch_params[:provider]}
+    { name: @launch_params[:mkp_name], stuff: @launch_params[:cattype],  provider: @launch_params[:provider]}
   end
 
+  private
+
+  # parse the id between [ASM..., ASM002]  and send it back
+  def parse_msg(some_msg)
+    return unless some_msg[:code] != '201'
+    some_msg[:msg][/\[(.*?)\]/m,1]
+  end
 end

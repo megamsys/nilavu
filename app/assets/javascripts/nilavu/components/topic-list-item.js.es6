@@ -103,7 +103,6 @@ export default Ember.Component.extend({
 
     if (target.hasClass('posts-map')) {
       if (target.prop('tagName') !== 'A') {
-        alert("a");
         target = target.find('a');
       }
       this.container.lookup('controller:application').send("showTopicEntrance", {topic: this.get('topic'), position: target.offset()});

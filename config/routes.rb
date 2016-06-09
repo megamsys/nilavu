@@ -4,7 +4,7 @@ require_dependency "permalink_constraint"
 Nilavu::Application.routes.draw do
 
   get '/404', to: 'errors#not_found'
-  get "/404-body" => "exceptions#not_found_body"
+  get "/404-body" => "errors#not_found_body"
   get '/500', to: 'errors#internal_error'
 
 
@@ -44,7 +44,6 @@ Nilavu::Application.routes.draw do
   get "launchables/pools/:group_name.json" => "launchables#prepare", as: "launchables_pools_group", constraints: {
     group_name: GROUPNAME_ROUTE_FORMAT
   }
-
   get "launchables/summary.json" => "launchables#summarize", as: "launchables_summarize"
 
   ##
@@ -53,11 +52,17 @@ Nilavu::Application.routes.draw do
 
   get "/ssh_keys/edit/:name", to: "ssh_keys#edit"
 
+  # Topics resource
+  get "t/:id" => "topics#show"
+  put "t/:id" => "topics#update"
+  delete "t/:id" => "topics#destroy"
+
   get 'notifications' => 'notifications#index'
   put 'notifications/mark-read' => 'notifications#mark_read'
 
+
   ##
-  get "billings.json" => "billings#edit", defaults: {format: 'json'}
+  get "billings.json" => "billings#index", defaults: {format: 'json'}
   get "robots.txt" => "robots_txt#index"
   get "manifest.json" => "manifest_json#index", :as => :manifest
 

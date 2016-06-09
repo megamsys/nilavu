@@ -144,18 +144,27 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
         saveCategory() {
             const self = this,
-                model = this.get('model');
-                self.set('saving', true);
-                this.get('model').save().then(function(result) {
-                  self.set('saving', false);
-                  self.send('closeModal');
+            model = this.get('model');
+            self.set('saving', true);
 
-                NilavuURL.routeTo('/');
-              //NilavuURL.redirectTo("/c/" + Nilavu.Category.slugFor(model));
+            this.get('model').save().then(function(result) {
+                self.set('saving', false);
+                self.send('closeModal');
+
+                const slugId = result.id ? result.id : "";
+
+                if (result.id) {
+                    NilavuURL.routeTo('/t/'+ slugId);
+                } else{
+                  NilavuURL.routeTo('/');
+                }
+                self.notificationMessages.success(I18n.t('launcher.launched') + " " + slugId);
+
               }).catch(function(error) {
-                alert("error is ="+ error);
                 self.flash(extractError(error), 'error');
                 self.set('saving', false);
+                self.send('closeModal');
+                self.notificationMessages.error(I18n.t('launcher.not_launched'));
             });
         }
     }

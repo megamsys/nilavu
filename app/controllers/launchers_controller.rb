@@ -40,13 +40,13 @@ class LaunchersController < ApplicationController
 
         vertice = VerticeLauncher.new(LaunchingItem.new(params))
 
-        if vertice.launch
+        if res = vertice.launch
             #  Scheduler::Defer.later "Log launch action for" do
             #    @nilavu_event_logger.log_launched(@launched)
             #  end
-            render json: vertice.launched
+            render json: { id: res }
         else
-            render_json_error(vertice.launched)
+          render failed_json # error is broken, we need to fix it.
         end
     end
 

@@ -59,7 +59,6 @@ const controllerOpts = {
       return false;
     },
 
-    // Awesome, don't know where this is called but used after we launch.
     refresh() {
       const filter = this.get('model.filter');
 
@@ -71,7 +70,6 @@ const controllerOpts = {
       // router and ember throws an error due to missing `handlerInfos`.
       // Lesson learned: Don't call `loading` yourself.
       this.set('controllers.discovery.loading', true);
-
       this.store.findFiltered('topicList', {filter}).then(list => {
         const TopicList = require('nilavu/models/topic-list').default;
         TopicList.hideUniformCategory(list, this.get('category'));

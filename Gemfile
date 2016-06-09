@@ -61,7 +61,7 @@ gem 'omniauth-google-oauth2'
 
 # 3rd party system api's
 
-gem 'megam_api', '1.5.beta4'
+gem 'megam_api', '1.5.beta5'
 gem 'github_api'
 gem 'gitlab'
 gem 'radosgw-s3'
@@ -71,6 +71,7 @@ gem 'sshkey' # ssh key-gen
 gem 'oj'
 gem 'r2', '~> 0.2.5', require: false
 gem 'rake'
+gem 'excon' #used by metrics  ? Can we use excon
 
 gem 'rinku'
 gem 'sanitize'
