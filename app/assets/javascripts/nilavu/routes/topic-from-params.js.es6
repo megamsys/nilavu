@@ -13,8 +13,10 @@ export default Nilavu.Route.extend({
           topicController = this.controllerFor('topic');
 
     params.forceLoad = true;
-
     topic.reload();
+    alert(JSON.stringify(topic.details));
+    topicController.setProperties({ model: topic });
+
   }
 
 });

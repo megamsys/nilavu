@@ -97,13 +97,11 @@ const TopicRoute = Nilavu.Route.extend({
     },
 
     didTransition() {
-      this.controllerFor("topic")._showFooter();
       return true;
     },
 
     willTransition() {
       this._super();
-    //  this.controllerFor("quote-button").deselectText();
       Em.run.cancel(scheduledReplace);
       isTransitioning = true;
       return true;

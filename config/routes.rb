@@ -4,7 +4,7 @@ require_dependency "permalink_constraint"
 Nilavu::Application.routes.draw do
 
   get '/404', to: 'errors#not_found'
-  get "/404-body" => "exceptions#not_found_body"
+  get "/404-body" => "errors#not_found_body"
   get '/500', to: 'errors#internal_error'
 
 
@@ -62,7 +62,7 @@ Nilavu::Application.routes.draw do
 
 
   ##
-  get "billings.json" => "billings#edit", defaults: {format: 'json'}
+  get "billings.json" => "billings#index", defaults: {format: 'json'}
   get "robots.txt" => "robots_txt#index"
   get "manifest.json" => "manifest_json#index", :as => :manifest
 

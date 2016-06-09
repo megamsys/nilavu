@@ -9,7 +9,7 @@ class TopicsController < ApplicationController
     if @deployed
         render json: @deployed.to_h
     else
-      render failed_json
+      render json: failed_json
     end
   end
 end
