@@ -71,7 +71,7 @@ const Topic = RestModel.extend({
 
     const keys = Object.keys(json);
 
-    keys.forEach(key => {alert('setting ' + key + '='+ json[key]); self.set(key, json[key])});
+    keys.forEach(key => {self.set(key, json[key])});
   },
 
   reload() {
