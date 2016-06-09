@@ -35,7 +35,7 @@ const Topic = RestModel.extend({
       slug = "topic";
     }
     return Nilavu.getURL("/t/")  + (this.get('id'));
-  }.property('id', 'slug'),
+  },
 
 
   // Delete this topic
