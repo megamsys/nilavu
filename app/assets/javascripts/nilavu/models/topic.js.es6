@@ -66,7 +66,6 @@ const Topic = RestModel.extend({
   // Update our attributes from a JSON result
   updateFromJson(json) {
     const self = this;
-
     self.set('details', json);
 
     const keys = Object.keys(json);

@@ -1,4 +1,5 @@
 require 'json_kvparser'
+require 'favour_item'
 
 class Deployed
     include JsonKVParser

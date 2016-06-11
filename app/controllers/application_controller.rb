@@ -301,8 +301,8 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def build_not_found_page(status=404)
-    render_to_string status: status, formats: [:html], template: '/errors/not_found'
+  def build_not_found_page(status=404, layout=false)
+    render_to_string status: status, layout: layout, formats: [:html], template: '/errors/not_found'
   end
 
   protected
