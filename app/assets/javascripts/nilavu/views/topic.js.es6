@@ -72,9 +72,6 @@ const TopicView = Ember.View.extend(AddCategoryClass, AddArchetypeClass, Scrolli
 
     this.resetExamineDockCache();
 
-    // this happens after route exit, stuff could have trickled in
-    this.set('controller.controllers.header.showExtraInfo', false);
-
   }.on('willDestroyElement'),
 
   gotFocus: function() {
@@ -105,14 +102,6 @@ const TopicView = Ember.View.extend(AddCategoryClass, AddArchetypeClass, Scrolli
     }
 
     this.set("offset", offset);
-
-    const headerController = this.get('controller.controllers.header'),
-          topic = this.get('controller.model');
-    if (this.get('docAt')) {
-      headerController.set('showExtraInfo', offset >= this.get('docAt') || topic.get('postStream.firstPostNotLoaded'));
-    } else {
-      headerController.set('showExtraInfo', topic.get('postStream.firstPostNotLoaded'));
-    }
 
     // Trigger a scrolled event
     this.appEvents.trigger('topic:scrolled', offset);

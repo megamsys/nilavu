@@ -12,11 +12,6 @@ export default Ember.Component.extend({
       this.set('controller.selectedRow', this);
     },
 
-    openVMPage: function() {
-      var topic = this.get('topic');
-      this.sendAction('action', topic);
-    },
-
     toggleBookmark() {
       const self = this;
       this.get('topic').toggleBookmark().finally(function() {

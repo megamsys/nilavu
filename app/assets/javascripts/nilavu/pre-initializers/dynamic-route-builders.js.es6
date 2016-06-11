@@ -13,7 +13,6 @@ export default {
       const filterCapitalized = filter.capitalize();
       app[`Discovery${filterCapitalized}Controller`] = DiscoverySortableController.extend();
       app[`Discovery${filterCapitalized}Route`] = buildTopicRoute(filter);
-
     });
 
     Nilavu.DiscoveryTopController = DiscoverySortableController.extend();

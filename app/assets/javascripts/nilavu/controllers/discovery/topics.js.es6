@@ -87,11 +87,6 @@ const controllerOpts = {
     resetNew() {
       this.topicTrackingState.resetNew();
       Nilavu.Topic.resetNew().then(() => this.send('refresh'));
-    },
-
-    openVMPage: function(topic) {
-      this.container.lookup('controller:application').send("showTopicEntrance", {topic: topic});
-      this.transitionToRoute('topic');
     }
 
   },

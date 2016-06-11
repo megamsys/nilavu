@@ -76,12 +76,12 @@ const Composer = RestModel.extend({
     categoryType: Ember.computed.alias('metaData.versiondetail.cattype'),
 
     oneClick: function() {
-      const opts = this.get('metadata.versiondetail.options');
+        const opts = this.get('metadata.versiondetail.options');
 
-      if (opts && opts.length >0) {
-        return (opts.filter((f) => f.key == ONECLICK)).length > 0
-      }
-      return false;
+        if (opts && opts.length > 0) {
+            return (opts.filter((f) => f.key == ONECLICK)).length > 0
+        }
+        return false;
     }.property('metadata.versiondetail.options'),
 
     options: Ember.computed.alias('metaData.versiondetail.options'),
@@ -126,7 +126,7 @@ const Composer = RestModel.extend({
     }.property('launcher', 'originalText'),
 
     _setupComposer: function() {
-
+        this.setProperties({ itemsLoaded: 0, content: [] });
     }.on('init'),
 
 
@@ -142,7 +142,6 @@ const Composer = RestModel.extend({
             composeState: opts.composerState || OPEN,
             action: opts.action,
         });
-
 
         this.setProperties({
             metaData: opts.metaData ? Em.Object.create(opts.metaData) : null

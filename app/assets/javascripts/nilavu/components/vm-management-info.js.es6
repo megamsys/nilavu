@@ -60,5 +60,60 @@ export default buildCategoryPanel('info', {
     return I18n.t("vm_management.ram.content_ram_size");
   }.property(),
 
+  id: function() {
+    return this.get('model.id');
+  }.property('id'),
+
+  name: function() {
+      return this.get('model.name');
+  }.property('model.name'),
+
+  domain: function() {
+      return this._filterInputs("domain");
+  }.property('model.domain'),
+
+  cpu_cores: function() {
+      return this._filterInputs("cpu");
+  }.property('model.inputs'),
+
+  ram: function() {
+      return this._filterInputs("ram");
+  }.property('model.inputs'),
+
+  hdd: function() {
+      return this._filterInputs("hdd");
+  }.property('model.inputs'),
+
+  host: function() {
+      return this._filterOutputs("host");
+  }.property('model.outputs'),
+
+  region: function() {
+      return this._filterOutputs("model.region");
+  }.property('model.inputs'),
+
+  hasOutputs: Em.computed.notEmpty('model.outputs'),
+
+  hasInputs: Em.computed.notEmpty('model.inputs'),
+
+  _filterInputs(key) {
+      if (!this.get('hasInputs')) return  "";
+
+      return this.get('model.inputs').filterBy('key', key)[0].value;
+  },
+
+  _filterOutputs(key) {
+    if (!this.get('hasOutputs')) return  "";
+
+    return this.get('model.outputs').filterBy('key', key)[0].value;
+  },
+
+  createdAt: function() {
+      return new Date(this.get('model.created_at'));
+  }.property('model.created_at'),
+
+  status: function() {
+    return this.get('model.status');
+  }.property('model.status'),
 
 });

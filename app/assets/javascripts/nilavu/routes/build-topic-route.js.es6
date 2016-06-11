@@ -23,7 +23,6 @@ function findTopicList(store, tracking, filter, filterParams, extras) {
     if (extras.cached) {
 
       const cachedList = session.get('topicList');
-
       // Try to use the cached version if it exists and is greater than the topics per page
       if (cachedList && (cachedList.get('filter') === filter) &&
         (cachedList.get('topics.length') || 0) > cachedList.get('per_page') &&

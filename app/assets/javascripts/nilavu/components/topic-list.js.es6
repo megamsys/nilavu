@@ -51,8 +51,6 @@ export default Ember.Component.extend({
   },
 
   actions: {
-    openVMPage: function(topic) {    
-      this.sendAction('action', topic);
-    },
+    
   }
 });

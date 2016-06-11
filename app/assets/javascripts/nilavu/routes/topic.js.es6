@@ -11,7 +11,6 @@ import showModal from 'nilavu/lib/show-modal';
 const TopicRoute = Nilavu.Route.extend({
   redirect() { return this.redirectIfLoginRequired(); },
 
-
   queryParams: {
     filter: { replace: true },
     username_filters: { replace: true },
@@ -38,6 +37,7 @@ const TopicRoute = Nilavu.Route.extend({
       return result;
     }
   },
+
 
   actions: {
 
@@ -132,13 +132,16 @@ const TopicRoute = Nilavu.Route.extend({
     if (!Em.isEmpty(usernames) && usernames !== 'undefined') {
       userFilters.addObjects(usernames.split(','));
     }*/
+
     return topic;
   },
 
   model(params, transition) {
     const queryParams = transition.queryParams;
     let topic = this.modelFor('topic');
+
     if (topic && (topic.get('id') === parseInt(params.id, 10))) {
+
       this.setupParams(topic, queryParams);
       return topic;
     } else {
@@ -151,7 +154,6 @@ const TopicRoute = Nilavu.Route.extend({
   activate() {
     this._super();
     isTransitioning = false;
-
     const topic = this.modelFor('topic');
     //this.session.set('lastTopicIdViewed', parseInt(topic.get('id'), 10));
   },
@@ -159,7 +161,7 @@ const TopicRoute = Nilavu.Route.extend({
   deactivate() {
     this._super();
 
-    this.searchService.set('searchContext', null);
+  /*  this.searchService.set('searchContext', null);
     this.controllerFor('user-card').set('visible', false);
 
     const topicController = this.controllerFor('topic'),
@@ -169,25 +171,19 @@ const TopicRoute = Nilavu.Route.extend({
     topicController.set('multiSelect', false);
     this.controllerFor('composer').set('topic', null);
     this.screenTrack.stop();
-
-    const headerController = this.controllerFor('header');
-    if (headerController) {
-      headerController.set('topic', null);
-      headerController.set('showExtraInfo', false);
-    }
-  },
+*/
+    },
 
   setupController(controller, model) {
     // In case we navigate from one topic directly to another
     isTransitioning = false;
-
     controller.setProperties({
       model,
       editingTopic: false,
       firstPostExpanded: false
     });
 
-    TopicRoute.trigger('setupTopicController', this);
+  // /  TopicRoute.trigger('setupTopicController', this);
 
     /*this.controllerFor('header').setProperties({ topic: model, showExtraInfo: false });
     this.searchService.set('searchContext', model.get('searchContext'));
