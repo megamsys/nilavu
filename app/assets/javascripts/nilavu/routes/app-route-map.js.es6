@@ -21,7 +21,8 @@ export default function() {
     // Topic routes
     this.resource('topic', { path: '/t/:id' }, function() {
         this.route('show', { path: '/' });
-
+        this.route('predeploy', { path: '/predeploy' });
+        
         //path is  /t/:id/start
         this.resource('topicActions', function() {
             this.route('start');
