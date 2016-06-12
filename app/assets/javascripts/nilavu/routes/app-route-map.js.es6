@@ -22,7 +22,7 @@ export default function() {
     this.resource('topic', { path: '/t/:id' }, function() {
         this.route('show', { path: '/' });
         this.route('predeploy', { path: '/predeploy' });
-        
+
         //path is  /t/:id/start
         this.resource('topicActions', function() {
             this.route('start');
@@ -33,7 +33,9 @@ export default function() {
 
     });
 
-    this.route('billing', { path: '/billing' });
+    this.resource('billing', { path: '/billing' }, function() {
+      this.route('show', { path: '/' });      
+    });
 
     this.route('marketplaces', { path: '/marketplaces' });
 

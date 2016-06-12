@@ -9,7 +9,6 @@ module LaunchedBiller
     end
 
 
-
     def bill
         {
             usage: usage,
