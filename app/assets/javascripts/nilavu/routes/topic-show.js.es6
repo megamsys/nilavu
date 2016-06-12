@@ -6,6 +6,14 @@ export default Nilavu.Route.extend({
   // Avoid default model hook
   model(params) { return params; },
 
+  afterModel() {
+    const topic = this.modelFor('topic');
+//add a method to check predeploy ?
+    if (topic) {
+      this.replaceWith(topic.url() + '/predeploy');
+    }
+  },
+
   setupController(controller, params) {
     params = params || {};
     const self = this,
@@ -20,7 +28,7 @@ export default Nilavu.Route.extend({
 
         //  self.set('loading', false);
     }).catch(function(e) {
-      alert("ERR="+ e);
+      alert("RAJ HANDLE ERR (check edit-category)\n"+ e);
       //self.set('loading', false);
     });
 
