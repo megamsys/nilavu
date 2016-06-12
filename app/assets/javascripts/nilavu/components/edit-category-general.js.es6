@@ -10,7 +10,8 @@ export default buildCategoryPanel('general', {
     editingCost: false,
 
     category: function() {
-        return this.get('category')
+        return this.get('category');
+
     }.property("category"),
 
     //TO-DO togglePropert("subDomainValid"), if not don't allow to launch
@@ -43,7 +44,9 @@ export default buildCategoryPanel('general', {
                 return c;
             }
         });
+
         return fullFlavor;
+//alert(JSON.stringify(fullFlavor));
     }.property('category.regionoption', 'regionOption'),
 
 
@@ -57,6 +60,8 @@ export default buildCategoryPanel('general', {
             $(".hideme3").slideToggle(250);
         }
         this.set('category.regionoption', this.get('regionOption'));
+
+
     }.observes('regionOption'),
 
     regionOption: function() {
@@ -69,6 +74,7 @@ export default buildCategoryPanel('general', {
     resourceOption: function() {
         if (Ember.isEmpty(this.get('category.regions')) && this.get('category.resourceoption').trim().length > 0) {
             return this.get('category.resourceoption');
+
         }
         return null;
     }.property('category.regions', 'category.resourceoption'),
