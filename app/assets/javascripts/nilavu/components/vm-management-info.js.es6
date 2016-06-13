@@ -98,13 +98,13 @@ export default buildCategoryPanel('info', {
 
   _filterInputs(key) {
       if (!this.get('hasInputs')) return  "";
-
+      if (!this.get('model.inputs').filterBy('key', key)[0]) return  "";
       return this.get('model.inputs').filterBy('key', key)[0].value;
   },
 
   _filterOutputs(key) {
     if (!this.get('hasOutputs')) return  "";
-
+    if (!this.get('model.outputs').filterBy('key', key)[0]) return  "";
     return this.get('model.outputs').filterBy('key', key)[0].value;
   },
 

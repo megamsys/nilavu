@@ -383,8 +383,8 @@ en:
         content_region: "Region"
         content_start_time: "Start Time"
         content_hdd_size: "Size"
-      storage:
-        tab_title: "Storage"
+      snapshots:
+        tab_title: "Snapshots"
       network:
         tab_title: "Network"
         content_dns_provider: "DNS Provider"
@@ -405,6 +405,7 @@ en:
         content_public_sshkey: "Public Key"
       logs:
         tab_title: "Logs"
+      not_load: "Virtual Machine updating failed."
 
     logs:
       all:

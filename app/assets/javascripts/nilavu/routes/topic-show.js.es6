@@ -1,4 +1,5 @@
 import NilavuURL from 'nilavu/lib/url';
+import {     extractError } from 'nilavu/lib/ajax-error';
 
 // This route is used for retrieving a topic/:id based on params - id
 export default Nilavu.Route.extend({
@@ -10,7 +11,8 @@ export default Nilavu.Route.extend({
     const topic = this.modelFor('topic');
 //add a method to check predeploy ?
     if (topic) {
-      this.replaceWith(topic.url() + '/predeploy');
+      //this.replaceWith(topic.url() + '/predeploy');
+      this.replaceWith(topic.url() + '/');
     }
   },
 
@@ -28,11 +30,10 @@ export default Nilavu.Route.extend({
 
         //  self.set('loading', false);
     }).catch(function(e) {
-      alert("RAJ HANDLE ERR (check edit-category)\n"+ e);
-      //self.set('loading', false);
+      self.notificationMessages.error(I18n.t('vm_management.not_load'));
     });
 
-    self.controllerFor('navigation/default').set('filterMode', "top");
+    //self.controllerFor('navigation/default').set('filterMode', "top");
   },
 
   renderTemplate() {
