@@ -24,6 +24,7 @@ class BucketfilesController < ApplicationController
 
 
   def create
+    puts "**********************bucket files*************"
     if uploaded_url = CephStore.new(params, params[:bucket_name]).store_upload(params[:sobject])
       redirect_to(buckets_path, :flash => { :success => I18n.t('cephbuckets.uploaded', :url => uploaded_url)}, format: 'js')
     else
