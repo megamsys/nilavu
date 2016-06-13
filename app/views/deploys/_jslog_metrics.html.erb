@@ -34,7 +34,10 @@
     };
     $.Socket.onmessage = function(e){
       var jsonData = JSON.parse(e.data);
-      var log = jsonData.Timestamp + " " + jsonData.Message;
+      var jsonMsg = jsonData.Message
+      var stripData = jsonMsg.slice(0, jsonMsg.length);
+      var obj = JSON.parse(stripData)
+      var log = jsonData.Timestamp + " " + obj.Message;
       var text = "<br/><span>"+log+"</span>";
       $('#logsbox').append(text);
     };

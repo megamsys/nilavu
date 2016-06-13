@@ -95,6 +95,9 @@ var OverviewTab = React.createClass({
 
   drawCPU: function() {
     var stats = this.state.JsonD;
+    if (stats == "") {
+      return;
+    }
     if (!this.hasResource(stats, "cpu")) {
       return;
     }
@@ -180,6 +183,9 @@ var OverviewTab = React.createClass({
 
   drawRAM: function() {
     var stats = this.state.JsonD;
+    if (stats == "") {
+      return;
+    }
     var machineInfo = this.state.machineInfo;
 
     var titles = [
@@ -258,6 +264,9 @@ var OverviewTab = React.createClass({
 
   drawNETWORK: function() {
     var stats = this.state.JsonD;
+    if (stats == "") {
+      return;
+    }
     for (var i = 1; i < 10; i++) {
       console.log(stats.stats[i].network.interfaces);
     }

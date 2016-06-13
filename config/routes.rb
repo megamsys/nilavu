@@ -50,5 +50,7 @@ Nilavu::Application.routes.draw do
   post  '/cephsignin', to: 'cephs#create', constraints: HomePageConstraint.new
   get   '/cephsignup', to: 'ceph_users#create', constraints: HomePageConstraint.new
   post  '/cephsignup', to: 'ceph_users#create', constraints: HomePageConstraint.new
+#Metrics
+ get '/metrics/:type' => 'metrics#get'
 
 end

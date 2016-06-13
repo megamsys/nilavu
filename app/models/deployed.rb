@@ -37,13 +37,26 @@ class Deployed
     end
   end
 
+  def get_vnchost
+    if domain_input = select_from(@output, :vnchost)
+      domain_input.first[:value] if domain_input.first
+    end
+  end
+
+  def get_vncport
+    if domain_input = select_from(@output, :vncport)
+      domain_input.first[:value] if domain_input.first
+    end
+  end
+
 def dockerhostip
 if @assembly.tosca_type == "tosca.microservices.dockercontainer"
-return  @ips && @ips.hostip
+ return  @ips && @ips.hostip
 end
 end
+
   def someip
-    return @ips && (@ips.privateip || @ips.publicip)
+    return @ips && (@ips.privateip || @ips.publicip )
   end
 
   def publicip
@@ -92,12 +105,20 @@ end
   end
 
   def monitored_container_url
-    "http://#{dockerhostip}:9999/api/v1.3/containers"
+    if @assembly.tosca_type == "tosca.microservices.dockercontainer"
+      "/metrics/container/?ip=#{dockerhostip}"
+    else
+      "/metrics/container/?ip=#{someip}"
+   end
   end
 
 
   def monitored_machine_url
-    "http://#{someip}:9999/api/v1.3/machine"
+    if @assembly.tosca_type == "tosca.microservices.dockercontainer"
+        "/metrics/machine/?ip=#{dockerhostip}"
+      else
+       "/metrics/machine/?ip=#{someip}"
+   end
   end
 
   def has_envs?
