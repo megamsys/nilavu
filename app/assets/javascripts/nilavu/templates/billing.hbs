@@ -36,11 +36,11 @@
                 <div class="col-md-8 help_center_left_right usg">
                     <div class="center billing-title">Usage Estimator:</div>
                     <div class="center sub-title">Resources</div>
-                    {{billing-region regions=regions billingRegionOption=billingRegionOption}}
+                    {{billing-region regions=regions billingRegionoption=billingRegionoption}}
                     <div style="text-align: center;" class="table-condensed">
-                        {{billing-quotas unitFlavor=unitFlavor}}
-                          <div class="col-md-4">
-                        <table class="table usg_table">
+                        {{billing-quotas unitFlavors=unitFlavors}}
+                        <div class="col-md-4">
+                            <table class="table usg_table">
 
                                 <thead>
                                     <tr>
@@ -80,10 +80,11 @@
 
                                     </tr>
                                 </tbody>
-                        </table>
+                            </table>
                         </div>
                         {{billing-unit-monthly-cost }}
                     </div>
+                      </div>
 
                     <div class="row">
 
@@ -100,12 +101,12 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="hour">
-
+$10.00/month
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+
 
                 <div class="bottom-divider  settings_top"></div>
 
@@ -212,4 +213,4 @@
 
         </div>
     </div>
-  </div>
+</div>

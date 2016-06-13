@@ -9,42 +9,31 @@
         <tbody>
             <tr>
                 <!--Any span.blue text is supposed to be editable by the user. with the numbers (eg. 1024) -> it turns into a textbox that only accepts numbers. If MB/SSD is clicked then you will be able to see 'MB/GB/TB' for MB & SSD/HDD for SSD in a dropdown. Once the user enters the new number then the Usage estimator is updated. Also with CORES - the way it works is it's bundled with RAM. This is to avoid heavy CPU abuse. It's a preset of something like 1 vCPU per 2048MB ram, anything under 2048 gets 1vCPU.  -->
-                <td><span class="blue">{{text-field value=1024 class="filter-text" type= "number"}}</span>
-                    <select class="billing-combo-box pull-right">
-                        <option value="GB">GB</option>
-                        <option value="MB">MB</option>
-                    </select>
+                <td><span class="blue">{{text-field value=fcpu class="filter-text" type= "number"}}</span>
+
                 </td>
-
-
             </tr>
 
             <tr>
-                <td><span class="blue">{{text-field value=1024  class="filter-text" type= "number"}}</span></td>
+                <td><span class="blue">{{text-field value=2  class="filter-text" type= "number"}}</span></td>
 
 
             </tr>
             <tr>
-                <td><span class="blue">{{text-field  value=1024 class="filter-text" type= "number"}}</span>
-                    <select class="billing-combo-box pull-right">
-                        <option value="GB">GB</option>
-                        <option value="MB">MB</option>
-                    </select>
+                <td><span class="blue">{{text-field  value=10 class="filter-text" type= "number"}}</span>
+
                 </td>
 
             </tr>
             <tr>
-                <td><span class="blue">{{text-field value=1024  class="filter-text" type= "number"}}</span>
-                    <select class="billing-combo-box pull-right">
-                        <option value="GB">GB</option>
-                        <option value="MB">MB</option>
-                    </select>
+                <td><span class="blue">{{text-field  value=200 class="filter-text" type= "number"}}</span>
+
                 </td>
 
 
             </tr>
             <tr>
-                <td class="bottom-b"><span class="blue">{{text-field value=1024 class="filter-text" type= "number"}}</span></td>
+                <td class="bottom-b blue"><span >{{text-field  value=1 class="filter-text" type= "number"}}</span></td>
 
             </tr>
         </tbody>

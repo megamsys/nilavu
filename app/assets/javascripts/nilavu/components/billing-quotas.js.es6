@@ -1,27 +1,24 @@
 export default Ember.Component.extend({
+unitFlavourChanged: function() {
+        this.set('unitFlav', this.get('unitFlavors.micro'));
+        alert("unitflavchange"+JSON.stringify(this.get('unitFlav')));
+    }.observes('unitFlavors'),
 
-  unitFlavourChanged: function() {
+    fcpu: function() {
+     //return this.get('unitFlavor');
+     alert("cpu"+JSON.stringify(this.get('unitFlav')));
+   }.property('unitFlav'),
 
-    const uf=this.get('unitFlavor');
-      this.set('unitFlav', this.get('unitFlavor'));
-      this.rerender();
-  }.observes('unitFlavor'),
+    fmemory: function() {
+        alert("memory");
+        alert(this.get('unitFlav'));
+        return this.get('unitFlav').memory();
+    }.property('unitFlav'),
 
-  fcpu: function() {
-    alert("cpu");
-    alert(this.get('unitFlav'));
-      return this.get('unitFlav').cpu();
-  }.property('unitFlav'),
+    fstorage: function() {
+        alert("stoage");
+        alert(this.get('unitFlav'));
+        return this.get('unitFlav').storage();
+    }.property('unitFlav'),
 
-  fmemory: function() {
-    alert("memory");
-    alert(this.get('unitFlav'));
-      return this.get('unitFlav').memory();
-  }.property('unitFlav'),
-
-  fstorage: function() {
-    alert("stoage");
-    alert(this.get('unitFlav'));
-      return this.get('unitFlav').storage();
-  }.property('unitFlav'),
 });
