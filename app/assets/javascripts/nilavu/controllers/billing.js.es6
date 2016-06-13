@@ -1,14 +1,16 @@
 import NilavuURL from 'nilavu/lib/url';
 
 export default Ember.Controller.extend({
-    currentUsage: "$10.50",
-    currentBalance: "$9.00",
+
+    title: "Billing",
+    currentUsage: Ember.computed.alias('model.usage'),
+    currentBalance:Ember.computed.alias('model.paid'),
     regions: [{
         name: "sydney",
         value: "sydney",
         ram: "1024",
         flavors: {
-          micro: "1 GB,1 Core,24 GB",
+            micro: "1 GB,1 Core,24 GB",
             medium: "2 GB,2 Cores,48 GB",
             large: "3 GB,4 Cores,96 GB",
         }
@@ -48,10 +50,8 @@ export default Ember.Controller.extend({
           const fl=fullFlavor.get('firstObject').flavors;
           alert("firstObject"+JSON.stringify(fl));
 
-            this.set('unitFlavors', fullFlavor.get('firstObject').flavors);
+            this.set('unitFlavor', fullFlavor.get('firstObject').flavors);
         }
 
     }.observes('billingRegionoption'),
-
-
 });
