@@ -28,7 +28,7 @@ export default Ember.Component.extend({
       this.set('category.unitoption', this.get('unitFlav'));
     },
 
-    change: function() {      
+    change: function() {
       Ember.run.once(this, 'unitChanged');
     },
 

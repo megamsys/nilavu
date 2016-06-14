@@ -20,7 +20,7 @@ createWidget('user-menu-links', {
     const links = [profileLink];
 
     const glyphs = [];
-    
+
     /*const glyphs = [{ label: 'user.bookmarks',
                       className: 'user-bookmarks-link',
                       icon: 'bookmark',
@@ -52,8 +52,9 @@ export default createWidget('user-menu', {
               h('ul.menu-links',
                 h('li', this.attach('link', { action: 'logout',
                                                        className: 'logout',
-                                                       icon: 'sign-out',
-                                                       label: 'user.log_out' })))
+                                                       icon: 'glyphicon glyphicon-off',
+                                                       label: 'user.log_out',
+                                                     route:'login' })))
               ])];
   },
 
