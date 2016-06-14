@@ -157,7 +157,6 @@ export default Ember.Controller.extend(ModalFunctionality, {
                 self.send('closeModal');
 
                 const slugId = result.id ? result.id : "";
-
                 if (result.id) {
                     NilavuURL.routeTo('/t/'+ slugId);
                 } else{
@@ -166,6 +165,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
                 self.notificationMessages.success(I18n.t('launcher.launched') + " " + slugId);
 
               }).catch(function(error) {
+                alert("save error");
                 self.flash(extractError(error), 'error');
                 self.set('saving', false);
                 self.send('closeModal');

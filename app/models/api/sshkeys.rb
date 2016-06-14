@@ -18,7 +18,7 @@ module Api
   class Sshkeys < ApiDispatcher
 
     OLD      = '1'.freeze
-    CREATE   = '2'.freeze
+    NEW      = '2'.freeze
     PWD      = '3'.freeze
     IMPORT   = '4'.freeze
 
@@ -63,17 +63,15 @@ module Api
       keygen = SSHKey.generate
       api_params[:privatekey] = keygen.private_key
       api_params[:publickey] = keygen.ssh_public_key
-      raw = api_request(SSHKEYS, CREATE,api_params)
-      self
+      api_request(SSHKEYS, CREATE,api_params)
     end
 
     ## import - use create_or_import instead.
     def import(api_params)
       api_params[:privatekey] = api_params[:ssh_private_key].read
       api_params[:publickey] = api_params[:ssh_public_key].read
-      raw = api_request(SSHKEYS, CREATE,api_params)
-      self
-    end
+      api_request(SSHKEYS, CREATE,api_params)
+   end
 
     # a private method that take the sshkeys collection and returns a hash
     def to_hash(ssh_keys_collection)
