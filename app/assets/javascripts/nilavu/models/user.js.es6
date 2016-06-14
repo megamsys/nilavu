@@ -40,7 +40,7 @@ const User = RestModel.extend({
     staff: Em.computed.or('admin', 'moderator'),
 
     destroySession() {
-        return Nilavu.ajax(`/session/${this.get('username')}`, {
+        return Nilavu.ajax(`/sessions/${this.get('email')}`, {
             type: 'DELETE'
         });
     },
