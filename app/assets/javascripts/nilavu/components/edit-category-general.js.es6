@@ -11,7 +11,6 @@ export default buildCategoryPanel('general', {
 
     category: function() {
         return this.get('category');
-
     }.property("category"),
 
     //TO-DO togglePropert("subDomainValid"), if not don't allow to launch
@@ -46,7 +45,6 @@ export default buildCategoryPanel('general', {
         });
 
         return fullFlavor;
-//alert(JSON.stringify(fullFlavor));
     }.property('category.regionoption', 'regionOption'),
 
 

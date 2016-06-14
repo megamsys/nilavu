@@ -32,12 +32,14 @@ export default Ember.Controller.extend(ModalFunctionality, {
     },
 
     changeSize: function() {
-        if (this.get('selectionSelected')) {
+        if (this.get('selectionSelected') && (!this.get('isVirtualMachine'))) {
+            this.set('controllers.modal.modalClass', 'edit-category-modal full');
+        } else if (this.get('selectionSelected')) {
             this.set('controllers.modal.modalClass', 'edit-category-modal small');
         } else {
-            this.set('controllers.modal.modalClass', 'edit-category-modal full');
+          this.set('controllers.modal.modalClass', 'edit-category-modal full');
         }
-    }.observes('generalSelected', 'selectionSelected', 'summarySelected'),
+    }.observes('isVirtualMachine', 'generalSelected', 'selectionSelected', 'summarySelected'),
 
     title: function() {
         if (this.get('selectionSelected')){
@@ -56,6 +58,9 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
     launchableChanged: function() {
         this.set('model.launchoption', this.get('launchOption'));
+        const isvm =  (this.get('launchOption').trim.length > 0 && Ember.isEqual(this.get('launchOption').trim(), I18n.t('launcher.virtualmachines')));
+        this.set('isVirtualMachine', isvm)
+
         this.set('selectedTab', 'general');
         if (!this.editLaunching) {
             $(".hideme").slideToggle(250);
