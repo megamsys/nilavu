@@ -2,7 +2,7 @@
     {{raw "topic-list-header" currentUser=currentUser title=title nameEnabled=nameEnabled name=name subTitleEnabled=subTitleEnabled subTitle=subTitle}}
     <div class="bottom-divider"></div>
     <div class="">
-        <div class="row c_pading-b25">
+        <div class="row c_pading-b25 pad_0">
             <button type="button" class="btn btn-default pull-left ">
                 <span class="glyphicon glyphicon-refresh"></span>
             </button>
@@ -12,7 +12,11 @@
             </button>
         </div>
     </div>
-    <section class="predeploying">
+    <div class="predeploybar">
+        {{#progress-bar  value=progress  striped=true minValue=0 maxValue=100 label="Launching..." showLabel=true}}{{/progress-bar}}
+    </div>
 
-    </section>
+    {{#predeploy-status machineId="ASM000001" machineName="abcd.pogo.com"}}
+    {{/predeploy-status}}
+    {{!predeploy-notifications}}
 </div>

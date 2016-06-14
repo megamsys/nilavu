@@ -40,6 +40,7 @@
 //= require ./nilavu/models/store
 //= require ./nilavu/models/post
 //= require ./nilavu/lib/posts-with-placeholders
+//= require ./nilavu/components/predeploy-status
 //= require ./nilavu/models/topic-details
 //= require ./nilavu/models/topic
 //= require ./nilavu/models/user-action
