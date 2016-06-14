@@ -9,6 +9,7 @@ Nilavu::Application.routes.draw do
 
 
   GROUPNAME_ROUTE_FORMAT = /[\w.\-]+/ unless defined? GROUPNAME_ROUTE_FORMAT
+  USEREMAIL_ROUTE_FORMAT = /[\w.\-]+/ unless defined? USEREMAIL_ROUTE_FORMAT
 
   # named route for users, session
   resources :static
@@ -21,6 +22,10 @@ Nilavu::Application.routes.draw do
   #session related
   resources :sessions
   get "session/csrf" => "sessions#csrf"
+  match "sessions/:id", to:  "sessions#destroy", via: [:delete], constraints: {
+    id: USEREMAIL_ROUTE_FORMAT
+  }
+
   post "forgot_password" => "sessions#forgot_password"
   get "/password_reset" => "users#password_reset"
   put "/password_reset" => "users#password_reset"
@@ -55,7 +60,8 @@ Nilavu::Application.routes.draw do
 
   # Topics resource
   get "t/:id" => "topics#show"
-  put "t/:id" => "topics#update"
+  get "t/:id/:name" => "topics#request", as: "topic_action_group"
+    put "t/:id" => "topics#update"
   delete "t/:id" => "topics#destroy"
 
   get 'notifications' => 'notifications#index'

@@ -1,44 +1,23 @@
 import NilavuURL from 'nilavu/lib/url';
 
 export default Ember.Controller.extend({
-
     title: "Billing",
     currentUsage: Ember.computed.alias('model.usage'),
-    currentBalance:Ember.computed.alias('model.paid'),
-    regions: [{
-        name: "sydney",
-        value: "sydney",
-        ram: "1024",
-        flavors: {
-            micro: "1 GB,1 Core,24 GB",
-            medium: "2 GB,2 Cores,48 GB",
-            large: "3 GB,4 Cores,96 GB",
-        }
-    }, {
-        name: "chennai",
-        value: "chennai",
-        ram: "1034",
-        flavors: {
-            micro: "1 GB,1 Core,24 GB",
-            medium: "2 GB,2 Cores,36 GB",
-            large: "3 GB,3 Cores,48 GB",
-        }
-    }, {
-        name: "dar_e_salaam",
-        value: "dar_e_salaam",
-        ram: "1068",
-        flavors: {
-            micro: "1 GB,1 Core,24 GB",
-            medium: "4 GB,2 Cores,96 GB",
-            large: "8 GB,2 Cores,192 GB",
-        }
+    currentBalance: Ember.computed.alias('model.balance'),
+    regions: Ember.computed.alias('model.regions'),
 
-    }],
+    //send the default region
     billingRegionoption: function() {
-        return "chennai";
-    }.property(),
+        if (this.get('regions')) {
+            return this.get('regions.firstObject.name')
+        }
+        return;
+    }.property('regions'),
 
     resources: function() {
+        if (!this.get('regions')) {
+            return;
+        }
         const _regionOption = this.get('billingRegionoption');
         const fullFlavor = this.get('regions').filter(function(c) {
             if (c.name == _regionOption) {
@@ -47,11 +26,8 @@ export default Ember.Controller.extend({
             }
         });
         if (fullFlavor.length > 0) {
-          const fl=fullFlavor.get('firstObject').flavors;
-          alert("firstObject"+JSON.stringify(fl));
-
-            this.set('unitFlavor', fullFlavor.get('firstObject').flavors);
+            this.set('unitFlavors', fullFlavor.get('firstObject').flavors);
         }
-
     }.observes('billingRegionoption'),
+
 });

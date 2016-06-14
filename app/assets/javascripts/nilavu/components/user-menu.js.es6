@@ -99,10 +99,7 @@ export default Ember.Component.extend({
       });
     },
     logout() {
-      alert("*****component*******");
-        Nilavu.ajax("/session/delete", {method: 'DELETE'}).then(function(){
       this.sendAction('logoutAction');
-      });
     }
   }
 });

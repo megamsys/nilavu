@@ -1,4 +1,4 @@
-export default function logout(siteSettings, keyValueStore) {
+omexport default function logout(siteSettings, keyValueStore) {
   keyValueStore.abandonLocal();
 
   const redirect = siteSettings.logout_redirect;
