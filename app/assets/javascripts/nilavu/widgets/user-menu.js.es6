@@ -20,7 +20,7 @@ createWidget('user-menu-links', {
     const links = [profileLink];
 
     const glyphs = [];
-    
+
     /*const glyphs = [{ label: 'user.bookmarks',
                       className: 'user-bookmarks-link',
                       icon: 'bookmark',
@@ -43,6 +43,7 @@ export default createWidget('user-menu', {
   tagName: 'div.user-menu',
 
   panelContents() {
+    alert("********widget******");
     const path = this.currentUser.get('path');
 
     return [this.attach('user-menu-links', { path }),

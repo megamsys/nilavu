@@ -93,12 +93,16 @@ export default Ember.Component.extend({
 
   actions: {
     toggleAnon() {
+      alert("action");
       Nilavu.ajax("/users/toggle-anon", {method: 'POST'}).then(function(){
         window.location.reload();
       });
     },
     logout() {
+      alert("*****component*******");
+        Nilavu.ajax("/session/delete", {method: 'DELETE'}).then(function(){
       this.sendAction('logoutAction');
+      });
     }
   }
 });
