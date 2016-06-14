@@ -4,7 +4,7 @@ require_dependency 'sshkeys_finder'
 module LaunchableSummarizer
 
     def summary(params)
-        { sshs: find_sshkeys(params) }
+        { sshs: find_sshkeys(params) }      
     end
 
 

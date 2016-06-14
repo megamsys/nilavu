@@ -21,7 +21,7 @@ class LaunchingItem
         [:email, :api_key, :org_id, :mkp_name, :version, :cattype,
             :assemblyname, :domain, :keypairname, :keypairoption,
             :region, :resource, :resourceunit, :storagetype,
-        :oneclick, :ipv6, :privnetwork].each do |setting|
+            :oneclick, :ipv6, :privnetwork].each do |setting|
             raise Nilavu::InvalidParameters unless launching_params[setting]
             self.send("#{setting}=",launching_params[setting])
         end

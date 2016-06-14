@@ -9,6 +9,9 @@ class VerticeLauncher
   end
 
   def set_sshkey
+    puts "--- set ssh key"
+    puts @ssh_params.inspect
+    puts "=================="
     SSHKeysCreator.new(@ssh_params).save
     @launch_params[:sshkey] = @ssh_params[:sshkey]
   end

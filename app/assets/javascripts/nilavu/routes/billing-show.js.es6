@@ -13,7 +13,7 @@ export default Nilavu.Route.extend({
             billController = this.controllerFor('billing');
 
       params.forceLoad = true;
-      
+
       //TO-DO VINO: ADD error handling here to show the error.
       const promise = Billing.find().then(function(result) {
             billController.setProperties({ model: result });

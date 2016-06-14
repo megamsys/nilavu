@@ -42,7 +42,7 @@ const PredeployStatusComponent = MountWidget.extend({
   },
 
   buildArgs() {
-    alert(this.get('id') +"," + this.get('name'));
+    //alert(this.get('id') +"," + this.get('name'));
     return {
       id: this.get('id'),
       name: this.get('name')

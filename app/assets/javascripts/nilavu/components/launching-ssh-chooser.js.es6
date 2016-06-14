@@ -5,8 +5,6 @@ import SSHOptionType from 'nilavu/models/sshoption-type';
 
 export default Ember.Component.extend({
 
-    launchKeyPair: '',
-
     selectedSSHOption: function() {
        if (this.oldPairs) {
          return SSHOptionType.OLD;
@@ -19,7 +17,7 @@ export default Ember.Component.extend({
         if (this.get('showOldPairs')) {
           this.set('category.keypairnameoption', this.get('selectedKeyPairOption'));
         } else {
-            this.set('category.keypairnameoption', this.get('launchKeyPair'));
+            this.set('category.keypairnameoption', this.get('securingName'));
         }
     },
 

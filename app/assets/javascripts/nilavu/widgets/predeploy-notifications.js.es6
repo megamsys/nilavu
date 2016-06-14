@@ -15,7 +15,6 @@ export default createWidget('predeploy-notifications', {
   },
 
   refreshNotifications(state) {
-    alert("refreshNotifications");
     if (this.loading) { return; }
 
     // estimate (poorly) the amount of notifications to return
