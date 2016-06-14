@@ -29,7 +29,9 @@ const Billing = RestModel.extend({
 Billing.reopenClass({
 
   create() {
+
     const result = this._super.apply(this, arguments);
+
     return result;
   },
 

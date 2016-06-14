@@ -1,5 +1,4 @@
 export default Ember.Component.extend({
-
     unitFlavourChanged: function() {
         const uf = this.get('unitFlavor');
         this.set('unitFlav', this.get('unitFlavor'));
@@ -17,4 +16,5 @@ export default Ember.Component.extend({
     fstorage: function() {
         return this.get('unitFlav').storage();
     }.property('unitFlav'),
+
 });
