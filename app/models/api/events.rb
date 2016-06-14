@@ -57,11 +57,6 @@ module Api
             end
         end
 
-        def create(api_params)
-            bld_data = build_data(api_params)
-            api_request(ASSEMBLIES, CREATE, api_params.merge(bld_data))
-        end
-
         private
 
         def success_stub_1
