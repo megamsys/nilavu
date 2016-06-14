@@ -4,9 +4,9 @@ export default Nilavu.Route.extend({
 
   titleToken() {
     const model = this.modelFor('user');
-    const username = model.get('username');
-    if (username) {
-      return [I18n.t("user.profile"), username];
+    const email = model.get('email');
+    if (email) {
+      return [I18n.t("user.profile"), email];
     }
   },
 
@@ -49,7 +49,7 @@ export default Nilavu.Route.extend({
 
   serialize(model) {
     if (!model) return {};
-    return { username: (Em.get(model, 'username') || '').toLowerCase() };
+    return {email: (Em.get(model, 'email') || '').toLowerCase() };
   },
 
   setupController(controller, user) {
@@ -60,14 +60,14 @@ export default Nilavu.Route.extend({
   activate() {
     this._super();
     const user = this.modelFor('user');
-    this.messageBus.subscribe("/users/" + user.get('username_lower'), function(data) {
+    this.messageBus.subscribe("/users/" + user.get('email_lower'), function(data) {
       user.loadUserAction(data);
     });
   },
 
   deactivate() {
     this._super();
-    this.messageBus.unsubscribe("/users/" + this.modelFor('user').get('username_lower'));
+    this.messageBus.unsubscribe("/users/" + this.modelFor('user').get('email_lower'));
 
     // Remove the search context
     this.searchService.set('searchContext', null);

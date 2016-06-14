@@ -34,7 +34,7 @@ export default function() {
     });
 
     this.resource('billing', { path: '/billing' }, function() {
-      this.route('show', { path: '/' });      
+      this.route('show', { path: '/' });
     });
 
     this.route('marketplaces', { path: '/marketplaces' });
@@ -43,7 +43,7 @@ export default function() {
 
     // User routes
     this.resource('users');
-    this.resource('user', { path: '/users/:username' }, function() {
+    this.resource('user', { path: '/users/:email' }, function() {
         this.route('summary');
         this.resource('userActivity', { path: '/activity' }, function() {
             this.route('topics');

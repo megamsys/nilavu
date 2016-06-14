@@ -11,11 +11,14 @@ export default createWidget('link', {
     const route = attrs.route;
     if (route) {
       const router = this.container.lookup('router:main');
+      alert("router.router =" + router.router);
       if (router && router.router) {
         const params = [route];
         if (attrs.model) {
           params.push(attrs.model);
         }
+        alert("href = params = " + JSON.stringify(params));
+        alert("href = " +Nilavu.getURL(router.router.generate.apply(router.router, params)));
         return Nilavu.getURL(router.router.generate.apply(router.router, params));
       }
     } else {

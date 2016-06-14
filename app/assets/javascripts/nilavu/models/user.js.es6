@@ -1,15 +1,8 @@
-import {
-    url
-} from 'nilavu/lib/computed';
+import { url } from 'nilavu/lib/computed';
 import RestModel from 'nilavu/models/rest';
 import Singleton from 'nilavu/mixins/singleton';
-import {
-    longDate
-} from 'nilavu/lib/formatter';
-import {
-    default as computed,
-    observes
-} from 'ember-addons/ember-computed-decorators';
+import {longDate} from 'nilavu/lib/formatter';
+import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
 import Topic from 'nilavu/models/topic';
 
 const User = RestModel.extend({
@@ -73,7 +66,7 @@ const User = RestModel.extend({
     @computed()
     path() {
         // no need to observe, requires a hard refresh to update
-        return Nilavu.getURL(`/users/${this.get('username_lower')}`);
+        return Nilavu.getURL(`/users/${this.get('email')}`);
     },
 
     pmPath(topic) {
@@ -99,10 +92,9 @@ const User = RestModel.extend({
 
     mutedTopicsPath: url('/latest?state=muted'),
 
-    @computed("username")
-    username_lower(username) {
-        return "";
-        //return username.toLowerCase();
+    @computed("email")
+    email_lower(email) {
+        return email.toLowerCase();
     },
 
     @computed("trust_level")
