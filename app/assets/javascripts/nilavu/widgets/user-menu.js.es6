@@ -43,7 +43,6 @@ export default createWidget('user-menu', {
   tagName: 'div.user-menu',
 
   panelContents() {
-    alert("********widget******");
     const path = this.currentUser.get('path');
 
     return [this.attach('user-menu-links', { path }),
@@ -53,8 +52,9 @@ export default createWidget('user-menu', {
               h('ul.menu-links',
                 h('li', this.attach('link', { action: 'logout',
                                                        className: 'logout',
-                                                       icon: 'sign-out',
-                                                       label: 'user.log_out' })))
+                                                       icon: 'glyphicon glyphicon-off',
+                                                       label: 'user.log_out',
+                                                     route:'login' })))
               ])];
   },
 
