@@ -28,37 +28,34 @@ export default buildCategoryPanel('logs', {
     },
 
     _socket_connect: function() {
-        this.set('log_socket', this.socketIO.socketFor('ws://localhost:7777', { path: "/logs"}));
-        /*if (this.websockets.isWebSocketOpen(this.get('log_socket'))) {
-            this.get('log_socket').send({
-                Name: this.get('model.name'),
-            }, true);
-        }*/
-        alert(this.get('model.name'));
+        this.set('log_socket', this.socketIO.socketFor('ws://localhost:7777', {
+            path: "/logs"
+        }));
         var socket = this.get('log_socket');
-        //socket.emit("category_connect", "log");
-        //socket.emit('logConnect', "hello");
-        //socket.emit('logInit', this.get('model.name'));
-        socket.emit("log", this.get('model.name'));
+        socket.emit("category_connect", "log");
+        socket.emit('logInit', this.get('model.name'));
         socket.on(this.get('model.name'), this.onMessage, this);
         socket.on('error', this.onErrorMessage, this);
     },
 
     onMessage: function(data) {
-      console.log(data);
+        console.log(data);
     },
 
     onErrorMessage: function(data) {
-      alert(data);
+        alert(data);
     },
 
     _socket_disconnect: function() {
         var socket = this.get('log_socket');
         if (!Ember.isEqual(this.get('log_socket'), null)) {
-          socket.emit('logDisconnect', "disconnectfghfghgh");
-          ///alert("disconnect");
-          socket.close();
+            socket.emit('logDisconnect', "disconnectfghfghgh");
+            socket.close();
         }
+    },
+
+    willDestroyElement: function() {
+        this._socket_disconnect();
     },
 
     allSelected: function() {
