@@ -344,9 +344,11 @@ body {
 
   .tb_action_list tbody tr {
     height: 60px;
+
   }
   .tb_action_list thead th {
     height: 40px;
+    
   }
 
   .set_title {
