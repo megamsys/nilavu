@@ -44,7 +44,7 @@
             </ul>
             <div class="org-datas">
             {{#each orgPanels as |orgTab|}}
-                {{component orgTab orgSelectedTab=orgSelectedTab}}
+                {{component orgTab orgSelectedTab=orgSelectedTab currentUser=currentUser}}
             {{/each}}
           </div>
 

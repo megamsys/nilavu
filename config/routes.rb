@@ -41,7 +41,7 @@ Nilavu::Application.routes.draw do
     end
   end
 
-  get "users/:email.json" => 'users#show', defaults: {format: 'json'}, id:"email"
+  get "users/:email.json" => 'users#edit', defaults: {format: 'json'}
 
 
   get "stylesheets/:name.css" => "stylesheets#show", constraints: { name: /[a-z0-9_]+/ }

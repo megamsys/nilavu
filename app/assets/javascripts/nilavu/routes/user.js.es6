@@ -34,6 +34,7 @@ export default Nilavu.Route.extend({
         if (currentUser && (params.email.toLowerCase() === currentUser.get('email'))) {
 
             return currentUser;
+
         }
 
         return Nilavu.User.create({
@@ -67,13 +68,13 @@ export default Nilavu.Route.extend({
         this.searchService.set('searchContext', user.get('searchContext'));
     },
 
-  /*  activate() {
-        this._super();
-        const user = this.modelFor('user');
-        this.messageBus.subscribe("/users/" + user.get('email_lower'), function(data) {
-            user.loadUserAction(data);
-        });
-    },*/
+    /*  activate() {
+          this._super();
+          const user = this.modelFor('user');
+          this.messageBus.subscribe("/users/" + user.get('email_lower'), function(data) {
+              user.loadUserAction(data);
+          });
+      },*/
 
     deactivate() {
         this._super();
