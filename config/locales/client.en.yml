@@ -368,6 +368,15 @@ en:
       timestamp: "Timestamp"
       paypal: "Pay with Paypal"
 
+    profile_management:
+      account:
+        tab_title: "Account"
+      organization:
+        tab_title: "Organization"
+      apikey:
+        tab_title: "Apikey"
+
+
     vm_management:
       info:
         tab_title: "Info"
@@ -415,6 +424,12 @@ en:
         tab_title: "warnings"
       errors:
         tab_title: "errors"
+
+    org:
+      user:
+        tab_title: "User"
+      domain:
+        tab_title: "Domain"
 
     notifications:
       none: "Unable to load notifications at this time."

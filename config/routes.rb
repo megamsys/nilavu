@@ -30,7 +30,7 @@ Nilavu::Application.routes.draw do
   get "/password_reset" => "users#password_reset"
   put "/password_reset" => "users#password_reset"
   get "users/account-created/" => "users#account_created"
-  
+
 
   match "/auth/:provider/callback", to: "omniauth_callbacks#complete", via: [:get, :post]
   match "/auth/failure", to: "omniauth_callbacks#failure", via: [:get, :post]
@@ -41,8 +41,8 @@ Nilavu::Application.routes.draw do
     end
   end
 
-  get "users/:id.json" => 'users#show', defaults: {format: 'json'}
-  get 'users/:id/:username' => 'users#show'
+  get "users/:email.json" => 'users#show', defaults: {format: 'json'}, id:"email"
+
 
   get "stylesheets/:name.css" => "stylesheets#show", constraints: { name: /[a-z0-9_]+/ }
 

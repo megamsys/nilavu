@@ -29,7 +29,7 @@ class UsersController < ApplicationController
     :password_reset,
   :confirm_email_token]
 
-  before_action :add_authkeys_for_api, only: [:edit,:update]
+  before_action :add_authkeys_for_api, only: [:edit,:update,:show]
 
 
   def create
@@ -181,6 +181,20 @@ class UsersController < ApplicationController
 
   def fetch_user_from_params
     User.new
+  end
+
+  def show
+    puts("*********************************************")
+      @user = User.new_from_params(params)
+      puts user
+      respond_to do |format|
+          if @user
+              format.json { render json: @user.to_hash }
+          else
+              format.json { render json: failed_json }
+          end
+      end
+
   end
 
   ## we will have to refactor this later.
