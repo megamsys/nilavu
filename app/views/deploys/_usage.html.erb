@@ -1,90 +1,88 @@
 <div class="col-sm-3 storage-rt-list">
-  <input  type="hidden" id="vncHost"  name="host" value="<%= @deployed.get_vnchost %>">
-  <input type="hidden"  id="vncPort" name="port" value="<%= @deployed.get_vncport %>">
 
-  <dl>
-    <h3>Usage</h3>
-    <dt>
-      <%= t('overviews.name') %>
-    </dt>
-    <dd>
-      <%= @deployed.name %>
-    </dd>
-    <dt class="margin-top-20"></dt>
-    <dt>
-      <%= t('overviews.available_ram') %>
-    </dt>
-    <dd>
-      <%= @deployed.favourized.ram %>
-    </dd>
-    <dt class="margin-top-20"></dt>
-    <dt>
-      <%= t('overviews.cpu_core') %>
-    </dt>
-    <dd>
-      <%= @deployed.favourized.cpu %>
-    </dd>
-    <dt class="margin-top-20"></dt>
-    <dt>
-      <%= t('overviews.available_hdd') %>
-    </dt>
-    <dd>
-      <%= @deployed.favourized.hdd %>
-    </dd>
-    <dt class="margin-top-20"></dt>
-    <dt>
-      <%= t('overviews.operating_system') %>
-    </dt>
-    <dd>
-      <%= image_tag  "logos/#{@deployed.logo}", :alt => "" %>
-      <dt class="margin-top-20"></dt>
-      <dt>
-        <%= t('overviews.ip') %>
-      </dt>
-      <dd>
-        <%= @deployed.publicip %>
-      </dd>
-      <dt class="margin-top-20"></dt>
-      <dt>
-      VNC URL
-      </dt>
-      <dd>
-         <a  data-toggle="modal" href="<%= GlobalSetting.vnc_server %>"  id="vncid" class="pull-left"><u class="colr-denimblue"><%= t('overviews.vnc') %></u></a>
-         <br>
-      </dd>
-      <dt class="margin-top-20"></dt>
-      <dt>
-        SSH URL
-      </dt>
-      <dd>
-        <%= @deployed.ssh %>
-      </dd>
-      <% if @deployed.has_envs? %>
-        <dt class="margin-top-20"></dt>
+    <dl>
+        <h3>Usage</h3>
         <dt>
-          ENVS
+            <%= t('overviews.name') %>
         </dt>
         <dd>
-          <%= @deployed.envs_to_s %>
+            <%= @deployed.name %>
         </dd>
-      <% end %>
-      <dt class="margin-top-20"></dt>
-      <dt>
-        Region
-      </dt>
-      <dd>
-        <%= @deployed.region %>
-      </dd>
-      <dt class="margin-top-20"></dt>
-      <dt>
-        <%= t('overviews.current_sshkey') %>
-      </dt>
-      <dd>
-        <%= link_to @deployed.sshkey,
+        <dt class="margin-top-20"></dt>
+        <dt>
+            <%= t('overviews.available_ram') %>
+        </dt>
+        <dd>
+            <%= @deployed.favourized.ram %>
+        </dd>
+        <dt class="margin-top-20"></dt>
+        <dt>
+            <%= t('overviews.cpu_core') %>
+        </dt>
+        <dd>
+            <%= @deployed.favourized.cpu %>
+        </dd>
+        <dt class="margin-top-20"></dt>
+        <dt>
+            <%= t('overviews.available_hdd') %>
+        </dt>
+        <dd>
+            <%= @deployed.favourized.hdd %>
+        </dd>
+        <dt class="margin-top-20"></dt>
+        <dt>
+            <%= t('overviews.operating_system') %>
+        </dt>
+        <dd>
+            <%= image_tag  "logos/#{@deployed.logo}", :alt => "" %>
+            <dt class="margin-top-20"></dt>
+            <dt>
+                <%= t('overviews.ip') %>
+            </dt>
+            <dd>
+                <%= @deployed.publicip %>
+            </dd>
+            <dt class="margin-top-20"></dt>
+            <dt>
+                VNC URL
+            </dt>
+            <dd>
+                <a href="javascript:void(0)" id="vncid" class="pull-left">
+                    <u class="colr-denimblue"><%= t('overviews.vnc') %></u>
+                </a>
+                <br>
+            </dd>
+            <dt class="margin-top-20"></dt>
+            <dt>
+                SSH URL
+            </dt>
+            <dd>
+                <%= @deployed.ssh %>
+            </dd>
+            <% if @deployed.has_envs? %>
+            <dt class="margin-top-20"></dt>
+            <dt>
+                ENVS
+            </dt>
+            <dd>
+                <%= @deployed.envs_to_s %>
+            </dd>
+            <% end %>
+            <dt class="margin-top-20"></dt>
+            <dt>
+                Region
+            </dt>
+            <dd>
+                <%= @deployed.region %>
+            </dd>
+            <dt class="margin-top-20"></dt>
+            <dt>
+                <%= t('overviews.current_sshkey') %>
+            </dt>
+            <dd>
+                <%= link_to @deployed.sshkey,
       ssh_key_path(:name => @deployed.sshkey), :class => "hint  hint--bottom", :target => "_self", 'data-hint' => "Click here to download private key" %>
-      </dd>
-    </dl>
-  </div>
-<!--<%= render :partial => "deploys/vnc_modal" %>-->
-<script src="assets/vncapp.js" />
-<script type="text/javascript">
+            </dd>
+        </dl>
+    </div>
+     <%= render :partial => "deploys/vnc_modal" %>
