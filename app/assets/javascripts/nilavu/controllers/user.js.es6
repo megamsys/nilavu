@@ -12,8 +12,6 @@ export default Ember.Controller.extend({
     selectedTab: null,
     panels: null,
     rerenderTriggers: ['isUploading', 'progress'],
-    //key: Ember.computed.alias('currentUser.api_key'),
-    //email:Ember.computed.alias('currentUser.email'),
 
     _initPanels: function() {
         this.set('panels', []);

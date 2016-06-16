@@ -34,4 +34,21 @@ class Teams
     @teams_by_id[team.id].domain
   end
 
+  def to_hash
+      org = Hash.new
+      if has_team?
+          teams.each do |team|
+               domains_for(team)
+            end
+              #org[team.name] = team.domain.map{|d| d.name}
+
+      end
+      #puts org.inspect
+      # {":org.megambox" => ["megambox.com"] }
+      # {details: {":org.megambox" => ["megambox.com"] } }
+      #
+      #call in users controller render json: {details: @orgs.to_hash}
+      org
+  end
+
 end

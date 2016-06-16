@@ -42,19 +42,18 @@ export default Nilavu.Route.extend({
         });
     },
 
-    /*afterModel() {
-        alert("*********");
+    afterModel() {
 
         const user = this.modelFor('user');
-        alert("user"+JSON.stringify(user));
+
         const self = this;
-        alert("findDetails"+JSON.stringify(user.findDetails()));
-        return user.findDetails().then(function() {
+        return user.findDetails();
+        /*.then(function() {
             alert("findStaffInfo"+JSON.stringify(user.findStaffInfo()));
         }).catch(function() {
             return self.replaceWith('/404');
-        });
-    },*/
+        });*/
+    },
 
     serialize(model) {
         if (!model) return {};

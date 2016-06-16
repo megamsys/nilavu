@@ -1,8 +1,15 @@
-import { url } from 'nilavu/lib/computed';
+import {
+    url
+} from 'nilavu/lib/computed';
 import RestModel from 'nilavu/models/rest';
 import Singleton from 'nilavu/mixins/singleton';
-import {longDate} from 'nilavu/lib/formatter';
-import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
+import {
+    longDate
+} from 'nilavu/lib/formatter';
+import {
+    default as computed,
+    observes
+} from 'ember-addons/ember-computed-decorators';
 import Topic from 'nilavu/models/topic';
 
 const User = RestModel.extend({
@@ -270,15 +277,13 @@ const User = RestModel.extend({
     },
 
     findDetails(options) {
-      const user = this;
-      alert("options"+JSON.stringify(user));
-        return PreloadStore.getAndRemove(`user_${user.get('email')}`, () => {
-            return Nilavu.ajax(`/users/${user.get('email')}.json`, {
-                data: options
-            });
-        }).then(json => {
+        return Nilavu.ajax(`/users/${this.get('email')}`, {
 
-            /*if (!Em.isEmpty(json.user.stats)) {
+            data: options
+        });
+        /*.then(json => {
+
+            if (!Em.isEmpty(json.user.stats)) {
               json.user.stats = Nilavu.User.groupStats(_.map(json.user.stats, s => {
                 if (s.count) s.count = parseInt(s.count, 10);
                 return UserActionStat.create(s);
@@ -287,13 +292,13 @@ const User = RestModel.extend({
 
             if (!Em.isEmpty(json.user.groups)) {
               json.user.groups = json.user.groups.map(g => Group.create(g));
-            }*/
+            }
 
             if (json.user.invited_by) {
                 json.user.invited_by = Nilavu.User.create(json.user.invited_by);
             }
 
-            /*if (!Em.isEmpty(json.user.featured_user_badge_ids)) {
+            if (!Em.isEmpty(json.user.featured_user_badge_ids)) {
               const userBadgesMap = {};
               UserBadge.createFromJson(json).forEach(userBadge => {
                 userBadgesMap[ userBadge.get('id') ] = userBadge;
@@ -303,11 +308,11 @@ const User = RestModel.extend({
 
             if (json.user.card_badge) {
               json.user.card_badge = Badge.create(json.user.card_badge);
-            }*/
+            }
 
             user.setProperties(json.user);
             return user;
-        });
+        });*/
     },
 
     findStaffInfo() {
@@ -363,23 +368,19 @@ const User = RestModel.extend({
         });
     },
 
-    @observes("muted_category_ids")
-    updateMutedCategories() {
+    @observes("muted_category_ids") updateMutedCategories() {
         this.set("mutedCategories", Nilavu.Category.findByIds(this.muted_category_ids));
     },
 
-    @observes("tracked_category_ids")
-    updateTrackedCategories() {
+    @observes("tracked_category_ids") updateTrackedCategories() {
         this.set("trackedCategories", Nilavu.Category.findByIds(this.tracked_category_ids));
     },
 
-    @observes("watched_category_ids")
-    updateWatchedCategories() {
+    @observes("watched_category_ids") updateWatchedCategories() {
         this.set("watchedCategories", Nilavu.Category.findByIds(this.watched_category_ids));
     },
 
-    @computed("can_delete_account", "reply_count", "topic_count")
-    canDeleteAccount(canDeleteAccount, replyCount, topicCount) {
+    @computed("can_delete_account", "reply_count", "topic_count") canDeleteAccount(canDeleteAccount, replyCount, topicCount) {
         return !Nilavu.SiteSettings.enable_sso && canDeleteAccount && ((replyCount || 0) + (topicCount || 0)) <= 1;
     },
 
@@ -536,7 +537,8 @@ User.reopenClass(Singleton, {
             },
             type: 'POST'
         });
-    }
+    },
+
 });
 
 export default User;

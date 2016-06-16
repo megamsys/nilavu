@@ -107,13 +107,13 @@ class UsersController < ApplicationController
   end
 
   ## Need a json serializer
-  def edit
-    puts("******************")
+  def show
     @orgs = Teams.new.tap do |teams|
       teams.find_all(params)
     end
-    render json: @org
-    puts @org
+  #puts @orgs
+  render json: {details: @orgs.to_hash}
+
   end
 
 
