@@ -47,7 +47,6 @@ Nilavu::Application.routes.draw do
 
 
 
-
   get "stylesheets/:name.css" => "stylesheets#show", constraints: { name: /[a-z0-9_]+/ }
 
   get "launchables.json" => 'launchables#assemble', defaults: {format: 'json'}

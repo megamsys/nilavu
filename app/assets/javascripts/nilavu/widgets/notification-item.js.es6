@@ -86,11 +86,13 @@ createWidget('notification-item', {
   },
 
   html(attrs) {
-    const notificationType = attrs.notification_type;
+    const notificationType = attrs.event_type;
     const lookup = this.site.get('notificationLookup');
     const notName = lookup[notificationType];
+    const desc = attrs.data.filter((f) => f.key == 'desc');
+    const fd = notificationType + "." + desc.get('firstObject').value;
 
-    const contents = new RawHtml({ html: `<div>${Nilavu.Emoji.unescape(this.text(notificationType, notName))}</div>` });
+    const contents = new RawHtml({ html: `<div>${fd}</div>` });
     const href = this.url();
     const alt = I18n.t(`notifications.alt.${notName}`);
     return href ? h('a', { attributes: { href, alt, 'data-auto-route': true } }, contents) : contents;

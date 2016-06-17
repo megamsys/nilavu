@@ -148,7 +148,6 @@ const TopicRoute = Nilavu.Route.extend({
       topic = this.store.createRecord('topic', _.omit(params, 'username_filters', 'filter'));
       return this.setupParams(topic, queryParams);
     }
-
   },
 
   activate() {
@@ -161,8 +160,7 @@ const TopicRoute = Nilavu.Route.extend({
   deactivate() {
     this._super();
 
-  /*  this.searchService.set('searchContext', null);
-    this.controllerFor('user-card').set('visible', false);
+  /*
 
     const topicController = this.controllerFor('topic'),
         postStream = topicController.get('model.postStream');
@@ -183,18 +181,7 @@ const TopicRoute = Nilavu.Route.extend({
       firstPostExpanded: false
     });
 
-  // /  TopicRoute.trigger('setupTopicController', this);
-
-    /*this.controllerFor('header').setProperties({ topic: model, showExtraInfo: false });
-    this.searchService.set('searchContext', model.get('searchContext'));
-
-    this.controllerFor('composer').set('topic', model);
-    this.topicTrackingState.trackIncoming('all');
-
-    this.controllerFor('topic-progress').set('model', model);
-
-    // We reset screen tracking every time a topic is entered
-    this.screenTrack.start(model.get('id'), controller);*/
+//    this.controllerFor('topic-predeploy').set('model', model);
   }
 
 });

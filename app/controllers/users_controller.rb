@@ -93,7 +93,7 @@ class UsersController < ApplicationController
         values: user.to_hash.slice('name', 'email')
       }
     end
-  rescue ApiDispatcher::NotReachable
+  rescue ApiDispatcher::NotReached
     render json: {
       success: false,
       message: I18n.t("login.something_already_taken")
@@ -109,12 +109,15 @@ class UsersController < ApplicationController
   ## Need a json serializer
   def show
     @orgs = Teams.new.tap do |teams|
-    teams.find_all(params)
-end
-    puts("**************************************************************************")
-  puts @orgs.inspect
-    puts("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&")
-  render json: {details: @orgs.to_hash}
+
+      teams.find_all(params)
+    end
+
+    if @orgs
+      render json: {details: @orgs.to_hash }
+    else
+      render_json_error(I18n.t("organizations.none"))
+    end
 
   end
 
