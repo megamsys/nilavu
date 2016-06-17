@@ -43,7 +43,8 @@ class Teams
               #org[team.name] = team.domain.map{|d| d.name}
 
       end
-      #puts org.inspect
+      puts ("************************************************")
+      puts org.inspect
       # {":org.megambox" => ["megambox.com"] }
       # {details: {":org.megambox" => ["megambox.com"] } }
       #
