@@ -33,6 +33,7 @@ const User = RestModel.extend({
     staff: Em.computed.or('admin', 'moderator'),
 
     destroySession() {
+
         return Nilavu.ajax(`/sessions/${this.get('email')}`, {
             type: 'DELETE'
         });
@@ -70,6 +71,7 @@ const User = RestModel.extend({
     },
 
     pmPath(topic) {
+
         const userId = this.get('id');
         const username = this.get('username_lower');
 
@@ -120,6 +122,7 @@ const User = RestModel.extend({
     },
 
     changeUsername(new_username) {
+
         return Nilavu.ajax(`/users/${this.get('username_lower')}/preferences/username`, {
             type: 'PUT',
             data: {
@@ -129,6 +132,7 @@ const User = RestModel.extend({
     },
 
     changeEmail(email) {
+
         return Nilavu.ajax(`/users/${this.get('username_lower')}/preferences/email`, {
             type: 'PUT',
             data: {
@@ -142,6 +146,7 @@ const User = RestModel.extend({
     },
 
     save() {
+
         const data = this.getProperties(
             'bio_raw',
             'website',
@@ -265,10 +270,10 @@ const User = RestModel.extend({
     },
 
     findDetails(options) {
-        const user = this;
-
-        return PreloadStore.getAndRemove(`user_${user.get('username')}`, () => {
-            return Nilavu.ajax(`/users/${user.get('username')}.json`, {
+      const user = this;
+      alert("options"+JSON.stringify(user));
+        return PreloadStore.getAndRemove(`user_${user.get('email')}`, () => {
+            return Nilavu.ajax(`/users/${user.get('email')}.json`, {
                 data: options
             });
         }).then(json => {
@@ -306,15 +311,17 @@ const User = RestModel.extend({
     },
 
     findStaffInfo() {
+
         if (!Nilavu.User.currentProp("staff")) {
             return Ember.RSVP.resolve(null);
         }
-        return Nilavu.ajax(`/users/${this.get("username_lower")}/staff-info.json`).then(info => {
+        return Nilavu.ajax(`/users/${this.get("email")}/staff-info.json`).then(info => {
             this.setProperties(info);
         });
     },
 
     pickAvatar(upload_id, type, avatar_template) {
+
         return Nilavu.ajax(`/users/${this.get("username_lower")}/preferences/avatar/pick`, {
             type: 'PUT',
             data: {
@@ -334,6 +341,7 @@ const User = RestModel.extend({
     },
 
     createInvite(email, group_names) {
+
         return Nilavu.ajax('/invites', {
             type: 'POST',
             data: {
@@ -344,6 +352,7 @@ const User = RestModel.extend({
     },
 
     generateInviteLink(email, group_names, topic_id) {
+
         return Nilavu.ajax('/invites/link', {
             type: 'POST',
             data: {
@@ -375,6 +384,7 @@ const User = RestModel.extend({
     },
 
     "delete": function() {
+
         if (this.get('can_delete_account')) {
             return Nilavu.ajax("/users/" + this.get('username'), {
                 type: 'DELETE',
@@ -388,6 +398,7 @@ const User = RestModel.extend({
     },
 
     dismissBanner(bannerKey) {
+
         this.set("dismissed_banner_key", bannerKey);
         Nilavu.ajax(`/users/${this.get('username')}`, {
             type: 'PUT',
@@ -398,6 +409,7 @@ const User = RestModel.extend({
     },
 
     checkEmail() {
+
         return Nilavu.ajax(`/users/${this.get("username_lower")}/emails.json`, {
             type: "PUT",
             data: {
@@ -414,6 +426,7 @@ const User = RestModel.extend({
     },
 
     summary() {
+
         return Nilavu.ajax(`/users/${this.get("username_lower")}/summary.json`)
             .then(json => {
                 const topicMap = {};
@@ -471,6 +484,7 @@ User.reopenClass(Singleton, {
     },
 
     checkUsername(username, email, for_user_id) {
+
         return Nilavu.ajax('/users/check_email', {
             data: {
                 username,
@@ -506,6 +520,7 @@ User.reopenClass(Singleton, {
     },
 
     createAccount(attrs) {
+
         return Nilavu.ajax("/users", {
             data: {
                 //name: attrs.accountName,

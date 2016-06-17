@@ -42,9 +42,9 @@ export default function() {
     this.route('storages', { path: '/storages' });
 
     // User routes
-    this.resource('users');
-    this.resource('user', { path: '/users/:email' }, function() {
-        this.route('summary');
+    //this.resource('users');
+    this.resource('user', { path: '/user/:email' }, function() {
+        this.route('show',{ path: '/' });
         this.resource('userActivity', { path: '/activity' }, function() {
             this.route('topics');
             this.route('replies');
