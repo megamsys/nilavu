@@ -8,9 +8,12 @@ export default Nilavu.Route.extend({
 
   afterModel() {
     const topic = this.modelFor('topic');
-//add a method to check predeploy ?
-    if (topic) {
-      this.replaceWith(topic.url() + '/predeploy');
+
+    //TO_DO: KISHORE Add a method to check predeploy in model  (or) route ?
+    const canPredeploy = topic
+
+    if (canPredeploy) {
+      this.replaceWith(topic.url() + '/predeploy', topic);
     }
   },
 
@@ -25,7 +28,6 @@ export default Nilavu.Route.extend({
     //TO-DO RAJ: ADD error handling here to show the error.
     const promise =  topic.reload().then(function(result) {
         topicController.setProperties({ model: topic });
-
         //  self.set('loading', false);
     }).catch(function(e) {
       alert("RAJ HANDLE ERR (check edit-category)\n"+ e);

@@ -7,17 +7,21 @@ const PredeployStatusComponent = MountWidget.extend({
   widget: 'predeploy-notifications',
 
   profileWidget: true,
+  id: Ember.computed.alias('machineId'),
+
+  notificationId: function() {
+    return `currentUser.unread_${this.get('id')}_notifications`;
+  }.property('id'),
   // classNameBindings: ['editingTopic'],
 
-  @observes('currentUser.unread_notifications', 'currentUser.unread_private_messages')
-  _notificationsChanged() {
+  _notificationsChanged: function() {
+    alert("rerender received");
     this.queueRerender();
-  },
+  }.observes('notificationId'),
 
   didInsertElement() {
     this._super();
-    $(window).bind('scroll.discourse-dock', () => this.examineDockHeader());
-    $(document).bind('touchmove.discourse-dock', () => this.examineDockHeader());
+
     $(window).on('resize.discourse-menu-panel', () => this.afterRender());
 
     this.dispatch('notifications:changed', 'predeploy-notifications');
@@ -42,10 +46,9 @@ const PredeployStatusComponent = MountWidget.extend({
   },
 
   buildArgs() {
-    //alert(this.get('id') +"," + this.get('name'));
     return {
       id: this.get('id'),
-      name: this.get('name')
+      name: this.get('machineName')
     };
   },
 
