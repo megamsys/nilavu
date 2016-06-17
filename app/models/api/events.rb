@@ -26,9 +26,6 @@ module Api
         AUTHKEYSADDED   = 'AUTHKEYSADDED'.freeze
         ROUTEADDED      = 'ROUTEADDED'.freeze
         RUNNING         = 'RUNNING'.freeze
-        BOOTSTRAPPED    = 'BOOTSTRAPPED'.freeze
-        STATEUP         = 'STATEUP'.freeze
-        CHEFRUNNING     = 'CHEFRUNNING'.freeze
         ERROR           = 'ERROR'.freeze
 
         def initialize
@@ -88,6 +85,7 @@ module Api
 
         def std(evt_type, desc)
             {
+                id: 'NTF' + rand(100...100042).to_s,
                 event_type: evt_type,
                 account_id: "",
                 assembly_id: "ASM00001",

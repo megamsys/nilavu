@@ -43,7 +43,6 @@ Nilavu::Application.routes.draw do
 
   get "users/:email.json" => 'users#show', defaults: {format: 'json'}, id:"email"
 
-
   get "stylesheets/:name.css" => "stylesheets#show", constraints: { name: /[a-z0-9_]+/ }
 
   get "launchables.json" => 'launchables#assemble', defaults: {format: 'json'}
