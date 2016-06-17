@@ -22,6 +22,7 @@ export default Nilavu.Route.extend({
     },
 
     beforeModel() {
+
         if (this.siteSettings.hide_user_profiles_from_public && !this.currentUser) {
             this.replaceWith("discovery");
         }
@@ -32,8 +33,8 @@ export default Nilavu.Route.extend({
         // If we're viewing the currently logged in user, return that object instead
         const currentUser = this.currentUser;
         if (currentUser && (params.email.toLowerCase() === currentUser.get('email'))) {
-
             return currentUser;
+
         }
 
         return Nilavu.User.create({
@@ -41,19 +42,15 @@ export default Nilavu.Route.extend({
         });
     },
 
-    /*afterModel() {
-        alert("*********");
-
+    afterModel() {
         const user = this.modelFor('user');
-        alert("user"+JSON.stringify(user));
         const self = this;
-        alert("findDetails"+JSON.stringify(user.findDetails()));
-        return user.findDetails().then(function() {
-            alert("findStaffInfo"+JSON.stringify(user.findStaffInfo()));
+        return user.findDetails().then(function(result) {
+            return user.setDetails(result);
         }).catch(function() {
             return self.replaceWith('/404');
         });
-    },*/
+    },
 
     serialize(model) {
         if (!model) return {};
@@ -67,13 +64,13 @@ export default Nilavu.Route.extend({
         this.searchService.set('searchContext', user.get('searchContext'));
     },
 
-  /*  activate() {
-        this._super();
-        const user = this.modelFor('user');
-        this.messageBus.subscribe("/users/" + user.get('email_lower'), function(data) {
-            user.loadUserAction(data);
-        });
-    },*/
+    /*  activate() {
+          this._super();
+          const user = this.modelFor('user');
+          this.messageBus.subscribe("/users/" + user.get('email_lower'), function(data) {
+              user.loadUserAction(data);
+          });
+      },*/
 
     deactivate() {
         this._super();
