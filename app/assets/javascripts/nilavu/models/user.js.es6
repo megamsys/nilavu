@@ -278,51 +278,45 @@ const User = RestModel.extend({
 
     findDetails(options) {
         return Nilavu.ajax(`/users/${this.get('email')}`, {
-
             data: options
         });
-        /*.then(json => {
-
-            if (!Em.isEmpty(json.user.stats)) {
-              json.user.stats = Nilavu.User.groupStats(_.map(json.user.stats, s => {
-                if (s.count) s.count = parseInt(s.count, 10);
-                return UserActionStat.create(s);
-              }));
-            }
-
-            if (!Em.isEmpty(json.user.groups)) {
-              json.user.groups = json.user.groups.map(g => Group.create(g));
-            }
-
-            if (json.user.invited_by) {
-                json.user.invited_by = Nilavu.User.create(json.user.invited_by);
-            }
-
-            if (!Em.isEmpty(json.user.featured_user_badge_ids)) {
-              const userBadgesMap = {};
-              UserBadge.createFromJson(json).forEach(userBadge => {
-                userBadgesMap[ userBadge.get('id') ] = userBadge;
-              });
-              json.user.featured_user_badges = json.user.featured_user_badge_ids.map(id => userBadgesMap[id]);
-            }
-
-            if (json.user.card_badge) {
-              json.user.card_badge = Badge.create(json.user.card_badge);
-            }
-
-            user.setProperties(json.user);
-            return user;
-        });*/
     },
+    /*.then(json => {
 
-    findStaffInfo() {
-
-        if (!Nilavu.User.currentProp("staff")) {
-            return Ember.RSVP.resolve(null);
+        if (!Em.isEmpty(json.user.stats)) {
+          json.user.stats = Nilavu.User.groupStats(_.map(json.user.stats, s => {
+            if (s.count) s.count = parseInt(s.count, 10);
+            return UserActionStat.create(s);
+          }));
         }
-        return Nilavu.ajax(`/users/${this.get("email")}/staff-info.json`).then(info => {
-            this.setProperties(info);
-        });
+
+        if (!Em.isEmpty(json.user.groups)) {
+          json.user.groups = json.user.groups.map(g => Group.create(g));
+        }
+
+        if (json.user.invited_by) {
+            json.user.invited_by = Nilavu.User.create(json.user.invited_by);
+        }
+
+        if (!Em.isEmpty(json.user.featured_user_badge_ids)) {
+          const userBadgesMap = {};
+          UserBadge.createFromJson(json).forEach(userBadge => {
+            userBadgesMap[ userBadge.get('id') ] = userBadge;
+          });
+          json.user.featured_user_badges = json.user.featured_user_badge_ids.map(id => userBadgesMap[id]);
+        }
+
+        if (json.user.card_badge) {
+          json.user.card_badge = Badge.create(json.user.card_badge);
+        }
+
+        user.setProperties(json.user);
+        return user;
+    });*/
+
+
+    setDetails(details) {
+        this.setProperties(details);
     },
 
     pickAvatar(upload_id, type, avatar_template) {

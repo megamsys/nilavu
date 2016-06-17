@@ -12,6 +12,7 @@ export default Ember.Controller.extend({
     selectedTab: null,
     panels: null,
     rerenderTriggers: ['isUploading', 'progress'],
+    
 
     _initPanels: function() {
         this.set('panels', []);

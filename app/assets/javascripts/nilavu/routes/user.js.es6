@@ -22,6 +22,7 @@ export default Nilavu.Route.extend({
     },
 
     beforeModel() {
+
         if (this.siteSettings.hide_user_profiles_from_public && !this.currentUser) {
             this.replaceWith("discovery");
         }
@@ -32,7 +33,6 @@ export default Nilavu.Route.extend({
         // If we're viewing the currently logged in user, return that object instead
         const currentUser = this.currentUser;
         if (currentUser && (params.email.toLowerCase() === currentUser.get('email'))) {
-
             return currentUser;
 
         }
@@ -43,16 +43,13 @@ export default Nilavu.Route.extend({
     },
 
     afterModel() {
-
         const user = this.modelFor('user');
-
         const self = this;
-        return user.findDetails();
-        /*.then(function() {
-            alert("findStaffInfo"+JSON.stringify(user.findStaffInfo()));
+        return user.findDetails().then(function(result) {
+            return user.setDetails(result);
         }).catch(function() {
             return self.replaceWith('/404');
-        });*/
+        });
     },
 
     serialize(model) {
