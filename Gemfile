@@ -50,7 +50,7 @@ gem 'paypal-sdk-rest' # billing
 gem 'mail'
 gem 'randexp'
 gem 'sshkey' # ssh key-gen
-gem 'carrierwave'
+
 # passenger server
 gem 'passenger', group: :production
 
