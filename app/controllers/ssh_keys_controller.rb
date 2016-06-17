@@ -30,6 +30,13 @@ class SshKeysController < ApplicationController
     redirect_to(ssh_keys_path, :flash => { :success => "#{params[:ssh_keypair_name]} created successfully."}, format: 'js')
   end
 
+  def show
+    ssh = Api::Sshkeys.new.show(params)
+    #if ssh
+      #send_data ssh.first[:privatekey]
+    #end
+ end
+
 
   ## this downloads a key
   def edit
@@ -37,7 +44,7 @@ class SshKeysController < ApplicationController
     params.merge!({:download_location => "#{params[:name]}.#{params[:format]}"})
   else
     params.merge!({:download_location => "#{params[:name]}"})
-  end  
+  end
     Api::Sshkeys.new.download(params)
     send_file Rails.root.join("#{params[:download_location]}"), :x_sendfile=>true
   end

@@ -12,6 +12,7 @@ export default buildCategoryPanel('logs', {
     logSelectedTab: null,
     logPanels: null,
     log_socket: null,
+    messages: null,
 
     _initPanels: function() {
         this.set('logPanels', []);
@@ -39,7 +40,8 @@ export default buildCategoryPanel('logs', {
     },
 
     onMessage: function(data) {
-        console.log(data);
+        var ss = JSON.parse(data.Message);
+        this.set('message', ss);
     },
 
     onErrorMessage: function(data) {

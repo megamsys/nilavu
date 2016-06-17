@@ -57,6 +57,7 @@ Nilavu::Application.routes.draw do
   post "launchers.json" => "launchers#perform_launch"
 
   get "/ssh_keys/edit/:name", to: "ssh_keys#edit"
+  get "/ssh_keys/:name", to: "ssh_keys#show"
 
   # Topics resource
   get "t/:id" => "topics#show"

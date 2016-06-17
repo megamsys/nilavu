@@ -17,7 +17,7 @@
                 </div>
                 <div class="logs-datas">
                 {{#each logPanels as |logTab|}}
-                    {{component logTab logSelectedTab=logSelectedTab}}
+                    {{component logTab logSelectedTab=logSelectedTab message=message}}
                 {{/each}}
               </div>
                 <div class="no-logs"></div>
