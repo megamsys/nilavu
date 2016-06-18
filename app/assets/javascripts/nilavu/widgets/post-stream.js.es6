@@ -1,6 +1,5 @@
 import { createWidget } from 'nilavu/widgets/widget';
-import transformPost from 'nilavu/lib/transform-post';
-import { Placeholder } from 'nilavu/lib/posts-with-placeholders';
+import { h } from 'virtual-dom';
 import { addWidgetCleanCallback } from 'nilavu/components/mount-widget';
 
 const CLOAKING_ENABLED = !window.inTestEnv;
@@ -32,13 +31,17 @@ export function uncloak(post, component) {
 addWidgetCleanCallback('post-stream', () => _cloaked = {});
 
 export default createWidget('post-stream', {
-    tagName: 'ul.cd-faq-group',
+    tagName: 'ul',
+
+    buildAttributes(attrs) {
+        return { 'style': 'list-style:none' };
+    },
 
     html(attrs) {
         const posts = attrs.posts || [];
         const postArray = posts.toArray();
 
-        const result = [];
+        const result = [h('div.notifications')];
 
         const before = attrs.gaps && attrs.gaps.before ? attrs.gaps.before : {};
         const after = attrs.gaps && attrs.gaps.after ? attrs.gaps.after : {};

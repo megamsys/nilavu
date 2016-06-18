@@ -5,44 +5,7 @@ import { h } from 'virtual-dom';
 import DiscourseURL from 'nilavu/lib/url';
 import { dateNode } from 'nilavu/helpers/node';
 
-createWidget('post-avatar', {
-
-    settings: {
-        size: 'large'
-    },
-
-    html(attrs) {
-        let body;
-        //if (!attrs.user_id) {
-        body = h('i', { className: 'circle_green pull-right' });
-        //}
-
-        return [body];
-    }
-});
-
-createWidget('post-body', {
-
-    html(attrs) {
-        const result = [];
-
-        const createdAt = new Date(attrs.created_at);
-        if (createdAt) {
-            result.push(h('a.post-date', {
-                attributes: {
-                    href: attrs.shareUrl,
-                    'data-share-url': attrs.shareUrl,
-                    'data-post-id': attrs.id
-                }
-            }, dateNode(createdAt)));
-        }
-
-        return result;
-    }
-});
-
 createWidget('post-article', {
-    tagName: 'div.cd-faq-trigger.onscreen-post',
     buildKey: attrs => `post-article-${attrs.id}`,
 
     defaultState() {
@@ -72,9 +35,11 @@ createWidget('post-article', {
 
         const rows = [h("h4", event_type + " - " + event_desc.get('firstObject'))];
 
-        rows.push(h('div', [this.attach('post-avatar', attrs),
-            this.attach('post-body', attrs)
-        ]));
+        rows.push( h('i', { className: 'circle_green pull-right' }));
+        const createdAt = new Date(attrs.created_at);
+        if (createdAt) {
+            rows.push(h('h5.post-date', {}, dateNode(createdAt)));
+        }
 
         return rows;
     }

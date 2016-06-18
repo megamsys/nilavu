@@ -159,7 +159,7 @@ export default RestModel.extend({
 
     toggleDeleted() {
         this.toggleProperty('show_deleted');
-      //  return this.refresh();
+        //  return this.refresh();
     },
 
     jumpToSecondVisible() {
@@ -253,11 +253,7 @@ export default RestModel.extend({
         if (stored) {
             const posts = this.get('posts');
             if (!posts.contains(stored)) {
-                if (!this.get('loadingBelow')) {
-                    this.get('postsWithPlaceholders').appendPost(() => posts.pushObject(stored));
-                } else {
-                    posts.pushObject(stored);
-                }
+                posts.pushObject(stored);
             }
             if (stored.get('id') !== -1) {
                 this.set('lastAppended', stored);
@@ -303,7 +299,6 @@ export default RestModel.extend({
                 });
             }
         }
-
         return resolved;
     },
 
@@ -408,7 +403,7 @@ export default RestModel.extend({
 
     // Get the index of a post in the stream. (Use this for the topic progress bar.)
     progressIndexOfPost(post) {
-         alert("Post index p=" + JSON.stringify(post));
+        alert("Post index p=" + JSON.stringify(post));
         return this.progressIndexOfPostId(post.get('id'));
     },
 
@@ -498,10 +493,11 @@ export default RestModel.extend({
     **/
     storePost(post) {
         // Calling `Ember.get(undefined)` raises an error
-        if (!post) { return; }
+        if (!post) {
+            return; }
 
         const postId = post.id;
-            if (postId) {
+        if (postId) {
             const existing = this._identityMap[post.get('id')];
             // Update the `highest_post_number` if this post is higher.
             /*const postNumber = post.get('post_number');

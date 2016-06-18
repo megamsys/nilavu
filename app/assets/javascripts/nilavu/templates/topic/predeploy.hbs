@@ -1,37 +1,33 @@
 <div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
     {{raw "topic-list-header" currentUser=currentUser title=title nameEnabled=nameEnabled name=name subTitleEnabled=subTitleEnabled subTitle=subTitle}}
     <div class="bottom-divider"></div>
-    <div class="">
-        <div class="row c_pading-b25 pad_0">
-            <div class="col-md-3">
-                <button type="button" class="btn btn-default pull-left ">
-                    <span class="glyphicon glyphicon-refresh"></span>
-                </button>
-            </div>
-            <div class="col-md-6 text-center">
-                <!--    <h3>
-                    {{clock.hour}} hours
-                </h3>
-                <h4>{{clock.minute}} minute {{clock.second}} seconds</h4> ago
-                -->
-            </div>
-            <div class="col-md-3">
-                <button type="button" class="btn btn-default pull-right link-icons" {{action "showVNC"}}>
-                    <span class="glyphicon glyphicon-blackboard"></span>
-                    VNC
-                </button>
-            </div>
+    <div class="row c_pading-b25 pad_0">
+        <div class="col-md-4 pad_0">
+            Launched at
+            {{format-age model.created_at}}
+            ago
+        </div>
+        <div class="col-md-4 pad_0">
+            Time now
+            {{clock.hour}}
+            hours
+            {{clock.minute}}
+            minute
+            {{clock.second}}
+            seconds
+        </div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-default pull-right link-icons" {{action "showVNC"}}>
+                <span class="glyphicon glyphicon-blackboard"></span>
+                VNC
+            </button>
         </div>
     </div>
-
     <div class="predeploybar">
-        {{#progress-bar  value=streamPercentage  striped=true minValue=0 maxValue=100 label="Launching..." showLabel=true}}{{/progress-bar}}
+        {{#progress-bar  value=streamPercentage barHead=barHead striped=true animate=true minValue=0 maxValue=100 label="Launching..." showLabel=true type="danger"}}{{/progress-bar}}
     </div>
 
     {{conditional-loading-spinner size="large" condition=model.postStream.loading}}
-
-    {{!predeploy-status machineId="ASM000001" machineName="abcd.pogo.com"}}
-    {{!/predeploy-status}}
 
     {{scrolling-post-stream posts=postsToRender}}
 </div>

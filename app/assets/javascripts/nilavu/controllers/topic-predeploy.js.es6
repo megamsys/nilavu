@@ -1,4 +1,5 @@
 import NilavuURL from 'nilavu/lib/url';
+import { autoUpdatingRelativeAge } from 'nilavu/lib/formatter';
 import Clock from 'nilavu/services/clock';
 import NilavuPollster from 'nilavu/lib/nilavu-pollster';
 import { headerHeight } from 'nilavu/components/site-header';
@@ -7,18 +8,39 @@ import computed from "ember-addons/ember-computed-decorators";
 export default Ember.Controller.extend({
     needs: ['topic', 'topic-predeploy'],
 
+    clock: null,
+
     loading: false,
+    deploySuccess: false,
+    deployFailure: false,
+
+    nameEnabled: true,
+
+    title: I18n.t('launcher.predeployer'),
+
+    name: function() {
+        return this.get('model.name');
+    }.property('model.name'),
 
     unreadNotification: false,
+
     progressPosition: 0,
 
+    maxProgressPosition: 100,
+
+    barHead: function() {
+      if (this.deploySuccess) {return 'success';}
+      if (this.deployFailure) {return 'danger';}
+      return 'none';
+    }.property('progressPosition', 'streamPercentage'),
+
     id: Ember.computed.alias('model.id'),
+
     createdAt: Ember.computed.alias('model.created_at'),
 
     _initPoller: function() {
         this.set('notifications', []);
         this.set('clock', Clock.create());
-        //this.streamPercentageEventHandler();
     }.on('init'),
 
     @computed('model.postStream.posts')
@@ -32,27 +54,27 @@ export default Ember.Controller.extend({
         const self = this;
         const deployLiveFeed = this.get('notifications');
 
-        if (Ember.isEmpty(deployLiveFeed)) {
-            return
-        };
-
+        if (Ember.isEmpty(deployLiveFeed)) {  return };
         deployLiveFeed.forEach(feed => {
             const postStream = this.get('model.postStream');
 
             switch (feed.event_type) {
-                case "RUNNING":
-                    {
-                        console.log("-----------------------------------------------------");
-                        console.log("Ah. ha! is running, stop polling, redirect after 2 s to topic-show");
-                        self.appEvents.trigger('post-stream:refresh', { state: "SUCCESS" });
-                        break;
+                case "RUNNING": {
+                      postStream.triggerNewPostInStream(feed).then(() => {
+                          self.appEvents.trigger('post-stream:refresh', { id: self.get('model.id') });
+                          self.set('deploySuccess', true);
+                          self.unsubscribe();
+                          self.notificationMessages.success(I18n.t('launcher.launched') + " " + this.get('model.name'));
+                      });
+                      break;
                     }
-                case "ERROR":
-                    {
-
-                        console.log("-----------------------------------------------------");
-                        console.log("Oooops :( error, stop polling, redirect after 2 s to root");
-                        self.appEvents.trigger('post-stream:refresh', { state: "ERROR" });
+                case "ERROR": {
+                        postStream.triggerNewPostInStream(feed).then(() => {
+                            self.appEvents.trigger('post-stream:refresh', { id: self.get('model.id') });
+                            self.set('deployFailure', true);
+                            self.unsubscribe();
+                            self.notificationMessages.error(I18n.t('launcher.not_launched') + " " + this.get('model.name'));
+                        });
                         break;
                     }
                 case "LAUNCHING":
@@ -66,8 +88,9 @@ export default Ember.Controller.extend({
                 case "AUTHKEYSADDED":
                 case "ROUTEADDED":
                     {
-                        postStream.triggerNewPostInStream(feed).then(() => {});
-                        //      self.appEvents.trigger('post-stream:refresh', { state: "STEP" });
+                        postStream.triggerNewPostInStream(feed).then(() => {
+                            self.appEvents.trigger('post-stream:refresh', { id: self.get('model.id') });
+                        });
                         break;
                     }
                 default:
@@ -82,9 +105,8 @@ export default Ember.Controller.extend({
         // Unsubscribe before subscribing again
         this.unsubscribe();
 
-        var topicController = this;
-
         this.startPolling();
+        this.startClocker();
 
         const pollster = this.get('pollster');
 
@@ -108,6 +130,11 @@ export default Ember.Controller.extend({
         this.get('pollster').stop();
     },
 
+    startClocker: function() {
+      if (this.get('clock')) {
+        this.get('clock').start();
+      }
+    },
 
     refreshNotifications() {
         const id = this.get('id');
@@ -134,8 +161,8 @@ export default Ember.Controller.extend({
                 results.set('content', content);
                 results.set('totalRows', limit);
             }
-            this.toggleProperty('unreadNotification');
             this.set('notifications', results);
+            this.toggleProperty('unreadNotification');
         } else {
             this.loading = true;
         }
@@ -257,38 +284,59 @@ export default Ember.Controller.extend({
 
     },
 
-
+    streamPercentage: function() {
+        return this.get('progressPosition');
+    }.property('model.postStream.loaded', 'progressPosition', 'model.postStream.filteredPostsCount'),
 
     // Route and close the expansion
     jumpTo(url) {
-        this.set('expanded', false);
+        alert("url ->" + url);
         NilavuURL.routeTo(url);
     },
-
-    streamPercentage: function() {
-      //  alert("s" + this.get('model.postStream.loaded') + this.get('model.postStream.filteredPostsCount'));
-        return this.get('progressPosition');
-        //var perc = this.get('progressPosition') / this.get('model.postStream.filteredPostsCount');
-        //return (perc > 1.0) ? 1.0 * 100 : perc * 100;
-    }.property('model.postStream.loaded', 'progressPosition', 'model.postStream.filteredPostsCount'),
 
     jumpTopDisabled: function() {
         return this.get('progressPosition') <= 3;
     }.property('progressPosition'),
 
     filteredPostCountChanged: function() {
-        //alert('this.get fp =' + this.get('progressPosition'));
         const p = this.get('progressPosition');
         const f = this.get('model.postStream.filteredPostsCount');
         var s = p + f;
 
-        if (s > 100) {
-            return this.set('progressPosition', 100);
+        if (s >= this.maxProgressPosition) {
+            return this.set('progressPosition', this.maxProgressPosition);
         }
 
         this.set('progressPosition', s);
 
     }.observes('model.postStream.filteredPostsCount'),
+
+    jumpToPostLaunch: function() {
+        this.notificationMessages.success(I18n.t('launcher.launched_redirecting'));
+
+        Em.run.later(this, function() {
+            this.set('progressPosition', this.maxProgressPosition);
+            this.set('model.postStream.loading', false);
+
+            alert(JSON.stringify(this.get('model')));
+            const slugId = this.get('model.id') ? this.get('model.id') : "";
+            const depOK = this.get('deploySuccess');
+
+            if (this.get('model.id') && depOK) {
+                this.jumpTo('/t/' + slugId);
+            } else {
+                this.jumpTo('/');
+            }
+        }, 500);
+    }.observes('deploySuccess'),
+
+    stayOnPage: function() {
+        const self = this;
+        Em.run.later(this, function() {
+            this.set('progressPosition', this.maxProgressPosition);
+            this.set('model.postStream.loading', false);
+        }, 500);
+    }.observes('deployFailure'),
 
     jumpBottomDisabled: function() {
         return this.get('progressPosition') >= this.get('model.postStream.filteredPostsCount') ||

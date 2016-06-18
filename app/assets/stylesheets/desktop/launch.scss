@@ -629,6 +629,19 @@ img.inSelect {
 	border-bottom-left-radius:3px;
 }
 
+.predeploybar-title-none {
+  background:  #0DABFF;
+}
+
+.predeploybar-title-success {
+   background: #0DFF61;
+}
+
+.predeploybar-title-danger{
+  background: #FF610D;
+}
+
+
 .predeploybar-title span {
 	display:block;
 	background:rgba(0, 0, 0, 0.1);

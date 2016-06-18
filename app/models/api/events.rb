@@ -46,7 +46,7 @@ module Api
             when 4
                 success_stub_1
             when 5
-                success_stub_2
+                success_stub_4
             when 6
                 error_stub_3
               when 7
@@ -75,6 +75,10 @@ module Api
             s << std(IPUPDATED, "IP updated for your machine")
             s << std(AUTHKEYSADDED, "Access keys are updated in machine")
             s << std(ROUTEADDED, "A DNS route added for machine")
+        end
+
+        def success_stub_4
+            s = []
             s << std(RUNNING, "SUCCESS ! - machine is running..")
         end
 
@@ -85,7 +89,7 @@ module Api
 
         def std(evt_type, desc)
             {
-                id: 'NTF' + rand(100...100042).to_s,
+                id: 'NTF' + rand(100...1000).to_s,
                 event_type: evt_type,
                 account_id: "",
                 assembly_id: "ASM00001",
