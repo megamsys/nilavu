@@ -10,13 +10,10 @@ export default RestModel.extend({
     _identityMap: null,
     posts: null,
     stream: null,
-    userFilters: null,
-    summary: null,
     loaded: null,
     loadingAbove: true,
     loadingBelow: null,
     loadingFilter: null,
-    stagingPost: null,
     postsWithPlaceholders: null,
 
     init() {
@@ -160,20 +157,9 @@ export default RestModel.extend({
         this.get('userFilters').clear();
     },
 
-    toggleSummary() {
-        this.get('userFilters').clear();
-        this.toggleProperty('summary');
-
-        return this.refresh().then(() => {
-            if (this.get('summary')) {
-                this.jumpToSecondVisible();
-            }
-        });
-    },
-
     toggleDeleted() {
         this.toggleProperty('show_deleted');
-        return this.refresh();
+      //  return this.refresh();
     },
 
     jumpToSecondVisible() {
@@ -184,65 +170,6 @@ export default RestModel.extend({
         }
     },
 
-    // Filter the stream to a particular user.
-    toggleParticipant(username) {
-        const userFilters = this.get('userFilters');
-        this.set('summary', false);
-        this.set('show_deleted', true);
-
-        let jump = false;
-        if (userFilters.contains(username)) {
-            userFilters.removeObject(username);
-        } else {
-            userFilters.addObject(username);
-            jump = true;
-        }
-        return this.refresh().then(() => {
-            if (jump) {
-                this.jumpToSecondVisible();
-            }
-        });
-    },
-
-    /**
-      Loads a new set of posts into the stream. If you provide a `nearPost` option and the post
-      is already loaded, it will simply scroll there and load nothing.
-    **/
-    refresh(opts) {
-        opts = opts || {};
-        opts.nearPost = parseInt(opts.nearPost, 10);
-
-        if (opts.cancelSummary) {
-            this.set('summary', false);
-            delete opts.cancelSummary;
-        }
-
-        const topic = this.get('topic');
-
-        // Do we already have the post in our list of posts? Jump there.
-        if (opts.forceLoad) {
-            this.set('loaded', false);
-        } else {
-            const postWeWant = this.get('posts').findProperty('post_number', opts.nearPost);
-            if (postWeWant) {
-                return Ember.RSVP.resolve();
-            }
-        }
-
-        // TODO: if we have all the posts in the filter, don't go to the server for them.
-        this.set('loadingFilter', true);
-
-        opts = _.merge(opts, this.get('streamFilters'));
-
-        // Request a topicView
-        return loadTopicView(topic, opts).then(json => {
-            this.updateFromJson(json.post_stream);
-            this.setProperties({ loadingFilter: false, loaded: true });
-        }).catch(result => {
-            this.errorLoading(result);
-            throw result;
-        });
-    },
 
     collapsePosts(from, to) {
         const posts = this.get('posts');
@@ -262,54 +189,6 @@ export default RestModel.extend({
         post.set('hasGap', true);
 
         this.get('stream').enumerableContentDidChange();
-    },
-
-    // Fill in a gap of posts before a particular post
-    fillGapBefore(post, gap) {
-        const postId = post.get('id'),
-            stream = this.get('stream'),
-            idx = stream.indexOf(postId),
-            currentPosts = this.get('posts');
-
-        if (idx !== -1) {
-            // Insert the gap at the appropriate place
-            stream.splice.apply(stream, [idx, 0].concat(gap));
-
-            let postIdx = currentPosts.indexOf(post);
-            const origIdx = postIdx;
-            if (postIdx !== -1) {
-                return this.findPostsByIds(gap).then(posts => {
-                    posts.forEach(p => {
-                        const stored = this.storePost(p);
-                        if (!currentPosts.contains(stored)) {
-                            currentPosts.insertAt(postIdx++, stored);
-                        }
-                    });
-
-                    delete this.get('gaps.before')[postId];
-                    this.get('stream').enumerableContentDidChange();
-                    this.get('postsWithPlaceholders').arrayContentDidChange(origIdx, 0, posts.length);
-                    post.set('hasGap', false);
-                });
-            }
-        }
-        return Ember.RSVP.resolve();
-    },
-
-    // Fill in a gap of posts after a particular post
-    fillGapAfter(post, gap) {
-        const postId = post.get('id'),
-            stream = this.get('stream'),
-            idx = stream.indexOf(postId);
-
-        if (idx !== -1) {
-            stream.pushObjects(gap);
-            return this.appendMore().then(() => {
-                delete this.get('gaps.after')[postId];
-                this.get('stream').enumerableContentDidChange();
-            });
-        }
-        return Ember.RSVP.resolve();
     },
 
     // Appends the next window of posts to the stream. Call it when scrolling downwards.
@@ -358,77 +237,6 @@ export default RestModel.extend({
         });
     },
 
-    /**
-      Stage a post for insertion in the stream. It should be rendered right away under the
-      assumption that the post will succeed. We can then `commitPost` when it succeeds or
-      `undoPost` when it fails.
-    **/
-    stagePost(post, user) {
-        // We can't stage two posts simultaneously
-        if (this.get('stagingPost')) {
-            return "alreadyStaging";
-        }
-
-        this.set('stagingPost', true);
-
-        const topic = this.get('topic');
-        topic.setProperties({
-            posts_count: (topic.get('posts_count') || 0) + 1,
-            last_posted_at: new Date(),
-            'details.last_poster': user,
-            highest_post_number: (topic.get('highest_post_number') || 0) + 1
-        });
-
-        post.setProperties({
-            post_number: topic.get('highest_post_number'),
-            topic: topic,
-            created_at: new Date(),
-            id: -1
-        });
-
-        // If we're at the end of the stream, add the post
-        if (this.get('loadedAllPosts')) {
-            this.appendPost(post);
-            this.get('stream').addObject(post.get('id'));
-            return "staged";
-        }
-
-        return "offScreen";
-    },
-
-    // Commit the post we staged. Call this after a save succeeds.
-    commitPost(post) {
-        if (this.get('topic.id') === post.get('topic_id')) {
-            if (this.get('loadedAllPosts')) {
-                this.appendPost(post);
-                this.get('stream').addObject(post.get('id'));
-            }
-        }
-
-        this.get('stream').removeObject(-1);
-        this._identityMap[-1] = null;
-        this.set('stagingPost', false);
-    },
-
-    /**
-      Undo a post we've staged in the stream. Remove it from being rendered and revert the
-      state we changed.
-    **/
-    undoPost(post) {
-        this.get('stream').removeObject(-1);
-        this.get('postsWithPlaceholders').removePost(() => this.posts.removeObject(post));
-        this._identityMap[-1] = null;
-
-        const topic = this.get('topic');
-        this.set('stagingPost', false);
-
-        topic.setProperties({
-            highest_post_number: (topic.get('highest_post_number') || 0) - 1,
-            posts_count: (topic.get('posts_count') || 0) - 1
-        });
-
-        // TODO unfudge reply count on parent post
-    },
 
     prependPost(post) {
         const stored = this.storePost(post);
@@ -441,13 +249,9 @@ export default RestModel.extend({
     },
 
     appendPost(post) {
-        console.log("---> appendPost");
         const stored = this.storePost(post);
-        console.log(" > appendPost:" + JSON.stringify(stored));
         if (stored) {
             const posts = this.get('posts');
-            console.log(" > appendPost: stored " + JSON.stringify(posts));
-
             if (!posts.contains(stored)) {
                 if (!this.get('loadingBelow')) {
                     this.get('postsWithPlaceholders').appendPost(() => posts.pushObject(stored));
@@ -455,31 +259,13 @@ export default RestModel.extend({
                     posts.pushObject(stored);
                 }
             }
-            console.log(" > appendPost: store id " + stored.get('id'));
-
             if (stored.get('id') !== -1) {
-              console.log(" > appendPost: lastAppended " + JSON.stringify(stored));
                 this.set('lastAppended', stored);
             }
         }
         return post;
     },
 
-    removePosts(posts) {
-        if (Ember.isEmpty(posts)) {
-            return;
-        }
-
-        this.get('postsWithPlaceholders').refreshAll(() => {
-            const allPosts = this.get('posts');
-            const postIds = posts.map(p => p.get('id'));
-            const identityMap = this._identityMap;
-
-            this.get('stream').removeObjects(postIds);
-            allPosts.removeObjects(posts);
-            postIds.forEach(id => delete identityMap[id]);
-        });
-    },
 
     // Returns a post from the identity map if it's been inserted.
     findLoadedPost(id) {
@@ -500,22 +286,16 @@ export default RestModel.extend({
     **/
     triggerNewPostInStream(postData) {
         const resolved = Ember.RSVP.Promise.resolve();
-        console.log("--------> triggerNewPostInStream");
         const postId = postData.id;
         if (!postId) {
             return resolved;
         }
-        console.log(" > triggerNewPostInStream 1");
-
         const loadedAllPosts = this.get('loadedAllPosts');
 
         if (this.get('stream').indexOf(postId) === -1) {
             this.get('stream').addObject(postId);
-            console.log(" > triggerNewPostInStream stream added =" + postId);
             if (loadedAllPosts) {
                 this.set('loadingLastPost', true);
-                console.log(" > triggerNewPostInStream:  set loadingLastPost");
-
                 return this.findPostsByIds([postData]).then(posts => {
                     posts.forEach((p) => this.appendPost(p));
                 }).finally(() => {
@@ -523,7 +303,6 @@ export default RestModel.extend({
                 });
             }
         }
-        this.set('loadingAbove', false);
 
         return resolved;
     },
@@ -718,21 +497,17 @@ export default RestModel.extend({
       than you supplied if the post has already been loaded.
     **/
     storePost(post) {
-      console.log("---> storePost ");
-      console.log("     storePost:"+JSON.stringify(post));
         // Calling `Ember.get(undefined)` raises an error
         if (!post) { return; }
 
         const postId = post.id;
-        console.log(" > storePost: postId ="+ JSON.stringify(postId));
-        if (postId) {
+            if (postId) {
             const existing = this._identityMap[post.get('id')];
             // Update the `highest_post_number` if this post is higher.
             /*const postNumber = post.get('post_number');
             if (postNumber && postNumber > (this.get('topic.highest_post_number') || 0)) {
                 this.set('topic.highest_post_number', postNumber);
             }*/
-            console.log(" > storePost: existing ="+ JSON.stringify(existing));
 
             if (existing) {
                 // If the post is in the identity map, update it and return the old reference.
@@ -740,20 +515,15 @@ export default RestModel.extend({
                 return existing;
             }
             //post.set('topic', this.get('topic'));
-            console.log(" > storePost: added " + post.get('id') + " with " + JSON.stringify(post));
             this._identityMap[post.get('id')] = post;
         }
         return post;
     },
 
     findPostsByIds(postDatas) {
-        console.log("---> findPostsByIds ");
-        console.log(" > findPostsByIds: postDatas ="+ JSON.stringify(postDatas));
-
         const identityMap = this._identityMap;
         const unloaded = postDatas.filter(p => !identityMap[p.id]);
         // Load our unloaded posts by id
-        console.log(" > findPostsByIds: unloaded  ="+ JSON.stringify(unloaded));
         return this.loadIntoIdentityMap(unloaded).then(() => {
             return postDatas;
         });
@@ -761,12 +531,10 @@ export default RestModel.extend({
 
     loadIntoIdentityMap(postDatas) {
         const self = this;
-        console.log("---> loadIntoIdentityMap ");
         if (Ember.isEmpty(postDatas)) {
             return Ember.RSVP.resolve([]);
         }
         return new Ember.RSVP.Promise(function(resolve, reject) {
-            console.log(" > loadIntoIdentityMap: postDatas ="+ JSON.stringify(postDatas));
             postDatas.forEach(p => self.storePost(p));
             resolve();
         });

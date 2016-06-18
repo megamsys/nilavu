@@ -164,7 +164,6 @@ export default MountWidget.extend({
 
   didInsertElement() {
     this._super();
-//    alert("Scrolling post stream");
     const debouncedScroll = () => Ember.run.debounce(this, this._scrollTriggered, 10);
 
     this._previouslyNearby = {};

@@ -55,7 +55,6 @@ const { computed } = Ember;
     let value = parseFloat(this.get('value'));
     let minValue = parseFloat(this.get('minValue'));
     let maxValue = parseFloat(this.get('maxValue'));
-
     return Math.min(Math.max((value - minValue) / (maxValue - minValue), 0), 1) * 100;
   }),
 

@@ -1,5 +1,5 @@
 import NilavuURL from 'nilavu/lib/url';
-//import Clock from 'nilavu/services/clock';
+import Clock from 'nilavu/services/clock';
 import NilavuPollster from 'nilavu/lib/nilavu-pollster';
 import { headerHeight } from 'nilavu/components/site-header';
 import computed from "ember-addons/ember-computed-decorators";
@@ -10,20 +10,20 @@ export default Ember.Controller.extend({
     loading: false,
 
     unreadNotification: false,
-    progressPosition: 100,
-    progress: 15,
+    progressPosition: 0,
 
     id: Ember.computed.alias('model.id'),
     createdAt: Ember.computed.alias('model.created_at'),
 
     _initPoller: function() {
         this.set('notifications', []);
+        this.set('clock', Clock.create());
         //this.streamPercentageEventHandler();
     }.on('init'),
 
     @computed('model.postStream.posts')
     postsToRender() {
-        return  this.get('model.postStream.posts');
+        return this.get('model.postStream.posts');
     },
 
     // Add the new notification into the model stream
@@ -32,30 +32,27 @@ export default Ember.Controller.extend({
         const self = this;
         const deployLiveFeed = this.get('notifications');
 
-        if (Ember.isEmpty(deployLiveFeed)) {   return };
+        if (Ember.isEmpty(deployLiveFeed)) {
+            return
+        };
 
-          deployLiveFeed.forEach(feed => {
+        deployLiveFeed.forEach(feed => {
             const postStream = this.get('model.postStream');
 
             switch (feed.event_type) {
                 case "RUNNING":
                     {
-                        //      postStream.triggerChangedPost(data.id, data.updated_at).then(() => refresh({ id: data.id, refreshLikes: true }));
-                        if (self.get('progress')) {
-                            console.log("-----------------------------------------------------");
-                            console.log("Ah. ha! is running, stop polling, redirect after 2 s to topic-show");
-                            self.appEvents.trigger('post-stream:refresh', { state: "SUCCESS" });
-                        }
+                        console.log("-----------------------------------------------------");
+                        console.log("Ah. ha! is running, stop polling, redirect after 2 s to topic-show");
+                        self.appEvents.trigger('post-stream:refresh', { state: "SUCCESS" });
                         break;
                     }
                 case "ERROR":
                     {
-                        //    postStream.triggerChangedPost(data.id, data.updated_at).then(() => refresh({ id: data.id, refreshLikes: true }));
-                        if (self.get('progress')) {
-                            console.log("-----------------------------------------------------");
-                            console.log("Oooops :( error, stop polling, redirect after 2 s to root");
-                            self.appEvents.trigger('post-stream:refresh', { state: "ERROR" });
-                        }
+
+                        console.log("-----------------------------------------------------");
+                        console.log("Oooops :( error, stop polling, redirect after 2 s to root");
+                        self.appEvents.trigger('post-stream:refresh', { state: "ERROR" });
                         break;
                     }
                 case "LAUNCHING":
@@ -67,14 +64,14 @@ export default Ember.Controller.extend({
                 case "COOKBOOKSUCCESS":
                 case "IPUPDATED":
                 case "AUTHKEYSADDED":
-                case "ROUTEADDED":  {
-                        postStream.triggerNewPostInStream(feed);
-                      //  if (self.get('progress')) {
-                      //      self.appEvents.trigger('post-stream:refresh', { state: "STEP" });
-                      //  }
+                case "ROUTEADDED":
+                    {
+                        postStream.triggerNewPostInStream(feed).then(() => {});
+                        //      self.appEvents.trigger('post-stream:refresh', { state: "STEP" });
                         break;
                     }
-                default:  {
+                default:
+                    {
                         Em.Logger.warn("unknown topic live feed type", feed);
                     }
             }
@@ -144,11 +141,11 @@ export default Ember.Controller.extend({
         }
 
         stale.refresh().then(notifications => {
-            this.toggleProperty('unreadNotification');
             this.set('notifications', notifications);
-        }).catch(() => {
             this.toggleProperty('unreadNotification');
+        }).catch(() => {
             this.set('notifications', []);
+            this.toggleProperty('unreadNotification');
         }).finally(() => {
             this.loading = false;
         });
@@ -165,41 +162,45 @@ export default Ember.Controller.extend({
 
     actions: {
 
-      // Called the the topmost visible post on the page changes.
-      topVisibleChanged(event) {
-        const { post, refresh } = event;
+        // Called the the topmost visible post on the page changes.
+        topVisibleChanged(event) {
+            const { post, refresh } = event;
 
-        if (!post) { return; }
+            if (!post) {
+                return;
+            }
 
-        const postStream = this.get('model.postStream');
-        const firstLoadedPost = postStream.get('posts.firstObject');
+            const postStream = this.get('model.postStream');
+            const firstLoadedPost = postStream.get('posts.firstObject');
 
-        const currentPostNumber = post.get('post_number');
-        this.set('model.currentPost', currentPostNumber);
-        this.send('postChangedRoute', currentPostNumber);
+            const currentPostNumber = post.get('post_number');
+            this.set('model.currentPost', currentPostNumber);
+            this.send('postChangedRoute', currentPostNumber);
 
-        if (post.get('post_number') === 1) { return; }
+            if (post.get('post_number') === 1) {
+                return;
+            }
 
-        if (firstLoadedPost && firstLoadedPost === post) {
-          postStream.prependMore().then(() => refresh());
-        }
-      },
+            if (firstLoadedPost && firstLoadedPost === post) {
+                postStream.prependMore().then(() => refresh());
+            }
+        },
 
-      //  Called the the bottommost visible post on the page changes.
-      bottomVisibleChanged(event) {
-        const { post, refresh } = event;
+        //  Called the the bottommost visible post on the page changes.
+        bottomVisibleChanged(event) {
+            const { post, refresh } = event;
 
-        const postStream = this.get('model.postStream');
-        const lastLoadedPost = postStream.get('posts.lastObject');
+            const postStream = this.get('model.postStream');
+            const lastLoadedPost = postStream.get('posts.lastObject');
 
-        this.set('controllers.topic-predeploy.progressPosition', postStream.progressIndexOfPost(post));
+            this.set('controllers.topic-predeploy.progressPosition', postStream.progressIndexOfPost(post));
 
-        if (lastLoadedPost && lastLoadedPost === post && postStream.get('canAppendMore')) {
-          postStream.appendMore().then(() => refresh());
-          // show loading stuff
-          refresh();
-        }
-      },
+            if (lastLoadedPost && lastLoadedPost === post && postStream.get('canAppendMore')) {
+                postStream.appendMore().then(() => refresh());
+                // show loading stuff
+                refresh();
+            }
+        },
 
         toggleExpansion(opts) {
             this.toggleProperty('expanded');
@@ -265,24 +266,28 @@ export default Ember.Controller.extend({
     },
 
     streamPercentage: function() {
-        if (!this.get('model.postStream.loaded')) {
-            return 0;
-        }
-        if (this.get('model.postStream.highest_post_number') === 0) {
-            return 0;
-        }
-        var perc = this.get('progressPosition') / this.get('model.postStream.filteredPostsCount');
-         return (perc > 1.0) ? 1.0*100 : perc*100;
-      }.property('model.postStream.loaded', 'progressPosition', 'model.postStream.filteredPostsCount'),
+      //  alert("s" + this.get('model.postStream.loaded') + this.get('model.postStream.filteredPostsCount'));
+        return this.get('progressPosition');
+        //var perc = this.get('progressPosition') / this.get('model.postStream.filteredPostsCount');
+        //return (perc > 1.0) ? 1.0 * 100 : perc * 100;
+    }.property('model.postStream.loaded', 'progressPosition', 'model.postStream.filteredPostsCount'),
 
     jumpTopDisabled: function() {
         return this.get('progressPosition') <= 3;
     }.property('progressPosition'),
 
     filteredPostCountChanged: function() {
-        if (this.get('model.postStream.filteredPostsCount') < this.get('progressPosition')) {
-            this.set('progressPosition', this.get('model.postStream.filteredPostsCount'));
+        //alert('this.get fp =' + this.get('progressPosition'));
+        const p = this.get('progressPosition');
+        const f = this.get('model.postStream.filteredPostsCount');
+        var s = p + f;
+
+        if (s > 100) {
+            return this.set('progressPosition', 100);
         }
+
+        this.set('progressPosition', s);
+
     }.observes('model.postStream.filteredPostsCount'),
 
     jumpBottomDisabled: function() {
