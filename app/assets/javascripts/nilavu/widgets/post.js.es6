@@ -2,7 +2,6 @@ import PostCooked from 'nilavu/widgets/post-cooked';
 import DecoratorHelper from 'nilavu/widgets/decorator-helper';
 import { createWidget, applyDecorators } from 'nilavu/widgets/widget';
 import { iconNode } from 'nilavu/helpers/fa-icon';
-import { transformBasicPost } from 'nilavu/lib/transform-post';
 import { h } from 'virtual-dom';
 import DiscourseURL from 'nilavu/lib/url';
 import { dateNode } from 'nilavu/helpers/node';
@@ -78,7 +77,6 @@ createWidget('reply-to-tab', {
 });
 
 createWidget('post-avatar', {
-  tagName: 'div.topic-avatar',
 
   settings: {
     size: 'large'
@@ -86,18 +84,11 @@ createWidget('post-avatar', {
 
   html(attrs) {
     let body;
-    if (!attrs.user_id) {
-      body = h('i', { className: 'fa fa-trash-o deleted-user-avatar' });
-    } else {
-      body = avatarFor.call(this, this.settings.size, {
-        template: attrs.avatar_template,
-        username: attrs.username,
-        url: attrs.usernameUrl,
-        className: 'main-avatar'
-      });
-    }
+    //if (!attrs.user_id) {
+      body = h('i', { className: 'circle_green pull-right' });
+    //}
 
-    return [body, h('div.poster-avatar-extra')];
+    return [body];
   }
 });
 
@@ -300,20 +291,13 @@ createWidget('post-body', {
   tagName: 'div.topic-body',
 
   html(attrs) {
-    const postContents = this.attach('post-contents', attrs);
-    const result = [this.attach('post-meta-data', attrs), postContents];
-
-    result.push(this.attach('actions-summary', attrs));
-    if (attrs.showTopicMap) {
-      result.push(this.attach('topic-map', attrs));
-    }
-
+    const result = [this.attach('post-meta-data', attrs)];
     return result;
   }
 });
 
 createWidget('post-article', {
-  tagName: 'article.boxed.onscreen-post',
+  tagName: 'div.cd-faq-trigger',
   buildKey: attrs => `post-article-${attrs.id}`,
 
   defaultState() {
@@ -336,15 +320,16 @@ createWidget('post-article', {
   },
 
   html(attrs, state) {
-    const rows = [h('a.tabLoc', { attributes: { href: ''} })];
-    if (state.repliesAbove.length) {
-      const replies = state.repliesAbove.map(p => this.attach('embedded-post', p, { state: { above: true } }));
-      rows.push(h('div.row', h('section.embedded-posts.top.topic-body.offset2', replies)));
-    }
+    const event_occurred_at = attrs.created_at;
+    const event_type = attrs.event_type;
+    const event_desc = attrs.data.map((d) => d.value);
 
-    rows.push(h('div.row', [this.attach('post-avatar', attrs),
-                            this.attach('post-body', attrs),
-                            this.attach('post-gutter', attrs)]));
+    const rows = [event_occurred_at + ":" + event_type + ": " +  event_desc.get('firstObject')];
+
+      rows.push(h('div', [this.attach('post-avatar', attrs),
+                            this.attach('post-body', attrs)]
+                          ));
+
     return rows;
   },
 
@@ -382,6 +367,7 @@ createWidget('post-article', {
 });
 
 export default createWidget('post', {
+  tagName: 'li',
   buildKey: attrs => `post-${attrs.id}`,
   shadowTree: true,
 

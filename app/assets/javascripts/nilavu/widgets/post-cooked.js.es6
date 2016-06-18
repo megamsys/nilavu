@@ -51,8 +51,8 @@ export default class PostCooked {
   }
 
   _fixImageSizes($html) {
-    const maxImageWidth = Discourse.SiteSettings.max_image_width;
-    const maxImageHeight = Discourse.SiteSettings.max_image_height;
+    const maxImageWidth = "100";
+    const maxImageHeight = "200";
 
     let maxWindowWidth;
     $html.find('img:not(.avatar)').each((idx,img) => {
@@ -128,14 +128,7 @@ export default class PostCooked {
       }
 
       const postId = parseInt($aside.data('post'), 10);
-      topicId = parseInt(topicId, 10);
-
-      Discourse.ajax(`/posts/by_number/${topicId}/${postId}`).then(result => {
-        const div = $("<div class='expanded-quote'></div>");
-        div.html(result.cooked);
-        div.highlight(originalText, {caseSensitive: true, element: 'span', className: 'highlighted'});
-        $blockQuote.showHtml(div, 'fast', finished);
-      });
+      topicId = parseInt(topicId, 10);      
     } else {
       // Hide expanded quote
       this._updateQuoteElements($aside, 'chevron-down');

@@ -5,25 +5,25 @@ import { headerHeight } from 'nilavu/components/site-header';
 import computed from "ember-addons/ember-computed-decorators";
 
 export default Ember.Controller.extend({
-    needs: ['topic'],
+    needs: ['topic', 'topic-predeploy'],
 
     loading: false,
 
     unreadNotification: false,
-    progress: 10,
+    progressPosition: 100,
+    progress: 15,
 
     id: Ember.computed.alias('model.id'),
     createdAt: Ember.computed.alias('model.created_at'),
 
     _initPoller: function() {
         this.set('notifications', []);
+        //this.streamPercentageEventHandler();
     }.on('init'),
 
     @computed('model.postStream.posts')
     postsToRender() {
-      alert(this.get('model.postStream.posts'));
         return  this.get('model.postStream.posts');
-            //this.get('model.postStream.postsWithPlaceholders');
     },
 
     // Add the new notification into the model stream
@@ -32,17 +32,18 @@ export default Ember.Controller.extend({
         const self = this;
         const deployLiveFeed = this.get('notifications');
 
-        if (Ember.isEmpty(deployLiveFeed)) {
-            return };
+        if (Ember.isEmpty(deployLiveFeed)) {   return };
 
-        deployLiveFeed.forEach(feed => {
+          deployLiveFeed.forEach(feed => {
             const postStream = this.get('model.postStream');
+
             switch (feed.event_type) {
                 case "RUNNING":
                     {
                         //      postStream.triggerChangedPost(data.id, data.updated_at).then(() => refresh({ id: data.id, refreshLikes: true }));
                         if (self.get('progress')) {
-                            alert("Ah. ha! is running, stop polling, redirect after 2 s to topic-show");
+                            console.log("-----------------------------------------------------");
+                            console.log("Ah. ha! is running, stop polling, redirect after 2 s to topic-show");
                             self.appEvents.trigger('post-stream:refresh', { state: "SUCCESS" });
                         }
                         break;
@@ -51,7 +52,8 @@ export default Ember.Controller.extend({
                     {
                         //    postStream.triggerChangedPost(data.id, data.updated_at).then(() => refresh({ id: data.id, refreshLikes: true }));
                         if (self.get('progress')) {
-                            alert("Oooops :( error, stop polling, redirect after 2 s to /");
+                            console.log("-----------------------------------------------------");
+                            console.log("Oooops :( error, stop polling, redirect after 2 s to root");
                             self.appEvents.trigger('post-stream:refresh', { state: "ERROR" });
                         }
                         break;
@@ -65,19 +67,14 @@ export default Ember.Controller.extend({
                 case "COOKBOOKSUCCESS":
                 case "IPUPDATED":
                 case "AUTHKEYSADDED":
-                case "ROUTEADDED":
-                    {
+                case "ROUTEADDED":  {
                         postStream.triggerNewPostInStream(feed);
-                        this.appEvents.trigger('post-stream:refresh');
-
-                        if (self.get('progress')) {
-                            console.log("ok, lets progress it " + self.get('progress'));
-                            self.appEvents.trigger('post-stream:refresh', { state: "STEP" });
-                        }
+                      //  if (self.get('progress')) {
+                      //      self.appEvents.trigger('post-stream:refresh', { state: "STEP" });
+                      //  }
                         break;
                     }
-                default:
-                    {
+                default:  {
                         Em.Logger.warn("unknown topic live feed type", feed);
                     }
             }
@@ -140,8 +137,6 @@ export default Ember.Controller.extend({
                 results.set('content', content);
                 results.set('totalRows', limit);
             }
-            //  alert("refreshNotifications stale\n" + JSON.stringify(results));
-
             this.toggleProperty('unreadNotification');
             this.set('notifications', results);
         } else {
@@ -169,6 +164,43 @@ export default Ember.Controller.extend({
     },
 
     actions: {
+
+      // Called the the topmost visible post on the page changes.
+      topVisibleChanged(event) {
+        const { post, refresh } = event;
+
+        if (!post) { return; }
+
+        const postStream = this.get('model.postStream');
+        const firstLoadedPost = postStream.get('posts.firstObject');
+
+        const currentPostNumber = post.get('post_number');
+        this.set('model.currentPost', currentPostNumber);
+        this.send('postChangedRoute', currentPostNumber);
+
+        if (post.get('post_number') === 1) { return; }
+
+        if (firstLoadedPost && firstLoadedPost === post) {
+          postStream.prependMore().then(() => refresh());
+        }
+      },
+
+      //  Called the the bottommost visible post on the page changes.
+      bottomVisibleChanged(event) {
+        const { post, refresh } = event;
+
+        const postStream = this.get('model.postStream');
+        const lastLoadedPost = postStream.get('posts.lastObject');
+
+        this.set('controllers.topic-predeploy.progressPosition', postStream.progressIndexOfPost(post));
+
+        if (lastLoadedPost && lastLoadedPost === post && postStream.get('canAppendMore')) {
+          postStream.appendMore().then(() => refresh());
+          // show loading stuff
+          refresh();
+        }
+      },
+
         toggleExpansion(opts) {
             this.toggleProperty('expanded');
             if (this.get('expanded')) {
@@ -221,7 +253,10 @@ export default Ember.Controller.extend({
         jumpBottom() {
             this.jumpTo(this.get('model.lastPostUrl'));
         }
+
     },
+
+
 
     // Route and close the expansion
     jumpTo(url) {
@@ -237,8 +272,8 @@ export default Ember.Controller.extend({
             return 0;
         }
         var perc = this.get('progressPosition') / this.get('model.postStream.filteredPostsCount');
-        return (perc > 1.0) ? 1.0 : perc;
-    }.property('model.postStream.loaded', 'progressPosition', 'model.postStream.filteredPostsCount'),
+         return (perc > 1.0) ? 1.0*100 : perc*100;
+      }.property('model.postStream.loaded', 'progressPosition', 'model.postStream.filteredPostsCount'),
 
     jumpTopDisabled: function() {
         return this.get('progressPosition') <= 3;

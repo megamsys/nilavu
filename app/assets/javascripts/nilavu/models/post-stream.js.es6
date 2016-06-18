@@ -441,12 +441,13 @@ export default RestModel.extend({
     },
 
     appendPost(post) {
-        alert("appendPost: store start =" + post);
+        console.log("---> appendPost");
         const stored = this.storePost(post);
-        alert("appendPost: stored =" + stored);
+        console.log(" > appendPost:" + JSON.stringify(stored));
         if (stored) {
             const posts = this.get('posts');
-            alert("appendPost: posts =" + JSON.stringify(posts));
+            console.log(" > appendPost: stored " + JSON.stringify(posts));
+
             if (!posts.contains(stored)) {
                 if (!this.get('loadingBelow')) {
                     this.get('postsWithPlaceholders').appendPost(() => posts.pushObject(stored));
@@ -454,8 +455,10 @@ export default RestModel.extend({
                     posts.pushObject(stored);
                 }
             }
+            console.log(" > appendPost: store id " + stored.get('id'));
 
             if (stored.get('id') !== -1) {
+              console.log(" > appendPost: lastAppended " + JSON.stringify(stored));
                 this.set('lastAppended', stored);
             }
         }
@@ -497,20 +500,24 @@ export default RestModel.extend({
     **/
     triggerNewPostInStream(postData) {
         const resolved = Ember.RSVP.Promise.resolve();
-
+        console.log("--------> triggerNewPostInStream");
         const postId = postData.id;
-        alert("triggerNewPostInStream: postId " + postId);
         if (!postId) {
             return resolved;
         }
+        console.log(" > triggerNewPostInStream 1");
 
         const loadedAllPosts = this.get('loadedAllPosts');
+
         if (this.get('stream').indexOf(postId) === -1) {
             this.get('stream').addObject(postId);
+            console.log(" > triggerNewPostInStream stream added =" + postId);
             if (loadedAllPosts) {
                 this.set('loadingLastPost', true);
+                console.log(" > triggerNewPostInStream:  set loadingLastPost");
+
                 return this.findPostsByIds([postData]).then(posts => {
-                    this.appendPost(p);
+                    posts.forEach((p) => this.appendPost(p));
                 }).finally(() => {
                     this.set('loadingLastPost', false);
                 });
@@ -622,11 +629,13 @@ export default RestModel.extend({
 
     // Get the index of a post in the stream. (Use this for the topic progress bar.)
     progressIndexOfPost(post) {
+         alert("Post index p=" + JSON.stringify(post));
         return this.progressIndexOfPostId(post.get('id'));
     },
 
     // Get the index in the stream of a post id. (Use this for the topic progress bar.)
     progressIndexOfPostId(postId) {
+        alert("Post index PID=" + JSON.stringify(postId));
         return this.get('stream').indexOf(postId) + 1;
     },
 
@@ -709,53 +718,57 @@ export default RestModel.extend({
       than you supplied if the post has already been loaded.
     **/
     storePost(post) {
+      console.log("---> storePost ");
+      console.log("     storePost:"+JSON.stringify(post));
         // Calling `Ember.get(undefined)` raises an error
-        alert("storePost = post " + post);
-        if (!post) {
-            return; }
+        if (!post) { return; }
 
-        const postId = Ember.get(post, 'id');
-        alert("storePost postId =" + postId);
+        const postId = post.id;
+        console.log(" > storePost: postId ="+ JSON.stringify(postId));
         if (postId) {
             const existing = this._identityMap[post.get('id')];
-            alert("storePost existing =" + existing);
             // Update the `highest_post_number` if this post is higher.
             /*const postNumber = post.get('post_number');
             if (postNumber && postNumber > (this.get('topic.highest_post_number') || 0)) {
                 this.set('topic.highest_post_number', postNumber);
             }*/
+            console.log(" > storePost: existing ="+ JSON.stringify(existing));
 
             if (existing) {
                 // If the post is in the identity map, update it and return the old reference.
                 //existing.updateFromPost(post);
                 return existing;
             }
-            alert('storePost topic = ' + JSON.stringify(this.get('topic')));
             //post.set('topic', this.get('topic'));
+            console.log(" > storePost: added " + post.get('id') + " with " + JSON.stringify(post));
             this._identityMap[post.get('id')] = post;
         }
-        alert("storePost = post =" + JSON.stringify(post));
         return post;
     },
 
     findPostsByIds(postDatas) {
+        console.log("---> findPostsByIds ");
+        console.log(" > findPostsByIds: postDatas ="+ JSON.stringify(postDatas));
+
         const identityMap = this._identityMap;
         const unloaded = postDatas.filter(p => !identityMap[p.id]);
-        alert("findPostsByIds unloaded =" + JSON.stringify(unloaded));
         // Load our unloaded posts by id
+        console.log(" > findPostsByIds: unloaded  ="+ JSON.stringify(unloaded));
         return this.loadIntoIdentityMap(unloaded).then(() => {
-            return postIds.map(p => identityMap[p]).compact();
+            return postDatas;
         });
     },
 
     loadIntoIdentityMap(postDatas) {
         const self = this;
+        console.log("---> loadIntoIdentityMap ");
         if (Ember.isEmpty(postDatas)) {
             return Ember.RSVP.resolve([]);
         }
         return new Ember.RSVP.Promise(function(resolve, reject) {
-            alert("rsvp promise storepost ");
+            console.log(" > loadIntoIdentityMap: postDatas ="+ JSON.stringify(postDatas));
             postDatas.forEach(p => self.storePost(p));
+            resolve();
         });
     },
 

@@ -26,11 +26,11 @@
         {{/progress-bar}}
     </div>
 
-    {{!#predeploy-status machineId="ASM000001" machineName="abcd.pogo.com"}}
+    {{conditional-loading-spinner size="large" condition=model.postStream.loadingAbove}}
+
+    {{!predeploy-status machineId="ASM000001" machineName="abcd.pogo.com"}}
     {{!/predeploy-status}}
 
-    {{conditional-loading-spinner size="large" condition=model.postStream.loadingAbove}}
-    <h2>loading.... {{model.postStream.loadingAbove}}</h2>
         {{scrolling-post-stream
           posts=postsToRender
           canCreatePost=model.details.can_create_post
