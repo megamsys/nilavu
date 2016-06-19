@@ -32,6 +32,7 @@ class UsersController < ApplicationController
   before_action :add_authkeys_for_api, only: [:edit,:update,:show]
 
 
+
   def create
 
     if params[:password] && params[:password].length > User.max_password_length
@@ -108,6 +109,7 @@ class UsersController < ApplicationController
   ## Need a json serializer
   def show
     @orgs = Teams.new.tap do |teams|
+
       teams.find_all(params)
     end
 
@@ -188,20 +190,6 @@ class UsersController < ApplicationController
 
   def fetch_user_from_params
     User.new
-  end
-
-  def show
-    puts("*********************************************")
-      @user = User.new_from_params(params)
-      puts user
-      respond_to do |format|
-          if @user
-              format.json { render json: @user.to_hash }
-          else
-              format.json { render json: failed_json }
-          end
-      end
-
   end
 
   ## we will have to refactor this later.

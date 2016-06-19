@@ -42,7 +42,7 @@ export default function() {
     this.route('storages', { path: '/storages' });
 
     // User routes
-    //this.resource('users');
+    this.resource('users');
     this.resource('user', { path: '/user/:email' }, function() {
         this.route('show',{ path: '/' });
         this.resource('userActivity', { path: '/activity' }, function() {
@@ -76,6 +76,8 @@ export default function() {
     this.route('signup', { path: '/signup' });
 
     this.route('login', { path: '/login' });
+
+    this.route('logout', { path: '/logout' });
 
     this.route('login-preferences');
     this.route('forgot-password', { path: '/password-reset' });

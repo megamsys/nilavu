@@ -41,7 +41,7 @@ class Teams
                 h[team.name] = domains_for(team).map{|d| d.name}
             end
         end
-        h
+      h
     end
 
 end

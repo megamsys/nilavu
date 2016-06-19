@@ -54,7 +54,8 @@ export default createWidget('user-menu', {
                                                        className: 'logout',
                                                        icon: 'glyphicon glyphicon-off',
                                                        label: 'user.log_out',
-                                                     route:'login' })))
+                                                     route:'logout',
+                                                 })))
               ])];
   },
 
