@@ -4,6 +4,7 @@ import Clock from 'nilavu/services/clock';
 import NilavuPollster from 'nilavu/lib/nilavu-pollster';
 import { headerHeight } from 'nilavu/components/site-header';
 import computed from "ember-addons/ember-computed-decorators";
+import LaunchStatus from "nilavu/models/launch-status";
 
 export default Ember.Controller.extend({
     needs: ['topic', 'topic-predeploy'],
@@ -11,8 +12,10 @@ export default Ember.Controller.extend({
     clock: null,
 
     loading: false,
+
     deploySuccess: false,
-    deployFailure: false,
+
+    deployError: false,
 
     nameEnabled: true,
 
@@ -29,9 +32,17 @@ export default Ember.Controller.extend({
     maxProgressPosition: 100,
 
     barHead: function() {
-      if (this.deploySuccess) {return 'success';}
-      if (this.deployFailure) {return 'danger';}
-      return 'none';
+        if (this.deploySuccess) {
+            this.set('barLabel', "Success, redirecting to management...");
+            return 'success';
+        }
+
+        if (this.deployError) {
+            this.set('barLabel', "Ooops, try relaunching...");
+            return 'danger';
+        }
+        this.set('barLabel', "Launching...");
+        return 'none';
     }.property('progressPosition', 'streamPercentage'),
 
     id: Ember.computed.alias('model.id'),
@@ -54,39 +65,43 @@ export default Ember.Controller.extend({
         const self = this;
         const deployLiveFeed = this.get('notifications');
 
-        if (Ember.isEmpty(deployLiveFeed)) {  return };
+        if (Ember.isEmpty(deployLiveFeed)) {
+            return
+        };
+
         deployLiveFeed.forEach(feed => {
             const postStream = this.get('model.postStream');
-
             switch (feed.event_type) {
-                case "RUNNING": {
-                      postStream.triggerNewPostInStream(feed).then(() => {
-                          self.appEvents.trigger('post-stream:refresh', { id: self.get('model.id') });
-                          self.set('deploySuccess', true);
-                          self.unsubscribe();
-                          self.notificationMessages.success(I18n.t('launcher.launched') + " " + this.get('model.name'));
-                      });
-                      break;
-                    }
-                case "ERROR": {
+                case LaunchStatus.TYPES_SUCCESS.RUNNING:
+                    {
                         postStream.triggerNewPostInStream(feed).then(() => {
+                            self.stopPolling();
                             self.appEvents.trigger('post-stream:refresh', { id: self.get('model.id') });
-                            self.set('deployFailure', true);
-                            self.unsubscribe();
-                            self.notificationMessages.error(I18n.t('launcher.not_launched') + " " + this.get('model.name'));
+                            self.notificationMessages.success(I18n.t('launcher.launched') + " " + this.get('model.name'));
+                            self.set('deploySuccess', true);
                         });
                         break;
                     }
-                case "LAUNCHING":
-                case "LAUNCHED":
-                case "BOOTSTRAPPING":
-                case "BOOTSTRAPPED":
-                case "STATEUP":
-                case "CHEFRUNNING":
-                case "COOKBOOKSUCCESS":
-                case "IPUPDATED":
-                case "AUTHKEYSADDED":
-                case "ROUTEADDED":
+                case LaunchStatus.TYPES_ERROR.ERROR:
+                    {
+                        postStream.triggerNewPostInStream(feed).then(() => {
+                            self.stopPolling();
+                            self.appEvents.trigger('post-stream:refresh', { id: self.get('model.id') });
+                            self.notificationMessages.error(I18n.t('launcher.not_launched') + " " + this.get('model.name'));
+                            self.set('deployError', true);
+                        });
+                        break;
+                    }
+                case LaunchStatus.TYPES.LAUNCHING:
+                case LaunchStatus.TYPES.LAUNCHED:
+                case LaunchStatus.TYPES.BOOTSTRAPPING:
+                case LaunchStatus.TYPES.BOOTSTRAPPED:
+                case LaunchStatus.TYPES.STATEUP:
+                case LaunchStatus.TYPES.CHEFRUNNING:
+                case LaunchStatus.TYPES.COOKBOOKSUCCESS:
+                case LaunchStatus.TYPES.IPUPDATED:
+                case LaunchStatus.TYPES.AUTHKEYSADDED:
+                case LaunchStatus.TYPES.ROUTEADDED:
                     {
                         postStream.triggerNewPostInStream(feed).then(() => {
                             self.appEvents.trigger('post-stream:refresh', { id: self.get('model.id') });
@@ -131,9 +146,9 @@ export default Ember.Controller.extend({
     },
 
     startClocker: function() {
-      if (this.get('clock')) {
-        this.get('clock').start();
-      }
+        if (this.get('clock')) {
+            this.get('clock').start();
+        }
     },
 
     refreshNotifications() {
@@ -185,6 +200,9 @@ export default Ember.Controller.extend({
         if (this.get('clock')) {
             this.get('clock').stop();
         }
+        this.set('deploySuccess', false);
+        this.set('deployError', false);
+        this.set('progressPosition', false);
     },
 
     actions: {
@@ -290,7 +308,6 @@ export default Ember.Controller.extend({
 
     // Route and close the expansion
     jumpTo(url) {
-        alert("url ->" + url);
         NilavuURL.routeTo(url);
     },
 
@@ -312,31 +329,33 @@ export default Ember.Controller.extend({
     }.observes('model.postStream.filteredPostsCount'),
 
     jumpToPostLaunch: function() {
-        this.notificationMessages.success(I18n.t('launcher.launched_redirecting'));
+        if (!this.get('deploySuccess')) { return }
 
-        Em.run.later(this, function() {
-            this.set('progressPosition', this.maxProgressPosition);
+        Ember.run.debounce(this, () => {
+            this.notificationMessages.success(I18n.t('launcher.launched_redirecting'));
             this.set('model.postStream.loading', false);
+            this.set('progressPosition', this.maxProgressPosition);
+            this.set('model.predeploy_finished', true);
 
-            alert(JSON.stringify(this.get('model')));
             const slugId = this.get('model.id') ? this.get('model.id') : "";
             const depOK = this.get('deploySuccess');
 
-            if (this.get('model.id') && depOK) {
+            if (slugId && depOK) {
                 this.jumpTo('/t/' + slugId);
             } else {
                 this.jumpTo('/');
             }
-        }, 500);
+        }, 1500);
     }.observes('deploySuccess'),
 
     stayOnPage: function() {
-        const self = this;
-        Em.run.later(this, function() {
-            this.set('progressPosition', this.maxProgressPosition);
-            this.set('model.postStream.loading', false);
-        }, 500);
-    }.observes('deployFailure'),
+      if (!this.get('deployError')) { return }
+
+      Ember.run.debounce(this, () => {
+          this.set('model.postStream.loading', false);
+          this.set('progressPosition', this.maxProgressPosition);
+      }, 1500);
+    }.observes('deployError'),
 
     jumpBottomDisabled: function() {
         return this.get('progressPosition') >= this.get('model.postStream.filteredPostsCount') ||
