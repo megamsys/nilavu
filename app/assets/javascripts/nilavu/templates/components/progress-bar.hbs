@@ -1,8 +1,8 @@
 {{#if showLabel}}
-    <div class="predeploybar-title" style="background: #0DFF61;">
+    <div class="predeploybar-title {{barHeadHighlight}}">
         <span>{{label}}</span>
     </div>
-    <div class="predeploybar-bar" style="background: #0DFF61;"></div>
+    <div class="predeploybar-bar"></div>
     <div class="predeploybar-percent">
         {{#if hasBlock}}
             {{yield percentRounded}}

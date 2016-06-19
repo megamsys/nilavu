@@ -1,29 +1,62 @@
 import NilavuURL from 'nilavu/lib/url';
-//import Clock from 'nilavu/services/clock';
+import { autoUpdatingRelativeAge } from 'nilavu/lib/formatter';
+import Clock from 'nilavu/services/clock';
 import NilavuPollster from 'nilavu/lib/nilavu-pollster';
 import { headerHeight } from 'nilavu/components/site-header';
 import computed from "ember-addons/ember-computed-decorators";
+import LaunchStatus from "nilavu/models/launch-status";
 
 export default Ember.Controller.extend({
-    needs: ['topic'],
+    needs: ['topic', 'topic-predeploy'],
+
+    clock: null,
 
     loading: false,
 
+    deploySuccess: false,
+
+    deployError: false,
+
+    nameEnabled: true,
+
+    title: I18n.t('launcher.predeployer'),
+
+    name: function() {
+        return this.get('model.name');
+    }.property('model.name'),
+
     unreadNotification: false,
-    progress: 10,
+
+    progressPosition: 0,
+
+    maxProgressPosition: 100,
+
+    barHead: function() {
+        if (this.deploySuccess) {
+            this.set('barLabel', "Success, redirecting to management...");
+            return 'success';
+        }
+
+        if (this.deployError) {
+            this.set('barLabel', "Ooops, try relaunching...");
+            return 'danger';
+        }
+        this.set('barLabel', "Launching...");
+        return 'none';
+    }.property('progressPosition', 'streamPercentage'),
 
     id: Ember.computed.alias('model.id'),
+
     createdAt: Ember.computed.alias('model.created_at'),
 
     _initPoller: function() {
         this.set('notifications', []);
+        this.set('clock', Clock.create());
     }.on('init'),
 
     @computed('model.postStream.posts')
     postsToRender() {
-      alert(this.get('model.postStream.posts'));
-        return  this.get('model.postStream.posts');
-            //this.get('model.postStream.postsWithPlaceholders');
+        return this.get('model.postStream.posts');
     },
 
     // Add the new notification into the model stream
@@ -33,47 +66,46 @@ export default Ember.Controller.extend({
         const deployLiveFeed = this.get('notifications');
 
         if (Ember.isEmpty(deployLiveFeed)) {
-            return };
+            return
+        };
 
         deployLiveFeed.forEach(feed => {
             const postStream = this.get('model.postStream');
             switch (feed.event_type) {
-                case "RUNNING":
+                case LaunchStatus.TYPES_SUCCESS.RUNNING:
                     {
-                        //      postStream.triggerChangedPost(data.id, data.updated_at).then(() => refresh({ id: data.id, refreshLikes: true }));
-                        if (self.get('progress')) {
-                            alert("Ah. ha! is running, stop polling, redirect after 2 s to topic-show");
-                            self.appEvents.trigger('post-stream:refresh', { state: "SUCCESS" });
-                        }
+                        postStream.triggerNewPostInStream(feed).then(() => {
+                            self.stopPolling();
+                            self.appEvents.trigger('post-stream:refresh', { id: self.get('model.id') });
+                            self.notificationMessages.success(I18n.t('launcher.launched') + " " + this.get('model.name'));
+                            self.set('deploySuccess', true);
+                        });
                         break;
                     }
-                case "ERROR":
+                case LaunchStatus.TYPES_ERROR.ERROR:
                     {
-                        //    postStream.triggerChangedPost(data.id, data.updated_at).then(() => refresh({ id: data.id, refreshLikes: true }));
-                        if (self.get('progress')) {
-                            alert("Oooops :( error, stop polling, redirect after 2 s to /");
-                            self.appEvents.trigger('post-stream:refresh', { state: "ERROR" });
-                        }
+                        postStream.triggerNewPostInStream(feed).then(() => {
+                            self.stopPolling();
+                            self.appEvents.trigger('post-stream:refresh', { id: self.get('model.id') });
+                            self.notificationMessages.error(I18n.t('launcher.not_launched') + " " + this.get('model.name'));
+                            self.set('deployError', true);
+                        });
                         break;
                     }
-                case "LAUNCHING":
-                case "LAUNCHED":
-                case "BOOTSTRAPPING":
-                case "BOOTSTRAPPED":
-                case "STATEUP":
-                case "CHEFRUNNING":
-                case "COOKBOOKSUCCESS":
-                case "IPUPDATED":
-                case "AUTHKEYSADDED":
-                case "ROUTEADDED":
+                case LaunchStatus.TYPES.LAUNCHING:
+                case LaunchStatus.TYPES.LAUNCHED:
+                case LaunchStatus.TYPES.BOOTSTRAPPING:
+                case LaunchStatus.TYPES.BOOTSTRAPPED:
+                case LaunchStatus.TYPES.STATEUP:
+                case LaunchStatus.TYPES.CHEFRUNNING:
+                case LaunchStatus.TYPES.COOKBOOKSUCCESS:
+                case LaunchStatus.TYPES.IPUPDATED:
+                case LaunchStatus.TYPES.AUTHKEYSADDED:
+                case LaunchStatus.TYPES.ROUTEADDED:
                     {
-                        postStream.triggerNewPostInStream(feed);
-                        this.appEvents.trigger('post-stream:refresh');
-
-                        if (self.get('progress')) {
-                            console.log("ok, lets progress it " + self.get('progress'));
-                            self.appEvents.trigger('post-stream:refresh', { state: "STEP" });
-                        }
+                        postStream.triggerNewPostInStream(feed).then(() => {
+                            self.appEvents.trigger('post-stream:refresh', { id: self.get('model.id') });
+                        });
                         break;
                     }
                 default:
@@ -88,9 +120,8 @@ export default Ember.Controller.extend({
         // Unsubscribe before subscribing again
         this.unsubscribe();
 
-        var topicController = this;
-
         this.startPolling();
+        this.startClocker();
 
         const pollster = this.get('pollster');
 
@@ -114,6 +145,11 @@ export default Ember.Controller.extend({
         this.get('pollster').stop();
     },
 
+    startClocker: function() {
+        if (this.get('clock')) {
+            this.get('clock').start();
+        }
+    },
 
     refreshNotifications() {
         const id = this.get('id');
@@ -140,20 +176,18 @@ export default Ember.Controller.extend({
                 results.set('content', content);
                 results.set('totalRows', limit);
             }
-            //  alert("refreshNotifications stale\n" + JSON.stringify(results));
-
-            this.toggleProperty('unreadNotification');
             this.set('notifications', results);
+            this.toggleProperty('unreadNotification');
         } else {
             this.loading = true;
         }
 
         stale.refresh().then(notifications => {
-            this.toggleProperty('unreadNotification');
             this.set('notifications', notifications);
-        }).catch(() => {
             this.toggleProperty('unreadNotification');
+        }).catch(() => {
             this.set('notifications', []);
+            this.toggleProperty('unreadNotification');
         }).finally(() => {
             this.loading = false;
         });
@@ -166,9 +200,53 @@ export default Ember.Controller.extend({
         if (this.get('clock')) {
             this.get('clock').stop();
         }
+        this.set('deploySuccess', false);
+        this.set('deployError', false);
+        this.set('progressPosition', false);
     },
 
     actions: {
+
+        // Called the the topmost visible post on the page changes.
+        topVisibleChanged(event) {
+            const { post, refresh } = event;
+
+            if (!post) {
+                return;
+            }
+
+            const postStream = this.get('model.postStream');
+            const firstLoadedPost = postStream.get('posts.firstObject');
+
+            const currentPostNumber = post.get('post_number');
+            this.set('model.currentPost', currentPostNumber);
+            this.send('postChangedRoute', currentPostNumber);
+
+            if (post.get('post_number') === 1) {
+                return;
+            }
+
+            if (firstLoadedPost && firstLoadedPost === post) {
+                postStream.prependMore().then(() => refresh());
+            }
+        },
+
+        //  Called the the bottommost visible post on the page changes.
+        bottomVisibleChanged(event) {
+            const { post, refresh } = event;
+
+            const postStream = this.get('model.postStream');
+            const lastLoadedPost = postStream.get('posts.lastObject');
+
+            this.set('controllers.topic-predeploy.progressPosition', postStream.progressIndexOfPost(post));
+
+            if (lastLoadedPost && lastLoadedPost === post && postStream.get('canAppendMore')) {
+                postStream.appendMore().then(() => refresh());
+                // show loading stuff
+                refresh();
+            }
+        },
+
         toggleExpansion(opts) {
             this.toggleProperty('expanded');
             if (this.get('expanded')) {
@@ -221,34 +299,63 @@ export default Ember.Controller.extend({
         jumpBottom() {
             this.jumpTo(this.get('model.lastPostUrl'));
         }
-    },
 
-    // Route and close the expansion
-    jumpTo(url) {
-        this.set('expanded', false);
-        NilavuURL.routeTo(url);
     },
 
     streamPercentage: function() {
-        if (!this.get('model.postStream.loaded')) {
-            return 0;
-        }
-        if (this.get('model.postStream.highest_post_number') === 0) {
-            return 0;
-        }
-        var perc = this.get('progressPosition') / this.get('model.postStream.filteredPostsCount');
-        return (perc > 1.0) ? 1.0 : perc;
+        return this.get('progressPosition');
     }.property('model.postStream.loaded', 'progressPosition', 'model.postStream.filteredPostsCount'),
+
+    // Route and close the expansion
+    jumpTo(url) {
+        NilavuURL.routeTo(url);
+    },
 
     jumpTopDisabled: function() {
         return this.get('progressPosition') <= 3;
     }.property('progressPosition'),
 
     filteredPostCountChanged: function() {
-        if (this.get('model.postStream.filteredPostsCount') < this.get('progressPosition')) {
-            this.set('progressPosition', this.get('model.postStream.filteredPostsCount'));
+        const p = this.get('progressPosition');
+        const f = this.get('model.postStream.filteredPostsCount');
+        var s = p + f;
+
+        if (s >= this.maxProgressPosition) {
+            return this.set('progressPosition', this.maxProgressPosition);
         }
+
+        this.set('progressPosition', s);
+
     }.observes('model.postStream.filteredPostsCount'),
+
+    jumpToPostLaunch: function() {
+        if (!this.get('deploySuccess')) { return }
+
+        Ember.run.debounce(this, () => {
+            this.notificationMessages.success(I18n.t('launcher.launched_redirecting'));
+            this.set('model.postStream.loading', false);
+            this.set('progressPosition', this.maxProgressPosition);
+            this.set('model.predeploy_finished', true);
+
+            const slugId = this.get('model.id') ? this.get('model.id') : "";
+            const depOK = this.get('deploySuccess');
+
+            if (slugId && depOK) {
+                this.jumpTo('/t/' + slugId);
+            } else {
+                this.jumpTo('/');
+            }
+        }, 1500);
+    }.observes('deploySuccess'),
+
+    stayOnPage: function() {
+      if (!this.get('deployError')) { return }
+
+      Ember.run.debounce(this, () => {
+          this.set('model.postStream.loading', false);
+          this.set('progressPosition', this.maxProgressPosition);
+      }, 1500);
+    }.observes('deployError'),
 
     jumpBottomDisabled: function() {
         return this.get('progressPosition') >= this.get('model.postStream.filteredPostsCount') ||

@@ -114,7 +114,7 @@ export default {
 
   _jumpTo(direction) {
     if ($('.container.posts').length) {
-      this.container.lookup('controller:topic-progress').send(direction);
+      this.container.lookup('controller:topic-predeploy').send(direction);
     }
   },
 
@@ -179,7 +179,7 @@ export default {
   },
 
   toggleProgress() {
-    this.container.lookup('controller:topic-progress').send('toggleExpansion', {highlight: true});
+    this.container.lookup('controller:topic-predeploy').send('toggleExpansion', {highlight: true});
   },
 
   toggleSearch() {

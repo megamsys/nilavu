@@ -11,8 +11,7 @@ export default Ember.Controller.extend({
     title: "My Profile",
     selectedTab: null,
     panels: null,
-    rerenderTriggers: ['isUploading', 'progress'],
-    
+    rerenderTriggers: ['isUploading'],
 
     _initPanels: function() {
         this.set('panels', []);
@@ -102,21 +101,6 @@ export default Ember.Controller.extend({
                     field
                 });
             }).compact();
-        }
-    },
-
-    step() {
-        const self = this;
-        if (this.get('progress') < 1) {
-            Em.run.later(function() {
-                self.set("progress", parseInt(self.get('progress') * 100, 10));
-            });
-
-            ///this.incrementProperty('progress', 0.2);
-
-            Em.run.later(() => {
-                this.step();
-            }, 20);
         }
     },
 

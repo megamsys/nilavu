@@ -80,6 +80,7 @@ export default MountWidget.extend({
     if (viewportBottom > bodyHeight) { viewportBottom = bodyHeight; }
 
     let bottomView = topView;
+
     while (bottomView < $posts.length) {
       const post = $posts[bottomView];
       const $post = $(post);
@@ -101,6 +102,8 @@ export default MountWidget.extend({
 
     const posts = this.posts;
     const refresh = cb => this.queueRerender(cb);
+
+
     if (onscreen.length) {
       const first = posts.objectAt(onscreen[0]);
       if (this._topVisible !== first) {
@@ -154,17 +157,15 @@ export default MountWidget.extend({
     Object.keys(prev).forEach(pn => cloak(prev[pn], this));
 
     this._previouslyNearby = newPrev;
-    this.screenTrack.setOnscreen(onscreenPostNumbers);
+    //this.screenTrack.setOnscreen(onscreenPostNumbers);
   },
 
   _scrollTriggered() {
-    alert("_scrollTriggered");
     Ember.run.scheduleOnce('afterRender', this, this.scrolled);
   },
 
   didInsertElement() {
     this._super();
-    alert("Scrolling post stream");
     const debouncedScroll = () => Ember.run.debounce(this, this._scrollTriggered, 10);
 
     this._previouslyNearby = {};
