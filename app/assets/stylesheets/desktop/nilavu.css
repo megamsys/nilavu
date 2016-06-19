@@ -277,7 +277,7 @@ body {
 
   .balance {
   	text-align: center;
-  	height: 223px;
+  	height: 253px;
   }
   .balance span {
   	font-size: 20px;
@@ -304,6 +304,7 @@ body {
   	color: #a5a6af;
   	padding-left: 0;
   }
+
   .center {
   	display:flex;
   	justify-content:center;
@@ -348,7 +349,7 @@ body {
   }
   .tb_action_list thead th {
     height: 40px;
-    
+
   }
 
   .set_title {
