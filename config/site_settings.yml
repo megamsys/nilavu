@@ -42,6 +42,12 @@ required:
   logo_reverse_url:
     client: true
     default: '/images/logo_vertice_reverse.png'
+  logo_signup_cta:
+    client: true
+    default: '/images/signup_cta.png'
+  signup_cta:
+    client: true
+    default: "<h3>Launch your applications seamlessly in less than <span>60 seconds</span></h3>"  
   favicon_url:
     client: true
     default: '/images/default_favicon.png'

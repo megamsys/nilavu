@@ -16,39 +16,38 @@
 
 class LaunchersController < ApplicationController
 
-  respond_to :js
+    respond_to :js
 
-  before_action :add_authkeys_for_api, only: [:launch, :perform_launch]
+    before_action :add_authkeys_for_api, only: [:launch, :perform_launch]
 
-  def launch
-    @launch_item = HoneyPot.cached_marketplace_by_item(params)
-    unless @launch_item
-      render_with_error('marketplace.launch_item_load_failure')
+    def launch
+        @launch_item = HoneyPot.cached_marketplace_by_item(params)
+        unless @launch_item
+            render_with_error('marketplace.launch_item_load_failure')
+        end
+
+        respond_to do |format|
+            format.js do
+                respond_with(@launch_item, layout: !request.xhr?)
+            end
+        end
     end
-  
-    respond_to do |format|
-      format.js do
-        respond_with(@launch_item, layout: !request.xhr?)
-      end
+
+    def perform_launch
+        params.require(:version)
+        params.require(:mkp_name)
+        params.require(:assemblyname)
+
+        vertice = VerticeLauncher.new(LaunchingItem.new(params))
+
+        if res = vertice.launch
+            #  Scheduler::Defer.later "Log launch action for" do
+            #    @nilavu_event_logger.log_launched(@launched)
+            #  end
+            render json: { id: res }
+        else
+          render failed_json # error is broken, we need to fix it.
+        end
     end
-  end
-
-  def perform_launch
-    params.require(:version)
-    params.require(:assemblyname)
-    params.require(:componentname)
-    params.require(:sshoption)
-
-    vertice = VerticeLauncher.new(LaunchableItem.reload_cached_item!(params))
-
-    if vertice.launch(params)
-      #  Scheduler::Defer.later "Log launch action for" do
-      #    @nilavu_event_logger.log_launched(@launched)
-      #  end
-      redirect_with_success(cockpits_path, "launch.success", vertice.launched_message)
-    else
-      redirect_with_failure(cockpits_path, "errors.launch_error",vertice.launched_message)
-    end
-  end
 
 end

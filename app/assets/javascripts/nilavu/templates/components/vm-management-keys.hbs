@@ -1,0 +1,28 @@
+<div class="col-md-6 info">
+  <h3><b>{{keys_title}}</b></h3>
+  <div class="bottom-divider"></div>
+  <table>
+    <tr>
+      <td><h5><b>{{content_sshkey_name}}</b></h5></td>
+      <td>{{model.sshkey_name}}</td>
+    </tr>
+    <tr>
+      <td><h5><b>{{content_private_sshkey}}</b></h5></td>
+      <td>{{model.privatekey}}</td>
+      <td class="sett-private">
+        <a href {{action "privatekey_download" model.privatekey}} class="btn btn-dark-red" >
+          <i class="c_icon-inBlue"></i><span>Download</span>
+        </a>
+      </td>
+    </tr>
+    <tr>
+      <td><h5><b>{{content_public_sshkey}}</b></h5></td>
+      <td>{{model.public_sshkey}}</td>
+      <td class="sett-public">
+        <a href="{{model.publickey_download}}" class="btn btn-dark-blue ">
+          <i class="c_icon-in"></i><span>Download</span>
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>

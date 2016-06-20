@@ -30,6 +30,7 @@ export default Ember.Component.extend({
   reverseLogoUrl: setting('logo_reverse_url'),
   mobileBigLogoUrl: setting('mobile_logo_url'),
   title: setting('title'),
+  logoUrl: setting('logos_url'),
 
   click: function(e) {
     // if they want to open in a new tab, let it so

@@ -1,0 +1,11 @@
+<div class="col-md-12 text-center">
+    <p>
+        {{#super-number-directional-link action="handleIncrement" }}
+            <a class="increment" href="#">+</a>
+        {{/super-number-directional-link}}
+        {{input type="text" class="roundText text-center" value=value disabled="disabled" size="3"}}
+        {{#super-number-directional-link action="handleDecrement" }}
+            <a class="decrement" href="#">-</a>
+        {{/super-number-directional-link}}
+    </p>
+</div>

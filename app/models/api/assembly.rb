@@ -15,7 +15,6 @@
 ##
 module Api
   class Assembly < ApiDispatcher
-    include MarketplaceHelper
 
     attr_reader :baked
     attr_reader :tosca_type

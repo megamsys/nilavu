@@ -1,8 +1,9 @@
 import computed from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Controller.extend({
-  showTop: true,
-  showFooter: true,
+  showTop: function() { return !this.get('loginRequired'); }.property(),
+  showFooter: function() { return !this.loginRequired; }.property(),
+
   styleCategory: null,
 
   @computed
@@ -14,7 +15,6 @@ export default Ember.Controller.extend({
 
   @computed
   loginRequired() {
-    //return Nilavu.SiteSettings.login_required && !Nilavu.User.current();
     return !Nilavu.User.current();
   },
 });

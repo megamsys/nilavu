@@ -1,52 +1,54 @@
 import ModalFunctionality from 'nilavu/mixins/modal-functionality';
 import NilavuURL from 'nilavu/lib/url';
-import {
-    extractError
-} from 'nilavu/lib/ajax-error';
+import {     extractError } from 'nilavu/lib/ajax-error';
 
-// Modal for editing / creating a category
+
 export default Ember.Controller.extend(ModalFunctionality, {
     selectedTab: null,
     saving: false,
-    deleting: false,
     panels: null,
+    loading: false,
     editLaunching: false,
-
 
     _initPanels: function() {
         this.set('panels', []);
-        this.editLaunching = false;
     }.on('init'),
 
+    generalSelected: function() {
+        return this.selectedTab == 'general';
+    }.property('selectedTab'),
 
-    /*  _changeInitialState:function() {
-      alert('tearing');
-      this.editLaunching = false;
-      alert(this.get('model.launchoption'));
-      alert(this.get('launchOption'));
-    }.on('willDestroyElement'),
-*/
+    selectionSelected: function() {
+        return this.selectedTab == 'selection';
+    }.property('selectedTab'),
+
+    summarySelected: function() {
+        return this.selectedTab == 'summary';
+    }.property('selectedTab'),
 
     onShow() {
         this.changeSize();
         this.titleChanged();
-        //      this._changeInitialState();
     },
 
     changeSize: function() {
-        if (!Ember.isEmpty(this.get('model.description'))) {
+        if (this.get('selectionSelected') && (!this.get('isVirtualMachine'))) {
             this.set('controllers.modal.modalClass', 'edit-category-modal full');
-        } else {
+        } else if (this.get('selectionSelected')) {
             this.set('controllers.modal.modalClass', 'edit-category-modal small');
+        } else {
+          this.set('controllers.modal.modalClass', 'edit-category-modal full');
         }
-    }.observes('model.description'),
+    }.observes('isVirtualMachine', 'generalSelected', 'selectionSelected', 'summarySelected'),
 
     title: function() {
-        if (this.get('model.id')) {
-            return I18n.t("category.edit_long") + " : " + this.get('model.name');
+        if (this.get('selectionSelected')){
+          return I18n.t("launcher.selection_title");
+        } else if (this.get('summarySelected')){
+          return I18n.t("launcher.summary_title");
         }
         return I18n.t("launcher.title");
-    }.property('model.id', 'model.name'),
+    }.property('selectionSelected', 'summarySelected'),
 
     launchOption: function() {
         const option = this.get('model.launchoption') || "";
@@ -56,6 +58,9 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
     launchableChanged: function() {
         this.set('model.launchoption', this.get('launchOption'));
+        const isvm =  (this.get('launchOption').trim.length > 0 && Ember.isEqual(this.get('launchOption').trim(), I18n.t('launcher.virtualmachines')));
+        this.set('isVirtualMachine', isvm)
+
         this.set('selectedTab', 'general');
         if (!this.editLaunching) {
             $(".hideme").slideToggle(250);
@@ -63,30 +68,46 @@ export default Ember.Controller.extend(ModalFunctionality, {
         }
     }.observes('launchOption'),
 
-    isVirtualMachine: function() {
+    cookingChanged: function() {
         const launchable = this.get('launchOption') || "";
-        alert(launchable.trim() + "," + I18n.t('virtualmachines'));
-        return (launchable.trim.length > 0 && Ember.isEqual(launchable.trim(), I18n.t('virtualmachines')));
-    }.property('launchOption'),
+        if (launchable.trim().length > 0) {
+            this.set('selectedTab', 'selection');
+            $('.firstStep').slideToggle('fast');
+        }
+    }.observes('cooking'),
+
+    summarizingChanged: function() {
+        this.set('selectedTab', 'summary');
+    }.observes('summarizing'),
+
+    versionChanged: function() {
+        const versionable = this.get('model.metaData.versionoption') || "";
+        let versionEntered = (versionable.trim().length > 0);
+        if (!(this.get('selecting') == undefined)) {
+          this.set('selecting', !versionEntered);
+        }
+    }.observes('model.metaData.versionoption'),
+
+    summarizingChanging: function() {
+      if (this.get('summarizing')) {
+        if (this.get('model.metaData.keypairoption') &&
+            this.get('model.metaData.keypairnameoption')) {
+              this.set('selecting', false);
+           }
+          }
+    }.observes('model.metaData.keypairoption', 'model.metaData.keypairnameoption'),
 
     titleChanged: function() {
         this.set('controllers.modal.title', this.get('title'));
     }.observes('title'),
 
     disabled: function() {
-        alert(JSON.stringify(this.get('model.metaData.unitoption')));
-        if (this.get('saving') || this.get('deleting')) return true;
+        if (this.get('saving') || this.get('selecting')) return true;
+
         if (!this.get('model.metaData.unitoption')) return true;
-        /*  if (!this.get('model.color')) return true;
-          if (!this.get('model.color')) return true;
-          */
+
         return false;
-    }.property('saving', 'model.metaData.unitoption', 'model.color', 'deleting'),
-
-
-    deleteDisabled: function() {
-        return (this.get('deleting') || this.get('saving') || false);
-    }.property('disabled', 'saving', 'deleting'),
+    }.property('saving', 'selecting', 'model.metaData.unitoption', 'model.metaData.keypairoption'),
 
     categoryName: function() {
         const name = this.get('name') || "";
@@ -94,60 +115,61 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.property('name'),
 
     saveLabel: function() {
-        if (this.get('saving')) return "saving";
-        if (this.get('model.isUncategorizedCategory')) return "save";
-        return this.get('model.id') ? "category.save" : "category.create";
-    }.property('saving', 'model.id'),
+         if (this.get('saving')) return I18n.t("launcher.saving");
+
+        if (this.get('summarySelected')) return I18n.t("launcher.launch")
+
+        if (this.get('generalSelected') || this.get('selectionSelected')) return I18n.t("launcher.selecting")
+
+        return I18n.t("launcher.launch");
+    }.property('saving', 'generalSelected', 'selectionSelected', 'summarySelected'),
 
     actions: {
         nextCategory() {
             this.set('loading', true);
-            alert(JSON.stringify(this.get('model.metaData')));
+            const model = this.get('model');
+            return Nilavu.ajax("/launchables/pools/" + this.get('model.launchoption') + ".json").then(result => {
+                model.metaData.setProperties({
+                    cooking: result
+                });
+                this.setProperties({ cooking: true, selecting: true, loading: false });
+            });
+        },
+
+        nextSummarize() {
+            this.set('loading', true);
+            const model = this.get('model');
+            return Nilavu.ajax("/launchables/summary.json").then(result => {
+                model.metaData.setProperties({
+                    summarizing: result
+                });
+                    this.setProperties({ summarizing: true, loading: false });
+              });
         },
 
         saveCategory() {
             const self = this,
-                model = this.get('model'),
-                parentCategory = Nilavu.Category.list().findBy('id', parseInt(model.get('parent_category_id'), 10));
-
-            this.set('saving', true);
-            model.set('parentCategory', parentCategory);
+            model = this.get('model');
+            self.set('saving', true);
 
             this.get('model').save().then(function(result) {
                 self.set('saving', false);
                 self.send('closeModal');
-                model.setProperties({
-                    slug: result.category.slug,
-                    id: result.category.id
-                });
-                NilavuURL.redirectTo("/c/" + Nilavu.Category.slugFor(model));
-            }).catch(function(error) {
+
+                const slugId = result.id ? result.id : "";
+                if (result.id) {
+                    NilavuURL.routeTo('/t/'+ slugId);
+                } else{
+                  NilavuURL.routeTo('/');
+                }
+                self.notificationMessages.success(I18n.t('launcher.launched') + " " + slugId);
+
+              }).catch(function(error) {
+                alert("save error");
                 self.flash(extractError(error), 'error');
                 self.set('saving', false);
-            });
-        },
-
-        deleteCategory() {
-            const self = this;
-            this.set('deleting', true);
-
-            this.send('hideModal');
-            bootbox.confirm(I18n.t("category.delete_confirm"), I18n.t("no_value"), I18n.t("yes_value"), function(result) {
-                if (result) {
-                    self.get('model').destroy().then(function() {
-                        // success
-                        self.send('closeModal');
-                        NilavuURL.redirectTo("/categories");
-                    }, function(error) {
-                        self.flash(extractError(error), 'error');
-                        self.send('reopenModal');
-                        self.displayErrors([I18n.t("category.delete_error")]);
-                        self.set('deleting', false);
-                    });
-                } else {
-                    self.send('reopenModal');
-                    self.set('deleting', false);
-                }
+                self.send('closeModal');
+                self.notificationMessages.error(I18n.t('launcher.not_launched'));
             });
         }
     }

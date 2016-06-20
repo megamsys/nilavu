@@ -1,0 +1,13 @@
+<div class="row">
+    <h3>{{i18n 'launcher.select_duplicate'}}</h3>
+    <div class="bottom-divider"></div>
+</div>
+
+<div class="row pad_t25">
+    <div class="col-md-12 pad_0">
+        Deploy multiple machines with the same configuration
+    </div>
+</div>
+<div class="row pad_t25">
+  {{super-number id="loop" loop=true value=duplicateable min=1 max=9}}
+</div>

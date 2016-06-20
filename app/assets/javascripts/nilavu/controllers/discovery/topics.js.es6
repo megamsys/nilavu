@@ -1,12 +1,15 @@
 import DiscoveryController from 'nilavu/controllers/discovery';
 import { queryParams } from 'nilavu/controllers/discovery-sortable';
-import BulkTopicSelection from 'nilavu/mixins/bulk-topic-selection';
+
 import { endWith } from 'nilavu/lib/computed';
 import showModal from 'nilavu/lib/show-modal';
 
+import OpenComposer from "nilavu/mixins/open-composer";
+
 const controllerOpts = {
   needs: ['discovery'],
-  showTop: true,
+
+  showTop:true,
   showFooter: true,
   period: null,
 
@@ -21,6 +24,21 @@ const controllerOpts = {
   expandAllPinned: false,
 
   actions: {
+
+    createTopic() {
+      const self = this;
+      // Don't show  if we're still loading, may be show a growl.
+      if (self.get('loading')) { return; }
+
+      self.set('loading', true);
+
+      const promise =  this.openComposer(this.controllerFor("discovery/topics")).then(function(result) {
+        self.set('loading', false);
+        showModal('editCategory', {model: result, smallTitle: false, titleCentered: true});
+      }).catch(function(e) {
+          self.set('loading', false);
+      });
+    },
 
     changeSort(sortBy) {
       if (sortBy === this.get('order')) {
@@ -52,13 +70,11 @@ const controllerOpts = {
       // router and ember throws an error due to missing `handlerInfos`.
       // Lesson learned: Don't call `loading` yourself.
       this.set('controllers.discovery.loading', true);
-
       this.store.findFiltered('topicList', {filter}).then(list => {
         const TopicList = require('nilavu/models/topic-list').default;
         TopicList.hideUniformCategory(list, this.get('category'));
 
         this.setProperties({ model: list });
-        this.resetSelected();
 
         if (this.topicTrackingState) {
           this.topicTrackingState.sync(list, filter);
@@ -71,11 +87,8 @@ const controllerOpts = {
     resetNew() {
       this.topicTrackingState.resetNew();
       Nilavu.Topic.resetNew().then(() => this.send('refresh'));
-    },
-
-    dismissReadPosts() {
-      showModal('dismiss-read', { title: 'topics.bulk.dismiss_read' });
     }
+
   },
 
   isFilterPage: function(filter, filterType) {
@@ -159,4 +172,4 @@ Ember.keys(queryParams).forEach(function(p) {
   }
 });
 
-export default DiscoveryController.extend(controllerOpts, BulkTopicSelection);
+export default DiscoveryController.extend(controllerOpts, OpenComposer);

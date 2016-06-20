@@ -1,0 +1,29 @@
+<div class="row">
+    <h3>{{i18n 'launcher.select_security'}}</h3>
+    <div class="bottom-divider"></div>
+</div>
+<div class="row">
+    <div class="col-xs-6 pad_0">
+        <h4>{{i18n 'launcher.select_sshkey'}}</h4>
+        <div class="form-group">
+            {{combo-box valueAttribute="value" content=sshFrequencies value=selectedSSHOption}}
+        </div>
+    </div>
+    <div class="col-xs-6">
+        {{#if showOldPairs}}
+            <h4>{{i18n 'launcher.select_sshkey_pair'}}</h4>
+            <div class="form-group">
+                {{#if oldPairs}}
+                    {{combo-box valueAttribute="value" content=oldPairFrequencies value=selectedKeyPairOption}}
+                {{else}}
+                    <span>{{i18n 'launcher.none_sshkey_create'}}</span>
+                {{/if}}
+            </div>
+        {{else}}
+            <h4>{{i18n 'launcher.select_sshkey_pair'}}</h4>
+            <div class="form-group">
+                {{text-field type="text" value=securingName placeholderKey="launcher.sshoption_create_title" class ="form-control" id="new-account-email" disabled=keypairValidated name="sshkey" autofocus="autofocus"}}
+            </div>
+        {{/if}}
+    </div>
+</div>

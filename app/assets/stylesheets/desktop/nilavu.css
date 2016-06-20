@@ -170,36 +170,6 @@ body {
   padding-top: 16px;
 }
 
-.c_icon-compose {
-  color: transparent;
-  overflow: hidden;
-  display: inline-block;
-  height: 16px;
-  width: 16px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  /* border-radius: 50%; */
-  vertical-align: middle;
-  background-image: url(icon-compose.png);
-  margin-bottom: 3px !important;
-  margin-right: 5px;
-}
-.c_icon-import {
-  color: transparent;
-  overflow: hidden;
-  display: inline-block;
-  height: 16px;
-  width: 16px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  /* border-radius: 50%; */
-  vertical-align: middle;
-  background-image: url(icon-import.png);
-  margin-bottom: 3px !important;
-  margin-right: 5px;
-}
 
   .c_icon-sett {
     color: transparent;
@@ -226,10 +196,11 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     vertical-align: middle;
-    background-image: url(icon-in.png);
+    background-image: url(../images/icons/icon-in.png);
     margin-bottom: 3px !important;
     margin-right: 5px;
   }
+
   .c_icon-inBlue {
     color: transparent;
     overflow: hidden;
@@ -240,7 +211,7 @@ body {
     background-repeat: no-repeat;
     background-position: center;
     vertical-align: middle;
-    background-image: url(icon-in-blue.png);
+    background-image: url(../images/icons/icon-in-blue.png);
     margin-bottom: 3px !important;
     margin-right: 5px;
   }
@@ -250,14 +221,14 @@ body {
     color: transparent;
     overflow: hidden;
     display: inline-block;
-    height: 24px;
-    width: 16px;
+    height: 34px;
+    width: 24px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     /* border-radius: 50%; */
     vertical-align: middle;
-    background-image: url(c_icon-trash.png);
+    background-image: url(../images/icons/destroy_bucket.png);
   }
   .c_icon-d {
     color: transparent;
@@ -273,16 +244,82 @@ body {
     background-image: url(c_icon-d.png);
   }
 
-  .settings_top {
-    border-bottom: 1px solid #e5e6ef;
-    margin-bottom: 20px;
+
+  .balance {
+  	text-align: center;
+  	height: 253px;
   }
+  .balance span {
+  	font-size: 20px;
+  	margin-top: 0px;
+  	color: #a4a6af;
+  	text-align: center;
+  }
+  .balance h2 {
+  	font-size: 22px;
+  	color: #a4a6af;
+  }
+  .balance .green {
+  	color: #7be090;
+  	font-weight: bold;
+  }
+  .balance .blue, span.blue {
+  	color: #7cb4dd;
+  	font-weight: bold;
+  }
+
+
+  .usg {
+  	font-size: 22px;
+  	color: #a5a6af;
+  	padding-left: 0;
+  }
+
+  .center {
+  	display:flex;
+  	justify-content:center;
+  	align-items:center;
+  }
+
+  .table thead tr th {
+      font-size: 14px;
+      font-weight: bold;
+  }
+
+
+  .hour {
+  	width: 100%;
+  	padding: 20px;
+  	border: 1px solid #dddddd;
+  	border-top: none;
+  	text-align: center;
+  	font-size: 22px;
+  }
+
+  .mod {
+  	text-align: center;
+  	font-size: 18px;
+  	color: #7cb4dd;
+  	margin-top: 10px;
+  	font-weight: 900;
+  }
+  .mod img {
+  	border: 1px solid #7cb4dd;
+      border-radius: 220px;
+      padding: 2px;
+      padding-top: 2.2px;
+      padding-left: 2.2px;
+  }
+
+
 
   .tb_action_list tbody tr {
     height: 60px;
+
   }
   .tb_action_list thead th {
     height: 40px;
+
   }
 
   .set_title {
@@ -292,12 +329,20 @@ body {
     color: #529fe7;
     text-decoration: underline;
   }
-  .sett-public {
+  .sett-public a{
     color: #6fde86;
   }
-  .sett-private {
+  .sett-private a{
     color: #7ab6ef;
   }
+
+  .sett-public a:hover{
+    color: #7ab6ef;
+  }
+  .sett-private a:hover{
+    color: #6fde86;
+  }
+
   .settings_lt_arrow {
     margin-right: 10px;
     color: #dddfe8;

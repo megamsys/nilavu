@@ -1,0 +1,28 @@
+<div class="prof bottom_border_grey">
+  <div class="row">
+    <div class="col-xs-10 col-sm-9">
+        <h4>Your Api Key</h4>
+      </div>
+          <button class='btn btn-success col-md-2 col-xs-2 pull-right' {{action "update"}}>update</button>
+        </div>
+      </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <table class="table tb_list">
+            <thead>
+                <tr>
+                    <th>Keys</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="set_title">{{currentUser.api_key}}</td>
+                    <td>{{currentUser.createdAt}}</td>
+                    <td> <i class="glyphicon glyphicon-trash"></i>Delete</td>
+                </tr>
+            </tbody>
+        </table>
+
+</div>

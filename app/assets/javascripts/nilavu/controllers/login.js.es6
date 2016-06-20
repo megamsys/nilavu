@@ -7,7 +7,7 @@ const AuthErrors =
 
 export default Ember.Controller.extend({
   needs: ['modal', 'createAccount', 'forgotPassword', 'application'],
-  showTop: false,
+  showTop: true,
   showFooter: false,
   authenticate: null,
   loggingIn: false,

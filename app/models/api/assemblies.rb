@@ -15,7 +15,6 @@
 ##
 module Api
     class Assemblies < ApiDispatcher
-        include MarketplaceHelper
 
         attr_reader :baked
 
@@ -67,8 +66,7 @@ module Api
 
         def create(api_params)
             bld_data = build_data(api_params)
-            api_request(ASSEMBLIES, CREATE, api_params.merge(bld_data))
-            self
+            api_request(ASSEMBLIES, CREATE, api_params.merge(bld_data))            
         end
 
         def build_data(api_params)

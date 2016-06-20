@@ -5,14 +5,17 @@ class User
   attr_accessor :password
   attr_accessor :api_key
   attr_accessor :team
-  attr_accessor :first_name
-  attr_accessor :last_name
+  attr_accessor :firstname
+  attr_accessor :lastname
   attr_accessor :authority
   attr_accessor :verified
   attr_accessor :password_reset_key
   attr_accessor :password_reset_sent_at
   attr_accessor :created_at
   attr_accessor :errors
+  attr_accessor :phone
+  attr_accessor :unread_notifications
+  attr_accessor :unread_total_notifications
 
   ADMIN = 'admin'.freeze
 
@@ -26,8 +29,9 @@ class User
     user.email = params[:email]
     user.team  = params[:team]
     user.api_key = params[:api_key]
-    user.first_name = params[:first_name]
-    user.last_name = params[:last_name]
+    user.firstname = params[:firstname]
+    user.lastname = params[:lastname]
+    user.phone = params[:phone]
     user.password = params[:password]
     user.password_reset_key = params[:password_reset_key]
     user.password_reset_sent_at = params[:password_reset_sent_at]
@@ -132,8 +136,11 @@ class User
     {:email => @email,
       :api_key => @api_key,
       :password => @raw_password,
-      :first_name => User.suggest_firstname(@email),
-      :last_name => @last_name
+      :username => User.suggest_firstname(@email),
+      :first_name =>@firstname,
+      :last_name => @lastname,
+      :phone => @phone,
+      :createdAt =>@created_at
     }
   end
 
@@ -141,10 +148,22 @@ class User
     {:email => @email,
       :api_key => @api_key,
       :password => ensure_password_is_hashed,
-      :first_name => @first_name,
-      :last_name => @last_name,
+      :first_name => @firstname,
+      :last_name => @lastname,
       :password_reset_key => @password_reset_key,
+      :phone => @phone
     }
+  end
+
+  def reload
+    @unread_notifications = nil
+    @unread_total_notifications = nil
+#    super
+  end
+
+  def publish_notifications_state
+    # publish last notification json with the message so we
+    # can apply an update
   end
 
   private

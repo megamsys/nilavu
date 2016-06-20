@@ -50,7 +50,7 @@ export default createWidget('poster-name', {
     if (title && title.length) {
       let titleContents = title;
       if (primaryGroupName) {
-        const href = Nilavu.getURL(`/groups/${primaryGroupName}`);
+        const href = Discourse.getURL(`/groups/${primaryGroupName}`);
         titleContents = h('a.user-group', { attributes: { href } }, title);
       }
       contents.push(h('span.user-title', titleContents));

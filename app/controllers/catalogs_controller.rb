@@ -22,7 +22,6 @@
 #            this action gets called prior to a start, stop, restart, delete operation
 #            a confirmation is got from the user to perform the same.
 class CatalogsController < ApplicationController
-  include CatalogHelper
   respond_to :html, :js
 
 

@@ -47,7 +47,7 @@ module Api
     def last_used_domain
       return @domain.first if @domain
     end
-
+    
     def to_s
       name
     end

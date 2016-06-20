@@ -17,10 +17,10 @@
 module Api
   class Sshkeys < ApiDispatcher
 
-    IMPORT   = 'SSH_IMPORT'.freeze
-    NEW      = 'SSH_NEW'.freeze
-    USEOLD   = 'SSH_USEOLD'.freeze
-    SAAVI = 'saavi'.freeze
+    OLD      = '1'.freeze
+    NEW      = '2'.freeze
+    PWD      = '3'.freeze
+    IMPORT   = '4'.freeze
 
     attr_accessor :ssh_keys
 
@@ -32,15 +32,15 @@ module Api
     # a helper that creates or imports ssl keys.
     # can be used during a launch or sshkey creation.
     def create_or_import(api_params)
-      api_params[:name] = api_params[:ssh_keypair_name] ||= Api::Sshkeys::SAAVI
-      api_params[:sshkey] = api_params[:name]
-      case api_params[:sshoption]
-      when NEW
-        create(api_params)
-      when IMPORT
-        import(api_params)
-      end
-      api_params
+        api_params[:name] = api_params[:keypairname]
+
+        case api_params[:keypairoption]
+        when NEW
+            create(api_params)
+        when IMPORT
+            import(api_params)
+        end
+        api_params
     end
 
     # lists the ssh keys for an user and return a hash with name, timestamp.
@@ -63,17 +63,15 @@ module Api
       keygen = SSHKey.generate
       api_params[:privatekey] = keygen.private_key
       api_params[:publickey] = keygen.ssh_public_key
-      raw = api_request(SSHKEYS, CREATE,api_params)
-      self
+      api_request(SSHKEYS, CREATE,api_params)
     end
 
     ## import - use create_or_import instead.
     def import(api_params)
       api_params[:privatekey] = api_params[:ssh_private_key].read
       api_params[:publickey] = api_params[:ssh_public_key].read
-      raw = api_request(SSHKEYS, CREATE,api_params)
-      self
-    end
+      api_request(SSHKEYS, CREATE,api_params)
+   end
 
     # a private method that take the sshkeys collection and returns a hash
     def to_hash(ssh_keys_collection)

@@ -22,7 +22,7 @@ export default Ember.Component.extend(StringBuffer, {
   },
 
   @computed("content.filterMode", "filterMode")
-  active(contentFilterMode, filterMode) {
+  active(contentFilterMode, filterMode) {    
     return contentFilterMode === filterMode ||
            filterMode.indexOf(contentFilterMode) === 0;
   },

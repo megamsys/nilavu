@@ -2,6 +2,7 @@ import NilavuURL from 'nilavu/lib/url';
 import { keyDirty } from 'nilavu/widgets/widget';
 import MountWidget from 'nilavu/components/mount-widget';
 import { cloak, uncloak } from 'nilavu/widgets/post-stream';
+import { isWorkaroundActive } from 'nilavu/lib/safari-hacks';
 
 function findTopView($posts, viewportTop, min, max) {
   if (max < min) { return min; }
@@ -36,8 +37,28 @@ export default MountWidget.extend({
                               'searchService');
   }).volatile(),
 
+  beforePatch() {
+    const $body = $(document);
+    this.prevHeight = $body.height();
+    this.prevScrollTop = $body.scrollTop();
+  },
+
+  afterPatch() {
+    const $body = $(document);
+    const height = $body.height();
+    const scrollTop = $body.scrollTop();
+
+    // This hack is for when swapping out many cloaked views at once
+    // when using keyboard navigation. It could suddenly move the
+    // scroll
+    if (this.prevHeight === height && scrollTop !== this.prevScrollTop) {
+      $body.scrollTop(this.prevScrollTop);
+    }
+  },
+
   scrolled() {
     if (this.isDestroyed || this.isDestroying) { return; }
+    if (isWorkaroundActive()) { return; }
 
     const $w = $(window);
     const windowHeight = window.innerHeight ? window.innerHeight : $w.height();
@@ -59,6 +80,7 @@ export default MountWidget.extend({
     if (viewportBottom > bodyHeight) { viewportBottom = bodyHeight; }
 
     let bottomView = topView;
+
     while (bottomView < $posts.length) {
       const post = $posts[bottomView];
       const $post = $(post);
@@ -80,6 +102,8 @@ export default MountWidget.extend({
 
     const posts = this.posts;
     const refresh = cb => this.queueRerender(cb);
+
+
     if (onscreen.length) {
       const first = posts.objectAt(onscreen[0]);
       if (this._topVisible !== first) {
@@ -133,7 +157,7 @@ export default MountWidget.extend({
     Object.keys(prev).forEach(pn => cloak(prev[pn], this));
 
     this._previouslyNearby = newPrev;
-    this.screenTrack.setOnscreen(onscreenPostNumbers);
+    //this.screenTrack.setOnscreen(onscreenPostNumbers);
   },
 
   _scrollTriggered() {

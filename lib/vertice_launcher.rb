@@ -1,90 +1,47 @@
 require 'sshkeys_creator'
 class VerticeLauncher
 
-  attr_reader :launch_item
-  attr_reader :provider
-  attr_reader :params
-
-  ONE              = 'one'.freeze
-  DOCKER           = 'docker'.freeze
-
+  attr_accessor :launch_params, :ssh_params
 
   def initialize(launch_item)
-    @launch_item = launch_item
+    @launch_params = launch_item.to_h
+    @ssh_params = launch_item.filtered_for_ssh
   end
 
   def set_sshkey
-    SSHKeysCreator.new(params).save
+    puts "--- set ssh key"
+    puts @ssh_params.inspect
+    puts "=================="
+    SSHKeysCreator.new(@ssh_params).save
+    @launch_params[:sshkey] = @ssh_params[:sshkey]
   end
 
-  def launch(params)
-    @params ||= params
+  def launch
     raise Nilavu::NotFound  unless set_sshkey
-        
-    launch_parms = build_launch_parameters  
 
-    ensure_settings_are_ok(launch_parms)
+    ensure_settings_are_ok(@launch_params)
 
-    Api::Assemblies.new.create(launch_parms)
+    raw = Api::Assemblies.new.create(@launch_params)
+
+    parse_msg(raw[:body].some_msg) unless !raw
   end
 
-  def build_launch_parameters
-    @params.merge(more_parms)
+  def ensure_settings_are_ok(lp)
+      [:mkp_name, :version, :cattype, :assemblyname, :componentname, :region, :resource,
+       :sshkey, :keypairoption, :provider, :cpu, :ram, :hdd].each do |setting|
+        raise Nilavu::InvalidParameters unless lp[setting]
+      end
   end
 
-  def ensure_settings_are_ok(launch_parms)
-    [:cpu, :ram, :hdd, :assemblyname, :componentname, :provider, :ssh_keypair_name, :version, :cattype].each do |setting|
-      raise Nilavu::InvalidParameters unless launch_parms[setting]
-    end
-  end
-
-  def launched_message
-    {name: @launch_item.name, stuff: @launch_item.type, provider: @provider}
+  def launched
+    { name: @launch_params[:mkp_name], stuff: @launch_params[:cattype],  provider: @launch_params[:provider]}
   end
 
   private
 
-  def more_parms
-    params ||={}
-    [:cattype, :envs].each do |launch_data|
-      params[launch_data] = @launch_item.send("#{launch_data}")
-    end
-    set_provider(params)
-
-    set_name(params)
-    
-    set_oneclick(params) 
-
-    params.merge!(FavourizeItem.new(@params[:compute_setting]).to_hash)
+  # parse the id between [ASM..., ASM002]  and send it back
+  def parse_msg(some_msg)
+    return unless some_msg[:code] != '201'
+    some_msg[:msg][/\[(.*?)\]/m,1]
   end
-
-  def set_provider(params)
-    params[:provider] = provider
-  end
-
-  def set_name(params)
-    params[:mkp_name] = @launch_item.name
-  end
-  
-  def set_oneclick(params)
-    if @launch_item.options.any? 
-     params[:oneclick] = @launch_item.oneclick.first
-    end
-  end
-  
-  def set_token(params)
-    if @launch_item.has_token?
-      params[:scm_token] = @launch_item.token 
-    end
-  end
-
-  def ensure_provider
-    where_to ||= DOCKER
-  end
-
-  def provider
-    return ONE if !@launch_item.has_docker?
-    ensure_provider
-  end
-
 end

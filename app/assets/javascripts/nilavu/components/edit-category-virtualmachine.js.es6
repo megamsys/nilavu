@@ -1,31 +1,32 @@
-import { buildCategoryPanel } from 'nilavu/components/edit-category-panel';
-import PermissionType from 'nilavu/models/permission-type';
+import { on, observes } from 'ember-addons/ember-computed-decorators';
 
-export default buildCategoryPanel('virtualmachine', {
-  editingPermissions: false,
-  selectedGroup: null,
-  selectedPermission: null,
+export default Ember.Component.extend({
+    selectedTab: "centos",
+    saving: false,
+    deleting: false,
+    imagepanels: null,
+    editLaunching: false,
 
-  actions: {
-    editPermissions() {
-      if (!this.get('category.is_special')) {
-        this.set('editingPermissions', true);
-      }
-    },
 
-    addPermission(group, id) {
-      if (!this.get('category.is_special')) {
-        this.get('category').addPermission({
-          group_name: group + "",
-          permission: PermissionType.create({id})
-        });
-      }
-    },
+    _initPanels: function() {
+        this.set('imagepanels', []);
+        this.editLaunching = false;
+    }.on('init'),
 
-    removePermission(permission) {
-      if (!this.get('category.is_special')) {
-        this.get('category').removePermission(permission);
-      }
-    },
-  }
+   launchOption: function() {
+        const option = this.get('model.launchoption') || "";
+        return option.trim().length > 0 ? option : I18n.t("launchoption.default");
+    }.property('model.launchoption'),
+
+
+    launchableChanged: function() {
+        this.set('model.launchoption', this.get('launchOption'));
+        this.set('selectedTab', 'general');
+        if (!this.editLaunching) {
+            $(".hideme").slideToggle(250);
+            this.toggleProperty('editLaunching');
+        }
+    }.observes('launchOption')
+
+
 });

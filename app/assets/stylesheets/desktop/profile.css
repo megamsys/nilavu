@@ -1,0 +1,15 @@
+.tb_list tbody tr {
+  height: 60px;
+  color: #989aab;
+}
+.tb_list thead th {
+  height: 40px;
+  color: #989aab;
+}
+
+.label-profile {
+  font-size: 18px;
+}
+.lable-color{
+  color: #989aab;
+}

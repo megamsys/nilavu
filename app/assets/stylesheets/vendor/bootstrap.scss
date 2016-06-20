@@ -2871,12 +2871,15 @@ textarea.input-group-sm > .input-group-btn > .btn {
   clear: both;
 }
 
-.tab-content > .tab-pane,
+.tab-content {
+.ember-view > .tab-pane,
 .pill-content > .pill-pane {
   display: none;
 }
 
-.tab-content > .active,
+}
+
+.tab-content > .ember-view > .active,
 .pill-content > .active {
   display: block;
 }

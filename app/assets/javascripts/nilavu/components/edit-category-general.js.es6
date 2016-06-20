@@ -4,14 +4,13 @@ import {
 } from 'nilavu/components/edit-category-panel';
 import computed from 'ember-addons/ember-computed-decorators';
 
-
 export default buildCategoryPanel('general', {
 
     editingResource: false,
     editingCost: false,
 
     category: function() {
-        return this.get('category')
+        return this.get('category');
     }.property("category"),
 
     //TO-DO togglePropert("subDomainValid"), if not don't allow to launch
@@ -32,7 +31,9 @@ export default buildCategoryPanel('general', {
         if (Ember.isEmpty(this.get('category.regions'))) {
             return null;
         }
-        return this.get('category.regions');
+
+      return this.get('category.regions');
+
     }.property('category.regions'),
 
     resources: function() {
@@ -42,6 +43,7 @@ export default buildCategoryPanel('general', {
                 return c;
             }
         });
+
         return fullFlavor;
     }.property('category.regionoption', 'regionOption'),
 
@@ -51,23 +53,28 @@ export default buildCategoryPanel('general', {
             this.$(".hideme2").slideToggle(150);
             this.toggleProperty('editingResource');
         }
-        this.toggleProperty('editingCost');
-        $(".hideme3").slideToggle(250);
+        if (this.editingCost) {
+            this.toggleProperty('editingCost');
+            $(".hideme3").slideToggle(250);
+        }
         this.set('category.regionoption', this.get('regionOption'));
+
+
     }.observes('regionOption'),
 
     regionOption: function() {
         if (Ember.isEmpty(this.get('category.regions')) && this.get('category.regionoption').trim().length > 0) {
-            return true;
+            return this.get('category.regionoption');
         }
-        return false;
+        return null;
     }.property('category.regions', 'category.regionoption'),
 
     resourceOption: function() {
         if (Ember.isEmpty(this.get('category.regions')) && this.get('category.resourceoption').trim().length > 0) {
-            return true;
+            return this.get('category.resourceoption');
+
         }
-        return false;
+        return null;
     }.property('category.regions', 'category.resourceoption'),
 
     resourceChanged: function() {

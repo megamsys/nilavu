@@ -5,11 +5,7 @@
             <div class="tabbable-custom nav-justified">
                 <ul class="nav nav-tabs nav-justified">
                     {{edit-category-tab panels=panels selectedTab=selectedTab tab="general"}}
-                    {{#if isVirtualMachine}}
-                        {{edit-category-tab panels=panels selectedTab=selectedTab tab="virtualmachine"}}
-                    {{else}}
-                        {{edit-category-tab panels=panels selectedTab=selectedTab tab="application"}}
-                    {{/if}}
+                    {{edit-category-tab panels=panels selectedTab=selectedTab tab="selection"}}
                     {{edit-category-tab panels=panels selectedTab=selectedTab tab="summary"}}
                 </ul>
 
@@ -23,11 +19,35 @@
         <div class="footer hideme3 no-padding">
             {{launching-cost saveLabel=saveLabel category=model.metaData}}
             <div class="col-sm-3 no-padding">
-              {{#d-button id="save-category" class="btn btn-block btn-primary" disabled=disabled action="nextCategory" label=saveLabel}}
-                <span class="pull-right">
-                  {{conditional-loading-spinner size="large" condition=loading}}
-                </span>
-              {{/d-button}}  
+                <!-- UGLY, all we need it 3 action (hack a funciton for it), and 1 button -->
+                {{#if generalSelected}}
+                    <div class="col-md-12 col-sm-12 no-padding">
+                        <button class="btn-block btnFooter" {{bind-attr disabled="disabled"}} {{action "nextCategory"}}>
+                            {{saveLabel}}
+                            <span class="pull-right">
+                                {{conditional-loading-spinner condition=loading size="large"}}
+                            </span>
+                        </button>
+                    </div>
+                {{else if selectionSelected}}
+                    <div class="col-md-12 col-sm-12 no-padding">
+                        <button class="btn-block btnFooter" {{bind-attr disabled="disabled"}} {{action "nextSummarize"}}>
+                            {{saveLabel}}
+                            <span class="pull-right">
+                                {{conditional-loading-spinner condition=loading size="large"}}
+                            </span>
+                        </button>
+                    </div>
+                {{else if summarySelected}}
+                    <div class="col-md-12 col-sm-12 no-padding">
+                        <button class="btn-block btnFooter" {{bind-attr disabled="disabled"}} {{action "saveCategory"}}>
+                            {{saveLabel}}
+                            <span class="pull-right">
+                                {{conditional-loading-spinner condition=saving size="large"}}
+                            </span>
+                        </button>
+                    </div>
+                {{/if}}
             </div>
         </div>
     </div>

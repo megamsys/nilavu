@@ -1,13 +1,10 @@
-              {{!site-header canSignUp=canSignUp
-              showLogin="showLogin"
-              showKeyboard="showKeyboardShortcutsHelp"
-              toggleMobileView="toggleMobileView"
-              toggleAnonymous="toggleAnonymous"
-              logout="logout"
-              showSearchHelp="showSearchHelp"}}
-
 {{#if showTop}}
-  {{render "header"}}
+  {{site-header canSignUp=canSignUp
+          showKeyboard="showKeyboardShortcutsHelp"
+          toggleMobileView="toggleMobileView"
+          showLogin="showLogin"
+          toggleAnonymous="toggleAnonymous"
+          logout="logout"}}
 {{/if}}
 
 <div id="main-outlet">
@@ -17,6 +14,7 @@
     {{outlet}}
     {{outlet "loading"}}
 </div>
+
 {{notification-container notifications=notificationMessages position="bottom-right"}}
 
 {{#if showFooter}}

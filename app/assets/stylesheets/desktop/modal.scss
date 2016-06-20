@@ -73,10 +73,13 @@ body.modal-open {
 }
 
 .edit-category-modal {
-  .modal-body {
+  &.full .modal-body {
     position: relative;
     height: 800px;
     padding-bottom: 0;
+  }
+  &.small .modal-body {
+    height: 310px;
   }
   .secure-category-options {
     margin: 10px 0 0 16px;

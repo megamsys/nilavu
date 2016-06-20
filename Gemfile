@@ -8,6 +8,22 @@ if rails_master?
   gem 'arel', git: 'https://github.com/rails/arel.git'
   gem 'rails', git: 'https://github.com/rails/rails.git'
 else
+  # Rails 5 is going to ship with Action Cable, we have no use for it as
+  # we are API driven, AC introduces dependencies on Event Machine,
+  # Celluloid and Faye Web Sockets.
+  #
+  # Note this means upgrading Rails is more annoying, to do so, comment out the
+  # explicit dependencies, and add gem 'rails', bundle update rails and then
+  # comment back the explicit dependencies. Leaving this in a comment till we
+  # upgrade to Rails 5
+  #
+  # gem 'activesupport'
+  # gem 'actionpack'
+  # gem 'activerecord'
+  # gem 'actionmailer'
+  # gem 'activejob'
+  # gem 'railties'
+  # gem 'sprockets-rails'
   gem 'rails', '~> 4.2'
 end
 
@@ -35,6 +51,8 @@ gem 'multi_json'
 gem 'mustache'
 gem 'nokogiri'
 
+gem 'rest-client'
+
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-github'
@@ -42,7 +60,8 @@ gem 'omniauth-oauth2', require: false
 gem 'omniauth-google-oauth2'
 
 # 3rd party system api's
-gem 'megam_api',  '1.5.beta2'
+
+gem 'megam_api', '1.5.rc1'
 gem 'github_api'
 gem 'gitlab'
 gem 'radosgw-s3'
@@ -52,23 +71,20 @@ gem 'sshkey' # ssh key-gen
 gem 'oj'
 gem 'r2', '~> 0.2.5', require: false
 gem 'rake'
+gem 'excon' #used by metrics  ? Can we use excon
 
 gem 'rinku'
 gem 'sanitize'
-gem 'sass'
 
 gem 'therubyracer'
 gem 'rack-protection' # security
 
+# keep it like this, or else rake asset:precompile will fail
+gem 'sass'
+gem 'sass-rails', '~> 5.0.4'
+gem 'uglifier'
+gem 'rtlit', require: false # for css rtling
 
-# Gems used only for assets and not required
-# in production environments by default.
-# allow everywhere for now cause we are allowing asset debugging in prd
-group :assets do
-  gem 'sass-rails', '~> 5.0.4'
-  gem 'uglifier'
-  gem 'rtlit', require: false # for css rtling
-end
 
 group :test do
   gem 'fakeweb', '~> 1.3.0', require: false

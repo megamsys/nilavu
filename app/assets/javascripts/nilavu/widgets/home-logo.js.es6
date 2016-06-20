@@ -2,10 +2,10 @@ import { createWidget } from 'nilavu/widgets/widget';
 import { h } from 'virtual-dom';
 import { iconNode } from 'nilavu/helpers/fa-icon';
 import { wantsNewWindow } from 'nilavu/lib/intercept-click';
-import DiscourseURL from 'nilavu/lib/url';
+import NilavuURL from 'nilavu/lib/url';
 
 export default createWidget('home-logo', {
-  tagName: 'div.title',
+  tagName: 'div.col-lg-2.col-md-2.col-sm-3.col-xs-6',
 
   settings: {
     href: '/'
@@ -43,13 +43,13 @@ export default createWidget('home-logo', {
   },
 
   html() {
-    return h('a', { attributes: { href: this.href(), 'data-auto-route': true } }, this.logo());
+    return h('a', { attributes: { href: this.href(), 'data-auto-route': true, class: 'navbar-brand' } }, this.logo());
   },
 
   click(e) {
     if (wantsNewWindow(e)) { return false; }
     e.preventDefault();
-    DiscourseURL.routeTo(this.href());
+    NilavuURL.routeTo(this.href());
     return false;
   }
 

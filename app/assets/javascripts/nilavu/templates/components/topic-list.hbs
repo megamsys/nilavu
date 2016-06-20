@@ -1,1 +1,3 @@
-{{each topic in topics itemView='topic-list-item'}}
+{{#each topics as |topic|}}
+{{topic-list-item topic=topic}}
+{{/each}}

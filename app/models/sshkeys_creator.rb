@@ -1,44 +1,39 @@
-## TO-DO need to think harder and rewrite ssh in 1.5
-## The code is a bit messy.
+## TO-DO need to think harder and rewrite ssh/pwd support
+## in 2.0 catering to vms/containers/others
+
 class SSHKeysCreator
 
-  attr_reader :keypair_name
-  attr_reader :option
-  attr_reader :name
+    attr_reader :sshkey #this is :keypairname (assembly needs this key)
+    attr_reader :keypairoption, :params
 
-  def initialize(params)
-    @params = params
+    def initialize(params)
+        @params = params
 
-    @option = params[:sshoption]
-  end
-
-
-  def save
-    @params[:ssh_keypair_name]  =  keypair_name
-
-    return autoset_sshkey if has_old_keypair?
-
-    if ssh = Api::Sshkeys.new.create_or_import(@params)
-      @name = ssh[:name]
+        @keypairoption = params[:keypairoption]
     end
-  end
 
-  private
 
-  def has_old_keypair?
-    @option.include?(Api::Sshkeys::USEOLD)
-  end
+    def save
+        return  :keypairoption unless @keypairoption
 
-  def keypair_name
-    if has_old_keypair?
-      @keypair_name, @name = @params["#{@option}_name"]
-    else
-      @keypair_name = @params["#{Api::Sshkeys::NEW}_name"]
+        if !skip_new_keypair?
+            Api::Sshkeys.new.create_or_import(@params)
+        end
+        return autoset_sshkey
     end
-  end
 
-  def autoset_sshkey
-    @params[:sshkey] = keypair_name
-  end
+    private
+
+    def skip_new_keypair?
+        @keypairoption.include?(Api::Sshkeys::OLD || Api::Sshkeys::PWD)
+    end
+
+    def keypairname
+        @params[:keypairname]
+    end
+
+    def autoset_sshkey
+        @params[:sshkey] = keypairname
+    end
 
 end

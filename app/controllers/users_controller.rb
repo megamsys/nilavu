@@ -29,7 +29,8 @@ class UsersController < ApplicationController
     :password_reset,
   :confirm_email_token]
 
-  before_action :add_authkeys_for_api, only: [:edit,:update]
+  before_action :add_authkeys_for_api, only: [:edit,:update,:show]
+
 
 
   def create
@@ -49,6 +50,7 @@ class UsersController < ApplicationController
     user = User.new
 
     user_params.each { |k, v| user.send("#{k}=", v) }
+
 
     user.api_key = SecureRandom.hex(20) if user.api_key.blank?
 
@@ -91,7 +93,7 @@ class UsersController < ApplicationController
         values: user.to_hash.slice('name', 'email')
       }
     end
-  rescue ApiDispatcher::NotReachable
+  rescue ApiDispatcher::NotReached
     render json: {
       success: false,
       message: I18n.t("login.something_already_taken")
@@ -105,10 +107,18 @@ class UsersController < ApplicationController
   end
 
   ## Need a json serializer
-  def edit
+  def show
     @orgs = Teams.new.tap do |teams|
+
       teams.find_all(params)
     end
+
+    if @orgs
+      render json: {details: @orgs.to_hash }
+    else
+      render_json_error(I18n.t("organizations.none"))
+    end
+
   end
 
 
@@ -173,7 +183,7 @@ class UsersController < ApplicationController
 
 
   def user_params
-    params.permit(:email, :password, :first_name, :last_name, :status)
+    params.permit(:email, :password, :firstname, :lastname, :phone, :status)
   end
 
   private

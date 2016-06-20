@@ -1,0 +1,21 @@
+{{#if showLabel}}
+    <div class="predeploybar-title {{barHeadHighlight}}">
+        <span>{{label}}</span>
+    </div>
+    <div class="predeploybar-bar"></div>
+    <div class="predeploybar-percent">
+        {{#if hasBlock}}
+            {{yield percentRounded}}
+        {{else}}
+            {{percentRounded}}%
+        {{/if}}
+    </div>
+{{else}}
+    <div class="predeploybar-percent">
+        {{#if hasBlock}}
+            <span class="sr-only">{{yield percentRounded}}</span>
+        {{else}}
+            <span class="sr-only">{{percentRounded}}%</span>
+        {{/if}}
+    </div>
+{{/if}}
