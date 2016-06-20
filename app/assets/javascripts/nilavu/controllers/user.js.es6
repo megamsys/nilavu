@@ -17,7 +17,6 @@ export default Ember.Controller.extend({
     _initPanels: function() {
         this.set('panels', []);
         this.set('selectedTab', 'account');
-        this.step();
     }.on('init'),
 
     accoutSelected: function() {
