@@ -88,4 +88,8 @@ export default function() {
     this.route('login-preferences');
     this.route('forgot-password', { path: '/password-reset' });
 
+    this.resource('storages', {path:'/storages'}, function() {
+        this.route('show', { path: '/' });
+    });
+
 }
