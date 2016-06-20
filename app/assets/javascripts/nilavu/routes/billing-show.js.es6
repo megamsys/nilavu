@@ -23,7 +23,7 @@ export default Nilavu.Route.extend({
         //self.set('loading', false);
       });
 
-      self.controllerFor('navigation/default').set('filterMode', "top");
+///      self.controllerFor('navigation/default').set('filterMode', "top");
     },
 
     renderTemplate() {

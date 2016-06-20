@@ -1,7 +1,5 @@
 import NilavuURL from 'nilavu/lib/url';
-import {
-    extractError
-} from 'nilavu/lib/ajax-error';
+import LaunchStatus from 'nilavu/models/launch-status';
 
 // This route is used for retrieving a topic/:id based on params - id
 export default Nilavu.Route.extend({
@@ -13,11 +11,24 @@ export default Nilavu.Route.extend({
 
     afterModel() {
         const topic = this.modelFor('topic');
-        //add a method to check predeploy ?
-        if (topic) {
-            //this.replaceWith(topic.url() + '/predeploy');
-            this.replaceWith(topic.url() + '/');
+      //  if (this.showPredeployer(topic)) {
+      //      this.replaceWith(topic.url() + '/predeploy', topic);
+      //  }
+    },
+
+    showPredeployer: function(topic) {
+        if (topic && topic.predeploy_finished) {
+            return false;
         }
+        const oneOfSuccess = LaunchStatus.create({
+            event_type: topic.status
+        }).get('successKey');
+        if (topic && oneOfSuccess) {
+            return false;
+        }
+
+        //    const oneOfError   = LaunchStatus.TYPES_ERROR.indexOf(topic.status) >=0;
+        return true;
     },
 
     setupController(controller, params) {
@@ -26,20 +37,20 @@ export default Nilavu.Route.extend({
             topic = this.modelFor('topic'),
             topicController = this.controllerFor('topic');
 
-        params.forceLoad = true;
+        params.forceLoad = false;
 
         //TO-DO RAJ: ADD error handling here to show the error.
         const promise = topic.reload().then(function(result) {
             topicController.setProperties({
                 model: topic
             });
-
-            //  self.set('loading', false);
+            self.set('loading', false);
         }).catch(function(e) {
-            self.notificationMessages.error(I18n.t('vm_management.not_load'));
+            //    alert("RAJ HANDLE ERR (check edit-category)\n" + e);
+            self.set('loading', false);
         });
 
-        //self.controllerFor('navigation/default').set('filterMode', "top");
+        self.controllerFor('navigation/default').set('filterMode', "top");
     },
 
     renderTemplate() {
@@ -52,5 +63,7 @@ export default Nilavu.Route.extend({
             outlet: 'list-container'
         });
     }
+
+
 
 });

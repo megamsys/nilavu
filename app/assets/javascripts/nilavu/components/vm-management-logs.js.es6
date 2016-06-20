@@ -16,7 +16,7 @@ export default buildCategoryPanel('logs', {
 
     _initPanels: function() {
         this.set('logPanels', []);
-        this.set('logSelectedTab', 'all');
+        this.set('logSelectedTab', 'actions');
     }.on('init'),
 
     @observes('selectedTab')

@@ -1,7 +1,6 @@
 import { propertyEqual } from 'nilavu/lib/computed';
 
 export default Em.Component.extend({
-  tagName: 'li',
   classNameBindings: ['active', 'tabClassName', ':tabDisabled'],
 
   tabClassName: function() {

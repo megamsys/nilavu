@@ -2,8 +2,7 @@ import NilavuURL from 'nilavu/lib/url';
 
 export default Ember.Controller.extend({
     title: "Billing",
-    currentUsage: Ember.computed.alias('model.usage'),
-    currentBalance: Ember.computed.alias('model.balance'),
+    
     regions: Ember.computed.alias('model.regions'),
 
     //send the default region

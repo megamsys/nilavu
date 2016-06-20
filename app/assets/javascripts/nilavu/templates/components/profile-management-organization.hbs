@@ -3,34 +3,14 @@
             <div class="col-xs-5 col-sm-6">
                 <h4 class="">Organization Information</h4>
             </div>
-            <!--if condition <% if @orgs.has_team? %>-->
             <div class="pull-right col-xs-3">
                 <div class="dropdown">
                     <div class="form-group">
-                        <select class=" form-control dropdown-toggle">
-                            <!--<% @orgs.teams.each do |team| %>-->
-                            <option>megamio</option>
-                            <!--<% end %>-->
-                        </select>
+                        {{combo-box content=name valueAttribute="value"}}
                     </div>
                 </div>
             </div>
-            <!--<% else %>
-            <div class="pull-right col-xs-3">
-                <div class="dropdown">
-                    <div class="form-group">
-                        <select class=" form-control dropdown-toggle">
-                            <option><%= t('errors.no_organizations_found') %></option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <% end %>
-            <div class="invite_user_modal">
-            <button class="pull-right btn btn-sucess">
-            Invite
-            </button>
-            </div>-->
+
         </div>
     </div>
     <div class="row">
@@ -44,7 +24,7 @@
             </ul>
             <div class="org-datas">
             {{#each orgPanels as |orgTab|}}
-                {{component orgTab orgSelectedTab=orgSelectedTab}}
+                {{component orgTab orgSelectedTab=orgSelectedTab currentUser=currentUser}}
             {{/each}}
           </div>
 

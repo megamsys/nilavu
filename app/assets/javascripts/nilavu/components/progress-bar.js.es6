@@ -5,7 +5,6 @@ const { computed } = Ember;
 
 
 //Component to display a Bootstrap progress bar, see http://getbootstrap.com/components/#progress.
-
  export default Ember.Component.extend(TypeClass, {
   classNames: ['progress-bar'],
   classNameBindings: ['progressBarStriped', 'active'],
@@ -45,6 +44,11 @@ const { computed } = Ember;
   progressBarStriped: computed.alias('striped'),
   active: computed.alias('animate'),
 
+  barHeadHighlight: computed('barHead', function() {
+    let b = this.get('barHead');
+    return 'predeploybar-title-' + b;
+  }),
+
   ariaValuenow: computed.alias('value'),
   ariaValuemin: computed.alias('minValue'),
   ariaValuemax: computed.alias('maxValue'),
@@ -55,7 +59,6 @@ const { computed } = Ember;
     let value = parseFloat(this.get('value'));
     let minValue = parseFloat(this.get('minValue'));
     let maxValue = parseFloat(this.get('maxValue'));
-
     return Math.min(Math.max((value - minValue) / (maxValue - minValue), 0), 1) * 100;
   }),
 

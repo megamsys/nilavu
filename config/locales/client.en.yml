@@ -337,8 +337,10 @@ en:
       select_duplicate: "Duplicate"
       sshoption_create: "Create a new sshkeypair"
       sshoption_old: "Use your existing ssh keypair"
+      predeployer: "Predeploy"
       launched: "Launched "
       not_launched: "Not launched"
+      launched_redirecting: "Redirecting ..."
 
     dashboards:
       title: "Dashboard"
@@ -348,6 +350,8 @@ en:
 
     ssh_keys:
       title: "SSH keys"
+      import: "Import SSH Key Pair"
+      create: "Create SSH Key Pair"
 
     storages:
       title: "Storages"
@@ -423,6 +427,8 @@ en:
         tab_title: "actions"
       warnings:
         tab_title: "warnings"
+      info:
+        tab_title: "info"
       errors:
         tab_title: "errors"
 

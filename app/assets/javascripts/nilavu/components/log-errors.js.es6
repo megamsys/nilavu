@@ -3,5 +3,5 @@ import {    logCategoryPanel } from 'nilavu/components/log-category-panel';
 import { on, computed } from  'ember-addons/ember-computed-decorators';
 
 export default logCategoryPanel('errors', {
-
+classNames: ['marginSetup'],
 });

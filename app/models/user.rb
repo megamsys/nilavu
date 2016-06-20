@@ -39,7 +39,7 @@ class User
     user
   end
 
-  def self.suggest_firstname
+  def self.suggest_firstname(email)
     return "" if email.blank?
     email[/\A[^@]+/].tr(".", " ").titleize
   end
@@ -136,9 +136,11 @@ class User
     {:email => @email,
       :api_key => @api_key,
       :password => @raw_password,
-      :first_name => @firstname,
+      :username => User.suggest_firstname(@email),
+      :first_name =>@firstname,
       :last_name => @lastname,
-      :phone => @phone
+      :phone => @phone,
+      :createdAt =>@created_at
     }
   end
 

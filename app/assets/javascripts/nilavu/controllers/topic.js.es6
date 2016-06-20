@@ -11,13 +11,12 @@ export default Ember.Controller.extend(BufferedContent, {
     progress: 10,
     selectedTab: null,
     panels: null,
-    rerenderTriggers: ['isUploading', 'progress'],
+    rerenderTriggers: ['isUploading'],
 
 
     _initPanels: function() {
         this.set('panels', []);
         this.set('selectedTab', 'info');
-        this.step();
     }.on('init'),
 
     infoSelected: function() {
@@ -49,22 +48,6 @@ export default Ember.Controller.extend(BufferedContent, {
     }.property('selectedTab'),
 
     title: Ember.computed.alias('fullName'),
-
-    step() {
-      const self = this;
-      if (this.get('progress') < 1) {
-        Em.run.later(function() {
-              self.set("progress", parseInt(self.get('progress') * 100, 10));
-        });
-
-        ///this.incrementProperty('progress', 0.2);
-
-        Em.run.later(() => {
-          this.step();
-        }, 20);
-      }
-    },
-
 
     fullName: function() {
         var js = this._filterInputs("domain");

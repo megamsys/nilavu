@@ -32,6 +32,7 @@ class UsersController < ApplicationController
   before_action :add_authkeys_for_api, only: [:edit,:update,:show]
 
 
+
   def create
 
     if params[:password] && params[:password].length > User.max_password_length
@@ -92,7 +93,7 @@ class UsersController < ApplicationController
         values: user.to_hash.slice('name', 'email')
       }
     end
-  rescue ApiDispatcher::NotReachable
+  rescue ApiDispatcher::NotReached
     render json: {
       success: false,
       message: I18n.t("login.something_already_taken")
@@ -106,10 +107,18 @@ class UsersController < ApplicationController
   end
 
   ## Need a json serializer
-  def edit
+  def show
     @orgs = Teams.new.tap do |teams|
+
       teams.find_all(params)
     end
+
+    if @orgs
+      render json: {details: @orgs.to_hash }
+    else
+      render_json_error(I18n.t("organizations.none"))
+    end
+
   end
 
 
@@ -181,20 +190,6 @@ class UsersController < ApplicationController
 
   def fetch_user_from_params
     User.new
-  end
-
-  def show
-    puts("*********************************************")
-      @user = User.new_from_params(params)
-      puts user
-      respond_to do |format|
-          if @user
-              format.json { render json: @user.to_hash }
-          else
-              format.json { render json: failed_json }
-          end
-      end
-
   end
 
   ## we will have to refactor this later.

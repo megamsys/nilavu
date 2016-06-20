@@ -170,36 +170,6 @@ body {
   padding-top: 16px;
 }
 
-.c_icon-compose {
-  color: transparent;
-  overflow: hidden;
-  display: inline-block;
-  height: 16px;
-  width: 16px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  /* border-radius: 50%; */
-  vertical-align: middle;
-  background-image: url(icon-compose.png);
-  margin-bottom: 3px !important;
-  margin-right: 5px;
-}
-.c_icon-import {
-  color: transparent;
-  overflow: hidden;
-  display: inline-block;
-  height: 16px;
-  width: 16px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  /* border-radius: 50%; */
-  vertical-align: middle;
-  background-image: url(icon-import.png);
-  margin-bottom: 3px !important;
-  margin-right: 5px;
-}
 
   .c_icon-sett {
     color: transparent;
@@ -277,7 +247,7 @@ body {
 
   .balance {
   	text-align: center;
-  	height: 223px;
+  	height: 253px;
   }
   .balance span {
   	font-size: 20px;
@@ -304,6 +274,7 @@ body {
   	color: #a5a6af;
   	padding-left: 0;
   }
+
   .center {
   	display:flex;
   	justify-content:center;
@@ -348,7 +319,7 @@ body {
   }
   .tb_action_list thead th {
     height: 40px;
-    
+
   }
 
   .set_title {
