@@ -9,6 +9,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
     panels: null,
     loading: false,
     editLaunching: false,
+    isVirtualMachine: false,
 
     _initPanels: function() {
         this.set('panels', []);
@@ -25,6 +26,8 @@ export default Ember.Controller.extend(ModalFunctionality, {
     summarySelected: function() {
         return this.selectedTab == 'summary';
     }.property('selectedTab'),
+
+    category: Ember.computed.alias('model.metaData'),
 
     onShow() {
         this.changeSize();
@@ -51,15 +54,18 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.property('selectionSelected', 'summarySelected'),
 
     launchOption: function() {
-        const option = this.get('model.launchoption') || "";
+        const option = this.get('category.launchoption') || "";
         return option.trim().length > 0 ? option : I18n.t("launchoption.default");
-    }.property('model.launchoption'),
+    }.property('category.launchoption'),
 
 
     launchableChanged: function() {
-        this.set('model.launchoption', this.get('launchOption'));
-        const isvm =  (this.get('launchOption').trim.length > 0 && Ember.isEqual(this.get('launchOption').trim(), I18n.t('launcher.virtualmachines')));
-        this.set('isVirtualMachine', isvm)
+        this.set('category.launchoption', this.get('launchOption'));
+
+        if  (this.get('launchOption').trim().length > 0) {
+          const isVM =  Ember.isEqual(this.get('launchOption').trim(), I18n.t('launcher.virtualmachines'));
+          this.set('isVirtualMachine', isVM);
+        }
 
         this.set('selectedTab', 'general');
         if (!this.editLaunching) {
@@ -70,6 +76,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
     cookingChanged: function() {
         const launchable = this.get('launchOption') || "";
+        this.set('category.launchoption', launchable);
         if (launchable.trim().length > 0) {
             this.set('selectedTab', 'selection');
             $('.firstStep').slideToggle('fast');
@@ -81,21 +88,21 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.observes('summarizing'),
 
     versionChanged: function() {
-        const versionable = this.get('model.metaData.versionoption') || "";
+        const versionable = this.get('category.versionoption') || "";
         let versionEntered = (versionable.trim().length > 0);
         if (!(this.get('selecting') == undefined)) {
           this.set('selecting', !versionEntered);
         }
-    }.observes('model.metaData.versionoption'),
+    }.observes('category.versionoption'),
 
     summarizingChanging: function() {
       if (this.get('summarizing')) {
-        if (this.get('model.metaData.keypairoption') &&
-            this.get('model.metaData.keypairnameoption')) {
+        if (this.get('category.keypairoption') &&
+            this.get('category.keypairnameoption')) {
               this.set('selecting', false);
            }
           }
-    }.observes('model.metaData.keypairoption', 'model.metaData.keypairnameoption'),
+    }.observes('category.keypairoption', 'category.keypairnameoption'),
 
     titleChanged: function() {
         this.set('controllers.modal.title', this.get('title'));
@@ -104,10 +111,10 @@ export default Ember.Controller.extend(ModalFunctionality, {
     disabled: function() {
         if (this.get('saving') || this.get('selecting')) return true;
 
-        if (!this.get('model.metaData.unitoption')) return true;
+        if (!this.get('category.unitoption')) return true;
 
         return false;
-    }.property('saving', 'selecting', 'model.metaData.unitoption', 'model.metaData.keypairoption'),
+    }.property('saving', 'selecting', 'category.unitoption', 'category.keypairoption'),
 
     categoryName: function() {
         const name = this.get('name') || "";
@@ -128,7 +135,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
         nextCategory() {
             this.set('loading', true);
             const model = this.get('model');
-            return Nilavu.ajax("/launchables/pools/" + this.get('model.launchoption') + ".json").then(result => {
+            return Nilavu.ajax("/launchables/pools/" + this.get('category.launchoption') + ".json").then(result => {
                 model.metaData.setProperties({
                     cooking: result
                 });

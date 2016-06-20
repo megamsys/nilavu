@@ -24,6 +24,7 @@ export default Ember.View.extend({
   },
 
   click(e) {
+
     const $target = $(e.target);
     if ($target.hasClass("modal-middle-container") ||
         $target.hasClass("modal-outer-container")) {
@@ -32,5 +33,6 @@ export default Ember.View.extend({
       // the backdrop and makes it unclickable.
       $('.modal-header a.close').click();
     }
+
   }
 });
