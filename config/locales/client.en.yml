@@ -434,6 +434,9 @@ en:
         tab_title: "User"
       domain:
         tab_title: "Domain"
+    bucket:
+      create: "Create"
+      title: "Bucket"
 
     notifications:
       none: "Unable to load notifications at this time."
