@@ -1,6 +1,5 @@
 import { createWidget } from 'nilavu/widgets/widget';
-import transformPost from 'nilavu/lib/transform-post';
-import { Placeholder } from 'nilavu/lib/posts-with-placeholders';
+import { h } from 'virtual-dom';
 import { addWidgetCleanCallback } from 'nilavu/components/mount-widget';
 
 const CLOAKING_ENABLED = !window.inTestEnv;
@@ -10,107 +9,57 @@ const _dontCloak = {};
 let _cloaked = {};
 
 export function preventCloak(postId) {
-  _dontCloak[postId] = true;
+    _dontCloak[postId] = true;
 }
 
 export function cloak(post, component) {
-  if (!CLOAKING_ENABLED || _cloaked[post.id] || _dontCloak[post.id]) { return; }
+    if (!CLOAKING_ENABLED || _cloaked[post.id] || _dontCloak[post.id]) {
+        return; }
 
-  const $post = $(`#post_${post.post_number}`);
-  _cloaked[post.id] = $post.outerHeight();
-  Ember.run.debounce(component, 'queueRerender', 1000);
+    const $post = $(`#post_${post.post_number}`);
+    _cloaked[post.id] = $post.outerHeight();
+    Ember.run.debounce(component, 'queueRerender', 1000);
 }
 
 export function uncloak(post, component) {
-  if (!CLOAKING_ENABLED || !_cloaked[post.id]) { return; }
-  _cloaked[post.id] = null;
-  component.queueRerender();
+    if (!CLOAKING_ENABLED || !_cloaked[post.id]) {
+        return; }
+    _cloaked[post.id] = null;
+    component.queueRerender();
 }
 
 addWidgetCleanCallback('post-stream', () => _cloaked = {});
 
 export default createWidget('post-stream', {
-  tagName: 'div.post-stream',
+    tagName: 'ul',
 
-  html(attrs) {
-    alert("html attrs.post " + JSON.stringify(attrs));
-    const posts = attrs.posts || [];
-    const postArray = posts.toArray();
+    buildAttributes(attrs) {
+        return { 'style': 'list-style:none' };
+    },
 
-    const result = [];
+    html(attrs) {
+        const posts = attrs.posts || [];
+        const postArray = posts.toArray();
 
-    const before = attrs.gaps && attrs.gaps.before ? attrs.gaps.before : {};
-    const after = attrs.gaps && attrs.gaps.after ? attrs.gaps.after : {};
+        const result = [h('div.notifications')];
 
-    let prevPost;
-    let prevDate;
+        const before = attrs.gaps && attrs.gaps.before ? attrs.gaps.before : {};
+        const after = attrs.gaps && attrs.gaps.after ? attrs.gaps.after : {};
 
-    const mobileView = this.site.mobileView;
-    alert("postArray = "+ JSON.stringify(postArray));
-    for (let i=0; i<postArray.length; i++) {
-      const post = postArray[i];
+        let prevPost;
+        let prevDate;
 
-      if (post instanceof Placeholder) {
-        result.push(this.attach('post-placeholder'));
-        continue;
-      }
+        const mobileView = this.site.mobileView;
 
-      const nextPost = (i < postArray.length - 1) ? postArray[i+1] : null;
+        for (let i = 0; i < postArray.length; i++) {
+            const post = postArray[i];
 
-/*      const transformed = transformPost(this.currentUser, this.site, post, prevPost, nextPost);
-      transformed.canCreatePost = attrs.canCreatePost;
-      transformed.mobileView = mobileView;
+            const nextPost = (i < postArray.length - 1) ? postArray[i + 1] : null;
 
-      if (transformed.canManage) {
-        transformed.multiSelect = attrs.multiSelect;
+            result.push(this.attach('post', post, { model: post }));
 
-        if (attrs.multiSelect) {
-          transformed.selected = attrs.selectedQuery(post);
-          transformed.selectedPostsCount = attrs.selectedPostsCount;
+            prevPost = post;
         }
-      }
-
-      if (attrs.searchService) {
-        transformed.highlightTerm = attrs.searchService.highlightTerm;
-      }
-
-      // Post gap - before
-      const beforeGap = before[post.id];
-      if (beforeGap) {
-        result.push(this.attach('post-gap', { pos: 'before', postId: post.id, gap: beforeGap }, { model: post }));
-      }
-      */
-      // Handle time gaps
-      const curTime = new Date(transformed.created_at).getTime();
-      if (prevDate) {
-        const daysSince = Math.floor((curTime - prevDate) / DAY);
-        if (daysSince > this.siteSettings.show_time_gap_days) {
-          result.push(this.attach('time-gap', { daysSince }));
-        }
-      }
-      prevDate = curTime;
-
-      const height = _cloaked[post.id];
-      if (height) {
-        transformed.cloaked = true;
-        transformed.height = height;
-      }
-
-      if (transformed.isSmallAction) {
-        result.push(this.attach('post-small-action', transformed, { model: post }));
-      } else {
-        result.push(this.attach('post', transformed, { model: post }));
-      }
-
-      // Post gap - after
-      const afterGap = after[post.id];
-      if (afterGap) {
-        result.push(this.attach('post-gap', { pos: 'after', postId: post.id, gap: afterGap }, { model: post }));
-      }
-
-      prevPost = post;
+        return result;
     }
-    alert ("post=stream =>" +JSON.stringify(result));
-    return result;
-  }
 });

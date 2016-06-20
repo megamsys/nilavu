@@ -1,67 +1,33 @@
 <div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
     {{raw "topic-list-header" currentUser=currentUser title=title nameEnabled=nameEnabled name=name subTitleEnabled=subTitleEnabled subTitle=subTitle}}
     <div class="bottom-divider"></div>
-    <div class="">
-        <div class="row c_pading-b25 pad_0">
-                <button type="button" class="btn btn-default pull-left ">
-                    <span class="glyphicon glyphicon-refresh"></span>
-                </button>
-          <!--  <div class="col-md-3 text-center">
-                <h3>
-                    Cranking up
-                </h3>
-            </div>
-            <div class="col-md-3 text-center">
-                <h4>{{clock.minute}} :: {{clock.second}}</h4>
-            </div>
-          -->
-                <button type="button" class="btn btn-default pull-right link-icons" {{action "showVNC"}}>
-                    <span class="glyphicon glyphicon-blackboard"></span>
-                    VNC
-                </button>
-            </div>
+    <div class="row c_pading-b25 pad_0">
+        <div class="col-md-4 pad_0">
+            Launched at
+            {{format-age model.created_at}}
+            ago
         </div>
+        <div class="col-md-4 pad_0">
+            Time now
+            {{clock.hour}}
+            hours
+            {{clock.minute}}
+            minute
+            {{clock.second}}
+            seconds
+        </div>
+        <div class="col-md-4">
+            <button type="button" class="btn btn-default pull-right link-icons" {{action "showVNC"}}>
+                <span class="glyphicon glyphicon-blackboard"></span>
+                VNC
+            </button>
+        </div>
+    </div>
     <div class="predeploybar">
-        {{#progress-bar  value=progress  striped=true minValue=0 maxValue=100 label="Launching..." showLabel=true}}
-        {{/progress-bar}}
+        {{#progress-bar  value=streamPercentage barHead=barHead striped=true animate=true minValue=0 maxValue=100 label=barLabel showLabel=true type="danger"}}{{/progress-bar}}
     </div>
 
-    {{!#predeploy-status machineId="ASM000001" machineName="abcd.pogo.com"}}
-    {{!/predeploy-status}}
+    {{conditional-loading-spinner size="large" condition=model.postStream.loading}}
 
-    {{conditional-loading-spinner size="large" condition=model.postStream.loadingAbove}}
-    <h2>loading.... {{model.postStream.loadingAbove}}</h2>
-        {{scrolling-post-stream
-          posts=postsToRender
-          canCreatePost=model.details.can_create_post
-          multiSelect=multiSelect
-          selectedPostsCount=selectedPostsCount
-          selectedQuery=selectedQuery
-          gaps=model.postStream.gaps
-          showFlags="showFlags"
-          editPost="editPost"
-          showHistory="showHistory"
-          showRawEmail="showRawEmail"
-          deletePost="deletePost"
-          recoverPost="recoverPost"
-          expandHidden="expandHidden"
-          newTopicAction="replyAsNewTopic"
-          expandFirstPost="expandFirstPost"
-          toggleBookmark="toggleBookmark"
-          togglePostType="togglePostType"
-          rebakePost="rebakePost"
-          changePostOwner="changePostOwner"
-          unhidePost="unhidePost"
-          replyToPost="replyToPost"
-          toggleWiki="toggleWiki"
-          toggleParticipant="toggleParticipant"
-          toggleSummary="toggleSummary"
-          removeAllowedUser="removeAllowedUser"
-          showInvite="showInvite"
-          topVisibleChanged="topVisibleChanged"
-          bottomVisibleChanged="bottomVisibleChanged"
-          selectPost="toggledSelectedPost"
-          selectReplies="toggledSelectedPostReplies"
-          fillGapBefore="fillGapBefore"
-          fillGapAfter="fillGapAfter"}}
- </div>
+    {{scrolling-post-stream posts=postsToRender}}
+</div>
