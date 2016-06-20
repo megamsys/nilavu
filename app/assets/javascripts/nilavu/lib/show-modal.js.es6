@@ -21,6 +21,15 @@ export default function(name, opts) {
     if (controller) { renderArgs.controller = name; }
 
     route.render('modal/' + templateName, renderArgs);
+
+    if (opts.smallTitle) {
+        modalController.set('smallTitle', opts.smallTitle);
+    }
+
+    if (opts.titleCentered) {
+        modalController.set('titleCentered', opts.titleCentered);
+    }
+
     if (opts.title) {
       modalController.set('title', I18n.t(opts.title));
     }
