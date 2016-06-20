@@ -12,7 +12,7 @@ export default Ember.Controller.extend({
     selectedTab: null,
     panels: null,
     rerenderTriggers: ['isUploading', 'progress'],
-    
+
 
     _initPanels: function() {
         this.set('panels', []);
@@ -33,7 +33,7 @@ export default Ember.Controller.extend({
     }.property('selectedTab'),
 
 
-    @computed("content.username")
+    /*@computed("content.username")
     viewingSelf(username) {
         return username === User.currentProp('username');
     },
@@ -103,7 +103,7 @@ export default Ember.Controller.extend({
                 });
             }).compact();
         }
-    },
+    },*/
 
     step() {
         const self = this;
