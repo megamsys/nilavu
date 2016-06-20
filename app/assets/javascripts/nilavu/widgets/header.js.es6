@@ -1,17 +1,9 @@
-import {
-    createWidget
-} from 'nilavu/widgets/widget';
-import {
-    iconNode
-} from 'nilavu/helpers/fa-icon';
+import { createWidget } from 'nilavu/widgets/widget';
+import { iconNode } from 'nilavu/helpers/fa-icon';
 import NilavuURL from 'nilavu/lib/url';
-import {
-    wantsNewWindow
-} from 'nilavu/lib/intercept-click';
+import { wantsNewWindow } from 'nilavu/lib/intercept-click';
 
-import {
-    h
-} from 'virtual-dom';
+import { h } from 'virtual-dom';
 
 const dropdown = {
     buildClasses(attrs) {
@@ -26,7 +18,12 @@ const dropdown = {
         }
         e.preventDefault();
         if (!this.attrs.active) {
-            this.sendWidgetAction(this.attrs.action);
+          if (this.attrs.resource) {
+              NilavuURL.routeTo(this.attrs.resource);
+          }
+          if (this.attrs.action) {
+              this.sendWidgetAction(this.attrs.action);
+          }
         }
     }
 };
@@ -115,15 +112,13 @@ createWidget('header-icons', {
     },
 
     html(attrs) {
-        alert(JSON.stringify(attrs));
         const marketplaces = this.attach('header-link', {
             title: 'marketplaces.title',
             align: 'pull-left',
             icon: 'c_icon-window-lg',
             iconId: 'marketplace-button',
-            action: 'showMarketplaces',
             active: attrs.marketplacesVisible,
-            resource:'marketplaces'
+            resource: 'marketplaces'
         });
 
 
@@ -133,7 +128,6 @@ createWidget('header-icons', {
             icon: 'c_icon-storages-lg',
             iconId: 'toggle-storages-menu',
             active: attrs.storageVisible,
-            //action: 'showStorages',
             resource: 'storages'
         });
 
@@ -159,14 +153,15 @@ export default createWidget('header', {
 
     defaultState() {
         return {
-            marketplacesVisible: false,
-            storageVisible: false,
-            userVisible: false,
+            marketplacesVisible: true,
+            storagesVisible: true,
+            userVisible: true,
             contextEnabled: false
         };
     },
 
     html(attrs, state) {
+
         const panels = [this.attach('header-icons', {
             marketplacesVisible: state.marketplacesVisible,
             storagesVisible: state.storagesVisible,
@@ -188,9 +183,9 @@ export default createWidget('header', {
     },
 
     closeAll() {
-        this.state.userVisible = false;
-        this.state.marketplacesVisible = false;
-        this.state.storagesVisible = false;
+        this.state.userVisible = true;
+        this.state.marketplacesVisible = true;
+        this.state.storagesVisible = true;
     },
 
     linkClickedEvent() {
