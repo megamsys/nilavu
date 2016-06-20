@@ -11,6 +11,7 @@ export default Ember.Controller.extend({
     title: "My Profile",
     selectedTab: null,
     panels: null,
+
     rerenderTriggers: ['isUploading'],
 
     _initPanels: function() {

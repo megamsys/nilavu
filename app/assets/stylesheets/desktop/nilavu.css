@@ -170,36 +170,6 @@ body {
   padding-top: 16px;
 }
 
-.c_icon-compose {
-  color: transparent;
-  overflow: hidden;
-  display: inline-block;
-  height: 16px;
-  width: 16px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  /* border-radius: 50%; */
-  vertical-align: middle;
-  background-image: url(icon-compose.png);
-  margin-bottom: 3px !important;
-  margin-right: 5px;
-}
-.c_icon-import {
-  color: transparent;
-  overflow: hidden;
-  display: inline-block;
-  height: 16px;
-  width: 16px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  /* border-radius: 50%; */
-  vertical-align: middle;
-  background-image: url(icon-import.png);
-  margin-bottom: 3px !important;
-  margin-right: 5px;
-}
 
   .c_icon-sett {
     color: transparent;

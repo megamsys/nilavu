@@ -1,0 +1,57 @@
+<div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
+    {{raw "topic-list-header" currentUser=currentUser title=title nameEnabled=nameEnabled name=name subTitleEnabled=subTitleEnabled subTitle=subTitle}}
+    <div class="bottom-divider"></div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-7 col-md-9 col-lg-9 col-xl-9">
+                <h4>Activity</h4>
+            </div>
+            <div class="col-xs-6 col-sm-5 col-md-3 col-lg-3 col-xl-3">
+                <ul class="list-inline c_sett_inline">
+                    <li>
+                        <i class="c_icon-compose"></i><a id="create-link" {{action "sshCreate"}}>Create</a>
+                    </li>
+                    <li class="pull-right">
+                        <i class="c_icon-import pull"></i><a id="import-link" {{action "sshImport"}}>Import</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="bottom-divider"></div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <table class="table tb_list">
+                <thead>
+                    <tr>
+                        <th>Actions</th>
+                        <th>Name</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-public">
+
+                                    <!--<%= link_to edit_ssh_key_path(:id => ssh[:name]+"_pub", :data => ssh[:publickey]), :class => "btn btn-dark-blue" , :target => "_self" do %>-->
+                                    <i class="c_icon-in"></i><span>Public</span>
+
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-private">
+                                    <!--<%= link_to edit_ssh_key_path(:id => ssh[:name]+"_key", :data => ssh[:privatekey]), :class => "btn btn-dark-red", :target => "_self" do %>-->
+                                    <i class="c_icon-inBlue"></i><span>Private</span>
+
+                                </div>
+                            </div>
+                        </td>
+                        <td class="set_title">io</td>
+                        <td><i class="c_icon-calendar"></i> Thu, 16 Jun 2016 16:26:05 +0300</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>

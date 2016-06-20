@@ -18,6 +18,12 @@ export default function() {
 
     });
 
+    //sshkey routes
+    this.resource('sshkey', { path: '/sshkey' }, function() {
+      this.route('show', { path: '/' });
+    });
+
+
     // Topic routes
     this.resource('topic', { path: '/t/:id' }, function() {
         this.route('show', { path: '/' });

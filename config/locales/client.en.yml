@@ -350,6 +350,8 @@ en:
 
     ssh_keys:
       title: "SSH keys"
+      import: "Import SSH Key Pair"
+      create: "Create SSH Key Pair"
 
     storages:
       title: "Storages"
