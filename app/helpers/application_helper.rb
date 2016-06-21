@@ -14,7 +14,7 @@
 ## limitations under the License.
 ##
 require 'current_user'
-require 'current_user'
+require 'current_cephuser'
 require_dependency 'global_path'
 
 module ApplicationHelper
