@@ -16,7 +16,7 @@ export default buildCategoryPanel('logs', {
 
     _initPanels: function() {
         this.set('logPanels', []);
-        this.set('logSelectedTab', 'actions');
+        this.set('logSelectedTab', 'all');
     }.on('init'),
 
     @observes('selectedTab')
@@ -40,18 +40,17 @@ export default buildCategoryPanel('logs', {
     },
 
     onMessage: function(data) {
-        var ss = JSON.parse(data.Message);
-        this.set('message', ss);
+        this.set('message', data);
     },
 
     onErrorMessage: function(data) {
-        alert(data);
+        this.notificationMessages.error(data);
     },
 
     _socket_disconnect: function() {
         var socket = this.get('log_socket');
         if (!Ember.isEqual(this.get('log_socket'), null)) {
-            socket.emit('logDisconnect', "disconnectfghfghgh");
+            socket.emit('logDisconnect', "disconnect");
             socket.close();
         }
     },

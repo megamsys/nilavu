@@ -52,9 +52,10 @@ export default buildCategoryPanel('keys', {
     actions: {
 
         privatekey_download(key) {
-            Nilavu.ajax("/ssh_keys/"+key, {
+            Nilavu.ajax("/ssh_keys/" + key + ".json", {
                 type: 'GET'
             }).then(function(result) {
+            //  window.saveAs(new Blob([result[0].privatekey], {type: 'application/x-pem-key'}), key);
 
             }, function(e) {
                 if (e.jqXHR && e.jqXHR.status === 429) {

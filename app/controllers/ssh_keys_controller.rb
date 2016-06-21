@@ -18,7 +18,7 @@ require 'sshkeys_finder'
 class SshKeysController < ApplicationController
   respond_to :html, :js
 
-  before_action :add_authkeys_for_api, only: [:index, :create, :edit, :update]
+  before_action :add_authkeys_for_api, only: [:index, :create, :edit, :update, :show]
 
   def index
     @foundkeys ||= SSHKeysFinder.new(params).foundkeys
@@ -35,6 +35,7 @@ class SshKeysController < ApplicationController
     #if ssh
       #send_data ssh.first[:privatekey]
     #end
+    render json: ssh
  end
 
 

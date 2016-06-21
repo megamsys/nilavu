@@ -9,6 +9,9 @@
             <fieldset class="ui-controlgroup ui-controlgroup-horizontal ui-corner-all" data-role="controlgroup" data-type="horizontal">
                 <div class="ui-controlgroup-controls">
                     <div class="ui-radio ui-mini">
+                        {{log-tab logPanels=logPanels logSelectedTab=logSelectedTab logTab="all"}}
+                    </div>
+                    <div class="ui-radio ui-mini">
                         {{log-tab logPanels=logPanels logSelectedTab=logSelectedTab logTab="actions"}}
                     </div>
                     <div class="ui-radio ui-mini">
@@ -22,9 +25,9 @@
                     </div>
                 </div>
             </fieldset>
-                {{#each logPanels as |logTab|}}
-                    {{component logTab logSelectedTab=logSelectedTab message=message}}
-                {{/each}}
+            {{#each logPanels as |logTab|}}
+                {{component logTab logSelectedTab=logSelectedTab message=message}}
+            {{/each}}
             <div class="no-logs"></div>
         </div>
     </div>

@@ -1,50 +1,36 @@
-{{#cp-panels accordion=true}}
-  {{#cp-panel}}
-    {{#cp-panel-toggle}}
-      <p>Panel A</p>
-    {{/cp-panel-toggle}}
-    {{#cp-panel-body}}
-      <div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo repellendus nisi asperiores esse aperiam aliquid nulla ad dolor autem neque, nihil inventore temporibus delectus earum facere corporis, quam ipsum maxime.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus neque magnam, hic quis beatae repellendus harum modi pariatur minus quidem alias! Eius incidunt impedit eaque, est, illo officiis expedita molestiae.</p>
-      </div>
-    {{/cp-panel-body}}
-
-  {{/cp-panel}}
-  {{#cp-panel}}
-    {{#cp-panel-toggle}}
-      <p>Panel B</p>
-    {{/cp-panel-toggle}}
-    {{#cp-panel-body}}
-      <div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo repellendus nisi asperiores esse aperiam aliquid nulla ad dolor autem neque, nihil inventore temporibus delectus earum facere corporis, quam ipsum maxime.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus neque magnam, hic quis beatae repellendus harum modi pariatur minus quidem alias! Eius incidunt impedit eaque, est, illo officiis expedita molestiae.</p>
-      </div>
-    {{/cp-panel-body}}
-
-  {{/cp-panel}}
-  {{#cp-panel}}
-    {{#cp-panel-toggle}}
-      <p>Panel B</p>
-    {{/cp-panel-toggle}}
-    {{#cp-panel-body}}
-      <div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo repellendus nisi asperiores esse aperiam aliquid nulla ad dolor autem neque, nihil inventore temporibus delectus earum facere corporis, quam ipsum maxime.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus neque magnam, hic quis beatae repellendus harum modi pariatur minus quidem alias! Eius incidunt impedit eaque, est, illo officiis expedita molestiae.</p>
-      </div>
-    {{/cp-panel-body}}
-
-  {{/cp-panel}}
-  {{#cp-panel}}
-    {{#cp-panel-toggle}}
-      <p>Panel B</p>
-    {{/cp-panel-toggle}}
-    {{#cp-panel-body}}
-      <div>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo repellendus nisi asperiores esse aperiam aliquid nulla ad dolor autem neque, nihil inventore temporibus delectus earum facere corporis, quam ipsum maxime.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus neque magnam, hic quis beatae repellendus harum modi pariatur minus quidem alias! Eius incidunt impedit eaque, est, illo officiis expedita molestiae.</p>
-      </div>
-    {{/cp-panel-body}}
-
-  {{/cp-panel}}
-{{/cp-panels}}
+{{#each errorMessages as |msg|}}
+    <li style="display: block;">
+        <a class="ui-btn error">
+            <div class="ui-grid-b">
+                <span class=""></span>
+                <div class="ui-block-a">
+                    <span class=""></span>
+                    <div>
+                        <span class="">{{msg.source}}
+                  <!----></span>
+                    </div><span class=""></span>
+                </div>
+                <div class="ui-block-b">
+                    <span class=""></span>
+                    <div class="tag tag-request">
+                        <span class="">{{msg.message}}</span>
+                    </div>
+                    <!---->
+                </div>
+                <div class="ui-block-c">
+                    <span class=""></span>
+                    <div class="time">
+                        <span class="">{{msg.timestamp}}</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </li>
+{{/each}}
+<li style="display: block;">
+    <a class="ui-btn error">
+        <div class="ui-grid-b">
+          <i class='log_pacman pull-left'></i><b class="pull-left">&nbsp;gobbling</b> <div class="pull-left">&nbsp;logs...</div>
+        </div>
+    </a>
+</li>

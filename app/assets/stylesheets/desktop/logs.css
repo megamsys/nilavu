@@ -16,8 +16,8 @@
     padding: 0;
     margin: .5em 0;
 }
-.ui-btn-active {
-    cursor: pointer;
+.uibtnactive {
+    cursor: pointer !important;
 }
 .ui-corner-all {
     -webkit-border-radius: .1em;
@@ -51,7 +51,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    cursor: pointer;
+    cursor: pointer !important;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -324,6 +324,9 @@ html .ui-bar-a .ui-body-inherit, html .ui-body-a .ui-body-inherit, html body .ui
     padding: 0;
     list-style: none;
     border: 2px solid #d4d4d4;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 300px;
 }
 .modal-tab-log {
     position: absolute;
@@ -553,7 +556,7 @@ html .ui-bar-a .ui-radio-on::after, html .ui-body-a .ui-radio-on::after, html bo
     border-right-width: 0px;
     border-bottom: 2px solid #FAF9F5 !important;
 }
-.log-list fieldset .ui-btn-active {
+.log-list fieldset .uibtnactive {
     border-bottom: 2px solid #444 !important;
 }
 .ui-controlgroup-horizontal .ui-controlgroup-controls .ui-btn {
@@ -569,13 +572,13 @@ html .ui-bar-a .ui-radio-on::after, html .ui-body-a .ui-radio-on::after, html bo
     -webkit-border-bottom-right-radius: inherit;
     border-bottom-right-radius: inherit;
 }
-.ui-page-theme-a .ui-btn.ui-btn-active {
+.ui-page-theme-a .ui-btn.uibtnactive {
     background-color: #FAF9F5;
     border-color: #FAF9F5;
     color: #444;
     text-shadow: 0px 0px 0px #faf9f5;
 }
-html .ui-bar-a .ui-btn.ui-btn-active, html .ui-body-a .ui-btn.ui-btn-active, html body .ui-group-theme-a .ui-btn.ui-btn-active, html head + body .ui-btn.ui-btn-a.ui-btn-active {
+html .ui-bar-a .ui-btn.uibtnactive, html .ui-body-a .ui-btn.uibtnactive, html body .ui-group-theme-a .ui-btn.uibtnactive, html head + body .ui-btn.ui-btn-a.uibtnactive {
     background-color: #FAF9F5;
     border-color: #FAF9F5;
     color: #444;
@@ -611,19 +614,19 @@ html body .ui-group-theme-a .ui-flipswitch-active, html body .ui-flipswitch.ui-b
     color: #444;
     text-shadow: 0px 0px 0px #faf9f5;
 }
-.ui-page-theme-a .ui-slider-track .ui-btn-active {
+.ui-page-theme-a .ui-slider-track .uibtnactive {
     background-color: #FAF9F5;
     border-color: #FAF9F5;
     color: #444;
     text-shadow: 0px 0px 0px #faf9f5;
 }
-html .ui-bar-a .ui-slider-track .ui-btn-active, html .ui-body-a .ui-slider-track .ui-btn-active {
+html .ui-bar-a .ui-slider-track .uibtnactive, html .ui-body-a .ui-slider-track .uibtnactive {
     background-color: #FAF9F5;
     border-color: #FAF9F5;
     color: #444;
     text-shadow: 0px 0px 0px #faf9f5;
 }
-html body .ui-group-theme-a .ui-slider-track .ui-btn-active, html body div.ui-slider-track.ui-body-a .ui-btn-active {
+html body .ui-group-theme-a .ui-slider-track .uibtnactive, html body div.ui-slider-track.ui-body-a .uibtnactive {
     background-color: #FAF9F5;
     border-color: #FAF9F5;
     color: #444;
@@ -733,7 +736,7 @@ textarea.ui-input-text {
     border-left-width: 1px;
 }
 .logs.ui-collapsible h4.ui-collapsible-heading a {
-    background-color: #D4D4D4 !important;
+    background-color: #F5F5F5 !important;
     padding: 20px 30px 16px !important;
     border: none;
 }
@@ -743,4 +746,59 @@ textarea.ui-input-text {
     width: 1px;
     overflow: hidden;
     clip: rect(1px, 1px, 1px, 1px);
+}
+
+.log-actions a {
+  color: #60cc5D;
+}
+
+.log-actions a:hover {
+  font-weight: bold;
+  color: #60cc5D !important;
+}
+
+.log-all a {
+  color: #000000;
+}
+
+.log-all a:hover {
+  font-weight: bold;
+  color: #000000 !important;
+}
+
+.log-info a, .log-info span {
+  color: #0000FF;
+}
+
+.log-info a:hover {
+  font-weight: bold;
+  color: #0000FF !important;
+}
+
+.log-warnings a, .log-warning span {
+  color: #FFA500;
+}
+
+.log-warnings a:hover {
+  font-weight: bold;
+  color: #FFA500 !important;
+}
+
+.log-errors a, .log-error span {
+  color: #FF0000;
+}
+
+.log-errors a:hover {
+  font-weight: bold;
+  color: #FF0000 !important;
+}
+
+.log_pacman {
+  height: 20px;
+  width: 20px;
+  padding: 10px;
+  background-repeat: no-repeat;
+  background-position: center;
+  vertical-align: middle;
+  background-image: url(../images/icons/pacman.gif);
 }
