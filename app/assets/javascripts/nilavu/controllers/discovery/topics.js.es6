@@ -34,7 +34,7 @@ const controllerOpts = {
 
       const promise =  this.openComposer(this.controllerFor("discovery/topics")).then(function(result) {
         self.set('loading', false);
-        showModal('editCategory', {model: result});
+        showModal('editCategory', {model: result, smallTitle: false, titleCentered: true});
       }).catch(function(e) {
           self.set('loading', false);
       });

@@ -115,7 +115,7 @@ export default Ember.Component.extend({
 
       renderedKey('*');
       if (this.profileWidget) {
-        console.log(new Date().getTime() - t0);
+      //  console.log(new Date().getTime() - t0);
       }
 
     }
