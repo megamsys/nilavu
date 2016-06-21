@@ -1,0 +1,5 @@
+.custom-modal {
+  &.full .modal-dialog {
+    width: 30%;
+  }
+    }
