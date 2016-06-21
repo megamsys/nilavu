@@ -2,6 +2,8 @@ import NilavuURL from 'nilavu/lib/url';
 import showModal from 'nilavu/lib/show-modal';
 import Buckets from 'nilavu/models/buckets';
 import BufferedContent from 'nilavu/mixins/buffered-content';
+
+
 export default Nilavu.Route.extend({
 
     actions: {
@@ -29,6 +31,7 @@ export default Nilavu.Route.extend({
               return self.replaceWith('/404');
         });
     },
+
 
     renderTemplate() {
         this.render('navigation/default', {

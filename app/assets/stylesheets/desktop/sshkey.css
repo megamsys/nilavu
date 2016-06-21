@@ -50,3 +50,9 @@
   border-color: #d6e9c6;
   font-size: 14px;
 }
+
+.ssh-modal {
+  &.full .modal-dialog {
+    width: 30%;
+  }
+    }

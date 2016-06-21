@@ -1,3 +1,5 @@
 .custom-modal {
-        width: 70%; /* either % (e.g. 60%) or px (400px) */
+  &.full .modal-dialog {
+    width: 30%;
+  }
     }
