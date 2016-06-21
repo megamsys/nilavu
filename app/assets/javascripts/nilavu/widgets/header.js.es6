@@ -155,7 +155,7 @@ export default createWidget('header', {
         return {
             marketplacesVisible: true,
             storagesVisible: true,
-            userVisible: false,
+            userVisible: true,
             contextEnabled: false
         };
     },
@@ -183,7 +183,7 @@ export default createWidget('header', {
     },
 
     closeAll() {
-        this.state.userVisible = false;
+        this.state.userVisible = true;
         this.state.marketplacesVisible = true;
         this.state.storagesVisible = true;
     },

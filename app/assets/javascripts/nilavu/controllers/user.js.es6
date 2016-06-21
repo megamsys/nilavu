@@ -11,7 +11,6 @@ export default Ember.Controller.extend({
     title: "My Profile",
     selectedTab: null,
     panels: null,
-
     rerenderTriggers: ['isUploading'],
 
     _initPanels: function() {
@@ -32,7 +31,7 @@ export default Ember.Controller.extend({
     }.property('selectedTab'),
 
 
-    @computed("content.username")
+    /*@computed("content.username")
     viewingSelf(username) {
         return username === User.currentProp('username');
     },
@@ -102,7 +101,7 @@ export default Ember.Controller.extend({
                 });
             }).compact();
         }
-    },
+    },*/
 
 
     actions: {
