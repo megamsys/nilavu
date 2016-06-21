@@ -51,14 +51,14 @@ export default Ember.Controller.extend(BufferedContent, {
 
     fullName: function() {
         var js = this._filterInputs("domain");
-        return this.get('name') + "." + js;
+        return this.get('model.name') + "." + js;
     }.property('model.name'),
 
     hasInputs: Em.computed.notEmpty('model.inputs'),
 
     _filterInputs(key) {
         if (!this.get('hasInputs')) return  "";
-
+        if (!this.get('model.inputs').filterBy('key', key)[0]) return "";
         return this.get('model.inputs').filterBy('key', key)[0].value;
     },
 

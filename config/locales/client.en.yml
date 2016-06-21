@@ -385,25 +385,31 @@ en:
       info:
         tab_title: "Info"
         content_title: "Information"
-        content_hdd_title: "HDD"
-        content_cpu_title: "CPU"
-        content_ram_title: "RAM"
+        content_resources_title: "Resources"
+        content_hdd: "HDD"
+        content_cpu: "CPU"
+        content_ram: "RAM"
+        content_flavor: "Flavor"
         content_id: "Id"
         content_name: "Name"
         content_domain: "Domain"
-        content_state: "State"
+        content_state: "Status"
         content_host: "Host"
         content_region: "Region"
         content_start_time: "Start Time"
         content_hdd_size: "Size"
-      storage:
-        tab_title: "Storage"
+      snapshots:
+        tab_title: "Snapshots"
       network:
         tab_title: "Network"
         content_dns_provider: "DNS Provider"
         content_public_ip: "Public IP"
         content_private_ip: "Private IP"
         content_reattach_ip: "Reattach IP"
+        content_ipv4: "IPV4"
+        content_ipv6: "IPV6"
+        content_private: "private network"
+        content_public: "public network"
       cpu:
         tab_title: "CPU"
         content_cpu_cores: "Cores"
@@ -418,6 +424,7 @@ en:
         content_public_sshkey: "Public Key"
       logs:
         tab_title: "Logs"
+      not_load: "Virtual Machine updating failed."
 
     logs:
       all:
@@ -426,6 +433,8 @@ en:
         tab_title: "actions"
       warnings:
         tab_title: "warnings"
+      info:
+        tab_title: "info"
       errors:
         tab_title: "errors"
 

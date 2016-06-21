@@ -8,19 +8,18 @@ import {
     observes
 } from 'ember-addons/ember-computed-decorators';
 
-export default logCategoryPanel('all', {
-    allMessages: [],
-
+export default logCategoryPanel('info', {
+    infoMessages: [],  
     @observes('message')
     messages() {
         const msg = this.get('message'),
             ss = JSON.parse(this.get('message').Message);
-        this.get('allMessages').pushObject({
-            source: ss.Source,
-            type: ss.Type,
-            color: "log-"+ss.Type,
-            message: ss.Message,
-            timestamp: msg.Timestamp,
-        });
+        if (ss.Type == 'info') {
+            this.get('infoMessages').pushObject({
+                source: ss.Source,
+                message: ss.Message,
+                timestamp: msg.Timestamp,
+            });
+        }
     },
 });

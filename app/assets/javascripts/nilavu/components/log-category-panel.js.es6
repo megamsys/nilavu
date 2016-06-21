@@ -1,5 +1,6 @@
 const LogCategoryPanel = Ember.Component.extend({
-  classNameBindings: [':modal-tab', 'activeTab::invisible'],
+  tagName: 'ul',
+  classNameBindings: [':modal-tab-log', 'activeTab::invisible', ':ui-listview'],
 });
 
 export default LogCategoryPanel;
