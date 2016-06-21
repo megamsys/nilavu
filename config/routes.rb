@@ -76,6 +76,8 @@ Nilavu::Application.routes.draw do
   get "robots.txt" => "robots_txt#index"
   get "manifest.json" => "manifest_json#index", :as => :manifest
 
+  post "storages.json" =>"buckets#create",defaults: {format: 'json'}
+
   root to: 'cockpits#entrance', :as => "entrance"
 
   #Metrics

@@ -3,7 +3,7 @@ import showModal from 'nilavu/lib/show-modal';
 export default Nilavu.Route.extend({
 actions: {
   sshCreate() {
-    showModal('sshkeyCreate', { title: 'ssh_keys.create' });
+    showModal('sshkeyCreate', { title: 'ssh_keys.create', smallTitle: true, titleCentered: true});
   },
 },
 
