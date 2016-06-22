@@ -11,7 +11,7 @@
 
             <div class="profile-modal-body">
                 {{#each panels as |tab|}}
-                    {{component tab selectedTab=selectedTab currentUser=currentUser}}
+                    {{component tab selectedTab=selectedTab model=model}}
                 {{/each}}
             </div>
         </div>
