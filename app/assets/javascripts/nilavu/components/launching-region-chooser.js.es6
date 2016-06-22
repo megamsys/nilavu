@@ -10,7 +10,6 @@ export default Ember.Component.extend({
 
     isActive: function() {
         const region = this.get('regionable') || "";
-        this.set('regionOption', region);
         return region.trim().length > 0 && region.trim() == this.get('regionableName');
     }.property("regionable"),
 

@@ -2,13 +2,13 @@
     <div class="app-step2">
         <div class="rowblock" style="width: 100%; float: left; min-height: 450px;overflow-x: hidden;margin-top:15px;">
             <ul class="tabsos tabs2">
-                {{app-selection-tab appelpanels=appelpanels selectedTab=selectedTab tab="prepackaged"}}
-                {{app-selection-tab appelpanels=appelpanels selectedTab=selectedTab tab="customapp"}}
+                {{app-selection-tab apppanels=apppanels selectedTab=selectedTab tab="prepackaged"}}
+                {{app-selection-tab apppanels=apppanels selectedTab=selectedTab tab="customapp"}}
             </ul>
             <div class="oscontainer">
                 <div class="tab-content">
-                    {{#each appelpanels as |tab|}}
-                        {{component tab tab=tab selectedTab=selectedTab category=category}}
+                    {{#each apppanels as |tab|}}
+                        {{component tab tab=tab selectedTab=selectedTab selectedPackApp=selectedPackApp category=category}}
                     {{/each}}
                 </div>
             </div>

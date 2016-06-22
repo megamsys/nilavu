@@ -44,9 +44,6 @@ Nilavu::Application.routes.draw do
 
   match "users/:id", to:  "users#show", via: [:get],defaults: {format: 'json'}
 
-
-
-
   get "stylesheets/:name.css" => "stylesheets#show", constraints: { name: /[a-z0-9_]+/ }
 
   get "launchables.json" => 'launchables#assemble', defaults: {format: 'json'}
@@ -70,6 +67,9 @@ Nilavu::Application.routes.draw do
   get 'notifications' => 'notifications#index'
   put 'notifications/mark-read' => 'notifications#mark_read'
 
+  ##
+  get "search/query" => "search#query"
+  get "search" => "search#show"
 
   ##
   get "billings.json" => "billings#index", defaults: {format: 'json'}

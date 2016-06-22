@@ -19,13 +19,11 @@ export default Em.Component.extend({
   }.property('title'),
 
   _addToCollection: function() {
-    this.get('appelpanels').addObject(this.get('tabClassName'));
+    this.get('apppanels').addObject(this.get('tabClassName'));
   }.on('didInsertElement'),
 
   actions: {
-
     select: function() {
-      alert(this.get('tab'));
       this.set('selectedTab', this.get('tab'));
     }
   }

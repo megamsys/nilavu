@@ -6,13 +6,12 @@ export default Ember.Component.extend({
     style: Ember.String.htmlSafe(''),
     attributeBindings: ['style'],
 
-    appeltypeableName: Ember.computed.alias('name'),
+    prepackageName: Ember.computed.alias('name'),
 
     isActive: function() {
-        const appeltype = this.get('appeltypeable') || "";
-        this.set('appeltypeOption', appeltype);
-        return appeltype.trim().length > 0 && appeltype.trim() == this.get('appeltypeableName');
-    }.property("appeltypeable"),
+        const prepack = this.get('prepackageble') || "";
+        return prepack.trim().length > 0 && prepack.trim() == this.get('prepackageName');
+    }.property("prepackageble"),
 
     myStyle: Ember.computed('display', function() {
         return Ember.String.htmlSafe("display:none");

@@ -80,6 +80,7 @@ function searchForTerm(term, opts) {
       type: opts.searchContext.type,
       id: opts.searchContext.id
     };
+
   }
 
   var promise = Nilavu.ajax('/search/query', { data: data });
