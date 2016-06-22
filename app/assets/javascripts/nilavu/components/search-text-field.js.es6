@@ -3,6 +3,8 @@ import { on } from 'ember-addons/ember-computed-decorators';
 import TextField from 'nilavu/components/text-field';
 
 export default TextField.extend({
+  classNameBindings: [':form-control',':flat'],
+  
   @computed('searchService.searchContextEnabled')
   placeholder(searchContextEnabled) {
     return searchContextEnabled ? "" : I18n.t('search.title');
