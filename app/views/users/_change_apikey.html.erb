@@ -28,5 +28,33 @@
         </tr>
       </tbody>
     </table>
-</div>
+  </div>
+<% end %>
+<% if current_cephuser %>
+    <!-- storage keys -->
+    <div class="row">
+      <div class="prof bottom_border_grey">
+        <div class="row">
+          <div class="col-xs-10 col-sm-9">
+            <h4 class="">Your storage keys</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+      <table class="table tb_action_list">
+        <thead>
+          <tr>
+            <th>Access key</th>
+            <th>Secret key</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="set_title" width="55%"><%= current_cephuser.access_key_id     %></td>
+            <td class="set_title" width="45%"><%= current_cephuser.secret_access_key %></td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
 <% end %>
