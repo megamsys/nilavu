@@ -45,7 +45,7 @@ export default Nilavu.Route.extend({
         const self = this;
         return user.findDetails().then(function(result) {
             return user.setDetails(result);
-        }).catch(function() {
+          }).catch(function() {
             return self.replaceWith('/404');
         });
     },

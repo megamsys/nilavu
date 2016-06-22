@@ -10,5 +10,8 @@ update()
 {
 
 }
-  }
+  },
+  email: function() {
+      return this.get('model.email');
+  }.property('model.email'),
 });
