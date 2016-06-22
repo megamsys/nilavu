@@ -155,7 +155,7 @@ export default createWidget('header', {
         return {
             marketplacesVisible: true,
             storagesVisible: true,
-            userVisible: true,
+            userVisible: false,
             contextEnabled: false
         };
     },

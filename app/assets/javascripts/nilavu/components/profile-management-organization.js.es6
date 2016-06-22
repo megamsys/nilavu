@@ -19,4 +19,17 @@ export default buildCategoryPanel('organization', {
     return this.orgSelectedTab == 'domain';
   }.property('orgSelectedTab'),
 
+  domainData: function() {
+      var rval = [];
+      _.each(this.get("model.details"), function(p) {
+          rval.addObject({ name: p, value: p });
+      });
+      return rval;
+  }.property("model.details"),
+
+  selectDomain: function() {
+      return this.get('domainData.firstObject');
+  }.property('domainData'),
+
+
 });
