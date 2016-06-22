@@ -49,9 +49,11 @@ module Api
       @ssh_keys = to_hash(raw[:body]) unless raw.nil?
     end
 
-    def show(api_params)
+    def show(api_params, &_block)
       raw = api_request(SSHKEYS, SHOW, api_params)
       @ssh_keys = to_hash(raw[:body]) unless raw.nil?
+      yield self  if block_given?
+      self
     end
 
     ## rescue and raise as an error.

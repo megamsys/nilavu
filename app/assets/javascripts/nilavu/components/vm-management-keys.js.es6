@@ -5,9 +5,14 @@ import {
 import computed from 'ember-addons/ember-computed-decorators';
 
 export default buildCategoryPanel('keys', {
-
     privateKey_suffix: ".key",
     publicKey_suffix: ".pub",
+    spinnerPrivateIn: false,
+    spinnerPublicIn: false,
+    privatekeyType: "PRIVATEKEY",
+    publickeyType: "PUBLICKEY",
+    privatekey: 'application/x-pem-key',
+    publickey: 'text/plain',
 
     content_sshkey_name: function() {
         return I18n.t("vm_management.keys.content_name");
@@ -49,25 +54,56 @@ export default buildCategoryPanel('keys', {
         return this.get('model.outputs').filterBy('key', key)[0].value;
     },
 
+    showPrivateSpinner: function() {
+        return this.get('spinnerPrivateIn');
+    }.property('spinnerPrivateIn'),
+
+    showPublicSpinner: function() {
+        return this.get('spinnerPublicIn');
+    }.property('spinnerPublicIn'),
+
+    _getSuffix(type) {
+        if (type == this.get('privatekeyType')) {
+            return this.get('privateKey_suffix');
+        } else {
+            return this.get('publicKey_suffix');
+        }
+    },
+
+    _getKey(name) {
+        return Nilavu.ajax("/ssh_keys/" + name + ".json", {
+            type: 'GET'
+        });
+    },
+
     actions: {
 
-        privatekey_download(key) {
-            Nilavu.ajax("/ssh_keys/" + key + ".json", {
-                type: 'GET'
-            }).then(function(result) {
-            //  window.saveAs(new Blob([result[0].privatekey], {type: 'application/x-pem-key'}), key);
-
-            }, function(e) {
-                if (e.jqXHR && e.jqXHR.status === 429) {
-                    this.notificationMessages.error(I18n.t('login.rate_limit'));
+        download(key, type) {
+            var self = this
+            this.set('spinnerIn', true);
+            return self._getKey(key).then(function(result) {
+                self.set('spinnerIn', false);
+                if (!result.failed) {
+                    var blob = null;
+                    if (type == self.get('privatekeyType')) {
+                        blob = new Blob([result.message.ssh_keys[0].privatekey], {
+                            type: self.get('privatekey')
+                        })
+                    } else {
+                        blob = new Blob([result.message.ssh_keys[0].publickey], {
+                            type: self.get('publickey')
+                        })
+                    }
+                    Nilavu.saveAs(blob, key + self._getSuffix(type));
                 } else {
-                    this.notificationMessages.error(I18n.t('login.error'));
+                    self.notificationMessages.error(result.message);
                 }
-                self.set('loggingIn', false);
+            }, function(e) {
+                self.set('spinnerIn', false);
+                return self.notificationMessages.error(I18n.t("ssh_keys.download_error"));
             });
         }
 
     }
-
 
 });
