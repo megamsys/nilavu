@@ -1,4 +1,4 @@
-{{#each actionMessages as |msg|}}
+{{#each infoMessages as |info|}}
     <li style="display: block;">
         <a class="ui-btn error">
             <div class="ui-grid-b">
@@ -6,14 +6,21 @@
                 <div class="ui-block-a">
                     <span class=""></span>
                     <div>
-                        <span class="">{{msg.source}}
+                        <span class="">{{info.source}}
                   <!----></span>
                     </div><span class=""></span>
+                </div>
+                <div class="ui-block-b">
+                    <span class=""></span>
+                    <div class="tag tag-request">
+                        <span class="">{{info.message}}</span>
+                    </div>
+                    <!---->
                 </div>
                 <div class="ui-block-c">
                     <span class=""></span>
                     <div class="time">
-                        <span class="">{{msg.timestamp}}</span>
+                        <span class="">{{info.timestamp}}</span>
                     </div>
                 </div>
             </div>
