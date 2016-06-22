@@ -4,7 +4,6 @@ import { on, computed } from  'ember-addons/ember-computed-decorators';
 
 export default orgCategoryPanel('domain', {
   name: function() {
-    alert(JSON.stringify(this.get('model')));
       return this.get('model.details');
   }.property('model.details'),
 

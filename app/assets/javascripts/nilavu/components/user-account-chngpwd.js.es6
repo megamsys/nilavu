@@ -5,8 +5,7 @@ export default Em.Component.extend({
   {
 onClick()
 {
-  alert("********************");
-  
+
 
 },
 update(){
