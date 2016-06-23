@@ -165,17 +165,20 @@ const Composer = RestModel.extend({
     clearState() {
         this.setProperties({
             random_name: '',
-            domain: '',
-            regionoption: '',
-            resourceoption: '',
-            unitoption: '',
-            number_of_units: 1,
-            storagetype: '',
-            selectionoption: '',
-            keypairoption: '',
-            keypairname: '',
-            enable_ipv6: false,
-            enable_privnetwork: true
+            metaData: {
+              launchoption: '',
+              domain: '',
+              regionoption: '',
+              resourceoption: '',
+              unitoption: '',
+              number_of_units: 1,
+              storagetype: '',
+              selectionoption: '',
+              keypairoption: '',
+              keypairname: '',
+              enable_ipv6: false,
+              enable_privnetwork: true
+            }
         });
     },
 

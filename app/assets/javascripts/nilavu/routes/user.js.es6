@@ -1,3 +1,4 @@
+//during a refresh just hookup the tab as need (apikey, org etc)
 const INDEX_STREAM_ROUTES = ["user.deletedPosts", "user.flaggedPosts", "userActivity.index"];
 
 export default Nilavu.Route.extend({
@@ -22,19 +23,16 @@ export default Nilavu.Route.extend({
     },
 
     beforeModel() {
-
         if (this.siteSettings.hide_user_profiles_from_public && !this.currentUser) {
             this.replaceWith("discovery");
         }
     },
 
     model(params) {
-
-        // If we're viewing the currently logged in user, return that object instead
+       // If we're viewing the currently logged in user, return that object instead
         const currentUser = this.currentUser;
         if (currentUser && (params.email.toLowerCase() === currentUser.get('email'))) {
             return currentUser;
-
         }
 
         return Nilavu.User.create({
@@ -61,23 +59,15 @@ export default Nilavu.Route.extend({
 
     setupController(controller, user) {
         controller.set('model', user);
-        this.searchService.set('searchContext', user.get('searchContext'));
     },
 
-    /*  activate() {
+    activate() {
           this._super();
           const user = this.modelFor('user');
-          this.messageBus.subscribe("/users/" + user.get('email_lower'), function(data) {
-              user.loadUserAction(data);
-          });
-      },*/
+      },
 
     deactivate() {
         this._super();
-        this.messageBus.unsubscribe("/users/" + this.modelFor('user').get('email_lower'));
-
-        // Remove the search context
-        this.searchService.set('searchContext', null);
     }
 
 });

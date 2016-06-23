@@ -47,7 +47,7 @@ required:
     default: '/images/signup_cta.png'
   signup_cta:
     client: true
-    default: "<h3>Launch your applications seamlessly in less than <span>60 seconds</span></h3>"  
+    default: "<h3>Launch your applications seamlessly in less than <span>60 seconds</span></h3>"
   favicon_url:
     client: true
     default: '/images/default_favicon.png'
@@ -214,3 +214,16 @@ legal:
     default: 'http://docs.megam.io/docs/megam_oja_gettingstarted'
   support_url:
     default: 'http://support.megam.io'
+
+uncategorized:
+  version_checks:
+    client: true
+    default: false
+  send_welcome_message: true
+
+  # Search
+  min_search_term_length:
+    client: true
+    default: 3
+
+  max_similar_results: 5

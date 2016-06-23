@@ -8,19 +8,25 @@
     </tr>
     <tr>
       <td><h5><b>{{content_private_sshkey}}</b></h5></td>
-      <td>{{model.privatekey}}</td>
+      <td>{{privateKey}}{{privateKey_suffix}}</td>
       <td class="sett-private">
-        <a href {{action "privatekey_download" model.privatekey}} class="btn btn-dark-red" >
+        <a href {{action "download" privateKey privatekeyType}} class="btn btn-dark-red" >
           <i class="c_icon-inBlue"></i><span>Download</span>
+          <span class="pull-right">
+            {{conditional-loading-spinner condition=showPrivateSpinner size="large"}}
+          </span>
         </a>
       </td>
     </tr>
     <tr>
       <td><h5><b>{{content_public_sshkey}}</b></h5></td>
-      <td>{{model.public_sshkey}}</td>
+      <td>{{publicKey}}{{publicKey_suffix}}</td>
       <td class="sett-public">
-        <a href="{{model.publickey_download}}" class="btn btn-dark-blue ">
+        <a href {{action "download" publicKey publickeyType}} class="btn btn-dark-blue ">
           <i class="c_icon-in"></i><span>Download</span>
+          <span class="pull-right">
+            {{conditional-loading-spinner condition=showPublicSpinner size="large"}}
+          </span>
         </a>
       </td>
     </tr>

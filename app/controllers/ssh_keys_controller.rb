@@ -16,9 +16,9 @@
 require 'sshkeys_finder'
 
 class SshKeysController < ApplicationController
-  respond_to :html, :js
+  respond_to :html, :js, :json
 
-  before_action :add_authkeys_for_api, only: [:index, :create, :edit, :update]
+  before_action :add_authkeys_for_api, only: [:index, :create, :edit, :update, :show]
 
   def index
     @foundkeys ||= SSHKeysFinder.new(params).foundkeys
@@ -30,6 +30,31 @@ class SshKeysController < ApplicationController
     redirect_to(ssh_keys_path, :flash => { :success => "#{params[:ssh_keypair_name]} created successfully."}, format: 'js')
   end
 
+  def show
+    @ssh = Api::Sshkeys.new.show(params)
+
+    respond_to do |format|
+        if @ssh
+            format.json { render json: {
+              success: true,
+              message: @ssh,
+            } }
+        else
+            format.json { render json: {
+              success: false,
+              message: I18n.t(
+                'ssh_keys.download_error',
+              )
+            } }
+        end
+    end
+  rescue ApiDispatcher::NotReached
+    render json: {
+      success: false,
+      message: I18n.t("login.something_already_taken")
+    }
+ end
+
 
   ## this downloads a key
   def edit
@@ -37,7 +62,7 @@ class SshKeysController < ApplicationController
     params.merge!({:download_location => "#{params[:name]}.#{params[:format]}"})
   else
     params.merge!({:download_location => "#{params[:name]}"})
-  end  
+  end
     Api::Sshkeys.new.download(params)
     send_file Rails.root.join("#{params[:download_location]}"), :x_sendfile=>true
   end

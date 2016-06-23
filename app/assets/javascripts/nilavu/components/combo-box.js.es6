@@ -38,7 +38,6 @@ export default Ember.Component.extend({
   valueChanged() {
     const $combo = this.$(),
           val = this.get('value');
-
     if (val !== undefined && val !== null) {
       $combo.select2('val', val.toString());
     } else {

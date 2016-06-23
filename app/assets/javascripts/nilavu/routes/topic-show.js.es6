@@ -20,12 +20,14 @@ export default Nilavu.Route.extend({
         if (topic && topic.predeploy_finished) {
             return false;
         }
-        const oneOfSuccess =  LaunchStatus.create({event_type: topic.status}).get('successKey');
+        const oneOfSuccess = LaunchStatus.create({
+            event_type: topic.status
+        }).get('successKey');
         if (topic && oneOfSuccess) {
-          return false;
+            return false;
         }
 
-    //    const oneOfError   = LaunchStatus.TYPES_ERROR.indexOf(topic.status) >=0;
+        //    const oneOfError   = LaunchStatus.TYPES_ERROR.indexOf(topic.status) >=0;
         return true;
     },
 
@@ -39,10 +41,12 @@ export default Nilavu.Route.extend({
 
         //TO-DO RAJ: ADD error handling here to show the error.
         const promise = topic.reload().then(function(result) {
-            topicController.setProperties({ model: topic });
+            topicController.setProperties({
+                model: topic
+            });
             self.set('loading', false);
         }).catch(function(e) {
-        //    alert("RAJ HANDLE ERR (check edit-category)\n" + e);
+            //    alert("RAJ HANDLE ERR (check edit-category)\n" + e);
             self.set('loading', false);
         });
 

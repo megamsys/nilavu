@@ -94,5 +94,6 @@ export default Ember.ObjectProxy.extend({
   /*
   * A helper method to get access to the readyState of the websocket.
   */
-  readyState() { return this.socket.readyState; }
+  readyState() {
+    return this.socket.readyState; }
 });

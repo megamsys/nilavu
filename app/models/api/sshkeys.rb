@@ -45,8 +45,15 @@ module Api
 
     # lists the ssh keys for an user and return a hash with name, timestamp.
     def list(api_params)
-      raw = api_request(SSHKEYS, LIST,api_params)
+      raw = api_request(SSHKEYS, LIST, api_params)
       @ssh_keys = to_hash(raw[:body]) unless raw.nil?
+    end
+
+    def show(api_params, &_block)
+      raw = api_request(SSHKEYS, SHOW, api_params)
+      @ssh_keys = to_hash(raw[:body]) unless raw.nil?
+      yield self  if block_given?
+      self
     end
 
     ## rescue and raise as an error.
