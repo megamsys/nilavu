@@ -41,11 +41,7 @@ Nilavu::Application.routes.draw do
     end
   end
 
-
   match "users/:id", to:  "users#show", via: [:get],defaults: {format: 'json'}
-
-
-
 
   get "stylesheets/:name.css" => "stylesheets#show", constraints: { name: /[a-z0-9_]+/ }
 
@@ -65,7 +61,7 @@ Nilavu::Application.routes.draw do
   # Topics resource
   get "t/:id" => "topics#show"
   get "t/:id/:name" => "topics#request", as: "topic_action_group"
-    put "t/:id" => "topics#update"
+  put "t/:id" => "topics#update"
   delete "t/:id" => "topics#destroy"
 
   get 'notifications' => 'notifications#index'

@@ -228,8 +228,6 @@ en:
         same_as_email: "Your password is the same as your email."
         ok: "Your password looks good."
         instructions: "At least %{count} characters."
-        confirm: "Your password is confirmed."
-        enter: "Please re-enter your password to confirm"
 
     errors:
       prev_page: "while trying to load"
@@ -365,7 +363,8 @@ en:
 
     storages:
       title: "Storages"
-
+      onboard_success: "User successfully onboarded on storage system"
+      onboard_error: "Oops, User onboard fail on storage system."
 
     billing:
       title: "Billings"

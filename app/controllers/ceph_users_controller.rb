@@ -1,5 +1,5 @@
 class CephUsersController < ApplicationController
-
+  respond_to :html, :js, :json
     skip_before_filter :redirect_to_cephlogin_if_required, only: [:create]
 
     def create
@@ -22,10 +22,18 @@ class CephUsersController < ApplicationController
             activation.finish
 
             session["signup.created_cephaccount"] = activation.message
-            redirect_with_success(buckets_path, "signup.created_cephaccount")
+            #redirect_with_success(buckets_path, "signup.created_cephaccount")
+            render json: {
+              success: true,
+              message: I18n.t("storages.onboard_success"),
+            }
         else
             session["signup.create_cephfailure"] = activation.message
-            redirect_with_failure(cockpits_path, "login.error", user.errors.full_messages.join("\n"))
+            #redirect_with_failure(cockpits_path, "login.error", user.errors.full_messages.join("\n"))
+            render json: {
+              success: false,
+              message: I18n.t("storages.onboard_error"),
+            }
         end
         #TO-DO rescure connection errors that come out.
         #rescue RestClient::Forbidden

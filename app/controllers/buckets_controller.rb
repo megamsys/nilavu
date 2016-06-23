@@ -26,7 +26,7 @@ class BucketsController < ApplicationController
 
     respond_to do |format|
       if lister_has_calcuated?
-        if @listed_buckets.present?
+        if @listed_buckets.present?          
             format.json { render json: {
               success: true,
               message: @listed_buckets,

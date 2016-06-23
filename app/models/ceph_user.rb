@@ -53,8 +53,11 @@ class CephUser
 
   def save
     if saved = GWUser.save(@email, CephUser.suggest_name(email))
-      puts "++++++++++++++++++++++++++"
+      puts "-------------------------------------------"
       puts saved
+      if saved.is_a? String
+        return false
+     end
       saved.each { |k, v| send("#{k}=", v) }
       saved
     end
