@@ -45,7 +45,7 @@ export default function() {
 
     this.route('marketplaces', { path: '/marketplaces' });
 
-    this.route('storages', { path: '/storages' });
+    //this.route('storages', { path: '/storages' });
 
     // User routes
     this.resource('users');
@@ -90,6 +90,7 @@ export default function() {
 
     this.resource('storages', {path:'/storages'}, function() {
         this.route('show', { path: '/' });
+        this.route('files',{ path: '/files' });
     });
 
 }

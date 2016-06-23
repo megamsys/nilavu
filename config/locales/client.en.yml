@@ -359,6 +359,7 @@ en:
     storages:
       title: "Storages"
 
+
     billing:
       title: "Billings"
       total_balance: "Total Balance"
@@ -449,6 +450,7 @@ en:
     bucket:
       create: "Create"
       title: "Bucket"
+      file: "Select Files"
 
     notifications:
       none: "Unable to load notifications at this time."

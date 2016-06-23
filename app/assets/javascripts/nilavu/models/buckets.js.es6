@@ -5,7 +5,7 @@ import {longDate} from 'nilavu/lib/formatter';
 import computed from 'ember-addons/ember-computed-decorators';
 const Buckets = Nilavu.Model.extend({
 
-    store() {
+    storage() {
         alert("model");
 
         const self = this;
@@ -13,7 +13,9 @@ const Buckets = Nilavu.Model.extend({
             type: 'POST'
         }).then(function() {
             //self.updateFromJson(bill_json);
+              return self.replaceWith('/404');
         });
+
 
     }
 
