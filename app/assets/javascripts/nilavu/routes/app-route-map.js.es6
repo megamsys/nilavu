@@ -10,7 +10,6 @@ export default function() {
     this.resource('discovery', { path: '/' }, function() {
         // homepage
         this.route(Nilavu.Utilities.defaultHomepage(), { path: '/' });
-
         // filters
         Nilavu.Site.currentProp('filters').forEach(filter => {
             this.route(filter, { path: '/' + filter });

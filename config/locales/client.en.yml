@@ -104,6 +104,10 @@ en:
       next_month: 'Next Month'
 
     filters:
+      dashboard:
+        title:
+          one: Dashboard
+          other: Dashboard
       torpedo:
         title:
           one: Virtual Machine
@@ -132,6 +136,7 @@ en:
         title:
           one: Bitnami
           other: Bitnamis
+      dashboard_description: 'Get your own compute power'
       torpedo_description: 'Get your own compute power'
       app_description:  'Get started with a new app'
       service_description: 'Make your applications more hungry'

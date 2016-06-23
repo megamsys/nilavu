@@ -1,13 +1,7 @@
     <li></li>
 
     {{dash-tap class='page-sidebar-menu_dash_top'}}
-    <li class='start active'>
-        {{#link-to 'dummy'}}
-            <i class='leftnav_dashboard pull-left'></i>
-            <span class='title pull-left'>{{i18n 'dashboards.title'}}</span>
-        {{/link-to}}
-    </li>
-
+    
     {{#each navItem in navItems}}
         {{navigation-item content=navItem  filterMode=filterMode}}
     {{/each}}
