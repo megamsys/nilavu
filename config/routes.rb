@@ -44,6 +44,9 @@ Nilavu::Application.routes.draw do
 
   match "users/:id", to:  "users#show", via: [:get],defaults: {format: 'json'}
 
+
+
+
   get "stylesheets/:name.css" => "stylesheets#show", constraints: { name: /[a-z0-9_]+/ }
 
   get "launchables.json" => 'launchables#assemble', defaults: {format: 'json'}

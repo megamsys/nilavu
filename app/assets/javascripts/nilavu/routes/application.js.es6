@@ -91,7 +91,7 @@ const ApplicationRoute = Nilavu.Route.extend(OpenComposer, {
     showCreateAccount: unlessReadOnly('handleShowCreateAccount', I18n.t("read_only_mode.login_disabled")),
 
     showForgotPassword() {
-      showModal('forgotPassword', { title: 'forgot_password.title' });
+      showModal('forgotPassword', { title: 'forgot_password.title', smallTitle: true, titleCentered: true});
     },
 
     showNotActivated(props) {
