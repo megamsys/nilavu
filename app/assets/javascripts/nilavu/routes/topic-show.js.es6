@@ -11,9 +11,9 @@ export default Nilavu.Route.extend({
 
     afterModel() {
         const topic = this.modelFor('topic');
-      //  if (this.showPredeployer(topic)) {
-      //      this.replaceWith(topic.url() + '/predeploy', topic);
-      //  }
+        if (this.showPredeployer(topic)) {
+            this.replaceWith(topic.url() + '/predeploy', topic);
+        }
     },
 
     showPredeployer: function(topic) {

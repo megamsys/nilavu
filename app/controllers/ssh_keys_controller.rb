@@ -16,7 +16,7 @@
 require 'sshkeys_finder'
 
 class SshKeysController < ApplicationController
-  respond_to :html, :js
+  respond_to :html, :js, :json
 
   before_action :add_authkeys_for_api, only: [:index, :create, :edit, :update, :show]
 
@@ -31,11 +31,28 @@ class SshKeysController < ApplicationController
   end
 
   def show
-    ssh = Api::Sshkeys.new.show(params)
-    #if ssh
-      #send_data ssh.first[:privatekey]
-    #end
-    render json: ssh
+    @ssh = Api::Sshkeys.new.show(params)
+
+    respond_to do |format|
+        if @ssh
+            format.json { render json: {
+              success: true,
+              message: @ssh,
+            } }
+        else
+            format.json { render json: {
+              success: false,
+              message: I18n.t(
+                'ssh_keys.download_error',
+              )
+            } }
+        end
+    end
+  rescue ApiDispatcher::NotReached
+    render json: {
+      success: false,
+      message: I18n.t("login.something_already_taken")
+    }
  end
 
 

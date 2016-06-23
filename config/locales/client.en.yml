@@ -354,6 +354,7 @@ en:
       title: "SSH keys"
       import: "Import SSH Key Pair"
       create: "Create SSH Key Pair"
+      download_error: "SSH keys download failed. Try some other time."
 
     storages:
       title: "Storages"
