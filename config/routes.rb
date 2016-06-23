@@ -77,7 +77,13 @@ Nilavu::Application.routes.draw do
   get "robots.txt" => "robots_txt#index"
   get "manifest.json" => "manifest_json#index", :as => :manifest
 
-  post "storages.json" =>"buckets#create",defaults: {format: 'json'}
+  get "buckets.json" =>"buckets#index",defaults: {format: 'json'}
+
+  #ceph
+  get   '/cephsignin', to: 'cephs#create', constraints: HomePageConstraint.new
+  post  '/cephsignin', to: 'cephs#create', constraints: HomePageConstraint.new
+  get   '/cephsignup', to: 'ceph_users#create', constraints: HomePageConstraint.new
+  post  '/cephsignup', to: 'ceph_users#create', constraints: HomePageConstraint.new
 
   root to: 'cockpits#entrance', :as => "entrance"
 

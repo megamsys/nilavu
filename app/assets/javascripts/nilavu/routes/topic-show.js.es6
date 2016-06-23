@@ -4,6 +4,10 @@ import LaunchStatus from 'nilavu/models/launch-status';
 // This route is used for retrieving a topic/:id based on params - id
 export default Nilavu.Route.extend({
 
+  redirect() {
+    return this.redirectIfLoginRequired();
+  },
+
     // Avoid default model hook
     model(params) {
         return params;

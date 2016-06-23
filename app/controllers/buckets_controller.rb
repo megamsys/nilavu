@@ -23,15 +23,24 @@ class BucketsController < ApplicationController
 
   def index
      @lister = BucketsLister.new(params)
-    if lister_has_calcuated?
-     @listed_buckets =  @lister.listed(current_cephuser.email)
-    return @listed_buckets if @listed_buckets.present?
-    end
 
-    not_listed
-  rescue Nilavu::NotFound
-    not_listed
+    respond_to do |format|
+      if lister_has_calcuated?
+        if @listed_buckets.present?
+            format.json { render json: {
+              success: true,
+              message: @listed_buckets,
+            } }
+        else
+            format.json { render json: {
+              success: false,
+              message: []
+            } }
+        end
+    end
   end
+end
+
 
   def create
     if BucketCreator.new(params).perform
