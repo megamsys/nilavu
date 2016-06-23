@@ -2,9 +2,8 @@
     <div class="app_inner">
         <div class="app">
             <div class="app_head">
-                <span class="app_config" id="config_menu"> <i class="c_icon-config"></i> </span>
-                <div class="config_menu">
-                </div>
+                <span class="app_config" id="config_menu" {{action 'on'}}> <i class="c_icon-config"></i> </span>
+                {{action-link}}
                 <div class="row app_icon">
                     <h5>
                       {{topic-link topic}}

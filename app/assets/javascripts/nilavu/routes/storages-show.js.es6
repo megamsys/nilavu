@@ -16,20 +16,23 @@ export default Nilavu.Route.extend({
         },
 
         create() {
-          alert("create");
             this._save();
 
         }
     },
 
-    _save() {
+  /*  _save() {
       alert("_save");
       const self = this;
-        Buckets.store().then(function() {
-            alert("success");
+         Buckets.storage().then(function() {
+           alert("success");
+
         }).catch(function() {
-              return self.replaceWith('/404');
+              return self.replaceWith('files');
         });
+    },*/
+    _save(){
+      this.transitionTo('storages.files');
     },
 
 

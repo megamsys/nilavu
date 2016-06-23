@@ -17,6 +17,10 @@ export default Ember.Component.extend({
       this.get('topic').toggleBookmark().finally(function() {
         self.rerender();
       });
+    },
+    on()
+    {
+      
     }
   },
 
