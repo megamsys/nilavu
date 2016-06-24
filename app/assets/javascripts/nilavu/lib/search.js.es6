@@ -1,40 +1,7 @@
 
 export function translateResults(results, opts) {
 
-  const User = require('nilavu/models/user').default;
-  const Category = require('nilavu/models/category').default;
-  const Post = require('nilavu/models/post').default;
-  const Topic = require('nilavu/models/topic').default;
-
   if (!opts) opts = {};
-
-  // Topics might not be included
-  if (!results.topics) { results.topics = []; }
-  if (!results.users) { results.users = []; }
-  if (!results.posts) { results.posts = []; }
-  if (!results.categories) { results.categories = []; }
-
-  const topicMap = {};
-  results.topics = results.topics.map(function(topic){
-    topic = Topic.create(topic);
-    topicMap[topic.id] = topic;
-    return topic;
-  });
-
-  results.posts = results.posts.map(function(post){
-    post = Post.create(post);
-    post.set('topic', topicMap[post.topic_id]);
-    return post;
-  });
-
-  results.users = results.users.map(function(user){
-    user = User.create(user);
-    return user;
-  });
-
-  results.categories = results.categories.map(function(category){
-    return Category.list().findProperty('id', category.id);
-  }).compact();
 
   const r = results.grouped_search_result;
   results.resultTypes = [];
@@ -45,15 +12,10 @@ export function translateResults(results, opts) {
     if (results[name].length > 0) {
       var result = {
         results: results[name],
-        componentName: "search-result-" + ((opts.searchContext && opts.searchContext.type === 'topic' && type === 'topic') ? 'post' : type),
+        componentName: "search-result-" + ((opts.searchContext && opts.searchContext.type) ? opts.searchContext.type : 'none'),
         type,
         more: r['more_' + name]
       };
-
-      if (result.more && name === "posts" && opts.fullSearchUrl) {
-        result.more = false;
-        result.moreUrl = opts.fullSearchUrl;
-      }
 
       results.resultTypes.push(result);
     }
@@ -86,6 +48,7 @@ function searchForTerm(term, opts) {
   var promise = Nilavu.ajax('/search/query', { data: data });
 
   promise.then(function(results){
+    alert("results ="+ JSON.stringify(results));
     return translateResults(results, opts);
   });
 
