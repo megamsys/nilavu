@@ -22,11 +22,7 @@ class CephUsersController < ApplicationController
             activation.finish
 
             session["signup.created_cephaccount"] = activation.message
-            #redirect_with_success(buckets_path, "signup.created_cephaccount")
-            render json: {
-              success: true,
-              message: I18n.t("storages.onboard_success"),
-            }
+            redirect_with_success('/buckets.json', "signup.created_cephaccount")          
         else
             session["signup.create_cephfailure"] = activation.message
             #redirect_with_failure(cockpits_path, "login.error", user.errors.full_messages.join("\n"))

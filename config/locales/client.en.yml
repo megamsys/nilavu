@@ -453,10 +453,14 @@ en:
         tab_title: "User"
       domain:
         tab_title: "Domain"
+
     bucket:
       create: "Create"
       title: "Bucket"
+      bucket_name: "Bucket Name"
       file: "Select Files"
+      bucket_created: "Bucket created on storage system."
+      bucket_create_error: "Oops, Buckets create failed. Try some other time."
 
     notifications:
       none: "Unable to load notifications at this time."

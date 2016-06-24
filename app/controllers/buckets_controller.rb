@@ -24,32 +24,44 @@ class BucketsController < ApplicationController
   def index
      @lister = BucketsLister.new(params)
 
-    respond_to do |format|
-      if lister_has_calcuated?
-        if @listed_buckets.present?          
-            format.json { render json: {
+      @listed_buckets = lister_has_calcuated
+        if @listed_buckets.present?
+          render json: {
               success: true,
               message: @listed_buckets,
-            } }
+            }
         else
-            format.json { render json: {
+           render json: {
               success: false,
               message: []
-            } }
+            }
         end
-    end
   end
-end
 
 
   def create
     if BucketCreator.new(params).perform
-      redirect_to(buckets_path, :flash => { :success => I18n.t('cephbuckets.created', :name => params[:id])}, format: 'js')
+      render json: {
+          success: true,
+          message: I18n.t(
+            'bucket.bucket_created',
+          ),
+        }
     else
-      not_created
+      render json: {
+          success: false,
+          message: I18n.t(
+            'bucket.bucket_create_error',
+          ),
+        }
     end
   rescue Nilavu::InvalidParameters
-    not_created
+    render json: {
+        success: false,
+        message: I18n.t(
+          'bucket.bucket_create_error',
+        ),
+      }
   end
 
   def show
@@ -67,7 +79,7 @@ end
 
   private
 
-  def lister_has_calcuated?
+  def lister_has_calcuated
     if @lister
       return @lister.listed(current_cephuser.email)
     else

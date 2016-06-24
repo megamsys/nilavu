@@ -16,8 +16,8 @@ renderTemplate() {
         outlet: 'navigation-bar'
     });
 
-    this.render('storages/files', {
-        controller: 'storages-files',
+    this.render('storages/show', {
+        controller: 'storages-show',
         outlet: 'list-container'
     });
 }

@@ -77,6 +77,7 @@ Nilavu::Application.routes.draw do
   get "manifest.json" => "manifest_json#index", :as => :manifest
 
   get "buckets.json" =>"buckets#index",defaults: {format: 'json'}
+  post "buckets" =>"buckets#create"
 
   #ceph
   get   '/cephsignin', to: 'cephs#create', constraints: HomePageConstraint.new

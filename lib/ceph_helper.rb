@@ -13,7 +13,7 @@ class CephHelper
     check_missing_site_settings
   end
 
-  def new_bucket(name)
+  def new_bucket(name)    
     ceph_buckets.build(name).save
   end
 

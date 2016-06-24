@@ -1,10 +1,9 @@
 .custom-modal {
-  &.full .modal-dialog {
-    width: 30%;
-  }
+    &.full .modal-dialog {
+        width: 30%;
     }
-
-    .btn.blue {
-        color: white;
-        background-color: #4d90fe;
-    }
+}
+.btn.blue {
+    color: white;
+    background-color: #4d90fe;
+}

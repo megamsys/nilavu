@@ -10,6 +10,8 @@ export default {
 
     const site = Nilavu.Site.current();
     site.get('filters').forEach(filter => {
+      console.log("+++++++++++++++++++++++");
+      console.log(filter);
       const filterCapitalized = filter.capitalize();
       app[`Discovery${filterCapitalized}Controller`] = DiscoverySortableController.extend();
       app[`Discovery${filterCapitalized}Route`] = buildTopicRoute(filter);
