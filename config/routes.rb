@@ -26,7 +26,7 @@ Nilavu::Application.routes.draw do
     id: USEREMAIL_ROUTE_FORMAT
   }
 
-  post "forgot_password" => "sessions#forgot_password"
+  post "/session/forgot_password" => "sessions#forgot_password"
   get "/password_reset" => "users#password_reset"
   put "/password_reset" => "users#password_reset"
   get "users/account-created/" => "users#account_created"
@@ -43,7 +43,6 @@ Nilavu::Application.routes.draw do
 
 
   match "users/:id", to:  "users#show", via: [:get],defaults: {format: 'json'}
-
 
   get "stylesheets/:name.css" => "stylesheets#show", constraints: { name: /[a-z0-9_]+/ }
 
@@ -67,7 +66,7 @@ Nilavu::Application.routes.draw do
 
   get "t/:id/:name" => "requests#create", as: "topic_action_group"
   delete "t/:id/:name" => "requests#destroy"
-  
+
   get 'notifications' => 'notifications#index'
   put 'notifications/mark-read' => 'notifications#mark_read'
 
