@@ -1,7 +1,6 @@
 <div class="row pad_5">
     <div class="col-md-11">
-        {{#search-text-field value=searchService.term id="search-term"}}
-        {{/search-text-field}}
+        {{#search-text-field value=searchService.term id="search-term"}}{{/search-text-field}}
     </div>
     <div class="col-md-1 pad_5">
         {{conditional-loading-spinner condition=loading size="large"}}
@@ -9,17 +8,26 @@
 </div>
 {{#unless loading}}
     <div class="results">
-        {{#if noResults}}
-            <div class="no-results">
-                {{i18n "search.no_results"}}
-            </div>
-        {{else}}
-            {{#each content.resultTypes as |resultType|}}
-                <ul>
-                    <li class="heading row">{{resultType.name}}</li>
-                    {{component resultType.componentName results=resultType.results term=searchService.term}}
-                </ul>
-            {{/each}}
-        {{/if}}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>publisher</th>
+                    <th>category</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#if noResults}}
+                    <div class="no-results">
+                        {{i18n "search.no_results"}}
+                    </div>
+                {{else}}
+                    {{#each content.searches as |resultType|}}
+                        {{component resultType.componentName resultType=resultType}}
+                    {{/each}}
+                {{/if}}
+            </tbody>
+        </table>
     </div>
 {{/unless}}

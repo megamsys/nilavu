@@ -72,7 +72,9 @@ export default Ember.Controller.extend(BufferedContent, {
 
         // START, STOP, RESTART, DELETE
         start() {
-            this.deleteTopic(); //change accordingly
+
+
+            //this.deleteTopic(); //change accordingly
         },
 
         stop() {

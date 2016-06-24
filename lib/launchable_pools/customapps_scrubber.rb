@@ -1,36 +1,42 @@
 class CustomAppsScrubber < Scrubber
 
+
+    APP                 =  '2'.freeze
+
+    CATTYPES            =  [APP]
+
+
     def name
         "customapps"
     end
 
-    def scrubbed(auth_token)
-      #  result = Auth::Result.new
+    def scrubbed
+        convert_launchable_items
 
-      #  data = auth_token[:info]
+        h2 = @data.map do |k, v|
+            v.map do  |m|
+                LaunchableItem.new(m)
+            end
+        end
 
-      #  result.token = auth_token['credentials']['token']
-
-      #  result.first_name = screen_name = data["nickname"]
-      #  result.email = email = data["email"]
-
-      #  github_user_id = auth_token["uid"]
-
-      #  result.extra_data = {
-      #      github_user_id: github_user_id,
-      #      github_screen_name: screen_name,
-      #  }
-
-      #  result.email_valid = !!data["email_verified"]
-      #  result
+        @data = h2
     end
 
-    #upon account creation, do something
-    def after_scrubbed(result)
+    def after_scrubbed
+        @data.flatten.map do |launchable_item|
+            launchable_item.to_h
+        end
     end
 
+    def register_honeypot(params)
+        @data = HoneyPot.cached_marketplace_groups(params).dup
+    end
 
-    def register_honeypot(data)
-        @data = data
+    protected
+
+    def convert_launchable_items
+        @data.select! do |key, marketplace_collection|
+            CATTYPES.include?(key)
+        end
     end
 end

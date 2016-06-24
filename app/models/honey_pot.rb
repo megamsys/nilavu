@@ -10,9 +10,17 @@ class HoneyPot
     end
   end
 
+  # groups with cattypes (Collaboration...)
   def self.cached_marketplace_groups(params)
     Rails.cache.fetch("honeypot", expires_in: 10.minutes) do
       Api::Marketplaces.instance.list(params).marketplace_groups
+    end
+  end
+
+  # groups with settings_name (vertice, bitnami, containership...)
+  def self.cached_marketplace_bifurs(params)
+    Rails.cache.fetch("honeypot_bifurs", expires_in: 10.minutes) do
+      Api::Marketplaces.instance.list(params).marketplace_bifurs
     end
   end
 

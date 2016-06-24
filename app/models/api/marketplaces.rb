@@ -22,8 +22,9 @@ module Api
     include Singleton
 
     attr_accessor :marketplace_groups
-    attr_accessor :item
+    attr_accessor :marketplace_bifurs
 
+    attr_accessor :item
 
     def initialize
     end
@@ -65,6 +66,8 @@ module Api
 
     def group(raw)
       @marketplace_groups = Hash[raw.group_by(&:catorder).map { |k, v| [k, v.map { |h| h }] }].sort unless raw.nil?
+
+      @marketplace_bifurs = Hash[raw.group_by(&:settings_name).map { |k, v| [k, v.map { |h| h }] }].sort unless raw.nil?
     end
   end
 end
