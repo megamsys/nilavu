@@ -4,28 +4,20 @@ export function translateResults(results, opts) {
   if (!opts) opts = {};
 
   const r = results.grouped_search_result;
+
   results.resultTypes = [];
 
-  // TODO: consider refactoring front end to take a better structure
-  [['topic','posts'],['user','users'],['category','categories']].forEach(function(pair){
-    const type = pair[0], name = pair[1];
-    if (results[name].length > 0) {
+  r.forEach(function(pair){
+    if (pair.provider.length > 0) {
       var result = {
-        results: results[name],
-        componentName: "search-result-" + ((opts.searchContext && opts.searchContext.type) ? opts.searchContext.type : 'none'),
-        type,
-        more: r['more_' + name]
+        results: pair,
+        componentName: "search-result-" + ((opts.searchContext && opts.searchContext.type) ? opts.searchContext.type : 'none')
       };
-
       results.resultTypes.push(result);
     }
   });
 
-  const noResults = !!(results.topics.length === 0 &&
-                     results.posts.length === 0 &&
-                     results.users.length === 0 &&
-                     results.categories.length === 0);
-
+  const noResults = !!(results.resultTypes.length === 0);
   return noResults ? null : Em.Object.create(results);
 }
 
@@ -48,7 +40,6 @@ function searchForTerm(term, opts) {
   var promise = Nilavu.ajax('/search/query', { data: data });
 
   promise.then(function(results){
-    alert("results ="+ JSON.stringify(results));
     return translateResults(results, opts);
   });
 

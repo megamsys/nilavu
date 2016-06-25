@@ -29,7 +29,7 @@ class SearchController < ApplicationController
         result = search.execute
 
         out = result.send(type.pluralize)
-        render json: { searches: out }
+        render json: { grouped_search_result: out }
     end
 
     protected

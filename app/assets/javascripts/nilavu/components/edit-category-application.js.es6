@@ -3,7 +3,7 @@ import { on, observes } from 'ember-addons/ember-computed-decorators';
 export default Ember.Component.extend({
     selectedTab: "prepackaged",
 
-    selectedPackApp: "container",
+    selectedPackApp: "virtualmachine",
     saving: false,
     apppanels: null,
 
