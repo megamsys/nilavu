@@ -24,7 +24,7 @@
                     </div>
                 {{else}}
                     {{#each content.resultTypes as |resultType|}}
-                        {{component resultType.componentName resultType=resultType.results}}
+                        {{component resultType.componentName category=category resultType=resultType.results}}
                     {{/each}}
                 {{/if}}
             </tbody>
