@@ -23,8 +23,8 @@
                         {{i18n "search.no_results"}}
                     </div>
                 {{else}}
-                    {{#each content.searches as |resultType|}}
-                        {{component resultType.componentName resultType=resultType}}
+                    {{#each content.resultTypes as |resultType|}}
+                        {{component resultType.componentName resultType=resultType.results}}
                     {{/each}}
                 {{/if}}
             </tbody>

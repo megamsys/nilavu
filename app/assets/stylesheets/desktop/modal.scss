@@ -78,6 +78,9 @@ body.modal-open {
     height: 800px;
     padding-bottom: 0;
   }
+  &.medium .modal-body {
+    height: 450px;
+  }
   &.small .modal-body {
     height: 310px;
   }

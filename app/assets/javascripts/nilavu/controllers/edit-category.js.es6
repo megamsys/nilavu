@@ -36,7 +36,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
     changeSize: function() {
         if (this.get('selectionSelected') && (!this.get('isVirtualMachine'))) {
-            this.set('controllers.modal.modalClass', 'edit-category-modal full');
+            this.set('controllers.modal.modalClass', 'edit-category-modal medium');
         } else if (this.get('selectionSelected')) {
             this.set('controllers.modal.modalClass', 'edit-category-modal small');
         } else {
