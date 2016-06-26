@@ -11,6 +11,7 @@ Nilavu::Application.routes.draw do
   GROUPNAME_ROUTE_FORMAT = /[\w.\-]+/ unless defined? GROUPNAME_ROUTE_FORMAT
   USEREMAIL_ROUTE_FORMAT = /[\w.\-]+/ unless defined? USEREMAIL_ROUTE_FORMAT
 
+
   # named route for users, session
   resources :static
   post "login" => "static#enter"
@@ -80,6 +81,8 @@ Nilavu::Application.routes.draw do
   get "manifest.json" => "manifest_json#index", :as => :manifest
 
   post "storages.json" =>"buckets#create",defaults: {format: 'json'}
+
+  get "marketplaces.json" => "marketplaces#index", defaults: {format: 'json'}
 
   root to: 'cockpits#entrance', :as => "entrance"
 

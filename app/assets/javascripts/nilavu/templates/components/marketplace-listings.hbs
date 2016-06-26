@@ -1,0 +1,16 @@
+{{#each mktListings as |item|}}
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-3 app_cover ">
+      <div class="app_inner brad-3">
+          <a data-toggle="modal" href="#app-1">
+              <div class="stpack">
+                  <a href="/marketplaces/{{item.flavour}}">
+                      <img  src="../images/brands/saas/{{item.image}}">
+                  </a>
+              </div>
+          </a>
+          <div class="" style="display:none">
+              {{item.flavour}}
+          </div>
+      </div>
+  </div>
+{{/each}}
