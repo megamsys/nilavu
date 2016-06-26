@@ -1,6 +1,7 @@
 export default function() {
 
-    //Fake route
+    //Fake route, we will remove it once we are done.
+
     this.route('dummy');
     // Error page
     this.route('exception', { path: '/exception' });
@@ -43,14 +44,15 @@ export default function() {
       this.route('show', { path: '/' });
     });
 
-    this.route('marketplaces', { path: '/marketplaces' });
-
-    //this.route('storages', { path: '/storages' });
+    this.resource('marketplaces', {path:'/marketplaces'}, function() {
+        this.route('show', { path: '/' });
+    });
 
     // User routes
     this.resource('users');
     this.resource('user', { path: '/user/:email' }, function() {
         this.route('show',{ path: '/' });
+
         this.resource('userActivity', { path: '/activity' }, function() {
             this.route('topics');
             this.route('replies');
@@ -92,5 +94,4 @@ export default function() {
         this.route('show', { path: '/' });
         this.route('files',{ path: '/files' });
     });
-
 }

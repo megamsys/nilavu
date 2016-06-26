@@ -117,7 +117,6 @@ createWidget('header-icons', {
             align: 'pull-left',
             icon: 'c_icon-window-lg',
             iconId: 'marketplace-button',
-            active: attrs.marketplacesVisible,
             resource: 'marketplaces'
         });
 
@@ -127,14 +126,11 @@ createWidget('header-icons', {
             align: 'pull-left',
             icon: 'c_icon-storages-lg',
             iconId: 'toggle-storages-menu',
-            active: attrs.storageVisible,
             resource: 'storages'
         });
 
-
-
         const icons = [marketplaces, storages];
-
+        
         if (this.currentUser) {
             icons.push(this.attach('user-dropdown', {
                 active: attrs.userVisible,

@@ -21,6 +21,7 @@ export default Em.Component.extend({
   actions: {
 
     edit() {
+      this.notificationMessages.success(this.get('resultType.name').toLowerCase() + ' selected.');
       this.set('category.versionoption', this.get('resultType.name').toLowerCase());
       this.set('category.versiondetail', this.get('resultType'));
       this.set('versionOption', true);
