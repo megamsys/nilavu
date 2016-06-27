@@ -19,4 +19,7 @@ class TopicsController < ApplicationController
 
     def request
     end
+    def destroy
+    
+    end
 end

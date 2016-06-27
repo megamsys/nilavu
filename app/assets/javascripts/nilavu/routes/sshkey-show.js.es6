@@ -1,21 +1,43 @@
 import NilavuURL from 'nilavu/lib/url';
 import showModal from 'nilavu/lib/show-modal';
 export default Nilavu.Route.extend({
-actions: {
-  sshCreate() {
-    showModal('sshkeyCreate', { title: 'ssh_keys.create', smallTitle: true, titleCentered: true});
-  },
-},
+    actions: {
+        sshCreate() {
+            showModal('sshkeyShow', {
+                title: 'ssh_keys.create',
+                smallTitle: true,
+                titleCentered: true
+            });
+        },
+    },
+    model(params) {
 
-  renderTemplate() {
-    this.render('navigation/default', {
-     outlet: 'navigation-bar'
-    });
+      alert(JSON.stringify(params));
+      return params;
+    },
+    beforeModel() {
+        var self = this;
+        return self.getKey().then(function(result) {
+            alert(JSON.stringify(result));
+        }, function(e) {
+            return self.notificationMessages.error(I18n.t("ssh_keys.download_error"));
+        });
 
-    this.render('sshkey/show', {
-      controller: 'sshkey',
-      outlet: 'list-container'
-    });
-  }
+    },
+    getKey() {
+        return Nilavu.ajax("/ssh_key/list", {
+            type: 'GET'
+        });
+    },
+    renderTemplate() {
+        this.render('navigation/default', {
+            outlet: 'navigation-bar'
+        });
+
+        this.render('sshkey/show', {
+            controller: 'sshkey-show',
+            outlet: 'list-container'
+        });
+    }
 
 });

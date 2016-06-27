@@ -316,7 +316,8 @@ Post.reopenClass({
   },
 
   deleteMany(selectedPosts, selectedReplies) {
-    return Nilavu.ajax("/posts/destroy_many", {
+    alert("deleteMany");
+    return Nilavu.ajax("/t/" + this.get("id"), {
       type: 'DELETE',
       data: {
         post_ids: selectedPosts.map(function(p) { return p.get('id'); }),

@@ -6,14 +6,8 @@ export default Nilavu.Route.extend({
 
     // Avoid default model hook
     model(params) {
+      alert(JSON.stringify(params));
         return params;
-    },
-
-    afterModel() {
-        const topic = this.modelFor('topic');
-        if (this.showPredeployer(topic)) {
-            this.replaceWith(topic.url() + '/predeploy', topic);
-        }
     },
 
     showPredeployer: function(topic) {
