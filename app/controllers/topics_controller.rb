@@ -17,9 +17,4 @@ class TopicsController < ApplicationController
 
     end
 
-    def request
-    end
-    def destroy
-    
-    end
 end

@@ -18,7 +18,8 @@ export default Nilavu.Route.extend({
     beforeModel() {
         var self = this;
         return self.getKey().then(function(result) {
-            alert(JSON.stringify(result));
+            this.set('model',this.get(result));
+            alert(JSON.stringify(model));
         }, function(e) {
             return self.notificationMessages.error(I18n.t("ssh_keys.download_error"));
         });

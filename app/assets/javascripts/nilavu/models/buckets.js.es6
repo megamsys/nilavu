@@ -3,6 +3,7 @@ import RestModel from 'nilavu/models/rest';
 import {propertyEqual} from 'nilavu/lib/computed';
 import {longDate} from 'nilavu/lib/formatter';
 import computed from 'ember-addons/ember-computed-decorators';
+
 const Buckets = Nilavu.Model.extend({
 
     storage() {

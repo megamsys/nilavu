@@ -48,8 +48,9 @@ module Api
             when 5
                 success_stub_4
             when 6
-                error_stub_3
-              when 7
+            #    error_stub_3
+                []
+            when 7
                 []
             end
         end

@@ -6,10 +6,10 @@ require 'customapps_scrubber'
 module MarketplaceGroups
 
     BUILTIN_SCRUB = [
-        VirtualMachinesScrubber.new
-  #      ContainersScrubber.new,
-  #      PrepackagedScrubber.new,
-  #      CustomAppsScrubber.new
+        VirtualMachinesScrubber.new,
+        PrepackagedScrubber.new,
+        CustomAppsScrubber.new
+#        ContainersScrubber.new
     ]
 
 
@@ -35,13 +35,13 @@ module MarketplaceGroups
     private
 
     def self.find_by(scrubber_name, params)
-        filter(HoneyPot.cached_marketplace_groups(params), scrubber_name)
+        filter(params, scrubber_name)
     end
 
-    def self.filter(honeypot_data,scrubber_name)
+    def self.filter(params,scrubber_name)
         BUILTIN_SCRUB.select do |scrubber|
             if scrubber.name.to_sym == scrubber_name
-                scrubber.register_honeypot(honeypot_data)
+                scrubber.register_honeypot(params)
             end
         end
     end

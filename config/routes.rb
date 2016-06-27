@@ -11,6 +11,7 @@ Nilavu::Application.routes.draw do
   GROUPNAME_ROUTE_FORMAT = /[\w.\-]+/ unless defined? GROUPNAME_ROUTE_FORMAT
   USEREMAIL_ROUTE_FORMAT = /[\w.\-]+/ unless defined? USEREMAIL_ROUTE_FORMAT
 
+
   # named route for users, session
   resources :static
   post "login" => "static#enter"
@@ -62,9 +63,11 @@ Nilavu::Application.routes.draw do
 
   # Topics resource
   get "t/:id" => "topics#show"
-  get "t/:id/:name" => "topics#request", as: "topic_action_group"
-    put "t/:id" => "topics#update"
+  put "t/:id" => "topics#update"
   delete "t/:id" => "topics#destroy"
+
+  get "t/:id/:name" => "requests#create", as: "topic_action_group"
+  delete "t/:id/:name" => "requests#destroy"
 
   get 'notifications' => 'notifications#index'
   put 'notifications/mark-read' => 'notifications#mark_read'
@@ -79,6 +82,8 @@ Nilavu::Application.routes.draw do
   get "manifest.json" => "manifest_json#index", :as => :manifest
 
   post "storages.json" =>"buckets#create",defaults: {format: 'json'}
+
+  get "marketplaces.json" => "marketplaces#index", defaults: {format: 'json'}
 
   root to: 'cockpits#entrance', :as => "entrance"
 

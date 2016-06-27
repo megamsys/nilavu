@@ -18,6 +18,7 @@ module LaunchableScrubber
     end
 
     def snapshots(params)
+        #snapshots.for_vms(params)
         return Hash[]
     end
 
@@ -25,8 +26,8 @@ module LaunchableScrubber
         {
             virtualmachines: virtualmachines(params),
             prepackaged: prepackaged(params),
-            containers: containers(params),
             customapps: customapps(params),
+            containers: containers(params),
             snapshots: snapshots(params)
         }
     end
