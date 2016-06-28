@@ -1,14 +1,16 @@
 <div class="col-md-4 help_center_left">
     <div class="balance">
         <h2>Current balance:</h2>
-        <span class="green">{{currentBalance}}</span>
-
+        <span class="green">
+          {{format-currency currentBalance  currency=currency}}
+        </span>
         <h2>Current usage:</h2>
-        <span class="blue">{{currentUsage}}</span>
+        <span class="blue">
+          {{format-currency currentUsage  currency=currency}}
+        </span>
         <br>
-        <span>/month</span>
-        <!-- Question mark here and when hovered/clicked it should show the following tooltip:
-        "Your current balance is deducted hourly based on your current usage."
-      -->
+        <span>/month
+        <a aria-label='{{i18n 'billing.trackusage'}}' title='{{i18n 'billing.trackusage'}}'>{{fa-icon "glyphicon glyphicon-question-sign billing-icon-color"}}</a>
+        </span>
     </div>
 </div>

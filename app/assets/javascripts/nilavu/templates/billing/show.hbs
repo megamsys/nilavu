@@ -1,131 +1,114 @@
 <div class="ember-view">
-<div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
-    {{raw "topic-list-header" currentUser=currentUser title=title nameEnabled=nameEnabled name=name subTitleEnabled=subTitleEnabled subTitle=subTitle}}
-    <div class="bottom-divider"></div>
-    <div class="">
-        <div class='contents'>
-            <div class="row c_pading-b15">
-                <div class="portlet-body-head">
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
-                        <i class="glyphicon glyphicon-briefcase billing-icon-color"></i>Your Funds</div>
+    <div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
+        {{raw "topic-list-header" currentUser=currentUser title=title nameEnabled=nameEnabled name=name subTitleEnabled=subTitleEnabled subTitle=subTitle}}
+        <div class="bottom-divider"></div>
+        <div class="">
+            <div class='contents'>
+                <div class="row c_pading-b15">
+                    <div class="portlet-body-head">
+                        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
+                            <i class="glyphicon glyphicon-briefcase billing-icon-color"></i>Your Funds</div>
+                    </div>
                 </div>
-            </div>
-            <div class="bottom-divider"></div>
+                <div class="bottom-divider"></div>
 
-            <div class="row c_pading-b15">
-                {{billing-usage model=model}}
-                <div class="col-md-8 help_center_left_right usg  c_pading-b15">
-                    <h3 class="center billing-title">Usage Estimator:</h3>
-                    <div class="center sub-title">Resources</div>
-
-                    {{billing-region regions=regions billingRegionoption=billingRegionoption}}
-
-                    <div style="text-align: center;" class="table-condensed">
-                        {{billing-quotas unitFlavor=unitFlavor}}
-                        <div class="col-md-4 pad_0">
-                            <table class="table usg_table">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 30%;text-align:center;">Type</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <!--Any span.blue text is supposed to be editable by the user.
+                <div class="row c_pading-b15">
+                    {{billing-usage model=model}}
+                    <div class="col-md-8 help_center_left_right usg  c_pading-b15">
+                        <h3 class="center billing-title">Usage Estimator:</h3>
+                        <div class="center sub-title">Resources</div>
+                        {{billing-region regions=regions billingRegionOption=billingRegionOption model=model}}
+                        <div style="text-align: center;" class="table-condensed">
+                            {{billing-quotas model=model}}
+                            <div class="col-md-4 pad_0">
+                                <table class="table usg_table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 30%;text-align:center;">Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <!--Any span.blue text is supposed to be editable by the user.
                                   with the numbers (eg. 1024) -> it turns into a textbox that only accepts numbers.
                                   If MB/SSD is clicked then you will be able to see 'MB/GB/TB' for MB & SSD/HDD for SSD in a
                                   dropdown. Once the user enters the new number then the Usage estimator is updated.
                                   Also with CORES - the way it works is it's bundled with RAM.
                                   This is to avoid heavy CPU abuse.
                                   It's a preset of something like 1 vCPU per 2048MB ram, anything under 2048 gets 1vCPU.  -->
-                                        <td>RAM</td>
-                                    </tr>
-                                    <tr>
-                                        <td>CORE/S</td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <span>
-                                                <select>
-                                                    <option value="SSD">SSD</option>
-                                                    <option value="HSD">HSD</option>
-                                                </select>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>BANDWIDTH</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bottom-b">IPv4</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            <td>RAM</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CORE/S</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span>
+                                                    <select>
+                                                        <option value="SSD">SSD</option>
+                                                        <option value="HSD">HSD</option>
+                                                    </select>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>BANDWIDTH</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bottom-b">IPv4</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            {{billing-unit-monthly-cost model=model}}
                         </div>
-                        {{billing-unit-monthly-cost }}
+                        {{billing-unit-total-cost  model=model}}
                     </div>
-                    <div class="row">
-                        <div class="col-md-8 col-md-offset-4">
-                            <div class="col-md-5">
-                                <div class="hour">
-                                    $0.0.136/hour
-                                </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="mod">
-                                    <img src="images/billing/dot.png">
-                                    - click to modify
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="hour">
-                                    $10/month
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                  <div class="row">
-                    <div class="margin_30 ">
-                        <div class=" card-details ">
-                            <div class="row ">
-                                <div class="col-md-6  pay_via">
-                                    <h2>
-                                        <i class="glyphicon glyphicon-credit-card billing-icon-color"></i>Proceed to payment
-                                    </h2>
-                                    <div class="bottom-divider  settings_top"></div>
-                                    <!--
+                    <div class="row">
+                        <div class="margin_30 ">
+                            <div class=" card-details ">
+                                <div class="row ">
+                                    <div class="col-md-6  pay_via">
+                                        <h2>
+                                            <i class="glyphicon glyphicon-credit-card billing-icon-color"></i>Proceed to payment
+                                        </h2>
+                                        <div class="bottom-divider  settings_top"></div>
+                                        <!--
                                  One click login into WHMCS page: 'add funds'.
                                 -->
-                                    <div class="center-btn">
-                                        <button type="button" {{action 'addFunds'}} class="btn btn-primary btn-payment">CLICK TO ADD FUNDS</button>
+                                        <div class="center-btn">
+                                           <button class="btn btn-primary btn-payment" id="whmcs-payment-link" {{bind-attr disabled="submitDisabled"}} {{action "addFunds"}}>
+                                                {{i18n 'billing.addfunds'}}
+                                                <span class="pull-right">
+                                                    {{conditional-loading-spinner condition=formSubmitted size="large"}}
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-md-offset-1 help_center_left_right">
+                                        <h2>
+                                            <i class="glyphicon glyphicon-plus-sign billing-icon-color"></i>
+                                            <b>HELP CENTER</b>
+                                        </h2>
+                                        <div class="bottom-divider  settings_top"></div>
+                                        <p>If you need assistance while placing order, contact one of our below support team by phone or email.</p>
+                                        <h4>
+                                            <i class="glyphicon glyphicon-earphone"></i>
+                                            {{supportPhoneNumber}}
+                                            /
+                                            <i class="glyphicon glyphicon-envelope"></i>
+                                            {{supportEmail}}
+                                        </h4>
                                     </div>
                                 </div>
-                                <div class="col-md-5 col-md-offset-1 help_center_left_right">
+                                <div class="bottom-divider settings_top"></div>
+                                <div class="col-md-12 row">
                                     <h2>
-                                        <i class="glyphicon glyphicon-plus-sign billing-icon-color"></i>
-                                        <b>HELP CENTER</b>
-                                    </h2>
-                                    <div class="bottom-divider  settings_top"></div>
-                                    <p>If you need assistance while placing order, contact one of our below Project Manager by phone or email.</p>
-                                    <h4>
-                                        <i class="glyphicon glyphicon-earphone"></i>
-                                        +91-9745544422 /
-                                        <!-- <a href="mailto:help@megam.io" target="_blank">
-                                        <i class="glyphicon glyphicon-envelope a-tag"></i>
-                                        help@megam.io
-                                    </a> -->
-                                    </h4>
+                                        <i class="glyphicon glyphicon-refresh billing-icon-color"></i>
+                                        Billing History :</h2>
                                 </div>
-                            </div>
-                            <div class="bottom-divider settings_top"></div>
-                            <div class="col-md-12 row">
-                                <h2>
-                                    <i class="glyphicon glyphicon-refresh billing-icon-color"></i>
-                                    Billing History :</h2>
-                            </div>
-                            <!--HERE Let's use the new Logs we are using for Torpedo.
+                                <!--HERE Let's use the new Logs we are using for Torpedo.
                          With two forms of alerts:   'Usage' &  'Credit'.
                          Whenever a user adds credit, it should be logged here.
                          And for every service the user has there is a log of 'Usage'.
@@ -135,43 +118,43 @@
                          'Total Cost'. When aligning the data, active VM's must always prioritize over
                          'Completed' VM's in the log.
                          That means, whenever a VM becomes complete - it goes under the active VM's.-->
-                            <div class="bottom-divider  settings_top"></div>
-                            <div class="col-md-12 row">
-                                <div class="table-responsive" id="bill_history">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th>Type</th>
-                                                <th>Name</th>
-                                                <th>Price</th>
-                                                <th>Status</th>
-                                                <th>TimeSTAMP</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Pay Pal</td>
-                                                <td>nano.megam.io</td>
-                                                <td>5$</td>
-                                                <td>Success</td>
-                                                <td>May 16, 20:19 PM</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                <div class="bottom-divider  settings_top"></div>
+                                <div class="col-md-12 row">
+                                    <div class="table-responsive" id="bill_history">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Type</th>
+                                                    <th>Name</th>
+                                                    <th>Price</th>
+                                                    <th>Status</th>
+                                                    <th>TimeSTAMP</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Pay Pal</td>
+                                                    <td>nano.megam.io</td>
+                                                    <td>5$</td>
+                                                    <td>Success</td>
+                                                    <td>May 16, 20:19 PM</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
-                            </div>
 
-                        </div>
-                        <!--
+                            </div>
+                            <!--
                     Let's also place a monthly usage graph here, which displays the users
                     previous months usages only when they have been an active subscriber for a
                     minimum of 30 days. So it will show each months usage for upto a whole year.
                     Once that occurs, then a new graph is placed on top for 'yearly' usage which
                     logs that years spending. -->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>

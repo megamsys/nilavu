@@ -20,7 +20,7 @@ const Billing = RestModel.extend({
 
   reload() {
     const self = this;
-    return Nilavu.ajax('/billing.json', { type: 'GET' }).then(function(bill_json) {
+    return Nilavu.ajax('/billings.json', { type: 'GET' }).then(function(bill_json) {
       self.updateFromJson(bill_json);
     });
   }
