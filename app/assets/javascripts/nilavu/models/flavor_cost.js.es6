@@ -76,8 +76,11 @@ const FlavorCost = Ember.Object.extend({
     },
 
     unitCostPerHour() {
-        const price = this.cpuPrice() + this.memoryPrice() + this.storagePrice();
-        return parseFloat(price, 10).toFixed(2);
+        const price = parseFloat(this.cpuPrice(), 10)  +
+                      parseFloat(this.memoryPrice(),10)  +
+                      parseFloat(this.storagePrice(),10);
+
+        return price.toFixed(3);
     },
 
     unitCostPerMonth() {
