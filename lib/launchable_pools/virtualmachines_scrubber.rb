@@ -19,7 +19,7 @@ class VirtualMachinesScrubber < Scrubber
             end
         end
 
-      @data = h2
+        @data = h2
     end
 
     def after_scrubbed
@@ -28,8 +28,8 @@ class VirtualMachinesScrubber < Scrubber
         end
     end
 
-    def register_honeypot(data)
-        @data =  data
+    def register_honeypot(params)
+        @data = HoneyPot.cached_marketplace_groups(params).dup      
     end
 
     protected

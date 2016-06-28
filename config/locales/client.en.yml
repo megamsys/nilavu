@@ -390,7 +390,6 @@ en:
       apikey:
         tab_title: "Apikey"
 
-
     vm_management:
       info:
         tab_title: "Info"
@@ -461,6 +460,20 @@ en:
       file: "Select Files"
       bucket_created: "Bucket created on storage system."
       bucket_create_error: "Oops, Buckets create failed. Try some other time."
+
+    search:
+      sort_by: "Sort by"
+      relevance: "Relevance"
+      most_viewed: "Most Viewed"
+      most_liked: "Most Liked"
+      select_all: "Select All"
+      clear_all: "Clear All"
+      result_count:
+        one: "1 result for <span class='term'>\"{{term}}\"</span>"
+        other: "{{count}} results for <span class='term'>\"{{term}}\"</span>"
+      title: "search name, atleast 3 characters"
+      no_results: "No results found."
+      no_more_results: "No more results found."
 
     notifications:
       none: "Unable to load notifications at this time."

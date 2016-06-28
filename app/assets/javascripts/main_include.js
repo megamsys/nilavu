@@ -42,6 +42,7 @@
 //= require ./nilavu/lib/posts-with-placeholders
 //= require ./nilavu/models/topic-details
 //= require ./nilavu/models/topic
+//= require ./nilavu/models/marketplaces
 //= require ./nilavu/models/user-action
 //= require ./nilavu/models/composer
 //= require_tree ./nilavu/mixins

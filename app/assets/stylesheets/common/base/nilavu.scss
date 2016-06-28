@@ -2,6 +2,25 @@
 .header {
   background-color: #f5f5f5;
 }
+
+
+.bootbox.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1050;
+  overflow: auto;
+  width: 610px;
+  height: 200px;
+  margin: -250px 0 0 -305px;
+  background-color: $secondary;
+  border: 1px solid dark-light-diff($primary, $secondary, 90%, -60%);
+
+  box-shadow: 0 3px 7px rgba(0,0,0, .8);
+  background-clip: padding-box;
+
+}
+
 .bootbox.modal {
   .modal-footer {
     a.btn-primary {

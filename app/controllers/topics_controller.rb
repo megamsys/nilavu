@@ -17,6 +17,4 @@ class TopicsController < ApplicationController
 
     end
 
-    def request
-    end
 end

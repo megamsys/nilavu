@@ -57,7 +57,6 @@ const Composer = RestModel.extend({
     justName: function() {
         var split = this.get('metaData.versionoption').split('_');
         if (split.length > 1) {
-
             return split[0];
         }
         return this.get('metaData.versionoption');
@@ -76,13 +75,13 @@ const Composer = RestModel.extend({
     categoryType: Ember.computed.alias('metaData.versiondetail.cattype'),
 
     oneClick: function() {
-        const opts = this.get('metadata.versiondetail.options');
+        const opts = this.get('metaData.versiondetail.options');
 
         if (opts && opts.length > 0) {
             return (opts.filter((f) => f.key == ONECLICK)).length > 0
         }
         return false;
-    }.property('metadata.versiondetail.options'),
+    }.property('metaData.versiondetail.options'),
 
     options: Ember.computed.alias('metaData.versiondetail.options'),
 

@@ -1,5 +1,5 @@
 import computed from 'ember-addons/ember-computed-decorators';
-import Topic from 'discourse/models/topic';
+import Topic from 'nilavu/models/topic';
 
 export default Ember.Controller.extend({
   needs: ["application", "user-topics-list", "user"],

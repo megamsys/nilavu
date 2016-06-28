@@ -67,9 +67,8 @@ class ApiDispatcher
 
     begin
       Rails.logger.debug "\033[01;35mFASCADE #{megfunc}#{megact} \33[0;34m"
-puts "+++++++++++++++++++++++++++"
       raise Nilavu::InvalidParameters if !satisfied_args?(passthru, jparams)
-puts "----------------------------"
+
       invoke_submit
     rescue Megam::API::Errors::ErrorWithResponse => m
        raise_api_errors(ApiDispatcher::Flunked.new(m))
@@ -122,7 +121,7 @@ puts "----------------------------"
     passthru?(passthru)
   end
 
-  def satisfied_args?(passthru, params={})  
+  def satisfied_args?(passthru, params={})
     unless passthru
       return params[:email] && (params[:api_key].present? || params[:password].present?)
     end

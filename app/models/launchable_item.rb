@@ -8,6 +8,10 @@ class LaunchableItem
         ensure_version_is_flattened
     end
 
+    def provider
+      @marketplace_item.settings_name
+    end
+
     def id
         @marketplace_item.id
     end
@@ -73,6 +77,7 @@ class LaunchableItem
         {
             id:   id,
             name: name,
+            provider: provider,
             category: category,
             cattype: cattype,
             logo: logo,

@@ -11,6 +11,7 @@ Nilavu::Application.routes.draw do
   GROUPNAME_ROUTE_FORMAT = /[\w.\-]+/ unless defined? GROUPNAME_ROUTE_FORMAT
   USEREMAIL_ROUTE_FORMAT = /[\w.\-]+/ unless defined? USEREMAIL_ROUTE_FORMAT
 
+
   # named route for users, session
   resources :static
   post "login" => "static#enter"
@@ -26,7 +27,7 @@ Nilavu::Application.routes.draw do
     id: USEREMAIL_ROUTE_FORMAT
   }
 
-  post "forgot_password" => "sessions#forgot_password"
+  post "/session/forgot_password" => "sessions#forgot_password"
   get "/password_reset" => "users#password_reset"
   put "/password_reset" => "users#password_reset"
   get "users/account-created/" => "users#account_created"
@@ -60,9 +61,11 @@ Nilavu::Application.routes.draw do
 
   # Topics resource
   get "t/:id" => "topics#show"
-  get "t/:id/:name" => "topics#request", as: "topic_action_group"
   put "t/:id" => "topics#update"
   delete "t/:id" => "topics#destroy"
+
+  get "t/:id/:name" => "requests#create", as: "topic_action_group"
+  delete "t/:id/:name" => "requests#destroy"
 
   get 'notifications' => 'notifications#index'
   put 'notifications/mark-read' => 'notifications#mark_read'
@@ -84,6 +87,8 @@ Nilavu::Application.routes.draw do
   post  '/cephsignin', to: 'cephs#create', constraints: HomePageConstraint.new
   get   '/cephsignup', to: 'ceph_users#create', constraints: HomePageConstraint.new
   post  '/cephsignup', to: 'ceph_users#create', constraints: HomePageConstraint.new
+
+  get "marketplaces.json" => "marketplaces#index", defaults: {format: 'json'}
 
   root to: 'cockpits#entrance', :as => "entrance"
 
