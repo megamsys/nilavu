@@ -1,28 +1,19 @@
 <div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
-  <div class="col-md-12">
-      <button {{action 'upload'}} class='btn blue pull-right'>+upload files</button>
+
+    <div class="col-md-12">
+        <button {{action 'upload'}} class='btn blue pull-right'>+upload files</button>
     </div>
     {{raw "topic-list-header" currentUser=currentUser title=title nameEnabled=nameEnabled name=name subTitleEnabled=subTitleEnabled subTitle=subTitle}}
     <div class="bottom-divider"></div>
-      <div class="col-xs-12 col-sm-9 col-md-9 br_grey">
-      </div>
-        <div class="col-sm-3 storage-rt-list ">
-          <dl>
-            <h3>Usage</h3>
-            <dt>
-              Total Storage
-            </dt>
-            <dd>
-            0 bytes
-            </dd>
-            <dt class="margin-top-20"></dt>
-            <dt>
-              Total Objects
-            </dt>
-            <dd>
-              0
-            </dd>
-            </dl>
-        </div>
+    <div class="col-xs-12 col-sm-9 col-md-9 br_grey">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <table class="table yfiles-tb tb_upload objectPageList">
+                    <tbody>
 
-  </div>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

@@ -20,10 +20,6 @@
             {{#each buckets.message.usage as |bucket|}}
                 {{bucket-item bucket=bucket}}
             {{/each}}
-            <div class="col-xs-12 col-sm-6 col-md-3  app_cover">
-                {{#conditional-loading-spinner condition=showListBucketLoading size="extra-large" }}
-                {{/conditional-loading-spinner}}
-            </div>
         </div>
     </div>
     {{storage-usage buckets=buckets showUsageLoading=showUsageLoading}}

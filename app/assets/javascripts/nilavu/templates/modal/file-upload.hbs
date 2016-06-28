@@ -1,24 +1,23 @@
 <div class="modal-body app_body upload_app_body">
-  <div class="row">
-    <div class="col-xs-12" >
-      <table class="table borderless tb_upload">
-        <tbody class="tr_upload_list" >
-        </tbody>
-      </table>
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table borderless tb_upload">
+                <tbody class="tr_upload_list">
+                  {{#each fileselectors as |fs|}}
+                      {{file-selector fs=fs action="addSelector"}}
+                  {{/each}}
+                </tbody>
+            </table>
+        </div>
     </div>
-  </div>
 </div>
 <div class="modal-footer">
-  <div class="row">
-    <div class="col-xs-12">
-      <form id="gupload" method="post" remote="true" multipart="true">
-        <a id="brow">
-          <h4 class="pull-left">+ Add More Files</h4>
-        </a>
-        <!--<%= file_field_tag :sobject, :id => 'objectfile', multiple: true %>
-        <%= hidden_field_tag 'bucket_name', nil, :class=> 'form-control', :id => "bucketName", placeholder: "Bucket Name", :required => true, :value => @bucket_name %>-->
-      </form>
-      <span class="btn btn-success" data-dismiss="modal" aria-hidden="true">Done</span>
+    <div class="row">
+        <div class="col-xs-12">
+            <a id="brow">
+                <h4 class="pull-left">+ Add More Files</h4>
+            </a>
+            <span class="btn btn-success" data-dismiss="modal" aria-hidden="true">Done</span>
+        </div>
     </div>
-  </div>
 </div>

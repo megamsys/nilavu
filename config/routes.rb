@@ -82,6 +82,8 @@ Nilavu::Application.routes.draw do
   get "buckets.json" =>"buckets#index",defaults: {format: 'json'}
   post "buckets" =>"buckets#create"
 
+  get "b/:id" => "bucketfiles#show"
+
   #ceph
   get   '/cephsignin', to: 'cephs#create', constraints: HomePageConstraint.new
   post  '/cephsignin', to: 'cephs#create', constraints: HomePageConstraint.new

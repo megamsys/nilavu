@@ -2,6 +2,7 @@ import ModalFunctionality from 'nilavu/mixins/modal-functionality';
 export default Ember.Controller.extend(ModalFunctionality, {
     needs: ['modal'],
     spinnerIn: false,
+
     onShow() {
         this.set('controllers.modal.modalClass', 'custom-modal full');
     },

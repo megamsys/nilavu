@@ -7,55 +7,38 @@ export default Nilavu.Route.extend({
         return this.redirectIfLoginRequired();
     },
 
-    beforeModel(transition) {
-        const self = this,
-            bucketController = this.controllerFor('storages-list');
-        //TO-DO VINO: ADD error handling here to show the error.
-        const promise = Buckets.list().then(function(result) {
-            if (result.success) {
-                bucketController.setProperties({
-                    model: result
-                });
-                //alert(result)
-            } else {
-                self.notificationMessages.error(I18n.t("storages.onboard_error"));
-            }
+    setupParams(buckets, params) {
+        return buckets;
+    },
+
+    model(params) {
+        const self = this;
+
+        var buckets = this.store.createRecord('buckets');
+
+        return buckets.reload().then(function(result) {
+            self.set('loading', false);
+            return self.setupParams(buckets, params);
         }).catch(function(e) {
+            self.set('loading', false);
             self.notificationMessages.error(I18n.t("storages.onboard_error"));
         });
     },
 
-    setupController(controller, params) {
-        params = params || {};
-        params.forceLoad = true;
+    setupController(controller, model) {
+        const storageController = this.controllerFor('storages-list');
+        storageController.setProperties({
+            model
+        });
+    },
+
+    activate() {
+        this._super();
     },
 
     deactivate() {
         this._super();
     },
-
-    actions: {
-
-        loading() {
-            this.controllerFor("storages-list").set("loading", true);
-            return true;
-        },
-
-        loadingComplete() {
-            this.controllerFor("storages-list").set("loading", false);
-        },
-
-        didTransition() {
-            this.send("loadingComplete");
-            return true;
-        },
-
-    },
-
-    _save() {
-        this.transitionTo('storages.files');
-    },
-
 
     renderTemplate() {
         this.render('navigation/default', {

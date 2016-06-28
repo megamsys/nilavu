@@ -91,6 +91,6 @@ export default function() {
 
     this.resource('storages', {path:'/storages'}, function() {
         this.route('list', { path: '/' });
-        this.route('show',{ path: '/:id' });
+        this.route('show',{ path: '/b/:id' });
     });
 }
