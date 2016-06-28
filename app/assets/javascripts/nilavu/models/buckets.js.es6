@@ -7,7 +7,6 @@ import computed from 'ember-addons/ember-computed-decorators';
 const Buckets = Nilavu.Model.extend({
 
     storage() {
-        alert("model");
 
         const self = this;
         return Nilavu.ajax('/storages.json', {

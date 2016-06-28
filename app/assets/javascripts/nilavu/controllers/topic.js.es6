@@ -1,7 +1,11 @@
 import BufferedContent from 'nilavu/mixins/buffered-content';
-import { spinnerHTML } from 'nilavu/helpers/loading-spinner';
+import {
+    spinnerHTML
+} from 'nilavu/helpers/loading-spinner';
 import Topic from 'nilavu/models/topic';
-import { popupAjaxError } from 'nilavu/lib/ajax-error';
+import {
+    popupAjaxError
+} from 'nilavu/lib/ajax-error';
 import computed from 'ember-addons/ember-computed-decorators';
 import NilavuURL from 'nilavu/lib/url';
 import showModal from 'nilavu/lib/show-modal';
@@ -57,7 +61,7 @@ export default Ember.Controller.extend(BufferedContent, {
     hasInputs: Em.computed.notEmpty('model.inputs'),
 
     _filterInputs(key) {
-        if (!this.get('hasInputs')) return  "";
+        if (!this.get('hasInputs')) return "";
         if (!this.get('model.inputs').filterBy('key', key)[0]) return "";
         return this.get('model.inputs').filterBy('key', key)[0].value;
     },
@@ -67,7 +71,9 @@ export default Ember.Controller.extend(BufferedContent, {
 
         // VNC
         showVNC() {
-            showModal('vnc', { url: this.get('vncUrl') }); // send the url
+            showModal('vnc', {
+                url: this.get('vncUrl')
+            }); // send the url
         },
 
         // START, STOP, RESTART, DELETE
@@ -92,8 +98,8 @@ export default Ember.Controller.extend(BufferedContent, {
         },
 
         destroy() {
-            bootbox.confirm(I18n.t("post.delete.confirm", { count: this.get('selectedPostsCount') }), result => {
-                if (result) {
+           //bootbox.confirm(I18n.t("post.delete.confirm", { count: this.get('selectedPostsCount') }), result => {
+               //if (result) {
 
                     // If all posts are selected, it's the same thing as deleting the topic
                     if (this.get('allPostsSelected')) {
@@ -103,11 +109,12 @@ export default Ember.Controller.extend(BufferedContent, {
                     const selectedPosts = this.get('selectedPosts');
                     const selectedReplies = this.get('selectedReplies');
                     const postStream = this.get('model.postStream');
+                    const deleted_by=this.get('deleted_by')
 
-                    Nilavu.Post.deleteMany(selectedPosts, selectedReplies);
+                    Nilavu.Topic.destroy(deleted_by);
 
-                }
-            })
+                //}
+           //})
         },
 
         snapshot(post) {

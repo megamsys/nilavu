@@ -59,6 +59,7 @@ Nilavu::Application.routes.draw do
 
   get "/ssh_keys/edit/:name", to: "ssh_keys#edit"
   get "/ssh_keys/:name.json", to: "ssh_keys#show", defaults: {format: 'json'}
+  get "/ssh_key/list", to: "ssh_keys#index"
 
   # Topics resource
   get "t/:id" => "topics#show"

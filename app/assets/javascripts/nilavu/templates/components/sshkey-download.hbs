@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="bottom-divider"></div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <table class="table tb_list">
+            <thead>
+                <tr>
+                    <th>Actions</th>
+                    <th>Name</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-public">
+
+                              <a href {{action "download"}} class="btn btn-dark-red" >
+                                <i class="c_icon-inBlue"></i><span>Private</span>
+                                <span class="pull-right">
+                                  {{conditional-loading-spinner condition=showPrivateSpinner size="large"}}
+                                </span>
+                              </a>
+
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-private">
+                              <a href {{action "download"}} class="btn btn-dark-blue ">
+                                <i class="c_icon-in"></i><span>Public</span>
+                                <span class="pull-right">
+                                  {{conditional-loading-spinner condition=showPublicSpinner size="large"}}
+                                </span>
+                              </a>
+
+                            </div>
+                        </div>
+                    </td>
+                    <td class="set_title">{{h.name}}</td>
+                    <td><i class="c_icon-calendar"></i> Thu, 16 Jun 2016 16:26:05 +0300</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
