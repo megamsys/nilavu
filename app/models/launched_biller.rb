@@ -1,18 +1,24 @@
 module LaunchedBiller
 
-    def usage
-        90
+    def usage(params)
+        10
     end
 
-    def paid
-        100
+    def paid(params)
+        #  Api::Balances.new.show(params).balances
+        12
+    end
+
+    def transacted(params)
+        Api::Billingtransactions.new.list(params).transactions
     end
 
 
-    def bill
+    def bill(params)
         {
-            usage: usage,
-            paid: paid
+            usage: usage(params),
+            paid: paid(params),
+            transactions: transacted(params)
         }
     end
 end

@@ -7,6 +7,8 @@ export default Ember.Controller.extend({
 
     regions: Ember.computed.alias('model.regions'),
 
+    transactions: Ember.computed.alias('model.transactions'),
+
     resources: [],
 
     submitDisabled: function() {

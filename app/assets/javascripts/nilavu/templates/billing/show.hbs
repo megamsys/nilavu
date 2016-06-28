@@ -78,7 +78,7 @@
                                  One click login into WHMCS page: 'add funds'.
                                 -->
                                         <div class="center-btn">
-                                           <button class="btn btn-primary btn-payment" id="whmcs-payment-link" {{bind-attr disabled="submitDisabled"}} {{action "addFunds"}}>
+                                            <button class="btn btn-primary btn-payment" id="whmcs-payment-link" {{bind-attr disabled="submitDisabled"}} {{action "addFunds"}}>
                                                 {{i18n 'billing.addfunds'}}
                                                 <span class="pull-right">
                                                     {{conditional-loading-spinner condition=formSubmitted size="large"}}
@@ -132,13 +132,9 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Pay Pal</td>
-                                                    <td>nano.megam.io</td>
-                                                    <td>5$</td>
-                                                    <td>Success</td>
-                                                    <td>May 16, 20:19 PM</td>
-                                                </tr>
+                                                {{#each transactions as |transaction|}}
+                                                    {{billing-transaction transaction=transaction}}
+                                                {{/each}}
                                             </tbody>
                                         </table>
                                     </div>

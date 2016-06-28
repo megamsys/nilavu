@@ -15,22 +15,17 @@
 ##
 module Api
   class Balances < ApiDispatcher
-    attr_reader :balance
+    attr_reader :balances
 
     def initialize()
-      @balance = {}
+      @balances = ""
     end
 
     def show(api_params, &block)
-      @balance = api_request(BALANCES, SHOW,api_params)[:body].lookup(api_params["email"])
+      @balance = api_request(BALANCES, SHOW,api_params)
       yield self if block_given?
       return self
     end
 
-    def update(api_params, &block)
-      api_request(BALANCES, UPDATE, api_params)
-      yield self if block_given?
-      return self
-    end
   end
 end
