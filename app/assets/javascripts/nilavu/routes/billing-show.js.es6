@@ -2,38 +2,47 @@ import NilavuURL from 'nilavu/lib/url';
 import Billing from 'nilavu/models/billing';
 
 export default Nilavu.Route.extend({
-   redirect() { return this.redirectIfLoginRequired(); },
+    redirect() {
+        return this.redirectIfLoginRequired(); },
 
-    model(params) { return params; },
 
-    setupController(controller, params) {
-      params = params || {};
-      const self = this,
-            billing = this.modelFor('billing'),
-            billController = this.controllerFor('billing');
+    setupParams(billing, params) {
+        return billing;
+    },
 
-      params.forceLoad = true;
 
-      //TO-DO VINO: ADD error handling here to show the error.
-      const promise = Billing.find().then(function(result) {
-            billController.setProperties({ model: result });
-          //  self.set('loading', false);
-      }).catch(function(e) {
-        alert("VINO HANDLE ERR (check edit-category)\n"+ e);
-        //self.set('loading', false);
-      });
+    model(params) {
+        const self = this;
 
-///      self.controllerFor('navigation/default').set('filterMode', "top");
+        var billing = this.store.createRecord('billing');
+
+        return billing.reload().then(function(result) {
+            self.set('loading', false);
+            return self.setupParams(billing, params);
+        }).catch(function(e) {
+            self.set('loading', false);
+        });
+    },
+
+    setupController(controller, model) {
+        const billController = this.controllerFor('billing');
+        billController.setProperties({
+            model
+        });
+    },
+
+    activate() {
+        this._super();
     },
 
     renderTemplate() {
-      this.render('navigation/default', {
-       outlet: 'navigation-bar'
-      });
+        this.render('navigation/default', {
+            outlet: 'navigation-bar'
+        });
 
-      this.render('billing/show', {
-        controller: 'billing',
-        outlet: 'list-container'
-      });
+        this.render('billing/show', {
+            controller: 'billing',
+            outlet: 'list-container'
+        });
     }
 });

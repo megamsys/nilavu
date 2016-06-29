@@ -3,8 +3,8 @@
         <div class="col-xs-12">
             <table class="table borderless tb_upload">
                 <tbody class="tr_upload_list">
-                  {{#each fileselectors as |fs|}}
-                      {{file-selector fs=fs action="addSelector"}}
+                  {{#each fileuploaders as |fs|}}
+                      {{file-uploader model=fs}}
                   {{/each}}
                 </tbody>
             </table>
@@ -14,10 +14,11 @@
 <div class="modal-footer">
     <div class="row">
         <div class="col-xs-12">
-            <a id="brow">
-                <h4 class="pull-left">+ Add More Files</h4>
-            </a>
-            <span class="btn btn-success" data-dismiss="modal" aria-hidden="true">Done</span>
+          <a id="brow">
+              <h4 class="pull-left">{{file-field action='upload'}}</h4>
+          </a>
+
+          <span class="btn btn-success pull-right" {{action 'done'}}>Done</span>
         </div>
     </div>
 </div>

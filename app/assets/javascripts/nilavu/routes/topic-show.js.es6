@@ -4,20 +4,10 @@ import LaunchStatus from 'nilavu/models/launch-status';
 // This route is used for retrieving a topic/:id based on params - id
 export default Nilavu.Route.extend({
 
-  redirect() {
-    return this.redirectIfLoginRequired();
-  },
-
     // Avoid default model hook
     model(params) {
+      alert(JSON.stringify(params));
         return params;
-    },
-
-    afterModel() {
-        const topic = this.modelFor('topic');
-        //if (this.showPredeployer(topic)) {
-      //      this.replaceWith(topic.url() + '/predeploy', topic);
-      //  }
     },
 
     showPredeployer: function(topic) {
@@ -54,7 +44,7 @@ export default Nilavu.Route.extend({
             self.set('loading', false);
         });
 
-        //self.controllerFor('navigation/default').set('filterMode', "top");
+        self.controllerFor('navigation/default').set('filterMode', "top");
     },
 
     renderTemplate() {

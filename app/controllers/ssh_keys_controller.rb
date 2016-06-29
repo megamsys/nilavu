@@ -22,6 +22,21 @@ class SshKeysController < ApplicationController
 
   def index
     @foundkeys ||= SSHKeysFinder.new(params).foundkeys
+    respond_to do |format|
+        if @foundkeys
+            format.json { render json: {
+              success: true,
+              message: @foundkeys,
+            } }
+        else
+            format.json { render json: {
+              success: false,
+              message: I18n.t(
+                'ssh_keys.download_error',
+              )
+            } }
+        end
+    end
   end
 
   def create

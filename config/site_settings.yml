@@ -185,6 +185,9 @@ users:
   allow_default_billings:
     client: true
     default: false
+  whmcs_clientarea_endpoint:
+    client: true
+    default: "http://megamafrica.com/whmcs/clientarea.php"
   reserved_emails:
     type: list
     default: "tour@megam.io|test@megam.io|support@megam.io|admin@megam.io"
@@ -209,11 +212,20 @@ legal:
   tos_url:
     default: ''
   privacy_policy_url:
-    default: ''
+    client: true
+    default: 'http://privacy.fixit'
   faq_url:
+    client: true
     default: 'http://docs.megam.io/docs/megam_oja_gettingstarted'
   support_url:
+    client: true
     default: 'http://support.megam.io'
+  support_email:
+    client: true
+    default: "support@det.io"
+  support_phonenumber:
+    client: true
+    default: "(02) 7010 1111"
 
 uncategorized:
   version_checks:

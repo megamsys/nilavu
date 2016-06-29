@@ -1,0 +1,14 @@
+<tr class="working">
+    <td class="td-left">
+      <i id="format_icons" {{bind-attr class="iconClass popIcon"}}></i>
+      <b>{{fileName}}</b>
+      <i id="filesize">{{fileSize}}</i>
+    </td>
+    <td class="td-left pull-right"><i class="close_red"></i></td>
+    <td class="td-left pull-right">
+      <span>Connecting to server...</span>
+      <span class="pull-right">
+        {{conditional-loading-spinner condition=showConnectSpinner size="large"}}
+      </span>
+    </td>
+</tr>

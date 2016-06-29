@@ -3,9 +3,7 @@ import showModal from 'nilavu/lib/show-modal';
 export default Ember.Controller.extend(ModalFunctionality, {
     needs: ['modal'],
     spinnerIn: false,
-    fileselectors: [{
-      upload: true,
-    }],
+    fileuploaders: [],
 
     onShow() {
         this.set('controllers.modal.modalClass', 'full');
@@ -21,10 +19,10 @@ export default Ember.Controller.extend(ModalFunctionality, {
             });
         },
 
-        addSelector() {
-          this.get('fileselectors').push({
-            upload: true,
-          });
+        upload(object) {
+            this.get('fileuploaders').pushObject(Ember.Object.create({
+                file: object,
+            }));
         }
 
     }

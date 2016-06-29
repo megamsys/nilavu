@@ -368,6 +368,8 @@ en:
 
     billing:
       title: "Billings"
+      trackusage: "Your current balance is deducted hourly based on your current usage."
+      addfunds: "CLICK TO ADD FUNDS"
       total_balance: "Total Balance"
       promo_code: "Promo Code :"
       apply: "APPLY"
