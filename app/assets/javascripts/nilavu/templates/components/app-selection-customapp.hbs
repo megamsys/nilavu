@@ -1,4 +1,68 @@
-<div class="tab-pane" id="custom-app">
-    <!-- CUSTOM APPLICATION LAYOUT IN CURRENT VERTICE. -->
-    <h1>11</h1>
+<div class="row">
+    <div id="prelaunch_image" class="col-md-7 pull-left">
+        <img src="images/brands/saas/java.png">
+    </div>
+    <div class="col-md-2" style="margin: 50px 0 0 0;">
+        <label style="font-weight: bold;">Version</label>
+    </div>
+    <div class="col-md-3" style="margin: 43px 0 0 0;">
+        {{combo-box valueAttribute="value" content=setting.validValues value=value none=setting.allowsNone}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 pad_tb25">
+        <span class="app_left_name">Java</span>
+        <P class="model-description">
+            Launch java app here
+            <a href="faq.url" target="_blank">
+                documentation.java</a>
+        </p>
+        <br/>
+        <div class="">
+            <div class="row">
+                <div class="col-xs-6">
+                    <p class="radioP">
+                        <input id="r1" name="radio_app_scm" required type="radio" value="nogit"/>
+                        <label for="r1">
+                            <span class="radioButtonGraph"></span>
+                            SDK Java, Node.js, Scala
+                        </label>
+                    </p>
+                </div>
+                <div class="col-xs-6">
+                    <p class="radioP">
+                        <input id="r2" name="radio_app_scm" required type="radio" value="git"/>
+                        <label for="r2">
+                            <span class="radioButtonGraph"></span>
+                            "Bring Your Own Code</label>
+                    </p>
+                </div>
+            </div>
+            <div id="appgit">
+                <h4>
+                    Choose SCM
+                </h4>
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <div class="col-md-offset-4 col-md-2">
+                            <a class="hint  hint--bottom" data-hint="Connect with your public github id" href="#" name="image_type" value="github">
+                                <img src='images/launch/github.png' class="img-responsive_byoc "></a>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-sm-12 col-xs-12">
+                        <div id="repos">
+                            {{combo-box valueAttribute="value" content=setting.validValues value=value none=setting.allowsNone}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <br/>
+        </div>
+    </div>
 </div>

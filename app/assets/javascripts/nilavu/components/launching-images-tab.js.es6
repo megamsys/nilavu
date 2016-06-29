@@ -1,12 +1,14 @@
-import { propertyEqual } from 'nilavu/lib/computed';
+import { propertyEqual, propertyNotEqual } from 'nilavu/lib/computed';
 
 export default Em.Component.extend({
   tagName: 'li',
-  classNameBindings: ['active', 'tabClassName', ':tabDisabled'],
+  classNameBindings: ['active', 'tabClassName',  'disabled:tabDisabled'],
 
   tabClassName: function() {
     return 'launching-image-' + this.get('tab');
   }.property('tab'),
+
+  disabled: propertyNotEqual('selectedTab','tab'),
 
   active: propertyEqual('selectedTab', 'tab'),
 
