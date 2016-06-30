@@ -17,8 +17,8 @@
 class BucketsController < ApplicationController
   respond_to :json, :js
 
-  before_action :redirect_to_cephlogin_if_required, only: [:index, :create, :destroy]
-  before_action :add_cephauthkeys_for_api, only: [:index, :create, :destroy]
+  before_action :redirect_to_cephlogin_if_required, only: [:index, :create, :destroy, :edit]
+  before_action :add_cephauthkeys_for_api, only: [:index, :create, :destroy, :edit]
 
 
   def index
@@ -65,6 +65,22 @@ class BucketsController < ApplicationController
   end
 
   def show
+  end
+
+  def edit
+    if uploaded_url = CephStore.new(params, params[:id]).temporary_url("example")    
+      render json: {
+          success: true,
+          message: uploaded_url,
+        }
+    else
+      render json: {
+          success: false,
+          message: I18n.t(
+            'bucket.bucket_create_error',
+          ),
+        }
+    end
   end
 
   def destroy

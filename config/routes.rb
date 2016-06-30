@@ -82,6 +82,7 @@ Nilavu::Application.routes.draw do
 
   get "buckets.json" =>"buckets#index",defaults: {format: 'json'}
   post "buckets" =>"buckets#create"
+  get "buckets/:id" => "buckets#edit"
 
   get "b/:id" => "bucketfiles#show"
 

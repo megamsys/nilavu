@@ -16,7 +16,7 @@ export default Nilavu.Route.extend({
         var bucketfiles = this.store.createRecord('bucketfiles');
 
         return bucketfiles.reload(params.id).then(function(result) {
-            self.set('loading', false);
+            self.set('loading', false);            
             return self.setupParams(bucketfiles, params);
         }).catch(function(e) {
             self.set('loading', false);
@@ -37,7 +37,7 @@ export default Nilavu.Route.extend({
 
     deactivate() {
         this._super();
-    },  
+    },
 
     renderTemplate() {
         this.render('navigation/default', {

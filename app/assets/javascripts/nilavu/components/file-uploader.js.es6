@@ -24,12 +24,27 @@ export default Ember.Component.extend({
     },
 
     _serverConnect() {
+      const self = this;
       this.set('spinnerConnectIn', true);
-      Nilavu.ajax('/b/'+bucket, {
+      Nilavu.ajax('/buckets/sam', {
           type: 'GET'
-      }).then(function(bill_json) {
-          self.updateFromJson(bill_json);
+      }).then(function(connect_json) {
+          alert(JSON.stringify(connect_json));
+          self._uploadFile(self.get('model').file[0], connect_json.message).then(function(result) {
+              alert(JSON.stringify(result));
+          });
       });
+    },
+
+    _uploadFile(file, signedRequest) {
+      return new Promise(function(resolve, reject) {
+        const xhr = new XMLHttpRequest()
+        xhr.open("PUT", signedRequest)
+        xhr.setRequestHeader('x-amz-acl', 'public-read')
+        xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
+        xhr.onload = () => { resolve() }
+        xhr.send(file)
+      })
     },
 
     // Helper function that formats the file sizes

@@ -7,6 +7,7 @@ class CephStore
     @bucket_name = name
   end
 
+
   def store_upload(upload, content_type = nil)
     store_file(upload, filename: upload.original_filename, content_type: content_type)
   end
@@ -27,6 +28,10 @@ class CephStore
     @ceph_helper.upload(@bucket_name, filename, content, options)
     # return the upload url
     "#{absolute_base_url}/#{filename}"
+  end
+
+  def temporary_url(filename)
+    @ceph_helper.temporary_url(@bucket_name, filename)
   end
 
   def remove_file(url)

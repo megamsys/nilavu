@@ -13,7 +13,7 @@ class CephHelper
     check_missing_site_settings
   end
 
-  def new_bucket(name)    
+  def new_bucket(name)
     ceph_buckets.build(name).save
   end
 
@@ -27,6 +27,11 @@ class CephHelper
     obj.content = content
     obj.save
   end
+
+ def temporary_url(bucket, unique_filename)
+   obj = ceph_bucketobjects(bucket).build(unique_filename)
+   obj.temporary_url
+ end
 
   #forcefully delete
   def destroy_object(name, key)

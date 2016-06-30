@@ -22,7 +22,6 @@ class BucketfilesController < ApplicationController
   before_filter :redirect_to_cephlogin_if_required
   before_action :add_cephauthkeys_for_api
 
-
   def create
     if uploaded_url = CephStore.new(params, params[:bucket_name]).store_upload(params[:sobject])
       redirect_to(buckets_path, :flash => { :success => I18n.t('cephbuckets.uploaded', :url => uploaded_url)}, format: 'js')
