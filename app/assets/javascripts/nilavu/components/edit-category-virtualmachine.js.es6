@@ -7,7 +7,6 @@ export default Ember.Component.extend({
     imagepanels: null,
     editLaunching: false,
 
-
     _initPanels: function() {
         this.set('imagepanels', []);
         this.editLaunching = false;

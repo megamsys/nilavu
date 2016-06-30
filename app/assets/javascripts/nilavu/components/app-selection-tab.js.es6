@@ -1,30 +1,40 @@
-import { propertyEqual } from 'nilavu/lib/computed';
+import { propertyEqual, propertyNotEqual } from 'nilavu/lib/computed';
 
 export default Em.Component.extend({
-  tagName: 'li',
-  classNameBindings: ['active', 'tabClassName', ':tabDisabled'],
+    tagName: 'li',
+    classNameBindings: ['isActive:active', 'tabClassName', 'disabled:tabDisabled'],
 
-  tabClassName: function() {
-    return 'app-selection-' + this.get('tab');
-  }.property('tab'),
+    tabClassName: function() {
+        return 'app-selection-' + this.get('tab');
+    }.property('tab'),
 
-  active: propertyEqual('selectedTab', 'tab'),
+    disabled: function() {
+        const sel = this.get('selectedTab') || "";
+        return sel.trim().length > 0 && sel.trim() != this.get('tab');
+    }.property('selectedTab', 'tab'),
 
-  title: function() {
-    return I18n.t('launcher.' + this.get('tab').replace('-', '_'));
-  }.property('tab'),
+    active: propertyEqual('selectedTab', 'tab'),
 
-  lowerTitle: function() {
-      return this.get('title').toLowerCase();
-  }.property('title'),
+    isActive: function() {
+        const sel = this.get('selectedTab') || "";
+        return sel.trim().length > 0 && sel.trim() == this.get('tab');
+    }.property('selectedTab', 'tab'),
 
-  _addToCollection: function() {
-    this.get('apppanels').addObject(this.get('tabClassName'));
-  }.on('didInsertElement'),
+    title: function() {
+        return I18n.t('launcher.' + this.get('tab').replace('-', '_'));
+    }.property('tab'),
 
-  actions: {
-    select: function() {
-      this.set('selectedTab', this.get('tab'));
+    lowerTitle: function() {
+        return this.get('title').toLowerCase();
+    }.property('title'),
+
+    _addToCollection: function() {
+        this.get('apppanels').addObject(this.get('tabClassName'));
+    }.on('didInsertElement'),
+
+    actions: {
+        select: function() {
+            this.set('selectedTab', this.get('tab'));
+        }
     }
-  }
 });
