@@ -7,6 +7,7 @@ class CephStore
     @bucket_name = name
   end
 
+
   def store_upload(upload, content_type = nil)
     store_file(upload, filename: upload.original_filename, content_type: content_type)
   end

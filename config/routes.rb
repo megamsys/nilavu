@@ -42,7 +42,6 @@ Nilavu::Application.routes.draw do
     end
   end
 
-
   match "users/:id", to:  "users#show", via: [:get],defaults: {format: 'json'}
 
   get "stylesheets/:name.css" => "stylesheets#show", constraints: { name: /[a-z0-9_]+/ }
@@ -81,7 +80,17 @@ Nilavu::Application.routes.draw do
   get "robots.txt" => "robots_txt#index"
   get "manifest.json" => "manifest_json#index", :as => :manifest
 
-  post "storages.json" =>"buckets#create",defaults: {format: 'json'}
+  get "buckets.json" =>"buckets#index",defaults: {format: 'json'}
+  post "buckets" =>"buckets#create"
+  get "buckets/:id" => "buckets#edit"
+
+  get "b/:id" => "bucketfiles#show"
+
+  #ceph
+  get   '/cephsignin', to: 'cephs#create', constraints: HomePageConstraint.new
+  post  '/cephsignin', to: 'cephs#create', constraints: HomePageConstraint.new
+  get   '/cephsignup', to: 'ceph_users#create', constraints: HomePageConstraint.new
+  post  '/cephsignup', to: 'ceph_users#create', constraints: HomePageConstraint.new
 
   get "marketplaces.json" => "marketplaces#index", defaults: {format: 'json'}
 

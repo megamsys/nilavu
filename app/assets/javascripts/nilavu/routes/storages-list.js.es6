@@ -1,5 +1,5 @@
-import showModal from 'nilavu/lib/show-modal';
-import Bucketfiless from 'nilavu/models/bucketfiles';
+import NilavuURL from 'nilavu/lib/url';
+import Buckets from 'nilavu/models/buckets';
 
 export default Nilavu.Route.extend({
 
@@ -7,17 +7,18 @@ export default Nilavu.Route.extend({
         return this.redirectIfLoginRequired();
     },
 
-    setupParams(bucketfiles, params) {
-        return bucketfiles;
+    setupParams(buckets, params) {
+        return buckets;
     },
 
     model(params) {
         const self = this;
-        var bucketfiles = this.store.createRecord('bucketfiles');
 
-        return bucketfiles.reload(params.id).then(function(result) {
-            self.set('loading', false);            
-            return self.setupParams(bucketfiles, params);
+        var buckets = this.store.createRecord('buckets');
+
+        return buckets.reload().then(function(result) {
+            self.set('loading', false);
+            return self.setupParams(buckets, params);
         }).catch(function(e) {
             self.set('loading', false);
             self.notificationMessages.error(I18n.t("storages.onboard_error"));
@@ -25,7 +26,7 @@ export default Nilavu.Route.extend({
     },
 
     setupController(controller, model) {
-        const storageController = this.controllerFor('storages-show');
+        const storageController = this.controllerFor('storages-list');
         storageController.setProperties({
             model
         });
@@ -44,8 +45,8 @@ export default Nilavu.Route.extend({
             outlet: 'navigation-bar'
         });
 
-        this.render('storages/show', {
-            controller: 'storages-show',
+        this.render('storages/list', {
+            controller: 'storages-list',
             outlet: 'list-container'
         });
     }

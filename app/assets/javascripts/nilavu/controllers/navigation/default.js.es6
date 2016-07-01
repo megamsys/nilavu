@@ -8,6 +8,7 @@ export default Ember.Controller.extend({
     return Nilavu.Category.list();
   },
 
+
   @computed("filterMode")
   navItems(filterMode) {
     if (filterMode.indexOf("top/") === 0) { filterMode = filterMode.replace("top/", ""); }
