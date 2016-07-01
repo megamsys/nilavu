@@ -54,9 +54,12 @@ required:
   version_checks:
     default: false
     new_version_emails: false
+  prelogin_cta:
+    client: true
+    default: false
   global_notice:
       default: ""
-  free_wheeling:
+  minified:
       client: true
       default: false
 

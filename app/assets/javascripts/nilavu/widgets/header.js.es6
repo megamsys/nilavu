@@ -130,7 +130,7 @@ createWidget('header-icons', {
         });
 
         const icons = [marketplaces, storages];
-        
+
         if (this.currentUser) {
             icons.push(this.attach('user-dropdown', {
                 active: attrs.userVisible,

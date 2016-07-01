@@ -10,11 +10,6 @@
     font-size: 18px;
 }
 
-.modal {
-  z-index: 10050 !important;
-  outline: none !important;
-}
-
 .modal-header {
   border-bottom: 1px solid #EFEFEF;
 }
@@ -29,7 +24,7 @@
 
 .modal-tab {
   position: absolute;
-  width: 95%;
+  width: 100%;
 }
 
 .modal-full {
@@ -57,7 +52,7 @@ Modal header close button fix
 .modal-backdrop {
   border: 0 !important;
   outline: none !important;
-  z-index: 10049 !important;
+  z-index: 1040 !important;
 }
 
 .modal-backdrop,

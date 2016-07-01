@@ -46,7 +46,7 @@ the specific language governing permissions and limitations under the Apache Lic
         return;
     }
 
-    var AbstractSelect2, SingleSelect2, MultiSelect2, nextUid, sizer,
+   var AbstractSelect2, SingleSelect2, MultiSelect2, nextUid, sizer,
         lastMousePosition={x:0,y:0}, $document, scrollBarDimensions,
 
     KEY = {
@@ -239,6 +239,7 @@ the specific language governing permissions and limitations under the Apache Lic
 
     function focus($el) {
         if ($el[0] === document.activeElement) return;
+
 
         /* set the focus in a 0 timeout - that way the focus is set after the processing
             of the current event has finished - which seems like the only reliable way

@@ -106,20 +106,24 @@ en:
     filters:
       torpedo:
         title:
-          one: Virtual Machine
-          other: Virtual Machines
+          one: Machine
+          other: Machines
+        help: "virtual machines you've launched"
       app:
         title:
           one: App
           other: Apps
+        help: "applications you've launched"
       service:
         title:
           one: Service
           other: Services
+        help: "service (db/spark/hadoop)s you've launched"
       microservice:
         title:
-          one: Microservice
-          other: Microservices
+          one: Container
+          other: Containers
+        help: "docker/hyper containers you've launched"
       analytics:
         title:
           one: Analytics
