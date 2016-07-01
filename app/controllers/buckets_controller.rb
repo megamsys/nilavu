@@ -17,33 +17,72 @@
 class BucketsController < ApplicationController
   respond_to :json, :js
 
-  before_action :redirect_to_cephlogin_if_required, only: [:index, :create, :destroy]
-  before_action :add_cephauthkeys_for_api, only: [:index, :create, :destroy]
+  before_action :redirect_to_cephlogin_if_required, only: [:index, :create, :destroy, :edit]
+  before_action :add_cephauthkeys_for_api, only: [:index, :create, :destroy, :edit]
 
 
   def index
      @lister = BucketsLister.new(params)
-    if lister_has_calcuated?
-     @listed_buckets =  @lister.listed(current_cephuser.email)
-    return @listed_buckets if @listed_buckets.present?
-    end
 
-    not_listed
-  rescue Nilavu::NotFound
-    not_listed
+      @listed_buckets = lister_has_calcuated
+        if @listed_buckets.present?
+          render json: {
+              success: true,
+              message: @listed_buckets,
+            }
+        else
+           render json: {
+              success: false,
+              message: []
+            }
+        end
   end
+
 
   def create
     if BucketCreator.new(params).perform
-      redirect_to(buckets_path, :flash => { :success => I18n.t('cephbuckets.created', :name => params[:id])}, format: 'js')
+      render json: {
+          success: true,
+          message: I18n.t(
+            'bucket.bucket_created',
+          ),
+        }
     else
-      not_created
+      render json: {
+          success: false,
+          message: I18n.t(
+            'bucket.bucket_create_error',
+          ),
+        }
     end
   rescue Nilavu::InvalidParameters
-    not_created
+    render json: {
+        success: false,
+        message: I18n.t(
+          'bucket.bucket_create_error',
+        ),
+      }
   end
 
   def show
+  end
+
+  def edit
+    #if uploaded_url = CephStore.new(params, params[:id]).temporary_url("example")
+    params[:storage_url] = "http://#{SiteSetting.ceph_gateway}"
+    if(params.has_key?(:access_key_id) && params.has_key?(:secret_access_key))
+      render json: {
+          success: true,
+          message: params,
+        }
+    else
+      render json: {
+          success: false,
+          message: I18n.t(
+            'bucket.ceph_auth_keys_error',
+          ),
+        }
+    end
   end
 
   def destroy
@@ -58,7 +97,7 @@ class BucketsController < ApplicationController
 
   private
 
-  def lister_has_calcuated?
+  def lister_has_calcuated
     if @lister
       return @lister.listed(current_cephuser.email)
     else

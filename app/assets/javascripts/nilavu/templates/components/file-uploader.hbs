@@ -1,0 +1,24 @@
+<tr class="working">
+    <td class="td-left">
+        <i id="format_icons" {{bind-attr class="iconClass popIcon"}}></i>
+        <b>{{fileName}}</b>
+        <i id="filesize">{{fileSize}}</i>
+    </td>
+    <td class="td-left pull-right"><i class="close_red"></i></td>
+    <td class="td-left pull-right">
+        <span>Ready to upload...</span>
+        <span class="pull-right">
+        {{conditional-loading-spinner condition=showConnectSpinner size="large"}}
+      </span>
+        <form id="fileupload" action={{formAction}} method="POST" enctype="multipart/form-data">
+            <input type="text" name="key" value={{formKey}} />
+            <input type="text" name="acl" value={{formACL}} />
+            <input type="text" name="AWSAccessKeyId" value={{formAccessKey}} />
+            <input type="text" name="policy" value={{formPolicy}} />
+            <input type="text" name="content-type" value="text/plain" />
+            <input type="text" name="signature" value={{formSignature}} />
+            <input name="file" type="file" id="formFile">
+            <input name="submit" value="Upload" type="submit" >
+        </form>
+    </td>
+</tr>

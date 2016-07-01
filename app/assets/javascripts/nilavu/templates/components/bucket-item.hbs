@@ -1,0 +1,22 @@
+<div class="col-xs-12 col-sm-6 col-md-3 app_cover my_bucket_inner">
+    <div class="app_inner">
+        <div class="app">
+            <div class="app_head">
+                <div class="row app_icon">
+                    <h5>
+                      {{bucket-link bucket}}
+                    </h5>
+                    <h6>
+                     Size:
+                     {{ bucket.size_humanized }}
+                   </h6>
+                </div>
+            </div>
+            <div class="app_footer">
+                <span>
+                   Objects count:
+                   {{ bucket.count }}</span>
+            </div>
+        </div>
+    </div>
+</div>

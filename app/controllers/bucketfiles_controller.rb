@@ -22,7 +22,6 @@ class BucketfilesController < ApplicationController
   before_filter :redirect_to_cephlogin_if_required
   before_action :add_cephauthkeys_for_api
 
-
   def create
     if uploaded_url = CephStore.new(params, params[:bucket_name]).store_upload(params[:sobject])
       redirect_to(buckets_path, :flash => { :success => I18n.t('cephbuckets.uploaded', :url => uploaded_url)}, format: 'js')
@@ -33,21 +32,20 @@ class BucketfilesController < ApplicationController
 
   def show
     params.require(:id)
-
-    @lister = BucketFilesLister.new(params)
-
-    if lister_has_calcuated?
-
-      @listed_buckets =  @lister.listed(current_cephuser.email)
-
-      return @listed_buckets if @listed_buckets.present?
-    end
-
-    not_listed
-  rescue Nilavu::NotFound
-    not_listed
+     @lister = BucketFilesLister.new(params)
+      @listed_buckets = lister_has_calcuated
+        if @listed_buckets.present?
+          render json: {
+              success: true,
+              message: @listed_buckets,
+            }
+        else
+           render json: {
+              success: false,
+              message: []
+            }
+        end
   end
-
 
   def destroy
     if destroyed = BucketFileDestroyer.new(params).perform
@@ -63,7 +61,7 @@ class BucketfilesController < ApplicationController
 
   private
 
-  def lister_has_calcuated?
+  def lister_has_calcuated
     if @lister
       return @lister.listed(current_cephuser.email)
     else
