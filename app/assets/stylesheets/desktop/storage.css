@@ -74,3 +74,32 @@
     margin-top: 15px;
     width: 9px;
 }
+
+.cloud_download {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* border-radius: 50%; */
+  vertical-align: middle;
+  background-image: url(../images/icons/upload_to_storage.png);
+}
+
+.pullright {
+  text-align: right;
+  margin-right: 1em;
+}
+
+.yfiles-tb tr {
+    border-bottom: 1px solid #F5F1F1;
+}
+.yfiles-tb tr > td {
+    border-top: none !important;
+}
+.yfiles-tb .checker{
+    margin:10px -10px;
+}

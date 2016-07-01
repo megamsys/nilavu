@@ -68,16 +68,18 @@ class BucketsController < ApplicationController
   end
 
   def edit
-    if uploaded_url = CephStore.new(params, params[:id]).temporary_url("example")    
+    #if uploaded_url = CephStore.new(params, params[:id]).temporary_url("example")
+    params[:storage_url] = "http://#{SiteSetting.ceph_gateway}"
+    if(params.has_key?(:access_key_id) && params.has_key?(:secret_access_key))
       render json: {
           success: true,
-          message: uploaded_url,
+          message: params,
         }
     else
       render json: {
           success: false,
           message: I18n.t(
-            'bucket.bucket_create_error',
+            'bucket.ceph_auth_keys_error',
           ),
         }
     end

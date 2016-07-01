@@ -30,10 +30,6 @@ class CephStore
     "#{absolute_base_url}/#{filename}"
   end
 
-  def temporary_url(filename)
-    @ceph_helper.temporary_url(@bucket_name, filename)
-  end
-
   def remove_file(url)
     return unless has_been_uploaded?(url)
     @cep_helper.remove(url, true)

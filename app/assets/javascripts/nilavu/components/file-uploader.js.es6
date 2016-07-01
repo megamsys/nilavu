@@ -1,14 +1,31 @@
+import {
+    formatFileIcons,
+    formatFileSize
+} from 'nilavu/helpers/file-formats';
+import {
+    generateSignature
+} from 'nilavu/helpers/storage';
 export default Ember.Component.extend({
     spinnerConnectIn: false,
-    fileName: Ember.computed.alias('model.file[0].name'),
+    storageAction: null,
+    storageKey: null,
+    storageACL: 'public-read',
+    storageContentType: null,
+    storageAccessKeyId: null,
+    storagePolicy: null,
+    storageSignature: null,
+
+    fileName: function() {
+        return this.get('model').file[0].name;
+    }.property('model'),
 
     fileSize: function() {
-        return this._formatFileSize(this.get('model').file[0].size);
+        return formatFileSize(this.get('model').file[0].size);
     }.property('model'),
 
     iconClass: function() {
         var nameSplit = this.get('model').file[0].name.split('.');
-        return this._formatFileIcons(nameSplit[nameSplit.length - 1]);
+        return formatFileIcons(nameSplit[nameSplit.length - 1]);
     }.property('model'),
 
     popIcon: function() {
@@ -19,66 +36,78 @@ export default Ember.Component.extend({
         return this.get('spinnerConnectIn');
     }.property('spinnerConnectIn'),
 
+    formAction: function() {
+        return this.get('storageAction');
+    }.property('storageAction'),
+
+    formKey: function() {
+        return this.get('storageKey');
+    }.property('storageKey'),
+
+    formACL: function() {
+        return this.get('storageACL');
+    }.property('storageACL'),
+
+    formContentType: function() {
+        return this.get('storageContentType');
+    }.property('storageContentType'),
+
+    formAccessKey: function() {
+        return this.get('storageAccessKeyId');
+    }.property('storageAccessKeyId'),
+
+    formSignature: function() {
+        return this.get('storageSignature');
+    }.property('storageSignature'),
+
+    formPolicy: function() {
+        return this.get('storagePolicy');
+    }.property('storagePolicy'),
+
     didInsertElement() {
-      this._serverConnect();
+        this._serverConnect();
     },
 
     _serverConnect() {
-      const self = this;
-      this.set('spinnerConnectIn', true);
-      Nilavu.ajax('/buckets/sam', {
-          type: 'GET'
-      }).then(function(connect_json) {
-          alert(JSON.stringify(connect_json));
-          self._uploadFile(self.get('model').file[0], connect_json.message).then(function(result) {
-              alert(JSON.stringify(result));
-          });
-      });
+        const self = this;
+        const bucketName = "sam";
+        this.set('spinnerConnectIn', true);
+        Nilavu.ajax('/buckets/'+bucketName, {
+            type: 'GET'
+        }).then(function(result) {
+            if (result.success) {
+                self.set('storageAction', result.message.storage_url+'/'+bucketName);
+                self.set('storageKey', self.get('fileName'));
+                self.set('storageACL', self.get('storageACL'));
+                self.set('storageContentType', '');
+                self.set('storageAccessKeyId', result.message.access_key_id);
+                var sign = generateSignature({
+                    "bucketName": "sam",
+                    "acl": self.get('storageACL'),
+                    "name": self.get('fileName'),
+                    "access_key": result.message.access_key_id,
+                    "secret_access_key": result.message.secret_access_key,
+                });
+                self.set('storagePolicy', sign.policy);
+                self.set('storageSignature', sign.signature);
+            } else {
+                self.notificationMessages.error(result.message);
+            }
+        });
     },
 
     _uploadFile(file, signedRequest) {
-      return new Promise(function(resolve, reject) {
-        const xhr = new XMLHttpRequest()
-        xhr.open("PUT", signedRequest)
-        xhr.setRequestHeader('x-amz-acl', 'public-read')
-        xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
-        xhr.onload = () => { resolve() }
-        xhr.send(file)
-      })
+        return new Promise(function(resolve, reject) {
+            const xhr = new XMLHttpRequest()
+            xhr.open("PUT", signedRequest)
+            xhr.setRequestHeader('x-amz-acl', 'public-read')
+            xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
+            xhr.onload = () => {
+                resolve()
+            }
+            xhr.send(file)
+        })
     },
-
-    // Helper function that formats the file sizes
-    _formatFileSize(bytes) {
-        if (typeof bytes !== 'number') {
-            return '';
-        }
-
-        if (bytes >= 1000000000) {
-            return (bytes / 1000000000).toFixed(2) + ' GB';
-        }
-
-        if (bytes >= 1000000) {
-            return (bytes / 1000000).toFixed(2) + ' MB';
-        }
-
-        return (bytes / 1000).toFixed(2) + ' KB';
-    },
-
-    _formatFileIcons(name) {
-        if (name == '7z' || name == 'cbz' || name == 'cpio' || name == 'exe' || name == 'war' || name == 'iso' || name == 'ar' || name == 'tar.gz' || name == 'tar.Z' || name == 'tar.bz2' || name == 'tar.7z' || name == 'tar.lz' || name == 'tar.xz' || name == 'tar' || name == 'zip' || name == 'tgz' || name == 'rar' || name == 'jar' || name == 'gzip' || name == 'gz' || name == 'bz2') {
-            return 'c_icon-zip'
-        } else if (name == 'csv' || name == 'doc' || name == 'docx' || name == 'eml' || name == 'eps' || name == 'html' || name == 'html4' || name == 'html5' || name == 'key' || name == 'odp' || name == 'ods' || name == 'odt' || name == 'pdf' || name == 'ppt' || name == 'pst' || name == 'txt' || name == 'xml' || name == 'xps') {
-            return 'c_icon-text'
-        } else if (name == 'arw' || name == 'bmp' || name == 'cdr' || name == 'cr2' || name == 'crw' || name == 'dng' || name == 'erf' || name == 'gif' || name == 'ico' || name == 'jpg' || name == 'mdi' || name == 'mef' || name == 'mrw' || name == 'nef' || name == 'odg' || name == 'orf' || name == 'pcx' || name == 'pef' || name == 'ppm' || name == 'psd' || name == 'raf' || name == 'raw' || name == 'sr2' || name == 'tga' || name == 'thumbnail' || name == 'tiff' || name == 'wbmp' || name == 'webp' || name == 'wmf' || name == 'x3f' || name == 'xcf') {
-            return 'c_icon-jpg'
-        } else if (name == 'png') {
-            return 'c_icon-png'
-        } else if (name == 'svg') {
-            return 'c_icon-svg'
-        } else {
-            return 'c_icon-text'
-        }
-    }
 
 
 });

@@ -23,7 +23,11 @@ export default Ember.Controller.extend(ModalFunctionality, {
             this.get('fileuploaders').pushObject(Ember.Object.create({
                 file: object,
             }));
-        }
+        },
+
+        startUpload() {
+          
+        },
 
     }
 });
