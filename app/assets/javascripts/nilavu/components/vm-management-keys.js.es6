@@ -71,14 +71,18 @@ export default buildCategoryPanel('keys', {
     },
 
     _getKey(name) {
+      alert("2");
+      alert(JSON.stringify(name));
         return Nilavu.ajax("/ssh_keys/" + name + ".json", {
             type: 'GET'
+
         });
     },
 
     actions: {
 
         download(key, type) {
+        alert("1");
             var self = this
             this.set('spinnerIn', true);
             return self._getKey(key).then(function(result) {
