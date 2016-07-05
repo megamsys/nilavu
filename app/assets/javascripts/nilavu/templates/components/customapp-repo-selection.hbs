@@ -1,36 +1,17 @@
 <div class="row">
-    <div class="col-xs-6">
-        <p class="radioP">
-            <input id="r1" name="radio_app_scm" required type="radio" value="nogit"/>
-            <label for="r1">
-                <span class="radioButtonGraph"></span>
-                Your Github Repo
-            </label>
-        </p>
-    </div>
-    <div class="col-xs-6">
-        <p class="radioP">
-            <input id="r2" name="radio_app_scm" required type="radio" value="git"/>
-            <label for="r2">
-                <span class="radioButtonGraph"></span>
-                Public Open Source Repo to Deploy</label>
-        </p>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6 text-center">
-        <div class="col-md-offset-4 col-md-2">
-            <a class="hint  hint--bottom" data-hint="Connect with your public github id" href="#" name="image_type" value="github">
-                <img src='images/launch/github.png' class="img-responsive_byoc "></a>
-        </div>
-    </div>
-    <div class="col-md-6 text-center"></div>
-</div>
-<br/>
-<div class="row">
-    <div class="col-sm-12 col-xs-12">
-        <div class="block" id="repos">
-            {{combo-box valueAttribute="value" content=setting.validValues value=value none=setting.allowsNone}}
+    <div data-toggle="buttons">
+        <div class="btn-storage-container bigger">
+            {{customapp-repo-chooser name='Your Github Repo' repoable=selectedRepo style="float: left, margin-top: 10px"}}
+            {{customapp-repo-chooser name='Public Repo' repoable=selectedRepo style="float: right"}}
         </div>
     </div>
 </div>
+{{#if gitHub}}
+    {{customapp-repo-github}}
+{{else if publicRepo}}
+    <div class="row pad_t25">
+        <div class="col-md-12">
+            {{text-field type="text" value=publicRepo placeholderKey="customapp.publicrepo.title" class ="form-control" id="new-public-repo" disabled=repoValidated name="publicrepo" autofocus="autofocus"}}
+        </div>
+    </div>
+{{/if}}

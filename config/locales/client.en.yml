@@ -306,7 +306,8 @@ en:
       virtualmachines: "virtualmachines"
       applications: "applications"
       title: "Let's Get Started"
-      selection_title: "Choose VM (or) App"
+      selection_virtualmachine_title: "Choose Distro"
+      selection_application_title: "Choose App"
       summary_title: "Your Launch Summary"
       general:     "Step 1    "
       selection:   "Step 2    "
@@ -354,7 +355,7 @@ en:
       prepackaged: "Pre-packaged"
       customapp: "Custom Application"
       customapp_choose: "Choose a custom app to launch"
-      
+
     dashboards:
       title: "Dashboard"
 

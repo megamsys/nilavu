@@ -17,13 +17,13 @@ export default Ember.Component.extend({
         //_.each(this.get("sshoptions"), function(p) {
         if (this.get('category.customappoption')) {
             rval.addObject({
-                name: '4.4',
-                value: '4.4'
+                name: '4.4 memo',
+                value: '4.4 memo'
             });
 
             rval.addObject({
-                name: '6.6',
-                value: '6.6'
+                name: '6.6 aaaaaa',
+                value: '6.6 aaaaaaa'
             });
             //  });
         }
