@@ -353,7 +353,8 @@ en:
       launched_redirecting: "Redirecting ..."
       prepackaged: "Pre-packaged"
       customapp: "Custom Application"
-
+      customapp_choose: "Choose a custom app to launch"
+      
     dashboards:
       title: "Dashboard"
 

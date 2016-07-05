@@ -35,26 +35,28 @@ export default ComboboxView.extend({
 
     @computed("rootNone")
     none(rootNone) {
-        return 'customapps.choose';
+        return 'launcher.customapp_choose';
     },
 
     comboTemplate(item) {
         let customapp = item;
 
         const customapps = [
-            { id: '1', name: 'Java Web Application - Tomcatnbsp;&nbsp;&nbsp;&nbsp;', logo: '../images/brands/java.png', description_text: 'webapp' },
-            { id: '2', name: 'Ruby on Rails Framework&nbsp;&nbsp;&nbsp;&nbsp;  ', logo: '../images/brands/rails.png', description_text: 'webapp' },
-            { id: '3', name: 'Node.js V8 Javascript         ', logo: '../images/brands/nodejs.png', description_text: 'webapp' },
-            { id: '4', name: 'Playframework (Scala)', logo: '../images/brands/play.png', description_text: 'webapp' }
+            { id: '1', name: 'Java Web Application - Tomcat', logo: '../images/brands/java.png', description_text: 'Java Web Application' },
+            { id: '2', name: 'Ruby on Rails', logo: '../images/brands/rails.png', description_text: 'Ruby on Rails' },
+            { id: '3', name: 'Node.js V8 Javascript', logo: '../images/brands/nodejs.png', description_text: 'Node.js V8 Javascript' },
+            { id: '4', name: 'Playframework (Scala)', logo: '../images/brands/play.png', description_text: 'Playframework (Scala)' }
         ];
 
         if (Ember.isEmpty(customapp.id)) {
             return customapp.text
         }
 
-        customapp = customapps.filter((f) => f.id == item.id);
+        const customappArray = customapps.filter((f) => f.id == item.id);
 
-        let result = customappBadgeHTML(customapp.get('firstObject'), { link: false }) + "&nbsp; Java is nice";
+        customapp = customappArray.get('firstObject');
+
+        let result = customappBadgeHTML(customapp, { link: false }) + customapp.description_text;
         return result;
 
     }

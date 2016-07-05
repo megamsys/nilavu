@@ -2,7 +2,7 @@ module Nilavu
   unless defined? ::Nilavu::VERSION
     module VERSION #:nodoc:
       MAJOR = 1
-      MINOR = 0
+      MINOR = 5
       TINY  = 0
       PRE   = 'RC'
 

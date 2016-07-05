@@ -1,6 +1,6 @@
 import ModalFunctionality from 'nilavu/mixins/modal-functionality';
 import NilavuURL from 'nilavu/lib/url';
-import {     extractError } from 'nilavu/lib/ajax-error';
+import { extractError } from 'nilavu/lib/ajax-error';
 
 
 export default Ember.Controller.extend(ModalFunctionality, {
@@ -40,15 +40,17 @@ export default Ember.Controller.extend(ModalFunctionality, {
         } else if (this.get('selectionSelected')) {
             this.set('controllers.modal.modalClass', 'edit-category-modal small');
         } else {
-          this.set('controllers.modal.modalClass', 'edit-category-modal full');
+            this.set('controllers.modal.modalClass', 'edit-category-modal full');
         }
     }.observes('isVirtualMachine', 'generalSelected', 'selectionSelected', 'summarySelected'),
 
     title: function() {
-        if (this.get('selectionSelected')){
-          return I18n.t("launcher.selection_title");
-        } else if (this.get('summarySelected')){
-          return I18n.t("launcher.summary_title");
+        if (this.get('selectionSelected') && (this.get('isVirtualMachine'))) {
+            return I18n.t("launcher.selection_virtualmachine_title");
+        } else if (this.get('selectionSelected')) {
+            return I18n.t("launcher.selection_application_title");
+        } else if (this.get('summarySelected')) {
+            return I18n.t("launcher.summary_title");
         }
         return I18n.t("launcher.title");
     }.property('selectionSelected', 'summarySelected'),
@@ -62,9 +64,9 @@ export default Ember.Controller.extend(ModalFunctionality, {
     launchableChanged: function() {
         this.set('category.launchoption', this.get('launchOption'));
 
-        if  (this.get('launchOption').trim().length > 0) {
-          const isVM =  Ember.isEqual(this.get('launchOption').trim(), I18n.t('launcher.virtualmachines'));
-          this.set('isVirtualMachine', isVM);
+        if (this.get('launchOption').trim().length > 0) {
+            const isVM = Ember.isEqual(this.get('launchOption').trim(), I18n.t('launcher.virtualmachines'));
+            this.set('isVirtualMachine', isVM);
         }
 
         this.set('selectedTab', 'general');
@@ -91,17 +93,17 @@ export default Ember.Controller.extend(ModalFunctionality, {
         const versionable = this.get('category.versionoption') || "";
         let versionEntered = (versionable.trim().length > 0);
         if (!(this.get('selecting') == undefined)) {
-          this.set('selecting', !versionEntered);
+            this.set('selecting', !versionEntered);
         }
     }.observes('category.versionoption'),
 
     summarizingChanging: function() {
-      if (this.get('summarizing')) {
-        if (this.get('category.keypairoption') &&
-            this.get('category.keypairnameoption')) {
-              this.set('selecting', false);
-           }
-          }
+        if (this.get('summarizing')) {
+            if (this.get('category.keypairoption') &&
+                this.get('category.keypairnameoption')) {
+                this.set('selecting', false);
+            }
+        }
     }.observes('category.keypairoption', 'category.keypairnameoption'),
 
     titleChanged: function() {
@@ -122,7 +124,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.property('name'),
 
     saveLabel: function() {
-         if (this.get('saving')) return I18n.t("launcher.saving");
+        if (this.get('saving')) return I18n.t("launcher.saving");
 
         if (this.get('summarySelected')) return I18n.t("launcher.launch")
 
@@ -150,13 +152,13 @@ export default Ember.Controller.extend(ModalFunctionality, {
                 model.metaData.setProperties({
                     summarizing: result
                 });
-                    this.setProperties({ summarizing: true, loading: false });
-              });
+                this.setProperties({ summarizing: true, loading: false });
+            });
         },
 
         saveCategory() {
             const self = this,
-            model = this.get('model');
+                model = this.get('model');
             self.set('saving', true);
 
             this.get('model').save().then(function(result) {
@@ -165,13 +167,13 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
                 const slugId = result.id ? result.id : "";
                 if (result.id) {
-                    NilavuURL.routeTo('/t/'+ slugId);
-                } else{
-                  NilavuURL.routeTo('/');
+                    NilavuURL.routeTo('/t/' + slugId);
+                } else {
+                    NilavuURL.routeTo('/');
                 }
                 self.notificationMessages.success(I18n.t('launcher.launched') + " " + slugId);
 
-              }).catch(function(error) {
+            }).catch(function(error) {
                 alert("save error");
                 self.flash(extractError(error), 'error');
                 self.set('saving', false);
