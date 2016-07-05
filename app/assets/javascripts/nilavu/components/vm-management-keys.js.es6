@@ -7,8 +7,8 @@ import computed from 'ember-addons/ember-computed-decorators';
 export default buildCategoryPanel('keys', {
     privateKey_suffix: ".key",
     publicKey_suffix: ".pub",
-    spinnerPrivateIn: false,
-    spinnerPublicIn: false,
+    spinnerprivateIn: false,
+    spinnerpublicIn: false,
     privatekeyType: "PRIVATEKEY",
     publickeyType: "PUBLICKEY",
     privatekey: 'application/x-pem-key',
@@ -55,12 +55,12 @@ export default buildCategoryPanel('keys', {
     },
 
     showPrivateSpinner: function() {
-        return this.get('spinnerPrivateIn');
-    }.property('spinnerPrivateIn'),
+        return this.get('spinnerprivateIn');
+    }.property('spinnerprivateIn'),
 
     showPublicSpinner: function() {
-        return this.get('spinnerPublicIn');
-    }.property('spinnerPublicIn'),
+        return this.get('spinnerpublicIn');
+    }.property('spinnerpublicIn'),
 
     _getSuffix(type) {
         if (type == this.get('privatekeyType')) {
@@ -84,9 +84,9 @@ export default buildCategoryPanel('keys', {
         download(key, type) {
         alert("1");
             var self = this
-            this.set('spinnerIn', true);
+            this.set('spinner'+key+'In', true);
             return self._getKey(key).then(function(result) {
-                self.set('spinnerIn', false);
+                self.set('spinner'+key+'In', false);
                 if (!result.failed) {
                     var blob = null;
                     if (type == self.get('privatekeyType')) {
@@ -103,7 +103,7 @@ export default buildCategoryPanel('keys', {
                     self.notificationMessages.error(result.message);
                 }
             }, function(e) {
-                self.set('spinnerIn', false);
+                self.set('spinner'+key+'In', false);
                 return self.notificationMessages.error(I18n.t("ssh_keys.download_error"));
             });
         }

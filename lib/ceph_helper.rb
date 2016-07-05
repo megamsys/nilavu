@@ -28,6 +28,11 @@ class CephHelper
     obj.save
   end
 
+ def temporary_url(bucket, unique_filename)
+   obj = ceph_bucketobjects(bucket).build(unique_filename)
+   obj.temporary_url
+ end
+
   #forcefully delete
   def destroy_object(name, key)
     ceph_bucketobject(name,key).destroy

@@ -1,0 +1,19 @@
+<form>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="form-group">
+          {{text-field value=bucketName placeholderKey="bucket.bucket_name" class="form-control" autocorrect="off" autocapitalize="off"}}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-success col-md-12 col-xs-12" {{bind-attr disabled="submitDisabled"}} {{action "create"}}>
+        {{i18n 'bucket.create'}}
+        <span class="pull-right">
+          {{conditional-loading-spinner condition=showSpinner size="large"}}
+        </span>
+    </button>
+  </div>
+</form>

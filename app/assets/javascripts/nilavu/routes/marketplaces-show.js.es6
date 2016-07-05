@@ -8,7 +8,6 @@ export default Nilavu.Route.extend({
         return marketplaces;
     },
 
-
     model(params) {
         const self = this;
 

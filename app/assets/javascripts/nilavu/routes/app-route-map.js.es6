@@ -11,7 +11,6 @@ export default function() {
     this.resource('discovery', { path: '/' }, function() {
         // homepage
         this.route(Nilavu.Utilities.defaultHomepage(), { path: '/' });
-
         // filters
         Nilavu.Site.currentProp('filters').forEach(filter => {
             this.route(filter, { path: '/' + filter });
@@ -91,7 +90,7 @@ export default function() {
     this.route('forgot-password', { path: '/password-reset' });
 
     this.resource('storages', {path:'/storages'}, function() {
-        this.route('show', { path: '/' });
-        this.route('files',{ path: '/files' });
+        this.route('list', { path: '/' });
+        this.route('show',{ path: '/b/:id' });
     });
 }
