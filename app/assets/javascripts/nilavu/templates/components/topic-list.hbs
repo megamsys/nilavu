@@ -1,3 +1,7 @@
-{{#each topics as |topic|}}
-{{topic-list-item topic=topic}}
-{{/each}}
+<table class="table tb_action_list">
+  <tbody>
+    {{#each filteredTopics as |topic|}}
+        {{topic-list-item topic=topic}}
+    {{/each}}
+  </tbody>
+</table>

@@ -1,10 +1,11 @@
 import DiscoveryController from 'nilavu/controllers/discovery';
 import { queryParams } from 'nilavu/controllers/discovery-sortable';
-
+import { computed } from 'ember-addons/ember-computed-decorators';
 import { endWith } from 'nilavu/lib/computed';
 import showModal from 'nilavu/lib/show-modal';
 
 import OpenComposer from "nilavu/mixins/open-composer";
+
 
 const controllerOpts = {
   needs: ['discovery'],
@@ -22,6 +23,28 @@ const controllerOpts = {
   ascending: false,
   expandGloballyPinned: false,
   expandAllPinned: false,
+  isGrid: true,
+  isList: false,
+
+  dashboardTitle: function() {
+    return I18n.t("dashboards.title");
+  }.property(),
+
+  torpedoCategory: function() {
+    return I18n.t("dashboards.torpedo.category");
+  }.property(),
+
+  appCategory: function() {
+    return I18n.t("dashboards.app.category");
+  }.property(),
+
+  serviceCategory: function() {
+    return I18n.t("dashboards.service.category");
+  }.property(),
+
+  microserviceCategory: function() {
+    return I18n.t("dashboards.microservice.category");
+  }.property(),
 
   actions: {
 
@@ -87,7 +110,7 @@ const controllerOpts = {
     resetNew() {
       this.topicTrackingState.resetNew();
       Nilavu.Topic.resetNew().then(() => this.send('refresh'));
-    }
+    },
 
   },
 

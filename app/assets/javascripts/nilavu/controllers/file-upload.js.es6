@@ -4,6 +4,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
     needs: ['modal'],
     spinnerIn: false,
     fileuploaders: [],
+    object: null,
 
     onShow() {
         this.set('controllers.modal.modalClass', 'full');
@@ -21,12 +22,14 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
         upload(object) {
             this.get('fileuploaders').pushObject(Ember.Object.create({
-                file: object,
+                object: this.get('object'),
             }));
         },
 
         startUpload() {
-          
+          this.get('fileuploaders').pushObject(Ember.Object.create({
+              object: this.get('object'),
+          }));
         },
 
     }
