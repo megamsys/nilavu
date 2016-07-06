@@ -21,13 +21,34 @@ class CockpitsController < ApplicationController
 
     skip_before_filter :check_xhr
 
-    before_action :add_authkeys_for_api, only: [:index]
+    before_action :add_authkeys_for_api, only: [:all, :torpedo, :app, :service, :microservices]
 
     def entrance
         render 'cockpits/entrance'
     end
 
-    def index
+    def all
+        params[:filter] = Api::Assemblies::ALL
+        respond_with_list(Api::Assemblies.new.list(params).baked.flatten)
+    end
+
+    def torpedo
+        params[:filter] = Api::Assemblies::TORPEDO
+        respond_with_list(Api::Assemblies.new.list(params).baked.flatten)
+    end
+
+    def app
+        params[:filter] = Api::Assemblies::APP
+        respond_with_list(Api::Assemblies.new.list(params).baked.flatten)
+    end
+
+    def service
+        params[:filter] = Api::Assemblies::SERVICE
+        respond_with_list(Api::Assemblies.new.list(params).baked.flatten)
+    end
+
+    def microservices
+        params[:filter] = Api::Assemblies::MICROSERVICES
         respond_with_list(Api::Assemblies.new.list(params).baked.flatten)
     end
 end

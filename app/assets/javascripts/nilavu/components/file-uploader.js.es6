@@ -1,11 +1,15 @@
 import {
-    formatFileIcons,
-    formatFileSize
-} from 'nilavu/helpers/file-formats';
-import {
     generateSignature
 } from 'nilavu/helpers/storage';
-export default Ember.Component.extend({
+import {
+    formatFileIcons,
+    formatFileSize
+} from 'nilavu/lib/file-formats';
+import {
+    on
+} from 'ember-addons/ember-computed-decorators';
+import UploadMixin from "nilavu/mixins/upload";
+export default Ember.Component.extend(UploadMixin, {
     spinnerConnectIn: false,
     storageAction: null,
     storageKey: null,
@@ -15,18 +19,36 @@ export default Ember.Component.extend({
     storagePolicy: null,
     storageSignature: null,
 
+    objectName: null,
+    objectSize: null,
+    objectIcon: null,
+
+    @on('init')
+    _initialize() {
+        $('#objectfile').trigger('click');
+        $('#objectfile').change(function() {
+            var object = $('#objectfile').val();
+            this.set('objectName', object[0].files[0].name);
+            this.set('objectSize', formatFileSize(object[0].files[0].size));
+            var nameSplit = object[0].files[0].name.split('.');
+            this.set('objectIcon', formatFileIcons(nameSplit[nameSplit.length - 1]))
+        });
+    },
+
     fileName: function() {
-        return this.get('model').file[0].name;
-    }.property('model'),
+        return this.get('objectName');
+    }.property('objectName'),
 
     fileSize: function() {
-        return formatFileSize(this.get('model').file[0].size);
-    }.property('model'),
+      //  return formatFileSize(this.get('model').file[0].size);
+       return this.get('objectSize');
+    }.property('objectSize'),
 
     iconClass: function() {
-        var nameSplit = this.get('model').file[0].name.split('.');
-        return formatFileIcons(nameSplit[nameSplit.length - 1]);
-    }.property('model'),
+        //var nameSplit = this.get('model').file[0].name.split('.');
+        //return formatFileIcons(nameSplit[nameSplit.length - 1]);
+        return this.get("objectIcon");
+    }.property('objectIcon'),
 
     popIcon: function() {
         return "pop_icon";
@@ -63,38 +85,6 @@ export default Ember.Component.extend({
     formPolicy: function() {
         return this.get('storagePolicy');
     }.property('storagePolicy'),
-
-    didInsertElement() {
-        this._serverConnect();
-    },
-
-    _serverConnect() {
-        const self = this;
-        const bucketName = "sam";
-        this.set('spinnerConnectIn', true);
-        Nilavu.ajax('/buckets/'+bucketName, {
-            type: 'GET'
-        }).then(function(result) {
-            if (result.success) {
-                self.set('storageAction', result.message.storage_url+'/'+bucketName);
-                self.set('storageKey', self.get('fileName'));
-                self.set('storageACL', self.get('storageACL'));
-                self.set('storageContentType', '');
-                self.set('storageAccessKeyId', result.message.access_key_id);
-                var sign = generateSignature({
-                    "bucketName": "sam",
-                    "acl": self.get('storageACL'),
-                    "name": self.get('fileName'),
-                    "access_key": result.message.access_key_id,
-                    "secret_access_key": result.message.secret_access_key,
-                });
-                self.set('storagePolicy', sign.policy);
-                self.set('storageSignature', sign.signature);
-            } else {
-                self.notificationMessages.error(result.message);
-            }
-        });
-    },
 
     _uploadFile(file, signedRequest) {
         return new Promise(function(resolve, reject) {

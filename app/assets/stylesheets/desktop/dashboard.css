@@ -1,0 +1,15 @@
+.gridViewVisible {
+  display: grid;
+}
+
+.gridViewHidden {
+  display: none;
+}
+
+.listViewVisible {
+  display: grid;
+}
+
+.listViewHidden {
+  display: none;
+}

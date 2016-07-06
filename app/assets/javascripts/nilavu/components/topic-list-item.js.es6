@@ -5,6 +5,7 @@ export default Ember.Component.extend({
                       'unboundClassNames',
                       'selected'],
   attributeBindings: ['data-topic-id'],
+  tagName: 'tr',
   'data-topic-id': Em.computed.alias('topic.id'),
 
   actions: {
@@ -20,7 +21,7 @@ export default Ember.Component.extend({
     },
     on()
     {
-      
+
     }
   },
 
