@@ -18,8 +18,9 @@ class HoneyPot
   end
 
   # groups with settings_name (vertice, bitnami, containership...)
+  # race_condition_ttl is needed  (RTFM - https://github.com/megamsys/nilavu/issues/943)
   def self.cached_marketplace_bifurs(params)
-    Rails.cache.fetch("honeypot_bifurs", expires_in: 10.minutes) do
+    Rails.cache.fetch("honeypot_bifurs", race_condition_ttl: 10, expires_in: 10.minutes) do
       Api::Marketplaces.instance.list(params).marketplace_bifurs
     end
   end

@@ -141,6 +141,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
                 model.metaData.setProperties({
                     cooking: result
                 });
+                alert(JSON.stringify(result.customapps));
                 this.setProperties({ cooking: true, selecting: true, loading: false });
             });
         },
