@@ -1,58 +1,71 @@
 .c_icon-compose {
-  color: transparent;
-  overflow: hidden;
-  display: inline-block;
-  height: 16px;
-  width: 16px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  /* border-radius: 50%; */
-  vertical-align: middle;
-  background-image: url(../images/icons/sshkey_icon_compose.png);
-  margin-bottom: 3px !important;
-  margin-right: 5px;
+    color: transparent;
+    overflow: hidden;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* border-radius: 50%; */
+    vertical-align: middle;
+    background-image: url(../images/icons/sshkey_icon_compose.png);
+    margin-bottom: 3px !important;
+    margin-right: 5px;
 }
 .c_icon-import {
-  color: transparent;
-  overflow: hidden;
-  display: inline-block;
-  height: 16px;
-  width: 16px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  /* border-radius: 50%; */
-  vertical-align: middle;
-  background-image: url(../images/icons/sshkey_icon_import.png);
-  margin-bottom: 3px !important;
-  margin-right: 5px;
+    color: transparent;
+    overflow: hidden;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* border-radius: 50%; */
+    vertical-align: middle;
+    background-image: url(../images/icons/sshkey_icon_import.png);
+    margin-bottom: 3px !important;
+    margin-right: 5px;
 }
-
 .c_icon-calendar {
-  color: transparent;
-  overflow: hidden;
-  display: inline-block;
-  height: 16px;
-  width: 16px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  /* border-radius: 50%; */
-  vertical-align: middle;
-  background-image: url(../images/icons/sshkey_icon_calendar.png);
-  margin-bottom: 3px !important;
-  margin-right: 5px;
+    color: transparent;
+    overflow: hidden;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    /* border-radius: 50%; */
+    vertical-align: middle;
+    background-image: url(../images/icons/sshkey_icon_calendar.png);
+    margin-bottom: 3px !important;
+    margin-right: 5px;
 }
 .ssh-alert-success {
-  color: #468847;
-  background-color: #dff0d8 !important;
-  border-color: #d6e9c6;
-  font-size: 14px;
+    color: #468847;
+    background-color: #dff0d8 !important;
+    border-color: #d6e9c6;
+    font-size: 14px;
 }
-
 .ssh-modal {
-   .modal-dialog {
-    width: 30%;
-  }
+    .modal-dialog {
+        width: 30%;
     }
+}
+.keep-line {
+    padding: 2% !important;
+}
+.pad {
+    padding: 0%;
+}
+.pad_zero {
+    padding-left: 0%;
+}
+.pad_two {
+    padding-left: 2% !important;
+}
+.pad_bottom {
+    margin-bottom: -2%;
+}
