@@ -18,7 +18,12 @@ Nilavu::Application.routes.draw do
   get "login" => "static#show", id: "login"
   get "password-reset" => "static#show", id: "password_reset"
   get "signup" => "static#show", id: "signup"
-  get "torpedo.json" => 'cockpits#index', defaults: {format: 'json'}
+
+  get "dashboard.json" => 'cockpits#all', defaults: {format: 'json'}
+  get "torpedo.json" => 'cockpits#torpedo', defaults: {format: 'json'}
+  get "app.json" => 'cockpits#app', defaults: {format: 'json'}
+  get "service.json" => 'cockpits#service', defaults: {format: 'json'}
+  get "microservice.json" => 'cockpits#microservices', defaults: {format: 'json'}
 
   #session related
   resources :sessions

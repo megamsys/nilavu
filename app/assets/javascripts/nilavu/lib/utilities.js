@@ -323,7 +323,7 @@ Nilavu.Utilities = {
   },
 
   defaultHomepage: function() {
-    return "torpedo";
+    return "dashboard";
   }
 
 };

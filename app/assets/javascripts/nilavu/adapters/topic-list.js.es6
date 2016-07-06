@@ -1,5 +1,6 @@
 import RestAdapter from 'nilavu/adapters/rest';
 
+
 export function finderFor(filter, params) {
   return function() {
     let url = Nilavu.getURL("/") + filter + ".json";

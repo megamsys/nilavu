@@ -363,6 +363,26 @@ en:
 
     dashboards:
       title: "Dashboard"
+      torpedo:
+        create: "Create Virtual Machine"
+        category: "torpedo"
+        title: "Your Virtual Machines"
+        subtitle: "virtualmachine running"
+      app:
+        create: "Create App"
+        category: "app"
+        title: "Your Apps"
+        subtitle: "apps running"
+      service:
+        create: "Create Service"
+        category: "service"
+        title: "Your Services"
+        subtitle: "services running"
+      microservice:
+        create: "Create Microservice"
+        category: "microservice"
+        title: "Your Containers"
+        subtitle: "containers running"
 
     marketplaces:
       title: "Marketplaces"

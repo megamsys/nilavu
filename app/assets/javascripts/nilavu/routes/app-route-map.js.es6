@@ -1,5 +1,6 @@
 export default function() {
 
+
     //Fake route, we will remove it once we are done.
 
     this.route('dummy');
@@ -12,7 +13,7 @@ export default function() {
         // homepage
         this.route(Nilavu.Utilities.defaultHomepage(), { path: '/' });
         // filters
-        Nilavu.Site.currentProp('filters').forEach(filter => {
+        Nilavu.Site.currentProp('filters').forEach(filter => {        
             this.route(filter, { path: '/' + filter });
         });
 
