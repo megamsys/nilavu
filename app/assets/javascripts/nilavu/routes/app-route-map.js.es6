@@ -19,7 +19,7 @@ export default function() {
     });
 
     //sshkey routes
-    this.resource('sshkey', { path: '/sshkey' }, function() {
+    this.resource('sshkeys', { path: '/sshkeys' }, function() {
       this.route('show', { path: '/' });
     });
 

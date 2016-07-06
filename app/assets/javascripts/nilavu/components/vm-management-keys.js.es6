@@ -73,6 +73,7 @@ export default buildCategoryPanel('keys', {
     _getKey(name) {
         return Nilavu.ajax("/ssh_keys/" + name + ".json", {
             type: 'GET'
+
         });
     },
 
