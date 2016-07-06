@@ -6,15 +6,14 @@ var get = Em.get,
 
 export function customappBadgeHTML(customapp, opts) {
     opts = opts || {};
-
     if (!customapp) return "";
 
-    const desc = customapp.description_text;
+    const desc = customapp.text;
 
-    const logo1 = customapp.logo;
+    const logoi = '../images/brands/'+ customapp.text.replace('.','').toLowerCase() + '.png';
 
     var description = desc,
-        logo = ' src="' + customapp.logo + '"',
+        logo = ' src="' + logoi + '"',
         tagName =  'img',
         html = "";
 

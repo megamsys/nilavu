@@ -11,30 +11,24 @@ export default Ember.Component.extend({
     }.property("category"),
 
     appTitle: function() {
-        if (this.get('category.customappoption')) {
-            return this.get('category.customappoption') + " : " + this.get('category.customappversion');
+        if (this.get('category.customappname')) {
+            return this.get('category.customappname') + "  Version " + this.get('category.customappversion');
         }
         return 'None';
     }.property('category.customappoption', 'category.customappversion'),
 
 
     appUrl: function() {
-        var url = "general url";
+        return Nilavu.SiteSettings.faq_url;
+    }.property('category.appDetails'),
 
-        if (this.get('category.customappoption')) {
-            url += '+ category.customappurl';
-        }
-        return url;
-    }.property('category.customappoption', 'category.customappversion'),
+    appUrlTitle: function() {
+        return I18n.t('customapp.docs');
+    }.property('category.appDetails'),
 
 
     appDescription: function() {
-        var desc = 'I18n(customapp.description)';
-
-        if (this.get('category.customappoption')) {
-            desc += 'I18n(customapp' + this.get('category.customappoption') + '.description)';
-        }
-        return desc;
-    }.property('category.customappoption', 'category.customappversion')
+        return I18n.t('customapp.description');
+    }.property('category.appDetails')
 
 });

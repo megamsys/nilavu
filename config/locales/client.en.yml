@@ -353,8 +353,13 @@ en:
       not_launched: "Not launched"
       launched_redirecting: "Redirecting ..."
       prepackaged: "Pre-packaged"
-      customapp: "Custom Application"
-      customapp_choose: "Choose a custom app to launch"
+      customapp:  "Custom Application"
+
+    customapp:
+      choose: "Choose a custom app to launch"
+      description: "Launch an application now."
+      docs: "View Docs"
+      publicrepo: "Type a repo url. eg: https://github.com/verticeapps/discourse"
 
     dashboards:
       title: "Dashboard"

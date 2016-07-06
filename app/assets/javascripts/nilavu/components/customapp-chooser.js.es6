@@ -17,48 +17,38 @@ export default ComboboxView.extend({
         return customapps;
     },
 
-    @on("init")
-    _updateCustomapps() {
-        if (!this.get('customapps')) {
-            /*    const customapps = Nilavu.CustomApps.list();  */
+    _updateCustomApps: function() {
+        var rval = [];
+        const ca = this.get('customapps');
 
-            const customapps = [
-                { id: '1', name: 'Java Web Application - Tomcat', logo: '../images/brands/java.png', description_text: 'webapp' },
-                { id: '2', name: 'Ruby on Rails Framework', logo: '../images/brands/rails.png', description_text: 'webapp' },
-                { id: '3', name: 'Node.js V8 Javascript         ', logo: '../images/brands/nodejs.png', description_text: 'webapp' },
-                { id: '4', name: 'Playframework (Scala)', logo: '../images/brands/play.png', description_text: 'webapp' }
-            ];
-
-            this.set('customapps', customapps);
+        if (ca.length > 0) {
+            ca.forEach(function(a) {
+                rval.addObject({
+                    id: a.id,
+                    name: a.name,
+                    logo: '../images/brands/' + a.logo,
+                    description_text: a.description
+                })
+            });
         }
-    },
+        this.set('content', rval);
+    }.observes('customapps'),
 
-    @computed("rootNone")
-    none(rootNone) {
-        return 'launcher.customapp_choose';
+
+    @computed("rootNone") none(rootNone) {
+        return 'customapp.choose';
     },
 
     comboTemplate(item) {
         let customapp = item;
 
-        const customapps = [
-            { id: '1', name: 'Java Web Application - Tomcat', logo: '../images/brands/java.png', description_text: 'Java Web Application' },
-            { id: '2', name: 'Ruby on Rails', logo: '../images/brands/rails.png', description_text: 'Ruby on Rails' },
-            { id: '3', name: 'Node.js V8 Javascript', logo: '../images/brands/nodejs.png', description_text: 'Node.js V8 Javascript' },
-            { id: '4', name: 'Playframework (Scala)', logo: '../images/brands/play.png', description_text: 'Playframework (Scala)' }
-        ];
-
         if (Ember.isEmpty(customapp.id)) {
             return customapp.text
         }
 
-        const customappArray = customapps.filter((f) => f.id == item.id);
+        let result = customappBadgeHTML(customapp, { link: false }) + customapp.text;
 
-        customapp = customappArray.get('firstObject');
-
-        let result = customappBadgeHTML(customapp, { link: false }) + customapp.description_text;
         return result;
-
     }
 
 });

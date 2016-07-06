@@ -12,26 +12,42 @@ export default Ember.Component.extend({
         return this.get('category');
     }.property("category"),
 
-    appVersions: function() {
-        var rval = [];
-        //_.each(this.get("sshoptions"), function(p) {
-        if (this.get('category.customappoption')) {
-            rval.addObject({
-                name: '4.4 memo',
-                value: '4.4 memo'
-            });
+    customappsChanged: function() {
+        const cc = this.get('category.cooking.customapps');
 
-            rval.addObject({
-                name: '6.6 aaaaaa',
-                value: '6.6 aaaaaaa'
-            });
-            //  });
+        let i = 0;
+        const ccids = cc.map(function(e) {
+            e.id = ++i;
+            return e;
+        });
+
+        this.set('customapps', ccids);
+    }.observes('category.cooking'),
+
+    appVersions: function() {
+        if (this.get('category.customappoption') && this.get('customapps')) {
+            const filtApp = this.get('customapps').filter((f) => f.id == this.get('category.customappoption'));
+            if (filtApp.get('firstObject')) {
+                return filtApp.get('firstObject').versions;
+            }
         }
-        return rval;
+        return [];
     }.property("category.customappoption"),
+
+    ndexToAppName: function(idx) {
+        if (this.get('category.customappoption') && this.get('customapps')) {
+            const filtApp = this.get('customapps').filter((f) => f.id == this.get('category.customappoption'));
+            if (filtApp.get('firstObject')) {
+                this.set('category.appDetails', filtApp.get('firstObject'));
+                return filtApp.get('firstObject').name;
+            }
+        }
+        return "";
+    },
 
     selectedAppChanged: function() {
         this.set('category.customappoption', this.get('selectedApp'));
+        this.set('category.customappname', this.ndexToAppName(this.get('selectedApp')));
     }.observes('selectedApp'),
 
     selectedAppVersionChanged: function() {

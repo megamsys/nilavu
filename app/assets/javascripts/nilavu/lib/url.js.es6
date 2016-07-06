@@ -145,8 +145,7 @@ const NilavuURL = Ember.Object.createWithMixins({
 
     if (this.navigatedToPost(oldPath, path)) { return; }
 
-    alert("cleanDOM");
-    
+  
     // Schedule a DOM cleanup event
     Em.run.scheduleOnce('afterRender', Nilavu.Route, 'cleanDOM');
 
