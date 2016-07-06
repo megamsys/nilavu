@@ -3,13 +3,13 @@
     <div class="bottom-divider"></div>
 </div>
 <div class="row">
-    <div class="col-xs-6 pad_0">
+    <div class="col-md-6 pad_0">
         <h4>{{i18n 'launcher.select_sshkey'}}</h4>
         <div class="form-group">
             {{combo-box valueAttribute="value" content=sshFrequencies value=selectedSSHOption}}
         </div>
     </div>
-    <div class="col-xs-6">
+    <div class="col-md-6">
         {{#if showOldPairs}}
             <h4>{{i18n 'launcher.select_sshkey_pair'}}</h4>
             <div class="form-group">
