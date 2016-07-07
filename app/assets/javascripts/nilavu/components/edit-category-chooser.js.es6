@@ -7,6 +7,7 @@ export default Ember.Component.extend({
     tagName: 'label',
     classNameBindings: [':btn', ':btn-primary', ':btnSelect', 'alignRight', 'isActive:active'],
 
+
     alignRight: function() {
         const posRight = this.get('position') || "";
         return posRight.trim();

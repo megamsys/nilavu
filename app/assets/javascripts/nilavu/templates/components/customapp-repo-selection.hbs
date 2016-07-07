@@ -1,0 +1,17 @@
+<div class="row">
+    <div data-toggle="buttons">
+        <div class="btn-storage-container bigger">
+            {{customapp-repo-chooser name=myRepos repoable=customRepoType style="float: left, margin-top: 10px"}}
+            {{customapp-repo-chooser name=publicRepos repoable=customRepoType style="float: right"}}
+        </div>
+    </div>
+</div>
+{{#if gitty}}
+    {{customapp-repo-github  selectedRepo=selectedRepo}}
+{{else if pubty}}
+    <div class="row pad_t25">
+        <div class="col-md-12">
+            {{text-field type="text" value=selectedRepo placeholderKey="customapp.publicrepo" class ="form-control" id="new-public-repo" disabled=repoValidated name="publicrepo" autofocus="autofocus"}}
+        </div>
+    </div>
+{{/if}}

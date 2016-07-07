@@ -31,15 +31,15 @@ export default Ember.Controller.extend(ModalFunctionality, {
         if (data.success == "OK") {
            key += '_found';
           self.set('accountEmailOrUsername', '');
-          self.notificationMessages.success(I18n.t(key, {email: escaped, username: escaped}),{clearDuration: 4000});
           self.send("closeModal");
+          self.notificationMessages.success(I18n.t(key, {email: escaped, username: escaped}),{clearDuration: 4000});
         } else {
           if (data.user_found === false) {
             key += '_not_found';
             extraClass = 'error';
           }
+          self.send("closeModal");
           self.notificationMessages.success(I18n.t(key, {email: escaped, username: escaped}), extraClass);
-
         }
       };
 

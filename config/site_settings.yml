@@ -18,27 +18,27 @@
 required:
   title:
     client: true
-    default: 'Vertice'
+    default: 'DET.io'
   site_description:
     default: 'One click cloud in 60 seconds'
   contact_email:
     client: true
-    default: 'support@megam.io'
+    default: 'support@det.io'
     type: email
   contact_url:
     client: true
-    default: 'https://www.megam.io'
+    default: 'https://www.det.io'
   notification_email:
-    default: 'noreply@unconfigured.megam.io.io'
+    default: 'noreply@unconfigured.det.io'
     type: email
   disable_customization:
     default: true
   logo_url:
     client: true
-    default: '/images/logo_vertice.png'
+    default: '/images/logo_det.png'
   logo_small_url:
     client: true
-    default: '/images/logo_vertice_small.png'
+    default: '/images/logo_det_small.png'
   logo_reverse_url:
     client: true
     default: '/images/logo_vertice_reverse.png'
@@ -54,9 +54,12 @@ required:
   version_checks:
     default: false
     new_version_emails: false
+  prelogin_cta:
+    client: true
+    default: false
   global_notice:
       default: ""
-  free_wheeling:
+  minified:
       client: true
       default: false
 
@@ -213,13 +216,13 @@ legal:
     default: ''
   privacy_policy_url:
     client: true
-    default: 'http://privacy.fixit'
+    default: 'http://www.det.io/privacy'
   faq_url:
     client: true
-    default: 'http://docs.megam.io/docs/megam_oja_gettingstarted'
+    default: 'http://docs.det.io/getting_started'
   support_url:
     client: true
-    default: 'http://support.megam.io'
+    default: 'http://det.megam.io'
   support_email:
     client: true
     default: "support@det.io"

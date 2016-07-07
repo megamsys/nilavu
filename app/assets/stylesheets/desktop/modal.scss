@@ -1,110 +1,83 @@
 // Copied from custom.css, megam.css
-
-.c_modal-footer
-{
-    border:none;
+.c_modal-footer {
+    border: none;
     text-align: center;
 }
-.c_modal-content
-{
-    font-size: 18px;
-}
-
-.modal {
-  z-index: 10050 !important;
-  outline: none !important;
-}
-
 .modal-header {
-  border-bottom: 1px solid #EFEFEF;
+    border-bottom: 1px solid #EFEFEF;
 }
-
 .modal-header h3 {
-  font-weight: 300;
+    font-weight: 300;
 }
-
 .modal-wide {
-  width: 60% !important;
+    width: 60% !important;
 }
-
 .modal-tab {
-  position: absolute;
-  width: 95%;
+    position: absolute;
+    width: 100%;
 }
-
 .modal-full {
-  width: 100% !important;
+    width: 100% !important;
 }
-
-
-
 /***
 Modal header close button fix
 ***/
 .modal-header .close {
-//  margin-top: 14px;
-  float: right;
+    //margin-top: 14px;
+    float: right;
 }
-
 .modal > .loading {
-  position: absolute;
-  top: 50%;
-  left:50%;
-  margin-top: -22px;
-  margin-left: -22px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -22px;
+    margin-left: -22px;
 }
-
 .modal-backdrop {
-  border: 0 !important;
-  outline: none !important;
-  z-index: 10049 !important;
+    border: 0 !important;
+    outline: none !important;
+    z-index: 1040 !important;
 }
-
 .modal-backdrop,
 .modal-backdrop.fade.in {
-  background-color: #333 !important;
+    background-color: #333 !important;
 }
-
 .modal-open .header .container-fluid {
-  padding-right: 37px;
+    padding-right: 37px;
 }
-
-body.modal-open {
-}
-
+body.modal-open {}
 .edit-category-modal {
-  &.full .modal-body {
-    position: relative;
-    height: 800px;
-    padding-bottom: 0;
-  }
-  &.medium .modal-body {
-    height: 650px;
-  }
-  &.small .modal-body {
-    height: 310px;
-  }
-  .secure-category-options {
-    margin: 10px 0 0 16px;
-    .badge-list {
-      margin: 10px 0;
-      li {
-        margin: 0 4px 8px 0;
-        a {
-          color: dark-light-choose(scale-color($primary, $lightness: 50%), scale-color($secondary, $lightness: 50%));
-          cursor: pointer;
-        }
-        a:hover {
-          color: dark-light-choose(scale-color($primary, $lightness: 40%), scale-color($secondary, $lightness: 60%));
-        }
-      }
+    &.full .modal-body {
+        position: relative;
+        height: 800px;
+        padding-bottom: 0;
     }
-  }
-
-  .cannot_delete_reason {
-    float: right;
-    text-align: right;
-    max-width: 380px;
-    color: dark-light-choose(scale-color($primary, $lightness: 60%), scale-color($secondary, $lightness: 40%));
-  }
+    &.medium .modal-body {
+        height: 550px;
+    }
+    &.small .modal-body {
+        height: 310px;
+    }
+    .secure-category-options {
+        margin: 10px 0 0 16px;
+        .badge-list {
+            margin: 10px 0;
+            li {
+                margin: 0 4px 8px 0;
+                a {
+                    color: dark-light-choose(scale-color($primary, $lightness: 50%), scale-color($secondary, $lightness: 50%));
+                    cursor: pointer;
+                }
+                a:hover {
+                    color: dark-light-choose(scale-color($primary, $lightness: 40%), scale-color($secondary, $lightness: 60%));
+                }
+            }
+        }
+    }
+    .cannot_delete_reason {
+        float: right;
+        text-align: right;
+        max-width: 380px;
+        color: dark-light-choose(scale-color($primary, $lightness: 60%), scale-color($secondary, $lightness: 40%));
+    }
 }

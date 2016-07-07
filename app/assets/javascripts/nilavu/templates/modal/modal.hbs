@@ -1,10 +1,10 @@
 <div class="modal-dialog">
-    <div class="modal-content c_modal-content">
+    <div class="modal-content">
         <div class="modal-header">
+          <a class="close pull-right" {{action "closeModal"}}>{{fa-icon "remove"}}</a>
           <div class="head">
             <div class="row">
                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                 <a class="close pull-right" {{action "closeModal"}}>{{fa-icon "remove"}}</a>
                    {{#if smallTitle}}
                     <h4 class="modal-title {{headCentered}}">{{title}}</h4>
                     {{else}}

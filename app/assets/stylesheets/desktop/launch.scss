@@ -63,7 +63,7 @@ $hiddenContent: "input#vm, input#app, .hideme, .hideme2, .hideme3, .hideme-custo
 .selectBg {
     /* Blue background behind 'VM'/'Application' */
     background-color: $blue-color;
-    min-height: 200px;
+    min-height: 208px;
 }
 img.inSelect {
     width: 60%;
@@ -430,7 +430,7 @@ img.inSelect {
 
 
 .oscontainer {
-  margin-top: -37px;
+  margin-top: -22px;
   padding-top: 56px;
   margin-right: 0px;
   border: 1px solid #dcdcdc;
@@ -587,9 +587,7 @@ img.inSelect {
 }
 
 //predeploy.css progress bar
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
 .predeploybar {
-  font-family: 'Open Sans', 'sans-serif';
 	position:relative;
 	display:block;
 	margin-bottom:15px;

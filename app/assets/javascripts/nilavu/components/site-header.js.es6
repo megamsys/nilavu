@@ -169,7 +169,7 @@ const SiteHeaderComponent = MountWidget.extend({
 export default SiteHeaderComponent;
 
 export function headerHeight() {
-  const $header = $('header.d-header');
+  const $header = $('header.navbar');
   const headerOffset = $header.offset();
   const headerOffsetTop = (headerOffset) ? headerOffset.top : 0;
   return parseInt($header.outerHeight() + headerOffsetTop - $(window).scrollTop());
