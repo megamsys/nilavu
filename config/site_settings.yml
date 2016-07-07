@@ -87,11 +87,11 @@ basic:
   left_menu:
     client: true
     type: list
-    default: 'torpedo|app|service|microservice'
+    default: 'dashboard|torpedo|app|service|microservice'
   default_categories:
     client: true
     type: list
-    default: 'torpedo|app|service|microservice|analytics|collaboration'
+    default: 'dashboard|torpedo|app|service|microservice|analytics|collaboration'
   default_categories_muted:
     client: true
     type: list

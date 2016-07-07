@@ -74,6 +74,10 @@ export default buildCategoryPanel('info', {
         return I18n.t("vm_management.ram.content_ram_size");
     }.property(),
 
+    content_private_ip: function() {
+        return I18n.t("vm_management.network.content_private_ip");
+    }.property(),
+
     content_ipv4: function() {
         return I18n.t("vm_management.network.content_ipv4");
     }.property(),
@@ -115,7 +119,7 @@ export default buildCategoryPanel('info', {
     }.property('model.inputs'),
 
     host: function() {
-        return this._filterOutputs("host");
+        return this._filterOutputs("vnchost");
     }.property('model.outputs'),
 
     region: function() {
@@ -125,6 +129,10 @@ export default buildCategoryPanel('info', {
     flavor: function() {
         return this._filterInputs("resource");
     }.property('model.inputs'),
+
+    privateipv4: function() {
+        return this._filterOutputs("privateipv4");
+    }.property('model.outputs'),
 
     ipv4_private: function() {
         return this._checked(this._filterInputs("privnetwork"));

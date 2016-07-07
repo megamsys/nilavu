@@ -377,13 +377,12 @@ export default Ember.View.extend({
   },
 
   @on('init')
-  openSocket() {
-    //this.set('socket', this.socketIO.socketFor('http://88.198.139.80:8090', { path: ""}));
-    this.set('socket', this.socketIO.socketFor('ws://localhost:7777', { path: "/vnc"}));
+  openSocket() {  
+    this.set('socket', this.socketIO.socketFor(Nilavu.VncServer, { path: "/vnc"}));
     this.get('socket').emit("category_connect", "vnc");
     this.get('socket').emit('vncInit', {
-      Host: "136.243.49.217",
-      Port: "6663",
+      Host: this.get('vnchost'),
+      Port: this.get('vncport'),
       Password: ""
     });
   },
