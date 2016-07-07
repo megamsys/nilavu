@@ -59,6 +59,7 @@ export default Ember.Controller.extend(BufferedContent, {
     }.property('model.name'),
 
     hasInputs: Em.computed.notEmpty('model.inputs'),
+    hasOutputs: Em.computed.notEmpty('model.outputs'),
 
     _filterInputs(key) {
         if (!this.get('hasInputs')) return "";
@@ -66,14 +67,27 @@ export default Ember.Controller.extend(BufferedContent, {
         return this.get('model.inputs').filterBy('key', key)[0].value;
     },
 
+    _filterOutputs(key) {
+        if (!this.get('hasOutputs')) return "";
+        if (!this.get('model.outputs').filterBy('key', key)[0]) return "";
+        return this.get('model.outputs').filterBy('key', key)[0].value;
+    },
 
     actions: {
 
         // VNC
         showVNC() {
-            showModal('vnc', {
-                url: this.get('vncUrl')
-            }); // send the url
+            const host = this._filterOutputs("vnchost"),
+                port = this._filterOutputs("vncport");
+            if (host == undefined || host == "" || port == "" || port == undefined) {
+                this.notificationMessages.error(I18n.t('vm_management.vnc_host_port_empty'));
+            } else {
+                showModal('vnc', {
+                    host: host,
+                    port: port
+                });
+            }
+
         },
 
         // START, STOP, RESTART, DELETE
@@ -98,23 +112,23 @@ export default Ember.Controller.extend(BufferedContent, {
         },
 
         destroy() {
-           //bootbox.confirm(I18n.t("post.delete.confirm", { count: this.get('selectedPostsCount') }), result => {
-               //if (result) {
+            //bootbox.confirm(I18n.t("post.delete.confirm", { count: this.get('selectedPostsCount') }), result => {
+            //if (result) {
 
-                    // If all posts are selected, it's the same thing as deleting the topic
-                    if (this.get('allPostsSelected')) {
-                        return this.deleteTopic();
-                    }
+            // If all posts are selected, it's the same thing as deleting the topic
+            if (this.get('allPostsSelected')) {
+                return this.deleteTopic();
+            }
 
-                    const selectedPosts = this.get('selectedPosts');
-                    const selectedReplies = this.get('selectedReplies');
-                    const postStream = this.get('model.postStream');
-                    const deleted_by=this.get('deleted_by')
+            const selectedPosts = this.get('selectedPosts');
+            const selectedReplies = this.get('selectedReplies');
+            const postStream = this.get('model.postStream');
+            const deleted_by = this.get('deleted_by')
 
-                    Nilavu.Topic.destroy(deleted_by);
+            Nilavu.Topic.destroy(deleted_by);
 
-                //}
-           //})
+            //}
+            //})
         },
 
         snapshot(post) {

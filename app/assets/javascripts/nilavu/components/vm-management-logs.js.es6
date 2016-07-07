@@ -29,7 +29,7 @@ export default buildCategoryPanel('logs', {
     },
 
     _socket_connect: function() {
-        this.set('log_socket', this.socketIO.socketFor('ws://localhost:7777', {
+        this.set('log_socket', this.socketIO.socketFor(Nilavu.LogServer, {
             path: "/logs"
         }));
         var socket = this.get('log_socket');

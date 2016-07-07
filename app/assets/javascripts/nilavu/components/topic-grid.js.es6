@@ -32,7 +32,7 @@ export default Ember.Component.extend({
   filteredTopics: function() {
     const cat = this.get('showCategory');
     return this.get('topics').filter(function(topic) {
-      return topic.get('category').match(cat);
+      return topic.get('filteredCategory').match(cat);
     });
   }.property(),
 

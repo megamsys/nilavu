@@ -65,7 +65,7 @@ window.PreloadStore = {
     @param {String} key the key to look up the object with
     @returns {Object} the object from the store
   **/
-  "get": function(key) {
+  "get": function(key) {  
     return this.data[key];
   },
 

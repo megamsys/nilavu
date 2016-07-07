@@ -451,6 +451,7 @@ en:
         content_reattach_ip: "Reattach IP"
         content_ipv4: "IPV4"
         content_ipv6: "IPV6"
+        content_private_ip: "Private IPv4"
         content_private: "private network"
         content_public: "public network"
       cpu:
@@ -468,6 +469,7 @@ en:
       logs:
         tab_title: "Logs"
       not_load: "Virtual Machine updating failed."
+      vnc_host_port_empty: "Oops, VNC host and port was empty, try some other time."
 
     logs:
       all:
