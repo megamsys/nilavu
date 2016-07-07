@@ -23,7 +23,6 @@ class BucketsController < ApplicationController
 
   def index
      @lister = BucketsLister.new(params)
-
       @listed_buckets = lister_has_calcuated
         if @listed_buckets.present?
           render json: {

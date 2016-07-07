@@ -8,8 +8,7 @@ import {
 import {
     on
 } from 'ember-addons/ember-computed-decorators';
-import UploadMixin from "nilavu/mixins/upload";
-export default Ember.Component.extend(UploadMixin, {
+export default Ember.Component.extend({
     spinnerConnectIn: false,
     storageAction: null,
     storageKey: null,
@@ -23,17 +22,10 @@ export default Ember.Component.extend(UploadMixin, {
     objectSize: null,
     objectIcon: null,
 
-
     @on('didInsertElement')
     _initialize() {
         $('#objectfile').trigger('click');
-        $('#objectfile').change(function() {
-            var object = $('#objectfile').val();
-            this.set('objectName', object[0].files[0].name);
-            this.set('objectSize', formatFileSize(object[0].files[0].size));
-            var nameSplit = object[0].files[0].name.split('.');
-            this.set('objectIcon', formatFileIcons(nameSplit[nameSplit.length - 1]))
-        });
+        this._bindUploadTarget();
     },
 
     fileName: function() {
@@ -41,8 +33,8 @@ export default Ember.Component.extend(UploadMixin, {
     }.property('objectName'),
 
     fileSize: function() {
-      //  return formatFileSize(this.get('model').file[0].size);
-       return this.get('objectSize');
+        //  return formatFileSize(this.get('model').file[0].size);
+        return this.get('objectSize');
     }.property('objectSize'),
 
     iconClass: function() {
@@ -87,18 +79,70 @@ export default Ember.Component.extend(UploadMixin, {
         return this.get('storagePolicy');
     }.property('storagePolicy'),
 
-    _uploadFile(file, signedRequest) {
-        return new Promise(function(resolve, reject) {
-            const xhr = new XMLHttpRequest()
-            xhr.open("PUT", signedRequest)
-            xhr.setRequestHeader('x-amz-acl', 'public-read')
-            xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
-            xhr.onload = () => {
-                resolve()
-            }
-            xhr.send(file)
-        })
-    },
+    _bindUploadTarget() {
+        //this._unbindUploadTarget(); // in case it's still bound, let's clean it up first
+        const self = this;
+        const $element = $('#objectfile');
+        //alert($element[0].files[0]);
+        $element.fileupload({
+            url: "http://192.168.0.115/woww",
+            dataType: "multipart/form-data",
+            pasteZone: $element,
+        });
 
+        $element.on('fileuploadsubmit', (e, data) => {
+          alert(self.get('storageACL'));
+            //const isUploading = Discourse.Utilities.validateUploadedFiles(data.files);
+            var sign = generateSignature({
+                    "bucketName": "woww",
+                    "acl": self.get('storageACL'),
+                    "name": data.files[0].name,
+                    "access_key": "8EHS3Q80KDVEZ6Q8V74T",
+                    "secret_access_key": "dpGcXgNufWYgJcIMvQszyZfnRjqoGBRUPRjCYoUD",
+                });
+            data.formData = {
+                key: data.files[0].name,
+                acl: self.get('storageACL'),
+                AWSAccessKeyId: "8EHS3Q80KDVEZ6Q8V74T",
+                policy: sign.policy,
+                signature: sign.signature
+            };
+            //this.setProperties({
+            //    uploadProgress: 0,
+            //    isUploading
+          //  });
+            //return isUploading;
+        });
+
+        /*$element.on("fileuploadprogressall", (e, data) => {
+            this.set("uploadProgress", parseInt(data.loaded / data.total * 100, 10));
+        });*/
+
+        $element.on("fileuploadsend", (e, data) => {
+            /*this._validUploads++;
+            // add upload placeholders (as much placeholders as valid files dropped)
+            const placeholder = _.times(this._validUploads, () => uploadPlaceholder).join("\n");
+            this.appEvents.trigger('composer:insert-text', placeholder);
+            */
+            if (data.xhr && data.originalFiles.length === 1) {
+                this.set("isCancellable", true);
+                this._xhr = data.xhr();
+            }
+        });
+
+        $element.on("fileuploadfail", (e, data) => {
+            //this._resetUpload(true);
+
+            //const userCancelled = this._xhr && this._xhr._userCancelled;
+            //this._xhr = null;
+
+            //if (!userCancelled) {
+            //    Discourse.Utilities.displayErrorForUpload(data);
+            //}
+            alert(e);
+            alert(data);
+        });
+
+    },
 
 });
