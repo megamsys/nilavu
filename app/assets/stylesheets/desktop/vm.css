@@ -89,3 +89,7 @@
   color: #6e7181;
   font-style: normal;
 }
+
+#canvas_div {
+  padding: 25px;
+}

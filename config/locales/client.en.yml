@@ -384,8 +384,6 @@ en:
 
     storages:
       title: "Storages"
-      onboard_success: "User successfully onboarded on storage system"
-      onboard_error: "Oops, User onboard fail on storage system."
 
     billing:
       title: "Billings"
@@ -486,6 +484,8 @@ en:
       bucket_created: "Bucket created on storage system."
       bucket_create_error: "Oops, Buckets create failed. Try some other time."
       ceph_auth_keys_error: "Oops, Ceph auth keys are missing. Try some other time."
+      onboard_success: "User successfully onboarded on storage system"
+      onboard_error: "Oops, User onboard fail on storage system."
 
     search:
       sort_by: "Sort by"

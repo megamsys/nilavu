@@ -82,9 +82,9 @@ export default Ember.Controller.extend(BufferedContent, {
             if (host == undefined || host == "" || port == "" || port == undefined) {
                 this.notificationMessages.error(I18n.t('vm_management.vnc_host_port_empty'));
             } else {
-                showModal('vnc', {
-                    host: host,
-                    port: port
+                showModal('vnc').setProperties({
+                  host: host,
+                  port: port
                 });
             }
 
