@@ -52,7 +52,7 @@ class CephUser
   end
 
   def save
-    if saved = GWUser.save(@email, CephUser.suggest_name(email))    
+    if saved = GWUser.save(@email, CephUser.suggest_name(email))
       if saved.is_a? String
         return false
      end

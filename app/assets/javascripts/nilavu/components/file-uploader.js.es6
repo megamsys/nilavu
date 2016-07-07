@@ -4,7 +4,7 @@ import {
 import {
     formatFileIcons,
     formatFileSize
-} from 'nilavu/lib/file-formats';
+} from 'nilavu/helpers/file-formats';
 import {
     on
 } from 'ember-addons/ember-computed-decorators';
@@ -23,7 +23,8 @@ export default Ember.Component.extend(UploadMixin, {
     objectSize: null,
     objectIcon: null,
 
-    @on('init')
+
+    @on('didInsertElement')
     _initialize() {
         $('#objectfile').trigger('click');
         $('#objectfile').change(function() {
