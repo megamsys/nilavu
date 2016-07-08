@@ -1,6 +1,15 @@
 <tr class="working">
     <td class="td-left">
-      <input type="file" id="objectfile" style="visibility: hidden; position: absolute;" />
+      <form id="fileupload" action={{formAction}} method="POST" enctype="multipart/form-data">
+           <input type="text" name="key" value={{formKey}} />
+           <input type="text" name="acl" value={{formACL}} />
+           <input type="text" name="AWSAccessKeyId" value={{formAccessKey}} />
+           <input type="text" name="policy" value={{formPolicy}} />
+           <input type="text" name="content-type" value={{formContentType}} />
+           <input type="text" name="signature" value={{formSignature}} />
+           <input type="file" name="file" id="objectfile" style="visibility: hidden; position: absolute;" />
+           <input name="submit" value="Upload" type="submit" />
+       </form>
         <i id="format_icons" {{bind-attr class="iconClass popIcon"}}></i>
         <b>{{fileName}}</b>
         <i id="filesize">{{fileSize}}</i>
