@@ -110,20 +110,24 @@ en:
           other: Dashboard
       torpedo:
         title:
-          one: Virtual Machine
-          other: Virtual Machines
+          one: Machine
+          other: Machines
+        help: "virtual machines you've launched"
       app:
         title:
           one: App
           other: Apps
+        help: "applications you've launched"
       service:
         title:
           one: Service
           other: Services
+        help: "service (db/spark/hadoop)s you've launched"
       microservice:
         title:
-          one: Microservice
-          other: Microservices
+          one: Container
+          other: Containers
+        help: "docker/hyper containers you've launched"
       analytics:
         title:
           one: Analytics
@@ -302,7 +306,8 @@ en:
       virtualmachines: "virtualmachines"
       applications: "applications"
       title: "Let's Get Started"
-      selection_title: "Choose VM (or) App"
+      selection_virtualmachine_title: "Choose Distro"
+      selection_application_title: "Choose App"
       summary_title: "Your Launch Summary"
       general:     "Step 1    "
       selection:   "Step 2    "
@@ -348,7 +353,13 @@ en:
       not_launched: "Not launched"
       launched_redirecting: "Redirecting ..."
       prepackaged: "Pre-packaged"
-      customapp: "Custom Application"
+      customapp:  "Custom Application"
+
+    customapp:
+      choose: "Choose a custom app to launch"
+      description: "Launch an application now."
+      docs: "View Docs"
+      publicrepo: "Type a repo url. eg: https://github.com/verticeapps/discourse"
 
     dashboards:
       title: "Dashboard"

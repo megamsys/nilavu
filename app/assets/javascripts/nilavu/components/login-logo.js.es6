@@ -2,7 +2,7 @@ import NilavuURL from 'nilavu/lib/url';
 import { setting } from 'nilavu/lib/computed';
 
 export default Ember.Component.extend({
-  classNames: ["title"],
+  classNames: [],
 
   targetUrl: function() {
     // For overriding by customizations
