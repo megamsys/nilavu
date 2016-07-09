@@ -1,0 +1,13 @@
+<div style="width:30%;float:left;display:inline-block;">
+    {{#each repositories as |repository|}}
+        <div {{action 'setActiveRepository' repository.full_name}}>{{repository.name}}
+        </div>
+        <br/>
+    {{/each}}
+</div>
+<div style="width:65%;float:left;display:inline-block;">
+    {{#if hasActiveRepository}}
+        {{github-readme-display id=activeRepository}}
+    {{/if}}
+</div>
+{{yield}}

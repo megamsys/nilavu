@@ -5,13 +5,12 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
 
     name: function() {
-       var model = this.get('model.message');
-       return model;
+        var model = this.get('model.message');
+        return model;
     }.property('model'),
 
 
-  onShow() {
+    onShow() {
         this.set('controllers.modal.modalClass', 'ssh-modal');
-
     },
-  });
+});
