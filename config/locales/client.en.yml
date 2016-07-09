@@ -360,6 +360,10 @@ en:
       description: "Launch an application now."
       docs: "View Docs"
       publicrepo: "Type a repo url. eg: https://github.com/verticeapps/discourse"
+      repo_authcomplete: "Authenticated"
+      github_description: "Refreshed"
+      repo_is_public: "public"
+      repo_is_private: "private"
 
     dashboards:
       title: "Dashboard"

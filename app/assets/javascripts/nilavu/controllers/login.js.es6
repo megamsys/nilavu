@@ -197,6 +197,9 @@ export default Ember.Controller.extend({
     if (options.authenticated) {
       const destinationUrl = $.cookie('destination_url');
       const shouldRedirectToUrl = self.session.get("shouldRedirectToUrl");
+
+      Nilavu.Session.current().set('external_auth_result', options); // this is set if OAuth Succeeds
+
       if (self.get('loginRequired') && destinationUrl) {
         // redirect client to the original URL
         $.cookie('destination_url', null);
@@ -206,9 +209,10 @@ export default Ember.Controller.extend({
         window.location.href = shouldRedirectToUrl;
       } else if (window.location.pathname === Nilavu.getURL('/login')) {
         window.location.pathname = Nilavu.getURL('/');
-      } else {
-        window.location.reload();
       }
+      /*else {  I don't think we need this.
+        window.location.reload();
+      }*/
       return;
     }
 

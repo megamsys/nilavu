@@ -1,0 +1,13 @@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 social">
+        <ul class="list-inline text-center">
+            {{#each b in buttons}}
+                <li>
+                    {{#conditional-loading-spinner condition=showSpinner size="extra-large"}}
+                        <a {{bind-attr class="b.name :icon"}} {{action "externalLogin" b}}></a>
+                    {{/conditional-loading-spinner}}
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+</div>

@@ -24,7 +24,7 @@ else
   # gem 'activejob'
   # gem 'railties'
   # gem 'sprockets-rails'
-  gem 'rails', '~> 4.2'
+  gem 'rails', '~> 4.2.7.rc1'
 end
 
 #rails 4.2 transition
@@ -51,8 +51,6 @@ gem 'multi_json'
 gem 'mustache'
 gem 'nokogiri'
 
-gem 'rest-client'
-
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-github'
@@ -62,8 +60,6 @@ gem 'omniauth-google-oauth2'
 # 3rd party system api's
 
 gem 'megam_api', '1.5.rc3 '
-gem 'github_api'
-gem 'gitlab'
 gem 'radosgw-s3'
 gem 'randexp'
 gem 'sshkey' # ssh key-gen

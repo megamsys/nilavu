@@ -15,11 +15,9 @@ export default Ember.Component.extend({
 
 
     repoChanged: function() {
-      this.set('category.repotype', this.get('customRepoType')); //github
-      this.set('category.selectedrepo', this.get('selectedRepo')); //git url
       this.set('category.versionoption', this.get('category.customappversion'));
       this.set('category.versiondetail', this.get('category.appDetails'));
-    }.observes('selectedRepo'),
+    }.observes('category.selectedrepo'),
 
     isActive: function() {
         const selTab = this.get('selectedTab');
