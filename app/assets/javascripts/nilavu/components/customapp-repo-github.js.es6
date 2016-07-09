@@ -22,7 +22,6 @@ export default Ember.Component.extend({
                 })
             });
         }
-        alert("result ="+JSON.stringify(result));
         return result;
     }.property('resultRepos'),
 

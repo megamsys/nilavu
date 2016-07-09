@@ -13,10 +13,16 @@ export default Em.Component.extend({
     return  `<img src="../images/brands/${brandImageUrl}" />`.htmlSafe();
   }.property('resultType.logo'),
 
+  selectionStatus: function() {
+    if (this.get('submitDisabled')) return I18n.t('customapp.prepackeble_selected');
+
+    return I18n.t('customapp.prepackeble_select');
+  }.property('submitDisabled'),
+
   submitDisabled: function() {
     if  (!this.get('category.versionoption')) return;
     return (this.get('category.versionoption') || this.get('category.versionoption').length >= 1);
-  }.property('vertionOption'),
+  }.property('versionOption'),
 
   actions: {
 

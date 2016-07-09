@@ -16,7 +16,7 @@ export default Ember.Component.extend({
       _dontSearch = true;
       this.set('searchService.searchContextEnabled', false);
       _dontSearch = false;
-    }
+      }
   },
 
   @computed('searchService.searchContext', 'searchService.term', 'searchService.searchContextEnabled')
@@ -76,7 +76,7 @@ export default Ember.Component.extend({
       this._search.abort();
     }
 
-    const searchContext = this.get('searchService.searchContextEnabled') ? this.get('searchService.searchContext') : null;
+    const searchContext = this.get('searchService.searchContext') ? this.get('searchService.searchContext') : null;
 
     this._search = searchForTerm(term, { typeFilter, searchContext, fullSearchUrl: this.get('fullSearchUrl')});
     this._search.then((content) => {

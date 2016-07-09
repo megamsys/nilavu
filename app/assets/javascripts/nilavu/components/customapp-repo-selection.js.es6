@@ -1,20 +1,21 @@
 import NilavuURL from 'nilavu/lib/url';
-import {
-    default as computed,
-    observes
-} from 'ember-addons/ember-computed-decorators';
+import {  default as computed,  observes } from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Component.extend({
 
-  /*  repoChanged: function() {
-        this.set('category.repotype', this.get('customRepoType')); //github
-        this.set('category.selectedrepo', this.get('selectedRepo')); //git url
-        this.set('category.versionoption', this.get('category.customappversion'));
-        this.set('category.versiondetail', this.get('category.appDetails'));
+    repoChanged: function() {
+        if (!this.get('selectedRepo')) { return; }
+
+        this.set('category.customapprepo', this.get('selectedRepo')); //git url
+
+        if (!this.get('category.customappname')) { return; }
+
+        this.set('category.versionoption', this.get('category.customappname'));
     }.observes('selectedRepo'),
-  */
-    myRepos: 'Your Repos', // load it from i18n, make it a type ENUM
-    publicRepos: 'Public Repo', // load it from i18n, make it a type ENUM
+
+    myRepos: I18n.t('customapp.your_repos'),
+
+    publicRepos:I18n.t('customapp.public_repos'),
 
     myGithub: function() {
         const g = (this.get('customRepoType') == this.myRepos);

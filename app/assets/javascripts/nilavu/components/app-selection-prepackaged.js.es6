@@ -8,7 +8,6 @@ export default Ember.Component.extend({
     tagName: 'div',
     classNameBindings: [':tab-pane', 'isActive:active'],
 
-
     isActive: function() {
         const selTab = this.get('selectedTab');
         return selTab.trim().length > 0 && selTab.trim() == 'prepackaged';
@@ -18,8 +17,9 @@ export default Ember.Component.extend({
         return this.get('category');
     }.property("category"),
 
+    //says if its vm or container
     @observes('prepackageble')
     prepackageChanged: function() {
-        this.set('category.prepakageoption', this.get('prepackageble'));
+        this.set('category.prepackageoption', this.get('prepackageble'));
     }
 });

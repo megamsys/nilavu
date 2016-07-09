@@ -13,11 +13,10 @@ export default Ember.Component.extend({
         return this.get('category');
     }.property("category"),
 
-
     repoChanged: function() {
-      this.set('category.versionoption', this.get('category.customappversion'));
-      this.set('category.versiondetail', this.get('category.appDetails'));
-    }.observes('category.selectedrepo'),
+        this.set('category.versionoption', this.get('category.customappversion'));
+        //    this.set('category.versiondetail', this.get('category.repoDetails'));
+    }.observes('category.selectedrepo','category.customappname', 'category.customappversion'),
 
     isActive: function() {
         const selTab = this.get('selectedTab');
