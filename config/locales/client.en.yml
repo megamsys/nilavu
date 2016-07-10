@@ -362,6 +362,7 @@ en:
       publicrepo: "Type a repo url. eg: https://github.com/verticeapps/discourse"
       repo_authcomplete: "Authenticated"
       github_description: "Refreshed"
+      github_error: "Not refreshed"
       repo_is_public: "public"
       repo_is_private: "private"
       prepackeble_select: 'select'

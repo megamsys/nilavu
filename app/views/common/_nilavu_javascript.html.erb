@@ -38,7 +38,6 @@
       actions: {
         didTransition: function() {
           Em.run.next(function(){
-            alert("_nilavu javascript:  complete authentication ")
             Nilavu.authenticationComplete(<%=flash[:authentication_data].html_safe%>);
           });
           return this._super();

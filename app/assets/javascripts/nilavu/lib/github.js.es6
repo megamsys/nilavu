@@ -1,5 +1,4 @@
 export function translateResults(results, opts) {
-
     if (!opts) opts = {};
 
     const r = results;
@@ -29,7 +28,9 @@ export function translateResults(results, opts) {
 function reposForUser(opts) {
     if (!opts) opts = {};
 
-    const session = Nilavu.Session.currentProp('external_auth_result');
+    const session = Nilavu.Session.currentProp('external_auth_githubresult');
+
+    if (!session) return;
 
     const user = session.extra_data.github_screen_name;
 

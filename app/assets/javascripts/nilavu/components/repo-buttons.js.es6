@@ -16,7 +16,6 @@ export default Ember.Component.extend({
     actions: {
         //should be moved to a service
         externalLogin: function(loginMethod) {
-
             const name = loginMethod.get("name");
             var authUrl = Nilavu.getURL("/auth/" + name);
             if (loginMethod.get("fullScreenLogin")) {

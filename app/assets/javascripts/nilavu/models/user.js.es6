@@ -2,8 +2,7 @@ import { url } from 'nilavu/lib/computed';
 import RestModel from 'nilavu/models/rest';
 import Singleton from 'nilavu/mixins/singleton';
 import { longDate } from 'nilavu/lib/formatter';
-import {
-    default as computed, observes } from 'ember-addons/ember-computed-decorators';
+import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
 import Topic from 'nilavu/models/topic';
 
 const User = RestModel.extend({
