@@ -9,6 +9,10 @@ export default Ember.Component.extend({
 
     repoDetail: null,
 
+    _preloadIfToken: function() {
+        const session = Nilavu.Session.currentProp('external_auth_githubresult');
+    }.on('init'),
+
     repos: function() {
         let result = [];
         if (!this.get('cachedReposNone')) {
@@ -33,9 +37,12 @@ export default Ember.Component.extend({
 
     refreshRepo: function() {
         this.set('loading', true);
+        
         //sleep for sometime.
         const self = this;
         this._repos = reposForUser();
+
+        if (!this._repos) { this.notificationMessages.error(I18n.t('customapp.github_error')); return; }
 
         this._repos.then((content) => {
             this.set('category.repos', content);
@@ -51,6 +58,7 @@ export default Ember.Component.extend({
     selectedRepoChanged: function() {
         if (this.get('selectedRepo')) {
             this.set('repoDetail', this.repoDetails(this.get('selectedRepo')));
+            this.set('category.repoDetail', this.get('repoDetail'));
         }
     }.observes('selectedRepo'),
 

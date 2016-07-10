@@ -15,7 +15,7 @@ export default Ember.Component.extend({
 
     repoChanged: function() {
         this.set('category.versionoption', this.get('category.customappversion'));
-        //    this.set('category.versiondetail', this.get('category.repoDetails'));
+        this.set('category.versiondetail', this.get('category.repoDetail'));
     }.observes('category.selectedrepo','category.customappname', 'category.customappversion'),
 
     isActive: function() {

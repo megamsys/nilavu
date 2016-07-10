@@ -42,3 +42,5 @@ export default buildCategoryPanel('summary', {
     }.observes('keypairOption', 'keypairNameOption')
 
   });
+
+  

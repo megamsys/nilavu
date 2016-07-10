@@ -11,6 +11,7 @@ export default Ember.Component.extend({
         if (!this.get('category.customappname')) { return; }
 
         this.set('category.versionoption', this.get('category.customappname'));
+        this.set('category.versiondetail', this.get('category.repoDetail'));
     }.observes('selectedRepo'),
 
     myRepos: I18n.t('customapp.your_repos'),

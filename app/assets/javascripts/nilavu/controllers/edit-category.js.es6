@@ -147,7 +147,8 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
         nextSummarize() {
             this.set('loading', true);
-            const model = this.get('model');
+            const model = this.get('model');                      
+
             return Nilavu.ajax("/launchables/summary.json").then(result => {
                 model.metaData.setProperties({
                     summarizing: result
