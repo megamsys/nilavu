@@ -35,14 +35,16 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
-                                    <i class="tickdot"></i> {{text-field value=loginName placeholderKey="login.email_placeholder" class ="form-control" id="login-account-name" autocorrect="off" autocapitalize="off" autofocus="autofocus"}}
+                                    <i class="tickdot"></i>
+                                    {{text-field value=loginName placeholderKey="login.email_placeholder" class ="form-control" id="login-account-name" autocorrect="off" autocapitalize="off" autofocus="autofocus"}}
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-112">
-                                    <i class="tickdot"></i> {{password-field value=loginPassword type="password" placeholderKey="login.password_placeholder" class ="form-control" id="login-account-password" maxlength="200" capsLockOn=capsLockOn}}
+                                    <i class="tickdot"></i>
+                                    {{password-field value=loginPassword type="password" placeholderKey="login.password_placeholder" class ="form-control" id="login-account-password" maxlength="200" capsLockOn=capsLockOn}}
                                 </div>
                             </div>
                         </div>
@@ -52,17 +54,18 @@
                                 <div class="row pad_t12">
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 tour-btn">
                                         <span>
-                     <a href="#create_account" id="new-account-link" {{action "createAccount"}}><u class="colr-bluegrey"></u>
-                        {{i18n 'login.create_account'}}
-                      </a>
-                      </span>
+                                            <a href="#create_account" id="new-account-link" {{action "createAccount"}}>
+                                                <u class="colr-bluegrey"></u>
+                                                {{i18n 'login.create_account'}}
+                                            </a>
+                                        </span>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 pull-right tour-btn">
                                         <span>
-                      <a id="forgot-password-link" {{action "showForgotPassword"}} class="pull-right">
-                      <u class="colr-denimblue"></u>{{i18n 'forgot_password.action'}}
-                    </a>
-                  </span>
+                                            <a id="forgot-password-link" {{action "showForgotPassword"}} class="pull-right">
+                                                <u class="colr-denimblue"></u>{{i18n 'forgot_password.action'}}
+                                            </a>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -73,7 +76,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 tour-btn">
                                         <button class="btn btn-success btn-plain" id="take-a-tour" {{action "takeTour"}}>
                                             <a>
-                                              {{i18n 'login.take_a_tour'}}
+                                                {{i18n 'login.take_a_tour'}}
                                             </a>
                                         </button>
                                     </div>
@@ -82,7 +85,7 @@
                                         <button class="btn btn-success btn-plain-green" {{bind-attr disabled="loginDisabled"}} {{action "login"}}>
                                             {{loginButtonText}}
                                             <span class="pull-right">
-                                              {{conditional-loading-spinner condition=showSpinner size="large"}}
+                                                {{conditional-loading-spinner condition=showSpinner size="large"}}
                                             </span>
                                         </button>
 
@@ -105,7 +108,8 @@
         <div class="col-xs-12 col-sm-8 col-md-8 col-lg-7 col-xl-6 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-xl-offset-3 outer footer-bottom">
             <div class="row">
                 <p>
-                    <a href="http://enixel.com/" target="_blank"></a><span class="pull-right"></span>
+                    <a href="http://enixel.com/" target="_blank"></a>
+                    <span class="pull-right"></span>
                 </p>
             </div>
         </div>

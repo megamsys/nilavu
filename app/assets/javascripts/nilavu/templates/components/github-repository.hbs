@@ -1,0 +1,66 @@
+<div style="display:inline-block;border:1px solid black;">
+    <h4>{{repository.name}}</h4>
+    <img src={{repository.avatarUrl}}>
+    <div style="float:left; display:inline-block; width: 45%; border-right: 1px solid black;">
+        <table>
+            {{#if showId}}
+                <tr>
+                    <td>id</td>
+                    <td>{{repository.id}}</td>
+                </tr>
+            {{/if}}
+            <tr>
+                <td>full name</td>
+                <td>{{repository.fullName}}</td>
+            </tr>
+            {{#if showLanguage}}
+                <tr>
+                    <td>language</td>
+                    <td>{{repository.language}}</td>
+                </tr>
+            {{/if}}
+            {{#if showDescriptionIfAvailable}}
+                <tr>
+                    <td>description</td>
+                    <td>{{repository.description}}</td>
+                </tr>
+            {{/if}}
+            {{#if showHomePageIfAvailable}}
+                <tr>
+                    <td>homepage</td>
+                    <td>{{repository.homepage}}</td>
+                </tr>
+            {{/if}}
+            {{#if showSubscriberCount}}
+                <tr>
+                    <td>number of subscribers</td>
+                    <td>{{repository.subscribersCount}}</td>
+                </tr>
+            {{/if}}
+            {{#if showOwnerInformation}}
+                <tr>
+                    <td>owner</td>
+                </tr>
+                {{#if showOwnerAvatar}}
+                    <tr>
+                        <td>{{repository.ownerName}}</td>
+                        <td><img src={{repository.ownerAvatarUrl}} width="75px" height="75px"/></td>
+                    </tr>
+                {{else}}
+                    <tr>
+                        <td>{{repository.ownerName}}</td>
+                        <td></td>
+                    </tr>
+                {{/if}}
+            {{/if}}
+        </table>
+    </div>
+
+    {{#if showReadme}}
+        <div style="float:left; display:inline-block; width: 45%; margin-left:15px;">
+            {{github-readme-display id=repository.fullName}}
+        </div>
+    {{/if}}
+
+    {{yield}}
+</div>

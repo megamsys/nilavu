@@ -49,14 +49,14 @@ body.modal-open {}
 .edit-category-modal {
     &.full .modal-body {
         position: relative;
-        height: 800px;
+        height: 695px;
         padding-bottom: 0;
     }
     &.medium .modal-body {
-        height: 550px;
+        height: 572px;
     }
     &.small .modal-body {
-        height: 310px;
+        height: 255px;
     }
     .secure-category-options {
         margin: 10px 0 0 16px;

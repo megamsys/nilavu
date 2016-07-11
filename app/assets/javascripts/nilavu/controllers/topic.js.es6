@@ -1,11 +1,7 @@
 import BufferedContent from 'nilavu/mixins/buffered-content';
-import {
-    spinnerHTML
-} from 'nilavu/helpers/loading-spinner';
+import {    spinnerHTML } from 'nilavu/helpers/loading-spinner';
 import Topic from 'nilavu/models/topic';
-import {
-    popupAjaxError
-} from 'nilavu/lib/ajax-error';
+import {     popupAjaxError } from 'nilavu/lib/ajax-error';
 import computed from 'ember-addons/ember-computed-decorators';
 import NilavuURL from 'nilavu/lib/url';
 import showModal from 'nilavu/lib/show-modal';

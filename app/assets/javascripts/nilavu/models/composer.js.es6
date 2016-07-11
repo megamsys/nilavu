@@ -165,18 +165,18 @@ const Composer = RestModel.extend({
         this.setProperties({
             random_name: '',
             metaData: {
-              launchoption: '',
-              domain: '',
-              regionoption: '',
-              resourceoption: '',
-              unitoption: '',
-              number_of_units: 1,
-              storagetype: '',
-              selectionoption: '',
-              keypairoption: '',
-              keypairname: '',
-              enable_ipv6: false,
-              enable_privnetwork: true
+                launchoption: '',
+                domain: '',
+                regionoption: '',
+                resourceoption: '',
+                unitoption: '',
+                number_of_units: 1,
+                storagetype: '',
+                selectionoption: '',
+                keypairoption: '',
+                keypairname: '',
+                enable_ipv6: false,
+                enable_privnetwork: true
             }
         });
     },
@@ -205,6 +205,13 @@ const Composer = RestModel.extend({
             url = 'launchers/' + this.get('id') + ".json";
         }
 
+        /*alert("v1  =>"+ md.versionoption + "," +
+              "v2 =>"+JSON.stringify(md.versiondetail) + "," +
+              "v3 =>" + md.customappoption +
+              "v4 =>" + md.customappname +
+              "v5 =>" + md.customapprepo);
+          */
+
         return Nilavu.ajax(url, {
             data: {
                 mkp_name: this.get('justName'),
@@ -218,12 +225,18 @@ const Composer = RestModel.extend({
                 resource: composer.get('resourceoption'),
                 resourceunit: composer.get('unitoption.flavor.value'),
                 storagetype: composer.get('storageoption'),
+                type: this.get('gitOrImage'),
+                scm_name: this.get('scmName'),
+                source: this.get('repoSourceURL'),
+                scmtoken: this.get('scmToken'),
+                scmowner: this.get('scmOwner'),
+                scmbranch: this.get('scmBranch'),
+                scmtag: this.get('scmTag'),
                 oneclick: this.get('oneClick'),
                 options: this.get('options'),
                 envs: this.get('enviRonment'),
                 ipv6: composer.get('ipv6option'),
                 privnetwork: composer.get('privnetworkoption')
-                    // boostertype:  this.get('launchoption'),
             },
             type: this.get('id') ? 'PUT' : 'POST'
         });

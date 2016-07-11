@@ -23,7 +23,6 @@ export function translateResults(results, opts) {
 
 function searchForTerm(term, opts) {
   if (!opts) opts = {};
-
   // Only include the data we have
   const data = { term: term, include_blurbs: 'true' };
   if (opts.typeFilter) data.type_filter = opts.typeFilter;
