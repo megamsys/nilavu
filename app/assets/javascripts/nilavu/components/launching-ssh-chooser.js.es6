@@ -1,21 +1,21 @@
-import {
-    observes
-} from 'ember-addons/ember-computed-decorators';
+import { observes } from 'ember-addons/ember-computed-decorators';
+import debounce from 'nilavu/lib/debounce';
+
 import SSHOptionType from 'nilavu/models/sshoption-type';
 
 export default Ember.Component.extend({
 
     selectedSSHOption: function() {
-       if (this.oldPairs) {
-         return SSHOptionType.OLD;
-       }
-       return  SSHOptionType.CREATE;
+        if (this.oldPairs) {
+            return SSHOptionType.OLD;
+        }
+        return SSHOptionType.CREATE;
     }.property(),
 
     sshOptionChanged: function() {
         this.set('category.keypairoption', this.get('selectedSSHOption'));
         if (this.get('showOldPairs')) {
-          this.set('category.keypairnameoption', this.get('selectedKeyPairOption'));
+            this.set('category.keypairnameoption', this.get('selectedKeyPairOption'));
         } else {
             this.set('category.keypairnameoption', this.get('securingName'));
         }
@@ -42,6 +42,13 @@ export default Ember.Component.extend({
     selectedKeyPairOption: function() {
         return this.get('oldPairFrequencies.firstObject');
     }.property('oldPairFrequencies'),
+
+    //TO-DO: attach inputvalidation to make sure it doesn't exists
+    //(like checking existing createAccount) and the minimum number
+    //of characters is 4 (loaded from site_settings.yaml)
+    securingNameChanged: debounce(function() {
+        this.sshOptionChanged();
+    }, 250).observes('securingName'),
 
     change: function() {
         Ember.run.once(this, 'sshOptionChanged');

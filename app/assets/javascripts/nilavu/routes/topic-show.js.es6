@@ -6,7 +6,6 @@ export default Nilavu.Route.extend({
 
     // Avoid default model hook
     model(params) {
-      alert(JSON.stringify(params));
         return params;
     },
 

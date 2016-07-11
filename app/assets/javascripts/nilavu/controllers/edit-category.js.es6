@@ -102,6 +102,8 @@ export default Ember.Controller.extend(ModalFunctionality, {
             if (this.get('category.keypairoption') &&
                 this.get('category.keypairnameoption')) {
                 this.set('selecting', false);
+            } else {
+            //  this.notificationMessages.info(I18n.t('launcher.required_sshkey_missing'));
             }
         }
     }.observes('category.keypairoption', 'category.keypairnameoption'),
@@ -147,13 +149,13 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
         nextSummarize() {
             this.set('loading', true);
-            const model = this.get('model');                      
+            const model = this.get('model');
 
             return Nilavu.ajax("/launchables/summary.json").then(result => {
                 model.metaData.setProperties({
                     summarizing: result
                 });
-                this.setProperties({ summarizing: true, loading: false });
+                this.setProperties({ summarizing: true, selecting: true, loading: false });
             });
         },
 

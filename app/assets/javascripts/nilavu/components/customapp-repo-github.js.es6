@@ -37,15 +37,19 @@ export default Ember.Component.extend({
 
     refreshRepo: function() {
         this.set('loading', true);
-        
-        //sleep for sometime.
+
+        this.set('category.customappsource', this.get('sourceAuthenticated')); //sets the name as github or bitbucket etc.
         const self = this;
         this._repos = reposForUser();
 
-        if (!this._repos) { this.notificationMessages.error(I18n.t('customapp.github_error')); return; }
+        if (!this._repos) { this.notificationMessages.error(I18n.t('customapp.github_error'));
+            return; }
 
         this._repos.then((content) => {
-            this.set('category.repos', content);
+            this.set('category.repos', content); //where is this used ?
+            if (content.token && content.token.length > 0) {
+                this.set('category.customapptoken', content.token.get("firstObject"));
+            }
             self.setProperties({ noResults: !content, resultRepos: content });
         }).finally(() => {
             self.set('loading', false);

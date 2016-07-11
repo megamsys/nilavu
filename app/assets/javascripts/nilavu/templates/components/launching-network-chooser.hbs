@@ -3,10 +3,16 @@
     <div class="bottom-divider"></div>
 </div>
 <div class="row pad_t25">
-    <div class="col-md-6  pad_0">
-        {{d-checkbox label="launcher.enable_ipv6" checked=enableIPv6Flag change="enableIPv6"}}
+    <div class="col-md-3  pad_0">
+        {{d-checkbox label="launcher.enable_publicipv4" checked=enablePublicIPv4 change="enablePublicIPv4Flag"}}
     </div>
-    <div class="col-md-6  pad_0">
-        {{d-checkbox label="launcher.enable_private_networking" checked=enablePrivNetworkFlag change="enablePrivNetwork"}}
+    <div class="col-md-3  pad_0">
+        {{d-checkbox label="launcher.enable_privateipv4" checked=enablePrivateIPv4 change="enablePrivateIPv4Flag"}}
+    </div>
+    <div class="col-md-3  pad_0">
+        {{d-checkbox label="launcher.enable_publicipv6" checked=enablePublicIPv6 change="enablePublicIPv6Flag"}}
+    </div>
+    <div class="col-md-3  pad_0">
+        {{d-checkbox label="launcher.enable_privateipv6" checked=enablePrivateIPv6 change="enablePrivateIPv6Flag"}}
     </div>
 </div>

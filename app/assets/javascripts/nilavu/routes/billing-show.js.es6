@@ -2,8 +2,7 @@ import NilavuURL from 'nilavu/lib/url';
 import Billing from 'nilavu/models/billing';
 
 export default Nilavu.Route.extend({
-    redirect() {
-        return this.redirectIfLoginRequired(); },
+    redirect() {  return this.redirectIfLoginRequired(); },
 
 
     setupParams(billing, params) {

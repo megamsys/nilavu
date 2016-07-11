@@ -343,8 +343,10 @@ en:
       summarize_flavor: "Flavor & Storage Type"
       summarize_operating_system: "Operating System"
       summarize_type: "Type"
-      enable_ipv6:  "Enable IPv6"
-      enable_private_networking: "Enable Private Networking"
+      enable_publicipv4:  "Enable Public IPv4"
+      enable_privateipv4: "Enable Private IPv4"
+      enable_publicipv6:  "Enable Public IPv6"
+      enable_privateipv6: "Enable Private IPv6"
       select_duplicate: "Duplicate"
       sshoption_create: "Create a new sshkeypair"
       sshoption_old: "Use your existing ssh keypair"
@@ -354,7 +356,8 @@ en:
       launched_redirecting: "Redirecting ..."
       prepackaged: "Pre-packaged"
       customapp:  "Custom Application"
-
+      none_sshkey_create: "Nothing, create one"
+      
     customapp:
       choose: "Choose a custom app to launch"
       description: "Launch an application now."
