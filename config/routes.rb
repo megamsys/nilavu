@@ -28,9 +28,8 @@ Nilavu::Application.routes.draw do
   #session related
   resources :sessions
   get "session/csrf" => "sessions#csrf"
-  match "sessions/:id", to:  "sessions#destroy", via: [:delete], constraints: {
-    id: USEREMAIL_ROUTE_FORMAT
-  }
+  match "sessions/delete", to:  "sessions#destroy", via: [:delete]
+
 
   post "/session/forgot_password" => "sessions#forgot_password"
   get "/password_reset" => "users#password_reset"
