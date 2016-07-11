@@ -33,9 +33,9 @@ export default Ember.Component.extend({
                 const timer = setInterval(function() {
                     if (!w || w.closed) {
                         clearInterval(timer);
-                        self.set('authenticate', null);
                         self.notificationMessages.success(I18n.t('customapp.repo_authcomplete'));
-                        self.set('sourceAuthenticated', true);
+                        self.set('sourceAuthenticated', self.get('authenticate'));
+                        self.set('authenticate', null);
                     }
                 }, 1000);
             }

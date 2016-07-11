@@ -3,27 +3,44 @@ import debounce from 'nilavu/lib/debounce';
 
 export default Ember.Component.extend({
 
-    enablePrivNetworkFlag:  Ember.computed.alias('category.privnetworkoption'),
-    enableIPv6Flag:  Ember.computed.alias('category.ipv6option'),
+    enablePrivateIPv4:  Ember.computed.alias('category.privateipv4'),
+    enablePublicIPv4:  Ember.computed.alias('category.publicipv4'),
+    enablePrivateIPv6:  Ember.computed.alias('category.privateipv6'),
+    enablePublicIPv6:  Ember.computed.alias('category.publicipv6'),
 
     _initDefaults: function() {
-      this.set('category.privnetworkoption', true);
-      this.set('category.ipv6option', false);
+      this.set('category.privateipv4', true);
+      this.set('category.publicipv4', false);
+      this.set('category.privateipv6', false);
+      this.set('category.publicipv6', false);
     }.on('init'),
 
 
     actions: {
-      enableIPv6: debounce(function(title) {
+      enablePrivateIPv6Flag: debounce(function(title) {
         if (Em.isEmpty(title)) {
-          this.set('category.ipv6option', this.get('enableIPv6Flag'));
+          this.set('category.privateipv6', this.get('enablePrivateIPv6'));
           return;
         }
       }, 300),
 
-
-      enablePrivNetwork: debounce(function(title) {
+      enablePublicIPv6Flag: debounce(function(title) {
         if (Em.isEmpty(title)) {
-          this.set('category.privnetworkoption', this.get('enablePrivNetworkFlag'));
+          this.set('category.publicipv6', this.get('enablePublicIPv6'));
+          return;
+        }
+      }, 300),
+
+      enablePublicIPv4Flag: debounce(function(title) {
+        if (Em.isEmpty(title)) {
+          this.set('category.publicipv4', this.get('enablePublicIPv4'));
+          return;
+        }
+      }, 300),
+
+      enablePrivateIPv4Flag: debounce(function(title) {
+        if (Em.isEmpty(title)) {
+          this.set('category.privateipv4', this.get('enablePrivateIPv4'));
           return;
         }
       }, 300)

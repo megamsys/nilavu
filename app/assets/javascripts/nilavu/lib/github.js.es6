@@ -1,5 +1,4 @@
 export function translateResults(results, opts) {
-    if (!opts) opts = {};
 
     const r = results;
 
@@ -22,6 +21,9 @@ export function translateResults(results, opts) {
     });
 
     const noResults = !!(results.resultTypes.length === 0);
+
+    if (opts) { results.token = [opts.token]; };
+
     return noResults ? null : Em.Object.create(results);
 }
 

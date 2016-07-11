@@ -12,7 +12,7 @@ export default Ember.Component.extend({
         return this.get('category');
     }.property("category"),
 
-    customappsChanged: function() {
+    customAppsChanged: function() {
         const cc = this.get('category.cooking.customapps');
 
         let i = 0;
@@ -20,7 +20,6 @@ export default Ember.Component.extend({
             e.id = ++i;
             return e;
         });
-
         this.set('customapps', ccids);
     }.observes('category.cooking'),
 
@@ -38,7 +37,7 @@ export default Ember.Component.extend({
         if (this.get('category.customappoption') && this.get('customapps')) {
             const filtApp = this.get('customapps').filter((f) => f.id == this.get('category.customappoption'));
             if (filtApp.get('firstObject')) {
-                this.set('category.appDetails', filtApp.get('firstObject'));
+                this.set('category.appDetail', filtApp.get('firstObject'));
                 return filtApp.get('firstObject').name;
             }
         }

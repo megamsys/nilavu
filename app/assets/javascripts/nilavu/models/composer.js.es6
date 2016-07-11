@@ -75,10 +75,12 @@ const Composer = RestModel.extend({
     categoryType: Ember.computed.alias('metaData.versiondetail.cattype'),
 
     oneClick: function() {
-        const opts = this.get('metaData.versiondetail.options');
+        if (this.get('metaData.versiondetail') && this.get('metaData.versiondetail').length > 0) {
+            const opts = this.get('metaData.versiondetail.options');
 
-        if (opts && opts.length > 0) {
-            return (opts.filter((f) => f.key == ONECLICK)).length > 0
+            if (opts && opts.length > 0) {
+                return (opts.filter((f) => f.key == ONECLICK)).length > 0
+            }
         }
         return false;
     }.property('metaData.versiondetail.options'),
@@ -86,6 +88,20 @@ const Composer = RestModel.extend({
     options: Ember.computed.alias('metaData.versiondetail.options'),
 
     enviRonment: Ember.computed.alias('metaData.versiondetail.envs'),
+
+    gitOrImage: function() {
+      if (this.get('scmName') && this.get('scmRepoURL')) {
+        return 'source';
+      }
+      return 'image';
+    }.property('scmName','scmRepoURL'),
+
+    scmName: Ember.computed.alias('metaData.customappsource'),
+    scmRepoURL: Ember.computed.alias('metaData.customapprepo.clone_url'),
+    scmToken: Ember.computed.alias('metaData.customapptoken'),
+    scmOwner: Ember.computed.alias('metaData.customapprepo.owner'),
+    scmBranch: Ember.computed.alias('metaData.customapprepo.default_branch'),
+    scmTag: "default",
 
 
     // Determine if the kitty is available for the user.
@@ -175,8 +191,10 @@ const Composer = RestModel.extend({
                 selectionoption: '',
                 keypairoption: '',
                 keypairname: '',
-                enable_ipv6: false,
-                enable_privnetwork: true
+                enable_publicipv4: false,
+                enable_privateipv4: true,
+                enable_publicipv6: false,
+                enable_privateipv6: false
             }
         });
     },
@@ -192,8 +210,20 @@ const Composer = RestModel.extend({
         return dest;
     },
 
-    // Create a new topic. What the heck is a topic ?
-    // Lets just pay tribute to discourse friends.
+    /* Create a new topic. What the heck is a topic ?
+     Lets just pay tribute to discourse friends.
+    ╔══════════════════╦════════╦═══════════════╦══════════╦══════════════════════════════════════════════╗
+    ║                  ║ type   ║ source        ║ oneclick ║ url                                          ║
+    ╠══════════════════╬════════╬═══════════════╬══════════╬══════════════════════════════════════════════╣
+    ║ Machine          ║        ║               ║          ║                                              ║
+    ║ Vertice oneclick ║ image  ║               ║ yes      ║ image(eg:redmine)                            ║
+    ║ Bitnami          ║ image  ║ bitnami       ║ yes      ║ image(eg:mautic)                             ║
+    ║ App(git)         ║ source ║ github/gitlab ║ no       ║ https://github.com/verticeapps/discourse.git ║
+    ║ App(public)      ║ source ║ github        ║ no       ║ https://github.com/verticeapps/redmine.git   ║
+    ║ Docker(git)      ║ source ║ github        ║ no       ║ https://github/verticeapps/redmine.git       ║
+    ║ Docker(image)    ║ image  ║ dockerhub     ║ no       ║ https://hub.docker.com                       ║
+    ╚══════════════════╩════════╩═══════════════╩══════════╩══════════════════════════════════════════════╝
+    */
     createTopic(opts) {
         const composer = this.metaData;
 
@@ -204,13 +234,6 @@ const Composer = RestModel.extend({
         if (this.get('id')) {
             url = 'launchers/' + this.get('id') + ".json";
         }
-
-        /*alert("v1  =>"+ md.versionoption + "," +
-              "v2 =>"+JSON.stringify(md.versiondetail) + "," +
-              "v3 =>" + md.customappoption +
-              "v4 =>" + md.customappname +
-              "v5 =>" + md.customapprepo);
-          */
 
         return Nilavu.ajax(url, {
             data: {
@@ -227,7 +250,7 @@ const Composer = RestModel.extend({
                 storagetype: composer.get('storageoption'),
                 type: this.get('gitOrImage'),
                 scm_name: this.get('scmName'),
-                source: this.get('repoSourceURL'),
+                source: this.get('scmRepoURL'),
                 scmtoken: this.get('scmToken'),
                 scmowner: this.get('scmOwner'),
                 scmbranch: this.get('scmBranch'),
@@ -235,8 +258,10 @@ const Composer = RestModel.extend({
                 oneclick: this.get('oneClick'),
                 options: this.get('options'),
                 envs: this.get('enviRonment'),
-                ipv6: composer.get('ipv6option'),
-                privnetwork: composer.get('privnetworkoption')
+                privateipv4: composer.get('privateipv4'),
+                publicipv4: composer.get('publicipv4'),
+                privateipv6: composer.get('privateipv6'),
+                publicipv6: composer.get('publicipv6')
             },
             type: this.get('id') ? 'PUT' : 'POST'
         });
