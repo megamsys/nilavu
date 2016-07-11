@@ -18,7 +18,7 @@ const User = RestModel.extend({
             type: 'DELETE'
         });
     },
-
+    
     @computed("username", "name")
     displayName(username, name) {
         if (Nilavu.SiteSettings.enable_names && !Ember.isEmpty(name)) {
