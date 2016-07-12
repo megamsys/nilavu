@@ -8,7 +8,7 @@ class LaunchingItem
     attr_accessor :assemblyname, :componentname, :domain
     attr_accessor :keypairname, :keypairoption
     attr_accessor :region
-    attr_accessor :resource, :resourceunit, :storagetype
+    attr_accessor :resource, :resourceunit, :storage_hddtype
     attr_accessor :oneclick, :options, :envs
     attr_accessor :publicipv4, :privateipv4
     attr_accessor :publicipv6, :privateipv6
@@ -21,7 +21,7 @@ class LaunchingItem
     def initialize(launching_params)
         [:email, :api_key, :org_id, :mkp_name, :version, :cattype,
             :assemblyname, :domain, :keypairname, :keypairoption,
-            :region, :resource, :resourceunit, :storagetype,
+            :region, :resource, :resourceunit, :storage_hddtype,
         :oneclick, :privateipv4, :publicipv4, :privateipv6, :publicipv6].each do |setting|
             raise Nilavu::InvalidParameters unless launching_params[setting]
             self.send("#{setting}=",launching_params[setting])
@@ -57,7 +57,7 @@ class LaunchingItem
             domain: domain,
             region: region,
             resource: resource,
-            storagetype: storagetype,
+            storage_hddtype: storage_hddtype,
             oneclick: oneclick,
             privateipv4: privateipv4,
             publicipv4: publicipv4,

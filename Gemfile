@@ -59,7 +59,7 @@ gem 'omniauth-google-oauth2'
 
 # 3rd party system api's
 
-gem 'megam_api', '1.5.rc3 '
+gem 'megam_api', '1.5.rc4'
 gem 'radosgw-s3'
 gem 'randexp'
 gem 'sshkey' # ssh key-gen
