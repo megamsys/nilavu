@@ -39,6 +39,9 @@ export default Ember.Controller.extend(ModalFunctionality, {
             this.set('controllers.modal.modalClass', 'edit-category-modal medium');
         } else if (this.get('selectionSelected')) {
             this.set('controllers.modal.modalClass', 'edit-category-modal small');
+        } else if (this.get('generalSelected')) {
+          //$('.firstStep').slideToggle('fast');
+            this.set('controllers.modal.modalClass', 'edit-category-modal full');
         } else {
             this.set('controllers.modal.modalClass', 'edit-category-modal full');
         }
@@ -103,7 +106,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
                 this.get('category.keypairnameoption')) {
                 this.set('selecting', false);
             } else {
-            //  this.notificationMessages.info(I18n.t('launcher.required_sshkey_missing'));
+                //  this.notificationMessages.info(I18n.t('launcher.required_sshkey_missing'));
             }
         }
     }.observes('category.keypairoption', 'category.keypairnameoption'),
@@ -167,7 +170,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
             this.get('model').save().then(function(result) {
                 self.set('saving', false);
                 self.send('closeModal');
-
+                alert("launched "+ JSON.stringify(result));
                 const slugId = result.id ? result.id : "";
                 if (result.id) {
                     NilavuURL.routeTo('/t/' + slugId);
