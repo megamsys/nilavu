@@ -10,8 +10,8 @@ class LaunchingItem
     attr_accessor :region
     attr_accessor :resource, :resourceunit, :storage_hddtype
     attr_accessor :oneclick, :options, :envs
-    attr_accessor :publicipv4, :privateipv4
-    attr_accessor :publicipv6, :privateipv6
+    attr_accessor :ipv4public, :ipv4private
+    attr_accessor :ipv6public, :ipv6private
     attr_accessor :type, :source , :scm_name, :scmtoken, :scmowner #historical keys, not changing them. duh ! is it ?
     attr_accessor :scmbranch, :scmtag
 
@@ -22,7 +22,7 @@ class LaunchingItem
         [:email, :api_key, :org_id, :mkp_name, :version, :cattype,
             :assemblyname, :domain, :keypairname, :keypairoption,
             :region, :resource, :resourceunit, :storage_hddtype,
-        :oneclick, :privateipv4, :publicipv4, :privateipv6, :publicipv6].each do |setting|
+        :oneclick, :ipv4private, :ipv4public, :ipv6private, :ipv6public].each do |setting|
             raise Nilavu::InvalidParameters unless launching_params[setting]
             self.send("#{setting}=",launching_params[setting])
         end
@@ -59,10 +59,10 @@ class LaunchingItem
             resource: resource,
             storage_hddtype: storage_hddtype,
             oneclick: oneclick,
-            privateipv4: privateipv4,
-            publicipv4: publicipv4,
-            privateipv6: privateipv6,
-            publicipv6: publicipv6,
+            ipv4private: ipv4private,
+            ipv4public: ipv4public,
+            ipv6private: ipv6private,
+            ipv6public: ipv6public,
             sshkey: keypairname,
             keypairoption: keypairoption,
             cattype: cattype,
@@ -87,7 +87,7 @@ class LaunchingItem
 
     def optionals(launching_params)
         [:type, :scm_name, :source, :scmtoken, :scmbranch, :scmtag, :scmowner].each do |setting|
-            self.send("#{setting}=",launching_params[setting]) if launching_params[setting]
+            self.send("#{setting}=",launching_params[setting]) if launching_params.has_key?(setting)
         end
     end
 
@@ -108,8 +108,8 @@ class LaunchingItem
 
     def set_git(params)
         [:type, :source, :scm_name, :scmtoken, :scmowner,
-           :scmbranch, :scmtag ].each do |repo_setting|
-            params[repo_setting] = self.send("#{repo_setting}") if self.respond_to?(repo_setting)
+        :scmbranch, :scmtag ].each do |repo_setting|
+              params[repo_setting] = self.send("#{repo_setting}") if self.send("#{repo_setting}")
         end
         params
     end
