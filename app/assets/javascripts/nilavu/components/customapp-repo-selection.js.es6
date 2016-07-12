@@ -6,12 +6,9 @@ export default Ember.Component.extend({
     repoChanged: function() {
         if (!this.get('selectedRepo')) { return; }
 
-        this.set('category.customapprepo', this.get('selectedRepo')); //git url
-
         if (!this.get('category.customappname')) { return; }
 
         this.set('category.versionoption', this.get('category.customappname'));
-        this.set('category.versiondetail', this.get('category.repoDetail'));
     }.observes('selectedRepo'),
 
     myRepos: I18n.t('customapp.your_repos'),

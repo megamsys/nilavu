@@ -10,9 +10,10 @@ class LaunchingItem
     attr_accessor :region
     attr_accessor :resource, :resourceunit, :storagetype
     attr_accessor :oneclick, :options, :envs
-    attr_accessor :ipv6, :privnetwork
-    attr_accessor :scm_name, :scmtoken, :scmowner #historical keys, not changing them.
-
+    attr_accessor :publicipv4, :privateipv4
+    attr_accessor :publicipv6, :privateipv6
+    attr_accessor :type, :source , :scm_name, :scmtoken, :scmowner #historical keys, not changing them. duh ! is it ?
+    attr_accessor :scmbranch, :scmtag
 
     ONE              = 'one'.freeze
     DOCKER           = 'docker'.freeze
@@ -21,7 +22,7 @@ class LaunchingItem
         [:email, :api_key, :org_id, :mkp_name, :version, :cattype,
             :assemblyname, :domain, :keypairname, :keypairoption,
             :region, :resource, :resourceunit, :storagetype,
-            :oneclick, :ipv6, :privnetwork].each do |setting|
+        :oneclick, :privateipv4, :publicipv4, :privateipv6, :publicipv6].each do |setting|
             raise Nilavu::InvalidParameters unless launching_params[setting]
             self.send("#{setting}=",launching_params[setting])
         end
@@ -58,8 +59,10 @@ class LaunchingItem
             resource: resource,
             storagetype: storagetype,
             oneclick: oneclick,
-            ipv6: ipv6,
-            privnetwork: privnetwork,
+            privateipv4: privateipv4,
+            publicipv4: publicipv4,
+            privateipv6: privateipv6,
+            publicipv6: publicipv6,
             sshkey: keypairname,
             keypairoption: keypairoption,
             cattype: cattype,
@@ -70,7 +73,7 @@ class LaunchingItem
             envs: envs,
             provider: provider
         }
-        # i am not sure if this needed, since the data will come from ember
+
         set_git(res)
         res
     end
@@ -83,8 +86,8 @@ class LaunchingItem
     private
 
     def optionals(launching_params)
-        [:scm_name, :scmtoken, :scmowner].each do |setting|
-            self.send("#{setting}=",launching_params[setting]) unless launching_params[setting]
+        [:type, :scm_name, :source, :scmtoken, :scmbranch, :scmtag, :scmowner].each do |setting|
+            self.send("#{setting}=",launching_params[setting]) if launching_params[setting]
         end
     end
 
@@ -104,8 +107,10 @@ class LaunchingItem
     end
 
     def set_git(params)
-        params[:scm_name] = scm_name if scm_name
-        params[:scmtoken] = scmtoken if scmtoken
-        params[:scmowner] = scmowner if scmowner
+        [:type, :source, :scm_name, :scmtoken, :scmowner,
+           :scmbranch, :scmtag ].each do |repo_setting|
+            params[repo_setting] = self.send("#{repo_setting}") if self.respond_to?(repo_setting)
+        end
+        params
     end
 end

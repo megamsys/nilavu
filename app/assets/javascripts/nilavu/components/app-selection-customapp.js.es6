@@ -13,10 +13,18 @@ export default Ember.Component.extend({
         return this.get('category');
     }.property("category"),
 
+    dashedAppName: function() {
+        if (this.get('category.customappname') && this.get('category.customappversion')) {
+            return (this.get('category.customappname') + "_" + this.get('category.customappversion'));
+        }
+        return "";
+    }.property('category.customappname', 'category.customappversion'),
+
     repoChanged: function() {
-        this.set('category.versionoption', this.get('category.customappversion'));
-        this.set('category.versiondetail', this.get('category.repoDetail'));
-    }.observes('category.selectedrepo','category.customappname', 'category.customappversion'),
+        this.set('category.versionoption', this.get('dashedAppName'));
+        this.set('category.versiondetail', this.get('category.appDetail'));
+        this.set('category.customapprepo', this.get('category.repoDetail'));
+    }.observes('category.customappname', 'category.customappversion', 'category.appDetail', 'category.repoDetail'),
 
     isActive: function() {
         const selTab = this.get('selectedTab');

@@ -2,6 +2,10 @@ import NilavuURL from 'nilavu/lib/url';
 import showModal from 'nilavu/lib/show-modal';
 export default Nilavu.Route.extend({
 
+    redirect() {
+        return this.redirectIfLoginRequired(); },
+
+
     actions: {
         sshCreate() {
             showModal('sshkeyShow', {

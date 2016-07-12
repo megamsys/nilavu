@@ -15,7 +15,7 @@ export default Ember.Component.extend({
             return this.get('category.customappname') + "  Version " + this.get('category.customappversion');
         }
         return 'None';
-    }.property('category.customappoption', 'category.customappversion'),
+    }.property('category.customappname', 'category.customappversion'),
 
 
     appUrl: function() {
