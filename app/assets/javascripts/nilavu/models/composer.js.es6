@@ -25,7 +25,7 @@ const CLOSED = 'closed',
         region: 'regionoption',
         unit: 'unitoption',
         number_of_units: 'number_of_units',
-        storagetype: 'storagetype',
+        storage_hddtype: 'storage_hddtype',
         selectionoption: 'selectionoption',
         keypairoption: 'keypairoption',
         keypairname: 'keypairname',
@@ -75,33 +75,36 @@ const Composer = RestModel.extend({
     categoryType: Ember.computed.alias('metaData.versiondetail.cattype'),
 
     oneClick: function() {
-        if (this.get('metaData.versiondetail') && this.get('metaData.versiondetail').length > 0) {
-            const opts = this.get('metaData.versiondetail.options');
-
+        if (this.get('metaData.versiondetail') && this.get('options').length > 0) {
+            const opts = this.get('options');
             if (opts && opts.length > 0) {
-                return (opts.filter((f) => f.key == ONECLICK)).length > 0
+                return (opts.filter((f) => f.key == ONECLICK)).length > 0;
             }
         }
         return false;
-    }.property('metaData.versiondetail.options'),
+    }.property('metaData.versiondetail'),
 
     options: Ember.computed.alias('metaData.versiondetail.options'),
 
     enviRonment: Ember.computed.alias('metaData.versiondetail.envs'),
 
-    gitOrImage: function() {
-      if (this.get('scmName') && this.get('scmRepoURL')) {
-        return 'source';
-      }
-      return 'image';
-    }.property('scmName','scmRepoURL'),
+    //We consider it as a source having a changeset(branch) if it has following filters
+    // 1. sourceName = [github, gitlab]
+    // 2. sourceURL  = [github.com/megamsys/abcd.git]
+    // 3. oneClick = false, hence we get rid of bitnami's, dockerhub images.
+    sourceOrImage: function() {
+        if (this.get('sourceName') && this.get('sourceURL') && !this.get('oneClick')) {
+            return 'source';
+        }
+        return 'image';
+    }.property('sourceName', 'sourceURL'),
 
-    scmName: Ember.computed.alias('metaData.customappsource'),
-    scmRepoURL: Ember.computed.alias('metaData.customapprepo.clone_url'),
-    scmToken: Ember.computed.alias('metaData.customapptoken'),
-    scmOwner: Ember.computed.alias('metaData.customapprepo.owner'),
-    scmBranch: Ember.computed.alias('metaData.customapprepo.default_branch'),
-    scmTag: "default",
+    sourceName: Ember.computed.alias('metaData.sourceidentifier'),
+    sourceURL: Ember.computed.alias('metaData.sourceurl'),
+    sourceToken: Ember.computed.alias('metaData.sourceauthtoken'),
+    sourceOwner: Ember.computed.alias('metaData.sourceowner'),
+    sourceBranch: Ember.computed.alias('metaData.sourceChangeSet'),
+    sourceTag: Ember.computed.alias('metaData.sourceChangeSetTag'),
 
 
     // Determine if the kitty is available for the user.
@@ -187,7 +190,7 @@ const Composer = RestModel.extend({
                 resourceoption: '',
                 unitoption: '',
                 number_of_units: 1,
-                storagetype: '',
+                storage_hddtype: '',
                 selectionoption: '',
                 keypairoption: '',
                 keypairname: '',
@@ -235,34 +238,38 @@ const Composer = RestModel.extend({
             url = 'launchers/' + this.get('id') + ".json";
         }
 
+        var data = {
+            mkp_name: this.get('justName'),
+            version: this.get('justVersion'),
+            cattype: this.get('categoryType'),
+            assemblyname: composer.get('random_name'),
+            domain: composer.get('domain'),
+            keypairoption: composer.get('keypairoption'),
+            keypairname: composer.get('keypairnameoption'),
+            region: composer.get('regionoption'),
+            resource: composer.get('resourceoption'),
+            resourceunit: composer.get('unitoption.flavor.value'),
+            storage_hddtype: composer.get('storageoption'),
+            options: this.get('options'),
+            envs: this.get('enviRonment'),
+            ipv4private: composer.get('privateipv4'),
+            ipv4public: composer.get('publicipv4'),
+            ipv6private: composer.get('privateipv6'),
+            ipv6public: composer.get('publicipv6'),
+            oneclick: this.get('oneClick')
+        };
+
+        //optionals
+        if (this.get('sourceOrImage')) { data['type'] =  this.get('sourceOrImage') };
+        if (this.get('sourceName'))    { data['scm_name'] =  this.get('sourceName') };
+        if (this.get('sourceURL'))   { data['source'] =  this.get('sourceURL') };
+        if (this.get('sourceToken')) { data['scmtoken'] =  this.get('sourceToken') };
+        if (this.get('sourceOwner')) { data['scmowner'] =  this.get('sourceOwner') };
+        if (this.get('sourceBranch')) { data['scmbranch'] =  this.get('sourceBranch') };
+        if (this.get('sourceTag')) { data['scmtag'] =  this.get('sourceTag') };
+
         return Nilavu.ajax(url, {
-            data: {
-                mkp_name: this.get('justName'),
-                version: this.get('justVersion'),
-                cattype: this.get('categoryType'),
-                assemblyname: composer.get('random_name'),
-                domain: composer.get('domain'),
-                keypairoption: composer.get('keypairoption'),
-                keypairname: composer.get('keypairnameoption'),
-                region: composer.get('regionoption'),
-                resource: composer.get('resourceoption'),
-                resourceunit: composer.get('unitoption.flavor.value'),
-                storagetype: composer.get('storageoption'),
-                type: this.get('gitOrImage'),
-                scm_name: this.get('scmName'),
-                source: this.get('scmRepoURL'),
-                scmtoken: this.get('scmToken'),
-                scmowner: this.get('scmOwner'),
-                scmbranch: this.get('scmBranch'),
-                scmtag: this.get('scmTag'),
-                oneclick: this.get('oneClick'),
-                options: this.get('options'),
-                envs: this.get('enviRonment'),
-                privateipv4: composer.get('privateipv4'),
-                publicipv4: composer.get('publicipv4'),
-                privateipv6: composer.get('privateipv6'),
-                publicipv6: composer.get('publicipv6')
-            },
+            data: data,
             type: this.get('id') ? 'PUT' : 'POST'
         });
 

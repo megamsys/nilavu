@@ -85,7 +85,7 @@ export default buildCategoryPanel('general', {
         }
     }.observes('resourceOption'),
 
-    //TO-DO nove the StorageOption to a model StorageType like PermissionType
+    //TO-DO nove the StorageOption to a model StorageHDDType like PermissionType
     storageOption: function() {
         //let HDD = 'HDD';
 

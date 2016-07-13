@@ -59,7 +59,7 @@ gem 'omniauth-google-oauth2'
 
 # 3rd party system api's
 
-gem 'megam_api', '1.5.rc3 '
+gem 'megam_api', '1.5.rc5'
 gem 'radosgw-s3'
 gem 'randexp'
 gem 'sshkey' # ssh key-gen
@@ -77,7 +77,7 @@ gem 'rack-protection' # security
 
 # keep it like this, or else rake asset:precompile will fail
 gem 'sass'
-gem 'sass-rails', '~> 5.0.4'
+gem 'sass-rails', '~> 5.0.5'
 gem 'uglifier'
 gem 'rtlit', require: false # for css rtling
 
