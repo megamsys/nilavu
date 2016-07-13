@@ -6,6 +6,10 @@ export default Ember.Component.extend({
   classNameBindings: [':page-sidebar-menu'],
   id: 'navigation-bar',
 
+  newTitle: function() {
+     return I18n.t('launcher.new');
+  }.property(),
+
   @computed("filterMode", "navItems")
   selectedNavItem(filterMode, navItems){
     var item = navItems.find(i => i.get('filterMode').indexOf(filterMode) === 0);
@@ -28,6 +32,11 @@ export default Ember.Component.extend({
   },
 
   actions: {
+
+    newLaunch() {
+      this.container.lookup('controller:discovery.topics').send("createTopic");
+    },
+
     toggleDrop() {
       this.set('expanded', !this.get('expanded'));
 

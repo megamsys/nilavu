@@ -1,7 +1,14 @@
     <li></li>
 
-    {{dash-tap class='page-sidebar-menu_dash_top'}}
-    
+    <li class='page-sidebar-menu_dash_top'>
+      <button class="btn btn-success btn-menu-top text-center"  {{action "newLaunch"}}>
+          {{newTitle}}
+          <span class="pull-right">
+              {{conditional-loading-spinner condition=loading size="large"}}
+          </span>
+      </button>
+    </li>
+
     {{#each navItem in navItems}}
         {{navigation-item content=navItem  filterMode=filterMode}}
     {{/each}}
