@@ -47,7 +47,7 @@ class DockerHub
     end
 
     def self.ensure_logo_is_filled(md)
-        return 'dockercontainer.png' if md[:is_official]
+        return 'docker.png' if md[:is_official]
     end
 
     def self.ensure_versioned(md)
