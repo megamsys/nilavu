@@ -4,6 +4,10 @@ import Marketplaces from 'nilavu/models/marketplaces';
 
 export default Nilavu.Route.extend({
 
+    redirect() {
+        return this.redirectIfLoginRequired();
+    },
+
     setupParams(marketplaces, params) {
         return marketplaces;
     },

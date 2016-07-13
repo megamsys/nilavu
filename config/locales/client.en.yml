@@ -302,6 +302,7 @@ en:
          message: "Authenticating with Facebook (make sure pop up blockers are not enabled)"
 
     launcher:
+      new: "NEW"
       create: "Virtual Machine"
       virtualmachines: "virtualmachines"
       applications: "applications"
@@ -357,7 +358,7 @@ en:
       prepackaged: "Pre-packaged"
       customapp:  "Custom Application"
       none_sshkey_create: "Nothing, create one"
-      
+
     customapp:
       choose: "Choose a custom app to launch"
       description: "Launch an application now."

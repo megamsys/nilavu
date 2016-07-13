@@ -15,6 +15,7 @@ function unlessReadOnly(method, message) {
 
 const ApplicationRoute = Nilavu.Route.extend(OpenComposer, {
   siteTitle: setting('title'),
+  loading: false,
 
   _handleLogout() {
     if (this.currentUser) {
@@ -50,7 +51,7 @@ const ApplicationRoute = Nilavu.Route.extend(OpenComposer, {
     },
 
     composePrivateMessage(user, post) {
-
+      alert("composePrivateMessage");
       const recipient = user ? user.get('username') : '',
           reply = post ? window.location.protocol + "//" + window.location.host + post.get("url") : null;
 
@@ -131,7 +132,8 @@ const ApplicationRoute = Nilavu.Route.extend(OpenComposer, {
 
     checkEmail(user) {
       user.checkEmail();
-    }
+    }    
+
   },
 
   activate() {
