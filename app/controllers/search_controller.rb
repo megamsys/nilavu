@@ -23,12 +23,12 @@ class SearchController < ApplicationController
             search_args[:search_context] = context
             search_args[:type_filter] = type if type
         end
-
         search = Search.new(params[:term], search_args.symbolize_keys)
 
         result = search.execute
 
         out = result.send(type.pluralize)
+
         render json: { grouped_search_result: out }
     end
 
@@ -45,7 +45,6 @@ class SearchController < ApplicationController
             end
         end
 
-
         if search_context.present?
             raise Nilavu::InvalidParameters unless SearchController.valid_context_types.include?(search_context[:type])
             #  raise Nilavu::InvalidParameters.new(:search_context) if search_context[:id].blank?
@@ -53,11 +52,10 @@ class SearchController < ApplicationController
             context_obj = nil
 
             type_filter = search_context[:type]
-
             if type_filter == 'virtualmachine'
                   context_obj = MarketplaceGroups.find_by_group(params,:prepackaged)
             elsif type_filter == 'container'
-                context_obj = MarketplaceGroups.find_by_group(params,:container)
+                context_obj = DockerHub.search(params[:term])
             end
 
             [context_obj, type_filter]

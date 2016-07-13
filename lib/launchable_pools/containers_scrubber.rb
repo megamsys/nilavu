@@ -1,8 +1,8 @@
 class ContainersScrubber < Scrubber
 
-    APP                 =  '1'.freeze
+    MICROSERVICE         =  '4'.freeze
 
-    CATTYPES            =  [APP]
+    CATTYPES            =  [MICROSERVICE]
 
 
     def name

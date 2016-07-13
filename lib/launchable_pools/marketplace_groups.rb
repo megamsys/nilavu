@@ -8,8 +8,8 @@ module MarketplaceGroups
     BUILTIN_SCRUB = [
         VirtualMachinesScrubber.new,
         PrepackagedScrubber.new,
-        CustomAppsScrubber.new
-#        ContainersScrubber.new
+        CustomAppsScrubber.new,
+        ContainersScrubber.new
     ]
 
 

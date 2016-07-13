@@ -9,7 +9,7 @@ module LaunchableAssembler
     end
 
     def generate_random_name
-        random_name = /\w+/.gen.downcase
+        random_name = Haikunator.haikunate
     end
 
     def domain
