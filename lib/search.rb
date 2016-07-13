@@ -1,7 +1,7 @@
 require_dependency 'search/grouped_search_results'
 
 class Search
-  include MarketplaceGroups
+    include MarketplaceGroups
 
     def self.per_facet
         5
@@ -41,7 +41,7 @@ class Search
         if @opts[:type_filter].present?
             @limit = Search.per_filter
         end
-         @results = GroupedSearchResults.new(@opts[:type_filter], term, @search_context, @include_blurbs, @blurb_length)
+        @results = GroupedSearchResults.new(@opts[:type_filter], term, @search_context, @include_blurbs, @blurb_length)
     end
 
     def self.execute(term, opts=nil)
@@ -53,7 +53,6 @@ class Search
         if @term.blank? || @term.length < (@opts[:min_search_term_length] || SiteSetting.min_search_term_length)
             return nil unless @filters.present?
         end
-
         find_grouped_results if @results.search_context.present?
 
         @results
@@ -72,22 +71,20 @@ class Search
     end
 
     def virtualmachine_search
-       res = @search_context.select { |l|  l[:name].downcase.include?(@term.downcase)}
+        res = @search_context.select { |l|  l[:name].downcase.include?(@term.downcase)}
 
-       res.each do |r|
-          @results.add(r)
-      end
+        res.each do |r|
+            @results.add(r)
+        end
     end
 
     # undecided on how to search images in
     # docker hub.
     def container_search
         res = @search_context
-
         res.each do |r|
-             @results.add(r)
-         end
+            @results.add(r)
+        end
     end
-
 
 end

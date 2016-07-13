@@ -24,7 +24,7 @@ else
   # gem 'activejob'
   # gem 'railties'
   # gem 'sprockets-rails'
-  gem 'rails', '~> 4.2.7.rc1'
+  gem 'rails', '~> 4.2.7'
 end
 
 #rails 4.2 transition
@@ -60,8 +60,9 @@ gem 'omniauth-google-oauth2'
 # 3rd party system api's
 
 gem 'megam_api', '1.5.rc5'
+gem 'docker_registry'
 gem 'radosgw-s3'
-gem 'randexp'
+gem 'haikunator' #random name.
 gem 'sshkey' # ssh key-gen
 
 gem 'oj'

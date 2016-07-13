@@ -33,7 +33,7 @@ class LaunchingItem
     end
 
     def  componentname
-        @componentname ||= /\w+/.gen.downcase
+        @componentname ||= Haikunator.haikunate
     end
 
     def has_docker?
