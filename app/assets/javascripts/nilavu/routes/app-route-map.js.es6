@@ -13,7 +13,7 @@ export default function() {
         // homepage
         this.route(Nilavu.Utilities.defaultHomepage(), { path: '/' });
         // filters
-        Nilavu.Site.currentProp('filters').forEach(filter => {        
+        Nilavu.Site.currentProp('filters').forEach(filter => {
             this.route(filter, { path: '/' + filter });
         });
 
@@ -84,6 +84,7 @@ export default function() {
     this.route('signup', { path: '/signup' });
 
     this.route('login', { path: '/login' });
+    this.route('new-topic', {path: 'new-topic'});
 
     this.route('logout', { path: '/logout' });
 

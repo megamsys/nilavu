@@ -302,6 +302,7 @@ en:
          message: "Authenticating with Facebook (make sure pop up blockers are not enabled)"
 
     launcher:
+      new: "NEW"
       create: "Virtual Machine"
       virtualmachines: "virtualmachines"
       applications: "applications"
