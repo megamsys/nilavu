@@ -357,7 +357,7 @@ en:
       prepackaged: "Pre-packaged"
       customapp:  "Custom Application"
       none_sshkey_create: "Nothing, create one"
-      
+
     customapp:
       choose: "Choose a custom app to launch"
       description: "Launch an application now."
@@ -401,9 +401,28 @@ en:
 
     ssh_keys:
       title: "SSH keys"
-      import: "Import SSH Key Pair"
-      create: "Create SSH Key Pair"
       download_error: "SSH keys download failed. Try some other time."
+      activity: "Activity"
+      import: "Import"
+      action: " Actions "
+      created_at: " Created At "
+      private: "Private"
+      public: "Public"
+      pub: "Pub"
+      name: "Name"
+      create_title: "Create SSH Key Pair"
+      create_info: "Generate a SSH RSA 2048 key pair. Read"
+      info_link: "here"
+      info_end: "for more information."
+      temp_name: "Enter a key pair name to save"
+      create: "Create"
+      import_title: "Import SSH Key Pair"
+      import_info: "Import a SSH RSA 2048 key pair. Read"
+      private_key: "Private key"
+      public_key: "Public key"
+      add_files: "Add files..."
+      upload_key: "Upload private key"
+      upload_pub_key: "Upload public key"
 
     storages:
       title: "Storages"
@@ -509,6 +528,8 @@ en:
       ceph_auth_keys_error: "Oops, Ceph auth keys are missing. Try some other time."
       onboard_success: "User successfully onboarded on storage system"
       onboard_error: "Oops, User onboard fail on storage system."
+      object_upload_success: "File uploaded successfully."
+      object_upload_error: "File upload failed."
 
     search:
       sort_by: "Sort by"

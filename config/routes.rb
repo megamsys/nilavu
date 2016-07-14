@@ -89,7 +89,8 @@ Nilavu::Application.routes.draw do
   get "buckets/:id" => "buckets#edit"
 
   get "b/:id" => "bucketfiles#show"
-
+  post "/b/put" => "bucketfiles#create"
+  
   #ceph
   get   '/cephsignin', to: 'cephs#create', constraints: HomePageConstraint.new
   post  '/cephsignin', to: 'cephs#create', constraints: HomePageConstraint.new

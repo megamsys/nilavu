@@ -53,6 +53,10 @@
     .modal-dialog {
         width: 30%;
     }
+    .modal-title {
+        font-size: 18px;
+        text-align: center;
+    }
 }
 .keep-line {
     padding: 2% !important;

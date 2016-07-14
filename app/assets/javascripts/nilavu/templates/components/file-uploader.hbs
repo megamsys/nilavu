@@ -1,24 +1,13 @@
 <tr class="working">
+  <form id="fileformupload" action="/b/put" method="POST" enctype="multipart/form-data">
     <td class="td-left">
-      <form id="fileupload" action={{formAction}} method="POST" enctype="multipart/form-data">
-           <input type="text" name="key" value={{formKey}} />
-           <input type="text" name="acl" value={{formACL}} />
-           <input type="text" name="AWSAccessKeyId" value={{formAccessKey}} />
-           <input type="text" name="policy" value={{formPolicy}} />
-           <input type="text" name="content-type" value={{formContentType}} />
-           <input type="text" name="signature" value={{formSignature}} />
-           <input type="file" name="file" id="objectfile" style="visibility: hidden; position: absolute;" />
-           <input name="submit" value="Upload" type="submit" />
-       </form>
+        <input type="hidden" value={{bucketName}} name ="bucket_name">
+        <input type="file" name="file" id="objectfile" style="visibility: hidden; position: absolute;" />
         <i id="format_icons" {{bind-attr class="iconClass popIcon"}}></i>
         <b>{{fileName}}</b>
         <i id="filesize">{{fileSize}}</i>
+        <input type="submit" id="formSubmit" style="visibility: hidden;">
     </td>
     <td class="td-left pull-right"><i class="close_red"></i></td>
-    <td class="td-left pull-right">
-        <span>Ready to upload...</span>
-        <span class="pull-right">
-        {{conditional-loading-spinner condition=showConnectSpinner size="large"}}
-      </span>
-    </td>
+  </form>
 </tr>
