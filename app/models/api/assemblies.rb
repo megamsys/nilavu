@@ -24,7 +24,6 @@ module Api
         ANALYTICS           =  'ANALYTICS'.freeze
         MICROSERVICES       =  'MICROSERVICES'.freeze
         COLLABORATION       =  'COLLABORATION'.freeze
-        DOCKERCONTAINER     =  'DockerContainer'.freeze
 
         CATTYPES            =  [TORPEDO, APP, SERVICE, MICROSERVICES, ANALYTICS, COLLABORATION]
 
@@ -98,7 +97,7 @@ module Api
         end
 
         def filter(type)
-          @baked = @baked.find_all { |asm| asm[0][0].tosca_type.split(".")[1] == type.downcase }        
+          @baked = @baked.find_all { |asm| asm[0][0].tosca_type.split(".")[1] == type.downcase }
         end
     end
 end
