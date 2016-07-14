@@ -63,6 +63,8 @@ Nilavu::Application.routes.draw do
   get "/ssh_keys/edit/:name", to: "ssh_keys#edit"
   get "/ssh_keys/:name.json", to: "ssh_keys#show", defaults: {format: 'json'}
   get "/ssh_key/list", to: "ssh_keys#index"
+  post "/ssh_keys", to: "ssh_keys#create"
+  post "/ssh_keys/import", to: "ssh_keys#import"
 
   # Topics resource
   get "t/:id" => "topics#show"
@@ -89,6 +91,7 @@ Nilavu::Application.routes.draw do
   get "buckets/:id" => "buckets#edit"
 
   get "b/:id" => "bucketfiles#show"
+  post "/b/put" => "bucketfiles#create"
 
   #ceph
   get   '/cephsignin', to: 'cephs#create', constraints: HomePageConstraint.new

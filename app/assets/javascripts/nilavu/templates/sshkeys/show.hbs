@@ -1,40 +1,42 @@
 <div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
-    {{topic-list-header currentUser=currentUser title=title nameEnabled=nameEnabled name=name subTitleEnabled=subTitleEnabled subTitle=subTitle}}
-    <div class="bottom-divider"></div>
-    <div class="row">
-        <div class="col-xs-6 col-sm-7 col-md-9 col-lg-9 col-xl-9">
-            <h4>Activity</h4>
-        </div>
-        <div class="col-xs-6 col-sm-5 col-md-3 col-lg-3 col-xl-3">
-            <ul class="list-inline c_sett_inline">
-                <li>
-                    <i class="c_icon-compose"></i><a id="create-link" {{action "sshCreate"}}>Create</a>
-                </li>
-                <li class="pull-right">
-                    <i class="c_icon-import pull"></i><a id="import-link" {{action "sshImport"}}>Import</a>
-                </li>
-            </ul>
+    <br/>
+    <div class="ssh-well">
+        <div class="row">
+            <div class="col-md-6 verticalLine">
+                <h1>Generate Ssh Keys</h1>
+                <p>Generate public/private rsa key pair.</p>
+                <button class="btn blue" {{action "sshCreate"}}>
+                    {{i18n 'ssh_keys.create'}}
+                </button>
+            </div>
+            <div class="col-md-6">
+                <h1>Upload Ssh Keys</h1>
+                <p>If you have SSH keys, then upload here.</p>
+                <button class="btn btn-success" {{action "sshImport"}}>
+                    {{i18n 'ssh_keys.import'}}
+                </button>
+            </div>
         </div>
     </div>
-    <span>
-      <div class="row">
-         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <div class="bottom-divider"></div>
-         </div>
-         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-            <table class="table tb_list">
-               <thead>
-                  <tr>
-                     <th class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">Actions</th>
-                     <th class="set_title col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 pad_two">Name</th>
-                     <th class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 pad_two">Created At</th>
-                  </tr>
-               </thead>
-            </table>
-         </div>
-      </div>
-      {{#each name as |h|}}
-      {{sshkey-download h=h}}
-      {{/each}}
-   </span>
+    <div class="ssh-well-without-background">
+        <h1>Ssh Keys</h1>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <table class="table tb_list">
+                    <thead>
+                        <tr>
+                            <th class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">Actions</th>
+                            <th class="set_title col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">Name</th>
+                            <th class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">Created At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each sortedSshKeys as |h|}}
+                            {{sshkey-download h=h}}
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

@@ -3,9 +3,38 @@
         width: 30%;
     }
 }
+
 .btn.blue {
-    color: white;
-    background-color: #4d90fe;
+  color: white;
+  text-shadow: none;
+  background-color: #4d90fe;
+}
+.btn.blue:hover,
+.btn.blue:focus,
+.btn.blue:active,
+.btn.blue.active,
+.btn.blue[disabled],
+.btn.blue.disabled {
+  background-color: #0362fd !important;
+  color: #fff !important;
+  outline: none !important;
+}
+
+/*  Green */
+.btn.green {
+  color: white;
+  text-shadow: none;
+  background-color: #35aa47;
+}
+.btn.green:hover,
+.btn.green:focus,
+.btn.green:active,
+.btn.green.active,
+.btn.green.disabled,
+.btn.green[disabled]{
+  background-color: #6fde86 !important;
+  color: #fff !important;
+  outline: none !important;
 }
 
 .c_icon-text

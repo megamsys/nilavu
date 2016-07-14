@@ -1,0 +1,25 @@
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert ssh-alert-success">
+                {{i18n 'ssh_keys.create_info'}}
+                <a href="" target="_blank"> <strong>{{i18n 'ssh_keys.info_link'}}</strong></a>
+                {{i18n 'ssh_keys.info_end'}}
+            </div>
+            <form multipart="true" remote="true">
+                <div class="form-group">
+                    <label for="ssh-key_name">
+                        {{i18n 'ssh_keys.name'}}
+                    </label>
+                    {{input type="text" class="form-control" required="true" placeholder=placeHolder value=sshKeyCreateName}}
+                </div>
+                <button class="btn btn-success col-md-12 col-xs-12" {{bind-attr disabled="submitDisabled"}} {{action "create"}}>
+                    {{i18n 'ssh_keys.create'}}
+                    <span class="pull-right">
+                      {{conditional-loading-spinner condition=showSpinner size="large"}}
+                    </span>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

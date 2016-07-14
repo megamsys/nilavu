@@ -1,26 +1,20 @@
-<div class="row pad_bottom">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <div class="bottom-divider"></div>
+<td>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-public">
+            {{ssh-down type="PUBLIC" model=h}}
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-private">
+            {{ssh-down type="PRIVATE" model=h}}
+        </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-        <table class="table tb_list">
-            <tbody>
-                <tr>
-                    <td class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5 pad">
-                        <div class="row">
-                            <div class="sett-private">
-                                {{ssh-down type="PRIVATE" model=h}}
-                            </div>
-                            <div class="sett-public">
-                                {{ssh-down type="PUBLIC" model=h}}
-                            </div>
-                        </div>
-                    </td>
-                    <td class="set_title col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 keep-line">{{h.name}}</td>
-                    <td class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4 keep-line"><i class="c_icon-calendar">
-               </i> Thu, 16 Jun 2016 16:26:05 +0300</td>
-                </tr>
-            </tbody>
-        </table>
+</td>
+<td class="set_title">
+    <div class="row top-pad">
+        {{h.name}}
     </div>
-</div>
+</td>
+<td>
+    <div class="row top-pad">
+        <i class="c_icon-calendar"></i> {{h.created_at}}
+    </div>
+</td>

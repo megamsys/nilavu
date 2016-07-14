@@ -8,41 +8,38 @@ import {
 import {
     on
 } from 'ember-addons/ember-computed-decorators';
-import UploadMixin from "nilavu/mixins/upload";
-export default Ember.Component.extend(UploadMixin, {
+export default Ember.Component.extend({
     spinnerConnectIn: false,
-    storageAction: null,
-    storageKey: null,
     storageACL: 'public-read',
-    storageContentType: null,
     storageAccessKeyId: null,
-    storagePolicy: null,
-    storageSignature: null,
 
     objectName: null,
     objectSize: null,
     objectIcon: null,
+    signingUrl: '',
 
+    uploadPercentage: 0,
+    progressPosition: 0,
+    maxProgressPosition: 100,
 
     @on('didInsertElement')
     _initialize() {
+        const self = this;
         $('#objectfile').trigger('click');
-        $('#objectfile').change(function() {
-            var object = $('#objectfile').val();
-            this.set('objectName', object[0].files[0].name);
-            this.set('objectSize', formatFileSize(object[0].files[0].size));
-            var nameSplit = object[0].files[0].name.split('.');
-            this.set('objectIcon', formatFileIcons(nameSplit[nameSplit.length - 1]))
-        });
+        this._bindUploadTarget();
     },
+
+    bucketName: function() {
+        return "woww";
+    }.property(),
 
     fileName: function() {
         return this.get('objectName');
     }.property('objectName'),
 
     fileSize: function() {
-      //  return formatFileSize(this.get('model').file[0].size);
-       return this.get('objectSize');
+        //  return formatFileSize(this.get('model').file[0].size);
+        return this.get('objectSize');
     }.property('objectSize'),
 
     iconClass: function() {
@@ -59,46 +56,94 @@ export default Ember.Component.extend(UploadMixin, {
         return this.get('spinnerConnectIn');
     }.property('spinnerConnectIn'),
 
-    formAction: function() {
-        return this.get('storageAction');
-    }.property('storageAction'),
+    /*  _bindUploadTarget() {
+          //this._unbindUploadTarget(); // in case it's still bound, let's clean it up first
+          const self = this;
+          const $element = $("#fileformupload");
+          $element.fileupload({
+              url: "/b/put",
+              autoUpload: true,
+              add: function(e, data) {
+                  // Automatically upload the file once it is added to the queue
+                  var jqXHR = data.submit();
+              },
 
-    formKey: function() {
-        return this.get('storageKey');
-    }.property('storageKey'),
+              progress: function(e, data) {
+                  // Calculate the completion percentage of the upload
+                  var progress = parseInt(data.loaded / data.total * 100, 10);
+                  console.log(progress);
+              },
 
-    formACL: function() {
-        return this.get('storageACL');
-    }.property('storageACL'),
+              done: function(e, data) {
+                  console.log("success------------");
+                  console.log(data);
+                  console.log(e);
+              },
 
-    formContentType: function() {
-        return this.get('storageContentType');
-    }.property('storageContentType'),
+              fail: function(e, data) {
+                  console.log("fail------------");
+                  console.log(data);
+                  console.log(e);
+              }
+          });
 
-    formAccessKey: function() {
-        return this.get('storageAccessKeyId');
-    }.property('storageAccessKeyId'),
+      },*/
 
-    formSignature: function() {
-        return this.get('storageSignature');
-    }.property('storageSignature'),
+    _bindUploadTarget() {
+        //this._unbindUploadTarget(); // in case it's still bound, let's clean it up first
+        const self = this;
+        const $element = this.$();
+        $element.fileupload({
+            url: "http://192.168.0.115/woww",
+            pasteZone: $element,
+            forceIframeTransport: true,
+            autoUpload: true,
+        });
 
-    formPolicy: function() {
-        return this.get('storagePolicy');
-    }.property('storagePolicy'),
+        $element.on('fileuploadsubmit', (e, data) => {
+            var sign = generateSignature({
+                "bucketName": "woww",
+                "acl": this.get('storageACL'),
+                "name": data.files[0].name,
+                "contentType": data.files[0].type,
+                "access_key": "",
+                "secret_access_key": "",
+            });
+            data.formData = {
+                key: data.files[0].name,
+                acl: this.get('storageACL'),
+                AWSAccessKeyId: "",
+                "content-type": data.files[0].type,
+                policy: sign.policy,
+                signature: sign.signature
+            };
+            return true;
+        });
 
-    _uploadFile(file, signedRequest) {
-        return new Promise(function(resolve, reject) {
-            const xhr = new XMLHttpRequest()
-            xhr.open("PUT", signedRequest)
-            xhr.setRequestHeader('x-amz-acl', 'public-read')
-            xhr.setRequestHeader('Access-Control-Allow-Origin', '*')
-            xhr.onload = () => {
-                resolve()
+        $element.on("fileuploadprogressall", (e, data) => {
+            self.set("uploadPercentage", parseInt(data.loaded / data.total * 100, 10));
+        });
+
+        $element.on("fileuploadsend", (e, data) => {
+            if (data.xhr && data.originalFiles.length === 1) {
+                self.set("isCancellable", true);
+                self._xhr = data.xhr();
             }
-            xhr.send(file)
-        })
-    },
+            return true;
+        });
 
+        $element.on("fileuploadfail", (e, data) => {
+            //this._resetUpload(true);
+
+            //const userCancelled = this._xhr && this._xhr._userCancelled;
+            //this._xhr = null;
+
+            //if (!userCancelled) {
+            //    Discourse.Utilities.displayErrorForUpload(data);
+            //}
+
+        });
+
+    },
 
 });

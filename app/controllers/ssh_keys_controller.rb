@@ -18,7 +18,7 @@ require 'sshkeys_finder'
 class SshKeysController < ApplicationController
   respond_to :html, :js, :json
 
-  before_action :add_authkeys_for_api, only: [:index, :create, :edit, :update, :show]
+  before_action :add_authkeys_for_api, only: [:index, :create, :edit, :import, :show]
 
   def index
     @foundkeys ||= SSHKeysFinder.new(params).foundkeys
@@ -40,9 +40,12 @@ class SshKeysController < ApplicationController
   end
 
   def create
-    params[:sshoption] = Api::Sshkeys::NEW
+    params[:keypairoption] = Api::Sshkeys::NEW
     Api::Sshkeys.new.create_or_import(params)
-    redirect_to(ssh_keys_path, :flash => { :success => "#{params[:ssh_keypair_name]} created successfully."}, format: 'js')
+    render json: {
+      success: true,
+      message: "#{params[:ssh_keypair_name]} #{I18n.t('ssh_keys.create_success')}",
+    }
   end
 
   def show
@@ -83,9 +86,12 @@ class SshKeysController < ApplicationController
   end
 
   ## this imports the ssh keys.
-  def update
-    params[:sshoption] = Api::Sshkeys::IMPORT
+  def import
+    params[:keypairoption] = Api::Sshkeys::IMPORT
     Api::Sshkeys.new.create_or_import(params)
-    redirect_to(ssh_keys_path, :flash => { :success => "#{params[:ssh_keypair_name]} imported successfully."}, format: 'js')
+    render json: {
+      success: true,
+      message: "#{params[:ssh_keypair_name]} #{I18n.t('ssh_keys.import_success')}",
+    }
   end
 end

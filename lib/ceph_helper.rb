@@ -23,7 +23,7 @@ class CephHelper
   end
 
   def upload(bucket, unique_filename, content, options={})
-    obj = ceph_bucketobjects(bucket).build(unique_filename)
+    obj = ceph_bucketobjects(bucket).build(unique_filename)  
     obj.content = content
     obj.save
   end

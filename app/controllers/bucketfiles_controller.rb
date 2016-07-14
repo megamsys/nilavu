@@ -24,9 +24,9 @@ class BucketfilesController < ApplicationController
 
   def create
     if uploaded_url = CephStore.new(params, params[:bucket_name]).store_upload(params[:sobject])
-      redirect_to(buckets_path, :flash => { :success => I18n.t('cephbuckets.uploaded', :url => uploaded_url)}, format: 'js')
+      render(json: {}, status: 200)
     else
-      not_uploaded
+      render(json: I18n.t('bucket.object_upload_error'), status: 503)
     end
   end
 
