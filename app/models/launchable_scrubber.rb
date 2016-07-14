@@ -18,8 +18,7 @@ module LaunchableScrubber
     end
 
     def snapshots(params)
-        #snapshots.for_vms(params)
-        return Hash[]
+        Api::Snapshots.new.list(params)
     end
 
     def scrub(params)

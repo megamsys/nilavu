@@ -34,7 +34,6 @@ class LaunchersController < ApplicationController
     end
 
     def perform_launch
-        params.require(:version)
         params.require(:mkp_name)
         params.require(:assemblyname)
 

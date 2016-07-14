@@ -36,6 +36,7 @@ class ApiDispatcher
   COMPONENTS           = 'Components'.freeze
   ORGANIZATION         = 'Organizations'.freeze
   DOMAIN               = 'Domains'.freeze
+  SNAPSHOTS            = 'Snapshots'.freeze
   PROMOS               = 'Promos'.freeze
 
   MARKETPLACES         = 'MarketPlace'.freeze

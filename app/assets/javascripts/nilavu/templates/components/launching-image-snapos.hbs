@@ -1,0 +1,10 @@
+{{#if versions}}
+    {{#each versions as |v|}}
+        {{launching-image-snap category=category version=v versionable=versionable versionDetail=versionDetail}}
+    {{/each}}
+{{else}}
+    <div class="version_select">
+        {{i18n 'launcher.versions_not_found'}}
+        <a aria-label='{{i18n ' launcher.coming_soon_notifyme'}}' title='{{i18n ' launcher.coming_soon_notifyme'}}'>{{fa-icon "glyphicon glyphicon-question-sign billing-icon-color"}}</a>
+    </div>
+{{/if}}

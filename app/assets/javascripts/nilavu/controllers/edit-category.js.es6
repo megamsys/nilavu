@@ -170,17 +170,17 @@ export default Ember.Controller.extend(ModalFunctionality, {
             this.get('model').save().then(function(result) {
                 self.set('saving', false);
                 self.send('closeModal');
-                alert("launched "+ JSON.stringify(result));
                 const slugId = result.id ? result.id : "";
+
                 if (result.id) {
                     NilavuURL.routeTo('/t/' + slugId);
+                    self.notificationMessages.success(I18n.t('launcher.launched') + " " + slugId);
                 } else {
                     NilavuURL.routeTo('/');
+                    self.notificationMessages.warning(I18n.t('launcher.not_launched') + " " + slugId);
                 }
-                self.notificationMessages.success(I18n.t('launcher.launched') + " " + slugId);
 
             }).catch(function(error) {
-                alert("save error");
                 self.flash(extractError(error), 'error');
                 self.set('saving', false);
                 self.send('closeModal');
