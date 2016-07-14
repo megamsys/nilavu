@@ -13,8 +13,7 @@ const Ssh = RestModel.extend({
         const self = this;
         self.set('ssh', json);
 
-        const keys = Object.keys(json);
-
+        const keys = Object.keys(json);      
         keys.forEach(key => { self.set(key, json[key]) });
     },
 

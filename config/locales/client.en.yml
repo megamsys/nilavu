@@ -404,7 +404,7 @@ en:
       title: "SSH keys"
       download_error: "SSH keys download failed. Try some other time."
       activity: "Activity"
-      import: "Import"
+      import: "Upload"
       action: " Actions "
       created_at: " Created At "
       private: "Private"
@@ -416,7 +416,7 @@ en:
       info_link: "here"
       info_end: "for more information."
       temp_name: "Enter a key pair name to save"
-      create: "Create"
+      create: "Generate"
       import_title: "Import SSH Key Pair"
       import_info: "Import a SSH RSA 2048 key pair. Read"
       private_key: "Private key"
@@ -424,6 +424,10 @@ en:
       add_files: "Add files..."
       upload_key: "Upload private key"
       upload_pub_key: "Upload public key"
+      create_success: "created successfully."
+      import_success: "imported successfully."
+      create_error: "SSH keys create failed. Try some other time."
+      reload_error: "SSH keys refresh list failed. Please refresh your page."
 
     storages:
       title: "Storages"

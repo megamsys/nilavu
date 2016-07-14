@@ -10,14 +10,12 @@ export default Nilavu.Route.extend({
     },
 
     model(params) {
-
         const self = this;
 
         var ssh = this.store.createRecord('ssh');
         return ssh.reload().then(function(result) {
             self.set('loading', false);
             return self.setupParams(ssh, params);
-
         }).catch(function(e) {
             self.set('loading', false);
         });
@@ -39,8 +37,6 @@ export default Nilavu.Route.extend({
             controller: 'sshkeys-show',
             outlet: 'list-container'
         });
-    }
-
-
+    },
 
 });

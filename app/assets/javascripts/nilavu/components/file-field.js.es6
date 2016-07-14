@@ -7,15 +7,22 @@ export default Ember.Component.extend(Ember.Evented, {
     attributeBindings: ['type', 'multiple'],
     multiple: false,
 
-    @on('didInsertElement')
+  /*  @on('didInsertElement')
     _initialize() {
         Ember.$("input[type='file'").click();
-    },
+    },*/
 
     change(event) {
         const input = event.target;
         if (!Ember.isEmpty(input.files)) {
-            this.sendAction('action', input.files);
+            //this.sendAction('action', input.files);
+            var reader = new FileReader();
+            const self = this;
+           reader.onload = function(e) {
+               var data = e.target.result;
+               self.set('value', data);
+           }
+           reader.readAsText(input.files[0]);
         }
 
     }
