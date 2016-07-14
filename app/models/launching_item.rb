@@ -38,7 +38,7 @@ class LaunchingItem
 
     def has_docker?
         ## this has to be based on cattype.
-        cattype.include? Api::Assemblies::DOCKERCONTAINER
+        cattype.downcase.include? Api::Assemblies::MICROSERVICES.singularize.downcase
     end
 
     alias name mkp_name
@@ -98,18 +98,18 @@ class LaunchingItem
     end
 
     def ensure_provider
-        where_to ||= DOCKER
+        DOCKER
     end
 
     def provider
-        return ONE if !has_docker?
+        return ONE unless has_docker?
         ensure_provider
     end
 
     def set_git(params)
         [:type, :source, :scm_name, :scmtoken, :scmowner,
         :scmbranch, :scmtag ].each do |repo_setting|
-              params[repo_setting] = self.send("#{repo_setting}") if self.send("#{repo_setting}")
+            params[repo_setting] = self.send("#{repo_setting}") if self.send("#{repo_setting}")
         end
         params
     end
