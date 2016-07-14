@@ -65,10 +65,9 @@ const Composer = RestModel.extend({
     justVersion: function() {
         var split = this.get('metaData.versionoption').split('_');
         if (split.length > 1) {
-
             return split[1];
         }
-        return this.get('metaData.versionoption');
+        return "";
     }.property('metaData.versionoption'),
 
     //cattype
