@@ -219,12 +219,12 @@ const Composer = RestModel.extend({
     ║                  ║ type   ║ source        ║ oneclick ║ url                                          ║
     ╠══════════════════╬════════╬═══════════════╬══════════╬══════════════════════════════════════════════╣
     ║ Machine          ║        ║               ║          ║                                              ║
-    ║ Vertice oneclick ║ image  ║               ║ yes      ║ image(eg:redmine)                            ║
+    ║ Vertice oneclick ║ image  ║ vertice       ║ yes      ║ image(eg:redmine)                            ║
     ║ Bitnami          ║ image  ║ bitnami       ║ yes      ║ image(eg:mautic)                             ║
     ║ App(git)         ║ source ║ github/gitlab ║ no       ║ https://github.com/verticeapps/discourse.git ║
     ║ App(public)      ║ source ║ github        ║ no       ║ https://github.com/verticeapps/redmine.git   ║
     ║ Docker(git)      ║ source ║ github        ║ no       ║ https://github/verticeapps/redmine.git       ║
-    ║ Docker(image)    ║ image  ║ dockerhub     ║ no       ║ https://hub.docker.com                       ║
+    ║ Docker(image)    ║ image  ║ repository    ║ no       ║ https://hub.docker.com                       ║
     ╚══════════════════╩════════╩═══════════════╩══════════╩══════════════════════════════════════════════╝
     */
     createTopic(opts) {

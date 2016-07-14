@@ -31,6 +31,7 @@ export default Em.Component.extend({
             this.set('category.versionoption', this.get('resultType.name').toLowerCase());
             this.set('category.versiondetail', this.get('resultType'));
             this.set('category.sourceidentifier', this.get('resultType.provider'));
+            //this is for bitnami url
             if (this.get('resultType.options')) {
                 const usrl = this.get('resultType.options').filter((r) => r.key == `${this.get('resultType.provider')}_url`);
                 if (usrl) { this.set('category.sourceurl', usrl.get('firstObject').value); }
