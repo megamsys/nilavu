@@ -1,11 +1,6 @@
 import MountWidget from 'nilavu/components/mount-widget';
 import { observes } from 'ember-addons/ember-computed-decorators';
 
-const _flagProperties = [];
-function addFlagProperty(prop) {
-  _flagProperties.pushObject(prop);
-}
-
 const PANEL_BODY_MARGIN = 30;
 
 const SiteHeaderComponent = MountWidget.extend({
@@ -91,7 +86,6 @@ const SiteHeaderComponent = MountWidget.extend({
 
   buildArgs() {
     return {
-      flagCount: _flagProperties.reduce((prev, cur) => prev + (this.get(cur) || 0), 0),
       topic: this._topic,
       canSignUp: this.get('canSignUp')
     };
@@ -174,22 +168,8 @@ const SiteHeaderComponent = MountWidget.extend({
 
 export default SiteHeaderComponent;
 
-function applyFlaggedProperties() {
-  const args = _flagProperties.slice();
-  args.push(function() {
-    this.queueRerender();
-  }.on('init'));
-
-  SiteHeaderComponent.reopen({ _flagsChanged: Ember.observer.apply(this, args) });
-}
-
-addFlagProperty('currentUser.site_flagged_posts_count');
-addFlagProperty('currentUser.post_queue_new_count');
-
-export { addFlagProperty, applyFlaggedProperties };
-
 export function headerHeight() {
-  const $header = $('header.d-header');
+  const $header = $('header.navbar');
   const headerOffset = $header.offset();
   const headerOffsetTop = (headerOffset) ? headerOffset.top : 0;
   return parseInt($header.outerHeight() + headerOffsetTop - $(window).scrollTop());

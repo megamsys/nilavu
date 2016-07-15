@@ -1,0 +1,134 @@
+.custom-modal {
+    .modal-dialog {
+        width: 30%;
+    }
+}
+
+.btn.blue {
+  color: white;
+  text-shadow: none;
+  background-color: #4d90fe;
+}
+.btn.blue:hover,
+.btn.blue:focus,
+.btn.blue:active,
+.btn.blue.active,
+.btn.blue[disabled],
+.btn.blue.disabled {
+  background-color: #0362fd !important;
+  color: #fff !important;
+  outline: none !important;
+}
+
+/*  Green */
+.btn.green {
+  color: white;
+  text-shadow: none;
+  background-color: #35aa47;
+}
+.btn.green:hover,
+.btn.green:focus,
+.btn.green:active,
+.btn.green.active,
+.btn.green.disabled,
+.btn.green[disabled]{
+  background-color: #6fde86 !important;
+  color: #fff !important;
+  outline: none !important;
+}
+
+.c_icon-text
+{
+    color: transparent;
+    overflow: hidden;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+    background-image:url(../images/icons/file_extn_text.png);
+}
+
+.c_icon-zip
+{
+    color: transparent;
+    overflow: hidden;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+    background-image:url(../images/icons/file_extn_zip.png);
+}
+.c_icon-jpg
+{
+    color: transparent;
+    overflow: hidden;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+    background-image:url(../images/icons/file_extn_jpg.png);
+}
+.c_icon-png
+{
+    color: transparent;
+    overflow: hidden;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+    background-image:url(../images/icons/file_extn_png.png);
+}
+.c_icon-svg
+{
+    color: transparent;
+    overflow: hidden;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    vertical-align: middle;
+    background-image:url(../images/icons/file_extn_svg.png);
+}
+
+.close_red {
+    background-image: url(../images/icons/upload_selected_remove_red.png) !important;
+    background-repeat: no-repeat !important;
+    display: inline-block;
+    height: 9px;
+    margin-right: 0;
+    margin-top: 15px;
+    width: 9px;
+}
+
+.cloud_download {
+  color: transparent;
+  overflow: hidden;
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* border-radius: 50%; */
+  vertical-align: middle;
+  background-image: url(../images/icons/upload_to_storage.png);
+}
+
+.pullright {
+  text-align: right;
+  margin-right: 1em;
+}
+
+.yfiles-tb tr {
+    border-bottom: 1px solid #F5F1F1;
+}
+.yfiles-tb tr > td {
+    border-top: none !important;
+}
+.yfiles-tb .checker{
+    margin:10px -10px;
+}

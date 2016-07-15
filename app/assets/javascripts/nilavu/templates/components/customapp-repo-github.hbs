@@ -1,0 +1,16 @@
+<div class="row pad_t25">
+    {{repo-buttons sourceAuthenticated=sourceAuthenticated action=action}}
+</div>
+<br/>
+<div class="row pad_t25">
+    <div class="col-md-6">
+        <div class="block" id="repos">
+            {{#conditional-loading-spinner condition=showSpinner size="extra-large"}}
+                {{combo-box valueAttribute="value" content=repos value=selectedRepo none=setting.allowsNone}}
+            {{/conditional-loading-spinner}}
+        </div>
+    </div>
+    <div class="col-md-offset-1 col-md-5 pad_0">
+      {{customapp-repo-detail repoDetail=repoDetail}}
+    </div>
+</div>

@@ -41,6 +41,9 @@ const Topic = RestModel.extend({
         return Nilavu.getURL("/t/") + (this.get('id'));
     },
 
+    filteredCategory: function() {
+      return this.get('tosca_type').split(".")[1]
+    }.property(),
 
     // Delete this topic
     destroy(deleted_by) {

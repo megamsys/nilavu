@@ -63,7 +63,7 @@ $hiddenContent: "input#vm, input#app, .hideme, .hideme2, .hideme3, .hideme-custo
 .selectBg {
     /* Blue background behind 'VM'/'Application' */
     background-color: $blue-color;
-    min-height: 200px;
+    min-height: 208px;
 }
 img.inSelect {
     width: 60%;
@@ -141,7 +141,7 @@ img.inSelect {
     border: 1px solid #e5e6ef;
 }
 .rHead {
-    height: 130px;
+    height: 111px;
     border: 1px solid #e5e6ef;
 }
 .rTitle {
@@ -376,7 +376,7 @@ img.inSelect {
     width: 53px;
     margin-top: 12px;
     margin-bottom: 10px;
-    background-image: url(../images/osimages1.png); }
+    background-image: url(../images/launch/vmdistros.png); }
 
 .tabsos li.active .ubuntu .icon {
   background-position: 6px -221px; }
@@ -429,10 +429,8 @@ img.inSelect {
   background-size: 70%; }
 
 
-
-
 .oscontainer {
-  margin-top: -37px;
+  margin-top: -22px;
   padding-top: 56px;
   margin-right: 0px;
   border: 1px solid #dcdcdc;
@@ -551,8 +549,8 @@ img.inSelect {
 }
 .input-search {
     margin: 0 auto;
-    width: 50%;
-    margin-bottom: 15px;
+    width: 60%;
+    margin-bottom: 30px;
 }
 .form-control.flat {
     border-radius: 0;
@@ -589,9 +587,7 @@ img.inSelect {
 }
 
 //predeploy.css progress bar
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
 .predeploybar {
-  font-family: 'Open Sans', 'sans-serif';
 	position:relative;
 	display:block;
 	margin-bottom:15px;

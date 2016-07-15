@@ -8,11 +8,12 @@ class LaunchingItem
     attr_accessor :assemblyname, :componentname, :domain
     attr_accessor :keypairname, :keypairoption
     attr_accessor :region
-    attr_accessor :resource, :resourceunit, :storagetype
+    attr_accessor :resource, :resourceunit, :storage_hddtype
     attr_accessor :oneclick, :options, :envs
-    attr_accessor :ipv6, :privnetwork
-    attr_accessor :scm_name, :scmtoken, :scmowner #historical keys, not changing them.
-
+    attr_accessor :ipv4public, :ipv4private
+    attr_accessor :ipv6public, :ipv6private
+    attr_accessor :type, :source , :scm_name, :scmtoken, :scmowner #historical keys, not changing them. duh ! is it ?
+    attr_accessor :scmbranch, :scmtag
 
     ONE              = 'one'.freeze
     DOCKER           = 'docker'.freeze
@@ -20,8 +21,8 @@ class LaunchingItem
     def initialize(launching_params)
         [:email, :api_key, :org_id, :mkp_name, :version, :cattype,
             :assemblyname, :domain, :keypairname, :keypairoption,
-            :region, :resource, :resourceunit, :storagetype,
-            :oneclick, :ipv6, :privnetwork].each do |setting|
+            :region, :resource, :resourceunit, :storage_hddtype,
+        :oneclick, :ipv4private, :ipv4public, :ipv6private, :ipv6public].each do |setting|
             raise Nilavu::InvalidParameters unless launching_params[setting]
             self.send("#{setting}=",launching_params[setting])
         end
@@ -32,12 +33,12 @@ class LaunchingItem
     end
 
     def  componentname
-        @componentname ||= /\w+/.gen.downcase
+        @componentname ||= Haikunator.haikunate
     end
 
     def has_docker?
         ## this has to be based on cattype.
-        cattype.include? Api::Assemblies::DOCKERCONTAINER
+        cattype.downcase.include? Api::Assemblies::MICROSERVICES.singularize.downcase
     end
 
     alias name mkp_name
@@ -56,10 +57,12 @@ class LaunchingItem
             domain: domain,
             region: region,
             resource: resource,
-            storagetype: storagetype,
+            storage_hddtype: storage_hddtype,
             oneclick: oneclick,
-            ipv6: ipv6,
-            privnetwork: privnetwork,
+            ipv4private: ipv4private,
+            ipv4public: ipv4public,
+            ipv6private: ipv6private,
+            ipv6public: ipv6public,
             sshkey: keypairname,
             keypairoption: keypairoption,
             cattype: cattype,
@@ -70,7 +73,7 @@ class LaunchingItem
             envs: envs,
             provider: provider
         }
-        # i am not sure if this needed, since the data will come from ember
+
         set_git(res)
         res
     end
@@ -83,8 +86,8 @@ class LaunchingItem
     private
 
     def optionals(launching_params)
-        [:scm_name, :scmtoken, :scmowner].each do |setting|
-            self.send("#{setting}=",launching_params[setting]) unless launching_params[setting]
+        [:type, :scm_name, :source, :scmtoken, :scmbranch, :scmtag, :scmowner].each do |setting|
+            self.send("#{setting}=",launching_params[setting]) if launching_params.has_key?(setting)
         end
     end
 
@@ -95,17 +98,19 @@ class LaunchingItem
     end
 
     def ensure_provider
-        where_to ||= DOCKER
+        DOCKER
     end
 
     def provider
-        return ONE if !has_docker?
+        return ONE unless has_docker?
         ensure_provider
     end
 
     def set_git(params)
-        params[:scm_name] = scm_name if scm_name
-        params[:scmtoken] = scmtoken if scmtoken
-        params[:scmowner] = scmowner if scmowner
+        [:type, :source, :scm_name, :scmtoken, :scmowner,
+        :scmbranch, :scmtag ].each do |repo_setting|
+            params[repo_setting] = self.send("#{repo_setting}") if self.send("#{repo_setting}")
+        end
+        params
     end
 end

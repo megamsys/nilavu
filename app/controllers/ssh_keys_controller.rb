@@ -16,19 +16,62 @@
 require 'sshkeys_finder'
 
 class SshKeysController < ApplicationController
-  respond_to :html, :js
+  respond_to :html, :js, :json
 
-  before_action :add_authkeys_for_api, only: [:index, :create, :edit, :update]
+  before_action :add_authkeys_for_api, only: [:index, :create, :edit, :import, :show]
 
   def index
     @foundkeys ||= SSHKeysFinder.new(params).foundkeys
+    respond_to do |format|
+        if @foundkeys
+            format.json { render json: {
+              success: true,
+              message: @foundkeys,
+            } }
+        else
+            format.json { render json: {
+              success: false,
+              message: I18n.t(
+                'ssh_keys.download_error',
+              )
+            } }
+        end
+    end
   end
 
   def create
-    params[:sshoption] = Api::Sshkeys::NEW
+    params[:keypairoption] = Api::Sshkeys::NEW
     Api::Sshkeys.new.create_or_import(params)
-    redirect_to(ssh_keys_path, :flash => { :success => "#{params[:ssh_keypair_name]} created successfully."}, format: 'js')
+    render json: {
+      success: true,
+      message: "#{params[:ssh_keypair_name]} #{I18n.t('ssh_keys.create_success')}",
+    }
   end
+
+  def show
+    @ssh = Api::Sshkeys.new.show(params)
+
+    respond_to do |format|
+        if @ssh
+            format.json { render json: {
+              success: true,
+              message: @ssh,
+            } }
+        else
+            format.json { render json: {
+              success: false,
+              message: I18n.t(
+                'ssh_keys.download_error',
+              )
+            } }
+        end
+    end
+  rescue ApiDispatcher::NotReached
+    render json: {
+      success: false,
+      message: I18n.t("login.something_already_taken")
+    }
+ end
 
 
   ## this downloads a key
@@ -37,15 +80,18 @@ class SshKeysController < ApplicationController
     params.merge!({:download_location => "#{params[:name]}.#{params[:format]}"})
   else
     params.merge!({:download_location => "#{params[:name]}"})
-  end  
+  end
     Api::Sshkeys.new.download(params)
     send_file Rails.root.join("#{params[:download_location]}"), :x_sendfile=>true
   end
 
   ## this imports the ssh keys.
-  def update
-    params[:sshoption] = Api::Sshkeys::IMPORT
+  def import
+    params[:keypairoption] = Api::Sshkeys::IMPORT
     Api::Sshkeys.new.create_or_import(params)
-    redirect_to(ssh_keys_path, :flash => { :success => "#{params[:ssh_keypair_name]} imported successfully."}, format: 'js')
+    render json: {
+      success: true,
+      message: "#{params[:ssh_keypair_name]} #{I18n.t('ssh_keys.import_success')}",
+    }
   end
 end

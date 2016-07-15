@@ -1,56 +1,62 @@
-
 export default Ember.Component.extend({
-  classNames: ['topic-list'],
-  showTopicPostBadges: true,
+    classNames: ['topic-list'],
+    showTopicPostBadges: true,
 
-  _observeHideCategory: function(){
-    this.addObserver('hideCategory', this.rerender);
-    this.addObserver('order', this.rerender);
-    this.addObserver('ascending', this.rerender);
-  }.on('init'),
+    _observeHideCategory: function() {
+        this.addObserver('hideCategory', this.rerender);
+        this.addObserver('order', this.rerender);
+        this.addObserver('ascending', this.rerender);
+    }.on('init'),
 
-  toggleInTitle: function(){
-    return !this.get('bulkSelectEnabled') && this.get('canBulkSelect');
-  }.property('bulkSelectEnabled'),
+    toggleInTitle: function() {
+        return !this.get('bulkSelectEnabled') && this.get('canBulkSelect');
+    }.property('bulkSelectEnabled'),
 
-  sortable: function(){
-    return !!this.get('changeSort');
-  }.property(),
+    sortable: function() {
+        return !!this.get('changeSort');
+    }.property(),
 
-  skipHeader: function() {
-    return this.site.mobileView;
-  }.property(),
+    skipHeader: function() {
+        return this.site.mobileView;
+    }.property(),
 
-  showLikes: function(){
-    return this.get('order') === "likes";
-  }.property('order'),
+    showLikes: function() {
+        return this.get('order') === "likes";
+    }.property('order'),
 
-  showOpLikes: function(){
-    return this.get('order') === "op_likes";
-  }.property('order'),
+    showOpLikes: function() {
+        return this.get('order') === "op_likes";
+    }.property('order'),
 
-  click(e) {
-    var self = this;
-    var on = function(sel, callback){
-      var target = $(e.target).closest(sel);
+    filteredTopics: function() {
+        const cat = this.get('showCategory');
+        return this.get('topics').filter(function(topic) {
+            return topic.get('filteredCategory').match(cat);
+        });
+    }.property(),
 
-      if(target.length === 1){
-        callback.apply(self, [target]);
-      }
-    };
+    click(e) {
+        var self = this;
+        var on = function(sel, callback) {
+            var target = $(e.target).closest(sel);
 
-    on('button.bulk-select', function(){
-      this.sendAction('toggleBulkSelect');
-      this.rerender();
-    });
+            if (target.length === 1) {
+                callback.apply(self, [target]);
+            }
+        };
 
-    on('th.sortable', function(e2){
-      this.sendAction('changeSort', e2.data('sort-order'));
-      this.rerender();
-    });
-  },
+        on('button.bulk-select', function() {
+            this.sendAction('toggleBulkSelect');
+            this.rerender();
+        });
 
-  actions: {
-    
-  }
+        on('th.sortable', function(e2) {
+            this.sendAction('changeSort', e2.data('sort-order'));
+            this.rerender();
+        });
+    },
+
+    actions: {
+
+    }
 });

@@ -5,6 +5,7 @@ export default Ember.Component.extend({
                       'unboundClassNames',
                       'selected'],
   attributeBindings: ['data-topic-id'],
+  tagName: 'tr',
   'data-topic-id': Em.computed.alias('topic.id'),
 
   actions: {
@@ -17,6 +18,10 @@ export default Ember.Component.extend({
       this.get('topic').toggleBookmark().finally(function() {
         self.rerender();
       });
+    },
+    on()
+    {
+
     }
   },
 

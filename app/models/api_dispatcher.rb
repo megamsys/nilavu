@@ -26,24 +26,23 @@ class ApiDispatcher
 
   attr_accessor :megfunc, :megact, :parms, :passthru, :swallow_404, :verify
 
-  JLAZ_PREFIX       = 'Megam::'.freeze
+  JLAZ_PREFIX          = 'Megam::'.freeze
 
-  ACCOUNT           = 'Account'.freeze
-  ASSEMBLIES        = 'Assemblies'.freeze
-  ASSEMBLY          = 'Assembly'.freeze
-  BALANCES          = 'Balances'.freeze
-  BILLEDHISTORIES   = 'Billedhistories'.freeze
-  COMPONENTS        = 'Components'.freeze
-  CREDITHISTORIES   = 'Credithistories'.freeze
-  ORGANIZATION      = 'Organizations'.freeze
-  DOMAIN            = 'Domains'.freeze
-  PROMOS            = 'Promos'.freeze
-  DISCOUNTS         = 'Discounts'.freeze
+  ACCOUNT              = 'Account'.freeze
+  ASSEMBLIES           = 'Assemblies'.freeze
+  ASSEMBLY             = 'Assembly'.freeze
+  BALANCES             = 'Balances'.freeze
+  BILLINGTRANSACTIONS  = 'Billingtransactions'.freeze
+  COMPONENTS           = 'Components'.freeze
+  ORGANIZATION         = 'Organizations'.freeze
+  DOMAIN               = 'Domains'.freeze
+  SNAPSHOTS            = 'Snapshots'.freeze
+  PROMOS               = 'Promos'.freeze
 
-  MARKETPLACES      = 'MarketPlace'.freeze
-  REQUESTS          = 'Request'.freeze
-  SSHKEYS           = 'SshKey'.freeze
-  SENSORS           = 'Sensors'.freeze
+  MARKETPLACES         = 'MarketPlace'.freeze
+  REQUESTS             = 'Request'.freeze
+  SSHKEYS              = 'SshKey'.freeze
+  SENSORS              = 'Sensors'.freeze
 
   ENDPOINTS_AS_JSON = [JLAZ_PREFIX + ASSEMBLIES,
                        JLAZ_PREFIX + ASSEMBLY,
@@ -66,14 +65,14 @@ class ApiDispatcher
     set_attributes(jlaz, jmethod, jparams, passthru)
 
     begin
-      Rails.logger.debug "\033[01;35mFASCADE #{megfunc}#{megact} \33[0;34m"
-
+      Rails.logger.debug "\033[01;35mFASCADE #{megfunc}::#{megact} \33[0;34m"
       raise Nilavu::InvalidParameters if !satisfied_args?(passthru, jparams)
 
       invoke_submit
     rescue Megam::API::Errors::ErrorWithResponse => m
        raise_api_errors(ApiDispatcher::Flunked.new(m))
     rescue StandardError => se
+      puts se.inspect
       raise ApiDispatcher::NotReached
     end
   end

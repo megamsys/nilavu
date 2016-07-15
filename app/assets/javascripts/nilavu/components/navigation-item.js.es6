@@ -3,7 +3,7 @@ import StringBuffer from 'nilavu/mixins/string-buffer';
 
 export default Ember.Component.extend(StringBuffer, {
   tagName: 'li',
-  classNameBindings: ['active', 'content.hasIcon:has-icon'],
+  classNameBindings: [':active', 'content.hasIcon:has-icon'],
   attributeBindings: ['title'],
   hasIcon: true,
   hidden: Em.computed.not('content.visible'),
@@ -22,7 +22,7 @@ export default Ember.Component.extend(StringBuffer, {
   },
 
   @computed("content.filterMode", "filterMode")
-  active(contentFilterMode, filterMode) {    
+  active(contentFilterMode, filterMode) {
     return contentFilterMode === filterMode ||
            filterMode.indexOf(contentFilterMode) === 0;
   },

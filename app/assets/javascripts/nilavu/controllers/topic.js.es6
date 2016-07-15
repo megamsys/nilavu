@@ -1,7 +1,7 @@
 import BufferedContent from 'nilavu/mixins/buffered-content';
-import { spinnerHTML } from 'nilavu/helpers/loading-spinner';
+import {    spinnerHTML } from 'nilavu/helpers/loading-spinner';
 import Topic from 'nilavu/models/topic';
-import { popupAjaxError } from 'nilavu/lib/ajax-error';
+import {     popupAjaxError } from 'nilavu/lib/ajax-error';
 import computed from 'ember-addons/ember-computed-decorators';
 import NilavuURL from 'nilavu/lib/url';
 import showModal from 'nilavu/lib/show-modal';
@@ -51,28 +51,46 @@ export default Ember.Controller.extend(BufferedContent, {
 
     fullName: function() {
         var js = this._filterInputs("domain");
-        return this.get('name') + "." + js;
+        return this.get('model.name') + "." + js;
     }.property('model.name'),
 
     hasInputs: Em.computed.notEmpty('model.inputs'),
+    hasOutputs: Em.computed.notEmpty('model.outputs'),
 
     _filterInputs(key) {
-        if (!this.get('hasInputs')) return  "";
-
+        if (!this.get('hasInputs')) return "";
+        if (!this.get('model.inputs').filterBy('key', key)[0]) return "";
         return this.get('model.inputs').filterBy('key', key)[0].value;
     },
 
+    _filterOutputs(key) {
+        if (!this.get('hasOutputs')) return "";
+        if (!this.get('model.outputs').filterBy('key', key)[0]) return "";
+        return this.get('model.outputs').filterBy('key', key)[0].value;
+    },
 
     actions: {
 
         // VNC
         showVNC() {
-            showModal('vnc', { url: this.get('vncUrl') }); // send the url
+            const host = this._filterOutputs("vnchost"),
+                port = this._filterOutputs("vncport");
+            if (host == undefined || host == "" || port == "" || port == undefined) {
+                this.notificationMessages.error(I18n.t('vm_management.vnc_host_port_empty'));
+            } else {
+                showModal('vnc').setProperties({
+                  host: host,
+                  port: port
+                });
+            }
+
         },
 
         // START, STOP, RESTART, DELETE
         start() {
-            this.deleteTopic(); //change accordingly
+
+
+            //this.deleteTopic(); //change accordingly
         },
 
         stop() {
@@ -90,22 +108,23 @@ export default Ember.Controller.extend(BufferedContent, {
         },
 
         destroy() {
-            bootbox.confirm(I18n.t("post.delete.confirm", { count: this.get('selectedPostsCount') }), result => {
-                if (result) {
+            //bootbox.confirm(I18n.t("post.delete.confirm", { count: this.get('selectedPostsCount') }), result => {
+            //if (result) {
 
-                    // If all posts are selected, it's the same thing as deleting the topic
-                    if (this.get('allPostsSelected')) {
-                        return this.deleteTopic();
-                    }
+            // If all posts are selected, it's the same thing as deleting the topic
+            if (this.get('allPostsSelected')) {
+                return this.deleteTopic();
+            }
 
-                    const selectedPosts = this.get('selectedPosts');
-                    const selectedReplies = this.get('selectedReplies');
-                    const postStream = this.get('model.postStream');
+            const selectedPosts = this.get('selectedPosts');
+            const selectedReplies = this.get('selectedReplies');
+            const postStream = this.get('model.postStream');
+            const deleted_by = this.get('deleted_by')
 
-                    Nilavu.Post.deleteMany(selectedPosts, selectedReplies);
+            Nilavu.Topic.destroy(deleted_by);
 
-                }
-            })
+            //}
+            //})
         },
 
         snapshot(post) {

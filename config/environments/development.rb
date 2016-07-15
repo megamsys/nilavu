@@ -11,7 +11,7 @@ Nilavu::Application.configure do
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+  config.action_controller.perform_caching = true
 
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
@@ -30,7 +30,7 @@ Nilavu::Application.configure do
   config.watchable_dirs['lib'] = [:rb]
 
   config.sass.debug_info = false
-  config.handlebars.precompile = false
+  config.handlebars.precompile = true
 
   config.load_mini_profiler = true
 

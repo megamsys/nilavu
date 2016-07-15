@@ -1,0 +1,26 @@
+<div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
+    {{topic-list-header currentUser=currentUser title=title nameEnabled=nameEnabled name=name subTitleEnabled=subTitleEnabled subTitle=subTitle viewIcons=viewIcons}}
+    <div class="bottom-divider"></div>
+    <div class="col-xs-12 col-sm-9 col-md-9 br_grey">
+        <div class="row app_box app_storage">
+            <a href {{action "bucketCreate"}}>
+                <div class="col-xs-12 col-sm-6 col-md-3  app_cover create_bucket_modal">
+                    <div class="app_inner">
+                        <div class="app_new ">
+                            {{#conditional-loading-spinner condition=modalLoading size="extra-large" }}
+                                <span class="glyphicon glyphicon-plus"></span>
+                                <p>
+                                    Create Storage
+                                </p>
+                            {{/conditional-loading-spinner}}
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {{#each buckets.message.usage as |bucket|}}
+                {{bucket-item bucket=bucket}}
+            {{/each}}
+        </div>
+    </div>
+    {{buckets-usage buckets=buckets showUsageLoading=showUsageLoading}}
+</div>

@@ -23,10 +23,15 @@ class CephHelper
   end
 
   def upload(bucket, unique_filename, content, options={})
-    obj = ceph_bucketobjects(bucket).build(unique_filename)
+    obj = ceph_bucketobjects(bucket).build(unique_filename)  
     obj.content = content
     obj.save
   end
+
+ def temporary_url(bucket, unique_filename)
+   obj = ceph_bucketobjects(bucket).build(unique_filename)
+   obj.temporary_url
+ end
 
   #forcefully delete
   def destroy_object(name, key)

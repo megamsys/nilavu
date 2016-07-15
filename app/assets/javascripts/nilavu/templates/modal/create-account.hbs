@@ -63,7 +63,8 @@
                                 {{input-tip validation=passwordValidation}}
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                {{password-field value=confirmpassword type="password" placeholderKey="user.password.title1" class="form-control" id="new-account-password1" capsLockOn=capsLockOn}}
+                                {{password-field value=accountPasswordConfirm type="password" placeholderKey="user.password.title1" class="form-control" id="new-account-confirmpassword" capsLockOn=capsLockOn}}
+                                  {{input-tip validation=passwordConfirmValidation}}
                             </div>
                         </div>
                 </div>
@@ -75,8 +76,8 @@
                             <button class='btn btn-success col-lg-12' id="login-link" {{bind-attr disabled="submitDisabled"}} {{action "createAccount"}}>
                                 {{i18n 'create_account.title'}}
                                 <span class="pull-right">
-                       {{conditional-loading-spinner condition=formSubmitted size="large"}}
-                     </span>
+                                  {{conditional-loading-spinner condition=formSubmitted size="large"}}
+                                </span>
                             </button>
                         {{/if}}
                     </div>

@@ -1,14 +1,15 @@
 import { propertyEqual } from 'nilavu/lib/computed';
 
 export default Em.Component.extend({
-  tagName: 'li',
-  classNameBindings: ['active', 'tabClassName', ':tabDisabled'],
+  classNameBindings: ['active', 'tabClassName', ':tabDisabled', 'uibtnactive'],
 
   tabClassName: function() {
     return 'log-' + this.get('logTab');
   }.property('logTab'),
 
   active: propertyEqual('logSelectedTab', 'logTab'),
+
+  uibtnactive: propertyEqual('logSelectedTab', 'logTab'),
 
   title: function() {
     return I18n.t('logs.' + this.get('logTab') + ".tab_title");

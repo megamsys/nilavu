@@ -1,0 +1,21 @@
+<div class="modal-body app_body upload_app_body">
+    <div class="row">
+        <div class="col-xs-12">
+            <table class="table borderless tb_upload">
+                <tbody class="tr_upload_list">
+                    {{#each fileuploaders as |fs|}}
+                        {{file-uploader model=fs}}
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="row">
+        <div class="col-xs-12">
+            <span class="btn btn-success pull-left" {{action 'startUpload'}}>+ Add More Files</span>
+            <span class="btn btn-success pull-right" {{action 'done'}}>Done</span>
+        </div>
+    </div>
+</div>

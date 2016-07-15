@@ -17,14 +17,13 @@ module Api
     class Assemblies < ApiDispatcher
 
         attr_reader :baked
-
+        ALL                 =  'ALL'.freeze
         TORPEDO             =  'TORPEDO'.freeze
         APP                 =  'APP'.freeze
         SERVICE             =  'SERVICE'.freeze
         ANALYTICS           =  'ANALYTICS'.freeze
         MICROSERVICES       =  'MICROSERVICES'.freeze
         COLLABORATION       =  'COLLABORATION'.freeze
-        DOCKERCONTAINER     =  'DockerContainer'.freeze
 
         CATTYPES            =  [TORPEDO, APP, SERVICE, MICROSERVICES, ANALYTICS, COLLABORATION]
 
@@ -66,7 +65,7 @@ module Api
 
         def create(api_params)
             bld_data = build_data(api_params)
-            api_request(ASSEMBLIES, CREATE, api_params.merge(bld_data))            
+            api_request(ASSEMBLIES, CREATE, api_params.merge(bld_data))
         end
 
         def build_data(api_params)
@@ -91,9 +90,14 @@ module Api
                 end
                 a1
             end
+            filter(api_params[:filter]) unless api_params[:filter] == ALL
             Rails.logger.debug "\033[36m>-- ASB'S: #{@baked.class} START\33[0m"
             Rails.logger.debug "\033[1m#{@baked.to_yaml}\33[22m"
             Rails.logger.debug "\033[36m> ASB'S: END\033[0m"
+        end
+
+        def filter(type)
+          @baked = @baked.find_all { |asm| asm[0][0].tosca_type.split(".")[1] == type.downcase }
         end
     end
 end

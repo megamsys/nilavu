@@ -40,6 +40,7 @@
      {{/plugin-outlet}}
    ```
 
+
    ## Disabling
 
    If a plugin returns a disabled status, the outlets will not be wired up for it.

@@ -4,6 +4,7 @@ import { default as computed, observes } from 'ember-addons/ember-computed-decor
 import showModal from 'nilavu/lib/show-modal';
 
 let _dontSearch = false;
+
 export default Ember.Component.extend({
   searchService: Ember.inject.service('search'),
   classNames: ['search-menu'],
@@ -15,27 +16,20 @@ export default Ember.Component.extend({
       _dontSearch = true;
       this.set('searchService.searchContextEnabled', false);
       _dontSearch = false;
-    }
+      }
   },
 
   @computed('searchService.searchContext', 'searchService.term', 'searchService.searchContextEnabled')
   fullSearchUrlRelative(searchContext, term, searchContextEnabled) {
-
     if (searchContextEnabled && Ember.get(searchContext, 'type') === 'topic') {
       return null;
     }
 
     let url = '/search?q=' + encodeURIComponent(this.get('searchService.term'));
+
     if (searchContextEnabled) {
-      if (searchContext.id.toString().toLowerCase() === this.get('currentUser.username_lower') &&
-          searchContext.type === "private_messages"
-          ) {
-        url += ' in:private';
-      } else {
         url += encodeURIComponent(" " + searchContext.type + ":" + searchContext.id);
       }
-    }
-
     return url;
   },
 
@@ -82,9 +76,9 @@ export default Ember.Component.extend({
       this._search.abort();
     }
 
-    const searchContext = this.get('searchService.searchContextEnabled') ? this.get('searchService.searchContext') : null;
-    this._search = searchForTerm(term, { typeFilter, searchContext, fullSearchUrl: this.get('fullSearchUrl') });
+    const searchContext = this.get('searchService.searchContext') ? this.get('searchService.searchContext') : null;
 
+    this._search = searchForTerm(term, { typeFilter, searchContext, fullSearchUrl: this.get('fullSearchUrl')});
     this._search.then((content) => {
       this.setProperties({ noResults: !content, content });
     }).finally(() => {
@@ -135,13 +129,6 @@ export default Ember.Component.extend({
 
     showedSearch() {
       $('#search-term').focus().select();
-    },
-
-    showSearchHelp() {
-      // TODO: @EvitTrout how do we get a loading indicator here?
-      Nilavu.ajax("/static/search_help.html", { dataType: 'html' }).then((model) => {
-        showModal('searchHelp', { model });
-      });
     },
 
     cancelHighlight() {

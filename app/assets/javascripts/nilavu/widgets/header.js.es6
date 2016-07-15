@@ -56,17 +56,25 @@ createWidget('user-dropdown', jQuery.extend({
     },
 
     html(attrs) {
-        const {
-            currentUser
-        } = this;
+        const {      currentUser   } = this;
 
-        return h('a.c_glob.header_user_profile', {
+        const body = [iconNode(attrs.icon, {
+            hclasz: attrs.icon,
+            class: attrs.align
+        })];
+
+        if (attrs.contents) {
+            body.push(attrs.contents.call(this));
+        }
+
+        return h('a', {
                 attributes: {
                     href: currentUser.get('path'),
                     'data-auto-route': true
                 }
-            },
-            this.attach('header-notifications', attrs));
+            } , body,
+            this.attach('header-notifications', attrs)
+          );
     }
 }, dropdown));
 
@@ -117,7 +125,6 @@ createWidget('header-icons', {
             align: 'pull-left',
             icon: 'c_icon-window-lg',
             iconId: 'marketplace-button',
-            active: attrs.marketplacesVisible,
             resource: 'marketplaces'
         });
 
@@ -127,18 +134,15 @@ createWidget('header-icons', {
             align: 'pull-left',
             icon: 'c_icon-storages-lg',
             iconId: 'toggle-storages-menu',
-            active: attrs.storageVisible,
             resource: 'storages'
         });
-
-
 
         const icons = [marketplaces, storages];
 
         if (this.currentUser) {
             icons.push(this.attach('user-dropdown', {
                 active: attrs.userVisible,
-                icon: 'user',
+                icon: 'c_glob header_user_profile pull-right',
                 action: 'toggleUserMenu'
             }));
         }
@@ -183,7 +187,7 @@ export default createWidget('header', {
     },
 
     closeAll() {
-        this.state.userVisible = false;
+        this.state.userVisible = true;
         this.state.marketplacesVisible = true;
         this.state.storagesVisible = true;
     },

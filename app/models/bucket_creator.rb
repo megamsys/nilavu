@@ -1,7 +1,6 @@
 # create bucket on the ceph helper
 class BucketCreator
 
-
   def initialize(ceph_access)
     @ceph  = CephHelper.new(ceph_access)
     @bucket_name = ceph_access[:id]

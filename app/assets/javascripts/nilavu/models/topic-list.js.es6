@@ -86,7 +86,7 @@ const TopicList = RestModel.extend({
 
     const url = `${Nilavu.getURL("/")}${this.get('filter')}?topic_ids=${topic_ids.join(",")}`;
     const store = this.store;
-
+    
     return Nilavu.ajax({ url }).then(result => {
       let i = 0;
       topicList.forEachNew(topicsFrom(result, store), function(t) {

@@ -113,6 +113,12 @@ Nilavu.Utilities = {
     return re.test(email);
   },
 
+  gitValid: function(git) {
+    var re = /(?:git|ssh|https?|git@[\w\.]+):(?:\/\/)?[\w\.@:\/~_-]+\.git(?:\/?|\#[\d\w\.\-_]+?)$/;
+    return re.test(git);
+  },
+
+
   selectedText: function() {
     var html = '';
 
@@ -317,7 +323,7 @@ Nilavu.Utilities = {
   },
 
   defaultHomepage: function() {
-    return "torpedo";
+    return "dashboard";
   }
 
 };

@@ -18,15 +18,15 @@ module LaunchableScrubber
     end
 
     def snapshots(params)
-        return Hash[]
+        Api::Snapshots.new.list(params)
     end
 
     def scrub(params)
         {
             virtualmachines: virtualmachines(params),
             prepackaged: prepackaged(params),
-            containers: containers(params),
             customapps: customapps(params),
+            containers: containers(params),
             snapshots: snapshots(params)
         }
     end

@@ -104,22 +104,30 @@ en:
       next_month: 'Next Month'
 
     filters:
+      dashboard:
+        title:
+          one: Dashboard
+          other: Dashboard
       torpedo:
         title:
-          one: Virtual Machine
-          other: Virtual Machines
+          one: Machine
+          other: Machines
+        help: "virtual machines you've launched"
       app:
         title:
           one: App
           other: Apps
+        help: "applications you've launched"
       service:
         title:
           one: Service
           other: Services
+        help: "service (db/spark/hadoop)s you've launched"
       microservice:
         title:
-          one: Microservice
-          other: Microservices
+          one: Container
+          other: Containers
+        help: "docker/hyper containers you've launched"
       analytics:
         title:
           one: Analytics
@@ -132,6 +140,7 @@ en:
         title:
           one: Bitnami
           other: Bitnamis
+      dashboard_description: 'Get your own compute power'
       torpedo_description: 'Get your own compute power'
       app_description:  'Get started with a new app'
       service_description: 'Make your applications more hungry'
@@ -293,11 +302,13 @@ en:
          message: "Authenticating with Facebook (make sure pop up blockers are not enabled)"
 
     launcher:
+      new: "NEW"
       create: "Virtual Machine"
       virtualmachines: "virtualmachines"
       applications: "applications"
       title: "Let's Get Started"
-      selection_title: "Choose VM (or) App"
+      selection_virtualmachine_title: "Choose Distro"
+      selection_application_title: "Choose App"
       summary_title: "Your Launch Summary"
       general:     "Step 1    "
       selection:   "Step 2    "
@@ -315,7 +326,8 @@ en:
       fedora: "Fedora"
       windows: "Windows"
       snapshots: "Snapshots"
-      version_not_found: "None"
+      versions_not_found: "None found"
+      coming_soon_notifyme: "None found."
       selecting: "next"
       launch: "launch"
       saving: "launching"
@@ -332,8 +344,10 @@ en:
       summarize_flavor: "Flavor & Storage Type"
       summarize_operating_system: "Operating System"
       summarize_type: "Type"
-      enable_ipv6:  "Enable IPv6"
-      enable_private_networking: "Enable Private Networking"
+      enable_publicipv4:  "Enable Public IPv4"
+      enable_privateipv4: "Enable Private IPv4"
+      enable_publicipv6:  "Enable Public IPv6"
+      enable_privateipv6: "Enable Private IPv6"
       select_duplicate: "Duplicate"
       sshoption_create: "Create a new sshkeypair"
       sshoption_old: "Use your existing ssh keypair"
@@ -341,23 +355,87 @@ en:
       launched: "Launched "
       not_launched: "Not launched"
       launched_redirecting: "Redirecting ..."
+      prepackaged: "Pre-packaged"
+      customapp:  "Custom Application"
+      none_sshkey_create: "Nothing, create one"
+
+    customapp:
+      choose: "Choose a custom app to launch"
+      description: "Launch an application now."
+      docs: "View Docs"
+      publicrepo: "Type a repo url. eg: https://github.com/verticeapps/discourse"
+      repo_authcomplete: "Authenticated"
+      github_description: "Refreshed"
+      github_error: "Not refreshed"
+      repo_is_public: "public"
+      repo_is_private: "private"
+      prepackeble_select: 'select'
+      prepackeble_selected: 'selected'
+      your_repos: "Your Repos"
+      public_repos: "Public Repo"
 
     dashboards:
       title: "Dashboard"
+      torpedo:
+        create: "Create Virtual Machine"
+        category: "torpedo"
+        title: "Your Virtual Machines"
+        subtitle: "virtualmachine running"
+      app:
+        create: "Create App"
+        category: "app"
+        title: "Your Apps"
+        subtitle: "apps running"
+      service:
+        create: "Create Service"
+        category: "service"
+        title: "Your Services"
+        subtitle: "services running"
+      microservice:
+        create: "Create Microservice"
+        category: "microservice"
+        title: "Your Containers"
+        subtitle: "containers running"
 
     marketplaces:
       title: "Marketplaces"
 
     ssh_keys:
       title: "SSH keys"
-      import: "Import SSH Key Pair"
-      create: "Create SSH Key Pair"
+      download_error: "SSH keys download failed. Try some other time."
+      activity: "Activity"
+      import: "Upload"
+      action: " Actions "
+      created_at: " Created At "
+      private: "Private"
+      public: "Public"
+      pub: "Pub"
+      name: "Name"
+      create_title: "Create SSH Key Pair"
+      create_info: "Generate a SSH RSA 2048 key pair. Read"
+      info_link: "here"
+      info_end: "for more information."
+      temp_name: "Enter a key pair name to save"
+      create: "Generate"
+      import_title: "Import SSH Key Pair"
+      import_info: "Import a SSH RSA 2048 key pair. Read"
+      private_key: "Private key"
+      public_key: "Public key"
+      add_files: "Add files..."
+      upload_key: "Upload private key"
+      upload_pub_key: "Upload public key"
+      create_success: "created successfully."
+      import_success: "imported successfully."
+      create_error: "SSH keys create failed. Try some other time."
+      reload_error: "SSH keys refresh list failed. Please refresh your page."
 
     storages:
       title: "Storages"
 
     billing:
       title: "Billings"
+      trackusage: "Your current balance is deducted hourly based on your current usage."
+      addfunds: "CLICK TO ADD FUNDS"
       total_balance: "Total Balance"
       promo_code: "Promo Code :"
       apply: "APPLY"
@@ -380,30 +458,36 @@ en:
       apikey:
         tab_title: "Apikey"
 
-
     vm_management:
       info:
         tab_title: "Info"
         content_title: "Information"
-        content_hdd_title: "HDD"
-        content_cpu_title: "CPU"
-        content_ram_title: "RAM"
+        content_resources_title: "Resources"
+        content_hdd: "HDD"
+        content_cpu: "CPU"
+        content_ram: "RAM"
+        content_flavor: "Flavor"
         content_id: "Id"
         content_name: "Name"
         content_domain: "Domain"
-        content_state: "State"
+        content_state: "Status"
         content_host: "Host"
         content_region: "Region"
         content_start_time: "Start Time"
         content_hdd_size: "Size"
-      storage:
-        tab_title: "Storage"
+      snapshots:
+        tab_title: "Snapshots"
       network:
         tab_title: "Network"
         content_dns_provider: "DNS Provider"
         content_public_ip: "Public IP"
         content_private_ip: "Private IP"
         content_reattach_ip: "Reattach IP"
+        content_ipv4: "IPV4"
+        content_ipv6: "IPV6"
+        content_private_ip: "Private IPv4"
+        content_private: "private network"
+        content_public: "public network"
       cpu:
         tab_title: "CPU"
         content_cpu_cores: "Cores"
@@ -418,6 +502,8 @@ en:
         content_public_sshkey: "Public Key"
       logs:
         tab_title: "Logs"
+      not_load: "Virtual Machine updating failed."
+      vnc_host_port_empty: "Oops, VNC host and port was empty, try some other time."
 
     logs:
       all:
@@ -426,6 +512,8 @@ en:
         tab_title: "actions"
       warnings:
         tab_title: "warnings"
+      info:
+        tab_title: "info"
       errors:
         tab_title: "errors"
 
@@ -434,6 +522,33 @@ en:
         tab_title: "User"
       domain:
         tab_title: "Domain"
+
+    bucket:
+      create: "Create"
+      title: "Bucket"
+      bucket_name: "Bucket Name"
+      file: "Select Files"
+      bucket_created: "Bucket created on storage system."
+      bucket_create_error: "Oops, Buckets create failed. Try some other time."
+      ceph_auth_keys_error: "Oops, Ceph auth keys are missing. Try some other time."
+      onboard_success: "User successfully onboarded on storage system"
+      onboard_error: "Oops, User onboard fail on storage system."
+      object_upload_success: "File uploaded successfully."
+      object_upload_error: "File upload failed."
+
+    search:
+      sort_by: "Sort by"
+      relevance: "Relevance"
+      most_viewed: "Most Viewed"
+      most_liked: "Most Liked"
+      select_all: "Select All"
+      clear_all: "Clear All"
+      result_count:
+        one: "1 result for <span class='term'>\"{{term}}\"</span>"
+        other: "{{count}} results for <span class='term'>\"{{term}}\"</span>"
+      title: "search name, atleast 3 characters"
+      no_results: "No results found."
+      no_more_results: "No more results found."
 
     notifications:
       none: "Unable to load notifications at this time."

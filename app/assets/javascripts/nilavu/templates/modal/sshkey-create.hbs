@@ -2,22 +2,23 @@
     <div class="row">
         <div class="col-md-12">
             <div class="alert ssh-alert-success">
-                Generate a SSH RSA 2048 key pair.Read
-                <a href="" target="_blank"> <strong>here</strong></a>for information.
+                {{i18n 'ssh_keys.create_info'}}
+                <a href="" target="_blank"> <strong>{{i18n 'ssh_keys.info_link'}}</strong></a>
+                {{i18n 'ssh_keys.info_end'}}
             </div>
             <form multipart="true" remote="true">
                 <div class="form-group">
-
                     <label for="ssh-key_name">
-                        Name
+                        {{i18n 'ssh_keys.name'}}
                     </label>
-                    {{text-field class="form-control" placeholder="Enter a key pair to save" required="true"}}
-
-                    <input type="hidden" name="key_type" value="RSA">
-                    <input type="hidden" name="key_bit" value="2048">
+                    {{input type="text" class="form-control" required="true" placeholder=placeHolder value=sshKeyCreateName}}
                 </div>
-
-                <button class='btn btn-success col-md-12 col-xs-12' id='sshkey_create_submit' {{action "create"}}>update</button>
+                <button class="btn btn-success col-md-12 col-xs-12" {{bind-attr disabled="submitDisabled"}} {{action "create"}}>
+                    {{i18n 'ssh_keys.create'}}
+                    <span class="pull-right">
+                      {{conditional-loading-spinner condition=showSpinner size="large"}}
+                    </span>
+                </button>
             </form>
         </div>
     </div>

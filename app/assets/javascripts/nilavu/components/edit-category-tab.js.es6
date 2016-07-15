@@ -5,7 +5,6 @@ export default Em.Component.extend({
   classNameBindings: ['active', 'tabClassName', ':tabDisabled'],
 
   tabClassName: function() {
-  
     return 'edit-category-' + this.get('tab');
   }.property('tab'),
 

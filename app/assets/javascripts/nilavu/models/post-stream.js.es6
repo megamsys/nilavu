@@ -403,13 +403,11 @@ export default RestModel.extend({
 
     // Get the index of a post in the stream. (Use this for the topic progress bar.)
     progressIndexOfPost(post) {
-        alert("Post index p=" + JSON.stringify(post));
         return this.progressIndexOfPostId(post.get('id'));
     },
 
     // Get the index in the stream of a post id. (Use this for the topic progress bar.)
     progressIndexOfPostId(postId) {
-        alert("Post index PID=" + JSON.stringify(postId));
         return this.get('stream').indexOf(postId) + 1;
     },
 

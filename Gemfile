@@ -24,7 +24,7 @@ else
   # gem 'activejob'
   # gem 'railties'
   # gem 'sprockets-rails'
-  gem 'rails', '~> 4.2'
+  gem 'rails', '~> 4.2.7'
 end
 
 #rails 4.2 transition
@@ -51,8 +51,6 @@ gem 'multi_json'
 gem 'mustache'
 gem 'nokogiri'
 
-gem 'rest-client'
-
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-github'
@@ -61,11 +59,10 @@ gem 'omniauth-google-oauth2'
 
 # 3rd party system api's
 
-gem 'megam_api', '1.5.rc1'
-gem 'github_api'
-gem 'gitlab'
+gem 'megam_api', '1.5.rc5'
+gem 'docker_registry'
 gem 'radosgw-s3'
-gem 'randexp'
+gem 'haikunator' #random name.
 gem 'sshkey' # ssh key-gen
 
 gem 'oj'
@@ -81,7 +78,7 @@ gem 'rack-protection' # security
 
 # keep it like this, or else rake asset:precompile will fail
 gem 'sass'
-gem 'sass-rails', '~> 5.0.4'
+gem 'sass-rails', '~> 5.0.5'
 gem 'uglifier'
 gem 'rtlit', require: false # for css rtling
 

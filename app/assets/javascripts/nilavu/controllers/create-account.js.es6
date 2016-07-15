@@ -40,7 +40,7 @@ export default Ember.Controller.extend({
       isDeveloper: false,
       firstname:'',
       lastname:'',
-      confirmpassword: null,
+      accountPasswordConfirm: '',
       phonenumber:''
     });
   },
@@ -50,9 +50,10 @@ export default Ember.Controller.extend({
     if (this.get('nameValidation.failed')) return true;
     if (this.get('emailValidation.failed')) return true;
     if (this.get('passwordValidation.failed')) return true;
+    if (this.get('passwordConfirmValidation.failed')) return true;
 
     return false;
-  }.property('passwordRequired', 'nameValidation.failed', 'emailValidation.failed', 'passwordValidation.failed', 'formSubmitted'),
+  }.property('passwordRequired', 'nameValidation.failed', 'emailValidation.failed', 'passwordValidation.failed','passwordConfirmValidation.failed', 'formSubmitted'),
 
 
   usernameRequired: Ember.computed.not('authOptions.omit_username'),
@@ -141,6 +142,32 @@ export default Ember.Controller.extend({
     });
   }.property('accountPassword', 'rejectedPasswords.@each', 'accountEmail', 'isDeveloper'),
 
+  passwordConfirmValidation:function(){
+    const password = this.get("accountPassword");
+      // If blank, fail without a reason
+      //alert(JSON.stringify(this.get('accountPasswordConfirm')));
+      if (Ember.isEmpty(this.get('accountPasswordConfirm'))) {
+        return Nilavu.InputValidation.create({
+          failed: true
+        });
+      }
+
+      if (!Ember.isEmpty(this.get('accountPasswordConfirm')) && this.get('accountPassword') === this.get('accountPasswordConfirm')) {
+        return Nilavu.InputValidation.create({
+          ok: true,
+          reason: I18n.t('user.password.confirm')
+        });
+      }
+
+      if (!Ember.isEmpty(this.get('accountPasswordConfirm')) && this.get('accountPassword') != this.get('accountPasswordConfirm')) {
+        return Nilavu.InputValidation.create({
+          failed: true,
+          reason: I18n.t('user.password.enter')
+        });
+      }
+
+  }.property('accountPasswordConfirm','accountPassword'),
+
 
   // Check the email address
   basicEmailValidation: function() {
@@ -215,7 +242,7 @@ export default Ember.Controller.extend({
 
     createAccount() {
       const self = this,
-        attrs = this.getProperties('accountName', 'accountEmail', 'accountPassword','firstname','lastname','phonenumber');
+        attrs = this.getProperties('accountName', 'accountEmail', 'accountPassword','accountPasswordConfirm','firstname','lastname','phonenumber');
 
       this.set('formSubmitted', true);
 

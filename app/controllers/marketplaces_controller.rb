@@ -16,10 +16,21 @@
 class MarketplacesController < ApplicationController
   respond_to :js
 
-  before_action :add_authkeys_for_api
+  before_action :add_authkeys_for_api, only: [:index, :show]
+
 
   def index
-    @marketplace_groups = HoneyPot.cached_marketplace_groups(params)
+    render json: { results: aggregate(HoneyPot.cached_marketplace_groups(params))}
   end
 
+  def show
+  end
+
+  private
+
+  def aggregate(grups)
+    aggregated ||= {}
+    grups.map{|k,v| aggregated[k] = v}
+    aggregated
+  end
 end

@@ -1,7 +1,4 @@
-import {
-    on,
-    observes
-} from 'ember-addons/ember-computed-decorators';
+import {    on,     observes } from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Component.extend({
     tagName: 'label',
@@ -13,7 +10,6 @@ export default Ember.Component.extend({
 
     isActive: function() {
         const region = this.get('regionable') || "";
-        this.set('regionOption', region);
         return region.trim().length > 0 && region.trim() == this.get('regionableName');
     }.property("regionable"),
 

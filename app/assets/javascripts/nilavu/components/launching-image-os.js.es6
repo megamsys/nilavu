@@ -10,7 +10,7 @@ export default Ember.Component.extend({
   versionable: null,
 
   launchableName: function() {
-      return this.get('name').split('-').pop()
+      return this.get('name').split('-').pop();
   }.property('name'),
 
   formatLaunchable: function(name) {
@@ -24,24 +24,9 @@ export default Ember.Component.extend({
     var flattened = out.reduce(function(a, b) {
       return a.concat(b);
     }, []);
-
     return flattened;
   },
 
-  formatLaunchable: function(name) {
-    const out = this.get('virtualmachines').map(function(v) {
-      if (v.name.toLowerCase() == name) {
-          return v.versions.map((ver) => [name,ver].join('_'));
-      }
-      return [];
-    }).filter((f) => f.length > 0);
-
-    var flattened = out.reduce(function(a, b) {
-      return a.concat(b);
-    }, []);
-
-    return flattened;
-  },
 
   filterLaunchable: function(name) {
     const out =  this.get('virtualmachines').filter(function(v) {

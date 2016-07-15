@@ -14,6 +14,11 @@
         </tr>
         <tr>
             <td>
+                <h5><b>{{content_private_ip}}</b></h5></td>
+            <td>{{privateipv4}}</td>
+        </tr>
+        <tr>
+            <td>
                 <h5><b>{{content_domain}}</b></h5></td>
             <td>{{domain}}</td>
         </tr>
@@ -40,31 +45,50 @@
     </table>
 </div>
 <div class="col-md-6 info">
-    <h3><b>{{hdd_title}}</b></h3>
+    <h3><b>{{resources_title}}</b></h3>
     <div class="bottom-divider"></div>
     <table>
         <tr>
             <td>
-                <h5><b>{{content_hdd_size}}</b></h5></td>
+                <h5><b>{{content_hdd}}</b></h5></td>
             <td>{{hdd}}</td>
         </tr>
-    </table>
-    <h3><b>{{cpu_title}}</b></h3>
-    <div class="bottom-divider"></div>
-    <table>
         <tr>
             <td>
-                <h5><b>{{content_cpu_cores}}</b></h5></td>
+                <h5><b>{{content_cpu}}</b></h5></td>
             <td>{{cpu_cores}}</td>
         </tr>
+        <tr>
+            <td>
+                <h5><b>{{content_ram}}</b></h5></td>
+            <td>{{ram}}</td>
+        </tr>
+        <tr>
+            <td>
+                <h5><b>{{content_flavor}}</b></h5></td>
+            <td>{{flavor}}</td>
+        </tr>
     </table>
-    <h3><b>{{ram_title}}</b></h3>
+</div>
+<div class="col-md-6 info">
+    <h3><b>{{network_title}}</b></h3>
     <div class="bottom-divider"></div>
     <table>
         <tr>
             <td>
-                <h5><b>{{content_ram_size}}</b></h5></td>
-            <td>{{ram}}</td>
+                <h5><b>{{content_ipv4}}</b></h5></td>
+            <td>{{content_private}}</td>
+            <td>{{input type="checkbox" checked=ipv4_private disabled=true}}</td>
+            <td>{{content_public}}</td>
+            <td>{{input type="checkbox" checked=ipv4_public disabled=true}}</td>
+        </tr>
+        <tr>
+            <td>
+                <h5><b>{{content_ipv6}}</b></h5></td>
+            <td>{{content_private}}</td>
+            <td>{{input type="checkbox" checked=ipv6_private disabled=true}}</td>
+            <td>{{content_public}}</td>
+            <td>{{input type="checkbox" checked=ipv6_public disabled=true}}</td>
         </tr>
     </table>
 </div>

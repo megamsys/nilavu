@@ -8,6 +8,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
   }.property('accountEmailOrUsername', 'disabled'),
 
   onShow: function() {
+      this.set('controllers.modal.modalClass', 'password-modal');
     if ($.cookie('email')) {
       this.set('accountEmailOrUsername', $.cookie('email'));
     }
@@ -25,22 +26,20 @@ export default Ember.Controller.extend(ModalFunctionality, {
         // don't tell people what happened, this keeps it more secure (ensure same on server)
         var escaped = Nilavu.Utilities.escapeExpression(self.get('accountEmailOrUsername'));
         var isEmail = self.get('accountEmailOrUsername').match(/@/);
-
         var key = 'forgot_password.complete_' + (isEmail ? 'email' : 'username');
         var extraClass;
-
-        if (data.user_found === true) {
-          key += '_found';
+        if (data.success == "OK") {
+           key += '_found';
           self.set('accountEmailOrUsername', '');
-          bootbox.alert(I18n.t(key, {email: escaped, username: escaped}));
           self.send("closeModal");
+          self.notificationMessages.success(I18n.t(key, {email: escaped, username: escaped}),{clearDuration: 4000});
         } else {
           if (data.user_found === false) {
             key += '_not_found';
             extraClass = 'error';
           }
-
-          self.flash(I18n.t(key, {email: escaped, username: escaped}), extraClass);
+          self.send("closeModal");
+          self.notificationMessages.success(I18n.t(key, {email: escaped, username: escaped}), extraClass);
         }
       };
 

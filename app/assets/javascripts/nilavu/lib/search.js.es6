@@ -1,75 +1,28 @@
 
 export function translateResults(results, opts) {
 
-  const User = require('nilavu/models/user').default;
-  const Category = require('nilavu/models/category').default;
-  const Post = require('nilavu/models/post').default;
-  const Topic = require('nilavu/models/topic').default;
-
   if (!opts) opts = {};
 
-  // Topics might not be included
-  if (!results.topics) { results.topics = []; }
-  if (!results.users) { results.users = []; }
-  if (!results.posts) { results.posts = []; }
-  if (!results.categories) { results.categories = []; }
-
-  const topicMap = {};
-  results.topics = results.topics.map(function(topic){
-    topic = Topic.create(topic);
-    topicMap[topic.id] = topic;
-    return topic;
-  });
-
-  results.posts = results.posts.map(function(post){
-    post = Post.create(post);
-    post.set('topic', topicMap[post.topic_id]);
-    return post;
-  });
-
-  results.users = results.users.map(function(user){
-    user = User.create(user);
-    return user;
-  });
-
-  results.categories = results.categories.map(function(category){
-    return Category.list().findProperty('id', category.id);
-  }).compact();
-
   const r = results.grouped_search_result;
+
   results.resultTypes = [];
 
-  // TODO: consider refactoring front end to take a better structure
-  [['topic','posts'],['user','users'],['category','categories']].forEach(function(pair){
-    const type = pair[0], name = pair[1];
-    if (results[name].length > 0) {
+  r.forEach(function(pair){
+    if (pair.provider.length > 0) {
       var result = {
-        results: results[name],
-        componentName: "search-result-" + ((opts.searchContext && opts.searchContext.type === 'topic' && type === 'topic') ? 'post' : type),
-        type,
-        more: r['more_' + name]
+        results: pair,
+        componentName: "search-result-" + ((opts.searchContext && opts.searchContext.type) ? opts.searchContext.type : 'none')
       };
-
-      if (result.more && name === "posts" && opts.fullSearchUrl) {
-        result.more = false;
-        result.moreUrl = opts.fullSearchUrl;
-      }
-
       results.resultTypes.push(result);
     }
   });
 
-  const noResults = !!(results.topics.length === 0 &&
-                     results.posts.length === 0 &&
-                     results.users.length === 0 &&
-                     results.categories.length === 0);
-
+  const noResults = !!(results.resultTypes.length === 0);
   return noResults ? null : Em.Object.create(results);
 }
 
 function searchForTerm(term, opts) {
   if (!opts) opts = {};
-
   // Only include the data we have
   const data = { term: term, include_blurbs: 'true' };
   if (opts.typeFilter) data.type_filter = opts.typeFilter;
@@ -80,6 +33,7 @@ function searchForTerm(term, opts) {
       type: opts.searchContext.type,
       id: opts.searchContext.id
     };
+
   }
 
   var promise = Nilavu.ajax('/search/query', { data: data });

@@ -38,7 +38,6 @@
       actions: {
         didTransition: function() {
           Em.run.next(function(){
-            alert("_nilavu javascript:  complete authentication ")
             Nilavu.authenticationComplete(<%=flash[:authentication_data].html_safe%>);
           });
           return this._super();
@@ -49,6 +48,8 @@
   Nilavu.CDN = '<%= Rails.configuration.action_controller.asset_host %>';
   Nilavu.BaseUri = '<%= Nilavu::base_uri %>';
   Nilavu.Environment = '<%= Rails.env %>';
+  Nilavu.VncServer = '<%= GlobalSetting.vnc_server %>'
+  Nilavu.LogServer = '<%= GlobalSetting.log_server %>'
   Nilavu.SiteSettings = PreloadStore.get('siteSettings');
   I18n.defaultLocale = '<%= SiteSetting.default_locale %>';
   Nilavu.start();

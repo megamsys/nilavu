@@ -148,10 +148,12 @@ class User
     {:email => @email,
       :api_key => @api_key,
       :password => ensure_password_is_hashed,
+      :username => User.suggest_firstname(@email),
       :first_name => @firstname,
       :last_name => @lastname,
       :password_reset_key => @password_reset_key,
-      :phone => @phone
+      :phone => @phone,
+      :createdAt =>@created_at
     }
   end
 

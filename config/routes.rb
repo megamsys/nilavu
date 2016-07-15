@@ -11,22 +11,27 @@ Nilavu::Application.routes.draw do
   GROUPNAME_ROUTE_FORMAT = /[\w.\-]+/ unless defined? GROUPNAME_ROUTE_FORMAT
   USEREMAIL_ROUTE_FORMAT = /[\w.\-]+/ unless defined? USEREMAIL_ROUTE_FORMAT
 
+
   # named route for users, session
   resources :static
   post "login" => "static#enter"
   get "login" => "static#show", id: "login"
   get "password-reset" => "static#show", id: "password_reset"
   get "signup" => "static#show", id: "signup"
-  get "torpedo.json" => 'cockpits#index', defaults: {format: 'json'}
+
+  get "dashboard.json" => 'cockpits#all', defaults: {format: 'json'}
+  get "torpedo.json" => 'cockpits#torpedo', defaults: {format: 'json'}
+  get "app.json" => 'cockpits#app', defaults: {format: 'json'}
+  get "service.json" => 'cockpits#service', defaults: {format: 'json'}
+  get "microservice.json" => 'cockpits#microservices', defaults: {format: 'json'}
 
   #session related
   resources :sessions
   get "session/csrf" => "sessions#csrf"
-  match "sessions/:id", to:  "sessions#destroy", via: [:delete], constraints: {
-    id: USEREMAIL_ROUTE_FORMAT
-  }
+  match "sessions/delete", to:  "sessions#destroy", via: [:delete]
 
-  post "forgot_password" => "sessions#forgot_password"
+
+  post "/session/forgot_password" => "sessions#forgot_password"
   get "/password_reset" => "users#password_reset"
   put "/password_reset" => "users#password_reset"
   get "users/account-created/" => "users#account_created"
@@ -41,11 +46,7 @@ Nilavu::Application.routes.draw do
     end
   end
 
-
   match "users/:id", to:  "users#show", via: [:get],defaults: {format: 'json'}
-
-
-
 
   get "stylesheets/:name.css" => "stylesheets#show", constraints: { name: /[a-z0-9_]+/ }
 
@@ -60,21 +61,45 @@ Nilavu::Application.routes.draw do
   post "launchers.json" => "launchers#perform_launch"
 
   get "/ssh_keys/edit/:name", to: "ssh_keys#edit"
+  get "/ssh_keys/:name.json", to: "ssh_keys#show", defaults: {format: 'json'}
+  get "/ssh_key/list", to: "ssh_keys#index"
+  post "/ssh_keys", to: "ssh_keys#create"
+  post "/ssh_keys/import", to: "ssh_keys#import"
 
   # Topics resource
   get "t/:id" => "topics#show"
-  get "t/:id/:name" => "topics#request", as: "topic_action_group"
-    put "t/:id" => "topics#update"
+  put "t/:id" => "topics#update"
   delete "t/:id" => "topics#destroy"
+
+  get "t/:id/:name" => "requests#create", as: "topic_action_group"
+  delete "t/:id/:name" => "requests#destroy"
 
   get 'notifications' => 'notifications#index'
   put 'notifications/mark-read' => 'notifications#mark_read'
 
+  ##
+  get "search/query" => "search#query"
+  get "search" => "search#show"
 
   ##
   get "billings.json" => "billings#index", defaults: {format: 'json'}
   get "robots.txt" => "robots_txt#index"
   get "manifest.json" => "manifest_json#index", :as => :manifest
+
+  get "buckets.json" =>"buckets#index",defaults: {format: 'json'}
+  post "buckets" =>"buckets#create"
+  get "buckets/:id" => "buckets#edit"
+
+  get "b/:id" => "bucketfiles#show"
+  post "/b/put" => "bucketfiles#create"
+
+  #ceph
+  get   '/cephsignin', to: 'cephs#create', constraints: HomePageConstraint.new
+  post  '/cephsignin', to: 'cephs#create', constraints: HomePageConstraint.new
+  get   '/cephsignup', to: 'ceph_users#create', constraints: HomePageConstraint.new
+  post  '/cephsignup', to: 'ceph_users#create', constraints: HomePageConstraint.new
+
+  get "marketplaces.json" => "marketplaces#index", defaults: {format: 'json'}
 
   root to: 'cockpits#entrance', :as => "entrance"
 

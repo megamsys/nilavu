@@ -1,0 +1,20 @@
+<td>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-public">
+            {{ssh-down type="PUBLIC" model=h}}
+        </div>
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 sett-private">
+            {{ssh-down type="PRIVATE" model=h}}
+        </div>
+    </div>
+</td>
+<td class="set_title">
+    <div class="row top-pad">
+        {{h.name}}
+    </div>
+</td>
+<td>
+    <div class="row top-pad">
+        <i class="c_icon-calendar"></i> {{h.created_at}}
+    </div>
+</td>

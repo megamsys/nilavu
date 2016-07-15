@@ -25,7 +25,7 @@ const CLOSED = 'closed',
         region: 'regionoption',
         unit: 'unitoption',
         number_of_units: 'number_of_units',
-        storagetype: 'storagetype',
+        storage_hddtype: 'storage_hddtype',
         selectionoption: 'selectionoption',
         keypairoption: 'keypairoption',
         keypairname: 'keypairname',
@@ -57,7 +57,6 @@ const Composer = RestModel.extend({
     justName: function() {
         var split = this.get('metaData.versionoption').split('_');
         if (split.length > 1) {
-
             return split[0];
         }
         return this.get('metaData.versionoption');
@@ -66,27 +65,45 @@ const Composer = RestModel.extend({
     justVersion: function() {
         var split = this.get('metaData.versionoption').split('_');
         if (split.length > 1) {
-
             return split[1];
         }
-        return this.get('metaData.versionoption');
+        return "";
     }.property('metaData.versionoption'),
 
     //cattype
     categoryType: Ember.computed.alias('metaData.versiondetail.cattype'),
 
     oneClick: function() {
-        const opts = this.get('metadata.versiondetail.options');
-
-        if (opts && opts.length > 0) {
-            return (opts.filter((f) => f.key == ONECLICK)).length > 0
+        if (this.get('metaData.versiondetail') && this.get('options').length > 0) {
+            const opts = this.get('options');
+            if (opts && opts.length > 0) {
+                return (opts.filter((f) => f.key == ONECLICK)).length > 0;
+            }
         }
         return false;
-    }.property('metadata.versiondetail.options'),
+    }.property('metaData.versiondetail'),
 
     options: Ember.computed.alias('metaData.versiondetail.options'),
 
     enviRonment: Ember.computed.alias('metaData.versiondetail.envs'),
+
+    //We consider it as a source having a changeset(branch) if it has following filters
+    // 1. sourceName = [github, gitlab]
+    // 2. sourceURL  = [github.com/megamsys/abcd.git]
+    // 3. oneClick = false, hence we get rid of bitnami's, dockerhub images.
+    sourceOrImage: function() {
+        if (this.get('sourceName') && this.get('sourceURL') && !this.get('oneClick')) {
+            return 'source';
+        }
+        return 'image';
+    }.property('sourceName', 'sourceURL'),
+
+    sourceName: Ember.computed.alias('metaData.sourceidentifier'),
+    sourceURL: Ember.computed.alias('metaData.sourceurl'),
+    sourceToken: Ember.computed.alias('metaData.sourceauthtoken'),
+    sourceOwner: Ember.computed.alias('metaData.sourceowner'),
+    sourceBranch: Ember.computed.alias('metaData.sourceChangeSet'),
+    sourceTag: Ember.computed.alias('metaData.sourceChangeSetTag'),
 
 
     // Determine if the kitty is available for the user.
@@ -165,17 +182,22 @@ const Composer = RestModel.extend({
     clearState() {
         this.setProperties({
             random_name: '',
-            domain: '',
-            regionoption: '',
-            resourceoption: '',
-            unitoption: '',
-            number_of_units: 1,
-            storagetype: '',
-            selectionoption: '',
-            keypairoption: '',
-            keypairname: '',
-            enable_ipv6: false,
-            enable_privnetwork: true
+            metaData: {
+                launchoption: '',
+                domain: '',
+                regionoption: '',
+                resourceoption: '',
+                unitoption: '',
+                number_of_units: 1,
+                storage_hddtype: '',
+                selectionoption: '',
+                keypairoption: '',
+                keypairname: '',
+                enable_publicipv4: false,
+                enable_privateipv4: true,
+                enable_publicipv6: false,
+                enable_privateipv6: false
+            }
         });
     },
 
@@ -190,8 +212,20 @@ const Composer = RestModel.extend({
         return dest;
     },
 
-    // Create a new topic. What the heck is a topic ?
-    // Lets just pay tribute to discourse friends.
+    /* Create a new topic. What the heck is a topic ?
+     Lets just pay tribute to discourse friends.
+    ╔══════════════════╦════════╦═══════════════╦══════════╦══════════════════════════════════════════════╗
+    ║                  ║ type   ║ source        ║ oneclick ║ url                                          ║
+    ╠══════════════════╬════════╬═══════════════╬══════════╬══════════════════════════════════════════════╣
+    ║ Machine          ║        ║               ║          ║                                              ║
+    ║ Vertice oneclick ║ image  ║ vertice       ║ yes      ║ image(eg:redmine)                            ║
+    ║ Bitnami          ║ image  ║ bitnami       ║ yes      ║ image(eg:mautic)                             ║
+    ║ App(git)         ║ source ║ github/gitlab ║ no       ║ https://github.com/verticeapps/discourse.git ║
+    ║ App(public)      ║ source ║ github        ║ no       ║ https://github.com/verticeapps/redmine.git   ║
+    ║ Docker(git)      ║ source ║ github        ║ no       ║ https://github/verticeapps/redmine.git       ║
+    ║ Docker(image)    ║ image  ║ repository    ║ no       ║ https://hub.docker.com                       ║
+    ╚══════════════════╩════════╩═══════════════╩══════════╩══════════════════════════════════════════════╝
+    */
     createTopic(opts) {
         const composer = this.metaData;
 
@@ -203,26 +237,38 @@ const Composer = RestModel.extend({
             url = 'launchers/' + this.get('id') + ".json";
         }
 
+        var data = {
+            mkp_name: this.get('justName'),
+            version: this.get('justVersion'),
+            cattype: this.get('categoryType'),
+            assemblyname: composer.get('random_name'),
+            domain: composer.get('domain'),
+            keypairoption: composer.get('keypairoption'),
+            keypairname: composer.get('keypairnameoption'),
+            region: composer.get('regionoption'),
+            resource: composer.get('resourceoption'),
+            resourceunit: composer.get('unitoption.flavor.value'),
+            storage_hddtype: composer.get('storageoption'),
+            options: this.get('options'),
+            envs: this.get('enviRonment'),
+            ipv4private: composer.get('privateipv4'),
+            ipv4public: composer.get('publicipv4'),
+            ipv6private: composer.get('privateipv6'),
+            ipv6public: composer.get('publicipv6'),
+            oneclick: this.get('oneClick')
+        };
+
+        //optionals
+        if (this.get('sourceOrImage')) { data['type'] =  this.get('sourceOrImage') };
+        if (this.get('sourceName'))    { data['scm_name'] =  this.get('sourceName') };
+        if (this.get('sourceURL'))   { data['source'] =  this.get('sourceURL') };
+        if (this.get('sourceToken')) { data['scmtoken'] =  this.get('sourceToken') };
+        if (this.get('sourceOwner')) { data['scmowner'] =  this.get('sourceOwner') };
+        if (this.get('sourceBranch')) { data['scmbranch'] =  this.get('sourceBranch') };
+        if (this.get('sourceTag')) { data['scmtag'] =  this.get('sourceTag') };
+
         return Nilavu.ajax(url, {
-            data: {
-                mkp_name: this.get('justName'),
-                version: this.get('justVersion'),
-                cattype: this.get('categoryType'),
-                assemblyname: composer.get('random_name'),
-                domain: composer.get('domain'),
-                keypairoption: composer.get('keypairoption'),
-                keypairname: composer.get('keypairnameoption'),
-                region: composer.get('regionoption'),
-                resource: composer.get('resourceoption'),
-                resourceunit: composer.get('unitoption.flavor.value'),
-                storagetype: composer.get('storageoption'),
-                oneclick: this.get('oneClick'),
-                options: this.get('options'),
-                envs: this.get('enviRonment'),
-                ipv6: composer.get('ipv6option'),
-                privnetwork: composer.get('privnetworkoption')
-                    // boostertype:  this.get('launchoption'),
-            },
+            data: data,
             type: this.get('id') ? 'PUT' : 'POST'
         });
 

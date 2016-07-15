@@ -13,6 +13,7 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ##
+require 'base64'
 
 module Api
   class Sshkeys < ApiDispatcher
@@ -32,7 +33,7 @@ module Api
     # a helper that creates or imports ssl keys.
     # can be used during a launch or sshkey creation.
     def create_or_import(api_params)
-        api_params[:name] = api_params[:keypairname]
+        api_params[:name] = api_params[:ssh_keypair_name]
 
         case api_params[:keypairoption]
         when NEW
@@ -45,8 +46,15 @@ module Api
 
     # lists the ssh keys for an user and return a hash with name, timestamp.
     def list(api_params)
-      raw = api_request(SSHKEYS, LIST,api_params)
+      raw = api_request(SSHKEYS, LIST, api_params)
       @ssh_keys = to_hash(raw[:body]) unless raw.nil?
+    end
+
+    def show(api_params, &_block)
+      raw = api_request(SSHKEYS, SHOW, api_params)
+      @ssh_keys = to_hash(raw[:body]) unless raw.nil?
+      yield self  if block_given?
+      self
     end
 
     ## rescue and raise as an error.
@@ -63,14 +71,16 @@ module Api
       keygen = SSHKey.generate
       api_params[:privatekey] = keygen.private_key
       api_params[:publickey] = keygen.ssh_public_key
-      api_request(SSHKEYS, CREATE,api_params)
+      api_request(SSHKEYS, CREATE, api_params)
     end
 
     ## import - use create_or_import instead.
     def import(api_params)
-      api_params[:privatekey] = api_params[:ssh_private_key].read
-      api_params[:publickey] = api_params[:ssh_public_key].read
-      api_request(SSHKEYS, CREATE,api_params)
+      #api_params[:privatekey] = api_params[:ssh_private_key].read
+      #api_params[:publickey] = api_params[:ssh_public_key].read
+      api_params[:publickey] = api_params[:ssh_public_key]
+      api_params[:privatekey] = api_params[:ssh_private_key]
+      api_request(SSHKEYS, CREATE, api_params)
    end
 
     # a private method that take the sshkeys collection and returns a hash

@@ -20,7 +20,7 @@ required:
     client: true
     default: 'Vertice'
   site_description:
-    default: 'One click cloud in 60 seconds'
+    default: 'Get a cloud app in 60 seconds'
   contact_email:
     client: true
     default: 'support@megam.io'
@@ -29,7 +29,7 @@ required:
     client: true
     default: 'https://www.megam.io'
   notification_email:
-    default: 'noreply@unconfigured.megam.io.io'
+    default: 'noreply@unconfigured.megam.io'
     type: email
   disable_customization:
     default: true
@@ -47,16 +47,19 @@ required:
     default: '/images/signup_cta.png'
   signup_cta:
     client: true
-    default: "<h3>Launch your applications seamlessly in less than <span>60 seconds</span></h3>"  
+    default: "<h3>Launch your applications seamlessly in less than <span>60 seconds</span></h3>"
   favicon_url:
     client: true
     default: '/images/default_favicon.png'
   version_checks:
     default: false
     new_version_emails: false
+  prelogin_cta:
+    client: true
+    default: false
   global_notice:
       default: ""
-  free_wheeling:
+  minified:
       client: true
       default: false
 
@@ -87,11 +90,11 @@ basic:
   left_menu:
     client: true
     type: list
-    default: 'torpedo|app|service|microservice'
+    default: 'dashboard|torpedo|app|service|microservice'
   default_categories:
     client: true
     type: list
-    default: 'torpedo|app|service|microservice|analytics|collaboration'
+    default: 'dashboard|torpedo|app|service|microservice|analytics|collaboration'
   default_categories_muted:
     client: true
     type: list
@@ -131,12 +134,12 @@ login:
     regex: "^[a-f0-9]+$"
   enable_github_logins:
     client: true
-    default: true
+    default: false
   github_client_id:
-    default: 'e9a41a2be1f3abee2fea'
+    default: 'e9a41xxxxxf3abee2fea'
     regex: "^[a-f0-9]+$"
   github_client_secret:
-    default: '3d27d07be2fd36f994b0f0a9c699f315d694cae6'
+    default: '3d27d07be2fd36f994xxxxxxxxx15d694cae6'
     regex: "^[a-f0-9]+$"
   enable_sso:
     client: true
@@ -185,6 +188,9 @@ users:
   allow_default_billings:
     client: true
     default: false
+  whmcs_clientarea_endpoint:
+    client: true
+    default: "http://megamafrica.com/whmcs/clientarea.php"
   reserved_emails:
     type: list
     default: "tour@megam.io|test@megam.io|support@megam.io|admin@megam.io"
@@ -209,8 +215,30 @@ legal:
   tos_url:
     default: ''
   privacy_policy_url:
-    default: ''
+    client: true
+    default: 'http://www.det.io/privacy'
   faq_url:
-    default: 'http://docs.megam.io/docs/megam_oja_gettingstarted'
+    client: true
+    default: 'http://docs.det.io/getting_started'
   support_url:
-    default: 'http://support.megam.io'
+    client: true
+    default: 'http://det.megam.io'
+  support_email:
+    client: true
+    default: "support@det.io"
+  support_phonenumber:
+    client: true
+    default: "(02) 7010 1111"
+
+uncategorized:
+  version_checks:
+    client: true
+    default: false
+  send_welcome_message: true
+
+  # Search
+  min_search_term_length:
+    client: true
+    default: 3
+
+  max_similar_results: 5
