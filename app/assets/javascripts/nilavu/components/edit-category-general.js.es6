@@ -8,6 +8,7 @@ export default buildCategoryPanel('general', {
 
     editingResource: false,
     editingCost: false,
+    regionable: null,
 
     category: function() {
         return this.get('category');
@@ -63,7 +64,9 @@ export default buildCategoryPanel('general', {
     }.observes('regionOption'),
 
     regionOption: function() {
-        if (Ember.isEmpty(this.get('category.regions')) && this.get('category.regionoption').trim().length > 0) {
+        if (Ember.isEmpty(this.get('category.regions')) &&
+        this.get('category.regionoption') &&
+        this.get('category.regionoption').trim().length > 0) {
             return this.get('category.regionoption');
         }
         return null;

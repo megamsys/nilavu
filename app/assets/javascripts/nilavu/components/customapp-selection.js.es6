@@ -13,14 +13,14 @@ export default Ember.Component.extend({
     }.property("category"),
 
     customAppsChanged: function() {
-        const cc = this.get('category.cooking.customapps');
-
-        let i = 0;
-        const ccids = cc.map(function(e) {
-            e.id = ++i;
-            return e;
-        });
-        this.set('customapps', ccids);
+        if (this.get('category.cooking.customapps')) {
+            let i = 0;
+            const ccids = this.get('category.cooking.customapps').map(function(e) {
+                e.id = ++i;
+                return e;
+            });
+            this.set('customapps', ccids);
+        }
     }.observes('category.cooking'),
 
     appVersions: function() {
