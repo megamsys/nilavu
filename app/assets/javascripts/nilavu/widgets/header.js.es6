@@ -178,10 +178,10 @@ export default createWidget('header', {
     },
 
     closeAll() {
-        this.state.userVisible = true;
+        this.state.userVisible = false;
         this.state.marketplacesVisible = true;
         this.state.storagesVisible = true;
-        this.state.eventsVisible = true;
+        this.state.eventsVisible = false;
     },
 
     linkClickedEvent() {
