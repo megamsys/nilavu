@@ -1,53 +1,124 @@
-// Copied from custom.css, megam.css
+// base styles for every modal popup used in Discourse
+
+.modal-middle-container {
+  display:table-cell;
+  vertical-align: middle;
+}
+
+// Hardcode to be the same as before for now. I would recommend not using bootbox, or finding a way so the html structure can be the same
+.bootbox.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1050;
+  overflow: auto;
+  width: 610px;
+  height: auto;
+  margin: -250px 0 0 -305px;
+  background-color: $secondary;
+  border: 1px solid dark-light-diff($primary, $secondary, 90%, -60%);
+
+  box-shadow: 0 3px 7px rgba(0,0,0, .8);
+  background-clip: padding-box;
+}
+
+.modal.in {
+    -webkit-animation: fade .25s;
+    animation: fade .25s;
+}
+
+.modal-body {
+    position: relative;
+    padding: 20px;
+}
+
+.modal-footer {
+    padding: 19px 20px 20px;
+    margin-top: 15px;
+    text-align: right;
+    border-top: 1px solid #e5e5e5;
+}
+.modal-footer:after,
+.modal-footer:before {
+    display: table;
+    content: " ";
+}
+.modal-footer:after {
+    clear: both;
+}
+.modal-footer:after,
+.modal-footer:before {
+    display: table;
+    content: " ";
+}
+.modal-footer:after {
+    clear: both;
+}
+.modal-footer .btn + .btn {
+    margin-bottom: 0;
+    margin-left: 5px;
+}
+.modal-footer .btn-group .btn + .btn {
+    margin-left: -1px;
+}
+.modal-footer .btn-block + .btn-block {
+    margin-left: 0;
+}
+
 .c_modal-footer {
     border: none;
     text-align: center;
 }
-.modal-header {
-    border-bottom: 1px solid #EFEFEF;
-}
-.modal-header h3 {
-    font-weight: 300;
-}
-.modal-wide {
-    width: 60% !important;
-}
-.modal-tab {
-    position: absolute;
-    width: 100%;
-}
 .modal-full {
     width: 100% !important;
 }
-/***
-Modal header close button fix
-***/
+
+.modal-header {
+    min-height: 16.428571429px;
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
 .modal-header .close {
-    //margin-top: 14px;
     float: right;
 }
-.modal > .loading {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -22px;
-    margin-left: -22px;
+.close {
+  float: right;
+  text-decoration: none;
+  color: dark-light-choose(scale-color($primary, $lightness: 35%), scale-color($secondary, $lightness: 65%));
+  cursor: pointer;
+  &:hover {
+    color: $primary;
+  }
 }
-.modal-backdrop {
-    border: 0 !important;
-    outline: none !important;
-    z-index: 1040 !important;
+
+.modal-title {
+    margin: 0;
+    line-height: 1.428571429;
 }
-.modal-backdrop,
-.modal-backdrop.fade.in {
-    background-color: #333 !important;
+// used in the new launcher modal title
+.modal-title h1 {
+    text-align: center;
+    margin-bottom: 3px;
 }
-.modal-open .header .container-fluid {
-    padding-right: 37px;
+
+
+.modal {
+  .category-combobox {
+    width: 430px;
+
+    .select2-drop {
+      left: -9000px;
+      width: 428px;
+    }
+    .select2-search input {
+      width: 378px;
+    }
+  }
 }
-body.modal-open {}
+
 .edit-category-modal {
-    &.full .modal-body {
+  &.full .modal-body {
         position: relative;
         height: 750px;
         padding-bottom: 0;
@@ -58,26 +129,12 @@ body.modal-open {}
     &.small .modal-body {
         height: 255px;
     }
-    .secure-category-options {
-        margin: 10px 0 0 16px;
-        .badge-list {
-            margin: 10px 0;
-            li {
-                margin: 0 4px 8px 0;
-                a {
-                    color: dark-light-choose(scale-color($primary, $lightness: 50%), scale-color($secondary, $lightness: 50%));
-                    cursor: pointer;
-                }
-                a:hover {
-                    color: dark-light-choose(scale-color($primary, $lightness: 40%), scale-color($secondary, $lightness: 60%));
-                }
-            }
-        }
-    }
-    .cannot_delete_reason {
-        float: right;
-        text-align: right;
-        max-width: 380px;
-        color: dark-light-choose(scale-color($primary, $lightness: 60%), scale-color($secondary, $lightness: 40%));
-    }
+}
+
+.modal-wide {
+    width: 60% !important;
+}
+.modal-tab {
+    position: absolute;
+    width: 100%;
 }

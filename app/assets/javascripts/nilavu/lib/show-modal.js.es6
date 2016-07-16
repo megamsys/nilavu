@@ -36,11 +36,13 @@ export default function(name, opts) {
   }
 
   if (controller) {
-    const model = opts.model;
+    if (controller.resetForm) { controller.resetForm(); }
 
+    const model = opts.model;
     if (model) {
         controller.set('model', model);
     }
+
     if (controller.onShow) { controller.onShow(); }
     controller.set('flashMessage', null);
   }

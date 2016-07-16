@@ -132,7 +132,7 @@ const ApplicationRoute = Nilavu.Route.extend(OpenComposer, {
 
     checkEmail(user) {
       user.checkEmail();
-    }    
+    }
 
   },
 
