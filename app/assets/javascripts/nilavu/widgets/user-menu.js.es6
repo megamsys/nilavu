@@ -46,7 +46,6 @@ export default createWidget('user-menu', {
     const path = this.currentUser.get('path');
 
     return [this.attach('user-menu-links', { path }),
-            this.attach('user-notifications', { path }),
             h('div.logout-link', [
               h('hr'),
               h('ul.menu-links',

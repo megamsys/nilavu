@@ -2,9 +2,9 @@ import { createWidget } from 'nilavu/widgets/widget';
 import { headerHeight } from 'nilavu/components/site-header';
 import { h } from 'virtual-dom';
 
-export default createWidget('user-notifications', {
+export default createWidget('events-notifications', {
   tagName: 'div.notifications',
-  buildKey: () => 'user-notifications',
+  buildKey: () => 'events-notifications',
 
   defaultState() {
     return { notifications: [], loading: false };
@@ -66,7 +66,6 @@ export default createWidget('user-notifications', {
       const notificationItems = state.notifications.map(n => this.attach('notification-item', n));
       const href = `${attrs.path}notifications`;
 
-      result.push(h('hr'));
       result.push(h('ul', [
                     notificationItems,
                     h('li.read.last.heading',

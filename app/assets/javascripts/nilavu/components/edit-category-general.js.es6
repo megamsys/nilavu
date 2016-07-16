@@ -2,10 +2,9 @@ import NilavuURL from 'nilavu/lib/url';
 import {
     buildCategoryPanel
 } from 'nilavu/components/edit-category-panel';
-import computed from 'ember-addons/ember-computed-decorators';
+import { on, computed } from 'ember-addons/ember-computed-decorators';
 
 export default buildCategoryPanel('general', {
-
     editingResource: false,
     editingCost: false,
     regionable: null,
@@ -33,7 +32,7 @@ export default buildCategoryPanel('general', {
             return null;
         }
 
-      return this.get('category.regions');
+        return this.get('category.regions');
 
     }.property('category.regions'),
 
@@ -65,8 +64,8 @@ export default buildCategoryPanel('general', {
 
     regionOption: function() {
         if (Ember.isEmpty(this.get('category.regions')) &&
-        this.get('category.regionoption') &&
-        this.get('category.regionoption').trim().length > 0) {
+            this.get('category.regionoption') &&
+            this.get('category.regionoption').trim().length > 0) {
             return this.get('category.regionoption');
         }
         return null;
@@ -90,14 +89,13 @@ export default buildCategoryPanel('general', {
 
     //TO-DO nove the StorageOption to a model StorageHDDType like PermissionType
     storageOption: function() {
-        //let HDD = 'HDD';
+        let HDD = 'HDD';
 
         if (Ember.isEmpty(this.get('category.regions')) &&
             this.get('category.resourceoption').trim().length > 0) {
-            return true;
+            return HDD;
         }
-        //return HDD;
-        return false;
+        return HDD;
     }.property('category.storageOption'),
 
     storageChanged: function() {
@@ -110,4 +108,6 @@ export default buildCategoryPanel('general', {
             return false;
         }
     }
+
+
 });

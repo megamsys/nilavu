@@ -18,35 +18,15 @@ const dropdown = {
         }
         e.preventDefault();
         if (!this.attrs.active) {
-          if (this.attrs.resource) {
-              NilavuURL.routeTo(this.attrs.resource);
-          }
-          if (this.attrs.action) {
-              this.sendWidgetAction(this.attrs.action);
-          }
+            if (this.attrs.resource) {
+                NilavuURL.routeTo(this.attrs.resource);
+            }
+            if (this.attrs.action) {
+                this.sendWidgetAction(this.attrs.action);
+            }
         }
     }
 };
-
-createWidget('header-notifications', {
-    html(attrs) {
-        const {
-            currentUser
-        } = this;
-        const contents = [];
-
-        const unreadNotifications = currentUser.get('unread_notifications');
-        if (!!unreadNotifications) {
-            contents.push(this.attach('link', {
-                action: attrs.action,
-                className: 'badge-notification unread-notifications',
-                rawLabel: unreadNotifications
-            }));
-        }
-
-        return contents;
-    }
-});
 
 createWidget('user-dropdown', jQuery.extend({
     tagName: 'li.header-dropdown-toggle.current-user',
@@ -56,7 +36,7 @@ createWidget('user-dropdown', jQuery.extend({
     },
 
     html(attrs) {
-        const {      currentUser   } = this;
+        const { currentUser } = this;
 
         const body = [iconNode(attrs.icon, {
             hclasz: attrs.icon,
@@ -68,13 +48,11 @@ createWidget('user-dropdown', jQuery.extend({
         }
 
         return h('a', {
-                attributes: {
-                    href: currentUser.get('path'),
-                    'data-auto-route': true
-                }
-            } , body,
-            this.attach('header-notifications', attrs)
-          );
+            attributes: {
+                href: currentUser.get('path'),
+                'data-auto-route': true
+            }
+        }, body);
     }
 }, dropdown));
 
@@ -141,6 +119,12 @@ createWidget('header-icons', {
 
         if (this.currentUser) {
             icons.push(this.attach('user-dropdown', {
+                active: attrs.eventsVisible,
+                icon: 'c_glob header_events',
+                action: 'toggleEventsMenu'
+            }));
+
+            icons.push(this.attach('user-dropdown', {
                 active: attrs.userVisible,
                 icon: 'c_glob header_user_profile pull-right',
                 action: 'toggleUserMenu'
@@ -160,6 +144,7 @@ export default createWidget('header', {
             marketplacesVisible: true,
             storagesVisible: true,
             userVisible: false,
+            eventsVisible: false,
             contextEnabled: false
         };
     },
@@ -170,8 +155,14 @@ export default createWidget('header', {
             marketplacesVisible: state.marketplacesVisible,
             storagesVisible: state.storagesVisible,
             userVisible: state.userVisible,
+            eventsVisible: state.eventsVisible,
             flagCount: attrs.flagCount
         })];
+
+
+        if (state.eventsVisible) {
+            panels.push(this.attach('events-menu'));
+        }
 
         if (state.userVisible) {
             panels.push(this.attach('user-menu'));
@@ -190,6 +181,7 @@ export default createWidget('header', {
         this.state.userVisible = true;
         this.state.marketplacesVisible = true;
         this.state.storagesVisible = true;
+        this.state.eventsVisible = true;
     },
 
     linkClickedEvent() {
@@ -198,6 +190,10 @@ export default createWidget('header', {
 
     toggleUserMenu() {
         this.state.userVisible = !this.state.userVisible;
+    },
+
+    toggleEventsMenu() {
+        this.state.eventsVisible = !this.state.eventsVisible;
     },
 
     domClean() {
