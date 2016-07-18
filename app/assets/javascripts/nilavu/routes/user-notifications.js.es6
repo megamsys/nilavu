@@ -1,10 +1,11 @@
 import ViewingActionType from "nilavu/mixins/viewing-action-type";
 
 export default Nilavu.Route.extend(ViewingActionType, {
-
-  renderTemplate() {
-    this.render('user/notifications');
+  redirect() {
+      return this.redirectIfLoginRequired();
   },
+
+  renderTemplate() {},
 
   actions: {
     didTransition() {
@@ -14,10 +15,10 @@ export default Nilavu.Route.extend(ViewingActionType, {
   },
 
   model() {
-    const username = this.modelFor("user").get("username");
+    const email = this.modelFor("user").get("email");
 
-    if (this.get("currentUser.username") ===  username || this.get("currentUser.admin")) {
-      return this.store.find("notification", { username } );
+    if (this.get("currentUser.email") ===  email || this.get("currentUser.admin")) {
+      return this.store.find("notification", { email, offset: 40 } );
     }
   },
 

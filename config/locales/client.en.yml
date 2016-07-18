@@ -252,6 +252,7 @@ en:
         back: "Go Back"
         again: "Try Again"
         fixed: "Load Page"
+    now: "just now"
     close: "Close"
     logout: "You were logged out."
     refresh: "Refresh"
@@ -553,6 +554,7 @@ en:
       no_more_results: "No more results found."
 
     notifications:
+      title: 'Notifications'
       none: "Unable to load notifications at this time."
       more: "view older notifications"
 

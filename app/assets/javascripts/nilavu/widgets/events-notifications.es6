@@ -64,14 +64,14 @@ export default createWidget('events-notifications', {
     } else if (state.notifications.length) {
 
       const notificationItems = state.notifications.map(n => this.attach('notification-item', n));
-      const href = `${attrs.path}notifications`;
+      const href = `${attrs.path}/notifications`;
 
       result.push(h('ul', [
                     notificationItems,
-                    h('li.read.last.heading',
-                      h('a', { attributes: { href } }, [I18n.t('notifications.more'), '...'])
-                    )
-                  ]));
+                    h('li.read.last.heading', this.attach('link', { className: 'notifications.more',
+                                                           icon: 'glyphicon glyphicon-chevron-left',
+                                                           label: 'notifications.more',
+                                                           href}))]));
 
     }
 

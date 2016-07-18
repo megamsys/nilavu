@@ -1,7 +1,6 @@
 class Search
 
   class GroupedSearchResults
-#    include ActiveModel::Serialization
 
     class TextHelper
       extend ActionView::Helpers::TextHelper
