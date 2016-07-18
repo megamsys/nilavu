@@ -210,6 +210,9 @@ export default createWidget('header', {
             case 'user':
                 this.toggleUserMenu();
                 break;
+            case 'events':
+                this.toggleEventsMenu();
+                break;
         }
     }
 

@@ -68,10 +68,10 @@ export default createWidget('events-notifications', {
 
       result.push(h('ul', [
                     notificationItems,
-                    h('li.read.last.heading',
-                      h('a', { attributes: { href } }, [I18n.t('notifications.more'), '...'])
-                    )
-                  ]));
+                    h('li.read.last.heading', this.attach('link', { className: 'notifications.more',
+                                                           icon: 'glyphicon glyphicon-chevron-left',
+                                                           label: 'notifications.more',
+                                                           href}))]));
 
     }
 

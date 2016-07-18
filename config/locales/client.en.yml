@@ -552,6 +552,7 @@ en:
       no_more_results: "No more results found."
 
     notifications:
+      title: 'Notifications'
       none: "Unable to load notifications at this time."
       more: "view older notifications"
 

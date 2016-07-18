@@ -28,7 +28,7 @@ export default Nilavu.Route.extend({
     },
 
     model(params) {
-       // If we're viewing the currently logged in user, return that object instead
+        // If we're viewing the currently logged in user, return that object instead
         const currentUser = this.currentUser;
         if (currentUser && (params.email.toLowerCase() === currentUser.get('email'))) {
             return currentUser;
@@ -44,7 +44,7 @@ export default Nilavu.Route.extend({
         const self = this;
         return user.findDetails().then(function(result) {
             return user.setDetails(result);
-          }).catch(function() {
+        }).catch(function() {
             return self.replaceWith('/404');
         });
     },
@@ -61,9 +61,9 @@ export default Nilavu.Route.extend({
     },
 
     activate() {
-          this._super();
-          const user = this.modelFor('user');
-      },
+        this._super();
+        const user = this.modelFor('user');
+    },
 
     deactivate() {
         this._super();
