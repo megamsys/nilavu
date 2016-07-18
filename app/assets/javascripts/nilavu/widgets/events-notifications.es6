@@ -64,7 +64,7 @@ export default createWidget('events-notifications', {
     } else if (state.notifications.length) {
 
       const notificationItems = state.notifications.map(n => this.attach('notification-item', n));
-      const href = `${attrs.path}notifications`;
+      const href = `${attrs.path}/notifications`;
 
       result.push(h('ul', [
                     notificationItems,

@@ -4,7 +4,6 @@ const INDEX_STREAM_ROUTES = ["user.deletedPosts", "user.flaggedPosts", "userActi
 export default Nilavu.Route.extend({
 
     titleToken() {
-
         const model = this.modelFor('user');
         const email = model.get('email');
         if (email) {

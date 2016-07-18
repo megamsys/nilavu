@@ -6,7 +6,7 @@ export default createWidget('events-menu', {
   tagName: 'div.events-menu',
 
   panelContents() {
-    const path = this.currentUser.get('path');
+    const path = '/user/'+ this.currentUser.email;
 
     return [this.attach('events-notifications', { path })];
   },
