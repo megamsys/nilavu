@@ -9,8 +9,6 @@ export default Ember.Controller.extend(BufferedContent, {
     loading: false,
 
     title: function() {
-        const groupsa = this.get('orderedCatTypes');
-        alert(JSON.stringify(groupsa));
         return 'Marketplaces';
     }.property('model'),
 

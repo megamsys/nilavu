@@ -1,6 +1,9 @@
 import ViewingActionType from "nilavu/mixins/viewing-action-type";
 
 export default Nilavu.Route.extend(ViewingActionType, {
+  redirect() {
+      return this.redirectIfLoginRequired();
+  },
 
   renderTemplate() {},
 

@@ -87,7 +87,6 @@ export default buildCategoryPanel('general', {
         }
     }.observes('resourceOption'),
 
-    //TO-DO nove the StorageOption to a model StorageHDDType like PermissionType
     storageOption: function() {
         let HDD = 'HDD';
         if (Ember.isEmpty(this.get('category.regions'))) {
