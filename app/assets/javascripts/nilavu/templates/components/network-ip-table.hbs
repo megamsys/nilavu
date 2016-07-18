@@ -1,0 +1,14 @@
+<div class="col-md-4">
+    {{content}}
+</div>
+<div class="col-md-4">
+    {{ip}}
+</div>
+<div class="col-md-4 sett-public">
+    <a href {{action "attach"}} class="btn btn-dark-blue pad_zero">
+        <span class="glyphicon glyphicon-save"></span><span>{{content_reattach_ip}}</span>
+        <span class="pull-right">
+            {{conditional-loading-spinner condition=showSpinner size="large"}}
+            </span>
+    </a>
+</div>

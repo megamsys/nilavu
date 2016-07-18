@@ -1,36 +1,19 @@
-<div class="row">
-    <div class="col-md-6 info-center">
-        <table>
-            <tr>
-                <td>
-                    <h5><b>{{content_dns_provider}}</b></h5></td>
-                <td>{{model.dns}}</td>
-            </tr>
-            <tr>
-                <td>
-                    <h5><b>{{content_public_ip}}</b></h5></td>
-                <td>{{model.publicIP}}</td>
-                <td>
-                    <a href="#" class="btn btn-info">
-                        <span class="glyphicon glyphicon-save"></span> {{content_reattach_ip}}
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <h5><b>{{content_private_ip}}</b></h5></td>
-                <td>{{model.privateIP}}</td>
-                <td>
-                    <a href="#" class="btn btn-info">
-                        <span class="glyphicon glyphicon-save"></span> {{content_reattach_ip}}
-                    </a>
-                </td>
-            </tr>
-        </table>
+<div class="row info">
+    <div {{bind-attr class="col-md-6 con-pad showContentPrivateIPV4"}}>
+        {{network-ip-table content=content_private_ipv4 ip=privateipv4}}
+    </div>
+    <div {{bind-attr class="col-md-6 con-pad showContentPublicIPV4"}}>
+        {{network-ip-table content=content_public_ipv4 ip=publicipv4}}
+    </div>
+    <div {{bind-attr class="col-md-6 con-pad showContentPrivateIPV6"}}>
+        {{network-ip-table content=content_private_ipv6 ip=privateipv6}}
+    </div>
+    <div {{bind-attr class="col-md-6 con-pad showContentPublicIPV6"}}>
+        {{network-ip-table content=content_public_ipv6 ip=publicipv6}}
     </div>
 </div>
-<div class="row">
-    <div class="col-md-12 info">
-        {{chart-network ip=model.publicIP selectedTab=selectedTab}}
+<div class="row con-pad">
+    <div class="col-md-12">
+        {{chart-network ip=model.publicIP model=model selectedTab=selectedTab}}
     </div>
 </div>

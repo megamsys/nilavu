@@ -1,19 +1,32 @@
 import {
     popupAjaxError
 } from 'nilavu/lib/ajax-error';
-import { on, observes } from 'ember-addons/ember-computed-decorators';
+import {
+    on,
+    observes
+} from 'ember-addons/ember-computed-decorators';
 export default Ember.Component.extend({
 
     didInsertElement: function() {
         //this.startRefreshing();
+        console.log(JSON.stringify(this.get('model')));
     },
 
     @observes('selectedTab')
-    tabChanged() {    
-      if (Ember.isEqual(this.get('selectedTab'), "network")) {
-        this.startRefreshing();
-      };
+    tabChanged() {
+        if (Ember.isEqual(this.get('selectedTab'), "network")) {
+            this.set("showMessageVisible", false);
+            //this.startRefreshing();
+        };
     },
+
+    showChart: function() {
+        if (this.get("showMessageVisible")) {
+            return "contentVisible";
+        } else {
+            return "contentDisable";
+        }
+    }.property("showMessageVisible"),
 
     willDestroyElement: function() {
         this.set('refreshing', false);
@@ -33,7 +46,7 @@ export default Ember.Component.extend({
 
     getMetrics: function() {
         var _this = this;
-        Nilavu.ajax("/metrics/containers/?ip="+this.get("ip"), {
+        Nilavu.ajax("/metrics/containers/?ip=" + this.get("ip"), {
             type: 'GET'
         }).then(function(result) {
             _this._drawChart(result);
