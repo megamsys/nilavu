@@ -1,5 +1,10 @@
 export default Ember.ArrayController.extend({
   needs: ['application'],
+  title: "Notifications",
+
+  notifications: function() {
+    alert('notifications =' + JSON.stringify(this.get('model.content')));
+  }.property('model.notifications'),
 
   _showFooter: function() {
     this.set("controllers.application.showFooter", !this.get("model.canLoadMore"));

@@ -49,31 +49,13 @@ export default function() {
     });
 
     // User routes
-    this.resource('users');
     this.resource('user', { path: '/user/:email' }, function() {
         this.route('show',{ path: '/' });
 
-        this.resource('userActivity', { path: '/activity' }, function() {
-            this.route('topics');
-            this.route('replies');
-            this.route('likesGiven', { path: 'likes-given' });
-            this.route('bookmarks');
-            this.route('pending');
-        });
-
         this.resource('userNotifications', { path: '/notifications' }, function() {
-            this.route('responses');
-            this.route('likesReceived', { path: 'likes-received' });
-            this.route('mentions');
-            this.route('edits');
+            this.route('responses', {path: '/responses'});
         });
 
-        this.resource('userPrivateMessages', { path: '/messages' }, function() {
-            this.route('sent');
-            this.route('archive');
-            this.route('group', { path: 'group/:name' });
-            this.route('groupArchive', { path: 'group/:name/archive' });
-        });
 
         this.resource('preferences', function() {
             this.route('username');

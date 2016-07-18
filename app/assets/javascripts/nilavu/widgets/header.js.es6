@@ -46,7 +46,6 @@ createWidget('user-dropdown', jQuery.extend({
         if (attrs.contents) {
             body.push(attrs.contents.call(this));
         }
-
         return h('a', {
             attributes: {
                 href: currentUser.get('path'),

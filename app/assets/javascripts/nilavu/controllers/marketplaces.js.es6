@@ -8,10 +8,9 @@ export default Ember.Controller.extend(BufferedContent, {
     needs: ['application'],
     loading: false,
 
-    //rerenderTriggers: ['isUploading'], rerenderTriggers for search filter.
-
     title: function() {
         const groupsa = this.get('orderedCatTypes');
+        alert(JSON.stringify(groupsa));
         return 'Marketplaces';
     }.property('model'),
 
@@ -29,7 +28,7 @@ export default Ember.Controller.extend(BufferedContent, {
         return otmap;
     }.property('model.results'),
 
-    
+
 
     //check the freewheeling site setting flag for true or false
     minifiedVersion: function() {

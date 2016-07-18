@@ -252,6 +252,7 @@ en:
         back: "Go Back"
         again: "Try Again"
         fixed: "Load Page"
+    now: "just now"
     close: "Close"
     logout: "You were logged out."
     refresh: "Refresh"

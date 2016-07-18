@@ -1,9 +1,9 @@
-<li class="dropdown" id="header_notification_bar">
-<a class="dropdown-toggle" data-close-others="true" data-hover="dropdown" data-toggle="dropdown" href="#">
-  <i class="c_glob header_events"></i>
-  <span class="badge badge-success">0</span>
-</a>
-<ul class="dropdown-menu extended notification">
-  <div id="notifications"></div>
-</ul>
-</li>
+<div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
+    {{topic-list-header currentUser=currentUser title=title nameEnabled=nameEnabled name=name}}
+    <div class="bottom-divider"></div>
+    <div class="row c_pading-b25 pad_0">
+        {{conditional-loading-spinner size="large" condition=loading}}
+
+        {{scrolling-post-stream posts=notifications}}
+    </div>
+</div>
