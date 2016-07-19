@@ -45,6 +45,8 @@ const Topic = RestModel.extend({
       return this.get('tosca_type').split(".")[1]
     }.property(),
 
+    hasOutputs: Em.computed.notEmpty('outputs'),
+
     // Delete this topic
     destroy(deleted_by) {
         this.setProperties({

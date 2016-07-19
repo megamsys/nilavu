@@ -4,13 +4,13 @@
             <tr>
                 <td>
                     <h5><b>{{content_cpu_cores}}</b></h5></td>
-                <td>{{model.cpu_cores}}</td>
+                <td>{{cpu_cores}}</td>
             </tr>
         </table>
     </div>
 </div>
 <div class="row">
     <div class="col-md-12 info">
-        {{chart-cpu ip=model.publicIP selectedTab=selectedTab}}
+        {{chart-cpu model=model selectedTab=selectedTab}}
     </div>
 </div>

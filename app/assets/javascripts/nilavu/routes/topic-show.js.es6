@@ -40,18 +40,15 @@ export default Nilavu.Route.extend({
 
         params.forceLoad = false;
 
-        //TO-DO RAJ: ADD error handling here to show the error.
         const promise = topic.reload().then(function(result) {
             topicController.setProperties({
                 model: topic
             });
             self.set('loading', false);
         }).catch(function(e) {
-            //    alert("RAJ HANDLE ERR (check edit-category)\n" + e);
+            self.notificationMessages.error(I18n.t("vm_management.topic_load_error"));
             self.set('loading', false);
         });
-
-        self.controllerFor('navigation/default').set('filterMode', "top");
     },
 
     renderTemplate() {

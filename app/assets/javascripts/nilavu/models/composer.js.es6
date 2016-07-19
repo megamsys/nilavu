@@ -143,7 +143,10 @@ const Composer = RestModel.extend({
     }.property('launcher', 'originalText'),
 
     _setupComposer: function() {
-        this.setProperties({ itemsLoaded: 0, content: [] });
+        this.setProperties({
+            itemsLoaded: 0,
+            content: []
+        });
     }.on('init'),
 
 
@@ -259,13 +262,27 @@ const Composer = RestModel.extend({
         };
 
         //optionals
-        if (this.get('sourceOrImage')) { data['type'] =  this.get('sourceOrImage') };
-        if (this.get('sourceName'))    { data['scm_name'] =  this.get('sourceName') };
-        if (this.get('sourceURL'))   { data['source'] =  this.get('sourceURL') };
-        if (this.get('sourceToken')) { data['scmtoken'] =  this.get('sourceToken') };
-        if (this.get('sourceOwner')) { data['scmowner'] =  this.get('sourceOwner') };
-        if (this.get('sourceBranch')) { data['scmbranch'] =  this.get('sourceBranch') };
-        if (this.get('sourceTag')) { data['scmtag'] =  this.get('sourceTag') };
+        if (this.get('sourceOrImage')) {
+            data['type'] = this.get('sourceOrImage')
+        };
+        if (this.get('sourceName')) {
+            data['scm_name'] = this.get('sourceName')
+        };
+        if (this.get('sourceURL')) {
+            data['source'] = this.get('sourceURL')
+        };
+        if (this.get('sourceToken')) {
+            data['scmtoken'] = this.get('sourceToken')
+        };
+        if (this.get('sourceOwner')) {
+            data['scmowner'] = this.get('sourceOwner')
+        };
+        if (this.get('sourceBranch')) {
+            data['scmbranch'] = this.get('sourceBranch')
+        };
+        if (this.get('sourceTag')) {
+            data['scmtag'] = this.get('sourceTag')
+        };
 
         return Nilavu.ajax(url, {
             data: data,
