@@ -50,22 +50,6 @@ const ApplicationRoute = Nilavu.Route.extend(OpenComposer, {
       this.controllerFor('topic').send('show', data);
     },
 
-    composePrivateMessage(user, post) {
-      alert("composePrivateMessage");
-      const recipient = user ? user.get('username') : '',
-          reply = post ? window.location.protocol + "//" + window.location.host + post.get("url") : null;
-
-      // used only once, one less dependency
-      const Composer = require('nilavu/models/composer').default;
-      return this.controllerFor('composer').open({
-        action: Composer.PRIVATE_MESSAGE,
-        usernames: recipient,
-        archetypeId: 'private_message',
-        draftKey: 'new_private_message',
-        reply: reply
-      });
-    },
-
     error(err, transition) {
       let xhr = {};
       if (err.jqXHR) {
