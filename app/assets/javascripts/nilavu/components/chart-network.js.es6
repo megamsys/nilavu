@@ -1,19 +1,129 @@
 import {
     popupAjaxError
 } from 'nilavu/lib/ajax-error';
-import { on, observes } from 'ember-addons/ember-computed-decorators';
+import {
+    on,
+    observes
+} from 'ember-addons/ember-computed-decorators';
 export default Ember.Component.extend({
 
-    didInsertElement: function() {
-        //this.startRefreshing();
+    runningIP: null,
+
+    setIPS() {
+        this.set('privateipv4', this._filterOutputs("privateipv4"));
+        this.set('publicipv4', this._filterOutputs("publicipv4"));
+        this.set('privateipv6', this._filterOutputs("privateipv6"));
+        this.set('publicipv6', this._filterOutputs("publicipv6"));
+    },
+
+    _filterOutputs(key) {
+        if (Em.isEmpty(this.get('model.outputs'))) return "";
+        if (!this.get('model.outputs').filterBy('key', key)[0]) return "";
+        return this.get('model.outputs').filterBy('key', key)[0].value;
+    },
+
+    @observes('runningIP')
+    validateIP() {
+        if (!Em.isBlank(this.get('runningIP'))) {
+            this.set("showNetworkSpinnerVisible", false);
+            this.startRefreshing();
+        }
     },
 
     @observes('selectedTab')
-    tabChanged() {    
-      if (Ember.isEqual(this.get('selectedTab'), "network")) {
-        this.startRefreshing();
-      };
+    tabChanged() {
+        if (Ember.isEqual(this.get('selectedTab'), "network")) {
+            this.setIPS();
+            this.set("showNetworkSpinnerVisible", true);
+            this.validatePrivateIPv4();
+        };
     },
+
+    validatePrivateIPv4: function() {
+        var self = this;
+        if (!Em.isBlank(self.get('runningIP'))) {
+          this.startRefreshing();
+          return;
+        }
+        if (Em.isBlank(self.get('privateipv4'))) {
+            self.validatePublicIPv4();
+            return;
+        }
+        Nilavu.ajax("/metrics/containers/?ip=" + self.get('privateipv4'), {
+            type: 'GET'
+        }).then(function(result) {
+            self.set("runningIP", self.get('privateipv4'));
+            return;
+        }).catch(function(e) {
+            self.validatePublicIPv4();
+        });
+    },
+
+    validatePublicIPv4: function() {
+        var self = this;
+        if (!Em.isBlank(self.get('runningIP'))) {
+          this.startRefreshing();
+          return;
+        }
+        if (Em.isBlank(self.get('publicipv4'))) {
+            self.validatePrivateIPv6();
+            return;
+        }
+        Nilavu.ajax("/metrics/containers/?ip=" + self.get('publicipv4'), {
+            type: 'GET'
+        }).then(function(result) {
+            self.set("runningIP", self.get('publicipv4'));
+            return;
+        }).catch(function(e) {
+            self.validatePrivateIPv6();
+        });
+    },
+
+    validatePrivateIPv6: function() {
+        var self = this;
+        if (!Em.isBlank(self.get('runningIP'))) {
+          this.startRefreshing();
+          return;
+        }
+        if (Em.isBlank(self.get('privateipv6'))) {
+            self.validatePublicIPv6();
+            return;
+        }
+        Nilavu.ajax("/metrics/containers/?ip=" + self.get('privateipv6'), {
+            type: 'GET'
+        }).then(function(result) {
+            self.set("runningIP", self.get('privateipv6'));
+            return;
+        }).catch(function(e) {
+            self.validatePublicIPv6();
+        });
+    },
+
+    validatePublicIPv6: function() {
+        var self = this;
+        if (!Em.isBlank(self.get('runningIP'))) {
+          this.startRefreshing();
+          return;
+        }
+        if (Em.isBlank(self.get('publicipv6'))) {
+            this.set("showNetworkSpinnerVisible", false);
+            self.notificationMessages.error(I18n.t("vm_management.network.empty_ip_error"));
+            return;
+        }
+        Nilavu.ajax("/metrics/containers/?ip=" + self.get('publicipv6'), {
+            type: 'GET'
+        }).then(function(result) {
+            self.set("runningIP", self.get('publicipv6'));
+            return;
+        }).catch(function(e) {
+            this.set("showNetworkSpinnerVisible", false);
+            self.notificationMessages.error(I18n.t("vm_management.network.connect_error"));
+        });
+    },
+
+    showSpinner: function() {
+        return this.get("showNetworkSpinnerVisible");
+    }.property("showNetworkSpinnerVisible"),
 
     willDestroyElement: function() {
         this.set('refreshing', false);
@@ -33,9 +143,10 @@ export default Ember.Component.extend({
 
     getMetrics: function() {
         var _this = this;
-        Nilavu.ajax("/metrics/containers/?ip="+this.get("ip"), {
+        Nilavu.ajax("/metrics/containers/?ip=" + this.get("runningIP"), {
             type: 'GET'
         }).then(function(result) {
+            _this.set("showNetworkSpinnerVisible", false);
             _this._drawChart(result);
             return;
         });
@@ -44,16 +155,19 @@ export default Ember.Component.extend({
 
     _drawChart: function(data) {
         var stats = data;
+        var self = this;
 
         if (stats.spec.has_network && !this._hasResource(stats, "network")) {
             return;
         }
         var interfaceIndex = -1;
         if (stats.stats.length > 0) {
-            interfaceIndex = this._getNetworkInterfaceIndex("eth0", stats.stats[0].network.interfaces);
+            //interfaceIndex = this._getNetworkInterfaceIndex("eth0", stats.stats[0].network.interfaces);
+            interfaceIndex = this._getNetworkInterfaceIndex("eth1", stats.stats[0].network.interfaces);
         }
         if (interfaceIndex < 0) {
-            console.log("Unable to find interface\"", interfaceName, "\" in ", stats.stats.network);
+            //  console.log("Unable to find interface\"", interfaceName, "\" in ", stats.stats.network);
+            self.notificationMessages.error(I18n.t("vm_management.network.interface_error"));
             return;
         }
         var titles = [

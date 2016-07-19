@@ -36,7 +36,7 @@ class LaunchersController < ApplicationController
     def perform_launch
         params.require(:mkp_name)
         params.require(:assemblyname)
-
+      
         vertice = VerticeLauncher.new(LaunchingItem.new(params))
 
         if res = vertice.launch

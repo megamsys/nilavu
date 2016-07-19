@@ -1,13 +1,10 @@
 .vm-modal-body {
-  position: relative;
-  height: 800px;
+    position: relative;
+    height: 800px;
 }
-
 .vm .c_pading-b25 {
-  padding: 25px;
+    padding: 25px;
 }
-
-
 .vm .tabs {
     float: none;
     list-style: none;
@@ -19,7 +16,6 @@
     display: table;
     clear: both;
 }
-
 .vm .tabs a {
     display: block;
     float: left;
@@ -31,65 +27,62 @@
     text-align: center;
     line-height: 2;
     cursor: pointer;
-    -webkit-transition: all 0.5s; /* Safari 3.1 to 6.0 */
+    -webkit-transition: all 0.5s;
+    /* Safari 3.1 to 6.0 */
     transition: all 0.5s;
 }
-
 .vm .tabs a:hover {
     color: #3498db;
     border-bottom: 3px solid #3498db;
 }
-
-.vm .tabs > li.active a{
+.vm .tabs> li.active a {
     border-bottom: 3px solid #3498db;
 }
-
 .info {
-  margin-left: -15px;
+    margin-left: -15px;
 }
-
 .info-center {
-  margin: auto;
+    margin: auto;
 }
-
 .info .bottomborder {
-  border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
-
 .info table td {
-  padding-right: 30px;
-  padding-bottom: 10px;
+    padding-right: 30px;
+    padding-bottom: 10px;
 }
-
 .info table {
-  margin-top: 15px;
+    margin-top: 15px;
 }
-
 .info-center {
-  padding-bottom: 50px;
+    padding-bottom: 50px;
 }
-
 .info-center table td {
-  padding-right: 30px;
-  padding-bottom: 10px;
+    padding-right: 30px;
+    padding-bottom: 10px;
 }
-
 .info-center table {
-  margin-top: 15px;
+    margin-top: 15px;
 }
-
 .button {
-  font-weight: bold;
-  margin-right: 0.2rem;
-  box-shadow: 0 2px 5px 1px rgba(0,0,0,0.1);
+    font-weight: bold;
+    margin-right: 0.2rem;
+    box-shadow: 0 2px 5px 1px rgba(0, 0, 0, 0.1);
 }
-
 .link-icons {
-  font-family: proxima_nova_light, proxima_nova_rg,"Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #6e7181;
-  font-style: normal;
+    font-family: proxima_nova_light, proxima_nova_rg, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #6e7181;
+    font-style: normal;
 }
-
 #canvas_div {
-  padding: 25px;
+    padding: 25px;
+}
+.contentVisible {
+    display: inline;
+}
+.contentDisable {
+  display: none;
+}
+.info .con-pad {
+  padding-left: 10px;
 }
