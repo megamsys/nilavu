@@ -491,6 +491,9 @@ en:
         content_private_ip: "Private IPv4"
         content_private: "private network"
         content_public: "public network"
+        interface_error: "Unable to connect any interfaces in your virtual machine."
+        empty_ip_error: "Oops, virtual machine ip's are empty."
+        connect_error: "Oops, virtualmachine connection failed. please check virtual machine state."
       cpu:
         tab_title: "CPU"
         content_cpu_cores: "Cores"
@@ -507,6 +510,7 @@ en:
         tab_title: "Logs"
       not_load: "Virtual Machine updating failed."
       vnc_host_port_empty: "Oops, VNC host and port was empty, try some other time."
+      topic_load_error: "Virtual Machine details loading failed, try some other time."
 
     logs:
       all:

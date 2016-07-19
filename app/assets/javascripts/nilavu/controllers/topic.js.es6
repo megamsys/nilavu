@@ -50,8 +50,9 @@ export default Ember.Controller.extend(BufferedContent, {
     title: Ember.computed.alias('fullName'),
 
     fullName: function() {
-        var js = this._filterInputs("domain");
-        return this.get('model.name') + "." + js;
+        //var js = this._filterInputs("domain");
+        //return this.get('model.name') + "." + js;
+        return this.get('model.name')
     }.property('model.name'),
 
     hasInputs: Em.computed.notEmpty('model.inputs'),

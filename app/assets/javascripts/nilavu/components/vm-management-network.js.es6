@@ -5,7 +5,6 @@ import {
 import computed from 'ember-addons/ember-computed-decorators';
 
 export default buildCategoryPanel('network', {
-
     content_dns_provider: function() {
         return I18n.t("vm_management.network.content_dns_provider");
     }.property(),
@@ -44,25 +43,25 @@ export default buildCategoryPanel('network', {
 
     showContentPrivateIPV4: function() {
         if (!this._checked(this._filterInputs("ipv4private"))) {
-          return "contentDisable";
+            return "contentDisable";
         }
     }.property('model.inputs'),
 
     showContentPublicIPV4: function() {
         if (!this._checked(this._filterInputs("ipv4public"))) {
-          return "contentDisable";
+            return "contentDisable";
         }
     }.property('model.inputs'),
 
     showContentPrivateIPV6: function() {
         if (!this._checked(this._filterInputs("ipv6private"))) {
-          return "contentDisable";
+            return "contentDisable";
         }
     }.property('model.inputs'),
 
     showContentPublicIPV6: function() {
-        if(!this._checked(this._filterInputs("ipv6public"))) {
-          return "contentDisable";
+        if (!this._checked(this._filterInputs("ipv6public"))) {
+            return "contentDisable";
         }
     }.property('model.inputs'),
 
