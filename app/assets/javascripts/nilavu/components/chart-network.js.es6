@@ -162,8 +162,8 @@ export default Ember.Component.extend({
         }
         var interfaceIndex = -1;
         if (stats.stats.length > 0) {
-            //interfaceIndex = this._getNetworkInterfaceIndex("eth0", stats.stats[0].network.interfaces);
-            interfaceIndex = this._getNetworkInterfaceIndex("eth1", stats.stats[0].network.interfaces);
+            interfaceIndex = this._getNetworkInterfaceIndex("eth0", stats.stats[0].network.interfaces);
+            //interfaceIndex = this._getNetworkInterfaceIndex("eth1", stats.stats[0].network.interfaces);
         }
         if (interfaceIndex < 0) {
             //  console.log("Unable to find interface\"", interfaceName, "\" in ", stats.stats.network);
