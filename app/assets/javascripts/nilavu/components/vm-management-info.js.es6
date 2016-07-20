@@ -108,7 +108,7 @@ export default buildCategoryPanel('info', {
 
     cpu_cores: function() {
         return this._filterInputs("cpu");
-    }.property('model.inputs'),    
+    }.property('model.inputs'),
 
     ram: function() {
         return this._filterInputs("ram");
@@ -179,7 +179,7 @@ export default buildCategoryPanel('info', {
     }.property('model.created_at'),
 
     status: function() {
-        return this.get('model.status');
+        return this.get('model.status.message');
     }.property('model.status'),
 
 });
