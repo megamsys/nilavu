@@ -1,4 +1,3 @@
-##require_dependency 'search'
 
 class SearchController < ApplicationController
     respond_to :html, :json

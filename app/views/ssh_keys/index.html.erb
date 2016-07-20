@@ -1,5 +1,0 @@
-<% content_for :content_settings do %>
-<% provide(:title, 'SSH Keys') %>
-<%=  render :partial => "ssh_keys/myssh", :locals => {:ssh_keys => @ssh_keys}  %>
-<% end %>
-<%= render :template => "users/show" %>
