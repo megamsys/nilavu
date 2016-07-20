@@ -17,10 +17,4 @@ module CommonHelper
     end
   end
 
-  def render_intlmobile_otp
-    if SiteSetting.allow_otp_verifications.present?
-      render partial: "common/intlmobile_otp"
-    end
-  end
-
 end

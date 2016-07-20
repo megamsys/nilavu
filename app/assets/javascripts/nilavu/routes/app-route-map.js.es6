@@ -1,9 +1,5 @@
 export default function() {
 
-
-    //Fake route, we will remove it once we are done.
-
-    this.route('dummy');
     // Error page
     this.route('exception', { path: '/exception' });
 
@@ -53,7 +49,11 @@ export default function() {
         this.route('show',{ path: '/' });
 
         this.resource('userNotifications', { path: '/notifications' }, function() {
-            this.route('responses', {path: '/responses'});
+          //we use the built in index route
+        });
+
+        this.resource('userSubscriptions', { path: '/subscriptions' }, function() {
+          //we use the built in index route
         });
 
 

@@ -87,7 +87,6 @@ module Tilt
           "nilavu/models/session",
           "nilavu/models/model",
           "nilavu/models/topic",
-          "nilavu/models/post",
         "nilavu/views/grouped"]
       )
 
@@ -161,7 +160,7 @@ module Tilt
     end
 
     def module_name(root_path, logical_path)
-      path = nil 
+      path = nil
 
       path ||= logical_path
       if ES6ModuleTranspiler.transform
