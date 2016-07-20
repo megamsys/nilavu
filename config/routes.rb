@@ -71,7 +71,7 @@ Nilavu::Application.routes.draw do
   put "t/:id" => "topics#update"
   delete "t/:id" => "topics#destroy"
 
-  get "t/:id/:name" => "requests#create", as: "topic_action_group"
+  post "t/:id/:name" => "requests#create", as: "topic_action_group"
   delete "t/:id/:name" => "requests#destroy"
 
   get 'notifications' => 'notifications#index'

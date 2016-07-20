@@ -7,7 +7,7 @@ class RequestsController < ApplicationController
 
   def create
     Api::Requests.new.reqs(params.merge({:action => params[:req_action]}))
-    render json: success_json
+    render json: { success: true }
   end
 
   def destroy

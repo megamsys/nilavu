@@ -11,6 +11,11 @@ export default Ember.Controller.extend(BufferedContent, {
     progress: 10,
     selectedTab: null,
     panels: null,
+    spinnerStartIn: false,
+    spinnerStopIn: false,
+    spinnerRebootIn: false,
+    spinnerDeleteIn: false,
+    spinnerRefreshIn: false,
     rerenderTriggers: ['isUploading'],
 
 
@@ -70,9 +75,80 @@ export default Ember.Controller.extend(BufferedContent, {
         return this.get('model.outputs').filterBy('key', key)[0].value;
     },
 
+    showStartSpinner: function() {
+        return this.get('spinnerStartIn');
+    }.property('spinnerStartIn'),
+
+    showStopSpinner: function() {
+        return this.get('spinnerStopIn');
+    }.property('spinnerStopIn'),
+
+    showRebootSpinner: function() {
+        return this.get('spinnerRebootIn');
+    }.property('spinnerRebootIn'),
+
+    showDeleteSpinner: function() {
+        return this.get('spinnerDeleteIn');
+    }.property('spinnerDeleteIn'),
+
+    showRefreshSpinner: function() {
+        return this.get('spinnerRefreshIn');
+    }.property('spinnerRefreshIn'),
+
+     getData(reqAction) {
+      return {
+                 id: this.get('model').id,
+                 cat_id: this.get('model').asms_id,
+                 name: this.get('model').name,
+                 req_action: reqAction,
+                 cattype: this.get('model').tosca_type.split(".")[1],
+                 category: "control"
+              };
+    },
+
+    getDeleteData() {
+      return {
+                 id: this.get('model').id,
+                 cat_id: this.get('model').asms_id,
+                 name: this.get('model').name,
+                 action: "delete",
+                 cattype: this.get('model').tosca_type.split(".")[1],
+                 category: "state"
+              };
+    },
+
+    delete() {
+            var self = this;
+            this.set('spinnerDeleteIn', true);
+            Nilavu.ajax('/t/'+this.get('model').id+"/delete", {
+                data: this.getDeleteData(),
+                type: 'DELETE'
+            }).then(function(result) {
+                self.set('spinnerDeleteIn', false);
+                if (result.success) {
+                    self.notificationMessages.success(I18n.t("vm_management.delete_success"));
+                } else {
+                    self.notificationMessages.error(I18n.t("vm_management.error"));
+                }
+            }).catch(function(e) {
+                self.set('spinnerDeleteIn', false);
+                self.notificationMessages.error(I18n.t("vm_management.error"));
+            });
+        },
+
     actions: {
 
-        // VNC
+       refresh() {
+          const self = this;
+          self.set('spinnerRefreshIn', true);
+          const promise = this.get('model').reload().then(function(result) {
+              self.set('spinnerRefreshIn', false);
+          }).catch(function(e) {
+              self.notificationMessages.error(I18n.t("vm_management.topic_load_error"));
+              self.set('spinnerRefreshIn', false);
+          });
+        },
+
         showVNC() {
             const host = this._filterOutputs("vnchost"),
                 port = this._filterOutputs("vncport");
@@ -87,45 +163,71 @@ export default Ember.Controller.extend(BufferedContent, {
 
         },
 
-        // START, STOP, RESTART, DELETE
         start() {
-
-
-            //this.deleteTopic(); //change accordingly
+          var self = this;
+          this.set('spinnerStartIn', true);
+          Nilavu.ajax('/t/'+this.get('model').id+"/start", {
+              data: this.getData("start", "control"),
+              type: 'POST'
+          }).then(function(result) {
+              self.set('spinnerStartIn', false);
+              if (result.success) {
+                  self.notificationMessages.success(I18n.t("vm_management.start_success"));
+              } else {
+                  self.notificationMessages.error(I18n.t("vm_management.error"));
+              }
+          }).catch(function(e) {
+              self.set('spinnerStartIn', false);
+              self.notificationMessages.error(I18n.t("vm_management.error"));
+          });
         },
+
 
         stop() {
-            const topic = this.get('model');
-            topic.archiveMessage().then(() => {
-                this.gotoInbox(topic.get("inboxGroupName"));
+            var self = this;
+            this.set('spinnerStopIn', true);
+            Nilavu.ajax('/t/'+this.get('model').id+"/stop", {
+                data: this.getData("stop", "control"),
+                type: 'POST'
+            }).then(function(result) {
+                self.set('spinnerStopIn', false);
+                if (result.success) {
+                    self.notificationMessages.success(I18n.t("vm_management.stop_success"));
+                } else {
+                    self.notificationMessages.error(I18n.t("vm_management.error"));
+                }
+            }).catch(function(e) {
+                self.set('spinnerStopIn', false);
+                console.log(e);
+                self.notificationMessages.error(I18n.t("vm_management.error"));
             });
-        },
+          },
 
         restart() {
-            const topic = this.get('model');
-            topic.moveToInbox().then(() => {
-                this.gotoInbox(topic.get("inboxGroupName"));
+            var self = this;
+            this.set('spinnerRebootIn', true);
+            Nilavu.ajax('/t/'+this.get('model').id+"/restart", {
+                data: this.getData("restart", "control"),
+                type: 'POST'
+            }).then(function(result) {
+                self.set('spinnerRebootIn', false);
+                if (result.success) {
+                    self.notificationMessages.success(I18n.t("vm_management.restart_success"));
+                } else {
+                    self.notificationMessages.error(I18n.t("vm_management.error"));
+                }
+            }).catch(function(e) {
+                self.set('spinnerRebootIn', false);
+                self.notificationMessages.error(I18n.t("vm_management.error"));
             });
         },
 
         destroy() {
-            //bootbox.confirm(I18n.t("post.delete.confirm", { count: this.get('selectedPostsCount') }), result => {
-            //if (result) {
-
-            // If all posts are selected, it's the same thing as deleting the topic
-            if (this.get('allPostsSelected')) {
-                return this.deleteTopic();
-            }
-
-            const selectedPosts = this.get('selectedPosts');
-            const selectedReplies = this.get('selectedReplies');
-            const postStream = this.get('model.postStream');
-            const deleted_by = this.get('deleted_by')
-
-            Nilavu.Topic.destroy(deleted_by);
-
-            //}
-            //})
+            bootbox.confirm(I18n.t("vm_management.confirm_delete"), result => {
+                if (result) {
+                    this.delete();
+                }
+            })
         },
 
         snapshot(post) {

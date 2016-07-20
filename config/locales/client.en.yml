@@ -513,6 +513,12 @@ en:
       not_load: "Virtual Machine updating failed."
       vnc_host_port_empty: "Oops, VNC host and port was empty, try some other time."
       topic_load_error: "Virtual Machine details loading failed, try some other time."
+      start_success: "Virtual Machine started."
+      stop_success: "Virtual Machine stopped."
+      restart_success: "Virtual Machine restarted."
+      delete_success: "Virtual Machine deleted."
+      error: "Oops, something went wrong, go check virtual machine state."
+      confirm_delete: "Are you sure, to destroy this virtual machine.."
 
     logs:
       all:
