@@ -26,7 +26,7 @@ module Api
         end
 
         def perlist(params, &_block)
-            raw = api_request(SNAPSHOTS, SHOW, params)
+            #raw = api_request(SNAPSHOTS, SHOW, params)
             #        dig_snapshots(raw[:body]) unless raw.nil?
             dig_snapshots(params)
             yield self  if block_given?

@@ -5,6 +5,15 @@ import {
 import computed from 'ember-addons/ember-computed-decorators';
 
 export default buildCategoryPanel('network', {
+
+    network_title: function() {
+        return I18n.t("vm_management.network.tab_title");
+    }.property(),
+
+    network_description: function() {
+        return I18n.t("vm_management.network.description");
+    }.property(),
+
     content_dns_provider: function() {
         return I18n.t("vm_management.network.content_dns_provider");
     }.property(),
