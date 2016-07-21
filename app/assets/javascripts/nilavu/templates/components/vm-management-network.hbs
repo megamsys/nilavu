@@ -14,14 +14,84 @@
 </div>-->
 <div class="ssh-well">
     <div class="row">
-        <div class="col-md-12">
-            <h1>{{network_title}}</h1>
-            <p>{{network_description}}</p>
+        <div class="col-md-6 verticalLine">
+            <h1>{{table_title}}</h1>
+            <p>{{table_description}}</p>
+            <button class="btn blue" {{action "showTable"}}>
+                {{i18n 'vm_management.network.show'}}
+            </button>
+        </div>
+        <div class="col-md-6">
+            <h1>{{monitoring_title}}</h1>
+            <p>{{monitoring_description}}</p>
+            <button class="btn btn-success" {{action "showCharts"}}>
+                {{i18n 'vm_management.network.show'}}
+            </button>
         </div>
     </div>
 </div>
-<div class="row con-pad">
-    <div class="col-md-12">
-        {{chart-network model=model selectedTab=selectedTab}}
+<div class="ssh-well-without-background">
+    <div {{bind-attr class="visibleTable"}}>
+        <div class="col-md-6 info">
+            <h3><b>{{title}}</b></h3>
+            <div class="bottom-divider"></div>
+            <table>
+                <tr {{bind-attr class="showContentPrivateIPV4"}}>
+                    <td>
+                        <h5><b>{{content_private_ipv4}}</b></h5></td>
+                    <td>{{privateipv4}}</td>
+                </tr>
+                <tr {{bind-attr class="showContentPublicIPV4"}}>
+                    <td>
+                        <h5><b>{{content_public_ipv4}}</b></h5></td>
+                    <td>{{publicipv4}}</td>
+                </tr>
+                <tr {{bind-attr class="showContentPrivateIPV6"}}>
+                    <td>
+                        <h5><b>{{content_private_ipv6}}</b></h5></td>
+                    <td>{{privateipv6}}</td>
+                </tr>
+                <tr {{bind-attr class="showContentPublicIPV6"}}>
+                    <td>
+                        <h5><b>{{content_public_ipv6}}</b></h5></td>
+                    <td>{{publicipv6}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5><b>{{content_domain}}</b></h5></td>
+                    <td>{{domain}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5><b>{{content_start_time}}</b></h5></td>
+                    <td>{{createdAt}}</td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-6 info">
+            <h3><b>{{i18n 'vm_management.network.attach_title'}}</b></h3>
+            <div class="bottom-divider"></div>
+            <table>
+                <tr>
+                    <td>
+                        <h5><b>{{i18n "vm_management.network.content_ipv4"}}</b></h5></td>
+                    <td>{{i18n "vm_management.network.content_private"}}</td>
+                    <td>{{input type="checkbox" checked=ipv4_private disabled=true}}</td>
+                    <td>{{i18n "vm_management.network.content_public"}}</td>
+                    <td>{{input type="checkbox" checked=ipv4_public disabled=true}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5><b>{{i18n "vm_management.network.content_ipv6"}}</b></h5></td>
+                    <td>{{i18n "vm_management.network.content_private"}}</td>
+                    <td>{{input type="checkbox" checked=ipv6_private disabled=true}}</td>
+                    <td>{{i18n "vm_management.network.content_public"}}</td>
+                    <td>{{input type="checkbox" checked=ipv6_public disabled=true}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div {{bind-attr class="visibleCharts"}}>
+        {{chart-network model=model selectedTab=selectedTab visible=networkChartVisible}}
     </div>
 </div>

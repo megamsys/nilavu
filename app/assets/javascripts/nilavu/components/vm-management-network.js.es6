@@ -6,12 +6,27 @@ import computed from 'ember-addons/ember-computed-decorators';
 
 export default buildCategoryPanel('network', {
 
-    network_title: function() {
-        return I18n.t("vm_management.network.tab_title");
+    networkTableVisible: true,
+    networkChartVisible: false,
+
+    title: function() {
+        return I18n.t("vm_management.info.content_title");
     }.property(),
 
-    network_description: function() {
-        return I18n.t("vm_management.network.description");
+    table_title: function() {
+        return I18n.t("vm_management.network.table_title");
+    }.property(),
+
+    table_description: function() {
+        return I18n.t("vm_management.network.table_description");
+    }.property(),
+
+    monitoring_title: function() {
+        return I18n.t("vm_management.network.monitoring_title");
+    }.property(),
+
+    monitoring_description: function() {
+        return I18n.t("vm_management.network.monitoring_description");
     }.property(),
 
     content_dns_provider: function() {
@@ -34,6 +49,22 @@ export default buildCategoryPanel('network', {
         return I18n.t("vm_management.network.content_private_ipv6");
     }.property(),
 
+    content_domain: function() {
+        return I18n.t("vm_management.info.content_domain");
+    }.property(),
+
+    content_start_time: function() {
+        return I18n.t("vm_management.info.content_start_time");
+    }.property(),
+
+    domain: function() {
+        return this._filterInputs("domain");
+    }.property('model.domain'),
+
+    createdAt: function() {
+        return new Date(this.get('model.created_at'));
+    }.property('model.created_at'),
+
     privateipv4: function() {
         return this._filterOutputs("privateipv4");
     }.property('model.outputs'),
@@ -49,6 +80,22 @@ export default buildCategoryPanel('network', {
     publicipv6: function() {
         return this._filterOutputs("publicipv6");
     }.property('model.outputs'),
+
+    visibleTable: function() {
+        if (!this.get('networkTableVisible')) {
+            return "row contentDisable";
+        } else {
+          return "row contentVisible"
+        }
+    }.property('networkTableVisible'),
+
+    visibleCharts: function() {
+        if (!this.get('networkChartVisible')) {
+            return "row contentDisable";
+        } else {
+          return "row contentVisible"
+        }
+    }.property('networkChartVisible'),
 
     showContentPrivateIPV4: function() {
         if (!this._checked(this._filterInputs("ipv4private"))) {
@@ -74,6 +121,22 @@ export default buildCategoryPanel('network', {
         }
     }.property('model.inputs'),
 
+    ipv4_private: function() {
+        return this._checked(this._filterInputs("ipv4private"));
+    }.property('model.inputs'),
+
+    ipv4_public: function() {
+        return this._checked(this._filterInputs("ipv4public"));
+    }.property('model.inputs'),
+
+    ipv6_private: function() {
+        return this._checked(this._filterInputs("ipv6private"));
+    }.property('model.inputs'),
+
+    ipv6_public: function() {
+        return this._checked(this._filterInputs("ipv6public"));
+    }.property('model.inputs'),
+
     hasOutputs: Em.computed.notEmpty('model.outputs'),
 
     hasInputs: Em.computed.notEmpty('model.inputs'),
@@ -97,5 +160,17 @@ export default buildCategoryPanel('network', {
             return false;
         }
     },
+
+    actions: {
+      showTable() {
+        this.set('networkTableVisible', true);
+        this.set('networkChartVisible', false);
+      },
+
+      showCharts() {
+        this.set('networkTableVisible', false);
+        this.set('networkChartVisible', true);
+      },
+    }
 
 });

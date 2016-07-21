@@ -81,11 +81,11 @@
     display: inline;
 }
 .contentDisable {
-  display: none;
+    display: none;
 }
 .info .con-pad {
-  padding-left: 10px;
+    padding-left: 10px;
 }
 .left-pad {
-  padding-left: 8px;
+    padding-left: 8px;
 }

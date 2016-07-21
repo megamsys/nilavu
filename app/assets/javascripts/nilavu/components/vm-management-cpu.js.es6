@@ -19,7 +19,7 @@ export default buildCategoryPanel('cpu', {
     _filterInputs(key) {
         if (!this.get('hasInputs')) return "";
         if (!this.get('model.inputs').filterBy('key', key)[0]) return "";
-        return this.get('model.inputs').filterBy('key', key)[0].value;
+        return this.get('model.inputs').filterBy('key', key)[0].value.split(" ")[0];
     },
 
 });

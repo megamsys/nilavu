@@ -489,7 +489,11 @@ en:
         list_error: "Snapshots list failed. Try some other time."
       network:
         tab_title: "Network"
-        description: "Network contains attached private/public addresses."
+        table_title: "Table"
+        attach_title: "Attached Networks"
+        table_description: "In this table contains attached private/public addresses for your virtual machine."
+        monitoring_title: "Monitoring"
+        monitoring_description: "Monitoring is constantly monitors a virtual machine network for slow or failing."
         content_dns_provider: "DNS Provider"
         content_public_ipv4: "Public IPv4"
         content_private_ipv4: "Private IPv4"
@@ -501,11 +505,15 @@ en:
         content_private_ip: "Private IPv4"
         content_private: "private network"
         content_public: "public network"
+        show: "Show"
         interface_error: "Unable to connect any interfaces in your virtual machine."
         empty_ip_error: "Oops, virtual machine ip's are empty."
         connect_error: "Oops, virtualmachine connection failed. please check virtual machine state."
+        oops: "Oops! "
+        error: "Something went wrong, unable to connect your virtual machine. Please check virtual machine state."
       cpu:
         tab_title: "CPU"
+        description: ""
         content_cpu_cores: "Cores"
       ram:
         tab_title: "RAM"
