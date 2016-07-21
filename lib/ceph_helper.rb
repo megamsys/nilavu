@@ -23,7 +23,7 @@ class CephHelper
   end
 
   def upload(bucket, unique_filename, content, options={})
-    obj = ceph_bucketobjects(bucket).build(unique_filename)  
+    obj = ceph_bucketobjects(bucket).build(unique_filename)
     obj.content = content
     obj.save
   end
@@ -66,10 +66,9 @@ class CephHelper
     ceph_parms.each {|cp| opts[cp] = send("#{cp}")}
     if  SiteSetting.ceph_gateway
       opts[:host]    = SiteSetting.ceph_gateway
-      #opts[:port]    =
       opts[:timeout] = SiteSetting.ceph_gateway_timeout
     end
-
+      opts[:use_ssl] = true
     S3::Service.new(opts)
   end
 

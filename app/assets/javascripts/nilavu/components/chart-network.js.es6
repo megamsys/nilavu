@@ -8,6 +8,7 @@ import {
 export default Ember.Component.extend({
 
     runningIP: null,
+    visibleAlert: false,
 
     setIPS() {
         this.set('privateipv4', this._filterOutputs("privateipv4"));
@@ -30,14 +31,22 @@ export default Ember.Component.extend({
         }
     },
 
-    @observes('selectedTab')
+    @observes('selectedTab', 'visible')
     tabChanged() {
-        if (Ember.isEqual(this.get('selectedTab'), "network")) {
+        if (Ember.isEqual(this.get('selectedTab'), "network") && this.get('visible')) {
             this.setIPS();
             this.set("showNetworkSpinnerVisible", true);
             this.validatePrivateIPv4();
         };
     },
+
+    showAlert: function() {
+        if (!this.get('visibleAlert')) {
+            return "alert alert-danger contentDisable";
+        } else {
+          return "alert alert-danger contentVisible"
+        }
+    }.property('visibleAlert'),
 
     validatePrivateIPv4: function() {
         var self = this;
@@ -107,6 +116,7 @@ export default Ember.Component.extend({
         }
         if (Em.isBlank(self.get('publicipv6'))) {
             this.set("showNetworkSpinnerVisible", false);
+            this.set('visibleAlert', true);
             self.notificationMessages.error(I18n.t("vm_management.network.empty_ip_error"));
             return;
         }
@@ -117,6 +127,7 @@ export default Ember.Component.extend({
             return;
         }).catch(function(e) {
             this.set("showNetworkSpinnerVisible", false);
+            this.set('visibleAlert', true);
             self.notificationMessages.error(I18n.t("vm_management.network.connect_error"));
         });
     },
@@ -138,6 +149,7 @@ export default Ember.Component.extend({
         if (!Ember.isEqual(this.get('selectedTab'), "network"))
             return;
         this.getMetrics();
+        this.set('visibleAlert', false);
         Em.run.later(this, this.refresh, 300);
     },
 
