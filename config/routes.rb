@@ -88,7 +88,7 @@ Nilavu::Application.routes.draw do
   get "robots.txt" => "robots_txt#index"
   get "manifest.json" => "manifest_json#index", :as => :manifest
 
-  get "buckets.json" =>"buckets#index",defaults: {format: 'json'}
+  get "buckets" =>"buckets#index",defaults: {format: 'json'}
   post "buckets" =>"buckets#create"
   get "buckets/:id" => "buckets#edit"
 

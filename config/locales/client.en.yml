@@ -487,6 +487,8 @@ en:
         content_created_at: "Created"
         content_empty: "0 snapshots"
         list_error: "Snapshots list failed. Try some other time."
+        take_snapshot: "Take Snapshot"
+        take_snapshot_success: "Snapshot created for your virtual machine."
       network:
         tab_title: "Network"
         table_title: "Table"
