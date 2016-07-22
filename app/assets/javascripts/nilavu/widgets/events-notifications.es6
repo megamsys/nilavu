@@ -69,7 +69,7 @@ export default createWidget('events-notifications', {
       result.push(h('ul', [
                     notificationItems,
                     h('li.read.last.heading', this.attach('link', { className: 'notifications.more',
-                                                           icon: 'glyphicon glyphicon-chevron-left',
+                                                           icon: 'm-icon-swapright',
                                                            label: 'notifications.more',
                                                            href}))]));
 

@@ -31,8 +31,6 @@ class UsersController < ApplicationController
 
   before_action :add_authkeys_for_api, only: [:edit,:update,:show]
 
-
-
   def create
 
     if params[:password] && params[:password].length > User.max_password_length
@@ -100,10 +98,11 @@ class UsersController < ApplicationController
     }
   end
 
+  #redirect_to_ready_if_required
   def account_created
     @message = session['user_created_message'] || I18n.t('activation.missing_session')
     expires_now
-    redirect_to "/"
+    redirect_to "/subscriptions/activation"
   end
 
   ## Need a json serializer

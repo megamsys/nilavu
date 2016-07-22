@@ -1,0 +1,92 @@
+<div class="container">
+    <div class="row">
+        <div class="rt-box col-xs-12 col-sm-12 col-md-12 c_bg_white c_height_5">
+            <div class="">
+                <div class='contents'>
+                    <div class="row">
+                        <div class="margin_30 ">
+                            <div class="row c_pading-b15">
+                                <div class="center-btn">
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3 cat_title">
+                                        Enter the OTP pin:
+                                    </div>
+                                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                                        {{text-field type="text" value=otpPin placeholderKey="user.otp_title" class ="form-control" id="new-otp-pin" disabled=otpValidated name="otppin" autofocus="autofocus"}}
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+                                        We just sent a verification text to
+                                        {{phoneNumber}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row c_pading-b15">
+                        <div class="col-md-8 help_center_left_right usg  c_pading-b15">
+                            <h2 class="center billing-title">Select your account model:</h2>
+                            <div style="text-align: center;" class="table-condensed">
+                                <div class="col-md-12 pad_0">
+                                    <div class="row pad_t25">
+                                        <div class="btn-storage-container">
+                                            {{billing-subscription-chooser name='ondemand' subscriptionable=subscriptionable style="float: left"}}
+                                            {{billing-subscription-chooser name='recurring' subscriptionable=subscriptionable style="float: right"}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 pad_0">
+                                    <table class="table usg_table">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 30%;text-align:center;">Type</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>RAM</td>
+                                            </tr>
+                                            <tr>
+                                                <td>CORE/S</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span>
+                                                        <select>
+                                                            <option value="SSD">SSD</option>
+                                                            <option value="HSD">HSD</option>
+                                                        </select>
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>BANDWIDTH</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="bottom-b">IPv4</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="margin_30 ">
+                                <div class="row ">
+                                    <div class="col-md-12  pay_via">
+                                        <div class="center-btn">
+                                            <button class="btn btn-primary btn-payment" id="whmcs-payment-link" {{bind-attr disabled="submitDisabled"}} {{action "addFunds"}}>
+                                                {{i18n 'billing.proceed'}}
+                                                <span class="pull-right">
+                                                    {{conditional-loading-spinner condition=formSubmitted size="large"}}
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

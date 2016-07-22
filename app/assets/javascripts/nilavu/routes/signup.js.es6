@@ -4,15 +4,19 @@ const SignupRoute = buildStaticRoute('signup');
 
 SignupRoute.reopen({
   beforeModel() {
+    alert("hey");
     var canSignUp = this.controllerFor("application").get('canSignUp');
+    alert(this.siteSettings.login_required);
     if (!this.siteSettings.login_required) {
-      this.replaceWith('discovery.latest').then(e => {
+      alert("hellow there");
+      this.replaceWith('discovery.dashboard').then(e => {
         if (canSignUp) {
           Ember.run.next(() => e.send('showCreateAccount'));
         }
       });
     } else {
-      this.replaceWith('login').then(e => {
+      alert("howdy 1");
+        this.replaceWith('login').then(e => {
         if (canSignUp) {
           Ember.run.next(() => e.send('showCreateAccount'));
         }

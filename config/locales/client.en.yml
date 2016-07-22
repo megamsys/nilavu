@@ -176,7 +176,6 @@ en:
       muted_categories: "Muted"
       otp_title: "Type your pin."
 
-
       signup:
         title: "Sign up"
         description: "It wont take more than 1 minute, we promise"
@@ -227,7 +226,7 @@ en:
 
       password:
         title: "Password"
-        title1: "confirm password"
+        confirm_title: "confirm password"
         too_short: "Your password is too short."
         common: "That password is too common."
         same_as_email: "Your password is the same as your email."

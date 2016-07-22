@@ -29,12 +29,12 @@ Nilavu::Application.routes.draw do
   resources :sessions
   get "session/csrf" => "sessions#csrf"
   match "sessions/delete", to:  "sessions#destroy", via: [:delete]
-
+  get "/account_created/" => "users#account_created"
+  get "/subscriptions/activation" => "subscriptions#entrance"
 
   post "/session/forgot_password" => "sessions#forgot_password"
   get "/password_reset" => "users#password_reset"
   put "/password_reset" => "users#password_reset"
-  get "users/account-created/" => "users#account_created"
 
 
   match "/auth/:provider/callback", to: "omniauth_callbacks#complete", via: [:get, :post]

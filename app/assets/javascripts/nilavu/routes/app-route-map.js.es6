@@ -52,10 +52,6 @@ export default function() {
           //we use the built in index route
         });
 
-        this.resource('userSubscriptions', { path: '/subscriptions' }, function() {
-          //we use the built in index route
-        });
-
 
         this.resource('preferences', function() {
             this.route('username');
@@ -63,9 +59,11 @@ export default function() {
         });
 
     });
+
     this.route('signup', { path: '/signup' });
 
     this.route('login', { path: '/login' });
+
     this.route('new-topic', {path: 'new-topic'});
 
     this.route('logout', { path: '/logout' });
@@ -77,4 +75,9 @@ export default function() {
         this.route('list', { path: '/' });
         this.route('show',{ path: '/b/:id' });
     });
+
+    this.resource('subscriptions', { path: '/subscriptions' }, function() {
+      this.route('show', {path: '/activation'});
+    });
+    
 }

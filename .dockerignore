@@ -1,0 +1,6 @@
+.vagrant/
+.git/
+.hooks/
+log/
+spec/
+tmp/
