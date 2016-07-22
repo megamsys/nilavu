@@ -9,6 +9,7 @@ import {
 export default buildCategoryPanel('snapshots', {
 
     showSnapshotSpinnerVisible: false,
+    takeSnapShotSpinner: false,
     snapshots: [],
 
     sortedSnapshots: Ember.computed.sort('snapshots', 'sortDefinition'),
@@ -51,6 +52,10 @@ export default buildCategoryPanel('snapshots', {
         return this.get("showSnapshotSpinnerVisible");
     }.property("showSnapshotSpinnerVisible"),
 
+    showTakeSnapshotSpinner: function() {
+        return this.get("takeSnapShotSpinner");
+    }.property("takeSnapShotSpinner"),
+
     @observes('selectedTab')
     tabChanged() {
         if (Ember.isEqual(this.get('selectedTab'), "snapshots")) {
@@ -77,11 +82,45 @@ export default buildCategoryPanel('snapshots', {
     },
 
     snapshotListEmpty: function() {
-      if (Em.isEmpty(this.get('snapshots'))) {
-        return true;
-      } else {
-        return false;
-      }
+        if (Em.isEmpty(this.get('snapshots'))) {
+            return true;
+        } else {
+            return false;
+        }
     }.property("snapshots"),
+
+    getData(reqAction) {
+        return {
+            id: this.get('model').id,
+            cat_id: this.get('model').asms_id,
+            name: this.get('model').name,
+            req_action: reqAction,
+            cattype: this.get('model').tosca_type.split(".")[1],
+            category: "snapshot"
+        };
+    },
+
+    actions: {
+
+      takeSnapshot() {
+          var self = this;
+          this.set('takeSnapShotSpinner', true);
+          Nilavu.ajax('/t/' + this.get('model').id + "/snapshot", {
+              data: this.getData("disksaveas"),
+              type: 'POST'
+          }).then(function(result) {
+              self.set('takeSnapShotSpinner', false);
+              if (result.success) {
+                  self.notificationMessages.success(I18n.t("vm_management.take_snapshot_success"));
+              } else {
+                  self.notificationMessages.error(I18n.t("vm_management.error"));
+              }
+          }).catch(function(e) {
+              self.set('takeSnapShotSpinner', false);
+              self.notificationMessages.error(I18n.t("vm_management.error"));
+          });
+      },
+
+    }
 
 });

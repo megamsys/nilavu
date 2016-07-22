@@ -18,6 +18,11 @@ export default Ember.Component.extend({
     objectIcon: null,
     signingUrl: '',
 
+    filekey: null,
+    fileaccesskey: null,
+    filepolicy: null,
+    filesignature: null,
+
     uploadPercentage: 0,
     progressPosition: 0,
     maxProgressPosition: 100,
@@ -56,71 +61,41 @@ export default Ember.Component.extend({
         return this.get('spinnerConnectIn');
     }.property('spinnerConnectIn'),
 
-    /*  _bindUploadTarget() {
-          //this._unbindUploadTarget(); // in case it's still bound, let's clean it up first
-          const self = this;
-          const $element = $("#fileformupload");
-          $element.fileupload({
-              url: "/b/put",
-              autoUpload: true,
-              add: function(e, data) {
-                  // Automatically upload the file once it is added to the queue
-                  var jqXHR = data.submit();
-              },
-
-              progress: function(e, data) {
-                  // Calculate the completion percentage of the upload
-                  var progress = parseInt(data.loaded / data.total * 100, 10);
-                  console.log(progress);
-              },
-
-              done: function(e, data) {
-                  console.log("success------------");
-                  console.log(data);
-                  console.log(e);
-              },
-
-              fail: function(e, data) {
-                  console.log("fail------------");
-                  console.log(data);
-                  console.log(e);
-              }
-          });
-
-      },*/
-
     _bindUploadTarget() {
         //this._unbindUploadTarget(); // in case it's still bound, let's clean it up first
         const self = this;
-        const $element = this.$();
+        const $element = this.$("#fileformupload");
         $element.fileupload({
-            url: "http://192.168.0.115/woww",
+            url: "",
             pasteZone: $element,
-            forceIframeTransport: true,
+            //forceIframeTransport: true,
             autoUpload: true,
+            dataType: 'xml',
+            type: 'POST',
+            xhrFields: {
+                withCredentials: false
+            }
         });
 
         $element.on('fileuploadsubmit', (e, data) => {
             var sign = generateSignature({
-                "bucketName": "woww",
+                "bucketName": "tron",
                 "acl": this.get('storageACL'),
                 "name": data.files[0].name,
                 "contentType": data.files[0].type,
                 "access_key": "",
                 "secret_access_key": "",
             });
-            data.formData = {
-                key: data.files[0].name,
-                acl: this.get('storageACL'),
-                AWSAccessKeyId: "",
-                "content-type": data.files[0].type,
-                policy: sign.policy,
-                signature: sign.signature
-            };
+
+            this.set('filekey', data.files[0].name);
+            this.set('fileaccesskey', "");
+            this.set('filecontenttype', data.files[0].type);
+            this.set('filepolicy', sign.policy);
+            this.set('filesignature', sign.signature);
             return true;
         });
 
-        $element.on("fileuploadprogressall", (e, data) => {
+        $element.on("fileuploadprogress", (e, data) => {
             self.set("uploadPercentage", parseInt(data.loaded / data.total * 100, 10));
         });
 
@@ -145,5 +120,64 @@ export default Ember.Component.extend({
         });
 
     },
+
+    /*_bindUploadTarget() {
+        //this._unbindUploadTarget(); // in case it's still bound, let's clean it up first
+        const self = this;
+        const $element = this.$();
+        $element.fileupload({
+            url: "",
+            pasteZone: $element,
+            //forceIframeTransport: true,
+            //autoUpload: true,
+            dataType: 'xml',
+            type: 'POST',
+        });
+
+        $element.on('fileuploadsubmit', (e, data) => {
+            var sign = generateSignature({
+                "bucketName": "tron",
+                "acl": this.get('storageACL'),
+                "name": data.files[0].name,
+                "contentType": data.files[0].type,
+                "access_key": "0RE8HB1CTEW0C13QIEEO",
+                "secret_access_key": "nS05jbwXswx5x6st1uTy2alIZbwcfvFMQF5CYF0a",
+            });
+            data.formData = {
+                key: data.files[0].name,
+                acl: this.get('storageACL'),
+                AWSAccessKeyId: "0RE8HB1CTEW0C13QIEEO",
+                "content-type": data.files[0].type,
+                policy: sign.policy,
+                signature: sign.signature
+            };
+            return true;
+        });
+
+        $element.on("fileuploadprogress", (e, data) => {
+            self.set("uploadPercentage", parseInt(data.loaded / data.total * 100, 10));
+        });
+
+        $element.on("fileuploadsend", (e, data) => {
+            if (data.xhr && data.originalFiles.length === 1) {
+                self.set("isCancellable", true);
+                self._xhr = data.xhr();
+            }
+            return true;
+        });
+
+        $element.on("fileuploadfail", (e, data) => {
+            //this._resetUpload(true);
+
+            //const userCancelled = this._xhr && this._xhr._userCancelled;
+            //this._xhr = null;
+
+            //if (!userCancelled) {
+            //    Discourse.Utilities.displayErrorForUpload(data);
+            //}
+
+        });
+
+    },*/
 
 });

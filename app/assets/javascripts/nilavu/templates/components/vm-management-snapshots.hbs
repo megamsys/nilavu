@@ -3,6 +3,12 @@
         <div class="col-md-12">
             <h1>{{snapshot_title}}</h1>
             <p>{{snapshot_description}}</p>
+            <button class="btn btn-success" {{action "takeSnapshot"}}>
+                {{i18n 'vm_management.snapshots.take_snapshot'}}
+                <span class="pull-right">
+                    {{conditional-loading-spinner condition=showTakeSnapshotSpinner size="large"}}
+                </span>
+            </button>
         </div>
     </div>
 </div>
