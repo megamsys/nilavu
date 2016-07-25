@@ -1,11 +1,11 @@
 class MobileAvatar
 
     class Identity
-        attr_accessor :number, :pin, :otp
+        attr_accessor :phone, :pin, :otp
 
         def self.from_number(params)
             identity = new
-            [:number, :pin, :otp].each do |setting|
+            [:phone, :pin, :otp].each do |setting|
                 identity.send("#{setting}=", params[setting])
             end
 
@@ -17,11 +17,11 @@ class MobileAvatar
     class << self
 
         def bipping_number(identity)
-            Infobip.send_pin_to(identity.number)
+            Infobip.send_pin_to(identity.phone)
         end
 
         def bipped_number(identity)
-            Infobip.verify_pin(identity.otp, identity.pin, identity.number)
+            Infobip.verify_pin(identity.otp, identity.pin, identity.phone)
         end
 
         def generate(opts = nil)
@@ -29,9 +29,6 @@ class MobileAvatar
 
             bipping = bipping_number(identity)
 
-            #if result.succeeded? ||  result.error
-
-            #end
             bipping
         end
 
@@ -41,7 +38,6 @@ class MobileAvatar
 
             bipped = bipped_number(identity)
 
-            #return if result.correct_pin?
             bipped
         end
     end

@@ -185,7 +185,7 @@ users:
     client: true
     default: false
   invite_expiry_days: 30
-  allow_default_billings:
+  allow_billings:
     client: true
     default: false
   whmcs_clientarea_endpoint:
@@ -201,15 +201,6 @@ security:
   cors_origins:
     default: ''
     type: list
-
-
-marketplaces:
-  enable_gitlab_source:
-    client: true
-    default: false
-  gitlab_host:
-    client: true
-    default: 'localhost'
 
 legal:
   tos_url:

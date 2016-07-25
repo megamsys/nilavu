@@ -42,7 +42,7 @@ class ApiDispatcher
   MARKETPLACES         = 'MarketPlace'.freeze
   REQUESTS             = 'Request'.freeze
   SSHKEYS              = 'SshKey'.freeze
-  SENSORS              = 'Sensors'.freeze
+  SUBSCRIPTIONS        = 'Subscriptions'.freeze
 
   ENDPOINTS_AS_JSON = [JLAZ_PREFIX + ASSEMBLIES,
                        JLAZ_PREFIX + ASSEMBLY,

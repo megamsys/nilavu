@@ -1,8 +1,8 @@
-FROM gliderlabs/alpine:3.2
+FROM gliderlabs/alpine:latest
 MAINTAINER info@megam.io
 
-RUN apk update && apk --update add ruby ruby-tzinfo ruby-bigdecimal \
-    ruby-io-console ruby-json ruby-rake ca-certificates libssl1.0 openssl libstdc++ \
+RUN apk update && apk --update add ruby \
+    ruby-io-console ca-certificates libssl1.0 openssl libstdc++ \
     libxml2-dev libffi-dev
 
 ADD Gemfile /app/

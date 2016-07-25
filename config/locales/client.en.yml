@@ -125,8 +125,8 @@ en:
         help: "service (db/spark/hadoop)s you've launched"
       microservice:
         title:
-          one: Container
-          other: Containers
+          one: Microservice
+          other: Microservices
         help: "docker/hyper containers you've launched"
       analytics:
         title:
@@ -232,6 +232,30 @@ en:
         same_as_email: "Your password is the same as your email."
         ok: "Your password looks good."
         instructions: "At least %{count} characters."
+
+      activation:
+        title: "Welcome to our cloud platform."
+        subtitle: "Before you get started, we need some additional information to setup your account"
+        otp_title: "Enter OTP Pin:"
+        otp_pin: "eg: awesome"
+        otp_verify: "verify"
+        otp_verify_title: "We just sent a verification text to"
+        otp_resend: "Resend?"
+        address: "Address:"
+        addressex: "2 Macquarie Street"
+        address2: "Address 2:"
+        address2ex: ""
+        city: "City:"
+        cityex: "Sydney"
+        state: "State:"
+        stateex: "NSW"
+        zipcode: "Zip code:"
+        zipcodeex: "2001"
+        company: "Company (optional):"
+        companyex: "DET.io"
+        select_country: "Select Country:"
+        accounttitle: "Select your account model:"
+
 
     errors:
       prev_page: "while trying to load"
@@ -395,8 +419,8 @@ en:
       microservice:
         create: "Create Microservice"
         category: "microservice"
-        title: "Your Containers"
-        subtitle: "containers running"
+        title: "Your Microservices"
+        subtitle: "microservices running"
 
     marketplaces:
       title: "Marketplaces"
