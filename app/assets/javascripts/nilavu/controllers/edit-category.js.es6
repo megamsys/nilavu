@@ -14,6 +14,9 @@ export default Ember.Controller.extend(ModalFunctionality, {
         this.set('panels', []);
     }.on('init'),
 
+    marketplaceItemSelected: function() {
+        return Em.isEmpty(this.get("selectedItem"));
+    }.property('selectedItem'),
 
     generalSelected: function() {
         return this.selectedTab == 'general';
@@ -28,11 +31,20 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.property('selectedTab'),
 
     category: Ember.computed.alias('model.metaData'),
+    selectedItem: Ember.computed.alias('marketplaceItem'),
 
     onShow() {
         this.changeSize();
         this.titleChanged();
     },
+
+    hidemeClass: function() {
+      if (Em.isEmpty(this.get("selectedItem"))) {
+        return "hideme steps";
+      } else {
+        return "steps";
+      }
+    }.property(),
 
     changeSize: function() {
         if (this.get('selectionSelected') && (!this.get('isVirtualMachine'))) {
@@ -74,18 +86,20 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
     launchableChanged: function() {
         this.set('category.launchoption', this.get('launchOption'));
-
         if (this.get('launchOption').trim().length > 0) {
             const isVM = Ember.isEqual(this.get('launchOption').trim(), I18n.t('launcher.virtualmachines'));
             this.set('isVirtualMachine', isVM);
         }
-
         this.set('selectedTab', 'general');
         if (!this.editLaunching) {
             $(".hideme").slideToggle(250);
             this.toggleProperty('editLaunching');
         }
     }.observes('launchOption'),
+
+    setLaunchable: function() {
+      this.set('launchOption', this.get('selectedItemOption'));
+    }.observes('selectedItemOption'),
 
     cookingChanged: function() {
         const launchable = this.get('launchOption') || "";

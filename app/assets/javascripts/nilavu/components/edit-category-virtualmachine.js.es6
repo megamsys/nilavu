@@ -1,4 +1,7 @@
-import { on, observes } from 'ember-addons/ember-computed-decorators';
+import {
+    on,
+    observes
+} from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Component.extend({
     selectedTab: "centos",
@@ -10,9 +13,27 @@ export default Ember.Component.extend({
     _initPanels: function() {
         this.set('imagepanels', []);
         this.editLaunching = false;
+        if (!Em.isEmpty(this.get("selectedItem"))) {
+            this.set('selectedTab', this.get('selectedItem').flavor.toLowerCase());
+        }
     }.on('init'),
 
-   launchOption: function() {
+    tabHeaderVisible: function() {
+        if (!Em.isEmpty(this.get("selectedItem"))) {
+            return false;
+        }
+        return true;
+    }.property(),
+
+    selectedItemFlavor: function() {
+        if (!Em.isEmpty(this.get("selectedItem"))) {
+            return this.get('selectedItem').flavor.toLowerCase();
+        } else {
+            return "";
+        }
+    }.property('selectedItem'),
+
+    launchOption: function() {
         const option = this.get('model.launchoption') || "";
         return option.trim().length > 0 ? option : I18n.t("launchoption.default");
     }.property('model.launchoption'),
