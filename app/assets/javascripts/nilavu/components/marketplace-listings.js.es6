@@ -1,4 +1,7 @@
 import { on, observes } from 'ember-addons/ember-computed-decorators';
+import showModal from 'nilavu/lib/show-modal';
+
+import OpenComposer from "nilavu/mixins/open-composer";
 
 export default Ember.Component.extend({
 
@@ -13,7 +16,14 @@ export default Ember.Component.extend({
             }
         }
         return otmap;
-    }.property('member', 'results')
+    }.property('member', 'results'),
 
+    actions: {
+
+      createTopic(item) {
+        this.sendAction('action', item);
+      },
+
+    }
 
 });
