@@ -1,8 +1,8 @@
 GIT
   remote: https://github.com/megamsys/whmcs-ruby.git
-  revision: 3fdd0a4b1f0138171d54a20e37efb2d4dabbfee2
+  revision: a69ab139fa5a88ecbf6a312d45ee3f84fe153c01
   specs:
-    whmcs-ruby (0.5)
+    whmcs-ruby (0.6)
       crack (= 0.4.3)
       htmlentities (= 4.3.4)
 

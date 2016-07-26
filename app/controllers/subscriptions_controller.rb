@@ -7,29 +7,14 @@ class SubscriptionsController < ApplicationController
 
         activating_mobavatar
 
-        render json: {subs: savedsubs} 
+        render json: {subscriber_details: subscriber_details}
     end
 
-    def show
-        render json: {subs: savedsubs}
-    end
-
-
+    # subcriber to update the billing address
     def create
-        Api::Subscriptions.new.create(params)
     end
 
     private
-
-    def savedsubs
-        Api::Subscriptions.new.show(params)
-    end
-
-    def activating_mobavatar
-        return Nilavu::NotFound unless current_user.phone
-
-        MobileAvatarActivator.new({phone: current_user.phone}).start
-    end
 
     def activation_completed?
         return true unless SiteSetting.allow_default_billings
@@ -43,4 +28,14 @@ class SubscriptionsController < ApplicationController
         current_user.approved || current_user.active
     end
 
+
+    def activating_mobavatar
+        return Nilavu::NotFound unless current_user.phone
+
+        MobileAvatarActivator.new({phone: current_user.phone}).start
+    end
+
+    def subscriber_details
+      return {}
+    end
 end
