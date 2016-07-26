@@ -185,10 +185,15 @@ users:
     client: true
     default: false
   invite_expiry_days: 30
-  allow_billings:
+  allow_billys:
     client: true
     default: false
-  whmcs_clientarea_endpoint:
+  whmcs_api_url: 'http://www.yourdomain.com/whmcs/includes/api.php'
+  whmcs_username: 'admin'
+  whmcs_password: 'admin'
+  whmcs_autoauth_url: 'http://demo.whmcs.com/dologin.php'
+  whmcs_autoauth_key:  'detAWE123'
+  whmcs_clientarea_url:
     client: true
     default: "http://megamafrica.com/whmcs/clientarea.php"
   reserved_emails:

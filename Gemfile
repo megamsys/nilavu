@@ -57,7 +57,8 @@ gem 'docker_registry'
 gem 'radosgw-s3'
 gem 'haikunator' #random name.
 gem 'sshkey' # ssh key-gen
-gem 'whmcs-ruby'
+gem 'whmcs-ruby', :git => 'https://github.com/megamsys/whmcs-ruby.git'
+
 
 gem 'oj'
 gem 'r2', '~> 0.2.5', require: false

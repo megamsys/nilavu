@@ -1,29 +1,24 @@
 require 'whmcs'
 require 'digest/md5'
 
-class Billy::WHMCSOrderPlacer < Billy::OrderPlacer
-
+class Billy::WHMCSOnboarder < Billy::Onboarder
+    
     def name
         "whmcs"
     end
 
     #:clientid
-    def order(order_options)
-      WHMCS::Client.add_order(order_options)
+    def onboard(onboard_options)
+      WHMCS::Client.update_client(onboard_options)
     end
 
-    def after_order(user, order)
+    def after_onboard(user, onboard)
         result = Billy::Result.new
         puts "----------- order "
-        puts order.inspect
-        result.id = order[:id]
-        fraud_check = WHMCS::Client.add_order(order_options)
-        return result unless fraud_check
-        puts "----------- fraud check "
-        puts fraud_check.inspect
-        result.fraud_check = fraud_check
-        result.redirect = WHMCSAutoAuth.redirect_url(user.email)
+        puts onboard.inspect
+        result.id = onboard[:id]
     end
+
 
     def register
         configuration_valid?

@@ -1,15 +1,15 @@
 # this class is used by the billable controllers, it controls how
-#  an order placement interacts with the biller
+# an user onboards with the biller
 
-class Billy::OrderPlacer
+class Billy::Orderer
 
-  def order(order_options)
+  def onboard(onboard_options)
     raise NotImplementedError
   end
 
-  #  can be used to hook in after the order process
+  #  can be used to hook in after the onboard process
   #  is complete
-  def after_order(user, order)
+  def after_onboard(user, onboard)
     # not required
   end
 
