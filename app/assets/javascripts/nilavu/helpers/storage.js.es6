@@ -2,7 +2,7 @@ import {encode} from 'nilavu/helpers/webtoolkit-base64';
 import {b64_hmac_sha1} from 'nilavu/helpers/sha1';
 export function generateSignature(obj) {
     const policy_sign = {
-        "expiration": "2016-07-23T12:00:00.000Z",
+        "expiration": "2016-07-28T12:00:00.000Z",
         "conditions": [{
                 "bucket": obj.bucketName
             }, {

@@ -38,6 +38,10 @@ class BucketfilesController < ApplicationController
           render json: {
               success: true,
               message: @listed_buckets,
+              auth_keys: {
+                access_key: params["access_key_id"],
+                secret_key: params["secret_access_key"]
+              }
             }
         else
            render json: {

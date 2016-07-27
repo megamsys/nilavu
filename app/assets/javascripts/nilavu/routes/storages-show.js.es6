@@ -14,9 +14,8 @@ export default Nilavu.Route.extend({
     model(params) {
         const self = this;
         var bucketfiles = this.store.createRecord('bucketfiles');
-
         return bucketfiles.reload(params.id).then(function(result) {
-            self.set('loading', false);            
+            self.set('loading', false);
             return self.setupParams(bucketfiles, params);
         }).catch(function(e) {
             self.set('loading', false);
