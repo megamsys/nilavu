@@ -1,5 +1,5 @@
-class MobileAvatarActivator
-    attr_reader :user, :message
+class BillyActivator
+    attr_reader :billy, :message
 
     def initialize(user)
         @user = user
@@ -7,29 +7,29 @@ class MobileAvatarActivator
     end
 
     def start
-      @message = activator.activating
+      @message = activators.map{|activator| activator.activating}
     end
 
     def finish
-      @message = activator.activate
+      @message = activators.map{|activator|  activator.activate}
     end
 
     private
 
-    def activator
-        factory.new(user)
+    def activators
+        factorys.map{|factory| factory.new(user)}
     end
 
-    def factory
+    def factorys
         if !user.active?
-            OTPActivator
+            [OTPActivator, BillysActivator]
         end
     end
 
 end
 
 
-class OTPActivator < MobileAvatarActivator
+class OTPActivator < BillyActivator
 
     def activating
         identity = MobileAvatar::Identity.new.from_number(params)
@@ -42,5 +42,15 @@ class OTPActivator < MobileAvatarActivator
         identity.verify
         #return if result.correct_pin?
     end
+end
 
+class LogonBillysActivator < BillyActivator
+    include CurrentBilly
+
+    def activating
+      log_on_billy(billy)
+    end
+
+    def activate
+    end
 end
