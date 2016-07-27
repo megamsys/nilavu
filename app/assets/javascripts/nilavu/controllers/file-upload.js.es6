@@ -10,25 +10,12 @@ export default Ember.Controller.extend(ModalFunctionality, {
         this.set('controllers.modal.modalClass', 'full');
     },
 
-
     actions: {
-        uploadSelectorAction() {
-            showModal('uploadSelector').setProperties({
-                toolbarEvent,
-                imageUrl: null,
-                imageLink: null
-            });
-        },
-
-        upload(object) {
-            this.get('fileuploaders').pushObject(Ember.Object.create({
-                object: this.get('object'),
-            }));
-        },
-
         startUpload() {
           this.get('fileuploaders').pushObject(Ember.Object.create({
-              object: this.get('object'),
+              bucket_name: this.get('bucketName'),
+              access_key: this.get('access_key'),
+              secret_key: this.get('secret_key'),
           }));
         },
 
