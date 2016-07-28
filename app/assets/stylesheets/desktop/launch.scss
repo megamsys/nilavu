@@ -14,6 +14,9 @@ $hiddenContent: "input#vm, input#app, .hideme, .hideme2, .hideme3, .hideme-custo
     margin: 30px 0 0;
     padding: 0;
 }
+.step1 {
+    text-align: center;
+}
 .steps {
     padding-top: 30px;
     padding-bottom: 30px;
@@ -60,13 +63,17 @@ $hiddenContent: "input#vm, input#app, .hideme, .hideme2, .hideme3, .hideme-custo
 #component-create .right {
     float: right;
 }
+ul.nav.nav-tabs.nav-justified.stepTabs {
+    margin: auto;
+    width: 45%;
+}
 .selectBg {
     /* Blue background behind 'VM'/'Application' */
     background-color: $blue-color;
     min-height: 208px;
 }
 img.inSelect {
-    width: 60%;
+    width: 90%;
 }
 .head {
     /*White area behind 'Let's Get Started' */
@@ -122,8 +129,7 @@ img.inSelect {
 .rInner {
     text-align: -webkit-center;
     color: #c4c6d9;
-    width: 190px;
-    margin-right: 5px;
+    width: 210px;
     &.middle {
         margin: auto;
     }
@@ -131,7 +137,7 @@ img.inSelect {
 .lBox,
 .rBox {
     height: 190px;
-    width: 190px;
+    width: 210px;
     &.shorter {
         height: 160px;
     }

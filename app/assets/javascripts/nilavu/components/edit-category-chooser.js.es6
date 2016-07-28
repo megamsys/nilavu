@@ -14,6 +14,7 @@ export default Ember.Component.extend({
     }.property('position'),
 
     launchableName: Ember.computed.alias('name'),
+    showLaunchableImage: Ember.computed.alias('image'),
 
     isActive: function() {
         const launchable = this.get('launchable') || "";
@@ -23,9 +24,5 @@ export default Ember.Component.extend({
 
     myStyle: Ember.computed('display', function() {
         return Ember.String.htmlSafe("display:none");
-    }),
-
-    showLaunchableImage: function() {
-        return this.get('launchableName') + '.png';
-    }.property('launchableName')
+    })
 });
