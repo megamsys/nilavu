@@ -26,6 +26,9 @@ export default Ember.Component.extend({
     uploadPercentage: 0,
     progressPosition: 0,
     maxProgressPosition: 100,
+    bucket_name: Em.computed.alias('model.bucket_name'),
+    access_key: Em.computed.alias('model.access_key'),
+    secret_key: Em.computed.alias('model.secret_key'),
 
     @on('didInsertElement')
     _initialize() {
@@ -35,7 +38,7 @@ export default Ember.Component.extend({
     },
 
     bucketName: function() {
-        return "woww";
+        return this.get('bucket_name');
     }.property(),
 
     fileName: function() {
@@ -66,29 +69,26 @@ export default Ember.Component.extend({
         const self = this;
         const $element = this.$("#fileformupload");
         $element.fileupload({
-            url: "",
+            url: "https://madai.megam.io",
             pasteZone: $element,
             //forceIframeTransport: true,
             autoUpload: true,
             dataType: 'xml',
             type: 'POST',
-            xhrFields: {
-                withCredentials: false
-            }
         });
 
         $element.on('fileuploadsubmit', (e, data) => {
             var sign = generateSignature({
-                "bucketName": "tron",
+                "bucketName": this.get('bucket_name'),
                 "acl": this.get('storageACL'),
                 "name": data.files[0].name,
                 "contentType": data.files[0].type,
-                "access_key": "",
-                "secret_access_key": "",
+                "access_key": this.get('access_key'),
+                "secret_access_key": this.get('secret_key'),
             });
 
             this.set('filekey', data.files[0].name);
-            this.set('fileaccesskey', "");
+            this.set('fileaccesskey', this.get('access_key'));
             this.set('filecontenttype', data.files[0].type);
             this.set('filepolicy', sign.policy);
             this.set('filesignature', sign.signature);
@@ -96,6 +96,8 @@ export default Ember.Component.extend({
         });
 
         $element.on("fileuploadprogress", (e, data) => {
+            console.log("-----------------------------------");
+            console.log(parseInt(data.loaded / data.total * 100, 10));
             self.set("uploadPercentage", parseInt(data.loaded / data.total * 100, 10));
         });
 

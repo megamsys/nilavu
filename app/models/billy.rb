@@ -12,16 +12,21 @@ class Billy
         user
     end
 
-    def find_by_email
-        addon = Api::Addons.new.where(parms_using_provider)
+    def find_by_email(params)
+        addon = Api::Addons.new.where(params.merge!(parms_using_provider))
         if addon
             return Billy.new_from_params(addon.to_hash)
         end
     end
 
+    def has_credentials?
+        return false unless @client_id
+        return true
+    end
+
 
     def to_hash
-        {:email => @email,
+        {   :email => @email,
             :client_id => @client_id,
             :provider => @provider,
             :createdAt =>@created_at
@@ -32,6 +37,6 @@ class Billy
     private
 
     def parms_using_provider
-        {:email =>@email, :provider => @provider }
+        {:provider => @provider }
     end
 end

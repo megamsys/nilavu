@@ -185,17 +185,20 @@ users:
     client: true
     default: false
   invite_expiry_days: 30
-  allow_billys:
+  allow_billings:
     client: true
     default: false
-  whmcs_api_url: 'http://www.yourdomain.com/whmcs/includes/api.php'
-  whmcs_username: 'admin'
-  whmcs_password: 'admin'
-  whmcs_autoauth_url: 'http://demo.whmcs.com/dologin.php'
+  enabled_biller:
+    client: true
+    default: "WHMCS"
+  whmcs_api_url: 'http://192.168.0.120/whmcs/includes/api.php'
+  whmcs_username: 'Megam'
+  whmcs_password: 'team4megam'
+  whmcs_autoauth_url: 'http://192.168.0.120/whmcs/dologin.php'
   whmcs_autoauth_key:  'detAWE123'
   whmcs_clientarea_url:
     client: true
-    default: "http://megamafrica.com/whmcs/clientarea.php"
+    default: "http://192.168.0.120/whmcs/clientarea.php"
   reserved_emails:
     type: list
     default: "tour@megam.io|test@megam.io|support@megam.io|admin@megam.io"
