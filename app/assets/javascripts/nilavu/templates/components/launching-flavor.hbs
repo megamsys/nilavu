@@ -1,22 +1,24 @@
-<div class="rInner col-sm-4 pad_0">
-    <div class="rBox shorter">
-        <div class="rHead">
-            <div class="rTitle">
-                <span><b>{{flavorName}}</b></span>
+<div class="col-sm-4 pad_0">
+    <div class="rInner middle">
+        <div class="rBox shorter">
+            <div class="rHead">
+                <div class="rTitle">
+                    <span><b>{{flavorName}}</b></span>
+                </div>
+                <div class="rContent">
+                    <p>
+                        <span><b>{{fcpu}}</b></span> CPU
+                        <br>
+                        <span><b>{{fmemory}}</b></span> Memory
+                        <br>
+                        <span><b>{{fstorage}}</b></span> Storage
+                        <br>
+                    </p>
+                </div>
             </div>
-            <div class="rContent">
-                <p>
-                    <span><b>{{fcpu}}</b></span> CPU
-                    <br>
-                    <span><b>{{fmemory}}</b></span> Memory
-                    <br>
-                    <span><b>{{fstorage}}</b></span> Storage
-                    <br>
-                </p>
+            <div class="rFooter">
+              {{launching-flavor-chooser name=flavorName flavourable=flavourable}}
             </div>
-        </div>
-        <div class="rFooter">
-          {{launching-flavor-chooser name=flavorName flavourable=flavourable}}
         </div>
     </div>
 </div>
