@@ -15,6 +15,7 @@ export default Ember.Component.extend({
 
     launchableName: Ember.computed.alias('name'),
     showLaunchableImage: Ember.computed.alias('image'),
+    titleName: Ember.computed.alias('title'),
 
     isActive: function() {
         const launchable = this.get('launchable') || "";
