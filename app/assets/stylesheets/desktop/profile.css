@@ -22,6 +22,9 @@
 .profile_right_pad_15 {
     padding-right: 30px;
 }
+.profile_bottom_pad_15 {
+    padding-bottom: 10px;
+}
 .profile_align {
     vertical-align: middle;
 }

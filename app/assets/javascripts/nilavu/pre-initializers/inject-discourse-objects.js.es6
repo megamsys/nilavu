@@ -9,6 +9,7 @@ import NotificationMessagesService from 'nilavu/services/notification-messages';
 import SocketIOService from 'nilavu/services/socket-io';
 import WebsocketsService from 'nilavu/services/websockets';
 import PanelActionsService from 'nilavu/services/panel-actions';
+import ConstantsService from 'nilavu/services/constants';
 import { startTracking, default as TopicTrackingState } from 'nilavu/models/topic-tracking-state';
 import ScreenTrack from 'nilavu/lib/screen-track';
 
@@ -67,6 +68,9 @@ export default {
 
     app.register('panel-actions:main', PanelActionsService);
     injectAll(app, 'panelActions');
+
+    app.register('constants:main', ConstantsService);
+    injectAll(app, 'constants');
 
     const session = Session.current();
     app.register('session:main', session, { instantiate: false });
