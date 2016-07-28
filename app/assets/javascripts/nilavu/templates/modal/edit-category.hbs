@@ -1,15 +1,9 @@
 <div id="component-create">
-<<<<<<< HEAD
-    {{edit-category-title launchable=launchOption}}
-    <div class="hideme steps">
-        <section class="launcher-section">
-=======
     {{#if marketplaceItemSelected}}
         {{edit-category-title launchable=launchOption}}
     {{/if}}
     <div {{bind-attr class=hidemeClass}}>
-        <section>
->>>>>>> origin/1.5
+        <section class="launcher-section">
             <div class="tabbable-custom nav-justified">
                 <ul class="nav nav-tabs nav-justified stepTabs">
                     {{edit-category-tab panels=panels selectedTab=selectedTab tab="general"}}
@@ -26,7 +20,7 @@
         <div class="footer hideme3 no-padding">
             {{launching-cost saveLabel=saveLabel category=model.metaData}}
             <div class="col-sm-3 no-padding">
-                <!-- UGLY, all we need it 3 action (hack a funciton for it), and 1 button -->
+                <!-- UGLY, all we need is 3 actions (why not hack a funciton for it), with 1 button -->
                 {{#if generalSelected}}
                     <div class="col-md-12 col-sm-12 no-padding">
                         <button class="btn-block btnFooter" {{bind-attr disabled="disabled"}} {{action "nextCategory"}}>
@@ -36,7 +30,7 @@
                             </span>
                         </button>
                     </div>
-                    {{else if selectionSelected}}
+                {{else if selectionSelected}}
                     <div class="col-md-12 col-sm-12 no-padding">
                         <button class="btn-block btnFooter" {{bind-attr disabled="disabled"}} {{action "nextSummarize"}}>
                             {{saveLabel}}
@@ -45,7 +39,7 @@
                             </span>
                         </button>
                     </div>
-                    {{else if summarySelected}}
+                {{else if summarySelected}}
                     <div class="col-md-12 col-sm-12 no-padding">
                         <button class="btn-block btnFooter" {{bind-attr disabled="disabled"}} {{action "saveCategory"}}>
                             {{saveLabel}}
