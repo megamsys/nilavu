@@ -22,7 +22,6 @@ log/
 *~
 *.save
 *.deb
-*.lock
 *.pid
 
 #ignore all ssh_keys
@@ -31,8 +30,7 @@ log/
 
 # Ignore all files under metadata
 .metadata
-Gemfile.lock
-
+passenger.3000.pid.lock 
 
 # Ignore Eclipse .project file
 /.project
@@ -48,4 +46,3 @@ Gemfile.lock
 /public/tombstone/*
 /bundle/*
 .sass-cache/*
-/public/html/component-create/.sass-cache/*

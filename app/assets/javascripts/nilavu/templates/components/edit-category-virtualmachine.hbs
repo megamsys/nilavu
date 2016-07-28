@@ -1,14 +1,18 @@
 <section class="" id="section-topline-2">
     <div class="vm-step2">
         <div class="row" style="width: 99%; float: left; min-height: 450px;overflow-x: hidden;margin-top:15px;">
-            <ul class="tabsos">
-                {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab tab="centos"}}
-                {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab tab="coreos"}}
-                {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab tab="debian"}}
-                {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab tab="ubuntu"}}
-                {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab tab="fedora"}}
-                {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab tab="snapshots"}}
-            </ul>
+            {{#if tabHeaderVisible}}
+                <ul class="tabsos">
+                    {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab selectedItem=selectedItemFlavor tab="centos"}}
+                    {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab selectedItem=selectedItemFlavor tab="coreos"}}
+                    {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab selectedItem=selectedItemFlavor tab="debian"}}
+                    {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab selectedItem=selectedItemFlavor tab="ubuntu"}}
+                    {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab selectedItem=selectedItemFlavor tab="fedora"}} 
+                    {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab selectedItem=selectedItemFlavor tab="snapshots"}}
+                </ul>
+            {{else}}
+                {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab tab=selectedItemFlavor}}
+            {{/if}}
             <div class="oscontainer">
                 <div class="tab-content">
                     {{#each imagepanels as |tab|}}

@@ -1,6 +1,8 @@
 <div id="component-create">
-    {{edit-category-title launchable=launchOption}}
-    <div class="hideme steps">
+    {{#if marketplaceItemSelected}}
+        {{edit-category-title launchable=launchOption}}
+    {{/if}}
+    <div {{bind-attr class=hidemeClass}}>
         <section>
             <div class="tabbable-custom nav-justified">
                 <ul class="nav nav-tabs nav-justified">
@@ -8,10 +10,9 @@
                     {{edit-category-tab panels=panels selectedTab=selectedTab tab="selection"}}
                     {{edit-category-tab panels=panels selectedTab=selectedTab tab="summary"}}
                 </ul>
-
                 <div class="modal-body">
                     {{#each panels as |tab|}}
-                        {{component tab selectedTab=selectedTab category=model.metaData}}
+                        {{component tab selectedTab=selectedTab category=model.metaData selectedItem=selectedItem selectedItemOption=selectedItemOption}}
                     {{/each}}
                 </div>
             </div>
@@ -29,7 +30,7 @@
                             </span>
                         </button>
                     </div>
-                {{else if selectionSelected}}
+                    {{else if selectionSelected}}
                     <div class="col-md-12 col-sm-12 no-padding">
                         <button class="btn-block btnFooter" {{bind-attr disabled="disabled"}} {{action "nextSummarize"}}>
                             {{saveLabel}}
@@ -38,7 +39,7 @@
                             </span>
                         </button>
                     </div>
-                {{else if summarySelected}}
+                    {{else if summarySelected}}
                     <div class="col-md-12 col-sm-12 no-padding">
                         <button class="btn-block btnFooter" {{bind-attr disabled="disabled"}} {{action "saveCategory"}}>
                             {{saveLabel}}

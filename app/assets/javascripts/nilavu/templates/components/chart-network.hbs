@@ -1,1 +1,7 @@
-<div id="chart-network"></div>
+{{#conditional-loading-spinner condition=showSpinner size="large" }}
+    <div id="chart-network">
+    </div>
+    <div {{bind-attr class="showAlert"}}>
+        <strong>{{i18n "vm_management.network.oops"}}</strong> {{i18n "vm_management.network.error"}}
+    </div>
+{{/conditional-loading-spinner}}

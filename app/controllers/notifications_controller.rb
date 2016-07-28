@@ -15,8 +15,14 @@ class NotificationsController < ApplicationController
         else
             offset = params[:offset].to_i
 
-            notifications = Notification.recent_report(current_user)
-            render json: {notifications: notifications}
+            offset = 50 unless offset
+
+            notifications = Notification.recent_report(params, offset)
+
+            render json: {
+                notifications: notifications,
+                load_more_notifications: notifications_path(email: current_user.email, offset: offset + 60)
+            }
         end
 
     end

@@ -135,19 +135,19 @@ export default buildCategoryPanel('info', {
     }.property('model.outputs'),
 
     ipv4_private: function() {
-        return this._checked(this._filterInputs("privnetwork"));
+        return this._checked(this._filterInputs("ipv4private"));
     }.property('model.inputs'),
 
     ipv4_public: function() {
-        return this._checked(this._filterInputs("publicnetwork"));
+        return this._checked(this._filterInputs("ipv4public"));
     }.property('model.inputs'),
 
     ipv6_private: function() {
-        return this._checked(this._filterInputs("ipv6"));
+        return this._checked(this._filterInputs("ipv6private"));
     }.property('model.inputs'),
 
     ipv6_public: function() {
-        return this._checked(this._filterInputs("ipv6"));
+        return this._checked(this._filterInputs("ipv6public"));
     }.property('model.inputs'),
 
     hasOutputs: Em.computed.notEmpty('model.outputs'),
@@ -179,7 +179,7 @@ export default buildCategoryPanel('info', {
     }.property('model.created_at'),
 
     status: function() {
-        return this.get('model.status');
+        return this.get('model.status.message');
     }.property('model.status'),
 
 });

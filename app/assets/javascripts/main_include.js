@@ -38,7 +38,6 @@
 //= require_tree ./nilavu/adapters
 //= require ./nilavu/models/result-set
 //= require ./nilavu/models/store
-//= require ./nilavu/models/post
 //= require ./nilavu/lib/posts-with-placeholders
 //= require ./nilavu/models/topic-details
 //= require ./nilavu/models/topic

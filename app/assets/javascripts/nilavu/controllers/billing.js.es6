@@ -51,10 +51,9 @@ export default Ember.Controller.extend({
 
     whmcsClientAreaRedirect: function() {
         return Nilavu.SiteSettings.whmcs_clientarea_endpoint;
-      }.property(),
+    }.property(),
 
     actions: {
-
         addFunds: function() {
             this.set('formSubmitted', true);
             NilavuURL.redirectTo(this.get('whmcsClientAreaRedirect'));

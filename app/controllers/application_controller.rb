@@ -286,6 +286,8 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_cephlogin_if_required
     return if current_cephuser
+    puts "-------------destination_url---------"
+    puts destination_url
     session[:destination_url] = destination_url
     redirect_to path('/cephsignin')
   end

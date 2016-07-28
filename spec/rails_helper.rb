@@ -45,7 +45,7 @@ Spork.prefork do
     # If you're not using ActiveRecord, or you'd prefer not to run each of your
     # examples within a transaction, remove the following line or assign false
     # instead of true.
-    config.use_transactional_fixtures = true
+    config.use_transactional_fixtures = false
 
     # If true, the base class of anonymous controllers will be inferred
     # automatically. This will be the default behavior in future versions of
@@ -60,7 +60,7 @@ Spork.prefork do
       #NilavuPluginRegistry.clear if ENV['LOAD_PLUGINS'] != "1"
       Nilavu.current_user_provider = TestCurrentUserProvider
 
-      #SiteSetting.refresh!
+      SiteSetting.refresh!
 
       # Rebase defaults
       #
@@ -86,7 +86,7 @@ Spork.prefork do
       #
       #
       # very expensive IO operations
-      
+
       I18n.locale = :en
     end
 

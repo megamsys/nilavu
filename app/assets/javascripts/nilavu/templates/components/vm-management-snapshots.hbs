@@ -1,5 +1,63 @@
-<section class="storage">
+<div class="ssh-well">
     <div class="row">
-<h1>storage</h1>
+        <div class="col-md-12">
+            <h1>{{snapshot_title}}</h1>
+            <p>{{snapshot_description}}</p>
+            <button class="btn btn-success" {{action "takeSnapshot"}}>
+                {{i18n 'vm_management.snapshots.take_snapshot'}}
+                <span class="pull-right">
+                    {{conditional-loading-spinner condition=showTakeSnapshotSpinner size="large"}}
+                </span>
+            </button>
+        </div>
+    </div>
 </div>
-</section>
+<div class="ssh-well-without-background">
+    <h1>{{snapshot_list_title}}</h1>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            {{#conditional-loading-spinner condition=showSpinner size="large" }}
+                <table class="table tb_list">
+                    <thead>
+                        <tr>
+                            <th class="col-xs-5 col-sm-5 col-md-5 col-lg-5 col-xl-5">{{content_id}}</th>
+                            <th class="set_title col-xs-3 col-sm-3 col-md-3 col-lg-3 col-xl-3">{{content_name}}</th>
+                            <th class="col-xs-4 col-sm-4 col-md-4 col-lg-4 col-xl-4">{{content_created_at}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#if snapshotListEmpty}}
+                            <tr>
+                                <td>
+                                    <h5>{{emptySnapshots}}</h5>
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        {{else}}
+                            {{#each sortedSnapshots as |h|}}
+                                <tr>
+                                    <td>
+                                        <div class="row top-pad left-pad">
+                                            {{h.snap_id}}
+                                        </div>
+                                    </td>
+                                    <td class="set_title">
+                                        <div class="row top-pad left-pad">
+                                            {{h.name}}
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="row top-pad left-pad">
+                                            <i class="c_icon-calendar"></i> {{h.created_at}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            {{/each}}
+                        {{/if}}
+                    </tbody>
+                </table>
+            {{/conditional-loading-spinner}}
+        </div>
+    </div>
+</div>

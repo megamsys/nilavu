@@ -71,8 +71,10 @@ Nilavu::Application.routes.draw do
   put "t/:id" => "topics#update"
   delete "t/:id" => "topics#destroy"
 
-  get "t/:id/:name" => "requests#create", as: "topic_action_group"
+  post "t/:id/:name" => "requests#create", as: "topic_action_group"
   delete "t/:id/:name" => "requests#destroy"
+
+  get "t/:id/snapshots" => "topics#snapshots"
 
   get 'notifications' => 'notifications#index'
   put 'notifications/mark-read' => 'notifications#mark_read'
@@ -86,7 +88,7 @@ Nilavu::Application.routes.draw do
   get "robots.txt" => "robots_txt#index"
   get "manifest.json" => "manifest_json#index", :as => :manifest
 
-  get "buckets.json" =>"buckets#index",defaults: {format: 'json'}
+  get "buckets" =>"buckets#index",defaults: {format: 'json'}
   post "buckets" =>"buckets#create"
   get "buckets/:id" => "buckets#edit"
 

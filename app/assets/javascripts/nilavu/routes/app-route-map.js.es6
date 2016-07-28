@@ -1,9 +1,5 @@
 export default function() {
 
-
-    //Fake route, we will remove it once we are done.
-
-    this.route('dummy');
     // Error page
     this.route('exception', { path: '/exception' });
 
@@ -49,31 +45,17 @@ export default function() {
     });
 
     // User routes
-    this.resource('users');
     this.resource('user', { path: '/user/:email' }, function() {
         this.route('show',{ path: '/' });
 
-        this.resource('userActivity', { path: '/activity' }, function() {
-            this.route('topics');
-            this.route('replies');
-            this.route('likesGiven', { path: 'likes-given' });
-            this.route('bookmarks');
-            this.route('pending');
-        });
-
         this.resource('userNotifications', { path: '/notifications' }, function() {
-            this.route('responses');
-            this.route('likesReceived', { path: 'likes-received' });
-            this.route('mentions');
-            this.route('edits');
+          //we use the built in index route
         });
 
-        this.resource('userPrivateMessages', { path: '/messages' }, function() {
-            this.route('sent');
-            this.route('archive');
-            this.route('group', { path: 'group/:name' });
-            this.route('groupArchive', { path: 'group/:name/archive' });
+        this.resource('userSubscriptions', { path: '/subscriptions' }, function() {
+          //we use the built in index route
         });
+
 
         this.resource('preferences', function() {
             this.route('username');

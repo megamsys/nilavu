@@ -1,26 +1,23 @@
-<div class="modal-dialog">
-    <div class="modal-content">
-        <div class="modal-header">
-          <a class="close pull-right" {{action "closeModal"}}>{{fa-icon "remove"}}</a>
-          <div class="head">
-            <div class="row">
-               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                   {{#if smallTitle}}
-                    <h4 class="modal-title {{headCentered}}">{{title}}</h4>
-                    {{else}}
-                    <h1 class="modal-title {{headCentered}}">{{title}}</h1>
-                  {{/if}}
-                </div>
-            </div>
-          </div>
+<div class="modal-outer-container">
+  <div class="modal-middle-container">
+    <div class="modal-inner-container">
+      <div class="modal-header">
+        <a class="close pull-right" {{action "closeModal"}}>{{fa-icon "remove"}}</a>
+        {{#if smallTitle}}
+            <h4 class="modal-title {{headCentered}}">{{title}}</h4>
+        {{else}}
+            <h1 class="modal-title {{headCentered}}">{{title}}</h1>
+        {{/if}}
+        <div class="clearfix"></div>
+      </div>
+      <div id='modal-alert'></div>
+      {{outlet "modalBody"}}
+      {{#each errors as |error|}}
+        <div class="alert alert-error">
+          <button class="close" data-dismiss="alert">×</button>
+          {{error}}
         </div>
-        <div id='modal-alert'></div>
-        {{outlet "modalBody"}}
-        {{#each error in errors}}
-            <div class="alert alert-error">
-                <button class="close" data-dismiss="alert">×</button>
-                {{error}}
-            </div>
-        {{/each}}
+      {{/each}}
     </div>
+  </div>
 </div>

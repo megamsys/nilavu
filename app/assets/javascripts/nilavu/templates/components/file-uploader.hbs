@@ -1,13 +1,17 @@
 <tr class="working">
-  <form id="fileformupload" action="/b/put" method="POST" enctype="multipart/form-data">
+
     <td class="td-left">
-        <input type="hidden" value={{bucketName}} name ="bucket_name">
-        <input type="file" name="file" id="objectfile" style="visibility: hidden; position: absolute;" />
-        <i id="format_icons" {{bind-attr class="iconClass popIcon"}}></i>
-        <b>{{fileName}}</b>
-        <i id="filesize">{{fileSize}}</i>
-        <input type="submit" id="formSubmit" style="visibility: hidden;">
+        <form id="fileformupload" action="" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="key" value= {{filekey}}>
+            <input type="hidden" name="AWSAccessKeyId" value= {{fileaccesskey}}>
+            <input type="hidden" name="content-type" value= {{filecontenttype}}>
+            <input type="hidden" name="acl" value={{storageACL}}>
+            <input type="hidden" name="success_action_status" value="201">
+            <input type="hidden" name="policy" value= {{filepolicy}}>
+            <input type="hidden" name="signature" value= {{filesignature}}>
+
+            <input type="file" name="file" id="objectfile" />
+        </form>
     </td>
     <td class="td-left pull-right"><i class="close_red"></i></td>
-  </form>
 </tr>
