@@ -133,7 +133,7 @@ export default Ember.Controller.extend({
         }
 
         if (!Ember.isEmpty(this.get('accountPasswordConfirm')) && this.get('accountPassword') === this.get('accountPasswordConfirm')) {
-            return Nilavu.InputValidation.create({ok: true, reason: I18n.t('user.password.confirm')});
+            return Nilavu.InputValidation.create({ok: true, reason: I18n.t('user.password.ok_confirm')});
         }
 
         if (!Ember.isEmpty(this.get('accountPasswordConfirm')) && this.get('accountPassword') != this.get('accountPasswordConfirm')) {
