@@ -9,16 +9,18 @@ import {
 } from 'ember-addons/ember-computed-decorators';
 
 export default logCategoryPanel('info', {
-    infoMessages: [],  
+    infoMessages: [],
     @observes('message')
     messages() {
         const msg = this.get('message'),
             ss = JSON.parse(this.get('message').Message);
-        if (ss.Type == 'info') {
+        if (Ember.isEqual(ss.Type.toLowerCase(), 'info')) {
             this.get('infoMessages').pushObject({
-                source: ss.Source,
-                message: ss.Message,
-                timestamp: msg.Timestamp,
+              source: ss.Source,
+              type: ss.Type,
+              color: "log-"+ss.Type.toLowerCase(),
+              message: ss.Message,
+              timestamp: msg.Timestamp,
             });
         }
     },

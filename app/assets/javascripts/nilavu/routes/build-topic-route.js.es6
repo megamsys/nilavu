@@ -97,9 +97,10 @@ export default function(filter, extras) {
             }
 
             const filterText = I18n.t('filters.' + filter.replace('/', '.') + '.title');
-            return I18n.t('filters.with_topics', {
-                filter: filterText
-            });
+            //return I18n.t('filters.with_topics', {
+            //    filter: filterText
+            //});
+            return;
         },
 
         setupController(controller, model) {

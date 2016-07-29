@@ -18,10 +18,10 @@ export default Ember.Component.extend({
     _initPanels: function() {
         this.set('apppanels', []);
         this.set('selectedPackApp', 'virtualmachine');
-        this.searchService.set('searchContextEnabled', true);      
+        this.searchService.set('searchContextEnabled', true);
     }.on('init'),
 
-    selectedPackAppChanged: function() {
+    selectedPackAppChanged: function() {      
         this.set('searchService.searchContextEnabled', true);
         this.set('searchService.searchContext', this.get('searchContext'));
         this.set('category.versionoption', "");

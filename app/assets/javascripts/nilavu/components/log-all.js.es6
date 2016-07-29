@@ -18,7 +18,7 @@ export default logCategoryPanel('all', {
         this.get('allMessages').pushObject({
             source: ss.Source,
             type: ss.Type,
-            color: "log-"+ss.Type,
+            color: "log-"+ss.Type.toLowerCase(),
             message: ss.Message,
             timestamp: msg.Timestamp,
         });
