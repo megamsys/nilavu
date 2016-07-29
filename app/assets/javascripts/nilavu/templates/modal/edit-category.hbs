@@ -3,9 +3,9 @@
         {{edit-category-title launchable=launchOption}}
     {{/if}}
     <div {{bind-attr class=hidemeClass}}>
-        <section>
+        <section class="launcher-section">
             <div class="tabbable-custom nav-justified">
-                <ul class="nav nav-tabs nav-justified">
+                <ul class="nav nav-tabs nav-justified stepTabs">
                     {{edit-category-tab panels=panels selectedTab=selectedTab tab="general"}}
                     {{edit-category-tab panels=panels selectedTab=selectedTab tab="selection"}}
                     {{edit-category-tab panels=panels selectedTab=selectedTab tab="summary"}}
