@@ -1,26 +1,31 @@
-{{#each infoMessages as |info|}}
+{{#each infoMessages as |msg|}}
     <li style="display: block;">
         <a class="ui-btn error">
             <div class="ui-grid-b">
                 <span class=""></span>
                 <div class="ui-block-a">
                     <span class=""></span>
-                    <div>
-                        <span class="">{{info.source}}
-                  <!----></span>
-                    </div><span class=""></span>
+                    <div class="log_message_color">
+                        <span class="">{{msg.source}}</span>
+                    </div>
+                    <span class=""></span>
                 </div>
                 <div class="ui-block-b">
                     <span class=""></span>
-                    <div class="tag tag-request">
-                        <span class="">{{info.message}}</span>
+                    <div class="{{msg.color}}">
+                        <span class="">{{msg.type}}</span>
                     </div>
-                    <!---->
                 </div>
                 <div class="ui-block-c">
                     <span class=""></span>
-                    <div class="time">
-                        <span class="">{{info.timestamp}}</span>
+                    <div class="log_message_color">
+                        <span class="">{{msg.message}}</span>
+                    </div>
+                </div>
+                <div class="ui-block-d">
+                    <span class=""></span>
+                    <div class="time log_message_color">
+                        <span class="">{{msg.timestamp}}</span>
                     </div>
                 </div>
             </div>
@@ -30,7 +35,8 @@
 <li style="display: block;">
     <a class="ui-btn error">
         <div class="ui-grid-b">
-          <i class='log_pacman pull-left'></i><b class="pull-left">&nbsp;gobbling</b> <div class="pull-left">&nbsp;logs...</div>
+            <i class='log_pacman pull-left'></i><b class="pull-left">&nbsp;gobbling</b>
+            <div class="pull-left">&nbsp;logs...</div>
         </div>
     </a>
 </li>

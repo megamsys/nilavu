@@ -39,6 +39,7 @@ export default buildCategoryPanel('logs', {
         socket.on('error', this.onErrorMessage, this);
     },
 
+
     onMessage: function(data) {
         this.set('message', data);
     },

@@ -15,11 +15,13 @@ export default logCategoryPanel('warnings', {
     messages() {
         const msg = this.get('message'),
             ss = JSON.parse(this.get('message').Message);
-        if (ss.Type == 'warning') {
+        if (Ember.isEqual(ss.Type.toLowerCase(), 'warning')) {
             this.get('warningMessages').pushObject({
-                source: ss.Source,
-                message: ss.Message,
-                timestamp: msg.Timestamp,
+              source: ss.Source,
+              type: ss.Type,
+              color: "log-"+ss.Type.toLowerCase(),
+              message: ss.Message,
+              timestamp: msg.Timestamp,
             });
         }
     },

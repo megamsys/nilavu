@@ -5,4 +5,5 @@ export default Ember.Object.extend({
   ANALYTICS: "ANALYTICS",
   COLLABORATION: "COLLABORATION",
   BITNAMI: "BITNAMI",
+  CONTAINERS: "DockerContainer",
 });
