@@ -27,11 +27,6 @@
     animation: fade .25s;
 }
 
-.modal-body {
-    position: relative;
-    padding: 20px;
-}
-
 .modal-footer {
     padding: 19px 20px 20px;
     margin-top: 15px;
@@ -119,8 +114,8 @@
 
 .edit-category-modal {
   &.full .modal-body {
-        position: relative;
-        height: 750px;
+        height: 100%;
+        padding-left: 15px;
         padding-bottom: 0;
     }
     &.medium .modal-body {
@@ -135,6 +130,6 @@
     width: 60% !important;
 }
 .modal-tab {
-    position: absolute;
+    // position: absolute;
     width: 100%;
 }
