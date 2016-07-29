@@ -27,18 +27,17 @@ class MobileAvatar
         def generate(opts = nil)
             identity = opts && opts[:identity]
 
-            bipping = bipping_number(identity)
+            return Nilavu::NotFound unless identity
 
-            bipping
+            bipping_number(identity)
         end
 
         def verify(identity)
-
             identity = opts && opts[:identity]
 
-            bipped = bipped_number(identity)
+            return Nilavu::NotFound unless identity
 
-            bipped
+            bipped_number(identity)
         end
     end
 end

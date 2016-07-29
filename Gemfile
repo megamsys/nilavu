@@ -27,6 +27,8 @@ else
   gem 'rails', '~> 4.2.7'
 end
 
+gem 'responders', '~> 2.0'
+
 gem 'http_accept_language', '~>2.0.5', require: false
 
 ### Don't change the versions. henceforth just do a bundle install
@@ -52,7 +54,7 @@ gem 'omniauth-oauth2', require: false
 gem 'omniauth-google-oauth2'
 
 # 3rd party system api's
-gem 'megam_api', '1.5.rc5'
+gem 'megam_api', '1.5.0'
 gem 'docker_registry'
 gem 'radosgw-s3'
 gem 'haikunator' #random name.
@@ -105,8 +107,10 @@ group :development do
   gem 'librarian', '>= 0.0.25', require: false
 end
 
-# this provides a very efficient lru cache
+# this provides a very efficient lru cache, used for i18n  yaml loader
 gem 'lru_redux'
+# used by habitat plan
+gem 'tzinfo-data'
 
 # IMPORTANT: mini profiler monkey patches, so it better be required last
 gem 'flamegraph', require: false

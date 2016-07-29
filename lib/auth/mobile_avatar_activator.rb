@@ -20,10 +20,15 @@ class MobileAvatarActivator
         factory.new(user)
     end
 
-    def factory
-        return OTPActivator if !current_user.phone_verified
+    def dont_force?
+        !params.include?(:force)
+    end
 
-        NoOP
+
+    def factory
+        return OTPActivator unless (user.phone_verified  || dont_force?) && SiteSetting.allow_mobavatar_verifications
+
+        NOOPActivator
     end
 
     def phone_params
@@ -33,30 +38,32 @@ class MobileAvatarActivator
 end
 
 
-class OTPActivator < BillyActivator
+class OTPActivator < MobileAvatarActivator
 
     def activating
         identity = MobileAvatar::Identity.new.from_number(phone_params)
-        result = identity.generate
+        result = MobileAvatar.generate(identity: identity)
         return I18n.t("login.activating_phone_error") unless result
 
-        result.succeeded? ? I18n.t("login.activating_phone", user.phone) : I18n.t("login.not_activating_phone")
+        result.succeeded? ? I18n.t("login.activating_phone", phone: user.phone) : I18n.t("login.not_activating_phone")
     end
 
     def activate
         identity = MobileAvatar::Identity.new.from_number(phone_params)
-        result = identity.verify
+        result = identity.verify(identity: identity)
         return I18n.t("login.activate_phone_error") unless result
 
-        result.correct_pin? ? I18n.t("login.activate_phone", user.phone) :  I18n.t("login.not_activated_phone")
+        result.correct_pin? ? I18n.t("login.activate_phone", phone: user.phone) :  I18n.t("login.not_activated_phone")
     end
 end
 
-class NOOP < BillyActivator
+class NOOPActivator < MobileAvatarActivator
     def activating
-        return I18n.t("login.already_activated_phone", user.phone)
+        ## Show these messages for testing only. I don't think we need it in prod.
+        return I18n.t("login.skipped_activating_phone", phone: user.phone)
     end
     def activate
-        return I18n.t("login.already_activated_phone", user.phone)
+        ## Show these messages for testing only. I don't think we need it in prod.
+        return I18n.t("login.skipped_activate_phone", phone: user.phone)
     end
 end

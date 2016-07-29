@@ -45,9 +45,7 @@ class ApiDispatcher
     ADDONS               = 'Addons'.freeze
     SUBSCRIPTIONS        = 'Subscriptions'.freeze
 
-    ENDPOINTS_AS_JSON = [JLAZ_PREFIX + ASSEMBLIES,
-        JLAZ_PREFIX + ASSEMBLY,
-    JLAZ_PREFIX + COMPONENTS]
+    ENDPOINTS_AS_JSON = [JLAZ_PREFIX + ASSEMBLIES,  JLAZ_PREFIX + ASSEMBLY,    JLAZ_PREFIX + COMPONENTS]
 
     CREATE            = 'create'.freeze
     SHOW              = 'show'.freeze

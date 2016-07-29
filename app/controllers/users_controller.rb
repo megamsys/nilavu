@@ -49,7 +49,6 @@ class UsersController < ApplicationController
 
     user_params.each { |k, v| user.send("#{k}=", v) }
 
-
     user.api_key = SecureRandom.hex(20) if user.api_key.blank?
 
     authentication = UserAuthenticator.new(user, session)

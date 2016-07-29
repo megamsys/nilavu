@@ -19,9 +19,8 @@ class Billy
         end
     end
 
-    def has_credentials?
-        return false unless @client_id
-        return true
+    def has_external_id?
+        @client_id.present?
     end
 
 

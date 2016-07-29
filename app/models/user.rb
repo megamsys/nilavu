@@ -45,9 +45,11 @@ class User
         user
     end
 
-    def self.suggest_firstname(email)
-        return "" if email.blank?
-        email[/\A[^@]+/].tr(".", " ").titleize
+    def self.find_by_apikey(parms_using_apikey)
+        user = Api::Accounts.new.where(parms_using_apikey)
+        if user
+            return User.new_from_params(user.to_hash)
+        end
     end
 
     def find_by_email
@@ -56,6 +58,7 @@ class User
             find_by_password
         end
     end
+
 
     def save
         ensure_password_is_hashed
@@ -134,35 +137,91 @@ class User
         admin? && Rails.env.development?
     end
 
+    # Approve this user
+    def approve(approved_by, send_mail=true)
+        self.approved = true
+
+        if approved_by.is_a?(Fixnum)
+            self.approved_by_id = approved_by
+        else
+            self.approved_by = approved_by
+        end
+
+        self.approved_at = Time.now
+
+        save
+    end
+
+    def activate
+        self.active = true
+        save
+    end
+
+    def deactivate
+        self.active = false
+        save
+    end
+
+    def suspended?
+        suspended_till && suspended_till > DateTime.now
+    end
+
+    ## Looks like we need a table to store user_history to record
+    ##    def suspend_record
+    ##        UserHistory.for(self, :suspend_user).order('id DESC').first
+    ##    end
+    ##
+    ##    def suspend_reason
+    ##        suspend_record.try(:details) if suspended?
+    ##    end
+    ##
+
+    def update_ip_address!(new_ip_address)
+        unless ip_address == new_ip_address || new_ip_address.blank?
+            update(:ip_address, new_ip_address)
+        end
+    end
+
+    def update_last_seen!(now=Time.zone.now)
+        now_date = now.to_date
+        update_previous_visit(now)
+        update(:last_seen_at, now)
+        update(:first_seen_at, now) unless self.first_seen_at
+    end
+
+    def seen_before?
+        last_seen_at.present?
+    end
+
     def org_id
         team.id if team
     end
 
+
     def to_hash
-        {:email => @email,
-            :api_key => @api_key,
-            :password => @raw_password,
-            :username => User.suggest_firstname(@email),
-            :first_name =>@firstname,
-            :last_name => @lastname,
-            :phone => @phone,
-            #phone_verified: @phone_verified,
-            #email_verified: @email_verified,
-            #staged: @staged,
-            #active: @active,
-            #approved: @approved,
-            #approved_by_id: @approved_by_id,
-            #approved_at: @approved_at,
-            #suspended: @suspended,
-            #suspended_at: @suspended_at.
-            #suspended_till: @suspended_till,
-            #blocked: @blocked,
-            #last_posted_at: @last_posted_at,
-            #last_emailed_at: @last_emailed_at,
-            #previous_visit_at: @previous_visit_at,
-            #first_seen_at: @first_seen_at,
-            #registration_ip_address: @registration_ip_address
-            :createdAt =>@created_at
+        {email: @email,
+            api_key: @api_key,
+            password: @raw_password,
+            first_name:@firstname,
+            last_name: @lastname,
+            phone: @phone,
+            createdAt: @created_at,
+            phone_verified: @phone_verified,
+            email_verified: @email_verified,
+            staged: @staged,
+            active: @active,
+            approved: @approved,
+            approved_by_id: @approved_by_id,
+            approved_at: @approved_at,
+            suspended: @suspended,
+            suspended_at: @suspended_at,
+            suspended_till: @suspended_till,
+            blocked: @blocked,
+            last_posted_at: @last_posted_at,
+            last_emailed_at: @last_emailed_at,
+            previous_visit_at: @previous_visit_at,
+            first_seen_at: @first_seen_at,
+            registration_ip_address: @registration_ip_address
         }
     end
 
@@ -170,12 +229,27 @@ class User
         {:email => @email,
             :api_key => @api_key,
             :password => ensure_password_is_hashed,
-            :username => User.suggest_firstname(@email),
             :first_name => @firstname,
             :last_name => @lastname,
             :password_reset_key => @password_reset_key,
             :phone => @phone,
-            :createdAt =>@created_at
+            :createdAt =>@created_at,
+            phone_verified: @phone_verified,
+            email_verified: @email_verified,
+            staged: @staged,
+            active: @active,
+            approved: @approved,
+            approved_by_id: @approved_by_id,
+            approved_at: @approved_at,
+            suspended: @suspended,
+            suspended_at: @suspended_at,
+            suspended_till: @suspended_till,
+            blocked: @blocked,
+            last_posted_at: @last_posted_at,
+            last_emailed_at: @last_emailed_at,
+            previous_visit_at: @previous_visit_at,
+            first_seen_at: @first_seen_at,
+            registration_ip_address: @registration_ip_address
         }
     end
 
@@ -189,6 +263,16 @@ class User
         user = Api::Accounts.new.where(parms_using_password)
         if user
             return User.new_from_params(user.to_hash)
+        end
+    end
+
+    def previous_visit_at_update_required?(timestamp)
+        seen_before? && (last_seen_at < (timestamp - SiteSetting.previous_visit_timeout_hours.hours))
+    end
+
+    def update_previous_visit(timestamp)
+        if previous_visit_at_update_required?(timestamp)
+            update(:previous_visit_at, last_seen_at)
         end
     end
 end

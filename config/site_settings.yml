@@ -110,7 +110,7 @@ login:
   allow_new_registrations:
     client: true
     default: true
-  allow_otp_verifications:
+  allow_mobavatar_verifications:
     client: true
     default: false
   infobip_username: ''
@@ -141,6 +141,7 @@ login:
   github_client_secret:
     default: '3d27d07be2fd36f994xxxxxxxxx15d694cae6'
     regex: "^[a-f0-9]+$"
+  oauth_stub_password: "detio"
   enable_sso:
     client: true
     default: false
@@ -154,7 +155,7 @@ login:
     default: false
     client: true
   sso_not_approved_url: ''
-  oauth_stub_password: "detio"
+  permanent_session_cookie: true
   enable_ceph_logins:
     client: true
     default: false
@@ -241,3 +242,5 @@ uncategorized:
     default: 3
 
   max_similar_results: 5
+
+  previous_visit_timeout_hours: 1

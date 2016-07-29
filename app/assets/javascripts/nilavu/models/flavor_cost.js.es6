@@ -4,7 +4,7 @@ import {
 
 const FlavorCost = Ember.Object.extend({
 
-    billable: Em.computed.alias(setting('allow_default_billings')),
+    billable: Em.computed.alias(setting('allow_billings')),
 
     fullFavor: Em.computed.alias('flavor.value'),
 

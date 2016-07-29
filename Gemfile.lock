@@ -138,7 +138,7 @@ GEM
     lru_redux (1.1.0)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
-    megam_api (1.5.rc5)
+    megam_api (1.5.0)
       excon (~> 0.51.0)
       ffi-yajl (~> 2.2)
       highline (~> 1.7)
@@ -245,6 +245,8 @@ GEM
       msgpack (>= 0.4.3)
       trollop (>= 1.16.2)
     ref (2.0.0)
+    responders (2.2.0)
+      railties (>= 4.2.0, < 5.1)
     rspec (3.2.0)
       rspec-core (~> 3.2.0)
       rspec-expectations (~> 3.2.0)
@@ -316,6 +318,8 @@ GEM
     trollop (2.1.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    tzinfo-data (1.2016.6)
+      tzinfo (>= 1.0.0)
     uglifier (3.0.0)
       execjs (>= 0.3.0, < 3)
 
@@ -346,7 +350,7 @@ DEPENDENCIES
   librarian (>= 0.0.25)
   listen (= 0.7.3)
   lru_redux
-  megam_api (= 1.5.rc5)
+  megam_api (= 1.5.0)
   memory_profiler
   minitest
   mocha
@@ -370,6 +374,7 @@ DEPENDENCIES
   rb-fsevent
   rb-inotify (~> 0.9)
   rbtrace
+  responders (~> 2.0)
   rspec (~> 3.2.0)
   rspec-given
   rspec-html-matchers
@@ -383,6 +388,7 @@ DEPENDENCIES
   stackprof
   therubyracer
   timecop
+  tzinfo-data
   uglifier
   whmcs-ruby!
 

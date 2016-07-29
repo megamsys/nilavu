@@ -4,37 +4,42 @@ class SubscriptionsController < ApplicationController
     before_action :add_authkeys_for_api, only: [:entrance, :create]
 
     def entrance
-        ua = UserActivationChecker.new
+        user_activator = UserActivationChecker.new
 
-        return "/" if ua.check_activation_completed?
+        return "/" if user_activator.completed?
 
-        lookup_billy_addon
+        lookup_external_id_in_addons(params)
 
-        render json: {subscriber: subscriber || {}, phone_activation: ua.activating_mobile_avatar}
+        render json: {
+            subscriber: subscriber || {},
+            mobavatar_activation: user_activator.verify_mobavatar(params)
+        }
     end
 
     # subcriber to update the billing address
     def create
-        lookup_billy_addon
-
         render json: {subscriber: update_subscriber || {}}
     end
 
     private
 
     def subscriber
-        if bildr = bildr_processe_is_ready(SUBSCRIBER_PROCESSE)
-            processe_run = bildr.subscriber.subscribe
+        l = lookup_billy_addon(params)
+
+        if bil = bildr_processe_is_ready(SUBSCRIBER_PROCESSE)
+            b = bil.subscriber.subscribe(l)
 
             bldr.subscriber.after_subscribe(b)
         end
     end
 
     def update_subscriber
-        if bildr = bildr_processe_is_ready(UPDATE_PROCESSE)
-            processe_run = bildr.subscriber.subscribe
+        l = lookup_billy_addon(params)
 
-            bldr.subscriber.after_subscribe(b)
+        if bildr = bildr_processe_is_ready(SUBSCRIBER_PROCESSE)
+            b = bildr.subscriber.update(l)
+
+            bldr.subscriber.after_update(b)
         end
     end
 

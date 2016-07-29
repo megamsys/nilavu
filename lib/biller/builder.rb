@@ -3,21 +3,15 @@ require "forwardable"
 # Biller:::Builder that selects a Billy provider to use for all the
 # billable activities.
 class Biller::Builder
-
     extend Forwardable
 
-    attr_reader :processe
+    SUBSCRIBER_PROCESSE = "Subscriber".freeze
+    ORDERER_PROCESSE = "Orderer".freeze
 
     def initialize(processe_name)
-        @implementation = nil
+        return Nilavu::NotFound unless  name
 
-        @processe = processe_name
-    end
-
-    def load_processe
-        return Nilavu::NotFound unless  has_enabled_biller?
-
-        select_implementation(SiteSettings.enabled_biller)
+        @implementation = load_processe(name)
     end
 
     ## Delegated Subscriber Methods ##
@@ -36,7 +30,7 @@ class Biller::Builder
 
     ## Internal Public API ##
     def implementation
-        @implementation || raise(Exceptions::InvalidPolicybuilderCall, "#load_node must be called before other policy builder methods")
+        @implementation || raise(Nilavu::NotFound)
     end
 
     def select_implementation(biller_name)
@@ -53,4 +47,9 @@ class Biller::Builder
         SiteSettings.enabled_biller && SiteSettings.enabled_biller.lstrip.length > 0
     end
 
+    def load_processe(processe_name)
+        return Nilavu::NotFound unless  has_enabled_biller?
+
+        select_implementation(SiteSettings.enabled_biller)
+    end
 end

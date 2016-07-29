@@ -127,7 +127,6 @@ export default Ember.Controller.extend({
     passwordConfirmValidation: function() {
         const password = this.get("accountPassword");
         // If blank, fail without a reason
-        //alert(JSON.stringify(this.get('accountPasswordConfirm')));
         if (Ember.isEmpty(this.get('accountPasswordConfirm'))) {
             return Nilavu.InputValidation.create({failed: true});
         }

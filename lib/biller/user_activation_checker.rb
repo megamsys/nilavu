@@ -1,20 +1,22 @@
+require 'current_user'
+
 class UserActivationChecker
+    include CurrentUser
 
-    def check_activation_completed?
-        return true unless SiteSetting.allow_default_billings || current_user.approved || current_user.active
-
-        puts "--- activation_status"
-        puts activation_status?.inspect
-        puts "----"
-        return activation_status?
+    def completed?
+        not_required?  ? true : send_current_status
     end
 
-    def activation_flag?
+    def not_required?
+        return true unless SiteSetting.allow_billings
+    end
+
+    def send_current_status
         current_user.approved || current_user.active
     end
 
 
-    def activating_mobile_avatar
+    def verify_mobavatar(params)
         return Nilavu::NotFound unless current_user.phone
 
         MobileAvatarActivator.new(current_user, params).start

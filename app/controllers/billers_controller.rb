@@ -1,46 +1,22 @@
-require 'current_billableuser'
-
 class BillersController < ApplicationController
-    include CurrentBillableUser
+    include CurrentBilly
 
     before_action :add_authkeys_for_api, only: [:index, :show]
 
     def show
-        billy = Billy.new
-        billy_params.each { |k, v| billy.send("#{k}=", v) }
-
-        if billy = billy.find_by_email
-            unless billy.has_credentials?
-                invalid_credentials
-                return
-            end
-        else
-            invalid_credentials
-            return
-        end
-
         render json: {shopper: shopper || {}}
     end
 
     def create
-        billy = Billy.new
-        billy_params.each { |k, v| billy.send("#{k}=", v) }
-
-        if billy = billy.find_by_email
-            unless billy.has_credentials?
-                invalid_credentials
-                return
-            end
-        else
-            invalid_credentials
-            return
-        end
-
         render json: {order: order || {}}
     end
 
     def order_created
-        Api::Subscriptions.new.create(params)
+        if sub =   Api::Subscriptions.new.create(params)
+            render json: success_json
+        else
+            render json: {error: I18n.t("login.incorrect_email_or_password")}
+        end
     end
 
 
@@ -51,18 +27,22 @@ class BillersController < ApplicationController
     end
 
     def shopper
-        if bildr = bildr_processe_is_ready(SHOPPER_PROCESSE)
-            b = bildr.shopper.shop
+        l = lookup_billy_addon(params)
 
-            bildr.shopper.after_shop(b)
+        if bildr = bildr_processe_is_ready(SHOPPER_PROCESSE)
+            b = bildr.orderer.shop(l)
+
+            bldr.orderer.after_shop(b)
         end
     end
 
     def order
-        if bildr = bildr_processe_is_ready(ORDER_PROCESSE)
-            b = bildr.subscriber.order
+        l = lookup_billy_addon(params)
 
-            bildr.subscriber.after_order(b)
+        if bildr = bildr_processe_is_ready(ORDERER_PROCESSE)
+            b = bildr.orderer.order(l)
+
+            bldr.orderer.after_order(b)
         end
     end
 
