@@ -2,24 +2,6 @@ require 'rails_helper'
 
 describe SessionsController do
 
-  describe 'become' do
-    let!(:user) { Fabricate(:user) }
-
-    it "does not work when not in development mode" do
-      Rails.env.stubs(:development?).returns(false)
-      get :become, session_id: user.username
-      expect(response).not_to be_redirect
-      expect(session[:current_user_id]).to be_blank
-    end
-
-    it "works in developmenet mode" do
-      Rails.env.stubs(:development?).returns(true)
-      get :become, session_id: user.username
-      expect(response).to be_redirect
-      expect(session[:current_user_id]).to eq(user.id)
-    end
-  end
-  
   describe '.create' do
 
     let(:user) { Fabricate(:user) }

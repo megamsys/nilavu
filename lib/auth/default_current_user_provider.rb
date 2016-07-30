@@ -26,6 +26,10 @@ class Auth::DefaultCurrentUserProvider
 
         current_user = nil
 
+        puts "-----curruser "
+        puts current_user.inspect
+        puts "---- >>>"
+        
         if auth_token && email_token
             current_user = User.find_by_apikey({api_key: auth_token, email: email_token})
         end
