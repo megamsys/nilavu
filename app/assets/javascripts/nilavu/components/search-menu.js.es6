@@ -10,6 +10,13 @@ export default Ember.Component.extend({
   classNames: ['search-menu'],
   typeFilter: null,
 
+  searchBarVisible: function() {
+      if (!Em.isEmpty(this.get("selectedItem"))) {
+          return false;
+      }
+      return true;
+  }.property(),
+
   @observes('searchService.searchContext')
   contextChanged: function() {
     if (this.get('searchService.searchContextEnabled')) {
