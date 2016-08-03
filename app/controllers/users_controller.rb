@@ -129,14 +129,25 @@ class UsersController < ApplicationController
       return render_json_error(I18n.t("login.incorrect_password"))
     end
 
-    json_result(user, serializer: UserSerializer, additional_errors: [:user_profile]) do |u|
       updater = UserUpdater.new(user)
-      updater.update(params)
+      if updater.update(params)
+        activation = UserActivator.new(user, request, session, cookies)
+          activation.start
+          activation.finish
+          render json: {
+              success: true,
+            }
+      else
+          render json: {
+            success: false,
+            }
+      end
+        rescue ApiDispatcher::NotReached
+          render json: {
+            success: false,
+            message: I18n.t("login.something_already_taken")
+          }
 
-      activation = UserActivator.new(user, request, session, cookies)
-      activation.start
-      activation.finish
-    end
   end
 
   def password_reset

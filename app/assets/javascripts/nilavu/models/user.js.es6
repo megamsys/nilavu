@@ -18,7 +18,7 @@ const User = RestModel.extend({
             type: 'DELETE'
         });
     },
-    
+
     @computed("username", "name")
     displayName(username, name) {
         if (Nilavu.SiteSettings.enable_names && !Ember.isEmpty(name)) {
@@ -150,14 +150,24 @@ const User = RestModel.extend({
             this.set('isSaving', false);
         });
     },
+    resetField() {
+      // We wrap the fields in a structure so we can assign a value
+      this.setProperties({
+        currentPassword: '',
+        newPassword: '',
+        retypePassword: ''
 
+      });
+    },
     changePassword() {
-        return Nilavu.ajax("/session/forgot_password", {
+        return Nilavu.ajax("/users/"+this.get('username'), {
             dataType: 'json',
             data: {
-                login: this.get('username')
+                current_password: this.get('currentPassword'),
+                password: this.get('newPassword'),
+                password_confirmation: this.get('retypePassword')
             },
-            type: 'POST'
+            type: 'PUT'
         });
     },
 

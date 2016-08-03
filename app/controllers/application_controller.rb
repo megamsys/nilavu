@@ -223,6 +223,8 @@ class ApplicationController < ActionController::Base
   end
 
   def json_result(obj, opts={})
+    puts "1111111111111111111111111sssss"
+    puts obj.inspect
     if yield(obj)
       json = success_json
 
