@@ -25,6 +25,7 @@ export default Ember.Component.extend({
 
     appHeaderVisible: function() {
         if (!Em.isEmpty(this.get("selectedItem"))) {
+            console.log(JSON.stringify(this.get('selectedItem')));
             if (Em.isEqual(this.get("selectedItem").flavor, this.constants.CONTAINERS)) {
                 this.set('selectedPackApp', 'container');
             } else {
