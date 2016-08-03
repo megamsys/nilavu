@@ -67,13 +67,15 @@ const User = RestModel.extend({
         return longDate(suspendedTill);
     },
 
-    changeUsername(new_username) {
-        return Nilavu.ajax(`/users/${this.get('username_lower')}/preferences/username`, {
-            type: 'PUT',
-            data: {
-                new_username
-            }
-        });
+    changeUsername() {
+      return Nilavu.ajax("/users/"+this.get('email'), {
+          dataType: 'json',
+          data: {
+              first_name: this.get('first_name'),
+              without_password:true
+          },
+          type: 'PUT'
+      });
     },
 
     changeEmail(email) {
@@ -302,8 +304,8 @@ User.reopenClass(Singleton, {
                 password_confirmation: attrs.accountPasswordConfirm,
                 challenge: attrs.accountChallenge,
                 user_fields: attrs.userFields,
-                firstname: attrs.firstname,
-                lastname: attrs.lastname,
+                first_name: attrs.firstname,
+                last_name: attrs.lastname,
                 phone: attrs.phonenumber
             },
             type: 'POST'

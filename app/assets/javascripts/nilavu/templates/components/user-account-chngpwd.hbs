@@ -20,6 +20,8 @@
     </div>
     <div class="col-md-5">
         {{password-field value=model.newPassword type="password" placeholderKey="user.password.newpassword" class="form-control" disabled=submitDisabled capsLockOn=capsLockOn}}
+        {{passwordInstructions}}
+        {{input-tip validation=passwordValidation}}
     </div>
 </div>
 <div class="row profile_bottom_pad_15">
@@ -28,6 +30,7 @@
     </div>
     <div class="col-md-5">
         {{password-field value=model.retypePassword type="password" placeholderKey="user.password.confirmpassword" class="form-control" disabled=submitDisabled capsLockOn=capsLockOn}}
+        {{input-tip validation=passwordConfirmValidation}}
     </div>
 </div>
 <div class="row">

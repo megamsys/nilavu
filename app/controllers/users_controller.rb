@@ -194,7 +194,7 @@ class UsersController < ApplicationController
 
 
   def user_params
-    params.permit(:email, :password, :firstname, :lastname, :phone, :status)
+    params.permit(:email, :password, :first_name, :last_name, :phone, :status)
   end
 
   private
@@ -207,6 +207,7 @@ class UsersController < ApplicationController
   def check_password(user, params)
     params.require(:email)
     user_params.each { |k, v| user.send("#{k}=", v) }
+    return true if params[:without_password] == "true"
 
     if params.has_key?("current_password")
       user.password = params[:current_password]
@@ -215,6 +216,6 @@ class UsersController < ApplicationController
       else
         return false
       end
-    end
+      end
   end
 end

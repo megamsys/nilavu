@@ -5,8 +5,8 @@ class User
   attr_accessor :password
   attr_accessor :api_key
   attr_accessor :team
-  attr_accessor :firstname
-  attr_accessor :lastname
+  attr_accessor :first_name
+  attr_accessor :last_name
   attr_accessor :authority
   attr_accessor :verified
   attr_accessor :password_reset_key
@@ -29,8 +29,8 @@ class User
     user.email = params[:email]
     user.team  = params[:team]
     user.api_key = params[:api_key]
-    user.firstname = params[:firstname]
-    user.lastname = params[:lastname]
+    user.first_name = params[:first_name]
+    user.last_name = params[:last_name]
     user.phone = params[:phone]
     user.password = params[:password]
     user.password_reset_key = params[:password_reset_key]
@@ -137,8 +137,8 @@ class User
       :api_key => @api_key,
       :password => @raw_password,
       :username => User.suggest_firstname(@email),
-      :first_name =>@firstname,
-      :last_name => @lastname,
+      :first_name =>@first_name,
+      :last_name => @last_name,
       :phone => @phone,
       :createdAt =>@created_at
     }
@@ -149,8 +149,8 @@ class User
       :api_key => @api_key,
       :password => ensure_password_is_hashed,
       :username => User.suggest_firstname(@email),
-      :first_name => @firstname,
-      :last_name => @lastname,
+      :first_name => @first_name,
+      :last_name => @last_name,
       :password_reset_key => @password_reset_key,
       :phone => @phone,
       :createdAt =>@created_at

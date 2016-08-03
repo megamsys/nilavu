@@ -196,6 +196,9 @@ en:
         title: "Change ame"
         error: "There was an error changing your name."
         invalid: "That name is invalid. It must only include numbers and letters"
+        blank: "Please enter the new username"
+        reset: "Your Username is changed successfully"
+        resetfail: "Fail to change your Username"
 
       change_email:
         title: "Change Email"
@@ -238,6 +241,8 @@ en:
         currentpassword: "Current Password"
         newpassword: "New Password"
         confirmpassword: "Retype the Password"
+        blank_password: "Please enter your Password"
+        confirm: "Your password is confirmed"
 
     errors:
       prev_page: "while trying to load"
