@@ -26,7 +26,7 @@
                     </div>
                 {{else}}
                     {{#each content.resultTypes as |resultType|}}
-                        {{component resultType.componentName category=category resultType=resultType.results}}
+                        {{component resultType.componentName category=category resultType=resultType.results gotoSummarize=gotoSummarize}}
                     {{/each}}
                 {{/if}}
             </tbody>

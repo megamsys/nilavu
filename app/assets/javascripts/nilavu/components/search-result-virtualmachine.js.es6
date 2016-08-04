@@ -37,6 +37,7 @@ export default Em.Component.extend({
                 if (!Em.isEmpty(usrl)) { this.set('category.sourceurl', usrl.get('firstObject').value); }
             }
             this.set('versionOption', true);
+            this.set('gotoSummarize', true);
         }
 
     }

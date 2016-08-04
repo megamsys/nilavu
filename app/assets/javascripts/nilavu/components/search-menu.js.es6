@@ -16,13 +16,15 @@ export default Ember.Component.extend({
     searchService: Ember.inject.service('search'),
     classNames: ['search-menu'],
     typeFilter: null,
+    searchBar: true,
 
     searchBarVisible: function() {
-        if (!Em.isEmpty(this.get("selectedItem"))) {
-            return false;
-        }
-        return true;
-    }.property(),
+        return this.get('searchBar');
+    }.property('searchBar'),
+
+    didInsertElement: function() {
+        this.setSearchTerm();
+    },
 
     @observes('searchService.searchContext')
     contextChanged: function() {
@@ -31,11 +33,7 @@ export default Ember.Component.extend({
             this.set('searchService.searchContextEnabled', false);
             _dontSearch = false;
         }
-        console.log("======================================");
-        console.log(JSON.stringify(this.get('searchService.searchContext')));
-        if (!Em.isEmpty(this.get("selectedItem"))) {
-            this.set('searchService.term', this.get('selectedItem').flavor.toLowerCase());
-        }
+        this.setSearchTerm();
     },
 
     @computed('searchService.searchContext', 'searchService.term', 'searchService.searchContextEnabled')
@@ -86,6 +84,23 @@ export default Ember.Component.extend({
             });
         }
         this.set('selectedIndex', 0);
+    },
+
+    setSearchTerm() {
+        if (!Em.isEmpty(this.get("selectedItem"))) {
+            if (!Em.isEqual(this.get('searchService.searchContext.type'), "container")) {
+                this.set('searchService.term', this.get('selectedItem').flavor.toLowerCase());
+                this.set('searchBar', false);
+            } else {
+                this.set('searchService.term', "");
+                this.set('searchBar', true);
+                this.setProperties({
+                    content: null
+                });
+                this._cancelSearch = true;
+                this.set('loading', false);
+            }
+        }
     },
 
     searchTerm(term, typeFilter) {

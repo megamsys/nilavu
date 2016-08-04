@@ -33,6 +33,7 @@ export default Em.Component.extend({
             this.set('category.sourceidentifier', this.get('resultType.provider'));
             this.set('category.sourceurl', this.get('resultType.name'));
             this.set('versionOption', true);
+            this.set('gotoSummarize', true);
         }
 
     }
