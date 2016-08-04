@@ -19,6 +19,10 @@
 </div>
 <div class="row">
     <div class="col-md-6 col-md-offset-3 input-group margin-top-10 ">
-        <button class='btn btn-success col-md-5 col-xs-12' {{action "changeUsername"}} {{bind-attr disabled="submitDisabled"}}>update</button>
+        <button class='btn btn-success col-md-5 col-xs-12' {{action "changeUsername"}} {{bind-attr disabled="submitDisabled"}}>update
+          <span class="pull-right">
+              {{conditional-loading-spinner condition=loading size="large"}}
+          </span>
+        </button>
     </div>
 </div>

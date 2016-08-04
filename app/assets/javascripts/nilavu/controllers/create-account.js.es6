@@ -113,7 +113,7 @@ export default Ember.Controller.extend({
     }
 
     // If too short
-    const passwordLength = this.get('isDeveloper') ? Nilavu.SiteSettings.min_admin_password_length : Nilavu.SiteSettings.min_password_length;
+      const passwordLength = this.get('isDeveloper') ? Nilavu.SiteSettings.min_admin_password_length : Nilavu.SiteSettings.min_password_length;
     if (password.length < passwordLength) {
       return Nilavu.InputValidation.create({
         failed: true,

@@ -10,6 +10,7 @@ import {
 export default Em.Component.extend({
     formSubmitted: false,
     isDeveloper: false,
+    loading: false,
 
     submitDisabled: function() {
         if (!this.get('formSubmitted')) return true;
@@ -25,7 +26,6 @@ export default Em.Component.extend({
     }.property('isDeveloper'),
 
     passwordConfirmValidation:function(){
-
         if (!Ember.isEmpty(this.get('model.retypePassword')) && this.get('model.newPassword') === this.get('model.retypePassword')) {
           return Nilavu.InputValidation.create({
             ok: true,
@@ -42,32 +42,6 @@ export default Em.Component.extend({
 
     }.property('model.retypePassword','model.newPassword'),
 
-    passwordValidation: function() {
-      const password = this.get("model.newPassword");
-      // If too short
-      const passwordLength = this.get('isDeveloper') ? Nilavu.SiteSettings.min_admin_password_length : Nilavu.SiteSettings.min_password_length;
-      if (password.length < passwordLength) {
-        return Nilavu.InputValidation.create({
-          failed: true,
-          reason: I18n.t('user.password.too_short')
-        });
-      }
-
-
-      if (!Ember.isEmpty(this.get('model.email')) && this.get('model.newPassword') === this.get('model.email')) {
-        return Nilavu.InputValidation.create({
-          failed: true,
-          reason: I18n.t('user.password.same_as_email')
-        });
-      }
-
-      // Looks good!
-      return Nilavu.InputValidation.create({
-        ok: true,
-        reason: I18n.t('user.password.ok')
-      });
-    }.property('model.newPassword','model.email', 'isDeveloper'),
-
   actions: {
         onClick() {
             this.set('formSubmitted', true)
@@ -75,16 +49,20 @@ export default Em.Component.extend({
 
         changePassword() {
           const self=this;
+          self.set('loading', true);
           if (Ember.isEmpty(this.get('model.newPassword')) || Ember.isEmpty(this.get('model.retypePassword'))) {
               this.notificationMessages.error(I18n.t('user.password.blank_password'));
               return;
           }
           return this.get('model').changePassword().then(function(result){
           // password changed
+          self.set('loading',false);
           self.get('model').resetField();
           self.set('formSubmitted', false);
           self.notificationMessages.success(I18n.t('user.change_password.reset'));
         }).catch(function(e) {
+            self.set('loading',false);
+            self.get('model').resetField();
             self.set('formSubmitted', false);
             self.notificationMessages.error(I18n.t('user.change_password.resetfail'));
         })

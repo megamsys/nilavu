@@ -2,6 +2,7 @@ import {propertyEqual} from 'nilavu/lib/computed';
 
 export default Em.Component.extend({
   formSubmitted: false,
+  loading: false,
 
   submitDisabled: function() {
       if (!this.get('formSubmitted')) return true;
@@ -19,15 +20,18 @@ export default Em.Component.extend({
 
         changeUsername() {
             const self = this;
+            self.set('loading', true);
             if (Ember.isEmpty(this.get('model.first_name'))) {
                 this.notificationMessages.error(I18n.t('user.change_name.blank'));
                 return;
             }
             return this.get('model').changeUsername().then(function(result) {
-                // password changed
+                // username changed
+                self.set('loading', false);
                 self.set('formSubmitted', false);
                 self.notificationMessages.success(I18n.t('user.change_name.reset'));
             }).catch(function(e) {
+                self.set('loading', false);
                 self.set('formSubmitted', false);
                 self.notificationMessages.error(I18n.t('user.change_name.resetfail'));
             })

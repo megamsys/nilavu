@@ -162,7 +162,7 @@ const User = RestModel.extend({
       });
     },
     changePassword() {
-        return Nilavu.ajax("/users/"+this.get('username'), {
+        return Nilavu.ajax(`/users/${this.get('username')}`, {
             dataType: 'json',
             data: {
                 current_password: this.get('currentPassword'),
