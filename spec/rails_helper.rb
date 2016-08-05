@@ -92,7 +92,7 @@ Spork.prefork do
 
     class TestCurrentUserProvider < Auth::DefaultCurrentUserProvider
       def log_on_user(user,session,cookies)
-        session[:current_user_id] = user.id
+        session[:current_user_id] = user.email
         super
       end
 

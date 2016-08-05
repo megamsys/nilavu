@@ -16,13 +16,13 @@ describe User do
             expect(subject.approved_by_id).to be_blank
         end
 
-      #  context 'after_save' do
-      #      before { subject.save }
+        #  context 'after_save' do
+        #      before { subject.save }
 
-      #      it "has an data from find_by_email" do
-      #          expect(subject.find_by_email).to be_present
-      #      end
-      #  end
+        #      it "has an data from find_by_email" do
+        #          expect(subject.find_by_email).to be_present
+        #      end
+        #  end
 
         it "downcases email addresses" do
             user = Fabricate.build(:user, email: 'Fancy.Caps.4.U@gmail.com')
@@ -100,37 +100,38 @@ describe User do
 
         context 'when email has been confirmed' do
             it 'should return true' do
-                  expect(user.email_confirmed?).to eq(true)
+                expect(user.email_confirmed?).to eq(true)
             end
         end
     end
 
     describe '.find_by_email' do
+
+        before do
+            @user = Fabricate.build(:bob)
+            @user.save
+        end
+
         it 'finds users' do
-            bob = Fabricate(:user, email: 'bob@example.com')
-            found_user = User.find_by_email('Bob')
-            expect(found_user).to eq bob
+            bob = Fabricate(:bob)
+            found_user = User.new_from_params({email: bob.email, password: 'mark4swagger'}).find_by_email
+            expect(found_user.email).to eq bob.email
 
-            found_user = User.find_by_email('bob@Example.com')
-            expect(found_user).to eq bob
+            @user = Fabricate(:bob, email: 'Bob@example.com')
+            found_user = User.new_from_params({email: bob.email, password: 'mark4swagger'}).find_by_email
+            expect(found_user.email).to eq bob.email
 
-            found_user = User.find_by_email('Bob@Example.com')
-            expect(found_user).to eq bob
+            @user = Fabricate(:bob, email: 'Bob@Example.com')
+            found_user = User.new_from_params({email: bob.email, password: 'mark4swagger'}).find_by_email
+            expect(found_user.email).to eq bob.email
 
-            found_user = User.find_by_email('bob1')
-            expect(found_user).to be_nil
+            @user = Fabricate(:bob, email: 'bob@Example.com')
+            found_user = User.new_from_params({email: bob.email, password: 'mark4swagger'}).find_by_email
+            expect(found_user.email).to eq bob.email
 
-            found_user = User.find_by_email('bob@Example.com')
-            expect(found_user).to eq bob
-
-            found_user = User.find_by_email('BOB@Example.com')
-            expect(found_user).to eq bob
-
-            found_user = User.find_by_email('bob')
-            expect(found_user).to be_nil
-
-            found_user = User.find_by_email('bOb')
-            expect(found_user).to eq bob
+            @user = Fabricate(:bob, email: 'BOB@EXAMPLE.com')
+            found_user = User.new_from_params({email: bob.email, password: 'mark4swagger'}).find_by_email
+            expect(found_user.email).to eq bob.email
         end
 
     end

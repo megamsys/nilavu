@@ -75,7 +75,6 @@ class UsersController < ApplicationController
 
       # save user email in session, to show on account-created page
       session["user_created_message"] = activation.message
-
       render json: {
         success: true,
         #        active: user.active?,
@@ -109,7 +108,7 @@ class UsersController < ApplicationController
 
   ## Need a json serializer
   def show
-    @orgs = Teams.new.tap do |teams|
+      @orgs = Teams.new.tap do |teams|
 
       teams.find_all(params)
     end

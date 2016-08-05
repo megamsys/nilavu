@@ -2,7 +2,6 @@ require 'rails_helper'
 require_dependency 'current_user'
 
 describe CurrentUser do
-
     before do
         @user = Fabricate.build(:evil_trout)
         @user.save
