@@ -32,10 +32,7 @@ export default Ember.Component.extend({
     }.observes('category.customappname', 'category.customappversion', 'category.appDetail', 'category.repoDetail'),
 
     isActive: function() {
-        const selTab = this.get('selectedTab');
-        if (Em.isEqual(this.get('selectedTab'), 'customapp')) {
-            this.set('summarizeVisible', true);
-        }
+        const selTab = this.get('selectedTab');      
         return selTab.trim().length > 0 && selTab.trim() == 'customapp';
     }.property('selectedTab', 'selectedPackApp')
 

@@ -28,12 +28,9 @@ export default Ember.Controller.extend(ModalFunctionality, {
         return this.selectedTab == 'general';
     }.property('selectedTab'),
 
-    //hidden nextSummarize button
+    //hidden nextSummarize button~
     selectionSelected: function() {
-        //return this.selectedTab == 'selection';
-        if (Em.isEqual(this.selectedTab, 'selection')) {
-          return this.get("summarizeVisible");
-        }
+        return this.selectedTab == 'selection';      
     }.property('selectedTab'),
 
     @observes('summarizeVisible')

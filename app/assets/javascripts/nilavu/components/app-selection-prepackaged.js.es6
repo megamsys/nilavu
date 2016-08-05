@@ -10,10 +10,7 @@ export default Ember.Component.extend({
     selection_title: "",
 
     isActive: function() {
-        const selTab = this.get('selectedTab');
-        if (Em.isEqual(this.get('selectedTab'), 'prepackaged')) {
-            this.set('summarizeVisible', false);
-        }
+        const selTab = this.get('selectedTab');      
         if (Em.isEqual(this.get("selectedPackApp"), this.constants.CONTAINER)) {
             this.set('selection_title', I18n.t("launcher.container_search_text"));
         } else {
