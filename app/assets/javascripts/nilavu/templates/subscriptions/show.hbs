@@ -1,0 +1,87 @@
+<div class="container">
+    <div class="row">
+        <div class="rt-box col-xs-12 col-sm-12 col-md-12 c_bg_white c_height_5">
+            <div class="">
+                <div class='contents'>
+                    <div class="row">
+                        <div class="margin_30 ">
+                            <div class="row c_pading-b15">
+                                <h1 class="center billing-title">{{i18n 'user.activation.title'}} </h1>
+                                <h4 class="center">
+                                    {{i18n 'user.activation.subtitle'}}
+                                </h4>
+                                <div class="bottom-divider"></div>
+                                <div class="row pad_t25">
+                                    <div class="center-btn">
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 cat_title">
+                                            {{i18n 'user.activation.otp_title'}}
+                                        </div>
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 col-xl-2">
+                                            {{text-field type="text" value=otpPin placeholderKey="user.activation.otp_pin" class ="form-control" id="new-otp-pin" disabled=otpValidated name="otppin" autofocus="autofocus"}}
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button class="btn btn-success btn-plain-green" {{action "verifyOTP"}}>
+                                              {{i18n 'user.activation.otp_verify'}}
+                                                <span class="pull-right">
+                                                    {{conditional-loading-spinner condition=showSpinner size="large"}}
+                                                </span>
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6">
+                                          {{i18n 'user.activation.otp_verify_title'}} {{phoneNumber}}
+                                         <a href="#" id="resend_otp" {{action "resendOTP"}}>
+                                            {{i18n 'user.activation.otp_resend'}}
+                                            <span class="pull-right">
+                                                {{conditional-loading-spinner condition=formSubmitted size="large"}}
+                                            </span>
+                                        </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row c_pading-b15">
+                        <div class="col-md-12  c_pading-b15">
+                            <div class="center-btn">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <h4>{{i18n 'user.activation.address'}}</h4>
+                                        {{text-field type="text" value=address placeholderKey="user.activation.addressex" class ="form-control" id="activatioin-address" disabled=addresssValidated name="address" autofocus="autofocus"}}
+                                        <h4>{{i18n 'user.activation.address2'}}</h4>
+                                        {{text-field type="text" value=address2 placeholderKey="user.activation.address2ex" class ="form-control" id="activation-address2" disabled=addresssValidated name="address2" autofocus="autofocus"}}
+                                        <h4>{{i18n 'user.activation.city'}}</h4>
+                                        {{text-field type="text" value=city placeholderKey="user.activation.cityex" class ="form-control" id="activation-city" disabled=addresssValidated name="city" autofocus="autofocus"}}
+                                        <h4>{{i18n 'user.activation.state'}}</h4>
+                                        {{text-field type="text" value=state placeholderKey="user.activation.stateex" class ="form-control" id="activation-state" disabled=addresssValidated name="state" autofocus="autofocus"}}
+                                        <h4>{{i18n 'user.activation.zipcode'}}</h4>
+                                        {{text-field type="text" value=zipcode placeholderKey="user.activation.zipcodeex" class ="form-control" id="activation-zipcode" disabled=addresssValidated name="zipcode" autofocus="autofocus"}}
+                                        <h4>{{i18n 'user.activation.company'}}</h4>
+                                        {{text-field type="text" value=company placeholderKey="user.activation.companyex" class ="form-control" id="activation-company" disabled=addresssValidated name="company" autofocus="autofocus"}}
+                                        <h4>{{i18n 'user.activation.select_country'}}</h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="margin_30 ">
+                                <div class="row ">
+                                    <div class="col-md-12">
+                                        <div class="center-btn">
+                                            <button class="btn btn-primary btn-payment" id="whmcs-payment-link" {{bind-attr disabled="submitDisabled"}} {{action "addFunds"}}>
+                                                {{i18n 'billing.proceed'}}
+                                                <span class="pull-right">
+                                                    {{conditional-loading-spinner condition=formSubmitted size="large"}}
+                                                </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

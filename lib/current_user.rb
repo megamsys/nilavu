@@ -5,6 +5,9 @@ module CurrentUser
   end
 
   def self.lookup_from_env(env)
+    puts "--------------- env "
+    puts env.inspect
+    puts "---- >>>"
     Nilavu.current_user_provider.new(env).current_user
   end
 

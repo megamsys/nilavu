@@ -1,273 +1,220 @@
 @import 'common/foundation/colors';
 @import "common/foundation/mixins";
 @import "common/foundation/variables";
-
-
 //
 // Notification component
 // --------------------------------------------------
-
 // Comtainer that houses the notification messages
 .#{$notification-css-prefix}__container {
-  position: fixed;
-  z-index: $notification-zindex;
-  width: $notification-width;
-  max-width: $notification-max-width;
-  margin: auto;
+    position: fixed;
+    z-index: $notification-zindex;
+    width: $notification-width;
+    max-width: $notification-max-width;
+    margin: auto;
 }
-
 .#{$notification-css-prefix}__container--top {
-  @include container-position($top: $notification-container-position, $right: 0, $left: 0);
+    @include container-position($top: $notification-container-position, $right: 0, $left: 0);
 }
-
 .#{$notification-css-prefix}__container--top-left {
-  @include container-position($top: $notification-container-position, $right: auto, $left: $notification-container-position);
+    @include container-position($top: $notification-container-position, $right: auto, $left: $notification-container-position);
 }
-
 .#{$notification-css-prefix}__container--top-right {
-  @include container-position($top: $notification-container-position, $right: $notification-container-position, $left: auto);
+    @include container-position($top: $notification-container-position, $right: $notification-container-position, $left: auto);
 }
-
 .#{$notification-css-prefix}__container--bottom {
-  @include container-position($right: 0, $left: 0, $bottom: $notification-container-position);
+    @include container-position($right: 0, $left: 0, $bottom: $notification-container-position);
 }
-
 .#{$notification-css-prefix}__container--bottom-left {
-  @include container-position($right: auto, $left: $notification-container-position, $bottom: $notification-container-position);
+    @include container-position($right: auto, $left: $notification-container-position, $bottom: $notification-container-position);
 }
-
 .#{$notification-css-prefix}__container--bottom-right {
-  @include container-position($right: $notification-container-position, $left: auto, $bottom: $notification-container-position);
+    @include container-position($right: $notification-container-position, $left: auto, $bottom: $notification-container-position);
 }
-
-
-
 // Base notification
 // -------------------------
-
 .#{$notification-css-prefix} {
-  font: #{$notification-font-size} #{$notification-font-family};
-  position: relative;
-  overflow: hidden;
-  border-radius: $notification-border-radius;
-  margin-bottom: $notification-spacing;
-  max-height: $notification-max-height;
-  color: #fff;
-  animation: notification-hide 250ms cubic-bezier(.33859, -.42, 1, -.22), notification-shrink 250ms 250ms cubic-bezier(.5, 0, 0, 1);
-  -webkit-animation: notification-hide 250ms cubic-bezier(.33859, -.42, 1, -.22), notification-shrink 250ms 250ms cubic-bezier(.5, 0, 0, 1);
-  animation-fill-mode: forwards;
-  -webkit-animation-fill-mode: forwards;
+    font: #{$notification-font-size} #{$notification-font-family};
+    position: relative;
+    overflow: hidden;
+    border-radius: $notification-border-radius;
+    margin-bottom: $notification-spacing;
+    max-height: $notification-max-height;
+    color: #fff;
+    border: #dfe1e3 1px solid;
+    background: rgba(255,255,255,0.9);
+    border-radius: 4px;
+    box-shadow: rgba(0,0,0,0.06) 0 1px 7px;
+    color: #ffffff;
+    animation: notification-hide 250ms cubic-bezier(.33859, -.42, 1, -.22), notification-shrink 250ms 250ms cubic-bezier(.5, 0, 0, 1);
+    -webkit-animation: notification-hide 250ms cubic-bezier(.33859, -.42, 1, -.22), notification-shrink 250ms 250ms cubic-bezier(.5, 0, 0, 1);
+    animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: forwards;
 }
-
-
 // Notification in
 // -------------------------
-
 .c-notification--in {
-  animation: notification-show 180ms cubic-bezier(.175, .885, .32, 1.27499);
-  -webkit-animation: notification-show 180ms cubic-bezier(.175, .885, .32, 1.27499);
+    animation: notification-show 180ms cubic-bezier(.175, .885, .32, 1.27499);
+    -webkit-animation: notification-show 180ms cubic-bezier(.175, .885, .32, 1.27499);
 }
-
-
 // Notification clickable
 .c-notification--clickable {
-  cursor: pointer;
+    cursor: pointer;
 }
-
 // Notification content
 // -------------------------
-
 .#{$notification-css-prefix}__icon {
-  position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: $notification-icon-width;
-  color: $notification-icon-color;
-  text-align: center;
-
-  span {
-    position: relative;
-    top: $notification-icon-position;
-  }
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: $notification-icon-width;
+    color: $notification-icon-color;
+    text-align: center;
+    span {
+        position: relative;
+        top: $notification-icon-position;
+    }
 }
-
 .#{$notification-css-prefix}__content {
-  padding: {
-    top: $notification-padding;
-    right: $notification-icon-width;
-    bottom: $notification-padding;
-    left: $notification-icon-width + 10;
-  }
-  word-break: break-word;
-
-  a {
-    color: #fff;
-    text-decoration: underline;
-  }
+    padding: {
+        top: $notification-padding;
+        right: $notification-icon-width;
+        bottom: $notification-padding;
+        left: $notification-icon-width + 10;
+    }
+    word-break: break-word;
+    a {
+        color: #fff;
+        text-decoration: underline;
+    }
 }
-
 .#{$notification-css-prefix}__close {
-  position: absolute;
-  top: $notification-icon-position;
-  right: $notification-icon-position;
-  opacity: .3;
-  cursor: pointer;
-
-  &:hover,
-  &:focus {
-    opacity: 1;
-  }
+    position: absolute;
+    top: $notification-icon-position;
+    right: $notification-icon-position;
+    opacity: 0.3;
+    cursor: pointer;
+    &:focus,
+    &:hover {
+        opacity: 1;
+    }
 }
-
-
 // Auto clear countdown
 // -------------------------
-
 .#{$notification-css-prefix}__countdown {
-  position: absolute;
-  bottom: 0;
-  width: 0;
-  height: 4px;
-  animation: notification-countdown linear 1;
-  -webkit-animation: notification-countdown linear 1;
+    position: absolute;
+    bottom: 0;
+    width: 0;
+    height: 4px;
+    animation: notification-countdown linear 1;
+    -webkit-animation: notification-countdown linear 1;
 }
-
-
 // Notification themes
 // -------------------------
-
 .#{$notification-css-prefix}--info {
-  @include notification-theme($notification-info-bg, $notification-info-alt);
+    @include notification-theme($notification-info-bg, $notification-info-alt);
 }
 .#{$notification-css-prefix}--success {
-  @include notification-theme($notification-success-bg, $notification-success-alt);
+    @include notification-theme($notification-success-bg, $notification-success-alt);
 }
 .#{$notification-css-prefix}--error {
-  @include notification-theme($notification-error-bg, $notification-error-alt);
+    @include notification-theme($notification-error-bg, $notification-error-alt);
 }
 .#{$notification-css-prefix}--warning {
-  @include notification-theme($notification-warning-bg, $notification-warning-alt);
+    @include notification-theme($notification-warning-bg, $notification-warning-alt);
 }
-
-
 //
 // Notification keyframes
 // --------------------------------------------------
-
-
 // Show keyframes
 // -------------------------
-
 @keyframes notification-show {
-  0% {
-    opacity: 0;
-    transform: perspective(450px) translate(0, -30px) rotateX(90deg);
-  }
-
-  100% {
-    opacity: 1;
-    transform: perspective(450px) translate(0, 0) rotateX(0deg);
-  }
+    0% {
+        opacity: 0;
+        transform: perspective(450px) translate(0, -30px) rotateX(90deg);
+    }
+    100% {
+        opacity: 1;
+        transform: perspective(450px) translate(0, 0) rotateX(0deg);
+    }
 }
-
 @-webkit-keyframes notification-show {
-  0% {
-    opacity: 0;
-    -webkit-transform: perspective(450px) translate(0, -30px) rotateX(90deg);
-  }
-
-  100% {
-    opacity: 1;
-    -webkit-transform: perspective(450px) translate(0, 0) rotateX(0deg);
-  }
+    0% {
+        opacity: 0;
+        -webkit-transform: perspective(450px) translate(0, -30px) rotateX(90deg);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: perspective(450px) translate(0, 0) rotateX(0deg);
+    }
 }
-
-
-
 // Shrink keyframes
 // -------------------------
-
 @keyframes notification-shrink {
-  0% {
-    opacity: 0;
-    max-height: $notification-max-height;
-    margin-bottom: $notification-spacing;
-    transform: scale(.8);
-  }
-
-  100% {
-    opacity: 0;
-    max-height: 0;
-    margin-bottom: 0;
-    transform: scale(.8);
-  }
+    0% {
+        opacity: 0;
+        max-height: $notification-max-height;
+        margin-bottom: $notification-spacing;
+        transform: scale(.8);
+    }
+    100% {
+        opacity: 0;
+        max-height: 0;
+        margin-bottom: 0;
+        transform: scale(.8);
+    }
 }
-
 @-webkit-keyframes notification-shrink {
-  0% {
-    opacity: 0;
-    max-height: $notification-max-height;
-    margin-bottom: $notification-spacing;
-    -webkit-transform: scale(.8);
-  }
-
-  100% {
-    opacity: 0;
-    max-height: 0;
-    margin-bottom: 0;
-    -webkit-transform: scale(.8);
-  }
+    0% {
+        opacity: 0;
+        max-height: $notification-max-height;
+        margin-bottom: $notification-spacing;
+        -webkit-transform: scale(.8);
+    }
+    100% {
+        opacity: 0;
+        max-height: 0;
+        margin-bottom: 0;
+        -webkit-transform: scale(.8);
+    }
 }
-
-
 // Hide keyframes
 // -------------------------
-
 @keyframes notification-hide {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  100% {
-    opacity: 0;
-    transform: scale(.8);
-  }
+    0% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(.8);
+    }
 }
-
 @-webkit-keyframes notification-hide {
-  0% {
-    opacity: 1;
-    -webkit-transform: scale(1);
-  }
-
-  100% {
-    opacity: 0;
-    -webkit-transform: scale(.8);
-  }
+    0% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: scale(.8);
+    }
 }
-
-
 // Countdown keyframes
 // -------------------------
-
 @keyframes notification-countdown {
-  0% {
-    width: 100%;
-  }
-
-  100% {
-    width: 0%;
-  }
+    0% {
+        width: 100%;
+    }
+    100% {
+        width: 0;
+    }
 }
-
 @-webkit-keyframes notification-countdown {
-  0% {
-    width: 100%;
-  }
-
-  100% {
-    width: 0%;
-  }
+    0% {
+        width: 100%;
+    }
+    100% {
+        width: 0;
+    }
 }

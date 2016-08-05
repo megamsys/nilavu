@@ -1,27 +1,28 @@
 <section class="" id="section-topline-2">
     <div class="vm-step2">
         <div class="row" style="margin-top:15px;">
-        <div class="col-md-12">
-            <ul class="tabsos">
+            <div class="col-md-12">
                 {{#if tabHeaderVisible}}
-                    {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab tab="centos"}}
-                    {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab tab="coreos"}}
-                    {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab tab="debian"}}
-                    {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab tab="ubuntu"}}
-                    {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab tab="fedora"}}
-                    {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab tab="snapshots"}}
+                    <ul class="tabsos">
+                        {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab selectedItem=selectedItemFlavor tab="centos"}}
+                        {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab selectedItem=selectedItemFlavor tab="coreos"}}
+                        {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab selectedItem=selectedItemFlavor tab="debian"}}
+                        {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab selectedItem=selectedItemFlavor tab="ubuntu"}}
+                        {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab selectedItem=selectedItemFlavor tab="fedora"}}
+                        {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab selectedItem=selectedItemFlavor tab="snapshots"}}
+                    </ul>
                 {{else}}
                     {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab tab=selectedItemFlavor}}
                 {{/if}}
-            </ul>
-            <div class="oscontainer">
-                <div class="tab-content">
-                    {{#each imagepanels as |tab|}}
-                        {{component tab tab=tab selectedTab=selectedTab category=category}}
-                    {{/each}}
+                <div class="oscontainer">
+                    <div class="tab-content">
+                        {{#each imagepanels as |tab|}}
+                            {{component tab tab=tab selectedTab=selectedTab category=category}}
+                        {{/each}}
+                    </div>
+
                 </div>
             </div>
-        </div>
         </div>
     </div>
 </section>

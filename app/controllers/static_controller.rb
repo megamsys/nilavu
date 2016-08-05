@@ -42,10 +42,11 @@ class StaticController < ApplicationController
     # It's used when an ajax login was successful but we want the browser to see
     # a post of a login form so that it offers to remember your password.
     def enter
+      puts "+++++++++++++++++++++++++++++++++++++++"
         params.delete(:username)
         params.delete(:password)
 
-        destination = path("/")
+        destination = path("/subscriptions/activation")
 
         if params[:redirect].present? && !params[:redirect].match(login_path)
             begin

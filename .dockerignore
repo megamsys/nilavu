@@ -1,0 +1,8 @@
+.vagrant/
+.git/
+.hooks/
+log/
+spec/
+tmp/
+passenger.3000.pid.lock
+License

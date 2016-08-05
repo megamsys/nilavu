@@ -52,6 +52,8 @@ const NilavuRoute = Ember.Route.extend({
     if (app.get('loginRequired')) {
       this.replaceWith('login');
     }
+    alert("logged in");
+
   },
 
   openTopicDraft(model){

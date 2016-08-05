@@ -18,7 +18,7 @@ const User = RestModel.extend({
             type: 'DELETE'
         });
     },
-    
+
     @computed("username", "name")
     displayName(username, name) {
         if (Nilavu.SiteSettings.enable_names && !Ember.isEmpty(name)) {
@@ -292,8 +292,8 @@ User.reopenClass(Singleton, {
                 password_confirmation: attrs.accountPasswordConfirm,
                 challenge: attrs.accountChallenge,
                 user_fields: attrs.userFields,
-                firstname: attrs.firstname,
-                lastname: attrs.lastname,
+                first_name: attrs.firstname,
+                last_name: attrs.lastname,
                 phone: attrs.phonenumber
             },
             type: 'POST'
