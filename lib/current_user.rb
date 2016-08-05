@@ -4,10 +4,7 @@ module CurrentUser
     Nilavu.current_user_provider.new(env).has_auth_cookie?
   end
 
-  def self.lookup_from_env(env)
-    puts "--------------- env "
-    puts env.inspect
-    puts "---- >>>"
+  def self.lookup_from_env(env)  
     Nilavu.current_user_provider.new(env).current_user
   end
 

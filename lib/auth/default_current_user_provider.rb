@@ -30,7 +30,10 @@ class Auth::DefaultCurrentUserProvider
         pass_token = request.cookies[PASS_COOKIE]
 
         current_user = nil
-
+        puts "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++"
+        puts request.cookies.inspect
+        puts pass_token
+        puts email_token
         if pass_token && email_token
             current_user = User.new_from_params({email: email_token, password: pass_token}).find_by_email
         end
@@ -51,12 +54,18 @@ class Auth::DefaultCurrentUserProvider
     end
 
     def log_on_user(user, session, cookies)
+        puts "+++++++++++++++++++++++++++++++++"
+        puts SiteSetting.permanent_session_cookie
         if SiteSetting.permanent_session_cookie
+            puts "--------------if--------------------"
+            puts user.inspect
+            puts user.password
             cookies.permanent[TOKEN_COOKIE] = { value: user.api_key, httponly: true }
             cookies.permanent[EMAIL_COOKIE] = { value: user.email, httponly: true }
             cookies.permanent[ORG_COOKIE] = { value: user.team, httponly: true}
             cookies.permanent[PASS_COOKIE] = { value: user.password, httponly: true}
         else
+            puts "-----------------------else---------------------"
             cookies[TOKEN_COOKIE] = { value: user.api_key, httponly: true }
             cookies[EMAIL_COOKIE] = { value: user.email, httponly: true }
             cookies[ORG_COOKIE] = { value: user.team, httponly: true }
