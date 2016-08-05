@@ -5,6 +5,16 @@ require_dependency 'version'
 
 module Nilavu
 
+    # Log an exception.
+    #
+    # If your code is in a scheduled job, it is recommended to use the
+    # error_context() method in Jobs::Base to pass the job arguments and any
+    # other desired context.
+    # See app/jobs/base.rb for the error_context function.
+    def self.handle_job_exception(ex, context = {}, parent_logger = nil)
+        context ||= {}
+    end
+
     # Expected less matches than what we got in a find
     class TooManyMatches < StandardError; end
 

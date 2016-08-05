@@ -31,7 +31,12 @@ class UsersController < ApplicationController
 
   before_action :add_authkeys_for_api, only: [:edit,:update,:show]
 
+
   def create
+
+    unless SiteSetting.allow_new_registrations
+      return fail_with("login.new_registrations_disabled")
+    end
 
     if params[:password] && params[:password].length > User.max_password_length
       return fail_with("login.password_too_long")
@@ -48,7 +53,6 @@ class UsersController < ApplicationController
     user = User.new
 
     user_params.each { |k, v| user.send("#{k}=", v) }
-
     user.api_key = SecureRandom.hex(20) if user.api_key.blank?
 
     authentication = UserAuthenticator.new(user, session)
@@ -61,7 +65,6 @@ class UsersController < ApplicationController
 
     activation = UserActivator.new(user, request, session, cookies)
     activation.start
-
 
     # just assign a password if we have an authenticator and no password, this is the case for oauth maybe
     user.password = SecureRandom.hex if user.password.blank? && authentication.has_authenticator?

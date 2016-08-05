@@ -1,31 +1,33 @@
 Fabricator(:user) do
-  firstname 'Bruce'
-  lastname  'Wayne'
+  first_name 'Bruce'
+  last_name  'Wayne'
   email { sequence(:email) { |i| "bruce#{i}@wayne.com" } }
   password 'myawesomepassword'
-  active true
+  active 'true'
+  #team  { Api::Team.new(Object.any_instance.stubs(id: 'ORG6135451166522419881', name: 'megambox.com', created_at: Time.now)) }
 end
 
 Fabricator(:coding_horror, from: :user) do
-  firstname 'Coding Horror'
+  first_name 'Coding Horror'
   email 'jeff@somewhere.com'
-  password 'mymoreawesomepassword'
+  password 'myawesomepassword'
+  team  { Api::Team.new(Object.any_instance.stubs(id: 'ORG6135451166522419881', name: 'megambox.com', created_at: Time.now)) }
 end
 
 Fabricator(:evil_trout, from: :user) do
-  firstname 'Evil Trout'
+  first_name 'Evil Trout'
   email 'eviltrout@somewhere.com'
   password 'imafish'
 end
 
 Fabricator(:walter_white, from: :user) do
-  firstname 'Walter White'
+  first_name 'Walter White'
   email 'wwhite@bluemeth.com'
   password 'letscook'
 end
 
 Fabricator(:newuser, from: :user) do
-  firstname 'Newbie'
-  lastname 'NewPerson'
+  first_name 'Newbie'
+  last_name 'NewPerson'
   email 'newbie@new.com'
 end

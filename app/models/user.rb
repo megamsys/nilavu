@@ -5,8 +5,8 @@ class User
     attr_accessor :password
     attr_accessor :api_key
     attr_accessor :team
-    attr_accessor :firstname
-    attr_accessor :lastname
+    attr_accessor :first_name
+    attr_accessor :last_name
     attr_accessor :authority
     attr_accessor :password_reset_key
     attr_accessor :password_reset_sent_at
@@ -103,6 +103,10 @@ class User
     end
 
     def confirm_password?(password)
+      puts "------------- confirm pasword"
+      puts password.inspect
+      puts @raw_password.inspect
+      puts "------------- confirm password done........"
         return false unless password && @raw_password
         password == password_hash(@raw_password)
     end
@@ -117,7 +121,7 @@ class User
         end
     end
 
-    def hash_password(password)
+    def hash_password(password, salt="")
         raise "password is too long" if password.size > User.max_password_length
         Base64.strict_encode64(password)
     end
@@ -177,8 +181,9 @@ class User
     ##
 
     def update_ip_address!(new_ip_address)
-        unless ip_address == new_ip_address || new_ip_address.blank?
-            update(:ip_address, new_ip_address)
+        unless @registration_ip_address == new_ip_address || new_ip_address.blank?
+            @registration_ip_address =  new_ip_address
+            update
         end
     end
 
@@ -188,6 +193,10 @@ class User
         update(:last_seen_at, now)
         update(:first_seen_at, now) unless self.first_seen_at
     end
+
+    def new_user?
+    created_at >= 24.hours.ago && !staff?
+  end
 
     def seen_before?
         last_seen_at.present?
@@ -202,14 +211,17 @@ class User
         {email: @email,
             api_key: @api_key,
             password: @raw_password,
+            password_reset_key: @password_reset_key,
+            password_reset_sent_at: @password_reset_sent_at,
             first_name:@firstname,
             last_name: @lastname,
             phone: @phone,
-            createdAt: @created_at,
+            created_at: @created_at,
             phone_verified: @phone_verified,
             email_verified: @email_verified,
             staged: @staged,
             active: @active,
+            authority: @authority,
             approved: @approved,
             approved_by_id: @approved_by_id,
             approved_at: @approved_at,
@@ -229,13 +241,15 @@ class User
         {:email => @email,
             :api_key => @api_key,
             :password => ensure_password_is_hashed,
-            :first_name => @firstname,
-            :last_name => @lastname,
             :password_reset_key => @password_reset_key,
+            :password_reset_sent_at => @password_reset_sent_at,
+            :first_name => @first_name,
+            :last_name => @last_name,
             :phone => @phone,
-            :createdAt =>@created_at,
+            :created_at =>@created_at,
             phone_verified: @phone_verified,
             email_verified: @email_verified,
+            authority: @authority,
             staged: @staged,
             active: @active,
             approved: @approved,
@@ -262,7 +276,7 @@ class User
     def find_by_password
         user = Api::Accounts.new.where(parms_using_password)
         if user
-            return User.new_from_params(user.to_hash)
+            return User.new_from_params(user.expanded)
         end
     end
 

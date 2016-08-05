@@ -66,7 +66,6 @@ class ApiDispatcher
         begin
             Rails.logger.debug "\033[01;35mFASCADE #{megfunc}::#{megact} \33[0;34m"
             raise Nilavu::InvalidParameters if !satisfied_args?(passthru, jparams)
-
             invoke_submit
         rescue Megam::API::Errors::ErrorWithResponse => m
             raise_api_errors(ApiDispatcher::Flunked.new(m))
