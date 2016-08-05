@@ -1,0 +1,2442 @@
+=> MEGAM_HOME env: /home/ram/code/megam/home.
+[1m[32m
+                  _..._       ███╗   ██╗██╗██╗      █████╗ ██╗   ██╗██╗   ██╗
+                .::'   `.     ████╗  ██║██║██║     ██╔══██╗██║   ██║██║   ██║
+               :::       :    ██╔██╗ ██║██║██║     ███████║██║   ██║██║   ██║
+               :::       :    ██║╚██╗██║██║██║     ██╔══██║╚██╗ ██╔╝██║   ██║
+               `::.     .'    ██║ ╚████║██║███████╗██║  ██║ ╚████╔╝ ╚██████╔╝
+                 `':..-'      ╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝  ╚═══╝   ╚═════╝
+  [0m
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <title>RSpec results</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Expires" content="-1" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <style type="text/css">
+  body {
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    font-size: 80%;
+  }
+  </style>
+  <script type="text/javascript">
+    // <![CDATA[
+
+function addClass(element_id, classname) {
+  document.getElementById(element_id).className += (" " + classname);
+}
+
+function removeClass(element_id, classname) {
+  var elem = document.getElementById(element_id);
+  var classlist = elem.className.replace(classname,'');
+  elem.className = classlist;
+}
+
+function moveProgressBar(percentDone) {
+  document.getElementById("rspec-header").style.width = percentDone +"%";
+}
+
+function makeRed(element_id) {
+  removeClass(element_id, 'passed');
+  removeClass(element_id, 'not_implemented');
+  addClass(element_id,'failed');
+}
+
+function makeYellow(element_id) {
+  var elem = document.getElementById(element_id);
+  if (elem.className.indexOf("failed") == -1) {  // class doesn't includes failed
+    if (elem.className.indexOf("not_implemented") == -1) { // class doesn't include not_implemented
+      removeClass(element_id, 'passed');
+      addClass(element_id,'not_implemented');
+    }
+  }
+}
+
+function apply_filters() {
+  var passed_filter = document.getElementById('passed_checkbox').checked;
+  var failed_filter = document.getElementById('failed_checkbox').checked;
+  var pending_filter = document.getElementById('pending_checkbox').checked;
+
+  assign_display_style("example passed", passed_filter);
+  assign_display_style("example failed", failed_filter);
+  assign_display_style("example not_implemented", pending_filter);
+
+  assign_display_style_for_group("example_group passed", passed_filter);
+  assign_display_style_for_group("example_group not_implemented", pending_filter, pending_filter || passed_filter);
+  assign_display_style_for_group("example_group failed", failed_filter, failed_filter || pending_filter || passed_filter);
+}
+
+function get_display_style(display_flag) {
+  var style_mode = 'none';
+  if (display_flag == true) {
+    style_mode = 'block';
+  }
+  return style_mode;
+}
+
+function assign_display_style(classname, display_flag) {
+  var style_mode = get_display_style(display_flag);
+  var elems = document.getElementsByClassName(classname)
+  for (var i=0; i<elems.length;i++) {
+    elems[i].style.display = style_mode;
+  }
+}
+
+function assign_display_style_for_group(classname, display_flag, subgroup_flag) {
+  var display_style_mode = get_display_style(display_flag);
+  var subgroup_style_mode = get_display_style(subgroup_flag);
+  var elems = document.getElementsByClassName(classname)
+  for (var i=0; i<elems.length;i++) {
+    var style_mode = display_style_mode;
+    if ((display_flag != subgroup_flag) && (elems[i].getElementsByTagName('dt')[0].innerHTML.indexOf(", ") != -1)) {
+      elems[i].style.display = subgroup_style_mode;
+    } else {
+      elems[i].style.display = display_style_mode;
+    }
+  }
+}
+
+    // ]]>
+  </script>
+  <style type="text/css">
+#rspec-header {
+  background: #65C400; color: #fff; height: 4em;
+}
+
+.rspec-report h1 {
+  margin: 0px 10px 0px 10px;
+  padding: 10px;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+  font-size: 1.8em;
+  position: absolute;
+}
+
+#label {
+  float:left;
+}
+
+#display-filters {
+  float:left;
+  padding: 28px 0 0 40%;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+}
+
+#summary {
+  float:right;
+  padding: 5px 10px;
+  font-family: "Lucida Grande", Helvetica, sans-serif;
+  text-align: right;
+}
+
+#summary p {
+  margin: 0 0 0 2px;
+}
+
+#summary #totals {
+  font-size: 1.2em;
+}
+
+.example_group {
+  margin: 0 10px 5px;
+  background: #fff;
+}
+
+dl {
+  margin: 0; padding: 0 0 5px;
+  font: normal 11px "Lucida Grande", Helvetica, sans-serif;
+}
+
+dt {
+  padding: 3px;
+  background: #65C400;
+  color: #fff;
+  font-weight: bold;
+}
+
+dd {
+  margin: 5px 0 5px 5px;
+  padding: 3px 3px 3px 18px;
+}
+
+dd .duration {
+  padding-left: 5px;
+  text-align: right;
+  right: 0px;
+  float:right;
+}
+
+dd.example.passed {
+  border-left: 5px solid #65C400;
+  border-bottom: 1px solid #65C400;
+  background: #DBFFB4; color: #3D7700;
+}
+
+dd.example.not_implemented {
+  border-left: 5px solid #FAF834;
+  border-bottom: 1px solid #FAF834;
+  background: #FCFB98; color: #131313;
+}
+
+dd.example.pending_fixed {
+  border-left: 5px solid #0000C2;
+  border-bottom: 1px solid #0000C2;
+  color: #0000C2; background: #D3FBFF;
+}
+
+dd.example.failed {
+  border-left: 5px solid #C20000;
+  border-bottom: 1px solid #C20000;
+  color: #C20000; background: #FFFBD3;
+}
+
+
+dt.not_implemented {
+  color: #000000; background: #FAF834;
+}
+
+dt.pending_fixed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+dt.failed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+
+#rspec-header.not_implemented {
+  color: #000000; background: #FAF834;
+}
+
+#rspec-header.pending_fixed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+#rspec-header.failed {
+  color: #FFFFFF; background: #C40D0D;
+}
+
+
+.backtrace {
+  color: #000;
+  font-size: 12px;
+}
+
+a {
+  color: #BE5C00;
+}
+
+/* Ruby code, style similar to vibrant ink */
+.ruby {
+  font-size: 12px;
+  font-family: monospace;
+  color: white;
+  background-color: black;
+  padding: 0.1em 0 0.2em 0;
+}
+
+.ruby .keyword { color: #FF6600; }
+.ruby .constant { color: #339999; }
+.ruby .attribute { color: white; }
+.ruby .global { color: white; }
+.ruby .module { color: white; }
+.ruby .class { color: white; }
+.ruby .string { color: #66FF00; }
+.ruby .ident { color: white; }
+.ruby .method { color: #FFCC00; }
+.ruby .number { color: white; }
+.ruby .char { color: white; }
+.ruby .comment { color: #9933CC; }
+.ruby .symbol { color: white; }
+.ruby .regex { color: #44B4CC; }
+.ruby .punct { color: white; }
+.ruby .escape { color: white; }
+.ruby .interp { color: white; }
+.ruby .expr { color: white; }
+
+.ruby .offending { background-color: gray; }
+.ruby .linenum {
+  width: 75px;
+  padding: 0.1em 1em 0.2em 0;
+  color: #000000;
+  background-color: #FFFBD3;
+}
+
+  </style>
+</head>
+<body>
+<div class="rspec-report">
+
+<div id="rspec-header">
+  <div id="label">
+    <h1>RSpec Code Examples</h1>
+  </div>
+
+  <div id="display-filters">
+    <input id="passed_checkbox"  name="passed_checkbox"  type="checkbox" checked="checked" onchange="apply_filters()" value="1" /> <label for="passed_checkbox">Passed</label>
+    <input id="failed_checkbox"  name="failed_checkbox"  type="checkbox" checked="checked" onchange="apply_filters()" value="2" /> <label for="failed_checkbox">Failed</label>
+    <input id="pending_checkbox" name="pending_checkbox" type="checkbox" checked="checked" onchange="apply_filters()" value="3" /> <label for="pending_checkbox">Pending</label>
+  </div>
+
+  <div id="summary">
+    <p id="totals">&#160;</p>
+    <p id="duration">&#160;</p>
+  </div>
+</div>
+
+
+<div class="results">
+<div id="div_group_1" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_1" class="passed">JsonError</dt>
+  </dl>
+</div>
+<div id="div_group_2" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_2" class="passed">with a nil argument</dt>
+  </dl>
+</div>
+<div id="div_group_3" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_3" class="passed">behaves like a generic error</dt>
+    <script type="text/javascript">moveProgressBar('0.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have a result object</span><span class='duration'>0.01512s</span></dd>
+    <script type="text/javascript">moveProgressBar('1.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">has a generic error message</span><span class='duration'>0.00089s</span></dd>
+  </dl>
+</div>
+<div id="div_group_4" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_4" class="passed">with an empty array</dt>
+  </dl>
+</div>
+<div id="div_group_5" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_5" class="passed">behaves like a generic error</dt>
+    <script type="text/javascript">moveProgressBar('2.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have a result object</span><span class='duration'>0.00022s</span></dd>
+    <script type="text/javascript">moveProgressBar('2.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">has a generic error message</span><span class='duration'>0.00014s</span></dd>
+  </dl>
+</div>
+<div id="div_group_6" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_6" class="passed">with an activerecord object with no errors</dt>
+  </dl>
+</div>
+<div id="div_group_7" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_7" class="passed">behaves like a generic error</dt>
+    <script type="text/javascript">moveProgressBar('3.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have a result object</span><span class='duration'>0.00323s</span></dd>
+    <script type="text/javascript">moveProgressBar('4.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">has a generic error message</span><span class='duration'>0.00026s</span></dd>
+  </dl>
+</div>
+<div id="div_group_8" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_8" class="passed">with a string</dt>
+    <script type="text/javascript">moveProgressBar('5.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns the string in the error format</span><span class='duration'>0.00009s</span></dd>
+  </dl>
+</div>
+<div id="div_group_9" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_9" class="passed">Auth::GoogleOAuth2Authenticator</dt>
+  </dl>
+</div>
+<div id="div_group_10" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_10" class="passed">after_authenticate</dt>
+    <script type="text/javascript">moveProgressBar('5.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">can authenticate and create a user record for already existing users</span><span class='duration'>0.00016s</span></dd>
+    <script type="text/javascript">moveProgressBar('6.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">can create a proper result for non existing users</span><span class='duration'>0.00008s</span></dd>
+  </dl>
+</div>
+<div id="div_group_11" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_11" class="passed">UsersController</dt>
+  </dl>
+</div>
+<div id="div_group_12" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_12" class="passed">.my_redirect</dt>
+    <script type="text/javascript">makeRed('rspec-header');</script>
+    <script type="text/javascript">makeRed('div_group_12');</script>
+    <script type="text/javascript">makeRed('example_group_12');</script>
+    <script type="text/javascript">moveProgressBar('7.2');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">redirects if the user is not logged in</span>
+      <span class="duration">0.00519s</span>
+      <div class="failure" id="failure_1">
+        <div class="message"><pre>No route matches {:action=&gt;&quot;my_redirect&quot;, :controller=&gt;&quot;users&quot;, :path=&gt;&quot;wat&quot;}</pre></div>
+        <div class="backtrace"><pre>/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/journey/formatter.rb:46:in `generate&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:721:in `generate&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:752:in `generate&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:747:in `generate_extras&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:742:in `extra_keys&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:210:in `assign_parameters&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:626:in `process&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:67:in `process&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:514:in `get&#39;
+./spec/controllers/users_controller_spec.rb:241:in `block (3 levels) in &lt;top (required)&gt;&#39;</pre></div>
+    <pre class="ruby"><code><span class="linenum">44</span>        message &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> missing required keys: </span><span class="inline"><span class="inline-delimiter">#{</span>missing_keys.sort.inspect<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span> <span class="keyword">unless</span> missing_keys.empty?
+<span class="linenum">45</span>
+<span class="offending"><span class="linenum">46</span>        raise <span class="constant">ActionController</span>::<span class="constant">UrlGenerationError</span>, message</span>
+<span class="linenum">47</span>      <span class="keyword">end</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div id="div_group_13" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_13" class="passed">when the user is logged in</dt>
+-- login user 
+#<User:0x0000000b28f5e0 @first_name="Bruce", @last_name="Wayne", @email="bruce3@wayne.com", @raw_password="myawesomepassword", @active="true">
+--- *** ----
+    <script type="text/javascript">makeRed('div_group_13');</script>
+    <script type="text/javascript">makeRed('example_group_13');</script>
+    <script type="text/javascript">moveProgressBar('7.9');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">will not redirect to an invalid path</span>
+      <span class="duration">0.00149s</span>
+      <div class="failure" id="failure_2">
+        <div class="message"><pre>No route matches {:action=&gt;&quot;my_redirect&quot;, :controller=&gt;&quot;users&quot;, :path=&gt;&quot;wat/..password.txt&quot;}</pre></div>
+        <div class="backtrace"><pre>/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/journey/formatter.rb:46:in `generate&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:721:in `generate&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:752:in `generate&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:747:in `generate_extras&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:742:in `extra_keys&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:210:in `assign_parameters&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:626:in `process&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:67:in `process&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:514:in `get&#39;
+./spec/controllers/users_controller_spec.rb:250:in `block (4 levels) in &lt;top (required)&gt;&#39;</pre></div>
+    <pre class="ruby"><code><span class="linenum">44</span>        message &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> missing required keys: </span><span class="inline"><span class="inline-delimiter">#{</span>missing_keys.sort.inspect<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span> <span class="keyword">unless</span> missing_keys.empty?
+<span class="linenum">45</span>
+<span class="offending"><span class="linenum">46</span>        raise <span class="constant">ActionController</span>::<span class="constant">UrlGenerationError</span>, message</span>
+<span class="linenum">47</span>      <span class="keyword">end</span></code></pre>
+      </div>
+    </dd>
+-- login user 
+#<User:0x0000000b2ce0b0 @first_name="Bruce", @last_name="Wayne", @email="bruce4@wayne.com", @raw_password="myawesomepassword", @active="true">
+--- *** ----
+    <script type="text/javascript">moveProgressBar('8.6');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">will redirect to an valid path</span>
+      <span class="duration">0.00141s</span>
+      <div class="failure" id="failure_3">
+        <div class="message"><pre>No route matches {:action=&gt;&quot;my_redirect&quot;, :controller=&gt;&quot;users&quot;, :path=&gt;&quot;preferences&quot;}</pre></div>
+        <div class="backtrace"><pre>/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/journey/formatter.rb:46:in `generate&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:721:in `generate&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:752:in `generate&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:747:in `generate_extras&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:742:in `extra_keys&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:210:in `assign_parameters&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:626:in `process&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:67:in `process&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:514:in `get&#39;
+./spec/controllers/users_controller_spec.rb:255:in `block (4 levels) in &lt;top (required)&gt;&#39;</pre></div>
+    <pre class="ruby"><code><span class="linenum">44</span>        message &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> missing required keys: </span><span class="inline"><span class="inline-delimiter">#{</span>missing_keys.sort.inspect<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span> <span class="keyword">unless</span> missing_keys.empty?
+<span class="linenum">45</span>
+<span class="offending"><span class="linenum">46</span>        raise <span class="constant">ActionController</span>::<span class="constant">UrlGenerationError</span>, message</span>
+<span class="linenum">47</span>      <span class="keyword">end</span></code></pre>
+      </div>
+    </dd>
+-- login user 
+#<User:0x0000000b30a150 @first_name="Bruce", @last_name="Wayne", @email="bruce5@wayne.com", @raw_password="myawesomepassword", @active="true">
+--- *** ----
+    <script type="text/javascript">moveProgressBar('9.4');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">permits forward slashes</span>
+      <span class="duration">0.00140s</span>
+      <div class="failure" id="failure_4">
+        <div class="message"><pre>No route matches {:action=&gt;&quot;my_redirect&quot;, :controller=&gt;&quot;users&quot;, :path=&gt;&quot;activity/posts&quot;}</pre></div>
+        <div class="backtrace"><pre>/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/journey/formatter.rb:46:in `generate&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:721:in `generate&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:752:in `generate&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:747:in `generate_extras&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:742:in `extra_keys&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:210:in `assign_parameters&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:626:in `process&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:67:in `process&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:514:in `get&#39;
+./spec/controllers/users_controller_spec.rb:260:in `block (4 levels) in &lt;top (required)&gt;&#39;</pre></div>
+    <pre class="ruby"><code><span class="linenum">44</span>        message &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> missing required keys: </span><span class="inline"><span class="inline-delimiter">#{</span>missing_keys.sort.inspect<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span> <span class="keyword">unless</span> missing_keys.empty?
+<span class="linenum">45</span>
+<span class="offending"><span class="linenum">46</span>        raise <span class="constant">ActionController</span>::<span class="constant">UrlGenerationError</span>, message</span>
+<span class="linenum">47</span>      <span class="keyword">end</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div id="div_group_14" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_14" class="passed">#create</dt>
+  </dl>
+</div>
+<div id="div_group_15" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_15" class="passed">when creating a non active user (unconfirmed email)</dt>
+    <script type="text/javascript">moveProgressBar('10.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns a 500 when local logins are disabled</span><span class='duration'>0.01281s</span></dd>
+    <script type="text/javascript">moveProgressBar('10.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns an error when new registrations are disabled</span><span class='duration'>0.00588s</span></dd>
+--> (/accounts/content)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 201
+[2016-08-05T16:32:23+05:30] DEBUG: > method: post
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"bruce8@wayne.com","api_key":"c9ef7b82711b2ee796ebaee0c2c3c230585ba3a0","name":{"first_name":null,"last_name":null},"phone":{"phone":null,"phone_verified":null},"password":{"password":null,"password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":null,"blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/accounts/content
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"bruce8@wayne.com","api_key":"c9ef7b82711b2ee796ebaee0c2c3c230585ba3a0","name":{"first_name":null,"last_name":null},"phone":{"phone":null,"phone_verified":null},"password":{"password":null,"password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":null,"blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"bruce8@wayne.com:5f1430a4d93c4e1a37b675d4d3d86da29d9e0b5c", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>""}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 201
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 324
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "code":201,
+  "msg_type":"info",
+  "msg":"Onboard successful. email 'bruce8@wayne.com' and api_key 'c9ef7b82711b2ee796ebaee0c2c3c230585ba3a0' is registered.",
+  "more":"",
+  "json_claz":"Megam::Account",
+  "links":"Forum   :http://docs.megam.io/discuss\nDocs    :http://docs.megam.io\nSupport :http://support.megam.io"
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Account
+id             =
+email          =
+api_key        =
+name           ={}
+phone          ={}
+password       ={}
+states         ={}
+approval       ={}
+suspend        ={}
+registration_ip_address=
+dates          ={}
+some_msg       ={}
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.007858237s)
+    <script type="text/javascript">moveProgressBar('11.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">creates a user correctly</span><span class='duration'>0.01772s</span></dd>
+  </dl>
+</div>
+<div id="div_group_16" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_16" class="passed">when creating an active user (confirmed email)</dt>
+--> (/accounts/content)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 201
+[2016-08-05T16:32:23+05:30] DEBUG: > method: post
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"bruce9@wayne.com","api_key":"104af8b9daea342e751692b77039781d0f3fa637","name":{"first_name":null,"last_name":null},"phone":{"phone":null,"phone_verified":null},"password":{"password":null,"password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":null,"blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/accounts/content
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"bruce9@wayne.com","api_key":"104af8b9daea342e751692b77039781d0f3fa637","name":{"first_name":null,"last_name":null},"phone":{"phone":null,"phone_verified":null},"password":{"password":null,"password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":null,"blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"bruce9@wayne.com:d647d5a05621d50b207417229ff27efe41468a98", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>""}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 201
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 324
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "code":201,
+  "msg_type":"info",
+  "msg":"Onboard successful. email 'bruce9@wayne.com' and api_key '104af8b9daea342e751692b77039781d0f3fa637' is registered.",
+  "more":"",
+  "json_claz":"Megam::Account",
+  "links":"Forum   :http://docs.megam.io/discuss\nDocs    :http://docs.megam.io\nSupport :http://support.megam.io"
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Account
+id             =
+email          =
+api_key        =
+name           ={}
+phone          ={}
+password       ={}
+states         ={}
+approval       ={}
+suspend        ={}
+registration_ip_address=
+dates          ={}
+some_msg       ={}
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.007905354s)
+    <script type="text/javascript">moveProgressBar('12.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should be logged in</span><span class='duration'>0.01384s</span></dd>
+    <script type="text/javascript">moveProgressBar('13.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns 500 status when new registrations are disabled</span><span class='duration'>0.00373s</span></dd>
+  </dl>
+</div>
+<div id="div_group_17" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_17" class="passed">after success</dt>
+--> (/accounts/content)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 201
+[2016-08-05T16:32:23+05:30] DEBUG: > method: post
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"bruce11@wayne.com","api_key":"013bdf140bc4d05e3edccef615852152ba631a41","name":{"first_name":null,"last_name":null},"phone":{"phone":null,"phone_verified":null},"password":{"password":null,"password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":null,"blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/accounts/content
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"bruce11@wayne.com","api_key":"013bdf140bc4d05e3edccef615852152ba631a41","name":{"first_name":null,"last_name":null},"phone":{"phone":null,"phone_verified":null},"password":{"password":null,"password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":null,"blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"bruce11@wayne.com:3ee3af924369d26c707c55413bf74b7b91df341a", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>""}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 201
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 325
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "code":201,
+  "msg_type":"info",
+  "msg":"Onboard successful. email 'bruce11@wayne.com' and api_key '013bdf140bc4d05e3edccef615852152ba631a41' is registered.",
+  "more":"",
+  "json_claz":"Megam::Account",
+  "links":"Forum   :http://docs.megam.io/discuss\nDocs    :http://docs.megam.io\nSupport :http://support.megam.io"
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Account
+id             =
+email          =
+api_key        =
+name           ={}
+phone          ={}
+password       ={}
+states         ={}
+approval       ={}
+suspend        ={}
+registration_ip_address=
+dates          ={}
+some_msg       ={}
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.006565362s)
+    <script type="text/javascript">moveProgressBar('13.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">should succeed</span><span class='duration'>0.01307s</span></dd>
+--> (/accounts/content)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 201
+[2016-08-05T16:32:23+05:30] DEBUG: > method: post
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"bruce12@wayne.com","api_key":"cf90ae8eb8402de62000584901a5fd12066cf3c9","name":{"first_name":null,"last_name":null},"phone":{"phone":null,"phone_verified":null},"password":{"password":null,"password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":null,"blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/accounts/content
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"bruce12@wayne.com","api_key":"cf90ae8eb8402de62000584901a5fd12066cf3c9","name":{"first_name":null,"last_name":null},"phone":{"phone":null,"phone_verified":null},"password":{"password":null,"password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":null,"blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"bruce12@wayne.com:46046f05528ae6010ee9fd31229950443dd92437", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>""}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 201
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 325
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "code":201,
+  "msg_type":"info",
+  "msg":"Onboard successful. email 'bruce12@wayne.com' and api_key 'cf90ae8eb8402de62000584901a5fd12066cf3c9' is registered.",
+  "more":"",
+  "json_claz":"Megam::Account",
+  "links":"Forum   :http://docs.megam.io/discuss\nDocs    :http://docs.megam.io\nSupport :http://support.megam.io"
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Account
+id             =
+email          =
+api_key        =
+name           ={}
+phone          ={}
+password       ={}
+states         ={}
+approval       ={}
+suspend        ={}
+registration_ip_address=
+dates          ={}
+some_msg       ={}
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.006547668s)
+    <script type="text/javascript">moveProgressBar('14.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">has the proper JSON</span><span class='duration'>0.01332s</span></dd>
+  </dl>
+</div>
+<div id="div_group_18" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_18" class="passed">when password is too long</dt>
+    <script type="text/javascript">moveProgressBar('15.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not create a new User</span><span class='duration'>0.00634s</span></dd>
+    <script type="text/javascript">moveProgressBar('15.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should report failed</span><span class='duration'>0.00478s</span></dd>
+  </dl>
+</div>
+<div id="div_group_19" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_19" class="passed">.show</dt>
+  </dl>
+</div>
+<div id="div_group_20" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_20" class="passed">logged in</dt>
+-- login user 
+#<User:0x0000000b5e4bc8 @first_name="Bob Lee", @last_name="Swagger", @email="boblee@shooter.com", @raw_password="mark4swagger", @active="true", @api_key="scroogeduck#4">
+--- *** ----
+--> (/organizations)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 200
+[2016-08-05T16:32:23+05:30] DEBUG: > method: get
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/organizations
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"boblee@shooter.com:ec6cd76a312261ddd3a21264aaadeba4d6e61e33", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>""}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 200
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 274
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "json_claz":"Megam::OrganizationsCollection",
+  "results":[
+    {
+      "id":"ORG5233578624989913170",
+      "accounts_id":"boblee@shooter.com",
+      "name":"megam.io",
+      "json_claz":"Megam::Organizations",
+      "created_at":"2016-08-05 07:49:50 +0000"
+    }
+  ]
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Organizations
+id             =ORG5233578624989913170
+name           =megam.io
+accounts_id    =boblee@shooter.com
+related_orgs   =[]
+created_at     =2016-08-05 07:49:50 +0000
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.006878103s)
+--> (/domains)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 200
+[2016-08-05T16:32:23+05:30] DEBUG: > method: get
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/domains
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"boblee@shooter.com:7bc1a579ce96bfb50e0a11d41295bc430ba8b70f", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>"ORG5233578624989913170"}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 200
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 265
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "json_claz":"Megam::DomainsCollection",
+  "results":[
+    {
+      "id":"DMN4879050360450898838",
+      "org_id":"ORG5233578624989913170",
+      "name":"megambox.com",
+      "json_claz":"Megam::Domains",
+      "created_at":"2016-08-05 07:49:50 +0000"
+    }
+  ]
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Domains
+id             =DMN4879050360450898838
+org_id         =ORG5233578624989913170
+name           =megambox.com
+created_at     =2016-08-05 07:49:50 +0000
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.006089253s)
+--> (/organizations)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 200
+[2016-08-05T16:32:23+05:30] DEBUG: > method: get
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/organizations
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"boblee@shooter.com:ec6cd76a312261ddd3a21264aaadeba4d6e61e33", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>"ORG5233578624989913170"}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 200
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 274
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "json_claz":"Megam::OrganizationsCollection",
+  "results":[
+    {
+      "id":"ORG5233578624989913170",
+      "accounts_id":"boblee@shooter.com",
+      "name":"megam.io",
+      "json_claz":"Megam::Organizations",
+      "created_at":"2016-08-05 07:49:50 +0000"
+    }
+  ]
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Organizations
+id             =ORG5233578624989913170
+name           =megam.io
+accounts_id    =boblee@shooter.com
+related_orgs   =[]
+created_at     =2016-08-05 07:49:50 +0000
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.006077353s)
+--> (/domains)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 200
+[2016-08-05T16:32:23+05:30] DEBUG: > method: get
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/domains
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"boblee@shooter.com:7bc1a579ce96bfb50e0a11d41295bc430ba8b70f", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>"ORG5233578624989913170"}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 200
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 265
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "json_claz":"Megam::DomainsCollection",
+  "results":[
+    {
+      "id":"DMN4879050360450898838",
+      "org_id":"ORG5233578624989913170",
+      "name":"megambox.com",
+      "json_claz":"Megam::Domains",
+      "created_at":"2016-08-05 07:49:50 +0000"
+    }
+  ]
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Domains
+id             =DMN4879050360450898838
+org_id         =ORG5233578624989913170
+name           =megambox.com
+created_at     =2016-08-05 07:49:50 +0000
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.006109254s)
+    <script type="text/javascript">moveProgressBar('16.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns success</span><span class='duration'>0.03687s</span></dd>
+-- login user 
+#<User:0x0000000b66ea08 @first_name="Bob Lee", @last_name="Swagger", @email="boblee@shooter.com", @raw_password="mark4swagger", @active="true", @api_key="scroogeduck#4">
+--- *** ----
+--> (/organizations)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 200
+[2016-08-05T16:32:23+05:30] DEBUG: > method: get
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/organizations
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"boblee@shooter.com:ec6cd76a312261ddd3a21264aaadeba4d6e61e33", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>""}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 200
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 274
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "json_claz":"Megam::OrganizationsCollection",
+  "results":[
+    {
+      "id":"ORG5233578624989913170",
+      "accounts_id":"boblee@shooter.com",
+      "name":"megam.io",
+      "json_claz":"Megam::Organizations",
+      "created_at":"2016-08-05 07:49:50 +0000"
+    }
+  ]
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Organizations
+id             =ORG5233578624989913170
+name           =megam.io
+accounts_id    =boblee@shooter.com
+related_orgs   =[]
+created_at     =2016-08-05 07:49:50 +0000
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.005833188s)
+--> (/domains)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 200
+[2016-08-05T16:32:23+05:30] DEBUG: > method: get
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/domains
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"boblee@shooter.com:7bc1a579ce96bfb50e0a11d41295bc430ba8b70f", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>"ORG5233578624989913170"}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 200
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 265
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "json_claz":"Megam::DomainsCollection",
+  "results":[
+    {
+      "id":"DMN4879050360450898838",
+      "org_id":"ORG5233578624989913170",
+      "name":"megambox.com",
+      "json_claz":"Megam::Domains",
+      "created_at":"2016-08-05 07:49:50 +0000"
+    }
+  ]
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Domains
+id             =DMN4879050360450898838
+org_id         =ORG5233578624989913170
+name           =megambox.com
+created_at     =2016-08-05 07:49:50 +0000
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.009398798s)
+--> (/organizations)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 200
+[2016-08-05T16:32:23+05:30] DEBUG: > method: get
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/organizations
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"boblee@shooter.com:ec6cd76a312261ddd3a21264aaadeba4d6e61e33", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>"ORG5233578624989913170"}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 200
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 274
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "json_claz":"Megam::OrganizationsCollection",
+  "results":[
+    {
+      "id":"ORG5233578624989913170",
+      "accounts_id":"boblee@shooter.com",
+      "name":"megam.io",
+      "json_claz":"Megam::Organizations",
+      "created_at":"2016-08-05 07:49:50 +0000"
+    }
+  ]
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Organizations
+id             =ORG5233578624989913170
+name           =megam.io
+accounts_id    =boblee@shooter.com
+related_orgs   =[]
+created_at     =2016-08-05 07:49:50 +0000
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.006024024s)
+--> (/domains)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 200
+[2016-08-05T16:32:23+05:30] DEBUG: > method: get
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/domains
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"boblee@shooter.com:7bc1a579ce96bfb50e0a11d41295bc430ba8b70f", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>"ORG5233578624989913170"}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 200
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 265
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "json_claz":"Megam::DomainsCollection",
+  "results":[
+    {
+      "id":"DMN4879050360450898838",
+      "org_id":"ORG5233578624989913170",
+      "name":"megambox.com",
+      "json_claz":"Megam::Domains",
+      "created_at":"2016-08-05 07:49:50 +0000"
+    }
+  ]
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Domains
+id             =DMN4879050360450898838
+org_id         =ORG5233578624989913170
+name           =megambox.com
+created_at     =2016-08-05 07:49:50 +0000
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.005416294s)
+    <script type="text/javascript">moveProgressBar('17.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns not found when the email doesn&#39;t exist</span><span class='duration'>0.03358s</span></dd>
+  </dl>
+</div>
+<div id="div_group_21" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_21" class="passed">.password_reset</dt>
+  </dl>
+</div>
+<div id="div_group_22" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_22" class="passed">submit change</dt>
+    <script type="text/javascript">moveProgressBar('18.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">fails when the password is blank</span><span class='duration'>0.00414s</span></dd>
+    <script type="text/javascript">moveProgressBar('18.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">fails when the password is too long</span><span class='duration'>0.00337s</span></dd>
+  </dl>
+</div>
+<div id="div_group_23" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_23" class="passed">invalid token</dt>
+    <script type="text/javascript">moveProgressBar('19.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">disallows login</span><span class='duration'>0.00578s</span></dd>
+  </dl>
+</div>
+<div id="div_group_24" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_24" class="passed">you can view it even if login is required</dt>
+    <script type="text/javascript">moveProgressBar('20.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns success</span><span class='duration'>0.00273s</span></dd>
+  </dl>
+</div>
+<div id="div_group_25" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_25" class="passed">missing token</dt>
+    <script type="text/javascript">makeRed('div_group_25');</script>
+    <script type="text/javascript">makeRed('example_group_25');</script>
+    <script type="text/javascript">moveProgressBar('21.0');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">disallows login</span>
+      <span class="duration">0.00260s</span>
+      <div class="failure" id="failure_5">
+        <div class="message"><pre>expected `nil.present?` to return true, got false</pre></div>
+        <div class="backtrace"><pre>/home/ram/.rvm/gems/ruby-2.3.1/gems/given_core-3.8.0/lib/given/rspec/monkey.rb:21:in `handle_matcher&#39;
+./spec/controllers/users_controller_spec.rb:43:in `block (4 levels) in &lt;top (required)&gt;&#39;</pre></div>
+    <pre class="ruby"><code><span class="linenum">19</span>            <span class="keyword">def</span> <span class="function">handle_matcher</span>(actual, matcher, message=<span class="predefined-constant">nil</span>, &amp;block)
+<span class="linenum">20</span>              ::<span class="constant">Given</span>.framework.explicitly_asserted
+<span class="offending"><span class="linenum">21</span>              _gvn_rspec_original_handle_matcher(actual, matcher, message, &amp;block)</span>
+<span class="linenum">22</span>            <span class="keyword">end</span>
+<span class="linenum">23</span>          <span class="keyword">end</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div id="div_group_26" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_26" class="passed">valid token</dt>
+    <script type="text/javascript">moveProgressBar('21.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns success</span><span class='duration'>0.01503s</span></dd>
+  </dl>
+</div>
+<div id="div_group_27" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_27" class="passed">#update</dt>
+  </dl>
+</div>
+<div id="div_group_28" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_28" class="passed">with guest</dt>
+    <script type="text/javascript">makeRed('div_group_28');</script>
+    <script type="text/javascript">makeRed('example_group_28');</script>
+    <script type="text/javascript">moveProgressBar('22.4');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">raises an error</span>
+      <span class="duration">0.00140s</span>
+      <div class="failure" id="failure_6">
+        <div class="message"><pre>expected Nilavu::NotLoggedIn, got #&lt;ActionController::UrlGenerationError: No route matches {:action=&gt;&quot;update&quot;, :controller=&gt;&quot;users&quot;, :username=&gt;&quot;guest&quot;}&gt; with backtrace:
+  # /home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/journey/formatter.rb:46:in `generate&#39;
+  # /home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:721:in `generate&#39;
+  # /home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:752:in `generate&#39;
+  # /home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:747:in `generate_extras&#39;
+  # /home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:742:in `extra_keys&#39;
+  # /home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:210:in `assign_parameters&#39;
+  # /home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:626:in `process&#39;
+  # /home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:67:in `process&#39;
+  # /home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:532:in `put&#39;
+  # /home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:550:in `xml_http_request&#39;
+  # ./spec/controllers/users_controller_spec.rb:197:in `block (5 levels) in &lt;top (required)&gt;&#39;
+  # /home/ram/.rvm/gems/ruby-2.3.1/gems/given_core-3.8.0/lib/given/rspec/monkey.rb:21:in `handle_matcher&#39;
+  # ./spec/controllers/users_controller_spec.rb:196:in `block (4 levels) in &lt;top (required)&gt;&#39;</pre></div>
+        <div class="backtrace"><pre>/home/ram/.rvm/gems/ruby-2.3.1/gems/given_core-3.8.0/lib/given/rspec/monkey.rb:21:in `handle_matcher&#39;
+./spec/controllers/users_controller_spec.rb:196:in `block (4 levels) in &lt;top (required)&gt;&#39;</pre></div>
+    <pre class="ruby"><code><span class="linenum">19</span>            <span class="keyword">def</span> <span class="function">handle_matcher</span>(actual, matcher, message=<span class="predefined-constant">nil</span>, &amp;block)
+<span class="linenum">20</span>              ::<span class="constant">Given</span>.framework.explicitly_asserted
+<span class="offending"><span class="linenum">21</span>              _gvn_rspec_original_handle_matcher(actual, matcher, message, &amp;block)</span>
+<span class="linenum">22</span>            <span class="keyword">end</span>
+<span class="linenum">23</span>          <span class="keyword">end</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div id="div_group_29" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_29" class="passed">with authenticated user</dt>
+  </dl>
+</div>
+<div id="div_group_30" class="example_group passed">
+  <dl style="margin-left: 45px;">
+  <dt id="example_group_30" class="passed">with permission to update</dt>
+-- login user 
+#<User:0x0000000b93a318 @first_name="Bruce", @last_name="Wayne", @email="bruce16@wayne.com", @raw_password="myawesomepassword", @active="true">
+--- *** ----
+    <script type="text/javascript">makeRed('div_group_30');</script>
+    <script type="text/javascript">makeRed('example_group_30');</script>
+    <script type="text/javascript">moveProgressBar('23.1');</script>
+    <dd class="example failed">
+      <span class="failed_spec_name">allows the update</span>
+      <span class="duration">0.00152s</span>
+      <div class="failure" id="failure_7">
+        <div class="message"><pre>No route matches {:action=&gt;&quot;update&quot;, :controller=&gt;&quot;users&quot;, :email=&gt;&quot;bruce16@wayne.com&quot;, :first_name=&gt;&quot;Jim Tom&quot;}</pre></div>
+        <div class="backtrace"><pre>/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/journey/formatter.rb:46:in `generate&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:721:in `generate&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:752:in `generate&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:747:in `generate_extras&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_dispatch/routing/route_set.rb:742:in `extra_keys&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:210:in `assign_parameters&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:626:in `process&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:67:in `process&#39;
+/home/ram/.rvm/gems/ruby-2.3.1/gems/actionpack-4.2.7/lib/action_controller/test_case.rb:520:in `post&#39;
+./spec/controllers/users_controller_spec.rb:212:in `block (5 levels) in &lt;top (required)&gt;&#39;</pre></div>
+    <pre class="ruby"><code><span class="linenum">44</span>        message &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content"> missing required keys: </span><span class="inline"><span class="inline-delimiter">#{</span>missing_keys.sort.inspect<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span> <span class="keyword">unless</span> missing_keys.empty?
+<span class="linenum">45</span>
+<span class="offending"><span class="linenum">46</span>        raise <span class="constant">ActionController</span>::<span class="constant">UrlGenerationError</span>, message</span>
+<span class="linenum">47</span>      <span class="keyword">end</span></code></pre>
+      </div>
+    </dd>
+  </dl>
+</div>
+<div id="div_group_31" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_31" class="passed">Scheduler::Defer</dt>
+    <script type="text/javascript">moveProgressBar('23.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">can pause and resume</span><span class='duration'>0.00037s</span></dd>
+    <script type="text/javascript">moveProgressBar('24.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">recovers from a crash / fork</span><span class='duration'>0.00648s</span></dd>
+    <script type="text/javascript">moveProgressBar('25.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">can queue jobs properly</span><span class='duration'>0.00145s</span></dd>
+  </dl>
+</div>
+<div id="div_group_32" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_32" class="passed">SiteSettings::YamlLoader</dt>
+    <script type="text/javascript">moveProgressBar('26.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">can load enum settings</span><span class='duration'>0.00085s</span></dd>
+    <script type="text/javascript">moveProgressBar('26.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">can load enum client settings</span><span class='duration'>0.00071s</span></dd>
+    <script type="text/javascript">moveProgressBar('27.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">maintains order of categories</span><span class='duration'>0.00041s</span></dd>
+    <script type="text/javascript">moveProgressBar('28.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">loads simple settings</span><span class='duration'>0.00105s</span></dd>
+    <script type="text/javascript">moveProgressBar('28.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">can take a File argument</span><span class='duration'>0.00067s</span></dd>
+    <script type="text/javascript">moveProgressBar('29.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">can load client settings</span><span class='duration'>0.00078s</span></dd>
+    <script type="text/javascript">moveProgressBar('30.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">can load settings based on environment</span><span class='duration'>0.00091s</span></dd>
+  </dl>
+</div>
+<div id="div_group_33" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_33" class="passed">Auth::FacebookAuthenticator</dt>
+  </dl>
+</div>
+<div id="div_group_34" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_34" class="passed">after_authenticate</dt>
+    <script type="text/javascript">moveProgressBar('31.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">can authenticate and create a user record for already existing users</span><span class='duration'>0.00022s</span></dd>
+    <script type="text/javascript">moveProgressBar('31.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">can create a proper result for non existing users</span><span class='duration'>0.00008s</span></dd>
+  </dl>
+</div>
+<div id="div_group_35" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_35" class="passed">ApplicationHelper</dt>
+  </dl>
+</div>
+<div id="div_group_36" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_36" class="passed">escape_unicode</dt>
+    <script type="text/javascript">moveProgressBar('32.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">encodes tags</span><span class='duration'>0.00325s</span></dd>
+    <script type="text/javascript">moveProgressBar('33.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">survives junk text</span><span class='duration'>0.00120s</span></dd>
+  </dl>
+</div>
+<div id="div_group_37" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_37" class="passed">I18n::Backend::NilavuI18n</dt>
+    <script type="text/javascript">moveProgressBar('34.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">translates the basics as expected</span><span class='duration'>0.01079s</span></dd>
+    <script type="text/javascript">moveProgressBar('34.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">can be searched by key or value</span><span class='duration'>0.00035s</span></dd>
+    <script type="text/javascript">moveProgressBar('35.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">can return multiple results</span><span class='duration'>0.00018s</span></dd>
+  </dl>
+</div>
+<div id="div_group_38" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_38" class="passed">#exists?</dt>
+    <script type="text/javascript">moveProgressBar('36.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true when a key is given which is missing from the given locale and exists in a fallback locale</span><span class='duration'>0.00020s</span></dd>
+    <script type="text/javascript">moveProgressBar('36.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true when a key is given which is missing from the given locale and all its fallback locales</span><span class='duration'>0.00020s</span></dd>
+    <script type="text/javascript">moveProgressBar('37.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true when an existing key and an existing locale is given</span><span class='duration'>0.00018s</span></dd>
+    <script type="text/javascript">moveProgressBar('38.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true when a key is given that exists</span><span class='duration'>0.00013s</span></dd>
+    <script type="text/javascript">moveProgressBar('39.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true when a key is given that exists in a fallback locale of the locale</span><span class='duration'>0.00018s</span></dd>
+    <script type="text/javascript">moveProgressBar('39.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns false when a non-existing key and an existing locale is given</span><span class='duration'>0.00017s</span></dd>
+  </dl>
+</div>
+<div id="div_group_39" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_39" class="passed">ApplicationController</dt>
+  </dl>
+</div>
+<div id="div_group_40" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_40" class="passed">set_locale</dt>
+    <script type="text/javascript">moveProgressBar('40.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">is sets the default locale when the setting not enabled</span><span class='duration'>0.00108s</span></dd>
+  </dl>
+</div>
+<div id="div_group_41" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_41" class="passed">Nilavu</dt>
+  </dl>
+</div>
+<div id="div_group_42" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_42" class="passed">base_url</dt>
+  </dl>
+</div>
+<div id="div_group_43" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_43" class="passed">when https is off</dt>
+    <script type="text/javascript">moveProgressBar('41.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">has a non https base url</span><span class='duration'>0.00077s</span></dd>
+  </dl>
+</div>
+<div id="div_group_44" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_44" class="passed">when https is on</dt>
+    <script type="text/javascript">moveProgressBar('42.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">has a non-ssl base url</span><span class='duration'>0.00059s</span></dd>
+  </dl>
+</div>
+<div id="div_group_45" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_45" class="passed">with a non standard port specified</dt>
+    <script type="text/javascript">moveProgressBar('42.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns the non standart port in the base url</span><span class='duration'>0.00024s</span></dd>
+  </dl>
+</div>
+<div id="div_group_46" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_46" class="passed">EmailSettingValidator</dt>
+  </dl>
+</div>
+<div id="div_group_47" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_47" class="passed">#valid_value?</dt>
+    <script type="text/javascript">moveProgressBar('43.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true for blank values</span><span class='duration'>0.00013s</span></dd>
+    <script type="text/javascript">moveProgressBar('44.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true if value is a valid email address</span><span class='duration'>0.00222s</span></dd>
+    <script type="text/javascript">moveProgressBar('44.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns false if value is not a valid email address</span><span class='duration'>0.00012s</span></dd>
+  </dl>
+</div>
+<div id="div_group_48" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_48" class="passed">Pbkdf2</dt>
+    <script type="text/javascript">moveProgressBar('45.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">hashes stuff correctly</span><span class='duration'>0.00062s</span></dd>
+  </dl>
+</div>
+<div id="div_group_49" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_49" class="passed">Enum</dt>
+  </dl>
+</div>
+<div id="div_group_50" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_50" class="passed">allows to specify number of first enum member</dt>
+    <script type="text/javascript">moveProgressBar('46.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">number of first enum member should be 0 </span><span class='duration'>0.00011s</span></dd>
+  </dl>
+</div>
+<div id="div_group_51" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_51" class="passed">.only</dt>
+    <script type="text/javascript">moveProgressBar('47.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns only the values we ask for</span><span class='duration'>0.00012s</span></dd>
+  </dl>
+</div>
+<div id="div_group_52" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_52" class="passed">.[]</dt>
+    <script type="text/javascript">moveProgressBar('47.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">looks up a number by symbol</span><span class='duration'>0.00009s</span></dd>
+    <script type="text/javascript">moveProgressBar('48.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">looks up a symbol by number</span><span class='duration'>0.00009s</span></dd>
+  </dl>
+</div>
+<div id="div_group_53" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_53" class="passed">.valid?</dt>
+    <script type="text/javascript">moveProgressBar('49.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true if a key exists</span><span class='duration'>0.00010s</span></dd>
+    <script type="text/javascript">moveProgressBar('50.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns false if a key does not exist</span><span class='duration'>0.00009s</span></dd>
+  </dl>
+</div>
+<div id="div_group_54" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_54" class="passed">.except</dt>
+    <script type="text/javascript">moveProgressBar('50.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns everything but the values we ask to delete</span><span class='duration'>0.00013s</span></dd>
+  </dl>
+</div>
+<div id="div_group_55" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_55" class="passed">ActiveSupport::SafeBuffer</dt>
+    <script type="text/javascript">moveProgressBar('51.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">can cope with encoding weirdness</span><span class='duration'>0.00030s</span></dd>
+  </dl>
+</div>
+<div id="div_group_56" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_56" class="passed">omniauth_callbacks/complete.html.erb</dt>
+    <script type="text/javascript">moveProgressBar('52.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">renders auth info</span><span class='duration'>0.01348s</span></dd>
+  </dl>
+</div>
+<div id="div_group_57" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_57" class="passed">User</dt>
+  </dl>
+</div>
+<div id="div_group_58" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_58" class="passed">email_confirmed?</dt>
+  </dl>
+</div>
+<div id="div_group_59" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_59" class="passed">when email has been confirmed</dt>
+    <script type="text/javascript">moveProgressBar('52.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">should return true</span><span class='duration'>0.00023s</span></dd>
+  </dl>
+</div>
+<div id="div_group_60" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_60" class="passed">.find_by_email</dt>
+--> (/accounts/content)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 201
+[2016-08-05T16:32:23+05:30] DEBUG: > method: post
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"boblee@shooter.com","api_key":"scroogeduck#4","name":{"first_name":"Bob Lee","last_name":"Swagger"},"phone":{"phone":null,"phone_verified":null},"password":{"password":"bWFyazRzd2FnZ2Vy","password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":"true","blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/accounts/content
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"boblee@shooter.com","api_key":"scroogeduck#4","name":{"first_name":"Bob Lee","last_name":"Swagger"},"phone":{"phone":null,"phone_verified":null},"password":{"password":"bWFyazRzd2FnZ2Vy","password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":"true","blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"boblee@shooter.com:0988b67a76e17f07c763068294cad3c89534c674", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>""}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 201
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 299
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "code":201,
+  "msg_type":"info",
+  "msg":"Onboard successful. email 'boblee@shooter.com' and api_key 'scroogeduck#4' is registered.",
+  "more":"",
+  "json_claz":"Megam::Account",
+  "links":"Forum   :http://docs.megam.io/discuss\nDocs    :http://docs.megam.io\nSupport :http://support.megam.io"
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Account
+id             =
+email          =
+api_key        =
+name           ={}
+phone          ={}
+password       ={}
+states         ={}
+approval       ={}
+suspend        ={}
+registration_ip_address=
+dates          ={}
+some_msg       ={}
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.008216606s)
+--> (/accounts/boblee@shooter.com)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 200
+[2016-08-05T16:32:23+05:30] DEBUG: > method: get
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/accounts/boblee@shooter.com
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"boblee@shooter.com:092920aaf931091d5ec3a8251c11654a7bee9ef6", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>"", "X-Megam-PUTTUSAVI"=>"true"}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 200
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 964
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "json_claz":"Megam::Account",
+  "results":{
+    "id":"ACT6716199677557931270",
+    "name":{
+      "first_name":"Bob Lee",
+      "last_name":"Swagger"
+    },
+    "phone":{
+      "phone":null,
+      "phone_verified":null
+    },
+    "email":"boblee@shooter.com",
+    "api_key":"scroogeduck#4",
+    "password":{
+      "password":"bWFyazRzd2FnZ2Vy",
+      "password_reset_key":null,
+      "password_reset_sent_at":null
+    },
+    "states":{
+      "authority":null,
+      "active":"true",
+      "blocked":null,
+      "staged":null
+    },
+    "approval":{
+      "approved":null,
+      "approved_by_id":null,
+      "approved_at":null
+    },
+    "suspend":{
+      "suspended":null,
+      "suspended_at":null,
+      "suspended_till":null
+    },
+    "registration_ip_address":"",
+    "dates":{
+      "last_posted_at":null,
+      "last_emailed_at":null,
+      "previous_visit_at":null,
+      "first_seen_at":null,
+      "created_at":"2016-08-05 10:58:28 +0000"
+    }
+  }
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Account
+id             =ACT6716199677557931270
+email          =boblee@shooter.com
+api_key        =scroogeduck#4
+name           ={"first_name"=>"Bob Lee", "last_name"=>"Swagger"}
+phone          ={"phone"=>nil, "phone_verified"=>nil}
+password       ={"password"=>"bWFyazRzd2FnZ2Vy", "password_reset_key"=>nil, "password_reset_sent_at"=>nil}
+states         ={"authority"=>nil, "active"=>"true", "blocked"=>nil, "staged"=>nil}
+approval       ={"approved"=>nil, "approved_by_id"=>nil, "approved_at"=>nil}
+suspend        ={"suspended"=>nil, "suspended_at"=>nil, "suspended_till"=>nil}
+registration_ip_address=
+dates          ={"last_posted_at"=>nil, "last_emailed_at"=>nil, "previous_visit_at"=>nil, "first_seen_at"=>nil, "created_at"=>"2016-08-05 10:58:28 +0000"}
+some_msg       ={}
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.003859425s)
+--> (/accounts/boblee@shooter.com)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 200
+[2016-08-05T16:32:23+05:30] DEBUG: > method: get
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/accounts/boblee@shooter.com
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"boblee@shooter.com:092920aaf931091d5ec3a8251c11654a7bee9ef6", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>"", "X-Megam-PUTTUSAVI"=>"true"}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 200
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 964
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "json_claz":"Megam::Account",
+  "results":{
+    "id":"ACT6716199677557931270",
+    "name":{
+      "first_name":"Bob Lee",
+      "last_name":"Swagger"
+    },
+    "phone":{
+      "phone":null,
+      "phone_verified":null
+    },
+    "email":"boblee@shooter.com",
+    "api_key":"scroogeduck#4",
+    "password":{
+      "password":"bWFyazRzd2FnZ2Vy",
+      "password_reset_key":null,
+      "password_reset_sent_at":null
+    },
+    "states":{
+      "authority":null,
+      "active":"true",
+      "blocked":null,
+      "staged":null
+    },
+    "approval":{
+      "approved":null,
+      "approved_by_id":null,
+      "approved_at":null
+    },
+    "suspend":{
+      "suspended":null,
+      "suspended_at":null,
+      "suspended_till":null
+    },
+    "registration_ip_address":"",
+    "dates":{
+      "last_posted_at":null,
+      "last_emailed_at":null,
+      "previous_visit_at":null,
+      "first_seen_at":null,
+      "created_at":"2016-08-05 10:58:28 +0000"
+    }
+  }
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Account
+id             =ACT6716199677557931270
+email          =boblee@shooter.com
+api_key        =scroogeduck#4
+name           ={"first_name"=>"Bob Lee", "last_name"=>"Swagger"}
+phone          ={"phone"=>nil, "phone_verified"=>nil}
+password       ={"password"=>"bWFyazRzd2FnZ2Vy", "password_reset_key"=>nil, "password_reset_sent_at"=>nil}
+states         ={"authority"=>nil, "active"=>"true", "blocked"=>nil, "staged"=>nil}
+approval       ={"approved"=>nil, "approved_by_id"=>nil, "approved_at"=>nil}
+suspend        ={"suspended"=>nil, "suspended_at"=>nil, "suspended_till"=>nil}
+registration_ip_address=
+dates          ={"last_posted_at"=>nil, "last_emailed_at"=>nil, "previous_visit_at"=>nil, "first_seen_at"=>nil, "created_at"=>"2016-08-05 10:58:28 +0000"}
+some_msg       ={}
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.003868599s)
+--> (/accounts/boblee@shooter.com)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 200
+[2016-08-05T16:32:23+05:30] DEBUG: > method: get
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/accounts/boblee@shooter.com
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"boblee@shooter.com:092920aaf931091d5ec3a8251c11654a7bee9ef6", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>"", "X-Megam-PUTTUSAVI"=>"true"}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 200
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 964
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "json_claz":"Megam::Account",
+  "results":{
+    "id":"ACT6716199677557931270",
+    "name":{
+      "first_name":"Bob Lee",
+      "last_name":"Swagger"
+    },
+    "phone":{
+      "phone":null,
+      "phone_verified":null
+    },
+    "email":"boblee@shooter.com",
+    "api_key":"scroogeduck#4",
+    "password":{
+      "password":"bWFyazRzd2FnZ2Vy",
+      "password_reset_key":null,
+      "password_reset_sent_at":null
+    },
+    "states":{
+      "authority":null,
+      "active":"true",
+      "blocked":null,
+      "staged":null
+    },
+    "approval":{
+      "approved":null,
+      "approved_by_id":null,
+      "approved_at":null
+    },
+    "suspend":{
+      "suspended":null,
+      "suspended_at":null,
+      "suspended_till":null
+    },
+    "registration_ip_address":"",
+    "dates":{
+      "last_posted_at":null,
+      "last_emailed_at":null,
+      "previous_visit_at":null,
+      "first_seen_at":null,
+      "created_at":"2016-08-05 10:58:28 +0000"
+    }
+  }
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Account
+id             =ACT6716199677557931270
+email          =boblee@shooter.com
+api_key        =scroogeduck#4
+name           ={"first_name"=>"Bob Lee", "last_name"=>"Swagger"}
+phone          ={"phone"=>nil, "phone_verified"=>nil}
+password       ={"password"=>"bWFyazRzd2FnZ2Vy", "password_reset_key"=>nil, "password_reset_sent_at"=>nil}
+states         ={"authority"=>nil, "active"=>"true", "blocked"=>nil, "staged"=>nil}
+approval       ={"approved"=>nil, "approved_by_id"=>nil, "approved_at"=>nil}
+suspend        ={"suspended"=>nil, "suspended_at"=>nil, "suspended_till"=>nil}
+registration_ip_address=
+dates          ={"last_posted_at"=>nil, "last_emailed_at"=>nil, "previous_visit_at"=>nil, "first_seen_at"=>nil, "created_at"=>"2016-08-05 10:58:28 +0000"}
+some_msg       ={}
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.0033831s)
+--> (/accounts/boblee@shooter.com)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 200
+[2016-08-05T16:32:23+05:30] DEBUG: > method: get
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/accounts/boblee@shooter.com
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"boblee@shooter.com:092920aaf931091d5ec3a8251c11654a7bee9ef6", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>"", "X-Megam-PUTTUSAVI"=>"true"}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 200
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 964
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "json_claz":"Megam::Account",
+  "results":{
+    "id":"ACT6716199677557931270",
+    "name":{
+      "first_name":"Bob Lee",
+      "last_name":"Swagger"
+    },
+    "phone":{
+      "phone":null,
+      "phone_verified":null
+    },
+    "email":"boblee@shooter.com",
+    "api_key":"scroogeduck#4",
+    "password":{
+      "password":"bWFyazRzd2FnZ2Vy",
+      "password_reset_key":null,
+      "password_reset_sent_at":null
+    },
+    "states":{
+      "authority":null,
+      "active":"true",
+      "blocked":null,
+      "staged":null
+    },
+    "approval":{
+      "approved":null,
+      "approved_by_id":null,
+      "approved_at":null
+    },
+    "suspend":{
+      "suspended":null,
+      "suspended_at":null,
+      "suspended_till":null
+    },
+    "registration_ip_address":"",
+    "dates":{
+      "last_posted_at":null,
+      "last_emailed_at":null,
+      "previous_visit_at":null,
+      "first_seen_at":null,
+      "created_at":"2016-08-05 10:58:28 +0000"
+    }
+  }
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Account
+id             =ACT6716199677557931270
+email          =boblee@shooter.com
+api_key        =scroogeduck#4
+name           ={"first_name"=>"Bob Lee", "last_name"=>"Swagger"}
+phone          ={"phone"=>nil, "phone_verified"=>nil}
+password       ={"password"=>"bWFyazRzd2FnZ2Vy", "password_reset_key"=>nil, "password_reset_sent_at"=>nil}
+states         ={"authority"=>nil, "active"=>"true", "blocked"=>nil, "staged"=>nil}
+approval       ={"approved"=>nil, "approved_by_id"=>nil, "approved_at"=>nil}
+suspend        ={"suspended"=>nil, "suspended_at"=>nil, "suspended_till"=>nil}
+registration_ip_address=
+dates          ={"last_posted_at"=>nil, "last_emailed_at"=>nil, "previous_visit_at"=>nil, "first_seen_at"=>nil, "created_at"=>"2016-08-05 10:58:28 +0000"}
+some_msg       ={}
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.003406574s)
+--> (/accounts/boblee@shooter.com)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 200
+[2016-08-05T16:32:23+05:30] DEBUG: > method: get
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/accounts/boblee@shooter.com
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"boblee@shooter.com:092920aaf931091d5ec3a8251c11654a7bee9ef6", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>"", "X-Megam-PUTTUSAVI"=>"true"}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 200
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 964
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "json_claz":"Megam::Account",
+  "results":{
+    "id":"ACT6716199677557931270",
+    "name":{
+      "first_name":"Bob Lee",
+      "last_name":"Swagger"
+    },
+    "phone":{
+      "phone":null,
+      "phone_verified":null
+    },
+    "email":"boblee@shooter.com",
+    "api_key":"scroogeduck#4",
+    "password":{
+      "password":"bWFyazRzd2FnZ2Vy",
+      "password_reset_key":null,
+      "password_reset_sent_at":null
+    },
+    "states":{
+      "authority":null,
+      "active":"true",
+      "blocked":null,
+      "staged":null
+    },
+    "approval":{
+      "approved":null,
+      "approved_by_id":null,
+      "approved_at":null
+    },
+    "suspend":{
+      "suspended":null,
+      "suspended_at":null,
+      "suspended_till":null
+    },
+    "registration_ip_address":"",
+    "dates":{
+      "last_posted_at":null,
+      "last_emailed_at":null,
+      "previous_visit_at":null,
+      "first_seen_at":null,
+      "created_at":"2016-08-05 10:58:28 +0000"
+    }
+  }
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Account
+id             =ACT6716199677557931270
+email          =boblee@shooter.com
+api_key        =scroogeduck#4
+name           ={"first_name"=>"Bob Lee", "last_name"=>"Swagger"}
+phone          ={"phone"=>nil, "phone_verified"=>nil}
+password       ={"password"=>"bWFyazRzd2FnZ2Vy", "password_reset_key"=>nil, "password_reset_sent_at"=>nil}
+states         ={"authority"=>nil, "active"=>"true", "blocked"=>nil, "staged"=>nil}
+approval       ={"approved"=>nil, "approved_by_id"=>nil, "approved_at"=>nil}
+suspend        ={"suspended"=>nil, "suspended_at"=>nil, "suspended_till"=>nil}
+registration_ip_address=
+dates          ={"last_posted_at"=>nil, "last_emailed_at"=>nil, "previous_visit_at"=>nil, "first_seen_at"=>nil, "created_at"=>"2016-08-05 10:58:28 +0000"}
+some_msg       ={}
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.005327105s)
+    <script type="text/javascript">moveProgressBar('53.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">finds users</span><span class='duration'>0.03164s</span></dd>
+  </dl>
+</div>
+<div id="div_group_61" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_61" class="passed">email uniqueness not available</dt>
+--> (/accounts/content)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 201
+[2016-08-05T16:32:23+05:30] DEBUG: > method: post
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"bruce22@wayne.com","api_key":null,"name":{"first_name":"Bruce","last_name":"Wayne"},"phone":{"phone":null,"phone_verified":null},"password":{"password":"bXlhd2Vzb21lcGFzc3dvcmQ=","password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":"true","blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/accounts/content
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"bruce22@wayne.com","api_key":null,"name":{"first_name":"Bruce","last_name":"Wayne"},"phone":{"phone":null,"phone_verified":null},"password":{"password":"bXlhd2Vzb21lcGFzc3dvcmQ=","password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":"true","blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"bruce22@wayne.com:1e274f0039bf32fdc24df07e053962b95c40d5c2", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>"", "X-Megam-PUTTUSAVI"=>"true"}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 201
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 289
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "code":201,
+  "msg_type":"info",
+  "msg":"Onboard successful. email 'bruce22@wayne.com' and api_key 'null' is registered.",
+  "more":"",
+  "json_claz":"Megam::Account",
+  "links":"Forum   :http://docs.megam.io/discuss\nDocs    :http://docs.megam.io\nSupport :http://support.megam.io"
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Account
+id             =
+email          =
+api_key        =
+name           ={}
+phone          ={}
+password       ={}
+states         ={}
+approval       ={}
+suspend        ={}
+registration_ip_address=
+dates          ={}
+some_msg       ={}
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.006352259s)
+--> (/accounts/content)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 201
+[2016-08-05T16:32:23+05:30] DEBUG: > method: post
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"jeff@somewhere.com","api_key":null,"name":{"first_name":"Coding Horror","last_name":"Wayne"},"phone":{"phone":null,"phone_verified":null},"password":{"password":"bXlhd2Vzb21lcGFzc3dvcmQ=","password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":"true","blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/accounts/content
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"jeff@somewhere.com","api_key":null,"name":{"first_name":"Coding Horror","last_name":"Wayne"},"phone":{"phone":null,"phone_verified":null},"password":{"password":"bXlhd2Vzb21lcGFzc3dvcmQ=","password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":"true","blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"jeff@somewhere.com:726e845d7ddc99fb51f0040162353bab2f840085", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>"", "X-Megam-PUTTUSAVI"=>"true"}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 201
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 290
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "code":201,
+  "msg_type":"info",
+  "msg":"Onboard successful. email 'jeff@somewhere.com' and api_key 'null' is registered.",
+  "more":"",
+  "json_claz":"Megam::Account",
+  "links":"Forum   :http://docs.megam.io/discuss\nDocs    :http://docs.megam.io\nSupport :http://support.megam.io"
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Account
+id             =
+email          =
+api_key        =
+name           ={}
+phone          ={}
+password       ={}
+states         ={}
+approval       ={}
+suspend        ={}
+registration_ip_address=
+dates          ={}
+some_msg       ={}
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.006039822s)
+    <script type="text/javascript">moveProgressBar('54.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow saving if email is reused</span><span class='duration'>0.01570s</span></dd>
+  </dl>
+</div>
+<div id="div_group_62" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_62" class="passed">new</dt>
+    <script type="text/javascript">moveProgressBar('55.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not be admin</span><span class='duration'>0.00039s</span></dd>
+    <script type="text/javascript">moveProgressBar('55.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">is properly initialized</span><span class='duration'>0.00027s</span></dd>
+    <script type="text/javascript">moveProgressBar('56.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">downcases email addresses</span><span class='duration'>0.00018s</span></dd>
+    <script type="text/javascript">moveProgressBar('57.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">strips whitespace from email addresses</span><span class='duration'>0.00015s</span></dd>
+  </dl>
+</div>
+<div id="div_group_63" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_63" class="passed">email_hash</dt>
+    <script type="text/javascript">moveProgressBar('57.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">should have a same email</span><span class='duration'>0.00053s</span></dd>
+    <script type="text/javascript">moveProgressBar('58.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not use downcase email</span><span class='duration'>0.00025s</span></dd>
+    <script type="text/javascript">moveProgressBar('59.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not trim whitespace</span><span class='duration'>0.00020s</span></dd>
+  </dl>
+</div>
+<div id="div_group_64" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_64" class="passed">passwords</dt>
+--> (/accounts/content)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 201
+[2016-08-05T16:32:23+05:30] DEBUG: > method: post
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"bruce30@wayne.com","api_key":"78e9cfa4b2f856d1dd9b97fa91e72261","name":{"first_name":"Bruce","last_name":"Wayne"},"phone":{"phone":null,"phone_verified":null},"password":{"password":"aWxvdmVwYXN0YQ==","password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":"false","blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/accounts/content
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"bruce30@wayne.com","api_key":"78e9cfa4b2f856d1dd9b97fa91e72261","name":{"first_name":"Bruce","last_name":"Wayne"},"phone":{"phone":null,"phone_verified":null},"password":{"password":"aWxvdmVwYXN0YQ==","password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":"false","blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"bruce30@wayne.com:43ffd6a3a9bbb387d3b4ced650aacdd8c220a78d", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>""}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 201
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 317
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "code":201,
+  "msg_type":"info",
+  "msg":"Onboard successful. email 'bruce30@wayne.com' and api_key '78e9cfa4b2f856d1dd9b97fa91e72261' is registered.",
+  "more":"",
+  "json_claz":"Megam::Account",
+  "links":"Forum   :http://docs.megam.io/discuss\nDocs    :http://docs.megam.io\nSupport :http://support.megam.io"
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Account
+id             =
+email          =
+api_key        =
+name           ={}
+phone          ={}
+password       ={}
+states         ={}
+approval       ={}
+suspend        ={}
+registration_ip_address=
+dates          ={}
+some_msg       ={}
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.006224294s)
+------------- confirm pasword
+"ilovepasta"
+"aWxvdmVwYXN0YQ=="
+------------- confirm password done........
+--> (/accounts/content)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 201
+[2016-08-05T16:32:23+05:30] DEBUG: > method: post
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"bruce30@wayne.com","api_key":"78e9cfa4b2f856d1dd9b97fa91e72261","name":{"first_name":"Bruce","last_name":"Wayne"},"phone":{"phone":null,"phone_verified":null},"password":{"password":"cGFzc3dvcmRU","password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":"false","blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/accounts/content
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"bruce30@wayne.com","api_key":"78e9cfa4b2f856d1dd9b97fa91e72261","name":{"first_name":"Bruce","last_name":"Wayne"},"phone":{"phone":null,"phone_verified":null},"password":{"password":"cGFzc3dvcmRU","password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":"false","blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"bruce30@wayne.com:2730cbdceb45ded1a815ed3159203fd9f23de30c", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>""}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 201
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 317
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "code":201,
+  "msg_type":"info",
+  "msg":"Onboard successful. email 'bruce30@wayne.com' and api_key '78e9cfa4b2f856d1dd9b97fa91e72261' is registered.",
+  "more":"",
+  "json_claz":"Megam::Account",
+  "links":"Forum   :http://docs.megam.io/discuss\nDocs    :http://docs.megam.io\nSupport :http://support.megam.io"
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Account
+id             =
+email          =
+api_key        =
+name           ={}
+phone          ={}
+password       ={}
+states         ={}
+approval       ={}
+suspend        ={}
+registration_ip_address=
+dates          ={}
+some_msg       ={}
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.009732417s)
+    <script type="text/javascript">moveProgressBar('60.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">should not have an active account with a good password</span><span class='duration'>0.01768s</span></dd>
+  </dl>
+</div>
+<div id="div_group_65" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_65" class="passed">hash_passwords</dt>
+    <script type="text/javascript">moveProgressBar('60.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns the same hash for the same password and salt</span><span class='duration'>0.00015s</span></dd>
+    <script type="text/javascript">moveProgressBar('61.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns a different hash for the same salt and different password</span><span class='duration'>0.00012s</span></dd>
+    <script type="text/javascript">moveProgressBar('62.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns a different hash for the same password and different salt</span><span class='duration'>0.00014s</span></dd>
+    <script type="text/javascript">moveProgressBar('63.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">raises an error when passwords are too long</span><span class='duration'>0.00018s</span></dd>
+  </dl>
+</div>
+<div id="div_group_66" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_66" class="passed">new_user?</dt>
+    <script type="text/javascript">moveProgressBar('63.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">correctly detects new user</span><span class='duration'>0.00023s</span></dd>
+  </dl>
+</div>
+<div id="div_group_67" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_67" class="passed">CurrentUser</dt>
+--> (/accounts/content)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 201
+[2016-08-05T16:32:23+05:30] DEBUG: > method: post
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"eviltrout@somewhere.com","api_key":null,"name":{"first_name":"Evil Trout","last_name":"Wayne"},"phone":{"phone":null,"phone_verified":null},"password":{"password":"aW1hZmlzaA==","password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":"true","blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/accounts/content
+[2016-08-05T16:32:23+05:30] DEBUG: > body: {"json_claz":"Megam::Account","id":null,"email":"eviltrout@somewhere.com","api_key":null,"name":{"first_name":"Evil Trout","last_name":"Wayne"},"phone":{"phone":null,"phone_verified":null},"password":{"password":"aW1hZmlzaA==","password_reset_key":null,"password_reset_sent_at":null},"states":{"authority":null,"active":"true","blocked":null,"staged":null},"approval":{"approved":null,"approved_by_id":null,"approved_at":null},"suspend":{"suspended":null,"suspended_at":null,"suspended_till":null},"registration_ip_address":null,"dates":{"last_posted_at":null,"last_emailed_at":null,"previous_visit_at":null,"first_seen_at":null,"created_at":null},"some_msg":{}}
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"eviltrout@somewhere.com:d02f52d6d0b765eaf4c561644baee87998092f5d", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>"", "X-Megam-PUTTUSAVI"=>"true"}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 201
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 295
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "code":201,
+  "msg_type":"info",
+  "msg":"Onboard successful. email 'eviltrout@somewhere.com' and api_key 'null' is registered.",
+  "more":"",
+  "json_claz":"Megam::Account",
+  "links":"Forum   :http://docs.megam.io/discuss\nDocs    :http://docs.megam.io\nSupport :http://support.megam.io"
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Account
+id             =
+email          =
+api_key        =
+name           ={}
+phone          ={}
+password       ={}
+states         ={}
+approval       ={}
+suspend        ={}
+registration_ip_address=
+dates          ={}
+some_msg       ={}
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.006546255s)
+--------------- env 
+{"rack.version"=>[1, 3], "rack.input"=>#<StringIO:0x0000000be72fd8>, "rack.errors"=>#<StringIO:0x0000000be73078>, "rack.multithread"=>true, "rack.multiprocess"=>true, "rack.run_once"=>false, "REQUEST_METHOD"=>"GET", "SERVER_NAME"=>"example.org", "SERVER_PORT"=>"80", "QUERY_STRING"=>"", "PATH_INFO"=>"/test", "rack.url_scheme"=>"http", "HTTPS"=>"off", "SCRIPT_NAME"=>"", "CONTENT_LENGTH"=>"0", "HTTP_COOKIE"=>"_t=; _e=eviltrout@somewhere.com; _p=imafish"}
+---- >>>
+--> (/accounts/eviltrout@somewhere.com)
+[2016-08-05T16:32:23+05:30] DEBUG: START
+[2016-08-05T16:32:23+05:30] DEBUG: > expects: 200
+[2016-08-05T16:32:23+05:30] DEBUG: > method: get
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: HTTP Request Data:
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP http://localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > path: /v2/accounts/eviltrout@somewhere.com
+[2016-08-05T16:32:23+05:30] DEBUG: > body: 
+[2016-08-05T16:32:23+05:30] DEBUG: > headers: {"Accept"=>"application/json", "Accept-Encoding"=>"gzip", "User-Agent"=>"megam-api/1.5.4", "X-Ruby-Version"=>"2.3.1", "X-Ruby-Platform"=>"x86_64-linux", "X-Megam-HMAC"=>"eviltrout@somewhere.com:5395d8df850f29cdb637f8b9ed1530cdbbb9654b", "X-Megam-DATE"=>"2016-08-05 16:32", "X-Megam-ORG"=>"", "X-Megam-PUTTUSAVI"=>"true"}
+[2016-08-05T16:32:23+05:30] DEBUG: > host: localhost
+[2016-08-05T16:32:23+05:30] DEBUG: > nonblock: false
+[2016-08-05T16:32:23+05:30] DEBUG: > scheme: http
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Request Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Status and Header Data
+[2016-08-05T16:32:23+05:30] DEBUG: > HTTP 127.0.0.1 200
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Type: text/plain; charset=utf-8
+[2016-08-05T16:32:23+05:30] DEBUG: > Date: Fri, 05 Aug 2016 11:02:23 GMT
+[2016-08-05T16:32:23+05:30] DEBUG: > Content-Length: 953
+[2016-08-05T16:32:23+05:30] DEBUG: End HTTP Status/Header Data.
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: HTTP Body(JSON)
+[2016-08-05T16:32:23+05:30] DEBUG: {
+  "json_claz":"Megam::Account",
+  "results":{
+    "id":"ACT7097442459058246178",
+    "name":{
+      "first_name":"Evil Trout",
+      "last_name":"Wayne"
+    },
+    "phone":{
+      "phone":null,
+      "phone_verified":null
+    },
+    "email":"eviltrout@somewhere.com",
+    "api_key":"",
+    "password":{
+      "password":"aW1hZmlzaA==",
+      "password_reset_key":null,
+      "password_reset_sent_at":null
+    },
+    "states":{
+      "authority":null,
+      "active":"true",
+      "blocked":null,
+      "staged":null
+    },
+    "approval":{
+      "approved":null,
+      "approved_by_id":null,
+      "approved_at":null
+    },
+    "suspend":{
+      "suspended":null,
+      "suspended_at":null,
+      "suspended_till":null
+    },
+    "registration_ip_address":"",
+    "dates":{
+      "last_posted_at":null,
+      "last_emailed_at":null,
+      "previous_visit_at":null,
+      "first_seen_at":null,
+      "created_at":"2016-08-05 11:02:23 +0000"
+    }
+  }
+}
+[2016-08-05T16:32:23+05:30] DEBUG: RESPONSE: Ruby Object
+[2016-08-05T16:32:23+05:30] DEBUG: json_claz      =Megam::Account
+id             =ACT7097442459058246178
+email          =eviltrout@somewhere.com
+api_key        =
+name           ={"first_name"=>"Evil Trout", "last_name"=>"Wayne"}
+phone          ={"phone"=>nil, "phone_verified"=>nil}
+password       ={"password"=>"aW1hZmlzaA==", "password_reset_key"=>nil, "password_reset_sent_at"=>nil}
+states         ={"authority"=>nil, "active"=>"true", "blocked"=>nil, "staged"=>nil}
+approval       ={"approved"=>nil, "approved_by_id"=>nil, "approved_at"=>nil}
+suspend        ={"suspended"=>nil, "suspended_at"=>nil, "suspended_till"=>nil}
+registration_ip_address=
+dates          ={"last_posted_at"=>nil, "last_emailed_at"=>nil, "previous_visit_at"=>nil, "first_seen_at"=>nil, "created_at"=>"2016-08-05 11:02:23 +0000"}
+some_msg       ={}
+[2016-08-05T16:32:23+05:30] DEBUG: END(0.005337734s)
+    <script type="text/javascript">moveProgressBar('64.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">should allow saving if email is reused</span><span class='duration'>0.01374s</span></dd>
+  </dl>
+</div>
+<div id="div_group_68" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_68" class="passed">GlobalPath</dt>
+  </dl>
+</div>
+<div id="div_group_69" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_69" class="passed">cdn_relative_path</dt>
+    <script type="text/javascript">moveProgressBar('65.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">just returns path for no cdn</span><span class='duration'>0.00015s</span></dd>
+    <script type="text/javascript">moveProgressBar('65.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns path when a cdn is defined with a path</span><span class='duration'>0.00067s</span></dd>
+    <script type="text/javascript">moveProgressBar('66.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns path when a cdn is defined with a path</span><span class='duration'>0.00062s</span></dd>
+  </dl>
+</div>
+<div id="div_group_70" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_70" class="passed">StringSettingValidator</dt>
+  </dl>
+</div>
+<div id="div_group_71" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_71" class="passed">#valid_value?</dt>
+  </dl>
+</div>
+<div id="div_group_72" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_72" class="passed">with a regex</dt>
+    <script type="text/javascript">moveProgressBar('67.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true for blank values</span><span class='duration'>0.00016s</span></dd>
+    <script type="text/javascript">moveProgressBar('68.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true if value matches the regex</span><span class='duration'>0.00011s</span></dd>
+    <script type="text/javascript">moveProgressBar('68.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns false if the value doesn&#39;t match the regex</span><span class='duration'>0.00011s</span></dd>
+    <script type="text/javascript">moveProgressBar('69.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">test some other regexes</span><span class='duration'>0.00019s</span></dd>
+  </dl>
+</div>
+<div id="div_group_73" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_73" class="passed">with min</dt>
+    <script type="text/javascript">moveProgressBar('70.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true for blank values</span><span class='duration'>0.00011s</span></dd>
+    <script type="text/javascript">moveProgressBar('71.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true if length is ok</span><span class='duration'>0.00010s</span></dd>
+    <script type="text/javascript">moveProgressBar('71.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns false if too short</span><span class='duration'>0.00009s</span></dd>
+  </dl>
+</div>
+<div id="div_group_74" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_74" class="passed">with max</dt>
+    <script type="text/javascript">moveProgressBar('72.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true for blank values</span><span class='duration'>0.00011s</span></dd>
+    <script type="text/javascript">moveProgressBar('73.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true if length is ok</span><span class='duration'>0.00010s</span></dd>
+    <script type="text/javascript">moveProgressBar('73.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns false if too long</span><span class='duration'>0.00009s</span></dd>
+  </dl>
+</div>
+<div id="div_group_75" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_75" class="passed">combinations of options</dt>
+    <script type="text/javascript">moveProgressBar('74.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">min and regex</span><span class='duration'>0.00016s</span></dd>
+    <script type="text/javascript">moveProgressBar('75.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">max and regex</span><span class='duration'>0.00015s</span></dd>
+    <script type="text/javascript">moveProgressBar('76.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">min and max</span><span class='duration'>0.00011s</span></dd>
+    <script type="text/javascript">moveProgressBar('76.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">min, max, and regex</span><span class='duration'>0.00012s</span></dd>
+  </dl>
+</div>
+<div id="div_group_76" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_76" class="passed">SiteSettings::LocalProcessProvider</dt>
+    <script type="text/javascript">moveProgressBar('77.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns the correct site name</span><span class='duration'>0.00009s</span></dd>
+  </dl>
+</div>
+<div id="div_group_77" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_77" class="passed">all</dt>
+    <script type="text/javascript">moveProgressBar('78.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">starts off empty</span><span class='duration'>0.00009s</span></dd>
+    <script type="text/javascript">moveProgressBar('78.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">can allows additional settings</span><span class='duration'>0.00017s</span></dd>
+    <script type="text/javascript">moveProgressBar('79.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">does not leak new stuff into list</span><span class='duration'>0.00016s</span></dd>
+  </dl>
+</div>
+<div id="div_group_78" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_78" class="passed">find</dt>
+    <script type="text/javascript">moveProgressBar('80.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">starts off empty</span><span class='duration'>0.00009s</span></dd>
+    <script type="text/javascript">moveProgressBar('81.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">can find a new setting</span><span class='duration'>0.00014s</span></dd>
+    <script type="text/javascript">moveProgressBar('81.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">can amend a setting</span><span class='duration'>0.00014s</span></dd>
+  </dl>
+</div>
+<div id="div_group_79" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_79" class="passed">destroy</dt>
+    <script type="text/javascript">moveProgressBar('82.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">can destroy a setting</span><span class='duration'>0.00010s</span></dd>
+  </dl>
+</div>
+<div id="div_group_80" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_80" class="passed">Nilavu::VERSION</dt>
+  </dl>
+</div>
+<div id="div_group_81" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_81" class="passed">has_needed_version?</dt>
+    <script type="text/javascript">moveProgressBar('83.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">works for major comparisons</span><span class='duration'>0.00017s</span></dd>
+    <script type="text/javascript">moveProgressBar('84.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">works for minor comparisons</span><span class='duration'>0.00015s</span></dd>
+    <script type="text/javascript">moveProgressBar('84.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">works for tiny comparisons</span><span class='duration'>0.00014s</span></dd>
+    <script type="text/javascript">moveProgressBar('85.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">works for beta comparisons</span><span class='duration'>0.00018s</span></dd>
+  </dl>
+</div>
+<div id="div_group_82" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_82" class="passed">OmniauthCallbacksController</dt>
+  </dl>
+</div>
+<div id="div_group_83" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_83" class="passed">.find_authenticator</dt>
+    <script type="text/javascript">moveProgressBar('86.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">fails if a provider is disabled</span><span class='duration'>0.00169s</span></dd>
+    <script type="text/javascript">moveProgressBar('86.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">fails for unknown</span><span class='duration'>0.00060s</span></dd>
+    <script type="text/javascript">moveProgressBar('87.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">finds an authenticator when enabled</span><span class='duration'>0.00103s</span></dd>
+  </dl>
+</div>
+<div id="div_group_84" class="example_group passed">
+  <dl style="margin-left: 0px;">
+  <dt id="example_group_84" class="passed">IntegerSettingValidator</dt>
+  </dl>
+</div>
+<div id="div_group_85" class="example_group passed">
+  <dl style="margin-left: 15px;">
+  <dt id="example_group_85" class="passed">#valid_value?</dt>
+  </dl>
+</div>
+<div id="div_group_86" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_86" class="passed">without min and max</dt>
+    <script type="text/javascript">moveProgressBar('88.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns false for blank values</span><span class='duration'>0.00012s</span></dd>
+    <script type="text/javascript">moveProgressBar('89.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns false if value is not a valid integer</span><span class='duration'>0.00008s</span></dd>
+    <script type="text/javascript">moveProgressBar('89.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true if value is a valid integer</span><span class='duration'>0.00010s</span></dd>
+  </dl>
+</div>
+<div id="div_group_87" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_87" class="passed">with min</dt>
+    <script type="text/javascript">moveProgressBar('90.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns false if value is less than min</span><span class='duration'>0.00012s</span></dd>
+    <script type="text/javascript">moveProgressBar('91.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true if value is equal to min</span><span class='duration'>0.00008s</span></dd>
+    <script type="text/javascript">moveProgressBar('92.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns false for blank values</span><span class='duration'>0.00008s</span></dd>
+    <script type="text/javascript">moveProgressBar('92.7');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns false if value is not a valid integer</span><span class='duration'>0.00008s</span></dd>
+    <script type="text/javascript">moveProgressBar('93.4');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true if value is greater than min</span><span class='duration'>0.00009s</span></dd>
+  </dl>
+</div>
+<div id="div_group_88" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_88" class="passed">with max</dt>
+    <script type="text/javascript">moveProgressBar('94.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns false if value is greater than min</span><span class='duration'>0.00010s</span></dd>
+    <script type="text/javascript">moveProgressBar('94.9');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true if value is equal to max</span><span class='duration'>0.00008s</span></dd>
+    <script type="text/javascript">moveProgressBar('95.6');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns false for blank values</span><span class='duration'>0.00008s</span></dd>
+    <script type="text/javascript">moveProgressBar('96.3');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns false if value is not a valid integer</span><span class='duration'>0.00008s</span></dd>
+    <script type="text/javascript">moveProgressBar('97.1');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true if value is less than max</span><span class='duration'>0.00011s</span></dd>
+  </dl>
+</div>
+<div id="div_group_89" class="example_group passed">
+  <dl style="margin-left: 30px;">
+  <dt id="example_group_89" class="passed">with min and max</dt>
+    <script type="text/javascript">moveProgressBar('97.8');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns false for blank values</span><span class='duration'>0.00009s</span></dd>
+    <script type="text/javascript">moveProgressBar('98.5');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns false if value is not a valid integer</span><span class='duration'>0.00008s</span></dd>
+    <script type="text/javascript">moveProgressBar('99.2');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns true if value is in range</span><span class='duration'>0.00009s</span></dd>
+    <script type="text/javascript">moveProgressBar('100.0');</script>
+    <dd class="example passed"><span class="passed_spec_name">returns false if value is out of range</span><span class='duration'>0.00010s</span></dd>
+  </dl>
+</div>
+<script type="text/javascript">document.getElementById('duration').innerHTML = "Finished in <strong>0.43147 seconds</strong>";</script>
+<script type="text/javascript">document.getElementById('totals').innerHTML = "138 examples, 7 failures";</script>
+</div>
+</div>
+</body>
+</html>
