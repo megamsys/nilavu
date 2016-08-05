@@ -20,7 +20,7 @@
         <div class="footer hideme3 no-padding">
             {{launching-cost saveLabel=saveLabel category=model.metaData}}
             <div class="col-sm-3 no-padding">
-                <!-- UGLY, all we need it 3 action (hack a funciton for it), and 1 button -->
+                <!-- UGLY, all we need is 3 actions (why not hack a funciton for it), with 1 button -->
                 {{#if generalSelected}}
                     <div class="col-md-12 col-sm-12 no-padding">
                         <button class="btn-block btnFooter" {{bind-attr disabled="disabled"}} {{action "nextCategory"}}>
@@ -30,7 +30,7 @@
                             </span>
                         </button>
                     </div>
-                    {{else if selectionSelected}}
+                {{else if selectionSelected}}
                     <div class="col-md-12 col-sm-12 no-padding">
                         <button class="btn-block btnFooter" {{bind-attr disabled="disabled"}} {{action "nextSummarize"}}>
                             {{saveLabel}}
@@ -39,7 +39,7 @@
                             </span>
                         </button>
                     </div>
-                    {{else if summarySelected}}
+                {{else if summarySelected}}
                     <div class="col-md-12 col-sm-12 no-padding">
                         <button class="btn-block btnFooter" {{bind-attr disabled="disabled"}} {{action "saveCategory"}}>
                             {{saveLabel}}

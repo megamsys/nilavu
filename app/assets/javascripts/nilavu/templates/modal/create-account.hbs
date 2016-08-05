@@ -12,7 +12,7 @@
             </div>
 
             <div class="col-md-6 col-sm-6">
-                <h2>Sign up <span class="sign_up_small"><i>It wont take morethan 1 minute, we promise</i></span></h2>
+                <h2>{{i18n 'user.signup.title'}}<span class="sign_up_small"><i>{{i18n 'user.signup.description'}}</i></span></h2>
 
 
                 <div class="form-group">
@@ -63,7 +63,7 @@
                                 {{input-tip validation=passwordValidation}}
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
-                                {{password-field value=accountPasswordConfirm type="password" placeholderKey="user.password.title1" class="form-control" id="new-account-confirmpassword" capsLockOn=capsLockOn}}
+                                {{password-field value=accountPasswordConfirm type="password" placeholderKey="user.password.confirm_title" class="form-control" id="new-account-confirmpassword" capsLockOn=capsLockOn}}
                                   {{input-tip validation=passwordConfirmValidation}}
                             </div>
                         </div>

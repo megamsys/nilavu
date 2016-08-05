@@ -110,7 +110,7 @@ login:
   allow_new_registrations:
     client: true
     default: true
-  allow_otp_verifications:
+  allow_mobavatar_verifications:
     client: true
     default: false
   infobip_username: ''
@@ -141,6 +141,7 @@ login:
   github_client_secret:
     default: '3d27d07be2fd36f994xxxxxxxxx15d694cae6'
     regex: "^[a-f0-9]+$"
+  oauth_stub_password: "detio"
   enable_sso:
     client: true
     default: false
@@ -154,7 +155,7 @@ login:
     default: false
     client: true
   sso_not_approved_url: ''
-  oauth_stub_password: "detio"
+  permanent_session_cookie: true
   enable_ceph_logins:
     client: true
     default: false
@@ -185,12 +186,20 @@ users:
     client: true
     default: false
   invite_expiry_days: 30
-  allow_default_billings:
+  allow_billings:
     client: true
     default: false
-  whmcs_clientarea_endpoint:
+  enabled_biller:
     client: true
-    default: "http://megamafrica.com/whmcs/clientarea.php"
+    default: "WHMCS"
+  whmcs_api_url: 'http://192.168.0.120/whmcs/includes/api.php'
+  whmcs_username: 'Megam'
+  whmcs_password: 'team4megam'
+  whmcs_autoauth_url: 'http://192.168.0.120/whmcs/dologin.php'
+  whmcs_autoauth_key:  'detAWE123'
+  whmcs_clientarea_url:
+    client: true
+    default: "http://192.168.0.120/whmcs/clientarea.php"
   reserved_emails:
     type: list
     default: "tour@megam.io|test@megam.io|support@megam.io|admin@megam.io"
@@ -201,15 +210,6 @@ security:
   cors_origins:
     default: ''
     type: list
-
-
-marketplaces:
-  enable_gitlab_source:
-    client: true
-    default: false
-  gitlab_host:
-    client: true
-    default: 'localhost'
 
 legal:
   tos_url:
@@ -242,3 +242,5 @@ uncategorized:
     default: 3
 
   max_similar_results: 5
+
+  previous_visit_timeout_hours: 1

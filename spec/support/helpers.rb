@@ -5,6 +5,9 @@ module Helpers
 
   def log_in(fabricator=nil)
     user = Fabricate(fabricator || :user)
+    puts "-- login user "
+    puts user.inspect
+    puts "--- *** ----"
     log_in_user(user)
     user
   end

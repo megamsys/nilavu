@@ -88,6 +88,7 @@ en:
 
   not_logged_in: "You need to be logged in to do that."
   not_found: "The requested URL or resource could not be found."
+  no_external_id_found: "You need to be onboard in the external provider %{provider}."
   not_reachable: "There were problems with connecting to your gateway. Is it running ?"
   invalid_access: "You are not permitted to view the requested resource."
   read_only_mode_enabled: "The site is in read only mode. Interactions are disabled."
@@ -225,6 +226,15 @@ en:
     reserved_username: "That username is not allowed."
     close_window: "Authentication is complete. Close this window to continue."
     already_logged_in: "Oops, looks like you are attempting to accept an invitation for another user. If you are not %{current_user}, please log out and try again."
+    activating_phone: "<p>You're almost done! We sent an activation pin to <b>%{phone}</b>.</p>"
+    not_activating_phone: "You can't log in yet. We sent an activation pin to you. Please activate your phone."
+    activating_phone_error: "Oops, looks like we couldn't send an activation pin. "
+    activate_phone: "<p>You're done! <b>%{phone}</b> verified.</p>"
+    not_activated_phone: "You can't log in yet. We sent an activation pin to you. Please activate your phone."
+    activate_phone_error: "Oops, looks like we couldn't verify your pin. "
+    already_activated_phone: "<p>You're <b>%{phone}</b> is verified already.</p>"
+    skipped_activating_phone: "<p>We skipped sending activation pin for <b>%{phone}</b>.</p>"
+    skipped_activate_phone:  "<p>We skipped verifying pin for <b>%{phone}</b>.</p>"
 
   password_reset:
     no_token: "Sorry, that password change link is too old. Select the Log In button and use 'I forgot my password' to get a new link."
@@ -241,4 +251,4 @@ en:
     confirmed: "Your email has been updated."
     please_continue: "Continue to %{site_name}"
     error: "There was an error changing your email address. Perhaps the address is already in use?"
-    already_done: "Sorry, this confirmation link is no longer valid. Perhaps your email was already changed?"  
+    already_done: "Sorry, this confirmation link is no longer valid. Perhaps your email was already changed?"
