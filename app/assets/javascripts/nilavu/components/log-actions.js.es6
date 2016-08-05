@@ -16,9 +16,11 @@ export default logCategoryPanel('actions', {
         const msg = this.get('message'),
             ss = JSON.parse(this.get('message').Message);
         this.get('actionMessages').pushObject({
-            source: ss.Source,
-            message: ss.Message,
-            timestamp: msg.Timestamp,
+          source: ss.Source,
+          type: ss.Type,
+          color: "log-"+ss.Type.toLowerCase(),
+          message: ss.Message,
+          timestamp: msg.Timestamp,
         });
     },
 });

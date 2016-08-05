@@ -444,8 +444,17 @@ html .ui-bar-a .ui-btn:visited, html .ui-body-a .ui-btn:visited, html body .ui-g
 .ui-block-a {
     clear: left;
 }
-.ui-grid-b > .ui-block-a, .ui-grid-b > .ui-block-b, .ui-grid-b > .ui-block-c {
-    width: 33.33%;
+.ui-grid-b > .ui-block-a {
+    width: 20%;
+}
+.ui-grid-b > .ui-block-b {
+    width: 10%;
+}
+.ui-grid-b > .ui-block-c {
+    width: 50%;
+}
+.ui-grid-b > .ui-block-d {
+    width: 20%;
 }
 .log-list a .ui-block-a {
     text-align: left;
@@ -462,7 +471,6 @@ html .ui-bar-a .ui-btn:visited, html .ui-body-a .ui-btn:visited, html body .ui-g
 .log-list .ui-block-c div {
     float: right;
     margin-right: 10px;
-    color: #7f7f7f;
 }
 .tag {
     margin: 0 6px 0 0;
@@ -801,4 +809,8 @@ textarea.ui-input-text {
   background-position: center;
   vertical-align: middle;
   background-image: url(../images/icons/pacman.gif);
+}
+
+.log_message_color span {
+  color: #6e7181;
 }

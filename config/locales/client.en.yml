@@ -384,6 +384,8 @@ en:
       prepackaged: "Pre-packaged"
       customapp:  "Custom Application"
       none_sshkey_create: "Nothing, create one"
+      container_search_text: "Start search your docker containers."
+      prepackaged_search_text: "Start search your prepackaged APPS."
 
     customapp:
       choose: "Choose a custom app to launch"
