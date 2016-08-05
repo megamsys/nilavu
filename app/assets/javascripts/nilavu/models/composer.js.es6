@@ -1,8 +1,6 @@
 import RestModel from 'nilavu/models/rest';
 import Topic from 'nilavu/models/topic';
-import {
-    throwAjaxError
-} from 'nilavu/lib/ajax-error';
+import {throwAjaxError} from 'nilavu/lib/ajax-error';
 import computed from 'ember-addons/ember-computed-decorators';
 
 const CLOSED = 'closed',

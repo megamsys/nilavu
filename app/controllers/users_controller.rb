@@ -112,7 +112,6 @@ class UsersController < ApplicationController
 
       teams.find_all(params)
     end
-
     if @orgs
       render json: {details: @orgs.to_hash }
     else

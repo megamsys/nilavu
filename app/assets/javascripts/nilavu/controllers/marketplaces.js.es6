@@ -18,6 +18,7 @@ export default Ember.Controller.extend(BufferedContent, OpenComposer, {
     _initPanels: function() {}.on('init'),
 
     orderedCatTypes: function() {
+      alert(JSON.stringify(this.get('model.results')));
         const grouped_results = this.get('model.results');
 
         let otmap = [];
@@ -25,6 +26,7 @@ export default Ember.Controller.extend(BufferedContent, OpenComposer, {
         for (var order in grouped_results) {
             otmap.push({order: order, cattype: grouped_results[order].get('firstObject.cattype').toLowerCase()});
         }
+          alert(JSON.stringify(otmap));
 
         return otmap;
     }.property('model.results'),
@@ -58,7 +60,7 @@ export default Ember.Controller.extend(BufferedContent, OpenComposer, {
             showModal('editCategory', {model: result, smallTitle: false, titleCentered: true}).setProperties({
                 marketplaceItem: item,
                 selectedItemOption: itemOption,
-            });          
+            });
           }).catch(function(e) {
               self.set('loading', false);
           });

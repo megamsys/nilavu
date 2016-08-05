@@ -22,6 +22,7 @@ export default buildCategoryPanel('organization', {
   domainData: function() {
       var rval = [];
       _.each(this.get("model.details"), function(p) {
+        alert(JSON.stringify(p));
           rval.addObject({ name: p, value: p });
       });
       return rval;
