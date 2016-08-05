@@ -1,12 +1,11 @@
 import NilavuURL from 'nilavu/lib/url';
-import {
-    default as computed,
-    observes
-} from 'ember-addons/ember-computed-decorators';
+import {default as computed, observes} from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Component.extend({
     tagName: 'div',
-    classNameBindings: [':tab-pane', 'isActive:active'],
+    classNameBindings: [
+        ':tab-pane', 'isActive:active'
+    ],
     selection_title: "",
 
     isActive: function() {
@@ -33,8 +32,7 @@ export default Ember.Component.extend({
     }.property("category"),
 
     //says if its vm or container
-    @observes('prepackageble')
-    prepackageChanged: function() {
+    @observes('prepackageble')prepackageChanged: function() {
         this.set('category.prepackageoption', this.get('prepackageble'));
     }
 });

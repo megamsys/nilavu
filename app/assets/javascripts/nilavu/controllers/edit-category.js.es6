@@ -1,6 +1,6 @@
 import ModalFunctionality from 'nilavu/mixins/modal-functionality';
 import NilavuURL from 'nilavu/lib/url';
-import { extractError } from 'nilavu/lib/ajax-error';
+import {extractError} from 'nilavu/lib/ajax-error';
 
 export default Ember.Controller.extend(ModalFunctionality, {
     selectedTab: null,
@@ -39,11 +39,11 @@ export default Ember.Controller.extend(ModalFunctionality, {
     },
 
     hidemeClass: function() {
-      if (Em.isEmpty(this.get("selectedItem"))) {
-        return "hideme steps";
-      } else {
-        return "steps";
-      }
+        if (Em.isEmpty(this.get("selectedItem"))) {
+            return "hideme steps";
+        } else {
+            return "steps";
+        }
     }.property(),
 
     changeSize: function() {
@@ -80,9 +80,10 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
     launchOption: function() {
         const option = this.get('category.launchoption') || "";
-        return option.trim().length > 0 ? option : I18n.t("launchoption.default");
+        return option.trim().length > 0
+            ? option
+            : I18n.t("launchoption.default");
     }.property('category.launchoption'),
-
 
     launchableChanged: function() {
         this.set('category.launchoption', this.get('launchOption'));
@@ -98,7 +99,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.observes('launchOption'),
 
     setLaunchable: function() {
-      this.set('launchOption', this.get('selectedItemOption'));
+        this.set('launchOption', this.get('selectedItemOption'));
     }.observes('selectedItemOption'),
 
     cookingChanged: function() {
@@ -124,8 +125,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
     summarizingChanging: function() {
         if (this.get('summarizing')) {
-            if (this.get('category.keypairoption') &&
-                this.get('category.keypairnameoption')) {
+            if (this.get('category.keypairoption') && this.get('category.keypairnameoption')) {
                 this.set('selecting', false);
             } else {
                 //  this.notificationMessages.info(I18n.t('launcher.required_sshkey_missing'));
@@ -133,26 +133,32 @@ export default Ember.Controller.extend(ModalFunctionality, {
         }
     }.observes('category.keypairoption', 'category.keypairnameoption'),
 
-
     disabled: function() {
-        if (this.get('saving') || this.get('selecting')) return true;
+        if (this.get('saving') || this.get('selecting'))
+            return true;
 
-        if (!this.get('category.unitoption')) return true;
+        if (!this.get('category.unitoption'))
+            return true;
 
         return false;
     }.property('saving', 'selecting', 'category.unitoption', 'category.keypairoption'),
 
     categoryName: function() {
         const name = this.get('name') || "";
-        return name.trim().length > 0 ? name : I18n.t("preview");
+        return name.trim().length > 0
+            ? name
+            : I18n.t("preview");
     }.property('name'),
 
     saveLabel: function() {
-        if (this.get('saving')) return I18n.t("launcher.saving");
+        if (this.get('saving'))
+            return I18n.t("launcher.saving");
 
-        if (this.get('summarySelected')) return I18n.t("launcher.launch")
+        if (this.get('summarySelected'))
+            return I18n.t("launcher.launch")
 
-        if (this.get('generalSelected') || this.get('selectionSelected')) return I18n.t("launcher.selecting")
+        if (this.get('generalSelected') || this.get('selectionSelected'))
+            return I18n.t("launcher.selecting")
 
         return I18n.t("launcher.launch");
     }.property('saving', 'generalSelected', 'selectionSelected', 'summarySelected'),
@@ -161,9 +167,8 @@ export default Ember.Controller.extend(ModalFunctionality, {
         this.close();
     },
 
-
     close() {
-        this.setProperties({ model: null });
+        this.setProperties({model: null});
     },
 
     actions: {
@@ -171,10 +176,8 @@ export default Ember.Controller.extend(ModalFunctionality, {
             this.set('loading', true);
             const model = this.get('model');
             return Nilavu.ajax("/launchables/pools/" + this.get('category.launchoption') + ".json").then(result => {
-                model.metaData.setProperties({
-                    cooking: result
-                });
-                this.setProperties({ cooking: true, selecting: true, loading: false });
+                model.metaData.setProperties({cooking: result});
+                this.setProperties({cooking: true, selecting: true, loading: false});
             });
         },
 
@@ -183,10 +186,8 @@ export default Ember.Controller.extend(ModalFunctionality, {
             const model = this.get('model');
 
             return Nilavu.ajax("/launchables/summary.json").then(result => {
-                model.metaData.setProperties({
-                    summarizing: result
-                });
-                this.setProperties({ summarizing: true, selecting: true, loading: false });
+                model.metaData.setProperties({summarizing: result});
+                this.setProperties({summarizing: true, selecting: true, loading: false});
             });
         },
 
@@ -198,7 +199,9 @@ export default Ember.Controller.extend(ModalFunctionality, {
             this.get('model').save().then(function(result) {
                 self.set('saving', false);
                 self.send('closeModal');
-                const slugId = result.id ? result.id : "";
+                const slugId = result.id
+                    ? result.id
+                    : "";
 
                 if (result.id) {
                     NilavuURL.routeTo('/t/' + slugId);
@@ -213,7 +216,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
                 self.set('saving', false);
                 self.send('closeModal');
                 self.notificationMessages.error(I18n.t('launcher.not_launched'));
-            }).finally(function() {
+            }). finally(function() {
                 self.shrink();
             });
 

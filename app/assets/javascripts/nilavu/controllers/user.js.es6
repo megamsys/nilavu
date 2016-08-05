@@ -30,17 +30,15 @@ export default Ember.Controller.extend({
         return this.selectedTab == 'apikey';
     }.property('selectedTab'),
 
-  //   orderedCatTypes: function() {
-  //     alert(JSON.stringify(this.get('model.details')));
-  //      const grouped_results = this.get('model.details');
-   //
-  //      let otmap = [];
-   //
-  //      for (var order in grouped_results) {
-  //          otmap.push({order: order, cattype: grouped_results[order].get('firstObject.cattype').toLowerCase()});
-  //      }
-  //      alert(JSON.stringify(otmap);
-  //      return otmap;
-  //  }.property('model.details'),
+    orderedCatTypes: function() {
+       const grouped_results = this.get('model.details');
+
+       let otmap = [];
+
+       for (var order in grouped_results) {
+           otmap.push({order: order, cattype: grouped_results[order].get('firstObject.cattype').toLowerCase()});
+       }
+       return otmap;
+   }.property('model.details'),
 
 });
