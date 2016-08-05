@@ -31,3 +31,11 @@ Fabricator(:newuser, from: :user) do
   last_name 'NewPerson'
   email 'newbie@new.com'
 end
+
+Fabricator(:bob, from: :user) do
+  first_name 'Bob Lee'
+  last_name 'Swagger'
+  email 'boblee@shooter.com'
+  password 'mark4swagger'
+  api_key 'scroogeduck#4'
+end

@@ -1,20 +1,22 @@
 import computed from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Controller.extend({
-  showTop: function() { return !this.get('loginRequired'); }.property(),
-  showFooter: function() { return !this.loginRequired; }.property(),
+  
+    showTop: function() {
+        return !this.get('loginRequired');
+    }.property(),
 
-  styleCategory: null,
+    showFooter: function() {
+        return !this.loginRequired;
+    }.property(),
 
-  @computed
-  canSignUp() {
-    return !Nilavu.SiteSettings.invite_only &&
-           Nilavu.SiteSettings.allow_new_registrations &&
-           !Nilavu.SiteSettings.enable_sso;
-  },
+    styleCategory: null,
 
-  @computed
-  loginRequired() {
-    return !Nilavu.User.current();
-  },
+    @computed canSignUp() {
+        return !Nilavu.SiteSettings.invite_only && Nilavu.SiteSettings.allow_new_registrations && !Nilavu.SiteSettings.enable_sso;
+    },
+
+    @computed loginRequired() {
+        return !Nilavu.User.current();
+    }
 });

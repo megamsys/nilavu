@@ -272,7 +272,6 @@ class ApplicationController < ActionController::Base
   def redirect_to_login_if_required
     return if current_user
     session[:destination_url] = destination_url
-    #    redirect_to path('/signin')
   end
 
   def set_current_user_with_team
