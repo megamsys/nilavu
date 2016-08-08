@@ -2,7 +2,7 @@ import { propertyEqual, propertyNotEqual } from 'nilavu/lib/computed';
 
 export default Em.Component.extend({
     tagName: 'li',
-    classNameBindings: [':text-center','isActive:active', 'tabClassName', 'disabled:tabDisabled'],
+    classNameBindings: [':text-center', 'isActive:active', 'tabClassName', 'disabled:tabDisabled'],
 
     tabClassName: function() {
         return 'app-selection-' + this.get('tab');

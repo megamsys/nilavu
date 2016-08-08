@@ -36,9 +36,8 @@ class LaunchersController < ApplicationController
     def perform_launch
         params.require(:mkp_name)
         params.require(:assemblyname)
-      
-        vertice = VerticeLauncher.new(LaunchingItem.new(params))
 
+        vertice = VerticeLauncher.new(LaunchingItem.new(params))
         if res = vertice.launch
             #  Scheduler::Defer.later "Log launch action for" do
             #    @nilavu_event_logger.log_launched(@launched)

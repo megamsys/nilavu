@@ -149,7 +149,6 @@ class ApiDispatcher
 
     def raise_api_errors(e)
         return if (e.h404? && swallow_404)
-
         raise e
     end
 end

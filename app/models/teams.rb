@@ -31,7 +31,7 @@ class Teams
     end
 
     def domains_for(team)
-        @teams_by_id[team.id].domain
+      @teams_by_id[team.id].domain
     end
 
     def to_hash
@@ -39,7 +39,7 @@ class Teams
         if has_team?
             teams.each do |team|
                 h[team.name] = domains_for(team).map{|d| d.name}
-            end
+              end
         end
       h
     end

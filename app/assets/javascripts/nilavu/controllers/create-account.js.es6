@@ -206,7 +206,8 @@ export default Ember.Controller.extend({
                     const $hidden_login_form = $('#hidden-login-form');
                     $hidden_login_form.find('input[name=username]').val(attrs.accountUsername);
                     $hidden_login_form.find('input[name=password]').val(attrs.accountPassword);
-                    $hidden_login_form.find('input[name=redirect]').val(Nilavu.getURL('/account_created'));
+
+                    $hidden_login_form.find('input[name=redirect]').val(Nilavu.getURL('/users/account-created'));
                     $hidden_login_form.submit();
                 } else {
                     self.flash(result.message || I18n.t('create_account.failed'), 'error');

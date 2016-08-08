@@ -10,7 +10,6 @@ class PrepackagedScrubber < Scrubber
         @cleansers ||= {}
         %w(bitnami vertice).map do |provider|
             next if provider.blank?
-
             PrepackagedScrubber.advanced_cleansers.each do |cleanse_provider, block|
                 if provider == cleanse_provider
                     @cleansers[provider.to_sym] = block
@@ -54,7 +53,7 @@ class PrepackagedScrubber < Scrubber
     advanced_cleanser('vertice') do |dirtly_data, subfilter|
         dirtly_data.select! do |items|
             items.select! do |it|
-                it.envs.select{|i| i['key'] == 'oneclick'}.length > 0
+                it.options.select{|i| i['key'] == 'oneclick'}.length > 0 || it.cattype == 'SERVICE'
             end if items.is_a?(Array)
         end.unshift('vertice')
     end
