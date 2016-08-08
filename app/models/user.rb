@@ -102,11 +102,7 @@ class User
         password_hash.present?
     end
 
-    def confirm_password?(password)
-      puts "------------- confirm pasword"
-      puts password.inspect
-      puts @raw_password.inspect
-      puts "------------- confirm password done........"
+    def confirm_password?(password)    
         return false unless password && @raw_password
         password == password_hash(@raw_password)
     end
