@@ -7,8 +7,4 @@ export default orgCategoryPanel('domain', {
       return this.get('model.details');
   }.property('model.details'),
 
-showSubDomain: function() {
-      return this.get('model.details');
-  }.property('model.details'),
-
 });
