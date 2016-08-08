@@ -187,7 +187,7 @@ users:
   invite_expiry_days: 30
   allow_default_billings:
     client: true
-    default: false
+    default: true
   whmcs_clientarea_endpoint:
     client: true
     default: "http://megamafrica.com/whmcs/clientarea.php"
