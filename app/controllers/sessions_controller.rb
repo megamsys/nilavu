@@ -57,6 +57,14 @@ class SessionsController < ApplicationController
     end
   end
 
+  def current
+    if current_user.present?    
+      render_serialized(current_user)
+    else
+      render nothing: true, status: 404
+    end
+  end
+
   ## this should be moved to an anonymous user, with anonymous_homepage handled using Guardian
   def tour
     params.merge!({:email => 'tour@megam.io', :password => 'faketour'})
