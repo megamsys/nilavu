@@ -6,7 +6,9 @@ import User from 'nilavu/models/user';
 export default Ember.Controller.extend({
     indexStream: false,
     userActionType: null,
-    needs: ['application', 'user-notifications', 'user-topics-list'],
+    needs: [
+        'application', 'user-notifications', 'user-topics-list'
+    ],
     currentPath: Em.computed.alias('controllers.application.currentPath'),
     title: "My Profile",
     selectedTab: null,
@@ -30,15 +32,14 @@ export default Ember.Controller.extend({
         return this.selectedTab == 'apikey';
     }.property('selectedTab'),
 
-    orderedCatTypes: function() {
-       const grouped_results = this.get('model.details');
+    organizationType: function() {
+        const grouped_results = this.get('model.details');
 
-       let otmap = [];
+        let otmap = [];
 
-       for (var order in grouped_results) {
-           otmap.push({order: order, cattype: grouped_results[order].get('firstObject.cattype').toLowerCase()});
-       }
-       return otmap;
-   }.property('model.details'),
-
+        for (var order in grouped_results) {
+            otmap.push({order: order, name: grouped_results[order].get('firstObject.name')});
+        }
+        return otmap;
+    }.property('model.details')
 });
