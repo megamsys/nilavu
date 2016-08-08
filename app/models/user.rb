@@ -102,7 +102,7 @@ class User
         password_hash.present?
     end
 
-    def confirm_password?(password)    
+    def confirm_password?(password)
         return false unless password && @raw_password
         password == password_hash(@raw_password)
     end
@@ -132,6 +132,31 @@ class User
         end
         false
     end
+
+  def to_hash
+    {:email => @email,
+      :api_key => @api_key,
+      :password => @raw_password,
+      :username => User.suggest_firstname(@email),
+      :first_name =>@first_name,
+      :last_name => @last_name,
+      :phone => @phone,
+      :createdAt =>@created_at
+    }
+  end
+
+  def update_hash
+    {:email => @email,
+      :api_key => @api_key,
+      :password => ensure_password_is_hashed,
+      :username => User.suggest_firstname(@email),
+      :first_name => @first_name,
+      :last_name => @last_name,
+      :password_reset_key => @password_reset_key,
+      :phone => @phone,
+      :createdAt =>@created_at
+    }
+  end
 
     def staff?
         admin? && Rails.env.development?

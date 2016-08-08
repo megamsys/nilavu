@@ -36,6 +36,8 @@ Nilavu::Application.routes.draw do
   get "/password_reset" => "users#password_reset"
   put "/password_reset" => "users#password_reset"
 
+  get "users/account-created/" => "users#account_created"
+  put "users/:id" => "users#update"
 
   match "/auth/:provider/callback", to: "omniauth_callbacks#complete", via: [:get, :post]
   match "/auth/failure", to: "omniauth_callbacks#failure", via: [:get, :post]

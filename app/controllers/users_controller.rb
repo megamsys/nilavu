@@ -112,7 +112,6 @@ class UsersController < ApplicationController
 
       teams.find_all(params)
     end
-
     if @orgs
       render json: {details: @orgs.to_hash }
     else
@@ -129,14 +128,25 @@ class UsersController < ApplicationController
       return render_json_error(I18n.t("login.incorrect_password"))
     end
 
-    json_result(user, serializer: UserSerializer, additional_errors: [:user_profile]) do |u|
       updater = UserUpdater.new(user)
-      updater.update(params)
+      if updater.update(params)
+        activation = UserActivator.new(user, request, session, cookies)
+          activation.start
+          activation.finish
+          render json: {
+              success: true,
+            }
+      else
+          render json: {
+            success: false,
+            }
+      end
+        rescue ApiDispatcher::NotReached
+          render json: {
+            success: false,
+            message: I18n.t("login.something_already_taken")
+          }
 
-      activation = UserActivator.new(user, request, session, cookies)
-      activation.start
-      activation.finish
-    end
   end
 
   def password_reset
@@ -183,7 +193,7 @@ class UsersController < ApplicationController
 
 
   def user_params
-    params.permit(:email, :password, :firstname, :lastname, :phone, :status)
+    params.permit(:email, :password, :first_name, :last_name, :phone, :status)
   end
 
   private
@@ -196,6 +206,7 @@ class UsersController < ApplicationController
   def check_password(user, params)
     params.require(:email)
     user_params.each { |k, v| user.send("#{k}=", v) }
+    return true if params[:without_password] == "true"
 
     if params.has_key?("current_password")
       user.password = params[:current_password]
@@ -204,6 +215,6 @@ class UsersController < ApplicationController
       else
         return false
       end
-    end
+      end
   end
 end

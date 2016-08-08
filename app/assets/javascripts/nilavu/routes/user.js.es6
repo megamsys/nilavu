@@ -34,9 +34,7 @@ export default Nilavu.Route.extend({
             return currentUser;
         }
 
-        return Nilavu.User.create({
-            username: params.username
-        });
+        return Nilavu.User.create({username: params.username});
     },
 
     afterModel() {
@@ -50,7 +48,8 @@ export default Nilavu.Route.extend({
     },
 
     serialize(model) {
-        if (!model) return {};
+        if (!model)
+            return {};
         return {
             email: (Em.get(model, 'email') || '').toLowerCase()
         };

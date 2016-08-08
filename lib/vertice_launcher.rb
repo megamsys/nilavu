@@ -4,8 +4,10 @@ class VerticeLauncher
   attr_accessor :launch_params, :ssh_params
 
   def initialize(launch_item)
+
     @launch_params = launch_item.to_h
     @ssh_params = launch_item.filtered_for_ssh
+
   end
 
   def set_sshkey
@@ -15,11 +17,8 @@ class VerticeLauncher
 
   def launch
     raise Nilavu::NotFound  unless set_sshkey
-
     ensure_settings_are_ok(@launch_params)
-
     raw = Api::Assemblies.new.create(@launch_params)
-
     parse_msg(raw[:body].some_msg) unless !raw
   end
 
