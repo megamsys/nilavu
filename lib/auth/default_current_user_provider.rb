@@ -22,9 +22,9 @@ class Auth::DefaultCurrentUserProvider
     def current_user
         return @env[CURRENT_USER_KEY] if @env.key?(CURRENT_USER_KEY)
         return @request.session[CURRENT_USER_KEY] if @request.session[CURRENT_USER_KEY]
-
+        puts "++++++++++++++++++++++++++++++++++++++++++++++="
         request = @request
-
+        puts request.cookies.inspect
         auth_token = request.cookies[TOKEN_COOKIE]
         email_token = request.cookies[EMAIL_COOKIE]
         team_token = request.cookies[ORG_COOKIE]
@@ -32,7 +32,7 @@ class Auth::DefaultCurrentUserProvider
 
         current_user = nil
         if pass_token && email_token
-            current_user = User.new_from_params({email: email_token, password: pass_token}).find_by_email
+            current_user = User.new_from_params({email: email_token, api_key: auth_token, password: pass_token}).find_by_email
         end
 
         if current_user && (current_user.suspended? || !current_user.active)
@@ -51,16 +51,19 @@ class Auth::DefaultCurrentUserProvider
     end
 
     def log_on_user(user, session, cookies)
+      puts "-------------------------------------------------------"
+      puts user.inspect
+      puts user.raw_password
         if SiteSetting.permanent_session_cookie
             cookies.permanent[TOKEN_COOKIE] = { value: user.api_key, httponly: true }
             cookies.permanent[EMAIL_COOKIE] = { value: user.email, httponly: true }
             cookies.permanent[ORG_COOKIE] = { value: user.team, httponly: true}
-            cookies.permanent[PASS_COOKIE] = { value: user.password, httponly: true}
+            cookies.permanent[PASS_COOKIE] = { value: user.raw_password, httponly: true}
         else
             cookies[TOKEN_COOKIE] = { value: user.api_key, httponly: true }
             cookies[EMAIL_COOKIE] = { value: user.email, httponly: true }
             cookies[ORG_COOKIE] = { value: user.team, httponly: true }
-            cookies[PASS_COOKIE] = { value: user.password, httponly: true }
+            cookies[PASS_COOKIE] = { value: user.raw_password, httponly: true }
         end
         session[CURRENT_USER_KEY] = user
         @env[CURRENT_USER_KEY] = user
