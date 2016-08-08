@@ -21,6 +21,7 @@ class Auth::DefaultCurrentUserProvider
     # our current user, return nil if none is found
     def current_user
         return @env[CURRENT_USER_KEY] if @env.key?(CURRENT_USER_KEY)
+        return @request.session[CURRENT_USER_KEY] if @request.session[CURRENT_USER_KEY]
 
         request = @request
 
@@ -29,7 +30,7 @@ class Auth::DefaultCurrentUserProvider
         team_token = request.cookies[ORG_COOKIE]
         pass_token = request.cookies[PASS_COOKIE]
 
-        current_user = nil      
+        current_user = nil
         if pass_token && email_token
             current_user = User.new_from_params({email: email_token, password: pass_token}).find_by_email
         end
@@ -61,6 +62,7 @@ class Auth::DefaultCurrentUserProvider
             cookies[ORG_COOKIE] = { value: user.team, httponly: true }
             cookies[PASS_COOKIE] = { value: user.password, httponly: true }
         end
+        session[CURRENT_USER_KEY] = user
         @env[CURRENT_USER_KEY] = user
     end
 
@@ -69,6 +71,8 @@ class Auth::DefaultCurrentUserProvider
         cookies[EMAIL_COOKIE] = nil
         cookies[ORG_COOKIE] = nil
         cookies[PASS_COOKIE] = nil
+        session.delete(CURRENT_USER_KEY)
+        session = nil
     end
 
 

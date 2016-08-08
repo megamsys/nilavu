@@ -87,8 +87,7 @@
         </div>
     </div>
 </section>
-    <section class="hiddenorder big-padding col-xs-12" id="services" style=
-    " margin-bottom: 50px;">
+    <section class="hiddenorder big-padding col-xs-12" id="services" style=" margin-bottom: 50px;">
         <div class="container">
             <h1 class="section-title">Select your account <span class=
             "main-color">model</span></h1><br>
@@ -105,11 +104,8 @@
                     <div class="col-xs-12 col-md-4 col-custom-1200">
                         <div class="custom-1200-plan" id="explore_plans">
                             <div id="explore_bar">
-                                <div class="explore_bar_type_dev" id=
-                                "explore_bar_type">
-                                    <div class=
-                                    "explorestx_browsebar_brand_logo_stxcl" id=
-                                    "explorestx_browsebar_brand_logo">
+                                <div class="explore_bar_type_dev" id="explore_bar_type">
+                                    <div class="explorestx_browsebar_brand_logo_stxcl" id="explorestx_browsebar_brand_logo">
                                         <h2>DET:Compute</h2>
                                     </div>
                                 </div>
