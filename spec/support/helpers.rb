@@ -5,11 +5,19 @@ module Helpers
 
   def log_in(fabricator=nil)
     user = Fabricate(fabricator || :user)
+    puts "-- login user "
+    puts user.inspect
+    puts "--- *** ----"
     log_in_user(user)
     user
   end
 
   def log_in_user(user)
+    provider = Nilavu.current_user_provider.new(request.env)
+    provider.log_on_user(user,session,cookies)
+  end
+
+  def log_oin_user(user)
     provider = Nilavu.current_user_provider.new(request.env)
     provider.log_on_user(user,session,cookies)
   end

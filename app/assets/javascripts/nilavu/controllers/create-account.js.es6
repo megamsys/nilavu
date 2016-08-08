@@ -132,11 +132,11 @@ export default Ember.Controller.extend({
         }
 
         if (!Ember.isEmpty(this.get('accountPasswordConfirm')) && this.get('accountPassword') === this.get('accountPasswordConfirm')) {
-            return Nilavu.InputValidation.create({ok: true, reason: I18n.t('user.password.confirm')});
+            return Nilavu.InputValidation.create({ok: true, reason: I18n.t('user.password.ok_confirm')});
         }
 
         if (!Ember.isEmpty(this.get('accountPasswordConfirm')) && this.get('accountPassword') != this.get('accountPasswordConfirm')) {
-            return Nilavu.InputValidation.create({failed: true, reason: I18n.t('user.password.confirmpassword')});
+            return Nilavu.InputValidation.create({failed: true, reason: I18n.t('user.password.enter')});
         }
 
     }.property('accountPasswordConfirm', 'accountPassword'),
@@ -206,6 +206,7 @@ export default Ember.Controller.extend({
                     const $hidden_login_form = $('#hidden-login-form');
                     $hidden_login_form.find('input[name=username]').val(attrs.accountUsername);
                     $hidden_login_form.find('input[name=password]').val(attrs.accountPassword);
+
                     $hidden_login_form.find('input[name=redirect]').val(Nilavu.getURL('/users/account-created'));
                     $hidden_login_form.submit();
                 } else {

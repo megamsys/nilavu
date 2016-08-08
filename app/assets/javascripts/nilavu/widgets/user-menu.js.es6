@@ -21,10 +21,14 @@ createWidget('user-menu-links', {
 
     const glyphs = [];
 
-    /*const glyphs = [{ label: 'user.bookmarks',
-                      className: 'user-bookmarks-link',
+    /*
+    TO-DO:  we will user these two glyphs
+
+    const glyphs = [{ label: 'user.favourites',
+                      className: 'user-favourites-link',
                       icon: 'bookmark',
-                      href: `${path}bookmarks`}];
+                      href: `${path}favourites`}];
+
 
     // preferences always goes last
     glyphs.push({ label: 'user.settings',

@@ -1,11 +1,13 @@
-<div class="row pad_5">
-    <div class="col-md-11">
-        {{#search-text-field value=searchService.term id="search-term"}}{{/search-text-field}}
+{{#if searchBarVisible}}
+    <div class="row pad_5">
+        <div class="col-md-11">
+            {{#search-text-field value=searchService.term id="search-term" }}{{/search-text-field}}
+        </div>
+        <div class="col-md-1 pad_5">
+            {{conditional-loading-spinner condition=loading size="large"}}
+        </div>
     </div>
-    <div class="col-md-1 pad_5">
-        {{conditional-loading-spinner condition=loading size="large"}}
-    </div>
-</div>
+{{/if}}
 {{#unless loading}}
     <div class="results">
         <table class="table table-striped">
@@ -24,7 +26,7 @@
                     </div>
                 {{else}}
                     {{#each content.resultTypes as |resultType|}}
-                        {{component resultType.componentName category=category resultType=resultType.results}}
+                        {{component resultType.componentName category=category resultType=resultType.results gotoSummarize=gotoSummarize}}
                     {{/each}}
                 {{/if}}
             </tbody>

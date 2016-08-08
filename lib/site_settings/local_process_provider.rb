@@ -29,7 +29,7 @@ class SiteSettings::LocalProcessProvider
   end
 
   def destroy(name)
-    cockpit.actions_delete(name)
+    settings.delete(name)
   end
 
   def clear

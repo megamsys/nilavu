@@ -1,4 +1,4 @@
-<div class="logs ui-shadow ui-collapsible ui-collapsible-inset ui-corner-all ui-collapsible-themed-content" data-collapsed="false" data-role="collapsible">
+<div class="logs ui-border ui-collapsible ui-collapsible-inset ui-corner-all ui-collapsible-themed-content" data-collapsed="false" data-role="collapsible">
     <h4 class="ui-collapsible-heading"><a class="ui-collapsible-heading-toggle ui-btn ui-btn-inherit" href="#">Activity log <span class="ui-collapsible-heading-status">click
     	    to collapse contents</span></a></h4>
     <div aria-hidden="false" class="ui-collapsible-content ui-body-inherit">
@@ -25,9 +25,7 @@
                     </div>
                 </div>
             </fieldset>
-            {{#each logPanels as |logTab|}}
-                {{component logTab logSelectedTab=logSelectedTab message=message}}
-            {{/each}}
+            {{#each logPanels as |logTab|}} {{component logTab logSelectedTab=logSelectedTab message=message}} {{/each}}
             <div class="no-logs"></div>
         </div>
     </div>

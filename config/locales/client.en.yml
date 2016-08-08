@@ -125,8 +125,8 @@ en:
         help: "service (db/spark/hadoop)s you've launched"
       microservice:
         title:
-          one: Container
-          other: Containers
+          one: Microservice
+          other: Microservices
         help: "docker/hyper containers you've launched"
       analytics:
         title:
@@ -175,7 +175,6 @@ en:
       github_profile: "Github"
       muted_categories: "Muted"
       otp_title: "Type your pin."
-
 
       signup:
         title: "Sign up"
@@ -232,17 +231,42 @@ en:
 
       password:
         title: "Password"
-        title1: "confirm password"
+        confirm_title: "confirm password"
         too_short: "Your password is too short."
         common: "That password is too common."
         same_as_email: "Your password is the same as your email."
         ok: "Your password looks good."
+        ok_confirm: "Your password matches."        
         instructions: "At least %{count} characters."
         currentpassword: "Current Password"
         newpassword: "New Password"
         confirmpassword: "Retype the Password"
         blank_password: "Please enter your Password"
         confirm: "Your password is confirmed"
+
+      activation:
+        title: "Welcome to our cloud platform."
+        subtitle: "Before you get started, we need some additional information to setup your account"
+        otp_title: "Enter OTP Pin:"
+        otp_pin: "eg: awesome"
+        otp_verify: "verify"
+        otp_verify_title: "We just sent a verification text to"
+        otp_resend: "Resend?"
+        address: "Address:"
+        addressex: "2 Macquarie Street"
+        address2: "Address 2:"
+        address2ex: ""
+        city: "City:"
+        cityex: "Sydney"
+        state: "State:"
+        stateex: "NSW"
+        zipcode: "Zip code:"
+        zipcodeex: "2001"
+        company: "Company (optional):"
+        companyex: "DET.io"
+        select_country: "Select Country:"
+        accounttitle: "Select your account model:"
+
 
     errors:
       prev_page: "while trying to load"
@@ -383,7 +407,7 @@ en:
       github_error: "Not refreshed"
       repo_is_public: "public"
       repo_is_private: "private"
-      prepackeble_select: 'select'
+      prepackeble_select: 'Next'
       prepackeble_selected: 'selected'
       your_repos: "Your Repos"
       public_repos: "Public Repo"
@@ -408,8 +432,8 @@ en:
       microservice:
         create: "Create Microservice"
         category: "microservice"
-        title: "Your Containers"
-        subtitle: "containers running"
+        title: "Your Microservices"
+        subtitle: "microservices running"
 
     marketplaces:
       title: "Marketplaces"

@@ -34,9 +34,10 @@ export default Em.Component.extend({
             //this is for bitnami url
             if (this.get('resultType.options')) {
                 const usrl = this.get('resultType.options').filter((r) => r.key == `${this.get('resultType.provider')}_url`);
-                if (usrl) { this.set('category.sourceurl', usrl.get('firstObject').value); }
+                if (!Em.isEmpty(usrl)) { this.set('category.sourceurl', usrl.get('firstObject').value); }
             }
             this.set('versionOption', true);
+            this.set('gotoSummarize', true);
         }
 
     }

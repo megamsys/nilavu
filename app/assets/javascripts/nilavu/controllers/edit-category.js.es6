@@ -1,5 +1,6 @@
 import ModalFunctionality from 'nilavu/mixins/modal-functionality';
 import NilavuURL from 'nilavu/lib/url';
+import {observes} from 'ember-addons/ember-computed-decorators';
 import {extractError} from 'nilavu/lib/ajax-error';
 
 export default Ember.Controller.extend(ModalFunctionality, {
@@ -9,6 +10,9 @@ export default Ember.Controller.extend(ModalFunctionality, {
     loading: false,
     editLaunching: false,
     isVirtualMachine: false,
+    gotoSummarize: false,
+    summarizeButtonVisible: true,
+    summarizeVisible: true,
 
     _initPanels: function() {
         this.set('panels', []);
@@ -22,9 +26,15 @@ export default Ember.Controller.extend(ModalFunctionality, {
         return this.selectedTab == 'general';
     }.property('selectedTab'),
 
+    //hidden nextSummarize button~
     selectionSelected: function() {
         return this.selectedTab == 'selection';
     }.property('selectedTab'),
+
+    @observes('summarizeVisible')
+    setSummarizeButtonValue: function() {
+        this.set('selectionSelected', this.get('summarizeVisible'));
+    },
 
     summarySelected: function() {
         return this.selectedTab == 'summary';
@@ -111,6 +121,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
         }
     }.observes('cooking'),
 
+
     summarizingChanged: function() {
         this.set('selectedTab', 'summary');
     }.observes('summarizing'),
@@ -169,6 +180,11 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
     close() {
         this.setProperties({model: null});
+    },
+
+    @observes('gotoSummarize')
+    gotoSummarizePage: function() {
+        this.send('nextSummarize');
     },
 
     actions: {
