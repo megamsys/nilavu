@@ -44,9 +44,9 @@ Contact our partner [DET.io](http://det.io) and stay ahead of cluggy/old `SolusV
 
 ## What does this product look like ?
 
-The UX/UI design was done by [enixel](http://enixel.com) and our parnter [DET.io](http://det.io)
+The UX/UI design was done by [enixel](http://enixel.com) and our partner [DET.io](http://det.io)
 
-###Sneakpeak of the product
+###Sneakpeak
 
 ![Dashboard](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_dashboard.png)
 
@@ -54,7 +54,7 @@ The UX/UI design was done by [enixel](http://enixel.com) and our parnter [DET.io
 ![Presignup](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_presignup.png)
 
 ###Billing integration (*WHMCS*, Blesta, ...)
-![Billing Integration WHMCS](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_subscription.png)
+![Billing Integration WHMCS](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_subcription.png)
 
 ###Multi region cluster (You can have Datacenters in `chennai`, `sydney`...)
 ![Multi region/Cluster launcher WHMCS](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_multiregion_launcher.png)
@@ -78,7 +78,7 @@ You'll need `ruby 2.x` and [vertice_gateway](https://github.com/megamsys/vertice
 
 ### Fork
 
-After you have forked a copy of https://github.com/megamsys/vertice_gateway.git
+After you have forked a copy of https://github.com/megamsys/nilavu.git
 
 ### Steps
 
@@ -95,6 +95,8 @@ bundle update
 bundle install
 
 ```
+
+Type http://localhost:3000
 
 Now you are all set.
 
