@@ -1,6 +1,6 @@
 require 'whmcs'
 
-class Biller::WHMCSSubscriber < Billy::Subscriber
+class Biller::WHMCSSubscriber < Biller::Subscriber
     include WHMCSRegistrar
 
     def subscribe(subscribe_options)

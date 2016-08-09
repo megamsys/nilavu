@@ -47,6 +47,8 @@ gem 'multi_json'
 gem 'mustache'
 gem 'nokogiri'
 
+gem 'http'
+
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-github'

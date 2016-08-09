@@ -133,7 +133,10 @@ export default function() {
         path: '/subscriptions'
     }, function() {
         this.route('show', {
-            path: '/activation'
+            path: '/account/activation'
+        });
+        this.route('activate', {
+            path: '/bill/activation'
         });
     });
 

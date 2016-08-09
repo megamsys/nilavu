@@ -1,7 +1,7 @@
 require 'whmcs'
 require 'digest/md5'
 
-class Biller::WHMCSOrderer < Billy::Orderer
+class Biller::WHMCSOrderer < Biller::Orderer
     include WHMCSRegistrar
     include WHMCSAutoAuth
 
