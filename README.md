@@ -7,11 +7,12 @@ Megam Vertice [https://www.megam.io](https://www.megam.io)
 Nilavu is a [Rails 4.2.x](http://guides.rubyonrails.org/) ember.js browser based user interface for [Vertice - PaaS for the hosting industry](https://www.megam.io).
 
 
+# Wanna host your own VPS ?
+
+Contact our partner [DET.io](http://det.io) and stay ahead of cluggy/old `SolusVM`.
+
 # Try out:
 
-# Wanna your own VPS ?
-
-* Contact our partner [DET.io](http://det.io) and stay ahead of cluggy/old `SolusVM`.
 
 # Features
 
@@ -33,6 +34,35 @@ Nilavu is a [Rails 4.2.x](http://guides.rubyonrails.org/) ember.js browser based
 4. [Vertice Gateway](https://github.com/megamsys/vertice_gateway)
 
 
+## What does this product look like ?
+
+The UX/UI design was done by [enixel](http://enixel.com) and our parnter [DET.io](http://det.io)
+
+###Sneakpeak of the product
+
+![Dashboard](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_dashboard.png)
+
+###Pre-signup
+![Presignup](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_presignup.png)
+
+###Billing integration (*WHMCS*, Blesta, ...)
+![Billing Integration WHMCS](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_subscription.png)
+
+###Multi region cluster (You can have Datacenters in `chennai`, `sydney`...)
+![Multi region/Cluster launcher WHMCS](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_multiregion_launcher.png)
+
+###Marketplace
+![Marketplace](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_mktplace.png)
+
+###Management
+![Management](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_management.png)
+
+###Log/Activity
+![Log activity and Monitoring](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_logs.png)
+
+###Billing usage
+![Billing usage and selector](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_pricing_billing_whmcs.png)
+
 ## Compile from source
 
 You'll need `ruby 2.x` and [vertice_gateway](https://github.com/megamsys/vertice_gateway.git) setup.
@@ -41,32 +71,11 @@ You'll need `ruby 2.x` and [vertice_gateway](https://github.com/megamsys/vertice
 
 After you have forked a copy of https://github.com/megamsys/vertice_gateway.git
 
-## What will you get ?
-
-The UX/UI design was done by [enixel](http://enixel.com) and our parnter [DET.io](http://det.io)
-
-![Dashboard](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_dashboard.png)
-
-![Presignup](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_presignup.png)
-
-![Billing Integration WHMCS](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_subscription.png)
-
-![Multi region/Cluster launcher WHMCS](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_multiregion_launcher.png)
-
-![Marketplace](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_mktplace.png)
-
-![Management](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_management.png)
-
-![Log activity and Monitoring](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_logs.png)
-
-![Billing usage and selector](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_pricing_billing_whmcs.png)
-
-
 ### Steps
 
 ```
 
-git clone https://github.com/megamsys/nilavu.git
+git clone https://github.com/<your_github_id>/nilavu.git
 
 cd nilavu
 
