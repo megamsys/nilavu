@@ -1,22 +1,31 @@
-=========================================================================
-Megam Vertice [https://www.megam.io](https://www.megam.io)
-=========================================================================
+#Nilavu
 
 [![Build Status](https://travis-ci.org/megamsys/nilavu.png?branch=1.5)](https://travis-ci.org/megamsys/nilavu)
 
 Nilavu is a [Rails 4.2.x](http://guides.rubyonrails.org/) ember.js browser based user interface for [Vertice - PaaS for the hosting industry](https://www.megam.io).
 
 
-# Wanna host your own VPS ?
+1. Do you want a DigitalOcean like experience for your customers ?
+
+2. Are tired in setting up your hardware to host your VPS (VM/Containers) with multi region/clusters/vnets ?
+
+3. Do you need to convert raw harddisks to cloud storage in a jizzy ?
+
+
+# Yes, I want to host my own VPS ?
 
 Contact our partner [DET.io](http://det.io) and stay ahead of cluggy/old `SolusVM`.
 
-# Try out:
+[DET.io](http://det.io) has automated tools to set up this in a jiffy!.
 
 
 # Features
 
 [vertice.megam.io](https://vertice.megam.io)
+
+* Launch 100's of Bitnami apps in a second
+
+* Launch 1000's of Docker registry using an intuitive search
 
 * Launch apps, services(db, queue, nosql..) in hybrid cloud in seconds.
 
@@ -24,9 +33,8 @@ Contact our partner [DET.io](http://det.io) and stay ahead of cluggy/old `SolusV
 
 * Integrated billing with WHMCS
 
-* Launch 100's of Bitnami apps in a second
+* Cloud storage
 
-* Launch 1000's of Docker registry using an intuitive search
 
 ## Requirements
 
@@ -62,6 +70,7 @@ The UX/UI design was done by [enixel](http://enixel.com) and our parnter [DET.io
 
 ###Billing usage
 ![Billing usage and selector](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_pricing_billing_whmcs.png)
+
 
 ## Compile from source
 
