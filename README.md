@@ -69,7 +69,7 @@ You'll need `ruby 2.x` and [vertice_gateway](https://github.com/megamsys/vertice
 
 ### Fork
 
-After you have forked a copy of https://github.com/megamsys/vertice_gateway.git
+After you have forked a copy of https://github.com/megamsys/nilavu.git
 
 ### Steps
 
