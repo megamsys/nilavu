@@ -1,6 +1,6 @@
 require 'whmcs'
 
-class Biller::WHMCSShopper < Billy::Shopper
+class Biller::WHMCSShopper < Biller::Shopper
     include WHMCSRegistrar
 
     def shop(shop_options)

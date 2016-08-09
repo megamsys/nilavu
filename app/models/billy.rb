@@ -13,7 +13,7 @@ class Billy
     end
 
     def find_by_email(params)
-        addon = Api::Addons.new.where(params.merge!(parms_using_provider))
+        addon = Api::Addons.new.show(params.merge!(parms_using_provider)).addon
         if addon
             return Billy.new_from_params(addon.to_hash)
         end

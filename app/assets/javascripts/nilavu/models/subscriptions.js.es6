@@ -37,6 +37,20 @@ const Subscriptions = RestModel.extend({
 
 Subscriptions.reopenClass({
 
+  createAccount(attrs) {
+      return Nilavu.ajax("/subscriptions", {
+          data: {
+              address: attrs.address,
+              address2: attrs.address2,
+              city: attrs.city,
+              state: attrs.state,
+              zipcode: attrs.zipcode,
+              company: attrs.company,
+          },
+          type: 'POST'
+      });
+  },
+
     create() {
         const result = this._super.apply(this, arguments);
         return result;
@@ -50,7 +64,6 @@ Subscriptions.reopenClass({
         if (opts.provider) {
             data.provider = opts.provider;
         }
-
 
         // Check the preload store. If not, load it via JSON
         return Nilavu.ajax(url + ".json", { data: data });
