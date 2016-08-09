@@ -6,6 +6,7 @@ class Results
 
   def initialize(response, mobile_number)
     @mobile_number = mobile_number
+    @result_hash = {}
     parse_body(response.body) if should_parse?(response)
   end
 
@@ -33,7 +34,7 @@ class Results
     when 200
       true
     else
-      raise Nilavu::NotFound, I18n.t('signup.otp_failure')
+      false
     end
   end
 

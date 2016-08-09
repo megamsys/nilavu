@@ -1,13 +1,14 @@
 class SubscriptionsController < ApplicationController
     include CurrentBilly
+    SUBSCRIBER_PROCESSE = "Subscriber".freeze
 
+    skip_before_filter :check_xhr
     before_action :add_authkeys_for_api, only: [:entrance, :create]
 
     def entrance
-        user_activator = UserActivationChecker.new
+        user_activator = UserActivationChecker.new(current_user)
 
         return "/" if user_activator.completed?
-
         lookup_external_id_in_addons(params)
 
         render json: {
@@ -23,30 +24,30 @@ class SubscriptionsController < ApplicationController
 
     private
 
+
     def subscriber
-        l = lookup_billy_addon(params)
+        l = lookup_external_id_in_addons(params)
 
         if bil = bildr_processe_is_ready(SUBSCRIBER_PROCESSE)
             b = bil.subscriber.subscribe(l)
-
-            bldr.subscriber.after_subscribe(b)
+            bil.subscriber.after_subscribe(b)
         end
     end
 
+
     def update_subscriber
-        l = lookup_billy_addon(params)
+        l = lookup_external_id_in_addons(params)
 
         if bildr = bildr_processe_is_ready(SUBSCRIBER_PROCESSE)
             b = bildr.subscriber.update(l)
-
-            bldr.subscriber.after_update(b)
+            bildr.subscriber.after_update(b)
         end
     end
 
     def bildr_processe_is_ready(processe)
         bildr = Biller::Builder.new(processe)
 
-        return unless bildr && obj.respond_to?(processe.downcase.to_sym)
+        return unless bildr && bildr.respond_to?(processe.downcase.to_sym)
 
         bildr
     end

@@ -17,7 +17,7 @@ class MobileAvatarActivator
     private
 
     def activator
-        factory.new(user)
+        factory.new(user, params)
     end
 
     def dont_force?
@@ -41,7 +41,7 @@ end
 class OTPActivator < MobileAvatarActivator
 
     def activating
-        identity = MobileAvatar::Identity.new.from_number(phone_params)
+        identity = MobileAvatar::Identity.from_number(phone_params)
         result = MobileAvatar.generate(identity: identity)
         return I18n.t("login.activating_phone_error") unless result
 
@@ -49,7 +49,7 @@ class OTPActivator < MobileAvatarActivator
     end
 
     def activate
-        identity = MobileAvatar::Identity.new.from_number(phone_params)
+        identity = MobileAvatar::Identity.from_number(phone_params)
         result = identity.verify(identity: identity)
         return I18n.t("login.activate_phone_error") unless result
 

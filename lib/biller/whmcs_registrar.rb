@@ -1,6 +1,6 @@
 require 'digest/md5'
 
-module WHMCSRegistrar
+module Biller::WHMCSRegistrar
     def name
         "whmcs"
     end

@@ -236,7 +236,7 @@ en:
         common: "That password is too common."
         same_as_email: "Your password is the same as your email."
         ok: "Your password looks good."
-        ok_confirm: "Your password matches."        
+        ok_confirm: "Your password matches."
         instructions: "At least %{count} characters."
         currentpassword: "Current Password"
         newpassword: "New Password"
@@ -246,7 +246,7 @@ en:
 
       activation:
         title: "Welcome to our cloud platform."
-        subtitle: "Before you get started, we need some additional information to setup your account"
+        subtitle: "Before you get started, we need some additional information to setup your account!"
         otp_title: "Enter OTP Pin:"
         otp_pin: "eg: awesome"
         otp_verify: "verify"

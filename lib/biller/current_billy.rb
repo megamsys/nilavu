@@ -15,6 +15,7 @@ module CurrentBilly
         end
     end
 
+
     private
 
     def no_external_id_found

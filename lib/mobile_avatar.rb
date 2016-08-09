@@ -26,7 +26,8 @@ class MobileAvatar
 
         def generate(opts = nil)
             identity = opts && opts[:identity]
-
+            puts "88888888888888888888888888888888888888888888888888888888888"
+            puts identity.inspect
             return Nilavu::NotFound unless identity
 
             bipping_number(identity)
