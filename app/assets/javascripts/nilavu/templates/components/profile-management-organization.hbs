@@ -6,7 +6,9 @@
         <div class="pull-right col-xs-3">
             <div class="dropdown">
                 <div class="form-group">
+
                     {{combo-box content=domainData valueAttribute="value" value=selectDomain}}
+
                 </div>
             </div>
         </div>
@@ -15,12 +17,11 @@
 <div class="row">
     <div class="col-xs-12 margintb_15">
         <ul class="nav nav-pills c_nav_pills">
-            {{organization-tab orgPanels=orgPanels orgSelectedTab=orgSelectedTab orgTab="user"}}
-            {{organization-tab orgPanels=orgPanels orgSelectedTab=orgSelectedTab orgTab="domain"}}
+            {{organization-tab orgPanels=orgPanels orgSelectedTab=orgSelectedTab orgTab="user"}} {{organization-tab orgPanels=orgPanels orgSelectedTab=orgSelectedTab orgTab="domain"}}
         </ul>
         <div class="org-datas">
             {{#each orgPanels as |orgTab|}}
-                {{component orgTab orgSelectedTab=orgSelectedTab model=model}}
+                {{component orgTab orgSelectedTab=orgSelectedTab model=model organizationType=organizationType}}
             {{/each}}
         </div>
 

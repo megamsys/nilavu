@@ -25,7 +25,6 @@ export default Ember.Controller.extend(BufferedContent, OpenComposer, {
         for (var order in grouped_results) {
             otmap.push({order: order, cattype: grouped_results[order].get('firstObject.cattype').toLowerCase()});
         }
-
         return otmap;
     }.property('model.results'),
 

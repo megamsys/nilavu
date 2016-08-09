@@ -38,7 +38,7 @@ class Teams
         h = Hash.new
         if has_team?
             teams.each do |team|
-                h[team.name] = domains_for(team).map{|d| d.name}
+                h[team.name] = domains_for(team).map{|d| d}
               end
         end
       h
