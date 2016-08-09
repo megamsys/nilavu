@@ -27,11 +27,7 @@ else
   gem 'rails', '~> 4.2.7'
 end
 
-#rails 4.2 transition
-gem 'protected_attributes'
-gem 'responders'
-
-gem 'mail'
+gem 'responders', '~> 2.0'
 
 gem 'http_accept_language', '~>2.0.5', require: false
 
@@ -58,20 +54,18 @@ gem 'omniauth-oauth2', require: false
 gem 'omniauth-google-oauth2'
 
 # 3rd party system api's
-
-gem 'megam_api', '1.5.rc5'
+gem 'megam_api', '1.5.6'
 gem 'docker_registry'
 gem 'radosgw-s3'
 gem 'haikunator' #random name.
 gem 'sshkey' # ssh key-gen
+gem 'whmcs-ruby', :git => 'https://github.com/megamsys/whmcs-ruby.git'
+
 
 gem 'oj'
 gem 'r2', '~> 0.2.5', require: false
 gem 'rake'
 gem 'excon' #used by metrics  ? Can we use excon
-
-gem 'rinku'
-gem 'sanitize'
 
 gem 'therubyracer'
 gem 'rack-protection' # security
@@ -80,7 +74,6 @@ gem 'rack-protection' # security
 gem 'sass'
 gem 'sass-rails', '~> 5.0.5'
 gem 'uglifier'
-gem 'rtlit', require: false # for css rtling
 
 
 group :test do
@@ -114,8 +107,10 @@ group :development do
   gem 'librarian', '>= 0.0.25', require: false
 end
 
-# this provides a very efficient lru cache
+# this provides a very efficient lru cache, used for i18n  yaml loader
 gem 'lru_redux'
+# used by habitat plan
+gem 'tzinfo-data'
 
 # IMPORTANT: mini profiler monkey patches, so it better be required last
 gem 'flamegraph', require: false
@@ -139,5 +134,3 @@ rescue Bundler::GemfileError
      gem 'memory_profiler', require: false, platform: [:mri_21]
   end
 end
-
-gem 'rmmseg-cpp', require: false

@@ -1,17 +1,28 @@
-<h4 class="">Basic Information <span class="pull-right" >{{email}}</span></h4>
-  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save c_tab-content-top">
-  <form class="form-horizontal" id="megamform" novalidate="novalidate">
-    <div class="form-group">
-    <label class="col-md-3 control-label label-profile lable-color">Profile Name</label>
-    <div class="col-md-5 input-group margin-top-10">
-      {{text-field id="tt" class="form-control" placeholder="Enter the text" readonly="true" value=currentUser.username}}
+<div class="row ">
+    <div class="col-md-8 profile_left_pad_15">
+        <h3><b>Basic Information </b></h3>
     </div>
-    <span class="input-group-addon " ><a {{action "change_name"}} class="pull-left btn">change?</a></span>
-  </div>
-    <div class="form-group">
-      <div class="col-md-6 col-md-offset-3 input-group margin-top-10 ">
-        <button class='btn disabled btn-success col-md-5 col-xs-12' {{action "update"}}>update</button>
-      </div>
+    <div class="col-md-4 profile_right_pad_15">
+        <span class="pull-right"><h3><b>{{email}}</b></h3></span>
     </div>
-</form>
+</div>
+<div class="row">
+    <div class="col-md-3 profile_left_pad_15 profile_align">
+        <label class="label-profile lable-color">Profile Name</label>
+    </div>
+    <div class="col-md-5">
+        {{text-field id="tt" class="form-control"  disabled=submitDisabled value=model.first_name}}
+    </div>
+    <div class="col-md-4">
+        <a {{action "onClick"}} class="pull-left btn">change?</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 input-group margin-top-10 ">
+        <button class='btn btn-success col-md-5 col-xs-12' {{action "changeUsername"}} {{bind-attr disabled="submitDisabled"}}>update
+          <span class="pull-right">
+              {{conditional-loading-spinner condition=loading size="large"}}
+          </span>
+        </button>
+    </div>
 </div>

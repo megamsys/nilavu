@@ -1,7 +1,12 @@
 import ComboboxView from 'nilavu/components/combo-box';
 import computed from 'ember-addons/ember-computed-decorators';
-import { observes, on } from 'ember-addons/ember-computed-decorators';
-import { customappBadgeHTML } from 'nilavu/helpers/customapp-link';
+import {
+    observes,
+    on
+} from 'ember-addons/ember-computed-decorators';
+import {
+    customappBadgeHTML
+} from 'nilavu/helpers/customapp-link';
 
 var get = Em.get;
 
@@ -15,6 +20,17 @@ export default ComboboxView.extend({
     @computed("customapps")
     content(customapps) {
         return customapps;
+    },
+
+    didInsertElement: function() {
+        if (!Em.isEmpty(this.get("selectedItem"))) {
+            if (!Em.isEmpty(this.get("customapps"))) {
+                const filtApp = this.get('customapps').filter((f) => f.name == this.get('selectedItem.flavor'));
+                if (filtApp.get('firstObject')) {
+                    this.set('value', filtApp.get('firstObject').id);
+                }
+            }
+        }
     },
 
     _updateCustomApps: function() {
@@ -46,7 +62,9 @@ export default ComboboxView.extend({
             return customapp.text
         }
 
-        let result = customappBadgeHTML(customapp, { link: false }) + customapp.text;
+        let result = customappBadgeHTML(customapp, {
+            link: false
+        }) + customapp.text;
 
         return result;
     }

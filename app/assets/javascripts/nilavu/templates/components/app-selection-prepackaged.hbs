@@ -1,12 +1,14 @@
-    <div data-toggle="buttons">
-        <div class="btn-storage-container bigger">
+<div data-toggle="buttons">
+    <div class="btn-storage-container bigger">
+        {{#if appHeaderVisible}}
             {{app-selection-typechooser name='virtualmachine' prepackageble=selectedPackApp style="float: left, margin-top: 10px"}}
             {{app-selection-typechooser name='container' prepackageble=selectedPackApp style="float: right"}}
-        </div>
+        {{/if}}
     </div>
-    <div class="row">
-        <div class="input-search pad_t25">
-            <p class="text-center"><b>Start your search</b></p>
-            {{search-menu category=category}}
-        </div>
+</div>
+<div class="row">
+    <div class="input-search pad_t25">
+        <p class="text-center"><b>{{selected_chooser_title}}</b></p>
+        {{search-menu category=category selectedItem=selectedItem gotoSummarize=gotoSummarize}}
     </div>
+</div>

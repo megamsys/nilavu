@@ -17,7 +17,7 @@ module Api
   class Accounts < ApiDispatcher
 
     def where(params)
-      result = api_request(ACCOUNT,SHOW, params)
+      result = api_request(ACCOUNT,SHOW, params)    
       result[:body] if result && result.is_a?(Hash)
     end
 
@@ -28,14 +28,14 @@ module Api
     def update(params)
       api_request(ACCOUNT, UPDATE, params)
     end
-    
+
     def reset(params)
       api_request(ACCOUNT, RESET, params, true)
     end
-    
+
      def repassword(params)
       api_request(ACCOUNT, REPASSWORD, params, true)
     end
-    
+
   end
 end

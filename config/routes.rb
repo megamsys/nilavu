@@ -28,17 +28,21 @@ Nilavu::Application.routes.draw do
   #session related
   resources :sessions
   get "session/csrf" => "sessions#csrf"
+  get "session/current" => "sessions#current"
   match "sessions/delete", to:  "sessions#destroy", via: [:delete]
-
+  get "/account_created/" => "users#account_created"
+  get "/subscriptions/activation" => "subscriptions#entrance"
 
   post "/session/forgot_password" => "sessions#forgot_password"
   get "/password_reset" => "users#password_reset"
   put "/password_reset" => "users#password_reset"
-  get "users/account-created/" => "users#account_created"
 
+  get "users/account-created/" => "users#account_created"
+  put "users/:id" => "users#update"
 
   match "/auth/:provider/callback", to: "omniauth_callbacks#complete", via: [:get, :post]
   match "/auth/failure", to: "omniauth_callbacks#failure", via: [:get, :post]
+  put "users/:id" => "users#update"
 
   resources :users, except: [:show, :update, :destroy] do
     collection do

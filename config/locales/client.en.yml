@@ -125,8 +125,8 @@ en:
         help: "service (db/spark/hadoop)s you've launched"
       microservice:
         title:
-          one: Container
-          other: Containers
+          one: Microservice
+          other: Microservices
         help: "docker/hyper containers you've launched"
       analytics:
         title:
@@ -176,7 +176,6 @@ en:
       muted_categories: "Muted"
       otp_title: "Type your pin."
 
-
       signup:
         title: "Sign up"
         description: "It wont take more than 1 minute, we promise"
@@ -189,11 +188,16 @@ en:
         error: "(error)"
         action: "Send Password Reset Email"
         set_password: "Set Password"
+        reset: "Your Password is changed successfully"
+        resetfail: "Fail to change Password"
 
       change_name:
         title: "Change ame"
         error: "There was an error changing your name."
         invalid: "That name is invalid. It must only include numbers and letters"
+        blank: "Please enter the new username"
+        reset: "Your Username is changed successfully"
+        resetfail: "Fail to change your Username"
 
       change_email:
         title: "Change Email"
@@ -227,12 +231,42 @@ en:
 
       password:
         title: "Password"
-        title1: "confirm password"
+        confirm_title: "confirm password"
         too_short: "Your password is too short."
         common: "That password is too common."
         same_as_email: "Your password is the same as your email."
         ok: "Your password looks good."
+        ok_confirm: "Your password matches."        
         instructions: "At least %{count} characters."
+        currentpassword: "Current Password"
+        newpassword: "New Password"
+        confirmpassword: "Retype the Password"
+        blank_password: "Please enter your Password"
+        confirm: "Your password is confirmed"
+
+      activation:
+        title: "Welcome to our cloud platform."
+        subtitle: "Before you get started, we need some additional information to setup your account"
+        otp_title: "Enter OTP Pin:"
+        otp_pin: "eg: awesome"
+        otp_verify: "verify"
+        otp_verify_title: "We just sent a verification text to"
+        otp_resend: "Resend?"
+        address: "Address:"
+        addressex: "2 Macquarie Street"
+        address2: "Address 2:"
+        address2ex: ""
+        city: "City:"
+        cityex: "Sydney"
+        state: "State:"
+        stateex: "NSW"
+        zipcode: "Zip code:"
+        zipcodeex: "2001"
+        company: "Company (optional):"
+        companyex: "DET.io"
+        select_country: "Select Country:"
+        accounttitle: "Select your account model:"
+
 
     errors:
       prev_page: "while trying to load"
@@ -263,9 +297,9 @@ en:
       action: "I forgot my password"
       invite: "Enter your email address, and we'll send you a password reset email."
       reset: "Reset Password"
-      complete_email: "If an account matches <b>%{email}</b>, you should receive an email with instructions on how to reset your password shortly."
-      complete_email_found: "We found an account that matches <b>%{email}</b>, you should receive an email with instructions on how to reset your password shortly."
-      complete_email_not_found: "No account matches <b>%{email}</b>"
+      complete_email: "If an account matches {{email}}, you should receive an email with instructions on how to reset your password shortly."
+      complete_email_found: "We found an account that matches %{email}, you should receive an email with instructions on how to reset your password shortly."
+      complete_email_not_found: "No account matches %{email}"
 
     create_account:
       title: "Create New Account"
@@ -360,6 +394,8 @@ en:
       prepackaged: "Pre-packaged"
       customapp:  "Custom Application"
       none_sshkey_create: "Nothing, create one"
+      container_search_text: "Start search your docker containers."
+      prepackaged_search_text: "Start search your prepackaged APPS."
 
     customapp:
       choose: "Choose a custom app to launch"
@@ -371,7 +407,7 @@ en:
       github_error: "Not refreshed"
       repo_is_public: "public"
       repo_is_private: "private"
-      prepackeble_select: 'select'
+      prepackeble_select: 'Next'
       prepackeble_selected: 'selected'
       your_repos: "Your Repos"
       public_repos: "Public Repo"
@@ -396,8 +432,8 @@ en:
       microservice:
         create: "Create Microservice"
         category: "microservice"
-        title: "Your Containers"
-        subtitle: "containers running"
+        title: "Your Microservices"
+        subtitle: "microservices running"
 
     marketplaces:
       title: "Marketplaces"

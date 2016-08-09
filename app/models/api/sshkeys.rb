@@ -33,7 +33,7 @@ module Api
     # a helper that creates or imports ssl keys.
     # can be used during a launch or sshkey creation.
     def create_or_import(api_params)
-        api_params[:name] = api_params[:ssh_keypair_name]
+        api_params[:name] = api_params[:keypairname]
 
         case api_params[:keypairoption]
         when NEW

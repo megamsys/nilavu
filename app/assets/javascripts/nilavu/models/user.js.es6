@@ -1,55 +1,48 @@
-import { url } from 'nilavu/lib/computed';
+import {url} from 'nilavu/lib/computed';
 import RestModel from 'nilavu/models/rest';
 import Singleton from 'nilavu/mixins/singleton';
-import { longDate } from 'nilavu/lib/formatter';
-import { default as computed, observes } from 'ember-addons/ember-computed-decorators';
+import {longDate} from 'nilavu/lib/formatter';
+import {default as computed, observes} from 'ember-addons/ember-computed-decorators';
 import Topic from 'nilavu/models/topic';
 
 const User = RestModel.extend({
 
     redirected_to_top: {
-        reason: null,
+        reason: null
     },
 
     staff: Em.computed.or('admin', 'moderator'),
 
     destroySession() {
-        return Nilavu.ajax(`/sessions/delete`, {
-            type: 'DELETE'
-        });
+        return Nilavu.ajax(`/sessions/delete`, {type: 'DELETE'});
     },
-    
-    @computed("username", "name")
-    displayName(username, name) {
+
+    @computed("username", "name")displayName(username, name) {
         if (Nilavu.SiteSettings.enable_names && !Ember.isEmpty(name)) {
             return name;
         }
         return username;
     },
 
-    @computed('profile_background')
-    profileBackground(bgUrl) {
+    @computed('profile_background')profileBackground(bgUrl) {
         if (Em.isEmpty(bgUrl) || !Nilavu.SiteSettings.allow_profile_backgrounds) {
             return;
         }
         return ('background-image: url(' + Nilavu.getURLWithCDN(bgUrl) + ')').htmlSafe();
     },
 
-    @computed()
-    path() {
+    @computed()path() {
         // no need to observe, requires a hard refresh to update
         return Nilavu.getURL(`/users/${this.get('email')}`);
     },
 
     adminPath: url('id', 'username_lower', "/admin/users/%@1/%@2"),
 
-    @computed("email")
-    email_lower(email) {
+    @computed("email")email_lower(email) {
         return email.toLowerCase();
     },
 
-    @computed("trust_level")
-    trustLevel(trustLevel) {
+    @computed("trust_level")trustLevel(trustLevel) {
         return Nilavu.Site.currentProp('trustLevels').findProperty('id', parseInt(trustLevel, 10));
     },
 
@@ -57,22 +50,22 @@ const User = RestModel.extend({
 
     isSuspended: Em.computed.equal('suspended', true),
 
-    @computed("suspended_till")
-    suspended(suspendedTill) {
+    @computed("suspended_till")suspended(suspendedTill) {
         return suspendedTill && moment(suspendedTill).isAfter();
     },
 
-    @computed("suspended_till")
-    suspendedTillDate(suspendedTill) {
+    @computed("suspended_till")suspendedTillDate(suspendedTill) {
         return longDate(suspendedTill);
     },
 
-    changeUsername(new_username) {
-        return Nilavu.ajax(`/users/${this.get('username_lower')}/preferences/username`, {
-            type: 'PUT',
+    changeUsername() {
+        return Nilavu.ajax("/users/" + this.get('email'), {
+            dataType: 'json',
             data: {
-                new_username
-            }
+                first_name: this.get('first_name'),
+                without_password: true
+            },
+            type: 'PUT'
         });
     },
 
@@ -90,20 +83,10 @@ const User = RestModel.extend({
     },
 
     save() {
-        const data = this.getProperties(
-            'bio_raw',
-            'website',
-            'location',
-            'name',
-            'locale',
-            'custom_fields',
-            'user_fields',
-            'muted_usernames',
-            'profile_background',
-            'card_background'
-        );
+        const data = this.getProperties('bio_raw', 'website', 'location', 'name', 'locale', 'custom_fields', 'user_fields', 'muted_usernames', 'profile_background', 'card_background');
 
-        ['email_always',
+        [
+            'email_always',
             'mailing_list_mode',
             'external_links_in_new_tab',
             'email_digests',
@@ -146,37 +129,36 @@ const User = RestModel.extend({
             this.set('bio_excerpt', result.user.bio_excerpt);
             const userProps = Em.getProperties(this.get('user_option'), 'enable_quoting', 'external_links_in_new_tab', 'dynamic_favicon');
             Nilavu.User.current().setProperties(userProps);
-        }).finally(() => {
+        }). finally(() => {
             this.set('isSaving', false);
         });
     },
-
+    resetField() {
+        // We wrap the fields in a structure so we can assign a value
+        this.setProperties({currentPassword: '', newPassword: '', retypePassword: ''});
+    },
     changePassword() {
-        return Nilavu.ajax("/session/forgot_password", {
+        return Nilavu.ajax(`/users/${this.get('username')}`, {
             dataType: 'json',
             data: {
-                login: this.get('username')
+                current_password: this.get('currentPassword'),
+                password: this.get('newPassword'),
+                password_confirmation: this.get('retypePassword')
             },
-            type: 'POST'
+            type: 'PUT'
         });
     },
 
-
     findDetails(options) {
-        return Nilavu.ajax(`/users/${this.get('email')}`, {
-            data: options
-        });
+        return Nilavu.ajax(`/users/${this.get('email')}`, {data: options});
     },
 
     setDetails(details) {
         this.setProperties(details);
     },
 
-
     isAllowedToUploadAFile(type) {
-        return this.get('staff') ||
-            this.get('trust_level') > 0 ||
-            Nilavu.SiteSettings['newuser_max_' + type + 's'] > 0;
+        return this.get('staff') || this.get('trust_level') > 0 || Nilavu.SiteSettings['newuser_max_' + type + 's'] > 0;
     },
 
     createInvite(email, group_names) {
@@ -200,7 +182,7 @@ const User = RestModel.extend({
         });
     },
 
-    @computed("can_delete_account", "reply_count", "topic_count") canDeleteAccount(canDeleteAccount, replyCount, topicCount) {
+    @computed("can_delete_account", "reply_count", "topic_count")canDeleteAccount(canDeleteAccount, replyCount, topicCount) {
         return !Nilavu.SiteSettings.enable_sso && canDeleteAccount && ((replyCount || 0) + (topicCount || 0)) <= 1;
     },
 
@@ -238,10 +220,7 @@ const User = RestModel.extend({
             }
         }).then(result => {
             if (result) {
-                this.setProperties({
-                    email: result.email,
-                    associated_accounts: result.associated_accounts
-                });
+                this.setProperties({email: result.email, associated_accounts: result.associated_accounts});
             }
         });
     }
@@ -251,9 +230,7 @@ User.reopenClass(Singleton, {
 
     // Find a `Nilavu.User` for a given username.
     findByUsername(username, options) {
-        const user = User.create({
-            username: username
-        });
+        const user = User.create({username: username});
         return user.findDetails(options);
     },
 
@@ -281,7 +258,6 @@ User.reopenClass(Singleton, {
         });
     },
 
-
     createAccount(attrs) {
         return Nilavu.ajax("/users", {
             data: {
@@ -292,14 +268,13 @@ User.reopenClass(Singleton, {
                 password_confirmation: attrs.accountPasswordConfirm,
                 challenge: attrs.accountChallenge,
                 user_fields: attrs.userFields,
-                firstname: attrs.firstname,
-                lastname: attrs.lastname,
+                first_name: attrs.firstname,
+                last_name: attrs.lastname,
                 phone: attrs.phonenumber
             },
             type: 'POST'
         });
-    },
-
+    }
 });
 
 export default User;

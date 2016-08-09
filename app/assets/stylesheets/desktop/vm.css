@@ -19,7 +19,7 @@
 .vm .tabs a {
     display: block;
     float: left;
-    color: #ccc;
+    color: #6e7181;
     padding: 10px 25px 10px 25px;
     font-size: 20px;
     font-weight: normal;
@@ -36,6 +36,7 @@
     border-bottom: 3px solid #3498db;
 }
 .vm .tabs> li.active a {
+    color: #3498db;
     border-bottom: 3px solid #3498db;
 }
 .info {

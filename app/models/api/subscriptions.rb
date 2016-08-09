@@ -14,19 +14,25 @@
 ## limitations under the License.
 ##
 module Api
-  class Invoices < ApiDispatcher
-    attr_reader :invoices
+    class Subscriptions < ApiDispatcher
 
-    def initialize
-      @invoices = []
-      super(true)
-    end
+        def where(params)
+            raw = api_request(SUBSCRIPTIONS,SHOW, params)
+            #        dig_subscriptions(raw[:body]) unless raw.nil?
+            dig_subscriptions(params)
+        end
 
-    def list(api_params, &_block)
-      raw = api_request(INVOICES, LIST,api_params)
-      @invoices = raw[:body].sort_by(&:created_at).reverse[0..9] unless raw.nil?
-      yield self  if block_given?
-      self
+        def save(params)
+            api_request(SUBSCRIPTIONS, CREATE,params)
+        end
+
+        private
+
+        def dig_subscriptions(rws)
+            {   model: "ondemand",
+                license: "trial",
+                trial_ends: "21/11/2016 20:30:00",
+            created_at:  '21/11/2016 20:30:00'}
+        end
     end
-  end
 end

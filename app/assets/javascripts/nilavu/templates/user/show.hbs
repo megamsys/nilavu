@@ -11,7 +11,7 @@
 
             <div class="profile-modal-body">
                 {{#each panels as |tab|}}
-                    {{component tab selectedTab=selectedTab model=model}}
+                    {{component tab selectedTab=selectedTab model=model organizationType=organizationType}}
                 {{/each}}
             </div>
         </div>

@@ -27,7 +27,7 @@ describe Auth::FacebookAuthenticator do
 
       result = authenticator.after_authenticate(hash)
 
-      expect(result.user.id).to eq(user.id)
+      expect(result.email).to eq(user.email)
     end
 
     it 'can create a proper result for non existing users' do

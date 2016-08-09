@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="row">
+        <div class="rt-box col-xs-12 col-sm-12 col-md-12 c_bg_white c_height_5">
+            <div class="">
+                <div class='contents'>
+                    <div class="row c_pading-b15">
+                        <div class="col-md-12  c_pading-b15">
+                            <div class="center-btn">
+                                <h2 class="center billing-title">{{i18n 'user.activation.accounttitle'}}</h2>
+                                <div style="text-align: center;" class="table-condensed">
+                                    <div class="col-md-12 pad_0">
+                                        <div class="row pad_t25">
+                                            <div class="btn-storage-container">
+                                                {{billing-subscription-chooser name='ondemand' subscriptionable=subscriptionable style="float: left"}}
+                                                {{billing-subscription-chooser name='recurring' subscriptionable=subscriptionable style="float: right"}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row c_pading-b15">
+                            <div class="col-md-12  c_pading-b15">
+                                <div class="center-btn">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <h4>Pricing calculator(from /billings) goes here.</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="margin_30 ">
+                                    <div class="row ">
+                                        <div class="col-md-12">
+                                            <div class="center-btn">
+                                                <button class="btn btn-primary btn-payment" id="whmcs-payment-link" {{bind-attr disabled="submitDisabled"}} {{action "addFunds"}}>
+                                                    {{i18n 'billing.proceed'}}
+                                                    <span class="pull-right">
+                                                        {{conditional-loading-spinner condition=formSubmitted size="large"}}
+                                                    </span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

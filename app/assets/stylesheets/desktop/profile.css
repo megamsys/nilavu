@@ -12,3 +12,19 @@
 .lable-color {
     color: #989aab;
 }
+.profile-modal-body {
+    position: relative;
+    height: 800px;
+}
+.profile_left_pad_15 {
+    padding-left: 30px;
+}
+.profile_right_pad_15 {
+    padding-right: 30px;
+}
+.profile_bottom_pad_15 {
+    padding-bottom: 10px;
+}
+.profile_align {
+    vertical-align: middle;
+}

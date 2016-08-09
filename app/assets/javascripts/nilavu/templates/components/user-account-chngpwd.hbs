@@ -1,29 +1,44 @@
-<h4 class="">Change Password</h4>
-<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 cloud_signup_save c_tab-content-top">
-    <form class="form-horizontal" id="megamform" novalidate="novalidate">
-        <div class="form-group">
-            <label class="col-md-3 control-label label-profile lable-color">Current</label>
-            <div class="col-md-5 input-group margin-top-10">
-                {{text-field class="form-control" placeholder="Enter Current Password"}}
-            </div>
-            <span class="input-group-addon "><a {{action "onClick"}} class="pull-left btn">change?</a></span>
-        </div>
-        <div class="form-group">
-            <label class="col-md-3 control-label label-profile lable-color">New Password</label>
-            <div class="col-md-5 input-group margin-top-10">
-                {{text-field class="form-control" placeholder="Enter New Password" readonly="disabled"}}
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-3 control-label label-profile lable-color">Retype</label>
-            <div class="col-md-5 input-group margin-top-10">
-                {{text-field class="form-control" placeholder="Retype New Password" readonly="true" }}
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-6 col-md-offset-3 input-group margin-top-10 ">
-                <button class='btn disabled btn-success col-md-5 col-xs-12' {{action "update"}}>update</button>
-            </div>
-        </div>
-    </form>
+<div class="row ">
+    <div class="col-md-8 profile_left_pad_15">
+        <h3><b>Change Password </b></h3>
+    </div>
+</div>
+<div class="row profile_bottom_pad_15">
+    <div class="col-md-3 profile_left_pad_15 profile_align">
+        <label class="label-profile lable-color">Current</label>
+    </div>
+    <div class="col-md-5">
+        {{password-field value=model.currentPassword type="password" placeholderKey="user.password.currentpassword" class="form-control" capsLockOn=capsLockOn}}
+    </div>
+    <div class="col-md-4">
+        <a {{action "onClick"}} class="pull-left btn">change?</a>
+    </div>
+</div>
+<div class="row profile_bottom_pad_15">
+    <div class="col-md-3 profile_left_pad_15 profile_align">
+        <label class="label-profile lable-color">New Password</label>
+    </div>
+    <div class="col-md-5">
+        {{password-field value=model.newPassword type="password" placeholderKey="user.password.newpassword" class="form-control" disabled=submitDisabled capsLockOn=capsLockOn}}
+        {{passwordInstructions}}
+      
+    </div>
+</div>
+<div class="row profile_bottom_pad_15">
+    <div class="col-md-3 profile_left_pad_15 profile_align">
+        <label class="label-profile lable-color">Retype</label>
+    </div>
+    <div class="col-md-5">
+        {{password-field value=model.retypePassword type="password" placeholderKey="user.password.confirmpassword" class="form-control" disabled=submitDisabled capsLockOn=capsLockOn}}
+        {{input-tip validation=passwordConfirmValidation}}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 input-group margin-top-10 ">
+        <button class='btn btn-success col-md-5 col-xs-12' {{action "changePassword"}} {{bind-attr disabled="submitDisabled"}}>update
+          <span class="pull-right">
+              {{conditional-loading-spinner condition=loading size="large"}}
+          </span>
+        </button>
+    </div>
 </div>

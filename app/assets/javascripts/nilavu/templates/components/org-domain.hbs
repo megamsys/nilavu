@@ -1,7 +1,9 @@
-  <table class="table tb_list">
+<table class="table tb_list">
         <tbody>
             <tr>
-                <td><a href=""></a>{{name}}</td>
+              {{#each organizationType as |member|}}
+                <td>{{member.name}}</td>
+                {{/each}}
             </tr>
         </tbody>
     </table>

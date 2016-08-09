@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/megamsys/whmcs-ruby.git
+  revision: 99658c93d272a68573446f91adf0d9f0937cc588
+  specs:
+    whmcs-ruby (0.7)
+      crack (~> 0.4.3)
+      htmlentities (~> 4.3.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -60,7 +68,8 @@ GEM
     certified (1.0.0)
     coderay (1.1.1)
     concurrent-ruby (1.0.2)
-    crass (1.0.2)
+    crack (0.4.3)
+      safe_yaml (~> 1.0.0)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
     discourse-qunit-rails (0.0.9)
@@ -97,16 +106,17 @@ GEM
       rake-compiler
     fast_xs (0.8.0)
     ffi (1.9.14)
-    ffi-yajl (2.2.3)
+    ffi-yajl (2.3.0)
       libyajl2 (~> 1.2)
     flamegraph (0.9.5)
     given_core (3.8.0)
       sorcerer (>= 0.3.7)
-    globalid (0.3.6)
+    globalid (0.3.7)
       activesupport (>= 4.1.0)
     haikunator (1.1.0)
     hashie (3.4.4)
     highline (1.7.8)
+    htmlentities (4.3.4)
     http_accept_language (2.0.5)
     i18n (0.7.0)
     jquery-rails (4.1.1)
@@ -128,7 +138,7 @@ GEM
     lru_redux (1.1.0)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
-    megam_api (1.5.rc5)
+    megam_api (1.5.6)
       excon (~> 0.51.0)
       ffi-yajl (~> 2.2)
       highline (~> 1.7)
@@ -143,7 +153,7 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.9.0)
     mixlib-config (2.2.1)
-    mixlib-log (1.6.0)
+    mixlib-log (1.7.0)
     mocha (1.1.0)
       metaclass (~> 0.0.1)
     msgpack (1.0.0)
@@ -155,8 +165,6 @@ GEM
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
-    nokogumbo (1.4.7)
-      nokogiri
     oauth2 (1.2.0)
       faraday (>= 0.8, < 0.10)
       jwt (~> 1.0)
@@ -167,7 +175,7 @@ GEM
     omniauth (1.3.1)
       hashie (>= 1.2, < 4)
       rack (>= 1.0, < 3)
-    omniauth-facebook (3.0.0)
+    omniauth-facebook (4.0.0)
       omniauth-oauth2 (~> 1.2)
     omniauth-github (1.1.2)
       omniauth (~> 1.0)
@@ -180,12 +188,10 @@ GEM
     omniauth-oauth2 (1.4.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
-    passenger (5.0.29)
+    passenger (5.0.30)
       rack
       rake (>= 0.8.1)
     pkg-config (1.1.7)
-    protected_attributes (1.1.3)
-      activemodel (>= 4.0.1, < 5.0)
     proxies (0.2.1)
     pry (0.10.4)
       coderay (~> 1.1.0)
@@ -241,8 +247,6 @@ GEM
     ref (2.0.0)
     responders (2.2.0)
       railties (>= 4.2.0, < 5.1)
-    rinku (2.0.0)
-    rmmseg-cpp (0.2.9)
     rspec (3.2.0)
       rspec-core (~> 3.2.0)
       rspec-expectations (~> 3.2.0)
@@ -270,13 +274,9 @@ GEM
       rspec-mocks (~> 3.2.0)
       rspec-support (~> 3.2.0)
     rspec-support (3.2.2)
-    rtlit (0.0.5)
-    sanitize (4.1.0)
-      crass (~> 1.0.2)
-      nokogiri (>= 1.4.4)
-      nokogumbo (~> 1.4.1)
+    safe_yaml (1.0.4)
     sass (3.4.22)
-    sass-rails (5.0.5)
+    sass-rails (5.0.6)
       railties (>= 4.0.0, < 6)
       sass (~> 3.1)
       sprockets (>= 2.8, < 4.0)
@@ -299,7 +299,7 @@ GEM
     spork-rails (4.0.0)
       rails (>= 3.0.0, < 5)
       spork (>= 1.0rc0)
-    sprockets (3.6.3)
+    sprockets (3.7.0)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
     sprockets-rails (3.1.1)
@@ -318,7 +318,9 @@ GEM
     trollop (2.1.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
-    uglifier (3.0.0)
+    tzinfo-data (1.2016.6)
+      tzinfo (>= 1.0.0)
+    uglifier (3.0.1)
       execjs (>= 0.3.0, < 3)
 
 PLATFORMS
@@ -348,8 +350,7 @@ DEPENDENCIES
   librarian (>= 0.0.25)
   listen (= 0.7.3)
   lru_redux
-  mail
-  megam_api (= 1.5.rc5)
+  megam_api (= 1.5.6)
   memory_profiler
   minitest
   mocha
@@ -363,7 +364,6 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-oauth2
   passenger
-  protected_attributes
   pry-nav
   r2 (~> 0.2.5)
   rack-mini-profiler
@@ -374,15 +374,11 @@ DEPENDENCIES
   rb-fsevent
   rb-inotify (~> 0.9)
   rbtrace
-  responders
-  rinku
-  rmmseg-cpp
+  responders (~> 2.0)
   rspec (~> 3.2.0)
   rspec-given
   rspec-html-matchers
   rspec-rails
-  rtlit
-  sanitize
   sass
   sass-rails (~> 5.0.5)
   shoulda
@@ -392,7 +388,9 @@ DEPENDENCIES
   stackprof
   therubyracer
   timecop
+  tzinfo-data
   uglifier
+  whmcs-ruby!
 
 BUNDLED WITH
    1.12.5

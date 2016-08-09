@@ -1,14 +1,18 @@
 <section class="" id="section-topline-4">
-    <div class="app-step2">
-        <div class="row" style="width: 99%; float: left; min-height: 450px;overflow-x: hidden;margin-top:15px;">
+    <div class="row app-step2">
+        <div class="col-md-12" style="float: left; min-height: 450px; overflow-x: hidden; margin-top:15px;">
             <ul class="tabsos tabs2">
-                {{app-selection-tab apppanels=apppanels selectedTab=selectedTab tab="prepackaged"}}
-                {{app-selection-tab apppanels=apppanels selectedTab=selectedTab tab="customapp"}}
+                {{#if tabHeaderVisible}}
+                    {{app-selection-tab apppanels=apppanels selectedTab=selectedTab tab="prepackaged"}}
+                    {{app-selection-tab apppanels=apppanels selectedTab=selectedTab tab="customapp"}}
+                {{else}}
+                    {{app-selection-tab apppanels=apppanels selectedTab=selectedTab tab=selectedItemType}}
+                {{/if}}
             </ul>
             <div class="oscontainer">
                 <div class="tab-content">
                     {{#each apppanels as |tab|}}
-                        {{component tab tab=tab selectedTab=selectedTab selectedPackApp=selectedPackApp category=category}}
+                        {{component tab tab=tab selectedTab=selectedTab selectedPackApp=selectedPackApp selectedItem=selectedItem category=category gotoSummarize=gotoSummarize summarizeVisible=summarizeVisible}}
                     {{/each}}
                 </div>
             </div>

@@ -32,8 +32,11 @@ class UsersController < ApplicationController
   before_action :add_authkeys_for_api, only: [:edit,:update,:show]
 
 
-
   def create
+
+    unless SiteSetting.allow_new_registrations
+      return fail_with("login.new_registrations_disabled")
+    end
 
     if params[:password] && params[:password].length > User.max_password_length
       return fail_with("login.password_too_long")
@@ -50,8 +53,6 @@ class UsersController < ApplicationController
     user = User.new
 
     user_params.each { |k, v| user.send("#{k}=", v) }
-
-
     user.api_key = SecureRandom.hex(20) if user.api_key.blank?
 
     authentication = UserAuthenticator.new(user, session)
@@ -65,7 +66,6 @@ class UsersController < ApplicationController
     activation = UserActivator.new(user, request, session, cookies)
     activation.start
 
-
     # just assign a password if we have an authenticator and no password, this is the case for oauth maybe
     user.password = SecureRandom.hex if user.password.blank? && authentication.has_authenticator?
 
@@ -75,7 +75,6 @@ class UsersController < ApplicationController
 
       # save user email in session, to show on account-created page
       session["user_created_message"] = activation.message
-
       render json: {
         success: true,
         #        active: user.active?,
@@ -100,19 +99,19 @@ class UsersController < ApplicationController
     }
   end
 
+  #redirect_to_ready_if_required
   def account_created
     @message = session['user_created_message'] || I18n.t('activation.missing_session')
     expires_now
-    redirect_to "/"
+    redirect_to "/subscriptions/activation"
   end
 
   ## Need a json serializer
   def show
-    @orgs = Teams.new.tap do |teams|
+      @orgs = Teams.new.tap do |teams|
 
       teams.find_all(params)
     end
-
     if @orgs
       render json: {details: @orgs.to_hash }
     else
@@ -129,14 +128,25 @@ class UsersController < ApplicationController
       return render_json_error(I18n.t("login.incorrect_password"))
     end
 
-    json_result(user, serializer: UserSerializer, additional_errors: [:user_profile]) do |u|
       updater = UserUpdater.new(user)
-      updater.update(params)
+      if updater.update(params)
+        activation = UserActivator.new(user, request, session, cookies)
+          activation.start
+          activation.finish
+          render json: {
+              success: true,
+            }
+      else
+          render json: {
+            success: false,
+            }
+      end
+        rescue ApiDispatcher::NotReached
+          render json: {
+            success: false,
+            message: I18n.t("login.something_already_taken")
+          }
 
-      activation = UserActivator.new(user, request, session, cookies)
-      activation.start
-      activation.finish
-    end
   end
 
   def password_reset
@@ -183,7 +193,7 @@ class UsersController < ApplicationController
 
 
   def user_params
-    params.permit(:email, :password, :firstname, :lastname, :phone, :status)
+    params.permit(:email, :password, :first_name, :last_name, :phone, :status)
   end
 
   private
@@ -196,6 +206,7 @@ class UsersController < ApplicationController
   def check_password(user, params)
     params.require(:email)
     user_params.each { |k, v| user.send("#{k}=", v) }
+    return true if params[:without_password] == "true"
 
     if params.has_key?("current_password")
       user.password = params[:current_password]
@@ -204,6 +215,6 @@ class UsersController < ApplicationController
       else
         return false
       end
-    end
+      end
   end
 end

@@ -49,8 +49,9 @@ export default Ember.Controller.extend({
         return Nilavu.SiteSettings.support_phonenumber;
     }.property(),
 
+    //This has to be generic as we would support multiple billers
     whmcsClientAreaRedirect: function() {
-        return Nilavu.SiteSettings.whmcs_clientarea_endpoint;
+        return Nilavu.SiteSettings.whmcs_clientarea_url;
     }.property(),
 
     actions: {

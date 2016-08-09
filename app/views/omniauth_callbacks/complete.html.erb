@@ -21,8 +21,18 @@
   <div class="dialog">
     <p><%=t "login.close_window" %></p>
     <script type="text/javascript">
-       window.opener.Nilavu.authenticationComplete(<%=@auth_result.to_client_hash.to_json.html_safe%>);
-       window.close();
+          var authResult = <%=@auth_result.to_client_hash.to_json.html_safe%>;
+
+          // On facebook browser, just redirect and don't close
+          var ua = navigator.userAgent || navigator.vendor || window.opera;
+          if (!window.opener) {
+            localStorage.setItem('lastAuthResult', JSON.stringify(authResult));
+            window.location.href = '<%= Nilavu.base_url.html_safe %>?authComplete=true';
+          } else {
+            window.opener.Nilavu.authenticationComplete(authResult);
+            window.close();
+          }
+
     </script>
   </div>
 </body>

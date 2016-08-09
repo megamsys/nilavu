@@ -21,11 +21,11 @@ export default buildCategoryPanel('organization', {
 
   domainData: function() {
       var rval = [];
-      _.each(this.get("model.details"), function(p) {
-          rval.addObject({ name: p, value: p });
+      _.each(this.get("organizationType"), function(p) {
+          rval.addObject({ name: p.order, value: p.order });
       });
       return rval;
-  }.property("model.details"),
+  }.property("organizationType"),
 
   selectDomain: function() {
       return this.get('domainData.firstObject');

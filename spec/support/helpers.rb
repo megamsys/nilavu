@@ -14,6 +14,11 @@ module Helpers
     provider.log_on_user(user,session,cookies)
   end
 
+  def log_off_user(user)
+    provider = Nilavu.current_user_provider.new(request.env)
+    provider.log_on_user(user,session,cookies)
+  end
+
   def fixture_file(filename)
     return '' if filename.blank?
     file_path = File.expand_path(Rails.root + 'spec/fixtures/' + filename)

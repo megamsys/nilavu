@@ -4,81 +4,78 @@ Megam Vertice [https://www.megam.io](https://www.megam.io)
 
 [![Build Status](https://travis-ci.org/megamsys/nilavu.png?branch=1.5)](https://travis-ci.org/megamsys/nilavu)
 
-Nilavu is a [Rails 4.2.x](http://guides.rubyonrails.org/) ember.js browser based user interface for [Megam Verice - PaaS for the hosting industry](https://www.megam.io).
+Nilavu is a [Rails 4.2.x](http://guides.rubyonrails.org/) ember.js browser based user interface for [Vertice - PaaS for the hosting industry](https://www.megam.io).
 
 
-## Try out:
+# Wanna host your own VPS ?
 
-* Try our public open source cloud hosting via our partner to get a feel of the 1.0 code [https://console.megamafrica.com](https://console.megamafrica.com)
+Contact our partner [DET.io](http://det.io) and stay ahead of cluggy/old `SolusVM`.
 
-###
-[![img](https://s3-ap-southeast-1.amazonaws.com/megampub/images/megamafrica/DEPLOY-TO-MEGAM-AFRICA2.png)](https://console.megamafrica.com)
+# Try out:
 
-* Contact our partner [DET.io](http://det.io) If you need to host your own.
 
-## Features
+# Features
 
 [vertice.megam.io](https://vertice.megam.io)
 
 * Launch apps, services(db, queue, nosql..) in hybrid cloud in seconds.
 
-* Launch a micro service (public or on premise)
+* Launch a micro service (public or on premise) in a giant swarm cluster with replication and scaling
 
 * Integrated billing with WHMCS
 
-* Bitnami integration
+* Launch 100's of Bitnami apps in a second
 
+* Launch 1000's of Docker registry using an intuitive search
 
 ## Requirements
 
-> [Ruby 2.3.x](http://ruby-lang.org)
+1. [Ruby 2.3.x](http://ruby-lang.org)
+4. [Vertice Gateway](https://github.com/megamsys/vertice_gateway)
 
 
-## Dashboard
+## What does this product look like ?
 
 The UX/UI design was done by [enixel](http://enixel.com) and our parnter [DET.io](http://det.io)
 
-![A peek of our awesome Dashboard](https://github.com/megamsys/nilavu/blob/0.5/public/nilavu_dash.png)
+###Sneakpeak of the product
 
+![Dashboard](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_dashboard.png)
 
-![Cool Marketplace]
+###Pre-signup
+![Presignup](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_presignup.png)
 
+###Billing integration (*WHMCS*, Blesta, ...)
+![Billing Integration WHMCS](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_subscription.png)
 
-![VM Management]
+###Multi region cluster (You can have Datacenters in `chennai`, `sydney`...)
+![Multi region/Cluster launcher WHMCS](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_multiregion_launcher.png)
 
+###Marketplace
+![Marketplace](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_mktplace.png)
 
-![App Management]
+###Management
+![Management](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_management.png)
 
+###Log/Activity
+![Log activity and Monitoring](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_logs.png)
 
-![Containers]
+###Billing usage
+![Billing usage and selector](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_pricing_billing_whmcs.png)
 
+## Compile from source
 
-![Activity and Monitoring]
+You'll need `ruby 2.x` and [vertice_gateway](https://github.com/megamsys/vertice_gateway.git) setup.
 
+### Fork
 
-![Billing usage and selector]
+After you have forked a copy of https://github.com/megamsys/vertice_gateway.git
 
-
-### Documentation
-
-Refer [documentation for setting up the opensource way] (http://docs.megam.io)
-
-
-We are glad to help if you have questions, or request for new features..
-
-[twitter @megamsys](http://twitter.com/megamsys) [email info@megam.io](<info@megam.io>)
-
-
-### Contributing
-
-Glad to see you contributing for us.
-
-Read our [hacking guide for more info] (http://docs.megam.io/docs/hacking-guide)
-
+### Steps
 
 ```
 
-git clone https://github.com/megamsys/nilavu.git
+git clone https://github.com/<your_github_id>/nilavu.git
 
 cd nilavu
 
@@ -90,31 +87,22 @@ bundle install
 
 ```
 
+Now you are all set.
 
+# Contribution
+
+For [contribution] (https://github.com/megamsys/vertice/blob/master/CONTRIBUTING.md)
+
+# Documentation
+
+For [documentation] (http://docs.megam.io)
+    [wiki] (https://github.com/megamsys/vertice/wiki)
 
 # License
 
-|                      |                                          |
-|:---------------------|:-----------------------------------------|
-| **Author:**          | Rajthilak (<rajthilak@megam.io>)
-|                      | Thomas Alrin (<thomasalrin@gmail.com>)
-|	    	       	       | KishorekumarNeelamegam (<nkishore@megam.io>)
-|                      | Ranjitha  (<ranjithar@megam.io>)
-|                      | MVijaykanth  (<mvijaykanth@megam.io>)
-|                      | Vinodhini V  (<vino.v@megam.io>)
-|                      | Arun Sekar <arunaccetmca@gmail.com>
-|		          	       | Yeshwanth Kumar (<morpheyesh@gmail.com>)
-| **Copyright:**       | Copyright (c) 2013-2016 Megam Systems.
-| **License:**         | Apache License, Version 2.0
+MIT
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
 
-    http://www.apache.org/licenses/LICENSE-2.0
+# Authors
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+Maintainers Megam (<info@megam.io>)
