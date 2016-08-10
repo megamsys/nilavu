@@ -1,7 +1,7 @@
 require 'whmcs'
 
 class Biller::WHMCSSubscriber < Biller::Subscriber
-    include WHMCSRegistrar
+    include Biller::WHMCSRegistrar
 
     def initialize
       register

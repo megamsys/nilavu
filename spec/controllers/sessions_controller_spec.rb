@@ -187,9 +187,6 @@ describe SessionsController do
         #  it "returns the JSON for the user" do
         #    xhr :get, :current
         #    expect(response).to be_success
-        #    puts "----------------------"
-        #    puts response.body.inspect
-        #    puts "++++++++++++++++ when logged in"
         #    json = ::JSON.parse(response.body)
         #    expect(json['current_user']).to be_present
         #    expect(json['current_user']['id']).to eq(user.id)
