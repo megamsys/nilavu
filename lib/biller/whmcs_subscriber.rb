@@ -3,15 +3,21 @@ require 'whmcs'
 class Biller::WHMCSSubscriber < Biller::Subscriber
     include WHMCSRegistrar
 
-    def subscribe(subscribe_options)
+    def initialize
+      register
+    end
+
+    def subscribe(subscribe_options={})
+      begin
         WHMCS::Client.get_clients_details(subscribe_options)
+      rescue StandardError => se
+          #{error: I18n.t('errors.desc.not_found')}
+          {:error => "Oops, the application tried to load a URL that doesn't exist."}
+      end
     end
 
     def after_subscribe(subscribed)
         result = Biller::Result.new
-        puts "----------- subscribed "
-        puts subscribed.inspect
-        puts "----------- subscribed..."
     end
 
     def update(update_options)
@@ -19,9 +25,6 @@ class Biller::WHMCSSubscriber < Biller::Subscriber
     end
 
     def after_update(updated)
-        result = Billy::Result.new
-        puts "----------- update"
-        puts updated.inspect
-        puts "----------- updated..."
+        result = Billy::Result.new      
     end
 end

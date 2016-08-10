@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe SessionsController do
-=begin
+describe SubscriptionsController do
+
     describe '.entrance' do
 
         let!(:user) { Fabricate(:bob) }
@@ -11,18 +11,17 @@ describe SessionsController do
                 user.find_by_email
             end
 
-            #it "raises an error when the login isn't present" do
-            #    expect { xhr :post, :create }.not_to raise_error
-            #end
 
             describe 'not onboarded in biller' do
-            #   it "should respond with onboarded_needed flag" do
-            #   end
+               it "should respond with onboarded_needed flag" do
+
+               end
             end
 
             describe 'activation is complete' do
-            #   it "should redirect to root when activation is complete" do
-            #   end
+               it "should redirect to root when activation is complete" do
+
+               end
             end
 
             describe 'unapproved user with mobile not verified' do
@@ -98,5 +97,4 @@ describe SessionsController do
             end
         end
     end
-=end
 end

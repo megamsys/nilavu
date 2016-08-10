@@ -6,7 +6,6 @@ class UserActivationChecker
 
     def initialize(user)
       @current_user = user
-      puts @current_user.inspect
     end
 
     def completed?
