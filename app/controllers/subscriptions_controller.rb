@@ -10,14 +10,16 @@ class SubscriptionsController < ApplicationController
     def entrance
         user_activator = UserActivationChecker.new(current_user)
 
-        return "/" if user_activator.completed?
+        if user_activator.completed?
+            redirect_to "/"
+        else
+            lookup_external_id_in_addons(params)
 
-        lookup_external_id_in_addons(params)
-
-        render json: {
-            subscriber: subscriber || {},
-            mobavatar_activation: user_activator.verify_mobavatar(params)
-        }
+            render json: {
+                subscriber: subscriber || {},
+                mobavatar_activation: user_activator.verify_mobavatar(params)
+            }
+        end
     end
 
     # subcriber to update the billing address
@@ -33,11 +35,11 @@ class SubscriptionsController < ApplicationController
 
         if bdr = bildr_processe_is_ready(SUBSCRIBER_PROCESSE)
 
-           if  b = bdr.new.subscribe(l || {})
+            if  b = bdr.new.subscribe(l || {})
 
-            b.new.after_subscribe(b)
+                b.new.after_subscribe(b)
 
-          end
+            end
         end
     end
 

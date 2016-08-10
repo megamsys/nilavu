@@ -54,7 +54,6 @@ class SessionsController < ApplicationController
       render nothing: true, status: 500
       return
     end
-    puts "+++ --- fp"
     params.permit(:login)
 
     user = User.new

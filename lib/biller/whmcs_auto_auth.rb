@@ -1,6 +1,6 @@
 require 'uri'
 
-module WHMCSAutoAuth
+module Biller::WHMCSAutoAuth
     def self.redirect_url(email, action)
         ensure_autoauth_params
 
