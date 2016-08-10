@@ -3,7 +3,11 @@ require 'whmcs'
 class Biller::WHMCSSubscriber < Biller::Subscriber
     include WHMCSRegistrar
 
-    def subscribe(subscribe_options)
+    def initialize
+      register
+    end
+
+    def subscribe(subscribe_options={})
         WHMCS::Client.get_clients_details(subscribe_options)
     end
 
