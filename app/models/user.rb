@@ -45,8 +45,11 @@ class User
         user
     end
 
-    def self.find_by_apikey(parms_using_apikey)
+
+   ### TO-DO: Move the stuff specific to api_key to ApiKey model
+    def find_by_apikey
         user = Api::Accounts.new.where(parms_using_apikey)
+
         if user
             return User.new_from_params(user.to_hash)
         end
@@ -292,6 +295,9 @@ class User
 
     def parms_using_password
         {:email =>@email, :password => @raw_password }
+    end
+    def parms_using_apikey
+        {:email =>@email, :api_key => @api_key}
     end
 
     def find_by_password

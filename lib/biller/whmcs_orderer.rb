@@ -2,8 +2,8 @@ require 'whmcs'
 require 'digest/md5'
 
 class Biller::WHMCSOrderer < Biller::Orderer
-    include WHMCSRegistrar
-    include WHMCSAutoAuth
+    include Biller::WHMCSRegistrar
+    include Biller::WHMCSAutoAuth
 
     #:clientid
     def order(order_options)

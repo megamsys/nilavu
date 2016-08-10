@@ -4,96 +4,80 @@ describe SubscriptionsController do
 
     describe '.entrance' do
 
-        let!(:user) { Fabricate(:bob) }
+        let!(:user) { log_in(:bob) }
 
-        context 'when billing is on' do
+        context 'when biller is enabled' do
+
             before do
-                user.find_by_email
+                SiteSetting.stubs(:allow_billings).returns(true)
+                SiteSetting.stubs(:enabled_biller).returns('WHMCS')
             end
 
-
-            describe 'not onboarded in biller' do
+            describe 'user is not onboarded in biller' do
                it "should respond with onboarded_needed flag" do
-
+                 xhr :get, :entrance
+                 expect(::JSON.parse(response.body)['error']).to be_present
                end
             end
 
-            describe 'activation is complete' do
+            describe 'user activation is complete' do
                it "should redirect to root when activation is complete" do
-
+                 xhr :get, :entrance
+                 expect(response).to redirect_to('/')
                end
             end
 
-            describe 'unapproved user with mobile not verified' do
+            describe 'user is not approved then verify mobile' do
 
                 it "should skip generating OTP with allow_phone_verification is false" do
-                    User.any_instance.expects(:confirm_password?).never
-                    xhr :post, :create, email: user.email, password: ('s' * (User.max_password_length + 1))
-                    expect(::JSON.parse(response.body)['error']).to be_present
+                  xhr :get, :entrance
+                  expect(::JSON.parse(response.body)['error']).to be_present
                 end
 
                 it 'should generate OTP with allow_phone_verification is true' do
-                    User.any_instance.stubs(:suspended?).returns(true)
-                    User.any_instance.stubs(:suspended_till).returns(2.days.from_now)
-                    xhr :post, :create, email: user.email, password: 'myawesomepassword'
-                    expect(::JSON.parse(response.body)['error']).to be_present
+                  xhr :get, :entrance
+                  expect(::JSON.parse(response.body)['error']).to be_present
                 end
 
                 it 'should inform OTP failure with allow_phone_verification is true' do
-                    User.any_instance.stubs(:suspended?).returns(true)
-                    User.any_instance.stubs(:suspended_till).returns(2.days.from_now)
-                    xhr :post, :create, email: user.email, password: 'myawesomepassword'
-                    expect(::JSON.parse(response.body)['error']).to be_present
+                  xhr :get, :entrance
+                  expect(::JSON.parse(response.body)['error']).to be_present
                 end
 
             end
 
-            describe 'unapproved user with external addon id' do
-                it 'should biller external id' do
-                    User.any_instance.stubs(:suspended?).returns(true)
-                    User.any_instance.stubs(:suspended_till).returns(2.days.from_now)
-                    xhr :post, :create, email: user.email, password: 'myawesomepassword'
-                    expect(::JSON.parse(response.body)['error']).to be_present
+            describe 'user is not approved with external addon id' do
+                it 'should have biller external id' do
+                  xhr :get, :entrance
+                  expect(::JSON.parse(response.body)['error']).to be_present
                 end
             end
 
-            describe 'unapproved user with biller subscription' do
+            describe 'user is not approved with biller subscription data' do
                 it 'should return with details' do
-                    User.any_instance.stubs(:suspended?).returns(true)
-                    User.any_instance.stubs(:suspended_till).returns(2.days.from_now)
-                    xhr :post, :create, email: user.email, password: 'myawesomepassword'
-                    expect(::JSON.parse(response.body)['error']).to be_present
+                  xhr :get, :entrance
+                  expect(::JSON.parse(response.body)['error']).to be_present
                 end
             end
 
             describe 'deactivated user' do
                 it 'should return an error' do
-                    User.any_instance.stubs(:active).returns(false)
-                    xhr :post, :create, email: user.email, password: 'mark4swagger'
-                    expect(JSON.parse(response.body)['error']).not_to be_present
-                end
-            end
-
-
-            describe 'also allow login by email' do
-                before do
-                    xhr :post, :create, email: user.email, password: 'mark4swagger'
-                end
-
-                it 'sets a session id' do
-                    expect(session[:current_user_id]).to eq(user.email)
+                     User.any_instance.stubs(:active).returns(false)
+                     xhr :get, :entrance
+                     expect(::JSON.parse(response.body)['error']).to be_present
                 end
             end
         end
 
         context 'when billing is off' do
-            def post_login
-                xhr :post, :create, email: user.email, password: 'strongpassword'
+
+            before do
+                SiteSetting.stubs(:allow_billings).returns(false)
             end
 
             it "shows the '/' page" do
-                post_login
-                expect(JSON.parse(response.body)['error']).to be_present
+                xhr :get, :entrance
+                expect(response).to redirect_to('/')
             end
         end
     end

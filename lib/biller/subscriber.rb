@@ -1,5 +1,6 @@
 # this class is used by the billable controllers, it controls how
 # an user subcribes with the biller
+module Biller; end
 
 class Biller::Subscriber
 

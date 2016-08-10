@@ -1,5 +1,6 @@
 # this class is used by the billable controller, it controls how
 # an user shops products and knows the payment methods provided by a biller
+module Biller; end
 
 class Biller::Shopper
 
