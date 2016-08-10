@@ -22,6 +22,11 @@ class SessionsController < ApplicationController
   end
 
   def create
+    unless allow_local_auth?
+      render nothing: true, status: 500
+      return
+    end
+
     params.require(:email)
     params.require(:password)
 
@@ -45,6 +50,11 @@ class SessionsController < ApplicationController
 
 
   def forgot_password
+    unless allow_local_auth?
+      render nothing: true, status: 500
+      return
+    end
+    puts "+++ --- fp"
     params.permit(:login)
 
     user = User.new
@@ -54,6 +64,14 @@ class SessionsController < ApplicationController
       render json: success_json
     else
       render_json_error(I18n.t("password_reset.no_token"))
+    end
+  end
+
+  def current
+    if current_user.present?
+      render_serialized(current_user)
+    else
+      render nothing: true, status: 404
     end
   end
 
@@ -82,6 +100,10 @@ class SessionsController < ApplicationController
 
   def user_params
     params.permit(:email, :password, :status)
+  end
+
+  def allow_local_auth?
+    !SiteSetting.enable_sso && SiteSetting.enable_local_logins
   end
 
   def invalid_credentials

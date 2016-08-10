@@ -47,7 +47,7 @@ class SubscriptionsController < ApplicationController
     def bildr_processe_is_ready(processe)
         bildr = Biller::Builder.new(processe)
 
-        return unless bildr && bildr.respond_to?(processe.downcase.to_sym)
+        return unless bildr && bildr.respond_to?("subscribe".to_sym)
 
         bildr
     end

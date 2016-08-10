@@ -5,8 +5,8 @@ import {on, computed} from 'ember-addons/ember-computed-decorators';
 export default orgCategoryPanel('user', {
 
     userName: function() {
-        return this.get('model.username');
-    }.property('model.username'),
+        return this.get('model.first_name');
+    }.property('model.first_name'),
 
     email: function() {
         return this.get('model.email');

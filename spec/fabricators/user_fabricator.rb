@@ -4,7 +4,6 @@ Fabricator(:user) do
   email { sequence(:email) { |i| "bruce#{i}@wayne.com" } }
   password 'myawesomepassword'
   active 'true'
-  #team  { Api::Team.new(Object.any_instance.stubs(id: 'ORG6135451166522419881', name: 'megambox.com', created_at: Time.now)) }
 end
 
 Fabricator(:coding_horror, from: :user) do
