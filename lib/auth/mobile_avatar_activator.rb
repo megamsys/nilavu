@@ -43,9 +43,8 @@ class OTPActivator < MobileAvatarActivator
     def activating
         identity = MobileAvatar::Identity.from_number(phone_params)
         result = MobileAvatar.generate(identity: identity)
-        return I18n.t("login.activating_phone_error") unless result
-
-        result.succeeded? ? I18n.t("login.activating_phone", phone: user.phone) : I18n.t("login.not_activating_phone")
+        return false unless result
+        result.succeeded?
     end
 
     def activate

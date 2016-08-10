@@ -226,7 +226,6 @@ en:
         too_short: "Your name is too short"
         ok: "Your name looks good"
 
-
       log_out: "Log Out"
 
       password:
@@ -266,7 +265,6 @@ en:
         companyex: "DET.io"
         select_country: "Select Country:"
         accounttitle: "Select your account model:"
-
 
     errors:
       prev_page: "while trying to load"

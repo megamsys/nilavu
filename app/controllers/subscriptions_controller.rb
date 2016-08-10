@@ -29,35 +29,32 @@ class SubscriptionsController < ApplicationController
 
     private
 
-
     def subscriber
         l = lookup_external_id_in_addons(params)
 
         if bdr = bildr_processe_is_ready(SUBSCRIBER_PROCESSE)
-
-            if  b = bdr.new.subscribe(l || {})
-
-                b.new.after_subscribe(b)
-
-            end
+          b = bdr.new.subscribe(l || {})
+           if  b && !b[:error]
+            b.new.after_subscribe(b)
+          end
         end
     end
 
 
     def update_subscriber
-        l = lookup_external_id_in_addons(params)
+          l = lookup_external_id_in_addons(params)
 
-        if bildr = bildr_processe_is_ready(SUBSCRIBER_PROCESSE)
-            b = bildr.subscriber.update(l)
-            bildr.subscriber.after_update(b)
-        end
-    end
+          if bildr = bildr_processe_is_ready(SUBSCRIBER_PROCESSE)
+              b = bildr.subscriber.update(l)
+              bildr.subscriber.after_update(b)
+          end
+      end
 
-    def bildr_processe_is_ready(processe)
-        bildr = Biller::Builder.new(processe)
+      def bildr_processe_is_ready(processe)
+          bildr = Biller::Builder.new(processe)
 
-        return unless bildr.implementation
+          return unless bildr.implementation
 
-        bildr.implementation
-    end
-end
+          bildr.implementation
+      end
+  end

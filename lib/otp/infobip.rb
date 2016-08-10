@@ -19,9 +19,14 @@ class Infobip
 
   # Send pin to mibile
   def self.send_pin_to(mobile_number)
-    client = ensure_client_is_available
-    response = client.post("/2fa/1/pin?ncNeeded=true", :json => for_message_id(mobile_number))
-    Results.new(response, mobile_number)
+    begin
+      client = ensure_client_is_available
+      response = client.post("/2fa/1/pin?ncNeeded=true", :json => for_message_id(mobile_number))
+      Results.new(response, mobile_number)
+    rescue StandardError => se
+      #{:error => "Oops, the application tried to load a URL that doesn't exist."}
+      false
+    end
   end
 
   # Verify pin
