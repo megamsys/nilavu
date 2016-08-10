@@ -51,7 +51,7 @@ class User
         user = Api::Accounts.new.where(parms_using_apikey)
 
         if user
-            return User.new_from_params(user.to_hash)
+            return User.new_from_params(user.expanded)
         end
     end
 
