@@ -1,19 +1,25 @@
 class SubscriptionsController < ApplicationController
     include CurrentBilly
 
+    SUBSCRIBER_PROCESSE = "Subscriber".freeze
+
+    skip_before_filter :check_xhr
+
     before_action :add_authkeys_for_api, only: [:entrance, :create]
 
     def entrance
-        user_activator = UserActivationChecker.new
+        user_activator = UserActivationChecker.new(current_user)
 
-        return "/" if user_activator.completed?
+        if user_activator.completed?
+            redirect_to "/"
+        else
+            lookup_external_id_in_addons(params)
 
-        lookup_external_id_in_addons(params)
-
-        render json: {
-            subscriber: subscriber || {},
-            mobavatar_activation: user_activator.verify_mobavatar(params)
-        }
+            render json: {
+                subscriber: subscriber || {},
+                mobavatar_activation: user_activator.verify_mobavatar(params)
+            }
+        end
     end
 
     # subcriber to update the billing address
@@ -24,30 +30,31 @@ class SubscriptionsController < ApplicationController
     private
 
     def subscriber
-        l = lookup_billy_addon(params)
+        l = lookup_external_id_in_addons(params)
 
-        if bil = bildr_processe_is_ready(SUBSCRIBER_PROCESSE)
-            b = bil.subscriber.subscribe(l)
-
-            bldr.subscriber.after_subscribe(b)
+        if bdr = bildr_processe_is_ready(SUBSCRIBER_PROCESSE)
+          b = bdr.new.subscribe(l || {})
+           if  b && !b[:error]
+            b.new.after_subscribe(b)
+          end
         end
     end
+
 
     def update_subscriber
-        l = lookup_billy_addon(params)
+          l = lookup_external_id_in_addons(params)
 
-        if bildr = bildr_processe_is_ready(SUBSCRIBER_PROCESSE)
-            b = bildr.subscriber.update(l)
+          if bildr = bildr_processe_is_ready(SUBSCRIBER_PROCESSE)
+              b = bildr.subscriber.update(l)
+              bildr.subscriber.after_update(b)
+          end
+      end
 
-            bldr.subscriber.after_update(b)
-        end
-    end
+      def bildr_processe_is_ready(processe)
+          bildr = Biller::Builder.new(processe)
 
-    def bildr_processe_is_ready(processe)
-        bildr = Biller::Builder.new(processe)
+          return unless bildr.implementation
 
-        return unless bildr && obj.respond_to?(processe.downcase.to_sym)
-
-        bildr
-    end
-end
+          bildr.implementation
+      end
+  end

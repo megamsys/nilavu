@@ -100,7 +100,13 @@ export default function() {
     this.resource('subscriptions', {
         path: '/subscriptions'
     }, function() {
-        this.route('show', {path: '/activation'});
+
+        this.route('show', {
+            path: '/account/activation'
+        });
+        this.route('activate', {
+            path: '/bill/activation'
+        });
     });
 
 }

@@ -45,7 +45,7 @@ class StaticController < ApplicationController
         params.delete(:username)
         params.delete(:password)
 
-        destination = path("/subscriptions/activation")
+        destination = path("/subscriptions/account/activation")
 
         if params[:redirect].present? && !params[:redirect].match(login_path)
             begin

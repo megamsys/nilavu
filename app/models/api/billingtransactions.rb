@@ -26,7 +26,7 @@ module Api
 
 
         def list(params, &_block)
-            raw = api_request(BILLINGTRANSACTIONS, LIST, params)
+            #raw = api_request(BILLINGTRANSACTIONS, LIST, params)
             #        dig_transactions(raw[:body]) unless raw.nil?
             dig_transactions(params)
             yield self  if block_given?

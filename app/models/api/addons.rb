@@ -18,17 +18,16 @@
 module Api
     class Addons < ApiDispatcher
 
-        attr_accessor addon:
+        attr_accessor :addon
 
         def initialize
+          super(true)
         end
-
 
         # This shows a single marketplace item. eg: 1-Ubuntu (Refer Marketplaces::list for more info)
         def show(api_params)
-            raw = api_request(ADDONS, SHOW,api_params)
-            #@addon = raw[:body].lookup(api_params['id'])
-            @addon = dig_addon(raw)
+            raw = api_request(ADDONS, SHOW, api_params)          
+            @addon = raw[:body].lookup(api_params['provider']) unless raw.nil?
             self
         end
 

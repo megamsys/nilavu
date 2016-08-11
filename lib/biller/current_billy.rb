@@ -15,10 +15,12 @@ module CurrentBilly
         end
     end
 
+
     private
 
     def no_external_id_found
-        render json: {error: I18n.t("errors.no_external_id_found", provider: billy_params[:provider])}
+      #  render json: {error: I18n.t("errors.not_found", provider: billy_params[:provider])}
+        render json: {:error => "Oops, the application tried to load a URL that doesn't exist."}
     end
 
     def billy_params

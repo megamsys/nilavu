@@ -30,7 +30,8 @@ log/
 
 # Ignore all files under metadata
 .metadata
-passenger.3000.pid.lock 
+passenger.3000.pid.lock
+rspec.html
 
 # Ignore Eclipse .project file
 /.project

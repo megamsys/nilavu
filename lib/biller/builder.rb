@@ -9,13 +9,12 @@ class Biller::Builder
     ORDERER_PROCESSE = "Orderer".freeze
 
     def initialize(processe_name)
-        return Nilavu::NotFound unless  name
-
-        @implementation = load_processe(name)
+        return Nilavu::NotFound unless  processe_name
+        @processe = processe_name
+        load_processe(processe_name)
     end
 
     ## Delegated Subscriber Methods ##
-
     ### Accessors ###
 
     def_delegator :implementation, :subscribe
@@ -30,26 +29,29 @@ class Biller::Builder
 
     ## Internal Public API ##
     def implementation
-        @implementation || raise(Nilavu::NotFound)
+        @implementation || nil
     end
 
     def select_implementation(biller_name)
         @implementation = ['Biller::',biller_name,@processe.capitalize].join('').constantize
+
         unless @implementation
             Rails.logger.debug "No clazz Biller::#{biller_name}#{@processe.capitalize} found."
             fail Nilavu::NotFound
         end
+        rescue NameError => exc
+            #do nothing.
     end
 
     private
 
     def has_enabled_biller?
-        SiteSettings.enabled_biller && SiteSettings.enabled_biller.lstrip.length > 0
+        SiteSetting.enabled_biller && SiteSetting.enabled_biller.lstrip.length > 0
     end
 
     def load_processe(processe_name)
         return Nilavu::NotFound unless  has_enabled_biller?
 
-        select_implementation(SiteSettings.enabled_biller)
+        select_implementation(SiteSetting.enabled_biller)
     end
 end

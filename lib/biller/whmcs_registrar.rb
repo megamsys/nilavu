@@ -1,6 +1,7 @@
 require 'digest/md5'
 
-module WHMCSRegistrar
+module Biller::WHMCSRegistrar
+
     def name
         "whmcs"
     end
@@ -13,6 +14,11 @@ module WHMCSRegistrar
             config.api_username = SiteSetting.whmcs_username
             config.api_password = Digest::MD5.hexdigest(SiteSetting.whmcs_password)
         end
+        puts ">--------- #{name}"
+        puts SiteSetting.whmcs_api_url
+        puts SiteSetting.whmcs_username
+        puts SiteSetting.whmcs_password
+        puts ">---------       <"
     end
 
     private

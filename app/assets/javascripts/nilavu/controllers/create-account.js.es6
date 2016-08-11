@@ -136,7 +136,7 @@ export default Ember.Controller.extend({
         }
 
         if (!Ember.isEmpty(this.get('accountPasswordConfirm')) && this.get('accountPassword') != this.get('accountPasswordConfirm')) {
-            return Nilavu.InputValidation.create({failed: true, reason: I18n.t('user.password.enter')});
+            return Nilavu.InputValidation.create({failed: true, reason: I18n.t('user.password.instructions', {count: Nilavu.SiteSettings.min_password_length})});
         }
 
     }.property('accountPasswordConfirm', 'accountPassword'),
