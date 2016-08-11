@@ -94,6 +94,7 @@ const ApplicationRoute = Nilavu.Route.extend(OpenComposer, {
     // Close the current modal, and destroy its state.
     closeModal() {
       this.render('hide-modal', { into: 'modal', outlet: 'modalBody' });
+      window.location.reload();
     },
 
     /**
