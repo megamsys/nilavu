@@ -30,6 +30,10 @@ export default function(name, opts) {
         modalController.set('titleCentered', opts.titleCentered);
     }
 
+    if (opts.close) {
+        modalController.set('close', opts.close);
+    }
+
     if (opts.title) {
       modalController.set('title', I18n.t(opts.title));
     }
