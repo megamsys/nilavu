@@ -26,7 +26,7 @@ class MobileAvatarActivator
 
 
     def factory
-        return OTPActivator unless (user.phone_verified  || dont_force?) && SiteSetting.allow_mobavatar_verifications
+        return OTPActivator unless (user.phone_verified  || dont_force?) && !SiteSetting.allow_mobavatar_verifications
 
         NOOPActivator
     end

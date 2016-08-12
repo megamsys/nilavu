@@ -27,7 +27,7 @@ class SubscriptionsController < ApplicationController
           else
             render json: {
               subscriber: addon.to_json,
-              mobavatar_activation: {}
+              mobavatar_activation: user_activator.verify_mobavatar(params)
             }
           end
       end

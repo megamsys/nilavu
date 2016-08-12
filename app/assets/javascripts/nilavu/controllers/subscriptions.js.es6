@@ -16,6 +16,7 @@ export default Ember.Controller.extend(BufferedContent, {
     @observes('subscriber')
     subscriberChecker: function() {
         console.log(this.get('subscriber'));
+        console.log(this.get("mobavatar"));
     },
 
 

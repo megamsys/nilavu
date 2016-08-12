@@ -17,15 +17,14 @@ class Infobip
 
   API = 'https://api.infobip.com'
 
-  # Send pin to mibile
+  # Send pin to mobile
   def self.send_pin_to(mobile_number)
     begin
       client = ensure_client_is_available
       response = client.post("/2fa/1/pin?ncNeeded=true", :json => for_message_id(mobile_number))
       Results.new(response, mobile_number)
     rescue StandardError => se
-      #{:error => "Oops, the application tried to load a URL that doesn't exist."}
-      false
+      {:success => false, :error => "user.activation.addon_not_found"}
     end
   end
 
