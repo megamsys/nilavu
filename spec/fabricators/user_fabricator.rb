@@ -16,6 +16,7 @@ end
 Fabricator(:evil_trout, from: :user) do
   first_name 'Evil Trout'
   email 'eviltrout@somewhere.com'
+  api_key 'go#fishing'
   password 'imafish'
 end
 

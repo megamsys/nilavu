@@ -88,7 +88,6 @@ en:
 
   not_logged_in: "You need to be logged in to do that."
   not_found: "The requested URL or resource could not be found."
-  no_external_id_found: "You are not onboarded in the external provider %{provider}."
   not_reachable: "There were problems with connecting to your gateway. Is it running ?"
   invalid_access: "You are not permitted to view the requested resource."
   read_only_mode_enabled: "The site is in read only mode. Interactions are disabled."

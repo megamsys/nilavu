@@ -51,12 +51,11 @@ describe SubscriptionsController do
             end
 
             describe 'user is not onboarded in biller' do
-                it "should respond with onboarded_needed flag" do
+                it "should respond with user.activation.addon_not_found" do
                     xhr :get, :checker
-                    expect(::JSON.parse(response.body)['error']).to be_present
+                    expect(::JSON.parse(response.body)['success']).to be_falsey
                 end
             end
-
         end
 
         context 'when biller is enabled with approved' do
@@ -68,30 +67,40 @@ describe SubscriptionsController do
             end
 
             it "should redirect to root when activation is complete" do
-                puts "+++++++++ USER0"
-                puts user.inspect
-                puts "++++++++++++++"
                 xhr :get, :checker
                 expect(response).to redirect_to('/')
             end
 
         end
 
-        context 'when biller is enabled with activated' do
+        context 'when biller is enabled not active with no external id' do
 
             before do
+                SiteSetting.stubs(:allow_billings).returns(true)
+                SiteSetting.stubs(:enabled_biller).returns('WHMCS')
+                user.active =  false
+            end
+
+            it "should respond with user.activation.addon_not_found" do
+                xhr :get, :checker
+                expect(::JSON.parse(response.body)['success']).to be_falsey
+            end
+        end
+
+        context 'when biller is enabled not activated but with external id' do
+
+            before do
+                SiteSetting.stubs(:allow_billings).returns(true)
+                SiteSetting.stubs(:enabled_biller).returns('WHMCS')
                 user.active = false
             end
 
-            it "should redirect to root when activation is complete" do
-                puts "+++++++++ USER1"
-                puts user.inspect
-                puts "++++++++++++++"
-                xhr :get, :checker
-                expect(response).to redirect_to('/')
-            end
-
+            #it "should redirect to root when activation is complete" do
+            #    xhr :get, :checker
+            #    expect(::JSON.parse(response.body)['success']).to be_true
+            #end
         end
+
 
 
         context 'when billing is off' do

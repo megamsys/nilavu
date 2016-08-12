@@ -1,4 +1,4 @@
-module("lib:discourse");
+module("lib:nilavu");
 
 test("getURL on subfolder install", function() {
   Nilavu.BaseUri = "/forum";

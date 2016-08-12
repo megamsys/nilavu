@@ -7,6 +7,8 @@ describe User do
 
         subject { Fabricate.build(:user) }
 
+        before {  subject.active = 'true' }
+
         it { is_expected.not_to be_admin }
 
         it "is properly initialized" do
