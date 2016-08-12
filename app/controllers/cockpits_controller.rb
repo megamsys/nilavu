@@ -17,7 +17,7 @@
 class CockpitsController < ApplicationController
     include CockpitListResponder
 
-    respond_to :html, :js
+    respond_to :html, :js, :json
 
     skip_before_filter :check_xhr
 
@@ -36,7 +36,16 @@ class CockpitsController < ApplicationController
 
     def torpedo
         params[:filter] = Api::Assemblies::TORPEDO
-        respond_with_list(Api::Assemblies.new.list(params).baked.flatten)
+        list = Api::Assemblies.new.list(params).baked.flatten
+        respond_to do |format|
+              format.json { render json:  {
+                  topic_list: {
+                    name: 'topics',
+                    topics: list
+                  }
+                }
+              }
+        end
     end
 
     def app

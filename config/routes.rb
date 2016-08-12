@@ -19,11 +19,11 @@ Nilavu::Application.routes.draw do
   get "password-reset" => "static#show", id: "password_reset"
   get "signup" => "static#show", id: "signup"
 
-  get "dashboard.json" => 'cockpits#all', defaults: {format: 'json'}
-  get "torpedo.json" => 'cockpits#torpedo', defaults: {format: 'json'}
-  get "app.json" => 'cockpits#app', defaults: {format: 'json'}
-  get "service.json" => 'cockpits#service', defaults: {format: 'json'}
-  get "microservice.json" => 'cockpits#microservices', defaults: {format: 'json'}
+  get "dashboard" => 'cockpits#all'
+  get "torpedo" => 'cockpits#torpedo'
+  get "app" => 'cockpits#app'
+  get "service" => 'cockpits#service'
+  get "microservice" => 'cockpits#microservices'
 
   #session related
   resources :sessions
@@ -68,7 +68,7 @@ Nilavu::Application.routes.draw do
 
   get "/ssh_keys/edit/:name", to: "ssh_keys#edit"
   get "/ssh_keys/:name.json", to: "ssh_keys#show", defaults: {format: 'json'}
-  get "/ssh_key/list", to: "ssh_keys#index"
+  get "/sshkeys", to: "ssh_keys#index"
   post "/ssh_keys", to: "ssh_keys#create"
   post "/ssh_keys/import", to: "ssh_keys#import"
 
@@ -107,7 +107,7 @@ Nilavu::Application.routes.draw do
   get   '/cephsignup', to: 'ceph_users#create', constraints: HomePageConstraint.new
   post  '/cephsignup', to: 'ceph_users#create', constraints: HomePageConstraint.new
 
-  get "marketplaces.json" => "marketplaces#index", defaults: {format: 'json'}
+  get "/marketplaces" => "marketplaces#index"
 
   root to: 'cockpits#entrance', :as => "entrance"
 
