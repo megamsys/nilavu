@@ -29,7 +29,7 @@ const Marketplaces = RestModel.extend({
 
     reload() {
         const self = this;
-        return Nilavu.ajax('/marketplaces.json', { type: 'GET' }).then(function(marketplaces_json) {
+        return Nilavu.ajax('/marketplaces', { type: 'GET' }).then(function(marketplaces_json) {
             self.updateFromJson(marketplaces_json);
         });
     }
