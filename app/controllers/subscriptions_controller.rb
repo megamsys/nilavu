@@ -14,8 +14,10 @@ class SubscriptionsController < ApplicationController
       user_activator = UserActivationChecker.new(current_user)
 
       if user_activator.completed?
+          puts "--------------- redirecting. ....."
           redirect_to "/"
       else
+          puts "=============== not redirecting...."
           lookup_external_id_in_addons(params)
 
           render json: {
