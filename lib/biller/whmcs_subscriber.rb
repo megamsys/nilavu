@@ -16,6 +16,7 @@ class Biller::WHMCSSubscriber < Biller::Subscriber
       end
     end
 
+
     def after_subscribe(subscribed)
         result = Biller::Result.new
     end
@@ -25,6 +26,6 @@ class Biller::WHMCSSubscriber < Biller::Subscriber
     end
 
     def after_update(updated)
-        result = Billy::Result.new      
+        result = Billy::Result.new
     end
 end

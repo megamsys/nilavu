@@ -13,12 +13,11 @@ module CurrentBilly
         end
     end
 
-
     private
 
     def no_external_id_found
-        render json: {error: I18n.t("errors.not_found", provider: billy_params[:provider])}
-        #{:error => "Oops, the application tried to load a URL that doesn't exist."}
+      #  render json: {error: I18n.t("errors.not_found", provider: billy_params[:provider])}
+        {:success => false, :error => "user.activation.addon_not_found"}
     end
 
     def billy_params
