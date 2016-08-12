@@ -16,10 +16,11 @@ describe SubscriptionsController do
             describe 'user is not onboarded in biller' do
                it "should respond with onboarded_needed flag" do
                  xhr :get, :entrance
+                   puts "------------ response"
                  expect(::JSON.parse(response.body)['error']).to be_present
                end
             end
-
+=begin
             describe 'user activation is complete' do
                it "should redirect to root when activation is complete" do
                  xhr :get, :entrance
@@ -67,6 +68,7 @@ describe SubscriptionsController do
                      expect(::JSON.parse(response.body)['error']).to be_present
                 end
             end
+
         end
 
         context 'when billing is off' do
@@ -80,5 +82,7 @@ describe SubscriptionsController do
                 expect(response).to redirect_to('/')
             end
         end
+=end
+  end
     end
 end

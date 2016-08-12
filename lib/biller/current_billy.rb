@@ -3,7 +3,6 @@ module CurrentBilly
     def lookup_external_id_in_addons(params)
         billy = Billy.new
         billy_params.each { |k, v| billy.send("#{k}=", v) }
-
         if billy = billy.find_by_email(params)
             unless billy.has_external_id?
                 no_external_id_found

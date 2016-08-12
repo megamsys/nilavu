@@ -9,6 +9,8 @@ class UserActivationChecker
     end
 
     def completed?
+        puts "--NOT ---- #{not_required?}"
+        puts "--NOT1---- #{send_current_status}"
         not_required?  ? true : send_current_status
     end
 
@@ -17,6 +19,8 @@ class UserActivationChecker
     end
 
     def send_current_status
+        puts "--- SEND CURR  #{@current_user.approved} #{@current_user.approved.present?}"
+        puts "--- SEND CURR1 #{@current_user.active} #{@current_user.active.present?}"
         @current_user.approved || @current_user.active
     end
 
