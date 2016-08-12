@@ -5,12 +5,10 @@ module CurrentBilly
         billy_params.each { |k, v| billy.send("#{k}=", v) }
         if billy = billy.find_by_email(params)
             unless billy.has_external_id?
-                no_external_id_found
-                return
+                return no_external_id_found
             end
         else
-            no_external_id_found
-            return
+            return no_external_id_found
         end
     end
 
@@ -18,8 +16,8 @@ module CurrentBilly
     private
 
     def no_external_id_found
-      #  render json: {error: I18n.t("errors.not_found", provider: billy_params[:provider])}
-        render json: {:error => "Oops, the application tried to load a URL that doesn't exist."}
+        render json: {error: I18n.t("errors.not_found", provider: billy_params[:provider])}
+        #{:error => "Oops, the application tried to load a URL that doesn't exist."}
     end
 
     def billy_params
