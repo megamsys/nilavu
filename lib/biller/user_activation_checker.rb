@@ -20,7 +20,6 @@ class UserActivationChecker
         @current_user.approved || @current_user.active
     end
 
-
     def verify_mobavatar(params)
         return Nilavu::NotFound unless @current_user.phone
 

@@ -42,9 +42,9 @@ class OTPActivator < MobileAvatarActivator
 
     def activating
         identity = MobileAvatar::Identity.from_number(phone_params)
-        result = MobileAvatar.generate(identity: identity)
-        return false unless result
-        result.succeeded?
+        result = MobileAvatar.generate(identity: identity)      
+        return {:success => false} unless result
+        {:success => result.succeeded?}
     end
 
     def activate
