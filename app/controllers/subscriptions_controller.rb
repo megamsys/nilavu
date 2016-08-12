@@ -5,21 +5,25 @@ class SubscriptionsController < ApplicationController
 
     skip_before_filter :check_xhr
 
-    before_action :add_authkeys_for_api, only: [:entrance, :create]
+    before_action :add_authkeys_for_api, only: [:checker, :create]
 
     def entrance
-        user_activator = UserActivationChecker.new(current_user)
 
-        if user_activator.completed?
-            redirect_to "/"
-        else
-            lookup_external_id_in_addons(params)
+    end
 
-            render json: {
-                subscriber: subscriber || {},
-                mobavatar_activation: user_activator.verify_mobavatar(params)
-            }
-        end
+    def checker
+      user_activator = UserActivationChecker.new(current_user)
+
+      if user_activator.completed?
+          redirect_to "/"
+      else
+          lookup_external_id_in_addons(params)
+
+          render json: {
+              subscriber: subscriber || {},
+              mobavatar_activation: user_activator.verify_mobavatar(params)
+          }
+      end
     end
 
     # subcriber to update the billing address
@@ -34,7 +38,10 @@ class SubscriptionsController < ApplicationController
 
         if bdr = bildr_processe_is_ready(SUBSCRIBER_PROCESSE)
           b = bdr.new.subscribe(l || {})
-           if  b && !b[:error]
+          puts "++++++++++++++++++++++++++++++++++++++++++"
+          puts b.inspect
+          puts b.class
+           if b 
             b.new.after_subscribe(b)
           end
         end

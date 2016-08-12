@@ -32,6 +32,13 @@ const Subscriptions = RestModel.extend({
         return Nilavu.ajax('/subscriptions.json', { type: 'GET' }).then(function(subs_json) {
             self.updateFromJson(subs_json);
         });
+    },
+
+    check() {
+        const self = this;
+        return Nilavu.ajax('/subscriptions/activation/check', { type: 'GET' }).then(function(subs_json) {
+            self.updateFromJson(subs_json);
+        });
     }
 });
 

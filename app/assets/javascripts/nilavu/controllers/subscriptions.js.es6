@@ -10,6 +10,10 @@ export default Ember.Controller.extend(BufferedContent, {
     loading: false,
     formSubmitted: false,
 
+    _initSubscriptions: function() {
+        console.log(this.get('model'));
+    }.on('init'),
+
     title: function() {
         return 'Subscriptions';
     }.property('model'),
