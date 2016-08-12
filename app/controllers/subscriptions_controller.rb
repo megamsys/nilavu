@@ -17,12 +17,19 @@ class SubscriptionsController < ApplicationController
       if user_activator.completed?
           redirect_to "/"
       else
-          lookup_external_id_in_addons(params)
+          addon = lookup_external_id_in_addons(params)
 
-          render json: {
-              subscriber: subscriber || {},
-              mobavatar_activation: user_activator.verify_mobavatar(params)
-          }
+          if addon[:success]
+            render json: {
+                subscriber: subscriber(addon) || {},
+                mobavatar_activation: user_activator.verify_mobavatar(params)
+            }
+          else
+            render json: {
+              subscriber: addon.to_json,
+              mobavatar_activation: {}
+            }
+          end
       end
     end
 
@@ -33,15 +40,10 @@ class SubscriptionsController < ApplicationController
 
     private
 
-    def subscriber
-        l = lookup_external_id_in_addons(params)
-
+    def subscriber(addon)
         if bdr = bildr_processe_is_ready(SUBSCRIBER_PROCESSE)
-          b = bdr.new.subscribe(l || {})
-          puts "++++++++++++++++++++++++++++++++++++++++++"
-          puts b.inspect
-          puts b.class
-           if b 
+
+           if b = bdr.new.subscribe(addon || {})
             b.new.after_subscribe(b)
           end
         end

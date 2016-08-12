@@ -36,7 +36,7 @@ const Subscriptions = RestModel.extend({
 
     check() {
         const self = this;
-        return Nilavu.ajax('/subscriptions/activation/check', { type: 'GET' }).then(function(subs_json) {
+        return Nilavu.ajax('/subscriptions/activation/check', { type: 'GET' }).then(function(subs_json) {        
             self.updateFromJson(subs_json);
         });
     }

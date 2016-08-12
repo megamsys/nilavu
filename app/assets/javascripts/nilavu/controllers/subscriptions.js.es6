@@ -2,7 +2,7 @@ import BufferedContent from 'nilavu/mixins/buffered-content';
 import {spinnerHTML} from 'nilavu/helpers/loading-spinner';
 import Subscriptions from 'nilavu/models/subscriptions';
 import {popupAjaxError} from 'nilavu/lib/ajax-error';
-import computed from 'ember-addons/ember-computed-decorators';
+import {observes, computed} from 'ember-addons/ember-computed-decorators';
 import NilavuURL from 'nilavu/lib/url';
 
 export default Ember.Controller.extend(BufferedContent, {
@@ -10,9 +10,14 @@ export default Ember.Controller.extend(BufferedContent, {
     loading: false,
     formSubmitted: false,
 
-    _initSubscriptions: function() {
-        console.log(this.get('model'));
-    }.on('init'),
+    subscriber: Ember.computed.alias('model.subscriber'),
+    mobavatar: Ember.computed.alias('model.mobavatar_activation'),
+
+    @observes('subscriber')
+    subscriberChecker: function() {
+        console.log(this.get('subscriber'));
+    },
+
 
     title: function() {
         return 'Subscriptions';
