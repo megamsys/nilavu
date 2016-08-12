@@ -24,7 +24,7 @@ class MobileAvatar
             Infobip.verify_pin(identity.otp, identity.pin, identity.phone)
         end
 
-        def generate(opts = nil)
+        def generate(opts = nil)          
             identity = opts && opts[:identity]
             return Nilavu::NotFound unless identity
 

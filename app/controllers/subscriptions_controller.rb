@@ -11,24 +11,28 @@ class SubscriptionsController < ApplicationController
     end
 
     def checker
-        user_activator = UserActivationChecker.new(current_user)
-        if user_activator.completed?
-            redirect_to "/"
-        else
-            addon = lookup_external_id_in_addons(params)
+      user_activator = UserActivationChecker.new(current_user)
 
-            if addon[:success]
-                render json: {
-                    subscriber: subscriber(addon) || {},
-                    mobavatar_activation: user_activator.verify_mobavatar(params)
-                }
-            else
-                render json: {
-                    subscriber: addon.to_json,
-                    mobavatar_activation: {}
-                }
-            end
-        end
+      if user_activator.completed?
+          redirect_to "/"
+      else
+          addon = lookup_external_id_in_addons(params)
+
+          mob = user_activator.verify_mobavatar(params)
+
+          if addon[:success] && mob[:success]
+            render json: {
+                subscriber: subscriber(addon) || {},
+                mobavatar_activation: mob.to_json
+            }
+          else
+            render json: {
+              subscriber: addon.to_json,
+              mobavatar_activation: mob.to_json
+            }
+          end
+      end
+
     end
 
     # subcriber to update the billing address

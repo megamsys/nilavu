@@ -13,13 +13,12 @@ class UserActivationChecker
     end
 
     def not_required?
-        !SiteSetting.allow_billings
+        return true unless SiteSetting.allow_billings
     end
 
     def send_current_status
-        @current_user.approved.present? || @current_user.active.present?
+        @current_user.approved || @current_user.active
     end
-
 
     def verify_mobavatar(params)
         return Nilavu::NotFound unless @current_user.phone

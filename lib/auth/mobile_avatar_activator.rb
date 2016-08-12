@@ -26,7 +26,7 @@ class MobileAvatarActivator
 
 
     def factory
-        return OTPActivator unless (user.phone_verified  || dont_force?) && SiteSetting.allow_mobavatar_verifications
+        return OTPActivator unless (user.phone_verified  || dont_force?) && !SiteSetting.allow_mobavatar_verifications
 
         NOOPActivator
     end
@@ -42,9 +42,9 @@ class OTPActivator < MobileAvatarActivator
 
     def activating
         identity = MobileAvatar::Identity.from_number(phone_params)
-        result = MobileAvatar.generate(identity: identity)
-        return false unless result
-        result.succeeded?
+        result = MobileAvatar.generate(identity: identity)      
+        return {:success => false} unless result
+        {:success => result.succeeded?}
     end
 
     def activate
