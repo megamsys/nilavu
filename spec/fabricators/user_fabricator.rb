@@ -3,7 +3,7 @@ Fabricator(:user) do
   last_name  'Wayne'
   email { sequence(:email) { |i| "bruce#{i}@wayne.com" } }
   password 'myawesomepassword'
-  active 'true'
+  #active 'true'
 end
 
 Fabricator(:coding_horror, from: :user) do
@@ -16,6 +16,7 @@ end
 Fabricator(:evil_trout, from: :user) do
   first_name 'Evil Trout'
   email 'eviltrout@somewhere.com'
+  api_key 'go#fishing'
   password 'imafish'
 end
 

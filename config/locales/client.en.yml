@@ -265,7 +265,7 @@ en:
         companyex: "DET.io"
         select_country: "Select Country:"
         accounttitle: "Select your account model:"
-        addon_not_found: "Oops, an user doesn't onboard to billing system, so please click re-onboard button."
+        addon_not_found: "You are not onboarded with the external provider, so please click re-onboard."
 
     errors:
       prev_page: "while trying to load"

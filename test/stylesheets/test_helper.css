@@ -1,0 +1,15 @@
+/*
+ *= require desktop
+ *= require_tree .
+*/
+.modal-backdrop {
+  display: none;
+}
+
+.emoji-modal-wrapper {
+  display: none;
+}
+
+.emoji-modal {
+  position: relative;
+}

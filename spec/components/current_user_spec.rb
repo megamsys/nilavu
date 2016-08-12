@@ -8,7 +8,7 @@ describe CurrentUser do
     end
 
     it "should allow saving if email is reused" do
-      env = Rack::MockRequest.env_for("/test", "HTTP_COOKIE" => "_t=#{@user.api_key}; _e=#{@user.email}; _p=imafish")
+      env = Rack::MockRequest.env_for("/test", "HTTP_COOKIE" => "_t=#{@user.api_key}; _e=#{@user.email};")
       expect(CurrentUser.lookup_from_env(env).email).to eq(@user.email)
     end
 

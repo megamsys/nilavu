@@ -13,11 +13,11 @@ class UserActivationChecker
     end
 
     def not_required?
-        return true unless SiteSetting.allow_billings
+        !SiteSetting.allow_billings
     end
 
     def send_current_status
-        @current_user.approved || @current_user.active
+        @current_user.approved.present? || @current_user.active.present?
     end
 
 

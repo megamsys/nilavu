@@ -27,12 +27,11 @@ class Auth::DefaultCurrentUserProvider
         email_token = request.cookies[EMAIL_COOKIE]
 
         current_user = nil
-
         if auth_token.present? && email_token.present?
             current_user = User.new_from_params({email: email_token, api_key: auth_token}).find_by_apikey
         end
 
-        if current_user && (current_user.suspended? || !current_user.active)
+        if current_user && current_user.suspended?
             current_user = nil
         end
 
