@@ -416,6 +416,10 @@ en:
 
     dashboards:
       title: "Dashboard"
+      apps: "Apps"
+      machine: "Machines"
+      services: "Services"
+      micro: "Microservices"
       torpedo:
         create: "Create Virtual Machine"
         category: "torpedo"
