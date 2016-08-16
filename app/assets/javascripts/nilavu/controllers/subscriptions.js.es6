@@ -1,15 +1,8 @@
 import BufferedContent from 'nilavu/mixins/buffered-content';
-import {
-    spinnerHTML
-} from 'nilavu/helpers/loading-spinner';
+import {spinnerHTML} from 'nilavu/helpers/loading-spinner';
 import Subscriptions from 'nilavu/models/subscriptions';
-import {
-    popupAjaxError
-} from 'nilavu/lib/ajax-error';
-import {
-    observes,
-    computed
-} from 'ember-addons/ember-computed-decorators';
+import {popupAjaxError} from 'nilavu/lib/ajax-error';
+import {observes, computed} from 'ember-addons/ember-computed-decorators';
 import NilavuURL from 'nilavu/lib/url';
 
 export default Ember.Controller.extend(BufferedContent, {
@@ -21,12 +14,10 @@ export default Ember.Controller.extend(BufferedContent, {
     subscriber: Ember.computed.alias('model.subscriber'),
     mobavatar: Ember.computed.alias('model.mobavatar_activation'),
 
-    @observes('subscriber')
-    subscriberChecker: function() {
+    @observes('subscriber')subscriberChecker: function() {
         console.log(this.get('subscriber'));
         console.log(this.get("mobavatar"));
     },
-
 
     title: function() {
         return 'Subscriptions';
@@ -44,16 +35,11 @@ export default Ember.Controller.extend(BufferedContent, {
         let otmap = [];
 
         for (var order in grouped_results) {
-            otmap.push({
-                order: order,
-                cattype: grouped_results[order].get('firstObject.cattype').toLowerCase()
-            });
+            otmap.push({order: order, cattype: grouped_results[order].get('firstObject.cattype').toLowerCase()});
         }
 
         return otmap;
     }.property('model.results'),
-
-
 
     actions: {
         activate() {
@@ -68,7 +54,7 @@ export default Ember.Controller.extend(BufferedContent, {
                     city: attrs.city,
                     state: attrs.state,
                     postcode: attrs.zipcode,
-                    companyname: attrs.company,
+                    companyname: attrs.company
                 },
                 type: 'POST'
             }).then(function(result) {
@@ -88,19 +74,18 @@ export default Ember.Controller.extend(BufferedContent, {
             this.set('otpSubmitted', true);
             return Nilavu.ajax("/verify/otp", {
                 data: {
-                    otp: attrs.otpNumber,
+                    otp: attrs.otpNumber
                 },
                 type: 'POST'
             }).then(function(result) {
                 self.set('otpSubmitted', false);
-                self.setProperties({ otpNumber: ''});
+                self.setProperties({otpNumber: ''});
 
                 if (!result.success) {
                     self.notificationMessages.error(I18n.t("user.activation.activate_phone_error"));
                 }
             });
-        },
-
+        }
     },
 
     hasError: Ember.computed.or('model.notFoundHtml', 'model.message'),
