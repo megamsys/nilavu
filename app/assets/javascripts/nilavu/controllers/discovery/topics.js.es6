@@ -30,6 +30,22 @@ const controllerOpts = {
     return I18n.t("dashboards.title");
   }.property(),
 
+  machineTitle: function() {
+    return I18n.t("dashboards.machine");
+  }.property(),
+
+  appsTitle: function() {
+    return I18n.t("dashboards.apps");
+  }.property(),
+
+  servicesTitle: function() {
+    return I18n.t("dashboards.services");
+  }.property(),
+
+  microTitle: function() {
+    return I18n.t("dashboards.micro");
+  }.property(),
+
   torpedoCategory: function() {
     return I18n.t("dashboards.torpedo.category");
   }.property(),

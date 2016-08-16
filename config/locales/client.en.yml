@@ -243,6 +243,10 @@ en:
         blank_password: "Please enter your Password"
         confirm: "Your password is confirmed"
 
+      phone:
+        ischaracter: "Your number must be an interger"
+        too_short: "Your number must have 10 digit"
+        ok: "Looks good"
       activation:
         title: "Welcome to our cloud platform."
         subtitle: "Before you get started, we need some additional information to setup your account!"
@@ -414,6 +418,10 @@ en:
 
     dashboards:
       title: "Dashboard"
+      apps: "Apps"
+      machine: "Machines"
+      services: "Services"
+      micro: "Microservices"
       torpedo:
         create: "Create Virtual Machine"
         category: "torpedo"
