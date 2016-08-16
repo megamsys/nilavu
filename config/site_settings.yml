@@ -177,6 +177,10 @@ users:
     client: true
     default: 8
     min: 1
+  min_phone_length:
+    client: true
+    default: 10
+    min: 1
   block_common_passwords: false
   email_editable: false
   logout_redirect:
