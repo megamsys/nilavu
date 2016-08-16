@@ -32,6 +32,7 @@ Nilavu::Application.routes.draw do
   match "sessions/delete", to:  "sessions#destroy", via: [:delete]
   get "/account_created/" => "users#account_created"
   get "/subscriptions/account/activation" => "subscriptions#entrance"
+  get "/subscriptions/activation/check" => "subscriptions#checker"
   #post "/subscriptions" => "subscriptions#create"
 
   post "/session/forgot_password" => "sessions#forgot_password"

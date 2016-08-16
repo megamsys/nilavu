@@ -14,23 +14,23 @@
 ## limitations under the License.
 ##
 class MarketplacesController < ApplicationController
-  respond_to :js
+    respond_to :js
 
-  before_action :add_authkeys_for_api, only: [:index, :show]
+    before_action :add_authkeys_for_api, only: [:index, :show]
 
 
-  def index
-    render json: { results: aggregate(HoneyPot.cached_marketplace_groups(params))}
-  end
+    def index
+        render json: { results: aggregate(HoneyPot.cached_marketplace_groups(params))}
+    end
 
-  def show
-  end
+    def show
+    end
 
-  private
+    private
 
-  def aggregate(grups)
-    aggregated ||= {}
-    grups.map{|k,v| aggregated[k] = v}
-    aggregated
-  end
+    def aggregate(grups)
+        aggregated ||= {}
+        grups.map{|k,v| aggregated[k] = v}
+        aggregated
+    end
 end

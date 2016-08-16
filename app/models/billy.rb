@@ -23,7 +23,6 @@ class Billy
         @client_id.present?
     end
 
-
     def to_hash
         {   :email => @email,
             :client_id => @client_id,
