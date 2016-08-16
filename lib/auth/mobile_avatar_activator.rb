@@ -42,17 +42,19 @@ class OTPActivator < MobileAvatarActivator
 
     def activating
         identity = MobileAvatar::Identity.from_number(phone_params)
-        result = MobileAvatar.generate(identity: identity)      
-        return {:success => false} unless result
-        {:success => result.succeeded?}
+        result = MobileAvatar.generate(identity: identity)
+        return {success: false} unless result
+        {success: result.succeeded?}
     end
+
 
     def activate
         identity = MobileAvatar::Identity.from_number(phone_params)
-        result = identity.verify(identity: identity)
-        return I18n.t("login.activate_phone_error") unless result
+        result = MobileAvatar.verify(identity: identity)
+        return {success: false} unless result
 
-        result.correct_pin? ? I18n.t("login.activate_phone", phone: user.phone) :  I18n.t("login.not_activated_phone")
+        #result.correct_pin? ? I18n.t("login.activate_phone", phone: user.phone) :  I18n.t("login.not_activated_phone")
+        result.correct_pin? ? {success: true} : {success: false}
     end
 end
 

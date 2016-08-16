@@ -20,43 +20,48 @@ class SubscriptionsController < ApplicationController
 
           mob = user_activator.verify_mobavatar(params)
 
-          if addon[:success] && mob[:success]
-            render json: {
-                subscriber: subscriber(addon) || {},
-                mobavatar_activation: mob.to_json
-            }
-          else
-            render json: {
-              subscriber: addon.to_json,
+          render json: {
+              subscriber: subscriber(addon[:addon]) || {},
               mobavatar_activation: mob.to_json
-            }
-          end
+          }
+
       end
 
     end
 
     # subcriber to update the billing address
     def create
-        render json: {subscriber: update_subscriber || {}}
+        addon = lookup_external_id_in_addons(params)
+        a = addon[:addon].merge(params)
+        if addon[:result] == "success"
+          render json: {
+              subscriber: update_subscriber(a) || {},
+          }
+        else
+          render json: {
+            subscriber: addon.to_json,
+          }
+        end
     end
 
     private
 
     def subscriber(addon)
         if bdr = bildr_processe_is_ready(SUBSCRIBER_PROCESSE)
-            if b = bdr.new.subscribe(addon || {})
-                b.new.after_subscribe(b)
-            end
+            b = bdr.new.subscribe(addon || {})
+            bdr.new.after_subscribe(b)
+        else
+          something_wrong
         end
     end
 
 
-    def update_subscriber
-        l = lookup_external_id_in_addons(params)
-
+    def update_subscriber(addon)
         if bildr = bildr_processe_is_ready(SUBSCRIBER_PROCESSE)
-            b = bildr.subscriber.update(l)
-            bildr.subscriber.after_update(b)
+          b = bildr.new.update(addon || {})
+          bildr.new.after_update(b)
+        else
+          something_wrong
         end
     end
 
@@ -67,4 +72,9 @@ class SubscriptionsController < ApplicationController
 
         bildr.implementation
     end
+
+    def something_wrong
+        {:result => "error", :error => "user.activation.unknown"}
+    end
+
 end

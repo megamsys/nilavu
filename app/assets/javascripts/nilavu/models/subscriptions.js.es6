@@ -1,7 +1,13 @@
-import { flushMap } from 'nilavu/models/store';
+import {
+    flushMap
+} from 'nilavu/models/store';
 import RestModel from 'nilavu/models/rest';
-import { propertyEqual } from 'nilavu/lib/computed';
-import { longDate } from 'nilavu/lib/formatter';
+import {
+    propertyEqual
+} from 'nilavu/lib/computed';
+import {
+    longDate
+} from 'nilavu/lib/formatter';
 import computed from 'ember-addons/ember-computed-decorators';
 import NilavuURL from 'nilavu/lib/url';
 
@@ -24,39 +30,31 @@ const Subscriptions = RestModel.extend({
 
         const keys = Object.keys(json);
 
-        keys.forEach(key => { self.set(key, json[key]) });
+        keys.forEach(key => {
+            self.set(key, json[key])
+        });
     },
 
     reload() {
         const self = this;
-        return Nilavu.ajax('/subscriptions.json', { type: 'GET' }).then(function(subs_json) {
+        return Nilavu.ajax('/subscriptions.json', {
+            type: 'GET'
+        }).then(function(subs_json) {
             self.updateFromJson(subs_json);
         });
     },
 
     check() {
         const self = this;
-        return Nilavu.ajax('/subscriptions/activation/check', { type: 'GET' }).then(function(subs_json) {        
+        return Nilavu.ajax('/subscriptions/activation/check', {
+            type: 'GET'
+        }).then(function(subs_json) {
             self.updateFromJson(subs_json);
         });
     }
 });
 
 Subscriptions.reopenClass({
-
-  createAccount(attrs) {
-      return Nilavu.ajax("/subscriptions", {
-          data: {
-              address: attrs.address,
-              address2: attrs.address2,
-              city: attrs.city,
-              state: attrs.state,
-              zipcode: attrs.zipcode,
-              company: attrs.company,
-          },
-          type: 'POST'
-      });
-  },
 
     create() {
         const result = this._super.apply(this, arguments);
@@ -73,8 +71,11 @@ Subscriptions.reopenClass({
         }
 
         // Check the preload store. If not, load it via JSON
-        return Nilavu.ajax(url + ".json", { data: data });
-    }
-  });
+        return Nilavu.ajax(url + ".json", {
+            data: data
+        });
+    },
+
+});
 
 export default Subscriptions;
