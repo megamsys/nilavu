@@ -339,9 +339,16 @@ export default Ember.Controller.extend({
 
             const slugId = this.get('model.id') ? this.get('model.id') : "";
             const depOK = this.get('deploySuccess');
+          
+            const category = this.get("model.tosca_type").split(".")[1];
+            var url = '/t/' + slugId;
+
+            if (!Em.isEqual(category, "torpedo")) {
+              url = '/t/' + slugId + '/app';
+            }
 
             if (slugId && depOK) {
-                this.jumpTo('/t/' + slugId);
+                this.jumpTo(url);
             } else {
                 this.jumpTo('/');
             }

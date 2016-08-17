@@ -19,12 +19,12 @@
                         </div>
                         <div class="col-md-5">
                             <div class="input-group">
-                                <input class="form-control fix-to-btn" type="text">
+                                {{text-field type="text" value=otpNumber class ="form-control fix-to-btn" name="otpNumber" autofocus="autofocus"}}
                                 <span class="input-group-btn lh40">
                                 <button class="btn btn-secondary fix-to-btn validate-btn" {{action "verifyOTP"}}>
                                     <span class="input-group-btn">{{i18n 'user.activation.otp_verify'}}</span>
                                     <span class="pull-right">
-                                          {{conditional-loading-spinner condition=showSpinner size="large"}}
+                                          {{conditional-loading-spinner condition=otpSubmitted size="large"}}
                                     </span>
                                 </button>
                                 </span>

@@ -42,7 +42,7 @@ const Topic = RestModel.extend({
     },
 
     filteredCategory: function() {
-      return this.get('tosca_type').split(".")[1]
+      return this.get('tosca_type').split(".")[1];
     }.property(),
 
 

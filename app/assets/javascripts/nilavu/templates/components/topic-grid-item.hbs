@@ -4,11 +4,15 @@
             <div class="app_head">
                 <span class="app_config" id="config_menu" {{action 'on'}}> <i class="c_icon-config"></i> </span> {{action-link}}
                 <div class="config_menu">
-                      {{topic-controls}}
+                    {{topic-controls}}
                 </div>
-                  <div class="row app_icon">
+                <div class="row app_icon">
                     <h5>
-                      {{topic-link topic}}
+                      {{#if appCategory}}
+                        {{topic-link topic}}
+                      {{else}}
+                        {{topic-app-link topic}}
+                      {{/if}}
                     </h5>
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <ul class="list-inline app_icon_bottom">
@@ -19,6 +23,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="app_footer_padding">
                 <i class="circle_green"></i>
                 <span>{{topic.status}}</span>

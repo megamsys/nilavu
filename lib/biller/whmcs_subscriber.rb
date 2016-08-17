@@ -9,23 +9,30 @@ class Biller::WHMCSSubscriber < Biller::Subscriber
 
     def subscribe(subscribe_options={})
       begin
-        WHMCS::Client.get_clients_details(subscribe_options)
+        WHMCS::Client.get_clients_details(subscribe_options).attributes
       rescue StandardError => se
-          #{error: I18n.t('errors.desc.not_found')}
-          {:error => "Oops, the application tried to load a URL that doesn't exist."}
+          {:result => "error", :error => "errors.desc.not_found"}
       end
     end
 
 
     def after_subscribe(subscribed)
         result = Biller::Result.new
+        subscribed.each { |k, v| result.send("#{k}=", v) }
+        result.to_hash
     end
 
     def update(update_options)
-        WHMCS::Client.update_client(update_options)
+      begin
+        WHMCS::Client.update_client(update_options).attributes
+      rescue StandardError => se
+          {:result => "error", :error => "errors.desc.not_found"}
+      end
     end
 
     def after_update(updated)
-        result = Billy::Result.new
+        result = Biller::Result.new
+        updated.each { |k, v| result.send("#{k}=", v) }
+        result.to_hash
     end
 end
