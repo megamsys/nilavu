@@ -5,6 +5,13 @@ class Billy
     attr_accessor :provider
     attr_accessor :created_at
 
+    attr_accessor :json_claz
+    attr_accessor :id
+    attr_accessor :provider_id
+    attr_accessor :account_id
+    attr_accessor :provider_name
+    attr_accessor :options
+
     def self.new_from_params(params)
         user = Billy.new
         params.symbolize_keys!
@@ -20,13 +27,13 @@ class Billy
     end
 
     def has_external_id?
-        @client_id.present?
+        @provider_id.present?
     end
 
     def to_hash
-        {   :email => @email,
-            :client_id => @client_id,
-            :provider => @provider,
+        {   :email => @account_id,
+            :clientid => @provider_id,
+            :provider => @provider_name,
             :createdAt =>@created_at
         }
     end

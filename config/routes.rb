@@ -33,7 +33,8 @@ Nilavu::Application.routes.draw do
   get "/account_created/" => "users#account_created"
   get "/subscriptions/account/activation" => "subscriptions#entrance"
   get "/subscriptions/activation/check" => "subscriptions#checker"
-  #post "/subscriptions" => "subscriptions#create"
+  post "/subscriptions" => "subscriptions#create"
+  post "/verify/otp" => "mobile_avatars#create"
 
   post "/session/forgot_password" => "sessions#forgot_password"
   get "/password_reset" => "users#password_reset"
@@ -74,6 +75,7 @@ Nilavu::Application.routes.draw do
 
   # Topics resource
   get "t/:id" => "topics#show"
+  get "t/:id/app" => "topics#show"
   put "t/:id" => "topics#update"
   delete "t/:id" => "topics#destroy"
 

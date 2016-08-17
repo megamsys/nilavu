@@ -22,7 +22,6 @@ class UserActivationChecker
 
     def verify_mobavatar(params)
         return Nilavu::NotFound unless @current_user.phone
-
         MobileAvatarActivator.new(@current_user, params).start
     end
 end

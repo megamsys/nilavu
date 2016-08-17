@@ -270,6 +270,7 @@ en:
         select_country: "Select Country:"
         accounttitle: "Select your account model:"
         addon_not_found: "You are not onboarded with the external provider, so please click re-onboard."
+        activate_phone_error: "phone not activated, Try some other time."
 
     errors:
       prev_page: "while trying to load"

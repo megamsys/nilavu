@@ -1,17 +1,15 @@
 import BufferedContent from 'nilavu/mixins/buffered-content';
-import {
-    spinnerHTML
-} from 'nilavu/helpers/loading-spinner';
+import {spinnerHTML} from 'nilavu/helpers/loading-spinner';
 import Topic from 'nilavu/models/topic';
-import {
-    popupAjaxError
-} from 'nilavu/lib/ajax-error';
+import {popupAjaxError} from 'nilavu/lib/ajax-error';
 import computed from 'ember-addons/ember-computed-decorators';
 import NilavuURL from 'nilavu/lib/url';
 import showModal from 'nilavu/lib/show-modal';
 
 export default Ember.Controller.extend(BufferedContent, {
-    needs: ['application', 'modal'],
+    needs: [
+        'application', 'modal'
+    ],
     progress: 10,
     selectedTab: null,
     panels: null,
@@ -21,7 +19,6 @@ export default Ember.Controller.extend(BufferedContent, {
     spinnerDeleteIn: false,
     spinnerRefreshIn: false,
     rerenderTriggers: ['isUploading'],
-
 
     _initPanels: function() {
         this.set('panels', []);
@@ -68,14 +65,18 @@ export default Ember.Controller.extend(BufferedContent, {
     hasOutputs: Em.computed.notEmpty('model.outputs'),
 
     _filterInputs(key) {
-        if (!this.get('hasInputs')) return "";
-        if (!this.get('model.inputs').filterBy('key', key)[0]) return "";
+        if (!this.get('hasInputs'))
+            return "";
+        if (!this.get('model.inputs').filterBy('key', key)[0])
+            return "";
         return this.get('model.inputs').filterBy('key', key)[0].value;
     },
 
     _filterOutputs(key) {
-        if (!this.get('hasOutputs')) return "";
-        if (!this.get('model.outputs').filterBy('key', key)[0]) return "";
+        if (!this.get('hasOutputs'))
+            return "";
+        if (!this.get('model.outputs').filterBy('key', key)[0])
+            return "";
         return this.get('model.outputs').filterBy('key', key)[0].value;
     },
 
@@ -159,10 +160,7 @@ export default Ember.Controller.extend(BufferedContent, {
             if (host == undefined || host == "" || port == "" || port == undefined) {
                 this.notificationMessages.error(I18n.t('vm_management.vnc_host_port_empty'));
             } else {
-                showModal('vnc').setProperties({
-                    host: host,
-                    port: port
-                });
+                showModal('vnc').setProperties({host: host, port: port});
             }
 
         },
@@ -185,7 +183,6 @@ export default Ember.Controller.extend(BufferedContent, {
                 self.notificationMessages.error(I18n.t("vm_management.error"));
             });
         },
-
 
         stop() {
             var self = this;
@@ -232,8 +229,7 @@ export default Ember.Controller.extend(BufferedContent, {
                     this.delete();
                 }
             })
-        },
-
+        }
     },
 
     hasError: Ember.computed.or('model.notFoundHtml', 'model.message'),
