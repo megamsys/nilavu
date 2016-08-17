@@ -1,7 +1,7 @@
 import computed from 'ember-addons/ember-computed-decorators';
 
 export default Ember.Controller.extend({
-  
+
     showTop: function() {
         return !this.get('loginRequired');
     }.property(),

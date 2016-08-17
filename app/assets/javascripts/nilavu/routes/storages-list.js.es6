@@ -49,5 +49,11 @@ export default Nilavu.Route.extend({
             controller: 'storages-list',
             outlet: 'list-container'
         });
+    },
+    actions: {
+      didTransition() {
+        this.controllerFor("application").set("showFooter", true);
+        return true;
+      }
     }
 });

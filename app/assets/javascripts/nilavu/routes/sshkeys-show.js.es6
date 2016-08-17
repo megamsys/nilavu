@@ -38,5 +38,11 @@ export default Nilavu.Route.extend({
             outlet: 'list-container'
         });
     },
+    actions: {
+      didTransition() {
+        this.controllerFor("application").set("showFooter", true);
+        return true;
+      }
+    }
 
 });
