@@ -9,8 +9,10 @@ export default Nilavu.Route.extend({
         return params;
     },
 
+
     afterModel() {
-        const topic = this.modelFor('topic');
+        const topic =
+        this.modelFor('topic');
         if (this.showPredeployer(topic)) {
             this.replaceWith(topic.url() + '/predeploy', topic);
         }
@@ -20,7 +22,9 @@ export default Nilavu.Route.extend({
         if (topic && topic.predeploy_finished) {
             return false;
         }
-        const oneOfSuccess = LaunchStatus.create({event_type: topic.status}).get('successKey');
+        const oneOfSuccess = LaunchStatus.create({
+            event_type: topic.status
+        }).get('successKey');
         if (topic && oneOfSuccess) {
             return false;
         }
@@ -38,7 +42,9 @@ export default Nilavu.Route.extend({
         params.forceLoad = false;
 
         const promise = topic.reload().then(function(result) {
-            topicController.setProperties({model: topic});
+            topicController.setProperties({
+                model: topic
+            });
             self.set('loading', false);
         }).catch(function(e) {
             self.notificationMessages.error(I18n.t("vm_management.topic_load_error"));
@@ -47,12 +53,16 @@ export default Nilavu.Route.extend({
     },
 
     renderTemplate() {
-        this.render('navigation/default', {outlet: 'navigation-bar'});
+        this.render('navigation/default', {
+            outlet: 'navigation-bar'
+        });
 
-        this.render('topic/show', {
+        this.render('topic/app', {
             controller: 'topic',
             outlet: 'list-container'
         });
     }
+
+
 
 });

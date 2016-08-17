@@ -9,7 +9,7 @@ export default Ember.Component.extend({
     selection_title: "",
 
     isActive: function() {
-        const selTab = this.get('selectedTab');      
+        const selTab = this.get('selectedTab');
         if (Em.isEqual(this.get("selectedPackApp"), this.constants.CONTAINER)) {
             this.set('selection_title', I18n.t("launcher.container_search_text"));
         } else {
@@ -24,7 +24,6 @@ export default Ember.Component.extend({
 
     appHeaderVisible: function() {
         if (!Em.isEmpty(this.get("selectedItem"))) {
-            console.log(JSON.stringify(this.get('selectedItem')));
             if (Em.isEqual(this.get("selectedItem").flavor, this.constants.CONTAINERS)) {
                 this.set('selectedPackApp', 'container');
             } else {

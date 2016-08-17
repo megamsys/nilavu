@@ -32,6 +32,7 @@ export default function() {
     }, function() {
         this.route('show', {path: '/'});
         this.route('predeploy', {path: '/predeploy'});
+        this.route('app', {path: '/app'});
 
         //path is  /t/:id/start
         this.resource('topicActions', function() {

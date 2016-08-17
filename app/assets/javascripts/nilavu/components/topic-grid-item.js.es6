@@ -1,12 +1,14 @@
 export default Ember.Component.extend({
     //topic: Em.computed.alias("content"),
-    classNameBindings: ['controller.checked',
-        ':topic-grid-item',
-        'unboundClassNames',
-        'selected'
+    classNameBindings: [
+        'controller.checked', ':topic-grid-item', 'unboundClassNames', 'selected'
     ],
     attributeBindings: ['data-topic-id'],
     'data-topic-id': Em.computed.alias('topic.id'),
+
+    appcategory: function() {
+        return Em.isEqual(this.get("showCategory"), "torpedo");
+    },
 
     actions: {
         select() {
@@ -15,13 +17,11 @@ export default Ember.Component.extend({
 
         toggleBookmark() {
             const self = this;
-            this.get('topic').toggleBookmark().finally(function() {
+            this.get('topic').toggleBookmark(). finally(function() {
                 self.rerender();
             });
         },
-        on() {
-
-        }
+        on() {}
     },
 
     showBrandImage: function() {
@@ -57,7 +57,9 @@ export default Ember.Component.extend({
             classes.push('has-excerpt');
         }
 
-        _.each(['liked', 'archived', 'bookmarked'], function(name) {
+        _.each([
+            'liked', 'archived', 'bookmarked'
+        ], function(name) {
             if (topic.get(name)) {
                 classes.push(name);
             }
@@ -67,10 +69,10 @@ export default Ember.Component.extend({
     }.property(),
 
     titleColSpan: function() {
-        return (!this.get('controller.hideCategory') &&
-            this.get('topic.isPinnedUncategorized') ? 2 : 1);
+        return (!this.get('controller.hideCategory') && this.get('topic.isPinnedUncategorized')
+            ? 2
+            : 1);
     }.property("topic.isPinnedUncategorized"),
-
 
     hasLikes: function() {
         return this.get('topic.like_count') > 0;
@@ -131,14 +133,11 @@ export default Ember.Component.extend({
     highlight() {
         const $topic = this.$();
         const originalCol = $topic.css('backgroundColor');
-        $topic
-            .addClass('highlighted')
-            .stop()
-            .animate({
-                backgroundColor: originalCol
-            }, 2500, 'swing', function() {
-                $topic.removeClass('highlighted');
-            });
+        $topic.addClass('highlighted').stop().animate({
+            backgroundColor: originalCol
+        }, 2500, 'swing', function() {
+            $topic.removeClass('highlighted');
+        });
     },
 
     _highlightIfNeeded: function() {

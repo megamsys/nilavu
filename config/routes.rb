@@ -75,6 +75,7 @@ Nilavu::Application.routes.draw do
 
   # Topics resource
   get "t/:id" => "topics#show"
+  get "t/:id/app" => "topics#show"
   put "t/:id" => "topics#update"
   delete "t/:id" => "topics#destroy"
 
