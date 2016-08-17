@@ -38,7 +38,7 @@ class LaunchingItem
 
     def has_docker?
         ## this has to be based on cattype.
-        cattype.downcase.include? Api::Assemblies::MICROSERVICES.singularize.downcase
+        cattype.downcase.include? Api::Assemblies::MICROSERVICE.singularize.downcase
     end
 
     alias name mkp_name

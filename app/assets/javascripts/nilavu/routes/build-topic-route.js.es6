@@ -6,7 +6,7 @@ const ALL = "all",
       TORPEDO = "torpedo",
       APP = "app",
       SERVICE = "service",
-      MICROSERVICES = "microservice";
+      MICROSERVICE = "microservice";
 
 // A helper to build a topic route for a filter
 function filterQueryParams(params, defaultParams) {
@@ -155,7 +155,7 @@ export default function(filter, extras) {
                 case SERVICE:
                     template = 'discovery/services';
                     break;
-                case MICROSERVICES:
+                case MICROSERVICE:
                     template = 'discovery/microservices';
                     break;
                 default:

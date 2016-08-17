@@ -333,6 +333,7 @@ en:
       your_registered_email: "Your registered email"
       reset_password: "Reset Password"
       forgot_password: "Forgot password"
+      megam_io: "megam.io"
       google_oauth2:
         title: "with Google"
         message: "Authenticating with Google (make sure pop up blockers are not enabled)"
@@ -414,6 +415,14 @@ en:
       prepackeble_selected: 'selected'
       your_repos: "Your Repos"
       public_repos: "Public Repo"
+
+    footer:
+      docs: "Documentation"
+      blog: "Blog"
+      devcenter: "Dev center"
+      forum: "Forum"
+      support: "Support"
+      copyright: "© 2013-2016 megam. All rights reserved."
 
     dashboards:
       title: "Dashboard"

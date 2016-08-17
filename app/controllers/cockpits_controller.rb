@@ -36,16 +36,7 @@ class CockpitsController < ApplicationController
 
     def torpedo
         params[:filter] = Api::Assemblies::TORPEDO
-        list = Api::Assemblies.new.list(params).baked.flatten
-        respond_to do |format|
-              format.json { render json:  {
-                  topic_list: {
-                    name: 'topics',
-                    topics: list
-                  }
-                }
-              }
-        end
+        respond_with_list(Api::Assemblies.new.list(params).baked.flatten)
     end
 
     def app
@@ -59,7 +50,7 @@ class CockpitsController < ApplicationController
     end
 
     def microservices
-        params[:filter] = Api::Assemblies::MICROSERVICES
+        params[:filter] = Api::Assemblies::MICROSERVICE
         respond_with_list(Api::Assemblies.new.list(params).baked.flatten)
     end
 end
