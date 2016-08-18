@@ -5,10 +5,9 @@ export default Ember.Component.extend({
     ],
     attributeBindings: ['data-topic-id'],
     'data-topic-id': Em.computed.alias('topic.id'),
-
-    appcategory: function() {
+    appCategory: function() {
         return Em.isEqual(this.get("showCategory"), "torpedo");
-    },
+    }.property(),
 
     actions: {
         select() {

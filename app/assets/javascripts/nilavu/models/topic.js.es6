@@ -33,13 +33,22 @@ const Topic = RestModel.extend({
         return this.store.createRecord('postStream', { id: this.get('id'), topic: this });
     }.property(),
 
-    url: function() {
-        let slug = this.get('slug') || '';
-        if (slug.trim().length === 0) {
-            slug = "topic";
-        }
-        return Nilavu.getURL("/t/") + (this.get('id'));
-    },
+    url: function(category) {
+          let slug = this.get('slug') || '';
+          if (slug.trim().length === 0) {
+              slug = "topic";
+          }
+          return Nilavu.getURL("/t/") + (this.get('id'));
+      },
+
+      appurl: function(category) {
+          let slug = this.get('slug') || '';
+          if (slug.trim().length === 0) {
+              slug = "topic";
+          }
+          return Nilavu.getURL("/t/") + (this.get('id')) + "/app";
+      },
+
 
     filteredCategory: function() {
       return this.get('tosca_type').split(".")[1];

@@ -1,50 +1,73 @@
-<div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">    
+<div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
     {{topic-list-header currentUser=currentUser title=title nameEnabled=nameEnabled name=name subTitleEnabled=subTitleEnabled subTitle=subTitle}}
     <div class="bottom-divider"></div>
     <div class=" overview margintb_15 vm-overview">
         <div class="vm-bg">
             <div class="overview-top ">
                 <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-                    <label class="col-md-6"><i class="fa fa-hdd-o"></i> Total Ram </label>
-                    <span1>8 GB</span1>
+                    <label class="col-md-6"><i class="fa fa-hdd-o"></i>Repo Url</label>
+                    <a href="{{id}}" target="_blank" >{{id}}</a>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-                    <label class="col-md-6"><i class="fa fa-columns"></i> Total CPU </label>
-                    <span1>Dual Core</span1>
+                    <label class="col-md-6"><i class="fa fa-columns"></i> Application</label>
+                    <span1>{{showBrandImage}} {{application}}</span1>
                 </div>
 
 
             </div>
             <div class="overview-top ">
                 <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-                    <label class="col-md-6"><i class="fa fa-puzzle-piece"></i> Application URL </label>
-                    <span1>name.app.det.io</span1>
+                    <label class="col-md-6"><i class="fa fa-puzzle-piece"></i>RAM</label>
+                    <span1>{{ram}}</span1>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-                    <label class="col-md-6"><i class="fa fa-lock"></i> SSH Key </label>
-                    <span1>56frghbjf487358a9w4erfs</span1>
+                    <label class="col-md-6"><i class="fa fa-lock"></i> CPU </label>
+                    <span1>{{cpu_cores}}</span1>
                 </div>
             </div>
 
             <div class="overview-top">
                 <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
                     <label class="col-md-6"> <i class="fa fa-bullseye"></i> OS </label>
-                    <span1 style="border-bottom:none;"><img src="assets/img/ubuntu1.png"></span1>
+                    <span1 style="border-bottom:none;">{{brandImage}}</span1>
                 </div>
 
 
                 <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-                    <label class="col-md-6"><i class="fa fa-building-o"></i> Application </label>wordpress-icon
+                    <label class="col-md-6"><i class="fa fa-building-o"></i>SSH key</label>
+                      <span1 style="border-bottom:none;"><a href {{action "download" privateKey privatekeyType}} class="btn-dark-blue ">
+                        <i class="c_icon-in"></i><span>{{sshKey}}</span>
+                        <span class="pull-right">
+                          {{conditional-loading-spinner condition=showPublicSpinner size="large"}}
+                        </span>
+                      </a></span1>
                 </div>
             </div>
+            <div class="overview-top">
+                <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+                    <label class="col-md-6"> <i class="fa fa-bullseye"></i> Status </label>
+                    <span1 style="border-bottom:none;">{{status}}</span1>
+                </div>
 
+
+                <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+                    <label class="col-md-6"><i class="fa fa-building-o"></i>Start Time</label>
+                      <span1 style="border-bottom:none;">{{createdAt}}</span1>
+                </div>
+            </div>
+            <div class="overview-top">
+                <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+                    <label class="col-md-6"> <i class="fa fa-bullseye"></i> Publisher </label>
+                    <span1 style="border-bottom:none;">{{publisher}}</span1>
+                </div>
+            </div>
         </div>
 
-
-        <div class="row c_pading-b15" style="padding-top:15px;">
+        <div class="bottom-divider"></div>
+        <div class="row c_pading-b15">
             <div class="portlet-body-head">
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-                    <h2><i class="c_icon-grid"></i>Virtual Machines serving this application</h2>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
+                    <i class="c_icon-grid"></i><span>Virtual Machines serving this application</span>
                 </div>
             </div>
         </div>
@@ -56,12 +79,10 @@
     For three VM's per row we can use: col-xs-12 col-sm-6 col-md-4 app_cover -->
                 <div class="col-xs-12 col-sm-6  col-md-4 app_cover">
                     <div class="app_inner">
-                        <div class="app-vm">
-                            <div class="app_head-vm">
-                                <div class="row app_head-vm_head">
-                                    <h2>Untitled VM</h2>
-                                    <span class="app_config" id="config_menu_1"><i class="c_icon-config"></i></span>
-                                    <div class="config_menu config_menu_1">
+                        <div class="app">
+
+                                    <span class="app_config" id="config_menu"><i class="c_icon-config"></i></span>
+                                    <div class="config_menu">
                                         <ul>
                                             <li><a href="#"><i class="glyphicon glyphicon-play-circle"></i>Start App</a></li>
                                             <li><a href="#"><i class="glyphicon glyphicon-record"></i>Stop App</a></li>
@@ -69,172 +90,48 @@
                                             <li><a href="#"><i class="glyphicon glyphicon-trash"></i>Delete App</a></li>
                                         </ul>
                                     </div>
-                                </div>
-                                <div class="app_icon-vm">
+
+                                <div class="row app_icon">
                                     <div class="app_center row">
                                         <div class="col-md-6">
                                             <p><i class="fa fa-hdd-o"></i> Available RAM </p>
                                             <p><i class="fa fa-columns"></i> CPU Core </p>
                                             <p><i class="fa fa-bullseye"></i> OS </p>
-                                            <p><i class="fa fa-building-o"></i> Architecture </p>
                                             <p><i class="fa fa-puzzle-piece"></i> IP </p>
                                             <p><i class="fa fa-lock"></i> SSH Key</p>
+                                            <p><i class="fa fa-lock"></i> Application Url</p>
                                         </div>
                                         <div class="col-md-6 vm-right ">
-                                            <p>4 GB</p>
-                                            <p>Dual Core</p>
-                                            <p><img src="assets/img/ubuntu1.png"></p>
-                                            <p>AMD64</p>
-                                            <p>192.168.1.100</p>
-                                            <p>56frghbjf487358a9w4erfs</p>
+                                            <p>{{ram}}</p>
+                                            <p>{{cpu_cores}}</p>
+                                            <p>{{brandImage}}</p>
+                                            <p>192.168.0.5</p>
+                                            <p> <a href {{action "download" privateKey privatekeyType}} class="btn-dark-blue ">
+                                              <i class="c_icon-in"></i><span>{{sshKey}}</span>
+                                              <span class="pull-right">
+                                                {{conditional-loading-spinner condition=showPublicSpinner size="large"}}
+                                              </span>
+                                            </a></p>
+                                            <p>{{topic-link topic}}</p>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                        <ul class="list-inline app_icon_bottom">
-                                            <li><img src="assets/img/apps1.png"></li>
-                                            <li><img src="assets/img/apps1.png"></li>
-                                            <li><img src="assets/img/apps1.png"></li>
-                                        </ul>
                                     </div>
                                 </div>
 
-                            </div>
-                            <div class="app_footer">
-
-                                <i class="circle_red"></i> <span>Down</span> <i class="c_icon-window pull-right"></i> <i class="c_icon-star pull-right"></i> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6  col-md-4 app_cover">
-                    <div class="app_inner">
-                        <div class="app-vm">
-                            <div class="app_head-vm">
-                                <div class="row app_head-vm_head">
-                                    <h2>Untitled VM</h2>
-                                    <span class="app_config" id="config_menu_1"><i class="c_icon-config"></i></span>
-                                    <div class="config_menu config_menu_1">
-                                        <ul>
-                                            <li><a href="#"><i class="glyphicon glyphicon-play-circle"></i>Start App</a></li>
-                                            <li><a href="#"><i class="glyphicon glyphicon-record"></i>Stop App</a></li>
-                                            <li><a href="#"><i class="glyphicon glyphicon-refresh"></i>Restart App</a></li>
-                                            <li><a href="#"><i class="glyphicon glyphicon-trash"></i>Delete App</a></li>
-                                        </ul>
-                                    </div>
+                                <div class="app_footer_padding">
+                                    <i class="circle_green"></i>
+                                    <span>{{status}}</span>
+                                    <a href="vncs">
+                                        <i class="c_icon-window pull-right" style="padding-top:20px">
+                                        </i>
+                                    </a>
+                                    <i class="c_icon-star pull-right" style="padding-right:30px"></i>
                                 </div>
-                                <div class="app_icon-vm">
-                                    <div class="app_center row">
-                                        <div class="col-md-6">
-                                            <p><i class="fa fa-hdd-o"></i> Available RAM </p>
-                                            <p><i class="fa fa-columns"></i> CPU Core </p>
-                                            <p><i class="fa fa-bullseye"></i> OS </p>
-                                            <p><i class="fa fa-building-o"></i> Architecture </p>
-                                            <p><i class="fa fa-puzzle-piece"></i> IP </p>
-                                            <p><i class="fa fa-lock"></i> SSH Key</p>
-                                        </div>
-                                        <div class="col-md-6 vm-right ">
-                                            <p>4 GB</p>
-                                            <p>Dual Core</p>
-                                            <p><img src="assets/img/ubuntu1.png"></p>
-                                            <p>AMD64</p>
-                                            <p>192.168.1.100</p>
-                                            <p>56frghbjf487358a9w4erfs</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                        <ul class="list-inline app_icon_bottom">
-                                            <li><img src="assets/img/apps1.png"></li>
-                                            <li><img src="assets/img/apps1.png"></li>
-                                            <li><img src="assets/img/apps1.png"></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="app_footer">
-
-                                <i class="circle_red"></i> <span>Down</span> <i class="c_icon-window pull-right"></i> <i class="c_icon-star pull-right"></i> </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-4 app_cover">
-                    <div class="app_inner">
-                        <div class="app-vm">
-                            <div class="app_head-vm">
-                                <div class="row app_head-vm_head">
-                                    <h2>Untitled VM</h2>
-                                    <span class="app_config" id="config_menu_2"><i class="c_icon-config"></i></span>
-                                    <div class="config_menu config_menu_2">
-                                        <ul>
-                                            <li><a href="#"><i class="glyphicon glyphicon-play-circle"></i>Start App</a></li>
-                                            <li><a href="#"><i class="glyphicon glyphicon-record"></i>Stop App</a></li>
-                                            <li><a href="#"><i class="glyphicon glyphicon-refresh"></i>Restart App</a></li>
-                                            <li><a href="#"><i class="glyphicon glyphicon-trash"></i>Delete App</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="app_icon-vm">
-                                    <div class="app_center row">
-                                        <div class="col-md-6">
-                                            <p><i class="fa fa-hdd-o"></i> Available RAM </p>
-                                            <p><i class="fa fa-columns"></i> CPU Core </p>
-                                            <p><i class="fa fa-bullseye"></i> OS </p>
-                                            <p><i class="fa fa-building-o"></i> Architecture </p>
-                                            <p><i class="fa fa-puzzle-piece"></i> IP </p>
-                                            <p><i class="fa fa-lock"></i> SSH Key</p>
-                                        </div>
-                                        <div class="col-md-6 vm-right ">
-                                            <p>4 GB</p>
-                                            <p>Dual Core</p>
-                                            <p><img src="assets/img/ubuntu1.png"></p>
-                                            <p>AMD64</p>
-                                            <p>192.168.1.100</p>
-                                            <p>56frghbjf487358a9w4erfs</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                        <ul class="list-inline app_icon_bottom">
-                                            <li><img src="assets/img/apps1.png"></li>
-                                            <li><img src="assets/img/apps1.png"></li>
-                                            <li><img src="assets/img/apps1.png"></li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="app_footer">
-
-                                <i class="circle_red"></i> <span>Down</span> <i class="c_icon-window pull-right"></i> <i class="c_icon-star pull-right"></i> </div>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
-        <!-- running apps ends here -->
-
-        <div class="row c_pading-b15">
-            <div class="portlet-body-head">
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9">
-                    <i class="c_icon-layer_lg"></i>Your Services <span>0 Services running</span>
-                </div>
-            </div>
-        </div>
-        <div class="bottom-divider"></div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-
-            <div class="row app_box">
-                <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 col-xl-4 app_cover">
-                    <div class="app_inner">
-                        <div class="app_new">
-                            <span class="glyphicon glyphicon-plus"></span>
-                            <p>Create a service</p>
                         </div>
                     </div>
                 </div>
 
             </div>
         </div>
-        <!-- services ends here -->
+        <!-- running apps ends here -->
     </div>
 </div>

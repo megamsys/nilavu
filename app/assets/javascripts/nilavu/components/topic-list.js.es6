@@ -31,10 +31,8 @@ export default Ember.Component.extend({
     filteredTopics: function() {
         const cat = this.get('showCategory');
         return this.get('topics').filter(function(topic) {
-            alert(JSON.stringify(topic));
-            const val = Ember.isEqual(topic.get('filteredCategory'), cat)
+        return Ember.isEqual(topic.get('filteredCategory'), cat)
             // return topic.get('filteredCategory').match(cat);
-            return val;
         });
     }.property(),
 
