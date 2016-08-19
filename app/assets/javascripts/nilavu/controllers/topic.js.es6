@@ -139,84 +139,88 @@ export default Ember.Controller.extend(BufferedContent, {
     },
 
     brandImage: function() {
-        return `<img src="../images/brands/ubuntu.png" />`.htmlSafe();
+        return `<img src="../../images/brands/ubuntu.png" />`.htmlSafe();
     }.property(),
 
     showBrandImage: function() {
-        const fullBrandUrl = this.get('topic.tosca_type');
+        const fullBrandUrl = this.get('model.tosca_type');
 
         if (Em.isNone(fullBrandUrl)) {
-            return `<img src="../images/brands/dummy.png" />`.htmlSafe();
+            return `<img src="../../images/brands/dummy.png" />`.htmlSafe();
         }
 
         const split = fullBrandUrl.split('.');
 
         if (split.length >= 2) {
             var brandImageUrl = split[2];
-            return `<img src="../images/brands/${brandImageUrl}.png" />`.htmlSafe();
+            return `<img src="../../images/brands/${brandImageUrl}.png" />`.htmlSafe();
         }
 
-        return `<img src="../images/brands/ubuntu.png" />`.htmlSafe();
-    }.property('topic.tosca_type'),
+        return `<img src="../../images/brands/ubuntu.png" />`.htmlSafe();
+    }.property('model.tosca_type'),
 
-    id: function() {
+    url: function() {
         return this.get('componentData.repo.url');
     }.property('componentData'),
 
+    source: function() {
+        return this.get('componentData.repo.source');
+    }.property('componentData'),
+
     name: function() {
-        return this.get('topic.name');
-    }.property('topic.name'),
+        return this.get('model.name');
+    }.property('model.name'),
 
     application: function() {
-        return this.get('topic.tosca_type').split('.')[2].capitalize();
-    }.property('topic.tosca_type'),
+        return this.get('model.tosca_type').split('.')[2].capitalize();
+    }.property('model.tosca_type'),
 
     publisher: function() {
-        return this.get('topic.tosca_type').split('.')[0]
-    }.property('topic.tosca_type'),
+        return this.get('model.tosca_type').split('.')[0]
+    }.property('model.tosca_type'),
 
     domain: function() {
         return this._filterInputs("domain");
-    }.property('topic.domain'),
+    }.property('model.domain'),
 
     sshKey: function() {
         return this._filterInputs("sshkey");
-    }.property('topic.sshkey'),
+    }.property('model.sshkey'),
 
     cpu_cores: function() {
         return this._filterInputs("cpu");
-    }.property('topic.inputs'),
+    }.property('model.inputs'),
 
     ram: function() {
         return this._filterInputs("ram");
-    }.property('topic.inputs'),
+    }.property('model.inputs'),
 
     componentData: function() {
-        return this.get('topic.components')[0][0]
-    }.property('topic.components'),
+        return this.get('model.components')[0][0]
+    }.property('model.components'),
 
     privateipv4: function() {
         return this._filterOutputs("privateipv4");
     }.property('model.outputs'),
 
-    hasOutputs: Em.computed.notEmpty('topic.outputs'),
+    hasOutputs: Em.computed.notEmpty('model.outputs'),
 
-    hasInputs: Em.computed.notEmpty('topic.inputs'),
+    hasInputs: Em.computed.notEmpty('model.inputs'),
 
     _filterInputs(key) {
         if (!this.get('hasInputs'))
             return "";
-        if (!this.get('topic.inputs').filterBy('key', key)[0])
+        if (!this.get('model.inputs').filterBy('key', key)[0])
             return "";
-        return this.get('topic.inputs').filterBy('key', key)[0].value;
+        return this.get('model.inputs').filterBy('key', key)[0].value;
     },
 
     _filterOutputs(key) {
         if (!this.get('hasOutputs'))
             return "";
-        if (!this.get('topic.outputs').filterBy('key', key)[0])
+        if (!this.get('model.outputs').filterBy('key', key)[0])
             return "";
-        return this.get('topic.outputs').filterBy('key', key)[0].value;
+        return this.get('model.outputs').filterBy('key', key)[0].value;
     },
 
     _checked(value) {
@@ -228,12 +232,12 @@ export default Ember.Controller.extend(BufferedContent, {
     },
 
     createdAt: function() {
-        return new Date(this.get('topic.created_at'));
-    }.property('topic.created_at'),
+        return new Date(this.get('model.created_at'));
+    }.property('model.created_at'),
 
     status: function() {
-        return this.get('topic.status.message');
-    }.property('topic.status'),
+        return this.get('model.status.message');
+    }.property('model.status'),
 
     privateKey: function() {
         return this._filterInputs("sshkey");

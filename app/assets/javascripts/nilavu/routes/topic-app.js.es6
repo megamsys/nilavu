@@ -4,29 +4,47 @@ import LaunchStatus from 'nilavu/models/launch-status';
 // This route is used for retrieving a topic/:id based on params - id
 export default Nilavu.Route.extend({
 
-    setupParams(topic, params) {
-        return topic;
-    },
 
     model(params) {
-        const self = this;
-       const topic = this.modelFor('topic');
+        return params;
+    },
 
-        return topic.reload().then(function(result) {
+    afterModel() {
+        const topic = this.modelFor('topic');
+        if (this.showPredeployer(topic)) {
+            this.replaceWith(topic.url() + '/predeploy', topic);
+        }
+    },
+
+    showPredeployer: function(topic) {
+        if (topic && topic.predeploy_finished) {
+            return false;
+        }
+        const oneOfSuccess = LaunchStatus.create({event_type: topic.status}).get('successKey');
+        if (topic && oneOfSuccess) {
+            return false;
+        }
+
+        //    const oneOfError   = LaunchStatus.TYPES_ERROR.indexOf(topic.status) >=0;
+        return true;
+    },
+
+    setupController(controller, params) {
+        params = params || {};
+        const self = this,
+            topic = this.modelFor('topic'),
+            topicController = this.controllerFor('topic');
+
+        params.forceLoad = false;
+
+        const promise = topic.reload().then(function(result) {
+            topicController.setProperties({model: topic});
             self.set('loading', false);
-            return self.setupParams(topic, params);
         }).catch(function(e) {
+            self.notificationMessages.error(I18n.t("vm_management.topic_load_error"));
             self.set('loading', false);
         });
     },
-
-    setupController(controller, model) {
-        const topicController = this.controllerFor('topic');
-        topicController.setProperties({
-             topic : model
-        });
-    },
-
 
     renderTemplate() {
         this.render('navigation/default', {outlet: 'navigation-bar'});

@@ -25,7 +25,7 @@ export default Nilavu.Route.extend({
             return false;
         }
 
-        //    const oneOfError   = LaunchStatus.TYPES_ERROR.indexOf(topic.status) >=0;
+        //  const oneOfError   = LaunchStatus.TYPES_ERROR.indexOf(topic.status) >=0;
         return true;
     },
 

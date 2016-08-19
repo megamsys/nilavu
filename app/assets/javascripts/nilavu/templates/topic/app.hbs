@@ -5,8 +5,8 @@
         <div class="vm-bg">
             <div class="overview-top ">
                 <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-                    <label class="col-md-6"><i class="fa fa-hdd-o"></i>Repo Url</label>
-                    <a href="{{id}}" target="_blank" >{{id}}</a>
+                    <label class="col-md-6"><i class="fa fa-hdd-o"></i>Repository</label>
+                    <a href="{{url}}" target="_blank" >{{url}}</a>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
                     <label class="col-md-6"><i class="fa fa-columns"></i> Application</label>
@@ -27,16 +27,16 @@
             </div>
 
             <div class="overview-top">
-                <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-                    <label class="col-md-6"> <i class="fa fa-bullseye"></i> OS </label>
-                    <span1 style="border-bottom:none;">{{brandImage}}</span1>
-                </div>
+              <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+                  <label class="col-md-6"> <i class="fa fa-bullseye"></i> Publisher </label>
+                  <span1 style="border-bottom:none;">{{publisher}}</span1>
+              </div>
 
 
                 <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
                     <label class="col-md-6"><i class="fa fa-building-o"></i>SSH key</label>
                       <span1 style="border-bottom:none;"><a href {{action "download" privateKey privatekeyType}} class="btn-dark-blue ">
-                        <i class="c_icon-in"></i><span>{{sshKey}}</span>
+                        <i class="c_icon-in"></i>&nbsp;&nbsp;<span>{{sshKey}}</span>
                         <span class="pull-right">
                           {{conditional-loading-spinner condition=showPublicSpinner size="large"}}
                         </span>
@@ -55,12 +55,13 @@
                       <span1 style="border-bottom:none;">{{createdAt}}</span1>
                 </div>
             </div>
-            <div class="overview-top">
+            <div class="overview-top ">
                 <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-                    <label class="col-md-6"> <i class="fa fa-bullseye"></i> Publisher </label>
-                    <span1 style="border-bottom:none;">{{publisher}}</span1>
+                    <label class="col-md-6"><i class="fa fa-hdd-o"></i>Source</label>
+                    <span1 style="border-bottom:none;">{{source}}<</span1>
                 </div>
             </div>
+
         </div>
 
         <div class="bottom-divider"></div>
@@ -94,12 +95,12 @@
                                 <div class="row app_icon">
                                     <div class="app_center row">
                                         <div class="col-md-6">
-                                            <p><i class="fa fa-hdd-o"></i> Available RAM </p>
-                                            <p><i class="fa fa-columns"></i> CPU Core </p>
-                                            <p><i class="fa fa-bullseye"></i> OS </p>
-                                            <p><i class="fa fa-puzzle-piece"></i> IP </p>
-                                            <p><i class="fa fa-lock"></i> SSH Key</p>
-                                            <p><i class="fa fa-lock"></i> Application Url</p>
+                                            <p>Available RAM </p>
+                                            <p>CPU Core </p>
+                                            <p>OS </p>
+                                            <p>IP </p>
+                                            <p>SSH Key</p>
+                                            <p>Application Url</p>
                                         </div>
                                         <div class="col-md-6 vm-right ">
                                             <p>{{ram}}</p>
@@ -107,12 +108,12 @@
                                             <p>{{brandImage}}</p>
                                             <p>192.168.0.5</p>
                                             <p> <a href {{action "download" privateKey privatekeyType}} class="btn-dark-blue ">
-                                              <i class="c_icon-in"></i><span>{{sshKey}}</span>
+                                              <i class="c_icon-in"></i>&nbsp;&nbsp;<span>{{sshKey}}</span>
                                               <span class="pull-right">
                                                 {{conditional-loading-spinner condition=showPublicSpinner size="large"}}
                                               </span>
                                             </a></p>
-                                            <p>{{topic-link topic}}</p>
+                                            <p>{{topic-link model}}</p>
                                         </div>
                                     </div>
                                 </div>
