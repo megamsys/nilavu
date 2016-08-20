@@ -17,7 +17,7 @@
 class CockpitsController < ApplicationController
     include CockpitListResponder
 
-    respond_to :html, :js
+    respond_to :html, :js, :json
 
     skip_before_filter :check_xhr
 
@@ -50,7 +50,7 @@ class CockpitsController < ApplicationController
     end
 
     def microservices
-        params[:filter] = Api::Assemblies::MICROSERVICES
+        params[:filter] = Api::Assemblies::MICROSERVICE
         respond_with_list(Api::Assemblies.new.list(params).baked.flatten)
     end
 end

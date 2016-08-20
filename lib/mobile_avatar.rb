@@ -31,9 +31,8 @@ class MobileAvatar
             bipping_number(identity)
         end
 
-        def verify(identity)
+        def verify(opts = nil)
             identity = opts && opts[:identity]
-
             return Nilavu::NotFound unless identity
 
             bipped_number(identity)

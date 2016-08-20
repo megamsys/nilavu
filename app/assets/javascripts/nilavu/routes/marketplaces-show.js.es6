@@ -47,6 +47,12 @@ export default Nilavu.Route.extend({
             controller: 'marketplaces',
             outlet: 'list-container'
         });
+    },
+    actions: {
+      didTransition() {
+        this.controllerFor("application").set("showFooter", true);
+        return true;
+      }
     }
 
 });

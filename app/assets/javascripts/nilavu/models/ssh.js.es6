@@ -13,13 +13,13 @@ const Ssh = RestModel.extend({
         const self = this;
         self.set('ssh', json);
 
-        const keys = Object.keys(json);      
+        const keys = Object.keys(json);
         keys.forEach(key => { self.set(key, json[key]) });
     },
 
     reload() {
         const self = this;
-        return Nilavu.ajax("/ssh_key/list", { type: 'GET' }).then(function(ssh_json) {
+        return Nilavu.ajax("/sshkeys", { type: 'GET' }).then(function(ssh_json) {
             self.updateFromJson(ssh_json);
         });
     }

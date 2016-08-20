@@ -13,6 +13,8 @@ export default Ember.Controller.extend({
     rejectedEmails: Em.A([]),
     rejectedPasswords: Em.A([]),
     isDeveloper: false,
+    format: /^([a-zA-Z])+$/,
+    isPhone: false,
 
     hasAuthOptions: Em.computed.notEmpty('authOptions'),
     canCreateLocal: setting('enable_local_logins'),
@@ -53,8 +55,11 @@ export default Ember.Controller.extend({
         if (this.get('passwordConfirmValidation.failed'))
             return true;
 
+        if (this.get('phonenumberValidation.failed'))
+            return true;
+
         return false;
-    }.property('passwordRequired', 'nameValidation.failed', 'emailValidation.failed', 'passwordValidation.failed', 'passwordConfirmValidation.failed', 'formSubmitted'),
+    }.property('passwordRequired', 'nameValidation.failed', 'emailValidation.failed', 'passwordValidation.failed', 'passwordConfirmValidation.failed', 'formSubmitted', 'phonenumberValidation.failed'),
 
     usernameRequired: Ember.computed.not('authOptions.omit_username'),
 
@@ -73,6 +78,8 @@ export default Ember.Controller.extend({
             ? 'user.name.instructions_required'
             : 'user.name.instructions');
     }.property(),
+
+    phoneInstruction: function() {},
 
     // Validate the name.
     nameValidation: function() {
@@ -136,7 +143,10 @@ export default Ember.Controller.extend({
         }
 
         if (!Ember.isEmpty(this.get('accountPasswordConfirm')) && this.get('accountPassword') != this.get('accountPasswordConfirm')) {
-            return Nilavu.InputValidation.create({failed: true, reason: I18n.t('user.password.instructions', {count: Nilavu.SiteSettings.min_password_length})});
+            return Nilavu.InputValidation.create({
+                failed: true,
+                reason: I18n.t('user.password.instructions', {count: Nilavu.SiteSettings.min_password_length})
+            });
         }
 
     }.property('accountPasswordConfirm', 'accountPassword'),
@@ -166,6 +176,24 @@ export default Ember.Controller.extend({
         return Nilavu.InputValidation.create({failed: false, reason: I18n.t('user.email.checking')});
 
     }.property('accountEmail', 'rejectedEmails.@each'),
+
+    phonenumberValidation: function() {
+        if (Ember.isEmpty(this.get('phonenumber'))) {
+            return Nilavu.InputValidation.create({failed: true});
+        }
+        if (!Ember.isEmpty(this.get('phonenumber').match(this.get('format')))) {
+            return Nilavu.InputValidation.create({failed: true, reason: I18n.t('user.phone.ischaracter')});
+        }
+        const phone = this.get('phonenumber');
+        const phoneLength = this.get('isPhone')
+            ? Nilavu.SiteSettings.min_admin_phone_length
+            : Nilavu.SiteSettings.min_phone_length;
+        if (phone.length < phoneLength) {
+            return Nilavu.InputValidation.create({failed: true, reason: I18n.t('user.phone.too_short')});
+        }
+        // Looks good!
+        return Nilavu.InputValidation.create({ok: true, reason: I18n.t('user.phone.ok')});
+    }.property('phonenumber', 'format', 'isPhone'),
 
     shouldCheckEmailAvailability: function() {
         return !Ember.isEmpty(this.get('accountEmail'));
