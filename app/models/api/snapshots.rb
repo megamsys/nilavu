@@ -26,38 +26,15 @@ module Api
         end
 
         def perlist(params, &_block)
-            #raw = api_request(SNAPSHOTS, SHOW, params)
-            #        dig_snapshots(raw[:body]) unless raw.nil?
-            dig_snapshots(params)
+            @snapshots_per = api_request(SNAPSHOTS, SHOW, params)
             yield self  if block_given?
             self
         end
 
         def list(params, &_block)
-            raw = api_request(SNAPSHOTS, LIST, params)
-            #        dig_snapshots(raw[:body]) unless raw.nil?
-            dig_snapshots(params)
+            @snapshots_all = api_request(SNAPSHOTS, LIST, params)
             yield self  if block_given?
             self
-        end
-
-        def dig_snapshots(rwa)
-
-            @snapshots_per = [{
-                name: "snap0001",
-                snap_id: "SNP0XARB0001",
-                asm_id: 'ASM00000001',
-            created_at:  '21/11/2016 20:30:00'}]
-
-            @snapshots_all = [{
-                name: "snap0002",
-                snap_id: "SNP0XARB0002",
-                asm_id: 'ASM00000002',
-                created_at:  '22/11/2016 21:30:10'},{
-                name: "snap0004",
-                snap_id: "SNP0XARB0004",
-                asm_id: 'ASM00000004',
-            created_at:  '23/11/2016 22:30:20'}]
         end
     end
 end

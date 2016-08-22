@@ -38,7 +38,7 @@ export default Nilavu.Route.extend({
         params.forceLoad = false;
 
         const promise = topic.reload().then(function(result) {
-            topicController.setProperties({model: topic});
+            topicController.setProperties({model : topic});
             self.set('loading', false);
         }).catch(function(e) {
             self.notificationMessages.error(I18n.t("vm_management.topic_load_error"));
