@@ -5,10 +5,9 @@ export default Ember.Component.extend({
     ],
     attributeBindings: ['data-topic-id'],
     'data-topic-id': Em.computed.alias('topic.id'),
-
-    appcategory: function() {
+    appCategory: function() {
         return Em.isEqual(this.get("showCategory"), "torpedo");
-    },
+    }.property(),
 
     actions: {
         select() {
@@ -35,6 +34,7 @@ export default Ember.Component.extend({
 
         if (split.length >= 2) {
             var brandImageUrl = split[2];
+
             return `<img src="../images/brands/${brandImageUrl}.png" />`.htmlSafe();
         }
 

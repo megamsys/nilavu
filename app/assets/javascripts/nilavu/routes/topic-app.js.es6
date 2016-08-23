@@ -4,15 +4,17 @@ import LaunchStatus from 'nilavu/models/launch-status';
 // This route is used for retrieving a topic/:id based on params - id
 export default Nilavu.Route.extend({
 
-    // Avoid default model hook
+  redirect() {
+      return this.redirectIfLoginRequired();
+  },
+
     model(params) {
         return params;
     },
 
 
     afterModel() {
-        const topic =
-        this.modelFor('topic');
+        const topic = this.modelFor('topic');
         if (this.showPredeployer(topic)) {
             this.replaceWith(topic.url() + '/predeploy', topic);
         }
@@ -22,9 +24,7 @@ export default Nilavu.Route.extend({
         if (topic && topic.predeploy_finished) {
             return false;
         }
-        const oneOfSuccess = LaunchStatus.create({
-            event_type: topic.status
-        }).get('successKey');
+        const oneOfSuccess = LaunchStatus.create({event_type: topic.status}).get('successKey');
         if (topic && oneOfSuccess) {
             return false;
         }
@@ -37,14 +37,10 @@ export default Nilavu.Route.extend({
         params = params || {};
         const self = this,
             topic = this.modelFor('topic'),
-            topicController = this.controllerFor('topic');
-
-        params.forceLoad = false;
-
+            topicappController = this.controllerFor('topic-app').setProperties({model: topic});
+              params.forceLoad = false;
         const promise = topic.reload().then(function(result) {
-            topicController.setProperties({
-                model: topic
-            });
+            topicappController.setProperties({model: topic});
             self.set('loading', false);
         }).catch(function(e) {
             self.notificationMessages.error(I18n.t("vm_management.topic_load_error"));
@@ -53,16 +49,12 @@ export default Nilavu.Route.extend({
     },
 
     renderTemplate() {
-        this.render('navigation/default', {
-            outlet: 'navigation-bar'
-        });
+        this.render('navigation/default', {outlet: 'navigation-bar'});
 
         this.render('topic/app', {
-            controller: 'topic',
+            controller: 'topic-app',
             outlet: 'list-container'
         });
     }
-
-
 
 });

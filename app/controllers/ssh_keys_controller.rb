@@ -44,7 +44,7 @@ class SshKeysController < ApplicationController
     Api::Sshkeys.new.create_or_import(params)
     render json: {
       success: true,
-      message: "#{params[:ssh_keypair_name]} #{I18n.t('ssh_keys.create_success')}",
+      message: I18n.t('ssh_keys.create_success')
     }
   end
 
@@ -91,7 +91,7 @@ class SshKeysController < ApplicationController
     Api::Sshkeys.new.create_or_import(params)
     render json: {
       success: true,
-      message: "#{params[:ssh_keypair_name]} #{I18n.t('ssh_keys.import_success')}",
+      message: "#{params[:keypairname]} #{I18n.t('ssh_keys.import_success')}",
     }
   end
 end
