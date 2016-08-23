@@ -34,7 +34,6 @@ export default Nilavu.Route.extend({
         const self = this,
             topic = this.modelFor('topic'),
             topicController = this.controllerFor('topic');
-
         params.forceLoad = false;
 
         const promise = topic.reload().then(function(result) {

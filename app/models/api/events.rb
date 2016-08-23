@@ -37,16 +37,5 @@ module Api
             baked(raw[:body])
         end
 
-        def std(evt_type, desc)
-            {
-                id: 'NTF' + rand(100...1000).to_s,
-                event_type: evt_type,
-                account_id: "",
-                assembly_id: "ASM00001",
-                data: [{key: :desc, value: desc}, {key: :read, value: false}],
-                created_at: Time.now + 10
-            }
-        end
-
     end
 end

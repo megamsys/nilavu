@@ -36,5 +36,6 @@ module Api
             yield self  if block_given?
             self
         end
+
     end
 end
