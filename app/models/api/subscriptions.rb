@@ -17,22 +17,12 @@ module Api
     class Subscriptions < ApiDispatcher
 
         def where(params)
-            raw = api_request(SUBSCRIPTIONS,SHOW, params)
-            #        dig_subscriptions(raw[:body]) unless raw.nil?
-            dig_subscriptions(params)
+             api_request(SUBSCRIPTIONS,SHOW, params)
+
         end
 
         def save(params)
             api_request(SUBSCRIPTIONS, CREATE,params)
-        end
-
-        private
-
-        def dig_subscriptions(rws)
-            {   model: "ondemand",
-                license: "trial",
-                trial_ends: "21/11/2016 20:30:00",
-            created_at:  '21/11/2016 20:30:00'}
         end
     end
 end

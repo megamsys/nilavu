@@ -28,7 +28,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
             this.set('spinnerIn', true);
             Nilavu.ajax('/ssh_keys/import', {
                 data: {
-                    ssh_keypair_name: self.get('sshKeyImportName').trim(),
+                    keypairname: self.get('sshKeyImportName').trim(),
                     ssh_private_key: self.get('sshPrivateKeyValue'),
                     ssh_public_key: self.get('sshPublicKeyValue')
                 },

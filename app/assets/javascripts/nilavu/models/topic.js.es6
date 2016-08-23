@@ -1,7 +1,7 @@
-import {flushMap} from 'nilavu/models/store';
+import { flushMap } from 'nilavu/models/store';
 import RestModel from 'nilavu/models/rest';
-import {propertyEqual} from 'nilavu/lib/computed';
-import {longDate} from 'nilavu/lib/formatter';
+import { propertyEqual } from 'nilavu/lib/computed';
+import { longDate } from 'nilavu/lib/formatter';
 import computed from 'ember-addons/ember-computed-decorators';
 
 export function loadTopicView(topic, args) {
@@ -11,16 +11,14 @@ export function loadTopicView(topic, args) {
 
     const url = Nilavu.getURL("/t/") + topicId;
 
-    const jsonUrl = (data.nearPost
-        ? `${url}/${data.nearPost}`
-        : url) + '.json';
+    const jsonUrl = (data.nearPost ? `${url}/${data.nearPost}` : url) + '.json';
 
     delete data.nearPost;
     delete data.__type;
     delete data.store;
 
     return PreloadStore.getAndRemove(`topic_${topicId}`, () => {
-        return Nilavu.ajax(jsonUrl, {data});
+        return Nilavu.ajax(jsonUrl, { data });
     }).then(json => {
         topic.updateFromJson(json);
         return json;
@@ -32,49 +30,56 @@ const Topic = RestModel.extend({
     errorLoading: false,
 
     postStream: function() {
-        return this.store.createRecord('postStream', {
-            id: this.get('id'),
-            topic: this
-        });
+        return this.store.createRecord('postStream', { id: this.get('id'), topic: this });
     }.property(),
 
     url: function(category) {
-        let slug = this.get('slug') || '';
-        if (slug.trim().length === 0) {
-            slug = "topic";
-        }
-        return Nilavu.getURL("/t/") + (this.get('id'));
-    },
+          let slug = this.get('slug') || '';
+          if (slug.trim().length === 0) {
+              slug = "topic";
+          }
+          return Nilavu.getURL("/t/") + (this.get('id'));
+      },
 
-    appurl: function(category) {
-        let slug = this.get('slug') || '';
-        if (slug.trim().length === 0) {
-            slug = "topic";
-        }
-        return Nilavu.getURL("/t/") + (this.get('id')) + "/app";
-    },
+      appurl: function(category) {
+          let slug = this.get('slug') || '';
+          if (slug.trim().length === 0) {
+              slug = "topic";
+          }
+          return Nilavu.getURL("/t/") + (this.get('id')) + "/app";
+      },
+
 
     filteredCategory: function() {
-        return this.get('tosca_type').split(".")[1]
+      return this.get('tosca_type').split(".")[1];
     }.property(),
+
 
     hasOutputs: Em.computed.notEmpty('outputs'),
 
     // Delete this topic
     destroy(deleted_by) {
-        this.setProperties({deleted_at: new Date(), deleted_by: deleted_by, 'details.can_delete': false, 'details.can_recover': true});
+        this.setProperties({
+            deleted_at: new Date(),
+            deleted_by: deleted_by,
+            'details.can_delete': false,
+            'details.can_recover': true
+        });
         return Nilavu.ajax("/t/" + this.get('id'), {
-            data: {
-                context: window.location.pathname
-            },
+            data: { context: window.location.pathname },
             type: 'DELETE'
         });
     },
 
     // Recover this topic if deleted
     recover() {
-        this.setProperties({deleted_at: null, deleted_by: null, 'details.can_delete': true, 'details.can_recover': false});
-        return Nilavu.ajax("/t/" + this.get('id') + "/recover", {type: 'PUT'});
+        this.setProperties({
+            deleted_at: null,
+            deleted_by: null,
+            'details.can_delete': true,
+            'details.can_recover': false
+        });
+        return Nilavu.ajax("/t/" + this.get('id') + "/recover", { type: 'PUT' });
     },
 
     // Update our attributes from a JSON result
@@ -84,14 +89,12 @@ const Topic = RestModel.extend({
 
         const keys = Object.keys(json);
 
-        keys.forEach(key => {
-            self.set(key, json[key])
-        });
+        keys.forEach(key => { self.set(key, json[key]) });
     },
 
     reload() {
         const self = this;
-        return Nilavu.ajax('/t/' + this.get('id'), {type: 'GET'}).then(function(topic_json) {
+        return Nilavu.ajax('/t/' + this.get('id'), { type: 'GET' }).then(function(topic_json) {
             self.updateFromJson(topic_json);
         });
     }
@@ -128,11 +131,11 @@ Topic.reopenClass({
         }
 
         // Check the preload store. If not, load it via JSON
-        return Nilavu.ajax(url + ".json", {data: data});
+        return Nilavu.ajax(url + ".json", { data: data });
     },
 
     resetNew() {
-        return Nilavu.ajax("/topics/reset-new", {type: 'PUT'});
+        return Nilavu.ajax("/topics/reset-new", { type: 'PUT' });
     }
 });
 
