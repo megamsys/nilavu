@@ -10,6 +10,9 @@ export default Ember.Controller.extend(BufferedContent, {
     loading: false,
     formSubmitted: false,
     otpSubmitted: false,
+    selectedTab: null,
+    panels: null,
+    showTop: false,
 
     subscriber: Ember.computed.alias('model.subscriber'),
     mobavatar: Ember.computed.alias('model.mobavatar_activation'),
@@ -19,6 +22,19 @@ export default Ember.Controller.extend(BufferedContent, {
         console.log(this.get("mobavatar"));
     },
 
+    _initPanels: function() {
+        this.set('panels', []);
+        this.set('selectedTab', 'monthly');
+    }.on('init'),
+
+    hourlySelected: function() {
+        return this.selectedTab == 'hourly';
+    }.property('selectedTab'),
+
+    monthlySelected: function() {
+        return this.selectedTab == 'monthly';
+    }.property('selectedTab'),
+
     title: function() {
         return 'Subscriptions';
     }.property('model'),
@@ -27,7 +43,7 @@ export default Ember.Controller.extend(BufferedContent, {
         return "+61 422 101 421";
     }.property(),
 
-    _initPanels: function() {}.on('init'),
+    // _initPanels: function() {}.on('init'),
 
     orderedCatTypes: function() {
         const grouped_results = this.get('model.results');
@@ -63,6 +79,7 @@ export default Ember.Controller.extend(BufferedContent, {
                 if (Em.isEqual(rs.result, "success")) {
                     NilavuURL.routeTo('/subscriptions/bill/activation');
                 } else {
+                  console.log(JSON.stringify(rs));
                     self.notificationMessages.error(I18n.t(rs.error));
                 }
             });
