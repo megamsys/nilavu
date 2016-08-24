@@ -82,8 +82,10 @@
     width: 100%;
     height: 100%;
     z-index: 1050;
+}
+.modal-body {
     overflow: auto;
-    overflow-y: scroll;
+    padding: 30px;
 }
 .modal-form {
     margin-bottom: 0;
