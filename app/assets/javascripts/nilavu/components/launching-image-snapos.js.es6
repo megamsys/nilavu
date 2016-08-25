@@ -14,10 +14,15 @@ export default Ember.Component.extend({
     }.property('name'),
 
     formatLaunchable: function() {
+      if(this.get('snapshots') == null){
+        return;
+      }
+      else{
         const out = this.get('snapshots').map(function(v) {
             return v.name;
         });
         return out;
+      }
     },
 
 
