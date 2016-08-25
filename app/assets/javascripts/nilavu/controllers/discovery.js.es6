@@ -5,6 +5,9 @@ export default Ember.Controller.extend({
   showTop: true,
   showFooter: true,
   loading: false,
+  isLoadingTorpedo: false,
+  isLoadingApp: false,
+  isLoadingService: false,
 
   category: Em.computed.alias('controllers.navigation/category.category'),
   noSubcategories: Em.computed.alias('controllers.navigation/category.noSubcategories'),
