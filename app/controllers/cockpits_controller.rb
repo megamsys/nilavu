@@ -40,7 +40,7 @@ class CockpitsController < ApplicationController
     end
 
     def app
-        params[:filter] = Api::Assemblies::APP
+        params[:filter] = Api::Assemblies::ALL
         respond_with_list(Api::Assemblies.new.list(params).baked.flatten)
     end
 

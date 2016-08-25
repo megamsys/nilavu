@@ -34,7 +34,6 @@ export default Ember.Component.extend({
 
         if (split.length >= 2) {
             var brandImageUrl = split[2];
-
             return `<img src="../images/brands/${brandImageUrl}.png" />`.htmlSafe();
         }
 

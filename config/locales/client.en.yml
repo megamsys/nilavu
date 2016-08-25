@@ -514,6 +514,12 @@ en:
       apikey:
         tab_title: "Apikey"
 
+    sub_activate:
+      hourly:
+        tab_title: "On-Demand Hourly"
+      monthly:
+        tab_title: "Quota Based Monthly"
+
     vm_management:
       info:
         tab_title: "Info"
