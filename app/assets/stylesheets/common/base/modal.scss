@@ -70,11 +70,19 @@
 }
 .modal-inner-container {
     max-width: 810px;
+    overflow-x: hidden;
+    max-height: 80vh;
+    overflow-y: auto;
     margin: 0 auto;
     background-color: $secondary;
     border: 1px solid #545454;
     box-shadow: 0 3px 7px rgba(0,0,0, .8);
     background-clip: padding-box;
+}
+div#component-create {
+    overflow-y: auto;
+    max-height: 70vh;
+    overflow-x: hidden;
 }
 .modal {
     position: absolute;

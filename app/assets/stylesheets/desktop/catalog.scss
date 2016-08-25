@@ -91,12 +91,6 @@ p a:hover {
 color: grey;
 }
 
-/* Have scroll on all pages, so that we can remove screen shake in paypal click */
-html {
-  overflow-y: scroll;
-}
-
-
 #loading {
 	position: absolute;
 	top:50%;
