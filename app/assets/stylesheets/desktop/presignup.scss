@@ -14,7 +14,14 @@
       line-height: 40px;
       color: white;
   }
-  
+  a:hover#resend_otp {
+    font-weight: 700;
+    color: #c7e8c1 !important;
+  }
+  a#resend_otp {
+      color: #c7e8c1;
+      font-weight: 500;
+  }
   .welcome-text {
       text-align: center;
   }
