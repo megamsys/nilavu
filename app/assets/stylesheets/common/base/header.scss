@@ -286,3 +286,15 @@
     right: 10px;
     top: -6px;
 }
+@media (max-width: 768px) {
+    .xs-centerBlock-m {
+      display: table !important;
+      margin: 15px auto;
+      float: none!important;
+    }
+    .xs-centerBlock {
+      float: none;
+      display: table !important;
+      margin: 0 auto!important;
+    }
+}

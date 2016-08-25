@@ -60,7 +60,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
         if (this.get('selectionSelected') && (!this.get('isVirtualMachine'))) {
             this.set('controllers.modal.modalClass', 'edit-category-modal medium');
         } else if (this.get('selectionSelected')) {
-            this.set('controllers.modal.modalClass', 'edit-category-modal small');
+            this.set('controllers.modal.modalClass', 'edit-category-modal full');
         } else if (this.get('generalSelected')) {
             //$('.firstStep').slideToggle('fast');
             this.set('controllers.modal.modalClass', 'edit-category-modal full');

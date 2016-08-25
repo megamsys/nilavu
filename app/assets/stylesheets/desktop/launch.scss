@@ -9,6 +9,14 @@ $hiddenContent: "input#vm, input#app, .hideme, .hideme2, .hideme3, .hideme-custo
 #{$hiddenContent} {
     display: none;
 }
+.nav-tabs.nav-justified > li {
+    display: table-cell;
+    width: 1%;
+}
+.centerBlock {
+    display: table;
+    margin: 15px auto;
+}
 .invisible {
     display: none;
 }

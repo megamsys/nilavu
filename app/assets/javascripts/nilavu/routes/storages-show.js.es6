@@ -1,5 +1,5 @@
 import showModal from 'nilavu/lib/show-modal';
-import Bucketfiless from 'nilavu/models/bucketfiles';
+import Bucketfiles from 'nilavu/models/bucketfiles';
 
 export default Nilavu.Route.extend({
 

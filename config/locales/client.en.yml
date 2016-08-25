@@ -514,6 +514,12 @@ en:
       apikey:
         tab_title: "Apikey"
 
+    sub_activate:
+      hourly:
+        tab_title: "On-Demand Hourly"
+      monthly:
+        tab_title: "Quota Based Monthly"
+
     vm_management:
       info:
         tab_title: "Info"
@@ -533,7 +539,7 @@ en:
         content_hdd_size: "Size"
       snapshots:
         tab_title: "Snapshots"
-        description: "Snapshots can provide an easy way to scale out a system: you can take a snapshot of a current server and spin up a new virtual machine  from the snapshot. As soon as the process completes, you will have two identical servers to bolster your setup."
+        description: "Snapshots can provide an easy way to scale out a system or store your current virtual machine's state."
         list_title: "Created Snapshots"
         content_id: "Id"
         content_name: "Name"
