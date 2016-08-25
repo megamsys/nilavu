@@ -63,7 +63,25 @@ const controllerOpts = {
   }.property(),
 
   actions: {
-
+    
+    createTorpedo() {
+      const self = this;
+      self.set('isLoadingTorpedo', true);
+      self.send('createTopic');
+    },
+    
+    createApp() {
+      const self = this;
+      self.set('isLoadingApp', true);
+      self.send('createTopic');
+    },
+    
+    createService() {
+      const self = this;
+      self.set('isLoadingService', true);
+      self.send('createTopic');
+    },
+    
     createTopic() {
       const self = this;
       // Don't show  if we're still loading, may be show a growl.
@@ -72,13 +90,21 @@ const controllerOpts = {
       self.set('loading', true);
 
       const promise =  this.openComposer(this.controllerFor("discovery/topics")).then(function(result) {
-        self.set('loading', false);
         showModal('editCategory', {model: result, smallTitle: false, titleCentered: true, close:true});
+        self.send('stopLoading');
       }).catch(function(e) {
-          self.set('loading', false);
+          self.send('stopLoading');
       });
     },
-
+    
+    stopLoading() {
+      const self = this;
+      self.set('loading', false);
+      self.set('isLoadingTorpedo', false);
+      self.set('isLoadingApp', false);
+      self.set('isLoadingService', false);
+    },
+    
     changeSort(sortBy) {
       if (sortBy === this.get('order')) {
         this.toggleProperty('ascending');

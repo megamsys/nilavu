@@ -5,7 +5,7 @@ import { wantsNewWindow } from 'nilavu/lib/intercept-click';
 import NilavuURL from 'nilavu/lib/url';
 
 export default createWidget('home-logo', {
-  tagName: 'div.col-lg-2.col-md-2.col-sm-3.col-xs-6',
+  tagName: 'div.col-lg-2.col-md-2.col-sm-3.col-xs-12',
 
   settings: {
     href: '/'
@@ -43,7 +43,7 @@ export default createWidget('home-logo', {
   },
 
   html() {
-    return h('a', { attributes: { href: this.href(), 'data-auto-route': true, class: 'navbar-brand' } }, this.logo());
+    return h('a', { attributes: { href: this.href(), 'data-auto-route': true, class: 'navbar-brand xs-centerBlock' } }, this.logo());
   },
 
   click(e) {
