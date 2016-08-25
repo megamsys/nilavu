@@ -76,6 +76,11 @@
     box-shadow: 0 3px 7px rgba(0,0,0, .8);
     background-clip: padding-box;
 }
+div#component-create {
+    overflow-y: auto;
+    max-height: 75vh;
+    overflow-x: hidden;
+}
 .modal {
     position: absolute;
     top: 0;
