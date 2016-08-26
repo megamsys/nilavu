@@ -242,6 +242,7 @@ en:
         confirmpassword: "Retype the Password"
         blank_password: "Please enter your Password"
         confirm: "Your password is confirmed"
+        notmatch: "Your password doesnot match"
 
       phone:
         ischaracter: "Your number must be an interger"
