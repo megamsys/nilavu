@@ -349,7 +349,7 @@ en:
       virtualmachines: "virtualmachines"
       applications: "applications"
       title: "Let's Get Started"
-      selection_virtualmachine_title: "Choose Distro"
+      selection_virtualmachine_title: "VNC"
       selection_application_title: "Choose App"
       summary_title: "Your Launch Summary"
       general:     "Step 1    "
