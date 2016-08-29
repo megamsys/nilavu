@@ -37,6 +37,10 @@ export default function(name, opts) {
     if (opts.title) {
       modalController.set('title', I18n.t(opts.title));
     }
+
+    if (opts.userTitle) {
+      modalController.set('title', opts.userTitle);
+    }
   }
 
   if (controller) {
