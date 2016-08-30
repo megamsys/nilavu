@@ -28,7 +28,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
           Nilavu.ajax('/ssh_keys', {
               data: {
-                  ssh_keypair_name: this.get('sshKeyCreateName').trim()
+                  keypairname: this.get('sshKeyCreateName').trim()
               },
               type: 'POST'
           }).then(function(result) {

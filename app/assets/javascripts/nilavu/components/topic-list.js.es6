@@ -31,7 +31,7 @@ export default Ember.Component.extend({
     filteredTopics: function() {
         const cat = this.get('showCategory');
         return this.get('topics').filter(function(topic) {
-            return topic.get('filteredCategory').match(cat);
+        return Ember.isEqual(topic.get('filteredCategory'), cat);
         });
     }.property(),
 
@@ -56,7 +56,5 @@ export default Ember.Component.extend({
         });
     },
 
-    actions: {
-
-    }
+    actions: {}
 });

@@ -102,22 +102,14 @@ export default Ember.Controller.extend(BufferedContent, {
 
     getData(reqAction) {
         return {
-            id: this.get('model').id,
-            cat_id: this.get('model').asms_id,
-            name: this.get('model').name,
-            req_action: reqAction,
-            cattype: this.get('model').tosca_type.split(".")[1],
+            id: this.get('model').id, cat_id: this.get('model').asms_id, name: this.get('model').name, req_action: reqAction, cattype: this.get('model').tosca_type.split(".")[1],
             category: "control"
         };
     },
 
     getDeleteData() {
         return {
-            id: this.get('model').id,
-            cat_id: this.get('model').asms_id,
-            name: this.get('model').name,
-            action: "delete",
-            cattype: this.get('model').tosca_type.split(".")[1],
+            id: this.get('model').id, cat_id: this.get('model').asms_id, name: this.get('model').name, action: "delete", cattype: this.get('model').tosca_type.split(".")[1],
             category: "state"
         };
     },
@@ -141,6 +133,7 @@ export default Ember.Controller.extend(BufferedContent, {
         });
     },
 
+
     actions: {
 
         refresh() {
@@ -160,7 +153,11 @@ export default Ember.Controller.extend(BufferedContent, {
             if (host == undefined || host == "" || port == "" || port == undefined) {
                 this.notificationMessages.error(I18n.t('vm_management.vnc_host_port_empty'));
             } else {
-                showModal('vnc').setProperties({host: host, port: port});
+                showModal('vnc' ,{
+                    userTitle: "VNC Connected :"+this.get('title'),
+                    smallTitle: true,
+                    titleCentered: true
+                }).setProperties({host: host, port: port});
             }
 
         },

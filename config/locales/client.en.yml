@@ -242,6 +242,7 @@ en:
         confirmpassword: "Retype the Password"
         blank_password: "Please enter your Password"
         confirm: "Your password is confirmed"
+        notmatch: "Your password doesnot match"
 
       phone:
         ischaracter: "Your number must be an interger"
@@ -348,7 +349,7 @@ en:
       virtualmachines: "virtualmachines"
       applications: "applications"
       title: "Let's Get Started"
-      selection_virtualmachine_title: "Choose Distro"
+      selection_virtualmachine_title: "VNC"
       selection_application_title: "Choose App"
       summary_title: "Your Launch Summary"
       general:     "Step 1    "
@@ -514,6 +515,12 @@ en:
       apikey:
         tab_title: "Apikey"
 
+    sub_activate:
+      hourly:
+        tab_title: "On-Demand Hourly"
+      monthly:
+        tab_title: "Quota Based Monthly"
+
     vm_management:
       info:
         tab_title: "Info"
@@ -533,7 +540,7 @@ en:
         content_hdd_size: "Size"
       snapshots:
         tab_title: "Snapshots"
-        description: "Snapshot is a copy of the virtual machine's disk file at a given point in time. Snapshots provide a change log for the virtual disk and are used to restore a VM to a particular point in time when a failure or system error occurs."
+        description: "Snapshots can provide an easy way to scale out a system or store your current virtual machine's state."
         list_title: "Created Snapshots"
         content_id: "Id"
         content_name: "Name"

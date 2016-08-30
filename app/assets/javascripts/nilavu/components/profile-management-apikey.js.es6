@@ -9,7 +9,7 @@ export default buildCategoryPanel('apikey', {
   }.property('model.api_key'),
 
   createdAt: function() {
-      return this.get('model.createdAt');
-  }.property('model.createdAt'),
+      return this.get('model.created_at');
+  }.property('model.created_at'),
 
 });

@@ -26,24 +26,9 @@ module Api
 
 
         def list(params, &_block)
-            #raw = api_request(BILLINGTRANSACTIONS, LIST, params)
-            #        dig_transactions(raw[:body]) unless raw.nil?
-            dig_transactions(params)
+             @transactions =api_request(BILLINGTRANSACTIONS, LIST, params)
             yield self  if block_given?
             self
-        end
-
-        def dig_transactions(rwa)
-            @transactions = [{
-                accounts_id: 'cloud@det.io',
-                gateway: 'paypal',
-                amountin: '10',
-                amountout: '10.99',
-                fees: '0.99',
-                tranid: 'KXY00X1',
-                trandate: '21/11/2016',
-                currency_type: '$',
-            created_at:  '21/11/2016 20:30:00'}]
         end
     end
 end
