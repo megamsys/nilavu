@@ -92,7 +92,7 @@ createWidget('notification-item', {
         const notificationType = attrs.event_type;
         const lookup = this.site.get('notificationLookup');
         const notName = lookup[notificationType];
-        const descs = attrs.data.filter((f) => f.key == 'desc');
+        const descs = attrs.data.filter((f) => f.key == 'description');
         const desc = descs.get('firstObject').value;
         const dt = new Date(attrs.created_at);
         const when = autoUpdatingRelativeAge(dt, { format: 'medium-with-ago' });
