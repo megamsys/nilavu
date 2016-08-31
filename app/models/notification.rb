@@ -9,7 +9,12 @@ class Notification
 
         params[:count] = count
 
+        if params[:id]
+          notifications =  Api::Events.new.recent_by_id(params)
+        else
         notifications =  Api::Events.new.recent(params)
+      end
+
 
         # notifications = notifications.to_a
 
