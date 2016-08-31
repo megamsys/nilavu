@@ -30,8 +30,6 @@ createWidget('post-article', {
     html(attrs, state) {
         const event_occurred_at = attrs.created_at;
         const event_id = attrs.id;
-        // const event_type = attrs.event_type.split('.')[2].toUpperCase();
-        // const event_desc = attrs.data.map((d) => d.value);
         const desc = attrs.data.filter((f) => f.key == 'description');
         const status = attrs.data.filter((f) => f.key == 'status');
         const rows = [h("h4", status.get('firstObject').value + " - " + desc.get('firstObject').value)];
