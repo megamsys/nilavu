@@ -77,7 +77,7 @@ class User
     end
 
     def repassword
-        Api::Accounts.new.repassword(update_hash)
+        Api::Accounts.new.repassword(update_hash_reset)
     end
 
     def email_available?
@@ -148,7 +148,7 @@ class User
     }
   end
 
-  def update_hash
+  def update_hash_reset
     {:email => @email,
       :api_key => @api_key,
       :password => ensure_password_is_hashed,

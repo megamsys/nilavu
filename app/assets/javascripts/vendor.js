@@ -37,3 +37,5 @@
 //= require virtual-dom
 //= require virtual-dom-amd
 //= require_tree ./nilavu/ember
+//= require intlTelInput.js
+//= require utils.js
