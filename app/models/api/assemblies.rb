@@ -88,6 +88,7 @@ module Api
                         Api::Assembly.new.show(api_params.merge(id: one_assembly, asms_id: one_assemblies.id)).baked
                     end
                 end
+
                 a1
             end
             filter(api_params[:filter]) unless api_params[:filter] == ALL

@@ -4,7 +4,6 @@ class NotificationsController < ApplicationController
 
     def index
         user = current_user
-
         if params[:recent].present?
 
             limit = (params[:limit] || 15).to_i
