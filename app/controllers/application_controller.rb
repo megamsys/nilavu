@@ -274,6 +274,14 @@ class ApplicationController < ActionController::Base
     session[:destination_url] = destination_url
   end
 
+  def redirect_to_user_activation_required
+    user_activator = UserActivationChecker.new(current_user)
+
+    if user_activator.completed?
+        redirect_to "/"
+    end
+  end
+
   def set_current_user_with_team
     if current_user && !current_user.team
       Teams.new.tap do |teams|

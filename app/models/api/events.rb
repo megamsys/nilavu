@@ -35,7 +35,7 @@ module Api
         def recent(api_params, &_block)
             raw = api_request(EVENTS, LIST, api_params)
             baked(raw[:body])
-        end      
+        end
 
     end
 end
