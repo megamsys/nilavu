@@ -56,7 +56,7 @@ gem 'omniauth-oauth2', require: false
 gem 'omniauth-google-oauth2'
 
 # 3rd party system api's
-gem 'megam_api', '1.5.8'
+gem 'megam_api', '1.5.9'
 gem 'docker_registry'
 gem 'radosgw-s3'
 gem 'haikunator' #random name.
