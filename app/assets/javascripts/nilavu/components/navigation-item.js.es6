@@ -8,7 +8,7 @@ export default Ember.Component.extend(StringBuffer, {
   hasIcon: true,
   hidden: Em.computed.not('content.visible'),
   rerenderTriggers: ['content.count'],
-
+  
   @computed("content.categoryName", "content.name")
   title(categoryName, name) {
     const extra = {};
