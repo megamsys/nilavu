@@ -17,7 +17,7 @@
                   <a href {{action "createTorpedo"}}>
                       <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover one_<%= cattype %>">
                         <div class="app_inner">
-                            <div class="app_new">
+                            <div class="app_new {{if isLoadingTorpedo "no-pad" "padding"}}">
                               <span class="glyphicon {{if isLoadingTorpedo "spin extra-large" "glyphicon-plus"}}"></span>
                               <p>
                                 {{#unless isLoadingTorpedo}}
@@ -52,7 +52,7 @@
                   <a href {{action "createApp"}}>
                       <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover one_<%= cattype %>">
                         <div class="app_inner">
-                          <div class="app_new">
+                          <div class="app_new {{if isLoadingApp "no-pad" "padding"}}">
                             <span class="glyphicon {{if isLoadingApp "spin extra-large" "glyphicon-plus"}}"></span>
                             <p>
                               {{#unless isLoadingApp}}
@@ -87,7 +87,7 @@
                   <a href {{action "createService"}}>
                       <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover one_<%= cattype %>">
                         <div class="app_inner">
-                            <div class="app_new">
+                            <div class="app_new {{if isLoadingService "no-pad" "padding"}}">
                               <span class="glyphicon {{if isLoadingService "spin extra-large" "glyphicon-plus"}}"></span>
                               <p>
                                 {{#unless isLoadingService}}
