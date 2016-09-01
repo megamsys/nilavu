@@ -242,9 +242,10 @@ en:
         confirmpassword: "Retype the Password"
         blank_password: "Please enter your Password"
         confirm: "Your password is confirmed"
+        notmatch: "Your password doesnot match"
 
       phone:
-        ischaracter: "Your number must be an interger"
+        ischaracter: "Phone number must be numeric"
         too_short: "Your number must have 10 digit"
         ok: "Looks good"
       activation:
@@ -348,7 +349,7 @@ en:
       virtualmachines: "virtualmachines"
       applications: "applications"
       title: "Let's Get Started"
-      selection_virtualmachine_title: "Choose Distro"
+      selection_virtualmachine_title: "VNC"
       selection_application_title: "Choose App"
       summary_title: "Your Launch Summary"
       general:     "Step 1    "

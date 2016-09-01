@@ -27,6 +27,7 @@ else
   gem 'rails', '~> 4.2.7'
 end
 
+gem 'sprockets', '~> 3.6.3'
 gem 'responders', '~> 2.0'
 
 gem 'http_accept_language', '~>2.0.5', require: false
@@ -56,7 +57,7 @@ gem 'omniauth-oauth2', require: false
 gem 'omniauth-google-oauth2'
 
 # 3rd party system api's
-gem 'megam_api', '1.5.7'
+gem 'megam_api', '1.5.9'
 gem 'docker_registry'
 gem 'radosgw-s3'
 gem 'haikunator' #random name.
