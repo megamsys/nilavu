@@ -19,6 +19,5 @@ describe NotificationsController do
       xhr :get, :index, id: "ASM8272477442816017500", recent: true, limit: "12"
       expect(response).to be_success
     end
-
   end
 end
