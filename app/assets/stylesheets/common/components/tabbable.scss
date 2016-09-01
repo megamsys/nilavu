@@ -46,6 +46,17 @@
     border-top: 3px solid #4e9de6;
     margin-top: 0;
     position: relative;
+    border-left: 1px solid rgba(40,44,42,0.1);
+    border-right: 1px solid rgba(40,44,42,0.1);
+    border-bottom: none;
+}
+.tabbable-custom > .nav-tabs {
+    border-bottom: none;
+}
+.tabbable-custom .nav-tabs > li {
+    text-align: center;
+    padding: 0.65em 0 0.5em;
+    border-bottom: 1px solid rgba(40,44,42,0.1);
 }
 .tabbable-custom .nav-tabs > li.active > a {
     border-top: medium none;
