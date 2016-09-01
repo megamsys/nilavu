@@ -15,7 +15,7 @@
 </div>
     <div class="sub-modal-body">
         {{#each panels as |tab|}}
-            {{component tab selectedTab=selectedTab model=model}}
+            {{component tab selectedTab=selectedTab model=model subRegionOption=subRegionOption regions=regions}}
         {{/each}}
   </div>
 </section>

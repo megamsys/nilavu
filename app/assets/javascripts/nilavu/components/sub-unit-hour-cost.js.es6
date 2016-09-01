@@ -1,6 +1,5 @@
 import { on, observes, computed } from 'ember-addons/ember-computed-decorators';
 import FlavorCost from 'nilavu/models/flavor_cost';
-
 export default Ember.Component.extend({
 
     resourceChanged: function() {
@@ -14,19 +13,12 @@ export default Ember.Component.extend({
         }
     }.property('flavorcost'),
 
-    hourlyCpuCost: function() {
-        return this.get('flavorcost').cpuPrice();
-    }.property('flavorcost'),
-
-    hourlyMemoryCost: function() {
-        return this.get('flavorcost').memoryPrice();
-    }.property('flavorcost'),
-
-    hourlyStorageCost: function() {
-        return this.get('flavorcost').storagePrice();
+    totalHourlyCost: function() {
+        return this.get('flavorcost').unitCostPerHour();
     }.property('flavorcost'),
 
     _rerenderOnChange: function() {
         this.rerender();
     }.observes('flavorcost')
+
 })
