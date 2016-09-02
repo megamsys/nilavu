@@ -27,15 +27,29 @@ module Api
         ROUTEADDED      = 'ROUTEADDED'.freeze
         RUNNING         = 'RUNNING'.freeze
         ERROR           = 'ERROR'.freeze
-
+        attr_reader :baked
         def initialize
+            @baked = []
             super(true) # swallow 404 errors for assemblies.
         end
 
         def recent(api_params, &_block)
             raw = api_request(EVENTS, LIST, api_params)
-            baked(raw[:body])
-        end      
+            dig_event(raw)
+        end
+
+        def recent_by_id(api_params, &_block)
+          api_params[:assembly_id] = api_params[:id]
+            raw = api_request(EVENTS, SHOW, api_params)
+            dig_event(raw)
+        end
+
+        def dig_event(events_data)
+            events_data[:body].map do |one_event|
+              @baked << { account_id: one_event.account_id, assembly_id: one_event.assembly_id, event_type: one_event.event_type, data: one_event.data, created_at: one_event.created_at.to_time.to_formatted_s(:rfc822), id:one_event.id}
+          end unless events_data.nil?
+          @baked
+        end
 
     end
 end

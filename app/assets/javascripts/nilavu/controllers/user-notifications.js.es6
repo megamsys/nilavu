@@ -19,12 +19,12 @@ export default Ember.Controller.extend({
     }.property('model'),
 
     _descriptionFor: function(n) {
-        const descs = n.data.filter((f) => f.key == 'desc');
+        const descs = n.data.filter((f) => f.key == 'description');
         return descs.get('firstObject').value;
     },
 
     _markReadFor: function(n) {
-        const descs = n.data.filter((f) => f.key == 'read');
+        const descs = n.data.filter((f) => f.key == 'status');
         return descs.get('firstObject').value;
     },
 
