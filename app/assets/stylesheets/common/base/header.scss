@@ -22,7 +22,7 @@
   margin-right: 10px;
 }
 
-.c_icon-grid:hover {
+.c_icon-grid:hover, .c_icon-grid.active {
   background-image: url(../images/icons/masc_displaygrid_hover.png);
 }
 
@@ -39,7 +39,7 @@
   background-image: url(../images/icons/masc_displaylist.png);
 }
 
-.c_icon-list:hover {
+.c_icon-list:hover, .c_icon-list.active {
   background-image: url(../images/icons/masc_displaylist_hover.png);
 }
 
@@ -148,7 +148,6 @@
 .app_new {
   height: 160px !important;
   font-size: 14px !important;
-  padding-top: 40px !important;
 }
 
 .header {
@@ -285,4 +284,16 @@
     position: absolute;
     right: 10px;
     top: -6px;
+}
+@media (max-width: 768px) {
+    .xs-centerBlock-m {
+      display: table !important;
+      margin: 15px auto;
+      float: none!important;
+    }
+    .xs-centerBlock {
+      float: none;
+      display: table !important;
+      margin: 0 auto!important;
+    }
 }

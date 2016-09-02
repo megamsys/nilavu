@@ -24,7 +24,7 @@ const ApplicationRoute = Nilavu.Route.extend(OpenComposer, {
   },
 
   afterModel: function() {
-   $('#apploading').remove();
+    $('#apploading').remove();
   },
 
   actions: {

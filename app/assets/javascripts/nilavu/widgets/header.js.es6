@@ -29,7 +29,7 @@ const dropdown = {
 };
 
 createWidget('user-dropdown', jQuery.extend({
-    tagName: 'li.header-dropdown-toggle.current-user',
+    tagName: 'li.navbar-item.header-dropdown-toggle.current-user',
 
     buildId() {
         return 'current-user';
@@ -56,7 +56,7 @@ createWidget('user-dropdown', jQuery.extend({
 }, dropdown));
 
 createWidget('header-link', jQuery.extend({
-    tagName: 'li',
+    tagName: 'li.navbar-item',
 
     html(attrs) {
         const title = I18n.t(attrs.title);
@@ -88,7 +88,7 @@ createWidget('header-link', jQuery.extend({
 }, dropdown));
 
 createWidget('header-icons', {
-    tagName: 'ul.nav.navbar-nav.pull-right',
+    tagName: 'ul.nav.navbar-nav.pull-right.xs-centerBlock-m',
 
     buildAttributes() {
         return {
@@ -125,7 +125,7 @@ createWidget('header-icons', {
 
             icons.push(this.attach('user-dropdown', {
                 active: attrs.userVisible,
-                icon: 'c_glob header_user_profile pull-right',
+                icon: 'c_glob header_user_profile',
                 action: 'toggleUserMenu'
             }));
         }
@@ -170,7 +170,7 @@ export default createWidget('header', {
         const contents = [this.attach('home-logo', {
                 minimized: !!attrs.topic
             }),
-            h('div.col-lg-4.col-md-6.col-sm-4.col-xs-6.col-lg-offset-6.col-md-offset-6.col-sm-offset-6', h('div.row', panels))
+            h('div.col-lg-4.col-sm-8.col-xs-12.offset-lg-6.offset-sm-1.offset-md-2.navbar-layout', h('div.row', panels))
         ];
 
         return h('div.container-fluid', h('div.header-inner', h('div.row', contents)));

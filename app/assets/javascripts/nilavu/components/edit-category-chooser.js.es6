@@ -5,7 +5,7 @@ import {
 
 export default Ember.Component.extend({
     tagName: 'label',
-    classNameBindings: [':btn', ':btn-primary', ':btnSelect', 'alignRight', 'isActive:active'],
+    classNameBindings: [':btn', ':btn-primary', ':btnSelect', ':centerBlock', 'isActive:active'],
 
 
     alignRight: function() {
@@ -20,7 +20,7 @@ export default Ember.Component.extend({
     isActive: function() {
         const launchable = this.get('launchable') || "";
         this.set('launchOption', launchable);
-        return launchable.trim().length > 0 && launchable.trim() == this.get('launchableName');
+        return launchable.trim().length > 0 && launchable.trim() === this.get('launchableName');
     }.property("launchable"),
 
     myStyle: Ember.computed('display', function() {
