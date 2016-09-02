@@ -2,7 +2,6 @@ import { on, observes, computed } from 'ember-addons/ember-computed-decorators';
 import FlavorCost from 'nilavu/models/flavor_cost';
 
 export default Ember.Component.extend({
-
     unitFlav: function() {
         const fc = FlavorCost.all(this.get('model.billresource'));
         if (!Ember.isEmpty(fc) && fc.length > 0) {

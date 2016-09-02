@@ -10,8 +10,6 @@ class SubscriptionsController < ApplicationController
 
 
         def index
-          puts "**********************************************"
-          puts regions.inspect
             render json: { regions: regions }
         end
 

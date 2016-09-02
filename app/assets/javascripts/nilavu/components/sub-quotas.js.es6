@@ -2,17 +2,16 @@ import { on, observes, computed } from 'ember-addons/ember-computed-decorators';
 import FlavorCost from 'nilavu/models/flavor_cost';
 
 export default Ember.Component.extend({
+  unitFlav: function() {
+      const fc = FlavorCost.all(this.get('model.subresource'));
+      if (!Ember.isEmpty(fc) && fc.length > 0) {
+          const propagate = fc.objectAt(0);
+          this.set('model.flavorcost', propagate);
+          return propagate;
+      }
+      return;
+  }.property('model.subresource','flavorcost'),
 
-    unitFlav: function() {
-        const fc = FlavorCost.all(this.get('model.subresource'));
-        if (!Ember.isEmpty(fc) && fc.length > 0) {
-            const propagate = fc.objectAt(0);
-            this.set('model.flavorcost', propagate);
-            return propagate;
-        }
-        return;
-    }.property('model.subresource','flavorcost'),
-    
     fcpu: function() {
         const uf = this.get('unitFlav');
         if (!Ember.isEmpty(uf)) {
@@ -54,7 +53,7 @@ export default Ember.Component.extend({
         Ember.run.once(this, 'unitChanged');
     },
 
-    //we may have to do it for all others.
+    we may have to do it for all others.
     _rerenderOnChange: function() {
         this.rerender();
     }.observes('nstorage')

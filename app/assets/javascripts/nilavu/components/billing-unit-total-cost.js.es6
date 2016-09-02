@@ -3,7 +3,6 @@ import FlavorCost from 'nilavu/models/flavor_cost';
 export default Ember.Component.extend({
 
     resourceChanged: function() {
-      console.log(this.get('model.flavorcost'));
         this.set('flavorcost', this.get('model.flavorcost'));
     }.observes('model.flavorcost'),
 
@@ -15,7 +14,7 @@ export default Ember.Component.extend({
     }.property('flavorcost'),
 
     totalHourlyCost: function() {
-
+      alert(JSON.stringify(this.get('flavorcost')));
         return this.get('flavorcost').unitCostPerHour();
     }.property('flavorcost'),
 
