@@ -2,24 +2,24 @@
     <div class="row c_pading-b15">
         <div class="">
             <div class="col-xs-12 col-sm-6 col-md-6 header_title">
-                <h3>
-          <b>{{title}}</b>
+        <h2>
+          {{title}}
           {{#if nameEnabled}}
             <small><b>{{name}}</b></small>
           {{/if}}
           {{#if subTitleEnabled}}
             <small><b>{{subTitle}}</b></small>
           {{/if}}
-        </h3>
+        </h2>
             </div>
             {{#if viewIcons}}
                 <div class="col-xs-12 col-sm-6 col-md-6 settings_grid">
-                    <ul class="list-inline pull-right rt-top-list">
-                        <li class="mar_l20">
-                            <i class="c_icon-grid pull-right" id="app-btn-grid" {{action "changeGridView"}}></i>
+                    <ul class="list-inline col-xs-12 rt-top-list">
+                        <li class="list-inline-item pull-right">
+                            <i class="c_icon-grid pull-right {{if gridView "active" ""}}" id="app-btn-grid" {{action "changeGridView"}}></i>
                         </li>
-                        <li>
-                            <i class="c_icon-list pull-right lg-mar-r-15" id="app-btn-list" {{action "changeListView"}}></i>
+                        <li class="list-inline-item pull-right">
+                            <i class="c_icon-list pull-right lg-mar-r-15 {{if listView "active" ""}}" id="app-btn-list" {{action "changeListView"}}></i>
                         </li>
                     </ul>
                 </div>

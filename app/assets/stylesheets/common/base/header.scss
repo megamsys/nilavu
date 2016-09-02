@@ -22,7 +22,7 @@
   margin-right: 10px;
 }
 
-.c_icon-grid:hover {
+.c_icon-grid:hover, .c_icon-grid.active {
   background-image: url(../images/icons/masc_displaygrid_hover.png);
 }
 
@@ -39,7 +39,7 @@
   background-image: url(../images/icons/masc_displaylist.png);
 }
 
-.c_icon-list:hover {
+.c_icon-list:hover, .c_icon-list.active {
   background-image: url(../images/icons/masc_displaylist_hover.png);
 }
 

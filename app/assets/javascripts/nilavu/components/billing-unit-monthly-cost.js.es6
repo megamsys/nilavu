@@ -1,3 +1,4 @@
+import { on, observes, computed } from 'ember-addons/ember-computed-decorators';
 import FlavorCost from 'nilavu/models/flavor_cost';
 
 export default Ember.Component.extend({

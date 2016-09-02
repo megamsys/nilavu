@@ -23,7 +23,7 @@
                 <!-- UGLY, all we need is 3 actions (why not hack a funciton for it), with 1 button -->
                 {{#if generalSelected}}
                     <div class="col-md-12 col-sm-12 no-padding">
-                        <button class="btn-block btnFooter" {{bind-attr disabled="disabled"}} {{action "nextCategory"}}>
+                        <button id="{{if disabled "disabledBtn" "enabledBtn"}}" class="btn-block btnFooter" {{if disabled "data-toggle='tooltip' data-placement='left' title='Disabled Button'"}} disabled={{disabled}} {{action "nextCategory"}}>
                             {{saveLabel}}
                             <span class="pull-right">
                                 {{conditional-loading-spinner condition=loading size="large"}}
@@ -32,7 +32,7 @@
                     </div>
                     {{else if selectionSelected}}
                     <div class="col-md-12 col-sm-12 no-padding">
-                        <button class="btn-block btnFooter" {{bind-attr disabled="disabled"}} {{action "nextSummarize"}}>
+                        <button id="{{if disabled "disabledBtn" "enabledBtn"}}" class="btn-block btnFooter" {{if disabled "data-toggle='tooltip' data-placement='left' title='Disabled Button'"}} disabled={{disabled}} {{action "nextSummarize"}}>
                             {{saveLabel}}
                             <span class="pull-right">
                                 {{conditional-loading-spinner condition=loading size="large"}}
@@ -41,7 +41,7 @@
                     </div>
                     {{else if summarySelected}}
                     <div class="col-md-12 col-sm-12 no-padding">
-                        <button class="btn-block btnFooter" {{bind-attr disabled="disabled"}} {{action "saveCategory"}}>
+                        <button id="{{if disabled "disabledBtn" "enabledBtn"}}" class="btn-block btnFooter" {{if disabled "data-toggle='tooltip' data-placement='left' title='Disabled Button'"}} disabled={{disabled}}  {{action "saveCategory"}}>
                             {{saveLabel}}
                             <span class="pull-right">
                                 {{conditional-loading-spinner condition=saving size="large"}}

@@ -1,3 +1,5 @@
+import { on, observes, computed } from 'ember-addons/ember-computed-decorators';
+import FlavorCost from 'nilavu/models/flavor_cost';
 export default Ember.Component.extend({
 
     resourceChanged: function() {
@@ -11,8 +13,8 @@ export default Ember.Component.extend({
         }
     }.property('flavorcost'),
 
-
     totalHourlyCost: function() {
+      alert(JSON.stringify(this.get('flavorcost')));
         return this.get('flavorcost').unitCostPerHour();
     }.property('flavorcost'),
 

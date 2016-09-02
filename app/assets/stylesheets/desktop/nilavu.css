@@ -660,3 +660,73 @@ body {
   input[type="submit"]:active {
     opacity: 1;
   }
+  
+  .pull-right {
+      float: right !important;
+  }
+  @media (min-width: 768px) {
+  .navbar-collapse {
+    width: auto;
+    border-top: 0;
+    box-shadow: none;
+  }
+
+  .navbar-collapse.collapse {
+    display: block !important;
+    height: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+  }
+
+  .navbar-collapse.in {
+    overflow-y: visible;
+  }
+
+  .navbar-collapse .navbar-nav.navbar-left:first-child {
+    margin-left: -15px;
+  }
+
+  .navbar-collapse .navbar-nav.navbar-right:last-child {
+    margin-right: -15px;
+  }
+
+  .navbar-collapse .navbar-text:last-child {
+    margin-right: 0;
+  }
+}
+.container > .navbar-collapse,
+.container > .navbar-header {
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+@media (min-width: 768px) {
+  .container > .navbar-collapse,
+  .container > .navbar-header {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+.navbar-static-top {
+  border-width: 0 0 1px;
+}
+
+.darker-black {
+  color: #3e4448;
+}
+
+span.title {
+  font-size: 20px;
+  line-height: 32px;
+  vertical-align: middle;
+}
+
+.navbar-layout {
+  line-height: 40px;
+  vertical-align: middle;
+}
+
+.navbar-item {
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+}

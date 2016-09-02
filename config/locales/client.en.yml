@@ -415,8 +415,8 @@ en:
       repo_is_private: "private"
       prepackeble_select: 'Next'
       prepackeble_selected: 'selected'
-      your_repos: "Your Repos"
-      public_repos: "Public Repo"
+      your_repos: "Your Repositories"
+      public_repos: "Public Repository"
 
     footer:
       docs: "Documentation"
@@ -424,7 +424,7 @@ en:
       devcenter: "Dev center"
       forum: "Forum"
       support: "Support"
-      copyright: "© 2013-2016 megam. All rights reserved."
+      copyright: "©2013-2016 Megam Systems. All rights reserved."
 
     dashboards:
       title: "Dashboard"
@@ -436,22 +436,22 @@ en:
         create: "Create Virtual Machine"
         category: "torpedo"
         title: "Your Virtual Machines"
-        subtitle: "virtualmachine running"
+        subtitle: "Virtual Machines running"
       app:
-        create: "Create App"
+        create: "Create Application"
         category: "app"
-        title: "Your Apps"
-        subtitle: "apps running"
+        title: "Your Applications"
+        subtitle: "Applications running"
       service:
         create: "Create Service"
         category: "service"
         title: "Your Services"
-        subtitle: "services running"
+        subtitle: "Services running"
       microservice:
         create: "Create Microservice"
         category: "microservice"
         title: "Your Microservices"
-        subtitle: "microservices running"
+        subtitle: "Microservices running"
 
     marketplaces:
       title: "Marketplaces"
