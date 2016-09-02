@@ -1,5 +1,5 @@
 import NilavuURL from 'nilavu/lib/url';
-import Marketplaces from 'nilavu/models/subscriptions';
+import Subscriptions from 'nilavu/models/subscriptions';
 
 
 export default Nilavu.Route.extend({

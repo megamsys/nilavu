@@ -1,5 +1,5 @@
 import NilavuURL from 'nilavu/lib/url';
-import Marketplaces from 'nilavu/models/subscriptions';
+import Subscriptions from 'nilavu/models/subscriptions';
 
 
 export default Nilavu.Route.extend({
@@ -8,21 +8,20 @@ export default Nilavu.Route.extend({
         return this.redirectIfLoginRequired();
     },
 
-    setupParams(subs, params) {
-        return subs;
+    setupParams(subscriptions, params) {
+        return subscriptions;
     },
 
     model(params) {
         const self = this;
 
-        var subs = this.store.createRecord('subscriptions');
-
-        /*return marketplaces.reload().then(function(result) {
+        var subscriptions = this.store.createRecord('subscriptions');
+        return subscriptions.reload().then(function(result) {
             self.set('loading', false);
-            return self.setupParams(marketplaces, params);
+            return self.setupParams(subscriptions, params);
         }).catch(function(e) {
             self.set('loading', false);
-        });*/
+        });
     },
 
 

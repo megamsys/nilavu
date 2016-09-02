@@ -6,5 +6,5 @@ import computed from 'ember-addons/ember-computed-decorators';
 
 export default buildSubPanel('hourly', {
 
-
+  
 });
