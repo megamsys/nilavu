@@ -53,7 +53,7 @@ export default Ember.Component.extend({
         Ember.run.once(this, 'unitChanged');
     },
 
-    we may have to do it for all others.
+    //we may have to do it for all others.
     _rerenderOnChange: function() {
         this.rerender();
     }.observes('nstorage')
