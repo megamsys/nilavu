@@ -6,7 +6,7 @@ class SubscriptionsController < ApplicationController
 
     skip_before_filter :check_xhr
 
-    before_action :add_authkeys_for_api, only: [:checker, :create, :index]
+    before_action :add_authkeys_for_api, only: [:checker, :create, :index, :add]
 
 
         def index
@@ -39,6 +39,20 @@ class SubscriptionsController < ApplicationController
     def create
         addon = lookup_external_id_in_addons(params)
         a = addon[:addon].merge(params)
+        if addon[:result] == "success"
+          render json: {
+              subscriber: update_subscriber(a) || {},
+          }
+        else
+          render json: {
+            subscriber: addon.to_json,
+          }
+        end
+    end
+
+    def add
+        addon = lookup_external_id_in_addons(params)
+        a = addon[:addon]
         if addon[:result] == "success"
           render json: {
               subscriber: update_subscriber(a) || {},
