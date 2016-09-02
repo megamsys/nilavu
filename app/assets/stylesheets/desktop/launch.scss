@@ -77,7 +77,7 @@ $hiddenContent: "input#vm, input#app, .hideme, .hideme2, .hideme3, .hideme-custo
 }
 ul.nav.nav-tabs.nav-justified.stepTabs {
     margin: auto;
-    width: 45%;
+    width: 60%;
 }
 .selectBg {
     /* Blue background behind 'VM'/'Application' */
@@ -140,7 +140,7 @@ img.inSelect {
 .lInner,
 .rInner {
     text-align: -webkit-center;
-    color: #c4c6d9;
+    color: #373a3c;
     width: 210px;
     &.middle {
         margin: auto;
@@ -179,6 +179,9 @@ img.inSelect {
     span {
         font-weight: 600;
     }
+}
+.seperator {
+    margin-top: 15px;
 }
 .lIcon {
     padding-top: 50px;
@@ -245,11 +248,11 @@ img.inSelect {
         margin: 0;
     }
     .btnFooter {
-        height: 100%;
         background-color: $blue-color;
         font-size: 16px;
         padding: 12px 40px;
-        height: 45px;
+        height: 50px;
+        margin-left: 1px;
         border: 0;
         color: white;
     }
@@ -260,6 +263,9 @@ img.inSelect {
 .no-padding {
     padding: 0;
     height: 100%;
+    &.footer {
+        height: 50px;
+    }
 }
 .btn-storage-container {
     width: 250px;

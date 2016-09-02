@@ -81,6 +81,7 @@ div#component-create {
     max-height: 75vh;
     overflow-x: hidden;
 }
+
 .modal {
     position: absolute;
     top: 0;
@@ -89,7 +90,6 @@ div#component-create {
     z-index: 1050;
 }
 .modal-body {
-    overflow: auto;
     padding: 30px;
 }
 .modal-form {
