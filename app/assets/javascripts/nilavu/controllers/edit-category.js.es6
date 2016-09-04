@@ -58,7 +58,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
     changeSize: function() {
         if (this.get('selectionSelected') && (!this.get('isVirtualMachine'))) {
-            this.set('controllers.modal.modalClass', 'edit-category-modal medium');
+            this.set('controllers.modal.modalClass', 'edit-category-modal full');
         } else if (this.get('selectionSelected')) {
             this.set('controllers.modal.modalClass', 'edit-category-modal full');
         } else if (this.get('generalSelected')) {
@@ -145,15 +145,14 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.observes('category.keypairoption', 'category.keypairnameoption'),
 
     disabled: function() {
-        if (this.get('saving') || this.get('selecting'))
+        if (this.get('saving') || this.get('selecting')) {
             return true;
-
-        if (!this.get('category.unitoption'))
+        }
+        if (!this.get('category.unitoption')) {
             return true;
-
+        }
         return false;
     }.property('saving', 'selecting', 'category.unitoption', 'category.keypairoption'),
-
     categoryName: function() {
         const name = this.get('name') || "";
         return name.trim().length > 0
