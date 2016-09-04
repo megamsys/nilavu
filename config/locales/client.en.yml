@@ -245,7 +245,7 @@ en:
         notmatch: "Your password doesnot match"
 
       phone:
-        ischaracter: "Your number must be an interger"
+        ischaracter: "Phone number must be numeric"
         too_short: "Your number must have 10 digit"
         ok: "Looks good"
       activation:

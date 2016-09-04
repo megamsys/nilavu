@@ -1,11 +1,17 @@
 class SubscriptionsController < ApplicationController
     include CurrentBilly
+    include LaunchableAssembler
 
     SUBSCRIBER_PROCESSE = "Subscriber".freeze
 
     skip_before_filter :check_xhr
 
-    before_action :add_authkeys_for_api, only: [:checker, :create]
+    before_action :add_authkeys_for_api, only: [:checker, :create, :index]
+
+
+        def index
+            render json: { regions: regions }
+        end
 
     def entrance
     end

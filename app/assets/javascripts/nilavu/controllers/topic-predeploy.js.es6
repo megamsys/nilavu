@@ -71,7 +71,8 @@ export default Ember.Controller.extend({
 
         deployLiveFeed.forEach(feed => {
             const postStream = this.get('model.postStream');
-            switch (feed.event_type) {
+            const events = feed.event_type.split('.')[2].toUpperCase();
+            switch (events) {
                 case LaunchStatus.TYPES_SUCCESS.RUNNING:
                     {
                         postStream.triggerNewPostInStream(feed).then(() => {
@@ -339,7 +340,7 @@ export default Ember.Controller.extend({
 
             const slugId = this.get('model.id') ? this.get('model.id') : "";
             const depOK = this.get('deploySuccess');
-          
+
             const category = this.get("model.tosca_type").split(".")[1];
             var url = '/t/' + slugId;
 

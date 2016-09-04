@@ -13,6 +13,7 @@ export default Ember.Controller.extend(BufferedContent, {
     selectedTab: null,
     panels: null,
     showTop: false,
+    resources: [],
 
     subscriber: Ember.computed.alias('model.subscriber'),
     mobavatar: Ember.computed.alias('model.mobavatar_activation'),
@@ -56,6 +57,31 @@ export default Ember.Controller.extend(BufferedContent, {
 
         return otmap;
     }.property('model.results'),
+
+    regions: Ember.computed.alias('model.regions'),
+
+    subRegionOption: function() {
+        if (this.get('regions')) return this.get('regions.firstObject.name');
+
+        return "";
+    }.property('regions'),
+
+    regionChanged: function() {
+        if (!this.get('regions')) {
+            return;
+        }
+        const _regionOption = this.get('subRegionOption');
+
+        const fullFlavor = this.get('regions').filter(function(c) {
+            if (c.name == _regionOption) {
+                return c;
+            }
+        });
+        if (fullFlavor.length > 0) {
+            this.set('model.subresource', fullFlavor.get('firstObject'));
+        }
+    }.observes('model.subregion'),
+
 
     actions: {
         activate() {
@@ -103,7 +129,10 @@ export default Ember.Controller.extend(BufferedContent, {
                 }
             });
         }
+
     },
+
+
 
     hasError: Ember.computed.or('model.notFoundHtml', 'model.message'),
 
