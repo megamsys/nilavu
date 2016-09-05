@@ -100,14 +100,14 @@
 
 .modal {
   .category-combobox {
-    width: 430px;
+    width: 100%!important;
 
     .select2-drop {
       left: -9000px;
-      width: 428px;
+      width: 100%!important;
     }
     .select2-search input {
-      width: 378px;
+      width: 100%!important;
     }
   }
 }
