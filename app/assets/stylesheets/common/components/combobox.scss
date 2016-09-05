@@ -30,7 +30,6 @@
 }
 
 .select2-container {
-  width: 100% !important;
   border-radius: 3px;
   border: 1px solid dark-light-diff($primary, $secondary, 90%, -60%);
   &.select2-dropdown-open {

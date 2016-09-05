@@ -59,9 +59,6 @@
     a {
       padding: 0.25em 0.5em;
       display: block;
-      font-size: 18px;
-      text-align: center;
-      padding-right: 25px;
       &:hover {
         background-color: dark-light-diff($highlight, $secondary, 50%, -55%);
       }
