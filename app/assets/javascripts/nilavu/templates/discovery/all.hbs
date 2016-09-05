@@ -1,4 +1,4 @@
-<div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
+<div class="rt-box col-xs-12 c_bg_white c_height_5">
     {{topic-list-header currentUser=currentUser title=dashboardTitle viewIcons="true" gridView=isGrid listView=isList}}
     <div class="bottom-divider"></div>
     <div {{bind-attr class="isGrid:gridViewVisible:gridViewHidden"}} id="app-grid-view">
@@ -6,8 +6,9 @@
             <div class="row c_pading-b15">
                 <div class="portlet-body-head">
                     <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
-                        <i class="topics_header_torpedo"></i> {{i18n 'dashboards.torpedo.title'}}
-                        <span>{{topic-count inkTopicsModel "torpedo"}} {{i18n 'dashboards.torpedo.subtitle'}}</span>
+                        <span class="darker-black"><i class="topics_header_torpedo"></i><span class="title">< {{i18n 'dashboards.torpedo.title'}}</span></span>
+                  <span style="display: block; margin-top: 10px;">
+                          <span style="color: #6fde86">{{topic-count inkTopicsModel "torpedo"}}</span> {{i18n 'dashboards.torpedo.subtitle'}}</span>
                     </div>
                 </div>
             </div>
@@ -15,9 +16,9 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="row app_box app_storage">
                   <a href {{action "createTorpedo"}}>
-                      <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover one_<%= cattype %>">
+                      <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 app_cover">
                         <div class="app_inner">
-                            <div class="app_new">
+                            <div class="app_new {{if isLoadingTorpedo "no-pad" "padding"}}">
                               <span class="glyphicon {{if isLoadingTorpedo "spin extra-large" "glyphicon-plus"}}"></span>
                               <p>
                                 {{#unless isLoadingTorpedo}}
@@ -41,8 +42,10 @@
             <div class="row c_pading-b15">
                 <div class="portlet-body-head">
                     <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
-                        <i class="topics_header_app"></i> {{i18n 'dashboards.app.title'}}
-                        <span>{{topic-count inkTopicsModel "app" }} {{i18n 'dashboards.app.subtitle'}}</span>
+                        <span class="darker-black"><i class="topics_header_app"></i><span class="title">< {{i18n 'dashboards.app.title'}}</span></span>
+                        <span style="display: block; margin-top: 10px;">
+                          <span style="color: #6fde86">{{topic-count inkTopicsModel "app" }}</span> {{i18n 'dashboards.app.subtitle'}}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -50,9 +53,9 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="row app_box app_storage">
                   <a href {{action "createApp"}}>
-                      <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover one_<%= cattype %>">
+                      <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 app_cover">
                         <div class="app_inner">
-                          <div class="app_new">
+                          <div class="app_new {{if isLoadingApp "no-pad" "padding"}}">
                             <span class="glyphicon {{if isLoadingApp "spin extra-large" "glyphicon-plus"}}"></span>
                             <p>
                               {{#unless isLoadingApp}}
@@ -76,8 +79,9 @@
             <div class="row c_pading-b15">
                 <div class="portlet-body-head">
                     <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
-                        <i class="topics_header_service"></i> {{i18n 'dashboards.service.title'}}
-                        <span>{{topic-count inkTopicsModel "service"}} {{i18n 'dashboards.service.subtitle'}}</span>
+                        <span class="darker-black"><i class="topics_header_service"></i><span class="title">< {{i18n 'dashboards.service.title'}}</span></span>
+                        <span style="display: block; margin-top: 10px;">
+                          <span style="color: #6fde86">{{topic-count inkTopicsModel "service"}}</span> {{i18n 'dashboards.service.subtitle'}}</span>
                     </div>
                 </div>
             </div>
@@ -85,9 +89,9 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="row app_box app_storage">
                   <a href {{action "createService"}}>
-                      <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover one_<%= cattype %>">
+                      <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 app_cover">
                         <div class="app_inner">
-                            <div class="app_new">
+                            <div class="app_new {{if isLoadingService "no-pad" "padding"}}">
                               <span class="glyphicon {{if isLoadingService "spin extra-large" "glyphicon-plus"}}"></span>
                               <p>
                                 {{#unless isLoadingService}}
@@ -111,8 +115,9 @@
       <div class="row c_pading-b15">
           <div class="portlet-body-head">
               <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
-                  <i class="topics_header_torpedo"></i> {{i18n 'dashboards.torpedo.title'}}
-                  <span>{{topic-count inkTopicsModel "torpedo"}} {{i18n 'dashboards.torpedo.subtitle'}}</span>
+                  <span class="darker-black"><i class="topics_header_torpedo"></i><span class="title">< {{i18n 'dashboards.torpedo.title'}}</span></span>
+                  <span style="display: block; margin-top: 10px;">
+                          <span style="color: #6fde86">{{topic-count inkTopicsModel "torpedo"}}</span> {{i18n 'dashboards.torpedo.subtitle'}}</span>
               </div>
           </div>
       </div>
@@ -130,8 +135,9 @@
       <div class="row c_pading-b15">
           <div class="portlet-body-head">
               <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
-                  <i class="topics_header_app"></i> {{i18n 'dashboards.app.title'}}
-                  <span>{{topic-count inkTopicsModel "app"}} {{i18n 'dashboards.app.subtitle'}}</span>
+                  <span class="darker-black"><i class="topics_header_app"></i><span class="title">< {{i18n 'dashboards.app.title'}}</span></span>
+                  <span style="display: block; margin-top: 10px;">
+                          <span style="color: #6fde86">{{topic-count inkTopicsModel "app"}}</span> {{i18n 'dashboards.app.subtitle'}}</span>
               </div>
           </div>
       </div>
@@ -150,7 +156,8 @@
           <div class="portlet-body-head">
               <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
                   <i class="topics_header_service"></i> {{i18n 'dashboards.service.title'}}
-                  <span>{{topic-count inkTopicsModel "service"}} {{i18n 'dashboards.service.subtitle'}}</span>
+                  <span style="display: block; margin-top: 10px;">
+                          <span style="color: #6fde86">{{topic-count inkTopicsModel "service"}}</span> {{i18n 'dashboards.service.subtitle'}}</span>
               </div>
           </div>
       </div>

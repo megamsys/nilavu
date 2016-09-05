@@ -473,3 +473,19 @@ Bootstrap Panel
   -moz-box-shadow: none !important;
   box-shadow: none !important;
 }
+
+.table-center {
+  display: table;
+  margin: 0 auto;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.tab-pane {
+    display: none;
+    &.active  {
+      display: block;
+    }
+}

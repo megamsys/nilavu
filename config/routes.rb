@@ -33,6 +33,7 @@ Nilavu::Application.routes.draw do
   get "/account_created/" => "users#account_created"
   get "/subscriptions/account/activation" => "subscriptions#entrance"
   get "/subscriptions/activation/check" => "subscriptions#checker"
+  get "/subscriptions/bill/activation" => "subscriptions#index"
   post "/subscriptions" => "subscriptions#create"
   post "/verify/otp" => "mobile_avatars#create"
 

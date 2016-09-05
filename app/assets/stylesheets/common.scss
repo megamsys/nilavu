@@ -1,5 +1,5 @@
 @import "vendor/normalize";
-@import "vendor/bootstrap";
+@import "vendor/bootstrap/bootstrap";
 @import "vendor/glyphicons/glyphicons";
 @import "common/foundation/helpers";
 @import "common/foundation/mixins";
@@ -16,3 +16,4 @@
 @import "vendor/flags/_flag-icon-list";
 @import "vendor/flags/_flag-icon-more";
 @import "vendor/flags/_flag-icon";
+@import "vendor/gnmenu";
