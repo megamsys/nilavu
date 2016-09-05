@@ -23,8 +23,6 @@ class CockpitsController < ApplicationController
 
     before_action :add_authkeys_for_api, only: [:all, :torpedo, :app, :service, :microservices]
 
-    before_action :redirect_to_user_activation_required, only: [:all, :torpedo, :app, :service, :microservices]
-
     def entrance
         render 'cockpits/entrance'  #unless current_user && hasVeto
 
