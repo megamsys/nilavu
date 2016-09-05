@@ -2,7 +2,10 @@
 .header {
   background-color: #f5f5f5;
 }
-
+section#main {
+  position: relative;
+  min-height: 100%;
+}
 
 .bootbox.modal {
   position: fixed;
