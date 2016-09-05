@@ -87,6 +87,80 @@ createWidget('header-link', jQuery.extend({
     }
 }, dropdown));
 
+createWidget('header-navbar-add', {
+    tagName: 'li',
+    html(attrs) {
+        return h('codrops-icon.codrops-icon-prev.add-new', h('span.glyphicon.glyphicon-plus'));
+    },
+});
+
+createWidget('header-navbar-links', {
+    tagName: 'li.gn-trigger',
+    html(attrs) {
+        const dashboard = this.attach('header-link', {
+            title: 'dashboards.title',
+            align: 'pull-left',
+            icon: 'leftnav_dashboard',
+            iconId: 'dashboard-button',
+            resource: 'dashboard'
+        });
+
+        const machines = this.attach('header-link', {
+            title: 'dashboards.machine',
+            align: 'pull-left',
+            icon: 'leftnav_torpedo',
+            iconId: 'torpedo-button',
+            resource: 'torpedo'
+        });
+        
+        const apps = this.attach('header-link', {
+            title: 'dashboards.apps',
+            align: 'pull-left',
+            icon: 'leftnav_app',
+            iconId: 'app-button',
+            resource: 'app'
+        });
+        
+        const services = this.attach('header-link', {
+            title: 'dashboards.services',
+            align: 'pull-left',
+            icon: 'leftnav_service',
+            iconId: 'service-button',
+            resource: 'service'
+        });
+        
+        const microservices = this.attach('header-link', {
+            title: 'dashboards.micro',
+            align: 'pull-left',
+            icon: 'leftnav_microservice',
+            iconId: 'microservice-button',
+            resource: 'microservice'
+        });
+        
+        const sshkeys = this.attach('header-link', {
+            title: 'dashboards.sshkeys',
+            align: 'pull-left',
+            icon: 'leftnav_settings',
+            iconId: 'sshkeys-button',
+            resource: 'sshkeys'
+        });
+
+        const links = [dashboard, machines, apps, services, microservices, sshkeys];
+        
+        const gnMenuTrigger = this.attach('gn-menu-trigger');
+        const gnMenuWrapper = h('nav.gn-menu-wrapper', h('div.gn-scroller', h('ul.gn-menu', links)));
+        const gnMenuContent = [gnMenuTrigger, gnMenuWrapper];
+        return gnMenuContent;
+    },
+});
+
+createWidget('gn-menu-trigger', {
+    tagName: 'a.gn-icon.gn-icon-menu',
+    html() {
+        return h('span', "menu");
+    },
+});
+
 createWidget('header-icons', {
     tagName: 'ul.nav.navbar-nav.pull-right.xs-centerBlock-m',
 
@@ -135,7 +209,7 @@ createWidget('header-icons', {
 });
 
 export default createWidget('header', {
-    tagName: 'div.header.navbar.navbar-fixed-top',
+    tagName: 'ul.header.navbar.navbar-fixed-top.gn-menu-main.no-touch#gn-menu',
     buildKey: () => `header`,
 
     defaultState() {
@@ -166,14 +240,20 @@ export default createWidget('header', {
         if (state.userVisible) {
             panels.push(this.attach('user-menu'));
         }
-
-        const contents = [this.attach('home-logo', {
-                minimized: !!attrs.topic
-            }),
-            h('div.col-lg-4.col-sm-8.col-xs-12.offset-lg-6.offset-sm-1.offset-md-2.navbar-layout', h('div.row', panels))
+        const navbar = [
+            this.attach('header-navbar-links'),
+            this.attach('header-navbar-add')
         ];
-
-        return h('div.container-fluid', h('div.header-inner', h('div.row', contents)));
+        
+        const homeLogo = this.attach('home-logo', {
+            minimized: !!attrs.topic
+        });
+        const navLinks = h('div.col-lg-6.col-sm-8.col-xs-12.navbar-layout.pull-right', h('div.row', panels));
+        const content = [homeLogo, navLinks]; //The logo & right navlinks.
+        const innerContents = h('div.container', h('div.header-inner', content)); //We wrap the innerContents (logo/navlinks) inside a container
+        const contents = [navbar, innerContents]; //the NavBar trigger is outside the container, so we wrap it side by side the innerContents.
+        
+        return contents;
     },
 
     closeAll() {

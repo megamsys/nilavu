@@ -46,10 +46,9 @@ const NavItem = Nilavu.Model.extend({
     return Nilavu.getURL("/") + this.get('filterMode');
   }.property('filterMode'),
 
-  // href from this item
+  // href & pageChanged from this item
   filterMode: function() {
     var name = this.get('name');
-
     if( name.split('/')[0] === 'category' ) {
       return 'c/' + this.get('categorySlug');
     } else {
@@ -65,7 +64,7 @@ const NavItem = Nilavu.Model.extend({
       return mode + name.replace(' ', '-');
     }
   }.property('name'),
-
+  
   count: function() {
     var state = this.get('topicTrackingState');
     if (state) {
