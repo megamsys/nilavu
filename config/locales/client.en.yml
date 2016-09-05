@@ -404,7 +404,7 @@ en:
       prepackaged_search_text: "Start search your prepackaged APPS."
 
     customapp:
-      choose: "Choose your technology."
+      choose: "Choose a custom app to launch"
       description: "Launch an application now."
       docs: "View Docs"
       publicrepo: "Type a repo url. eg: https://github.com/verticeapps/discourse"
@@ -432,7 +432,6 @@ en:
       machine: "Machines"
       services: "Services"
       micro: "Microservices"
-      sshkeys: "SSH Keys"
       torpedo:
         create: "Create Virtual Machine"
         category: "torpedo"

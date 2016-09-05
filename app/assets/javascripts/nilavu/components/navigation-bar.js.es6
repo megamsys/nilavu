@@ -9,7 +9,13 @@ export default Ember.Component.extend({
   newTitle: function() {
      return I18n.t('launcher.new');
   }.property(),
-  
+
+  @computed("filterMode", "navItems")
+  selectedNavItem(filterMode, navItems){
+    var item = navItems.find(i => i.get('filterMode').indexOf(filterMode) === 0);
+    return item || navItems[0];
+  },
+
   @observes("expanded")
   closedNav() {
     if (!this.get('expanded')) {

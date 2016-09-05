@@ -13,7 +13,7 @@
         {{navigation-item content=navItem  filterMode=filterMode}}
     {{/each}}
 
-    <li class='start'>
+    <li class='start active'>
         {{#link-to 'sshkeys'}}
             <i class='c_icon-set pull-left'></i>
             <i class='leftnav_settings pull-left'></i>
@@ -21,7 +21,7 @@
         {{/link-to}}
     </li>
 
-    <li class='start'>
+    <li class='start active'>
         {{#if siteSettings.allow_billings}}
             {{#link-to 'billing'}}
                 <i class='leftnav_billing pull-left'></i>

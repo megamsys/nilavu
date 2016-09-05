@@ -3,7 +3,6 @@ import { observes } from 'ember-addons/ember-computed-decorators';
 
 const PANEL_BODY_MARGIN = 30;
 
-
 const SiteHeaderComponent = MountWidget.extend({
   widget: 'header',
   docAt: null,
@@ -55,15 +54,10 @@ const SiteHeaderComponent = MountWidget.extend({
     $(window).bind('scroll.discourse-dock', () => this.examineDockHeader());
     $(document).bind('touchmove.discourse-dock', () => this.examineDockHeader());
     $(window).on('resize.discourse-menu-panel', () => this.afterRender());
-    Ember.run.scheduleOnce('afterRender', this, function() {
-      const gnMenuEl = document.getElementById( 'gn-menu' )
-      console.log('GnMenu: ', gnMenuEl);
-      new gnMenu(gnMenuEl);
-    });
-    console.log('Window: Document: ', window, document);
+
     this.appEvents.on('header:show-topic', topic => this.setTopic(topic));
     this.appEvents.on('header:hide-topic', () => this.setTopic(null));
-    
+
     this.dispatch('notifications:changed', 'user-notifications');
     this.dispatch('header:keyboard-trigger', 'header');
 
@@ -96,13 +90,14 @@ const SiteHeaderComponent = MountWidget.extend({
       canSignUp: this.get('canSignUp')
     };
   },
-  
+
   afterRender() {
     const $menuPanels = $('.menu-panel');
     if ($menuPanels.length === 0) { return; }
 
     const $window = $(window);
     const windowWidth = parseInt($window.width());
+
 
     const headerWidth = $('#main-outlet .container').width() || 1100;
     const remaining = parseInt((windowWidth - headerWidth) / 2);
