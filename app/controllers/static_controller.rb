@@ -2,6 +2,7 @@ class StaticController < ApplicationController
 
     skip_before_filter :check_xhr, :redirect_to_login_if_required
     skip_before_filter :verify_authenticity_token, only: [:cdn_asset, :enter, :favicon]
+    # before_action :redirect_to_subscription_if_required, only: [:enter]
 
     PAGES_WITH_EMAIL_PARAM = ['login', 'password_reset', 'signup']
 
@@ -44,9 +45,7 @@ class StaticController < ApplicationController
     def enter
         params.delete(:username)
         params.delete(:password)
-
-        destination = path("/subscriptions/account/activation")
-
+        destination = path("/")
         if params[:redirect].present? && !params[:redirect].match(login_path)
             begin
                 forum_uri = URI(Nilavu.base_url)
@@ -55,7 +54,6 @@ class StaticController < ApplicationController
                 if uri.path.present? &&
                     (uri.host.blank? || uri.host == forum_uri.host) &&
                     uri.path !~ /\./
-
                     destination = uri.path
                     destination = "#{uri.path}?#{uri.query}" if uri.path =~ /new-topic/ || uri.path =~ /new-message/
                 end

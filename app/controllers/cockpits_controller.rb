@@ -20,10 +20,11 @@ class CockpitsController < ApplicationController
     respond_to :html, :js, :json
 
     skip_before_filter :check_xhr
-
+    before_action :redirect_to_subscription_if_required, only: [:entrance]
     before_action :add_authkeys_for_api, only: [:all, :torpedo, :app, :service, :microservices]
 
     def entrance
+
         render 'cockpits/entrance'  #unless current_user && hasVeto
 
     #    redirect_to 'users/subcription'
