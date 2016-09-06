@@ -1,11 +1,20 @@
 <div class="row">
-  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 social">
-    <ul class="list-inline text-center">
-    {{#each b in buttons}}
-    <li class="list-inline-item">
-      <a {{bind-attr class="b.name :icon"}} {{action "externalLogin" b}}></a>
-    </li>
-    {{/each}}
-    </ul>
-  </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <p class="text-center login-social">
+            {{#unless hideSocialButtons}}
+                {{i18n 'login.media'}}
+            {{/unless}}
+        </p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 social">
+        <ul class="list-inline text-center">
+            {{#each b in buttons}}
+                <li class="list-inline-item">
+                    <a {{bind-attr class="b.name :icon"}} {{action "externalLogin" b}}></a>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
 </div>
