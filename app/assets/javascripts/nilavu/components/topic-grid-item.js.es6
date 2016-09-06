@@ -1,3 +1,4 @@
+import showModal from 'nilavu/lib/show-modal';
 export default Ember.Component.extend({
     //topic: Em.computed.alias("content"),
     classNameBindings: [
@@ -8,6 +9,10 @@ export default Ember.Component.extend({
     appCategory: function() {
         return Em.isEqual(this.get("showCategory"), "torpedo");
     }.property(),
+    
+    status: function() {
+        return this.get("topic.status");
+    }.property(),
 
     actions: {
         select() {
@@ -16,11 +21,19 @@ export default Ember.Component.extend({
 
         toggleBookmark() {
             const self = this;
-            this.get('topic').toggleBookmark(). finally(function() {
+            this.get('topic').toggleBookmark().finally(function() {
                 self.rerender();
             });
         },
-        on() {}
+
+        on() {
+            const self = this;
+            const promise = this.get('topic').reload().then(function(result) {}).catch(function(e) {});
+            this.container.lookup('controller:topic').send("showVNC", {
+                topic: self.get('topic')
+            });
+
+        }
     },
 
     showBrandImage: function() {
@@ -68,9 +81,9 @@ export default Ember.Component.extend({
     }.property(),
 
     titleColSpan: function() {
-        return (!this.get('controller.hideCategory') && this.get('topic.isPinnedUncategorized')
-            ? 2
-            : 1);
+        return (!this.get('controller.hideCategory') && this.get('topic.isPinnedUncategorized') ?
+            2 :
+            1);
     }.property("topic.isPinnedUncategorized"),
 
     hasLikes: function() {

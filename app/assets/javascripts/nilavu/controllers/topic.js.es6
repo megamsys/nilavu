@@ -1,7 +1,11 @@
 import BufferedContent from 'nilavu/mixins/buffered-content';
-import {spinnerHTML} from 'nilavu/helpers/loading-spinner';
+import {
+    spinnerHTML
+} from 'nilavu/helpers/loading-spinner';
 import Topic from 'nilavu/models/topic';
-import {popupAjaxError} from 'nilavu/lib/ajax-error';
+import {
+    popupAjaxError
+} from 'nilavu/lib/ajax-error';
 import computed from 'ember-addons/ember-computed-decorators';
 import NilavuURL from 'nilavu/lib/url';
 import showModal from 'nilavu/lib/show-modal';
@@ -102,14 +106,22 @@ export default Ember.Controller.extend(BufferedContent, {
 
     getData(reqAction) {
         return {
-            id: this.get('model').id, cat_id: this.get('model').asms_id, name: this.get('model').name, req_action: reqAction, cattype: this.get('model').tosca_type.split(".")[1],
+            id: this.get('model').id,
+            cat_id: this.get('model').asms_id,
+            name: this.get('model').name,
+            req_action: reqAction,
+            cattype: this.get('model').tosca_type.split(".")[1],
             category: "control"
         };
     },
 
     getDeleteData() {
         return {
-            id: this.get('model').id, cat_id: this.get('model').asms_id, name: this.get('model').name, action: "delete", cattype: this.get('model').tosca_type.split(".")[1],
+            id: this.get('model').id,
+            cat_id: this.get('model').asms_id,
+            name: this.get('model').name,
+            action: "delete",
+            cattype: this.get('model').tosca_type.split(".")[1],
             category: "state"
         };
     },
@@ -147,17 +159,24 @@ export default Ember.Controller.extend(BufferedContent, {
             });
         },
 
-        showVNC() {
+        showVNC(topic) {
+            if (!Ember.isEmpty(topic)) {
+                this.set('model', topic.topic);
+            }
+
             const host = this._filterOutputs("vnchost"),
                 port = this._filterOutputs("vncport");
             if (host == undefined || host == "" || port == "" || port == undefined) {
                 this.notificationMessages.error(I18n.t('vm_management.vnc_host_port_empty'));
             } else {
-                showModal('vnc' ,{
-                    userTitle: "VNC Connected :"+this.get('title'),
+                showModal('vnc', {
+                    userTitle: "VNC Connected :" + this.get('title'),
                     smallTitle: true,
                     titleCentered: true
-                }).setProperties({host: host, port: port});
+                }).setProperties({
+                    host: host,
+                    port: port
+                });
             }
 
         },
