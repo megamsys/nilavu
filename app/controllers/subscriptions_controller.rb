@@ -1,12 +1,11 @@
 class SubscriptionsController < ApplicationController
     include CurrentBilly
-    include LaunchableAssembler
-
-    SUBSCRIBER_PROCESSE = 'Subscriber'.freeze
+    include LaunchableAssembler # we use it to load regions. Hmm.. regions should be broken to a separate module.
 
     skip_before_filter :check_xhr
-
     before_action :add_authkeys_for_api, only: [:checker, :create, :index]
+
+    SUBSCRIBER_PROCESSE = 'Subscriber'.freeze
 
     def index
         render json: { regions: regions }
@@ -26,7 +25,7 @@ class SubscriptionsController < ApplicationController
             mob = user_activator.verify_mobavatar(params)
 
             render json: {
-                subscriber: subscriber(addon[:addon]) || {},
+                subscriber: subscriber(addon[:external_id]) || {},
                 mobavatar_activation: mob.to_json
             }
 
@@ -36,15 +35,10 @@ class SubscriptionsController < ApplicationController
     # subcriber to update the billing address
     def create
         addon = lookup_external_id_in_addons(params)
-        a = addon[:addon].merge(params)
         if addon[:result] == 'success'
-            render json: {
-                subscriber: update_subscriber(a) || {}
-            }
+            render json: { subscriber: update_subscriber(addon[:external_id].merge(params)) || {} }
         else
-            render json: {
-                subscriber: addon.to_json
-            }
+            render json: { subscriber: addon.to_json }
         end
     end
 

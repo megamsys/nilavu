@@ -2,7 +2,7 @@ import { createWidget } from 'nilavu/widgets/widget';
 import { h } from 'virtual-dom';
 
 createWidget('user-menu-links', {
-  tagName: 'div.logout-link',
+  tagName: 'div.menu-links-header',
 
   html(attrs) {
     const { currentUser } = this;
@@ -36,7 +36,7 @@ createWidget('user-menu-links', {
                   icon: 'cog',
                   href: `${path}settings`});
     */
-    return h('ul.menu-links', [
+    return h('ul.menu-links-row', [
              links.map(l => h('li', this.attach('link', l))),
              h('li.glyphs.disabled', glyphs.map(l => this.attach('link', $.extend(l, { hideLabel: true })))),
             ]);

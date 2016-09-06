@@ -225,12 +225,8 @@ Footer
     border-left: 5px solid #fff;
     text-shadow: none;
 }
-.page-sidebar-menu > li > a:hover {
+.page-sidebar-menu > li.active > a:hover {
     border-color: #529fe3;
-}
-.page-sidebar-menu > li.active > a {
-    border-color: #529fe3;
-    color: #4e9de6;
 }
 .page-sidebar-menu > li.active > a .selected {
     background-image: url("sidebar-menu-arrow.png");

@@ -3,18 +3,11 @@ import StringBuffer from 'nilavu/mixins/string-buffer';
 
 export default Ember.Component.extend(StringBuffer, {
   tagName: 'li',
-  classNameBindings: ['isOpen:active', 'content.hasIcon:has-icon'],
+  classNameBindings: [':active', 'content.hasIcon:has-icon'],
   attributeBindings: ['title'],
   hasIcon: true,
   hidden: Em.computed.not('content.visible'),
   rerenderTriggers: ['content.count'],
-  
-  isOpen: Ember.computed('content.name', 'filterMode', function() {
-    let currentItem = this.get('content.name'),
-        filterMode  = this.get('filterMode');
-    console.log('Comparing the following: ', currentItem, filterMode)
-    return (currentItem == filterMode) ? true:false;
-  }),
   
   @computed("content.categoryName", "content.name")
   title(categoryName, name) {
@@ -30,7 +23,6 @@ export default Ember.Component.extend(StringBuffer, {
 
   @computed("content.filterMode", "filterMode")
   active(contentFilterMode, filterMode) {
-    console.log('active selected: ', contentFilterMode, filterMode);
     return contentFilterMode === filterMode ||
            filterMode.indexOf(contentFilterMode) === 0;
   },
