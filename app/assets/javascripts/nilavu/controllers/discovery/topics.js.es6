@@ -63,25 +63,25 @@ const controllerOpts = {
   }.property(),
 
   actions: {
-    
+
     createTorpedo() {
       const self = this;
       self.set('isLoadingTorpedo', true);
       self.send('createTopic');
     },
-    
+
     createApp() {
       const self = this;
       self.set('isLoadingApp', true);
       self.send('createTopic');
     },
-    
+
     createService() {
       const self = this;
       self.set('isLoadingService', true);
       self.send('createTopic');
     },
-    
+
     createTopic() {
       const self = this;
       // Don't show  if we're still loading, may be show a growl.
@@ -96,7 +96,7 @@ const controllerOpts = {
           self.send('stopLoading');
       });
     },
-    
+
     stopLoading() {
       const self = this;
       self.set('loading', false);
@@ -104,7 +104,7 @@ const controllerOpts = {
       self.set('isLoadingApp', false);
       self.set('isLoadingService', false);
     },
-    
+
     changeSort(sortBy) {
       if (sortBy === this.get('order')) {
         this.toggleProperty('ascending');

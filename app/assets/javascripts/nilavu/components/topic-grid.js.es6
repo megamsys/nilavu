@@ -1,6 +1,30 @@
+import NilavuURL from 'nilavu/lib/url';
 export default Ember.Component.extend({
     classNames: ['topic-grid'],
     showTopicPostBadges: true,
+    showMoreButton: false,
+
+    sortedTopics: Ember.computed.sort('filteredTopics', 'sortDefinition'),
+    sortBy: 'created_at', // default sort by date
+    reverseSort: true, // default sort in descending order
+    sortDefinition: Ember.computed('sortBy', 'reverseSort', function() {
+        let sortOrder = this.get('reverseSort')
+            ? 'desc'
+            : 'asc';
+        return [`${this.get('sortBy')}:${sortOrder}`];
+    }),
+
+    limitedTopics: function() {
+        if (this.get('expandAllPinned')) {
+            return this.get('sortedTopics')
+        } else {
+            return this.get('sortedTopics').slice(0, 4);
+        }
+    }.property('sortedTopics'),
+
+    overLimitTopics: function() {
+        return this.get('sortedTopics').length > 4 && this.get('visibleShowMore');
+    }.property('sortedTopics'),
 
     _observeHideCategory: function() {
         this.addObserver('hideCategory', this.rerender);
@@ -56,5 +80,10 @@ export default Ember.Component.extend({
         });
     },
 
-    actions: {}
+    actions: {
+        showMore: function(category) {
+            NilavuURL.routeTo('/' + category);
+        }
+
+    }
 });

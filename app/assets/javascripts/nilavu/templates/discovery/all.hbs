@@ -6,32 +6,39 @@
             <div class="row c_pading-b15">
                 <div class="portlet-body-head">
                     <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
-                        <span class="darker-black"><i class="topics_header_torpedo"></i><span class="title">< {{i18n 'dashboards.torpedo.title'}}</span></span>
-                  <span style="display: block; margin-top: 10px;">
-                          <span style="color: #6fde86">{{topic-count inkTopicsModel "torpedo"}}</span> {{i18n 'dashboards.torpedo.subtitle'}}</span>
+                        <span class="darker-black">
+                          <i class="topics_header_torpedo"></i>
+                          <span class="title">< {{i18n 'dashboards.torpedo.title'}}</span>
+                        </span>
+                        <span style="display: block; margin-top: 10px;">
+                          <span style="color: #6fde86">
+                            {{topic-count inkTopicsModel "torpedo"}}
+                          </span>
+                          {{i18n 'dashboards.torpedo.subtitle'}}
+                        </span>
                     </div>
                 </div>
             </div>
             <div class="bottom-divider"></div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="row app_box app_storage">
-                  <a href {{action "createTorpedo"}}>
-                      <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 app_cover">
-                        <div class="app_inner">
-                            <div class="app_new {{if isLoadingTorpedo "no-pad" "padding"}}">
-                              <span class="glyphicon {{if isLoadingTorpedo "spin extra-large" "glyphicon-plus"}}"></span>
-                              <p>
-                                {{#unless isLoadingTorpedo}}
-                                  {{i18n 'dashboards.torpedo.create'}}
-                                {{/unless}}
-                              </p>
+                    <a href {{action "createTorpedo"}}>
+                        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 app_cover">
+                            <div class="app_inner">
+                                <div class="app_new {{if isLoadingTorpedo "no-pad" "padding"}}">
+                                    <span class="glyphicon {{if isLoadingTorpedo "spin extra-large" "glyphicon-plus"}}"></span>
+                                    <p>
+                                        {{#unless isLoadingTorpedo}}
+                                            {{i18n 'dashboards.torpedo.create'}}
+                                        {{/unless}}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                  </a>
+                    </a>
                     {{#if hasTopics}}
-                        {{topic-grid showCategory=torpedoCategory showTopicPostBadges=showTopicPostBadges showPosters=true currentUser=currentUser canBulkSelect=canBulkSelect changeSort="changeSort" toggleBulkSelect="toggleBulkSelect" hideCategory=model.hideCategory order=order ascending=ascending bulkSelectEnabled=bulkSelectEnabled
-                        selected=selected expandGloballyPinned=expandGloballyPinned expandAllPinned=expandAllPinned topics=inkTopicsModel}}
+                        {{topic-grid showCategory=torpedoCategory visibleShowMore=true showTopicPostBadges=showTopicPostBadges showPosters=true currentUser=currentUser canBulkSelect=canBulkSelect changeSort="changeSort" toggleBulkSelect="toggleBulkSelect" hideCategory=model.hideCategory
+                        order=order ascending=ascending bulkSelectEnabled=bulkSelectEnabled selected=selected expandGloballyPinned=expandGloballyPinned expandAllPinned=false topics=inkTopicsModel}}
                     {{/if}}
                 </div>
             </div>
@@ -52,23 +59,23 @@
             <div class="bottom-divider"></div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="row app_box app_storage">
-                  <a href {{action "createApp"}}>
-                      <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 app_cover">
-                        <div class="app_inner">
-                          <div class="app_new {{if isLoadingApp "no-pad" "padding"}}">
-                            <span class="glyphicon {{if isLoadingApp "spin extra-large" "glyphicon-plus"}}"></span>
-                            <p>
-                              {{#unless isLoadingApp}}
-                                {{i18n 'dashboards.app.create'}}
-                              {{/unless}}
-                            </p>
-                          </div>
+                    <a href {{action "createApp"}}>
+                        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 app_cover">
+                            <div class="app_inner">
+                                <div class="app_new {{if isLoadingApp "no-pad" "padding"}}">
+                                    <span class="glyphicon {{if isLoadingApp "spin extra-large" "glyphicon-plus"}}"></span>
+                                    <p>
+                                        {{#unless isLoadingApp}}
+                                            {{i18n 'dashboards.app.create'}}
+                                        {{/unless}}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                      </div>
-                  </a>
+                    </a>
                     {{#if hasTopics}}
-                        {{topic-grid showCategory=appCategory showTopicPostBadges=showTopicPostBadges showPosters=true currentUser=currentUser canBulkSelect=canBulkSelect changeSort="changeSort" toggleBulkSelect="toggleBulkSelect" hideCategory=model.hideCategory order=order ascending=ascending bulkSelectEnabled=bulkSelectEnabled
-                        selected=selected expandGloballyPinned=expandGloballyPinned expandAllPinned=expandAllPinned topics=inkTopicsModel}}
+                        {{topic-grid showCategory=appCategory visibleShowMore=true showTopicPostBadges=showTopicPostBadges showPosters=true currentUser=currentUser canBulkSelect=canBulkSelect changeSort="changeSort" toggleBulkSelect="toggleBulkSelect" hideCategory=model.hideCategory
+                        order=order ascending=ascending bulkSelectEnabled=bulkSelectEnabled selected=selected expandGloballyPinned=expandGloballyPinned expandAllPinned=false topics=inkTopicsModel}}
                     {{/if}}
                 </div>
             </div>
@@ -88,23 +95,23 @@
             <div class="bottom-divider"></div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="row app_box app_storage">
-                  <a href {{action "createService"}}>
-                      <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 app_cover">
-                        <div class="app_inner">
-                            <div class="app_new {{if isLoadingService "no-pad" "padding"}}">
-                              <span class="glyphicon {{if isLoadingService "spin extra-large" "glyphicon-plus"}}"></span>
-                              <p>
-                                {{#unless isLoadingService}}
-                                  {{i18n 'dashboards.service.create'}}
-                                {{/unless}}
-                              </p>
+                    <a href {{action "createService"}}>
+                        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 app_cover">
+                            <div class="app_inner">
+                                <div class="app_new {{if isLoadingService "no-pad" "padding"}}">
+                                    <span class="glyphicon {{if isLoadingService "spin extra-large" "glyphicon-plus"}}"></span>
+                                    <p>
+                                        {{#unless isLoadingService}}
+                                            {{i18n 'dashboards.service.create'}}
+                                        {{/unless}}
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                  </a>
+                    </a>
                     {{#if hasTopics}}
-                        {{topic-grid showCategory=serviceCategory showTopicPostBadges=showTopicPostBadges showPosters=true currentUser=currentUser canBulkSelect=canBulkSelect changeSort="changeSort" toggleBulkSelect="toggleBulkSelect" hideCategory=model.hideCategory order=order ascending=ascending bulkSelectEnabled=bulkSelectEnabled
-                        selected=selected expandGloballyPinned=expandGloballyPinned expandAllPinned=expandAllPinned topics=inkTopicsModel}}
+                        {{topic-grid showCategory=serviceCategory visibleShowMore=true showTopicPostBadges=showTopicPostBadges showPosters=true currentUser=currentUser canBulkSelect=canBulkSelect changeSort="changeSort" toggleBulkSelect="toggleBulkSelect" hideCategory=model.hideCategory
+                        order=order ascending=ascending bulkSelectEnabled=bulkSelectEnabled selected=selected expandGloballyPinned=expandGloballyPinned expandAllPinned=false topics=inkTopicsModel}}
                     {{/if}}
                 </div>
             </div>
@@ -112,61 +119,61 @@
     </div>
 
     <div id="app-list" {{bind-attr class="isList:listViewVisible:listViewHidden"}}>
-      <div class="row c_pading-b15">
-          <div class="portlet-body-head">
-              <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
-                  <span class="darker-black"><i class="topics_header_torpedo"></i><span class="title">< {{i18n 'dashboards.torpedo.title'}}</span></span>
-                  <span style="display: block; margin-top: 10px;">
+        <div class="row c_pading-b15">
+            <div class="portlet-body-head">
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
+                    <span class="darker-black"><i class="topics_header_torpedo"></i><span class="title">< {{i18n 'dashboards.torpedo.title'}}</span></span>
+                    <span style="display: block; margin-top: 10px;">
                           <span style="color: #6fde86">{{topic-count inkTopicsModel "torpedo"}}</span> {{i18n 'dashboards.torpedo.subtitle'}}</span>
-              </div>
-          </div>
-      </div>
-      <div class="bottom-divider"></div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-divider"></div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 {{#if hasTopics}}
-                    {{topic-list showCategory=torpedoCategory showTopicPostBadges=showTopicPostBadges showPosters=true currentUser=currentUser canBulkSelect=canBulkSelect changeSort="changeSort" toggleBulkSelect="toggleBulkSelect" hideCategory=model.hideCategory order=order ascending=ascending bulkSelectEnabled=bulkSelectEnabled
-                    selected=selected expandGloballyPinned=expandGloballyPinned expandAllPinned=expandAllPinned topics=inkTopicsModel}}
+                    {{topic-list showCategory=torpedoCategory showTopicPostBadges=showTopicPostBadges showPosters=true currentUser=currentUser canBulkSelect=canBulkSelect changeSort="changeSort" toggleBulkSelect="toggleBulkSelect" hideCategory=model.hideCategory order=order
+                    ascending=ascending bulkSelectEnabled=bulkSelectEnabled selected=selected expandGloballyPinned=expandGloballyPinned expandAllPinned=expandAllPinned topics=inkTopicsModel}}
                 {{/if}}
             </div>
         </div>
     </div>
     <div id="app-list" {{bind-attr class="isList:listViewVisible:listViewHidden"}}>
-      <div class="row c_pading-b15">
-          <div class="portlet-body-head">
-              <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
-                  <span class="darker-black"><i class="topics_header_app"></i><span class="title">< {{i18n 'dashboards.app.title'}}</span></span>
-                  <span style="display: block; margin-top: 10px;">
+        <div class="row c_pading-b15">
+            <div class="portlet-body-head">
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
+                    <span class="darker-black"><i class="topics_header_app"></i><span class="title">< {{i18n 'dashboards.app.title'}}</span></span>
+                    <span style="display: block; margin-top: 10px;">
                           <span style="color: #6fde86">{{topic-count inkTopicsModel "app"}}</span> {{i18n 'dashboards.app.subtitle'}}</span>
-              </div>
-          </div>
-      </div>
-      <div class="bottom-divider"></div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-divider"></div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 {{#if hasTopics}}
-                    {{topic-list showCategory=appCategory showTopicPostBadges=showTopicPostBadges showPosters=true currentUser=currentUser canBulkSelect=canBulkSelect changeSort="changeSort" toggleBulkSelect="toggleBulkSelect" hideCategory=model.hideCategory order=order ascending=ascending bulkSelectEnabled=bulkSelectEnabled
-                    selected=selected expandGloballyPinned=expandGloballyPinned expandAllPinned=expandAllPinned topics=inkTopicsModel}}
+                    {{topic-list showCategory=appCategory showTopicPostBadges=showTopicPostBadges showPosters=true currentUser=currentUser canBulkSelect=canBulkSelect changeSort="changeSort" toggleBulkSelect="toggleBulkSelect" hideCategory=model.hideCategory order=order
+                    ascending=ascending bulkSelectEnabled=bulkSelectEnabled selected=selected expandGloballyPinned=expandGloballyPinned expandAllPinned=expandAllPinned topics=inkTopicsModel}}
                 {{/if}}
             </div>
         </div>
     </div>
     <div id="app-list" {{bind-attr class="isList:listViewVisible:listViewHidden"}}>
-      <div class="row c_pading-b15">
-          <div class="portlet-body-head">
-              <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
-                  <i class="topics_header_service"></i> {{i18n 'dashboards.service.title'}}
-                  <span style="display: block; margin-top: 10px;">
+        <div class="row c_pading-b15">
+            <div class="portlet-body-head">
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
+                    <i class="topics_header_service"></i> {{i18n 'dashboards.service.title'}}
+                    <span style="display: block; margin-top: 10px;">
                           <span style="color: #6fde86">{{topic-count inkTopicsModel "service"}}</span> {{i18n 'dashboards.service.subtitle'}}</span>
-              </div>
-          </div>
-      </div>
-      <div class="bottom-divider"></div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-divider"></div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 {{#if hasTopics}}
-                    {{topic-list showCategory=serviceCategory showTopicPostBadges=showTopicPostBadges showPosters=true currentUser=currentUser canBulkSelect=canBulkSelect changeSort="changeSort" toggleBulkSelect="toggleBulkSelect" hideCategory=model.hideCategory order=order ascending=ascending bulkSelectEnabled=bulkSelectEnabled
-                    selected=selected expandGloballyPinned=expandGloballyPinned expandAllPinned=expandAllPinned topics=inkTopicsModel}}
+                    {{topic-list showCategory=serviceCategory showTopicPostBadges=showTopicPostBadges showPosters=true currentUser=currentUser canBulkSelect=canBulkSelect changeSort="changeSort" toggleBulkSelect="toggleBulkSelect" hideCategory=model.hideCategory order=order
+                    ascending=ascending bulkSelectEnabled=bulkSelectEnabled selected=selected expandGloballyPinned=expandGloballyPinned expandAllPinned=expandAllPinned topics=inkTopicsModel}}
                 {{/if}}
             </div>
         </div>
