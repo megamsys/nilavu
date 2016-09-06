@@ -11,8 +11,8 @@ export default Ember.Controller.extend({
 
   @computed("filterMode")
   navItems(filterMode = "dashboard") {
+    console.log('FilterMode: ', filterMode);
     if (filterMode.indexOf("top/") === 0) { filterMode = filterMode.replace("top/", ""); }
-
     return Nilavu.NavItem.buildList(null, { filterMode });
   }
 
