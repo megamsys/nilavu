@@ -2,7 +2,7 @@ class SubscriptionsController < ApplicationController
     include CurrentBilly
 
     skip_before_filter :check_xhr
-    before_action :add_authkeys_for_api, only: [:checker, :create, :index, :add]
+    before_action :add_authkeys_for_api, only: [:checker, :create]
 
     SUBSCRIBER_PROCESSE = 'Subscriber'.freeze
 

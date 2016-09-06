@@ -8,7 +8,9 @@
         <section class="launcher-section">
             <div class="tabbable-custom nav-justified">
                 <ul class="nav nav-tabs nav-justified stepTabs">
-                    {{edit-category-tab panels=panels selectedTab=selectedTab tab="general"}} {{edit-category-tab panels=panels selectedTab=selectedTab tab="selection"}} {{edit-category-tab panels=panels selectedTab=selectedTab tab="summary"}}
+                    {{edit-category-tab panels=panels selectedTab=selectedTab tab="general"}}
+                    {{edit-category-tab panels=panels selectedTab=selectedTab tab="selection"}}
+                    {{edit-category-tab panels=panels selectedTab=selectedTab tab="summary"}}
                 </ul>
                 <div class="modal-body">
                     {{#each panels as |tab|}}
