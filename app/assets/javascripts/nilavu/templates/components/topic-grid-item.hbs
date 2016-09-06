@@ -2,7 +2,7 @@
     <div class="app_inner">
         <div class="app">
             <div class="app_head">
-                <span class="app_config" id="config_menu" {{action 'on'}}> <i class="c_icon-config"></i> </span> {{action-link}}
+                <!-- <span class="app_config" id="config_menu" {{action 'on'}}> <i class="c_icon-config"></i> </span> {{action-link}} -->
                 <div class="config_menu">
                     {{topic-controls}}
                 </div>
@@ -26,13 +26,12 @@
             </div>
 
             <div class="app_footer_padding">
-                <i class="circle-{{topic.status}}"></i>
-                <span>{{topic.status}}</span>
-                <a href="vncs">
-                    <i class="c_icon-window pull-right" style="padding-top:20px">
-                    </i>
-                </a>
-                <i class="c_icon-star pull-right" style="padding-right:30px"></i>
+                <i class="circle-{{status}}"></i>
+                <span>{{status}}</span>
+                <span {{action 'on'}}> <i class="c_icon-window pull-right" style="padding-top:20px">
+                </i> </span> {{action-link}}
+
+                <!-- <i class="c_icon-star pull-right" style="padding-right:30px"></i> -->
             </div>
         </div>
     </div>

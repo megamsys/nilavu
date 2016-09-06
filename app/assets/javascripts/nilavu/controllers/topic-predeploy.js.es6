@@ -208,6 +208,9 @@ export default Ember.Controller.extend({
 
     actions: {
 
+      showVNC() {
+          this.get('controllers.topic').send('showVNC');
+      },
         // Called the the topmost visible post on the page changes.
         topVisibleChanged(event) {
             const { post, refresh } = event;
