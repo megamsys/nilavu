@@ -1,12 +1,10 @@
-import {
-    queryParams
-} from 'nilavu/controllers/discovery-sortable';
+import {queryParams} from 'nilavu/controllers/discovery-sortable';
 
 const ALL = "all",
-      TORPEDO = "torpedo",
-      APP = "app",
-      SERVICE = "service",
-      MICROSERVICE = "microservice";
+    TORPEDO = "torpedo",
+    APP = "app",
+    SERVICE = "service",
+    MICROSERVICE = "microservice";
 
 // A helper to build a topic route for a filter
 function filterQueryParams(params, defaultParams) {
@@ -29,9 +27,7 @@ function findTopicList(store, tracking, filter, filterParams, extras) {
         if (extras.cached) {
             const cachedList = session.get('topicList');
             // Try to use the cached version if it exists and is greater than the topics per page
-            if (cachedList && (cachedList.get('filter') === filter) &&
-                (cachedList.get('topics.length') || 0) > cachedList.get('per_page') &&
-                _.isEqual(cachedList.get('listParams'), filterParams)) {
+            if (cachedList && (cachedList.get('filter') === filter) && (cachedList.get('topics.length') || 0) > cachedList.get('per_page') && _.isEqual(cachedList.get('listParams'), filterParams)) {
                 cachedList.set('loaded', true);
 
                 if (tracking) {
@@ -42,10 +38,7 @@ function findTopicList(store, tracking, filter, filterParams, extras) {
             session.set('topicList', null);
         } else {
             // Clear the cache
-            session.setProperties({
-                topicList: null,
-                topicListScrollPosition: null
-            });
+            session.setProperties({topicList: null, topicListScrollPosition: null});
         }
 
         // Clean up any string parameters that might slip through
@@ -130,17 +123,12 @@ export default function(filter, extras) {
 
         resetController(controller, isExiting) {
             if (isExiting) {
-                controller.setProperties({
-                    order: "default",
-                    ascending: false
-                });
+                controller.setProperties({order: "default", ascending: false});
             }
         },
 
         renderTemplate() {
-            this.render('navigation/default', {
-                outlet: 'navigation-bar'
-            });
+            this.render('navigation/default', {outlet: 'navigation-bar'});
             var template = 'discovery/all';
             switch (filter) {
                 case ALL:
@@ -170,7 +158,4 @@ export default function(filter, extras) {
     }, extras);
 }
 
-export {
-    filterQueryParams,
-    findTopicList
-};
+export {filterQueryParams, findTopicList};

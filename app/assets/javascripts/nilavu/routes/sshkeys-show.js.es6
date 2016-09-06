@@ -10,8 +10,7 @@ export default Nilavu.Route.extend({
     },
 
     model(params) {
-        const self = this;
-
+        const self = this;      
         var ssh = this.store.createRecord('ssh');
         return ssh.reload().then(function(result) {
             self.set('loading', false);

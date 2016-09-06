@@ -9,7 +9,7 @@ export default {
     console.log("> dynamic_route_builder initializing");
 
     const site = Nilavu.Site.current();
-    site.get('filters').forEach(filter => {    
+    site.get('filters').forEach(filter => {
       const filterCapitalized = filter.capitalize();
       app[`Discovery${filterCapitalized}Controller`] = DiscoverySortableController.extend();
       app[`Discovery${filterCapitalized}Route`] = buildTopicRoute(filter);
