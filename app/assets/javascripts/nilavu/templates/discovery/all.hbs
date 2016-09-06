@@ -1,4 +1,4 @@
-<div class="rt-box col-xs-12 col-sm-9 col-md-10 c_bg_white c_height_5">
+<div class="rt-box col-xs-12 c_bg_white c_height_5">
     {{topic-list-header currentUser=currentUser title=dashboardTitle viewIcons="true" gridView=isGrid listView=isList}}
     <div class="bottom-divider"></div>
     <div {{bind-attr class="isGrid:gridViewVisible:gridViewHidden"}} id="app-grid-view">
@@ -16,7 +16,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="row app_box app_storage">
                   <a href {{action "createTorpedo"}}>
-                      <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover one_<%= cattype %>">
+                      <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 app_cover">
                         <div class="app_inner">
                             <div class="app_new {{if isLoadingTorpedo "no-pad" "padding"}}">
                               <span class="glyphicon {{if isLoadingTorpedo "spin extra-large" "glyphicon-plus"}}"></span>
@@ -53,7 +53,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="row app_box app_storage">
                   <a href {{action "createApp"}}>
-                      <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover one_<%= cattype %>">
+                      <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 app_cover">
                         <div class="app_inner">
                           <div class="app_new {{if isLoadingApp "no-pad" "padding"}}">
                             <span class="glyphicon {{if isLoadingApp "spin extra-large" "glyphicon-plus"}}"></span>
@@ -89,7 +89,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                 <div class="row app_box app_storage">
                   <a href {{action "createService"}}>
-                      <div class="col-xs-8 col-sm-4 col-md-3 col-lg-2 col-xl-2 app_cover one_<%= cattype %>">
+                      <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 app_cover">
                         <div class="app_inner">
                             <div class="app_new {{if isLoadingService "no-pad" "padding"}}">
                               <span class="glyphicon {{if isLoadingService "spin extra-large" "glyphicon-plus"}}"></span>

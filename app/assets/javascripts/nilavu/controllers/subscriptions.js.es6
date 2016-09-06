@@ -4,6 +4,9 @@ import Subscriptions from 'nilavu/models/subscriptions';
 import {popupAjaxError} from 'nilavu/lib/ajax-error';
 import {observes, computed} from 'ember-addons/ember-computed-decorators';
 import NilavuURL from 'nilavu/lib/url';
+import {setting} from 'nilavu/lib/computed';
+import {on} from 'ember-addons/ember-computed-decorators';
+import debounce from 'nilavu/lib/debounce';
 
 export default Ember.Controller.extend(BufferedContent, {
     needs: ['application'],
@@ -61,7 +64,8 @@ export default Ember.Controller.extend(BufferedContent, {
     regions: Ember.computed.alias('model.regions'),
 
     subRegionOption: function() {
-        if (this.get('regions')) return this.get('regions.firstObject.name');
+        if (this.get('regions'))
+            return this.get('regions.firstObject.name');
 
         return "";
     }.property('regions'),
@@ -82,13 +86,32 @@ export default Ember.Controller.extend(BufferedContent, {
         }
     }.observes('model.subregion'),
 
+    submitDisabled: function() {
+        if (Ember.isEmpty(this.get('address')))
+            return true;
+        if (Ember.isEmpty(this.get('city')))
+            return true;
+        if (Ember.isEmpty(this.get('state')))
+            return true;
+        if (Ember.isEmpty(this.get('zipcode')))
+            return true;
+        if (Ember.isEmpty(this.get('company')))
+            return true;
+
+        return false;
+    }.property('address', 'city', 'state', 'zipcode', 'company'),
+
+    otpDisabled: function() {
+        if (Ember.isEmpty(this.get('otpNumber')))
+            return true;
+        return false;
+    }.property('otpNumber'),
 
     actions: {
         activate() {
             const self = this,
                 attrs = this.getProperties('address', 'address2', 'city', 'state', 'zipcode', 'company');
             this.set('formSubmitted', true);
-
             return Nilavu.ajax("/subscriptions", {
                 data: {
                     address1: attrs.address,
@@ -105,7 +128,7 @@ export default Ember.Controller.extend(BufferedContent, {
                 if (Em.isEqual(rs.result, "success")) {
                     NilavuURL.routeTo('/subscriptions/bill/activation');
                 } else {
-                  console.log(JSON.stringify(rs));
+                    console.log(JSON.stringify(rs));
                     self.notificationMessages.error(I18n.t(rs.error));
                 }
             });
@@ -131,8 +154,6 @@ export default Ember.Controller.extend(BufferedContent, {
         }
 
     },
-
-
 
     hasError: Ember.computed.or('model.notFoundHtml', 'model.message'),
 

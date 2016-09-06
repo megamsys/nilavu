@@ -342,13 +342,14 @@ img.inSelect {
     color: #333;
     font-weight: 800;
     margin-top: 0;
-    height: 117px;
-    width: 123px;
+    height: 113px;
     border-bottom: 0;
-    margin-bottom: -28px;
     background-color: #f5f5f5;
-    border-radius: 5px;
+    border-radius: 5px 5px 0 0;
     padding-right: 0;
+}
+.tabs2 li.active {
+    margin-top: 1px;
 }
 .tabsos li.active a {
     padding: 0;
@@ -356,6 +357,9 @@ img.inSelect {
     color: #549DD6;
     font-size: 20px;
     padding-top: 5px;
+}
+.tabs2 li.active a {
+    line-height: 45px;
 }
 .tabsos li.active .distro span {
     display: block !important;
@@ -455,22 +459,17 @@ img.inSelect {
 
 
 .oscontainer {
-  margin-top: -22px;
-  padding-top: 56px;
-  margin-right: 0px;
   border: 1px solid #dcdcdc;
   border-top: 0px;
-  background-color: #f5f5f5;
-  margin-bottom: 25px;
   margin-top: -36px;
   padding: 10px;
   padding-top: 38px;
   margin-right: 0px;
-  border: 1px solid #dcdcdc;
   background-color: #f5f5f5;
   margin-bottom: 25px;
   padding-bottom: 2px;
-  width: 99.9%; }
+  width: 99.9%;
+}
 
   a {
     text-decoration: none;
@@ -580,14 +579,8 @@ img.inSelect {
     border-radius: 0;
 }
 .tabDisabled a:hover {
-    cursor: not-allowed;
     text-decoration: none;
 }
-.tabDisabled a:hover {
-    cursor: not-allowed;
-    text-decoration: none;
-}
-
 
 /* Content */
 .content-wrap {

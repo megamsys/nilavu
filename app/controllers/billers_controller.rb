@@ -1,10 +1,11 @@
 class BillersController < ApplicationController
     include CurrentBilly
+    include LaunchableAssembler # we use it to load regions. Hmm.. regions should be broken to a separate module.
 
     before_action :add_authkeys_for_api, only: [:index, :show]
 
     def show
-        render json: {shopper: shopper || {}}
+        render json: {regions: regions, shopper: shopper || {}}
     end
 
     def create

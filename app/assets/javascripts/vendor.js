@@ -12,10 +12,12 @@
 //= require bootstrap-dropdown.js
 //= require bootstrap-modal.js
 //= require bootstrap-transition.js
+//= require classie.js
 //= require select2.js
 //= require div_resizer
 //= require caret_position
 //= require favcount.js
+//= require gnmenu.js
 //= require jquery.ba-resize.min.js
 //= require jquery.color.js
 //= require jquery.cookie.js
