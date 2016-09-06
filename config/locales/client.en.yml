@@ -258,7 +258,7 @@ en:
         otp_resend: "Resend?"
         address: "Address:"
         addressex: "2 Macquarie Street"
-        address2: "Address 2:"
+        address2: "Address 2 (optional):"
         address2ex: ""
         city: "City:"
         cityex: "Sydney"
