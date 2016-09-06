@@ -18,7 +18,6 @@ class MarketplacesController < ApplicationController
 
     before_action :add_authkeys_for_api, only: [:index, :show]
 
-
     def index
         render json: { results: aggregate(HoneyPot.cached_marketplace_groups(params))}
     end

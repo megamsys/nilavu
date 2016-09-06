@@ -1,7 +1,14 @@
 <div class="container-fluid main-cover">
     <div class="row">
         {{#unless loading}}
-            <div class="container" id="list-container">
+            <div class="col-xs-12 col-sm-4 col-md-3 col-xl-2 c_bg_white">
+                <div class="row">
+                    <div class="page-sidebar navbar-collapse collapse">
+                        {{outlet "navigation-bar"}}
+                    </div>
+                </div>
+            </div>
+            <div id="list-container" class="col-xs-12 col-sm-8 col-md-9 col-xl-10">
                 {{outlet "list-container"}}
             </div>
         {{/unless}}

@@ -63,7 +63,7 @@ const SiteHeaderComponent = MountWidget.extend({
     console.log('Window: Document: ', window, document);
     this.appEvents.on('header:show-topic', topic => this.setTopic(topic));
     this.appEvents.on('header:hide-topic', () => this.setTopic(null));
-    
+
     this.dispatch('notifications:changed', 'user-notifications');
     this.dispatch('header:keyboard-trigger', 'header');
 
@@ -96,7 +96,7 @@ const SiteHeaderComponent = MountWidget.extend({
       canSignUp: this.get('canSignUp')
     };
   },
-  
+
   afterRender() {
     const $menuPanels = $('.menu-panel');
     if ($menuPanels.length === 0) { return; }
