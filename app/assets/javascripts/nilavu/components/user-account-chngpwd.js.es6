@@ -52,7 +52,10 @@ export default Em.Component.extend({
           self.set('loading', true);
           if (Ember.isEmpty(this.get('model.newPassword')) || Ember.isEmpty(this.get('model.retypePassword'))) {
               this.notificationMessages.error(I18n.t('user.password.blank_password'));
+                self.set('loading', false);
+                self.set('formSubmitted', false);
               return;
+
           }
           return this.get('model').changePassword().then(function(result){
           // password changed

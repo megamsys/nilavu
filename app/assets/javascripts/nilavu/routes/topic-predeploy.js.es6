@@ -9,6 +9,7 @@ export default Nilavu.Route.extend({
         const self = this;
         controller.setProperties({model: model});
         const promise = model.reload().then(function(result) {
+          controller.setProperties({model: model});
             self.set('loading', false);
             controller.subscribe();
             const postStream = controller.get('model.postStream');
