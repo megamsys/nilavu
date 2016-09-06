@@ -49,7 +49,7 @@ Nilavu::Application.routes.draw do
 
   match "/auth/:provider/callback", to: "omniauth_callbacks#complete", via: [:get, :post]
   match "/auth/failure", to: "omniauth_callbacks#failure", via: [:get, :post]
-  put "users/:id" => "users#update"
+
 
   resources :users, except: [:show, :update, :destroy] do
     collection do
@@ -57,6 +57,7 @@ Nilavu::Application.routes.draw do
     end
   end
 
+  get "/user/:id" => "users#edit"
   match "users/:id", to:  "users#edit", via: [:get],defaults: {format: 'json'}
 
   get "stylesheets/:name.css" => "stylesheets#show", constraints: { name: /[a-z0-9_]+/ }
