@@ -103,7 +103,11 @@ class UsersController < ApplicationController
   def account_created
     @message = session['user_created_message'] || I18n.t('activation.missing_session')
     expires_now
-    redirect_to "/subscriptions/account/activation"
+             if SiteSetting.allow_billings
+               redirect_to "/subscriptions/account/activation"
+             else
+               redirect_to "/"
+             end
   end
 
   ## Need a json serializer

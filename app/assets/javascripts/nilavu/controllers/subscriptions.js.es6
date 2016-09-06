@@ -1,9 +1,24 @@
 import BufferedContent from 'nilavu/mixins/buffered-content';
-import {spinnerHTML} from 'nilavu/helpers/loading-spinner';
+import {
+    spinnerHTML
+} from 'nilavu/helpers/loading-spinner';
 import Subscriptions from 'nilavu/models/subscriptions';
-import {popupAjaxError} from 'nilavu/lib/ajax-error';
-import {observes, computed} from 'ember-addons/ember-computed-decorators';
+import {
+    popupAjaxError
+} from 'nilavu/lib/ajax-error';
+import {
+    observes,
+    computed
+} from 'ember-addons/ember-computed-decorators';
 import NilavuURL from 'nilavu/lib/url';
+import {
+    setting
+} from 'nilavu/lib/computed';
+import {
+    on
+} from 'ember-addons/ember-computed-decorators';
+import debounce from 'nilavu/lib/debounce';
+
 
 export default Ember.Controller.extend(BufferedContent, {
     needs: ['application'],
@@ -13,11 +28,10 @@ export default Ember.Controller.extend(BufferedContent, {
     selectedTab: null,
     panels: null,
     showTop: false,
-
     subscriber: Ember.computed.alias('model.subscriber'),
     mobavatar: Ember.computed.alias('model.mobavatar_activation'),
 
-    @observes('subscriber')subscriberChecker: function() {
+    @observes('subscriber') subscriberChecker: function() {
         console.log(this.get('subscriber'));
         console.log(this.get("mobavatar"));
     },
@@ -51,11 +65,35 @@ export default Ember.Controller.extend(BufferedContent, {
         let otmap = [];
 
         for (var order in grouped_results) {
-            otmap.push({order: order, cattype: grouped_results[order].get('firstObject.cattype').toLowerCase()});
+            otmap.push({
+                order: order,
+                cattype: grouped_results[order].get('firstObject.cattype').toLowerCase()
+            });
         }
 
         return otmap;
     }.property('model.results'),
+
+    submitDisabled: function() {
+        if (Ember.isEmpty(this.get('address')))
+            return true;
+        if (Ember.isEmpty(this.get('city')))
+            return true;
+        if (Ember.isEmpty(this.get('state')))
+            return true;
+        if (Ember.isEmpty(this.get('zipcode')))
+            return true;
+        if (Ember.isEmpty(this.get('company')))
+            return true;
+
+        return false;
+    }.property('address', 'city', 'state', 'zipcode', 'company'),
+
+    otpDisabled: function() {
+        if (Ember.isEmpty(this.get('otpNumber')))
+            return true;
+        return false;
+    }.property('otpNumber'),
 
     actions: {
         activate() {
@@ -79,7 +117,7 @@ export default Ember.Controller.extend(BufferedContent, {
                 if (Em.isEqual(rs.result, "success")) {
                     NilavuURL.routeTo('/subscriptions/bill/activation');
                 } else {
-                  console.log(JSON.stringify(rs));
+                    console.log(JSON.stringify(rs));
                     self.notificationMessages.error(I18n.t(rs.error));
                 }
             });
@@ -96,7 +134,9 @@ export default Ember.Controller.extend(BufferedContent, {
                 type: 'POST'
             }).then(function(result) {
                 self.set('otpSubmitted', false);
-                self.setProperties({otpNumber: ''});
+                self.setProperties({
+                    otpNumber: ''
+                });
 
                 if (!result.success) {
                     self.notificationMessages.error(I18n.t("user.activation.activate_phone_error"));

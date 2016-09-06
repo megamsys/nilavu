@@ -274,6 +274,17 @@ class ApplicationController < ActionController::Base
     session[:destination_url] = destination_url
   end
 
+  def redirect_to_subscription_if_required
+    if current_user
+       if SiteSetting.allow_billings
+        user_activator = UserActivationChecker.new(current_user)
+            if !user_activator.completed?
+                  redirect_to "/subscriptions/account/activation"
+            end
+      end
+    end
+  end
+
   def set_current_user_with_team
     if current_user && !current_user.team
       Teams.new.tap do |teams|
