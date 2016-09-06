@@ -1,9 +1,9 @@
-import { createWidget } from 'nilavu/widgets/widget';
-import { iconNode } from 'nilavu/helpers/fa-icon';
+import {createWidget} from 'nilavu/widgets/widget';
+import {iconNode} from 'nilavu/helpers/fa-icon';
 import NilavuURL from 'nilavu/lib/url';
-import { wantsNewWindow } from 'nilavu/lib/intercept-click';
+import {wantsNewWindow} from 'nilavu/lib/intercept-click';
 
-import { h } from 'virtual-dom';
+import {h} from 'virtual-dom';
 
 const dropdown = {
     buildClasses(attrs) {
@@ -36,12 +36,12 @@ createWidget('user-dropdown', jQuery.extend({
     },
 
     html(attrs) {
-        const { currentUser } = this;
+        const {currentUser} = this;
 
         const body = [iconNode(attrs.icon, {
-            hclasz: attrs.icon,
-            class: attrs.align
-        })];
+                hclasz: attrs.icon,
+                class: attrs.align
+            })];
 
         if (attrs.contents) {
             body.push(attrs.contents.call(this));
@@ -62,16 +62,18 @@ createWidget('header-link', jQuery.extend({
         const title = I18n.t(attrs.title);
 
         const body = [iconNode(attrs.icon, {
-            hclasz: attrs.icon,
-            class: attrs.align
-        })];
+                hclasz: attrs.icon,
+                class: attrs.align
+            })];
 
         if (attrs.contents) {
             body.push(attrs.contents.call(this));
         }
 
         if (attrs.align) {
-            const align = attrs.align ? '.' + attrs.align : '';
+            const align = attrs.align
+                ? '.' + attrs.align
+                : '';
             body.push(h('span.hidden-xs.hidden-sm' + align, I18n.t(attrs.title)));
         }
 
@@ -91,9 +93,7 @@ createWidget('header-icons', {
     tagName: 'ul.nav.navbar-nav.pull-right.xs-centerBlock-m',
 
     buildAttributes() {
-        return {
-            role: 'navigation'
-        };
+        return {role: 'navigation'};
     },
 
     html(attrs) {
@@ -105,7 +105,6 @@ createWidget('header-icons', {
             resource: 'marketplaces'
         });
 
-
         const storages = this.attach('header-link', {
             title: 'storages.title',
             align: 'pull-left',
@@ -114,11 +113,15 @@ createWidget('header-icons', {
             resource: 'storages'
         });
 
-        const icons = [marketplaces, storages];
+        const icons = [marketplaces];
+
+        if (Nilavu.SiteSettings.enable_ceph_logins) {icons.push(storages);}
 
         if (this.currentUser) {
             icons.push(this.attach('user-dropdown', {
                 active: attrs.eventsVisible,
+                //TO-DO we enable this glyphicon bell.
+                //icon: 'glyphicon glyphicon-bell',
                 icon: 'c_glob header_events',
                 action: 'toggleEventsMenu'
             }));
@@ -131,7 +134,7 @@ createWidget('header-icons', {
         }
 
         return icons;
-    },
+    }
 });
 
 export default createWidget('header', {
@@ -139,25 +142,18 @@ export default createWidget('header', {
     buildKey: () => `header`,
 
     defaultState() {
-        return {
-            marketplacesVisible: true,
-            storagesVisible: true,
-            userVisible: false,
-            eventsVisible: false,
-            contextEnabled: false
-        };
+        return {marketplacesVisible: true, storagesVisible: true, userVisible: false, eventsVisible: false, contextEnabled: false};
     },
 
     html(attrs, state) {
 
         const panels = [this.attach('header-icons', {
-            marketplacesVisible: state.marketplacesVisible,
-            storagesVisible: state.storagesVisible,
-            userVisible: state.userVisible,
-            eventsVisible: state.eventsVisible,
-            flagCount: attrs.flagCount
-        })];
-
+                marketplacesVisible: state.marketplacesVisible,
+                storagesVisible: state.storagesVisible,
+                userVisible: state.userVisible,
+                eventsVisible: state.eventsVisible,
+                flagCount: attrs.flagCount
+            })];
 
         if (state.eventsVisible) {
             panels.push(this.attach('events-menu'));
@@ -167,7 +163,8 @@ export default createWidget('header', {
             panels.push(this.attach('user-menu'));
         }
 
-        const contents = [this.attach('home-logo', {
+        const contents = [
+            this.attach('home-logo', {
                 minimized: !!attrs.topic
             }),
             h('div.col-lg-4.col-sm-8.col-xs-12.offset-lg-6.offset-sm-1.offset-md-2.navbar-layout', h('div.row', panels))
@@ -196,9 +193,7 @@ export default createWidget('header', {
     },
 
     domClean() {
-        const {
-            state
-        } = this;
+        const {state} = this;
 
         if (state.userVisible) {
             this.closeAll();
