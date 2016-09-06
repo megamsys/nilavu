@@ -78,8 +78,8 @@ export default Ember.Controller.extend(ModalFunctionality, {
     },
 
     title: function() {
-        if (this.get('selectionSelected') && (this.get('isVirtualMachine'))) {
-            return I18n.t("launcher.selection_virtualmachine_title");
+        if (this.get('generalSelected') && (this.get('isVirtualMachine'))) {
+            return I18n.t("launcher.title");
         } else if (this.get('selectionSelected')) {
             return I18n.t("launcher.selection_application_title");
         } else if (this.get('summarySelected')) {
