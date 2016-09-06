@@ -205,14 +205,6 @@ export default Ember.Controller.extend({
         this.set('deployError', false);
         this.set('progressPosition', false);
     },
-    // _filterOutputs(key) {
-    //     if (!this.get('hasOutputs'))
-    //         return "";
-    //     if (!this.get('model.outputs').filterBy('key', key)[0])
-    //         return "";
-    //         alert("pass");
-    //     return this.get('model.outputs').filterBy('key', key)[0].value;
-    // },
 
     actions: {
 
