@@ -5,8 +5,9 @@ import {
 import computed from 'ember-addons/ember-computed-decorators';
 import FlavorCost from 'nilavu/models/flavor_cost';
 
-export default buildSubPanel('hourly', {
 
+export default buildSubPanel('hourly', {
+  needs: ['subscriptions'],
   supportEmail: function() {
       return Nilavu.SiteSettings.support_email;
   }.property(),
@@ -22,7 +23,20 @@ export default buildSubPanel('hourly', {
 
 actions: {
   addFunds: function() {
-      NilavuURL.redirectTo(this.get('whmcsClientAreaRedirect'));
+    const self = this;
+      // NilavuURL.redirectTo(this.get('whmcsClientAreaRedirect'));
+      return Nilavu.ajax("/subscriptions/add", {
+          type: 'GET'
+      }).then(function(result) {
+          self.set('formSubmitted', false);
+          var rs = result.subscriber;
+          if (Em.isEqual(rs.result, "success")) {
+              NilavuURL.routeTo('/');
+          } else {
+            console.log(JSON.stringify(rs));
+              self.notificationMessages.error(I18n.t(rs.error));
+          }
+      });
   }
 },
 

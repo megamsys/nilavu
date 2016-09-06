@@ -1,15 +1,10 @@
 class SubscriptionsController < ApplicationController
     include CurrentBilly
-    include LaunchableAssembler # we use it to load regions. Hmm.. regions should be broken to a separate module.
 
     skip_before_filter :check_xhr
-    before_action :add_authkeys_for_api, only: [:checker, :create, :index]
+    before_action :add_authkeys_for_api, only: [:checker, :create, :index, :add]
 
     SUBSCRIBER_PROCESSE = 'Subscriber'.freeze
-
-    def index
-        render json: { regions: regions }
-    end
 
     def entrance
     end
