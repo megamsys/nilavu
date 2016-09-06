@@ -22,14 +22,14 @@ class UsersController < ApplicationController
     # we need to allow account creation with bad CSRF tokens, if people are caching, the CSRF token on the
     #  page is going to be empty, this means that server will see an invalid CSRF and blow the session
     #  once that happens you can't log in with social
-    skip_before_filter :verify_authenticity_token, only: [:create]
+    # skip_before_filter :verify_authenticity_token, only: [:create]
     skip_before_filter :redirect_to_login_if_required, only: [:check_email,
                                                               :create,
                                                               :account_created,
                                                               :password_reset,
                                                               :confirm_email_token]
 
-    before_action :add_authkeys_for_api, only: [:edit, :update, :show]
+    before_action :add_authkeys_for_api, only: [:edit, :update]
 
     def create
         unless SiteSetting.allow_new_registrations
@@ -109,7 +109,7 @@ class UsersController < ApplicationController
     end
 
     ## Need a json serializer
-    def show
+    def edit
         @orgs = Teams.new.tap do |teams|
             teams.find_all(params)
         end
