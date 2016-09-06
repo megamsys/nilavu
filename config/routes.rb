@@ -34,6 +34,10 @@ Nilavu::Application.routes.draw do
   get "/subscriptions/account/activation" => "subscriptions#entrance"
   get "/subscriptions/activation/check" => "subscriptions#checker"
   post "/subscriptions" => "subscriptions#create"
+
+  get "/billers/bill/activation" => "billers#show"
+  post "/billers" => "billsers#create"
+
   post "/verify/otp" => "mobile_avatars#create"
 
   post "/session/forgot_password" => "sessions#forgot_password"

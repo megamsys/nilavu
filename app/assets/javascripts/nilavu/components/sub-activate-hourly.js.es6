@@ -25,8 +25,8 @@ actions: {
   addFunds: function() {
     const self = this;
       // NilavuURL.redirectTo(this.get('whmcsClientAreaRedirect'));
-      return Nilavu.ajax("/subscriptions/add", {
-          type: 'GET'
+      return Nilavu.ajax("/billers", {
+          type: 'POST'
       }).then(function(result) {
           self.set('formSubmitted', false);
           var rs = result.subscriber;
