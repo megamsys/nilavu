@@ -1,2 +1,2 @@
 var resolver = require('nilavu/ember/resolver').default;
-window.setResolver(resolver.create({ namespace: Discourse }));
+window.setResolver(resolver.create({ namespace: Nilavu }));

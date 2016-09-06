@@ -7,7 +7,7 @@ module CurrentBilly
             unless billy.has_external_id?
                 return no_external_id_found
             end
-            return {:result => "success", :addon => billy.to_hash}
+            return {:result => "success", :external_id => billy.to_hash}
         else
             return no_external_id_found
         end
