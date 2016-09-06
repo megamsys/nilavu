@@ -30,12 +30,12 @@ Nilavu::Application.routes.draw do
   get "session/csrf" => "sessions#csrf"
   get "session/current" => "sessions#current"
   match "sessions/delete", to:  "sessions#destroy", via: [:delete]
+
   get "/account_created/" => "users#account_created"
   get "/subscriptions/account/activation" => "subscriptions#entrance"
   get "/subscriptions/activation/check" => "subscriptions#checker"
-  get "/subscriptions/bill/activation" => "subscriptions#index"
   post "/subscriptions" => "subscriptions#create"
-  get "/subscriptions/add" => "subscriptions#add"
+
   post "/verify/otp" => "mobile_avatars#create"
 
   post "/session/forgot_password" => "sessions#forgot_password"
