@@ -126,7 +126,7 @@ export default Ember.Controller.extend(BufferedContent, {
                 self.set('formSubmitted', false);
                 var rs = result.subscriber;
                 if (Em.isEqual(rs.result, "success")) {
-                    NilavuURL.routeTo('/subscriptions/bill/activation');
+                    NilavuURL.routeTo('/billers/bill/activation');
                 } else {
                     console.log(JSON.stringify(rs));
                     self.notificationMessages.error(I18n.t(rs.error));

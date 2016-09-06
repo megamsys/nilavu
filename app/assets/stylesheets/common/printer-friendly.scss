@@ -1,80 +1,79 @@
 @media print {
-  * {
-    color: #000 !important;
-    text-shadow: none !important;
-    background: transparent !important;
-    box-shadow: none !important;
+  /* remove items N/A for print
+  ** visual clutter etc. */
+  .avatar,
+  .topic-avatar,
+  header,
+  .topic-above-post-stream-outlet.topic-above-post-stream,
+  .topic-map,
+  .post-menu-area.clearfix,
+  div#topic-footer-buttons,
+  div#suggested-topics,
+  div#progress-topic-wrapper,
+  #topic-progress-wrapper,
+  div.nums,
+  ._flyout,
+  .show-topic-admin,
+  #topic-progress,
+  .quote-controls,
+  #topic-closing-info,
+  div.lazyYT,
+  .post-info.edits,
+  .post-action,
+  .saving-text,
+  .draft-text,
+  #discourse-modal,
+  div.read-state,
+  div.read-state.read,
+  .edit-topic,
+  a.reply-to-tab,
+  a.reply-new,
+  div.has-pending-posts,
+  div.time-gap,
+  #bottom,
+  #footer,
+  .alert-info,
+  .badge-category,
+  .badge-category-bg,
+  .badge-notification.clicks{
+    display: none !important;
   }
-  a,
-  a:visited {
-    text-decoration: underline;
+  /* bottom border to help separate posts */
+  div.row {
+    border-top: 1px solid #AAA;
   }
-  a[href]:after {
-    content: " (" attr(href) ")";
+  .cooked pre code { max-height: none; }
+  #main-outlet { padding: 0 !important; }
+  html,body { min-width: 0; height: auto; }
+  .lightbox-wrapper img { max-width: 500px !important; height: auto !important; }
+  .topic-body { width: auto; margin: 0; padding: 0; float: none; }
+  .topic-post article.boxed .select-posts { width: auto; left: auto; right: 0; }
+  .gap { width: auto; }
+  .gutter { padding: 0; }
+  /* restyle div#topic-title */
+  #topic-title {
+    margin: 0;
+    padding: 0;
   }
-  abbr[title]:after {
-    content: " (" attr(title) ")";
+  #topic-title div div h1 {
+    margin: 2.5em 0 0 0;
+    padding: 0;
+    float: left;
+    font-weight: normal;
+    font-size: normal;
   }
-  .ir a:after,
-  a[href^="javascript:"]:after,
-  a[href^="#"]:after {
-    content: "";
+  a, a:visited {
+    color: #DDD;
+    font-weight: bold;
   }
-  pre,
-  blockquote {
-    border: 1px solid #999;
-    page-break-inside: avoid;
-  }
-  thead {
-    display: table-header-group;
-  }
-  tr,
-  img {
-    page-break-inside: avoid;
-  }
-  img {
-    max-width: 100% !important;
-  }
-  @page  {
-    margin: 2cm .5cm;
-  }
-  p,
-  h2,
-  h3 {
-    orphans: 3;
-    widows: 3;
-  }
-  h2,
-  h3 {
-    page-break-after: avoid;
-  }
-  .navbar {
+  /* hide OP Solved plugin stuff */
+  .topic-after-cooked-outlet.solved-panel {
     display: none;
   }
-  .table td,
-  .table th {
-    background-color: #fff !important;
+  /* localhost  - MOOT for production */
+  .topic-category-outlet.show-topic-category-location,
+  div.alert.alert-info.alert-emails-disabled,
+  div.profiler-results.profiler-left.profiler-no-controls {
+    display: none;
   }
-  .btn > .caret,
-  .dropup > .btn > .caret {
-    border-top-color: #000 !important;
-  }
-  .label {
-    border: 1px solid #000;
-  }
-  .table {
-    border-collapse: collapse !important;
-  }
-  .table-bordered th,
-  .table-bordered td {
-    border: 1px solid #ddd !important;
-  }
-}
-
-*,
-*:before,
-*:after {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
 }
