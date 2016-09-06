@@ -1,3 +1,17 @@
-{{#each filteredTopics as |topic|}}
+{{#each limitedTopics as |topic|}}
     {{topic-grid-item topic=topic showCategory=showCategory}}
 {{/each}}
+{{#if overLimitTopics}}
+    <a href {{action "showMore" showCategory}}>
+        <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xl-2 app_cover">
+            <div class="app_inner">
+                <div class="app_new ">
+                    <span class="glyphicons glyphicons-more"></span>
+                    <p>
+                        {{i18n 'dashboards.showmore'}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </a>
+{{/if}}

@@ -4,10 +4,20 @@
     <div {{bind-attr class="isGrid:gridViewVisible:gridViewHidden"}} id="app-grid-view">
         <div class='contents'>
             <div class="row c_pading-b15">
-                <div class="portlet-body-head">
+                <div class="portlet-body-head">                    
                     <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
-                        <i class="topics_header_torpedo"></i> {{i18n 'dashboards.torpedo.title'}}
-                        <span>{{topic-count inkTopicsModel "torpedo"}} {{i18n 'dashboards.torpedo.subtitle'}}</span>
+                        <span class="darker-black">
+                        <i class="topics_header_torpedo"></i>
+                        <span class="title">
+                          {{i18n 'dashboards.torpedo.title'}}
+                        </span>
+                        </span>
+                        <span style="display: block; margin-top: 10px;">
+                        <span style="color: #6fde86">
+                          {{topic-count inkTopicsModel "torpedo"}}
+                        </span>
+                        {{i18n 'dashboards.torpedo.subtitle'}}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -29,8 +39,8 @@
                     </div>
                   </a>
                     {{#if hasTopics}}
-                        {{topic-grid showCategory=torpedoCategory showTopicPostBadges=showTopicPostBadges showPosters=true currentUser=currentUser canBulkSelect=canBulkSelect changeSort="changeSort" toggleBulkSelect="toggleBulkSelect" hideCategory=model.hideCategory order=order ascending=ascending bulkSelectEnabled=bulkSelectEnabled
-                        selected=selected expandGloballyPinned=expandGloballyPinned expandAllPinned=expandAllPinned topics=inkTopicsModel}}
+                        {{topic-grid showCategory=torpedoCategory visibleShowMore=false showTopicPostBadges=showTopicPostBadges showPosters=true currentUser=currentUser canBulkSelect=canBulkSelect changeSort="changeSort" toggleBulkSelect="toggleBulkSelect" hideCategory=model.hideCategory order=order ascending=ascending bulkSelectEnabled=bulkSelectEnabled
+                        selected=selected expandGloballyPinned=expandGloballyPinned expandAllPinned=true topics=inkTopicsModel}}
                     {{/if}}
                 </div>
             </div>
