@@ -1,20 +1,20 @@
 (function(f) {
     if (typeof exports === "object" && typeof module !== "undefined") {
-        module.exports = f()
+        module.exports = f();
     } else if (typeof define === "function" && define.amd) {
-        define([], f)
+        define([], f);
     } else {
         var g;
         if (typeof window !== "undefined") {
-            g = window
+            g = window;
         } else if (typeof global !== "undefined") {
-            g = global
+            g = global;
         } else if (typeof self !== "undefined") {
-            g = self
+            g = self;
         } else {
-            g = this
+            g = this;
         }
-        g.io = f()
+        g.io = f();
     }
 })(function() {
     var define, module, exports;
@@ -33,7 +33,7 @@
                 };
                 t[o][0].call(l.exports, function(e) {
                     var n = t[o][1][e];
-                    return s(n ? n : e)
+                    return s(n ? n : e);
                 }, l, l.exports, e, t, n, r)
             }
             return n[o].exports
