@@ -9,7 +9,7 @@ class UserActivationChecker
     end
 
     def completed?
-      not_required?  ? true : send_current_status
+        not_required?  ? true : send_current_status
     end
 
     def not_required?

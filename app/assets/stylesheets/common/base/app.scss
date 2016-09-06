@@ -1,6 +1,6 @@
 // Support for app launches
 
-.circle_red {
+.circle_red, .cricle-stopped, .circle-nuked, .circle-error {
     width: 12px;
     height: 12px;
     -moz-border-radius: 50%;
@@ -10,7 +10,8 @@
     float: left;
     margin-top: 4px;
 }
-.circle_green {
+
+.circle_green, .circle-launched, .circle-running, .circle-started, .circle-upgraded, .circle-stateup_started {
     width: 12px;
     height: 12px;
     -moz-border-radius: 50%;
@@ -21,13 +22,13 @@
     margin-top: 4px;
 }
 
-.circle_yellow {
+.circle_yellow, .circle-destroying, .circle-stopping, .circle-starting, .circle-stateup_starting, .circle-bootstrapping, .circle-launching, .circle-restarting {
     width: 12px;
     height: 12px;
     -moz-border-radius: 50%;
     -webkit-border-radius: 50%;
     border-radius: 50%;
-    background: #f8d51e;
+    background: #f1c40f;
     float: left;
     margin-top: 4px;
 }
