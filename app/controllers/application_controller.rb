@@ -270,7 +270,6 @@ class ApplicationController < ActionController::Base
 
 
   def redirect_to_login_if_required
-
     return if current_user
     session[:destination_url] = destination_url
   end

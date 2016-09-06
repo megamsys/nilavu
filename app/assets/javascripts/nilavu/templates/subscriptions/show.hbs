@@ -21,9 +21,9 @@
                             <div class="input-group">
                                 {{text-field type="text" value=otpNumber class ="form-control fix-to-btn" name="otpNumber" autofocus="autofocus"}}
                                 <span class="input-group-btn lh40">
-                                <button class="btn btn-secondary fix-to-btn validate-btn"  {{bind-attr disabled="otpDisabled"}} {{action "verifyOTP"}}>
+                                <button class="btn btn-secondary fix-to-btn validate-btn" {{bind-attr disabled="otpDisabled"}} {{action "verifyOTP"}}>
                                     <span>{{i18n 'user.activation.otp_verify'}}</span>
-                                    <span class="pull-right">
+                                <span class="pull-right">
                                           {{conditional-loading-spinner condition=otpSubmitted size="large"}}
                                     </span>
                                 </button>

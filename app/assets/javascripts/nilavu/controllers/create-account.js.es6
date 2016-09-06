@@ -182,11 +182,23 @@ export default Ember.Controller.extend({
         if (Ember.isEmpty(this.get('phonenumber'))) {
             return Nilavu.InputValidation.create({failed: true});
         }
-
+        // if (!Ember.isEmpty(this.get('phonenumber').match(this.get('format')))) {
+        //     return Nilavu.InputValidation.create({failed: true, reason: I18n.t('user.phone.ischaracter')});
+        // }
         if (!this.get('phonenumber').match(this.get('format'))) {
             return Nilavu.InputValidation.create({failed: true, reason: I18n.t('user.phone.ischaracter')});
         }
-
+        // const phone = this.get('phonenumber');
+        // // const phoneLength = this.get('isPhone')
+        // //     ? Nilavu.SiteSettings.min_admin_phone_length
+        // //     : Nilavu.SiteSettings.min_phone_length;
+        //     const phoneLength = 10;
+        // if (phone.length < phoneLength) {
+        //     return Nilavu.InputValidation.create({failed: true, reason: I18n.t('user.phone.too_short')});
+        // }
+        // alert(this.get('phonenumber'));
+        // Looks good!
+        // return Nilavu.InputValidation.create({ok: true, reason: I18n.t('user.phone.ok')});
     }.property('phonenumber', 'format', 'isPhone'),
 
     shouldCheckEmailAvailability: function() {
