@@ -205,7 +205,7 @@ export default Ember.Controller.extend({
         this.set('deployError', false);
         this.set('progressPosition', false);
     },
-
+    
     actions: {
 
       showVNC() {
