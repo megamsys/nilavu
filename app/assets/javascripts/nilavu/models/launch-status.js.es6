@@ -1,20 +1,36 @@
-import { url } from 'nilavu/lib/computed';
-import { on } from 'ember-addons/ember-computed-decorators';
+import {url} from 'nilavu/lib/computed';
+import {on} from 'ember-addons/ember-computed-decorators';
 import computed from 'ember-addons/ember-computed-decorators';
 import RestModel from 'nilavu/models/rest';
-
 
 const LaunchStatusTypes = {
     LAUNCHING: 'LAUNCHING',
     LAUNCHED: 'LAUNCHED',
     BOOTSTRAPPING: 'BOOTSTRAPPING',
     BOOTSTRAPPED: 'BOOTSTRAPPED',
-    STATEUP: 'STATEUP',
+    STATEUPSTARTING: 'STATEUPSTARTING',
     CHEFRUNNING: 'CHEFRUNNING',
     COOKBOOKSUCCESS: 'COOKBOOKSUCCESS',
-    IPUPDATED: 'IPUPDATED',
     AUTHKEYSADDED: 'AUTHKEYSADDED',
-    ROUTEADDED: 'ROUTEADDED'
+    ROUTEADDED: 'ROUTEADDED',
+    CHEFCONFIGSETUPSTARTING: 'CHEFCONFIGSETUPSTARTING',
+    CHEFCONFIGSETUPSTARTED: 'CHEFCONFIGSETUPSTARTED',
+    GITCLONED: 'GITCLONED',
+    GITCLONING: 'GITCLONING',
+    STATEUPSTARTED: 'STATEUPSTARTED',
+    UPDATING: 'UPDATING',
+    UPDATED: 'UPDATED',
+    DOWNLOADED: 'DOWNLOADED',
+    DOWNLOADING: 'DOWNLOADING',
+    VNCHOSTUPDATING: 'VNCHOSTUPDATING',
+    DNSNAMESKIPPED: 'DNSNAMESKIPPED',
+    COOKBOOK_DOWNLOADING: 'COOKBOOK_DOWNLOADING',
+    COOKBOOK_DOWNLOADED: 'COOKBOOK_DOWNLOADED',
+    AUTHKEYSUPDATING: 'AUTHKEYSUPDATING',
+    AUTHKEYSUPDATED: 'AUTHKEYSUPDATED',
+    IP_UPDATING: 'IP_UPDATING',
+    IP_UPDATED: 'IP_UPDATED'
+
 }
 
 const LaunchActionTypes = {
@@ -46,8 +62,7 @@ const LaunchErrorTypes = {
 
 const LaunchStatus = RestModel.extend({
 
-    @computed("event_type")
-    successKey(action) {
+    @computed("event_type")successKey(action) {
         if (action != null) {
             var successArray = [];
 
@@ -59,8 +74,7 @@ const LaunchStatus = RestModel.extend({
         return false;
     },
 
-    @computed("event_type")
-    errorKey(action) {
+    @computed("event_type")errorKey(action) {
         if (action != null) {
             var errorsArray = [];
 
@@ -74,8 +88,7 @@ const LaunchStatus = RestModel.extend({
         return false;
     },
 
-    @computed("event_type")
-    statusKey(action) {
+    @computed("event_type")statusKey(action) {
         if (action != null) {
             var statusArray = [];
 
@@ -87,15 +100,9 @@ const LaunchStatus = RestModel.extend({
         }
 
         return false;
-    },
-
+    }
 });
 
-LaunchStatus.reopenClass({
-    TYPES: LaunchStatusTypes,
-    TYPES_ACTION: LaunchActionTypes,
-    TYPES_SUCCESS: LaunchSuccessTypes,
-    TYPES_ERROR: LaunchErrorTypes
-});
+LaunchStatus.reopenClass({TYPES: LaunchStatusTypes, TYPES_ACTION: LaunchActionTypes, TYPES_SUCCESS: LaunchSuccessTypes, TYPES_ERROR: LaunchErrorTypes});
 
 export default LaunchStatus;

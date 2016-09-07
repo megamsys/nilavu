@@ -252,9 +252,6 @@ export default Ember.Component.extend({
     },
 
     _hasResource: function(stats, resource) {
-      const val=stats.stats.length;
-      const bb =stats.stats[0][resource];
-
         return stats.stats.length > 0 && stats.stats[0][resource];
     },
 
