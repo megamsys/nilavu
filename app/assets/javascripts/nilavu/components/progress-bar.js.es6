@@ -41,6 +41,8 @@ const { computed } = Ember;
    // Specify to how many digits the progress bar label should be rounded.
   roundDigits: 0,
 
+  a: true,
+
   progressBarStriped: computed.alias('striped'),
   active: computed.alias('animate'),
 
@@ -68,10 +70,9 @@ const { computed } = Ember;
     return Math.round(this.get('percent') * roundFactor) / roundFactor;
   }),
 
-
   style: computed('percent', function() {
     let percent = this.get('percent');
-    return new Ember.Handlebars.SafeString(`width: ${percent}%`);
+    return new Ember.Handlebars.SafeString(`width: ${percent}%;`+this.get('err_find'));
   })
 
 });

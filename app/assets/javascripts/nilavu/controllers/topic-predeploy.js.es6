@@ -21,6 +21,10 @@ export default Ember.Controller.extend({
 
     title: I18n.t('launcher.predeployer'),
 
+    err:'',
+
+    style:'background: #e5570c;',
+
     name: function() {
         return this.get('model.name');
     }.property('model.name'),
@@ -39,6 +43,7 @@ export default Ember.Controller.extend({
 
         if (this.deployError) {
             this.set('barLabel', "Ooops, try relaunching...");
+            this.set('err', this.get('style'));
             return 'danger';
         }
         this.set('barLabel', "Launching...");
@@ -205,7 +210,7 @@ export default Ember.Controller.extend({
         this.set('deployError', false);
         this.set('progressPosition', false);
     },
-    
+
     actions: {
 
       showVNC() {
