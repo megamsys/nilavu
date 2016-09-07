@@ -13,12 +13,12 @@ export default Nilavu.Route.extend({
     },
 
 
-    afterModel() {
+    /*afterModel() {
         const topic = this.modelFor('topic');
         if (this.showPredeployer(topic)) {
             this.replaceWith(topic.url() + '/predeploy', topic);
         }
-    },
+    },*/
 
     showPredeployer: function(topic) {
         if (topic && topic.predeploy_finished) {
