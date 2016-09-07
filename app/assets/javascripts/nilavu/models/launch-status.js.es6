@@ -54,8 +54,7 @@ const LaunchStatus = RestModel.extend({
             _.each(LaunchSuccessTypes, (k, v) => {
                 successArray.push(k);
             });
-
-            return successArray.indexOf(action) >= 0;
+            return successArray.indexOf(action.toUpperCase()) >= 0;
         }
         return false;
     },
