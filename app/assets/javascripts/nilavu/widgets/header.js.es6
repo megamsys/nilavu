@@ -115,7 +115,9 @@ createWidget('header-icons', {
 
         const icons = [marketplaces];
 
-        if (Nilavu.SiteSettings.enable_ceph_logins) {icons.push(storages);}
+        if (Nilavu.SiteSettings.enable_ceph_logins) {
+            icons.push(storages);
+        }
 
         if (this.currentUser) {
             icons.push(this.attach('user-dropdown', {
