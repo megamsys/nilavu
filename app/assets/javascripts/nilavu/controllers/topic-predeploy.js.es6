@@ -109,6 +109,7 @@ export default Ember.Controller.extend({
     		            case LaunchStatus.TYPES.GITCLONED:
     		            case LaunchStatus.TYPES.GITCLONING:
     		            case LaunchStatus.TYPES.UPDATING:
+                    case LaunchStatus.TYPES.VNCHOSTUPDATING:
     		            case LaunchStatus.TYPES.UPDATED:
     		            case LaunchStatus.TYPES.DOWNLOADED:
     		            case LaunchStatus.TYPES.DOWNLOADING:
