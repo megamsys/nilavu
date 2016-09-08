@@ -72,7 +72,12 @@ const { computed } = Ember;
 
   style: computed('percent', function() {
     let percent = this.get('percent');
-    return new Ember.Handlebars.SafeString(`width: ${percent}%;`+this.get('err_find'));
+    let flagDeployingError = '';
+    if (this.get("deployError")) {
+       flagDeployingError = 'background: #e5570c;';
+       percent = 100;
+    }
+    return new Ember.Handlebars.SafeString(`width: ${percent}%;`+flagDeployingError);
   })
 
 });
