@@ -15,7 +15,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
     summarizeVisible: true,
 
     _initPanels: function() {
-        this.set('panels', []);
+        this.set('panels', []);        
     }.on('init'),
 
     marketplaceItemSelected: function() {
@@ -77,6 +77,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
         if (this.get('category')) {}
     },
 
+
     title: function() {
         if (this.get('generalSelected') && (this.get('isVirtualMachine'))) {
             return I18n.t("launcher.title");
@@ -90,6 +91,8 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
     launchOption: function() {
         const option = this.get('category.launchoption') || "";
+        console.log("=========================================");
+        console.log(option);
         return option.trim().length > 0
             ? option
             : I18n.t("launchoption.default");
@@ -97,6 +100,8 @@ export default Ember.Controller.extend(ModalFunctionality, {
 
     launchableChanged: function() {
         this.set('category.launchoption', this.get('launchOption'));
+        console.log("================88888888888888=========================");
+        console.log(this.get('launchOption'));
         if (this.get('launchOption').trim().length > 0) {
             const isVM = Ember.isEqual(this.get('launchOption').trim(), I18n.t('launcher.virtualmachines'));
             this.set('isVirtualMachine', isVM);
