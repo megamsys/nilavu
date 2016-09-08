@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="predeploybar">
-        {{#progress-bar  value=streamPercentage barHead=barHead striped=true animate=true minValue=0 maxValue=100 label=barLabel showLabel=true type="danger"}}{{/progress-bar}}
+        {{#progress-bar deployError=deployError value=streamPercentage barHead=barHead striped=true animate=true minValue=0 maxValue=100 label=barLabel showLabel=true type="danger"}}{{/progress-bar}}
     </div>
 
     {{conditional-loading-spinner size="large" condition=model.postStream.loading}}

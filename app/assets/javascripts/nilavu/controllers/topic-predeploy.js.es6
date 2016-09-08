@@ -21,6 +21,7 @@ export default Ember.Controller.extend({
 
     title: I18n.t('launcher.predeployer'),
 
+
     name: function() {
         return this.get('model.name');
     }.property('model.name'),
@@ -221,7 +222,7 @@ export default Ember.Controller.extend({
         this.set('deployError', false);
         this.set('progressPosition', false);
     },
-    
+
     actions: {
 
       showVNC() {

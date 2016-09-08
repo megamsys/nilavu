@@ -68,10 +68,14 @@ const { computed } = Ember;
     return Math.round(this.get('percent') * roundFactor) / roundFactor;
   }),
 
-
   style: computed('percent', function() {
     let percent = this.get('percent');
-    return new Ember.Handlebars.SafeString(`width: ${percent}%`);
+    let flagDeployingError = '';
+    if (this.get("deployError")) {
+       flagDeployingError = 'background: #e5570c;';
+       percent = 100;
+    }
+    return new Ember.Handlebars.SafeString(`width: ${percent}%;`+flagDeployingError);
   })
 
 });
