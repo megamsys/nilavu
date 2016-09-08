@@ -46,7 +46,7 @@ module Api
 
         def dig_event(events_data)
             events_data[:body].map do |one_event|
-              @baked << { account_id: one_event.account_id, assembly_id: one_event.assembly_id, event_type: one_event.event_type, data: one_event.data, created_at: one_event.created_at.to_time.to_formatted_s(:rfc822), id:one_event.id}
+              @baked << { account_id: one_event.account_id, assembly_id: one_event.assembly_id, event_type: one_event.event_type, data: one_event.data, created_at: one_event.created_at, id:one_event.id}
           end unless events_data.nil?
           @baked
         end
