@@ -4,14 +4,13 @@ import LaunchStatus from 'nilavu/models/launch-status';
 // This route is used for retrieving a topic/:id based on params - id
 export default Nilavu.Route.extend({
 
-  redirect() {
-      return this.redirectIfLoginRequired();
-  },
+    redirect() {
+        return this.redirectIfLoginRequired();
+    },
 
     model(params) {
         return params;
     },
-
 
     afterModel() {
         const topic = this.modelFor('topic');
@@ -38,7 +37,7 @@ export default Nilavu.Route.extend({
         const self = this,
             topic = this.modelFor('topic'),
             topicappController = this.controllerFor('topic-app').setProperties({model: topic});
-              params.forceLoad = false;
+        params.forceLoad = false;
         const promise = topic.reload().then(function(result) {
             topicappController.setProperties({model: topic});
             self.set('loading', false);

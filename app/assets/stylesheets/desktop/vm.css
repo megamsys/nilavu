@@ -90,3 +90,22 @@
 .left-pad {
     padding-left: 8px;
 }
+
+.vm-overview {
+  border-style: solid;
+  border-width: 1px;
+  border-color: #E6F3FF;
+  background-color: #E6F3FF;
+}
+
+.vm-overview .bottomborder {
+    border-bottom: 2px solid #fff;
+}
+
+.overview-pad {
+    padding-left: 35px;
+}
+
+.greentext {
+  color:#6FDE86;
+}
