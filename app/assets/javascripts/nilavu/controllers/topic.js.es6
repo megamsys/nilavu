@@ -60,6 +60,7 @@ export default Ember.Controller.extend(BufferedContent, {
     title: Ember.computed.alias('fullName'),
 
     fullName: function() {
+
         //var js = this._filterInputs("domain");
         //return this.get('model.name') + "." + js;
         return this.get('model.name')
@@ -185,7 +186,7 @@ export default Ember.Controller.extend(BufferedContent, {
             var self = this;
             this.set('spinnerStartIn', true);
             Nilavu.ajax('/t/' + this.get('model').id + "/start", {
-                data: this.getData("control"),
+                data: this.getData("start"),
                 type: 'POST'
             }).then(function(result) {
                 self.set('spinnerStartIn', false);
@@ -204,7 +205,7 @@ export default Ember.Controller.extend(BufferedContent, {
             var self = this;
             this.set('spinnerStopIn', true);
             Nilavu.ajax('/t/' + this.get('model').id + "/stop", {
-                data: this.getData("control"),
+                data: this.getData("stop"),
                 type: 'POST'
             }).then(function(result) {
                 self.set('spinnerStopIn', false);
@@ -224,7 +225,7 @@ export default Ember.Controller.extend(BufferedContent, {
             var self = this;
             this.set('spinnerRebootIn', true);
             Nilavu.ajax('/t/' + this.get('model').id + "/restart", {
-                data: this.getData("control"),
+                data: this.getData("restart"),
                 type: 'POST'
             }).then(function(result) {
                 self.set('spinnerRebootIn', false);
