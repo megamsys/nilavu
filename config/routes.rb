@@ -50,7 +50,6 @@ Nilavu::Application.routes.draw do
   match "/auth/:provider/callback", to: "omniauth_callbacks#complete", via: [:get, :post]
   match "/auth/failure", to: "omniauth_callbacks#failure", via: [:get, :post]
 
-
   resources :users, except: [:show, :update, :destroy] do
     collection do
       get "check_email"
