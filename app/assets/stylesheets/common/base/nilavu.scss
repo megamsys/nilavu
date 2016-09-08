@@ -7,7 +7,12 @@ section#main {
   position: relative;
   min-height: 100%;
 }
-
+.mt12-5 {
+  margin-top: 12.5px;
+}
+ul.list-inline.app_icon_bottom {
+    margin: 0px;
+}
 .bootbox.modal {
   position: fixed;
   top: 50%;

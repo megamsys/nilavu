@@ -214,8 +214,11 @@ input.gn-search:focus {
 		left: 0;
 		height: 60px;
 }
+li:hover .add-new {
+    color: white;
+}
 .add-new {
-	font-size: 28px;
+	font-size: 40px;
 	color: #5cb85c;
 }
 .navbar-item > a > .header_user_profile {
