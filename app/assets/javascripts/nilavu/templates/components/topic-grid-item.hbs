@@ -27,12 +27,11 @@
 
             <div class="app_footer_padding">
                 <i class="circle-{{topic.status}}"></i>
-                <span>{{topic.status}}</span>
-                <a href="vncs">
-                    <i class="c_icon-window pull-right" style="padding-top:20px">
-                    </i>
-                </a>
-                <i class="c_icon-star pull-right" style="padding-right:30px"></i>
+                <span>{{status}}</span>
+                <span {{action 'on'}}> <i class="c_icon-window pull-right" style="padding-top:20px">
+                </i> </span> {{action-link}}
+
+                <!-- <i class="c_icon-star pull-right" style="padding-right:30px"></i> -->
             </div>
         </div>
     </div>
