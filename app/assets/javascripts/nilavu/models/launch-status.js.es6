@@ -82,7 +82,7 @@ const LaunchStatus = RestModel.extend({
                 errorsArray.push(k);
             });
 
-            return errorsArray.indexOf(action) >= 0;
+            return errorsArray.indexOf(action.toUpperCase()) >= 0;
         }
 
         return false;

@@ -25,6 +25,11 @@ export default Nilavu.Route.extend({
             return false;
         }
 
+        const oneOfError = LaunchStatus.create({event_type: topic.status}).get('errorKey');
+        if (topic && oneOfError) {
+            return false;
+        }
+
         //  const oneOfError   = LaunchStatus.TYPES_ERROR.indexOf(topic.status) >=0;
         return true;
     },
