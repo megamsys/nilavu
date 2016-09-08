@@ -21,7 +21,7 @@ export default buildCategoryPanel('snapshots', {
     }),
 
     snapshot_title: function() {
-        return I18n.t("vm_management.snapshots.tab_title");
+        return I18n.t("vm_management.snapshots.title");
     }.property(),
 
     snapshot_description: function() {
@@ -77,7 +77,7 @@ export default buildCategoryPanel('snapshots', {
             }
         }).catch(function(e) {
             self.set("showSnapshotSpinnerVisible", false);
-            self.notificationMessages.error(I18n.t("vm_management.snapshots.list_error"));
+            // self.notificationMessages.error(I18n.t("vm_management.snapshots.list_error"));
         });
     },
 

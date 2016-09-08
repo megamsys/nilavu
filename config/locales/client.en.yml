@@ -559,14 +559,15 @@ en:
         content_hdd_size: "Size"
       snapshots:
         tab_title: "Snapshots"
+        title: "Manage"
         description: "Snapshots can provide an easy way to scale out a system or store your current virtual machine's state."
-        list_title: "Created Snapshots"
+        list_title: "Snapshots"
         content_id: "Id"
         content_name: "Name"
         content_created_at: "Created"
         content_empty: "0 snapshots"
         list_error: "Snapshots list failed. Try some other time."
-        take_snapshot: "Take Snapshot"
+        take_snapshot: "Take a Snapshot"
         take_snapshot_success: "Snapshot created for your virtual machine."
       network:
         tab_title: "Network"
