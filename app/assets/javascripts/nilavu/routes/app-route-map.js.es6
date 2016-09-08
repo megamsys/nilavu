@@ -16,7 +16,6 @@ export default function() {
                 path: '/' + filter
             });
         });
-
     });
 
     //sshkey routes
