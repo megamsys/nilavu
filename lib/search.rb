@@ -52,7 +52,7 @@ class Search
     def execute
         if @term.blank? || @term.length < (@opts[:min_search_term_length] || SiteSetting.min_search_term_length)
             return nil unless @filters.present?
-        end
+        end      
         find_grouped_results if @results.search_context.present?
 
         @results

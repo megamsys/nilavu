@@ -52,7 +52,7 @@ class PrepackagedScrubber < Scrubber
 
     advanced_cleanser('vertice') do |dirtly_data, subfilter|
         dirtly_data.select! do |items|
-            items.select! do |it|
+            items.select! do |it|              
                 it.options.select{|i| i['key'] == 'oneclick'}.length > 0 || it.cattype == 'SERVICE'
             end if items.is_a?(Array)
         end.unshift('vertice')

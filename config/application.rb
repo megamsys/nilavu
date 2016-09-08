@@ -138,7 +138,7 @@ module Nilavu
     if ENV['RBTRACE'] == "1"
       require 'rbtrace'
     end
-
+    
   end
 end
 
