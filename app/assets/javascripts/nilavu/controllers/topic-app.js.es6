@@ -100,7 +100,6 @@ export default Ember.Controller.extend(BufferedContent, {
         return this._filterOutputs("privateipv4");
     }.property('model.outputs'),
 
-
     _checked(value) {
         if (value == "true") {
             return true;
