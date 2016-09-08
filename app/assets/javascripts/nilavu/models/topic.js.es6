@@ -54,8 +54,16 @@ const Topic = RestModel.extend({
       return this.get('tosca_type').split(".")[1].replace("collaboration", "app").replace("analytics", "app");
     }.property(),
 
-
     hasOutputs: Em.computed.notEmpty('outputs'),
+
+    filterOutputs(key) {
+        if (!this.get('hasOutputs'))
+            return "";
+        if (!this.get('outputs').filterBy('key', key)[0])
+            return "";
+        return this.get('outputs').filterBy('key', key)[0].value;
+    },
+
 
     // Delete this topic
     destroy(deleted_by) {
