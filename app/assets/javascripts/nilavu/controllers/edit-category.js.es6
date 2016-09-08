@@ -77,6 +77,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
         if (this.get('category')) {}
     },
 
+
     title: function() {
         if (this.get('generalSelected') && (this.get('isVirtualMachine'))) {
             return I18n.t("launcher.title");
@@ -96,7 +97,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.property('category.launchoption'),
 
     launchableChanged: function() {
-        this.set('category.launchoption', this.get('launchOption'));
+        this.set('category.launchoption', this.get('launchOption'));      
         if (this.get('launchOption').trim().length > 0) {
             const isVM = Ember.isEqual(this.get('launchOption').trim(), I18n.t('launcher.virtualmachines'));
             this.set('isVirtualMachine', isVM);
