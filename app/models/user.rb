@@ -238,7 +238,7 @@ class User
     def update_hash
         {:email => @email,
             :api_key => @api_key,
-            :password => ensure_password_is_hashed,
+            :password => @raw_password,
             :password_reset_key => @password_reset_key,
             :password_reset_sent_at => @password_reset_sent_at,
             :first_name => @first_name,
