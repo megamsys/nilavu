@@ -41,8 +41,6 @@ const { computed } = Ember;
    // Specify to how many digits the progress bar label should be rounded.
   roundDigits: 0,
 
-  a: true,
-
   progressBarStriped: computed.alias('striped'),
   active: computed.alias('animate'),
 
