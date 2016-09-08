@@ -39,7 +39,7 @@ class Auth::DefaultCurrentUserProvider
             u = current_user
             Scheduler::Defer.later "Updating Last Seen" do
             #    u.update_last_seen!
-                u.update_ip_address!(request.ip)
+            #    u.update_ip_address!(request.ip)
             end
         end
 
