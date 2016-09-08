@@ -1,14 +1,11 @@
 import BufferedContent from 'nilavu/mixins/buffered-content';
-import {
-    spinnerHTML
-} from 'nilavu/helpers/loading-spinner';
+import {spinnerHTML} from 'nilavu/helpers/loading-spinner';
 import Topic from 'nilavu/models/topic';
-import {
-    popupAjaxError
-} from 'nilavu/lib/ajax-error';
+import {popupAjaxError} from 'nilavu/lib/ajax-error';
 import computed from 'ember-addons/ember-computed-decorators';
 import NilavuURL from 'nilavu/lib/url';
 import showModal from 'nilavu/lib/show-modal';
+import LaunchStatus from 'nilavu/models/launch-status';
 
 export default Ember.Controller.extend(BufferedContent, {
     needs: [
@@ -23,6 +20,8 @@ export default Ember.Controller.extend(BufferedContent, {
     spinnerDeleteIn: false,
     spinnerRefreshIn: false,
     rerenderTriggers: ['isUploading'],
+    startsubmitted: false,
+    stopsubmitted: false,
 
     _initPanels: function() {
         this.set('panels', []);
@@ -60,9 +59,6 @@ export default Ember.Controller.extend(BufferedContent, {
     title: Ember.computed.alias('fullName'),
 
     fullName: function() {
-
-        //var js = this._filterInputs("domain");
-        //return this.get('model.name') + "." + js;
         return this.get('model.name')
     }.property('model.name'),
 
@@ -107,22 +103,14 @@ export default Ember.Controller.extend(BufferedContent, {
 
     getData(reqAction) {
         return {
-            id: this.get('model').id,
-            cat_id: this.get('model').asms_id,
-            name: this.get('model').name,
-            req_action: reqAction,
-            cattype: this.get('model').tosca_type.split(".")[1],
+            id: this.get('model').id, cat_id: this.get('model').asms_id, name: this.get('model').name, req_action: reqAction, cattype: this.get('model').tosca_type.split(".")[1],
             category: "control"
         };
     },
 
     getDeleteData() {
         return {
-            id: this.get('model').id,
-            cat_id: this.get('model').asms_id,
-            name: this.get('model').name,
-            action: "delete",
-            cattype: this.get('model').tosca_type.split(".")[1],
+            id: this.get('model').id, cat_id: this.get('model').asms_id, name: this.get('model').name, action: "delete", cattype: this.get('model').tosca_type.split(".")[1],
             category: "state"
         };
     },
@@ -146,9 +134,20 @@ export default Ember.Controller.extend(BufferedContent, {
         });
     },
 
+    startDisabled: function() {
+        if (this.get('startsubmitted'))
+            return true;
+        return false;
+    }.property('startsubmitted'),
+
+    stopDisabled: function() {
+        if (this.get('stopsubmitted'))
+            return true;
+        return false;
+    }.property('stopsubmitted'),
+
 
     actions: {
-
         refresh() {
             const self = this;
             self.set('spinnerRefreshIn', true);
@@ -174,10 +173,7 @@ export default Ember.Controller.extend(BufferedContent, {
                     userTitle: "VNC Connected :" + this.get('title'),
                     smallTitle: true,
                     titleCentered: true
-                }).setProperties({
-                    host: host,
-                    port: port
-                });
+                }).setProperties({host: host, port: port});
             }
 
         },
@@ -195,9 +191,12 @@ export default Ember.Controller.extend(BufferedContent, {
                 } else {
                     self.notificationMessages.error(I18n.t("vm_management.error"));
                 }
+                self.set('stopsubmitted', false);
+                self.set('startsubmitted', true);
             }).catch(function(e) {
                 self.set('spinnerStartIn', false);
                 self.notificationMessages.error(I18n.t("vm_management.error"));
+                self.set('startsubmitted', false);
             });
         },
 
@@ -214,10 +213,13 @@ export default Ember.Controller.extend(BufferedContent, {
                 } else {
                     self.notificationMessages.error(I18n.t("vm_management.error"));
                 }
+                self.set('stopsubmitted', true);
+                self.set('startsubmitted', false);
             }).catch(function(e) {
                 self.set('spinnerStopIn', false);
                 console.log(e);
                 self.notificationMessages.error(I18n.t("vm_management.error"));
+                self.set('stopsubmitted', false);
             });
         },
 

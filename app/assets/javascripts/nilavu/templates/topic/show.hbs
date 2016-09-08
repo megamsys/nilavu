@@ -23,13 +23,13 @@
                     {{conditional-loading-spinner condition=showRebootSpinner size="large"}}
                 </span>
             </button>
-            <button type="button" class="btn btn-default pull-right link-icons" {{action "stop"}}>
+            <button type="button" class="btn btn-default pull-right link-icons" {{action "stop"}} {{bind-attr disabled="stopDisabled"}}>
                 <span class="glyphicon glyphicon-pause"></span> Shutdown
                 <span class="pull-right">
                     {{conditional-loading-spinner condition=showStopSpinner size="large"}}
                 </span>
             </button>
-            <button type="button" class="btn btn-default pull-right link-icons" {{action "start"}}>
+            <button type="button" class="btn btn-default pull-right link-icons" {{action "start"}} {{bind-attr disabled="startDisabled"}}>
                 <span class="glyphicon glyphicon-play"></span> Start
                 <span class="pull-right">
                     {{conditional-loading-spinner condition=showStartSpinner size="large"}}
