@@ -26,6 +26,10 @@ export default Ember.Controller.extend({
         return this.get('model.name');
     }.property('model.name'),
 
+    createdAt: function(){
+      return this.get('model.created_at');
+    }.property('model.created_at'),
+
     unreadNotification: false,
 
     progressPosition: 0,
@@ -47,8 +51,6 @@ export default Ember.Controller.extend({
     }.property('progressPosition', 'streamPercentage'),
 
     id: Ember.computed.alias('model.id'),
-
-    createdAt: Ember.computed.alias('model.created_at'),
 
     _initPoller: function() {
         this.set('notifications', []);
@@ -94,16 +96,30 @@ export default Ember.Controller.extend({
                         });
                         break;
                     }
-                case LaunchStatus.TYPES.LAUNCHING:
-                case LaunchStatus.TYPES.LAUNCHED:
-                case LaunchStatus.TYPES.BOOTSTRAPPING:
-                case LaunchStatus.TYPES.BOOTSTRAPPED:
-                case LaunchStatus.TYPES.STATEUP:
-                case LaunchStatus.TYPES.CHEFRUNNING:
-                case LaunchStatus.TYPES.COOKBOOKSUCCESS:
-                case LaunchStatus.TYPES.IPUPDATED:
-                case LaunchStatus.TYPES.AUTHKEYSADDED:
-                case LaunchStatus.TYPES.ROUTEADDED:
+                    case LaunchStatus.TYPES.LAUNCHING:
+                    case LaunchStatus.TYPES.LAUNCHED:
+                    case LaunchStatus.TYPES.BOOTSTRAPPING:
+                    case LaunchStatus.TYPES.BOOTSTRAPPED:
+                    case LaunchStatus.TYPES.STATEUPSTARTING:
+                    case LaunchStatus.TYPES.CHEFRUNNING:
+                    case LaunchStatus.TYPES.COOKBOOKSUCCESS:
+                    case LaunchStatus.TYPES.AUTHKEYSADDED:
+                    case LaunchStatus.TYPES.ROUTEADDED:
+    		            case LaunchStatus.TYPES.CHEFCONFIGSETUPSTARTING:
+    		            case LaunchStatus.TYPES.CHEFCONFIGSETUPSTARTED:
+    		            case LaunchStatus.TYPES.GITCLONED:
+    		            case LaunchStatus.TYPES.GITCLONING:
+    		            case LaunchStatus.TYPES.UPDATING:
+    		            case LaunchStatus.TYPES.UPDATED:
+    		            case LaunchStatus.TYPES.DOWNLOADED:
+    		            case LaunchStatus.TYPES.DOWNLOADING:
+    		            case LaunchStatus.TYPES.COOKBOOK_DOWNLOADING:
+    		            case LaunchStatus.TYPES.COOKBOOK_DOWNLOADED:
+                    case LaunchStatus.TYPES.AUTHKEYSUPDATING:
+                    case LaunchStatus.TYPES.AUTHKEYSUPDATED:
+                    case LaunchStatus.TYPES.IP_UPDATING:
+                    case LaunchStatus.TYPES.IP_UPDATED:
+                    case LaunchStatus.TYPES.DNSNAMESKIPPED:
                     {
                         postStream.triggerNewPostInStream(feed).then(() => {
                             self.appEvents.trigger('post-stream:refresh', { id: self.get('model.id') });

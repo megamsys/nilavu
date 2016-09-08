@@ -1,138 +1,173 @@
 <div class="rt-box col-xs-12 c_height_5">
     {{topic-list-header currentUser=currentUser title=title nameEnabled=nameEnabled name=name subTitleEnabled=subTitleEnabled subTitle=subTitle}}
     <div class="bottom-divider"></div>
-    <div class=" overview margintb_15 vm-overview">
-        <div class="vm-bg">
-            <div class="overview-top ">
-                <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-                    <label class="col-md-6"><i class="fa fa-hdd-o"></i>Repository</label>
-                    <a href="{{url}}" target="_blank" >{{url}}</a>
+    <div class="overview margintb_15 vm-overview">
+        <div class="row overview-pad">
+            <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+                <div class="col-md-6">
+                    <label><i class="fa fa-hdd-o"></i>{{i18n 'app_management.repository'}}</label>
                 </div>
-                <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-                    <label class="col-md-6"><i class="fa fa-columns"></i> Application</label>
-                    <span1>{{showBrandImage}} {{application}}</span1>
-                </div>
-
-
-            </div>
-            <div class="overview-top ">
-                <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-                    <label class="col-md-6"><i class="fa fa-puzzle-piece"></i>RAM</label>
-                    <span1>{{ram}}</span1>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-                    <label class="col-md-6"><i class="fa fa-lock"></i> CPU </label>
-                    <span1>{{cpu_cores}}</span1>
+                <div class="col-md-6">
+                    <a href="{{url}}" target="_blank">{{url}}</a>
                 </div>
             </div>
+            <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+                <div class="col-md-6">
+                    <label><i class="fa fa-columns"></i>{{i18n 'app_management.application'}}</label>
+                </div>
+                <div class="col-md-6">
+                    <span class="greentext">{{showBrandImage}} <b>{{application}}</b></span>
+                </div>
+            </div>
+        </div>
+        <div class="row overview-pad">
+            <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+                <div class="col-md-6">
+                    <label><i class="fa fa-puzzle-piece"></i>{{i18n 'app_management.ram'}}</label>
+                </div>
+                <div class="col-md-6">
+                    <span class="greentext"><b>{{ram}}</b></span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+                <div class="col-md-6">
+                    <label><i class="fa fa-lock"></i> {{i18n 'app_management.cpu'}} </label>
+                </div>
+                <div class="col-md-6">
+                    <span class="greentext"><b>{{cpu_cores}}</b></span>
+                </div>
+            </div>
+        </div>
 
-            <div class="overview-top">
-              <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-                  <label class="col-md-6"> <i class="fa fa-bullseye"></i> Publisher </label>
-                  <span1 style="border-bottom:none;">{{publisher}}</span1>
-              </div>
-
-
-                <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-                    <label class="col-md-6"><i class="fa fa-building-o"></i>SSH key</label>
-                      <span1 style="border-bottom:none;"><a href {{action "download" privateKey privatekeyType}} class="btn-dark-blue ">
-                        <i class="c_icon-in"></i>&nbsp;&nbsp;<span>{{sshKey}}</span>
-                        <span class="pull-right">
+        <div class="row overview-pad">
+            <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+                <div class="col-md-6">
+                    <label> <i class="fa fa-bullseye"></i> {{i18n 'app_management.publisher'}} </label>
+                </div>
+                <div class="col-md-6">
+                    <span style="border-bottom:none;" class="greentext"><b>{{publisher}}</b></span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+                <div class="col-md-6">
+                    <label><i class="fa fa-building-o"></i>{{i18n 'app_management.ssh_key'}}</label>
+                </div>
+                <div class="col-md-6">
+                    <span style="border-bottom:none;">
+                        <a href {{action "download" privateKey privatekeyType}} class="btn-dark-blue ">
+                            <i class="c_icon-in"></i>&nbsp;&nbsp;<span>{{sshKey}}</span>
+                    <span class="pull-right">
                           {{conditional-loading-spinner condition=showPublicSpinner size="large"}}
                         </span>
-                      </a></span1>
-                </div>
-            </div>
-            <div class="overview-top">
-                <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-                    <label class="col-md-6"> <i class="fa fa-bullseye"></i> Status </label>
-                    <span1 style="border-bottom:none;">{{status}}</span1>
-                </div>
-
-
-                <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-                    <label class="col-md-6"><i class="fa fa-building-o"></i>Start Time</label>
-                      <span1 style="border-bottom:none;">{{createdAt}}</span1>
-                </div>
-            </div>
-            <div class="overview-top ">
-                <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
-                    <label class="col-md-6"><i class="fa fa-hdd-o"></i>Source</label>
-                    <span1 style="border-bottom:none;">{{source}}<</span1>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="bottom-divider"></div>
-        <div class="row c_pading-b15">
-            <div class="portlet-body-head">
-                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
-                    <i class="c_icon-grid"></i><span>Virtual Machines serving this application</span>
+                    </a>
+                    </span>
                 </div>
             </div>
         </div>
-        <div class="bottom-divider"></div>
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-4">
-
-            <div class="row app_box">
-                <!--              For two VM's per row we can use: col-xs-12 col-sm-6  col-md-5 app_cover for each VM &  offset-md-1 for the first VM.
-    For three VM's per row we can use: col-xs-12 col-sm-6 col-md-4 app_cover -->
-                <div class="col-xs-12 col-sm-6  col-md-4 app_cover">
-                    <div class="app_inner">
-                        <div class="app">
-
-                                    <span class="app_config" id="config_menu"><i class="c_icon-config"></i></span>
-                                    <div class="config_menu">
-                                        <ul>
-                                            <li><a href="#"><i class="glyphicon glyphicon-play-circle"></i>Start App</a></li>
-                                            <li><a href="#"><i class="glyphicon glyphicon-record"></i>Stop App</a></li>
-                                            <li><a href="#"><i class="glyphicon glyphicon-refresh"></i>Restart App</a></li>
-                                            <li><a href="#"><i class="glyphicon glyphicon-trash"></i>Delete App</a></li>
-                                        </ul>
-                                    </div>
-
-                                <div class="row app_icon">
-                                    <div class="app_center row">
-                                        <div class="col-md-6">
-                                            <p>Available RAM </p>
-                                            <p>CPU Core </p>
-                                            <p>OS </p>
-                                            <p>IP </p>
-                                            <p>SSH Key</p>
-                                            <p>Application Url</p>
-                                        </div>
-                                        <div class="col-md-6 vm-right ">
-                                            <p>{{ram}}</p>
-                                            <p>{{cpu_cores}}</p>
-                                            <p>{{brandImage}}</p>
-                                            <p>192.168.0.5</p>
-                                            <p> <a href {{action "download" privateKey privatekeyType}} class="btn-dark-blue ">
-                                              <i class="c_icon-in"></i>&nbsp;&nbsp;<span>{{sshKey}}</span>
-                                              <span class="pull-right">
-                                                {{conditional-loading-spinner condition=showPublicSpinner size="large"}}
-                                              </span>
-                                            </a></p>
-                                            <p>{{topic-link model}}</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="app_footer_padding">
-                                    <i class="circle_green"></i>
-                                    <span>{{status}}</span>
-                                    <a href="vncs">
-                                        <i class="c_icon-window pull-right" style="padding-top:20px">
-                                        </i>
+        <div class="row overview-pad">
+            <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+                <div class="col-md-6">
+                    <label> <i class="fa fa-bullseye"></i>{{i18n 'app_management.status'}} </label>
+                </div>
+                <div class="col-md-6">
+                    <span style="border-bottom:none;" class="greentext"><b>{{status}}</b></span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+                <div class="col-md-6">
+                    <label><i class="fa fa-building-o"></i>{{i18n 'app_management.start_time'}}</label>
+                </div>
+                <div class="col-md-6">
+                    <span class="greentext" style="border-bottom:none;"><b>{{createdAt}}</b></span>
+                </div>
+            </div>
+        </div>
+        <div class="row overview-pad">
+            <div class="col-xs-12 col-sm-4 col-md-6 overview-git row vm-icons">
+                <div class="col-md-6">
+                    <label><i class="fa fa-hdd-o"></i>{{i18n 'app_management.source'}}</label>
+                </div>
+                <div class="col-md-6">
+                    <span class="greentext" style="border-bottom:none;">{{source}}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-divider"></div>
+    <div class="row c_pading-b15">
+        <div class="portlet-body-head">
+            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 col-xl-9 cat_title">
+                <span class="darker-black">
+                  <i class="c_icon-grid"></i>
+                  <span class="title">< {{i18n 'app_management.title'}}</span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-divider"></div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="row app_box">
+            <div class="col-xs-12 col-sm-6 col-md-6  app_cover">
+                <div class="app_inner">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 overview-git row vm-icons">
+                            <div class="col-md-6">
+                                <label><i class="fa fa-hdd-o"></i>{{i18n 'app_management.application_url'}}</label>
+                            </div>
+                            <div class="col-md-6">
+                                <b>{{topic-link model}}</b>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 overview-git row vm-icons">
+                            <div class="col-md-6">
+                                <label><i class="fa fa-hdd-o"></i>{{i18n 'app_management.available_ram'}}</label>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="greentext"><b>{{ram}}</b></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 overview-git row vm-icons">
+                            <div class="col-md-6">
+                                <label><i class="fa fa-hdd-o"></i>{{i18n 'app_management.cpu_cores'}}</label>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="greentext"><b>{{cpu_cores}}</b></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 overview-git row vm-icons">
+                            <div class="col-md-6">
+                                <label><i class="fa fa-hdd-o"></i>{{i18n 'app_management.os'}}</label>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="greentext"><b>{{brandImage}}</b></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 overview-git row vm-icons">
+                            <div class="col-md-6">
+                                <label><i class="fa fa-hdd-o"></i>{{i18n 'app_management.ip'}}</label>
+                            </div>
+                            <div class="col-md-6">
+                                <span class="greentext"><b>{{privateipv4}}</b></span>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 overview-git row vm-icons">
+                            <div class="col-md-6">
+                                <label><i class="fa fa-hdd-o"></i>{{i18n 'app_management.ssh_key'}}</label>
+                            </div>
+                            <div class="col-md-6">
+                                <span style="border-bottom:none;">
+                                    <a href {{action "download" privateKey privatekeyType}} class="btn-dark-blue">
+                                        <i class="c_icon-in"></i>&nbsp;&nbsp;<span>{{sshKey}}</span>
+                                        <span class="pull-right">
+                                              {{conditional-loading-spinner condition=showPublicSpinner size="large"}}
+                                        </span>
                                     </a>
-                                    <i class="c_icon-star pull-right" style="padding-right:30px"></i>
-                                </div>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
-        <!-- running apps ends here -->
     </div>
 </div>

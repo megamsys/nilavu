@@ -523,6 +523,23 @@ en:
       monthly:
         tab_title: "Quota Based Monthly"
 
+    app_management:
+      title: "Virtual Machines serving this application"
+      source: "Source"
+      start_time: "Start Time"
+      status: "Status"
+      ssh_key: "SSH Key"
+      publisher: "Publisher"
+      cpu: "CPU"
+      ram: "RAM"
+      application: "Application"
+      repository: "Repository"
+      available_ram: "Available RAM"
+      cpu_cores: "CPU cores"
+      os: "OS"
+      ip: "IP"
+      application_url: "Application URL"
+
     vm_management:
       info:
         tab_title: "Info"
