@@ -38,6 +38,7 @@ class VerticeLauncher
   # parse the id between [ASM..., ASM002]  and send it back
   def parse_msg(some_msg)
     return unless some_msg[:code] != '201'
-    some_msg[:msg][/\[(.*?)\]/m,1].split(",")
+    res = some_msg[:msg][/\[(.*?)\]/m,1].split(",")    
+    {:id => res[0], :asms_id => res[1]}
   end
 end
