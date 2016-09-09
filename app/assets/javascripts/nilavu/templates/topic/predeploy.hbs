@@ -17,10 +17,7 @@
             seconds
         </div>
         <div class="col-md-4">
-            <button type="button" class="btn btn-default pull-right link-icons" {{action "showVNC"}}>
-                <span class="glyphicon glyphicon-console"></span>
-                CONSOLE
-            </button>
+               {{vnc-console-button model=model activateVNC=activateVNC title=title}}
         </div>
     </div>
     <div class="predeploybar">

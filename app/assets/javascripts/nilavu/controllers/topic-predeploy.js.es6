@@ -21,6 +21,7 @@ export default Ember.Controller.extend({
 
     title: I18n.t('launcher.predeployer'),
 
+    activateVNC: false,
 
     name: function() {
         return this.get('model.name');
@@ -111,6 +112,7 @@ export default Ember.Controller.extend({
     		            case LaunchStatus.TYPES.GITCLONING:
     		            case LaunchStatus.TYPES.UPDATING:
                     case LaunchStatus.TYPES.VNCHOSTUPDATING:
+                    case LaunchStatus.TYPES.VNCHOSTUPDATED:
     		            case LaunchStatus.TYPES.UPDATED:
     		            case LaunchStatus.TYPES.DOWNLOADED:
     		            case LaunchStatus.TYPES.DOWNLOADING:
@@ -122,9 +124,14 @@ export default Ember.Controller.extend({
                     case LaunchStatus.TYPES.IP_UPDATED:
                     case LaunchStatus.TYPES.DNSNAMESKIPPED:
                     {
+                      if(Em.isEqual (events,LaunchStatus.TYPES.VNCHOSTUPDATED))
+                      {
+                        this.set('activateVNC',true);
+                      }
                         postStream.triggerNewPostInStream(feed).then(() => {
                             self.appEvents.trigger('post-stream:refresh', { id: self.get('model.id') });
                         });
+
                         break;
                     }
                 default:
@@ -227,7 +234,9 @@ export default Ember.Controller.extend({
     actions: {
 
       showVNC() {
-          this.get('controllers.topic').send('showVNC');
+          this.get('controllers.topic').send("showVNC", {
+              topic: this.get('model')
+          });
       },
         // Called the the topmost visible post on the page changes.
         topVisibleChanged(event) {
