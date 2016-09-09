@@ -13,7 +13,6 @@ export default Nilavu.Route.extend({
 
     model(params) {
         const self = this;
-        alert(JSON.stringify(params));
         var bucketfiles = this.store.createRecord('bucketfiles');
         return bucketfiles.reload(params.id).then(function(result) {
             self.set('loading', false);
