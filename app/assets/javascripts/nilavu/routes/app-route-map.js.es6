@@ -40,7 +40,6 @@ export default function() {
             this.route('destroy');
             this.route('reboot');
         });
-
     });
 
     this.resource('billing', {

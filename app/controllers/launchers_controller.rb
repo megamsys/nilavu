@@ -42,7 +42,7 @@ class LaunchersController < ApplicationController
             #  Scheduler::Defer.later "Log launch action for" do
             #    @nilavu_event_logger.log_launched(@launched)
             #  end
-            render json: { id: res }
+            render json: res
         else
           render failed_json # error is broken, we need to fix it.
         end

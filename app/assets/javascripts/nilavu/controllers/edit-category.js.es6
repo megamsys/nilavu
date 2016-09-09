@@ -31,8 +31,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
         return this.selectedTab == 'selection';
     }.property('selectedTab'),
 
-    @observes('summarizeVisible')
-    setSummarizeButtonValue: function() {
+    @observes('summarizeVisible')setSummarizeButtonValue: function() {
         this.set('selectionSelected', this.get('summarizeVisible'));
     },
 
@@ -77,7 +76,6 @@ export default Ember.Controller.extend(ModalFunctionality, {
         if (this.get('category')) {}
     },
 
-
     title: function() {
         if (this.get('generalSelected') && (this.get('isVirtualMachine'))) {
             return I18n.t("launcher.title");
@@ -97,7 +95,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
     }.property('category.launchoption'),
 
     launchableChanged: function() {
-        this.set('category.launchoption', this.get('launchOption'));      
+        this.set('category.launchoption', this.get('launchOption'));
         if (this.get('launchOption').trim().length > 0) {
             const isVM = Ember.isEqual(this.get('launchOption').trim(), I18n.t('launcher.virtualmachines'));
             this.set('isVirtualMachine', isVM);
@@ -121,7 +119,6 @@ export default Ember.Controller.extend(ModalFunctionality, {
             $('.firstStep').slideToggle('fast');
         }
     }.observes('cooking'),
-
 
     summarizingChanged: function() {
         this.set('selectedTab', 'summary');
@@ -182,8 +179,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
         this.setProperties({model: null});
     },
 
-    @observes('gotoSummarize')
-    gotoSummarizePage: function() {
+    @observes('gotoSummarize')gotoSummarizePage: function() {
         this.send('nextSummarize');
     },
 
@@ -219,8 +215,17 @@ export default Ember.Controller.extend(ModalFunctionality, {
                     ? result.id
                     : "";
 
+                const slugsId = result.asms_id
+                    ? result.asms_id
+                    : "";
+
                 if (result.id) {
-                    NilavuURL.routeTo('/t/' + slugId);
+                    var todo = self.store.createRecord('topic', {
+                        id: slugId,
+                        asms_id: slugsId
+                    });
+
+                    self.replaceWith('/t/' + slugId, todo);
                     self.notificationMessages.success(I18n.t('launcher.launched') + " " + slugId);
                 } else {
                     NilavuURL.routeTo('/');
