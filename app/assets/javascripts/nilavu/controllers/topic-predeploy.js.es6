@@ -1,13 +1,15 @@
 import NilavuURL from 'nilavu/lib/url';
-import { autoUpdatingRelativeAge } from 'nilavu/lib/formatter';
+import {autoUpdatingRelativeAge} from 'nilavu/lib/formatter';
 import Clock from 'nilavu/services/clock';
 import NilavuPollster from 'nilavu/lib/nilavu-pollster';
-import { headerHeight } from 'nilavu/components/site-header';
+import {headerHeight} from 'nilavu/components/site-header';
 import computed from "ember-addons/ember-computed-decorators";
 import LaunchStatus from "nilavu/models/launch-status";
 
 export default Ember.Controller.extend({
-    needs: ['topic', 'topic-predeploy'],
+    needs: [
+        'topic', 'topic-predeploy'
+    ],
 
     clock: null,
 
@@ -27,8 +29,8 @@ export default Ember.Controller.extend({
         return this.get('model.name');
     }.property('model.name'),
 
-    createdAt: function(){
-      return this.get('model.created_at');
+    createdAt: function() {
+        return this.get('model.created_at');
     }.property('model.created_at'),
 
     unreadNotification: false,
@@ -58,8 +60,7 @@ export default Ember.Controller.extend({
         this.set('clock', Clock.create());
     }.on('init'),
 
-    @computed('model.postStream.posts')
-    postsToRender() {
+    @computed('model.postStream.posts')postsToRender() {
         return this.get('model.postStream.posts');
     },
 
@@ -76,12 +77,13 @@ export default Ember.Controller.extend({
         deployLiveFeed.forEach(feed => {
             const postStream = this.get('model.postStream');
             const events = feed.event_type.split('.')[2].toUpperCase();
+            alert(events);
             switch (events) {
                 case LaunchStatus.TYPES_SUCCESS.RUNNING:
                     {
                         postStream.triggerNewPostInStream(feed).then(() => {
                             self.stopPolling();
-                            self.appEvents.trigger('post-stream:refresh', { id: self.get('model.id') });
+                            self.appEvents.trigger('post-stream:refresh', {id: self.get('model.id')});
                             self.notificationMessages.success(I18n.t('launcher.launched') + " " + this.get('model.name'));
                             self.set('deploySuccess', true);
                         });
@@ -91,47 +93,45 @@ export default Ember.Controller.extend({
                     {
                         postStream.triggerNewPostInStream(feed).then(() => {
                             self.stopPolling();
-                            self.appEvents.trigger('post-stream:refresh', { id: self.get('model.id') });
+                            self.appEvents.trigger('post-stream:refresh', {id: self.get('model.id')});
                             self.notificationMessages.error(I18n.t('launcher.not_launched') + " " + this.get('model.name'));
                             self.set('deployError', true);
                         });
                         break;
                     }
-                    case LaunchStatus.TYPES.LAUNCHING:
-                    case LaunchStatus.TYPES.LAUNCHED:
-                    case LaunchStatus.TYPES.BOOTSTRAPPING:
-                    case LaunchStatus.TYPES.BOOTSTRAPPED:
-                    case LaunchStatus.TYPES.STATEUPSTARTING:
-                    case LaunchStatus.TYPES.CHEFRUNNING:
-                    case LaunchStatus.TYPES.COOKBOOKSUCCESS:
-                    case LaunchStatus.TYPES.AUTHKEYSADDED:
-                    case LaunchStatus.TYPES.ROUTEADDED:
-    		            case LaunchStatus.TYPES.CHEFCONFIGSETUPSTARTING:
-    		            case LaunchStatus.TYPES.CHEFCONFIGSETUPSTARTED:
-    		            case LaunchStatus.TYPES.GITCLONED:
-    		            case LaunchStatus.TYPES.GITCLONING:
-    		            case LaunchStatus.TYPES.UPDATING:
-                    case LaunchStatus.TYPES.VNCHOSTUPDATING:
-                    case LaunchStatus.TYPES.VNCHOSTUPDATED:
-    		            case LaunchStatus.TYPES.UPDATED:
-    		            case LaunchStatus.TYPES.DOWNLOADED:
-    		            case LaunchStatus.TYPES.DOWNLOADING:
-    		            case LaunchStatus.TYPES.COOKBOOK_DOWNLOADING:
-    		            case LaunchStatus.TYPES.COOKBOOK_DOWNLOADED:
-                    case LaunchStatus.TYPES.AUTHKEYSUPDATING:
-                    case LaunchStatus.TYPES.AUTHKEYSUPDATED:
-                    case LaunchStatus.TYPES.IP_UPDATING:
-                    case LaunchStatus.TYPES.IP_UPDATED:
-                    case LaunchStatus.TYPES.DNSNAMESKIPPED:
+                case LaunchStatus.TYPES.LAUNCHING:
+                case LaunchStatus.TYPES.LAUNCHED:
+                case LaunchStatus.TYPES.BOOTSTRAPPING:
+                case LaunchStatus.TYPES.BOOTSTRAPPED:
+                case LaunchStatus.TYPES.STATEUPSTARTING:
+                case LaunchStatus.TYPES.CHEFRUNNING:
+                case LaunchStatus.TYPES.COOKBOOKSUCCESS:
+                case LaunchStatus.TYPES.AUTHKEYSADDED:
+                case LaunchStatus.TYPES.ROUTEADDED:
+                case LaunchStatus.TYPES.CHEFCONFIGSETUPSTARTING:
+                case LaunchStatus.TYPES.CHEFCONFIGSETUPSTARTED:
+                case LaunchStatus.TYPES.GITCLONED:
+                case LaunchStatus.TYPES.GITCLONING:
+                case LaunchStatus.TYPES.UPDATING:
+                case LaunchStatus.TYPES.VNCHOSTUPDATING:
+                case LaunchStatus.TYPES.VNCHOSTUPDATED:
+                case LaunchStatus.TYPES.UPDATED:
+                case LaunchStatus.TYPES.DOWNLOADED:
+                case LaunchStatus.TYPES.DOWNLOADING:
+                case LaunchStatus.TYPES.COOKBOOK_DOWNLOADING:
+                case LaunchStatus.TYPES.COOKBOOK_DOWNLOADED:
+                case LaunchStatus.TYPES.AUTHKEYSUPDATING:
+                case LaunchStatus.TYPES.AUTHKEYSUPDATED:
+                case LaunchStatus.TYPES.IP_UPDATING:
+                case LaunchStatus.TYPES.IP_UPDATED:
+                case LaunchStatus.TYPES.DNSNAMESKIPPED:
                     {
-                      if(Em.isEqual (events,LaunchStatus.TYPES.VNCHOSTUPDATED))
-                      {
-                        this.set('activateVNC',true);
-                      }
+                        if (Em.isEqual(events, LaunchStatus.TYPES.VNCHOSTUPDATED)) {
+                            self.set('activateVNC', true);
+                        }
                         postStream.triggerNewPostInStream(feed).then(() => {
-                            self.appEvents.trigger('post-stream:refresh', { id: self.get('model.id') });
+                            self.appEvents.trigger('post-stream:refresh', {id: self.get('model.id')});
                         });
-
                         break;
                     }
                 default:
@@ -187,10 +187,18 @@ export default Ember.Controller.extend({
         let limit = Math.round(($(window).height() - headerHeight()) / 55);
         // we REALLY don't want to be asking for negative counts of notifications
         // less than 5 is also not that useful
-        if (limit < 5) { limit = 5; }
-        if (limit > 40) { limit = 40; }
+        if (limit < 5) {
+            limit = 5;
+        }
+        if (limit > 40) {
+            limit = 40;
+        }
 
-        const stale = this.store.findStale('notification', { id: id, recent: true, limit }, { cacheKey: 'recent-notifications' });
+        const stale = this.store.findStale('notification', {
+            id: id,
+            recent: true,
+            limit
+        }, {cacheKey: 'recent-notifications'});
 
         if (stale.hasResults) {
             const results = stale.results;
@@ -214,7 +222,7 @@ export default Ember.Controller.extend({
         }).catch(() => {
             this.set('notifications', []);
             this.toggleProperty('unreadNotification');
-        }).finally(() => {
+        }). finally(() => {
             this.loading = false;
         });
     },
@@ -233,14 +241,12 @@ export default Ember.Controller.extend({
 
     actions: {
 
-      showVNC() {
-          this.get('controllers.topic').send("showVNC", {
-              topic: this.get('model')
-          });
-      },
+        showVNC() {
+            this.get('controllers.topic').send("showVNC", {topic: this.get('model')});
+        },
         // Called the the topmost visible post on the page changes.
         topVisibleChanged(event) {
-            const { post, refresh } = event;
+            const {post, refresh} = event;
 
             if (!post) {
                 return;
@@ -264,7 +270,7 @@ export default Ember.Controller.extend({
 
         //  Called the the bottommost visible post on the page changes.
         bottomVisibleChanged(event) {
-            const { post, refresh } = event;
+            const {post, refresh} = event;
 
             const postStream = this.get('model.postStream');
             const lastLoadedPost = postStream.get('posts.lastObject');
@@ -360,7 +366,9 @@ export default Ember.Controller.extend({
     }.observes('model.postStream.filteredPostsCount'),
 
     jumpToPostLaunch: function() {
-        if (!this.get('deploySuccess')) { return }
+        if (!this.get('deploySuccess')) {
+            return
+        }
 
         Ember.run.debounce(this, () => {
             this.notificationMessages.success(I18n.t('launcher.launched_redirecting'));
@@ -368,14 +376,16 @@ export default Ember.Controller.extend({
             this.set('progressPosition', this.maxProgressPosition);
             this.set('model.predeploy_finished', true);
 
-            const slugId = this.get('model.id') ? this.get('model.id') : "";
+            const slugId = this.get('model.id')
+                ? this.get('model.id')
+                : "";
             const depOK = this.get('deploySuccess');
 
             const category = this.get("model.tosca_type").split(".")[1];
             var url = '/t/' + slugId;
 
             if (!Em.isEqual(category, "torpedo")) {
-              url = '/t/' + slugId + '/app';
+                url = '/t/' + slugId + '/app';
             }
 
             if (slugId && depOK) {
@@ -387,23 +397,27 @@ export default Ember.Controller.extend({
     }.observes('deploySuccess'),
 
     stayOnPage: function() {
-      if (!this.get('deployError')) { return }
+        if (!this.get('deployError')) {
+            return
+        }
 
-      Ember.run.debounce(this, () => {
-          this.set('model.postStream.loading', false);
-          this.set('progressPosition', this.maxProgressPosition);
-      }, 1500);
+        Ember.run.debounce(this, () => {
+            this.set('model.postStream.loading', false);
+            this.set('progressPosition', this.maxProgressPosition);
+        }, 1500);
     }.observes('deployError'),
 
     jumpBottomDisabled: function() {
-        return this.get('progressPosition') >= this.get('model.postStream.filteredPostsCount') ||
-            this.get('progressPosition') >= this.get('model.highest_post_number');
+        return this.get('progressPosition') >= this.get('model.postStream.filteredPostsCount') || this.get('progressPosition') >= this.get('model.highest_post_number');
     }.property('model.postStream.filteredPostsCount', 'model.highest_post_number', 'progressPosition'),
 
     hideProgress: function() {
-        if (!this.get('model.postStream.loaded')) return true;
-        if (!this.get('model.currentPost')) return true;
-        if (this.get('model.postStream.filteredPostsCount') < 2) return true;
+        if (!this.get('model.postStream.loaded'))
+            return true;
+        if (!this.get('model.currentPost'))
+            return true;
+        if (this.get('model.postStream.filteredPostsCount') < 2)
+            return true;
         return false;
     }.property('model.postStream.loaded', 'model.currentPost', 'model.postStream.filteredPostsCount'),
 
@@ -413,11 +427,10 @@ export default Ember.Controller.extend({
 
     jumpToBottomTitle: function() {
         if (this.get('hugeNumberOfPosts')) {
-            return I18n.t('topic.progress.jump_bottom_with_number', { post_number: this.get('model.highest_post_number') });
+            return I18n.t('topic.progress.jump_bottom_with_number', {post_number: this.get('model.highest_post_number')});
         } else {
             return I18n.t('topic.progress.jump_bottom');
         }
     }.property('hugeNumberOfPosts', 'model.highest_post_number')
-
 
 });
