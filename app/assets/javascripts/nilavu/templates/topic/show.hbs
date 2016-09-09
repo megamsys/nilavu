@@ -14,10 +14,10 @@
                     {{conditional-loading-spinner condition=showDeleteSpinner size="large"}}
                 </span>
             </button>
-            <button type="button" class="btn btn-default pull-right link-icons" {{action "showVNC"}}>
+            <button type="button" class="btn btn-default pull-right link-icons" {{action "showVNC"}} {{bind-attr disabled="vncDisabled"}}>
                 <span class="glyphicon glyphicon-console"></span> CONSOLE
             </button>
-            <button type="button" class="btn btn-default pull-right link-icons" {{action "restart" }}>
+            <button type="button" class="btn btn-default pull-right link-icons" {{action "restart" }} {{bind-attr disabled="restartDisabled"}}>
                 <span class="glyphicon glyphicon-repeat"></span> Reboot
                 <span class="pull-right">
                     {{conditional-loading-spinner condition=showRebootSpinner size="large"}}

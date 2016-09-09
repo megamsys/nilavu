@@ -4,13 +4,13 @@ require 'favour_item'
 class Deployed
     include JsonKVParser
 
-    attr_accessor :name, :assembly, :input, :output
+    attr_accessor :name, :assembly, :input, :output, :state
 
     attr_reader :ips
 
     def initialize(assembly)
-        @assembly = assembly
 
+        @assembly = assembly
         ensure_symbolized_of
 
         set_launched_name
@@ -106,6 +106,11 @@ class Deployed
         envs ||= @assembly.envs.map {|en| envs << en["value"] + "\n" }
     end
 
+    def state
+      @assembly.state
+    end
+
+
     # data about one topic/assembly
     # the stuff inside inputs/outputs are wrapped in individual keys
     def to_h
@@ -123,6 +128,7 @@ class Deployed
             inputs: input,
             outputs: output,
             envs: envs_to_s,
+            state: state,
             status: {
                 message: status,
                 predeploying: has_predeployed?

@@ -22,6 +22,8 @@ export default Ember.Controller.extend(BufferedContent, {
     rerenderTriggers: ['isUploading'],
     startsubmitted: false,
     stopsubmitted: false,
+    restartsubmitted: false,
+    vncsubmitted: false,
 
     _initPanels: function() {
         this.set('panels', []);
@@ -125,6 +127,7 @@ export default Ember.Controller.extend(BufferedContent, {
             self.set('spinnerDeleteIn', false);
             if (result.success) {
                 self.notificationMessages.success(I18n.t("vm_management.delete_success"));
+                NilavuURL.routeTo("/");
             } else {
                 self.notificationMessages.error(I18n.t("vm_management.error"));
             }
@@ -134,24 +137,42 @@ export default Ember.Controller.extend(BufferedContent, {
         });
     },
 
+    stateChanged: function(){
+      return this.set('currentState', this.get('model.state'));
+    }.observes('model.state'),
+
     startDisabled: function() {
-        if (this.get('startsubmitted'))
+        const events = this.get('currentState').toUpperCase();
+        if (Em.isEqual(events, LaunchStatus.POST_ERROR_TYPE.POSTERROR) || !Em.isEqual(events, LaunchStatus.TYPES_ACTION.STOPPED))
             return true;
         return false;
-    }.property('startsubmitted'),
+    }.property('startsubmitted', 'currentState'),
 
     stopDisabled: function() {
-        if (this.get('stopsubmitted'))
+        const events = this.get('currentState').toUpperCase();
+        if (Em.isEqual(events, LaunchStatus.POST_ERROR_TYPE.POSTERROR) || Em.isEqual(events, LaunchStatus.TYPES_ACTION.STOPPED))
             return true;
         return false;
-    }.property('stopsubmitted'),
+    }.property('stopsubmitted', 'currentState'),
 
+    restartDisabled: function(){
+      const events = this.get('currentState').toUpperCase();
+      if (Em.isEqual(events, LaunchStatus.POST_ERROR_TYPE.POSTERROR)) return true;
+      return false;
+    }.property('restartsubmitted','currentState'),
+
+    vncDisabled: function(){
+      const events = this.get('currentState').toUpperCase();
+      if (Em.isEqual(events, LaunchStatus.POST_ERROR_TYPE.POSTERROR) || Em.isEqual(events, LaunchStatus.TYPES_ACTION.STOPPED)) return true;
+      return false;
+    }.property('vncsubmitted','currentState'),
 
     actions: {
         refresh() {
             const self = this;
             self.set('spinnerRefreshIn', true);
-            const promise = this.get('model').reload().then(function(result) {
+            const topic = self.controllerFor('topic');
+            const promise = self.get('model').reload().then(function(result) {
                 self.set('spinnerRefreshIn', false);
             }).catch(function(e) {
                 self.notificationMessages.error(I18n.t("vm_management.topic_load_error"));
@@ -191,12 +212,9 @@ export default Ember.Controller.extend(BufferedContent, {
                 } else {
                     self.notificationMessages.error(I18n.t("vm_management.error"));
                 }
-                self.set('stopsubmitted', false);
-                self.set('startsubmitted', true);
             }).catch(function(e) {
                 self.set('spinnerStartIn', false);
                 self.notificationMessages.error(I18n.t("vm_management.error"));
-                self.set('startsubmitted', false);
             });
         },
 
@@ -213,13 +231,11 @@ export default Ember.Controller.extend(BufferedContent, {
                 } else {
                     self.notificationMessages.error(I18n.t("vm_management.error"));
                 }
-                self.set('stopsubmitted', true);
-                self.set('startsubmitted', false);
             }).catch(function(e) {
                 self.set('spinnerStopIn', false);
                 console.log(e);
                 self.notificationMessages.error(I18n.t("vm_management.error"));
-                self.set('stopsubmitted', false);
+
             });
         },
 
