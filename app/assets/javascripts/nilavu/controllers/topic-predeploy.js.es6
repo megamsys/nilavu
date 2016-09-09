@@ -77,7 +77,7 @@ export default Ember.Controller.extend({
             const postStream = this.get('model.postStream');
             const events = feed.event_type.split('.')[2].toUpperCase();
             switch (events) {
-                case LaunchStatus.TYPES_SUCCESS.RUNNING:
+               case LaunchStatus.TYPES_SUCCESS.RUNNING:
                     {
                         postStream.triggerNewPostInStream(feed).then(() => {
                             self.stopPolling();
