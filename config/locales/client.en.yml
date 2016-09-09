@@ -367,6 +367,7 @@ en:
       ubuntu: "Ubuntu"
       fedora: "Fedora"
       windows: "Windows"
+      dockermachine: "Docker Machine"
       snapshots: "Snapshots"
       versions_not_found: "None found"
       coming_soon_notifyme: "None found."

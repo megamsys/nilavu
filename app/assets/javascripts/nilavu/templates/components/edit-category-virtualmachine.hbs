@@ -9,11 +9,16 @@
                         {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab selectedItem=selectedItemFlavor tab="debian"}}
                         {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab selectedItem=selectedItemFlavor tab="ubuntu"}}
                         {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab selectedItem=selectedItemFlavor tab="fedora"}}
+                        {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab selectedItem=selectedItemFlavor tab="dockermachine"}}
+                        {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab selectedItem=selectedItemFlavor tab="windows"}}
                         {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab selectedItem=selectedItemFlavor tab="snapshots"}}
                     </ul>
                 {{else}}
+                   <ul class="tabsos">
                     {{launching-images-tab imagepanels=imagepanels selectedTab=selectedTab tab=selectedItemFlavor}}
+                  </ul>
                 {{/if}}
+
                 <div class="oscontainer">
                     <div class="tab-content">
                         {{#each imagepanels as |tab|}}
