@@ -225,8 +225,12 @@ export default Ember.Controller.extend(ModalFunctionality, {
                         asms_id: slugsId
                     });
 
-                    self.replaceWith('/t/' + slugId, todo);
-                    self.notificationMessages.success(I18n.t('launcher.launched') + " " + slugId);
+                    const promise = todo.reload().then(function(result) {
+                      self.replaceWith('/t/' + slugId, todo);
+                      self.notificationMessages.success(I18n.t('launcher.launched') + " " + slugId);
+                    }).catch(function(e) {
+                        self.notificationMessages.error(I18n.t("vm_management.topic_load_error"));
+                    });                  
                 } else {
                     NilavuURL.routeTo('/');
                     self.notificationMessages.warning(I18n.t('launcher.not_launched') + " " + slugId);
