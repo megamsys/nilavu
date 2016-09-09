@@ -17,21 +17,19 @@ export default Nilavu.Route.extend({
     },
 
     showPredeployer: function(topic) {
-        if (topic && topic.predeploy_finished) {
-            return false;
+        const launchSuccess = LaunchStatus.create({event_type: topic.state}).get('successKey');
+        if (topic && launchSuccess) {
+            return true;
         }
-        const oneOfSuccess = LaunchStatus.create({event_type: topic.status}).get('successKey');
-        if (topic && oneOfSuccess) {
-            return false;
+        const boostrapedSuccess = LaunchStatus.create({event_type: topic.state}).get('successKey');
+        if (topic && boostrapedSuccess) {
+            return true;
         }
-
-        const oneOfError = LaunchStatus.create({event_type: topic.status}).get('errorKey');
-        if (topic && oneOfError) {
-            return false;
+        const preError = LaunchStatus.create({event_type: topic.state}).get('errorKey');
+        if (topic && preError) {
+            return true;
         }
-
-        //  const oneOfError   = LaunchStatus.TYPES_ERROR.indexOf(topic.status) >=0;
-        return true;
+         return false;
     },
 
     setupController(controller, params) {
