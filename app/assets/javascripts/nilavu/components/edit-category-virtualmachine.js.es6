@@ -25,7 +25,7 @@ export default Ember.Component.extend({
         return true;
     }.property(),
 
-    selectedItemFlavor: function() {
+    selectedItemFlavor: function() {      
         if (!Em.isEmpty(this.get("selectedItem"))) {
             return this.get('selectedItem').flavor.toLowerCase();
         } else {
