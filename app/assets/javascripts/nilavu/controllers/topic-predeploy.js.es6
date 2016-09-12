@@ -177,6 +177,7 @@ export default Ember.Controller.extend({
     },
 
     refreshNotifications() {
+        const category = this.get("model.tosca_type").split(".")[1];
         const id = this.get('id');
 
         if (this.loading) {
@@ -194,9 +195,10 @@ export default Ember.Controller.extend({
         }
 
         const stale = this.store.findStale('notification', {
-            id: id,
+           id: id,
             recent: true,
-            limit
+            limit,
+            category: category
         }, {cacheKey: 'recent-notifications'});
 
         if (stale.hasResults) {

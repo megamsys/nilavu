@@ -44,7 +44,8 @@ class ApiDispatcher
     SSHKEYS              = 'SshKey'.freeze
     ADDONS               = 'Addons'.freeze
     SUBSCRIPTIONS        = 'Subscriptions'.freeze
-    EVENTS               = 'EventsVm'.freeze
+    EVENTSVM             = 'EventsVm'.freeze
+    EVENTSCONTAINER      = 'EventsContainer'.freeze
 
     ENDPOINTS_AS_JSON = [JLAZ_PREFIX + ASSEMBLIES,  JLAZ_PREFIX + ASSEMBLY,    JLAZ_PREFIX + COMPONENTS]
 
