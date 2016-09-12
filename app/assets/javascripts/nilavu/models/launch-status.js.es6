@@ -31,7 +31,6 @@ const LaunchStatusTypes = {
     AUTHKEYSUPDATED: 'AUTHKEYSUPDATED',
     IP_UPDATING: 'IP_UPDATING',
     IP_UPDATED: 'IP_UPDATED'
-
 }
 
 const LaunchActionTypes = {
@@ -46,30 +45,30 @@ const LaunchActionTypes = {
     DELETING: 'DELETING',
     DELETED: 'DELETED',
     SNAPSHOTTING: 'SNAPSHOTTING',
-    SNAPSHOTTED: 'SNAPSHOTTED'
+    SNAPSHOTTED: 'SNAPSHOTTED',
+    RUNNING: 'RUNNING'
 };
 
 /** there could be more status that are considered successful */
-const LaunchSuccessTypes = {
+const LaunchTypes = {
     LAUNCHED: 'LAUNCHED',
-    BOOTSTRAPPED: 'BOOTSTRAPPED'
+    BOOTSTRAPPED: 'BOOTSTRAPPED',
+    PREERROR: 'PREERROR'
 };
 
 const LaunchErrorTypes = {
     ERROR: 'ERROR',
-    PREERROR: 'PREERROR'
-};
-const PostErrorType = {
     POSTERROR: 'POSTERROR'
+
 };
 
 const LaunchStatus = RestModel.extend({
 
-    @computed("event_type")successKey(action) {
+    @computed("event_type")launchKey(action) {
         if (action != null) {
             var successArray = [];
 
-            _.each(LaunchSuccessTypes, (k, v) => {
+            _.each(LaunchTypes, (k, v) => {
                 successArray.push(k);
             });
             return successArray.indexOf(action.toUpperCase()) >= 0;
@@ -106,6 +105,6 @@ const LaunchStatus = RestModel.extend({
     }
 });
 
-LaunchStatus.reopenClass({TYPES: LaunchStatusTypes, TYPES_ACTION: LaunchActionTypes, TYPES_SUCCESS: LaunchSuccessTypes, TYPES_ERROR: LaunchErrorTypes, POST_ERROR_TYPE: PostErrorType});
+LaunchStatus.reopenClass({TYPES: LaunchStatusTypes, TYPES_ACTION: LaunchActionTypes, TYPES_LAUNCH: LaunchTypes, TYPES_ERROR: LaunchErrorTypes});
 
 export default LaunchStatus;

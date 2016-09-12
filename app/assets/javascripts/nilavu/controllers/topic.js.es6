@@ -141,30 +141,30 @@ export default Ember.Controller.extend(BufferedContent, {
         return this.set('currentState', this.get('model.state'));
     }.observes('model.state'),
 
-    startDisabled: function() {      
+    startDisabled: function() {
         const events = this.get('currentState').toUpperCase();
-        if (Em.isEqual(events, LaunchStatus.POST_ERROR_TYPE.POSTERROR) || !Em.isEqual(events, LaunchStatus.TYPES_ACTION.STOPPED))
+        if (Em.isEqual(events, LaunchStatus.TYPES_ERROR.POSTERROR) || !Em.isEqual(events, LaunchStatus.TYPES_ACTION.STOPPED))
             return true;
         return false;
     }.property('startsubmitted', 'currentState'),
 
     stopDisabled: function() {
         const events = this.get('currentState').toUpperCase();
-        if (Em.isEqual(events, LaunchStatus.POST_ERROR_TYPE.POSTERROR) || Em.isEqual(events, LaunchStatus.TYPES_ACTION.STOPPED))
+        if (Em.isEqual(events, LaunchStatus.TYPES_ERROR.POSTERROR) || Em.isEqual(events, LaunchStatus.TYPES_ACTION.STOPPED))
             return true;
         return false;
     }.property('stopsubmitted', 'currentState'),
 
     restartDisabled: function() {
         const events = this.get('currentState').toUpperCase();
-        if (Em.isEqual(events, LaunchStatus.POST_ERROR_TYPE.POSTERROR))
+        if (Em.isEqual(events, LaunchStatus.TYPES_ERROR.POSTERROR))
             return true;
         return false;
     }.property('restartsubmitted', 'currentState'),
 
     vncDisabled: function() {
         const events = this.get('currentState').toUpperCase();
-        if (Em.isEqual(events, LaunchStatus.POST_ERROR_TYPE.POSTERROR) || Em.isEqual(events, LaunchStatus.TYPES_ACTION.STOPPED))
+        if (Em.isEqual(events, LaunchStatus.TYPES_ERROR.POSTERROR) || Em.isEqual(events, LaunchStatus.TYPES_ACTION.STOPPED))
             return true;
         return false;
     }.property('vncsubmitted', 'currentState'),

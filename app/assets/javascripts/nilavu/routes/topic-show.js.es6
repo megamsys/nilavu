@@ -17,15 +17,15 @@ export default Nilavu.Route.extend({
     },
 
     showPredeployer: function(topic) {
-        const launchSuccess = LaunchStatus.create({event_type: topic.state}).get('successKey');
+        const launchSuccess = LaunchStatus.create({event_type: topic.state}).get('launchKey');
         if (topic && launchSuccess) {
             return true;
         }
-        const boostrapedSuccess = LaunchStatus.create({event_type: topic.state}).get('successKey');
+        const boostrapedSuccess = LaunchStatus.create({event_type: topic.state}).get('launchKey');
         if (topic && boostrapedSuccess) {
             return true;
         }
-        const preError = LaunchStatus.create({event_type: topic.state}).get('errorKey');
+        const preError = LaunchStatus.create({event_type: topic.state}).get('launchKey');
         if (topic && preError) {
             return true;
         }
