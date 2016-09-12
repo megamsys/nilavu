@@ -65,6 +65,15 @@ class User
             find_by_password
         end
     end
+    
+    def find_by_email_password
+        ensure_password_is_hashed
+        user = Api::Accounts.new.login(to_hash)
+        if user
+            return User.new_from_params(user.expanded)
+        end
+    end
+    
 
 
     def save
@@ -95,9 +104,6 @@ class User
 
     # we have the user entered text raw_password.
     def password=(password)
-        puts "------------ setting up password="
-        puts "password is #{password}"
-        puts "---------------------------------"
         unless password.blank?
             @raw_password = password
         end
@@ -113,19 +119,12 @@ class User
     end
 
     def has_password?
-        puts "--------- has password"
-        puts password.inspect
-        puts "======================"
         password_hash.present?
     end
 
-    # compare the encryped_password hash with the
+    # I don't think we need this, as its handled by gateway.
     def confirm_password?(raw_password)
-        puts "---------- confirm password "
-        puts raw_password.inspect
-        puts "------------------------------"
-        return false unless raw_password
-        self.password_hash == hash_password(raw_password, salt)
+        return !raw_password.nil?
     end
 
     def email_confirmed?
@@ -142,11 +141,6 @@ class User
         raise "password is too long" if password.size > User.max_password_length
         Base64.strict_encode64(password)
     end
-
-    def password_hash(password)
-        Base64.strict_decode64(password)
-    end
-
 
     def admin?
         if authority
@@ -258,28 +252,20 @@ class User
     private
 
     def parms_using_password
-        puts "----------- parms_using_password hash.."
-        puts self.password
-        puts password.inspect
-        puts @password
-        puts "----------- parms_using_password hash ends.."
-        {:email =>@email, :password_hash => self.password_hash }
+        { email: @email, password_hash: self.password_hash, first_name: "" }
     end
     def parms_using_apikey
-        {:email =>@email, :api_key => @api_key}
+        {email: @email, api_key: @api_key}
     end
 
     def find_by_password
         ensure_password_is_hashed
-        puts "------- find_by_password ===="
-        puts parms_using_password.inspect
-        puts "============================="
-        user = Api::Accounts.new.login(parms_using_password)
+        user = Api::Accounts.new.where(parms_using_password)
         if user
             return User.new_from_params(user.expanded)
         end
     end
-
+    
     def previous_visit_at_update_required?(timestamp)
         seen_before? && (last_seen_at < (timestamp - SiteSetting.previous_visit_timeout_hours.hours))
     end

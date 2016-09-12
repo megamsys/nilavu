@@ -128,7 +128,7 @@ class ApiDispatcher
 
     def satisfied_args?(passthru, params={})
         unless passthru
-            return params[:email] && (params[:api_key].present? || params[:password].present?)
+            return params[:email] && (params[:api_key].present? || params[:password_hash].present?)
         end
         return true
     end

@@ -11,6 +11,9 @@
 /.vagrantfile
 /cache
 /coverage/*
+.c9/
+.c9/metadata/*
+.c9/metadata/workspace
 
 # Ignore all logfiles and tempfiles.
 /log/*.log

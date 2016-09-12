@@ -4,7 +4,7 @@
             "@backwards": "false",
             "@highlightmatches": "true",
             "@matchcase": "false",
-            "@preservecase": "false",
+            "@preservecase": false,
             "@regex": "false",
             "@wholeword": "false",
             "@wraparound": "true"
@@ -12,57 +12,43 @@
     },
     "console": {
         "@expanded": false,
-        "@height": "153",
-        "@maximized": "false",
+        "@height": 113,
+        "@maximized": false,
         "json()": {
             "meta": {
                 "accessList": [
                     "searchResults",
-                    "tab1",
-                    "tab2"
+                    "tab5",
+                    "tab16"
                 ]
             },
             "name": "pane1",
             "nodes": [
                 {
                     "type": "tab",
-                    "name": "tab1",
+                    "name": "tab5",
                     "path": "",
                     "className": [
                         "tab1"
                     ],
                     "document": {
-                        "changed": false,
-                        "meta": {
-                            "timestamp": 1473607509961
-                        },
                         "filter": true,
-                        "title": "root@:/workspace - \"5bbeae4ad92e\" ",
-                        "tooltip": "root@:/workspace - \"5bbeae4ad92e\" ",
+                        "title": "root@:/workspace - \"521e88274a13\" ",
+                        "tooltip": "root@:/workspace - \"521e88274a13\" ",
                         "terminal": {
-                            "id": "devel_136",
+                            "id": "devel_59",
                             "cwd": "",
                             "width": 0,
-                            "height": 0
-                        }
-                    },
-                    "editorType": "terminal",
-                    "active": false
-                },
-                {
-                    "type": "tab",
-                    "name": "tab2",
-                    "path": "",
-                    "className": [],
-                    "document": {
-                        "title": "Immediate",
-                        "meta": {
-                            "timestamp": 1473663438463
+                            "height": 0,
+                            "scrollTop": -1
                         },
-                        "filter": true,
+                        "hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+                        "meta": {
+                            "timestamp": 1473701075617
+                        },
                         "changed": false
                     },
-                    "editorType": "immediate",
+                    "editorType": "terminal",
                     "active": false
                 },
                 {
@@ -79,7 +65,7 @@
                             "searchResults": true,
                             "ignoreSave": true,
                             "newfile": true,
-                            "timestamp": 1473663438423
+                            "timestamp": 1473701075618
                         },
                         "filter": true,
                         "title": "Search Results",
@@ -88,6 +74,39 @@
                     },
                     "editorType": "ace",
                     "active": true
+                },
+                {
+                    "type": "tab",
+                    "name": "tab16",
+                    "path": "",
+                    "className": [
+                        "tab16"
+                    ],
+                    "document": {
+                        "filter": true,
+                        "title": "gw/conf/gateway.conf - Stopped",
+                        "tooltip": "gw/conf/gateway.conf - Stopped",
+                        "output": {
+                            "id": "output395040",
+                            "width": 0,
+                            "height": 0,
+                            "scrollTop": 315,
+                            "config": {
+                                "runner": "Shell command",
+                                "command": "gw/conf/gateway.conf",
+                                "toolbar": true,
+                                "cwd": "/gw",
+                                "env": {}
+                            }
+                        },
+                        "hash": "da39a3ee5e6b4b0d3255bfef95601890afd80709",
+                        "meta": {
+                            "timestamp": 1473593588121
+                        },
+                        "changed": false
+                    },
+                    "editorType": "output",
+                    "active": false
                 }
             ],
             "skin": "editor_tab",
@@ -111,14 +130,15 @@
             "@ace": 2,
             "@acestatus": 2,
             "@divider": 5,
-            "@document": 13,
+            "@document": 18,
             "@form": 6,
+            "@immediate": 1,
             "@menu": 5,
             "@menuitem": 13,
             "@pane": 2,
-            "@session": 12,
-            "@tab": 10,
-            "@undoManager": 13,
+            "@session": 16,
+            "@tab": 16,
+            "@undoManager": 18,
             "@welcome": 1
         }
     },
@@ -126,23 +146,27 @@
         "@console": "true",
         "@matchcase": "false",
         "@regex": "false",
-        "@scope": "selection",
+        "@scope": "project",
         "@wholeword": "false"
     },
     "menus": {
-        "@minimized": false
+        "@minimized": true
     },
     "nak": {
         "@installed": true
     },
+    "openfiles": {
+        "@hidetree": false
+    },
     "panecycle": {
         "json()": [
-            "tab4",
+            "tab13",
             "searchResults"
         ]
     },
     "panels": {
         "@active-left": "tree",
+        "@width-left": 283,
         "commands.panel": {
             "@enabled": "false",
             "@name": "commands.panel"
@@ -173,7 +197,25 @@
         "@showfs": true,
         "expanded": {
             "json()": [
-                "/"
+                "/",
+                "/libcommon/src/main",
+                "/libcommon/src/main/scala",
+                "/libcommon/src/main/scala/io/megam/auth/funnel",
+                "/libcommon/src/main/scala/io/megam/auth/stack",
+                "/gw/app",
+                "/libcommon/src",
+                "/gw/app/models",
+                "/libcommon/src/main/scala/io/megam/auth",
+                "/gw/conf",
+                "/libcommon/src/main/scala/io/megam",
+                "/libcommon/src/main/scala/io",
+                "/gw",
+                "/gw/app/wash",
+                "/gw/app/models/events",
+                "/gw/app/models/base",
+                "/app",
+                "/app/models",
+                "/app/models/api"
             ]
         }
     },
@@ -183,140 +225,46 @@
     "search-history": {
         "search": {
             "json()": [
-                "find_by_password",
-                "update_hash",
-                "find_by_password",
-                "ensure_password_is_hashed",
-                "update_hash",
-                "to_hash",
-                "save",
-                "ensure_password_is_hashed"
+                "dbGet",
+                "get",
+                "insert",
+                "linsert",
+                "HashPartSeparator",
+                "mkAccountResult"
             ]
         },
         "searchfiles": {
             "json()": [
-                "NotReached",
-                "SHOW",
-                "LOGIN"
+                "<-",
+                "\"muted",
+                "\"events_muted",
+                "events_muted",
+                "validatePassword",
+                "Login",
+                "CannotAuthenticateError",
+                "Validation.success",
+                "RandomSource",
+                ".salt",
+                "build.date",
+                "PlatformAppPrimer",
+                "MConfig",
+                "UNAUTHORIZED",
+                "CannotAuthenticateError",
+                "CannotAuthenticateErorr",
+                "CannotAuthenticateError",
+                "X_Megam_PUTTUSAVI",
+                "CREATED"
             ]
         }
     },
     "tabs": {
         "json()": {
-            "focus": "/app/models/user.rb",
+            "focus": null,
             "meta": {
-                "accessList": [
-                    "tab4",
-                    "tab9",
-                    "tab3",
-                    "tab7",
-                    "tab6"
-                ]
+                "accessList": []
             },
             "name": "pane0",
-            "nodes": [
-                {
-                    "type": "tab",
-                    "name": "tab3",
-                    "path": "/app/controllers/users_controller.rb",
-                    "className": [
-                        "tab3"
-                    ],
-                    "document": {
-                        "changed": false,
-                        "meta": {
-                            "timestamp": 1473663034348
-                        },
-                        "filter": true,
-                        "title": "users_controller.rb",
-                        "tooltip": "/app/controllers/users_controller.rb",
-                        "ace": {}
-                    },
-                    "editorType": "ace",
-                    "active": false
-                },
-                {
-                    "type": "tab",
-                    "name": "tab4",
-                    "path": "/app/models/user.rb",
-                    "className": [
-                        "tab4",
-                        "focus"
-                    ],
-                    "document": {
-                        "changed": false,
-                        "meta": {
-                            "timestamp": 1473664090696
-                        },
-                        "filter": true,
-                        "title": "user.rb",
-                        "tooltip": "/app/models/user.rb",
-                        "ace": {}
-                    },
-                    "editorType": "ace",
-                    "active": true
-                },
-                {
-                    "type": "tab",
-                    "name": "tab6",
-                    "path": "/app/controllers/sessions_controller.rb",
-                    "className": [
-                        "tab6"
-                    ],
-                    "document": {
-                        "changed": false,
-                        "meta": {
-                            "timestamp": 1473663023119
-                        },
-                        "filter": true,
-                        "title": "sessions_controller.rb",
-                        "tooltip": "/app/controllers/sessions_controller.rb",
-                        "ace": {}
-                    },
-                    "editorType": "ace",
-                    "active": false
-                },
-                {
-                    "type": "tab",
-                    "name": "tab7",
-                    "path": "/app/models/api/accounts.rb",
-                    "className": [
-                        "tab7"
-                    ],
-                    "document": {
-                        "changed": false,
-                        "meta": {
-                            "timestamp": 1473663399255
-                        },
-                        "filter": true,
-                        "title": "accounts.rb",
-                        "tooltip": "/app/models/api/accounts.rb",
-                        "ace": {}
-                    },
-                    "editorType": "ace",
-                    "active": false
-                },
-                {
-                    "type": "tab",
-                    "name": "tab9",
-                    "path": "/Gemfile",
-                    "className": [
-                        "tab9"
-                    ],
-                    "document": {
-                        "changed": false,
-                        "meta": {
-                            "timestamp": 1473664098955
-                        },
-                        "filter": true,
-                        "title": "Gemfile",
-                        "tooltip": "/Gemfile",
-                        "ace": {}
-                    },
-                    "editorType": "ace",
-                    "active": false
-                }
-            ],
+            "nodes": [],
             "skin": "editor_tab",
             "skinset": "default",
             "type": "pane"
@@ -324,7 +272,7 @@
     },
     "tree_selection": {
         "json()": [
-            "/Gemfile"
+            "/app/models/api/accounts.rb"
         ]
     }
 }
