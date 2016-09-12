@@ -113,11 +113,11 @@ export default buildCategoryPanel('snapshots', {
               if (result.success) {
                   self.notificationMessages.success(I18n.t("vm_management.take_snapshot_success"));
               } else {
-                  self.notificationMessages.error(I18n.t("vm_management.error"));
+                  // self.notificationMessages.error(I18n.t("vm_management.error"));
               }
           }).catch(function(e) {
               self.set('takeSnapShotSpinner', false);
-              self.notificationMessages.error(I18n.t("vm_management.error"));
+              // self.notificationMessages.error(I18n.t("vm_management.error"));
           });
       },
 
