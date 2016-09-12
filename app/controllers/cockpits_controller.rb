@@ -50,7 +50,7 @@ class CockpitsController < ApplicationController
     end
 
     def microservices
-        params[:filter] = Api::Assemblies::MICROSERVICE
+        params[:filter] = Api::Assemblies::CONTAINER
         respond_with_list(Api::Assemblies.new.list(params).baked.flatten)
     end
 end

@@ -34,21 +34,13 @@ module Api
         end
 
         def recent(api_params, &_block)
-          if api_params[:category] == "microservice"
-            raw = api_request(EVENTSCONTAINER, LIST, api_params)
-            else
-            raw = api_request(EVENTSVM, LIST, api_params)
-          end
+            raw = api_request(EVENTS + api_params[:category], LIST, api_params)
             dig_event(raw)
         end
 
         def recent_by_id(api_params, &_block)
             api_params[:assembly_id] = api_params[:id]
-            if api_params[:category] == "microservice"
-              raw = api_request(EVENTSCONTAINER, SHOW, api_params)
-            else
-              raw = api_request(EVENTSVM, SHOW, api_params)
-            end
+            raw = api_request(EVENTS + api_params[:category], SHOW, api_params)
             dig_event(raw)
         end
 

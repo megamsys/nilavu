@@ -113,8 +113,8 @@ export default Ember.Controller.extend(BufferedContent, {
     }.property('model.created_at'),
 
     status: function() {
-        return this.get('model.status.message');
-    }.property('model.status'),
+        return this.get('model.state');
+    }.property('model.state'),
 
     privateKey: function() {
         return this._filterInputs("sshkey");
