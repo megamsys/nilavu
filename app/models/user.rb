@@ -2,19 +2,22 @@ class User
 
     attr_accessor :id
     attr_accessor :email
-    attr_accessor :password
-    attr_accessor :api_key
-    attr_accessor :team
-    attr_accessor :first_name
-    attr_accessor :last_name
-    attr_accessor :authority
+    attr_accessor :email_verified
+    
+    attr_accessor :password  #this is the stored encrypted password_hash
+    attr_accessor :password_hash #this is the client encrypted password_hash
     attr_accessor :password_reset_key
     attr_accessor :password_reset_sent_at
-    attr_accessor :created_at
+    
+    attr_accessor :api_key
+    attr_accessor :first_name
+    attr_accessor :last_name
+    
     attr_accessor :phone
-    ### new
-    attr_accessor :email_verified
     attr_accessor :phone_verified
+    attr_accessor :team
+    attr_accessor :authority
+
     attr_accessor :staged
     attr_accessor :active
     attr_accessor :approved
@@ -28,7 +31,9 @@ class User
     attr_accessor :last_emailed_at
     attr_accessor :previous_visit_at
     attr_accessor :first_seen_at
+    
     attr_accessor :registration_ip_address
+    attr_accessor :created_at
 
     attr_accessor :errors
 
@@ -46,7 +51,7 @@ class User
     end
 
 
-   ### TO-DO: Move the stuff specific to api_key to ApiKey model
+    ### TO-DO: Move the stuff specific to api_key to ApiKey model
     def find_by_apikey
         user = Api::Accounts.new.where(parms_using_apikey)
 
@@ -56,11 +61,19 @@ class User
     end
 
     def find_by_email
-        ensure_password_is_hashed
         if to_hash[:email].include?('@')
             find_by_password
         end
     end
+    
+    def find_by_email_password
+        ensure_password_is_hashed
+        user = Api::Accounts.new.login(to_hash)
+        if user
+            return User.new_from_params(user.expanded)
+        end
+    end
+    
 
 
     def save
@@ -69,15 +82,17 @@ class User
     end
 
     def update
-        Api::Accounts.new.update(update_hash)
+     #  Api::Accounts.new.update(update_hash)
     end
 
-    def reset
-        Api::Accounts.new.reset(to_hash)
+    ## when user presses forgot password, we generate a password token.
+    def forgot
+       # Api::Accounts.new.reset(to_hash)
     end
 
-    def repassword
-        Api::Accounts.new.repassword(update_hash)
+    ## when user clicks on the  password reset token link
+    def password_reset
+    #    Api::Accounts.new.password_token(update_hash)
     end
 
     def email_available?
@@ -86,6 +101,7 @@ class User
         false
     end
 
+    # we have the user entered text raw_password.
     def password=(password)
         unless password.blank?
             @raw_password = password
@@ -105,9 +121,9 @@ class User
         password_hash.present?
     end
 
-    def confirm_password?(password)
-        return false unless password && @raw_password
-        password == password_hash(@raw_password)
+    # I don't think we need this, as its handled by gateway.
+    def confirm_password?(raw_password)
+        return !raw_password.nil?
     end
 
     def email_confirmed?
@@ -116,17 +132,13 @@ class User
 
     def ensure_password_is_hashed
         if @raw_password
-            self.password = hash_password(@raw_password)
+            self.password_hash = hash_password(@raw_password)
         end
     end
 
-    def hash_password(password, salt="")
+    def hash_password(password)
         raise "password is too long" if password.size > User.max_password_length
         Base64.strict_encode64(password)
-    end
-
-    def password_hash(password)
-        Base64.strict_decode64(password)
     end
 
     def admin?
@@ -182,7 +194,8 @@ class User
     def update_ip_address!(new_ip_address)
         unless @registration_ip_address == new_ip_address || new_ip_address.blank?
             @registration_ip_address =  new_ip_address
-            update
+            puts "-------- updating registration ip SKIP ------------------"
+          #  update
         end
     end
 
@@ -194,8 +207,8 @@ class User
     end
 
     def new_user?
-    created_at >= 24.hours.ago && !staff?
-  end
+        created_at >= 24.hours.ago && !staff?
+    end
 
     def seen_before?
         last_seen_at.present?
@@ -208,10 +221,10 @@ class User
     def to_hash
         {email: @email,
             api_key: @api_key,
-            password: @raw_password,
+            password_hash: @password_hash,
             password_reset_key: @password_reset_key,
             password_reset_sent_at: @password_reset_sent_at,
-            first_name:@first_name,
+            first_name: @first_name,
             last_name: @last_name,
             phone: @phone,
             created_at: @created_at,
@@ -235,52 +248,23 @@ class User
         }
     end
 
-    def update_hash
-        {:email => @email,
-            :api_key => @api_key,
-            :password => @raw_password,
-            :password_reset_key => @password_reset_key,
-            :password_reset_sent_at => @password_reset_sent_at,
-            :first_name => @first_name,
-            :last_name => @last_name,
-            :phone => @phone,
-            :created_at =>@created_at,
-            phone_verified: @phone_verified,
-            email_verified: @email_verified,
-            authority: @authority,
-            staged: @staged,
-            active: @active,
-            approved: @approved,
-            approved_by_id: @approved_by_id,
-            approved_at: @approved_at,
-            suspended: @suspended,
-            suspended_at: @suspended_at,
-            suspended_till: @suspended_till,
-            blocked: @blocked,
-            last_posted_at: @last_posted_at,
-            last_emailed_at: @last_emailed_at,
-            previous_visit_at: @previous_visit_at,
-            first_seen_at: @first_seen_at,
-            registration_ip_address: @registration_ip_address
-        }
-    end
-
     private
 
     def parms_using_password
-        {:email =>@email, :password => @raw_password }
+        { email: @email, password_hash: self.password_hash, first_name: "" }
     end
     def parms_using_apikey
-        {:email =>@email, :api_key => @api_key}
+        {email: @email, api_key: @api_key}
     end
 
     def find_by_password
+        ensure_password_is_hashed
         user = Api::Accounts.new.where(parms_using_password)
         if user
             return User.new_from_params(user.expanded)
         end
     end
-
+    
     def previous_visit_at_update_required?(timestamp)
         seen_before? && (last_seen_at < (timestamp - SiteSetting.previous_visit_timeout_hours.hours))
     end

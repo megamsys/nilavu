@@ -150,7 +150,7 @@ GEM
     lru_redux (1.1.0)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
-    megam_api (1.6.2)
+    megam_api (1.6.6)
       excon (~> 0.51.0)
       ffi-yajl (~> 2.2)
       highline (~> 1.7)
@@ -366,7 +366,7 @@ DEPENDENCIES
   librarian (>= 0.0.25)
   listen (= 0.7.3)
   lru_redux
-  megam_api (= 1.6.2)
+  megam_api (= 1.6.6)
   memory_profiler
   minitest
   mocha
