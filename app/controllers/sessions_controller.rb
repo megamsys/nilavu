@@ -59,7 +59,7 @@ class SessionsController < ApplicationController
     user = User.new
     user.email = params[:login]
 
-    if user.reset
+    if user.forgot
       render json: success_json
     else
       render_json_error(I18n.t("password_reset.no_token"))
