@@ -12,6 +12,10 @@ regions:
       s1.micro: '1 GB,1 Core,24 GB'
       s1.small: '2 GB,2 Cores,48 GB'
       s1.medium: '3 GB,4 Cores,96 GB'
+    private_ipv4: true
+    public_ipv4: false
+    private_ipv6: false
+    public_ipv6: false
 
   chennai:
     flag: 'images/regions/in.png'
@@ -26,6 +30,10 @@ regions:
       c1.micro: '1 GB,2 Cores,24 GB'
       c1.medium: '2 GB,2 Cores,36 GB'
       c1.large: '3 GB,3 Cores,48 GB'
+    private_ipv4: true
+    public_ipv4: true
+    private_ipv6: false
+    public_ipv6: false
 
   dar_e_salaam:
     flag: 'images/regions/tz.png'
@@ -40,3 +48,7 @@ regions:
       d1.msmall: '4 GB,1 Cores,48 GB'
       d1.mmedium: '4 GB,2 Cores,96 GB'
       d1.mlarge: '8 GB,2 Cores,192 GB'
+    private_ipv4: true
+    public_ipv4: false
+    private_ipv6: false
+    public_ipv6: false

@@ -77,6 +77,7 @@ export default Ember.Controller.extend({
         deployLiveFeed.forEach(feed => {
             const postStream = this.get('model.postStream');
             const events = feed.event_type.split('.')[2].toUpperCase();
+          
             switch (events) {
                case LaunchStatus.TYPES_ACTION.RUNNING:
                     {
