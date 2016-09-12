@@ -82,7 +82,6 @@ class User
     end
 
     def update
-        puts "------------------ skip update ------------- "
      #  Api::Accounts.new.update(update_hash)
     end
 

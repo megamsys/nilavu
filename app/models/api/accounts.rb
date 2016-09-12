@@ -18,9 +18,6 @@ module Api
   
     def login(params)
       result = api_request(ACCOUNT,LOGIN, params)   
-      puts "------- login result"
-      puts result[:body].inspect
-      puts "---------------------"
       result[:body] if result && result.is_a?(Hash)
     end
     
