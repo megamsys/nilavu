@@ -1,6 +1,5 @@
-import { buildCategoryPanel } from 'nilavu/components/edit-category-panel';
+import {buildCategoryPanel} from 'nilavu/components/edit-category-panel';
 import SSHOptionType from 'nilavu/models/sshoption-type';
-
 
 export default buildCategoryPanel('summary', {
     editingPermissions: false,
@@ -8,19 +7,22 @@ export default buildCategoryPanel('summary', {
     selectedPermission: null,
 
     sshoptions: function() {
-        return Em.A([{ group_name: "old", op: SSHOptionType.create({id: 1 })},
-                     { group_name: "create", op: SSHOptionType.create({id: 2 })}
-                     //{group_name: "crap",  option: SSHOptionType.create({id: 3}) }
+        return Em.A([
+            {
+                group_name: "old",
+                op: SSHOptionType.create({id: 1})
+            }, {
+                group_name: "create",
+                op: SSHOptionType.create({id: 2})
+            }
+            //{group_name: "crap",  option: SSHOptionType.create({id: 3}) }
         ]);
     }.property(),
 
     sshFrequencies: function() {
         var rval = [];
         _.each(this.get("sshoptions"), function(p) {
-            rval.addObject({
-                name: p.op.description(),
-                value: p.op.id
-            });
+            rval.addObject({name: p.op.description(), value: p.op.id});
         });
         return rval;
     }.property("sshoptions"),
@@ -37,8 +39,8 @@ export default buildCategoryPanel('summary', {
     }.property('category.regions', 'category.resourceoption'),
 
     keypairsChanged: function() {
-      this.set('category.keypairoption', this.get('keypairOption'));
-      this.set('category.keypairnameoption', this.get('keypairNameOption'));
+        this.set('category.keypairoption', this.get('keypairOption'));
+        this.set('category.keypairnameoption', this.get('keypairNameOption'));
     }.observes('keypairOption', 'keypairNameOption')
 
-  });
+});
