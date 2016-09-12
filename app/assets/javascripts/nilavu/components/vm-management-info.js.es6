@@ -179,7 +179,7 @@ export default buildCategoryPanel('info', {
     }.property('model.created_at'),
 
     status: function() {
-        return this.get('model.status.message');
-    }.property('model.status'),
+        return this.get('model.state');
+    }.property('model.state'),
 
 });
