@@ -33,7 +33,7 @@ createWidget('post-article', {
         const desc = attrs.data.filter((f) => f.key == 'description');
         const status = attrs.data.filter((f) => f.key == 'status');
         const rows = [h("h4", status.get('firstObject').value + " - " + desc.get('firstObject').value)];
-        rows.push( h('i', { className: 'circle_green pull-right' }));
+        rows.push( h('i', { className: 'circle-' + status.get('firstObject').value + " " + 'pull-right' }));
         const createdAt = new Date(attrs.created_at);
         if (createdAt) {
             rows.push(h('h5.post-date', {}, dateNode(createdAt)));

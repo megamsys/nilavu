@@ -9,6 +9,7 @@ export default Ember.Component.extend({
 
     runningIP: null,
     visibleAlert: false,
+    showCpuSpinnerVisible: true,
 
     setIPS() {
         this.set('privateipv4', this._filterOutputs("privateipv4"));
@@ -26,8 +27,9 @@ export default Ember.Component.extend({
     @observes('runningIP')
     validateIP() {
         if (!Em.isBlank(this.get('runningIP'))) {
-            this.set("showNetworkSpinnerVisible", false);
+            this.set("showCpuSpinnerVisible", false);
             this.startRefreshing();
+
         }
     },
 
@@ -35,7 +37,7 @@ export default Ember.Component.extend({
     tabChanged() {
         if (Ember.isEqual(this.get('selectedTab'), "cpu")) {
             this.setIPS();
-            this.set("showNetworkSpinnerVisible", true);
+            this.set("showCpuSpinnerVisible", true);
             this.validatePrivateIPv4();
         };
     },
@@ -115,7 +117,7 @@ export default Ember.Component.extend({
             return;
         }
         if (Em.isBlank(self.get('publicipv6'))) {
-            this.set("showNetworkSpinnerVisible", false);
+            this.set("showCpuSpinnerVisible", false);
             this.set('visibleAlert', true);
             self.notificationMessages.error(I18n.t("vm_management.network.empty_ip_error"));
             return;
@@ -126,15 +128,15 @@ export default Ember.Component.extend({
             self.set("runningIP", self.get('publicipv6'));
             return;
         }).catch(function(e) {
-            this.set("showNetworkSpinnerVisible", false);
+            this.set("showCpuSpinnerVisible", false);
             this.set('visibleAlert', true);
             self.notificationMessages.error(I18n.t("vm_management.network.connect_error"));
         });
     },
 
     showSpinner: function() {
-        return this.get("showNetworkSpinnerVisible");
-    }.property("showNetworkSpinnerVisible"),
+        return this.get("showCpuSpinnerVisible");
+    }.property("showCpuSpinnerVisible"),
 
     willDestroyElement: function() {
         this.set('refreshing', false);
@@ -157,7 +159,7 @@ export default Ember.Component.extend({
         Nilavu.ajax("/metrics/containers/?ip=" + this.get("runningIP"), {
             type: 'GET'
         }).then(function(result) {
-            _this.set("showNetworkSpinnerVisible", false);
+            _this.set("showCpuSpinnerVisible", false);
             _this._drawChart(result);
             return;
         });

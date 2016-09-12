@@ -89,7 +89,7 @@ createWidget('notification-item', {
     },
 
     html(attrs) {
-        const notificationType = attrs.event_type;
+        const notificationType = attrs.event_type.split('.')[2];
         const lookup = this.site.get('notificationLookup');
         const notName = lookup[notificationType];
         const descs = attrs.data.filter((f) => f.key == 'description');

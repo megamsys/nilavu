@@ -84,6 +84,7 @@ export default function(filter, extras) {
             return findTopicList(this.store, this.topicTrackingState, filter, findOpts, findExtras);
         },
 
+
         titleToken() {
             if (filter === Nilavu.Utilities.defaultHomepage()) {
                 return;

@@ -62,8 +62,10 @@ export default Ember.Controller.extend(BufferedContent, {
         return this.get('componentData.repo.source');
     }.property('componentData'),
 
-    name: function() {
-        return this.get('model.name');
+    title: Ember.computed.alias('fullName'),
+
+    fullName: function() {
+        return this.get('model.name')
     }.property('model.name'),
 
     application: function() {
@@ -97,7 +99,6 @@ export default Ember.Controller.extend(BufferedContent, {
     privateipv4: function() {
         return this._filterOutputs("privateipv4");
     }.property('model.outputs'),
-
 
     _checked(value) {
         if (value == "true") {

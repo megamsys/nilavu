@@ -20,11 +20,12 @@ export default Ember.Controller.extend(BufferedContent, OpenComposer, {
     orderedCatTypes: function() {
         const grouped_results = this.get('model.results');
         let otmap = [];
-
         for (var order in grouped_results) {
-            otmap.push({order: order, cattype: grouped_results[order].get('firstObject.cattype').toLowerCase().capitalize().replace('Torpedo', 'Machines')});
-
-            }
+            otmap.push({
+                order: order,
+                cattype: grouped_results[order].get('firstObject.cattype').toLowerCase().capitalize().replace('Torpedo', 'Machines')
+            });
+        }
         return otmap;
     }.property('model.results'),
 

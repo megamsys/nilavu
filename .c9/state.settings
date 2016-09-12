@@ -137,7 +137,7 @@
     },
     "panecycle": {
         "json()": [
-            "tab9",
+            "tab4",
             "searchResults"
         ]
     },
@@ -207,6 +207,7 @@
             "meta": {
                 "accessList": [
                     "tab4",
+                    "tab9",
                     "tab3",
                     "tab7",
                     "tab6"
@@ -245,7 +246,7 @@
                     "document": {
                         "changed": false,
                         "meta": {
-                            "timestamp": 1473663327423
+                            "timestamp": 1473664090696
                         },
                         "filter": true,
                         "title": "user.rb",
@@ -253,7 +254,7 @@
                         "ace": {}
                     },
                     "editorType": "ace",
-                    "active": false
+                    "active": true
                 },
                 {
                     "type": "tab",
@@ -290,6 +291,26 @@
                         "filter": true,
                         "title": "accounts.rb",
                         "tooltip": "/app/models/api/accounts.rb",
+                        "ace": {}
+                    },
+                    "editorType": "ace",
+                    "active": false
+                },
+                {
+                    "type": "tab",
+                    "name": "tab9",
+                    "path": "/Gemfile",
+                    "className": [
+                        "tab9"
+                    ],
+                    "document": {
+                        "changed": false,
+                        "meta": {
+                            "timestamp": 1473664098955
+                        },
+                        "filter": true,
+                        "title": "Gemfile",
+                        "tooltip": "/Gemfile",
                         "ace": {}
                     },
                     "editorType": "ace",

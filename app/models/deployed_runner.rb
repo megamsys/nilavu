@@ -6,7 +6,6 @@ class DeployedRunner
     @type = params[:type]
     @params = params
     assembly_item = find_by(params)
-
     if assembly_item
       return  Deployed.new(assembly_item)
     end
@@ -26,7 +25,6 @@ class DeployedRunner
 
   def self.run_assembly_fold_by_type
     got_assembly = run_assembly
-
     return Nilavu::NotFound unless got_assembly
 
     got_assembly.baked.first

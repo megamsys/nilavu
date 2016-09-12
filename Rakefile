@@ -5,3 +5,10 @@
 require File.expand_path('../config/application', __FILE__)
 
 Nilavu::Application.load_tasks
+
+namespace :cache do
+  desc "Clears Rails cache"
+  task :clear => :environment do
+    Rails.cache.clear
+  end
+end

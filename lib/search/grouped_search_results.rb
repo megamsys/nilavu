@@ -21,6 +21,7 @@ class Search
       @containers = []
     end
 
+
     def add(object)
       type = @type_filter.to_s.downcase.pluralize
 

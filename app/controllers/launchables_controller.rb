@@ -19,7 +19,7 @@ class LaunchablesController < ApplicationController
     # - Get the list from the marketplace_pools_grooups
     #   The groups are
     #       virtualmachines, applications[containers, customapps, prepackaged]
-    def prepare
+    def prepare    
        render json: scrub(params)
     end
 

@@ -4,7 +4,7 @@
     <div class="row c_pading-b25 pad_0">
         <div class="col-md-4 pad_0">
             Launched at
-            {{format-age model.created_at}}
+            {{format-age createdAt}}
             ago
         </div>
         <div class="col-md-4 pad_0">
@@ -17,14 +17,11 @@
             seconds
         </div>
         <div class="col-md-4">
-            <button type="button" class="btn btn-default pull-right link-icons" {{action "showVNC"}}>
-                <span class="glyphicon glyphicon-console"></span>
-                CONSOLE
-            </button>
+               {{vnc-console-button model=model activateVNC=activateVNC title=title}}
         </div>
     </div>
     <div class="predeploybar">
-        {{#progress-bar  value=streamPercentage barHead=barHead striped=true animate=true minValue=0 maxValue=100 label=barLabel showLabel=true type="danger"}}{{/progress-bar}}
+        {{#progress-bar deployError=deployError value=streamPercentage barHead=barHead striped=true animate=true minValue=0 maxValue=100 label=barLabel showLabel=true type="danger"}}{{/progress-bar}}
     </div>
 
     {{conditional-loading-spinner size="large" condition=model.postStream.loading}}

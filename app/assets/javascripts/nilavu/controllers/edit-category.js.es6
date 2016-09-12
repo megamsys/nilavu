@@ -31,8 +31,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
         return this.selectedTab == 'selection';
     }.property('selectedTab'),
 
-    @observes('summarizeVisible')
-    setSummarizeButtonValue: function() {
+    @observes('summarizeVisible')setSummarizeButtonValue: function() {
         this.set('selectionSelected', this.get('summarizeVisible'));
     },
 
@@ -121,7 +120,6 @@ export default Ember.Controller.extend(ModalFunctionality, {
         }
     }.observes('cooking'),
 
-
     summarizingChanged: function() {
         this.set('selectedTab', 'summary');
     }.observes('summarizing'),
@@ -181,8 +179,7 @@ export default Ember.Controller.extend(ModalFunctionality, {
         this.setProperties({model: null});
     },
 
-    @observes('gotoSummarize')
-    gotoSummarizePage: function() {
+    @observes('gotoSummarize')gotoSummarizePage: function() {
         this.send('nextSummarize');
     },
 
@@ -218,9 +215,22 @@ export default Ember.Controller.extend(ModalFunctionality, {
                     ? result.id
                     : "";
 
+                const slugsId = result.asms_id
+                    ? result.asms_id
+                    : "";
+
                 if (result.id) {
-                    NilavuURL.routeTo('/t/' + slugId);
-                    self.notificationMessages.success(I18n.t('launcher.launched') + " " + slugId);
+                    var todo = self.store.createRecord('topic', {
+                        id: slugId,
+                        asms_id: slugsId
+                    });
+
+                    const promise = todo.reload().then(function(result) {
+                      self.replaceWith('/t/' + slugId, todo);
+                      self.notificationMessages.success(I18n.t('launcher.launched') + " " + slugId);
+                    }).catch(function(e) {
+                        self.notificationMessages.error(I18n.t("vm_management.topic_load_error"));
+                    });                  
                 } else {
                     NilavuURL.routeTo('/');
                     self.notificationMessages.warning(I18n.t('launcher.not_launched') + " " + slugId);

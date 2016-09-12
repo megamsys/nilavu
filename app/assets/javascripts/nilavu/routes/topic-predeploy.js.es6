@@ -6,8 +6,7 @@ export default Nilavu.Route.extend({
     },
 
     setupController(controller, model) {
-        const self = this;
-        controller.setProperties({model: model});
+        const self = this;        
         const promise = model.reload().then(function(result) {
           controller.setProperties({model: model});
             self.set('loading', false);

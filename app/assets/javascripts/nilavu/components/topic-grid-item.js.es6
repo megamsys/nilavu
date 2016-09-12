@@ -9,7 +9,7 @@ export default Ember.Component.extend({
     appCategory: function() {
         return Em.isEqual(this.get("showCategory"), "torpedo");
     }.property(),
-    
+
     status: function() {
         return this.get("topic.status");
     }.property(),
@@ -164,4 +164,4 @@ export default Ember.Component.extend({
         }
     }.on('didInsertElement')
 
-});
+})

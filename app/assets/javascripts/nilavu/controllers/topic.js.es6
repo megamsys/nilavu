@@ -1,14 +1,11 @@
 import BufferedContent from 'nilavu/mixins/buffered-content';
-import {
-    spinnerHTML
-} from 'nilavu/helpers/loading-spinner';
+import {spinnerHTML} from 'nilavu/helpers/loading-spinner';
 import Topic from 'nilavu/models/topic';
-import {
-    popupAjaxError
-} from 'nilavu/lib/ajax-error';
+import {popupAjaxError} from 'nilavu/lib/ajax-error';
 import computed from 'ember-addons/ember-computed-decorators';
 import NilavuURL from 'nilavu/lib/url';
 import showModal from 'nilavu/lib/show-modal';
+import LaunchStatus from 'nilavu/models/launch-status';
 
 export default Ember.Controller.extend(BufferedContent, {
     needs: [
@@ -23,6 +20,10 @@ export default Ember.Controller.extend(BufferedContent, {
     spinnerDeleteIn: false,
     spinnerRefreshIn: false,
     rerenderTriggers: ['isUploading'],
+    startsubmitted: false,
+    stopsubmitted: false,
+    restartsubmitted: false,
+    vncsubmitted: false,
 
     _initPanels: function() {
         this.set('panels', []);
@@ -60,8 +61,6 @@ export default Ember.Controller.extend(BufferedContent, {
     title: Ember.computed.alias('fullName'),
 
     fullName: function() {
-        //var js = this._filterInputs("domain");
-        //return this.get('model.name') + "." + js;
         return this.get('model.name')
     }.property('model.name'),
 
@@ -106,22 +105,14 @@ export default Ember.Controller.extend(BufferedContent, {
 
     getData(reqAction) {
         return {
-            id: this.get('model').id,
-            cat_id: this.get('model').asms_id,
-            name: this.get('model').name,
-            req_action: reqAction,
-            cattype: this.get('model').tosca_type.split(".")[1],
+            id: this.get('model').id, cat_id: this.get('model').asms_id, name: this.get('model').name, req_action: reqAction, cattype: this.get('model').tosca_type.split(".")[1],
             category: "control"
         };
     },
 
     getDeleteData() {
         return {
-            id: this.get('model').id,
-            cat_id: this.get('model').asms_id,
-            name: this.get('model').name,
-            action: "delete",
-            cattype: this.get('model').tosca_type.split(".")[1],
+            id: this.get('model').id, cat_id: this.get('model').asms_id, name: this.get('model').name, action: "delete", cattype: this.get('model').tosca_type.split(".")[1],
             category: "state"
         };
     },
@@ -136,6 +127,7 @@ export default Ember.Controller.extend(BufferedContent, {
             self.set('spinnerDeleteIn', false);
             if (result.success) {
                 self.notificationMessages.success(I18n.t("vm_management.delete_success"));
+                NilavuURL.routeTo("/");
             } else {
                 self.notificationMessages.error(I18n.t("vm_management.error"));
             }
@@ -145,13 +137,44 @@ export default Ember.Controller.extend(BufferedContent, {
         });
     },
 
+    stateChanged: function() {
+        return this.set('currentState', this.get('model.state'));
+    }.observes('model.state'),
+
+    startDisabled: function() {
+        const events = this.get('currentState').toUpperCase();
+        if (Em.isEqual(events, LaunchStatus.TYPES_ERROR.POSTERROR) || !Em.isEqual(events, LaunchStatus.TYPES_ACTION.STOPPED))
+            return true;
+        return false;
+    }.property('startsubmitted', 'currentState'),
+
+    stopDisabled: function() {
+        const events = this.get('currentState').toUpperCase();
+        if (Em.isEqual(events, LaunchStatus.TYPES_ERROR.POSTERROR) || Em.isEqual(events, LaunchStatus.TYPES_ACTION.STOPPED))
+            return true;
+        return false;
+    }.property('stopsubmitted', 'currentState'),
+
+    restartDisabled: function() {
+        const events = this.get('currentState').toUpperCase();
+        if (Em.isEqual(events, LaunchStatus.TYPES_ERROR.POSTERROR))
+            return true;
+        return false;
+    }.property('restartsubmitted', 'currentState'),
+
+    vncDisabled: function() {
+        const events = this.get('currentState').toUpperCase();
+        if (Em.isEqual(events, LaunchStatus.TYPES_ERROR.POSTERROR) || Em.isEqual(events, LaunchStatus.TYPES_ACTION.STOPPED))
+            return true;
+        return false;
+    }.property('vncsubmitted', 'currentState'),
 
     actions: {
-
         refresh() {
             const self = this;
             self.set('spinnerRefreshIn', true);
-            const promise = this.get('model').reload().then(function(result) {
+            const topic = self.controllerFor('topic');
+            const promise = self.get('model').reload().then(function(result) {
                 self.set('spinnerRefreshIn', false);
             }).catch(function(e) {
                 self.notificationMessages.error(I18n.t("vm_management.topic_load_error"));
@@ -173,10 +196,7 @@ export default Ember.Controller.extend(BufferedContent, {
                     userTitle: "VNC Connected :" + this.get('title'),
                     smallTitle: true,
                     titleCentered: true
-                }).setProperties({
-                    host: host,
-                    port: port
-                });
+                }).setProperties({host: host, port: port});
             }
 
         },
@@ -185,7 +205,7 @@ export default Ember.Controller.extend(BufferedContent, {
             var self = this;
             this.set('spinnerStartIn', true);
             Nilavu.ajax('/t/' + this.get('model').id + "/start", {
-                data: this.getData("control"),
+                data: this.getData("start"),
                 type: 'POST'
             }).then(function(result) {
                 self.set('spinnerStartIn', false);
@@ -204,7 +224,7 @@ export default Ember.Controller.extend(BufferedContent, {
             var self = this;
             this.set('spinnerStopIn', true);
             Nilavu.ajax('/t/' + this.get('model').id + "/stop", {
-                data: this.getData("control"),
+                data: this.getData("stop"),
                 type: 'POST'
             }).then(function(result) {
                 self.set('spinnerStopIn', false);
@@ -217,6 +237,7 @@ export default Ember.Controller.extend(BufferedContent, {
                 self.set('spinnerStopIn', false);
                 console.log(e);
                 self.notificationMessages.error(I18n.t("vm_management.error"));
+
             });
         },
 
@@ -224,7 +245,7 @@ export default Ember.Controller.extend(BufferedContent, {
             var self = this;
             this.set('spinnerRebootIn', true);
             Nilavu.ajax('/t/' + this.get('model').id + "/restart", {
-                data: this.getData("control"),
+                data: this.getData("restart"),
                 type: 'POST'
             }).then(function(result) {
                 self.set('spinnerRebootIn', false);
