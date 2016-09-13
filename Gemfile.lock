@@ -150,11 +150,7 @@ GEM
     lru_redux (1.1.0)
     mail (2.6.4)
       mime-types (>= 1.16, < 4)
-<<<<<<< HEAD
-    megam_api (1.6.4)
-=======
     megam_api (1.6.6)
->>>>>>> origin/1.5
       excon (~> 0.51.0)
       ffi-yajl (~> 2.2)
       highline (~> 1.7)
@@ -275,7 +271,7 @@ GEM
     rspec-given (3.8.0)
       given_core (= 3.8.0)
       rspec (>= 2.14.0)
-    rspec-html-matchers (0.8.0)
+    rspec-html-matchers (0.8.1)
       nokogiri (~> 1)
       rspec (>= 3.0.0.a, < 4)
     rspec-mocks (3.2.1)
@@ -370,11 +366,7 @@ DEPENDENCIES
   librarian (>= 0.0.25)
   listen (= 0.7.3)
   lru_redux
-<<<<<<< HEAD
-  megam_api (= 1.6.4)
-=======
   megam_api (= 1.6.6)
->>>>>>> origin/1.5
   memory_profiler
   minitest
   mocha
