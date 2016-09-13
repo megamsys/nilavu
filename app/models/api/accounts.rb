@@ -15,7 +15,12 @@
 ##
 module Api
   class Accounts < ApiDispatcher
-
+  
+    def login(params)
+      result = api_request(ACCOUNT,LOGIN, params)   
+      result[:body] if result && result.is_a?(Hash)
+    end
+    
     def where(params)
       result = api_request(ACCOUNT,SHOW, params)    
       result[:body] if result && result.is_a?(Hash)
@@ -29,12 +34,12 @@ module Api
       api_request(ACCOUNT, UPDATE, params)
     end
 
-    def reset(params)
-      api_request(ACCOUNT, RESET, params, true)
+    def forgot(params)
+      api_request(ACCOUNT, FORGOT, params, true)
     end
 
-     def repassword(params)
-      api_request(ACCOUNT, REPASSWORD, params, true)
+     def password_reset(params)
+      api_request(ACCOUNT, PASSWORD_RESET, params, true)
     end
 
   end

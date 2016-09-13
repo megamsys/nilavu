@@ -106,7 +106,7 @@ class StaticController < ApplicationController
         path = File.expand_path(Rails.root + "public/assets/" + params[:path])
 
         # SECURITY what if path has /../
-        raise Discourse::NotFound unless path.start_with?(Rails.root.to_s + "/public/assets")
+        raise Nilavu::NotFound unless path.start_with?(Rails.root.to_s + "/public/assets")
 
         expires_in 1.year, public: true
 
@@ -117,7 +117,7 @@ class StaticController < ApplicationController
             response.headers["Last-Modified"] = File.ctime(path).httpdate
             response.headers["Content-Length"] = File.size(path).to_s
         rescue Errno::ENOENT
-            raise Discourse::NotFound
+            raise Nilavu::NotFound
         end
 
         opts = { disposition: nil }

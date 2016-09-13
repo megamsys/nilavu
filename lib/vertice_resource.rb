@@ -21,11 +21,10 @@ module VerticeResource
   private
 
   def submit(jlaz, jmethod, jparams)
-
     Megam::Log.level(Rails.configuration.log_level)
     api_jlaz = jlaz.constantize
     unless api_jlaz.respond_to?(jmethod)
-      Rails.logger.debug "No api #{jlaz}.#{jmethod} found."
+      Rails.logger.debug "API  #{jlaz}.#{jmethod} not found."
       fail Nilavu::NotFound
     end
 

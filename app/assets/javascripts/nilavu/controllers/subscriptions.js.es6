@@ -85,28 +85,28 @@ export default Ember.Controller.extend(BufferedContent, {
             const self = this,
                 attrs = this.getProperties('address', 'address2', 'city', 'state', 'zipcode', 'company');
             this.set('formSubmitted', true);
-             NilavuURL.routeTo('/billers/bill/activation');
 
-            // return Nilavu.ajax("/subscriptions", {
-            //     data: {
-            //         address1: attrs.address,
-            //         address2: attrs.address2,
-            //         city: attrs.city,
-            //         state: attrs.state,
-            //         postcode: attrs.zipcode,
-            //         companyname: attrs.company
-            //     },
-            //     type: 'POST'
-            // }).then(function(result) {
-            //     self.set('formSubmitted', false);
-            //     var rs = result.subscriber;
-            //     if (Em.isEqual(rs.result, "success")) {
-            //         NilavuURL.routeTo('/billers/bill/activation');
-            //     } else {
-            //         console.log(JSON.stringify(rs));
-            //         self.notificationMessages.error(I18n.t(rs.error));
-            //     }
-            // });
+
+            return Nilavu.ajax("/subscriptions", {
+                data: {
+                    address1: attrs.address,
+                    address2: attrs.address2,
+                    city: attrs.city,
+                    state: attrs.state,
+                    postcode: attrs.zipcode,
+                    companyname: attrs.company
+                },
+                type: 'POST'
+            }).then(function(result) {
+                self.set('formSubmitted', false);
+                var rs = result.subscriber;
+                if (Em.isEqual(rs.result, "success")) {
+                    NilavuURL.routeTo('/billers/bill/activation');
+                } else {
+                    console.log(JSON.stringify(rs));
+                    self.notificationMessages.error(I18n.t(rs.error));
+                }
+            });
         },
 
         verifyOTP() {

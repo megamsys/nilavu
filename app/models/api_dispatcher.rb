@@ -2,7 +2,12 @@
 class ApiDispatcher
     include VerticeResource
 
-    class ApiDispatcher::NotReached < StandardError; end
+    class ApiDispatcher::NotReached < StandardError
+        def initialize(message)
+            super(message)
+        end
+        
+    end
 
     class ApiDispatcher::Flunked  < StandardError
         include HttpErrors
@@ -48,13 +53,15 @@ class ApiDispatcher
 
     ENDPOINTS_AS_JSON = [JLAZ_PREFIX + ASSEMBLIES,  JLAZ_PREFIX + ASSEMBLY,    JLAZ_PREFIX + COMPONENTS]
 
-    CREATE            = 'create'.freeze
+    LOGIN             = 'login'.freeze
     SHOW              = 'show'.freeze
+    CREATE            = 'create'.freeze
     LIST              = 'list'.freeze
     UPDATE            = 'update'.freeze
+    
+    FORGOT            = 'forgot'.freeze
+    PASSWORD_RESET    = 'password_reset'.freeze
     UPGRADE           = 'upgrade'.freeze
-    RESET             = 'reset'.freeze
-    REPASSWORD        = 'repassword'.freeze
 
 
     def initialize(ignore_404 = false)
@@ -71,8 +78,7 @@ class ApiDispatcher
         rescue Megam::API::Errors::ErrorWithResponse => m
             raise_api_errors(ApiDispatcher::Flunked.new(m))
         rescue StandardError => se
-            puts se.inspect
-            raise ApiDispatcher::NotReached
+            raise ApiDispatcher::NotReached.new(se.message)
         end
     end
 
@@ -122,7 +128,7 @@ class ApiDispatcher
 
     def satisfied_args?(passthru, params={})
         unless passthru
-            return params[:email] && (params[:api_key].present? || params[:password].present?)
+            return params[:email] && (params[:api_key].present? || params[:password_hash].present?)
         end
         return true
     end
