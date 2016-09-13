@@ -3,20 +3,23 @@ require 'whmcs'
 class Biller::WHMCSShopper < Biller::Shopper
     include Biller::WHMCSRegistrar
 
-    def shop(shop_options)
-        WHMCS::Client.get_products(shop_options)
+    def initialize
+      register
     end
 
-    def after_shop(user, shopped)
-        result = Biller::Result.new
-        puts "----------- shopped "
-        puts shopped.inspect
-        puts "----------- shopped..."
-        payment_methods = WHMCS::Client.get_payment_methods(shopped)
-        return result unless payment_methods
-        puts "----------- payment_methods"
-        puts payment_methods.inspect
-        puts "----------- payment_methods..."
+    def shop(shop_options={})
+      begin
+        WHMCS::Order.get_products(shop_options).attributes
+      rescue StandardError => se
+          {:result => "error", :error => "errors.desc.not_found"}
+      end
+    end
 
+    def after_shop()
+        begin
+        WHMCS::Invoice.get_payment_methods().attributes
+        rescue StandardError => se
+          {:result => "error", :error => "errors.desc.not_found"}
+      end
     end
 end

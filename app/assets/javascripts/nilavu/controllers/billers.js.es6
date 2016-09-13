@@ -1,6 +1,6 @@
 import BufferedContent from 'nilavu/mixins/buffered-content';
 import {spinnerHTML} from 'nilavu/helpers/loading-spinner';
-import Subscriptions from 'nilavu/models/subscriptions';
+import Billers from 'nilavu/models/billers';
 import {popupAjaxError} from 'nilavu/lib/ajax-error';
 import {observes, computed} from 'ember-addons/ember-computed-decorators';
 import NilavuURL from 'nilavu/lib/url';
@@ -37,7 +37,7 @@ export default Ember.Controller.extend(BufferedContent, {
 
     // _initPanels: function() {}.on('init'),
 
-    regions: Ember.computed.alias('model.regions'),
+    regions: Ember.computed.alias('model.shopper.regions'),
 
     subRegionOption: function() {
         if (this.get('regions'))

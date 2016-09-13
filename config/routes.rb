@@ -36,7 +36,7 @@ Nilavu::Application.routes.draw do
   post "/subscriptions" => "subscriptions#create"
 
   get "/billers/bill/activation" => "billers#show"
-  post "/billers" => "billsers#create"
+  post "/billers" => "billers#create"
 
   post "/verify/otp" => "mobile_avatars#create"
 

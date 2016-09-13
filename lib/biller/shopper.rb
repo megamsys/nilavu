@@ -10,7 +10,7 @@ class Biller::Shopper
 
   #  can be used to hook in after the order process
   #  is complete
-  def after_shop(user, order)
+  def after_shop(order)
     # not required
   end
 end

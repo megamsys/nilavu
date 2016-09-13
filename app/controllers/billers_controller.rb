@@ -1,7 +1,13 @@
 class BillersController < ApplicationController
     include CurrentBilly
+    include LaunchableAssembler
+    include LaunchedBiller
 
-    before_action :add_authkeys_for_api, only: [:index, :show]
+    SHOPPER_PROCESSE = 'Shopper'.freeze
+    ORDERER_PROCESSE = 'Orderer'.freeze
+
+    before_action :add_authkeys_for_api, only: [:show, :create]
+
 
     def show
         render json: {shopper: shopper || {}}
@@ -27,30 +33,29 @@ class BillersController < ApplicationController
     end
 
     def shopper
-        l = lookup_billy_addon(params)
 
+        l = lookup_external_id_in_addons(params)
         if bildr = bildr_processe_is_ready(SHOPPER_PROCESSE)
-            b = bildr.orderer.shop(l)
-
-            bldr.orderer.after_shop(b)
+            {productsdetail: bildr.new.shop(l), payments: bildr.new.after_shop(), regions: regions}
+        else
+        invalid_credentials
         end
     end
 
     def order
-        l = lookup_billy_addon(params)
-
+        l = lookup_external_id_in_addons(params)
         if bildr = bildr_processe_is_ready(ORDERER_PROCESSE)
-            b = bildr.orderer.order(l)
-
-            bldr.orderer.after_order(b)
+            b = bildr.new.order(l)
+            bildr.new.after_order(b)
+          else
+          invalid_credentials
         end
     end
 
     def bildr_processe_is_ready(processe)
         bildr = Biller::Builder.new(processe)
+        return unless bildr.implementation
+        bildr.implementation
 
-        return unless bildr && obj.respond_to?(processe.downcase.to_sym)
-
-        bildr
     end
 end

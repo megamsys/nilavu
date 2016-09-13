@@ -7,11 +7,13 @@ class Biller::WHMCSOrderer < Biller::Orderer
 
     #:clientid
     def order(order_options)
-        WHMCS::Client.add_order(order_options)
+      puts "*************************************************************************"
+      puts order_options.inspect
+        WHMCS::Order.add_order(order_options)
     end
 
-    def after_order(user, ordered)
-        result = Billy::Result.new
+    def after_order(ordered)
+        result = Biller::Result.new
         puts "----------- ordered"
         puts ordered.inspect
         puts "----------- ordered..."
