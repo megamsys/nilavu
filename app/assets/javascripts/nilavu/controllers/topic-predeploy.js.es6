@@ -178,7 +178,7 @@ export default Ember.Controller.extend({
     },
 
     refreshNotifications() {
-        const category = this.get("model.tosca_type").split(".")[1] == "container" ? "container" : "vm";
+        const category = this.get("model.tosca_type").split(".")[1] == this.constants.CONTAINER ? this.constants.CONTAINER : this.constants.VM;
 
         const id = this.get('id');
 

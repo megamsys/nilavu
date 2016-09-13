@@ -7,5 +7,6 @@ export default Ember.Object.extend({
   BITNAMI: "bitnami",
   CONTAINERS: "DockerContainer",
   CONTAINER: "container",
-  TORPEDO: "torpedo"
+  TORPEDO: "torpedo",
+  VM: "vm"
 });
