@@ -26,7 +26,6 @@ export default Ember.Controller.extend(BufferedContent, OpenComposer, {
                 cattype: grouped_results[order].get('firstObject.cattype').toLowerCase().capitalize().replace('Torpedo', 'Machines')
             });
         }
-        console.log(JSON.stringify(otmap));
         return otmap;
     }.property('model.results'),
 

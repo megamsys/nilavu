@@ -1,11 +1,5 @@
 import {queryParams} from 'nilavu/controllers/discovery-sortable';
 
-const ALL = "all",
-    TORPEDO = "torpedo",
-    APP = "app",
-    SERVICE = "service",
-    CONTAINER = "container";
-
 // A helper to build a topic route for a filter
 function filterQueryParams(params, defaultParams) {
     const findOpts = defaultParams || {};
@@ -132,19 +126,19 @@ export default function(filter, extras) {
             this.render('navigation/default', {outlet: 'navigation-bar'});
             var template = 'discovery/all';
             switch (filter) {
-                case ALL:
+                case this.constants.ALL:
                     template = 'discovery/all';
                     break;
-                case TORPEDO:
+                case this.constants.TORPEDO:
                     template = 'discovery/torpedos';
                     break;
-                case APP:
+                case this.constants.APP:
                     template = 'discovery/apps';
                     break;
-                case SERVICE:
+                case this.constants.SERVICE:
                     template = 'discovery/services';
                     break;
-                case CONTAINER:
+                case this.constants.CONTAINER:
                     template = 'discovery/microservices';
                     break;
                 default:
