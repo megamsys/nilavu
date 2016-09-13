@@ -23,7 +23,7 @@ Nilavu::Application.routes.draw do
   get "torpedo" => 'cockpits#torpedo'
   get "app" => 'cockpits#app'
   get "service" => 'cockpits#service'
-  get "microservice" => 'cockpits#microservices'
+  get "container" => 'cockpits#microservices'
 
   #session related
   resources :sessions

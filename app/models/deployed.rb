@@ -35,7 +35,7 @@ class Deployed
     end
 
     def dockerhostip
-        if @assembly.tosca_type == "tosca.microservices.dockercontainer"
+        if @assembly.tosca_type == "tosca.containers.dockercontainer"
             return  @ips && @ips.hostip
         end
     end

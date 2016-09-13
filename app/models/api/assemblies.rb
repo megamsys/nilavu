@@ -22,10 +22,10 @@ module Api
         APP                 =  'APP'.freeze
         SERVICE             =  'SERVICE'.freeze
         ANALYTICS           =  'ANALYTICS'.freeze
-        MICROSERVICE        =  'MICROSERVICE'.freeze
+        CONTAINER           =  'CONTAINER'.freeze
         COLLABORATION       =  'COLLABORATION'.freeze
 
-        CATTYPES            =  [TORPEDO, APP, SERVICE, MICROSERVICE, ANALYTICS, COLLABORATION]
+        CATTYPES            =  [TORPEDO, APP, SERVICE, CONTAINER, ANALYTICS, COLLABORATION]
 
         START               =  'start'.freeze
         STOP                =  'stop'.freeze

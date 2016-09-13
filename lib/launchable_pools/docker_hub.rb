@@ -3,7 +3,7 @@ require 'docker_registry'
 class DockerHub
 
     DOCKER = "docker".freeze
-    MICROSERVICE = "MICROSERVICE".freeze
+    CONTAINER = "CONTAINER".freeze
 
     def self.limit
       5
@@ -37,8 +37,8 @@ class DockerHub
             id:   "",
             name: hubi.name,
             provider: official_or_others(md[:is_official], hubi.name),
-            category: MICROSERVICE,
-            cattype: MICROSERVICE,
+            category: CONTAINER,
+            cattype: CONTAINER,
             logo: ensure_logo_is_filled(md),
             versions: ensure_versioned(md),
             options: [{key: :is_official, value: md[:is_official]}, {key: :is_trusted, value: md[:is_trusted]}, {key: :star_count, value: md[:star_count]}],
