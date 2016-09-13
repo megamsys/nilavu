@@ -77,7 +77,7 @@ export default Ember.Controller.extend({
         deployLiveFeed.forEach(feed => {
             const postStream = this.get('model.postStream');
             const events = feed.event_type.split('.')[2].toUpperCase();
-          
+
             switch (events) {
                case LaunchStatus.TYPES_ACTION.RUNNING:
                     {
@@ -178,6 +178,8 @@ export default Ember.Controller.extend({
     },
 
     refreshNotifications() {
+        const category = this.get("model.tosca_type").split(".")[1] == this.constants.CONTAINER ? this.constants.CONTAINER : this.constants.VM;
+
         const id = this.get('id');
 
         if (this.loading) {
@@ -195,9 +197,10 @@ export default Ember.Controller.extend({
         }
 
         const stale = this.store.findStale('notification', {
-            id: id,
+           id: id,
             recent: true,
-            limit
+            limit,
+            category: category.capitalize()
         }, {cacheKey: 'recent-notifications'});
 
         if (stale.hasResults) {

@@ -34,13 +34,13 @@ module Api
         end
 
         def recent(api_params, &_block)
-            raw = api_request(EVENTS, LIST, api_params)
+            raw = api_request(EVENTS + api_params[:category], LIST, api_params)
             dig_event(raw)
         end
 
         def recent_by_id(api_params, &_block)
-          api_params[:assembly_id] = api_params[:id]
-            raw = api_request(EVENTS, SHOW, api_params)
+            api_params[:assembly_id] = api_params[:id]
+            raw = api_request(EVENTS + api_params[:category], SHOW, api_params)
             dig_event(raw)
         end
 

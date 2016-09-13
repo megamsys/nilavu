@@ -271,7 +271,7 @@ GEM
     rspec-given (3.8.0)
       given_core (= 3.8.0)
       rspec (>= 2.14.0)
-    rspec-html-matchers (0.8.0)
+    rspec-html-matchers (0.8.1)
       nokogiri (~> 1)
       rspec (>= 3.0.0.a, < 4)
     rspec-mocks (3.2.1)
