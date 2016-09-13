@@ -39,7 +39,7 @@ export default Nilavu.Route.extend({
 
     renderTemplate() {
         this.render('billers/activate', {
-            controller: 'subscriptions'
+            controller: 'billers'
         });
     }
 

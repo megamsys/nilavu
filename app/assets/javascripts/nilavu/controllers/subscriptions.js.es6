@@ -86,6 +86,7 @@ export default Ember.Controller.extend(BufferedContent, {
                 attrs = this.getProperties('address', 'address2', 'city', 'state', 'zipcode', 'company');
             this.set('formSubmitted', true);
 
+
             return Nilavu.ajax("/subscriptions", {
                 data: {
                     address1: attrs.address,

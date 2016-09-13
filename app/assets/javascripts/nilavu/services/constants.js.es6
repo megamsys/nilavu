@@ -1,10 +1,12 @@
 export default Ember.Object.extend({
-  APP: "APP",
-  SERVICE: "SERVICE",
-  MICROSERVICE: "MICROSERVICE",
-  ANALYTICS: "ANALYTICS",
-  COLLABORATION: "COLLABORATION",
-  BITNAMI: "BITNAMI",
+  ALL: "all",
+  APP: "app",
+  SERVICE: "service",
+  ANALYTICS: "analytics",
+  COLLABORATION: "collaburation",
+  BITNAMI: "bitnami",
   CONTAINERS: "DockerContainer",
   CONTAINER: "container",
+  TORPEDO: "torpedo",
+  VM: "vm"
 });

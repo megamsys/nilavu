@@ -11,7 +11,7 @@ export default Ember.Component.extend({
     }.property(),
 
     status: function() {
-        return this.get("topic.status");
+        return this.get("topic.state");
     }.property(),
 
     actions: {
