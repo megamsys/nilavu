@@ -39,6 +39,7 @@ Nilavu::Application.routes.draw do
   post "/billers" => "billsers#create"
 
   post "/verify/otp" => "mobile_avatars#create"
+  post "/resendOTP" => "mobile_avatars#activating"
 
   post "/session/forgot_password" => "sessions#forgot_password"
   get "/password_reset" => "users#password_reset"

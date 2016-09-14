@@ -21,7 +21,8 @@ class SubscriptionsController < ApplicationController
 
             render json: {
                 subscriber: subscriber(addon[:external_id]) || {},
-                mobavatar_activation: mob.to_json
+                mobavatar_activation: mob,
+                addon: addon
             }
 
         end

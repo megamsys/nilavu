@@ -8,8 +8,8 @@ export default Nilavu.Route.extend({
         return this.redirectIfLoginRequired();
     },
 
-    setupParams(subs, params) {
-        return subs;
+    setupParams(subs, params, result) {
+        return result;
     },
 
     model(params) {
@@ -18,7 +18,7 @@ export default Nilavu.Route.extend({
 
         return subs.check().then(function(result) {
             self.set('loading', false);
-            return self.setupParams(subs, params);
+            return self.setupParams(subs, params, result);
         }).catch(function(e) {
             self.set('loading', false);
         });

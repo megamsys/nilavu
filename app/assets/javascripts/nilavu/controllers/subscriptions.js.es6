@@ -13,11 +13,14 @@ export default Ember.Controller.extend(BufferedContent, {
     loading: false,
     formSubmitted: false,
     otpSubmitted: false,
+    resendSubmitted: false,
     selectedTab: null,
     panels: null,
     showTop: false,
-    subscriber: Ember.computed.alias('model.subscriber'),
-    mobavatar: Ember.computed.alias('model.mobavatar_activation'),
+    addresssValidated: false,
+    subscriber: Ember.computed.alias('model.addon.result'),
+    mobavatar: Ember.computed.alias('model.mobavatar_activation.success'),
+    phoneNumber: Ember.computed.alias('currentUser.phone'),
 
     @observes('subscriber')subscriberChecker: function() {
         console.log(this.get('subscriber'));
@@ -28,6 +31,14 @@ export default Ember.Controller.extend(BufferedContent, {
         this.set('panels', []);
         this.set('selectedTab', 'monthly');
     }.on('init'),
+
+    externalIdCheck: function() {
+      if(this.get("subscriber") == 'success')
+      {
+        return true;
+      }
+      return false;
+    }.property('subscriber'),
 
     hourlySelected: function() {
         return this.selectedTab == 'hourly';
@@ -40,10 +51,6 @@ export default Ember.Controller.extend(BufferedContent, {
     title: function() {
         return 'Subscriptions';
     }.property('model'),
-
-    phoneNumber: function() {
-        return "+61 422 101 421";
-    }.property(),
 
     // _initPanels: function() {}.on('init'),
 
@@ -109,20 +116,44 @@ export default Ember.Controller.extend(BufferedContent, {
         },
 
         verifyOTP() {
+          this.set('otpSubmitted', true);
             const self = this,
                 attrs = this.getProperties('otpNumber');
-            this.set('otpSubmitted', true);
             return Nilavu.ajax("/verify/otp", {
                 data: {
                     otp: attrs.otpNumber
                 },
                 type: 'POST'
             }).then(function(result) {
-                self.set('otpSubmitted', false);
+              self.set('otpSubmitted', false);
                 self.setProperties({otpNumber: ''});
+                if (result.success) {
+                    self.notificationMessages.success(I18n.t("user.activation.activate_phone_activated"));
+                }
 
                 if (!result.success) {
                     self.notificationMessages.error(I18n.t("user.activation.activate_phone_error"));
+                }
+            });
+        },
+
+        resendOTP() {
+          this.set('resendSubmitted', true);
+            const self = this,
+            attrs = this.getProperties('phoneNumber');
+            return Nilavu.ajax("/resendOTP", {
+                data: {
+                  phone: attrs.phoneNumber
+
+                },
+                type: 'POST'
+            }).then(function(result) {
+                self.set('resendSubmitted', false);
+                if (result.success) {
+                    self.notificationMessages.success(I18n.t("user.activation.opt_send"));
+                }
+                if (!result.success) {
+                    self.notificationMessages.error(I18n.t("user.activation.opt_send_error"));
                 }
             });
         }

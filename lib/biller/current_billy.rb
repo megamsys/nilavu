@@ -16,7 +16,7 @@ module CurrentBilly
     private
 
     def no_external_id_found
-        {:result => "error", :error => "user.activation.addon_not_found"}
+        {:result => "error", :external_id => "user.activation.addon_not_found"}
     end
 
     def billy_params
