@@ -136,36 +136,32 @@ class UsersController < ApplicationController
                 success: false
             }
         end
-    rescue ApiDispatcher::NotReached
+        rescue ApiDispatcher::NotReached
         render json: {
             success: false,
             message: I18n.t('login.something_already_taken')
         }
     end
-
+    
     def password_reset
-        ## for PUT only
         if request.put?
-            @invalid_password = params[:password].blank? || params[:password].length > User.max_password_length
-
-            if @invalid_password
-                @user.errors.add(:password, :invalid)
-            else
-                user.email = params[:email]
-                user.password_reset_key = params[:token]
-                user.password = params[:password]
-
-                if user.password_reset
-                    logon_after_password_reset
-                else
-                    fail_with('password_reset.no_token')
-                end
-            end
+            user = User.new
+            user.email = params[:email]
+            user.password_reset_key = params[:token]
+            user.password = params[:password]
+            
+        if user.password_reset
+            redirect_with_success(login_path, "password_reset.success")
+        else
+            fail_with_flash("password_reset.no_token")
         end
-        ## GET: We render the paswords_reset template
-        render layout: 'no_ember'
     end
-
+     render layout: 'no_ember'
+     rescue ApiDispatcher::Flunked
+         fail_with_flash("password_reset.no_token")
+   end
+  
+  
     # A hack for accounts.show but a fancy name., called from ember
     def check_email
         params.require(:email)
@@ -181,6 +177,11 @@ class UsersController < ApplicationController
 
     def fail_with(key)
         render json: { success: false, message: I18n.t(key) }
+    end
+    
+    def fail_with_flash(key)
+        puts "================= failure"
+        redirect_with_failure(login_path, key)
     end
 
     def user_params
@@ -199,13 +200,13 @@ class UsersController < ApplicationController
         user_params.each { |k, v| user.send("#{k}=", v) }
         return true if params[:without_password] == 'true'
 
-        if params.key?('current_password')
+        if params.has_key?(:current_password)
             user.password = params[:current_password]
-            if user.find_by_email
+            if user = user.find_by_email_password
                 return true
             else
                 return false
             end
-          end
+        end
     end
 end

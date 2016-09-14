@@ -82,17 +82,18 @@ class User
     end
 
     def update
-     #  Api::Accounts.new.update(update_hash)
+       Api::Accounts.new.update(to_hash)
     end
 
     ## when user presses forgot password, we generate a password token.
     def forgot
-       # Api::Accounts.new.reset(to_hash)
+        Api::Accounts.new.forgot(to_hash)
     end
 
     ## when user clicks on the  password reset token link
     def password_reset
-    #    Api::Accounts.new.password_token(update_hash)
+        ensure_password_is_hashed
+        Api::Accounts.new.password_reset(to_hash)
     end
 
     def email_available?
