@@ -53,6 +53,8 @@ const LaunchActionTypes = {
 const LaunchTypes = {
     LAUNCHED: 'LAUNCHED',
     BOOTSTRAPPED: 'BOOTSTRAPPED',
+    INITIALIZING: 'INITIALIZING',
+    INITIALIZED: 'INITIALIZED',
     PREERROR: 'PREERROR'
 };
 

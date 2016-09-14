@@ -377,7 +377,7 @@ export default Ember.View.extend({
   },
 
   @on('init')
-  openSocket() {  
+  openSocket() {
     this.set('socket', this.socketIO.socketFor(Nilavu.VncServer));
     this.get('socket').emit('message', {
       Host: this.get('vnchost'),

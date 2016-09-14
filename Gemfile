@@ -120,7 +120,7 @@ gem 'flamegraph', require: false
 gem 'rack-mini-profiler', require: false
 
 # passenger server
-#gem 'passenger', group: :production
+ gem 'passenger', group: :production
  gem 'puma', group: :production
 
 gem 'rbtrace', require: false, platform: :mri

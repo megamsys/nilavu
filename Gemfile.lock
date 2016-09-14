@@ -200,6 +200,9 @@ GEM
     omniauth-oauth2 (1.4.0)
       oauth2 (~> 1.0)
       omniauth (~> 1.2)
+    passenger (5.0.30)
+      rack
+      rake (>= 0.8.1)
     pkg-config (1.1.7)
     proxies (0.2.1)
     pry (0.10.4)
@@ -377,6 +380,7 @@ DEPENDENCIES
   omniauth-github
   omniauth-google-oauth2
   omniauth-oauth2
+  passenger
   pry-nav
   puma
   r2 (~> 0.2.5)
