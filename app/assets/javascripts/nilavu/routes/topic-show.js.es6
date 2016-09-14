@@ -17,19 +17,22 @@ export default Nilavu.Route.extend({
     },
 
     showPredeployer: function(topic) {
-        const launchSuccess = LaunchStatus.create({event_type: topic.state}).get('successKey');
+        if (topic && topic.predeploy_finished) {
+            return false;
+        }
+        const launchSuccess = LaunchStatus.create({event_type: topic.state}).get('launchKey');
         if (topic && launchSuccess) {
             return true;
         }
-        const boostrapedSuccess = LaunchStatus.create({event_type: topic.state}).get('successKey');
+        const boostrapedSuccess = LaunchStatus.create({event_type: topic.state}).get('launchKey');
         if (topic && boostrapedSuccess) {
             return true;
         }
-        const preError = LaunchStatus.create({event_type: topic.state}).get('errorKey');
+        const preError = LaunchStatus.create({event_type: topic.state}).get('launchKey');
         if (topic && preError) {
             return true;
         }
-         return false;
+        return false;
     },
 
     setupController(controller, params) {
@@ -37,7 +40,7 @@ export default Nilavu.Route.extend({
         const self = this,
             topic = this.modelFor('topic'),
             topicController = this.controllerFor('topic');
-            params.forceLoad = false;
+        params.forceLoad = false;
         const promise = topic.reload().then(function(result) {
             topicController.setProperties({model: topic});
             self.set('loading', false);

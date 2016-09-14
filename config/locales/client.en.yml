@@ -123,10 +123,10 @@ en:
           one: Service
           other: Services
         help: "service (db/spark/hadoop)s you've launched"
-      microservice:
+      container:
         title:
-          one: Microservice
-          other: Microservices
+          one: Container
+          other: Containers
         help: "docker/hyper containers you've launched"
       analytics:
         title:
@@ -436,7 +436,7 @@ en:
       apps: "Apps"
       machine: "Machines"
       services: "Services"
-      micro: "Microservices"
+      micro: "Containers"
       sshkeys: "SSH Keys"
       showmore: "Show More..."
       torpedo:
@@ -455,10 +455,10 @@ en:
         title: "Your Services"
         subtitle: "Services Launched"
       microservice:
-        create: "Create Microservice"
-        category: "microservice"
-        title: "Your Microservices"
-        subtitle: "Microservices Launched"
+        create: "Create Containers"
+        category: "container"
+        title: "Your Containers"
+        subtitle: "Containers Launched"
 
     marketplaces:
       title: "Marketplaces"

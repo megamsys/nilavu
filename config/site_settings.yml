@@ -90,15 +90,15 @@ basic:
   left_menu:
     client: true
     type: list
-    default: 'dashboard|torpedo|app|service|microservice'
+    default: 'dashboard|torpedo|app|service|container
   default_categories:
     client: true
     type: list
-    default: 'dashboard|torpedo|app|service|microservice|analytics|collaboration'
+    default: 'dashboard|torpedo|app|service|container|analytics|collaboration'
   default_categories_muted:
     client: true
     type: list
-    default: 'app|service|microservice|collaboration|analytics'
+    default: 'app|service|container|collaboration|analytics'
 
 login:
   must_approve_users:

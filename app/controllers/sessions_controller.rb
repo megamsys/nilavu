@@ -34,7 +34,7 @@ class SessionsController < ApplicationController
 
     user = User.new
     user_params.each { |k, v| user.send("#{k}=", v) }
-    if user = user.find_by_email
+    if user = user.find_by_email_password
       unless user.confirm_password?(params[:password])
         invalid_credentials
         return
@@ -59,7 +59,7 @@ class SessionsController < ApplicationController
     user = User.new
     user.email = params[:login]
 
-    if user.reset
+    if user.forgot
       render json: success_json
     else
       render_json_error(I18n.t("password_reset.no_token"))

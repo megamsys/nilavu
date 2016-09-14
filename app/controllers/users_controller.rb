@@ -101,11 +101,7 @@ class UsersController < ApplicationController
     def account_created
         @message = session['user_created_message'] || I18n.t('activation.missing_session')
         expires_now
-        if SiteSetting.allow_billings
-          redirect_to '/subscriptions/account/activation'
-        else
-          redirect_to '/'
-        end
+        redirect_to '/'
     end
 
     ## Need a json serializer
@@ -159,7 +155,7 @@ class UsersController < ApplicationController
                 user.password_reset_key = params[:token]
                 user.password = params[:password]
 
-                if user.repassword
+                if user.password_reset
                     logon_after_password_reset
                 else
                     fail_with('password_reset.no_token')
