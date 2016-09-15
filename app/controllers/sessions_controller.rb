@@ -54,12 +54,13 @@ class SessionsController < ApplicationController
       render nothing: true, status: 500
       return
     end
+    
     params.permit(:login)
-
     user = User.new
     user.email = params[:login]
 
     if user.forgot
+      
       render json: success_json
     else
       render_json_error(I18n.t("password_reset.no_token"))
