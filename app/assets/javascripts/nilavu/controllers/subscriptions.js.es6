@@ -17,6 +17,7 @@ export default Ember.Controller.extend(BufferedContent, {
     selectedTab: null,
     panels: null,
     showTop: false,
+    createAddonSubmitted: false,
     addresssValidated: false,
     subscriber: Ember.computed.alias('model.addon.result'),
     mobavatar: Ember.computed.alias('model.mobavatar_activation.success'),
@@ -35,9 +36,10 @@ export default Ember.Controller.extend(BufferedContent, {
     externalIdCheck: function() {
       if(this.get("subscriber") == 'success')
       {
-        return true;
+        return false;
       }
-      return false;
+      this.set('addresssValidated', true);
+      return true;
     }.property('subscriber'),
 
     hourlySelected: function() {
@@ -77,9 +79,11 @@ export default Ember.Controller.extend(BufferedContent, {
             return true;
         if (Ember.isEmpty(this.get('company')))
             return true;
+        if (Ember.isEmpty(this.get('country')))
+            return true;
 
         return false;
-    }.property('address', 'city', 'state', 'zipcode', 'company'),
+    }.property('address', 'city', 'state', 'zipcode', 'company', 'country'),
 
     otpDisabled: function() {
         if (Ember.isEmpty(this.get('otpNumber')))
@@ -90,7 +94,7 @@ export default Ember.Controller.extend(BufferedContent, {
     actions: {
         activate() {
             const self = this,
-                attrs = this.getProperties('address', 'address2', 'city', 'state', 'zipcode', 'company');
+                attrs = this.getProperties('address', 'address2', 'city', 'state', 'zipcode', 'company', 'country');
             this.set('formSubmitted', true);
 
 
@@ -101,7 +105,8 @@ export default Ember.Controller.extend(BufferedContent, {
                     city: attrs.city,
                     state: attrs.state,
                     postcode: attrs.zipcode,
-                    companyname: attrs.company
+                    companyname: attrs.company,
+                    country: attrs.country
                 },
                 type: 'POST'
             }).then(function(result) {
@@ -117,7 +122,8 @@ export default Ember.Controller.extend(BufferedContent, {
         },
 
         verifyOTP() {
-          this.set('otpSubmitted', true);
+
+         this.set('otpSubmitted', true);
             const self = this,
                 attrs = this.getProperties('otpNumber');
             return Nilavu.ajax("/verify/otp", {
@@ -157,7 +163,35 @@ export default Ember.Controller.extend(BufferedContent, {
                     self.notificationMessages.error(I18n.t("user.activation.opt_send_error"));
                 }
             });
-        }
+        },
+
+        createAddon() {
+          this.set('createAddonSubmitted', true);
+            const self = this;
+            return Nilavu.ajax("/addon", {
+                data: {
+                 firstname: this.get('currentUser.first_name'),
+                 lastname:  this.get('currentUser.last_name'),
+                 address1: "123 Demo Streetq",
+                 city: "Demoq",
+                 state: "Floridaq",
+                 postcode: "AB123q",
+                 country: "US",
+                 phonenumber: this.get('currentUser.phone'),
+                 password2: "demo",
+                },
+                type: 'POST'
+            }).then(function(result) {
+                self.set('createAddonSubmitted', false);
+                if (result.success) {
+                    self.notificationMessages.success(I18n.t("user.activation.opt_send"));
+                }
+                if (!result.success) {
+                    self.notificationMessages.error(I18n.t("user.activation.opt_send_rror"));
+                }
+            });
+        },
+
     },
 
     hasError: Ember.computed.or('model.notFoundHtml', 'model.message'),

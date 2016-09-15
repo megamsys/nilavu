@@ -193,6 +193,9 @@ users:
   allow_billings:
     client: true
     default: false
+  allow_phone:
+    client: true
+    default: true
   enabled_biller:
     client: true
     default: "WHMCS"

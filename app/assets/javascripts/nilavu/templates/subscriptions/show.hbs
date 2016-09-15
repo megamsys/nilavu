@@ -23,12 +23,12 @@
                                 <div class="input-group">
                                     {{text-field type="text" value=otpNumber class ="form-control fix-to-btn" name="otpNumber" autofocus="autofocus"}}
                                     <span class="input-group-btn lh40">
-                                  <span class="pull-right">
-                                            {{conditional-loading-spinner condition=otpSubmitted size="large"}}
-                                      </span>
+
                                     <button class="btn btn-secondary fix-to-btn validate-btn" {{bind-attr disabled="otpDisabled"}} {{action "verifyOTP"}}>
                                         <span>{{i18n 'user.activation.otp_verify'}}</span>
-
+                                        <span class="pull-right">
+                                                  {{conditional-loading-spinner condition=otpSubmitted size="large"}}
+                                            </span>
                                     </button>
                                     </span>
                                 </div>
@@ -49,17 +49,19 @@
             </div>
         {{/if}}
 
-        {{#unless externalIdCheck}}
+        {{#if externalIdCheck}}
             <div class="row c_pading-b15 settings_top">
                 <div class="col-md-8 offset-md-2">
                     <span class="glyphicon glyphicon-question-sign" style="color:rgb(248, 101, 101);"></span> You are not onboarded with the external provider, so please click re-onboard.
-                    <button class="btn btn-danger fix-to-btn validate-btn" {{bind-attr disabled="otpDisabled"}}
-                        {{action "verifyOTP"}}>
+                    <button class="btn btn-danger fix-to-btn validate-btn" {{action "createAddon"}}>
                         <span>{{i18n 'billing.addon'}}</span>
+                        <span class="pull-right">
+                            {{conditional-loading-spinner condition=createAddonSubmitted size="small"}}
+                        </span>
                     </button>
                 </div>
             </div>
-        {{/unless}}
+        {{/if}}
     </div>
 
     <div class="container">

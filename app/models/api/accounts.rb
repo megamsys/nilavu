@@ -15,14 +15,14 @@
 ##
 module Api
   class Accounts < ApiDispatcher
-  
+
     def login(params)
-      result = api_request(ACCOUNT,LOGIN, params)   
+      result = api_request(ACCOUNT,LOGIN, params)
       result[:body] if result && result.is_a?(Hash)
     end
-    
+
     def where(params)
-      result = api_request(ACCOUNT,SHOW, params)    
+      result = api_request(ACCOUNT,SHOW, params)
       result[:body] if result && result.is_a?(Hash)
     end
 

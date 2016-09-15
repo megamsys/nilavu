@@ -6,7 +6,7 @@ class ApiDispatcher
         def initialize(message)
             super(message)
         end
-        
+
     end
 
     class ApiDispatcher::Flunked  < StandardError
@@ -58,7 +58,7 @@ class ApiDispatcher
     CREATE            = 'create'.freeze
     LIST              = 'list'.freeze
     UPDATE            = 'update'.freeze
-    
+
     FORGOT            = 'forgot'.freeze
     PASSWORD_RESET    = 'password_reset'.freeze
     UPGRADE           = 'upgrade'.freeze

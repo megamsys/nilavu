@@ -4,7 +4,6 @@ class MobileAvatar
         attr_accessor :phone, :pin, :otp
 
         def self.from_number(params)
-          puts "******************************************************************************************************from_number"
 
             identity = new
             [:phone, :pin, :otp].each do |setting|
@@ -19,10 +18,7 @@ class MobileAvatar
     class << self
 
         def bipping_number(identity)
-          puts "******************************************************************************************************from_number_ afterbipping_number"
-          puts Infobip.send_pin_to(identity.phone).inspect
-          puts "******************************************************************************************************from_number_ afterbipping_number"
-          
+
             Infobip.send_pin_to(identity.phone)
         end
 
@@ -38,7 +34,6 @@ class MobileAvatar
         end
 
         def verify(opts = nil)
-          puts "****************************************************************************************************phone"
             identity = opts && opts[:identity]
             return Nilavu::NotFound unless identity
 

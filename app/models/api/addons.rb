@@ -24,6 +24,13 @@ module Api
           super(true)
         end
 
+        def create(api_params)
+         raw = api_request(ADDONS, CREATE, api_params)
+         @addon = raw[:body].first unless raw.nil?
+         self
+        end
+
+
         # This shows a single marketplace item. eg: 1-Ubuntu (Refer Marketplaces::list for more info)
         def show(api_params)
             raw = api_request(ADDONS, SHOW, api_params)
