@@ -13,6 +13,9 @@ import NilavuURL from 'nilavu/lib/url';
 
 const Billers = RestModel.extend({
 
+  products: Ember.computed.alias('shopper.productsdetail.whmcsapi.products.product'),
+  paymentMethods: Ember.computed.alias('shopper.payments.whmcsapi.paymentmethods.paymentmethod'),
+
 
     // Update our attributes from a JSON result
     updateFromJson(json) {
@@ -31,7 +34,6 @@ const Billers = RestModel.extend({
         return Nilavu.ajax('/billers/bill/activation', {
             type: 'GET'
         }).then(function(subs_json) {
-          console.log(JSON.stringify(subs_json));
             self.updateFromJson(subs_json);
         });
     },

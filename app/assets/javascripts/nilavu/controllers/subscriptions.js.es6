@@ -24,18 +24,6 @@ export default Ember.Controller.extend(BufferedContent, {
         console.log(this.get("mobavatar"));
     },
 
-    _initPanels: function() {
-        this.set('panels', []);
-        this.set('selectedTab', 'monthly');
-    }.on('init'),
-
-    hourlySelected: function() {
-        return this.selectedTab == 'hourly';
-    }.property('selectedTab'),
-
-    monthlySelected: function() {
-        return this.selectedTab == 'monthly';
-    }.property('selectedTab'),
 
     title: function() {
         return 'Subscriptions';

@@ -14,8 +14,14 @@ class BillersController < ApplicationController
     end
 
     def create
-        render json: {order: order || {}}
+        addon = lookup_external_id_in_addons(params)
+      if addon[:result] == 'success'
+        render json: { success: true , whmcsurl: order(addon[:external_id].merge(params)) || {}}
+      else
+          render json: { subscriber: addon.to_json }
+      end
     end
+
 
     def order_created
         if sub =   Api::Subscriptions.new.create(params)
@@ -42,11 +48,10 @@ class BillersController < ApplicationController
         end
     end
 
-    def order
-        l = lookup_external_id_in_addons(params)
+    def order(addon)
         if bildr = bildr_processe_is_ready(ORDERER_PROCESSE)
-            b = bildr.new.order(l)
-            bildr.new.after_order(b)
+            b = bildr.new.order(addon || {})
+            bildr.new.after_order(b.merge(addon))
           else
           invalid_credentials
         end

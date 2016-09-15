@@ -1,9 +1,9 @@
 class Biller::Result
-    attr_accessor :order_id, :fraud_check, :redirect
+    attr_accessor :order_id, :fraud_checked, :redirect
 
     attr_accessor :failed, :failed_reason
 
-    attr_accessor :result, :message, :clientid, :error
+    attr_accessor :result, :message, :clientid, :error, :action
 
     attr_accessor :userid, :id, :firstname, :lastname, :fullname, :companyname, :email, :address1, :address2, :city, :fullstate, :state, :postcode, :countrycode, :country, :phonenumber, :password, :statecode, :countryname, :phonecc, :phonenumberformatted, :billingcid, :notes, :twofaenabled, :currency, :defaultgateway, :cctype, :cclastfour, :securityqid, :securityqans, :groupid, :status, :credit, :taxexempt, :latefeeoveride, :overideduenotices, :separateinvoices, :disableautocc, :emailoptout, :overrideautoclose, :language, :lastlogin, :currency_code
 
@@ -23,6 +23,7 @@ class Biller::Result
       {
         :id => @id,
         :email => @email,
+        :action => @action,
         :result => @result,
         :message => @message,
       }

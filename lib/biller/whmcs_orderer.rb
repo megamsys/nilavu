@@ -5,25 +5,23 @@ class Biller::WHMCSOrderer < Biller::Orderer
     include Biller::WHMCSRegistrar
     include Biller::WHMCSAutoAuth
 
+    def initialize
+      register
+    end
     #:clientid
     def order(order_options)
-      puts "*************************************************************************"
-      puts order_options.inspect
-        WHMCS::Order.add_order(order_options)
+        WHMCS::Order.add_order(order_options).attributes
     end
 
     def after_order(ordered)
+      ordered[:action] = 'orders'
         result = Biller::Result.new
-        puts "----------- ordered"
-        puts ordered.inspect
-        puts "----------- ordered..."
         result.id = ordered[:id]
-        fraud_checked = WHMCS::Client.order_fraud_check(ordered)
+        result.email = ordered[:email]
+        result.action = ordered[:action]
+        fraud_checked = WHMCS::Order.fraud_order(ordered)
         return result unless fraud_checked
-        puts "----------- fraud checked "
-        puts fraud_checked.inspect
         result.fraud_checked = fraud_checked
-        puts "----------- fraud checked..."
-        result.redirect = WHMCSAutoAuth.redirect_url(user.email)
+        result.redirect = Biller::WHMCSAutoAuth.redirect_url(result.email,result.action)
     end
 end

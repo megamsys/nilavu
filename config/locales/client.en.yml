@@ -518,10 +518,10 @@ en:
       apikey:
         tab_title: "Apikey"
 
-    sub_activate:
-      hourly:
+    billing_activate:
+      ondemand:
         tab_title: "On-Demand Hourly"
-      monthly:
+      quota:
         tab_title: "Quota Based Monthly"
 
     app_management:

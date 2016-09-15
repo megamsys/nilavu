@@ -7,10 +7,10 @@
   <div class ="row">
     <div class="col-md-8 pull-right">
     <div class="btn">
-        {{sub-activate-tab panels=panels selectedTab=selectedTab tab="hourly"}}
+        {{billing-activate-tab panels=panels selectedTab=selectedTab tab="ondemand"}}
       </div>
         <div class="btn">
-        {{sub-activate-tab panels=panels selectedTab=selectedTab tab="monthly"}}
+        {{billing-activate-tab panels=panels selectedTab=selectedTab tab="quota"}}
       </div>
   </div>
 </div>
@@ -19,7 +19,7 @@
             {{component tab selectedTab=selectedTab model=model subRegionOption=subRegionOption regions=regions}}
         {{/each}}
   </div>
-</section>
+  </section>
 </div>
 </section>
 
