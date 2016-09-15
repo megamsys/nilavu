@@ -119,7 +119,6 @@ gem 'tzinfo-data'
 gem 'flamegraph', require: false
 gem 'rack-mini-profiler', require: false
 
-
 gem 'unicorn', group: :production
 
 gem 'rbtrace', require: false, platform: :mri
