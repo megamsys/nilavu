@@ -5,9 +5,8 @@ export default Em.Component.extend({
   loading: false,
 
   submitDisabled: function() {
-      // if (!this.get('formSubmitted')) return true;
-      // return false;
-      return true;
+      if (!this.get('formSubmitted')) return true;
+      return false;
   }.property('formSubmitted'),
 
   email: function() {
