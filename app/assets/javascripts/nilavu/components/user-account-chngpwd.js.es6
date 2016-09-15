@@ -13,10 +13,9 @@ export default Em.Component.extend({
     loading: false,
 
     submitDisabled: function() {
-        // if (!this.get('formSubmitted')) return true;
-        // return false;
-        return true;
-    }.property('formSubmitted'),
+        if (!this.get('formSubmitted')) return true;
+        return false;
+      }.property('formSubmitted'),
 
     passwordInstructions: function() {
       return this.get('isDeveloper') ? I18n.t('user.password.instructions', {

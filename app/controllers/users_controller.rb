@@ -144,21 +144,21 @@ class UsersController < ApplicationController
     end
     
     def password_reset
-        if request.put?
-            user = User.new
-            user.email = params[:email]
-            user.password_reset_key = params[:token]
-            user.password = params[:password]
+     if request.put?
+        user = User.new
+        user.email = params[:email]
+        user.password_reset_key = params[:token]
+        user.password = params[:password]
             
         if user.password_reset
-            redirect_with_success(login_path, "password_reset.success")
+            return logon_after_password_reset        
         else
             fail_with_flash("password_reset.no_token")
         end
-    end
+     end
      render layout: 'no_ember'
      rescue ApiDispatcher::Flunked
-         fail_with_flash("password_reset.no_token")
+         fail_with_flash("password_reset.no_token")     
    end
   
   
@@ -171,8 +171,7 @@ class UsersController < ApplicationController
     end
 
     def logon_after_password_reset
-        log_on_user(@user)
-        @success = I18n.t('password_reset.success')
+       redirect_with_success(login_path, "password_reset.success")
     end
 
     def fail_with(key)
@@ -180,7 +179,6 @@ class UsersController < ApplicationController
     end
     
     def fail_with_flash(key)
-        puts "================= failure"
         redirect_with_failure(login_path, key)
     end
 
@@ -198,6 +196,10 @@ class UsersController < ApplicationController
     def check_password(user, params)
         params.require(:email)
         user_params.each { |k, v| user.send("#{k}=", v) }
+        puts "------------- check password "
+        puts user_params.inspect
+        puts "-----------------------------------"
+        
         return true if params[:without_password] == 'true'
 
         if params.has_key?(:current_password)

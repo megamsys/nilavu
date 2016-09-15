@@ -188,16 +188,16 @@ en:
         error: "(error)"
         action: "Send Password Reset Email"
         set_password: "Set Password"
-        reset: "Your Password is changed successfully"
-        resetfail: "Fail to change Password"
+        reset: "Password updated."
+        resetfail: "Maybe your old password is incorrect"
 
       change_name:
         title: "Change ame"
         error: "There was an error changing your name."
         invalid: "That name is invalid. It must only include numbers and letters"
-        blank: "Please enter the new username"
-        reset: "Your Username is changed successfully"
-        resetfail: "Fail to change your Username"
+        blank: "Please enter the new name"
+        reset: "Full name update successfully."
+        resetfail: "There was an error changing your full name."
 
       change_email:
         title: "Change Email"
