@@ -90,7 +90,7 @@ basic:
   left_menu:
     client: true
     type: list
-    default: 'dashboard|torpedo|app|service|container
+    default: 'dashboard|torpedo|app|service|container'
   default_categories:
     client: true
     type: list
