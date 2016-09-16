@@ -8,5 +8,6 @@ export default Ember.Object.extend({
   CONTAINERS: "DockerContainer",
   CONTAINER: "container",
   TORPEDO: "torpedo",
-  VM: "vm"
+  VM: "vm",
+  GIT: "github"
 });

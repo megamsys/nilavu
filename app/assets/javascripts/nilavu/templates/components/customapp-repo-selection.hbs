@@ -9,9 +9,6 @@
 {{#if gitty}}
     {{customapp-repo-github category=category selectedRepo=selectedRepo}}
 {{else if pubty}}
-    <div class="row pad_t25">
-        <div class="col-md-12">
-            {{text-field type="text" value=selectedRepo placeholderKey="customapp.publicrepo" class ="form-control" id="new-public-repo" disabled=repoValidated name="publicrepo" autofocus="autofocus"}}
-        </div>
-    </div>
+    {{customapp-repo-publicurl category=category selectedRepo=selectedRepo}}
 {{/if}}
+
