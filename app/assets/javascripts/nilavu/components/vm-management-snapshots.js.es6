@@ -110,8 +110,8 @@ export default buildCategoryPanel('snapshots', {
               type: 'POST'
           }).then(function(result) {
               self.set('takeSnapShotSpinner', false);
-              if (result.success) {
-                  self.notificationMessages.success(I18n.t("vm_management.take_snapshot_success"));
+              if (result.success) {.
+                  self.notificationMessages.success(I18n.t("vm_management.snapshots.take_snapshot_success"));
               } else {
                   // self.notificationMessages.error(I18n.t("vm_management.error"));
               }

@@ -9,7 +9,7 @@ class Biller::WHMCSSubscriber < Biller::Subscriber
 
     def subscribe(subscribe_options={})
       begin
-        WHMCS::Client.get_clients_details(subscribe_options).attributes
+       WHMCS::Client.get_clients_details(subscribe_options).attributes
       rescue StandardError => se
           {:result => "error", :error => "errors.desc.not_found"}
       end

@@ -188,16 +188,16 @@ en:
         error: "(error)"
         action: "Send Password Reset Email"
         set_password: "Set Password"
-        reset: "Your Password is changed successfully"
-        resetfail: "Fail to change Password"
+        reset: "Password updated."
+        resetfail: "Maybe your old password is incorrect"
 
       change_name:
         title: "Change ame"
         error: "There was an error changing your name."
         invalid: "That name is invalid. It must only include numbers and letters"
-        blank: "Please enter the new username"
-        reset: "Your Username is changed successfully"
-        resetfail: "Fail to change your Username"
+        blank: "Please enter the new name"
+        reset: "Full name update successfully."
+        resetfail: "There was an error changing your full name."
 
       change_email:
         title: "Change Email"
@@ -516,6 +516,7 @@ en:
       timestamp: "Timestamp"
       paypal: "Pay with Paypal"
       addon: "Create Billing Account"
+      error: "Order not created"
 
     profile_management:
       account:
@@ -525,10 +526,10 @@ en:
       apikey:
         tab_title: "Apikey"
 
-    sub_activate:
-      hourly:
+    billing_activate:
+      ondemand:
         tab_title: "On-Demand Hourly"
-      monthly:
+      quota:
         tab_title: "Quota Based Monthly"
 
     app_management:
@@ -574,9 +575,9 @@ en:
         content_name: "Name"
         content_created_at: "Created"
         content_empty: "0 snapshots"
-        list_error: "Snapshots list failed. Try some other time."
+        list_error: "Snapshots listing failed"
         take_snapshot: "Take a Snapshot"
-        take_snapshot_success: "Snapshot created for your virtual machine."
+        take_snapshot_success: "Snapshot Submitted."
       network:
         tab_title: "Network"
         table_title: "Management"

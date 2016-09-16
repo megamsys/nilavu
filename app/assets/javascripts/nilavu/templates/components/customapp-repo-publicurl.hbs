@@ -1,0 +1,7 @@
+<div class="row pad_t25">
+    <div class="col-md-12">
+            {{#conditional-loading-spinner condition=showSpinner size="extra-large"}}
+            {{text-field type="text" value=selectedRepo placeholderKey="customapp.publicrepo" class ="form-control" id="new-public-repo" disabled=repoValidated name="publicrepo" autofocus="autofocus"}}
+            {{/conditional-loading-spinner}}
+    </div>
+</div>

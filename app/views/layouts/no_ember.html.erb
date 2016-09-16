@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%=SiteSetting.title%></title>
+  <meta name="description" content="">
+  <%= render partial: "layouts/head" %>
+  <%= render partial: "common/special_font_face" %>
+  <%= render partial: "common/nilavu_stylesheet" %>
+  <%= nilavu_csrf_tags %>
+  <%= yield(:no_ember_head) %>
+</head>
+<body>
+   <section id='main'>
+    <%= render partial: 'header' %>
+    <div id="main-outlet" class="<%= @container_class ? @container_class : 'wrap' %>">
+      <%= yield %>
+    </div>
+  </section>
+</body>
+</html>

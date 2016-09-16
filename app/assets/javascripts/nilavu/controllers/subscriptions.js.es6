@@ -47,11 +47,6 @@ export default Ember.Controller.extend(BufferedContent, {
         console.log(this.get("mobavatar"));
     },
 
-    _initPanels: function() {
-        this.set('panels', []);
-        this.set('selectedTab', 'monthly');
-    }.on('init'),
-
     externalIdCheck: function() {
         if (this.get("subscriber") == 'success') {
             return false;
@@ -59,14 +54,6 @@ export default Ember.Controller.extend(BufferedContent, {
         this.set('addresssValidated', true);
         return true;
     }.property('subscriber'),
-
-    hourlySelected: function() {
-        return this.selectedTab == 'hourly';
-    }.property('selectedTab'),
-
-    monthlySelected: function() {
-        return this.selectedTab == 'monthly';
-    }.property('selectedTab'),
 
     title: function() {
         return 'Subscriptions';

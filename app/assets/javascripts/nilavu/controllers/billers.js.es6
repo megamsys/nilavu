@@ -1,6 +1,6 @@
 import BufferedContent from 'nilavu/mixins/buffered-content';
 import {spinnerHTML} from 'nilavu/helpers/loading-spinner';
-import Subscriptions from 'nilavu/models/subscriptions';
+import Billers from 'nilavu/models/billers';
 import {popupAjaxError} from 'nilavu/lib/ajax-error';
 import {observes, computed} from 'ember-addons/ember-computed-decorators';
 import NilavuURL from 'nilavu/lib/url';
@@ -20,22 +20,20 @@ export default Ember.Controller.extend(BufferedContent, {
 
     _initPanels: function() {
         this.set('panels', []);
-        this.set('selectedTab', 'hourly');
+        this.set('selectedTab', 'ondemand');
     }.on('init'),
 
     hourlySelected: function() {
-        return this.selectedTab == 'hourly';
+        return this.selectedTab == 'ondemand';
     }.property('selectedTab'),
 
     monthlySelected: function() {
-        return this.selectedTab == 'monthly';
+        return this.selectedTab == 'quota';
     }.property('selectedTab'),
 
     title: function() {
         return 'Subscriptions';
     }.property('model'),
-
-    // _initPanels: function() {}.on('init'),
 
     regions: Ember.computed.alias('model.regions'),
 
@@ -62,7 +60,7 @@ export default Ember.Controller.extend(BufferedContent, {
         }
     }.observes('model.subregion'),
 
-    actions: {},
-
-
+    actions: {
+        
+    }
 });

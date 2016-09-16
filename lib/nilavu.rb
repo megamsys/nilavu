@@ -168,7 +168,7 @@ module Nilavu
     # after fork, otherwise Nilavu will be in a bad state
     def self.after_fork
         SiteSetting.after_fork
-        #Rails.cache.reconnect
+        Rails.cache.reconnect
         nil
     end
 end
