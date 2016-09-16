@@ -6,7 +6,15 @@ class MobileAvatarsController < ApplicationController
      render json: activate_mobileavatar(params)
   end
 
+  def activating
+     render json: activating_mobileavatar(params)
+  end
+
   private
+
+  def activating_mobileavatar(params)
+      MobileAvatarActivator.new(current_user, params).start
+  end
 
   def activate_mobileavatar(params)
       MobileAvatarActivator.new(current_user, params).finish

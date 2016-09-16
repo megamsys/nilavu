@@ -4,6 +4,7 @@ class MobileAvatar
         attr_accessor :phone, :pin, :otp
 
         def self.from_number(params)
+
             identity = new
             [:phone, :pin, :otp].each do |setting|
                 identity.send("#{setting}=", params[setting])
@@ -17,6 +18,7 @@ class MobileAvatar
     class << self
 
         def bipping_number(identity)
+
             Infobip.send_pin_to(identity.phone)
         end
 

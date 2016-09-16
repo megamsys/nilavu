@@ -37,14 +37,26 @@
   }
   input.form-control.fix-to-btn, button.btn.btn-secondary.fix-to-btn {
       border: 1px solid #ddd;
-      height: 24px;
+      height: 27px;
       margin-top: 8px;
       border-radius: 0!important;
   }
   button.btn.btn-secondary.fix-to-btn.validate-btn {
-      margin-top: -2px;
+      margin-top: 0px;
       padding-top: 2px;
       background-color: #77bf6c;
+      color: white;
+  }
+  input.form-control.fix-to-btn, button.btn.btn-danger.fix-to-btn {
+      border: 1px solid #ddd;
+      height: 27px;
+      margin-top: 8px;
+      border-radius: 0!important;
+  }
+  button.btn.btn-danger.fix-to-btn.validate-btn {
+      margin-top: 0px;
+      padding-top: 2px;
+      background-color: #e66353;
       color: white;
   }
   .verification-text {

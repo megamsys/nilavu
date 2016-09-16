@@ -268,10 +268,16 @@ en:
         zipcodeex: "2001"
         company: "Company (optional):"
         companyex: "DET.io"
+        country: "India"
         select_country: "Select Country:"
         accounttitle: "Select your account model:"
         addon_not_found: "You are not onboarded with the external provider, so please click re-onboard."
-        activate_phone_error: "phone not activated, Try some other time."
+        addon_onboard_success: "Onboard successfully"
+        addon_onboard_failure: "Onboard failed"
+        activate_phone_error: "Oops, looks like we couldn't verify your pin."
+        activate_phone_activated: "OTP Verified."
+        otp_sent: "OTP pin sending to your phone."
+        otp_send_error: "Please send OTP again."
 
     errors:
       prev_page: "while trying to load"
@@ -509,6 +515,7 @@ en:
       currency: "Currency"
       timestamp: "Timestamp"
       paypal: "Pay with Paypal"
+      addon: "Create Billing Account"
       error: "Order not created"
 
     profile_management:

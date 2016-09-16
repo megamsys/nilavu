@@ -2,7 +2,7 @@
     <div class="container pushdown">
         <div class="row c_pading-b15 settings_top">
             <div class="margin_15">
-                <div class="col-xs-12 col-md-8 offset-md-2">
+                <div class="col-xs-12 col-md-9 offset-md-2">
                     <div class="welcome-text">
                         <h3>{{i18n 'user.activation.title'}}</h3>
                         <small>{{i18n 'user.activation.subtitle'}}</small>
@@ -10,44 +10,64 @@
                 </div>
             </div>
         </div>
-        <div class="row c_pading-b15 settings_top">
-            <div class="col-xs-12 col-md-8 offset-md-2">
-                <div class="otp-pin-box">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <span class="lh40">{{i18n 'user.activation.otp_title'}}</span>
-                        </div>
-                        <div class="col-md-5">
-                            <div class="input-group">
-                                {{text-field type="text" value=otpNumber class ="form-control fix-to-btn" name="otpNumber" autofocus="autofocus"}}
-                                <span class="input-group-btn lh40">
-                                <button class="btn btn-secondary fix-to-btn validate-btn" {{bind-attr disabled="otpDisabled"}} {{action "verifyOTP"}}>
-                                    <span>{{i18n 'user.activation.otp_verify'}}</span>
-                                <span class="pull-right">
-                                          {{conditional-loading-spinner condition=otpSubmitted size="large"}}
-                                    </span>
-                                </button>
-                                </span>
+
+        {{#if siteSettings.allow_phone}}
+            <div class="row c_pading-b15 settings_top">
+                <div class="col-xs-12 col-md-9 offset-md-2">
+                    <div class="otp-pin-box">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <span class="lh40">{{i18n 'user.activation.otp_title'}}</span>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <p class="verification-text">{{i18n 'user.activation.otp_verify_title'}} {{phoneNumber}}
-                                <a href="#" id="resend_otp" {{action "resendOTP"}}>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    {{text-field type="text" value=otpNumber class ="form-control fix-to-btn" name="otpNumber" autofocus="autofocus"}}
+                                    <span class="input-group-btn lh40">
+
+                                    <button class="btn btn-secondary fix-to-btn validate-btn" {{bind-attr disabled="otpDisabled"}} {{action "verifyOTP"}}>
+                                        <span>{{i18n 'user.activation.otp_verify'}}</span>
+                                        <span class="pull-right">
+                                                  {{conditional-loading-spinner condition=otpSubmitted size="large"}}
+                                            </span>
+                                    </button>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <p class="verification-text">{{i18n 'user.activation.otp_verify_title'}} {{phoneNumber}}
+                                    <a href="#" id="resend_otp" {{action "resendOTP"}}>
                                     {{i18n 'user.activation.otp_resend'}}
                                     <span class="pull-right">
-                                        {{conditional-loading-spinner condition=formSubmitted size="large"}}
+                                        {{conditional-loading-spinner condition=resendSubmitted size="large"}}
                                     </span>
                                   </a>
-                            </p>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {{/if}}
+
+        {{#if externalIdCheck}}
+            <div class="row c_pading-b15 settings_top">
+                <div class="col-md-9 offset-md-2">
+                    <span class="glyphicon glyphicon-question-sign" style="color:rgb(248, 101, 101);"></span>
+                    {{i18n 'user.activation.addon_not_found'}}
+                    <button class="btn btn-danger fix-to-btn validate-btn" {{action "createAddon"}}>
+                        <span>{{i18n 'billing.addon'}}</span>
+                        <span class="pull-right">
+                            {{conditional-loading-spinner condition=createAddonSubmitted size="small"}}
+                        </span>
+                    </button>
+                </div>
+            </div>
+        {{/if}}
     </div>
+
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-md-8 offset-md-2" style="margin-bottom: 30px;">
+            <div class="col-xs-12 col-md-9 offset-md-2" style="margin-bottom: 30px;">
                 <form role="form">
                     <div class="form-group">
                         <label for="Address">{{i18n 'user.activation.address'}}</label>
@@ -55,34 +75,32 @@
                     </div>
                     <div class="form-group">
                         <label for="Address2">{{i18n 'user.activation.address2'}}</label>
-                        {{text-field type="text" value=address2 placeholderKey="user.activation.address2ex" class ="form-control" id="activation-address2" disabled=addresssValidated name="address2" autofocus="autofocus"}}
+                        {{text-field type="text" value=address2 placeholderKey="user.activation.address2ex" class ="form-control" id="activation-address2" disabled=addresssValidated name="address2"}}
                     </div>
                     <div class="form-group">
                         <label for="City">{{i18n 'user.activation.city'}}</label>
-                        {{text-field type="text" value=city placeholderKey="user.activation.cityex" class ="form-control" id="activation-city" disabled=addresssValidated name="city" autofocus="autofocus"}}
+                        {{text-field type="text" value=city placeholderKey="user.activation.cityex" class ="form-control" id="activation-city" disabled=addresssValidated name="city"}}
                     </div>
                     <div class="form-group">
                         <label for="State">{{i18n 'user.activation.state'}}</label>
-                        {{text-field type="text" value=state placeholderKey="user.activation.stateex" class ="form-control" id="activation-state" disabled=addresssValidated name="state" autofocus="autofocus"}}
+                        {{text-field type="text" value=state placeholderKey="user.activation.stateex" class ="form-control" id="activation-state" disabled=addresssValidated name="state"}}
                     </div>
                     <div class="form-group">
                         <label for="zip">{{i18n 'user.activation.zipcode'}}</label>
-                        {{text-field type="text" value=zipcode placeholderKey="user.activation.zipcodeex" class ="form-control" id="activation-zipcode" disabled=addresssValidated name="zipcode" autofocus="autofocus"}}
+                        {{text-field type="text" value=zipcode placeholderKey="user.activation.zipcodeex" class ="form-control" id="activation-zipcode" disabled=addresssValidated name="zipcode"}}
                     </div>
                     <div class="form-group">
                         <label for="Company">{{i18n 'user.activation.company'}}</label>
-                        {{text-field type="text" value=company placeholderKey="user.activation.companyex" class ="form-control" id="activation-company" disabled=addresssValidated name="company" autofocus="autofocus"}}
+                        {{text-field type="text" value=company placeholderKey="user.activation.companyex" class ="form-control" id="activation-company" disabled=addresssValidated name="company"}}
                     </div>
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <label>{{i18n 'user.activation.select_country'}}</label>
-                            <br>
-                            <div class="flagstrap" data-input-name="country"></div>
-                        </div>
-                    </form>
+                    <div class="form-group">
+                        <label for="Country">{{i18n 'user.activation.select_country'}}</label>
+                        {{text-field type="text" value=country placeholderKey="user.activation.country" class ="form-control" id="activation-country" disabled=addresssValidated name="country"}}
 
-                    <div class="col-md-8 offset-md-2">
-                        <button class="btn btn-primary btn-lg btn-block" id="whmcs-payment-link"  {{action "activate"}}>
+                    </div>
+
+                    <div class="col-md-9 offset-md-2">
+                        <button class="btn btn-primary btn-lg btn-block" id="whmcs-payment-link" {{bind-attr disabled="submitDisabled"}} {{action "activate"}}>
                             {{i18n 'billing.proceed'}}
                             <span class="glyphicon glyphicon-chevron-right pull-right" style="padding-right: 10px;"></span>
                             <span class="pull-right">
