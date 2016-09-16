@@ -10,15 +10,15 @@ class BillersController < ApplicationController
 
 
     def show
-        render json: {shopper: shopper || {}}
+        render json: {shopper: shopper || {} , regions: regions}
     end
 
     def create
         addon = lookup_external_id_in_addons(params)
       if addon[:result] == 'success'
-        render json: { success: true , whmcsurl: order(addon[:external_id].merge(params)) || {}}
+        render json: { success: true , whmcsurl: order(addon[:external_id].merge(params), params[:email]) || {}}
       else
-          render json: { subscriber: addon.to_json }
+          render json: {error: I18n.t("billing.error")}
       end
     end
 
@@ -42,16 +42,16 @@ class BillersController < ApplicationController
 
         l = lookup_external_id_in_addons(params)
         if bildr = bildr_processe_is_ready(SHOPPER_PROCESSE)
-            {productsdetail: bildr.new.shop(l), payments: bildr.new.after_shop(), regions: regions}
+            {productsdetail:   b = bildr.new.shop(l), payments: bildr.new.after_shop(b)}
         else
         invalid_credentials
         end
     end
 
-    def order(addon)
+    def order(addon, email)
         if bildr = bildr_processe_is_ready(ORDERER_PROCESSE)
             b = bildr.new.order(addon || {})
-            bildr.new.after_order(b.merge(addon))
+            bildr.new.after_order(b, email)
           else
           invalid_credentials
         end

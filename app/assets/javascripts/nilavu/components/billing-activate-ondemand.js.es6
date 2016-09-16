@@ -7,7 +7,6 @@ export default buildSubPanel('ondemand', {
     need: ['biller'],
     productName: Nilavu.SiteSettings.whmcs_ondemand_product,
     payment: Nilavu.SiteSettings.whmcs_ondemand_payment_method,
-    billingcycle: Nilavu.SiteSettings.whmcs_ondemand_billingcycle,
 
     products: function() {
         return this.filterProduct(this.get('productName'));
@@ -40,6 +39,10 @@ export default buildSubPanel('ondemand', {
         }
     }.property('products'),
 
+    produts: function() {
+        return this.set('model.productId', this.get('productId'))
+    }.property('productId'),
+
     paymentMethod: function() {
         const filteredPayments = this.get('payments');
         if (filteredPayments.length > 0) {
@@ -49,22 +52,22 @@ export default buildSubPanel('ondemand', {
 
     actions: {
         save() {
-            const self = this;
-            const v = this.get('paymentMethod');
-            return Nilavu.ajax("/billers", {
-                data: {
-                    pid: this.get('productId'),
-                    paymentmethod: this.get('paymentMethod'),
-                    billingcycle: this.get('billingcycle')
-                },
-                type: 'POST'
-            }).then(function(result) {
-                if (result.success == true) {
-                    window.location.replace(result.whmcsurl);
-                } else {
-                    self.notificationMessages.error(I18n.t('error'));
-                }
-            });
+              const self = this;
+              return Nilavu.ajax("/billers", {
+                  data: {
+                      pid: this.get('productId'),
+                      paymentmethod: this.get('paymentMethod'),
+                      billingcycle: this.get('model.billingcycle')
+                  },
+                  type: 'POST'
+              }).then(function(result) {
+                  if (result.success == true) {
+                    console.log(JSON.stringify(result));
+                      window.location.replace(result.whmcsurl);
+                  } else {
+                      self.notificationMessages.error(I18n.t('error'));
+                  }
+              });
         }
     }
 });

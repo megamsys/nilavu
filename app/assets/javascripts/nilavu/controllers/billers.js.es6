@@ -35,7 +35,7 @@ export default Ember.Controller.extend(BufferedContent, {
         return 'Subscriptions';
     }.property('model'),
 
-    regions: Ember.computed.alias('model.shopper.regions'),
+    regions: Ember.computed.alias('model.regions'),
 
     subRegionOption: function() {
         if (this.get('regions'))

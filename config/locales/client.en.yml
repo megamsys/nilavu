@@ -509,6 +509,7 @@ en:
       currency: "Currency"
       timestamp: "Timestamp"
       paypal: "Pay with Paypal"
+      error: "Order not created"
 
     profile_management:
       account:
@@ -567,9 +568,9 @@ en:
         content_name: "Name"
         content_created_at: "Created"
         content_empty: "0 snapshots"
-        list_error: "Snapshots list failed. Try some other time."
+        list_error: "Snapshots listing failed"
         take_snapshot: "Take a Snapshot"
-        take_snapshot_success: "Snapshot created for your virtual machine."
+        take_snapshot_success: "Snapshot Submitted."
       network:
         tab_title: "Network"
         table_title: "Management"
