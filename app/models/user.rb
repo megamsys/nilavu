@@ -104,9 +104,6 @@ class User
     # we have the user entered text raw_password.
     def password=(password)
         unless password.blank?
-            puts "---SUCCBLANK? !!--------- password="
-            puts @raw_password.inspect
-            puts "---SUCCBLANK? !!-----ENDS---- password="
             @raw_password = password
         end
     end
@@ -136,7 +133,6 @@ class User
     def ensure_password_is_hashed
         if @raw_password
             self.password_hash = hash_password(@raw_password)
-            puts "---SUCCESSS !!-------- ensure_password_is_hashed     "
         end
     end
 
@@ -198,7 +194,6 @@ class User
     def update_ip_address!(new_ip_address)
         unless @registration_ip_address == new_ip_address || new_ip_address.blank?
             @registration_ip_address =  new_ip_address
-            puts "-------- updating registration ip SKIP ------------------"
           #  update
         end
     end

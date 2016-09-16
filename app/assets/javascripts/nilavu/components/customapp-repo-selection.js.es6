@@ -7,7 +7,7 @@ export default Ember.Component.extend({
         if (!this.get('selectedRepo')) { return; }
 
         if (!this.get('category.customappname')) { return; }
-
+        
         this.set('category.versionoption', this.get('category.customappname'));
     }.observes('selectedRepo'),
 
