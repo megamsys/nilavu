@@ -45,7 +45,7 @@ class SubscriptionsController < ApplicationController
     end
 
     def addon
-    render json: { resulte: onboarder(params)}
+       render json: {addon: onboarder(params)}
     end
 
     private
@@ -56,7 +56,7 @@ class SubscriptionsController < ApplicationController
            "provider_id" => id,
            "account_id" => current_user.email,
            "provider_name" => SiteSetting.enabled_biller ,
-           "options" => '[]',
+           "options" => [],
            "created_at" => id
         }
     end
@@ -66,10 +66,13 @@ class SubscriptionsController < ApplicationController
         if bdr = bildr_processe_is_ready(ONBOARDER_PROCESSE)
             b = bdr.new.onboard(addon || {})
             after_onboard_result = bdr.new.after_onboard(b)
+
+
+
             if after_onboard_result[:result] == 'success'
-                render json: { result: Api::Addons.new.create(addon.merge(to_hash(after_onboard_result[:clientid]))) }
+                Api::Addons.new.create(addon.merge(to_hash(after_onboard_result[:clientid])))
             else
-                render json: { subscriber: after_onboard_result }
+                { message: after_onboard_result }
             end
         else
             something_wrong

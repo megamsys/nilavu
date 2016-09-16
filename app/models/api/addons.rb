@@ -26,7 +26,7 @@ module Api
 
         def create(api_params)
          raw = api_request(ADDONS, CREATE, api_params)
-         @addon = raw[:body].first unless raw.nil?
+         @addon = raw[:body] unless raw.nil?
          self
         end
 

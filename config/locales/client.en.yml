@@ -272,10 +272,12 @@ en:
         select_country: "Select Country:"
         accounttitle: "Select your account model:"
         addon_not_found: "You are not onboarded with the external provider, so please click re-onboard."
+        addon_onboard_success: "Onboard successfully"
+        addon_onboard_failure: "Onboard failed"
         activate_phone_error: "Oops, looks like we couldn't verify your pin."
         activate_phone_activated: "OTP Verified."
         otp_sent: "OTP pin sending to your phone."
-        opt_send_error: "Please send OTP again."
+        otp_send_error: "Please send OTP again."
 
     errors:
       prev_page: "while trying to load"
