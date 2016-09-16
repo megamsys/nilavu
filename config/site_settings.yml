@@ -199,6 +199,27 @@ users:
   enabled_biller:
     client: true
     default: "WHMCS"
+  whmcs_ondemand_product:
+    client: true
+    default: 'Cloud On demand billing'
+  whmcs_quotabased_product_prefix:
+    client: true
+    default: 'Quota'
+  whmcs_ondemand_payment_method:
+    client: true
+    default: 'offlinecc'
+  whmcs_quotabased_payment_method:
+    client: true
+    default: 'paypal'
+  whmcs_ondemand_billingcycle:
+    client: true
+    default: 'monthly'
+  whmcs_quotabased_billingcycle:
+    client: true
+    default: 'monthly'
+  whmcs_fraud_check:
+    client: true
+    default: false
   whmcs_api_url: 'http://192.168.0.120/whmcs/includes/api.php'
   whmcs_username: 'Megam'
   whmcs_password: 'team4megam'
