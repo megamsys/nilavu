@@ -210,6 +210,24 @@ users:
   reserved_emails:
     type: list
     default: "tour@megam.io|test@megam.io|support@megam.io|admin@megam.io"
+  address1:
+    client: true
+    default: '123 Demo Street'
+  city:
+    client: true
+    default: 'Demo'
+  state:
+    client: true
+    default: 'Florida'
+  postcode:
+    client: true
+    default: 'AB123'
+  country:
+    client: true
+    default: 'US'
+  password2:
+    client: true
+    default: 'dummy'
 
 security:
   use_https: false

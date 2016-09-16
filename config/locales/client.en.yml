@@ -515,7 +515,7 @@ en:
       currency: "Currency"
       timestamp: "Timestamp"
       paypal: "Pay with Paypal"
-      addon: "Add Onboard"
+      addon: "Create Billing Account"
 
     profile_management:
       account:

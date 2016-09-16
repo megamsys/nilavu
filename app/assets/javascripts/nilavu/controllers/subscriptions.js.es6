@@ -1,22 +1,11 @@
 import BufferedContent from 'nilavu/mixins/buffered-content';
-import {
-    spinnerHTML
-} from 'nilavu/helpers/loading-spinner';
+import {spinnerHTML} from 'nilavu/helpers/loading-spinner';
 import Subscriptions from 'nilavu/models/subscriptions';
-import {
-    popupAjaxError
-} from 'nilavu/lib/ajax-error';
-import {
-    observes,
-    computed
-} from 'ember-addons/ember-computed-decorators';
+import {popupAjaxError} from 'nilavu/lib/ajax-error';
+import {observes, computed} from 'ember-addons/ember-computed-decorators';
 import NilavuURL from 'nilavu/lib/url';
-import {
-    setting
-} from 'nilavu/lib/computed';
-import {
-    on
-} from 'ember-addons/ember-computed-decorators';
+import {setting} from 'nilavu/lib/computed';
+import {on} from 'ember-addons/ember-computed-decorators';
 import debounce from 'nilavu/lib/debounce';
 
 export default Ember.Controller.extend(BufferedContent, {
@@ -34,7 +23,26 @@ export default Ember.Controller.extend(BufferedContent, {
     mobavatar: Ember.computed.alias('model.mobavatar_activation.success'),
     phoneNumber: Ember.computed.alias('currentUser.phone'),
 
-    @observes('subscriber') subscriberChecker: function() {
+    address1: function() {
+        return Nilavu.SiteSettings.address1;
+    }.property(),
+    city: function() {
+        return Nilavu.SiteSettings.city;
+    }.property(),
+    state: function() {
+        return Nilavu.SiteSettings.state;
+    }.property(),
+    postcode: function() {
+        return Nilavu.SiteSettings.postcode;
+    }.property(),
+    country: function() {
+        return Nilavu.SiteSettings.country;
+    }.property(),
+    password2: function() {
+        return Nilavu.SiteSettings.password2;
+    }.property(),
+
+    @observes('subscriber')subscriberChecker: function() {
         console.log(this.get('subscriber'));
         console.log(this.get("mobavatar"));
     },
@@ -72,10 +80,7 @@ export default Ember.Controller.extend(BufferedContent, {
         let otmap = [];
 
         for (var order in grouped_results) {
-            otmap.push({
-                order: order,
-                cattype: grouped_results[order].get('firstObject.cattype').toLowerCase()
-            });
+            otmap.push({order: order, cattype: grouped_results[order].get('firstObject.cattype').toLowerCase()});
         }
 
         return otmap;
@@ -109,7 +114,6 @@ export default Ember.Controller.extend(BufferedContent, {
             const self = this,
                 attrs = this.getProperties('address', 'address2', 'city', 'state', 'zipcode', 'company', 'country');
             this.set('formSubmitted', true);
-
 
             return Nilavu.ajax("/subscriptions", {
                 data: {
@@ -146,9 +150,7 @@ export default Ember.Controller.extend(BufferedContent, {
                 type: 'POST'
             }).then(function(result) {
                 self.set('otpSubmitted', false);
-                self.setProperties({
-                    otpNumber: ''
-                });
+                self.setProperties({otpNumber: ''});
                 if (result.success) {
                     self.notificationMessages.success(I18n.t("user.activation.activate_phone_activated"));
                 }
@@ -181,19 +183,21 @@ export default Ember.Controller.extend(BufferedContent, {
         },
 
         createAddon() {
+            console.log(JSON.stringify(Nilavu.SiteSettings));
+
             this.set('createAddonSubmitted', true);
             const self = this;
             return Nilavu.ajax("/addon", {
                 data: {
                     firstname: this.get('currentUser.first_name'),
                     lastname: this.get('currentUser.last_name'),
-                    address1: "123 Demo Streetq",
-                    city: "Demoq",
-                    state: "Floridaq",
-                    postcode: "AB123q",
-                    country: "US",
+                    address1: this.get('address1'),
+                    city: this.get('city'),
+                    state: this.get('state'),
+                    postcode: this.get('postcode'),
+                    country: this.get('country'),
                     phonenumber: this.get('currentUser.phone'),
-                    password2: "demo",
+                    password2: this.get('password2'),
                 },
                 type: 'POST'
             }).then(function(result) {
@@ -205,12 +209,10 @@ export default Ember.Controller.extend(BufferedContent, {
                     self.notificationMessages.success(I18n.t("user.activation.addon_onboard_success"));
                 }
                 if (Em.isEqual(result.result, "error")) {
-                    console.log(JSON.stringify(rs));
                     self.notificationMessages.error(I18n.t(result.error));
                 }
             });
-        },
-
+        }
     },
 
     hasError: Ember.computed.or('model.notFoundHtml', 'model.message'),
