@@ -27,9 +27,7 @@ class TopicsController < ApplicationController
           else
               format.json { render json: {
                 success: false,
-                message: I18n.t(
-                  'vm_management.snapshots.list_error',
-                )
+                message: I18n.t('vm_management.snapshots.list_error')
               } }
           end
       end
