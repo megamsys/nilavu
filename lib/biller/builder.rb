@@ -6,6 +6,7 @@ class Biller::Builder
     extend Forwardable
 
     SUBSCRIBER_PROCESSE = "Subscriber".freeze
+    SHOPPER_PROCESSE = "Shopper".freeze
     ORDERER_PROCESSE = "Orderer".freeze
 
     def initialize(processe_name)

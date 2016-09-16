@@ -1,6 +1,7 @@
 require 'uri'
 
 module Biller::WHMCSAutoAuth
+
     def self.redirect_url(email, action)
         ensure_autoauth_params
 
@@ -20,7 +21,7 @@ module Biller::WHMCSAutoAuth
     end
 
     def self.autoauth_hash(email, time)
-        Digest::SHA1([email, time,SiteSetting.whmcs_autoauth_key].join(''))
+        Digest::SHA1.hexdigest([email, time,SiteSetting.whmcs_autoauth_key].join(''))
     end
 
 end

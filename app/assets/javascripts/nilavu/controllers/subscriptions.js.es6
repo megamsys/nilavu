@@ -24,18 +24,6 @@ export default Ember.Controller.extend(BufferedContent, {
         console.log(this.get("mobavatar"));
     },
 
-    _initPanels: function() {
-        this.set('panels', []);
-        this.set('selectedTab', 'monthly');
-    }.on('init'),
-
-    hourlySelected: function() {
-        return this.selectedTab == 'hourly';
-    }.property('selectedTab'),
-
-    monthlySelected: function() {
-        return this.selectedTab == 'monthly';
-    }.property('selectedTab'),
 
     title: function() {
         return 'Subscriptions';
@@ -85,8 +73,6 @@ export default Ember.Controller.extend(BufferedContent, {
             const self = this,
                 attrs = this.getProperties('address', 'address2', 'city', 'state', 'zipcode', 'company');
             this.set('formSubmitted', true);
-
-
             return Nilavu.ajax("/subscriptions", {
                 data: {
                     address1: attrs.address,

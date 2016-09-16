@@ -4,7 +4,7 @@ import {
 } from 'nilavu/components/sub-panel';
 import computed from 'ember-addons/ember-computed-decorators';
 
-export default buildSubPanel('monthly', {
+export default buildSubPanel('quota', {
 
 
 });

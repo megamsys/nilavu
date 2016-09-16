@@ -5,23 +5,48 @@ class Biller::WHMCSOrderer < Biller::Orderer
     include Biller::WHMCSRegistrar
     include Biller::WHMCSAutoAuth
 
-    #:clientid
-    def order(order_options)
-        WHMCS::Client.add_order(order_options)
+    ACTION_ORDERS = "orders".freeze
+
+    def initialize
+        register
     end
 
-    def after_order(user, ordered)
-        result = Billy::Result.new
-        puts "----------- ordered"
-        puts ordered.inspect
-        puts "----------- ordered..."
-        result.id = ordered[:id]
-        fraud_checked = WHMCS::Client.order_fraud_check(ordered)
-        return result unless fraud_checked
-        puts "----------- fraud checked "
-        puts fraud_checked.inspect
-        result.fraud_checked = fraud_checked
-        puts "----------- fraud checked..."
-        result.redirect = WHMCSAutoAuth.redirect_url(user.email)
+    #:clientid
+    def order(order_options)
+        WHMCS::Order.add_order(order_options)
+    rescue StandardError => se
+        { result: 'error', error: 'errors.billing.error' }
     end
+
+  def after_order(ordered, email)
+      result = Biller::Result.new
+      ordered.attributes.each { |k, v| result.send("#{k}=", v) }
+      success?(result) ? build_redirection_url(result, email) : { result: 'error', error: 'billing.order_creation_error' }
+  end
+
+  private
+
+def success?(result)
+    result.to_hash[:result] == 'success'
+end
+
+def build_redirection_url(ordered, email)
+      checked = fraud_check(ordered)
+      Biller::WHMCSAutoAuth.redirect_url(email, ACTION_ORDERS) if checked[:result]
+end
+
+def  fraud_check(ordered)
+   return fraud_check_successful unless SiteSetting.whmcs_fraud_check
+   begin
+       WHMCS::Order.fraud_order(ordered)
+       fraud_check_successful
+   rescue StandardError => se
+       { result: false}
+   end
+
+end
+
+def fraud_check_successful
+    {result: true}
+end
 end

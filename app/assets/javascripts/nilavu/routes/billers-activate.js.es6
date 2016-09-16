@@ -1,5 +1,5 @@
 import NilavuURL from 'nilavu/lib/url';
-import Subscriptions from 'nilavu/models/subscriptions';
+import Billers from 'nilavu/models/billers';
 
 
 export default Nilavu.Route.extend({
@@ -8,27 +8,24 @@ export default Nilavu.Route.extend({
         return this.redirectIfLoginRequired();
     },
 
-    setupParams(subscriptions, params) {
-        return subscriptions;
+    setupParams(billers, params) {
+        return billers;
     },
 
     model(params) {
         const self = this;
-
-        var subscriptions = this.store.createRecord('subscriptions');
-        return subscriptions.reload().then(function(result) {
+        var billers = this.store.createRecord('billers');
+        return billers.reload().then(function(result) {
             self.set('loading', false);
-            return self.setupParams(subscriptions, params);
+            return self.setupParams(billers, params);
         }).catch(function(e) {
             self.set('loading', false);
         });
     },
 
-
-
     setupController(controller, model) {
-        const subsController = this.controllerFor('subscriptions');
-        subsController.setProperties({
+        const billersController = this.controllerFor('billers');
+        billersController.setProperties({
           model
         });
     },

@@ -4,13 +4,13 @@ export default Em.Component.extend({
   classNameBindings: ['active', 'tabClassName', ':tabDisabled'],
 
   tabClassName: function() {
-    return 'sub-activate-' + this.get('tab');
+    return 'billing-activate-' + this.get('tab');
   }.property('tab'),
 
   active: propertyEqual('selectedTab', 'tab'),
 
   title: function() {
-    return I18n.t('sub_activate.' + this.get('tab') + ".tab_title");
+    return I18n.t('billing_activate.' + this.get('tab') + ".tab_title");
   }.property('tab'),
 
   _addToCollection: function() {
