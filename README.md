@@ -66,9 +66,6 @@ The UX/UI design was done by [enixel](http://enixel.com) and our partner [DET.io
 ###Pre-signup
 ![Presignup](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_presignup.png)
 
-###Multi region cluster (You can have Datacenters in `chennai`, `sydney`...)
-![Multi region/Cluster launcher WHMCS](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_multiregion_launcher.png)
-
 ###Marketplace
 ![Marketplace](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_mktplace.png)
 
@@ -85,6 +82,9 @@ The UX/UI design was done by [enixel](http://enixel.com) and our partner [DET.io
 
 ###Billing integration (*WHMCS*, Blesta, ...)
 ![Billing Integration WHMCS](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_subcription.png)
+
+###Multi region cluster (You can have Datacenters in `chennai`, `sydney`...)
+![Multi region/Cluster launcher WHMCS](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_multiregion_launcher.png)
 
 ## Compile from source
 
