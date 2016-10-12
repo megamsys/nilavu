@@ -4,24 +4,34 @@
 
 Nilavu is a [Rails 4.2.x](http://guides.rubyonrails.org/) ember.js browser based user interface for [Vertice - PaaS for the hosting industry](https://www.megam.io).
 
+# I am an individual or enterprise that would like to manage our internal infrastructure
 
-1. Do you want a DigitalOcean like experience for your customers ?
+1. Do you want to increase your efficiency in managing your infrastructure?
+2. Would like to deploy applications (Custom or Pre-packaged) in seconds?
+3. Optimize your infrastructure usage by automatically scaling these applications?
+4. Have a self-hosted DigitalOcean like solution?
+5. Do you need to convert raw harddisks to cloud storage in a jizzy?
+6. Would love to have a fully redundant private cloud that just never goes down?
 
-2. Are tired in setting up your hardware to host your VPS (VM/Containers) with multi region/clusters/vnets ?
+Visit [Megam](https://www.megam.io) and optimize your private cloud now!
 
-3. Do you need to convert raw harddisks to cloud storage in a jizzy ?
+We have an enterprise edition that also enhances our features!
 
+# I am a hosting provider that would like to offer cloud solution.
 
-# Yes, I want to host my own VPS ?
+1. Do you want a DigitalOcean/AWS/Azure like experience for your customers ?
+2. Would like to be one of the first providers that offers Platform as a Service with scaling solutions?
+3. Want to offer High Availability to your customers?
 
-Contact our partner [DET.io](http://det.io) and stay ahead of cluggy/old `SolusVM`.
+Visit [VirtEngine](http://virtengine.com) and stay ahead of cluggy/old `SolusVM`.
 
-[DET.io](http://det.io) has automated tools to set up this in a jiffy!.
-
+[VirtEngine](http://virtengine.com) has automation tools and offers integration with billing!
 
 # Features
 
 [vertice.megam.io](https://vertice.megam.io)
+
+##OpenSource
 
 * Launch 100's of Bitnami apps in a second
 
@@ -31,10 +41,13 @@ Contact our partner [DET.io](http://det.io) and stay ahead of cluggy/old `SolusV
 
 * Launch a micro service (public or on premise) in a giant swarm cluster with replication and scaling
 
-* Integrated billing with WHMCS
+##Enterprise
+
+* Integrated billing with WHMCS 
+
+* Secure Containers
 
 * Cloud storage
-
 
 ## Requirements
 
@@ -53,9 +66,6 @@ The UX/UI design was done by [enixel](http://enixel.com) and our partner [DET.io
 ###Pre-signup
 ![Presignup](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_presignup.png)
 
-###Billing integration (*WHMCS*, Blesta, ...)
-![Billing Integration WHMCS](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_subcription.png)
-
 ###Multi region cluster (You can have Datacenters in `chennai`, `sydney`...)
 ![Multi region/Cluster launcher WHMCS](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_multiregion_launcher.png)
 
@@ -71,6 +81,10 @@ The UX/UI design was done by [enixel](http://enixel.com) and our partner [DET.io
 ###Billing usage
 ![Billing usage and selector](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_pricing_billing_whmcs.png)
 
+##Enterprise Features
+
+###Billing integration (*WHMCS*, Blesta, ...)
+![Billing Integration WHMCS](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_subcription.png)
 
 ## Compile from source
 
@@ -116,4 +130,5 @@ MIT
 
 # Authors
 
-Maintainers Megam (<info@megam.io>)
+Maintainers: Megam (<info@megam.io>)
+Distributors (Public Cloud Edition): DET.io (<jonathan@det.io>)
