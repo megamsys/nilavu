@@ -4,6 +4,10 @@
 
 Nilavu is a [Rails 4.2.x](http://guides.rubyonrails.org/) ember.js browser based user interface for [Vertice - PaaS for the hosting industry](https://www.megam.io).
 
+# This project is actively developed in [gitlab.com](https://gitlab.com/megamsys/nilavu.git)
+
+This opensource repository will be refreshed periodically. Please watch this [thread](https://github.com/megamsys/nilavu/issues/1233) for updates.
+
 # I am an individual or enterprise that would like to manage our internal infrastructure
 
 1. Do you want to increase your efficiency in managing your infrastructure?
@@ -29,7 +33,7 @@ Visit [VirtEngine](http://virtengine.com) and stay ahead of cluggy/old `SolusVM`
 
 # Features
 
-[vertice.megam.io](https://vertice.megam.io)
+[Tour - docs.megam.io](https://docs.megam.io/overview/tour/)
 
 ##OpenSource
 
@@ -39,20 +43,21 @@ Visit [VirtEngine](http://virtengine.com) and stay ahead of cluggy/old `SolusVM`
 
 * Launch apps, services(db, queue, nosql..) in hybrid cloud in seconds.
 
-* Launch a micro service (public or on premise) in a giant swarm cluster with replication and scaling
 
 ##Enterprise
 
-* Integrated billing with WHMCS 
-
-* Secure Containers
+* Integrated ondemand/recurring quota based billing with WHMCS 
 
 * Cloud storage
+
+* Containers (Swarm/Rancher)
+
+* Secure containers
 
 ## Requirements
 
 1. [Ruby 2.3.x](http://ruby-lang.org)
-4. [Vertice Gateway](https://github.com/megamsys/vertice_gateway)
+2. [Vertice Gateway](https://github.com/megamsys/vertice_gateway)
 
 
 ## What does this product look like ?
@@ -72,9 +77,6 @@ The UX/UI design was done by [enixel](http://enixel.com) and our partner [DET.io
 ###Management
 ![Management](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_management.png)
 
-###Log/Activity
-![Log activity and Monitoring](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_logs.png)
-
 ###Billing usage
 ![Billing usage and selector](https://github.com/megamsys/nilavu/blob/1.5/public/sneakpeak/megam_vertice_pricing_billing_whmcs.png)
 
@@ -88,7 +90,7 @@ The UX/UI design was done by [enixel](http://enixel.com) and our partner [DET.io
 
 ## Compile from source
 
-You'll need `ruby 2.x` and [vertice_gateway](https://github.com/megamsys/vertice_gateway.git) setup.
+You'll need `ruby 2.3.x` and [vertice_gateway](https://github.com/megamsys/vertice_gateway.git) setup.
 
 ### Fork
 
@@ -121,7 +123,7 @@ For [contribution] (https://github.com/megamsys/vertice/blob/master/CONTRIBUTING
 # Documentation
 
 For [documentation] (http://docs.megam.io)
-    [wiki] (https://github.com/megamsys/vertice/wiki)
+    [wiki] (https://github.com/megamsys/vertice_dev_kit)
 
 # License
 
@@ -130,5 +132,5 @@ MIT
 
 # Authors
 
-Maintainers: Megam (<info@megam.io>)
-Distributors (Public Cloud Edition): DET.io (<jonathan@det.io>)
+Maintainers: Megam Systems (<info@megam.io>)
+Distributors (Public Cloud Edition): VirtEngine (DET.io) (<hello@virtengine.com>)
