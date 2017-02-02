@@ -4,7 +4,7 @@
 
 Nilavu is a [Rails 4.2.x](http://guides.rubyonrails.org/) ember.js browser based user interface for [Vertice - PaaS for the hosting industry](https://www.megam.io).
 
-# This project is actively developed in [gitlab.com](https://gitlab.com/megamsys/nilavu.git)
+# This project is actively developed in [gitlab.com](https://gitlab.com/megamsys/nilavu)
 
 This opensource repository will be refreshed periodically. Please watch this [thread](https://github.com/megamsys/nilavu/issues/1233) for updates.
 
@@ -118,7 +118,7 @@ Now you are all set.
 
 # Contribution
 
-For [contribution] (https://github.com/megamsys/vertice/blob/master/CONTRIBUTING.md)
+For [contribution] (https://github.com/megamsys/vertice_dev_kit/blob/master/CONTRIBUTING.md)
 
 # Documentation
 
