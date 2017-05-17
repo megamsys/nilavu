@@ -106,8 +106,6 @@ git clone https://github.com/<your_github_id>/nilavu.git
 
 cd nilavu
 
-cp ./hooks ./git/.hooks
-
 bundle update
 
 bundle install
