@@ -27,7 +27,7 @@ else
   gem 'rails', '~> 4.2.7'
 end
 
-gem 'sprockets', '~> 3.6.3'
+gem 'sprockets', '~> 3.7.2'
 gem 'responders', '~> 2.0'
 
 gem 'http_accept_language', '~>2.0.5', require: false
