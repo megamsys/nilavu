@@ -210,7 +210,7 @@ GEM
     pry-nav (0.2.4)
       pry (>= 0.9.10, < 0.11.0)
     r2 (0.2.6)
-    rack (1.6.4)
+    rack (1.6.12)
     rack-mini-profiler (0.10.1)
       rack (>= 1.2.0)
     rack-protection (1.5.3)
