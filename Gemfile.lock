@@ -109,7 +109,7 @@ GEM
       rake
       rake-compiler
     fast_xs (0.8.0)
-    ffi (1.9.14)
+    ffi (1.15.0)
     ffi-yajl (2.3.0)
       libyajl2 (~> 1.2)
     flamegraph (0.9.5)
