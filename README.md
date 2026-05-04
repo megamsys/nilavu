@@ -35,7 +35,7 @@ Visit [VirtEngine](http://virtengine.com) and stay ahead of cluggy/old `SolusVM`
 
 # Features
 
-[Tour - docs.megam.io](https://docs.megam.io/overview/tour/)
+[Tour - docs.megam.io](https://megam.io/overview/tour/)
 
 ##OpenSource
 
@@ -122,7 +122,7 @@ For [contribution] (https://github.com/megamsys/vertice_dev_kit/blob/master/CONT
 
 # Documentation
 
-For [documentation] (http://docs.megam.io)
+For [documentation] (https://megam.io)
     [wiki] (https://github.com/megamsys/vertice_dev_kit)
 
 # License
