@@ -328,7 +328,7 @@ GEM
     tilt (2.0.5)
     timecop (0.8.1)
     trollop (2.1.2)
-    tzinfo (1.2.9)
+    tzinfo (1.2.10)
       thread_safe (~> 0.1)
     tzinfo-data (1.2016.6)
       tzinfo (>= 1.0.0)
